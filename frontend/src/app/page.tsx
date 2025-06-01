@@ -10,26 +10,29 @@ export default function HomePage() {
   const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
-    // Check for system preference but default to light mode
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    // We're ignoring system preference and defaulting to light mode
-    setIsDark(false)
-    
-    // Apply theme to document
-    document.documentElement.classList.remove("dark")
+    const savedTheme = localStorage.getItem("theme")
+
+    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+      setIsDark(true)
+      document.documentElement.classList.add("dark")
+    } else {
+      setIsDark(false)
+      document.documentElement.classList.remove("dark")
+    }
   }, [])
 
   useEffect(() => {
-    // Apply theme to document when isDark changes
     if (isDark) {
       document.documentElement.classList.add("dark")
+      localStorage.setItem("theme", "dark")
     } else {
       document.documentElement.classList.remove("dark")
+      localStorage.setItem("theme", "light")
     }
   }, [isDark])
 
   useEffect(() => {
-    // Intersection Observer for scroll animations
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px",
@@ -43,11 +46,9 @@ export default function HomePage() {
       })
     }, observerOptions)
 
-    // Observe all elements with scroll-animate class
     const animateElements = document.querySelectorAll(".scroll-animate")
     animateElements.forEach((el) => observer.observe(el))
 
-    // Back to top button visibility
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 1000)
     }
@@ -65,9 +66,9 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#1A1924] text-gray-900 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
       {/* Navigation */}
-      <nav className="border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-[#1A1924]/80 backdrop-blur-md sticky top-0 z-50">
+      <nav className="border-b border-gray-300 dark:border-gray-800 bg-[#FFFFFF] dark:bg-[#1A1924]/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
@@ -82,13 +83,13 @@ export default function HomePage() {
               <div className="ml-2 text-sm text-gray-500 dark:text-gray-400">.ai</div>
             </div>
             <div className="hidden md:flex space-x-8">
-              <a href="#services" className="text-gray-600 dark:text-gray-300 hover:text-[#32E875] transition-colors">
+              <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors">
                 Servicios
               </a>
-              <a href="#about" className="text-gray-600 dark:text-gray-300 hover:text-[#32E875] transition-colors">
+              <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors">
                 Nosotros
               </a>
-              <a href="#contact" className="text-gray-600 dark:text-gray-300 hover:text-[#32E875] transition-colors">
+              <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors">
                 Contacto
               </a>
             </div>
@@ -97,33 +98,33 @@ export default function HomePage() {
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsDark(!isDark)}
-                className="text-gray-600 dark:text-gray-300"
+                className="text-gray-700 dark:text-gray-300"
               >
                 {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </Button>
-              <Button className="bg-[#32E875] hover:bg-[#2BC765] text-black font-semibold">Comenzar</Button>
+              <Button className="bg-[#32E875] hover:bg-[#2BC765] text-white font-semibold">Comenzar</Button>
             </div>
           </div>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#32E875]/5 via-[#46B1C9]/5 to-[#623CEA]/5 dark:from-[#32E875]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#32E875]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
               <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[#32E875] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
                 AUTOMATIZA
               </h1>
-              <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-900 dark:text-white">TU NEGOCIO CON IA</h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-12 leading-relaxed">
+              <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-800 dark:text-white">TU NEGOCIO CON IA</h2>
+              <p className="text-xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed">
                 Transformamos empresas andaluzas con soluciones de automatización inteligente. Desde chatbots hasta
                 workflows avanzados, te ayudamos a liderar la innovación en España y Europa.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-[#32E875] hover:bg-[#2BC765] text-black font-semibold text-lg px-8 py-4"
+                  className="bg-[#32E875] hover:bg-[#2BC765] text-white font-semibold text-lg px-8 py-4"
                 >
                   Descubre Cómo <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
