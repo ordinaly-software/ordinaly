@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils"
 import StyledButton from "@/components/home/styled-button";
 import ColourfulText from "@/components/home/colourful-text"
 import { Cover } from "@/components/home/cover"
+import Footer from "@/components/footer";
 
 
 export default function HomePage() {
@@ -123,8 +124,8 @@ export default function HomePage() {
               </h1>
               <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-800 dark:text-white">TU NEGOCIO CON IA</h2>
               <p className="text-xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed">
-                Transformamos empresas andaluzas con soluciones de automatización inteligente. Desde chatbots hasta
-                workflows avanzados, te ayudamos a liderar la innovación en España y Europa.
+                Transformamos empresas con automatizaciones inteligente. Desde chatbots hasta
+                flujos de trabajo avanzados, te ayudamos a modernizar tu empresa y a ser más eficiente.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="relative inline-flex items-center justify-center gap-4 group">
@@ -135,7 +136,7 @@ export default function HomePage() {
                     )}
                   ></div>
                   <Button variant="special" size="lg" asChild>
-                    <a href="#">
+                    <a href="#process">
                       Descubre cómo
                       <svg
                         aria-hidden="true"
@@ -183,11 +184,11 @@ export default function HomePage() {
       {/* Stats Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#32E875] text-black">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div className="scroll-animate fade-in-up">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
+            {/* <div className="scroll-animate fade-in-up">
               <div className="text-4xl font-bold mb-2">100+</div>
               <div className="text-black/80">Empresas Transformadas</div>
-            </div>
+            </div> */}
             <div className="scroll-animate fade-in-up" style={{ animationDelay: "0.1s" }}>
               <div className="text-4xl font-bold mb-2">85%</div>
               <div className="text-black/80">Reducción de Costos</div>
@@ -210,7 +211,7 @@ export default function HomePage() {
           <div className="text-center mb-16 scroll-animate fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#32E875]">NUESTROS SERVICIOS</h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Soluciones integrales de automatización diseñadas para impulsar tu empresa hacia el futuro
+              Soluciones de automatización diseñadas para impulsar y acelerar tu empresa.
             </p>
           </div>
 
@@ -314,7 +315,7 @@ export default function HomePage() {
                 Trabajamos codo a codo con empresas locales para implementar soluciones que no solo mejoran la
                 eficiencia, sino que las posicionan como referentes en sus sectores.
               </p>
-              <div className="grid grid-cols-2 gap-6">
+              {/* <div className="grid grid-cols-2 gap-6">
                 <div className="text-center p-6 bg-[#32E875]/10 rounded-2xl">
                   <div className="text-3xl font-bold text-[#32E875] mb-2">100+</div>
                   <div className="text-gray-600 dark:text-gray-400">Empresas Transformadas</div>
@@ -323,14 +324,14 @@ export default function HomePage() {
                   <div className="text-3xl font-bold text-[#46B1C9] mb-2">85%</div>
                   <div className="text-gray-600 dark:text-gray-400">Reducción de Costos</div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </section>
 
       {/* Process Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
+      <section id="process" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 scroll-animate fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#623CEA]">NUESTRO PROCESO</h2>
@@ -393,48 +394,7 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div className="col-span-2">
-              <div className="flex items-center mb-4">
-                <div className="text-2xl font-bold text-[#32E875]">ORDINALY</div>
-                <div className="ml-2 text-sm text-gray-500 dark:text-gray-400">.ai</div>
-              </div>
-              <div className="flex items-center mb-4">
-                <img
-                  src="/logo.webp"
-                  alt="Ordinaly.ai Logo"
-                  className="h-8 w-auto"
-                />
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
-                Transformando empresas andaluzas con inteligencia artificial y automatización.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-gray-900 dark:text-white font-semibold mb-4">Servicios</h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                <li>Chatbots IA</li>
-                <li>Automatización</li>
-                <li>Integración Odoo</li>
-                <li>WhatsApp Business</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-gray-900 dark:text-white font-semibold mb-4">Contacto</h3>
-              <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-                <li>info@ordinaly.ai</li>
-                <li>+34 XXX XXX XXX</li>
-                <li>Andalucía, España</li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-200 dark:border-gray-800 mt-8 pt-8 text-center text-gray-600 dark:text-gray-400">
-            <p>&copy; 2025 Ordinaly.ai. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       {/* Back to Top Button */}
       {showBackToTop && (
