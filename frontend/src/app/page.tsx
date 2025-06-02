@@ -1,9 +1,14 @@
 "use client"
 
-import { ArrowRight, Bot, Workflow, Zap, Globe, Users, TrendingUp, Moon, Sun, ChevronUp } from "lucide-react"
+import { Bot, Workflow, Zap, Globe, Users, TrendingUp, Moon, Sun, ChevronUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useEffect, useState } from "react"
+import { cn } from "@/lib/utils"
+import StyledButton from "@/components/home/styled-button";
+import ColourfulText from "@/components/home/colourful-text"
+import { Cover } from "@/components/home/cover"
+
 
 export default function HomePage() {
   const [isDark, setIsDark] = useState(false)
@@ -114,7 +119,7 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
               <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[#32E875] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
-                AUTOMATIZA
+                <ColourfulText text="AUTOMATIZA" />
               </h1>
               <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-800 dark:text-white">TU NEGOCIO CON IA</h2>
               <p className="text-xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed">
@@ -122,15 +127,39 @@ export default function HomePage() {
                 workflows avanzados, te ayudamos a liderar la innovación en España y Europa.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
+                <div className="relative inline-flex items-center justify-center gap-4 group">
+                  <div
+                    className={cn(
+                      "absolute inset-0 duration-1000 opacity-60 transition-all bg-gradient-to-r from-indigo-500 via-pink-500 to-yellow-400 rounded-xl blur-lg filter group-hover:opacity-100 group-hover:duration-200",
+                      "dark:from-[#32E875]/30 dark:via-[#46B1C9]/30 dark:to-[#623CEA]/30"
+                    )}
+                  ></div>
+                  <Button variant="special" size="lg" asChild>
+                    <a href="#">
+                      Descubre cómo
+                      <svg
+                        aria-hidden="true"
+                        viewBox="0 0 10 10"
+                        height="10"
+                        width="10"
+                        fill="none"
+                        className={cn("mt-0.5 ml-2 -mr-1 stroke-[#1A1924] stroke-2", "dark:stroke-white")}
+                      >
+                        <path
+                          d="M0 5h7"
+                          className="transition opacity-0 group-hover:opacity-100"
+                        ></path>
+                        <path
+                          d="M1 1l4 4-4 4"
+                          className="transition group-hover:translate-x-[3px]"
+                        ></path>
+                      </svg>
+                    </a>
+                  </Button>
+                </div>
                 <Button
                   size="lg"
-                  className="bg-[#32E875] hover:bg-[#2BC765] text-white font-semibold text-lg px-8 py-4"
-                >
-                  Descubre Cómo <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
+                  variant="special"
                   className="border-[#46B1C9] text-[#46B1C9] hover:bg-[#46B1C9] hover:text-white text-lg px-8 py-4"
                 >
                   Ver Demo
@@ -350,22 +379,15 @@ export default function HomePage() {
         className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#32E875] via-[#46B1C9] to-[#623CEA] text-white"
       >
         <div className="max-w-4xl mx-auto text-center scroll-animate fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">¿LISTO PARA TRANSFORMAR TU EMPRESA?</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-8">¿LISTO PARA <Cover>ACELERAR</Cover> TU EMPRESA?</h2>
           <p className="text-xl mb-12 max-w-2xl mx-auto opacity-90">
             Únete a las empresas andaluzas que ya están liderando la revolución digital. Comienza tu transformación hoy
             mismo.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-[#32E875] hover:bg-gray-100 font-semibold text-lg px-8 py-4">
-              Consulta Gratuita
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-[#32E875] text-lg px-8 py-4"
-            >
-              Llamar Ahora
-            </Button>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <StyledButton />
+              </div>
           </div>
         </div>
       </section>
