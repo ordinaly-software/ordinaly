@@ -139,7 +139,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               description:
                 "Empresa de automatización empresarial con inteligencia artificial especializada en transformación digital de empresas andaluzas",
               url: "https://ordinaly.ai",
-              logo: "https://ordinaly.ai/logo.png",
+              logo: "https://ordinaly.ai/logo.webp",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+34-XXX-XXX-XXX",
@@ -151,7 +151,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 addressRegion: "Andalucía",
                 addressCountry: "ES",
               },
-              sameAs: ["https://linkedin.com/company/ordinaly-ai", "https://twitter.com/ordinaly_ai"],
+              // sameAs: ["https://linkedin.com/company/ordinaly-ai", "https://twitter.com/ordinaly_ai"],
               serviceArea: {
                 "@type": "Place",
                 name: "España",
@@ -184,10 +184,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
         {/* Main content wrapper */}
         <div id="main-content">{children}</div>
 
-        {/* Analytics scripts would go here */}
-        {process.env.NODE_ENV === "production" && (
+        {/* Analytics scripts */}
+        {/* {process.env.NODE_ENV === "production" && (
           <>
-            {/* Google Analytics */}
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />
             <script
               dangerouslySetInnerHTML={{
@@ -200,7 +199,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               }}
             />
           </>
-        )}
+        )} */}
       </body>
     </html>
   )

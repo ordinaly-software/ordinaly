@@ -74,7 +74,7 @@ export default function HomePage() {
             <div className="flex items-center">
               <div className="mr-4">
                 <img
-                  src="/static/logo.webp"
+                  src="/logo.webp"
                   alt="Ordinaly.ai Logo"
                   className="h-8 w-auto"
                 />
@@ -381,7 +381,7 @@ export default function HomePage() {
               </div>
               <div className="flex items-center mb-4">
                 <img
-                  src="/static/logo.webp"
+                  src="/logo.webp"
                   alt="Ordinaly.ai Logo"
                   className="h-8 w-auto"
                 />
