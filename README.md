@@ -37,7 +37,26 @@
 
 ## Visión general
 
-<code>❯ REEMPLAZAR-ME</code>
+🚀 **AUTOMATIZA TU NEGOCIO CON IA**  
+Transformamos empresas con automatizaciones inteligentes. Desde chatbots hasta flujos de trabajo avanzados, te ayudamos a modernizar tu empresa y a ser más eficiente.
+
+🤖 **Chatbots Inteligentes**  
+Automatiza la atención al cliente 24/7 con IA conversacional avanzada.
+
+🔄 **Workflows Automatizados**  
+Integración con Odoo, Slack y herramientas empresariales.
+
+📱 **WhatsApp Business**  
+Automatización de ventas y soporte vía WhatsApp Business API.
+
+🌐 **Integración Global**  
+Conectamos todos tus sistemas en una plataforma unificada.
+
+📊 **Consultoría Personalizada**  
+Análisis y estrategia de automatización adaptada a tu negocio.
+
+⚙️ **Optimización Continua**  
+Monitoreo y mejora constante de tus procesos automatizados.
 
 ---
 
@@ -220,7 +239,7 @@ Instala ordinaly usando uno de los siguientes métodos:
 
 1. Clona el repositorio de ordinaly:
 ```sh
-❯ git clone ../ordinaly
+❯ git clone https://github.com/ordinaly-software/ordinaly.git
 ```
 
 2. Navega al directorio del proyecto:
@@ -291,15 +310,15 @@ Ejecuta ordinaly usando el siguiente comando:
 8. **Revisión**: Una vez que tu PR sea revisada y aprobada, se fusionará en la rama principal. ¡Felicidades por tu contribución!
 </details>
 
-<details closed>
-<summary>Gráfico de contribuyentes</summary>
+<!-- <details closed>
+<summary>Gráfico de contribuidores</summary>
 <br>
 <p align="left">
    <a href="https://LOCAL{/Developer/ordinaly/}graphs/contributors">
       <img src="https://contrib.rocks/image?repo=Developer/ordinaly">
    </a>
 </p>
-</details>
+</details> -->
 
 ---
 
@@ -311,6 +330,16 @@ Este proyecto está protegido bajo la Licencia [APACHE](https://choosealicense.c
 
 ##  Reconocimientos
 
-- Enumera aquí cualquier recurso, contribuyente, inspiración, etc.
-
----
+- Este proyecto fue realizado por <a href="https://github.com/antoniommff">Antonio Macías</a>.
+  <br>
+  Para contacto directo, puedes comunicarte conmigo a través de:
+  <a href="https://www.linkedin.com/in/antoniommff/">
+    <img height="20" src="https://skillicons.dev/icons?i=linkedin"/>
+  </a>
+  o
+  <a href="mailto:antoniommff@gmail.com">
+    <img height="20" src="https://skillicons.dev/icons?i=gmail"/>
+  </a>.
+  <br>
+  Tómate un momento para visitar mi
+  <a href="http://bento.me/antoniommff">Página Personal</a> y explorar mis redes sociales.
