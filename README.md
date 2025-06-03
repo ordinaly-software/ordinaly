@@ -330,7 +330,7 @@ Este proyecto está protegido bajo la Licencia [APACHE](https://choosealicense.c
 
 ##  Reconocimientos
 
-- Este proyecto fue realizado por <a href="https://github.com/antoniommff">Antonio Macías</a>.
+Este proyecto fue realizado por <a href="https://github.com/antoniommff">Antonio Macías</a>.
   <br>
   Para contacto directo, puedes comunicarte conmigo a través de:
   <a href="https://www.linkedin.com/in/antoniommff/">

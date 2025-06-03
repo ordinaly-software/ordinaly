@@ -312,19 +312,58 @@ export default function HomePage() {
                 la automatización.
               </p>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                Trabajamos codo a codo con empresas locales para implementar soluciones que no solo mejoran la
+                Trabajamos codo con codo con empresas locales para implementar soluciones que no solo mejoran la
                 eficiencia, sino que las posicionan como referentes en sus sectores.
               </p>
-              {/* <div className="grid grid-cols-2 gap-6">
-                <div className="text-center p-6 bg-[#32E875]/10 rounded-2xl">
-                  <div className="text-3xl font-bold text-[#32E875] mb-2">100+</div>
-                  <div className="text-gray-600 dark:text-gray-400">Empresas Transformadas</div>
-                </div>
-                <div className="text-center p-6 bg-[#46B1C9]/10 rounded-2xl">
-                  <div className="text-3xl font-bold text-[#46B1C9] mb-2">85%</div>
-                  <div className="text-gray-600 dark:text-gray-400">Reducción de Costos</div>
-                </div>
-              </div> */}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Technologies Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800/50">
+        <div className="scroll-animate fade-in-up mt-12">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#E4572E]">NUESTRAS TECNOLOGÍAS</h2>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="text-center p-6 bg-[#32E875]/10 rounded-2xl flex flex-col items-center">
+              <img src="/static/tools/odoo_logo.webp" alt="Odoo" className="h-10 mb-2 dark:invert" />
+              <div className="text-lg font-semibold text-[#32E875] mb-1">Odoo</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm">ERP y automatización empresarial</div>
+            </div>
+            <div className="text-center p-6 bg-[#46B1C9]/10 rounded-2xl flex flex-col items-center">
+              <img src="/static/tools/whatsapp_logo.webp" alt="WhatsApp Business" className="h-10 mb-2 dark:invert" />
+              <div className="text-lg font-semibold text-[#46B1C9] mb-1">WhatsApp Business</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm">Automatización de ventas y soporte</div>
+            </div>
+            <div className="text-center p-6 bg-[#623CEA]/10 rounded-2xl flex flex-col items-center">
+              <img src="/static/tools/chatgpt_logo.webp" alt="ChatGPT" className="h-10 mb-2 dark:invert" />
+              <div className="text-lg font-semibold text-[#623CEA] mb-1">ChatGPT</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm">IA conversacional avanzada</div>
+            </div>
+            <div className="text-center p-6 bg-[#FFD600]/10 rounded-2xl flex flex-col items-center">
+              <img src="/static/tools/copilot_logo.webp" alt="Copilot" className="h-10 mb-2" />
+              <div className="text-lg font-semibold text-[#FFD600] mb-1">Copilot</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm">Automatización y productividad IA</div>
+            </div>
+            <div className="text-center p-6 bg-[#00BFAE]/10 rounded-2xl flex flex-col items-center">
+              <img src="/static/tools/gemini_logo.webp" alt="Gemini" className="h-10 mb-2" />
+              <div className="text-lg font-semibold text-[#00BFAE] mb-1">Gemini</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm">IA generativa de Google</div>
+            </div>
+            <div className="text-center p-6 bg-[#4285F4]/10 rounded-2xl flex flex-col items-center">
+              <img src="/static/tools/looker_studio_logo.webp" alt="Looker Studio" className="h-10 mb-2" />
+              <div className="text-lg font-semibold text-[#4285F4] mb-1">Looker Studio</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm">Visualización de datos y BI</div>
+            </div>
+            <div className="text-center p-6 bg-[#E4572E]/10 rounded-2xl flex flex-col items-center">
+              <img src="/static/tools/claude_logo.webp" alt="Claude" className="h-10 mb-2" />
+              <div className="text-lg font-semibold text-[#E4572E] mb-1">Claude</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm">IA generativa de Anthropic</div>
+            </div>
+            <div className="text-center p-6 bg-[#8B5CF6]/10 rounded-2xl flex flex-col items-center">
+              <img src="/static/tools/caleida_logo.webp" alt="Caleida" className="h-10 mb-2" />
+              <div className="text-lg font-semibold text-[#8B5CF6] mb-1">Caleida</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm">Agente de IA para ventas y marketing</div>
             </div>
           </div>
         </div>
