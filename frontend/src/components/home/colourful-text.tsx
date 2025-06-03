@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 export default function ColourfulText({ text }: { text: string }) {
-  const colors = ["#32E875", "#46B1C9", "#E4572E", "#623CEA"]; // Updated color palette
+  const colors = ["#32E875", "#46B1C9", "#E4572E", "#623CEA"];
 
   const [currentColors, setCurrentColors] = React.useState(colors);
   const [count, setCount] = React.useState(0);
@@ -35,7 +35,7 @@ export default function ColourfulText({ text }: { text: string }) {
         duration: 0.5,
         delay: index * 0.05,
       }}
-      className="inline-block whitespace-pre font-beckman tracking-tight" // Updated font class
+      className="inline-block whitespace-pre font-beckman tracking-tight"
     >
       {char}
     </motion.span>

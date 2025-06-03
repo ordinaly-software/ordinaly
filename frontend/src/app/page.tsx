@@ -9,11 +9,13 @@ import StyledButton from "@/components/home/styled-button";
 import ColourfulText from "@/components/home/colourful-text"
 import { Cover } from "@/components/home/cover"
 import Footer from "@/components/footer";
+import DemoModal from "@/components/demo-modal"
 
 
 export default function HomePage() {
   const [isDark, setIsDark] = useState(false)
   const [showBackToTop, setShowBackToTop] = useState(false)
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false)
 
   useEffect(() => {
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
@@ -162,6 +164,7 @@ export default function HomePage() {
                   size="lg"
                   variant="special"
                   className="border-[#46B1C9] text-[#46B1C9] hover:bg-[#46B1C9] hover:text-white text-lg px-8 py-4"
+                  onClick={() => setIsDemoModalOpen(true)}
                 >
                   Ver Demo
                 </Button>
@@ -180,6 +183,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Demo Modal */}
+      <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
 
       {/* Stats Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#32E875] text-black">
