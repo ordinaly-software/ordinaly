@@ -1,0 +1,156 @@
+{
+  "home": {
+    "logo": {
+      "alt": "Ordinaly.ai Logo",
+      "title": "ORDINALY",
+      "subtitle": ".ai"
+    },
+    "navigation": {
+      "services": "Services",
+      "about": "About Us",
+      "contact": "Contact",
+      "start": "Get Started"
+    },
+    "hero": {
+      "title": "AUTOMATE",
+      "subtitle": "YOUR BUSINESS WITH AI",
+      "description": "We transform businesses with smart automation. From chatbots to advanced workflows, we help modernize your company and make it more efficient.",
+      "discoverButton": "Discover How",
+      "demoButton": "Watch Demo"
+    },
+    "stats": {
+      "data2": {
+        "number": "45%",
+        "text": "Cost Reduction"
+      },
+      "data3": {
+        "number": "24/7",
+        "text": "Support Available"
+      },
+      "data4": {
+        "number": "100%",
+        "text": "Customer Satisfaction"
+      }
+    },
+    "services": {
+      "title": "OUR SERVICES",
+      "description": "Automation solutions designed to boost and accelerate your business.",
+      "chatbots": {
+        "title": "Smart Chatbots",
+        "description": "Automate customer support 24/7 with advanced conversational AI"
+      },
+      "workflows": {
+        "title": "Workflow Automation",
+        "description": "Integration with Odoo, Slack, and business tools"
+      },
+      "whatsapp": {
+        "title": "WhatsApp Business",
+        "description": "Sales and support automation via WhatsApp Business API"
+      },
+      "integration": {
+        "title": "Global Integration",
+        "description": "We connect all your systems in a unified platform"
+      },
+      "consulting": {
+        "title": "Custom Consulting",
+        "description": "Automation analysis and strategy tailored to your business"
+      },
+      "optimization": {
+        "title": "Continuous Optimization",
+        "description": "Ongoing monitoring and improvement of your automated processes"
+      }
+    },
+    "about": {
+      "title": "LEADING DIGITAL TRANSFORMATION IN ANDALUSIA",
+      "description1": "At Ordinaly.ai, we believe Andalusian companies have the potential to lead technological innovation in Spain and Europe. Our mission is to democratize access to artificial intelligence and automation.",
+      "description2": "We work side by side with local businesses to implement solutions that not only improve efficiency, but also position them as leaders in their industries."
+    },
+    "technologies": {
+      "title": "TECHNOLOGIES POWERING OUR SERVICES",
+      "description": "We use the latest AI and automation technologies",
+      "odoo": {
+        "title": "Odoo",
+        "description": "ERP and business automation"
+      },
+      "whatsapp": {
+        "title": "WhatsApp Business",
+        "description": "Sales and support automation"
+      },
+      "chatgpt": {
+        "title": "ChatGPT",
+        "description": "Advanced conversational AI"
+      },
+      "copilot": {
+        "title": "Copilot",
+        "description": "AI-powered automation and productivity"
+      },
+      "gemini": {
+        "title": "Gemini",
+        "description": "Google's generative AI"
+      },
+      "looker": {
+        "title": "Looker",
+        "description": "Data visualization and BI"
+      },
+      "claude": {
+        "title": "Claude",
+        "description": "Generative AI from Anthropic"
+      },
+      "caleida": {
+        "title": "Caleida",
+        "description": "AI agent for sales and marketing"
+      }
+    },
+    "process": {
+      "title": "OUR PROCESS",
+      "description": "A structured approach to transform your business step by step",
+      "step1": {
+        "title": "Analysis",
+        "description": "We evaluate your current processes and identify automation opportunities"
+      },
+      "step2": {
+        "title": "Implementation",
+        "description": "We develop and integrate custom solutions for your business"
+      },
+      "step3": {
+        "title": "Optimization",
+        "description": "We continuously monitor and improve the performance of your systems"
+      }
+    },
+    "cta": {
+      "title1": "Ready to ",
+      "title2": "accelerate",
+      "title3": " your business?",
+      "description": "Join the Andalusian companies already leading the digital revolution. Start your transformation today.",
+      "button": "Call Now!"
+    },
+    "demoModal": {
+      "title": "Ordinaly.ai Demo",
+      "description": "See how our platform can transform your business with smart automation.",
+      "videoNotSupported": "Your browser does not support this type of video.",
+      "videoError": "Error playing video:"
+    },
+    "footer": {
+      "logo": {
+        "title": "ORDINALY",
+        "subtitle": ".ai",
+        "alt": "Ordinaly.ai Logo"
+      },
+      "description": "Transforming Andalusian companies with artificial intelligence and automation.",
+      "services": {
+        "title": "Services",
+        "chatbots": "AI Chatbots",
+        "automation": "Automation",
+        "odooIntegration": "Odoo Integration",
+        "whatsapp": "WhatsApp Business"
+      },
+      "contact": {
+        "title": "Contact",
+        "email": "info@ordinaly.ai",
+        "phone": "+34 XXX XXX XXX",
+        "location": "Andalusia, Spain"
+      },
+      "copyright": "© 2025 Ordinaly.ai. All rights reserved."
+    }
+  }
+}

@@ -1,7 +1,10 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import "./globals.css"
+import "../globals.css"
+import {NextIntlClientProvider} from 'next-intl';
+import {notFound} from 'next/navigation';
+import {Locale, routing} from '@/i18n/routing';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -112,9 +115,16 @@ interface RootLayoutProps {
   children: React.ReactNode
 }
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children, params } : 
+  { children: React.ReactNode; params: { locale: string } }) {
+  
+  const { locale } = await params;
+  if (!routing.locales.includes(locale as Locale)) {
+    notFound();
+  }
+  
   return (
-    <html lang="es" className={inter.variable} suppressHydrationWarning>
+    <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -173,33 +183,35 @@ export default function RootLayout({ children }: RootLayoutProps) {
         className={`${inter.className} antialiased min-h-screen bg-background text-foreground`}
         suppressHydrationWarning
       >
-        {/* Skip to main content for accessibility */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#32E875] text-black px-4 py-2 rounded-md z-50"
-        >
-          Saltar al contenido principal
-        </a>
-
-        {/* Main content wrapper */}
-        <div id="main-content">{children}</div>
-
-        {/* Analytics scripts */}
-        {/* {process.env.NODE_ENV === "production" && (
-          <>
-            <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />
-            <script
-              dangerouslySetInnerHTML={{
-                __html: `
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){dataLayer.push(arguments);}
-                  gtag('js', new Date());
-                  gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-                `,
-              }}
-            />
-          </>
-        )} */}
+        <NextIntlClientProvider>
+          {/* Skip to main content for accessibility */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#32E875] text-black px-4 py-2 rounded-md z-50"
+          >
+            Saltar al contenido principal
+          </a>
+          
+          {/* Main content wrapper */}
+          <div id="main-content">{children}</div>
+          
+          {/* Analytics scripts */}
+          {/* {process.env.NODE_ENV === "production" && (
+            <>
+              <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+                  `,
+                }}
+              />
+            </>
+          )} */}
+        </NextIntlClientProvider>
       </body>
     </html>
   )

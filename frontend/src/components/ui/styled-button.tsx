@@ -93,14 +93,18 @@ const StyledButtonWrapper = styled.div`
   }
 `;
 
-const StyledButton = () => {
+interface StyledButtonProps {
+  text: string;
+}
+
+const StyledButton: React.FC<StyledButtonProps> = ({ text }) => {
   return (
     <StyledButtonWrapper>
       <button className="button">
         <div className="bg" />
         <div className="wrap">
           <div className="content">
-            <span>Llamar ahora</span>
+            <span>{text}</span>
           </div>
         </div>
       </button>
