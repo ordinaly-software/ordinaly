@@ -11,6 +11,7 @@ import { Cover } from "@/components/ui/cover";
 import Footer from "@/components/home/footer";
 import DemoModal from "@/components/home/demo-modal";
 import { useTranslations } from "next-intl";
+import LocaleSwitcher from "@/components/ui/locale-switcher";
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -81,7 +82,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
-              <div className="mr-4">
+              <div className="mr-4 hidden lg:block">
                 <img src="/logo.webp" alt={t("logo.alt")} className="h-8 w-auto" />
               </div>
               <div className="text-2xl font-bold text-[#32E875]">{t("logo.title")}</div>
@@ -107,6 +108,7 @@ export default function HomePage() {
               >
                 {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </Button>
+              <LocaleSwitcher />
               <Button className="bg-[#32E875] hover:bg-[#2BC765] text-white font-semibold">{t("navigation.start")}</Button>
             </div>
           </div>
