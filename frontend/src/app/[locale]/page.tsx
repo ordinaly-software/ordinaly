@@ -13,6 +13,7 @@ import DemoModal from "@/components/home/demo-modal";
 import { useTranslations } from "next-intl";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
 import Image from 'next/image';
+import PricingPlans from "@/components/home/pricing-plans";
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -271,33 +272,34 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
+        
       </section>
 
        {/* Partners Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#32E875] text-black">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-black dark:text-white">{t("partners.title")}</h2>
-<div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
-  {[
-    { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Partner 1", delay: "0.1s" },
-    { src: "/static/logos/logo_grupo_addu.webp", alt: "Partner 2", delay: "0.2s" },
-    { src: "/static/logos/logo_proinca_consultores.webp", alt: "Partner 3", delay: "0.3s" },
-  ].map(({ src, alt, delay }, i) => (
-    <div
-      key={i}
-      className="scroll-animate fade-in-up"
-      style={{ animationDelay: delay }}
-    >
-      <Image
-        src={src}
-        alt={alt}
-        width={300}
-        height={200}
-        className="mx-auto h-16 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
-      />
-    </div>
-  ))}
-</div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+            {[
+              { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Partner 1", delay: "0.1s" },
+              { src: "/static/logos/logo_grupo_addu.webp", alt: "Partner 2", delay: "0.2s" },
+              { src: "/static/logos/logo_proinca_consultores.webp", alt: "Partner 3", delay: "0.3s" },
+            ].map(({ src, alt, delay }, i) => (
+              <div
+                key={i}
+                className="scroll-animate fade-in-up"
+                style={{ animationDelay: delay }}
+              >
+                <Image
+                  src={src}
+                  alt={alt}
+                  width={300}
+                  height={200}
+                  className="mx-auto h-16 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
+                />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -423,38 +425,7 @@ export default function HomePage() {
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               {t("process.description")}
             </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="scroll-animate slide-in-left text-center">
-              <div className="w-20 h-20 bg-[#32E875] rounded-full flex items-center justify-center mx-auto mb-6 text-black font-bold text-2xl">
-                1
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t("process.step1.title")}</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                {t("process.step1.description")}
-              </p>
-            </div>
-
-            <div className="scroll-animate fade-in-up text-center">
-              <div className="w-20 h-20 bg-[#46B1C9] rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-2xl">
-                2
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t("process.step2.title")}</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                {t("process.step2.description")}
-              </p>
-            </div>
-
-            <div className="scroll-animate slide-in-right text-center">
-              <div className="w-20 h-20 bg-[#E4572E] rounded-full flex items-center justify-center mx-auto mb-6 text-white font-bold text-2xl">
-                3
-              </div>
-              <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{t("process.step3.title")}</h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                {t("process.step3.description")}
-              </p>
-            </div>
+            <PricingPlans />
           </div>
         </div>
       </section>

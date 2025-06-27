@@ -14,8 +14,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Ordinaly.ai - Automatización Empresarial con IA",
-    template: "%s | Ordinaly.ai",
+    default: "Ordinaly - Automatización Empresarial con IA",
+    template: "%s | Ordinaly",
   },
   description:
     "Transformamos empresas andaluzas con soluciones de automatización inteligente. Chatbots, workflows y integración con Odoo, Slack y WhatsApp Business para liderar la innovación en España y Europa.",
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     "transformación digital",
     "IA empresarial",
   ],
-  authors: [{ name: "Ordinaly.ai" }],
-  creator: "Ordinaly.ai",
-  publisher: "Ordinaly.ai",
+  authors: [{ name: "Ordinaly" }],
+  creator: "Ordinaly",
+  publisher: "Ordinaly",
   robots: {
     index: true,
     follow: true,
@@ -49,9 +49,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://ordinaly.ai",
-    siteName: "Ordinaly.ai",
-    title: "Ordinaly.ai - Automatización Empresarial con IA",
+    url: "https://ordinaly.com",
+    siteName: "Ordinaly",
+    title: "Ordinaly Software - Automatización Empresarial con IA",
     description:
       "Transformamos empresas andaluzas con soluciones de automatización inteligente para liderar la innovación en España y Europa.",
     images: [
@@ -59,13 +59,13 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Ordinaly.ai - Automatización Empresarial con IA",
+        alt: "Ordinaly Software - Automatización Empresarial con IA",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ordinaly.ai - Automatización Empresarial con IA",
+    title: "Ordinaly Software - Automatización Empresarial con IA",
     description: "Transformamos empresas andaluzas con soluciones de automatización inteligente.",
     images: ["/og-image.jpg"],
     creator: "@ordinaly_ai",
@@ -85,7 +85,7 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
-  metadataBase: new URL("https://ordinaly.ai"),
+  metadataBase: new URL("https://ordinaly.com"),
   alternates: {
     canonical: "/",
     languages: {
@@ -137,11 +137,11 @@ export default async function RootLayout({ children, params } :
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "Ordinaly.ai",
+              name: "Ordinaly Software",
               description:
                 "Empresa de automatización empresarial con inteligencia artificial especializada en transformación digital de empresas andaluzas",
-              url: "https://ordinaly.ai",
-              logo: "https://ordinaly.ai/logo.webp",
+              url: "https://ordinaly.com",
+              logo: "https://ordinaly.com/logo.webp",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+34-XXX-XXX-XXX",

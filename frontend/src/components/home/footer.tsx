@@ -13,16 +13,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8">
           <div className="col-span-2">
             <div className="flex items-center mb-4">
-              <div className="text-2xl font-bold text-[#32E875]">{t("footer.logo.title")}</div>
-              <div className="ml-2 text-sm text-gray-500 dark:text-gray-400">{t("footer.logo.subtitle")}</div>
-            </div>
-            <div className="flex items-center mb-4">
               <Image
-                src="/logo.webp"
+                src="/logo_2.webp"
                 alt={t("footer.logo.alt")}
-                width={100}
-                height={100}
-                className="h-8 w-auto"
+                width={120}
+                height={120}
+                className="h-24 w-auto"
               />
             </div>
             <p className="text-gray-600 dark:text-gray-400 mb-4">
