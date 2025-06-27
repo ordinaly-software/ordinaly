@@ -1,6 +1,8 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from 'next/image';
+
 
 const Footer = () => {
   const t = useTranslations("home");
@@ -15,9 +17,11 @@ const Footer = () => {
               <div className="ml-2 text-sm text-gray-500 dark:text-gray-400">{t("footer.logo.subtitle")}</div>
             </div>
             <div className="flex items-center mb-4">
-              <img
+              <Image
                 src="/logo.webp"
                 alt={t("footer.logo.alt")}
+                width={100}
+                height={100}
                 className="h-8 w-auto"
               />
             </div>

@@ -1,9 +1,8 @@
 {
   "home": {
     "logo": {
-      "alt": "Ordinaly.ai Logo",
-      "title": "ORDINALY",
-      "subtitle": ".ai"
+      "alt": "Ordinaly Logo",
+      "title": "ORDINALY"
     },
     "navigation": {
       "services": "Servicios",
@@ -18,19 +17,8 @@
       "discoverButton": "Descubre cómo",
       "demoButton": "Ver Demo"
     },
-    "stats": {
-      "data2": {
-        "number": "45%",
-        "text": "Reducción de Costos"
-      },
-      "data3": {
-        "number": "24/7",
-        "text": "Soporte Disponible"
-      },
-      "data4": {
-        "number": "100%",
-        "text": "Satisfacción Cliente"
-      }
+    "partners": {
+      "title": "Empresas Transformadas"
     },
     "services": {
       "title": "NUESTROS SERVICIOS",
@@ -62,7 +50,7 @@
     },
     "about": {
       "title": "LIDERANDO LA TRANSFORMACIÓN DIGITAL EN ANDALUCÍA",
-      "description1": "En Ordinaly.ai, creemos que las empresas andaluzas tienen el potencial de liderar la innovación tecnológica en España y Europa. Nuestra misión es democratizar el acceso a la inteligencia artificial y la automatización.",
+      "description1": "En Ordinaly, creemos que las empresas andaluzas tienen el potencial de liderar la innovación tecnológica en España y Europa. Nuestra misión es democratizar el acceso a la inteligencia artificial y la automatización.",
       "description2": "Trabajamos codo con codo con empresas locales para implementar soluciones que no solo mejoran la eficiencia, sino que las posicionan como referentes en sus sectores."
     },
     "technologies": {
@@ -125,7 +113,7 @@
       "button": "Llamar ahora"
     },
     "demoModal": {
-      "title": "Demo de Ordinaly.ai",
+      "title": "Demo de Ordinaly",
       "description": "Descubre cómo nuestra plataforma puede transformar tu negocio con automatizaciones inteligentes.",
       "videoNotSupported": "Tu navegador no soporta este tipo de video.",
       "videoError": "Error reproduciendo video:"
@@ -134,7 +122,7 @@
       "logo": {
         "title": "ORDINALY",
         "subtitle": ".ai",
-        "alt": "Logo de Ordinaly.ai"
+        "alt": "Logo de Ordinaly"
       },
       "description": "Transformando empresas andaluzas con inteligencia artificial y automatización.",
       "services": {
@@ -146,11 +134,11 @@
       },
       "contact": {
         "title": "Contacto",
-        "email": "info@ordinaly.ai",
+        "email": "info@ordinaly.com",
         "phone": "+34 XXX XXX XXX",
         "location": "Andalucía, España"
       },
-      "copyright": "© 2025 Ordinaly.ai. Todos los derechos reservados."
+      "copyright": "© 2025 Ordinaly. Todos los derechos reservados."
     }
   }
 }

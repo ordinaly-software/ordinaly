@@ -1,43 +1,23 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+// Removed motion import as it's no longer needed for dynamic colors
+
+// Removed COLORS constant as it's no longer needed
 
 export default function ColourfulText({ text }: { text: string }) {
-  const colors = ["#32E875", "#46B1C9", "#E4572E", "#623CEA"];
 
-  const [currentColors, setCurrentColors] = React.useState(colors);
-  const [count, setCount] = React.useState(0);
+  // Removed useState and useEffect hooks related to color changes
 
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      const shuffled = [...colors].sort(() => Math.random() - 0.5);
-      setCurrentColors(shuffled);
-      setCount((prev) => prev + 1);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return text.split("").map((char, index) => (
-    <motion.span
-      key={`${char}-${count}-${index}`}
-      initial={{
-        y: 0,
-      }}
-      animate={{
-        color: currentColors[index % currentColors.length],
-        y: [0, -3, 0],
-        scale: [1, 1.01, 1],
-        filter: ["blur(0px)", `blur(5px)`, "blur(0px)"],
-        opacity: [1, 0.8, 1],
-      }}
-      transition={{
-        duration: 0.5,
-        delay: index * 0.05,
-      }}
+  return (
+    <span
       className="inline-block whitespace-pre font-beckman tracking-tight"
+      style={{
+        background: 'linear-gradient(to right, #32E875, #46B1C9, #623CEA)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+      }}
     >
-      {char}
-    </motion.span>
-  ));
+      {text}
+    </span>
+  );
 }

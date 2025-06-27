@@ -1,7 +1,7 @@
 <p align="center">
     <img src="frontend/public/logo.webp" align="center" width="30%">
 </p>
-<p align="center"><h1 align="center">ORDINALY.AI</h1></p>
+<p align="center"><h1 align="center">ORDINALY</h1></p>
 <p align="center">
     <em>Esta es la página principal de Ordinaly. El software de Ordinaly tiene como misión ayudar a las empresas a agilizar y mejorar sus procesos con ayuda de la IA.</em>
 </p>

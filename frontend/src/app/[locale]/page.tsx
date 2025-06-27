@@ -12,6 +12,7 @@ import Footer from "@/components/home/footer";
 import DemoModal from "@/components/home/demo-modal";
 import { useTranslations } from "next-intl";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
+import Image from 'next/image';
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -82,11 +83,16 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
-              <div className="mr-4 hidden lg:block">
-                <img src="/logo.webp" alt={t("logo.alt")} className="h-8 w-auto" />
+              <div className="mr-4">
+                <Image 
+                  src="/logo.webp" 
+                  alt={t("logo.alt")} 
+                  width={64}
+                  height={64}
+                  className="h-8 w-auto" 
+                />
               </div>
-              <div className="text-2xl font-bold text-[#32E875]">{t("logo.title")}</div>
-              <div className="ml-2 text-sm text-gray-500 dark:text-gray-400">{t("logo.subtitle")}</div>
+              <div className="text-2xl font-bold text-[#32E875] hidden lg:block">{t("logo.title")}</div>
             </div>
             <div className="hidden md:flex space-x-8">
               <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors">
@@ -129,12 +135,6 @@ export default function HomePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="relative inline-flex items-center justify-center gap-4 group">
-                  <div
-                    className={cn(
-                      "absolute inset-0 duration-1000 opacity-60 transition-all bg-gradient-to-r from-indigo-500 via-pink-500 to-yellow-400 rounded-xl blur-lg filter group-hover:opacity-100 group-hover:duration-200",
-                      "dark:from-[#32E875]/30 dark:via-[#46B1C9]/30 dark:to-[#623CEA]/30"
-                    )}
-                  ></div>
                   <Button variant="special" size="lg" asChild>
                     <a href="#process">
                       {t("hero.discoverButton")}
@@ -170,9 +170,11 @@ export default function HomePage() {
             </div>
             <div className="scroll-animate slide-in-right">
               <div className="relative">
-                <img
+                <Image
                   src="/static/girl_resting_transparent.webp"
                   alt="AI Automation Dashboard"
+                  width={600}
+                  height={500}
                   className="rounded-2xl shadow-2xl"
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#32E875]/20 via-transparent to-[#623CEA]/20 rounded-2xl"></div>
@@ -184,30 +186,6 @@ export default function HomePage() {
 
       {/* Demo Modal */}
       <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
-
-      {/* Stats Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#32E875] text-black">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
-            {/* <div className="scroll-animate fade-in-up">
-              <div className="text-4xl font-bold mb-2">100+</div>
-              <div className="text-black/80">Empresas Transformadas</div>
-            </div> */}
-            <div className="scroll-animate fade-in-up" style={{ animationDelay: "0.1s" }}>
-              <div className="text-4xl font-bold mb-2">{t("stats.data2.number")}</div>
-              <div className="text-black/80">{t("stats.data2.text")}</div>
-            </div>
-            <div className="scroll-animate fade-in-up" style={{ animationDelay: "0.2s" }}>
-              <div className="text-4xl font-bold mb-2">{t("stats.data3.number")}</div>
-              <div className="text-black/80">{t("stats.data3.text")}</div>
-            </div>
-            <div className="scroll-animate fade-in-up" style={{ animationDelay: "0.3s" }}>
-              <div className="text-4xl font-bold mb-2">{t("stats.data4.number")}</div>
-              <div className="text-black/80">{t("stats.data4.text")}</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Services Section */}
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
@@ -295,13 +273,43 @@ export default function HomePage() {
         </div>
       </section>
 
+       {/* Partners Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#32E875] text-black">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 text-black dark:text-white">{t("partners.title")}</h2>
+<div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+  {[
+    { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Partner 1", delay: "0.1s" },
+    { src: "/static/logos/logo_grupo_addu.webp", alt: "Partner 2", delay: "0.2s" },
+    { src: "/static/logos/logo_proinca_consultores.webp", alt: "Partner 3", delay: "0.3s" },
+  ].map(({ src, alt, delay }, i) => (
+    <div
+      key={i}
+      className="scroll-animate fade-in-up"
+      style={{ animationDelay: delay }}
+    >
+      <Image
+        src={src}
+        alt={alt}
+        width={300}
+        height={200}
+        className="mx-auto h-16 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
+      />
+    </div>
+  ))}
+</div>
+        </div>
+      </section>
+
       {/* About Section */}
       <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
-              <img
-                src="/static/hand_shake_transparent.webp?height=500&width=600"
+              <Image
+                src="/static/hand_shake_transparent.webp"
+                width={600}
+                height={500}
                 alt="Andalusian Business Transformation"
                 className="rounded-2xl shadow-2xl"
               />
@@ -332,42 +340,74 @@ export default function HomePage() {
           </div>
             <div className="grid grid-cols-2 gap-6">
             <div className="text-center p-6 bg-[#32E875]/10 rounded-2xl flex flex-col items-center">
-              <img src="/static/tools/odoo_logo.webp" alt="Odoo" className="h-14 mb-2 dark:invert" />
+              <Image src="/static/tools/odoo_logo.webp"
+              alt="Odoo"
+              width={50}
+              height={100}
+              className="h-14 mb-2 dark:invert" />
               <div className="text-lg font-semibold text-[#32E875] mb-1">{t("technologies.odoo.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.odoo.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#46B1C9]/10 rounded-2xl flex flex-col items-center">
-              <img src="/static/tools/whatsapp_logo.webp" alt="WhatsApp Business" className="h-10 mb-2 dark:invert" />
+              <Image src="/static/tools/whatsapp_logo.webp" 
+              alt="WhatsApp Business" 
+              width={50}
+              height={100}
+              className="h-10 mb-2 dark:invert" />
               <div className="text-lg font-semibold text-[#46B1C9] mb-1">{t("technologies.whatsapp.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.whatsapp.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#623CEA]/10 rounded-2xl flex flex-col items-center">
-              <img src="/static/tools/chatgpt_logo.webp" alt="ChatGPT" className="h-10 mb-2 dark:invert" />
+              <Image src="/static/tools/chatgpt_logo.webp"
+              alt="ChatGPT"
+              width={50}
+              height={100}
+              className="h-10 mb-2 dark:invert" />
               <div className="text-lg font-semibold text-[#623CEA] mb-1">{t("technologies.chatgpt.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.chatgpt.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#FFD600]/10 rounded-2xl flex flex-col items-center">
-              <img src="/static/tools/copilot_logo.webp" alt="Copilot" className="h-10 mb-2" />
+              <Image src="/static/tools/copilot_logo.webp"
+              alt="Copilot"
+              width={50}
+              height={100}
+              className="h-10 mb-2" />
               <div className="text-lg font-semibold text-[#FFD600] mb-1">{t("technologies.copilot.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.copilot.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#00BFAE]/10 rounded-2xl flex flex-col items-center">
-              <img src="/static/tools/gemini_logo.webp" alt="Gemini" className="h-10 mb-2" />
+              <Image src="/static/tools/gemini_logo.webp"
+              alt="Gemini"
+              width={50}
+              height={100}
+              className="h-10 mb-2" />
               <div className="text-lg font-semibold text-[#00BFAE] mb-1">{t("technologies.gemini.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.gemini.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#4285F4]/10 rounded-2xl flex flex-col items-center">
-              <img src="/static/tools/looker_studio_logo.webp" alt="Looker Studio" className="h-10 mb-2" />
+              <Image src="/static/tools/looker_studio_logo.webp"
+              alt="Looker Studio"
+              width={50}
+              height={100}
+              className="h-10 mb-2" />
               <div className="text-lg font-semibold text-[#4285F4] mb-1">{t("technologies.looker.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.looker.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#E4572E]/10 rounded-2xl flex flex-col items-center">
-              <img src="/static/tools/claude_logo.webp" alt="Claude" className="h-10 mb-2" />
+              <Image src="/static/tools/claude_logo.webp"
+              width={50}
+              height={100}
+              alt="Claude"
+              className="h-10 mb-2" />
               <div className="text-lg font-semibold text-[#E4572E] mb-1">{t("technologies.claude.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.claude.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#8B5CF6]/10 rounded-2xl flex flex-col items-center">
-              <img src="/static/tools/caleida_logo.webp" alt="Caleida" className="h-10 mb-2" />
+              <Image src="/static/tools/caleida_logo.webp"
+              width={50}
+              height={100}
+              alt="Caleida"
+              className="h-10 mb-2" />
               <div className="text-lg font-semibold text-[#8B5CF6] mb-1">{t("technologies.caleida.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.caleida.description")}</div>
             </div>

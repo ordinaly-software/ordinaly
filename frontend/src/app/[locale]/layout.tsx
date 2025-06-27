@@ -111,13 +111,8 @@ export const viewport = {
   ],
 }
 
-interface RootLayoutProps {
-  children: React.ReactNode
-}
-
 export default async function RootLayout({ children, params } : 
-  { children: React.ReactNode; params: { locale: string } }) {
-  
+  { children: React.ReactNode; params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
@@ -129,9 +124,6 @@ export default async function RootLayout({ children, params } :
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        
-        {/* Add the Beckman font */}
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
         
         {/* Additional meta tags for better SEO */}
         <meta name="format-detection" content="telephone=no" />

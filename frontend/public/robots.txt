@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.ordinaly.ai/sitemap.xml
+Sitemap: https://www.ordinaly.com/sitemap.xml

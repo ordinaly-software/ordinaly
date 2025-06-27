@@ -1,9 +1,8 @@
 {
   "home": {
     "logo": {
-      "alt": "Ordinaly.ai Logo",
-      "title": "ORDINALY",
-      "subtitle": ".ai"
+      "alt": "Ordinaly Logo",
+      "title": "ORDINALY"
     },
     "navigation": {
       "services": "Services",
@@ -18,19 +17,8 @@
       "discoverButton": "Discover How",
       "demoButton": "Watch Demo"
     },
-    "stats": {
-      "data2": {
-        "number": "45%",
-        "text": "Cost Reduction"
-      },
-      "data3": {
-        "number": "24/7",
-        "text": "Support Available"
-      },
-      "data4": {
-        "number": "100%",
-        "text": "Customer Satisfaction"
-      }
+    "partners": {
+      "title": "Transformated by Ordinaly"
     },
     "services": {
       "title": "OUR SERVICES",
@@ -62,7 +50,7 @@
     },
     "about": {
       "title": "LEADING DIGITAL TRANSFORMATION IN ANDALUSIA",
-      "description1": "At Ordinaly.ai, we believe Andalusian companies have the potential to lead technological innovation in Spain and Europe. Our mission is to democratize access to artificial intelligence and automation.",
+      "description1": "At Ordinaly, we believe Andalusian companies have the potential to lead technological innovation in Spain and Europe. Our mission is to democratize access to artificial intelligence and automation.",
       "description2": "We work side by side with local businesses to implement solutions that not only improve efficiency, but also position them as leaders in their industries."
     },
     "technologies": {
@@ -125,7 +113,7 @@
       "button": "Call Now!"
     },
     "demoModal": {
-      "title": "Ordinaly.ai Demo",
+      "title": "Ordinaly Demo",
       "description": "See how our platform can transform your business with smart automation.",
       "videoNotSupported": "Your browser does not support this type of video.",
       "videoError": "Error playing video:"
@@ -134,7 +122,7 @@
       "logo": {
         "title": "ORDINALY",
         "subtitle": ".ai",
-        "alt": "Ordinaly.ai Logo"
+        "alt": "Ordinaly Logo"
       },
       "description": "Transforming Andalusian companies with artificial intelligence and automation.",
       "services": {
@@ -146,11 +134,11 @@
       },
       "contact": {
         "title": "Contact",
-        "email": "info@ordinaly.ai",
+        "email": "info@ordinaly.com",
         "phone": "+34 XXX XXX XXX",
         "location": "Andalusia, Spain"
       },
-      "copyright": "© 2025 Ordinaly.ai. All rights reserved."
+      "copyright": "© 2025 Ordinaly. All rights reserved."
     }
   }
 }
