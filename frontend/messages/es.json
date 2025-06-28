@@ -138,6 +138,33 @@
         "location": "Andalucía, España"
       },
       "copyright": "© 2025 Ordinaly. Todos los derechos reservados."
+    },
+    "pricingPlans": {
+      "1": {
+        "title": "Asistencia Robótica",
+        "features": [
+          "Chatbot Inteligente en Web",
+          "Agente de WhatsApp con IA"
+        ]
+      },
+      "2": {
+        "title": "Automatización de Ventas",
+        "features": [
+          "Todo lo del Plan Asistencia Robótica",
+          "CRM Automatizado (usuarios, facturación, informes, pedidos)",
+          "Notificaciones Automatizadas (Email/SMS/WhatsApp)"
+        ]
+      },
+      "3": {
+        "title": "Estrategia Predictiva IA",
+        "features": [
+          "Todo lo del Plan Automatización de Ventas",
+          "Asistentes Inteligentes de Diagnóstico o Recomendación",
+          "Integración con Looker Studio y automatización de flujos",
+          "Análisis Predictivo y Tendencias de Mercado",
+          "Herramientas web para presupuestos rápidos"
+        ]
+      }
     }
   }
 }

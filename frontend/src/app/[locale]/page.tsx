@@ -84,7 +84,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center">
-              <div className="mr-4">
+              <div className="mr-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
                 <Image 
                   src="/logo.webp" 
                   alt={t("logo.alt")} 
@@ -93,7 +93,12 @@ export default function HomePage() {
                   className="h-8 w-auto" 
                 />
               </div>
-              <div className="text-2xl font-bold text-[#32E875] hidden lg:block">{t("logo.title")}</div>
+              <div 
+                className="text-2xl font-bold text-[#32E875] hidden lg:block cursor-pointer" 
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              >
+                {t("logo.title")}
+              </div>
             </div>
             <div className="hidden md:flex space-x-8">
               <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors">
@@ -277,9 +282,9 @@ export default function HomePage() {
 
        {/* Partners Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#32E875] text-black">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 text-black dark:text-white">{t("partners.title")}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center justify-items-center">
             {[
               { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Partner 1", delay: "0.1s" },
               { src: "/static/logos/logo_grupo_addu.webp", alt: "Partner 2", delay: "0.2s" },
@@ -287,7 +292,7 @@ export default function HomePage() {
             ].map(({ src, alt, delay }, i) => (
               <div
                 key={i}
-                className="scroll-animate fade-in-up"
+                className="scroll-animate fade-in-up w-full flex justify-center"
                 style={{ animationDelay: delay }}
               >
                 <Image
@@ -295,7 +300,7 @@ export default function HomePage() {
                   alt={alt}
                   width={300}
                   height={200}
-                  className="mx-auto h-16 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
+                  className="h-24 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
                 />
               </div>
             ))}

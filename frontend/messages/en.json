@@ -138,6 +138,33 @@
         "location": "Andalusia, Spain"
       },
       "copyright": "© 2025 Ordinaly. All rights reserved."
+    },
+    "pricingPlans": {
+      "1": {
+        "title": "Robotic Assistance",
+        "features": [
+          "Intelligent Web Chatbot",
+          "AI-Powered WhatsApp Agent"
+        ]
+      },
+      "2": {
+        "title": "Sales Automation",
+        "features": [
+          "Everything in Robotic Assistance Plan",
+          "Automated CRM (users, billing, reports, orders)",
+          "Automated Notifications (Email/SMS/WhatsApp)"
+        ]
+      },
+      "3": {
+        "title": "AI Predictive Strategy",
+        "features": [
+          "Everything in Sales Automation Plan",
+          "Intelligent Diagnostic and Recommendation Assistants",
+          "Looker Studio Integration and Flow Automation",
+          "Predictive Analysis and Market Trends",
+          "Web Tools for Quick Quotes"
+        ]
+      }
     }
   }
 }

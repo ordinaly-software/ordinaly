@@ -1,30 +1,21 @@
 import Image from 'next/image';
 import React from 'react';
+import { useTranslations } from "next-intl";
 
 interface PlanProps {
+  id: number;
   title: string;
   imageSrc: string;
   features: string[];
+  bubbleColor: string;
 }
-const PlanCard: React.FC<PlanProps> = ({ title, imageSrc, features }) => {
-  const getBubbleColor = () => {
-    switch (title) {
-      case "Asistencia Robótica":
-        return "bg-[#32E875]";
-      case "Automatización de Ventas":
-        return "bg-[#E4572E]";
-      case "Estrategia Predictiva IA":
-        return "bg-[#623CEA]";
-      default:
-        return "bg-[#32E875]";
-    }
-  };
+const PlanCard: React.FC<PlanProps> = ({ id, title, imageSrc, features, bubbleColor }) => {
 
   return (
     <div className="scroll-animate fade-in-up text-center">
       <div className="flex items-center justify-center mb-6 gap-6">
-        <div className={`w-20 h-20 ${getBubbleColor()} rounded-full flex items-center justify-center text-black font-bold text-2xl`}>
-          {title === "Asistencia Robótica" ? 1 : title === "Automatización de Ventas" ? 2 : 3}
+        <div className={`w-20 h-20 ${bubbleColor} rounded-full flex items-center justify-center text-white font-bold text-2xl`}>
+          {id}
         </div>
         <div className="relative w-40 h-40">
           <Image src={imageSrc} alt={title} layout="fill" objectFit="contain" />
@@ -34,7 +25,7 @@ const PlanCard: React.FC<PlanProps> = ({ title, imageSrc, features }) => {
       <ul className="text-gray-700 dark:text-gray-200 space-y-3 text-left w-full">
         {features.map((feature, index) => (
           <li key={index} className="flex items-center">
-            <svg className={`w-5 h-5 ${getBubbleColor().replace('bg-', 'text-')} mr-2`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg className={`w-5 h-5 ${bubbleColor.replace('bg-', 'text-')} mr-2`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
             </svg>
             {feature}
@@ -46,34 +37,42 @@ const PlanCard: React.FC<PlanProps> = ({ title, imageSrc, features }) => {
 };
 const PricingPlans: React.FC = () => {
 
-    const plans = [
+  const t = useTranslations("home.pricingPlans");
+
+  const plans = [
     {
-      title: "Asistencia Robótica",
+      id: 1,
+      title: t('1.title'),
       imageSrc: "/static/plans/1_01.webp",
       features: [
-        "Chatbot Inteligente en Web",
-        "Agente de WhatsApp con IA",
+        t('1.features.0'),
+        t('1.features.1'),
       ],
+      bubbleColor: "bg-[#32E875]",
     },
     {
-      title: "Automatización de Ventas",
+      id: 2,
+      title: t('2.title'),
       imageSrc: "/static/plans/2_01.webp",
       features: [
-        "Todo lo del Plan Asistencia Robótica",
-        "CRM Automatizado (usuarios, facturación, informes, pedidos)",
-        "Notificaciones Automatizadas (Email/SMS/WhatsApp)",
+        t('2.features.0'),
+        t('2.features.1'),
+        t('2.features.2'),
       ],
+      bubbleColor: "bg-[#E4572E]",
     },
     {
-      title: "Estrategia Predictiva IA",
+      id: 3,
+      title: t('3.title'),
       imageSrc: "/static/plans/3_01.webp",
       features: [
-        "Todo lo del Plan Automatización de Ventas",
-        "Asistentes Inteligentes de Diagnóstico o Recomendación",
-        "Integración con Looker Studio y automatización de flujos",
-        "Análisis Predictivo y Tendencias de Mercado",
-        "Herramientas web para presupuestos rápidos",
+        t('1.features.0'),
+        t('3.features.1'),
+        t('3.features.2'),
+        t('3.features.3'),
+        t('3.features.4'),
       ],
+      bubbleColor: "bg-[#623CEA]",
     },
   ];
   
