@@ -37,8 +37,22 @@ const Footer = () => {
           <div>
             <h3 className="text-gray-900 dark:text-white font-semibold mb-4">{t("footer.contact.title")}</h3>
             <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-              <li>{t("footer.contact.email")}</li>
-              <li>{t("footer.contact.phone")}</li>
+              <li>
+                <a 
+                  href={`mailto:${t("footer.contact.email")}`}
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                >
+                  {t("footer.contact.email")}
+                </a>
+              </li>
+              <li>
+                <a 
+                  href={`tel:${t("footer.contact.phone")}`}
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                >
+                  {t("footer.contact.phone")}
+                </a>
+              </li>
               <li>{t("footer.contact.location")}</li>
             </ul>
           </div>

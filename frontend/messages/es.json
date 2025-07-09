@@ -13,7 +13,7 @@
     "hero": {
       "title": "AUTOMATIZA",
       "subtitle": "TU NEGOCIO CON IA",
-      "description": "Transformamos empresas con automatizaciones inteligente. Desde chatbots hasta flujos de trabajo avanzados, te ayudamos a modernizar tu empresa y a ser más eficiente.",
+      "description": "Transformamos empresas con automatizaciones inteligentes. Desde chatbots, CRMs y hasta flujos de trabajo avanzados, te ayudamos a modernizar tu empresa y a ser más eficiente.",
       "discoverButton": "Descubre cómo",
       "demoButton": "Ver Demo"
     },
@@ -110,7 +110,7 @@
       "title2": "acelerar",
       "title3": " tu negocio?",
       "description": "Únete a las empresas andaluzas que ya están liderando la revolución digital. Comienza tu transformación hoy mismo.",
-      "button": "Llamar ahora"
+      "button": "Contacta ahora"
     },
     "demoModal": {
       "title": "Demo de Ordinaly",
@@ -123,7 +123,7 @@
         "title": "ORDINALY",
         "alt": "Logo de Ordinaly"
       },
-      "description": "Transformando empresas andaluzas con inteligencia artificial y automatización.",
+      "description": "Transformando empresas con inteligencia artificial y automatización.",
       "services": {
         "title": "Servicios",
         "chatbots": "Chatbots IA",
@@ -133,11 +133,11 @@
       },
       "contact": {
         "title": "Contacto",
-        "email": "info@ordinaly.com",
-        "phone": "+34 XXX XXX XXX",
+        "email": "ordinalysoftware@gmail.com",
+        "phone": "+34 626 27 08 06",
         "location": "Andalucía, España"
       },
-      "copyright": "© 2025 Ordinaly. Todos los derechos reservados."
+      "copyright": "© 2025 Ordinaly Software. Todos los derechos reservados."
     },
     "pricingPlans": {
       "1": {

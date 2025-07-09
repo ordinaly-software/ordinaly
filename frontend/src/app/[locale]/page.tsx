@@ -94,7 +94,7 @@ export default function HomePage() {
                 />
               </div>
               <div 
-                className="text-2xl font-bold text-[#32E875] hidden lg:block cursor-pointer" 
+                className="text-2xl font-bold text-[#32E875] cursor-pointer" 
                 onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               >
                 {t("logo.title")}
@@ -121,7 +121,7 @@ export default function HomePage() {
                 {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
               </Button>
               <LocaleSwitcher />
-              <Button className="bg-[#32E875] hover:bg-[#2BC765] text-white font-semibold">{t("navigation.start")}</Button>
+              {/* <Button className="bg-[#32E875] hover:bg-[#2BC765] text-white font-semibold">{t("navigation.start")}</Button> */}
             </div>
           </div>
         </div>
@@ -451,7 +451,12 @@ export default function HomePage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <StyledButton text={t("cta.button")} />
+                <StyledButton 
+                  text={t("cta.button")} 
+                  href="https://wa.me/34626270806?text=Hola%2C+me+gustar%C3%ADa+saber+m%C3%A1s+sobre+los+servicios+de+Ordinaly"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                />
               </div>
           </div>
         </div>

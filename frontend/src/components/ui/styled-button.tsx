@@ -95,21 +95,37 @@ const StyledButtonWrapper = styled.div`
 
 interface StyledButtonProps {
   text: string;
+  href?: string;
+  target?: string;
+  rel?: string;
+  onClick?: () => void;
 }
 
-const StyledButton: React.FC<StyledButtonProps> = ({ text }) => {
-  return (
-    <StyledButtonWrapper>
-      <button className="button">
-        <div className="bg" />
-        <div className="wrap">
-          <div className="content">
-            <span>{text}</span>
-          </div>
+const StyledButton: React.FC<StyledButtonProps> = ({ text, href, target, rel, onClick }) => {
+  const buttonContent = (
+    <button className="button" onClick={onClick}>
+      <div className="bg" />
+      <div className="wrap">
+        <div className="content">
+          <span>{text}</span>
         </div>
-      </button>
-    </StyledButtonWrapper>
+      </div>
+    </button>
   );
+
+  // If href is provided, wrap the button in an anchor tag
+  if (href) {
+    return (
+      <StyledButtonWrapper>
+        <a href={href} target={target} rel={rel}>
+          {buttonContent}
+        </a>
+      </StyledButtonWrapper>
+    );
+  }
+
+  // Otherwise, just return the button
+  return <StyledButtonWrapper>{buttonContent}</StyledButtonWrapper>;
 };
 
 export default StyledButton;

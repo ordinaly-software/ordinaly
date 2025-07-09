@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     template: "%s | Ordinaly",
   },
   description:
-    "Transformamos empresas andaluzas con soluciones de automatización inteligente. Chatbots, workflows y integración con Odoo, Slack y WhatsApp Business para liderar la innovación en España y Europa.",
+    "Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y integración con Odoo, n8n y WhatsApp Business para liderar la innovación en España y Europa.",
   keywords: [
     "automatización empresarial",
     "inteligencia artificial",
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     siteName: "Ordinaly",
     title: "Ordinaly Software - Automatización Empresarial con IA",
     description:
-      "Transformamos empresas andaluzas con soluciones de automatización inteligente para liderar la innovación en España y Europa.",
+      "Transformamos empresas con soluciones de automatización inteligente para liderar la innovación en Andalucía, España y Europa.",
     images: [
       {
         url: "/og-image.jpg",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Ordinaly Software - Automatización Empresarial con IA",
-    description: "Transformamos empresas andaluzas con soluciones de automatización inteligente.",
+    description: "Transformamos empresas con soluciones de automatización inteligente.",
     images: ["/og-image.jpg"],
     creator: "@ordinaly_ai",
   },
