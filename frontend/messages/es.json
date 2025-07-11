@@ -65,28 +65,20 @@
         "description": "Automatización de ventas y soporte"
       },
       "chatgpt": {
-        "title": "ChatGPT",
+        "title": "OpenAI",
         "description": "IA conversacional avanzada"
       },
-      "copilot": {
-        "title": "Copilot",
-        "description": "Automatización y productividad IA"
-      },
       "gemini": {
-        "title": "Gemini",
+        "title": "Gemini API",
         "description": "IA generativa de Google"
       },
       "looker": {
         "title": "Looker",
         "description": "Visualización de datos y BI"
       },
-      "claude": {
-        "title": "Claude",
-        "description": "IA generativa de Anthropic"
-      },
-      "caleida": {
-        "title": "Caleida",
-        "description": "Agente de IA para ventas y marketing"
+      "meta": {
+        "title": "Meta Developers API",
+        "description": "Servicios de Meta que nos ayudan con las integraciones de cahtbot y WhatsApp"
       }
     },
     "process": {
@@ -124,12 +116,11 @@
         "alt": "Logo de Ordinaly"
       },
       "description": "Transformando empresas con inteligencia artificial y automatización.",
-      "services": {
-        "title": "Servicios",
-        "chatbots": "Chatbots IA",
-        "automation": "Automatización",
-        "odooIntegration": "Integración Odoo",
-        "whatsapp": "WhatsApp Business"
+      "social": {
+        "title": "¡Síguenos!",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn"
       },
       "contact": {
         "title": "Contacto",

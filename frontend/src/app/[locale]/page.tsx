@@ -373,15 +373,6 @@ export default function HomePage() {
               <div className="text-lg font-semibold text-[#623CEA] mb-1">{t("technologies.chatgpt.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.chatgpt.description")}</div>
             </div>
-            <div className="text-center p-6 bg-[#FFD600]/10 rounded-2xl flex flex-col items-center">
-              <Image src="/static/tools/copilot_logo.webp"
-              alt="Copilot"
-              width={50}
-              height={100}
-              className="h-10 mb-2" />
-              <div className="text-lg font-semibold text-[#FFD600] mb-1">{t("technologies.copilot.title")}</div>
-              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.copilot.description")}</div>
-            </div>
             <div className="text-center p-6 bg-[#00BFAE]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/gemini_logo.webp"
               alt="Gemini"
@@ -400,23 +391,14 @@ export default function HomePage() {
               <div className="text-lg font-semibold text-[#4285F4] mb-1">{t("technologies.looker.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.looker.description")}</div>
             </div>
-            <div className="text-center p-6 bg-[#E4572E]/10 rounded-2xl flex flex-col items-center">
-              <Image src="/static/tools/claude_logo.webp"
+            <div className="text-center p-6 bg-[#4285F4]/10 rounded-2xl flex flex-col items-center">
+              <Image src="/static/tools/meta_logo.webp"
               width={50}
               height={100}
-              alt="Claude"
+              alt="Meta"
               className="h-10 mb-2" />
-              <div className="text-lg font-semibold text-[#E4572E] mb-1">{t("technologies.claude.title")}</div>
-              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.claude.description")}</div>
-            </div>
-            <div className="text-center p-6 bg-[#8B5CF6]/10 rounded-2xl flex flex-col items-center">
-              <Image src="/static/tools/caleida_logo.webp"
-              width={50}
-              height={100}
-              alt="Caleida"
-              className="h-10 mb-2" />
-              <div className="text-lg font-semibold text-[#8B5CF6] mb-1">{t("technologies.caleida.title")}</div>
-              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.caleida.description")}</div>
+              <div className="text-lg font-semibold text-[#4285F4] mb-1">{t("technologies.meta.title")}</div>
+              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.meta.description")}</div>
             </div>
             </div>
         </div>

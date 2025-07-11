@@ -65,28 +65,20 @@
         "description": "Sales and support automation"
       },
       "chatgpt": {
-        "title": "ChatGPT",
+        "title": "OpenAI",
         "description": "Advanced conversational AI"
       },
-      "copilot": {
-        "title": "Copilot",
-        "description": "AI-powered automation and productivity"
-      },
       "gemini": {
-        "title": "Gemini",
+        "title": "Gemini API",
         "description": "Google's generative AI"
       },
       "looker": {
         "title": "Looker",
         "description": "Data visualization and BI"
       },
-      "claude": {
-        "title": "Claude",
-        "description": "Generative AI from Anthropic"
-      },
-      "caleida": {
-        "title": "Caleida",
-        "description": "AI agent for sales and marketing"
+      "meta": {
+        "title": "Meta Developers API",
+        "description": "Meta services that help us with cahtbot and WhatsApp integrations"
       }
     },
     "process": {
@@ -124,12 +116,11 @@
         "alt": "Ordinaly Logo"
       },
       "description": "Transforming Andalusian companies with artificial intelligence and automation.",
-      "services": {
-        "title": "Services",
-        "chatbots": "AI Chatbots",
-        "automation": "Automation",
-        "odooIntegration": "Odoo Integration",
-        "whatsapp": "WhatsApp Business"
+      "social": {
+        "title": "Follow us!",
+        "tiktok": "TikTok",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn"
       },
       "contact": {
         "title": "Contact",
