@@ -1,6 +1,6 @@
 "use client";
 
-import { Bot, Workflow, Zap, Globe, Users, TrendingUp, Moon, Sun, ChevronUp } from "lucide-react";
+import { Bot, Workflow, Zap, Globe, Users, TrendingUp, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
@@ -11,9 +11,9 @@ import { Cover } from "@/components/ui/cover";
 import Footer from "@/components/home/footer";
 import DemoModal from "@/components/home/demo-modal";
 import { useTranslations } from "next-intl";
-import LocaleSwitcher from "@/components/ui/locale-switcher";
 import Image from 'next/image';
 import PricingPlans from "@/components/home/pricing-plans";
+import Navbar from "@/components/ui/navbar";
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -79,53 +79,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-      {/* Navigation */}
-      <nav className="border-b border-gray-300 dark:border-gray-800 bg-[#FFFFFF] dark:bg-[#1A1924]/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center">
-              <div className="mr-4 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-                <Image 
-                  src="/logo.webp" 
-                  alt={t("logo.alt")} 
-                  width={64}
-                  height={64}
-                  className="h-8 w-auto" 
-                />
-              </div>
-              <div 
-                className="text-2xl font-bold text-[#32E875] cursor-pointer" 
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              >
-                {t("logo.title")}
-              </div>
-            </div>
-            <div className="hidden md:flex space-x-8">
-              <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors">
-                {t("navigation.services")}
-              </a>
-              <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors">
-                {t("navigation.about")}
-              </a>
-              <a href="#contact" className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors">
-                {t("navigation.contact")}
-              </a>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsDark(!isDark)}
-                className="text-gray-700 dark:text-gray-300"
-              >
-                {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-              </Button>
-              <LocaleSwitcher />
-              {/* <Button className="bg-[#32E875] hover:bg-[#2BC765] text-white font-semibold">{t("navigation.start")}</Button> */}
-            </div>
-          </div>
-        </div>
-      </nav>
+      {/* Navigation - now using the Navbar component */}
+      <Navbar isDark={isDark} setIsDark={setIsDark} />
 
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#32E875]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
