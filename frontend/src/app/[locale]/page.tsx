@@ -130,15 +130,15 @@ export default function HomePage() {
               </div>
             </div>
             <div className="scroll-animate slide-in-right">
-              <div className="relative">
+              <div className="relative overflow-hidden rounded-2xl shadow-2xl">
                 <Image
                   src="/static/girl_resting_transparent.webp"
                   alt="AI Automation Dashboard"
                   width={600}
                   height={500}
-                  className="rounded-2xl shadow-2xl"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#32E875]/20 via-transparent to-[#623CEA]/20 rounded-2xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#32E875]/20 via-transparent to-[#623CEA]/20"></div>
               </div>
             </div>
           </div>
