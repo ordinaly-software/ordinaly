@@ -182,7 +182,7 @@ export default async function RootLayout({ children, params } :
                 j.async = true; 
                 j.src = '//wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
                 f.parentNode.insertBefore(j, f); 
-              })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESIBILITY_TOKEN}');
+              })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
             `,
           }}
         />
