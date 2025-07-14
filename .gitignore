@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+.Python
+venv/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+
+# DotEnv configuration
+.env
+venv/*
+
+# Mac OS-specific storage files
+.DS_Store
+
+# Flake8 linting configuration file
+.flake8
