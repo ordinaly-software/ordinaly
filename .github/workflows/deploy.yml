@@ -3,7 +3,7 @@ name: Deploy Django backend
 on:
   push:
     branches:
-      # - main
+      - main
 
 jobs:
   deploy:
@@ -15,11 +15,13 @@ jobs:
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: 22
         script: |
-          cd /opt/tu_repo_backend
+          cd /opt/ordinaly/backend
           git pull origin main
           source venv/bin/activate
           pip install -r requirements.txt
           python manage.py migrate
+          python manage.py runserver 0.0.0.0:8000 
           sudo systemctl restart gunicorn

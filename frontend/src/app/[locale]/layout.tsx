@@ -121,7 +121,71 @@ export default async function RootLayout({ children, params } :
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
-        {/* Existing head content */}
+        {/* Preconnect to external domains for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Additional meta tags for better SEO */}
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-TileColor" content="#32E875" />
+        <meta name="msapplication-config" content="/browserconfig.xml" />
+        
+        {/* Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Ordinaly Software",
+              description:
+                "Empresa de automatización empresarial con inteligencia artificial especializada en transformación digital de empresas andaluzas",
+              url: "https://ordinaly.com",
+              logo: "https://ordinaly.com/logo.webp",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+34-XXX-XXX-XXX",
+                contactType: "customer service",
+                availableLanguage: ["Spanish", "English"],
+              },
+              address: {
+                "@type": "PostalAddress",
+                addressRegion: "Andalucía",
+                addressCountry: "ES",
+              },
+              // sameAs: ["https://linkedin.com/company/ordinaly-ai", "https://twitter.com/ordinaly_ai"],
+              serviceArea: {
+                "@type": "Place",
+                name: "España",
+              },
+              areaServed: "ES",
+              knowsAbout: [
+                "Automatización empresarial",
+                "Inteligencia artificial",
+                "Chatbots",
+                "Workflows",
+                "Integración Odoo",
+                "WhatsApp Business",
+              ],
+            }),
+          }}
+        />
+        
+        {/* Accessibility Integration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function (d, s, t) { 
+                var f = d.getElementsByTagName(s)[0], 
+                    j = d.createElement(s), 
+                    a = new Date().getTime(); 
+                j.async = true; 
+                j.src = '//wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
+                f.parentNode.insertBefore(j, f); 
+              })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
+            `,
+          }}
+        />
       </head>
       <body
         className={`${inter.className} antialiased min-h-screen bg-background text-foreground`}
@@ -140,7 +204,21 @@ export default async function RootLayout({ children, params } :
           <div id="main-content">{children}</div>
           
           {/* Analytics scripts */}
-          {/* Existing analytics scripts */}
+          {/* {process.env.NODE_ENV === "production" && (
+            <>
+              <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />
+              <script
+                dangerouslySetInnerHTML={{
+                  __html: `
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+                  `,
+                }}
+              />
+            </>
+          )} */}
         </NextIntlClientProvider>
       </body>
     </html>
