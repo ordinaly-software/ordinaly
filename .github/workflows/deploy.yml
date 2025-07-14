@@ -3,7 +3,7 @@ name: Deploy Django backend
 on:
   push:
     branches:
-      # - main
+      - develop
 
 jobs:
   deploy:
@@ -17,7 +17,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         script: |
-          cd /opt/tu_repo_backend
+          cd /opt/ordinaly/backend
           git pull origin main
           source venv/bin/activate
           pip install -r requirements.txt
