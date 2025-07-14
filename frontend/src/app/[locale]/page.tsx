@@ -1,6 +1,6 @@
 "use client";
 
-import { Bot, Workflow, Zap, Globe, Users, TrendingUp, ChevronUp } from "lucide-react";
+import { Bot, Workflow, Zap, Globe, Users, TrendingUp, ChevronUp, Accessibility } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
@@ -198,11 +198,11 @@ export default function HomePage() {
             <Card className="scroll-animate slide-in-left bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#623CEA] transition-all duration-300 hover:shadow-xl hover:shadow-[#623CEA]/10">
               <CardHeader>
                 <div className="w-16 h-16 bg-[#623CEA]/10 rounded-2xl flex items-center justify-center mb-4">
-                  <Globe className="h-8 w-8 text-[#623CEA]" />
+                  <Accessibility className="h-8 w-8 text-[#623CEA]" />
                 </div>
-                <CardTitle className="text-xl text-gray-900 dark:text-white">{t("services.integration.title")}</CardTitle>
+                <CardTitle className="text-xl text-gray-900 dark:text-white">{t("services.accessibility.title")}</CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
-                  {t("services.integration.description")}
+                  {t("services.accessibility.description")}
                 </CardDescription>
               </CardHeader>
             </Card>
