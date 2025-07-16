@@ -22,5 +22,6 @@ jobs:
           git pull origin main
           source venv/bin/activate
           pip install -r requirements.txt
+          sed -i "s/^DEBUG = True/DEBUG = False/" config/settings.py
           python manage.py migrate
           sudo systemctl restart gunicorn
