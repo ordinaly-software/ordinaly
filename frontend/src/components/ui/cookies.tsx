@@ -15,7 +15,12 @@ const CookieConsent = () => {
 
   useEffect(() => {
     // Check if user has already made a choice
-    const hasConsented = localStorage.getItem('cookie-consent');
+    let hasConsented = null;
+    try {
+      hasConsented = localStorage.getItem('cookie-consent');
+    } catch (error) {
+      console.error('Error accessing localStorage:', error);
+    }
     if (!hasConsented) {
       setShowBubble(true);
     }
