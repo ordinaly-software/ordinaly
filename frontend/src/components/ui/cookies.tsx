@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Cookie, X, Settings, Shield, Target, BarChart3, Link } from 'lucide-react';
+import { Cookie, X, Settings, Shield, Target, BarChart3 } from 'lucide-react';
+import Link from 'next/link';
 
 const CookieConsent = () => {
   const [showBubble, setShowBubble] = useState(false);
