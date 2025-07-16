@@ -2,7 +2,7 @@ name: Weekly Develop to Main Sync
 
 on:
   schedule:
-    - cron: '22 14 * * 3'  # Every Friday at 14:20 UTC
+    - cron: '05 15 * * 3'  # Every Wednesday at 15:00 UTC
 jobs:
   weekly-sync:
     runs-on: ubuntu-latest
