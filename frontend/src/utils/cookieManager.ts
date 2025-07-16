@@ -28,10 +28,16 @@ export const initializeAnalytics = () => {
   const preferences = getCookiePreferences();
   
   if (preferences?.analytics && process.env.NODE_ENV === "production") {
+    const gaId = process.env.NEXT_PUBLIC_GA_ID;
+    if (!gaId || !/^(UA-\d{4,9}-\d{1,4}|G-[A-Z0-9]{10})$/.test(gaId)) {
+      console.warn("Google Analytics ID is missing or invalid. Analytics will not be initialized.");
+      return;
+    }
+    
     // Initialize Google Analytics
     const script = document.createElement('script');
     script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
     document.head.appendChild(script);
     
     const configScript = document.createElement('script');
