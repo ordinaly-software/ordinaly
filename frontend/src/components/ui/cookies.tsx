@@ -163,13 +163,15 @@ const CookieConsent = () => {
                     </button>
                   </div>
 
-                  <button
-                    onClick={() => setShowSettings(true)}
-                    className="w-full bg-white border-2 border-gradient-to-r from-green-400 to-blue-500 text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-50 transition-all duration-300 flex items-center justify-center space-x-2"
-                  >
-                    <Settings size={20} />
-                    <span>Personalizar Configuración</span>
-                  </button>
+                  <div className="w-full p-[2px] bg-gradient-to-r from-green-400 to-blue-500 rounded-lg">
+                    <button
+                      onClick={() => setShowSettings(true)}
+                      className="w-full bg-white text-gray-700 font-semibold py-3 px-6 rounded-lg hover:bg-gray-50 transition-all duration-300 flex items-center justify-center space-x-2"
+                    >
+                      <Settings size={20} />
+                      <span>Personalizar Configuración</span>
+                    </button>
+                  </div>
                 </>
               ) : (
                 <>
