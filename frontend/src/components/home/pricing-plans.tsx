@@ -18,7 +18,7 @@ const PlanCard: React.FC<PlanProps> = ({ id, title, imageSrc, features, bubbleCo
           {id}
         </div>
         <div className="relative w-40 h-40">
-          <Image src={imageSrc} alt={title} layout="fill" objectFit="contain" />
+          <Image src={imageSrc} alt={title} fill className="object-contain" />
         </div>
       </div>
       <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{title}</h3>

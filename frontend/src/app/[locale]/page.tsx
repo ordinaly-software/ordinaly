@@ -406,10 +406,10 @@ export default function HomePage() {
       {showBackToTop && (
         <Button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-[#32E875] hover:bg-[#2BC765] text-black shadow-lg transition-all duration-300 animate-in slide-in-from-bottom-5"
+          className="fixed bottom-4 right-8 z-50 w-10 h-10 rounded-full bg-[#32E875] hover:bg-[#2BC765] text-black shadow-lg transition-all duration-300 animate-in slide-in-from-bottom-5"
           size="icon"
         >
-          <ChevronUp className="h-6 w-6" />
+          <ChevronUp className="h-5 w-5" />
         </Button>
       )}
     </div>

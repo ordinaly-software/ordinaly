@@ -180,7 +180,7 @@ export default async function RootLayout({ children, params } :
                     j = d.createElement(s), 
                     a = new Date().getTime(); 
                 j.async = true; 
-                j.src = '//wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
+                j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
                 f.parentNode.insertBefore(j, f); 
               })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
             `,
@@ -197,7 +197,7 @@ export default async function RootLayout({ children, params } :
             href="#main-content"
             className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#32E875] text-black px-4 py-2 rounded-md z-50"
           >
-            Saltar al contenido principal
+            Saltar / Skip
           </a>
           
           {/* Main content wrapper */}
