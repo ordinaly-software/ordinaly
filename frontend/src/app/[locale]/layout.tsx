@@ -5,6 +5,9 @@ import "../globals.css"
 import {NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
+import CookieConsent from '@/components/ui/cookies';
+// import AnalyticsManager from '@/components/ui/analyticsManager';
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -153,7 +156,6 @@ export default async function RootLayout({ children, params } :
                 addressRegion: "Andalucía",
                 addressCountry: "ES",
               },
-              // sameAs: ["https://linkedin.com/company/ordinaly-ai", "https://twitter.com/ordinaly_ai"],
               serviceArea: {
                 "@type": "Place",
                 name: "España",
@@ -200,25 +202,11 @@ export default async function RootLayout({ children, params } :
             Saltar / Skip
           </a>
           
-          {/* Main content wrapper */}
           <div id="main-content">{children}</div>
           
-          {/* Analytics scripts */}
-          {/* {process.env.NODE_ENV === "production" && (
-            <>
-              <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`} />
-              <script
-                dangerouslySetInnerHTML={{
-                  __html: `
-                    window.dataLayer = window.dataLayer || [];
-                    function gtag(){dataLayer.push(arguments);}
-                    gtag('js', new Date());
-                    gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
-                  `,
-                }}
-              />
-            </>
-          )} */}
+          <CookieConsent />
+          {/* <AnalyticsManager /> */}
+
         </NextIntlClientProvider>
       </body>
     </html>

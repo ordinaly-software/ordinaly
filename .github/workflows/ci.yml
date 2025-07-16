@@ -2,7 +2,7 @@ name: Weekly Develop to Main Sync
 
 on:
   schedule:
-    - cron: '0 13 * * 3'  # Every Friday at 18:00 UTC
+    - cron: '0 14 15 * 3'  # Every Friday at 18:00 UTC
 
 jobs:
   weekly-sync:
