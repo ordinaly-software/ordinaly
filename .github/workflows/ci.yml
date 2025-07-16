@@ -1,0 +1,84 @@
+name: Weekly Develop to Main Sync
+
+on:
+  schedule:
+    - cron: '0 13 * * 3'  # Every Friday at 18:00 UTC
+
+jobs:
+  weekly-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout develop branch
+        uses: actions/checkout@v3
+        with:
+          ref: develop
+          fetch-depth: 0  # Needed for full git history and PR base creation
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install black flake8 bandit safety
+
+      - name: Ensure DEBUG=False in settings.py
+        run: |
+          SETTINGS_FILE="backend/config/settings.py"
+          if grep -q 'DEBUG *= *True' "$SETTINGS_FILE"; then
+            sed -i 's/DEBUG *= *True/DEBUG = False/' "$SETTINGS_FILE"
+            echo "Updated DEBUG setting to False"
+            git config --global user.name "ci-bot"
+            git config --global user.email "ci-bot@ordinaly.com"
+            git commit -am "CI: Enforce DEBUG=False in develop"
+            git push origin develop
+          else
+            echo "DEBUG already False"
+          fi
+
+      - name: Run Tests
+        run: |
+          cd backend
+          python manage.py test
+
+      - name: Code Linting
+        run: |
+          black --check backend/
+          flake8 backend/
+
+      - name: Security Scan
+        run: |
+          bandit -r backend/
+          safety check --full-report || true  # Avoid failing the job for now
+
+      - name: Create PR from develop to main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git fetch origin main
+          CHANGES=$(git log origin/main..HEAD)
+          if [ -z "$CHANGES" ]; then
+            echo "No new changes between develop and main. Skipping PR creation."
+            exit 0
+          fi
+      
+          # Install GH CLI if needed
+          sudo apt update && sudo apt install gh -y
+      
+          # Check if PR already exists
+          if gh pr list --head develop --base main --json state --jq '.[].state' | grep -q open; then
+            echo "PR from develop to main already exists. Skipping."
+            exit 0
+          fi
+      
+          LAST_COMMIT_MESSAGE=$(git log -1 --pretty=%s)
+          gh pr create \
+            --base main \
+            --head develop \
+            --title "${LAST_COMMIT_MESSAGE}" \
+            --body "Automated PR created by CI to merge latest changes from develop into main."
+
