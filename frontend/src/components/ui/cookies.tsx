@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Cookie, X, Settings, Shield, Target, BarChart3 } from 'lucide-react';
+import { Cookie, X, Settings, Shield, Target, BarChart3, Link } from 'lucide-react';
 
 const CookieConsent = () => {
   const [showBubble, setShowBubble] = useState(false);
@@ -310,13 +310,13 @@ const CookieConsent = () => {
             <div className="bg-gray-50 p-4 rounded-b-2xl">
               <p className="text-xs text-gray-500 text-center">
                 Para más información, consulta nuestra{' '}
-                <a href="/politica-privacidad" className="text-blue-500 hover:underline">
+                <Link href="/politica-privacidad" className="text-blue-500 hover:underline">
                   Política de Privacidad
-                </a>{' '}
+                </Link>{' '}
                 y{' '}
-                <a href="/politica-cookies" className="text-blue-500 hover:underline">
+                <Link href="/politica-cookies" className="text-blue-500 hover:underline">
                   Política de Cookies
-                </a>
+                </Link>
               </p>
             </div>
           </div>
