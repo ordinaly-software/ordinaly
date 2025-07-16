@@ -17,9 +17,13 @@ export default function AnalyticsManager() {
 
     // Listen for storage changes (when user changes preferences)
     window.addEventListener('storage', handleConsentChange);
+
+    // Listen for same-tab cookie consent changes
+    window.addEventListener('cookieConsentChange', handleConsentChange);
     
     return () => {
       window.removeEventListener('storage', handleConsentChange);
+      window.removeEventListener('cookieConsentChange', handleConsentChange);
     };
   }, []);
 
