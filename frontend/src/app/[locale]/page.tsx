@@ -1,6 +1,6 @@
 "use client";
 
-import { Bot, Workflow, Zap, Globe, Users, TrendingUp, ChevronUp, Accessibility } from "lucide-react";
+import { Bot, Workflow, Zap, Users, TrendingUp, ChevronUp, Accessibility } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState } from "react";
