@@ -215,7 +215,7 @@ const CookieConsent = () => {
                             {toggle ? (
                               <Slider
                                 checked={enabled}
-                                onChange={() => handlePreferenceChange(key as any)}
+                                onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing')}
                               />
                             ) : (
                               <div className="bg-[#32E875] rounded-full w-6 h-6 flex items-center justify-center">
