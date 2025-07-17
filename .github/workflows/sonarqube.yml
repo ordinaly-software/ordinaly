@@ -57,7 +57,7 @@ jobs:
         coverage run manage.py test || true
         coverage xml
 
-    - name: Run SonarCloud analysis (new version)
+    - name: Run SonarCloud analysis
       uses: SonarSource/sonarqube-scan-action@v5.0.0
       with:
         args: >

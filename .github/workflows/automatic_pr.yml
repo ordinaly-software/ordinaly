@@ -2,8 +2,7 @@ name: Daily Develop to Main Pull Request
 
 on:
   schedule:
-    - cron: '00 08 * * *'  # Everyday at 10:00 Spanish Summer Time (CEST/UTC+2)
-  
+    - cron: '*/30 * * * *'  # Runs every 30 minutes
 permissions:
   contents: write
   pull-requests: write
