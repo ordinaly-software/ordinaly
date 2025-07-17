@@ -2,12 +2,11 @@
 
 import React from "react";
 import styled from "styled-components";
-
 const StyledButtonWrapper = styled.div`
   .button {
     --white: #ffffff;
-    --primary-light: #32e875; /* Matches the color palette */
-    --primary-dark: #2bc765; /* Hover color */
+    --primary-light: #32e875;
+    --primary-dark: #2bc765;
     --radius: 18px;
 
     border-radius: var(--radius);
@@ -21,7 +20,7 @@ const StyledButtonWrapper = styled.div`
     position: relative;
     width: 220px;
     height: 80px;
-    transform: rotate(353deg) skewX(4deg); /* Restored skew and rotation for 3D effect */
+    transform: rotate(353deg) skewX(4deg);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: -7px 6px 0 0 rgba(50, 232, 117, 0.4),
       -14px 12px 0 0 rgba(50, 232, 117, 0.3),
@@ -29,14 +28,14 @@ const StyledButtonWrapper = styled.div`
       -28px 24px 8px 0 rgba(50, 232, 117, 0.15),
       -35px 30px 12px 0 rgba(50, 232, 117, 0.12),
       -42px 36px 16px 0 rgba(50, 232, 117, 0.08),
-      -56px 42px 20px 0 rgba(50, 232, 117, 0.05); /* Added depth */
+      -56px 42px 20px 0 rgba(50, 232, 117, 0.05);
   }
 
   .bg {
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: var(--primary-light); /* Updated to match the palette */
+    background: var(--primary-light);
     filter: blur(5px);
     transition: background 0.3s ease, filter 0.3s ease;
   }
@@ -50,7 +49,7 @@ const StyledButtonWrapper = styled.div`
       to bottom,
       var(--primary-light),
       var(--primary-dark)
-    ); /* Gradient for hover */
+    );
     position: relative;
     transition: transform 0.3s ease;
   }
@@ -64,23 +63,24 @@ const StyledButtonWrapper = styled.div`
     position: relative;
     height: 100%;
     font-weight: 600;
-    color: var(--white); /* Text color */
+    color: var(--white);
     background: var(--primary-light);
     border-radius: calc(var(--radius) * 0.85);
     box-shadow:
       inset -2px 12px 11px -5px rgba(0, 0, 0, 0.1),
       inset 1px -3px 11px 0px rgba(0, 0, 0, 0.35);
     transition: background 0.3s ease, box-shadow 0.3s ease;
+    padding: 0 20px;
   }
 
   .button:hover {
-    transform: translateY(-4px) rotate(353deg) skewX(4deg); /* Hover effect with 3D shape */
-    box-shadow: 0px 8px 15px rgba(50, 232, 117, 0.3); /* Matches palette */
+    transform: translateY(-4px) rotate(353deg) skewX(4deg);
+    box-shadow: 0px 8px 15px rgba(50, 232, 117, 0.3);
   }
 
   .button:hover .bg {
     filter: blur(8px);
-    background: var(--primary-dark); /* Hover color */
+    background: var(--primary-dark);
   }
 
   .button:hover .wrap {
@@ -88,7 +88,7 @@ const StyledButtonWrapper = styled.div`
   }
 
   .button:hover .content {
-    background: var(--primary-dark); /* Hover color */
+    background: var(--primary-dark);
     box-shadow:
       inset -2px 12px 11px -5px rgba(0, 0, 0, 0.2),
       inset 1px -3px 11px 0px rgba(0, 0, 0, 0.4);
@@ -96,7 +96,7 @@ const StyledButtonWrapper = styled.div`
 `;
 
 interface StyledButtonProps {
-  text: string;
+  text: string | React.ReactNode;
   href?: string;
   target?: string;
   rel?: string;
@@ -129,5 +129,4 @@ const StyledButton: React.FC<StyledButtonProps> = ({ text, href, target, rel, on
   // Otherwise, just return the button
   return <StyledButtonWrapper>{buttonContent}</StyledButtonWrapper>;
 };
-
 export default StyledButton;
