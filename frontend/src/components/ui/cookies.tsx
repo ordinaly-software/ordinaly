@@ -89,7 +89,7 @@ const CookieConsent = () => {
   };
 
   const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'marketing') => {
-    if (type === 'necessary') return; // Necessary cookies can't be disabled
+    if (type === 'necessary') return;
     setCookiePreferences(prev => ({
       ...prev,
       [type]: !prev[type]
