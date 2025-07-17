@@ -2,7 +2,7 @@ name: Daily Develop to Main Pull Request
 
 on:
   schedule:
-    - cron: '36 07 * * 4'  # Every Thursday at 09:30 Spanish Summer Time (CEST/UTC+2)
+    - cron: '00 08 * * *'  # Everyday at 10:00 Spanish Summer Time (CEST/UTC+2)
   
 permissions:
   contents: write

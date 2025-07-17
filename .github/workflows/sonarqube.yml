@@ -1,4 +1,4 @@
-name: Sonarqube Coverage
+name: SonarQube Coverage
 
 on:
   push:
@@ -57,10 +57,15 @@ jobs:
         coverage run manage.py test || true
         coverage xml
 
-    - name: Run SonarCloud analysis (scans full repo, uses backend coverage)
-      uses: sonarsource/sonarcloud-github-action@master
+    - name: Run SonarCloud analysis (new version)
+      uses: SonarSource/sonarqube-scan-action@v5.0.0
       with:
-        projectBaseDir: .
+        args: >
+          -Dsonar.projectKey=ordinaly
+          -Dsonar.organization=ordinaly-software
+          -Dsonar.python.coverage.reportPaths=backend/coverage.xml
+          -Dsonar.sources=backend
+          -Dsonar.language=py
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
