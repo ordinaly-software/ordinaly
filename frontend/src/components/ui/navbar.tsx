@@ -84,10 +84,13 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
               size="icon"
               onClick={() => setIsDark(!isDark)}
               className="text-gray-700 dark:text-gray-300"
+              aria-label={isDark ? t("navigation.darkMode") : t("navigation.lightMode")}
             >
               {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
-            <LocaleSwitcher />
+            <LocaleSwitcher 
+              aria-label={t("navigation.localeSwitcher")}
+            />
           </div>
 
           {/* Mobile Menu Button */}
@@ -97,6 +100,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
               size="icon"
               onClick={() => setIsDark(!isDark)}
               className="text-gray-700 dark:text-gray-300"
+              aria-label={isDark? t("navigation.darkMode") : t("navigation.lightMode")}
             >
               {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </Button>
@@ -105,6 +109,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-gray-700 dark:text-gray-300"
+              aria-label={isMenuOpen? t("navigation.closeMenu") : t("navigation.openMenu")}
             >
               {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
@@ -127,7 +132,9 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
               </a>
             ))}
             <div className="pt-2">
-              <LocaleSwitcher />
+              <LocaleSwitcher 
+                aria-label={t("navigation.localeSwitcher")}
+              />
             </div>
           </div>
         </div>

@@ -8,7 +8,12 @@
       "services": "Servicios",
       "about": "Nosotros",
       "contact": "Contacto",
-      "start": "Empieza Ahora"
+      "start": "Empieza Ahora",
+      "darkMode": "Cambiar a modo oscuro",
+      "lightMode": "Cambiar a modo claro", 
+      "localeSwitcher": "Cambiar idioma",
+      "openMenu": "Abrir menú",
+      "closeMenu": "Cerrar menú"
     },
     "hero": {
       "title": "AUTOMATIZA",
@@ -157,5 +162,33 @@
         ]
       }
     }
+  },
+  "cookie": {
+    "title": "Configuración de Cookies",
+    "description": "Utilizamos cookies para mejorar tu experiencia, personalizar el contenido y analizar el tráfico. Puedes elegir qué tipos de cookies aceptar.",
+    "whatAre": "¿Qué son las cookies?",
+    "whatAreDescription": "Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Nos ayudan a recordar tus preferencias y mejorar tu experiencia.",
+    "acceptAll": "Aceptar Todas",
+    "rejectAll": "Rechazar Todas",
+    "customize": "Personalizar Configuración",
+    "personalizeTitle": "Personaliza tus preferencias de cookies",
+    "personalizeDescription": "Puedes activar o desactivar diferentes tipos de cookies según tus preferencias.",
+    "necessary": "Cookies Necesarias",
+    "necessaryDescription": "Estas cookies son esenciales para el funcionamiento del sitio web y no se pueden desactivar.",
+    "necessaryAlways": "Siempre activas",
+    "functional": "Cookies Funcionales",
+    "functionalDescription": "Permiten funcionalidades mejoradas y personalización del sitio.",
+    "functionalExamples": "Recordar preferencias de idioma, configuraciones de usuario",
+    "analytics": "Cookies de Análisis",
+    "analyticsDescription": "Nos ayudan a entender cómo los usuarios interactúan con el sitio web.",
+    "analyticsExamples": "Google Analytics, métricas de rendimiento",
+    "marketing": "Cookies de Marketing",
+    "marketingDescription": "Permiten mostrar anuncios más relevantes basados en tus intereses.",
+    "marketingExamples": "Publicidad personalizada, seguimiento de campañas",
+    "back": "Volver",
+    "save": "Guardar Preferencias",
+    "footer": "Para más información, consulta nuestra ",
+    "privacy": "Política de Privacidad",
+    "cookies": "Política de Cookies"
   }
 }

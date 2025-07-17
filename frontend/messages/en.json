@@ -8,7 +8,12 @@
       "services": "Services",
       "about": "About Us",
       "contact": "Contact",
-      "start": "Get Started"
+      "start": "Get Started",
+      "darkMode": "Switch to dark mode",
+      "lightMode": "Switch to light Mode",
+      "localeSwitcher": "Change language",
+      "openMenu": "Open menu",
+      "closeMenu": "Close menu"
     },
     "hero": {
       "title": "AUTOMATE",
@@ -157,5 +162,33 @@
         ]
       }
     }
+  },
+  "cookie": {
+    "title": "Cookie Settings",
+    "description": "We use cookies to enhance your experience, personalize content, and analyze traffic. You can choose which types of cookies to accept.",
+    "whatAre": "What are cookies?",
+    "whatAreDescription": "Cookies are small text files stored on your device when you visit a website. They help us remember your preferences and improve your experience.",
+    "acceptAll": "Accept All",
+    "rejectAll": "Reject All",
+    "customize": "Customize Settings",
+    "personalizeTitle": "Customize your cookie preferences",
+    "personalizeDescription": "You can enable or disable different types of cookies according to your preferences.",
+    "necessary": "Necessary Cookies",
+    "necessaryDescription": "These cookies are essential for the website to function and cannot be disabled.",
+    "necessaryAlways": "Always enabled",
+    "functional": "Functional Cookies",
+    "functionalDescription": "Enable enhanced functionality and personalization.",
+    "functionalExamples": "Language preferences, user settings",
+    "analytics": "Analytics Cookies",
+    "analyticsDescription": "Help us understand how users interact with the site.",
+    "analyticsExamples": "Google Analytics, performance metrics",
+    "marketing": "Marketing Cookies",
+    "marketingDescription": "Allow us to show you more relevant ads based on your interests.",
+    "marketingExamples": "Personalized advertising, campaign tracking",
+    "back": "Back",
+    "save": "Save Preferences",
+    "footer": "For more information, see our ",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookies Policy"
   }
 }

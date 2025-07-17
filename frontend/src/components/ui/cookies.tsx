@@ -1,16 +1,17 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from 'react';
 import { Cookie, X, Settings, Shield, Target, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
 
-
 const CookieConsent = () => {
+  const t = useTranslations('cookie');
+
   const [showBubble, setShowBubble] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [cookiePreferences, setCookiePreferences] = useState({
     necessary: true,
     functional: true,
@@ -19,16 +20,6 @@ const CookieConsent = () => {
   });
 
   useEffect(() => {
-    // Check for dark mode preference
-    const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDarkMode(darkMode);
-
-    // Listen for system theme changes
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => setIsDarkMode(e.matches);
-    mediaQuery.addEventListener('change', handleChange);
-
-    // Check if user has already made a cookie choice
     let hasConsented = null;
     try {
       hasConsented = localStorage.getItem('cookie-consent');
@@ -38,43 +29,33 @@ const CookieConsent = () => {
     if (!hasConsented) {
       setShowBubble(true);
     }
-
-    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
   const handleAcceptAll = () => {
-    setCookiePreferences({
+    const preferences = {
       necessary: true,
       functional: true,
       analytics: true,
       marketing: true
-    });
+    };
+    setCookiePreferences(preferences);
     localStorage.setItem('cookie-consent', 'accepted');
-    localStorage.setItem('cookie-preferences', JSON.stringify({
-      necessary: true,
-      functional: true,
-      analytics: true,
-      marketing: true
-    }));
+    localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
   };
 
   const handleRejectAll = () => {
-    setCookiePreferences({
+    const preferences = {
       necessary: true,
       functional: false,
       analytics: false,
       marketing: false
-    });
+    };
+    setCookiePreferences(preferences);
     localStorage.setItem('cookie-consent', 'rejected');
-    localStorage.setItem('cookie-preferences', JSON.stringify({
-      necessary: true,
-      functional: false,
-      analytics: false,
-      marketing: false
-    }));
+    localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
@@ -96,10 +77,7 @@ const CookieConsent = () => {
     }));
   };
 
-  const openPopup = () => {
-    setShowPopup(true);
-  };
-
+  const openPopup = () => setShowPopup(true);
   const closePopup = () => {
     setShowPopup(false);
     setShowSettings(false);
@@ -108,10 +86,10 @@ const CookieConsent = () => {
   if (!showBubble && !showPopup) return null;
 
   return (
-    <div className={isDarkMode ? 'dark' : ''}>
+    <>
       {/* Cookie Bubble */}
       {showBubble && !showPopup && (
-        <div className="fixed bottom-16 left-6 z-50">
+        <div className="fixed bottom-20 left-6 z-50">
           <button
             onClick={openPopup}
             className="bg-[#623CEA] hover:bg-purple-700 text-white rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110"
@@ -132,52 +110,45 @@ const CookieConsent = () => {
                   <Cookie className="text-white" size={24} />
                 </div>
                 <h2 className="text-2xl font-bold text-foreground">
-                  Configuración de Cookies
+                  {t('title')}
                 </h2>
               </div>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={closePopup}
-                  className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-accent"
-                >
-                  <X size={20} />
-                </button>
-              </div>
+              <button
+                onClick={closePopup}
+                className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-accent"
+              >
+                <X size={20} />
+              </button>
             </div>
 
             {/* Content */}
             <div className="p-6">
               {!showSettings ? (
                 <>
-                  {/* Main Content */}
                   <div className="mb-6">
                     <p className="text-muted-foreground mb-4">
-                      Utilizamos cookies para mejorar tu experiencia en nuestro sitio web, 
-                      personalizar el contenido y analizar el tráfico. Puedes elegir qué 
-                      tipos de cookies aceptar.
+                      {t('description')}
                     </p>
                     <div className="bg-gradient-to-r from-[#32E875]/10 to-[#46B1C9]/10 p-4 rounded-lg border border-border">
                       <p className="text-sm text-muted-foreground">
-                        <strong className="text-foreground">¿Qué son las cookies?</strong> Las cookies son pequeños archivos 
-                        de texto que se almacenan en tu dispositivo cuando visitas un sitio web. 
-                        Nos ayudan a recordar tus preferencias y mejorar tu experiencia.
+                        <strong className="text-foreground">{t('whatAre')}</strong>{' '}
+                        {t('whatAreDescription')}
                       </p>
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
                   <div className="flex flex-col sm:flex-row gap-3 mb-4">
                     <Button
                       onClick={handleAcceptAll}
-                      className="flex-1 bg-[#623CEA] hover:from-[#32E875]/90 hover:to-[#46B1C9]/90 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg"
+                      className="flex-1 bg-[#623CEA] text-white"
                     >
-                      Aceptar Todas
+                      {t('acceptAll')}
                     </Button>
                     <Button
                       onClick={handleRejectAll}
-                      className="flex-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground font-semibold py-3 px-6 rounded-lg transition-all duration-300 border border-border"
+                      className="flex-1 bg-secondary text-secondary-foreground border border-border"
                     >
-                      Rechazar Todas
+                      {t('rejectAll')}
                     </Button>
                   </div>
 
@@ -187,124 +158,89 @@ const CookieConsent = () => {
                       className="w-full bg-card text-card-foreground font-semibold py-3 px-6 rounded-lg hover:bg-accent transition-all duration-300 flex items-center justify-center space-x-2"
                     >
                       <Settings size={20} />
-                      <span>Personalizar Configuración</span>
+                      <span>{t('customize')}</span>
                     </button>
                   </div>
                 </>
               ) : (
                 <>
-                  {/* Settings Content */}
                   <div className="space-y-6">
                     <div className="mb-6">
                       <h3 className="text-lg font-semibold text-foreground mb-2">
-                        Personaliza tus preferencias de cookies
+                        {t('personalizeTitle')}
                       </h3>
                       <p className="text-muted-foreground text-sm">
-                        Puedes activar o desactivar diferentes tipos de cookies según tus preferencias.
+                        {t('personalizeDescription')}
                       </p>
                     </div>
 
                     {/* Cookie Categories */}
                     <div className="space-y-4">
-                      {/* Necessary Cookies */}
-                      <div className="border border-border rounded-lg p-4 bg-card">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center space-x-3">
-                            <Shield className="text-[#32E875]" size={20} />
-                            <h4 className="font-semibold text-foreground">Cookies Necesarias</h4>
+                      {[
+                        {
+                          key: 'necessary',
+                          icon: <Shield className="text-[#32E875]" size={20} />,
+                          enabled: true,
+                          toggle: false,
+                          note: t('necessaryAlways')
+                        },
+                        {
+                          key: 'functional',
+                          icon: <Settings className="text-[#46B1C9]" size={20} />,
+                          enabled: cookiePreferences.functional,
+                          toggle: true,
+                          note: t('functionalExamples')
+                        },
+                        {
+                          key: 'analytics',
+                          icon: <BarChart3 className="text-[hsl(var(--color-dark-blue))]" size={20} />,
+                          enabled: cookiePreferences.analytics,
+                          toggle: true,
+                          note: t('analyticsExamples')
+                        },
+                        {
+                          key: 'marketing',
+                          icon: <Target className="text-[#E4572E]" size={20} />,
+                          enabled: cookiePreferences.marketing,
+                          toggle: true,
+                          note: t('marketingExamples')
+                        }
+                      ].map(({ key, icon, enabled, toggle, note }) => (
+                        <div key={key} className="border border-border rounded-lg p-4 bg-card">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center space-x-3">
+                              {icon}
+                              <h4 className="font-semibold text-foreground">{t(`${key}`)}</h4>
+                            </div>
+                            {toggle ? (
+                              <Slider
+                                checked={enabled}
+                                onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing')}
+                              />
+                            ) : (
+                              <div className="bg-[#32E875] rounded-full w-6 h-6 flex items-center justify-center">
+                                <div className="w-3 h-3 bg-white rounded-full"></div>
+                              </div>
+                            )}
                           </div>
-                          <div className="bg-[#32E875] rounded-full w-6 h-6 flex items-center justify-center">
-                            <div className="w-3 h-3 bg-white rounded-full"></div>
-                          </div>
+                          <p className="text-sm text-muted-foreground">{t(`${key}Description`)}</p>
+                          <p className="text-xs text-muted-foreground">{note}</p>
                         </div>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          Estas cookies son esenciales para el funcionamiento del sitio web y no se pueden desactivar.
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Siempre activas
-                        </p>
-                      </div>
-
-                      {/* Functional Cookies */}
-                      <div className="border border-border rounded-lg p-4 bg-card">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center space-x-3">
-                            <Settings className="text-[#46B1C9]" size={20} />
-                            <h4 className="font-semibold text-foreground">Cookies Funcionales</h4>
-                          </div>
-                          <div className="h-6 flex items-center shrink-0">
-                            <Slider
-                              checked={cookiePreferences.functional}
-                              onChange={() => handlePreferenceChange('functional')}
-                            />
-                          </div>
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          Permiten funcionalidades mejoradas y personalización del sitio.
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Recordar preferencias de idioma, configuraciones de usuario
-                        </p>
-                      </div>
-
-                      {/* Analytics Cookies */}
-                      <div className="border border-border rounded-lg p-4 bg-card">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center space-x-3">
-                            <BarChart3 className="text-[hsl(var(--color-dark-blue))]" size={20} />
-                            <h4 className="font-semibold text-foreground">Cookies de Análisis</h4>
-                          </div>
-                          <div className="h-6 flex items-center shrink-0">
-                            <Slider
-                              checked={cookiePreferences.analytics}
-                              onChange={() => handlePreferenceChange('analytics')}
-                            />
-                          </div>
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          Nos ayudan a entender cómo los usuarios interactúan con el sitio web.
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Google Analytics, métricas de rendimiento
-                        </p>
-                      </div>
-
-                      {/* Marketing Cookies */}
-                      <div className="border border-border rounded-lg p-4 bg-card">
-                        <div className="flex items-center justify-between mb-2">
-                          <div className="flex items-center space-x-3">
-                            <Target className="text-[#E4572E]" size={20} />
-                            <h4 className="font-semibold text-foreground">Cookies de Marketing</h4>
-                          </div>
-                          <div className="h-6 flex items-center shrink-0">
-                            <Slider
-                              checked={cookiePreferences.marketing}
-                              onChange={() => handlePreferenceChange('marketing')}
-                            />
-                          </div>
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          Permiten mostrar anuncios más relevantes basados en tus intereses.
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          Publicidad personalizada, seguimiento de campañas
-                        </p>
-                      </div>
+                      ))}
                     </div>
 
-                    {/* Settings Action Buttons */}
                     <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
                       <Button
                         onClick={() => setShowSettings(false)}
-                        className="flex-1 bg-secondary hover:bg-secondary/80 text-secondary-foreground font-semibold py-3 px-6 rounded-lg transition-all duration-300 border border-border"
+                        className="flex-1 bg-secondary text-secondary-foreground"
                       >
-                        Volver
+                        {t('back')}
                       </Button>
                       <Button
                         onClick={handleSavePreferences}
-                        className="flex-1 bg-gradient-to-r from-[#32E875] to-[#46B1C9] hover:from-[#32E875]/90 hover:to-[#46B1C9]/90 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg"
+                        className="flex-1 bg-[#623CEA] text-white"
                       >
-                        Guardar Preferencias
+                        {t('save')}
                       </Button>
                     </div>
                   </div>
@@ -312,23 +248,22 @@ const CookieConsent = () => {
               )}
             </div>
 
-            {/* Footer */}
             <div className="bg-muted/30 p-4 rounded-b-2xl border-t border-border">
               <p className="text-xs text-muted-foreground text-center">
-                Para más información, consulta nuestra{' '}
-                <Link href="/politica-privacidad" className="text-[#46B1C9] hover:underline transition-colors">
-                  Política de Privacidad
+                {t('footer')}
+                <Link href="/politica-privacidad" className="text-[#46B1C9] hover:underline">
+                  {t('privacy')}
                 </Link>{' '}
                 y{' '}
-                <Link href="/politica-cookies" className="text-[#46B1C9] hover:underline transition-colors">
-                  Política de Cookies
+                <Link href="/politica-cookies" className="text-[#46B1C9] hover:underline">
+                  {t('cookies')}
                 </Link>
               </p>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 
