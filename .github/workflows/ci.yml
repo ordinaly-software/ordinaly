@@ -2,7 +2,7 @@ name: Weekly Develop to Main Sync
 
 on:
   schedule:
-    - cron: '05 15 * * 3'  # Every Wednesday at 15:00 UTC
+    - cron: '30 07 * * 4'  # Every Thursday at 09:30 Spanish Summer Time (CEST/UTC+2)
 jobs:
   weekly-sync:
     runs-on: ubuntu-latest
