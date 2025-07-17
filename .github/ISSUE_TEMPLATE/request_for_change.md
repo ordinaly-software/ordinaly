@@ -2,7 +2,7 @@
 Name: 📝 Change Request
 About: Request a change on a functionality.
 Title: "[REQUEST FOR CHANGE] "
-Labels: ["bug"]
+Labels: ["change-request"]
 Assignees: []
 ---
 
