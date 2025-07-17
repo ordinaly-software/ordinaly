@@ -64,8 +64,7 @@ jobs:
           -Dsonar.projectKey=ordinaly
           -Dsonar.organization=ordinaly-software
           -Dsonar.python.coverage.reportPaths=backend/coverage.xml
-          -Dsonar.sources=backend
-          -Dsonar.language=py
+          -Dsonar.sources=backend,frontend
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
