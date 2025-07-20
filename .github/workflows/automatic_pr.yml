@@ -68,4 +68,4 @@ jobs:
       
       - name: No changes found
         if: env.DIFF_COUNT == '0'
-        run: echo "No hay cambios entre develop y main. No se creará un PR."
+        run: echo "No changes between develop and main. No PR will be created."
