@@ -32,6 +32,7 @@ jobs:
       DATABASE_PASSWORD: S3cur3P@ssw0rd2024
       DATABASE_HOST: localhost
       DATABASE_PORT: 5432
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
 
     steps:
     - name: Checkout code
