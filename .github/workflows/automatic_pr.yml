@@ -23,7 +23,7 @@ jobs:
           git fetch origin develop main
           DIFF=$(git rev-list --count main..develop)
           echo "DIFF_COUNT=$DIFF" >> $GITHUB_ENV
-          echo "Número de commits diferentes: $DIFF"
+          echo "Number of different commits: $DIFF"
           
       - name: Crear Pull Request
         if: env.DIFF_COUNT != '0'
