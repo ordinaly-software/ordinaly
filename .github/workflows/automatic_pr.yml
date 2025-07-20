@@ -12,7 +12,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Crear Pull Request
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          
+      - name: Check for differences
+        id: check_diff
+        run: |
+          git fetch origin develop main
+          DIFF=$(git rev-list --count main..develop)
+          echo "DIFF_COUNT=$DIFF" >> $GITHUB_ENV
+          echo "Number of different commits: $DIFF"
+          
+      - name: Create Pull Request
+        if: env.DIFF_COUNT != '0'
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.PERSONAL_GITHUB_TOKEN }}
@@ -51,3 +65,7 @@ jobs:
             } else {
               console.log('🔄 Ya existe una pull request abierta de develop a main.');
             }
+      
+      - name: No changes found
+        if: env.DIFF_COUNT == '0'
+        run: echo "No changes between develop and main. No PR will be created."
