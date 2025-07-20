@@ -25,7 +25,7 @@ jobs:
           echo "DIFF_COUNT=$DIFF" >> $GITHUB_ENV
           echo "Number of different commits: $DIFF"
           
-      - name: Crear Pull Request
+      - name: Create Pull Request
         if: env.DIFF_COUNT != '0'
         uses: actions/github-script@v6
         with:
