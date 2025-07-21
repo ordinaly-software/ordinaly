@@ -14,6 +14,7 @@ import { useTranslations } from "next-intl";
 import Image from 'next/image';
 import PricingPlans from "@/components/home/pricing-plans";
 import Navbar from "@/components/ui/navbar";
+import WhatsAppBubble from "@/components/home/whatsapp-bubble";
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -75,6 +76,14 @@ export default function HomePage() {
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleWhatsAppChat = () => {
+    const phoneNumber = "15556296527";
+    const message = encodeURIComponent(t('defaultWhatsAppMessage'));
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
@@ -397,9 +406,7 @@ export default function HomePage() {
                       {t("cta.button")}
                     </div>
                   } 
-                  href="https://wa.me/15556296527?text=Hola%2C+me+gustar%C3%ADa+saber+m%C3%A1s+sobre+los+servicios+de+Ordinaly"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={handleWhatsAppChat}
                 />
               </div>
           </div>
@@ -419,6 +426,8 @@ export default function HomePage() {
           <ChevronUp className="h-5 w-5" />
         </Button>
       )}
+
+      <WhatsAppBubble />
     </div>
   );
 }
