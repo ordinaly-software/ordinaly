@@ -108,7 +108,6 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 1, // Restrict maximum scale to prevent content sizing issues
   minimumScale: 1, // Add minimum scale to maintain consistent sizing
-  userScalable: false, // Disable user scaling to maintain viewport consistency
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#32E875" },
     { media: "(prefers-color-scheme: dark)", color: "#1A1924" },
