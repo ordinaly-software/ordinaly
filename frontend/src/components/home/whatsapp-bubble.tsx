@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 const WhatsAppBubble = () => {
   const t = useTranslations('whatsapp');
 
-  const [showBubble, setShowBubble] = useState(true);
+  const [showBubble] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [hasCookieConsent, setHasCookieConsent] = useState(true);
 
