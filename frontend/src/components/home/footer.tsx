@@ -69,26 +69,32 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
-            <h3 className="text-gray-900 dark:text-white font-semibold mb-4">{t("footer.contact.title")}</h3>
+          <div className="w-full min-w-0">
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-4 text-sm sm:text-base lg:text-lg">
+              {t("footer.contact.title")}
+            </h3>
             <ul className="space-y-2 text-gray-600 dark:text-gray-400">
-              <li>
-                <a 
+              <li className="min-w-0">
+                <a
                   href={`mailto:${t("footer.contact.email")}`}
-                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors 
+                             text-xs sm:text-sm lg:text-base break-all sm:break-words block"
                 >
                   {t("footer.contact.email")}
                 </a>
               </li>
-              <li>
-                <a 
+              <li className="min-w-0">
+                <a
                   href={`tel:${t("footer.contact.phone")}`}
-                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors 
+                             text-xs sm:text-sm lg:text-base break-all sm:break-words block"
                 >
                   {t("footer.contact.phone")}
                 </a>
               </li>
-              <li>{t("footer.contact.location")}</li>
+              <li className="min-w-0 text-xs sm:text-sm lg:text-base break-words">
+                {t("footer.contact.location")}
+              </li>
             </ul>
           </div>
         </div>

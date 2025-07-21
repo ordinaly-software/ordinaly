@@ -44,74 +44,76 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
       isScrolled && "shadow-md"
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-6">
+        <div className="flex justify-between items-center py-4 md:py-6 min-h-[60px]">
           {/* Logo and Title */}
-          <div className="flex items-center">
-            <div className="mr-4 cursor-pointer" onClick={scrollToTop}>
+          <div className="flex items-center flex-shrink-0 min-w-0">
+            <div className="mr-2 sm:mr-4 cursor-pointer flex-shrink-0" onClick={scrollToTop}>
               <Image 
                 src="/logo.webp" 
                 alt={t("logo.alt")} 
                 width={64} 
                 height={64} 
-                className="h-8 w-auto" 
+                className="h-6 sm:h-8 w-auto" 
               />
             </div>
             <div 
-              className="text-2xl font-bold text-[#32E875] cursor-pointer" 
+              className="text-lg sm:text-xl md:text-2xl font-bold text-[#32E875] cursor-pointer truncate" 
               onClick={scrollToTop}
             >
               {t("logo.title")}
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          {/* Desktop Navigation - Hide earlier to prevent overlap */}
+          <div className="hidden xl:flex items-center space-x-6 2xl:space-x-8 flex-shrink-0">
             {navLinks.map((link) => (
               <a 
                 key={link.href}
                 href={link.href} 
-                className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors"
+                className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors whitespace-nowrap text-sm xl:text-base"
               >
                 {link.label}
               </a>
             ))}
           </div>
 
-          {/* Theme Toggle and Language Switcher */}
-          <div className="hidden md:flex items-center space-x-4">
+          {/* Theme Toggle and Language Switcher - Desktop */}
+          <div className="hidden xl:flex items-center space-x-2 2xl:space-x-4 flex-shrink-0">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsDark(!isDark)}
-              className="text-gray-700 dark:text-gray-300"
+              className="text-gray-700 dark:text-gray-300 h-8 w-8 xl:h-10 xl:w-10"
               aria-label={isDark ? t("navigation.darkMode") : t("navigation.lightMode")}
             >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {isDark ? <Sun className="h-4 w-4 xl:h-5 xl:w-5" /> : <Moon className="h-4 w-4 xl:h-5 xl:w-5" />}
             </Button>
-            <LocaleSwitcher 
-              aria-label={t("navigation.localeSwitcher")}
-            />
+            <div className="flex-shrink-0">
+              <LocaleSwitcher 
+                aria-label={t("navigation.localeSwitcher")}
+              />
+            </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center space-x-4">
+          {/* Mobile Menu Button - Show earlier when nav links are hidden */}
+          <div className="flex xl:hidden items-center space-x-1 flex-shrink-0">
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsDark(!isDark)}
-              className="text-gray-700 dark:text-gray-300"
-              aria-label={isDark? t("navigation.darkMode") : t("navigation.lightMode")}
+              className="text-gray-700 dark:text-gray-300 h-8 w-8"
+              aria-label={isDark ? t("navigation.darkMode") : t("navigation.lightMode")}
             >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
             </Button>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-700 dark:text-gray-300"
-              aria-label={isMenuOpen? t("navigation.closeMenu") : t("navigation.openMenu")}
+              className="text-gray-700 dark:text-gray-300 h-8 w-8"
+              aria-label={isMenuOpen ? t("navigation.closeMenu") : t("navigation.openMenu")}
             >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {isMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
             </Button>
           </div>
         </div>
@@ -119,19 +121,19 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-white dark:bg-[#1A1924] border-t border-gray-200 dark:border-gray-800 py-4 px-4 sm:px-6 lg:px-8 animate-in slide-in-from-top duration-300">
+        <div className="xl:hidden bg-white dark:bg-[#1A1924] border-t border-gray-200 dark:border-gray-800 py-4 px-4 sm:px-6 lg:px-8 animate-in slide-in-from-top duration-300">
           <div className="flex flex-col space-y-4">
             {navLinks.map((link) => (
               <a 
                 key={link.href}
                 href={link.href} 
-                className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors py-2"
+                className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors py-2 block"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.label}
               </a>
             ))}
-            <div className="pt-2">
+            <div className="pt-2 border-t border-gray-200 dark:border-gray-800">
               <LocaleSwitcher 
                 aria-label={t("navigation.localeSwitcher")}
               />
