@@ -79,7 +79,7 @@ export default function HomePage() {
   };
 
   const handleWhatsAppChat = () => {
-    const phoneNumber = "15556296527";
+    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
     const message = encodeURIComponent(t('defaultWhatsAppMessage'));
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     

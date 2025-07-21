@@ -26,7 +26,7 @@ const WhatsAppBubble = () => {
   const closeModal = () => setShowModal(false);
 
   const handleWhatsAppChat = () => {
-    const phoneNumber = "15556296527";
+    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
     const message = encodeURIComponent(t('defaultMessage'));
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     
