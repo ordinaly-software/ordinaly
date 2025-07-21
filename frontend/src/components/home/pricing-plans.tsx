@@ -14,10 +14,10 @@ const PlanCard: React.FC<PlanProps> = ({ id, title, imageSrc, features, bubbleCo
   return (
     <div className="scroll-animate fade-in-up text-center">
       <div className="flex items-center justify-center mb-6 gap-6">
-        <div className={`w-20 h-20 ${bubbleColor} rounded-full flex items-center justify-center text-white font-bold text-2xl`}>
+        <div className={`w-16 h-16 sm:w-20 sm:h-20 ${bubbleColor} rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-2xl flex-shrink-0 aspect-square`}>
           {id}
         </div>
-        <div className="relative w-40 h-40">
+        <div className="relative w-40 h-40 hidden md:block">
           <Image src={imageSrc} alt={title} fill className="object-contain" />
         </div>
       </div>

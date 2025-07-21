@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://ordinaly.com/</loc>
+    <loc>https://ordinaly.ai/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2025-06-01</lastmod>
+    <lastmod>2025-08-01</lastmod>
   </url>
   <url>
-    <loc>https://ordinaly.com/android-chrome-192x192.png</loc>
+    <loc>https://ordinaly.ai/android-chrome-192x192.png</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2025-06-01</lastmod>
+    <lastmod>2025-08-01</lastmod>
   </url>
   <url>
-    <loc>https://ordinaly.com/android-chrome-512x512.png</loc>
+    <loc>https://ordinaly.ai/android-chrome-512x512.png</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-    <lastmod>2025-06-01</lastmod>
+    <lastmod>2025-08-01</lastmod>
   </url>
 </urlset>

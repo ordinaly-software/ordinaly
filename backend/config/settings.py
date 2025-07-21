@@ -25,7 +25,7 @@ if not SECRET_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['136.144.243.11', 'http://ordinaly.duckdns.org', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['136.144.243.11', 'http://ordinaly.duckdns.org', 'localhost', '127.0.0.1', 'ordinaly.duckdns.org']
 
 # Application definition
 
@@ -128,4 +128,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ['https://ordinaly.netlify.app', 'http://localhost:3000']
+CORS_ALLOWED_ORIGINS = ['https://ordinaly.netlify.app', 'http://localhost:3000', 'https://ordinaly.duckdns.org']

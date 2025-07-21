@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://ordinaly.com",
+    url: "https://ordinaly.ai",
     siteName: "Ordinaly",
     title: "Ordinaly Software - Automatización Empresarial con IA",
     description:
@@ -88,7 +88,7 @@ export const metadata: Metadata = {
     ],
   },
   manifest: "/site.webmanifest",
-  metadataBase: new URL("https://ordinaly.com"),
+  metadataBase: new URL("https://ordinaly.ai"),
   alternates: {
     canonical: "/",
     languages: {
@@ -107,11 +107,12 @@ export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  userScalable: true,
+  minimumScale: 1,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#32E875" },
     { media: "(prefers-color-scheme: dark)", color: "#1A1924" },
   ],
+  viewportFit: "cover",
 }
 
 export default async function RootLayout({ children, params } : 
@@ -128,6 +129,13 @@ export default async function RootLayout({ children, params } :
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
+        {/* PWA meta tags */}
+        <meta name="application-name" content="Ordinaly" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Ordinaly" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        
         {/* Additional meta tags for better SEO */}
         <meta name="format-detection" content="telephone=no" />
         <meta name="msapplication-TileColor" content="#32E875" />
@@ -143,8 +151,8 @@ export default async function RootLayout({ children, params } :
               name: "Ordinaly Software",
               description:
                 "Empresa de automatización empresarial con inteligencia artificial especializada en transformación digital de empresas andaluzas",
-              url: "https://ordinaly.com",
-              logo: "https://ordinaly.com/logo.webp",
+              url: "https://ordinaly.ai",
+              logo: "https://ordinaly.ai/logo.webp",
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+34-XXX-XXX-XXX",
@@ -185,6 +193,26 @@ export default async function RootLayout({ children, params } :
                 j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
                 f.parentNode.insertBefore(j, f); 
               })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
+            `,
+          }}
+        />
+        
+        {/* Service Worker Registration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function() {
+                  navigator.serviceWorker.register('/sw.js').then(
+                    function(registration) {
+                      console.log('Service Worker registration successful with scope: ', registration.scope);
+                    },
+                    function(error) {
+                      console.log('Service Worker registration failed: ', error);
+                    }
+                  );
+                });
+              }
             `,
           }}
         />

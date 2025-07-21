@@ -89,12 +89,13 @@ const CookieConsent = () => {
     <>
       {/* Cookie Bubble */}
       {showBubble && !showPopup && (
-        <div className="fixed bottom-20 left-6 z-50">
+        <div className="fixed bottom-20 left-6 z-40">
           <button
             onClick={openPopup}
             className="bg-[#623CEA] hover:bg-purple-700 text-white rounded-full p-3 shadow-lg transition-all duration-300 hover:scale-110"
+            aria-label={t('openCookieSettings')}
           >
-            <Cookie size={20} />
+            <Cookie size={20} aria-hidden="true" />
           </button>
         </div>
       )}

@@ -161,10 +161,12 @@
           "Web Tools for Quick Quotes"
         ]
       }
-    }
+    },
+    "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   },
   "cookie": {
     "title": "Cookie Settings",
+    "openCookieSettings": "Open Cookie Settings",
     "description": "We use cookies to enhance your experience, personalize content, and analyze traffic. You can choose which types of cookies to accept.",
     "whatAre": "What are cookies?",
     "whatAreDescription": "Cookies are small text files stored on your device when you visit a website. They help us remember your preferences and improve your experience.",
@@ -190,5 +192,22 @@
     "footer": "For more information, see our ",
     "privacy": "Privacy Policy",
     "cookies": "Cookies Policy"
+  },
+  "whatsapp": {
+    "openChat": "Open WhatsApp chat",
+    "tooltip": "Need help?",
+    "title": "Chat with Us",
+    "subtitle": "Virtual Assistant",
+    "description": "Hi! I'm your virtual assistant...",
+    "canHelpWith": "How can I help you?",
+    "help1": "Service information",
+    "help2": "Price consultation", 
+    "help3": "Availability and schedules",
+    "help4": "Technical support",
+    "help5": "Custom quotes",
+    "startChat": "Start Chat",
+    "responseTime": "Response time: less than 5 minutes",
+    "status": "Available now",
+    "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   }
 }
