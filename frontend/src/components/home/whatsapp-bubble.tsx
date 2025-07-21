@@ -13,21 +13,31 @@ const WhatsAppBubble = () => {
 
   // Check if cookie consent exists to adjust bubble position
   useEffect(() => {
-    let hasConsented = null;
-    try {
-      hasConsented = localStorage.getItem('cookie-consent');
-    } catch (error) {
-      console.error('Error accessing localStorage:', error);
-    }
-    setHasCookieConsent(!!hasConsented);
+    const checkConsent = () => {
+      let hasConsented = null;
+      try {
+        hasConsented = localStorage.getItem('cookie-consent');
+      } catch (error) {
+        console.error('Error accessing localStorage:', error);
+      }
+      setHasCookieConsent(!!hasConsented);
+    };
+  
+    checkConsent();
+    window.addEventListener('storage', checkConsent);
+
+    return () => {
+      window.removeEventListener('storage', checkConsent);
+    };
   }, []);
+
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
   const handleWhatsAppChat = () => {
     const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
-    const message = encodeURIComponent(t('defaultMessage'));
+    const message = encodeURIComponent(t('defaultWhatsAppMessage'));
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
     
     window.open(whatsappUrl, '_blank');

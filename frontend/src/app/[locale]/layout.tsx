@@ -106,13 +106,13 @@ export const metadata: Metadata = {
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1, // Restrict maximum scale to prevent content sizing issues
-  minimumScale: 1, // Add minimum scale to maintain consistent sizing
+  maximumScale: 5,
+  minimumScale: 1,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#32E875" },
     { media: "(prefers-color-scheme: dark)", color: "#1A1924" },
   ],
-  viewportFit: "cover", // Ensure content fits viewport properly
+  viewportFit: "cover",
 }
 
 export default async function RootLayout({ children, params } : 
