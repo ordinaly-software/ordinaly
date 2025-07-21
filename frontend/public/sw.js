@@ -80,7 +80,6 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
-// 2. Register the service worker in your main app file (index.js or App.js)
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
