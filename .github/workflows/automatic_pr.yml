@@ -17,11 +17,14 @@ jobs:
         with:
           fetch-depth: 0
           
+      - name: Configurar Git
+        run: |
+          git fetch origin develop:develop main:main
+          
       - name: Check for differences
         id: check_diff
         run: |
-          git fetch origin develop main
-          DIFF=$(git rev-list --count main..develop)
+          DIFF=$(git rev-list --count main..develop || echo "0")
           echo "DIFF_COUNT=$DIFF" >> $GITHUB_ENV
           echo "Number of different commits: $DIFF"
           
@@ -45,23 +48,27 @@ jobs:
             });
 
             if (existingPRs.length === 0) {
-              const { data: newPR } = await github.rest.pulls.create({
-                owner,
-                repo,
-                title: 'Actualización semanal: develop a main',
-                head: headBranch,
-                base: baseBranch,
-                body: 'Pull request automatizada para sincronizar cambios de develop a main.',
-              });
+              try {
+                const { data: newPR } = await github.rest.pulls.create({
+                  owner,
+                  repo,
+                  title: 'Actualización semanal: develop a main',
+                  head: headBranch,
+                  base: baseBranch,
+                  body: 'Pull request automatizada para sincronizar cambios de develop a main.',
+                });
 
-              await github.rest.issues.addLabels({
-                owner,
-                repo,
-                issue_number: newPR.number,
-                labels: ['automated-pr'],
-              });
+                await github.rest.issues.addLabels({
+                  owner,
+                  repo,
+                  issue_number: newPR.number,
+                  labels: ['automated-pr'],
+                });
 
-              console.log(`✅ Pull request creada: ${newPR.html_url}`);
+                console.log(`✅ PR correctly created: ${newPR.html_url}`);
+              } catch (error) {
+                console.log(`❌ Error creating PR: ${error.message}`);
+              }
             } else {
               console.log('🔄 Ya existe una pull request abierta de develop a main.');
             }
