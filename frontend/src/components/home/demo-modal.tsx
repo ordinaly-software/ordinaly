@@ -93,7 +93,7 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
 
           {/* Video Info */}
           <div className="p-6 bg-gradient-to-b from-transparent to-white/5 dark:to-black/20">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-[#32E875] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-[#29BF12] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
               {t("demoModal.title")}
             </h3>
             <p className="text-gray-700 dark:text-gray-300 mt-2">

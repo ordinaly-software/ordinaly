@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 0 0% 93.7%;  /* #efefef */
     --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
+    --card: 0 0% 93.7%;  /* #efefef */
     --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
+    --popover: 0 0% 93.7%;  /* #efefef */
     --popover-foreground: 0 0% 3.9%;
     --primary: 0 0% 9%;
     --primary-foreground: 0 0% 98%;
@@ -31,7 +31,7 @@
     --chart-5: 27 87% 67%;
 
     /* Custom Colors */
-    --color-green-accent: 32E875;
+    --color-green-accent: 29BF12;
     --color-blue-accent: 46B1C9;
     --color-orange-accent: E4572E;
     --color-dark-blue: 623CEA;
