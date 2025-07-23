@@ -2,7 +2,8 @@ name: Daily Develop to Main Pull Request
 
 on:
   schedule:
-    - cron: '0 7 * * *'  # Runs daily at 7:00 AM UTC
+    # - cron: '0 7 * * *'  # Runs daily at 7:00 AM UTC
+    - cron: '*/10 * * * *'  # Runs every 10 minutes
 permissions:
   contents: write
   pull-requests: write
@@ -19,7 +20,8 @@ jobs:
           
       - name: Configurar Git
         run: |
-          git fetch origin develop:develop main:main
+          git fetch origin develop:refs/remotes/origin/develop
+          git fetch origin main:refs/remotes/origin/main
           
       - name: Check for differences
         id: check_diff
