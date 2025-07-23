@@ -4,6 +4,7 @@ from .models import Terms
 
 class TermsSerializer(serializers.ModelSerializer):
     tag_display = serializers.CharField(source='get_tag_display', read_only=True)
+    name = serializers.CharField(required=False)
     content = serializers.FileField(required=True)
     pdf_content = serializers.FileField(required=True)
     version = serializers.CharField(required=True)
