@@ -24,3 +24,5 @@ venv/*
 
 # Flake8 linting configuration file
 .flake8
+
+db.sqlite3

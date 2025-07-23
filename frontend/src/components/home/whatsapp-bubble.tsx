@@ -50,7 +50,7 @@ const WhatsAppBubble = () => {
     <>
       {/* WhatsApp Bubble */}
       <div 
-        className={`fixed ${hasCookieConsent ? 'bottom-20' : 'bottom-36'} left-6 z-40 transition-all duration-300`}
+        className={`fixed ${hasCookieConsent ? 'bottom-24' : 'bottom-36'} left-6 z-40 transition-all duration-300`}
       >
         <div className="relative">
           {/* Pulse animation */}

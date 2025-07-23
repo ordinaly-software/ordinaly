@@ -43,7 +43,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
       "border-b border-gray-300 dark:border-gray-800 bg-[#FFFFFF] dark:bg-[#1A1924]/80 backdrop-blur-md sticky top-0 z-50 transition-all duration-300",
       isScrolled && "shadow-md"
     )}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-4">
         <div className="flex justify-between items-center py-4 md:py-6 min-h-[60px]">
           {/* Logo and Title */}
           <div className="flex items-center flex-shrink-0 min-w-0">
