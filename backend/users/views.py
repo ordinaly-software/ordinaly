@@ -39,6 +39,11 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['put'], permission_classes=[IsAuthenticated])
     def update_user(self, request, pk=None):
         user = self.get_object()
+        if request.user != user and not request.user.is_staff and not request.user.is_superuser:
+            return Response(
+                {'detail': 'You do not have permission to perform this action.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
         if 'password' in request.data:
             old_password = request.data.get('oldPassword')
             if not user.check_password(old_password):
@@ -51,6 +56,11 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['delete'], permission_classes=[IsAuthenticated])
     def delete_user(self, request, pk=None):
         user = self.get_object()
+        if request.user != user and not request.user.is_staff and not request.user.is_superuser:
+            return Response(
+                {'detail': 'You do not have permission to perform this action.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
         self.perform_destroy(user)
         return Response(status=status.HTTP_204_NO_CONTENT)
 

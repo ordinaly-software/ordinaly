@@ -48,7 +48,7 @@ const PricingPlans: React.FC = () => {
         t('1.features.0'),
         t('1.features.1'),
       ],
-      bubbleColor: "bg-[#32E875]",
+      bubbleColor: "bg-[#29BF12]",
     },
     {
       id: 2,

@@ -83,7 +83,7 @@ export const metadata: Metadata = {
       {
         rel: "mask-icon",
         url: "/safari-pinned-tab.svg",
-        color: "#32E875",
+        color: "#29BF12",
       },
     ],
   },
@@ -109,7 +109,7 @@ export const viewport = {
   maximumScale: 5,
   minimumScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#32E875" },
+    { media: "(prefers-color-scheme: light)", color: "#29BF12" },
     { media: "(prefers-color-scheme: dark)", color: "#1A1924" },
   ],
   viewportFit: "cover",
@@ -138,7 +138,7 @@ export default async function RootLayout({ children, params } :
         
         {/* Additional meta tags for better SEO */}
         <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-TileColor" content="#32E875" />
+        <meta name="msapplication-TileColor" content="#29BF12" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Structured Data for SEO */}
@@ -225,7 +225,7 @@ export default async function RootLayout({ children, params } :
           {/* Skip to main content for accessibility */}
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#32E875] text-black px-4 py-2 rounded-md z-50"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#29BF12] text-black px-4 py-2 rounded-md z-50"
           >
             Saltar / Skip
           </a>

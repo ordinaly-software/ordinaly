@@ -92,11 +92,11 @@ export default function HomePage() {
       <Navbar isDark={isDark} setIsDark={setIsDark} />
 
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#32E875]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#29BF12]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[#32E875] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[#29BF12] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
                 <ColourfulText text={t("hero.title")} />
               </h1>
               <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-800 dark:text-white">{t("hero.subtitle")}</h2>
@@ -147,7 +147,7 @@ export default function HomePage() {
                   height={500}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#32E875]/20 via-transparent to-[#623CEA]/20"></div>
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#29BF12]/20 via-transparent to-[#623CEA]/20"></div>
               </div>
             </div>
           </div>
@@ -161,17 +161,17 @@ export default function HomePage() {
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 scroll-animate fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#32E875]">{t("services.title")}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#29BF12]">{t("services.title")}</h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               {t("services.description")}
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="scroll-animate slide-in-left bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#32E875] transition-all duration-300 hover:shadow-xl hover:shadow-[#32E875]/10">
+            <Card className="scroll-animate slide-in-left bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#29BF12] transition-all duration-300 hover:shadow-xl hover:shadow-[#29BF12]/10">
               <CardHeader>
-                <div className="w-16 h-16 bg-[#32E875]/10 rounded-2xl flex items-center justify-center mb-4">
-                  <Bot className="h-8 w-8 text-[#32E875]" />
+                <div className="w-16 h-16 bg-[#29BF12]/10 rounded-2xl flex items-center justify-center mb-4">
+                  <Bot className="h-8 w-8 text-[#29BF12]" />
                 </div>
                 <CardTitle className="text-xl text-gray-900 dark:text-white">{t("services.chatbots.title")}</CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
@@ -216,10 +216,10 @@ export default function HomePage() {
               </CardHeader>
             </Card>
 
-            <Card className="scroll-animate fade-in-up bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#32E875] transition-all duration-300 hover:shadow-xl hover:shadow-[#32E875]/10">
+            <Card className="scroll-animate fade-in-up bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#29BF12] transition-all duration-300 hover:shadow-xl hover:shadow-[#29BF12]/10">
               <CardHeader>
-                <div className="w-16 h-16 bg-[#32E875]/10 rounded-2xl flex items-center justify-center mb-4">
-                  <Users className="h-8 w-8 text-[#32E875]" />
+                <div className="w-16 h-16 bg-[#29BF12]/10 rounded-2xl flex items-center justify-center mb-4">
+                  <Users className="h-8 w-8 text-[#29BF12]" />
                 </div>
                 <CardTitle className="text-xl text-gray-900 dark:text-white">{t("services.consulting.title")}</CardTitle>
                 <CardDescription className="text-gray-600 dark:text-gray-400">
@@ -245,7 +245,7 @@ export default function HomePage() {
       </section>
 
        {/* Partners Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#32E875] text-black">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#29BF12] text-black">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center justify-items-center">
@@ -286,7 +286,7 @@ export default function HomePage() {
               />
             </div>
             <div className="scroll-animate slide-in-right">
-              <h2 className="text-4xl md:text-5xl font-bold mb-8 text-[#32E875]">
+              <h2 className="text-4xl md:text-5xl font-bold mb-8 text-[#29BF12]">
                 {t("about.title")}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
@@ -310,13 +310,13 @@ export default function HomePage() {
             </p>
           </div>
             <div className="grid grid-cols-2 gap-6">
-            <div className="text-center p-6 bg-[#32E875]/10 rounded-2xl flex flex-col items-center">
+            <div className="text-center p-6 bg-[#29BF12]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/odoo_logo.webp"
               alt="Odoo"
               width={50}
               height={100}
               className="h-14 mb-2 dark:invert" />
-              <div className="text-lg font-semibold text-[#32E875] mb-1">{t("technologies.odoo.title")}</div>
+              <div className="text-lg font-semibold text-[#29BF12] mb-1">{t("technologies.odoo.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.odoo.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#46B1C9]/10 rounded-2xl flex flex-col items-center">
@@ -384,7 +384,7 @@ export default function HomePage() {
       {/* CTA Section */}
       <section
         id="contact"
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#32E875] via-[#46B1C9] to-[#623CEA] text-white"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#29BF12] via-[#46B1C9] to-[#623CEA] text-white"
       >
         <div className="max-w-4xl mx-auto text-center scroll-animate fade-in-up">
           <h2 className="text-4xl md:text-5xl font-bold mb-8">
@@ -414,13 +414,13 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <Footer />
+      <Footer isDark={isDark}/>
 
       {/* Back to Top Button */}
       {showBackToTop && (
         <Button
           onClick={scrollToTop}
-          className="fixed bottom-6 right-8 z-50 w-11 h-11 rounded-full bg-[#32E875] hover:bg-[#2BC765] text-black shadow-lg transition-all duration-300 animate-in slide-in-from-bottom-5"
+          className="fixed bottom-6 right-8 z-50 w-11 h-11 rounded-full bg-[#29BF12] hover:bg-[#2BC765] text-black shadow-lg transition-all duration-300 animate-in slide-in-from-bottom-5"
           size="icon"
         >
           <ChevronUp className="h-5 w-5" />

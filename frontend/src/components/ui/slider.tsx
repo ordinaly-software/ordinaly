@@ -11,7 +11,7 @@ const Slider: React.FC<SliderProps> = ({ checked, onChange, className = '' }) =>
     <button
       onClick={onChange}
       className={`w-12 h-6 rounded-full transition-colors flex items-center px-0.5 ${
-        checked ? 'bg-[#32E875]' : 'bg-muted'
+        checked ? 'bg-[#29BF12]' : 'bg-muted'
       } ${className}`}
     >
       <div
