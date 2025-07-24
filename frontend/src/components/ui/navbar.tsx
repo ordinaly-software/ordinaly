@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
 import Image from 'next/image';
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface NavbarProps {
   isDark: boolean;
@@ -57,7 +58,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
               />
             </div>
             <div 
-              className="text-lg sm:text-xl md:text-2xl font-bold text-[#32E875] cursor-pointer truncate" 
+              className="text-lg sm:text-xl md:text-2xl font-bold text-[#29BF12] cursor-pointer truncate" 
               onClick={scrollToTop}
             >
               {t("logo.title")}
@@ -120,27 +121,37 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="xl:hidden bg-white dark:bg-[#1A1924] border-t border-gray-200 dark:border-gray-800 py-4 px-4 sm:px-6 lg:px-8 animate-in slide-in-from-top duration-300">
-          <div className="flex flex-col space-y-4">
-            {navLinks.map((link) => (
-              <a 
-                key={link.href}
-                href={link.href} 
-                className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors py-2 block"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="pt-2 border-t border-gray-200 dark:border-gray-800">
-              <LocaleSwitcher 
-                aria-label={t("navigation.localeSwitcher")}
-              />
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="xl:hidden bg-white dark:bg-[#1A1924] border-t border-gray-200 dark:border-gray-800 overflow-hidden"
+          >
+            <div className="py-4 px-4 sm:px-6 lg:px-8">
+              <div className="flex flex-col space-y-4">
+                {navLinks.map((link) => (
+                  <a 
+                    key={link.href}
+                    href={link.href} 
+                    className="text-gray-700 dark:text-gray-300 hover:text-[#32E875] transition-colors py-2 block"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {link.label}
+                  </a>
+                ))}
+                <div className="pt-2 border-t border-gray-200 dark:border-gray-800">
+                  <LocaleSwitcher 
+                    aria-label={t("navigation.localeSwitcher")}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
