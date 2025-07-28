@@ -44,7 +44,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username', 'company']
 
     region = models.CharField(max_length=50, null=True, blank=True, default=None)
     city = models.CharField(max_length=50, null=True, blank=True, default=None)
