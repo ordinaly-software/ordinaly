@@ -14,7 +14,6 @@ import os
 from dotenv import load_dotenv
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 
@@ -28,7 +27,6 @@ DEBUG = os.environ.get('DEBUG') == 'True'
 ALLOWED_HOSTS = ['136.144.243.11', 'http://ordinaly.duckdns.org', 'localhost', '127.0.0.1', 'ordinaly.duckdns.org']
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
