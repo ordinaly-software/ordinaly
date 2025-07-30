@@ -13,7 +13,12 @@
       "lightMode": "Switch to light Mode",
       "localeSwitcher": "Change language",
       "openMenu": "Open menu",
-      "closeMenu": "Close menu"
+      "closeMenu": "Close menu",
+      "signIn": "Sign In",
+      "signUp": "Sign Up!",
+      "signOut": "Sign Out",
+      "userMenu": "User menu",
+      "adminDashboard": "Admin Dashboard"
     },
     "hero": {
       "title": "AUTOMATE",
@@ -164,6 +169,12 @@
     },
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   },
+  "logoutModal": {
+    "title": "Confirm Sign Out",
+    "message": "Are you sure you want to sign out of your account?",
+    "confirmButton": "Sign Out",
+    "cancelButton": "Cancel"
+  },
   "cookie": {
     "title": "Cookie Settings",
     "openCookieSettings": "Open Cookie Settings",
@@ -209,5 +220,249 @@
     "responseTime": "Response time: less than 5 minutes",
     "status": "Available now",
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
+  },
+  "signin": {
+    "title": "Sign in to your Ordinaly account",
+    "subtitle": "Welcome back!",
+    "form": {
+      "emailLabel": "Email or Username",
+      "emailPlaceholder": "Enter your email or username",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot Password?",
+      "submitButton": "Sign In",
+      "submitButtonLoading": "Signing In...",
+      "signupPrompt": "Don't have an account?",
+      "signupLink": "Sign Up"
+    },
+    "messages": {
+      "success": "Signed in successfully! Redirecting...",
+      "invalidCredentials": "Invalid email/username or password",
+      "networkError": "Network error. Please check your connection and try again.",
+      "fillAllFields": "Please fill in all fields"
+    }
+  },
+  "signup": {
+    "title": "Create Your Account",
+    "subtitle": "Fill out the form to sign up",
+    "form": {
+      "title": "Sign Up Form",
+      "nameLabel": "First Name",
+      "namePlaceholder": "Enter your first name",
+      "surnameLabel": "Last Name",
+      "surnamePlaceholder": "Enter your last name",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "Choose a username",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "companyLabel": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "regionLabel": "Region",
+      "regionPlaceholder": "Enter your region (optional)",
+      "cityLabel": "City", 
+      "cityPlaceholder": "Enter your city (optional)",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "submitButton": "Sign Up",
+      "loginPrompt": "Already have an account?",
+      "loginLink": "Sign In"
+    },
+    "messages": {
+      "success": "Account created successfully! Redirecting...",
+      "networkError": "Network error. Please check your connection and try again.",
+      "validation": {
+        "nameRequired": "Name is required",
+        "surnameRequired": "Surname is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email",
+        "companyRequired": "Company is required",
+        "passwordRequired": "Password is required",
+        "passwordTooShort": "Password must be at least 8 characters",
+        "passwordMismatch": "Passwords do not match"
+      }
+    }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "subtitle": "Manage your application content and settings",
+    "loading": "Loading admin panel...",
+    "accessDenied": "Access Denied",
+    "noPermission": "You don't have permission to access this page.",
+    "tabs": {
+      "overview": "Overview",
+      "services": "Services",
+      "courses": "Courses",
+      "terms": "Terms"
+    },
+    "stats": {
+      "totalServices": "Total Services",
+      "totalCourses": "Total Courses",
+      "totalTerms": "Total Terms",
+      "totalUsers": "Total Users"
+    },
+    "services": {
+      "title": "Services Management",
+      "searchPlaceholder": "Search services...",
+      "addService": "Add Service",
+      "editService": "Edit Service",
+      "createService": "Create New Service",
+      "deleteSelected": "Delete Selected",
+      "selectAll": "Select All",
+      "noServices": "No services available.",
+      "noServicesFound": "No services found matching your search.",
+      "form": {
+        "title": "Title",
+        "titlePlaceholder": "Service title",
+        "subtitle": "Subtitle",
+        "subtitlePlaceholder": "Service subtitle (optional)",
+        "description": "Description",
+        "descriptionPlaceholder": "Service description",
+        "icon": "Icon",
+        "iconPlaceholder": "Icon name (e.g., robot, chart)",
+        "duration": "Duration",
+        "durationPlaceholder": "e.g., 2 hours",
+        "price": "Price (€)",
+        "pricePlaceholder": "0.00",
+        "featured": "Featured Service",
+        "cancel": "Cancel",
+        "create": "Create Service",
+        "update": "Update Service"
+      },
+      "messages": {
+        "createSuccess": "Service created successfully",
+        "updateSuccess": "Service updated successfully",
+        "deleteSuccess": "Service deleted successfully",
+        "bulkDeleteSuccess": "services deleted successfully",
+        "fetchError": "Failed to fetch services",
+        "createError": "Failed to create service",
+        "updateError": "Failed to update service",
+        "deleteError": "Failed to delete service",
+        "networkError": "Network error while processing request",
+        "selectToDelete": "Please select services to delete"
+      },
+      "confirmDelete": {
+        "title": "Confirm Deletion",
+        "single": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+        "multiple": "Are you sure you want to delete {count} selected services? This action cannot be undone.",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      }
+    },
+    "courses": {
+      "title": "Courses Management",
+      "searchPlaceholder": "Search courses...",
+      "addCourse": "Add Course",
+      "editCourse": "Edit Course",
+      "createCourse": "Create New Course",
+      "deleteSelected": "Delete Selected",
+      "selectAll": "Select All",
+      "noCourses": "No courses available.",
+      "noCoursesFound": "No courses found matching your search.",
+      "form": {
+        "title": "Title",
+        "titlePlaceholder": "Course title",
+        "subtitle": "Subtitle",
+        "subtitlePlaceholder": "Course subtitle (optional)",
+        "description": "Description",
+        "descriptionPlaceholder": "Course description",
+        "image": "Course Image",
+        "chooseImage": "Choose Image",
+        "price": "Price (€)",
+        "pricePlaceholder": "0.00",
+        "location": "Location",
+        "locationPlaceholder": "Course location",
+        "date": "Date",
+        "datePlaceholder": "e.g., March 15-17, 2024",
+        "maxAttendants": "Max Attendants",
+        "maxAttendantsPlaceholder": "10",
+        "cancel": "Cancel",
+        "create": "Create Course",
+        "update": "Update Course"
+      },
+      "messages": {
+        "createSuccess": "Course created successfully",
+        "updateSuccess": "Course updated successfully",
+        "deleteSuccess": "Course deleted successfully",
+        "bulkDeleteSuccess": "courses deleted successfully",
+        "fetchError": "Failed to fetch courses",
+        "createError": "Failed to create course",
+        "updateError": "Failed to update course",
+        "deleteError": "Failed to delete course",
+        "networkError": "Network error while processing request",
+        "selectToDelete": "Please select courses to delete",
+        "fileSizeLimit": "File size must be less than 5MB",
+        "imageFileOnly": "Please select an image file"
+      },
+      "confirmDelete": {
+        "title": "Confirm Deletion",
+        "single": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+        "multiple": "Are you sure you want to delete {count} selected courses? This action cannot be undone.",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      },
+      "details": {
+        "price": "Price",
+        "location": "Location",
+        "date": "Date",
+        "maxAttendants": "Max Attendants",
+        "created": "Created"
+      }
+    },
+    "terms": {
+      "title": "Terms Management",
+      "searchPlaceholder": "Search terms...",
+      "addTerm": "Add Term",
+      "editTerm": "Edit Term",
+      "createTerm": "Create New Term",
+      "deleteSelected": "Delete Selected",
+      "selectAll": "Select All",
+      "noTerms": "No terms available.",
+      "noTermsFound": "No terms found matching your search.",
+      "pdfAvailable": "PDF Available",
+      "downloadPdf": "Download PDF",
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "Term name",
+        "content": "Content (Markdown)",
+        "contentPlaceholder": "Term content in markdown format",
+        "version": "Version",
+        "versionPlaceholder": "e.g. 1.0",
+        "tag": "Tag",
+        "tagPlaceholder": "e.g. privacy, terms, cookies",
+        "pdfVersion": "PDF Version (Optional)",
+        "choosePdf": "Choose PDF",
+        "cancel": "Cancel",
+        "create": "Create Term",
+        "update": "Update Term"
+      },
+      "messages": {
+        "createSuccess": "Term created successfully",
+        "updateSuccess": "Term updated successfully",
+        "deleteSuccess": "Term deleted successfully",
+        "bulkDeleteSuccess": "terms deleted successfully",
+        "fetchError": "Failed to fetch terms",
+        "createError": "Failed to create term",
+        "updateError": "Failed to update term",
+        "deleteError": "Failed to delete term",
+        "downloadError": "Failed to download PDF",
+        "networkError": "Network error while processing request",
+        "selectToDelete": "Please select terms to delete",
+        "fileSizeLimit": "File size must be less than 10MB",
+        "pdfFileOnly": "Please select a PDF file"
+      },
+      "confirmDelete": {
+        "title": "Confirm Deletion",
+        "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+        "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      },
+      "details": {
+        "created": "Created",
+        "updated": "Updated"
+      }
+    }
   }
 }

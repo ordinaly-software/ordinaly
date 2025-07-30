@@ -5,13 +5,17 @@ from rest_framework import serializers
 class CustomUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ('id', 'username', 'email', 'password', 'name', 'surname', 'region', 'city', 'company', 'is_staff')
+        fields = (
+            'id', 'username', 'email', 'password', 'name', 'surname',
+            'region', 'city', 'company', 'is_staff', 'is_superuser'
+        )
         extra_kwargs = {
             'password': {'write_only': True},
             'region': {'required': False, 'allow_null': True},
             'city': {'required': False, 'allow_null': True},
             'company': {'required': True, 'allow_null': False},
-            'is_staff': {'read_only': True}  # Make is_staff read-only for security
+            'is_staff': {'read_only': True},
+            'is_superuser': {'read_only': True}
         }
 
     def create(self, validated_data):

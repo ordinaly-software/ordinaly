@@ -1,0 +1,457 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Navbar from "@/components/ui/navbar";
+import Footer from "@/components/home/footer";
+import Alert from "@/components/ui/alert";
+import { User, Mail, Lock, Building2, Eye, EyeOff } from "lucide-react";
+import StyledButton from "@/components/ui/styled-button";
+import Image from "next/image";
+
+export default function SignupPage() {
+  const t = useTranslations("signup");
+  const [isDark, setIsDark] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
+  const [company, setCompany] = useState("");
+  const [region, setRegion] = useState("");
+  const [city, setCity] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [successMessage, setSuccessMessage] = useState("");
+  const [showImage, setShowImage] = useState(true);
+  const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
+
+  useEffect(() => {
+    // Check if user is already authenticated
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      // Redirect to home if already authenticated
+      window.location.href = '/';
+      return;
+    }
+
+    const handleResize = () => {
+      // Check if window width is large enough for both columns
+      if (window.innerWidth >= 1025 ) {
+        setShowImage(true);
+      } else {
+        setShowImage(false);
+      }
+    };
+
+  handleResize(); // Check on mount
+  window.addEventListener("resize", handleResize);
+
+  return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const savedTheme = localStorage.getItem("theme");
+
+    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+      setIsDark(true);
+      document.documentElement.classList.add("dark");
+    } else {
+      setIsDark(false);
+      document.documentElement.classList.remove("dark");
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
+
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("animate-in");
+        }
+      });
+    }, observerOptions);
+
+    const animateElements = document.querySelectorAll(".scroll-animate");
+    animateElements.forEach((el) => observer.observe(el));
+
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 1000);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const validateForm = () => {
+    const newErrors: {[key: string]: string} = {};
+
+    if (!name.trim()) newErrors.name = t("messages.validation.nameRequired");
+    if (!surname.trim()) newErrors.surname = t("messages.validation.surnameRequired");
+    if (!email.trim()) newErrors.email = t("messages.validation.emailRequired");
+    if (!email.includes("@")) newErrors.email = t("messages.validation.emailInvalid");
+    if (!company.trim()) newErrors.company = t("messages.validation.companyRequired");
+    if (!password) newErrors.password = t("messages.validation.passwordRequired");
+    if (password.length < 8) newErrors.password = t("messages.validation.passwordTooShort");
+    if (password !== confirmPassword) newErrors.confirmPassword = t("messages.validation.passwordMismatch");
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    setErrors({});
+    setSuccessMessage("");
+    setAlert(null);
+
+    try {
+      // Generate username from email prefix
+      const username = email.split('@')[0];
+      
+      const signupData = {
+        name: name.trim(),
+        surname: surname.trim(),
+        username: username.trim(),
+        email: email.trim(),
+        company: company.trim(),
+        region: region.trim() || null,
+        city: city.trim() || null,
+        password: password,
+      };
+
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/users/signup/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(signupData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // Store token if provided
+        if (data.token) {
+          localStorage.setItem('authToken', data.token);
+        }
+        
+        setAlert({type: 'success', message: t("messages.success")});
+        
+        // Redirect to home after 2 seconds
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
+      } else {
+        // Handle API errors
+        if (data.username) setErrors(prev => ({...prev, username: data.username[0] || data.username}));
+        if (data.email) setErrors(prev => ({...prev, email: data.email[0] || data.email}));
+        if (data.password) setErrors(prev => ({...prev, password: data.password[0] || data.password}));
+        if (data.company) setErrors(prev => ({...prev, company: data.company[0] || data.company}));
+        if (data.non_field_errors) setAlert({type: 'error', message: data.non_field_errors[0]});
+        if (data.detail) setAlert({type: 'error', message: data.detail});
+      }
+    } catch (error) {
+      setAlert({type: 'error', message: t("messages.networkError")});
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleButtonClick = () => {
+    const form = document.querySelector('form');
+    if (form) {
+      form.requestSubmit();
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+      {/* Alert Component */}
+      {alert && (
+        <Alert
+          type={alert.type}
+          message={alert.message}
+          onClose={() => setAlert(null)}
+          duration={alert.type === 'success' ? 3000 : 5000}
+        />
+      )}
+      
+      {/* Navigation */}
+      <Navbar isDark={isDark} setIsDark={setIsDark} />
+
+      {/* Signup Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#29BF12]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Left side: Title + Illustration (hidden on mobile) */}
+            <div className="scroll-animate slide-in-left">
+              <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#29BF12] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+                {t("title")}
+              </h1>
+              <p className="text-xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed">
+                {t("subtitle")}
+              </p>
+              <div
+                className={`relative overflow-hidden rounded-2xl shadow-2xl ${
+                  showImage ? "block" : "hidden"
+                }`}
+              >
+                <Image
+                  src="/static/signup_illustration.webp"
+                  alt="Signup Illustration"
+                  width={600}
+                  height={300}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-tr from-[#29BF12]/20 via-transparent to-[#623CEA]/20"></div>
+              </div>
+            </div>
+
+            {/* Right side: Signup Card */}
+            <div className="scroll-animate slide-in-right">
+              <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#29BF12] transition-all duration-300 hover:shadow-xl hover:shadow-[#29BF12]/10">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-bold text-[#29BF12] text-center">
+                    {t("form.title")}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Name and Surname Fields - Same Row */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name" className="text-gray-800 dark:text-gray-200">
+                          {t("form.nameLabel")}
+                        </Label>
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          <Input
+                            id="name"
+                            type="text"
+                            value={name}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                            placeholder={t("form.namePlaceholder")}
+                            required
+                          />
+                        </div>
+                        {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="surname" className="text-gray-800 dark:text-gray-200">
+                          {t("form.surnameLabel")}
+                        </Label>
+                        <div className="relative">
+                          <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          <Input
+                            id="surname"
+                            type="text"
+                            value={surname}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSurname(e.target.value)}
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                            placeholder={t("form.surnamePlaceholder")}
+                            required
+                          />
+                        </div>
+                        {errors.surname && <p className="text-red-500 text-sm">{errors.surname}</p>}
+                      </div>
+                    </div>
+
+                    {/* Email Field */}
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-gray-800 dark:text-gray-200">
+                        {t("form.emailLabel")}
+                      </Label>
+                      <div className="relative">
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <Input
+                          id="email"
+                          type="email"
+                          value={email}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                          placeholder={t("form.emailPlaceholder")}
+                          required
+                        />
+                      </div>
+                      {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                    </div>
+
+                    {/* Company Field */}
+                    <div className="space-y-2">
+                      <Label htmlFor="company" className="text-gray-800 dark:text-gray-200">
+                        {t("form.companyLabel")}
+                      </Label>
+                      <div className="relative">
+                        <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <Input
+                          id="company"
+                          type="text"
+                          value={company}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompany(e.target.value)}
+                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                          placeholder={t("form.companyPlaceholder")}
+                          required
+                        />
+                      </div>
+                      {errors.company && <p className="text-red-500 text-sm">{errors.company}</p>}
+                    </div>
+
+                    {/* Region and City Fields - Same Row (Optional) */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="region" className="text-gray-800 dark:text-gray-200">
+                          {t("form.regionLabel")}
+                        </Label>
+                        <div className="relative">
+                          <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          <Input
+                            id="region"
+                            type="text"
+                            value={region}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRegion(e.target.value)}
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                            placeholder={t("form.regionPlaceholder")}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="city" className="text-gray-800 dark:text-gray-200">
+                          {t("form.cityLabel")}
+                        </Label>
+                        <div className="relative">
+                          <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          <Input
+                            id="city"
+                            type="text"
+                            value={city}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                            placeholder={t("form.cityPlaceholder")}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Password Field */}
+                    <div className="space-y-2">
+                      <Label htmlFor="password" className="text-gray-800 dark:text-gray-200">
+                        {t("form.passwordLabel")}
+                      </Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <Input
+                          id="password"
+                          type={showPassword ? "text" : "password"}
+                          value={password}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                          placeholder={t("form.passwordPlaceholder")}
+                          required
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
+                        </button>
+                      </div>
+                      {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                    </div>
+
+                    {/* Confirm Password Field */}
+                    <div className="space-y-2">
+                      <Label htmlFor="confirmPassword" className="text-gray-800 dark:text-gray-200">
+                        {t("form.confirmPasswordLabel")}
+                      </Label>
+                      <div className="relative">
+                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <Input
+                          id="confirmPassword"
+                          type={showConfirmPassword ? "text" : "password"}
+                          value={confirmPassword}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
+                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                          placeholder={t("form.confirmPasswordPlaceholder")}
+                          required
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                        >
+                          {showConfirmPassword ? (
+                            <EyeOff className="h-5 w-5" />
+                          ) : (
+                            <Eye className="h-5 w-5" />
+                          )}
+                        </button>
+                      </div>
+                      {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+                    </div>
+
+                    <div className="flex justify-center">
+                      <StyledButton
+                      text={isLoading ? "Creating Account..." : t("form.submitButton")}
+                      onClick={handleButtonClick}
+                      />
+                    </div>
+                  </form>
+
+                  <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                    {t("form.loginPrompt")}{" "}
+                    <a href="/users/signin" className="text-[#46B1C9] hover:underline">
+                      {t("form.loginLink")}
+                    </a>
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <Footer isDark={isDark} />
+
+    </div>
+  );
+}

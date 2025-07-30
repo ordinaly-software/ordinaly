@@ -72,18 +72,11 @@ class UserViewSet(viewsets.ModelViewSet):
         email_or_username = request.data.get('emailOrUsername')
         password = request.data.get('password')
 
-        # Try to authenticate with email
-        user = None
-        if '@' in email_or_username:
-            user = authenticate(request, email=email_or_username, password=password)
+        if not email_or_username or not password:
+            return Response({'detail': 'Email/Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # If email authentication failed, try username
-        if not user:
-            try:
-                user_obj = CustomUser.objects.get(username=email_or_username)
-                user = authenticate(request, email=user_obj.email, password=password)
-            except CustomUser.DoesNotExist:
-                pass
+        # Use our custom authentication backend
+        user = authenticate(request, username=email_or_username, password=password)
 
         if user is not None:
             token, created = Token.objects.get_or_create(user=user)
@@ -113,3 +106,10 @@ class UserViewSet(viewsets.ModelViewSet):
             'user_role': 'admin' if is_admin else 'user',
             'is_admin': is_admin
         }, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
+    def profile(self, request):
+        """Get current user's profile information"""
+        user = request.user
+        serializer = self.get_serializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)

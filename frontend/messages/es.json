@@ -13,7 +13,12 @@
       "lightMode": "Cambiar a modo claro", 
       "localeSwitcher": "Cambiar idioma",
       "openMenu": "Abrir menú",
-      "closeMenu": "Cerrar menú"
+      "closeMenu": "Cerrar menú",
+      "signIn": "Iniciar Sesión",
+      "signUp": "¡Únete ya!",
+      "signOut": "Cerrar Sesión",
+      "userMenu": "Menú de usuario",
+      "adminDashboard": "Panel de Administración"
     },
     "hero": {
       "title": "AUTOMATIZA",
@@ -164,6 +169,12 @@
     },
     "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
   },
+  "logoutModal": {
+    "title": "Confirmar Cerrar Sesión",
+    "message": "¿Estás seguro de que quieres cerrar sesión de tu cuenta?",
+    "confirmButton": "Cerrar Sesión",
+    "cancelButton": "Cancelar"
+  },
   "cookie": {
     "title": "Configuración de Cookies",
     "openCookieSettings": "Abrir Configuración de Cookies",
@@ -209,5 +220,249 @@
     "responseTime": "Tiempo de respuesta: menos de 5 minutos",
     "status": "Disponible ahora",
     "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
+  },
+  "signin": {
+    "title": "Inicia sesión en tu Cuenta Ordinaly",
+    "subtitle": "¡Bienvenido de nuevo!",
+    "form": {
+      "emailLabel": "Correo electrónico o nombre de usuario",
+      "emailPlaceholder": "Ingresa tu correo electrónico o nombre de usuario",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "forgotPassword": "¿Olvidaste tu contraseña?",
+      "submitButton": "Iniciar Sesión",
+      "submitButtonLoading": "Iniciando Sesión...",
+      "signupPrompt": "¿No tienes una cuenta?",
+      "signupLink": "Regístrate"
+    },
+    "messages": {
+      "success": "¡Sesión iniciada exitosamente! Redirigiendo...",
+      "invalidCredentials": "Correo electrónico/nombre de usuario o contraseña inválidos",
+      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo.",
+      "fillAllFields": "Por favor completa todos los campos"
+    }
+  },
+  "signup": {
+    "title": "Crea Tu Cuenta",
+    "subtitle": "Rellena el formulario para registrarte",
+    "form": {
+      "title": "Formulario de Registro",
+      "nameLabel": "Nombre",
+      "namePlaceholder": "Ingresa tu nombre",
+      "surnameLabel": "Apellido",
+      "surnamePlaceholder": "Ingresa tu apellido",
+      "usernameLabel": "Nombre de Usuario",
+      "usernamePlaceholder": "Elige un nombre de usuario",
+      "emailLabel": "Correo Electrónico",
+      "emailPlaceholder": "Ingresa tu correo electrónico",
+      "companyLabel": "Empresa",
+      "companyPlaceholder": "Ingresa el nombre de tu empresa",
+      "regionLabel": "Región",
+      "regionPlaceholder": "Ingresa tu región (opcional)",
+      "cityLabel": "Ciudad",
+      "cityPlaceholder": "Ingresa tu ciudad (opcional)",
+      "passwordLabel": "Contraseña",
+      "passwordPlaceholder": "Ingresa tu contraseña",
+      "confirmPasswordLabel": "Confirmar Contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu contraseña",
+      "submitButton": "Registrarse",
+      "loginPrompt": "¿Ya tienes una cuenta?",
+      "loginLink": "Iniciar Sesión"
+    },
+    "messages": {
+      "success": "¡Cuenta creada exitosamente! Redirigiendo...",
+      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo.",
+      "validation": {
+        "nameRequired": "El nombre es requerido",
+        "surnameRequired": "El apellido es requerido",
+        "emailRequired": "El correo electrónico es requerido",
+        "emailInvalid": "Por favor ingresa un correo electrónico válido",
+        "companyRequired": "La empresa es requerida",
+        "passwordRequired": "La contraseña es requerida",
+        "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+        "passwordMismatch": "Las contraseñas no coinciden"
+      }
+    }
+  },
+  "admin": {
+    "title": "Panel de Administración",
+    "subtitle": "Gestiona el contenido y configuración de tu aplicación",
+    "loading": "Cargando panel de administración...",
+    "accessDenied": "Acceso Denegado",
+    "noPermission": "No tienes permisos para acceder a esta página.",
+    "tabs": {
+      "overview": "Resumen",
+      "services": "Servicios",
+      "courses": "Cursos",
+      "terms": "Términos"
+    },
+    "stats": {
+      "totalServices": "Total de Servicios",
+      "totalCourses": "Total de Cursos",
+      "totalTerms": "Total de Términos",
+      "totalUsers": "Total de Usuarios"
+    },
+    "services": {
+      "title": "Gestión de Servicios",
+      "searchPlaceholder": "Buscar servicios...",
+      "addService": "Añadir Servicio",
+      "editService": "Editar Servicio",
+      "createService": "Crear Nuevo Servicio",
+      "deleteSelected": "Eliminar Seleccionados",
+      "selectAll": "Seleccionar Todo",
+      "noServices": "No hay servicios disponibles.",
+      "noServicesFound": "No se encontraron servicios que coincidan con tu búsqueda.",
+      "form": {
+        "title": "Título",
+        "titlePlaceholder": "Título del servicio",
+        "subtitle": "Subtítulo",
+        "subtitlePlaceholder": "Subtítulo del servicio (opcional)",
+        "description": "Descripción",
+        "descriptionPlaceholder": "Descripción del servicio",
+        "icon": "Icono",
+        "iconPlaceholder": "Nombre del icono (ej: robot, chart)",
+        "duration": "Duración",
+        "durationPlaceholder": "ej: 2 horas",
+        "price": "Precio (€)",
+        "pricePlaceholder": "0.00",
+        "featured": "Servicio Destacado",
+        "cancel": "Cancelar",
+        "create": "Crear Servicio",
+        "update": "Actualizar Servicio"
+      },
+      "messages": {
+        "createSuccess": "Servicio creado exitosamente",
+        "updateSuccess": "Servicio actualizado exitosamente",
+        "deleteSuccess": "Servicio eliminado exitosamente",
+        "bulkDeleteSuccess": "servicios eliminados exitosamente",
+        "fetchError": "Error al obtener servicios",
+        "createError": "Error al crear servicio",
+        "updateError": "Error al actualizar servicio",
+        "deleteError": "Error al eliminar servicio",
+        "networkError": "Error de red al procesar la solicitud",
+        "selectToDelete": "Por favor selecciona servicios para eliminar"
+      },
+      "confirmDelete": {
+        "title": "Confirmar Eliminación",
+        "single": "¿Estás seguro de que quieres eliminar \"{title}\"? Esta acción no se puede deshacer.",
+        "multiple": "¿Estás seguro de que quieres eliminar {count} servicios seleccionados? Esta acción no se puede deshacer.",
+        "delete": "Eliminar",
+        "cancel": "Cancelar"
+      }
+    },
+    "courses": {
+      "title": "Gestión de Cursos",
+      "searchPlaceholder": "Buscar cursos...",
+      "addCourse": "Añadir Curso",
+      "editCourse": "Editar Curso",
+      "createCourse": "Crear Nuevo Curso",
+      "deleteSelected": "Eliminar Seleccionados",
+      "selectAll": "Seleccionar Todo",
+      "noCourses": "No hay cursos disponibles.",
+      "noCoursesFound": "No se encontraron cursos que coincidan con tu búsqueda.",
+      "form": {
+        "title": "Título",
+        "titlePlaceholder": "Título del curso",
+        "subtitle": "Subtítulo",
+        "subtitlePlaceholder": "Subtítulo del curso (opcional)",
+        "description": "Descripción",
+        "descriptionPlaceholder": "Descripción del curso",
+        "image": "Imagen del Curso",
+        "chooseImage": "Elegir Imagen",
+        "price": "Precio (€)",
+        "pricePlaceholder": "0.00",
+        "location": "Ubicación",
+        "locationPlaceholder": "Ubicación del curso",
+        "date": "Fecha",
+        "datePlaceholder": "ej: 15-17 de Marzo, 2024",
+        "maxAttendants": "Máximo de Asistentes",
+        "maxAttendantsPlaceholder": "10",
+        "cancel": "Cancelar",
+        "create": "Crear Curso",
+        "update": "Actualizar Curso"
+      },
+      "messages": {
+        "createSuccess": "Curso creado exitosamente",
+        "updateSuccess": "Curso actualizado exitosamente",
+        "deleteSuccess": "Curso eliminado exitosamente",
+        "bulkDeleteSuccess": "cursos eliminados exitosamente",
+        "fetchError": "Error al obtener cursos",
+        "createError": "Error al crear curso",
+        "updateError": "Error al actualizar curso",
+        "deleteError": "Error al eliminar curso",
+        "networkError": "Error de red al procesar la solicitud",
+        "selectToDelete": "Por favor selecciona cursos para eliminar",
+        "fileSizeLimit": "El tamaño del archivo debe ser menor a 5MB",
+        "imageFileOnly": "Por favor selecciona un archivo de imagen"
+      },
+      "confirmDelete": {
+        "title": "Confirmar Eliminación",
+        "single": "¿Estás seguro de que quieres eliminar \"{title}\"? Esta acción no se puede deshacer.",
+        "multiple": "¿Estás seguro de que quieres eliminar {count} cursos seleccionados? Esta acción no se puede deshacer.",
+        "delete": "Eliminar",
+        "cancel": "Cancelar"
+      },
+      "details": {
+        "price": "Precio",
+        "location": "Ubicación",
+        "date": "Fecha",
+        "maxAttendants": "Máximo de Asistentes",
+        "created": "Creado"
+      }
+    },
+    "terms": {
+      "title": "Gestión de Términos",
+      "searchPlaceholder": "Buscar términos...",
+      "addTerm": "Añadir Término",
+      "editTerm": "Editar Término",
+      "createTerm": "Crear Nuevo Término",
+      "deleteSelected": "Eliminar Seleccionados",
+      "selectAll": "Seleccionar Todo",
+      "noTerms": "No hay términos disponibles.",
+      "noTermsFound": "No se encontraron términos que coincidan con tu búsqueda.",
+      "pdfAvailable": "PDF Disponible",
+      "downloadPdf": "Descargar PDF",
+      "form": {
+        "name": "Nombre",
+        "namePlaceholder": "Nombre del término",
+        "content": "Contenido (Markdown)",
+        "contentPlaceholder": "Contenido del término en formato markdown",
+        "version": "Versión",
+        "versionPlaceholder": "ej: 1.0",
+        "tag": "Etiqueta",
+        "tagPlaceholder": "ej: privacidad, términos, cookies",
+        "pdfVersion": "Versión PDF (Opcional)",
+        "choosePdf": "Elegir PDF",
+        "cancel": "Cancelar",
+        "create": "Crear Término",
+        "update": "Actualizar Término"
+      },
+      "messages": {
+        "createSuccess": "Término creado exitosamente",
+        "updateSuccess": "Término actualizado exitosamente",
+        "deleteSuccess": "Término eliminado exitosamente",
+        "bulkDeleteSuccess": "términos eliminados exitosamente",
+        "fetchError": "Error al obtener términos",
+        "createError": "Error al crear término",
+        "updateError": "Error al actualizar término",
+        "deleteError": "Error al eliminar término",
+        "downloadError": "Error al descargar PDF",
+        "networkError": "Error de red al procesar la solicitud",
+        "selectToDelete": "Por favor selecciona términos para eliminar",
+        "fileSizeLimit": "El tamaño del archivo debe ser menor a 10MB",
+        "pdfFileOnly": "Por favor selecciona un archivo PDF"
+      },
+      "confirmDelete": {
+        "title": "Confirmar Eliminación",
+        "single": "¿Estás seguro de que quieres eliminar \"{name}\"? Esta acción no se puede deshacer.",
+        "multiple": "¿Estás seguro de que quieres eliminar {count} términos seleccionados? Esta acción no se puede deshacer.",
+        "delete": "Eliminar",
+        "cancel": "Cancelar"
+      },
+      "details": {
+        "created": "Creado",
+        "updated": "Actualizado"
+      }
+    }
   }
 }

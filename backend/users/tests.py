@@ -4,6 +4,105 @@ from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .models import CustomUser
+from .authentication import EmailOrUsernameModelBackend
+
+
+class EmailOrUsernameAuthBackendTests(TestCase):
+    """Tests for the EmailOrUsernameModelBackend"""
+
+    def setUp(self):
+        self.user_data = {
+            'email': 'test@example.com',
+            'username': 'testuser',
+            'password': 'testpassword123',
+            'name': 'Test',
+            'surname': 'User',
+            'company': 'Test Company'
+        }
+        self.user = CustomUser.objects.create_user(**self.user_data)
+        self.backend = EmailOrUsernameModelBackend()
+
+    def test_authenticate_with_email_success(self):
+        """Test authentication with email"""
+        user = self.backend.authenticate(
+            None, 
+            username='test@example.com', 
+            password='testpassword123'
+        )
+        self.assertEqual(user, self.user)
+
+    def test_authenticate_with_username_success(self):
+        """Test authentication with username"""
+        user = self.backend.authenticate(
+            None, 
+            username='testuser', 
+            password='testpassword123'
+        )
+        self.assertEqual(user, self.user)
+
+    def test_authenticate_with_email_case_insensitive(self):
+        """Test authentication with email is case insensitive"""
+        user = self.backend.authenticate(
+            None, 
+            username='TEST@EXAMPLE.COM', 
+            password='testpassword123'
+        )
+        self.assertEqual(user, self.user)
+
+    def test_authenticate_with_username_case_insensitive(self):
+        """Test authentication with username is case insensitive"""
+        user = self.backend.authenticate(
+            None, 
+            username='TESTUSER', 
+            password='testpassword123'
+        )
+        self.assertEqual(user, self.user)
+
+    def test_authenticate_wrong_password(self):
+        """Test authentication with wrong password"""
+        user = self.backend.authenticate(
+            None, 
+            username='test@example.com', 
+            password='wrongpassword'
+        )
+        self.assertIsNone(user)
+
+    def test_authenticate_nonexistent_user(self):
+        """Test authentication with nonexistent user"""
+        user = self.backend.authenticate(
+            None, 
+            username='nonexistent@example.com', 
+            password='testpassword123'
+        )
+        self.assertIsNone(user)
+
+    def test_authenticate_no_username(self):
+        """Test authentication without username"""
+        user = self.backend.authenticate(
+            None, 
+            username=None, 
+            password='testpassword123'
+        )
+        self.assertIsNone(user)
+
+    def test_authenticate_no_password(self):
+        """Test authentication without password"""
+        user = self.backend.authenticate(
+            None, 
+            username='test@example.com', 
+            password=None
+        )
+        self.assertIsNone(user)
+
+    def test_get_user_success(self):
+        """Test get_user method with valid user ID"""
+        retrieved_user = self.backend.get_user(self.user.id)
+        self.assertEqual(retrieved_user, self.user)
+
+    def test_get_user_nonexistent(self):
+        """Test get_user method with nonexistent user ID"""
+        retrieved_user = self.backend.get_user(99999)
+        self.assertIsNone(retrieved_user)
 
 
 class CustomUserModelTests(TestCase):
