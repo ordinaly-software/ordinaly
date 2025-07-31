@@ -768,8 +768,8 @@
       "description": "Once you delete your account, there is no going back. Please be certain.",
       "button": "Delete Account",
       "confirmTitle": "Confirm Account Deletion",
-      "confirmMessage": "Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.",
-      "confirmPlaceholder": "Type 'DELETE' to confirm",
+      "confirmMessage": "Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed. Type your username below to confirm.",
+      "confirmPlaceholder": "Type your username to confirm",
       "confirmButton": "Delete Account",
       "cancelButton": "Cancel"
     },
@@ -787,7 +787,7 @@
         "emailRequired": "Email is required",
         "emailInvalid": "Please enter a valid email address",
         "companyRequired": "Company is required",
-        "deleteConfirmRequired": "Please type 'DELETE' to confirm"
+        "deleteConfirmRequired": "Please type your username to confirm"
       }
     }
   }

@@ -601,6 +601,7 @@ export default function ProfilePage() {
         onClose={() => setShowDeleteModal(false)}
         onConfirm={handleDeleteAccount}
         isLoading={isDeleting}
+        username={profile?.username || username || ""}
       />
     </div>
   );

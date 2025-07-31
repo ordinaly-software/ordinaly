@@ -768,8 +768,8 @@
       "description": "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate.",
       "button": "Eliminar Cuenta",
       "confirmTitle": "Confirmar Eliminación de Cuenta",
-      "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente.",
-      "confirmPlaceholder": "Escribe 'ELIMINAR' para confirmar",
+      "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente. Escribe tu nombre de usuario abajo para confirmar.",
+      "confirmPlaceholder": "Escribe tu nombre de usuario para confirmar",
       "confirmButton": "Eliminar Cuenta",
       "cancelButton": "Cancelar"
     },
@@ -787,7 +787,7 @@
         "emailRequired": "El correo electrónico es obligatorio",
         "emailInvalid": "Por favor ingresa un correo electrónico válido",
         "companyRequired": "La empresa es obligatoria",
-        "deleteConfirmRequired": "Por favor escribe 'ELIMINAR' para confirmar"
+        "deleteConfirmRequired": "Por favor escribe tu nombre de usuario para confirmar"
       }
     }
   }

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Navbar from "@/components/ui/navbar";
 import Alert from "@/components/ui/alert";
-import { User, Mail, Lock, Building2, Eye, EyeOff } from "lucide-react";
+import { User, Mail, Lock, Building2, Eye, EyeOff, Globe, MapPin } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
 import Image from "next/image";
 
@@ -337,7 +337,7 @@ export default function SignupPage() {
                           {t("form.regionLabel")}
                         </Label>
                         <div className="relative">
-                          <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                           <Input
                             id="region"
                             type="text"
@@ -354,7 +354,7 @@ export default function SignupPage() {
                           {t("form.cityLabel")}
                         </Label>
                         <div className="relative">
-                          <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                          <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                           <Input
                             id="city"
                             type="text"
