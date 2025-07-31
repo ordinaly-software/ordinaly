@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -14,9 +13,11 @@ import StyledButton from "@/components/ui/styled-button";
 
 export default function CompleteProfilePage() {
   const t = useTranslations("completeProfile");
-  const { data: session, status } = useSession();
   const router = useRouter();
   const [isDark, setIsDark] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authToken, setAuthToken] = useState<string | null>(null);
+  const [userData, setUserData] = useState<any>(null);
   const [company, setCompany] = useState("");
   const [region, setRegion] = useState("");
   const [city, setCity] = useState("");
@@ -48,36 +49,49 @@ export default function CompleteProfilePage() {
   }, [isDark]);
 
   useEffect(() => {
-    // Redirect if not authenticated or if user already has complete profile
-    if (status === "loading") return;
-    
-    if (!session) {
+    // Check authentication status
+    const token = localStorage.getItem('authToken');
+    setAuthToken(token);
+    setIsAuthenticated(!!token);
+
+    // Fetch user data if authenticated
+    if (token) {
+      fetchUserData(token);
+    } else {
+      // Redirect to signin if not authenticated
       router.push("/users/signin");
-      return;
     }
+  }, [router]);
 
-    // Check if user profile is already complete (this would be checked against your backend)
-    const checkProfileCompletion = async () => {
-      try {
-        const response = await fetch('/api/user/profile-status', {
-          headers: {
-            'Authorization': `Bearer ${session.accessToken}`
-          }
-        });
+  const fetchUserData = async (token: string) => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/users/profile/`, {
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserData(data);
         
-        if (response.ok) {
-          const data = await response.json();
-          if (data.isComplete) {
-            router.push('/');
-          }
+        // Check if user profile is already complete
+        if (data.company && data.company.trim()) {
+          // Profile already complete, redirect to home
+          router.push('/');
+          return;
         }
-      } catch (error) {
-        console.error('Error checking profile status:', error);
+      } else if (response.status === 401) {
+        // Token is invalid, remove it and redirect
+        localStorage.removeItem('authToken');
+        router.push("/users/signin");
       }
-    };
-
-    checkProfileCompletion();
-  }, [session, status, router]);
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+    }
+  };
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {};
@@ -110,7 +124,7 @@ export default function CompleteProfilePage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session?.accessToken}`
+          'Authorization': `Token ${authToken}`
         },
         body: JSON.stringify(profileData),
       });
@@ -143,7 +157,7 @@ export default function CompleteProfilePage() {
     }
   };
 
-  if (status === "loading") {
+  if (!isAuthenticated || !userData) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] flex items-center justify-center">
         <div className="text-center">
@@ -179,9 +193,13 @@ export default function CompleteProfilePage() {
             <p className="text-xl text-gray-700 dark:text-gray-300 leading-relaxed">
               {t("subtitle")}
             </p>
-            {session?.user && (
+            {userData && (
               <p className="mt-4 text-lg text-gray-600 dark:text-gray-400">
-                {t("welcome", { name: session.user.name || session.user.email || "User" })}
+                {t("welcome", { 
+                  name: userData.first_name 
+                    ? `${userData.first_name} ${userData.last_name || ''}`.trim()
+                    : userData.username || userData.email || "User" 
+                })}
               </p>
             )}
           </div>

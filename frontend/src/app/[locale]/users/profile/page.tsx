@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { useSession, signOut } from "next-auth/react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,8 +29,9 @@ interface UserProfile {
 
 export default function ProfilePage() {
   const t = useTranslations("profile");
-  const { data: session, status } = useSession();
   const [isDark, setIsDark] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [authToken, setAuthToken] = useState<string | null>(null);
   
   // Form states
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -53,16 +53,20 @@ export default function ProfilePage() {
   const [hasChanges, setHasChanges] = useState(false);
 
   useEffect(() => {
+    // Check authentication status
+    const token = localStorage.getItem('authToken');
+    setAuthToken(token);
+    setIsAuthenticated(!!token);
+
     // Redirect if not authenticated
-    if (status === "unauthenticated") {
+    if (!token) {
       window.location.href = "/users/signin";
       return;
     }
 
-    if (status === "authenticated") {
-      fetchProfile();
-    }
-  }, [status]);
+    // Fetch profile data
+    fetchProfile(token);
+  }, []);
 
   useEffect(() => {
     // Theme detection
@@ -107,14 +111,15 @@ export default function ProfilePage() {
     }
   }, [firstName, lastName, username, email, company, region, city, profile]);
 
-  const fetchProfile = async () => {
-    if (!session?.accessToken) return;
+  const fetchProfile = async (token?: string) => {
+    const authTokenToUse = token || authToken;
+    if (!authTokenToUse) return;
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       const response = await fetch(`${apiUrl}/api/users/profile/`, {
         headers: {
-          'Authorization': `Bearer ${session.accessToken}`,
+          'Authorization': `Token ${authTokenToUse}`,
           'Content-Type': 'application/json',
         },
       });
@@ -181,7 +186,7 @@ export default function ProfilePage() {
       const response = await fetch(`${apiUrl}/api/users/update_profile/`, {
         method: 'PATCH',
         headers: {
-          'Authorization': `Bearer ${session?.accessToken}`,
+          'Authorization': `Token ${authToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updateData),
@@ -272,7 +277,7 @@ export default function ProfilePage() {
       const response = await fetch(`${apiUrl}/api/users/delete_profile/`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${session?.accessToken}`,
+          'Authorization': `Token ${authToken}`,
           'Content-Type': 'application/json',
         },
       });
@@ -280,9 +285,28 @@ export default function ProfilePage() {
       if (response.ok || response.status === 204) {
         setAlert({ type: 'success', message: t("messages.deleteSuccess") });
         
-        // Sign out and redirect after 2 seconds
+        // Call signout API and then redirect after 2 seconds
         setTimeout(async () => {
-          await signOut({ callbackUrl: '/', redirect: true });
+          try {
+            // Call signout API if needed (optional since we're deleting the account)
+            if (authToken) {
+              await fetch(`${apiUrl}/api/users/signout/`, {
+                method: 'POST',
+                headers: {
+                  'Authorization': `Token ${authToken}`,
+                  'Content-Type': 'application/json',
+                },
+              }).catch(() => {
+                // Ignore errors, account is being deleted anyway
+              });
+            }
+          } catch (error) {
+            // Ignore errors, account is being deleted anyway
+          }
+
+          // Remove token and redirect to home
+          localStorage.removeItem('authToken');
+          window.location.href = '/';
         }, 2000);
       } else {
         const data = await response.json().catch(() => ({}));
@@ -301,7 +325,7 @@ export default function ProfilePage() {
     }
   };
 
-  if (status === "loading" || isLoading) {
+  if (!isAuthenticated || isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
         <Navbar isDark={isDark} setIsDark={setIsDark} />

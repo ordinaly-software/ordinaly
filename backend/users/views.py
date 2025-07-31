@@ -124,6 +124,23 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    @action(detail=False, methods=['post'], permission_classes=[IsAuthenticated])
+    def complete_profile(self, request):
+        """Complete user's profile information (specifically for required fields like company)"""
+        user = request.user
+
+        # Validate required fields for profile completion
+        required_fields = ['company']
+        for field in required_fields:
+            if not request.data.get(field):
+                return Response({field: f"{field.capitalize()} is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = self.get_serializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
     @action(detail=False, methods=['delete'], permission_classes=[IsAuthenticated])
     def delete_profile(self, request):
         """Delete current user's account"""
