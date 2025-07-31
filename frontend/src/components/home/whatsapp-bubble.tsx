@@ -1,8 +1,9 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { MessageCircle, X, Send, Bot, ExternalLink } from 'lucide-react';
+import { MessageCircle, Send, Bot, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
+import { ModalCloseButton } from "@/components/ui/modal-close-button";
 
 const WhatsAppBubble = () => {
   const t = useTranslations('whatsapp');
@@ -80,12 +81,12 @@ const WhatsAppBubble = () => {
           <div className="bg-card text-card-foreground rounded-2xl shadow-2xl max-w-md w-full border border-border overflow-hidden">
             {/* Header */}
             <div className="bg-[#29BF12] text-white p-6 relative">
-              <button
+              <ModalCloseButton
                 onClick={closeModal}
-                className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors p-1 rounded-lg hover:bg-white/10"
-              >
-                <X size={20} />
-              </button>
+                variant="default"
+                size="md"
+                className="absolute top-4 right-4"
+              />
               
               <div className="flex items-center space-x-3">
                 <div className="bg-white/20 rounded-full p-3">

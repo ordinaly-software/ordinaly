@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Cookie, X, Settings, Shield, Target, BarChart3 } from 'lucide-react';
+import { Cookie, Settings, Shield, Target, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
+import { ModalCloseButton } from "@/components/ui/modal-close-button";
 
 const CookieConsent = () => {
   const t = useTranslations('cookie');
@@ -115,12 +116,11 @@ const CookieConsent = () => {
                   {t('title')}
                 </h2>
               </div>
-              <button
+              <ModalCloseButton
                 onClick={closePopup}
-                className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-accent"
-              >
-                <X size={20} />
-              </button>
+                variant="light"
+                size="md"
+              />
             </div>
 
             {/* Content */}

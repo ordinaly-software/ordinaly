@@ -1,7 +1,7 @@
 {
   "home": {
     "logo": {
-      "alt": "Ordinaly Logo",
+      "alt": "Logo de Ordinaly",
       "title": "ORDINALY"
     },
     "navigation": {
@@ -33,6 +33,21 @@
     "services": {
       "title": "NUESTROS SERVICIOS",
       "description": "Soluciones de automatización diseñadas para impulsar y acelerar tu empresa.",
+      "contactForQuote": "Consulta a nuestros agentes para un presupuesto detallado",
+      "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia.",
+      "vacationTitle": "De Vacaciones",
+      "retryButton": "Reintentar",
+      "featured": "Destacado",
+      "duration": "Listo en ",
+      "durationDay": "1 día",
+      "durationDays": "{count} días",
+      "price": "Precio",
+      "created": "Creado",
+      "createdBy": "Creado por",
+      "requisites": "Requisitos",
+      "contactNow": "Contactar Ahora",
+      "contactEmail": "Contactar por Email",
+      "viewDetails": "Ver Detalles",
       "chatbots": {
         "title": "Chatbots Inteligentes",
         "description": "Automatiza atención al cliente 24/7 con IA conversacional avanzada"
@@ -169,6 +184,11 @@
     },
     "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
   },
+  "common": {
+    "onVacation": "De Vacaciones",
+    "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia.",
+    "learnMore": "Más Información"
+  },
   "logoutModal": {
     "title": "Confirmar Cerrar Sesión",
     "message": "¿Estás seguro de que quieres cerrar sesión de tu cuenta?",
@@ -290,6 +310,16 @@
     "loading": "Cargando panel de administración...",
     "accessDenied": "Acceso Denegado",
     "noPermission": "No tienes permisos para acceder a esta página.",
+    "labels": {
+      "price": "Precio",
+      "duration": "Listo en ",
+      "icon": "Icono",
+      "created": "Creado",
+      "updated": "Actualizado",
+      "location": "Ubicación",
+      "date": "Fecha",
+      "maxAttendants": "Máximo de Asistentes"
+    },
     "tabs": {
       "overview": "Resumen",
       "services": "Servicios",
@@ -320,27 +350,41 @@
         "description": "Descripción",
         "descriptionPlaceholder": "Descripción del servicio",
         "icon": "Icono",
-        "iconPlaceholder": "Nombre del icono (ej: robot, chart)",
+        "iconPlaceholder": "Elige un icono de Lucide React",
         "duration": "Duración",
-        "durationPlaceholder": "ej: 2 horas",
+        "durationPlaceholder": "ej: 2 días",
         "price": "Precio (€)",
-        "pricePlaceholder": "0.00",
+        "pricePlaceholder": "Deja vacío para 'Consultar presupuesto'",
+        "contactForQuote": "Consultar presupuesto",
         "featured": "Servicio Destacado",
         "cancel": "Cancelar",
         "create": "Crear Servicio",
         "update": "Actualizar Servicio"
       },
       "messages": {
-        "createSuccess": "Servicio creado exitosamente",
-        "updateSuccess": "Servicio actualizado exitosamente",
+        "createSuccess": "¡Servicio '{title}' creado exitosamente! Ya está disponible para los clientes.",
+        "updateSuccess": "¡Servicio '{title}' actualizado exitosamente!",
         "deleteSuccess": "Servicio eliminado exitosamente",
         "bulkDeleteSuccess": "servicios eliminados exitosamente",
         "fetchError": "Error al obtener servicios",
         "createError": "Error al crear servicio",
         "updateError": "Error al actualizar servicio",
         "deleteError": "Error al eliminar servicio",
-        "networkError": "Error de red al procesar la solicitud",
-        "selectToDelete": "Por favor selecciona servicios para eliminar"
+        "networkError": "No se pudo guardar el servicio. Por favor verifica tu conexión e intenta de nuevo.",
+        "selectToDelete": "Por favor selecciona servicios para eliminar",
+        "validation": {
+          "titleRequired": "El título del servicio es requerido y debe tener 100 caracteres o menos.",
+          "subtitleRequired": "El subtítulo es requerido y debe tener 200 caracteres o menos.",
+          "descriptionRequired": "La descripción es requerida y debe tener 500 caracteres o menos.",
+          "iconRequired": "Por favor selecciona un icono válido para el servicio.",
+          "durationInvalid": "La duración debe ser de al menos 1 hora si se especifica.",
+          "requisitesLimit": "Los requisitos deben tener 500 caracteres o menos.",
+          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica."
+        },
+        "featured": {
+          "enabled": "El servicio '{title}' ha sido marcado como destacado.",
+          "disabled": "El servicio '{title}' ya no está destacado."
+        }
       },
       "confirmDelete": {
         "title": "Confirmar Eliminación",
@@ -358,42 +402,67 @@
       "createCourse": "Crear Nuevo Curso",
       "deleteSelected": "Eliminar Seleccionados",
       "selectAll": "Seleccionar Todo",
+      "courses": "cursos",
       "noCourses": "No hay cursos disponibles.",
       "noCoursesFound": "No se encontraron cursos que coincidan con tu búsqueda.",
+      "contactForQuote": "Consulta a nuestros agentes para un presupuesto detallado",
       "form": {
         "title": "Título",
-        "titlePlaceholder": "Título del curso",
+        "titlePlaceholder": "Ingresa un título atractivo para el curso",
+        "titleRequired": "Título del Curso *",
         "subtitle": "Subtítulo",
-        "subtitlePlaceholder": "Subtítulo del curso (opcional)",
+        "subtitlePlaceholder": "Agrega un subtítulo descriptivo",
+        "subtitleOptional": "Subtítulo (Opcional)",
         "description": "Descripción",
-        "descriptionPlaceholder": "Descripción del curso",
+        "descriptionPlaceholder": "Describe lo que los estudiantes aprenderán en este curso...",
+        "descriptionRequired": "Descripción *",
         "image": "Imagen del Curso",
-        "chooseImage": "Elegir Imagen",
+        "imageRequired": "Imagen del Curso *",
+        "imageOptional": "Imagen del Curso",
+        "chooseImage": "Elegir Archivo de Imagen",
+        "chooseImageText": "Elegir Archivo de Imagen",
+        "imageRecommendation": "Recomendado: 1200x800px, JPG o PNG",
         "price": "Precio (€)",
-        "pricePlaceholder": "0.00",
+        "pricePlaceholder": "Deja vacío para 'Contactar para presupuesto'",
         "location": "Ubicación",
-        "locationPlaceholder": "Ubicación del curso",
+        "locationPlaceholder": "Ingresa la ubicación del curso o 'Online'",
+        "locationRequired": "Ubicación *",
         "date": "Fecha",
+        "dateRequired": "Fecha del Curso *",
         "datePlaceholder": "ej: 15-17 de Marzo, 2024",
         "maxAttendants": "Máximo de Asistentes",
+        "maxAttendantsRequired": "Máximo de Asistentes *",
         "maxAttendantsPlaceholder": "10",
         "cancel": "Cancelar",
         "create": "Crear Curso",
         "update": "Actualizar Curso"
       },
       "messages": {
-        "createSuccess": "Curso creado exitosamente",
-        "updateSuccess": "Curso actualizado exitosamente",
+        "createSuccess": "¡Curso '{title}' creado exitosamente! Los estudiantes ya pueden inscribirse.",
+        "updateSuccess": "¡Curso '{title}' actualizado exitosamente!",
         "deleteSuccess": "Curso eliminado exitosamente",
         "bulkDeleteSuccess": "cursos eliminados exitosamente",
         "fetchError": "Error al obtener cursos",
         "createError": "Error al crear curso",
         "updateError": "Error al actualizar curso",
         "deleteError": "Error al eliminar curso",
-        "networkError": "Error de red al procesar la solicitud",
+        "networkError": "No se pudo guardar el curso. Por favor verifica tu conexión e intenta de nuevo.",
         "selectToDelete": "Por favor selecciona cursos para eliminar",
         "fileSizeLimit": "El tamaño del archivo debe ser menor a 5MB",
-        "imageFileOnly": "Por favor selecciona un archivo de imagen"
+        "imageFileOnly": "Por favor selecciona un archivo de imagen",
+        "validation": {
+          "titleRequired": "El título del curso es requerido y debe tener 100 caracteres o menos.",
+          "subtitleLimit": "El subtítulo debe tener 200 caracteres o menos.",
+          "descriptionRequired": "La descripción es requerida y debe tener 500 caracteres o menos.",
+          "imageRequired": "Por favor sube una imagen válida para el curso.",
+          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica.",
+          "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos.",
+          "dateRequired": "La fecha es requerida y debe tener 100 caracteres o menos.",
+          "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1."
+        },
+        "capacity": {
+          "warning": "Advertencia: Este curso ya tiene {current} inscripciones. Reducir el máximo de asistentes por debajo de este número puede causar problemas."
+        }
       },
       "confirmDelete": {
         "title": "Confirmar Eliminación",
@@ -438,8 +507,8 @@
         "update": "Actualizar Término"
       },
       "messages": {
-        "createSuccess": "Término creado exitosamente",
-        "updateSuccess": "Término actualizado exitosamente",
+        "createSuccess": "¡Documento de términos '{name}' creado exitosamente!",
+        "updateSuccess": "¡Documento de términos '{name}' actualizado exitosamente!",
         "deleteSuccess": "Término eliminado exitosamente",
         "bulkDeleteSuccess": "términos eliminados exitosamente",
         "fetchError": "Error al obtener términos",
@@ -447,10 +516,26 @@
         "updateError": "Error al actualizar término",
         "deleteError": "Error al eliminar término",
         "downloadError": "Error al descargar PDF",
-        "networkError": "Error de red al procesar la solicitud",
+        "downloadSuccess": "PDF descargado exitosamente",
+        "networkError": "No se pudo guardar el documento de términos. Por favor verifica tu conexión e intenta de nuevo.",
         "selectToDelete": "Por favor selecciona términos para eliminar",
         "fileSizeLimit": "El tamaño del archivo debe ser menor a 10MB",
-        "pdfFileOnly": "Por favor selecciona un archivo PDF"
+        "pdfFileOnly": "Por favor selecciona un archivo PDF",
+        "validation": {
+          "nameRequired": "El nombre del documento es requerido y debe tener 127 caracteres o menos.",
+          "contentRequired": "Por favor sube un archivo Markdown (.md) válido para el contenido.",
+          "pdfRequired": "Por favor sube un archivo PDF válido para el documento.",
+          "versionRequired": "La versión es requerida y debe tener 20 caracteres o menos.",
+          "tagDuplicate": "Ya existe un documento con este tipo de etiqueta. Por favor elige una etiqueta diferente o edita el documento existente.",
+          "fileExtension": "El archivo de contenido debe ser un archivo .md y el contenido PDF debe ser un archivo .pdf.",
+          "fileMissing": "Se deben proporcionar tanto un archivo markdown (.md) como un archivo PDF."
+        },
+        "upload": {
+          "error": "Error en la carga del archivo. Por favor asegúrate de que tus archivos sean válidos e intenta de nuevo."
+        },
+        "version": {
+          "updateWarning": "Importante: Actualizar este documento de términos creará una nueva versión. Los usuarios pueden necesitar re-aceptar los términos actualizados."
+        }
       },
       "confirmDelete": {
         "title": "Confirmar Eliminación",

@@ -33,6 +33,20 @@
     "services": {
       "title": "OUR SERVICES",
       "description": "Automation solutions designed to boost and accelerate your business.",
+      "contactForQuote": "Contact our agents for a detailed quote",
+      "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
+      "vacationTitle": "On Vacation",
+      "featured": "Featured",
+      "duration": "Available in",
+      "durationDay": "1 day",
+      "durationDays": "{count} days",
+      "price": "Price",
+      "created": "Created",
+      "createdBy": "Created by",
+      "requisites": "Requirements",
+      "contactNow": "Contact Now",
+      "contactEmail": "Contact via Email",
+      "viewDetails": "View Details",
       "chatbots": {
         "title": "Smart Chatbots",
         "description": "Automate customer support 24/7 with advanced conversational AI"
@@ -169,6 +183,12 @@
     },
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   },
+  "common": {
+    "onVacation": "On Vacation",
+    "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
+    "retry": "Try Again",
+    "learnMore": "Learn More"
+  },
   "logoutModal": {
     "title": "Confirm Sign Out",
     "message": "Are you sure you want to sign out of your account?",
@@ -290,6 +310,16 @@
     "loading": "Loading admin panel...",
     "accessDenied": "Access Denied",
     "noPermission": "You don't have permission to access this page.",
+    "labels": {
+      "price": "Price",
+      "duration": "Available in",
+      "icon": "Icon",
+      "created": "Created",
+      "updated": "Updated",
+      "location": "Location",
+      "date": "Date",
+      "maxAttendants": "Max Attendants"
+    },
     "tabs": {
       "overview": "Overview",
       "services": "Services",
@@ -320,27 +350,41 @@
         "description": "Description",
         "descriptionPlaceholder": "Service description",
         "icon": "Icon",
-        "iconPlaceholder": "Icon name (e.g., robot, chart)",
-        "duration": "Duration",
-        "durationPlaceholder": "e.g., 2 hours",
+        "iconPlaceholder": "Choose a Lucide React icon",
+        "duration": "Available in (days)",
+        "durationPlaceholder": "e.g., 2 days",
         "price": "Price (€)",
-        "pricePlaceholder": "0.00",
+        "pricePlaceholder": "Leave empty for 'Contact for quote'",
+        "contactForQuote": "Contact for quote",
         "featured": "Featured Service",
         "cancel": "Cancel",
         "create": "Create Service",
         "update": "Update Service"
       },
       "messages": {
-        "createSuccess": "Service created successfully",
-        "updateSuccess": "Service updated successfully",
+        "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
+        "updateSuccess": "Service '{title}' updated successfully!",
         "deleteSuccess": "Service deleted successfully",
         "bulkDeleteSuccess": "services deleted successfully",
         "fetchError": "Failed to fetch services",
         "createError": "Failed to create service",
         "updateError": "Failed to update service",
         "deleteError": "Failed to delete service",
-        "networkError": "Network error while processing request",
-        "selectToDelete": "Please select services to delete"
+        "networkError": "Unable to save service. Please check your connection and try again.",
+        "selectToDelete": "Please select services to delete",
+        "validation": {
+          "titleRequired": "Service title is required and must be 100 characters or less.",
+          "subtitleRequired": "Subtitle is required and must be 200 characters or less.",
+          "descriptionRequired": "Description is required and must be 500 characters or less.",
+          "iconRequired": "Please select a valid icon for the service.",
+          "durationInvalid": "Duration must be at least 1 hour if specified.",
+          "requisitesLimit": "Requisites must be 500 characters or less.",
+          "priceInvalid": "Price must be at least $0.01 if specified."
+        },
+        "featured": {
+          "enabled": "Service '{title}' has been marked as featured.",
+          "disabled": "Service '{title}' is no longer featured."
+        }
       },
       "confirmDelete": {
         "title": "Confirm Deletion",
@@ -358,42 +402,67 @@
       "createCourse": "Create New Course",
       "deleteSelected": "Delete Selected",
       "selectAll": "Select All",
+      "courses": "courses",
       "noCourses": "No courses available.",
       "noCoursesFound": "No courses found matching your search.",
+      "contactForQuote": "Contact our agents for a detailed quote",
       "form": {
         "title": "Title",
-        "titlePlaceholder": "Course title",
+        "titlePlaceholder": "Enter an engaging course title",
+        "titleRequired": "Course Title *",
         "subtitle": "Subtitle",
-        "subtitlePlaceholder": "Course subtitle (optional)",
+        "subtitlePlaceholder": "Add a descriptive subtitle",
+        "subtitleOptional": "Subtitle (Optional)",
         "description": "Description",
-        "descriptionPlaceholder": "Course description",
+        "descriptionPlaceholder": "Describe what students will learn in this course...",
+        "descriptionRequired": "Description *",
         "image": "Course Image",
-        "chooseImage": "Choose Image",
+        "imageRequired": "Course Image *",
+        "imageOptional": "Course Image",
+        "chooseImage": "Choose Image File",
+        "chooseImageText": "Choose Image File",
+        "imageRecommendation": "Recommended: 1200x800px, JPG or PNG",
         "price": "Price (€)",
-        "pricePlaceholder": "0.00",
+        "pricePlaceholder": "Leave empty for 'Contact for quote'",
         "location": "Location",
-        "locationPlaceholder": "Course location",
+        "locationPlaceholder": "Enter the course location or 'Online'",
+        "locationRequired": "Location *",
         "date": "Date",
+        "dateRequired": "Course Date *",
         "datePlaceholder": "e.g., March 15-17, 2024",
         "maxAttendants": "Max Attendants",
+        "maxAttendantsRequired": "Max Attendants *",
         "maxAttendantsPlaceholder": "10",
         "cancel": "Cancel",
         "create": "Create Course",
         "update": "Update Course"
       },
       "messages": {
-        "createSuccess": "Course created successfully",
-        "updateSuccess": "Course updated successfully",
+        "createSuccess": "Course '{title}' created successfully! Students can now enroll.",
+        "updateSuccess": "Course '{title}' updated successfully!",
         "deleteSuccess": "Course deleted successfully",
         "bulkDeleteSuccess": "courses deleted successfully",
         "fetchError": "Failed to fetch courses",
         "createError": "Failed to create course",
         "updateError": "Failed to update course",
         "deleteError": "Failed to delete course",
-        "networkError": "Network error while processing request",
+        "networkError": "Unable to save course. Please check your connection and try again.",
         "selectToDelete": "Please select courses to delete",
         "fileSizeLimit": "File size must be less than 5MB",
-        "imageFileOnly": "Please select an image file"
+        "imageFileOnly": "Please select an image file",
+        "validation": {
+          "titleRequired": "Course title is required and must be 100 characters or less.",
+          "subtitleLimit": "Subtitle must be 200 characters or less.",
+          "descriptionRequired": "Description is required and must be 500 characters or less.",
+          "imageRequired": "Please upload a valid image file for the course.",
+          "priceInvalid": "Price must be at least $0.01 if specified.",
+          "locationRequired": "Location is required and must be 100 characters or less.",
+          "dateRequired": "Date is required and must be 100 characters or less.",
+          "maxAttendantsInvalid": "Maximum attendants must be at least 1."
+        },
+        "capacity": {
+          "warning": "Warning: This course already has {current} enrollments. Reducing max attendants below this number may cause issues."
+        }
       },
       "confirmDelete": {
         "title": "Confirm Deletion",
@@ -438,8 +507,8 @@
         "update": "Update Term"
       },
       "messages": {
-        "createSuccess": "Term created successfully",
-        "updateSuccess": "Term updated successfully",
+        "createSuccess": "Terms document '{name}' created successfully!",
+        "updateSuccess": "Terms document '{name}' updated successfully!",
         "deleteSuccess": "Term deleted successfully",
         "bulkDeleteSuccess": "terms deleted successfully",
         "fetchError": "Failed to fetch terms",
@@ -447,10 +516,26 @@
         "updateError": "Failed to update term",
         "deleteError": "Failed to delete term",
         "downloadError": "Failed to download PDF",
-        "networkError": "Network error while processing request",
+        "downloadSuccess": "PDF downloaded successfully",
+        "networkError": "Unable to save terms document. Please check your connection and try again.",
         "selectToDelete": "Please select terms to delete",
         "fileSizeLimit": "File size must be less than 10MB",
-        "pdfFileOnly": "Please select a PDF file"
+        "pdfFileOnly": "Please select a PDF file",
+        "validation": {
+          "nameRequired": "Document name is required and must be 127 characters or less.",
+          "contentRequired": "Please upload a valid Markdown (.md) file for the content.",
+          "pdfRequired": "Please upload a valid PDF file for the document.",
+          "versionRequired": "Version is required and must be 20 characters or less.",
+          "tagDuplicate": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
+          "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
+          "fileMissing": "Both a markdown (.md) file and a PDF file must be provided."
+        },
+        "upload": {
+          "error": "File upload failed. Please ensure your files are valid and try again."
+        },
+        "version": {
+          "updateWarning": "Important: Updating this terms document will create a new version. Users may need to re-accept the updated terms."
+        }
       },
       "confirmDelete": {
         "title": "Confirm Deletion",

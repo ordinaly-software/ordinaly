@@ -182,20 +182,23 @@ export default async function RootLayout({ children, params } :
         />
         
         {/* Accessibility Integration */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function (d, s, t) { 
-                var f = d.getElementsByTagName(s)[0], 
-                    j = d.createElement(s), 
-                    a = new Date().getTime(); 
-                j.async = true; 
-                j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
-                f.parentNode.insertBefore(j, f); 
-              })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
-            `,
-          }}
-        />
+        {/* WCAG Accessibility Script - only load if token is available */}
+        {process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function (d, s, t) { 
+                  var f = d.getElementsByTagName(s)[0], 
+                      j = d.createElement(s), 
+                      a = new Date().getTime(); 
+                  j.async = true; 
+                  j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
+                  f.parentNode.insertBefore(j, f); 
+                })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
+              `,
+            }}
+          />
+        )}
         
         {/* Service Worker Registration */}
         <script

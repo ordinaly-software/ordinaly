@@ -25,9 +25,6 @@ const nextConfig: NextConfig = {
   // Enable React compiler optimizations
   reactStrictMode: true,
   
-  // Enable SWC minification
-  swcMinify: true,
-  
   // Optimize bundle
   webpack: (config, { isServer }) => {
     // Optimize for production
