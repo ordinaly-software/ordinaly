@@ -134,6 +134,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
     { href: "/formation", label: t("navigation.formation") },
   ];
 
+
   return (
     <>
       <nav className={cn(
@@ -207,6 +208,16 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                       className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50"
                     >
                       <div className="py-1">
+                        {/* Profile Link */}
+                        <a
+                          href="/users/profile"
+                          onClick={() => setShowUserMenu(false)}
+                          className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        >
+                          <User className="h-4 w-4 mr-2" />
+                          {t("navigation.profile")}
+                        </a>
+                        
                         {/* Admin Link - only show if user is staff or superuser */}
                         {userData && (userData.is_staff || userData.is_superuser) && (
                           <a
@@ -312,6 +323,15 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                       className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50"
                     >
                       <div className="py-1">
+                        <a
+                          href="/users/profile"
+                          onClick={() => setShowUserMenu(false)}
+                          className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        >
+                          <User className="h-4 w-4 mr-2" />
+                          {t("navigation.profile")}
+                        </a>
+                        
                         <div
                           onClick={handleLogoutClick}
                           className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
@@ -374,6 +394,16 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                 <div className="pt-2 border-t border-gray-200 dark:border-gray-800">
                   {isAuthenticated ? (
                     <div className="space-y-2">
+                      {/* Profile Link - Mobile */}
+                      <a
+                        href="/users/profile"
+                        onClick={() => setIsMenuOpen(false)}
+                        className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#29BF12] transition-colors py-2"
+                      >
+                        <User className="h-4 w-4 mr-2" />
+                        {t("navigation.profile")}
+                      </a>
+                      
                       {/* Admin Link - Mobile */}
                       {userData && (userData.is_staff || userData.is_superuser) && (
                         <a

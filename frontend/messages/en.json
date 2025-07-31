@@ -5,9 +5,9 @@
       "title": "ORDINALY"
     },
     "navigation": {
+      "home": "Meet us!",
       "services": "Services",
-      "about": "About Us",
-      "contact": "Contact",
+      "formation": "Formation",
       "start": "Get Started",
       "darkMode": "Switch to dark mode",
       "lightMode": "Switch to light Mode",
@@ -18,7 +18,8 @@
       "signUp": "Sign Up!",
       "signOut": "Sign Out",
       "userMenu": "User menu",
-      "adminDashboard": "Admin Dashboard"
+      "adminDashboard": "Admin Dashboard",
+      "profile": "Profile"
     },
     "hero": {
       "title": "AUTOMATE",
@@ -252,6 +253,7 @@
   "signin": {
     "title": "Sign in to your Ordinaly account",
     "subtitle": "Welcome back!",
+    "googleSignIn": "Continue with Google",
     "form": {
       "emailLabel": "Email or Username",
       "emailPlaceholder": "Enter your email or username",
@@ -267,12 +269,14 @@
       "success": "Signed in successfully! Redirecting...",
       "invalidCredentials": "Invalid email/username or password",
       "networkError": "Network error. Please check your connection and try again.",
-      "fillAllFields": "Please fill in all fields"
+      "fillAllFields": "Please fill in all fields",
+      "googleSignInError": "Google sign-in failed. Please try again."
     }
   },
   "signup": {
     "title": "Create Your Account",
     "subtitle": "Fill out the form to sign up",
+    "googleSignUp": "Continue with Google",
     "form": {
       "title": "Sign Up Form",
       "nameLabel": "First Name",
@@ -298,6 +302,7 @@
       "and": "and",
       "privacyLink": "Privacy Policy",
       "submitButton": "Sign Up",
+      "submitButtonLoading": "Registering...",
       "loginPrompt": "Already have an account?",
       "loginLink": "Sign In"
     },
@@ -314,7 +319,32 @@
         "passwordTooShort": "Password must be at least 8 characters",
         "passwordMismatch": "Passwords do not match",
         "termsRequired": "You must accept the Terms of Service and Privacy Policy to continue"
-      }
+      },
+      "googleSignUpError": "Google sign-up failed. Please try again."
+    }
+  },
+  "completeProfile": {
+    "title": "Complete Your Profile",
+    "subtitle": "Just a few more details to get you started",
+    "welcome": "Welcome, {name}!",
+    "form": {
+      "title": "Company Information",
+      "companyLabel": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "regionLabel": "Region",
+      "regionPlaceholder": "Enter your region",
+      "cityLabel": "City",
+      "cityPlaceholder": "Enter your city",
+      "optional": "optional",
+      "submitButton": "Complete Profile",
+      "submitButtonLoading": "Completing Profile..."
+    },
+    "validation": {
+      "companyRequired": "Company name is required"
+    },
+    "messages": {
+      "success": "Profile completed successfully! Redirecting...",
+      "networkError": "Network error. Please check your connection and try again."
     }
   },
   "admin": {
@@ -608,6 +638,157 @@
       "noPdfAvailable": "PDF version is not available for this document",
       "downloadSuccess": "PDF downloaded successfully",
       "downloadError": "Failed to download PDF"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive solutions designed to transform your business and drive digital innovation",
+    "searchPlaceholder": "Search services...",
+    "featured": "Featured",
+    "includes": "What's Included",
+    "contactUs": "Contact Us",
+    "learnMore": "Learn More",
+    "filters": {
+      "all": "All Services",
+      "featured": "Featured Only",
+      "standard": "Standard Services"
+    },
+    "features": {
+      "consultation": "Free Consultation",
+      "development": "Custom Development",
+      "testing": "Quality Testing",
+      "support": "Ongoing Support"
+    },
+    "noResults": {
+      "title": "No Services Found",
+      "description": "Try adjusting your search terms or filters to find what you're looking for."
+    },
+    "cta": {
+      "title": "Ready to Transform Your Business?",
+      "description": "Let's discuss how our services can help you achieve your digital transformation goals.",
+      "contact": "Get in Touch",
+      "call": "Schedule a Call"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "company": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "service": "Service of Interest",
+      "servicePlaceholder": "Which service are you interested in?",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your project or requirements...",
+      "cancel": "Cancel",
+      "send": "Send Message"
+    }
+  },
+  "formation": {
+    "title": "Professional Formation",
+    "subtitle": "Advance your career with our comprehensive training programs designed by industry experts",
+    "searchPlaceholder": "Search courses...",
+    "free": "Free",
+    "enrolled": "Enrolled",
+    "enroll": "Enroll Now",
+    "cancelEnrollment": "Cancel Enrollment",
+    "viewDetails": "View Details",
+    "maxAttendants": "Max {count} attendants",
+    "filters": {
+      "location": {
+        "all": "All Locations",
+        "online": "Online",
+        "onsite": "On-site"
+      },
+      "price": {
+        "all": "All Prices",
+        "free": "Free",
+        "paid": "Paid"
+      }
+    },
+    "noResults": {
+      "title": "No Courses Found",
+      "description": "Try adjusting your search terms or filters to find the perfect course for you."
+    },
+    "cta": {
+      "title": "Ready to Advance Your Career?",
+      "description": "Join thousands of professionals who have transformed their careers with our expert-led training programs.",
+      "contact": "Contact Advisor",
+      "catalog": "Download Catalog"
+    },
+    "enrollment": {
+      "title": "Course Enrollment",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email Address", 
+      "emailPlaceholder": "Enter your email address",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "company": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "experience": "Relevant Experience",
+      "experiencePlaceholder": "Tell us about your relevant experience or background...",
+      "motivation": "Why do you want to take this course?",
+      "motivationPlaceholder": "Share your motivation and what you hope to achieve...",
+      "cancel": "Cancel",
+      "submit": "Enroll in Course"
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "Manage your personal information and account settings",
+    "loading": "Loading profile...",
+    "personalInfo": "Personal Information",
+    "accountSettings": "Account Settings",
+    "dangerZone": "Danger Zone",
+    "form": {
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Enter your first name",
+      "lastName": "Last Name", 
+      "lastNamePlaceholder": "Enter your last name",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "company": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "region": "Region",
+      "regionPlaceholder": "Enter your region (optional)",
+      "city": "City",
+      "cityPlaceholder": "Enter your city (optional)",
+      "saveChanges": "Save Changes",
+      "saveChangesLoading": "Saving Changes...",
+      "cancel": "Cancel Changes"
+    },
+    "deleteAccount": {
+      "title": "Delete Account",
+      "description": "Once you delete your account, there is no going back. Please be certain.",
+      "button": "Delete Account",
+      "confirmTitle": "Confirm Account Deletion",
+      "confirmMessage": "Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.",
+      "confirmPlaceholder": "Type 'DELETE' to confirm",
+      "confirmButton": "Delete Account",
+      "cancelButton": "Cancel"
+    },
+    "messages": {
+      "updateSuccess": "Profile updated successfully!",
+      "updateError": "Failed to update profile. Please try again.",
+      "deleteSuccess": "Account deleted successfully. Redirecting...",
+      "deleteError": "Failed to delete account. Please try again.",
+      "networkError": "Network error. Please check your connection and try again.",
+      "unauthorizedError": "You are not authorized to perform this action.",
+      "validation": {
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "usernameRequired": "Username is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "companyRequired": "Company is required",
+        "deleteConfirmRequired": "Please type 'DELETE' to confirm"
+      }
     }
   }
 }

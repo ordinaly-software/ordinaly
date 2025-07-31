@@ -113,3 +113,20 @@ class UserViewSet(viewsets.ModelViewSet):
         user = request.user
         serializer = self.get_serializer(user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=False, methods=['patch'], permission_classes=[IsAuthenticated])
+    def update_profile(self, request):
+        """Update current user's profile information"""
+        user = request.user
+        serializer = self.get_serializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=False, methods=['delete'], permission_classes=[IsAuthenticated])
+    def delete_profile(self, request):
+        """Delete current user's account"""
+        user = request.user
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

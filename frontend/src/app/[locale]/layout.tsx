@@ -6,6 +6,7 @@ import {NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
 import CookieConsent from '@/components/ui/cookies';
+import BackToTopButton from '@/components/ui/back-to-top-button';
 // import AnalyticsManager from '@/components/ui/analyticsManager';
 
 
@@ -237,6 +238,7 @@ export default async function RootLayout({ children, params } :
           
           <CookieConsent />
           {/* <AnalyticsManager /> */}
+          <BackToTopButton />
 
         </NextIntlClientProvider>
       </body>
