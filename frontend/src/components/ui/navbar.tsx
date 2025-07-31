@@ -129,9 +129,9 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
   };
 
   const navLinks = [
-    { href: "#services", label: t("navigation.services") },
-    { href: "#about", label: t("navigation.about") },
-    { href: "#contact", label: t("navigation.contact") },
+    { href: "/", label: t("navigation.home") },
+    { href: "/services", label: t("navigation.services") },
+    { href: "/formation", label: t("navigation.formation") },
   ];
 
   return (

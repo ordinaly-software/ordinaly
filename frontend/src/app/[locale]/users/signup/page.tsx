@@ -6,7 +6,6 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Navbar from "@/components/ui/navbar";
-import Footer from "@/components/home/footer";
 import Alert from "@/components/ui/alert";
 import { User, Mail, Lock, Building2, Eye, EyeOff } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
@@ -485,9 +484,6 @@ export default function SignupPage() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer isDark={isDark} />
 
     </div>
   );

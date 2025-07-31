@@ -782,17 +782,6 @@ export default function HomePage() {
         <Footer isDark={isDark}/>
       </Suspense>
 
-      {/* Back to Top Button */}
-      {showBackToTop && (
-        <Button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-8 z-50 w-11 h-11 rounded-full bg-[#29BF12] hover:bg-[#2BC765] text-white shadow-lg transition-all duration-300 animate-in slide-in-from-bottom-5"
-          size="icon"
-        >
-          <ChevronUp className="h-5 w-5" />
-        </Button>
-      )}
-
       <Suspense fallback={null}>
         <WhatsAppBubble />
       </Suspense>

@@ -8,3 +8,4 @@ whitenoise==6.5.0
 dotenv==0.9.9
 Pillow==10.1.0
 coverage==7.6.11
+reportlab>=3.6.0
