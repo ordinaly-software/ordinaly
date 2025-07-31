@@ -141,6 +141,13 @@
         "alt": "Logo de Ordinaly"
       },
       "description": "Transformando empresas con inteligencia artificial y automatización.",
+      "legal": {
+        "title": "Documentación Legal",
+        "terms": "Términos de Servicio",
+        "privacy": "Política de Privacidad",
+        "cookies": "Política de Cookies",
+        "license": "Licencia"
+      },
       "social": {
         "title": "¡Síguenos!",
         "tiktok": "TikTok",
@@ -187,7 +194,8 @@
   "common": {
     "onVacation": "De Vacaciones",
     "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia.",
-    "learnMore": "Más Información"
+    "learnMore": "Más Información",
+    "backToHome": "Volver al Inicio"
   },
   "logoutModal": {
     "title": "Confirmar Cerrar Sesión",
@@ -285,6 +293,10 @@
       "passwordPlaceholder": "Ingresa tu contraseña",
       "confirmPasswordLabel": "Confirmar Contraseña",
       "confirmPasswordPlaceholder": "Confirma tu contraseña",
+      "acceptTerms": "Acepto los",
+      "termsLink": "Términos de Servicio",
+      "and": "y la",
+      "privacyLink": "Política de Privacidad",
       "submitButton": "Registrarse",
       "loginPrompt": "¿Ya tienes una cuenta?",
       "loginLink": "Iniciar Sesión"
@@ -300,7 +312,8 @@
         "companyRequired": "La empresa es requerida",
         "passwordRequired": "La contraseña es requerida",
         "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
-        "passwordMismatch": "Las contraseñas no coinciden"
+        "passwordMismatch": "Las contraseñas no coinciden",
+        "termsRequired": "Debes aceptar los Términos de Servicio y la Política de Privacidad para continuar"
       }
     }
   },
@@ -498,8 +511,19 @@
         "contentPlaceholder": "Contenido del término en formato markdown",
         "version": "Versión",
         "versionPlaceholder": "ej: 1.0",
-        "tag": "Etiqueta",
-        "tagPlaceholder": "ej: privacidad, términos, cookies",
+        "tag": "Tipo de Documento",
+        "tagPlaceholder": "Selecciona el tipo de documento",
+        "selectTag": "Selecciona un tipo de documento",
+        "noAvailableTags": "No hay tipos de documento disponibles",
+        "allTagsUsed": "Todos los tipos de documento han sido creados. Solo puedes tener uno de cada tipo.",
+        "allTagsUsedTitle": "Todos los tipos de documento están en uso",
+        "allTagsUsedButton": "Todos los Tipos Creados",
+        "tagTypes": {
+          "terms": "Términos y Condiciones de Uso",
+          "cookies": "Política de Cookies",
+          "privacy": "Política de Privacidad", 
+          "license": "Licencia"
+        },
         "pdfVersion": "Versión PDF (Opcional)",
         "choosePdf": "Elegir PDF",
         "cancel": "Cancelar",
@@ -548,6 +572,42 @@
         "created": "Creado",
         "updated": "Actualizado"
       }
+    }
+  },
+  "legal": {
+    "title": "Documentación Legal",
+    "description": "Accede a nuestros términos de servicio, política de privacidad, política de cookies e información de licencia.",
+    "downloadPdf": "Descargar PDF",
+    "tabs": {
+      "terms": "Términos de Servicio",
+      "privacy": "Política de Privacidad",
+      "cookies": "Política de Cookies", 
+      "license": "Licencia"
+    },
+    "sections": {
+      "terms": {
+        "title": "Términos de Servicio",
+        "noDocuments": "No hay documentos de términos de servicio disponibles actualmente."
+      },
+      "privacy": {
+        "title": "Política de Privacidad",
+        "noDocuments": "No hay documentos de política de privacidad disponibles actualmente."
+      },
+      "cookies": {
+        "title": "Política de Cookies",
+        "noDocuments": "No hay documentos de política de cookies disponibles actualmente."
+      },
+      "license": {
+        "title": "Información de Licencia",
+        "noDocuments": "No hay documentos de licencia disponibles actualmente."
+      }
+    },
+    "messages": {
+      "fetchError": "Error al obtener documentos legales",
+      "networkError": "Error de red al obtener documentos", 
+      "noPdfAvailable": "La versión PDF no está disponible para este documento",
+      "downloadSuccess": "PDF descargado exitosamente",
+      "downloadError": "Error al descargar PDF"
     }
   }
 }

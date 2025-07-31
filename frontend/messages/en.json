@@ -140,6 +140,13 @@
         "alt": "Ordinaly Logo"
       },
       "description": "Transforming Andalusian companies with artificial intelligence and automation.",
+      "legal": {
+        "title": "Legal Docs",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "cookies": "Cookies Policy",
+        "license": "License"
+      },
       "social": {
         "title": "Follow us!",
         "tiktok": "TikTok",
@@ -187,7 +194,8 @@
     "onVacation": "On Vacation",
     "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
     "retry": "Try Again",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "backToHome": "Back to Home"
   },
   "logoutModal": {
     "title": "Confirm Sign Out",
@@ -285,6 +293,10 @@
       "passwordPlaceholder": "Enter your password",
       "confirmPasswordLabel": "Confirm Password",
       "confirmPasswordPlaceholder": "Confirm your password",
+      "acceptTerms": "I agree to the",
+      "termsLink": "Terms of Service",
+      "and": "and",
+      "privacyLink": "Privacy Policy",
       "submitButton": "Sign Up",
       "loginPrompt": "Already have an account?",
       "loginLink": "Sign In"
@@ -300,7 +312,8 @@
         "companyRequired": "Company is required",
         "passwordRequired": "Password is required",
         "passwordTooShort": "Password must be at least 8 characters",
-        "passwordMismatch": "Passwords do not match"
+        "passwordMismatch": "Passwords do not match",
+        "termsRequired": "You must accept the Terms of Service and Privacy Policy to continue"
       }
     }
   },
@@ -498,8 +511,19 @@
         "contentPlaceholder": "Term content in markdown format",
         "version": "Version",
         "versionPlaceholder": "e.g. 1.0",
-        "tag": "Tag",
-        "tagPlaceholder": "e.g. privacy, terms, cookies",
+        "tag": "Document Type",
+        "tagPlaceholder": "Select document type",
+        "selectTag": "Select a document type",
+        "noAvailableTags": "No document types available",
+        "allTagsUsed": "All document types have been created. You can only have one of each type.",
+        "allTagsUsedTitle": "All document types are already in use",
+        "allTagsUsedButton": "All Types Created",
+        "tagTypes": {
+          "terms": "Terms and Conditions of Use",
+          "cookies": "Cookie Policy", 
+          "privacy": "Privacy Policy",
+          "license": "License"
+        },
         "pdfVersion": "PDF Version (Optional)",
         "choosePdf": "Choose PDF",
         "cancel": "Cancel",
@@ -548,6 +572,42 @@
         "created": "Created",
         "updated": "Updated"
       }
+    }
+  },
+  "legal": {
+    "title": "Legal Documentation",
+    "description": "Access our terms of service, privacy policy, cookie policy, and license information.",
+    "downloadPdf": "Download PDF",
+    "tabs": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy", 
+      "cookies": "Cookie Policy",
+      "license": "License"
+    },
+    "sections": {
+      "terms": {
+        "title": "Terms of Service",
+        "noDocuments": "No terms of service documents are currently available."
+      },
+      "privacy": {
+        "title": "Privacy Policy", 
+        "noDocuments": "No privacy policy documents are currently available."
+      },
+      "cookies": {
+        "title": "Cookie Policy",
+        "noDocuments": "No cookie policy documents are currently available."
+      },
+      "license": {
+        "title": "License Information",
+        "noDocuments": "No license documents are currently available."
+      }
+    },
+    "messages": {
+      "fetchError": "Failed to fetch legal documents",
+      "networkError": "Network error while fetching documents",
+      "noPdfAvailable": "PDF version is not available for this document",
+      "downloadSuccess": "PDF downloaded successfully",
+      "downloadError": "Failed to download PDF"
     }
   }
 }

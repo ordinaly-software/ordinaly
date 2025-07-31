@@ -16,7 +16,8 @@ import {
   Search,
   Upload,
   FileText,
-  Download
+  Download,
+  ChevronDown
 } from "lucide-react";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
@@ -35,6 +36,11 @@ interface Term {
 const AdminTermsTab = () => {
   const t = useTranslations("admin.terms");
   const tAdmin = useTranslations("admin");
+
+  // Helper function to get translated tag label
+  const getTagLabel = (tagValue: string) => {
+    return t(`form.tagTypes.${tagValue}`);
+  };
   const [terms, setTerms] = useState<Term[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -46,6 +52,8 @@ const AdminTermsTab = () => {
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [availableTags, setAvailableTags] = useState<{value: string, label: string}[]>([]);
+  const [showTagDropdown, setShowTagDropdown] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -56,7 +64,43 @@ const AdminTermsTab = () => {
 
   useEffect(() => {
     fetchTerms();
+    fetchAvailableTags();
+    
+    // Close dropdown when clicking outside
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (!target.closest('[data-tag-dropdown]')) {
+        setShowTagDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
+
+  const fetchAvailableTags = async () => {
+    try {
+      const token = localStorage.getItem('authToken');
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/terms/available_tags/`, {
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setAvailableTags(data.available_tags || []);
+      } else {
+        console.error('Failed to fetch available tags');
+      }
+    } catch (error) {
+      console.error('Error fetching available tags:', error);
+    }
+  };
 
   const fetchTerms = async () => {
     try {
@@ -94,6 +138,8 @@ const AdminTermsTab = () => {
       tag: ""
     });
     setSelectedFile(null);
+    setShowTagDropdown(false);
+    fetchAvailableTags(); // Refresh available tags
   };
 
   const handleCreate = () => {
@@ -198,6 +244,7 @@ const AdminTermsTab = () => {
         }
         
         fetchTerms();
+        fetchAvailableTags(); // Refresh available tags
         setShowCreateModal(false);
         setShowEditModal(false);
         resetForm();
@@ -265,6 +312,7 @@ const AdminTermsTab = () => {
       }
 
       fetchTerms();
+      fetchAvailableTags(); // Refresh available tags
       setShowDeleteModal(false);
     } catch (error) {
       console.error('Delete error:', error);
@@ -376,10 +424,12 @@ const AdminTermsTab = () => {
           )}
           <Button
             onClick={handleCreate}
-            className="bg-[#29BF12] hover:bg-[#22A010] text-white flex items-center space-x-1"
+            disabled={availableTags.length === 0}
+            className="bg-[#29BF12] hover:bg-[#22A010] text-white flex items-center space-x-1 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            title={availableTags.length === 0 ? t("form.allTagsUsedTitle") : ""}
           >
             <Plus className="h-4 w-4" />
-            <span>Add Term</span>
+            <span>{availableTags.length === 0 ? t("form.allTagsUsedButton") : "Add Term"}</span>
           </Button>
         </div>
       </div>
@@ -431,7 +481,7 @@ const AdminTermsTab = () => {
                             v{term.version}
                           </span>
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
-                            {term.tag}
+                            {getTagLabel(term.tag)}
                           </span>
                           {term.pdf_content && (
                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300">
@@ -564,14 +614,63 @@ const AdminTermsTab = () => {
                 </div>
                 <span>{t("form.tag")} *</span>
               </Label>
-              <Input
-                id="tag"
-                value={formData.tag}
-                onChange={(e) => setFormData(prev => ({...prev, tag: e.target.value}))}
-                placeholder={t("form.tagPlaceholder")}
-                className="h-12 border-gray-300 focus:border-orange-500 focus:ring-orange-500/20 rounded-lg transition-all duration-200"
-                required
-              />
+              {showEditModal && currentTerm ? (
+                // Show current tag when editing (read-only)
+                <div className="h-12 px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 flex items-center">
+                  <span className="text-gray-700 dark:text-gray-300 font-medium">
+                    {getTagLabel(currentTerm.tag)}
+                  </span>
+                  <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">(Cannot be changed)</span>
+                </div>
+              ) : (
+                // Modern custom dropdown when creating new
+                <div className="relative" data-tag-dropdown>
+                  <button
+                    type="button"
+                    onClick={() => setShowTagDropdown(!showTagDropdown)}
+                    disabled={availableTags.length === 0}
+                    className="h-12 w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 text-left flex items-center justify-between focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed hover:border-orange-400"
+                  >
+                    <span className="text-gray-900 dark:text-white">
+                      {formData.tag ? getTagLabel(formData.tag) : (availableTags.length === 0 ? t("form.noAvailableTags") : t("form.selectTag"))}
+                    </span>
+                    <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${showTagDropdown ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  {showTagDropdown && availableTags.length > 0 && (
+                    <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
+                      <div className="py-1">
+                        {availableTags.map((tag) => (
+                          <button
+                            key={tag.value}
+                            type="button"
+                            onClick={() => {
+                              setFormData(prev => ({...prev, tag: tag.value}));
+                              setShowTagDropdown(false);
+                            }}
+                            className="w-full px-4 py-3 text-left hover:bg-orange-50 dark:hover:bg-orange-900/20 focus:bg-orange-50 dark:focus:bg-orange-900/20 focus:outline-none transition-colors duration-150"
+                          >
+                            <div className="flex items-center space-x-3">
+                              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                              <span className="text-gray-900 dark:text-white font-medium">
+                                {getTagLabel(tag.value)}
+                              </span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+              {availableTags.length === 0 && !showEditModal && (
+                <p className="text-sm text-amber-600 dark:text-amber-400 flex items-center space-x-2">
+                  <div className="w-4 h-4 bg-amber-500 rounded-full flex items-center justify-center">
+                    <span className="text-xs text-white font-bold">!</span>
+                  </div>
+                  <span>{t("form.allTagsUsed")}</span>
+                </p>
+              )}
             </div>
           </div>
 

@@ -31,6 +31,7 @@ export default function SignupPage() {
   const [successMessage, setSuccessMessage] = useState("");
   const [showImage, setShowImage] = useState(true);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   useEffect(() => {
     // Check if user is already authenticated
@@ -119,6 +120,7 @@ export default function SignupPage() {
     if (!password) newErrors.password = t("messages.validation.passwordRequired");
     if (password.length < 8) newErrors.password = t("messages.validation.passwordTooShort");
     if (password !== confirmPassword) newErrors.confirmPassword = t("messages.validation.passwordMismatch");
+    if (!acceptedTerms) newErrors.terms = t("messages.validation.termsRequired");
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -426,6 +428,41 @@ export default function SignupPage() {
                         </button>
                       </div>
                       {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+                    </div>
+
+                    {/* Terms and Conditions Acceptance */}
+                    <div className="space-y-3">
+                      <div className="flex items-start space-x-3">
+                        <input
+                          type="checkbox"
+                          id="acceptTerms"
+                          checked={acceptedTerms}
+                          onChange={(e) => setAcceptedTerms(e.target.checked)}
+                          className="w-4 h-4 mt-1 rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12] focus:ring-offset-0"
+                          required
+                        />
+                        <Label htmlFor="acceptTerms" className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          {t("form.acceptTerms")}{" "}
+                          <a 
+                            href="/legal?tab=terms" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-[#29BF12] hover:text-[#22A010] underline font-medium"
+                          >
+                            {t("form.termsLink")}
+                          </a>
+                          {" "}{t("form.and")}{" "}
+                          <a 
+                            href="/legal?tab=privacy" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="text-[#29BF12] hover:text-[#22A010] underline font-medium"
+                          >
+                            {t("form.privacyLink")}
+                          </a>
+                        </Label>
+                      </div>
+                      {errors.terms && <p className="text-red-500 text-sm">{errors.terms}</p>}
                     </div>
 
                     <div className="flex justify-center">
