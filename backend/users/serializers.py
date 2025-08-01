@@ -71,3 +71,31 @@ class CustomUserSerializer(serializers.ModelSerializer):
             password = validated_data.pop('password')
             instance.set_password(password)
         return super().update(instance, validated_data)
+
+
+class GoogleOAuthSerializer(serializers.Serializer):
+    """Serializer for Google OAuth authentication"""
+    google_token = serializers.CharField(max_length=2048)
+
+
+class GoogleUserProfileCompletionSerializer(serializers.ModelSerializer):
+    """Serializer for completing Google OAuth user profile"""
+    google_id = serializers.CharField(max_length=100, read_only=True)
+    
+    class Meta:
+        model = CustomUser
+        fields = (
+            'username', 'region', 'city', 'company', 'google_id'
+        )
+        extra_kwargs = {
+            'username': {'required': True},
+            'company': {'required': True, 'allow_null': False},
+            'region': {'required': False, 'allow_null': True},
+            'city': {'required': False, 'allow_null': True},
+        }
+
+    def validate_username(self, value):
+        """Validate username uniqueness"""
+        if CustomUser.objects.filter(username=value).exists():
+            raise serializers.ValidationError("A user with this username already exists.")
+        return value

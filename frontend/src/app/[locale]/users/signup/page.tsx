@@ -11,10 +11,12 @@ import { User, Mail, Lock, Building2, Eye, EyeOff, Globe, MapPin } from "lucide-
 import StyledButton from "@/components/ui/styled-button";
 import Image from "next/image";
 import GoogleSignInButton from '@/components/auth/google-signin-button';
+import { useGoogleAuth } from '@/hooks/useGoogleAuth';
 import Link from "next/link";
 
 export default function SignupPage() {
   const t = useTranslations("signup");
+  const { completeGoogleProfile } = useGoogleAuth();
   const [isDark, setIsDark] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -31,6 +33,15 @@ export default function SignupPage() {
   const [showImage, setShowImage] = useState(true);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [googleData, setGoogleData] = useState<{
+    google_id: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    picture?: string;
+  } | null>(null);
+  const [googleToken, setGoogleToken] = useState<string | null>(null);
+  const [showGoogleProfileForm, setShowGoogleProfileForm] = useState(false);
 
   useEffect(() => {
     // Check if user is already authenticated
@@ -189,7 +200,7 @@ export default function SignupPage() {
     }
   };
 
-    const handleGoogleSuccess = (data: {
+  const handleGoogleSuccess = (data: {
     token: string;
     user: {
       id: number;
@@ -206,14 +217,83 @@ export default function SignupPage() {
     
     setAlert({type: 'success', message: data.message});
     
-    // Redirect based on profile completion
+    // Redirect to home
     setTimeout(() => {
-      if (data.profile_complete) {
-        window.location.href = '/';
-      } else {
-        window.location.href = '/users/complete-profile';
-      }
+      window.location.href = '/';
     }, 2000);
+  };
+
+  const handleGoogleProfileCompletion = (data: {
+    requires_completion: boolean;
+    google_data: {
+      google_id: string;
+      email: string;
+      first_name: string;
+      last_name: string;
+      picture?: string;
+    };
+    google_token: string;
+  }) => {
+    // Store Google data for profile completion
+    setGoogleData(data.google_data);
+    setGoogleToken(data.google_token);
+    setShowGoogleProfileForm(true);
+    
+    setAlert({
+      type: 'info', 
+      message: `Welcome ${data.google_data.first_name}! Please complete your profile to continue.`
+    });
+  };
+
+  const handleGoogleError = (error: string) => {
+    setAlert({type: 'error', message: error});
+  };
+
+  const handleCompleteGoogleProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!googleToken || !googleData) {
+      setAlert({type: 'error', message: 'Missing Google authentication data'});
+      return;
+    }
+
+    // Validate required fields
+    if (!company.trim()) {
+      setErrors({company: t("messages.validation.companyRequired")});
+      return;
+    }
+
+    // Generate username from Google email if not provided
+    const username = googleData.email.split('@')[0];
+
+    setIsLoading(true);
+    setErrors({});
+    setAlert(null);
+
+    try {
+      const result = await completeGoogleProfile(googleToken, {
+        username: username,
+        company: company.trim(),
+        region: region.trim() || undefined,
+        city: city.trim() || undefined,
+      });
+
+      // Store token
+      localStorage.setItem('authToken', result.token);
+      
+      setAlert({type: 'success', message: result.message});
+      
+      // Redirect to home after 2 seconds
+      setTimeout(() => {
+        window.location.href = '/';
+      }, 2000);
+    } catch (err) {
+      console.error('Google profile completion error:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to complete profile';
+      setAlert({type: 'error', message: errorMessage});
+    } finally {
+      setIsLoading(false);
+    }
   };
 
 
@@ -270,10 +350,126 @@ export default function SignupPage() {
                 </CardHeader>
                 <CardContent>
 
+                  {/* Google Profile Completion Form */}
+                  {showGoogleProfileForm && googleData ? (
+                    <div>
+                      <div className="mb-6 text-center">
+                        <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-2">
+                          Welcome, {googleData.first_name}!
+                        </h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Please complete your profile to finish signing up
+                        </p>
+                      </div>
+
+                      <form onSubmit={handleCompleteGoogleProfile} className="space-y-6">
+                        {/* Display user info from Google */}
+                        <div className="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg">
+                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                            <strong>Email:</strong> {googleData.email}
+                          </p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                            <strong>Name:</strong> {googleData.first_name} {googleData.last_name}
+                          </p>
+                        </div>
+
+                        {/* Company Field (Required) */}
+                        <div className="space-y-2">
+                          <Label htmlFor="google-company" className="text-gray-800 dark:text-gray-200">
+                            {t("form.companyLabel")} <span className="text-red-500">*</span>
+                          </Label>
+                          <div className="relative">
+                            <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                            <Input
+                              id="google-company"
+                              type="text"
+                              value={company}
+                              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompany(e.target.value)}
+                              className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                              placeholder={t("form.companyPlaceholder")}
+                              required
+                            />
+                          </div>
+                          {errors.company && <p className="text-red-500 text-sm">{errors.company}</p>}
+                        </div>
+
+                        {/* Region and City Fields (Optional) */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="google-region" className="text-gray-800 dark:text-gray-200">
+                              {t("form.regionLabel")} <span className="text-gray-400 text-sm">(optional)</span>
+                            </Label>
+                            <div className="relative">
+                              <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                              <Input
+                                id="google-region"
+                                type="text"
+                                value={region}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRegion(e.target.value)}
+                                className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                                placeholder={t("form.regionPlaceholder")}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="space-y-2">
+                            <Label htmlFor="google-city" className="text-gray-800 dark:text-gray-200">
+                              {t("form.cityLabel")} <span className="text-gray-400 text-sm">(optional)</span>
+                            </Label>
+                            <div className="relative">
+                              <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                              <Input
+                                id="google-city"
+                                type="text"
+                                value={city}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
+                                className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                                placeholder={t("form.cityPlaceholder")}
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex justify-center">
+                          <StyledButton
+                            text={isLoading ? "Completing Profile..." : "Complete Profile"}
+                            onClick={() => {
+                              const form = document.querySelector('form');
+                              if (form) {
+                                form.requestSubmit();
+                              }
+                            }}
+                          />
+                        </div>
+                      </form>
+
+                      <div className="mt-4 text-center">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setShowGoogleProfileForm(false);
+                            setGoogleData(null);
+                            setGoogleToken(null);
+                            setCompany("");
+                            setRegion("");
+                            setCity("");
+                          }}
+                          className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                        >
+                          Cancel and use email signup instead
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                  {/* Regular signup form */}
+
                   {/* Add Google Sign-Up at the top */}
                   <div className="mb-6">
                     <GoogleSignInButton
                       onSuccess={handleGoogleSuccess}
+                      onProfileCompletion={handleGoogleProfileCompletion}
+                      onError={handleGoogleError}
                       className="border-gray-300 dark:border-gray-600 hover:border-[#29BF12] dark:hover:border-[#29BF12]"
                     >
                       {t("form.signupWithGoogle")}
@@ -521,6 +717,8 @@ export default function SignupPage() {
                       {t("form.loginLink")}
                     </Link>
                   </p>
+                  </>
+                  )}
                 </CardContent>
               </Card>
             </div>

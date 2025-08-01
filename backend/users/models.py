@@ -15,13 +15,22 @@ class CustomUserManager(BaseUserManager):
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
         user = self.model(email=email, username=username, **extra_fields)
-        user.set_password(password)
+        
+        # Handle OAuth users without passwords
+        if password:
+            user.set_password(password)
+        else:
+            user.set_unusable_password()
+            
         user.save(using=self._db)
         return user
 
     def create_superuser(self, email, username, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+
+        if password is None:
+            raise ValueError('Superusers must have a password')
 
         return self.create_user(email, username, password, **extra_fields)
 
@@ -50,6 +59,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(max_length=50, null=True, blank=True, default=None)
 
     company = models.CharField(max_length=50, null=False, blank=False, default=None)
+
+    # Google OAuth fields
+    google_id = models.CharField(max_length=100, null=True, blank=True, unique=True)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

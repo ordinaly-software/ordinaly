@@ -6,7 +6,8 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from django.contrib.auth import authenticate
 from .models import CustomUser
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, GoogleUserProfileCompletionSerializer
+from .google_auth import verify_google_token
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -147,3 +148,123 @@ class UserViewSet(viewsets.ModelViewSet):
         user = request.user
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny])
+    def google_oauth(self, request):
+        """Authenticate user with Google OAuth token"""
+        google_token = request.data.get('google_token')
+
+        if not google_token:
+            return Response(
+                {'error': 'Google token is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Verify the Google token
+        google_user_data = verify_google_token(google_token)
+        if not google_user_data:
+            return Response(
+                {'error': 'Invalid Google token'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        email = google_user_data['email']
+        google_id = google_user_data['google_id']
+
+        try:
+            # Try to find existing user by email
+            user = CustomUser.objects.get(email=email)
+
+            # Update Google ID if not set
+            if not user.google_id:
+                user.google_id = google_id
+                user.save()
+
+            # Create or get token
+            token, created = Token.objects.get_or_create(user=user)
+            serializer = CustomUserSerializer(user)
+            response_data = serializer.data
+            response_data['token'] = token.key
+
+            return Response(response_data, status=status.HTTP_200_OK)
+
+        except CustomUser.DoesNotExist:
+            # User doesn't exist, return data for profile completion
+            return Response({
+                'requires_completion': True,
+                'google_data': {
+                    'google_id': google_id,
+                    'email': email,
+                    'first_name': google_user_data.get('first_name', ''),
+                    'last_name': google_user_data.get('last_name', ''),
+                    'picture': google_user_data.get('picture', ''),
+                }
+            }, status=status.HTTP_202_ACCEPTED)
+
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny])
+    def complete_google_profile(self, request):
+        """Complete Google OAuth user profile and create account"""
+        google_token = request.data.get('google_token')
+
+        if not google_token:
+            return Response(
+                {'error': 'Google token is required'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Verify the Google token again
+        google_user_data = verify_google_token(google_token)
+        if not google_user_data:
+            return Response(
+                {'error': 'Invalid Google token'},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+
+        # Check if user already exists
+        email = google_user_data['email']
+        if CustomUser.objects.filter(email=email).exists():
+            return Response(
+                {'error': 'User with this email already exists'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Validate the profile completion data
+        serializer = GoogleUserProfileCompletionSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create the user
+        user_data = {
+            'email': email,
+            'username': serializer.validated_data['username'],
+            'name': google_user_data.get('first_name', ''),
+            'surname': google_user_data.get('last_name', ''),
+            'region': serializer.validated_data.get('region'),
+            'city': serializer.validated_data.get('city'),
+            'company': serializer.validated_data['company'],
+            'google_id': google_user_data['google_id'],
+        }
+
+        # Create user without password (OAuth user)
+        user = CustomUser.objects.create_user(
+            email=user_data['email'],
+            username=user_data['username'],
+            password=None,  # No password for OAuth users
+            name=user_data['name'],
+            surname=user_data['surname'],
+            region=user_data['region'],
+            city=user_data['city'],
+            company=user_data['company'],
+        )
+        user.google_id = user_data['google_id']
+        user.save()
+
+        # Create token
+        token, created = Token.objects.get_or_create(user=user)
+
+        # Return user data with token
+        user_serializer = CustomUserSerializer(user)
+        response_data = user_serializer.data
+        response_data['token'] = token.key
+
+        return Response(response_data, status=status.HTTP_201_CREATED)

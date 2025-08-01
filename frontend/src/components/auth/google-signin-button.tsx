@@ -1,8 +1,8 @@
 "use client";
 
-// import { useGoogleAuth } from '@/hooks/useGoogleAuth';
-// import { Button } from '@/components/ui/button';
-// import Alert from '@/components/ui/alert';
+import { useState, useRef, useEffect } from 'react';
+import { Button } from '@/components/ui/button';
+import Alert from '@/components/ui/alert';
 
 interface GoogleSignInButtonProps {
   onSuccess: (data: {
@@ -17,78 +17,185 @@ interface GoogleSignInButtonProps {
     profile_complete: boolean;
     message: string;
   }) => void;
+  onProfileCompletion?: (data: {
+    requires_completion: boolean;
+    google_data: {
+      google_id: string;
+      email: string;
+      first_name: string;
+      last_name: string;
+      picture?: string;
+    };
+    google_token: string;
+  }) => void;
   onError?: (error: string) => void;
   className?: string;
   children?: React.ReactNode;
 }
 
 const GoogleSignInButton = ({ 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onSuccess: _onSuccess, 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onError: _onError, 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  className: _className = "",
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  children: _children 
+  onSuccess,
+  onProfileCompletion,
+  onError,
+  className = "",
+  children 
 }: GoogleSignInButtonProps) => {
-//   const { signInWithGoogle, isLoading, error } = useGoogleAuth();
-//   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
-//   const [isProcessing, setIsProcessing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
+  const [isGoogleLoaded, setIsGoogleLoaded] = useState(false);
+  const buttonRef = useRef<HTMLDivElement>(null);
 
-//   const handleGoogleSignIn = async () => {
-//     // Prevent double clicks and concurrent requests
-//     if (isLoading || isProcessing) {
-//       return;
-//     }
+  useEffect(() => {
+    const initializeGoogle = () => {
+      if (window.google?.accounts?.id) {
+        window.google.accounts.id.initialize({
+          client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+          callback: handleCredentialResponse,
+          auto_select: false,
+          cancel_on_tap_outside: false,
+        });
+        setIsGoogleLoaded(true);
+        console.log('Google OAuth initialized');
+      }
+    };
 
-//     setIsProcessing(true);
-    
-//     try {
-//       console.log('Google Sign In - Starting authentication...');
-//       const result = await signInWithGoogle();
-      
-//       if (result) {
-//         console.log('Google Sign In - Success, calling onSuccess callback');
-//         onSuccess(result);
-//       } else {
-//         console.log('Google Sign In - No result returned');
-//         setAlert({type: 'error', message: 'Failed to sign in with Google'});
-//         if (onError) {
-//           onError('Failed to sign in with Google');
-//         }
-//       }
-//     } catch (err) {
-//       console.error('Google Sign In - Error:', err);
-//       const errorMessage = err instanceof Error ? err.message : 'Failed to sign in with Google';
-//       setAlert({type: 'error', message: errorMessage});
-//       if (onError) {
-//         onError(errorMessage);
-//       }
-//     } finally {
-//       setIsProcessing(false);
-//     }
-//   };
+    if (!window.google) {
+      const script = document.createElement('script');
+      script.src = 'https://accounts.google.com/gsi/client';
+      script.async = true;
+      script.defer = true;
+      script.onload = initializeGoogle;
+      script.onerror = () => {
+        console.error('Failed to load Google OAuth script');
+        setAlert({type: 'error', message: 'Failed to load Google OAuth'});
+      };
+      document.head.appendChild(script);
+    } else {
+      initializeGoogle();
+    }
+  }, []);
+
+  const handleCredentialResponse = async (credential: any) => {
+    if (typeof credential === 'string') {
+      // Direct credential string
+      await processGoogleCredential(credential);
+    } else if (credential?.credential) {
+      // Google response object with credential property
+      await processGoogleCredential(credential.credential);
+    } else {
+      console.error('Invalid credential format:', credential);
+      setAlert({type: 'error', message: 'Invalid Google credential received'});
+    }
+  };
+
+  const processGoogleCredential = async (idToken: string) => {
+    console.log('Processing Google credential...');
+    setIsLoading(true);
+    setAlert(null);
+
+    try {
+      // Send the credential to our backend
+      const response = await fetch('http://localhost:8000/users/google-oauth/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id_token: idToken }),
+      });
+
+      const data = await response.json();
+      console.log('Backend response:', data);
+
+      if (response.ok) {
+        if (data.needs_profile_completion) {
+          console.log('User needs to complete profile');
+          onProfileCompletion?.({
+            requires_completion: true,
+            google_data: data.user_data,
+            google_token: idToken
+          });
+        } else {
+          console.log('User authenticated successfully');
+          onSuccess?.(data);
+        }
+      } else {
+        console.error('Authentication failed:', data);
+        const errorMessage = data.error || 'Authentication failed';
+        setAlert({type: 'error', message: errorMessage});
+        onError?.(errorMessage);
+      }
+    } catch (error) {
+      console.error('Error during authentication:', error);
+      const errorMessage = 'Failed to authenticate with Google';
+      setAlert({type: 'error', message: errorMessage});
+      onError?.(errorMessage);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = () => {
+    if (!isGoogleLoaded) {
+      setAlert({type: 'error', message: 'Google OAuth not loaded yet'});
+      return;
+    }
+
+    setIsLoading(true);
+    setAlert(null);
+
+    try {
+      // Use the Google Accounts popup flow
+      window.google.accounts.id.prompt((notification: any) => {
+        console.log('Prompt notification:', notification);
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          // If One Tap doesn't work, render a button
+          if (buttonRef.current) {
+            // Clear any existing content
+            buttonRef.current.innerHTML = '';
+            
+            // Render Google Sign-In button
+            window.google.accounts.id.renderButton(buttonRef.current, {
+              theme: 'outline',
+              size: 'large',
+              type: 'standard',
+              text: 'signin_with',
+              shape: 'rectangular',
+              logo_alignment: 'left',
+              width: buttonRef.current.offsetWidth,
+            });
+          }
+        }
+        setIsLoading(false);
+      });
+    } catch (err) {
+      console.error('Error triggering Google sign-in:', err);
+      setAlert({type: 'error', message: 'Failed to start Google sign-in'});
+      setIsLoading(false);
+    }
+  };
 
   return (
     <>
-      {/* {alert && (
+      {alert && (
         <Alert
           type={alert.type}
           message={alert.message}
           onClose={() => setAlert(null)}
           duration={5000}
         />
-      )} */}
+      )}
       
-      {/* <Button
+      {/* Hidden div for Google button rendering */}
+      <div ref={buttonRef} style={{ display: 'none' }} />
+      
+      <Button
         type="button"
         variant="outline"
         onClick={handleGoogleSignIn}
-        disabled={isLoading || isProcessing}
+        disabled={isLoading || !isGoogleLoaded}
         className={`w-full flex items-center justify-center gap-3 ${className}`}
       >
-        {(isLoading || isProcessing) ? (
+        {isLoading ? (
           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-current"></div>
         ) : (
           <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -110,8 +217,8 @@ const GoogleSignInButton = ({
             />
           </svg>
         )}
-        {children || ((isLoading || isProcessing) ? 'Signing in...' : 'Continue with Google')}
-      </Button> */}
+        {children || (isLoading ? 'Signing in...' : 'Continue with Google')}
+      </Button>
     </>
   );
 };

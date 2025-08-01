@@ -144,6 +144,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 
 # Authentication backends
 AUTHENTICATION_BACKENDS = [
+    'users.google_auth.GoogleOAuth2Backend',
     'users.authentication.EmailOrUsernameModelBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
@@ -157,3 +158,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
+# Google OAuth2 settings
+GOOGLE_OAUTH2_CLIENT_ID = os.getenv('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET = os.getenv('GOOGLE_OAUTH2_CLIENT_SECRET')
