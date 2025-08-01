@@ -263,7 +263,9 @@
       "submitButton": "Iniciar Sesión",
       "submitButtonLoading": "Iniciando Sesión...",
       "signupPrompt": "¿No tienes una cuenta?",
-      "signupLink": "Regístrate"
+      "signupLink": "Regístrate",
+      "orContinueWith": "O continúa con",
+      "continueWithGoogle": "Continuar con Google"
     },
     "messages": {
       "success": "¡Sesión iniciada exitosamente! Redirigiendo...",
@@ -304,7 +306,9 @@
       "submitButton": "Registrarse",
       "submitButtonLoading": "Registrando...",
       "loginPrompt": "¿Ya tienes una cuenta?",
-      "loginLink": "Iniciar Sesión"
+      "loginLink": "Iniciar Sesión",
+      "signupWithGoogle": "Registrarse con Google",
+      "orSignupWithEmail": "O regístrate con email"
     },
     "messages": {
       "success": "¡Cuenta creada exitosamente! Redirigiendo...",

@@ -10,6 +10,7 @@ import Footer from "@/components/home/footer";
 import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
+import GoogleSignInButton from '@/components/auth/google-signin-button';
 
 export default function LoginPage() {
   const t = useTranslations("signin");
@@ -134,6 +135,29 @@ export default function LoginPage() {
     }
   };
 
+
+  const handleGoogleSuccess = (data: {
+    token: string;
+    user: any;
+    profile_complete: boolean;
+    message: string;
+  }) => {
+    // Store token
+    localStorage.setItem('authToken', data.token);
+    
+    setAlert({type: 'success', message: data.message});
+    
+    // Redirect based on profile completion
+    setTimeout(() => {
+      if (data.profile_complete) {
+        window.location.href = '/';
+      } else {
+        window.location.href = '/users/complete-profile';
+      }
+    }, 1000);
+  };
+
+
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
       {/* Alert Component */}
@@ -234,6 +258,30 @@ export default function LoginPage() {
                       {t("form.signupLink")}
                     </a>
                   </p>
+
+                   {/* Add Google Sign-In */}
+                   <div className="mt-6">
+                     <div className="relative">
+                       <div className="absolute inset-0 flex items-center">
+                         <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                       </div>
+                       <div className="relative flex justify-center text-sm">
+                         <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                           {t("form.orContinueWith")}
+                         </span>
+                       </div>
+                     </div>
+                                   
+                     <div className="mt-6">
+                       <GoogleSignInButton
+                         onSuccess={handleGoogleSuccess}
+                         className="border-gray-300 dark:border-gray-600 hover:border-[#29BF12] dark:hover:border-[#29BF12]"
+                       >
+                         {t("form.continueWithGoogle")}
+                       </GoogleSignInButton>
+                     </div>
+                   </div>
+
                 </CardContent>
               </Card>
             </div>

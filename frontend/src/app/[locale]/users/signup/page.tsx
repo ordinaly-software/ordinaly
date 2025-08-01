@@ -10,6 +10,7 @@ import Alert from "@/components/ui/alert";
 import { User, Mail, Lock, Building2, Eye, EyeOff, Globe, MapPin } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
 import Image from "next/image";
+import GoogleSignInButton from '@/components/auth/google-signin-button';
 
 export default function SignupPage() {
   const t = useTranslations("signup");
@@ -196,6 +197,40 @@ export default function SignupPage() {
     }
   };
 
+    const handleGoogleSuccess = async (googleResponse: any) => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const response = await fetch(`${apiUrl}/api/users/google-oauth-signin/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token: googleResponse.credential }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Store token and handle success
+          localStorage.setItem('authToken', data.token);
+          setAlert({ type: 'success', message: data.message });
+
+          // Redirect to complete profile if needed
+          if (!data.profile_complete) {
+            setTimeout(() => {
+              window.location.href = '/users/complete-profile';
+            }, 1000);
+          }
+        } else {
+          // Handle errors
+          setAlert({ type: 'error', message: data.error || 'Google OAuth failed' });
+        }
+      } catch (error) {
+        setAlert({ type: 'error', message: 'Network error occurred' });
+      }
+    };
+
+
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
       {/* Alert Component */}
@@ -248,6 +283,28 @@ export default function SignupPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
+
+                  {/* Add Google Sign-Up at the top */}
+                  <div className="mb-6">
+                    <GoogleSignInButton
+                      onSuccess={handleGoogleSuccess}
+                      className="border-gray-300 dark:border-gray-600 hover:border-[#29BF12] dark:hover:border-[#29BF12]"
+                    >
+                      {t("form.signupWithGoogle")}
+                    </GoogleSignInButton>
+                        
+                    <div className="relative mt-6">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                      </div>
+                      <div className="relative flex justify-center text-sm">
+                        <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                          {t("form.orSignupWithEmail")}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
                   <form onSubmit={handleSubmit} className="space-y-6">
                     {/* Name and Surname Fields - Same Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

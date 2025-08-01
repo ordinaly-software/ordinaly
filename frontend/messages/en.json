@@ -263,7 +263,9 @@
       "submitButton": "Sign In",
       "submitButtonLoading": "Signing In...",
       "signupPrompt": "Don't have an account?",
-      "signupLink": "Sign Up"
+      "signupLink": "Sign Up",
+      "orContinueWith": "Or continue with",
+      "continueWithGoogle": "Continue with Google"
     },
     "messages": {
       "success": "Signed in successfully! Redirecting...",
@@ -304,7 +306,9 @@
       "submitButton": "Sign Up",
       "submitButtonLoading": "Registering...",
       "loginPrompt": "Already have an account?",
-      "loginLink": "Sign In"
+      "loginLink": "Sign In",
+      "signupWithGoogle": "Sign up with Google",
+      "orSignupWithEmail": "Or sign up with email"
     },
     "messages": {
       "success": "Account created successfully! Redirecting...",
