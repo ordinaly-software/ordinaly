@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'rest_framework',
     'rest_framework.authtoken',
     'api',
     'users',
@@ -140,3 +141,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = ['https://ordinaly.netlify.app', 'http://localhost:3000', 'https://ordinaly.duckdns.org']
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'users.authentication.EmailOrUsernameModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Django REST framework configuration
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}

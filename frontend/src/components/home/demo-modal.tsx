@@ -1,10 +1,9 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { createPortal } from "react-dom";
-import { useTranslations } from "next-intl"
+import { useTranslations } from "next-intl";
+import { ModalCloseButton } from "@/components/ui/modal-close-button";
 
 interface DemoModalProps {
   isOpen: boolean;
@@ -74,14 +73,11 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
         <div className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1A1924] shadow-2xl">
           {/* Close Button */}
           <div className="absolute top-4 right-4 z-10">
-            <Button
-              variant="ghost"
-              size="icon"
+            <ModalCloseButton
               onClick={onClose}
-              className="rounded-full bg-black/20 hover:bg-black/40 text-white backdrop-blur-md"
-            >
-              <X className="h-5 w-5" />
-            </Button>
+              variant="overlay"
+              size="md"
+            />
           </div>
 
           {/* Video Player */}

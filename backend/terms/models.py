@@ -43,11 +43,17 @@ class Terms(models.Model):
         return self.name
 
     def clean(self):
-        if not self.pk:  # Only check on creation
-            # Check if there's already a document with the same tag
-            existing_terms = Terms.objects.filter(tag=self.tag)
-            if existing_terms.exists():
-                raise ValidationError(f'A "{self.tag}" document already exists.')
+        # Check if there's already a document with the same tag
+        existing_terms = Terms.objects.filter(tag=self.tag)
+        if self.pk:  # This is an update
+            existing_terms = existing_terms.exclude(pk=self.pk)
+        
+        if existing_terms.exists():
+            tag_display = dict(self.TAG_CHOICES).get(self.tag, self.tag)
+            raise ValidationError(
+                f'A "{tag_display}" document already exists. '
+                f'Each document type can only be created once.'
+            )
 
         # Ensure the uploaded files are valid
         if not self.content or not self.pdf_content:
@@ -69,6 +75,20 @@ class Terms(models.Model):
         super().clean()
 
     def save(self, *args, **kwargs):
+        # Handle file replacement on update
+        if self.pk:  # This is an update
+            try:
+                old_instance = Terms.objects.get(pk=self.pk)
+                # Delete old files if they're being replaced
+                if old_instance.content and old_instance.content != self.content:
+                    if os.path.isfile(old_instance.content.path):
+                        os.remove(old_instance.content.path)
+                if old_instance.pdf_content and old_instance.pdf_content != self.pdf_content:
+                    if os.path.isfile(old_instance.pdf_content.path):
+                        os.remove(old_instance.pdf_content.path)
+            except Terms.DoesNotExist:
+                pass  # This shouldn't happen, but handle gracefully
+        
         self.clean()
         super().save(*args, **kwargs)
 
@@ -83,3 +103,6 @@ class Terms(models.Model):
     class Meta:
         verbose_name = "Term"
         verbose_name_plural = "Terms"
+        constraints = [
+            models.UniqueConstraint(fields=['tag'], name='unique_tag_per_terms')
+        ]
