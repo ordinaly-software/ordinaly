@@ -1,6 +1,6 @@
 "use client";
 
-import { Bot, Workflow, Zap, Users, TrendingUp, ChevronUp, Accessibility } from "lucide-react";
+import { Bot, Workflow, Zap, Users, TrendingUp, Accessibility } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useEffect, useState, lazy, Suspense } from "react";
@@ -14,6 +14,22 @@ import { useServices } from "@/hooks/useServices";
 import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { renderIcon } from "@/components/ui/icon-select";
 
+interface Service {
+  id: number;
+  title: string;
+  subtitle?: string;
+  description: string;
+  icon: string;
+  duration?: number;
+  requisites?: string;
+  price?: string | null;
+  is_featured: boolean;
+  created_by?: number;
+  created_by_username?: string;
+  created_at: string;
+  updated_at: string;
+}
+
 // Lazy load heavy components that are below the fold
 const DemoModal = lazy(() => import("@/components/home/demo-modal"));
 const Footer = lazy(() => import("@/components/home/footer"));
@@ -26,9 +42,8 @@ const ColourfulText = lazy(() => import("@/components/ui/colourful-text"));
 export default function HomePage() {
   const t = useTranslations("home");
   const [isDark, setIsDark] = useState(false);
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<any>(null);
+  const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
 
   // Fetch services (up to 6, featured first)
@@ -64,7 +79,7 @@ export default function HomePage() {
   }, [isDark]);
 
   // Service modal handlers
-  const handleServiceClick = (service: any) => {
+  const handleServiceClick = (service: Service) => {
     setSelectedService(service);
     setIsServiceModalOpen(true);
   };
@@ -113,16 +128,11 @@ export default function HomePage() {
     // Setup observer after a small delay to ensure services are rendered
     const observerTimeout = setTimeout(setupObserver, 100);
 
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 1000);
-    };
-
     // Throttle scroll events for better performance
     let ticking = false;
     const throttledScrollHandler = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          handleScroll();
           ticking = false;
         });
         ticking = true;
@@ -137,10 +147,6 @@ export default function HomePage() {
       window.removeEventListener("scroll", throttledScrollHandler);
     };
   }, []); // Only run once on mount
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   const handleWhatsAppChat = () => {
     const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;

@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Modal } from "@/components/ui/modal";
 import Alert from "@/components/ui/alert";
-import Image from "next/image";
 import {
   Search,
   Filter,
@@ -28,7 +27,6 @@ import {
   Phone,
   MessageCircle,
   CheckCircle,
-  X,
   ChevronDown,
   Check
 } from "lucide-react";
@@ -42,7 +40,6 @@ interface Service {
 
 const ServicesPage = () => {
   const t = useTranslations("services");
-  const tHome = useTranslations("home");
   const [isDark, setIsDark] = useState(false);
   const [services, setServices] = useState<Service[]>([]);
   const [filteredServices, setFilteredServices] = useState<Service[]>([]);
@@ -65,7 +62,7 @@ const ServicesPage = () => {
   });
 
   // Service icons mapping
-  const serviceIcons: { [key: string]: any } = {
+  const serviceIcons: { [key: string]: React.ComponentType<{ className?: string }> } = {
     'Custom Web Development': Code,
     'Mobile App Development': Smartphone,
     'UI/UX Design': Palette,
@@ -148,7 +145,8 @@ const ServicesPage = () => {
       } else {
         setAlert({type: 'error', message: 'Failed to load services'});
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Network error:', err);
       setAlert({type: 'error', message: 'Network error while loading services'});
     } finally {
       setIsLoading(false);
@@ -198,13 +196,10 @@ const ServicesPage = () => {
       } else {
         setAlert({type: 'error', message: 'Failed to send message. Please try again.'});
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Network error:', err);
       setAlert({type: 'error', message: 'Network error. Please check your connection.'});
     }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const getServiceIcon = (title: string) => {
@@ -347,7 +342,7 @@ const ServicesPage = () => {
             </div>
           ) : (
             <div className="grid lg:grid-cols-2 gap-8">
-              {filteredServices.map((service, index) => {
+              {filteredServices.map((service) => {
                 const IconComponent = getServiceIcon(service.title);
                 return (
                   <Card

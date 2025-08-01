@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
 import { 
@@ -15,7 +15,6 @@ import {
   Trash2, 
   Search,
   Star,
-  StarOff
 } from "lucide-react";
 import { IconSelect, renderIcon } from "@/components/ui/icon-select";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";

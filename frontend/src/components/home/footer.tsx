@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Image from 'next/image';
+import Link from "next/link";
 
 
 type FooterProps = {
@@ -33,36 +34,36 @@ const Footer = ({ isDark }: FooterProps) => {
             <h3 className="text-gray-900 dark:text-white font-semibold mb-4">{t("footer.legal.title")}</h3>
             <ul className="space-y-2 text-gray-600 dark:text-gray-400">
               <li>
-                <a
+                <Link
                   href="/legal?tab=terms"
                   className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
                 >
                   {t("footer.legal.terms")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/legal?tab=privacy"
                   className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
                 >
                   {t("footer.legal.privacy")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/legal?tab=cookies"
                   className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
                 >
                   {t("footer.legal.cookies")}
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/legal?tab=license"
                   className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
                 >
                   {t("footer.legal.license")}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

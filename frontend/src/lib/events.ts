@@ -14,7 +14,7 @@ export class AppEvents {
     return AppEvents.instance;
   }
 
-  public emit(eventName: string, data?: any) {
+  public emit(eventName: string, data?: unknown) {
     const event = new CustomEvent(eventName, { detail: data });
     this.eventTarget.dispatchEvent(event);
   }
@@ -38,8 +38,8 @@ export const SERVICES_EVENTS = {
 
 // Convenience functions for services events
 export const servicesEvents = {
-  emitCreated: (service: any) => AppEvents.getInstance().emit(SERVICES_EVENTS.CREATED, service),
-  emitUpdated: (service: any) => AppEvents.getInstance().emit(SERVICES_EVENTS.UPDATED, service),
+  emitCreated: (service: Record<string, unknown>) => AppEvents.getInstance().emit(SERVICES_EVENTS.CREATED, service),
+  emitUpdated: (service: Record<string, unknown>) => AppEvents.getInstance().emit(SERVICES_EVENTS.UPDATED, service),
   emitDeleted: (serviceId: number) => AppEvents.getInstance().emit(SERVICES_EVENTS.DELETED, serviceId),
   emitRefresh: () => AppEvents.getInstance().emit(SERVICES_EVENTS.REFRESH),
   

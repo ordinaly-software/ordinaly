@@ -11,11 +11,11 @@ import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
 import GoogleSignInButton from '@/components/auth/google-signin-button';
+import Link from "next/link";
 
 export default function LoginPage() {
   const t = useTranslations("signin");
   const [isDark, setIsDark] = useState(false);
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -70,15 +70,8 @@ export default function LoginPage() {
     const animateElements = document.querySelectorAll(".scroll-animate");
     animateElements.forEach((el) => observer.observe(el));
 
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 1000);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
     return () => {
       observer.disconnect();
-      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -121,7 +114,8 @@ export default function LoginPage() {
       } else {
         setAlert({type: 'error', message: t('messages.invalidCredentials')});
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Login error:', err);
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsLoading(false);
@@ -138,7 +132,13 @@ export default function LoginPage() {
 
   const handleGoogleSuccess = (data: {
     token: string;
-    user: any;
+    user: {
+      id: number;
+      username: string;
+      email: string;
+      first_name?: string;
+      last_name?: string;
+    };
     profile_complete: boolean;
     message: string;
   }) => {
@@ -238,9 +238,9 @@ export default function LoginPage() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <a href="/forgot-password" className="text-sm text-[#46B1C9] hover:underline">
+                      <Link href="/forgot-password" className="text-sm text-[#46B1C9] hover:underline">
                         {t("form.forgotPassword")}
-                      </a>
+                      </Link>
                     </div>
 
                     {/* Centered and smaller sign-in button */}
@@ -254,9 +254,9 @@ export default function LoginPage() {
 
                   <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
                     {t("form.signupPrompt")}{" "}
-                    <a href="/users/signup" className="text-[#46B1C9] hover:underline">
+                    <Link href="/users/signup" className="text-[#46B1C9] hover:underline">
                       {t("form.signupLink")}
-                    </a>
+                    </Link>
                   </p>
 
                    {/* Add Google Sign-In */}

@@ -8,6 +8,15 @@ interface PerformanceMetrics {
   ttfb?: number; // Time to First Byte
 }
 
+interface LayoutShift extends PerformanceEntry {
+  value: number;
+  hadRecentInput: boolean;
+}
+
+interface PerformanceEventTiming extends PerformanceEntry {
+  processingStart: number;
+}
+
 export const usePerformanceMonitoring = () => {
   useEffect(() => {
     if (typeof window === 'undefined' || !('performance' in window)) return;
@@ -26,11 +35,11 @@ export const usePerformanceMonitoring = () => {
             metrics.lcp = entry.startTime;
             break;
           case 'first-input':
-            metrics.fid = (entry as any).processingStart - entry.startTime;
+            metrics.fid = (entry as PerformanceEventTiming).processingStart - entry.startTime;
             break;
           case 'layout-shift':
-            if (!(entry as any).hadRecentInput) {
-              metrics.cls = (metrics.cls || 0) + (entry as any).value;
+            if (!(entry as LayoutShift).hadRecentInput) {
+              metrics.cls = (metrics.cls || 0) + (entry as LayoutShift).value;
             }
             break;
           case 'navigation':
@@ -61,7 +70,7 @@ export const usePerformanceMonitoring = () => {
     // Observe different performance entry types
     try {
       observer.observe({ entryTypes: ['paint', 'largest-contentful-paint', 'first-input', 'layout-shift', 'navigation'] });
-    } catch (error) {
+    } catch {
       // Fallback for browsers that don't support all entry types
       observer.observe({ entryTypes: ['paint', 'navigation'] });
     }

@@ -11,11 +11,11 @@ import { User, Mail, Lock, Building2, Eye, EyeOff, Globe, MapPin } from "lucide-
 import StyledButton from "@/components/ui/styled-button";
 import Image from "next/image";
 import GoogleSignInButton from '@/components/auth/google-signin-button';
+import Link from "next/link";
 
 export default function SignupPage() {
   const t = useTranslations("signup");
   const [isDark, setIsDark] = useState(false);
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -28,7 +28,6 @@ export default function SignupPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{[key: string]: string}>({});
-  const [successMessage, setSuccessMessage] = useState("");
   const [showImage, setShowImage] = useState(true);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
@@ -97,15 +96,8 @@ export default function SignupPage() {
     const animateElements = document.querySelectorAll(".scroll-animate");
     animateElements.forEach((el) => observer.observe(el));
 
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 1000);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
     return () => {
       observer.disconnect();
-      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -133,7 +125,6 @@ export default function SignupPage() {
 
     setIsLoading(true);
     setErrors({});
-    setSuccessMessage("");
     setAlert(null);
 
     try {
@@ -183,7 +174,8 @@ export default function SignupPage() {
         if (data.non_field_errors) setAlert({type: 'error', message: data.non_field_errors[0]});
         if (data.detail) setAlert({type: 'error', message: data.detail});
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Signup error:', err);
       setAlert({type: 'error', message: t("messages.networkError")});
     } finally {
       setIsLoading(false);
@@ -197,38 +189,32 @@ export default function SignupPage() {
     }
   };
 
-    const handleGoogleSuccess = async (googleResponse: any) => {
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-        const response = await fetch(`${apiUrl}/api/users/google-oauth-signin/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ token: googleResponse.credential }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          // Store token and handle success
-          localStorage.setItem('authToken', data.token);
-          setAlert({ type: 'success', message: data.message });
-
-          // Redirect to complete profile if needed
-          if (!data.profile_complete) {
-            setTimeout(() => {
-              window.location.href = '/users/complete-profile';
-            }, 1000);
-          }
-        } else {
-          // Handle errors
-          setAlert({ type: 'error', message: data.error || 'Google OAuth failed' });
-        }
-      } catch (error) {
-        setAlert({ type: 'error', message: 'Network error occurred' });
-      }
+    const handleGoogleSuccess = (data: {
+    token: string;
+    user: {
+      id: number;
+      username: string;
+      email: string;
+      first_name?: string;
+      last_name?: string;
     };
+    profile_complete: boolean;
+    message: string;
+  }) => {
+    // Store token
+    localStorage.setItem('authToken', data.token);
+    
+    setAlert({type: 'success', message: data.message});
+    
+    // Redirect based on profile completion
+    setTimeout(() => {
+      if (data.profile_complete) {
+        window.location.href = '/';
+      } else {
+        window.location.href = '/users/complete-profile';
+      }
+    }, 2000);
+  };
 
 
   return (
@@ -531,9 +517,9 @@ export default function SignupPage() {
 
                   <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
                     {t("form.loginPrompt")}{" "}
-                    <a href="/users/signin" className="text-[#46B1C9] hover:underline">
+                    <Link href="/users/signin" className="text-[#46B1C9] hover:underline">
                       {t("form.loginLink")}
-                    </a>
+                    </Link>
                   </p>
                 </CardContent>
               </Card>

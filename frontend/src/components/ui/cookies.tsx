@@ -31,7 +31,7 @@ const CookieConsent = () => {
       setShowPopup(true);
       setShowBubble(true);
     }
-  }, []);
+  }, [showBubble]);
 
   const handleAcceptAll = () => {
     const preferences = {

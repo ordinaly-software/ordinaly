@@ -9,6 +9,7 @@ import LogoutModal from "@/components/ui/logout-modal";
 import Image from 'next/image';
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 
 interface NavbarProps {
   isDark: boolean;
@@ -74,11 +75,6 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
     };
   }, [showUserMenu]);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    setIsMenuOpen(false);
-  };
-
   const goHome = () => {
     window.location.href = "/";
     setIsMenuOpen(false);
@@ -100,7 +96,8 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
           // Ignore errors, we'll remove the token anyway
         });
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Error during signout:', err);
       // Ignore errors, we'll remove the token anyway
     }
 
@@ -209,25 +206,25 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                     >
                       <div className="py-1">
                         {/* Profile Link */}
-                        <a
+                        <Link
                           href="/users/profile"
                           onClick={() => setShowUserMenu(false)}
                           className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                         >
                           <User className="h-4 w-4 mr-2" />
                           {t("navigation.profile")}
-                        </a>
+                        </Link>
                         
                         {/* Admin Link - only show if user is staff or superuser */}
                         {userData && (userData.is_staff || userData.is_superuser) && (
-                          <a
+                          <Link
                             href="/admin"
                             onClick={() => setShowUserMenu(false)}
                             className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                           >
                             <Settings className="h-4 w-4 mr-2" />
                             {t("navigation.adminDashboard")}
-                          </a>
+                          </Link>
                         )}
                         
                         <div
@@ -323,14 +320,14 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                       className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50"
                     >
                       <div className="py-1">
-                        <a
+                        <Link
                           href="/users/profile"
                           onClick={() => setShowUserMenu(false)}
                           className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                         >
                           <User className="h-4 w-4 mr-2" />
                           {t("navigation.profile")}
-                        </a>
+                        </Link>
                         
                         <div
                           onClick={handleLogoutClick}
@@ -395,25 +392,25 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                   {isAuthenticated ? (
                     <div className="space-y-2">
                       {/* Profile Link - Mobile */}
-                      <a
+                      <Link
                         href="/users/profile"
                         onClick={() => setIsMenuOpen(false)}
                         className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#29BF12] transition-colors py-2"
                       >
                         <User className="h-4 w-4 mr-2" />
                         {t("navigation.profile")}
-                      </a>
+                      </Link>
                       
                       {/* Admin Link - Mobile */}
                       {userData && (userData.is_staff || userData.is_superuser) && (
-                        <a
+                        <Link
                           href="/admin"
                           onClick={() => setIsMenuOpen(false)}
                           className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#29BF12] transition-colors py-2"
                         >
                           <Settings className="h-4 w-4 mr-2" />
                           {t("navigation.adminDashboard")}
-                        </a>
+                        </Link>
                       )}
                       
                       <div

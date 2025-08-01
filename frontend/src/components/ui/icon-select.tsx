@@ -43,7 +43,7 @@ export const IconSelect = ({ value, onChange, placeholder = "Select an icon", cl
   );
 
   const renderIcon = (iconName: string) => {
-    const IconComponent = (LucideIcons as any)[iconName];
+    const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{className?: string}>>)[iconName];
     if (!IconComponent) return null;
     return <IconComponent className="w-4 h-4" />;
   };
@@ -125,7 +125,7 @@ export const IconSelect = ({ value, onChange, placeholder = "Select an icon", cl
 
 // Helper function to render icons dynamically
 export const renderIcon = (iconName: string, className: string = "w-6 h-6") => {
-  const IconComponent = (LucideIcons as any)[iconName];
+  const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{className?: string}>>)[iconName];
   if (!IconComponent) return null;
   return <IconComponent className={className} />;
 };

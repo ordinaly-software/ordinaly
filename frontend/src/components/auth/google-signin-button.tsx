@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from 'react';
-import { useGoogleAuth } from '@/hooks/useGoogleAuth';
-import { Button } from '@/components/ui/button';
-import Alert from '@/components/ui/alert';
+// import { useGoogleAuth } from '@/hooks/useGoogleAuth';
+// import { Button } from '@/components/ui/button';
+// import Alert from '@/components/ui/alert';
 
 interface GoogleSignInButtonProps {
   onSuccess: (data: {
     token: string;
-    user: any;
+    user: {
+      id: number;
+      username: string;
+      email: string;
+      first_name?: string;
+      last_name?: string;
+    };
     profile_complete: boolean;
     message: string;
   }) => void;
@@ -18,61 +23,65 @@ interface GoogleSignInButtonProps {
 }
 
 const GoogleSignInButton = ({ 
-  onSuccess, 
-  onError, 
-  className = "",
-  children 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onSuccess: _onSuccess, 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onError: _onError, 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  className: _className = "",
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  children: _children 
 }: GoogleSignInButtonProps) => {
-  const { signInWithGoogle, isLoading, error } = useGoogleAuth();
-  const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+//   const { signInWithGoogle, isLoading, error } = useGoogleAuth();
+//   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
+//   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleGoogleSignIn = async () => {
-    // Prevent double clicks and concurrent requests
-    if (isLoading || isProcessing) {
-      return;
-    }
+//   const handleGoogleSignIn = async () => {
+//     // Prevent double clicks and concurrent requests
+//     if (isLoading || isProcessing) {
+//       return;
+//     }
 
-    setIsProcessing(true);
+//     setIsProcessing(true);
     
-    try {
-      console.log('Google Sign In - Starting authentication...');
-      const result = await signInWithGoogle();
+//     try {
+//       console.log('Google Sign In - Starting authentication...');
+//       const result = await signInWithGoogle();
       
-      if (result) {
-        console.log('Google Sign In - Success, calling onSuccess callback');
-        onSuccess(result);
-      } else {
-        console.log('Google Sign In - No result returned');
-        setAlert({type: 'error', message: 'Failed to sign in with Google'});
-        if (onError) {
-          onError('Failed to sign in with Google');
-        }
-      }
-    } catch (err) {
-      console.error('Google Sign In - Error:', err);
-      const errorMessage = err instanceof Error ? err.message : 'Failed to sign in with Google';
-      setAlert({type: 'error', message: errorMessage});
-      if (onError) {
-        onError(errorMessage);
-      }
-    } finally {
-      setIsProcessing(false);
-    }
-  };
+//       if (result) {
+//         console.log('Google Sign In - Success, calling onSuccess callback');
+//         onSuccess(result);
+//       } else {
+//         console.log('Google Sign In - No result returned');
+//         setAlert({type: 'error', message: 'Failed to sign in with Google'});
+//         if (onError) {
+//           onError('Failed to sign in with Google');
+//         }
+//       }
+//     } catch (err) {
+//       console.error('Google Sign In - Error:', err);
+//       const errorMessage = err instanceof Error ? err.message : 'Failed to sign in with Google';
+//       setAlert({type: 'error', message: errorMessage});
+//       if (onError) {
+//         onError(errorMessage);
+//       }
+//     } finally {
+//       setIsProcessing(false);
+//     }
+//   };
 
   return (
     <>
-      {alert && (
+      {/* {alert && (
         <Alert
           type={alert.type}
           message={alert.message}
           onClose={() => setAlert(null)}
           duration={5000}
         />
-      )}
+      )} */}
       
-      <Button
+      {/* <Button
         type="button"
         variant="outline"
         onClick={handleGoogleSignIn}
@@ -102,7 +111,7 @@ const GoogleSignInButton = ({
           </svg>
         )}
         {children || ((isLoading || isProcessing) ? 'Signing in...' : 'Continue with Google')}
-      </Button>
+      </Button> */}
     </>
   );
 };

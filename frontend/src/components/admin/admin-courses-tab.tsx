@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -69,11 +69,7 @@ const AdminCoursesTab = () => {
     max_attendants: ""
   });
 
-  useEffect(() => {
-    fetchCourses();
-  }, []);
-
-  const fetchCourses = async () => {
+  const fetchCourses = useCallback(async () => {
     try {
       const token = localStorage.getItem('authToken');
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -96,7 +92,11 @@ const AdminCoursesTab = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [t]);
+
+  useEffect(() => {
+    fetchCourses();
+  }, [fetchCourses]);
 
   const resetForm = () => {
     setFormData({
@@ -625,7 +625,7 @@ const AdminCoursesTab = () => {
                     fill
                     className="object-cover"
                     sizes="128px"
-                    onError={(e) => {
+                    onError={() => {
                       console.error('Preview image failed to load:', previewUrl);
                       setPreviewUrl("");
                     }}

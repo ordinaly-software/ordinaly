@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -17,7 +17,16 @@ export default function CompleteProfilePage() {
   const [isDark, setIsDark] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authToken, setAuthToken] = useState<string | null>(null);
-  const [userData, setUserData] = useState<any>(null);
+  const [userData, setUserData] = useState<{
+    id: number;
+    username: string;
+    email: string;
+    first_name: string;
+    last_name: string;
+    company?: string;
+    region?: string;
+    city?: string;
+  } | null>(null);
   const [company, setCompany] = useState("");
   const [region, setRegion] = useState("");
   const [city, setCity] = useState("");
@@ -48,22 +57,7 @@ export default function CompleteProfilePage() {
     }
   }, [isDark]);
 
-  useEffect(() => {
-    // Check authentication status
-    const token = localStorage.getItem('authToken');
-    setAuthToken(token);
-    setIsAuthenticated(!!token);
-
-    // Fetch user data if authenticated
-    if (token) {
-      fetchUserData(token);
-    } else {
-      // Redirect to signin if not authenticated
-      router.push("/users/signin");
-    }
-  }, [router]);
-
-  const fetchUserData = async (token: string) => {
+  const fetchUserData = useCallback(async (token: string) => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       const response = await fetch(`${apiUrl}/api/users/profile/`, {
@@ -77,21 +71,35 @@ export default function CompleteProfilePage() {
         const data = await response.json();
         setUserData(data);
         
-        // Check if user profile is already complete
-        if (data.company && data.company.trim()) {
-          // Profile already complete, redirect to home
-          router.push('/');
-          return;
-        }
-      } else if (response.status === 401) {
-        // Token is invalid, remove it and redirect
-        localStorage.removeItem('authToken');
-        router.push("/users/signin");
+        // Pre-fill form if user has existing data
+        setCompany(data.company || "");
+        setRegion(data.region || "");
+        setCity(data.city || "");
+      } else {
+        setAlert({ type: 'error', message: t("messages.errorGeneric") });
       }
     } catch (error) {
-      console.error('Failed to fetch user data:', error);
+      console.error('Error fetching user data:', error);
+      setAlert({ type: 'error', message: t("messages.networkError") });
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }, [t]);
+
+  useEffect(() => {
+    // Check authentication status
+    const token = localStorage.getItem('authToken');
+    setAuthToken(token);
+    setIsAuthenticated(!!token);
+
+    // Fetch user data if authenticated
+    if (token) {
+      fetchUserData(token);
+    } else {
+      // Redirect to signin if not authenticated
+      router.push("/users/signin");
+    }
+  }, [router, fetchUserData]);
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {};
@@ -139,11 +147,12 @@ export default function CompleteProfilePage() {
           router.push('/');
         }, 2000);
       } else {
-        if (data.company) setErrors(prev => ({...prev, company: data.company[0] || data.company}));
+        if (data.company) setErrors((prev: {[key: string]: string}) => ({...prev, company: data.company[0] || data.company}));
         if (data.non_field_errors) setAlert({type: 'error', message: data.non_field_errors[0]});
         if (data.detail) setAlert({type: 'error', message: data.detail});
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Submit error:', err);
       setAlert({type: 'error', message: t("messages.networkError")});
     } finally {
       setIsLoading(false);

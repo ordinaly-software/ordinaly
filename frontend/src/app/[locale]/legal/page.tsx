@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -49,11 +49,7 @@ const LegalPage = () => {
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    fetchDocuments();
-  }, []);
-
-  const fetchDocuments = async () => {
+  const fetchDocuments = useCallback(async () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       const response = await fetch(`${apiUrl}/api/terms/public/`, {
@@ -74,7 +70,11 @@ const LegalPage = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [t]);
+  
+  useEffect(() => {
+    fetchDocuments();
+  }, [fetchDocuments]);
 
   const downloadPDF = async (doc: LegalDocument) => {
     if (!doc.pdf_content) {

@@ -13,30 +13,15 @@ import Alert from "@/components/ui/alert";
 import Image from "next/image";
 import {
   Search,
-  Filter,
-  Star,
   Calendar,
   MapPin,
   Users,
-  Clock,
   BookOpen,
   Award,
   ArrowRight,
   Mail,
-  Phone,
-  MessageCircle,
-  CheckCircle,
-  X,
   ChevronDown,
   Check,
-  User,
-  Heart,
-  Eye,
-  Share2,
-  Download,
-  Play,
-  Target,
-  Briefcase,
   GraduationCap,
   UserCheck,
   UserX
@@ -64,9 +49,7 @@ interface Enrollment {
 
 const FormationPage = () => {
   const t = useTranslations("formation");
-  const tHome = useTranslations("home");
   const [isDark, setIsDark] = useState(false);
-  const [showBackToTop, setShowBackToTop] = useState(false);
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
@@ -124,10 +107,6 @@ const FormationPage = () => {
   }, [isDark]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setShowBackToTop(window.scrollY > 1000);
-    };
-
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
       if (showLocationDropdown && !target.closest('.location-dropdown-container')) {
@@ -138,11 +117,9 @@ const FormationPage = () => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
     document.addEventListener("mousedown", handleClickOutside);
     
     return () => {
-      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showLocationDropdown, showPriceDropdown]);
@@ -191,9 +168,11 @@ const FormationPage = () => {
         const data = await response.json();
         setCourses(data);
       } else {
+        console.error('Failed to load courses');
         setAlert({type: 'error', message: 'Failed to load courses'});
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Network error while loading courses:', err);
       setAlert({type: 'error', message: 'Network error while loading courses'});
     } finally {
       setIsLoading(false);
@@ -216,8 +195,8 @@ const FormationPage = () => {
         const data = await response.json();
         setEnrollments(data);
       }
-    } catch (error) {
-      console.error('Failed to fetch enrollments:', error);
+    } catch (err) {
+      console.error('Failed to fetch enrollments:', err);
     }
   };
 
@@ -275,7 +254,8 @@ const FormationPage = () => {
         const errorData = await response.json();
         setAlert({type: 'error', message: errorData.detail || 'Failed to enroll. Please try again.'});
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Network error during enrollment:', err);
       setAlert({type: 'error', message: 'Network error. Please check your connection.'});
     }
   };
@@ -301,17 +281,14 @@ const FormationPage = () => {
       } else {
         setAlert({type: 'error', message: 'Failed to cancel enrollment'});
       }
-    } catch (error) {
+    } catch (err) {
+      console.error('Network error during cancellation:', err);
       setAlert({type: 'error', message: 'Network error. Please check your connection.'});
     }
   };
 
   const isEnrolled = (courseId: number) => {
     return enrollments.some(enrollment => enrollment.course === courseId);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const getLocationLabel = (value: 'all' | 'online' | 'onsite') => {

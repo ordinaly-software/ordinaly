@@ -13,8 +13,6 @@ import {
   FileText, 
   Settings,
   BarChart3,
-  GraduationCap,
-  Briefcase
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminServicesTab from "@/components/admin/admin-services-tab";

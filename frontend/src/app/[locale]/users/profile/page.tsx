@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -52,6 +52,100 @@ export default function ProfilePage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
 
+  // Track changes to form fields
+  const handleFieldChange = (field: string, value: string) => {
+    // Set the field value
+    switch (field) {
+      case 'firstName':
+        setFirstName(value);
+        break;
+      case 'lastName':
+        setLastName(value);
+        break;
+      case 'username':
+        setUsername(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'company':
+        setCompany(value);
+        break;
+      case 'region':
+        setRegion(value);
+        break;
+      case 'city':
+        setCity(value);
+        break;
+    }
+    
+    // Mark that there are changes
+    setHasChanges(true);
+  };
+
+  // Check if current form values match the original profile data
+  useEffect(() => {
+    if (!profile) return;
+    
+    const originalFirstName = profile.first_name || profile.name || '';
+    const originalLastName = profile.last_name || profile.surname || '';
+    const originalUsername = profile.username || '';
+    const originalEmail = profile.email || '';
+    const originalCompany = profile.company || '';
+    const originalRegion = profile.region || '';
+    const originalCity = profile.city || '';
+    
+    const hasAnyChanges = 
+      firstName !== originalFirstName ||
+      lastName !== originalLastName ||
+      username !== originalUsername ||
+      email !== originalEmail ||
+      company !== originalCompany ||
+      region !== originalRegion ||
+      city !== originalCity;
+    
+    setHasChanges(hasAnyChanges);
+  }, [profile, firstName, lastName, username, email, company, region, city]);
+
+    const fetchProfile = useCallback(async (token?: string) => {
+    const authTokenToUse = token || authToken;
+    if (!authTokenToUse) return;
+
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/users/profile/`, {
+        headers: {
+          'Authorization': `Token ${authTokenToUse}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setProfile(data);
+        
+        // Set form values - handle both frontend and backend field names
+        setFirstName(data.first_name || data.name || "");
+        setLastName(data.last_name || data.surname || "");
+        setUsername(data.username || "");
+        setEmail(data.email || "");
+        setCompany(data.company || "");
+        setRegion(data.region || "");
+        setCity(data.city || "");
+      } else if (response.status === 401) {
+        // Token is invalid
+        window.location.href = "/users/signin";
+      } else {
+        setAlert({ type: 'error', message: t("messages.networkError") });
+      }
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      setAlert({ type: 'error', message: t("messages.networkError") });
+    } finally {
+      setIsLoading(false);
+    }
+  }, [authToken, t]);
+
   useEffect(() => {
     // Check authentication status
     const token = localStorage.getItem('authToken');
@@ -66,89 +160,8 @@ export default function ProfilePage() {
 
     // Fetch profile data
     fetchProfile(token);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    // Theme detection
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
-
-  useEffect(() => {
-    // Check for changes
-    if (profile) {
-      const profileFirstName = profile.first_name || profile.name || "";
-      const profileLastName = profile.last_name || profile.surname || "";
-      
-      const hasFormChanges = 
-        firstName !== profileFirstName ||
-        lastName !== profileLastName ||
-        username !== profile.username ||
-        email !== profile.email ||
-        company !== profile.company ||
-        region !== (profile.region || "") ||
-        city !== (profile.city || "");
-      
-      setHasChanges(hasFormChanges);
-    }
-  }, [firstName, lastName, username, email, company, region, city, profile]);
-
-  const fetchProfile = async (token?: string) => {
-    const authTokenToUse = token || authToken;
-    if (!authTokenToUse) return;
-
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/users/profile/`, {
-        headers: {
-          'Authorization': `Token ${authTokenToUse}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const userData = await response.json();
-        setProfile(userData);
-        
-        // Populate form fields - handle both name/surname and first_name/last_name
-        setFirstName(userData.first_name || userData.name || "");
-        setLastName(userData.last_name || userData.surname || "");
-        setUsername(userData.username || "");
-        setEmail(userData.email || "");
-        setCompany(userData.company || "");
-        setRegion(userData.region || "");
-        setCity(userData.city || "");
-      } else if (response.status === 401) {
-        // Token might be expired, redirect to sign in
-        window.location.href = "/users/signin";
-      } else {
-        setAlert({ type: 'error', message: t("messages.networkError") });
-      }
-    } catch (error) {
-      console.error('Error fetching profile:', error);
-      setAlert({ type: 'error', message: t("messages.networkError") });
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {};
@@ -266,6 +279,7 @@ export default function ProfilePage() {
       setCity(profile.city || "");
       setErrors({});
       setAlert(null);
+      setHasChanges(false);
     }
   };
 
@@ -300,7 +314,7 @@ export default function ProfilePage() {
                 // Ignore errors, account is being deleted anyway
               });
             }
-          } catch (error) {
+          } catch {
             // Ignore errors, account is being deleted anyway
           }
 
@@ -316,8 +330,8 @@ export default function ProfilePage() {
           setAlert({ type: 'error', message: data.detail || t("messages.deleteError") });
         }
       }
-    } catch (error) {
-      console.error('Error deleting account:', error);
+    } catch (err) {
+      console.error('Error deleting account:', err);
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsDeleting(false);
@@ -391,7 +405,7 @@ export default function ProfilePage() {
                             id="firstName"
                             type="text"
                             value={firstName}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFirstName(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('firstName', e.target.value)}
                             className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
                             placeholder={t("form.firstNamePlaceholder")}
                             required
@@ -410,7 +424,7 @@ export default function ProfilePage() {
                             id="lastName"
                             type="text"
                             value={lastName}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('lastName', e.target.value)}
                             className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
                             placeholder={t("form.lastNamePlaceholder")}
                             required
@@ -431,7 +445,7 @@ export default function ProfilePage() {
                           id="username"
                           type="text"
                           value={username}
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUsername(e.target.value)}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('username', e.target.value)}
                           className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
                           placeholder={t("form.usernamePlaceholder")}
                           required
@@ -451,7 +465,7 @@ export default function ProfilePage() {
                           id="email"
                           type="email"
                           value={email}
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('email', e.target.value)}
                           className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
                           placeholder={t("form.emailPlaceholder")}
                           required
@@ -471,7 +485,7 @@ export default function ProfilePage() {
                           id="company"
                           type="text"
                           value={company}
-                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompany(e.target.value)}
+                          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('company', e.target.value)}
                           className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
                           placeholder={t("form.companyPlaceholder")}
                           required
@@ -492,7 +506,7 @@ export default function ProfilePage() {
                             id="region"
                             type="text"
                             value={region}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRegion(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('region', e.target.value)}
                             className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
                             placeholder={t("form.regionPlaceholder")}
                           />
@@ -509,7 +523,7 @@ export default function ProfilePage() {
                             id="city"
                             type="text"
                             value={city}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('city', e.target.value)}
                             className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
                             placeholder={t("form.cityPlaceholder")}
                           />

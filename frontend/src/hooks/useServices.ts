@@ -142,6 +142,7 @@ export const useServices = (limit?: number) => {
     };
 
     fetchServices();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [limit, refetchTrigger]);
 
   // Listen for services events to auto-refresh with debouncing

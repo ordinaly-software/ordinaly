@@ -2,9 +2,8 @@
 
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, User, ExternalLink, Mail } from "lucide-react";
+import { Clock, ExternalLink, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { renderIcon } from "@/components/ui/icon-select";
 
 interface Service {
@@ -34,14 +33,6 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
   const t = useTranslations("home");
 
   if (!service) return null;
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString(undefined, {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
 
   const getDurationText = (duration: number) => {
     if (duration === 1) {
