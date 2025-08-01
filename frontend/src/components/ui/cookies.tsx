@@ -253,11 +253,11 @@ const CookieConsent = () => {
             <div className="bg-muted/30 p-4 rounded-b-2xl border-t border-border">
               <p className="text-xs text-muted-foreground text-center">
                 {t('footer')}
-                <Link href="/politica-privacidad" className="text-[#46B1C9] hover:underline">
+                <Link href="/legal?tab=privacy" className="text-[#46B1C9] hover:underline" target="_blank" rel="noopener noreferrer">
                   {t('privacy')}
                 </Link>{' '}
                 y{' '}
-                <Link href="/politica-cookies" className="text-[#46B1C9] hover:underline">
+                <Link href="/legal?tab=cookies" className="text-[#46B1C9] hover:underline" target="_blank" rel="noopener noreferrer">
                   {t('cookies')}
                 </Link>
               </p>
