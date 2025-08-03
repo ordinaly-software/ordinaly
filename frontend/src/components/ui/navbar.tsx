@@ -76,7 +76,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
   }, [showUserMenu]);
 
   const goHome = () => {
-    window.location.href = "/";
+    router.push("/");
     setIsMenuOpen(false);
   };
 
