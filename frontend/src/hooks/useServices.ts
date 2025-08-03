@@ -75,7 +75,7 @@ export const useServices = (limit?: number) => {
             setError(`API Error: ${response.status}`);
             setIsOnVacation(false);
             // Only clear services on initial load, not on refetches
-            if (servicesRef.current.length === 0) {
+            if (services.length === 0) {
               setServices([]);
             }
             return;

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Moon, Sun, Menu, X, User, LogOut, LogIn, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
@@ -18,6 +19,7 @@ interface NavbarProps {
 
 const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
   const t = useTranslations("home");
+  const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
