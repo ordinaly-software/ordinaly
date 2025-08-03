@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle, Eye, EyeOff, User, Lock, Mail } from 'lucide-react';
-import Alert from "@/components/ui/alert";
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -88,10 +88,10 @@ const AuthModal = ({ isOpen, onClose, onAuthSuccess, courseTitle }: AuthModalPro
         onAuthSuccess();
         handleClose();
       } else {
-        const errorData = await response.json();
-        setError(errorData.error || 'Login failed. Please check your credentials.');
+        await response.json(); // Consume response to prevent memory leaks
+        setError('Login failed. Please check your credentials.');
       }
-    } catch (error) {
+    } catch {
       setError('Network error. Please try again.');
     } finally {
       setIsLoading(false);
@@ -138,10 +138,10 @@ const AuthModal = ({ isOpen, onClose, onAuthSuccess, courseTitle }: AuthModalPro
         onAuthSuccess();
         handleClose();
       } else {
-        const errorData = await response.json();
-        setError(errorData.error || 'Signup failed. Please try again.');
+        await response.json(); // Consume response to prevent memory leaks
+        setError('Signup failed. Please try again.');
       }
-    } catch (error) {
+    } catch {
       setError('Network error. Please try again.');
     } finally {
       setIsLoading(false);
@@ -157,7 +157,7 @@ const AuthModal = ({ isOpen, onClose, onAuthSuccess, courseTitle }: AuthModalPro
           </h2>
           {courseTitle && (
             <p className="text-gray-600 text-sm">
-              Sign in or create an account to enroll in <span className="font-semibold">"{courseTitle}"</span>
+              Sign in or create an account to enroll in <span className="font-semibold">&ldquo;{courseTitle}&rdquo;</span>
             </p>
           )}
         </div>
@@ -367,13 +367,13 @@ const AuthModal = ({ isOpen, onClose, onAuthSuccess, courseTitle }: AuthModalPro
         <div className="mt-6 text-center">
           <p className="text-sm text-gray-600">
             By creating an account, you agree to our{' '}
-            <a href="/terms" className="text-blue-600 hover:underline">
+            <Link href="/terms" className="text-blue-600 hover:underline">
               Terms of Service
-            </a>{' '}
+            </Link>{' '}
             and{' '}
-            <a href="/privacy" className="text-blue-600 hover:underline">
+            <Link href="/privacy" className="text-blue-600 hover:underline">
               Privacy Policy
-            </a>
+            </Link>
           </p>
         </div>
       </div>

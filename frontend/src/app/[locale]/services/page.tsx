@@ -26,7 +26,6 @@ import {
   ArrowRight,
   Mail,
   Phone,
-  MessageCircle,
   CheckCircle,
   ChevronDown,
   Check
@@ -154,7 +153,7 @@ const ServicesPage = () => {
       if (response.ok) {
         const data = await response.json();
         // Transform data to ensure compatibility
-        const transformedData = data.map((service: any) => ({
+        const transformedData = data.map((service: Service) => ({
           ...service,
           featured: service.is_featured || service.featured || false
         }));
@@ -168,15 +167,6 @@ const ServicesPage = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleContactService = (service: Service) => {
-    setSelectedService(service);
-    setContactForm(prev => ({
-      ...prev,
-      service: service.title
-    }));
-    setShowContactModal(true);
   };
 
   const handleMoreInfo = (service: Service) => {

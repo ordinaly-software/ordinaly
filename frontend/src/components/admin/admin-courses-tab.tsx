@@ -838,7 +838,7 @@ const AdminCoursesTab = () => {
               <select
                 id="periodicity"
                 value={formData.periodicity}
-                onChange={(e) => setFormData(prev => ({...prev, periodicity: e.target.value as any}))}
+                onChange={(e) => setFormData(prev => ({...prev, periodicity: e.target.value as Course['periodicity']}))}
                 className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
                 required
               >

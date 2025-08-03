@@ -46,7 +46,7 @@ interface CourseDetailsModalProps {
 }
 
 // Custom image loader to handle potential URL issues
-const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+const imageLoader = ({ src }: { src: string; width: number; quality?: number }) => {
   if (!src || src === 'undefined' || src === 'null') {
     return `/api/placeholder/600/400`;
   }
@@ -69,7 +69,6 @@ const CourseDetailsModal = ({
   onAuthRequired
 }: CourseDetailsModalProps) => {
   const t = useTranslations('formation.courseDetails');
-  const tFormation = useTranslations('formation');
 
   const formatDate = (dateString: string) => {
     try {
@@ -98,7 +97,7 @@ const CourseDetailsModal = ({
 
   const getPeriodicityDisplay = (periodicity: string) => {
     try {
-      return t(`periodicity.${periodicity}` as any);
+      return t(`periodicity.${periodicity}` as 'periodicity.once' | 'periodicity.daily' | 'periodicity.weekly' | 'periodicity.biweekly' | 'periodicity.monthly' | 'periodicity.custom');
     } catch {
       return periodicity;
     }

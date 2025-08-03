@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/home/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Modal } from "@/components/ui/modal";
 import Alert from "@/components/ui/alert";
 import AuthModal from "@/components/auth-modal";
@@ -99,6 +98,26 @@ const FormationPage = () => {
   const [courseForAuth, setCourseForAuth] = useState<Course | null>(null);
   const [courseForDetails, setCourseForDetails] = useState<Course | null>(null);
 
+  const fetchCourses = useCallback(async () => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${apiUrl}/api/courses/courses/`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        setCourses(data);
+      } else {
+        console.error('Failed to load courses');
+        setAlert({type: 'error', message: t('alerts.failedToLoadCourses')});
+      }
+    } catch (err) {
+      console.error('Network error while loading courses:', err);
+      setAlert({type: 'error', message: t('alerts.networkErrorLoadingCourses')});
+    } finally {
+      setIsLoading(false);
+    }
+  }, [t]);
+
   useEffect(() => {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     const savedTheme = localStorage.getItem("theme");
@@ -119,7 +138,7 @@ const FormationPage = () => {
     if (token) {
       fetchEnrollments();
     }
-  }, []);
+  }, [fetchCourses]);
 
   useEffect(() => {
     if (isDark) {
@@ -196,26 +215,6 @@ const FormationPage = () => {
     setFilteredCourses(filtered);
   }, [courses, searchTerm, filterLocation, filterPrice]);
 
-  const fetchCourses = async () => {
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/courses/courses/`);
-      
-      if (response.ok) {
-        const data = await response.json();
-        setCourses(data);
-      } else {
-        console.error('Failed to load courses');
-        setAlert({type: 'error', message: t('alerts.failedToLoadCourses')});
-      }
-    } catch (err) {
-      console.error('Network error while loading courses:', err);
-      setAlert({type: 'error', message: t('alerts.networkErrorLoadingCourses')});
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const fetchEnrollments = async () => {
     try {
       const token = localStorage.getItem('authToken');
@@ -269,7 +268,7 @@ const FormationPage = () => {
         setSelectedCourse(null);
         fetchEnrollments(); // Refresh enrollments
       } else {
-        const errorData = await response.json();
+        await response.json(); // Consume response to prevent memory leaks
         setAlert({type: 'error', message: t('alerts.enrollmentFailed')});
       }
     } catch (err) {
@@ -731,7 +730,6 @@ const FormationPage = () => {
                 </h3>
                 <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
                   {pastCourses.map((course) => {
-                    const enrolled = isEnrolled(course.id);
                     return (
                       <Card
                         key={course.id}
