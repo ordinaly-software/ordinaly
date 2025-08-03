@@ -5,15 +5,21 @@
       "title": "ORDINALY"
     },
     "navigation": {
+      "home": "Meet us!",
       "services": "Services",
-      "about": "About Us",
-      "contact": "Contact",
+      "formation": "Formation",
       "start": "Get Started",
       "darkMode": "Switch to dark mode",
       "lightMode": "Switch to light Mode",
       "localeSwitcher": "Change language",
       "openMenu": "Open menu",
-      "closeMenu": "Close menu"
+      "closeMenu": "Close menu",
+      "signIn": "Sign In",
+      "signUp": "Sign Up!",
+      "signOut": "Sign Out",
+      "userMenu": "User menu",
+      "adminDashboard": "Admin Dashboard",
+      "profile": "Profile"
     },
     "hero": {
       "title": "AUTOMATE",
@@ -28,6 +34,20 @@
     "services": {
       "title": "OUR SERVICES",
       "description": "Automation solutions designed to boost and accelerate your business.",
+      "contactForQuote": "Contact our agents for a detailed quote",
+      "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
+      "vacationTitle": "On Vacation",
+      "featured": "Featured",
+      "duration": "Available in",
+      "durationDay": "1 day",
+      "durationDays": "{count} days",
+      "price": "Price",
+      "created": "Created",
+      "createdBy": "Created by",
+      "requisites": "Requirements",
+      "contactNow": "Contact Now",
+      "contactEmail": "Contact via Email",
+      "viewDetails": "View Details",
       "chatbots": {
         "title": "Smart Chatbots",
         "description": "Automate customer support 24/7 with advanced conversational AI"
@@ -121,6 +141,13 @@
         "alt": "Ordinaly Logo"
       },
       "description": "Transforming Andalusian companies with artificial intelligence and automation.",
+      "legal": {
+        "title": "Legal Docs",
+        "terms": "Terms of Service",
+        "privacy": "Privacy Policy",
+        "cookies": "Cookies Policy",
+        "license": "License"
+      },
       "social": {
         "title": "Follow us!",
         "tiktok": "TikTok",
@@ -163,6 +190,19 @@
       }
     },
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
+  },
+  "common": {
+    "onVacation": "On Vacation",
+    "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
+    "retry": "Try Again",
+    "learnMore": "Learn More",
+    "backToHome": "Back to Home"
+  },
+  "logoutModal": {
+    "title": "Confirm Sign Out",
+    "message": "Are you sure you want to sign out of your account?",
+    "confirmButton": "Sign Out",
+    "cancelButton": "Cancel"
   },
   "cookie": {
     "title": "Cookie Settings",
@@ -209,5 +249,656 @@
     "responseTime": "Response time: less than 5 minutes",
     "status": "Available now",
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
+  },
+  "signin": {
+    "title": "Sign in to your Ordinaly account",
+    "subtitle": "Welcome back!",
+    "googleSignIn": "Continue with Google",
+    "form": {
+      "emailLabel": "Email or Username",
+      "emailPlaceholder": "Enter your email or username",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot Password?",
+      "submitButton": "Sign In",
+      "submitButtonLoading": "Signing In...",
+      "signupPrompt": "Don't have an account?",
+      "signupLink": "Sign Up",
+      "orContinueWith": "Or continue with",
+      "continueWithGoogle": "Continue with Google"
+    },
+    "messages": {
+      "success": "Signed in successfully! Redirecting...",
+      "invalidCredentials": "Invalid email/username or password",
+      "networkError": "Network error. Please check your connection and try again.",
+      "fillAllFields": "Please fill in all fields",
+      "googleSignInError": "Google sign-in failed. Please try again."
+    }
+  },
+  "signup": {
+    "title": "Create Your Account",
+    "subtitle": "Fill out the form to sign up",
+    "googleSignUp": "Continue with Google",
+    "form": {
+      "title": "Sign Up Form",
+      "nameLabel": "First Name",
+      "namePlaceholder": "Enter your first name",
+      "surnameLabel": "Last Name",
+      "surnamePlaceholder": "Enter your last name",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "Choose a username",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "companyLabel": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "regionLabel": "Region",
+      "regionPlaceholder": "Enter your region (optional)",
+      "cityLabel": "City", 
+      "cityPlaceholder": "Enter your city (optional)",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "acceptTerms": "I agree to the",
+      "termsLink": "Terms of Service",
+      "and": "and",
+      "privacyLink": "Privacy Policy",
+      "submitButton": "Sign Up",
+      "submitButtonLoading": "Registering...",
+      "loginPrompt": "Already have an account?",
+      "loginLink": "Sign In",
+      "signupWithGoogle": "Sign up with Google",
+      "orSignupWithEmail": "Or sign up with email"
+    },
+    "messages": {
+      "success": "Account created successfully! Redirecting...",
+      "networkError": "Network error. Please check your connection and try again.",
+      "validation": {
+        "nameRequired": "Name is required",
+        "surnameRequired": "Surname is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email",
+        "companyRequired": "Company is required",
+        "passwordRequired": "Password is required",
+        "passwordTooShort": "Password must be at least 8 characters",
+        "passwordMismatch": "Passwords do not match",
+        "termsRequired": "You must accept the Terms of Service and Privacy Policy to continue"
+      },
+      "googleSignUpError": "Google sign-up failed. Please try again."
+    }
+  },
+  "completeProfile": {
+    "title": "Complete Your Profile",
+    "subtitle": "Just a few more details to get you started",
+    "welcome": "Welcome, {name}!",
+    "form": {
+      "title": "Company Information",
+      "companyLabel": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "regionLabel": "Region",
+      "regionPlaceholder": "Enter your region",
+      "cityLabel": "City",
+      "cityPlaceholder": "Enter your city",
+      "optional": "optional",
+      "submitButton": "Complete Profile",
+      "submitButtonLoading": "Completing Profile..."
+    },
+    "validation": {
+      "companyRequired": "Company name is required"
+    },
+    "messages": {
+      "success": "Profile completed successfully! Redirecting...",
+      "networkError": "Network error. Please check your connection and try again."
+    }
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "subtitle": "Manage your application content and settings",
+    "loading": "Loading admin panel...",
+    "accessDenied": "Access Denied",
+    "noPermission": "You don't have permission to access this page.",
+    "labels": {
+      "price": "Price",
+      "duration": "Available in",
+      "icon": "Icon",
+      "created": "Created",
+      "updated": "Updated",
+      "location": "Location",
+      "date": "Date",
+      "schedule": "Schedule",
+      "maxAttendants": "Max Attendants"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "services": "Services",
+      "courses": "Courses",
+      "terms": "Terms"
+    },
+    "stats": {
+      "totalServices": "Total Services",
+      "totalCourses": "Total Courses",
+      "totalTerms": "Total Terms",
+      "totalUsers": "Total Users"
+    },
+    "services": {
+      "title": "Services Management",
+      "searchPlaceholder": "Search services...",
+      "addService": "Add Service",
+      "editService": "Edit Service",
+      "createService": "Create New Service",
+      "deleteSelected": "Delete Selected",
+      "selectAll": "Select All",
+      "noServices": "No services available.",
+      "noServicesFound": "No services found matching your search.",
+      "form": {
+        "title": "Title",
+        "titlePlaceholder": "Service title",
+        "subtitle": "Subtitle",
+        "subtitlePlaceholder": "Service subtitle (optional)",
+        "description": "Description",
+        "descriptionPlaceholder": "Service description",
+        "icon": "Icon",
+        "iconPlaceholder": "Choose a Lucide React icon",
+        "duration": "Available in (days)",
+        "durationPlaceholder": "e.g., 2 days",
+        "price": "Price (€)",
+        "pricePlaceholder": "Leave empty for 'Contact for quote'",
+        "contactForQuote": "Contact for quote",
+        "featured": "Featured Service",
+        "cancel": "Cancel",
+        "create": "Create Service",
+        "update": "Update Service"
+      },
+      "messages": {
+        "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
+        "updateSuccess": "Service '{title}' updated successfully!",
+        "deleteSuccess": "Service deleted successfully",
+        "bulkDeleteSuccess": "services deleted successfully",
+        "fetchError": "Failed to fetch services",
+        "createError": "Failed to create service",
+        "updateError": "Failed to update service",
+        "deleteError": "Failed to delete service",
+        "networkError": "Unable to save service. Please check your connection and try again.",
+        "selectToDelete": "Please select services to delete",
+        "validation": {
+          "titleRequired": "Service title is required and must be 100 characters or less.",
+          "subtitleRequired": "Subtitle is required and must be 200 characters or less.",
+          "descriptionRequired": "Description is required and must be 500 characters or less.",
+          "iconRequired": "Please select a valid icon for the service.",
+          "durationInvalid": "Duration must be at least 1 day if specified.",
+          "requisitesLimit": "Requisites must be 500 characters or less.",
+          "priceInvalid": "Price must be at least $0.01 if specified."
+        },
+        "featured": {
+          "enabled": "Service '{title}' has been marked as featured.",
+          "disabled": "Service '{title}' is no longer featured."
+        }
+      },
+      "confirmDelete": {
+        "title": "Confirm Deletion",
+        "single": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+        "multiple": "Are you sure you want to delete {count} selected services? This action cannot be undone.",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      }
+    },
+    "courses": {
+      "title": "Courses Management",
+      "searchPlaceholder": "Search courses...",
+      "addCourse": "Add Course",
+      "editCourse": "Edit Course",
+      "createCourse": "Create New Course",
+      "deleteSelected": "Delete Selected",
+      "selectAll": "Select All",
+      "courses": "courses",
+      "noCourses": "No courses available.",
+    "noPastCourses": "No past courses available.",
+    "pastCourses": "Past Courses",
+    "viewPastCourses": "View Past Courses",
+    "hidePastCourses": "Hide Past Courses",
+    "upcomingCourses": "Upcoming Courses",
+    "finished": "Finished",
+      "noCoursesFound": "No courses found matching your search.",
+      "contactForQuote": "Contact our agents for a detailed quote",
+      "form": {
+        "title": "Title",
+        "titlePlaceholder": "Enter an engaging course title",
+        "titleRequired": "Course Title *",
+        "subtitle": "Subtitle",
+        "subtitlePlaceholder": "Add a descriptive subtitle",
+        "subtitleOptional": "Subtitle (Optional)",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe what students will learn in this course...",
+        "descriptionRequired": "Description *",
+        "image": "Course Image",
+        "imageRequired": "Course Image *",
+        "imageOptional": "Course Image",
+        "chooseImage": "Choose Image File",
+        "chooseImageText": "Choose Image File",
+        "imageRecommendation": "Recommended: 1200x800px, JPG or PNG",
+        "price": "Price (€)",
+        "pricePlaceholder": "Leave empty for 'Contact for quote'",
+        "location": "Location",
+        "locationPlaceholder": "Enter the course location or 'Online'",
+        "locationRequired": "Location *",
+        "scheduleSettings": "Professional Schedule Settings",
+        "startDateRequired": "Start Date *",
+        "endDateRequired": "End Date *",
+        "startTimeRequired": "Start Time *",
+        "endTimeRequired": "End Time *",
+        "periodicityRequired": "Recurrence Pattern *",
+        "weekdaysOptional": "Weekdays (Optional)",
+        "weekOfMonthOptional": "Week of Month (Optional)",
+        "intervalOptional": "Interval",
+        "intervalPlaceholder": "e.g., 2 for every 2 weeks",
+        "timezoneOptional": "Timezone",
+        "periodicity": {
+          "once": "One-time event",
+          "daily": "Daily",
+          "weekly": "Weekly",
+          "biweekly": "Biweekly",
+          "monthly": "Monthly",
+          "custom": "Custom pattern"
+        },
+        "weekOfMonth": {
+          "any": "Any week",
+          "first": "First week",
+          "second": "Second week",
+          "third": "Third week",
+          "fourth": "Fourth week",
+          "last": "Last week"
+        },
+        "maxAttendants": "Max Attendants",
+        "maxAttendantsRequired": "Max Attendants *",
+        "maxAttendantsPlaceholder": "10",
+        "cancel": "Cancel",
+        "create": "Create Course",
+        "update": "Update Course"
+      },
+      "messages": {
+        "createSuccess": "Course '{title}' created successfully! Students can now enroll.",
+        "updateSuccess": "Course '{title}' updated successfully!",
+        "deleteSuccess": "Course deleted successfully",
+        "bulkDeleteSuccess": "courses deleted successfully",
+        "fetchError": "Failed to fetch courses",
+        "createError": "Failed to create course",
+        "updateError": "Failed to update course",
+        "deleteError": "Failed to delete course",
+        "networkError": "Unable to save course. Please check your connection and try again.",
+        "selectToDelete": "Please select courses to delete",
+        "fileSizeLimit": "File size must be less than 5MB",
+        "imageFileOnly": "Please select an image file",
+        "validation": {
+          "titleRequired": "Course title is required and must be 100 characters or less.",
+          "subtitleLimit": "Subtitle must be 200 characters or less.",
+          "descriptionRequired": "Description is required and must be 500 characters or less.",
+          "imageRequired": "Please upload a valid image file for the course.",
+          "priceInvalid": "Price must be at least $0.01 if specified.",
+          "locationRequired": "Location is required and must be 100 characters or less.",
+          "dateRequired": "Date is required and must be 100 characters or less.",
+          "maxAttendantsInvalid": "Maximum attendants must be at least 1."
+        },
+        "capacity": {
+          "warning": "Warning: This course already has {current} enrollments. Reducing max attendants below this number may cause issues."
+        }
+      },
+      "confirmDelete": {
+        "title": "Confirm Deletion",
+        "single": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
+        "multiple": "Are you sure you want to delete {count} selected courses? This action cannot be undone.",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      },
+      "details": {
+        "price": "Price",
+        "location": "Location",
+        "date": "Date",
+        "maxAttendants": "Max Attendants",
+        "created": "Created"
+      }
+    },
+    "terms": {
+      "title": "Terms Management",
+      "searchPlaceholder": "Search terms...",
+      "addTerm": "Add Term",
+      "editTerm": "Edit Term",
+      "createTerm": "Create New Term",
+      "deleteSelected": "Delete Selected",
+      "selectAll": "Select All",
+      "noTerms": "No terms available.",
+      "noTermsFound": "No terms found matching your search.",
+      "pdfAvailable": "PDF Available",
+      "downloadPdf": "Download PDF",
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "Term name",
+        "content": "Content (Markdown)",
+        "contentPlaceholder": "Term content in markdown format",
+        "version": "Version",
+        "versionPlaceholder": "e.g. 1.0",
+        "tag": "Document Type",
+        "tagPlaceholder": "Select document type",
+        "selectTag": "Select a document type",
+        "noAvailableTags": "No document types available",
+        "allTagsUsed": "All document types have been created. You can only have one of each type.",
+        "allTagsUsedTitle": "All document types are already in use",
+        "allTagsUsedButton": "All Types Created",
+        "tagTypes": {
+          "terms": "Terms and Conditions of Use",
+          "cookies": "Cookie Policy", 
+          "privacy": "Privacy Policy",
+          "license": "License"
+        },
+        "pdfVersion": "PDF Version (Optional)",
+        "choosePdf": "Choose PDF",
+        "cancel": "Cancel",
+        "create": "Create Term",
+        "update": "Update Term"
+      },
+      "messages": {
+        "createSuccess": "Terms document '{name}' created successfully!",
+        "updateSuccess": "Terms document '{name}' updated successfully!",
+        "deleteSuccess": "Term deleted successfully",
+        "bulkDeleteSuccess": "terms deleted successfully",
+        "fetchError": "Failed to fetch terms",
+        "createError": "Failed to create term",
+        "updateError": "Failed to update term",
+        "deleteError": "Failed to delete term",
+        "downloadError": "Failed to download PDF",
+        "downloadSuccess": "PDF downloaded successfully",
+        "networkError": "Unable to save terms document. Please check your connection and try again.",
+        "selectToDelete": "Please select terms to delete",
+        "fileSizeLimit": "File size must be less than 10MB",
+        "pdfFileOnly": "Please select a PDF file",
+        "validation": {
+          "nameRequired": "Document name is required and must be 127 characters or less.",
+          "contentRequired": "Please upload a valid Markdown (.md) file for the content.",
+          "pdfRequired": "Please upload a valid PDF file for the document.",
+          "versionRequired": "Version is required and must be 20 characters or less.",
+          "tagDuplicate": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
+          "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
+          "fileMissing": "Both a markdown (.md) file and a PDF file must be provided."
+        },
+        "upload": {
+          "error": "File upload failed. Please ensure your files are valid and try again."
+        },
+        "version": {
+          "updateWarning": "Important: Updating this terms document will create a new version. Users may need to re-accept the updated terms."
+        }
+      },
+      "confirmDelete": {
+        "title": "Confirm Deletion",
+        "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+        "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      },
+      "details": {
+        "created": "Created",
+        "updated": "Updated"
+      }
+    }
+  },
+  "legal": {
+    "title": "Legal Documentation",
+    "description": "Access our terms of service, privacy policy, cookie policy, and license information.",
+    "downloadPdf": "Download PDF",
+    "tabs": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy", 
+      "cookies": "Cookie Policy",
+      "license": "License"
+    },
+    "sections": {
+      "terms": {
+        "title": "Terms of Service",
+        "noDocuments": "No terms of service documents are currently available."
+      },
+      "privacy": {
+        "title": "Privacy Policy", 
+        "noDocuments": "No privacy policy documents are currently available."
+      },
+      "cookies": {
+        "title": "Cookie Policy",
+        "noDocuments": "No cookie policy documents are currently available."
+      },
+      "license": {
+        "title": "License Information",
+        "noDocuments": "No license documents are currently available."
+      }
+    },
+    "messages": {
+      "fetchError": "Failed to fetch legal documents",
+      "networkError": "Network error while fetching documents",
+      "noPdfAvailable": "PDF version is not available for this document",
+      "downloadSuccess": "PDF downloaded successfully",
+      "downloadError": "Failed to download PDF"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Comprehensive solutions designed to transform your business and drive digital innovation",
+    "searchPlaceholder": "Search services...",
+    "featured": "Featured",
+    "includes": "What's Included",
+    "contactUs": "Contact Us",
+    "learnMore": "Learn More",
+    "filters": {
+      "all": "All Services",
+      "featured": "Featured Only",
+      "standard": "Standard Services"
+    },
+    "features": {
+      "consultation": "Free Consultation",
+      "development": "Custom Development",
+      "testing": "Quality Testing",
+      "support": "Ongoing Support"
+    },
+    "noResults": {
+      "title": "No Services Found",
+      "description": "Try adjusting your search terms or filters to find what you're looking for."
+    },
+    "cta": {
+      "title": "Ready to Transform Your Business?",
+      "description": "Let's discuss how our services can help you achieve your digital transformation goals.",
+      "contact": "Get in Touch",
+      "call": "Schedule a Call"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "company": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "service": "Service of Interest",
+      "servicePlaceholder": "Which service are you interested in?",
+      "message": "Message",
+      "messagePlaceholder": "Tell us about your project or requirements...",
+      "cancel": "Cancel",
+      "send": "Send Message"
+    }
+  },
+  "formation": {
+    "title": "Professional Formation",
+    "subtitle": "Advance your career with our comprehensive training programs designed by industry experts",
+    "searchPlaceholder": "Search courses...",
+    "free": "Free",
+    "price": "Price",
+    "location": "Location",
+    "date": "Date",
+    "enrolled": "Enrolled",
+    "enroll": "Enroll Now",
+    "cancelEnrollment": "Cancel Enrollment",
+    "viewDetails": "View Details",
+    "maxAttendants": "Max Attendants",
+    "maxAttendeesCount": "Max {count} attendants",
+    "filters": {
+      "location": {
+        "all": "All Locations",
+        "online": "Online",
+        "onsite": "On-site"
+      },
+      "price": {
+        "all": "All Prices",
+        "free": "Free",
+        "paid": "Paid"
+      }
+    },
+    "noResults": {
+      "title": "No Courses Found",
+      "description": "Try adjusting your search terms or filters to find the perfect course for you."
+    },
+    "cta": {
+      "title": "Ready to Advance Your Career?",
+      "description": "Join thousands of professionals who have transformed their careers with our expert-led training programs.",
+      "contact": "Contact Advisor",
+      "catalog": "Download Catalog"
+    },
+    "enrollment": {
+      "title": "Course Enrollment",
+      "confirm": "Confirm Enrollment",
+      "courseDetails": "Course Details",
+      "confirmMessage": "Are you sure you want to enroll in this course?",
+      "paymentNote": "Payment processing will be handled in the next step.",
+      "confirmEnroll": "Confirm Enrollment",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email Address", 
+      "emailPlaceholder": "Enter your email address",
+      "phone": "Phone Number",
+      "phonePlaceholder": "Enter your phone number",
+      "company": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "experience": "Relevant Experience",
+      "experiencePlaceholder": "Tell us about your relevant experience or background...",
+      "motivation": "Why do you want to take this course?",
+      "motivationPlaceholder": "Share your motivation and what you hope to achieve...",
+      "cancel": "Cancel",
+      "submit": "Enroll in Course"
+    },
+    "cancellation": {
+      "title": "Cancel Enrollment",
+      "warning": "Cancel Course Enrollment",
+      "warningMessage": "Are you sure you want to cancel your enrollment in \"{courseTitle}\"? This action cannot be undone.",
+      "confirmMessage": "This will remove you from the course and you may lose your spot.",
+      "keepEnrollment": "Keep Enrollment",
+      "confirmCancel": "Cancel Enrollment"
+    },
+    "alerts": {
+      "signInToEnroll": "Please sign in to enroll in courses",
+      "signInRequired": "Please sign in to manage enrollments",
+      "enrollmentSuccess": "Successfully enrolled in {courseTitle}!",
+      "enrollmentFailed": "Failed to enroll. Please try again.",
+      "enrollmentCancelled": "Enrollment cancelled successfully",
+      "cancelEnrollmentFailed": "Failed to cancel enrollment",
+      "notEnrolled": "You are not currently enrolled in this course",
+      "authenticationFailed": "Authentication failed. Please sign in again",
+      "networkError": "Network error. Please check your connection.",
+      "failedToLoadCourses": "Failed to load courses",
+      "networkErrorLoadingCourses": "Network error while loading courses"
+    },
+    "courseDetails": {
+      "title": "Course Details",
+      "courseDescription": "Course Description",
+      "scheduleInformation": "Schedule Information",
+      "upcomingSessions": "Upcoming Sessions",
+      "courseInformation": "Course Information",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "time": "Time",
+      "duration": "Duration",
+      "hours": "hours",
+      "daysOfWeek": "Days of the week",
+      "fullSchedule": "Full Schedule",
+      "location": "Location",
+      "maxAttendants": "Max Attendants",
+      "people": "people",
+      "scheduleType": "Schedule Type",
+      "price": "Price",
+      "enrolled": "Enrolled",
+      "cancelEnrollment": "Cancel Enrollment",
+      "courseHasStarted": "Course has started",
+      "courseStartedMessage": "This course has already begun and is no longer accepting new enrollments.",
+      "signInToEnroll": "Sign In to Enroll",
+      "enrollNow": "Enroll Now",
+      "importantDates": "Important Dates",
+      "excludedDatesMessage": "This course has {count} excluded date(s) (holidays or breaks) that are not included in the regular schedule.",
+      "moreSessions": "And {count} more sessions...",
+      "periodicity": {
+        "once": "One-time event",
+        "daily": "Daily",
+        "weekly": "Weekly",
+        "biweekly": "Biweekly",
+        "monthly": "Monthly",
+        "custom": "Custom schedule"
+      },
+      "weekdays": {
+        "monday": "Monday",
+        "tuesday": "Tuesday",
+        "wednesday": "Wednesday",
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday",
+        "sunday": "Sunday"
+      }
+    }
+  },
+  "profile": {
+    "title": "My Profile",
+    "subtitle": "Manage your personal information and account settings",
+    "loading": "Loading profile...",
+    "personalInfo": "Personal Information",
+    "accountSettings": "Account Settings",
+    "dangerZone": "Danger Zone",
+    "form": {
+      "firstName": "First Name",
+      "firstNamePlaceholder": "Enter your first name",
+      "lastName": "Last Name", 
+      "lastNamePlaceholder": "Enter your last name",
+      "username": "Username",
+      "usernamePlaceholder": "Enter your username",
+      "email": "Email Address",
+      "emailPlaceholder": "Enter your email address",
+      "company": "Company",
+      "companyPlaceholder": "Enter your company name",
+      "region": "Region",
+      "regionPlaceholder": "Enter your region (optional)",
+      "city": "City",
+      "cityPlaceholder": "Enter your city (optional)",
+      "saveChanges": "Save Changes",
+      "saveChangesLoading": "Saving Changes...",
+      "cancel": "Cancel Changes"
+    },
+    "deleteAccount": {
+      "title": "Delete Account",
+      "description": "Once you delete your account, there is no going back. Please be certain.",
+      "button": "Delete Account",
+      "confirmTitle": "Confirm Account Deletion",
+      "confirmMessage": "Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed. Type your username below to confirm.",
+      "confirmPlaceholder": "Type your username to confirm",
+      "confirmButton": "Delete Account",
+      "cancelButton": "Cancel"
+    },
+    "messages": {
+      "updateSuccess": "Profile updated successfully!",
+      "updateError": "Failed to update profile. Please try again.",
+      "deleteSuccess": "Account deleted successfully. Redirecting...",
+      "deleteError": "Failed to delete account. Please try again.",
+      "networkError": "Network error. Please check your connection and try again.",
+      "unauthorizedError": "You are not authorized to perform this action.",
+      "validation": {
+        "firstNameRequired": "First name is required",
+        "lastNameRequired": "Last name is required",
+        "usernameRequired": "Username is required",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "companyRequired": "Company is required",
+        "deleteConfirmRequired": "Please type your username to confirm"
+      }
+    }
   }
 }

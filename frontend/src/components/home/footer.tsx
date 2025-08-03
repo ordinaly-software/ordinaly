@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Image from 'next/image';
+import Link from "next/link";
 
 
 type FooterProps = {
@@ -14,7 +15,7 @@ const Footer = ({ isDark }: FooterProps) => {
   return (
     <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-5 gap-8">
           <div className="col-span-2">
             <div className="flex items-center mb-4">
               <Image
@@ -28,6 +29,43 @@ const Footer = ({ isDark }: FooterProps) => {
             <p className="text-gray-600 dark:text-gray-400 mb-4">
               {t("footer.description")}
             </p>
+          </div>
+          <div>
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-4">{t("footer.legal.title")}</h3>
+            <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+              <li>
+                <Link
+                  href="/legal?tab=terms"
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                >
+                  {t("footer.legal.terms")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/legal?tab=privacy"
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                >
+                  {t("footer.legal.privacy")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/legal?tab=cookies"
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                >
+                  {t("footer.legal.cookies")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/legal?tab=license"
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                >
+                  {t("footer.legal.license")}
+                </Link>
+              </li>
+            </ul>
           </div>
           <div>
             <h3 className="text-gray-900 dark:text-white font-semibold mb-4">{t("footer.social.title")}</h3>
@@ -86,31 +124,31 @@ const Footer = ({ isDark }: FooterProps) => {
               </li>
             </ul>
           </div>
-          <div className="w-full min-w-0">
-            <h3 className="text-gray-900 dark:text-white font-semibold mb-4 text-sm sm:text-base lg:text-lg">
+          <div className="min-w-0">
+            <h3 className="text-gray-900 dark:text-white font-semibold mb-4">
               {t("footer.contact.title")}
             </h3>
             <ul className="space-y-2 text-gray-600 dark:text-gray-400">
               <li className="min-w-0">
                 <a
                   href={`mailto:${t("footer.contact.email")}`}
-                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors 
-                             text-xs sm:text-sm lg:text-base break-all sm:break-words block"
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors break-all block"
                 >
                   {t("footer.contact.email")}
                 </a>
               </li>
-              <li className="min-w-0">
+              <li>
                 <a
                   href={`tel:${t("footer.contact.phone")}`}
-                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors 
-                             text-xs sm:text-sm lg:text-base break-all sm:break-words block"
+                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
                 >
                   {t("footer.contact.phone")}
                 </a>
               </li>
-              <li className="min-w-0 text-xs sm:text-sm lg:text-base break-words">
-                {t("footer.contact.location")}
+              <li>
+                <span className="text-gray-600 dark:text-gray-400">
+                  {t("footer.contact.location")}
+                </span>
               </li>
             </ul>
           </div>

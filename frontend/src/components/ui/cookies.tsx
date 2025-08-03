@@ -1,10 +1,11 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { Cookie, X, Settings, Shield, Target, BarChart3 } from 'lucide-react';
+import { Cookie, Settings, Shield, Target, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
+import { ModalCloseButton } from "@/components/ui/modal-close-button";
 
 const CookieConsent = () => {
   const t = useTranslations('cookie');
@@ -30,7 +31,7 @@ const CookieConsent = () => {
       setShowPopup(true);
       setShowBubble(true);
     }
-  }, []);
+  }, [showBubble]);
 
   const handleAcceptAll = () => {
     const preferences = {
@@ -115,12 +116,11 @@ const CookieConsent = () => {
                   {t('title')}
                 </h2>
               </div>
-              <button
+              <ModalCloseButton
                 onClick={closePopup}
-                className="text-muted-foreground hover:text-foreground transition-colors p-2 rounded-lg hover:bg-accent"
-              >
-                <X size={20} />
-              </button>
+                variant="light"
+                size="md"
+              />
             </div>
 
             {/* Content */}
@@ -253,11 +253,11 @@ const CookieConsent = () => {
             <div className="bg-muted/30 p-4 rounded-b-2xl border-t border-border">
               <p className="text-xs text-muted-foreground text-center">
                 {t('footer')}
-                <Link href="/politica-privacidad" className="text-[#46B1C9] hover:underline">
+                <Link href="/legal?tab=privacy" className="text-[#46B1C9] hover:underline" target="_blank" rel="noopener noreferrer">
                   {t('privacy')}
                 </Link>{' '}
                 y{' '}
-                <Link href="/politica-cookies" className="text-[#46B1C9] hover:underline">
+                <Link href="/legal?tab=cookies" className="text-[#46B1C9] hover:underline" target="_blank" rel="noopener noreferrer">
                   {t('cookies')}
                 </Link>
               </p>
