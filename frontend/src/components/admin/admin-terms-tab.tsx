@@ -39,7 +39,8 @@ const AdminTermsTab = () => {
 
   // Helper function to get translated tag label
   const getTagLabel = (tagValue: string) => {
-    return t(`form.tagTypes.${tagValue}`);
+    // Provide a fallback if the translation key does not exist
+    return t(`form.tagTypes.${tagValue}`, { default: tagValue || tAdmin("unknownTag") });
   };
   const [terms, setTerms] = useState<Term[]>([]);
   const [isLoading, setIsLoading] = useState(true);
