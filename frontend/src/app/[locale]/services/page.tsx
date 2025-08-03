@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Modal } from "@/components/ui/modal";
 import Alert from "@/components/ui/alert";
 import { ServiceDetailsModal } from "@/components/home/service-details-modal";
+import { getApiEndpoint, API_ENDPOINTS } from "@/lib/api-config";
 import {
   Search,
   Filter,
@@ -147,8 +148,8 @@ const ServicesPage = () => {
 
   const fetchServices = async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/services/`);
+      console.log('Fetching services from:', getApiEndpoint(API_ENDPOINTS.services));
+      const response = await fetch(getApiEndpoint(API_ENDPOINTS.services));
       
       if (response.ok) {
         const data = await response.json();
@@ -163,7 +164,13 @@ const ServicesPage = () => {
       }
     } catch (err) {
       console.error('Network error:', err);
-      setAlert({type: 'error', message: 'Network error while loading services'});
+      
+      // Check if it's a configuration error
+      if (err instanceof Error && err.message.includes('NEXT_PUBLIC_API_URL')) {
+        setAlert({type: 'error', message: 'Configuration error. Please contact support.'});
+      } else {
+        setAlert({type: 'error', message: 'Network error while loading services'});
+      }
     } finally {
       setIsLoading(false);
     }
@@ -193,8 +200,7 @@ const ServicesPage = () => {
     }
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/contact/`, {
+      const response = await fetch(getApiEndpoint(API_ENDPOINTS.contact), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

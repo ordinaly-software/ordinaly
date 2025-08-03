@@ -180,7 +180,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
               className="text-gray-700 dark:text-gray-300 h-8 w-8 xl:h-10 xl:w-10"
               aria-label={isDark ? t("navigation.darkMode") : t("navigation.lightMode")}
             >
-              {isDark ? <Sun className="h-4 w-4 xl:h-5 xl:w-5" /> : <Moon className="h-4 w-4 xl:h-5 xl:w-5" />}
+              {isDark ? <Moon className="h-4 w-4 xl:h-5 xl:w-5" /> : <Sun className="h-4 w-4 xl:h-5 xl:w-5" />}
             </Button>
             
             {/* Authentication Controls - Desktop */}
