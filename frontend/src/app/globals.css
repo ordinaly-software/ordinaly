@@ -73,6 +73,24 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Fix SVG attribute conflicts with Tailwind - Lucide React icons specifically */
+  svg[class*="lucide"] {
+    width: unset !important;
+    height: unset !important;
+  }
+  
+  /* Ensure Tailwind sizing classes work properly on icon containers */
+  .w-3, .w-4, .w-5, .w-6, .w-8, .w-12 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .w-3 svg, .w-4 svg, .w-5 svg, .w-6 svg, .w-8 svg, .w-12 svg {
+    width: 100% !important;
+    height: 100% !important;
+  }
 }
 
 /* Scroll Animations */
