@@ -144,7 +144,7 @@ class Service(models.Model):
     icon = models.CharField(max_length=50, choices=ICON_CHOICES, help_text="Lucide React icon name")
     duration = models.PositiveIntegerField(
         validators=[MinValueValidator(1)],
-        help_text="Duration in hours",
+        help_text="Duration in days",
         null=True,
         blank=True
     )

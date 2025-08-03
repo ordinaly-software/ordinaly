@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from django.http import HttpResponse
 import logging
 from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
@@ -12,11 +13,11 @@ class IsAdminUserOrReadOnly(permissions.BasePermission):
     """Custom permission to only allow admin users to edit."""
 
     def has_permission(self, request, view):
-        # Read permissions are allowed to any request
+        # Read permissions are allowed to any request (including anonymous)
         if request.method in permissions.SAFE_METHODS:
             return True
-        # Write permissions are only allowed to admin users
-        return request.user and request.user.is_staff
+        # Write permissions are only allowed to authenticated admin users
+        return request.user and request.user.is_authenticated and request.user.is_staff
 
 
 class CourseViewSet(viewsets.ModelViewSet):
@@ -89,17 +90,91 @@ class CourseViewSet(viewsets.ModelViewSet):
         serializer = EnrollmentSerializer(enrollment)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def unenroll(self, request, pk=None):
+        if not request.user.is_authenticated:
+            return Response(
+                {"detail": "Authentication credentials were not provided."},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
+        course = self.get_object()
+        user = request.user
+
+        logger.info(f"Unenroll attempt: User {user.id} ({user.email}) from Course {course.id} ({course.title})")
+
+        # Check if user is enrolled
+        try:
+            enrollment = Enrollment.objects.get(user=user, course=course)
+            logger.info(f"Found enrollment {enrollment.id}, proceeding to delete")
+            enrollment.delete()
+            return Response(
+                {"detail": "Successfully unenrolled from the course."},
+                status=status.HTTP_200_OK
+            )
+        except Enrollment.DoesNotExist:
+            logger.warning(f"Enrollment not found for user {user.id} in course {course.id}")
+            # Let's check what enrollments exist for this user
+            user_enrollments = Enrollment.objects.filter(user=user)
+            logger.info(f"User has {user_enrollments.count()} enrollments: {[e.course.id for e in user_enrollments]}")
+            return Response(
+                {"detail": "You are not enrolled in this course."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    @action(detail=True, methods=['get'], permission_classes=[permissions.IsAuthenticated])
+    def calendar_export(self, request, pk=None):
+        """Export course schedule to various calendar formats"""
+        course = self.get_object()
+
+        # Check if user is enrolled in the course
+        if not Enrollment.objects.filter(user=request.user, course=course).exists():
+            return Response(
+                {"detail": "You must be enrolled in this course to export calendar events."},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        format_type = request.query_params.get('format', 'google')
+
+        if format_type not in ['google', 'outlook', 'ics']:
+            return Response(
+                {"detail": "Invalid format. Supported formats: google, outlook, ics"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            export_data = course.get_calendar_export_data(format_type)
+
+            if format_type == 'ics':
+                # Return ICS file for download
+                response = HttpResponse(export_data, content_type='text/calendar')
+                response['Content-Disposition'] = f'attachment; filename="{course.title}.ics"'
+                return response
+            else:
+                # Return JSON with calendar URLs
+                return Response({
+                    'course': course.title,
+                    'format': format_type,
+                    'events': export_data
+                })
+
+        except Exception as e:
+            logger.error(f"Error generating calendar export for course {course.id}: {str(e)}")
+            return Response(
+                {"detail": "An error occurred while generating the calendar export."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
 
 class EnrollmentViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = EnrollmentSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        # Return empty queryset if user is not authenticated
+        # The permission class will handle the authentication error
         if not self.request.user.is_authenticated:
-            return Response(
-                {"detail": "Authentication credentials were not provided."},
-                status=status.HTTP_401_UNAUTHORIZED
-            )
+            return Enrollment.objects.none()
+
         # Regular users can only see their own enrollments
         if not self.request.user.is_staff:
             return Enrollment.objects.filter(user=self.request.user)

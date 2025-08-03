@@ -26,7 +26,7 @@ interface Service {
   subtitle?: string;
   description: string;
   icon: string;
-  duration: string;
+  duration?: number;
   price?: string | null;
   is_featured: boolean;
   created_at: string;
@@ -433,7 +433,7 @@ const AdminServicesTab = () => {
                         </p>
                         <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
                           <span>{tAdmin("labels.price")}: {service.price ? `€${service.price}` : t("form.contactForQuote") || 'Contact for quote'}</span>
-                          {service.duration && <span>{tAdmin("labels.duration")}: {service.duration}h</span>}
+                          {service.duration && <span>{tAdmin("labels.duration")}: {service.duration} {service.duration === 1 ? t("home.services.durationDay") : t("home.services.durationDays", { count: service.duration })}</span>}
                           <span>{tAdmin("labels.icon")}: {service.icon}</span>
                           <span>{tAdmin("labels.created")}: {new Date(service.created_at).toLocaleDateString()}</span>
                         </div>

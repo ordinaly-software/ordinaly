@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Modal } from "@/components/ui/modal";
 import Alert from "@/components/ui/alert";
+import AuthModal from "@/components/auth-modal";
+import CourseDetailsModal from "@/components/course-details-modal";
 import Image from "next/image";
 import {
   Search,
@@ -24,7 +26,9 @@ import {
   Check,
   GraduationCap,
   UserCheck,
-  UserX
+  UserX,
+  CalendarDays,
+  Euro
 } from "lucide-react";
 
 interface Course {
@@ -35,9 +39,24 @@ interface Course {
   image: string;
   price?: number;
   location: string;
-  date: string;
+  start_date: string;
+  end_date: string;
+  start_time: string;
+  end_time: string;
+  periodicity: 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom';
+  timezone: string;
+  weekdays: number[];
+  week_of_month?: number | null;
+  interval: number;
+  exclude_dates: string[];
   max_attendants: number;
   created_at: string;
+  updated_at: string;
+  duration_hours?: number;
+  formatted_schedule?: string;
+  schedule_description?: string;
+  next_occurrences?: string[];
+  weekday_display?: string[];
 }
 
 interface Enrollment {
@@ -47,11 +66,21 @@ interface Enrollment {
   enrolled_at: string;
 }
 
+// Custom image loader to handle potential URL issues
+const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+  if (!src || src === 'undefined' || src === 'null') {
+    return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZjNmNGY2Ii8+CjxwYXRoIGQ9Im0xMiA2LTItMiA0IDRoNCIgc3Ryb2tlPSIjOWNhM2FmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K';
+  }
+  return `${src}?w=${width}&q=${quality || 75}`;
+};
+
 const FormationPage = () => {
   const t = useTranslations("formation");
   const [isDark, setIsDark] = useState(false);
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
+  const [pastCourses, setPastCourses] = useState<Course[]>([]);
+  const [showPastCourses, setShowPastCourses] = useState(false);
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterLocation, setFilterLocation] = useState<'all' | 'online' | 'onsite'>('all');
@@ -60,19 +89,15 @@ const FormationPage = () => {
   const [showPriceDropdown, setShowPriceDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showEnrollModal, setShowEnrollModal] = useState(false);
+  const [showCancelModal, setShowCancelModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
+  const [courseToCancel, setCourseToCancel] = useState<Course | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
-
-  // Enrollment form state
-  const [enrollmentForm, setEnrollmentForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    experience: '',
-    motivation: ''
-  });
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showCourseDetailsModal, setShowCourseDetailsModal] = useState(false);
+  const [courseForAuth, setCourseForAuth] = useState<Course | null>(null);
+  const [courseForDetails, setCourseForDetails] = useState<Course | null>(null);
 
   useEffect(() => {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -125,7 +150,19 @@ const FormationPage = () => {
   }, [showLocationDropdown, showPriceDropdown]);
 
   useEffect(() => {
-    let filtered = courses;
+    const now = new Date();
+    const upcoming = courses.filter(course => new Date(course.start_date) >= now);
+    const past = courses.filter(course => new Date(course.start_date) < now);
+
+    // Sort upcoming courses by start date (most imminent first)
+    upcoming.sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime());
+    
+    // Sort past courses by start date (most recent first)
+    past.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime());
+
+    setPastCourses(past);
+
+    let filtered = upcoming;
 
     // Filter by search term
     if (searchTerm) {
@@ -162,18 +199,18 @@ const FormationPage = () => {
   const fetchCourses = async () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/courses/`);
+      const response = await fetch(`${apiUrl}/api/courses/courses/`);
       
       if (response.ok) {
         const data = await response.json();
         setCourses(data);
       } else {
         console.error('Failed to load courses');
-        setAlert({type: 'error', message: 'Failed to load courses'});
+        setAlert({type: 'error', message: t('alerts.failedToLoadCourses')});
       }
     } catch (err) {
       console.error('Network error while loading courses:', err);
-      setAlert({type: 'error', message: 'Network error while loading courses'});
+      setAlert({type: 'error', message: t('alerts.networkErrorLoadingCourses')});
     } finally {
       setIsLoading(false);
     }
@@ -185,7 +222,7 @@ const FormationPage = () => {
       if (!token) return;
 
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/enrollments/`, {
+      const response = await fetch(`${apiUrl}/api/courses/enrollments/`, {
         headers: {
           'Authorization': `Token ${token}`,
         },
@@ -202,7 +239,8 @@ const FormationPage = () => {
 
   const handleEnrollCourse = (course: Course) => {
     if (!isAuthenticated) {
-      setAlert({type: 'info', message: 'Please sign in to enroll in courses'});
+      setCourseForAuth(course);
+      setShowAuthModal(true);
       return;
     }
 
@@ -210,85 +248,134 @@ const FormationPage = () => {
     setShowEnrollModal(true);
   };
 
-  const handleEnrollmentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handleEnrollmentConfirm = async () => {
     if (!selectedCourse) return;
-
-    // Basic validation
-    if (!enrollmentForm.name.trim() || !enrollmentForm.email.trim() || !enrollmentForm.motivation.trim()) {
-      setAlert({type: 'error', message: 'Please fill in all required fields'});
-      return;
-    }
 
     try {
       const token = localStorage.getItem('authToken');
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       
-      const response = await fetch(`${apiUrl}/api/enrollments/`, {
+      const response = await fetch(`${apiUrl}/api/courses/courses/${selectedCourse.id}/enroll/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Token ${token}`,
         },
-        body: JSON.stringify({
-          course: selectedCourse.id,
-          ...enrollmentForm
-        }),
       });
 
       if (response.ok) {
-        setAlert({type: 'success', message: `Successfully enrolled in ${selectedCourse.title}!`});
-        setEnrollmentForm({
-          name: '',
-          email: '',
-          phone: '',
-          company: '',
-          experience: '',
-          motivation: ''
-        });
+        setAlert({type: 'success', message: t('alerts.enrollmentSuccess', { courseTitle: selectedCourse.title })});
         setShowEnrollModal(false);
         setSelectedCourse(null);
         fetchEnrollments(); // Refresh enrollments
       } else {
         const errorData = await response.json();
-        setAlert({type: 'error', message: errorData.detail || 'Failed to enroll. Please try again.'});
+        setAlert({type: 'error', message: t('alerts.enrollmentFailed')});
       }
     } catch (err) {
       console.error('Network error during enrollment:', err);
-      setAlert({type: 'error', message: 'Network error. Please check your connection.'});
+      setAlert({type: 'error', message: t('alerts.networkError')});
     }
   };
 
-  const handleCancelEnrollment = async (courseId: number) => {
+  const handleCancelEnrollment = (courseId: number) => {
+    const course = courses.find(c => c.id === courseId);
+    if (course) {
+      setCourseToCancel(course);
+      setShowCancelModal(true);
+    }
+  };
+
+  const handleCancelEnrollmentConfirm = async () => {
+    if (!courseToCancel) return;
+
     try {
       const token = localStorage.getItem('authToken');
+      if (!token) {
+        setAlert({type: 'error', message: t('alerts.signInRequired')});
+        return;
+      }
+
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       
-      const enrollment = enrollments.find(e => e.course === courseId);
-      if (!enrollment) return;
-
-      const response = await fetch(`${apiUrl}/api/enrollments/${enrollment.id}/`, {
-        method: 'DELETE',
+      const response = await fetch(`${apiUrl}/api/courses/courses/${courseToCancel.id}/unenroll/`, {
+        method: 'POST',
         headers: {
           'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json',
         },
       });
 
       if (response.ok) {
-        setAlert({type: 'success', message: 'Enrollment cancelled successfully'});
+        setAlert({type: 'success', message: t('alerts.enrollmentCancelled')});
+        setShowCancelModal(false);
+        setCourseToCancel(null);
         fetchEnrollments(); // Refresh enrollments
       } else {
-        setAlert({type: 'error', message: 'Failed to cancel enrollment'});
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
+        console.error('Unenroll error:', response.status, errorData);
+        
+        if (response.status === 400) {
+          setAlert({type: 'warning', message: t('alerts.notEnrolled')});
+        } else if (response.status === 401) {
+          setAlert({type: 'error', message: t('alerts.authenticationFailed')});
+        } else {
+          setAlert({type: 'error', message: t('alerts.cancelEnrollmentFailed')});
+        }
       }
     } catch (err) {
       console.error('Network error during cancellation:', err);
-      setAlert({type: 'error', message: 'Network error. Please check your connection.'});
+      setAlert({type: 'error', message: t('alerts.networkError')});
     }
   };
 
   const isEnrolled = (courseId: number) => {
     return enrollments.some(enrollment => enrollment.course === courseId);
+  };
+
+  const handleAuthSuccess = () => {
+    setIsAuthenticated(true);
+    setShowAuthModal(false);
+    
+    // If there was a course waiting for authentication, proceed with enrollment
+    if (courseForAuth) {
+      setSelectedCourse(courseForAuth);
+      setShowEnrollModal(true);
+      setCourseForAuth(null);
+    }
+  };
+
+  const handleViewDetails = (course: Course) => {
+    setCourseForDetails(course);
+    setShowCourseDetailsModal(true);
+  };
+
+  const handleDetailsEnroll = () => {
+    if (courseForDetails) {
+      setShowCourseDetailsModal(false);
+      if (!isAuthenticated) {
+        setCourseForAuth(courseForDetails);
+        setShowAuthModal(true);
+      } else {
+        setSelectedCourse(courseForDetails);
+        setShowEnrollModal(true);
+      }
+    }
+  };
+
+  const handleDetailsCancel = () => {
+    if (courseForDetails) {
+      setShowCourseDetailsModal(false);
+      handleCancelEnrollment(courseForDetails.id);
+    }
+  };
+
+  const handleDetailsAuthRequired = () => {
+    if (courseForDetails) {
+      setCourseForAuth(courseForDetails);
+      setShowCourseDetailsModal(false);
+      setShowAuthModal(true);
+    }
   };
 
   const getLocationLabel = (value: 'all' | 'online' | 'onsite') => {
@@ -485,9 +572,15 @@ const FormationPage = () => {
               </p>
             </div>
           ) : (
-            <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-              {filteredCourses.map((course) => {
-                const enrolled = isEnrolled(course.id);
+            <>
+              {filteredCourses.length > 0 && (
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                  {t("upcomingCourses")}
+                </h3>
+              )}
+              <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                {filteredCourses.map((course) => {
+                  const enrolled = isEnrolled(course.id);
                 return (
                   <Card
                     key={course.id}
@@ -497,10 +590,17 @@ const FormationPage = () => {
                       {/* Course Image */}
                       <div className="relative h-48 overflow-hidden">
                         <Image
+                          loader={imageLoader}
                           src={course.image}
                           alt={course.title}
                           fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover group-hover:scale-110 transition-transform duration-500"
+                          onError={(e) => {
+                            console.error('Course image failed to load:', course.image);
+                            const target = e.target as HTMLImageElement;
+                            target.style.display = 'none';
+                          }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         
@@ -544,7 +644,7 @@ const FormationPage = () => {
                         <div className="space-y-2 mb-6">
                           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                             <Calendar className="w-4 h-4 text-[#29BF12]" />
-                            <span>{course.date}</span>
+                            <span>{new Date(course.start_date).toLocaleDateString()}</span>
                           </div>
                           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                             <MapPin className="w-4 h-4 text-[#29BF12]" />
@@ -552,7 +652,7 @@ const FormationPage = () => {
                           </div>
                           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                             <Users className="w-4 h-4 text-[#29BF12]" />
-                            <span>{t("maxAttendants", { count: course.max_attendants })}</span>
+                            <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
                           </div>
                         </div>
 
@@ -579,6 +679,7 @@ const FormationPage = () => {
                           
                           <Button
                             variant="outline"
+                            onClick={() => handleViewDetails(course)}
                             className="w-full border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white transition-all duration-300 h-12"
                           >
                             {t("viewDetails")}
@@ -594,9 +695,148 @@ const FormationPage = () => {
                 );
               })}
             </div>
+            </>
           )}
         </div>
       </section>
+
+      {/* Past Courses Section */}
+      {pastCourses.length > 0 && (
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-8">
+              <Button
+                onClick={() => setShowPastCourses(!showPastCourses)}
+                variant="outline"
+                className="border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
+              >
+                {showPastCourses ? (
+                  <>
+                    <ChevronDown className="w-5 h-5" />
+                    {t("hidePastCourses")}
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="w-5 h-5 rotate-180" />
+                    {t("viewPastCourses")} ({pastCourses.length})
+                  </>
+                )}
+              </Button>
+            </div>
+
+            {showPastCourses && (
+              <>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+                  {t("pastCourses")}
+                </h3>
+                <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
+                  {pastCourses.map((course) => {
+                    const enrolled = isEnrolled(course.id);
+                    return (
+                      <Card
+                        key={course.id}
+                        className="group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 opacity-75 hover:opacity-100 transition-all duration-500"
+                      >
+                        <div className="relative">
+                          {/* Course Image */}
+                          <div className="relative h-48 overflow-hidden">
+                            <Image
+                              loader={imageLoader}
+                              src={course.image}
+                              alt={course.title}
+                              fill
+                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                              className="object-cover"
+                              onError={(e) => {
+                                console.error('Course image failed to load:', course.image);
+                                const target = e.target as HTMLImageElement;
+                                target.style.display = 'none';
+                              }}
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                            
+                            {/* Past Course Badge */}
+                            <div className="absolute top-4 right-4 z-10">
+                              <div className="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                {t("finished")}
+                              </div>
+                            </div>
+
+                            {/* Price Badge */}
+                            <div className="absolute top-4 left-4 z-10">
+                              <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                {course.price ? `€${course.price}` : t("free")}
+                              </div>
+                            </div>
+                          </div>
+
+                          <CardContent className="p-6">
+                            {/* Course Title */}
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                              {course.title}
+                            </h3>
+
+                            {/* Course Subtitle */}
+                            {course.subtitle && (
+                              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-1">
+                                {course.subtitle}
+                              </p>
+                            )}
+
+                            {/* Course Description */}
+                            <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3">
+                              {course.description}
+                            </p>
+
+                            {/* Course Meta Information */}
+                            <div className="space-y-2 mb-6">
+                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <Calendar className="w-4 h-4 text-[#29BF12]" />
+                                <span>{new Date(course.start_date).toLocaleDateString()}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <MapPin className="w-4 h-4 text-[#29BF12]" />
+                                <span>{course.location}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                                <Users className="w-4 h-4 text-[#29BF12]" />
+                                <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
+                              </div>
+                            </div>
+
+                            {/* Action Button */}
+                            <div className="flex flex-col gap-3">
+                              <Button
+                                onClick={() => handleViewDetails(course)}
+                                variant="outline"
+                                className="w-full border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition-all duration-300 h-12"
+                              >
+                                {t("viewDetails")}
+                                <ArrowRight className="w-4 h-4 ml-2" />
+                              </Button>
+                            </div>
+                          </CardContent>
+                        </div>
+                      </Card>
+                    );
+                  })}
+                </div>
+                
+                {pastCourses.length === 0 && (
+                  <div className="text-center py-16">
+                    <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                      <Calendar className="w-12 h-12 text-gray-400" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      {t("noPastCourses")}
+                    </h3>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#29BF12] to-[#22A010] text-white">
@@ -625,125 +865,208 @@ const FormationPage = () => {
         </div>
       </section>
 
-      {/* Enrollment Modal */}
+      {/* Enrollment Confirmation Modal */}
       <Modal
         isOpen={showEnrollModal}
         onClose={() => {
           setShowEnrollModal(false);
           setSelectedCourse(null);
-          setEnrollmentForm({
-            name: '',
-            email: '',
-            phone: '',
-            company: '',
-            experience: '',
-            motivation: ''
-          });
         }}
-        title={selectedCourse ? `${t("enrollment.title")} - ${selectedCourse.title}` : t("enrollment.title")}
+        title={selectedCourse ? `${t("enrollment.confirm")} - ${selectedCourse.title}` : t("enrollment.confirm")}
         showHeader={true}
       >
-        <form onSubmit={handleEnrollmentSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t("enrollment.name")} *
-              </label>
-              <Input
-                value={enrollmentForm.name}
-                onChange={(e) => setEnrollmentForm(prev => ({...prev, name: e.target.value}))}
-                placeholder={t("enrollment.namePlaceholder")}
-                required
-                className="h-12"
-              />
+        {selectedCourse && (
+          <div className="space-y-6">
+            {/* Course Information */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                {t("enrollment.courseDetails")}
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <div className="flex items-center text-sm">
+                    <CalendarDays className="w-4 h-4 mr-2 text-[#29BF12]" />
+                    <span className="font-medium">{t("date")}:</span>
+                    <span className="ml-2 text-gray-600 dark:text-gray-400">{new Date(selectedCourse.start_date).toLocaleDateString()}</span>
+                  </div>
+                  
+                  <div className="flex items-center text-sm">
+                    <MapPin className="w-4 h-4 mr-2 text-[#29BF12]" />
+                    <span className="font-medium">{t("location")}:</span>
+                    <span className="ml-2 text-gray-600 dark:text-gray-400">{selectedCourse.location}</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center text-sm">
+                    <Euro className="w-4 h-4 mr-2 text-[#29BF12]" />
+                    <span className="font-medium">{t("price")}:</span>
+                    <span className="ml-2 text-gray-600 dark:text-gray-400">
+                      {selectedCourse.price ? `€${selectedCourse.price}` : t("free")}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center text-sm">
+                    <Users className="w-4 h-4 mr-2 text-[#29BF12]" />
+                    <span className="font-medium">{t("maxAttendants")}:</span>
+                    <span className="ml-2 text-gray-600 dark:text-gray-400">{selectedCourse.max_attendants}</span>
+                  </div>
+                </div>
+              </div>
+              
+              {selectedCourse.description && (
+                <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    {selectedCourse.description}
+                  </p>
+                </div>
+              )}
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t("enrollment.email")} *
-              </label>
-              <Input
-                type="email"
-                value={enrollmentForm.email}
-                onChange={(e) => setEnrollmentForm(prev => ({...prev, email: e.target.value}))}
-                placeholder={t("enrollment.emailPlaceholder")}
-                required
-                className="h-12"
-              />
+
+            {/* Confirmation Message */}
+            <div className="text-center py-4">
+              <p className="text-gray-700 dark:text-gray-300 mb-2">
+                {t("enrollment.confirmMessage")}
+              </p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                {t("enrollment.paymentNote")}
+              </p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setShowEnrollModal(false)}
+                className="px-6 h-10"
+              >
+                {t("enrollment.cancel")}
+              </Button>
+              <Button
+                onClick={handleEnrollmentConfirm}
+                className="bg-[#29BF12] hover:bg-[#22A010] text-white px-6 h-10 flex items-center gap-2"
+              >
+                <GraduationCap className="w-4 h-4" />
+                {t("enrollment.confirmEnroll")}
+              </Button>
             </div>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t("enrollment.phone")}
-              </label>
-              <Input
-                type="tel"
-                value={enrollmentForm.phone}
-                onChange={(e) => setEnrollmentForm(prev => ({...prev, phone: e.target.value}))}
-                placeholder={t("enrollment.phonePlaceholder")}
-                className="h-12"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {t("enrollment.company")}
-              </label>
-              <Input
-                value={enrollmentForm.company}
-                onChange={(e) => setEnrollmentForm(prev => ({...prev, company: e.target.value}))}
-                placeholder={t("enrollment.companyPlaceholder")}
-                className="h-12"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {t("enrollment.experience")}
-            </label>
-            <Textarea
-              value={enrollmentForm.experience}
-              onChange={(e) => setEnrollmentForm(prev => ({...prev, experience: e.target.value}))}
-              placeholder={t("enrollment.experiencePlaceholder")}
-              rows={3}
-              className="resize-none"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              {t("enrollment.motivation")} *
-            </label>
-            <Textarea
-              value={enrollmentForm.motivation}
-              onChange={(e) => setEnrollmentForm(prev => ({...prev, motivation: e.target.value}))}
-              placeholder={t("enrollment.motivationPlaceholder")}
-              rows={4}
-              required
-              className="resize-none"
-            />
-          </div>
-
-          <div className="flex justify-end space-x-3 pt-4">
-            <Button
-              type="button"
-              variant="ghost"
-              onClick={() => setShowEnrollModal(false)}
-              className="px-6"
-            >
-              {t("enrollment.cancel")}
-            </Button>
-            <Button
-              type="submit"
-              className="bg-[#29BF12] hover:bg-[#22A010] text-white px-6"
-            >
-              <GraduationCap className="w-4 h-4 mr-2" />
-              {t("enrollment.submit")}
-            </Button>
-          </div>
-        </form>
+        )}
       </Modal>
+
+      {/* Enrollment Cancellation Modal */}
+      <Modal
+        isOpen={showCancelModal}
+        onClose={() => {
+          setShowCancelModal(false);
+          setCourseToCancel(null);
+        }}
+        title={t("cancellation.title")}
+        showHeader={true}
+      >
+        {courseToCancel && (
+          <div className="space-y-6">
+            {/* Warning Message */}
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+              <div className="flex items-start space-x-3">
+                <UserX className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                <div>
+                  <h3 className="text-sm font-medium text-red-800 dark:text-red-200 mb-1">
+                    {t("cancellation.warning")}
+                  </h3>
+                  <p className="text-sm text-red-700 dark:text-red-300">
+                    {t("cancellation.warningMessage", { courseTitle: courseToCancel.title })}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Course Information */}
+            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                {courseToCancel.title}
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <CalendarDays className="w-4 h-4 mr-2 text-[#29BF12]" />
+                    <span className="font-medium">{t("date")}:</span>
+                    <span className="ml-2 text-gray-600 dark:text-gray-400">{new Date(courseToCancel.start_date).toLocaleDateString()}</span>
+                  </div>
+                  
+                  <div className="flex items-center">
+                    <MapPin className="w-4 h-4 mr-2 text-[#29BF12]" />
+                    <span className="font-medium">{t("location")}:</span>
+                    <span className="ml-2 text-gray-600 dark:text-gray-400">{courseToCancel.location}</span>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <Euro className="w-4 h-4 mr-2 text-[#29BF12]" />
+                    <span className="font-medium">{t("price")}:</span>
+                    <span className="ml-2 text-gray-600 dark:text-gray-400">
+                      {courseToCancel.price ? `€${courseToCancel.price}` : t("free")}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Confirmation Message */}
+            <div className="text-center py-2">
+              <p className="text-gray-700 dark:text-gray-300">
+                {t("cancellation.confirmMessage")}
+              </p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <Button
+                type="button"
+                variant="ghost"
+                onClick={() => setShowCancelModal(false)}
+                className="px-6 h-10"
+              >
+                {t("cancellation.keepEnrollment")}
+              </Button>
+              <Button
+                onClick={handleCancelEnrollmentConfirm}
+                variant="destructive"
+                className="bg-red-600 hover:bg-red-700 text-white px-6 h-10 flex items-center gap-2"
+              >
+                <UserX className="w-4 h-4" />
+                {t("cancellation.confirmCancel")}
+              </Button>
+            </div>
+          </div>
+        )}
+      </Modal>
+
+      {/* Authentication Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onAuthSuccess={handleAuthSuccess}
+        courseTitle={courseForAuth?.title}
+      />
+
+      {/* Course Details Modal */}
+      {courseForDetails && (
+        <CourseDetailsModal
+          isOpen={showCourseDetailsModal}
+          onClose={() => setShowCourseDetailsModal(false)}
+          course={courseForDetails}
+          isEnrolled={isEnrolled(courseForDetails.id)}
+          isAuthenticated={isAuthenticated}
+          onEnroll={handleDetailsEnroll}
+          onCancel={handleDetailsCancel}
+          onAuthRequired={handleDetailsAuthRequired}
+        />
+      )}
 
       {/* Footer */}
       <Footer isDark={isDark} />

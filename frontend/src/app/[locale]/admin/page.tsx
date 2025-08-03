@@ -107,7 +107,7 @@ export default function AdminPage() {
           fetch(`${apiUrl}/api/services/`, {
             headers: { 'Authorization': `Token ${token}` }
           }),
-          fetch(`${apiUrl}/api/courses/`, {
+          fetch(`${apiUrl}/api/courses/courses/`, {
             headers: { 'Authorization': `Token ${token}` }
           }),
           fetch(`${apiUrl}/api/terms/`, {

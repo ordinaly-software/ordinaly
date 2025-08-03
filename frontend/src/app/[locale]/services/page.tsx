@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Modal } from "@/components/ui/modal";
 import Alert from "@/components/ui/alert";
+import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import {
   Search,
   Filter,
@@ -34,8 +35,18 @@ import {
 interface Service {
   id: number;
   title: string;
+  subtitle?: string;
   description: string;
-  featured: boolean;
+  icon: string;
+  duration?: number;
+  requisites?: string;
+  price?: string | null;
+  is_featured: boolean;
+  created_by?: number;
+  created_by_username?: string;
+  created_at: string;
+  updated_at: string;
+  featured: boolean; // Legacy field for backward compatibility
 }
 
 const ServicesPage = () => {
@@ -48,6 +59,7 @@ const ServicesPage = () => {
   const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [showServiceModal, setShowServiceModal] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
 
@@ -141,7 +153,12 @@ const ServicesPage = () => {
       
       if (response.ok) {
         const data = await response.json();
-        setServices(data);
+        // Transform data to ensure compatibility
+        const transformedData = data.map((service: any) => ({
+          ...service,
+          featured: service.is_featured || service.featured || false
+        }));
+        setServices(transformedData);
       } else {
         setAlert({type: 'error', message: 'Failed to load services'});
       }
@@ -160,6 +177,20 @@ const ServicesPage = () => {
       service: service.title
     }));
     setShowContactModal(true);
+  };
+
+  const handleMoreInfo = (service: Service) => {
+    setSelectedService(service);
+    setShowServiceModal(true);
+  };
+
+  const handleWhatsAppContact = (service: Service) => {
+    const message = encodeURIComponent(
+      `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`
+    );
+    // Spanish phone number format: +34 followed by 9 digits
+    const whatsappUrl = `https://wa.me/34655777777?text=${message}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const handleContactSubmit = async (e: React.FormEvent) => {
@@ -406,15 +437,18 @@ const ServicesPage = () => {
                       {/* Action Buttons */}
                       <div className="flex flex-col sm:flex-row gap-3">
                         <Button
-                          onClick={() => handleContactService(service)}
-                          className="flex-1 bg-gradient-to-r from-[#29BF12] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-12"
+                          onClick={() => handleWhatsAppContact(service)}
+                          className="flex-1 bg-[#25D366] hover:bg-[#20BA5A] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-12 border border-[#25D366] hover:border-[#20BA5A] font-semibold"
                         >
-                          <MessageCircle className="w-4 h-4 mr-2" />
-                          {t("contactUs")}
+                          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="mr-2">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                          </svg>
+                          WhatsApp
                         </Button>
                         <Button
+                          onClick={() => handleMoreInfo(service)}
                           variant="outline"
-                          className="flex-1 border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white transition-all duration-300 h-12"
+                          className="flex-1 border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white transition-all duration-300 h-12 font-semibold"
                         >
                           {t("learnMore")}
                           <ArrowRight className="w-4 h-4 ml-2" />
@@ -579,6 +613,22 @@ const ServicesPage = () => {
           </div>
         </form>
       </Modal>
+
+      {/* Service Details Modal */}
+      <ServiceDetailsModal
+        service={selectedService}
+        isOpen={showServiceModal}
+        onClose={() => {
+          setShowServiceModal(false);
+          setSelectedService(null);
+        }}
+        onContact={() => {
+          setShowServiceModal(false);
+          if (selectedService) {
+            handleWhatsAppContact(selectedService);
+          }
+        }}
+      />
 
       {/* Footer */}
       <Footer isDark={isDark} />

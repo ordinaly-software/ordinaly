@@ -29,10 +29,24 @@ interface Course {
   image: string;
   price?: string | null;
   location: string;
-  date: string;
+  start_date: string;
+  end_date: string;
+  start_time: string;
+  end_time: string;
+  periodicity: 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom';
+  timezone: string;
+  weekdays: number[];
+  week_of_month?: number | null;
+  interval: number;
+  exclude_dates: string[];
   max_attendants: number;
   created_at: string;
   updated_at: string;
+  duration_hours?: number;
+  formatted_schedule?: string;
+  schedule_description?: string;
+  next_occurrences?: string[];
+  weekday_display?: string[];
 }
 
 // Custom image loader to handle potential URL issues
@@ -65,7 +79,16 @@ const AdminCoursesTab = () => {
     description: "",
     price: "",
     location: "",
-    date: "",
+    start_date: "",
+    end_date: "",
+    start_time: "09:00",
+    end_time: "17:00",
+    periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
+    timezone: "Europe/Madrid",
+    weekdays: [] as number[],
+    week_of_month: null as number | null,
+    interval: 1,
+    exclude_dates: [] as string[],
     max_attendants: ""
   });
 
@@ -73,7 +96,7 @@ const AdminCoursesTab = () => {
     try {
       const token = localStorage.getItem('authToken');
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/courses/`, {
+      const response = await fetch(`${apiUrl}/api/courses/courses/`, {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json',
@@ -105,7 +128,16 @@ const AdminCoursesTab = () => {
       description: "",
       price: "",
       location: "",
-      date: "",
+      start_date: "",
+      end_date: "",
+      start_time: "09:00",
+      end_time: "17:00",
+      periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
+      timezone: "Europe/Madrid",
+      weekdays: [] as number[],
+      week_of_month: null as number | null,
+      interval: 1,
+      exclude_dates: [] as string[],
       max_attendants: ""
     });
     setSelectedFile(null);
@@ -125,7 +157,16 @@ const AdminCoursesTab = () => {
       description: course.description,
       price: course.price || "",
       location: course.location,
-      date: course.date,
+      start_date: course.start_date,
+      end_date: course.end_date,
+      start_time: course.start_time,
+      end_time: course.end_time,
+      periodicity: course.periodicity,
+      timezone: course.timezone,
+      weekdays: course.weekdays || [],
+      week_of_month: course.week_of_month || null,
+      interval: course.interval || 1,
+      exclude_dates: course.exclude_dates || [],
       max_attendants: course.max_attendants.toString()
     });
     setPreviewUrl(course.image);
@@ -179,8 +220,12 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.locationRequired')});
         return;
       }
-      if (!formData.date.trim()) {
-        setAlert({type: 'error', message: t('messages.validation.dateRequired')});
+      if (!formData.start_date.trim()) {
+        setAlert({type: 'error', message: t('messages.validation.startDateRequired')});
+        return;
+      }
+      if (!formData.end_date.trim()) {
+        setAlert({type: 'error', message: t('messages.validation.endDateRequired')});
         return;
       }
       if (!formData.max_attendants || parseInt(formData.max_attendants) < 1) {
@@ -207,7 +252,18 @@ const AdminCoursesTab = () => {
         formDataToSend.append('price', formData.price);
       }
       formDataToSend.append('location', formData.location);
-      formDataToSend.append('date', formData.date);
+      formDataToSend.append('start_date', formData.start_date);
+      formDataToSend.append('end_date', formData.end_date);
+      formDataToSend.append('start_time', formData.start_time);
+      formDataToSend.append('end_time', formData.end_time);
+      formDataToSend.append('periodicity', formData.periodicity);
+      formDataToSend.append('timezone', formData.timezone);
+      formDataToSend.append('weekdays', JSON.stringify(formData.weekdays));
+      if (formData.week_of_month) {
+        formDataToSend.append('week_of_month', formData.week_of_month.toString());
+      }
+      formDataToSend.append('interval', formData.interval.toString());
+      formDataToSend.append('exclude_dates', JSON.stringify(formData.exclude_dates));
       formDataToSend.append('max_attendants', formData.max_attendants);
       
       if (selectedFile) {
@@ -215,8 +271,8 @@ const AdminCoursesTab = () => {
       }
 
       const url = isEdit 
-        ? `${apiUrl}/api/courses/${currentCourse?.id}/`
-        : `${apiUrl}/api/courses/`;
+        ? `${apiUrl}/api/courses/courses/${currentCourse?.id}/`
+        : `${apiUrl}/api/courses/courses/`;
       
       const method = isEdit ? 'PUT' : 'POST';
 
@@ -277,7 +333,7 @@ const AdminCoursesTab = () => {
       if (selectedCourses.length > 0) {
         // Bulk delete
         const deletePromises = selectedCourses.map(id =>
-          fetch(`${apiUrl}/api/courses/${id}/`, {
+          fetch(`${apiUrl}/api/courses/courses/${id}/`, {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${token}`,
@@ -297,7 +353,7 @@ const AdminCoursesTab = () => {
         setSelectedCourses([]);
       } else if (currentCourse) {
         // Single delete
-        const response = await fetch(`${apiUrl}/api/courses/${currentCourse.id}/`, {
+        const response = await fetch(`${apiUrl}/api/courses/courses/${currentCourse.id}/`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,
@@ -472,7 +528,7 @@ const AdminCoursesTab = () => {
                         <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
                           <span>{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
                           <span>{tAdmin("labels.location")}: {course.location}</span>
-                          <span>{tAdmin("labels.date")}: {course.date}</span>
+                          <span>{tAdmin("labels.schedule")}: {course.formatted_schedule || `${course.start_date} - ${course.end_date}`}</span>
                           <span>{tAdmin("labels.maxAttendants")}: {course.max_attendants}</span>
                           <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString()}</span>
                         </div>
@@ -703,22 +759,184 @@ const AdminCoursesTab = () => {
             />
           </div>
 
-          {/* Course Date */}
-          <div className="space-y-3">
-            <Label htmlFor="date" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-yellow-100 dark:bg-yellow-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-yellow-600 dark:text-yellow-400">📅</span>
+          {/* Professional Scheduling Section */}
+          <div className="space-y-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
+                <span className="text-sm font-bold text-white">📅</span>
               </div>
-              <span>{t("form.dateRequired")}</span>
-            </Label>
-            <Input
-              id="date"
-              value={formData.date}
-              onChange={(e) => setFormData(prev => ({...prev, date: e.target.value}))}
-              placeholder={t("form.datePlaceholder")}
-              className="h-12 border-gray-300 focus:border-yellow-500 focus:ring-yellow-500/20 rounded-lg transition-all duration-200"
-              required
-            />
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                {t("form.scheduleSettings")}
+              </h3>
+            </div>
+
+            {/* Date Range */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="start_date" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t("form.startDateRequired")}
+                </Label>
+                <Input
+                  id="start_date"
+                  type="date"
+                  value={formData.start_date}
+                  onChange={(e) => setFormData(prev => ({...prev, start_date: e.target.value}))}
+                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="end_date" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t("form.endDateRequired")}
+                </Label>
+                <Input
+                  id="end_date"
+                  type="date"
+                  value={formData.end_date}
+                  onChange={(e) => setFormData(prev => ({...prev, end_date: e.target.value}))}
+                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Time Range */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="start_time" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t("form.startTimeRequired")}
+                </Label>
+                <Input
+                  id="start_time"
+                  type="time"
+                  value={formData.start_time}
+                  onChange={(e) => setFormData(prev => ({...prev, start_time: e.target.value}))}
+                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="end_time" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t("form.endTimeRequired")}
+                </Label>
+                <Input
+                  id="end_time"
+                  type="time"
+                  value={formData.end_time}
+                  onChange={(e) => setFormData(prev => ({...prev, end_time: e.target.value}))}
+                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Periodicity */}
+            <div className="space-y-2">
+              <Label htmlFor="periodicity" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                {t("form.periodicityRequired")}
+              </Label>
+              <select
+                id="periodicity"
+                value={formData.periodicity}
+                onChange={(e) => setFormData(prev => ({...prev, periodicity: e.target.value as any}))}
+                className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                required
+              >
+                <option value="once">{t("form.periodicity.once")}</option>
+                <option value="daily">{t("form.periodicity.daily")}</option>
+                <option value="weekly">{t("form.periodicity.weekly")}</option>
+                <option value="biweekly">{t("form.periodicity.biweekly")}</option>
+                <option value="monthly">{t("form.periodicity.monthly")}</option>
+                <option value="custom">{t("form.periodicity.custom")}</option>
+              </select>
+            </div>
+
+            {/* Weekdays Selection (for weekly/biweekly patterns) */}
+            {(formData.periodicity === 'weekly' || formData.periodicity === 'biweekly') && (
+              <div className="space-y-3">
+                <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t("form.weekdaysOptional")}
+                </Label>
+                <div className="grid grid-cols-7 gap-2">
+                  {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, index) => (
+                    <label key={day} className="flex flex-col items-center space-y-1 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={formData.weekdays.includes(index)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            setFormData(prev => ({...prev, weekdays: [...prev.weekdays, index]}));
+                          } else {
+                            setFormData(prev => ({...prev, weekdays: prev.weekdays.filter(d => d !== index)}));
+                          }
+                        }}
+                        className="rounded border-gray-300 text-blue-500 focus:ring-blue-500/20"
+                      />
+                      <span className="text-xs text-gray-600 dark:text-gray-400">{day.slice(0, 3)}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Monthly Pattern Settings */}
+            {formData.periodicity === 'monthly' && (
+              <div className="space-y-2">
+                <Label htmlFor="week_of_month" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t("form.weekOfMonthOptional")}
+                </Label>
+                <select
+                  id="week_of_month"
+                  value={formData.week_of_month || ''}
+                  onChange={(e) => setFormData(prev => ({...prev, week_of_month: e.target.value ? parseInt(e.target.value) : null}))}
+                  className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                >
+                  <option value="">{t("form.weekOfMonth.any")}</option>
+                  <option value="1">{t("form.weekOfMonth.first")}</option>
+                  <option value="2">{t("form.weekOfMonth.second")}</option>
+                  <option value="3">{t("form.weekOfMonth.third")}</option>
+                  <option value="4">{t("form.weekOfMonth.fourth")}</option>
+                  <option value="-1">{t("form.weekOfMonth.last")}</option>
+                </select>
+              </div>
+            )}
+
+            {/* Custom Interval */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="interval" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t("form.intervalOptional")}
+                </Label>
+                <Input
+                  id="interval"
+                  type="number"
+                  min="1"
+                  max="52"
+                  value={formData.interval}
+                  onChange={(e) => setFormData(prev => ({...prev, interval: parseInt(e.target.value) || 1}))}
+                  placeholder={t("form.intervalPlaceholder")}
+                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="timezone" className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                  {t("form.timezoneOptional")}
+                </Label>
+                <select
+                  id="timezone"
+                  value={formData.timezone}
+                  onChange={(e) => setFormData(prev => ({...prev, timezone: e.target.value}))}
+                  className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
+                >
+                  <option value="Europe/Madrid">Europe/Madrid (CET)</option>
+                  <option value="Europe/London">Europe/London (GMT)</option>
+                  <option value="Europe/Paris">Europe/Paris (CET)</option>
+                  <option value="America/New_York">America/New_York (EST)</option>
+                  <option value="America/Los_Angeles">America/Los_Angeles (PST)</option>
+                  <option value="UTC">UTC</option>
+                </select>
+              </div>
+            </div>
           </div>
 
           {/* Action Buttons */}

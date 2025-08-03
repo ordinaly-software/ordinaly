@@ -5,15 +5,35 @@ from users.models import CustomUser
 
 class CourseSerializer(serializers.ModelSerializer):
     enrolled_count = serializers.SerializerMethodField()
+    duration_hours = serializers.ReadOnlyField()
+    formatted_schedule = serializers.ReadOnlyField()
+    schedule_description = serializers.SerializerMethodField()
+    next_occurrences = serializers.SerializerMethodField()
+    weekday_display = serializers.SerializerMethodField()
 
     class Meta:
         model = Course
         fields = ['id', 'title', 'subtitle', 'description', 'image', 'price',
-                  'location', 'date', 'max_attendants', 'enrolled_count',
-                  'created_at', 'updated_at']
+                  'location', 'start_date', 'end_date', 'start_time', 'end_time',
+                  'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
+                  'exclude_dates', 'max_attendants', 'enrolled_count',
+                  'duration_hours', 'formatted_schedule', 'schedule_description',
+                  'next_occurrences', 'weekday_display', 'created_at', 'updated_at']
 
     def get_enrolled_count(self, obj):
         return obj.enrollments.count()
+
+    def get_next_occurrences(self, obj):
+        return obj.get_next_occurrences(limit=5)
+
+    def get_schedule_description(self, obj):
+        return obj.get_schedule_description()
+
+    def get_weekday_display(self, obj):
+        """Return human-readable weekday names"""
+        if not obj.weekdays:
+            return []
+        return [dict(Course.WEEKDAY_CHOICES)[wd] for wd in obj.weekdays]
 
 
 class EnrollmentSerializer(serializers.ModelSerializer):
