@@ -100,7 +100,7 @@ const FormationPage = () => {
 
   const fetchCourses = useCallback(async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/courses/courses/`);
       
       if (response.ok) {
@@ -220,7 +220,7 @@ const FormationPage = () => {
       const token = localStorage.getItem('authToken');
       if (!token) return;
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/courses/enrollments/`, {
         headers: {
           'Authorization': `Token ${token}`,
@@ -252,7 +252,7 @@ const FormationPage = () => {
 
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
       const response = await fetch(`${apiUrl}/api/courses/courses/${selectedCourse.id}/enroll/`, {
         method: 'POST',
@@ -295,7 +295,7 @@ const FormationPage = () => {
         return;
       }
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
       const response = await fetch(`${apiUrl}/api/courses/courses/${courseToCancel.id}/unenroll/`, {
         method: 'POST',

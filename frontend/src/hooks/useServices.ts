@@ -48,7 +48,7 @@ export const useServices = (limit?: number) => {
         }
         setError(null);
         
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
         console.log('Fetching services from:', `${apiUrl}/api/services/`);
         
         const response = await fetch(`${apiUrl}/api/services/`, {

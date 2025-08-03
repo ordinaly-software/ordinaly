@@ -51,7 +51,7 @@ const LegalPage = () => {
 
   const fetchDocuments = useCallback(async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/terms/public/`, {
         headers: {
           'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ const LegalPage = () => {
     }
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/terms/${doc.id}/download/`, {
         headers: {
           'Content-Type': 'application/json',

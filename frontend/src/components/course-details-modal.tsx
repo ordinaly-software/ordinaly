@@ -52,7 +52,7 @@ const imageLoader = ({ src }: { src: string; width: number; quality?: number }) 
   }
   
   if (src.startsWith('/')) {
-    return `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}${src}`;
+    return `${process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org'}${src}`;
   }
   
   return src;

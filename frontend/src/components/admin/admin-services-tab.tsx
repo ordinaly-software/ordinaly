@@ -64,7 +64,7 @@ const AdminServicesTab = () => {
   const fetchServices = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/services/`, {
         headers: {
           'Authorization': `Token ${token}`,
@@ -159,7 +159,7 @@ const AdminServicesTab = () => {
       }
 
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
       const payload = {
         ...formData,
@@ -243,7 +243,7 @@ const AdminServicesTab = () => {
     setIsDeleting(true);
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
 
       if (selectedServices.length > 0) {
         // Bulk delete

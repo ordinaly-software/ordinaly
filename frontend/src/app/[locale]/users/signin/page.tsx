@@ -87,7 +87,7 @@ export default function LoginPage() {
     setAlert(null);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/users/signin/`, {
         method: 'POST',
         headers: {

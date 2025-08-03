@@ -112,7 +112,7 @@ export default function ProfilePage() {
     if (!authTokenToUse) return;
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/users/profile/`, {
         headers: {
           'Authorization': `Token ${authTokenToUse}`,
@@ -195,7 +195,7 @@ export default function ProfilePage() {
         city: city.trim() || null,
       };
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/users/update_profile/`, {
         method: 'PATCH',
         headers: {
@@ -287,7 +287,7 @@ export default function ProfilePage() {
     setIsDeleting(true);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/users/delete_profile/`, {
         method: 'DELETE',
         headers: {

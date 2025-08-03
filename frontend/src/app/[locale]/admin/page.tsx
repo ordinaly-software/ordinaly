@@ -56,7 +56,7 @@ export default function AdminPage() {
       }
 
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
         console.log('Checking admin access with token:', token);
         console.log('Making request to:', `${apiUrl}/api/users/profile/`);
         
@@ -102,7 +102,7 @@ export default function AdminPage() {
 
     const fetchStats = async (token: string) => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
         const [servicesRes, coursesRes, termsRes] = await Promise.all([
           fetch(`${apiUrl}/api/services/`, {
             headers: { 'Authorization': `Token ${token}` }
