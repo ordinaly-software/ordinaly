@@ -84,7 +84,7 @@ const AdminTermsTab = () => {
   const fetchAvailableTags = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/terms/available_tags/`, {
         headers: {
           'Authorization': `Token ${token}`,
@@ -106,7 +106,7 @@ const AdminTermsTab = () => {
   const fetchTerms = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/terms/`, {
         headers: {
           'Authorization': `Token ${token}`,
@@ -206,7 +206,7 @@ const AdminTermsTab = () => {
       }
 
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
@@ -273,7 +273,7 @@ const AdminTermsTab = () => {
     setIsDeleting(true);
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
 
       if (selectedTerms.length > 0) {
         // Bulk delete
@@ -326,7 +326,7 @@ const AdminTermsTab = () => {
   const downloadPDF = async (term: Term) => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
       const response = await fetch(`${apiUrl}/api/terms/${term.id}/download/`, {
         headers: {

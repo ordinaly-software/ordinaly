@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
+import { getApiEndpoint, API_ENDPOINTS } from "@/lib/api-config";
 import { 
   Plus, 
   Edit, 
@@ -95,8 +96,7 @@ const AdminCoursesTab = () => {
   const fetchCourses = useCallback(async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/courses/courses/`, {
+      const response = await fetch(getApiEndpoint(API_ENDPOINTS.courses), {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json',
@@ -242,7 +242,6 @@ const AdminCoursesTab = () => {
       }
 
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       
       const formDataToSend = new FormData();
       formDataToSend.append('title', formData.title);
@@ -271,8 +270,8 @@ const AdminCoursesTab = () => {
       }
 
       const url = isEdit 
-        ? `${apiUrl}/api/courses/courses/${currentCourse?.id}/`
-        : `${apiUrl}/api/courses/courses/`;
+        ? `${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse?.id}/`
+        : getApiEndpoint(API_ENDPOINTS.courses);
       
       const method = isEdit ? 'PUT' : 'POST';
 
@@ -328,12 +327,11 @@ const AdminCoursesTab = () => {
     setIsDeleting(true);
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
       if (selectedCourses.length > 0) {
         // Bulk delete
         const deletePromises = selectedCourses.map(id =>
-          fetch(`${apiUrl}/api/courses/courses/${id}/`, {
+          fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${id}/`, {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${token}`,
@@ -353,7 +351,7 @@ const AdminCoursesTab = () => {
         setSelectedCourses([]);
       } else if (currentCourse) {
         // Single delete
-        const response = await fetch(`${apiUrl}/api/courses/courses/${currentCourse.id}/`, {
+        const response = await fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse.id}/`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,

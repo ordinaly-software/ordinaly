@@ -29,7 +29,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
 
   const fetchUserData = async (token: string) => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/users/profile/`, {
         headers: {
           'Authorization': `Token ${token}`,
@@ -87,7 +87,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
       // Call signout API if needed (optional since we're just removing the token)
       const token = localStorage.getItem('authToken');
       if (token) {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
         fetch(`${apiUrl}/api/users/signout/`, {
           method: 'POST',
           headers: {

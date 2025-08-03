@@ -142,7 +142,7 @@ export default function SignupPage() {
         password: password,
       };
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/users/signup/`, {
         method: 'POST',
         headers: {

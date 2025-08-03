@@ -59,7 +59,7 @@ export default function CompleteProfilePage() {
 
   const fetchUserData = useCallback(async (token: string) => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/users/profile/`, {
         headers: {
           'Authorization': `Token ${token}`,
@@ -127,7 +127,7 @@ export default function CompleteProfilePage() {
       };
 
       // Send to your backend API to complete the profile
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       const response = await fetch(`${apiUrl}/api/users/complete-profile/`, {
         method: 'POST',
         headers: {
