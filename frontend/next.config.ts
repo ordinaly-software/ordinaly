@@ -5,8 +5,48 @@ const nextConfig: NextConfig = {
   // Enable experimental features for better performance
   experimental: {
     // Enable optimizePackageImports for better tree shaking
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react', 'framer-motion', '@radix-ui/react-label', '@radix-ui/react-slot'],
+    // Enable turbo mode for faster builds
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
+  
+  // Bundle analyzer for production builds
+  ...(process.env.ANALYZE === 'true' && {
+    webpack: (config, { isServer }) => {
+      if (!isServer) {
+        config.resolve.fallback = {
+          ...config.resolve.fallback,
+          fs: false,
+        };
+      }
+
+      // Optimize bundle splitting
+      config.optimization.splitChunks.cacheGroups = {
+        ...config.optimization.splitChunks.cacheGroups,
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+          maxSize: 244000, // 244KB
+        },
+        common: {
+          name: 'common',
+          minChunks: 2,
+          chunks: 'all',
+          maxSize: 244000,
+        }
+      };
+      
+      return config;
+    },
+  }),
   
   // Image optimization
   images: {
@@ -44,21 +84,11 @@ const nextConfig: NextConfig = {
   // Enable React compiler optimizations
   reactStrictMode: true,
   
-  // Optimize bundle
-  webpack: (config, { isServer }) => {
-    // Optimize for production
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-      };
-    }
-    
-    return config;
-  },
-  
   // Power optimizations
   poweredByHeader: false,
+  
+  // Output optimization
+  output: 'standalone',
   
   // Headers for performance
   async headers() {
@@ -72,6 +102,27 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin'
+          }
+        ]
+      }
     ];
   },
 };

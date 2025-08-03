@@ -3,7 +3,7 @@
 import { Bot, Workflow, Zap, Users, TrendingUp, Accessibility } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState, lazy, Suspense, useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Image from 'next/image';
@@ -13,6 +13,7 @@ import { usePerformanceMonitoring } from "@/hooks/usePerformanceMonitoring";
 import { useServices } from "@/hooks/useServices";
 import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { renderIcon } from "@/components/ui/icon-select";
+
 
 interface Service {
   id: number;
@@ -46,14 +47,24 @@ export default function HomePage() {
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
 
-  // Fetch services (up to 6, featured first)
-  const { services, isLoading: servicesLoading, isOnVacation, error: servicesError } = useServices(6);
+  // Fetch services (up to 6, featured first) - ensure fresh fetch on mount
+  const { services, isLoading: servicesLoading, isOnVacation, error: servicesError, refetch } = useServices(6);
 
   // Preload critical resources for better performance
   usePreloadResources();
   
   // Monitor performance metrics
   usePerformanceMonitoring();
+
+  // Debug log to help troubleshoot services loading
+  useEffect(() => {
+    console.log('HomePage services state:', { 
+      servicesCount: services.length, 
+      servicesLoading, 
+      servicesError, 
+      isOnVacation 
+    });
+  }, [services.length, servicesLoading, servicesError, isOnVacation]);
 
   useEffect(() => {
     const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -78,13 +89,13 @@ export default function HomePage() {
     }
   }, [isDark]);
 
-  // Service modal handlers
-  const handleServiceClick = (service: Service) => {
+  // Service modal handlers - optimize with useCallback
+  const handleServiceClick = useCallback((service: Service) => {
     setSelectedService(service);
     setIsServiceModalOpen(true);
-  };
+  }, []);
 
-  const handleServiceContact = () => {
+  const handleServiceContact = useCallback(() => {
     setIsServiceModalOpen(false);
     // Open WhatsApp with a service-specific message
     const message = selectedService 
@@ -93,13 +104,32 @@ export default function HomePage() {
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/34658977045?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
-  };
+  }, [selectedService, t]);
 
-  const closeServiceModal = () => {
+  const closeServiceModal = useCallback(() => {
     setIsServiceModalOpen(false);
     setSelectedService(null);
-  };
+  }, []);
 
+  const handleWhatsAppChat = useCallback(() => {
+    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
+    const message = encodeURIComponent(t('defaultWhatsAppMessage'));
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    
+    window.open(whatsappUrl, '_blank');
+  }, [t]);
+
+  // Optimize color schemes with useMemo
+  const colorSchemes = useMemo(() => [
+    { bg: 'bg-[#29BF12]/10', border: 'border-[#29BF12]', shadow: 'shadow-[#29BF12]/10', text: 'text-[#29BF12]' },
+    { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]' },
+    { bg: 'bg-[#E4572E]/10', border: 'border-[#E4572E]', shadow: 'shadow-[#E4572E]/10', text: 'text-[#E4572E]' },
+    { bg: 'bg-[#623CEA]/10', border: 'border-[#623CEA]', shadow: 'shadow-[#623CEA]/10', text: 'text-[#623CEA]' },
+    { bg: 'bg-[#29BF12]/10', border: 'border-[#29BF12]', shadow: 'shadow-[#29BF12]/10', text: 'text-[#29BF12]' },
+    { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]' }
+  ], []);
+
+  // Optimize intersection observer setup with debounced scroll handler
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
@@ -128,33 +158,12 @@ export default function HomePage() {
     // Setup observer after a small delay to ensure services are rendered
     const observerTimeout = setTimeout(setupObserver, 100);
 
-    // Throttle scroll events for better performance
-    let ticking = false;
-    const throttledScrollHandler = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", throttledScrollHandler, { passive: true });
-
+    // Cleanup function
     return () => {
       clearTimeout(observerTimeout);
       observer.disconnect();
-      window.removeEventListener("scroll", throttledScrollHandler);
     };
   }, []); // Only run once on mount
-
-  const handleWhatsAppChat = () => {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
-    const message = encodeURIComponent(t('defaultWhatsAppMessage'));
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-    
-    window.open(whatsappUrl, '_blank');
-  };
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
@@ -273,7 +282,7 @@ export default function HomePage() {
                 </p>
                 <Button
                   variant="outline"
-                  onClick={() => window.location.reload()}
+                  onClick={refetch}
                   className="flex items-center gap-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -303,7 +312,7 @@ export default function HomePage() {
                 </p>
                 <Button
                   variant="outline"
-                  onClick={() => window.location.reload()}
+                  onClick={refetch}
                   className="flex items-center gap-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -319,15 +328,7 @@ export default function HomePage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => {
                 const localizedService = service; // Assuming service is already localized
-                const colors = [
-                  { bg: 'bg-[#29BF12]/10', border: 'border-[#29BF12]', shadow: 'shadow-[#29BF12]/10', text: 'text-[#29BF12]' },
-                  { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]' },
-                  { bg: 'bg-[#E4572E]/10', border: 'border-[#E4572E]', shadow: 'shadow-[#E4572E]/10', text: 'text-[#E4572E]' },
-                  { bg: 'bg-[#623CEA]/10', border: 'border-[#623CEA]', shadow: 'shadow-[#623CEA]/10', text: 'text-[#623CEA]' },
-                  { bg: 'bg-[#29BF12]/10', border: 'border-[#29BF12]', shadow: 'shadow-[#29BF12]/10', text: 'text-[#29BF12]' },
-                  { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]' }
-                ];
-                const colorScheme = colors[index % colors.length];
+                const colorScheme = colorSchemes[index % colorSchemes.length];
                 const animationClass = index % 3 === 0 ? 'slide-in-left' : index % 3 === 1 ? 'fade-in-up' : 'slide-in-right';
                 
                 return (

@@ -126,9 +126,17 @@ export default async function RootLayout({ children, params } :
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
+        {/* DNS prefetch for critical domains */}
+        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="//wa.me" />
+        
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        
+        {/* Critical resource hints */}
+        <link rel="preload" href="/static/girl_resting_transparent.webp" as="image" type="image/webp" />
         
         {/* PWA meta tags */}
         <meta name="application-name" content="Ordinaly" />
@@ -182,8 +190,7 @@ export default async function RootLayout({ children, params } :
           }}
         />
         
-        {/* Accessibility Integration */}
-        {/* WCAG Accessibility Script - only load if token is available */}
+        {/* Accessibility Integration - moved to be conditional */}
         {process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN && (
           <script
             dangerouslySetInnerHTML={{
@@ -201,13 +208,13 @@ export default async function RootLayout({ children, params } :
           />
         )}
         
-        {/* Service Worker Registration */}
+        {/* Optimized Service Worker Registration */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js').then(
+                  navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(
                     function(registration) {
                       console.log('Service Worker registration successful with scope: ', registration.scope);
                     },
