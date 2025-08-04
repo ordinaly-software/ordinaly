@@ -72,104 +72,46 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* Enable hardware acceleration */
-    transform: translateZ(0);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    /* Optimize text rendering */
-    text-rendering: optimizeLegibility;
-  }
-  
-  /* Critical CSS for above-the-fold content */
-  .hero-section {
-    padding: 5rem 1rem;
-    background: linear-gradient(135deg, #E3F9E5 0%, #E6F7FA 50%, #EDE9FE 100%);
-    min-height: 80vh;
-  }
-  
-  @media (min-width: 640px) {
-    .hero-section {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .hero-section {
-      padding-left: 2rem;
-      padding-right: 2rem;
-    }
-  }
-  
-  .dark .hero-section {
-    background: linear-gradient(135deg, rgba(41, 191, 18, 0.1) 0%, rgba(70, 177, 201, 0.1) 50%, rgba(98, 60, 234, 0.1) 100%);
   }
 }
 
-/* Optimized Scroll Animations with will-change */
+/* Scroll Animations */
 .scroll-animate {
   opacity: 0;
-  transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  will-change: transform, opacity;
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .scroll-animate.animate-in {
   opacity: 1;
-  will-change: auto; /* Remove will-change after animation */
 }
 
 .slide-in-left {
-  transform: translate3d(-50px, 0, 0);
+  transform: translateX(-50px);
 }
 
 .slide-in-left.animate-in {
-  transform: translate3d(0, 0, 0);
+  transform: translateX(0);
 }
 
 .slide-in-right {
-  transform: translate3d(50px, 0, 0);
+  transform: translateX(50px);
 }
 
 .slide-in-right.animate-in {
-  transform: translate3d(0, 0, 0);
+  transform: translateX(0);
 }
 
 .fade-in-up {
-  transform: translate3d(0, 30px, 0);
+  transform: translateY(30px);
 }
 
 .fade-in-up.animate-in {
-  transform: translate3d(0, 0, 0);
+  transform: translateY(0);
 }
 
-/* Smooth scrolling with reduced motion support */
+/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  
-  .scroll-animate {
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Performance optimizations for images and content */
-img {
-  content-visibility: auto;
-}
-
-/* Optimize grid layouts */
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  contain: layout;
 }
 
 /* Fix for Lucide React SVG attribute errors */
@@ -193,18 +135,6 @@ svg[width="2rem"], svg[height="2rem"] {
   height: 2rem !important;
 }
 
-/* Optimize button interactions */
-.btn-primary {
-  contain: layout;
-  will-change: transform;
-  transition: transform 0.2s ease-out;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-}
-
-/* Performance hint for sections */
-section {
-  contain: layout;
+.animate-in {
+  animation: slide-in-from-bottom-5 0.3s ease-out;
 }

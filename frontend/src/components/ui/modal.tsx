@@ -56,49 +56,49 @@ export const Modal = ({
     }
   };
 
-  return createPortal(
-    <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
-        onClick={handleBackdropClick}
-      />
+return createPortal(
+  <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto">
+    {/* Backdrop */}
+    <div
+      className="fixed inset-0 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
+      onClick={handleBackdropClick}
+    />
 
-      {/* Modal Content */}
+    {/* Wrapper para centrar verticalmente con margen si hay scroll */}
+    <div className="relative z-10 mx-auto my-16 w-full max-w-2xl px-4">
       <div 
-        className={`relative z-10 w-full mx-4 animate-in fade-in zoom-in-95 duration-200 ${className}`}
+        className={`relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1A1924] shadow-2xl ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1A1924] shadow-2xl">
-          {showHeader && (
-            <div className="px-6 py-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-800">
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                {title || "Modal"}
-              </h2>
-              <ModalCloseButton
-                onClick={onClose}
-                variant="header"
-                size="md"
-              />
-            </div>
-          )}
-          
-          {!showHeader && (
-            <div className="absolute top-4 right-4 z-10">
-              <ModalCloseButton
-                onClick={onClose}
-                variant="overlay"
-                size="md"
-              />
-            </div>
-          )}
-          
-          <div className={`${showHeader ? 'p-6' : 'p-0'}`}>
-            {children}
+        {showHeader && (
+          <div className="px-6 py-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-800">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {title || "Modal"}
+            </h2>
+            <ModalCloseButton
+              onClick={onClose}
+              variant="header"
+              size="md"
+            />
           </div>
+        )}
+
+        {!showHeader && (
+          <div className="absolute top-4 right-4 z-10">
+            <ModalCloseButton
+              onClick={onClose}
+              variant="overlay"
+              size="md"
+            />
+          </div>
+        )}
+
+        <div className={`${showHeader ? 'p-6' : 'p-0'}`}>
+          {children}
         </div>
       </div>
-    </div>,
-    document.body
-  );
+    </div>
+  </div>,
+  document.body
+);
 };

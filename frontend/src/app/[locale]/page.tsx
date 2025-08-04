@@ -9,7 +9,6 @@ import { useTranslations } from "next-intl";
 import Image from 'next/image';
 import Navbar from "@/components/ui/navbar";
 import { usePreloadResources } from "@/hooks/usePreloadResources";
-import { usePerformanceMonitoring } from "@/hooks/usePerformanceMonitoring";
 import { useServices } from "@/hooks/useServices";
 import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { renderIcon } from "@/components/ui/icon-select";
@@ -36,7 +35,6 @@ const DemoModal = lazy(() => import("@/components/home/demo-modal"));
 const Footer = lazy(() => import("@/components/home/footer"));
 const PricingPlans = lazy(() => import("@/components/home/pricing-plans"));
 const WhatsAppBubble = lazy(() => import("@/components/home/whatsapp-bubble"));
-const Cover = lazy(() => import("@/components/ui/cover").then(module => ({ default: module.Cover })));
 const StyledButton = lazy(() => import("@/components/ui/styled-button"));
 const ColourfulText = lazy(() => import("@/components/ui/colourful-text"));
 
@@ -52,9 +50,6 @@ export default function HomePage() {
 
   // Preload critical resources for better performance
   usePreloadResources();
-  
-  // Monitor performance metrics
-  usePerformanceMonitoring();
 
   // Debug log to help troubleshoot services loading (development only)
   useEffect(() => {
@@ -731,7 +726,7 @@ export default function HomePage() {
           <h2 className="text-4xl md:text-5xl font-bold mb-8">
             {t("cta.title1")}
             <Suspense fallback={<span>{t("cta.title2")}</span>}>
-              <Cover>{t("cta.title2")}</Cover>
+              <span>{t("cta.title2")}</span>
             </Suspense>
             {t("cta.title3")}
           </h2>
