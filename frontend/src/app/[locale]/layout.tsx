@@ -7,6 +7,7 @@ import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
 import CookieConsent from '@/components/ui/cookies';
 import BackToTopButton from '@/components/ui/back-to-top-button';
+import PerformanceOptimizer from '@/components/optimizations/PerformanceOptimizer';
 // import AnalyticsManager from '@/components/ui/analyticsManager';
 
 
@@ -135,8 +136,25 @@ export default async function RootLayout({ children, params } :
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Critical resource hints */}
-        <link rel="preload" href="/static/girl_resting_transparent.webp" as="image" type="image/webp" />
+        {/* Critical resource hints - optimized */}
+        <link rel="preload" href="/static/girl_resting_transparent.webp" as="image" type="image/webp" fetchPriority="high" />
+        <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
+        
+        {/* Optimized font loading */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+                link.media = 'print';
+                link.onload = function() { this.media = 'all'; };
+                document.head.appendChild(link);
+              })();
+            `,
+          }}
+        />
         
         {/* PWA meta tags */}
         <meta name="application-name" content="Ordinaly" />
@@ -216,10 +234,16 @@ export default async function RootLayout({ children, params } :
                 window.addEventListener('load', function() {
                   navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(
                     function(registration) {
-                      console.log('Service Worker registration successful with scope: ', registration.scope);
+                      // Only log in development
+                      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        console.log('Service Worker registration successful with scope: ', registration.scope);
+                      }
                     },
                     function(error) {
-                      console.log('Service Worker registration failed: ', error);
+                      // Only log in development
+                      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                        console.log('Service Worker registration failed: ', error);
+                      }
                     }
                   );
                 });
@@ -246,6 +270,7 @@ export default async function RootLayout({ children, params } :
           <CookieConsent />
           {/* <AnalyticsManager /> */}
           <BackToTopButton />
+          <PerformanceOptimizer />
 
         </NextIntlClientProvider>
       </body>

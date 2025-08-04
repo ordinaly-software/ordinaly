@@ -2,17 +2,21 @@ import {NextConfig} from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
  
 const nextConfig: NextConfig = {
+  // External packages for server components
+  serverExternalPackages: ['@tsparticles/engine', '@tsparticles/slim'],
+  
   // Enable experimental features for better performance
   experimental: {
     // Enable optimizePackageImports for better tree shaking
     optimizePackageImports: ['lucide-react', 'framer-motion', '@radix-ui/react-label', '@radix-ui/react-slot'],
-    // Enable turbo mode for faster builds
-    turbo: {
-      rules: {
-        '*.svg': {
-          loaders: ['@svgr/webpack'],
-          as: '*.js',
-        },
+  },
+  
+  // Turbopack configuration (moved from experimental)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
       },
     },
   },
@@ -57,6 +61,10 @@ const nextConfig: NextConfig = {
     // Enable responsive images
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Loader optimization
+    loader: 'default',
+    // Enable image optimization for better performance
+    unoptimized: false,
     // Allow images from localhost for development
     remotePatterns: [
       {
@@ -90,11 +98,20 @@ const nextConfig: NextConfig = {
   // Output optimization
   output: 'standalone',
   
-  // Headers for performance
+  // Headers for performance and security
   async headers() {
     return [
       {
         source: '/static/(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/_next/image(.*)',
         headers: [
           {
             key: 'Cache-Control',
@@ -120,10 +137,21 @@ const nextConfig: NextConfig = {
           {
             key: 'Referrer-Policy',
             value: 'origin-when-cross-origin'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()'
           }
         ]
       }
     ];
+  },
+  
+  // Enable logging for production debugging
+  logging: {
+    fetches: {
+      fullUrl: process.env.NODE_ENV === 'development',
+    },
   },
 };
  

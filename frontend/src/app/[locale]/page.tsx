@@ -56,14 +56,16 @@ export default function HomePage() {
   // Monitor performance metrics
   usePerformanceMonitoring();
 
-  // Debug log to help troubleshoot services loading
+  // Debug log to help troubleshoot services loading (development only)
   useEffect(() => {
-    console.log('HomePage services state:', { 
-      servicesCount: services.length, 
-      servicesLoading, 
-      servicesError, 
-      isOnVacation 
-    });
+    if (process.env.NODE_ENV === 'development') {
+      console.log('HomePage services state:', { 
+        servicesCount: services.length, 
+        servicesLoading, 
+        servicesError, 
+        isOnVacation 
+      });
+    }
   }, [services.length, servicesLoading, servicesError, isOnVacation]);
 
   useEffect(() => {
@@ -225,10 +227,11 @@ export default function HomePage() {
                   alt="AI Automation Dashboard"
                   width={600}
                   height={500}
-                  className="rounded-2xl shadow-2xl"
+                  className="rounded-2xl shadow-2xl w-full h-auto"
                   priority
                   placeholder="blur"
                   blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                 />
             </div>
           </div>
@@ -561,9 +564,9 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center justify-items-center">
             {[
-              { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Partner 1", delay: "0.1s" },
-              { src: "/static/logos/logo_grupo_addu.webp", alt: "Partner 2", delay: "0.2s" },
-              { src: "/static/logos/logo_proinca_consultores.webp", alt: "Partner 3", delay: "0.3s" },
+              { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Aviva Publicidad Partner", delay: "0.1s" },
+              { src: "/static/logos/logo_grupo_addu.webp", alt: "Grupo Addu Partner", delay: "0.2s" },
+              { src: "/static/logos/logo_proinca_consultores.webp", alt: "Proinca Consultores Partner", delay: "0.3s" },
             ].map(({ src, alt, delay }, i) => (
               <div
                 key={i}
@@ -574,7 +577,7 @@ export default function HomePage() {
                   src={src}
                   alt={alt}
                   width={300}
-                  height={200}
+                  height={120}
                   className="h-24 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
                   loading="lazy"
                   placeholder="blur"
@@ -596,10 +599,11 @@ export default function HomePage() {
                 width={600}
                 height={500}
                 alt="Andalusian Business Transformation"
-                className="rounded-2xl shadow-2xl"
+                className="rounded-2xl shadow-2xl w-full h-auto"
                 loading="lazy"
                 placeholder="blur"
                 blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
               />
             </div>
             <div className="scroll-animate slide-in-right">
@@ -630,10 +634,9 @@ export default function HomePage() {
             <div className="text-center p-6 bg-[#29BF12]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/odoo_logo.webp"
               alt="Odoo"
-              width={50}
-              height={100}
-              className="h-14 mb-2 dark:invert"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="h-14 w-auto mb-2 dark:invert"
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -643,10 +646,9 @@ export default function HomePage() {
             <div className="text-center p-6 bg-[#46B1C9]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/whatsapp_logo.webp" 
               alt="WhatsApp Business" 
-              width={50}
-              height={100}
-              className="h-10 mb-2 dark:invert"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="h-10 w-auto mb-2 dark:invert"
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -656,10 +658,9 @@ export default function HomePage() {
             <div className="text-center p-6 bg-[#623CEA]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/chatgpt_logo.webp"
               alt="ChatGPT"
-              width={50}
-              height={100}
-              className="h-10 mb-2 dark:invert"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="h-10 w-auto mb-2 dark:invert"
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -669,10 +670,9 @@ export default function HomePage() {
             <div className="text-center p-6 bg-[#00BFAE]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/gemini_logo.webp"
               alt="Gemini"
-              width={50}
-              height={100}
-              className="h-10 mb-2"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="h-10 w-auto mb-2"
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -682,10 +682,9 @@ export default function HomePage() {
             <div className="text-center p-6 bg-[#4285F4]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/looker_studio_logo.webp"
               alt="Looker Studio"
-              width={50}
-              height={100}
-              className="h-10 mb-2"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="h-10 w-auto mb-2"
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -694,11 +693,10 @@ export default function HomePage() {
             </div>
             <div className="text-center p-6 bg-[#4285F4]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/meta_logo.webp"
-              width={50}
-              height={100}
+              width={80}
+              height={40}
               alt="Meta"
-              className="h-10 mb-2"
-              style={{ width: "auto" }}
+              className="h-10 w-auto mb-2"
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
