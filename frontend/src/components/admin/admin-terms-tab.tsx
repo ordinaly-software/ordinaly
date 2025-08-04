@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
+import { getApiEndpoint } from "@/lib/api-config";
 import { 
   Plus, 
   Edit, 
@@ -84,8 +85,7 @@ const AdminTermsTab = () => {
   const fetchAvailableTags = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-      const response = await fetch(`${apiUrl}/api/terms/available_tags/`, {
+      const response = await fetch(getApiEndpoint('/api/terms/available_tags/'), {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ const AdminTermsTab = () => {
         const data = await response.json();
         setAvailableTags(data.available_tags || []);
       } else {
-        console.error('Failed to fetch available tags');
+        console.log('No available tags');
       }
     } catch (error) {
       console.error('Error fetching available tags:', error);
@@ -106,8 +106,7 @@ const AdminTermsTab = () => {
   const fetchTerms = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-      const response = await fetch(`${apiUrl}/api/terms/`, {
+      const response = await fetch(getApiEndpoint('/api/terms/'), {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json',
@@ -206,7 +205,6 @@ const AdminTermsTab = () => {
       }
 
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
@@ -219,8 +217,8 @@ const AdminTermsTab = () => {
       }
 
       const url = isEdit 
-        ? `${apiUrl}/api/terms/${currentTerm?.id}/`
-        : `${apiUrl}/api/terms/`;
+        ? getApiEndpoint(`/api/terms/${currentTerm?.id}/`)
+        : getApiEndpoint('/api/terms/');
       
       const method = isEdit ? 'PUT' : 'POST';
 
@@ -273,12 +271,11 @@ const AdminTermsTab = () => {
     setIsDeleting(true);
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
 
       if (selectedTerms.length > 0) {
         // Bulk delete
         const deletePromises = selectedTerms.map(id =>
-          fetch(`${apiUrl}/api/terms/${id}/`, {
+          fetch(getApiEndpoint(`/api/terms/${id}/`), {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${token}`,
@@ -298,7 +295,7 @@ const AdminTermsTab = () => {
         setSelectedTerms([]);
       } else if (currentTerm) {
         // Single delete
-        const response = await fetch(`${apiUrl}/api/terms/${currentTerm.id}/`, {
+        const response = await fetch(getApiEndpoint(`/api/terms/${currentTerm.id}/`), {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,
@@ -326,9 +323,8 @@ const AdminTermsTab = () => {
   const downloadPDF = async (term: Term) => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
-      const response = await fetch(`${apiUrl}/api/terms/${term.id}/download/`, {
+      const response = await fetch(getApiEndpoint(`/api/terms/${term.id}/download/`), {
         headers: {
           'Authorization': `Token ${token}`,
         },

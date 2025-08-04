@@ -71,7 +71,8 @@
       "optimization": {
         "title": "Continuous Optimization",
         "description": "Ongoing monitoring and improvement of your automated processes"
-      }
+      },
+      "viewAllServices": "View All Services"
     },
     "about": {
       "title": "LEADING DIGITAL TRANSFORMATION IN ANDALUSIA",
@@ -390,6 +391,8 @@
       "selectAll": "Select All",
       "noServices": "No services available.",
       "noServicesFound": "No services found matching your search.",
+      "durationDay": "1 day",
+      "durationDays": "{count} days",
       "form": {
         "title": "Title",
         "titlePlaceholder": "Service title",
@@ -550,10 +553,50 @@
         "cancel": "Cancel"
       },
       "details": {
+        "title": "Course Details",
+        "enrolled": "Enrolled",
+        "capacity": "Capacity", 
+        "vacant": "Vacant",
         "price": "Price",
         "location": "Location",
         "date": "Date",
         "maxAttendants": "Max Attendants",
+        "created": "Created",
+        "schedule": "Schedule",
+        "locationInfo": "Location & Info",
+        "enrollmentStatus": "Enrollment Status",
+        "enrolledMembers": "Enrolled Members", 
+        "upcomingSessions": "Upcoming Sessions",
+        "finished": "Finished",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "time": "Time",
+        "duration": "Duration",
+        "frequency": "Frequency",
+        "weekdays": "Weekdays",
+        "timezone": "Timezone",
+        "lastUpdated": "Last Updated",
+        "fullStatus": "Full",
+        "spotsRemaining": "spots remaining",
+        "members": "members",
+        "noEnrollments": "No enrollments yet",
+        "enrolledOn": "Enrolled",
+        "member": "Member",
+        "moreSessions": "more sessions",
+        "hours": "hours"
+      },
+      "courseCard": {
+        "enrollments": "Enrollments",
+        "full": "full",
+        "spotsAvailable": "spots available"
+      },
+      "sorting": {
+        "sortBy": "Sort by",
+        "startDate": "Start Date",
+        "title": "Title",
+        "endDate": "End Date",
+        "enrollments": "Enrollments",
+        "capacity": "Capacity",
         "created": "Created"
       }
     },
@@ -752,6 +795,12 @@
       "title": "No Courses Found",
       "description": "Try adjusting your search terms or filters to find the perfect course for you."
     },
+    "noPastCourses": "No past courses available.",
+    "pastCourses": "Past Courses",
+    "viewPastCourses": "View Past Courses",
+    "hidePastCourses": "Hide Past Courses",
+    "upcomingCourses": "Upcoming Courses",
+    "finished": "Finished",
     "cta": {
       "title": "Ready to Advance Your Career?",
       "description": "Join thousands of professionals who have transformed their careers with our expert-led training programs.",
@@ -900,5 +949,20 @@
         "deleteConfirmRequired": "Please type your username to confirm"
       }
     }
+  },
+  "authModal": {
+    "welcome": "Welcome to Ordinaly",
+    "courseEnrollTitle": "Authentication Required",
+    "courseEnrollDescription": "Sign in or create an account to enroll in \"{courseTitle}\"",
+    "generalDescription": "Join our community to access exclusive courses and services",
+    "signIn": {
+      "title": "Sign In",
+      "description": "Already have an account? Welcome back!"
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "description": "New to Ordinaly? Create your account"
+    },
+    "termsText": "By continuing, you agree to our Terms of Service and Privacy Policy"
   }
 }

@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Modal } from "@/components/ui/modal";
 import Alert from "@/components/ui/alert";
 import AuthModal from "@/components/auth-modal";
-import CourseDetailsModal from "@/components/course-details-modal";
+import CourseDetailsModal from "@/components/ui/course-details-modal";
 import Image from "next/image";
 import {
   Search,
@@ -693,7 +693,7 @@ const FormationPage = () => {
                   </Card>
                 );
               })}
-            </div>
+              </div>
             </>
           )}
         </div>
@@ -1048,7 +1048,6 @@ const FormationPage = () => {
       <AuthModal
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
-        onAuthSuccess={handleAuthSuccess}
         courseTitle={courseForAuth?.title}
       />
 

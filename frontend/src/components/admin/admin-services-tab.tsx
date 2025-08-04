@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
+import { getApiEndpoint } from "@/lib/api-config";
 import { 
   Plus, 
   Edit, 
@@ -18,6 +19,7 @@ import {
 } from "lucide-react";
 import { IconSelect, renderIcon } from "@/components/ui/icon-select";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
+import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { servicesEvents } from "@/lib/events";
 
 interface Service {
@@ -43,6 +45,8 @@ const AdminServicesTab = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showServiceModal, setShowServiceModal] = useState(false);
+  const [selectedServiceForModal, setSelectedServiceForModal] = useState<Service | null>(null);
   const [currentService, setCurrentService] = useState<Service | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -64,8 +68,7 @@ const AdminServicesTab = () => {
   const fetchServices = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-      const response = await fetch(`${apiUrl}/api/services/`, {
+      const response = await fetch(getApiEndpoint('/api/services/'), {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json',
@@ -130,6 +133,20 @@ const AdminServicesTab = () => {
     setShowDeleteModal(true);
   };
 
+  const handleServiceClick = (service: Service) => {
+    setSelectedServiceForModal(service);
+    setShowServiceModal(true);
+  };
+
+  const handleContact = () => {
+    // Simple WhatsApp contact functionality
+    const message = selectedServiceForModal 
+      ? `Hola, estoy interesado en el servicio "${selectedServiceForModal.title}". ¿Podrían proporcionarme más información?`
+      : "Hola, me gustaría obtener más información sobre sus servicios.";
+    const whatsappUrl = `https://wa.me/34123456789?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   const submitService = async (isEdit: boolean) => {
     try {
       // Basic validation
@@ -159,7 +176,6 @@ const AdminServicesTab = () => {
       }
 
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
       const payload = {
         ...formData,
@@ -168,8 +184,8 @@ const AdminServicesTab = () => {
       };
 
       const url = isEdit 
-        ? `${apiUrl}/api/services/${currentService?.id}/`
-        : `${apiUrl}/api/services/`;
+        ? getApiEndpoint(`/api/services/${currentService?.id}/`)
+        : getApiEndpoint('/api/services/');
       
       const method = isEdit ? 'PUT' : 'POST';
 
@@ -243,12 +259,11 @@ const AdminServicesTab = () => {
     setIsDeleting(true);
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
 
       if (selectedServices.length > 0) {
         // Bulk delete
         const deletePromises = selectedServices.map(id =>
-          fetch(`${apiUrl}/api/services/${id}/`, {
+          fetch(getApiEndpoint(`/api/services/${id}/`), {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${token}`,
@@ -273,7 +288,7 @@ const AdminServicesTab = () => {
         setSelectedServices([]);
       } else if (currentService) {
         // Single delete
-        const response = await fetch(`${apiUrl}/api/services/${currentService.id}/`, {
+        const response = await fetch(getApiEndpoint(`/api/services/${currentService.id}/`), {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,
@@ -411,7 +426,18 @@ const AdminServicesTab = () => {
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
-                      <div className="flex-1">
+                      <div 
+                        className="flex-1 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg p-2 -m-2 transition-colors duration-200"
+                        onClick={() => handleServiceClick(service)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleServiceClick(service);
+                          }
+                        }}
+                      >
                         <div className="flex items-center space-x-2">
                           {service.icon && (
                             <div className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
@@ -432,8 +458,8 @@ const AdminServicesTab = () => {
                           {service.description}
                         </p>
                         <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                          <span>{tAdmin("labels.price")}: {service.price ? `€${service.price}` : t("form.contactForQuote") || 'Contact for quote'}</span>
-                          {service.duration && <span>{tAdmin("labels.duration")}: {service.duration} {service.duration === 1 ? t("home.services.durationDay") : t("home.services.durationDays", { count: service.duration })}</span>}
+                          <span>{tAdmin("labels.price")}: {service.price ? `€${Math.round(Number(service.price))}` : t("form.contactForQuote") || 'Contact for quote'}</span>
+                          {service.duration && <span>{tAdmin("labels.duration")}: {service.duration === 1 ? t("durationDay") : t("durationDays", { count: service.duration })}</span>}
                           <span>{tAdmin("labels.icon")}: {service.icon}</span>
                           <span>{tAdmin("labels.created")}: {new Date(service.created_at).toLocaleDateString()}</span>
                         </div>
@@ -649,6 +675,17 @@ const AdminServicesTab = () => {
         confirmText={t("confirmDelete.delete")}
         cancelText={t("confirmDelete.cancel")}
         isLoading={isDeleting}
+      />
+
+      {/* Service Details Modal */}
+      <ServiceDetailsModal
+        service={selectedServiceForModal}
+        isOpen={showServiceModal}
+        onClose={() => {
+          setShowServiceModal(false);
+          setSelectedServiceForModal(null);
+        }}
+        onContact={handleContact}
       />
     </div>
   );

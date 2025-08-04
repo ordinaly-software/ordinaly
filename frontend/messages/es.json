@@ -72,7 +72,8 @@
       "optimization": {
         "title": "Optimización Continua",
         "description": "Monitoreo y mejora constante de tus procesos automatizados"
-      }
+      },
+      "viewAllServices": "Ver Todos los Servicios"
     },
     "about": {
       "title": "LIDERANDO LA TRANSFORMACIÓN DIGITAL EN ANDALUCÍA",
@@ -195,7 +196,7 @@
   "common": {
     "onVacation": "De Vacaciones",
     "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia.",
-    "learnMore": "Más Información",
+    "learnMore": "Detalles",
     "backToHome": "Volver al Inicio"
   },
   "logoutModal": {
@@ -390,6 +391,8 @@
       "selectAll": "Seleccionar Todo",
       "noServices": "No hay servicios disponibles.",
       "noServicesFound": "No se encontraron servicios que coincidan con tu búsqueda.",
+      "durationDay": "1 día",
+      "durationDays": "{count} días",
       "form": {
         "title": "Título",
         "titlePlaceholder": "Título del servicio",
@@ -544,10 +547,50 @@
         "cancel": "Cancelar"
       },
       "details": {
+        "title": "Detalles del Curso",
+        "enrolled": "Inscritos",
+        "capacity": "Capacidad",
+        "vacant": "Vacante",
         "price": "Precio",
         "location": "Ubicación",
         "date": "Fecha",
         "maxAttendants": "Máximo de Asistentes",
+        "created": "Creado",
+        "schedule": "Horario",
+        "locationInfo": "Ubicación e Información",
+        "enrollmentStatus": "Estado de Inscripciones",
+        "enrolledMembers": "Miembros Inscritos",
+        "upcomingSessions": "Próximas Sesiones",
+        "finished": "Finalizado",
+        "startDate": "Fecha de Inicio",
+        "endDate": "Fecha de Fin",
+        "time": "Hora",
+        "duration": "Duración",
+        "frequency": "Frecuencia",
+        "weekdays": "Días de la Semana",
+        "timezone": "Zona Horaria",
+        "lastUpdated": "Última Actualización",
+        "fullStatus": "Completo",
+        "spotsRemaining": "plazas restantes",
+        "members": "miembros",
+        "noEnrollments": "Aún no hay inscripciones",
+        "enrolledOn": "Inscrito",
+        "member": "Miembro",
+        "moreSessions": "sesiones más",
+        "hours": "horas"
+      },
+      "courseCard": {
+        "enrollments": "Inscripciones",
+        "full": "completo",
+        "spotsAvailable": "plazas disponibles"
+      },
+      "sorting": {
+        "sortBy": "Ordenar por",
+        "startDate": "Fecha de Inicio",
+        "title": "Título",
+        "endDate": "Fecha de Fin",
+        "enrollments": "Inscripciones",
+        "capacity": "Capacidad",
         "created": "Creado"
       }
     },
@@ -676,7 +719,7 @@
     "featured": "Destacado",
     "includes": "Qué Incluye",
     "contactUs": "Contáctanos",
-    "learnMore": "Más Información",
+    "learnMore": "Ver detalles",
     "filters": {
       "all": "Todos los Servicios",
       "featured": "Solo Destacados",
@@ -900,5 +943,20 @@
         "deleteConfirmRequired": "Por favor escribe tu nombre de usuario para confirmar"
       }
     }
+  },
+  "authModal": {
+    "welcome": "Bienvenido a Ordinaly",
+    "courseEnrollTitle": "Autenticación Requerida",
+    "courseEnrollDescription": "Inicia sesión o crea una cuenta para inscribirte en \"{courseTitle}\"",
+    "generalDescription": "Únete a nuestra comunidad para acceder a cursos y servicios exclusivos",
+    "signIn": {
+      "title": "Iniciar Sesión",
+      "description": "¿Ya tienes una cuenta? ¡Bienvenido de vuelta!"
+    },
+    "signUp": {
+      "title": "Crear Cuenta",
+      "description": "¿Nuevo en Ordinaly? Crea tu cuenta"
+    },
+    "termsText": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad"
   }
 }

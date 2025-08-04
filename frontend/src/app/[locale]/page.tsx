@@ -7,6 +7,7 @@ import { useEffect, useState, lazy, Suspense, useMemo, useCallback } from "react
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Image from 'next/image';
+import Link from 'next/link';
 import Navbar from "@/components/ui/navbar";
 import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
@@ -349,7 +350,7 @@ export default function HomePage() {
                       <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex flex-col">
                           {service.price ? (
-                            <span className="text-lg font-semibold text-gray-900 dark:text-white">€{service.price}</span>
+                            <span className="text-lg font-semibold text-gray-900 dark:text-white">€{Math.round(Number(service.price))}</span>
                           ) : (
                             <span className="text-sm text-gray-600 dark:text-gray-400 italic">{t("services.contactForQuote")}</span>
                           )}
@@ -549,6 +550,36 @@ export default function HomePage() {
               </Card>
             </div>
           )}
+          
+          {/* View All Services Button */}
+          <div className="text-center mt-12 scroll-animate fade-in-up">
+            <Link href="/services">
+              <Button
+                variant="outline"
+                size="lg"
+                className="bg-transparent border-2 border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#29BF12]/20"
+              >
+                {t("services.viewAllServices")}
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 10 10"
+                  height="16"
+                  width="16"
+                  fill="none"
+                  className="ml-2 stroke-current stroke-2"
+                >
+                  <path
+                    d="M0 5h7"
+                    className="transition opacity-0 group-hover:opacity-100"
+                  />
+                  <path
+                    d="M1 1l4 4-4 4"
+                    className="transition group-hover:translate-x-[3px]"
+                  />
+                </svg>
+              </Button>
+            </Link>
+          </div>
         </div>
         
       </section>

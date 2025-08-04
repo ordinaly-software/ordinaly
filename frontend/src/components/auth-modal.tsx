@@ -1,379 +1,99 @@
 'use client';
 
-import { useState } from 'react';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { AlertCircle, Eye, EyeOff, User, Lock, Mail } from 'lucide-react';
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { User, UserPlus, ArrowRight } from 'lucide-react';
 
 interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onAuthSuccess: () => void;
   courseTitle?: string;
 }
 
-interface LoginForm {
-  email: string;
-  password: string;
-}
+const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
+  const t = useTranslations();
+  const tAuth = useTranslations('authModal');
+  const router = useRouter();
 
-interface SignupForm {
-  email: string;
-  password: string;
-  confirmPassword: string;
-  firstName: string;
-  lastName: string;
-}
-
-const AuthModal = ({ isOpen, onClose, onAuthSuccess, courseTitle }: AuthModalProps) => {
-  const [activeTab, setActiveTab] = useState<'login' | 'signup'>('login');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  const [loginForm, setLoginForm] = useState<LoginForm>({
-    email: '',
-    password: '',
-  });
-
-  const [signupForm, setSignupForm] = useState<SignupForm>({
-    email: '',
-    password: '',
-    confirmPassword: '',
-    firstName: '',
-    lastName: '',
-  });
-
-  const resetForm = () => {
-    setLoginForm({ email: '', password: '' });
-    setSignupForm({ email: '', password: '', confirmPassword: '', firstName: '', lastName: '' });
-    setError(null);
-    setIsLoading(false);
-    setShowPassword(false);
-    setShowConfirmPassword(false);
-  };
-
-  const handleClose = () => {
-    resetForm();
+  const handleSignIn = () => {
     onClose();
+    router.push('/users/signin');
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      const response = await fetch('/api/auth/login/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: loginForm.email,
-          password: loginForm.password,
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        // Store the token
-        localStorage.setItem('authToken', data.token);
-        // Call success callback
-        onAuthSuccess();
-        handleClose();
-      } else {
-        await response.json(); // Consume response to prevent memory leaks
-        setError('Login failed. Please check your credentials.');
-      }
-    } catch {
-      setError('Network error. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError(null);
-
-    // Validation
-    if (signupForm.password !== signupForm.confirmPassword) {
-      setError('Passwords do not match.');
-      setIsLoading(false);
-      return;
-    }
-
-    if (signupForm.password.length < 8) {
-      setError('Password must be at least 8 characters long.');
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const response = await fetch('/api/auth/signup/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: signupForm.email,
-          password: signupForm.password,
-          first_name: signupForm.firstName,
-          last_name: signupForm.lastName,
-        }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        // Store the token
-        localStorage.setItem('authToken', data.token);
-        // Call success callback
-        onAuthSuccess();
-        handleClose();
-      } else {
-        await response.json(); // Consume response to prevent memory leaks
-        setError('Signup failed. Please try again.');
-      }
-    } catch {
-      setError('Network error. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+  const handleSignUp = () => {
+    onClose();
+    router.push('/users/signup');
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={handleClose} className="max-w-[480px]">
-      <div className="bg-gradient-to-br from-blue-50 to-indigo-100 p-6 rounded-t-lg">
+    <Modal isOpen={isOpen} onClose={onClose} className="max-w-[440px]">
+      <div className="bg-gradient-to-br from-[#29BF12]/10 via-[#46B1C9]/10 to-[#623CEA]/10 p-6 rounded-t-lg">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Join Ordinaly
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            {courseTitle ? tAuth('courseEnrollTitle') : tAuth('welcome')}
           </h2>
           {courseTitle && (
-            <p className="text-gray-600 text-sm">
-              Sign in or create an account to enroll in <span className="font-semibold">&ldquo;{courseTitle}&rdquo;</span>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              {tAuth('courseEnrollDescription', { courseTitle })}
+            </p>
+          )}
+          {!courseTitle && (
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
+              {tAuth('generalDescription')}
             </p>
           )}
         </div>
       </div>
 
-      <div className="p-6">
-        {/* Tab switcher */}
-        <div className="flex bg-gray-100 rounded-lg p-1 mb-6">
-          <button
-            onClick={() => setActiveTab('login')}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-all ${
-              activeTab === 'login'
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            <User className="w-4 h-4" />
-            Sign In
-          </button>
-          <button
-            onClick={() => setActiveTab('signup')}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-all ${
-              activeTab === 'signup'
-                ? 'bg-white text-blue-600 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
-            <Mail className="w-4 h-4" />
-            Sign Up
-          </button>
-        </div>
+      <div className="p-6 space-y-4">
+        {/* Sign In Card */}
+        <Card className="border border-gray-200 dark:border-gray-700 hover:border-[#29BF12] transition-all duration-300 hover:shadow-lg hover:shadow-[#29BF12]/10 cursor-pointer group"
+              onClick={handleSignIn}>
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-[#29BF12]/10 rounded-xl flex items-center justify-center group-hover:bg-[#29BF12]/20 transition-colors">
+                <User className="h-6 w-6 text-[#29BF12]" />
+              </div>
+              <div className="flex-1">
+                <CardTitle className="text-lg text-gray-900 dark:text-white">
+                  {tAuth('signIn.title')}
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-400">
+                  {tAuth('signIn.description')}
+                </CardDescription>
+              </div>
+              <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-[#29BF12] group-hover:translate-x-1 transition-all" />
+            </div>
+          </CardHeader>
+        </Card>
 
-        {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2">
-            <AlertCircle className="h-4 w-4 text-red-600" />
-            <p className="text-sm text-red-800">{error}</p>
-          </div>
-        )}
-
-        {activeTab === 'login' ? (
-          <Card className="border-0 shadow-none">
-            <CardHeader className="px-0 pt-0">
-              <CardTitle className="text-lg">Welcome back!</CardTitle>
-              <CardDescription>
-                Enter your credentials to access your account
-              </CardDescription>
-            </CardHeader>
-            <form onSubmit={handleLogin}>
-              <CardContent className="space-y-4 px-0">
-                <div className="space-y-2">
-                  <Label htmlFor="login-email">Email</Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="login-email"
-                      type="email"
-                      placeholder="your@email.com"
-                      value={loginForm.email}
-                      onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
-                      className="pl-10"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="login-password">Password</Label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="login-password"
-                      type={showPassword ? 'text' : 'password'}
-                      placeholder="Enter your password"
-                      value={loginForm.password}
-                      onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                      className="pl-10 pr-10"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-3 h-4 w-4 text-gray-400 hover:text-gray-600"
-                    >
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                    </button>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="px-0 pb-0">
-                <Button 
-                  type="submit" 
-                  className="w-full bg-blue-600 hover:bg-blue-700"
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Signing in...' : 'Sign In'}
-                </Button>
-              </CardFooter>
-            </form>
-          </Card>
-        ) : (
-          <Card className="border-0 shadow-none">
-            <CardHeader className="px-0 pt-0">
-              <CardTitle className="text-lg">Create your account</CardTitle>
-              <CardDescription>
-                Join Ordinaly to access exclusive courses and content
-              </CardDescription>
-            </CardHeader>
-            <form onSubmit={handleSignup}>
-              <CardContent className="space-y-4 px-0">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-firstname">First Name</Label>
-                    <Input
-                      id="signup-firstname"
-                      type="text"
-                      placeholder="John"
-                      value={signupForm.firstName}
-                      onChange={(e) => setSignupForm({ ...signupForm, firstName: e.target.value })}
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="signup-lastname">Last Name</Label>
-                    <Input
-                      id="signup-lastname"
-                      type="text"
-                      placeholder="Doe"
-                      value={signupForm.lastName}
-                      onChange={(e) => setSignupForm({ ...signupForm, lastName: e.target.value })}
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="signup-email"
-                      type="email"
-                      placeholder="your@email.com"
-                      value={signupForm.email}
-                      onChange={(e) => setSignupForm({ ...signupForm, email: e.target.value })}
-                      className="pl-10"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="signup-password"
-                      type={showPassword ? 'text' : 'password'}
-                      placeholder="Create a password (min. 8 characters)"
-                      value={signupForm.password}
-                      onChange={(e) => setSignupForm({ ...signupForm, password: e.target.value })}
-                      className="pl-10 pr-10"
-                      required
-                      minLength={8}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-3 h-4 w-4 text-gray-400 hover:text-gray-600"
-                    >
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                    </button>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="signup-confirm-password">Confirm Password</Label>
-                  <div className="relative">
-                    <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                    <Input
-                      id="signup-confirm-password"
-                      type={showConfirmPassword ? 'text' : 'password'}
-                      placeholder="Confirm your password"
-                      value={signupForm.confirmPassword}
-                      onChange={(e) => setSignupForm({ ...signupForm, confirmPassword: e.target.value })}
-                      className="pl-10 pr-10"
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                      className="absolute right-3 top-3 h-4 w-4 text-gray-400 hover:text-gray-600"
-                    >
-                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                    </button>
-                  </div>
-                </div>
-              </CardContent>
-              <CardFooter className="px-0 pb-0">
-                <Button 
-                  type="submit" 
-                  className="w-full bg-blue-600 hover:bg-blue-700"
-                  disabled={isLoading}
-                >
-                  {isLoading ? 'Creating account...' : 'Create Account'}
-                </Button>
-              </CardFooter>
-            </form>
-          </Card>
-        )}
+        {/* Sign Up Card */}
+        <Card className="border border-gray-200 dark:border-gray-700 hover:border-[#46B1C9] transition-all duration-300 hover:shadow-lg hover:shadow-[#46B1C9]/10 cursor-pointer group"
+              onClick={handleSignUp}>
+          <CardHeader className="pb-3">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 bg-[#46B1C9]/10 rounded-xl flex items-center justify-center group-hover:bg-[#46B1C9]/20 transition-colors">
+                <UserPlus className="h-6 w-6 text-[#46B1C9]" />
+              </div>
+              <div className="flex-1">
+                <CardTitle className="text-lg text-gray-900 dark:text-white">
+                  {tAuth('signUp.title')}
+                </CardTitle>
+                <CardDescription className="text-gray-600 dark:text-gray-400">
+                  {tAuth('signUp.description')}
+                </CardDescription>
+              </div>
+              <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-[#46B1C9] group-hover:translate-x-1 transition-all" />
+            </div>
+          </CardHeader>
+        </Card>
 
         <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
-            By creating an account, you agree to our{' '}
-            <Link href="/terms" className="text-blue-600 hover:underline">
-              Terms of Service
-            </Link>{' '}
-            and{' '}
-            <Link href="/privacy" className="text-blue-600 hover:underline">
-              Privacy Policy
-            </Link>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            {tAuth('termsText')}
           </p>
         </div>
       </div>
