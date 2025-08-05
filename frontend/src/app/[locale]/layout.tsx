@@ -67,13 +67,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Ordinaly Software - Automatización Empresarial con IA",
-    description: "Transformamos empresas con soluciones de automatización inteligente.",
-    images: ["/og-image.jpg"],
-    creator: "@ordinaly_ai",
-  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -84,7 +77,7 @@ export const metadata: Metadata = {
       {
         rel: "mask-icon",
         url: "/safari-pinned-tab.svg",
-        color: "#29BF12",
+        color: "#22A60D",
       },
     ],
   },
@@ -110,7 +103,7 @@ export const viewport = {
   maximumScale: 5,
   minimumScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#29BF12" },
+    { media: "(prefers-color-scheme: light)", color: "#22A60D" },
     { media: "(prefers-color-scheme: dark)", color: "#1A1924" },
   ],
   viewportFit: "cover",
@@ -164,7 +157,7 @@ export default async function RootLayout({ children, params } :
         
         {/* Additional meta tags for better SEO */}
         <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-TileColor" content="#29BF12" />
+        <meta name="msapplication-TileColor" content="#22A60D" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Structured Data for SEO */}
@@ -259,7 +252,7 @@ export default async function RootLayout({ children, params } :
           {/* Skip to main content for accessibility */}
           <a
             href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#29BF12] text-black px-4 py-2 rounded-md z-50"
+            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#22A60D] text-black px-4 py-2 rounded-md z-50"
           >
             Saltar / Skip
           </a>

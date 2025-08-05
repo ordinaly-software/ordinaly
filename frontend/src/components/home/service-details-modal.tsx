@@ -4,7 +4,6 @@ import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { Calendar, Clock, User, ExternalLink, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { renderIcon } from "@/components/ui/icon-select";
 
 interface Service {
@@ -61,7 +60,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
     const body = encodeURIComponent(
       `Hola,\n\nEstoy interesado en el servicio "${service.title}".\n\n${service.description}\n\n¿Podrían proporcionarme más información?\n\nGracias.`
     );
-    const emailUrl = `mailto:info@ordinaly.es?subject=${subject}&body=${body}`;
+    const emailUrl = `mailto:ordinalysoftware@gmail.com?subject=${subject}&body=${body}`;
     window.open(emailUrl, '_self');
   };
 
@@ -77,8 +76,8 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
         {/* Service Icon and Title Section */}
         <div className="flex items-center space-x-4">
           {service.icon && (
-            <div className="w-16 h-16 bg-[#29BF12]/10 rounded-2xl flex items-center justify-center">
-              {renderIcon(service.icon, "h-8 w-8 text-[#29BF12]")}
+            <div className="w-16 h-16 bg-[#22A60D]/10 rounded-2xl flex items-center justify-center">
+              {renderIcon(service.icon, "h-8 w-8 text-[#22A60D]")}
             </div>
           )}
           <div className="flex-1">
@@ -156,7 +155,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
         <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
           <Button 
             onClick={onContact}
-            className="bg-[#29BF12] hover:bg-[#229E0F] text-white px-8 py-3 flex items-center justify-center gap-2"
+            className="bg-[#22A60D] hover:bg-[#229E0F] text-white px-8 py-3 flex items-center justify-center gap-2"
             size="lg"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -167,7 +166,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
           <Button 
             onClick={handleEmailContact}
             variant="outline"
-            className="border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white px-8 py-3 flex items-center justify-center gap-2"
+            className="border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white px-8 py-3 flex items-center justify-center gap-2"
             size="lg"
           >
             <Mail className="h-5 w-5" />

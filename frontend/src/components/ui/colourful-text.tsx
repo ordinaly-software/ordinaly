@@ -6,7 +6,7 @@ export default function ColourfulText({ text }: { text: string }) {
     <span
       className="inline-block whitespace-pre font-beckman tracking-tight"
       style={{
-        background: 'linear-gradient(to right, #29BF12, #46B1C9, #623CEA)',
+        background: 'linear-gradient(to right, #22A60D, #46B1C9, #623CEA)',
         WebkitBackgroundClip: 'text',
         WebkitTextFillColor: 'transparent',
         backgroundClip: 'text',

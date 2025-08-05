@@ -9,6 +9,7 @@ from users.models import CustomUser
 from terms.models import Terms
 from courses.models import Course
 from services.models import Service
+from PIL import ImageDraw, ImageFont
 
 User = get_user_model()
 
@@ -87,7 +88,7 @@ class Command(BaseCommand):
         # Only delete users that were created by this script (not manually created superusers)
         try:
             CustomUser.objects.filter(email__in=[
-                'admin@ordinaly.com',
+                'admin@ordinaly.ai',
                 'john.doe@example.com',
                 'jane.smith@example.com',
                 'carlos.garcia@example.com',
@@ -114,7 +115,7 @@ class Command(BaseCommand):
         # Create admin user (or use existing one)
         admin, created = CustomUser.objects.get_or_create(
             username='demo_admin',
-            email='admin@ordinaly.com',
+            email='admin@ordinaly.ai',
             defaults={
                 'name': 'Demo Admin',
                 'surname': 'User',
@@ -367,7 +368,7 @@ For questions about this license, please contact our legal department.''',
             svg_content = f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="rgb({color[0]},{color[1]},{color[2]})"/>
-  <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white" 
+  <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white"
         font-family="Arial, sans-serif" font-size="24" font-weight="bold">
     {course_name}
   </text>
@@ -376,8 +377,6 @@ For questions about this license, please contact our legal department.''',
 
         try:
             # Create a proper JPEG image with text
-            from PIL import ImageDraw, ImageFont  # noqa
-
             image = Image.new('RGB', (width, height), color)
             draw = ImageDraw.Draw(image)
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
+import { getApiEndpoint } from '@/lib/api-config';
 
 interface Service {
   id: number;
@@ -44,8 +45,7 @@ export const useServices = (limit?: number) => {
       setIsLoading(true);
       setError(null);
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-      const response = await fetch(`${apiUrl}/api/services/`, {
+      const response = await fetch(getApiEndpoint('/api/services/'), {
         headers: { 'Content-Type': 'application/json' },
       });
 

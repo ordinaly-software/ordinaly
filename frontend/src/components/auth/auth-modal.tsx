@@ -30,7 +30,7 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-[440px]">
-      <div className="bg-gradient-to-br from-[#29BF12]/10 via-[#46B1C9]/10 to-[#623CEA]/10 p-6 rounded-t-lg">
+      <div className="bg-gradient-to-br from-[#22A60D]/10 via-[#46B1C9]/10 to-[#623CEA]/10 p-6 rounded-t-lg">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
             {courseTitle ? tAuth('courseEnrollTitle') : tAuth('welcome')}
@@ -50,12 +50,12 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
 
       <div className="p-6 space-y-4">
         {/* Sign In Card */}
-        <Card className="border border-gray-200 dark:border-gray-700 hover:border-[#29BF12] transition-all duration-300 hover:shadow-lg hover:shadow-[#29BF12]/10 cursor-pointer group"
+        <Card className="border border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-300 hover:shadow-lg hover:shadow-[#22A60D]/10 cursor-pointer group"
               onClick={handleSignIn}>
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#29BF12]/10 rounded-xl flex items-center justify-center group-hover:bg-[#29BF12]/20 transition-colors">
-                <User className="h-6 w-6 text-[#29BF12]" />
+              <div className="w-12 h-12 bg-[#22A60D]/10 rounded-xl flex items-center justify-center group-hover:bg-[#22A60D]/20 transition-colors">
+                <User className="h-6 w-6 text-[#22A60D]" />
               </div>
               <div className="flex-1">
                 <CardTitle className="text-lg text-gray-900 dark:text-white">
@@ -65,7 +65,7 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
                   {tAuth('signIn.description')}
                 </CardDescription>
               </div>
-              <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-[#29BF12] group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-[#22A60D] group-hover:translate-x-1 transition-all" />
             </div>
           </CardHeader>
         </Card>

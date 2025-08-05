@@ -70,6 +70,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // COMPLETELY SKIP navigation requests to avoid Safari redirection issues
+  if (request.mode === 'navigate') {
+    return;
+  }
+
   // Handle static assets with cache-first strategy (better for images)
   if (url.pathname.startsWith('/static/') || 
       url.pathname.includes('.webp') || 
@@ -135,35 +140,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Stale-while-revalidate for HTML pages
-  if (request.mode === 'navigate' || 
-      (request.method === 'GET' && request.headers.get('accept').includes('text/html'))) {
-    event.respondWith(
-      caches.open(CACHE_NAME).then(cache => {
-        return cache.match(request).then(cachedResponse => {
-          const fetchPromise = fetch(request).then(networkResponse => {
-            if (networkResponse.status === 200) {
-              cache.put(request, networkResponse.clone()).catch(() => {
-                // Ignore cache errors
-              });
-            }
-            return networkResponse;
-          }).catch(() => {
-            // If network fails and we have cache, return it
-            return cachedResponse || new Response('<!DOCTYPE html><html><head><title>Offline</title></head><body><h1>You are offline</h1><p>Please check your internet connection.</p></body></html>', {
-              headers: { 'Content-Type': 'text/html' }
-            });
-          });
-
-          // Return cached version immediately if available, while updating in background
-          return cachedResponse || fetchPromise;
-        });
-      })
-    );
-    return;
-  }
-
-  // For all other requests, just try network with cache fallback
+    // For all other requests, just try network with cache fallback
   event.respondWith(
     fetch(request).catch(() => {
       return caches.match(request);

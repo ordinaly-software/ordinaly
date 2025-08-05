@@ -16,6 +16,7 @@ import {
   Trash2, 
   Search,
   Star,
+  Eye,
 } from "lucide-react";
 import { IconSelect, renderIcon } from "@/components/ui/icon-select";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
@@ -343,7 +344,7 @@ const AdminServicesTab = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#29BF12]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
       </div>
     );
   }
@@ -386,7 +387,7 @@ const AdminServicesTab = () => {
           )}
           <Button
             onClick={handleCreate}
-            className="bg-[#29BF12] hover:bg-[#22A010] text-white flex items-center space-x-1"
+            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center space-x-1"
           >
             <Plus className="h-4 w-4" />
             <span>Add Service</span>
@@ -407,7 +408,7 @@ const AdminServicesTab = () => {
               type="checkbox"
               checked={selectedServices.length === filteredServices.length && filteredServices.length > 0}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+              className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               Select All ({filteredServices.length} services)
@@ -422,7 +423,7 @@ const AdminServicesTab = () => {
                     type="checkbox"
                     checked={selectedServices.includes(service.id)}
                     onChange={() => toggleServiceSelection(service.id)}
-                    className="mt-1 rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+                    className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
@@ -468,6 +469,14 @@ const AdminServicesTab = () => {
                         <Button
                           variant="ghost"
                           size="sm"
+                          onClick={() => handleServiceClick(service)}
+                          className="text-gray-600 hover:text-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
                           onClick={() => handleEdit(service)}
                           className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                         >
@@ -506,8 +515,8 @@ const AdminServicesTab = () => {
           {/* Service Title */}
           <div className="space-y-3">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#29BF12]/10 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-[#29BF12]">S</span>
+              <div className="w-5 h-5 bg-[#22A60D]/10 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-[#22A60D]">S</span>
               </div>
               <span>{t("form.title")} *</span>
             </Label>
@@ -516,7 +525,7 @@ const AdminServicesTab = () => {
               value={formData.title}
               onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
               placeholder={t("form.titlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-[#29BF12] focus:ring-[#29BF12]/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
               required
             />
           </div>
@@ -628,7 +637,7 @@ const AdminServicesTab = () => {
                   id="is_featured"
                   checked={formData.is_featured}
                   onChange={(e) => setFormData(prev => ({...prev, is_featured: e.target.checked}))}
-                  className="w-5 h-5 rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12] transition-colors"
+                  className="w-5 h-5 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] transition-colors"
                 />
                 <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer">
                   {t("form.featured")}
@@ -652,7 +661,7 @@ const AdminServicesTab = () => {
             </Button>
             <Button
               onClick={() => submitService(showEditModal)}
-              className="px-6 py-2 bg-[#29BF12] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+              className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
             >
               <span>{showEditModal ? t("form.update") : t("form.create")}</span>
               {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}

@@ -511,6 +511,36 @@
           "fourth": "Fourth week",
           "last": "Last week"
         },
+        "weekdays": {
+          "monday": {
+            "short": "Mon",
+            "full": "Monday"
+          },
+          "tuesday": {
+            "short": "Tue",
+            "full": "Tuesday"
+          },
+          "wednesday": {
+            "short": "Wed",
+            "full": "Wednesday"
+          },
+          "thursday": {
+            "short": "Thu",
+            "full": "Thursday"
+          },
+          "friday": {
+            "short": "Fri",
+            "full": "Friday"
+          },
+          "saturday": {
+            "short": "Sat",
+            "full": "Saturday"
+          },
+          "sunday": {
+            "short": "Sun",
+            "full": "Sunday"
+          }
+        },
         "maxAttendants": "Max Attendants",
         "maxAttendantsRequired": "Max Attendants *",
         "maxAttendantsPlaceholder": "10",
@@ -582,6 +612,7 @@
         "noEnrollments": "No enrollments yet",
         "enrolledOn": "Enrolled",
         "member": "Member",
+        "company": "Company",
         "moreSessions": "more sessions",
         "hours": "hours"
       },
@@ -745,7 +776,9 @@
       "title": "Ready to Transform Your Business?",
       "description": "Let's discuss how our services can help you achieve your digital transformation goals.",
       "contact": "Get in Touch",
-      "call": "Schedule a Call"
+      "call": "Schedule a Call",
+      "emailSubject": "Inquiry about Ordinaly Services",
+      "emailBody": "Hello, I'm interested in learning more about your digital transformation services. Could you please provide me with more information?\n\nThank you."
     },
     "contact": {
       "title": "Contact Us",
@@ -805,7 +838,9 @@
       "title": "Ready to Advance Your Career?",
       "description": "Join thousands of professionals who have transformed their careers with our expert-led training programs.",
       "contact": "Contact Advisor",
-      "catalog": "Download Catalog"
+      "catalog": "Download Catalog",
+      "emailSubject": "Inquiry about Ordinaly Formation Programs",
+      "emailBody": "Hello, I'm interested in learning more about your professional formation programs. Could you please provide me with more information about available courses and enrollment?\n\nThank you."
     },
     "enrollment": {
       "title": "Course Enrollment",
@@ -882,17 +917,37 @@
         "daily": "Daily",
         "weekly": "Weekly",
         "biweekly": "Biweekly",
-        "monthly": "Monthly",
-        "custom": "Custom schedule"
+        "monthly": "Monthly"
       },
       "weekdays": {
-        "monday": "Monday",
-        "tuesday": "Tuesday",
-        "wednesday": "Wednesday",
-        "thursday": "Thursday",
-        "friday": "Friday",
-        "saturday": "Saturday",
-        "sunday": "Sunday"
+        "monday": {
+          "short": "Mon",
+          "full": "Monday"
+        },
+        "tuesday": {
+          "short": "Tue",
+          "full": "Tuesday"
+        },
+        "wednesday": {
+          "short": "Wed",
+          "full": "Wednesday"
+        },
+        "thursday": {
+          "short": "Thu",
+          "full": "Thursday"
+        },
+        "friday": {
+          "short": "Fri",
+          "full": "Friday"
+        },
+        "saturday": {
+          "short": "Sat",
+          "full": "Saturday"
+        },
+        "sunday": {
+          "short": "Sun",
+          "full": "Sunday"
+        }
       }
     }
   },

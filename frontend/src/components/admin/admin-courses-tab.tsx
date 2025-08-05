@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
+import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
 import Image from "next/image";
 
 interface Course {
@@ -67,11 +68,10 @@ interface Enrollment {
   course: number;
   enrolled_at: string;
   user_details?: {
-    id: number;
-    username: string;
+    name: string;
+    surname: string;
     email: string;
-    first_name: string;
-    last_name: string;
+    company: string;
   };
 }
 
@@ -89,6 +89,66 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
 const AdminCoursesTab = () => {
   const t = useTranslations("admin.courses");
   const tAdmin = useTranslations("admin");
+
+  // Sort options for dropdown
+  const sortOptions: DropdownOption[] = [
+    { value: 'start_date', label: t("sorting.startDate") },
+    { value: 'title', label: t("sorting.title") },
+    { value: 'end_date', label: t("sorting.endDate") },
+    { value: 'enrolled_count', label: t("sorting.enrollments") },
+    { value: 'max_attendants', label: t("sorting.capacity") },
+    { value: 'created_at', label: t("sorting.created") }
+  ];
+
+  // Timezone options
+  const timezoneOptions: DropdownOption[] = [
+    { value: 'Europe/Madrid', label: 'Europe/Madrid (CET)' },
+    { value: 'Europe/London', label: 'Europe/London (GMT)' },
+    { value: 'Europe/Paris', label: 'Europe/Paris (CET)' },
+    { value: 'America/New_York', label: 'America/New_York (EST)' },
+    { value: 'America/Los_Angeles', label: 'America/Los_Angeles (PST)' },
+    { value: 'UTC', label: 'UTC' }
+  ];
+
+  // Week of month options
+  const weekOfMonthOptions: DropdownOption[] = [
+    { value: '', label: t("form.weekOfMonth.any") },
+    { value: '1', label: t("form.weekOfMonth.first") },
+    { value: '2', label: t("form.weekOfMonth.second") },
+    { value: '3', label: t("form.weekOfMonth.third") },
+    { value: '4', label: t("form.weekOfMonth.fourth") },
+    { value: '-1', label: t("form.weekOfMonth.last") }
+  ];
+
+  // Periodicity options for recurrence pattern
+  const periodicityOptions: DropdownOption[] = [
+    { value: 'once', label: t("form.periodicity.once") },
+    { value: 'daily', label: t("form.periodicity.daily") },
+    { value: 'weekly', label: t("form.periodicity.weekly") },
+    { value: 'biweekly', label: t("form.periodicity.biweekly") },
+    { value: 'monthly', label: t("form.periodicity.monthly") }
+  ];
+
+  // Days of the week with internationalization
+  const daysOfWeek = [
+    { key: 'monday', short: t("form.weekdays.monday.short"), full: t("form.weekdays.monday.full") },
+    { key: 'tuesday', short: t("form.weekdays.tuesday.short"), full: t("form.weekdays.tuesday.full") },
+    { key: 'wednesday', short: t("form.weekdays.wednesday.short"), full: t("form.weekdays.wednesday.full") },
+    { key: 'thursday', short: t("form.weekdays.thursday.short"), full: t("form.weekdays.thursday.full") },
+    { key: 'friday', short: t("form.weekdays.friday.short"), full: t("form.weekdays.friday.full") },
+    { key: 'saturday', short: t("form.weekdays.saturday.short"), full: t("form.weekdays.saturday.full") },
+    { key: 'sunday', short: t("form.weekdays.sunday.short"), full: t("form.weekdays.sunday.full") }
+  ];
+
+  // Helper function to convert weekday indices to internationalized names
+  const formatWeekdays = (weekdays: number[]): string => {
+    if (!weekdays || weekdays.length === 0) return '';
+    return weekdays
+      .sort((a, b) => a - b) // Sort weekdays to display in order
+      .map(index => daysOfWeek[index]?.short || '')
+      .filter(day => day !== '') // Remove any invalid indices
+      .join(', ');
+  };
   const [courses, setCourses] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -512,6 +572,21 @@ const AdminCoursesTab = () => {
     );
   };
 
+  // Helper function to format course schedule for display
+  const formatCourseSchedule = (course: Course): string => {
+    if (course.formatted_schedule) {
+      return course.formatted_schedule;
+    }
+    
+    // Create a simple, readable schedule format
+    const startDate = new Date(course.start_date).toLocaleDateString();
+    const endDate = new Date(course.end_date).toLocaleDateString();
+    const timeRange = `${course.start_time} - ${course.end_time}`;
+    
+    // Use a simple format that works without complex translations
+    return `${startDate} - ${endDate} • ${timeRange}`;
+  };
+
   const toggleSelectAll = () => {
     const filteredCourses = (courses || []).filter(course =>
       course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -535,7 +610,7 @@ const AdminCoursesTab = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#29BF12]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
       </div>
     );
   }
@@ -565,22 +640,18 @@ const AdminCoursesTab = () => {
           </div>
           
           {/* Sort Controls */}
-          <div className="flex items-center space-x-2">
-            <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <div className="flex items-center justify-center space-x-3">
+            <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
               {t("sorting.sortBy")}:
             </Label>
-            <select
+            <Dropdown
+              options={sortOptions}
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="h-10 px-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:border-[#29BF12] focus:ring-[#29BF12]/20 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 transition-all duration-200 shadow-sm hover:border-gray-400 dark:hover:border-gray-500 outline-none cursor-pointer"
-            >
-              <option value="start_date">{t("sorting.startDate")}</option>
-              <option value="title">{t("sorting.title")}</option>
-              <option value="end_date">{t("sorting.endDate")}</option>
-              <option value="enrolled_count">{t("sorting.enrollments")}</option>
-              <option value="max_attendants">{t("sorting.capacity")}</option>
-              <option value="created_at">{t("sorting.created")}</option>
-            </select>
+              onChange={(value) => setSortBy(value as SortOption)}
+              minWidth="240px"
+              width="240px"
+              theme="orange"
+            />
             <Button
               variant="ghost"
               size="sm"
@@ -605,7 +676,7 @@ const AdminCoursesTab = () => {
           )}
           <Button
             onClick={handleCreate}
-            className="bg-[#29BF12] hover:bg-[#22A010] text-white flex items-center space-x-1"
+            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center space-x-1"
           >
             <Plus className="h-4 w-4" />
             <span>{t("addCourse")}</span>
@@ -626,7 +697,7 @@ const AdminCoursesTab = () => {
               type="checkbox"
               checked={selectedCourses.length === filteredCourses.length && filteredCourses.length > 0}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+              className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               {t("selectAll")} ({filteredCourses.length} {t("courses")})
@@ -656,7 +727,7 @@ const AdminCoursesTab = () => {
                     }}
                     onClick={(e) => e.stopPropagation()}
                     disabled={isFinished}
-                    className="mt-1 rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12] disabled:opacity-50"
+                    className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] disabled:opacity-50"
                   />
                   
                   {/* Course Image */}
@@ -730,7 +801,7 @@ const AdminCoursesTab = () => {
                                   ? 'bg-red-500' 
                                   : enrollmentPercentage >= 80 
                                     ? 'bg-orange-500' 
-                                    : 'bg-[#29BF12]'
+                                    : 'bg-[#22A60D]'
                               }`}
                               style={{ width: `${Math.min(enrollmentPercentage, 100)}%` }}
                             ></div>
@@ -742,7 +813,7 @@ const AdminCoursesTab = () => {
                         }`}>
                           <span>{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
                           <span>{tAdmin("labels.location")}: {course.location}</span>
-                          <span>{tAdmin("labels.schedule")}: {course.formatted_schedule || `${course.start_date} - ${course.end_date}`}</span>
+                          <span>{tAdmin("labels.schedule")}: {formatCourseSchedule(course)}</span>
                           <span className={`flex items-center space-x-1 ${
                             availableSpots === 0 ? 'text-red-600 font-medium' : ''
                           }`}>
@@ -760,7 +831,7 @@ const AdminCoursesTab = () => {
                             e.stopPropagation();
                             handleViewCourse(course);
                           }}
-                          className="text-[#29BF12] hover:text-[#22A010] hover:bg-[#29BF12]/10"
+                          className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10"
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
@@ -817,8 +888,8 @@ const AdminCoursesTab = () => {
           {/* Course Title */}
           <div className="space-y-3">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#29BF12]/10 rounded flex items-center justify-center">
-                <FileText className="w-3 h-3 text-[#29BF12]" />
+              <div className="w-5 h-5 bg-[#22A60D]/10 rounded flex items-center justify-center">
+                <FileText className="w-3 h-3 text-[#22A60D]" />
               </div>
               <span>{t("form.titleRequired")}</span>
             </Label>
@@ -827,7 +898,7 @@ const AdminCoursesTab = () => {
               value={formData.title}
               onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
               placeholder={t("form.titlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-[#29BF12] focus:ring-[#29BF12]/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
               required
             />
           </div>
@@ -1077,20 +1148,14 @@ const AdminCoursesTab = () => {
               <Label htmlFor="periodicity" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t("form.periodicityRequired")}
               </Label>
-              <select
-                id="periodicity"
+              <Dropdown
+                options={periodicityOptions}
                 value={formData.periodicity}
-                onChange={(e) => setFormData(prev => ({...prev, periodicity: e.target.value as Course['periodicity']}))}
-                className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                required
-              >
-                <option value="once">{t("form.periodicity.once")}</option>
-                <option value="daily">{t("form.periodicity.daily")}</option>
-                <option value="weekly">{t("form.periodicity.weekly")}</option>
-                <option value="biweekly">{t("form.periodicity.biweekly")}</option>
-                <option value="monthly">{t("form.periodicity.monthly")}</option>
-                <option value="custom">{t("form.periodicity.custom")}</option>
-              </select>
+                onChange={(value) => setFormData(prev => ({...prev, periodicity: value as Course['periodicity']}))}
+                minWidth="100%"
+                theme="orange"
+                placeholder={t("form.periodicity.once")}
+              />
             </div>
 
             {/* Weekdays Selection (for weekly/biweekly patterns) */}
@@ -1100,8 +1165,8 @@ const AdminCoursesTab = () => {
                   {t("form.weekdaysOptional")}
                 </Label>
                 <div className="grid grid-cols-7 gap-2">
-                  {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, index) => (
-                    <label key={day} className="flex flex-col items-center space-y-1 cursor-pointer">
+                  {daysOfWeek.map((day, index) => (
+                    <label key={day.key} className="flex flex-col items-center space-y-1 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={formData.weekdays.includes(index)}
@@ -1114,7 +1179,9 @@ const AdminCoursesTab = () => {
                         }}
                         className="rounded border-gray-300 text-blue-500 focus:ring-blue-500/20"
                       />
-                      <span className="text-xs text-gray-600 dark:text-gray-400">{day.slice(0, 3)}</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400" title={day.full}>
+                        {day.short}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -1127,19 +1194,14 @@ const AdminCoursesTab = () => {
                 <Label htmlFor="week_of_month" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t("form.weekOfMonthOptional")}
                 </Label>
-                <select
-                  id="week_of_month"
-                  value={formData.week_of_month || ''}
-                  onChange={(e) => setFormData(prev => ({...prev, week_of_month: e.target.value ? parseInt(e.target.value) : null}))}
-                  className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                >
-                  <option value="">{t("form.weekOfMonth.any")}</option>
-                  <option value="1">{t("form.weekOfMonth.first")}</option>
-                  <option value="2">{t("form.weekOfMonth.second")}</option>
-                  <option value="3">{t("form.weekOfMonth.third")}</option>
-                  <option value="4">{t("form.weekOfMonth.fourth")}</option>
-                  <option value="-1">{t("form.weekOfMonth.last")}</option>
-                </select>
+                <Dropdown
+                  options={weekOfMonthOptions}
+                  value={formData.week_of_month?.toString() || ''}
+                  onChange={(value) => setFormData(prev => ({...prev, week_of_month: value ? parseInt(value) : null}))}
+                  placeholder={t("form.weekOfMonth.any")}
+                  theme="orange"
+                  width="100%"
+                />
               </div>
             )}
 
@@ -1164,19 +1226,13 @@ const AdminCoursesTab = () => {
                 <Label htmlFor="timezone" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t("form.timezoneOptional")}
                 </Label>
-                <select
-                  id="timezone"
+                <Dropdown
+                  options={timezoneOptions}
                   value={formData.timezone}
-                  onChange={(e) => setFormData(prev => ({...prev, timezone: e.target.value}))}
-                  className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                >
-                  <option value="Europe/Madrid">Europe/Madrid (CET)</option>
-                  <option value="Europe/London">Europe/London (GMT)</option>
-                  <option value="Europe/Paris">Europe/Paris (CET)</option>
-                  <option value="America/New_York">America/New_York (EST)</option>
-                  <option value="America/Los_Angeles">America/Los_Angeles (PST)</option>
-                  <option value="UTC">UTC</option>
-                </select>
+                  onChange={(value) => setFormData(prev => ({...prev, timezone: value}))}
+                  theme="orange"
+                  width="100%"
+                />
               </div>
             </div>
           </div>
@@ -1196,7 +1252,7 @@ const AdminCoursesTab = () => {
             </Button>
             <Button
               onClick={() => submitCourse(showEditModal)}
-              className="px-6 py-2 bg-[#29BF12] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+              className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
             >
               <span>{showEditModal ? t("form.update") : t("form.create")}</span>
               {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
@@ -1284,11 +1340,11 @@ const AdminCoursesTab = () => {
 
                 {/* Key Metrics */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
-                  <div className="bg-[#29BF12]/10 rounded-lg p-4 flex-1">
+                  <div className="bg-[#22A60D]/10 rounded-lg p-4 flex-1">
                     <div className="flex flex-col">
                       <div className="flex items-center justify-between w-full mb-2">
-                        <Users className="h-6 w-6 text-[#29BF12] flex-shrink-0" />
-                        <p className="text-lg font-bold text-[#29BF12]">
+                        <Users className="h-6 w-6 text-[#22A60D] flex-shrink-0" />
+                        <p className="text-lg font-bold text-[#22A60D]">
                           {selectedCourseForModal.enrolled_count || 0}
                         </p>
                       </div>
@@ -1382,11 +1438,11 @@ const AdminCoursesTab = () => {
                       {t(`form.periodicity.${selectedCourseForModal.periodicity}`)}
                     </span>
                   </div>
-                  {selectedCourseForModal.weekday_display && selectedCourseForModal.weekday_display.length > 0 && (
+                  {selectedCourseForModal.weekdays && selectedCourseForModal.weekdays.length > 0 && (
                     <div className="flex justify-between">
                       <span className="text-gray-600 dark:text-gray-400">{t("details.weekdays")}:</span>
                       <span className="font-medium text-gray-900 dark:text-white">
-                        {selectedCourseForModal.weekday_display.join(', ')}
+                        {formatWeekdays(selectedCourseForModal.weekdays)}
                       </span>
                     </div>
                   )}
@@ -1443,7 +1499,7 @@ const AdminCoursesTab = () => {
                       ? 'bg-red-500' 
                       : (selectedCourseForModal.enrolled_count || 0) / selectedCourseForModal.max_attendants >= 0.8
                         ? 'bg-orange-500' 
-                        : 'bg-[#29BF12]'
+                        : 'bg-[#22A60D]'
                   }`}
                   style={{ 
                     width: `${Math.min(((selectedCourseForModal.enrolled_count || 0) / selectedCourseForModal.max_attendants * 100), 100)}%` 
@@ -1463,14 +1519,14 @@ const AdminCoursesTab = () => {
                   <Users className="h-5 w-5" />
                   <span>{t("details.enrolledMembers")}</span>
                 </h3>
-                <span className="bg-[#29BF12]/10 text-[#29BF12] px-3 py-1 rounded-full text-sm font-medium">
+                <span className="bg-[#22A60D]/10 text-[#22A60D] px-3 py-1 rounded-full text-sm font-medium">
                   {courseEnrollments.length} {t("details.members")}
                 </span>
               </div>
               
               {isLoadingEnrollments ? (
                 <div className="flex items-center justify-center py-6">
-                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#29BF12]"></div>
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#22A60D]"></div>
                 </div>
               ) : courseEnrollments.length === 0 ? (
                 <div className="text-center py-6 text-gray-500 dark:text-gray-400">
@@ -1479,22 +1535,43 @@ const AdminCoursesTab = () => {
                 </div>
               ) : (
                 <div className="space-y-2 max-h-48 overflow-y-auto">
-                  {courseEnrollments.map((enrollment, index) => (
+                  {courseEnrollments.map((enrollment, index) => {
+                    // More robust name handling
+                    const userName = enrollment.user_details?.name?.trim();
+                    const userSurname = enrollment.user_details?.surname?.trim();
+                    const userEmail = enrollment.user_details?.email;
+                    
+                    let displayName = '';
+                    if (userName && userSurname) {
+                      displayName = `${userName} ${userSurname}`;
+                    } else if (userName) {
+                      displayName = userName;
+                    } else if (userSurname) {
+                      displayName = userSurname;
+                    } else if (userEmail) {
+                      displayName = userEmail.split('@')[0];
+                    } else {
+                      displayName = `User #${enrollment.user}`;
+                    }
+                    
+                    return (
                     <div key={enrollment.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-[#29BF12]/10 rounded-full flex items-center justify-center">
-                          <User className="h-4 w-4 text-[#29BF12]" />
+                        <div className="w-8 h-8 bg-[#22A60D]/10 rounded-full flex items-center justify-center">
+                          <User className="h-4 w-4 text-[#22A60D]" />
                         </div>
                         <div>
                           <p className="font-medium text-gray-900 dark:text-white">
-                            {enrollment.user_details?.first_name && enrollment.user_details?.last_name
-                              ? `${enrollment.user_details.first_name} ${enrollment.user_details.last_name}`
-                              : enrollment.user_details?.username || `User #${enrollment.user}`
-                            }
+                            {displayName}
                           </p>
                           {enrollment.user_details?.email && (
                             <p className="text-xs text-gray-500 dark:text-gray-400">
                               {enrollment.user_details.email}
+                            </p>
+                          )}
+                          {enrollment.user_details?.company && (
+                            <p className="text-xs text-blue-600 dark:text-blue-400">
+                              {enrollment.user_details.company}
                             </p>
                           )}
                         </div>
@@ -1508,7 +1585,8 @@ const AdminCoursesTab = () => {
                         </p>
                       </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>

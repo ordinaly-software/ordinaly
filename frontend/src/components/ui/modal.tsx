@@ -70,26 +70,19 @@ return createPortal(
         className={`relative rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#1A1924] shadow-2xl ${className}`}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Default close button for all modals */}
+        <ModalCloseButton
+          onClick={onClose}
+          variant="default"
+          size="md"
+          className="absolute top-4 right-4 z-10"
+        />
+
         {showHeader && (
           <div className="px-6 py-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-800">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">
               {title || "Modal"}
             </h2>
-            <ModalCloseButton
-              onClick={onClose}
-              variant="header"
-              size="md"
-            />
-          </div>
-        )}
-
-        {!showHeader && (
-          <div className="absolute top-4 right-4 z-10">
-            <ModalCloseButton
-              onClick={onClose}
-              variant="overlay"
-              size="md"
-            />
           </div>
         )}
 

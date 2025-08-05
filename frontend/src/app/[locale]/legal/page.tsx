@@ -133,7 +133,7 @@ const LegalPage = () => {
         <div className="flex items-start justify-between">
           <div className="flex-1">
             <CardTitle className="flex items-center space-x-2">
-              <FileText className="w-5 h-5 text-[#29BF12]" />
+              <FileText className="w-5 h-5 text-[#22A60D]" />
               <span>{document.name}</span>
             </CardTitle>
             <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -160,7 +160,7 @@ const LegalPage = () => {
               variant="outline"
               size="sm"
               onClick={() => downloadPDF(document)}
-              className="ml-4 border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white"
+              className="ml-4 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white"
             >
               <Download className="w-4 h-4 mr-2" />
               {t('downloadPdf')}
@@ -189,7 +189,7 @@ const LegalPage = () => {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#29BF12]"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
           </div>
         </div>
       </div>
@@ -228,7 +228,7 @@ const LegalPage = () => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center space-x-2 py-2 px-1 border-b-2 font-medium text-sm ${
                     activeTab === tab.id
-                      ? 'border-[#29BF12] text-[#29BF12]'
+                      ? 'border-[#22A60D] text-[#22A60D]'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
                   }`}
                 >
@@ -334,7 +334,7 @@ const LegalPage = () => {
         {/* Back to Home */}
         <div className="mt-12 text-center">
           <Link href="/">
-            <Button variant="outline" className="border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white">
+            <Button variant="outline" className="border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white">
               <ExternalLink className="w-4 h-4 mr-2" />
               {tCommon('backToHome')}
             </Button>

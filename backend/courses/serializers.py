@@ -39,7 +39,18 @@ class CourseSerializer(serializers.ModelSerializer):
 class EnrollmentSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
     course = serializers.PrimaryKeyRelatedField(queryset=Course.objects.all())
+    user_details = serializers.SerializerMethodField()
 
     class Meta:
         model = Enrollment
-        fields = ['id', 'user', 'course', 'enrolled_at']
+        fields = ['id', 'user', 'course', 'enrolled_at', 'user_details']
+
+    def get_user_details(self, obj):
+        """Return limited user details for privacy and security"""
+        user = obj.user
+        return {
+            'name': user.name if user.name else '',
+            'surname': user.surname if user.surname else '',
+            'email': user.email,
+            'company': user.company if user.company else '',
+        }

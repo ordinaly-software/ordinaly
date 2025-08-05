@@ -38,6 +38,20 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
+
+  // Load saved tab from localStorage on component mount
+  useEffect(() => {
+    const savedTab = localStorage.getItem('adminActiveTab') as TabType;
+    if (savedTab && ['overview', 'services', 'courses', 'terms'].includes(savedTab)) {
+      setActiveTab(savedTab);
+    }
+  }, []);
+
+  // Save active tab to localStorage whenever it changes
+  const handleTabChange = (tabId: TabType) => {
+    setActiveTab(tabId);
+    localStorage.setItem('adminActiveTab', tabId);
+  };
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [stats, setStats] = useState({
     totalServices: 0,
@@ -163,7 +177,7 @@ export default function AdminPage() {
         <Navbar isDark={isDark} setIsDark={setIsDark} />
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#29BF12] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D] mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
           </div>
         </div>
@@ -235,7 +249,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalServices")}
                 </CardTitle>
-                <Settings className="h-4 w-4 text-[#29BF12]" />
+                <Settings className="h-4 w-4 text-[#22A60D]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -359,10 +373,10 @@ export default function AdminPage() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handleTabChange(tab.id)}
                   className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 transition-colors ${
                     activeTab === tab.id
-                      ? 'border-[#29BF12] text-[#29BF12]'
+                      ? 'border-[#22A60D] text-[#22A60D]'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
                   }`}
                 >

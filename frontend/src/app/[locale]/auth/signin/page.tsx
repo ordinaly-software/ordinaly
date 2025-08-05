@@ -174,13 +174,13 @@ export default function LoginPage() {
       <Navbar isDark={isDark} setIsDark={setIsDark} />
 
       {/* Login Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#29BF12]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#22A60D]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             
             {/* Left side: Title + Illustration (hidden on mobile) */}
             <div className="scroll-animate slide-in-left">
-              <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#29BF12] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent leading-tight pb-2">
+              <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#22A60D] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent leading-tight pb-2">
                 {t("title")}
               </h1>
               <p className="text-xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed">
@@ -190,7 +190,7 @@ export default function LoginPage() {
 
             {/* Right side: Login Card */}
             <div className="scroll-animate slide-in-right">
-              <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#29BF12] transition-all duration-300 hover:shadow-xl hover:shadow-[#29BF12]/10">
+              <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-300 hover:shadow-xl hover:shadow-[#22A60D]/10">
               <br></br>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -204,7 +204,7 @@ export default function LoginPage() {
                           type="text"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
                           placeholder={t("form.emailPlaceholder")}
                           required
                         />
@@ -220,7 +220,7 @@ export default function LoginPage() {
                           type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#29BF12] dark:focus:border-[#29BF12]"
+                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
                           placeholder={t("form.passwordPlaceholder")}
                           required
                         />
@@ -275,7 +275,7 @@ export default function LoginPage() {
                      <div className="mt-6">
                        <GoogleSignInButton
                          onSuccess={handleGoogleSuccess}
-                         className="border-gray-300 dark:border-gray-600 hover:border-[#29BF12] dark:hover:border-[#29BF12]"
+                         className="border-gray-300 dark:border-gray-600 hover:border-[#22A60D] dark:hover:border-[#22A60D]"
                        >
                          {t("form.continueWithGoogle")}
                        </GoogleSignInButton>

@@ -505,6 +505,36 @@
           "fourth": "Cuarta semana",
           "last": "Última semana"
         },
+        "weekdays": {
+          "monday": {
+            "short": "Lun",
+            "full": "Lunes"
+          },
+          "tuesday": {
+            "short": "Mar",
+            "full": "Martes"
+          },
+          "wednesday": {
+            "short": "Mié",
+            "full": "Miércoles"
+          },
+          "thursday": {
+            "short": "Jue",
+            "full": "Jueves"
+          },
+          "friday": {
+            "short": "Vie",
+            "full": "Viernes"
+          },
+          "saturday": {
+            "short": "Sáb",
+            "full": "Sábado"
+          },
+          "sunday": {
+            "short": "Dom",
+            "full": "Domingo"
+          }
+        },
         "maxAttendants": "Máximo de Asistentes",
         "maxAttendantsRequired": "Máximo de Asistentes *",
         "maxAttendantsPlaceholder": "10",
@@ -576,6 +606,7 @@
         "noEnrollments": "Aún no hay inscripciones",
         "enrolledOn": "Inscrito",
         "member": "Miembro",
+        "company": "Empresa",
         "moreSessions": "sesiones más",
         "hours": "horas"
       },
@@ -739,7 +770,9 @@
       "title": "¿Listo para Transformar tu Negocio?",
       "description": "Hablemos sobre cómo nuestros servicios pueden ayudarte a alcanzar tus objetivos de transformación digital.",
       "contact": "Ponte en Contacto",
-      "call": "Programar una Llamada"
+      "call": "Programar una Llamada",
+      "emailSubject": "Consulta sobre Servicios de Ordinaly",
+      "emailBody": "Hola, estoy interesado en conocer más sobre sus servicios de transformación digital. ¿Podrían proporcionarme más información?\n\nGracias."
     },
     "contact": {
       "title": "Contáctanos",
@@ -799,7 +832,9 @@
       "title": "¿Listo para Avanzar en tu Carrera?",
       "description": "Únete a miles de profesionales que han transformado sus carreras con nuestros programas de formación dirigidos por expertos.",
       "contact": "Contactar Asesor",
-      "catalog": "Descargar Catálogo"
+      "catalog": "Descargar Catálogo",
+      "emailSubject": "Consulta sobre Programas de Formación de Ordinaly",
+      "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación profesional. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias."
     },
     "enrollment": {
       "title": "Inscripción al Curso",
@@ -876,17 +911,37 @@
         "daily": "Diario",
         "weekly": "Semanal",
         "biweekly": "Quincenal",
-        "monthly": "Mensual",
-        "custom": "Horario personalizado"
+        "monthly": "Mensual"
       },
       "weekdays": {
-        "monday": "Lunes",
-        "tuesday": "Martes",
-        "wednesday": "Miércoles",
-        "thursday": "Jueves",
-        "friday": "Viernes",
-        "saturday": "Sábado",
-        "sunday": "Domingo"
+        "monday": {
+          "short": "Lun",
+          "full": "Lunes"
+        },
+        "tuesday": {
+          "short": "Mar",
+          "full": "Martes"
+        },
+        "wednesday": {
+          "short": "Mié",
+          "full": "Miércoles"
+        },
+        "thursday": {
+          "short": "Jue",
+          "full": "Jueves"
+        },
+        "friday": {
+          "short": "Vie",
+          "full": "Viernes"
+        },
+        "saturday": {
+          "short": "Sáb",
+          "full": "Sábado"
+        },
+        "sunday": {
+          "short": "Dom",
+          "full": "Domingo"
+        }
       }
     }
   },
