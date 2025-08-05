@@ -128,8 +128,7 @@ export default async function RootLayout({ children, params } :
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
-        {/* Critical resource hints - optimized */}
-        <link rel="preload" href="/static/girl_resting_transparent.webp" as="image" type="image/webp" fetchPriority="high" />
+        {/* Only preload logo as it's used on all pages in navbar */}
         <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
         
         {/* Optimized font loading */}

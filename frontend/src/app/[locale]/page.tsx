@@ -52,6 +52,24 @@ export default function HomePage() {
   // Preload critical resources for better performance
   usePreloadResources();
 
+  // Preload hero image for home page only
+  useEffect(() => {
+    const preloadHeroImage = () => {
+      const existingPreload = document.querySelector('link[rel="preload"][href="/static/girl_resting_transparent.webp"]');
+      if (!existingPreload) {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = '/static/girl_resting_transparent.webp';
+        link.as = 'image';
+        link.type = 'image/webp';
+        (link as any).fetchPriority = 'high';
+        document.head.appendChild(link);
+      }
+    };
+    
+    preloadHeroImage();
+  }, []);
+
   // Debug log to help troubleshoot services loading (development only)
   useEffect(() => {
     if (process.env.NODE_ENV === 'development') {
@@ -590,25 +608,33 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center justify-items-center">
             {[
-              { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Aviva Publicidad Partner", delay: "0.1s" },
-              { src: "/static/logos/logo_grupo_addu.webp", alt: "Grupo Addu Partner", delay: "0.2s" },
-              { src: "/static/logos/logo_proinca_consultores.webp", alt: "Proinca Consultores Partner", delay: "0.3s" },
-            ].map(({ src, alt, delay }, i) => (
+              { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Aviva Publicidad Partner", delay: "0.1s", url: "https://avivapublicidad.es" },
+              { src: "/static/logos/logo_grupo_addu.webp", alt: "Grupo Addu Partner", delay: "0.2s", url: "https://grupoaddu.com" },
+              { src: "/static/logos/logo_proinca_consultores.webp", alt: "Proinca Consultores Partner", delay: "0.3s", url: "https://www.proincaconsultores.es" },
+            ].map(({ src, alt, delay, url }, i) => (
               <div
                 key={i}
                 className="scroll-animate fade-in-up w-full flex justify-center"
                 style={{ animationDelay: delay }}
               >
-                <Image
-                  src={src}
-                  alt={alt}
-                  width={300}
-                  height={120}
-                  className="h-24 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
-                />
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-transform duration-300 hover:scale-105 hover:opacity-80 cursor-pointer"
+                  aria-label={`Visit ${alt} website`}
+                >
+                  <Image
+                    src={src}
+                    alt={alt}
+                    width={300}
+                    height={120}
+                    className="h-24 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
+                    loading="lazy"
+                    placeholder="blur"
+                    blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+                  />
+                </a>
               </div>
             ))}
           </div>
@@ -674,7 +700,8 @@ export default function HomePage() {
               alt="WhatsApp Business" 
               width={80}
               height={40}
-              className="h-10 w-auto mb-2 dark:invert"
+              className="mb-2 dark:invert"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -686,7 +713,8 @@ export default function HomePage() {
               alt="ChatGPT"
               width={80}
               height={40}
-              className="h-10 w-auto mb-2 dark:invert"
+              className="mb-2 dark:invert"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -698,7 +726,8 @@ export default function HomePage() {
               alt="Gemini"
               width={80}
               height={40}
-              className="h-10 w-auto mb-2"
+              className="mb-2"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -710,7 +739,8 @@ export default function HomePage() {
               alt="Looker Studio"
               width={80}
               height={40}
-              className="h-10 w-auto mb-2"
+              className="mb-2"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -722,7 +752,8 @@ export default function HomePage() {
               width={80}
               height={40}
               alt="Meta"
-              className="h-10 w-auto mb-2"
+              className="mb-2"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />

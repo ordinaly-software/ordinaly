@@ -46,16 +46,17 @@ interface CourseDetailsModalProps {
 }
 
 // Custom image loader to handle potential URL issues
-const imageLoader = ({ src }: { src: string; width: number; quality?: number }) => {
+const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
   if (!src || src === 'undefined' || src === 'null') {
     return `/api/placeholder/600/400`;
   }
   
   if (src.startsWith('/')) {
-    return `${process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org'}${src}`;
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+    return `${baseUrl}${src}?w=${width}&q=${quality || 75}`;
   }
   
-  return src;
+  return `${src}?w=${width}&q=${quality || 75}`;
 };
 
 const CourseDetailsModal = ({
@@ -105,13 +106,13 @@ const CourseDetailsModal = ({
 
   const getWeekdayNames = (weekdays: number[]) => {
     const names = [
-      t('weekdays.monday'),
-      t('weekdays.tuesday'),
-      t('weekdays.wednesday'),
-      t('weekdays.thursday'),
-      t('weekdays.friday'),
-      t('weekdays.saturday'),
-      t('weekdays.sunday')
+      t('weekdays.monday.full'),
+      t('weekdays.tuesday.full'),
+      t('weekdays.wednesday.full'),
+      t('weekdays.thursday.full'),
+      t('weekdays.friday.full'),
+      t('weekdays.saturday.full'),
+      t('weekdays.sunday.full')
     ];
     return weekdays.map(day => names[day]).join(', ');
   };

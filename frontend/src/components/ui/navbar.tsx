@@ -176,6 +176,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                   width={64} 
                   height={64} 
                   className="h-6 sm:h-8 w-auto"
+                  priority
                 />
               </div>
               <div className="text-lg sm:text-xl md:text-2xl font-bold text-[#22A60D] truncate">
