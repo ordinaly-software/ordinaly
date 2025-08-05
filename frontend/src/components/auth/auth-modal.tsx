@@ -29,7 +29,7 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className="max-w-[440px]">
+    <Modal isOpen={isOpen} onClose={onClose} className="w-full max-w-[440px] sm:max-w-lg md:max-w-xl lg:max-w-2xl">
       <div className="bg-gradient-to-br from-[#22A60D]/10 via-[#46B1C9]/10 to-[#623CEA]/10 p-6 rounded-t-lg">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">

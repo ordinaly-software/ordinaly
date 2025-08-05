@@ -877,7 +877,31 @@
       "authenticationFailed": "Falló la autenticación. Por favor inicia sesión de nuevo",
       "networkError": "Error de red. Por favor verifica tu conexión.",
       "failedToLoadCourses": "Error al cargar los cursos",
-      "networkErrorLoadingCourses": "Error de red al cargar los cursos"
+      "networkErrorLoadingCourses": "Error de red al cargar los cursos",
+      "generatingCatalog": "Generando catálogo de cursos...",
+      "catalogDownloaded": "¡Catálogo descargado exitosamente!",
+      "catalogError": "Error al generar el catálogo. Por favor intenta de nuevo."
+    },
+    "pdf": {
+      "slogan": "Soluciones de Software y Formación",
+      "title": "Catálogo de Formación",
+      "subtitle": "Cursos de formación profesional y tecnológica",
+      "introduction": "En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras.",
+      "coursesTitle": "Nuestros Cursos",
+      "upcomingCourses": "Próximos Cursos",
+      "date": "Fecha:",
+      "time": "Horario:",
+      "location": "Ubicación:",
+      "price": "Precio:",
+      "free": "Gratuito",
+      "capacity": "Capacidad:",
+      "people": "personas",
+      "contactTitle": "Información de Contacto",
+      "email": "Email:",
+      "website": "Web:",
+      "specialization": "Especialización:",
+      "specializationText": "Desarrollo de Software y Formación Tecnológica",
+      "filename": "Catalogo_Formacion_Ordinaly.pdf"
     },
     "courseDetails": {
       "title": "Detalles del Curso",

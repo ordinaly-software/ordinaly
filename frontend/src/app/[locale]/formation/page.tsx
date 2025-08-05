@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, use } from "react";
 import { useTranslations } from "next-intl";
 import { getApiEndpoint } from "@/lib/api-config";
 import Navbar from "@/components/ui/navbar";
@@ -30,6 +30,7 @@ import {
   Euro
 } from "lucide-react";
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
+import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
 
 interface Course {
   id: number;
@@ -74,7 +75,8 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
-const FormationPage = () => {
+const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = use(params);
   const t = useTranslations("formation");
   const [isDark, setIsDark] = useState(false);
   const [courses, setCourses] = useState<Course[]>([]);
@@ -353,6 +355,17 @@ const FormationPage = () => {
     }
   };
 
+  const handleDownloadCatalog = async () => {
+    try {
+      setAlert({type: 'info', message: t('alerts.generatingCatalog')});
+      await generateCoursesCatalogPDF(courses, locale, t);
+      setAlert({type: 'success', message: t('alerts.catalogDownloaded')});
+    } catch (error) {
+      console.error('Error generating catalog:', error);
+      setAlert({type: 'error', message: t('alerts.catalogError')});
+    }
+  };
+
   const getLocationLabel = (value: 'all' | 'online' | 'onsite') => {
     switch (value) {
       case 'all':
@@ -460,7 +473,7 @@ const FormationPage = () => {
                 value={filterLocation}
                 onChange={(value) => setFilterLocation(value as 'all' | 'online' | 'onsite')}
                 icon={MapPin}
-                minWidth="160px"
+                minWidth="240px"
                 placeholder={getLocationLabel(filterLocation)}
               />
 
@@ -470,7 +483,7 @@ const FormationPage = () => {
                 value={filterPrice}
                 onChange={(value) => setFilterPrice(value as 'all' | 'free' | 'paid')}
                 icon={Award}
-                minWidth="140px"
+                minWidth="240px"
                 placeholder={getPriceLabel(filterPrice)}
               />
             </div>
@@ -484,138 +497,139 @@ const FormationPage = () => {
           {filteredCourses.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                <Search className="w-12 h-12 text-gray-400" />
+          <Search className="w-12 h-12 text-gray-400" />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                {t("noResults.title")}
+          {t("noResults.title")}
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                {t("noResults.description")}
+          {t("noResults.description")}
               </p>
             </div>
           ) : (
             <>
               {filteredCourses.length > 0 && (
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-                  {t("upcomingCourses")}
-                </h3>
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+            {t("upcomingCourses")}
+          </h3>
               )}
-              <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-                {filteredCourses.map((course) => {
-                  const enrolled = isEnrolled(course.id);
-                return (
-                  <Card
-                    key={course.id}
-                    className="group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-500 hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2"
+              <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10">
+          {filteredCourses.map((course) => {
+            const enrolled = isEnrolled(course.id);
+            return (
+              <Card
+                key={course.id}
+                className="group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-500 hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2 w-full max-w-2xl mx-auto"
+                style={{ minHeight: "520px" }}
+              >
+                <div className="relative">
+            {/* Course Image */}
+            <div className="relative h-72 md:h-80 lg:h-96 overflow-hidden">
+              <Image
+                loader={imageLoader}
+                src={course.image}
+                alt={course.title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 50vw"
+                className="object-cover group-hover:scale-110 transition-transform duration-500"
+                onError={(e) => {
+                  console.error('Course image failed to load:', course.image);
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              
+              {/* Enrollment Status Badge */}
+              {enrolled && (
+                <div className="absolute top-4 right-4 z-10">
+                  <div className="bg-[#22A60D] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+              <UserCheck className="w-3 h-3" />
+              {t("enrolled")}
+                  </div>
+                </div>
+              )}
+
+              {/* Price Badge */}
+              <div className="absolute top-4 left-4 z-10">
+                <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  {course.price ? `€${course.price}` : t("free")}
+                </div>
+              </div>
+            </div>
+
+            <CardContent className="p-8">
+              {/* Course Title */}
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#22A60D] transition-colors duration-300 line-clamp-2">
+                {course.title}
+              </h3>
+
+              {/* Course Subtitle */}
+              {course.subtitle && (
+                <p className="text-base text-gray-600 dark:text-gray-400 mb-4 line-clamp-1">
+                  {course.subtitle}
+                </p>
+              )}
+
+              {/* Course Description */}
+              <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed line-clamp-3 text-lg">
+                {course.description}
+              </p>
+
+              {/* Course Meta Information */}
+              <div className="space-y-3 mb-8">
+                <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
+                  <Calendar className="w-5 h-5 text-[#22A60D]" />
+                  <span>{new Date(course.start_date).toLocaleDateString()}</span>
+                </div>
+                <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
+                  <MapPin className="w-5 h-5 text-[#22A60D]" />
+                  <span>{course.location}</span>
+                </div>
+                <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
+                  <Users className="w-5 h-5 text-[#22A60D]" />
+                  <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col gap-4">
+                {enrolled ? (
+                  <Button
+              onClick={() => handleCancelEnrollment(course.id)}
+              variant="outline"
+              className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-14 text-lg"
                   >
-                    <div className="relative">
-                      {/* Course Image */}
-                      <div className="relative h-48 overflow-hidden">
-                        <Image
-                          loader={imageLoader}
-                          src={course.image}
-                          alt={course.title}
-                          fill
-                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                          className="object-cover group-hover:scale-110 transition-transform duration-500"
-                          onError={(e) => {
-                            console.error('Course image failed to load:', course.image);
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = 'none';
-                          }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                        
-                        {/* Enrollment Status Badge */}
-                        {enrolled && (
-                          <div className="absolute top-4 right-4 z-10">
-                            <div className="bg-[#22A60D] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-                              <UserCheck className="w-3 h-3" />
-                              {t("enrolled")}
-                            </div>
-                          </div>
-                        )}
+              <UserX className="w-5 h-5 mr-2" />
+              {t("cancelEnrollment")}
+                  </Button>
+                ) : (
+                  <Button
+              onClick={() => handleEnrollCourse(course)}
+              className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                  >
+              <GraduationCap className="w-5 h-5 mr-2" />
+              {t("enroll")}
+                  </Button>
+                )}
+                
+                <Button
+                  variant="outline"
+                  onClick={() => handleViewDetails(course)}
+                  className="w-full border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 h-14 text-lg"
+                >
+                  {t("viewDetails")}
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </div>
+            </CardContent>
+                </div>
 
-                        {/* Price Badge */}
-                        <div className="absolute top-4 left-4 z-10">
-                          <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white px-3 py-1 rounded-full text-sm font-semibold">
-                            {course.price ? `€${course.price}` : t("free")}
-                          </div>
-                        </div>
-                      </div>
-
-                      <CardContent className="p-6">
-                        {/* Course Title */}
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-[#22A60D] transition-colors duration-300 line-clamp-2">
-                          {course.title}
-                        </h3>
-
-                        {/* Course Subtitle */}
-                        {course.subtitle && (
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-1">
-                            {course.subtitle}
-                          </p>
-                        )}
-
-                        {/* Course Description */}
-                        <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3">
-                          {course.description}
-                        </p>
-
-                        {/* Course Meta Information */}
-                        <div className="space-y-2 mb-6">
-                          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                            <Calendar className="w-4 h-4 text-[#22A60D]" />
-                            <span>{new Date(course.start_date).toLocaleDateString()}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                            <MapPin className="w-4 h-4 text-[#22A60D]" />
-                            <span>{course.location}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                            <Users className="w-4 h-4 text-[#22A60D]" />
-                            <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
-                          </div>
-                        </div>
-
-                        {/* Action Buttons */}
-                        <div className="flex flex-col gap-3">
-                          {enrolled ? (
-                            <Button
-                              onClick={() => handleCancelEnrollment(course.id)}
-                              variant="outline"
-                              className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-12"
-                            >
-                              <UserX className="w-4 h-4 mr-2" />
-                              {t("cancelEnrollment")}
-                            </Button>
-                          ) : (
-                            <Button
-                              onClick={() => handleEnrollCourse(course)}
-                              className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-12"
-                            >
-                              <GraduationCap className="w-4 h-4 mr-2" />
-                              {t("enroll")}
-                            </Button>
-                          )}
-                          
-                          <Button
-                            variant="outline"
-                            onClick={() => handleViewDetails(course)}
-                            className="w-full border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 h-12"
-                          >
-                            {t("viewDetails")}
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </div>
-
-                    {/* Hover Effect Background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/5 to-[#9333EA]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-                  </Card>
-                );
-              })}
+                {/* Hover Effect Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/5 to-[#9333EA]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+              </Card>
+            );
+          })}
               </div>
             </>
           )}
@@ -782,6 +796,7 @@ const FormationPage = () => {
             </Button>
             <Button
               variant="outline"
+              onClick={handleDownloadCatalog}
               className="bg-white text-[#623CEA] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
             >
               <BookOpen className="w-5 h-5 mr-2" />

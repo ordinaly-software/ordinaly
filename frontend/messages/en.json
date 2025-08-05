@@ -883,7 +883,31 @@
       "authenticationFailed": "Authentication failed. Please sign in again",
       "networkError": "Network error. Please check your connection.",
       "failedToLoadCourses": "Failed to load courses",
-      "networkErrorLoadingCourses": "Network error while loading courses"
+      "networkErrorLoadingCourses": "Network error while loading courses",
+      "generatingCatalog": "Generating course catalog...",
+      "catalogDownloaded": "Catalog downloaded successfully!",
+      "catalogError": "Error generating catalog. Please try again."
+    },
+    "pdf": {
+      "slogan": "Software & Training Solutions",
+      "title": "Training Catalog",
+      "subtitle": "Professional and technological training courses",
+      "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",
+      "coursesTitle": "Our Courses",
+      "upcomingCourses": "Upcoming Courses",
+      "date": "Date:",
+      "time": "Time:",
+      "location": "Location:",
+      "price": "Price:",
+      "free": "Free",
+      "capacity": "Capacity:",
+      "people": "people",
+      "contactTitle": "Contact Information",
+      "email": "Email:",
+      "website": "Website:",
+      "specialization": "Specialization:",
+      "specializationText": "Software Development and Technology Training",
+      "filename": "Ordinaly_Training_Catalog.pdf"
     },
     "courseDetails": {
       "title": "Course Details",
