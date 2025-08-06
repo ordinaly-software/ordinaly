@@ -6,6 +6,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { useEffect, useState, lazy, Suspense, useMemo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from "@/components/ui/navbar";
@@ -41,7 +42,7 @@ const ColourfulText = lazy(() => import("@/components/ui/colourful-text"));
 
 export default function HomePage() {
   const t = useTranslations("home");
-  const [isDark, setIsDark] = useState(false);
+  const { isDark, setIsDark } = useTheme();
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
@@ -81,29 +82,6 @@ export default function HomePage() {
       });
     }
   }, [services.length, servicesLoading, servicesError, isOnVacation]);
-
-  useEffect(() => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    }
-  }, []);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
 
   // Service modal handlers - optimize with useCallback
   const handleServiceClick = useCallback((service: Service) => {
@@ -184,7 +162,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
       {/* Navigation - now using the Navbar component */}
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
 
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#22A60D]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
@@ -841,7 +819,7 @@ export default function HomePage() {
           </div>
         </footer>
       }>
-        <Footer isDark={isDark}/>
+        <Footer />
       </Suspense>
 
       <Suspense fallback={null}>

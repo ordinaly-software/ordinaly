@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,7 +16,7 @@ import Link from "next/link";
 
 export default function LoginPage() {
   const t = useTranslations("signin");
-  const [isDark, setIsDark] = useState(false);
+  const { isDark } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -29,17 +30,6 @@ export default function LoginPage() {
       // Redirect to home if already authenticated
       window.location.href = '/';
       return;
-    }
-
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
     }
   }, []);
 
@@ -171,7 +161,7 @@ export default function LoginPage() {
       )}
       
       {/* Navigation */}
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
 
       {/* Login Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#22A60D]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
@@ -254,7 +244,7 @@ export default function LoginPage() {
 
                   <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
                     {t("form.signupPrompt")}{" "}
-                    <Link href="/users/signup" className="text-[#46B1C9] hover:underline">
+                    <Link href="/auth/signup" className="text-[#46B1C9] hover:underline">
                       {t("form.signupLink")}
                     </Link>
                   </p>
@@ -290,7 +280,7 @@ export default function LoginPage() {
       </section>
 
       {/* Footer */}
-      <Footer isDark={isDark} />
+      <Footer />
 
     </div>
   );

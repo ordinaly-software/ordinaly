@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -29,7 +30,7 @@ interface UserProfile {
 
 export default function ProfilePage() {
   const t = useTranslations("profile");
-  const [isDark, setIsDark] = useState(false);
+  const { isDark } = useTheme();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authToken, setAuthToken] = useState<string | null>(null);
   
@@ -134,7 +135,7 @@ export default function ProfilePage() {
         setCity(data.city || "");
       } else if (response.status === 401) {
         // Token is invalid
-        window.location.href = "/users/signin";
+        window.location.href = "/auth/signin";
       } else {
         setAlert({ type: 'error', message: t("messages.networkError") });
       }
@@ -154,7 +155,7 @@ export default function ProfilePage() {
 
     // Redirect if not authenticated
     if (!token) {
-      window.location.href = "/users/signin";
+      window.location.href = "/auth/signin";
       return;
     }
 
@@ -256,7 +257,7 @@ export default function ProfilePage() {
         if (response.status === 401) {
           // Token expired, redirect to sign in
           setTimeout(() => {
-            window.location.href = "/users/signin";
+            window.location.href = "/auth/signin";
           }, 2000);
         }
       }
@@ -342,7 +343,7 @@ export default function ProfilePage() {
   if (!isAuthenticated || isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <Navbar isDark={isDark} setIsDark={setIsDark} />
+        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D] mx-auto mb-4"></div>
@@ -366,7 +367,7 @@ export default function ProfilePage() {
       )}
       
       {/* Navigation */}
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
 
       {/* Profile Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">

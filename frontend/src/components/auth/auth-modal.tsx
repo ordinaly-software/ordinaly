@@ -20,12 +20,12 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
 
   const handleSignIn = () => {
     onClose();
-    router.push('/users/signin');
+    router.push('/auth/signin');
   };
 
   const handleSignUp = () => {
     onClose();
-    router.push('/users/signup');
+    router.push('/auth/signup');
   };
 
   return (

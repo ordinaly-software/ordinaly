@@ -1,13 +1,14 @@
 'use client';
 
 import { useLocale } from "next-intl";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "@/i18n/routing";
 import { useTransition } from "react";
 import { Globe } from "lucide-react";
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
 
 export default function LocaleSwitcher() {
   const router = useRouter();
+  const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
   const currentLocale = useLocale();
 
@@ -18,7 +19,7 @@ export default function LocaleSwitcher() {
 
   const handleLocaleChange = (value: string) => {
     startTransition(() => {
-      router.push(`/${value}`);
+      router.push(pathname, { locale: value });
     });
   };
 

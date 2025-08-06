@@ -7,6 +7,7 @@ import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
 import CookieConsent from '@/components/ui/cookies';
 import BackToTopButton from '@/components/ui/back-to-top-button';
+import { ThemeProvider } from '@/contexts/theme-context';
 // import AnalyticsManager from '@/components/ui/analyticsManager';
 
 
@@ -128,6 +129,31 @@ export default async function RootLayout({ children, params } :
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
+        {/* Theme initialization script to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function getInitialTheme() {
+                  const savedTheme = localStorage.getItem('theme');
+                  if (savedTheme) {
+                    return savedTheme;
+                  }
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  return prefersDark ? 'dark' : 'light';
+                }
+                
+                const theme = getInitialTheme();
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                }
+              })();
+            `,
+          }}
+        />
+        
         {/* Only preload logo as it's used on all pages in navbar */}
         <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
         
@@ -248,20 +274,21 @@ export default async function RootLayout({ children, params } :
         suppressHydrationWarning
       >
         <NextIntlClientProvider>
-          {/* Skip to main content for accessibility */}
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#22A60D] text-black px-4 py-2 rounded-md z-50"
-          >
-            Saltar / Skip
-          </a>
-          
-          <div id="main-content">{children}</div>
-          
-          <CookieConsent />
-          {/* <AnalyticsManager /> */}
-          <BackToTopButton />
-
+          <ThemeProvider>
+            {/* Skip to main content for accessibility */}
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#22A60D] text-black px-4 py-2 rounded-md z-50"
+            >
+              Saltar / Skip
+            </a>
+            
+            <div id="main-content">{children}</div>
+            
+            <CookieConsent />
+            {/* <AnalyticsManager /> */}
+            <BackToTopButton />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

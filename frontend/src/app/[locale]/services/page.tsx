@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import dynamic from "next/dynamic";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -53,7 +54,7 @@ interface Service {
 
 const ServicesPage = () => {
   const t = useTranslations("services");
-  const [isDark, setIsDark] = useState(false);
+  const { isDark, setIsDark } = useTheme();
   const [services, setServices] = useState<Service[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
@@ -124,31 +125,6 @@ const ServicesPage = () => {
     { value: 'standard' as const, label: t("filters.standard") }
   ], [t]);
 
-  useEffect(() => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    }
-
-    fetchServices();
-  }, []);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
-
   const fetchServices = useCallback(async () => {
     try {
       console.log('Fetching services from:', getApiEndpoint(API_ENDPOINTS.services));
@@ -178,6 +154,10 @@ const ServicesPage = () => {
       setIsLoading(false);
     }
   }, []);
+
+  useEffect(() => {
+    fetchServices();
+  }, [fetchServices]);
 
   const handleMoreInfo = useCallback((service: Service) => {
     setSelectedService(service);
@@ -357,7 +337,7 @@ const ServicesPage = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <Navbar isDark={isDark} setIsDark={setIsDark} />
+        <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D]"></div>
         </div>
@@ -378,7 +358,7 @@ const ServicesPage = () => {
       )}
 
       {/* Navigation */}
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E8F5E8] via-[#E6F7E6] to-[#F3E8FF] dark:from-[#22C55E]/5 dark:via-[#10B981]/5 dark:to-[#9333EA]/5 overflow-hidden">
@@ -503,7 +483,7 @@ const ServicesPage = () => {
       />
 
       {/* Footer */}
-      <Footer isDark={isDark} />
+      <Footer />
     </div>
   );
 };

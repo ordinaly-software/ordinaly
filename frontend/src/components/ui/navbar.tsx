@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { Moon, Sun, Menu, X, User, LogOut, LogIn, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
 import LogoutModal from "@/components/ui/logout-modal";
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
@@ -12,16 +13,114 @@ import Image from 'next/image';
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 
-interface NavbarProps {
-  isDark: boolean;
-  setIsDark: (isDark: boolean) => void;
-}
+// Custom User Menu Component
+const UserMenu = ({ 
+  options, 
+  onChange, 
+  size = "desktop",
+  ariaLabel 
+}: {
+  options: DropdownOption[];
+  onChange: (value: string) => void;
+  size?: "desktop" | "mobile";
+  ariaLabel?: string;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        isOpen &&
+        !triggerRef.current?.contains(target) &&
+        !dropdownRef.current?.contains(target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+  // Calculate dropdown position
+  useEffect(() => {
+    if (isOpen && triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      const dropdownWidth = 180; // min-w-[180px]
+      
+      // Position to the left of the trigger button to ensure it's fully visible
+      setDropdownPosition({
+        top: rect.bottom + 8,
+        left: rect.right - dropdownWidth,
+      });
+    }
+  }, [isOpen]);
+
+  const handleOptionClick = (value: string) => {
+    onChange(value);
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      <Button
+        ref={triggerRef}
+        variant="ghost"
+        size="icon"
+        onClick={() => setIsOpen(!isOpen)}
+        className={cn(
+          "text-gray-700 dark:text-gray-300",
+          size === "desktop" ? "h-8 w-8 xl:h-10 xl:w-10" : "h-8 w-8"
+        )}
+        aria-label={ariaLabel}
+      >
+        <User className={size === "desktop" ? "h-4 w-4 xl:h-5 xl:w-5" : "h-4 w-4"} />
+      </Button>
+
+      {isOpen &&
+        createPortal(
+          <div
+            ref={dropdownRef}
+            className="fixed bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-xl overflow-hidden animate-in slide-in-from-top-2 duration-200 w-auto min-w-[180px]"
+            style={{
+              top: dropdownPosition.top,
+              left: dropdownPosition.left,
+              zIndex: 99999,
+            }}
+          >
+            {options.map((option) => {
+              const OptionIcon = option.icon;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => handleOptionClick(option.value)}
+                  className="w-full px-4 py-3 text-left transition-all duration-150 flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-900 dark:text-white"
+                >
+                  {OptionIcon && <OptionIcon className="h-4 w-4" />}
+                  <span className="font-medium">{option.label}</span>
+                </button>
+              );
+            })}
+          </div>,
+          document.body
+        )}
+    </>
+  );
+};
+
+const Navbar = () => {
   const t = useTranslations("home");
   const router = useRouter();
   const pathname = usePathname();
+  const { isDark, setIsDark } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -216,22 +315,11 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
             {/* Authentication Controls - Desktop */}
             {isAuthenticated ? (
               <div className="relative user-menu-container">
-                <Dropdown
+                <UserMenu
                   options={getUserMenuOptions()}
-                  value=""
                   onChange={handleUserMenuOption}
-                  position="left"
-                  renderTrigger={({ onClick }) => (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={onClick}
-                      className="text-gray-700 dark:text-gray-300 h-8 w-8 xl:h-10 xl:w-10"
-                      aria-label={t("navigation.userMenu")}
-                    >
-                      <User className="h-4 w-4 xl:h-5 xl:w-5" />
-                    </Button>
-                  )}
+                  size="desktop"
+                  ariaLabel={t("navigation.userMenu")}
                 />
               </div>
             ) : (
@@ -288,22 +376,11 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
             {/* Always show user icon on mobile when authenticated */}
             {isAuthenticated && (
               <div className="relative user-menu-container">
-                <Dropdown
+                <UserMenu
                   options={getUserMenuOptions()}
-                  value=""
                   onChange={handleUserMenuOption}
-                  position="left"
-                  renderTrigger={({ onClick }) => (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={onClick}
-                      className="text-gray-700 dark:text-gray-300 h-8 w-8"
-                      aria-label={t("navigation.userMenu")}
-                    >
-                      <User className="h-4 w-4" />
-                    </Button>
-                  )}
+                  size="mobile"
+                  ariaLabel={t("navigation.userMenu")}
                 />
               </div>
             )}
@@ -354,7 +431,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                     <div className="space-y-2">
                       {/* Profile Link - Mobile */}
                       <Link
-                        href="/users/profile"
+                        href="/profile"
                         onClick={() => setIsMenuOpen(false)}
                         className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#22A60D] transition-colors py-2"
                       >

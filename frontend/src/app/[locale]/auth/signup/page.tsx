@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,7 +16,7 @@ import Link from "next/link";
 
 export default function SignupPage() {
   const t = useTranslations("signup");
-  const [isDark, setIsDark] = useState(false);
+  const { isDark } = useTheme();
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
@@ -54,19 +55,6 @@ export default function SignupPage() {
   window.addEventListener("resize", handleResize);
 
   return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    }
   }, []);
 
   useEffect(() => {
@@ -230,7 +218,7 @@ export default function SignupPage() {
       )}
       
       {/* Navigation */}
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
 
       {/* Signup Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#22A60D]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
@@ -517,7 +505,7 @@ export default function SignupPage() {
 
                   <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
                     {t("form.loginPrompt")}{" "}
-                    <Link href="/users/signin" className="text-[#46B1C9] hover:underline">
+                    <Link href="/auth/signin" className="text-[#46B1C9] hover:underline">
                       {t("form.loginLink")}
                     </Link>
                   </p>

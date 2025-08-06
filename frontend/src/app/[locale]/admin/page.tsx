@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/home/footer";
@@ -34,7 +35,7 @@ interface User {
 export default function AdminPage() {
   const t = useTranslations("admin");
   const router = useRouter();
-  const [isDark, setIsDark] = useState(false);
+  const { isDark } = useTheme();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
@@ -65,7 +66,7 @@ export default function AdminPage() {
     const checkAdminAccess = async () => {
       const token = localStorage.getItem('authToken');
       if (!token) {
-        router.push('/users/signin');
+        router.push('/auth/signin');
         return;
       }
 
@@ -103,12 +104,12 @@ export default function AdminPage() {
           const errorText = await response.text();
           console.log('Error response body:', errorText);
           setAlert({type: 'error', message: 'Failed to verify admin status. Please try signing in again.'});
-          setTimeout(() => router.push('/users/signin'), 3000);
+          setTimeout(() => router.push('/auth/signin'), 3000);
         }
       } catch (error) {
         console.error('Auth check error:', error);
         setAlert({type: 'error', message: 'Authentication error. Please sign in again.'});
-        setTimeout(() => router.push('/users/signin'), 3000);
+        setTimeout(() => router.push('/auth/signin'), 3000);
       } finally {
         setIsLoading(false);
       }
@@ -146,35 +147,13 @@ export default function AdminPage() {
       }
     };
 
-    // Theme detection
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-    
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    }
-
     checkAdminAccess();
   }, [router]);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
-        <Navbar isDark={isDark} setIsDark={setIsDark} />
+        <Navbar />
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D] mx-auto mb-4"></div>
@@ -196,7 +175,7 @@ export default function AdminPage() {
             duration={5000}
           />
         )}
-        <Navbar isDark={isDark} setIsDark={setIsDark} />
+        <Navbar />
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-red-500 mb-4">{t("accessDenied")}</h1>
@@ -353,7 +332,7 @@ export default function AdminPage() {
         />
       )}
       
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
@@ -396,7 +375,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <Footer isDark={isDark} />
+      <Footer />
     </div>
   );
 }

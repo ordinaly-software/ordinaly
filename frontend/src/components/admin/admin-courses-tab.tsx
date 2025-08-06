@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -89,6 +89,21 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
 const AdminCoursesTab = () => {
   const t = useTranslations("admin.courses");
   const tAdmin = useTranslations("admin");
+  const locale = useLocale();
+
+  // Helper function to get proper date locale
+  const getDateLocale = (locale: string): string => {
+    switch (locale) {
+      case 'es':
+        return 'es-ES';
+      case 'en':
+        return 'en-US';
+      default:
+        return 'en-US';
+    }
+  };
+
+  const dateLocale = getDateLocale(locale);
 
   // Sort options for dropdown
   const sortOptions: DropdownOption[] = [
@@ -574,16 +589,21 @@ const AdminCoursesTab = () => {
 
   // Helper function to format course schedule for display
   const formatCourseSchedule = (course: Course): string => {
-    if (course.formatted_schedule) {
-      return course.formatted_schedule;
-    }
+    // Always format dates with proper locale instead of using backend's formatted_schedule
+    const dateOptions: Intl.DateTimeFormatOptions = { 
+      year: 'numeric', 
+      month: 'numeric', 
+      day: 'numeric' 
+    };
+    const startDate = new Date(course.start_date).toLocaleDateString(dateLocale, dateOptions);
+    const endDate = new Date(course.end_date).toLocaleDateString(dateLocale, dateOptions);
     
-    // Create a simple, readable schedule format
-    const startDate = new Date(course.start_date).toLocaleDateString();
-    const endDate = new Date(course.end_date).toLocaleDateString();
-    const timeRange = `${course.start_time} - ${course.end_time}`;
+    // Remove seconds from time format (HH:MM:SS -> HH:MM)
+    const startTime = course.start_time.substring(0, 5); // "17:30:00" -> "17:30"
+    const endTime = course.end_time.substring(0, 5); // "20:30:00" -> "20:30"
+    const timeRange = `${startTime} - ${endTime}`;
     
-    // Use a simple format that works without complex translations
+    // Create a localized format
     return `${startDate} - ${endDate} • ${timeRange}`;
   };
 
@@ -820,7 +840,7 @@ const AdminCoursesTab = () => {
                             <Users className="h-3 w-3" />
                             <span>{availableSpots} {t("courseCard.spotsAvailable")}</span>
                           </span>
-                          <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString()}</span>
+                          <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2 ml-4">
@@ -1246,7 +1266,7 @@ const AdminCoursesTab = () => {
                 setShowEditModal(false);
                 resetForm();
               }}
-              className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+              className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-500 transition-all duration-200"
             >
               {t("form.cancel")}
             </Button>
@@ -1411,19 +1431,19 @@ const AdminCoursesTab = () => {
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.startDate")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {new Date(selectedCourseForModal.start_date).toLocaleDateString()}
+                      {new Date(selectedCourseForModal.start_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.endDate")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {new Date(selectedCourseForModal.end_date).toLocaleDateString()}
+                      {new Date(selectedCourseForModal.end_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.time")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {selectedCourseForModal.start_time} - {selectedCourseForModal.end_time}
+                      {selectedCourseForModal.start_time.substring(0, 5)} - {selectedCourseForModal.end_time.substring(0, 5)}
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -1471,13 +1491,13 @@ const AdminCoursesTab = () => {
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.created")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {new Date(selectedCourseForModal.created_at).toLocaleDateString()}
+                      {new Date(selectedCourseForModal.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.lastUpdated")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {new Date(selectedCourseForModal.updated_at).toLocaleDateString()}
+                      {new Date(selectedCourseForModal.updated_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                     </span>
                   </div>
                 </div>
@@ -1578,7 +1598,7 @@ const AdminCoursesTab = () => {
                       </div>
                       <div className="text-right">
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          {t("details.enrolledOn")} {new Date(enrollment.enrolled_at).toLocaleDateString()}
+                          {t("details.enrolledOn")} {new Date(enrollment.enrolled_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                         </p>
                         <p className="text-xs text-gray-600 dark:text-gray-300">
                           {t("details.member")} #{index + 1}
@@ -1602,10 +1622,10 @@ const AdminCoursesTab = () => {
                   {selectedCourseForModal.next_occurrences.slice(0, 6).map((occurrence, index) => (
                     <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
                       <p className="font-medium text-gray-900 dark:text-white">
-                        {new Date(occurrence).toLocaleDateString()}
+                        {new Date(occurrence).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                       </p>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {selectedCourseForModal.start_time} - {selectedCourseForModal.end_time}
+                        {selectedCourseForModal.start_time.substring(0, 5)} - {selectedCourseForModal.end_time.substring(0, 5)}
                       </p>
                     </div>
                   ))}

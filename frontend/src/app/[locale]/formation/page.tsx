@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, use } from "react";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import { getApiEndpoint } from "@/lib/api-config";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/home/footer";
@@ -78,7 +79,7 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
 const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   const { locale } = use(params);
   const t = useTranslations("formation");
-  const [isDark, setIsDark] = useState(false);
+  const { isDark, setIsDark } = useTheme();
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [pastCourses, setPastCourses] = useState<Course[]>([]);
@@ -119,17 +120,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   }, [t]);
 
   useEffect(() => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    }
-
     // Check authentication
     const token = localStorage.getItem('authToken');
     setIsAuthenticated(!!token);
@@ -139,16 +129,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
       fetchEnrollments();
     }
   }, [fetchCourses]);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
 
   useEffect(() => {
     const now = new Date();
@@ -407,7 +387,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <Navbar isDark={isDark} setIsDark={setIsDark} />
+        <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D]"></div>
         </div>
@@ -428,7 +408,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
       )}
 
       {/* Navigation */}
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
 
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E8F5E8] via-[#E6F7E6] to-[#F3E8FF] dark:from-[#22C55E]/5 dark:via-[#10B981]/5 dark:to-[#9333EA]/5 overflow-hidden">
@@ -1009,7 +989,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
       )}
 
       {/* Footer */}
-      <Footer isDark={isDark} />
+      <Footer />
     </div>
   );
 };
