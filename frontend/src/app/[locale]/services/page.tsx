@@ -8,7 +8,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Alert from "@/components/ui/alert";
+import { Service, useServices } from "@/hooks/useServices";
+import { renderIcon } from "@/components/ui/icon-select";
 import { getApiEndpoint, API_ENDPOINTS } from "@/lib/api-config";
+import { truncateText } from "@/utils/text";
 import {
   Search,
   Filter,
@@ -35,31 +38,13 @@ const Modal = dynamic(() => import("@/components/ui/modal").then(mod => ({ defau
 const Textarea = dynamic(() => import("@/components/ui/textarea").then(mod => ({ default: mod.Textarea })), { ssr: false });
 const ServiceDetailsModal = dynamic(() => import("@/components/home/service-details-modal").then(mod => ({ default: mod.ServiceDetailsModal })), { ssr: false });
 
-interface Service {
-  id: number;
-  title: string;
-  subtitle?: string;
-  description: string;
-  icon: string;
-  duration?: number;
-  requisites?: string;
-  price?: string | null;
-  is_featured: boolean;
-  created_by?: number;
-  created_by_username?: string;
-  created_at: string;
-  updated_at: string;
-  featured: boolean;
-}
-
 const ServicesPage = () => {
   const t = useTranslations("services");
   const { isDark, setIsDark } = useTheme();
-  const [services, setServices] = useState<Service[]>([]);
+  const { services, isLoading, error: servicesError } = useServices();
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [filterFeatured, setFilterFeatured] = useState<'all' | 'featured' | 'standard'>('all');
-  const [isLoading, setIsLoading] = useState(true);
   const [showServiceModal, setShowServiceModal] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
@@ -83,18 +68,6 @@ const ServicesPage = () => {
     return () => clearTimeout(timer);
   }, [searchTerm]);
 
-  // Memoized service icons mapping
-  const serviceIcons = useMemo<{ [key: string]: React.ComponentType<{ className?: string }> }>(() => ({
-    'Custom Web Development': Code,
-    'Mobile App Development': Smartphone,
-    'UI/UX Design': Palette,
-    'Cloud Migration Services': Cloud,
-    'Technical Consulting': Users,
-    'DevOps Implementation': Settings,
-    'API Development': Database,
-    'Database Optimization': Database,
-  }), []);
-
   // Memoized filtered services
   const filteredServices = useMemo(() => {
     let filtered = services;
@@ -110,9 +83,9 @@ const ServicesPage = () => {
 
     // Filter by featured status
     if (filterFeatured === 'featured') {
-      filtered = filtered.filter(service => service.featured);
+      filtered = filtered.filter(service => service.is_featured);
     } else if (filterFeatured === 'standard') {
-      filtered = filtered.filter(service => !service.featured);
+      filtered = filtered.filter(service => !service.is_featured);
     }
 
     return filtered;
@@ -124,40 +97,6 @@ const ServicesPage = () => {
     { value: 'featured' as const, label: t("filters.featured") },
     { value: 'standard' as const, label: t("filters.standard") }
   ], [t]);
-
-  const fetchServices = useCallback(async () => {
-    try {
-      console.log('Fetching services from:', getApiEndpoint(API_ENDPOINTS.services));
-      const response = await fetch(getApiEndpoint(API_ENDPOINTS.services));
-      
-      if (response.ok) {
-        const data = await response.json();
-        // Transform data to ensure compatibility
-        const transformedData = data.map((service: Service) => ({
-          ...service,
-          featured: service.is_featured || service.featured || false
-        }));
-        setServices(transformedData);
-      } else {
-        setAlert({type: 'error', message: 'Failed to load services'});
-      }
-    } catch (err) {
-      console.error('Network error:', err);
-      
-      // Check if it's a configuration error
-      if (err instanceof Error && err.message.includes('NEXT_PUBLIC_API_URL')) {
-        setAlert({type: 'error', message: 'Configuration error. Please contact support.'});
-      } else {
-        setAlert({type: 'error', message: 'Network error while loading services'});
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchServices();
-  }, [fetchServices]);
 
   const handleMoreInfo = useCallback((service: Service) => {
     setSelectedService(service);
@@ -211,11 +150,6 @@ const ServicesPage = () => {
     }
   }, [contactForm]);
 
-  const getServiceIcon = useCallback((title: string) => {
-    const IconComponent = serviceIcons[title] || Globe;
-    return IconComponent;
-  }, [serviceIcons]);
-
   const getFilterLabel = useCallback((value: 'all' | 'featured' | 'standard') => {
     switch (value) {
       case 'all':
@@ -231,17 +165,46 @@ const ServicesPage = () => {
 
   // Memoized service card component
   const ServiceCard = useMemo(() => ({ service }: { service: Service }) => {
-    const IconComponent = getServiceIcon(service.title);
+    // Function to get the appropriate color for dark/light mode
+    const getServiceColor = (service: Service) => {
+      const isDarkMode = document.documentElement.classList.contains('dark');
+      
+      if (service.color === '1A1924' && isDarkMode) {
+        return '#efefefbb';
+      } else if (service.color === '623CEA' && isDarkMode) {
+        return '#8B5FF7';
+      }
+      return service.color_hex;
+    };
+    
+    const serviceColor = getServiceColor(service);
+    
     return (
       <Card
         key={service.id}
-        className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-500 hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2 ${
-          service.featured ? 'ring-2 ring-[#22A60D]/20' : ''
+        className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2 ${
+          service.is_featured ? 'ring-2 ring-opacity-20' : ''
         }`}
+        style={{
+          '--hover-border-color': serviceColor,
+          '--hover-shadow-color': `${serviceColor}10`,
+          '--ring-color': serviceColor
+        } as React.CSSProperties}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.borderColor = serviceColor;
+          e.currentTarget.style.boxShadow = `0 25px 50px -12px ${serviceColor}10`;
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.borderColor = '';
+          e.currentTarget.style.boxShadow = '';
+        }}
       >
-        {service.featured && (
+        {service.is_featured && (
           <div className="absolute top-4 right-4 z-10">
-            <div className="bg-gradient-to-r from-[#22A60D] to-[#22A010] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+            <div 
+              className="text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1"
+              style={{ backgroundColor: serviceColor }}
+            >
               <Star className="w-3 h-3 fill-current" />
               {t("featured")}
             </div>
@@ -251,24 +214,43 @@ const ServicesPage = () => {
         <CardContent className="p-8">
           {/* Service Icon */}
           <div className="relative mb-6">
-            <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 ${
-              service.featured 
-                ? 'bg-gradient-to-br from-[#22A60D] to-[#22A010] text-white' 
-                : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400'
-            }`}>
-              <IconComponent className="w-8 h-8" />
+            <div 
+              className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
+              style={{ 
+                backgroundColor: service.is_featured 
+                  ? serviceColor 
+                  : `${serviceColor}10`
+              }}
+            >
+              <div style={{ color: service.is_featured ? 'white' : serviceColor }}>
+                {service.icon && renderIcon(service.icon, "w-8 h-8")}
+              </div>
             </div>
-            <div className="absolute inset-0 bg-gradient-to-r from-[#22C55E]/20 to-[#9333EA]/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
+            <div 
+              className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"
+              style={{ 
+                background: `linear-gradient(to bottom right, ${serviceColor}20, ${serviceColor}20)` 
+              }}
+            ></div>
           </div>
 
           {/* Service Title */}
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-[#22A60D] transition-colors duration-300">
+          <h3 
+            className="text-2xl font-bold text-gray-900 dark:text-white mb-4 transition-colors duration-300 group-hover:opacity-90"
+            style={{ '--hover-color': service.color_hex } as React.CSSProperties}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = serviceColor;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = '';
+            }}
+          >
             {service.title}
           </h3>
 
           {/* Service Description */}
           <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg">
-            {service.description}
+            {truncateText(service.clean_description, 180)}
           </p>
 
           {/* Features List */}
@@ -284,7 +266,7 @@ const ServicesPage = () => {
                 t("features.support")
               ].map((feature, idx) => (
                 <div key={idx} className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-[#22A60D]" />
+                  <CheckCircle className="w-4 h-4" style={{ color: serviceColor }} />
                   <span className="text-sm text-gray-600 dark:text-gray-400">{feature}</span>
                 </div>
               ))}
@@ -295,21 +277,19 @@ const ServicesPage = () => {
           <div className="flex flex-col sm:flex-row gap-3">
             <Button
               onClick={() => handleWhatsAppContact(service)}
-              className="flex-1 !bg-[#22A60D] !hover:bg-[#20c55a] !text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-12 !border !border-[#22A60D] !hover:border-[#20c55a] font-semibold focus:!bg-[#20c55a] focus:!text-white active:!bg-[#20c55a] active:!text-white"
+              className="flex-1 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-12 font-semibold"
               style={{
-                backgroundColor: '#22A60D',
-                color: 'white',
-                borderColor: '#22A60D'
+                backgroundColor: service.color_hex,
+                borderColor: service.color_hex
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = '#20c55a';
-                e.currentTarget.style.borderColor = '#20c55a';
-                e.currentTarget.style.color = 'white';
+                const darker = service.color_hex + 'dd';
+                e.currentTarget.style.backgroundColor = darker;
+                e.currentTarget.style.borderColor = darker;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = '#22A60D';
-                e.currentTarget.style.borderColor = '#22A60D';
-                e.currentTarget.style.color = 'white';
+                e.currentTarget.style.backgroundColor = service.color_hex;
+                e.currentTarget.style.borderColor = service.color_hex;
               }}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="mr-2">
@@ -320,7 +300,19 @@ const ServicesPage = () => {
             <Button
               onClick={() => handleMoreInfo(service)}
               variant="outline"
-              className="flex-1 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 h-12 font-semibold"
+              className="flex-1 transition-all duration-300 h-12 font-semibold"
+              style={{
+                borderColor: serviceColor,
+                color: serviceColor
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = serviceColor;
+                e.currentTarget.style.color = 'white';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = '';
+                e.currentTarget.style.color = serviceColor;
+              }}
             >
               {t("learnMore")}
               <ArrowRight className="w-4 h-4 ml-2" />
@@ -329,10 +321,15 @@ const ServicesPage = () => {
         </CardContent>
 
         {/* Hover Effect Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/5 to-[#9333EA]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+        <div 
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          style={{ 
+            background: `linear-gradient(to bottom right, ${serviceColor}05, ${serviceColor}05)` 
+          }}
+        ></div>
       </Card>
     );
-  }, [t, getServiceIcon, handleWhatsAppContact, handleMoreInfo]);
+  }, [t, handleWhatsAppContact, handleMoreInfo]);
 
   if (isLoading) {
     return (

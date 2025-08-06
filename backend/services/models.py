@@ -2,13 +2,22 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from decimal import Decimal
+from django.utils.html import strip_tags
 
 
 class Service(models.Model):
+    # Color choices for service theming
+    COLOR_CHOICES = [
+        ('1A1924', 'Dark Purple (#1A1924)'),
+        ('623CEA', 'Purple (#623CEA)'),
+        ('46B1C9', 'Cyan (#46B1C9)'),
+        ('29BF12', 'Green (#29BF12)'),
+        ('E4572E', 'Orange (#E4572E)'),
+    ]
     # Common Lucide React icons for services
     ICON_CHOICES = [
         ('Bot', 'Bot'),
-        ('Workflow', 'Workflow'), 
+        ('Workflow', 'Workflow'),
         ('Zap', 'Zap'),
         ('Users', 'Users'),
         ('TrendingUp', 'TrendingUp'),
@@ -23,7 +32,7 @@ class Service(models.Model):
         ('Database', 'Database'),
         ('Cloud', 'Cloud'),
         ('Lightbulb', 'Lightbulb'),
-        ('Target', 'Target'),  
+        ('Target', 'Target'),
         ('Rocket', 'Rocket'),
         ('Monitor', 'Monitor'),
         ('Headphones', 'Headphones'),
@@ -140,7 +149,13 @@ class Service(models.Model):
 
     title = models.CharField(max_length=100)
     subtitle = models.CharField(max_length=200)
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=2000, help_text="Rich text content that supports HTML for display")
+    color = models.CharField(
+        max_length=6,
+        choices=COLOR_CHOICES,
+        default='29BF12',
+        help_text="Theme color for the service card"
+    )
     icon = models.CharField(max_length=50, choices=ICON_CHOICES, help_text="Lucide React icon name")
     duration = models.PositiveIntegerField(
         validators=[MinValueValidator(1)],
@@ -164,6 +179,14 @@ class Service(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_clean_description(self):
+        """Return description with HTML tags stripped for plain text display"""
+        return strip_tags(self.description)
+
+    def get_color_display(self):
+        """Return the color value prefixed with # for CSS usage"""
+        return f"#{self.color}"
 
     class Meta:
         ordering = ['-is_featured', 'title']

@@ -478,7 +478,7 @@ class TermsViewSetTests(APITestCase):
     def test_create_terms_unauthenticated(self):
         """Test creating terms without authentication should fail"""
         response = self.client.post(self.list_url, self.terms_data, format='multipart')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_create_terms_authenticated_non_admin(self):
         """Test creating terms as non-admin user should fail"""
@@ -535,7 +535,7 @@ class TermsViewSetTests(APITestCase):
     def test_update_terms_unauthenticated(self):
         """Test updating terms without authentication should fail"""
         response = self.client.put(self.detail_url, {'version': '1.1'}, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_update_terms_authenticated_non_admin(self):
         """Test updating terms as non-admin user should fail"""
@@ -572,7 +572,7 @@ class TermsViewSetTests(APITestCase):
     def test_delete_terms_unauthenticated(self):
         """Test deleting terms without authentication should fail"""
         response = self.client.delete(self.detail_url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_delete_terms_authenticated_non_admin(self):
         """Test deleting terms as non-admin user should fail"""

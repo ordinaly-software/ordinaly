@@ -554,9 +554,11 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Custom Web Development',
                 'subtitle': 'Modern responsive websites',
                 'description': (
-                    'Professional web development services tailored to your business needs. '
-                    'We create responsive, modern websites using the latest technologies.'
+                    '<p>Professional web development services tailored to your business needs. '
+                    'We create <strong>responsive</strong>, modern websites using the latest technologies.</p>'
+                    '<ul><li>HTML5 & CSS3</li><li>JavaScript & TypeScript</li><li>React & Next.js</li></ul>'
                 ),
+                'color': '29BF12',
                 'icon': 'Globe',
                 'duration': 160,
                 'price': Decimal('2500.00'),
@@ -566,9 +568,13 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Mobile App Development',
                 'subtitle': 'iOS and Android applications',
                 'description': (
-                    'Native and cross-platform mobile application development for iOS and Android. '
-                    'From concept to deployment.'
+                    '<p>Native and cross-platform mobile application development for iOS and Android. '
+                    'From <em>concept</em> to deployment.</p>'
+                    '<h4>What we offer:</h4>'
+                    '<ul><li>Native iOS & Android apps</li><li>React Native solutions</li>'
+                    '<li>Flutter development</li><li>App Store submission</li></ul>'
                 ),
+                'color': '623CEA',
                 'icon': 'Smartphone',
                 'duration': 200,
                 'price': Decimal('3500.00'),
@@ -578,9 +584,13 @@ For questions about this license, please contact our legal department.''',
                 'title': 'UI/UX Design',
                 'subtitle': 'User-centered design solutions',
                 'description': (
-                    'User-centered design services that create intuitive and engaging '
-                    'digital experiences for your customers.'
+                    '<p>User-centered design services that create <strong>intuitive</strong> and engaging '
+                    'digital experiences for your customers.</p>'
+                    '<blockquote>Good design is not just what it looks like – good design is how it works.</blockquote>'
+                    '<p>Our design process includes:</p>'
+                    '<ol><li>User research</li><li>Wireframing</li><li>Prototyping</li><li>Testing</li></ol>'
                 ),
+                'color': '46B1C9',
                 'icon': 'Palette',
                 'duration': 80,
                 'price': Decimal('1200.00'),
@@ -590,9 +600,15 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Cloud Migration Services',
                 'subtitle': 'Seamless cloud transformation',
                 'description': (
-                    'Seamlessly migrate your applications and data to the cloud '
-                    'with our expert cloud migration services.'
+                    '<p>Seamlessly migrate your applications and data to the cloud '
+                    'with our expert cloud migration services.</p>'
+                    '<h4>Cloud Platforms:</h4>'
+                    '<ul><li><strong>AWS</strong> - Amazon Web Services</li>'
+                    '<li><strong>Azure</strong> - Microsoft Cloud</li>'
+                    '<li><strong>GCP</strong> - Google Cloud Platform</li></ul>'
+                    '<p><em>Security and scalability guaranteed.</em></p>'
                 ),
+                'color': '1A1924',
                 'icon': 'Cloud',
                 'duration': 120,
                 'price': Decimal('4000.00'),
@@ -602,9 +618,13 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Technical Consulting',
                 'subtitle': 'Strategic technology guidance',
                 'description': (
-                    'Strategic technology consulting to help you make informed decisions '
-                    'about your digital transformation.'
+                    '<p>Strategic technology consulting to help you make <strong>informed decisions</strong> '
+                    'about your digital transformation.</p>'
+                    '<div>Our expertise covers:</div>'
+                    '<ul><li>Architecture review</li><li>Technology stack selection</li>'
+                    '<li>Performance optimization</li><li>Security assessment</li></ul>'
                 ),
+                'color': 'E4572E',
                 'icon': 'Lightbulb',
                 'duration': 40,
                 'price': Decimal('800.00'),
@@ -614,9 +634,14 @@ For questions about this license, please contact our legal department.''',
                 'title': 'DevOps Implementation',
                 'subtitle': 'Streamlined development workflows',
                 'description': (
-                    'Implement DevOps practices to improve your development workflow, '
-                    'deployment process, and system reliability.'
+                    '<p>Implement DevOps practices to improve your development workflow, '
+                    'deployment process, and system <strong>reliability</strong>.</p>'
+                    '<h4>DevOps Services:</h4>'
+                    '<ul><li>CI/CD Pipeline setup</li><li>Infrastructure as Code</li>'
+                    '<li>Monitoring & Logging</li><li>Container orchestration</li></ul>'
+                    '<p><code>docker</code>, <code>kubernetes</code>, <code>terraform</code></p>'
                 ),
+                'color': '623CEA',
                 'icon': 'Settings',
                 'duration': 100,
                 'price': Decimal('2000.00'),
@@ -626,9 +651,13 @@ For questions about this license, please contact our legal department.''',
                 'title': 'API Development',
                 'subtitle': 'Robust system integrations',
                 'description': (
-                    'Design and develop robust, scalable APIs that integrate '
-                    'seamlessly with your existing systems.'
+                    '<p>Design and develop <strong>robust</strong>, scalable APIs that integrate '
+                    'seamlessly with your existing systems.</p>'
+                    '<h4>API Technologies:</h4>'
+                    '<ul><li>RESTful APIs</li><li>GraphQL</li><li>gRPC</li><li>WebSocket</li></ul>'
+                    '<p><em>Documentation and testing included.</em></p>'
                 ),
+                'color': '46B1C9',
                 'icon': 'Code',
                 'duration': 80,
                 'price': Decimal('1500.00'),
@@ -638,9 +667,14 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Database Optimization',
                 'subtitle': 'Performance and reliability',
                 'description': (
-                    'Optimize your database performance and ensure data integrity '
-                    'with our database management services.'
+                    '<p>Optimize your database performance and ensure data <strong>integrity</strong> '
+                    'with our database management services.</p>'
+                    '<h4>Database Expertise:</h4>'
+                    '<ul><li>PostgreSQL optimization</li><li>MySQL tuning</li>'
+                    '<li>MongoDB scaling</li><li>Redis caching</li></ul>'
+                    '<p><small>24/7 monitoring and support available</small></p>'
                 ),
+                'color': '29BF12',
                 'icon': 'Database',
                 'duration': 60,
                 'price': Decimal('1000.00'),

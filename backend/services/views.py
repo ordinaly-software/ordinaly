@@ -15,7 +15,7 @@ class ServiceViewSet(viewsets.ModelViewSet):
     serializer_class = ServiceSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['title', 'subtitle', 'description']
-    ordering_fields = ['title', 'created_at', 'price', 'duration']
+    ordering_fields = ['title', 'created_at', 'price', 'duration', 'color']
     ordering = ['-is_featured', 'title']
 
     def get_permissions(self):

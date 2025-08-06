@@ -3,16 +3,20 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getApiEndpoint } from '@/lib/api-config';
 
-interface Service {
+export interface Service {
   id: number;
   title: string;
   subtitle?: string;
   description: string;
+  clean_description: string;
+  color: string;
+  color_hex: string;
   icon: string;
   duration?: number;
   requisites?: string;
   price?: string | null;
   is_featured: boolean;
+  featured?: boolean; // for backward compatibility
   created_by?: number;
   created_by_username?: string;
   created_at: string;

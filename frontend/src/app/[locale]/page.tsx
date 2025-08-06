@@ -14,6 +14,7 @@ import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
 import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { renderIcon } from "@/components/ui/icon-select";
+import { truncateText } from "@/utils/text";
 
 
 interface Service {
@@ -30,6 +31,9 @@ interface Service {
   created_by_username?: string;
   created_at: string;
   updated_at: string;
+  clean_description: string;
+  color: string;
+  color_hex: string;
 }
 
 // Lazy load heavy components that are below the fold
@@ -323,25 +327,55 @@ export default function HomePage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => {
                 const localizedService = service; // Assuming service is already localized
-                const colorScheme = colorSchemes[index % colorSchemes.length];
                 const animationClass = index % 3 === 0 ? 'slide-in-left' : index % 3 === 1 ? 'fade-in-up' : 'slide-in-right';
+                
+                // Function to get the appropriate color for dark/light mode
+                const getServiceColor = (service: Service) => {
+                  const isDarkMode = document.documentElement.classList.contains('dark');
+                  
+                  if (service.color === '1A1924' && isDarkMode) {
+                    return '#efefefbb';
+                  } else if (service.color === '623CEA' && isDarkMode) {
+                    return '#8B5FF7';
+                  }
+                  return service.color_hex;
+                };
+                
+                const serviceColor = getServiceColor(service);
                 
                 return (
                   <Card 
                     key={service.id} 
-                    className={`scroll-animate ${animationClass} bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:${colorScheme.border} transition-all duration-300 hover:shadow-xl hover:${colorScheme.shadow} cursor-pointer`}
+                    className={`scroll-animate ${animationClass} bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl cursor-pointer`}
                     onClick={() => handleServiceClick(service)}
+                    style={{
+                      '--hover-border-color': serviceColor,
+                      '--hover-shadow-color': `${serviceColor}10`
+                    } as React.CSSProperties}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = serviceColor;
+                      e.currentTarget.style.boxShadow = `0 25px 50px -12px ${serviceColor}10`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '';
+                      e.currentTarget.style.boxShadow = '';
+                    }}
                   >
                     <CardHeader>
-                      <div className={`w-16 h-16 ${colorScheme.bg} rounded-2xl flex items-center justify-center mb-4`}>
-                        {service.icon && renderIcon(service.icon, `h-8 w-8 ${colorScheme.text}`)}
+                      <div 
+                        className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
+                        style={{ backgroundColor: `${serviceColor}10` }}
+                      >
+                        <div style={{ color: serviceColor }}>
+                          {service.icon && renderIcon(service.icon, `h-8 w-8`)}
+                        </div>
                       </div>
                       <CardTitle className="text-xl text-gray-900 dark:text-white">{localizedService.title}</CardTitle>
                       {localizedService.subtitle && (
                         <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{localizedService.subtitle}</p>
                       )}
                       <CardDescription className="text-gray-600 dark:text-gray-400">
-                        {localizedService.description}
+                        {truncateText(localizedService.clean_description, 120)}
                       </CardDescription>
                       <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex flex-col">
@@ -358,7 +392,21 @@ export default function HomePage() {
                             e.stopPropagation();
                             handleServiceClick(service);
                           }}
-                          className={`${colorScheme.text} ${colorScheme.border} ${colorScheme.hover} transition-colors`}
+                          className="transition-colors border-gray-300 text-gray-600 hover:text-white"
+                          style={{
+                            borderColor: serviceColor,
+                            color: serviceColor
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = serviceColor;
+                            e.currentTarget.style.color = 'white';
+                            e.currentTarget.style.borderColor = serviceColor;
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '';
+                            e.currentTarget.style.color = serviceColor;
+                            e.currentTarget.style.borderColor = serviceColor;
+                          }}
                         >
                           {t("services.viewDetails")}
                         </Button>
