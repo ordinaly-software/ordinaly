@@ -554,9 +554,13 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Custom Web Development',
                 'subtitle': 'Modern responsive websites',
                 'description': (
-                    '<p>Professional web development services tailored to your business needs. '
-                    'We create <strong>responsive</strong>, modern websites using the latest technologies.</p>'
-                    '<ul><li>HTML5 & CSS3</li><li>JavaScript & TypeScript</li><li>React & Next.js</li></ul>'
+                    'Professional web development services tailored to your business needs. '
+                    'We create **responsive**, modern websites using the latest technologies.\n\n'
+                    '### Technologies We Use:\n'
+                    '- HTML5 & CSS3\n'
+                    '- JavaScript & TypeScript\n'
+                    '- React & Next.js\n\n'
+                    '*Perfect for businesses looking to establish their online presence.*'
                 ),
                 'color': '29BF12',
                 'icon': 'Globe',
@@ -568,11 +572,14 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Mobile App Development',
                 'subtitle': 'iOS and Android applications',
                 'description': (
-                    '<p>Native and cross-platform mobile application development for iOS and Android. '
-                    'From <em>concept</em> to deployment.</p>'
-                    '<h4>What we offer:</h4>'
-                    '<ul><li>Native iOS & Android apps</li><li>React Native solutions</li>'
-                    '<li>Flutter development</li><li>App Store submission</li></ul>'
+                    'Native and cross-platform mobile application development for iOS and Android. '
+                    'From *concept* to deployment.\n\n'
+                    '## What we offer:\n'
+                    '1. **Native iOS & Android apps**\n'
+                    '2. **React Native solutions**\n'
+                    '3. **Flutter development**\n'
+                    '4. **App Store submission**\n\n'
+                    '> Transform your ideas into powerful mobile experiences.'
                 ),
                 'color': '623CEA',
                 'icon': 'Smartphone',
@@ -584,11 +591,16 @@ For questions about this license, please contact our legal department.''',
                 'title': 'UI/UX Design',
                 'subtitle': 'User-centered design solutions',
                 'description': (
-                    '<p>User-centered design services that create <strong>intuitive</strong> and engaging '
-                    'digital experiences for your customers.</p>'
-                    '<blockquote>Good design is not just what it looks like – good design is how it works.</blockquote>'
-                    '<p>Our design process includes:</p>'
-                    '<ol><li>User research</li><li>Wireframing</li><li>Prototyping</li><li>Testing</li></ol>'
+                    'User-centered design services that create **intuitive** and engaging '
+                    'digital experiences for your customers.\n\n'
+                    '> "Good design is not just what it looks like – good design is how it works."\n'
+                    '> — *Steve Jobs*\n\n'
+                    '### Our Design Process:\n'
+                    '1. User research\n'
+                    '2. Wireframing\n'
+                    '3. Prototyping\n'
+                    '4. Testing\n\n'
+                    'Creating designs that **convert** and **delight** users.'
                 ),
                 'color': '46B1C9',
                 'icon': 'Palette',
@@ -600,13 +612,17 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Cloud Migration Services',
                 'subtitle': 'Seamless cloud transformation',
                 'description': (
-                    '<p>Seamlessly migrate your applications and data to the cloud '
-                    'with our expert cloud migration services.</p>'
-                    '<h4>Cloud Platforms:</h4>'
-                    '<ul><li><strong>AWS</strong> - Amazon Web Services</li>'
-                    '<li><strong>Azure</strong> - Microsoft Cloud</li>'
-                    '<li><strong>GCP</strong> - Google Cloud Platform</li></ul>'
-                    '<p><em>Security and scalability guaranteed.</em></p>'
+                    'Seamlessly migrate your applications and data to the cloud '
+                    'with our expert cloud migration services.\n\n'
+                    '### Cloud Platforms:\n'
+                    '- **AWS** - Amazon Web Services\n'
+                    '- **Azure** - Microsoft Cloud\n'
+                    '- **GCP** - Google Cloud Platform\n\n'
+                    '*Security and scalability guaranteed.*\n\n'
+                    '**Benefits:**\n'
+                    '- Reduced infrastructure costs\n'
+                    '- Enhanced security\n'
+                    '- Improved scalability'
                 ),
                 'color': '1A1924',
                 'icon': 'Cloud',
@@ -618,11 +634,14 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Technical Consulting',
                 'subtitle': 'Strategic technology guidance',
                 'description': (
-                    '<p>Strategic technology consulting to help you make <strong>informed decisions</strong> '
-                    'about your digital transformation.</p>'
-                    '<div>Our expertise covers:</div>'
-                    '<ul><li>Architecture review</li><li>Technology stack selection</li>'
-                    '<li>Performance optimization</li><li>Security assessment</li></ul>'
+                    'Strategic technology consulting to help you make **informed decisions** '
+                    'about your digital transformation.\n\n'
+                    '### Our expertise covers:\n'
+                    '- Architecture review\n'
+                    '- Technology stack selection\n'
+                    '- Performance optimization\n'
+                    '- Security assessment\n\n'
+                    '> Making technology work *for* your business, not against it.'
                 ),
                 'color': 'E4572E',
                 'icon': 'Lightbulb',
@@ -634,12 +653,15 @@ For questions about this license, please contact our legal department.''',
                 'title': 'DevOps Implementation',
                 'subtitle': 'Streamlined development workflows',
                 'description': (
-                    '<p>Implement DevOps practices to improve your development workflow, '
-                    'deployment process, and system <strong>reliability</strong>.</p>'
-                    '<h4>DevOps Services:</h4>'
-                    '<ul><li>CI/CD Pipeline setup</li><li>Infrastructure as Code</li>'
-                    '<li>Monitoring & Logging</li><li>Container orchestration</li></ul>'
-                    '<p><code>docker</code>, <code>kubernetes</code>, <code>terraform</code></p>'
+                    'Implement DevOps practices to improve your development workflow, '
+                    'deployment process, and system **reliability**.\n\n'
+                    '### DevOps Services:\n'
+                    '- CI/CD Pipeline setup\n'
+                    '- Infrastructure as Code\n'
+                    '- Monitoring & Logging\n'
+                    '- Container orchestration\n\n'
+                    '**Technologies:** `docker`, `kubernetes`, `terraform`\n\n'
+                    '*Automate your way to success.*'
                 ),
                 'color': '623CEA',
                 'icon': 'Settings',
@@ -651,11 +673,19 @@ For questions about this license, please contact our legal department.''',
                 'title': 'API Development',
                 'subtitle': 'Robust system integrations',
                 'description': (
-                    '<p>Design and develop <strong>robust</strong>, scalable APIs that integrate '
-                    'seamlessly with your existing systems.</p>'
-                    '<h4>API Technologies:</h4>'
-                    '<ul><li>RESTful APIs</li><li>GraphQL</li><li>gRPC</li><li>WebSocket</li></ul>'
-                    '<p><em>Documentation and testing included.</em></p>'
+                    'Design and develop **robust**, scalable APIs that integrate '
+                    'seamlessly with your existing systems.\n\n'
+                    '### API Technologies:\n'
+                    '- RESTful APIs\n'
+                    '- GraphQL\n'
+                    '- gRPC\n'
+                    '- WebSocket\n\n'
+                    '*Documentation and testing included.*\n\n'
+                    '**Features:**\n'
+                    '- Comprehensive documentation\n'
+                    '- Automated testing\n'
+                    '- Rate limiting\n'
+                    '- Authentication & authorization'
                 ),
                 'color': '46B1C9',
                 'icon': 'Code',
@@ -667,12 +697,15 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Database Optimization',
                 'subtitle': 'Performance and reliability',
                 'description': (
-                    '<p>Optimize your database performance and ensure data <strong>integrity</strong> '
-                    'with our database management services.</p>'
-                    '<h4>Database Expertise:</h4>'
-                    '<ul><li>PostgreSQL optimization</li><li>MySQL tuning</li>'
-                    '<li>MongoDB scaling</li><li>Redis caching</li></ul>'
-                    '<p><small>24/7 monitoring and support available</small></p>'
+                    'Optimize your database performance and ensure data **integrity** '
+                    'with our database management services.\n\n'
+                    '### Database Expertise:\n'
+                    '- PostgreSQL optimization\n'
+                    '- MySQL tuning\n'
+                    '- MongoDB scaling\n'
+                    '- Redis caching\n\n'
+                    '*24/7 monitoring and support available*\n\n'
+                    '> **Performance improvements** up to 10x faster query execution.'
                 ),
                 'color': '29BF12',
                 'icon': 'Database',

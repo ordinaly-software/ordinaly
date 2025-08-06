@@ -89,6 +89,9 @@ export const metadata: Metadata = {
     languages: {
       "es-ES": "/",
       "en-US": "/en",
+      "ca-ES": "/ca",
+      "eu-ES": "/eu", 
+      "gl-ES": "/gl",
     },
   },
   verification: {
@@ -154,6 +157,10 @@ export default async function RootLayout({ children, params } :
           }}
         />
         
+        {/* Syntax highlighting for code blocks */}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" media="(prefers-color-scheme: light)" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css" media="(prefers-color-scheme: dark)" />
+        
         {/* Only preload logo as it's used on all pages in navbar */}
         <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
         
@@ -201,7 +208,7 @@ export default async function RootLayout({ children, params } :
                 "@type": "ContactPoint",
                 telephone: "+34-XXX-XXX-XXX",
                 contactType: "customer service",
-                availableLanguage: ["Spanish", "English"],
+                availableLanguage: ["Spanish", "English", "Catalan", "Basque", "Galician"],
               },
               address: {
                 "@type": "PostalAddress",

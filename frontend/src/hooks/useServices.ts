@@ -9,6 +9,7 @@ export interface Service {
   subtitle?: string;
   description: string;
   clean_description: string;
+  html_description?: string;
   color: string;
   color_hex: string;
   icon: string;

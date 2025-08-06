@@ -3,10 +3,9 @@
 import { Bot, Workflow, Zap, Users, TrendingUp, Accessibility } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useEffect, useState, lazy, Suspense, useMemo, useCallback } from "react";
+import { useEffect, useState, lazy, Suspense, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
-import { useTheme } from "@/contexts/theme-context";
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from "@/components/ui/navbar";
@@ -46,7 +45,6 @@ const ColourfulText = lazy(() => import("@/components/ui/colourful-text"));
 
 export default function HomePage() {
   const t = useTranslations("home");
-  const { isDark, setIsDark } = useTheme();
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
@@ -67,7 +65,7 @@ export default function HomePage() {
         link.href = '/static/girl_resting_transparent.webp';
         link.as = 'image';
         link.type = 'image/webp';
-        (link as any).fetchPriority = 'high';
+        (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = 'high';
         document.head.appendChild(link);
       }
     };
@@ -116,16 +114,6 @@ export default function HomePage() {
     
     window.open(whatsappUrl, '_blank');
   }, [t]);
-
-  // Optimize color schemes with useMemo
-  const colorSchemes = useMemo(() => [
-    { bg: 'bg-[#22A60D]/10', border: 'border-[#22A60D]', shadow: 'shadow-[#22A60D]/10', text: 'text-[#22A60D]', hover: 'hover:bg-[#22A60D] hover:text-white hover:border-[#22A60D]' },
-    { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]', hover: 'hover:bg-[#46B1C9] hover:text-white hover:border-[#46B1C9]' },
-    { bg: 'bg-[#E4572E]/10', border: 'border-[#E4572E]', shadow: 'shadow-[#E4572E]/10', text: 'text-[#E4572E]', hover: 'hover:bg-[#E4572E] hover:text-white hover:border-[#E4572E]' },
-    { bg: 'bg-[#623CEA]/10', border: 'border-[#623CEA]', shadow: 'shadow-[#623CEA]/10', text: 'text-[#623CEA]', hover: 'hover:bg-[#623CEA] hover:text-white hover:border-[#623CEA]' },
-    { bg: 'bg-[#22A60D]/10', border: 'border-[#22A60D]', shadow: 'shadow-[#22A60D]/10', text: 'text-[#22A60D]', hover: 'hover:bg-[#22A60D] hover:text-white hover:border-[#22A60D]' },
-    { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]', hover: 'hover:bg-[#46B1C9] hover:text-white hover:border-[#46B1C9]' }
-  ], []);
 
   // Optimize intersection observer setup with debounced scroll handler
   useEffect(() => {

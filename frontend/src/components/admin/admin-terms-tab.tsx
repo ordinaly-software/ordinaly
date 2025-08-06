@@ -22,7 +22,7 @@ import {
 } from "lucide-react";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
-import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
+import { Dropdown } from "@/components/ui/dropdown";
 
 interface Term {
   id: number;

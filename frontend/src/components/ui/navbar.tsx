@@ -8,7 +8,7 @@ import { useTranslations } from "next-intl";
 import { useTheme } from "@/contexts/theme-context";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
 import LogoutModal from "@/components/ui/logout-modal";
-import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
+import { DropdownOption } from "@/components/ui/dropdown";
 import Image from 'next/image';
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";

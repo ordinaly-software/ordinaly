@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback, use } from "react";
 import { useTranslations } from "next-intl";
-import { useTheme } from "@/contexts/theme-context";
 import { getApiEndpoint } from "@/lib/api-config";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/home/footer";
@@ -30,7 +29,7 @@ import {
   CalendarDays,
   Euro
 } from "lucide-react";
-import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
+import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
 
 interface Course {
@@ -79,7 +78,6 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
 const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   const { locale } = use(params);
   const t = useTranslations("formation");
-  const { isDark, setIsDark } = useTheme();
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [pastCourses, setPastCourses] = useState<Course[]>([]);
@@ -288,18 +286,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
 
   const isEnrolled = (courseId: number) => {
     return enrollments.some(enrollment => enrollment.course === courseId);
-  };
-
-  const handleAuthSuccess = () => {
-    setIsAuthenticated(true);
-    setShowAuthModal(false);
-    
-    // If there was a course waiting for authentication, proceed with enrollment
-    if (courseForAuth) {
-      setSelectedCourse(courseForAuth);
-      setShowEnrollModal(true);
-      setCourseForAuth(null);
-    }
   };
 
   const handleViewDetails = (course: Course) => {

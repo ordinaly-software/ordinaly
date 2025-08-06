@@ -754,19 +754,18 @@
     "subtitle": "Comprehensive solutions designed to transform your business and drive digital innovation",
     "searchPlaceholder": "Search services...",
     "featured": "Featured",
-    "includes": "What's Included",
+    "details": "Details",
+    "duration": "Duration",
+    "durationDay": "1 day",
+    "durationDays": "{count} days",
+    "price": "Price",
+    "contactForQuote": "Contact for quote",
     "contactUs": "Contact Us",
     "learnMore": "Learn More",
     "filters": {
       "all": "All Services",
       "featured": "Featured Only",
       "standard": "Standard Services"
-    },
-    "features": {
-      "consultation": "Free Consultation",
-      "development": "Custom Development",
-      "testing": "Quality Testing",
-      "support": "Ongoing Support"
     },
     "noResults": {
       "title": "No Services Found",

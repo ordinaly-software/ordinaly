@@ -1,25 +1,33 @@
 from rest_framework import serializers
-from django.utils.html import strip_tags
 from .models import Service
 
 
 class ServiceSerializer(serializers.ModelSerializer):
     created_by_username = serializers.ReadOnlyField(source='created_by.username')
     clean_description = serializers.SerializerMethodField()
+    html_description = serializers.SerializerMethodField()
     color_hex = serializers.SerializerMethodField()
 
     class Meta:
         model = Service
         fields = [
-            'id', 'title', 'subtitle', 'description', 'clean_description', 
-            'color', 'color_hex', 'icon', 'duration', 'requisites', 'price', 
-            'is_featured', 'created_by', 'created_by_username', 'created_at', 'updated_at'
+            'id', 'title', 'subtitle', 'description', 'clean_description',
+            'html_description', 'color', 'color_hex', 'icon', 'duration',
+            'requisites', 'price', 'is_featured', 'created_by',
+            'created_by_username', 'created_at', 'updated_at'
         ]
-        read_only_fields = ['created_by', 'created_at', 'updated_at', 'clean_description', 'color_hex']
+        read_only_fields = [
+            'created_by', 'created_at', 'updated_at',
+            'clean_description', 'html_description', 'color_hex'
+        ]
 
     def get_clean_description(self, obj):
-        """Return description with HTML tags stripped for plain text display"""
+        """Return description with Markdown formatting removed for plain text display"""
         return obj.get_clean_description()
+
+    def get_html_description(self, obj):
+        """Return description converted from Markdown to HTML"""
+        return obj.get_html_description()
 
     def get_color_hex(self, obj):
         """Return the color value prefixed with # for CSS usage"""
@@ -39,10 +47,9 @@ class ServiceSerializer(serializers.ModelSerializer):
         return value
 
     def validate_description(self, value):
-        """Validate description length after stripping HTML tags"""
-        clean_text = strip_tags(value)
-        if len(clean_text) > 2000:
+        """Validate description length for Markdown content"""
+        if len(value) > 2000:
             raise serializers.ValidationError(
-                "Description text content (excluding HTML tags) cannot exceed 2000 characters."
+                "Description content cannot exceed 2000 characters."
             )
         return value

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -524,7 +524,7 @@ const AdminServicesTab = () => {
         showHeader={true}
         className="max-w-4xl w-full mx-4"
       >
-        <div className="space-y-6 max-h-[80vh] overflow-y-auto">"
+        <div className="space-y-6 max-h-[80vh] overflow-y-auto">
           {/* Service Title */}
           <div className="space-y-3">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">

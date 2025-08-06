@@ -29,7 +29,8 @@ interface Course {
 export const generateCoursesCatalogPDF = async (
   courses: Course[], 
   locale: string = 'es', 
-  t?: (key: string, params?: any) => string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  t?: any
 ) => {
   // Create new PDF document
   const pdf = new jsPDF('p', 'mm', 'a4');
@@ -44,7 +45,6 @@ export const generateCoursesCatalogPDF = async (
   // Colors
   const primaryColor = '#22A60D';
   const secondaryColor = '#666666';
-  const lightGray = '#F5F5F5';
 
   // Helper function to add new page
   const addNewPage = () => {
@@ -95,11 +95,12 @@ export const generateCoursesCatalogPDF = async (
   };
 
   // Helper function to get translated text with fallback
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getText = (key: string, fallbackEs: string, fallbackEn: string, params?: any) => {
     if (t) {
       try {
         return t(key, params);
-      } catch (error) {
+      } catch {
         // Fallback to manual translation if key not found
         return locale === 'es' ? fallbackEs : fallbackEn;
       }
@@ -244,7 +245,6 @@ export const generateCoursesCatalogPDF = async (
   // Separate upcoming and past courses
   const now = new Date();
   const upcomingCourses = courses.filter(course => new Date(course.start_date) >= now);
-  const pastCourses = courses.filter(course => new Date(course.start_date) < now);
 
   // Add upcoming courses
   if (upcomingCourses.length > 0) {
@@ -255,7 +255,7 @@ export const generateCoursesCatalogPDF = async (
     pdf.text(upcomingTitle, margin, currentY);
     currentY += 15;
 
-    upcomingCourses.forEach((course, index) => {
+    upcomingCourses.forEach((course) => {
       const courseHeight = 90; // Estimated height for each course
       checkPageBreak(courseHeight);
 

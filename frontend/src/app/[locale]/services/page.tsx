@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { useTheme } from "@/contexts/theme-context";
 import dynamic from "next/dynamic";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,55 +9,33 @@ import { Input } from "@/components/ui/input";
 import Alert from "@/components/ui/alert";
 import { Service, useServices } from "@/hooks/useServices";
 import { renderIcon } from "@/components/ui/icon-select";
-import { getApiEndpoint, API_ENDPOINTS } from "@/lib/api-config";
 import { truncateText } from "@/utils/text";
 import {
   Search,
   Filter,
   Star,
-  Code,
-  Smartphone,
-  Palette,
-  Cloud,
-  Users,
-  Settings,
-  Database,
-  Globe,
   ArrowRight,
-  CheckCircle,
+  Clock,
+  ExternalLink,
   Mail,
-  Phone
 } from "lucide-react";
 import { Dropdown } from "@/components/ui/dropdown";
 
 // Dynamic imports for components that might not be immediately needed
 const Navbar = dynamic(() => import("@/components/ui/navbar"), { ssr: false });
 const Footer = dynamic(() => import("@/components/home/footer"), { ssr: false });
-const Modal = dynamic(() => import("@/components/ui/modal").then(mod => ({ default: mod.Modal })), { ssr: false });
-const Textarea = dynamic(() => import("@/components/ui/textarea").then(mod => ({ default: mod.Textarea })), { ssr: false });
 const ServiceDetailsModal = dynamic(() => import("@/components/home/service-details-modal").then(mod => ({ default: mod.ServiceDetailsModal })), { ssr: false });
 
 const ServicesPage = () => {
   const t = useTranslations("services");
-  const { isDark, setIsDark } = useTheme();
-  const { services, isLoading, error: servicesError } = useServices();
+  const { services, isLoading } = useServices();
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   const [filterFeatured, setFilterFeatured] = useState<'all' | 'featured' | 'standard'>('all');
   const [showServiceModal, setShowServiceModal] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
-
-  // Contact form state
-  const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    message: '',
-    service: ''
-  });
-
+  
   // Debounce search term
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -112,44 +89,6 @@ const ServicesPage = () => {
     window.open(whatsappUrl, '_blank');
   }, []);
 
-  const handleContactSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Basic validation
-    if (!contactForm.name.trim() || !contactForm.email.trim() || !contactForm.message.trim()) {
-      setAlert({type: 'error', message: 'Please fill in all required fields'});
-      return;
-    }
-
-    try {
-      const response = await fetch(getApiEndpoint(API_ENDPOINTS.contact), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(contactForm),
-      });
-
-      if (response.ok) {
-        setAlert({type: 'success', message: 'Message sent successfully! We\'ll get back to you soon.'});
-        setContactForm({
-          name: '',
-          email: '',
-          phone: '',
-          company: '',
-          message: '',
-          service: ''
-        });
-        setSelectedService(null);
-      } else {
-        setAlert({type: 'error', message: 'Failed to send message. Please try again.'});
-      }
-    } catch (err) {
-      console.error('Network error:', err);
-      setAlert({type: 'error', message: 'Network error. Please check your connection.'});
-    }
-  }, [contactForm]);
-
   const getFilterLabel = useCallback((value: 'all' | 'featured' | 'standard') => {
     switch (value) {
       case 'all':
@@ -164,7 +103,7 @@ const ServicesPage = () => {
   }, [t]);
 
   // Memoized service card component
-  const ServiceCard = useMemo(() => ({ service }: { service: Service }) => {
+  const ServiceCard = React.memo(({ service }: { service: Service }) => {
     // Function to get the appropriate color for dark/light mode
     const getServiceColor = (service: Service) => {
       const isDarkMode = document.documentElement.classList.contains('dark');
@@ -253,23 +192,39 @@ const ServicesPage = () => {
             {truncateText(service.clean_description, 180)}
           </p>
 
-          {/* Features List */}
+          {/* Service Details */}
           <div className="mb-8">
             <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 uppercase tracking-wide">
-              {t("includes")}
+              {t("details")}
             </h4>
-            <div className="grid grid-cols-2 gap-2">
-              {[
-                t("features.consultation"),
-                t("features.development"),
-                t("features.testing"),
-                t("features.support")
-              ].map((feature, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4" style={{ color: serviceColor }} />
-                  <span className="text-sm text-gray-600 dark:text-gray-400">{feature}</span>
+            <div className="grid grid-cols-1 gap-3">
+              {/* Duration */}
+              {service.duration && (
+                <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                  <Clock className="w-4 h-4" style={{ color: serviceColor }} />
+                  <div>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white block">
+                      {t("duration")}
+                    </span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400">
+                      {service.duration === 1 ? t("durationDay") : t("durationDays", { count: service.duration })}
+                    </span>
+                  </div>
                 </div>
-              ))}
+              )}
+              
+              {/* Price */}
+              <div className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <ExternalLink className="w-4 h-4" style={{ color: serviceColor }} />
+                <div>
+                  <span className="text-sm font-medium text-gray-900 dark:text-white block">
+                    {t("price")}
+                  </span>
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    {service.price ? `€${service.price}` : t("contactForQuote") || "Contact for quote"}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -329,7 +284,9 @@ const ServicesPage = () => {
         ></div>
       </Card>
     );
-  }, [t, handleWhatsAppContact, handleMoreInfo]);
+  });
+
+  ServiceCard.displayName = 'ServiceCard';
 
   if (isLoading) {
     return (

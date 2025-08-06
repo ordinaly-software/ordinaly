@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from decimal import Decimal
-from django.utils.html import strip_tags
+import markdown
 
 
 class Service(models.Model):
@@ -149,7 +149,10 @@ class Service(models.Model):
 
     title = models.CharField(max_length=100)
     subtitle = models.CharField(max_length=200)
-    description = models.TextField(max_length=2000, help_text="Rich text content that supports HTML for display")
+    description = models.TextField(
+        max_length=2000,
+        help_text="Markdown content that will be converted to HTML for display"
+    )
     color = models.CharField(
         max_length=6,
         choices=COLOR_CHOICES,
@@ -181,8 +184,26 @@ class Service(models.Model):
         return self.title
 
     def get_clean_description(self):
-        """Return description with HTML tags stripped for plain text display"""
-        return strip_tags(self.description)
+        """Return description with Markdown formatting removed for plain text display"""
+        # Convert markdown to HTML first, then strip HTML tags
+        html_content = markdown.markdown(self.description)
+        # Remove HTML tags using regex as strip_tags is not available
+        import re
+        clean_text = re.sub('<[^<]+?>', '', html_content)
+        return clean_text.strip()
+
+    def get_html_description(self):
+        """Convert Markdown description to HTML for display"""
+        return markdown.markdown(
+            self.description,
+            extensions=['codehilite', 'tables', 'fenced_code', 'nl2br'],
+            extension_configs={
+                'codehilite': {
+                    'css_class': 'highlight',
+                    'use_pygments': True
+                }
+            }
+        )
 
     def get_color_display(self):
         """Return the color value prefixed with # for CSS usage"""

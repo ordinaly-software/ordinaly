@@ -25,7 +25,7 @@ class ServiceModelTests(TestCase):
         self.service_data = {
             'title': 'Test Service',
             'subtitle': 'A test service subtitle',
-            'description': 'This is a test service description with <b>HTML</b> formatting',
+            'description': 'This is a test service description with **markdown** formatting',
             'color': '29BF12',
             'icon': 'Bot',
             'duration': 2,
@@ -162,30 +162,36 @@ class ServiceModelTests(TestCase):
         )
         self.assertEqual(purple_service.get_color_display(), '#623CEA')
 
-    def test_html_description_methods(self):
-        """Test HTML description cleaning methods"""
-        html_service = Service.objects.create(
-            title='HTML Service',
-            subtitle='A service with HTML',
-            description='This is <b>bold</b> and <i>italic</i> text with <a href="#">links</a>',
+    def test_markdown_description_methods(self):
+        """Test Markdown description methods"""
+        markdown_service = Service.objects.create(
+            title='Markdown Service',
+            subtitle='A service with Markdown',
+            description='This is **bold** and *italic* text with [links](http://example.com)',
             color='46B1C9',
             icon='FileText',
             created_by=self.user
         )
 
-        # Test that HTML is preserved in the original description
-        self.assertIn('<b>bold</b>', html_service.description)
-        self.assertIn('<i>italic</i>', html_service.description)
-        self.assertIn('<a href="#">links</a>', html_service.description)
+        # Test that Markdown is preserved in the original description
+        self.assertIn('**bold**', markdown_service.description)
+        self.assertIn('*italic*', markdown_service.description)
+        self.assertIn('[links](http://example.com)', markdown_service.description)
 
-        # Test that clean description strips HTML
-        clean_description = html_service.get_clean_description()
-        self.assertNotIn('<b>', clean_description)
-        self.assertNotIn('</b>', clean_description)
-        self.assertNotIn('<i>', clean_description)
-        self.assertNotIn('</i>', clean_description)
-        self.assertNotIn('<a href="#">', clean_description)
-        self.assertNotIn('</a>', clean_description)
+        # Test that HTML description converts Markdown to HTML
+        html_description = markdown_service.get_html_description()
+        self.assertIn('<strong>bold</strong>', html_description)
+        self.assertIn('<em>italic</em>', html_description)
+        self.assertIn('<a href="http://example.com">links</a>', html_description)
+
+        # Test that clean description strips all formatting
+        clean_description = markdown_service.get_clean_description()
+        self.assertNotIn('**', clean_description)
+        self.assertNotIn('*', clean_description)
+        self.assertNotIn('[', clean_description)
+        self.assertNotIn('](', clean_description)
+        self.assertNotIn('<strong>', clean_description)
+        self.assertNotIn('</strong>', clean_description)
         self.assertEqual(clean_description, 'This is bold and italic text with links')
 
     def test_description_max_length(self):
@@ -216,7 +222,7 @@ class ServiceSerializerTests(TestCase):
         self.service_data = {
             'title': 'Test Service',
             'subtitle': 'A test service subtitle',
-            'description': 'This is a test service description with <em>emphasis</em>',
+            'description': 'This is a test service description with *emphasis*',
             'color': '623CEA',
             'icon': 'Smartphone',
             'duration': 2,
@@ -237,8 +243,9 @@ class ServiceSerializerTests(TestCase):
         data = self.serializer.data
         self.assertEqual(set(data.keys()), set([
             'id', 'title', 'subtitle', 'description', 'clean_description',
-            'color', 'color_hex', 'icon', 'duration', 'requisites', 'price',
-            'is_featured', 'created_by', 'created_by_username', 'created_at', 'updated_at'
+            'html_description', 'color', 'color_hex', 'icon', 'duration',
+            'requisites', 'price', 'is_featured', 'created_by',
+            'created_by_username', 'created_at', 'updated_at'
         ]))
 
     def test_field_content(self):
@@ -257,25 +264,31 @@ class ServiceSerializerTests(TestCase):
         self.assertEqual(data['created_by_username'], self.user.username)
 
     def test_clean_description_field(self):
-        """Test that clean_description field strips HTML tags"""
-        html_service = Service.objects.create(
-            title='HTML Test Service',
-            subtitle='Service with HTML description',
-            description='This has <b>bold</b> and <i>italic</i> text',
+        """Test that clean_description field strips Markdown formatting"""
+        markdown_service = Service.objects.create(
+            title='Markdown Test Service',
+            subtitle='Service with Markdown description',
+            description='This has **bold** and *italic* text with [links](http://example.com)',
             color='46B1C9',
             icon='Palette',
             created_by=self.user
         )
 
-        serializer = ServiceSerializer(instance=html_service)
+        serializer = ServiceSerializer(instance=markdown_service)
         data = serializer.data
 
-        # Check that description contains HTML
-        self.assertIn('<b>bold</b>', data['description'])
-        self.assertIn('<i>italic</i>', data['description'])
+        # Check that description contains Markdown
+        self.assertIn('**bold**', data['description'])
+        self.assertIn('*italic*', data['description'])
+        self.assertIn('[links](http://example.com)', data['description'])
 
-        # Check that clean_description strips HTML
-        self.assertEqual(data['clean_description'], 'This has bold and italic text')
+        # Check that html_description converts to HTML
+        self.assertIn('<strong>bold</strong>', data['html_description'])
+        self.assertIn('<em>italic</em>', data['html_description'])
+        self.assertIn('<a href="http://example.com">links</a>', data['html_description'])
+
+        # Check that clean_description strips all formatting
+        self.assertEqual(data['clean_description'], 'This has bold and italic text with links')
 
     def test_color_hex_field(self):
         """Test that color_hex field adds # prefix"""
@@ -291,7 +304,7 @@ class ServiceSerializerTests(TestCase):
         valid_data = {
             'title': 'New Service',
             'subtitle': 'A new service subtitle',
-            'description': 'This is a new service description with <p>HTML</p>',
+            'description': 'This is a new service description with **Markdown** formatting',
             'color': '1A1924',
             'icon': 'Globe',
             'duration': 3,
@@ -374,11 +387,11 @@ class ServiceSerializerTests(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn('color', serializer.errors)
 
-        # Test with HTML description that's too long when stripped
-        html_too_long = '<p>' + 'X' * 2000 + '</p>'  # HTML that exceeds limit when stripped
-        html_long_data = valid_data.copy()
-        html_long_data['description'] = html_too_long
-        serializer = ServiceSerializer(data=html_long_data)
+        # Test with description that's too long
+        long_description = 'M' * 2001  # Exceeds max_length=2000
+        long_data = valid_data.copy()
+        long_data['description'] = long_description
+        serializer = ServiceSerializer(data=long_data)
         self.assertFalse(serializer.is_valid())
         self.assertIn('description', serializer.errors)
 
@@ -475,7 +488,7 @@ class ServiceViewSetTests(APITestCase):
         self.valid_service_data = {
             'title': 'New Service',
             'subtitle': 'New service subtitle',
-            'description': 'This is a new service description with <strong>formatting</strong>',
+            'description': 'This is a new service description with **strong** formatting',
             'color': 'E4572E',
             'icon': 'Plus',
             'duration': 3,

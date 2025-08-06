@@ -55,8 +55,6 @@ export const Dropdown = ({
   disabled = false,
   minWidth = "200px",
   width,
-  position = 'left',
-  offset = "6",
   children,
   theme = 'default',
   renderTrigger

@@ -3,7 +3,6 @@
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { Modal } from "@/components/ui/modal";
-import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, UserPlus, ArrowRight } from 'lucide-react';
 
@@ -14,7 +13,6 @@ interface AuthModalProps {
 }
 
 const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
-  const t = useTranslations();
   const tAuth = useTranslations('authModal');
   const router = useRouter();
 

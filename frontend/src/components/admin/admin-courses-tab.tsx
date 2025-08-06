@@ -328,15 +328,6 @@ const AdminCoursesTab = () => {
     }
   };
 
-  const handleSort = (option: SortOption) => {
-    if (sortBy === option) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortBy(option);
-      setSortOrder('asc');
-    }
-  };
-
   const isCourseFinished = (course: Course) => {
     const now = new Date();
     const endDate = new Date(course.end_date);
@@ -345,8 +336,8 @@ const AdminCoursesTab = () => {
 
   const sortCourses = (courses: Course[]) => {
     const sorted = [...courses].sort((a, b) => {
-      let aValue: any;
-      let bValue: any;
+      let aValue: string | number | Date;
+      let bValue: string | number | Date;
 
       switch (sortBy) {
         case 'title':

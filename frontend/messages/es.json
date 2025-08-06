@@ -748,19 +748,18 @@
     "subtitle": "Soluciones integrales diseñadas para transformar tu negocio e impulsar la innovación digital",
     "searchPlaceholder": "Buscar servicios...",
     "featured": "Destacado",
-    "includes": "Qué Incluye",
+    "details": "Detalles",
+    "duration": "Duración",
+    "durationDay": "1 día",
+    "durationDays": "{count} días",
+    "price": "Precio",
+    "contactForQuote": "Consultar precio",
     "contactUs": "Contáctanos",
     "learnMore": "Ver detalles",
     "filters": {
       "all": "Todos los Servicios",
       "featured": "Solo Destacados",
       "standard": "Servicios Estándar"
-    },
-    "features": {
-      "consultation": "Consulta Gratuita",
-      "development": "Desarrollo Personalizado",
-      "testing": "Pruebas de Calidad",
-      "support": "Soporte Continuo"
     },
     "noResults": {
       "title": "No se Encontraron Servicios",
