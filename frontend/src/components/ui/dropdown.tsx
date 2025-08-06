@@ -34,7 +34,7 @@ interface DropdownProps {
   position?: 'left' | 'right' | 'center';
   offset?: string;
   children?: ReactNode;
-  theme?: 'default' | 'orange' | DropdownTheme; // Added theme support
+  theme?: 'default' | 'orange' | DropdownTheme;
   renderTrigger?: (props: {
     isOpen: boolean;
     selectedOption: DropdownOption | undefined;
@@ -92,34 +92,40 @@ export const Dropdown = ({
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (isOpen && !target.closest(`.${containerClass}`)) {
+      const target = event.target as Node;
+    
+      if (
+        isOpen &&
+        !triggerRef.current?.contains(target) &&
+        !dropdownRef.current?.contains(target)
+      ) {
         setIsOpen(false);
       }
     };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen, containerClass]);
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
 
   const handleOptionClick = (optionValue: string) => {
     onChange(optionValue);
     setIsOpen(false);
   };
 
-  const getPositionClasses = () => {
-    switch (position) {
-      case 'right':
-        return `right-${offset}`;
-      case 'center':
-        return 'left-1/2 -translate-x-1/2';
-      default:
-        return `left-${offset}`;
+  useEffect(() => {
+    if (isOpen && triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 8, // 8px offset
+        left: rect.left + window.scrollX,
+        width: rect.width
+      });
     }
-  };
+  }, [isOpen]);
 
   const triggerButton = (
     <button
+      ref={triggerRef}
       type="button"
       onClick={() => !disabled && setIsOpen(!isOpen)}
       disabled={disabled}
@@ -149,7 +155,7 @@ export const Dropdown = ({
   );
 
   return (
-    <div className={cn("relative", containerClass, className)} ref={dropdownRef}>
+    <div className={cn("relative", containerClass, className)}>
       {children ? (
         <div className="flex items-center gap-2">
           {children}
@@ -178,46 +184,52 @@ export const Dropdown = ({
       )}
 
       {/* Dropdown Menu */}
-      {isOpen && options.length > 0 && (
-        <div 
-          className={cn(
-            "absolute top-full mt-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600",
-            "rounded-lg shadow-xl overflow-hidden animate-in slide-in-from-top-2 duration-200",
-            getPositionClasses(),
-            dropdownClassName
-          )}
-          style={{ 
-            width: width || minWidth,
-            zIndex: 99999
-          }}
-        >
-          {options.map((option) => {
-            const OptionIcon = option.icon;
-            return (
-              <button
-                key={option.value}
-                type="button"
-                onClick={() => handleOptionClick(option.value)}
-                className={cn(
-                  "w-full px-4 py-3 text-left transition-all duration-150 flex items-center justify-between",
-                  currentTheme.hoverBg,
-                  value === option.value 
-                    ? currentTheme.selectedBg
-                    : 'text-gray-900 dark:text-white'
-                )}
-              >
-                <div className="flex items-center gap-2">
-                  {OptionIcon && <OptionIcon className="h-4 w-4" />}
-                  <span className="font-medium">{option.label}</span>
-                </div>
-                {value === option.value && (
-                  <Check className={cn("h-4 w-4", currentTheme.accent)} />
-                )}
-              </button>
-            );
-          })}
-        </div>
-      )}
+      {isOpen && options.length > 0 &&
+        createPortal(
+          <div 
+            ref={dropdownRef}
+            className={cn(
+              "absolute bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600",
+              "rounded-lg shadow-xl overflow-hidden animate-in slide-in-from-top-2 duration-200",
+              dropdownClassName
+            )}
+            style={{ 
+              top: dropdownPosition.top,
+              left: dropdownPosition.left,
+              width: dropdownPosition.width,
+              position: 'absolute',
+              zIndex: 99999
+            }}
+          >
+            {options.map((option) => {
+              const OptionIcon = option.icon;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => handleOptionClick(option.value)}
+                  className={cn(
+                    "w-full px-4 py-3 text-left transition-all duration-150 flex items-center justify-between",
+                    currentTheme.hoverBg,
+                    value === option.value 
+                      ? currentTheme.selectedBg
+                      : 'text-gray-900 dark:text-white'
+                  )}
+                >
+                  <div className="flex items-center gap-2">
+                    {OptionIcon && <OptionIcon className="h-4 w-4" />}
+                    <span className="font-medium">{option.label}</span>
+                  </div>
+                  {value === option.value && (
+                    <Check className={cn("h-4 w-4", currentTheme.accent)} />
+                  )}
+                </button>
+              );
+            })}
+          </div>,
+          document.body
+        )
+      }
     </div>
   );
 };

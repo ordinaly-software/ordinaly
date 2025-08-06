@@ -137,12 +137,12 @@ export default function HomePage() {
 
   // Optimize color schemes with useMemo
   const colorSchemes = useMemo(() => [
-    { bg: 'bg-[#22A60D]/10', border: 'border-[#22A60D]', shadow: 'shadow-[#22A60D]/10', text: 'text-[#22A60D]' },
-    { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]' },
-    { bg: 'bg-[#E4572E]/10', border: 'border-[#E4572E]', shadow: 'shadow-[#E4572E]/10', text: 'text-[#E4572E]' },
-    { bg: 'bg-[#623CEA]/10', border: 'border-[#623CEA]', shadow: 'shadow-[#623CEA]/10', text: 'text-[#623CEA]' },
-    { bg: 'bg-[#22A60D]/10', border: 'border-[#22A60D]', shadow: 'shadow-[#22A60D]/10', text: 'text-[#22A60D]' },
-    { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]' }
+    { bg: 'bg-[#22A60D]/10', border: 'border-[#22A60D]', shadow: 'shadow-[#22A60D]/10', text: 'text-[#22A60D]', hover: 'hover:bg-[#22A60D] hover:text-white hover:border-[#22A60D]' },
+    { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]', hover: 'hover:bg-[#46B1C9] hover:text-white hover:border-[#46B1C9]' },
+    { bg: 'bg-[#E4572E]/10', border: 'border-[#E4572E]', shadow: 'shadow-[#E4572E]/10', text: 'text-[#E4572E]', hover: 'hover:bg-[#E4572E] hover:text-white hover:border-[#E4572E]' },
+    { bg: 'bg-[#623CEA]/10', border: 'border-[#623CEA]', shadow: 'shadow-[#623CEA]/10', text: 'text-[#623CEA]', hover: 'hover:bg-[#623CEA] hover:text-white hover:border-[#623CEA]' },
+    { bg: 'bg-[#22A60D]/10', border: 'border-[#22A60D]', shadow: 'shadow-[#22A60D]/10', text: 'text-[#22A60D]', hover: 'hover:bg-[#22A60D] hover:text-white hover:border-[#22A60D]' },
+    { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]', hover: 'hover:bg-[#46B1C9] hover:text-white hover:border-[#46B1C9]' }
   ], []);
 
   // Optimize intersection observer setup with debounced scroll handler
@@ -380,7 +380,7 @@ export default function HomePage() {
                             e.stopPropagation();
                             handleServiceClick(service);
                           }}
-                          className={`${colorScheme.text} border-current hover:bg-current hover:text-white transition-colors`}
+                          className={`${colorScheme.text} ${colorScheme.border} ${colorScheme.hover} transition-colors`}
                         >
                           {t("services.viewDetails")}
                         </Button>
@@ -414,7 +414,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#22A60D] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#22A60D] border-[#22A60D] hover:bg-[#22A60D] hover:text-white hover:border-[#22A60D] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -443,7 +443,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#46B1C9] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#46B1C9] border-[#46B1C9] hover:bg-[#46B1C9] hover:text-white hover:border-[#46B1C9] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -472,7 +472,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#E4572E] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#E4572E] border-[#E4572E] hover:bg-[#E4572E] hover:text-white hover:border-[#E4572E] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -501,7 +501,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#623CEA] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#623CEA] border-[#623CEA] hover:bg-[#623CEA] hover:text-white hover:border-[#623CEA] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -530,7 +530,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#22A60D] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#22A60D] border-[#22A60D] hover:bg-[#22A60D] hover:text-white hover:border-[#22A60D] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -559,7 +559,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#46B1C9] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#46B1C9] border-[#46B1C9] hover:bg-[#46B1C9] hover:text-white hover:border-[#46B1C9] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
