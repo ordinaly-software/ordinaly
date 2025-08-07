@@ -42,19 +42,25 @@ export const useServices = (limit?: number) => {
       const cached = servicesCache.get(cacheKey);
       
       if (cached && (Date.now() - cached.timestamp) < CACHE_DURATION) {
+        console.log('📦 Using cached services data:', cached.data.length, 'services');
         setServices(cached.data);
         setIsLoading(false);
         return;
       }
 
+      console.log('🔄 Fetching services from API...');
       setIsLoading(true);
       setError(null);
 
-      const response = await fetch(getApiEndpoint('/api/services/'), {
+      const apiUrl = getApiEndpoint('/api/services/');
+      console.log('📡 API URL:', apiUrl);
+
+      const response = await fetch(apiUrl, {
         headers: { 'Content-Type': 'application/json' },
       });
 
       if (!response.ok) {
+        console.error('❌ API Response not OK:', response.status, response.statusText);
         if (response.status >= 500) {
           setIsOnVacation(true);
           setServices([]);
@@ -64,7 +70,9 @@ export const useServices = (limit?: number) => {
       }
 
       const data = await response.json();
+      console.log('✅ Raw API data received:', data);
       let servicesData = Array.isArray(data) ? data : [];
+      console.log('📊 Services array length:', servicesData.length);
       
       // Simple sorting: featured first, then by creation date
       servicesData.sort((a, b) => {
@@ -76,11 +84,13 @@ export const useServices = (limit?: number) => {
       // Apply limit if specified
       if (limit) {
         servicesData = servicesData.slice(0, limit);
+        console.log('✂️ Applied limit, services count:', servicesData.length);
       }
 
       // Cache the result
       servicesCache.set(cacheKey, { data: servicesData, timestamp: Date.now() });
       
+      console.log('💾 Services cached and state updated:', servicesData.length, 'services');
       setServices(servicesData);
       setError(null);
       setIsOnVacation(false);

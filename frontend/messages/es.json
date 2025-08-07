@@ -75,6 +75,34 @@
       },
       "viewAllServices": "Ver Todos los Servicios"
     },
+    "courses": {
+      "showcaseTitle": "Cursos Destacados",
+      "showcaseDescription": "Únete a nuestros próximos cursos de formación profesional y avanza en tu carrera",
+      "upcomingTitle": "Próximos Cursos",
+      "upcomingDescription": "Descubre nuestros próximos cursos de formación profesional",
+      "noCoursesTitle": "No Hay Cursos Próximos",
+      "noCoursesMessage": "¡Mantente atento a los nuevos anuncios de cursos!",
+      "notifyButton": "Recibir Notificaciones",
+      "errorTitle": "Error Cargando Cursos",
+      "retryButton": "Intentar de Nuevo",
+      "enrollButton": "Inscribirse Ahora",
+      "moreInfo": "Más Información",
+      "viewDetails": "Ver Detalles",
+      "viewAllCourses": "Ver Todos los Cursos",
+      "spotsLeft": "plazas disponibles",
+      "enrolled": "inscritos",
+      "max": "máximo",
+      "almostFull": "Casi Completo",
+      "fillingFast": "Llenándose Rápido",
+      "available": "Disponible",
+      "signUpModal": {
+        "title": "Registro de Curso",
+        "description": "Recibe notificaciones cuando se abra la inscripción para \"{courseName}\"",
+        "generalDescription": "Recibe notificaciones sobre nuevos anuncios de cursos y oportunidades de inscripción temprana.",
+        "close": "Cerrar",
+        "notify": "Notificarme"
+      }
+    },
     "about": {
       "title": "LIDERANDO LA TRANSFORMACIÓN DIGITAL EN ANDALUCÍA",
       "description1": "En Ordinaly, creemos que las empresas andaluzas tienen el potencial de liderar la innovación tecnológica en España y Europa. Nuestra misión es democratizar el acceso a la inteligencia artificial y la automatización.",

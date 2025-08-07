@@ -74,6 +74,34 @@
       },
       "viewAllServices": "Ikusi zerbitzu guztiak"
     },
+    "courses": {
+      "showcaseTitle": "Kurtso Nabarmenak",
+      "showcaseDescription": "Gurekin bat egin profesional prestakuntza kurtsoetan eta zure karreran aurrera egin",
+      "upcomingTitle": "Datozen Kurtsoak",
+      "upcomingDescription": "Gure hurrengo profesional prestakuntza kurtsoak",
+      "noCoursesTitle": "Ez Dago Hurrengo Kurtsorik",
+      "noCoursesMessage": "Mantendu erne kurtso berri iragarpenei!",
+      "notifyButton": "Jakinarazpenak Jaso",
+      "errorTitle": "Errorea Kurtsoak Kargatzen",
+      "retryButton": "Berriro Saiatu",
+      "enrollButton": "Orain Eman Izena",
+      "moreInfo": "Informazio Gehiago",
+      "viewDetails": "Xehetasunak Ikusi",
+      "viewAllCourses": "Ikusi Kurtso Guztiak",
+      "spotsLeft": "leku libre",
+      "enrolled": "izen emanda",
+      "max": "gehienez",
+      "almostFull": "Ia Beteta",
+      "fillingFast": "Azkar Betetzen",
+      "available": "Eskuragarri",
+      "signUpModal": {
+        "title": "Kurtsoan Eman Izena",
+        "description": "Jaso jakinarazpenak \"{courseName}\" kurtsorako izen-ematea irekitzen denean",
+        "generalDescription": "Jaso jakinarazpenak kurtso berri iragarpenei eta goiztiarra izen-ematea aukerak buruz.",
+        "close": "Itxi",
+        "notify": "Jakinarazi"
+      }
+    },
     "about": {
       "title": "Andaluzian eraldaketa digitala",
       "description1": "Ordaininy-n, Andaluziako enpresek Espainian eta Europan berrikuntza teknologikoa egiteko ahalmena dute. ",

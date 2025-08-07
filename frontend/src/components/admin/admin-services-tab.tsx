@@ -489,7 +489,14 @@ const AdminServicesTab = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleEdit(service)}
-                          className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                          style={{ color: '#46B1C9' }}
+                          className="hover:bg-opacity-10"
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = '#46B1C9' + '10';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '';
+                          }}
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -547,7 +554,7 @@ const AdminServicesTab = () => {
           <div className="space-y-3">
             <Label htmlFor="subtitle" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-blue-600 dark:text-blue-400">S</span>
+                <span className="text-xs font-bold text-blue">S</span>
               </div>
               <span>{t("form.subtitle")} *</span>
             </Label>
@@ -556,7 +563,7 @@ const AdminServicesTab = () => {
               value={formData.subtitle}
               onChange={(e) => setFormData(prev => ({...prev, subtitle: e.target.value}))}
               placeholder={t("form.subtitlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
               required
             />
           </div>

@@ -74,6 +74,34 @@
       },
       "viewAllServices": "View All Services"
     },
+    "courses": {
+      "showcaseTitle": "Featured Courses",
+      "showcaseDescription": "Join our upcoming professional training courses and advance your career",
+      "upcomingTitle": "Upcoming Courses",
+      "upcomingDescription": "Discover our upcoming professional training courses",
+      "noCoursesTitle": "No Upcoming Courses",
+      "noCoursesMessage": "Stay tuned for new course announcements!",
+      "notifyButton": "Get Notified",
+      "errorTitle": "Error Loading Courses",
+      "retryButton": "Try Again",
+      "enrollButton": "Enroll Now",
+      "moreInfo": "More Info",
+      "viewDetails": "View Details",
+      "viewAllCourses": "View All Courses",
+      "spotsLeft": "spots left",
+      "enrolled": "enrolled",
+      "max": "max",
+      "almostFull": "Almost Full",
+      "fillingFast": "Filling Fast", 
+      "available": "Available",
+      "signUpModal": {
+        "title": "Course Registration",
+        "description": "Get notified when registration opens for \"{courseName}\"",
+        "generalDescription": "Get notified about new course announcements and early registration opportunities.",
+        "close": "Close",
+        "notify": "Notify Me"
+      }
+    },
     "about": {
       "title": "LEADING DIGITAL TRANSFORMATION IN ANDALUSIA",
       "description1": "At Ordinaly, we believe Andalusian companies have the potential to lead technological innovation in Spain and Europe. Our mission is to democratize access to artificial intelligence and automation.",

@@ -855,7 +855,7 @@ const AdminCoursesTab = () => {
                                 e.stopPropagation();
                                 handleEdit(course);
                               }}
-                              className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                              className="text-blue hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                             >
                               <Edit className="h-4 w-4" />
                             </Button>
@@ -918,7 +918,7 @@ const AdminCoursesTab = () => {
           <div className="space-y-3">
             <Label htmlFor="subtitle" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-blue-600 dark:text-blue-400">S</span>
+                <span className="text-xs font-bold text-blue">S</span>
               </div>
               <span>{t("form.subtitleOptional")}</span>
             </Label>
@@ -927,7 +927,7 @@ const AdminCoursesTab = () => {
               value={formData.subtitle}
               onChange={(e) => setFormData(prev => ({...prev, subtitle: e.target.value}))}
               placeholder={t("form.subtitlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
             />
           </div>
 
@@ -1086,7 +1086,7 @@ const AdminCoursesTab = () => {
           {/* Professional Scheduling Section */}
           <div className="space-y-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
+              <div className="w-6 h-6 bg-blue rounded flex items-center justify-center">
                 <span className="text-sm font-bold text-white">📅</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -1105,7 +1105,7 @@ const AdminCoursesTab = () => {
                   type="date"
                   value={formData.start_date}
                   onChange={(e) => setFormData(prev => ({...prev, start_date: e.target.value}))}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
                 />
               </div>
@@ -1118,7 +1118,7 @@ const AdminCoursesTab = () => {
                   type="date"
                   value={formData.end_date}
                   onChange={(e) => setFormData(prev => ({...prev, end_date: e.target.value}))}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
                 />
               </div>
@@ -1135,7 +1135,7 @@ const AdminCoursesTab = () => {
                   type="time"
                   value={formData.start_time}
                   onChange={(e) => setFormData(prev => ({...prev, start_time: e.target.value}))}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
                 />
               </div>
@@ -1148,7 +1148,7 @@ const AdminCoursesTab = () => {
                   type="time"
                   value={formData.end_time}
                   onChange={(e) => setFormData(prev => ({...prev, end_time: e.target.value}))}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
                 />
               </div>
@@ -1188,7 +1188,7 @@ const AdminCoursesTab = () => {
                             setFormData(prev => ({...prev, weekdays: prev.weekdays.filter(d => d !== index)}));
                           }
                         }}
-                        className="rounded border-gray-300 text-blue-500 focus:ring-blue-500/20"
+                        className="rounded border-gray-300 text-blue focus:ring-blue/20"
                       />
                       <span className="text-xs text-gray-600 dark:text-gray-400" title={day.full}>
                         {day.short}
@@ -1230,7 +1230,7 @@ const AdminCoursesTab = () => {
                   value={formData.interval}
                   onChange={(e) => setFormData(prev => ({...prev, interval: parseInt(e.target.value) || 1}))}
                   placeholder={t("form.intervalPlaceholder")}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                 />
               </div>
               <div className="space-y-2">
@@ -1368,8 +1368,8 @@ const AdminCoursesTab = () => {
                   <div className="bg-blue-100 dark:bg-blue-900/30 rounded-lg p-4 flex-1">
                     <div className="flex flex-col">
                       <div className="flex items-center justify-between w-full mb-2">
-                        <User className="h-6 w-6 text-blue-600 flex-shrink-0" />
-                        <p className="text-lg font-bold text-blue-600">
+                        <User className="h-6 w-6 text-blue flex-shrink-0" />
+                        <p className="text-lg font-bold text-blue">
                           {selectedCourseForModal.max_attendants}
                         </p>
                       </div>
@@ -1415,7 +1415,7 @@ const AdminCoursesTab = () => {
               {/* Schedule Information */}
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5">
                 <div className="flex items-center space-x-2 mb-3">
-                  <Calendar className="h-5 w-5 text-blue-600" />
+                  <Calendar className="h-5 w-5 text-blue" />
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.schedule")}</h3>
                 </div>
                 <div className="space-y-2 text-sm">
@@ -1581,7 +1581,7 @@ const AdminCoursesTab = () => {
                             </p>
                           )}
                           {enrollment.user_details?.company && (
-                            <p className="text-xs text-blue-600 dark:text-blue-400">
+                            <p className="text-xs text-blue">
                               {enrollment.user_details.company}
                             </p>
                           )}

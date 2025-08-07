@@ -72,7 +72,35 @@
         "title": "Optimització contínua",
         "description": "Monitorització i millora dels processos automatitzats"
       },
-      "viewAllServices": "Consulteu tots els serveis"
+            "viewAllServices": "Veure Tots els Serveis"
+    },
+    "courses": {
+      "showcaseTitle": "Cursos Destacats",
+      "showcaseDescription": "Uneix-te als nostres propers cursos de formació professional i avança en la teva carrera",
+      "upcomingTitle": "Propers Cursos",
+      "upcomingDescription": "Descobreix els nostres propers cursos de formació professional",
+      "noCoursesTitle": "No Hi Ha Cursos Propers",
+      "noCoursesMessage": "Mantén-te atent als nous anuncis de cursos!",
+      "notifyButton": "Rebre Notificacions",
+      "errorTitle": "Error Carregant Cursos",
+      "retryButton": "Tornar-ho a Intentar",
+      "enrollButton": "Inscriu-te Ara",
+      "moreInfo": "Més Informació",
+      "viewDetails": "Veure Detalls",
+      "viewAllCourses": "Veure Tots els Cursos",
+      "spotsLeft": "places disponibles",
+      "enrolled": "inscrits",
+      "max": "màxim",
+      "almostFull": "Gairebé Complet",
+      "fillingFast": "Omplint-se Ràpidament",
+      "available": "Disponible",
+      "signUpModal": {
+        "title": "Registre de Curs",
+        "description": "Rep notificacions quan s'obri la inscripció per a \"{courseName}\"",
+        "generalDescription": "Rep notificacions sobre nous anuncis de cursos i oportunitats d'inscripció anticipada.",
+        "close": "Tancar",
+        "notify": "Notificar-me"
+      }
     },
     "about": {
       "title": "Dirigir la transformació digital a Andalusia",

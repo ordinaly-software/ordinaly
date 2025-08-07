@@ -152,7 +152,7 @@ const CourseDetailsModal = ({
                   €{course.price}
                 </span>
               )}
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500 text-white">
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue text-white">
                 {getPeriodicityDisplay(course.periodicity)}
               </span>
               {isEnrolled && (
@@ -177,7 +177,7 @@ const CourseDetailsModal = ({
               {/* Description */}
               <div>
                 <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-blue-600" />
+                  <BookOpen className="w-5 h-5 text-blue" />
                   {t('courseDescription')}
                 </h2>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{course.description}</p>
@@ -186,7 +186,7 @@ const CourseDetailsModal = ({
               {/* Schedule Details */}
               <div>
                 <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-blue-600" />
+                  <Calendar className="w-5 h-5 text-blue" />
                   {t('scheduleInformation')}
                 </h2>
                 <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
@@ -235,14 +235,14 @@ const CourseDetailsModal = ({
               {course.next_occurrences && course.next_occurrences.length > 0 && (
                 <div>
                   <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <Star className="w-5 h-5 text-blue-600" />
+                    <Star className="w-5 h-5 text-blue" />
                     {t('upcomingSessions')}
                   </h2>
                   <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
                     <div className="space-y-2">
                       {course.next_occurrences.slice(0, 5).map((occurrence, index) => (
                         <div key={index} className="flex items-center gap-2 text-sm">
-                          <Calendar className="w-4 h-4 text-blue-600" />
+                          <Calendar className="w-4 h-4 text-blue" />
                           <span className="text-gray-700 dark:text-gray-300">{formatDate(occurrence)}</span>
                         </div>
                       ))}
@@ -325,12 +325,13 @@ const CourseDetailsModal = ({
                 ) : (
                   <>
                     {shouldShowAuth ? (
-                      <Button
+                        <Button
                         onClick={handleEnrollClick}
-                        className="w-full bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
-                      >
+                        className="w-full"
+                        style={{ backgroundColor: '#46B1C9', color: '#fff' }}
+                        >
                         {t('signInToEnroll')}
-                      </Button>
+                        </Button>
                     ) : canEnroll ? (
                       <Button
                         onClick={onEnroll}
