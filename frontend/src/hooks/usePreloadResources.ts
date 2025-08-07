@@ -2,11 +2,7 @@ import { useEffect } from 'react';
 
 export const usePreloadResources = () => {
   useEffect(() => {
-    // Disabled manual preloading to avoid conflicts with Next.js Image optimizations
-    // Next.js Image components with priority prop handle their own preloading
-    // Manual preloading was causing "preloaded but not used" warnings
-    
-    // Only use smart prefetching for below-the-fold content when actually needed
+    // Only prefetch below-the-fold technology images when needed
     const prefetchImages = [
       '/static/tools/odoo_logo.webp',
       '/static/tools/whatsapp_logo.webp',
@@ -19,7 +15,7 @@ export const usePreloadResources = () => {
     let prefetchTriggered = false;
     let observer: IntersectionObserver | null = null;
 
-    // Use intersection observer for below-the-fold prefetching only
+    // Use intersection observer for smart prefetching only when user scrolls near technologies section
     if ('IntersectionObserver' in window) {
       observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
@@ -34,30 +30,37 @@ export const usePreloadResources = () => {
                   const link = document.createElement('link');
                   link.rel = 'prefetch';
                   link.href = src;
+                  link.as = 'image';
+                  link.type = 'image/webp';
                   document.head.appendChild(link);
                 }
               });
             };
 
             if ('requestIdleCallback' in window) {
-              requestIdleCallback(prefetchFunction, { timeout: 3000 });
+              requestIdleCallback(prefetchFunction, { timeout: 2000 });
             } else {
-              setTimeout(prefetchFunction, 500);
+              setTimeout(prefetchFunction, 300);
             }
             
             observer?.disconnect();
           }
         });
       }, { 
-        rootMargin: '150px 0px', // Conservative margin
+        rootMargin: '200px 0px', // Start prefetching when user is 200px away from technologies section
         threshold: 0.1
       });
 
-      // Wait for DOM to be ready and sections to be rendered
-      setTimeout(() => {
-        const sectionsToObserve = document.querySelectorAll('#technologies');
-        sectionsToObserve.forEach(section => observer?.observe(section));
-      }, 1500);
+      // Wait for DOM to be ready and find the technologies section
+      const setupObserver = () => {
+        const technologiesSection = document.querySelector('#technologies');
+        if (technologiesSection) {
+          observer?.observe(technologiesSection);
+        }
+      };
+
+      // Setup observer after DOM is ready
+      setTimeout(setupObserver, 1000);
     }
 
     // Cleanup function

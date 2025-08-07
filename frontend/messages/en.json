@@ -71,7 +71,8 @@
       "optimization": {
         "title": "Continuous Optimization",
         "description": "Ongoing monitoring and improvement of your automated processes"
-      }
+      },
+      "viewAllServices": "View All Services"
     },
     "about": {
       "title": "LEADING DIGITAL TRANSFORMATION IN ANDALUSIA",
@@ -390,6 +391,8 @@
       "selectAll": "Select All",
       "noServices": "No services available.",
       "noServicesFound": "No services found matching your search.",
+      "durationDay": "1 day",
+      "durationDays": "{count} days",
       "form": {
         "title": "Title",
         "titlePlaceholder": "Service title",
@@ -508,6 +511,36 @@
           "fourth": "Fourth week",
           "last": "Last week"
         },
+        "weekdays": {
+          "monday": {
+            "short": "Mon",
+            "full": "Monday"
+          },
+          "tuesday": {
+            "short": "Tue",
+            "full": "Tuesday"
+          },
+          "wednesday": {
+            "short": "Wed",
+            "full": "Wednesday"
+          },
+          "thursday": {
+            "short": "Thu",
+            "full": "Thursday"
+          },
+          "friday": {
+            "short": "Fri",
+            "full": "Friday"
+          },
+          "saturday": {
+            "short": "Sat",
+            "full": "Saturday"
+          },
+          "sunday": {
+            "short": "Sun",
+            "full": "Sunday"
+          }
+        },
         "maxAttendants": "Max Attendants",
         "maxAttendantsRequired": "Max Attendants *",
         "maxAttendantsPlaceholder": "10",
@@ -550,10 +583,51 @@
         "cancel": "Cancel"
       },
       "details": {
+        "title": "Course Details",
+        "enrolled": "Enrolled",
+        "capacity": "Capacity", 
+        "vacant": "Vacant",
         "price": "Price",
         "location": "Location",
         "date": "Date",
         "maxAttendants": "Max Attendants",
+        "created": "Created",
+        "schedule": "Schedule",
+        "locationInfo": "Location & Info",
+        "enrollmentStatus": "Enrollment Status",
+        "enrolledMembers": "Enrolled Members", 
+        "upcomingSessions": "Upcoming Sessions",
+        "finished": "Finished",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "time": "Time",
+        "duration": "Duration",
+        "frequency": "Frequency",
+        "weekdays": "Weekdays",
+        "timezone": "Timezone",
+        "lastUpdated": "Last Updated",
+        "fullStatus": "Full",
+        "spotsRemaining": "spots remaining",
+        "members": "members",
+        "noEnrollments": "No enrollments yet",
+        "enrolledOn": "Enrolled",
+        "member": "Member",
+        "company": "Company",
+        "moreSessions": "more sessions",
+        "hours": "hours"
+      },
+      "courseCard": {
+        "enrollments": "Enrollments",
+        "full": "full",
+        "spotsAvailable": "spots available"
+      },
+      "sorting": {
+        "sortBy": "Sort by",
+        "startDate": "Start Date",
+        "title": "Title",
+        "endDate": "End Date",
+        "enrollments": "Enrollments",
+        "capacity": "Capacity",
         "created": "Created"
       }
     },
@@ -680,19 +754,18 @@
     "subtitle": "Comprehensive solutions designed to transform your business and drive digital innovation",
     "searchPlaceholder": "Search services...",
     "featured": "Featured",
-    "includes": "What's Included",
+    "details": "Details",
+    "duration": "Duration",
+    "durationDay": "1 day",
+    "durationDays": "{count} days",
+    "price": "Price",
+    "contactForQuote": "Contact for quote",
     "contactUs": "Contact Us",
     "learnMore": "Learn More",
     "filters": {
       "all": "All Services",
       "featured": "Featured Only",
       "standard": "Standard Services"
-    },
-    "features": {
-      "consultation": "Free Consultation",
-      "development": "Custom Development",
-      "testing": "Quality Testing",
-      "support": "Ongoing Support"
     },
     "noResults": {
       "title": "No Services Found",
@@ -702,7 +775,9 @@
       "title": "Ready to Transform Your Business?",
       "description": "Let's discuss how our services can help you achieve your digital transformation goals.",
       "contact": "Get in Touch",
-      "call": "Schedule a Call"
+      "call": "Schedule a Call",
+      "emailSubject": "Inquiry about Ordinaly Services",
+      "emailBody": "Hello, I'm interested in learning more about your digital transformation services. Could you please provide me with more information?\n\nThank you."
     },
     "contact": {
       "title": "Contact Us",
@@ -752,11 +827,19 @@
       "title": "No Courses Found",
       "description": "Try adjusting your search terms or filters to find the perfect course for you."
     },
+    "noPastCourses": "No past courses available.",
+    "pastCourses": "Past Courses",
+    "viewPastCourses": "View Past Courses",
+    "hidePastCourses": "Hide Past Courses",
+    "upcomingCourses": "Upcoming Courses",
+    "finished": "Finished",
     "cta": {
       "title": "Ready to Advance Your Career?",
       "description": "Join thousands of professionals who have transformed their careers with our expert-led training programs.",
       "contact": "Contact Advisor",
-      "catalog": "Download Catalog"
+      "catalog": "Download Catalog",
+      "emailSubject": "Inquiry about Ordinaly Formation Programs",
+      "emailBody": "Hello, I'm interested in learning more about your professional formation programs. Could you please provide me with more information about available courses and enrollment?\n\nThank you."
     },
     "enrollment": {
       "title": "Course Enrollment",
@@ -799,7 +882,31 @@
       "authenticationFailed": "Authentication failed. Please sign in again",
       "networkError": "Network error. Please check your connection.",
       "failedToLoadCourses": "Failed to load courses",
-      "networkErrorLoadingCourses": "Network error while loading courses"
+      "networkErrorLoadingCourses": "Network error while loading courses",
+      "generatingCatalog": "Generating course catalog...",
+      "catalogDownloaded": "Catalog downloaded successfully!",
+      "catalogError": "Error generating catalog. Please try again."
+    },
+    "pdf": {
+      "slogan": "Software & Training Solutions",
+      "title": "Training Catalog",
+      "subtitle": "Professional and technological training courses",
+      "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",
+      "coursesTitle": "Our Courses",
+      "upcomingCourses": "Upcoming Courses",
+      "date": "Date:",
+      "time": "Time:",
+      "location": "Location:",
+      "price": "Price:",
+      "free": "Free",
+      "capacity": "Capacity:",
+      "people": "people",
+      "contactTitle": "Contact Information",
+      "email": "Email:",
+      "website": "Website:",
+      "specialization": "Specialization:",
+      "specializationText": "Software Development and Technology Training",
+      "filename": "Ordinaly_Training_Catalog.pdf"
     },
     "courseDetails": {
       "title": "Course Details",
@@ -833,17 +940,37 @@
         "daily": "Daily",
         "weekly": "Weekly",
         "biweekly": "Biweekly",
-        "monthly": "Monthly",
-        "custom": "Custom schedule"
+        "monthly": "Monthly"
       },
       "weekdays": {
-        "monday": "Monday",
-        "tuesday": "Tuesday",
-        "wednesday": "Wednesday",
-        "thursday": "Thursday",
-        "friday": "Friday",
-        "saturday": "Saturday",
-        "sunday": "Sunday"
+        "monday": {
+          "short": "Mon",
+          "full": "Monday"
+        },
+        "tuesday": {
+          "short": "Tue",
+          "full": "Tuesday"
+        },
+        "wednesday": {
+          "short": "Wed",
+          "full": "Wednesday"
+        },
+        "thursday": {
+          "short": "Thu",
+          "full": "Thursday"
+        },
+        "friday": {
+          "short": "Fri",
+          "full": "Friday"
+        },
+        "saturday": {
+          "short": "Sat",
+          "full": "Saturday"
+        },
+        "sunday": {
+          "short": "Sun",
+          "full": "Sunday"
+        }
       }
     }
   },
@@ -900,5 +1027,20 @@
         "deleteConfirmRequired": "Please type your username to confirm"
       }
     }
+  },
+  "authModal": {
+    "welcome": "Welcome to Ordinaly",
+    "courseEnrollTitle": "Authentication Required",
+    "courseEnrollDescription": "Sign in or create an account to enroll in \"{courseTitle}\"",
+    "generalDescription": "Join our community to access exclusive courses and services",
+    "signIn": {
+      "title": "Sign In",
+      "description": "Already have an account? Welcome back!"
+    },
+    "signUp": {
+      "title": "Sign Up",
+      "description": "New to Ordinaly? Create your account"
+    },
+    "termsText": "By continuing, you agree to our Terms of Service and Privacy Policy"
   }
 }

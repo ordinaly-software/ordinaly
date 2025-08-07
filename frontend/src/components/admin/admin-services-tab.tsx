@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,40 +9,54 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
+import { getApiEndpoint } from "@/lib/api-config";
 import { 
   Plus, 
   Edit, 
   Trash2, 
   Search,
   Star,
+  Eye,
 } from "lucide-react";
 import { IconSelect, renderIcon } from "@/components/ui/icon-select";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
+import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { servicesEvents } from "@/lib/events";
-
-interface Service {
-  id: number;
-  title: string;
-  subtitle?: string;
-  description: string;
-  icon: string;
-  duration?: number;
-  price?: string | null;
-  is_featured: boolean;
-  created_at: string;
-  updated_at: string;
-}
+import { Service, useServices } from "@/hooks/useServices";
+import { truncateHtmlText } from "@/utils/text";
 
 const AdminServicesTab = () => {
   const t = useTranslations("admin.services");
   const tAdmin = useTranslations("admin");
-  const [services, setServices] = useState<Service[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { services, isLoading, refetch } = useServices();
+
+  // Color choices matching backend
+  const COLOR_CHOICES = [
+    { value: '1A1924', label: 'Dark Purple', color: '#1A1924', darkModeColor: '#efefefbb' },
+    { value: '623CEA', label: 'Purple', color: '#623CEA', darkModeColor: '#8B5FF7' },
+    { value: '46B1C9', label: 'Cyan', color: '#46B1C9' },
+    { value: '29BF12', label: 'Green', color: '#29BF12' },
+    { value: 'E4572E', label: 'Orange', color: '#E4572E' },
+  ];
+
+  // Function to get the appropriate color for dark/light mode
+  const getServiceColor = (service: Service, isDarkMode: boolean = false) => {
+    const colorChoice = COLOR_CHOICES.find(choice => choice.value === service.color);
+    if (!colorChoice) return service.color_hex;
+    
+    if (isDarkMode && colorChoice.darkModeColor) {
+      return colorChoice.darkModeColor;
+    }
+    return colorChoice.color;
+  };
+
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedServices, setSelectedServices] = useState<number[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showServiceModal, setShowServiceModal] = useState(false);
+  const [selectedServiceForModal, setSelectedServiceForModal] = useState<Service | null>(null);
   const [currentService, setCurrentService] = useState<Service | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -52,39 +66,11 @@ const AdminServicesTab = () => {
     subtitle: "",
     description: "",
     icon: "",
+    color: "29BF12", // Default to green
     duration: "",
     price: "",
     is_featured: false
   });
-
-  useEffect(() => {
-    fetchServices();
-  }, []);
-
-  const fetchServices = async () => {
-    try {
-      const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-      const response = await fetch(`${apiUrl}/api/services/`, {
-        headers: {
-          'Authorization': `Token ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setServices(Array.isArray(data) ? data : []);
-      } else {
-        setAlert({type: 'error', message: 'Failed to fetch services'});
-      }
-    } catch (error) {
-      console.error('Fetch error:', error);
-      setAlert({type: 'error', message: 'Network error while fetching services'});
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const resetForm = () => {
     setFormData({
@@ -92,6 +78,7 @@ const AdminServicesTab = () => {
       subtitle: "",
       description: "",
       icon: "",
+      color: "29BF12", // Default to green
       duration: "",
       price: "",
       is_featured: false
@@ -110,6 +97,7 @@ const AdminServicesTab = () => {
       subtitle: service.subtitle || "",
       description: service.description,
       icon: service.icon,
+      color: service.color || "29BF12", // Default to green if no color
       duration: service.duration?.toString() || "",
       price: service.price || "",
       is_featured: service.is_featured
@@ -128,6 +116,20 @@ const AdminServicesTab = () => {
       return;
     }
     setShowDeleteModal(true);
+  };
+
+  const handleServiceClick = (service: Service) => {
+    setSelectedServiceForModal(service);
+    setShowServiceModal(true);
+  };
+
+  const handleContact = () => {
+    // Simple WhatsApp contact functionality
+    const message = selectedServiceForModal 
+      ? `Hola, estoy interesado en el servicio "${selectedServiceForModal.title}". ¿Podrían proporcionarme más información?`
+      : "Hola, me gustaría obtener más información sobre sus servicios.";
+    const whatsappUrl = `https://wa.me/34123456789?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const submitService = async (isEdit: boolean) => {
@@ -159,7 +161,6 @@ const AdminServicesTab = () => {
       }
 
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
       const payload = {
         ...formData,
@@ -168,8 +169,8 @@ const AdminServicesTab = () => {
       };
 
       const url = isEdit 
-        ? `${apiUrl}/api/services/${currentService?.id}/`
-        : `${apiUrl}/api/services/`;
+        ? getApiEndpoint(`/api/services/${currentService?.id}/`)
+        : getApiEndpoint('/api/services/');
       
       const method = isEdit ? 'PUT' : 'POST';
 
@@ -202,7 +203,7 @@ const AdminServicesTab = () => {
           }, 2000);
         }
         
-        fetchServices();
+        refetch();
         setShowCreateModal(false);
         setShowEditModal(false);
         resetForm();
@@ -243,12 +244,11 @@ const AdminServicesTab = () => {
     setIsDeleting(true);
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
 
       if (selectedServices.length > 0) {
         // Bulk delete
         const deletePromises = selectedServices.map(id =>
-          fetch(`${apiUrl}/api/services/${id}/`, {
+          fetch(getApiEndpoint(`/api/services/${id}/`), {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${token}`,
@@ -273,7 +273,7 @@ const AdminServicesTab = () => {
         setSelectedServices([]);
       } else if (currentService) {
         // Single delete
-        const response = await fetch(`${apiUrl}/api/services/${currentService.id}/`, {
+        const response = await fetch(getApiEndpoint(`/api/services/${currentService.id}/`), {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,
@@ -289,7 +289,7 @@ const AdminServicesTab = () => {
         }
       }
 
-      fetchServices();
+      refetch();
       setShowDeleteModal(false);
     } catch (error) {
       console.error('Delete error:', error);
@@ -328,7 +328,7 @@ const AdminServicesTab = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#29BF12]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
       </div>
     );
   }
@@ -371,7 +371,7 @@ const AdminServicesTab = () => {
           )}
           <Button
             onClick={handleCreate}
-            className="bg-[#29BF12] hover:bg-[#22A010] text-white flex items-center space-x-1"
+            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center space-x-1"
           >
             <Plus className="h-4 w-4" />
             <span>Add Service</span>
@@ -392,53 +392,99 @@ const AdminServicesTab = () => {
               type="checkbox"
               checked={selectedServices.length === filteredServices.length && filteredServices.length > 0}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+              className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               Select All ({filteredServices.length} services)
             </span>
           </div>
 
-          {filteredServices.map((service) => (
-            <Card key={service.id} className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          {filteredServices.map((service) => {
+            const isDarkMode = document.documentElement.classList.contains('dark');
+            const serviceColor = getServiceColor(service, isDarkMode);
+            
+            return (
+            <Card 
+              key={service.id} 
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg"
+              style={{
+                '--hover-border-color': serviceColor,
+                '--hover-shadow-color': `${serviceColor}10`
+              } as React.CSSProperties}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = serviceColor;
+                e.currentTarget.style.boxShadow = `0 10px 25px -12px ${serviceColor}15`;
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = '';
+                e.currentTarget.style.boxShadow = '';
+              }}
+            >
               <CardContent className="p-4">
                 <div className="flex items-start space-x-4">
                   <input
                     type="checkbox"
                     checked={selectedServices.includes(service.id)}
                     onChange={() => toggleServiceSelection(service.id)}
-                    className="mt-1 rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+                    className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
-                      <div className="flex-1">
+                      <div 
+                        className="flex-1 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg p-2 -m-2 transition-colors duration-200"
+                        onClick={() => handleServiceClick(service)}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleServiceClick(service);
+                          }
+                        }}
+                      >
                         <div className="flex items-center space-x-2">
                           {service.icon && (
-                            <div className="w-8 h-8 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                              {renderIcon(service.icon, "w-4 h-4 text-gray-600 dark:text-gray-400")}
+                            <div 
+                              className="w-8 h-8 rounded-lg flex items-center justify-center"
+                              style={{ backgroundColor: `${serviceColor}10` }}
+                            >
+                              <div style={{ color: serviceColor }}>
+                                {renderIcon(service.icon, "w-4 h-4")}
+                              </div>
                             </div>
                           )}
                           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                             {service.title}
                           </h3>
                           {service.is_featured && (
-                            <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                            <Star className="h-4 w-4 fill-current" style={{ color: serviceColor }} />
                           )}
                         </div>
                         <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                           {service.subtitle}
                         </p>
-                        <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-                          {service.description}
-                        </p>
+                        <div 
+                          className="text-sm text-gray-700 dark:text-gray-300 mb-2 prose prose-sm max-w-none dark:prose-invert prose-table:text-xs prose-thead:border-b prose-thead:border-gray-300 dark:prose-thead:border-gray-600 prose-tbody:divide-y prose-tbody:divide-gray-200 dark:prose-tbody:divide-gray-700 prose-td:py-1 prose-td:px-2 prose-th:py-1 prose-th:px-2 prose-th:font-semibold prose-th:text-left prose-table:border prose-table:border-gray-200 dark:prose-table:border-gray-700"
+                          dangerouslySetInnerHTML={{ 
+                            __html: truncateHtmlText(service.description, 120) 
+                          }}
+                        />
                         <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                          <span>{tAdmin("labels.price")}: {service.price ? `€${service.price}` : t("form.contactForQuote") || 'Contact for quote'}</span>
-                          {service.duration && <span>{tAdmin("labels.duration")}: {service.duration} {service.duration === 1 ? t("home.services.durationDay") : t("home.services.durationDays", { count: service.duration })}</span>}
+                          <span>{tAdmin("labels.price")}: {service.price ? `€${Math.round(Number(service.price))}` : t("form.contactForQuote") || 'Contact for quote'}</span>
+                          {service.duration && <span>{tAdmin("labels.duration")}: {service.duration === 1 ? t("durationDay") : t("durationDays", { count: service.duration })}</span>}
                           <span>{tAdmin("labels.icon")}: {service.icon}</span>
                           <span>{tAdmin("labels.created")}: {new Date(service.created_at).toLocaleDateString()}</span>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2 ml-4">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => handleServiceClick(service)}
+                          className="text-gray-600 hover:text-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
                         <Button
                           variant="ghost"
                           size="sm"
@@ -461,7 +507,8 @@ const AdminServicesTab = () => {
                 </div>
               </CardContent>
             </Card>
-          ))}
+            );
+          })}
         </div>
       )}
 
@@ -475,13 +522,14 @@ const AdminServicesTab = () => {
         }}
         title={showEditModal ? t("editService") : t("createService")}
         showHeader={true}
+        className="max-w-4xl w-full mx-4"
       >
-        <div className="space-y-6 max-h-[70vh] overflow-y-auto">
+        <div className="space-y-6 max-h-[80vh] overflow-y-auto">
           {/* Service Title */}
           <div className="space-y-3">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#29BF12]/10 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-[#29BF12]">S</span>
+              <div className="w-5 h-5 bg-[#22A60D]/10 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-[#22A60D]">S</span>
               </div>
               <span>{t("form.title")} *</span>
             </Label>
@@ -490,7 +538,7 @@ const AdminServicesTab = () => {
               value={formData.title}
               onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
               placeholder={t("form.titlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-[#29BF12] focus:ring-[#29BF12]/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
               required
             />
           </div>
@@ -519,17 +567,20 @@ const AdminServicesTab = () => {
               <div className="w-5 h-5 bg-purple-100 dark:bg-purple-900/30 rounded flex items-center justify-center">
                 <Edit className="w-3 h-3 text-purple-600 dark:text-purple-400" />
               </div>
-              <span>{t("form.description")} *</span>
+              <span>{t("form.description")} * (HTML supported)</span>
             </Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(prev => ({...prev, description: e.target.value}))}
-              placeholder={t("form.descriptionPlaceholder")}
-              rows={4}
-              className="border-gray-300 focus:border-purple-500 focus:ring-purple-500/20 rounded-lg transition-all duration-200 resize-none"
+              placeholder="Enter service description with HTML support (e.g., <strong>bold</strong>, <table><tr><td>tables</td></tr></table>)"
+              rows={8}
+              className="border-gray-300 focus:border-purple-500 focus:ring-purple-500/20 rounded-lg transition-all duration-200 resize-none font-mono text-sm"
               required
             />
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              Supported HTML tags: &lt;p&gt;, &lt;div&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;, &lt;br&gt;, &lt;a&gt;, &lt;table&gt;, &lt;tr&gt;, &lt;td&gt;, &lt;th&gt;, &lt;thead&gt;, &lt;tbody&gt;
+            </div>
           </div>
 
           {/* Icon and Featured Status */}
@@ -569,6 +620,51 @@ const AdminServicesTab = () => {
             </div>
           </div>
 
+          {/* Service Color */}
+          <div className="space-y-3">
+            <Label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <div className="w-5 h-5 bg-pink-100 dark:bg-pink-900/30 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-pink-600 dark:text-pink-400">🎨</span>
+              </div>
+              <span>Service Color *</span>
+            </Label>
+            <div className="flex flex-wrap gap-2 justify-start">
+              {COLOR_CHOICES.map((colorChoice) => {
+                const getColorClasses = () => {
+                  if (colorChoice.value === '1A1924') {
+                    return 'bg-[#1A1924] dark:bg-[#efefef] text-white dark:text-black';
+                  } else if (colorChoice.value === '623CEA') {
+                    return 'bg-[#623CEA] dark:bg-[#8B5FF7] text-white';
+                  } else {
+                    return `bg-[${colorChoice.color}] text-white`;
+                  }
+                };
+                
+                return (
+                  <button
+                    key={colorChoice.value}
+                    type="button"
+                    onClick={() => setFormData(prev => ({...prev, color: colorChoice.value}))}
+                    className={`relative w-20 h-12 rounded-md transition-all duration-200 flex items-center justify-center text-xs font-medium border-2 ${
+                      formData.color === colorChoice.value 
+                        ? 'border-gray-400 dark:border-gray-500 shadow-lg transform scale-105' 
+                        : 'border-transparent hover:shadow-md hover:scale-102'
+                    } ${getColorClasses()}`}
+                  >
+                    <div className="text-center">
+                      <div className="text-xs font-bold leading-tight">{colorChoice.label}</div>
+                    </div>
+                    {formData.color === colorChoice.value && (
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-md border border-gray-200 dark:border-gray-600">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Duration and Featured Status */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
@@ -602,7 +698,7 @@ const AdminServicesTab = () => {
                   id="is_featured"
                   checked={formData.is_featured}
                   onChange={(e) => setFormData(prev => ({...prev, is_featured: e.target.checked}))}
-                  className="w-5 h-5 rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12] transition-colors"
+                  className="w-5 h-5 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] transition-colors"
                 />
                 <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer">
                   {t("form.featured")}
@@ -626,7 +722,7 @@ const AdminServicesTab = () => {
             </Button>
             <Button
               onClick={() => submitService(showEditModal)}
-              className="px-6 py-2 bg-[#29BF12] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+              className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
             >
               <span>{showEditModal ? t("form.update") : t("form.create")}</span>
               {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
@@ -649,6 +745,17 @@ const AdminServicesTab = () => {
         confirmText={t("confirmDelete.delete")}
         cancelText={t("confirmDelete.cancel")}
         isLoading={isDeleting}
+      />
+
+      {/* Service Details Modal */}
+      <ServiceDetailsModal
+        service={selectedServiceForModal}
+        isOpen={showServiceModal}
+        onClose={() => {
+          setShowServiceModal(false);
+          setSelectedServiceForModal(null);
+        }}
+        onContact={handleContact}
       />
     </div>
   );

@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
+import { getApiEndpoint } from "@/lib/api-config";
 import { 
   Plus, 
   Edit, 
@@ -21,6 +22,7 @@ import {
 } from "lucide-react";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
+import { Dropdown } from "@/components/ui/dropdown";
 
 interface Term {
   id: number;
@@ -54,7 +56,6 @@ const AdminTermsTab = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [availableTags, setAvailableTags] = useState<{value: string, label: string}[]>([]);
-  const [showTagDropdown, setShowTagDropdown] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -66,26 +67,12 @@ const AdminTermsTab = () => {
   useEffect(() => {
     fetchTerms();
     fetchAvailableTags();
-    
-    // Close dropdown when clicking outside
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (!target.closest('[data-tag-dropdown]')) {
-        setShowTagDropdown(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
   }, []);
 
   const fetchAvailableTags = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-      const response = await fetch(`${apiUrl}/api/terms/available_tags/`, {
+      const response = await fetch(getApiEndpoint('/api/terms/available_tags/'), {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json',
@@ -96,7 +83,7 @@ const AdminTermsTab = () => {
         const data = await response.json();
         setAvailableTags(data.available_tags || []);
       } else {
-        console.error('Failed to fetch available tags');
+        console.log('No available tags');
       }
     } catch (error) {
       console.error('Error fetching available tags:', error);
@@ -106,8 +93,7 @@ const AdminTermsTab = () => {
   const fetchTerms = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-      const response = await fetch(`${apiUrl}/api/terms/`, {
+      const response = await fetch(getApiEndpoint('/api/terms/'), {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json',
@@ -139,7 +125,6 @@ const AdminTermsTab = () => {
       tag: ""
     });
     setSelectedFile(null);
-    setShowTagDropdown(false);
     fetchAvailableTags(); // Refresh available tags
   };
 
@@ -206,7 +191,6 @@ const AdminTermsTab = () => {
       }
 
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
       const formDataToSend = new FormData();
       formDataToSend.append('name', formData.name);
@@ -219,8 +203,8 @@ const AdminTermsTab = () => {
       }
 
       const url = isEdit 
-        ? `${apiUrl}/api/terms/${currentTerm?.id}/`
-        : `${apiUrl}/api/terms/`;
+        ? getApiEndpoint(`/api/terms/${currentTerm?.id}/`)
+        : getApiEndpoint('/api/terms/');
       
       const method = isEdit ? 'PUT' : 'POST';
 
@@ -273,12 +257,11 @@ const AdminTermsTab = () => {
     setIsDeleting(true);
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
 
       if (selectedTerms.length > 0) {
         // Bulk delete
         const deletePromises = selectedTerms.map(id =>
-          fetch(`${apiUrl}/api/terms/${id}/`, {
+          fetch(getApiEndpoint(`/api/terms/${id}/`), {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${token}`,
@@ -298,7 +281,7 @@ const AdminTermsTab = () => {
         setSelectedTerms([]);
       } else if (currentTerm) {
         // Single delete
-        const response = await fetch(`${apiUrl}/api/terms/${currentTerm.id}/`, {
+        const response = await fetch(getApiEndpoint(`/api/terms/${currentTerm.id}/`), {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,
@@ -326,9 +309,8 @@ const AdminTermsTab = () => {
   const downloadPDF = async (term: Term) => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
       
-      const response = await fetch(`${apiUrl}/api/terms/${term.id}/download/`, {
+      const response = await fetch(getApiEndpoint(`/api/terms/${term.id}/download/`), {
         headers: {
           'Authorization': `Token ${token}`,
         },
@@ -382,7 +364,7 @@ const AdminTermsTab = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#29BF12]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
       </div>
     );
   }
@@ -426,7 +408,7 @@ const AdminTermsTab = () => {
           <Button
             onClick={handleCreate}
             disabled={availableTags.length === 0}
-            className="bg-[#29BF12] hover:bg-[#22A010] text-white flex items-center space-x-1 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center space-x-1 disabled:bg-gray-400 disabled:cursor-not-allowed"
             title={availableTags.length === 0 ? t("form.allTagsUsedTitle") : ""}
           >
             <Plus className="h-4 w-4" />
@@ -448,7 +430,7 @@ const AdminTermsTab = () => {
               type="checkbox"
               checked={selectedTerms.length === filteredTerms.length && filteredTerms.length > 0}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+              className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               Select All ({filteredTerms.length} terms)
@@ -463,7 +445,7 @@ const AdminTermsTab = () => {
                     type="checkbox"
                     checked={selectedTerms.includes(term.id)}
                     onChange={() => toggleTermSelection(term.id)}
-                    className="mt-1 rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+                    className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
                   />
                   
                   {/* Term Icon */}
@@ -550,8 +532,8 @@ const AdminTermsTab = () => {
           {/* Term Name */}
           <div className="space-y-3">
             <Label htmlFor="name" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#29BF12]/10 rounded flex items-center justify-center">
-                <FileText className="w-3 h-3 text-[#29BF12]" />
+              <div className="w-5 h-5 bg-[#22A60D]/10 rounded flex items-center justify-center">
+                <FileText className="w-3 h-3 text-[#22A60D]" />
               </div>
               <span>{t("form.name")} *</span>
             </Label>
@@ -560,7 +542,7 @@ const AdminTermsTab = () => {
               value={formData.name}
               onChange={(e) => setFormData(prev => ({...prev, name: e.target.value}))}
               placeholder={t("form.namePlaceholder")}
-              className="h-12 border-gray-300 focus:border-[#29BF12] focus:ring-[#29BF12]/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
               required
             />
           </div>
@@ -625,44 +607,28 @@ const AdminTermsTab = () => {
                 </div>
               ) : (
                 // Modern custom dropdown when creating new
-                <div className="relative" data-tag-dropdown>
-                  <button
-                    type="button"
-                    onClick={() => setShowTagDropdown(!showTagDropdown)}
-                    disabled={availableTags.length === 0}
-                    className="h-12 w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 text-left flex items-center justify-between focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed hover:border-orange-400"
-                  >
-                    <span className="text-gray-900 dark:text-white">
-                      {formData.tag ? getTagLabel(formData.tag) : (availableTags.length === 0 ? t("form.noAvailableTags") : t("form.selectTag"))}
-                    </span>
-                    <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${showTagDropdown ? 'rotate-180' : ''}`} />
-                  </button>
-                  
-                  {showTagDropdown && availableTags.length > 0 && (
-                    <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg">
-                      <div className="py-1">
-                        {availableTags.map((tag) => (
-                          <button
-                            key={tag.value}
-                            type="button"
-                            onClick={() => {
-                              setFormData(prev => ({...prev, tag: tag.value}));
-                              setShowTagDropdown(false);
-                            }}
-                            className="w-full px-4 py-3 text-left hover:bg-orange-50 dark:hover:bg-orange-900/20 focus:bg-orange-50 dark:focus:bg-orange-900/20 focus:outline-none transition-colors duration-150"
-                          >
-                            <div className="flex items-center space-x-3">
-                              <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                              <span className="text-gray-900 dark:text-white font-medium">
-                                {getTagLabel(tag.value)}
-                              </span>
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+                <Dropdown
+                  options={availableTags}
+                  value={formData.tag || ''}
+                  onChange={(value) => setFormData(prev => ({...prev, tag: value}))}
+                  placeholder={availableTags.length === 0 ? t("form.noAvailableTags") : t("form.selectTag")}
+                  disabled={availableTags.length === 0}
+                  theme="orange"
+                  width="100%"
+                  renderTrigger={({ isOpen, selectedOption, onClick, disabled }) => (
+                    <button
+                      type="button"
+                      onClick={onClick}
+                      disabled={disabled}
+                      className="h-12 w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 text-left flex items-center justify-between focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed hover:border-orange-400"
+                    >
+                      <span className="text-gray-900 dark:text-white">
+                        {selectedOption?.label || (availableTags.length === 0 ? t("form.noAvailableTags") : t("form.selectTag"))}
+                      </span>
+                      <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                    </button>
                   )}
-                </div>
+                />
               )}
               {availableTags.length === 0 && !showEditModal && (
                 <p className="text-sm text-amber-600 dark:text-amber-400 flex items-center space-x-2">
@@ -683,7 +649,7 @@ const AdminTermsTab = () => {
               </div>
               <span>{t("form.pdfVersion")}</span>
             </Label>
-            <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 transition-all duration-200 hover:border-[#29BF12] hover:bg-[#29BF12]/5">
+            <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 transition-all duration-200 hover:border-[#22A60D] hover:bg-[#22A60D]/5">
               <input
                 type="file"
                 id="pdf"
@@ -717,7 +683,7 @@ const AdminTermsTab = () => {
                         type="button"
                         variant="outline"
                         onClick={() => document.getElementById('pdf')?.click()}
-                        className="border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white transition-all duration-200"
+                        className="border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-200"
                       >
                         {t("form.choosePdf")}
                       </Button>
@@ -744,7 +710,7 @@ const AdminTermsTab = () => {
             </Button>
             <Button
               onClick={() => submitTerm(showEditModal)}
-              className="px-6 py-2 bg-[#29BF12] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+              className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
             >
               <span>{showEditModal ? t("form.update") : t("form.create")}</span>
               {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}

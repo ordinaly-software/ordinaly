@@ -2,13 +2,22 @@ from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from decimal import Decimal
+import markdown
 
 
 class Service(models.Model):
+    # Color choices for service theming
+    COLOR_CHOICES = [
+        ('1A1924', 'Dark Purple (#1A1924)'),
+        ('623CEA', 'Purple (#623CEA)'),
+        ('46B1C9', 'Cyan (#46B1C9)'),
+        ('29BF12', 'Green (#29BF12)'),
+        ('E4572E', 'Orange (#E4572E)'),
+    ]
     # Common Lucide React icons for services
     ICON_CHOICES = [
         ('Bot', 'Bot'),
-        ('Workflow', 'Workflow'), 
+        ('Workflow', 'Workflow'),
         ('Zap', 'Zap'),
         ('Users', 'Users'),
         ('TrendingUp', 'TrendingUp'),
@@ -23,7 +32,7 @@ class Service(models.Model):
         ('Database', 'Database'),
         ('Cloud', 'Cloud'),
         ('Lightbulb', 'Lightbulb'),
-        ('Target', 'Target'),  
+        ('Target', 'Target'),
         ('Rocket', 'Rocket'),
         ('Monitor', 'Monitor'),
         ('Headphones', 'Headphones'),
@@ -140,7 +149,16 @@ class Service(models.Model):
 
     title = models.CharField(max_length=100)
     subtitle = models.CharField(max_length=200)
-    description = models.TextField(max_length=500)
+    description = models.TextField(
+        max_length=2000,
+        help_text="Markdown content that will be converted to HTML for display"
+    )
+    color = models.CharField(
+        max_length=6,
+        choices=COLOR_CHOICES,
+        default='29BF12',
+        help_text="Theme color for the service card"
+    )
     icon = models.CharField(max_length=50, choices=ICON_CHOICES, help_text="Lucide React icon name")
     duration = models.PositiveIntegerField(
         validators=[MinValueValidator(1)],
@@ -164,6 +182,32 @@ class Service(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_clean_description(self):
+        """Return description with Markdown formatting removed for plain text display"""
+        # Convert markdown to HTML first, then strip HTML tags
+        html_content = markdown.markdown(self.description)
+        # Remove HTML tags using regex as strip_tags is not available
+        import re
+        clean_text = re.sub('<[^<]+?>', '', html_content)
+        return clean_text.strip()
+
+    def get_html_description(self):
+        """Convert Markdown description to HTML for display"""
+        return markdown.markdown(
+            self.description,
+            extensions=['codehilite', 'tables', 'fenced_code', 'nl2br'],
+            extension_configs={
+                'codehilite': {
+                    'css_class': 'highlight',
+                    'use_pygments': True
+                }
+            }
+        )
+
+    def get_color_display(self):
+        """Return the color value prefixed with # for CSS usage"""
+        return f"#{self.color}"
 
     class Meta:
         ordering = ['-is_featured', 'title']

@@ -9,6 +9,7 @@ from users.models import CustomUser
 from terms.models import Terms
 from courses.models import Course
 from services.models import Service
+from PIL import ImageDraw, ImageFont
 
 User = get_user_model()
 
@@ -87,7 +88,7 @@ class Command(BaseCommand):
         # Only delete users that were created by this script (not manually created superusers)
         try:
             CustomUser.objects.filter(email__in=[
-                'admin@ordinaly.com',
+                'admin@ordinaly.ai',
                 'john.doe@example.com',
                 'jane.smith@example.com',
                 'carlos.garcia@example.com',
@@ -114,7 +115,7 @@ class Command(BaseCommand):
         # Create admin user (or use existing one)
         admin, created = CustomUser.objects.get_or_create(
             username='demo_admin',
-            email='admin@ordinaly.com',
+            email='admin@ordinaly.ai',
             defaults={
                 'name': 'Demo Admin',
                 'surname': 'User',
@@ -367,7 +368,7 @@ For questions about this license, please contact our legal department.''',
             svg_content = f'''<?xml version="1.0" encoding="UTF-8"?>
 <svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">
   <rect width="100%" height="100%" fill="rgb({color[0]},{color[1]},{color[2]})"/>
-  <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white" 
+  <text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="white"
         font-family="Arial, sans-serif" font-size="24" font-weight="bold">
     {course_name}
   </text>
@@ -376,8 +377,6 @@ For questions about this license, please contact our legal department.''',
 
         try:
             # Create a proper JPEG image with text
-            from PIL import ImageDraw, ImageFont  # noqa
-
             image = Image.new('RGB', (width, height), color)
             draw = ImageDraw.Draw(image)
 
@@ -556,8 +555,14 @@ For questions about this license, please contact our legal department.''',
                 'subtitle': 'Modern responsive websites',
                 'description': (
                     'Professional web development services tailored to your business needs. '
-                    'We create responsive, modern websites using the latest technologies.'
+                    'We create **responsive**, modern websites using the latest technologies.\n\n'
+                    '### Technologies We Use:\n'
+                    '- HTML5 & CSS3\n'
+                    '- JavaScript & TypeScript\n'
+                    '- React & Next.js\n\n'
+                    '*Perfect for businesses looking to establish their online presence.*'
                 ),
+                'color': '29BF12',
                 'icon': 'Globe',
                 'duration': 160,
                 'price': Decimal('2500.00'),
@@ -568,8 +573,15 @@ For questions about this license, please contact our legal department.''',
                 'subtitle': 'iOS and Android applications',
                 'description': (
                     'Native and cross-platform mobile application development for iOS and Android. '
-                    'From concept to deployment.'
+                    'From *concept* to deployment.\n\n'
+                    '## What we offer:\n'
+                    '1. **Native iOS & Android apps**\n'
+                    '2. **React Native solutions**\n'
+                    '3. **Flutter development**\n'
+                    '4. **App Store submission**\n\n'
+                    '> Transform your ideas into powerful mobile experiences.'
                 ),
+                'color': '623CEA',
                 'icon': 'Smartphone',
                 'duration': 200,
                 'price': Decimal('3500.00'),
@@ -579,9 +591,18 @@ For questions about this license, please contact our legal department.''',
                 'title': 'UI/UX Design',
                 'subtitle': 'User-centered design solutions',
                 'description': (
-                    'User-centered design services that create intuitive and engaging '
-                    'digital experiences for your customers.'
+                    'User-centered design services that create **intuitive** and engaging '
+                    'digital experiences for your customers.\n\n'
+                    '> "Good design is not just what it looks like – good design is how it works."\n'
+                    '> — *Steve Jobs*\n\n'
+                    '### Our Design Process:\n'
+                    '1. User research\n'
+                    '2. Wireframing\n'
+                    '3. Prototyping\n'
+                    '4. Testing\n\n'
+                    'Creating designs that **convert** and **delight** users.'
                 ),
+                'color': '46B1C9',
                 'icon': 'Palette',
                 'duration': 80,
                 'price': Decimal('1200.00'),
@@ -592,8 +613,18 @@ For questions about this license, please contact our legal department.''',
                 'subtitle': 'Seamless cloud transformation',
                 'description': (
                     'Seamlessly migrate your applications and data to the cloud '
-                    'with our expert cloud migration services.'
+                    'with our expert cloud migration services.\n\n'
+                    '### Cloud Platforms:\n'
+                    '- **AWS** - Amazon Web Services\n'
+                    '- **Azure** - Microsoft Cloud\n'
+                    '- **GCP** - Google Cloud Platform\n\n'
+                    '*Security and scalability guaranteed.*\n\n'
+                    '**Benefits:**\n'
+                    '- Reduced infrastructure costs\n'
+                    '- Enhanced security\n'
+                    '- Improved scalability'
                 ),
+                'color': '1A1924',
                 'icon': 'Cloud',
                 'duration': 120,
                 'price': Decimal('4000.00'),
@@ -603,9 +634,16 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Technical Consulting',
                 'subtitle': 'Strategic technology guidance',
                 'description': (
-                    'Strategic technology consulting to help you make informed decisions '
-                    'about your digital transformation.'
+                    'Strategic technology consulting to help you make **informed decisions** '
+                    'about your digital transformation.\n\n'
+                    '### Our expertise covers:\n'
+                    '- Architecture review\n'
+                    '- Technology stack selection\n'
+                    '- Performance optimization\n'
+                    '- Security assessment\n\n'
+                    '> Making technology work *for* your business, not against it.'
                 ),
+                'color': 'E4572E',
                 'icon': 'Lightbulb',
                 'duration': 40,
                 'price': Decimal('800.00'),
@@ -616,8 +654,16 @@ For questions about this license, please contact our legal department.''',
                 'subtitle': 'Streamlined development workflows',
                 'description': (
                     'Implement DevOps practices to improve your development workflow, '
-                    'deployment process, and system reliability.'
+                    'deployment process, and system **reliability**.\n\n'
+                    '### DevOps Services:\n'
+                    '- CI/CD Pipeline setup\n'
+                    '- Infrastructure as Code\n'
+                    '- Monitoring & Logging\n'
+                    '- Container orchestration\n\n'
+                    '**Technologies:** `docker`, `kubernetes`, `terraform`\n\n'
+                    '*Automate your way to success.*'
                 ),
+                'color': '623CEA',
                 'icon': 'Settings',
                 'duration': 100,
                 'price': Decimal('2000.00'),
@@ -627,9 +673,21 @@ For questions about this license, please contact our legal department.''',
                 'title': 'API Development',
                 'subtitle': 'Robust system integrations',
                 'description': (
-                    'Design and develop robust, scalable APIs that integrate '
-                    'seamlessly with your existing systems.'
+                    'Design and develop **robust**, scalable APIs that integrate '
+                    'seamlessly with your existing systems.\n\n'
+                    '### API Technologies:\n'
+                    '- RESTful APIs\n'
+                    '- GraphQL\n'
+                    '- gRPC\n'
+                    '- WebSocket\n\n'
+                    '*Documentation and testing included.*\n\n'
+                    '**Features:**\n'
+                    '- Comprehensive documentation\n'
+                    '- Automated testing\n'
+                    '- Rate limiting\n'
+                    '- Authentication & authorization'
                 ),
+                'color': '46B1C9',
                 'icon': 'Code',
                 'duration': 80,
                 'price': Decimal('1500.00'),
@@ -639,9 +697,17 @@ For questions about this license, please contact our legal department.''',
                 'title': 'Database Optimization',
                 'subtitle': 'Performance and reliability',
                 'description': (
-                    'Optimize your database performance and ensure data integrity '
-                    'with our database management services.'
+                    'Optimize your database performance and ensure data **integrity** '
+                    'with our database management services.\n\n'
+                    '### Database Expertise:\n'
+                    '- PostgreSQL optimization\n'
+                    '- MySQL tuning\n'
+                    '- MongoDB scaling\n'
+                    '- Redis caching\n\n'
+                    '*24/7 monitoring and support available*\n\n'
+                    '> **Performance improvements** up to 10x faster query execution.'
                 ),
+                'color': '29BF12',
                 'icon': 'Database',
                 'duration': 60,
                 'price': Decimal('1000.00'),

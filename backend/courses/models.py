@@ -245,7 +245,7 @@ class Course(models.Model):
 
                 ics_content.extend([
                     "BEGIN:VEVENT",
-                    f"UID:course-{self.id}-{i}@ordinaly.com",
+                    f"UID:course-{self.id}-{i}@ordinaly.ai",
                     f"DTSTART:{start_datetime}",
                     f"DTEND:{end_datetime}",
                     f"SUMMARY:{self.title}",

@@ -1,0 +1,1045 @@
+{
+  "home": {
+    "logo": {
+      "alt": "Logotip d'Ordinaly",
+      "title": "Ordinaly"
+    },
+    "navigation": {
+      "home": "Coneix -nos!",
+      "services": "Serveis",
+      "formation": "Formació",
+      "start": "Comenceu",
+      "darkMode": "Canvieu al mode fosc",
+      "lightMode": "Canvieu al mode de llum",
+      "localeSwitcher": "Canviar el llenguatge",
+      "openMenu": "Obriu el menú",
+      "closeMenu": "Tanca el menú",
+      "signIn": "Inicieu la sessió",
+      "signUp": "Inscriviu -vos!",
+      "signOut": "Inscriure's",
+      "userMenu": "Menú de l'usuari",
+      "adminDashboard": "Tauler de control d'administració",
+      "profile": "Perfil"
+    },
+    "hero": {
+      "title": "Automatitzar",
+      "subtitle": "El vostre negoci amb IA",
+      "description": "Transformem les empreses amb automatització intelligent. ",
+      "discoverButton": "Descobriu com",
+      "demoButton": "Demostració de vigilància"
+    },
+    "partners": {
+      "title": "Transformat per ordinaly"
+    },
+    "services": {
+      "title": "Els nostres serveis",
+      "description": "Solucions d'automatització dissenyades per augmentar i accelerar el vostre negoci.",
+      "contactForQuote": "Poseu -vos en contacte amb els nostres agents per obtenir un pressupost detallat",
+      "vacationMessage": "Actualment estem de vacances! ",
+      "vacationTitle": "De vacances",
+      "featured": "Destacada",
+      "duration": "Disponible a",
+      "durationDay": "1 dia",
+      "durationDays": "{count} dies",
+      "price": "Preu",
+      "created": "Creada",
+      "createdBy": "Creat per",
+      "requisites": "Requeriment",
+      "contactNow": "Poseu -vos en contacte ara",
+      "contactEmail": "Contacte per correu electrònic",
+      "viewDetails": "Veure detalls",
+      "chatbots": {
+        "title": "CHATBOTS SMART",
+        "description": "Automatitzeu l'assistència al client les 24 hores del dia amb IA de conversa avançada"
+      },
+      "workflows": {
+        "title": "Automatització de flux de treball",
+        "description": "Integració amb eines Odoo, Slack i Business"
+      },
+      "whatsapp": {
+        "title": "Negoci de WhatsApp",
+        "description": "Automatització de vendes i suport mitjançant API de WhatsApp Business"
+      },
+      "accessibility": {
+        "title": "Accessibilitat global",
+        "description": "Incorporem eines d'accessibilitat al vostre lloc web o aplicació per assegurar la seva inclusió al mercat digital."
+      },
+      "consulting": {
+        "title": "Consultor personalitzada",
+        "description": "Anàlisi i estratègia d'automatització adaptada al vostre negoci"
+      },
+      "optimization": {
+        "title": "Optimització contínua",
+        "description": "Monitorització i millora dels processos automatitzats"
+      },
+      "viewAllServices": "Consulteu tots els serveis"
+    },
+    "about": {
+      "title": "Dirigir la transformació digital a Andalusia",
+      "description1": "A Ordinaly, creiem que les empreses andaluses tenen el potencial de liderar la innovació tecnològica a Espanya i Europa. ",
+      "description2": "Treballem colze a colze amb les empreses locals per implementar solucions que no només milloren l'eficiència, sinó que també les posicionen com a líders de les seves indústries."
+    },
+    "technologies": {
+      "title": "Tecnologies alimentant els nostres serveis",
+      "description": "Utilitzem les últimes tecnologies d'AI i Automatització",
+      "odoo": {
+        "title": "Odoo",
+        "description": "ERP i automatització empresarial"
+      },
+      "whatsapp": {
+        "title": "Negoci de WhatsApp",
+        "description": "Automatització de vendes i suport"
+      },
+      "chatgpt": {
+        "title": "Openai",
+        "description": "IA conversacional avançada"
+      },
+      "gemini": {
+        "title": "API GEMINI",
+        "description": "IA generativa de Google"
+      },
+      "looker": {
+        "title": "Mirador",
+        "description": "Visualització de dades i BI"
+      },
+      "meta": {
+        "title": "API de desenvolupadors meta",
+        "description": "Serveis meta que ens ajuden amb les integracions de Cahtbot i WhatsApp"
+      }
+    },
+    "process": {
+      "title": "El nostre procés",
+      "description": "Un enfocament estructurat per transformar el vostre negoci pas a pas",
+      "step1": {
+        "title": "Anàlisi",
+        "description": "Avaluem els vostres processos actuals i identifiquem les oportunitats d'automatització"
+      },
+      "step2": {
+        "title": "Exigència",
+        "description": "Desenvolupem i integrem solucions personalitzades per al vostre negoci"
+      },
+      "step3": {
+        "title": "Optimització",
+        "description": "Supervisem i millorem contínuament el rendiment dels vostres sistemes"
+      }
+    },
+    "cta": {
+      "title1": "A punt per fer -ho ",
+      "title2": "accelerar",
+      "title3": " El vostre negoci?",
+      "description": "Proveu el nostre WhatsApp Chatbot i pregunteu -ho sobre els nostres serveis i tot el que us podem ajudar.",
+      "button": "Xateu ara!"
+    },
+    "demoModal": {
+      "title": "Demostració ordinaly",
+      "description": "Mireu com la nostra plataforma pot transformar el vostre negoci amb Automatització intelligent.",
+      "videoNotSupported": "El vostre navegador no admet aquest tipus de vídeo.",
+      "videoError": "Error reproduint el vídeo:"
+    },
+    "footer": {
+      "logo": {
+        "title": "Ordinaly",
+        "alt": "Logotip d'Ordinaly"
+      },
+      "description": "Transformació de les empreses andaluses amb intelligència i automatització artificials.",
+      "legal": {
+        "title": "Docs legals",
+        "terms": "Condicions del servei",
+        "privacy": "Política de privadesa",
+        "cookies": "Política de cookies",
+        "license": "Llicenciar"
+      },
+      "social": {
+        "title": "Segueix -nos!",
+        "tiktok": "Tiktok",
+        "instagram": "Instagram",
+        "linkedin": "LinkedIn"
+      },
+      "contact": {
+        "title": "Contacte",
+        "email": "ordinalysoftware@gmail.com",
+        "phone": "+34 626 27 08 06",
+        "location": "Andalusia, Espanya"
+      },
+      "copyright": "© 2025 Programari Ordinaly. "
+    },
+    "pricingPlans": {
+      "1": {
+        "title": "Assistència robòtica",
+        "features": [
+          "Chatbot web intelligent",
+          "Agent de WhatsApp alimentat per AI"
+        ]
+      },
+      "2": {
+        "title": "Automatització de vendes",
+        "features": [
+          "Tot en pla d'assistència robòtica",
+          "CRM automatitzat (usuaris, facturació, informes, comandes)",
+          "Notificacions automatitzades (correu electrònic/sms/whatsapp)"
+        ]
+      },
+      "3": {
+        "title": "Estratègia predictiva de l'AI",
+        "features": [
+          "Tot en el pla d'automatització de vendes",
+          "Assistents intelligents de diagnòstic i recomanació",
+          "Integració i automatització de fluxos de looker",
+          "Anàlisi predictiu i tendències del mercat",
+          "Eines web per a pressupostos ràpids"
+        ]
+      }
+    },
+    "defaultWhatsAppMessage": "Hola, voldria saber més sobre els serveis d'Ordinaly"
+  },
+  "common": {
+    "onVacation": "De vacances",
+    "vacationMessage": "Actualment estem de vacances! ",
+    "retry": "Torneu -ho a provar",
+    "learnMore": "Obteniu més informació",
+    "backToHome": "Tornar a casa"
+  },
+  "logoutModal": {
+    "title": "Confirmeu la sessió",
+    "message": "Esteu segur que voleu iniciar la sessió del vostre compte?",
+    "confirmButton": "Inscriure's",
+    "cancelButton": "Cancellar"
+  },
+  "cookie": {
+    "title": "Configuració de galetes",
+    "openCookieSettings": "Obriu la configuració de galetes",
+    "description": "Utilitzem cookies per millorar la vostra experiència, personalitzar el contingut i analitzar el trànsit. ",
+    "whatAre": "Què són les galetes?",
+    "whatAreDescription": "Les cookies són petits fitxers de text emmagatzemats al dispositiu quan visiteu un lloc web. ",
+    "acceptAll": "Accepta tot",
+    "rejectAll": "Rebutja tot",
+    "customize": "Personalitzeu la configuració",
+    "personalizeTitle": "Personalitzeu les vostres preferències de galetes",
+    "personalizeDescription": "Podeu habilitar o desactivar diferents tipus de galetes segons les vostres preferències.",
+    "necessary": "Galetes necessàries",
+    "necessaryDescription": "Aquestes cookies són essencials perquè el lloc web funcioni i no es poden desactivar.",
+    "necessaryAlways": "Sempre activat",
+    "functional": "Cookies funcionals",
+    "functionalDescription": "Activa la funcionalitat i la personalització millorades.",
+    "functionalExamples": "Preferències d'idiomes, configuració de l'usuari",
+    "analytics": "Cookies d'analítica",
+    "analyticsDescription": "Ajudeu -nos a comprendre com interaccionen els usuaris amb el lloc.",
+    "analyticsExamples": "Google Analytics, Mètriques de rendiment",
+    "marketing": "Màrqueting Cookies",
+    "marketingDescription": "Permeteu -nos mostrar anuncis més rellevants en funció dels vostres interessos.",
+    "marketingExamples": "Publicitat personalitzada, seguiment de campanyes",
+    "back": "Esquena",
+    "save": "Estalvieu preferències",
+    "footer": "Per obtenir més informació, consulteu el nostre ",
+    "privacy": "Política de privadesa",
+    "cookies": "Política de cookies"
+  },
+  "whatsapp": {
+    "openChat": "Obriu el xat de WhatsApp",
+    "tooltip": "Necessiteu ajuda?",
+    "title": "Xateja amb nosaltres",
+    "subtitle": "Assistent virtual",
+    "description": "Hola! ",
+    "canHelpWith": "Com puc ajudar -te?",
+    "help1": "Informació del servei",
+    "help2": "Consulta de preus",
+    "help3": "Disponibilitat i horaris",
+    "help4": "Suport tècnic",
+    "help5": "Cites personalitzades",
+    "startChat": "Comença a xerrar",
+    "responseTime": "Temps de resposta: menys de 5 minuts",
+    "status": "Disponible ara",
+    "defaultWhatsAppMessage": "Hola, voldria saber més sobre els serveis d'Ordinaly"
+  },
+  "signin": {
+    "title": "Inicieu la sessió al vostre compte Ordinaly",
+    "subtitle": "Benvingut de nou!",
+    "googleSignIn": "Continueu amb Google",
+    "form": {
+      "emailLabel": "Correu electrònic o nom d'usuari",
+      "emailPlaceholder": "Introduïu el vostre correu electrònic o nom d'usuari",
+      "passwordLabel": "Contrasenya",
+      "passwordPlaceholder": "Introduïu la vostra contrasenya",
+      "forgotPassword": "Heu oblidat la contrasenya?",
+      "submitButton": "Inicieu la sessió",
+      "submitButtonLoading": "Inici de sessió ...",
+      "signupPrompt": "No teniu cap compte?",
+      "signupLink": "Registrar -se",
+      "orContinueWith": "O continuar amb",
+      "continueWithGoogle": "Continueu amb Google"
+    },
+    "messages": {
+      "success": "Signat amb èxit! ",
+      "invalidCredentials": "Correu electrònic/nom d'usuari o contrasenya no vàlids",
+      "networkError": "Error de xarxa. ",
+      "fillAllFields": "Empleneu tots els camps",
+      "googleSignInError": "Va fallar la sessió de Google. "
+    }
+  },
+  "signup": {
+    "title": "Crea el teu compte",
+    "subtitle": "Empleneu el formulari per registrar -vos",
+    "googleSignUp": "Continueu amb Google",
+    "form": {
+      "title": "Formulari de registre",
+      "nameLabel": "Nom",
+      "namePlaceholder": "Introduïu el vostre nom",
+      "surnameLabel": "Nom",
+      "surnamePlaceholder": "Introduïu el vostre cognom",
+      "usernameLabel": "Nom d'usuari",
+      "usernamePlaceholder": "Trieu un nom d'usuari",
+      "emailLabel": "Adreça de correu electrònic",
+      "emailPlaceholder": "Introduïu el vostre correu electrònic",
+      "companyLabel": "Companyia",
+      "companyPlaceholder": "Introduïu el nom de la vostra empresa",
+      "regionLabel": "Regió",
+      "regionPlaceholder": "Introduïu la vostra regió (opcional)",
+      "cityLabel": "Ciutat",
+      "cityPlaceholder": "Entra a la teva ciutat (opcional)",
+      "passwordLabel": "Contrasenya",
+      "passwordPlaceholder": "Introduïu la vostra contrasenya",
+      "confirmPasswordLabel": "Confirmeu la contrasenya",
+      "confirmPasswordPlaceholder": "Confirmeu la vostra contrasenya",
+      "acceptTerms": "Estic d'acord amb el",
+      "termsLink": "Condicions del servei",
+      "and": "i",
+      "privacyLink": "Política de privadesa",
+      "submitButton": "Registrar -se",
+      "submitButtonLoading": "Registre ...",
+      "loginPrompt": "Ja teniu un compte?",
+      "loginLink": "Inicieu la sessió",
+      "signupWithGoogle": "Inscriviu -vos amb Google",
+      "orSignupWithEmail": "O inscriviu -vos amb el correu electrònic"
+    },
+    "messages": {
+      "success": "Compte creat amb èxit. ",
+      "networkError": "Error de xarxa. ",
+      "validation": {
+        "nameRequired": "El nom és necessari",
+        "surnameRequired": "Es requereix cognom",
+        "emailRequired": "Cal un correu electrònic",
+        "emailInvalid": "Introduïu un correu electrònic vàlid",
+        "companyRequired": "L'empresa és necessària",
+        "passwordRequired": "Cal una contrasenya",
+        "passwordTooShort": "La contrasenya ha de tenir almenys 8 caràcters",
+        "passwordMismatch": "Les contrasenyes no coincideixen",
+        "termsRequired": "Heu d'acceptar els termes del servei i la política de privadesa per continuar"
+      },
+      "googleSignUpError": "La inscripció a Google ha fallat. "
+    }
+  },
+  "completeProfile": {
+    "title": "Completa el teu perfil",
+    "subtitle": "Només alguns detalls més per començar",
+    "welcome": "Benvingut, {name}!",
+    "form": {
+      "title": "Informació de l'empresa",
+      "companyLabel": "Companyia",
+      "companyPlaceholder": "Introduïu el nom de la vostra empresa",
+      "regionLabel": "Regió",
+      "regionPlaceholder": "Introduïu la vostra regió",
+      "cityLabel": "Ciutat",
+      "cityPlaceholder": "Entra a la teva ciutat",
+      "optional": "opcional",
+      "submitButton": "Perfil complet",
+      "submitButtonLoading": "Completar el perfil ..."
+    },
+    "validation": {
+      "companyRequired": "El nom de l'empresa és necessari"
+    },
+    "messages": {
+      "success": "Perfil finalitzat amb èxit. ",
+      "networkError": "Error de xarxa. "
+    }
+  },
+  "admin": {
+    "title": "Tauler de control d'administració",
+    "subtitle": "Gestioneu el contingut i la configuració de l'aplicació",
+    "loading": "Carregant el panell d'administració ...",
+    "accessDenied": "Accés denegat",
+    "noPermission": "No teniu permís per accedir a aquesta pàgina.",
+    "labels": {
+      "price": "Preu",
+      "duration": "Disponible a",
+      "icon": "Quon",
+      "created": "Creada",
+      "updated": "Actualitzat",
+      "location": "Situació",
+      "date": "Data",
+      "schedule": "Llista",
+      "maxAttendants": "Assistents màxims"
+    },
+    "tabs": {
+      "overview": "Visió de conjunt",
+      "services": "Serveis",
+      "courses": "Cursos",
+      "terms": "Condicions"
+    },
+    "stats": {
+      "totalServices": "Serveis totals",
+      "totalCourses": "Cursos totals",
+      "totalTerms": "Condicions totals",
+      "totalUsers": "Total usuaris"
+    },
+    "services": {
+      "title": "Gestió de serveis",
+      "searchPlaceholder": "SERVEIS DE CERCA ...",
+      "addService": "Afegeix servei",
+      "editService": "Servei",
+      "createService": "Crea un servei nou",
+      "deleteSelected": "Suprimeix seleccionat",
+      "selectAll": "Seleccioneu tot",
+      "noServices": "No hi ha serveis disponibles.",
+      "noServicesFound": "No es troba serveis que coincideixin amb la vostra cerca.",
+      "durationDay": "1 dia",
+      "durationDays": "{count} dies",
+      "form": {
+        "title": "Títol",
+        "titlePlaceholder": "Títol del servei",
+        "subtitle": "Subtítol",
+        "subtitlePlaceholder": "Subtítol de servei (opcional)",
+        "description": "Descripció",
+        "descriptionPlaceholder": "Descripció del servei",
+        "icon": "Quon",
+        "iconPlaceholder": "Trieu una icona Lucide React",
+        "duration": "Disponible en (dies)",
+        "durationPlaceholder": "per exemple, 2 dies",
+        "price": "Preu (€)",
+        "pricePlaceholder": "Deixeu buit per a \"Contacte per a la cotització\"",
+        "contactForQuote": "Poseu -vos en contacte amb el pressupost",
+        "featured": "Servei destacat",
+        "cancel": "Cancellar",
+        "create": "Crea un servei",
+        "update": "Servei d'actualització"
+      },
+      "messages": {
+        "createSuccess": "Servei '{title}' Creat amb èxit. ",
+        "updateSuccess": "Service '{title}' actualitzat correctament!",
+        "deleteSuccess": "El servei es va suprimir amb èxit",
+        "bulkDeleteSuccess": "Els serveis es van suprimir amb èxit",
+        "fetchError": "No s'ha pogut buscar serveis",
+        "createError": "No s'ha pogut crear servei",
+        "updateError": "No s'ha pogut actualitzar el servei",
+        "deleteError": "No s'ha pogut eliminar el servei",
+        "networkError": "No es pot desar el servei. ",
+        "selectToDelete": "Seleccioneu els serveis per eliminar",
+        "validation": {
+          "titleRequired": "El títol del servei és obligatori i ha de tenir 100 caràcters o menys.",
+          "subtitleRequired": "El subtítol és necessari i ha de tenir 200 caràcters o menys.",
+          "descriptionRequired": "La descripció és necessària i ha de tenir 500 caràcters o menys.",
+          "iconRequired": "Seleccioneu una icona vàlida per al servei.",
+          "durationInvalid": "La durada ha de ser almenys un dia si s'especifica.",
+          "requisitesLimit": "Els requisits han de tenir 500 caràcters o menys.",
+          "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica."
+        },
+        "featured": {
+          "enabled": "El servei '{title}' ha estat marcat com a destacat.",
+          "disabled": "El servei '{title}' ja no apareix."
+        }
+      },
+      "confirmDelete": {
+        "title": "Confirmeu la supressió",
+        "single": "Esteu segur que voleu suprimir \"{title}\"? ",
+        "multiple": "Esteu segur que voleu suprimir els serveis seleccionats {count}? ",
+        "delete": "Esborrar",
+        "cancel": "Cancellar"
+      }
+    },
+    "courses": {
+      "title": "Gestió de cursos",
+      "searchPlaceholder": "Cursos de cerca ...",
+      "addCourse": "Afegir curs",
+      "editCourse": "Curs",
+      "createCourse": "Crea un nou curs",
+      "deleteSelected": "Suprimeix seleccionat",
+      "selectAll": "Seleccioneu tot",
+      "courses": "cursos",
+      "noCourses": "No hi ha cursos disponibles.",
+      "noPastCourses": "No hi ha cursos passats disponibles.",
+      "pastCourses": "Cursos passats",
+      "viewPastCourses": "Veure cursos passats",
+      "hidePastCourses": "Amaga els cursos passats",
+      "upcomingCourses": "Propers cursos",
+      "finished": "Acabat",
+      "noCoursesFound": "No hi ha cursos que coincideixin amb la cerca.",
+      "contactForQuote": "Poseu -vos en contacte amb els nostres agents per obtenir un pressupost detallat",
+      "form": {
+        "title": "Títol",
+        "titlePlaceholder": "Introduïu un títol de curs atractiu",
+        "titleRequired": "Títol del curs *",
+        "subtitle": "Subtítol",
+        "subtitlePlaceholder": "Afegiu un subtítol descriptiu",
+        "subtitleOptional": "Subtítol (opcional)",
+        "description": "Descripció",
+        "descriptionPlaceholder": "Descriviu què aprendran els estudiants en aquest curs ...",
+        "descriptionRequired": "Descripció *",
+        "image": "Per descomptat la imatge",
+        "imageRequired": "Imatge del curs *",
+        "imageOptional": "Per descomptat la imatge",
+        "chooseImage": "Trieu el fitxer d'imatge",
+        "chooseImageText": "Trieu el fitxer d'imatge",
+        "imageRecommendation": "Recomanat: 1200x800px, JPG o PNG",
+        "price": "Preu (€)",
+        "pricePlaceholder": "Deixeu buit per a \"Contacte per a la cotització\"",
+        "location": "Situació",
+        "locationPlaceholder": "Introduïu la ubicació del curs o \"en línia\"",
+        "locationRequired": "Ubicació *",
+        "scheduleSettings": "Configuració del calendari professional",
+        "startDateRequired": "Data d'inici *",
+        "endDateRequired": "Data de finalització *",
+        "startTimeRequired": "Hora d'inici *",
+        "endTimeRequired": "Hora de finalització *",
+        "periodicityRequired": "Patró de recurrència *",
+        "weekdaysOptional": "Els dies laborables (opcionals)",
+        "weekOfMonthOptional": "Setmana del mes (opcional)",
+        "intervalOptional": "Interval",
+        "intervalPlaceholder": "per exemple, 2 per cada 2 setmanes",
+        "timezoneOptional": "Zona horària",
+        "periodicity": {
+          "once": "Esdeveniment únic",
+          "daily": "Cada dia",
+          "weekly": "Semanalment",
+          "biweekly": "Quinzenal",
+          "monthly": "Mensual",
+          "custom": "Patró personalitzat"
+        },
+        "weekOfMonth": {
+          "any": "Qualsevol setmana",
+          "first": "Primera setmana",
+          "second": "Segona setmana",
+          "third": "Tercera setmana",
+          "fourth": "Quarta setmana",
+          "last": "La setmana passada"
+        },
+        "weekdays": {
+          "monday": {
+            "short": "Mon",
+            "full": "Dilluns"
+          },
+          "tuesday": {
+            "short": "Dimecres",
+            "full": "Dimarts"
+          },
+          "wednesday": {
+            "short": "Defici",
+            "full": "Dimecres"
+          },
+          "thursday": {
+            "short": "Dits",
+            "full": "Dijous"
+          },
+          "friday": {
+            "short": "Divendres",
+            "full": "Divendres"
+          },
+          "saturday": {
+            "short": "Abordar",
+            "full": "Dissabte"
+          },
+          "sunday": {
+            "short": "Sol",
+            "full": "Diumenge"
+          }
+        },
+        "maxAttendants": "Assistents màxims",
+        "maxAttendantsRequired": "Assistents màxims *",
+        "maxAttendantsPlaceholder": "10",
+        "cancel": "Cancellar",
+        "create": "Crea curs",
+        "update": "Curs d'actualització"
+      },
+      "messages": {
+        "createSuccess": "El curs '{title}' creat amb èxit! ",
+        "updateSuccess": "CURS '{title}' actualitzat correctament!",
+        "deleteSuccess": "El curs es va suprimir amb èxit",
+        "bulkDeleteSuccess": "Els cursos es van suprimir amb èxit",
+        "fetchError": "No s'ha pogut buscar cursos",
+        "createError": "No s'ha pogut crear curs",
+        "updateError": "No s'ha pogut actualitzar el curs",
+        "deleteError": "No s'ha pogut eliminar el curs",
+        "networkError": "No es pot desar el curs. ",
+        "selectToDelete": "Seleccioneu els cursos per eliminar",
+        "fileSizeLimit": "La mida del fitxer ha de ser inferior a 5 MB",
+        "imageFileOnly": "Seleccioneu un fitxer d'imatge",
+        "validation": {
+          "titleRequired": "El títol del curs és necessari i ha de tenir 100 caràcters o menys.",
+          "subtitleLimit": "El subtítol ha de tenir 200 caràcters o menys.",
+          "descriptionRequired": "La descripció és necessària i ha de tenir 500 caràcters o menys.",
+          "imageRequired": "Pengeu un fitxer d'imatges vàlid per al curs.",
+          "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica.",
+          "locationRequired": "La ubicació és necessària i ha de tenir 100 caràcters o menys.",
+          "dateRequired": "La data és necessària i ha de tenir 100 caràcters o menys.",
+          "maxAttendantsInvalid": "Els assistents màxims han de ser almenys 1."
+        },
+        "capacity": {
+          "warning": "ADVERTIMENT: aquest curs ja té matriculacions {actual}. "
+        }
+      },
+      "confirmDelete": {
+        "title": "Confirmeu la supressió",
+        "single": "Esteu segur que voleu suprimir \"{title}\"? ",
+        "multiple": "Esteu segur que voleu suprimir els cursos seleccionats {count}? ",
+        "delete": "Esborrar",
+        "cancel": "Cancellar"
+      },
+      "details": {
+        "title": "Detalls del curs",
+        "enrolled": "Matriculat",
+        "capacity": "Capacitat",
+        "vacant": "Vacant",
+        "price": "Preu",
+        "location": "Situació",
+        "date": "Data",
+        "maxAttendants": "Assistents màxims",
+        "created": "Creada",
+        "schedule": "Llista",
+        "locationInfo": "Ubicació i informació",
+        "enrollmentStatus": "Estat de la inscripció",
+        "enrolledMembers": "Membres inscrits",
+        "upcomingSessions": "Properes sessions",
+        "finished": "Acabat",
+        "startDate": "Data d'inici",
+        "endDate": "Data de finalització",
+        "time": "Temps",
+        "duration": "Durada",
+        "frequency": "Frecuència",
+        "weekdays": "Dies laborables",
+        "timezone": "Zona horària",
+        "lastUpdated": "Per última vegada actualitzat",
+        "fullStatus": "Plena",
+        "spotsRemaining": "que queden les taques",
+        "members": "membres",
+        "noEnrollments": "Encara no hi ha inscripcions",
+        "enrolledOn": "Matriculat",
+        "member": "Membre",
+        "company": "Companyia",
+        "moreSessions": "Més sessions",
+        "hours": "hores"
+      },
+      "courseCard": {
+        "enrollments": "Inscripcions",
+        "full": "plena",
+        "spotsAvailable": "Disposats"
+      },
+      "sorting": {
+        "sortBy": "Ordenar",
+        "startDate": "Data d'inici",
+        "title": "Títol",
+        "endDate": "Data de finalització",
+        "enrollments": "Inscripcions",
+        "capacity": "Capacitat",
+        "created": "Creada"
+      }
+    },
+    "terms": {
+      "title": "Gestió de termes",
+      "searchPlaceholder": "Termes de cerca ...",
+      "addTerm": "Afegiu terme",
+      "editTerm": "Editar el termini",
+      "createTerm": "Crea un nou terme",
+      "deleteSelected": "Suprimeix seleccionat",
+      "selectAll": "Seleccioneu tot",
+      "noTerms": "No hi ha termes disponibles.",
+      "noTermsFound": "No es troben termes que coincideixin amb la vostra cerca.",
+      "pdfAvailable": "PDF disponible",
+      "downloadPdf": "Descarregueu PDF",
+      "form": {
+        "name": "Nom",
+        "namePlaceholder": "Nom a termini",
+        "content": "Contingut (Markdown)",
+        "contentPlaceholder": "Terminat contingut en format de marcatge",
+        "version": "Versió",
+        "versionPlaceholder": "p. ",
+        "tag": "Tipus de document",
+        "tagPlaceholder": "Seleccioneu Tipus de document",
+        "selectTag": "Seleccioneu un tipus de document",
+        "noAvailableTags": "No hi ha tipus de document disponibles",
+        "allTagsUsed": "S'han creat tots els tipus de documents. ",
+        "allTagsUsedTitle": "Tots els tipus de documents ja estan en ús",
+        "allTagsUsedButton": "Tots els tipus creats",
+        "tagTypes": {
+          "terms": "Termes i condicions d'ús",
+          "cookies": "Política de cookies",
+          "privacy": "Política de privadesa",
+          "license": "Llicenciar"
+        },
+        "pdfVersion": "Versió PDF (opcional)",
+        "choosePdf": "Trieu PDF",
+        "cancel": "Cancellar",
+        "create": "Crea terme",
+        "update": "Terme d'actualització"
+      },
+      "messages": {
+        "createSuccess": "Termes document '{name}' creat amb èxit.",
+        "updateSuccess": "Termes Document '{name}' actualitzat correctament.",
+        "deleteSuccess": "Terme suprimit amb èxit",
+        "bulkDeleteSuccess": "Termes suprimits amb èxit",
+        "fetchError": "No s'ha pogut obtenir termes",
+        "createError": "No s'ha pogut crear terme",
+        "updateError": "No s'ha pogut actualitzar el terme",
+        "deleteError": "No s'ha pogut eliminar el terme",
+        "downloadError": "No s'ha pogut descarregar PDF",
+        "downloadSuccess": "PDF es va descarregar amb èxit",
+        "networkError": "No es pot desar el document de termes. ",
+        "selectToDelete": "Seleccioneu els termes per eliminar",
+        "fileSizeLimit": "La mida del fitxer ha de ser inferior a 10 MB",
+        "pdfFileOnly": "Seleccioneu un fitxer PDF",
+        "validation": {
+          "nameRequired": "El nom del document és necessari i ha de tenir 127 caràcters o menys.",
+          "contentRequired": "Pengeu un fitxer de MarkDown (.MD) vàlid per al contingut.",
+          "pdfRequired": "Pengeu un fitxer PDF vàlid per al document.",
+          "versionRequired": "La versió és necessària i ha de tenir 20 caràcters o menys.",
+          "tagDuplicate": "Ja existeix un document amb aquest tipus d'etiqueta. ",
+          "fileExtension": "El fitxer de contingut ha de ser un fitxer .md i el contingut PDF ha de ser un fitxer .pdf.",
+          "fileMissing": "Cal proporcionar un fitxer MarkDown (.MD) i un fitxer PDF."
+        },
+        "upload": {
+          "error": "La càrrega del fitxer ha fallat. "
+        },
+        "version": {
+          "updateWarning": "IMPORTANT: Actualitzar aquest document de termes crearà una versió nova. "
+        }
+      },
+      "confirmDelete": {
+        "title": "Confirmeu la supressió",
+        "single": "Esteu segur que voleu suprimir \"{name}\"? ",
+        "multiple": "Esteu segur que voleu suprimir els termes seleccionats {count}? ",
+        "delete": "Esborrar",
+        "cancel": "Cancellar"
+      },
+      "details": {
+        "created": "Creada",
+        "updated": "Actualitzat"
+      }
+    }
+  },
+  "legal": {
+    "title": "Documentació legal",
+    "description": "Accediu a les nostres Condicions de servei, Política de privadesa, Política de Cookie i Informació de la llicència.",
+    "downloadPdf": "Descarregueu PDF",
+    "tabs": {
+      "terms": "Condicions del servei",
+      "privacy": "Política de privadesa",
+      "cookies": "Política de cookies",
+      "license": "Llicenciar"
+    },
+    "sections": {
+      "terms": {
+        "title": "Condicions del servei",
+        "noDocuments": "Actualment no hi ha documents de servei disponibles."
+      },
+      "privacy": {
+        "title": "Política de privadesa",
+        "noDocuments": "Actualment no hi ha documents de política de privadesa disponibles."
+      },
+      "cookies": {
+        "title": "Política de cookies",
+        "noDocuments": "Actualment no hi ha documents de política de cookies disponibles."
+      },
+      "license": {
+        "title": "Informació de la llicència",
+        "noDocuments": "Actualment no hi ha documents de llicència disponibles."
+      }
+    },
+    "messages": {
+      "fetchError": "No s'ha pogut obtenir documents legals",
+      "networkError": "Error de xarxa mentre es recupera documents",
+      "noPdfAvailable": "La versió PDF no està disponible per a aquest document",
+      "downloadSuccess": "PDF es va descarregar amb èxit",
+      "downloadError": "No s'ha pogut descarregar PDF"
+    }
+  },
+  "services": {
+    "title": "Els nostres serveis",
+    "subtitle": "Solucions exhaustives dissenyades per transformar el vostre negoci i impulsar la innovació digital",
+    "searchPlaceholder": "SERVEIS DE CERCA ...",
+    "featured": "Destacada",
+    "details": "Detalls",
+    "duration": "Durada",
+    "durationDay": "1 dia",
+    "durationDays": "{count} dies",
+    "price": "Preu",
+    "contactUs": "Poseu -vos en contacte amb nosaltres",
+    "learnMore": "Obteniu més informació",
+    "filters": {
+      "all": "Tots els serveis",
+      "featured": "Només apareix",
+      "standard": "Serveis estàndard"
+    },
+    "noResults": {
+      "title": "No es van trobar serveis",
+      "description": "Proveu d'ajustar els termes o filtres de cerca per trobar el que busqueu."
+    },
+    "cta": {
+      "title": "Esteu a punt per transformar el vostre negoci?",
+      "description": "Discutim com els nostres serveis us poden ajudar a assolir els vostres objectius de transformació digital.",
+      "contact": "Poseu -vos en contacte",
+      "call": "Programa una trucada",
+      "emailSubject": "Consulta sobre els serveis d'Ordinaly",
+      "emailBody": "Hola, m'interessa aprendre més sobre els vostres serveis de transformació digital. "
+    },
+    "contact": {
+      "title": "Poseu -vos en contacte amb nosaltres",
+      "name": "Nom complet",
+      "namePlaceholder": "Introduïu el vostre nom complet",
+      "email": "Adreça de correu electrònic",
+      "emailPlaceholder": "Introduïu la vostra adreça de correu electrònic",
+      "phone": "Número de telèfon",
+      "phonePlaceholder": "Introduïu el vostre número de telèfon",
+      "company": "Companyia",
+      "companyPlaceholder": "Introduïu el nom de la vostra empresa",
+      "service": "Servei d'interès",
+      "servicePlaceholder": "Quin servei us interessa?",
+      "message": "Missatge",
+      "messagePlaceholder": "Expliqueu -nos el vostre projecte o requisits ...",
+      "cancel": "Cancellar",
+      "send": "Enviar missatge"
+    }
+  },
+  "formation": {
+    "title": "Formació professional",
+    "subtitle": "Avanceu la vostra carrera amb els nostres programes de formació integrals dissenyats per experts de la indústria",
+    "searchPlaceholder": "Cursos de cerca ...",
+    "free": "Alliberar",
+    "price": "Preu",
+    "location": "Situació",
+    "date": "Data",
+    "enrolled": "Matriculat",
+    "enroll": "Inscriviu -vos ara",
+    "cancelEnrollment": "Cancella la matrícula",
+    "viewDetails": "Veure detalls",
+    "maxAttendants": "Assistents màxims",
+    "maxAttendeesCount": "Max {count} assistents",
+    "filters": {
+      "location": {
+        "all": "Totes les ubicacions",
+        "online": "En línia",
+        "onsite": "In situ"
+      },
+      "price": {
+        "all": "Tots els preus",
+        "free": "Alliberar",
+        "paid": "Pagada"
+      }
+    },
+    "noResults": {
+      "title": "No es van trobar cursos",
+      "description": "Proveu d'ajustar els vostres termes o filtres de cerca per trobar el curs perfecte per a vosaltres."
+    },
+    "noPastCourses": "No hi ha cursos passats disponibles.",
+    "pastCourses": "Cursos passats",
+    "viewPastCourses": "Veure cursos passats",
+    "hidePastCourses": "Amaga els cursos passats",
+    "upcomingCourses": "Propers cursos",
+    "finished": "Acabat",
+    "cta": {
+      "title": "Esteu a punt per avançar en la vostra carrera?",
+      "description": "Uniu-vos a milers de professionals que han transformat la seva carrera amb els nostres programes de formació dirigits per experts.",
+      "contact": "Assessor de contacte",
+      "catalog": "Descarregueu el catàleg",
+      "emailSubject": "Consulta sobre els programes de formació d'Ordinaly",
+      "emailBody": "Hola, m'interessa aprendre més sobre els vostres programes de formació professional. "
+    },
+    "enrollment": {
+      "title": "Inscripció del curs",
+      "confirm": "Confirmeu la inscripció",
+      "courseDetails": "Detalls del curs",
+      "confirmMessage": "Esteu segur que voleu inscriure's en aquest curs?",
+      "paymentNote": "El processament de pagaments es gestionarà al següent pas.",
+      "confirmEnroll": "Confirmeu la inscripció",
+      "name": "Nom complet",
+      "namePlaceholder": "Introduïu el vostre nom complet",
+      "email": "Adreça de correu electrònic",
+      "emailPlaceholder": "Introduïu la vostra adreça de correu electrònic",
+      "phone": "Número de telèfon",
+      "phonePlaceholder": "Introduïu el vostre número de telèfon",
+      "company": "Companyia",
+      "companyPlaceholder": "Introduïu el nom de la vostra empresa",
+      "experience": "Experiència rellevant",
+      "experiencePlaceholder": "Expliqueu -nos la vostra experiència o antecedents rellevants ...",
+      "motivation": "Per què voleu fer aquest curs?",
+      "motivationPlaceholder": "Comparteix la teva motivació i el que esperes aconseguir ...",
+      "cancel": "Cancellar",
+      "submit": "Inscriviu -vos al curs"
+    },
+    "cancellation": {
+      "title": "Cancella la matrícula",
+      "warning": "Cancella la matrícula del curs",
+      "warningMessage": "Esteu segur que voleu cancellar la vostra inscripció a \"{courseTitle}\"? ",
+      "confirmMessage": "Això us eliminarà del curs i és possible que perdeu el lloc.",
+      "keepEnrollment": "Mantingueu la inscripció",
+      "confirmCancel": "Cancella la matrícula"
+    },
+    "alerts": {
+      "signInToEnroll": "Inicieu la sessió per inscriure's als cursos",
+      "signInRequired": "Inicieu la sessió per gestionar les matrícules",
+      "enrollmentSuccess": "S'ha inscrit amb èxit a {courseTitle}!",
+      "enrollmentFailed": "No s'ha pogut inscriure. ",
+      "enrollmentCancelled": "La matrícula cancellada amb èxit",
+      "cancelEnrollmentFailed": "No s'ha pogut cancellar la matrícula",
+      "notEnrolled": "Actualment no esteu inscrit en aquest curs",
+      "authenticationFailed": "L'autenticació ha fallat. ",
+      "networkError": "Error de xarxa. ",
+      "failedToLoadCourses": "No s'ha pogut carregar cursos",
+      "networkErrorLoadingCourses": "Error de xarxa mentre carregueu cursos",
+      "generatingCatalog": "Generar el catàleg de cursos ...",
+      "catalogDownloaded": "El catàleg es va descarregar amb èxit.",
+      "catalogError": "Error de generació del catàleg. "
+    },
+    "pdf": {
+      "slogan": "Solucions de programari i formació",
+      "title": "Catàleg de formació",
+      "subtitle": "Cursos de formació professional i tecnològica",
+      "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional. ",
+      "coursesTitle": "Els nostres cursos",
+      "upcomingCourses": "Propers cursos",
+      "date": "Data:",
+      "time": "Temps:",
+      "location": "Ubicació:",
+      "price": "Preu:",
+      "free": "Alliberar",
+      "capacity": "Capacitat:",
+      "people": "gent",
+      "contactTitle": "Informació de contacte",
+      "email": "Correu electrònic:",
+      "website": "Lloc web:",
+      "specialization": "Especialització:",
+      "specializationText": "Desenvolupament de programari i formació en tecnologia",
+      "filename": "Ordinaly_training_catalog.pdf"
+    },
+    "courseDetails": {
+      "title": "Detalls del curs",
+      "courseDescription": "Descripció del curs",
+      "scheduleInformation": "Programar informació",
+      "upcomingSessions": "Properes sessions",
+      "courseInformation": "Informació sobre el curs",
+      "startDate": "Data d'inici",
+      "endDate": "Data de finalització",
+      "time": "Temps",
+      "duration": "Durada",
+      "hours": "hores",
+      "daysOfWeek": "Dies de la setmana",
+      "fullSchedule": "Horari complet",
+      "location": "Situació",
+      "maxAttendants": "Assistents màxims",
+      "people": "gent",
+      "scheduleType": "Tipus de programació",
+      "price": "Preu",
+      "enrolled": "Matriculat",
+      "cancelEnrollment": "Cancella la matrícula",
+      "courseHasStarted": "El curs ha començat",
+      "courseStartedMessage": "Aquest curs ja ha començat i ja no accepta noves inscripcions.",
+      "signInToEnroll": "Inicieu la sessió per inscriure's",
+      "enrollNow": "Inscriviu -vos ara",
+      "importantDates": "Dates importants",
+      "excludedDatesMessage": "Aquest curs té {Count} Data (s) (S) (vacances o pauses) que no estan incloses en la programació regular.",
+      "moreSessions": "I {count} més sessions ...",
+      "periodicity": {
+        "once": "Esdeveniment únic",
+        "daily": "Cada dia",
+        "weekly": "Semanalment",
+        "biweekly": "Quinzenal",
+        "monthly": "Mensual"
+      },
+      "weekdays": {
+        "monday": {
+          "short": "Mon",
+          "full": "Dilluns"
+        },
+        "tuesday": {
+          "short": "Dimecres",
+          "full": "Dimarts"
+        },
+        "wednesday": {
+          "short": "Defici",
+          "full": "Dimecres"
+        },
+        "thursday": {
+          "short": "Dits",
+          "full": "Dijous"
+        },
+        "friday": {
+          "short": "Divendres",
+          "full": "Divendres"
+        },
+        "saturday": {
+          "short": "Abordar",
+          "full": "Dissabte"
+        },
+        "sunday": {
+          "short": "Sol",
+          "full": "Diumenge"
+        }
+      }
+    }
+  },
+  "profile": {
+    "title": "El meu perfil",
+    "subtitle": "Gestioneu la vostra informació personal i la configuració del compte",
+    "loading": "Perfil de càrrega ...",
+    "personalInfo": "Informació personal",
+    "accountSettings": "Configuració del compte",
+    "dangerZone": "Zona de perill",
+    "form": {
+      "firstName": "Nom",
+      "firstNamePlaceholder": "Introduïu el vostre nom",
+      "lastName": "Nom",
+      "lastNamePlaceholder": "Introduïu el vostre cognom",
+      "username": "Nom d'usuari",
+      "usernamePlaceholder": "Introduïu el vostre nom d'usuari",
+      "email": "Adreça de correu electrònic",
+      "emailPlaceholder": "Introduïu la vostra adreça de correu electrònic",
+      "company": "Companyia",
+      "companyPlaceholder": "Introduïu el nom de la vostra empresa",
+      "region": "Regió",
+      "regionPlaceholder": "Introduïu la vostra regió (opcional)",
+      "city": "Ciutat",
+      "cityPlaceholder": "Entra a la teva ciutat (opcional)",
+      "saveChanges": "Desa els canvis",
+      "saveChangesLoading": "Desar els canvis ...",
+      "cancel": "Cancella els canvis"
+    },
+    "deleteAccount": {
+      "title": "Suprimeix el compte",
+      "description": "Un cop suprimiu el vostre compte, no hi ha cap enrere. ",
+      "button": "Suprimeix el compte",
+      "confirmTitle": "Confirmeu la supressió del compte",
+      "confirmMessage": "Esteu segur que voleu suprimir el vostre compte? ",
+      "confirmPlaceholder": "Escriviu el vostre nom d'usuari per confirmar",
+      "confirmButton": "Suprimeix el compte",
+      "cancelButton": "Cancellar"
+    },
+    "messages": {
+      "updateSuccess": "Perfil actualitzat amb èxit.",
+      "updateError": "No s'ha pogut actualitzar el perfil. ",
+      "deleteSuccess": "El compte es va suprimir amb èxit. ",
+      "deleteError": "No s'ha pogut eliminar el compte. ",
+      "networkError": "Error de xarxa. ",
+      "unauthorizedError": "No esteu autoritzat a realitzar aquesta acció.",
+      "validation": {
+        "firstNameRequired": "El nom és necessari",
+        "lastNameRequired": "El cognom és necessari",
+        "usernameRequired": "El nom d'usuari és obligatori",
+        "emailRequired": "Cal un correu electrònic",
+        "emailInvalid": "Introduïu una adreça de correu electrònic vàlida",
+        "companyRequired": "L'empresa és necessària",
+        "deleteConfirmRequired": "Escriviu el vostre nom d'usuari per confirmar"
+      }
+    }
+  },
+  "authModal": {
+    "welcome": "Benvingut a Ordinaly",
+    "courseEnrollTitle": "Autenticació necessària",
+    "courseEnrollDescription": "Inicieu la sessió o creeu un compte per inscriure's a \"{CourseSetle}\"",
+    "generalDescription": "Uniu -vos a la nostra comunitat per accedir a cursos i serveis exclusius",
+    "signIn": {
+      "title": "Inicieu la sessió",
+      "description": "Ja teniu un compte? "
+    },
+    "signUp": {
+      "title": "Registrar -se",
+      "description": "Novetat a Ordinaly? "
+    },
+    "termsText": "Continuant, accepteu les nostres Condicions de servei i Política de privadesa"
+  }
+}

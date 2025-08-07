@@ -451,7 +451,7 @@ class EnrollmentSerializerTest(TestCase):
         data = self.serializer.data
         self.assertCountEqual(
             data.keys(),
-            ['id', 'user', 'course', 'enrolled_at']
+            ['id', 'user', 'course', 'enrolled_at', 'user_details']
         )
 
     def test_field_content(self):

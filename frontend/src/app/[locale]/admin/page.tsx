@@ -34,10 +34,23 @@ interface User {
 export default function AdminPage() {
   const t = useTranslations("admin");
   const router = useRouter();
-  const [isDark, setIsDark] = useState(false);
   const [activeTab, setActiveTab] = useState<TabType>('overview');
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
+
+  // Load saved tab from localStorage on component mount
+  useEffect(() => {
+    const savedTab = localStorage.getItem('adminActiveTab') as TabType;
+    if (savedTab && ['overview', 'services', 'courses', 'terms'].includes(savedTab)) {
+      setActiveTab(savedTab);
+    }
+  }, []);
+
+  // Save active tab to localStorage whenever it changes
+  const handleTabChange = (tabId: TabType) => {
+    setActiveTab(tabId);
+    localStorage.setItem('adminActiveTab', tabId);
+  };
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [stats, setStats] = useState({
     totalServices: 0,
@@ -51,7 +64,7 @@ export default function AdminPage() {
     const checkAdminAccess = async () => {
       const token = localStorage.getItem('authToken');
       if (!token) {
-        router.push('/users/signin');
+        router.push('/auth/signin');
         return;
       }
 
@@ -89,12 +102,12 @@ export default function AdminPage() {
           const errorText = await response.text();
           console.log('Error response body:', errorText);
           setAlert({type: 'error', message: 'Failed to verify admin status. Please try signing in again.'});
-          setTimeout(() => router.push('/users/signin'), 3000);
+          setTimeout(() => router.push('/auth/signin'), 3000);
         }
       } catch (error) {
         console.error('Auth check error:', error);
         setAlert({type: 'error', message: 'Authentication error. Please sign in again.'});
-        setTimeout(() => router.push('/users/signin'), 3000);
+        setTimeout(() => router.push('/auth/signin'), 3000);
       } finally {
         setIsLoading(false);
       }
@@ -132,38 +145,16 @@ export default function AdminPage() {
       }
     };
 
-    // Theme detection
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-    
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    }
-
     checkAdminAccess();
   }, [router]);
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  }, [isDark]);
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
-        <Navbar isDark={isDark} setIsDark={setIsDark} />
+        <Navbar />
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#29BF12] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D] mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
           </div>
         </div>
@@ -182,7 +173,7 @@ export default function AdminPage() {
             duration={5000}
           />
         )}
-        <Navbar isDark={isDark} setIsDark={setIsDark} />
+        <Navbar />
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-red-500 mb-4">{t("accessDenied")}</h1>
@@ -235,7 +226,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalServices")}
                 </CardTitle>
-                <Settings className="h-4 w-4 text-[#29BF12]" />
+                <Settings className="h-4 w-4 text-[#22A60D]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -339,7 +330,7 @@ export default function AdminPage() {
         />
       )}
       
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
@@ -359,10 +350,10 @@ export default function AdminPage() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handleTabChange(tab.id)}
                   className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 transition-colors ${
                     activeTab === tab.id
-                      ? 'border-[#29BF12] text-[#29BF12]'
+                      ? 'border-[#22A60D] text-[#22A60D]'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
                   }`}
                 >
@@ -382,7 +373,7 @@ export default function AdminPage() {
         </div>
       </div>
 
-      <Footer isDark={isDark} />
+      <Footer />
     </div>
   );
 }

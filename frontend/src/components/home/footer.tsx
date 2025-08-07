@@ -1,16 +1,13 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import Image from 'next/image';
 import Link from "next/link";
 
-
-type FooterProps = {
-  isDark: boolean;
-};
-
-const Footer = ({ isDark }: FooterProps) => {
+const Footer = () => {
   const t = useTranslations("home");
+  const { isDark } = useTheme();
 
   return (
     <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">

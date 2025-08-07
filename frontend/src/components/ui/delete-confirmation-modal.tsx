@@ -40,7 +40,7 @@ export const DeleteConfirmationModal = ({
             variant="ghost"
             onClick={onClose}
             disabled={isLoading}
-            className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+            className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-500 transition-all duration-200"
           >
             {cancelText}
           </Button>

@@ -1,31 +1,145 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { Moon, Sun, Menu, X, User, LogOut, LogIn, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@/contexts/theme-context";
 import LocaleSwitcher from "@/components/ui/locale-switcher";
 import LogoutModal from "@/components/ui/logout-modal";
+import { DropdownOption } from "@/components/ui/dropdown";
 import Image from 'next/image';
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
+import { createPortal } from "react-dom";
 
-interface NavbarProps {
-  isDark: boolean;
-  setIsDark: (isDark: boolean) => void;
-}
+// Custom User Menu Component
+const UserMenu = ({ 
+  options, 
+  onChange, 
+  size = "desktop",
+  ariaLabel 
+}: {
+  options: DropdownOption[];
+  onChange: (value: string) => void;
+  size?: "desktop" | "mobile";
+  ariaLabel?: string;
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0 });
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (
+        isOpen &&
+        !triggerRef.current?.contains(target) &&
+        !dropdownRef.current?.contains(target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isOpen]);
+
+  // Calculate dropdown position
+  useEffect(() => {
+    if (isOpen && triggerRef.current) {
+      const rect = triggerRef.current.getBoundingClientRect();
+      const dropdownWidth = 180; // min-w-[180px]
+      
+      // Position to the left of the trigger button to ensure it's fully visible
+      setDropdownPosition({
+        top: rect.bottom + 8,
+        left: rect.right - dropdownWidth,
+      });
+    }
+  }, [isOpen]);
+
+  const handleOptionClick = (value: string) => {
+    onChange(value);
+    setIsOpen(false);
+  };
+
+  return (
+    <>
+      <Button
+        ref={triggerRef}
+        variant="ghost"
+        size="icon"
+        onClick={() => setIsOpen(!isOpen)}
+        className={cn(
+          "text-gray-700 dark:text-gray-300",
+          size === "desktop" ? "h-8 w-8 xl:h-10 xl:w-10" : "h-8 w-8"
+        )}
+        aria-label={ariaLabel}
+      >
+        <User className={size === "desktop" ? "h-4 w-4 xl:h-5 xl:w-5" : "h-4 w-4"} />
+      </Button>
+
+      {isOpen &&
+        createPortal(
+          <div
+            ref={dropdownRef}
+            className="fixed bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-xl overflow-hidden animate-in slide-in-from-top-2 duration-200 w-auto min-w-[180px]"
+            style={{
+              top: dropdownPosition.top,
+              left: dropdownPosition.left,
+              zIndex: 99999,
+            }}
+          >
+            {options.map((option) => {
+              const OptionIcon = option.icon;
+              return (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => handleOptionClick(option.value)}
+                  className="w-full px-4 py-3 text-left transition-all duration-150 flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-900 dark:text-white"
+                >
+                  {OptionIcon && <OptionIcon className="h-4 w-4" />}
+                  <span className="font-medium">{option.label}</span>
+                </button>
+              );
+            })}
+          </div>,
+          document.body
+        )}
+    </>
+  );
+};
+
+const Navbar = () => {
   const t = useTranslations("home");
   const router = useRouter();
+  const pathname = usePathname();
+  const { isDark, setIsDark } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [showUserMenu, setShowUserMenu] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [userData, setUserData] = useState<{is_staff?: boolean, is_superuser?: boolean} | null>(null);
+
+  // User menu options
+  const getUserMenuOptions = (): DropdownOption[] => {
+    const options: DropdownOption[] = [
+      { value: 'profile', label: t("navigation.profile"), icon: User }
+    ];
+    
+    if (userData && (userData.is_staff || userData.is_superuser)) {
+      options.push({ value: 'admin', label: t("navigation.adminDashboard"), icon: Settings });
+    }
+    
+    options.push({ value: 'logout', label: t("navigation.signOut"), icon: LogOut });
+    return options;
+  };
 
   const fetchUserData = async (token: string) => {
     try {
@@ -60,29 +174,33 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
       setIsScrolled(window.scrollY > 10);
     };
 
-    // Close user menu when clicking outside
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (showUserMenu && !target.closest('.user-menu-container')) {
-        setShowUserMenu(false);
-      }
-    };
-
     window.addEventListener("scroll", handleScroll);
-    document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showUserMenu]);
+  }, []);
 
   const goHome = () => {
     router.push("/");
     setIsMenuOpen(false);
   };
 
-  const handleSignOut = async () => {
+    const handleUserMenuOption = (value: string) => {
+    switch (value) {
+      case 'profile':
+        router.push('/profile');
+        break;
+      case 'admin':
+        router.push('/admin');
+        break;
+      case 'logout':
+        setShowLogoutModal(true);
+        break;
+    }
+  };
+
+  const handleSignOut = () => {
     try {
       // Call signout API if needed (optional since we're just removing the token)
       const token = localStorage.getItem('authToken');
@@ -106,7 +224,6 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
     // Remove token and redirect
     localStorage.removeItem('authToken');
     setIsAuthenticated(false);
-    setShowUserMenu(false);
     setIsMenuOpen(false);
     setShowLogoutModal(false);
     window.location.href = '/';
@@ -114,16 +231,15 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
 
   const handleLogoutClick = () => {
     setShowLogoutModal(true);
-    setShowUserMenu(false);
   };
 
   const goToSignIn = () => {
-    window.location.href = '/users/signin';
+    router.push("/auth/signin");
     setIsMenuOpen(false);
   };
 
   const goToSignUp = () => {
-    window.location.href = '/users/signup';
+    router.push("/auth/signup");
     setIsMenuOpen(false);
   };
 
@@ -132,6 +248,14 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
     { href: "/services", label: t("navigation.services") },
     { href: "/formation", label: t("navigation.formation") },
   ];
+
+  // Helper function to check if link is active
+  const isLinkActive = (href: string) => {
+    if (href === "/") {
+      return pathname === "/" || pathname === "/en" || pathname === "/es";
+    }
+    return pathname.includes(href);
+  };
 
 
   return (
@@ -151,9 +275,10 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                   width={64} 
                   height={64} 
                   className="h-6 sm:h-8 w-auto"
+                  priority
                 />
               </div>
-              <div className="text-lg sm:text-xl md:text-2xl font-bold text-[#29BF12] truncate">
+              <div className="text-lg sm:text-xl md:text-2xl font-bold text-[#22A60D] truncate">
                 {t("logo.title")}
               </div>
             </div>
@@ -161,13 +286,17 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
           {/* Desktop Navigation - Hide earlier to prevent overlap */}
           <div className="hidden xl:flex items-center space-x-6 2xl:space-x-8 flex-shrink-0">
             {navLinks.map((link) => (
-              <a 
+              <Link 
                 key={link.href}
-                href={link.href} 
-                className="text-gray-700 dark:text-gray-300 hover:text-[#29BF12] transition-colors whitespace-nowrap text-sm xl:text-base"
+                href={link.href}
+                className={`transition-colors whitespace-nowrap text-sm xl:text-base ${
+                  isLinkActive(link.href)
+                    ? 'text-[#22A60D] font-medium'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-[#22A60D]'
+                }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -186,68 +315,12 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
             {/* Authentication Controls - Desktop */}
             {isAuthenticated ? (
               <div className="relative user-menu-container">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="text-gray-700 dark:text-gray-300 h-8 w-8 xl:h-10 xl:w-10"
-                  aria-label={t("navigation.userMenu")}
-                >
-                  <User className="h-4 w-4 xl:h-5 xl:w-5" />
-                </Button>
-                
-                {/* User Dropdown Menu */}
-                <AnimatePresence>
-                  {showUserMenu && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50"
-                    >
-                      <div className="py-1">
-                        {/* Profile Link */}
-                        <Link
-                          href="/users/profile"
-                          onClick={() => setShowUserMenu(false)}
-                          className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                        >
-                          <User className="h-4 w-4 mr-2" />
-                          {t("navigation.profile")}
-                        </Link>
-                        
-                        {/* Admin Link - only show if user is staff or superuser */}
-                        {userData && (userData.is_staff || userData.is_superuser) && (
-                          <Link
-                            href="/admin"
-                            onClick={() => setShowUserMenu(false)}
-                            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                          >
-                            <Settings className="h-4 w-4 mr-2" />
-                            {t("navigation.adminDashboard")}
-                          </Link>
-                        )}
-                        
-                        <div
-                          onClick={handleLogoutClick}
-                          className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault();
-                              handleLogoutClick();
-                            }
-                          }}
-                        >
-                          <LogOut className="h-4 w-4 mr-2" />
-                          {t("navigation.signOut")}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                <UserMenu
+                  options={getUserMenuOptions()}
+                  onChange={handleUserMenuOption}
+                  size="desktop"
+                  ariaLabel={t("navigation.userMenu")}
+                />
               </div>
             ) : (
               <div className="flex items-center space-x-2">
@@ -255,7 +328,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                   variant="ghost"
                   size="sm"
                   onClick={goToSignIn}
-                  className="text-gray-700 dark:text-gray-300 hover:text-[#29BF12] transition-colors flex items-center"
+                  className="text-gray-700 dark:text-gray-300 hover:text-[#22A60D] transition-colors flex items-center"
                 >
                   <LogIn className="h-4 w-4 mr-2" />
                   {t("navigation.signIn")}
@@ -263,7 +336,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                 <Button
                   size="sm"
                   onClick={goToSignUp}
-                  className="bg-[#29BF12] hover:bg-[#22A010] text-white"
+                  className="bg-[#22A60D] hover:bg-[#22A010] text-white"
                 >
                   {t("navigation.signUp")}
                 </Button>
@@ -294,7 +367,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
               <Button
                 size="sm"
                 onClick={goToSignUp}
-                className="bg-[#29BF12] hover:bg-[#22A010] text-white text-xs px-2 py-1 h-8"
+                className="bg-[#22A60D] hover:bg-[#22A010] text-white text-xs px-2 py-1 h-8"
               >
                 {t("navigation.signUp")}
               </Button>
@@ -302,55 +375,14 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
             
             {/* Always show user icon on mobile when authenticated */}
             {isAuthenticated && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setShowUserMenu(!showUserMenu)}
-                className="text-gray-700 dark:text-gray-300 h-8 w-8 relative user-menu-container"
-                aria-label={t("navigation.userMenu")}
-              >
-                <User className="h-4 w-4" />
-                
-                {/* Mobile User Dropdown */}
-                <AnimatePresence>
-                  {showUserMenu && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 z-50"
-                    >
-                      <div className="py-1">
-                        <Link
-                          href="/users/profile"
-                          onClick={() => setShowUserMenu(false)}
-                          className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                        >
-                          <User className="h-4 w-4 mr-2" />
-                          {t("navigation.profile")}
-                        </Link>
-                        
-                        <div
-                          onClick={handleLogoutClick}
-                          className="flex items-center w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === ' ') {
-                              e.preventDefault();
-                              handleLogoutClick();
-                            }
-                          }}
-                        >
-                          <LogOut className="h-4 w-4 mr-2" />
-                          {t("navigation.signOut")}
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </Button>
+              <div className="relative user-menu-container">
+                <UserMenu
+                  options={getUserMenuOptions()}
+                  onChange={handleUserMenuOption}
+                  size="mobile"
+                  ariaLabel={t("navigation.userMenu")}
+                />
+              </div>
             )}
             
             <Button
@@ -379,14 +411,18 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
             <div className="py-4 px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col space-y-4">
                 {navLinks.map((link) => (
-                  <a 
+                  <Link 
                     key={link.href}
-                    href={link.href} 
-                    className="text-gray-700 dark:text-gray-300 hover:text-[#29BF12] transition-colors py-2 block"
+                    href={link.href}
+                    className={`transition-colors py-2 block ${
+                      isLinkActive(link.href)
+                        ? 'text-[#22A60D] font-medium'
+                        : 'text-gray-700 dark:text-gray-300 hover:text-[#22A60D]'
+                    }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 ))}
                 
                 {/* Authentication Controls - Mobile */}
@@ -395,9 +431,9 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                     <div className="space-y-2">
                       {/* Profile Link - Mobile */}
                       <Link
-                        href="/users/profile"
+                        href="/profile"
                         onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#29BF12] transition-colors py-2"
+                        className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#22A60D] transition-colors py-2"
                       >
                         <User className="h-4 w-4 mr-2" />
                         {t("navigation.profile")}
@@ -408,7 +444,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                         <Link
                           href="/admin"
                           onClick={() => setIsMenuOpen(false)}
-                          className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#29BF12] transition-colors py-2"
+                          className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#22A60D] transition-colors py-2"
                         >
                           <Settings className="h-4 w-4 mr-2" />
                           {t("navigation.adminDashboard")}
@@ -434,7 +470,7 @@ const Navbar = ({ isDark, setIsDark }: NavbarProps) => {
                   ) : (
                     <div
                       onClick={goToSignIn}
-                      className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#29BF12] transition-colors py-2 cursor-pointer"
+                      className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#22A60D] transition-colors py-2 cursor-pointer"
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => {

@@ -3,16 +3,18 @@
 import { Bot, Workflow, Zap, Users, TrendingUp, Accessibility } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState, lazy, Suspense, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Image from 'next/image';
+import Link from 'next/link';
 import Navbar from "@/components/ui/navbar";
 import { usePreloadResources } from "@/hooks/usePreloadResources";
-import { usePerformanceMonitoring } from "@/hooks/usePerformanceMonitoring";
 import { useServices } from "@/hooks/useServices";
 import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { renderIcon } from "@/components/ui/icon-select";
+import { truncateText } from "@/utils/text";
+
 
 interface Service {
   id: number;
@@ -28,6 +30,9 @@ interface Service {
   created_by_username?: string;
   created_at: string;
   updated_at: string;
+  clean_description: string;
+  color: string;
+  color_hex: string;
 }
 
 // Lazy load heavy components that are below the fold
@@ -35,56 +40,58 @@ const DemoModal = lazy(() => import("@/components/home/demo-modal"));
 const Footer = lazy(() => import("@/components/home/footer"));
 const PricingPlans = lazy(() => import("@/components/home/pricing-plans"));
 const WhatsAppBubble = lazy(() => import("@/components/home/whatsapp-bubble"));
-const Cover = lazy(() => import("@/components/ui/cover").then(module => ({ default: module.Cover })));
 const StyledButton = lazy(() => import("@/components/ui/styled-button"));
 const ColourfulText = lazy(() => import("@/components/ui/colourful-text"));
 
 export default function HomePage() {
   const t = useTranslations("home");
-  const [isDark, setIsDark] = useState(false);
   const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
 
-  // Fetch services (up to 6, featured first)
-  const { services, isLoading: servicesLoading, isOnVacation, error: servicesError } = useServices(6);
+  // Fetch services (up to 6, featured first) - ensure fresh fetch on mount
+  const { services, isLoading: servicesLoading, isOnVacation, error: servicesError, refetch } = useServices(6);
 
   // Preload critical resources for better performance
   usePreloadResources();
-  
-  // Monitor performance metrics
-  usePerformanceMonitoring();
 
+  // Preload hero image for home page only
   useEffect(() => {
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const savedTheme = localStorage.getItem("theme");
-
-    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      setIsDark(false);
-      document.documentElement.classList.remove("dark");
-    }
+    const preloadHeroImage = () => {
+      const existingPreload = document.querySelector('link[rel="preload"][href="/static/girl_resting_transparent.webp"]');
+      if (!existingPreload) {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = '/static/girl_resting_transparent.webp';
+        link.as = 'image';
+        link.type = 'image/webp';
+        (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = 'high';
+        document.head.appendChild(link);
+      }
+    };
+    
+    preloadHeroImage();
   }, []);
 
+  // Debug log to help troubleshoot services loading (development only)
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+    if (process.env.NODE_ENV === 'development') {
+      console.log('HomePage services state:', { 
+        servicesCount: services.length, 
+        servicesLoading, 
+        servicesError, 
+        isOnVacation 
+      });
     }
-  }, [isDark]);
+  }, [services.length, servicesLoading, servicesError, isOnVacation]);
 
-  // Service modal handlers
-  const handleServiceClick = (service: Service) => {
+  // Service modal handlers - optimize with useCallback
+  const handleServiceClick = useCallback((service: Service) => {
     setSelectedService(service);
     setIsServiceModalOpen(true);
-  };
+  }, []);
 
-  const handleServiceContact = () => {
+  const handleServiceContact = useCallback(() => {
     setIsServiceModalOpen(false);
     // Open WhatsApp with a service-specific message
     const message = selectedService 
@@ -93,13 +100,22 @@ export default function HomePage() {
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/34658977045?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
-  };
+  }, [selectedService, t]);
 
-  const closeServiceModal = () => {
+  const closeServiceModal = useCallback(() => {
     setIsServiceModalOpen(false);
     setSelectedService(null);
-  };
+  }, []);
 
+  const handleWhatsAppChat = useCallback(() => {
+    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
+    const message = encodeURIComponent(t('defaultWhatsAppMessage'));
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    
+    window.open(whatsappUrl, '_blank');
+  }, [t]);
+
+  // Optimize intersection observer setup with debounced scroll handler
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
@@ -128,45 +144,24 @@ export default function HomePage() {
     // Setup observer after a small delay to ensure services are rendered
     const observerTimeout = setTimeout(setupObserver, 100);
 
-    // Throttle scroll events for better performance
-    let ticking = false;
-    const throttledScrollHandler = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener("scroll", throttledScrollHandler, { passive: true });
-
+    // Cleanup function
     return () => {
       clearTimeout(observerTimeout);
       observer.disconnect();
-      window.removeEventListener("scroll", throttledScrollHandler);
     };
   }, []); // Only run once on mount
-
-  const handleWhatsAppChat = () => {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
-    const message = encodeURIComponent(t('defaultWhatsAppMessage'));
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-    
-    window.open(whatsappUrl, '_blank');
-  };
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
       {/* Navigation - now using the Navbar component */}
-      <Navbar isDark={isDark} setIsDark={setIsDark} />
+      <Navbar />
 
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#29BF12]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#22A60D]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[#29BF12] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-[#22A60D] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
                 <Suspense fallback={<span>Ordinaly</span>}>
                   <ColourfulText text={t("hero.title")} />
                 </Suspense>
@@ -216,10 +211,11 @@ export default function HomePage() {
                   alt="AI Automation Dashboard"
                   width={600}
                   height={500}
-                  className="rounded-2xl shadow-2xl"
+                  className="rounded-2xl shadow-2xl w-full h-auto"
                   priority
                   placeholder="blur"
                   blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
                 />
             </div>
           </div>
@@ -235,7 +231,7 @@ export default function HomePage() {
       <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 scroll-animate fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#29BF12]">{t("services.title")}</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D]">{t("services.title")}</h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               {t("services.description")}
             </p>
@@ -257,8 +253,8 @@ export default function HomePage() {
           ) : isOnVacation ? (
             <div className="text-center py-16">
               <div className="max-w-md mx-auto bg-white dark:bg-gray-800/50 rounded-xl shadow-lg p-8">
-                <div className="w-16 h-16 mx-auto mb-4 bg-[#29BF12]/10 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#29BF12]">
+                <div className="w-16 h-16 mx-auto mb-4 bg-[#22A60D]/10 rounded-full flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#22A60D]">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                     <line x1="16" y1="2" x2="16" y2="6"/>
                     <line x1="8" y1="2" x2="8" y2="6"/>
@@ -273,7 +269,7 @@ export default function HomePage() {
                 </p>
                 <Button
                   variant="outline"
-                  onClick={() => window.location.reload()}
+                  onClick={refetch}
                   className="flex items-center gap-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -303,7 +299,7 @@ export default function HomePage() {
                 </p>
                 <Button
                   variant="outline"
-                  onClick={() => window.location.reload()}
+                  onClick={refetch}
                   className="flex items-center gap-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -319,38 +315,60 @@ export default function HomePage() {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => {
                 const localizedService = service; // Assuming service is already localized
-                const colors = [
-                  { bg: 'bg-[#29BF12]/10', border: 'border-[#29BF12]', shadow: 'shadow-[#29BF12]/10', text: 'text-[#29BF12]' },
-                  { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]' },
-                  { bg: 'bg-[#E4572E]/10', border: 'border-[#E4572E]', shadow: 'shadow-[#E4572E]/10', text: 'text-[#E4572E]' },
-                  { bg: 'bg-[#623CEA]/10', border: 'border-[#623CEA]', shadow: 'shadow-[#623CEA]/10', text: 'text-[#623CEA]' },
-                  { bg: 'bg-[#29BF12]/10', border: 'border-[#29BF12]', shadow: 'shadow-[#29BF12]/10', text: 'text-[#29BF12]' },
-                  { bg: 'bg-[#46B1C9]/10', border: 'border-[#46B1C9]', shadow: 'shadow-[#46B1C9]/10', text: 'text-[#46B1C9]' }
-                ];
-                const colorScheme = colors[index % colors.length];
                 const animationClass = index % 3 === 0 ? 'slide-in-left' : index % 3 === 1 ? 'fade-in-up' : 'slide-in-right';
+                
+                // Function to get the appropriate color for dark/light mode
+                const getServiceColor = (service: Service) => {
+                  const isDarkMode = document.documentElement.classList.contains('dark');
+                  
+                  if (service.color === '1A1924' && isDarkMode) {
+                    return '#efefefbb';
+                  } else if (service.color === '623CEA' && isDarkMode) {
+                    return '#8B5FF7';
+                  }
+                  return service.color_hex;
+                };
+                
+                const serviceColor = getServiceColor(service);
                 
                 return (
                   <Card 
                     key={service.id} 
-                    className={`scroll-animate ${animationClass} bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:${colorScheme.border} transition-all duration-300 hover:shadow-xl hover:${colorScheme.shadow} cursor-pointer`}
+                    className={`scroll-animate ${animationClass} bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl cursor-pointer`}
                     onClick={() => handleServiceClick(service)}
+                    style={{
+                      '--hover-border-color': serviceColor,
+                      '--hover-shadow-color': `${serviceColor}10`
+                    } as React.CSSProperties}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = serviceColor;
+                      e.currentTarget.style.boxShadow = `0 25px 50px -12px ${serviceColor}10`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '';
+                      e.currentTarget.style.boxShadow = '';
+                    }}
                   >
                     <CardHeader>
-                      <div className={`w-16 h-16 ${colorScheme.bg} rounded-2xl flex items-center justify-center mb-4`}>
-                        {service.icon && renderIcon(service.icon, `h-8 w-8 ${colorScheme.text}`)}
+                      <div 
+                        className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
+                        style={{ backgroundColor: `${serviceColor}10` }}
+                      >
+                        <div style={{ color: serviceColor }}>
+                          {service.icon && renderIcon(service.icon, `h-8 w-8`)}
+                        </div>
                       </div>
                       <CardTitle className="text-xl text-gray-900 dark:text-white">{localizedService.title}</CardTitle>
                       {localizedService.subtitle && (
                         <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{localizedService.subtitle}</p>
                       )}
                       <CardDescription className="text-gray-600 dark:text-gray-400">
-                        {localizedService.description}
+                        {truncateText(localizedService.clean_description, 120)}
                       </CardDescription>
                       <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex flex-col">
                           {service.price ? (
-                            <span className="text-lg font-semibold text-gray-900 dark:text-white">€{service.price}</span>
+                            <span className="text-lg font-semibold text-gray-900 dark:text-white">€{Math.round(Number(service.price))}</span>
                           ) : (
                             <span className="text-sm text-gray-600 dark:text-gray-400 italic">{t("services.contactForQuote")}</span>
                           )}
@@ -362,7 +380,21 @@ export default function HomePage() {
                             e.stopPropagation();
                             handleServiceClick(service);
                           }}
-                          className={`${colorScheme.text} border-current hover:bg-current hover:text-white transition-colors`}
+                          className="transition-colors border-gray-300 text-gray-600 hover:text-white"
+                          style={{
+                            borderColor: serviceColor,
+                            color: serviceColor
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = serviceColor;
+                            e.currentTarget.style.color = 'white';
+                            e.currentTarget.style.borderColor = serviceColor;
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '';
+                            e.currentTarget.style.color = serviceColor;
+                            e.currentTarget.style.borderColor = serviceColor;
+                          }}
                         >
                           {t("services.viewDetails")}
                         </Button>
@@ -376,12 +408,12 @@ export default function HomePage() {
             // Fallback to static services if no dynamic services are available
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               <Card 
-                className="scroll-animate slide-in-left bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#29BF12] transition-all duration-300 hover:shadow-xl hover:shadow-[#29BF12]/10 cursor-pointer"
+                className="scroll-animate slide-in-left bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-300 hover:shadow-xl hover:shadow-[#22A60D]/10 cursor-pointer"
                 onClick={() => handleServiceContact()}
               >
                 <CardHeader>
-                  <div className="w-16 h-16 bg-[#29BF12]/10 rounded-2xl flex items-center justify-center mb-4">
-                    <Bot className="h-8 w-8 text-[#29BF12]" />
+                  <div className="w-16 h-16 bg-[#22A60D]/10 rounded-2xl flex items-center justify-center mb-4">
+                    <Bot className="h-8 w-8 text-[#22A60D]" />
                   </div>
                   <CardTitle className="text-xl text-gray-900 dark:text-white">{t("services.chatbots.title")}</CardTitle>
                   <CardDescription className="text-gray-600 dark:text-gray-400">
@@ -396,7 +428,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#29BF12] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#22A60D] border-[#22A60D] hover:bg-[#22A60D] hover:text-white hover:border-[#22A60D] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -425,7 +457,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#46B1C9] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#46B1C9] border-[#46B1C9] hover:bg-[#46B1C9] hover:text-white hover:border-[#46B1C9] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -454,7 +486,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#E4572E] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#E4572E] border-[#E4572E] hover:bg-[#E4572E] hover:text-white hover:border-[#E4572E] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -483,7 +515,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#623CEA] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#623CEA] border-[#623CEA] hover:bg-[#623CEA] hover:text-white hover:border-[#623CEA] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -492,12 +524,12 @@ export default function HomePage() {
               </Card>
 
               <Card 
-                className="scroll-animate fade-in-up bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#29BF12] transition-all duration-300 hover:shadow-xl hover:shadow-[#29BF12]/10 cursor-pointer"
+                className="scroll-animate fade-in-up bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-300 hover:shadow-xl hover:shadow-[#22A60D]/10 cursor-pointer"
                 onClick={() => handleServiceContact()}
               >
                 <CardHeader>
-                  <div className="w-16 h-16 bg-[#29BF12]/10 rounded-2xl flex items-center justify-center mb-4">
-                    <Users className="h-8 w-8 text-[#29BF12]" />
+                  <div className="w-16 h-16 bg-[#22A60D]/10 rounded-2xl flex items-center justify-center mb-4">
+                    <Users className="h-8 w-8 text-[#22A60D]" />
                   </div>
                   <CardTitle className="text-xl text-gray-900 dark:text-white">{t("services.consulting.title")}</CardTitle>
                   <CardDescription className="text-gray-600 dark:text-gray-400">
@@ -512,7 +544,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#29BF12] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#22A60D] border-[#22A60D] hover:bg-[#22A60D] hover:text-white hover:border-[#22A60D] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -541,7 +573,7 @@ export default function HomePage() {
                         e.stopPropagation();
                         handleServiceContact();
                       }}
-                      className="text-[#46B1C9] border-current hover:bg-current hover:text-white transition-colors"
+                      className="text-[#46B1C9] border-[#46B1C9] hover:bg-[#46B1C9] hover:text-white hover:border-[#46B1C9] transition-colors"
                     >
                       {t("services.contactNow")}
                     </Button>
@@ -550,35 +582,73 @@ export default function HomePage() {
               </Card>
             </div>
           )}
+          
+          {/* View All Services Button */}
+          <div className="text-center mt-12 scroll-animate fade-in-up">
+            <Link href="/services">
+              <Button
+                variant="outline"
+                size="lg"
+                className="bg-transparent border-2 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#22A60D]/20"
+              >
+                {t("services.viewAllServices")}
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 10 10"
+                  height="16"
+                  width="16"
+                  fill="none"
+                  className="ml-2 stroke-current stroke-2"
+                >
+                  <path
+                    d="M0 5h7"
+                    className="transition opacity-0 group-hover:opacity-100"
+                  />
+                  <path
+                    d="M1 1l4 4-4 4"
+                    className="transition group-hover:translate-x-[3px]"
+                  />
+                </svg>
+              </Button>
+            </Link>
+          </div>
         </div>
         
       </section>
 
        {/* Partners Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#29BF12] text-black">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-black">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center justify-items-center">
             {[
-              { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Partner 1", delay: "0.1s" },
-              { src: "/static/logos/logo_grupo_addu.webp", alt: "Partner 2", delay: "0.2s" },
-              { src: "/static/logos/logo_proinca_consultores.webp", alt: "Partner 3", delay: "0.3s" },
-            ].map(({ src, alt, delay }, i) => (
+              { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Aviva Publicidad Partner", delay: "0.1s", url: "https://avivapublicidad.es" },
+              { src: "/static/logos/logo_grupo_addu.webp", alt: "Grupo Addu Partner", delay: "0.2s", url: "https://grupoaddu.com" },
+              { src: "/static/logos/logo_proinca_consultores.webp", alt: "Proinca Consultores Partner", delay: "0.3s", url: "https://www.proincaconsultores.es" },
+            ].map(({ src, alt, delay, url }, i) => (
               <div
                 key={i}
                 className="scroll-animate fade-in-up w-full flex justify-center"
                 style={{ animationDelay: delay }}
               >
-                <Image
-                  src={src}
-                  alt={alt}
-                  width={300}
-                  height={200}
-                  className="h-24 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
-                  loading="lazy"
-                  placeholder="blur"
-                  blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
-                />
+                <a
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-transform duration-300 hover:scale-105 hover:opacity-80 cursor-pointer"
+                  aria-label={`Visit ${alt} website`}
+                >
+                  <Image
+                    src={src}
+                    alt={alt}
+                    width={300}
+                    height={120}
+                    className="h-24 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
+                    loading="lazy"
+                    placeholder="blur"
+                    blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+                  />
+                </a>
               </div>
             ))}
           </div>
@@ -595,14 +665,15 @@ export default function HomePage() {
                 width={600}
                 height={500}
                 alt="Andalusian Business Transformation"
-                className="rounded-2xl shadow-2xl"
+                className="rounded-2xl shadow-2xl w-full h-auto"
                 loading="lazy"
                 placeholder="blur"
                 blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
               />
             </div>
             <div className="scroll-animate slide-in-right">
-              <h2 className="text-2xl md:text-4xl font-bold mb-8 text-[#29BF12]">
+              <h2 className="text-2xl md:text-4xl font-bold mb-8 text-[#22A60D]">
                 {t("about.title")}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
@@ -626,26 +697,25 @@ export default function HomePage() {
             </p>
           </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            <div className="text-center p-6 bg-[#29BF12]/10 rounded-2xl flex flex-col items-center">
+            <div className="text-center p-6 bg-[#22A60D]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/odoo_logo.webp"
               alt="Odoo"
-              width={50}
-              height={100}
-              className="h-14 mb-2 dark:invert"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="h-14 w-auto mb-2 dark:invert"
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
-              <div className="text-lg font-semibold text-[#29BF12] mb-1">{t("technologies.odoo.title")}</div>
+              <div className="text-lg font-semibold text-[#22A60D] mb-1">{t("technologies.odoo.title")}</div>
               <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.odoo.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#46B1C9]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/whatsapp_logo.webp" 
               alt="WhatsApp Business" 
-              width={50}
-              height={100}
-              className="h-10 mb-2 dark:invert"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="mb-2 dark:invert"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -655,10 +725,10 @@ export default function HomePage() {
             <div className="text-center p-6 bg-[#623CEA]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/chatgpt_logo.webp"
               alt="ChatGPT"
-              width={50}
-              height={100}
-              className="h-10 mb-2 dark:invert"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="mb-2 dark:invert"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -668,10 +738,10 @@ export default function HomePage() {
             <div className="text-center p-6 bg-[#00BFAE]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/gemini_logo.webp"
               alt="Gemini"
-              width={50}
-              height={100}
-              className="h-10 mb-2"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="mb-2"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -681,10 +751,10 @@ export default function HomePage() {
             <div className="text-center p-6 bg-[#4285F4]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/looker_studio_logo.webp"
               alt="Looker Studio"
-              width={50}
-              height={100}
-              className="h-10 mb-2"
-              style={{ width: "auto" }}
+              width={80}
+              height={40}
+              className="mb-2"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -693,11 +763,11 @@ export default function HomePage() {
             </div>
             <div className="text-center p-6 bg-[#4285F4]/10 rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/meta_logo.webp"
-              width={50}
-              height={100}
+              width={80}
+              height={40}
               alt="Meta"
-              className="h-10 mb-2"
-              style={{ width: "auto" }}
+              className="mb-2"
+              style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
@@ -726,13 +796,13 @@ export default function HomePage() {
       {/* CTA Section */}
       <section
         id="contact"
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#29BF12] via-[#46B1C9] to-[#623CEA] text-white"
+        className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#22A60D] via-[#46B1C9] to-[#623CEA] text-white"
       >
         <div className="max-w-4xl mx-auto text-center scroll-animate fade-in-up">
           <h2 className="text-4xl md:text-5xl font-bold mb-8">
             {t("cta.title1")}
             <Suspense fallback={<span>{t("cta.title2")}</span>}>
-              <Cover>{t("cta.title2")}</Cover>
+              <span>{t("cta.title2")}</span>
             </Suspense>
             {t("cta.title3")}
           </h2>
@@ -743,7 +813,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Suspense fallback={
                   <Button 
-                    className="bg-white text-[#29BF12] hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
+                    className="bg-white text-[#22A60D] hover:bg-gray-100 px-8 py-4 text-lg font-semibold"
                     onClick={handleWhatsAppChat}
                   >
                     <div className="flex items-center gap-2">
@@ -785,7 +855,7 @@ export default function HomePage() {
           </div>
         </footer>
       }>
-        <Footer isDark={isDark}/>
+        <Footer />
       </Suspense>
 
       <Suspense fallback={null}>

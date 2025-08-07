@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,10 +16,21 @@ import {
   Trash2, 
   Search,
   Upload,
-  FileText
+  FileText,
+  Eye,
+  Users,
+  Calendar,
+  Clock,
+  MapPin,
+  Euro,
+  User,
+  ArrowUpDown,
+  CheckCircle,
+  XCircle
 } from "lucide-react";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
+import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
 import Image from "next/image";
 
 interface Course {
@@ -41,6 +52,7 @@ interface Course {
   interval: number;
   exclude_dates: string[];
   max_attendants: number;
+  enrolled_count: number;
   created_at: string;
   updated_at: string;
   duration_hours?: number;
@@ -49,6 +61,22 @@ interface Course {
   next_occurrences?: string[];
   weekday_display?: string[];
 }
+
+interface Enrollment {
+  id: number;
+  user: number;
+  course: number;
+  enrolled_at: string;
+  user_details?: {
+    name: string;
+    surname: string;
+    email: string;
+    company: string;
+  };
+}
+
+type SortOption = 'title' | 'start_date' | 'end_date' | 'enrolled_count' | 'max_attendants' | 'created_at';
+type SortOrder = 'asc' | 'desc';
 
 // Custom image loader to handle potential URL issues
 const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
@@ -61,6 +89,81 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
 const AdminCoursesTab = () => {
   const t = useTranslations("admin.courses");
   const tAdmin = useTranslations("admin");
+  const locale = useLocale();
+
+  // Helper function to get proper date locale
+  const getDateLocale = (locale: string): string => {
+    switch (locale) {
+      case 'es':
+        return 'es-ES';
+      case 'en':
+        return 'en-US';
+      default:
+        return 'en-US';
+    }
+  };
+
+  const dateLocale = getDateLocale(locale);
+
+  // Sort options for dropdown
+  const sortOptions: DropdownOption[] = [
+    { value: 'start_date', label: t("sorting.startDate") },
+    { value: 'title', label: t("sorting.title") },
+    { value: 'end_date', label: t("sorting.endDate") },
+    { value: 'enrolled_count', label: t("sorting.enrollments") },
+    { value: 'max_attendants', label: t("sorting.capacity") },
+    { value: 'created_at', label: t("sorting.created") }
+  ];
+
+  // Timezone options
+  const timezoneOptions: DropdownOption[] = [
+    { value: 'Europe/Madrid', label: 'Europe/Madrid (CET)' },
+    { value: 'Europe/London', label: 'Europe/London (GMT)' },
+    { value: 'Europe/Paris', label: 'Europe/Paris (CET)' },
+    { value: 'America/New_York', label: 'America/New_York (EST)' },
+    { value: 'America/Los_Angeles', label: 'America/Los_Angeles (PST)' },
+    { value: 'UTC', label: 'UTC' }
+  ];
+
+  // Week of month options
+  const weekOfMonthOptions: DropdownOption[] = [
+    { value: '', label: t("form.weekOfMonth.any") },
+    { value: '1', label: t("form.weekOfMonth.first") },
+    { value: '2', label: t("form.weekOfMonth.second") },
+    { value: '3', label: t("form.weekOfMonth.third") },
+    { value: '4', label: t("form.weekOfMonth.fourth") },
+    { value: '-1', label: t("form.weekOfMonth.last") }
+  ];
+
+  // Periodicity options for recurrence pattern
+  const periodicityOptions: DropdownOption[] = [
+    { value: 'once', label: t("form.periodicity.once") },
+    { value: 'daily', label: t("form.periodicity.daily") },
+    { value: 'weekly', label: t("form.periodicity.weekly") },
+    { value: 'biweekly', label: t("form.periodicity.biweekly") },
+    { value: 'monthly', label: t("form.periodicity.monthly") }
+  ];
+
+  // Days of the week with internationalization
+  const daysOfWeek = [
+    { key: 'monday', short: t("form.weekdays.monday.short"), full: t("form.weekdays.monday.full") },
+    { key: 'tuesday', short: t("form.weekdays.tuesday.short"), full: t("form.weekdays.tuesday.full") },
+    { key: 'wednesday', short: t("form.weekdays.wednesday.short"), full: t("form.weekdays.wednesday.full") },
+    { key: 'thursday', short: t("form.weekdays.thursday.short"), full: t("form.weekdays.thursday.full") },
+    { key: 'friday', short: t("form.weekdays.friday.short"), full: t("form.weekdays.friday.full") },
+    { key: 'saturday', short: t("form.weekdays.saturday.short"), full: t("form.weekdays.saturday.full") },
+    { key: 'sunday', short: t("form.weekdays.sunday.short"), full: t("form.weekdays.sunday.full") }
+  ];
+
+  // Helper function to convert weekday indices to internationalized names
+  const formatWeekdays = (weekdays: number[]): string => {
+    if (!weekdays || weekdays.length === 0) return '';
+    return weekdays
+      .sort((a, b) => a - b) // Sort weekdays to display in order
+      .map(index => daysOfWeek[index]?.short || '')
+      .filter(day => day !== '') // Remove any invalid indices
+      .join(', ');
+  };
   const [courses, setCourses] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -68,11 +171,17 @@ const AdminCoursesTab = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCourseModal, setShowCourseModal] = useState(false);
+  const [selectedCourseForModal, setSelectedCourseForModal] = useState<Course | null>(null);
+  const [courseEnrollments, setCourseEnrollments] = useState<Enrollment[]>([]);
   const [currentCourse, setCurrentCourse] = useState<Course | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [sortBy, setSortBy] = useState<SortOption>('start_date');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
+  const [isLoadingEnrollments, setIsLoadingEnrollments] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -184,6 +293,92 @@ const AdminCoursesTab = () => {
       return;
     }
     setShowDeleteModal(true);
+  };
+
+  const handleViewCourse = async (course: Course) => {
+    setSelectedCourseForModal(course);
+    setShowCourseModal(true);
+    setIsLoadingEnrollments(true);
+    
+    try {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(getApiEndpoint('/api/courses/enrollments/'), {
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const enrollments = await response.json();
+        const courseEnrollments = enrollments.filter((enrollment: Enrollment) => 
+          enrollment.course === course.id
+        );
+        setCourseEnrollments(courseEnrollments);
+      } else {
+        setAlert({type: 'error', message: 'Failed to fetch course enrollments'});
+        setCourseEnrollments([]);
+      }
+    } catch (error) {
+      console.error('Fetch enrollments error:', error);
+      setAlert({type: 'error', message: 'Network error while fetching enrollments'});
+      setCourseEnrollments([]);
+    } finally {
+      setIsLoadingEnrollments(false);
+    }
+  };
+
+  const isCourseFinished = (course: Course) => {
+    const now = new Date();
+    const endDate = new Date(course.end_date);
+    return endDate < now;
+  };
+
+  const sortCourses = (courses: Course[]) => {
+    const sorted = [...courses].sort((a, b) => {
+      let aValue: string | number | Date;
+      let bValue: string | number | Date;
+
+      switch (sortBy) {
+        case 'title':
+          aValue = a.title.toLowerCase();
+          bValue = b.title.toLowerCase();
+          break;
+        case 'start_date':
+          aValue = new Date(a.start_date);
+          bValue = new Date(b.start_date);
+          break;
+        case 'end_date':
+          aValue = new Date(a.end_date);
+          bValue = new Date(b.end_date);
+          break;
+        case 'enrolled_count':
+          aValue = a.enrolled_count || 0;
+          bValue = b.enrolled_count || 0;
+          break;
+        case 'max_attendants':
+          aValue = a.max_attendants;
+          bValue = b.max_attendants;
+          break;
+        case 'created_at':
+          aValue = new Date(a.created_at);
+          bValue = new Date(b.created_at);
+          break;
+        default:
+          return 0;
+      }
+
+      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    // Separate finished and active courses
+    const activeCourses = sorted.filter(course => !isCourseFinished(course));
+    const finishedCourses = sorted.filter(course => isCourseFinished(course));
+
+    // Return active courses first, then finished courses
+    return [...activeCourses, ...finishedCourses];
   };
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -383,6 +578,26 @@ const AdminCoursesTab = () => {
     );
   };
 
+  // Helper function to format course schedule for display
+  const formatCourseSchedule = (course: Course): string => {
+    // Always format dates with proper locale instead of using backend's formatted_schedule
+    const dateOptions: Intl.DateTimeFormatOptions = { 
+      year: 'numeric', 
+      month: 'numeric', 
+      day: 'numeric' 
+    };
+    const startDate = new Date(course.start_date).toLocaleDateString(dateLocale, dateOptions);
+    const endDate = new Date(course.end_date).toLocaleDateString(dateLocale, dateOptions);
+    
+    // Remove seconds from time format (HH:MM:SS -> HH:MM)
+    const startTime = course.start_time.substring(0, 5); // "17:30:00" -> "17:30"
+    const endTime = course.end_time.substring(0, 5); // "20:30:00" -> "20:30"
+    const timeRange = `${startTime} - ${endTime}`;
+    
+    // Create a localized format
+    return `${startDate} - ${endDate} • ${timeRange}`;
+  };
+
   const toggleSelectAll = () => {
     const filteredCourses = (courses || []).filter(course =>
       course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -396,15 +611,17 @@ const AdminCoursesTab = () => {
     }
   };
 
-  const filteredCourses = (courses || []).filter(course =>
-    course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.location.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCourses = sortCourses(
+    (courses || []).filter(course =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.location.toLowerCase().includes(searchTerm.toLowerCase())
+    )
   );
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#29BF12]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
       </div>
     );
   }
@@ -422,7 +639,7 @@ const AdminCoursesTab = () => {
 
       {/* Header Actions */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
@@ -431,6 +648,29 @@ const AdminCoursesTab = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 w-64"
             />
+          </div>
+          
+          {/* Sort Controls */}
+          <div className="flex items-center justify-center space-x-3">
+            <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+              {t("sorting.sortBy")}:
+            </Label>
+            <Dropdown
+              options={sortOptions}
+              value={sortBy}
+              onChange={(value) => setSortBy(value as SortOption)}
+              minWidth="240px"
+              width="240px"
+              theme="orange"
+            />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-lg"
+            >
+              <ArrowUpDown className="h-4 w-4" />
+            </Button>
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -447,7 +687,7 @@ const AdminCoursesTab = () => {
           )}
           <Button
             onClick={handleCreate}
-            className="bg-[#29BF12] hover:bg-[#22A010] text-white flex items-center space-x-1"
+            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center space-x-1"
           >
             <Plus className="h-4 w-4" />
             <span>{t("addCourse")}</span>
@@ -468,26 +708,43 @@ const AdminCoursesTab = () => {
               type="checkbox"
               checked={selectedCourses.length === filteredCourses.length && filteredCourses.length > 0}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+              className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               {t("selectAll")} ({filteredCourses.length} {t("courses")})
             </span>
           </div>
 
-          {filteredCourses.map((course) => (
-            <Card key={course.id} className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+          {filteredCourses.map((course) => {
+            const isFinished = isCourseFinished(course);
+            const enrollmentPercentage = (course.enrolled_count || 0) / course.max_attendants * 100;
+            const availableSpots = course.max_attendants - (course.enrolled_count || 0);
+            
+            return (
+            <Card key={course.id} className={`${isFinished 
+              ? 'bg-gray-50 dark:bg-gray-800/50 border-gray-300 dark:border-gray-600 opacity-75' 
+              : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
+            } cursor-pointer hover:shadow-md transition-shadow duration-200`}
+            onClick={() => handleViewCourse(course)}
+            >
               <CardContent className="p-4">
                 <div className="flex items-start space-x-4">
                   <input
                     type="checkbox"
                     checked={selectedCourses.includes(course.id)}
-                    onChange={() => toggleCourseSelection(course.id)}
-                    className="mt-1 rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+                    onChange={(e) => {
+                      e.stopPropagation();
+                      toggleCourseSelection(course.id);
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                    disabled={isFinished}
+                    className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] disabled:opacity-50"
                   />
                   
                   {/* Course Image */}
-                  <div className="w-20 h-20 relative rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700">
+                  <div className={`w-20 h-20 relative rounded-lg overflow-hidden flex-shrink-0 ${
+                    isFinished ? 'grayscale' : 'bg-gray-100 dark:bg-gray-700'
+                  }`}>
                     {course.image && course.image !== 'undefined' && course.image !== 'null' ? (
                       <Image
                         loader={imageLoader}
@@ -507,56 +764,125 @@ const AdminCoursesTab = () => {
                         <FileText className="h-8 w-8 text-gray-400" />
                       </div>
                     )}
+                    {isFinished && (
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <CheckCircle className="h-6 w-6 text-white" />
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                          {course.title}
-                        </h3>
+                        <div className="flex items-center space-x-2 mb-1">
+                          <h3 className={`text-lg font-semibold ${
+                            isFinished ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white'
+                          }`}>
+                            {course.title}
+                          </h3>
+                          {isFinished && (
+                            <span className="px-2 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full">
+                              {t("details.finished")}
+                            </span>
+                          )}
+                        </div>
                         {course.subtitle && (
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
+                          <p className={`text-sm mb-1 ${
+                            isFinished ? 'text-gray-500 dark:text-gray-500' : 'text-gray-600 dark:text-gray-400'
+                          }`}>
                             {course.subtitle}
                           </p>
                         )}
-                        <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+                        <p className={`text-sm mb-2 ${
+                          isFinished ? 'text-gray-600 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'
+                        }`}>
                           {course.description}
                         </p>
-                        <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                        
+                        {/* Enrollment Progress Bar */}
+                        <div className="mb-2">
+                          <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
+                            <span>{t("courseCard.enrollments")}: {course.enrolled_count || 0}/{course.max_attendants}</span>
+                            <span>{Math.round(enrollmentPercentage)}% {t("courseCard.full")}</span>
+                          </div>
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div 
+                              className={`h-2 rounded-full transition-all duration-300 ${
+                                enrollmentPercentage >= 100 
+                                  ? 'bg-red-500' 
+                                  : enrollmentPercentage >= 80 
+                                    ? 'bg-orange-500' 
+                                    : 'bg-[#22A60D]'
+                              }`}
+                              style={{ width: `${Math.min(enrollmentPercentage, 100)}%` }}
+                            ></div>
+                          </div>
+                        </div>
+
+                        <div className={`flex flex-wrap items-center gap-4 text-xs ${
+                          isFinished ? 'text-gray-500 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'
+                        }`}>
                           <span>{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
                           <span>{tAdmin("labels.location")}: {course.location}</span>
-                          <span>{tAdmin("labels.schedule")}: {course.formatted_schedule || `${course.start_date} - ${course.end_date}`}</span>
-                          <span>{tAdmin("labels.maxAttendants")}: {course.max_attendants}</span>
-                          <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString()}</span>
+                          <span>{tAdmin("labels.schedule")}: {formatCourseSchedule(course)}</span>
+                          <span className={`flex items-center space-x-1 ${
+                            availableSpots === 0 ? 'text-red-600 font-medium' : ''
+                          }`}>
+                            <Users className="h-3 w-3" />
+                            <span>{availableSpots} {t("courseCard.spotsAvailable")}</span>
+                          </span>
+                          <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
                         </div>
                       </div>
                       <div className="flex items-center space-x-2 ml-4">
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => handleEdit(course)}
-                          className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleViewCourse(course);
+                          }}
+                          className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10"
                         >
-                          <Edit className="h-4 w-4" />
+                          <Eye className="h-4 w-4" />
                         </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDelete(course)}
-                          className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
+                        {!isFinished && (
+                          <>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleEdit(course);
+                              }}
+                              className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                            >
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete(course);
+                              }}
+                              className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          ))}
+            );
+          })}
         </div>
       )}
+
 
       {/* Create/Edit Course Modal */}
       <Modal
@@ -573,8 +899,8 @@ const AdminCoursesTab = () => {
           {/* Course Title */}
           <div className="space-y-3">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#29BF12]/10 rounded flex items-center justify-center">
-                <FileText className="w-3 h-3 text-[#29BF12]" />
+              <div className="w-5 h-5 bg-[#22A60D]/10 rounded flex items-center justify-center">
+                <FileText className="w-3 h-3 text-[#22A60D]" />
               </div>
               <span>{t("form.titleRequired")}</span>
             </Label>
@@ -583,7 +909,7 @@ const AdminCoursesTab = () => {
               value={formData.title}
               onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
               placeholder={t("form.titlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-[#29BF12] focus:ring-[#29BF12]/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
               required
             />
           </div>
@@ -833,20 +1159,14 @@ const AdminCoursesTab = () => {
               <Label htmlFor="periodicity" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 {t("form.periodicityRequired")}
               </Label>
-              <select
-                id="periodicity"
+              <Dropdown
+                options={periodicityOptions}
                 value={formData.periodicity}
-                onChange={(e) => setFormData(prev => ({...prev, periodicity: e.target.value as Course['periodicity']}))}
-                className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                required
-              >
-                <option value="once">{t("form.periodicity.once")}</option>
-                <option value="daily">{t("form.periodicity.daily")}</option>
-                <option value="weekly">{t("form.periodicity.weekly")}</option>
-                <option value="biweekly">{t("form.periodicity.biweekly")}</option>
-                <option value="monthly">{t("form.periodicity.monthly")}</option>
-                <option value="custom">{t("form.periodicity.custom")}</option>
-              </select>
+                onChange={(value) => setFormData(prev => ({...prev, periodicity: value as Course['periodicity']}))}
+                minWidth="100%"
+                theme="orange"
+                placeholder={t("form.periodicity.once")}
+              />
             </div>
 
             {/* Weekdays Selection (for weekly/biweekly patterns) */}
@@ -856,8 +1176,8 @@ const AdminCoursesTab = () => {
                   {t("form.weekdaysOptional")}
                 </Label>
                 <div className="grid grid-cols-7 gap-2">
-                  {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, index) => (
-                    <label key={day} className="flex flex-col items-center space-y-1 cursor-pointer">
+                  {daysOfWeek.map((day, index) => (
+                    <label key={day.key} className="flex flex-col items-center space-y-1 cursor-pointer">
                       <input
                         type="checkbox"
                         checked={formData.weekdays.includes(index)}
@@ -870,7 +1190,9 @@ const AdminCoursesTab = () => {
                         }}
                         className="rounded border-gray-300 text-blue-500 focus:ring-blue-500/20"
                       />
-                      <span className="text-xs text-gray-600 dark:text-gray-400">{day.slice(0, 3)}</span>
+                      <span className="text-xs text-gray-600 dark:text-gray-400" title={day.full}>
+                        {day.short}
+                      </span>
                     </label>
                   ))}
                 </div>
@@ -883,19 +1205,14 @@ const AdminCoursesTab = () => {
                 <Label htmlFor="week_of_month" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t("form.weekOfMonthOptional")}
                 </Label>
-                <select
-                  id="week_of_month"
-                  value={formData.week_of_month || ''}
-                  onChange={(e) => setFormData(prev => ({...prev, week_of_month: e.target.value ? parseInt(e.target.value) : null}))}
-                  className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                >
-                  <option value="">{t("form.weekOfMonth.any")}</option>
-                  <option value="1">{t("form.weekOfMonth.first")}</option>
-                  <option value="2">{t("form.weekOfMonth.second")}</option>
-                  <option value="3">{t("form.weekOfMonth.third")}</option>
-                  <option value="4">{t("form.weekOfMonth.fourth")}</option>
-                  <option value="-1">{t("form.weekOfMonth.last")}</option>
-                </select>
+                <Dropdown
+                  options={weekOfMonthOptions}
+                  value={formData.week_of_month?.toString() || ''}
+                  onChange={(value) => setFormData(prev => ({...prev, week_of_month: value ? parseInt(value) : null}))}
+                  placeholder={t("form.weekOfMonth.any")}
+                  theme="orange"
+                  width="100%"
+                />
               </div>
             )}
 
@@ -920,19 +1237,13 @@ const AdminCoursesTab = () => {
                 <Label htmlFor="timezone" className="text-sm font-medium text-gray-700 dark:text-gray-300">
                   {t("form.timezoneOptional")}
                 </Label>
-                <select
-                  id="timezone"
+                <Dropdown
+                  options={timezoneOptions}
                   value={formData.timezone}
-                  onChange={(e) => setFormData(prev => ({...prev, timezone: e.target.value}))}
-                  className="h-11 w-full border border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
-                >
-                  <option value="Europe/Madrid">Europe/Madrid (CET)</option>
-                  <option value="Europe/London">Europe/London (GMT)</option>
-                  <option value="Europe/Paris">Europe/Paris (CET)</option>
-                  <option value="America/New_York">America/New_York (EST)</option>
-                  <option value="America/Los_Angeles">America/Los_Angeles (PST)</option>
-                  <option value="UTC">UTC</option>
-                </select>
+                  onChange={(value) => setFormData(prev => ({...prev, timezone: value}))}
+                  theme="orange"
+                  width="100%"
+                />
               </div>
             </div>
           </div>
@@ -946,13 +1257,13 @@ const AdminCoursesTab = () => {
                 setShowEditModal(false);
                 resetForm();
               }}
-              className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+              className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-500 transition-all duration-200"
             >
               {t("form.cancel")}
             </Button>
             <Button
               onClick={() => submitCourse(showEditModal)}
-              className="px-6 py-2 bg-[#29BF12] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+              className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
             >
               <span>{showEditModal ? t("form.update") : t("form.create")}</span>
               {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
@@ -976,6 +1287,350 @@ const AdminCoursesTab = () => {
         cancelText={t("confirmDelete.cancel")}
         isLoading={isDeleting}
       />
+
+      {/* Course Visualization Modal */}
+      <Modal
+        isOpen={showCourseModal}
+        onClose={() => {
+          setShowCourseModal(false);
+          setSelectedCourseForModal(null);
+          setCourseEnrollments([]);
+        }}
+        title={selectedCourseForModal ? t("details.title") : t("details.title")}
+        showHeader={true}
+        className="max-w-[95vw] xl:max-w-[85vw] 2xl:max-w-[80vw]"
+      >
+        {selectedCourseForModal && (
+          <div className="space-y-4 max-h-[75vh] overflow-y-auto">
+            {/* Course Header */}
+            <div className="flex items-start space-x-6">
+              {/* Course Image */}
+              <div className="w-32 h-32 relative rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700">
+                {selectedCourseForModal.image && selectedCourseForModal.image !== 'undefined' && selectedCourseForModal.image !== 'null' ? (
+                  <Image
+                    loader={imageLoader}
+                    src={selectedCourseForModal.image}
+                    alt={selectedCourseForModal.title}
+                    fill
+                    className="object-cover"
+                    sizes="128px"
+                    onError={(e) => {
+                      console.error('Course image failed to load:', selectedCourseForModal.image);
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <FileText className="h-16 w-16 text-gray-400" />
+                  </div>
+                )}
+                {isCourseFinished(selectedCourseForModal) && (
+                  <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                    <div className="text-white text-center">
+                      <CheckCircle className="h-8 w-8 mx-auto mb-1" />
+                      <span className="text-xs font-medium">{t("details.finished")}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Course Info */}
+              <div className="flex-1 min-w-0">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  {selectedCourseForModal.title}
+                </h2>
+                {selectedCourseForModal.subtitle && (
+                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-3">
+                    {selectedCourseForModal.subtitle}
+                  </p>
+                )}
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                  {selectedCourseForModal.description}
+                </p>
+
+                {/* Key Metrics */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
+                  <div className="bg-[#22A60D]/10 rounded-lg p-4 flex-1">
+                    <div className="flex flex-col">
+                      <div className="flex items-center justify-between w-full mb-2">
+                        <Users className="h-6 w-6 text-[#22A60D] flex-shrink-0" />
+                        <p className="text-lg font-bold text-[#22A60D]">
+                          {selectedCourseForModal.enrolled_count || 0}
+                        </p>
+                      </div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400 text-center">
+                        {t("details.enrolled")}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-blue-100 dark:bg-blue-900/30 rounded-lg p-4 flex-1">
+                    <div className="flex flex-col">
+                      <div className="flex items-center justify-between w-full mb-2">
+                        <User className="h-6 w-6 text-blue-600 flex-shrink-0" />
+                        <p className="text-lg font-bold text-blue-600">
+                          {selectedCourseForModal.max_attendants}
+                        </p>
+                      </div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400 text-center">
+                        {t("details.capacity")}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-orange-100 dark:bg-orange-900/30 rounded-lg p-4 flex-1">
+                    <div className="flex flex-col">
+                      <div className="flex items-center justify-between w-full mb-2">
+                        <XCircle className="h-6 w-6 text-orange-600 flex-shrink-0" />
+                        <p className="text-lg font-bold text-orange-600">
+                          {selectedCourseForModal.max_attendants - (selectedCourseForModal.enrolled_count || 0)}
+                        </p>
+                      </div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400 text-center">
+                        {t("details.vacant")}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="bg-purple-100 dark:bg-purple-900/30 rounded-lg p-4 flex-1">
+                    <div className="flex flex-col">
+                      <div className="flex items-center justify-between w-full mb-2">
+                        <Euro className="h-6 w-6 text-purple-600 flex-shrink-0" />
+                        <p className="text-lg font-bold text-purple-600 break-words text-right">
+                          {selectedCourseForModal.price ? `${Math.round(Number(selectedCourseForModal.price))}` : t("contactForQuote")}
+                        </p>
+                      </div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400 text-center">
+                        {t("details.price")}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Course Details Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              {/* Schedule Information */}
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5">
+                <div className="flex items-center space-x-2 mb-3">
+                  <Calendar className="h-5 w-5 text-blue-600" />
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.schedule")}</h3>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">{t("details.startDate")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {new Date(selectedCourseForModal.start_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">{t("details.endDate")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {new Date(selectedCourseForModal.end_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">{t("details.time")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {selectedCourseForModal.start_time.substring(0, 5)} - {selectedCourseForModal.end_time.substring(0, 5)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">{t("details.duration")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {selectedCourseForModal.duration_hours?.toFixed(1)} {t("details.hours")}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">{t("details.frequency")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-white capitalize">
+                      {t(`form.periodicity.${selectedCourseForModal.periodicity}`)}
+                    </span>
+                  </div>
+                  {selectedCourseForModal.weekdays && selectedCourseForModal.weekdays.length > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-600 dark:text-gray-400">{t("details.weekdays")}:</span>
+                      <span className="font-medium text-gray-900 dark:text-white">
+                        {formatWeekdays(selectedCourseForModal.weekdays)}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Location & Logistics */}
+              <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-5">
+                <div className="flex items-center space-x-2 mb-3">
+                  <MapPin className="h-5 w-5 text-green-600" />
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.locationInfo")}</h3>
+                </div>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">{t("details.location")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {selectedCourseForModal.location}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">{t("details.timezone")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {selectedCourseForModal.timezone}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">{t("details.created")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {new Date(selectedCourseForModal.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">{t("details.lastUpdated")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {new Date(selectedCourseForModal.updated_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Enrollment Progress */}
+            <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-xl p-5">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.enrollmentStatus")}</h3>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  {((selectedCourseForModal.enrolled_count || 0) / selectedCourseForModal.max_attendants * 100).toFixed(1)}% {t("details.fullStatus")}
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3 mb-3">
+                <div 
+                  className={`h-3 rounded-full transition-all duration-500 ${
+                    (selectedCourseForModal.enrolled_count || 0) >= selectedCourseForModal.max_attendants
+                      ? 'bg-red-500' 
+                      : (selectedCourseForModal.enrolled_count || 0) / selectedCourseForModal.max_attendants >= 0.8
+                        ? 'bg-orange-500' 
+                        : 'bg-[#22A60D]'
+                  }`}
+                  style={{ 
+                    width: `${Math.min(((selectedCourseForModal.enrolled_count || 0) / selectedCourseForModal.max_attendants * 100), 100)}%` 
+                  }}
+                ></div>
+              </div>
+              <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                <span>{selectedCourseForModal.enrolled_count || 0} {t("details.enrolled").toLowerCase()}</span>
+                <span>{selectedCourseForModal.max_attendants - (selectedCourseForModal.enrolled_count || 0)} {t("details.spotsRemaining")}</span>
+              </div>
+            </div>
+
+            {/* Enrolled Members */}
+            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center space-x-2">
+                  <Users className="h-5 w-5" />
+                  <span>{t("details.enrolledMembers")}</span>
+                </h3>
+                <span className="bg-[#22A60D]/10 text-[#22A60D] px-3 py-1 rounded-full text-sm font-medium">
+                  {courseEnrollments.length} {t("details.members")}
+                </span>
+              </div>
+              
+              {isLoadingEnrollments ? (
+                <div className="flex items-center justify-center py-6">
+                  <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#22A60D]"></div>
+                </div>
+              ) : courseEnrollments.length === 0 ? (
+                <div className="text-center py-6 text-gray-500 dark:text-gray-400">
+                  <Users className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+                  <p>{t("details.noEnrollments")}</p>
+                </div>
+              ) : (
+                <div className="space-y-2 max-h-48 overflow-y-auto">
+                  {courseEnrollments.map((enrollment, index) => {
+                    // More robust name handling
+                    const userName = enrollment.user_details?.name?.trim();
+                    const userSurname = enrollment.user_details?.surname?.trim();
+                    const userEmail = enrollment.user_details?.email;
+                    
+                    let displayName = '';
+                    if (userName && userSurname) {
+                      displayName = `${userName} ${userSurname}`;
+                    } else if (userName) {
+                      displayName = userName;
+                    } else if (userSurname) {
+                      displayName = userSurname;
+                    } else if (userEmail) {
+                      displayName = userEmail.split('@')[0];
+                    } else {
+                      displayName = `User #${enrollment.user}`;
+                    }
+                    
+                    return (
+                    <div key={enrollment.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-[#22A60D]/10 rounded-full flex items-center justify-center">
+                          <User className="h-4 w-4 text-[#22A60D]" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900 dark:text-white">
+                            {displayName}
+                          </p>
+                          {enrollment.user_details?.email && (
+                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                              {enrollment.user_details.email}
+                            </p>
+                          )}
+                          {enrollment.user_details?.company && (
+                            <p className="text-xs text-blue-600 dark:text-blue-400">
+                              {enrollment.user_details.company}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          {t("details.enrolledOn")} {new Date(enrollment.enrolled_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                        </p>
+                        <p className="text-xs text-gray-600 dark:text-gray-300">
+                          {t("details.member")} #{index + 1}
+                        </p>
+                      </div>
+                    </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Next Occurrences */}
+            {selectedCourseForModal.next_occurrences && selectedCourseForModal.next_occurrences.length > 0 && (
+              <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-xl p-5">
+                <div className="flex items-center space-x-2 mb-3">
+                  <Clock className="h-6 w-6 text-indigo-600" />
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.upcomingSessions")}</h3>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                  {selectedCourseForModal.next_occurrences.slice(0, 6).map((occurrence, index) => (
+                    <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
+                      <p className="font-medium text-gray-900 dark:text-white">
+                        {new Date(occurrence).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {selectedCourseForModal.start_time.substring(0, 5)} - {selectedCourseForModal.end_time.substring(0, 5)}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                {selectedCourseForModal.next_occurrences.length > 6 && (
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-3 text-center">
+                    +{selectedCourseForModal.next_occurrences.length - 6} {t("details.moreSessions")}
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

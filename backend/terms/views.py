@@ -24,9 +24,6 @@ class TermsViewSet(viewsets.ModelViewSet):
     serializer_class = TermsSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['tag', 'name']
-    # Override authentication to avoid 401 responses for unauthenticated users
-    authentication_classes = []
-    permission_classes = []  # Override default permissions
 
     def get_permissions(self):
         if self.action in ['list', 'retrieve']:

@@ -1,6 +1,7 @@
 {
-  "name": "Ordinaly",
+  "name": "Ordinaly - Automatización Empresarial con IA",
   "short_name": "Ordinaly",
+  "description": "Transformamos empresas con soluciones de automatización inteligente",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -11,9 +12,20 @@
       "src": "/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/maskable-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "start_url": "/",
+  "theme_color": "#22A60D",
+  "background_color": "#F9FAFB",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "categories": ["business", "productivity", "utilities"],
+  "lang": "es-ES"
 }
