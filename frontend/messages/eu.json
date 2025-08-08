@@ -1069,5 +1069,16 @@
       "description": "Berria Ordaininy-ri? "
     },
     "termsText": "Jarraituz, gure zerbitzu baldintzak eta pribatutasun politika onartzen dituzu"
+  },
+  "notFound": {
+    "title": "404 - Orrialdea Ez da Aurkitu",
+    "heading": "Hara! Orrialdea Espazio Digitalean Galdu",
+    "message": "Bilatzen ari zaren orrialdea gure enpresa automatizazio unibertsoan galdu dela dirudi.",
+    "description": "Ez kezkatu, Ordinaly-n ere batzuetan bidetik desbideratzen gara. Baina denentzako soluzio adimentsuak ditugu.",
+    "homeButton": "Hasierara Itzuli",
+    "exploreButton": "Zerbitzuak Arakatu",
+    "contactButton": "Laguntza Jarri Harremanetan",
+    "redirectMessage": "Automatikoki birbideratuko zara {seconds} segundotan...",
+    "robotText": "Gure automatizazio robota orrialdea bilatzen ari da..."
   }
 }

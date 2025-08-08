@@ -84,7 +84,6 @@ export default function CoursesShowcase({
             setUserEnrollments(enrolledCourseIds);
           }
         } catch (error) {
-          console.error('Error fetching user enrollments:', error);
         }
       }
     };
@@ -143,7 +142,7 @@ export default function CoursesShowcase({
 
   const getAvailabilityColor = (enrolled: number, max: number) => {
     const percentage = (enrolled / max) * 100;
-    if (percentage >= 90) return 'text-red-600 dark:text-red-400';
+    if (percentage >= 90) return 'text-red dark:text-red';
     if (percentage >= 70) return 'text-orange-600 dark:text-orange-400';
     return 'text-green-600 dark:text-green-400';
   };
@@ -162,7 +161,7 @@ export default function CoursesShowcase({
           <div className="text-center">
             <div className="max-w-md mx-auto bg-white dark:bg-gray-800/50 rounded-xl shadow-lg p-8">
               <div className="w-16 h-16 mx-auto mb-4 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-600 dark:text-red-400">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red dark:text-red">
                   <circle cx="12" cy="12" r="10"/>
                   <line x1="15" y1="9" x2="9" y2="15"/>
                   <line x1="9" y1="9" x2="15" y2="15"/>

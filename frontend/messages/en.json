@@ -1070,5 +1070,16 @@
       "description": "New to Ordinaly? Create your account"
     },
     "termsText": "By continuing, you agree to our Terms of Service and Privacy Policy"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "heading": "Oops! Page Lost in Digital Space",
+    "message": "The page you're looking for seems to have gotten lost in our business automation universe.",
+    "description": "Don't worry, even at Ordinaly we sometimes stray from the path. But we have intelligent solutions for everything.",
+    "homeButton": "Back to Home",
+    "exploreButton": "Explore Services",
+    "contactButton": "Contact Support",
+    "redirectMessage": "You will be automatically redirected in {seconds} seconds...",
+    "robotText": "Our automation robot is searching for the page..."
   }
 }

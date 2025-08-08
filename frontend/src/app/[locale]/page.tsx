@@ -74,18 +74,6 @@ export default function HomePage() {
     preloadHeroImage();
   }, []);
 
-  // Debug log to help troubleshoot services loading (development only)
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      console.log('HomePage services state:', { 
-        servicesCount: services.length, 
-        servicesLoading, 
-        servicesError, 
-        isOnVacation 
-      });
-    }
-  }, [services.length, servicesLoading, servicesError, isOnVacation]);
-
   // Service modal handlers - optimize with useCallback
   const handleServiceClick = useCallback((service: Service) => {
     setSelectedService(service);
@@ -139,7 +127,6 @@ export default function HomePage() {
     // Delayed observation setup to avoid interfering with initial render
     const setupObserver = () => {
       const animateElements = document.querySelectorAll(".scroll-animate");
-      console.log('🔍 Setting up observer for', animateElements.length, 'elements');
       animateElements.forEach((el) => observer.observe(el));
     };
 
@@ -238,21 +225,6 @@ export default function HomePage() {
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               {t("services.description")}
             </p>
-            {/* Temporary debug info */}
-            {process.env.NODE_ENV === 'development' && (
-              <div className="mt-4 p-4 bg-yellow-100 dark:bg-yellow-900/20 rounded-lg">
-                <p className="text-sm">
-                  Debug: Services: {services.length}, Loading: {servicesLoading ? 'Yes' : 'No'}, Error: {servicesError || 'None'}
-                </p>
-                <p className="text-xs mt-1">
-                  OnVacation: {isOnVacation ? 'Yes' : 'No'}, 
-                  Condition: {servicesLoading ? 'Loading' : isOnVacation ? 'Vacation' : servicesError ? 'Error' : services.length > 0 ? 'Services' : 'Fallback'}
-                </p>
-                <Button onClick={refetch} className="mt-2" size="sm">
-                  🔄 Refresh Services
-                </Button>
-              </div>
-            )}
           </div>
 
           {servicesLoading ? (
@@ -332,14 +304,9 @@ export default function HomePage() {
           ) : services.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {services.map((service, index) => {
-                // Debug log for development
-                if (process.env.NODE_ENV === 'development' && index === 0) {
-                  console.log('🎨 Rendering services:', services.length, 'services');
-                }
                 const localizedService = service; // Assuming service is already localized
                 const animationClass = index % 3 === 0 ? 'slide-in-left' : index % 3 === 1 ? 'fade-in-up' : 'slide-in-right';
                 
-                // Function to get the appropriate color for dark/light mode
                 const getServiceColor = (service: Service) => {
                   const isDarkMode = document.documentElement.classList.contains('dark');
                   
@@ -638,37 +605,7 @@ export default function HomePage() {
         
       </section>
 
-      {/* Courses Showcase Section */}
-      <Suspense fallback={
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-6 max-w-md mx-auto"></div>
-              <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse max-w-2xl mx-auto"></div>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Array.from({ length: 3 }).map((_, index) => (
-                <div key={index} className="bg-white dark:bg-gray-800/50 rounded-xl p-6">
-                  <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mb-4"></div>
-                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
-                  <div className="space-y-2">
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      }>
-        <CoursesShowcase 
-          limit={3} 
-          showUpcomingOnly={true}
-        />
-      </Suspense>
-
-       {/* Partners Section */}
+      {/* Partners Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-black">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
@@ -706,6 +643,36 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Courses Showcase Section */}
+      <Suspense fallback={
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-6 max-w-md mx-auto"></div>
+              <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse max-w-2xl mx-auto"></div>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="bg-white dark:bg-gray-800/50 rounded-xl p-6">
+                  <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mb-4"></div>
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      }>
+        <CoursesShowcase 
+          limit={3} 
+          showUpcomingOnly={true}
+        />
+      </Suspense>
 
       {/* About Section */}
       <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">

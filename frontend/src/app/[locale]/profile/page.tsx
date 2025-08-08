@@ -53,7 +53,6 @@ export default function ProfilePage() {
 
   // Track changes to form fields
   const handleFieldChange = (field: string, value: string) => {
-    // Set the field value
     switch (field) {
       case 'firstName':
         setFirstName(value);
@@ -138,7 +137,7 @@ export default function ProfilePage() {
         setAlert({ type: 'error', message: t("messages.networkError") });
       }
     } catch (error) {
-      console.error('Error fetching profile:', error);
+      
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsLoading(false);
@@ -146,7 +145,6 @@ export default function ProfilePage() {
   }, [authToken, t]);
 
   useEffect(() => {
-    // Check authentication status
     const token = localStorage.getItem('authToken');
     setAuthToken(token);
     setIsAuthenticated(!!token);
@@ -260,7 +258,7 @@ export default function ProfilePage() {
         }
       }
     } catch (error) {
-      console.error('Error updating profile:', error);
+      
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsSaving(false);
@@ -317,7 +315,6 @@ export default function ProfilePage() {
             // Ignore errors, account is being deleted anyway
           }
 
-          // Remove token and redirect to home
           localStorage.removeItem('authToken');
           window.location.href = '/';
         }, 2000);
@@ -330,7 +327,7 @@ export default function ProfilePage() {
         }
       }
     } catch (err) {
-      console.error('Error deleting account:', err);
+      
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsDeleting(false);
@@ -385,9 +382,11 @@ export default function ProfilePage() {
             <div className="lg:col-span-2">
               <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-[#22A60D] flex items-center">
-                    <User className="h-6 w-6 mr-2" />
-                    {t("personalInfo")}
+                  <CardTitle className="text-2xl font-bold flex items-center">
+                    <User className="h-6 w-6 mr-2 text-[#46B1C9]" />
+                    <span className="text-[#46B1C9]">
+                      {t("personalInfo")}
+                    </span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

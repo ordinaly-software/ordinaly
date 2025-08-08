@@ -1069,5 +1069,16 @@
       "description": "¿NOVO EN ORDINALY?"
     },
     "termsText": "Ao continuar, aceptas os nosos termos de servizo e política de privacidade"
+  },
+  "notFound": {
+    "title": "404 - Páxina Non Atopada",
+    "heading": "¡Vaia! Páxina Perdida no Espazo Dixital",
+    "message": "A páxina que buscas semella haberse perdido no noso universo de automatización empresarial.",
+    "description": "Non te preocupes, incluso en Ordinaly ás veces nos desviamos do camiño. Pero temos solucións intelixentes para todo.",
+    "homeButton": "Volver ao Inicio",
+    "exploreButton": "Explorar Servizos", 
+    "contactButton": "Contactar Soporte",
+    "redirectMessage": "Serás redirixido automaticamente en {seconds} segundos...",
+    "robotText": "O noso robot de automatización está buscando a páxina..."
   }
 }

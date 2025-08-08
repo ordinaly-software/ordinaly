@@ -8,7 +8,6 @@ import {Locale, routing} from '@/i18n/routing';
 import CookieConsent from '@/components/ui/cookies';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { ThemeProvider } from '@/contexts/theme-context';
-// import AnalyticsManager from '@/components/ui/analyticsManager';
 
 
 const inter = Inter({
@@ -256,18 +255,24 @@ export default async function RootLayout({ children, params } :
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js', { scope: '/' }).then(
+                  navigator.serviceWorker.register('/sw.js', { 
+                    scope: '/',
+                    updateViaCache: 'none'
+                  }).then(
                     function(registration) {
-                      // Only log in development
-                      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                        console.log('Service Worker registration successful with scope: ', registration.scope);
-                      }
+                      // Check for updates periodically
+                      registration.addEventListener('updatefound', function() {
+                        const newWorker = registration.installing;
+                        if (newWorker) {
+                          newWorker.addEventListener('statechange', function() {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                              // New version available, could show update prompt
+                            }
+                          });
+                        }
+                      });
                     },
                     function(error) {
-                      // Only log in development
-                      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                        console.log('Service Worker registration failed: ', error);
-                      }
                     }
                   );
                 });

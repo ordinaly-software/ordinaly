@@ -16,11 +16,10 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
   const videoRef = useRef<HTMLVideoElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Handle video playback when modal opens/closes
   useEffect(() => {
     if (isOpen && videoRef.current) {
       videoRef.current.play().catch((error) => {
-        console.error(t("demoModal.videoError"), error);
+        // Video autoplay failed - user interaction required
       });
     } else if (!isOpen && videoRef.current) {
       videoRef.current.pause();
@@ -28,7 +27,6 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
     }
   }, [isOpen, t]);
 
-  // Handle click outside to close
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -36,7 +34,6 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
       }
     };
 
-    // Handle escape key press
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         onClose();

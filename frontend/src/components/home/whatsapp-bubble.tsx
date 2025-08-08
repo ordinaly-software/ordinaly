@@ -19,7 +19,7 @@ const WhatsAppBubble = () => {
       try {
         hasConsented = localStorage.getItem('cookie-consent');
       } catch (error) {
-        console.error('Error accessing localStorage:', error);
+        // localStorage not available - handle silently
       }
       setHasCookieConsent(!!hasConsented);
     };
@@ -85,7 +85,7 @@ const WhatsAppBubble = () => {
                 onClick={closeModal}
                 variant="default"
                 size="md"
-                className="absolute top-4 right-4"
+                className="absolute top-4 right-4 text-white dark:text-white"
               />
               
               <div className="flex items-center space-x-3">

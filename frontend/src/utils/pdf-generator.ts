@@ -32,7 +32,6 @@ export const generateCoursesCatalogPDF = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t?: any
 ) => {
-  // Create new PDF document
   const pdf = new jsPDF('p', 'mm', 'a4');
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
@@ -120,7 +119,6 @@ export const generateCoursesCatalogPDF = async (
         reader.readAsDataURL(blob);
       });
     } catch (error) {
-      console.error('Failed to load image:', error);
       throw error;
     }
   };
@@ -131,7 +129,6 @@ export const generateCoursesCatalogPDF = async (
       // Try to load the actual logo image
       const logoBase64 = await loadImageAsBase64('/logo.webp');
       
-      // Add the logo image
       pdf.addImage(logoBase64, 'WEBP', margin, currentY, 40, 40);
       
       // Company name next to logo
@@ -150,14 +147,12 @@ export const generateCoursesCatalogPDF = async (
     );
     pdf.text(slogan, margin + 50, currentY + 25);
       
-      // Add a decorative line
       pdf.setDrawColor('#22A60D');
       pdf.setLineWidth(0.8);
       pdf.line(margin, currentY + 35, margin + 140, currentY + 35);
       
       currentY += 45;
     } catch (error) {
-      console.error('Logo loading failed, using fallback:', error);
       // Fallback to text-only logo
       pdf.setFontSize(28);
       pdf.setTextColor('#22A60D');
@@ -169,7 +164,6 @@ export const generateCoursesCatalogPDF = async (
       pdf.setFont('helvetica', 'normal');
       pdf.text('Software & Formation Solutions', margin, currentY + 25);
       
-      // Add a decorative line
       pdf.setDrawColor('#22A60D');
       pdf.setLineWidth(0.8);
       pdf.line(margin, currentY + 30, margin + 120, currentY + 30);
@@ -178,7 +172,6 @@ export const generateCoursesCatalogPDF = async (
     }
   };
 
-  // Add title page
   await addLogo();
   
   // Main title
@@ -210,7 +203,6 @@ export const generateCoursesCatalogPDF = async (
   
   currentY += 80;
 
-  // Add introduction
   const introduction = getText(
     'pdf.introduction',
     'En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras.',
@@ -231,7 +223,6 @@ export const generateCoursesCatalogPDF = async (
   currentY += 20;
   addPageFooter();
 
-  // Add courses
   addNewPage();
   
   // Courses section title
@@ -246,7 +237,6 @@ export const generateCoursesCatalogPDF = async (
   const now = new Date();
   const upcomingCourses = courses.filter(course => new Date(course.start_date) >= now);
 
-  // Add upcoming courses
   if (upcomingCourses.length > 0) {
     pdf.setFontSize(18);
     pdf.setTextColor('#000000');
@@ -319,7 +309,6 @@ export const generateCoursesCatalogPDF = async (
     });
   }
 
-  // Add contact information section
   currentY += 20;
   checkPageBreak(60);
 
@@ -361,7 +350,6 @@ export const generateCoursesCatalogPDF = async (
     currentY += 10;
   });
 
-  // Add final footer
   addPageFooter();
 
   // Save the PDF

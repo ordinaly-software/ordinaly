@@ -52,7 +52,6 @@ export const useCourses = (options: UseCoursesOptions = {}): UseCoursesReturn =>
       setIsLoading(true);
       setError(null);
 
-      // Get the base URL for the API
       const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       
       // Build query parameters
@@ -76,7 +75,6 @@ export const useCourses = (options: UseCoursesOptions = {}): UseCoursesReturn =>
 
       let data = await response.json();
       
-      // Handle paginated response
       if (data.results) {
         data = data.results;
       }
@@ -108,7 +106,6 @@ export const useCourses = (options: UseCoursesOptions = {}): UseCoursesReturn =>
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An error occurred while fetching courses';
       setError(errorMessage);
-      console.error('Error fetching courses:', err);
     } finally {
       setIsLoading(false);
     }

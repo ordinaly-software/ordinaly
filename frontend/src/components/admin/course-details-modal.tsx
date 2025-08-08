@@ -156,7 +156,7 @@ const CourseDetailsModal = ({
                 {getPeriodicityDisplay(course.periodicity)}
               </span>
               {isEnrolled && (
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-emerald-500 text-white">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green text-white">
                   <CheckCircle className="w-3 h-3 mr-1" />
                   {t('enrolled')}
                 </span>

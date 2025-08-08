@@ -39,7 +39,6 @@ const AdminServicesTab = () => {
     { value: 'E4572E', label: 'Orange', color: '#E4572E' },
   ];
 
-  // Function to get the appropriate color for dark/light mode
   const getServiceColor = (service: Service, isDarkMode: boolean = false) => {
     const colorChoice = COLOR_CHOICES.find(choice => choice.value === service.color);
     if (!colorChoice) return service.color_hex;
@@ -217,7 +216,6 @@ const AdminServicesTab = () => {
       } else {
         const errorData = await response.json();
         
-        // Handle specific validation errors
         if (errorData.title) {
           setAlert({type: 'error', message: t('messages.validation.titleRequired')});
         } else if (errorData.subtitle) {
@@ -235,7 +233,6 @@ const AdminServicesTab = () => {
         }
       }
     } catch (error) {
-      console.error('Submit error:', error);
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
@@ -292,7 +289,6 @@ const AdminServicesTab = () => {
       refetch();
       setShowDeleteModal(false);
     } catch (error) {
-      console.error('Delete error:', error);
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);

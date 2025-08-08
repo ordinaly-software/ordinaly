@@ -56,15 +56,22 @@ const DeleteAccountModal = ({ isOpen, onClose, onConfirm, isLoading = false, use
 
         {/* Confirmation input */}
         <div className="mb-6">
-          <Input
-            type="text"
-            value={confirmText}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmText(e.target.value)}
-            placeholder={t("deleteAccount.confirmPlaceholder")}
-            className="w-full text-center font-mono"
-            disabled={isLoading}
-            autoFocus
-          />
+          <div className="p-[2px] rounded-lg transition duration-300 bg-red-500/10 hover:bg-red-500/20">
+            <input
+              type="text"
+              value={confirmText}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmText(e.target.value)}
+              placeholder={t("deleteAccount.confirmPlaceholder")}
+              className="flex h-10 w-full border border-red-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md px-3 py-2 text-sm text-center font-mono
+                file:border-0 file:bg-transparent file:text-sm file:font-medium 
+                placeholder:text-red-400 
+                focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-600
+                hover:border-red-600
+                disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={isLoading}
+              autoFocus
+            />
+          </div>
         </div>
 
         {/* Action buttons */}

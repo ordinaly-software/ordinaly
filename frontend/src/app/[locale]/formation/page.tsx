@@ -106,11 +106,11 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         const data = await response.json();
         setCourses(data);
       } else {
-        console.error('Failed to load courses');
+        
         setAlert({type: 'error', message: t('alerts.failedToLoadCourses')});
       }
     } catch (err) {
-      console.error('Network error while loading courses:', err);
+      
       setAlert({type: 'error', message: t('alerts.networkErrorLoadingCourses')});
     } finally {
       setIsLoading(false);
@@ -118,7 +118,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   }, [t]);
 
   useEffect(() => {
-    // Check authentication
     const token = localStorage.getItem('authToken');
     setIsAuthenticated(!!token);
 
@@ -191,7 +190,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         setEnrollments(data);
       }
     } catch (err) {
-      console.error('Failed to fetch enrollments:', err);
+      
     }
   };
 
@@ -230,7 +229,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         setAlert({type: 'error', message: t('alerts.enrollmentFailed')});
       }
     } catch (err) {
-      console.error('Network error during enrollment:', err);
+      
       setAlert({type: 'error', message: t('alerts.networkError')});
     }
   };
@@ -268,7 +267,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         fetchEnrollments(); // Refresh enrollments
       } else {
         const errorData = await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
-        console.error('Unenroll error:', response.status, errorData);
+        
         
         if (response.status === 400) {
           setAlert({type: 'warning', message: t('alerts.notEnrolled')});
@@ -279,7 +278,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         }
       }
     } catch (err) {
-      console.error('Network error during cancellation:', err);
+      
       setAlert({type: 'error', message: t('alerts.networkError')});
     }
   };
@@ -327,7 +326,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
       await generateCoursesCatalogPDF(courses, locale, t);
       setAlert({type: 'success', message: t('alerts.catalogDownloaded')});
     } catch (error) {
-      console.error('Error generating catalog:', error);
+      
       setAlert({type: 'error', message: t('alerts.catalogError')});
     }
   };
@@ -499,7 +498,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 50vw"
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
                 onError={(e) => {
-                  console.error('Course image failed to load:', course.image);
+                  
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
                 }}
@@ -649,7 +648,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
                               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                               className="object-cover"
                               onError={(e) => {
-                                console.error('Course image failed to load:', course.image);
+                                
                                 const target = e.target as HTMLImageElement;
                                 target.style.display = 'none';
                               }}

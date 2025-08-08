@@ -1069,5 +1069,16 @@
       "description": "Novetat a Ordinaly? "
     },
     "termsText": "Continuant, accepteu les nostres Condicions de servei i Política de privadesa"
+  },
+  "notFound": {
+    "title": "404 - Pàgina No Trobada",
+    "heading": "Ups! Pàgina Perduda a l'Espai Digital",
+    "message": "La pàgina que busques sembla haver-se perdut en el nostre univers d'automatització empresarial.",
+    "description": "No et preocupis, fins i tot a Ordinaly de vegades ens desviem del camí. Però tenim solucions intel·ligents per a tot.",
+    "homeButton": "Tornar a l'Inici",
+    "exploreButton": "Explorar Serveis",
+    "contactButton": "Contactar Suport",
+    "redirectMessage": "Seràs redirigit automàticament en {seconds} segons...",
+    "robotText": "El nostre robot d'automatització està buscant la pàgina..."
   }
 }

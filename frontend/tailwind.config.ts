@@ -58,6 +58,19 @@ const config: Config = {
   				800: '#246166',
   				900: '#194749'
   			},
+  			green: {
+  				DEFAULT: '#22A60D',
+  				50: '#E8F5E8',
+  				100: '#C3E6C3',
+  				200: '#9DD69D',
+  				300: '#76C676',
+  				400: '#4FB64F',
+  				500: '#22A60D',
+  				600: '#1E950B',
+  				700: '#1A8409',
+  				800: '#167307',
+  				900: '#126205'
+  			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'

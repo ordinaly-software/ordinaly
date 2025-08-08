@@ -83,10 +83,10 @@ const AdminTermsTab = () => {
         const data = await response.json();
         setAvailableTags(data.available_tags || []);
       } else {
-        console.log('No available tags');
+        setAvailableTags([]);
       }
     } catch (error) {
-      console.error('Error fetching available tags:', error);
+      setAvailableTags([]);
     }
   };
 
@@ -106,12 +106,9 @@ const AdminTermsTab = () => {
         setTerms(Array.isArray(data) ? data : []);
       } else {
         setAlert({type: 'error', message: 'Failed to fetch terms'});
-        setTerms([]); // Set empty array on error
       }
     } catch (error) {
-      console.error('Fetch error:', error);
       setAlert({type: 'error', message: 'Network error while fetching terms'});
-      setTerms([]); // Set empty array on error
     } finally {
       setIsLoading(false);
     }
@@ -236,7 +233,6 @@ const AdminTermsTab = () => {
       } else {
         const errorData = await response.json();
         
-        // Handle specific validation errors
         if (errorData.tag && errorData.tag.includes('already exists')) {
           setAlert({type: 'error', message: t('messages.validation.tagDuplicate')});
         } else if (errorData.content && errorData.content.includes('extension')) {
@@ -248,7 +244,6 @@ const AdminTermsTab = () => {
         }
       }
     } catch (error) {
-      console.error('Submit error:', error);
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
@@ -299,7 +294,6 @@ const AdminTermsTab = () => {
       fetchAvailableTags(); // Refresh available tags
       setShowDeleteModal(false);
     } catch (error) {
-      console.error('Delete error:', error);
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);
@@ -330,7 +324,6 @@ const AdminTermsTab = () => {
         setAlert({type: 'error', message: t('messages.downloadError')});
       }
     } catch (error) {
-      console.error('Download error:', error);
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };

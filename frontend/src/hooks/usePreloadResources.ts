@@ -59,7 +59,6 @@ export const usePreloadResources = () => {
         }
       };
 
-      // Setup observer after DOM is ready
       setTimeout(setupObserver, 1000);
     }
 
