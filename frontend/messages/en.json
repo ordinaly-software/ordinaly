@@ -74,6 +74,39 @@
       },
       "viewAllServices": "View All Services"
     },
+    "courses": {
+      "noSpecificDate": "No specific date",
+      "showcaseTitle": "Featured Courses",
+      "showcaseDescription": "Join our professional training courses and advance your career",
+      "upcomingTitle": "Upcoming Courses",
+      "upcomingDescription": "Discover our professional training courses",
+      "noCoursesTitle": "No Upcoming Courses",
+      "noCoursesMessage": "Stay tuned for new course announcements!",
+      "notifyButton": "See all courses",
+      "errorTitle": "Error Loading Courses",
+      "retryButton": "Try Again",
+      "enrollButton": "Enroll Now",
+      "moreInfo": "More Info",
+      "viewDetails": "View Details",
+      "viewAllCourses": "View All Courses",
+      "spotsLeft": "spots left",
+      "enrolled": "enrolled",
+      "max": "max",
+  "almostFull": "Almost Full",
+  "fillingFast": "Filling Fast", 
+  "available": "Available",
+  "inProgress": "In Progress",
+  "finished": "Finished",
+      "datesSoon": "Dates Coming Soon",
+      "durationSoon": "Duration Coming Soon",
+      "signUpModal": {
+        "title": "Course Registration",
+        "description": "Get notified when registration opens for \"{courseName}\"",
+        "generalDescription": "Get notified about new course announcements and early registration opportunities.",
+        "close": "Close",
+        "notify": "Notify Me"
+      }
+    },
     "about": {
       "title": "LEADING DIGITAL TRANSFORMATION IN ANDALUSIA",
       "description1": "At Ordinaly, we believe Andalusian companies have the potential to lead technological innovation in Spain and Europe. Our mission is to democratize access to artificial intelligence and automation.",
@@ -373,7 +406,19 @@
       "overview": "Overview",
       "services": "Services",
       "courses": "Courses",
-      "terms": "Terms"
+      "terms": "Terms",
+      "users": "Users"
+    },
+    "users": {
+      "title": "Users List",
+      "userId": "User ID",
+      "name": "Name",
+      "surname": "Surname",
+      "email": "Email",
+      "company": "Company",
+      "errorFetching": "Failed to fetch users. Please try again later.",
+      "sendMail": "Send Mail",
+      "selectAll": "Select All"
     },
     "stats": {
       "totalServices": "Total Services",
@@ -402,6 +447,14 @@
         "descriptionPlaceholder": "Service description",
         "icon": "Icon",
         "iconPlaceholder": "Choose a Lucide React icon",
+        "color": "Service Color *",
+        "colors": {
+          "darkPurple": "Neutral",
+          "purple": "Dark purple",
+          "cyan": "Cyan",
+          "green": "Leaf",
+          "orange": "Tangerine"
+        },
         "duration": "Available in (days)",
         "durationPlaceholder": "e.g., 2 days",
         "price": "Price (€)",
@@ -410,7 +463,10 @@
         "featured": "Featured Service",
         "cancel": "Cancel",
         "create": "Create Service",
-        "update": "Update Service"
+        "update": "Update Service",
+        "markdownSupported": "Markdown supported",
+        "requisites": "Requisites",
+        "requisitesPlaceholder": "Enter any requirements or prerequisites"
       },
       "messages": {
         "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
@@ -426,10 +482,10 @@
         "validation": {
           "titleRequired": "Service title is required and must be 100 characters or less.",
           "subtitleRequired": "Subtitle is required and must be 200 characters or less.",
-          "descriptionRequired": "Description is required and must be 500 characters or less.",
+          "descriptionRequired": "Description is required and must be 2000 characters or less.",
           "iconRequired": "Please select a valid icon for the service.",
           "durationInvalid": "Duration must be at least 1 day if specified.",
-          "requisitesLimit": "Requisites must be 500 characters or less.",
+          "requisitesLimit": "Requisites must be 2000 characters or less.",
           "priceInvalid": "Price must be at least $0.01 if specified."
         },
         "featured": {
@@ -446,6 +502,7 @@
       }
     },
     "courses": {
+      "noSpecificDate": "No specific date",
       "title": "Courses Management",
       "searchPlaceholder": "Search courses...",
       "addCourse": "Add Course",
@@ -462,7 +519,7 @@
     "upcomingCourses": "Upcoming Courses",
     "finished": "Finished",
       "noCoursesFound": "No courses found matching your search.",
-      "contactForQuote": "Contact our agents for a detailed quote",
+      "contactForQuote": "Free",
       "form": {
         "title": "Title",
         "titlePlaceholder": "Enter an engaging course title",
@@ -564,12 +621,15 @@
         "validation": {
           "titleRequired": "Course title is required and must be 100 characters or less.",
           "subtitleLimit": "Subtitle must be 200 characters or less.",
-          "descriptionRequired": "Description is required and must be 500 characters or less.",
+          "descriptionRequired": "Description is required and must be 2000 characters or less.",
           "imageRequired": "Please upload a valid image file for the course.",
           "priceInvalid": "Price must be at least $0.01 if specified.",
           "locationRequired": "Location is required and must be 100 characters or less.",
           "dateRequired": "Date is required and must be 100 characters or less.",
-          "maxAttendantsInvalid": "Maximum attendants must be at least 1."
+          "maxAttendantsInvalid": "Maximum attendants must be at least 1.",
+          "maxAttendantsBelowEnrolled": "Cannot set maximum attendants below the current number of enrolled users ({count}).",
+          "cannotDeleteFinished": "Cannot delete a finished course.",
+          "cannotDeleteFinishedBulk": "Cannot delete one or more finished courses."
         },
         "capacity": {
           "warning": "Warning: This course already has {current} enrollments. Reducing max attendants below this number may cause issues."
@@ -642,74 +702,110 @@
       "noTerms": "No terms available.",
       "noTermsFound": "No terms found matching your search.",
       "pdfAvailable": "PDF Available",
+      "mdAvailable": "Markdown Document Available",
       "downloadPdf": "Download PDF",
+      "edit": "Edit Term",
+      "delete": "Delete Term",
       "form": {
-        "name": "Name",
-        "namePlaceholder": "Term name",
-        "content": "Content (Markdown)",
-        "contentPlaceholder": "Term content in markdown format",
-        "version": "Version",
-        "versionPlaceholder": "e.g. 1.0",
-        "tag": "Document Type",
-        "tagPlaceholder": "Select document type",
-        "selectTag": "Select a document type",
-        "noAvailableTags": "No document types available",
-        "allTagsUsed": "All document types have been created. You can only have one of each type.",
-        "allTagsUsedTitle": "All document types are already in use",
-        "allTagsUsedButton": "All Types Created",
-        "tagTypes": {
-          "terms": "Terms and Conditions of Use",
-          "cookies": "Cookie Policy", 
-          "privacy": "Privacy Policy",
-          "license": "License"
-        },
-        "pdfVersion": "PDF Version (Optional)",
-        "choosePdf": "Choose PDF",
-        "cancel": "Cancel",
-        "create": "Create Term",
-        "update": "Update Term"
+      "name": "Name",
+      "namePlaceholder": "Term name",
+      "content": "Content (Markdown)",
+      "contentPlaceholder": "Term content in markdown format",
+      "version": "Version",
+      "versionPlaceholder": "e.g., 1.0",
+      "tag": "Document Type",
+      "tagPlaceholder": "Select document type",
+      "selectTag": "Select a document type",
+      "noAvailableTags": "No document types available",
+      "allTagsUsed": "All document types have been created. You can only have one of each type.",
+      "allTagsUsedTitle": "All document types are already in use",
+      "allTagsUsedButton": "All Types Created",
+      "markdownSupported": "Markdown supported",
+      "pdfContent": "PDF Content",
+      "contentMd": "Markdown Content",
+      "mdFile": "Markdown File",
+      "chooseMd": "Choose Markdown File",
+      "downloadCurrentPdf": "Download PDF",
+      "downloadCurrentMd": "Download Markdown",
+      "tagTypes": {
+        "terms": "Terms and Conditions of Use",
+        "cookies": "Cookie Policy",
+        "privacy": "Privacy Policy",
+        "license": "License"
+      },
+      "pdfVersion": "PDF Version (Optional)",
+      "choosePdf": "Choose PDF",
+      "cancel": "Cancel",
+      "create": "Create Term",
+      "update": "Update Term",
+      "noTagsLeft": "No more document types left",
+      "noFileEdit": "Cannot edit the file"
+      },
+      "actions": {
+      "viewPreview": "View Preview",
+      "viewPdf": "View PDF"
+      },
+      "tabs": {
+      "form": "Form",
+      "preview": "Markdown Preview",
+      "pdf": "PDF Preview"
+      },
+      "labels": {
+      "name": "Name",
+      "content": "Content",
+      "version": "Version",
+      "tag": "Document Type",
+      "created": "Created",
+      "updated": "Updated"
+      },
+      "preview": {
+      "pdf": "PDF Preview",
+      "markdown": "Markdown Preview",
+      "noFileEdit": "Cannot edit the file",
+      "noPdf": "No PDF available for preview"
       },
       "messages": {
-        "createSuccess": "Terms document '{name}' created successfully!",
-        "updateSuccess": "Terms document '{name}' updated successfully!",
-        "deleteSuccess": "Term deleted successfully",
-        "bulkDeleteSuccess": "terms deleted successfully",
-        "fetchError": "Failed to fetch terms",
-        "createError": "Failed to create term",
-        "updateError": "Failed to update term",
-        "deleteError": "Failed to delete term",
-        "downloadError": "Failed to download PDF",
-        "downloadSuccess": "PDF downloaded successfully",
-        "networkError": "Unable to save terms document. Please check your connection and try again.",
-        "selectToDelete": "Please select terms to delete",
-        "fileSizeLimit": "File size must be less than 10MB",
-        "pdfFileOnly": "Please select a PDF file",
-        "validation": {
-          "nameRequired": "Document name is required and must be 127 characters or less.",
-          "contentRequired": "Please upload a valid Markdown (.md) file for the content.",
-          "pdfRequired": "Please upload a valid PDF file for the document.",
-          "versionRequired": "Version is required and must be 20 characters or less.",
-          "tagDuplicate": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
-          "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
-          "fileMissing": "Both a markdown (.md) file and a PDF file must be provided."
-        },
-        "upload": {
-          "error": "File upload failed. Please ensure your files are valid and try again."
-        },
-        "version": {
-          "updateWarning": "Important: Updating this terms document will create a new version. Users may need to re-accept the updated terms."
-        }
+      "createSuccess": "Terms document '{name}' created successfully!",
+      "updateSuccess": "Terms document '{name}' updated successfully!",
+      "deleteSuccess": "Term deleted successfully",
+      "bulkDeleteSuccess": "terms deleted successfully",
+      "fetchError": "Error fetching terms",
+      "createError": "Error creating term",
+      "updateError": "Error updating term",
+      "deleteError": "Error deleting term",
+      "downloadError": "Error downloading PDF",
+      "downloadSuccess": "PDF downloaded successfully",
+      "networkError": "Unable to save terms document. Please check your connection and try again.",
+      "selectToDelete": "Please select terms to delete",
+      "fileSizeLimit": "File size must be less than 10MB",
+      "pdfFileOnly": "Please select a PDF file",
+      "validation": {
+        "nameRequired": "Document name is required and must be 127 characters or less.",
+        "contentRequired": "Please upload a valid Markdown (.md) file for the content.",
+        "pdfRequired": "Please upload a valid PDF file for the document.",
+        "versionRequired": "Version is required and must be 20 characters or less.",
+        "tagUnique": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
+        "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
+        "fileMissing": "Both a markdown (.md) file and a PDF file must be provided.",
+        "tagRequired": "Please select a document type."
+      },
+      "upload": {
+        "error": "File upload error. Please make sure your files are valid and try again."
+      },
+      "version": {
+        "updateWarning": "Important: Updating this terms document will create a new version. Users may need to re-accept the updated terms."
+      }
       },
       "confirmDelete": {
-        "title": "Confirm Deletion",
-        "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
-        "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
-        "delete": "Delete",
-        "cancel": "Cancel"
+      "title": "Confirm Deletion",
+      "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+      "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
+      "delete": "Delete",
+      "cancel": "Cancel"
       },
       "details": {
-        "created": "Created",
-        "updated": "Updated"
+      "created": "Created",
+      "updated": "Updated"
       }
     }
   },
@@ -811,6 +907,7 @@
     "viewDetails": "View Details",
     "maxAttendants": "Max Attendants",
     "maxAttendeesCount": "Max {count} attendants",
+    "noSpecificDate": "No specific date has been set for this course yet.",
     "filters": {
       "location": {
         "all": "All Locations",
@@ -906,7 +1003,9 @@
       "website": "Website:",
       "specialization": "Specialization:",
       "specializationText": "Software Development and Technology Training",
-      "filename": "Ordinaly_Training_Catalog.pdf"
+      "filename": "Ordinaly_Training_Catalog.pdf",
+      "noSpecificDate": "No specific date yet.",
+      "noSpecificTime": "No specific time yet."
     },
     "courseDetails": {
       "title": "Course Details",
@@ -935,6 +1034,7 @@
       "importantDates": "Important Dates",
       "excludedDatesMessage": "This course has {count} excluded date(s) (holidays or breaks) that are not included in the regular schedule.",
       "moreSessions": "And {count} more sessions...",
+      "noSpecificDate": "No specific date has been set for this course yet.",
       "periodicity": {
         "once": "One-time event",
         "daily": "Daily",
@@ -1042,5 +1142,16 @@
       "description": "New to Ordinaly? Create your account"
     },
     "termsText": "By continuing, you agree to our Terms of Service and Privacy Policy"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found",
+    "heading": "Oops! Page Lost in Digital Space",
+    "message": "The page you're looking for seems to have gotten lost in our business automation universe.",
+    "description": "Don't worry, even at Ordinaly we sometimes stray from the path. But we have intelligent solutions for everything.",
+    "homeButton": "Back to Home",
+    "exploreButton": "Explore Services",
+    "contactButton": "Contact Support",
+    "redirectMessage": "You will be automatically redirected in {seconds} seconds...",
+    "robotText": "Our automation robot is searching for the page..."
   }
 }

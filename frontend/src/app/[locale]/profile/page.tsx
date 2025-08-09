@@ -53,7 +53,6 @@ export default function ProfilePage() {
 
   // Track changes to form fields
   const handleFieldChange = (field: string, value: string) => {
-    // Set the field value
     switch (field) {
       case 'firstName':
         setFirstName(value);
@@ -85,7 +84,6 @@ export default function ProfilePage() {
   // Check if current form values match the original profile data
   useEffect(() => {
     if (!profile) return;
-    
     const originalFirstName = profile.first_name || profile.name || '';
     const originalLastName = profile.last_name || profile.surname || '';
     const originalUsername = profile.username || '';
@@ -93,7 +91,6 @@ export default function ProfilePage() {
     const originalCompany = profile.company || '';
     const originalRegion = profile.region || '';
     const originalCity = profile.city || '';
-    
     const hasAnyChanges = 
       firstName !== originalFirstName ||
       lastName !== originalLastName ||
@@ -102,7 +99,6 @@ export default function ProfilePage() {
       company !== originalCompany ||
       region !== originalRegion ||
       city !== originalCity;
-    
     setHasChanges(hasAnyChanges);
   }, [profile, firstName, lastName, username, email, company, region, city]);
 
@@ -137,8 +133,7 @@ export default function ProfilePage() {
       } else {
         setAlert({ type: 'error', message: t("messages.networkError") });
       }
-    } catch (error) {
-      console.error('Error fetching profile:', error);
+    } catch {
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsLoading(false);
@@ -146,7 +141,6 @@ export default function ProfilePage() {
   }, [authToken, t]);
 
   useEffect(() => {
-    // Check authentication status
     const token = localStorage.getItem('authToken');
     setAuthToken(token);
     setIsAuthenticated(!!token);
@@ -259,8 +253,7 @@ export default function ProfilePage() {
           }, 2000);
         }
       }
-    } catch (error) {
-      console.error('Error updating profile:', error);
+    } catch {
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsSaving(false);
@@ -317,7 +310,6 @@ export default function ProfilePage() {
             // Ignore errors, account is being deleted anyway
           }
 
-          // Remove token and redirect to home
           localStorage.removeItem('authToken');
           window.location.href = '/';
         }, 2000);
@@ -329,8 +321,7 @@ export default function ProfilePage() {
           setAlert({ type: 'error', message: data.detail || t("messages.deleteError") });
         }
       }
-    } catch (err) {
-      console.error('Error deleting account:', err);
+    } catch {
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsDeleting(false);
@@ -385,9 +376,11 @@ export default function ProfilePage() {
             <div className="lg:col-span-2">
               <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-[#22A60D] flex items-center">
-                    <User className="h-6 w-6 mr-2" />
-                    {t("personalInfo")}
+                  <CardTitle className="text-2xl font-bold flex items-center">
+                    <User className="h-6 w-6 mr-2 text-[#46B1C9]" />
+                    <span className="text-[#46B1C9]">
+                      {t("personalInfo")}
+                    </span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

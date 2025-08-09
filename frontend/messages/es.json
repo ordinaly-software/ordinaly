@@ -24,7 +24,7 @@
     "hero": {
       "title": "AUTOMATIZA",
       "subtitle": "TU NEGOCIO CON IA",
-      "description": "Transformamos empresas con automatizaciones inteligentes. Desde chatbots, CRMs y hasta flujos de trabajo avanzados, te ayudamos a modernizar tu empresa y a ser más eficiente.",
+      "description": "Transformamos empresas con automatizaciones inteligentes. Desde chatbots, CRMs y hasta flujos de trabajo avanzados, te ayudamos a modernizar tu empresa y a ser más eficiente",
       "discoverButton": "Descubre cómo",
       "demoButton": "Ver Demo"
     },
@@ -74,6 +74,39 @@
         "description": "Monitoreo y mejora constante de tus procesos automatizados"
       },
       "viewAllServices": "Ver Todos los Servicios"
+    },
+    "courses": {
+      "noSpecificDate": "Fechas por confirmar",
+      "showcaseTitle": "Cursos Destacados",
+      "showcaseDescription": "Únete a nuestros cursos de formación y avanza en tu carrera",
+      "upcomingTitle": "Próximos Cursos",
+      "upcomingDescription": "Descubre nuestros cursos de formación",
+      "noCoursesTitle": "No Hay Cursos Próximos",
+      "noCoursesMessage": "¡Mantente atento a los nuevos anuncios de cursos!",
+      "notifyButton": "Ver todos los cursos",
+      "errorTitle": "Error Cargando Cursos",
+      "retryButton": "Intentar de Nuevo",
+      "enrollButton": "Inscribirse Ahora",
+      "moreInfo": "Más Información",
+      "viewDetails": "Ver Detalles",
+      "viewAllCourses": "Ver Todos los Cursos",
+      "spotsLeft": "plazas disponibles",
+      "enrolled": "inscritos",
+      "max": "máximo",
+  "almostFull": "Casi Completo",
+  "fillingFast": "Llenándose Rápido",
+  "available": "Disponible",
+  "inProgress": "En curso",
+  "finished": "Finalizado",
+      "datesSoon": "Fechas próximamente",
+      "durationSoon": "Duración próximamente",
+      "signUpModal": {
+        "title": "Registro de Curso",
+        "description": "Recibe notificaciones cuando se abra la inscripción para \"{courseName}\"",
+        "generalDescription": "Recibe notificaciones sobre nuevos anuncios de cursos y oportunidades de inscripción temprana.",
+        "close": "Cerrar",
+        "notify": "Notificarme"
+      }
     },
     "about": {
       "title": "LIDERANDO LA TRANSFORMACIÓN DIGITAL EN ANDALUCÍA",
@@ -373,7 +406,19 @@
       "overview": "Resumen",
       "services": "Servicios",
       "courses": "Cursos",
-      "terms": "Términos"
+      "terms": "Términos",
+      "users": "Usuarios"
+    },
+    "users": {
+      "title": "Lista de Usuarios",
+      "userId": "ID de Usuario",
+      "name": "Nombre",
+      "surname": "Apellido",
+      "email": "Correo Electrónico",
+      "company": "Empresa",
+      "errorFetching": "No se pudo cargar la lista de usuarios. Por favor, intenta de nuevo más tarde.",
+      "sendMail": "Enviar correo",
+      "selectAll": "Seleccionar todo"
     },
     "stats": {
       "totalServices": "Total de Servicios",
@@ -402,6 +447,14 @@
         "descriptionPlaceholder": "Descripción del servicio",
         "icon": "Icono",
         "iconPlaceholder": "Elige un icono de Lucide React",
+        "color": "Color del Servicio *",
+        "colors": {
+          "darkPurple": "Neutro",
+          "purple": "Morado oscuro",
+          "cyan": "Cian",
+          "green": "Hoja",
+          "orange": "Mandarina"
+        },
         "duration": "Duración (días)",
         "durationPlaceholder": "ej: 2 días",
         "price": "Precio (€)",
@@ -410,7 +463,10 @@
         "featured": "Servicio Destacado",
         "cancel": "Cancelar",
         "create": "Crear Servicio",
-        "update": "Actualizar Servicio"
+        "update": "Actualizar Servicio",
+        "markdownSupported": "Markdown soportado",
+        "requisites": "Requisitos",
+        "requisitesPlaceholder": "Ingrese cualquier requisito o prerrequisito"
       },
       "messages": {
         "createSuccess": "¡Servicio '{title}' creado exitosamente! Ya está disponible para los clientes.",
@@ -426,10 +482,10 @@
         "validation": {
           "titleRequired": "El título del servicio es requerido y debe tener 100 caracteres o menos.",
           "subtitleRequired": "El subtítulo es requerido y debe tener 200 caracteres o menos.",
-          "descriptionRequired": "La descripción es requerida y debe tener 500 caracteres o menos.",
+          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos.",
           "iconRequired": "Por favor selecciona un icono válido para el servicio.",
           "durationInvalid": "La duración debe ser de al menos 1 día si se especifica.",
-          "requisitesLimit": "Los requisitos deben tener 500 caracteres o menos.",
+          "requisitesLimit": "Los requisitos deben tener 2000 caracteres o menos.",
           "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica."
         },
         "featured": {
@@ -446,6 +502,7 @@
       }
     },
     "courses": {
+      "noSpecificDate": "Fechas por confirmar",
       "title": "Gestión de Cursos",
       "searchPlaceholder": "Buscar cursos...",
       "addCourse": "Añadir Curso",
@@ -456,7 +513,7 @@
       "courses": "cursos",
       "noCourses": "No hay cursos disponibles.",
       "noCoursesFound": "No se encontraron cursos que coincidan con tu búsqueda.",
-      "contactForQuote": "Consulta a nuestros agentes para un presupuesto detallado",
+      "contactForQuote": "Gratuito",
       "form": {
         "title": "Título",
         "titlePlaceholder": "Ingresa un título atractivo para el curso",
@@ -555,15 +612,18 @@
         "selectToDelete": "Por favor selecciona cursos para eliminar",
         "fileSizeLimit": "El tamaño del archivo debe ser menor a 5MB",
         "imageFileOnly": "Por favor selecciona un archivo de imagen",
+        "cannotDeleteFinished": "No se puede eliminar un curso finalizado.",
+        "cannotDeleteFinishedBulk": "No se puede eliminar uno o más cursos finalizados.",
         "validation": {
           "titleRequired": "El título del curso es requerido y debe tener 100 caracteres o menos.",
           "subtitleLimit": "El subtítulo debe tener 200 caracteres o menos.",
-          "descriptionRequired": "La descripción es requerida y debe tener 500 caracteres o menos.",
+          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos.",
           "imageRequired": "Por favor sube una imagen válida para el curso.",
           "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica.",
           "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos.",
           "dateRequired": "La fecha es requerida y debe tener 100 caracteres o menos.",
-          "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1."
+          "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1.",
+          "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})."
         },
         "capacity": {
           "warning": "Advertencia: Este curso ya tiene {current} inscripciones. Reducir el máximo de asistentes por debajo de este número puede causar problemas."
@@ -636,7 +696,10 @@
       "noTerms": "No hay términos disponibles.",
       "noTermsFound": "No se encontraron términos que coincidan con tu búsqueda.",
       "pdfAvailable": "PDF Disponible",
+      "mdAvailable": "Documento Markdown Disponible",
       "downloadPdf": "Descargar PDF",
+      "edit": "Editar Término",
+      "delete": "Eliminar Término",
       "form": {
         "name": "Nombre",
         "namePlaceholder": "Nombre del término",
@@ -649,19 +712,51 @@
         "selectTag": "Selecciona un tipo de documento",
         "noAvailableTags": "No hay tipos de documento disponibles",
         "allTagsUsed": "Todos los tipos de documento han sido creados. Solo puedes tener uno de cada tipo.",
-        "allTagsUsedTitle": "Todos los tipos de documento están en uso",
+        "allTagsUsedTitle": "Todos los tipos de documento ya están en uso",
         "allTagsUsedButton": "Todos los Tipos Creados",
+        "markdownSupported": "Markdown soportado",
+        "pdfContent": "Contenido PDF",
+        "contentMd": "Contenido Markdown",
+        "mdFile": "Archivo Markdown",
+        "chooseMd": "Elegir Archivo Markdown",
+        "downloadCurrentPdf": "Descargar PDF",
+        "downloadCurrentMd": "Descargar Markdown",
         "tagTypes": {
           "terms": "Términos y Condiciones de Uso",
           "cookies": "Política de Cookies",
-          "privacy": "Política de Privacidad", 
+          "privacy": "Política de Privacidad",
           "license": "Licencia"
         },
         "pdfVersion": "Versión PDF (Opcional)",
         "choosePdf": "Elegir PDF",
         "cancel": "Cancelar",
         "create": "Crear Término",
-        "update": "Actualizar Término"
+        "update": "Actualizar Término",
+        "noTagsLeft": "No quedan más tipos de documento",
+        "noFileEdit": "No se puede editar el archivo"
+      },
+      "actions": {
+        "viewPreview": "Ver Vista Previa",
+        "viewPdf": "Ver PDF"
+      },
+      "tabs": {
+        "form": "Formulario",
+        "preview": "Vista previa Markdown",
+        "pdf": "Vista previa PDF"
+      },
+      "labels": {
+        "name": "Nombre",
+        "content": "Contenido",
+        "version": "Versión",
+        "tag": "Tipo de Documento",
+        "created": "Creado",
+        "updated": "Actualizado"
+      },
+      "preview": {
+        "pdf": "Vista previa del PDF",
+        "markdown": "Vista previa del Markdown",
+        "noFileEdit": "No se puede editar el archivo",
+        "noPdf": "No hay PDF disponible para la vista previa"
       },
       "messages": {
         "createSuccess": "¡Documento de términos '{name}' creado exitosamente!",
@@ -683,9 +778,10 @@
           "contentRequired": "Por favor sube un archivo Markdown (.md) válido para el contenido.",
           "pdfRequired": "Por favor sube un archivo PDF válido para el documento.",
           "versionRequired": "La versión es requerida y debe tener 20 caracteres o menos.",
-          "tagDuplicate": "Ya existe un documento con este tipo de etiqueta. Por favor elige una etiqueta diferente o edita el documento existente.",
+          "tagUnique": "Ya existe un documento con este tipo de etiqueta. Por favor elige una etiqueta diferente o edita el documento existente.",
           "fileExtension": "El archivo de contenido debe ser un archivo .md y el contenido PDF debe ser un archivo .pdf.",
-          "fileMissing": "Se deben proporcionar tanto un archivo markdown (.md) como un archivo PDF."
+          "fileMissing": "Se deben proporcionar tanto un archivo markdown (.md) como un archivo PDF.",
+          "tagRequired": "Por favor selecciona un tipo de documento."
         },
         "upload": {
           "error": "Error en la carga del archivo. Por favor asegúrate de que tus archivos sean válidos e intenta de nuevo."
@@ -805,6 +901,7 @@
     "viewDetails": "Ver Detalles",
     "maxAttendants": "Máximo de Asistentes",
     "maxAttendeesCount": "Máximo {count} asistentes",
+    "noSpecificDate": "Todavía no hay una fecha establecida para este curso.",
     "filters": {
       "location": {
         "all": "Todas las Ubicaciones",
@@ -833,7 +930,7 @@
       "contact": "Contactar Asesor",
       "catalog": "Descargar Catálogo",
       "emailSubject": "Consulta sobre Programas de Formación de Ordinaly",
-      "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación profesional. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias."
+      "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias."
     },
     "enrollment": {
       "title": "Inscripción al Curso",
@@ -900,7 +997,9 @@
       "website": "Web:",
       "specialization": "Especialización:",
       "specializationText": "Desarrollo de Software y Formación Tecnológica",
-      "filename": "Catalogo_Formacion_Ordinaly.pdf"
+      "filename": "Catalogo_Formacion_Ordinaly.pdf",
+      "noSpecificDate": "No hay una fecha específica aún",
+      "noSpecificTime": "No hay una hora específica aún"
     },
     "courseDetails": {
       "title": "Detalles del Curso",
@@ -929,6 +1028,7 @@
       "importantDates": "Fechas Importantes",
       "excludedDatesMessage": "Este curso tiene {count} fecha(s) excluida(s) (feriados o descansos) que no están incluidas en el horario regular.",
       "moreSessions": "Y {count} sesiones más...",
+      "noSpecificDate": "Todavía no hay una fecha establecida para este curso.",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",
@@ -996,21 +1096,21 @@
     },
     "deleteAccount": {
       "title": "Eliminar Cuenta",
-      "description": "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate.",
+      "description": "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate",
       "button": "Eliminar Cuenta",
       "confirmTitle": "Confirmar Eliminación de Cuenta",
-      "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente. Escribe tu nombre de usuario abajo para confirmar.",
+      "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente. Escribe tu nombre de usuario abajo para confirmar",
       "confirmPlaceholder": "Escribe tu nombre de usuario para confirmar",
       "confirmButton": "Eliminar Cuenta",
       "cancelButton": "Cancelar"
     },
     "messages": {
       "updateSuccess": "¡Perfil actualizado exitosamente!",
-      "updateError": "Error al actualizar el perfil. Por favor, intenta de nuevo.",
+      "updateError": "Error al actualizar el perfil. Por favor, intenta de nuevo",
       "deleteSuccess": "Cuenta eliminada exitosamente. Redirigiendo...",
-      "deleteError": "Error al eliminar la cuenta. Por favor, intenta de nuevo.",
-      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo.",
-      "unauthorizedError": "No estás autorizado para realizar esta acción.",
+      "deleteError": "Error al eliminar la cuenta. Por favor, intenta de nuevo",
+      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo",
+      "unauthorizedError": "No estás autorizado para realizar esta acción",
       "validation": {
         "firstNameRequired": "El nombre es obligatorio",
         "lastNameRequired": "El apellido es obligatorio",
@@ -1036,5 +1136,16 @@
       "description": "¿Nuevo en Ordinaly? Crea tu cuenta"
     },
     "termsText": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad"
+  },
+  "notFound": {
+    "title": "404 - Página No Encontrada",
+    "heading": "¡Oops! Página Perdida en el Espacio Digital",
+    "message": "La página que buscas parece haberse perdido en nuestro universo de automatización empresarial",
+    "description": "No te preocupes, incluso en Ordinaly a veces nos desviamos del camino. Pero tenemos soluciones inteligentes para todo",
+    "homeButton": "Volver al Inicio",
+    "exploreButton": "Explorar Servicios",
+    "contactButton": "Contactar Soporte",
+    "redirectMessage": "Serás redirigido automáticamente en {seconds} segundos...",
+    "robotText": "Nuestro robot de automatización está buscando la página..."
   }
 }

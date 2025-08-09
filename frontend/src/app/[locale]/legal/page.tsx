@@ -10,7 +10,6 @@ import {
   Download, 
   Calendar,
   Tag,
-  User,
   ExternalLink
 } from "lucide-react";
 import Link from "next/link";
@@ -52,7 +51,7 @@ const LegalPage = () => {
   const fetchDocuments = useCallback(async () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-      const response = await fetch(`${apiUrl}/api/terms/public/`, {
+      const response = await fetch(`${apiUrl}/api/terms/`, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -64,8 +63,7 @@ const LegalPage = () => {
       } else {
         setAlert({type: 'error', message: t('messages.fetchError')});
       }
-    } catch (error) {
-      console.error('Fetch error:', error);
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsLoading(false);
@@ -76,55 +74,16 @@ const LegalPage = () => {
     fetchDocuments();
   }, [fetchDocuments]);
 
-  const downloadPDF = async (doc: LegalDocument) => {
+  const downloadPDF = (doc: LegalDocument) => {
     if (!doc.pdf_content) {
       setAlert({type: 'warning', message: t('messages.noPdfAvailable')});
       return;
     }
-
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-      const response = await fetch(`${apiUrl}/api/terms/${doc.id}/download/`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = window.document.createElement('a');
-        a.href = url;
-        a.download = `${doc.name}_v${doc.version}.pdf`;
-        window.document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        window.document.body.removeChild(a);
-        setAlert({type: 'success', message: t('messages.downloadSuccess')});
-      } else {
-        setAlert({type: 'error', message: t('messages.downloadError')});
-      }
-    } catch (error) {
-      console.error('Download error:', error);
-      setAlert({type: 'error', message: t('messages.networkError')});
-    }
+    window.open(doc.pdf_content, '_blank');
   };
 
   const getDocumentsByTag = (tag: string) => {
     return documents.filter(doc => doc.tag === tag);
-  };
-
-  const renderMarkdown = (content: string) => {
-    // Simple markdown parsing for basic formatting
-    return content
-      .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold mt-6 mb-3 text-gray-900 dark:text-white">$1</h3>')
-      .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">$1</h2>')
-      .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold mt-10 mb-6 text-gray-900 dark:text-white">$1</h1>')
-      .replace(/\*\*(.*)\*\*/gim, '<strong class="font-semibold text-gray-900 dark:text-white">$1</strong>')
-      .replace(/\*(.*)\*/gim, '<em class="italic">$1</em>')
-      .replace(/\n\n/gim, '</p><p class="mb-4 text-gray-700 dark:text-gray-300">')
-      .replace(/\n/gim, '<br>')
-      .replace(/^(.*)$/gim, '<p class="mb-4 text-gray-700 dark:text-gray-300">$1</p>');
   };
 
   const DocumentCard = ({ document }: { document: LegalDocument }) => (
@@ -147,12 +106,6 @@ const LegalPage = () => {
                 <Calendar className="w-4 h-4" />
                 <span>{new Date(document.updated_at).toLocaleDateString()}</span>
               </div>
-              {document.author && (
-                <div className="flex items-center space-x-1">
-                  <User className="w-4 h-4" />
-                  <span>{document.author.first_name} {document.author.last_name}</span>
-                </div>
-              )}
             </div>
           </div>
           {document.pdf_content && (
@@ -170,9 +123,19 @@ const LegalPage = () => {
       </CardHeader>
       <CardContent>
         <div 
-          className="prose prose-sm max-w-none dark:prose-invert"
-          dangerouslySetInnerHTML={{ __html: renderMarkdown(document.content) }}
+          className="prose prose-sm max-w-none dark:prose-invert mb-6"
         />
+        {document.pdf_content && (
+          <div className="my-4">
+            <object
+              data={document.pdf_content}
+              type="application/pdf"
+              className="w-full h-96 border rounded-lg shadow"
+            >
+              <p>{t('messages.noPdfAvailable')}</p>
+            </object>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

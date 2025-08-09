@@ -18,8 +18,9 @@ import { useRouter } from "next/navigation";
 import AdminServicesTab from "@/components/admin/admin-services-tab";
 import AdminCoursesTab from "@/components/admin/admin-courses-tab";
 import AdminTermsTab from "@/components/admin/admin-terms-tab";
+import AdminUsersTab from "@/components/admin/admin-users-tab";
 
-type TabType = 'overview' | 'services' | 'courses' | 'terms';
+type TabType = 'overview' | 'services' | 'courses' | 'terms' | 'users';
 
 interface User {
   id: number;
@@ -41,7 +42,7 @@ export default function AdminPage() {
   // Load saved tab from localStorage on component mount
   useEffect(() => {
     const savedTab = localStorage.getItem('adminActiveTab') as TabType;
-    if (savedTab && ['overview', 'services', 'courses', 'terms'].includes(savedTab)) {
+    if (savedTab && ['overview', 'services', 'courses', 'terms', 'users'].includes(savedTab)) {
       setActiveTab(savedTab);
     }
   }, []);
@@ -70,8 +71,6 @@ export default function AdminPage() {
 
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-        console.log('Checking admin access with token:', token);
-        console.log('Making request to:', `${apiUrl}/api/users/profile/`);
         
         const response = await fetch(`${apiUrl}/api/users/profile/`, {
           headers: {
@@ -79,33 +78,22 @@ export default function AdminPage() {
             'Content-Type': 'application/json',
           },
         });
-
-        console.log('Profile response status:', response.status);
-        console.log('Profile response headers:', response.headers);
         
         if (response.ok) {
           const user: User = await response.json();
-          console.log('User data received:', user);
-          console.log('User is_staff:', user.is_staff, 'User is_superuser:', user.is_superuser);
           
           if (user.is_staff || user.is_superuser) {
-            console.log('✅ User is authorized as admin');
             setIsAuthorized(true);
             await fetchStats(token);
           } else {
-            console.log('❌ User is NOT admin - is_staff:', user.is_staff, 'is_superuser:', user.is_superuser);
             setAlert({type: 'error', message: 'Access denied. Admin privileges required.'});
             setTimeout(() => router.push('/'), 3000);
           }
         } else {
-          console.log('❌ Profile fetch failed - Status:', response.status);
-          const errorText = await response.text();
-          console.log('Error response body:', errorText);
           setAlert({type: 'error', message: 'Failed to verify admin status. Please try signing in again.'});
           setTimeout(() => router.push('/auth/signin'), 3000);
         }
-      } catch (error) {
-        console.error('Auth check error:', error);
+      } catch {
         setAlert({type: 'error', message: 'Authentication error. Please sign in again.'});
         setTimeout(() => router.push('/auth/signin'), 3000);
       } finally {
@@ -116,7 +104,7 @@ export default function AdminPage() {
     const fetchStats = async (token: string) => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-        const [servicesRes, coursesRes, termsRes] = await Promise.all([
+        const [servicesRes, coursesRes, termsRes, usersRes] = await Promise.all([
           fetch(`${apiUrl}/api/services/`, {
             headers: { 'Authorization': `Token ${token}` }
           }),
@@ -125,23 +113,32 @@ export default function AdminPage() {
           }),
           fetch(`${apiUrl}/api/terms/`, {
             headers: { 'Authorization': `Token ${token}` }
+          }),
+          fetch(`${apiUrl}/api/users/`, {
+            headers: { 'Authorization': `Token ${token}` }
           })
         ]);
 
-        const [services, courses, terms] = await Promise.all([
+        const [services, courses, terms, users] = await Promise.all([
           servicesRes.ok ? servicesRes.json() : [],
           coursesRes.ok ? coursesRes.json() : [],
-          termsRes.ok ? termsRes.json() : []
+          termsRes.ok ? termsRes.json() : [],
+          usersRes.ok ? usersRes.json() : []
         ]);
 
         setStats({
           totalServices: services.length || 0,
           totalCourses: courses.length || 0,
-          totalUsers: 0, // Would need a users endpoint
+          totalUsers: users.length || 0,
           totalTerms: terms.length || 0
         });
-      } catch (error) {
-        console.error('Stats fetch error:', error);
+      } catch {
+        setStats({
+          totalServices: 0,
+          totalCourses: 0,
+          totalUsers: 0,
+          totalTerms: 0
+        });
       }
     };
 
@@ -189,6 +186,7 @@ export default function AdminPage() {
     { id: 'services' as TabType, name: t("tabs.services"), icon: Settings },
     { id: 'courses' as TabType, name: t("tabs.courses"), icon: BookOpen },
     { id: 'terms' as TabType, name: t("tabs.terms"), icon: FileText },
+    { id: 'users' as TabType, name: t("tabs.users"), icon: Users },
   ];
 
   const renderTabContent = () => {
@@ -312,6 +310,18 @@ export default function AdminPage() {
             exit="exit"
           >
             <AdminTermsTab />
+          </motion.div>
+        );
+      case 'users':
+        return (
+          <motion.div
+            key="users"
+            variants={tabVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <AdminUsersTab />
           </motion.div>
         );
       default:

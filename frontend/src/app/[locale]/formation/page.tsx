@@ -31,6 +31,9 @@ import {
 } from "lucide-react";
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 interface Course {
   id: number;
@@ -101,16 +104,13 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   const fetchCourses = useCallback(async () => {
     try {
       const response = await fetch(getApiEndpoint('/api/courses/courses/'));
-      
       if (response.ok) {
         const data = await response.json();
         setCourses(data);
       } else {
-        console.error('Failed to load courses');
         setAlert({type: 'error', message: t('alerts.failedToLoadCourses')});
       }
-    } catch (err) {
-      console.error('Network error while loading courses:', err);
+    } catch {
       setAlert({type: 'error', message: t('alerts.networkErrorLoadingCourses')});
     } finally {
       setIsLoading(false);
@@ -118,7 +118,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   }, [t]);
 
   useEffect(() => {
-    // Check authentication
     const token = localStorage.getItem('authToken');
     setIsAuthenticated(!!token);
 
@@ -130,8 +129,16 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
 
   useEffect(() => {
     const now = new Date();
-    const upcoming = courses.filter(course => new Date(course.start_date) >= now);
-    const past = courses.filter(course => new Date(course.start_date) < now);
+    const upcoming = courses.filter(course => 
+      course.start_date && course.start_date !== "0000-00-00" 
+        ? new Date(course.start_date) >= now 
+        : true // Consider courses with no dates as upcoming
+    );
+    const past = courses.filter(course => 
+      course.start_date && course.start_date !== "0000-00-00" 
+        ? new Date(course.start_date) < now 
+        : false // Don't consider courses with no dates as past
+    );
 
     // Sort upcoming courses by start date (most imminent first)
     upcoming.sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime());
@@ -185,13 +192,12 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
           'Authorization': `Token ${token}`,
         },
       });
-      
       if (response.ok) {
         const data = await response.json();
         setEnrollments(data);
       }
-    } catch (err) {
-      console.error('Failed to fetch enrollments:', err);
+    } catch {
+      // ignore
     }
   };
 
@@ -211,7 +217,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
 
     try {
       const token = localStorage.getItem('authToken');
-      
       const response = await fetch(getApiEndpoint(`/api/courses/courses/${selectedCourse.id}/enroll/`), {
         method: 'POST',
         headers: {
@@ -219,7 +224,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
           'Authorization': `Token ${token}`,
         },
       });
-
       if (response.ok) {
         setAlert({type: 'success', message: t('alerts.enrollmentSuccess', { courseTitle: selectedCourse.title })});
         setShowEnrollModal(false);
@@ -229,8 +233,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         await response.json(); // Consume response to prevent memory leaks
         setAlert({type: 'error', message: t('alerts.enrollmentFailed')});
       }
-    } catch (err) {
-      console.error('Network error during enrollment:', err);
+    } catch {
       setAlert({type: 'error', message: t('alerts.networkError')});
     }
   };
@@ -252,7 +255,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         setAlert({type: 'error', message: t('alerts.signInRequired')});
         return;
       }
-
       const response = await fetch(getApiEndpoint(`/api/courses/courses/${courseToCancel.id}/unenroll/`), {
         method: 'POST',
         headers: {
@@ -260,16 +262,13 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
           'Content-Type': 'application/json',
         },
       });
-
       if (response.ok) {
         setAlert({type: 'success', message: t('alerts.enrollmentCancelled')});
         setShowCancelModal(false);
         setCourseToCancel(null);
         fetchEnrollments(); // Refresh enrollments
       } else {
-        const errorData = await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
-        console.error('Unenroll error:', response.status, errorData);
-        
+        await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
         if (response.status === 400) {
           setAlert({type: 'warning', message: t('alerts.notEnrolled')});
         } else if (response.status === 401) {
@@ -278,8 +277,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
           setAlert({type: 'error', message: t('alerts.cancelEnrollmentFailed')});
         }
       }
-    } catch (err) {
-      console.error('Network error during cancellation:', err);
+    } catch {
       setAlert({type: 'error', message: t('alerts.networkError')});
     }
   };
@@ -326,8 +324,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
       setAlert({type: 'info', message: t('alerts.generatingCatalog')});
       await generateCoursesCatalogPDF(courses, locale, t);
       setAlert({type: 'success', message: t('alerts.catalogDownloaded')});
-    } catch (error) {
-      console.error('Error generating catalog:', error);
+    } catch {
       setAlert({type: 'error', message: t('alerts.catalogError')});
     }
   };
@@ -482,6 +479,8 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
               <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10">
           {filteredCourses.map((course) => {
             const enrolled = isEnrolled(course.id);
+            // Disable enroll if any date/time field is missing/null/empty
+            const isIncompleteSchedule = !course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time;
             return (
               <Card
                 key={course.id}
@@ -499,7 +498,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 50vw"
                 className="object-cover group-hover:scale-110 transition-transform duration-500"
                 onError={(e) => {
-                  console.error('Course image failed to load:', course.image);
+                  
                   const target = e.target as HTMLImageElement;
                   target.style.display = 'none';
                 }}
@@ -546,7 +545,11 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
               <div className="space-y-3 mb-8">
                 <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
                   <Calendar className="w-5 h-5 text-[#22A60D]" />
-                  <span>{new Date(course.start_date).toLocaleDateString()}</span>
+                  <span>
+                    {course.start_date && course.start_date !== "0000-00-00" 
+                      ? new Date(course.start_date).toLocaleDateString()
+                      : t('noSpecificDate')}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
                   <MapPin className="w-5 h-5 text-[#22A60D]" />
@@ -562,20 +565,22 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
               <div className="flex flex-col gap-4">
                 {enrolled ? (
                   <Button
-              onClick={() => handleCancelEnrollment(course.id)}
-              variant="outline"
-              className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-14 text-lg"
+                    onClick={() => handleCancelEnrollment(course.id)}
+                    variant="outline"
+                    className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-14 text-lg"
                   >
-              <UserX className="w-5 h-5 mr-2" />
-              {t("cancelEnrollment")}
+                    <UserX className="w-5 h-5 mr-2" />
+                    {t("cancelEnrollment")}
                   </Button>
                 ) : (
                   <Button
-              onClick={() => handleEnrollCourse(course)}
-              className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                    onClick={() => handleEnrollCourse(course)}
+                    className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                    disabled={isIncompleteSchedule}
+                    title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
                   >
-              <GraduationCap className="w-5 h-5 mr-2" />
-              {t("enroll")}
+                    <GraduationCap className="w-5 h-5 mr-2" />
+                    {t("enroll")}
                   </Button>
                 )}
                 
@@ -649,7 +654,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
                               sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                               className="object-cover"
                               onError={(e) => {
-                                console.error('Course image failed to load:', course.image);
+                                
                                 const target = e.target as HTMLImageElement;
                                 target.style.display = 'none';
                               }}
@@ -685,9 +690,11 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
                             )}
 
                             {/* Course Description */}
-                            <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3">
-                              {course.description}
-                            </p>
+                            <div className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3">
+                              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                                {course.description}
+                              </ReactMarkdown>
+                            </div>
 
                             {/* Course Meta Information */}
                             <div className="space-y-2 mb-6">

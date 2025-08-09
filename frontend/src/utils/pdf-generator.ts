@@ -32,7 +32,6 @@ export const generateCoursesCatalogPDF = async (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   t?: any
 ) => {
-  // Create new PDF document
   const pdf = new jsPDF('p', 'mm', 'a4');
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
@@ -119,9 +118,8 @@ export const generateCoursesCatalogPDF = async (
         reader.onerror = reject;
         reader.readAsDataURL(blob);
       });
-    } catch (error) {
-      console.error('Failed to load image:', error);
-      throw error;
+    } catch {
+      throw new Error('Failed to load image as base64');
     }
   };
 
@@ -131,7 +129,6 @@ export const generateCoursesCatalogPDF = async (
       // Try to load the actual logo image
       const logoBase64 = await loadImageAsBase64('/logo.webp');
       
-      // Add the logo image
       pdf.addImage(logoBase64, 'WEBP', margin, currentY, 40, 40);
       
       // Company name next to logo
@@ -150,14 +147,12 @@ export const generateCoursesCatalogPDF = async (
     );
     pdf.text(slogan, margin + 50, currentY + 25);
       
-      // Add a decorative line
       pdf.setDrawColor('#22A60D');
       pdf.setLineWidth(0.8);
       pdf.line(margin, currentY + 35, margin + 140, currentY + 35);
       
       currentY += 45;
-    } catch (error) {
-      console.error('Logo loading failed, using fallback:', error);
+    } catch {
       // Fallback to text-only logo
       pdf.setFontSize(28);
       pdf.setTextColor('#22A60D');
@@ -169,7 +164,6 @@ export const generateCoursesCatalogPDF = async (
       pdf.setFont('helvetica', 'normal');
       pdf.text('Software & Formation Solutions', margin, currentY + 25);
       
-      // Add a decorative line
       pdf.setDrawColor('#22A60D');
       pdf.setLineWidth(0.8);
       pdf.line(margin, currentY + 30, margin + 120, currentY + 30);
@@ -178,7 +172,6 @@ export const generateCoursesCatalogPDF = async (
     }
   };
 
-  // Add title page
   await addLogo();
   
   // Main title
@@ -194,8 +187,8 @@ export const generateCoursesCatalogPDF = async (
   pdf.setFont('helvetica', 'normal');
   const subtitle = getText(
     'pdf.subtitle', 
-    'Cursos de formación profesional y tecnológica',
-    'Professional and technological training courses'
+    'Cursos de formación y tecnológica',
+    'Training and technological courses'
   );
   pdf.text(subtitle, pageWidth / 2, currentY + 35, { align: 'center' });
   
@@ -210,7 +203,6 @@ export const generateCoursesCatalogPDF = async (
   
   currentY += 80;
 
-  // Add introduction
   const introduction = getText(
     'pdf.introduction',
     'En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras.',
@@ -231,7 +223,6 @@ export const generateCoursesCatalogPDF = async (
   currentY += 20;
   addPageFooter();
 
-  // Add courses
   addNewPage();
   
   // Courses section title
@@ -244,9 +235,15 @@ export const generateCoursesCatalogPDF = async (
 
   // Separate upcoming and past courses
   const now = new Date();
-  const upcomingCourses = courses.filter(course => new Date(course.start_date) >= now);
+  // Include all courses, regardless of date/time completeness
+  const upcomingCourses = courses.filter(course => {
+    // If course has a valid start_date, use it for sorting/upcoming; otherwise, treat as upcoming
+    if (course.start_date && course.start_date !== "0000-00-00") {
+      return new Date(course.start_date) >= now;
+    }
+    return true;
+  });
 
-  // Add upcoming courses
   if (upcomingCourses.length > 0) {
     pdf.setFontSize(18);
     pdf.setTextColor('#000000');
@@ -283,7 +280,6 @@ export const generateCoursesCatalogPDF = async (
       pdf.setFont('helvetica', 'normal');
       const descLines = wrapText(course.description, contentWidth - 20, 10);
       let descY = currentY + (course.subtitle ? 30 : 25);
-      
       descLines.slice(0, 3).forEach((line: string) => { // Limit to 3 lines
         pdf.text(line, margin + 5, descY);
         descY += 5;
@@ -295,12 +291,18 @@ export const generateCoursesCatalogPDF = async (
       pdf.setFont('helvetica', 'bold');
       pdf.setTextColor('#000000');
 
-      // Date and time
+      // Date and time (show fallback if missing)
       const dateLabel = getText('pdf.date', 'Fecha:', 'Date:');
-      pdf.text(`${dateLabel} ${formatDate(course.start_date)}`, margin + 5, detailsY);
-      
+      const dateText = course.start_date && course.start_date !== "0000-00-00"
+        ? formatDate(course.start_date)
+        : getText('pdf.noSpecificDate', 'Por confirmar', 'TBA');
+      pdf.text(`${dateLabel} ${dateText}`, margin + 5, detailsY);
+
       const timeLabel = getText('pdf.time', 'Horario:', 'Time:');
-      pdf.text(`${timeLabel} ${formatTime(course.start_time)} - ${formatTime(course.end_time)}`, margin + 5, detailsY + 8);
+      const timeText = (course.start_time && course.end_time)
+        ? `${formatTime(course.start_time)} - ${formatTime(course.end_time)}`
+        : getText('pdf.noSpecificTime', 'Por confirmar', 'TBA');
+      pdf.text(`${timeLabel} ${timeText}`, margin + 5, detailsY + 8);
 
       // Location
       const locationLabel = getText('pdf.location', 'Ubicación:', 'Location:');
@@ -319,7 +321,6 @@ export const generateCoursesCatalogPDF = async (
     });
   }
 
-  // Add contact information section
   currentY += 20;
   checkPageBreak(60);
 
@@ -361,7 +362,6 @@ export const generateCoursesCatalogPDF = async (
     currentY += 10;
   });
 
-  // Add final footer
   addPageFooter();
 
   // Save the PDF

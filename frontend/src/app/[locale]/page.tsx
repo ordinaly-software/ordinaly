@@ -42,6 +42,7 @@ const PricingPlans = lazy(() => import("@/components/home/pricing-plans"));
 const WhatsAppBubble = lazy(() => import("@/components/home/whatsapp-bubble"));
 const StyledButton = lazy(() => import("@/components/ui/styled-button"));
 const ColourfulText = lazy(() => import("@/components/ui/colourful-text"));
+const CoursesShowcase = lazy(() => import("@/components/home/courses-showcase"));
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -72,18 +73,6 @@ export default function HomePage() {
     
     preloadHeroImage();
   }, []);
-
-  // Debug log to help troubleshoot services loading (development only)
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'development') {
-      console.log('HomePage services state:', { 
-        servicesCount: services.length, 
-        servicesLoading, 
-        servicesError, 
-        isOnVacation 
-      });
-    }
-  }, [services.length, servicesLoading, servicesError, isOnVacation]);
 
   // Service modal handlers - optimize with useCallback
   const handleServiceClick = useCallback((service: Service) => {
@@ -149,7 +138,7 @@ export default function HomePage() {
       clearTimeout(observerTimeout);
       observer.disconnect();
     };
-  }, []); // Only run once on mount
+  }, [services]); // Re-run when services change
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
@@ -211,7 +200,8 @@ export default function HomePage() {
                   alt="AI Automation Dashboard"
                   width={600}
                   height={500}
-                  className="rounded-2xl shadow-2xl w-full h-auto"
+                  className="rounded-2xl shadow-2xl"
+                  style={{ width: '100%', height: 'auto' }}
                   priority
                   placeholder="blur"
                   blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
@@ -313,14 +303,10 @@ export default function HomePage() {
             </div>
           ) : services.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service, index) => {
+              {services.map((service) => {
                 const localizedService = service; // Assuming service is already localized
-                const animationClass = index % 3 === 0 ? 'slide-in-left' : index % 3 === 1 ? 'fade-in-up' : 'slide-in-right';
-                
-                // Function to get the appropriate color for dark/light mode
                 const getServiceColor = (service: Service) => {
                   const isDarkMode = document.documentElement.classList.contains('dark');
-                  
                   if (service.color === '1A1924' && isDarkMode) {
                     return '#efefefbb';
                   } else if (service.color === '623CEA' && isDarkMode) {
@@ -328,13 +314,11 @@ export default function HomePage() {
                   }
                   return service.color_hex;
                 };
-                
                 const serviceColor = getServiceColor(service);
-                
                 return (
                   <Card 
                     key={service.id} 
-                    className={`scroll-animate ${animationClass} bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl cursor-pointer`}
+                    className={`bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl cursor-pointer opacity-100`}
                     onClick={() => handleServiceClick(service)}
                     style={{
                       '--hover-border-color': serviceColor,
@@ -616,7 +600,7 @@ export default function HomePage() {
         
       </section>
 
-       {/* Partners Section */}
+      {/* Partners Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-black">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
@@ -655,6 +639,36 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Courses Showcase Section */}
+      <Suspense fallback={
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-6 max-w-md mx-auto"></div>
+              <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse max-w-2xl mx-auto"></div>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div key={index} className="bg-white dark:bg-gray-800/50 rounded-xl p-6">
+                  <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mb-4"></div>
+                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
+                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      }>
+        <CoursesShowcase 
+          limit={3} 
+          showUpcomingOnly={false}
+        />
+      </Suspense>
+
       {/* About Section */}
       <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
         <div className="max-w-7xl mx-auto">
@@ -665,7 +679,8 @@ export default function HomePage() {
                 width={600}
                 height={500}
                 alt="Andalusian Business Transformation"
-                className="rounded-2xl shadow-2xl w-full h-auto"
+                className="rounded-2xl shadow-2xl"
+                style={{ width: '100%', height: 'auto' }}
                 loading="lazy"
                 placeholder="blur"
                 blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="

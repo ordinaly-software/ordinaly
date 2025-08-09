@@ -23,7 +23,8 @@ import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-mod
 import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { servicesEvents } from "@/lib/events";
 import { Service, useServices } from "@/hooks/useServices";
-import { truncateHtmlText } from "@/utils/text";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const AdminServicesTab = () => {
   const t = useTranslations("admin.services");
@@ -32,14 +33,13 @@ const AdminServicesTab = () => {
 
   // Color choices matching backend
   const COLOR_CHOICES = [
-    { value: '1A1924', label: 'Dark Purple', color: '#1A1924', darkModeColor: '#efefefbb' },
-    { value: '623CEA', label: 'Purple', color: '#623CEA', darkModeColor: '#8B5FF7' },
-    { value: '46B1C9', label: 'Cyan', color: '#46B1C9' },
-    { value: '29BF12', label: 'Green', color: '#29BF12' },
-    { value: 'E4572E', label: 'Orange', color: '#E4572E' },
+    { value: '1A1924', label: 'darkPurple', color: '#1A1924', darkModeColor: '#efefefbb' },
+    { value: '623CEA', label: 'purple', color: '#623CEA', darkModeColor: '#8B5FF7' },
+    { value: '46B1C9', label: 'cyan', color: '#46B1C9', darkModeColor: '#5ECAE0' },
+    { value: '29BF12', label: 'green', color: '#29BF12', darkModeColor: '#3DD421' },
+    { value: 'E4572E', label: 'orange', color: '#E4572E' },
   ];
 
-  // Function to get the appropriate color for dark/light mode
   const getServiceColor = (service: Service, isDarkMode: boolean = false) => {
     const colorChoice = COLOR_CHOICES.find(choice => choice.value === service.color);
     if (!colorChoice) return service.color_hex;
@@ -69,6 +69,7 @@ const AdminServicesTab = () => {
     color: "29BF12", // Default to green
     duration: "",
     price: "",
+    requisites: "",
     is_featured: false
   });
 
@@ -81,6 +82,7 @@ const AdminServicesTab = () => {
       color: "29BF12", // Default to green
       duration: "",
       price: "",
+      requisites: "",
       is_featured: false
     });
   };
@@ -100,6 +102,7 @@ const AdminServicesTab = () => {
       color: service.color || "29BF12", // Default to green if no color
       duration: service.duration?.toString() || "",
       price: service.price || "",
+      requisites: service.requisites || "",
       is_featured: service.is_featured
     });
     setShowEditModal(true);
@@ -217,7 +220,6 @@ const AdminServicesTab = () => {
       } else {
         const errorData = await response.json();
         
-        // Handle specific validation errors
         if (errorData.title) {
           setAlert({type: 'error', message: t('messages.validation.titleRequired')});
         } else if (errorData.subtitle) {
@@ -234,8 +236,7 @@ const AdminServicesTab = () => {
           setAlert({type: 'error', message: errorData.detail || t(isEdit ? 'messages.updateError' : 'messages.createError')});
         }
       }
-    } catch (error) {
-      console.error('Submit error:', error);
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
@@ -291,8 +292,7 @@ const AdminServicesTab = () => {
 
       refetch();
       setShowDeleteModal(false);
-    } catch (error) {
-      console.error('Delete error:', error);
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);
@@ -350,7 +350,7 @@ const AdminServicesTab = () => {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Search services..."
+              placeholder={t("searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 w-64"
@@ -366,7 +366,7 @@ const AdminServicesTab = () => {
               className="flex items-center space-x-1"
             >
               <Trash2 className="h-4 w-4" />
-              <span>Delete Selected ({selectedServices.length})</span>
+              <span>{t("deleteSelected")} ({selectedServices.length})</span>
             </Button>
           )}
           <Button
@@ -374,7 +374,7 @@ const AdminServicesTab = () => {
             className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center space-x-1"
           >
             <Plus className="h-4 w-4" />
-            <span>Add Service</span>
+            <span>{t("addService")}</span>
           </Button>
         </div>
       </div>
@@ -395,7 +395,7 @@ const AdminServicesTab = () => {
               className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              Select All ({filteredServices.length} services)
+              {t("selectAll")} ({filteredServices.length} services)
             </span>
           </div>
 
@@ -465,10 +465,12 @@ const AdminServicesTab = () => {
                         </p>
                         <div 
                           className="text-sm text-gray-700 dark:text-gray-300 mb-2 prose prose-sm max-w-none dark:prose-invert prose-table:text-xs prose-thead:border-b prose-thead:border-gray-300 dark:prose-thead:border-gray-600 prose-tbody:divide-y prose-tbody:divide-gray-200 dark:prose-tbody:divide-gray-700 prose-td:py-1 prose-td:px-2 prose-th:py-1 prose-th:px-2 prose-th:font-semibold prose-th:text-left prose-table:border prose-table:border-gray-200 dark:prose-table:border-gray-700"
-                          dangerouslySetInnerHTML={{ 
-                            __html: truncateHtmlText(service.description, 120) 
-                          }}
                         />
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {service.description.length > 200 
+                            ? `${service.description.substring(0, 200)}...` 
+                            : service.description}
+                        </ReactMarkdown>
                         <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
                           <span>{tAdmin("labels.price")}: {service.price ? `€${Math.round(Number(service.price))}` : t("form.contactForQuote") || 'Contact for quote'}</span>
                           {service.duration && <span>{tAdmin("labels.duration")}: {service.duration === 1 ? t("durationDay") : t("durationDays", { count: service.duration })}</span>}
@@ -489,7 +491,14 @@ const AdminServicesTab = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleEdit(service)}
-                          className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                          style={{ color: '#46B1C9' }}
+                          className="hover:bg-opacity-10"
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = '#46B1C9' + '10';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = '';
+                          }}
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -524,15 +533,30 @@ const AdminServicesTab = () => {
         showHeader={true}
         className="max-w-4xl w-full mx-4"
       >
-        <div className="space-y-6 max-h-[80vh] overflow-y-auto">
+        <div className="space-y-6 max-h-[80vh] overflow-y-auto pb-20">
           {/* Service Title */}
           <div className="space-y-3">
-            <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#22A60D]/10 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-[#22A60D]">S</span>
+            <div className="flex items-center justify-between">
+              <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="w-5 h-5 bg-[#22A60D]/10 rounded flex items-center justify-center">
+                  <span className="text-xs font-bold text-[#22A60D]">S</span>
+                </div>
+                <span>{t("form.title")} *</span>
+              </Label>
+              {/* Featured Status - Moved here */}
+              <div className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  id="is_featured"
+                  checked={formData.is_featured}
+                  onChange={(e) => setFormData(prev => ({...prev, is_featured: e.target.checked}))}
+                  className="w-4 h-4 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] transition-colors"
+                />
+                <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer">
+                  {t("form.featured")}
+                </Label>
               </div>
-              <span>{t("form.title")} *</span>
-            </Label>
+            </div>
             <Input
               id="title"
               value={formData.title}
@@ -547,7 +571,7 @@ const AdminServicesTab = () => {
           <div className="space-y-3">
             <Label htmlFor="subtitle" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-blue-600 dark:text-blue-400">S</span>
+                <span className="text-xs font-bold text-blue">S</span>
               </div>
               <span>{t("form.subtitle")} *</span>
             </Label>
@@ -556,7 +580,7 @@ const AdminServicesTab = () => {
               value={formData.subtitle}
               onChange={(e) => setFormData(prev => ({...prev, subtitle: e.target.value}))}
               placeholder={t("form.subtitlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
               required
             />
           </div>
@@ -567,23 +591,23 @@ const AdminServicesTab = () => {
               <div className="w-5 h-5 bg-purple-100 dark:bg-purple-900/30 rounded flex items-center justify-center">
                 <Edit className="w-3 h-3 text-purple-600 dark:text-purple-400" />
               </div>
-              <span>{t("form.description")} * (HTML supported)</span>
+              <span>{t("form.description")} *</span>
             </Label>
             <Textarea
               id="description"
               value={formData.description}
               onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(prev => ({...prev, description: e.target.value}))}
-              placeholder="Enter service description with HTML support (e.g., <strong>bold</strong>, <table><tr><td>tables</td></tr></table>)"
+              placeholder={t("form.descriptionPlaceholder")}
               rows={8}
               className="border-gray-300 focus:border-purple-500 focus:ring-purple-500/20 rounded-lg transition-all duration-200 resize-none font-mono text-sm"
               required
             />
             <div className="text-xs text-gray-500 dark:text-gray-400">
-              Supported HTML tags: &lt;p&gt;, &lt;div&gt;, &lt;strong&gt;, &lt;em&gt;, &lt;ul&gt;, &lt;ol&gt;, &lt;li&gt;, &lt;br&gt;, &lt;a&gt;, &lt;table&gt;, &lt;tr&gt;, &lt;td&gt;, &lt;th&gt;, &lt;thead&gt;, &lt;tbody&gt;
+              {t("form.markdownSupported")}
             </div>
           </div>
 
-          {/* Icon and Featured Status */}
+          {/* Icon and Price */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
               <Label htmlFor="icon" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -620,114 +644,115 @@ const AdminServicesTab = () => {
             </div>
           </div>
 
-          {/* Service Color */}
-          <div className="space-y-3">
-            <Label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-pink-100 dark:bg-pink-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-pink-600 dark:text-pink-400">🎨</span>
-              </div>
-              <span>Service Color *</span>
-            </Label>
-            <div className="flex flex-wrap gap-2 justify-start">
-              {COLOR_CHOICES.map((colorChoice) => {
-                const getColorClasses = () => {
-                  if (colorChoice.value === '1A1924') {
-                    return 'bg-[#1A1924] dark:bg-[#efefef] text-white dark:text-black';
-                  } else if (colorChoice.value === '623CEA') {
-                    return 'bg-[#623CEA] dark:bg-[#8B5FF7] text-white';
-                  } else {
-                    return `bg-[${colorChoice.color}] text-white`;
-                  }
-                };
-                
-                return (
-                  <button
-                    key={colorChoice.value}
-                    type="button"
-                    onClick={() => setFormData(prev => ({...prev, color: colorChoice.value}))}
-                    className={`relative w-20 h-12 rounded-md transition-all duration-200 flex items-center justify-center text-xs font-medium border-2 ${
-                      formData.color === colorChoice.value 
-                        ? 'border-gray-400 dark:border-gray-500 shadow-lg transform scale-105' 
-                        : 'border-transparent hover:shadow-md hover:scale-102'
-                    } ${getColorClasses()}`}
-                  >
-                    <div className="text-center">
-                      <div className="text-xs font-bold leading-tight">{colorChoice.label}</div>
-                    </div>
-                    {formData.color === colorChoice.value && (
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-md border border-gray-200 dark:border-gray-600">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Duration and Featured Status */}
+          {/* Service Color and Requisites */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-3">
-              <Label htmlFor="duration" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                <div className="w-5 h-5 bg-indigo-100 dark:bg-indigo-900/30 rounded flex items-center justify-center">
-                  <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">⏱️</span>
+              <Label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+                <div className="w-5 h-5 bg-pink-100 dark:bg-pink-900/30 rounded flex items-center justify-center">
+                  <span className="text-xs font-bold text-pink-600 dark:text-pink-400">🎨</span>
                 </div>
-                <span>{t("form.duration")}</span>
+                <span>{t("form.color")}</span>
               </Label>
-              <Input
-                id="duration"
-                type="number"
-                min="1"
-                value={formData.duration}
-                onChange={(e) => setFormData(prev => ({...prev, duration: e.target.value}))}
-                placeholder={t("form.durationPlaceholder")}
-                className="h-12 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg transition-all duration-200"
-              />
+              <div className="flex flex-wrap gap-2 justify-start">
+                {COLOR_CHOICES.map((colorChoice) => {
+                  const getColorClasses = () => {
+                    if (colorChoice.value === '1A1924') {
+                      return 'bg-[#1A1924] dark:bg-[#efefef] text-white dark:text-black';
+                    } else if (colorChoice.value === '623CEA') {
+                      return 'bg-[#623CEA] dark:bg-[#8B5FF7] text-white';
+                    } else if (colorChoice.value === '46B1C9') {
+                      return 'bg-[#46B1C9] dark:bg-[#5ECAE0] text-white';
+                    } else if (colorChoice.value === '29BF12') {
+                      return 'bg-[#29BF12] dark:bg-[#3DD421] text-white';
+                    } else {
+                      return `bg-[${colorChoice.color}] text-white`;
+                    }
+                  };
+                  
+                  return (
+                    <button
+                      key={colorChoice.value}
+                      type="button"
+                      onClick={() => setFormData(prev => ({...prev, color: colorChoice.value}))}
+                      className={`relative w-20 h-12 rounded-md transition-all duration-200 flex items-center justify-center text-xs font-medium border-2 ${
+                        formData.color === colorChoice.value 
+                          ? 'border-gray-400 dark:border-gray-500 shadow-lg transform scale-105' 
+                          : 'border-transparent hover:shadow-md hover:scale-102'
+                      } ${getColorClasses()}`}
+                    >
+                      <div className="text-center">
+                        <div className="text-xs font-bold leading-tight">{t(`form.colors.${colorChoice.label}`)}</div>
+                      </div>
+                      {formData.color === colorChoice.value && (
+                        <div className="absolute -top-1 -right-1 w-4 h-4 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-md border border-gray-200 dark:border-gray-600">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="space-y-3">
               <Label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
                 <div className="w-5 h-5 bg-yellow-100 dark:bg-yellow-900/30 rounded flex items-center justify-center">
-                  <span className="text-xs font-bold text-yellow-600 dark:text-yellow-400">⭐</span>
+                  <span className="text-xs font-bold text-yellow-600 dark:text-yellow-400">📋</span>
                 </div>
-                <span>Featured Status</span>
+                <span>{t("form.requisites")}</span>
               </Label>
-              <div className="flex items-center space-x-3 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-                <input
-                  type="checkbox"
-                  id="is_featured"
-                  checked={formData.is_featured}
-                  onChange={(e) => setFormData(prev => ({...prev, is_featured: e.target.checked}))}
-                  className="w-5 h-5 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] transition-colors"
-                />
-                <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer">
-                  {t("form.featured")}
-                </Label>
-              </div>
+              <Textarea
+                id="requisites"
+                value={formData.requisites}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(prev => ({...prev, requisites: e.target.value}))}
+                placeholder={t("form.requisitesPlaceholder")}
+                rows={4}
+                className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500/20 rounded-lg transition-all duration-200 resize-none"
+              />
             </div>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700 -mx-6 px-6 -mb-6 pb-6 bg-gray-50 dark:bg-gray-800/50">
-            <Button
-              variant="ghost"
-              onClick={() => {
-                setShowCreateModal(false);
-                setShowEditModal(false);
-                resetForm();
-              }}
-              className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
-            >
-              {t("form.cancel")}
-            </Button>
-            <Button
-              onClick={() => submitService(showEditModal)}
-              className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
-            >
-              <span>{showEditModal ? t("form.update") : t("form.create")}</span>
-              {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-            </Button>
+          {/* Duration */}
+          <div className="space-y-3">
+            <Label htmlFor="duration" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <div className="w-5 h-5 bg-indigo-100 dark:bg-indigo-900/30 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">⏱️</span>
+              </div>
+              <span>{t("form.duration")}</span>
+            </Label>
+            <Input
+              id="duration"
+              type="number"
+              min="1"
+              value={formData.duration}
+              onChange={(e) => setFormData(prev => ({...prev, duration: e.target.value}))}
+              placeholder={t("form.durationPlaceholder")}
+              className="h-12 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg transition-all duration-200"
+            />
           </div>
+
+        </div>
+
+        {/* Action Buttons - Moved outside overflow-y-auto */}
+        <div className="absolute bottom-0 left-0 right-0 flex justify-end space-x-3 pt-6 pb-6 px-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1A1924]">
+          <Button
+            variant="ghost"
+            onClick={() => {
+              setShowCreateModal(false);
+              setShowEditModal(false);
+              resetForm();
+            }}
+            className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
+          >
+            {t("form.cancel")}
+          </Button>
+          <Button
+            onClick={() => submitService(showEditModal)}
+            className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+          >
+            <span>{showEditModal ? t("form.update") : t("form.create")}</span>
+            {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+          </Button>
         </div>
       </Modal>
 

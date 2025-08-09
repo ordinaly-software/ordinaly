@@ -74,6 +74,39 @@
       },
       "viewAllServices": "Ikusi zerbitzu guztiak"
     },
+    "courses": {
+      "noSpecificDate": "Data zehazteko",
+      "showcaseTitle": "Kurtso Nabarmenak",
+      "showcaseDescription": "Gurekin bat egin profesional prestakuntza kurtsoetan eta zure karreran aurrera egin",
+      "upcomingTitle": "Datozen Kurtsoak",
+      "upcomingDescription": "Gure hurrengo profesional prestakuntza kurtsoak",
+      "noCoursesTitle": "Ez Dago Hurrengo Kurtsorik",
+      "noCoursesMessage": "Mantendu erne kurtso berri iragarpenei!",
+      "notifyButton": "Ikusi kurtso guztiak",
+      "errorTitle": "Errorea Kurtsoak Kargatzen",
+      "retryButton": "Berriro Saiatu",
+      "enrollButton": "Orain Eman Izena",
+      "moreInfo": "Informazio Gehiago",
+      "viewDetails": "Xehetasunak Ikusi",
+      "viewAllCourses": "Ikusi Kurtso Guztiak",
+      "spotsLeft": "leku libre",
+      "enrolled": "izen emanda",
+      "max": "gehienez",
+  "almostFull": "Ia Beteta",
+  "fillingFast": "Azkar Betetzen",
+  "available": "Eskuragarri",
+  "inProgress": "Martxan",
+  "finished": "Amaituta",
+      "datesSoon": "Datak laster",
+      "durationSoon": "Iraupena laster",
+      "signUpModal": {
+        "title": "Kurtsoan Eman Izena",
+        "description": "Jaso jakinarazpenak \"{courseName}\" kurtsorako izen-ematea irekitzen denean",
+        "generalDescription": "Jaso jakinarazpenak kurtso berri iragarpenei eta goiztiarra izen-ematea aukerak buruz.",
+        "close": "Itxi",
+        "notify": "Jakinarazi"
+      }
+    },
     "about": {
       "title": "Andaluzian eraldaketa digitala",
       "description1": "Ordaininy-n, Andaluziako enpresek Espainian eta Europan berrikuntza teknologikoa egiteko ahalmena dute. ",
@@ -328,52 +361,40 @@
       "googleSignUpError": "Google-en erregistroa huts egin du. "
     }
   },
-  "completeProfile": {
-    "title": "Osatu zure profila",
-    "subtitle": "Xehetasun gehiago hasteko",
-    "welcome": "Ongi etorri, {izena}!",
-    "form": {
-      "title": "Enpresaren informazioa",
-      "companyLabel": "Lagundi",
-      "companyPlaceholder": "Idatzi zure enpresaren izena",
-      "regionLabel": "Eskualde",
-      "regionPlaceholder": "Sartu zure eskualdean",
-      "cityLabel": "Hiri",
-      "cityPlaceholder": "Sartu zure hirian",
-      "optional": "hautazko",
-      "submitButton": "Profil osoa",
-      "submitButtonLoading": "Profila osatzea ..."
-    },
-    "validation": {
-      "companyRequired": "Enpresaren izena beharrezkoa da"
-    },
-    "messages": {
-      "success": "Profila ondo burutu da! ",
-      "networkError": "Sareko errorea. "
-    }
-  },
   "admin": {
-    "title": "Admin Arbela",
+    "title": "Admin Panela",
     "subtitle": "Kudeatu zure aplikazioaren edukia eta ezarpenak",
     "loading": "Admin panela kargatzen ...",
-    "accessDenied": "Sarbide ukatua",
+    "accessDenied": "Sarbidea ukatuta",
     "noPermission": "Ez duzu orrialde honetara sartzeko baimenik.",
     "labels": {
       "price": "Salneurri",
-      "duration": "Eskuragarri",
-      "icon": "Ikoton",
-      "created": "Sortu",
-      "updated": "Eguneratu",
-      "location": "Kokaleku",
-      "date": "Datil",
-      "schedule": "Egutegi",
-      "maxAttendants": "Max laguntzaileak"
+      "duration": "Iraupena",
+      "icon": "Ikonoa",
+      "created": "Sortua",
+      "updated": "Eguneratua",
+      "location": "Kokalekua",
+      "date": "Data",
+      "schedule": "Ordutegia",
+      "maxAttendants": "Gehienezko parte-hartzaileak"
     },
     "tabs": {
-      "overview": "Ikuspuntu orokor",
-      "services": "Zeregin",
+      "overview": "Orokorra",
+      "services": "Zerbitzuak",
       "courses": "Ikastaroak",
-      "terms": "Baldintzak"
+      "terms": "Baldintzak",
+      "users": "Erabiltzaileak"
+    },
+    "users": {
+      "title": "Erabiltzaileen Zerrenda",
+      "userId": "Erabiltzaile IDa",
+      "name": "Izena",
+      "surname": "Abizena",
+      "email": "Posta elektronikoa",
+      "company": "Enpresa",
+      "errorFetching": "Errorea erabiltzaileak eskuratzean. Saiatu berriro geroago.",
+      "sendMail": "Bidali posta",
+      "selectAll": "Hautatu guztiak"
     },
     "stats": {
       "totalServices": "Zerbitzu guztira",
@@ -383,7 +404,7 @@
     },
     "services": {
       "title": "Zerbitzuen Kudeaketa",
-      "searchPlaceholder": "Bilaketa zerbitzuak ...",
+      "searchPlaceholder": "Bilatu zerbitzuak ...",
       "addService": "Gehitu zerbitzua",
       "editService": "Editatu zerbitzua",
       "createService": "Zerbitzu berria sortu",
@@ -392,61 +413,73 @@
       "noServices": "Ez dago zerbitzurik eskuragarri.",
       "noServicesFound": "Ez da zerbitzurik aurkitu zure bilaketarekin bat datorrena.",
       "durationDay": "Egun 1",
-      "durationDays": "{count} egunak",
+      "durationDays": "{count} egun",
       "form": {
-        "title": "Izenburu",
+        "title": "Izenburua",
         "titlePlaceholder": "Zerbitzuaren izenburua",
-        "subtitle": "Azpititulu",
+        "subtitle": "Azpititulua",
         "subtitlePlaceholder": "Zerbitzuaren azpititulua (aukerakoa)",
-        "description": "Deskribapen",
+        "description": "Deskribapena",
         "descriptionPlaceholder": "Zerbitzuaren deskribapena",
-        "icon": "Ikoton",
-        "iconPlaceholder": "Aukeratu Lucideren erreakziona ikonoa",
-        "duration": "Eskuragarri (egunetan)",
-        "durationPlaceholder": "E.G., 2 egun",
+        "icon": "Ikonoa",
+        "iconPlaceholder": "Aukeratu Lucide ikono bat",
+        "color": "Zerbitzuaren kolorea *",
+        "colors": {
+          "darkPurple": "More iluna",
+          "purple": "Morea",
+          "cyan": "Zian",
+          "green": "Berdea",
+          "orange": "Laranja"
+        },
+        "duration": "Iraupena (egunetan)",
+        "durationPlaceholder": "Adib. 2 egun",
         "price": "Prezioa (€)",
         "pricePlaceholder": "Utzi hutsik 'kontaktua aipatzeko'",
         "contactForQuote": "Kontaktua aurrekontua",
         "featured": "Nabarmendutako zerbitzua",
         "cancel": "Indargabetu",
         "create": "Sortu zerbitzua",
-        "update": "Eguneratze zerbitzua"
+        "update": "Eguneratu zerbitzua",
+        "markdownSupported": "Markdown onartua",
+        "requisites": "Baldintzak",
+        "requisitesPlaceholder": "Idatzi zure zerbitzuaren baldintzak"
       },
       "messages": {
-        "createSuccess": "'{Title}' zerbitzua ondo sortu da! ",
+        "createSuccess": "'{title}' zerbitzua ondo sortu da!",
         "updateSuccess": "Zerbitzua '{title}' eguneratu da arrakastaz!",
         "deleteSuccess": "Zerbitzua behar bezala ezabatu da",
         "bulkDeleteSuccess": "Zerbitzuak behar bezala ezabatu dira",
-        "fetchError": "Huts egin du zerbitzuak eskuratzean",
+        "fetchError": "Errorea zerbitzuak eskuratzean",
         "createError": "Ezin izan da zerbitzua sortu",
         "updateError": "Ezin izan da zerbitzua eguneratu",
         "deleteError": "Ezin izan da zerbitzua ezabatu",
-        "networkError": "Ezin da zerbitzua gorde. ",
-        "selectToDelete": "Mesedez, hautatu Ezabatu zerbitzuak",
+        "networkError": "Ezin da zerbitzua gorde.",
+        "selectToDelete": "Mesedez, hautatu ezabatu nahi dituzun zerbitzuak",
         "validation": {
           "titleRequired": "Zerbitzuaren izenburua beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
-          "subtitleRequired": "Azpititulua beharrezkoa da eta 200 karaktere edo gutxiago izan behar dira.",
-          "descriptionRequired": "Deskribapena beharrezkoa da eta 500 karaktere edo gutxiago izan behar dira.",
-          "iconRequired": "Mesedez, aukeratu baliozko ikonoa zerbitzuarentzat.",
+          "subtitleRequired": "Azpititulua beharrezkoa da eta 200 karaktere edo gutxiago izan behar du.",
+          "descriptionRequired": "Deskribapena beharrezkoa da eta 2000 karaktere edo gutxiago izan behar du.",
+          "iconRequired": "Mesedez, aukeratu baliozko ikono bat zerbitzuarentzat.",
           "durationInvalid": "Iraupena gutxienez egun bat izan behar da zehazten bada.",
-          "requisitesLimit": "Eskakizunak 500 karaktere edo gutxiago izan behar dira.",
-          "priceInvalid": "Prezioak gutxienez $ 0,01 izan behar du zehaztuta badago."
+          "requisitesLimit": "Baldintzak 2000 karaktere edo gutxiago izan behar dira.",
+          "priceInvalid": "Prezioak gutxienez 0,01 € izan behar du zehaztuta badago."
         },
         "featured": {
-          "enabled": "'{Title}' zerbitzua agertzen da agertzen den moduan.",
-          "disabled": "'{Title}' zerbitzua ez da gehiago agertzen."
+          "enabled": "'{title}' zerbitzua nabarmendua da.",
+          "disabled": "'{title}' zerbitzua ez da gehiago nabarmendua."
         }
       },
       "confirmDelete": {
-        "title": "Berretsi ezabatzea",
-        "single": "Ziur \"{title}\" ezabatu nahi duzula? ",
-        "multiple": "Ziur {count} hautatutako zerbitzuak ezabatu nahi dituzula? ",
+        "title": "Ezabatzea berretsi",
+        "single": "Ziur zaude \"{title}\" ezabatu nahi duzula?",
+        "multiple": "Ziur zaude {count} hautatutako zerbitzuak ezabatu nahi dituzula?",
         "delete": "Ezabatu",
         "cancel": "Indargabetu"
       }
     },
     "courses": {
-      "title": "Ikastaroak kudeatzea",
+      "noSpecificDate": "Data zehaztu gabe",
+      "title": "Ikastaroen kudeaketa",
       "searchPlaceholder": "Bilatu ikastaroak ...",
       "addCourse": "Gehitu ikastaroa",
       "editCourse": "Editatu ikastaroa",
@@ -454,23 +487,23 @@
       "deleteSelected": "Ezabatu hautatutakoak",
       "selectAll": "Hautatu guztiak",
       "courses": "ikastaroak",
-      "noCourses": "Ikastarorik ez dago eskuragarri.",
-      "noPastCourses": "Iraganeko ikastaroak ez daude eskuragarri.",
+      "noCourses": "Ez dago ikastarorik eskuragarri.",
+      "noPastCourses": "Ez dago iraganeko ikastarorik eskuragarri.",
       "pastCourses": "Iraganeko ikastaroak",
       "viewPastCourses": "Ikusi iraganeko ikastaroak",
       "hidePastCourses": "Ezkutatu iraganeko ikastaroak",
       "upcomingCourses": "Hurrengo ikastaroak",
       "finished": "Amaituta",
-      "noCoursesFound": "Ez da ikastaro aurkitu zure bilaketa bat datorrenik.",
-      "contactForQuote": "Jarri harremanetan gure agenteekin aurrekontu zehatza lortzeko",
+      "noCoursesFound": "Ez da ikastarorik aurkitu zure bilaketarekin bat datorrena.",
+      "contactForQuote": "Doakoa",
       "form": {
-        "title": "Izenburu",
+        "title": "Izenburua",
         "titlePlaceholder": "Idatzi ikastaroaren izenburua",
         "titleRequired": "Ikastaroaren izenburua *",
-        "subtitle": "Azpititulu",
-        "subtitlePlaceholder": "Gehitu azpitituluak deskribatzaile bat",
+        "subtitle": "Azpititulua",
+        "subtitlePlaceholder": "Gehitu azpititulu deskribatzaile bat",
         "subtitleOptional": "Azpititulua (aukerakoa)",
-        "description": "Deskribapen",
+        "description": "Deskribapena",
         "descriptionPlaceholder": "Deskribatu ikasleek ikastaro honetan ikasiko dutena ...",
         "descriptionRequired": "Deskribapena *",
         "image": "Ikastaroaren irudia",
@@ -478,38 +511,462 @@
         "imageOptional": "Ikastaroaren irudia",
         "chooseImage": "Aukeratu irudi fitxategia",
         "chooseImageText": "Aukeratu irudi fitxategia",
-        "imageRecommendation": "Gomendagarria: 1200x800px, JPG edo PNG",
+        "imageRecommendation": "Gomendioa: 1200x800px, JPG edo PNG",
         "price": "Prezioa (€)",
         "pricePlaceholder": "Utzi hutsik 'kontaktua aipatzeko'",
-        "location": "Kokaleku",
-        "locationPlaceholder": "Sartu ikastaroaren kokapena edo 'Linean'",
-        "locationRequired": "Kokapena *",
-        "scheduleSettings": "Profesionalen egutegiaren ezarpenak",
+        "location": "Kokalekua",
+        "locationPlaceholder": "Sartu ikastaroaren kokapena edo 'Online'",
+        "locationRequired": "Kokalekua *",
+        "scheduleSettings": "Ordutegiaren ezarpenak",
         "startDateRequired": "Hasiera data *",
         "endDateRequired": "Amaiera data *",
-        "startTimeRequired": "Hasi ordua *",
-        "endTimeRequired": "Amaiera denbora *",
+        "startTimeRequired": "Hasiera ordua *",
+        "endTimeRequired": "Amaiera ordua *",
         "periodicityRequired": "Errepikapen eredua *",
-        "weekdaysOptional": "Astegunetan (aukerakoa)",
-        "weekOfMonthOptional": "Hilabete Astea (aukerakoa)",
-        "intervalOptional": "Tarte",
-        "intervalPlaceholder": "2.a, 2 astean behin",
-        "timezoneOptional": "Nedone",
+        "weekdaysOptional": "Astegunak (aukerakoa)",
+        "weekOfMonthOptional": "Hilabeteko astea (aukerakoa)",
+        "intervalOptional": "Tartea",
+        "intervalPlaceholder": "adib. 2, bi astean behin",
+        "timezoneOptional": "Ordu-zona (aukerakoa)",
+        "periodicity": {
+          "once": "Behin bakarrik",
+          "daily": "Egunero",
+          "weekly": "Astero",
+          "biweekly": "Bi astero",
+          "monthly": "Hilero",
+          "custom": "Pertsonalizatua"
+        },
+        "weekOfMonth": {
+          "any": "Edozein aste",
+          "first": "Lehen astea",
+          "second": "Bigarren astea",
+          "third": "Hirugarren astea",
+          "fourth": "Laugarren astea",
+          "last": "Azken astea"
+        },
+        "weekdays": {
+          "monday": {
+            "short": "Al.",
+            "full": "Astelehena"
+          },
+          "tuesday": {
+            "short": "Ar.",
+            "full": "Asteartea"
+          },
+          "wednesday": {
+            "short": "Az.",
+            "full": "Asteazkena"
+          },
+          "thursday": {
+            "short": "Og.",
+            "full": "Osteguna"
+          },
+          "friday": {
+            "short": "Or.",
+            "full": "Ostirala"
+          },
+          "saturday": {
+            "short": "La.",
+            "full": "Larunbata"
+          },
+          "sunday": {
+            "short": "Ig.",
+            "full": "Igandea"
+          }
+        },
+        "maxAttendants": "Gehienezko parte-hartzaileak",
+        "maxAttendantsRequired": "Gehienezko parte-hartzaileak *",
+        "maxAttendantsPlaceholder": "10",
+        "cancel": "Indargabetu",
+        "create": "Sortu ikastaroa",
+        "update": "Eguneratu ikastaroa"
+      },
+      "messages": {
+        "createSuccess": "Ikastaroa '{title}' arrakastaz sortu da!",
+        "updateSuccess": "Ikastaroa '{title}' arrakastaz eguneratu da!",
+        "deleteSuccess": "Ikastaroa behar bezala ezabatu da",
+        "bulkDeleteSuccess": "Ikastaroak behar bezala ezabatu dira",
+        "fetchError": "Errorea ikastaroak eskuratzean",
+        "createError": "Ezin izan da ikastaroa sortu",
+        "updateError": "Ezin izan da ikastaroa eguneratu",
+        "deleteError": "Errorea ikastaroa ezabatzean",
+        "networkError": "Ezin da ikastaroa gorde.",
+        "selectToDelete": "Mesedez, hautatu ezabatu nahi dituzun ikastaroak",
+        "fileSizeLimit": "Fitxategiaren tamaina 5MB baino txikiagoa izan behar da",
+        "imageFileOnly": "Mesedez, hautatu irudi fitxategi bat",
+        "cannotDeleteFinished": "Amaitutako ikastaroa ezin da ezabatu.",
+        "cannotDeleteFinishedBulk": "Amaitutako ikastaroak ezin dira ezabatu.",
+        "validation": {
+          "titleRequired": "Ikastaroaren izenburua beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
+          "subtitleLimit": "Azpitituluak 200 karaktere edo gutxiago izan behar du.",
+          "descriptionRequired": "Deskribapena beharrezkoa da eta 2000 karaktere edo gutxiago izan behar du.",
+          "imageRequired": "Kargatu ikastaroarentzako baliozko irudi fitxategia.",
+          "priceInvalid": "Prezioak gutxienez 0,01 € izan behar du zehaztuta badago.",
+          "locationRequired": "Kokalekua beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
+          "dateRequired": "Data beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
+          "maxAttendantsInvalid": "Gehienezko parte-hartzaileak gutxienez 1 izan behar dira."
+        },
+        "capacity": {
+          "warning": "Abisua: ikastaro honek {current} matrikulak ditu."
+        }
+      },
+      "confirmDelete": {
+        "title": "Ezabatzea berretsi",
+        "single": "Ziur zaude \"{title}\" ezabatu nahi duzula?",
+        "multiple": "Ziur zaude {count} hautatutako ikastaroak ezabatu nahi dituzula?",
+        "delete": "Ezabatu",
+        "cancel": "Indargabetu"
+      },
+      "details": {
+        "title": "Ikastaroaren xehetasunak",
+        "enrolled": "Matrikulatuak",
+        "capacity": "Edukiera",
+        "vacant": "Libre",
+        "price": "Salneurri",
+        "location": "Kokalekua",
+        "date": "Data",
+        "maxAttendants": "Gehienezko parte-hartzaileak",
+        "created": "Sortua",
+        "schedule": "Ordutegia",
+        "locationInfo": "Kokalekuaren informazioa",
+        "enrollmentStatus": "Matrikula egoera",
+        "enrolledMembers": "Matrikulatutako kideak",
+        "upcomingSessions": "Hurrengo saioak",
+        "finished": "Amaituta",
+        "startDate": "Hasiera data",
+        "endDate": "Amaiera data",
+        "time": "Ordua",
+        "duration": "Iraupena",
+        "frequency": "Maiztasuna",
+        "weekdays": "Astegunak",
+        "timezone": "Ordu-zona",
+        "lastUpdated": "Azken eguneraketa",
+        "fullStatus": "Bete",
+        "spotsRemaining": "Geratzen diren lekuak",
+        "members": "kide",
+        "noEnrollments": "Ez dago oraindik matrikulaturik",
+        "enrolledOn": "Matrikulatua",
+        "member": "Kidea",
+        "company": "Enpresa",
+        "moreSessions": "Saio gehiago",
+        "hours": "ordu"
+      },
+      "courseCard": {
+        "enrollments": "Matrikulak",
+        "full": "Betea",
+        "spotsAvailable": "leku eskuragarri"
+      },
+      "sorting": {
+        "sortBy": "Ordenatu",
+        "startDate": "Hasiera data",
+        "title": "Izenburua",
+        "endDate": "Amaiera data",
+        "enrollments": "Matrikulak",
+        "capacity": "Edukiera",
+        "created": "Sortua"
+      }
+    },
+    "terms": {
+      "title": "Baldintzen Kudeaketa",
+      "searchPlaceholder": "Bilatu baldintzak...",
+      "addTerm": "Gehitu baldintza",
+      "editTerm": "Editatu baldintza",
+      "createTerm": "Baldintza berria sortu",
+      "deleteSelected": "Ezabatu hautatutakoak",
+      "selectAll": "Hautatu guztiak",
+      "noTerms": "Ez dago baldintzarik eskuragarri.",
+      "noTermsFound": "Ez da baldintzarik aurkitu zure bilaketarekin bat datorrena.",
+      "pdfAvailable": "PDF eskuragarri",
+      "mdAvailable": "Markdown dokumentua eskuragarri",
+      "downloadPdf": "Deskargatu PDF",
+      "edit": "Editatu baldintza",
+      "delete": "Ezabatu baldintza",
+      "form": {
+        "name": "Izena",
+        "namePlaceholder": "Baldintzaren izena",
+        "content": "Edukia (Markdown)",
+        "contentPlaceholder": "Baldintzaren edukia markdown formatuan",
+        "version": "Bertsioa",
+        "versionPlaceholder": "adib: 1.0",
+        "tag": "Dokumentu mota",
+        "tagPlaceholder": "Aukeratu dokumentu mota",
+        "selectTag": "Aukeratu dokumentu mota",
+        "noAvailableTags": "Ez dago dokumentu motarik eskuragarri",
+        "allTagsUsed": "Dokumentu mota guztiak sortu dira. Mota bakoitzeko bakarra izan dezakezu.",
+        "allTagsUsedTitle": "Dokumentu mota guztiak erabilita daude",
+        "allTagsUsedButton": "Mota guztiak sortuta",
+        "markdownSupported": "Markdown onartua",
+        "pdfContent": "PDF edukia",
+        "contentMd": "Markdown edukia",
+        "mdFile": "Markdown fitxategia",
+        "chooseMd": "Aukeratu Markdown fitxategia",
+        "downloadCurrentPdf": "Deskargatu PDF",
+        "downloadCurrentMd": "Deskargatu Markdown",
+        "tagTypes": {
+          "terms": "Erabilera Baldintzak",
+          "cookies": "Cookie Politika",
+          "privacy": "Pribatutasun Politika",
+          "license": "Lizentzia"
+        },
+        "pdfVersion": "PDF bertsioa (aukerakoa)",
+        "choosePdf": "Aukeratu PDF",
+        "cancel": "Indargabetu",
+        "create": "Sortu baldintza",
+        "update": "Eguneratu baldintza",
+        "noTagsLeft": "Ez dago dokumentu motarik libre",
+        "noFileEdit": "Ezin da fitxategia editatu"
+      },
+      "actions": {
+        "viewPreview": "Ikusi aurrebista",
+        "viewPdf": "Ikusi PDF"
+      },
+      "tabs": {
+        "form": "Inprimakia",
+        "preview": "Markdown aurrebista",
+        "pdf": "PDF aurrebista"
+      },
+      "labels": {
+        "name": "Izena",
+        "content": "Edukia",
+        "version": "Bertsioa",
+        "tag": "Dokumentu mota",
+        "created": "Sortua",
+        "updated": "Eguneratua"
+      },
+      "preview": {
+        "pdf": "PDF aurrebista",
+        "markdown": "Markdown aurrebista",
+        "noFileEdit": "Ezin da fitxategia editatu",
+        "noPdf": "Ezin da PDFa editatu"
+      },
+      "messages": {
+        "createSuccess": "Baldintza dokumentua '{name}' ondo sortu da!",
+        "updateSuccess": "Baldintza dokumentua '{name}' ondo eguneratu da!",
+        "deleteSuccess": "Baldintza behar bezala ezabatu da",
+        "bulkDeleteSuccess": "Baldintzak behar bezala ezabatu dira",
+        "fetchError": "Errorea baldintzak eskuratzean",
+        "createError": "Errorea baldintza sortzean",
+        "updateError": "Errorea baldintza eguneratzean",
+        "deleteError": "Errorea baldintza ezabatzean",
+        "downloadError": "Errorea PDF deskargatzean",
+        "downloadSuccess": "PDF behar bezala deskargatu da",
+        "networkError": "Ezin izan da baldintza dokumentua gorde. Mesedez, egiaztatu zure konexioa eta saiatu berriro.",
+        "selectToDelete": "Mesedez, hautatu ezabatu nahi dituzun baldintzak",
+        "fileSizeLimit": "Fitxategiaren tamaina 10MB baino txikiagoa izan behar da",
+        "pdfFileOnly": "Mesedez, hautatu PDF fitxategi bat",
+        "validation": {
+          "nameRequired": "Dokumentuaren izena beharrezkoa da eta 127 karaktere edo gutxiago izan behar du.",
+          "contentRequired": "Mesedez, igo baliozko Markdown (.md) fitxategi bat edukirako.",
+          "pdfRequired": "Mesedez, igo baliozko PDF fitxategi bat dokumenturako.",
+          "versionRequired": "Bertsioa beharrezkoa da eta 20 karaktere edo gutxiago izan behar du.",
+          "tagUnique": "Etiketa mota honekin dokumentu bat badago jada. Aukeratu beste etiketa bat edo editatu lehendik dagoena.",
+          "fileExtension": "Edukien fitxategia .md izan behar da eta PDF edukia .pdf.",
+          "fileMissing": "Markdown (.md) eta PDF fitxategiak eman behar dira.",
+          "tagRequired": "Mesedez, aukeratu dokumentu mota bat."
+        }
+      },
+      "upload": {
+        "error": "Errorea fitxategia igotzean. Mesedez, ziurtatu fitxategiak baliozkoak direla eta saiatu berriro."
+      },
+      "version": {
+        "updateWarning": "Garrantzitsua: Baldintza hau eguneratzeak bertsio berria sortuko du. Erabiltzaileek eguneratutako baldintzak berriro onartu beharko dituzte."
+      },
+      "confirmDelete": {
+        "title": "Ezabatzea berretsi",
+        "single": "Ziur zaude \"{name}\" ezabatu nahi duzula? Ekintza hau ezin da desegin.",
+        "multiple": "Ziur zaude {count} hautatutako baldintzak ezabatu nahi dituzula? Ekintza hau ezin da desegin.",
+        "delete": "Ezabatu",
+        "cancel": "Indargabetu"
+      },
+      "details": {
+        "created": "Sortua",
+        "updated": "Eguneratua"
+      }
+    },
+    "legal": {
+      "title": "Lege dokumentazioa",
+      "description": "Sartu gure zerbitzuaren baldintzak, pribatutasun politika, cookie politika eta lizentzia informazioa.",
+      "downloadPdf": "Deskargatu pdf",
+      "tabs": {
+        "terms": "Zerbitzu baldintzak",
+        "privacy": "Pribatutasun politika",
+        "cookies": "Cookie politika",
+        "license": "Baimendu"
+      },
+      "sections": {
+        "terms": {
+          "title": "Zerbitzu baldintzak",
+          "noDocuments": "Ez dago zerbitzuen agiri baldintzarik eskuragarri."
+        },
+        "privacy": {
+          "title": "Pribatutasun politika",
+          "noDocuments": "Gaur egun ez dago pribatutasun politikarik."
+        },
+        "cookies": {
+          "title": "Cookie politika",
+          "noDocuments": "Gaur egun ez dago cookie politikaren dokumenturik."
+        },
+        "license": {
+          "title": "Lizentzia informazioa",
+          "noDocuments": "Ez dago lizentziarik dokumenturik eskuragarri."
+        }
+      },
+      "messages": {
+        "fetchError": "Ezin izan da legezko dokumentuak eskuratzean",
+        "networkError": "Sareko errorea dokumentuak eskuratzean",
+        "noPdfAvailable": "PDF bertsioa ez dago eskuragarri dokumentu honetarako",
+        "downloadSuccess": "PDF behar bezala deskargatu da",
+        "downloadError": "Ezin izan da pdf deskargatzean"
+      }
+    },
+    "formation": {
+      "title": "Formazio profesionala",
+      "subtitle": "Aurreratu zure ibilbidea industria adituek diseinatutako gure prestakuntza programa integralekin",
+      "searchPlaceholder": "Bilatu ikastaroak ...",
+      "free": "Dohainik",
+      "price": "Salneurri",
+      "location": "Kokaleku",
+      "date": "Datil",
+      "enrolled": "Insilegatu",
+      "enroll": "Izena eman orain",
+      "cancelEnrollment": "Utzi matrikula",
+      "viewDetails": "Xehetasunak ikusi",
+      "maxAttendants": "Max laguntzaileak",
+      "maxAttendeesCount": "Max {count} laguntzaileak",
+      "noSpecificDate": "Ez dago data zehatzik",
+      "filters": {
+        "location": {
+          "all": "Kokapen guztiak",
+          "online": "Konektatuta",
+          "onsite": "-N gunean"
+        },
+        "price": {
+          "all": "Prezio guztiak",
+          "free": "Dohainik",
+          "paid": "Ordain"
+        }
+      },
+      "noResults": {
+        "title": "Ez da ikastaro aurkitu",
+        "description": "Saiatu zure bilaketa baldintzak edo iragazkiak doitzen zuretzako ikastaro egokia aurkitzeko."
+      },
+      "noPastCourses": "Iraganeko ikastaroak ez daude eskuragarri.",
+      "pastCourses": "Iraganeko ikastaroak",
+      "viewPastCourses": "Ikusi iraganeko ikastaroak",
+      "hidePastCourses": "Ezkutatu iraganeko ikastaroak",
+      "upcomingCourses": "Hurrengo ikastaroak",
+      "finished": "Amaituta",
+      "cta": {
+        "title": "Zure ibilbidea aurrera egiteko prest?",
+        "description": "Sartu beren karrerak eraldatu dituzten milaka profesionalek gure adituen prestakuntza programekin.",
+        "contact": "Harremanetarako aholkularia",
+        "catalog": "Deskargatu katalogoa",
+        "emailSubject": "Ordena Ordaintzeko Formazio Programen inguruko kontsulta",
+        "emailBody": "Kaixo, zure eraketa profesionalen programei buruz gehiago ikasteko interesa dut. "
+      },
+      "enrollment": {
+        "title": "Ikastaroen matrikula",
+        "confirm": "Berretsi matrikula",
+        "courseDetails": "Ikastaroaren xehetasunak",
+        "confirmMessage": "Ziur zaude ikastaro honetan izena eman nahi duzula?",
+        "paymentNote": "Ordainketa prozesamendua hurrengo urratsean kudeatuko da.",
+        "confirmEnroll": "Berretsi matrikula",
+        "name": "Izen osoa",
+        "namePlaceholder": "Idatzi zure izen osoa",
+        "email": "Helbide elektronikoa",
+        "emailPlaceholder": "Idatzi zure helbide elektronikoa",
+        "phone": "Telefono zenbakia",
+        "phonePlaceholder": "Idatzi zure telefono zenbakia",
+        "company": "Lagundi",
+        "companyPlaceholder": "Idatzi zure enpresaren izena",
+        "experience": "Esperientzia garrantzitsua",
+        "experiencePlaceholder": "Esan iezaguzu zure esperientzia edo atzeko plano garrantzitsuaz ...",
+        "motivation": "Zergatik nahi duzu ikastaro hau egin?",
+        "motivationPlaceholder": "Partekatu zure motibazioa eta zer espero duzun ...",
+        "cancel": "Indargabetu",
+        "submit": "Izena eman ikastaroan"
+      },
+      "cancellation": {
+        "title": "Utzi matrikula",
+        "warning": "Utzi ikastaroaren matrikula",
+        "warningMessage": "Ziur \"{courseTitle}\" matrikula bertan behera utzi nahi duzula? ",
+        "confirmMessage": "Horrek kurtsoretik kenduko zaitu eta baliteke zure lekua galtzea.",
+        "keepEnrollment": "Matrikula mantendu",
+        "confirmCancel": "Utzi matrikula"
+      },
+      "alerts": {
+        "signInToEnroll": "Mesedez, hasi saioa ikastaroetan izena emateko",
+        "signInRequired": "Mesedez, hasi saioa matrikulak kudeatzeko",
+        "enrollmentSuccess": "Arrakastaz matrikulatu {courseTitle} -n!",
+        "enrollmentFailed": "Ezin izan da izena eman. ",
+        "enrollmentCancelled": "Matrikula ondo bertan behera utzi da",
+        "cancelEnrollmentFailed": "Ezin izan da matrikula bertan behera utzi",
+        "notEnrolled": "Oraingo honetan ez zara ikastaro honetan matrikulatuta",
+        "authenticationFailed": "Autentifikazioa huts egin du. ",
+        "networkError": "Sareko errorea. ",
+        "failedToLoadCourses": "Huts egin du ikastaroak kargatu",
+        "networkErrorLoadingCourses": "Sareko errorea ikastaroak kargatzean",
+        "generatingCatalog": "Ikastaroen katalogoa sortzen ...",
+        "catalogDownloaded": "Katalogoa behar bezala deskargatuta!",
+        "catalogError": "Errorea katalogoa sortzean. "
+      },
+      "pdf": {
+        "slogan": "Software eta Prestakuntza Soluzioak",
+        "title": "Prestakuntza katalogoa",
+        "subtitle": "Prestakuntza profesional eta teknologikoko ikastaroak",
+        "introduction": "Ordezian, prestakuntza espezializatua eskaintzen dugu sortzen ari diren teknologietan eta garapen profesionalean. ",
+        "coursesTitle": "Gure ikastaroak",
+        "upcomingCourses": "Hurrengo ikastaroak",
+        "date": "Data:",
+        "time": "Ordua:",
+        "location": "Kokalekua:",
+        "price": "Prezioa:",
+        "free": "Dohainik",
+        "capacity": "Edukiera:",
+        "people": "jende",
+        "contactTitle": "Harremanetarako informazioa",
+        "email": "Posta elektronikoa:",
+        "website": "Webgunea:",
+        "specialization": "Espezializazioa:",
+        "specializationText": "Softwarea garatzeko eta teknologia prestakuntza",
+        "filename": "Ordinaly_training_catalog.pdf",
+        "noSpecificDate": "Ez dago data zehatzik",
+        "noSpecificTime": "Ez dago ordu zehatzik"
+      },
+      "courseDetails": {
+        "title": "Ikastaroaren xehetasunak",
+        "courseDescription": "Ikastaroaren deskribapena",
+        "scheduleInformation": "Informazioa Informazioa",
+        "upcomingSessions": "Hurrengo saioak",
+        "courseInformation": "Ikastaroaren informazioa",
+        "startDate": "Hasiera data",
+        "endDate": "Amaiera data",
+        "time": "Denbora",
+        "duration": "Iraupen",
+        "hours": "ordire ordu",
+        "daysOfWeek": "Asteko egunak",
+        "fullSchedule": "Ordutegi osoa",
+        "location": "Kokaleku",
+        "maxAttendants": "Max laguntzaileak",
+        "people": "jende",
+        "scheduleType": "Ordutegi mota",
+        "price": "Salneurri",
+        "enrolled": "Insilegatu",
+        "cancelEnrollment": "Utzi matrikula",
+        "courseHasStarted": "Ikastaroa hasi da",
+        "courseStartedMessage": "Ikastaro hau dagoeneko hasi da eta jada ez da matrikulazio berriak onartzen.",
+        "signInToEnroll": "Hasi saioa matrikulatzeko",
+        "enrollNow": "Izena eman orain",
+        "importantDates": "Data garrantzitsuak",
+        "excludedDatesMessage": "Ikastaro honek {count} baztertutako data (oporrak edo atsedenaldiak) ditu ohiko egitarauan sartzen ez direnak.",
+        "moreSessions": "Eta {count} saio gehiago ...",
+        "noSpecificDate": "Ez dago data zehatzik",
         "periodicity": {
           "once": "Behin-behineko gertaera",
           "daily": "Eguneroko",
           "weekly": "Asteko",
           "biweekly": "Biwsyly",
-          "monthly": "Hileko",
-          "custom": "Pertsonalizatutako eredua"
-        },
-        "weekOfMonth": {
-          "any": "ASTE BATZUK",
-          "first": "Lehen astea",
-          "second": "Bigarren astea",
-          "third": "Hirugarren astea",
-          "fourth": "Laugarren astea",
-          "last": "Joan den astean"
+          "monthly": "Hileko"
         },
         "weekdays": {
           "monday": {
@@ -540,435 +997,6 @@
             "short": "Eguzki",
             "full": "Igande"
           }
-        },
-        "maxAttendants": "Max laguntzaileak",
-        "maxAttendantsRequired": "Max laguntzaileak *",
-        "maxAttendantsPlaceholder": "10",
-        "cancel": "Indargabetu",
-        "create": "Sortu ikastaroa",
-        "update": "Eguneratze ikastaroa"
-      },
-      "messages": {
-        "createSuccess": "Ikastaroa '{title}' arrakastaz sortu da! ",
-        "updateSuccess": "Ikastaroa '{title}' eguneratu da arrakastaz!",
-        "deleteSuccess": "Ikastaroa ondo ezabatu da",
-        "bulkDeleteSuccess": "Ikastaroak behar bezala ezabatu dira",
-        "fetchError": "Huts egin du ikastaroak eskuratzean",
-        "createError": "Ezin izan da ikastaroa sortu",
-        "updateError": "Ezin izan da eguneratu ikastaroa",
-        "deleteError": "Huts egin du ikastaroa ezabatzean",
-        "networkError": "Ezin da ikastaroa aurreztu. ",
-        "selectToDelete": "Mesedez, aukeratu ikastaroak ezabatzeko",
-        "fileSizeLimit": "Fitxategiaren tamaina 5MB baino txikiagoa izan behar da",
-        "imageFileOnly": "Mesedez, hautatu irudi fitxategia",
-        "validation": {
-          "titleRequired": "Ikastaroaren izenburua beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
-          "subtitleLimit": "Azpitituluak 200 karaktere edo gutxiago izan behar ditu.",
-          "descriptionRequired": "Deskribapena beharrezkoa da eta 500 karaktere edo gutxiago izan behar dira.",
-          "imageRequired": "Kargatu ikastaroarentzako baliozko irudi fitxategia.",
-          "priceInvalid": "Prezioak gutxienez $ 0,01 izan behar du zehaztuta badago.",
-          "locationRequired": "Kokapena beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
-          "dateRequired": "Data beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
-          "maxAttendantsInvalid": "Gehienezko laguntzaileak gutxienez 1 izan behar dira."
-        },
-        "capacity": {
-          "warning": "Abisua: ikastaro honek {gaur egungo} matrikulak ditu. "
-        }
-      },
-      "confirmDelete": {
-        "title": "Berretsi ezabatzea",
-        "single": "Ziur \"{title}\" ezabatu nahi duzula? ",
-        "multiple": "Ziur al zaude {count} hautatutako ikastaroak ezabatu nahi dituzula? ",
-        "delete": "Ezabatu",
-        "cancel": "Indargabetu"
-      },
-      "details": {
-        "title": "Ikastaroaren xehetasunak",
-        "enrolled": "Insilegatu",
-        "capacity": "Edukiera",
-        "vacant": "Huts",
-        "price": "Salneurri",
-        "location": "Kokaleku",
-        "date": "Datil",
-        "maxAttendants": "Max laguntzaileak",
-        "created": "Sortu",
-        "schedule": "Egutegi",
-        "locationInfo": "Kokapena eta informazioa",
-        "enrollmentStatus": "Matrikula egoera",
-        "enrolledMembers": "Matrikulatutako kideak",
-        "upcomingSessions": "Hurrengo saioak",
-        "finished": "Amaituta",
-        "startDate": "Hasiera data",
-        "endDate": "Amaiera data",
-        "time": "Denbora",
-        "duration": "Iraupen",
-        "frequency": "Maiztasun",
-        "weekdays": "Astegunetan",
-        "timezone": "Nedone",
-        "lastUpdated": "Azken eguneraketa",
-        "fullStatus": "Bete",
-        "spotsRemaining": "Geratzen diren lekuak",
-        "members": "bazkide",
-        "noEnrollments": "Oraindik ez dago matrikulaziorik",
-        "enrolledOn": "Insilegatu",
-        "member": "Bazkide",
-        "company": "Lagundi",
-        "moreSessions": "Saio gehiago",
-        "hours": "ordire ordu"
-      },
-      "courseCard": {
-        "enrollments": "Matemara",
-        "full": "bete",
-        "spotsAvailable": "lekuak eskuragarri"
-      },
-      "sorting": {
-        "sortBy": "Ordenatu",
-        "startDate": "Hasiera data",
-        "title": "Izenburu",
-        "endDate": "Amaiera data",
-        "enrollments": "Matemara",
-        "capacity": "Edukiera",
-        "created": "Sortu"
-      }
-    },
-    "terms": {
-      "title": "Baldintzak kudeatzea",
-      "searchPlaceholder": "Bilaketa baldintzak ...",
-      "addTerm": "Gehitu epea",
-      "editTerm": "Editatu epea",
-      "createTerm": "Epe berria sortu",
-      "deleteSelected": "Ezabatu hautatutakoak",
-      "selectAll": "Hautatu guztiak",
-      "noTerms": "Ez dago terminorik eskuragarri.",
-      "noTermsFound": "Ez da zure bilaketa bat datorren baldintzarik aurkitu.",
-      "pdfAvailable": "PDF eskuragarri",
-      "downloadPdf": "Deskargatu pdf",
-      "form": {
-        "name": "Izen",
-        "namePlaceholder": "Epearen izena",
-        "content": "Edukia (Markdown)",
-        "contentPlaceholder": "Epea Edukia Markdown formatuan",
-        "version": "Bertsio",
-        "versionPlaceholder": "E.G. ",
-        "tag": "Dokumentu mota",
-        "tagPlaceholder": "Hautatu Dokumentu mota",
-        "selectTag": "Hautatu dokumentu mota bat",
-        "noAvailableTags": "Ez dago dokumentu motarik eskuragarri",
-        "allTagsUsed": "Dokumentu mota guztiak sortu dira. ",
-        "allTagsUsedTitle": "Dokumentu mota guztiak dagoeneko erabiltzen ari dira",
-        "allTagsUsedButton": "Mota guztiak sortu dira",
-        "tagTypes": {
-          "terms": "Erabilerarako baldintzak eta baldintzak",
-          "cookies": "Cookie politika",
-          "privacy": "Pribatutasun politika",
-          "license": "Baimendu"
-        },
-        "pdfVersion": "PDF bertsioa (aukerakoa)",
-        "choosePdf": "Aukeratu pdf",
-        "cancel": "Indargabetu",
-        "create": "Epea sortu",
-        "update": "Eguneratze epea"
-      },
-      "messages": {
-        "createSuccess": "Baldintzak '{name}' dokumentua ondo sortu da!",
-        "updateSuccess": "Baldintzak '{name}' dokumentua ondo eguneratu da!",
-        "deleteSuccess": "Epea behar bezala ezabatu da",
-        "bulkDeleteSuccess": "Baldintzak behar bezala ezabatu dira",
-        "fetchError": "Huts egin du baldintzak eskuratzean",
-        "createError": "Huts egin du terminoa sortuz",
-        "updateError": "Huts egin du epea eguneratzean",
-        "deleteError": "Huts egin du epea ezabatzean",
-        "downloadError": "Ezin izan da pdf deskargatzean",
-        "downloadSuccess": "PDF behar bezala deskargatu da",
-        "networkError": "Ezin da baldintzak dokumentua gorde. ",
-        "selectToDelete": "Mesedez, hautatu Baldintzak ezabatu",
-        "fileSizeLimit": "Fitxategiaren tamaina 10MB baino txikiagoa izan behar da",
-        "pdfFileOnly": "Mesedez, aukeratu PDF fitxategi bat",
-        "validation": {
-          "nameRequired": "Dokumentuaren izena beharrezkoa da eta 127 karaktere edo gutxiago izan behar du.",
-          "contentRequired": "Mesedez, kargatu baliozko marka (.md) edukia edukirako.",
-          "pdfRequired": "Kargatu dokumentuaren baliozko PDF fitxategi bat.",
-          "versionRequired": "Bertsioa beharrezkoa da eta 20 karaktere edo gutxiago izan behar du.",
-          "tagDuplicate": "Etiketa mota hau duen dokumentua dagoeneko badago. ",
-          "fileExtension": "Edukiaren fitxategiak .md fitxategia izan behar du eta PDF edukiak .pdf fitxategia izan behar du.",
-          "fileMissing": "Bai marka (.md) fitxategia eta PDF fitxategia eman behar da."
-        },
-        "upload": {
-          "error": "Fitxategiak kargatzea huts egin du. "
-        },
-        "version": {
-          "updateWarning": "GARRANTZITSUA: Baldintza hau eguneratzea Dokumentuak bertsio berria sortuko du. "
-        }
-      },
-      "confirmDelete": {
-        "title": "Berretsi ezabatzea",
-        "single": "Ziur \"{name}\" ezabatu nahi duzula? ",
-        "multiple": "Ziur al zaude {count} hautatutako baldintzak ezabatu nahi dituzula? ",
-        "delete": "Ezabatu",
-        "cancel": "Indargabetu"
-      },
-      "details": {
-        "created": "Sortu",
-        "updated": "Eguneratu"
-      }
-    }
-  },
-  "legal": {
-    "title": "Lege dokumentazioa",
-    "description": "Sartu gure zerbitzuaren baldintzak, pribatutasun politika, cookie politika eta lizentzia informazioa.",
-    "downloadPdf": "Deskargatu pdf",
-    "tabs": {
-      "terms": "Zerbitzu baldintzak",
-      "privacy": "Pribatutasun politika",
-      "cookies": "Cookie politika",
-      "license": "Baimendu"
-    },
-    "sections": {
-      "terms": {
-        "title": "Zerbitzu baldintzak",
-        "noDocuments": "Ez dago zerbitzuen agiri baldintzarik eskuragarri."
-      },
-      "privacy": {
-        "title": "Pribatutasun politika",
-        "noDocuments": "Gaur egun ez dago pribatutasun politikarik."
-      },
-      "cookies": {
-        "title": "Cookie politika",
-        "noDocuments": "Gaur egun ez dago cookie politikaren dokumenturik."
-      },
-      "license": {
-        "title": "Lizentzia informazioa",
-        "noDocuments": "Ez dago lizentziarik dokumenturik eskuragarri."
-      }
-    },
-    "messages": {
-      "fetchError": "Ezin izan da legezko dokumentuak eskuratzean",
-      "networkError": "Sareko errorea dokumentuak eskuratzean",
-      "noPdfAvailable": "PDF bertsioa ez dago eskuragarri dokumentu honetarako",
-      "downloadSuccess": "PDF behar bezala deskargatu da",
-      "downloadError": "Ezin izan da pdf deskargatzean"
-    }
-  },
-  "services": {
-    "title": "Gure zerbitzuak",
-    "subtitle": "Zure negozioa eraldatzeko eta berrikuntza digitala gidatzeko diseinatutako irtenbide integralak",
-    "searchPlaceholder": "Bilaketa zerbitzuak ...",
-    "featured": "Proidatu",
-    "details": "Xehetasunak",
-    "duration": "Iraupena",
-    "durationDay": "1 egunez",
-    "durationDays": "{count} egunetan",
-    "price": "Prezioa",
-    "contactUs": "Jar zaitez gurekin harremanetan",
-    "learnMore": "Argibide gehiago",
-    "filters": {
-      "all": "Zerbitzu guztiak",
-      "featured": "Nabarmenduta bakarrik",
-      "standard": "Zerbitzu estandarrak"
-    },
-    "noResults": {
-      "title": "Ez da zerbitzurik aurkitu",
-      "description": "Saiatu zure bilaketa baldintzak edo iragazkiak doitzen bilatzen ari zaren hori aurkitzeko."
-    },
-    "cta": {
-      "title": "Zure negozioa eraldatzeko prest?",
-      "description": "Eztabaidazu nola gure zerbitzuek zure eraldaketa digitalen helburuak lortzen lagun diezaiekete.",
-      "contact": "Jar zaitez harremanetan",
-      "call": "Dei bat antolatu",
-      "emailSubject": "Ordena Ordena Zerbitzuei buruzko kontsulta",
-      "emailBody": "Kaixo, zure eraldaketa digitalen zerbitzuei buruz gehiago ikasteko interesa dut. "
-    },
-    "contact": {
-      "title": "Jar zaitez gurekin harremanetan",
-      "name": "Izen osoa",
-      "namePlaceholder": "Idatzi zure izen osoa",
-      "email": "Helbide elektronikoa",
-      "emailPlaceholder": "Idatzi zure helbide elektronikoa",
-      "phone": "Telefono zenbakia",
-      "phonePlaceholder": "Idatzi zure telefono zenbakia",
-      "company": "Lagundi",
-      "companyPlaceholder": "Idatzi zure enpresaren izena",
-      "service": "Intereseko zerbitzua",
-      "servicePlaceholder": "Zein zerbitzu interesatzen zaizu?",
-      "message": "Mezu",
-      "messagePlaceholder": "Esan iezaguzu zure proiektuari edo eskakizunak ...",
-      "cancel": "Indargabetu",
-      "send": "Bidali mezua"
-    }
-  },
-  "formation": {
-    "title": "Formazio profesionala",
-    "subtitle": "Aurreratu zure ibilbidea industria adituek diseinatutako gure prestakuntza programa integralekin",
-    "searchPlaceholder": "Bilatu ikastaroak ...",
-    "free": "Dohainik",
-    "price": "Salneurri",
-    "location": "Kokaleku",
-    "date": "Datil",
-    "enrolled": "Insilegatu",
-    "enroll": "Izena eman orain",
-    "cancelEnrollment": "Utzi matrikula",
-    "viewDetails": "Xehetasunak ikusi",
-    "maxAttendants": "Max laguntzaileak",
-    "maxAttendeesCount": "Max {count} laguntzaileak",
-    "filters": {
-      "location": {
-        "all": "Kokapen guztiak",
-        "online": "Konektatuta",
-        "onsite": "-N gunean"
-      },
-      "price": {
-        "all": "Prezio guztiak",
-        "free": "Dohainik",
-        "paid": "Ordain"
-      }
-    },
-    "noResults": {
-      "title": "Ez da ikastaro aurkitu",
-      "description": "Saiatu zure bilaketa baldintzak edo iragazkiak doitzen zuretzako ikastaro egokia aurkitzeko."
-    },
-    "noPastCourses": "Iraganeko ikastaroak ez daude eskuragarri.",
-    "pastCourses": "Iraganeko ikastaroak",
-    "viewPastCourses": "Ikusi iraganeko ikastaroak",
-    "hidePastCourses": "Ezkutatu iraganeko ikastaroak",
-    "upcomingCourses": "Hurrengo ikastaroak",
-    "finished": "Amaituta",
-    "cta": {
-      "title": "Zure ibilbidea aurrera egiteko prest?",
-      "description": "Sartu beren karrerak eraldatu dituzten milaka profesionalek gure adituen prestakuntza programekin.",
-      "contact": "Harremanetarako aholkularia",
-      "catalog": "Deskargatu katalogoa",
-      "emailSubject": "Ordena Ordaintzeko Formazio Programen inguruko kontsulta",
-      "emailBody": "Kaixo, zure eraketa profesionalen programei buruz gehiago ikasteko interesa dut. "
-    },
-    "enrollment": {
-      "title": "Ikastaroen matrikula",
-      "confirm": "Berretsi matrikula",
-      "courseDetails": "Ikastaroaren xehetasunak",
-      "confirmMessage": "Ziur zaude ikastaro honetan izena eman nahi duzula?",
-      "paymentNote": "Ordainketa prozesamendua hurrengo urratsean kudeatuko da.",
-      "confirmEnroll": "Berretsi matrikula",
-      "name": "Izen osoa",
-      "namePlaceholder": "Idatzi zure izen osoa",
-      "email": "Helbide elektronikoa",
-      "emailPlaceholder": "Idatzi zure helbide elektronikoa",
-      "phone": "Telefono zenbakia",
-      "phonePlaceholder": "Idatzi zure telefono zenbakia",
-      "company": "Lagundi",
-      "companyPlaceholder": "Idatzi zure enpresaren izena",
-      "experience": "Esperientzia garrantzitsua",
-      "experiencePlaceholder": "Esan iezaguzu zure esperientzia edo atzeko plano garrantzitsuaz ...",
-      "motivation": "Zergatik nahi duzu ikastaro hau egin?",
-      "motivationPlaceholder": "Partekatu zure motibazioa eta zer espero duzun ...",
-      "cancel": "Indargabetu",
-      "submit": "Izena eman ikastaroan"
-    },
-    "cancellation": {
-      "title": "Utzi matrikula",
-      "warning": "Utzi ikastaroaren matrikula",
-      "warningMessage": "Ziur \"{courseTitle}\" matrikula bertan behera utzi nahi duzula? ",
-      "confirmMessage": "Horrek kurtsoretik kenduko zaitu eta baliteke zure lekua galtzea.",
-      "keepEnrollment": "Matrikula mantendu",
-      "confirmCancel": "Utzi matrikula"
-    },
-    "alerts": {
-      "signInToEnroll": "Mesedez, hasi saioa ikastaroetan izena emateko",
-      "signInRequired": "Mesedez, hasi saioa matrikulak kudeatzeko",
-      "enrollmentSuccess": "Arrakastaz matrikulatu {courseTitle} -n!",
-      "enrollmentFailed": "Ezin izan da izena eman. ",
-      "enrollmentCancelled": "Matrikula ondo bertan behera utzi da",
-      "cancelEnrollmentFailed": "Ezin izan da matrikula bertan behera utzi",
-      "notEnrolled": "Oraingo honetan ez zara ikastaro honetan matrikulatuta",
-      "authenticationFailed": "Autentifikazioa huts egin du. ",
-      "networkError": "Sareko errorea. ",
-      "failedToLoadCourses": "Huts egin du ikastaroak kargatu",
-      "networkErrorLoadingCourses": "Sareko errorea ikastaroak kargatzean",
-      "generatingCatalog": "Ikastaroen katalogoa sortzen ...",
-      "catalogDownloaded": "Katalogoa behar bezala deskargatuta!",
-      "catalogError": "Errorea katalogoa sortzean. "
-    },
-    "pdf": {
-      "slogan": "Software eta Prestakuntza Soluzioak",
-      "title": "Prestakuntza katalogoa",
-      "subtitle": "Prestakuntza profesional eta teknologikoko ikastaroak",
-      "introduction": "Ordezian, prestakuntza espezializatua eskaintzen dugu sortzen ari diren teknologietan eta garapen profesionalean. ",
-      "coursesTitle": "Gure ikastaroak",
-      "upcomingCourses": "Hurrengo ikastaroak",
-      "date": "Data:",
-      "time": "Ordua:",
-      "location": "Kokalekua:",
-      "price": "Prezioa:",
-      "free": "Dohainik",
-      "capacity": "Edukiera:",
-      "people": "jende",
-      "contactTitle": "Harremanetarako informazioa",
-      "email": "Posta elektronikoa:",
-      "website": "Webgunea:",
-      "specialization": "Espezializazioa:",
-      "specializationText": "Softwarea garatzeko eta teknologia prestakuntza",
-      "filename": "Ordinaly_training_catalog.pdf"
-    },
-    "courseDetails": {
-      "title": "Ikastaroaren xehetasunak",
-      "courseDescription": "Ikastaroaren deskribapena",
-      "scheduleInformation": "Informazioa Informazioa",
-      "upcomingSessions": "Hurrengo saioak",
-      "courseInformation": "Ikastaroaren informazioa",
-      "startDate": "Hasiera data",
-      "endDate": "Amaiera data",
-      "time": "Denbora",
-      "duration": "Iraupen",
-      "hours": "ordire ordu",
-      "daysOfWeek": "Asteko egunak",
-      "fullSchedule": "Ordutegi osoa",
-      "location": "Kokaleku",
-      "maxAttendants": "Max laguntzaileak",
-      "people": "jende",
-      "scheduleType": "Ordutegi mota",
-      "price": "Salneurri",
-      "enrolled": "Insilegatu",
-      "cancelEnrollment": "Utzi matrikula",
-      "courseHasStarted": "Ikastaroa hasi da",
-      "courseStartedMessage": "Ikastaro hau dagoeneko hasi da eta jada ez da matrikulazio berriak onartzen.",
-      "signInToEnroll": "Hasi saioa matrikulatzeko",
-      "enrollNow": "Izena eman orain",
-      "importantDates": "Data garrantzitsuak",
-      "excludedDatesMessage": "Ikastaro honek {count} baztertutako data (oporrak edo atsedenaldiak) ditu ohiko egitarauan sartzen ez direnak.",
-      "moreSessions": "Eta {count} saio gehiago ...",
-      "periodicity": {
-        "once": "Behin-behineko gertaera",
-        "daily": "Eguneroko",
-        "weekly": "Asteko",
-        "biweekly": "Biwsyly",
-        "monthly": "Hileko"
-      },
-      "weekdays": {
-        "monday": {
-          "short": "-En astizkun",
-          "full": "Astelehen"
-        },
-        "tuesday": {
-          "short": "So core",
-          "full": "Astearte"
-        },
-        "wednesday": {
-          "short": "Ohi",
-          "full": "Asteazken"
-        },
-        "thursday": {
-          "short": "Tchako",
-          "full": "Ostegun"
-        },
-        "friday": {
-          "short": "E frijitu",
-          "full": "Ostiral"
-        },
-        "saturday": {
-          "short": "Etorri",
-          "full": "Larunbat"
-        },
-        "sunday": {
-          "short": "Eguzki",
-          "full": "Igande"
         }
       }
     }
@@ -1041,5 +1069,16 @@
       "description": "Berria Ordaininy-ri? "
     },
     "termsText": "Jarraituz, gure zerbitzu baldintzak eta pribatutasun politika onartzen dituzu"
+  },
+  "notFound": {
+    "title": "404 - Orrialdea Ez da Aurkitu",
+    "heading": "Hara! Orrialdea Espazio Digitalean Galdu",
+    "message": "Bilatzen ari zaren orrialdea gure enpresa automatizazio unibertsoan galdu dela dirudi.",
+    "description": "Ez kezkatu, Ordinaly-n ere batzuetan bidetik desbideratzen gara. Baina denentzako soluzio adimentsuak ditugu.",
+    "homeButton": "Hasierara Itzuli",
+    "exploreButton": "Zerbitzuak Arakatu",
+    "contactButton": "Laguntza Jarri Harremanetan",
+    "redirectMessage": "Automatikoki birbideratuko zara {seconds} segundotan...",
+    "robotText": "Gure automatizazio robota orrialdea bilatzen ari da..."
   }
 }

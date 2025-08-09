@@ -667,6 +667,31 @@ class CourseViewSetTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertFalse(Enrollment.objects.filter(user=self.regular_user, course=self.course).exists())
 
+    def test_enroll_in_course_without_dates(self):
+        # Create a course without dates
+        course_without_dates = Course.objects.create(
+            title='Course Without Dates',
+            description='Test Description',
+            image=get_test_image_file(),
+            price=Decimal('99.99'),
+            location='Test Location',
+            start_time=time(14, 0),
+            end_time=time(17, 0),
+            periodicity='once',
+            max_attendants=20
+        )
+
+        # Set up the URL for enrollment
+        course_enroll_url = reverse('course-enroll', kwargs={'pk': course_without_dates.pk})
+
+        # Attempt to enroll as a regular user
+        self.client.force_authenticate(user=self.regular_user)
+        response = self.client.post(course_enroll_url)
+
+        # Verify enrollment is rejected
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(Enrollment.objects.filter(user=self.regular_user, course=course_without_dates).exists())
+
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
 class EnrollmentViewSetTest(APITestCase):

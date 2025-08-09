@@ -18,8 +18,8 @@ const WhatsAppBubble = () => {
       let hasConsented = null;
       try {
         hasConsented = localStorage.getItem('cookie-consent');
-      } catch (error) {
-        console.error('Error accessing localStorage:', error);
+      } catch {
+        // localStorage not available - handle silently
       }
       setHasCookieConsent(!!hasConsented);
     };
@@ -85,7 +85,7 @@ const WhatsAppBubble = () => {
                 onClick={closeModal}
                 variant="default"
                 size="md"
-                className="absolute top-4 right-4"
+                className="absolute top-4 right-4 text-white dark:text-white"
               />
               
               <div className="flex items-center space-x-3">
@@ -132,8 +132,8 @@ const WhatsAppBubble = () => {
                       t('help3'),
                       t('help4'),
                       t('help5')
-                    ].map((item, index) => (
-                      <li key={index} className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <div className="w-1.5 h-1.5 bg-[#22A60D] rounded-full flex-shrink-0"></div>
                         <span>{item}</span>
                       </li>

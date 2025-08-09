@@ -30,8 +30,8 @@ const CookieConsent = () => {
     let hasConsented = null;
     try {
       hasConsented = localStorage.getItem('cookie-consent');
-    } catch (error) {
-      console.error('Error accessing localStorage:', error);
+    } catch {
+      // localStorage not available - handle silently
     }
     if (!hasConsented && !showBubble) {
       setShowPopup(true);

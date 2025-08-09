@@ -104,7 +104,6 @@ const ServicesPage = () => {
 
   // Memoized service card component
   const ServiceCard = React.memo(({ service }: { service: Service }) => {
-    // Function to get the appropriate color for dark/light mode
     const getServiceColor = (service: Service) => {
       const isDarkMode = document.documentElement.classList.contains('dark');
       

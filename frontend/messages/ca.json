@@ -72,7 +72,40 @@
         "title": "Optimització contínua",
         "description": "Monitorització i millora dels processos automatitzats"
       },
-      "viewAllServices": "Consulteu tots els serveis"
+            "viewAllServices": "Veure Tots els Serveis"
+    },
+    "courses": {
+      "noSpecificDate": "Data específica properament",
+      "showcaseTitle": "Cursos Destacats",
+      "showcaseDescription": "Uneix-te als nostres cursos de formació professional i avança en la teva carrera",
+      "upcomingTitle": "Propers Cursos",
+      "upcomingDescription": "Descobreix els nostres cursos de formació professional",
+      "noCoursesTitle": "No Hi Ha Cursos Propers",
+      "noCoursesMessage": "Mantén-te atent als nous anuncis de cursos!",
+      "notifyButton": "Veure tots els cursos",
+      "errorTitle": "Error Carregant Cursos",
+      "retryButton": "Tornar-ho a Intentar",
+      "enrollButton": "Inscriu-te Ara",
+      "moreInfo": "Més Informació",
+      "viewDetails": "Veure Detalls",
+      "viewAllCourses": "Veure Tots els Cursos",
+      "spotsLeft": "places disponibles",
+      "enrolled": "inscrits",
+      "max": "màxim",
+  "almostFull": "Gairebé Complet",
+  "fillingFast": "Omplint-se Ràpidament",
+  "available": "Disponible",
+  "inProgress": "En curs",
+  "finished": "Finalitzat",
+      "datesSoon": "Dates properament",
+      "durationSoon": "Durada properament",
+      "signUpModal": {
+        "title": "Registre de Curs",
+        "description": "Rep notificacions quan s'obri la inscripció per a \"{courseName}\"",
+        "generalDescription": "Rep notificacions sobre nous anuncis de cursos i oportunitats d'inscripció anticipada.",
+        "close": "Tancar",
+        "notify": "Notificar-me"
+      }
     },
     "about": {
       "title": "Dirigir la transformació digital a Andalusia",
@@ -373,7 +406,19 @@
       "overview": "Visió de conjunt",
       "services": "Serveis",
       "courses": "Cursos",
-      "terms": "Condicions"
+      "terms": "Condicions",
+      "users": "Usuaris"
+    },
+    "users": {
+      "title": "Llista d'usuaris",
+      "userId": "ID d'usuari",
+      "name": "Nom",
+      "surname": "Cognom",
+      "email": "Correu electrònic",
+      "company": "Empresa",
+      "errorFetching": "No s'han pogut obtenir els usuaris. Si us plau, torneu-ho a intentar més tard.",
+      "sendMail": "Enviar correu",
+      "selectAll": "Seleccionar tot"
     },
     "stats": {
       "totalServices": "Serveis totals",
@@ -402,6 +447,14 @@
         "descriptionPlaceholder": "Descripció del servei",
         "icon": "Quon",
         "iconPlaceholder": "Trieu una icona Lucide React",
+        "color": "Color del servei *",
+        "colors": {
+          "darkPurple": "Neutre",
+          "purple": "Mèxic",
+          "cyan": "Cian",
+          "green": "Fol",
+          "orange": "Naranja"
+        },
         "duration": "Disponible en (dies)",
         "durationPlaceholder": "per exemple, 2 dies",
         "price": "Preu (€)",
@@ -410,7 +463,10 @@
         "featured": "Servei destacat",
         "cancel": "Cancellar",
         "create": "Crea un servei",
-        "update": "Servei d'actualització"
+        "update": "Servei d'actualització",
+        "markdownSupported": "Markdown suportat",
+        "requisites": "Requisitos",
+        "requisitesPlaceholder": "Ingrese cualquier requisito o prerrequisito"
       },
       "messages": {
         "createSuccess": "Servei '{title}' Creat amb èxit. ",
@@ -426,10 +482,10 @@
         "validation": {
           "titleRequired": "El títol del servei és obligatori i ha de tenir 100 caràcters o menys.",
           "subtitleRequired": "El subtítol és necessari i ha de tenir 200 caràcters o menys.",
-          "descriptionRequired": "La descripció és necessària i ha de tenir 500 caràcters o menys.",
+          "descriptionRequired": "La descripció és necessària i ha de tenir 2000 caràcters o menys.",
           "iconRequired": "Seleccioneu una icona vàlida per al servei.",
           "durationInvalid": "La durada ha de ser almenys un dia si s'especifica.",
-          "requisitesLimit": "Els requisits han de tenir 500 caràcters o menys.",
+          "requisitesLimit": "Els requisits han de tenir 2000 caràcters o menys.",
           "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica."
         },
         "featured": {
@@ -446,6 +502,7 @@
       }
     },
     "courses": {
+      "noSpecificDate": "Data específica properament",
       "title": "Gestió de cursos",
       "searchPlaceholder": "Cursos de cerca ...",
       "addCourse": "Afegir curs",
@@ -462,7 +519,7 @@
       "upcomingCourses": "Propers cursos",
       "finished": "Acabat",
       "noCoursesFound": "No hi ha cursos que coincideixin amb la cerca.",
-      "contactForQuote": "Poseu -vos en contacte amb els nostres agents per obtenir un pressupost detallat",
+      "contactForQuote": "Gratuit",
       "form": {
         "title": "Títol",
         "titlePlaceholder": "Introduïu un títol de curs atractiu",
@@ -564,12 +621,14 @@
         "validation": {
           "titleRequired": "El títol del curs és necessari i ha de tenir 100 caràcters o menys.",
           "subtitleLimit": "El subtítol ha de tenir 200 caràcters o menys.",
-          "descriptionRequired": "La descripció és necessària i ha de tenir 500 caràcters o menys.",
+          "descriptionRequired": "La descripció és necessària i ha de tenir 2000 caràcters o menys.",
           "imageRequired": "Pengeu un fitxer d'imatges vàlid per al curs.",
           "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica.",
           "locationRequired": "La ubicació és necessària i ha de tenir 100 caràcters o menys.",
           "dateRequired": "La data és necessària i ha de tenir 100 caràcters o menys.",
-          "maxAttendantsInvalid": "Els assistents màxims han de ser almenys 1."
+          "maxAttendantsInvalid": "Els assistents màxims han de ser almenys 1.",
+          "cannotDeleteFinished": "No es pot suprimir un curs finalitzat.",
+          "cannotDeleteFinishedBulk": "No es pot suprimir un o més cursos finalitzats."
         },
         "capacity": {
           "warning": "ADVERTIMENT: aquest curs ja té matriculacions {actual}. "
@@ -633,82 +692,118 @@
     },
     "terms": {
       "title": "Gestió de termes",
-      "searchPlaceholder": "Termes de cerca ...",
-      "addTerm": "Afegiu terme",
-      "editTerm": "Editar el termini",
+      "searchPlaceholder": "Cerca termes...",
+      "addTerm": "Afegeix terme",
+      "editTerm": "Edita terme",
       "createTerm": "Crea un nou terme",
-      "deleteSelected": "Suprimeix seleccionat",
-      "selectAll": "Seleccioneu tot",
+      "deleteSelected": "Elimina seleccionats",
+      "selectAll": "Selecciona tot",
       "noTerms": "No hi ha termes disponibles.",
-      "noTermsFound": "No es troben termes que coincideixin amb la vostra cerca.",
+      "noTermsFound": "No s'han trobat termes que coincideixin amb la cerca.",
       "pdfAvailable": "PDF disponible",
-      "downloadPdf": "Descarregueu PDF",
+      "mdAvailable": "Document md disponible",
+      "downloadPdf": "Descarrega PDF",
+      "edit": "Edita terme",
+      "delete": "Elimina terme",
       "form": {
         "name": "Nom",
-        "namePlaceholder": "Nom a termini",
+        "namePlaceholder": "Nom del terme",
         "content": "Contingut (Markdown)",
-        "contentPlaceholder": "Terminat contingut en format de marcatge",
+        "contentPlaceholder": "Contingut del terme en format markdown",
         "version": "Versió",
-        "versionPlaceholder": "p. ",
+        "versionPlaceholder": "ex: 1.0",
         "tag": "Tipus de document",
-        "tagPlaceholder": "Seleccioneu Tipus de document",
-        "selectTag": "Seleccioneu un tipus de document",
+        "tagPlaceholder": "Selecciona el tipus de document",
+        "selectTag": "Selecciona un tipus de document",
         "noAvailableTags": "No hi ha tipus de document disponibles",
-        "allTagsUsed": "S'han creat tots els tipus de documents. ",
-        "allTagsUsedTitle": "Tots els tipus de documents ja estan en ús",
+        "allTagsUsed": "Tots els tipus de document han estat creats. Només pots tenir un de cada tipus.",
+        "allTagsUsedTitle": "Tots els tipus de document ja estan en ús",
         "allTagsUsedButton": "Tots els tipus creats",
+        "markdownSupported": "Markdown suportat",
+        "pdfContent": "Contingut PDF",
+        "contentMd": "Contingut Markdown",
+        "mdFile": "Fitxer Markdown",
+        "chooseMd": "Tria fitxer Markdown",
+        "downloadCurrentPdf": "Descarrega PDF",
+        "downloadCurrentMd": "Descarrega Markdown",
         "tagTypes": {
           "terms": "Termes i condicions d'ús",
-          "cookies": "Política de cookies",
+          "cookies": "Política de galetes",
           "privacy": "Política de privadesa",
-          "license": "Llicenciar"
+          "license": "Llicència"
         },
         "pdfVersion": "Versió PDF (opcional)",
-        "choosePdf": "Trieu PDF",
-        "cancel": "Cancellar",
+        "choosePdf": "Tria PDF",
+        "cancel": "Cancel·la",
         "create": "Crea terme",
-        "update": "Terme d'actualització"
+        "update": "Actualitza terme",
+        "noTagsLeft": "No queden més tipus de document",
+        "noFileEdit": "No es pot editar el fitxer"
+      },
+      "actions": {
+        "viewPreview": "Veure vista prèvia",
+        "viewPdf": "Veure PDF"
+      },
+      "tabs": {
+        "form": "Formulari",
+        "preview": "Vista prèvia Markdown",
+        "pdf": "Vista prèvia PDF"
+      },
+      "labels": {
+        "name": "Nom",
+        "content": "Contingut",
+        "version": "Versió",
+        "tag": "Tipus de document",
+        "created": "Creat",
+        "updated": "Actualitzat"
+      },
+      "preview": {
+        "pdf": "Vista prèvia del PDF",
+        "markdown": "Vista prèvia del Markdown",
+        "noFileEdit": "No es pot editar el fitxer",
+        "noPdf": "No hi ha PDF disponible per a la vista prèvia"
       },
       "messages": {
-        "createSuccess": "Termes document '{name}' creat amb èxit.",
-        "updateSuccess": "Termes Document '{name}' actualitzat correctament.",
-        "deleteSuccess": "Terme suprimit amb èxit",
-        "bulkDeleteSuccess": "Termes suprimits amb èxit",
-        "fetchError": "No s'ha pogut obtenir termes",
-        "createError": "No s'ha pogut crear terme",
-        "updateError": "No s'ha pogut actualitzar el terme",
-        "deleteError": "No s'ha pogut eliminar el terme",
-        "downloadError": "No s'ha pogut descarregar PDF",
-        "downloadSuccess": "PDF es va descarregar amb èxit",
-        "networkError": "No es pot desar el document de termes. ",
-        "selectToDelete": "Seleccioneu els termes per eliminar",
-        "fileSizeLimit": "La mida del fitxer ha de ser inferior a 10 MB",
-        "pdfFileOnly": "Seleccioneu un fitxer PDF",
+        "createSuccess": "Document de termes '{name}' creat amb èxit!",
+        "updateSuccess": "Document de termes '{name}' actualitzat amb èxit!",
+        "deleteSuccess": "Terme eliminat amb èxit",
+        "bulkDeleteSuccess": "Termes eliminats amb èxit",
+        "fetchError": "Error en obtenir termes",
+        "createError": "Error en crear terme",
+        "updateError": "Error en actualitzar terme",
+        "deleteError": "Error en eliminar terme",
+        "downloadError": "Error en descarregar PDF",
+        "downloadSuccess": "PDF descarregat amb èxit",
+        "networkError": "No s'ha pogut desar el document de termes. Si us plau, comprova la teva connexió i torna-ho a intentar.",
+        "selectToDelete": "Si us plau, selecciona termes per eliminar",
+        "fileSizeLimit": "La mida del fitxer ha de ser inferior a 10MB",
+        "pdfFileOnly": "Si us plau, selecciona un fitxer PDF",
         "validation": {
-          "nameRequired": "El nom del document és necessari i ha de tenir 127 caràcters o menys.",
-          "contentRequired": "Pengeu un fitxer de MarkDown (.MD) vàlid per al contingut.",
-          "pdfRequired": "Pengeu un fitxer PDF vàlid per al document.",
-          "versionRequired": "La versió és necessària i ha de tenir 20 caràcters o menys.",
-          "tagDuplicate": "Ja existeix un document amb aquest tipus d'etiqueta. ",
+          "nameRequired": "El nom del document és obligatori i ha de tenir 127 caràcters o menys.",
+          "contentRequired": "Si us plau, puja un fitxer Markdown (.md) vàlid per al contingut.",
+          "pdfRequired": "Si us plau, puja un fitxer PDF vàlid per al document.",
+          "versionRequired": "La versió és obligatòria i ha de tenir 20 caràcters o menys.",
+          "tagUnique": "Ja existeix un document amb aquest tipus d'etiqueta. Si us plau, tria una etiqueta diferent o edita el document existent.",
           "fileExtension": "El fitxer de contingut ha de ser un fitxer .md i el contingut PDF ha de ser un fitxer .pdf.",
-          "fileMissing": "Cal proporcionar un fitxer MarkDown (.MD) i un fitxer PDF."
+          "fileMissing": "S'han de proporcionar tant un fitxer markdown (.md) com un fitxer PDF.",
+          "tagRequired": "Si us plau, selecciona un tipus de document."
         },
         "upload": {
-          "error": "La càrrega del fitxer ha fallat. "
+          "error": "Error en la càrrega del fitxer. Si us plau, assegura't que els teus fitxers siguin vàlids i torna-ho a intentar."
         },
         "version": {
-          "updateWarning": "IMPORTANT: Actualitzar aquest document de termes crearà una versió nova. "
+          "updateWarning": "Important: Actualitzar aquest document de termes crearà una nova versió. Els usuaris poden necessitar tornar a acceptar els termes actualitzats."
         }
       },
       "confirmDelete": {
-        "title": "Confirmeu la supressió",
-        "single": "Esteu segur que voleu suprimir \"{name}\"? ",
-        "multiple": "Esteu segur que voleu suprimir els termes seleccionats {count}? ",
-        "delete": "Esborrar",
-        "cancel": "Cancellar"
+        "title": "Confirma l'eliminació",
+        "single": "Estàs segur que vols eliminar \"{name}\"? Aquesta acció no es pot desfer.",
+        "multiple": "Estàs segur que vols eliminar els {count} termes seleccionats? Aquesta acció no es pot desfer.",
+        "delete": "Elimina",
+        "cancel": "Cancel·la"
       },
       "details": {
-        "created": "Creada",
+        "created": "Creat",
         "updated": "Actualitzat"
       }
     }
@@ -810,6 +905,7 @@
     "viewDetails": "Veure detalls",
     "maxAttendants": "Assistents màxims",
     "maxAttendeesCount": "Max {count} assistents",
+    "noSpecificDate": "No s'ha establert cap data específica per a aquest curs.",
     "filters": {
       "location": {
         "all": "Totes les ubicacions",
@@ -890,22 +986,24 @@
       "slogan": "Solucions de programari i formació",
       "title": "Catàleg de formació",
       "subtitle": "Cursos de formació professional i tecnològica",
-      "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional. ",
+      "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional.",
       "coursesTitle": "Els nostres cursos",
       "upcomingCourses": "Propers cursos",
       "date": "Data:",
-      "time": "Temps:",
+      "time": "Hora:",
       "location": "Ubicació:",
       "price": "Preu:",
-      "free": "Alliberar",
+      "free": "Gratuït",
       "capacity": "Capacitat:",
-      "people": "gent",
+      "people": "persones",
       "contactTitle": "Informació de contacte",
       "email": "Correu electrònic:",
       "website": "Lloc web:",
       "specialization": "Especialització:",
       "specializationText": "Desenvolupament de programari i formació en tecnologia",
-      "filename": "Ordinaly_training_catalog.pdf"
+      "filename": "Cataleg_formacio_Ordinaly.pdf",
+      "noSpecificDate": "Encara no hi ha data específica.",
+      "noSpecificTime": "Encara no hi ha hora específica."
     },
     "courseDetails": {
       "title": "Detalls del curs",
@@ -934,6 +1032,7 @@
       "importantDates": "Dates importants",
       "excludedDatesMessage": "Aquest curs té {Count} Data (s) (S) (vacances o pauses) que no estan incloses en la programació regular.",
       "moreSessions": "I {count} més sessions ...",
+      "noSpecificDate": "No s'ha establert cap data específica per a aquest curs.",
       "periodicity": {
         "once": "Esdeveniment únic",
         "daily": "Cada dia",
@@ -1041,5 +1140,16 @@
       "description": "Novetat a Ordinaly? "
     },
     "termsText": "Continuant, accepteu les nostres Condicions de servei i Política de privadesa"
+  },
+  "notFound": {
+    "title": "404 - Pàgina No Trobada",
+    "heading": "Ups! Pàgina Perduda a l'Espai Digital",
+    "message": "La pàgina que busques sembla haver-se perdut en el nostre univers d'automatització empresarial.",
+    "description": "No et preocupis, fins i tot a Ordinaly de vegades ens desviem del camí. Però tenim solucions intel·ligents per a tot.",
+    "homeButton": "Tornar a l'Inici",
+    "exploreButton": "Explorar Serveis",
+    "contactButton": "Contactar Suport",
+    "redirectMessage": "Seràs redirigit automàticament en {seconds} segons...",
+    "robotText": "El nostre robot d'automatització està buscant la pàgina..."
   }
 }

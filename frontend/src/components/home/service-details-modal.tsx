@@ -23,7 +23,6 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
 
   if (!service) return null;
 
-  // Function to get the appropriate color for dark/light mode
   const getServiceColor = (service: Service) => {
     const isDarkMode = document.documentElement.classList.contains('dark');
     

@@ -357,9 +357,9 @@ class TermsSerializerTests(TestCase):
         )
 
         serializer = TermsSerializer(data=data)
-        # Print errors if validation fails to help debug
+        # Validation check
         if not serializer.is_valid():
-            print(f"Validation errors: {serializer.errors}")
+            pass  # Test will fail if not valid
         self.assertTrue(serializer.is_valid())
         self.assertEqual(serializer.validated_data['name'], 'Terms v1.0')
 

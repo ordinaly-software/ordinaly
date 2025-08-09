@@ -74,6 +74,39 @@
       },
       "viewAllServices": "Ver todos os servizos"
     },
+    "courses": {
+      "noSpecificDate": "Fechas por confirmar",
+      "showcaseTitle": "Cursos Destacados",
+      "showcaseDescription": "Únete aos nosos cursos de formación e avanza na túa carreira",
+      "upcomingTitle": "Próximos Cursos",
+      "upcomingDescription": "Descobre os nosos cursos de formación",
+      "noCoursesTitle": "Non Hai Cursos Próximos",
+      "noCoursesMessage": "Mantente atento aos novos anuncios de cursos!",
+      "notifyButton": "Ver todos os cursos",
+      "errorTitle": "Erro Cargando Cursos",
+      "retryButton": "Tentar de Novo",
+      "enrollButton": "Inscribirse Agora",
+      "moreInfo": "Máis Información",
+      "viewDetails": "Ver Detalles",
+      "viewAllCourses": "Ver Todos os Cursos",
+      "spotsLeft": "prazas dispoñibles",
+      "enrolled": "inscritos",
+      "max": "máximo",
+  "almostFull": "Case Completo",
+  "fillingFast": "Enchéndose Rápido",
+  "available": "Dispoñible",
+  "inProgress": "En curso",
+  "finished": "Rematado",
+      "datesSoon": "Fechas próximamente",
+      "durationSoon": "Duración próximamente",
+      "signUpModal": {
+        "title": "Rexistro de Curso",
+        "description": "Recibe notificacións cando se abra a inscrición para \"{courseName}\"",
+        "generalDescription": "Recibe notificacións sobre novos anuncios de cursos e oportunidades de inscrición anticipada.",
+        "close": "Pechar",
+        "notify": "Notificarme"
+      }
+    },
     "about": {
       "title": "Liderando a transformación dixital en Andalucía",
       "description1": "En Ordinaly, cremos que as empresas andaluzas teñen o potencial de liderar a innovación tecnolóxica en España e Europa.",
@@ -373,7 +406,19 @@
       "overview": "Vista xeral",
       "services": "Servizos",
       "courses": "Cursos",
-      "terms": "Termos"
+      "terms": "Termos",
+      "users": "Usuarios"
+    },
+    "users": {
+      "title": "Lista de Usuarios",
+      "userId": "ID de Usuario",
+      "name": "Nome",
+      "surname": "Apelido",
+      "email": "Email",
+      "company": "Empresa",
+      "errorFetching": "Non se puido cargar a lista de usuarios. Por favor, intenta de novo máis tarde.",
+      "sendMail": "Enviar correo",
+      "selectAll": "Seleccionar todo"
     },
     "stats": {
       "totalServices": "Total de servizos",
@@ -402,6 +447,14 @@
         "descriptionPlaceholder": "Descrición do servizo",
         "icon": "Icona",
         "iconPlaceholder": "Escolle icona de Lucide React",
+        "color": "Cor do Servizo *",
+        "colors": {
+          "darkPurple": "Neutro",
+          "purple": "Morado escuro", 
+          "cyan": "Cian",
+          "green": "Folla",
+          "orange": "Mandarina"
+        },
         "duration": "Dispoñible en (días)",
         "durationPlaceholder": "ex. 2 días",
         "price": "Prezo (€)",
@@ -410,7 +463,10 @@
         "featured": "Servizo destacado",
         "cancel": "Cancelar",
         "create": "Crear servizo",
-        "update": "Actualizar servizo"
+        "update": "Actualizar servizo",
+        "markdownSupported": "Markdown soportado",
+        "requisites": "Requisitos",
+        "requisitesPlaceholder": "Introduce cualquier requisito o prerrequisito"
       },
       "messages": {
         "createSuccess": "Servizo '{title}' creado con éxito!",
@@ -426,10 +482,10 @@
         "validation": {
           "titleRequired": "O título do servizo é obrigatorio e debe ter 100 caracteres ou menos.",
           "subtitleRequired": "O subtítulo é obrigatorio e debe ter 200 caracteres ou menos.",
-          "descriptionRequired": "A descrición é obrigatoria e debe ter 500 caracteres ou menos.",
+          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos.",
           "iconRequired": "Por favor, selecciona unha icona válida para o servizo.",
           "durationInvalid": "A duración debe ser polo menos 1 día se se especifica.",
-          "requisitesLimit": "Os requisitos deben ter 500 caracteres ou menos.",
+          "requisitesLimit": "Os requisitos deben ter 2000 caracteres ou menos.",
           "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica."
         },
         "featured": {
@@ -446,6 +502,7 @@
       }
     },
     "courses": {
+      "noSpecificDate": "Fechas por confirmar",
       "title": "Xestión de Cursos",
       "searchPlaceholder": "Buscar cursos...",
       "addCourse": "Engadir curso",
@@ -462,7 +519,7 @@
       "upcomingCourses": "Próximos cursos",
       "finished": "Rematado",
       "noCoursesFound": "Non se atoparon cursos que coincidan coa túa busca.",
-      "contactForQuote": "Consulta aos nosos axentes para un orzamento detallado",
+      "contactForQuote": "Gratuito",
       "form": {
         "title": "Título",
         "titlePlaceholder": "Introduce un título atractivo para o curso",
@@ -561,10 +618,12 @@
         "selectToDelete": "Por favor, selecciona cursos para eliminar",
         "fileSizeLimit": "O tamaño do arquivo debe ser menor de 5MB",
         "imageFileOnly": "Por favor, selecciona un arquivo de imaxe",
+        "cannotDeleteFinished": "Non se pode eliminar un curso finalizado.",
+        "cannotDeleteFinishedBulk": "Non se pode eliminar un ou máis cursos finalizados.",
         "validation": {
           "titleRequired": "O título do curso é obrigatorio e debe ter 100 caracteres ou menos.",
           "subtitleLimit": "O subtítulo debe ter 200 caracteres ou menos.",
-          "descriptionRequired": "A descrición é obrigatoria e debe ter 500 caracteres ou menos.",
+          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos.",
           "imageRequired": "Por favor, sube un arquivo de imaxe válido para o curso.",
           "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica.",
           "locationRequired": "A localización é obrigatoria e debe ter 100 caracteres ou menos.",
@@ -640,38 +699,73 @@
       "deleteSelected": "Eliminar seleccionados",
       "selectAll": "Seleccionar todo",
       "noTerms": "Non hai termos dispoñibles.",
-      "noTermsFound": "Non se atoparon termos que coincidan ca túa busca.",
+      "noTermsFound": "Non se atoparon termos que coincidan coa túa busca.",
       "pdfAvailable": "PDF dispoñible",
+      "mdAvailable": "Document md dispoñible",
       "downloadPdf": "Descargar PDF",
+      "edit": "Editar termo",
+      "delete": "Eliminar termo",
       "form": {
         "name": "Nome",
-        "namePlaceholder": "Termo",
+        "namePlaceholder": "Nome do termo",
         "content": "Contido (Markdown)",
         "contentPlaceholder": "Contido do termo en formato markdown",
         "version": "Versión",
-        "versionPlaceholder": "ex. 1.0",
+        "versionPlaceholder": "ex: 1.0",
         "tag": "Tipo de documento",
-        "tagPlaceholder": "Seleccionar Tipo de Documento",
-        "selectTag": "Seleccionar tipo de documento",
+        "tagPlaceholder": "Selecciona o tipo de documento",
+        "selectTag": "Selecciona un tipo de documento",
         "noAvailableTags": "Non hai tipos de documento dispoñibles",
-        "allTagsUsed": "Todos os tipos de documento foron creados.",
+        "allTagsUsed": "Todos os tipos de documento foron creados. Só podes ter un de cada tipo.",
         "allTagsUsedTitle": "Todos os tipos de documento xa están en uso",
         "allTagsUsedButton": "Todos os tipos creados",
+        "markdownSupported": "Markdown soportado",
+        "pdfContent": "Contido PDF",
+        "contentMd": "Contido Markdown",
+        "mdFile": "Arquivo Markdown",
+        "chooseMd": "Escoller arquivo Markdown",
+        "downloadCurrentPdf": "Descargar PDF",
+        "downloadCurrentMd": "Descargar Markdown",
         "tagTypes": {
           "terms": "Termos e Condicións de Uso",
           "cookies": "Política de Cookies",
           "privacy": "Política de Privacidade",
-          "license": "Licencia"
+          "license": "Licenza"
         },
-        "pdfVersion": "Versión PDF (Opcional)",
-        "choosePdf": "Seleccionar PDF",
+        "pdfVersion": "Versión PDF (opcional)",
+        "choosePdf": "Escoller PDF",
         "cancel": "Cancelar",
         "create": "Crear termo",
-        "update": "Actualizar termo"
+        "update": "Actualizar termo",
+        "noTagsLeft": "Non quedan máis tipos de documento",
+        "noFileEdit": "Non se pode editar o arquivo"
+      },
+      "actions": {
+        "viewPreview": "Ver vista previa",
+        "viewPdf": "Ver PDF"
+      },
+      "tabs": {
+        "form": "Formulario",
+        "preview": "Vista previa Markdown",
+        "pdf": "Vista previa PDF"
+      },
+      "labels": {
+        "name": "Nome",
+        "content": "Contido",
+        "version": "Versión",
+        "tag": "Tipo de documento",
+        "created": "Creado",
+        "updated": "Actualizado"
+      },
+      "preview": {
+        "pdf": "Vista previa do PDF",
+        "markdown": "Vista previa do Markdown",
+        "noFileEdit": "Non se pode editar o arquivo",
+        "noPdf": "Non se pode editar o PDF"
       },
       "messages": {
-        "createSuccess": "Termo de documento '{name}' creado con éxito!",
-        "updateSuccess": "Termo de documento '{name}' actualizado con éxito!",
+        "createSuccess": "Documento de termos '{name}' creado con éxito!",
+        "updateSuccess": "Documento de termos '{name}' actualizado con éxito!",
         "deleteSuccess": "Termo eliminado con éxito",
         "bulkDeleteSuccess": "Termos eliminados con éxito",
         "fetchError": "Erro ao obter termos",
@@ -680,7 +774,7 @@
         "deleteError": "Erro ao eliminar termo",
         "downloadError": "Erro ao descargar PDF",
         "downloadSuccess": "PDF descargado con éxito",
-        "networkError": "Non se puido gardar o documento de termos.",
+        "networkError": "Non se puido gardar o documento de termos. Por favor, verifica a túa conexión e intenta de novo.",
         "selectToDelete": "Por favor, selecciona termos para eliminar",
         "fileSizeLimit": "O tamaño do arquivo debe ser menor de 10MB",
         "pdfFileOnly": "Por favor, selecciona un arquivo PDF",
@@ -689,21 +783,22 @@
           "contentRequired": "Por favor, sube un arquivo Markdown (.md) válido para o contido.",
           "pdfRequired": "Por favor, sube un arquivo PDF válido para o documento.",
           "versionRequired": "A versión é obrigatoria e debe ter 20 caracteres ou menos.",
-          "tagDuplicate": "Xa existe un documento con este tipo de etiqueta.",
+          "tagUnique": "Xa existe un documento con este tipo de etiqueta. Por favor, escolle unha etiqueta diferente ou edita o documento existente.",
           "fileExtension": "O arquivo de contido debe ser un arquivo .md e o contido PDF debe ser un arquivo .pdf.",
-          "fileMissing": "Debe proporcionarse tanto un arquivo de marcado (.md) como un arquivo PDF."
-        },
-        "upload": {
-          "error": "Erro ao subir arquivo."
-        },
-        "version": {
-          "updateWarning": "Importante: Actualizar estes termos creará unha nova versión."
+          "fileMissing": "Deben proporcionarse tanto un arquivo markdown (.md) como un arquivo PDF.",
+          "tagRequired": "Por favor, selecciona un tipo de documento."
         }
+      },
+      "upload": {
+        "error": "Erro ao cargar o arquivo. Por favor, asegúrate de que os teus arquivos sexan válidos e intenta de novo."
+      },
+      "version": {
+        "updateWarning": "Importante: Actualizar este documento de termos creará unha nova versión. Os usuarios poden necesitar re-aceptar os termos actualizados."
       },
       "confirmDelete": {
         "title": "Confirmar eliminación",
-        "single": "¿Estás seguro de que queres eliminar \"{name}\"?",
-        "multiple": "¿Estás seguro de que queres eliminar {count} termos seleccionados?",
+        "single": "¿Estás seguro de que queres eliminar \"{name}\"? Esta acción non se pode desfacer.",
+        "multiple": "¿Estás seguro de que queres eliminar {count} termos seleccionados? Esta acción non se pode desfacer.",
         "delete": "Eliminar",
         "cancel": "Cancelar"
       },
@@ -810,6 +905,7 @@
     "viewDetails": "Ver detalles",
     "maxAttendants": "Máx asistentes",
     "maxAttendeesCount": "Máx {count} asistentes",
+    "noSpecificDate": "Non hai unha data específica para esta sesión.",
     "filters": {
       "location": {
         "all": "Todas as localizacións",
@@ -838,7 +934,7 @@
       "contact": "Contactar Asesor",
       "catalog": "Descargar catálogo",
       "emailSubject": "Consulta sobre os Programas de Formación de Ordinaly",
-      "emailBody": "Ola, estou interesado en saber máis sobre os vosos programas de formación profesional."
+      "emailBody": "Ola, estou interesado en saber máis sobre os vosos programas de formación."
     },
     "enrollment": {
       "title": "Inscrición no curso",
@@ -887,25 +983,27 @@
       "catalogError": "Erro ao xerar catálogo."
     },
     "pdf": {
-      "slogan": "Réitigh Bogearraí & Oiliúna",
-      "title": "Catalóg oiliúna",
-      "subtitle": "Cúrsaí oiliúna gairmiúla agus teicneolaíochta",
-      "introduction": "Ag Ordinaly, cuirimid oiliúint speisialaithe ar fáil i dteicneolaíochtaí atá ag teacht chun cinn agus i bhforbairt ghairmiúil. ",
-      "coursesTitle": "Ár gcúrsaí",
-      "upcomingCourses": "Cúrsaí atá le teacht",
-      "date": "Dáta:",
-      "time": "Am:",
-      "location": "Suíomh:",
-      "price": "Praghas:",
-      "free": "Cic saor",
-      "capacity": "Cumas:",
-      "people": "a dhaoine uaisle",
-      "contactTitle": "Eolas Teagmhála",
-      "email": "Ríomhphost:",
-      "website": "Suíomh Gréasáin:",
-      "specialization": "Speisialtóireacht:",
-      "specializationText": "Forbairt Bogearraí agus Oiliúint Teicneolaíochta",
-      "filename": "Ordinaly_training_catalog.pdf"
+      "slogan": "Solucións de Software & Formación",
+      "title": "Catálogo de formación",
+      "subtitle": "Cursos de formación profesional e tecnolóxica",
+      "introduction": "En Ordinaly, ofrecemos formación especializada en tecnoloxías emerxentes e desenvolvemento profesional.",
+      "coursesTitle": "Os nosos cursos",
+      "upcomingCourses": "Próximos cursos",
+      "date": "Data:",
+      "time": "Hora:",
+      "location": "Localización:",
+      "price": "Prezo:",
+      "free": "Gratuíto",
+      "capacity": "Capacidade:",
+      "people": "persoas",
+      "contactTitle": "Información de contacto",
+      "email": "Correo electrónico:",
+      "website": "Sitio web:",
+      "specialization": "Especialización:",
+      "specializationText": "Desenvolvemento de Software e Formación Tecnolóxica",
+      "filename": "Ordinaly_catalogo_formacion.pdf",
+      "noSpecificDate": "Aínda non hai data específica.",
+      "noSpecificTime": "Aínda non hai hora específica."
     },
     "courseDetails": {
       "title": "Detalles do curso",
@@ -934,6 +1032,7 @@
       "importantDates": "Datas importantes",
       "excludedDatesMessage": "Hai {count} data(s) excluída(s) (vacacións ou descansos) que non están incluídas no horario regular.",
       "moreSessions": "E {count} sesións máis...",
+      "noSpecificDate": "Non hai unha data específica para esta sesión.",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",
@@ -1041,5 +1140,16 @@
       "description": "¿NOVO EN ORDINALY?"
     },
     "termsText": "Ao continuar, aceptas os nosos termos de servizo e política de privacidade"
+  },
+  "notFound": {
+    "title": "404 - Páxina Non Atopada",
+    "heading": "¡Vaia! Páxina Perdida no Espazo Dixital",
+    "message": "A páxina que buscas semella haberse perdido no noso universo de automatización empresarial.",
+    "description": "Non te preocupes, incluso en Ordinaly ás veces nos desviamos do camiño. Pero temos solucións intelixentes para todo.",
+    "homeButton": "Volver ao Inicio",
+    "exploreButton": "Explorar Servizos", 
+    "contactButton": "Contactar Soporte",
+    "redirectMessage": "Serás redirixido automaticamente en {seconds} segundos...",
+    "robotText": "O noso robot de automatización está buscando a páxina..."
   }
 }

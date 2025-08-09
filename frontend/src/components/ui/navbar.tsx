@@ -155,8 +155,7 @@ const Navbar = () => {
         const data = await response.json();
         setUserData(data);
       }
-    } catch (error) {
-      console.error('Failed to fetch user data:', error);
+    } catch {
     }
   };
 
@@ -216,12 +215,10 @@ const Navbar = () => {
           // Ignore errors, we'll remove the token anyway
         });
       }
-    } catch (err) {
-      console.error('Error during signout:', err);
+    } catch {
       // Ignore errors, we'll remove the token anyway
     }
 
-    // Remove token and redirect
     localStorage.removeItem('authToken');
     setIsAuthenticated(false);
     setIsMenuOpen(false);
@@ -261,7 +258,7 @@ const Navbar = () => {
   return (
     <>
       <nav className={cn(
-        "border-b border-gray-300 dark:border-gray-800 bg-[#FFFFFF] dark:bg-[#1A1924]/80 backdrop-blur-md sticky top-0 z-50 transition-all duration-300",
+        "border-b border-gray-300 dark:border-gray-800 bg-white/80 dark:bg-[#1A1924]/80 backdrop-blur-md sticky top-0 z-50 transition-all duration-300",
         isScrolled && "shadow-md"
       )}>
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-4">
@@ -278,7 +275,7 @@ const Navbar = () => {
                   priority
                 />
               </div>
-              <div className="text-lg sm:text-xl md:text-2xl font-bold text-[#22A60D] truncate">
+              <div className="text-lg sm:text-xl md:text-2xl font-bold text-green truncate">
                 {t("logo.title")}
               </div>
             </div>
@@ -291,8 +288,8 @@ const Navbar = () => {
                 href={link.href}
                 className={`transition-colors whitespace-nowrap text-sm xl:text-base ${
                   isLinkActive(link.href)
-                    ? 'text-[#22A60D] font-medium'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-[#22A60D]'
+                    ? 'text-green font-medium'
+                    : 'text-gray-700 dark:text-gray-300 hover:text-green'
                 }`}
               >
                 {link.label}
@@ -328,7 +325,7 @@ const Navbar = () => {
                   variant="ghost"
                   size="sm"
                   onClick={goToSignIn}
-                  className="text-gray-700 dark:text-gray-300 hover:text-[#22A60D] transition-colors flex items-center"
+                  className="text-gray-700 dark:text-gray-300 hover:text-green transition-colors flex items-center"
                 >
                   <LogIn className="h-4 w-4 mr-2" />
                   {t("navigation.signIn")}
@@ -336,7 +333,7 @@ const Navbar = () => {
                 <Button
                   size="sm"
                   onClick={goToSignUp}
-                  className="bg-[#22A60D] hover:bg-[#22A010] text-white"
+                  className="bg-green hover:bg-green-600 text-white"
                 >
                   {t("navigation.signUp")}
                 </Button>
@@ -367,7 +364,7 @@ const Navbar = () => {
               <Button
                 size="sm"
                 onClick={goToSignUp}
-                className="bg-[#22A60D] hover:bg-[#22A010] text-white text-xs px-2 py-1 h-8"
+                className="bg-green hover:bg-green-600 text-white text-xs px-2 py-1 h-8"
               >
                 {t("navigation.signUp")}
               </Button>
@@ -406,7 +403,7 @@ const Navbar = () => {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="xl:hidden bg-white dark:bg-[#1A1924] border-t border-gray-200 dark:border-gray-800 overflow-hidden"
+            className="xl:hidden bg-white/80 dark:bg-[#1A1924] border-t border-gray-200 dark:border-gray-800 overflow-hidden backdrop-blur-md"
           >
             <div className="py-4 px-4 sm:px-6 lg:px-8">
               <div className="flex flex-col space-y-4">
@@ -416,8 +413,8 @@ const Navbar = () => {
                     href={link.href}
                     className={`transition-colors py-2 block ${
                       isLinkActive(link.href)
-                        ? 'text-[#22A60D] font-medium'
-                        : 'text-gray-700 dark:text-gray-300 hover:text-[#22A60D]'
+                        ? 'text-green font-medium'
+                        : 'text-gray-700 dark:text-gray-300 hover:text-green'
                     }`}
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -433,7 +430,7 @@ const Navbar = () => {
                       <Link
                         href="/profile"
                         onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#22A60D] transition-colors py-2"
+                        className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-green transition-colors py-2"
                       >
                         <User className="h-4 w-4 mr-2" />
                         {t("navigation.profile")}
@@ -444,7 +441,7 @@ const Navbar = () => {
                         <Link
                           href="/admin"
                           onClick={() => setIsMenuOpen(false)}
-                          className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#22A60D] transition-colors py-2"
+                          className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-green transition-colors py-2"
                         >
                           <Settings className="h-4 w-4 mr-2" />
                           {t("navigation.adminDashboard")}
@@ -470,7 +467,7 @@ const Navbar = () => {
                   ) : (
                     <div
                       onClick={goToSignIn}
-                      className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#22A60D] transition-colors py-2 cursor-pointer"
+                      className="flex items-center text-gray-700 dark:text-gray-300 hover:text-green transition-colors py-2 cursor-pointer"
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => {

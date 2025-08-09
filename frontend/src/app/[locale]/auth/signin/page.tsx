@@ -24,7 +24,6 @@ export default function LoginPage() {
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
 
   useEffect(() => {
-    // Check if user is already authenticated
     const token = localStorage.getItem('authToken');
     if (token) {
       // Redirect to home if already authenticated
@@ -104,8 +103,7 @@ export default function LoginPage() {
       } else {
         setAlert({type: 'error', message: t('messages.invalidCredentials')});
       }
-    } catch (err) {
-      console.error('Login error:', err);
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsLoading(false);

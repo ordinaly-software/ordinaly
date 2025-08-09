@@ -32,6 +32,9 @@ import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
 import Image from "next/image";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 interface Course {
   id: number;
@@ -160,7 +163,7 @@ const AdminCoursesTab = () => {
     if (!weekdays || weekdays.length === 0) return '';
     return weekdays
       .sort((a, b) => a - b) // Sort weekdays to display in order
-      .map(index => daysOfWeek[index]?.short || '')
+  .map(idx => daysOfWeek[idx]?.short || '')
       .filter(day => day !== '') // Remove any invalid indices
       .join(', ');
   };
@@ -218,8 +221,8 @@ const AdminCoursesTab = () => {
       } else {
         setAlert({type: 'error', message: t('messages.fetchError')});
       }
-    } catch (error) {
-      console.error('Fetch error:', error);
+    } catch {
+      
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsLoading(false);
@@ -319,8 +322,8 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: 'Failed to fetch course enrollments'});
         setCourseEnrollments([]);
       }
-    } catch (error) {
-      console.error('Fetch enrollments error:', error);
+    } catch {
+      
       setAlert({type: 'error', message: 'Network error while fetching enrollments'});
       setCourseEnrollments([]);
     } finally {
@@ -329,8 +332,11 @@ const AdminCoursesTab = () => {
   };
 
   const isCourseFinished = (course: Course) => {
-    const now = new Date();
+    // If no end_date or invalid, course is NOT finished
+    if (!course.end_date || course.end_date === "0000-00-00") return false;
     const endDate = new Date(course.end_date);
+    if (isNaN(endDate.getTime())) return false;
+    const now = new Date();
     return endDate < now;
   };
 
@@ -464,6 +470,18 @@ const AdminCoursesTab = () => {
         formDataToSend.append('image', selectedFile);
       }
 
+      // Prevent lowering max_attendants below enrolled_count on frontend
+      if (isEdit && currentCourse) {
+        const newMax = parseInt(formData.max_attendants, 10);
+        if (!isNaN(newMax) && newMax < currentCourse.enrolled_count) {
+          setAlert({
+            type: 'error',
+            message: t('messages.validation.maxAttendantsBelowEnrolled', { count: currentCourse.enrolled_count })
+          });
+          return;
+        }
+      }
+
       const url = isEdit 
         ? `${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse?.id}/`
         : getApiEndpoint(API_ENDPOINTS.courses);
@@ -491,29 +509,10 @@ const AdminCoursesTab = () => {
         setShowEditModal(false);
         resetForm();
       } else {
-        const errorData = await response.json();
-        
-        // Handle specific validation errors
-        if (errorData.title) {
-          setAlert({type: 'error', message: t('messages.validation.titleRequired')});
-        } else if (errorData.description) {
-          setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
-        } else if (errorData.location) {
-          setAlert({type: 'error', message: t('messages.validation.locationRequired')});
-        } else if (errorData.date) {
-          setAlert({type: 'error', message: t('messages.validation.dateRequired')});
-        } else if (errorData.max_attendants) {
-          setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
-        } else if (errorData.price) {
-          setAlert({type: 'error', message: t('messages.validation.priceInvalid')});
-        } else if (errorData.image) {
-          setAlert({type: 'error', message: t('messages.validation.imageRequired')});
-        } else {
-          setAlert({type: 'error', message: errorData.detail || t(isEdit ? 'messages.updateError' : 'messages.createError')});
-        }
+        // Don't use errorData variable to avoid unused var lint error
+        setAlert({type: 'error', message: t(isEdit ? 'messages.updateError' : 'messages.createError')});
       }
-    } catch (error) {
-      console.error('Submit error:', error);
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
@@ -525,6 +524,18 @@ const AdminCoursesTab = () => {
 
       if (selectedCourses.length > 0) {
         // Bulk delete
+        const finishedSelectedCourses = selectedCourses.filter(id => {
+          const course = courses.find(c => c.id === id);
+          return course && isCourseFinished(course);
+        });
+
+        if (finishedSelectedCourses.length > 0) {
+          setAlert({type: 'error', message: t('messages.cannotDeleteFinishedBulk')});
+          setIsDeleting(false);
+          setShowDeleteModal(false);
+          return;
+        }
+
         const deletePromises = selectedCourses.map(id =>
           fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${id}/`, {
             method: 'DELETE',
@@ -546,6 +557,13 @@ const AdminCoursesTab = () => {
         setSelectedCourses([]);
       } else if (currentCourse) {
         // Single delete
+        if (isCourseFinished(currentCourse)) {
+          setAlert({type: 'error', message: t('messages.cannotDeleteFinished')});
+          setIsDeleting(false);
+          setShowDeleteModal(false);
+          return;
+        }
+
         const response = await fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse.id}/`, {
           method: 'DELETE',
           headers: {
@@ -562,8 +580,8 @@ const AdminCoursesTab = () => {
 
       fetchCourses();
       setShowDeleteModal(false);
-    } catch (error) {
-      console.error('Delete error:', error);
+    } catch {
+      
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);
@@ -580,22 +598,35 @@ const AdminCoursesTab = () => {
 
   // Helper function to format course schedule for display
   const formatCourseSchedule = (course: Course): string => {
-    // Always format dates with proper locale instead of using backend's formatted_schedule
-    const dateOptions: Intl.DateTimeFormatOptions = { 
-      year: 'numeric', 
-      month: 'numeric', 
-      day: 'numeric' 
+    const dateOptions: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
     };
-    const startDate = new Date(course.start_date).toLocaleDateString(dateLocale, dateOptions);
-    const endDate = new Date(course.end_date).toLocaleDateString(dateLocale, dateOptions);
-    
-    // Remove seconds from time format (HH:MM:SS -> HH:MM)
-    const startTime = course.start_time.substring(0, 5); // "17:30:00" -> "17:30"
-    const endTime = course.end_time.substring(0, 5); // "20:30:00" -> "20:30"
-    const timeRange = `${startTime} - ${endTime}`;
-    
-    // Create a localized format
-    return `${startDate} - ${endDate} • ${timeRange}`;
+
+    const isValidStartDate = course.start_date && course.start_date !== "0000-00-00";
+    const isValidEndDate = course.end_date && course.end_date !== "0000-00-00";
+
+    const startDate = isValidStartDate
+      ? new Date(course.start_date).toLocaleDateString(dateLocale, dateOptions)
+      : t('noSpecificDate');
+    const endDate = isValidEndDate
+      ? new Date(course.end_date).toLocaleDateString(dateLocale, dateOptions)
+      : t('noSpecificDate');
+
+    const startTime = course.start_time ? course.start_time.substring(0, 5) : '';
+    const endTime = course.end_time ? course.end_time.substring(0, 5) : '';
+    const timeRange = (startTime && endTime) ? `${startTime} - ${endTime}` : '';
+
+    if (!isValidStartDate && !isValidEndDate) {
+      return t('noSpecificDate');
+    } else if (isValidStartDate && isValidEndDate) {
+      return `${startDate} - ${endDate} • ${timeRange}`;
+    } else if (isValidStartDate) {
+      return `${startDate} • ${timeRange}`;
+    } else {
+      return `${endDate} • ${timeRange}`;
+    }
   };
 
   const toggleSelectAll = () => {
@@ -621,7 +652,7 @@ const AdminCoursesTab = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green"></div>
       </div>
     );
   }
@@ -644,7 +675,7 @@ const AdminCoursesTab = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               placeholder={t("searchPlaceholder")}
-              value={searchTerm}
+              value={searchTerm ?? ""}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 w-64"
             />
@@ -687,7 +718,7 @@ const AdminCoursesTab = () => {
           )}
           <Button
             onClick={handleCreate}
-            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center space-x-1"
+            className="bg-green hover:bg-green-600 text-white flex items-center space-x-1"
           >
             <Plus className="h-4 w-4" />
             <span>{t("addCourse")}</span>
@@ -708,7 +739,7 @@ const AdminCoursesTab = () => {
               type="checkbox"
               checked={selectedCourses.length === filteredCourses.length && filteredCourses.length > 0}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
+              className="rounded border-gray-300 text-green focus:ring-green"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               {t("selectAll")} ({filteredCourses.length} {t("courses")})
@@ -738,7 +769,7 @@ const AdminCoursesTab = () => {
                     }}
                     onClick={(e) => e.stopPropagation()}
                     disabled={isFinished}
-                    className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] disabled:opacity-50"
+                    className="mt-1 rounded border-gray-300 text-green focus:ring-green disabled:opacity-50"
                   />
                   
                   {/* Course Image */}
@@ -754,7 +785,7 @@ const AdminCoursesTab = () => {
                         className="object-cover"
                         sizes="80px"
                         onError={(e) => {
-                          console.error('Course image failed to load:', course.image);
+                          
                           const target = e.target as HTMLImageElement;
                           target.style.display = 'none';
                         }}
@@ -787,17 +818,21 @@ const AdminCoursesTab = () => {
                           )}
                         </div>
                         {course.subtitle && (
-                          <p className={`text-sm mb-1 ${
+                          <div className={`text-sm mb-1 ${
                             isFinished ? 'text-gray-500 dark:text-gray-500' : 'text-gray-600 dark:text-gray-400'
                           }`}>
                             {course.subtitle}
-                          </p>
+                          </div>
                         )}
-                        <p className={`text-sm mb-2 ${
-                          isFinished ? 'text-gray-600 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'
-                        }`}>
-                          {course.description}
-                        </p>
+                          <div className={`text-sm mb-2 ${
+                            isFinished ? 'text-gray-600 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'
+                          }`}>
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                              {course.description.length > 200 
+                                ? `${course.description.substring(0, 200)}...` 
+                                : course.description}
+                            </ReactMarkdown>
+                          </div>
                         
                         {/* Enrollment Progress Bar */}
                         <div className="mb-2">
@@ -855,7 +890,7 @@ const AdminCoursesTab = () => {
                                 e.stopPropagation();
                                 handleEdit(course);
                               }}
-                              className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                              className="text-blue hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
                             >
                               <Edit className="h-4 w-4" />
                             </Button>
@@ -894,6 +929,7 @@ const AdminCoursesTab = () => {
         }}
         title={showEditModal ? t("editCourse") : t("createCourse")}
         showHeader={true}
+        className="max-w-[95vw] xl:max-w-[85vw] 2xl:max-w-[80vw]"
       >
         <div className="space-y-6 max-h-[70vh] overflow-y-auto">
           {/* Course Title */}
@@ -906,7 +942,7 @@ const AdminCoursesTab = () => {
             </Label>
             <Input
               id="title"
-              value={formData.title}
+              value={formData.title ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
               placeholder={t("form.titlePlaceholder")}
               className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
@@ -918,16 +954,16 @@ const AdminCoursesTab = () => {
           <div className="space-y-3">
             <Label htmlFor="subtitle" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-blue-600 dark:text-blue-400">S</span>
+                <span className="text-xs font-bold text-blue">S</span>
               </div>
               <span>{t("form.subtitleOptional")}</span>
             </Label>
             <Input
               id="subtitle"
-              value={formData.subtitle}
+              value={formData.subtitle ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, subtitle: e.target.value}))}
               placeholder={t("form.subtitlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
             />
           </div>
 
@@ -1006,7 +1042,7 @@ const AdminCoursesTab = () => {
                     className="object-cover"
                     sizes="128px"
                     onError={() => {
-                      console.error('Preview image failed to load:', previewUrl);
+                      
                       setPreviewUrl("");
                     }}
                   />
@@ -1038,7 +1074,7 @@ const AdminCoursesTab = () => {
                 type="number"
                 step="0.01"
                 min="0"
-                value={formData.price}
+                value={formData.price ?? ""}
                 onChange={(e) => setFormData(prev => ({...prev, price: e.target.value}))}
                 placeholder={t("form.pricePlaceholder")}
                 className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg transition-all duration-200"
@@ -1056,7 +1092,7 @@ const AdminCoursesTab = () => {
                 id="max_attendants"
                 type="number"
                 min="1"
-                value={formData.max_attendants}
+                value={formData.max_attendants ?? ""}
                 onChange={(e) => setFormData(prev => ({...prev, max_attendants: e.target.value}))}
                 placeholder={t("form.maxAttendantsPlaceholder")}
                 className="h-12 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg transition-all duration-200"
@@ -1075,7 +1111,7 @@ const AdminCoursesTab = () => {
             </Label>
             <Input
               id="location"
-              value={formData.location}
+              value={formData.location ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, location: e.target.value}))}
               placeholder={t("form.locationPlaceholder")}
               className="h-12 border-gray-300 focus:border-red-500 focus:ring-red-500/20 rounded-lg transition-all duration-200"
@@ -1086,7 +1122,7 @@ const AdminCoursesTab = () => {
           {/* Professional Scheduling Section */}
           <div className="space-y-6 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center">
+              <div className="w-6 h-6 bg-blue rounded flex items-center justify-center">
                 <span className="text-sm font-bold text-white">📅</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -1103,9 +1139,9 @@ const AdminCoursesTab = () => {
                 <Input
                   id="start_date"
                   type="date"
-                  value={formData.start_date}
+                  value={formData.start_date ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, start_date: e.target.value}))}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
                 />
               </div>
@@ -1116,9 +1152,9 @@ const AdminCoursesTab = () => {
                 <Input
                   id="end_date"
                   type="date"
-                  value={formData.end_date}
+                  value={formData.end_date ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, end_date: e.target.value}))}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
                 />
               </div>
@@ -1133,9 +1169,9 @@ const AdminCoursesTab = () => {
                 <Input
                   id="start_time"
                   type="time"
-                  value={formData.start_time}
+                  value={formData.start_time ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, start_time: e.target.value}))}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
                 />
               </div>
@@ -1146,9 +1182,9 @@ const AdminCoursesTab = () => {
                 <Input
                   id="end_time"
                   type="time"
-                  value={formData.end_time}
+                  value={formData.end_time ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, end_time: e.target.value}))}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
                 />
               </div>
@@ -1176,19 +1212,19 @@ const AdminCoursesTab = () => {
                   {t("form.weekdaysOptional")}
                 </Label>
                 <div className="grid grid-cols-7 gap-2">
-                  {daysOfWeek.map((day, index) => (
+                  {daysOfWeek.map((day, idx) => (
                     <label key={day.key} className="flex flex-col items-center space-y-1 cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={formData.weekdays.includes(index)}
+                        checked={formData.weekdays.includes(idx)}
                         onChange={(e) => {
                           if (e.target.checked) {
-                            setFormData(prev => ({...prev, weekdays: [...prev.weekdays, index]}));
+                            setFormData(prev => ({...prev, weekdays: [...prev.weekdays, idx]}));
                           } else {
-                            setFormData(prev => ({...prev, weekdays: prev.weekdays.filter(d => d !== index)}));
+                            setFormData(prev => ({...prev, weekdays: prev.weekdays.filter(d => d !== idx)}));
                           }
                         }}
-                        className="rounded border-gray-300 text-blue-500 focus:ring-blue-500/20"
+                        className="rounded border-gray-300 text-blue focus:ring-blue/20"
                       />
                       <span className="text-xs text-gray-600 dark:text-gray-400" title={day.full}>
                         {day.short}
@@ -1227,10 +1263,10 @@ const AdminCoursesTab = () => {
                   type="number"
                   min="1"
                   max="52"
-                  value={formData.interval}
+                  value={formData.interval ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, interval: parseInt(e.target.value) || 1}))}
                   placeholder={t("form.intervalPlaceholder")}
-                  className="h-11 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+                  className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                 />
               </div>
               <div className="space-y-2">
@@ -1315,7 +1351,7 @@ const AdminCoursesTab = () => {
                     className="object-cover"
                     sizes="128px"
                     onError={(e) => {
-                      console.error('Course image failed to load:', selectedCourseForModal.image);
+                      
                       const target = e.target as HTMLImageElement;
                       target.style.display = 'none';
                     }}
@@ -1345,9 +1381,11 @@ const AdminCoursesTab = () => {
                     {selectedCourseForModal.subtitle}
                   </p>
                 )}
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  {selectedCourseForModal.description}
-                </p>
+                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 mb-4">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                    {selectedCourseForModal.description}
+                  </ReactMarkdown>
+                </div>
 
                 {/* Key Metrics */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
@@ -1368,8 +1406,8 @@ const AdminCoursesTab = () => {
                   <div className="bg-blue-100 dark:bg-blue-900/30 rounded-lg p-4 flex-1">
                     <div className="flex flex-col">
                       <div className="flex items-center justify-between w-full mb-2">
-                        <User className="h-6 w-6 text-blue-600 flex-shrink-0" />
-                        <p className="text-lg font-bold text-blue-600">
+                        <User className="h-6 w-6 text-blue flex-shrink-0" />
+                        <p className="text-lg font-bold text-blue">
                           {selectedCourseForModal.max_attendants}
                         </p>
                       </div>
@@ -1415,26 +1453,30 @@ const AdminCoursesTab = () => {
               {/* Schedule Information */}
               <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5">
                 <div className="flex items-center space-x-2 mb-3">
-                  <Calendar className="h-5 w-5 text-blue-600" />
+                  <Calendar className="h-5 w-5 text-blue" />
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.schedule")}</h3>
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.startDate")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {new Date(selectedCourseForModal.start_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                      {selectedCourseForModal.start_date && selectedCourseForModal.start_date !== "0000-00-00"
+                        ? new Date(selectedCourseForModal.start_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })
+                        : t('noSpecificDate')}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.endDate")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {new Date(selectedCourseForModal.end_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                      {selectedCourseForModal.end_date && selectedCourseForModal.end_date !== "0000-00-00"
+                        ? new Date(selectedCourseForModal.end_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })
+                        : t('noSpecificDate')}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.time")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {selectedCourseForModal.start_time.substring(0, 5)} - {selectedCourseForModal.end_time.substring(0, 5)}
+                      {selectedCourseForModal.start_time ? selectedCourseForModal.start_time.substring(0, 5) : "-"} - {selectedCourseForModal.end_time ? selectedCourseForModal.end_time.substring(0, 5) : "-"}
                     </span>
                   </div>
                   <div className="flex justify-between">
@@ -1461,7 +1503,7 @@ const AdminCoursesTab = () => {
               </div>
 
               {/* Location & Logistics */}
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl p-5">
+              <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl p-5">
                 <div className="flex items-center space-x-2 mb-3">
                   <MapPin className="h-5 w-5 text-green-600" />
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.locationInfo")}</h3>
@@ -1546,7 +1588,7 @@ const AdminCoursesTab = () => {
                 </div>
               ) : (
                 <div className="space-y-2 max-h-48 overflow-y-auto">
-                  {courseEnrollments.map((enrollment, index) => {
+                  {courseEnrollments.map((enrollment, idx) => {
                     // More robust name handling
                     const userName = enrollment.user_details?.name?.trim();
                     const userSurname = enrollment.user_details?.surname?.trim();
@@ -1581,7 +1623,7 @@ const AdminCoursesTab = () => {
                             </p>
                           )}
                           {enrollment.user_details?.company && (
-                            <p className="text-xs text-blue-600 dark:text-blue-400">
+                            <p className="text-xs text-blue">
                               {enrollment.user_details.company}
                             </p>
                           )}
@@ -1592,7 +1634,7 @@ const AdminCoursesTab = () => {
                           {t("details.enrolledOn")} {new Date(enrollment.enrolled_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                         </p>
                         <p className="text-xs text-gray-600 dark:text-gray-300">
-                          {t("details.member")} #{index + 1}
+                          {t("details.member")} #{idx + 1}
                         </p>
                       </div>
                     </div>
@@ -1610,8 +1652,8 @@ const AdminCoursesTab = () => {
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.upcomingSessions")}</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {selectedCourseForModal.next_occurrences.slice(0, 6).map((occurrence, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
+                  {selectedCourseForModal.next_occurrences.slice(0, 6).map((occurrence, idx) => (
+                    <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
                       <p className="font-medium text-gray-900 dark:text-white">
                         {new Date(occurrence).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                       </p>

@@ -37,7 +37,6 @@ export const useServices = (limit?: number) => {
   // Simplified fetch function
   const fetchServices = useCallback(async () => {
     try {
-      // Check cache first
       const cacheKey = `services_${limit || 'all'}`;
       const cached = servicesCache.get(cacheKey);
       
@@ -50,7 +49,9 @@ export const useServices = (limit?: number) => {
       setIsLoading(true);
       setError(null);
 
-      const response = await fetch(getApiEndpoint('/api/services/'), {
+      const apiUrl = getApiEndpoint('/api/services/');
+
+      const response = await fetch(apiUrl, {
         headers: { 'Content-Type': 'application/json' },
       });
 
@@ -85,7 +86,6 @@ export const useServices = (limit?: number) => {
       setError(null);
       setIsOnVacation(false);
     } catch (err) {
-      console.error('Error fetching services:', err);
       if (err instanceof TypeError && err.message.includes('Failed to fetch')) {
         setIsOnVacation(true);
         setServices([]);
