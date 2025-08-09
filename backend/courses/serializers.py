@@ -4,6 +4,19 @@ from users.models import CustomUser
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    def validate(self, data):
+        # On update, prevent lowering max_attendants below enrolled_count
+        instance = getattr(self, 'instance', None)
+        new_max = data.get('max_attendants', None)
+        if instance and new_max is not None:
+            enrolled = instance.enrollments.count()
+            if new_max < enrolled:
+                raise serializers.ValidationError({
+                    'max_attendants': (
+                        f"Cannot set max attendants below the current number of enrolled users ({enrolled})."
+                    )
+                })
+        return data
     enrolled_count = serializers.SerializerMethodField()
     duration_hours = serializers.ReadOnlyField()
     formatted_schedule = serializers.ReadOnlyField()
@@ -24,16 +37,25 @@ class CourseSerializer(serializers.ModelSerializer):
         return obj.enrollments.count()
 
     def get_next_occurrences(self, obj):
-        return obj.get_next_occurrences(limit=5)
+        try:
+            return obj.get_next_occurrences(limit=5)
+        except Exception:
+            return []
 
     def get_schedule_description(self, obj):
-        return obj.get_schedule_description()
+        try:
+            return obj.get_schedule_description()
+        except Exception:
+            return None
 
     def get_weekday_display(self, obj):
         """Return human-readable weekday names"""
-        if not obj.weekdays:
+        try:
+            if not obj.weekdays:
+                return []
+            return [dict(Course.WEEKDAY_CHOICES)[wd] for wd in obj.weekdays]
+        except Exception:
             return []
-        return [dict(Course.WEEKDAY_CHOICES)[wd] for wd in obj.weekdays]
 
 
 class EnrollmentSerializer(serializers.ModelSerializer):

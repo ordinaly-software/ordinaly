@@ -34,7 +34,6 @@ export default function SignupPage() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   useEffect(() => {
-    // Check if user is already authenticated
     const token = localStorage.getItem('authToken');
     if (token) {
       // Redirect to home if already authenticated
@@ -43,7 +42,6 @@ export default function SignupPage() {
     }
 
     const handleResize = () => {
-      // Check if window width is large enough for both columns
       if (window.innerWidth >= 1025 ) {
         setShowImage(true);
       } else {
@@ -154,7 +152,6 @@ export default function SignupPage() {
           window.location.href = '/';
         }, 2000);
       } else {
-        // Handle API errors
         if (data.username) setErrors(prev => ({...prev, username: data.username[0] || data.username}));
         if (data.email) setErrors(prev => ({...prev, email: data.email[0] || data.email}));
         if (data.password) setErrors(prev => ({...prev, password: data.password[0] || data.password}));
@@ -163,7 +160,6 @@ export default function SignupPage() {
         if (data.detail) setAlert({type: 'error', message: data.detail});
       }
     } catch (err) {
-      console.error('Signup error:', err);
       setAlert({type: 'error', message: t("messages.networkError")});
     } finally {
       setIsLoading(false);
@@ -477,7 +473,7 @@ export default function SignupPage() {
                             href="/legal?tab=terms" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-[#22A60D] hover:text-[#22A010] underline font-medium"
+                            className="text-green hover:text-green-600 underline font-medium"
                           >
                             {t("form.termsLink")}
                           </a>
@@ -486,7 +482,7 @@ export default function SignupPage() {
                             href="/legal?tab=privacy" 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-[#22A60D] hover:text-[#22A010] underline font-medium"
+                            className="text-green hover:text-green-600 underline font-medium"
                           >
                             {t("form.privacyLink")}
                           </a>

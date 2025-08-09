@@ -63,8 +63,8 @@ const nextConfig: NextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     // Loader optimization
     loader: 'default',
-    // Enable image optimization for better performance
-    unoptimized: false,
+    // Disable optimization for development to avoid IPv6 issues
+    unoptimized: process.env.NODE_ENV === 'development',
     // Allow images from localhost for development
     remotePatterns: [
       {

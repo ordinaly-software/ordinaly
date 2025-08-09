@@ -70,8 +70,6 @@ export default function AdminPage() {
 
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-        console.log('Checking admin access with token:', token);
-        console.log('Making request to:', `${apiUrl}/api/users/profile/`);
         
         const response = await fetch(`${apiUrl}/api/users/profile/`, {
           headers: {
@@ -79,33 +77,22 @@ export default function AdminPage() {
             'Content-Type': 'application/json',
           },
         });
-
-        console.log('Profile response status:', response.status);
-        console.log('Profile response headers:', response.headers);
         
         if (response.ok) {
           const user: User = await response.json();
-          console.log('User data received:', user);
-          console.log('User is_staff:', user.is_staff, 'User is_superuser:', user.is_superuser);
           
           if (user.is_staff || user.is_superuser) {
-            console.log('✅ User is authorized as admin');
             setIsAuthorized(true);
             await fetchStats(token);
           } else {
-            console.log('❌ User is NOT admin - is_staff:', user.is_staff, 'is_superuser:', user.is_superuser);
             setAlert({type: 'error', message: 'Access denied. Admin privileges required.'});
             setTimeout(() => router.push('/'), 3000);
           }
         } else {
-          console.log('❌ Profile fetch failed - Status:', response.status);
-          const errorText = await response.text();
-          console.log('Error response body:', errorText);
           setAlert({type: 'error', message: 'Failed to verify admin status. Please try signing in again.'});
           setTimeout(() => router.push('/auth/signin'), 3000);
         }
       } catch (error) {
-        console.error('Auth check error:', error);
         setAlert({type: 'error', message: 'Authentication error. Please sign in again.'});
         setTimeout(() => router.push('/auth/signin'), 3000);
       } finally {
@@ -141,7 +128,6 @@ export default function AdminPage() {
           totalTerms: terms.length || 0
         });
       } catch (error) {
-        console.error('Stats fetch error:', error);
       }
     };
 

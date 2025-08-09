@@ -48,10 +48,26 @@ class Course(models.Model):
     location = models.CharField(max_length=100)
 
     # New professional scheduling fields
-    start_date = models.DateField(help_text="Start date of the course")
-    end_date = models.DateField(help_text="End date of the course (for recurring events)")
-    start_time = models.TimeField(help_text="Time when the course starts")
-    end_time = models.TimeField(help_text="Time when the course ends")
+    start_date = models.DateField(
+        help_text="Start date of the course",
+        null=True,
+        blank=True
+    )
+    end_date = models.DateField(
+        help_text="End date of the course (for recurring events)",
+        null=True,
+        blank=True
+    )
+    start_time = models.TimeField(
+        help_text="Time when the course starts",
+        null=True,
+        blank=True
+    )
+    end_time = models.TimeField(
+        help_text="Time when the course ends",
+        null=True,
+        blank=True
+    )
     periodicity = models.CharField(
         max_length=10,
         choices=PERIODICITY_CHOICES,
@@ -96,6 +112,8 @@ class Course(models.Model):
     @property
     def duration_hours(self):
         """Calculate course duration in hours"""
+        if not self.start_time or not self.end_time:
+            return None
         start_datetime = datetime.combine(datetime.today(), self.start_time)
         end_datetime = datetime.combine(datetime.today(), self.end_time)
         if end_datetime < start_datetime:
@@ -106,6 +124,8 @@ class Course(models.Model):
     @property
     def formatted_schedule(self):
         """Return a human-readable schedule string"""
+        if not self.start_date or not self.end_date or not self.start_time or not self.end_time:
+            return None
         start_time_str = self.start_time.strftime('%H:%M')
         end_time_str = self.end_time.strftime('%H:%M')
 
@@ -261,6 +281,8 @@ class Course(models.Model):
 
     def get_next_occurrences(self, limit=10):
         """Get the next occurrences of this course with advanced scheduling support"""
+        if not self.start_date or not self.end_date:
+            return []
 
         occurrences = []
         current_date = self.start_date

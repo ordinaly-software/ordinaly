@@ -71,6 +71,13 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = self.get_object()
         user = request.user
 
+        # Check if the course has a start date
+        if course.start_date is None or course.end_date is None:
+            return Response(
+                {"detail": "Cannot enroll in a course without specified dates."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
         # Check if the course is full
         if course.enrollments.count() >= course.max_attendants:
             return Response(

@@ -72,7 +72,40 @@
         "title": "Optimització contínua",
         "description": "Monitorització i millora dels processos automatitzats"
       },
-      "viewAllServices": "Consulteu tots els serveis"
+            "viewAllServices": "Veure Tots els Serveis"
+    },
+    "courses": {
+      "noSpecificDate": "Data específica properament",
+      "showcaseTitle": "Cursos Destacats",
+      "showcaseDescription": "Uneix-te als nostres cursos de formació professional i avança en la teva carrera",
+      "upcomingTitle": "Propers Cursos",
+      "upcomingDescription": "Descobreix els nostres cursos de formació professional",
+      "noCoursesTitle": "No Hi Ha Cursos Propers",
+      "noCoursesMessage": "Mantén-te atent als nous anuncis de cursos!",
+      "notifyButton": "Veure tots els cursos",
+      "errorTitle": "Error Carregant Cursos",
+      "retryButton": "Tornar-ho a Intentar",
+      "enrollButton": "Inscriu-te Ara",
+      "moreInfo": "Més Informació",
+      "viewDetails": "Veure Detalls",
+      "viewAllCourses": "Veure Tots els Cursos",
+      "spotsLeft": "places disponibles",
+      "enrolled": "inscrits",
+      "max": "màxim",
+  "almostFull": "Gairebé Complet",
+  "fillingFast": "Omplint-se Ràpidament",
+  "available": "Disponible",
+  "inProgress": "En curs",
+  "finished": "Finalitzat",
+      "datesSoon": "Dates properament",
+      "durationSoon": "Durada properament",
+      "signUpModal": {
+        "title": "Registre de Curs",
+        "description": "Rep notificacions quan s'obri la inscripció per a \"{courseName}\"",
+        "generalDescription": "Rep notificacions sobre nous anuncis de cursos i oportunitats d'inscripció anticipada.",
+        "close": "Tancar",
+        "notify": "Notificar-me"
+      }
     },
     "about": {
       "title": "Dirigir la transformació digital a Andalusia",
@@ -402,6 +435,14 @@
         "descriptionPlaceholder": "Descripció del servei",
         "icon": "Quon",
         "iconPlaceholder": "Trieu una icona Lucide React",
+        "color": "Color del servei *",
+        "colors": {
+          "darkPurple": "Neutre",
+          "purple": "Mèxic",
+          "cyan": "Cian",
+          "green": "Fol",
+          "orange": "Naranja"
+        },
         "duration": "Disponible en (dies)",
         "durationPlaceholder": "per exemple, 2 dies",
         "price": "Preu (€)",
@@ -410,7 +451,10 @@
         "featured": "Servei destacat",
         "cancel": "Cancellar",
         "create": "Crea un servei",
-        "update": "Servei d'actualització"
+        "update": "Servei d'actualització",
+        "markdownSupported": "Markdown suportat",
+        "requisites": "Requisitos",
+        "requisitesPlaceholder": "Ingrese cualquier requisito o prerrequisito"
       },
       "messages": {
         "createSuccess": "Servei '{title}' Creat amb èxit. ",
@@ -426,10 +470,10 @@
         "validation": {
           "titleRequired": "El títol del servei és obligatori i ha de tenir 100 caràcters o menys.",
           "subtitleRequired": "El subtítol és necessari i ha de tenir 200 caràcters o menys.",
-          "descriptionRequired": "La descripció és necessària i ha de tenir 500 caràcters o menys.",
+          "descriptionRequired": "La descripció és necessària i ha de tenir 2000 caràcters o menys.",
           "iconRequired": "Seleccioneu una icona vàlida per al servei.",
           "durationInvalid": "La durada ha de ser almenys un dia si s'especifica.",
-          "requisitesLimit": "Els requisits han de tenir 500 caràcters o menys.",
+          "requisitesLimit": "Els requisits han de tenir 2000 caràcters o menys.",
           "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica."
         },
         "featured": {
@@ -446,6 +490,7 @@
       }
     },
     "courses": {
+      "noSpecificDate": "Data específica properament",
       "title": "Gestió de cursos",
       "searchPlaceholder": "Cursos de cerca ...",
       "addCourse": "Afegir curs",
@@ -462,7 +507,7 @@
       "upcomingCourses": "Propers cursos",
       "finished": "Acabat",
       "noCoursesFound": "No hi ha cursos que coincideixin amb la cerca.",
-      "contactForQuote": "Poseu -vos en contacte amb els nostres agents per obtenir un pressupost detallat",
+      "contactForQuote": "Gratuit",
       "form": {
         "title": "Títol",
         "titlePlaceholder": "Introduïu un títol de curs atractiu",
@@ -564,12 +609,14 @@
         "validation": {
           "titleRequired": "El títol del curs és necessari i ha de tenir 100 caràcters o menys.",
           "subtitleLimit": "El subtítol ha de tenir 200 caràcters o menys.",
-          "descriptionRequired": "La descripció és necessària i ha de tenir 500 caràcters o menys.",
+          "descriptionRequired": "La descripció és necessària i ha de tenir 2000 caràcters o menys.",
           "imageRequired": "Pengeu un fitxer d'imatges vàlid per al curs.",
           "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica.",
           "locationRequired": "La ubicació és necessària i ha de tenir 100 caràcters o menys.",
           "dateRequired": "La data és necessària i ha de tenir 100 caràcters o menys.",
-          "maxAttendantsInvalid": "Els assistents màxims han de ser almenys 1."
+          "maxAttendantsInvalid": "Els assistents màxims han de ser almenys 1.",
+          "cannotDeleteFinished": "No es pot suprimir un curs finalitzat.",
+          "cannotDeleteFinishedBulk": "No es pot suprimir un o més cursos finalitzats."
         },
         "capacity": {
           "warning": "ADVERTIMENT: aquest curs ja té matriculacions {actual}. "
@@ -657,6 +704,7 @@
         "allTagsUsed": "S'han creat tots els tipus de documents. ",
         "allTagsUsedTitle": "Tots els tipus de documents ja estan en ús",
         "allTagsUsedButton": "Tots els tipus creats",
+        "markdownSupported": "Markdown suportat",
         "tagTypes": {
           "terms": "Termes i condicions d'ús",
           "cookies": "Política de cookies",
@@ -810,6 +858,7 @@
     "viewDetails": "Veure detalls",
     "maxAttendants": "Assistents màxims",
     "maxAttendeesCount": "Max {count} assistents",
+    "noSpecificDate": "No s'ha establert cap data específica per a aquest curs.",
     "filters": {
       "location": {
         "all": "Totes les ubicacions",
@@ -890,22 +939,24 @@
       "slogan": "Solucions de programari i formació",
       "title": "Catàleg de formació",
       "subtitle": "Cursos de formació professional i tecnològica",
-      "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional. ",
+      "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional.",
       "coursesTitle": "Els nostres cursos",
       "upcomingCourses": "Propers cursos",
       "date": "Data:",
-      "time": "Temps:",
+      "time": "Hora:",
       "location": "Ubicació:",
       "price": "Preu:",
-      "free": "Alliberar",
+      "free": "Gratuït",
       "capacity": "Capacitat:",
-      "people": "gent",
+      "people": "persones",
       "contactTitle": "Informació de contacte",
       "email": "Correu electrònic:",
       "website": "Lloc web:",
       "specialization": "Especialització:",
       "specializationText": "Desenvolupament de programari i formació en tecnologia",
-      "filename": "Ordinaly_training_catalog.pdf"
+      "filename": "Cataleg_formacio_Ordinaly.pdf",
+      "noSpecificDate": "Encara no hi ha data específica.",
+      "noSpecificTime": "Encara no hi ha hora específica."
     },
     "courseDetails": {
       "title": "Detalls del curs",
@@ -934,6 +985,7 @@
       "importantDates": "Dates importants",
       "excludedDatesMessage": "Aquest curs té {Count} Data (s) (S) (vacances o pauses) que no estan incloses en la programació regular.",
       "moreSessions": "I {count} més sessions ...",
+      "noSpecificDate": "No s'ha establert cap data específica per a aquest curs.",
       "periodicity": {
         "once": "Esdeveniment únic",
         "daily": "Cada dia",
@@ -1041,5 +1093,16 @@
       "description": "Novetat a Ordinaly? "
     },
     "termsText": "Continuant, accepteu les nostres Condicions de servei i Política de privadesa"
+  },
+  "notFound": {
+    "title": "404 - Pàgina No Trobada",
+    "heading": "Ups! Pàgina Perduda a l'Espai Digital",
+    "message": "La pàgina que busques sembla haver-se perdut en el nostre univers d'automatització empresarial.",
+    "description": "No et preocupis, fins i tot a Ordinaly de vegades ens desviem del camí. Però tenim solucions intel·ligents per a tot.",
+    "homeButton": "Tornar a l'Inici",
+    "exploreButton": "Explorar Serveis",
+    "contactButton": "Contactar Suport",
+    "redirectMessage": "Seràs redirigit automàticament en {seconds} segons...",
+    "robotText": "El nostre robot d'automatització està buscant la pàgina..."
   }
 }

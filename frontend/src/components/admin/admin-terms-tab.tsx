@@ -83,10 +83,10 @@ const AdminTermsTab = () => {
         const data = await response.json();
         setAvailableTags(data.available_tags || []);
       } else {
-        console.log('No available tags');
+        setAvailableTags([]);
       }
     } catch (error) {
-      console.error('Error fetching available tags:', error);
+      setAvailableTags([]);
     }
   };
 
@@ -106,12 +106,9 @@ const AdminTermsTab = () => {
         setTerms(Array.isArray(data) ? data : []);
       } else {
         setAlert({type: 'error', message: 'Failed to fetch terms'});
-        setTerms([]); // Set empty array on error
       }
     } catch (error) {
-      console.error('Fetch error:', error);
       setAlert({type: 'error', message: 'Network error while fetching terms'});
-      setTerms([]); // Set empty array on error
     } finally {
       setIsLoading(false);
     }
@@ -137,7 +134,7 @@ const AdminTermsTab = () => {
     setCurrentTerm(term);
     setFormData({
       name: term.name,
-      content: term.content,
+      content: typeof term.content === 'string' && !term.content.startsWith('/media/') ? term.content : '',
       version: term.version,
       tag: term.tag
     });
@@ -236,7 +233,6 @@ const AdminTermsTab = () => {
       } else {
         const errorData = await response.json();
         
-        // Handle specific validation errors
         if (errorData.tag && errorData.tag.includes('already exists')) {
           setAlert({type: 'error', message: t('messages.validation.tagDuplicate')});
         } else if (errorData.content && errorData.content.includes('extension')) {
@@ -248,7 +244,6 @@ const AdminTermsTab = () => {
         }
       }
     } catch (error) {
-      console.error('Submit error:', error);
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
@@ -299,7 +294,6 @@ const AdminTermsTab = () => {
       fetchAvailableTags(); // Refresh available tags
       setShowDeleteModal(false);
     } catch (error) {
-      console.error('Delete error:', error);
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);
@@ -330,7 +324,6 @@ const AdminTermsTab = () => {
         setAlert({type: 'error', message: t('messages.downloadError')});
       }
     } catch (error) {
-      console.error('Download error:', error);
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
@@ -402,7 +395,7 @@ const AdminTermsTab = () => {
               className="flex items-center space-x-1"
             >
               <Trash2 className="h-4 w-4" />
-              <span>Delete Selected ({selectedTerms.length})</span>
+              <span>{t('deleteSelected', { count: selectedTerms.length })}</span>
             </Button>
           )}
           <Button
@@ -433,7 +426,7 @@ const AdminTermsTab = () => {
               className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              Select All ({filteredTerms.length} terms)
+              {t('selectAll', { count: filteredTerms.length })} ({filteredTerms.length} terms)
             </span>
           </div>
 
@@ -460,7 +453,7 @@ const AdminTermsTab = () => {
                           {term.name}
                         </h3>
                         <div className="flex items-center space-x-2 mb-2">
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue dark:bg-blue-900/20 dark:text-blue-300">
                             v{term.version}
                           </span>
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
@@ -566,7 +559,7 @@ const AdminTermsTab = () => {
                 required
               />
               <div className="absolute bottom-3 right-3 text-xs text-gray-400 bg-white dark:bg-gray-800 px-2 py-1 rounded">
-                Markdown supported
+                {t("form.markdownSupported")}
               </div>
             </div>
           </div>
@@ -597,39 +590,28 @@ const AdminTermsTab = () => {
                 </div>
                 <span>{t("form.tag")} *</span>
               </Label>
-              {showEditModal && currentTerm ? (
-                // Show current tag when editing (read-only)
-                <div className="h-12 px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 flex items-center">
-                  <span className="text-gray-700 dark:text-gray-300 font-medium">
-                    {getTagLabel(currentTerm.tag)}
-                  </span>
-                  <span className="ml-2 text-xs text-gray-500 dark:text-gray-400">(Cannot be changed)</span>
-                </div>
-              ) : (
-                // Modern custom dropdown when creating new
-                <Dropdown
-                  options={availableTags}
-                  value={formData.tag || ''}
-                  onChange={(value) => setFormData(prev => ({...prev, tag: value}))}
-                  placeholder={availableTags.length === 0 ? t("form.noAvailableTags") : t("form.selectTag")}
-                  disabled={availableTags.length === 0}
-                  theme="orange"
-                  width="100%"
-                  renderTrigger={({ isOpen, selectedOption, onClick, disabled }) => (
-                    <button
-                      type="button"
-                      onClick={onClick}
-                      disabled={disabled}
-                      className="h-12 w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 text-left flex items-center justify-between focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed hover:border-orange-400"
-                    >
-                      <span className="text-gray-900 dark:text-white">
-                        {selectedOption?.label || (availableTags.length === 0 ? t("form.noAvailableTags") : t("form.selectTag"))}
-                      </span>
-                      <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-                    </button>
-                  )}
-                />
-              )}
+              <Dropdown
+                options={availableTags}
+                value={formData.tag || ''}
+                onChange={(value) => setFormData(prev => ({...prev, tag: value}))}
+                placeholder={availableTags.length === 0 ? t("form.noAvailableTags") : t("form.selectTag")}
+                disabled={availableTags.length === 0}
+                theme="orange"
+                width="100%"
+                renderTrigger={({ isOpen, selectedOption, onClick, disabled }) => (
+                  <button
+                    type="button"
+                    onClick={onClick}
+                    disabled={disabled}
+                    className="h-12 w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-3 bg-white dark:bg-gray-800 text-left flex items-center justify-between focus:border-orange-500 focus:ring-2 focus:ring-orange-500/20 transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed hover:border-orange-400"
+                  >
+                    <span className="text-gray-900 dark:text-white">
+                      {selectedOption?.label || (availableTags.length === 0 ? t("form.noAvailableTags") : t("form.selectTag"))}
+                    </span>
+                    <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                )}
+              />
               {availableTags.length === 0 && !showEditModal && (
                 <p className="text-sm text-amber-600 dark:text-amber-400 flex items-center space-x-2">
                   <div className="w-4 h-4 bg-amber-500 rounded-full flex items-center justify-center">

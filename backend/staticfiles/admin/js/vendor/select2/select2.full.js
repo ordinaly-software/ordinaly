@@ -3849,7 +3849,6 @@ S2.define('select2/data/tokenizer',[
     var tokenData = this.tokenizer(params, this.options, createAndSelect);
 
     if (tokenData.term !== params.term) {
-      // Replace the search term if we have the search box
       if (this.$search.length) {
         this.$search.val(tokenData.term);
         this.$search.trigger('focus');

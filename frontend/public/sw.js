@@ -27,7 +27,6 @@ self.addEventListener('install', (event) => {
       return cache.addAll(urlsToCache);
     }).catch(error => {
       // Graceful fallback if caching fails
-      console.warn('SW install failed:', error);
     })
   );
   // Force the waiting service worker to become the active service worker
@@ -46,7 +45,7 @@ self.addEventListener('activate', (event) => {
         })
       );
     }).catch(error => {
-      console.warn('SW activation failed:', error);
+      // Activation failed - continue without cache cleanup
     })
   );
   // Ensure the service worker takes control immediately

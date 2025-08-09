@@ -65,7 +65,7 @@ const LegalPage = () => {
         setAlert({type: 'error', message: t('messages.fetchError')});
       }
     } catch (error) {
-      console.error('Fetch error:', error);
+      
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsLoading(false);
@@ -105,7 +105,7 @@ const LegalPage = () => {
         setAlert({type: 'error', message: t('messages.downloadError')});
       }
     } catch (error) {
-      console.error('Download error:', error);
+      
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
