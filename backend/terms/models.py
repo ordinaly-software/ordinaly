@@ -55,9 +55,10 @@ class Terms(models.Model):
                 f'Each document type can only be created once.'
             )
 
-        # Ensure the uploaded files are valid
-        if not self.content or not self.pdf_content:
-            raise ValidationError("Both a markdown (.md) file and a PDF file must be provided.")
+        # Only require both files on creation
+        if not self.pk:
+            if not self.content or not self.pdf_content:
+                raise ValidationError("Both a markdown (.md) file and a PDF file must be provided.")
 
         if self.content:
             if not self.content.name.endswith('.md'):
@@ -88,7 +89,7 @@ class Terms(models.Model):
                         os.remove(old_instance.pdf_content.path)
             except Terms.DoesNotExist:
                 pass  # This shouldn't happen, but handle gracefully
-        
+
         self.clean()
         super().save(*args, **kwargs)
 

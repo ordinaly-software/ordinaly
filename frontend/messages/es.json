@@ -696,7 +696,10 @@
       "noTerms": "No hay términos disponibles.",
       "noTermsFound": "No se encontraron términos que coincidan con tu búsqueda.",
       "pdfAvailable": "PDF Disponible",
+      "mdAvailable": "Documento Markdown Disponible",
       "downloadPdf": "Descargar PDF",
+      "edit": "Editar Término",
+      "delete": "Eliminar Término",
       "form": {
         "name": "Nombre",
         "namePlaceholder": "Nombre del término",
@@ -709,24 +712,51 @@
         "selectTag": "Selecciona un tipo de documento",
         "noAvailableTags": "No hay tipos de documento disponibles",
         "allTagsUsed": "Todos los tipos de documento han sido creados. Solo puedes tener uno de cada tipo.",
-        "allTagsUsedTitle": "Todos los tipos de documento están en uso",
+        "allTagsUsedTitle": "Todos los tipos de documento ya están en uso",
         "allTagsUsedButton": "Todos los Tipos Creados",
         "markdownSupported": "Markdown soportado",
+        "pdfContent": "Contenido PDF",
+        "contentMd": "Contenido Markdown",
         "mdFile": "Archivo Markdown",
-        "chooseMd": "Seleccionar Archivo Markdown",
+        "chooseMd": "Elegir Archivo Markdown",
         "downloadCurrentPdf": "Descargar PDF",
         "downloadCurrentMd": "Descargar Markdown",
         "tagTypes": {
           "terms": "Términos y Condiciones de Uso",
           "cookies": "Política de Cookies",
-          "privacy": "Política de Privacidad", 
+          "privacy": "Política de Privacidad",
           "license": "Licencia"
         },
         "pdfVersion": "Versión PDF (Opcional)",
         "choosePdf": "Elegir PDF",
         "cancel": "Cancelar",
         "create": "Crear Término",
-        "update": "Actualizar Término"
+        "update": "Actualizar Término",
+        "noTagsLeft": "No quedan más tipos de documento",
+        "noFileEdit": "No se puede editar el archivo"
+      },
+      "actions": {
+        "viewPreview": "Ver Vista Previa",
+        "viewPdf": "Ver PDF"
+      },
+      "tabs": {
+        "form": "Formulario",
+        "preview": "Vista previa Markdown",
+        "pdf": "Vista previa PDF"
+      },
+      "labels": {
+        "name": "Nombre",
+        "content": "Contenido",
+        "version": "Versión",
+        "tag": "Tipo de Documento",
+        "created": "Creado",
+        "updated": "Actualizado"
+      },
+      "preview": {
+        "pdf": "Vista previa del PDF",
+        "markdown": "Vista previa del Markdown",
+        "noFileEdit": "No se puede editar el archivo",
+        "noPdf": "No hay PDF disponible para la vista previa"
       },
       "messages": {
         "createSuccess": "¡Documento de términos '{name}' creado exitosamente!",
@@ -748,7 +778,7 @@
           "contentRequired": "Por favor sube un archivo Markdown (.md) válido para el contenido.",
           "pdfRequired": "Por favor sube un archivo PDF válido para el documento.",
           "versionRequired": "La versión es requerida y debe tener 20 caracteres o menos.",
-          "tagDuplicate": "Ya existe un documento con este tipo de etiqueta. Por favor elige una etiqueta diferente o edita el documento existente.",
+          "tagUnique": "Ya existe un documento con este tipo de etiqueta. Por favor elige una etiqueta diferente o edita el documento existente.",
           "fileExtension": "El archivo de contenido debe ser un archivo .md y el contenido PDF debe ser un archivo .pdf.",
           "fileMissing": "Se deben proporcionar tanto un archivo markdown (.md) como un archivo PDF.",
           "tagRequired": "Por favor selecciona un tipo de documento."

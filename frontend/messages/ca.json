@@ -692,88 +692,118 @@
     },
     "terms": {
       "title": "Gestió de termes",
-      "searchPlaceholder": "Termes de cerca ...",
-      "addTerm": "Afegiu terme",
-      "editTerm": "Editar el termini",
+      "searchPlaceholder": "Cerca termes...",
+      "addTerm": "Afegeix terme",
+      "editTerm": "Edita terme",
       "createTerm": "Crea un nou terme",
-      "deleteSelected": "Suprimeix seleccionat",
-      "selectAll": "Seleccioneu tot",
+      "deleteSelected": "Elimina seleccionats",
+      "selectAll": "Selecciona tot",
       "noTerms": "No hi ha termes disponibles.",
-      "noTermsFound": "No es troben termes que coincideixin amb la vostra cerca.",
+      "noTermsFound": "No s'han trobat termes que coincideixin amb la cerca.",
       "pdfAvailable": "PDF disponible",
-      "downloadPdf": "Descarregueu PDF",
+      "mdAvailable": "Document md disponible",
+      "downloadPdf": "Descarrega PDF",
+      "edit": "Edita terme",
+      "delete": "Elimina terme",
       "form": {
         "name": "Nom",
-        "namePlaceholder": "Nom a termini",
+        "namePlaceholder": "Nom del terme",
         "content": "Contingut (Markdown)",
-        "contentPlaceholder": "Terminat contingut en format de marcatge",
+        "contentPlaceholder": "Contingut del terme en format markdown",
         "version": "Versió",
-        "versionPlaceholder": "p. ",
+        "versionPlaceholder": "ex: 1.0",
         "tag": "Tipus de document",
-        "tagPlaceholder": "Seleccioneu Tipus de document",
-        "selectTag": "Seleccioneu un tipus de document",
+        "tagPlaceholder": "Selecciona el tipus de document",
+        "selectTag": "Selecciona un tipus de document",
         "noAvailableTags": "No hi ha tipus de document disponibles",
-        "allTagsUsed": "S'han creat tots els tipus de documents. ",
-        "allTagsUsedTitle": "Tots els tipus de documents ja estan en ús",
+        "allTagsUsed": "Tots els tipus de document han estat creats. Només pots tenir un de cada tipus.",
+        "allTagsUsedTitle": "Tots els tipus de document ja estan en ús",
         "allTagsUsedButton": "Tots els tipus creats",
         "markdownSupported": "Markdown suportat",
+        "pdfContent": "Contingut PDF",
+        "contentMd": "Contingut Markdown",
         "mdFile": "Fitxer Markdown",
-        "chooseMd": "Seleccionar Fitxer Markdown",
-        "downloadCurrentPdf": "Descarregar PDF",
-        "downloadCurrentMd": "Descarregar Markdown",
+        "chooseMd": "Tria fitxer Markdown",
+        "downloadCurrentPdf": "Descarrega PDF",
+        "downloadCurrentMd": "Descarrega Markdown",
         "tagTypes": {
           "terms": "Termes i condicions d'ús",
-          "cookies": "Política de cookies",
+          "cookies": "Política de galetes",
           "privacy": "Política de privadesa",
-          "license": "Llicenciar"
+          "license": "Llicència"
         },
         "pdfVersion": "Versió PDF (opcional)",
-        "choosePdf": "Trieu PDF",
-        "cancel": "Cancellar",
+        "choosePdf": "Tria PDF",
+        "cancel": "Cancel·la",
         "create": "Crea terme",
-        "update": "Terme d'actualització"
+        "update": "Actualitza terme",
+        "noTagsLeft": "No queden més tipus de document",
+        "noFileEdit": "No es pot editar el fitxer"
+      },
+      "actions": {
+        "viewPreview": "Veure vista prèvia",
+        "viewPdf": "Veure PDF"
+      },
+      "tabs": {
+        "form": "Formulari",
+        "preview": "Vista prèvia Markdown",
+        "pdf": "Vista prèvia PDF"
+      },
+      "labels": {
+        "name": "Nom",
+        "content": "Contingut",
+        "version": "Versió",
+        "tag": "Tipus de document",
+        "created": "Creat",
+        "updated": "Actualitzat"
+      },
+      "preview": {
+        "pdf": "Vista prèvia del PDF",
+        "markdown": "Vista prèvia del Markdown",
+        "noFileEdit": "No es pot editar el fitxer",
+        "noPdf": "No hi ha PDF disponible per a la vista prèvia"
       },
       "messages": {
-        "createSuccess": "Termes document '{name}' creat amb èxit.",
-        "updateSuccess": "Termes Document '{name}' actualitzat correctament.",
-        "deleteSuccess": "Terme suprimit amb èxit",
-        "bulkDeleteSuccess": "Termes suprimits amb èxit",
-        "fetchError": "No s'ha pogut obtenir termes",
-        "createError": "No s'ha pogut crear terme",
-        "updateError": "No s'ha pogut actualitzar el terme",
-        "deleteError": "No s'ha pogut eliminar el terme",
-        "downloadError": "No s'ha pogut descarregar PDF",
-        "downloadSuccess": "PDF es va descarregar amb èxit",
-        "networkError": "No es pot desar el document de termes. ",
-        "selectToDelete": "Seleccioneu els termes per eliminar",
-        "fileSizeLimit": "La mida del fitxer ha de ser inferior a 10 MB",
-        "pdfFileOnly": "Seleccioneu un fitxer PDF",
+        "createSuccess": "Document de termes '{name}' creat amb èxit!",
+        "updateSuccess": "Document de termes '{name}' actualitzat amb èxit!",
+        "deleteSuccess": "Terme eliminat amb èxit",
+        "bulkDeleteSuccess": "Termes eliminats amb èxit",
+        "fetchError": "Error en obtenir termes",
+        "createError": "Error en crear terme",
+        "updateError": "Error en actualitzar terme",
+        "deleteError": "Error en eliminar terme",
+        "downloadError": "Error en descarregar PDF",
+        "downloadSuccess": "PDF descarregat amb èxit",
+        "networkError": "No s'ha pogut desar el document de termes. Si us plau, comprova la teva connexió i torna-ho a intentar.",
+        "selectToDelete": "Si us plau, selecciona termes per eliminar",
+        "fileSizeLimit": "La mida del fitxer ha de ser inferior a 10MB",
+        "pdfFileOnly": "Si us plau, selecciona un fitxer PDF",
         "validation": {
-          "nameRequired": "El nom del document és necessari i ha de tenir 127 caràcters o menys",
-          "contentRequired": "Pengeu un fitxer de MarkDown (.MD) vàlid per al contingut",
-          "pdfRequired": "Pengeu un fitxer PDF vàlid per al document",
-          "versionRequired": "La versió és necessària i ha de tenir 20 caràcters o menys",
-          "tagDuplicate": "Ja existeix un document amb aquest tipus d'etiqueta",
-          "fileExtension": "El fitxer de contingut ha de ser un fitxer .md i el contingut PDF ha de ser un fitxer .pdf",
-          "fileMissing": "Cal proporcionar un fitxer MarkDown (.MD) i un fitxer PDF",
-          "tagRequired": "El tipus de document és necessari"
+          "nameRequired": "El nom del document és obligatori i ha de tenir 127 caràcters o menys.",
+          "contentRequired": "Si us plau, puja un fitxer Markdown (.md) vàlid per al contingut.",
+          "pdfRequired": "Si us plau, puja un fitxer PDF vàlid per al document.",
+          "versionRequired": "La versió és obligatòria i ha de tenir 20 caràcters o menys.",
+          "tagUnique": "Ja existeix un document amb aquest tipus d'etiqueta. Si us plau, tria una etiqueta diferent o edita el document existent.",
+          "fileExtension": "El fitxer de contingut ha de ser un fitxer .md i el contingut PDF ha de ser un fitxer .pdf.",
+          "fileMissing": "S'han de proporcionar tant un fitxer markdown (.md) com un fitxer PDF.",
+          "tagRequired": "Si us plau, selecciona un tipus de document."
         },
         "upload": {
-          "error": "La càrrega del fitxer ha fallat. "
+          "error": "Error en la càrrega del fitxer. Si us plau, assegura't que els teus fitxers siguin vàlids i torna-ho a intentar."
         },
         "version": {
-          "updateWarning": "IMPORTANT: Actualitzar aquest document de termes crearà una versió nova. "
+          "updateWarning": "Important: Actualitzar aquest document de termes crearà una nova versió. Els usuaris poden necessitar tornar a acceptar els termes actualitzats."
         }
       },
       "confirmDelete": {
-        "title": "Confirmeu la supressió",
-        "single": "Esteu segur que voleu suprimir \"{name}\"? ",
-        "multiple": "Esteu segur que voleu suprimir els termes seleccionats {count}? ",
-        "delete": "Esborrar",
-        "cancel": "Cancellar"
+        "title": "Confirma l'eliminació",
+        "single": "Estàs segur que vols eliminar \"{name}\"? Aquesta acció no es pot desfer.",
+        "multiple": "Estàs segur que vols eliminar els {count} termes seleccionats? Aquesta acció no es pot desfer.",
+        "delete": "Elimina",
+        "cancel": "Cancel·la"
       },
       "details": {
-        "created": "Creada",
+        "created": "Creat",
         "updated": "Actualitzat"
       }
     }

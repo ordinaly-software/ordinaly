@@ -702,80 +702,110 @@
       "noTerms": "No terms available.",
       "noTermsFound": "No terms found matching your search.",
       "pdfAvailable": "PDF Available",
+      "mdAvailable": "Markdown Document Available",
       "downloadPdf": "Download PDF",
+      "edit": "Edit Term",
+      "delete": "Delete Term",
       "form": {
-        "name": "Name",
-        "namePlaceholder": "Term name",
-        "content": "Content (Markdown)",
-        "contentPlaceholder": "Term content in markdown format",
-        "version": "Version",
-        "versionPlaceholder": "e.g. 1.0",
-        "tag": "Document Type",
-        "tagPlaceholder": "Select document type",
-        "selectTag": "Select a document type",
-        "noAvailableTags": "No document types available",
-        "allTagsUsed": "All document types have been created. You can only have one of each type.",
-        "allTagsUsedTitle": "All document types are already in use",
-        "allTagsUsedButton": "All Types Created",
-        "markdownSupported": "Markdown supported",
-        "mdFile": "Markdown File",
-        "chooseMd": "Choose Markdown File",
-        "downloadCurrentPdf": "Download PDF",
-        "downloadCurrentMd": "Download Markdown",
-        "tagTypes": {
-          "terms": "Terms and Conditions of Use",
-          "cookies": "Cookie Policy", 
-          "privacy": "Privacy Policy",
-          "license": "License"
-        },
-        "pdfVersion": "PDF Version (Optional)",
-        "choosePdf": "Choose PDF",
-        "cancel": "Cancel",
-        "create": "Create Term",
-        "update": "Update Term"
+      "name": "Name",
+      "namePlaceholder": "Term name",
+      "content": "Content (Markdown)",
+      "contentPlaceholder": "Term content in markdown format",
+      "version": "Version",
+      "versionPlaceholder": "e.g., 1.0",
+      "tag": "Document Type",
+      "tagPlaceholder": "Select document type",
+      "selectTag": "Select a document type",
+      "noAvailableTags": "No document types available",
+      "allTagsUsed": "All document types have been created. You can only have one of each type.",
+      "allTagsUsedTitle": "All document types are already in use",
+      "allTagsUsedButton": "All Types Created",
+      "markdownSupported": "Markdown supported",
+      "pdfContent": "PDF Content",
+      "contentMd": "Markdown Content",
+      "mdFile": "Markdown File",
+      "chooseMd": "Choose Markdown File",
+      "downloadCurrentPdf": "Download PDF",
+      "downloadCurrentMd": "Download Markdown",
+      "tagTypes": {
+        "terms": "Terms and Conditions of Use",
+        "cookies": "Cookie Policy",
+        "privacy": "Privacy Policy",
+        "license": "License"
+      },
+      "pdfVersion": "PDF Version (Optional)",
+      "choosePdf": "Choose PDF",
+      "cancel": "Cancel",
+      "create": "Create Term",
+      "update": "Update Term",
+      "noTagsLeft": "No more document types left",
+      "noFileEdit": "Cannot edit the file"
+      },
+      "actions": {
+      "viewPreview": "View Preview",
+      "viewPdf": "View PDF"
+      },
+      "tabs": {
+      "form": "Form",
+      "preview": "Markdown Preview",
+      "pdf": "PDF Preview"
+      },
+      "labels": {
+      "name": "Name",
+      "content": "Content",
+      "version": "Version",
+      "tag": "Document Type",
+      "created": "Created",
+      "updated": "Updated"
+      },
+      "preview": {
+      "pdf": "PDF Preview",
+      "markdown": "Markdown Preview",
+      "noFileEdit": "Cannot edit the file",
+      "noPdf": "No PDF available for preview"
       },
       "messages": {
-        "createSuccess": "Terms document '{name}' created successfully!",
-        "updateSuccess": "Terms document '{name}' updated successfully!",
-        "deleteSuccess": "Term deleted successfully",
-        "bulkDeleteSuccess": "terms deleted successfully",
-        "fetchError": "Failed to fetch terms",
-        "createError": "Failed to create term",
-        "updateError": "Failed to update term",
-        "deleteError": "Failed to delete term",
-        "downloadError": "Failed to download PDF",
-        "downloadSuccess": "PDF downloaded successfully",
-        "networkError": "Unable to save terms document. Please check your connection and try again.",
-        "selectToDelete": "Please select terms to delete",
-        "fileSizeLimit": "File size must be less than 10MB",
-        "pdfFileOnly": "Please select a PDF file",
-        "validation": {
-          "nameRequired": "Document name is required and must be 127 characters or less.",
-          "contentRequired": "Please upload a valid Markdown (.md) file for the content.",
-          "pdfRequired": "Please upload a valid PDF file for the document.",
-          "versionRequired": "Version is required and must be 20 characters or less.",
-          "tagDuplicate": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
-          "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
-          "fileMissing": "Both a markdown (.md) file and a PDF file must be provided.",
-          "tagRequired": "Please select a document type."
-        },
-        "upload": {
-          "error": "File upload failed. Please ensure your files are valid and try again."
-        },
-        "version": {
-          "updateWarning": "Important: Updating this terms document will create a new version. Users may need to re-accept the updated terms."
-        }
+      "createSuccess": "Terms document '{name}' created successfully!",
+      "updateSuccess": "Terms document '{name}' updated successfully!",
+      "deleteSuccess": "Term deleted successfully",
+      "bulkDeleteSuccess": "terms deleted successfully",
+      "fetchError": "Error fetching terms",
+      "createError": "Error creating term",
+      "updateError": "Error updating term",
+      "deleteError": "Error deleting term",
+      "downloadError": "Error downloading PDF",
+      "downloadSuccess": "PDF downloaded successfully",
+      "networkError": "Unable to save terms document. Please check your connection and try again.",
+      "selectToDelete": "Please select terms to delete",
+      "fileSizeLimit": "File size must be less than 10MB",
+      "pdfFileOnly": "Please select a PDF file",
+      "validation": {
+        "nameRequired": "Document name is required and must be 127 characters or less.",
+        "contentRequired": "Please upload a valid Markdown (.md) file for the content.",
+        "pdfRequired": "Please upload a valid PDF file for the document.",
+        "versionRequired": "Version is required and must be 20 characters or less.",
+        "tagUnique": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
+        "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
+        "fileMissing": "Both a markdown (.md) file and a PDF file must be provided.",
+        "tagRequired": "Please select a document type."
+      },
+      "upload": {
+        "error": "File upload error. Please make sure your files are valid and try again."
+      },
+      "version": {
+        "updateWarning": "Important: Updating this terms document will create a new version. Users may need to re-accept the updated terms."
+      }
       },
       "confirmDelete": {
-        "title": "Confirm Deletion",
-        "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
-        "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
-        "delete": "Delete",
-        "cancel": "Cancel"
+      "title": "Confirm Deletion",
+      "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+      "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
+      "delete": "Delete",
+      "cancel": "Cancel"
       },
       "details": {
-        "created": "Created",
-        "updated": "Updated"
+      "created": "Created",
+      "updated": "Updated"
       }
     }
   },

@@ -699,43 +699,73 @@
       "deleteSelected": "Eliminar seleccionados",
       "selectAll": "Seleccionar todo",
       "noTerms": "Non hai termos dispoñibles.",
-      "noTermsFound": "Non se atoparon termos que coincidan ca túa busca.",
+      "noTermsFound": "Non se atoparon termos que coincidan coa túa busca.",
       "pdfAvailable": "PDF dispoñible",
+      "mdAvailable": "Document md dispoñible",
       "downloadPdf": "Descargar PDF",
+      "edit": "Editar termo",
+      "delete": "Eliminar termo",
       "form": {
         "name": "Nome",
-        "namePlaceholder": "Termo",
+        "namePlaceholder": "Nome do termo",
         "content": "Contido (Markdown)",
         "contentPlaceholder": "Contido do termo en formato markdown",
         "version": "Versión",
-        "versionPlaceholder": "ex. 1.0",
+        "versionPlaceholder": "ex: 1.0",
         "tag": "Tipo de documento",
-        "tagPlaceholder": "Seleccionar Tipo de Documento",
-        "selectTag": "Seleccionar tipo de documento",
+        "tagPlaceholder": "Selecciona o tipo de documento",
+        "selectTag": "Selecciona un tipo de documento",
         "noAvailableTags": "Non hai tipos de documento dispoñibles",
-        "allTagsUsed": "Todos os tipos de documento foron creados.",
+        "allTagsUsed": "Todos os tipos de documento foron creados. Só podes ter un de cada tipo.",
         "allTagsUsedTitle": "Todos os tipos de documento xa están en uso",
         "allTagsUsedButton": "Todos os tipos creados",
         "markdownSupported": "Markdown soportado",
+        "pdfContent": "Contido PDF",
+        "contentMd": "Contido Markdown",
         "mdFile": "Arquivo Markdown",
+        "chooseMd": "Escoller arquivo Markdown",
         "downloadCurrentPdf": "Descargar PDF",
         "downloadCurrentMd": "Descargar Markdown",
-        "chooseMd": "Seleccionar Arquivo Markdown",
         "tagTypes": {
           "terms": "Termos e Condicións de Uso",
           "cookies": "Política de Cookies",
           "privacy": "Política de Privacidade",
-          "license": "Licencia"
+          "license": "Licenza"
         },
-        "pdfVersion": "Versión PDF (Opcional)",
-        "choosePdf": "Seleccionar PDF",
+        "pdfVersion": "Versión PDF (opcional)",
+        "choosePdf": "Escoller PDF",
         "cancel": "Cancelar",
         "create": "Crear termo",
-        "update": "Actualizar termo"
+        "update": "Actualizar termo",
+        "noTagsLeft": "Non quedan máis tipos de documento",
+        "noFileEdit": "Non se pode editar o arquivo"
+      },
+      "actions": {
+        "viewPreview": "Ver vista previa",
+        "viewPdf": "Ver PDF"
+      },
+      "tabs": {
+        "form": "Formulario",
+        "preview": "Vista previa Markdown",
+        "pdf": "Vista previa PDF"
+      },
+      "labels": {
+        "name": "Nome",
+        "content": "Contido",
+        "version": "Versión",
+        "tag": "Tipo de documento",
+        "created": "Creado",
+        "updated": "Actualizado"
+      },
+      "preview": {
+        "pdf": "Vista previa do PDF",
+        "markdown": "Vista previa do Markdown",
+        "noFileEdit": "Non se pode editar o arquivo",
+        "noPdf": "Non se pode editar o PDF"
       },
       "messages": {
-        "createSuccess": "Termo de documento '{name}' creado con éxito!",
-        "updateSuccess": "Termo de documento '{name}' actualizado con éxito!",
+        "createSuccess": "Documento de termos '{name}' creado con éxito!",
+        "updateSuccess": "Documento de termos '{name}' actualizado con éxito!",
         "deleteSuccess": "Termo eliminado con éxito",
         "bulkDeleteSuccess": "Termos eliminados con éxito",
         "fetchError": "Erro ao obter termos",
@@ -744,7 +774,7 @@
         "deleteError": "Erro ao eliminar termo",
         "downloadError": "Erro ao descargar PDF",
         "downloadSuccess": "PDF descargado con éxito",
-        "networkError": "Non se puido gardar o documento de termos.",
+        "networkError": "Non se puido gardar o documento de termos. Por favor, verifica a túa conexión e intenta de novo.",
         "selectToDelete": "Por favor, selecciona termos para eliminar",
         "fileSizeLimit": "O tamaño do arquivo debe ser menor de 10MB",
         "pdfFileOnly": "Por favor, selecciona un arquivo PDF",
@@ -753,22 +783,22 @@
           "contentRequired": "Por favor, sube un arquivo Markdown (.md) válido para o contido.",
           "pdfRequired": "Por favor, sube un arquivo PDF válido para o documento.",
           "versionRequired": "A versión é obrigatoria e debe ter 20 caracteres ou menos.",
-          "tagDuplicate": "Xa existe un documento con este tipo de etiqueta.",
+          "tagUnique": "Xa existe un documento con este tipo de etiqueta. Por favor, escolle unha etiqueta diferente ou edita o documento existente.",
           "fileExtension": "O arquivo de contido debe ser un arquivo .md e o contido PDF debe ser un arquivo .pdf.",
-          "fileMissing": "Debe proporcionarse tanto un arquivo de marcado (.md) como un arquivo PDF.",
+          "fileMissing": "Deben proporcionarse tanto un arquivo markdown (.md) como un arquivo PDF.",
           "tagRequired": "Por favor, selecciona un tipo de documento."
-        },
-        "upload": {
-          "error": "Erro ao subir arquivo."
-        },
-        "version": {
-          "updateWarning": "Importante: Actualizar estes termos creará unha nova versión."
         }
+      },
+      "upload": {
+        "error": "Erro ao cargar o arquivo. Por favor, asegúrate de que os teus arquivos sexan válidos e intenta de novo."
+      },
+      "version": {
+        "updateWarning": "Importante: Actualizar este documento de termos creará unha nova versión. Os usuarios poden necesitar re-aceptar os termos actualizados."
       },
       "confirmDelete": {
         "title": "Confirmar eliminación",
-        "single": "¿Estás seguro de que queres eliminar \"{name}\"?",
-        "multiple": "¿Estás seguro de que queres eliminar {count} termos seleccionados?",
+        "single": "¿Estás seguro de que queres eliminar \"{name}\"? Esta acción non se pode desfacer.",
+        "multiple": "¿Estás seguro de que queres eliminar {count} termos seleccionados? Esta acción non se pode desfacer.",
         "delete": "Eliminar",
         "cancel": "Cancelar"
       },

@@ -307,10 +307,10 @@ class Command(BaseCommand):
 
         # Map of tag to (name, version)
         term_files = [
-            ('terms', 'Terms and Conditions of Use v1.0', '1.0'),
-            ('privacy', 'Privacy Policy v1.0', '1.0'),
-            ('cookies', 'Cookie Policy v1.0', '1.0'),
-            ('license', 'Software License Agreement v1.0', '1.0'),
+            ('terms', 'Términos y Condiciones de Uso v1.0', '1.0'),
+            ('privacy', 'Política de Privacidad v1.0', '1.0'),
+            ('cookies', 'Política de Cookies v1.0', '1.0'),
+            ('license', 'Acuerdo de Licencia de Software v1.0', '1.0'),
         ]
         terms = []
         for tag, name, version in term_files:
