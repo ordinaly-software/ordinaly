@@ -159,7 +159,7 @@ export default function SignupPage() {
         if (data.non_field_errors) setAlert({type: 'error', message: data.non_field_errors[0]});
         if (data.detail) setAlert({type: 'error', message: data.detail});
       }
-    } catch (err) {
+    } catch {
       setAlert({type: 'error', message: t("messages.networkError")});
     } finally {
       setIsLoading(false);

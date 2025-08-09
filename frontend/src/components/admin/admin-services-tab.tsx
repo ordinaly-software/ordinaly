@@ -23,7 +23,6 @@ import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-mod
 import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { servicesEvents } from "@/lib/events";
 import { Service, useServices } from "@/hooks/useServices";
-import { truncateHtmlText } from "@/utils/text";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -237,7 +236,7 @@ const AdminServicesTab = () => {
           setAlert({type: 'error', message: errorData.detail || t(isEdit ? 'messages.updateError' : 'messages.createError')});
         }
       }
-    } catch (error) {
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
@@ -293,7 +292,7 @@ const AdminServicesTab = () => {
 
       refetch();
       setShowDeleteModal(false);
-    } catch (error) {
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);

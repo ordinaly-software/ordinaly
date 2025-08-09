@@ -18,7 +18,7 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
 
   useEffect(() => {
     if (isOpen && videoRef.current) {
-      videoRef.current.play().catch((error) => {
+      videoRef.current.play().catch(() => {
         // Video autoplay failed - user interaction required
       });
     } else if (!isOpen && videoRef.current) {

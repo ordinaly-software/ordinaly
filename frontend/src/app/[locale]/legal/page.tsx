@@ -10,7 +10,6 @@ import {
   Download, 
   Calendar,
   Tag,
-  User,
   ExternalLink
 } from "lucide-react";
 import Link from "next/link";
@@ -52,7 +51,7 @@ const LegalPage = () => {
   const fetchDocuments = useCallback(async () => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-  const response = await fetch(`${apiUrl}/api/terms/`, {
+      const response = await fetch(`${apiUrl}/api/terms/`, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -64,8 +63,7 @@ const LegalPage = () => {
       } else {
         setAlert({type: 'error', message: t('messages.fetchError')});
       }
-    } catch (error) {
-      
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsLoading(false);

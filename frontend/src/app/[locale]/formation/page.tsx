@@ -104,16 +104,13 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   const fetchCourses = useCallback(async () => {
     try {
       const response = await fetch(getApiEndpoint('/api/courses/courses/'));
-      
       if (response.ok) {
         const data = await response.json();
         setCourses(data);
       } else {
-        
         setAlert({type: 'error', message: t('alerts.failedToLoadCourses')});
       }
-    } catch (err) {
-      
+    } catch {
       setAlert({type: 'error', message: t('alerts.networkErrorLoadingCourses')});
     } finally {
       setIsLoading(false);
@@ -195,13 +192,12 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
           'Authorization': `Token ${token}`,
         },
       });
-      
       if (response.ok) {
         const data = await response.json();
         setEnrollments(data);
       }
-    } catch (err) {
-      
+    } catch {
+      // ignore
     }
   };
 
@@ -221,7 +217,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
 
     try {
       const token = localStorage.getItem('authToken');
-      
       const response = await fetch(getApiEndpoint(`/api/courses/courses/${selectedCourse.id}/enroll/`), {
         method: 'POST',
         headers: {
@@ -229,7 +224,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
           'Authorization': `Token ${token}`,
         },
       });
-
       if (response.ok) {
         setAlert({type: 'success', message: t('alerts.enrollmentSuccess', { courseTitle: selectedCourse.title })});
         setShowEnrollModal(false);
@@ -239,8 +233,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         await response.json(); // Consume response to prevent memory leaks
         setAlert({type: 'error', message: t('alerts.enrollmentFailed')});
       }
-    } catch (err) {
-      
+    } catch {
       setAlert({type: 'error', message: t('alerts.networkError')});
     }
   };
@@ -262,7 +255,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         setAlert({type: 'error', message: t('alerts.signInRequired')});
         return;
       }
-
       const response = await fetch(getApiEndpoint(`/api/courses/courses/${courseToCancel.id}/unenroll/`), {
         method: 'POST',
         headers: {
@@ -270,16 +262,13 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
           'Content-Type': 'application/json',
         },
       });
-
       if (response.ok) {
         setAlert({type: 'success', message: t('alerts.enrollmentCancelled')});
         setShowCancelModal(false);
         setCourseToCancel(null);
         fetchEnrollments(); // Refresh enrollments
       } else {
-        const errorData = await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
-        
-        
+        await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
         if (response.status === 400) {
           setAlert({type: 'warning', message: t('alerts.notEnrolled')});
         } else if (response.status === 401) {
@@ -288,8 +277,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
           setAlert({type: 'error', message: t('alerts.cancelEnrollmentFailed')});
         }
       }
-    } catch (err) {
-      
+    } catch {
       setAlert({type: 'error', message: t('alerts.networkError')});
     }
   };
@@ -336,8 +324,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
       setAlert({type: 'info', message: t('alerts.generatingCatalog')});
       await generateCoursesCatalogPDF(courses, locale, t);
       setAlert({type: 'success', message: t('alerts.catalogDownloaded')});
-    } catch (error) {
-      
+    } catch {
       setAlert({type: 'error', message: t('alerts.catalogError')});
     }
   };

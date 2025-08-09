@@ -103,7 +103,7 @@ export default function LoginPage() {
       } else {
         setAlert({type: 'error', message: t('messages.invalidCredentials')});
       }
-    } catch (err) {
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsLoading(false);

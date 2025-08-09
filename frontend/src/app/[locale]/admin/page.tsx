@@ -93,7 +93,7 @@ export default function AdminPage() {
           setAlert({type: 'error', message: 'Failed to verify admin status. Please try signing in again.'});
           setTimeout(() => router.push('/auth/signin'), 3000);
         }
-      } catch (error) {
+      } catch {
         setAlert({type: 'error', message: 'Authentication error. Please sign in again.'});
         setTimeout(() => router.push('/auth/signin'), 3000);
       } finally {
@@ -132,7 +132,7 @@ export default function AdminPage() {
           totalUsers: users.length || 0,
           totalTerms: terms.length || 0
         });
-      } catch (error) {
+      } catch {
         setStats({
           totalServices: 0,
           totalCourses: 0,

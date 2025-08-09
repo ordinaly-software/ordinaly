@@ -4,7 +4,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, MapPin, Users, Calendar, Euro, ArrowRight, BookOpen, Eye } from "lucide-react";
+import { Clock, MapPin, Calendar, Euro, ArrowRight, BookOpen, Eye } from "lucide-react";
 import { useCourses } from "@/hooks/useCourses";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -44,7 +44,6 @@ export default function CoursesShowcase({
   limit = 3, 
   showUpcomingOnly = true,
   onCourseClick,
-  onViewAllClick 
 }: CoursesShowcaseProps) {
   const t = useTranslations("home.courses");
   const router = useRouter();
@@ -83,7 +82,8 @@ export default function CoursesShowcase({
             );
             setUserEnrollments(enrolledCourseIds);
           }
-        } catch (error) {
+        } catch {
+          
         }
       }
     };
@@ -131,13 +131,6 @@ export default function CoursesShowcase({
     } catch {
       return t('noSpecificDate');
     }
-  };
-
-  const getAvailabilityColor = (enrolled: number, max: number) => {
-    const percentage = (enrolled / max) * 100;
-    if (percentage >= 90) return 'text-red dark:text-red';
-    if (percentage >= 70) return 'text-orange-600 dark:text-orange-400';
-    return 'text-green-600 dark:text-green-400';
   };
 
   const getAvailabilityBadge = (course: Course) => {
@@ -273,7 +266,6 @@ export default function CoursesShowcase({
           <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {courses.map((course) => {
               const availabilityBadge = getAvailabilityBadge(course);
-              const spotsLeft = course.max_attendants - course.enrolled_count;
               const isUserEnrolled = userEnrollments.has(course.id);
               
               return (

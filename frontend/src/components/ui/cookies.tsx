@@ -30,7 +30,7 @@ const CookieConsent = () => {
     let hasConsented = null;
     try {
       hasConsented = localStorage.getItem('cookie-consent');
-    } catch (error) {
+    } catch {
       // localStorage not available - handle silently
     }
     if (!hasConsented && !showBubble) {

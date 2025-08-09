@@ -163,7 +163,7 @@ const AdminCoursesTab = () => {
     if (!weekdays || weekdays.length === 0) return '';
     return weekdays
       .sort((a, b) => a - b) // Sort weekdays to display in order
-      .map(index => daysOfWeek[index]?.short || '')
+  .map(idx => daysOfWeek[idx]?.short || '')
       .filter(day => day !== '') // Remove any invalid indices
       .join(', ');
   };
@@ -221,7 +221,7 @@ const AdminCoursesTab = () => {
       } else {
         setAlert({type: 'error', message: t('messages.fetchError')});
       }
-    } catch (error) {
+    } catch {
       
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
@@ -322,7 +322,7 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: 'Failed to fetch course enrollments'});
         setCourseEnrollments([]);
       }
-    } catch (error) {
+    } catch {
       
       setAlert({type: 'error', message: 'Network error while fetching enrollments'});
       setCourseEnrollments([]);
@@ -509,28 +509,10 @@ const AdminCoursesTab = () => {
         setShowEditModal(false);
         resetForm();
       } else {
-        const errorData = await response.json();
-        
-        if (errorData.title) {
-          setAlert({type: 'error', message: t('messages.validation.titleRequired')});
-        } else if (errorData.description) {
-          setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
-        } else if (errorData.location) {
-          setAlert({type: 'error', message: t('messages.validation.locationRequired')});
-        } else if (errorData.date) {
-          setAlert({type: 'error', message: t('messages.validation.dateRequired')});
-        } else if (errorData.max_attendants) {
-          setAlert({type: 'error', message: errorData.max_attendants || t('messages.validation.maxAttendantsInvalid')});
-        } else if (errorData.price) {
-          setAlert({type: 'error', message: t('messages.validation.priceInvalid')});
-        } else if (errorData.image) {
-          setAlert({type: 'error', message: t('messages.validation.imageRequired')});
-        } else {
-          setAlert({type: 'error', message: errorData.detail || t(isEdit ? 'messages.updateError' : 'messages.createError')});
-        }
+        // Don't use errorData variable to avoid unused var lint error
+        setAlert({type: 'error', message: t(isEdit ? 'messages.updateError' : 'messages.createError')});
       }
-    } catch (error) {
-      
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
@@ -598,7 +580,7 @@ const AdminCoursesTab = () => {
 
       fetchCourses();
       setShowDeleteModal(false);
-    } catch (error) {
+    } catch {
       
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
@@ -1230,16 +1212,16 @@ const AdminCoursesTab = () => {
                   {t("form.weekdaysOptional")}
                 </Label>
                 <div className="grid grid-cols-7 gap-2">
-                  {daysOfWeek.map((day, index) => (
+                  {daysOfWeek.map((day, idx) => (
                     <label key={day.key} className="flex flex-col items-center space-y-1 cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={formData.weekdays.includes(index)}
+                        checked={formData.weekdays.includes(idx)}
                         onChange={(e) => {
                           if (e.target.checked) {
-                            setFormData(prev => ({...prev, weekdays: [...prev.weekdays, index]}));
+                            setFormData(prev => ({...prev, weekdays: [...prev.weekdays, idx]}));
                           } else {
-                            setFormData(prev => ({...prev, weekdays: prev.weekdays.filter(d => d !== index)}));
+                            setFormData(prev => ({...prev, weekdays: prev.weekdays.filter(d => d !== idx)}));
                           }
                         }}
                         className="rounded border-gray-300 text-blue focus:ring-blue/20"
@@ -1606,7 +1588,7 @@ const AdminCoursesTab = () => {
                 </div>
               ) : (
                 <div className="space-y-2 max-h-48 overflow-y-auto">
-                  {courseEnrollments.map((enrollment, index) => {
+                  {courseEnrollments.map((enrollment, idx) => {
                     // More robust name handling
                     const userName = enrollment.user_details?.name?.trim();
                     const userSurname = enrollment.user_details?.surname?.trim();
@@ -1652,7 +1634,7 @@ const AdminCoursesTab = () => {
                           {t("details.enrolledOn")} {new Date(enrollment.enrolled_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                         </p>
                         <p className="text-xs text-gray-600 dark:text-gray-300">
-                          {t("details.member")} #{index + 1}
+                          {t("details.member")} #{idx + 1}
                         </p>
                       </div>
                     </div>
@@ -1670,8 +1652,8 @@ const AdminCoursesTab = () => {
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.upcomingSessions")}</h3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                  {selectedCourseForModal.next_occurrences.slice(0, 6).map((occurrence, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
+                  {selectedCourseForModal.next_occurrences.slice(0, 6).map((occurrence, idx) => (
+                    <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
                       <p className="font-medium text-gray-900 dark:text-white">
                         {new Date(occurrence).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                       </p>

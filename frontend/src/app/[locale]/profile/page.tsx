@@ -84,7 +84,6 @@ export default function ProfilePage() {
   // Check if current form values match the original profile data
   useEffect(() => {
     if (!profile) return;
-    
     const originalFirstName = profile.first_name || profile.name || '';
     const originalLastName = profile.last_name || profile.surname || '';
     const originalUsername = profile.username || '';
@@ -92,7 +91,6 @@ export default function ProfilePage() {
     const originalCompany = profile.company || '';
     const originalRegion = profile.region || '';
     const originalCity = profile.city || '';
-    
     const hasAnyChanges = 
       firstName !== originalFirstName ||
       lastName !== originalLastName ||
@@ -101,7 +99,6 @@ export default function ProfilePage() {
       company !== originalCompany ||
       region !== originalRegion ||
       city !== originalCity;
-    
     setHasChanges(hasAnyChanges);
   }, [profile, firstName, lastName, username, email, company, region, city]);
 
@@ -136,8 +133,7 @@ export default function ProfilePage() {
       } else {
         setAlert({ type: 'error', message: t("messages.networkError") });
       }
-    } catch (error) {
-      
+    } catch {
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsLoading(false);
@@ -257,8 +253,7 @@ export default function ProfilePage() {
           }, 2000);
         }
       }
-    } catch (error) {
-      
+    } catch {
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsSaving(false);
@@ -326,8 +321,7 @@ export default function ProfilePage() {
           setAlert({ type: 'error', message: data.detail || t("messages.deleteError") });
         }
       }
-    } catch (err) {
-      
+    } catch {
       setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsDeleting(false);

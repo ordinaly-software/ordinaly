@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import { useTranslations } from "next-intl";
 import { Users, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,7 +15,7 @@ const AdminUsersTab = () => {
   const t = useTranslations("admin.users");
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
   const handleSelectUser = (id: number) => {
     setSelectedUsers((prev) =>
@@ -42,7 +41,7 @@ const AdminUsersTab = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       setIsLoading(true);
-      setError(null);
+      setErrorMsg(null);
       try {
         const token = localStorage.getItem("authToken");
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://ordinaly.duckdns.org";
@@ -53,10 +52,10 @@ const AdminUsersTab = () => {
           const data = await response.json();
           setUsers(Array.isArray(data) ? data : []);
         } else {
-          setError(t("errorFetching"));
+          setErrorMsg(t("errorFetching"));
         }
-      } catch (e) {
-        setError(t("errorFetching"));
+      } catch {
+        setErrorMsg(t("errorFetching"));
       } finally {
         setIsLoading(false);
       }
@@ -72,8 +71,8 @@ const AdminUsersTab = () => {
     );
   }
 
-  if (error) {
-    return <div className="text-center text-red-500 py-8">{error}</div>;
+  if (errorMsg) {
+    return <div className="text-center text-red-500 py-8">{errorMsg}</div>;
   }
 
   return (
@@ -118,8 +117,8 @@ const AdminUsersTab = () => {
             </tr>
           </thead>
           <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
-            {users.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+        {users.map((user) => (
+          <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 <td className="px-4 py-4">
                   <input
                     type="checkbox"

@@ -118,8 +118,8 @@ export const generateCoursesCatalogPDF = async (
         reader.onerror = reject;
         reader.readAsDataURL(blob);
       });
-    } catch (error) {
-      throw error;
+    } catch {
+      throw new Error('Failed to load image as base64');
     }
   };
 
@@ -152,7 +152,7 @@ export const generateCoursesCatalogPDF = async (
       pdf.line(margin, currentY + 35, margin + 140, currentY + 35);
       
       currentY += 45;
-    } catch (error) {
+    } catch {
       // Fallback to text-only logo
       pdf.setFontSize(28);
       pdf.setTextColor('#22A60D');
@@ -293,13 +293,13 @@ export const generateCoursesCatalogPDF = async (
 
       // Date and time (show fallback if missing)
       const dateLabel = getText('pdf.date', 'Fecha:', 'Date:');
-      let dateText = course.start_date && course.start_date !== "0000-00-00"
+      const dateText = course.start_date && course.start_date !== "0000-00-00"
         ? formatDate(course.start_date)
         : getText('pdf.noSpecificDate', 'Por confirmar', 'TBA');
       pdf.text(`${dateLabel} ${dateText}`, margin + 5, detailsY);
 
       const timeLabel = getText('pdf.time', 'Horario:', 'Time:');
-      let timeText = (course.start_time && course.end_time)
+      const timeText = (course.start_time && course.end_time)
         ? `${formatTime(course.start_time)} - ${formatTime(course.end_time)}`
         : getText('pdf.noSpecificTime', 'Por confirmar', 'TBA');
       pdf.text(`${timeLabel} ${timeText}`, margin + 5, detailsY + 8);

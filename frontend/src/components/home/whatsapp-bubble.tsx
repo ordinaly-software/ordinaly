@@ -18,7 +18,7 @@ const WhatsAppBubble = () => {
       let hasConsented = null;
       try {
         hasConsented = localStorage.getItem('cookie-consent');
-      } catch (error) {
+      } catch {
         // localStorage not available - handle silently
       }
       setHasCookieConsent(!!hasConsented);
@@ -132,8 +132,8 @@ const WhatsAppBubble = () => {
                       t('help3'),
                       t('help4'),
                       t('help5')
-                    ].map((item, index) => (
-                      <li key={index} className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    ].map((item, idx) => (
+                      <li key={idx} className="flex items-center space-x-2 text-sm text-muted-foreground">
                         <div className="w-1.5 h-1.5 bg-[#22A60D] rounded-full flex-shrink-0"></div>
                         <span>{item}</span>
                       </li>

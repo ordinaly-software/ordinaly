@@ -255,8 +255,8 @@ const CourseDetailsModal = ({
                   </h2>
                   <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
                     <div className="space-y-2">
-                      {course.next_occurrences.slice(0, 5).map((occurrence, index) => (
-                        <div key={index} className="flex items-center gap-2 text-sm">
+                      {course.next_occurrences.slice(0, 5).map((occurrence, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm">
                           <Calendar className="w-4 h-4 text-blue" />
                           <span className="text-gray-700 dark:text-gray-300">{formatDate(occurrence)}</span>
                         </div>

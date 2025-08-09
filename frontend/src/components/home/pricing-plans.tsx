@@ -29,8 +29,8 @@ const PlanCard: React.FC<PlanProps> = ({ id, title, imageSrc, features, bubbleCo
       </div>
       <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{title}</h3>
       <ul className="text-gray-700 dark:text-gray-200 space-y-3 text-left w-full">
-        {features.map((feature, index) => (
-          <li key={index} className="flex items-center">
+        {features.map((feature, idx) => (
+          <li key={idx} className="flex items-center">
             <svg className={`w-5 h-5 ${bubbleColor.replace('bg-', 'text-')} mr-2`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
             </svg>
@@ -86,8 +86,8 @@ const PricingPlans: React.FC = () => {
     <section id="pricing" className="py-20 bg-gray-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-3 gap-8">
-          {plans.map((plan, index) => (
-            <PlanCard key={index} {...plan} />
+          {plans.map((plan) => (
+            <PlanCard key={plan.id} {...plan} />
           ))}
         </div>
       </div>

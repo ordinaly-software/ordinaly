@@ -155,7 +155,7 @@ const Navbar = () => {
         const data = await response.json();
         setUserData(data);
       }
-    } catch (error) {
+    } catch {
     }
   };
 
@@ -215,7 +215,7 @@ const Navbar = () => {
           // Ignore errors, we'll remove the token anyway
         });
       }
-    } catch (err) {
+    } catch {
       // Ignore errors, we'll remove the token anyway
     }
 

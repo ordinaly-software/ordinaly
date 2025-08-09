@@ -19,10 +19,6 @@ interface GoogleSignInButtonProps {
 }
 
 const GoogleSignInButton = ({ 
-  onSuccess: _onSuccess, 
-  onError: _onError, 
-  className: _className = "",
-  children: _children 
 }: GoogleSignInButtonProps) => {
   return null; // Google Sign-in temporarily disabled
 };

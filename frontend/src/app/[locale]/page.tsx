@@ -303,13 +303,10 @@ export default function HomePage() {
             </div>
           ) : services.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service, index) => {
+              {services.map((service) => {
                 const localizedService = service; // Assuming service is already localized
-                const animationClass = index % 3 === 0 ? 'slide-in-left' : index % 3 === 1 ? 'fade-in-up' : 'slide-in-right';
-                
                 const getServiceColor = (service: Service) => {
                   const isDarkMode = document.documentElement.classList.contains('dark');
-                  
                   if (service.color === '1A1924' && isDarkMode) {
                     return '#efefefbb';
                   } else if (service.color === '623CEA' && isDarkMode) {
@@ -317,9 +314,7 @@ export default function HomePage() {
                   }
                   return service.color_hex;
                 };
-                
                 const serviceColor = getServiceColor(service);
-                
                 return (
                   <Card 
                     key={service.id} 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,7 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
 import { getApiEndpoint } from "@/lib/api-config";
-import { Plus, Edit, Trash2, Search, Eye, Download } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Download } from "lucide-react";
 import Dropdown from "@/components/ui/dropdown";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
 import ReactMarkdown from "react-markdown";
@@ -50,8 +50,11 @@ const AdminTermsTab = () => {
   const [currentTerm, setCurrentTerm] = useState<Term | null>(null);
 
     // For allowed tags
-  const [availableTags, setAvailableTags] = useState<{ value: string; label: string }[]>([]);
-  const [tagsLoading, setTagsLoading] = useState(false);
+    const [availableTags, setAvailableTags] = useState<{ value: string; label: string }[]>([]);
+    const [tagsLoading, setTagsLoading] = useState(false);
+
+    // Token for API requests
+    const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
 
   async function fetchAvailableTags(token?: string): Promise<{ value: string; label: string }[]> {
     const res = await fetch(getApiEndpoint("/api/terms/available_tags/"), {
@@ -63,7 +66,7 @@ const AdminTermsTab = () => {
   }
 
   // Fetch allowed tags for dropdown
-  const fetchTags = async () => {
+  const fetchTags = useCallback(async () => {
     setTagsLoading(true);
     try {
       const tags = await fetchAvailableTags(token || undefined);
@@ -73,11 +76,11 @@ const AdminTermsTab = () => {
     } finally {
       setTagsLoading(false);
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     if (showModal) fetchTags();
-  }, [showModal]);
+  }, [showModal, fetchTags]);
 
 
   // Modal form + preview
@@ -98,11 +101,11 @@ const AdminTermsTab = () => {
   const [previewMd, setPreviewMd] = useState<string>(""); // live markdown preview text
   const [activeTab, setActiveTab] = useState<"form" | "preview" | "pdf">("form");
 
-  const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+  // (moved above)
 
   useEffect(() => {
     if (showModal) fetchTags();
-  }, [showModal]);
+  }, [showModal, fetchTags]);
 
   const fetchTerms = async () => {
     try {
