@@ -75,13 +75,14 @@
       "viewAllServices": "Ver todos os servizos"
     },
     "courses": {
+      "noSpecificDate": "Fechas por confirmar",
       "showcaseTitle": "Cursos Destacados",
-      "showcaseDescription": "Únete aos nosos próximos cursos de formación profesional e avanza na túa carreira",
+      "showcaseDescription": "Únete aos nosos cursos de formación e avanza na túa carreira",
       "upcomingTitle": "Próximos Cursos",
-      "upcomingDescription": "Descobre os nosos próximos cursos de formación profesional",
+      "upcomingDescription": "Descobre os nosos cursos de formación",
       "noCoursesTitle": "Non Hai Cursos Próximos",
       "noCoursesMessage": "Mantente atento aos novos anuncios de cursos!",
-      "notifyButton": "Recibir Notificacións",
+      "notifyButton": "Ver todos os cursos",
       "errorTitle": "Erro Cargando Cursos",
       "retryButton": "Tentar de Novo",
       "enrollButton": "Inscribirse Agora",
@@ -91,9 +92,13 @@
       "spotsLeft": "prazas dispoñibles",
       "enrolled": "inscritos",
       "max": "máximo",
-      "almostFull": "Case Completo",
-      "fillingFast": "Enchéndose Rápido",
-      "available": "Dispoñible",
+  "almostFull": "Case Completo",
+  "fillingFast": "Enchéndose Rápido",
+  "available": "Dispoñible",
+  "inProgress": "En curso",
+  "finished": "Rematado",
+      "datesSoon": "Fechas próximamente",
+      "durationSoon": "Duración próximamente",
       "signUpModal": {
         "title": "Rexistro de Curso",
         "description": "Recibe notificacións cando se abra a inscrición para \"{courseName}\"",
@@ -430,6 +435,14 @@
         "descriptionPlaceholder": "Descrición do servizo",
         "icon": "Icona",
         "iconPlaceholder": "Escolle icona de Lucide React",
+        "color": "Cor do Servizo *",
+        "colors": {
+          "darkPurple": "Neutro",
+          "purple": "Morado escuro", 
+          "cyan": "Cian",
+          "green": "Folla",
+          "orange": "Mandarina"
+        },
         "duration": "Dispoñible en (días)",
         "durationPlaceholder": "ex. 2 días",
         "price": "Prezo (€)",
@@ -438,7 +451,10 @@
         "featured": "Servizo destacado",
         "cancel": "Cancelar",
         "create": "Crear servizo",
-        "update": "Actualizar servizo"
+        "update": "Actualizar servizo",
+        "markdownSupported": "Markdown soportado",
+        "requisites": "Requisitos",
+        "requisitesPlaceholder": "Introduce cualquier requisito o prerrequisito"
       },
       "messages": {
         "createSuccess": "Servizo '{title}' creado con éxito!",
@@ -454,10 +470,10 @@
         "validation": {
           "titleRequired": "O título do servizo é obrigatorio e debe ter 100 caracteres ou menos.",
           "subtitleRequired": "O subtítulo é obrigatorio e debe ter 200 caracteres ou menos.",
-          "descriptionRequired": "A descrición é obrigatoria e debe ter 500 caracteres ou menos.",
+          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos.",
           "iconRequired": "Por favor, selecciona unha icona válida para o servizo.",
           "durationInvalid": "A duración debe ser polo menos 1 día se se especifica.",
-          "requisitesLimit": "Os requisitos deben ter 500 caracteres ou menos.",
+          "requisitesLimit": "Os requisitos deben ter 2000 caracteres ou menos.",
           "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica."
         },
         "featured": {
@@ -474,6 +490,7 @@
       }
     },
     "courses": {
+      "noSpecificDate": "Fechas por confirmar",
       "title": "Xestión de Cursos",
       "searchPlaceholder": "Buscar cursos...",
       "addCourse": "Engadir curso",
@@ -490,7 +507,7 @@
       "upcomingCourses": "Próximos cursos",
       "finished": "Rematado",
       "noCoursesFound": "Non se atoparon cursos que coincidan coa túa busca.",
-      "contactForQuote": "Consulta aos nosos axentes para un orzamento detallado",
+      "contactForQuote": "Gratuito",
       "form": {
         "title": "Título",
         "titlePlaceholder": "Introduce un título atractivo para o curso",
@@ -589,10 +606,12 @@
         "selectToDelete": "Por favor, selecciona cursos para eliminar",
         "fileSizeLimit": "O tamaño do arquivo debe ser menor de 5MB",
         "imageFileOnly": "Por favor, selecciona un arquivo de imaxe",
+        "cannotDeleteFinished": "Non se pode eliminar un curso finalizado.",
+        "cannotDeleteFinishedBulk": "Non se pode eliminar un ou máis cursos finalizados.",
         "validation": {
           "titleRequired": "O título do curso é obrigatorio e debe ter 100 caracteres ou menos.",
           "subtitleLimit": "O subtítulo debe ter 200 caracteres ou menos.",
-          "descriptionRequired": "A descrición é obrigatoria e debe ter 500 caracteres ou menos.",
+          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos.",
           "imageRequired": "Por favor, sube un arquivo de imaxe válido para o curso.",
           "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica.",
           "locationRequired": "A localización é obrigatoria e debe ter 100 caracteres ou menos.",
@@ -685,6 +704,7 @@
         "allTagsUsed": "Todos os tipos de documento foron creados.",
         "allTagsUsedTitle": "Todos os tipos de documento xa están en uso",
         "allTagsUsedButton": "Todos os tipos creados",
+        "markdownSupported": "Markdown soportado",
         "tagTypes": {
           "terms": "Termos e Condicións de Uso",
           "cookies": "Política de Cookies",
@@ -838,6 +858,7 @@
     "viewDetails": "Ver detalles",
     "maxAttendants": "Máx asistentes",
     "maxAttendeesCount": "Máx {count} asistentes",
+    "noSpecificDate": "Non hai unha data específica para esta sesión.",
     "filters": {
       "location": {
         "all": "Todas as localizacións",
@@ -866,7 +887,7 @@
       "contact": "Contactar Asesor",
       "catalog": "Descargar catálogo",
       "emailSubject": "Consulta sobre os Programas de Formación de Ordinaly",
-      "emailBody": "Ola, estou interesado en saber máis sobre os vosos programas de formación profesional."
+      "emailBody": "Ola, estou interesado en saber máis sobre os vosos programas de formación."
     },
     "enrollment": {
       "title": "Inscrición no curso",
@@ -915,25 +936,27 @@
       "catalogError": "Erro ao xerar catálogo."
     },
     "pdf": {
-      "slogan": "Réitigh Bogearraí & Oiliúna",
-      "title": "Catalóg oiliúna",
-      "subtitle": "Cúrsaí oiliúna gairmiúla agus teicneolaíochta",
-      "introduction": "Ag Ordinaly, cuirimid oiliúint speisialaithe ar fáil i dteicneolaíochtaí atá ag teacht chun cinn agus i bhforbairt ghairmiúil. ",
-      "coursesTitle": "Ár gcúrsaí",
-      "upcomingCourses": "Cúrsaí atá le teacht",
-      "date": "Dáta:",
-      "time": "Am:",
-      "location": "Suíomh:",
-      "price": "Praghas:",
-      "free": "Cic saor",
-      "capacity": "Cumas:",
-      "people": "a dhaoine uaisle",
-      "contactTitle": "Eolas Teagmhála",
-      "email": "Ríomhphost:",
-      "website": "Suíomh Gréasáin:",
-      "specialization": "Speisialtóireacht:",
-      "specializationText": "Forbairt Bogearraí agus Oiliúint Teicneolaíochta",
-      "filename": "Ordinaly_training_catalog.pdf"
+      "slogan": "Solucións de Software & Formación",
+      "title": "Catálogo de formación",
+      "subtitle": "Cursos de formación profesional e tecnolóxica",
+      "introduction": "En Ordinaly, ofrecemos formación especializada en tecnoloxías emerxentes e desenvolvemento profesional.",
+      "coursesTitle": "Os nosos cursos",
+      "upcomingCourses": "Próximos cursos",
+      "date": "Data:",
+      "time": "Hora:",
+      "location": "Localización:",
+      "price": "Prezo:",
+      "free": "Gratuíto",
+      "capacity": "Capacidade:",
+      "people": "persoas",
+      "contactTitle": "Información de contacto",
+      "email": "Correo electrónico:",
+      "website": "Sitio web:",
+      "specialization": "Especialización:",
+      "specializationText": "Desenvolvemento de Software e Formación Tecnolóxica",
+      "filename": "Ordinaly_catalogo_formacion.pdf",
+      "noSpecificDate": "Aínda non hai data específica.",
+      "noSpecificTime": "Aínda non hai hora específica."
     },
     "courseDetails": {
       "title": "Detalles do curso",
@@ -962,6 +985,7 @@
       "importantDates": "Datas importantes",
       "excludedDatesMessage": "Hai {count} data(s) excluída(s) (vacacións ou descansos) que non están incluídas no horario regular.",
       "moreSessions": "E {count} sesións máis...",
+      "noSpecificDate": "Non hai unha data específica para esta sesión.",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",

@@ -32,6 +32,9 @@ import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
 import Image from "next/image";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 interface Course {
   id: number;
@@ -329,8 +332,11 @@ const AdminCoursesTab = () => {
   };
 
   const isCourseFinished = (course: Course) => {
-    const now = new Date();
+    // If no end_date or invalid, course is NOT finished
+    if (!course.end_date || course.end_date === "0000-00-00") return false;
     const endDate = new Date(course.end_date);
+    if (isNaN(endDate.getTime())) return false;
+    const now = new Date();
     return endDate < now;
   };
 
@@ -464,6 +470,18 @@ const AdminCoursesTab = () => {
         formDataToSend.append('image', selectedFile);
       }
 
+      // Prevent lowering max_attendants below enrolled_count on frontend
+      if (isEdit && currentCourse) {
+        const newMax = parseInt(formData.max_attendants, 10);
+        if (!isNaN(newMax) && newMax < currentCourse.enrolled_count) {
+          setAlert({
+            type: 'error',
+            message: t('messages.validation.maxAttendantsBelowEnrolled', { count: currentCourse.enrolled_count })
+          });
+          return;
+        }
+      }
+
       const url = isEdit 
         ? `${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse?.id}/`
         : getApiEndpoint(API_ENDPOINTS.courses);
@@ -502,7 +520,7 @@ const AdminCoursesTab = () => {
         } else if (errorData.date) {
           setAlert({type: 'error', message: t('messages.validation.dateRequired')});
         } else if (errorData.max_attendants) {
-          setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
+          setAlert({type: 'error', message: errorData.max_attendants || t('messages.validation.maxAttendantsInvalid')});
         } else if (errorData.price) {
           setAlert({type: 'error', message: t('messages.validation.priceInvalid')});
         } else if (errorData.image) {
@@ -524,6 +542,18 @@ const AdminCoursesTab = () => {
 
       if (selectedCourses.length > 0) {
         // Bulk delete
+        const finishedSelectedCourses = selectedCourses.filter(id => {
+          const course = courses.find(c => c.id === id);
+          return course && isCourseFinished(course);
+        });
+
+        if (finishedSelectedCourses.length > 0) {
+          setAlert({type: 'error', message: t('messages.cannotDeleteFinishedBulk')});
+          setIsDeleting(false);
+          setShowDeleteModal(false);
+          return;
+        }
+
         const deletePromises = selectedCourses.map(id =>
           fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${id}/`, {
             method: 'DELETE',
@@ -545,6 +575,13 @@ const AdminCoursesTab = () => {
         setSelectedCourses([]);
       } else if (currentCourse) {
         // Single delete
+        if (isCourseFinished(currentCourse)) {
+          setAlert({type: 'error', message: t('messages.cannotDeleteFinished')});
+          setIsDeleting(false);
+          setShowDeleteModal(false);
+          return;
+        }
+
         const response = await fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse.id}/`, {
           method: 'DELETE',
           headers: {
@@ -579,22 +616,35 @@ const AdminCoursesTab = () => {
 
   // Helper function to format course schedule for display
   const formatCourseSchedule = (course: Course): string => {
-    // Always format dates with proper locale instead of using backend's formatted_schedule
-    const dateOptions: Intl.DateTimeFormatOptions = { 
-      year: 'numeric', 
-      month: 'numeric', 
-      day: 'numeric' 
+    const dateOptions: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
     };
-    const startDate = new Date(course.start_date).toLocaleDateString(dateLocale, dateOptions);
-    const endDate = new Date(course.end_date).toLocaleDateString(dateLocale, dateOptions);
-    
-    // Remove seconds from time format (HH:MM:SS -> HH:MM)
-    const startTime = course.start_time.substring(0, 5); // "17:30:00" -> "17:30"
-    const endTime = course.end_time.substring(0, 5); // "20:30:00" -> "20:30"
-    const timeRange = `${startTime} - ${endTime}`;
-    
-    // Create a localized format
-    return `${startDate} - ${endDate} • ${timeRange}`;
+
+    const isValidStartDate = course.start_date && course.start_date !== "0000-00-00";
+    const isValidEndDate = course.end_date && course.end_date !== "0000-00-00";
+
+    const startDate = isValidStartDate
+      ? new Date(course.start_date).toLocaleDateString(dateLocale, dateOptions)
+      : t('noSpecificDate');
+    const endDate = isValidEndDate
+      ? new Date(course.end_date).toLocaleDateString(dateLocale, dateOptions)
+      : t('noSpecificDate');
+
+    const startTime = course.start_time ? course.start_time.substring(0, 5) : '';
+    const endTime = course.end_time ? course.end_time.substring(0, 5) : '';
+    const timeRange = (startTime && endTime) ? `${startTime} - ${endTime}` : '';
+
+    if (!isValidStartDate && !isValidEndDate) {
+      return t('noSpecificDate');
+    } else if (isValidStartDate && isValidEndDate) {
+      return `${startDate} - ${endDate} • ${timeRange}`;
+    } else if (isValidStartDate) {
+      return `${startDate} • ${timeRange}`;
+    } else {
+      return `${endDate} • ${timeRange}`;
+    }
   };
 
   const toggleSelectAll = () => {
@@ -643,7 +693,7 @@ const AdminCoursesTab = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               placeholder={t("searchPlaceholder")}
-              value={searchTerm}
+              value={searchTerm ?? ""}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 w-64"
             />
@@ -786,17 +836,21 @@ const AdminCoursesTab = () => {
                           )}
                         </div>
                         {course.subtitle && (
-                          <p className={`text-sm mb-1 ${
+                          <div className={`text-sm mb-1 ${
                             isFinished ? 'text-gray-500 dark:text-gray-500' : 'text-gray-600 dark:text-gray-400'
                           }`}>
                             {course.subtitle}
-                          </p>
+                          </div>
                         )}
-                        <p className={`text-sm mb-2 ${
-                          isFinished ? 'text-gray-600 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'
-                        }`}>
-                          {course.description}
-                        </p>
+                          <div className={`text-sm mb-2 ${
+                            isFinished ? 'text-gray-600 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'
+                          }`}>
+                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                              {course.description.length > 200 
+                                ? `${course.description.substring(0, 200)}...` 
+                                : course.description}
+                            </ReactMarkdown>
+                          </div>
                         
                         {/* Enrollment Progress Bar */}
                         <div className="mb-2">
@@ -893,6 +947,7 @@ const AdminCoursesTab = () => {
         }}
         title={showEditModal ? t("editCourse") : t("createCourse")}
         showHeader={true}
+        className="max-w-[95vw] xl:max-w-[85vw] 2xl:max-w-[80vw]"
       >
         <div className="space-y-6 max-h-[70vh] overflow-y-auto">
           {/* Course Title */}
@@ -905,7 +960,7 @@ const AdminCoursesTab = () => {
             </Label>
             <Input
               id="title"
-              value={formData.title}
+              value={formData.title ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
               placeholder={t("form.titlePlaceholder")}
               className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
@@ -923,7 +978,7 @@ const AdminCoursesTab = () => {
             </Label>
             <Input
               id="subtitle"
-              value={formData.subtitle}
+              value={formData.subtitle ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, subtitle: e.target.value}))}
               placeholder={t("form.subtitlePlaceholder")}
               className="h-12 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
@@ -1037,7 +1092,7 @@ const AdminCoursesTab = () => {
                 type="number"
                 step="0.01"
                 min="0"
-                value={formData.price}
+                value={formData.price ?? ""}
                 onChange={(e) => setFormData(prev => ({...prev, price: e.target.value}))}
                 placeholder={t("form.pricePlaceholder")}
                 className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg transition-all duration-200"
@@ -1055,7 +1110,7 @@ const AdminCoursesTab = () => {
                 id="max_attendants"
                 type="number"
                 min="1"
-                value={formData.max_attendants}
+                value={formData.max_attendants ?? ""}
                 onChange={(e) => setFormData(prev => ({...prev, max_attendants: e.target.value}))}
                 placeholder={t("form.maxAttendantsPlaceholder")}
                 className="h-12 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg transition-all duration-200"
@@ -1074,7 +1129,7 @@ const AdminCoursesTab = () => {
             </Label>
             <Input
               id="location"
-              value={formData.location}
+              value={formData.location ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, location: e.target.value}))}
               placeholder={t("form.locationPlaceholder")}
               className="h-12 border-gray-300 focus:border-red-500 focus:ring-red-500/20 rounded-lg transition-all duration-200"
@@ -1102,7 +1157,7 @@ const AdminCoursesTab = () => {
                 <Input
                   id="start_date"
                   type="date"
-                  value={formData.start_date}
+                  value={formData.start_date ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, start_date: e.target.value}))}
                   className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
@@ -1115,7 +1170,7 @@ const AdminCoursesTab = () => {
                 <Input
                   id="end_date"
                   type="date"
-                  value={formData.end_date}
+                  value={formData.end_date ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, end_date: e.target.value}))}
                   className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
@@ -1132,7 +1187,7 @@ const AdminCoursesTab = () => {
                 <Input
                   id="start_time"
                   type="time"
-                  value={formData.start_time}
+                  value={formData.start_time ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, start_time: e.target.value}))}
                   className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
@@ -1145,7 +1200,7 @@ const AdminCoursesTab = () => {
                 <Input
                   id="end_time"
                   type="time"
-                  value={formData.end_time}
+                  value={formData.end_time ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, end_time: e.target.value}))}
                   className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
                   required
@@ -1226,7 +1281,7 @@ const AdminCoursesTab = () => {
                   type="number"
                   min="1"
                   max="52"
-                  value={formData.interval}
+                  value={formData.interval ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, interval: parseInt(e.target.value) || 1}))}
                   placeholder={t("form.intervalPlaceholder")}
                   className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
@@ -1344,9 +1399,11 @@ const AdminCoursesTab = () => {
                     {selectedCourseForModal.subtitle}
                   </p>
                 )}
-                <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  {selectedCourseForModal.description}
-                </p>
+                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 mb-4">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                    {selectedCourseForModal.description}
+                  </ReactMarkdown>
+                </div>
 
                 {/* Key Metrics */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
@@ -1421,19 +1478,23 @@ const AdminCoursesTab = () => {
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.startDate")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {new Date(selectedCourseForModal.start_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                      {selectedCourseForModal.start_date && selectedCourseForModal.start_date !== "0000-00-00"
+                        ? new Date(selectedCourseForModal.start_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })
+                        : t('noSpecificDate')}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.endDate")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {new Date(selectedCourseForModal.end_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
+                      {selectedCourseForModal.end_date && selectedCourseForModal.end_date !== "0000-00-00"
+                        ? new Date(selectedCourseForModal.end_date).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })
+                        : t('noSpecificDate')}
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">{t("details.time")}:</span>
                     <span className="font-medium text-gray-900 dark:text-white">
-                      {selectedCourseForModal.start_time.substring(0, 5)} - {selectedCourseForModal.end_time.substring(0, 5)}
+                      {selectedCourseForModal.start_time ? selectedCourseForModal.start_time.substring(0, 5) : "-"} - {selectedCourseForModal.end_time ? selectedCourseForModal.end_time.substring(0, 5) : "-"}
                     </span>
                   </div>
                   <div className="flex justify-between">

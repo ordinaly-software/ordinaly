@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Clock, MapPin, Users, Euro, Info, BookOpen, Star, CheckCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 interface Course {
   id: number;
@@ -72,6 +75,9 @@ const CourseDetailsModal = ({
   const t = useTranslations('formation.courseDetails');
 
   const formatDate = (dateString: string) => {
+    if (!dateString || dateString === "0000-00-00") {
+      return t('noSpecificDate'); // Use a translation key for flexibility
+    }
     try {
       return new Date(dateString).toLocaleDateString(undefined, {
         weekday: 'long',
@@ -85,6 +91,9 @@ const CourseDetailsModal = ({
   };
 
   const formatTime = (timeString: string) => {
+    if (!timeString) {
+      return ''; // Return empty string for null/undefined time
+    }
     try {
       return new Date(`1970-01-01T${timeString}`).toLocaleTimeString(undefined, {
         hour: '2-digit',
@@ -125,9 +134,11 @@ const CourseDetailsModal = ({
     }
   };
 
-  const hasStarted = new Date(course.start_date) <= new Date();
-  const canEnroll = isAuthenticated && !isEnrolled && !hasStarted;
-  const shouldShowAuth = !isAuthenticated && !hasStarted;
+  // Handle null/empty dates
+  const hasNoDates = !course.start_date || !course.end_date;
+  const hasStarted = !hasNoDates && new Date(course.start_date) <= new Date();
+  const canEnroll = isAuthenticated && !isEnrolled && !hasStarted && !hasNoDates;
+  const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl">
@@ -180,7 +191,11 @@ const CourseDetailsModal = ({
                   <BookOpen className="w-5 h-5 text-blue" />
                   {t('courseDescription')}
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{course.description}</p>
+                <div className="prose dark:prose-invert max-w-none">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                    {course.description}
+                  </ReactMarkdown>
+                </div>
               </div>
 
               {/* Schedule Details */}
@@ -313,6 +328,12 @@ const CourseDetailsModal = ({
                   >
                     {t('cancelEnrollment')}
                   </Button>
+                ) : hasNoDates ? (
+                  <div className="text-center">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700 text-yellow-700 dark:text-yellow-200 mb-2">
+                      {t('noSpecificDate')}
+                    </span>
+                  </div>
                 ) : hasStarted ? (
                   <div className="text-center">
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 mb-2">

@@ -1,17 +1,17 @@
-from io import BytesIO
-from decimal import Decimal
 from datetime import date, time
+from decimal import Decimal
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from django.contrib.auth import get_user_model
-
 from users.models import CustomUser
 from terms.models import Terms
 from courses.models import Course
 from services.models import Service
-from PIL import ImageDraw, ImageFont, Image
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import letter
+from courses.models import Enrollment
+import os
+from django.conf import settings
+import random
+from datetime import datetime, timedelta
 
 
 User = get_user_model()
@@ -76,78 +76,81 @@ class Command(BaseCommand):
         )
 
     def clear_data(self):
-        """Clear existing data"""
-        # Clear enrollments first due to foreign key constraints
+        """Clear existing data and associated media files"""
+        # First, get references to files before deleting objects
         try:
-            from courses.models import Enrollment
+            # Get all terms files for later cleanup
+            terms_files = []
+            for term in Terms.objects.all():
+                if term.content and hasattr(term.content, 'path'):
+                    terms_files.append(term.content.path)
+                if term.pdf_content and hasattr(term.pdf_content, 'path'):
+                    terms_files.append(term.pdf_content.path)
+
+            # Get all course images for later cleanup
+            course_images = []
+            for course in Course.objects.all():
+                if course.image and hasattr(course.image, 'path'):
+                    course_images.append(course.image.path)
+
+            # Now delete the objects (models' delete methods will be called)
             Enrollment.objects.all().delete()
-        except Exception:
-            pass
-        
+            self.stdout.write("Deleted all enrollments")
+
+            Course.objects.all().delete()
+            self.stdout.write("Deleted all courses")
+
+            Service.objects.all().delete()
+            self.stdout.write("Deleted all services")
+
+            Terms.objects.all().delete()
+            self.stdout.write("Deleted all terms")
+
+            CustomUser.objects.filter(is_staff=False).delete()
+            self.stdout.write("Deleted non-staff users")
+
+            # Additional cleanup for any files that might not have been deleted
+            for file_path in terms_files + course_images:
+                if os.path.exists(file_path):
+                    try:
+                        os.remove(file_path)
+                        self.stdout.write(f"Deleted file: {file_path}")
+                    except Exception as e:
+                        self.stdout.write(f"Error deleting file {file_path}: {e}")
+
+        except Exception as e:
+            self.stdout.write(f"Error during data cleanup: {e}")
+
+        try:
+            Enrollment.objects.all().delete()
+            self.stdout.write("Deleted all enrollments")
+        except Exception as e:
+            self.stdout.write(f"Error deleting enrollments: {e}")
+
         try:
             Course.objects.all().delete()
-        except Exception:
-            pass
+            self.stdout.write("Deleted all courses")
+        except Exception as e:
+            self.stdout.write(f"Error deleting courses: {e}")
+
         try:
             Service.objects.all().delete()
-        except Exception:
-            pass
+            self.stdout.write("Deleted all services")
+        except Exception as e:
+            self.stdout.write(f"Error deleting services: {e}")
+
         try:
+            # Make sure to delete all terms
             Terms.objects.all().delete()
-        except Exception:
-            pass
-        
-        # Define all user emails that should be deleted by this script
-        sample_user_emails = [
-            'admin@ordinaly.ai',
-            'ana.rodriguez@healthtech.es',
-            'miguel.fernandez@ecomarket.com',
-            'laura.gonzalez@finnovation.es',
-            'david.martin@smartedu.es',
-            'sofia.jimenez@tourisminnovate.com',
-            'carlos.ruiz@agritech.es',
-            'maria.santos@creativestudio.es',
-            'pablo.torres@logisticsplus.es',
-            'elena.morales@retailinnovation.com',
-            'javier.castro@techstartup.es',
-            'carmen.herrera@energygreen.es',
-            'raul.vega@digitalmarketing.es',
-            'lucia.mendez@consulting.es',
-            'sergio.pena@cybersecurity.es',
-            'natalia.ramos@biotech.es'
-        ]
-        
-        # Define all usernames that should be deleted by this script
-        sample_usernames = [
-            'demo_admin',
-            'ana_rodriguez',
-            'miguel_fernandez',
-            'laura_gonzalez',
-            'david_martin',
-            'sofia_jimenez',
-            'carlos_ruiz',
-            'maria_santos',
-            'pablo_torres',
-            'elena_morales',
-            'javier_castro',
-            'carmen_herrera',
-            'raul_vega',
-            'lucia_mendez',
-            'sergio_pena',
-            'natalia_ramos'
-        ]
-        
-        # Only delete users that were created by this script
+            self.stdout.write("Deleted all terms")
+        except Exception as e:
+            self.stdout.write(f"Error deleting terms: {e}")
+
         try:
-            CustomUser.objects.filter(email__in=sample_user_emails).delete()
-        except Exception:
-            pass
-        
-        # Also delete by username to be safe
-        try:
-            CustomUser.objects.filter(username__in=sample_usernames).delete()
-        except Exception:
-            pass
+            CustomUser.objects.filter(is_staff=False).delete()
+            self.stdout.write("Deleted non-staff users")
+        except Exception as e:
+            self.stdout.write(f"Error deleting users: {e}")
 
     def create_users(self):
         """Create sample users with diverse backgrounds"""
@@ -218,33 +221,6 @@ class Command(BaseCommand):
                 'company': 'Tourism Innovate',
                 'region': 'Canary Islands',
                 'city': 'Las Palmas',
-            },
-            {
-                'username': 'carlos_ruiz',
-                'email': 'carlos.ruiz@agritech.es',
-                'name': 'Carlos',
-                'surname': 'Ruiz',
-                'company': 'AgriTech Solutions',
-                'region': 'Castilla y León',
-                'city': 'Valladolid',
-            },
-            {
-                'username': 'maria_santos',
-                'email': 'maria.santos@creativestudio.es',
-                'name': 'María',
-                'surname': 'Santos',
-                'company': 'Creative Studio Pro',
-                'region': 'Galicia',
-                'city': 'A Coruña',
-            },
-            {
-                'username': 'pablo_torres',
-                'email': 'pablo.torres@logisticsplus.es',
-                'name': 'Pablo',
-                'surname': 'Torres',
-                'company': 'Logistics Plus',
-                'region': 'Aragón',
-                'city': 'Zaragoza',
             },
             {
                 'username': 'elena_morales',
@@ -324,661 +300,230 @@ class Command(BaseCommand):
 
         return users
 
-    def create_sample_pdf(self, title, content):
-        """Create a sample PDF file"""
-        if not REPORTLAB_AVAILABLE:
-            # Create a simple text file as fallback
-            pdf_content = f"{title}\n\n{content}"
-            return pdf_content.encode('utf-8')
-
-        buffer = BytesIO()
-        p = canvas.Canvas(buffer, pagesize=letter)
-        width, height = letter
-
-        # Title
-        p.setFont("Helvetica-Bold", 20)
-        p.drawString(50, height - 50, title)
-
-        # Content
-        p.setFont("Helvetica", 12)
-        lines = content.split('\n')
-        y = height - 100
-        for line in lines:
-            if y < 50:  # Start new page if needed
-                p.showPage()
-                y = height - 50
-            p.drawString(50, y, line[:80])  # Truncate long lines
-            y -= 20
-
-        p.save()
-        buffer.seek(0)
-        return buffer.getvalue()
-
-    def create_sample_md(self, title, content):
-        """Create a sample markdown file"""
-        md_content = (
-            f"# {title}\n\n{content}\n\n"
-            "## Additional Information\n\n"
-            "This is sample content for testing purposes."
-        )
-        return md_content.encode('utf-8')
-
     def create_terms(self, author):
-        """Create sample terms"""
-        terms_data = [
-            {
-                'name': 'Terms and Conditions of Use v1.0',
-                'tag': 'terms',
-                'version': '1.0',
-                'content': '''These Terms and Conditions govern your use of our services.
+        terms_dir = os.path.join(settings.BASE_DIR, 'media', 'test_media', 'terms')
+        # Create the directory if it doesn't exist
+        os.makedirs(terms_dir, exist_ok=True)
 
-## 1. Acceptance of Terms
-By accessing and using our services, you accept and agree to be bound by the terms and provision of this agreement.
-
-## 2. Use License
-Permission is granted to temporarily use our services for personal, non-commercial transitory viewing only.
-
-## 3. Disclaimer
-The materials on our website are provided on an 'as is' basis. We make no warranties, expressed or implied.
-
-## 4. Limitations
-In no event shall our company be liable for any damages arising out of the use or inability to use our services.
-
-## 5. Privacy Policy
-Your privacy is important to us. Please review our Privacy Policy.
-
-## 6. Contact Information
-If you have any questions about these Terms and Conditions, please contact us.''',
-            },
-            {
-                'name': 'Privacy Policy v1.0',
-                'tag': 'privacy',
-                'version': '1.0',
-                'content': '''This Privacy Policy describes how we collect, use, and protect your information.
-
-## Information We Collect
-We collect information you provide directly to us, such as when you create an account or contact us.
-
-## How We Use Your Information
-We use the information we collect to provide, maintain, and improve our services.
-
-## Information Sharing
-We do not sell, trade, or otherwise transfer your personal information to third parties.
-
-## Data Security
-We implement appropriate security measures to protect your personal information.
-
-## Your Rights
-You have the right to access, update, or delete your personal information.
-
-## Changes to This Policy
-We may update this Privacy Policy from time to time. We will notify you of any changes.
-
-## Contact Us
-If you have questions about this Privacy Policy, please contact us.''',
-            },
-            {
-                'name': 'Cookie Policy v1.0',
-                'tag': 'cookies',
-                'version': '1.0',
-                'content': '''This Cookie Policy explains how we use cookies and similar technologies.
-
-## What Are Cookies
-Cookies are small data files that are placed on your computer or mobile device when you visit a website.
-
-## How We Use Cookies
-We use cookies to enhance your experience, analyze site traffic, and personalize content.
-
-## Types of Cookies We Use
-- Essential cookies: Required for the website to function properly
-- Analytics cookies: Help us understand how visitors interact with our website
-- Functional cookies: Enable enhanced functionality and personalization
-
-## Managing Cookies
-You can control and manage cookies in various ways through your browser settings.
-
-## Third-Party Cookies
-We may also use third-party cookies for analytics and advertising purposes.
-
-## Updates to This Policy
-We may update this Cookie Policy to reflect changes in our practices.
-
-## Contact Information
-If you have questions about our use of cookies, please contact us.''',
-            },
-            {
-                'name': 'Software License Agreement v1.0',
-                'tag': 'license',
-                'version': '1.0',
-                'content': '''This Software License Agreement governs your use of our software.
-
-## Grant of License
-Subject to the terms of this Agreement, we grant you a limited, non-exclusive license to use our software.
-
-## Restrictions
-You may not modify, distribute, or create derivative works based on our software.
-
-## Intellectual Property
-All intellectual property rights in the software remain with us.
-
-## Warranty Disclaimer
-The software is provided "as is" without warranty of any kind.
-
-## Limitation of Liability
-Our liability for any damages shall not exceed the amount paid for the software.
-
-## Termination
-This license is effective until terminated by either party.
-
-## Governing Law
-This Agreement shall be governed by the laws of Spain.
-
-## Contact Information
-For questions about this license, please contact our legal department.''',
-            },
+        # Map of tag to (name, version)
+        term_files = [
+            ('terms', 'Terms and Conditions of Use v1.0', '1.0'),
+            ('privacy', 'Privacy Policy v1.0', '1.0'),
+            ('cookies', 'Cookie Policy v1.0', '1.0'),
+            ('license', 'Software License Agreement v1.0', '1.0'),
         ]
-
         terms = []
-        for term_data in terms_data:
-            # Create markdown content
-            md_content = self.create_sample_md(term_data['name'], term_data['content'])
+        for tag, name, version in term_files:
+            md_path = os.path.join(terms_dir, f'{tag}_ordinaly.md')
+            pdf_path = os.path.join(terms_dir, f'{tag}_ordinaly.pdf')
 
-            # Create PDF content
-            pdf_content = self.create_sample_pdf(term_data['name'], term_data['content'])
+            # Check if files exist and print debug info
+            if not os.path.exists(md_path):
+                self.stdout.write(f"Warning: Markdown file not found at {md_path}")
+                continue
+            if not os.path.exists(pdf_path):
+                self.stdout.write(f"Warning: PDF file not found at {pdf_path}")
+                continue
 
-            term, created = Terms.objects.get_or_create(
-                tag=term_data['tag'],
-                defaults={
-                    'name': term_data['name'],
-                    'version': term_data['version'],
-                    'author': author,
-                    'content': ContentFile(md_content, name=f"{term_data['tag']}.md"),
-                    'pdf_content': ContentFile(pdf_content, name=f"{term_data['tag']}.pdf"),
-                }
-            )
-            if created:
+            # Delete existing terms with the same tag to avoid uniqueness constraint errors
+            # The model's delete method will handle file deletion
+            Terms.objects.filter(tag=tag).delete()
+
+            with open(md_path, 'rb') as f:
+                md_content = f.read()
+            with open(pdf_path, 'rb') as f:
+                pdf_content = f.read()
+
+            try:
+                term = Terms.objects.create(
+                    tag=tag,
+                    name=name,
+                    version=version,
+                    author=author,
+                    content=ContentFile(md_content, name=f"{tag}.md"),
+                    pdf_content=ContentFile(pdf_content, name=f"{tag}.pdf"),
+                )
                 terms.append(term)
+                self.stdout.write(f"Created term: {name}")
+            except Exception as e:
+                self.stdout.write(f"Error creating term {tag}: {e}")
 
         return terms
 
-    def create_sample_image(self, width=800, height=400, color=(70, 191, 18), course_name="Course"):
-        """Create a sample image with vibrant colors and modern design"""
-        if not PIL_AVAILABLE:
-            # Create a simple SVG as fallback with better design
-            svg_content = f'''<?xml version="1.0" encoding="UTF-8"?>
-<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-  <defs>
-    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:rgb({color[0]},{color[1]},{color[2]});stop-opacity:1" />
-      <stop offset="100%" style="stop-color:rgb({min(255, color[0]+40)},{min(255, color[1]+40)},{min(255, color[2]+40)});stop-opacity:1" />
-    </linearGradient>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="3" dy="3" stdDeviation="5" flood-opacity="0.3"/>
-    </filter>
-  </defs>
-  <rect width="100%" height="100%" fill="url(#grad1)" rx="15" ry="15"/>
-  <circle cx="90%" cy="20%" r="30" fill="white" opacity="0.1"/>
-  <circle cx="10%" cy="80%" r="40" fill="white" opacity="0.08"/>
-  <rect x="70%" y="75%" width="80" height="80" fill="white" opacity="0.05" rx="10"/>
-  <text x="50%" y="45%" text-anchor="middle" dy=".3em" fill="white"
-        font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="bold" filter="url(#shadow)">
-    {course_name}
-  </text>
-  <text x="50%" y="65%" text-anchor="middle" dy=".3em" fill="white"
-        font-family="Arial, Helvetica, sans-serif" font-size="14" opacity="0.9">
-    Professional Training Course
-  </text>
-</svg>'''
-            return svg_content.encode('utf-8')
-
-        try:
-            # Create a proper JPEG image with modern gradient design
-            # Create base image with gradient effect
-            image = Image.new('RGB', (width, height), color)
-
-            # Create a subtle gradient overlay
-            overlay = Image.new('RGBA', (width, height), (255, 255, 255, 0))
-            for y in range(height):
-                alpha = int(30 * (1 - y / height))  # Fade from top to bottom
-                for x in range(width):
-                    overlay.putpixel((x, y), (255, 255, 255, alpha))
-
-            # Composite the gradient
-            image = Image.alpha_composite(image.convert('RGBA'), overlay)
-            image = image.convert('RGB')
-
-            draw = ImageDraw.Draw(image)
-
-            # Try to use a font, fallback to default if not available
-            try:
-                title_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 32)
-                subtitle_font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", 16)
-            except OSError:
-                try:
-                    title_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 32)
-                    subtitle_font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 16)
-                except OSError:
-                    title_font = ImageFont.load_default()
-                    subtitle_font = ImageFont.load_default()
-
-            # Add decorative elements
-            # Corner circles for modern look
-            draw.ellipse([width*0.85, height*0.1, width*0.95, height*0.25], fill=(255, 255, 255, 30))
-            draw.ellipse([width*0.05, height*0.7, width*0.2, height*0.9], fill=(255, 255, 255, 20))
-
-            # Add main title with shadow
-            title_bbox = draw.textbbox((0, 0), course_name, font=title_font)
-            title_width = title_bbox[2] - title_bbox[0]
-            title_height = title_bbox[3] - title_bbox[1]
-
-            title_x = (width - title_width) // 2
-            title_y = (height - title_height) // 2 - 20
-
-            # Shadow for title
-            draw.text((title_x+3, title_y+3), course_name, fill=(0, 0, 0, 80), font=title_font)
-            # Main title
-            draw.text((title_x, title_y), course_name, fill="white", font=title_font)
-
-            # Add subtitle
-            subtitle = "Professional Training Course"
-            subtitle_bbox = draw.textbbox((0, 0), subtitle, font=subtitle_font)
-            subtitle_width = subtitle_bbox[2] - subtitle_bbox[0]
-
-            subtitle_x = (width - subtitle_width) // 2
-            subtitle_y = title_y + title_height + 10
-
-            draw.text((subtitle_x, subtitle_y), subtitle, fill=(255, 255, 255, 200), font=subtitle_font)
-
-            buffer = BytesIO()
-            image.save(buffer, format='JPEG', quality=90, optimize=True)
-            buffer.seek(0)
-            return buffer.getvalue()
-        except Exception as e:
-            print(f"Error creating image: {e}")
-            # Fallback to simple colored rectangle
-            image = Image.new('RGB', (width, height), color)
-            buffer = BytesIO()
-            image.save(buffer, format='JPEG')
-            buffer.seek(0)
-            return buffer.getvalue()
-
     def create_courses(self):
-        """Create comprehensive sample courses with diverse topics and schedules"""
-        # Modern color palette for course images
-        course_colors = [
-            (34, 166, 13),    # Green - Web Development
-            (98, 60, 234),    # Purple - Python
-            (70, 177, 201),   # Cyan - Data Science
-            (228, 87, 46),    # Orange - Mobile
-            (26, 25, 36),     # Dark - DevOps
-            (99, 60, 234),    # Purple - UX/UI
-            (34, 166, 13),    # Green - AI/ML
-            (70, 177, 201),   # Cyan - Cloud
-            (228, 87, 46),    # Orange - Cybersecurity
-            (98, 60, 234),    # Purple - Blockchain
-            (34, 166, 13),    # Green - Full Stack
-            (70, 177, 201),   # Cyan - Digital Marketing
-        ]
+        """Create sample courses and load images from media/test_media/course_images/"""
+        images_dir = os.path.join(settings.BASE_DIR, 'media', 'test_media', 'course_images')
 
         courses_data = [
             {
-                'title': '🌐 Full Stack Web Development Bootcamp',
-                'subtitle': 'Master modern web development from frontend to backend',
-                'description': (
-                    '⭐ **MOST POPULAR COURSE** ⭐\n\n'
-                    'Become a full-stack developer in 12 weeks! Learn HTML5, CSS3, JavaScript ES6+, '
-                    'React, Node.js, Express, MongoDB, and deployment strategies. Perfect for career changers '
-                    'and beginners who want to enter the tech industry.\n\n'
-                    '🎯 **What you\'ll build:**\n'
-                    '• E-commerce website with payment integration\n'
-                    '• Social media dashboard with real-time updates\n'
-                    '• Personal portfolio with modern animations\n'
-                    '• RESTful API with authentication'
+                'title': 'Taller gratuito "La Inteligencia Artificial sin complicaciones"',
+                'subtitle': (
+                    'Familiarízate con las webs y apps de IA del momento y aprende los conceptos básicos '
+                    'con ejemplos prácticos.'
                 ),
-                'price': Decimal('899.99'),
-                'location': 'Madrid (Hybrid) + Online',
-                'start_date': date(2024, 2, 15),
-                'end_date': date(2024, 5, 15),
-                'start_time': time(18, 30),
-                'end_time': time(21, 30),
-                'periodicity': 'weekly',
-                'weekdays': [1, 3],  # Tuesday and Thursday
+                'description': (
+                    'Este taller va orientado a profesionales que busquen introducirse en el mundo de la IA '
+                    'y quieran aprender los conceptos básicos de la *Inteligencia Artificial Generativa*.\n'
+                    'En este taller se abordarán temas como:\n'
+                    '- Introducción a la IA y sus aplicaciones\n'
+                    '- Herramientas y recursos para trabajar con IA\n'
+                    '- Ejemplos prácticos de uso de IA en negocios\n'
+                    '- Consideraciones de seguridad y privacidad en el uso de IA\n'
+                    'Taller impartido por: \n'
+                    '- 👨‍💻 *Antonio Macías* - joven ingeniero del software de Ordinaly \n'
+                    '- 🧪 *Guillermo Montero* - ingeniero de calidad en Proinca y experto en IA \n\n'
+                    'Organizado por **Ordinaly Software** en colaboración con '
+                    '[Proinca Consultores](https://www.proincaconsultores.es) y '
+                    '[Aviva Publicidad](https://avivapublicidad.es).\n'
+                ),
+                'price': None,
+                'location': 'C. Aviación 39, Polígono Calonge, Sevilla 41007',
+                'start_date': date(2025, 6, 18),
+                'end_date': date(2025, 6, 18),
+                'start_time': time(9, 30),
+                'end_time': time(11, 30),
+                'periodicity': 'once',
                 'timezone': 'Europe/Madrid',
                 'max_attendants': 25,
             },
             {
-                'title': '🐍 Advanced Python & AI Development',
-                'subtitle': 'Python mastery with artificial intelligence applications',
-                'description': (
-                    '🚀 **HIGH DEMAND SKILLS** 🚀\n\n'
-                    'Master Python programming and dive into AI/ML development. Learn Django, FastAPI, '
-                    'pandas, NumPy, scikit-learn, TensorFlow, and deployment on cloud platforms.\n\n'
-                    '🤖 **AI Projects included:**\n'
-                    '• Chatbot with natural language processing\n'
-                    '• Image recognition system\n'
-                    '• Predictive analytics dashboard\n'
-                    '• Automated trading bot (educational purposes)'
+                'title': 'Sesión formativa "La Inteligencia Artificial en la inmobiliaria"',
+                'subtitle': (
+                    'Abordaremos los principales casos de uso de la IA generativa enfocados al sector inmobiliario.'
                 ),
-                'price': Decimal('1299.99'),
-                'location': 'Barcelona + Online',
-                'start_date': date(2024, 3, 1),
-                'end_date': date(2024, 6, 1),
-                'start_time': time(19, 0),
-                'end_time': time(22, 0),
-                'periodicity': 'weekly',
-                'weekdays': [0, 2],  # Monday and Wednesday
+                'description': (
+                    '**¡IMPORTANTE!**. Esta sesión va orientada a profesionales adscritos al grupo *Alianza Sevilla*.\n'
+                    'En esta sesión se abordarán temas como:\n'
+                    '- Casos de uso de la IA generativa en el sector inmobiliario\n'
+                    '- Herramientas y recursos para trabajar con IA\n'
+                    '- Ejemplos prácticos de uso de IA en negocios\n'
+                    '- Consideraciones de seguridad y privacidad en el uso de IA\n'
+                    '- Impacto de la IA en la industria inmobiliaria\n'
+                    '- Futuro de la IA en la inmobiliaria\n'
+                    'Taller impartido por: \n'
+                    '- 👨‍💻 *Antonio Macías* - ingeniero del software de Ordinaly \n'
+                    '- 🧪 *Guillermo Montero* - ingeniero de calidad en Proinca y experto en IA \n\n'
+                    'Organizado por **Ordinaly Software** en colaboración con '
+                    '[Alianza Sevilla](https://alianzasevilla.com) y '
+                    '[Aviva Publicidad](https://avivapublicidad.es).\n'
+                ),
+                'price': None,
+                'location': 'Edif. Galia, Sala de Conferencias 1. C. José Delgado Brackenbury 11, Sevilla, 41007',
+                'start_date': date(2025, 7, 8),
+                'end_date': date(2025, 7, 8),
+                'start_time': time(9, 30),
+                'end_time': time(11, 30),
+                'periodicity': 'once',
                 'timezone': 'Europe/Madrid',
-                'max_attendants': 20,
+                'max_attendants': 90,
             },
             {
-                'title': '📊 Data Science & Analytics Mastery',
-                'subtitle': 'Transform data into actionable business insights',
-                'description': (
-                    '📈 **CAREER BOOSTER** 📈\n\n'
-                    'Learn complete data science pipeline: collection, cleaning, analysis, visualization, '
-                    'and machine learning. Use Python, R, SQL, Tableau, and cloud platforms.\n\n'
-                    '💡 **Real business cases:**\n'
-                    '• Customer churn prediction for telecoms\n'
-                    '• Sales forecasting for retail\n'
-                    '• Marketing campaign optimization\n'
-                    '• Financial risk assessment models'
+                'title': 'Curso / Bootcamp "La Inteligencia Artificial en la inmobiliaria"',
+                'subtitle': (
+                    'En este curso partiremos de la base de los casos de uso básicos de las herramientas de IA '
+                    'más conocidas e iremos escalando hasta dominar herramientas específicas para el sector '
+                    'inmobiliario.'
                 ),
-                'price': Decimal('1499.99'),
-                'location': 'Valencia + Remote',
-                'start_date': date(2024, 1, 20),
-                'end_date': date(2024, 4, 20),
-                'start_time': time(17, 30),
-                'end_time': time(20, 30),
-                'periodicity': 'weekly',
-                'weekdays': [1, 4],  # Tuesday and Friday
-                'timezone': 'Europe/Madrid',
-                'max_attendants': 18,
-            },
-            {
-                'title': '📱 Cross-Platform Mobile Development',
-                'subtitle': 'Build iOS & Android apps with React Native & Flutter',
                 'description': (
-                    '📲 **MOBILE-FIRST WORLD** 📲\n\n'
-                    'Create stunning mobile applications for both iOS and Android using React Native '
-                    'and Flutter. Learn state management, navigation, APIs, push notifications, and app store deployment.\n\n'
-                    '🏆 **Portfolio apps:**\n'
-                    '• Food delivery app with real-time tracking\n'
-                    '• Social fitness tracking application\n'
-                    '• Expense manager with AI categorization\n'
-                    '• Meditation app with custom audio'
+                    'Este curso  está diseñado específicamente para profesionales del sector inmobiliario que '
+                    'deseen aprovechar el potencial de la Inteligencia Artificial generativa en su trabajo diario.\n\n'
+                    'A lo largo de 4 sesiones, aprenderás desde los conceptos básicos hasta aplicaciones avanzadas, '
+                    'con un enfoque práctico y casos de uso reales del sector inmobiliario.\n\n'
+                    '## 📚 Programa del Curso\n\n'
+                    '| Sesión | Contenido | Duración |\n'
+                    '|---------|-----------|----------|\n'
+                    '| **Sesión 1** | • Introducción a la IA y herramientas básicas<br>• ChatGPT y Copilot<br>'
+                    '• Generación de descripciones de propiedades<br>• Ejercicios prácticos | 2.5h |\n'
+                    '| **Sesión 2** | • Herramientas de edición de imágenes con IA<br>'
+                    '• Mejora y retoque de fotografías inmobiliarias<br>• Generación de renders y visualizaciones<br>'
+                    '• Taller práctico de edición | 2.5h |\n'
+                    '| **Sesión 3** | • Marketing inmobiliario con IA<br>• Automatización de redes sociales. | 2.5h |\n'
+                    '| **Sesión 4** | • Herramientas específicas del sector<br>• Análisis de mercado con IA<br>'
+                    '• Búsqueda profunda. <br>• Creación de modelos personalizados. | 2.5h |\n\n'
+                    '## 🎯 Objetivos del Curso\n\n'
+                    '- Dominar las principales herramientas de IA aplicables al sector inmobiliario\n'
+                    '- Mejorar la calidad y la cantidad del contenido y material promocional\n'
+                    '- Incrementar la eficiencia en tareas repetitivas\n\n'
+                    '## 👥 Dirigido a\n\n'
+                    '- Agentes inmobiliarios\n'
+                    '- Gestores de propiedades\n'
+                    '- Profesionales del marketing inmobiliario\n'
+                    'Taller impartido por: \n'
+                    '- 👨‍💻 *Antonio Macías* - ingeniero del software de Ordinaly\n'
+                    '- 🧪 *Guillermo Montero* - ingeniero de calidad en Proinca y experto en IA\n\n'
+                    '**Incluye**: Material didáctico, certificado de finalización, '
+                    'TODAS LAS HERRAMIENTAS DEL CURSO SERÁN GRATUITAS.'
                 ),
-                'price': Decimal('1199.99'),
-                'location': 'Online (Live Sessions)',
-                'start_date': date(2024, 4, 10),
-                'end_date': date(2024, 7, 10),
-                'start_time': time(18, 0),
-                'end_time': time(21, 0),
+                'price': None,
+                'location': 'Por confirmar',
                 'periodicity': 'weekly',
-                'weekdays': [2, 5],  # Wednesday and Saturday
                 'timezone': 'Europe/Madrid',
-                'max_attendants': 22,
-            },
-            {
-                'title': '☁️ Cloud DevOps & Infrastructure',
-                'subtitle': 'Modern deployment and scalable infrastructure management',
-                'description': (
-                    '⚡ **ENTERPRISE READY** ⚡\n\n'
-                    'Master cloud platforms (AWS, Azure, GCP), containerization with Docker, '
-                    'orchestration with Kubernetes, and CI/CD pipelines. Become a DevOps engineer!\n\n'
-                    '🔧 **Infrastructure projects:**\n'
-                    '• Auto-scaling web application on AWS\n'
-                    '• Microservices architecture with Kubernetes\n'
-                    '• Monitoring and logging with ELK stack\n'
-                    '• Infrastructure as Code with Terraform'
-                ),
-                'price': Decimal('1699.99'),
-                'location': 'Seville + Cloud Labs',
-                'start_date': date(2024, 2, 1),
-                'end_date': date(2024, 8, 1),
-                'start_time': time(19, 30),
-                'end_time': time(22, 30),
-                'periodicity': 'weekly',
-                'weekdays': [0, 3],  # Monday and Thursday
-                'timezone': 'Europe/Madrid',
-                'max_attendants': 15,
-            },
-            {
-                'title': '🎨 UX/UI Design & Prototyping',
-                'subtitle': 'Create exceptional user experiences that convert',
-                'description': (
-                    '🌟 **DESIGN THINKING** 🌟\n\n'
-                    'Master user-centered design principles, prototyping tools (Figma, Adobe XD), '
-                    'user research, accessibility, and design systems for web and mobile.\n\n'
-                    '🎯 **Design portfolio:**\n'
-                    '• Complete e-commerce redesign case study\n'
-                    '• Mobile app for accessibility\n'
-                    '• SaaS dashboard with complex workflows\n'
-                    '• Design system for startup company'
-                ),
-                'price': Decimal('799.99'),
-                'location': 'Bilbao + Online Studio',
-                'start_date': date(2024, 3, 15),
-                'end_date': date(2024, 6, 15),
-                'start_time': time(18, 0),
-                'end_time': time(21, 0),
-                'periodicity': 'weekly',
-                'weekdays': [1, 4],  # Tuesday and Friday
-                'timezone': 'Europe/Madrid',
-                'max_attendants': 20,
-            },
-            {
-                'title': '🤖 AI & Machine Learning Engineering',
-                'subtitle': 'Build and deploy production-ready AI systems',
-                'description': (
-                    '🧠 **CUTTING-EDGE AI** 🧠\n\n'
-                    'Deep dive into machine learning algorithms, neural networks, deep learning with TensorFlow/PyTorch, '
-                    'MLOps, and AI system deployment at scale.\n\n'
-                    '🚀 **AI systems you\'ll build:**\n'
-                    '• Computer vision for medical imaging\n'
-                    '• Natural language processing chatbot\n'
-                    '• Recommendation engine for e-commerce\n'
-                    '• Real-time fraud detection system'
-                ),
-                'price': Decimal('1899.99'),
-                'location': 'Madrid + GPU Labs',
-                'start_date': date(2024, 5, 1),
-                'end_date': date(2024, 9, 1),
-                'start_time': time(19, 0),
-                'end_time': time(22, 30),
-                'periodicity': 'weekly',
-                'weekdays': [2, 4],  # Wednesday and Friday
-                'timezone': 'Europe/Madrid',
-                'max_attendants': 12,
-            },
-            {
-                'title': '🔒 Cybersecurity & Ethical Hacking',
-                'subtitle': 'Protect systems and conduct security assessments',
-                'description': (
-                    '🛡️ **SECURITY FIRST** 🛡️\n\n'
-                    'Learn penetration testing, network security, incident response, digital forensics, '
-                    'and compliance frameworks. Hands-on labs with real-world scenarios.\n\n'
-                    '🔍 **Security labs:**\n'
-                    '• Penetration testing on virtual networks\n'
-                    '• Digital forensics investigation\n'
-                    '• Incident response simulation\n'
-                    '• Vulnerability assessment and reporting'
-                ),
-                'price': Decimal('1399.99'),
-                'location': 'Online Security Lab',
-                'start_date': date(2024, 1, 15),
-                'end_date': date(2024, 5, 15),
-                'start_time': time(20, 0),
-                'end_time': time(23, 0),
-                'periodicity': 'weekly',
-                'weekdays': [2, 5],  # Wednesday and Saturday
-                'timezone': 'Europe/Madrid',
-                'max_attendants': 16,
-            },
-            {
-                'title': '🔗 Blockchain & Smart Contract Development',
-                'subtitle': 'Build decentralized applications and cryptocurrency solutions',
-                'description': (
-                    '💎 **FUTURE TECHNOLOGY** 💎\n\n'
-                    'Master blockchain technology, Ethereum development, Solidity programming, '
-                    'DeFi protocols, NFT creation, and Web3 application development.\n\n'
-                    '⛓️ **Blockchain projects:**\n'
-                    '• Decentralized voting system\n'
-                    '• NFT marketplace with smart contracts\n'
-                    '• DeFi lending protocol\n'
-                    '• Supply chain tracking DApp'
-                ),
-                'price': Decimal('1599.99'),
-                'location': 'Online + Blockchain Testnet',
-                'start_date': date(2024, 6, 1),
-                'end_date': date(2024, 9, 1),
-                'start_time': time(19, 30),
-                'end_time': time(22, 30),
-                'periodicity': 'weekly',
-                'weekdays': [1, 3, 5],  # Tuesday, Thursday, Saturday
-                'timezone': 'Europe/Madrid',
-                'max_attendants': 14,
-            },
-            {
-                'title': '💻 Complete Full Stack JavaScript',
-                'subtitle': 'From beginner to advanced with MERN/MEAN stacks',
-                'description': (
-                    '🌐 **JAVASCRIPT ECOSYSTEM** 🌐\n\n'
-                    'Comprehensive JavaScript training covering frontend, backend, databases, and deployment. '
-                    'Learn React, Angular, Node.js, Express, MongoDB, and modern development workflows.\n\n'
-                    '💡 **Full stack applications:**\n'
-                    '• Task management SaaS platform\n'
-                    '• Real-time chat application\n'
-                    '• API-driven content management system\n'
-                    '• Progressive Web App with offline support'
-                ),
-                'price': Decimal('999.99'),
-                'location': 'A Coruña + Online',
-                'start_date': date(2024, 2, 20),
-                'end_date': date(2024, 6, 20),
-                'start_time': time(18, 30),
-                'end_time': time(21, 30),
-                'periodicity': 'weekly',
-                'weekdays': [0, 2, 4],  # Monday, Wednesday, Friday
-                'timezone': 'Europe/Madrid',
-                'max_attendants': 24,
-            },
-            {
-                'title': '📈 Digital Marketing & Growth Hacking',
-                'subtitle': 'Data-driven marketing strategies for digital growth',
-                'description': (
-                    '🚀 **GROWTH MINDSET** 🚀\n\n'
-                    'Learn modern digital marketing: SEO/SEM, social media marketing, email automation, '
-                    'analytics, conversion optimization, and growth hacking strategies.\n\n'
-                    '📊 **Marketing campaigns:**\n'
-                    '• Complete digital strategy for startup\n'
-                    '• Multi-channel campaign optimization\n'
-                    '• Marketing automation workflows\n'
-                    '• Performance analytics dashboard'
-                ),
-                'price': Decimal('699.99'),
-                'location': 'Online + Marketing Labs',
-                'start_date': date(2024, 3, 10),
-                'end_date': date(2024, 6, 10),
-                'start_time': time(17, 0),
-                'end_time': time(20, 0),
-                'periodicity': 'weekly',
-                'weekdays': [1, 3],  # Tuesday and Thursday
-                'timezone': 'Europe/Madrid',
-                'max_attendants': 30,
-            },
-            {
-                'title': '🔧 DevOps Engineering Intensive',
-                'subtitle': 'Production-ready deployment and infrastructure automation',
-                'description': (
-                    '⚙️ **PRODUCTION READY** ⚙️\n\n'
-                    'Intensive hands-on DevOps training focusing on CI/CD, infrastructure automation, '
-                    'monitoring, security, and cloud-native technologies.\n\n'
-                    '🔄 **DevOps pipeline projects:**\n'
-                    '• Complete CI/CD with GitLab/Jenkins\n'
-                    '• Container orchestration with Kubernetes\n'
-                    '• Infrastructure monitoring with Prometheus\n'
-                    '• Security scanning and compliance automation'
-                ),
-                'price': Decimal('1549.99'),
-                'location': 'Remote + Cloud Infrastructure',
-                'start_date': date(2024, 4, 20),
-                'end_date': date(2024, 8, 20),
-                'start_time': time(19, 0),
-                'end_time': time(22, 0),
-                'periodicity': 'weekly',
-                'weekdays': [0, 3],  # Monday and Thursday
-                'timezone': 'Europe/Madrid',
-                'max_attendants': 18,
+                'max_attendants': 90,
             },
         ]
-
         courses = []
         for i, course_data in enumerate(courses_data):
-            # Use vibrant colors for each course
-            color = course_colors[i % len(course_colors)]
-
-            # Create sample image with course title
-            short_title = course_data['title'].replace('🌐 ', '').replace('🐍 ', '').replace('📊 ', '').replace('📱 ', '').replace('☁️ ', '').replace('🎨 ', '').replace('🤖 ', '').replace('🔒 ', '').replace('🔗 ', '').replace('💻 ', '').replace('📈 ', '').replace('🔧 ', '')
-            image_content = self.create_sample_image(course_name=short_title[:25], color=color)
-
+            image_path = os.path.join(images_dir, f'test_course_{i+1}.jpg')
+            if not os.path.exists(image_path):
+                image_content = None
+            else:
+                with open(image_path, 'rb') as f:
+                    image_content = f.read()
+            defaults = {**course_data}
+            if image_content:
+                defaults['image'] = ContentFile(image_content, name=f"course_{i+1}.jpg")
             course, created = Course.objects.get_or_create(
                 title=course_data['title'],
-                defaults={
-                    **course_data,
-                    'image': ContentFile(image_content, name=f"course_{i+1}.jpg"),
-                }
+                defaults=defaults
             )
             if created:
                 courses.append(course)
-
         return courses
 
     def create_enrollments(self, users, courses):
-        """Create realistic enrollments with positive use cases showing course completions"""
-        try:
-            from courses.models import Enrollment
-        except ImportError:
-            self.stdout.write('Enrollment model not available, skipping enrollments')
-            return []
-
-        import random
-        from datetime import datetime, timedelta
-
+        """Create realistic enrollments with positive use cases showing course completions.
+        Only enroll in courses with non-null start_date, end_date, start_time, and end_time.
+        """
         enrollments = []
+
+        # Filter courses with all date/time fields not None
+        eligible_courses = [
+            c for c in courses
+            if getattr(c, 'start_date', None) and getattr(c, 'end_date', None)
+            and getattr(c, 'start_time', None) and getattr(c, 'end_time', None)
+        ]
+        if not eligible_courses:
+            return enrollments
 
         # Skip admin user for enrollments (first user)
         regular_users = users[1:]  # Skip the admin user
 
         # Create realistic enrollment patterns
         enrollment_patterns = [
-            # High engagement users (enroll in multiple courses)
-            {'user_indices': [0, 1, 2], 'courses_per_user': [4, 5, 3]},
-            # Medium engagement users
-            {'user_indices': [3, 4, 5, 6], 'courses_per_user': [2, 3, 2, 2]},
-            # Occasional learners
-            {'user_indices': [7, 8, 9, 10], 'courses_per_user': [1, 1, 2, 1]},
-            # Career changers (focused on specific tracks)
-            {'user_indices': [11, 12, 13, 14], 'courses_per_user': [3, 2, 3, 2]},
+            # Fill first eligible course to max capacity (25 attendants)
+            {
+                'user_indices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                'courses_per_user': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+            },
+            # Some users also enroll in second eligible course
+            {'user_indices': [2, 4, 6, 8], 'courses_per_user': [2, 2, 2, 2]},
         ]
-
-        # Popular courses that should have more enrollments
-        popular_course_indices = [0, 1, 2, 3, 6]  # Web Dev, Python, Data Science, Mobile, AI
 
         for pattern in enrollment_patterns:
             for i, user_index in enumerate(pattern['user_indices']):
                 if user_index >= len(regular_users):
                     continue
- 
+
                 user = regular_users[user_index]
                 num_courses = pattern['courses_per_user'][i]
 
                 # Select courses for this user
-                available_courses = list(courses)
+                available_courses = list(eligible_courses)
                 selected_courses = []
 
                 # Give preference to popular courses
                 if random.random() < 0.7:  # 70% chance to take a popular course
-                    popular_courses = [courses[i] for i in popular_course_indices if i < len(courses)]
+                    popular_courses = [eligible_courses[i] for i in range(2) if i < len(eligible_courses)]
                     if popular_courses:
                         selected_courses.append(random.choice(popular_courses))
                         available_courses.remove(selected_courses[0])
@@ -1005,16 +550,16 @@ For questions about this license, please contact our legal department.''',
                         )
                         if created:
                             enrollments.append(enrollment)
-                    except Exception as e:
+                    except Exception:
                         # Handle any unique constraint violations gracefully
                         continue
 
         # Ensure popular courses have good enrollment numbers
-        for course_index in popular_course_indices:
-            if course_index >= len(courses):
+        for course_index in range(2):
+            if course_index >= len(eligible_courses):
                 continue
 
-            course = courses[course_index]
+            course = eligible_courses[course_index]
             current_enrollments = Enrollment.objects.filter(course=course).count()
 
             # Aim for 8-15 enrollments per popular course
@@ -1022,7 +567,7 @@ For questions about this license, please contact our legal department.''',
 
             if current_enrollments < target_enrollments:
                 needed = target_enrollments - current_enrollments
-                available_users = [u for u in regular_users 
+                available_users = [u for u in regular_users
                                    if not Enrollment.objects.filter(user=u, course=course).exists()]
 
                 for _ in range(min(needed, len(available_users))):
@@ -1049,902 +594,163 @@ For questions about this license, please contact our legal department.''',
         return enrollments
 
     def create_services(self):
-        """Create comprehensive sample services with detailed markdown descriptions"""
+        """Crea servicios de ejemplo detallados en español, con Markdown enriquecido."""
         services_data = [
             {
-                'title': '🌐 Custom Web Development',
-                'subtitle': 'Modern responsive websites that drive results',
-                'description': '''# 🚀 Transform Your Digital Presence
+                'title': 'Chatbot de WhatsApp',
+                'subtitle': 'Automatiza atención al cliente 24/7 con IA conversacional avanzada',
+                'description': '''
+Automatiza la atención al cliente y las ventas a través de **WhatsApp Business API** de Meta con nuestra solución
+ de chatbot inteligente. Proporciona respuestas instantáneas, gestiona consultas frecuentes y mejora la
+ experiencia de usuario.
 
-Professional web development services tailored to your business needs. We create **responsive**, modern websites using cutting-edge technologies that not only look stunning but also deliver exceptional performance and user experience.
+## ⚙️ Características Principales
 
-## 🛠️ **Technologies We Master**
+| Funcionalidad               | Descripción                                                                 |
+|-----------------------------|-----------------------------------------------------------------------------|
+| 📊 **Personalización sencilla** | **Sólo necesitamos un teléfono y pdf con la información para el asistente.** |
+| 💬 Respuestas Automáticas   | Atención 24/7 a preguntas frecuentes.                                       |
+| 🤝 Transferencia a Operador | Deriva consultas complejas a tu equipo cuando sea necesario.                |
 
-| Frontend | Backend | Database | DevOps |
-|----------|---------|----------|--------|
-| 🔥 **React 18** | 🐍 **Python/Django** | 🐘 **PostgreSQL** | ☁️ **AWS/Azure** |
-| ⚡ **Next.js 14** | 🟢 **Node.js** | 🍃 **MongoDB** | 🐳 **Docker** |
-| 💻 **TypeScript** | 🦀 **Rust** | 🔥 **Firebase** | 🔄 **CI/CD** |
-| 🎨 **Tailwind CSS** | ⚡ **FastAPI** | 📊 **Redis** | 📊 **Analytics** |
+## 🚀 Beneficios
 
-## ✨ **What Makes Us Different**
-
-> 💡 *"We don't just build websites, we craft digital experiences that convert visitors into customers."*
-
-### 🎯 **Performance-First Approach**
-- ⚡ **90+ PageSpeed** scores guaranteed
-- 📱 **Mobile-first** responsive design
-- 🔍 **SEO optimized** from the ground up
-- ♿ **WCAG accessibility** compliant
-
-### 🛡️ **Security & Reliability**
-- 🔒 **SSL encryption** and security headers
-- 🛡️ **Regular security audits** and updates
-- 💾 **Automated backups** and disaster recovery
-- 🚀 **99.9% uptime** with monitoring
-
-## 📈 **Perfect For**
-
-- 🏢 **Businesses** looking to establish online presence
-- 🛒 **E-commerce** stores wanting to increase sales
-- 🎓 **Educational institutions** needing modern platforms
-- 💼 **Startups** requiring scalable solutions
-
-### 🎁 **Bonus Features Included**
-- 📊 Google Analytics setup
-- 🔍 SEO optimization package
-- 📱 Mobile app PWA conversion
-- 🤝 3 months free support
-
-*Ready to elevate your digital presence?*''',
+- 🔍 +30% en resolución en primer contacto
+- ⏱️ -80% en tiempo de espera
+''',
                 'color': '29BF12',
-                'icon': 'Globe',
-                'duration': 160,
-                'price': Decimal('2899.00'),
+                'icon': 'Phone',
+                'duration': 30,
+                'requisites': (
+                    "- Documento tipo FAQ en formato pdf sobre tódo lo que debe saber el asisitente.   "
+                    "- Número de teñefóno con cuenta de Whatsapp Business.    "
+                    "- Disponibilidad para consultas.     "
+                ),
+                # 'price': Decimal('300.00'),
+                'price': None,
                 'is_featured': True,
             },
             {
-                'title': '📱 Mobile App Development',
-                'subtitle': 'Native iOS & Android applications that users love',
-                'description': '''# 📲 Your App Idea, Our Expertise
+                'title': 'Automatizaciones a Medida',
+                'subtitle': 'Integración con Odoo, Slack y herramientas empresariales',
+                'description': '''
+⚡ Conecta tus sistemas y optimiza procesos internos para ahorrar tiempo y eliminar errores manuales.
 
-Transform your innovative ideas into powerful mobile applications that millions will love to use. From *concept* to **App Store deployment**, we handle every aspect of mobile development with precision and creativity.
+## 🔗 Integraciones Disponibles
 
-## 🌟 **Development Platforms**
+| Herramienta       | Uso Típico                          |
+|-------------------|-------------------------------------|
+| Odoo           | Gestión de inventario y facturación |
+| N8N               | Conexión con miles de apps          |
+| Zapier         | Conexión con miles de apps          |
+| Bases de Datos  | Sincronización de datos            |
 
-### 📱 **Native Development**
-- 🍎 **iOS Swift** - Pure performance and Apple ecosystem integration
-- 🤖 **Android Kotlin** - Modern, concise, and fully Google-supported
-- 💎 **Flutter** - Beautiful UIs with single codebase efficiency
-- ⚛️ **React Native** - JavaScript expertise with native performance
+## 📈 Impacto
 
-## 🏆 **Our App Development Process**
-
-> 🎯 *"Every great app starts with understanding your users' needs"*
-
-| Phase | Duration | Deliverables |
-|-------|----------|-------------|
-| 📋 **Discovery** | 1-2 weeks | User research, wireframes, technical specifications |
-| 🎨 **Design** | 2-3 weeks | UI/UX mockups, interactive prototypes, design system |
-| 💻 **Development** | 8-12 weeks | MVP, testing, performance optimization |
-| 🚀 **Launch** | 1-2 weeks | App store submission, marketing assets, analytics |
-
-## ✨ **Features We Integrate**
-
-### 🔔 **Advanced Functionality**
-- 📲 Push notifications with personalization
-- 📍 Location-based services and geofencing
-- 💳 Payment gateway integration (Stripe, PayPal)
-- 📸 Camera, gallery, and media processing
-- 🔄 Real-time synchronization and offline support
-- 🔐 Biometric authentication (Face ID, Touch ID)
-
-### 🤖 **AI-Powered Features**
-- 🧠 Machine learning recommendations
-- 🗣️ Voice recognition and commands
-- 👁️ Computer vision and image processing
-- 💬 Intelligent chatbots and virtual assistants
-
-## 📊 **Success Metrics**
-- 🌟 **4.8+ stars** average app rating
-- 📈 **2M+ downloads** across our portfolio
-- 🚀 **99% client satisfaction** rate
-- ⏱️ **30% faster** time-to-market
-
-### 🎁 **Package Includes**
-- 📱 iOS & Android versions
-- 🌐 Admin web dashboard
-- 📊 Analytics integration
-- 📚 Complete documentation
-- 🛠️ 6 months maintenance
-
-*Ready to build the next big app?*''',
-                'color': '623CEA',
-                'icon': 'Smartphone',
-                'duration': 200,
-                'price': Decimal('4299.00'),
-                'is_featured': True,
-            },
-            {
-                'title': '🎨 UI/UX Design Excellence',
-                'subtitle': 'User-centered design that converts and delights',
-                'description': '''# 🎯 Design That Drives Results
-
-User-centered design services that create **intuitive** and engaging digital experiences. We don't just make things look pretty - we design experiences that convert visitors into loyal customers and drive measurable business growth.
-
-## 🧠 **Our Design Philosophy**
-
-> *"Good design is not just what it looks like - good design is how it works."* — **Steve Jobs**
-
-### 🔍 **Research-Driven Approach**
-- 👥 **User persona development** with real data
-- 🧪 **A/B testing** for design decisions
-- 📊 **Analytics review** to identify pain points
-- 🗣️ **User interviews** and feedback sessions
-
-## 🎨 **Design Process Excellence**
-
-| Step | Focus | Outcome |
-|------|-------|---------|
-| 🔬 **Research** | Understanding users and business goals | User personas, journey maps |
-| 💡 **Ideation** | Creative problem-solving sessions | Concept sketches, user flows |
-| 🖼️ **Wireframing** | Structure and information architecture | Low/high-fidelity wireframes |
-| 🎨 **Visual Design** | Brand alignment and aesthetics | Style guides, UI components |
-| 🔄 **Prototyping** | Interactive user testing | Clickable prototypes |
-| ✅ **Testing** | Validation and optimization | Usability reports, improvements |
-
-## 🛠️ **Design Tools & Technologies**
-
-### 🔧 **Professional Tools**
-- 🎨 **Figma** - Collaborative design and prototyping
-- 💎 **Adobe Creative Suite** - Advanced graphics and branding
-- 📱 **Principle** - Micro-interactions and animations
-- 🔍 **Maze** - User testing and feedback collection
-- 📊 **Hotjar** - User behavior analysis
-- ⚡ **Webflow** - No-code development platform
-
-## 🏆 **Design Specializations**
-
-### 💼 **Enterprise Solutions**
-- 🏢 Complex SaaS dashboards
-- 📊 Data visualization interfaces
-- 🔐 Admin panels and workflows
-- 📋 Form optimization and conversion
-
-### 🛒 **E-commerce Excellence**
-- 🛍️ Product catalog design
-- 💳 Checkout flow optimization
-- 📱 Mobile shopping experiences
-- 🎁 Promotional campaign interfaces
-
-### 📱 **Mobile-First Design**
-- 📲 Progressive Web Apps (PWA)
-- 🖥️ Responsive design systems
-- 👆 Touch-friendly interactions
-- ⚡ Performance-optimized interfaces
-
-## 📈 **Impact Metrics**
-
-> 📊 *Average improvements for our clients:*
-
-- 🚀 **85% increase** in user engagement
-- 💰 **60% boost** in conversion rates
-- ⏱️ **40% reduction** in bounce rate
-- 🌟 **95% improvement** in user satisfaction scores
-
-## 🎁 **Complete Package Includes**
-
-### 📋 **Deliverables**
-- 🎨 Complete design system and style guide
-- 📱 Mobile and desktop responsive designs
-- 🔄 Interactive prototypes for testing
-- 💻 Developer-ready assets and specifications
-- 📊 Usability testing reports and recommendations
-
-### 🔄 **Ongoing Support**
-- 🛠️ 30 days of design revisions
-- 📚 Design system documentation
-- 👨‍💻 Developer handoff assistance
-- 📈 Post-launch performance analysis
-
-*Transform your digital presence with design that works.*''',
+- ⏱️ -50% tiempo en tareas repetitivas
+- 🔄 Flujos más fiables y trazables
+- 💡 Equipo centrado en lo estratégico
+- 📊 +Productividad general
+''',
                 'color': '46B1C9',
-                'icon': 'Palette',
-                'duration': 80,
-                'price': Decimal('1899.00'),
-                'is_featured': False,
-            },
-            {
-                'title': '☁️ Cloud Migration & Optimization',
-                'subtitle': 'Seamless cloud transformation for modern businesses',
-                'description': '''# 🚀 Accelerate Your Digital Transformation
-
-Seamlessly migrate your applications and data to the cloud with our expert cloud migration services. We ensure **zero downtime**, enhanced security, and significant cost savings while future-proofing your infrastructure.
-
-## ☁️ **Multi-Cloud Expertise**
-
-### 🔥 **Platform Specializations**
-| Platform | Specialty | Benefits |
-|----------|-----------|----------|
-| 🟠 **AWS** | Enterprise scalability | Industry leader, extensive services |
-| 🔵 **Microsoft Azure** | Hybrid cloud solutions | Perfect for Windows environments |
-| 🔴 **Google Cloud** | AI/ML integration | Advanced analytics and BigQuery |
-| 🟣 **Multi-Cloud** | Vendor independence | Risk mitigation and flexibility |
-
-## 🛠️ **Migration Strategies**
-
-### 📋 **The 7 R's of Cloud Migration**
-1. 🔄 **Re-host** (Lift & Shift) - Quick cloud adoption
-2. 🔧 **Re-platform** - Minor optimizations during migration
-3. 🏗️ **Re-architect** - Cloud-native reconstruction
-4. 🛒 **Re-purchase** - SaaS replacement solutions
-5. 🏠 **Retain** - Keep on-premises when necessary
-6. 🗑️ **Retire** - Eliminate redundant systems
-7. 📍 **Relocate** - Hypervisor-level migration
-
-## 🎯 **Migration Process Excellence**
-
-> 🔍 *"Proper planning prevents poor performance"*
-
-### Phase 1: 📊 **Assessment & Planning** (2-4 weeks)
-- 🔍 Current infrastructure audit
-- 💰 Cost-benefit analysis and ROI projections
-- 🛡️ Security and compliance gap analysis
-- 📋 Detailed migration roadmap creation
-
-### Phase 2: 🏗️ **Architecture Design** (1-3 weeks)
-- ☁️ Cloud architecture blueprint
-- 🔐 Security framework implementation
-- 📊 Performance optimization strategy
-- 🔄 Disaster recovery planning
-
-### Phase 3: 🚀 **Migration Execution** (4-12 weeks)
-- 📦 Application containerization
-- 🔄 Data synchronization and transfer
-- ⚖️ Load balancing and auto-scaling setup
-- 🧪 Comprehensive testing protocols
-
-### Phase 4: 🎯 **Optimization & Support** (Ongoing)
-- 📈 Performance monitoring and tuning
-- 💰 Cost optimization recommendations
-- 🛡️ Security updates and patches
-- 📚 Team training and knowledge transfer
-
-## ⚡ **Cloud-Native Technologies**
-
-### 🐳 **Containerization & Orchestration**
-- **Docker** containers for application packaging
-- **Kubernetes** for container orchestration
-- **Helm** charts for application deployment
-- **Istio** service mesh for microservices
-
-### 🔄 **CI/CD & DevOps**
-- **GitLab CI/CD** for automated deployments
-- **Terraform** for infrastructure as code
-- **Ansible** for configuration management
-- **Prometheus & Grafana** for monitoring
-
-## 💰 **Cost Optimization Strategies**
-
-### 📊 **Average Savings Achieved**
-- 💵 **30-50% reduction** in infrastructure costs
-- ⚡ **40% improvement** in application performance
-- 🛡️ **99.9% uptime** with enhanced reliability
-- 🔄 **60% faster** deployment cycles
-
-### 🎯 **Optimization Techniques**
-- 📏 Right-sizing instances based on actual usage
-- 💾 Intelligent storage tiering and archiving
-- 🕐 Scheduled scaling for predictable workloads
-- 💡 Reserved instances and spot instance utilization
-
-## 🛡️ **Security & Compliance**
-
-### 🔐 **Security Best Practices**
-- 🔑 Identity and Access Management (IAM)
-- 🌐 Virtual Private Cloud (VPC) configuration
-- 🛡️ Web Application Firewall (WAF) setup
-- 📊 Security monitoring and incident response
-
-### 📋 **Compliance Standards**
-- ⚖️ **GDPR** - European data protection
-- 🏥 **HIPAA** - Healthcare information security
-- 💳 **PCI DSS** - Payment card industry standards
-- 🏢 **SOC 2** - Service organization controls
-
-## 🎁 **Complete Migration Package**
-
-### 📦 **What's Included**
-- 🔍 Comprehensive infrastructure assessment
-- ☁️ Custom cloud architecture design
-- 🚀 Full migration execution with zero downtime
-- 📊 Performance monitoring and optimization
-- 🛡️ Security hardening and compliance setup
-- 📚 Team training and documentation
-- 🤝 3 months post-migration support
-
-*Ready to embrace the cloud advantage?*''',
-                'color': '1A1924',
-                'icon': 'Cloud',
-                'duration': 120,
-                'price': Decimal('5999.00'),
+                'icon': 'Bot',
+                'duration': 45,
+                'requisites': None,
+                # 'price': Decimal('300.00'),
+                'price': None,
                 'is_featured': True,
             },
             {
-                'title': '🧠 AI/ML Technical Consulting',
-                'subtitle': 'Strategic AI guidance for competitive advantage',
-                'description': '''# 🤖 Unlock the Power of Artificial Intelligence
+                'title': 'Accesibilidad Global (WCAG)',
+                'subtitle': 'Garantiza la inclusión digital según WCAG 2.1',
+                'description': '''
+♿ Auditamos e implementamos las mejores prácticas de accesibilidad para que tu web o app cumpla con\
+ **WCAG 2.1** y llegue a todo tipo de usuarios.
 
-Strategic AI and Machine Learning consulting to help you make **informed decisions** about your digital transformation. We bridge the gap between cutting-edge AI technology and practical business applications.
+## 👓 Servicios Incluidos
 
-## 🎯 **AI Strategy & Implementation**
+| 1. Auditoría                 | 2. Implementación con WCAG DOCK               |
+|------------------------------|-----------------------------------------------|
+| Test de contraste de colores | **Implementación de ADD ON de accesibilidad** |
+| Navegación por teclado       | Guía de accesibilidad + Tutorial de uso       |
+| Lectores de pantalla         | **EXTRA: ** Implementación de mejoras de accesibilidad global (consultar)  |
 
-### 🔍 **AI Readiness Assessment**
-> 📊 *"Is your organization ready for AI transformation?"*
+## 🏆 Resultados
 
-- 📋 **Data maturity evaluation** - Quality, volume, and accessibility
-- 🏗️ **Infrastructure assessment** - Computing power and scalability
-- 👥 **Team capability analysis** - Skills gap identification
-- 📈 **Business case development** - ROI projections and KPIs
+- ✅ Cumplimiento nivel AA (o AAA)
+- 🌍 Alcance a usuarios con discapacidad
+- 💼 Evita sanciones legales
+- 📈 +Satisfacción y retención
+''',
+                'color': '623CEA',
+                'icon': 'Accessibility',
+                'duration': 25,
+                'requisites': (
+                    "- Acceso al código fuente o CMS.     "
+                    "- Colaboración de tu equipo de desarrollo y diseño.     "
+                    "- Disponibilidad para llamadas y videoconferencias para probar el resultado.     "
+                ),
+                # 'price': Decimal('300.00'),
+                'price': None,
+                'is_featured': True,
+            },
+            {
+                'title': 'Chatbot web',
+                'subtitle': 'Chatbot personalizado para la web de tu negocio',
+                'description': '''
+Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles a navegar por tu sistema,\n\
+ ofrecerles asistencia técnica o ponerles en contacto con quién necesiten.
 
-## 🛠️ **AI/ML Technologies We Master**
+## 🎯 Beneficios
+- 🔍 Mejora la interacción con tus clientes
+- 💻 Chatbot personalizado para tu web
+- 24/7 Disponibilidad
 
-| Category | Technologies | Use Cases |
-|----------|-------------|-----------|
-| 🧠 **Machine Learning** | Scikit-learn, XGBoost, LightGBM | Predictive analytics, classification |
-| 🔥 **Deep Learning** | TensorFlow, PyTorch, Keras | Computer vision, NLP, neural networks |
-| 💬 **NLP & LLMs** | OpenAI GPT, BERT, Hugging Face | Chatbots, sentiment analysis, translation |
-| 👁️ **Computer Vision** | OpenCV, YOLO, MediaPipe | Object detection, image recognition |
-| 📊 **MLOps** | MLflow, Kubeflow, DVC | Model deployment, versioning, monitoring |
-
-## 🚀 **AI Implementation Roadmap**
-
-### Phase 1: 🔍 **Discovery & Strategy** (2-4 weeks)
-- 🎯 Business objective alignment
-- 📊 Data audit and preparation strategy
-- 🛠️ Technology stack recommendations
-- 💰 Budget and timeline planning
-
-### Phase 2: 🧪 **Proof of Concept** (4-8 weeks)
-- 📈 MVP model development
-- 🧪 Algorithm testing and validation
-- 📊 Performance metrics establishment
-- 🎯 Business impact demonstration
-
-### Phase 3: 🏗️ **Production Deployment** (8-16 weeks)
-- ⚡ Scalable infrastructure setup
-- 🔄 CI/CD pipeline implementation
-- 📊 Monitoring and alerting systems
-- 🛡️ Security and compliance measures
-
-### Phase 4: 📈 **Optimization & Scaling** (Ongoing)
-- 🔄 Model retraining and updates
-- 📊 Performance monitoring and tuning
-- 🚀 Feature expansion and enhancement
-- 👨‍💼 Team training and knowledge transfer
-
-## 🏆 **Industry-Specific AI Solutions**
-
-### 🏥 **Healthcare**
-- 🔬 Medical image analysis and diagnosis
-- 💊 Drug discovery and development
-- 📋 Electronic health record optimization
-- 🤖 Virtual health assistants
-
-### 🏦 **Financial Services**
-- 🔍 Fraud detection and prevention
-- 💰 Algorithmic trading strategies
-- 📊 Risk assessment and credit scoring
-- 🤝 Customer service chatbots
-
-### 🛒 **E-commerce & Retail**
-- 🎯 Personalized recommendation engines
-- 📦 Inventory optimization
-- 💰 Dynamic pricing strategies
-- 📈 Customer lifetime value prediction
-
-### 🏭 **Manufacturing**
-- 🔧 Predictive maintenance systems
-- 🏭 Quality control automation
-- ⚡ Supply chain optimization
-- 🤖 Robotic process automation
-
-## 📊 **Success Metrics & ROI**
-
-### 📈 **Typical Business Improvements**
-- 💰 **25-40% cost reduction** through automation
-- ⚡ **60% faster** decision-making processes
-- 📊 **35% improvement** in prediction accuracy
-- 🎯 **50% increase** in customer satisfaction
-
-### 🎯 **Key Performance Indicators**
-- 🔄 Model accuracy and performance metrics
-- ⏱️ Time to insight and decision speed
-- 💰 Cost savings and revenue generation
-- 👥 User adoption and satisfaction rates
-
-## 🛡️ **AI Ethics & Governance**
-
-### ⚖️ **Responsible AI Practices**
-- 🔍 **Bias detection and mitigation** strategies
-- 🛡️ **Data privacy and security** compliance
-- 📋 **Explainable AI** for transparency
-- ⚖️ **Ethical AI governance** frameworks
-
-## 🎁 **Consulting Package Includes**
-
-### 📋 **Deliverables**
-- 🔍 Comprehensive AI readiness assessment
-- 📊 Custom AI strategy and roadmap
-- 🧪 Proof of concept development
-- 📚 Implementation guidelines and best practices
-- 👨‍💼 Team training and capability building
-- 🤝 3 months of ongoing support and guidance
-
-### 🔧 **Technical Support**
-- 🛠️ Architecture design and review
-- 📦 Model development and deployment
-- 📊 Performance monitoring setup
-- 🔄 Continuous improvement recommendations
-
-*Ready to lead with AI innovation?*''',
+''',
                 'color': 'E4572E',
-                'icon': 'Brain',
-                'duration': 40,
+                'icon': 'MessageSquare',
+                'duration': 15,
+                'requisites': (
+                    "- Documentación o datos necesarios que el chatbot deba 'saber' para atender a los usuarios.    "
+                    "- Acceso al código fuente de la web.    "
+                    "- Disponibilidad para consultas.    "
+                ),
+                # 'price': Decimal('300.00'),
+                'price': None,
+                'is_featured': False,
+            },
+            {
+                'title': 'Automatización de Redes Sociales',
+                'subtitle': 'Automatización la publicación de tu contenidos en distintas redes sociales',
+                'description': '''
+Estas automatizaciones te permitirán centrarte en la creación de contenido dejando toda la gestión y subida de los "
+"mismos a la Inteligencia Artificial.
+
+## 🎯 Beneficios
+
+- 📈 Eficiencia y ahorro de tiempo
+- 💸 Reducción de costes de personal
+- 🗂️ Priorización en la creación de contenido de calidad para redes sociales
+- 👥 El equipo se centra en relizar tareas que de verdad necesitan de una persona
+
+''',
+                'color': '1A1924',
+                'icon': 'TrendingUp',
+                'duration': None,
+                'requisites': (
+                    "- Acceso a las (temporalmente) a las redes sociales que se quieran automatizar.    "
+                    "- Acceso a una cuenta de Google Drive con espacio suficiente para alamacenar el contenido.    "
+                ),
                 'price': Decimal('1299.00'),
-                'is_featured': False,
-            },
-            {
-                'title': '🔧 DevOps Transformation',
-                'subtitle': 'Streamlined development workflows that scale',
-                'description': '''# ⚡ Accelerate Your Development Velocity
-
-Transform your development workflow with modern DevOps practices that improve deployment frequency, reduce lead times, and enhance system **reliability**. Build a culture of collaboration between development and operations teams.
-
-## 🎯 **DevOps Maturity Assessment**
-
-### 📊 **Current State Analysis**
-> 🔍 *"Where are you in your DevOps journey?"*
-
-| Maturity Level | Characteristics | Typical Metrics |
-|---------------|----------------|-----------------|
-| 🌱 **Initial** | Manual deployments, siloed teams | Monthly releases, 50% failure rate |
-| 🚀 **Developing** | Basic automation, some collaboration | Weekly releases, 30% failure rate |
-| 💪 **Optimized** | Full CI/CD, DevOps culture | Daily releases, 10% failure rate |
-| 🏆 **Advanced** | Self-healing systems, chaos engineering | Multiple daily releases, <5% failure rate |
-
-## 🛠️ **DevOps Technology Stack**
-
-### 🔄 **CI/CD Pipeline Tools**
-- **GitLab CI/CD** - Complete DevOps platform
-- **Jenkins** - Flexible automation server
-- **GitHub Actions** - Native GitHub integration
-- **Azure DevOps** - Microsoft ecosystem integration
-
-### 🐳 **Containerization & Orchestration**
-- **Docker** - Application containerization
-- **Kubernetes** - Container orchestration at scale
-- **Helm** - Kubernetes package management
-- **Istio** - Service mesh for microservices
-
-### 🏗️ **Infrastructure as Code**
-- **Terraform** - Multi-cloud infrastructure provisioning
-- **Ansible** - Configuration management and automation
-- **CloudFormation** - AWS-native infrastructure management
-- **Pulumi** - Modern infrastructure as code
-
-### 📊 **Monitoring & Observability**
-- **Prometheus** - Metrics collection and alerting
-- **Grafana** - Visualization and dashboards
-- **ELK Stack** - Centralized logging solution
-- **Jaeger** - Distributed tracing
-
-## 🚀 **DevOps Implementation Roadmap**
-
-### Phase 1: 🔍 **Assessment & Planning** (1-2 weeks)
-- 📋 Current workflow analysis
-- 🎯 Goal setting and KPI definition
-- 🛠️ Technology stack selection
-- 👥 Team structure optimization
-
-### Phase 2: 🏗️ **Foundation Setup** (2-4 weeks)
-- 🔧 Version control system optimization
-- 🐳 Containerization strategy implementation
-- ☁️ Cloud infrastructure provisioning
-- 🔐 Security and compliance framework
-
-### Phase 3: 🔄 **CI/CD Pipeline Development** (3-6 weeks)
-- 🧪 Automated testing framework
-- 📦 Build and deployment automation
-- 🚀 Release management processes
-- 🔍 Quality gates and approvals
-
-### Phase 4: 📊 **Monitoring & Optimization** (2-4 weeks)
-- 📈 Metrics and alerting setup
-- 🔍 Performance monitoring implementation
-- 📊 Dashboard and reporting creation
-- 🔄 Continuous improvement processes
-
-## 🏆 **DevOps Best Practices**
-
-### 🧪 **Testing Strategies**
-- **Unit Testing** - Code-level quality assurance
-- **Integration Testing** - Component interaction validation
-- **End-to-End Testing** - Full workflow verification
-- **Performance Testing** - Load and stress testing
-- **Security Testing** - Vulnerability scanning
-
-### 🔐 **Security Integration (DevSecOps)**
-- 🛡️ **Static Application Security Testing (SAST)**
-- 🔍 **Dynamic Application Security Testing (DAST)**
-- 📦 **Container security scanning**
-- 🔐 **Secret management and rotation**
-- ⚖️ **Compliance automation**
-
-### 📊 **Monitoring & Alerting**
-- ⚡ **Real-time performance monitoring**
-- 🚨 **Intelligent alerting and escalation**
-- 📈 **Capacity planning and forecasting**
-- 🔍 **Root cause analysis automation**
-
-## 📈 **DevOps Success Metrics**
-
-### 🎯 **Key Performance Indicators**
-| Metric | Before DevOps | After DevOps | Improvement |
-|--------|---------------|---------------|-------------|
-| 🚀 **Deployment Frequency** | Monthly | Multiple daily | 30x faster |
-| ⏱️ **Lead Time** | 2-6 months | 1-7 days | 90% reduction |
-| 🔧 **Mean Time to Recovery** | 2-24 hours | <1 hour | 95% reduction |
-| ✅ **Change Failure Rate** | 30-60% | <10% | 80% improvement |
-
-### 💰 **Business Impact**
-- 🚀 **60% faster** time-to-market
-- 💰 **35% reduction** in operational costs
-- 📈 **50% improvement** in customer satisfaction
-- 🛡️ **85% fewer** security incidents
-
-## 🎁 **Complete DevOps Package**
-
-### 🛠️ **Implementation Services**
-- 🔍 DevOps maturity assessment
-- 🏗️ Custom CI/CD pipeline development
-- ☁️ Cloud infrastructure automation
-- 📊 Monitoring and alerting setup
-- 🔐 Security integration and compliance
-- 👨‍💼 Team training and culture transformation
-
-### 📚 **Documentation & Training**
-- 📋 Process documentation and runbooks
-- 🎓 Team training and certification paths
-- 🔄 Best practices guidelines
-- 🚨 Incident response procedures
-
-### 🤝 **Ongoing Support**
-- 🛠️ 6 months of implementation support
-- 📞 24/7 monitoring and alerting
-- 🔄 Monthly optimization reviews
-- 📈 Quarterly performance assessments
-
-*Ready to revolutionize your development process?*''',
-                'color': '623CEA',
-                'icon': 'Settings',
-                'duration': 100,
-                'price': Decimal('3499.00'),
-                'is_featured': False,
-            },
-            {
-                'title': '🔗 API Development & Integration',
-                'subtitle': 'Robust system integrations that scale',
-                'description': '''# 🌐 Connect Everything Seamlessly
-
-Design and develop **robust**, scalable APIs that integrate seamlessly with your existing systems. Create the digital backbone that powers modern applications and enables business growth through intelligent connectivity.
-
-## 🛠️ **API Technologies & Standards**
-
-### 🔧 **API Architectures**
-| Type | Best For | Benefits |
-|------|----------|----------|
-| 🔄 **REST** | Web applications, CRUD operations | Simple, stateless, cacheable |
-| ⚡ **GraphQL** | Complex data requirements | Single endpoint, flexible queries |
-| 🚀 **gRPC** | Microservices, high performance | Binary protocol, type safety |
-| 🔌 **WebSocket** | Real-time applications | Bidirectional, low latency |
-| 📡 **Webhook** | Event-driven integrations | Push notifications, automation |
-
-## 🏗️ **API Development Process**
-
-### Phase 1: 📋 **Planning & Design** (1-2 weeks)
-- 🎯 **Requirements gathering** and use case analysis
-- 📊 **Data modeling** and schema design
-- 🔐 **Security architecture** planning
-- 📚 **API specification** documentation (OpenAPI/Swagger)
-
-### Phase 2: 💻 **Development** (3-8 weeks)
-- 🏗️ **Core API implementation** with best practices
-- 🧪 **Automated testing** suite development
-- 🔐 **Authentication & authorization** implementation
-- ⚡ **Performance optimization** and caching strategies
-
-### Phase 3: 🧪 **Testing & Documentation** (1-2 weeks)
-- 🔍 **Comprehensive testing** (unit, integration, load)
-- 📚 **Interactive documentation** creation
-- 🎯 **Developer experience** optimization
-- 🚀 **Deployment pipeline** setup
-
-### Phase 4: 🚀 **Deployment & Monitoring** (1 week)
-- ☁️ **Production deployment** with zero downtime
-- 📊 **Monitoring and analytics** implementation
-- 🚨 **Alerting and incident response** setup
-- 🔄 **Versioning strategy** implementation
-
-## 🔐 **Security & Authentication**
-
-### 🛡️ **Security Best Practices**
-- **OAuth 2.0 / OpenID Connect** - Industry-standard authorization
-- **JWT Tokens** - Stateless authentication
-- **API Key Management** - Secure access control
-- **Rate Limiting** - DDoS protection and fair usage
-- **Input Validation** - SQL injection and XSS prevention
-- **HTTPS Encryption** - Data in transit protection
-
-### 🔒 **Advanced Security Features**
-- 🔍 **API Gateway** - Centralized security and routing
-- 🛡️ **WAF Integration** - Web application firewall
-- 📊 **Audit Logging** - Complete request/response tracking
-- 🔐 **Secret Management** - Secure credential storage
-- ⚖️ **Compliance** - GDPR, HIPAA, SOX standards
-
-## ⚡ **Performance & Scalability**
-
-### 🚀 **Optimization Strategies**
-- 💾 **Intelligent Caching** - Redis, CDN integration
-- 📊 **Database Optimization** - Query optimization, indexing
-- 🔄 **Asynchronous Processing** - Background jobs, queues
-- ⚖️ **Load Balancing** - High availability and distribution
-- 📈 **Auto-scaling** - Dynamic resource allocation
-
-### 📊 **Performance Metrics**
-- ⚡ **Response Time** - Sub-100ms for simple queries
-- 🚀 **Throughput** - 1000+ requests per second capability
-- ⏰ **Uptime** - 99.9% availability guarantee
-- 📈 **Scalability** - Linear scaling with load
-
-## 🧩 **Integration Capabilities**
-
-### 🌐 **Popular Integrations**
-- 💳 **Payment Gateways** - Stripe, PayPal, Square
-- 📧 **Email Services** - SendGrid, Mailgun, AWS SES
-- 📱 **SMS/Communication** - Twilio, WhatsApp Business
-- ☁️ **Cloud Services** - AWS, Azure, Google Cloud
-- 📊 **Analytics** - Google Analytics, Mixpanel
-- 🗄️ **CRM Systems** - Salesforce, HubSpot, Pipedrive
-
-### 🔄 **Legacy System Integration**
-- 🏢 **Enterprise Systems** - SAP, Oracle, Microsoft Dynamics
-- 🗃️ **Database Connectivity** - SQL Server, PostgreSQL, MongoDB
-- 📁 **File Systems** - FTP, SFTP, cloud storage
-- 🔌 **SOAP/XML Services** - Legacy web service integration
-
-## 📚 **Documentation & Developer Experience**
-
-### 📖 **Comprehensive Documentation**
-- 🔧 **Interactive API Explorer** - Swagger/OpenAPI interface
-- 💻 **Code Examples** - Multiple programming languages
-- 🚀 **Quick Start Guides** - Get developers up and running fast
-- 📋 **Use Case Tutorials** - Real-world implementation examples
-- 🔍 **Troubleshooting Guide** - Common issues and solutions
-
-### 🛠️ **Developer Tools**
-- 📦 **SDKs and Libraries** - Popular programming languages
-- 🧪 **Postman Collections** - Ready-to-use API testing
-- 🔧 **CLI Tools** - Command-line integration utilities
-- 📊 **Analytics Dashboard** - Usage metrics and insights
-
-## 📈 **API Success Metrics**
-
-### 🎯 **Key Performance Indicators**
-- 📊 **API Adoption Rate** - Developer onboarding speed
-- ⚡ **Response Time** - Average and 95th percentile
-- 🚀 **Throughput** - Requests per second capacity
-- ✅ **Success Rate** - Error rate minimization
-- 👨‍💻 **Developer Satisfaction** - Ease of integration
-
-### 💰 **Business Impact**
-- 🚀 **50% faster** partner integrations
-- 💰 **30% reduction** in integration costs
-- 📈 **3x increase** in developer adoption
-- 🔄 **40% improvement** in system interoperability
-
-## 🎁 **Complete API Package**
-
-### 🛠️ **Development Services**
-- 🏗️ Custom API architecture and development
-- 🔐 Security implementation and testing
-- ⚡ Performance optimization and scaling
-- 📚 Comprehensive documentation creation
-- 🧪 Automated testing suite development
-- 🚀 Deployment and monitoring setup
-
-### 📋 **Documentation & Support**
-- 📖 Interactive API documentation
-- 💻 Code examples and SDKs
-- 🎓 Developer onboarding materials
-- 🔧 Testing tools and utilities
-
-### 🤝 **Ongoing Maintenance**
-- 🛠️ 3 months of bug fixes and updates
-- 📊 Performance monitoring and optimization
-- 🔄 Version management and migration support
-- 🚨 24/7 monitoring and incident response
-
-*Ready to unlock the power of connected systems?*''',
-                'color': '46B1C9',
-                'icon': 'Code',
-                'duration': 80,
-                'price': Decimal('2299.00'),
-                'is_featured': False,
-            },
-            {
-                'title': '🗄️ Database Design & Optimization',
-                'subtitle': 'High-performance data architecture that scales',
-                'description': '''# 📊 Your Data, Optimized for Success
-
-Optimize your database performance and ensure data **integrity** with our comprehensive database management services. From design to deployment, we create data architectures that scale with your business.
-
-## 🏗️ **Database Technologies**
-
-### 🗃️ **Relational Databases**
-| Database | Best For | Key Features |
-|----------|----------|--------------|
-| 🐘 **PostgreSQL** | Complex queries, analytics | ACID compliance, JSON support, extensibility |
-| 🐬 **MySQL** | Web applications, read-heavy | High performance, replication, clustering |
-| 🔷 **SQL Server** | Enterprise applications | Integration with Microsoft stack |
-| 🔶 **Oracle** | Large enterprise systems | Advanced features, high availability |
-
-### 🍃 **NoSQL Databases**
-| Database | Best For | Key Features |
-|----------|----------|--------------|
-| 🍃 **MongoDB** | Document storage, rapid development | Flexible schema, horizontal scaling |
-| 🔥 **Redis** | Caching, real-time analytics | In-memory speed, pub/sub messaging |
-| ⚡ **Cassandra** | Big data, time-series | Linear scalability, fault tolerance |
-| 📊 **InfluxDB** | Time-series data, IoT | Optimized for time-based data |
-
-## 🎯 **Database Optimization Process**
-
-### Phase 1: 🔍 **Performance Assessment** (1-2 weeks)
-- 📊 **Query performance analysis** - Slow query identification
-- 🗃️ **Schema review** - Table structure optimization
-- 📈 **Capacity planning** - Current and future needs
-- 🔍 **Bottleneck identification** - Hardware and software limits
-
-### Phase 2: 🚀 **Optimization Implementation** (2-4 weeks)
-- 📇 **Index optimization** - Strategic index creation and maintenance
-- 🗂️ **Query tuning** - SQL optimization and rewriting
-- 🏗️ **Schema normalization** - Data structure improvements
-- 📊 **Partitioning strategy** - Large table management
-
-### Phase 3: 📊 **Monitoring & Maintenance** (Ongoing)
-- 📈 **Performance monitoring** - Real-time metrics and alerting
-- 🔄 **Automated maintenance** - Index rebuilding, statistics updates
-- 💾 **Backup strategies** - Point-in-time recovery capabilities
-- 🛡️ **Security hardening** - Access control and encryption
-
-## ⚡ **Performance Optimization Techniques**
-
-### 📇 **Indexing Strategies**
-- 🎯 **Primary indexes** - Optimized for frequent queries
-- 🔍 **Composite indexes** - Multi-column query optimization
-- 📊 **Partial indexes** - Condition-based indexing
-- 🔄 **Covering indexes** - Query result optimization
-
-### 🚀 **Query Optimization**
-- 📋 **Execution plan analysis** - Query path optimization
-- 🔄 **Join optimization** - Efficient table relationships
-- 📊 **Subquery optimization** - Performance-focused rewrites
-- 💾 **Caching strategies** - Query result caching
-
-### 🏗️ **Architecture Improvements**
-- 📊 **Read replicas** - Distribute read workload
-- 🔄 **Database sharding** - Horizontal scaling strategies
-- 💾 **Connection pooling** - Resource optimization
-- 📈 **Auto-scaling** - Dynamic resource allocation
-
-## 🛡️ **Data Security & Compliance**
-
-### 🔐 **Security Features**
-- 🔒 **Encryption at rest** - Data protection when stored
-- 🌐 **Encryption in transit** - Secure data transmission
-- 👤 **Role-based access** - Granular permission control
-- 📊 **Audit logging** - Complete access tracking
-- 🔑 **Multi-factor authentication** - Enhanced security
-
-### ⚖️ **Compliance Standards**
-- 🇪🇺 **GDPR** - European data protection compliance
-- 🏥 **HIPAA** - Healthcare data security
-- 💳 **PCI DSS** - Payment card data protection
-- 🏢 **SOX** - Financial reporting compliance
-
-## 💾 **Backup & Disaster Recovery**
-
-### 🔄 **Backup Strategies**
-- ⚡ **Real-time replication** - Zero data loss protection
-- 📅 **Scheduled backups** - Regular automated backups
-- 🌍 **Geographic redundancy** - Multi-region protection
-- 🧪 **Backup testing** - Regular recovery validation
-
-### 🚨 **Disaster Recovery**
-- ⏱️ **RTO: <1 hour** - Recovery time objective
-- 📊 **RPO: <15 minutes** - Recovery point objective
-- 🔄 **Automated failover** - Seamless service continuity
-- 🧪 **DR testing** - Regular disaster recovery drills
-
-## 📊 **Database Performance Metrics**
-
-### 📈 **Typical Improvements**
-> 📊 *Average performance gains for our clients:*
-
-- ⚡ **10x faster** query execution times
-- 💰 **40% reduction** in infrastructure costs
-- 📈 **99.9% uptime** with enhanced reliability
-- 🚀 **5x increase** in concurrent user capacity
-
-### 🎯 **Key Performance Indicators**
-- ⚡ **Query response time** - Sub-second for complex queries
-- 🔄 **Throughput** - Transactions per second
-- 💾 **Storage efficiency** - Data compression and optimization
-- 🛡️ **Availability** - 99.9%+ uptime guarantee
-
-## 🌟 **Specialized Database Services**
-
-### 📊 **Data Warehousing**
-- 🏗️ **ETL pipeline development** - Data extraction and transformation
-- 📈 **Analytics optimization** - Business intelligence support
-- 🔄 **Real-time data streaming** - Live analytics capabilities
-- 📊 **Reporting infrastructure** - Dashboard and report optimization
-
-### 🔍 **Search & Analytics**
-- 🔍 **Elasticsearch** - Full-text search optimization
-- 📊 **Data lake architecture** - Big data analytics
-- 🤖 **ML model integration** - Predictive analytics
-- 📈 **Real-time analytics** - Stream processing
-
-## 🎁 **Complete Database Package**
-
-### 🛠️ **Design & Implementation**
-- 🏗️ Database architecture design and review
-- ⚡ Performance optimization and tuning
-- 🔐 Security implementation and hardening
-- 💾 Backup and disaster recovery setup
-- 📊 Monitoring and alerting configuration
-- 🚀 Migration and deployment services
-
-### 📚 **Documentation & Training**
-- 📋 Database documentation and procedures
-- 🎓 Team training on best practices
-- 🔧 Maintenance guides and runbooks
-- 📊 Performance monitoring dashboards
-
-### 🤝 **Ongoing Support**
-- 🛠️ 6 months of optimization support
-- 📞 24/7 monitoring and alerting
-- 🔄 Monthly performance reviews
-- 🚨 Emergency support and response
-
-*Transform your data into a strategic advantage.*''',
-                'color': '29BF12',
-                'icon': 'Database',
-                'duration': 60,
-                'price': Decimal('1699.00'),
                 'is_featured': False,
             },
         ]
 
-        services = []
-        for service_data in services_data:
-            service, created = Service.objects.get_or_create(
-                title=service_data['title'],
-                defaults=service_data
+        servicios = []
+        for data in services_data:
+            svc, created = Service.objects.get_or_create(
+                title=data['title'],
+                defaults=data
             )
             if created:
-                services.append(service)
-
-        return services
+                servicios.append(svc)
+        return servicios

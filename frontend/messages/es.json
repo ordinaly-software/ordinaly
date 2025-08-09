@@ -76,13 +76,14 @@
       "viewAllServices": "Ver Todos los Servicios"
     },
     "courses": {
+      "noSpecificDate": "Fechas por confirmar",
       "showcaseTitle": "Cursos Destacados",
-      "showcaseDescription": "Únete a nuestros próximos cursos de formación profesional y avanza en tu carrera",
+      "showcaseDescription": "Únete a nuestros cursos de formación y avanza en tu carrera",
       "upcomingTitle": "Próximos Cursos",
-      "upcomingDescription": "Descubre nuestros próximos cursos de formación profesional",
+      "upcomingDescription": "Descubre nuestros cursos de formación",
       "noCoursesTitle": "No Hay Cursos Próximos",
       "noCoursesMessage": "¡Mantente atento a los nuevos anuncios de cursos!",
-      "notifyButton": "Recibir Notificaciones",
+      "notifyButton": "Ver todos los cursos",
       "errorTitle": "Error Cargando Cursos",
       "retryButton": "Intentar de Nuevo",
       "enrollButton": "Inscribirse Ahora",
@@ -92,9 +93,13 @@
       "spotsLeft": "plazas disponibles",
       "enrolled": "inscritos",
       "max": "máximo",
-      "almostFull": "Casi Completo",
-      "fillingFast": "Llenándose Rápido",
-      "available": "Disponible",
+  "almostFull": "Casi Completo",
+  "fillingFast": "Llenándose Rápido",
+  "available": "Disponible",
+  "inProgress": "En curso",
+  "finished": "Finalizado",
+      "datesSoon": "Fechas próximamente",
+      "durationSoon": "Duración próximamente",
       "signUpModal": {
         "title": "Registro de Curso",
         "description": "Recibe notificaciones cuando se abra la inscripción para \"{courseName}\"",
@@ -430,6 +435,14 @@
         "descriptionPlaceholder": "Descripción del servicio",
         "icon": "Icono",
         "iconPlaceholder": "Elige un icono de Lucide React",
+        "color": "Color del Servicio *",
+        "colors": {
+          "darkPurple": "Neutro",
+          "purple": "Morado oscuro",
+          "cyan": "Cian",
+          "green": "Hoja",
+          "orange": "Mandarina"
+        },
         "duration": "Duración (días)",
         "durationPlaceholder": "ej: 2 días",
         "price": "Precio (€)",
@@ -438,7 +451,10 @@
         "featured": "Servicio Destacado",
         "cancel": "Cancelar",
         "create": "Crear Servicio",
-        "update": "Actualizar Servicio"
+        "update": "Actualizar Servicio",
+        "markdownSupported": "Markdown soportado",
+        "requisites": "Requisitos",
+        "requisitesPlaceholder": "Ingrese cualquier requisito o prerrequisito"
       },
       "messages": {
         "createSuccess": "¡Servicio '{title}' creado exitosamente! Ya está disponible para los clientes.",
@@ -454,10 +470,10 @@
         "validation": {
           "titleRequired": "El título del servicio es requerido y debe tener 100 caracteres o menos.",
           "subtitleRequired": "El subtítulo es requerido y debe tener 200 caracteres o menos.",
-          "descriptionRequired": "La descripción es requerida y debe tener 500 caracteres o menos.",
+          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos.",
           "iconRequired": "Por favor selecciona un icono válido para el servicio.",
           "durationInvalid": "La duración debe ser de al menos 1 día si se especifica.",
-          "requisitesLimit": "Los requisitos deben tener 500 caracteres o menos.",
+          "requisitesLimit": "Los requisitos deben tener 2000 caracteres o menos.",
           "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica."
         },
         "featured": {
@@ -474,6 +490,7 @@
       }
     },
     "courses": {
+      "noSpecificDate": "Fechas por confirmar",
       "title": "Gestión de Cursos",
       "searchPlaceholder": "Buscar cursos...",
       "addCourse": "Añadir Curso",
@@ -484,7 +501,7 @@
       "courses": "cursos",
       "noCourses": "No hay cursos disponibles.",
       "noCoursesFound": "No se encontraron cursos que coincidan con tu búsqueda.",
-      "contactForQuote": "Consulta a nuestros agentes para un presupuesto detallado",
+      "contactForQuote": "Gratuito",
       "form": {
         "title": "Título",
         "titlePlaceholder": "Ingresa un título atractivo para el curso",
@@ -583,15 +600,18 @@
         "selectToDelete": "Por favor selecciona cursos para eliminar",
         "fileSizeLimit": "El tamaño del archivo debe ser menor a 5MB",
         "imageFileOnly": "Por favor selecciona un archivo de imagen",
+        "cannotDeleteFinished": "No se puede eliminar un curso finalizado.",
+        "cannotDeleteFinishedBulk": "No se puede eliminar uno o más cursos finalizados.",
         "validation": {
           "titleRequired": "El título del curso es requerido y debe tener 100 caracteres o menos.",
           "subtitleLimit": "El subtítulo debe tener 200 caracteres o menos.",
-          "descriptionRequired": "La descripción es requerida y debe tener 500 caracteres o menos.",
+          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos.",
           "imageRequired": "Por favor sube una imagen válida para el curso.",
           "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica.",
           "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos.",
           "dateRequired": "La fecha es requerida y debe tener 100 caracteres o menos.",
-          "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1."
+          "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1.",
+          "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})."
         },
         "capacity": {
           "warning": "Advertencia: Este curso ya tiene {current} inscripciones. Reducir el máximo de asistentes por debajo de este número puede causar problemas."
@@ -679,6 +699,7 @@
         "allTagsUsed": "Todos los tipos de documento han sido creados. Solo puedes tener uno de cada tipo.",
         "allTagsUsedTitle": "Todos los tipos de documento están en uso",
         "allTagsUsedButton": "Todos los Tipos Creados",
+        "markdownSupported": "Markdown soportado",
         "tagTypes": {
           "terms": "Términos y Condiciones de Uso",
           "cookies": "Política de Cookies",
@@ -833,6 +854,7 @@
     "viewDetails": "Ver Detalles",
     "maxAttendants": "Máximo de Asistentes",
     "maxAttendeesCount": "Máximo {count} asistentes",
+    "noSpecificDate": "Todavía no hay una fecha establecida para este curso.",
     "filters": {
       "location": {
         "all": "Todas las Ubicaciones",
@@ -861,7 +883,7 @@
       "contact": "Contactar Asesor",
       "catalog": "Descargar Catálogo",
       "emailSubject": "Consulta sobre Programas de Formación de Ordinaly",
-      "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación profesional. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias."
+      "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias."
     },
     "enrollment": {
       "title": "Inscripción al Curso",
@@ -928,7 +950,9 @@
       "website": "Web:",
       "specialization": "Especialización:",
       "specializationText": "Desarrollo de Software y Formación Tecnológica",
-      "filename": "Catalogo_Formacion_Ordinaly.pdf"
+      "filename": "Catalogo_Formacion_Ordinaly.pdf",
+      "noSpecificDate": "No hay una fecha específica aún",
+      "noSpecificTime": "No hay una hora específica aún"
     },
     "courseDetails": {
       "title": "Detalles del Curso",
@@ -957,6 +981,7 @@
       "importantDates": "Fechas Importantes",
       "excludedDatesMessage": "Este curso tiene {count} fecha(s) excluida(s) (feriados o descansos) que no están incluidas en el horario regular.",
       "moreSessions": "Y {count} sesiones más...",
+      "noSpecificDate": "Todavía no hay una fecha establecida para este curso.",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",

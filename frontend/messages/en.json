@@ -75,13 +75,14 @@
       "viewAllServices": "View All Services"
     },
     "courses": {
+      "noSpecificDate": "No specific date",
       "showcaseTitle": "Featured Courses",
-      "showcaseDescription": "Join our upcoming professional training courses and advance your career",
+      "showcaseDescription": "Join our professional training courses and advance your career",
       "upcomingTitle": "Upcoming Courses",
-      "upcomingDescription": "Discover our upcoming professional training courses",
+      "upcomingDescription": "Discover our professional training courses",
       "noCoursesTitle": "No Upcoming Courses",
       "noCoursesMessage": "Stay tuned for new course announcements!",
-      "notifyButton": "Get Notified",
+      "notifyButton": "See all courses",
       "errorTitle": "Error Loading Courses",
       "retryButton": "Try Again",
       "enrollButton": "Enroll Now",
@@ -91,9 +92,13 @@
       "spotsLeft": "spots left",
       "enrolled": "enrolled",
       "max": "max",
-      "almostFull": "Almost Full",
-      "fillingFast": "Filling Fast", 
-      "available": "Available",
+  "almostFull": "Almost Full",
+  "fillingFast": "Filling Fast", 
+  "available": "Available",
+  "inProgress": "In Progress",
+  "finished": "Finished",
+      "datesSoon": "Dates Coming Soon",
+      "durationSoon": "Duration Coming Soon",
       "signUpModal": {
         "title": "Course Registration",
         "description": "Get notified when registration opens for \"{courseName}\"",
@@ -430,6 +435,14 @@
         "descriptionPlaceholder": "Service description",
         "icon": "Icon",
         "iconPlaceholder": "Choose a Lucide React icon",
+        "color": "Service Color *",
+        "colors": {
+          "darkPurple": "Neutral",
+          "purple": "Dark purple",
+          "cyan": "Cyan",
+          "green": "Leaf",
+          "orange": "Tangerine"
+        },
         "duration": "Available in (days)",
         "durationPlaceholder": "e.g., 2 days",
         "price": "Price (€)",
@@ -438,7 +451,10 @@
         "featured": "Featured Service",
         "cancel": "Cancel",
         "create": "Create Service",
-        "update": "Update Service"
+        "update": "Update Service",
+        "markdownSupported": "Markdown supported",
+        "requisites": "Requisites",
+        "requisitesPlaceholder": "Enter any requirements or prerequisites"
       },
       "messages": {
         "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
@@ -454,10 +470,10 @@
         "validation": {
           "titleRequired": "Service title is required and must be 100 characters or less.",
           "subtitleRequired": "Subtitle is required and must be 200 characters or less.",
-          "descriptionRequired": "Description is required and must be 500 characters or less.",
+          "descriptionRequired": "Description is required and must be 2000 characters or less.",
           "iconRequired": "Please select a valid icon for the service.",
           "durationInvalid": "Duration must be at least 1 day if specified.",
-          "requisitesLimit": "Requisites must be 500 characters or less.",
+          "requisitesLimit": "Requisites must be 2000 characters or less.",
           "priceInvalid": "Price must be at least $0.01 if specified."
         },
         "featured": {
@@ -474,6 +490,7 @@
       }
     },
     "courses": {
+      "noSpecificDate": "No specific date",
       "title": "Courses Management",
       "searchPlaceholder": "Search courses...",
       "addCourse": "Add Course",
@@ -490,7 +507,7 @@
     "upcomingCourses": "Upcoming Courses",
     "finished": "Finished",
       "noCoursesFound": "No courses found matching your search.",
-      "contactForQuote": "Contact our agents for a detailed quote",
+      "contactForQuote": "Free",
       "form": {
         "title": "Title",
         "titlePlaceholder": "Enter an engaging course title",
@@ -592,12 +609,15 @@
         "validation": {
           "titleRequired": "Course title is required and must be 100 characters or less.",
           "subtitleLimit": "Subtitle must be 200 characters or less.",
-          "descriptionRequired": "Description is required and must be 500 characters or less.",
+          "descriptionRequired": "Description is required and must be 2000 characters or less.",
           "imageRequired": "Please upload a valid image file for the course.",
           "priceInvalid": "Price must be at least $0.01 if specified.",
           "locationRequired": "Location is required and must be 100 characters or less.",
           "dateRequired": "Date is required and must be 100 characters or less.",
-          "maxAttendantsInvalid": "Maximum attendants must be at least 1."
+          "maxAttendantsInvalid": "Maximum attendants must be at least 1.",
+          "maxAttendantsBelowEnrolled": "Cannot set maximum attendants below the current number of enrolled users ({count}).",
+          "cannotDeleteFinished": "Cannot delete a finished course.",
+          "cannotDeleteFinishedBulk": "Cannot delete one or more finished courses."
         },
         "capacity": {
           "warning": "Warning: This course already has {current} enrollments. Reducing max attendants below this number may cause issues."
@@ -685,6 +705,7 @@
         "allTagsUsed": "All document types have been created. You can only have one of each type.",
         "allTagsUsedTitle": "All document types are already in use",
         "allTagsUsedButton": "All Types Created",
+        "markdownSupported": "Markdown supported",
         "tagTypes": {
           "terms": "Terms and Conditions of Use",
           "cookies": "Cookie Policy", 
@@ -839,6 +860,7 @@
     "viewDetails": "View Details",
     "maxAttendants": "Max Attendants",
     "maxAttendeesCount": "Max {count} attendants",
+    "noSpecificDate": "No specific date has been set for this course yet.",
     "filters": {
       "location": {
         "all": "All Locations",
@@ -934,7 +956,9 @@
       "website": "Website:",
       "specialization": "Specialization:",
       "specializationText": "Software Development and Technology Training",
-      "filename": "Ordinaly_Training_Catalog.pdf"
+      "filename": "Ordinaly_Training_Catalog.pdf",
+      "noSpecificDate": "No specific date yet.",
+      "noSpecificTime": "No specific time yet."
     },
     "courseDetails": {
       "title": "Course Details",
@@ -963,6 +987,7 @@
       "importantDates": "Important Dates",
       "excludedDatesMessage": "This course has {count} excluded date(s) (holidays or breaks) that are not included in the regular schedule.",
       "moreSessions": "And {count} more sessions...",
+      "noSpecificDate": "No specific date has been set for this course yet.",
       "periodicity": {
         "once": "One-time event",
         "daily": "Daily",

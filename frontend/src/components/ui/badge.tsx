@@ -15,6 +15,7 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
+        finished: "border-transparent bg-gray-700 text-white hover:bg-gray-800", // strong visible style
       },
     },
     defaultVariants: {

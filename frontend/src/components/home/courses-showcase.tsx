@@ -20,10 +20,10 @@ interface Course {
   image: string;
   price?: string | null;
   location: string;
-  start_date: string;
-  end_date: string;
-  start_time: string;
-  end_time: string;
+  start_date?: string | null;
+  end_date?: string | null;
+  start_time?: string | null;
+  end_time?: string | null;
   periodicity: string;
   max_attendants: number;
   enrolled_count: number;
@@ -117,27 +117,20 @@ export default function CoursesShowcase({
     }
   }, [isAuthenticated, router]);
 
-  const handleViewAllCourses = useCallback(() => {
-    if (onViewAllClick) {
-      onViewAllClick();
-    } else {
-      if (!isAuthenticated) {
-        // Show auth modal for non-authenticated users
-        setIsAuthModalOpen(true);
-      } else {
-        // For authenticated users, navigate to formation page
-        router.push('/formation');
-      }
-    }
-  }, [onViewAllClick, isAuthenticated, router]);
-
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-GB', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric'
-    }).format(date);
+    if (!dateString || dateString === "0000-00-00") {
+      return t('noSpecificDate');
+    }
+    try {
+      const date = new Date(dateString);
+      return new Intl.DateTimeFormat('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }).format(date);
+    } catch {
+      return t('noSpecificDate');
+    }
   };
 
   const getAvailabilityColor = (enrolled: number, max: number) => {
@@ -147,8 +140,21 @@ export default function CoursesShowcase({
     return 'text-green-600 dark:text-green-400';
   };
 
-  const getAvailabilityBadge = (enrolled: number, max: number) => {
-    const percentage = (enrolled / max) * 100;
+  const getAvailabilityBadge = (course: Course) => {
+    // If any required field is missing, show 'in progress'
+    const missing = !course.start_date || course.start_date === "0000-00-00" ||
+      !course.end_date || course.end_date === "0000-00-00" ||
+      !course.start_time || !course.end_time ||
+      !course.location || !course.description;
+    const now = new Date();
+    const endDate = course.end_date && course.end_date !== "0000-00-00" ? new Date(course.end_date) : null;
+    if (missing) {
+      return { text: t('inProgress', { defaultValue: 'In Progress' }), variant: 'default' as const };
+    }
+    if (endDate && endDate < now) {
+      return { text: t('finished', { defaultValue: 'Finished' }), variant: 'finished' as const };
+    }
+    const percentage = (course.enrolled_count / course.max_attendants) * 100;
     if (percentage >= 90) return { text: t('almostFull'), variant: 'destructive' as const };
     if (percentage >= 70) return { text: t('fillingFast'), variant: 'default' as const };
     return { text: t('available'), variant: 'secondary' as const };
@@ -215,13 +221,15 @@ export default function CoursesShowcase({
               <p className="text-gray-600 dark:text-gray-400 mb-6">
                 {t('noCoursesMessage', { defaultValue: 'Stay tuned for new course announcements!' })}
               </p>
-              <Button
-                variant="outline"
-                onClick={handleViewAllCourses}
-                className="flex items-center gap-2"
-              >
-                {t('notifyButton', { defaultValue: 'Get Notified' })}
-              </Button>
+              <div className="flex justify-center">
+                <Button
+                  variant="outline"
+                  onClick={() => router.push('/formation')}
+                  className="flex items-center gap-2"
+                >
+                  {t('notifyButton', { defaultValue: 'Get Notified' })}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -264,7 +272,7 @@ export default function CoursesShowcase({
         ) : (
           <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {courses.map((course) => {
-              const availabilityBadge = getAvailabilityBadge(course.enrolled_count, course.max_attendants);
+              const availabilityBadge = getAvailabilityBadge(course);
               const spotsLeft = course.max_attendants - course.enrolled_count;
               const isUserEnrolled = userEnrollments.has(course.id);
               
@@ -338,20 +346,20 @@ export default function CoursesShowcase({
                       <div className="grid grid-cols-2 gap-3 text-sm">
                         <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                           <Calendar className="w-4 h-4 flex-shrink-0" />
-                          <span className="truncate">{formatDate(course.start_date)}</span>
+                          <span className="truncate">
+                            {course.start_date ? formatDate(course.start_date) : t('datesSoon', { defaultValue: 'Dates coming soon' })}
+                          </span>
                         </div>
                         <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                           <Clock className="w-4 h-4 flex-shrink-0" />
-                          <span className="truncate">{course.duration_hours}h</span>
+                          <span className="truncate">
+                            {course.duration_hours ? `${course.duration_hours}h` : t('durationSoon', { defaultValue: 'Duration TBA' })}
+                          </span>
                         </div>
                         <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                           <MapPin className="w-4 h-4 flex-shrink-0" />
-                          <span className="truncate">{course.location}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Users className="w-4 h-4 flex-shrink-0" />
-                          <span className={`text-sm font-medium ${getAvailabilityColor(course.enrolled_count, course.max_attendants)}`}>
-                            {spotsLeft} {t('spotsLeft')}
+                          <span className="truncate">
+                            {course.location || t('locationSoon', { defaultValue: 'Location TBA' })}
                           </span>
                         </div>
                       </div>
@@ -368,18 +376,20 @@ export default function CoursesShowcase({
                       )}
 
                       {/* Progress Bar */}
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
-                          <span>{course.enrolled_count} {t('enrolled')}</span>
-                          <span>{course.max_attendants} {t('max')}</span>
+                      {new Date(course.start_date) > new Date() && new Date(course.end_date) > new Date() && (
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                            <span>{course.enrolled_count} {t('enrolled')}</span>
+                            <span>{course.max_attendants} {t('max')}</span>
+                          </div>
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div 
+                              className="bg-[#22A60D] h-2 rounded-full transition-all duration-300"
+                              style={{ width: `${Math.min((course.enrolled_count / course.max_attendants) * 100, 100)}%` }}
+                            ></div>
+                          </div>
                         </div>
-                        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                          <div 
-                            className="bg-[#22A60D] h-2 rounded-full transition-all duration-300"
-                            style={{ width: `${Math.min((course.enrolled_count / course.max_attendants) * 100, 100)}%` }}
-                          ></div>
-                        </div>
-                      </div>
+                      )}
 
                       {/* Action Button */}
                       <Button
@@ -408,11 +418,11 @@ export default function CoursesShowcase({
 
         {/* View All Courses Button */}
         {courses.length > 0 && (
-          <div className="text-center mt-12">
+          <div className="flex justify-center mt-12">
             <Button
               variant="outline"
               size="lg"
-              onClick={handleViewAllCourses}
+              onClick={() => router.push('/formation')}
               className="bg-transparent border-2 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white dark:border-[#22A60D] dark:text-[#22A60D] dark:hover:bg-[#22A60D] dark:hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#22A60D]/20 group"
             >
               {t('viewAllCourses')}

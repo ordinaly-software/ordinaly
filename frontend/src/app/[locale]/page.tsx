@@ -670,7 +670,7 @@ export default function HomePage() {
       }>
         <CoursesShowcase 
           limit={3} 
-          showUpcomingOnly={true}
+          showUpcomingOnly={false}
         />
       </Suspense>
 

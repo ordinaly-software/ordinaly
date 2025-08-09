@@ -187,8 +187,8 @@ export const generateCoursesCatalogPDF = async (
   pdf.setFont('helvetica', 'normal');
   const subtitle = getText(
     'pdf.subtitle', 
-    'Cursos de formación profesional y tecnológica',
-    'Professional and technological training courses'
+    'Cursos de formación y tecnológica',
+    'Training and technological courses'
   );
   pdf.text(subtitle, pageWidth / 2, currentY + 35, { align: 'center' });
   
@@ -235,7 +235,14 @@ export const generateCoursesCatalogPDF = async (
 
   // Separate upcoming and past courses
   const now = new Date();
-  const upcomingCourses = courses.filter(course => new Date(course.start_date) >= now);
+  // Include all courses, regardless of date/time completeness
+  const upcomingCourses = courses.filter(course => {
+    // If course has a valid start_date, use it for sorting/upcoming; otherwise, treat as upcoming
+    if (course.start_date && course.start_date !== "0000-00-00") {
+      return new Date(course.start_date) >= now;
+    }
+    return true;
+  });
 
   if (upcomingCourses.length > 0) {
     pdf.setFontSize(18);
@@ -273,7 +280,6 @@ export const generateCoursesCatalogPDF = async (
       pdf.setFont('helvetica', 'normal');
       const descLines = wrapText(course.description, contentWidth - 20, 10);
       let descY = currentY + (course.subtitle ? 30 : 25);
-      
       descLines.slice(0, 3).forEach((line: string) => { // Limit to 3 lines
         pdf.text(line, margin + 5, descY);
         descY += 5;
@@ -285,12 +291,18 @@ export const generateCoursesCatalogPDF = async (
       pdf.setFont('helvetica', 'bold');
       pdf.setTextColor('#000000');
 
-      // Date and time
+      // Date and time (show fallback if missing)
       const dateLabel = getText('pdf.date', 'Fecha:', 'Date:');
-      pdf.text(`${dateLabel} ${formatDate(course.start_date)}`, margin + 5, detailsY);
-      
+      let dateText = course.start_date && course.start_date !== "0000-00-00"
+        ? formatDate(course.start_date)
+        : getText('pdf.noSpecificDate', 'Por confirmar', 'TBA');
+      pdf.text(`${dateLabel} ${dateText}`, margin + 5, detailsY);
+
       const timeLabel = getText('pdf.time', 'Horario:', 'Time:');
-      pdf.text(`${timeLabel} ${formatTime(course.start_time)} - ${formatTime(course.end_time)}`, margin + 5, detailsY + 8);
+      let timeText = (course.start_time && course.end_time)
+        ? `${formatTime(course.start_time)} - ${formatTime(course.end_time)}`
+        : getText('pdf.noSpecificTime', 'Por confirmar', 'TBA');
+      pdf.text(`${timeLabel} ${timeText}`, margin + 5, detailsY + 8);
 
       // Location
       const locationLabel = getText('pdf.location', 'Ubicación:', 'Location:');
