@@ -406,7 +406,19 @@
       "overview": "Visió de conjunt",
       "services": "Serveis",
       "courses": "Cursos",
-      "terms": "Condicions"
+      "terms": "Condicions",
+      "users": "Usuaris"
+    },
+    "users": {
+      "title": "Llista d'usuaris",
+      "userId": "ID d'usuari",
+      "name": "Nom",
+      "surname": "Cognom",
+      "email": "Correu electrònic",
+      "company": "Empresa",
+      "errorFetching": "No s'han pogut obtenir els usuaris. Si us plau, torneu-ho a intentar més tard.",
+      "sendMail": "Enviar correu",
+      "selectAll": "Seleccionar tot"
     },
     "stats": {
       "totalServices": "Serveis totals",
@@ -705,6 +717,10 @@
         "allTagsUsedTitle": "Tots els tipus de documents ja estan en ús",
         "allTagsUsedButton": "Tots els tipus creats",
         "markdownSupported": "Markdown suportat",
+        "mdFile": "Fitxer Markdown",
+        "chooseMd": "Seleccionar Fitxer Markdown",
+        "downloadCurrentPdf": "Descarregar PDF",
+        "downloadCurrentMd": "Descarregar Markdown",
         "tagTypes": {
           "terms": "Termes i condicions d'ús",
           "cookies": "Política de cookies",
@@ -733,13 +749,14 @@
         "fileSizeLimit": "La mida del fitxer ha de ser inferior a 10 MB",
         "pdfFileOnly": "Seleccioneu un fitxer PDF",
         "validation": {
-          "nameRequired": "El nom del document és necessari i ha de tenir 127 caràcters o menys.",
-          "contentRequired": "Pengeu un fitxer de MarkDown (.MD) vàlid per al contingut.",
-          "pdfRequired": "Pengeu un fitxer PDF vàlid per al document.",
-          "versionRequired": "La versió és necessària i ha de tenir 20 caràcters o menys.",
-          "tagDuplicate": "Ja existeix un document amb aquest tipus d'etiqueta. ",
-          "fileExtension": "El fitxer de contingut ha de ser un fitxer .md i el contingut PDF ha de ser un fitxer .pdf.",
-          "fileMissing": "Cal proporcionar un fitxer MarkDown (.MD) i un fitxer PDF."
+          "nameRequired": "El nom del document és necessari i ha de tenir 127 caràcters o menys",
+          "contentRequired": "Pengeu un fitxer de MarkDown (.MD) vàlid per al contingut",
+          "pdfRequired": "Pengeu un fitxer PDF vàlid per al document",
+          "versionRequired": "La versió és necessària i ha de tenir 20 caràcters o menys",
+          "tagDuplicate": "Ja existeix un document amb aquest tipus d'etiqueta",
+          "fileExtension": "El fitxer de contingut ha de ser un fitxer .md i el contingut PDF ha de ser un fitxer .pdf",
+          "fileMissing": "Cal proporcionar un fitxer MarkDown (.MD) i un fitxer PDF",
+          "tagRequired": "El tipus de document és necessari"
         },
         "upload": {
           "error": "La càrrega del fitxer ha fallat. "

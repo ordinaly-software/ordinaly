@@ -406,7 +406,19 @@
       "overview": "Overview",
       "services": "Services",
       "courses": "Courses",
-      "terms": "Terms"
+      "terms": "Terms",
+      "users": "Users"
+    },
+    "users": {
+      "title": "Users List",
+      "userId": "User ID",
+      "name": "Name",
+      "surname": "Surname",
+      "email": "Email",
+      "company": "Company",
+      "errorFetching": "Failed to fetch users. Please try again later.",
+      "sendMail": "Send Mail",
+      "selectAll": "Select All"
     },
     "stats": {
       "totalServices": "Total Services",
@@ -706,6 +718,10 @@
         "allTagsUsedTitle": "All document types are already in use",
         "allTagsUsedButton": "All Types Created",
         "markdownSupported": "Markdown supported",
+        "mdFile": "Markdown File",
+        "chooseMd": "Choose Markdown File",
+        "downloadCurrentPdf": "Download PDF",
+        "downloadCurrentMd": "Download Markdown",
         "tagTypes": {
           "terms": "Terms and Conditions of Use",
           "cookies": "Cookie Policy", 
@@ -740,7 +756,8 @@
           "versionRequired": "Version is required and must be 20 characters or less.",
           "tagDuplicate": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
           "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
-          "fileMissing": "Both a markdown (.md) file and a PDF file must be provided."
+          "fileMissing": "Both a markdown (.md) file and a PDF file must be provided.",
+          "tagRequired": "Please select a document type."
         },
         "upload": {
           "error": "File upload failed. Please ensure your files are valid and try again."

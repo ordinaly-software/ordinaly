@@ -351,7 +351,7 @@ const AdminServicesTab = () => {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
-              placeholder="Search services..."
+              placeholder={t("searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 w-64"
@@ -375,7 +375,7 @@ const AdminServicesTab = () => {
             className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center space-x-1"
           >
             <Plus className="h-4 w-4" />
-            <span>Add Service</span>
+            <span>{t("addService")}</span>
           </Button>
         </div>
       </div>

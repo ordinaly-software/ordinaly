@@ -406,7 +406,19 @@
       "overview": "Vista xeral",
       "services": "Servizos",
       "courses": "Cursos",
-      "terms": "Termos"
+      "terms": "Termos",
+      "users": "Usuarios"
+    },
+    "users": {
+      "title": "Lista de Usuarios",
+      "userId": "ID de Usuario",
+      "name": "Nome",
+      "surname": "Apelido",
+      "email": "Email",
+      "company": "Empresa",
+      "errorFetching": "Non se puido cargar a lista de usuarios. Por favor, intenta de novo máis tarde.",
+      "sendMail": "Enviar correo",
+      "selectAll": "Seleccionar todo"
     },
     "stats": {
       "totalServices": "Total de servizos",
@@ -705,6 +717,10 @@
         "allTagsUsedTitle": "Todos os tipos de documento xa están en uso",
         "allTagsUsedButton": "Todos os tipos creados",
         "markdownSupported": "Markdown soportado",
+        "mdFile": "Arquivo Markdown",
+        "downloadCurrentPdf": "Descargar PDF",
+        "downloadCurrentMd": "Descargar Markdown",
+        "chooseMd": "Seleccionar Arquivo Markdown",
         "tagTypes": {
           "terms": "Termos e Condicións de Uso",
           "cookies": "Política de Cookies",
@@ -739,7 +755,8 @@
           "versionRequired": "A versión é obrigatoria e debe ter 20 caracteres ou menos.",
           "tagDuplicate": "Xa existe un documento con este tipo de etiqueta.",
           "fileExtension": "O arquivo de contido debe ser un arquivo .md e o contido PDF debe ser un arquivo .pdf.",
-          "fileMissing": "Debe proporcionarse tanto un arquivo de marcado (.md) como un arquivo PDF."
+          "fileMissing": "Debe proporcionarse tanto un arquivo de marcado (.md) como un arquivo PDF.",
+          "tagRequired": "Por favor, selecciona un tipo de documento."
         },
         "upload": {
           "error": "Erro ao subir arquivo."

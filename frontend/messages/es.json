@@ -24,7 +24,7 @@
     "hero": {
       "title": "AUTOMATIZA",
       "subtitle": "TU NEGOCIO CON IA",
-      "description": "Transformamos empresas con automatizaciones inteligentes. Desde chatbots, CRMs y hasta flujos de trabajo avanzados, te ayudamos a modernizar tu empresa y a ser más eficiente.",
+      "description": "Transformamos empresas con automatizaciones inteligentes. Desde chatbots, CRMs y hasta flujos de trabajo avanzados, te ayudamos a modernizar tu empresa y a ser más eficiente",
       "discoverButton": "Descubre cómo",
       "demoButton": "Ver Demo"
     },
@@ -406,7 +406,19 @@
       "overview": "Resumen",
       "services": "Servicios",
       "courses": "Cursos",
-      "terms": "Términos"
+      "terms": "Términos",
+      "users": "Usuarios"
+    },
+    "users": {
+      "title": "Lista de Usuarios",
+      "userId": "ID de Usuario",
+      "name": "Nombre",
+      "surname": "Apellido",
+      "email": "Correo Electrónico",
+      "company": "Empresa",
+      "errorFetching": "No se pudo cargar la lista de usuarios. Por favor, intenta de nuevo más tarde.",
+      "sendMail": "Enviar correo",
+      "selectAll": "Seleccionar todo"
     },
     "stats": {
       "totalServices": "Total de Servicios",
@@ -700,6 +712,10 @@
         "allTagsUsedTitle": "Todos los tipos de documento están en uso",
         "allTagsUsedButton": "Todos los Tipos Creados",
         "markdownSupported": "Markdown soportado",
+        "mdFile": "Archivo Markdown",
+        "chooseMd": "Seleccionar Archivo Markdown",
+        "downloadCurrentPdf": "Descargar PDF",
+        "downloadCurrentMd": "Descargar Markdown",
         "tagTypes": {
           "terms": "Términos y Condiciones de Uso",
           "cookies": "Política de Cookies",
@@ -734,7 +750,8 @@
           "versionRequired": "La versión es requerida y debe tener 20 caracteres o menos.",
           "tagDuplicate": "Ya existe un documento con este tipo de etiqueta. Por favor elige una etiqueta diferente o edita el documento existente.",
           "fileExtension": "El archivo de contenido debe ser un archivo .md y el contenido PDF debe ser un archivo .pdf.",
-          "fileMissing": "Se deben proporcionar tanto un archivo markdown (.md) como un archivo PDF."
+          "fileMissing": "Se deben proporcionar tanto un archivo markdown (.md) como un archivo PDF.",
+          "tagRequired": "Por favor selecciona un tipo de documento."
         },
         "upload": {
           "error": "Error en la carga del archivo. Por favor asegúrate de que tus archivos sean válidos e intenta de nuevo."
@@ -1049,21 +1066,21 @@
     },
     "deleteAccount": {
       "title": "Eliminar Cuenta",
-      "description": "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate.",
+      "description": "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate",
       "button": "Eliminar Cuenta",
       "confirmTitle": "Confirmar Eliminación de Cuenta",
-      "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente. Escribe tu nombre de usuario abajo para confirmar.",
+      "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente. Escribe tu nombre de usuario abajo para confirmar",
       "confirmPlaceholder": "Escribe tu nombre de usuario para confirmar",
       "confirmButton": "Eliminar Cuenta",
       "cancelButton": "Cancelar"
     },
     "messages": {
       "updateSuccess": "¡Perfil actualizado exitosamente!",
-      "updateError": "Error al actualizar el perfil. Por favor, intenta de nuevo.",
+      "updateError": "Error al actualizar el perfil. Por favor, intenta de nuevo",
       "deleteSuccess": "Cuenta eliminada exitosamente. Redirigiendo...",
-      "deleteError": "Error al eliminar la cuenta. Por favor, intenta de nuevo.",
-      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo.",
-      "unauthorizedError": "No estás autorizado para realizar esta acción.",
+      "deleteError": "Error al eliminar la cuenta. Por favor, intenta de nuevo",
+      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo",
+      "unauthorizedError": "No estás autorizado para realizar esta acción",
       "validation": {
         "firstNameRequired": "El nombre es obligatorio",
         "lastNameRequired": "El apellido es obligatorio",
@@ -1093,8 +1110,8 @@
   "notFound": {
     "title": "404 - Página No Encontrada",
     "heading": "¡Oops! Página Perdida en el Espacio Digital",
-    "message": "La página que buscas parece haberse perdido en nuestro universo de automatización empresarial.",
-    "description": "No te preocupes, incluso en Ordinaly a veces nos desviamos del camino. Pero tenemos soluciones inteligentes para todo.",
+    "message": "La página que buscas parece haberse perdido en nuestro universo de automatización empresarial",
+    "description": "No te preocupes, incluso en Ordinaly a veces nos desviamos del camino. Pero tenemos soluciones inteligentes para todo",
     "homeButton": "Volver al Inicio",
     "exploreButton": "Explorar Servicios",
     "contactButton": "Contactar Soporte",

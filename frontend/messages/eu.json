@@ -406,7 +406,19 @@
       "overview": "Ikuspuntu orokor",
       "services": "Zeregin",
       "courses": "Ikastaroak",
-      "terms": "Baldintzak"
+      "terms": "Baldintzak",
+      "users": "Erabiltzaileak"
+    },
+    "users": {
+      "title": "Erabiltzaileen Zerrenda",
+      "userId": "Erabiltzaile IDa",
+      "name": "Izena",
+      "surname": "Abizena",
+      "email": "Posta elektronikoa",
+      "company": "Enpresa",
+      "errorFetching": "Huts egin du erabiltzaileak eskuratzean. Saiatu berriro geroago.",
+      "sendMail": "Bidali posta",
+      "selectAll": "Hautatu guztiak"
     },
     "stats": {
       "totalServices": "Zerbitzu guztira",
@@ -690,6 +702,8 @@
       "noTermsFound": "Ez da zure bilaketa bat datorren baldintzarik aurkitu.",
       "pdfAvailable": "PDF eskuragarri",
       "downloadPdf": "Deskargatu pdf",
+      "downloadCurrentPdf": "Deskargatu PDF",
+      "downloadCurrentMd": "Deskargatu Markdown",
       "form": {
         "name": "Izen",
         "namePlaceholder": "Epearen izena",
@@ -705,6 +719,8 @@
         "allTagsUsedTitle": "Dokumentu mota guztiak dagoeneko erabiltzen ari dira",
         "allTagsUsedButton": "Mota guztiak sortu dira",
         "markdownSupported": "Markdown soportado",
+        "mdFile": "Markdown fitxategia",
+        "chooseMd": "Aukeratu Markdown fitxategia",
         "tagTypes": {
           "terms": "Erabilerarako baldintzak eta baldintzak",
           "cookies": "Cookie politika",
@@ -739,7 +755,8 @@
           "versionRequired": "Bertsioa beharrezkoa da eta 20 karaktere edo gutxiago izan behar du.",
           "tagDuplicate": "Etiketa mota hau duen dokumentua dagoeneko badago. ",
           "fileExtension": "Edukiaren fitxategiak .md fitxategia izan behar du eta PDF edukiak .pdf fitxategia izan behar du.",
-          "fileMissing": "Bai marka (.md) fitxategia eta PDF fitxategia eman behar da."
+          "fileMissing": "Bai marka (.md) fitxategia eta PDF fitxategia eman behar da.",
+          "tagRequired": "Mesedez, hautatu etiketa bat."
         },
         "upload": {
           "error": "Fitxategiak kargatzea huts egin du. "
