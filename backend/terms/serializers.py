@@ -6,8 +6,8 @@ class TermsSerializer(serializers.ModelSerializer):
 
     tag_display = serializers.CharField(source='get_tag_display', read_only=True)
     name = serializers.CharField(required=False)
-    content = serializers.FileField(required=False)
-    pdf_content = serializers.FileField(required=False)
+    content = serializers.FileField()
+    pdf_content = serializers.FileField()
     version = serializers.CharField(required=True)
 
     class Meta:

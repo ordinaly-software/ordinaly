@@ -490,8 +490,8 @@
           "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica."
         },
         "featured": {
-          "enabled": "El servicio '{title}' ha sido marcado como destacado.",
-          "disabled": "El servicio '{title}' ya no está destacado."
+          "enabled": "El servicio ha sido marcado como destacado.",
+          "disabled": "El servicio ya no está destacado."
         }
       },
       "confirmDelete": {
@@ -601,8 +601,8 @@
         "update": "Actualizar Curso"
       },
       "messages": {
-        "createSuccess": "¡Curso '{title}' creado exitosamente! Los estudiantes ya pueden inscribirse.",
-        "updateSuccess": "¡Curso '{title}' actualizado exitosamente!",
+        "createSuccess": "¡Curso creado exitosamente! Los estudiantes ya pueden inscribirse.",
+        "updateSuccess": "¡Curso actualizado exitosamente!",
         "deleteSuccess": "Curso eliminado exitosamente",
         "bulkDeleteSuccess": "cursos eliminados exitosamente",
         "fetchError": "Error al obtener cursos",

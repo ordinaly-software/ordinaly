@@ -219,6 +219,10 @@ class Course(models.Model):
         """Generate calendar export data in various formats"""
         from urllib.parse import quote
 
+        # If start_time or end_time is missing, cannot generate calendar events
+        if not self.start_time or not self.end_time:
+            return [] if format_type in ['google', 'outlook'] else None
+
         # Get next occurrences for calendar events
         occurrences = self.get_next_occurrences(limit=50)
 
@@ -291,7 +295,8 @@ class Course(models.Model):
 
     def get_next_occurrences(self, limit=10):
         """Get the next occurrences of this course with advanced scheduling support"""
-        if not self.start_date or not self.end_date:
+        # If start_date or end_date is missing, or if start_time or end_time is missing, return []
+        if not self.start_date or not self.end_date or not self.start_time or not self.end_time:
             return []
 
         occurrences = []

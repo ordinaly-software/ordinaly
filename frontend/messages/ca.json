@@ -490,8 +490,8 @@
           "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica."
         },
         "featured": {
-          "enabled": "El servei '{title}' ha estat marcat com a destacat.",
-          "disabled": "El servei '{title}' ja no apareix."
+          "enabled": "El servei ha estat marcat com a destacat.",
+          "disabled": "El servei ja no apareix."
         }
       },
       "confirmDelete": {
@@ -607,8 +607,8 @@
         "update": "Curs d'actualització"
       },
       "messages": {
-        "createSuccess": "El curs '{title}' creat amb èxit! ",
-        "updateSuccess": "Curs '{title}' actualitzat correctament!",
+        "createSuccess": "El curs creat amb èxit! ",
+        "updateSuccess": "Curs actualitzat correctament!",
         "deleteSuccess": "El curs es va suprimir amb èxit",
         "bulkDeleteSuccess": "Els cursos es van suprimir amb èxit",
         "fetchError": "No s'ha pogut buscar cursos",

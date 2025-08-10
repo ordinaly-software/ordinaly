@@ -490,8 +490,8 @@
           "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica."
         },
         "featured": {
-          "enabled": "Servizo '{title}' marcado como destacado.",
-          "disabled": "Servizo '{title}' xa non está destacado."
+          "enabled": "Servizo marcado como destacado.",
+          "disabled": "Servizo xa non está destacado."
         }
       },
       "confirmDelete": {
@@ -607,8 +607,8 @@
         "update": "Actualizar curso"
       },
       "messages": {
-        "createSuccess": "Curso '{title}' creado con éxito!",
-        "updateSuccess": "Curso '{title}' actualizado con éxito!",
+        "createSuccess": "Curso creado con éxito!",
+        "updateSuccess": "Curso actualizado con éxito!",
         "deleteSuccess": "Curso eliminado con éxito",
         "bulkDeleteSuccess": "Cursos eliminados con éxito",
         "fetchError": "Erro ao cargar cursos",

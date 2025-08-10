@@ -466,8 +466,8 @@
           "priceInvalid": "Prezioak gutxienez 0,01 € izan behar du zehaztuta badago."
         },
         "featured": {
-          "enabled": "'{title}' zerbitzua nabarmendua da.",
-          "disabled": "'{title}' zerbitzua ez da gehiago nabarmendua."
+          "enabled": "Zerbitzua nabarmendua da.",
+          "disabled": "Zerbitzua ez da gehiago nabarmendua."
         }
       },
       "confirmDelete": {
@@ -583,8 +583,8 @@
         "update": "Eguneratu ikastaroa"
       },
       "messages": {
-        "createSuccess": "Ikastaroa '{title}' arrakastaz sortu da!",
-        "updateSuccess": "Ikastaroa '{title}' arrakastaz eguneratu da!",
+        "createSuccess": "Ikastaroa arrakastaz sortu da!",
+        "updateSuccess": "Ikastaroa arrakastaz eguneratu da!",
         "deleteSuccess": "Ikastaroa behar bezala ezabatu da",
         "bulkDeleteSuccess": "Ikastaroak behar bezala ezabatu dira",
         "fetchError": "Errorea ikastaroak eskuratzean",

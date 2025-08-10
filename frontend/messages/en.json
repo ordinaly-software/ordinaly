@@ -490,8 +490,8 @@
           "priceInvalid": "Price must be at least $0.01 if specified."
         },
         "featured": {
-          "enabled": "Service '{title}' has been marked as featured.",
-          "disabled": "Service '{title}' is no longer featured."
+          "enabled": "Service has been marked as featured.",
+          "disabled": "Service is no longer featured."
         }
       },
       "confirmDelete": {
@@ -607,8 +607,8 @@
         "update": "Update Course"
       },
       "messages": {
-        "createSuccess": "Course '{title}' created successfully! Students can now enroll.",
-        "updateSuccess": "Course '{title}' updated successfully!",
+        "createSuccess": "Course created successfully! Students can now enroll.",
+        "updateSuccess": "Course updated successfully!",
         "deleteSuccess": "Course deleted successfully",
         "bulkDeleteSuccess": "courses deleted successfully",
         "fetchError": "Failed to fetch courses",

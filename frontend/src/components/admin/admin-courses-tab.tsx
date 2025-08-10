@@ -266,21 +266,22 @@ const AdminCoursesTab = () => {
       title: course.title,
       subtitle: course.subtitle || "",
       description: course.description,
-      price: course.price || "",
+      price: course.price == null ? "" : course.price,
       location: course.location,
-      start_date: course.start_date,
-      end_date: course.end_date,
-      start_time: course.start_time,
-      end_time: course.end_time,
-      periodicity: course.periodicity,
-      timezone: course.timezone,
+      start_date: course.start_date == null ? "" : course.start_date,
+      end_date: course.end_date == null ? "" : course.end_date,
+      start_time: course.start_time == null ? "" : course.start_time,
+      end_time: course.end_time == null ? "" : course.end_time,
+      periodicity: course.periodicity || "once",
+      timezone: course.timezone || "Europe/Madrid",
       weekdays: course.weekdays || [],
-      week_of_month: course.week_of_month || null,
-      interval: course.interval || 1,
+      week_of_month: course.week_of_month == null ? null : course.week_of_month,
+      interval: course.interval == null ? 1 : course.interval,
       exclude_dates: course.exclude_dates || [],
-      max_attendants: course.max_attendants.toString()
+      max_attendants: course.max_attendants != null ? course.max_attendants.toString() : ""
     });
     setPreviewUrl(course.image);
+    setSelectedFile(null); // Ensure no file is selected by default when editing
     setShowEditModal(true);
   };
 
@@ -418,14 +419,7 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.locationRequired')});
         return;
       }
-      if (!formData.start_date.trim()) {
-        setAlert({type: 'error', message: t('messages.validation.startDateRequired')});
-        return;
-      }
-      if (!formData.end_date.trim()) {
-        setAlert({type: 'error', message: t('messages.validation.endDateRequired')});
-        return;
-      }
+  // Allow empty/null start_date and end_date (no required validation)
       if (!formData.max_attendants || parseInt(formData.max_attendants) < 1) {
         setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
         return;
@@ -438,6 +432,19 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.imageRequired')});
         return;
       }
+
+      // Prepare data, convert empty strings to null for nullable fields
+      const payload = {
+        ...formData,
+        price: formData.price === "" ? null : formData.price,
+        start_date: formData.start_date === "" ? null : formData.start_date,
+        end_date: formData.end_date === "" ? null : formData.end_date,
+        start_time: formData.start_time === "" ? null : formData.start_time,
+        end_time: formData.end_time === "" ? null : formData.end_time,
+  week_of_month: formData.week_of_month === null ? null : formData.week_of_month,
+        max_attendants: formData.max_attendants === "" ? null : parseInt(formData.max_attendants),
+      };
+      // ...existing code...
 
       const token = localStorage.getItem('authToken');
       
