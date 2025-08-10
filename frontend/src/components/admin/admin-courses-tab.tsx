@@ -433,19 +433,6 @@ const AdminCoursesTab = () => {
         return;
       }
 
-      // Prepare data, convert empty strings to null for nullable fields
-      const payload = {
-        ...formData,
-        price: formData.price === "" ? null : formData.price,
-        start_date: formData.start_date === "" ? null : formData.start_date,
-        end_date: formData.end_date === "" ? null : formData.end_date,
-        start_time: formData.start_time === "" ? null : formData.start_time,
-        end_time: formData.end_time === "" ? null : formData.end_time,
-  week_of_month: formData.week_of_month === null ? null : formData.week_of_month,
-        max_attendants: formData.max_attendants === "" ? null : parseInt(formData.max_attendants),
-      };
-      // ...existing code...
-
       const token = localStorage.getItem('authToken');
       
       const formDataToSend = new FormData();

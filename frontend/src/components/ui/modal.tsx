@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, ReactNode } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 

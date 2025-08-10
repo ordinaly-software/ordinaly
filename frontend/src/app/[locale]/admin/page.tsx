@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminTabs, AdminTabsTab } from "@/components/ui/admin-tabs";
@@ -37,8 +37,6 @@ export default function AdminPage() {
   const t = useTranslations("admin");
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
-  const tabBarRef = useRef<HTMLDivElement>(null);
-  const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);

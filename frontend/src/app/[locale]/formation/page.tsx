@@ -32,8 +32,6 @@ import {
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
 
 interface Course {
   id: number;
