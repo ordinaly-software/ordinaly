@@ -4,6 +4,13 @@ from users.models import CustomUser
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    def validate_image(self, value):
+        max_size = 1024 * 1024  # 1MB
+        if value and hasattr(value, 'size'):
+            if value.size > max_size:
+                raise serializers.ValidationError("Course image must be 1MB or less.")
+        return value
+
     def validate(self, data):
         # On update, prevent lowering max_attendants below enrolled_count
         instance = getattr(self, 'instance', None)

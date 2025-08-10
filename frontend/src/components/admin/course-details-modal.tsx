@@ -5,9 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Clock, MapPin, Users, Euro, Info, BookOpen, Star, CheckCircle } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
+import { ModalCloseButton } from "../ui/modal-close-button";
 
 interface Course {
   id: number;
@@ -141,7 +140,7 @@ const CourseDetailsModal = ({
   const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl">
+    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl" showHeader={false}>
       <div className="max-h-[85vh] overflow-y-auto">
         {/* Header Image */}
         <div className="relative h-64 bg-gray-200 overflow-hidden">
@@ -150,11 +149,15 @@ const CourseDetailsModal = ({
             src={course.image}
             alt={course.title}
             fill
-            className="object-cover"
+            className="object-cover blur-sm"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          {/* Overlay close button for visibility on image */}
+          <div className="absolute top-3 right-3 z-20">
+            <ModalCloseButton onClick={onClose} variant="overlay" size="md" />
+          </div>
           <div className="absolute bottom-4 left-4 right-4">
             <div className="flex items-center gap-2 mb-2 flex-wrap">
               {course.price !== null && course.price !== undefined && (
@@ -192,9 +195,7 @@ const CourseDetailsModal = ({
                   {t('courseDescription')}
                 </h2>
                 <div className="prose dark:prose-invert max-w-none">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-                    {course.description}
-                  </ReactMarkdown>
+                  <MarkdownRenderer>{course.description}</MarkdownRenderer>
                 </div>
               </div>
 

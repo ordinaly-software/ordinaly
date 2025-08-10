@@ -1,5 +1,4 @@
 from datetime import date, time
-from decimal import Decimal
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from django.contrib.auth import get_user_model
@@ -447,8 +446,8 @@ class Command(BaseCommand):
                     '## 👥 Dirigido a\n\n'
                     '- Agentes inmobiliarios\n'
                     '- Gestores de propiedades\n'
-                    '- Profesionales del marketing inmobiliario\n'
-                    'Taller impartido por: \n'
+                    '- Profesionales del marketing inmobiliario\n\n'
+                    '**Taller impartido por**: \n'
                     '- 👨‍💻 *Antonio Macías* - ingeniero del software de Ordinaly\n'
                     '- 🧪 *Guillermo Montero* - ingeniero de calidad en Proinca y experto en IA\n\n'
                     '**Incluye**: Material didáctico, certificado de finalización, '
@@ -672,7 +671,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
 |------------------------------|-----------------------------------------------|
 | Test de contraste de colores | **Implementación de ADD ON de accesibilidad** |
 | Navegación por teclado       | Guía de accesibilidad + Tutorial de uso       |
-| Lectores de pantalla         | **EXTRA: ** Implementación de mejoras de accesibilidad global (consultar)  |
+| Lectores de pantalla         | **EXTRA:** Implementación de mejoras de accesibilidad global (consultar)  |
 
 ## 🏆 Resultados
 
@@ -740,7 +739,8 @@ Estas automatizaciones te permitirán centrarte en la creación de contenido dej
                     "- Acceso a las (temporalmente) a las redes sociales que se quieran automatizar.    "
                     "- Acceso a una cuenta de Google Drive con espacio suficiente para alamacenar el contenido.    "
                 ),
-                'price': Decimal('1299.00'),
+                # 'price': Decimal('300.00'),
+                'price': None,
                 'is_featured': False,
             },
         ]

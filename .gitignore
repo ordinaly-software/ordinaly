@@ -31,4 +31,5 @@ backend/db.sqlite3
 db.sqlite3
 **/migrations/**
 !**/migrations/__init__.py
-*/media/*
+*/media/course_images/*
+*/media/terms/*

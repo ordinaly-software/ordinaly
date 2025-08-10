@@ -89,13 +89,13 @@ const LegalPage = () => {
   const DocumentCard = ({ document }: { document: LegalDocument }) => (
     <Card className="mb-6">
       <CardHeader>
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex-1">
             <CardTitle className="flex items-center space-x-2">
               <FileText className="w-5 h-5 text-[#22A60D]" />
               <span>{document.name}</span>
             </CardTitle>
-            <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex flex-wrap items-center gap-2 mt-2 text-sm text-gray-500 dark:text-gray-400">
               <div className="flex items-center space-x-1">
                 <Tag className="w-4 h-4" />
                 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
@@ -113,7 +113,7 @@ const LegalPage = () => {
               variant="outline"
               size="sm"
               onClick={() => downloadPDF(document)}
-              className="ml-4 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white"
+              className="sm:ml-4 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white w-full sm:w-auto"
             >
               <Download className="w-4 h-4 mr-2" />
               {t('downloadPdf')}
@@ -122,15 +122,13 @@ const LegalPage = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <div 
-          className="prose prose-sm max-w-none dark:prose-invert mb-6"
-        />
+        <div className="prose prose-sm max-w-none dark:prose-invert mb-6" />
         {document.pdf_content && (
           <div className="my-4">
             <object
               data={document.pdf_content}
               type="application/pdf"
-              className="w-full h-96 border rounded-lg shadow"
+              className="w-full h-64 sm:h-96 border rounded-lg shadow"
             >
               <p>{t('messages.noPdfAvailable')}</p>
             </object>
@@ -183,17 +181,21 @@ const LegalPage = () => {
 
         {/* Custom Tab Navigation */}
         <div className="mb-8">
-          <div className="border-b border-gray-200 dark:border-gray-700">
-            <nav className="-mb-px flex space-x-8">
+          <div className="border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+            <nav
+              className="-mb-px flex flex-nowrap space-x-4 sm:space-x-8 overflow-x-auto scrollbar-hide px-1"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+            >
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 py-2 px-1 border-b-2 font-medium text-sm ${
+                  className={`flex items-center space-x-2 py-2 px-4 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-150 ${
                     activeTab === tab.id
-                      ? 'border-[#22A60D] text-[#22A60D]'
+                      ? 'border-[#22A60D] text-[#22A60D] bg-[#22a60d0d] dark:bg-[#22a60d1a]'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
                   }`}
+                  style={{ minWidth: 140 }}
                 >
                   <tab.icon className="w-4 h-4" />
                   <span>{tab.label}</span>
@@ -207,9 +209,6 @@ const LegalPage = () => {
         <div className="min-h-96">
           {activeTab === 'terms' && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                {t('sections.terms.title')}
-              </h2>
               {getDocumentsByTag('terms').length === 0 ? (
                 <Card>
                   <CardContent className="text-center py-12">
@@ -294,10 +293,12 @@ const LegalPage = () => {
           )}
         </div>
 
-        {/* Back to Home */}
-        <div className="mt-12 text-center">
+        {/* Back to Home - fixed at bottom foreground */}
+        <div
+          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300"
+        >
           <Link href="/">
-            <Button variant="outline" className="border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white">
+            <Button variant="outline" className="border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white shadow-lg px-6 py-3 text-base">
               <ExternalLink className="w-4 h-4 mr-2" />
               {tCommon('backToHome')}
             </Button>

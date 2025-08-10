@@ -414,6 +414,7 @@
       "noServicesFound": "Ez da zerbitzurik aurkitu zure bilaketarekin bat datorrena.",
       "durationDay": "Egun 1",
       "durationDays": "{count} egun",
+      "services": "Zerbitzuak",
       "form": {
         "title": "Izenburua",
         "titlePlaceholder": "Zerbitzuaren izenburua",
@@ -446,7 +447,7 @@
       },
       "messages": {
         "createSuccess": "'{title}' zerbitzua ondo sortu da!",
-        "updateSuccess": "Zerbitzua '{title}' eguneratu da arrakastaz!",
+        "updateSuccess": "Zerbitzua eguneratu da arrakastaz!",
         "deleteSuccess": "Zerbitzua behar bezala ezabatu da",
         "bulkDeleteSuccess": "Zerbitzuak behar bezala ezabatu dira",
         "fetchError": "Errorea zerbitzuak eskuratzean",
@@ -681,6 +682,8 @@
       "downloadPdf": "Deskargatu PDF",
       "edit": "Editatu baldintza",
       "delete": "Ezabatu baldintza",
+      "noResults": "Ez da emaitzarik aurkitu",
+      "terms": "baldintzak",
       "form": {
         "name": "Izena",
         "namePlaceholder": "Baldintzaren izena",
@@ -734,8 +737,6 @@
         "updated": "Eguneratua"
       },
       "preview": {
-        "pdf": "PDF aurrebista",
-        "markdown": "Markdown aurrebista",
         "noFileEdit": "Ezin da fitxategia editatu",
         "noPdf": "Ezin da PDFa editatu"
       },
@@ -762,7 +763,9 @@
           "tagUnique": "Etiketa mota honekin dokumentu bat badago jada. Aukeratu beste etiketa bat edo editatu lehendik dagoena.",
           "fileExtension": "Edukien fitxategia .md izan behar da eta PDF edukia .pdf.",
           "fileMissing": "Markdown (.md) eta PDF fitxategiak eman behar dira.",
-          "tagRequired": "Mesedez, aukeratu dokumentu mota bat."
+          "tagRequired": "Mesedez, aukeratu dokumentu mota bat.",
+          "mdSize": "Markdown fitxategiak 1MB edo gutxiago izan behar du.",
+          "pdfSize": "PDF fitxategiak 1MB edo gutxiago izan behar du."
         }
       },
       "upload": {

@@ -7,6 +7,16 @@ from datetime import datetime, timedelta
 
 
 class Course(models.Model):
+    def clean(self):
+        # Validate image size (max 1MB)
+        max_size = 1024 * 1024  # 1MB
+        if self.image and hasattr(self.image, 'size'):
+            if self.image.size > max_size:
+                from django.core.exceptions import ValidationError
+                raise ValidationError({
+                    'image': 'Course image must be 1MB or less.'
+                })
+        super().clean()
     PERIODICITY_CHOICES = [
         ('once', 'One-time event'),
         ('daily', 'Daily'),
@@ -36,7 +46,7 @@ class Course(models.Model):
 
     title = models.CharField(max_length=100)
     subtitle = models.CharField(max_length=200, blank=True, null=True)
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=2000)
     image = models.ImageField(upload_to='course_images/')
     price = models.DecimalField(
         max_digits=10,

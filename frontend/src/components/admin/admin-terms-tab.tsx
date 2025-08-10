@@ -9,11 +9,10 @@ import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
 import { getApiEndpoint } from "@/lib/api-config";
-import { Plus, Edit, Trash2, Search, Download } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Eye } from "lucide-react";
 import Dropdown from "@/components/ui/dropdown";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 
 interface Term {
   id: number;
@@ -199,9 +198,14 @@ const AdminTermsTab = () => {
       return;
     }
     // Ensure .md
-    const extOk = /\.md$/i.test(file.name);
+  const extOk = /.md$/i.test(file.name);
     if (!extOk) {
       setAlert({ type: "error", message: t("messages.validation.mdOnly") });
+      return;
+    }
+    // Check file size (1MB = 1048576 bytes)
+    if (file.size > 1048576) {
+      setAlert({ type: "error", message: t("messages.validation.mdSize") || "Markdown file must be 1MB or less." });
       return;
     }
     // read text -> preview
@@ -211,8 +215,15 @@ const AdminTermsTab = () => {
 
   const onPickPdfFile = (file: File | null) => {
     setFormData(prev => ({ ...prev, pdf_content: file }));
-    if (file && !/\.pdf$/i.test(file.name)) {
-      setAlert({ type: "error", message: t("messages.validation.pdfOnly") });
+    if (file) {
+  if (!/.pdf$/i.test(file.name)) {
+        setAlert({ type: "error", message: t("messages.validation.pdfOnly") });
+        return;
+      }
+      if (file.size > 1048576) {
+        setAlert({ type: "error", message: t("messages.validation.pdfSize") || "PDF file must be 1MB or less." });
+        return;
+      }
     }
   };
 
@@ -358,42 +369,39 @@ const AdminTermsTab = () => {
       )}
 
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <Input
-            placeholder={t("searchPlaceholder")}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 w-64"
-          />
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
+        {/* Search bar left */}
+        <div className="flex-1">
+          <div className="relative w-full sm:w-64 min-w-0">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Input
+              placeholder={t("searchPlaceholder")}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10 w-full min-w-0"
+            />
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          {filteredTerms.length > 0 && (
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={selectAll}
-            >
-              {selectedTerms.length === filteredTerms.length
-                ? t("unselectAll")
-                : t("selectAll", { count: filteredTerms.length })}
-            </Button>
-          )}
+        {/* Actions right */}
+        <div className="flex items-center gap-2 mt-3 sm:mt-0">
           {selectedTerms.length > 0 && (
             <Button
               variant="destructive"
               size="sm"
               onClick={handleBulkDelete}
-              className="flex items-center gap-1"
+              className="flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
             >
               <Trash2 className="h-4 w-4" />
-              <span>{t("deleteSelected")} ({selectedTerms.length})</span>
+              <span className="hidden xs:inline">{t("deleteSelected")} ({selectedTerms.length})</span>
             </Button>
           )}
-          <Button onClick={handleCreate} className="bg-[#22A60D] hover:bg-[#22A010] text-white">
+          <Button
+            onClick={handleCreate}
+            size="sm"
+            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
+          >
             <Plus className="h-4 w-4" />
-            <span>{t("addTerm")}</span>
+            <span className="hidden xs:inline">{t("addTerm")}</span>
           </Button>
         </div>
       </div>
@@ -409,24 +417,38 @@ const AdminTermsTab = () => {
         </div>
       ) : (
         <div className="space-y-4">
+
+          {/* Select All */}
+          <div className="flex items-center space-x-2 pb-2 border-b border-gray-200 dark:border-gray-700">
+            <input
+              type="checkbox"
+              checked={selectedTerms.length === filteredTerms.length && filteredTerms.length > 0}
+              onChange={selectAll}
+              className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
+            />
+            <span className="text-sm text-gray-600 dark:text-gray-400">
+              {t("selectAll")} ({filteredTerms.length} {t("terms")})
+            </span>
+          </div>
+
           {filteredTerms.map((term) => (
             <Card
               key={term.id}
               className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg"
             >
-              <CardContent className="p-4">
-                <div className="flex items-start gap-4">
+              <CardContent className="p-3 sm:p-4">
+                <div className="flex flex-col xs:flex-row items-start xs:items-center gap-2 xs:gap-4">
                   <input
                     type="checkbox"
                     checked={selectedTerms.includes(term.id)}
                     onChange={() => toggleSelection(term.id)}
-                    className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
+                    className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] mt-1 xs:mt-0"
                   />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between">
+                  <div className="flex-1 min-w-0 w-full">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                       <div className="flex-1">
-                        <div className="flex items-center gap-2">
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
                             {term.name}
                           </h3>
                           <span className="text-xs px-2 py-0.5 rounded bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200">
@@ -436,38 +458,43 @@ const AdminTermsTab = () => {
                             v{term.version}
                           </span>
                         </div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                          {t("labels.created")}: {new Date(term.created_at).toLocaleDateString()} • {t("labels.updated")}: {new Date(term.updated_at).toLocaleDateString()}
+                        <div className="flex flex-wrap gap-2 mt-1">
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                            {t("labels.created")}: {new Date(term.created_at).toLocaleDateString()}
+                          </span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                            {t("labels.updated")}: {new Date(term.updated_at).toLocaleDateString()}
+                          </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2 ml-4">
+                      <div className="flex flex-row flex-wrap items-center gap-1 sm:gap-2 mt-2 sm:mt-0">
                         <Button
                           variant="ghost"
-                          size="sm"
+                          size="icon"
                           onClick={() => term.pdf_content ? window.open(term.pdf_content, "_blank") : undefined}
-                          className="text-gray-600 hover:text-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
+                          className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10"
                           title={t("downloadPdf") || "Download PDF"}
                           disabled={!term.pdf_content}
                         >
-                          <Download className="h-4 w-4" />
+                          <Eye className="h-4 w-4" />
                         </Button>
                         <Button
                           variant="ghost"
-                          size="sm"
+                          size="icon"
                           onClick={() => handleEdit(term)}
                           className="text-[#46B1C9] hover:bg-[#46B1C9] hover:bg-opacity-10"
                           title={t("edit")}
                         >
-                          <Edit className="h-4 w-4" />
+                          <Edit className="h-5 w-5 sm:h-4 sm:w-4" />
                         </Button>
                         <Button
                           variant="ghost"
-                          size="sm"
+                          size="icon"
                           onClick={() => handleDelete(term)}
                           className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20"
                           title={t("delete")}
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-5 w-5 sm:h-4 sm:w-4" />
                         </Button>
                       </div>
                     </div>
@@ -490,9 +517,10 @@ const AdminTermsTab = () => {
         showHeader={true}
         className="max-w-4xl w-full mx-4"
       >
-        <div className="space-y-4 max-h-[80vh] overflow-y-auto pb-20">
+        <div className="relative flex flex-col" style={{minHeight: '60vh'}}>
+          <div className="space-y-6 max-h-[70vh] overflow-y-auto pb-32 px-1 sm:px-0">
           {/* Tabs */}
-          <div className="sticky top-0 z-30 bg-white dark:bg-[#1A1924] flex items-center gap-2 border-b border-gray-200 dark:border-gray-700" style={{ minHeight: 56 }}>
+          <div className="sticky top-0 z-30 bg-white dark:bg-[#1A1924] flex flex-wrap items-center gap-2 border-b border-gray-200 dark:border-gray-700 px-2 sm:px-0" style={{ minHeight: 56 }}>
             <button
               className={`px-4 py-2 text-sm font-medium ${
                 activeTab === "form"
@@ -526,9 +554,9 @@ const AdminTermsTab = () => {
           </div>
 
           {activeTab === "form" && (
-            <div className="space-y-6">
+            <div className="space-y-6 pt-2">
               {/* ...existing form code... */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-3">
                   <Label className="text-sm font-semibold">{t("form.name")} *</Label>
                   <Input
@@ -549,7 +577,7 @@ const AdminTermsTab = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-3">
                   <Label className="text-sm font-semibold">{t("form.tag")} *</Label>
                   <div className="relative">
@@ -576,7 +604,7 @@ const AdminTermsTab = () => {
                   {availableTags.length === 0 && !isEditing && (
                     <div className="text-xs text-gray-500 mt-1">{t("form.noTagsLeft") || "All document types are already in use."}</div>
                   )}
-                  {duplicateTag && (
+                  {formData.tag && duplicateTag && availableTags.length > 0 && (
                     <div className="text-xs text-red-600">
                       {t("messages.validation.tagUnique")}
                     </div>
@@ -618,11 +646,12 @@ const AdminTermsTab = () => {
                     <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded shadow-sm border border-blue-200">{formData.content.name}</span>
                   )}
                 </div>
-                <div className="text-xs flex gap-2 mt-2">
+                <div className="flex flex-col sm:flex-row gap-2 mt-2">
                   <Button
                     type="button"
                     variant="secondary"
                     onClick={() => setActiveTab("preview")}
+                    className="w-full sm:w-auto"
                   >
                     {t("actions.viewPreview")}
                   </Button>
@@ -630,6 +659,7 @@ const AdminTermsTab = () => {
                     type="button"
                     variant="secondary"
                     onClick={() => setActiveTab("pdf")}
+                    className="w-full sm:w-auto"
                   >
                     {t("actions.viewPdf") || "View PDF"}
                   </Button>
@@ -638,10 +668,9 @@ const AdminTermsTab = () => {
             </div>
           )}
           {activeTab === "preview" && (
-            <div className="prose prose-base max-w-none dark:prose-invert border-gray-200 dark:border-gray-700 pr-4">
-              <div className="font-semibold mb-2">{t("preview.markdown") || "Markdown Preview"}</div>
+            <div className="prose prose-base max-w-none dark:prose-invert border-gray-200 dark:border-gray-700 pr-2 sm:pr-4">
               {previewMd ? (
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{previewMd}</ReactMarkdown>
+                <MarkdownRenderer>{previewMd}</MarkdownRenderer>
               ) : (
                 <div className="text-gray-500 dark:text-gray-400">
                   {isEditing
@@ -652,8 +681,7 @@ const AdminTermsTab = () => {
             </div>
           )}
           {activeTab === "pdf" && (
-            <div className="flex flex-col items-center justify-center">
-              <div className="font-semibold mb-2">{t("preview.pdf") || "PDF Preview"}</div>
+            <div className="flex flex-col items-center justify-center px-2 sm:px-0">
               {/* Show PDF preview if a new file is picked, else show currentTerm.pdf_content if editing */}
               {formData.pdf_content ? (
                 <object
@@ -681,24 +709,25 @@ const AdminTermsTab = () => {
         </div>
 
         {/* Sticky footer actions */}
-        <div className="absolute bottom-0 left-0 right-0 flex justify-end gap-3 pt-6 pb-6 px-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1A1924]">
-          <Button
-            variant="ghost"
-            onClick={() => {
-              setShowModal(false);
-              resetForm();
-            }}
-            className="px-6 py-2"
-          >
-            {t("form.cancel")}
-          </Button>
-          <Button
-            onClick={submitTerm}
-            disabled={duplicateTag || (!isEditing && !formData.content)}
-            className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white"
-          >
-            {isEditing ? t("form.update") : t("form.create")}
-          </Button>
+          <div className="absolute bottom-0 left-0 right-0 flex flex-col sm:flex-row justify-end gap-3 pt-4 pb-4 px-4 sm:pt-6 sm:pb-6 sm:px-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1A1924] z-20">
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setShowModal(false);
+                resetForm();
+              }}
+              className="w-full sm:w-auto px-6 py-2"
+            >
+              {t("form.cancel")}
+            </Button>
+            <Button
+              onClick={submitTerm}
+              disabled={duplicateTag || (!isEditing && !formData.content)}
+              className="w-full sm:w-auto px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white"
+            >
+              {isEditing ? t("form.update") : t("form.create")}
+            </Button>
+          </div>
         </div>
       </Modal>
 

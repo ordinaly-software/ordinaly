@@ -17,13 +17,21 @@ class TermsSerializer(serializers.ModelSerializer):
         read_only_fields = ['created_at', 'updated_at', 'author']
 
     def validate_content(self, value):
-        if value and not value.name.endswith('.md'):
-            raise serializers.ValidationError("Content file must be a markdown (.md) file")
+        if value:
+            if not value.name.endswith('.md'):
+                raise serializers.ValidationError("Content file must be a markdown (.md) file")
+            max_size = 1024 * 1024  # 1MB
+            if value.size > max_size:
+                raise serializers.ValidationError("Markdown file must be 1MB or less.")
         return value
 
     def validate_pdf_content(self, value):
-        if value and not value.name.endswith('.pdf'):
-            raise serializers.ValidationError("PDF content must be a PDF file")
+        if value:
+            if not value.name.endswith('.pdf'):
+                raise serializers.ValidationError("PDF content must be a PDF file")
+            max_size = 1024 * 1024  # 1MB
+            if value.size > max_size:
+                raise serializers.ValidationError("PDF file must be 1MB or less.")
         return value
 
     def validate(self, data):

@@ -47,7 +47,6 @@ class Terms(models.Model):
         existing_terms = Terms.objects.filter(tag=self.tag)
         if self.pk:  # This is an update
             existing_terms = existing_terms.exclude(pk=self.pk)
-        
         if existing_terms.exists():
             tag_display = dict(self.TAG_CHOICES).get(self.tag, self.tag)
             raise ValidationError(
@@ -60,11 +59,13 @@ class Terms(models.Model):
             if not self.content or not self.pdf_content:
                 raise ValidationError("Both a markdown (.md) file and a PDF file must be provided.")
 
+        max_size = 1024 * 1024  # 1MB
+
         if self.content:
             if not self.content.name.endswith('.md'):
                 raise ValidationError("The content file must be a markdown (.md) file.")
-            # Remove the strict content-type check for markdown files
-            # as it's not consistently set across different systems
+            if self.content.size > max_size:
+                raise ValidationError("The markdown file must be 1MB or less.")
 
         if self.pdf_content:
             if not self.pdf_content.name.endswith('.pdf'):
@@ -72,6 +73,8 @@ class Terms(models.Model):
             if (hasattr(self.pdf_content.file, 'content_type') and
                self.pdf_content.file.content_type != "application/pdf"):
                 raise ValidationError("The uploaded PDF file must have a valid PDF content type.")
+            if self.pdf_content.size > max_size:
+                raise ValidationError("The PDF file must be 1MB or less.")
 
         super().clean()
 

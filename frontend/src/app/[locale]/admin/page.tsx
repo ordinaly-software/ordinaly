@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { AdminTabs, AdminTabsTab } from "@/components/ui/admin-tabs";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/home/footer";
 import Alert from "@/components/ui/alert";
@@ -36,8 +37,24 @@ export default function AdminPage() {
   const t = useTranslations("admin");
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<TabType>('overview');
+  const tabBarRef = useRef<HTMLDivElement>(null);
+  const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAuthorized, setIsAuthorized] = useState(false);
+  const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
+  const [stats, setStats] = useState({
+    totalServices: 0,
+    totalCourses: 0,
+    totalUsers: 0,
+    totalTerms: 0
+  });
+  const tabs: AdminTabsTab[] = [
+    { id: 'overview', name: t("tabs.overview"), icon: BarChart3 },
+    { id: 'services', name: t("tabs.services"), icon: Settings },
+    { id: 'courses', name: t("tabs.courses"), icon: BookOpen },
+    { id: 'terms', name: t("tabs.terms"), icon: FileText },
+    { id: 'users', name: t("tabs.users"), icon: Users },
+  ];
 
   // Load saved tab from localStorage on component mount
   useEffect(() => {
@@ -52,13 +69,6 @@ export default function AdminPage() {
     setActiveTab(tabId);
     localStorage.setItem('adminActiveTab', tabId);
   };
-  const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
-  const [stats, setStats] = useState({
-    totalServices: 0,
-    totalCourses: 0,
-    totalUsers: 0,
-    totalTerms: 0
-  });
 
   useEffect(() => {
     // Check authentication and admin status
@@ -145,81 +155,32 @@ export default function AdminPage() {
     checkAdminAccess();
   }, [router]);
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
-        <Navbar />
-        <div className="flex items-center justify-center min-h-[50vh]">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D] mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!isAuthorized) {
-    return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
-        {alert && (
-          <Alert
-            type={alert.type}
-            message={alert.message}
-            onClose={() => setAlert(null)}
-            duration={5000}
-          />
-        )}
-        <Navbar />
-        <div className="flex items-center justify-center min-h-[50vh]">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-red-500 mb-4">{t("accessDenied")}</h1>
-            <p className="text-gray-600 dark:text-gray-400">{t("noPermission")}</p>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  const tabs = [
-    { id: 'overview' as TabType, name: t("tabs.overview"), icon: BarChart3 },
-    { id: 'services' as TabType, name: t("tabs.services"), icon: Settings },
-    { id: 'courses' as TabType, name: t("tabs.courses"), icon: BookOpen },
-    { id: 'terms' as TabType, name: t("tabs.terms"), icon: FileText },
-    { id: 'users' as TabType, name: t("tabs.users"), icon: Users },
-  ];
+  // No need for scroll/tab memory logic here, handled by AdminTabs
 
   const renderTabContent = () => {
     const tabVariants = {
-      hidden: { 
-        opacity: 0, 
-        x: 20,
-        transition: { duration: 0.2 }
-      },
-      visible: { 
-        opacity: 1, 
-        x: 0,
-        transition: { duration: 0.3, ease: "easeOut" }
-      },
-      exit: { 
-        opacity: 0, 
-        x: -20,
-        transition: { duration: 0.2 }
-      }
+      hidden: { opacity: 0, y: 20 },
+      visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+      exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
     };
-
     switch (activeTab) {
       case 'overview':
         return (
-          <motion.div 
+          <motion.div
             key="overview"
             variants={tabVariants}
             initial="hidden"
             animate="visible"
-            exit="exit" 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+            exit="exit"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
           >
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleTabChange('services')}
+              tabIndex={0}
+              role="button"
+              aria-label={t("stats.totalServices")}
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalServices")}
@@ -232,8 +193,13 @@ export default function AdminPage() {
                 </div>
               </CardContent>
             </Card>
-
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleTabChange('courses')}
+              tabIndex={0}
+              role="button"
+              aria-label={t("stats.totalCourses")}
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalCourses")}
@@ -246,8 +212,13 @@ export default function AdminPage() {
                 </div>
               </CardContent>
             </Card>
-
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleTabChange('terms')}
+              tabIndex={0}
+              role="button"
+              aria-label={t("stats.totalTerms")}
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalTerms")}
@@ -260,8 +231,13 @@ export default function AdminPage() {
                 </div>
               </CardContent>
             </Card>
-
-            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
+            <Card
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleTabChange('users')}
+              tabIndex={0}
+              role="button"
+              aria-label={t("stats.totalUsers")}
+            >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalUsers")}
@@ -329,6 +305,42 @@ export default function AdminPage() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
+        <Navbar />
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D] mx-auto mb-4"></div>
+            <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!isAuthorized) {
+    return (
+      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
+        {alert && (
+          <Alert
+            type={alert.type}
+            message={alert.message}
+            onClose={() => setAlert(null)}
+            duration={5000}
+          />
+        )}
+        <Navbar />
+        <div className="flex items-center justify-center min-h-[50vh]">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-red-500 mb-4">{t("accessDenied")}</h1>
+            <p className="text-gray-600 dark:text-gray-400">{t("noPermission")}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
       {alert && (
@@ -353,26 +365,12 @@ export default function AdminPage() {
         </div>
 
         {/* Tabs */}
-        <div className="border-b border-gray-200 dark:border-gray-700 mb-8">
-          <nav className="-mb-px flex space-x-8">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab.id)}
-                  className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 transition-colors ${
-                    activeTab === tab.id
-                      ? 'border-[#22A60D] text-[#22A60D]'
-                      : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  <span>{tab.name}</span>
-                </button>
-              );
-            })}
-          </nav>
+        <div className="mb-8">
+          <AdminTabs
+            tabs={tabs}
+            activeTab={activeTab}
+            onTabChange={(tabId: string) => handleTabChange(tabId as TabType)}
+          />
         </div>
 
         {/* Tab Content */}
