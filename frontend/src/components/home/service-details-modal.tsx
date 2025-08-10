@@ -21,12 +21,23 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
   if (!service) return null;
 
   const getServiceColor = (service: Service) => {
+    // Use a darker fallback for better contrast
     const isDarkMode = document.documentElement.classList.contains('dark');
-    
     if (service.color === '1A1924' && isDarkMode) {
-      return '#efefefbb';
+      return '#efefef';
     } else if (service.color === '623CEA' && isDarkMode) {
-      return '#8B5FF7';
+      return '#3B1E8A';
+    }
+    // If color is too light, use a darker fallback
+    if (service.color_hex && /^#([A-Fa-f0-9]{6})$/.test(service.color_hex)) {
+      const hex = service.color_hex.replace('#', '');
+      const r = parseInt(hex.substring(0,2), 16);
+      const g = parseInt(hex.substring(2,4), 16);
+      const b = parseInt(hex.substring(4,6), 16);
+      // If color is too light, use dark gray
+      if ((r*0.299 + g*0.587 + b*0.114) > 180) {
+        return isDarkMode ? '#efefef' : '#222';
+      }
     }
     return service.color_hex;
   };
@@ -88,14 +99,14 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
             <div className="flex-1">
               {/* Subtitle */}
               {service.subtitle && (
-                <p className="text-lg text-gray-600 dark:text-gray-400">
+                <p className="text-lg text-gray-800 dark:text-gray-200">
                   {service.subtitle}
                 </p>
               )}
               {/* Featured Badge */}
               {service.is_featured && (
                 <div 
-                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-white mt-2"
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-white mt-2 shadow"
                   style={{ backgroundColor: serviceColor }}
                 >
                   {t("services.featured")}
@@ -109,7 +120,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
               {t("services.description")}
             </h3>
-            <div className="text-gray-600 dark:text-gray-400 leading-relaxed">
+            <div className="text-gray-800 dark:text-gray-200 leading-relaxed">
               <MarkdownRenderer color={serviceColor}>
                 {service.description}
               </MarkdownRenderer>
@@ -120,13 +131,13 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Duration */}
             {service.duration && (
-              <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
                 <Clock className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 <div>
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
                     {t("services.duration")}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-800 dark:text-gray-200">
                     {getDurationText(service.duration)}
                   </p>
                 </div>
@@ -134,13 +145,13 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
             )}
 
             {/* Price */}
-            <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <div className="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
               <ExternalLink className="h-5 w-5 text-green-600 dark:text-green-400" />
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
                   {t("services.price")}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-800 dark:text-gray-200">
                   {service.price ? `€${service.price}` : t("services.contactForQuote")}
                 </p>
               </div>
@@ -153,8 +164,8 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                 {t("services.requisites")}
               </h3>
-              <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-                <p className="text-gray-700 dark:text-gray-300">
+              <div className="p-4 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-800 rounded-lg">
+                <p className="text-gray-900 dark:text-gray-100">
                   {service.requisites}
                 </p>
               </div>

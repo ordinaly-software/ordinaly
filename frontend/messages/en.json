@@ -33,6 +33,7 @@
     },
     "services": {
       "title": "OUR SERVICES",
+      "retryButton": "Retry",
       "description": "Automation solutions designed to boost and accelerate your business.",
       "contactForQuote": "Contact our agents for a detailed quote",
       "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
