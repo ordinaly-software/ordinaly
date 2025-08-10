@@ -7,6 +7,16 @@ from datetime import datetime, timedelta
 
 
 class Course(models.Model):
+    def clean(self):
+        # Validate image size (max 1MB)
+        max_size = 1024 * 1024  # 1MB
+        if self.image and hasattr(self.image, 'size'):
+            if self.image.size > max_size:
+                from django.core.exceptions import ValidationError
+                raise ValidationError({
+                    'image': 'Course image must be 1MB or less.'
+                })
+        super().clean()
     PERIODICITY_CHOICES = [
         ('once', 'One-time event'),
         ('daily', 'Daily'),
@@ -36,7 +46,7 @@ class Course(models.Model):
 
     title = models.CharField(max_length=100)
     subtitle = models.CharField(max_length=200, blank=True, null=True)
-    description = models.TextField(max_length=500)
+    description = models.TextField(max_length=2000)
     image = models.ImageField(upload_to='course_images/')
     price = models.DecimalField(
         max_digits=10,
@@ -209,6 +219,10 @@ class Course(models.Model):
         """Generate calendar export data in various formats"""
         from urllib.parse import quote
 
+        # If start_time or end_time is missing, cannot generate calendar events
+        if not self.start_time or not self.end_time:
+            return [] if format_type in ['google', 'outlook'] else None
+
         # Get next occurrences for calendar events
         occurrences = self.get_next_occurrences(limit=50)
 
@@ -281,7 +295,8 @@ class Course(models.Model):
 
     def get_next_occurrences(self, limit=10):
         """Get the next occurrences of this course with advanced scheduling support"""
-        if not self.start_date or not self.end_date:
+        # If start_date or end_date is missing, or if start_time or end_time is missing, return []
+        if not self.start_date or not self.end_date or not self.start_time or not self.end_time:
             return []
 
         occurrences = []

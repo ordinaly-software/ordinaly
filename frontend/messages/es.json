@@ -438,6 +438,7 @@
       "noServicesFound": "No se encontraron servicios que coincidan con tu búsqueda.",
       "durationDay": "1 día",
       "durationDays": "{count} días",
+      "services": "servicios",
       "form": {
         "title": "Título",
         "titlePlaceholder": "Título del servicio",
@@ -469,10 +470,10 @@
         "requisitesPlaceholder": "Ingrese cualquier requisito o prerrequisito"
       },
       "messages": {
-        "createSuccess": "¡Servicio '{title}' creado exitosamente! Ya está disponible para los clientes.",
-        "updateSuccess": "¡Servicio '{title}' actualizado exitosamente!",
-        "deleteSuccess": "Servicio eliminado exitosamente",
-        "bulkDeleteSuccess": "servicios eliminados exitosamente",
+        "createSuccess": "¡Servicio creado correctamente! Ya está disponible para los clientes.",
+        "updateSuccess": "¡Servicio actualizado correctamente!",
+        "deleteSuccess": "¡Servicio eliminado correctamente!",
+        "bulkDeleteSuccess": "¡Servicios eliminados correctamente!",
         "fetchError": "Error al obtener servicios",
         "createError": "Error al crear servicio",
         "updateError": "Error al actualizar servicio",
@@ -489,8 +490,8 @@
           "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica."
         },
         "featured": {
-          "enabled": "El servicio '{title}' ha sido marcado como destacado.",
-          "disabled": "El servicio '{title}' ya no está destacado."
+          "enabled": "El servicio ha sido marcado como destacado.",
+          "disabled": "El servicio ya no está destacado."
         }
       },
       "confirmDelete": {
@@ -600,8 +601,8 @@
         "update": "Actualizar Curso"
       },
       "messages": {
-        "createSuccess": "¡Curso '{title}' creado exitosamente! Los estudiantes ya pueden inscribirse.",
-        "updateSuccess": "¡Curso '{title}' actualizado exitosamente!",
+        "createSuccess": "¡Curso creado exitosamente! Los estudiantes ya pueden inscribirse.",
+        "updateSuccess": "¡Curso actualizado exitosamente!",
         "deleteSuccess": "Curso eliminado exitosamente",
         "bulkDeleteSuccess": "cursos eliminados exitosamente",
         "fetchError": "Error al obtener cursos",
@@ -611,6 +612,7 @@
         "networkError": "No se pudo guardar el curso. Por favor verifica tu conexión e intenta de nuevo.",
         "selectToDelete": "Por favor selecciona cursos para eliminar",
         "fileSizeLimit": "El tamaño del archivo debe ser menor a 5MB",
+  "imageSizeLimit1MB": "La imagen del curso debe pesar 1MB o menos.",
         "imageFileOnly": "Por favor selecciona un archivo de imagen",
         "cannotDeleteFinished": "No se puede eliminar un curso finalizado.",
         "cannotDeleteFinishedBulk": "No se puede eliminar uno o más cursos finalizados.",
@@ -700,6 +702,8 @@
       "downloadPdf": "Descargar PDF",
       "edit": "Editar Término",
       "delete": "Eliminar Término",
+      "noResults": "No se encontraron términos",
+      "terms": "términos",
       "form": {
         "name": "Nombre",
         "namePlaceholder": "Nombre del término",
@@ -722,7 +726,7 @@
         "downloadCurrentPdf": "Descargar PDF",
         "downloadCurrentMd": "Descargar Markdown",
         "tagTypes": {
-          "terms": "Términos y Condiciones de Uso",
+          "terms": "Términos y Condiciones",
           "cookies": "Política de Cookies",
           "privacy": "Política de Privacidad",
           "license": "Licencia"
@@ -753,8 +757,6 @@
         "updated": "Actualizado"
       },
       "preview": {
-        "pdf": "Vista previa del PDF",
-        "markdown": "Vista previa del Markdown",
         "noFileEdit": "No se puede editar el archivo",
         "noPdf": "No hay PDF disponible para la vista previa"
       },
@@ -774,14 +776,16 @@
         "fileSizeLimit": "El tamaño del archivo debe ser menor a 10MB",
         "pdfFileOnly": "Por favor selecciona un archivo PDF",
         "validation": {
-          "nameRequired": "El nombre del documento es requerido y debe tener 127 caracteres o menos.",
-          "contentRequired": "Por favor sube un archivo Markdown (.md) válido para el contenido.",
-          "pdfRequired": "Por favor sube un archivo PDF válido para el documento.",
-          "versionRequired": "La versión es requerida y debe tener 20 caracteres o menos.",
-          "tagUnique": "Ya existe un documento con este tipo de etiqueta. Por favor elige una etiqueta diferente o edita el documento existente.",
-          "fileExtension": "El archivo de contenido debe ser un archivo .md y el contenido PDF debe ser un archivo .pdf.",
-          "fileMissing": "Se deben proporcionar tanto un archivo markdown (.md) como un archivo PDF.",
-          "tagRequired": "Por favor selecciona un tipo de documento."
+          "nameRequired": "El nombre del documento es requerido y debe tener 127 caracteres o menos",
+          "contentRequired": "Por favor sube un archivo Markdown (.md) válido para el contenido",
+          "pdfRequired": "Por favor sube un archivo PDF válido para el documento",
+          "versionRequired": "La versión es requerida y debe tener 20 caracteres o menos",
+          "tagUnique": "Ya existe un documento con este tipo de etiqueta. Por favor elige una etiqueta diferente o edita el documento existente",
+          "fileExtension": "El archivo de contenido debe ser un archivo .md y el contenido PDF debe ser un archivo .pdf",
+          "fileMissing": "Se deben proporcionar tanto un archivo markdown (.md) como un archivo PDF",
+          "tagRequired": "Por favor selecciona un tipo de documento",
+          "mdSize": "El archivo debe tener 1MB o menos",
+          "pdfSize": "El archivo debe tener 1MB o menos"
         },
         "upload": {
           "error": "Error en la carga del archivo. Por favor asegúrate de que tus archivos sean válidos e intenta de nuevo."

@@ -6,10 +6,7 @@ import { Clock, ExternalLink, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { renderIcon } from "@/components/ui/icon-select";
 import { Service } from "@/hooks/useServices";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import rehypeHighlight from "rehype-highlight";
-import rehypeRaw from "rehype-raw";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 
 interface ServiceDetailsModalProps {
   service: Service | null;
@@ -24,12 +21,23 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
   if (!service) return null;
 
   const getServiceColor = (service: Service) => {
+    // Use a darker fallback for better contrast
     const isDarkMode = document.documentElement.classList.contains('dark');
-    
     if (service.color === '1A1924' && isDarkMode) {
-      return '#efefefbb';
+      return '#efefef';
     } else if (service.color === '623CEA' && isDarkMode) {
-      return '#8B5FF7';
+      return '#3B1E8A';
+    }
+    // If color is too light, use a darker fallback
+    if (service.color_hex && /^#([A-Fa-f0-9]{6})$/.test(service.color_hex)) {
+      const hex = service.color_hex.replace('#', '');
+      const r = parseInt(hex.substring(0,2), 16);
+      const g = parseInt(hex.substring(2,4), 16);
+      const b = parseInt(hex.substring(4,6), 16);
+      // If color is too light, use dark gray
+      if ((r*0.299 + g*0.587 + b*0.114) > 180) {
+        return isDarkMode ? '#efefef' : '#222';
+      }
     }
     return service.color_hex;
   };
@@ -70,7 +78,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
     >
       <div className="flex flex-col max-h-[calc(100vh-8rem)]">
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto pr-2 space-y-6"
+        <div className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-6"
           style={{
             scrollbarWidth: 'thin',
             scrollbarColor: '#CBD5E0 transparent'
@@ -91,14 +99,14 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
             <div className="flex-1">
               {/* Subtitle */}
               {service.subtitle && (
-                <p className="text-lg text-gray-600 dark:text-gray-400">
+                <p className="text-lg text-gray-800 dark:text-gray-200">
                   {service.subtitle}
                 </p>
               )}
               {/* Featured Badge */}
               {service.is_featured && (
                 <div 
-                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-white mt-2"
+                  className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium text-white mt-2 shadow"
                   style={{ backgroundColor: serviceColor }}
                 >
                   {t("services.featured")}
@@ -112,107 +120,10 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
               {t("services.description")}
             </h3>
-            <div className="text-gray-600 dark:text-gray-400 leading-relaxed">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeRaw, rehypeHighlight]}
-                components={{
-                  // Handle tables with proper styling
-                  table: ({children}) => (
-                    <div className="overflow-x-auto my-6">
-                      <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 rounded-lg shadow-sm">
-                        {children}
-                      </table>
-                    </div>
-                  ),
-                  thead: ({children}) => (
-                    <thead className="bg-gray-50 dark:bg-gray-700">
-                      {children}
-                    </thead>
-                  ),
-                  tbody: ({children}) => (
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
-                      {children}
-                    </tbody>
-                  ),
-                  tr: ({children}) => (
-                    <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                      {children}
-                    </tr>
-                  ),
-                  th: ({children}) => (
-                    <th className="border border-gray-300 dark:border-gray-600 px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white bg-gray-50 dark:bg-gray-700">
-                      {children}
-                    </th>
-                  ),
-                  td: ({children}) => (
-                    <td className="border border-gray-300 dark:border-gray-600 px-4 py-3 text-sm text-gray-700 dark:text-gray-300">
-                      {children}
-                    </td>
-                  ),
-                  h1: ({children}) => <h1 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">{children}</h1>,
-                  h2: ({children}) => <h2 className="text-lg font-bold mb-3 text-gray-900 dark:text-white mt-6">{children}</h2>,
-                  h3: ({children}) => <h3 className="text-base font-bold mb-2 text-gray-900 dark:text-white mt-4">{children}</h3>,
-                  h4: ({children}) => <h4 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white mt-3">{children}</h4>,
-                  p: ({children}) => <p className="mb-4 text-gray-600 dark:text-gray-400 leading-relaxed">{children}</p>,
-                  br: () => <br className="mb-2" />,
-                  ul: ({children}) => <ul className="list-disc list-inside mb-4 text-gray-600 dark:text-gray-400 space-y-1">{children}</ul>,
-                  ol: ({children}) => <ol className="list-decimal list-inside mb-4 text-gray-600 dark:text-gray-400 space-y-1">{children}</ol>,
-                  li: ({children}) => <li className="leading-relaxed">{children}</li>,
-                  blockquote: ({children}) => (
-                    <blockquote 
-                      className="border-l-4 pl-4 py-2 mb-4 italic bg-gray-50 dark:bg-gray-800/50 rounded-r-lg"
-                      style={{ borderLeftColor: serviceColor }}
-                    >
-                      <div className="text-gray-700 dark:text-gray-300">
-                        {children}
-                      </div>
-                    </blockquote>
-                  ),
-                  code: ({children, className}) => {
-                    const isInline = !className;
-                    if (isInline) {
-                      return (
-                        <code className="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">
-                          {children}
-                        </code>
-                      );
-                    }
-                    return (
-                      <div className="mb-4">
-                        <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto">
-                          <code className="text-sm font-mono text-gray-900 dark:text-gray-100">
-                            {children}
-                          </code>
-                        </pre>
-                      </div>
-                    );
-                  },
-                  pre: ({children}) => (
-                    <div className="mb-4">
-                      <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg overflow-x-auto">
-                        {children}
-                      </pre>
-                    </div>
-                  ),
-                  strong: ({children}) => <strong className="font-bold text-gray-900 dark:text-white">{children}</strong>,
-                  em: ({children}) => <em className="italic text-gray-700 dark:text-gray-300">{children}</em>,
-                  a: ({children, href}) => (
-                    <a 
-                      href={href} 
-                      className="hover:underline transition-colors" 
-                      style={{ color: serviceColor }}
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                    >
-                      {children}
-                    </a>
-                  ),
-                  hr: () => <hr className="border-gray-200 dark:border-gray-700 my-6" />,
-                }}
-              >
+            <div className="text-gray-800 dark:text-gray-200 leading-relaxed">
+              <MarkdownRenderer color={serviceColor}>
                 {service.description}
-              </ReactMarkdown>
+              </MarkdownRenderer>
             </div>
           </div>
 
@@ -220,13 +131,13 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Duration */}
             {service.duration && (
-              <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
                 <Clock className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 <div>
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
                     {t("services.duration")}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-800 dark:text-gray-200">
                     {getDurationText(service.duration)}
                   </p>
                 </div>
@@ -234,13 +145,13 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
             )}
 
             {/* Price */}
-            <div className="flex items-center space-x-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <div className="flex items-center space-x-3 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
               <ExternalLink className="h-5 w-5 text-green-600 dark:text-green-400" />
               <div>
                 <p className="text-sm font-medium text-gray-900 dark:text-white">
                   {t("services.price")}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-gray-800 dark:text-gray-200">
                   {service.price ? `€${service.price}` : t("services.contactForQuote")}
                 </p>
               </div>
@@ -253,8 +164,8 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
                 {t("services.requisites")}
               </h3>
-              <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-                <p className="text-gray-700 dark:text-gray-300">
+              <div className="p-4 bg-yellow-100 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-800 rounded-lg">
+                <p className="text-gray-900 dark:text-gray-100">
                   {service.requisites}
                 </p>
               </div>
@@ -263,7 +174,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
         </div>
 
         {/* Fixed Contact Buttons */}
-        <div className="flex-shrink-0 border-t border-gray-200 dark:border-gray-700 pt-4 mt-4 bg-white dark:bg-gray-900">
+  <div className="sticky bottom-0 left-0 right-0 z-20 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 pt-4 pb-4 mt-4">
           <div className="flex flex-col sm:flex-row gap-3">
             <Button 
               onClick={onContact}

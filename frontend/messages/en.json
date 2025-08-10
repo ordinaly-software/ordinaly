@@ -33,6 +33,7 @@
     },
     "services": {
       "title": "OUR SERVICES",
+      "retryButton": "Retry",
       "description": "Automation solutions designed to boost and accelerate your business.",
       "contactForQuote": "Contact our agents for a detailed quote",
       "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
@@ -438,6 +439,7 @@
       "noServicesFound": "No services found matching your search.",
       "durationDay": "1 day",
       "durationDays": "{count} days",
+      "services": "services",
       "form": {
         "title": "Title",
         "titlePlaceholder": "Service title",
@@ -470,7 +472,7 @@
       },
       "messages": {
         "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
-        "updateSuccess": "Service '{title}' updated successfully!",
+        "updateSuccess": "Service updated successfully!",
         "deleteSuccess": "Service deleted successfully",
         "bulkDeleteSuccess": "services deleted successfully",
         "fetchError": "Failed to fetch services",
@@ -489,8 +491,8 @@
           "priceInvalid": "Price must be at least $0.01 if specified."
         },
         "featured": {
-          "enabled": "Service '{title}' has been marked as featured.",
-          "disabled": "Service '{title}' is no longer featured."
+          "enabled": "Service has been marked as featured.",
+          "disabled": "Service is no longer featured."
         }
       },
       "confirmDelete": {
@@ -606,8 +608,8 @@
         "update": "Update Course"
       },
       "messages": {
-        "createSuccess": "Course '{title}' created successfully! Students can now enroll.",
-        "updateSuccess": "Course '{title}' updated successfully!",
+        "createSuccess": "Course created successfully! Students can now enroll.",
+        "updateSuccess": "Course updated successfully!",
         "deleteSuccess": "Course deleted successfully",
         "bulkDeleteSuccess": "courses deleted successfully",
         "fetchError": "Failed to fetch courses",
@@ -616,7 +618,8 @@
         "deleteError": "Failed to delete course",
         "networkError": "Unable to save course. Please check your connection and try again.",
         "selectToDelete": "Please select courses to delete",
-        "fileSizeLimit": "File size must be less than 5MB",
+  "fileSizeLimit": "File size must be less than 5MB",
+  "imageSizeLimit1MB": "Course image must be 1MB or less.",
         "imageFileOnly": "Please select an image file",
         "validation": {
           "titleRequired": "Course title is required and must be 100 characters or less.",
@@ -706,95 +709,97 @@
       "downloadPdf": "Download PDF",
       "edit": "Edit Term",
       "delete": "Delete Term",
+      "noResults": "No terms found",
+      "terms": "terms",
       "form": {
-      "name": "Name",
-      "namePlaceholder": "Term name",
-      "content": "Content (Markdown)",
-      "contentPlaceholder": "Term content in markdown format",
-      "version": "Version",
-      "versionPlaceholder": "e.g., 1.0",
-      "tag": "Document Type",
-      "tagPlaceholder": "Select document type",
-      "selectTag": "Select a document type",
-      "noAvailableTags": "No document types available",
-      "allTagsUsed": "All document types have been created. You can only have one of each type.",
-      "allTagsUsedTitle": "All document types are already in use",
-      "allTagsUsedButton": "All Types Created",
-      "markdownSupported": "Markdown supported",
-      "pdfContent": "PDF Content",
-      "contentMd": "Markdown Content",
-      "mdFile": "Markdown File",
-      "chooseMd": "Choose Markdown File",
-      "downloadCurrentPdf": "Download PDF",
-      "downloadCurrentMd": "Download Markdown",
-      "tagTypes": {
-        "terms": "Terms and Conditions of Use",
-        "cookies": "Cookie Policy",
-        "privacy": "Privacy Policy",
-        "license": "License"
-      },
-      "pdfVersion": "PDF Version (Optional)",
-      "choosePdf": "Choose PDF",
-      "cancel": "Cancel",
-      "create": "Create Term",
-      "update": "Update Term",
-      "noTagsLeft": "No more document types left",
-      "noFileEdit": "Cannot edit the file"
+        "name": "Name",
+        "namePlaceholder": "Term name",
+        "content": "Content (Markdown)",
+        "contentPlaceholder": "Term content in markdown format",
+        "version": "Version",
+        "versionPlaceholder": "e.g., 1.0",
+        "tag": "Document Type",
+        "tagPlaceholder": "Select document type",
+        "selectTag": "Select a document type",
+        "noAvailableTags": "No document types available",
+        "allTagsUsed": "All document types have been created. You can only have one of each type.",
+        "allTagsUsedTitle": "All document types are already in use",
+        "allTagsUsedButton": "All Types Created",
+        "markdownSupported": "Markdown supported",
+        "pdfContent": "PDF Content",
+        "contentMd": "Markdown Content",
+        "mdFile": "Markdown File",
+        "chooseMd": "Choose Markdown File",
+        "downloadCurrentPdf": "Download PDF",
+        "downloadCurrentMd": "Download Markdown",
+        "tagTypes": {
+          "terms": "Terms and Conditions of Use",
+          "cookies": "Cookie Policy",
+          "privacy": "Privacy Policy",
+          "license": "License"
+        },
+        "pdfVersion": "PDF Version (Optional)",
+        "choosePdf": "Choose PDF",
+        "cancel": "Cancel",
+        "create": "Create Term",
+        "update": "Update Term",
+        "noTagsLeft": "No more document types left",
+        "noFileEdit": "Cannot edit the file"
       },
       "actions": {
-      "viewPreview": "View Preview",
-      "viewPdf": "View PDF"
+        "viewPreview": "View Preview",
+        "viewPdf": "View PDF"
       },
       "tabs": {
-      "form": "Form",
-      "preview": "Markdown Preview",
-      "pdf": "PDF Preview"
+        "form": "Form",
+        "preview": "Markdown Preview",
+        "pdf": "PDF Preview"
       },
       "labels": {
-      "name": "Name",
-      "content": "Content",
-      "version": "Version",
-      "tag": "Document Type",
-      "created": "Created",
-      "updated": "Updated"
+        "name": "Name",
+        "content": "Content",
+        "version": "Version",
+        "tag": "Document Type",
+        "created": "Created",
+        "updated": "Updated"
       },
       "preview": {
-      "pdf": "PDF Preview",
-      "markdown": "Markdown Preview",
-      "noFileEdit": "Cannot edit the file",
-      "noPdf": "No PDF available for preview"
+        "noFileEdit": "Cannot edit the file",
+        "noPdf": "No PDF available for preview"
       },
       "messages": {
-      "createSuccess": "Terms document '{name}' created successfully!",
-      "updateSuccess": "Terms document '{name}' updated successfully!",
-      "deleteSuccess": "Term deleted successfully",
-      "bulkDeleteSuccess": "terms deleted successfully",
-      "fetchError": "Error fetching terms",
-      "createError": "Error creating term",
-      "updateError": "Error updating term",
-      "deleteError": "Error deleting term",
-      "downloadError": "Error downloading PDF",
-      "downloadSuccess": "PDF downloaded successfully",
-      "networkError": "Unable to save terms document. Please check your connection and try again.",
-      "selectToDelete": "Please select terms to delete",
-      "fileSizeLimit": "File size must be less than 10MB",
-      "pdfFileOnly": "Please select a PDF file",
-      "validation": {
-        "nameRequired": "Document name is required and must be 127 characters or less.",
-        "contentRequired": "Please upload a valid Markdown (.md) file for the content.",
-        "pdfRequired": "Please upload a valid PDF file for the document.",
-        "versionRequired": "Version is required and must be 20 characters or less.",
-        "tagUnique": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
-        "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
-        "fileMissing": "Both a markdown (.md) file and a PDF file must be provided.",
-        "tagRequired": "Please select a document type."
-      },
-      "upload": {
-        "error": "File upload error. Please make sure your files are valid and try again."
-      },
-      "version": {
-        "updateWarning": "Important: Updating this terms document will create a new version. Users may need to re-accept the updated terms."
-      }
+        "createSuccess": "Terms document '{name}' created successfully!",
+        "updateSuccess": "Terms document '{name}' updated successfully!",
+        "deleteSuccess": "Term deleted successfully",
+        "bulkDeleteSuccess": "terms deleted successfully",
+        "fetchError": "Error fetching terms",
+        "createError": "Error creating term",
+        "updateError": "Error updating term",
+        "deleteError": "Error deleting term",
+        "downloadError": "Error downloading PDF",
+        "downloadSuccess": "PDF downloaded successfully",
+        "networkError": "Unable to save terms document. Please check your connection and try again.",
+        "selectToDelete": "Please select terms to delete",
+        "fileSizeLimit": "File size must be less than 10MB",
+        "pdfFileOnly": "Please select a PDF file",
+        "validation": {
+          "nameRequired": "Document name is required and must be 127 characters or less.",
+          "contentRequired": "Please upload a valid Markdown (.md) file for the content.",
+          "pdfRequired": "Please upload a valid PDF file for the document.",
+          "versionRequired": "Version is required and must be 20 characters or less.",
+          "tagUnique": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
+          "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
+          "fileMissing": "Both a markdown (.md) file and a PDF file must be provided.",
+          "tagRequired": "Please select a document type.",
+          "mdSize": "Markdown file must be 1MB or less.",
+          "pdfSize": "PDF file must be 1MB or less."
+        },
+        "upload": {
+          "error": "File upload error. Please make sure your files are valid and try again."
+        },
+        "version": {
+          "updateWarning": "Important: Updating this terms document will create a new version. Users may need to re-accept the updated terms."
+        }
       },
       "confirmDelete": {
       "title": "Confirm Deletion",

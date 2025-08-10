@@ -32,9 +32,8 @@ import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
 import Image from "next/image";
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
+
 
 interface Course {
   id: number;
@@ -267,21 +266,22 @@ const AdminCoursesTab = () => {
       title: course.title,
       subtitle: course.subtitle || "",
       description: course.description,
-      price: course.price || "",
+      price: course.price == null ? "" : course.price,
       location: course.location,
-      start_date: course.start_date,
-      end_date: course.end_date,
-      start_time: course.start_time,
-      end_time: course.end_time,
-      periodicity: course.periodicity,
-      timezone: course.timezone,
+      start_date: course.start_date == null ? "" : course.start_date,
+      end_date: course.end_date == null ? "" : course.end_date,
+      start_time: course.start_time == null ? "" : course.start_time,
+      end_time: course.end_time == null ? "" : course.end_time,
+      periodicity: course.periodicity || "once",
+      timezone: course.timezone || "Europe/Madrid",
       weekdays: course.weekdays || [],
-      week_of_month: course.week_of_month || null,
-      interval: course.interval || 1,
+      week_of_month: course.week_of_month == null ? null : course.week_of_month,
+      interval: course.interval == null ? 1 : course.interval,
       exclude_dates: course.exclude_dates || [],
-      max_attendants: course.max_attendants.toString()
+      max_attendants: course.max_attendants != null ? course.max_attendants.toString() : ""
     });
     setPreviewUrl(course.image);
+    setSelectedFile(null); // Ensure no file is selected by default when editing
     setShowEditModal(true);
   };
 
@@ -390,16 +390,14 @@ const AdminCoursesTab = () => {
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        setAlert({type: 'error', message: t('messages.fileSizeLimit')});
+      if (file.size > 1024 * 1024) { // 1MB limit
+        setAlert({type: 'error', message: t('messages.imageSizeLimit1MB')});
         return;
       }
-      
       if (!file.type.startsWith('image/')) {
         setAlert({type: 'error', message: t('messages.imageFileOnly')});
         return;
       }
-
       setSelectedFile(file);
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
@@ -421,14 +419,7 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.locationRequired')});
         return;
       }
-      if (!formData.start_date.trim()) {
-        setAlert({type: 'error', message: t('messages.validation.startDateRequired')});
-        return;
-      }
-      if (!formData.end_date.trim()) {
-        setAlert({type: 'error', message: t('messages.validation.endDateRequired')});
-        return;
-      }
+  // Allow empty/null start_date and end_date (no required validation)
       if (!formData.max_attendants || parseInt(formData.max_attendants) < 1) {
         setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
         return;
@@ -668,21 +659,20 @@ const AdminCoursesTab = () => {
         />
       )}
 
-      {/* Header Actions */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-        <div className="flex items-center space-x-4">
-          <div className="relative">
+      {/* Header Actions - sticky on small screens */}
+      <div className="sticky top-0 z-30 bg-white/95 dark:bg-gray-900/95 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2 py-3 shadow-sm border-b border-gray-200 dark:border-gray-800">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
+          <div className="relative w-full sm:w-64 min-w-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               placeholder={t("searchPlaceholder")}
               value={searchTerm ?? ""}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 w-64"
+              className="pl-10 w-full min-w-0"
             />
           </div>
-          
           {/* Sort Controls */}
-          <div className="flex items-center justify-center space-x-3">
+          <div className="flex items-center justify-center space-x-3 w-full sm:w-auto">
             <Label className="text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
               {t("sorting.sortBy")}:
             </Label>
@@ -704,24 +694,25 @@ const AdminCoursesTab = () => {
             </Button>
           </div>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           {selectedCourses.length > 0 && (
             <Button
               variant="destructive"
               size="sm"
               onClick={handleBulkDelete}
-              className="flex items-center space-x-1"
+              className="flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
             >
               <Trash2 className="h-4 w-4" />
-              <span>{t("deleteSelected")} ({selectedCourses.length})</span>
+              <span className="hidden xs:inline">{t("deleteSelected")} ({selectedCourses.length})</span>
             </Button>
           )}
           <Button
             onClick={handleCreate}
-            className="bg-green hover:bg-green-600 text-white flex items-center space-x-1"
+            size="sm"
+            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
           >
             <Plus className="h-4 w-4" />
-            <span>{t("addCourse")}</span>
+            <span className="hidden xs:inline">{t("addCourse")}</span>
           </Button>
         </div>
       </div>
@@ -824,14 +815,15 @@ const AdminCoursesTab = () => {
                             {course.subtitle}
                           </div>
                         )}
-                          <div className={`text-sm mb-2 ${
+                          {/* Hide description on small screens, show on md+ */}
+                          <div className={`hidden md:block text-sm mb-2 ${
                             isFinished ? 'text-gray-600 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'
                           }`}>
-                            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                            <MarkdownRenderer>
                               {course.description.length > 200 
                                 ? `${course.description.substring(0, 200)}...` 
                                 : course.description}
-                            </ReactMarkdown>
+                            </MarkdownRenderer>
                           </div>
                         
                         {/* Enrollment Progress Bar */}
@@ -869,7 +861,7 @@ const AdminCoursesTab = () => {
                           <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2 ml-4">
+                      <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:space-x-2 ml-0 md:ml-4 mt-2 md:mt-0">
                         <Button
                           variant="ghost"
                           size="sm"
@@ -877,7 +869,7 @@ const AdminCoursesTab = () => {
                             e.stopPropagation();
                             handleViewCourse(course);
                           }}
-                          className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10"
+                          className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10 w-full md:w-auto"
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
@@ -890,7 +882,7 @@ const AdminCoursesTab = () => {
                                 e.stopPropagation();
                                 handleEdit(course);
                               }}
-                              className="text-blue hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                              className="text-blue hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 w-full md:w-auto"
                             >
                               <Edit className="h-4 w-4" />
                             </Button>
@@ -901,7 +893,7 @@ const AdminCoursesTab = () => {
                                 e.stopPropagation();
                                 handleDelete(course);
                               }}
-                              className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20"
+                              className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 w-full md:w-auto"
                             >
                               <Trash2 className="h-4 w-4" />
                             </Button>
@@ -1337,11 +1329,11 @@ const AdminCoursesTab = () => {
         className="max-w-[95vw] xl:max-w-[85vw] 2xl:max-w-[80vw]"
       >
         {selectedCourseForModal && (
-          <div className="space-y-4 max-h-[75vh] overflow-y-auto">
+          <div className="space-y-4 max-h-[75vh] overflow-y-auto px-1 sm:px-0">
             {/* Course Header */}
-            <div className="flex items-start space-x-6">
+            <div className="flex flex-col sm:flex-row landscape:flex-col-reverse items-start sm:space-x-6 space-y-4 sm:space-y-0 landscape:space-y-4 landscape:sm:space-x-0">
               {/* Course Image */}
-              <div className="w-32 h-32 relative rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700">
+              <div className="w-full sm:w-32 h-32 relative rounded-xl overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700 mx-auto sm:mx-0">
                 {selectedCourseForModal.image && selectedCourseForModal.image !== 'undefined' && selectedCourseForModal.image !== 'null' ? (
                   <Image
                     loader={imageLoader}
@@ -1372,25 +1364,25 @@ const AdminCoursesTab = () => {
               </div>
 
               {/* Course Info */}
-              <div className="flex-1 min-w-0">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <div className="flex-1 min-w-0 w-full">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 break-words">
                   {selectedCourseForModal.title}
                 </h2>
                 {selectedCourseForModal.subtitle && (
-                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-3">
+                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-3 break-words">
                     {selectedCourseForModal.subtitle}
                   </p>
                 )}
-                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 mb-4">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 mb-4 break-words">
+                  <MarkdownRenderer>
                     {selectedCourseForModal.description}
-                  </ReactMarkdown>
+                  </MarkdownRenderer>
                 </div>
 
-                {/* Key Metrics */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1">
-                  <div className="bg-[#22A60D]/10 rounded-lg p-4 flex-1">
-                    <div className="flex flex-col">
+                {/* Key Metrics - stack vertically on mobile */}
+                <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-2">
+                  <div className="bg-[#22A60D]/10 rounded-lg p-4 flex-1 min-w-0">
+                    <div className="flex flex-col items-center">
                       <div className="flex items-center justify-between w-full mb-2">
                         <Users className="h-6 w-6 text-[#22A60D] flex-shrink-0" />
                         <p className="text-lg font-bold text-[#22A60D]">
@@ -1402,9 +1394,8 @@ const AdminCoursesTab = () => {
                       </p>
                     </div>
                   </div>
-                  
-                  <div className="bg-blue-100 dark:bg-blue-900/30 rounded-lg p-4 flex-1">
-                    <div className="flex flex-col">
+                  <div className="bg-blue-100 dark:bg-blue-900/30 rounded-lg p-4 flex-1 min-w-0">
+                    <div className="flex flex-col items-center">
                       <div className="flex items-center justify-between w-full mb-2">
                         <User className="h-6 w-6 text-blue flex-shrink-0" />
                         <p className="text-lg font-bold text-blue">
@@ -1416,9 +1407,8 @@ const AdminCoursesTab = () => {
                       </p>
                     </div>
                   </div>
-
-                  <div className="bg-orange-100 dark:bg-orange-900/30 rounded-lg p-4 flex-1">
-                    <div className="flex flex-col">
+                  <div className="bg-orange-100 dark:bg-orange-900/30 rounded-lg p-4 flex-1 min-w-0">
+                    <div className="flex flex-col items-center">
                       <div className="flex items-center justify-between w-full mb-2">
                         <XCircle className="h-6 w-6 text-orange-600 flex-shrink-0" />
                         <p className="text-lg font-bold text-orange-600">
@@ -1430,9 +1420,8 @@ const AdminCoursesTab = () => {
                       </p>
                     </div>
                   </div>
-
-                  <div className="bg-purple-100 dark:bg-purple-900/30 rounded-lg p-4 flex-1">
-                    <div className="flex flex-col">
+                  <div className="bg-purple-100 dark:bg-purple-900/30 rounded-lg p-4 flex-1 min-w-0">
+                    <div className="flex flex-col items-center">
                       <div className="flex items-center justify-between w-full mb-2">
                         <Euro className="h-6 w-6 text-purple-600 flex-shrink-0" />
                         <p className="text-lg font-bold text-purple-600 break-words text-right">
@@ -1448,10 +1437,10 @@ const AdminCoursesTab = () => {
               </div>
             </div>
 
-            {/* Course Details Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            {/* Course Details Grid - stack vertically on mobile */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Schedule Information */}
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5">
+              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5 min-w-0">
                 <div className="flex items-center space-x-2 mb-3">
                   <Calendar className="h-5 w-5 text-blue" />
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.schedule")}</h3>
@@ -1503,7 +1492,7 @@ const AdminCoursesTab = () => {
               </div>
 
               {/* Location & Logistics */}
-              <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl p-5">
+              <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl p-5 min-w-0">
                 <div className="flex items-center space-x-2 mb-3">
                   <MapPin className="h-5 w-5 text-green-600" />
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.locationInfo")}</h3>
@@ -1538,7 +1527,7 @@ const AdminCoursesTab = () => {
             </div>
 
             {/* Enrollment Progress */}
-            <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-xl p-5">
+            <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-xl p-5 min-w-0">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.enrollmentStatus")}</h3>
                 <span className="text-sm text-gray-600 dark:text-gray-400">
@@ -1566,13 +1555,13 @@ const AdminCoursesTab = () => {
             </div>
 
             {/* Enrolled Members */}
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
+            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 min-w-0">
               <div className="flex items-center justify-between mb-3">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center space-x-2">
                   <Users className="h-5 w-5" />
                   <span>{t("details.enrolledMembers")}</span>
                 </h3>
-                <span className="bg-[#22A60D]/10 text-[#22A60D] px-3 py-1 rounded-full text-sm font-medium">
+                <span className="bg-[#22A60D]/10 text-[#22A60D] px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap">
                   {courseEnrollments.length} {t("details.members")}
                 </span>
               </div>
@@ -1646,12 +1635,12 @@ const AdminCoursesTab = () => {
 
             {/* Next Occurrences */}
             {selectedCourseForModal.next_occurrences && selectedCourseForModal.next_occurrences.length > 0 && (
-              <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-xl p-5">
+              <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-xl p-5 min-w-0">
                 <div className="flex items-center space-x-2 mb-3">
                   <Clock className="h-6 w-6 text-indigo-600" />
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.upcomingSessions")}</h3>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {selectedCourseForModal.next_occurrences.slice(0, 6).map((occurrence, idx) => (
                     <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
                       <p className="font-medium text-gray-900 dark:text-white">

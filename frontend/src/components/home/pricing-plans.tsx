@@ -14,7 +14,7 @@ const PlanCard: React.FC<PlanProps> = ({ id, title, imageSrc, features, bubbleCo
   return (
     <div className="scroll-animate fade-in-up text-center">
       <div className="flex items-center justify-center mb-6 gap-6">
-        <div className={`w-16 h-16 sm:w-20 sm:h-20 ${bubbleColor} rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-2xl flex-shrink-0 aspect-square`}>
+        <div className={`w-16 h-16 sm:w-20 sm:h-20 ${bubbleColor} rounded-full flex items-center justify-center text-white font-bold text-lg sm:text-2xl flex-shrink-0 aspect-square border-2 border-black/20 dark:border-white/20`}>
           {id}
         </div>
         <div className="relative w-40 h-40 hidden md:block">
@@ -28,7 +28,7 @@ const PlanCard: React.FC<PlanProps> = ({ id, title, imageSrc, features, bubbleCo
         </div>
       </div>
       <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">{title}</h3>
-      <ul className="text-gray-700 dark:text-gray-200 space-y-3 text-left w-full">
+      <ul className="text-gray-800 dark:text-gray-100 space-y-3 text-left w-full">
         {features.map((feature, idx) => (
           <li key={idx} className="flex items-center">
             <svg className={`w-5 h-5 ${bubbleColor.replace('bg-', 'text-')} mr-2`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@ const PricingPlans: React.FC = () => {
         t('1.features.0'),
         t('1.features.1'),
       ],
-      bubbleColor: "bg-[#22A60D]",
+      bubbleColor: "bg-[#158003]", // darker green for better contrast
     },
     {
       id: 2,
@@ -65,7 +65,7 @@ const PricingPlans: React.FC = () => {
         t('2.features.1'),
         t('2.features.2'),
       ],
-      bubbleColor: "bg-[#E4572E]",
+      bubbleColor: "bg-[#B32B0E]", // darker orange/red
     },
     {
       id: 3,
@@ -78,7 +78,7 @@ const PricingPlans: React.FC = () => {
         t('3.features.3'),
         t('3.features.4'),
       ],
-      bubbleColor: "bg-[#623CEA]",
+      bubbleColor: "bg-[#3B1E8A]", // darker purple
     },
   ];
   

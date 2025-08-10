@@ -4,7 +4,24 @@ from users.models import CustomUser
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False, allow_null=True)
+
+    def validate_image(self, value):
+        # Only require image on creation
+        if self.instance is None and not value:
+            raise serializers.ValidationError("Course image is required.")
+        max_size = 1024 * 1024  # 1MB
+        if value and hasattr(value, 'size'):
+            if value.size > max_size:
+                raise serializers.ValidationError("Course image must be 1MB or less.")
+        return value
+
     def validate(self, data):
+        # Convert empty strings to None for nullable date/time fields
+        for field in ['start_date', 'end_date', 'start_time', 'end_time']:
+            if field in data and data[field] == '':
+                data[field] = None
+
         # On update, prevent lowering max_attendants below enrolled_count
         instance = getattr(self, 'instance', None)
         new_max = data.get('max_attendants', None)

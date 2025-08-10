@@ -31,9 +31,7 @@ import {
 } from "lucide-react";
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 
 interface Course {
   id: number;
@@ -691,9 +689,9 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
 
                             {/* Course Description */}
                             <div className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3">
-                              <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
+                              <MarkdownRenderer>
                                 {course.description}
-                              </ReactMarkdown>
+                              </MarkdownRenderer>
                             </div>
 
                             {/* Course Meta Information */}

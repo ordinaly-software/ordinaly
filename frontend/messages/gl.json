@@ -438,6 +438,7 @@
       "noServicesFound": "Non se atoparon servizos que coincidan coa túa busca.",
       "durationDay": "1 día",
       "durationDays": "{count} días",
+      "services": "servizos",
       "form": {
         "title": "Título",
         "titlePlaceholder": "Título do servizo",
@@ -469,8 +470,8 @@
         "requisitesPlaceholder": "Introduce cualquier requisito o prerrequisito"
       },
       "messages": {
-        "createSuccess": "Servizo '{title}' creado con éxito!",
-        "updateSuccess": "Servizo '{title}' actualizado con éxito!",
+        "createSuccess": "Servizo creado con éxito!",
+        "updateSuccess": "Servizo actualizado con éxito!",
         "deleteSuccess": "Servizo eliminado con éxito",
         "bulkDeleteSuccess": "Servizos eliminados con éxito",
         "fetchError": "Erro ao cargar servizos",
@@ -489,8 +490,8 @@
           "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica."
         },
         "featured": {
-          "enabled": "Servizo '{title}' marcado como destacado.",
-          "disabled": "Servizo '{title}' xa non está destacado."
+          "enabled": "Servizo marcado como destacado.",
+          "disabled": "Servizo xa non está destacado."
         }
       },
       "confirmDelete": {
@@ -606,8 +607,8 @@
         "update": "Actualizar curso"
       },
       "messages": {
-        "createSuccess": "Curso '{title}' creado con éxito!",
-        "updateSuccess": "Curso '{title}' actualizado con éxito!",
+        "createSuccess": "Curso creado con éxito!",
+        "updateSuccess": "Curso actualizado con éxito!",
         "deleteSuccess": "Curso eliminado con éxito",
         "bulkDeleteSuccess": "Cursos eliminados con éxito",
         "fetchError": "Erro ao cargar cursos",
@@ -705,6 +706,8 @@
       "downloadPdf": "Descargar PDF",
       "edit": "Editar termo",
       "delete": "Eliminar termo",
+      "noResults": "Non se atoparon termos",
+      "terms": "termos",
       "form": {
         "name": "Nome",
         "namePlaceholder": "Nome do termo",
@@ -758,8 +761,6 @@
         "updated": "Actualizado"
       },
       "preview": {
-        "pdf": "Vista previa do PDF",
-        "markdown": "Vista previa do Markdown",
         "noFileEdit": "Non se pode editar o arquivo",
         "noPdf": "Non se pode editar o PDF"
       },
@@ -786,7 +787,9 @@
           "tagUnique": "Xa existe un documento con este tipo de etiqueta. Por favor, escolle unha etiqueta diferente ou edita o documento existente.",
           "fileExtension": "O arquivo de contido debe ser un arquivo .md e o contido PDF debe ser un arquivo .pdf.",
           "fileMissing": "Deben proporcionarse tanto un arquivo markdown (.md) como un arquivo PDF.",
-          "tagRequired": "Por favor, selecciona un tipo de documento."
+          "tagRequired": "Por favor, selecciona un tipo de documento.",
+          "mdSize": "O arquivo Markdown debe ter 1MB ou menos.",
+          "pdfSize": "O arquivo PDF debe ter 1MB ou menos."
         }
       },
       "upload": {

@@ -3,6 +3,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
  
 const nextConfig: NextConfig = {
   // External packages for server components
+  productionBrowserSourceMaps: true,
   serverExternalPackages: ['@tsparticles/engine', '@tsparticles/slim'],
   
   // Enable experimental features for better performance

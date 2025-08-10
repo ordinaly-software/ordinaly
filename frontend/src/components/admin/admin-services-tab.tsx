@@ -23,8 +23,7 @@ import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-mod
 import { ServiceDetailsModal } from "@/components/home/service-details-modal";
 import { servicesEvents } from "@/lib/events";
 import { Service, useServices } from "@/hooks/useServices";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 
 const AdminServicesTab = () => {
   const t = useTranslations("admin.services");
@@ -188,19 +187,16 @@ const AdminServicesTab = () => {
 
       if (response.ok) {
         const responseData = await response.json();
-        const serviceTitle = formData.title;
         const successMessage = isEdit 
-          ? t('messages.updateSuccess', { title: serviceTitle })
-          : t('messages.createSuccess', { title: serviceTitle });
-        
+          ? t('messages.updateSuccess')
+          : t('messages.createSuccess');
         setAlert({type: 'success', message: successMessage});
         
         // Show featured status change if applicable
         if (isEdit && currentService && formData.is_featured !== currentService.is_featured) {
           const featuredMessage = formData.is_featured
-            ? t('messages.featured.enabled', { title: serviceTitle })
-            : t('messages.featured.disabled', { title: serviceTitle });
-          
+            ? t('messages.featured.enabled', { title: formData.title })
+            : t('messages.featured.disabled', { title: formData.title });
           setTimeout(() => {
             setAlert({type: 'info', message: featuredMessage});
           }, 2000);
@@ -347,34 +343,35 @@ const AdminServicesTab = () => {
       {/* Header Actions */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <div className="flex items-center space-x-2">
-          <div className="relative">
+          <div className="relative w-full sm:w-64 min-w-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               placeholder={t("searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 w-64"
+              className="pl-10 w-full min-w-0"
             />
           </div>
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-2">
           {selectedServices.length > 0 && (
             <Button
               variant="destructive"
               size="sm"
               onClick={handleBulkDelete}
-              className="flex items-center space-x-1"
+              className="flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
             >
               <Trash2 className="h-4 w-4" />
-              <span>{t("deleteSelected")} ({selectedServices.length})</span>
+              <span className="hidden xs:inline">{t("deleteSelected")} ({selectedServices.length})</span>
             </Button>
           )}
           <Button
             onClick={handleCreate}
-            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center space-x-1"
+            size="sm"
+            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
           >
             <Plus className="h-4 w-4" />
-            <span>{t("addService")}</span>
+            <span className="hidden xs:inline">{t("addService")}</span>
           </Button>
         </div>
       </div>
@@ -395,7 +392,7 @@ const AdminServicesTab = () => {
               className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
-              {t("selectAll")} ({filteredServices.length} services)
+              {t("selectAll")} ({filteredServices.length} {t("services")})
             </span>
           </div>
 
@@ -463,14 +460,17 @@ const AdminServicesTab = () => {
                         <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                           {service.subtitle}
                         </p>
-                        <div 
-                          className="text-sm text-gray-700 dark:text-gray-300 mb-2 prose prose-sm max-w-none dark:prose-invert prose-table:text-xs prose-thead:border-b prose-thead:border-gray-300 dark:prose-thead:border-gray-600 prose-tbody:divide-y prose-tbody:divide-gray-200 dark:prose-tbody:divide-gray-700 prose-td:py-1 prose-td:px-2 prose-th:py-1 prose-th:px-2 prose-th:font-semibold prose-th:text-left prose-table:border prose-table:border-gray-200 dark:prose-table:border-gray-700"
-                        />
-                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                          {service.description.length > 200 
-                            ? `${service.description.substring(0, 200)}...` 
-                            : service.description}
-                        </ReactMarkdown>
+                        {/* Hide description on small screens, show on md+ */}
+                        <div className="hidden md:block">
+                          <div 
+                            className="text-sm text-gray-700 dark:text-gray-300 mb-2 prose prose-sm max-w-none dark:prose-invert prose-table:text-xs prose-thead:border-b prose-thead:border-gray-300 dark:prose-thead:border-gray-600 prose-tbody:divide-y prose-tbody:divide-gray-200 dark:prose-tbody:divide-gray-700 prose-td:py-1 prose-td:px-2 prose-th:py-1 prose-th:px-2 prose-th:font-semibold prose-th:text-left prose-table:border prose-table:border-gray-200 dark:prose-table:border-gray-700"
+                          />
+                          <MarkdownRenderer>
+                            {service.description.length > 200 
+                              ? `${service.description.substring(0, 200)}...` 
+                              : service.description}
+                          </MarkdownRenderer>
+                        </div>
                         <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
                           <span>{tAdmin("labels.price")}: {service.price ? `€${Math.round(Number(service.price))}` : t("form.contactForQuote") || 'Contact for quote'}</span>
                           {service.duration && <span>{tAdmin("labels.duration")}: {service.duration === 1 ? t("durationDay") : t("durationDays", { count: service.duration })}</span>}
@@ -478,12 +478,12 @@ const AdminServicesTab = () => {
                           <span>{tAdmin("labels.created")}: {new Date(service.created_at).toLocaleDateString()}</span>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2 ml-4">
+                      <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:space-x-2 ml-0 md:ml-4 mt-2 md:mt-0">
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={() => handleServiceClick(service)}
-                          className="text-gray-600 hover:text-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700"
+                          className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10 w-full md:w-auto"
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
@@ -492,7 +492,7 @@ const AdminServicesTab = () => {
                           size="sm"
                           onClick={() => handleEdit(service)}
                           style={{ color: '#46B1C9' }}
-                          className="hover:bg-opacity-10"
+                          className="hover:bg-opacity-10 w-full md:w-auto"
                           onMouseEnter={(e) => {
                             e.currentTarget.style.backgroundColor = '#46B1C9' + '10';
                           }}
@@ -506,7 +506,7 @@ const AdminServicesTab = () => {
                           variant="ghost"
                           size="sm"
                           onClick={() => handleDelete(service)}
-                          className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20"
+                          className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 w-full md:w-auto"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>

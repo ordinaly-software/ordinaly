@@ -10,7 +10,7 @@ const Footer = () => {
   const { isDark } = useTheme();
 
   return (
-    <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
+    <footer className="border-t border-gray-300 dark:border-gray-700 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-5 gap-8">
           <div className="col-span-2">
@@ -23,17 +23,17 @@ const Footer = () => {
                 className="h-24 w-auto"
               />
             </div>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <p className="text-gray-800 dark:text-gray-200 mb-4">
               {t("footer.description")}
             </p>
           </div>
           <div>
             <h3 className="text-gray-900 dark:text-white font-semibold mb-4">{t("footer.legal.title")}</h3>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+            <ul className="space-y-2 text-gray-800 dark:text-gray-200">
               <li>
                 <Link
                   href="/legal?tab=terms"
-                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                  className="hover:text-black dark:hover:text-white hover:underline transition-colors"
                 >
                   {t("footer.legal.terms")}
                 </Link>
@@ -66,11 +66,11 @@ const Footer = () => {
           </div>
           <div>
             <h3 className="text-gray-900 dark:text-white font-semibold mb-4">{t("footer.social.title")}</h3>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+            <ul className="space-y-2 text-gray-800 dark:text-gray-200">
               <li>
                 <a 
                   href="https://www.linkedin.com/company/ordinalysoftware/"
-                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors flex items-center gap-2"
+                  className="hover:text-black dark:hover:text-white hover:underline transition-colors flex items-center gap-2"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -125,11 +125,11 @@ const Footer = () => {
             <h3 className="text-gray-900 dark:text-white font-semibold mb-4">
               {t("footer.contact.title")}
             </h3>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-400">
+            <ul className="space-y-2 text-gray-800 dark:text-gray-200">
               <li className="min-w-0">
                 <a
                   href={`mailto:${t("footer.contact.email")}`}
-                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors break-all block"
+                  className="hover:text-black dark:hover:text-white hover:underline transition-colors break-all block"
                 >
                   {t("footer.contact.email")}
                 </a>
@@ -137,20 +137,20 @@ const Footer = () => {
               <li>
                 <a
                   href={`tel:${t("footer.contact.phone")}`}
-                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors"
+                  className="hover:text-black dark:hover:text-white hover:underline transition-colors"
                 >
                   {t("footer.contact.phone")}
                 </a>
               </li>
               <li>
-                <span className="text-gray-600 dark:text-gray-400">
+                <span className="text-gray-800 dark:text-gray-200">
                   {t("footer.contact.location")}
                 </span>
               </li>
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-200 dark:border-gray-800 mt-8 pt-8 text-center text-gray-600 dark:text-gray-400">
+        <div className="border-t border-gray-300 dark:border-gray-700 mt-8 pt-8 text-center text-gray-800 dark:text-gray-200">
           <p>{t("footer.copyright")}</p>
         </div>
       </div>

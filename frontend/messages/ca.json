@@ -438,6 +438,7 @@
       "noServicesFound": "No es troba serveis que coincideixin amb la vostra cerca.",
       "durationDay": "1 dia",
       "durationDays": "{count} dies",
+      "services": "serveis",
       "form": {
         "title": "Títol",
         "titlePlaceholder": "Títol del servei",
@@ -469,8 +470,8 @@
         "requisitesPlaceholder": "Ingrese cualquier requisito o prerrequisito"
       },
       "messages": {
-        "createSuccess": "Servei '{title}' Creat amb èxit. ",
-        "updateSuccess": "Service '{title}' actualitzat correctament!",
+        "createSuccess": "Servei creat amb èxit.",
+        "updateSuccess": "Servei actualitzat correctament!",
         "deleteSuccess": "El servei es va suprimir amb èxit",
         "bulkDeleteSuccess": "Els serveis es van suprimir amb èxit",
         "fetchError": "No s'ha pogut buscar serveis",
@@ -489,8 +490,8 @@
           "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica."
         },
         "featured": {
-          "enabled": "El servei '{title}' ha estat marcat com a destacat.",
-          "disabled": "El servei '{title}' ja no apareix."
+          "enabled": "El servei ha estat marcat com a destacat.",
+          "disabled": "El servei ja no apareix."
         }
       },
       "confirmDelete": {
@@ -606,8 +607,8 @@
         "update": "Curs d'actualització"
       },
       "messages": {
-        "createSuccess": "El curs '{title}' creat amb èxit! ",
-        "updateSuccess": "CURS '{title}' actualitzat correctament!",
+        "createSuccess": "El curs creat amb èxit! ",
+        "updateSuccess": "Curs actualitzat correctament!",
         "deleteSuccess": "El curs es va suprimir amb èxit",
         "bulkDeleteSuccess": "Els cursos es van suprimir amb èxit",
         "fetchError": "No s'ha pogut buscar cursos",
@@ -705,6 +706,8 @@
       "downloadPdf": "Descarrega PDF",
       "edit": "Edita terme",
       "delete": "Elimina terme",
+      "noResults": "No s'han trobat termes",
+      "terms": "termes",
       "form": {
         "name": "Nom",
         "namePlaceholder": "Nom del terme",
@@ -758,8 +761,6 @@
         "updated": "Actualitzat"
       },
       "preview": {
-        "pdf": "Vista prèvia del PDF",
-        "markdown": "Vista prèvia del Markdown",
         "noFileEdit": "No es pot editar el fitxer",
         "noPdf": "No hi ha PDF disponible per a la vista prèvia"
       },
@@ -786,7 +787,9 @@
           "tagUnique": "Ja existeix un document amb aquest tipus d'etiqueta. Si us plau, tria una etiqueta diferent o edita el document existent.",
           "fileExtension": "El fitxer de contingut ha de ser un fitxer .md i el contingut PDF ha de ser un fitxer .pdf.",
           "fileMissing": "S'han de proporcionar tant un fitxer markdown (.md) com un fitxer PDF.",
-          "tagRequired": "Si us plau, selecciona un tipus de document."
+          "tagRequired": "Si us plau, selecciona un tipus de document.",
+          "pdfSize": "El fitxer PDF ha de ser de 1MB o menys.",
+          "mdSize": "El fitxer Markdown ha de ser de 1MB o menys."
         },
         "upload": {
           "error": "Error en la càrrega del fitxer. Si us plau, assegura't que els teus fitxers siguin vàlids i torna-ho a intentar."
