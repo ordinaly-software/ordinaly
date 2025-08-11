@@ -23,8 +23,8 @@ import { Dropdown } from "@/components/ui/dropdown";
 
 // Dynamic imports for components that might not be immediately needed
 const Navbar = dynamic(() => import("@/components/ui/navbar"), { ssr: false });
-const Footer = dynamic(() => import("@/components/home/footer"), { ssr: false });
-const ServiceDetailsModal = dynamic(() => import("@/components/home/service-details-modal").then(mod => ({ default: mod.ServiceDetailsModal })), { ssr: false });
+const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
+const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => ({ default: mod.ServiceDetailsModal })), { ssr: false });
 
 const ServicesPage = () => {
   const t = useTranslations("services");

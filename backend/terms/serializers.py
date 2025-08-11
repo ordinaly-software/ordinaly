@@ -3,29 +3,15 @@ from .models import Terms
 
 
 class TermsSerializer(serializers.ModelSerializer):
-
     tag_display = serializers.CharField(source='get_tag_display', read_only=True)
     name = serializers.CharField(required=False)
-    content = serializers.FileField()
-    pdf_content = serializers.FileField()
+    pdf_content = serializers.FileField(required=False, allow_null=True)
     version = serializers.CharField(required=True)
 
-    class Meta:
-        model = Terms
-        fields = ['id', 'name', 'tag', 'tag_display', 'content', 'pdf_content',
-                  'version', 'author', 'created_at', 'updated_at']
-        read_only_fields = ['created_at', 'updated_at', 'author']
-
-    def validate_content(self, value):
-        if value:
-            if not value.name.endswith('.md'):
-                raise serializers.ValidationError("Content file must be a markdown (.md) file")
-            max_size = 1024 * 1024  # 1MB
-            if value.size > max_size:
-                raise serializers.ValidationError("Markdown file must be 1MB or less.")
-        return value
-
     def validate_pdf_content(self, value):
+        # Only require PDF on create, not on update
+        if self.instance is None and not value:
+            raise serializers.ValidationError("PDF file is required.")
         if value:
             if not value.name.endswith('.pdf'):
                 raise serializers.ValidationError("PDF content must be a PDF file")
@@ -33,6 +19,12 @@ class TermsSerializer(serializers.ModelSerializer):
             if value.size > max_size:
                 raise serializers.ValidationError("PDF file must be 1MB or less.")
         return value
+
+    class Meta:
+        model = Terms
+        fields = ['id', 'name', 'tag', 'tag_display', 'pdf_content',
+                  'version', 'author', 'created_at', 'updated_at']
+        read_only_fields = ['created_at', 'updated_at', 'author']
 
     def validate(self, data):
         if not data.get('name'):

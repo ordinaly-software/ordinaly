@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, use } from "react";
 import { useTranslations } from "next-intl";
 import { getApiEndpoint } from "@/lib/api-config";
 import Navbar from "@/components/ui/navbar";
-import Footer from "@/components/home/footer";
+import Footer from "@/components/ui/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -32,6 +32,7 @@ import {
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
+import BonificationInfo from "@/components/formation/bonification-info";
 
 interface Course {
   id: number;
@@ -320,7 +321,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   const handleDownloadCatalog = async () => {
     try {
       setAlert({type: 'info', message: t('alerts.generatingCatalog')});
-      await generateCoursesCatalogPDF(courses, locale, t);
+      await generateCoursesCatalogPDF(courses, t);
       setAlert({type: 'success', message: t('alerts.catalogDownloaded')});
     } catch {
       setAlert({type: 'error', message: t('alerts.catalogError')});
@@ -452,8 +453,14 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         </div>
       </section>
 
+
+      {/* Funding/Bonification Info Dropdown */}
+      <section className="max-w-4xl mx-auto mt-8 mb-2 px-4">
+        <BonificationInfo locale={locale} />
+      </section>
+
       {/* Courses Grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="pt-6 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {filteredCourses.length === 0 ? (
             <div className="text-center py-16">
@@ -469,11 +476,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
             </div>
           ) : (
             <>
-              {filteredCourses.length > 0 && (
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-            {t("upcomingCourses")}
-          </h3>
-              )}
               <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10">
           {filteredCourses.map((course) => {
             const enrolled = isEnrolled(course.id);
@@ -522,22 +524,18 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
             </div>
 
             <CardContent className="p-8">
+
               {/* Course Title */}
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#22A60D] transition-colors duration-300 line-clamp-2">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#22A60D] transition-colors duration-300 break-words whitespace-pre-line">
                 {course.title}
               </h3>
 
               {/* Course Subtitle */}
               {course.subtitle && (
-                <p className="text-base text-gray-600 dark:text-gray-400 mb-4 line-clamp-1">
+                <p className="text-base text-gray-600 dark:text-gray-400 mb-4 break-words whitespace-pre-line">
                   {course.subtitle}
                 </p>
               )}
-
-              {/* Course Description */}
-              <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed line-clamp-3 text-lg">
-                {course.description}
-              </p>
 
               {/* Course Meta Information */}
               <div className="space-y-3 mb-8">
@@ -551,7 +549,19 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
                 </div>
                 <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
                   <MapPin className="w-5 h-5 text-[#22A60D]" />
-                  <span>{course.location}</span>
+                  {course.location ? (
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline hover:text-[#22A60D]"
+                      title={course.location}
+                    >
+                      {course.location}
+                    </a>
+                  ) : (
+                    <span>{t('locationSoon')}</span>
+                  )}
                 </div>
                 <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
                   <Users className="w-5 h-5 text-[#22A60D]" />
@@ -676,23 +686,16 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
 
                           <CardContent className="p-6">
                             {/* Course Title */}
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 break-words whitespace-pre-line">
                               {course.title}
                             </h3>
 
                             {/* Course Subtitle */}
                             {course.subtitle && (
-                              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-1">
+                              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 break-words whitespace-pre-line">
                                 {course.subtitle}
                               </p>
                             )}
-
-                            {/* Course Description */}
-                            <div className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3">
-                              <MarkdownRenderer>
-                                {course.description}
-                              </MarkdownRenderer>
-                            </div>
 
                             {/* Course Meta Information */}
                             <div className="space-y-2 mb-6">

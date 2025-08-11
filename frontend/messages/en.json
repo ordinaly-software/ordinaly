@@ -326,8 +326,8 @@
       "emailPlaceholder": "Enter your email",
       "companyLabel": "Company",
       "companyPlaceholder": "Enter your company name",
-      "regionLabel": "Region",
-      "regionPlaceholder": "Enter your region (optional)",
+      "regionLabel": "Country",
+      "regionPlaceholder": "Enter your country (optional)",
       "cityLabel": "City", 
       "cityPlaceholder": "Enter your city (optional)",
       "passwordLabel": "Password",
@@ -370,8 +370,8 @@
       "title": "Company Information",
       "companyLabel": "Company",
       "companyPlaceholder": "Enter your company name",
-      "regionLabel": "Region",
-      "regionPlaceholder": "Enter your region",
+      "regionLabel": "Country",
+      "regionPlaceholder": "Enter your country",
       "cityLabel": "City",
       "cityPlaceholder": "Enter your city",
       "optional": "optional",
@@ -411,7 +411,6 @@
       "users": "Users"
     },
     "users": {
-      "title": "Users List",
       "userId": "User ID",
       "name": "Name",
       "surname": "Surname",
@@ -419,7 +418,9 @@
       "company": "Company",
       "errorFetching": "Failed to fetch users. Please try again later.",
       "sendMail": "Send Mail",
-      "selectAll": "Select All"
+      "selectAll": "Select All",
+      "searchPlaceholder": "Search users...",
+      "users": "users"
     },
     "stats": {
       "totalServices": "Total Services",
@@ -768,18 +769,18 @@
         "noPdf": "No PDF available for preview"
       },
       "messages": {
-        "createSuccess": "Terms document '{name}' created successfully!",
-        "updateSuccess": "Terms document '{name}' updated successfully!",
-        "deleteSuccess": "Term deleted successfully",
-        "bulkDeleteSuccess": "terms deleted successfully",
-        "fetchError": "Error fetching terms",
-        "createError": "Error creating term",
-        "updateError": "Error updating term",
-        "deleteError": "Error deleting term",
+        "createSuccess": "Document created successfully!",
+        "updateSuccess": "Document updated successfully!",
+        "deleteSuccess": "Document deleted successfully",
+        "bulkDeleteSuccess": "Documents deleted successfully",
+        "fetchError": "Error fetching documents",
+        "createError": "Error creating document",
+        "updateError": "Error updating document",
+        "deleteError": "Error deleting document",
         "downloadError": "Error downloading PDF",
         "downloadSuccess": "PDF downloaded successfully",
-        "networkError": "Unable to save terms document. Please check your connection and try again.",
-        "selectToDelete": "Please select terms to delete",
+        "networkError": "Unable to save document. Please check your connection and try again.",
+        "selectToDelete": "Please select documents to delete",
         "fileSizeLimit": "File size must be less than 10MB",
         "pdfFileOnly": "Please select a PDF file",
         "validation": {
@@ -912,7 +913,7 @@
     "viewDetails": "View Details",
     "maxAttendants": "Max Attendants",
     "maxAttendeesCount": "Max {count} attendants",
-    "noSpecificDate": "No specific date has been set for this course yet.",
+    "noSpecificDate": "No specific date has been set yet",
     "filters": {
       "location": {
         "all": "All Locations",
@@ -933,7 +934,6 @@
     "pastCourses": "Past Courses",
     "viewPastCourses": "View Past Courses",
     "hidePastCourses": "Hide Past Courses",
-    "upcomingCourses": "Upcoming Courses",
     "finished": "Finished",
     "cta": {
       "title": "Ready to Advance Your Career?",
@@ -989,31 +989,33 @@
       "catalogDownloaded": "Catalog downloaded successfully!",
       "catalogError": "Error generating catalog. Please try again."
     },
+    "slogan": "Software & Training Solutions",
+    "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",
+    "coursesTitle": "Our Courses",
+    "time": "Time:",
+    "capacity": "Capacity:",
+    "people": "people",
+    "contactTitle": "Contact Information",
+    "email": "Email:",
+    "website": "Website:",
+    "specialization": "Specialization:",
+    "specializationText": "Software Development and Technology Training",
+    "filename": "Ordinaly_Training_Catalog.pdf",
+    "noSpecificTime": "No specific time yet.",
+    "bonificationTitle": "Bonification and Grants",
+    "bonificationDisclaimer": "Some of our training courses may be eligible for funding through FUNDAE/SEPE and/or fit into co-financed calls by FSE+ and PRTR-NextGenerationEU, as long as your company meets the requirements and processes the aid. Ordinaly provides the course documentation but does not request or process bonuses or grants on behalf of the client. Always check the official links before contracting.",
     "pdf": {
-      "slogan": "Software & Training Solutions",
       "title": "Training Catalog",
       "subtitle": "Professional and technological training courses",
-      "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",
-      "coursesTitle": "Our Courses",
-      "upcomingCourses": "Upcoming Courses",
       "date": "Date:",
-      "time": "Time:",
       "location": "Location:",
       "price": "Price:",
       "free": "Free",
-      "capacity": "Capacity:",
-      "people": "people",
-      "contactTitle": "Contact Information",
-      "email": "Email:",
-      "website": "Website:",
-      "specialization": "Specialization:",
-      "specializationText": "Software Development and Technology Training",
-      "filename": "Ordinaly_Training_Catalog.pdf",
-      "noSpecificDate": "No specific date yet.",
-      "noSpecificTime": "No specific time yet."
+      "noSpecificDate": "No specific date yet"
     },
     "courseDetails": {
       "title": "Course Details",
+      "locationSoon": "Location coming soon",
       "courseDescription": "Course Description",
       "scheduleInformation": "Schedule Information",
       "upcomingSessions": "Upcoming Sessions",
@@ -1039,7 +1041,7 @@
       "importantDates": "Important Dates",
       "excludedDatesMessage": "This course has {count} excluded date(s) (holidays or breaks) that are not included in the regular schedule.",
       "moreSessions": "And {count} more sessions...",
-      "noSpecificDate": "No specific date has been set for this course yet.",
+      "noSpecificDate": "No specific date has been set yet",
       "periodicity": {
         "once": "One-time event",
         "daily": "Daily",
@@ -1079,12 +1081,15 @@
       }
     }
   },
+  "bonificationTexts": {
+    "summary": "Some of our training may be subsidized via FUNDAE/SEPE or fit into calls co-financed by FSE+ and PRTR-NextGenerationEU, provided your company meets requirements and processes the aid independently.",
+    "details": "\n**FUNDAE / SEPE - Company-sponsored training:** allows part of the training cost to be subsidized through Social Security contributions. Official info for Companies ([FUNDAE](https://www.fundae.es/empresas)) and Training for employees ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**EU Funds - FSE+ 2021-2027:** national and regional programs (including Andalusia) that finance employment, education, and training actions through public calls. See [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Component 23):** measures for training and active employment policies; coverage depends on each call. Official info from the [Recovery Plan](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) and [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalusia (regional):** FSE+ Andalusia 2021-2027 and Vocational Training for Employment (FPE) publish specific grants/calls. See [Junta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) and [FPE](https://www.juntadeandalucia.es/temas/trabajar/formacion/fpe.html).\n\n**Notice:** Eligibility, intensity, and compatibility of funding vary by regulations and current calls. Ordinaly provides course documentation but does not apply for or process subsidies or grants on behalf of the client. Always check official links before contracting."
+  },
   "profile": {
     "title": "My Profile",
     "subtitle": "Manage your personal information and account settings",
     "loading": "Loading profile...",
     "personalInfo": "Personal Information",
-    "accountSettings": "Account Settings",
     "dangerZone": "Danger Zone",
     "form": {
       "firstName": "First Name",
@@ -1097,8 +1102,8 @@
       "emailPlaceholder": "Enter your email address",
       "company": "Company",
       "companyPlaceholder": "Enter your company name",
-      "region": "Region",
-      "regionPlaceholder": "Enter your region (optional)",
+      "region": "Country",
+      "regionPlaceholder": "Enter your country (optional)",
       "city": "City",
       "cityPlaceholder": "Enter your city (optional)",
       "saveChanges": "Save Changes",

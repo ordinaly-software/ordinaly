@@ -136,20 +136,21 @@ const CourseDetailsModal = ({
   // Handle null/empty dates
   const hasNoDates = !course.start_date || !course.end_date;
   const hasStarted = !hasNoDates && new Date(course.start_date) <= new Date();
+  const hasEnded = !hasNoDates && new Date(course.end_date) < new Date();
   const canEnroll = isAuthenticated && !isEnrolled && !hasStarted && !hasNoDates;
   const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl" showHeader={false}>
       <div className="max-h-[85vh] overflow-y-auto">
-        {/* Header Image */}
-        <div className="relative h-64 bg-gray-200 overflow-hidden">
+        {/* Header Image at the very top, with hover zoom and no blur */}
+        <div className="relative w-full h-64 bg-gray-200 overflow-hidden group">
           <Image
             loader={imageLoader}
             src={course.image}
             alt={course.title}
             fill
-            className="object-cover blur-sm"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             priority
           />
@@ -287,7 +288,19 @@ const CourseDetailsModal = ({
                     <MapPin className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                     <div>
                       <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('location')}</p>
-                      <p className="text-gray-900 dark:text-gray-100 text-sm">{course.location}</p>
+                      {course.location && course.location !== t('locationSoon') ? (
+                        <a
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#22A60D]"
+                          title={course.location}
+                        >
+                          {course.location}
+                        </a>
+                      ) : (
+                        <p className="text-gray-900 dark:text-gray-100 text-sm">{t('locationSoon')}</p>
+                      )}
                     </div>
                   </div>
                   
@@ -321,7 +334,7 @@ const CourseDetailsModal = ({
 
               {/* Action Buttons */}
               <div className="space-y-3">
-                {isEnrolled ? (
+                {isEnrolled && !hasEnded ? (
                   <Button
                     onClick={onCancel}
                     variant="outline"

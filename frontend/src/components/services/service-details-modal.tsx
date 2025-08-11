@@ -78,7 +78,8 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
     >
       <div className="flex flex-col max-h-[calc(100vh-8rem)]">
         {/* Scrollable Content */}
-        <div className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-6"
+        <div
+          className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-6 pb-6"
           style={{
             scrollbarWidth: 'thin',
             scrollbarColor: '#CBD5E0 transparent'

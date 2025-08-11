@@ -325,8 +325,8 @@
       "emailPlaceholder": "Idatzi zure posta elektronikoa",
       "companyLabel": "Lagundi",
       "companyPlaceholder": "Idatzi zure enpresaren izena",
-      "regionLabel": "Eskualde",
-      "regionPlaceholder": "Sartu zure eskualdean (aukerakoa)",
+      "regionLabel": "Herrialdea",
+      "regionPlaceholder": "Sartu zure herrialdeaan (aukerakoa)",
       "cityLabel": "Hiri",
       "cityPlaceholder": "Sartu zure hiria (aukerakoa)",
       "passwordLabel": "Kontrazeinu",
@@ -386,7 +386,6 @@
       "users": "Erabiltzaileak"
     },
     "users": {
-      "title": "Erabiltzaileen Zerrenda",
       "userId": "Erabiltzaile IDa",
       "name": "Izena",
       "surname": "Abizena",
@@ -394,7 +393,9 @@
       "company": "Enpresa",
       "errorFetching": "Errorea erabiltzaileak eskuratzean. Saiatu berriro geroago.",
       "sendMail": "Bidali posta",
-      "selectAll": "Hautatu guztiak"
+      "selectAll": "Hautatu guztiak",
+      "searchPlaceholder": "Bilatu erabiltzaileak...",
+      "users": "erabiltzaileak"
     },
     "stats": {
       "totalServices": "Zerbitzu guztira",
@@ -741,18 +742,18 @@
         "noPdf": "Ezin da PDFa editatu"
       },
       "messages": {
-        "createSuccess": "Baldintza dokumentua '{name}' ondo sortu da!",
-        "updateSuccess": "Baldintza dokumentua '{name}' ondo eguneratu da!",
-        "deleteSuccess": "Baldintza behar bezala ezabatu da",
-        "bulkDeleteSuccess": "Baldintzak behar bezala ezabatu dira",
-        "fetchError": "Errorea baldintzak eskuratzean",
-        "createError": "Errorea baldintza sortzean",
-        "updateError": "Errorea baldintza eguneratzean",
-        "deleteError": "Errorea baldintza ezabatzean",
+        "createSuccess": "Dokumentua ondo sortu da!",
+        "updateSuccess": "Dokumentua ondo eguneratu da!",
+        "deleteSuccess": "Dokumentua behar bezala ezabatu da",
+        "bulkDeleteSuccess": "Dokumentuak behar bezala ezabatu dira",
+        "fetchError": "Errorea dokumentuak eskuratzean",
+        "createError": "Errorea dokumentua sortzean",
+        "updateError": "Errorea dokumentua eguneratzean",
+        "deleteError": "Errorea dokumentua ezabatzean",
         "downloadError": "Errorea PDF deskargatzean",
         "downloadSuccess": "PDF behar bezala deskargatu da",
-        "networkError": "Ezin izan da baldintza dokumentua gorde. Mesedez, egiaztatu zure konexioa eta saiatu berriro.",
-        "selectToDelete": "Mesedez, hautatu ezabatu nahi dituzun baldintzak",
+        "networkError": "Ezin izan da dokumentua gorde. Mesedez, egiaztatu zure konexioa eta saiatu berriro.",
+        "selectToDelete": "Mesedez, hautatu ezabatu nahi dituzun dokumentuak",
         "fileSizeLimit": "Fitxategiaren tamaina 10MB baino txikiagoa izan behar da",
         "pdfFileOnly": "Mesedez, hautatu PDF fitxategi bat",
         "validation": {
@@ -821,195 +822,199 @@
         "downloadSuccess": "PDF behar bezala deskargatu da",
         "downloadError": "Ezin izan da pdf deskargatzean"
       }
-    },
-    "formation": {
-      "title": "Formazio profesionala",
-      "subtitle": "Aurreratu zure ibilbidea industria adituek diseinatutako gure prestakuntza programa integralekin",
-      "searchPlaceholder": "Bilatu ikastaroak ...",
-      "free": "Dohainik",
-      "price": "Salneurri",
-      "location": "Kokaleku",
-      "date": "Datil",
-      "enrolled": "Insilegatu",
-      "enroll": "Izena eman orain",
-      "cancelEnrollment": "Utzi matrikula",
-      "viewDetails": "Xehetasunak ikusi",
-      "maxAttendants": "Max laguntzaileak",
-      "maxAttendeesCount": "Max {count} laguntzaileak",
-      "noSpecificDate": "Ez dago data zehatzik",
-      "filters": {
-        "location": {
-          "all": "Kokapen guztiak",
-          "online": "Konektatuta",
-          "onsite": "-N gunean"
-        },
-        "price": {
-          "all": "Prezio guztiak",
-          "free": "Dohainik",
-          "paid": "Ordain"
-        }
+    }
+  },
+  "formation": {
+    "title": "Formazio profesionala",
+    "subtitle": "Aurreratu zure ibilbidea industria adituek diseinatutako gure prestakuntza programa integralekin",
+    "searchPlaceholder": "Bilatu ikastaroak ...",
+    "free": "Dohainik",
+    "price": "Salneurri",
+    "location": "Kokaleku",
+    "date": "Datil",
+    "enrolled": "Insilegatu",
+    "enroll": "Izena eman orain",
+    "cancelEnrollment": "Utzi matrikula",
+    "viewDetails": "Xehetasunak ikusi",
+    "maxAttendants": "Max laguntzaileak",
+    "maxAttendeesCount": "Max {count} laguntzaileak",
+    "noSpecificDate": "Ez dago data zehatzik",
+    "filters": {
+      "location": {
+        "all": "Kokapen guztiak",
+        "online": "Konektatuta",
+        "onsite": "-N gunean"
       },
-      "noResults": {
-        "title": "Ez da ikastaro aurkitu",
-        "description": "Saiatu zure bilaketa baldintzak edo iragazkiak doitzen zuretzako ikastaro egokia aurkitzeko."
-      },
-      "noPastCourses": "Iraganeko ikastaroak ez daude eskuragarri.",
-      "pastCourses": "Iraganeko ikastaroak",
-      "viewPastCourses": "Ikusi iraganeko ikastaroak",
-      "hidePastCourses": "Ezkutatu iraganeko ikastaroak",
-      "upcomingCourses": "Hurrengo ikastaroak",
-      "finished": "Amaituta",
-      "cta": {
-        "title": "Zure ibilbidea aurrera egiteko prest?",
-        "description": "Sartu beren karrerak eraldatu dituzten milaka profesionalek gure adituen prestakuntza programekin.",
-        "contact": "Harremanetarako aholkularia",
-        "catalog": "Deskargatu katalogoa",
-        "emailSubject": "Ordena Ordaintzeko Formazio Programen inguruko kontsulta",
-        "emailBody": "Kaixo, zure eraketa profesionalen programei buruz gehiago ikasteko interesa dut. "
-      },
-      "enrollment": {
-        "title": "Ikastaroen matrikula",
-        "confirm": "Berretsi matrikula",
-        "courseDetails": "Ikastaroaren xehetasunak",
-        "confirmMessage": "Ziur zaude ikastaro honetan izena eman nahi duzula?",
-        "paymentNote": "Ordainketa prozesamendua hurrengo urratsean kudeatuko da.",
-        "confirmEnroll": "Berretsi matrikula",
-        "name": "Izen osoa",
-        "namePlaceholder": "Idatzi zure izen osoa",
-        "email": "Helbide elektronikoa",
-        "emailPlaceholder": "Idatzi zure helbide elektronikoa",
-        "phone": "Telefono zenbakia",
-        "phonePlaceholder": "Idatzi zure telefono zenbakia",
-        "company": "Lagundi",
-        "companyPlaceholder": "Idatzi zure enpresaren izena",
-        "experience": "Esperientzia garrantzitsua",
-        "experiencePlaceholder": "Esan iezaguzu zure esperientzia edo atzeko plano garrantzitsuaz ...",
-        "motivation": "Zergatik nahi duzu ikastaro hau egin?",
-        "motivationPlaceholder": "Partekatu zure motibazioa eta zer espero duzun ...",
-        "cancel": "Indargabetu",
-        "submit": "Izena eman ikastaroan"
-      },
-      "cancellation": {
-        "title": "Utzi matrikula",
-        "warning": "Utzi ikastaroaren matrikula",
-        "warningMessage": "Ziur \"{courseTitle}\" matrikula bertan behera utzi nahi duzula? ",
-        "confirmMessage": "Horrek kurtsoretik kenduko zaitu eta baliteke zure lekua galtzea.",
-        "keepEnrollment": "Matrikula mantendu",
-        "confirmCancel": "Utzi matrikula"
-      },
-      "alerts": {
-        "signInToEnroll": "Mesedez, hasi saioa ikastaroetan izena emateko",
-        "signInRequired": "Mesedez, hasi saioa matrikulak kudeatzeko",
-        "enrollmentSuccess": "Arrakastaz matrikulatu {courseTitle} -n!",
-        "enrollmentFailed": "Ezin izan da izena eman. ",
-        "enrollmentCancelled": "Matrikula ondo bertan behera utzi da",
-        "cancelEnrollmentFailed": "Ezin izan da matrikula bertan behera utzi",
-        "notEnrolled": "Oraingo honetan ez zara ikastaro honetan matrikulatuta",
-        "authenticationFailed": "Autentifikazioa huts egin du. ",
-        "networkError": "Sareko errorea. ",
-        "failedToLoadCourses": "Huts egin du ikastaroak kargatu",
-        "networkErrorLoadingCourses": "Sareko errorea ikastaroak kargatzean",
-        "generatingCatalog": "Ikastaroen katalogoa sortzen ...",
-        "catalogDownloaded": "Katalogoa behar bezala deskargatuta!",
-        "catalogError": "Errorea katalogoa sortzean. "
-      },
-      "pdf": {
-        "slogan": "Software eta Prestakuntza Soluzioak",
-        "title": "Prestakuntza katalogoa",
-        "subtitle": "Prestakuntza profesional eta teknologikoko ikastaroak",
-        "introduction": "Ordezian, prestakuntza espezializatua eskaintzen dugu sortzen ari diren teknologietan eta garapen profesionalean. ",
-        "coursesTitle": "Gure ikastaroak",
-        "upcomingCourses": "Hurrengo ikastaroak",
-        "date": "Data:",
-        "time": "Ordua:",
-        "location": "Kokalekua:",
-        "price": "Prezioa:",
+      "price": {
+        "all": "Prezio guztiak",
         "free": "Dohainik",
-        "capacity": "Edukiera:",
-        "people": "jende",
-        "contactTitle": "Harremanetarako informazioa",
-        "email": "Posta elektronikoa:",
-        "website": "Webgunea:",
-        "specialization": "Espezializazioa:",
-        "specializationText": "Softwarea garatzeko eta teknologia prestakuntza",
-        "filename": "Ordinaly_training_catalog.pdf",
-        "noSpecificDate": "Ez dago data zehatzik",
-        "noSpecificTime": "Ez dago ordu zehatzik"
+        "paid": "Ordain"
+      }
+    },
+    "noResults": {
+      "title": "Ez da ikastaro aurkitu",
+      "description": "Saiatu zure bilaketa baldintzak edo iragazkiak doitzen zuretzako ikastaro egokia aurkitzeko."
+    },
+    "noPastCourses": "Iraganeko ikastaroak ez daude eskuragarri.",
+    "pastCourses": "Iraganeko ikastaroak",
+    "viewPastCourses": "Ikusi iraganeko ikastaroak",
+    "hidePastCourses": "Ezkutatu iraganeko ikastaroak",
+    "finished": "Amaituta",
+    "cta": {
+      "title": "Zure ibilbidea aurrera egiteko prest?",
+      "description": "Sartu beren karrerak eraldatu dituzten milaka profesionalek gure adituen prestakuntza programekin.",
+      "contact": "Harremanetarako aholkularia",
+      "catalog": "Deskargatu katalogoa",
+      "emailSubject": "Ordena Ordaintzeko Formazio Programen inguruko kontsulta",
+      "emailBody": "Kaixo, zure eraketa profesionalen programei buruz gehiago ikasteko interesa dut. "
+    },
+    "enrollment": {
+      "title": "Ikastaroen matrikula",
+      "confirm": "Berretsi matrikula",
+      "courseDetails": "Ikastaroaren xehetasunak",
+      "confirmMessage": "Ziur zaude ikastaro honetan izena eman nahi duzula?",
+      "paymentNote": "Ordainketa prozesamendua hurrengo urratsean kudeatuko da.",
+      "confirmEnroll": "Berretsi matrikula",
+      "name": "Izen osoa",
+      "namePlaceholder": "Idatzi zure izen osoa",
+      "email": "Helbide elektronikoa",
+      "emailPlaceholder": "Idatzi zure helbide elektronikoa",
+      "phone": "Telefono zenbakia",
+      "phonePlaceholder": "Idatzi zure telefono zenbakia",
+      "company": "Lagundi",
+      "companyPlaceholder": "Idatzi zure enpresaren izena",
+      "experience": "Esperientzia garrantzitsua",
+      "experiencePlaceholder": "Esan iezaguzu zure esperientzia edo atzeko plano garrantzitsuaz ...",
+      "motivation": "Zergatik nahi duzu ikastaro hau egin?",
+      "motivationPlaceholder": "Partekatu zure motibazioa eta zer espero duzun ...",
+      "cancel": "Indargabetu",
+      "submit": "Izena eman ikastaroan"
+    },
+    "cancellation": {
+      "title": "Utzi matrikula",
+      "warning": "Utzi ikastaroaren matrikula",
+      "warningMessage": "Ziur \"{courseTitle}\" matrikula bertan behera utzi nahi duzula? ",
+      "confirmMessage": "Horrek kurtsoretik kenduko zaitu eta baliteke zure lekua galtzea.",
+      "keepEnrollment": "Matrikula mantendu",
+      "confirmCancel": "Utzi matrikula"
+    },
+    "alerts": {
+      "signInToEnroll": "Mesedez, hasi saioa ikastaroetan izena emateko",
+      "signInRequired": "Mesedez, hasi saioa matrikulak kudeatzeko",
+      "enrollmentSuccess": "Arrakastaz matrikulatu {courseTitle} -n!",
+      "enrollmentFailed": "Ezin izan da izena eman. ",
+      "enrollmentCancelled": "Matrikula ondo bertan behera utzi da",
+      "cancelEnrollmentFailed": "Ezin izan da matrikula bertan behera utzi",
+      "notEnrolled": "Oraingo honetan ez zara ikastaro honetan matrikulatuta",
+      "authenticationFailed": "Autentifikazioa huts egin du. ",
+      "networkError": "Sareko errorea. ",
+      "failedToLoadCourses": "Huts egin du ikastaroak kargatu",
+      "networkErrorLoadingCourses": "Sareko errorea ikastaroak kargatzean",
+      "generatingCatalog": "Ikastaroen katalogoa sortzen ...",
+      "catalogDownloaded": "Katalogoa behar bezala deskargatuta!",
+      "catalogError": "Errorea katalogoa sortzean. "
+    },
+      "slogan": "Software eta Prestakuntza Irtenbideak",
+      "introduction": "Ordinalyn, teknologia berrietan eta garapen profesionalean espezializatutako prestakuntza eskaintzen dugu.",
+      "coursesTitle": "Gure ikastaroak",
+      "time": "Ordua:",
+      "capacity": "Edukiera:",
+      "people": "jende",
+      "contactTitle": "Harremanetarako informazioa",
+      "email": "Posta elektronikoa:",
+      "website": "Webgunea:",
+      "specialization": "Espezializazioa:",
+      "specializationText": "Software garapena eta teknologia prestakuntza",
+      "filename": "Ordinaly_prestakuntza_katalogoa.pdf",
+      "noSpecificTime": "Ez dago ordu zehatzik",
+      "bonificationTitle": "Bonifikazioa eta Dirulaguntzak",
+      "bonificationDisclaimer": "Gure prestakuntza batzuk FUNDAE/SEPE bidez bonifika daitezke eta/edo FSE+ eta PRTR-NextGenerationEU-k kofinantzatutako deialdietan sar daitezke, zure enpresak baldintzak betetzen baditu eta laguntza bere kabuz kudeatzen badu. Ordinalyk ikastaroaren dokumentazioa ematen du, baina ez du bezeroaren izenean bonifikazio edo dirulaguntzarik eskatzen edo kudeatzen. Beti egiaztatu esteka ofizialak kontratatu aurretik.",
+    "pdf": {
+      "title": "Prestakuntza katalogoa",
+      "subtitle": "Prestakuntza profesional eta teknologikoko ikastaroak",
+      "date": "Data:",
+      "location": "Kokalekua:",
+      "price": "Prezioa:",
+      "free": "Dohainik",
+      "noSpecificDate": "Ez dago data zehatzik"
+    },
+    "courseDetails": {
+      "title": "Ikastaroaren xehetasunak",
+      "locationSoon": "Kokalekua hurrengoan",
+      "courseDescription": "Ikastaroaren deskribapena",
+      "scheduleInformation": "Informazioa Informazioa",
+      "upcomingSessions": "Hurrengo saioak",
+      "courseInformation": "Ikastaroaren informazioa",
+      "startDate": "Hasiera data",
+      "endDate": "Amaiera data",
+      "time": "Denbora",
+      "duration": "Iraupen",
+      "hours": "ordire ordu",
+      "daysOfWeek": "Asteko egunak",
+      "fullSchedule": "Ordutegi osoa",
+      "location": "Kokaleku",
+      "maxAttendants": "Max laguntzaileak",
+      "people": "jende",
+      "scheduleType": "Ordutegi mota",
+      "price": "Salneurri",
+      "enrolled": "Insilegatu",
+      "cancelEnrollment": "Utzi matrikula",
+      "courseHasStarted": "Ikastaroa hasi da",
+      "courseStartedMessage": "Ikastaro hau dagoeneko hasi da eta jada ez da matrikulazio berriak onartzen.",
+      "signInToEnroll": "Hasi saioa matrikulatzeko",
+      "enrollNow": "Izena eman orain",
+      "importantDates": "Data garrantzitsuak",
+      "excludedDatesMessage": "Ikastaro honek {count} baztertutako data (oporrak edo atsedenaldiak) ditu ohiko egitarauan sartzen ez direnak.",
+      "moreSessions": "Eta {count} saio gehiago ...",
+      "noSpecificDate": "Ez dago data zehatzik",
+      "periodicity": {
+        "once": "Behin-behineko gertaera",
+        "daily": "Eguneroko",
+        "weekly": "Asteko",
+        "biweekly": "Biwsyly",
+        "monthly": "Hileko"
       },
-      "courseDetails": {
-        "title": "Ikastaroaren xehetasunak",
-        "courseDescription": "Ikastaroaren deskribapena",
-        "scheduleInformation": "Informazioa Informazioa",
-        "upcomingSessions": "Hurrengo saioak",
-        "courseInformation": "Ikastaroaren informazioa",
-        "startDate": "Hasiera data",
-        "endDate": "Amaiera data",
-        "time": "Denbora",
-        "duration": "Iraupen",
-        "hours": "ordire ordu",
-        "daysOfWeek": "Asteko egunak",
-        "fullSchedule": "Ordutegi osoa",
-        "location": "Kokaleku",
-        "maxAttendants": "Max laguntzaileak",
-        "people": "jende",
-        "scheduleType": "Ordutegi mota",
-        "price": "Salneurri",
-        "enrolled": "Insilegatu",
-        "cancelEnrollment": "Utzi matrikula",
-        "courseHasStarted": "Ikastaroa hasi da",
-        "courseStartedMessage": "Ikastaro hau dagoeneko hasi da eta jada ez da matrikulazio berriak onartzen.",
-        "signInToEnroll": "Hasi saioa matrikulatzeko",
-        "enrollNow": "Izena eman orain",
-        "importantDates": "Data garrantzitsuak",
-        "excludedDatesMessage": "Ikastaro honek {count} baztertutako data (oporrak edo atsedenaldiak) ditu ohiko egitarauan sartzen ez direnak.",
-        "moreSessions": "Eta {count} saio gehiago ...",
-        "noSpecificDate": "Ez dago data zehatzik",
-        "periodicity": {
-          "once": "Behin-behineko gertaera",
-          "daily": "Eguneroko",
-          "weekly": "Asteko",
-          "biweekly": "Biwsyly",
-          "monthly": "Hileko"
+      "weekdays": {
+        "monday": {
+          "short": "-En astizkun",
+          "full": "Astelehen"
         },
-        "weekdays": {
-          "monday": {
-            "short": "-En astizkun",
-            "full": "Astelehen"
-          },
-          "tuesday": {
-            "short": "So core",
-            "full": "Astearte"
-          },
-          "wednesday": {
-            "short": "Ohi",
-            "full": "Asteazken"
-          },
-          "thursday": {
-            "short": "Tchako",
-            "full": "Ostegun"
-          },
-          "friday": {
-            "short": "E frijitu",
-            "full": "Ostiral"
-          },
-          "saturday": {
-            "short": "Etorri",
-            "full": "Larunbat"
-          },
-          "sunday": {
-            "short": "Eguzki",
-            "full": "Igande"
-          }
+        "tuesday": {
+          "short": "So core",
+          "full": "Astearte"
+        },
+        "wednesday": {
+          "short": "Ohi",
+          "full": "Asteazken"
+        },
+        "thursday": {
+          "short": "Tchako",
+          "full": "Ostegun"
+        },
+        "friday": {
+          "short": "E frijitu",
+          "full": "Ostiral"
+        },
+        "saturday": {
+          "short": "Etorri",
+          "full": "Larunbat"
+        },
+        "sunday": {
+          "short": "Eguzki",
+          "full": "Igande"
         }
       }
     }
+  },
+  "bonificationTexts": {
+    "summary": "Gure prestakuntza batzuk FUNDAE/SEPE bidez bonifika daitezke eta/edo FSE+ eta PRTR-NextGenerationEU-k kofinantzatutako deialdietan sar daitezke, zure enpresak baldintzak betetzen baditu eta laguntza bere kabuz kudeatzen badu.",
+    "details": "\n**FUNDAE / SEPE - Enpresek programatutako prestakuntza:** prestakuntza kostuaren zati bat Gizarte Segurantzako kuotetan bonifikatzeko aukera ematen du. Enpresentzako informazio ofiziala ([FUNDAE](https://www.fundae.es/empresas)) eta langileentzako prestakuntza ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**EB Funtsak - FSE+ 2021-2027:** estatu eta eskualde programak (Andaluzia barne) enplegua, hezkuntza eta prestakuntza finantzatzen dituzte deialdi publikoen bidez. Ikusi [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (23. osagaia):** prestakuntza eta enplegu aktiboko politikak; estaldura deialdi bakoitzaren araberakoa da. [Berreskuratze Plana](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) eta [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html) informazio ofiziala.\n\n**Andaluzia (eskualde maila):** FSE+ Andaluzia 2021-2027 eta Enplegurako Prestakuntza Profesionala (FPE) laguntzak/deialdiak argitaratzen dituzte. Ikusi [Andaluziako Junta](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) eta [FPE](https://www.juntadeandalucia.es/temas/trabajar/formacion/fpe.html).\n\n**Oharra:** Finantzaketaren hautagarritasuna, intentsitatea eta bateragarritasuna araudiaren eta deialdiaren arabera aldatzen dira. Ordinalyk ikastaroaren dokumentazioa ematen du, baina ez du bezeroaren izenean bonifikazio edo dirulaguntzarik eskatzen edo kudeatzen. Beti egiaztatu esteka ofizialak kontratatu aurretik."
   },
   "profile": {
     "title": "Nire profila",
     "subtitle": "Kudeatu zure informazio pertsonala eta kontuaren ezarpenak",
     "loading": "Profila kargatzen ...",
     "personalInfo": "Informazio pertsonala",
-    "accountSettings": "Kontuaren ezarpenak",
     "dangerZone": "Arrisku gunea",
     "form": {
       "firstName": "Izena",
@@ -1022,8 +1027,8 @@
       "emailPlaceholder": "Idatzi zure helbide elektronikoa",
       "company": "Lagundi",
       "companyPlaceholder": "Idatzi zure enpresaren izena",
-      "region": "Eskualde",
-      "regionPlaceholder": "Sartu zure eskualdean (aukerakoa)",
+      "region": "Herrialdea",
+      "regionPlaceholder": "Sartu zure herrialdeaan (aukerakoa)",
       "city": "Hiri",
       "cityPlaceholder": "Sartu zure hiria (aukerakoa)",
       "saveChanges": "Gorde aldaketak",

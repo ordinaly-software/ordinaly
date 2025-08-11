@@ -11,7 +11,7 @@ import Link from 'next/link';
 import Navbar from "@/components/ui/navbar";
 import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
-import { ServiceDetailsModal } from "@/components/home/service-details-modal";
+import { ServiceDetailsModal } from "@/components/services/service-details-modal";
 import { renderIcon } from "@/components/ui/icon-select";
 import { truncateText } from "@/utils/text";
 
@@ -37,8 +37,8 @@ interface Service {
 
 // Lazy load heavy components that are below the fold
 const DemoModal = lazy(() => import("@/components/home/demo-modal"));
-const Footer = lazy(() => import("@/components/home/footer"));
-const PricingPlans = lazy(() => import("@/components/home/pricing-plans"));
+const Footer = lazy(() => import("@/components/ui/footer"));
+// const PricingPlans = lazy(() => import("@/components/home/pricing-plans"));
 const WhatsAppBubble = lazy(() => import("@/components/home/whatsapp-bubble"));
 const StyledButton = lazy(() => import("@/components/ui/styled-button"));
 const ColourfulText = lazy(() => import("@/components/ui/colourful-text"));
@@ -794,7 +794,7 @@ export default function HomePage() {
       </section>
 
       {/* Process Section */}
-      <section id="process" className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* <section id="process" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 scroll-animate fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#623CEA]">{t("process.title")}</h2>
@@ -806,7 +806,7 @@ export default function HomePage() {
             </Suspense>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section

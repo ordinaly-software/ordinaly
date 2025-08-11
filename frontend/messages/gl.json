@@ -325,8 +325,8 @@
       "emailPlaceholder": "Introduce o teu email",
       "companyLabel": "Empresa",
       "companyPlaceholder": "Introduce o nome da túa empresa",
-      "regionLabel": "Rexión",
-      "regionPlaceholder": "Introduce a túa rexión (opcional)",
+      "regionLabel": "País",
+      "regionPlaceholder": "Introduce a túa país (opcional)",
       "cityLabel": "Cidade",
       "cityPlaceholder": "Introduce a túa cidade (opcional)",
       "passwordLabel": "Contrasinal",
@@ -369,8 +369,8 @@
       "title": "Información da empresa",
       "companyLabel": "Empresa",
       "companyPlaceholder": "Introduce o nome da túa empresa",
-      "regionLabel": "Rexión",
-      "regionPlaceholder": "Introduce a túa rexión",
+      "regionLabel": "País",
+      "regionPlaceholder": "Introduce a túa país",
       "cityLabel": "Cidade",
       "cityPlaceholder": "Introduce a túa cidade",
       "optional": "opcional",
@@ -410,7 +410,6 @@
       "users": "Usuarios"
     },
     "users": {
-      "title": "Lista de Usuarios",
       "userId": "ID de Usuario",
       "name": "Nome",
       "surname": "Apelido",
@@ -418,7 +417,9 @@
       "company": "Empresa",
       "errorFetching": "Non se puido cargar a lista de usuarios. Por favor, intenta de novo máis tarde.",
       "sendMail": "Enviar correo",
-      "selectAll": "Seleccionar todo"
+      "selectAll": "Seleccionar todo",
+      "searchPlaceholder": "Buscar usuarios...",
+      "users": "usuarios"
     },
     "stats": {
       "totalServices": "Total de servizos",
@@ -765,18 +766,18 @@
         "noPdf": "Non se pode editar o PDF"
       },
       "messages": {
-        "createSuccess": "Documento de termos '{name}' creado con éxito!",
-        "updateSuccess": "Documento de termos '{name}' actualizado con éxito!",
-        "deleteSuccess": "Termo eliminado con éxito",
-        "bulkDeleteSuccess": "Termos eliminados con éxito",
-        "fetchError": "Erro ao obter termos",
-        "createError": "Erro ao crear termo",
-        "updateError": "Erro ao actualizar termo",
-        "deleteError": "Erro ao eliminar termo",
+        "createSuccess": "Documento creado con éxito!",
+        "updateSuccess": "Documento actualizado con éxito!",
+        "deleteSuccess": "Documento eliminado con éxito",
+        "bulkDeleteSuccess": "Documentos eliminados con éxito",
+        "fetchError": "Erro ao obter documentos",
+        "createError": "Erro ao crear documento",
+        "updateError": "Erro ao actualizar documento",
+        "deleteError": "Erro ao eliminar documento",
         "downloadError": "Erro ao descargar PDF",
         "downloadSuccess": "PDF descargado con éxito",
-        "networkError": "Non se puido gardar o documento de termos. Por favor, verifica a túa conexión e intenta de novo.",
-        "selectToDelete": "Por favor, selecciona termos para eliminar",
+        "networkError": "Non se puido gardar o documento. Por favor, verifica a túa conexión e intenta de novo.",
+        "selectToDelete": "Por favor, selecciona documentos para eliminar",
         "fileSizeLimit": "O tamaño do arquivo debe ser menor de 10MB",
         "pdfFileOnly": "Por favor, selecciona un arquivo PDF",
         "validation": {
@@ -908,7 +909,7 @@
     "viewDetails": "Ver detalles",
     "maxAttendants": "Máx asistentes",
     "maxAttendeesCount": "Máx {count} asistentes",
-    "noSpecificDate": "Non hai unha data específica para esta sesión.",
+    "noSpecificDate": "Non hai unha data específica",
     "filters": {
       "location": {
         "all": "Todas as localizacións",
@@ -929,7 +930,6 @@
     "pastCourses": "Cursos anteriores",
     "viewPastCourses": "Ver cursos anteriores",
     "hidePastCourses": "Ocultar cursos anteriores",
-    "upcomingCourses": "Próximos cursos",
     "finished": "Finalizado",
     "cta": {
       "title": "Preparado para avanzar na túa carreira?",
@@ -985,18 +985,10 @@
       "catalogDownloaded": "Catálogo descargado con éxito!",
       "catalogError": "Erro ao xerar catálogo."
     },
-    "pdf": {
-      "slogan": "Solucións de Software & Formación",
-      "title": "Catálogo de formación",
-      "subtitle": "Cursos de formación profesional e tecnolóxica",
+      "slogan": "Solucións de Software e Formación",
       "introduction": "En Ordinaly, ofrecemos formación especializada en tecnoloxías emerxentes e desenvolvemento profesional.",
       "coursesTitle": "Os nosos cursos",
-      "upcomingCourses": "Próximos cursos",
-      "date": "Data:",
       "time": "Hora:",
-      "location": "Localización:",
-      "price": "Prezo:",
-      "free": "Gratuíto",
       "capacity": "Capacidade:",
       "people": "persoas",
       "contactTitle": "Información de contacto",
@@ -1005,11 +997,21 @@
       "specialization": "Especialización:",
       "specializationText": "Desenvolvemento de Software e Formación Tecnolóxica",
       "filename": "Ordinaly_catalogo_formacion.pdf",
-      "noSpecificDate": "Aínda non hai data específica.",
-      "noSpecificTime": "Aínda non hai hora específica."
+      "noSpecificTime": "Aínda non hai hora específica.",
+      "bonificationTitle": "Bonificación e Subvencións",
+      "bonificationDisclaimer": "Parte das nosas formacións poden bonificarse vía FUNDAE/SEPE e/ou encaixar en convocatorias cofinanciadas por FSE+ e PRTR-NextGenerationEU, sempre que a súa empresa cumpra requisitos e tramite a axuda. Ordinaly facilita a documentación do curso, pero non solicita nin tramita bonificacións ou subvencións en nome do cliente. Revise sempre as ligazóns oficiais antes de contratar.",
+    "pdf": {
+      "title": "Catálogo de formación",
+      "subtitle": "Cursos de formación profesional e tecnolóxica",
+      "date": "Data:",
+      "location": "Localización:",
+      "price": "Prezo:",
+      "free": "Gratuíto",
+      "noSpecificDate": "Aínda non hai data específica"
     },
     "courseDetails": {
       "title": "Detalles do curso",
+      "locationSoon": "Localización próximamente",
       "courseDescription": "Descrición do curso",
       "scheduleInformation": "Información do Horario",
       "upcomingSessions": "Próximas sesións",
@@ -1035,7 +1037,7 @@
       "importantDates": "Datas importantes",
       "excludedDatesMessage": "Hai {count} data(s) excluída(s) (vacacións ou descansos) que non están incluídas no horario regular.",
       "moreSessions": "E {count} sesións máis...",
-      "noSpecificDate": "Non hai unha data específica para esta sesión.",
+      "noSpecificDate": "Non hai unha data específica",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",
@@ -1075,12 +1077,15 @@
       }
     }
   },
+  "bonificationTexts": {
+    "summary": "Parte das nosas formacións poden bonificarse vía FUNDAE/SEPE e/ou encaixar en convocatorias cofinanciadas por FSE+ e PRTR-NextGenerationEU, sempre que a súa empresa cumpra requisitos e tramite a axuda pola súa conta.",
+    "details": "\n**FUNDAE / SEPE - Formación programada polas empresas:** permite bonificar parte do custo formativo nas cotas á Seguridade Social. Información oficial para Empresas ([FUNDAE](https://www.fundae.es/empresas)) e Formación para ocupados ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fondos UE - FSE+ 2021-2027:** programas estatais e rexionais (incluída Andalucía) que financian actuacións de emprego, educación e formación mediante convocatorias públicas. Consulte [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Compoñente 23):** medidas para capacitación e políticas activas de emprego; a cobertura depende de cada convocatoria. Información oficial do [Plan de Recuperación](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) e do [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalucía (ámbito autonómico):** Programa FSE+ Andalucía 2021-2027 e Formación Profesional para o Emprego (FPE) publican axudas/convocatorias específicas. Consulte [Xunta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) e [FPE](https://www.juntadeandalucia.es/temas/traballar/formacion/fpe.html).\n\n**Aviso:** A elixibilidade, intensidade e compatibilidade do financiamento varían segundo a normativa e convocatoria vixente. Ordinaly facilita a documentación do curso, pero non solicita nin tramita bonificacións ou subvencións en nome do cliente. Revise sempre as ligazóns oficiais antes de contratar."
+  },
   "profile": {
     "title": "O meu perfil",
     "subtitle": "Xestiona a túa información persoal e configuración da conta",
     "loading": "Cargando perfil...",
     "personalInfo": "Información persoal",
-    "accountSettings": "Configuración da conta",
     "dangerZone": "Zona de perigo",
     "form": {
       "firstName": "Nome",
@@ -1093,8 +1098,8 @@
       "emailPlaceholder": "Introduce o teu enderezo de email",
       "company": "Empresa",
       "companyPlaceholder": "Introduce o nome da túa empresa",
-      "region": "Rexión",
-      "regionPlaceholder": "Introduce a túa rexión (opcional)",
+      "region": "País",
+      "regionPlaceholder": "Introduce a túa país (opcional)",
       "city": "Cidade",
       "cityPlaceholder": "Introduce a túa cidade (opcional)",
       "saveChanges": "Gardar cambios",

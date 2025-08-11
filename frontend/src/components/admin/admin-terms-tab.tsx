@@ -19,7 +19,6 @@ interface Term {
   name: string;
   tag: "terms" | "cookies" | "privacy" | "license";
   version: string;
-  content: string;       // URL to .md
   pdf_content?: string;  // URL to .pdf
   created_at: string;
   updated_at: string;
@@ -82,23 +81,20 @@ const AdminTermsTab = () => {
   }, [showModal, fetchTags]);
 
 
-  // Modal form + preview
+  // Modal form + pdf preview
   const [formData, setFormData] = useState<{
     name: string;
     tag: Term["tag"];
     version: string;
-    content: File | null;
     pdf_content: File | null;
   }>({
     name: "",
     tag: "terms",
     version: "",
-    content: null,
     pdf_content: null,
   });
 
-  const [previewMd, setPreviewMd] = useState<string>(""); // live markdown preview text
-  const [activeTab, setActiveTab] = useState<"form" | "preview" | "pdf">("form");
+  const [activeTab, setActiveTab] = useState<"form" | "pdf">("form");
 
   // (moved above)
 
@@ -128,8 +124,7 @@ const AdminTermsTab = () => {
   }, []);
 
   const resetForm = () => {
-    setFormData({ name: "", tag: "terms", version: "", content: null, pdf_content: null });
-    setPreviewMd("");
+    setFormData({ name: "", tag: "terms", version: "", pdf_content: null });
     setActiveTab("form");
   };
 
@@ -141,23 +136,6 @@ const AdminTermsTab = () => {
     setShowModal(true);
   };
 
-  const loadExistingMarkdownToPreview = async (url: string | undefined) => {
-    if (!url) {
-      setPreviewMd("");
-      return;
-    }
-    try {
-      const res = await fetch(url, { headers: token ? { Authorization: `Token ${token}` } : {} });
-      if (!res.ok) throw new Error();
-      const text = await res.text();
-      setPreviewMd(text);
-    } catch {
-      // As a fallback just show info; keep preview empty
-      setPreviewMd("");
-      setAlert({ type: "info", message: t("messages.previewFetchInfo") });
-    }
-  };
-
   const handleEdit = (term: Term) => {
     setIsEditing(true);
     setCurrentTerm(term);
@@ -165,13 +143,10 @@ const AdminTermsTab = () => {
       name: term.name,
       tag: term.tag,
       version: term.version,
-      content: null,       // user can replace; if not, backend keeps old file
-      pdf_content: null,   // optional replace
+      pdf_content: null,
     });
-    setActiveTab("form"); // always default to form
+    setActiveTab("form");
     setShowModal(true);
-    // Load current .md to preview
-    loadExistingMarkdownToPreview(term.content);
   };
 
   const handleDelete = (term: Term) => {
@@ -187,30 +162,6 @@ const AdminTermsTab = () => {
     }
     setCurrentTerm(null);
     setShowDeleteModal(true);
-  };
-
-  const onPickMdFile = async (file: File | null) => {
-    setFormData(prev => ({ ...prev, content: file }));
-    if (!file) {
-      // If editing, restore existing preview from server; otherwise clear
-      if (isEditing) await loadExistingMarkdownToPreview(currentTerm?.content);
-      else setPreviewMd("");
-      return;
-    }
-    // Ensure .md
-  const extOk = /.md$/i.test(file.name);
-    if (!extOk) {
-      setAlert({ type: "error", message: t("messages.validation.mdOnly") });
-      return;
-    }
-    // Check file size (1MB = 1048576 bytes)
-    if (file.size > 1048576) {
-      setAlert({ type: "error", message: t("messages.validation.mdSize") || "Markdown file must be 1MB or less." });
-      return;
-    }
-    // read text -> preview
-    const text = await file.text();
-    setPreviewMd(text);
   };
 
   const onPickPdfFile = (file: File | null) => {
@@ -264,18 +215,12 @@ const AdminTermsTab = () => {
       setAlert({ type: "error", message: t("messages.validation.tagUnique") });
       return;
     }
-    // for CREATE we require a .md file; for EDIT we allow keeping existing if none chosen
-    if (!isEditing && !formData.content) {
-      setAlert({ type: "error", message: t("messages.validation.contentRequired") });
-      return;
-    }
 
     try {
       const body = new FormData();
       body.append("name", formData.name);
       body.append("tag", formData.tag);
       body.append("version", formData.version);
-      if (formData.content) body.append("content", formData.content); // only append if new file chosen
       if (formData.pdf_content) body.append("pdf_content", formData.pdf_content);
 
       const url = isEditing
@@ -399,6 +344,8 @@ const AdminTermsTab = () => {
             onClick={handleCreate}
             size="sm"
             className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
+            disabled={availableTags.length === 0}
+            title={availableTags.length === 0 ? t("form.noTagsLeft") || "All document types are already in use." : undefined}
           >
             <Plus className="h-4 w-4" />
             <span className="hidden xs:inline">{t("addTerm")}</span>
@@ -533,16 +480,6 @@ const AdminTermsTab = () => {
             </button>
             <button
               className={`px-4 py-2 text-sm font-medium ${
-                activeTab === "preview"
-                  ? "border-b-2 border-[#46B1C9] text-[#46B1C9]"
-                  : "text-gray-600 dark:text-gray-300"
-              }`}
-              onClick={() => setActiveTab("preview")}
-            >
-              {t("tabs.preview")}
-            </button>
-            <button
-              className={`px-4 py-2 text-sm font-medium ${
                 activeTab === "pdf"
                   ? "border-b-2 border-[#B146C9] text-[#B146C9]"
                   : "text-gray-600 dark:text-gray-300"
@@ -555,7 +492,6 @@ const AdminTermsTab = () => {
 
           {activeTab === "form" && (
             <div className="space-y-6 pt-2">
-              {/* ...existing form code... */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-3">
                   <Label className="text-sm font-semibold">{t("form.name")} *</Label>
@@ -631,30 +567,7 @@ const AdminTermsTab = () => {
               </div>
 
               <div className="space-y-3">
-                <Label className="text-sm font-semibold">{t("form.contentMd")} {isEditing ? "" : "*"}</Label>
-                <div className="relative">
-                  <Input
-                    type="file"
-                    accept=".md"
-                    onChange={(e) => onPickMdFile(e.target.files?.[0] || null)}
-                    className="h-11 pr-32"
-                  />
-                  {(isEditing && currentTerm?.content && !formData.content) && (
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-green-600 bg-green-50 px-2 py-1 rounded shadow-sm border border-green-200">{t("mdAvailable") || "Archivo subido"}</span>
-                  )}
-                  {formData.content && (
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded shadow-sm border border-blue-200">{formData.content.name}</span>
-                  )}
-                </div>
                 <div className="flex flex-col sm:flex-row gap-2 mt-2">
-                  <Button
-                    type="button"
-                    variant="secondary"
-                    onClick={() => setActiveTab("preview")}
-                    className="w-full sm:w-auto"
-                  >
-                    {t("actions.viewPreview")}
-                  </Button>
                   <Button
                     type="button"
                     variant="secondary"
@@ -665,19 +578,6 @@ const AdminTermsTab = () => {
                   </Button>
                 </div>
               </div>
-            </div>
-          )}
-          {activeTab === "preview" && (
-            <div className="prose prose-base max-w-none dark:prose-invert border-gray-200 dark:border-gray-700 pr-2 sm:pr-4">
-              {previewMd ? (
-                <MarkdownRenderer>{previewMd}</MarkdownRenderer>
-              ) : (
-                <div className="text-gray-500 dark:text-gray-400">
-                  {isEditing
-                    ? t("preview.noFileEdit")
-                    : t("preview.noFileCreate")}
-                </div>
-              )}
             </div>
           )}
           {activeTab === "pdf" && (
@@ -709,7 +609,8 @@ const AdminTermsTab = () => {
         </div>
 
         {/* Sticky footer actions */}
-          <div className="absolute bottom-0 left-0 right-0 flex flex-col sm:flex-row justify-end gap-3 pt-4 pb-4 px-4 sm:pt-6 sm:pb-6 sm:px-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1A1924] z-20">
+        <div className="absolute left-0 right-0" style={{ bottom: -12 }}>
+          <div className="flex flex-col sm:flex-row justify-end gap-2 pt-4 pb-4 px-4 sm:pt-6 sm:pb-6 sm:px-6 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1A1924] z-20">
             <Button
               variant="ghost"
               onClick={() => {
@@ -722,12 +623,13 @@ const AdminTermsTab = () => {
             </Button>
             <Button
               onClick={submitTerm}
-              disabled={duplicateTag || (!isEditing && !formData.content)}
+              disabled={duplicateTag || (!isEditing && !formData.pdf_content)}
               className="w-full sm:w-auto px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white"
             >
               {isEditing ? t("form.update") : t("form.create")}
             </Button>
           </div>
+        </div>
         </div>
       </Modal>
 

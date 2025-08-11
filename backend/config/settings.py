@@ -138,7 +138,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ['https://ordinaly.netlify.app', 'http://localhost:3000', 'https://ordinaly.duckdns.org']
+CORS_ALLOWED_ORIGINS = ['https://ordinaly.netlify.app', 'http://localhost:3000',
+                        'https://ordinaly.duckdns.org', "https://6898d866300f570008e487db--ordinaly.netlify.app",]
 
 AUTH_USER_MODEL = 'users.CustomUser'
 

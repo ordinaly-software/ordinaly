@@ -548,32 +548,8 @@ export default function ProfilePage() {
               </Card>
             </div>
 
-            {/* Sidebar - Account Settings and Danger Zone */}
+            {/* Danger Zone */}
             <div className="space-y-6">
-              {/* Account Settings */}
-              <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-800 dark:text-gray-200">
-                    {t("accountSettings")}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4 text-sm text-gray-600 dark:text-gray-400">
-                    <div>
-                      <strong className="text-gray-800 dark:text-gray-200">Account Created:</strong>
-                      <br />
-                      {profile?.created_at ? new Date(profile.created_at).toLocaleDateString() : "N/A"}
-                    </div>
-                    <div>
-                      <strong className="text-gray-800 dark:text-gray-200">Last Updated:</strong>
-                      <br />
-                      {profile?.updated_at ? new Date(profile.updated_at).toLocaleDateString() : "N/A"}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Danger Zone */}
               <Card className="bg-white dark:bg-gray-800/50 border-red-200 dark:border-red-800">
                 <CardHeader>
                   <CardTitle className="text-xl font-bold text-red-600 dark:text-red-400 flex items-center">

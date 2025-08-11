@@ -321,7 +321,7 @@ export default function CoursesShowcase({
                     </div>
                     
                     <div className="space-y-2">
-                      <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#22A60D] transition-colors line-clamp-2">
+                      <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#22A60D] transition-colors break-words whitespace-pre-line">
                         {course.title.replace(/🌐 |🐍 |📊 |📱 |☁️ |🎨 |🤖 |🔒 |🔗 |💻 |📈 |🔧 /g, '')}
                       </CardTitle>
                       {course.subtitle && (
@@ -350,9 +350,21 @@ export default function CoursesShowcase({
                         </div>
                         <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                           <MapPin className="w-4 h-4 flex-shrink-0" />
-                          <span className="truncate">
-                            {course.location || t('locationSoon', { defaultValue: 'Location TBA' })}
-                          </span>
+                          {course.location ? (
+                            <a
+                              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="truncate underline hover:text-[#22A60D]"
+                              title={course.location}
+                            >
+                              {course.location}
+                            </a>
+                          ) : (
+                            <span className="truncate">
+                              {t('locationSoon')}
+                            </span>
+                          )}
                         </div>
                       </div>
 

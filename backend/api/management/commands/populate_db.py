@@ -618,7 +618,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
 ''',
                 'color': '29BF12',
                 'icon': 'Phone',
-                'duration': 30,
+                'duration': 5,
                 'requisites': (
                     "- Documento tipo FAQ en formato pdf sobre tódo lo que debe saber el asisitente.   "
                     "- Número de teñefóno con cuenta de Whatsapp Business.    "
@@ -652,7 +652,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
 ''',
                 'color': '46B1C9',
                 'icon': 'Bot',
-                'duration': 45,
+                'duration': 10,
                 'requisites': None,
                 # 'price': Decimal('300.00'),
                 'price': None,
@@ -682,7 +682,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
 ''',
                 'color': '623CEA',
                 'icon': 'Accessibility',
-                'duration': 25,
+                'duration': 2,
                 'requisites': (
                     "- Acceso al código fuente o CMS.     "
                     "- Colaboración de tu equipo de desarrollo y diseño.     "
@@ -707,7 +707,7 @@ Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles
 ''',
                 'color': 'E4572E',
                 'icon': 'MessageSquare',
-                'duration': 15,
+                'duration': 4,
                 'requisites': (
                     "- Documentación o datos necesarios que el chatbot deba 'saber' para atender a los usuarios.    "
                     "- Acceso al código fuente de la web.    "

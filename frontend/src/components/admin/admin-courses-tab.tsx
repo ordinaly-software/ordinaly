@@ -659,8 +659,8 @@ const AdminCoursesTab = () => {
         />
       )}
 
-      {/* Header Actions - sticky on small screens */}
-      <div className="sticky top-0 z-30 bg-white/95 dark:bg-gray-900/95 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2 py-3 shadow-sm border-b border-gray-200 dark:border-gray-800">
+      {/* Header Actions - sticky on small screens, transparent or card color */}
+      <div className="sticky top-0 z-30 bg-transparent dark:bg-transparent flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2 py-3">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
           <div className="relative w-full sm:w-64 min-w-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />

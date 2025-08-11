@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { IconSelect, renderIcon } from "@/components/ui/icon-select";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
-import { ServiceDetailsModal } from "@/components/home/service-details-modal";
+import { ServiceDetailsModal } from "@/components/services/service-details-modal";
 import { servicesEvents } from "@/lib/events";
 import { Service, useServices } from "@/hooks/useServices";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
@@ -533,7 +533,7 @@ const AdminServicesTab = () => {
         showHeader={true}
         className="max-w-4xl w-full mx-4"
       >
-        <div className="space-y-6 max-h-[80vh] overflow-y-auto pb-20">
+        <div className="space-y-6 max-h-[80vh] overflow-y-auto pb-40">
           {/* Service Title */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
@@ -653,7 +653,7 @@ const AdminServicesTab = () => {
                 </div>
                 <span>{t("form.color")}</span>
               </Label>
-              <div className="flex flex-wrap gap-2 justify-start">
+              <div className="flex flex-row flex-nowrap gap-2 overflow-x-auto pb-2">
                 {COLOR_CHOICES.map((colorChoice) => {
                   const getColorClasses = () => {
                     if (colorChoice.value === '1A1924') {
@@ -668,7 +668,6 @@ const AdminServicesTab = () => {
                       return `bg-[${colorChoice.color}] text-white`;
                     }
                   };
-                  
                   return (
                     <button
                       key={colorChoice.value}
@@ -676,7 +675,7 @@ const AdminServicesTab = () => {
                       onClick={() => setFormData(prev => ({...prev, color: colorChoice.value}))}
                       className={`relative w-20 h-12 rounded-md transition-all duration-200 flex items-center justify-center text-xs font-medium border-2 ${
                         formData.color === colorChoice.value 
-                          ? 'border-gray-400 dark:border-gray-500 shadow-lg transform scale-105' 
+                          ? 'border-gray-400 dark:border-gray-500 shadow-lg scale-105' 
                           : 'border-transparent hover:shadow-md hover:scale-102'
                       } ${getColorClasses()}`}
                     >
