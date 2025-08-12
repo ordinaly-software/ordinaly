@@ -29,7 +29,7 @@ interface Course {
 
 export async function generateCoursesCatalogPDF(
   courses: Course[],
-  t: (key: string, params?: Record<string, any>) => string
+  t: (key: string, params?: Record<string, string | number | Date>) => string
 ) {
   const pdf = new jsPDF('p', 'mm', 'a4');
   const pageWidth = pdf.internal.pageSize.getWidth();

@@ -5,14 +5,16 @@ import Link from "next/link";
 import { renderIcon } from "@/components/ui/icon-select";
 import { truncateText } from "@/utils/text";
 
+import type { Service } from "@/hooks/useServices";
+
 export interface ServiceShowcaseProps {
-  services: any[];
+  services: Service[];
   isLoading: boolean;
   isOnVacation: boolean;
   error: string | null;
-  t: (key: string, params?: any) => string;
+  t: (key: string, params?: Record<string, string | number | Date>) => string;
   refetch: () => void;
-  onServiceClick: (service: any) => void;
+  onServiceClick: (service: Service) => void;
   onServiceContact: () => void;
 }
 
@@ -26,7 +28,7 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
   onServiceClick,
 }) => {
   // Helper for color
-  const getServiceColor = (service: any) => {
+  const getServiceColor = (service: Service) => {
     const isDarkMode = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
     if (service.color === '1A1924' && isDarkMode) {
       return '#efefefbb';
@@ -122,7 +124,7 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
         ) : services.length > 0 ? (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service) => {
-              const serviceColor = getServiceColor(service);
+              const serviceColor = getServiceColor(service) ?? "#22A60D";
               return (
                 <Card 
                   key={service.id} 
@@ -133,8 +135,8 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
                     '--hover-shadow-color': `${serviceColor}10`
                   } as React.CSSProperties}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.borderColor = serviceColor;
-                    e.currentTarget.style.boxShadow = `0 25px 50px -12px ${serviceColor}10`;
+                    e.currentTarget.style.borderColor = serviceColor ?? "#22A60D";
+                    e.currentTarget.style.boxShadow = `0 25px 50px -12px ${(serviceColor ?? "#22A60D")}10`;
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.borderColor = '';
@@ -144,9 +146,9 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
                   <CardHeader>
                     <div 
                       className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
-                      style={{ backgroundColor: `${serviceColor}10` }}
+                      style={{ backgroundColor: `${serviceColor ?? "#22A60D"}10` }}
                     >
-                      <div style={{ color: serviceColor }}>
+                      <div style={{ color: serviceColor ?? "#22A60D" }}>
                         {service.icon && renderIcon(service.icon, `h-8 w-8`)}
                       </div>
                     </div>
@@ -155,11 +157,11 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
                       <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{service.subtitle}</p>
                     )}
                     <CardDescription className="text-gray-600 dark:text-gray-400">
-                      {truncateText(service.clean_description, 120)}
+                      {truncateText(service.clean_description ?? "", 120)}
                     </CardDescription>
                     <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                       <div className="flex flex-col">
-                        {service.price ? (
+                        {service.price && !isNaN(Number(service.price)) ? (
                           <span className="text-lg font-semibold text-gray-900 dark:text-white">€{Math.round(Number(service.price))}</span>
                         ) : (
                           <span className="text-sm text-gray-600 dark:text-gray-400 italic">{t("services.contactForQuote")}</span>
@@ -174,18 +176,18 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
                         }}
                         className="transition-colors border-gray-300 text-gray-600 hover:text-white"
                         style={{
-                          borderColor: serviceColor,
-                          color: serviceColor
+                          borderColor: serviceColor ?? "#22A60D",
+                          color: serviceColor ?? "#22A60D"
                         }}
                         onMouseEnter={e => {
-                          e.currentTarget.style.backgroundColor = serviceColor;
+                          e.currentTarget.style.backgroundColor = serviceColor ?? "#22A60D";
                           e.currentTarget.style.color = 'white';
-                          e.currentTarget.style.borderColor = serviceColor;
+                          e.currentTarget.style.borderColor = serviceColor ?? "#22A60D";
                         }}
                         onMouseLeave={e => {
                           e.currentTarget.style.backgroundColor = '';
-                          e.currentTarget.style.color = serviceColor;
-                          e.currentTarget.style.borderColor = serviceColor;
+                          e.currentTarget.style.color = serviceColor ?? "#22A60D";
+                          e.currentTarget.style.borderColor = serviceColor ?? "#22A60D";
                         }}
                       >
                         {t("services.viewDetails")}

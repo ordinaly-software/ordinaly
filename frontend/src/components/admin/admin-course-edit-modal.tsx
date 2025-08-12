@@ -12,19 +12,39 @@ import { ModalCloseButton } from "../ui/modal-close-button";
 import Image from "next/image";
 import type { Course } from "./admin-courses-tab";
 
-interface CourseEditModalProps {
+export interface CourseFormData {
+  title: string;
+  subtitle: string;
+  description: string;
+  image: string;
+  price: string | number;
+  max_attendants: string | number;
+  location: string;
+  start_date: string;
+  end_date: string;
+  start_time: string;
+  end_time: string;
+  periodicity: string;
+  weekdays: number[];
+  week_of_month: number | null;
+  interval: number;
+  timezone: string;
+  exclude_dates: string[];
+}
+
+export interface CourseEditModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: () => void;
   showEditModal: boolean;
-  formData: any;
-  setFormData: (cb: (prev: any) => any) => void;
+  formData: CourseFormData;
+  setFormData: React.Dispatch<React.SetStateAction<CourseFormData>>;
   selectedFile: File | null;
   setSelectedFile: (file: File | null) => void;
   previewUrl: string;
   setPreviewUrl: (url: string) => void;
   handleFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  t: (key: string, options?: any) => string;
+  t: (key: string, params?: Record<string, string | number | Date>) => string;
   resetForm: () => void;
 }
 
@@ -109,7 +129,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           <Input
             id="title"
             value={formData.title ?? ""}
-            onChange={(e) => setFormData((prev: any) => ({ ...prev, title: e.target.value }))}
+            onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
             placeholder={t("form.titlePlaceholder")}
             className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
             required
@@ -363,7 +383,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               </Label>
               <Dropdown
                 options={periodicityOptions}
-                value={formData.periodicity}
+                value={formData.periodicity ?? ""}
                 onChange={(value) => setFormData(prev => ({...prev, periodicity: value as Course['periodicity']}))}
                 minWidth="100%"
                 theme="orange"
@@ -382,12 +402,12 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
                     <label key={day.key} className="flex flex-col items-center space-y-1 cursor-pointer">
                       <input
                         type="checkbox"
-                        checked={formData.weekdays.includes(idx)}
+                        checked={(formData.weekdays ?? []).includes(idx)}
                         onChange={(e) => {
                           if (e.target.checked) {
-                            setFormData(prev => ({...prev, weekdays: [...prev.weekdays, idx]}));
+                            setFormData(prev => ({...prev, weekdays: [...(prev.weekdays ?? []), idx]}));
                           } else {
-                            setFormData(prev => ({...prev, weekdays: prev.weekdays.filter((d: number) => d !== idx)}));
+                            setFormData(prev => ({...prev, weekdays: (prev.weekdays ?? []).filter((d: number) => d !== idx)}));
                           }
                         }}
                         className="rounded border-gray-300 text-blue focus:ring-blue/20"
@@ -441,7 +461,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
                 </Label>
                 <Dropdown
                   options={timezoneOptions}
-                  value={formData.timezone}
+                  value={formData.timezone ?? ""}
                   onChange={(value) => setFormData(prev => ({...prev, timezone: value}))}
                   theme="orange"
                   width="100%"

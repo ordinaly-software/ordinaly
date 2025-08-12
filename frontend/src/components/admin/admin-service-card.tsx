@@ -5,16 +5,18 @@ import { Star, Eye, Edit, Trash2 } from "lucide-react";
 import { renderIcon } from "@/components/ui/icon-select";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 
+import type { Service } from "@/hooks/useServices";
+
 interface AdminServiceCardProps {
-  service: any;
+  service: Service;
   isSelected: boolean;
   onSelect: (id: number) => void;
-  onView: (service: any) => void;
-  onEdit: (service: any) => void;
-  onDelete: (service: any) => void;
-  tAdmin: (key: string, params?: any) => string;
-  t: (key: string, params?: any) => string;
-  getServiceColor: (service: any, isDarkMode?: boolean) => string;
+  onView: (service: Service) => void;
+  onEdit: (service: Service) => void;
+  onDelete: (service: Service) => void;
+  tAdmin: (key: string, params?: Record<string, string | number | Date>) => string;
+  t: (key: string, params?: Record<string, string | number | Date>) => string;
+  getServiceColor: (service: Service, isDarkMode?: boolean) => string;
 }
 
 export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({

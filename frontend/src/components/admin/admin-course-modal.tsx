@@ -4,13 +4,51 @@ import { Euro, Users, User, XCircle, Calendar, MapPin, Clock } from "lucide-reac
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import { Modal } from "@/components/ui/modal";
 
+interface Course {
+  id: number;
+  title: string;
+  subtitle?: string;
+  description: string;
+  image: string;
+  price?: string | null;
+  location: string;
+  start_date: string;
+  end_date: string;
+  start_time: string;
+  end_time: string;
+  periodicity: string;
+  timezone: string;
+  weekdays: number[];
+  week_of_month?: number | null;
+  interval: number;
+  exclude_dates: string[];
+  max_attendants: number;
+  enrolled_count: number;
+  created_at: string;
+  updated_at: string;
+  duration_hours?: number;
+  next_occurrences?: string[];
+}
+
+interface Enrollment {
+  id: number;
+  user: number;
+  enrolled_at: string;
+  user_details?: {
+    name?: string;
+    surname?: string;
+    email?: string;
+    company?: string;
+  };
+}
+
 interface CourseVisualizationModalProps {
   isOpen: boolean;
   onClose: () => void;
-  course: any;
-  enrollments: any[];
+  course: Course;
+  enrollments: Enrollment[];
   isLoadingEnrollments: boolean;
-  t: (key: string, options?: any) => string;
+  t: (key: string, params?: Record<string, string | number | Date>) => string;
   dateLocale: string;
   formatWeekdays: (weekdays: number[]) => string;
 }

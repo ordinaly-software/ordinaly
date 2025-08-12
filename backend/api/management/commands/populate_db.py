@@ -10,6 +10,7 @@ from courses.models import Enrollment
 import os
 from django.conf import settings
 import random
+import secrets
 from datetime import datetime, timedelta
 
 
@@ -31,13 +32,13 @@ class Command(BaseCommand):
     help = 'Populate the database with sample data for testing'
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            '--clear',
-            action='store_true',
-            help='Clear existing data before populating',
-        )
+        parser.add_argument('--clear', action='store_true', help='Clear existing data before populating')
+        parser.add_argument('--seed', type=int, help='Seed for reproducible pseudo-random data')
 
     def handle(self, *args, **options):
+        if options.get('seed') is not None:
+            random.seed(options['seed'])
+
         if options['clear']:
             self.stdout.write('Clearing existing data...')
             self.clear_data()
@@ -81,8 +82,6 @@ class Command(BaseCommand):
             # Get all terms files for later cleanup
             terms_files = []
             for term in Terms.objects.all():
-                if term.content and hasattr(term.content, 'path'):
-                    terms_files.append(term.content.path)
                 if term.pdf_content and hasattr(term.pdf_content, 'path'):
                     terms_files.append(term.pdf_content.path)
 
@@ -336,13 +335,12 @@ class Command(BaseCommand):
                 break
             course = random.choice(eligible_courses)
             try:
+                days = secrets.randbelow(90) + 1  # Generates a random int in [1, 90]
                 enrollment, created = Enrollment.objects.get_or_create(
                     user=user,
                     course=course,
                     defaults={
-                        'enrolled_at': datetime.now() - timedelta(
-                            days=random.randint(1, 90)
-                        )
+                        'enrolled_at': datetime.now() - timedelta(days=days)
                     }
                 )
                 if created:

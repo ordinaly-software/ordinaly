@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import type { CourseFormData } from "./admin-course-edit-modal";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,7 +17,7 @@ import {
 } from "lucide-react";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
-import CourseEditModal from "./course-edit-modal";
+import CourseEditModal from "./admin-course-edit-modal";
 import CourseVisualizationModal from "./admin-course-modal";
 
 export interface Course {
@@ -132,23 +133,24 @@ const AdminCoursesTab = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
   const [isLoadingEnrollments, setIsLoadingEnrollments] = useState(false);
 
-  const [formData, setFormData] = useState({
-    title: "",
-    subtitle: "",
-    description: "",
-    price: "",
-    location: "",
-    start_date: "",
-    end_date: "",
-    start_time: "09:00",
-    end_time: "17:00",
-    periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
-    timezone: "Europe/Madrid",
-    weekdays: [] as number[],
-    week_of_month: null as number | null,
-    interval: 1,
-    exclude_dates: [] as string[],
-    max_attendants: ""
+  const [formData, setFormData] = useState<CourseFormData>({
+  title: "",
+  subtitle: "",
+  description: "",
+  image: "",
+  price: "",
+  location: "",
+  start_date: "",
+  end_date: "",
+  start_time: "09:00",
+  end_time: "17:00",
+  periodicity: "once",
+  timezone: "Europe/Madrid",
+  weekdays: [],
+  week_of_month: null,
+  interval: 1,
+  exclude_dates: [],
+  max_attendants: ""
   });
 
   const fetchCourses = useCallback(async () => {
@@ -180,10 +182,11 @@ const AdminCoursesTab = () => {
   }, [fetchCourses]);
 
   const resetForm = () => {
-    setFormData({
+  setFormData({
       title: "",
       subtitle: "",
       description: "",
+      image: "",
       price: "",
       location: "",
       start_date: "",
@@ -209,11 +212,12 @@ const AdminCoursesTab = () => {
 
   const handleEdit = (course: Course) => {
     setCurrentCourse(course);
-    setFormData({
+  setFormData({
       title: course.title,
       subtitle: course.subtitle || "",
       description: course.description,
-      price: course.price == null ? "" : course.price,
+      image: course.image || "",
+      price: course.price == null ? "" : String(course.price),
       location: course.location,
       start_date: course.start_date == null ? "" : course.start_date,
       end_date: course.end_date == null ? "" : course.end_date,
@@ -225,7 +229,7 @@ const AdminCoursesTab = () => {
       week_of_month: course.week_of_month == null ? null : course.week_of_month,
       interval: course.interval == null ? 1 : course.interval,
       exclude_dates: course.exclude_dates || [],
-      max_attendants: course.max_attendants != null ? course.max_attendants.toString() : ""
+      max_attendants: course.max_attendants != null ? String(course.max_attendants) : ""
     });
     setPreviewUrl(course.image);
     setSelectedFile(null); // Ensure no file is selected by default when editing
@@ -362,11 +366,11 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
         return;
       }
-      if (!formData.max_attendants || parseInt(formData.max_attendants) < 1) {
+  if (!formData.max_attendants || parseInt(String(formData.max_attendants)) < 1) {
         setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
         return;
       }
-      if (formData.price && parseFloat(formData.price) < 0.01) {
+  if (formData.price && parseFloat(String(formData.price)) < 0.01) {
         setAlert({type: 'error', message: t('messages.validation.priceInvalid')});
         return;
       }
@@ -382,7 +386,7 @@ const AdminCoursesTab = () => {
       formDataToSend.append('subtitle', formData.subtitle);
       formDataToSend.append('description', formData.description);
       if (formData.price) {
-        formDataToSend.append('price', formData.price);
+        formDataToSend.append('price', String(formData.price));
       }
       formDataToSend.append('location', formData.location);
       formDataToSend.append('start_date', formData.start_date);
@@ -397,7 +401,7 @@ const AdminCoursesTab = () => {
       }
       formDataToSend.append('interval', formData.interval.toString());
       formDataToSend.append('exclude_dates', JSON.stringify(formData.exclude_dates));
-      formDataToSend.append('max_attendants', formData.max_attendants);
+  formDataToSend.append('max_attendants', String(formData.max_attendants));
       
       if (selectedFile) {
         formDataToSend.append('image', selectedFile);
@@ -405,7 +409,7 @@ const AdminCoursesTab = () => {
 
       // Prevent lowering max_attendants below enrolled_count on frontend
       if (isEdit && currentCourse) {
-        const newMax = parseInt(formData.max_attendants, 10);
+  const newMax = parseInt(String(formData.max_attendants), 10);
         if (!isNaN(newMax) && newMax < currentCourse.enrolled_count) {
           setAlert({
             type: 'error',
@@ -744,20 +748,22 @@ const AdminCoursesTab = () => {
       />
 
       {/* Course Visualization Modal */}
-      <CourseVisualizationModal
-        isOpen={showCourseModal}
-        onClose={() => {
-          setShowCourseModal(false);
-          setSelectedCourseForModal(null);
-          setCourseEnrollments([]);
-        }}
-        course={selectedCourseForModal}
-        enrollments={courseEnrollments}
-        isLoadingEnrollments={isLoadingEnrollments}
-        t={t}
-        dateLocale={dateLocale}
-        formatWeekdays={formatWeekdays}
-      />
+      {selectedCourseForModal && (
+        <CourseVisualizationModal
+          isOpen={showCourseModal}
+          onClose={() => {
+            setShowCourseModal(false);
+            setSelectedCourseForModal(null);
+            setCourseEnrollments([]);
+          }}
+          course={selectedCourseForModal}
+          enrollments={courseEnrollments}
+          isLoadingEnrollments={isLoadingEnrollments}
+          t={t}
+          dateLocale={dateLocale}
+          formatWeekdays={formatWeekdays}
+        />
+      )}
       
     </div>
   );

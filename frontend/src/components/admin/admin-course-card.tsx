@@ -33,7 +33,6 @@ interface Course {
   next_occurrences?: string[];
   weekday_display?: string[];
 }
-
 interface AdminCourseCardProps {
   course: Course;
   isFinished: boolean;
@@ -42,8 +41,8 @@ interface AdminCourseCardProps {
   onView: (course: Course) => void;
   onEdit: (course: Course) => void;
   onDelete: (course: Course) => void;
-  t: (key: string, ...args: any[]) => string;
-  tAdmin: (key: string, ...args: any[]) => string;
+  t: (key: string, params?: Record<string, string | number | Date>) => string;
+  tAdmin: (key: string, params?: Record<string, string | number | Date>) => string;
   dateLocale: string;
   formatCourseSchedule: (course: Course) => string;
   availableSpots: number;

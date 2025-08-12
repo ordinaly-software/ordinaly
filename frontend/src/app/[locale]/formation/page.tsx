@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, use } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { getApiEndpoint } from "@/lib/api-config";
 import Navbar from "@/components/ui/navbar";
@@ -75,8 +75,7 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
-const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
-  const { locale } = use(params);
+const FormationPage = () => {
   const t = useTranslations("formation");
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
@@ -453,7 +452,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
 
       {/* Funding/Bonification Info Dropdown */}
       <section className="max-w-4xl mx-auto mt-8 mb-2 px-4">
-        <BonificationInfo locale={locale} />
+        <BonificationInfo />
       </section>
 
       {/* Courses Grid */}
