@@ -12,7 +12,6 @@ import { getApiEndpoint } from "@/lib/api-config";
 import { Plus, Edit, Trash2, Search, Eye } from "lucide-react";
 import Dropdown from "@/components/ui/dropdown";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
-import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 
 interface Term {
   id: number;

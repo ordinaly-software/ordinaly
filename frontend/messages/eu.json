@@ -76,6 +76,7 @@
     },
     "courses": {
       "noSpecificDate": "Data zehazteko",
+      "locationSoon": "Kokalekua laster",
       "showcaseTitle": "Kurtso Nabarmenak",
       "showcaseDescription": "Gurekin bat egin profesional prestakuntza kurtsoetan eta zure karreran aurrera egin",
       "upcomingTitle": "Datozen Kurtsoak",
@@ -92,11 +93,11 @@
       "spotsLeft": "leku libre",
       "enrolled": "izen emanda",
       "max": "gehienez",
-  "almostFull": "Ia Beteta",
-  "fillingFast": "Azkar Betetzen",
-  "available": "Eskuragarri",
-  "inProgress": "Martxan",
-  "finished": "Amaituta",
+      "almostFull": "Ia Beteta",
+      "fillingFast": "Azkar Betetzen",
+      "available": "Eskuragarri",
+      "inProgress": "Martxan",
+      "finished": "Amaituta",
       "datesSoon": "Datak laster",
       "durationSoon": "Iraupena laster",
       "signUpModal": {
@@ -481,6 +482,7 @@
     },
     "courses": {
       "noSpecificDate": "Data zehaztu gabe",
+      "locationSoon": "Kokalekua zehaztu gabe",
       "title": "Ikastaroen kudeaketa",
       "searchPlaceholder": "Bilatu ikastaroak ...",
       "addCourse": "Gehitu ikastaroa",
@@ -498,6 +500,9 @@
       "finished": "Amaituta",
       "noCoursesFound": "Ez da ikastarorik aurkitu zure bilaketarekin bat datorrena.",
       "contactForQuote": "Doakoa",
+      "edit": "Editatu",
+      "delete": "Ezabatu",
+      "view": "Ikusi",
       "form": {
         "title": "Izenburua",
         "titlePlaceholder": "Idatzi ikastaroaren izenburua",
@@ -518,7 +523,8 @@
         "pricePlaceholder": "Utzi hutsik 'kontaktua aipatzeko'",
         "location": "Kokalekua",
         "locationPlaceholder": "Sartu ikastaroaren kokapena edo 'Online'",
-        "locationRequired": "Kokalekua *",
+  "locationRequired": "Kokalekua *",
+  "locationOptional": "Kokalekua (Aukerakoa)",
         "scheduleSettings": "Ordutegiaren ezarpenak",
         "startDateRequired": "Hasiera data *",
         "endDateRequired": "Amaiera data *",
@@ -839,6 +845,7 @@
     "maxAttendants": "Max laguntzaileak",
     "maxAttendeesCount": "Max {count} laguntzaileak",
     "noSpecificDate": "Ez dago data zehatzik",
+    "locationSoon": "Kokalekua laster",
     "filters": {
       "location": {
         "all": "Kokapen guztiak",

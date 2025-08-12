@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "@/components/ui/card";
+import { AdminServiceCard } from "@/components/admin/admin-service-card";
 import Alert from "@/components/ui/alert";
 import { Modal } from "@/components/ui/modal";
 import { getApiEndpoint } from "@/lib/api-config";
@@ -15,15 +15,12 @@ import {
   Edit, 
   Trash2, 
   Search,
-  Star,
-  Eye,
 } from "lucide-react";
-import { IconSelect, renderIcon } from "@/components/ui/icon-select";
+import { IconSelect } from "@/components/ui/icon-select";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
 import { ServiceDetailsModal } from "@/components/services/service-details-modal";
 import { servicesEvents } from "@/lib/events";
 import { Service, useServices } from "@/hooks/useServices";
-import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 
 const AdminServicesTab = () => {
   const t = useTranslations("admin.services");
@@ -396,128 +393,20 @@ const AdminServicesTab = () => {
             </span>
           </div>
 
-          {filteredServices.map((service) => {
-            const isDarkMode = document.documentElement.classList.contains('dark');
-            const serviceColor = getServiceColor(service, isDarkMode);
-            
-            return (
-            <Card 
-              key={service.id} 
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg"
-              style={{
-                '--hover-border-color': serviceColor,
-                '--hover-shadow-color': `${serviceColor}10`
-              } as React.CSSProperties}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = serviceColor;
-                e.currentTarget.style.boxShadow = `0 10px 25px -12px ${serviceColor}15`;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = '';
-                e.currentTarget.style.boxShadow = '';
-              }}
-            >
-              <CardContent className="p-4">
-                <div className="flex items-start space-x-4">
-                  <input
-                    type="checkbox"
-                    checked={selectedServices.includes(service.id)}
-                    onChange={() => toggleServiceSelection(service.id)}
-                    className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
-                  />
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between">
-                      <div 
-                        className="flex-1 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg p-2 -m-2 transition-colors duration-200"
-                        onClick={() => handleServiceClick(service)}
-                        role="button"
-                        tabIndex={0}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            handleServiceClick(service);
-                          }
-                        }}
-                      >
-                        <div className="flex items-center space-x-2">
-                          {service.icon && (
-                            <div 
-                              className="w-8 h-8 rounded-lg flex items-center justify-center"
-                              style={{ backgroundColor: `${serviceColor}10` }}
-                            >
-                              <div style={{ color: serviceColor }}>
-                                {renderIcon(service.icon, "w-4 h-4")}
-                              </div>
-                            </div>
-                          )}
-                          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                            {service.title}
-                          </h3>
-                          {service.is_featured && (
-                            <Star className="h-4 w-4 fill-current" style={{ color: serviceColor }} />
-                          )}
-                        </div>
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                          {service.subtitle}
-                        </p>
-                        {/* Hide description on small screens, show on md+ */}
-                        <div className="hidden md:block">
-                          <div 
-                            className="text-sm text-gray-700 dark:text-gray-300 mb-2 prose prose-sm max-w-none dark:prose-invert prose-table:text-xs prose-thead:border-b prose-thead:border-gray-300 dark:prose-thead:border-gray-600 prose-tbody:divide-y prose-tbody:divide-gray-200 dark:prose-tbody:divide-gray-700 prose-td:py-1 prose-td:px-2 prose-th:py-1 prose-th:px-2 prose-th:font-semibold prose-th:text-left prose-table:border prose-table:border-gray-200 dark:prose-table:border-gray-700"
-                          />
-                          <MarkdownRenderer>
-                            {service.description.length > 200 
-                              ? `${service.description.substring(0, 200)}...` 
-                              : service.description}
-                          </MarkdownRenderer>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                          <span>{tAdmin("labels.price")}: {service.price ? `€${Math.round(Number(service.price))}` : t("form.contactForQuote") || 'Contact for quote'}</span>
-                          {service.duration && <span>{tAdmin("labels.duration")}: {service.duration === 1 ? t("durationDay") : t("durationDays", { count: service.duration })}</span>}
-                          <span>{tAdmin("labels.icon")}: {service.icon}</span>
-                          <span>{tAdmin("labels.created")}: {new Date(service.created_at).toLocaleDateString()}</span>
-                        </div>
-                      </div>
-                      <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:space-x-2 ml-0 md:ml-4 mt-2 md:mt-0">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleServiceClick(service)}
-                          className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10 w-full md:w-auto"
-                        >
-                          <Eye className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleEdit(service)}
-                          style={{ color: '#46B1C9' }}
-                          className="hover:bg-opacity-10 w-full md:w-auto"
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = '#46B1C9' + '10';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.backgroundColor = '';
-                          }}
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDelete(service)}
-                          className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 w-full md:w-auto"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            );
-          })}
+          {filteredServices.map((service) => (
+            <AdminServiceCard
+              key={service.id}
+              service={service}
+              isSelected={selectedServices.includes(service.id)}
+              onSelect={toggleServiceSelection}
+              onView={handleServiceClick}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              tAdmin={tAdmin}
+              t={t}
+              getServiceColor={getServiceColor}
+            />
+          ))}
         </div>
       )}
 

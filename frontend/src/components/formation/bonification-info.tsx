@@ -1,13 +1,13 @@
 
 "use client";
 
-import { ChevronDown, ChevronUp, Info } from "lucide-react";
+import { ChevronDown, ChevronUp, Star } from "lucide-react";
 import { useState as useLocalState } from "react";
 import { MarkdownRenderer } from "../ui/markdown-renderer";
 import { useTranslations } from "next-intl";
 
 
-const BonificationInfo = ({ locale }: { locale: string }) => {
+const BonificationInfo = () => {
   const [open, setOpen] = useLocalState(false);
   const t = useTranslations("bonificationTexts");
   
@@ -19,14 +19,14 @@ const BonificationInfo = ({ locale }: { locale: string }) => {
         aria-expanded={open}
       >
       <span className="flex items-center gap-2 text-lg font-semibold text-gray-800 dark:text-white">
-        <Info className="w-7 h-7 min-w-7 min-h-7 text-[#22A60D]" />
+        <Star className="w-7 h-7 min-w-7 min-h-7 text-[#623CEA]" />
         {t("summary")}
       </span>
         <span className="ml-2">
           {open ? (
-            <ChevronUp className="w-6 h-6 text-[#22A60D] group-hover:scale-110 transition-transform" />
+            <ChevronUp className="w-6 h-6 text-[#623CEA] group-hover:scale-110 transition-transform" />
           ) : (
-            <ChevronDown className="w-6 h-6 text-[#22A60D] group-hover:scale-110 transition-transform" />
+            <ChevronDown className="w-6 h-6 text-[#623CEA] group-hover:scale-110 transition-transform" />
           )}
         </span>
       </button>

@@ -19,7 +19,7 @@ interface Course {
   description: string;
   image: string;
   price?: string | null;
-  location: string;
+  location?: string | null;
   start_date?: string | null;
   end_date?: string | null;
   start_time?: string | null;
@@ -350,7 +350,7 @@ export default function CoursesShowcase({
                         </div>
                         <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                           <MapPin className="w-4 h-4 flex-shrink-0" />
-                          {course.location ? (
+                          {course.location && course.location.trim() !== '' ? (
                             <a
                               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                               target="_blank"

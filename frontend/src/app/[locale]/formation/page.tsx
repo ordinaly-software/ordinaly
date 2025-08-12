@@ -8,10 +8,11 @@ import Footer from "@/components/ui/footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Modal } from "@/components/ui/modal";
 import Alert from "@/components/ui/alert";
 import AuthModal from "@/components/auth/auth-modal";
-import CourseDetailsModal from "@/components/admin/course-details-modal";
+import CourseDetailsModal from "@/components/formation/course-details-modal";
+import EnrollmentConfirmationModal from "@/components/formation/enrollment-confirmation-modal";
+import EnrollmentCancellationModal from "@/components/formation/enrollment-cancellation-modal";
 import Image from "next/image";
 import {
   Search,
@@ -26,12 +27,9 @@ import {
   GraduationCap,
   UserCheck,
   UserX,
-  CalendarDays,
-  Euro
 } from "lucide-react";
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
-import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 import BonificationInfo from "@/components/formation/bonification-info";
 
 interface Course {
@@ -389,7 +387,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         />
       )}
 
-      {/* Navigation */}
       <Navbar />
 
       {/* Hero Section */}
@@ -781,185 +778,26 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
       </section>
 
       {/* Enrollment Confirmation Modal */}
-      <Modal
+      <EnrollmentConfirmationModal
         isOpen={showEnrollModal}
         onClose={() => {
           setShowEnrollModal(false);
           setSelectedCourse(null);
         }}
-        title={selectedCourse ? `${t("enrollment.confirm")} - ${selectedCourse.title}` : t("enrollment.confirm")}
-        showHeader={true}
-      >
-        {selectedCourse && (
-          <div className="space-y-6">
-            {/* Course Information */}
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                {t("enrollment.courseDetails")}
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <CalendarDays className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("date")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{new Date(selectedCourse.start_date).toLocaleDateString()}</span>
-                  </div>
-                  
-                  <div className="flex items-center text-sm">
-                    <MapPin className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("location")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{selectedCourse.location}</span>
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <Euro className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("price")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">
-                      {selectedCourse.price ? `€${selectedCourse.price}` : t("free")}
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-center text-sm">
-                    <Users className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("maxAttendants")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{selectedCourse.max_attendants}</span>
-                  </div>
-                </div>
-              </div>
-              
-              {selectedCourse.description && (
-                <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {selectedCourse.description}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* Confirmation Message */}
-            <div className="text-center py-4">
-              <p className="text-gray-700 dark:text-gray-300 mb-2">
-                {t("enrollment.confirmMessage")}
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {t("enrollment.paymentNote")}
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setShowEnrollModal(false)}
-                className="px-6 h-10"
-              >
-                {t("enrollment.cancel")}
-              </Button>
-              <Button
-                onClick={handleEnrollmentConfirm}
-                className="bg-[#22A60D] hover:bg-[#22A010] text-white px-6 h-10 flex items-center gap-2"
-              >
-                <GraduationCap className="w-4 h-4" />
-                {t("enrollment.confirmEnroll")}
-              </Button>
-            </div>
-          </div>
-        )}
-      </Modal>
+        selectedCourse={selectedCourse}
+        onConfirm={handleEnrollmentConfirm}
+      />
 
       {/* Enrollment Cancellation Modal */}
-      <Modal
+      <EnrollmentCancellationModal
         isOpen={showCancelModal}
         onClose={() => {
           setShowCancelModal(false);
           setCourseToCancel(null);
         }}
-        title={t("cancellation.title")}
-        showHeader={true}
-      >
-        {courseToCancel && (
-          <div className="space-y-6">
-            {/* Warning Message */}
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-              <div className="flex items-start space-x-3">
-                <UserX className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <div>
-                  <h3 className="text-sm font-medium text-red-800 dark:text-red-200 mb-1">
-                    {t("cancellation.warning")}
-                  </h3>
-                  <p className="text-sm text-red-700 dark:text-red-300">
-                    {t("cancellation.warningMessage", { courseTitle: courseToCancel.title })}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Course Information */}
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                {courseToCancel.title}
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div className="space-y-2">
-                  <div className="flex items-center">
-                    <CalendarDays className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("date")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{new Date(courseToCancel.start_date).toLocaleDateString()}</span>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("location")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{courseToCancel.location}</span>
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="flex items-center">
-                    <Euro className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("price")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">
-                      {courseToCancel.price ? `€${courseToCancel.price}` : t("free")}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Confirmation Message */}
-            <div className="text-center py-2">
-              <p className="text-gray-700 dark:text-gray-300">
-                {t("cancellation.confirmMessage")}
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setShowCancelModal(false)}
-                className="px-6 h-10"
-              >
-                {t("cancellation.keepEnrollment")}
-              </Button>
-              <Button
-                onClick={handleCancelEnrollmentConfirm}
-                variant="destructive"
-                className="bg-red-600 hover:bg-red-700 text-white px-6 h-10 flex items-center gap-2"
-              >
-                <UserX className="w-4 h-4" />
-                {t("cancellation.confirmCancel")}
-              </Button>
-            </div>
-          </div>
-        )}
-      </Modal>
+        courseToCancel={courseToCancel}
+        onConfirm={handleCancelEnrollmentConfirm}
+      />
 
       {/* Authentication Modal */}
       <AuthModal

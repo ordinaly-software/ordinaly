@@ -76,6 +76,7 @@
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
+      "locationSoon": "Localización próximamente",
       "showcaseTitle": "Cursos Destacados",
       "showcaseDescription": "Únete aos nosos cursos de formación e avanza na túa carreira",
       "upcomingTitle": "Próximos Cursos",
@@ -505,6 +506,7 @@
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
+      "locationSoon": "Localización próximamente",
       "title": "Xestión de Cursos",
       "searchPlaceholder": "Buscar cursos...",
       "addCourse": "Engadir curso",
@@ -522,6 +524,9 @@
       "finished": "Rematado",
       "noCoursesFound": "Non se atoparon cursos que coincidan coa túa busca.",
       "contactForQuote": "Gratuito",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "view": "Ver",
       "form": {
         "title": "Título",
         "titlePlaceholder": "Introduce un título atractivo para o curso",
@@ -542,7 +547,8 @@
         "pricePlaceholder": "Deixar baleiro para 'contactar para orzamento'",
         "location": "Localización",
         "locationPlaceholder": "Introduce a localización do curso ou 'en liña'",
-        "locationRequired": "Localización *",
+  "locationRequired": "Localización *",
+  "locationOptional": "Localización (Opcional)",
         "scheduleSettings": "Configuración de Horario Profesional",
         "startDateRequired": "Data de inicio *",
         "endDateRequired": "Data de fin *",
@@ -910,6 +916,7 @@
     "maxAttendants": "Máx asistentes",
     "maxAttendeesCount": "Máx {count} asistentes",
     "noSpecificDate": "Non hai unha data específica",
+    "locationSoon": "Localización próximamente",
     "filters": {
       "location": {
         "all": "Todas as localizacións",

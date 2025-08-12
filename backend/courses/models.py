@@ -55,7 +55,7 @@ class Course(models.Model):
         null=True,
         blank=True
     )
-    location = models.CharField(max_length=100)
+    location = models.CharField(max_length=100, null=True, blank=True)
 
     # New professional scheduling fields
     start_date = models.DateField(

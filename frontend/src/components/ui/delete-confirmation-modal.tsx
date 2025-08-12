@@ -30,6 +30,7 @@ export const DeleteConfirmationModal = ({
       onClose={onClose}
       title={title}
       showHeader={true}
+      className="max-w-md w-full mx-4"
     >
       <div className="flex flex-col gap-6 py-2 px-1">
         <p className="text-gray-700 dark:text-gray-300 text-base text-center">

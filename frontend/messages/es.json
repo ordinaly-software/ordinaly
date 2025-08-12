@@ -77,6 +77,7 @@
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
+      "locationSoon": "Ubicación próximamente",
       "showcaseTitle": "Cursos Destacados",
       "showcaseDescription": "Únete a nuestros cursos de formación y avanza en tu carrera",
       "upcomingTitle": "Próximos Cursos",
@@ -93,11 +94,11 @@
       "spotsLeft": "plazas disponibles",
       "enrolled": "inscritos",
       "max": "máximo",
-  "almostFull": "Casi Completo",
-  "fillingFast": "Llenándose Rápido",
-  "available": "Disponible",
-  "inProgress": "En curso",
-  "finished": "Finalizado",
+      "almostFull": "Casi Completo",
+      "fillingFast": "Llenándose Rápido",
+      "available": "Disponible",
+      "inProgress": "En curso",
+      "finished": "Finalizado",
       "datesSoon": "Fechas próximamente",
       "durationSoon": "Duración próximamente",
       "signUpModal": {
@@ -505,6 +506,7 @@
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
+      "locationSoon": "Ubicación próximamente",
       "title": "Gestión de Cursos",
       "searchPlaceholder": "Buscar cursos...",
       "addCourse": "Añadir Curso",
@@ -516,6 +518,9 @@
       "noCourses": "No hay cursos disponibles.",
       "noCoursesFound": "No se encontraron cursos que coincidan con tu búsqueda.",
       "contactForQuote": "Gratuito",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "view": "Ver",
       "form": {
         "title": "Título",
         "titlePlaceholder": "Ingresa un título atractivo para el curso",
@@ -536,7 +541,8 @@
         "pricePlaceholder": "Deja vacío para 'Contactar para presupuesto'",
         "location": "Ubicación",
         "locationPlaceholder": "Ingresa la ubicación del curso o 'Online'",
-        "locationRequired": "Ubicación *",
+  "locationRequired": "Ubicación *",
+  "locationOptional": "Ubicación (Opcional)",
         "scheduleSettings": "Configuración de Horario Profesional",
         "startDateRequired": "Fecha de Inicio *",
         "endDateRequired": "Fecha de Fin *",
@@ -747,7 +753,7 @@
       "tabs": {
         "form": "Formulario",
         "preview": "Vista previa Markdown",
-        "pdf": "Vista previa PDF"
+        "pdf": "Vista previa"
       },
       "labels": {
         "name": "Nombre",
@@ -907,6 +913,7 @@
     "maxAttendants": "Máximo de Asistentes",
     "maxAttendeesCount": "Máximo {count} asistentes",
     "noSpecificDate": "Todavía no hay una fecha establecida",
+    "locationSoon": "Ubicación próximamente",
     "filters": {
       "location": {
         "all": "Todas las Ubicaciones",

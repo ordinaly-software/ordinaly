@@ -255,7 +255,6 @@ export async function generateCoursesCatalogPDF(
       // Dynamic height calculation for each course block
       const descLines = wrapText(course.description, contentWidth - 20, 10);
       const descLineCount = Math.min(descLines.length, 3);
-      const subtitleHeight = course.subtitle ? 10 : 0;
       // Calculate Y positions for all elements
       let y = currentY + 12; // title
       if (course.subtitle) y += 10; // subtitle
