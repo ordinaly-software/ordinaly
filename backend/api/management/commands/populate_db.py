@@ -333,7 +333,8 @@ class Command(BaseCommand):
         for user in regular_users:
             if not eligible_courses:
                 break
-            course = random.choice(eligible_courses)
+            # Use secrets for cryptographically secure random selection
+            course = eligible_courses[secrets.randbelow(len(eligible_courses))]
             try:
                 days = secrets.randbelow(90) + 1  # Generates a random int in [1, 90]
                 enrollment, created = Enrollment.objects.get_or_create(

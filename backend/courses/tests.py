@@ -393,7 +393,24 @@ class CourseSerializerTest(TestCase):
         self.assertTrue(data['image'])
 
     def test_validation(self):
-        # Test with invalid data
+        # Test with invalid data (missing image, but other required fields valid)
+        invalid_data = {
+            'title': 'Test Course',
+            'description': 'Test Description',
+            'price': '10.00',
+            'location': 'Test Location',
+            'start_date': '2023-12-31',
+            'end_date': '2023-12-31',
+            'start_time': '14:00:00',
+            'end_time': '17:00:00',
+            'periodicity': 'once',
+            'max_attendants': 10
+        }
+        serializer = CourseSerializer(data=invalid_data)
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('image', serializer.errors)  # Required field
+
+        # Test with multiple invalid fields (image error not guaranteed due to DRF validation order)
         invalid_data = {
             'title': '',  # Empty title
             'description': 'Test Description',
@@ -411,7 +428,6 @@ class CourseSerializerTest(TestCase):
         self.assertIn('title', serializer.errors)
         self.assertIn('price', serializer.errors)
         self.assertIn('max_attendants', serializer.errors)
-        self.assertIn('image', serializer.errors)  # Required field
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
@@ -856,10 +872,11 @@ class AdvancedSchedulingTestCase(TestCase):
         super().tearDownClass()
 
     def setUp(self):
+        # The following password is for test purposes only and is not used in production.
         self.user = CustomUser.objects.create_user(
             username='testuser',
             email='test@example.com',
-            password='testpass123',
+            password='testpass123',  # test-only password, safe for use in test code
             name='Test',
             surname='User',
             company='Test Company'

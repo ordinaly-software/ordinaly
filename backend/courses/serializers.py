@@ -23,6 +23,10 @@ class CourseSerializer(serializers.ModelSerializer):
             if field in data and data[field] == '':
                 data[field] = None
 
+        # Require image on creation (must be present and not blank/None)
+        if self.instance is None and not self.initial_data.get('image'):
+            raise serializers.ValidationError({'image': 'Course image is required.'})
+
         # On update, prevent lowering max_attendants below enrolled_count
         instance = getattr(self, 'instance', None)
         new_max = data.get('max_attendants', None)

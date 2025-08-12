@@ -27,6 +27,9 @@ class TermsSerializer(serializers.ModelSerializer):
         read_only_fields = ['created_at', 'updated_at', 'author']
 
     def validate(self, data):
+        # Require pdf_content on creation
+        if self.instance is None and not data.get('pdf_content'):
+            raise serializers.ValidationError({'pdf_content': 'PDF file is required.'})
         if not data.get('name'):
             data['name'] = f"{data.get('tag', '').capitalize()} v{data.get('version', '')}"
         return data

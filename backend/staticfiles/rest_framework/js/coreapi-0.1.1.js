@@ -55,7 +55,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var utils = require('../utils');
 
 function trim(str) {
-  return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+  // Use safe regex to avoid super-linear runtime
+  return str.replace(/^\s+/, '').replace(/\s+$/, '');
 }
 
 function getCookie(cookieName, cookieString) {
