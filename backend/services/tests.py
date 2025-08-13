@@ -13,7 +13,7 @@ from services.views import ServiceViewSet, IsAdmin
 from rest_framework.test import APIRequestFactory, force_authenticate
 from django.contrib.auth.models import AnonymousUser
 import os
-
+from rest_framework.permissions import AllowAny
 
 TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
 
@@ -486,6 +486,119 @@ class ServiceAdminExtraTests(TestCase):
 
 
 class ServiceViewSetExtraTests(TestCase):
+    def test_is_admin_permission_true_and_false(self):
+        """Test IsAdmin.has_permission returns True for staff, False for non-staff and anonymous"""
+        view = ServiceViewSet()
+        staff_user = User.objects.create_user(email='staff@example.com', username='staff',
+                                              password=TEST_PASSWORD, is_staff=True, company='C')
+        non_staff_user = User.objects.create_user(email='nonstaff@example.com', username='nonstaff',
+                                                  password=TEST_PASSWORD, is_staff=False, company='C')
+        request = APIRequestFactory().get('/')
+        request.user = staff_user
+        self.assertTrue(IsAdmin().has_permission(request, view))
+        request.user = non_staff_user
+        self.assertFalse(IsAdmin().has_permission(request, view))
+        request.user = AnonymousUser()
+        self.assertFalse(IsAdmin().has_permission(request, view))
+
+    def test_get_permissions_all_actions(self):
+        """Test get_permissions returns correct permission classes for all actions"""
+        view = ServiceViewSet()
+        for action, expected in [
+            ('list', AllowAny),
+            ('retrieve', AllowAny),
+            ('create', IsAdmin),
+            ('update', IsAdmin),
+            ('partial_update', IsAdmin),
+            ('destroy', IsAdmin),
+        ]:
+            view.action = action
+            perms = view.get_permissions()
+            self.assertTrue(any(isinstance(p, expected) for p in perms), f"{action} should use {expected}")
+
+    def test_perform_create_sets_created_by_explicit(self):
+        """Test perform_create sets created_by field on serializer"""
+        view = ServiceViewSet()
+        user = User.objects.create_user(email='creator@example.com', username='creator',
+                                        password=TEST_PASSWORD, company='C')
+        request = APIRequestFactory().post('/services/', {})
+        request.user = user
+        view.request = request
+
+        class DummySerializer:
+            def __init__(self):
+                self.called_with = None
+
+            def save(self, **kwargs):
+                self.called_with = kwargs.get('created_by')
+        serializer = DummySerializer()
+        view.perform_create(serializer)
+        self.assertEqual(serializer.called_with, user)
+
+    def test_update_calls_is_valid_and_perform_update(self):
+        """Test update calls serializer.is_valid(raise_exception=True) and perform_update"""
+        view = ServiceViewSet()
+        user = User.objects.create_user(email='update@example.com', username='update',
+                                        password=TEST_PASSWORD, company='C')
+        service = Service.objects.create(title='T', subtitle='S', description='D',
+                                         color='29BF12', icon='Bot', duration=1, requisites='R',
+                                         price=10, is_featured=False, created_by=user)
+        request = APIRequestFactory().put(f'/services/{service.pk}/', {'title': 'Updated'}, format='json')
+        force_authenticate(request, user=user)
+        view.request = request
+        view.kwargs = {'pk': service.pk}
+        view.get_object = lambda: service
+
+        class DummySerializer:
+            def __init__(self):
+                self.instance = service
+                self.data = {'title': 'Updated'}
+                self.validated = False
+
+            def is_valid(self, raise_exception=False):
+                self.validated = True
+
+            def save(self):
+                self.instance.title = 'Updated'
+
+        def get_serializer(instance, data, partial):
+            return DummySerializer()
+        view.get_serializer = get_serializer
+        called = {}
+
+        def perform_update(serializer):
+            called['called'] = True
+            serializer.save()
+        view.perform_update = perform_update
+        response = view.update(request, pk=service.pk)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(called['called'])
+        self.assertEqual(service.title, 'Updated')
+
+    def test_destroy_calls_perform_destroy(self):
+        """Test destroy calls perform_destroy and returns 204"""
+        view = ServiceViewSet()
+        user = User.objects.create_user(email='destroy@example.com', username='destroy',
+                                        password=TEST_PASSWORD, company='C')
+        service = Service.objects.create(title='T', subtitle='S', description='D',
+                                         color='29BF12', icon='Bot', duration=1,
+                                         requisites='R', price=10, is_featured=False, created_by=user)
+        request = APIRequestFactory().delete(f'/services/{service.pk}/')
+        force_authenticate(request, user=user)
+        view.request = request
+        view.kwargs = {'pk': service.pk}
+        view.get_object = lambda: service
+        called = {}
+
+        def perform_destroy(obj):
+            called['called'] = True
+            obj.delete()
+        view.perform_destroy = perform_destroy
+        response = view.destroy(request, pk=service.pk)
+        self.assertEqual(response.status_code, 204)
+        self.assertTrue(called['called'])
+        self.assertFalse(Service.objects.filter(pk=service.pk).exists())
+
     def setUp(self):
         self.factory = APIRequestFactory()
         self.user = User.objects.create_user(
@@ -511,34 +624,80 @@ class ServiceViewSetExtraTests(TestCase):
         view.request = request
         self.assertFalse(IsAdmin().has_permission(request, view))
 
+    def test_get_permissions_list_and_retrieve(self):
+        view = ServiceViewSet()
+        view.action = 'list'
+        perms = view.get_permissions()
+        self.assertTrue(any(isinstance(p, AllowAny) for p in perms))
+        view.action = 'retrieve'
+        perms = view.get_permissions()
+        self.assertTrue(any(isinstance(p, AllowAny) for p in perms))
+
+    def test_get_permissions_admin_actions(self):
+        view = ServiceViewSet()
+        for action in ['create', 'update', 'partial_update', 'destroy']:
+            view.action = action
+            perms = view.get_permissions()
+            self.assertTrue(any(isinstance(p, IsAdmin) for p in perms))
+
     def test_perform_create_sets_created_by(self):
         view = ServiceViewSet()
-        view.request = self.factory.post('/services/', {})
-        view.request.user = self.admin_user
+        request = APIRequestFactory().post('/services/', {})
+        user = User.objects.create_user(email='admin2@example.com', username='admin2',
+                                        password=TEST_PASSWORD, company='C')
+        request.user = user
+        view.request = request
         serializer = MagicMock()
         view.perform_create(serializer)
-        serializer.save.assert_called_with(created_by=self.admin_user)
+        serializer.save.assert_called_with(created_by=user)
 
-    def test_update_unauthenticated_returns_401(self):
+    def test_update_authenticated(self):
         view = ServiceViewSet()
-        request = self.factory.put('/services/1/', {})
+        user = User.objects.create_user(email='admin3@example.com', username='admin3',
+                                        password=TEST_PASSWORD, company='C')
+        service = Service.objects.create(title='T', subtitle='S', description='D',
+                                         color='29BF12', icon='Bot', duration=1, requisites='R',
+                                         price=10, is_featured=False, created_by=user)
+        request = APIRequestFactory().put(f'/services/{service.pk}/', {'title': 'Updated'}, format='json')
+        force_authenticate(request, user=user)
+        view.request = request
+        view.kwargs = {'pk': service.pk}
+        view.get_object = lambda: service
+        view.get_serializer = lambda *a, **kw: ServiceSerializer(service, data={'title': 'Updated'}, partial=False)
+
+        def perform_update(serializer):
+            serializer.instance.title = 'Updated'
+        view.perform_update = perform_update
+        response = view.update(request, pk=service.pk)
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_unauthenticated(self):
+        view = ServiceViewSet()
+        service = Service.objects.first()
+        request = APIRequestFactory().put(f'/services/{service.pk}/', {'title': 'Updated'}, format='json')
         request.user = AnonymousUser()
         view.request = request
-        view.kwargs = {'pk': self.service.pk}
-        response = view.update(request, pk=self.service.pk)
+        view.kwargs = {'pk': service.pk}
+        view.get_object = lambda: service
+        response = view.update(request, pk=service.pk)
         self.assertEqual(response.status_code, 401)
 
-    def test_destroy_deletes_and_returns_204(self):
+    def test_destroy_returns_204(self):
         view = ServiceViewSet()
-        request = self.factory.delete(f'/services/{self.service.pk}/')
-        force_authenticate(request, user=self.admin_user)
+        user = User.objects.create_user(email='admin4@example.com', username='admin4',
+                                        password=TEST_PASSWORD, company='C')
+        service = Service.objects.create(title='T2', subtitle='S2', description='D2',
+                                         color='29BF12', icon='Bot', duration=1, requisites='R',
+                                         price=10, is_featured=False, created_by=user)
+        request = APIRequestFactory().delete(f'/services/{service.pk}/')
+        force_authenticate(request, user=user)
         view.request = request
-        view.kwargs = {'pk': self.service.pk}
-        view.get_object = lambda: self.service
+        view.kwargs = {'pk': service.pk}
+        view.get_object = lambda: service
         view.perform_destroy = lambda obj: obj.delete()
-        response = view.destroy(request, pk=self.service.pk)
+        response = view.destroy(request, pk=service.pk)
         self.assertEqual(response.status_code, 204)
-        self.assertFalse(Service.objects.filter(pk=self.service.pk).exists())
+        self.assertFalse(Service.objects.filter(pk=service.pk).exists())
 
 
 class ServiceViewSetTests(APITestCase):

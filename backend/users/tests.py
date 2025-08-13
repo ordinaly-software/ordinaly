@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
+from .serializers import CustomUserSerializer
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from rest_framework.authtoken.models import Token
@@ -225,7 +226,16 @@ class CustomUserSerializerTests(TestCase):
     """Tests for the CustomUserSerializer"""
 
     def setUp(self):
-        from .serializers import CustomUserSerializer
+        super().setUp()
+        self.user = CustomUser.objects.create_user(
+            username='seruser',
+            email='seruser@example.com',
+            password=TEST_PASSWORD,
+            name='Ser',
+            surname='User',
+            company='SerCompany'
+        )
+
         self.serializer_class = CustomUserSerializer
         self.user_data = {
             'username': 'testuser',
@@ -296,6 +306,84 @@ class CustomUserSerializerTests(TestCase):
         self.assertTrue(serializer.is_valid())
         user = serializer.save()
         self.assertFalse(user.is_staff)  # Should still be False despite trying to set it to True
+
+    def test_get_created_at_and_updated_at(self):
+        serializer = CustomUserSerializer(self.user)
+        if hasattr(self.user, 'date_joined'):
+            self.assertEqual(serializer.data['created_at'], self.user.date_joined.isoformat())
+        self.assertIn('updated_at', serializer.data)
+
+    def test_get_created_at_fallback(self):
+        user = self.user
+        # Only run fallback if attribute exists
+        if hasattr(user, 'date_joined'):
+            delattr(user, 'date_joined')
+        serializer = CustomUserSerializer(user)
+        self.assertIn('created_at', serializer.data)
+
+    def test_get_updated_at_fallback(self):
+        # Remove last_login attribute
+        user = self.user
+        user.last_login = None
+        serializer = CustomUserSerializer(user)
+        self.assertIn('updated_at', serializer.data)
+
+    def test_create_with_alias_fields(self):
+        data = {
+            'username': 'aliasuser',
+            'email': 'alias@example.com',
+            'password': TEST_PASSWORD,
+            'first_name': 'Alias',
+            'last_name': 'User',
+            'company': 'AliasCompany',
+            'name': 'Alias',
+            'surname': 'User'
+        }
+        serializer = CustomUserSerializer(data=data)
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.name, 'Alias')
+        self.assertEqual(user.surname, 'User')
+        self.assertTrue(user.check_password(TEST_PASSWORD))
+
+    def test_create_missing_required_fields(self):
+        data = {
+            'username': 'missinguser',
+            'email': 'missing@example.com',
+            'password': TEST_PASSWORD,
+            'company': 'MissingCompany'
+        }
+        serializer = CustomUserSerializer(data=data)
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('name', serializer.errors)
+        self.assertIn('surname', serializer.errors)
+
+    def test_update_with_alias_and_password(self):
+        serializer = CustomUserSerializer(instance=self.user, data={
+            'first_name': 'Updated',
+            'last_name': 'Surname',
+            'password': 'newpass123',
+            'company': 'UpdatedCompany'
+        }, partial=True)
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.name, 'Updated')
+        self.assertEqual(user.surname, 'Surname')
+        self.assertEqual(user.company, 'UpdatedCompany')
+        self.assertTrue(user.check_password('newpass123'))
+
+    def test_update_without_password(self):
+        serializer = CustomUserSerializer(instance=self.user, data={
+            'first_name': 'NoPass',
+            'last_name': 'NoPassSurname',
+            'company': 'NoPassCompany'
+        }, partial=True)
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.name, 'NoPass')
+        self.assertEqual(user.surname, 'NoPassSurname')
+        self.assertEqual(user.company, 'NoPassCompany')
+        self.assertTrue(user.check_password(TEST_PASSWORD))
 
 
 class UserViewSetTests(APITestCase):
@@ -551,4 +639,72 @@ class UserViewSetTests(APITestCase):
     def test_check_role_unauthenticated(self):
         """Test check_role endpoint when not authenticated"""
         response = self.client.get(self.check_role_url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_profile_authenticated(self):
+        """Test getting profile as authenticated user"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.get('/api/users/profile/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['username'], self.user.username)
+
+    def test_profile_unauthenticated(self):
+        """Test getting profile as unauthenticated user"""
+        response = self.client.get('/api/users/profile/')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_update_profile_success(self):
+        """Test updating profile as authenticated user"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        update_data = {'name': 'Updated', 'surname': 'User'}
+        response = self.client.patch('/api/users/update_profile/', update_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], 'Updated')
+        self.assertEqual(response.data['surname'], 'User')
+
+    def test_update_profile_invalid(self):
+        """Test updating profile with invalid data"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        update_data = {'username': ''}  # Invalid username
+        response = self.client.patch('/api/users/update_profile/', update_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('username', response.data)
+
+    def test_update_profile_unauthenticated(self):
+        """Test updating profile as unauthenticated user"""
+        update_data = {'name': 'Updated'}
+        response = self.client.patch('/api/users/update_profile/', update_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_complete_profile_success(self):
+        """Test completing profile with required fields"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        data = {'company': 'New Company'}
+        response = self.client.post('/api/users/complete_profile/', data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['company'], 'New Company')
+
+    def test_complete_profile_missing_required(self):
+        """Test completing profile missing required field"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.post('/api/users/complete_profile/', {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('company', response.data)
+
+    def test_complete_profile_unauthenticated(self):
+        """Test completing profile as unauthenticated user"""
+        response = self.client.post('/api/users/complete_profile/', {'company': 'X'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_delete_profile_success(self):
+        """Test deleting profile as authenticated user"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.delete('/api/users/delete_profile/')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        with self.assertRaises(CustomUser.DoesNotExist):
+            CustomUser.objects.get(id=self.user.id)
+
+    def test_delete_profile_unauthenticated(self):
+        """Test deleting profile as unauthenticated user"""
+        response = self.client.delete('/api/users/delete_profile/')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
