@@ -28,8 +28,8 @@ class TermsModelTests(TestCase):
         """Remove the temporary media directory"""
         try:
             shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
+        except (OSError, FileNotFoundError) as e:
+            print(f"Error removing temporary media directory: {e}")
         super().tearDownClass()
 
     def setUp(self):
@@ -279,7 +279,7 @@ class TermsViewSetTests(APITestCase):
         """Remove the temporary media directory"""
         try:
             shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
+        except OSError:
             pass
         super().tearDownClass()
 

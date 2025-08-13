@@ -42,7 +42,7 @@ class CourseModelTest(TestCase):
         """Remove the temporary media directory"""
         try:
             shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
+        except OSError:
             pass
         super().tearDownClass()
 
@@ -234,8 +234,8 @@ class EnrollmentModelTest(TestCase):
         """Remove the temporary media directory"""
         try:
             shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
+        except OSError:
+            pass 
         super().tearDownClass()
 
     def setUp(self):
@@ -322,7 +322,7 @@ class CourseSerializerTest(TestCase):
         """Remove the temporary media directory"""
         try:
             shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
+        except OSError:
             pass
         super().tearDownClass()
 
