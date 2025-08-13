@@ -4,9 +4,13 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
-
 from services.models import Service
 from services.serializers import ServiceSerializer
+import os
+
+
+TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
+
 
 User = get_user_model()
 
@@ -18,7 +22,7 @@ class ServiceModelTests(TestCase):
         self.user = User.objects.create_user(
             email='test@example.com',
             username='testuser',
-            password='testpassword123',
+            password=TEST_PASSWORD,
             company='TestCompany'
         )
 
@@ -215,7 +219,7 @@ class ServiceSerializerTests(TestCase):
         self.user = User.objects.create_user(
             email='test@example.com',
             username='testuser',
-            password='testpassword123',
+            password=TEST_PASSWORD,
             company='TestCompany'
         )
 
@@ -442,7 +446,7 @@ class ServiceViewSetTests(APITestCase):
         self.user = User.objects.create_user(
             email='user@example.com',
             username='regularuser',
-            password='userpassword123',
+            password=TEST_PASSWORD,
             company='TestCompany'
         )
 
@@ -450,7 +454,7 @@ class ServiceViewSetTests(APITestCase):
         self.admin = User.objects.create_user(
             email='admin@example.com',
             username='adminuser',
-            password='adminpassword123',
+            password=TEST_PASSWORD,
             is_staff=True,
             company='AdminCompany'
         )

@@ -1,4 +1,5 @@
 import tempfile
+import os
 import shutil
 from django.test import TestCase, override_settings
 from django.urls import reverse
@@ -17,6 +18,9 @@ from rest_framework.test import APITestCase, APIClient
 from users.models import CustomUser
 from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
+
+
+TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
 
 
 # Helper function to create a test image
@@ -238,7 +242,7 @@ class EnrollmentModelTest(TestCase):
         self.user = CustomUser.objects.create_user(
             email='test@example.com',
             username='testuser',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -366,7 +370,7 @@ class CourseSerializerTest(TestCase):
         user = CustomUser.objects.create_user(
             email='test@example.com',
             username='testuser',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -393,24 +397,7 @@ class CourseSerializerTest(TestCase):
         self.assertTrue(data['image'])
 
     def test_validation(self):
-        # Test with invalid data (missing image, but other required fields valid)
-        invalid_data = {
-            'title': 'Test Course',
-            'description': 'Test Description',
-            'price': '10.00',
-            'location': 'Test Location',
-            'start_date': '2023-12-31',
-            'end_date': '2023-12-31',
-            'start_time': '14:00:00',
-            'end_time': '17:00:00',
-            'periodicity': 'once',
-            'max_attendants': 10
-        }
-        serializer = CourseSerializer(data=invalid_data)
-        self.assertFalse(serializer.is_valid())
-        self.assertIn('image', serializer.errors)  # Required field
-
-        # Test with multiple invalid fields (image error not guaranteed due to DRF validation order)
+        # Test with invalid data
         invalid_data = {
             'title': '',  # Empty title
             'description': 'Test Description',
@@ -428,6 +415,7 @@ class CourseSerializerTest(TestCase):
         self.assertIn('title', serializer.errors)
         self.assertIn('price', serializer.errors)
         self.assertIn('max_attendants', serializer.errors)
+        self.assertIn('image', serializer.errors)  # Required field
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
@@ -446,7 +434,7 @@ class EnrollmentSerializerTest(TestCase):
         self.user = CustomUser.objects.create_user(
             email='test@example.com',
             username='testuser',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -495,7 +483,7 @@ class EnrollmentSerializerTest(TestCase):
         user2 = CustomUser.objects.create_user(
             email='test2@example.com',
             username='testuser2',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test2',
             surname='User2',
             company='Test Company'
@@ -535,7 +523,7 @@ class CourseViewSetTest(APITestCase):
         self.admin_user = CustomUser.objects.create_user(
             email='admin@example.com',
             username='adminuser',
-            password='adminpassword',
+            password=TEST_PASSWORD,
             name='Admin',
             surname='User',
             company='Admin Company',
@@ -544,7 +532,7 @@ class CourseViewSetTest(APITestCase):
         self.regular_user = CustomUser.objects.create_user(
             email='user@example.com',
             username='regularuser',
-            password='userpassword',
+            password=TEST_PASSWORD,
             name='Regular',
             surname='User',
             company='User Company'
@@ -685,7 +673,7 @@ class CourseViewSetTest(APITestCase):
             user = CustomUser.objects.create_user(
                 email=f'user{i}@example.com',
                 username=f'user{i}',
-                password='password',
+                password=TEST_PASSWORD,
                 name=f'User{i}',
                 surname='Test',
                 company='Test Company'
@@ -740,7 +728,7 @@ class EnrollmentViewSetTest(APITestCase):
         self.admin_user = CustomUser.objects.create_user(
             email='admin@example.com',
             username='adminuser',
-            password='adminpassword',
+            password=TEST_PASSWORD,
             name='Admin',
             surname='User',
             company='Admin Company',
@@ -749,7 +737,7 @@ class EnrollmentViewSetTest(APITestCase):
         self.regular_user = CustomUser.objects.create_user(
             email='user@example.com',
             username='regularuser',
-            password='userpassword',
+            password=TEST_PASSWORD,
             name='Regular',
             surname='User',
             company='User Company'
@@ -757,7 +745,7 @@ class EnrollmentViewSetTest(APITestCase):
         self.other_user = CustomUser.objects.create_user(
             email='other@example.com',
             username='otheruser',
-            password='otherpassword',
+            password=TEST_PASSWORD,
             name='Other',
             surname='User',
             company='Other Company'
@@ -872,11 +860,10 @@ class AdvancedSchedulingTestCase(TestCase):
         super().tearDownClass()
 
     def setUp(self):
-        # The following password is for test purposes only and is not used in production.
         self.user = CustomUser.objects.create_user(
             username='testuser',
             email='test@example.com',
-            password='testpass123',  # test-only password, safe for use in test code
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'

@@ -33,3 +33,7 @@ db.sqlite3
 !**/migrations/__init__.py
 */media/course_images/*
 */media/terms/*
+
+
+# Backend Django interface
+/backend/staticfiles/*

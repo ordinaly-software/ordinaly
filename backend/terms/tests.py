@@ -14,6 +14,8 @@ from django.conf import settings
 from django.test import override_settings
 
 
+TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
+
 User = get_user_model()
 
 
@@ -35,7 +37,7 @@ class TermsModelTests(TestCase):
         self.user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
-            password='testpassword123',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -186,7 +188,7 @@ class TermsSerializerTests(TestCase):
         self.user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
-            password='testpassword123',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -288,7 +290,7 @@ class TermsViewSetTests(APITestCase):
         self.user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
-            password='testpassword123',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -298,7 +300,7 @@ class TermsViewSetTests(APITestCase):
         self.admin = User.objects.create_user(
             username='adminuser',
             email='admin@example.com',
-            password='adminpassword123',
+            password=TEST_PASSWORD,
             is_staff=True,
             is_superuser=True,
             name='Admin',
