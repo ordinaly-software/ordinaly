@@ -5,28 +5,22 @@ import { useTranslations } from "next-intl";
 import { getApiEndpoint } from "@/lib/api-config";
 import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import CourseCard from "@/components/formation/course-card";
 import { Input } from "@/components/ui/input";
 import Alert from "@/components/ui/alert";
 import AuthModal from "@/components/auth/auth-modal";
 import CourseDetailsModal from "@/components/formation/course-details-modal";
 import EnrollmentConfirmationModal from "@/components/formation/enrollment-confirmation-modal";
 import EnrollmentCancellationModal from "@/components/formation/enrollment-cancellation-modal";
-import Image from "next/image";
 import {
   Search,
   Calendar,
   MapPin,
-  Users,
   BookOpen,
   Award,
-  ArrowRight,
   Mail,
   ChevronDown,
-  GraduationCap,
-  UserCheck,
-  UserX,
 } from "lucide-react";
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
@@ -473,138 +467,18 @@ const FormationPage = () => {
           ) : (
             <>
               <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10">
-          {filteredCourses.map((course) => {
-            const enrolled = isEnrolled(course.id);
-            // Disable enroll if any date/time field is missing/null/empty
-            const isIncompleteSchedule = !course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time;
-            return (
-              <Card
-                key={course.id}
-                className="group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-500 hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2 w-full max-w-2xl mx-auto"
-                style={{ minHeight: "520px" }}
-              >
-                <div className="relative">
-            {/* Course Image */}
-            <div className="relative h-72 md:h-80 lg:h-96 overflow-hidden">
-              <Image
-                loader={imageLoader}
-                src={course.image}
-                alt={course.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 50vw"
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-                onError={(e) => {
-                  
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              
-              {/* Enrollment Status Badge */}
-              {enrolled && (
-                <div className="absolute top-4 right-4 z-10">
-                  <div className="bg-[#22A60D] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-              <UserCheck className="w-3 h-3" />
-              {t("enrolled")}
-                  </div>
-                </div>
-              )}
-
-              {/* Price Badge */}
-              <div className="absolute top-4 left-4 z-10">
-                <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  {course.price ? `€${course.price}` : t("free")}
-                </div>
-              </div>
-            </div>
-
-            <CardContent className="p-8">
-
-              {/* Course Title */}
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#22A60D] transition-colors duration-300 break-words whitespace-pre-line">
-                {course.title}
-              </h3>
-
-              {/* Course Subtitle */}
-              {course.subtitle && (
-                <p className="text-base text-gray-600 dark:text-gray-400 mb-4 break-words whitespace-pre-line">
-                  {course.subtitle}
-                </p>
-              )}
-
-              {/* Course Meta Information */}
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
-                  <Calendar className="w-5 h-5 text-[#22A60D]" />
-                  <span>
-                    {course.start_date && course.start_date !== "0000-00-00" 
-                      ? new Date(course.start_date).toLocaleDateString()
-                      : t('noSpecificDate')}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
-                  <MapPin className="w-5 h-5 text-[#22A60D]" />
-                  {course.location ? (
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline hover:text-[#22A60D]"
-                      title={course.location}
-                    >
-                      {course.location}
-                    </a>
-                  ) : (
-                    <span>{t('locationSoon')}</span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
-                  <Users className="w-5 h-5 text-[#22A60D]" />
-                  <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col gap-4">
-                {enrolled ? (
-                  <Button
-                    onClick={() => handleCancelEnrollment(course.id)}
-                    variant="outline"
-                    className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-14 text-lg"
-                  >
-                    <UserX className="w-5 h-5 mr-2" />
-                    {t("cancelEnrollment")}
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => handleEnrollCourse(course)}
-                    className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
-                    disabled={isIncompleteSchedule}
-                    title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
-                  >
-                    <GraduationCap className="w-5 h-5 mr-2" />
-                    {t("enroll")}
-                  </Button>
-                )}
-                
-                <Button
-                  variant="outline"
-                  onClick={() => handleViewDetails(course)}
-                  className="w-full border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 h-14 text-lg"
-                >
-                  {t("viewDetails")}
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </div>
-            </CardContent>
-                </div>
-
-                {/* Hover Effect Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/5 to-[#9333EA]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-              </Card>
-            );
-          })}
+                {filteredCourses.map((course) => (
+                  <CourseCard
+                    key={course.id}
+                    course={course}
+                    variant="upcoming"
+                    enrolled={isEnrolled(course.id)}
+                    onEnroll={() => handleEnrollCourse(course)}
+                    onCancel={() => handleCancelEnrollment(course.id)}
+                    onViewDetails={() => handleViewDetails(course)}
+                    disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
+                  />
+                ))}
               </div>
             </>
           )}
@@ -641,90 +515,14 @@ const FormationPage = () => {
                   {t("pastCourses")}
                 </h3>
                 <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-                  {pastCourses.map((course) => {
-                    return (
-                      <Card
-                        key={course.id}
-                        className="group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 opacity-75 hover:opacity-100 transition-all duration-500"
-                      >
-                        <div className="relative">
-                          {/* Course Image */}
-                          <div className="relative h-48 overflow-hidden">
-                            <Image
-                              loader={imageLoader}
-                              src={course.image}
-                              alt={course.title}
-                              fill
-                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                              className="object-cover"
-                              onError={(e) => {
-                                
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
-                              }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                            
-                            {/* Past Course Badge */}
-                            <div className="absolute top-4 right-4 z-10">
-                              <div className="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                                {t("finished")}
-                              </div>
-                            </div>
-
-                            {/* Price Badge */}
-                            <div className="absolute top-4 left-4 z-10">
-                              <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                {course.price ? `€${course.price}` : t("free")}
-                              </div>
-                            </div>
-                          </div>
-
-                          <CardContent className="p-6">
-                            {/* Course Title */}
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 break-words whitespace-pre-line">
-                              {course.title}
-                            </h3>
-
-                            {/* Course Subtitle */}
-                            {course.subtitle && (
-                              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 break-words whitespace-pre-line">
-                                {course.subtitle}
-                              </p>
-                            )}
-
-                            {/* Course Meta Information */}
-                            <div className="space-y-2 mb-6">
-                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                <Calendar className="w-4 h-4 text-[#22A60D]" />
-                                <span>{new Date(course.start_date).toLocaleDateString()}</span>
-                              </div>
-                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                <MapPin className="w-4 h-4 text-[#22A60D]" />
-                                <span>{course.location}</span>
-                              </div>
-                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                <Users className="w-4 h-4 text-[#22A60D]" />
-                                <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
-                              </div>
-                            </div>
-
-                            {/* Action Button */}
-                            <div className="flex flex-col gap-3">
-                              <Button
-                                onClick={() => handleViewDetails(course)}
-                                variant="outline"
-                                className="w-full border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition-all duration-300 h-12"
-                              >
-                                {t("viewDetails")}
-                                <ArrowRight className="w-4 h-4 ml-2" />
-                              </Button>
-                            </div>
-                          </CardContent>
-                        </div>
-                      </Card>
-                    );
-                  })}
+                  {pastCourses.map((course) => (
+                    <CourseCard
+                      key={course.id}
+                      course={course}
+                      variant="past"
+                      onViewDetails={() => handleViewDetails(course)}
+                    />
+                  ))}
                 </div>
                 
                 {pastCourses.length === 0 && (

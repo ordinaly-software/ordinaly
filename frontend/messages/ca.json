@@ -1014,7 +1014,8 @@
       "location": "Ubicació:",
       "price": "Preu:",
       "free": "Gratuït",
-      "noSpecificDate": "Encara no hi ha data específica"
+      "noSpecificDate": "Encara no hi ha data específica",
+      "locationSoon": "Ubicació pròximament"
     },
     "courseDetails": {
       "title": "Detalls del curs",

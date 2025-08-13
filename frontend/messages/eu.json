@@ -939,11 +939,12 @@
     "pdf": {
       "title": "Prestakuntza katalogoa",
       "subtitle": "Prestakuntza profesional eta teknologikoko ikastaroak",
-      "date": "Data:",
-      "location": "Kokalekua:",
-      "price": "Prezioa:",
+      "date": "Data",
+      "location": "Kokalekua",
+      "price": "Prezioa",
       "free": "Dohainik",
-      "noSpecificDate": "Ez dago data zehatzik"
+      "noSpecificDate": "Ez dago data zehatzik",
+      "locationSoon": "Kokalekua hurrengoan"
     },
     "courseDetails": {
       "title": "Ikastaroaren xehetasunak",

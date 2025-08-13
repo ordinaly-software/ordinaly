@@ -288,7 +288,7 @@ const CourseDetailsModal = ({
                     <MapPin className="w-4 h-4 text-gray-500 dark:text-gray-400" />
                     <div>
                       <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('location')}</p>
-                      {course.location && course.location !== t('locationSoon') ? (
+                      {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                         <a
                           href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                           target="_blank"

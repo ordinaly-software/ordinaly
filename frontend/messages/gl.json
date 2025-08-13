@@ -1010,11 +1010,12 @@
     "pdf": {
       "title": "Catálogo de formación",
       "subtitle": "Cursos de formación profesional e tecnolóxica",
-      "date": "Data:",
-      "location": "Localización:",
-      "price": "Prezo:",
+      "date": "Data",
+      "location": "Localización",
+      "price": "Prezo",
       "free": "Gratuíto",
-      "noSpecificDate": "Aínda non hai data específica"
+      "noSpecificDate": "Aínda non hai data específica",
+      "locationSoon": "Localización próximamente"
     },
     "courseDetails": {
       "title": "Detalles do curso",

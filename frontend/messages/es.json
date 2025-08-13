@@ -1007,11 +1007,12 @@
     "pdf": {
       "title": "Catálogo de Formación",
       "subtitle": "Cursos de formación profesional y tecnológica",
-      "date": "Fecha: ",
-      "location": "Ubicación: ",
-      "price": "Precio: ",
+      "date": "Fecha",
+      "location": "Ubicación",
+      "price": "Precio",
       "free": "Gratuito",
-      "noSpecificDate": "Todavía no hay una fecha establecida"
+      "noSpecificDate": "Todavía no hay una fecha establecida",
+      "locationSoon": "Ubicación próximamente"
     },
     "courseDetails": {
       "title": "Detalles del Curso",

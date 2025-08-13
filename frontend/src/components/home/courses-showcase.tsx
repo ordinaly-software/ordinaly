@@ -350,7 +350,7 @@ export default function CoursesShowcase({
                         </div>
                         <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                           <MapPin className="w-4 h-4 flex-shrink-0" />
-                          {course.location && course.location.trim() !== '' ? (
+                          {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                             <a
                               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                               target="_blank"

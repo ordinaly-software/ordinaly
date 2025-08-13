@@ -305,7 +305,7 @@ export async function generateCoursesCatalogPDF(
       const dateText = course.start_date && course.start_date !== "0000-00-00"
         ? formatDate(course.start_date)
   : t('noSpecificDate');
-      pdf.text(`${dateLabel} ${dateText}`, margin + 5, detailsY);
+      pdf.text(`${dateLabel}: ${dateText}`, margin + 5, detailsY);
 
   const timeLabel = t('time');
       const timeText = (course.start_time && course.end_time)
@@ -315,12 +315,15 @@ export async function generateCoursesCatalogPDF(
 
       // Location
   const locationLabel = t('location');
-      pdf.text(`${locationLabel} ${course.location}`, margin + 5, detailsY + 16);
+  const locationText = (course.location && course.location !== "null" && course.location !== "")
+    ? course.location
+    : t('locationSoon');
+  pdf.text(`${locationLabel}: ${locationText}`, margin + 5, detailsY + 16);
 
       // Price and capacity
   const priceLabel = t('price');
   const price = course.price ? `€ ${course.price}` : t('free');
-      pdf.text(`${priceLabel} ${price}`, margin + 100, detailsY);
+      pdf.text(`${priceLabel}: ${price}`, margin + 100, detailsY);
 
   const capacityLabel = t('capacity');
   const peopleLabel = t('people');

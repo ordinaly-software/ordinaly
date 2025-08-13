@@ -1014,11 +1014,12 @@
     "pdf": {
       "title": "Training Catalog",
       "subtitle": "Professional and technological training courses",
-      "date": "Date:",
-      "location": "Location:",
-      "price": "Price:",
+      "date": "Date",
+      "location": "Location",
+      "price": "Price",
       "free": "Free",
-      "noSpecificDate": "No specific date yet"
+      "noSpecificDate": "No specific date yet",
+      "locationSoon": "Location coming soon"
     },
     "courseDetails": {
       "title": "Course Details",
