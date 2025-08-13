@@ -238,7 +238,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                 </div>
                 <div className={`flex flex-wrap items-center gap-4 text-xs ${isFinished ? 'text-gray-500 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}`}>
                   <span>{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
-                  <span>{tAdmin("labels.location")}: {course.location && course.location.trim() !== '' ? course.location : t('locationSoon')}</span>
+                  <span>{tAdmin("labels.location")}: {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? course.location : t('locationSoon')}</span>
                   <span>{tAdmin("labels.schedule")}: {formatCourseSchedule(course)}</span>
                   <span className={`flex items-center space-x-1 ${availableSpots === 0 ? 'text-red-600 font-medium' : ''}`}>
                     <Users className="h-3 w-3" />

@@ -4,6 +4,11 @@ from users.models import CustomUser
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Image is required only on creation (no instance)
+        self.fields['image'].required = self.instance is None
+
     image = serializers.ImageField(required=False, allow_null=True)
     location = serializers.CharField(required=False, allow_null=True, allow_blank=True)
 

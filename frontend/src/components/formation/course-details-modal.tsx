@@ -368,13 +368,6 @@ const CourseDetailsModal = ({
                 {isEnrolled && !hasEnded ? (
                   <>
                     <Button
-                      onClick={onCancel}
-                      variant="outline"
-                      className="w-full border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20 mb-2"
-                    >
-                      {t('cancelEnrollment')}
-                    </Button>
-                    <Button
                       onClick={handleAddToCalendar}
                       className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow hover:from-blue-600 hover:to-blue-800 transition-all duration-300 h-12 text-base"
                       disabled={downloading}
@@ -384,10 +377,6 @@ const CourseDetailsModal = ({
                     </Button>
                   </>
                 ) : hasNoDates ? (
-// Add translation keys in your i18n files:
-// "addToCalendar": "Add to Calendar",
-// "downloadingCalendar": "Downloading...",
-// "calendarDownloadError": "Could not download calendar."
                   <div className="text-center">
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700 text-yellow-700 dark:text-yellow-200 mb-2">
                       {t('noSpecificDate')}
@@ -423,6 +412,13 @@ const CourseDetailsModal = ({
                     ) : null}
                   </>
                 )}
+                <Button
+                  onClick={onCancel}
+                  variant="outline"
+                  className="w-full border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20 mb-2"
+                >
+                  {t('cancelEnrollment')}
+                </Button>
               </div>
 
               {/* Additional Info */}

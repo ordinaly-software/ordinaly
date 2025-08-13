@@ -362,7 +362,7 @@ class CustomUserSerializerTests(TestCase):
         serializer = CustomUserSerializer(instance=self.user, data={
             'first_name': 'Updated',
             'last_name': 'Surname',
-            'password': 'newpass123',
+            'password': TEST_PASSWORD+"abcd",
             'company': 'UpdatedCompany'
         }, partial=True)
         self.assertTrue(serializer.is_valid(), serializer.errors)
@@ -370,7 +370,7 @@ class CustomUserSerializerTests(TestCase):
         self.assertEqual(user.name, 'Updated')
         self.assertEqual(user.surname, 'Surname')
         self.assertEqual(user.company, 'UpdatedCompany')
-        self.assertTrue(user.check_password('newpass123'))
+        self.assertTrue(user.check_password(TEST_PASSWORD+"abcd"))
 
     def test_update_without_password(self):
         serializer = CustomUserSerializer(instance=self.user, data={

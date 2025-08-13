@@ -259,7 +259,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
               <div className="flex justify-between">
                 <span className="text-gray-600 dark:text-gray-400">{t("details.location")}:</span>
                 <span className="font-medium text-gray-900 dark:text-white">
-                  {course.location && course.location.trim() !== '' ? course.location : t('locationSoon')}
+                  {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? course.location : t('locationSoon')}
                 </span>
               </div>
               <div className="flex justify-between">
