@@ -128,9 +128,10 @@ class CourseViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-    @action(detail=True, methods=['get'], permission_classes=[permissions.IsAuthenticated])
-    def calendar_export(self, request, pk=None):
-        """Export course schedule to various calendar formats"""
+    @action(detail=True, methods=['get'], permission_classes=[permissions.IsAuthenticated],
+            url_path='calendar-export-test')
+    def calendar_export_test(self, request, pk=None):
+        """Export course schedule to various calendar formats (test endpoint)"""
         course = self.get_object()
 
         # Check if user is enrolled in the course

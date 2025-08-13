@@ -4,7 +4,7 @@ from users.models import CustomUser
 
 
 class CourseSerializer(serializers.ModelSerializer):
-    image = serializers.ImageField(required=True, allow_null=False)
+    image = serializers.ImageField(required=False, allow_null=True)
     location = serializers.CharField(required=False, allow_null=True, allow_blank=True)
 
     def validate_image(self, value):

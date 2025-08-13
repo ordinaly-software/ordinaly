@@ -2,7 +2,8 @@
 
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, MapPin, Users, Euro, Info, BookOpen, Star, CheckCircle, GraduationCap } from 'lucide-react';
+import { Calendar, Clock, MapPin, Users, Euro, Info, BookOpen, Star, CheckCircle, GraduationCap, Download } from 'lucide-react';
+import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
@@ -72,6 +73,36 @@ const CourseDetailsModal = ({
   onAuthRequired
 }: CourseDetailsModalProps) => {
   const t = useTranslations('formation.courseDetails');
+  const [downloading, setDownloading] = useState(false);
+
+  // Download .ics calendar file for enrolled users
+  const handleAddToCalendar = async () => {
+    if (!course?.id) return;
+    setDownloading(true);
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+      const url = `${apiUrl}/api/courses/courses/${course.id}/calendar-export-test/`;
+      const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+      const res = await fetch(url, {
+        credentials: 'include',
+        headers: {
+          ...(token ? { Authorization: `Token ${token}` } : {})
+        }
+      });
+      if (!res.ok) throw new Error('Failed to fetch calendar');
+      const blob = await res.blob();
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `${course.title || 'course'}.ics`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (e) {
+      alert(t('calendarDownloadError') || 'Could not download calendar.');
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   const formatDate = (dateString: string) => {
     if (!dateString || dateString === "0000-00-00") {
@@ -335,14 +366,28 @@ const CourseDetailsModal = ({
               {/* Action Buttons */}
               <div className="space-y-3">
                 {isEnrolled && !hasEnded ? (
-                  <Button
-                    onClick={onCancel}
-                    variant="outline"
-                    className="w-full border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20"
-                  >
-                    {t('cancelEnrollment')}
-                  </Button>
+                  <>
+                    <Button
+                      onClick={onCancel}
+                      variant="outline"
+                      className="w-full border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20 mb-2"
+                    >
+                      {t('cancelEnrollment')}
+                    </Button>
+                    <Button
+                      onClick={handleAddToCalendar}
+                      className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white shadow hover:from-blue-600 hover:to-blue-800 transition-all duration-300 h-12 text-base"
+                      disabled={downloading}
+                    >
+                      <Download className="w-5 h-5 mr-2" />
+                      {downloading ? t('downloadingCalendar') || 'Downloading...' : t('addToCalendar') || 'Add to Calendar'}
+                    </Button>
+                  </>
                 ) : hasNoDates ? (
+// Add translation keys in your i18n files:
+// "addToCalendar": "Add to Calendar",
+// "downloadingCalendar": "Downloading...",
+// "calendarDownloadError": "Could not download calendar."
                   <div className="text-center">
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700 text-yellow-700 dark:text-yellow-200 mb-2">
                       {t('noSpecificDate')}

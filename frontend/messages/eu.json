@@ -975,6 +975,9 @@
       "excludedDatesMessage": "Ikastaro honek {count} baztertutako data (oporrak edo atsedenaldiak) ditu ohiko egitarauan sartzen ez direnak.",
       "moreSessions": "Eta {count} saio gehiago ...",
       "noSpecificDate": "Ez dago data zehatzik",
+      "addToCalendar": "Gehitu egutegira",
+      "downloadingCalendar": "Deskargatzen...",
+      "calendarDownloadError": "Ez da kalendariaren deskargatzea posible izan",
       "periodicity": {
         "once": "Behin-behineko gertaera",
         "daily": "Eguneroko",
