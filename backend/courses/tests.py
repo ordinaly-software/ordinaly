@@ -1,6 +1,5 @@
 import tempfile
 import os
-import shutil
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -11,13 +10,13 @@ from PIL import Image
 from io import BytesIO
 from datetime import date, time
 from django.db import IntegrityError
-
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
-
 from users.models import CustomUser
 from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
+from courses.admin import CourseAdmin
+from django.contrib import admin as django_admin
 
 
 TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
@@ -33,19 +32,29 @@ def get_test_image_file():
     return SimpleUploadedFile(file.name, file.read(), content_type='image/png')
 
 
-# Model Tests
-@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class CourseModelTest(TestCase):
-
+class CourseImageCleanupTestMixin:
     @classmethod
     def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except OSError:
-            pass
+        """Remove only test-generated images from MEDIA_ROOT/course_images/"""
+        course_images_dir = os.path.join(settings.MEDIA_ROOT, 'course_images')
+        test_prefixes = [
+            'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp',
+            'Existing', 'Admin', 'Serializer', 'Model', 'Duration', 'Complex', 'One-time', 'Yoga', 'Advanced',
+            'Monthly', 'Special', 'Daily', 'Description'
+        ]
+        if os.path.isdir(course_images_dir):
+            for fname in os.listdir(course_images_dir):
+                if fname.endswith('.png') and any(fname.startswith(prefix) for prefix in test_prefixes):
+                    try:
+                        os.remove(os.path.join(course_images_dir, fname))
+                    except Exception:
+                        pass
         super().tearDownClass()
 
+
+# Model Tests
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.course_data = {
             'title': 'Test Course',
@@ -227,17 +236,7 @@ class CourseModelTest(TestCase):
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentModelTest(TestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except OSError:
-            pass 
-        super().tearDownClass()
-
+class EnrollmentModelTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(
             email='test@example.com',
@@ -315,17 +314,7 @@ class EnrollmentModelTest(TestCase):
 
 # Serializer Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class CourseSerializerTest(TestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except OSError:
-            pass
-        super().tearDownClass()
-
+class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.course_data = {
             'title': 'Test Course',
@@ -419,17 +408,7 @@ class CourseSerializerTest(TestCase):
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentSerializerTest(TestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class EnrollmentSerializerTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(
             email='test@example.com',
@@ -507,17 +486,7 @@ class EnrollmentSerializerTest(TestCase):
 
 # View Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class CourseViewSetTest(APITestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class CourseViewSetTest(CourseImageCleanupTestMixin, APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.admin_user = CustomUser.objects.create_user(
@@ -712,17 +681,7 @@ class CourseViewSetTest(APITestCase):
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentViewSetTest(APITestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class EnrollmentViewSetTest(CourseImageCleanupTestMixin, APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.admin_user = CustomUser.objects.create_user(
@@ -849,16 +808,7 @@ class EnrollmentViewSetTest(APITestCase):
 
 # Advanced Scheduling Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class AdvancedSchedulingTestCase(TestCase):
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class AdvancedSchedulingTestCase(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(
             username='testuser',
@@ -1123,3 +1073,37 @@ class AdvancedSchedulingTestCase(TestCase):
         self.assertIn('Monday', description)
         self.assertIn('Wednesday', description)
         self.assertIn('Excluded dates: 1', description)
+
+
+class CourseAdminTest(CourseImageCleanupTestMixin, TestCase):
+    def setUp(self):
+        self.course = Course.objects.create(
+            title='Admin Test',
+            description='desc',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=date(2025, 1, 1),
+            end_date=date(2025, 1, 2),
+            start_time=time(10, 0),
+            end_time=time(12, 0),
+            periodicity='once',
+            max_attendants=5
+        )
+        self.admin = CourseAdmin(Course, django_admin.site)
+
+    def test_get_enrolled_count(self):
+        self.assertEqual(self.admin.get_enrolled_count(self.course), 0)
+
+    def test_get_weekdays_display_empty(self):
+        self.assertEqual(self.admin.get_weekdays_display(self.course), '-')
+
+    def test_get_weekdays_display_some(self):
+        self.course.weekdays = [0, 2]
+        self.assertIn('Monday', self.admin.get_weekdays_display(self.course))
+        self.assertIn('Wednesday', self.admin.get_weekdays_display(self.course))
+
+    def test_get_form_help_text(self):
+        form = self.admin.get_form(request=None)
+        self.assertIn('Select specific weekdays', form.base_fields['weekdays'].help_text)
+        self.assertIn('Dates to exclude from schedule', form.base_fields['exclude_dates'].help_text)

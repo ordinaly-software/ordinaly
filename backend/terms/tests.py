@@ -9,9 +9,9 @@ import tempfile
 from .models import Terms
 from .serializers import TermsSerializer
 from django.urls import reverse
-import shutil
 from django.conf import settings
 from django.test import override_settings
+from unittest.mock import patch
 
 
 TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
@@ -25,11 +25,16 @@ class TermsModelTests(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError) as e:
-            print(f"Error removing temporary media directory: {e}")
+        """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
+        terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
+        if os.path.isdir(terms_dir):
+            for fname in os.listdir(terms_dir):
+                if fname.endswith('.pdf') and fname.split('_')[0] in [
+                  'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp']:
+                    try:
+                        os.remove(os.path.join(terms_dir, fname))
+                    except Exception:
+                        pass
         super().tearDownClass()
 
     def setUp(self):
@@ -176,11 +181,16 @@ class TermsSerializerTests(TestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
+        """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
+        terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
+        if os.path.isdir(terms_dir):
+            for fname in os.listdir(terms_dir):
+                if fname.endswith('.pdf') and fname.split('_')[0] in [
+                  'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp']:
+                    try:
+                        os.remove(os.path.join(terms_dir, fname))
+                    except Exception:
+                        pass
         super().tearDownClass()
 
     def setUp(self):
@@ -276,11 +286,16 @@ class TermsViewSetTests(APITestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except OSError:
-            pass
+        """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
+        terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
+        if os.path.isdir(terms_dir):
+            for fname in os.listdir(terms_dir):
+                if fname.endswith('.pdf') and fname.split('_')[0] in [
+                  'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp']:
+                    try:
+                        os.remove(os.path.join(terms_dir, fname))
+                    except Exception:
+                        pass
         super().tearDownClass()
 
     def setUp(self):
@@ -506,3 +521,145 @@ class TermsViewSetTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['name'], 'Existing Terms')
+
+
+class TermsViewSetExtraTests(APITestCase):
+    @classmethod
+    def tearDownClass(cls):
+        """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
+        terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
+        if os.path.isdir(terms_dir):
+            for fname in os.listdir(terms_dir):
+                if fname.endswith('.pdf') and fname.split('_')[0] in [
+                  'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp']:
+                    try:
+                        os.remove(os.path.join(terms_dir, fname))
+                    except Exception:
+                        pass
+        super().tearDownClass()
+
+    """Extra tests for TermsViewSet custom actions and error handling"""
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.admin_password = TEST_PASSWORD or 'adminpass123'
+        cls.user_password = TEST_PASSWORD or 'userpass123'
+
+    def setUp(self):
+        self.client = APIClient()
+        self.admin = User.objects.create_user(
+            username='adminuser2',
+            email='admin2@example.com',
+            password=self.admin_password,
+            is_staff=True,
+            is_superuser=True,
+            name='Admin2',
+            surname='User',
+            company='Admin Company'
+        )
+        self.user = User.objects.create_user(
+            username='user2',
+            email='user2@example.com',
+            password=self.user_password,
+            name='User2',
+            surname='User',
+            company='User Company'
+        )
+        self.terms = Terms.objects.create(
+            name='Extra Terms',
+            author=self.admin,
+            pdf_content=SimpleUploadedFile(
+                "extra_terms.pdf",
+                b"%PDF-1.5\n%Extra PDF content",
+                content_type="application/pdf"
+            ),
+            version='1.0',
+            tag='extra-tag'
+        )
+        self.detail_url = reverse('terms-detail', kwargs={'pk': self.terms.pk})
+        self.available_tags_url = reverse('terms-available-tags')
+        self.download_url = reverse('terms-download', kwargs={'pk': self.terms.pk})
+
+    def tearDown(self):
+        Terms.objects.all().delete()
+        User.objects.all().delete()
+        super().tearDown()
+
+    def test_available_tags_admin(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.get(self.available_tags_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('available_tags', response.data)
+
+    def test_available_tags_non_admin(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(self.available_tags_url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_download_success(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.get(self.download_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/pdf')
+        self.assertIn('Content-Disposition', response)
+
+    def test_download_no_file(self):
+        self.client.force_authenticate(user=self.admin)
+        self.terms.pdf_content.delete(save=True)
+        response = self.client.get(self.download_url)
+        self.assertEqual(response.status_code, 404)
+        self.assertIn('detail', response.data)
+
+    def test_download_file_missing_on_disk(self):
+        self.client.force_authenticate(user=self.admin)
+        # Remove file from disk but keep DB reference
+        file_path = self.terms.pdf_content.path
+        os.remove(file_path)
+        response = self.client.get(self.download_url)
+        self.assertEqual(response.status_code, 404)
+        self.assertIn('detail', response.data)
+
+    def test_download_error(self):
+        self.client.force_authenticate(user=self.admin)
+        with patch('terms.views.TermsViewSet.get_object', side_effect=Exception('fail')):
+            response = self.client.get(self.download_url)
+            self.assertEqual(response.status_code, 500)
+            self.assertIn('detail', response.data)
+
+    def test_partial_update_admin(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.patch(self.detail_url, {'version': '2.0'}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['version'], '2.0')
+
+    def test_partial_update_non_admin(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.patch(self.detail_url, {'version': '2.0'}, format='json')
+        self.assertEqual(response.status_code, 403)
+
+    def test_partial_update_error(self):
+        self.client.force_authenticate(user=self.admin)
+        with patch('rest_framework.viewsets.ModelViewSet.partial_update', side_effect=Exception('fail')):
+            with patch('terms.views.logger') as mock_logger:
+                response = self.client.patch(self.detail_url, {'version': '2.0'}, format='json')
+                self.assertEqual(response.status_code, 500)
+                self.assertIn('detail', response.data)
+                mock_logger.error.assert_called()
+
+    def test_update_error(self):
+        self.client.force_authenticate(user=self.admin)
+        with patch('rest_framework.viewsets.ModelViewSet.update', side_effect=Exception('fail')):
+            with patch('terms.views.logger') as mock_logger:
+                response = self.client.put(self.detail_url, {'version': '2.0'}, format='json')
+                self.assertEqual(response.status_code, 500)
+                self.assertIn('detail', response.data)
+                mock_logger.error.assert_called()
+
+    def test_destroy_error(self):
+        self.client.force_authenticate(user=self.admin)
+        with patch('terms.views.TermsViewSet.get_object', side_effect=Exception('fail')):
+            with patch('terms.views.logger') as mock_logger:
+                response = self.client.delete(self.detail_url)
+                self.assertEqual(response.status_code, 500)
+                self.assertIn('detail', response.data)
+                mock_logger.error.assert_called()

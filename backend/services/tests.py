@@ -6,6 +6,12 @@ from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from services.models import Service
 from services.serializers import ServiceSerializer
+from unittest.mock import MagicMock
+from django.contrib import admin as django_admin
+from services.admin import ServiceAdmin
+from services.views import ServiceViewSet, IsAdmin
+from rest_framework.test import APIRequestFactory, force_authenticate
+from django.contrib.auth.models import AnonymousUser
 import os
 
 
@@ -434,6 +440,105 @@ class ServiceSerializerTests(TestCase):
         self.assertEqual(service.created_by, self.user)  # Should be set from the save method
         self.assertNotEqual(service.created_at.isoformat(), '2023-01-01T00:00:00+00:00')  # Should be auto-set
         self.assertNotEqual(service.updated_at.isoformat(), '2023-01-01T00:00:00+00:00')  # Should be auto-set
+
+
+class ServiceAdminExtraTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            email='admin2@example.com',
+            username='admin2',
+            password=TEST_PASSWORD,
+            company='TestCompany'
+        )
+        self.service = Service.objects.create(
+            title='Admin Service',
+            subtitle='Subtitle',
+            description='**Markdown** description',
+            color='29BF12',
+            icon='Bot',
+            duration=1,
+            requisites='None',
+            price=Decimal('10.00'),
+            is_featured=False,
+            created_by=self.user
+        )
+        self.admin = ServiceAdmin(Service, django_admin.site)
+
+    def test_description_preview_html(self):
+        html = self.admin.description_preview(self.service)
+        self.assertIn('<div', html)
+        self.assertIn('<strong>Markdown</strong>', html)
+
+    def test_description_preview_empty(self):
+        self.service.description = ''
+        self.assertEqual(self.admin.description_preview(self.service), 'No description')
+
+    def test_save_model_sets_created_by(self):
+        request = MagicMock()
+        request.user = self.user
+        obj = Service(
+            title='New Service', subtitle='s', description='d', color='29BF12', icon='Bot', duration=1,
+            price=1, requisites='', is_featured=False
+        )
+        form = MagicMock()
+        self.admin.save_model(request, obj, form, change=False)
+        self.assertEqual(obj.created_by, self.user)
+
+
+class ServiceViewSetExtraTests(TestCase):
+    def setUp(self):
+        self.factory = APIRequestFactory()
+        self.user = User.objects.create_user(
+            email='user@example.com', username='user', password=TEST_PASSWORD, company='TestCompany'
+        )
+        self.admin_user = User.objects.create_user(
+            email='admin@example.com', username='admin', password=TEST_PASSWORD, is_staff=True, company='TestCompany'
+        )
+        self.service = Service.objects.create(
+            title='ViewSet Service', subtitle='s', description='d', color='29BF12', icon='Bot', duration=1, price=1,
+            requisites='', is_featured=False, created_by=self.admin_user
+        )
+
+    def test_is_admin_permission(self):
+        view = ServiceViewSet()
+        view.action = 'create'
+        request = self.factory.post('/services/', {})
+        force_authenticate(request, user=self.admin_user)
+        perms = view.get_permissions()
+        self.assertTrue(any(isinstance(p, IsAdmin) for p in perms))
+        request = self.factory.post('/services/', {})
+        request.user = AnonymousUser()
+        view.request = request
+        self.assertFalse(IsAdmin().has_permission(request, view))
+
+    def test_perform_create_sets_created_by(self):
+        view = ServiceViewSet()
+        view.request = self.factory.post('/services/', {})
+        view.request.user = self.admin_user
+        serializer = MagicMock()
+        view.perform_create(serializer)
+        serializer.save.assert_called_with(created_by=self.admin_user)
+
+    def test_update_unauthenticated_returns_401(self):
+        view = ServiceViewSet()
+        request = self.factory.put('/services/1/', {})
+        request.user = AnonymousUser()
+        view.request = request
+        view.kwargs = {'pk': self.service.pk}
+        response = view.update(request, pk=self.service.pk)
+        self.assertEqual(response.status_code, 401)
+
+    def test_destroy_deletes_and_returns_204(self):
+        view = ServiceViewSet()
+        request = self.factory.delete(f'/services/{self.service.pk}/')
+        force_authenticate(request, user=self.admin_user)
+        view.request = request
+        view.kwargs = {'pk': self.service.pk}
+        view.get_object = lambda: self.service
+        view.perform_destroy = lambda obj: obj.delete()
+        response = view.destroy(request, pk=self.service.pk)
+        self.assertEqual(response.status_code, 204)
+        self.assertFalse(Service.objects.filter(pk=self.service.pk).exists())
 
 
 class ServiceViewSetTests(APITestCase):
