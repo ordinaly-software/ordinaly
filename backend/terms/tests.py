@@ -19,10 +19,8 @@ TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
 User = get_user_model()
 
 
-@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class TermsModelTests(TestCase):
-    """Tests for the Terms model"""
-
+# General-purpose test mixin for terms test setup and teardown
+class TestTermsSetupMixin:
     @classmethod
     def teardown_class(cls):
         """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
@@ -37,32 +35,45 @@ class TermsModelTests(TestCase):
                         pass
         super().teardown_class()
 
-    def setUp(self):
-        # Create a test user
-        self.user = User.objects.create_user(
-            username='testuser',
-            email='test@example.com',
-            password=TEST_PASSWORD,
-            name='Test',
-            surname='User',
-            company='Test Company'
-        )
-
-        # Create test PDF file
-        self.pdf_content = SimpleUploadedFile(
-            "test_terms.pdf",
-            b"%PDF-1.5\n%Test PDF content",
-            content_type="application/pdf"
-        )
-
-        # Basic valid terms data
-        self.terms_data = {
-            'name': 'Test Terms',
-            'author': self.user,
-            'pdf_content': self.pdf_content,
-            'version': '1.0',
-            'tag': 'terms'
+    def create_test_user(self, **overrides):
+        data = {
+            'username': 'testuser',
+            'email': 'test@example.com',
+            'password': TEST_PASSWORD,
+            'name': 'Test',
+            'surname': 'User',
+            'company': 'Test Company',
         }
+        data.update(overrides)
+        return User.objects.create_user(**data)
+
+    def create_test_pdf(self, name="test_terms.pdf", content=b"%PDF-1.5\n%Test PDF content"):
+        return SimpleUploadedFile(name, content, content_type="application/pdf")
+
+    def get_basic_terms_data(self, **overrides):
+        data = {
+            'name': 'Test Terms',
+            'author': getattr(self, 'user', None),
+            'pdf_content': getattr(self, 'pdf_content', None),
+            'version': '1.0',
+            'tag': 'terms',
+        }
+        data.update(overrides)
+        return data
+
+
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class TermsModelTests(TestTermsSetupMixin, TestCase):
+    """Tests for the Terms model"""
+
+    @classmethod
+    def teardown_class(cls):
+        super().teardown_class()
+
+    def setUp(self):
+        self.user = self.create_test_user()
+        self.pdf_content = self.create_test_pdf()
+        self.terms_data = self.get_basic_terms_data()
 
     def tearDown(self):
         """Clean up database objects"""

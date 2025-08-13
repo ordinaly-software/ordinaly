@@ -32,6 +32,48 @@ def get_test_image_file():
     return SimpleUploadedFile(file.name, file.read(), content_type='image/png')
 
 
+# General-purpose test data mixin for user, course, and enrollment
+class TestUserCourseEnrollmentMixin:
+    def create_test_user(self, **overrides):
+        data = {
+            'email': 'test@example.com',
+            'username': 'testuser',
+            'password': TEST_PASSWORD,
+            'name': 'Test',
+            'surname': 'User',
+            'company': 'Test Company',
+        }
+        data.update(overrides)
+        return CustomUser.objects.create_user(**data)
+
+    def create_test_course(self, **overrides):
+        data = {
+            'title': 'Test Course',
+            'description': 'Test Description',
+            'image': get_test_image_file(),
+            'price': Decimal('99.99'),
+            'location': 'Test Location',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
+            'max_attendants': 20,
+        }
+        data.update(overrides)
+        return Course.objects.create(**data)
+
+    def create_test_enrollment(self, user=None, course=None, **overrides):
+        user = user or self.create_test_user()
+        course = course or self.create_test_course()
+        data = {
+            'user': user,
+            'course': course,
+        }
+        data.update(overrides)
+        return Enrollment.objects.create(**data)
+
+
 class CourseImageCleanupTestMixin:
     @classmethod
     def teardown_class(cls):
@@ -236,33 +278,11 @@ class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentModelTest(CourseImageCleanupTestMixin, TestCase):
+class EnrollmentModelTest(TestUserCourseEnrollmentMixin, CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
-        self.user = CustomUser.objects.create_user(
-            email='test@example.com',
-            username='testuser',
-            password=TEST_PASSWORD,
-            name='Test',
-            surname='User',
-            company='Test Company'
-        )
-        self.course = Course.objects.create(
-            title='Test Course',
-            description='Test Description',
-            image=get_test_image_file(),
-            price=Decimal('99.99'),
-            location='Test Location',
-            start_date=date(2023, 12, 31),
-            end_date=date(2023, 12, 31),
-            start_time=time(14, 0),
-            end_time=time(17, 0),
-            periodicity='once',
-            max_attendants=20
-        )
-        self.enrollment = Enrollment.objects.create(
-            user=self.user,
-            course=self.course
-        )
+        self.user = self.create_test_user()
+        self.course = self.create_test_course()
+        self.enrollment = self.create_test_enrollment(user=self.user, course=self.course)
 
     def tearDown(self):
         """Clean up database objects"""
