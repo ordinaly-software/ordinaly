@@ -22,37 +22,12 @@ import {
   Mail,
   ChevronDown,
 } from "lucide-react";
+import type { Course } from "@/utils/pdf-generator";
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
 import BonificationInfo from "@/components/formation/bonification-info";
 
-interface Course {
-  id: number;
-  title: string;
-  subtitle?: string;
-  description: string;
-  image: string;
-  price?: number;
-  location: string;
-  start_date: string;
-  end_date: string;
-  start_time: string;
-  end_time: string;
-  periodicity: 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom';
-  timezone: string;
-  weekdays: number[];
-  week_of_month?: number | null;
-  interval: number;
-  exclude_dates: string[];
-  max_attendants: number;
-  created_at: string;
-  updated_at: string;
-  duration_hours?: number;
-  formatted_schedule?: string;
-  schedule_description?: string;
-  next_occurrences?: string[];
-  weekday_display?: string[];
-}
+
 
 interface Enrollment {
   id: number;
@@ -60,14 +35,6 @@ interface Enrollment {
   user: number;
   enrolled_at: string;
 }
-
-// Custom image loader to handle potential URL issues
-const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
-  if (!src || src === 'undefined' || src === 'null') {
-    return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZjNmNGY2Ii8+CjxwYXRoIGQ9Im0xMiA2LTItMiA0IDRoNCIgc3Ryb2tlPSIjOWNhM2FmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K';
-  }
-  return `${src}?w=${width}&q=${quality || 75}`;
-};
 
 const FormationPage = () => {
   const t = useTranslations("formation");

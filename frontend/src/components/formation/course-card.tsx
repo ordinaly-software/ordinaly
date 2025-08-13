@@ -1,12 +1,13 @@
+import React from "react";
+import { useTranslations } from "next-intl";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Calendar, MapPin, Users, UserCheck, UserX, ArrowRight, GraduationCap } from "lucide-react";
-import { useTranslations } from "next-intl";
-import React from "react";
+import type { Course } from "@/utils/pdf-generator";
 
-export interface CourseCardProps {
-  course: any;
+interface CourseCardProps {
+  course: Course;
   variant: "upcoming" | "past";
   enrolled?: boolean;
   onEnroll?: () => void;

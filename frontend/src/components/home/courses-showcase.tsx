@@ -4,13 +4,12 @@ import { useState, useCallback, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, MapPin, Calendar, Euro, ArrowRight, BookOpen, Eye } from "lucide-react";
+import { Clock, MapPin, Calendar, Euro, ArrowRight, BookOpen } from "lucide-react";
 import { useCourses } from "@/hooks/useCourses";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
 import AuthModal from "@/components/auth/auth-modal";
-import { getApiEndpoint } from "@/lib/api-config";
 
 interface Course {
   id: number;
@@ -40,56 +39,28 @@ interface CoursesShowcaseProps {
   onViewAllClick?: () => void;
 }
 
-export default function CoursesShowcase({ 
-  limit = 3, 
-  showUpcomingOnly = true,
-  onCourseClick,
-}: CoursesShowcaseProps) {
+export default function CoursesShowcase(props: CoursesShowcaseProps) {
+  const { limit = 3, showUpcomingOnly = true, onCourseClick } = props;
   const t = useTranslations("home.courses");
   const router = useRouter();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userEnrollments, setUserEnrollments] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    // Check authentication status on mount
+    const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    setIsAuthenticated(!!token);
+  }, []);
+  // Removed enrollments and authentication state for homepage
 
   const { courses, isLoading, error, refetch } = useCourses({
     limit: limit,
     upcoming: showUpcomingOnly,
   });
 
-  // Check authentication status and fetch user enrollments
-  useEffect(() => {
-    const checkAuthAndEnrollments = async () => {
-      const token = localStorage.getItem('authToken');
-      const authenticated = !!token;
-      setIsAuthenticated(authenticated);
-
-      if (authenticated && token) {
-        try {
-          // Fetch user enrollments
-          const response = await fetch(getApiEndpoint('/api/courses/enrollments/'), {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-          });
-
-          if (response.ok) {
-            const enrollments = await response.json();
-            const enrolledCourseIds = new Set<number>(
-              enrollments.map((enrollment: { course: number }) => enrollment.course)
-            );
-            setUserEnrollments(enrolledCourseIds);
-          }
-        } catch {
-          
-        }
-      }
-    };
-
-    checkAuthAndEnrollments();
-  }, []);
+  // Removed enrollments fetching effect for homepage
 
   const handleImageError = useCallback((courseId: number) => {
     setImageErrors(prev => new Set(prev).add(courseId));
@@ -106,14 +77,11 @@ export default function CoursesShowcase({
 
   const handleSignUpClick = useCallback((e: React.MouseEvent, course: Course) => {
     e.stopPropagation();
-    
-    if (!isAuthenticated) {
-      // Show auth modal for non-authenticated users
+    if (isAuthenticated) {
+      router.push(`/formation?course=${course.id}`);
+    } else {
       setSelectedCourse(course);
       setIsAuthModalOpen(true);
-    } else {
-      // For authenticated users, navigate to formation page
-      router.push(`/formation?course=${course.id}`);
     }
   }, [isAuthenticated, router]);
 
@@ -266,7 +234,7 @@ export default function CoursesShowcase({
           <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {courses.map((course) => {
               const availabilityBadge = getAvailabilityBadge(course);
-              const isUserEnrolled = userEnrollments.has(course.id);
+              // Removed isUserEnrolled logic for homepage
               
               return (
                 <Card 
@@ -303,13 +271,7 @@ export default function CoursesShowcase({
                           {availabilityBadge.text}
                         </Badge>
                       </div>
-                      {isUserEnrolled && (
-                        <div className="absolute top-3 left-3 mt-8">
-                          <Badge variant="secondary" className="bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300">
-                            {t('enrolled', { defaultValue: 'Enrolled' })}
-                          </Badge>
-                        </div>
-                      )}
+
                       {course.price && (
                         <div className="absolute top-3 right-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-1">
                           <div className="flex items-center gap-1 text-sm font-semibold text-gray-900 dark:text-white">
@@ -348,8 +310,7 @@ export default function CoursesShowcase({
                             {course.duration_hours ? `${course.duration_hours}h` : t('durationSoon', { defaultValue: 'Duration TBA' })}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                          <MapPin className="w-4 h-4 flex-shrink-0" />
+                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 col-span-2">                          <MapPin className="w-4 h-4 flex-shrink-0" />
                           {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                             <a
                               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
@@ -400,17 +361,10 @@ export default function CoursesShowcase({
                         className="w-full bg-[#22A60D] hover:bg-[#1e8f0a] dark:bg-[#22A60D] dark:hover:bg-[#1a7d08] text-white dark:text-white transition-all duration-300 group shadow-sm hover:shadow-md"
                         onClick={(e) => handleSignUpClick(e, course)}
                       >
-                        {isUserEnrolled ? (
-                          <>
-                            <Eye className="w-4 h-4 mr-2" />
-                            <span>{t('viewDetails', { defaultValue: 'View Details' })}</span>
-                          </>
-                        ) : (
-                          <>
-                            <span>{t('moreInfo', { defaultValue: 'More Info' })}</span>
-                            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                          </>
-                        )}
+                        <>
+                          <span>{t('moreInfo', { defaultValue: 'More Info' })}</span>
+                          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                        </>
                       </Button>
                     </div>
                   </CardContent>

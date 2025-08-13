@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf';
 
 
-interface Course {
+export interface Course {
   id: number;
   title: string;
   subtitle?: string;
@@ -20,6 +20,8 @@ interface Course {
   interval: number;
   exclude_dates: string[];
   max_attendants: number;
+  created_at: string;
+  updated_at: string;
   duration_hours?: number;
   formatted_schedule?: string;
   schedule_description?: string;
