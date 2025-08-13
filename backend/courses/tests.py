@@ -34,7 +34,7 @@ def get_test_image_file():
 
 class CourseImageCleanupTestMixin:
     @classmethod
-    def tearDownClass(cls):
+    def teardown_class(cls):
         """Remove only test-generated images from MEDIA_ROOT/course_images/"""
         course_images_dir = os.path.join(settings.MEDIA_ROOT, 'course_images')
         test_prefixes = [
