@@ -1043,9 +1043,11 @@
       "excludedDatesMessage": "Este curso tiene {count} fecha(s) excluida(s) (feriados o descansos) que no están incluidas en el horario regular.",
       "moreSessions": "Y {count} sesiones más...",
       "noSpecificDate": "Todavía no hay una fecha establecida",
-      "addToCalendar": "Añadir a tu calendario",
       "downloadingCalendar": "Descargando...",
       "calendarDownloadError": "No se pudo descargar el calendario",
+      "addToCalendarICS": "Añadir al calendario (.ics)",
+      "addToGoogleCalendar": "Añadir a Google Calendar",
+      "addToOutlookCalendar": "Añadir a Outlook Calendar",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",

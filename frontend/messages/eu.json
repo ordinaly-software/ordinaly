@@ -975,9 +975,11 @@
       "excludedDatesMessage": "Ikastaro honek {count} baztertutako data (oporrak edo atsedenaldiak) ditu ohiko egitarauan sartzen ez direnak.",
       "moreSessions": "Eta {count} saio gehiago ...",
       "noSpecificDate": "Ez dago data zehatzik",
-      "addToCalendar": "Gehitu egutegira",
       "downloadingCalendar": "Deskargatzen...",
       "calendarDownloadError": "Ez da kalendariaren deskargatzea posible izan",
+      "addToCalendarICS": "Gehitu egutegira (.ics)",
+      "addToGoogleCalendar": "Gehitu Google Calendar",
+      "addToOutlookCalendar": "Gehitu Outlook Calendar",
       "periodicity": {
         "once": "Behin-behineko gertaera",
         "daily": "Eguneroko",

@@ -4,6 +4,7 @@ from users.models import CustomUser
 from decimal import Decimal
 import os
 from datetime import datetime, timedelta
+from django.core.exceptions import ValidationError
 
 
 class Course(models.Model):
@@ -12,7 +13,6 @@ class Course(models.Model):
         max_size = 1024 * 1024  # 1MB
         if self.image and hasattr(self.image, 'size'):
             if self.image.size > max_size:
-                from django.core.exceptions import ValidationError
                 raise ValidationError({
                     'image': 'Course image must be 1MB or less.'
                 })

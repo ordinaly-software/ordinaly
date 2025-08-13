@@ -2,11 +2,8 @@ from rest_framework import viewsets, permissions, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.http import HttpResponse
-import logging
 from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
-
-logger = logging.getLogger(__name__)
 
 
 class IsAdminUserOrReadOnly(permissions.BasePermission):
@@ -32,8 +29,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             # The file deletion is handled in the model's delete method
             self.perform_destroy(instance)
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except Exception as e:
-            logger.error(f"Error deleting course {kwargs.get('pk')}: {str(e)}")
+        except Exception:
             return Response(
                 {"detail": "An error occurred while deleting the course."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -43,8 +39,7 @@ class CourseViewSet(viewsets.ModelViewSet):
         """Override update method to handle file replacement properly."""
         try:
             return super().update(request, *args, **kwargs)
-        except Exception as e:
-            logger.error(f"Error updating course {kwargs.get('pk')}: {str(e)}")
+        except Exception:
             return Response(
                 {"detail": "An error occurred while updating the course."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -54,8 +49,7 @@ class CourseViewSet(viewsets.ModelViewSet):
         """Override partial_update method to handle file replacement properly."""
         try:
             return super().partial_update(request, *args, **kwargs)
-        except Exception as e:
-            logger.error(f"Error updating course {kwargs.get('pk')}: {str(e)}")
+        except Exception:
             return Response(
                 {"detail": "An error occurred while updating the course."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -107,22 +101,15 @@ class CourseViewSet(viewsets.ModelViewSet):
         course = self.get_object()
         user = request.user
 
-        logger.info(f"Unenroll attempt: User {user.id} ({user.email}) from Course {course.id} ({course.title})")
-
         # Check if user is enrolled
         try:
             enrollment = Enrollment.objects.get(user=user, course=course)
-            logger.info(f"Found enrollment {enrollment.id}, proceeding to delete")
             enrollment.delete()
             return Response(
                 {"detail": "Successfully unenrolled from the course."},
                 status=status.HTTP_200_OK
             )
         except Enrollment.DoesNotExist:
-            logger.warning(f"Enrollment not found for user {user.id} in course {course.id}")
-            # Let's check what enrollments exist for this user
-            user_enrollments = Enrollment.objects.filter(user=user)
-            logger.info(f"User has {user_enrollments.count()} enrollments: {[e.course.id for e in user_enrollments]}")
             return Response(
                 {"detail": "You are not enrolled in this course."},
                 status=status.HTTP_400_BAD_REQUEST
@@ -140,18 +127,14 @@ class CourseViewSet(viewsets.ModelViewSet):
                 {"detail": "You must be enrolled in this course to export calendar events."},
                 status=status.HTTP_403_FORBIDDEN
             )
-
-        format_type = request.query_params.get('format', 'google')
-
+        format_type = request.query_params.get('calendar_format', 'google')
         if format_type not in ['google', 'outlook', 'ics']:
             return Response(
                 {"detail": "Invalid format. Supported formats: google, outlook, ics"},
                 status=status.HTTP_400_BAD_REQUEST
             )
-
         try:
             export_data = course.get_calendar_export_data(format_type)
-
             if format_type == 'ics':
                 # Return ICS file for download
                 response = HttpResponse(export_data, content_type='text/calendar')
@@ -164,9 +147,7 @@ class CourseViewSet(viewsets.ModelViewSet):
                     'format': format_type,
                     'events': export_data
                 })
-
-        except Exception as e:
-            logger.error(f"Error generating calendar export for course {course.id}: {str(e)}")
+        except Exception:
             return Response(
                 {"detail": "An error occurred while generating the calendar export."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR

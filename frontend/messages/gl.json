@@ -1046,9 +1046,11 @@
       "excludedDatesMessage": "Hai {count} data(s) excluída(s) (vacacións ou descansos) que non están incluídas no horario regular.",
       "moreSessions": "E {count} sesións máis...",
       "noSpecificDate": "Non hai unha data específica",
-      "addToCalendar": "Engadir ao calendario",
       "downloadingCalendar": "Descargando...",
       "calendarDownloadError": "Non se puido descargar o calendario",
+      "addToCalendarICS": "Engadir ao calendario (.ics)",
+      "addToGoogleCalendar": "Engadir ao Google Calendar",
+      "addToOutlookCalendar": "Engadir ao Outlook Calendar",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",

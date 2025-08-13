@@ -1046,9 +1046,11 @@
       "excludedDatesMessage": "Aquest curs té {Count} Data (s) (S) (vacances o pauses) que no estan incloses en la programació regular.",
       "moreSessions": "I {count} més sessions ...",
       "noSpecificDate": "No s'ha establert cap data específica",
-      "addToCalendar": "Afegeix al calendari",
       "downloadingCalendar": "Descarregant...",
       "calendarDownloadError": "No s'ha pogut descarregar el calendari.",
+      "addToCalendarICS": "Afegeix al calendari (.ics)",
+      "addToGoogleCalendar": "Afegeix a Google Calendar",
+      "addToOutlookCalendar": "Afegeix a Outlook Calendar",
       "periodicity": {
         "once": "Esdeveniment únic",
         "daily": "Cada dia",

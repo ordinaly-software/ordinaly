@@ -1050,9 +1050,11 @@
       "excludedDatesMessage": "This course has {count} excluded date(s) (holidays or breaks) that are not included in the regular schedule.",
       "moreSessions": "And {count} more sessions...",
       "noSpecificDate": "No specific date has been set yet",
-      "addToCalendar": "Add to your calendar",
       "downloadingCalendar": "Downloading...",
       "calendarDownloadError": "Could not download calendar",
+      "addToCalendarICS": "Add to calendar (.ics)",
+      "addToGoogleCalendar": "Add to Google Calendar",
+      "addToOutlookCalendar": "Add to Outlook Calendar",
       "periodicity": {
         "once": "One-time event",
         "daily": "Daily",
