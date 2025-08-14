@@ -1,6 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
+// Dynamically import highlight.js CSS only on the client for performance
+if (typeof window !== "undefined") {
+  import("@/styles/highlight");
+}
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";

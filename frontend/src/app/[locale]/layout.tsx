@@ -130,6 +130,10 @@ export default async function RootLayout({ children, params } :
         {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+  {/* Preload Inter font files for faster LCP/FCP */}
+  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTcviYw.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTcviYw.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+  {/* Add more font weights/styles if used, e.g. bold, medium, etc. */}
         
         {/* Theme initialization script to prevent flash */}
         <script
@@ -156,28 +160,10 @@ export default async function RootLayout({ children, params } :
           }}
         />
         
-        {/* Syntax highlighting for code blocks */}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css" media="(prefers-color-scheme: light)" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github-dark.min.css" media="(prefers-color-scheme: dark)" />
         
         {/* Only preload logo as it's used on all pages in navbar */}
         <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
         
-        {/* Optimized font loading */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
-                link.media = 'print';
-                link.onload = function() { this.media = 'all'; };
-                document.head.appendChild(link);
-              })();
-            `,
-          }}
-        />
         
         {/* PWA meta tags */}
         <meta name="application-name" content="Ordinaly" />
