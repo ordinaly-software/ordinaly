@@ -68,9 +68,9 @@ const WhatsAppBubble = () => {
           </button>
 
           {/* Tooltip */}
-          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+          <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-gray-900 dark:bg-[#23272F] text-white dark:text-white text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap border border-gray-700 dark:border-gray-600">
             {t('tooltip')}
-            <div className="absolute left-full top-1/2 -translate-y-1/2 border-l-4 border-l-gray-900 dark:border-l-gray-100 border-y-4 border-y-transparent"></div>
+            <div className="absolute left-full top-1/2 -translate-y-1/2 border-l-4 border-l-gray-900 dark:border-l-[#23272F] border-y-4 border-y-transparent"></div>
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@ const WhatsAppBubble = () => {
       {/* WhatsApp Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-card text-card-foreground rounded-2xl shadow-2xl max-w-md w-full border border-border overflow-hidden">
+          <div className="bg-white dark:bg-[#23272F] text-gray-900 dark:text-white rounded-2xl shadow-2xl max-w-md w-full border border-gray-200 dark:border-gray-700 overflow-hidden">
             {/* Header */}
             <div className="bg-[#22A60D] text-white p-6 relative">
               <ModalCloseButton
@@ -93,7 +93,7 @@ const WhatsAppBubble = () => {
                   <Bot className="text-white" size={24} />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold">
+                  <h2 className="text-xl font-bold text-white">
                     {t('title')}
                   </h2>
                   <p className="text-white/90 text-sm">
@@ -106,13 +106,13 @@ const WhatsAppBubble = () => {
             {/* Content */}
             <div className="p-6">
               <div className="mb-6">
-                <div className="bg-gradient-to-r from-[#22A60D]/10 to-[#20c55a]/10 p-4 rounded-lg border border-border mb-4">
+                <div className="bg-gradient-to-r from-[#22A60D]/10 to-[#20c55a]/10 dark:from-[#174d0c] dark:to-[#174d0c] p-4 rounded-lg border border-gray-200 dark:border-gray-700 mb-4">
                   <div className="flex items-start space-x-3">
                     <div className="bg-[#22A60D] rounded-full p-2 flex-shrink-0">
                       <MessageCircle className="text-white" size={16} />
                     </div>
                     <div>
-                      <p className="text-sm text-muted-foreground leading-relaxed">
+                      <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed">
                         {t('description')}
                       </p>
                     </div>
@@ -120,7 +120,7 @@ const WhatsAppBubble = () => {
                 </div>
 
                 <div className="space-y-3">
-                  <h3 className="font-semibold text-foreground flex items-center space-x-2">
+                  <h3 className="font-semibold text-gray-900 dark:text-white flex items-center space-x-2">
                     <Send size={16} />
                     <span>{t('canHelpWith')}</span>
                   </h3>
@@ -133,7 +133,7 @@ const WhatsAppBubble = () => {
                       t('help4'),
                       t('help5')
                     ].map((item, idx) => (
-                      <li key={idx} className="flex items-center space-x-2 text-sm text-muted-foreground">
+                      <li key={idx} className="flex items-center space-x-2 text-sm text-gray-800 dark:text-gray-200">
                         <div className="w-1.5 h-1.5 bg-[#22A60D] rounded-full flex-shrink-0"></div>
                         <span>{item}</span>
                       </li>
@@ -155,7 +155,7 @@ const WhatsAppBubble = () => {
                 </Button>
 
                 <div className="text-center">
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs text-gray-700 dark:text-gray-200">
                     {t('responseTime')}
                   </p>
                 </div>
@@ -163,8 +163,8 @@ const WhatsAppBubble = () => {
             </div>
 
             {/* Footer */}
-            <div className="bg-muted/30 p-4 border-t border-border">
-              <div className="flex items-center justify-center space-x-2 text-xs text-muted-foreground">
+            <div className="bg-gray-100 dark:bg-[#23272F] p-4 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex items-center justify-center space-x-2 text-xs text-gray-700 dark:text-gray-200">
                 <div className="w-2 h-2 bg-[#22A60D] rounded-full animate-pulse"></div>
                 <span>{t('status')}</span>
               </div>

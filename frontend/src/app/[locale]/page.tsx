@@ -142,7 +142,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#22A60D]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
+  <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#23272F] dark:via-[#23272F] dark:to-[#23272F]">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
@@ -151,8 +151,8 @@ export default function HomePage() {
                   <ColourfulText text={t("hero.title")} />
                 </Suspense>
               </h1>
-              <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-800 dark:text-white">{t("hero.subtitle")}</h2>
-              <p className="text-xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed">
+              <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-900 dark:text-white">{t("hero.subtitle")}</h2>
+              <p className="text-xl text-gray-800 dark:text-gray-200 mb-12 leading-relaxed">
                 {t("hero.description")}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -226,7 +226,7 @@ export default function HomePage() {
       />
 
       {/* Partners Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-black">
+  <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-white">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center justify-items-center">
@@ -295,7 +295,7 @@ export default function HomePage() {
       </Suspense>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
+  <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#23272F]">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
@@ -313,13 +313,13 @@ export default function HomePage() {
               />
             </div>
             <div className="scroll-animate slide-in-right">
-              <h2 className="text-2xl md:text-4xl font-bold mb-8 text-[#22A60D]">
+              <h2 className="text-2xl md:text-4xl font-bold mb-8 text-[#22A60D] dark:text-[#22A60D]">
                 {t("about.title")}
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-200 mb-6 leading-relaxed">
                 {t("about.description1")}
               </p>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 leading-relaxed">
                 {t("about.description2")}
               </p>
             </div>
@@ -328,16 +328,16 @@ export default function HomePage() {
       </section>
 
       {/* Technologies Section */}
-      <section id="technologies" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-gray-800/50">
+  <section id="technologies" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#23272F]">
         <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16 scroll-animate fade-in-up">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#E4572E]">{t("technologies.title")}</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#E4572E] dark:text-[#FF7043]">{t("technologies.title")}</h2>
+            <p className="text-xl text-gray-700 dark:text-gray-200 max-w-3xl mx-auto">
               {t("technologies.description")}
             </p>
           </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-            <div className="text-center p-6 bg-[#22A60D]/10 rounded-2xl flex flex-col items-center">
+            <div className="text-center p-6 bg-[#22A60D]/10 dark:bg-[#174d0c] rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/odoo_logo.webp"
               alt="Odoo"
               width={80}
@@ -346,10 +346,10 @@ export default function HomePage() {
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
-              <div className="text-lg font-semibold text-[#22A60D] mb-1">{t("technologies.odoo.title")}</div>
-              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.odoo.description")}</div>
+              <div className="text-lg font-semibold text-[#22A60D] dark:text-[#7CFC00] mb-1">{t("technologies.odoo.title")}</div>
+              <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.odoo.description")}</div>
             </div>
-            <div className="text-center p-6 bg-[#46B1C9]/10 rounded-2xl flex flex-col items-center">
+            <div className="text-center p-6 bg-[#46B1C9]/10 dark:bg-[#1a3a40] rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/whatsapp_logo.webp" 
               alt="WhatsApp Business" 
               width={80}
@@ -359,10 +359,10 @@ export default function HomePage() {
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
-              <div className="text-lg font-semibold text-[#46B1C9] mb-1">{t("technologies.whatsapp.title")}</div>
-              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.whatsapp.description")}</div>
+              <div className="text-lg font-semibold text-[#46B1C9] dark:text-[#00E5FF] mb-1">{t("technologies.whatsapp.title")}</div>
+              <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.whatsapp.description")}</div>
             </div>
-            <div className="text-center p-6 bg-[#623CEA]/10 rounded-2xl flex flex-col items-center">
+            <div className="text-center p-6 bg-[#623CEA]/10 dark:bg-[#2a1a4d] rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/chatgpt_logo.webp"
               alt="ChatGPT"
               width={80}
@@ -372,10 +372,10 @@ export default function HomePage() {
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
-              <div className="text-lg font-semibold text-[#623CEA] mb-1">{t("technologies.chatgpt.title")}</div>
-              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.chatgpt.description")}</div>
+              <div className="text-lg font-semibold text-[#623CEA] dark:text-[#B388FF] mb-1">{t("technologies.chatgpt.title")}</div>
+              <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.chatgpt.description")}</div>
             </div>
-            <div className="text-center p-6 bg-[#00BFAE]/10 rounded-2xl flex flex-col items-center">
+            <div className="text-center p-6 bg-[#00BFAE]/10 dark:bg-[#0d4740] rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/gemini_logo.webp"
               alt="Gemini"
               width={80}
@@ -385,10 +385,10 @@ export default function HomePage() {
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
-              <div className="text-lg font-semibold text-[#00BFAE] mb-1">{t("technologies.gemini.title")}</div>
-              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.gemini.description")}</div>
+              <div className="text-lg font-semibold text-[#00BFAE] dark:text-[#1DE9B6] mb-1">{t("technologies.gemini.title")}</div>
+              <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.gemini.description")}</div>
             </div>
-            <div className="text-center p-6 bg-[#4285F4]/10 rounded-2xl flex flex-col items-center">
+            <div className="text-center p-6 bg-[#4285F4]/10 dark:bg-[#1a2a4d] rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/looker_studio_logo.webp"
               alt="Looker Studio"
               width={80}
@@ -398,10 +398,10 @@ export default function HomePage() {
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
-              <div className="text-lg font-semibold text-[#4285F4] mb-1">{t("technologies.looker.title")}</div>
-              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.looker.description")}</div>
+              <div className="text-lg font-semibold text-[#4285F4] dark:text-[#82B1FF] mb-1">{t("technologies.looker.title")}</div>
+              <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.looker.description")}</div>
             </div>
-            <div className="text-center p-6 bg-[#4285F4]/10 rounded-2xl flex flex-col items-center">
+            <div className="text-center p-6 bg-[#4285F4]/10 dark:bg-[#1a2a4d] rounded-2xl flex flex-col items-center">
               <Image src="/static/tools/meta_logo.webp"
               width={80}
               height={40}
@@ -411,8 +411,8 @@ export default function HomePage() {
               loading="lazy"
               placeholder="blur"
               blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
-              <div className="text-lg font-semibold text-[#4285F4] mb-1">{t("technologies.meta.title")}</div>
-              <div className="text-gray-600 dark:text-gray-400 text-sm">{t("technologies.meta.description")}</div>
+              <div className="text-lg font-semibold text-[#4285F4] dark:text-[#82B1FF] mb-1">{t("technologies.meta.title")}</div>
+              <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.meta.description")}</div>
             </div>
             </div>
         </div>

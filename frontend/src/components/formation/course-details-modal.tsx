@@ -530,7 +530,8 @@ const CourseDetailsModal = ({
                   </>
                 )}
                 <br></br>
-                {!hasStarted && (
+                {/* Show 'Cancel Enrollment' only if enrolled and course has NOT started yet */}
+                {isEnrolled && !hasStarted && (
                   <Button
                     onClick={onCancel}
                     variant="outline"

@@ -84,7 +84,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
       <div className="space-y-4 max-h-[75vh] overflow-y-auto px-1 sm:px-0">
         {/* Course Image at the very top, full width */}
         {course.image && course.image !== "undefined" && course.image !== "null" && (
-          <div className="relative w-full h-64 bg-gray-200 overflow-hidden group rounded-xl">
+          <div className="relative w-full h-56 sm:h-64 bg-gray-200 overflow-hidden group rounded-xl mb-4">
             {/* Blurred image */}
             <Image
               loader={imageLoader}
@@ -97,8 +97,15 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
               draggable={false}
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4">
+            {/* Softer gradient overlays: top for mobile, bottom for desktop, less opaque at bottom */}
+            <div className="absolute inset-0 pointer-events-none">
+              {/* Top gradient for mobile, bottom for desktop, both less opaque */}
+              <div className="w-full h-full sm:bg-gradient-to-t sm:from-black/50 sm:via-transparent sm:to-transparent bg-gradient-to-b from-black/40 via-transparent to-transparent" />
+              {/* Subtle bottom fade for all screens */}
+              <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+            </div>
+            {/* Tags and title: top on mobile, bottom on desktop */}
+            <div className="absolute top-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 sm:top-auto">
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 {course.price !== null && course.price !== undefined && (
                   <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500 text-white">
@@ -110,9 +117,9 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                   {t(`form.periodicity.${course.periodicity}`)}
                 </span>
               </div>
-              <h1 className="text-2xl font-bold text-white mb-1">{course.title}</h1>
+              <h1 className="text-lg sm:text-2xl font-bold text-white mb-1">{course.title}</h1>
               {course.subtitle && (
-                <p className="text-gray-200 text-sm">{course.subtitle}</p>
+                <p className="text-gray-200 text-sm sm:text-base leading-snug max-w-full break-words line-clamp-none">{course.subtitle}</p>
               )}
             </div>
           </div>

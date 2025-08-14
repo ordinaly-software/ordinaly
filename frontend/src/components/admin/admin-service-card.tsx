@@ -178,12 +178,12 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   {service.duration && <span>{tAdmin("labels.duration")}: {service.duration === 1 ? t("durationDay") : t("durationDays", { count: service.duration })}</span>}
                 </div>
               </div>
-              <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:space-x-2 ml-0 md:ml-4 mt-2 md:mt-0">
+              <div className="flex flex-col gap-2 ml-0 md:ml-4 mt-2 md:mt-0">
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => onView(service)}
-                  className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10 w-full md:w-auto"
+                  className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10"
                 >
                   <Eye className="h-4 w-4" />
                 </Button>
@@ -192,7 +192,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   size="sm"
                   onClick={() => onEdit(service)}
                   style={{ color: '#46B1C9' }}
-                  className="hover:bg-opacity-10 w-full md:w-auto"
+                  className="hover:bg-opacity-10"
                   onMouseEnter={e => {
                     e.currentTarget.style.backgroundColor = '#46B1C9' + '10';
                   }}
@@ -206,7 +206,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onDelete(service)}
-                  className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 w-full md:w-auto"
+                  className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20"
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>

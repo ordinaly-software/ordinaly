@@ -164,10 +164,10 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D]">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">
               {t('upcomingTitle', { defaultValue: 'Upcoming Courses' })}
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
               {t('upcomingDescription', { defaultValue: 'Discover our upcoming professional training courses' })}
             </p>
           </div>
@@ -179,7 +179,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                 {t('noCoursesTitle', { defaultValue: 'No Upcoming Courses' })}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-gray-800 dark:text-gray-200 mb-6">
                 {t('noCoursesMessage', { defaultValue: 'Stay tuned for new course announcements!' })}
               </p>
               <div className="flex justify-center">
@@ -202,10 +202,10 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D]">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">
             {t('showcaseTitle', { defaultValue: 'Featured Courses' })}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
             {t('showcaseDescription', { defaultValue: 'Join our upcoming professional training courses and advance your career' })}
           </p>
         </div>
@@ -283,11 +283,11 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                     </div>
                     
                     <div className="space-y-2">
-                      <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#22A60D] transition-colors break-words whitespace-pre-line">
+                        <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#22A60D] transition-colors break-words whitespace-pre-line">
                         {course.title.replace(/🌐 |🐍 |📊 |📱 |☁️ |🎨 |🤖 |🔒 |🔗 |💻 |📈 |🔧 /g, '')}
                       </CardTitle>
                       {course.subtitle && (
-                        <CardDescription className="text-gray-600 dark:text-gray-400 line-clamp-2">
+                        <CardDescription className="text-gray-800 dark:text-gray-200 line-clamp-2">
                           {course.subtitle}
                         </CardDescription>
                       )}
@@ -298,19 +298,19 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                     <div className="space-y-4">
                       {/* Course Details */}
                       <div className="grid grid-cols-2 gap-3 text-sm">
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200">
                           <Calendar className="w-4 h-4 flex-shrink-0" />
                           <span className="truncate">
                             {course.start_date ? formatDate(course.start_date) : t('datesSoon', { defaultValue: 'Dates coming soon' })}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200">
                           <Clock className="w-4 h-4 flex-shrink-0" />
                           <span className="truncate">
                             {course.duration_hours ? `${course.duration_hours}h` : t('durationSoon', { defaultValue: 'Duration TBA' })}
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 col-span-2">                          <MapPin className="w-4 h-4 flex-shrink-0" />
+                        <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200 col-span-2">                          <MapPin className="w-4 h-4 flex-shrink-0" />
                           {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                             <a
                               href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
@@ -343,7 +343,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                       {/* Progress Bar */}
                       {new Date(course.start_date) > new Date() && new Date(course.end_date) > new Date() && (
                         <div className="space-y-2">
-                          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                          <div className="flex justify-between text-sm text-gray-800 dark:text-gray-200">
                             <span>{course.enrolled_count} {t('enrolled')}</span>
                             <span>{course.max_attendants} {t('max')}</span>
                           </div>

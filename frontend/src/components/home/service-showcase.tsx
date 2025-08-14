@@ -42,8 +42,8 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
     <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 scroll-animate fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D]">{t("services.title")}</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">{t("services.title")}</h2>
+          <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
             {t("services.description")}
           </p>
         </div>
@@ -62,7 +62,7 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
           </div>
         ) : isOnVacation ? (
           <div className="text-center py-16">
-            <div className="max-w-md mx-auto bg-white dark:bg-gray-800/50 rounded-xl shadow-lg p-8">
+            <div className="max-w-md mx-auto bg-white dark:bg-[#23272F] rounded-xl shadow-lg p-8">
               <div className="w-16 h-16 mx-auto mb-4 bg-[#22A60D]/10 rounded-full flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#22A60D]">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -74,7 +74,7 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                 {t('services.vacationTitle')}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-gray-800 dark:text-gray-200 mb-6">
                 {t('services.vacationMessage')}
               </p>
               <Button
@@ -93,7 +93,7 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
           </div>
         ) : error ? (
           <div className="text-center py-16">
-            <div className="max-w-md mx-auto bg-white dark:bg-gray-800/50 rounded-xl shadow-lg p-8">
+            <div className="max-w-md mx-auto bg-white dark:bg-[#23272F] rounded-xl shadow-lg p-8">
               <div className="w-16 h-16 mx-auto mb-4 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red-600 dark:text-red-400">
                   <circle cx="12" cy="12" r="10"/>
@@ -104,7 +104,7 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
                 Error Loading Services
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
+              <p className="text-gray-800 dark:text-gray-200 mb-6">
                 {error}
               </p>
               <Button
@@ -154,9 +154,9 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
                     </div>
                     <CardTitle className="text-xl text-gray-900 dark:text-white">{service.title}</CardTitle>
                     {service.subtitle && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{service.subtitle}</p>
+                      <p className="text-sm text-gray-800 dark:text-gray-200 mb-2">{service.subtitle}</p>
                     )}
-                    <CardDescription className="text-gray-600 dark:text-gray-400">
+                    <CardDescription className="text-gray-800 dark:text-gray-200">
                       {truncateText(service.clean_description ?? "", 120)}
                     </CardDescription>
                     <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -164,7 +164,7 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
                         {service.price && !isNaN(Number(service.price)) ? (
                           <span className="text-lg font-semibold text-gray-900 dark:text-white">€{Math.round(Number(service.price))}</span>
                         ) : (
-                          <span className="text-sm text-gray-600 dark:text-gray-400 italic">{t("services.contactForQuote")}</span>
+                          <span className="text-sm text-gray-800 dark:text-gray-200 italic">{t("services.contactForQuote")}</span>
                         )}
                       </div>
                       <Button
@@ -199,7 +199,7 @@ export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
             })}
           </div>
         ) : (
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-8 text-gray-700 dark:text-gray-200">
             {t("services.noServices")}
           </div>
         )}
