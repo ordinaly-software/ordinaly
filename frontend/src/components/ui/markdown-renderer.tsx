@@ -1,7 +1,5 @@
 "use client";
 
-import React, { useEffect } from "react";
-// Dynamically import highlight.js CSS only on the client for performance
 if (typeof window !== "undefined") {
   import("@/styles/highlight");
 }

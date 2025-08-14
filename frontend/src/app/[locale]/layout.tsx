@@ -123,17 +123,7 @@ export default async function RootLayout({ children, params } :
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
         {/* DNS prefetch for critical domains */}
-        <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="//fonts.gstatic.com" />
         <link rel="dns-prefetch" href="//wa.me" />
-        
-        {/* Preconnect to external domains for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-  {/* Preload Inter font files for faster LCP/FCP */}
-  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTcviYw.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTcviYw.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-  {/* Add more font weights/styles if used, e.g. bold, medium, etc. */}
         
         {/* Theme initialization script to prevent flash */}
         <script
