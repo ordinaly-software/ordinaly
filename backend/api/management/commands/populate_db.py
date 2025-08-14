@@ -480,8 +480,8 @@ Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles
                 'title': 'Automatización de Redes Sociales',
                 'subtitle': 'Automatización la publicación de tu contenidos en distintas redes sociales',
                 'description': '''
-Estas automatizaciones te permitirán centrarte en la creación de contenido dejando toda la gestión y subida de los "
-"mismos a la Inteligencia Artificial.
+Estas automatizaciones te permitirán centrarte en la creación de contenido dejando toda la gestión y subida de los
+ mismos a la Inteligencia Artificial.
 
 ## 🎯 Beneficios
 
