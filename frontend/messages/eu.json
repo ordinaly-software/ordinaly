@@ -396,7 +396,8 @@
       "sendMail": "Bidali posta",
       "selectAll": "Hautatu guztiak",
       "searchPlaceholder": "Bilatu erabiltzaileak...",
-      "users": "erabiltzaileak"
+      "users": "erabiltzaileak",
+      "lastLogin": "Azken saioa"
     },
     "stats": {
       "totalServices": "Zerbitzu guztira",
@@ -1016,6 +1017,36 @@
           "short": "Eguzki",
           "full": "Igande"
         }
+      },
+      "months": {
+        "january": "urtarrila",
+        "february": "otsaila",
+        "march": "martxoa",
+        "april": "apirila",
+        "may": "maiatza",
+        "june": "ekaina",
+        "july": "uztaila",
+        "august": "abuztua",
+        "september": "iraila",
+        "october": "urria",
+        "november": "azaroa",
+        "december": "abendua"
+      },
+      "fullScheduleText": {
+        "once": "{date} {startTime}tik {endTime}ra",
+        "daily": "Egunero {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "everyXDays": "{interval} egunero {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "everyWeekdays": "{weekdays}ero {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "everyXWeeksOnWeekdays": "{interval} astero {weekdays} {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "everyXWeeksOnWeekday": "{interval} astero {weekday} {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "everyOtherWeekOnWeekdays": "Bi astero {weekdays} {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "weekly": "Astero {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "biweekly": "Bi astero {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "monthlyOnWeek": "{weekOfMonth} {weekday} hilero {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "monthly": "Hilero {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "everyXMonths": "{interval} hilero {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "customWithWeekdays": "{weekdays} {startDate}tik {endDate}ra, {startTime} - {endTime}",
+        "custom": "Ordutegi pertsonalizatua {startDate}tik {endDate}ra, {startTime} - {endTime}"
       }
     }
   },

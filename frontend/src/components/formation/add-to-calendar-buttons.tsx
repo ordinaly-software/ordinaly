@@ -1,7 +1,31 @@
 import { Button } from "@/components/ui/button";
-import { Download, CalendarPlus, CalendarDays } from 'lucide-react';
+import { CalendarPlus } from 'lucide-react';
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+
+const GoogleIcon = () => (
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Google_Calendar_icon_%282020%29.svg"
+    alt="Google Calendar"
+    className="w-5 h-5 mr-2"
+    style={{ display: 'inline-block', verticalAlign: 'middle' }}
+    loading="lazy"
+    width={20}
+    height={20}
+  />
+);
+const OutlookIcon = () => (
+  <img
+    src="https://cdn-icons-png.flaticon.com/512/732/732223.png"
+    alt="Outlook Calendar"
+    className="w-5 h-5 mr-2"
+    style={{ display: 'inline-block', verticalAlign: 'middle' }}
+    loading="lazy"
+    width={20}
+    height={20}
+  />
+);
+
 
 interface AddToCalendarButtonsProps {
   courseId: number;
@@ -60,34 +84,36 @@ export const AddToCalendarButtons = ({
 
   return (
     <div className="space-y-2">
+      {/* .ics Button */}
       <Button
         onClick={() => handleAddToCalendar("ics")}
         variant="outline"
-        className="w-full border-blue-200 text-blue-600 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-900/20 h-12 text-base"
-        disabled={downloading || disabled}
-      >
-        <Download className="w-5 h-5 mr-2" />
-        {downloading ? t("downloadingCalendar") || "Downloading..." : t("addToCalendarICS") || "Add to Calendar (.ics)"}
-      </Button> 
-      <Button
-        onClick={() => handleAddToCalendar("google")}
-        variant="outline"
-        className="w-full border-2 border-blue-400 bg-blue-100 text-blue-800 hover:bg-blue-200 dark:border-blue-600 dark:text-blue-200 dark:hover:bg-blue-900/40 h-12 text-base font-bold shadow-md"
+        className="w-full border-blue-300 text-blue-700 bg-white hover:bg-blue-50 dark:border-blue-700 dark:text-blue-200 dark:bg-gray-900 dark:hover:bg-blue-900/30 h-12 text-base font-semibold transition-colors"
         disabled={downloading || disabled}
       >
         <CalendarPlus className="w-5 h-5 mr-2" />
+        {downloading ? t("downloadingCalendar") || "Downloading..." : t("addToCalendarICS") || "Add to Calendar (.ics)"}
+      </Button>
+      {/* Google Calendar Button */}
+      <Button
+        onClick={() => handleAddToCalendar("google")}
+        variant="outline"
+        className="w-full border-blue-400 bg-blue-100 text-blue-800 hover:bg-blue-200 dark:border-blue-600 dark:text-blue-100 dark:bg-blue-900/40 dark:hover:bg-blue-900/60 h-12 text-base font-bold shadow-md transition-colors"
+        disabled={downloading || disabled}
+      >
+        <GoogleIcon />
         {downloading ? t("downloadingCalendar") || "Downloading..." : t("addToGoogleCalendar") || "Add to Google Calendar"}
       </Button>
+      {/* Outlook Calendar Button */}
       <Button
         onClick={() => handleAddToCalendar("outlook")}
         variant="outline"
-        className="w-full border-blue-200 text-blue-600 hover:bg-blue-50 dark:border-blue-800 dark:text-blue-400 dark:hover:bg-blue-900/20 h-12 text-base"
+        className="w-full border-blue-300 text-blue-700 bg-white hover:bg-blue-50 dark:border-blue-700 dark:text-blue-200 dark:bg-gray-900 dark:hover:bg-blue-900/30 h-12 text-base font-semibold transition-colors"
         disabled={downloading || disabled}
       >
-        <CalendarDays className="w-5 h-5 mr-2" />
+        <OutlookIcon />
         {downloading ? t("downloadingCalendar") || "Downloading..." : t("addToOutlookCalendar") || "Add to Outlook Calendar"}
       </Button>
-
     </div>
   );
 }

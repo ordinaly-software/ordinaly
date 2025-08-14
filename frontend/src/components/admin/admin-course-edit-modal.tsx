@@ -449,10 +449,17 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
                   type="number"
                   min="1"
                   max="52"
-                  value={formData.interval ?? ""}
-                  onChange={(e) => setFormData(prev => ({...prev, interval: parseInt(e.target.value) || 1}))}
+                  value={formData.periodicity === 'once' ? 1 : formData.interval ?? ""}
+                  onChange={(e) => {
+                    const val = parseInt(e.target.value) || 1;
+                    setFormData(prev => ({
+                      ...prev,
+                      interval: prev.periodicity === 'once' ? 1 : val
+                    }));
+                  }}
                   placeholder={t("form.intervalPlaceholder")}
                   className="h-11 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
+                  disabled={formData.periodicity === 'once'}
                 />
               </div>
               <div className="space-y-2">

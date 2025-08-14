@@ -51,15 +51,14 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      showHeader={false} // we render a custom responsive header
+      showHeader={false}
       className="w-[min(100vw-1rem,28rem)] mx-2 sm:mx-4 p-0 rounded-2xl overflow-hidden"
     >
       {courseToCancel && (
-        // Same shell: header (auto) + scroll (1fr) + footer (auto)
-        <div className="grid grid-rows-[auto,1fr,auto] bg-[#12121A] max-h-[clamp(560px,90svh,820px)]">
+        <div className="grid grid-rows-[auto,1fr,auto] bg-white dark:bg-[#12121A] max-h-[clamp(560px,90svh,820px)]">
           {/* HEADER (title + close, no overlap) */}
-          <div className="flex items-start justify-between px-4 pt-4 pb-3 border-b border-white/10">
-            <h2 className="text-white font-bold leading-tight flex-1 mr-2"
+          <div className="flex items-start justify-between px-4 pt-4 pb-3 border-b border-gray-200 dark:border-white/10">
+            <h2 className="text-gray-900 dark:text-white font-bold leading-tight flex-1 mr-2"
                 style={{ fontSize: 'clamp(1rem, 3.8vw, 1.35rem)' }}>
               {t("cancellation.title")}
             </h2>
@@ -91,14 +90,14 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
                 <div className="space-y-2">
                   <div className="flex items-center">
                     <CalendarDays className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("date")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-gray-200">{t("date")}:</span>
                     <span className="ml-2 text-gray-600 dark:text-gray-400">
                       {new Date(courseToCancel.start_date).toLocaleDateString()}
                     </span>
                   </div>
                   <div className="flex items-center">
                     <MapPin className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("location")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-gray-200">{t("location")}:</span>
                     <span className="ml-2 text-gray-600 dark:text-gray-400">
                       {courseToCancel.location}
                     </span>
@@ -107,7 +106,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
                 <div className="space-y-2">
                   <div className="flex items-center">
                     <Euro className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("price")}:</span>
+                    <span className="font-medium text-gray-900 dark:text-gray-200">{t("price")}:</span>
                     <span className="ml-2 text-gray-600 dark:text-gray-400">
                       {courseToCancel.price ? `€${courseToCancel.price}` : t("free")}
                     </span>
@@ -118,7 +117,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
 
             {/* Confirmation Message */}
             <div className="text-center py-3">
-              <p className="text-gray-200">
+              <p className="text-gray-700 dark:text-gray-200">
                 {t("cancellation.confirmMessage")}
               </p>
             </div>
@@ -128,7 +127,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
           <div
             className="px-4 pt-3
                        pb-[calc(env(safe-area-inset-bottom)+16px)]
-                       bg-[#12121A] border-t border-white/10
+                       bg-white dark:bg-[#12121A] border-t border-gray-200 dark:border-white/10
                        flex flex-col sm:flex-row gap-3 justify-end
                        shadow-[0_-6px_12px_-6px_rgba(0,0,0,0.3)]"
           >

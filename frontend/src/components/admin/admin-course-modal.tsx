@@ -85,26 +85,16 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
         {/* Course Image at the very top, full width */}
         {course.image && course.image !== "undefined" && course.image !== "null" && (
           <div className="relative w-full h-64 bg-gray-200 overflow-hidden group rounded-xl">
-            {/* Blurred background */}
+            {/* Blurred image */}
             <Image
               loader={imageLoader}
               src={course.image}
               alt={course.title}
               fill
-              className="object-cover scale-110 blur-md opacity-60"
+              className="object-cover blur-md opacity-80"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
               aria-hidden="true"
               draggable={false}
-              priority
-            />
-            {/* Main image on top */}
-            <Image
-              loader={imageLoader}
-              src={course.image}
-              alt={course.title}
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-300"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -131,14 +121,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
         <div className="flex flex-col sm:flex-row landscape:flex-col-reverse items-start sm:space-x-6 space-y-4 sm:space-y-0 landscape:space-y-4 landscape:sm:space-x-0">
           {/* Course Info */}
           <div className="flex-1 min-w-0 w-full">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 break-words">
-              {course.title}
-            </h2>
-            {course.subtitle && (
-              <p className="text-lg text-gray-600 dark:text-gray-400 mb-3 break-words">
-                {course.subtitle}
-              </p>
-            )}
+            {/* Title and subtitle removed from body, as they are shown on the image */}
             {/* Key Metrics - stack vertically on mobile */}
             <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-2">
               <div className="bg-[#22A60D]/10 rounded-lg p-4 flex-1 min-w-0">

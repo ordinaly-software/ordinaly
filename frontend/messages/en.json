@@ -421,7 +421,8 @@
       "sendMail": "Send Mail",
       "selectAll": "Select All",
       "searchPlaceholder": "Search users...",
-      "users": "users"
+      "users": "users",
+      "lastLogin": "Last Login"
     },
     "stats": {
       "totalServices": "Total Services",
@@ -1091,6 +1092,22 @@
           "short": "Sun",
           "full": "Sunday"
         }
+      },
+      "fullScheduleText": {
+        "once": "{date} from {startTime} to {endTime}",
+        "daily": "Daily from {startDate} to {endDate}, {startTime} - {endTime}",
+        "everyXDays": "Every {interval} days from {startDate} to {endDate}, {startTime} - {endTime}",
+        "everyWeekdays": "Every {weekdays} from {startDate} to {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekdays": "Every {interval} weeks on {weekdays} from {startDate} to {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekday": "Every {interval} weeks on {weekday} from {startDate} to {endDate}, {startTime} - {endTime}",
+        "everyOtherWeekOnWeekdays": "Every other week on {weekdays} from {startDate} to {endDate}, {startTime} - {endTime}",
+        "weekly": "Weekly from {startDate} to {endDate}, {startTime} - {endTime}",
+        "biweekly": "Biweekly from {startDate} to {endDate}, {startTime} - {endTime}",
+        "monthlyOnWeek": "{weekOfMonth} {weekday} of every month from {startDate} to {endDate}, {startTime} - {endTime}",
+        "monthly": "Monthly from {startDate} to {endDate}, {startTime} - {endTime}",
+        "everyXMonths": "Every {interval} months from {startDate} to {endDate}, {startTime} - {endTime}",
+        "customWithWeekdays": "{weekdays} from {startDate} to {endDate}, {startTime} - {endTime}",
+        "custom": "From {startDate} to {endDate}, {startTime} - {endTime}"
       }
     }
   },

@@ -62,6 +62,129 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
+// Helper to robustly map backend schedule string to translation key and variables
+function renderFullScheduleText(course: Course, t: ReturnType<typeof useTranslations>) {
+  // Try to parse the formatted_schedule and map to a translation key
+  // Example: "Every 4 weeks on Thursday from September 01, 2025 to September 30, 2025, 11:00 - 13:00"
+  const fs = course.formatted_schedule;
+  if (!fs) return '';
+
+  // English to localized weekday and month mapping
+  const weekdayMap: Record<string, string> = {
+    'Monday': t('weekdays.monday.full'),
+    'Tuesday': t('weekdays.tuesday.full'),
+    'Wednesday': t('weekdays.wednesday.full'),
+    'Thursday': t('weekdays.thursday.full'),
+    'Friday': t('weekdays.friday.full'),
+    'Saturday': t('weekdays.saturday.full'),
+    'Sunday': t('weekdays.sunday.full'),
+  };
+  const monthMap: Record<string, string> = {
+    'January': t('months.january', { default: 'enero' }),
+    'February': t('months.february', { default: 'febrero' }),
+    'March': t('months.march', { default: 'marzo' }),
+    'April': t('months.april', { default: 'abril' }),
+    'May': t('months.may', { default: 'mayo' }),
+    'June': t('months.june', { default: 'junio' }),
+    'July': t('months.july', { default: 'julio' }),
+    'August': t('months.august', { default: 'agosto' }),
+    'September': t('months.september', { default: 'septiembre' }),
+    'October': t('months.october', { default: 'octubre' }),
+    'November': t('months.november', { default: 'noviembre' }),
+    'December': t('months.december', { default: 'diciembre' }),
+  };
+
+  // Helper to localize weekday(s) and month in a string
+  function localizeWeekdays(weekdays: string) {
+    return weekdays.split(',').map(w => {
+      const trimmed = w.trim();
+      return weekdayMap[trimmed] || trimmed;
+    }).join(', ');
+  }
+
+  function localizeMonthDate(date: string) {
+    // e.g. "September 01, 2025" => "1 de septiembre de 2025" for es/gl/ca/eu
+    const parts = date.split(' ');
+    if (parts.length === 3 && monthMap[parts[0]]) {
+      // Detect locale (from t or window.navigator)
+      let locale = (typeof window !== 'undefined' && window.navigator.language) || 'en';
+  // Use browser locale only
+      // For Spanish, Galician, Catalan, Basque, use day de month de year
+      if (/^(es|gl|ca|eu)/.test(locale)) {
+        // parts[0]=Month, parts[1]=day,, parts[2]=year
+        const day = parts[1].replace(',', '');
+        const month = monthMap[parts[0]];
+        const year = parts[2];
+        return `${day} de ${month} de ${year}`;
+      } else {
+        // Default: just localize month name
+        return date.replace(parts[0], monthMap[parts[0]]);
+      }
+    }
+    return date;
+  }
+
+  // Patterns for dynamic keys
+  const patterns = [
+    {
+      // Once: "July 08, 2025 from 09:30 to 11:30"
+      regex: /^([A-Za-z]+ \d{2}, \d{4}) from (\d{2}:\d{2}) to (\d{2}:\d{2})$/,
+      key: 'fullScheduleText.once',
+      getVars: (m: RegExpMatchArray) => ({
+        date: localizeMonthDate(m[1]),
+        startTime: m[2],
+        endTime: m[3],
+      })
+    },
+    {
+      // Every Thursday from September 01, 2025 to September 30, 2025, 11:00 - 13:00
+      regex: /^Every ([A-Za-z]+) from ([A-Za-z]+ \d{2}, \d{4}) to ([A-Za-z]+ \d{2}, \d{4}), (\d{2}:\d{2}) - (\d{2}:\d{2})$/,
+      key: 'fullScheduleText.everyWeekdays',
+      getVars: (m: RegExpMatchArray) => ({
+        weekdays: localizeWeekdays(m[1]),
+        startDate: localizeMonthDate(m[2]),
+        endDate: localizeMonthDate(m[3]),
+        startTime: m[4],
+        endTime: m[5],
+      })
+    },
+    {
+      regex: /^Every (\d+) weeks on ([A-Za-z, ]+) from ([A-Za-z]+ \d{2}, \d{4}) to ([A-Za-z]+ \d{2}, \d{4}), (\d{2}:\d{2}) - (\d{2}:\d{2})$/,
+      key: 'fullScheduleText.everyXWeeksOnWeekdays',
+      getVars: (m: RegExpMatchArray) => ({
+        interval: m[1],
+        weekdays: localizeWeekdays(m[2]),
+        startDate: localizeMonthDate(m[3]),
+        endDate: localizeMonthDate(m[4]),
+        startTime: m[5],
+        endTime: m[6],
+      })
+    },
+    {
+      regex: /^Every (\d+) weeks on ([A-Za-z]+) from ([A-Za-z]+ \d{2}, \d{4}) to ([A-Za-z]+ \d{2}, \d{4}), (\d{2}:\d{2}) - (\d{2}:\d{2})$/,
+      key: 'fullScheduleText.everyXWeeksOnWeekday',
+      getVars: (m: RegExpMatchArray) => ({
+        interval: m[1],
+        weekday: localizeWeekdays(m[2]),
+        startDate: localizeMonthDate(m[3]),
+        endDate: localizeMonthDate(m[4]),
+        startTime: m[5],
+        endTime: m[6],
+      })
+    },
+  ];
+
+  for (const { regex, key, getVars } of patterns) {
+    const match = fs.match(regex);
+    if (match) {
+      return t(key, getVars(match));
+    }
+  }
+
+  // Fallback: show raw string (never use literal as translation key)
+  return fs;
+}
+
 const CourseDetailsModal = ({
   isOpen,
   onClose,
@@ -145,14 +268,26 @@ const CourseDetailsModal = ({
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl" showHeader={false}>
       <div className="max-h-[85vh] overflow-y-auto">
-        {/* Header Image at the very top, with hover zoom and no blur */}
+        {/* Header Image at the very top, with blur effect */}
         <div className="relative w-full h-64 bg-gray-200 overflow-hidden group">
+          {/* Blurred background */}
+            <Image
+            loader={imageLoader}
+            src={course.image}
+            alt={course.title}
+            fill
+            className="object-cover scale-105 blur-sm opacity-95"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+            priority
+            aria-hidden="true"
+            />
+          {/* Main image on top, sharp */}
           <Image
             loader={imageLoader}
             src={course.image}
             alt={course.title}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            className="object-cover hidden"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
             priority
           />
@@ -191,6 +326,16 @@ const CourseDetailsModal = ({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
+              {/* Calendar Buttons (Mobile Only) */}
+              <div className="block md:hidden">
+                {isEnrolled && !hasEnded && (
+                  <AddToCalendarButtons
+                    courseId={course.id}
+                    courseTitle={course.title}
+                    isEnrolled={isEnrolled}
+                  />
+                )}
+              </div>
               {/* Description */}
               <div>
                 <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
@@ -244,7 +389,9 @@ const CourseDetailsModal = ({
                   {course.formatted_schedule && (
                     <div>
                       <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('fullSchedule')}</p>
-                      <p className="text-gray-900 dark:text-gray-100 text-sm">{course.formatted_schedule}</p>
+                      <p className="text-gray-900 dark:text-gray-100 text-sm">
+                        {renderFullScheduleText(course, t)}
+                      </p>
                     </div>
                   )}
                 </div>
@@ -336,13 +483,17 @@ const CourseDetailsModal = ({
 
               {/* Action Buttons */}
               <div className="space-y-3">
-                {isEnrolled && !hasEnded ? (
-                  <AddToCalendarButtons
-                    courseId={course.id}
-                    courseTitle={course.title}
-                    isEnrolled={isEnrolled}
-                  />
-                ) : hasNoDates ? (
+                {/* Calendar Buttons (Desktop Only) */}
+                <div className="hidden md:block">
+                  {isEnrolled && !hasEnded && (
+                    <AddToCalendarButtons
+                      courseId={course.id}
+                      courseTitle={course.title}
+                      isEnrolled={isEnrolled}
+                    />
+                  )}
+                </div>
+                {hasNoDates ? (
                   <div className="text-center">
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700 text-yellow-700 dark:text-yellow-200 mb-2">
                       {t('noSpecificDate')}
@@ -379,13 +530,15 @@ const CourseDetailsModal = ({
                   </>
                 )}
                 <br></br>
-                <Button
-                  onClick={onCancel}
-                  variant="outline"
-                  className="w-full border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20 mb-2"
-                >
-                  {t('cancelEnrollment')}
-                </Button>
+                {!hasStarted && (
+                  <Button
+                    onClick={onCancel}
+                    variant="outline"
+                    className="w-full border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20 mb-2"
+                  >
+                    {t('cancelEnrollment')}
+                  </Button>
+                )}
               </div>
 
               {/* Additional Info */}

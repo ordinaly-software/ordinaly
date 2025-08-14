@@ -420,7 +420,8 @@
       "sendMail": "Enviar correo",
       "selectAll": "Seleccionar todo",
       "searchPlaceholder": "Buscar usuarios...",
-      "users": "usuarios"
+      "users": "usuarios",
+      "lastLogin": "Último acceso"
     },
     "stats": {
       "totalServices": "Total de Servicios",
@@ -969,7 +970,7 @@
       "title": "Cancelar Inscripción",
       "warning": "Cancelar Inscripción al Curso",
       "warningMessage": "¿Estás seguro de que quieres cancelar tu inscripción en \"{courseTitle}\"? Esta acción no se puede deshacer.",
-      "confirmMessage": "Esto te eliminará del curso y podrías perder tu lugar.",
+      "confirmMessage": "Esto te eliminará del curso y podrías perder tu plaza",
       "keepEnrollment": "Mantener Inscripción",
       "confirmCancel": "Cancelar Inscripción"
     },
@@ -1084,6 +1085,36 @@
           "short": "Dom",
           "full": "Domingo"
         }
+      },
+      "months": {
+        "january": "enero",
+        "february": "febrero",
+        "march": "marzo",
+        "april": "abril",
+        "may": "mayo",
+        "june": "junio",
+        "july": "julio",
+        "august": "agosto",
+        "september": "septiembre",
+        "october": "octubre",
+        "november": "noviembre",
+        "december": "diciembre"
+      },
+      "fullScheduleText": {
+        "once": "{date} de {startTime} a {endTime}",
+        "daily": "Diario del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXDays": "Cada {interval} días del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyWeekdays": "Cada {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekdays": "Cada {interval} semanas los {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekday": "Cada {interval} semanas el {weekday} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyOtherWeekOnWeekdays": "Cada dos semanas los {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "weekly": "Semanal del {startDate} al {endDate}, {startTime} - {endTime}",
+        "biweekly": "Quincenal del {startDate} al {endDate}, {startTime} - {endTime}",
+        "monthlyOnWeek": "{weekOfMonth} {weekday} de cada mes del {startDate} al {endDate}, {startTime} - {endTime}",
+        "monthly": "Mensual del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXMonths": "Cada {interval} meses del {startDate} al {endDate}, {startTime} - {endTime}",
+        "customWithWeekdays": "Los {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "custom": "Del {startDate} al {endDate}, {startTime} - {endTime}"
       }
     }
   },

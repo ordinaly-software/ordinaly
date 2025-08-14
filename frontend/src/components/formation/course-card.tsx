@@ -57,31 +57,32 @@ export const CourseCard: React.FC<CourseCardProps> = ({
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-          {/* Enrollment Status Badge */}
-          {variant === "upcoming" && enrolled && (
-            <div className="absolute top-4 right-4 z-10">
-              <div className="bg-[#22A60D] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-                <UserCheck className="w-3 h-3" />
-                {t("enrolled")}
-              </div>
-            </div>
-          )}
-
-          {/* Past Course Badge */}
-          {variant === "past" && (
+          {/* Only show badges if not finished */}
+          {variant === "past" ? (
             <div className="absolute top-4 right-4 z-10">
               <div className="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                 {t("finished")}
               </div>
             </div>
+          ) : (
+            <>
+              {/* Enrollment Status Badge */}
+              {enrolled && (
+                <div className="absolute top-4 right-4 z-10">
+                  <div className="bg-[#22A60D] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                    <UserCheck className="w-3 h-3" />
+                    {t("enrolled")}
+                  </div>
+                </div>
+              )}
+              {/* Price Badge */}
+              <div className="absolute top-4 left-4 z-10">
+                <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  {course.price ? `€${course.price}` : t("free")}
+                </div>
+              </div>
+            </>
           )}
-
-          {/* Price Badge */}
-          <div className="absolute top-4 left-4 z-10">
-            <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white px-3 py-1 rounded-full text-sm font-semibold">
-              {course.price ? `€${course.price}` : t("free")}
-            </div>
-          </div>
         </div>
 
         <CardContent className={variant === "upcoming" ? "p-8" : "p-6"}>

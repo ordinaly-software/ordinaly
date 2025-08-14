@@ -420,7 +420,8 @@
       "sendMail": "Enviar correu",
       "selectAll": "Seleccionar tot",
       "searchPlaceholder": "Cerca usuaris...",
-      "users": "usuaris"
+      "users": "usuaris",
+      "lastLogin": "Darrera connexió"
     },
     "stats": {
       "totalServices": "Serveis totals",
@@ -1087,6 +1088,36 @@
           "short": "Sol",
           "full": "Diumenge"
         }
+      },
+      "months": {
+        "january": "gener",
+        "february": "febrer",
+        "march": "març",
+        "april": "abril",
+        "may": "maig",
+        "june": "juny",
+        "july": "juliol",
+        "august": "agost",
+        "september": "setembre",
+        "october": "octubre",
+        "november": "novembre",
+        "december": "desembre"
+      },
+      "fullScheduleText": {
+        "once": "{date} de {startTime} a {endTime}",
+        "daily": "Diàriament del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXDays": "Cada {interval} dies del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyWeekdays": "Cada {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekdays": "Cada {interval} setmanes els {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekday": "Cada {interval} setmanes el {weekday} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyOtherWeekOnWeekdays": "Cada dues setmanes els {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "weekly": "Setmanalment del {startDate} al {endDate}, {startTime} - {endTime}",
+        "biweekly": "Quinzenalment del {startDate} al {endDate}, {startTime} - {endTime}",
+        "monthlyOnWeek": "{weekOfMonth} {weekday} de cada mes del {startDate} al {endDate}, {startTime} - {endTime}",
+        "monthly": "Mensualment del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXMonths": "Cada {interval} mesos del {startDate} al {endDate}, {startTime} - {endTime}",
+        "customWithWeekdays": "{weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "custom": "Del {startDate} al {endDate}, {startTime} - {endTime}"
       }
     }
   },

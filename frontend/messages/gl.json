@@ -420,7 +420,8 @@
       "sendMail": "Enviar correo",
       "selectAll": "Seleccionar todo",
       "searchPlaceholder": "Buscar usuarios...",
-      "users": "usuarios"
+      "users": "usuarios",
+      "lastLogin": "Último acceso"
     },
     "stats": {
       "totalServices": "Total de servizos",
@@ -547,8 +548,8 @@
         "pricePlaceholder": "Deixar baleiro para 'contactar para orzamento'",
         "location": "Localización",
         "locationPlaceholder": "Introduce a localización do curso ou 'en liña'",
-  "locationRequired": "Localización *",
-  "locationOptional": "Localización (Opcional)",
+        "locationRequired": "Localización *",
+        "locationOptional": "Localización (Opcional)",
         "scheduleSettings": "Configuración de Horario Profesional",
         "startDateRequired": "Data de inicio *",
         "endDateRequired": "Data de fin *",
@@ -1087,6 +1088,36 @@
           "short": "Dom",
           "full": "Domingo"
         }
+      },
+      "months": {
+        "january": "xaneiro",
+        "february": "febreiro",
+        "march": "marzo",
+        "april": "abril",
+        "may": "maio",
+        "june": "xuño",
+        "july": "xullo",
+        "august": "agosto",
+        "september": "setembro",
+        "october": "outubro",
+        "november": "novembro",
+        "december": "decembro"
+      },
+      "fullScheduleText": {
+        "once": "{date} de {startTime} a {endTime}",
+        "daily": "Diariamente do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "everyXDays": "Cada {interval} días do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "everyWeekdays": "Cada {weekdays} do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekdays": "Cada {interval} semanas os {weekdays} do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekday": "Cada {interval} semanas o {weekday} do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "everyOtherWeekOnWeekdays": "Cada dúas semanas os {weekdays} do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "weekly": "Semanalmente do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "biweekly": "Quincenalmente do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "monthlyOnWeek": "{weekOfMonth} {weekday} de cada mes do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "monthly": "Mensualmente do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "everyXMonths": "Cada {interval} meses do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "customWithWeekdays": "{weekdays} do {startDate} ao {endDate}, {startTime} - {endTime}",
+        "custom": "Do {startDate} ao {endDate}, {startTime} - {endTime}"
       }
     }
   },
