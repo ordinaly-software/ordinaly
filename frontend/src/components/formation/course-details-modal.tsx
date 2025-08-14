@@ -107,7 +107,7 @@ function renderFullScheduleText(course: Course, t: ReturnType<typeof useTranslat
     const parts = date.split(' ');
     if (parts.length === 3 && monthMap[parts[0]]) {
       // Detect locale (from t or window.navigator)
-      let locale = (typeof window !== 'undefined' && window.navigator.language) || 'en';
+      const locale = (typeof window !== 'undefined' && window.navigator.language) || 'en';
   // Use browser locale only
       // For Spanish, Galician, Catalan, Basque, use day de month de year
       if (/^(es|gl|ca|eu)/.test(locale)) {
