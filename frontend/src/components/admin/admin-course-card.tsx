@@ -71,30 +71,39 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
   availableSpots,
   enrollmentPercentage,
 }) => {
+  // Color for hover border/shadow (use green for courses)
+  const courseColor = "#22A60D";
   return (
     <Card
-      className={`${isFinished 
-        ? 'bg-gray-50 dark:bg-gray-800/50 border-gray-300 dark:border-gray-600 opacity-75' 
-        : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700'
-      } cursor-pointer hover:shadow-md transition-shadow duration-200`}
-      onClick={() => onView(course)}
+      className={
+        `bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg` +
+        (isFinished ? ' opacity-75 grayscale' : '')
+      }
+      style={{
+        '--hover-border-color': courseColor,
+        '--hover-shadow-color': `${courseColor}10`,
+      } as React.CSSProperties}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = courseColor;
+        (e.currentTarget as HTMLDivElement).style.boxShadow = `0 10px 25px -12px ${courseColor}15`;
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLDivElement).style.borderColor = '';
+        (e.currentTarget as HTMLDivElement).style.boxShadow = '';
+      }}
     >
       <CardContent className="p-4">
         {/* Mobile layout */}
-        <div className="block md:hidden">
-          <div className="relative w-full">
+        <div className="block sm:hidden">
+          <div className="flex flex-row items-start gap-2 mb-2">
             <input
               type="checkbox"
               checked={selected}
-              onChange={e => {
-                e.stopPropagation();
-                onSelect(course.id);
-              }}
-              onClick={e => e.stopPropagation()}
+              onChange={() => onSelect(course.id)}
               disabled={isFinished}
-              className="absolute top-2 left-2 z-10 rounded border-gray-300 text-green focus:ring-green disabled:opacity-50 bg-white/80"
+              className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] flex-shrink-0"
             />
-            <div className={`w-full h-40 relative rounded-lg overflow-hidden ${isFinished ? 'grayscale' : 'bg-gray-100 dark:bg-gray-700'}`}>
+            <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700 relative">
               {course.image && course.image !== 'undefined' && course.image !== 'null' ? (
                 <Image
                   loader={imageLoader}
@@ -102,7 +111,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                   alt={course.title}
                   fill
                   className="object-cover"
-                  sizes="100vw"
+                  sizes="64px"
                   onError={e => {
                     const target = e.target as HTMLImageElement;
                     target.style.display = 'none';
@@ -113,82 +122,76 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                   <FileText className="h-8 w-8 text-gray-400" />
                 </div>
               )}
-              {/* Finished icon overlay for finished courses */}
               {isFinished && (
                 <div className="absolute inset-0 bg-black/30 flex items-center justify-center pointer-events-none">
-                  <CheckCircle className="h-10 w-10 text-white opacity-90" />
+                  <CheckCircle className="h-8 w-8 text-white opacity-90" />
                 </div>
               )}
             </div>
-            {/* Buttons below image for better usability */}
-            <div className="flex flex-row gap-2 mt-2 justify-end">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={e => {
-                  e.stopPropagation();
-                  onView(course);
-                }}
-                className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10 w-8 h-8"
-                tabIndex={0}
-                aria-label={t('view')}
-              >
-                <Eye className="h-4 w-4" />
-              </Button>
-              {!isFinished && (
-                <>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={e => {
-                      e.stopPropagation();
-                      onEdit(course);
-                    }}
-                    className="text-blue hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 w-8 h-8"
-                    tabIndex={0}
-                    aria-label={t('edit')}
-                  >
-                    <Edit className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={e => {
-                      e.stopPropagation();
-                      onDelete(course);
-                    }}
-                    className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 w-8 h-8"
-                    tabIndex={0}
-                    aria-label={t('delete')}
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 min-w-0">
+                <h3 className="text-base font-semibold text-gray-900 dark:text-white truncate max-w-[10rem]">
+                  {course.title}
+                </h3>
+              </div>
+              {course.subtitle && (
+                <p className="text-xs text-gray-600 dark:text-gray-400 mb-1 truncate max-w-[12rem]">{course.subtitle}</p>
               )}
+              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mt-1">
+                <span className="truncate max-w-[8rem]">{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
+                <span className="truncate max-w-[7rem]">{tAdmin("labels.location")}: {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? course.location : t('locationSoon')}</span>
+              </div>
             </div>
           </div>
-          <div className="mt-3">
-            <h3 className={`text-xl font-bold ${isFinished ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>{course.title}</h3>
-            {course.subtitle && (
-              <div className={`text-base mb-1 ${isFinished ? 'text-gray-500 dark:text-gray-500' : 'text-gray-600 dark:text-gray-400'}`}>{course.subtitle}</div>
+          {/* Action buttons row for mobile */}
+          <div className="flex flex-row gap-2 mt-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onView(course)}
+              className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10 w-full"
+            >
+              <Eye className="h-4 w-4" />
+            </Button>
+            {!isFinished && (
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onEdit(course)}
+                  style={{ color: '#46B1C9' }}
+                  className="hover:bg-opacity-10 w-full"
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#46B1C9' + '10';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = '';
+                  }}
+                >
+                  <Edit className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onDelete(course)}
+                  className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20 w-full"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </>
             )}
-            {/* Description hidden on small screens */}
           </div>
         </div>
         {/* Desktop layout */}
-        <div className="hidden md:flex items-start space-x-4">
+        <div className="hidden sm:flex items-start space-x-4">
           <input
             type="checkbox"
             checked={selected}
-            onChange={e => {
-              e.stopPropagation();
-              onSelect(course.id);
-            }}
-            onClick={e => e.stopPropagation()}
+            onChange={() => onSelect(course.id)}
             disabled={isFinished}
-            className="mt-1 rounded border-gray-300 text-green focus:ring-green disabled:opacity-50"
+            className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
           />
-          <div className={`w-20 h-20 relative rounded-lg overflow-hidden flex-shrink-0 ${isFinished ? 'grayscale' : 'bg-gray-100 dark:bg-gray-700'}`}>
+          <div className="w-20 h-20 relative rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700">
             {course.image && course.image !== 'undefined' && course.image !== 'null' ? (
               <Image
                 loader={imageLoader}
@@ -208,35 +211,39 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
               </div>
             )}
             {isFinished && (
-              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                <CheckCircle className="h-6 w-6 text-white" />
+              <div className="absolute inset-0 bg-black/30 flex items-center justify-center pointer-events-none">
+                <CheckCircle className="h-8 w-8 text-white opacity-90" />
               </div>
             )}
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center space-x-2 mb-1">
-                  <h3 className={`text-lg font-semibold ${isFinished ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>{course.title}</h3>
+              <div
+                className="flex-1 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg p-2 -m-2 transition-colors duration-200"
+                onClick={() => onView(course)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onView(course);
+                  }
+                }}
+              >
+                <div className="flex items-center space-x-2">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {course.title}
+                  </h3>
                 </div>
                 {course.subtitle && (
-                  <div className={`text-sm mb-1 ${isFinished ? 'text-gray-500 dark:text-gray-500' : 'text-gray-600 dark:text-gray-400'}`}>{course.subtitle}</div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{course.subtitle}</p>
                 )}
-                <div className={`text-sm mb-2 ${isFinished ? 'text-gray-600 dark:text-gray-500' : 'text-gray-700 dark:text-gray-300'}`}>
+                <div className="hidden md:block">
                   <MarkdownRenderer>
                     {course.description.length > 200 ? `${course.description.substring(0, 200)}...` : course.description}
                   </MarkdownRenderer>
                 </div>
-                <div className="mb-2">
-                  <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
-                    <span>{t("courseCard.enrollments")}: {course.enrolled_count || 0}/{course.max_attendants}</span>
-                    <span>{Math.round(enrollmentPercentage)}% {t("courseCard.full")}</span>
-                  </div>
-                  <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                    <div className={`h-2 rounded-full transition-all duration-300 ${enrollmentPercentage >= 100 ? 'bg-red-500' : enrollmentPercentage >= 80 ? 'bg-orange-500' : 'bg-[#22A60D]'}`} style={{ width: `${Math.min(enrollmentPercentage, 100)}%` }}></div>
-                  </div>
-                </div>
-                <div className={`flex flex-wrap items-center gap-4 text-xs ${isFinished ? 'text-gray-500 dark:text-gray-500' : 'text-gray-500 dark:text-gray-400'}`}>
+                <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400 mt-2">
                   <span>{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
                   <span>{tAdmin("labels.location")}: {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? course.location : t('locationSoon')}</span>
                   <span>{tAdmin("labels.schedule")}: {formatCourseSchedule(course)}</span>
@@ -246,15 +253,19 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                   </span>
                   <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
                 </div>
+                <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1 mt-2">
+                  <span>{t("courseCard.enrollments")}: {course.enrolled_count || 0}/{course.max_attendants}</span>
+                  <span>{Math.round(enrollmentPercentage)}% {t("courseCard.full")}</span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
+                  <div className={`h-2 rounded-full transition-all duration-300 ${enrollmentPercentage >= 100 ? 'bg-red-500' : enrollmentPercentage >= 80 ? 'bg-orange-500' : 'bg-[#22A60D]'}`} style={{ width: `${Math.min(enrollmentPercentage, 100)}%` }}></div>
+                </div>
               </div>
-              <div className="flex flex-col gap-2 ml-0 md:ml-4 mt-2 md:mt-0 items-end">
+              <div className="flex flex-col gap-2 ml-0 md:ml-4 mt-2 md:mt-0">
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={e => {
-                    e.stopPropagation();
-                    onView(course);
-                  }}
+                  onClick={() => onView(course)}
                   className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10"
                 >
                   <Eye className="h-4 w-4" />
@@ -264,21 +275,22 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={e => {
-                        e.stopPropagation();
-                        onEdit(course);
+                      onClick={() => onEdit(course)}
+                      style={{ color: '#46B1C9' }}
+                      className="hover:bg-opacity-10"
+                      onMouseEnter={e => {
+                        (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#46B1C9' + '10';
                       }}
-                      className="text-blue hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                      onMouseLeave={e => {
+                        (e.currentTarget as HTMLButtonElement).style.backgroundColor = '';
+                      }}
                     >
                       <Edit className="h-4 w-4" />
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={e => {
-                        e.stopPropagation();
-                        onDelete(course);
-                      }}
+                      onClick={() => onDelete(course)}
                       className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20"
                     >
                       <Trash2 className="h-4 w-4" />
