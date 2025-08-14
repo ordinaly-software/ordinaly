@@ -10,6 +10,7 @@ from courses.models import Enrollment
 import os
 from django.conf import settings
 import random
+import secrets
 from datetime import datetime, timedelta
 
 
@@ -31,27 +32,27 @@ class Command(BaseCommand):
     help = 'Populate the database with sample data for testing'
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            '--clear',
-            action='store_true',
-            help='Clear existing data before populating',
-        )
+        parser.add_argument('--clear', action='store_true', help='Clear existing data before populating')
+        parser.add_argument('--seed', type=int, help='Seed for reproducible pseudo-random data')
 
     def handle(self, *args, **options):
+        if options.get('seed') is not None:
+            random.seed(options['seed'])
+
         if options['clear']:
             self.stdout.write('Clearing existing data...')
             self.clear_data()
 
         self.stdout.write('Creating sample data...')
 
-        # Create users
-        users = self.create_users()
-        self.stdout.write(f'Created {len(users)} users')
-
         # Create terms (only if the model exists)
         try:
-            terms = self.create_terms(users[0])  # Use admin as author
-            self.stdout.write(f'Created {len(terms)} terms')
+            admin_user = CustomUser.objects.filter(is_staff=True, is_superuser=True).first()
+            if admin_user:
+                terms = self.create_terms(admin_user)  # Use admin as author
+                self.stdout.write(f'Created {len(terms)} terms')
+            else:
+                self.stdout.write('No admin user found, skipping terms creation.')
         except Exception as e:
             self.stdout.write(f'Skipped terms creation: {e}')
 
@@ -60,7 +61,7 @@ class Command(BaseCommand):
         self.stdout.write(f'Created {len(courses)} courses')
 
         # Create enrollments for realistic user engagement
-        enrollments = self.create_enrollments(users, courses)
+        enrollments = self.create_enrollments(courses)
         self.stdout.write(f'Created {len(enrollments)} enrollments')
 
         # Create services (only if the model exists)
@@ -81,8 +82,6 @@ class Command(BaseCommand):
             # Get all terms files for later cleanup
             terms_files = []
             for term in Terms.objects.all():
-                if term.content and hasattr(term.content, 'path'):
-                    terms_files.append(term.content.path)
                 if term.pdf_content and hasattr(term.pdf_content, 'path'):
                     terms_files.append(term.pdf_content.path)
 
@@ -104,9 +103,6 @@ class Command(BaseCommand):
 
             Terms.objects.all().delete()
             self.stdout.write("Deleted all terms")
-
-            CustomUser.objects.filter(is_staff=False).delete()
-            self.stdout.write("Deleted non-staff users")
 
             # Additional cleanup for any files that might not have been deleted
             for file_path in terms_files + course_images:
@@ -145,160 +141,6 @@ class Command(BaseCommand):
         except Exception as e:
             self.stdout.write(f"Error deleting terms: {e}")
 
-        try:
-            CustomUser.objects.filter(is_staff=False).delete()
-            self.stdout.write("Deleted non-staff users")
-        except Exception as e:
-            self.stdout.write(f"Error deleting users: {e}")
-
-    def create_users(self):
-        """Create sample users with diverse backgrounds"""
-        users = []
-
-        # Create admin user (or use existing one)
-        admin, created = CustomUser.objects.get_or_create(
-            username='demo_admin',
-            email='admin@ordinaly.ai',
-            defaults={
-                'name': 'Demo Admin',
-                'surname': 'User',
-                'company': 'Ordinaly Software',
-                'region': 'Andalusia',
-                'city': 'Seville',
-                'is_staff': True,
-                'is_superuser': True,
-            }
-        )
-        if created:
-            admin.set_password('admin123')
-            admin.save()
-        users.append(admin)
-
-        # Create diverse regular users from different sectors and regions
-        sample_users = [
-            {
-                'username': 'ana_rodriguez',
-                'email': 'ana.rodriguez@healthtech.es',
-                'name': 'Ana',
-                'surname': 'Rodríguez',
-                'company': 'HealthTech Solutions',
-                'region': 'Madrid',
-                'city': 'Madrid',
-            },
-            {
-                'username': 'miguel_fernandez',
-                'email': 'miguel.fernandez@ecomarket.com',
-                'name': 'Miguel',
-                'surname': 'Fernández',
-                'company': 'EcoMarket España',
-                'region': 'Catalonia',
-                'city': 'Barcelona',
-            },
-            {
-                'username': 'laura_gonzalez',
-                'email': 'laura.gonzalez@finnovation.es',
-                'name': 'Laura',
-                'surname': 'González',
-                'company': 'FinNovation Bank',
-                'region': 'Valencia',
-                'city': 'Valencia',
-            },
-            {
-                'username': 'david_martin',
-                'email': 'david.martin@smartedu.es',
-                'name': 'David',
-                'surname': 'Martín',
-                'company': 'SmartEdu Academy',
-                'region': 'Andalusia',
-                'city': 'Córdoba',
-            },
-            {
-                'username': 'sofia_jimenez',
-                'email': 'sofia.jimenez@tourisminnovate.com',
-                'name': 'Sofía',
-                'surname': 'Jiménez',
-                'company': 'Tourism Innovate',
-                'region': 'Canary Islands',
-                'city': 'Las Palmas',
-            },
-            {
-                'username': 'elena_morales',
-                'email': 'elena.morales@retailinnovation.com',
-                'name': 'Elena',
-                'surname': 'Morales',
-                'company': 'Retail Innovation Hub',
-                'region': 'Basque Country',
-                'city': 'Bilbao',
-            },
-            {
-                'username': 'javier_castro',
-                'email': 'javier.castro@techstartup.es',
-                'name': 'Javier',
-                'surname': 'Castro',
-                'company': 'TechStartup Incubator',
-                'region': 'Murcia',
-                'city': 'Murcia',
-            },
-            {
-                'username': 'carmen_herrera',
-                'email': 'carmen.herrera@energygreen.es',
-                'name': 'Carmen',
-                'surname': 'Herrera',
-                'company': 'Energy Green Solutions',
-                'region': 'Extremadura',
-                'city': 'Badajoz',
-            },
-            {
-                'username': 'raul_vega',
-                'email': 'raul.vega@digitalmarketing.es',
-                'name': 'Raúl',
-                'surname': 'Vega',
-                'company': 'Digital Marketing Pro',
-                'region': 'Asturias',
-                'city': 'Oviedo',
-            },
-            {
-                'username': 'lucia_mendez',
-                'email': 'lucia.mendez@consulting.es',
-                'name': 'Lucía',
-                'surname': 'Méndez',
-                'company': 'Business Consulting 360',
-                'region': 'Castilla-La Mancha',
-                'city': 'Toledo',
-            },
-            {
-                'username': 'sergio_pena',
-                'email': 'sergio.pena@cybersecurity.es',
-                'name': 'Sergio',
-                'surname': 'Peña',
-                'company': 'CyberSecurity Plus',
-                'region': 'La Rioja',
-                'city': 'Logroño',
-            },
-            {
-                'username': 'natalia_ramos',
-                'email': 'natalia.ramos@biotech.es',
-                'name': 'Natalia',
-                'surname': 'Ramos',
-                'company': 'BioTech Innovations',
-                'region': 'Navarra',
-                'city': 'Pamplona',
-            }
-        ]
-
-        for user_data in sample_users:
-            user, created = CustomUser.objects.get_or_create(
-                username=user_data['username'],
-                email=user_data['email'],
-                defaults=user_data
-            )
-            if created:
-                user.set_password('password123')
-                user.save()
-            users.append(user)
-
-        return users
-
     def create_terms(self, author):
         terms_dir = os.path.join(settings.BASE_DIR, 'media', 'test_media', 'terms')
         # Create the directory if it doesn't exist
@@ -313,23 +155,16 @@ class Command(BaseCommand):
         ]
         terms = []
         for tag, name, version in term_files:
-            md_path = os.path.join(terms_dir, f'{tag}_ordinaly.md')
             pdf_path = os.path.join(terms_dir, f'{tag}_ordinaly.pdf')
 
-            # Check if files exist and print debug info
-            if not os.path.exists(md_path):
-                self.stdout.write(f"Warning: Markdown file not found at {md_path}")
-                continue
+            # Check if PDF file exists and print debug info
             if not os.path.exists(pdf_path):
                 self.stdout.write(f"Warning: PDF file not found at {pdf_path}")
                 continue
 
             # Delete existing terms with the same tag to avoid uniqueness constraint errors
-            # The model's delete method will handle file deletion
             Terms.objects.filter(tag=tag).delete()
 
-            with open(md_path, 'rb') as f:
-                md_content = f.read()
             with open(pdf_path, 'rb') as f:
                 pdf_content = f.read()
 
@@ -339,7 +174,6 @@ class Command(BaseCommand):
                     name=name,
                     version=version,
                     author=author,
-                    content=ContentFile(md_content, name=f"{tag}.md"),
                     pdf_content=ContentFile(pdf_content, name=f"{tag}.pdf"),
                 )
                 terms.append(term)
@@ -454,7 +288,7 @@ class Command(BaseCommand):
                     'TODAS LAS HERRAMIENTAS DEL CURSO SERÁN GRATUITAS.'
                 ),
                 'price': None,
-                'location': 'Por confirmar',
+                'location': None,
                 'periodicity': 'weekly',
                 'timezone': 'Europe/Madrid',
                 'max_attendants': 90,
@@ -479,10 +313,8 @@ class Command(BaseCommand):
                 courses.append(course)
         return courses
 
-    def create_enrollments(self, users, courses):
-        """Create realistic enrollments with positive use cases showing course completions.
-        Only enroll in courses with non-null start_date, end_date, start_time, and end_time.
-        """
+    def create_enrollments(self, courses):
+        """Create enrollments for existing users in eligible courses. No users are created or modified."""
         enrollments = []
 
         # Filter courses with all date/time fields not None
@@ -494,101 +326,28 @@ class Command(BaseCommand):
         if not eligible_courses:
             return enrollments
 
-        # Skip admin user for enrollments (first user)
-        regular_users = users[1:]  # Skip the admin user
+        # Use all non-staff users for enrollments
+        regular_users = list(CustomUser.objects.filter(is_staff=False))
 
-        # Create realistic enrollment patterns
-        enrollment_patterns = [
-            # Fill first eligible course to max capacity (25 attendants)
-            {
-                'user_indices': [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-                'courses_per_user': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-            },
-            # Some users also enroll in second eligible course
-            {'user_indices': [2, 4, 6, 8], 'courses_per_user': [2, 2, 2, 2]},
-        ]
-
-        for pattern in enrollment_patterns:
-            for i, user_index in enumerate(pattern['user_indices']):
-                if user_index >= len(regular_users):
-                    continue
-
-                user = regular_users[user_index]
-                num_courses = pattern['courses_per_user'][i]
-
-                # Select courses for this user
-                available_courses = list(eligible_courses)
-                selected_courses = []
-
-                # Give preference to popular courses
-                if random.random() < 0.7:  # 70% chance to take a popular course
-                    popular_courses = [eligible_courses[i] for i in range(2) if i < len(eligible_courses)]
-                    if popular_courses:
-                        selected_courses.append(random.choice(popular_courses))
-                        available_courses.remove(selected_courses[0])
-                        num_courses -= 1
-
-                # Fill remaining slots with random courses
-                while num_courses > 0 and available_courses:
-                    course = random.choice(available_courses)
-                    selected_courses.append(course)
-                    available_courses.remove(course)
-                    num_courses -= 1
-
-                # Create enrollments for selected courses
-                for course in selected_courses:
-                    try:
-                        enrollment, created = Enrollment.objects.get_or_create(
-                            user=user,
-                            course=course,
-                            defaults={
-                                'enrolled_at': datetime.now() - timedelta(
-                                    days=random.randint(1, 90)  # Enrolled 1-90 days ago
-                                )
-                            }
-                        )
-                        if created:
-                            enrollments.append(enrollment)
-                    except Exception:
-                        # Handle any unique constraint violations gracefully
-                        continue
-
-        # Ensure popular courses have good enrollment numbers
-        for course_index in range(2):
-            if course_index >= len(eligible_courses):
+        # Create enrollments for each user in a random eligible course
+        for user in regular_users:
+            if not eligible_courses:
+                break
+            # Use secrets for cryptographically secure random selection
+            course = eligible_courses[secrets.randbelow(len(eligible_courses))]
+            try:
+                days = secrets.randbelow(90) + 1  # Generates a random int in [1, 90]
+                enrollment, created = Enrollment.objects.get_or_create(
+                    user=user,
+                    course=course,
+                    defaults={
+                        'enrolled_at': datetime.now() - timedelta(days=days)
+                    }
+                )
+                if created:
+                    enrollments.append(enrollment)
+            except Exception:
                 continue
-
-            course = eligible_courses[course_index]
-            current_enrollments = Enrollment.objects.filter(course=course).count()
-
-            # Aim for 8-15 enrollments per popular course
-            target_enrollments = random.randint(8, 12)
-
-            if current_enrollments < target_enrollments:
-                needed = target_enrollments - current_enrollments
-                available_users = [u for u in regular_users
-                                   if not Enrollment.objects.filter(user=u, course=course).exists()]
-
-                for _ in range(min(needed, len(available_users))):
-                    if not available_users:
-                        break
-                    user = random.choice(available_users)
-                    available_users.remove(user)
-
-                    try:
-                        enrollment, created = Enrollment.objects.get_or_create(
-                            user=user,
-                            course=course,
-                            defaults={
-                                'enrolled_at': datetime.now() - timedelta(
-                                    days=random.randint(1, 60)
-                                )
-                            }
-                        )
-                        if created:
-                            enrollments.append(enrollment)
-                    except Exception:
-                        continue
 
         return enrollments
 
@@ -618,7 +377,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
 ''',
                 'color': '29BF12',
                 'icon': 'Phone',
-                'duration': 30,
+                'duration': 5,
                 'requisites': (
                     "- Documento tipo FAQ en formato pdf sobre tódo lo que debe saber el asisitente.   "
                     "- Número de teñefóno con cuenta de Whatsapp Business.    "
@@ -652,7 +411,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
 ''',
                 'color': '46B1C9',
                 'icon': 'Bot',
-                'duration': 45,
+                'duration': 10,
                 'requisites': None,
                 # 'price': Decimal('300.00'),
                 'price': None,
@@ -682,7 +441,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
 ''',
                 'color': '623CEA',
                 'icon': 'Accessibility',
-                'duration': 25,
+                'duration': 2,
                 'requisites': (
                     "- Acceso al código fuente o CMS.     "
                     "- Colaboración de tu equipo de desarrollo y diseño.     "
@@ -707,7 +466,7 @@ Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles
 ''',
                 'color': 'E4572E',
                 'icon': 'MessageSquare',
-                'duration': 15,
+                'duration': 4,
                 'requisites': (
                     "- Documentación o datos necesarios que el chatbot deba 'saber' para atender a los usuarios.    "
                     "- Acceso al código fuente de la web.    "

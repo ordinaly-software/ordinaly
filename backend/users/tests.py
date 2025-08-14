@@ -1,10 +1,15 @@
 from django.test import TestCase
 from django.core.exceptions import ValidationError
+from .serializers import CustomUserSerializer
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .models import CustomUser
 from .authentication import EmailOrUsernameModelBackend
+import os
+
+
+TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
 
 
 class EmailOrUsernameAuthBackendTests(TestCase):
@@ -14,7 +19,7 @@ class EmailOrUsernameAuthBackendTests(TestCase):
         self.user_data = {
             'email': 'test@example.com',
             'username': 'testuser',
-            'password': 'testpassword123',
+            'password': TEST_PASSWORD,
             'name': 'Test',
             'surname': 'User',
             'company': 'Test Company'
@@ -25,71 +30,71 @@ class EmailOrUsernameAuthBackendTests(TestCase):
     def test_authenticate_with_email_success(self):
         """Test authentication with email"""
         user = self.backend.authenticate(
-            None, 
-            username='test@example.com', 
-            password='testpassword123'
+            None,
+            username='test@example.com',
+            password=TEST_PASSWORD
         )
         self.assertEqual(user, self.user)
 
     def test_authenticate_with_username_success(self):
         """Test authentication with username"""
         user = self.backend.authenticate(
-            None, 
-            username='testuser', 
-            password='testpassword123'
+            None,
+            username='testuser',
+            password=TEST_PASSWORD
         )
         self.assertEqual(user, self.user)
 
     def test_authenticate_with_email_case_insensitive(self):
         """Test authentication with email is case insensitive"""
         user = self.backend.authenticate(
-            None, 
-            username='TEST@EXAMPLE.COM', 
-            password='testpassword123'
+            None,
+            username='TEST@EXAMPLE.COM',
+            password=TEST_PASSWORD
         )
         self.assertEqual(user, self.user)
 
     def test_authenticate_with_username_case_insensitive(self):
         """Test authentication with username is case insensitive"""
         user = self.backend.authenticate(
-            None, 
-            username='TESTUSER', 
-            password='testpassword123'
+            None,
+            username='TESTUSER',
+            password=TEST_PASSWORD
         )
         self.assertEqual(user, self.user)
 
     def test_authenticate_wrong_password(self):
         """Test authentication with wrong password"""
         user = self.backend.authenticate(
-            None, 
-            username='test@example.com', 
-            password='wrongpassword'
+            None,
+            username='test@example.com',
+            password=TEST_PASSWORD+"abcd"
         )
         self.assertIsNone(user)
 
     def test_authenticate_nonexistent_user(self):
         """Test authentication with nonexistent user"""
         user = self.backend.authenticate(
-            None, 
-            username='nonexistent@example.com', 
-            password='testpassword123'
+            None,
+            username='nonexistent@example.com',
+            password=TEST_PASSWORD
         )
         self.assertIsNone(user)
 
     def test_authenticate_no_username(self):
         """Test authentication without username"""
         user = self.backend.authenticate(
-            None, 
-            username=None, 
-            password='testpassword123'
+            None,
+            username=None,
+            password=TEST_PASSWORD
         )
         self.assertIsNone(user)
 
     def test_authenticate_no_password(self):
         """Test authentication without password"""
         user = self.backend.authenticate(
-            None, 
-            username='test@example.com', 
+            None,
+            username='test@example.com',
             password=None
         )
         self.assertIsNone(user)
@@ -112,7 +117,7 @@ class CustomUserModelTests(TestCase):
         self.user_data = {
             'email': 'test@example.com',
             'username': 'testuser',
-            'password': 'testpassword123',
+            'password': TEST_PASSWORD,
             'name': 'Test',
             'surname': 'User',
             'company': 'Test Company'
@@ -150,7 +155,7 @@ class CustomUserModelTests(TestCase):
 
     def test_username_validator_too_short(self):
         """Test username validator with too short username"""
-        user = CustomUser(email='test@example.com', username='ab', password='password123',
+        user = CustomUser(email='test@example.com', username='ab', password=TEST_PASSWORD,
                           name='Test', surname='User', company='Test Company')
         with self.assertRaises(ValidationError):
             user.full_clean()
@@ -158,21 +163,21 @@ class CustomUserModelTests(TestCase):
     def test_username_validator_too_long(self):
         """Test username validator with too long username"""
         long_username = 'a' * 31
-        user = CustomUser(email='test@example.com', username=long_username, password='password123',
+        user = CustomUser(email='test@example.com', username=long_username, password=TEST_PASSWORD,
                           name='Test', surname='User', company='Test Company')
         with self.assertRaises(ValidationError):
             user.full_clean()
 
     def test_username_validator_invalid_chars(self):
         """Test username validator with invalid characters"""
-        user = CustomUser(email='test@example.com', username='test-user', password='password123',
+        user = CustomUser(email='test@example.com', username='test-user', password=TEST_PASSWORD,
                           name='Test', surname='User', company='Test Company')
         with self.assertRaises(ValidationError):
             user.full_clean()
 
     def test_username_validator_valid(self):
         """Test username validator with valid username"""
-        user = CustomUser(email='test@example.com', username='test_user123', password='password123',
+        user = CustomUser(email='test@example.com', username='test_user123', password=TEST_PASSWORD,
                           name='Test', surname='User', company='Test Company')
         try:
             user.full_clean()
@@ -182,7 +187,7 @@ class CustomUserModelTests(TestCase):
     def test_clean_method_xss_protection(self):
         """Test clean method protects against XSS in username"""
         user = CustomUser(email='test@example.com', username='test<script>alert(1)</script>',
-                          password='password123', name='Test', surname='User', company='Test Company')
+                          password=TEST_PASSWORD, name='Test', surname='User', company='Test Company')
         with self.assertRaises(ValidationError):
             user.clean()
 
@@ -221,12 +226,21 @@ class CustomUserSerializerTests(TestCase):
     """Tests for the CustomUserSerializer"""
 
     def setUp(self):
-        from .serializers import CustomUserSerializer
+        super().setUp()
+        self.user = CustomUser.objects.create_user(
+            username='seruser',
+            email='seruser@example.com',
+            password=TEST_PASSWORD,
+            name='Ser',
+            surname='User',
+            company='SerCompany'
+        )
+
         self.serializer_class = CustomUserSerializer
         self.user_data = {
             'username': 'testuser',
             'email': 'test@example.com',
-            'password': 'testpassword123',
+            'password': TEST_PASSWORD,
             'name': 'Test',
             'surname': 'User',
             'company': 'Test Company'
@@ -269,14 +283,14 @@ class CustomUserSerializerTests(TestCase):
         update_data = {
             'name': 'Updated',
             'surname': 'Name',
-            'password': 'newpassword123'
+            'password': TEST_PASSWORD+"1a2b"
         }
         serializer = self.serializer_class(user, data=update_data, partial=True)
         self.assertTrue(serializer.is_valid())
         updated_user = serializer.save()
         self.assertEqual(updated_user.name, 'Updated')
         self.assertEqual(updated_user.surname, 'Name')
-        self.assertTrue(updated_user.check_password('newpassword123'))
+        self.assertTrue(updated_user.check_password(TEST_PASSWORD+"1a2b"))
 
     def test_password_write_only(self):
         """Test that password is write-only"""
@@ -293,6 +307,84 @@ class CustomUserSerializerTests(TestCase):
         user = serializer.save()
         self.assertFalse(user.is_staff)  # Should still be False despite trying to set it to True
 
+    def test_get_created_at_and_updated_at(self):
+        serializer = CustomUserSerializer(self.user)
+        if hasattr(self.user, 'date_joined'):
+            self.assertEqual(serializer.data['created_at'], self.user.date_joined.isoformat())
+        self.assertIn('updated_at', serializer.data)
+
+    def test_get_created_at_fallback(self):
+        user = self.user
+        # Only run fallback if attribute exists
+        if hasattr(user, 'date_joined'):
+            delattr(user, 'date_joined')
+        serializer = CustomUserSerializer(user)
+        self.assertIn('created_at', serializer.data)
+
+    def test_get_updated_at_fallback(self):
+        # Remove last_login attribute
+        user = self.user
+        user.last_login = None
+        serializer = CustomUserSerializer(user)
+        self.assertIn('updated_at', serializer.data)
+
+    def test_create_with_alias_fields(self):
+        data = {
+            'username': 'aliasuser',
+            'email': 'alias@example.com',
+            'password': TEST_PASSWORD,
+            'first_name': 'Alias',
+            'last_name': 'User',
+            'company': 'AliasCompany',
+            'name': 'Alias',
+            'surname': 'User'
+        }
+        serializer = CustomUserSerializer(data=data)
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.name, 'Alias')
+        self.assertEqual(user.surname, 'User')
+        self.assertTrue(user.check_password(TEST_PASSWORD))
+
+    def test_create_missing_required_fields(self):
+        data = {
+            'username': 'missinguser',
+            'email': 'missing@example.com',
+            'password': TEST_PASSWORD,
+            'company': 'MissingCompany'
+        }
+        serializer = CustomUserSerializer(data=data)
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('name', serializer.errors)
+        self.assertIn('surname', serializer.errors)
+
+    def test_update_with_alias_and_password(self):
+        serializer = CustomUserSerializer(instance=self.user, data={
+            'first_name': 'Updated',
+            'last_name': 'Surname',
+            'password': TEST_PASSWORD+"abcd",
+            'company': 'UpdatedCompany'
+        }, partial=True)
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.name, 'Updated')
+        self.assertEqual(user.surname, 'Surname')
+        self.assertEqual(user.company, 'UpdatedCompany')
+        self.assertTrue(user.check_password(TEST_PASSWORD+"abcd"))
+
+    def test_update_without_password(self):
+        serializer = CustomUserSerializer(instance=self.user, data={
+            'first_name': 'NoPass',
+            'last_name': 'NoPassSurname',
+            'company': 'NoPassCompany'
+        }, partial=True)
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.name, 'NoPass')
+        self.assertEqual(user.surname, 'NoPassSurname')
+        self.assertEqual(user.company, 'NoPassCompany')
+        self.assertTrue(user.check_password(TEST_PASSWORD))
+
 
 class UserViewSetTests(APITestCase):
     """Tests for the UserViewSet"""
@@ -307,7 +399,7 @@ class UserViewSetTests(APITestCase):
         self.user_data = {
             'username': 'testuser',
             'email': 'test@example.com',
-            'password': 'testpassword123',
+            'password': TEST_PASSWORD,
             'name': 'Test',
             'surname': 'User',
             'company': 'Test Company'
@@ -317,7 +409,7 @@ class UserViewSetTests(APITestCase):
         self.user = CustomUser.objects.create_user(
             username='existinguser',
             email='existing@example.com',
-            password='existingpassword123',
+            password=TEST_PASSWORD,
             name='Existing',
             surname='User',
             company='Existing Company'
@@ -328,7 +420,7 @@ class UserViewSetTests(APITestCase):
         self.admin = CustomUser.objects.create_user(
             username='adminuser',
             email='admin@example.com',
-            password='adminpassword123',
+            password=TEST_PASSWORD,
             name='Admin',
             surname='User',
             company='Admin Company',
@@ -391,7 +483,7 @@ class UserViewSetTests(APITestCase):
         """Test successful signin with email"""
         data = {
             'emailOrUsername': 'existing@example.com',
-            'password': 'existingpassword123'
+            'password': TEST_PASSWORD
         }
         response = self.client.post(self.signin_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -401,7 +493,7 @@ class UserViewSetTests(APITestCase):
         """Test successful signin with username"""
         data = {
             'emailOrUsername': 'existinguser',
-            'password': 'existingpassword123'
+            'password': TEST_PASSWORD
         }
         response = self.client.post(self.signin_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -411,7 +503,7 @@ class UserViewSetTests(APITestCase):
         """Test signin with invalid credentials"""
         data = {
             'emailOrUsername': 'existing@example.com',
-            'password': 'wrongpassword'
+            'password': TEST_PASSWORD+"**"
         }
         response = self.client.post(self.signin_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -421,7 +513,7 @@ class UserViewSetTests(APITestCase):
         """Test signin with nonexistent user"""
         data = {
             'emailOrUsername': 'nonexistent@example.com',
-            'password': 'password123'
+            'password': TEST_PASSWORD
         }
         response = self.client.post(self.signin_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
@@ -432,7 +524,7 @@ class UserViewSetTests(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
         data = {
             'emailOrUsername': 'existing@example.com',
-            'password': 'existingpassword123'
+            'password': TEST_PASSWORD
         }
         response = self.client.post(self.signin_url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -469,21 +561,21 @@ class UserViewSetTests(APITestCase):
         """Test successful password update"""
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
         update_data = {
-            'password': 'newpassword123',
-            'oldPassword': 'existingpassword123'
+            'password': TEST_PASSWORD+"1a2b",
+            'oldPassword': TEST_PASSWORD
         }
         response = self.client.put(f'/api/users/{self.user.id}/update_user/', update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Verify password was changed
         self.user.refresh_from_db()
-        self.assertTrue(self.user.check_password('newpassword123'))
+        self.assertTrue(self.user.check_password(TEST_PASSWORD+"1a2b"))
 
     def test_update_user_password_wrong_old_password(self):
         """Test password update with wrong old password"""
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
         update_data = {
-            'password': 'newpassword123',
-            'oldPassword': 'wrongpassword'
+            'password': TEST_PASSWORD+"1a2b",
+            'oldPassword': TEST_PASSWORD+"a"
         }
         response = self.client.put(f'/api/users/{self.user.id}/update_user/', update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -547,4 +639,72 @@ class UserViewSetTests(APITestCase):
     def test_check_role_unauthenticated(self):
         """Test check_role endpoint when not authenticated"""
         response = self.client.get(self.check_role_url)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_profile_authenticated(self):
+        """Test getting profile as authenticated user"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.get('/api/users/profile/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['username'], self.user.username)
+
+    def test_profile_unauthenticated(self):
+        """Test getting profile as unauthenticated user"""
+        response = self.client.get('/api/users/profile/')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_update_profile_success(self):
+        """Test updating profile as authenticated user"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        update_data = {'name': 'Updated', 'surname': 'User'}
+        response = self.client.patch('/api/users/update_profile/', update_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['name'], 'Updated')
+        self.assertEqual(response.data['surname'], 'User')
+
+    def test_update_profile_invalid(self):
+        """Test updating profile with invalid data"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        update_data = {'username': ''}  # Invalid username
+        response = self.client.patch('/api/users/update_profile/', update_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('username', response.data)
+
+    def test_update_profile_unauthenticated(self):
+        """Test updating profile as unauthenticated user"""
+        update_data = {'name': 'Updated'}
+        response = self.client.patch('/api/users/update_profile/', update_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_complete_profile_success(self):
+        """Test completing profile with required fields"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        data = {'company': 'New Company'}
+        response = self.client.post('/api/users/complete_profile/', data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['company'], 'New Company')
+
+    def test_complete_profile_missing_required(self):
+        """Test completing profile missing required field"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.post('/api/users/complete_profile/', {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('company', response.data)
+
+    def test_complete_profile_unauthenticated(self):
+        """Test completing profile as unauthenticated user"""
+        response = self.client.post('/api/users/complete_profile/', {'company': 'X'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_delete_profile_success(self):
+        """Test deleting profile as authenticated user"""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.delete('/api/users/delete_profile/')
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        with self.assertRaises(CustomUser.DoesNotExist):
+            CustomUser.objects.get(id=self.user.id)
+
+    def test_delete_profile_unauthenticated(self):
+        """Test deleting profile as unauthenticated user"""
+        response = self.client.delete('/api/users/delete_profile/')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

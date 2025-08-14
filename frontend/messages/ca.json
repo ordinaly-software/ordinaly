@@ -92,13 +92,14 @@
       "spotsLeft": "places disponibles",
       "enrolled": "inscrits",
       "max": "màxim",
-  "almostFull": "Gairebé Complet",
-  "fillingFast": "Omplint-se Ràpidament",
-  "available": "Disponible",
-  "inProgress": "En curs",
-  "finished": "Finalitzat",
+      "almostFull": "Gairebé Complet",
+      "fillingFast": "Omplint-se Ràpidament",
+      "available": "Disponible",
+      "inProgress": "En curs",
+      "finished": "Finalitzat",
       "datesSoon": "Dates properament",
       "durationSoon": "Durada properament",
+      "locationSoon": "Localització properament",
       "signUpModal": {
         "title": "Registre de Curs",
         "description": "Rep notificacions quan s'obri la inscripció per a \"{courseName}\"",
@@ -325,8 +326,8 @@
       "emailPlaceholder": "Introduïu el vostre correu electrònic",
       "companyLabel": "Companyia",
       "companyPlaceholder": "Introduïu el nom de la vostra empresa",
-      "regionLabel": "Regió",
-      "regionPlaceholder": "Introduïu la vostra regió (opcional)",
+      "regionLabel": "País",
+      "regionPlaceholder": "Introduïu la vostra país (opcional)",
       "cityLabel": "Ciutat",
       "cityPlaceholder": "Entra a la teva ciutat (opcional)",
       "passwordLabel": "Contrasenya",
@@ -369,8 +370,8 @@
       "title": "Informació de l'empresa",
       "companyLabel": "Companyia",
       "companyPlaceholder": "Introduïu el nom de la vostra empresa",
-      "regionLabel": "Regió",
-      "regionPlaceholder": "Introduïu la vostra regió",
+      "regionLabel": "País",
+      "regionPlaceholder": "Introduïu la vostra país",
       "cityLabel": "Ciutat",
       "cityPlaceholder": "Entra a la teva ciutat",
       "optional": "opcional",
@@ -410,7 +411,6 @@
       "users": "Usuaris"
     },
     "users": {
-      "title": "Llista d'usuaris",
       "userId": "ID d'usuari",
       "name": "Nom",
       "surname": "Cognom",
@@ -418,7 +418,10 @@
       "company": "Empresa",
       "errorFetching": "No s'han pogut obtenir els usuaris. Si us plau, torneu-ho a intentar més tard.",
       "sendMail": "Enviar correu",
-      "selectAll": "Seleccionar tot"
+      "selectAll": "Seleccionar tot",
+      "searchPlaceholder": "Cerca usuaris...",
+      "users": "usuaris",
+      "lastLogin": "Darrera connexió"
     },
     "stats": {
       "totalServices": "Serveis totals",
@@ -504,6 +507,7 @@
     },
     "courses": {
       "noSpecificDate": "Data específica properament",
+      "locationSoon": "Ubicació properament",
       "title": "Gestió de cursos",
       "searchPlaceholder": "Cursos de cerca ...",
       "addCourse": "Afegir curs",
@@ -521,6 +525,9 @@
       "finished": "Acabat",
       "noCoursesFound": "No hi ha cursos que coincideixin amb la cerca.",
       "contactForQuote": "Gratuit",
+      "edit": "Editar",
+      "delete": "Suprimir",
+      "view": "Veure",
       "form": {
         "title": "Títol",
         "titlePlaceholder": "Introduïu un títol de curs atractiu",
@@ -541,7 +548,8 @@
         "pricePlaceholder": "Deixeu buit per a \"Contacte per a la cotització\"",
         "location": "Situació",
         "locationPlaceholder": "Introduïu la ubicació del curs o \"en línia\"",
-        "locationRequired": "Ubicació *",
+  "locationRequired": "Ubicació *",
+  "locationOptional": "Ubicació (Opcional)",
         "scheduleSettings": "Configuració del calendari professional",
         "startDateRequired": "Data d'inici *",
         "endDateRequired": "Data de finalització *",
@@ -765,8 +773,8 @@
         "noPdf": "No hi ha PDF disponible per a la vista prèvia"
       },
       "messages": {
-        "createSuccess": "Document de termes '{name}' creat amb èxit!",
-        "updateSuccess": "Document de termes '{name}' actualitzat amb èxit!",
+        "createSuccess": "Document creat amb èxit!",
+        "updateSuccess": "Document actualitzat amb èxit!",
         "deleteSuccess": "Terme eliminat amb èxit",
         "bulkDeleteSuccess": "Termes eliminats amb èxit",
         "fetchError": "Error en obtenir termes",
@@ -908,7 +916,8 @@
     "viewDetails": "Veure detalls",
     "maxAttendants": "Assistents màxims",
     "maxAttendeesCount": "Max {count} assistents",
-    "noSpecificDate": "No s'ha establert cap data específica per a aquest curs.",
+    "noSpecificDate": "No s'ha establert cap data específica",
+    "locationSoon": "Localització pròximament",
     "filters": {
       "location": {
         "all": "Totes les ubicacions",
@@ -929,7 +938,6 @@
     "pastCourses": "Cursos passats",
     "viewPastCourses": "Veure cursos passats",
     "hidePastCourses": "Amaga els cursos passats",
-    "upcomingCourses": "Propers cursos",
     "finished": "Acabat",
     "cta": {
       "title": "Esteu a punt per avançar en la vostra carrera?",
@@ -985,18 +993,10 @@
       "catalogDownloaded": "El catàleg es va descarregar amb èxit.",
       "catalogError": "Error de generació del catàleg. "
     },
-    "pdf": {
       "slogan": "Solucions de programari i formació",
-      "title": "Catàleg de formació",
-      "subtitle": "Cursos de formació professional i tecnològica",
       "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional.",
       "coursesTitle": "Els nostres cursos",
-      "upcomingCourses": "Propers cursos",
-      "date": "Data:",
       "time": "Hora:",
-      "location": "Ubicació:",
-      "price": "Preu:",
-      "free": "Gratuït",
       "capacity": "Capacitat:",
       "people": "persones",
       "contactTitle": "Informació de contacte",
@@ -1005,11 +1005,22 @@
       "specialization": "Especialització:",
       "specializationText": "Desenvolupament de programari i formació en tecnologia",
       "filename": "Cataleg_formacio_Ordinaly.pdf",
-      "noSpecificDate": "Encara no hi ha data específica.",
-      "noSpecificTime": "Encara no hi ha hora específica."
+      "noSpecificTime": "Encara no hi ha hora específica.",
+      "bonificationTitle": "Bonificació i Subvencions",
+      "bonificationDisclaimer": "Part de les nostres formacions poden bonificar-se via FUNDAE/SEPE i/o encaixar en convocatòries cofinançades per FSE+ i PRTR-NextGenerationEU, sempre que la seva empresa compleixi requisits i tramiti l'ajuda. Ordinaly facilita la documentació del curs, però no sol·licita ni tramita bonificacions o subvencions en nom del client. Reviseu sempre els enllaços oficials abans de contractar.",
+    "pdf": {
+      "title": "Catàleg de formació",
+      "subtitle": "Cursos de formació professional i tecnològica",
+      "date": "Data:",
+      "location": "Ubicació:",
+      "price": "Preu:",
+      "free": "Gratuït",
+      "noSpecificDate": "Encara no hi ha data específica",
+      "locationSoon": "Ubicació pròximament"
     },
     "courseDetails": {
       "title": "Detalls del curs",
+      "locationSoon": "Ubicació pròximament",
       "courseDescription": "Descripció del curs",
       "scheduleInformation": "Programar informació",
       "upcomingSessions": "Properes sessions",
@@ -1035,7 +1046,12 @@
       "importantDates": "Dates importants",
       "excludedDatesMessage": "Aquest curs té {Count} Data (s) (S) (vacances o pauses) que no estan incloses en la programació regular.",
       "moreSessions": "I {count} més sessions ...",
-      "noSpecificDate": "No s'ha establert cap data específica per a aquest curs.",
+      "noSpecificDate": "No s'ha establert cap data específica",
+      "downloadingCalendar": "Descarregant...",
+      "calendarDownloadError": "No s'ha pogut descarregar el calendari.",
+      "addToCalendarICS": "Afegeix al calendari (.ics)",
+      "addToGoogleCalendar": "Afegeix a Google Calendar",
+      "addToOutlookCalendar": "Afegeix a Outlook Calendar",
       "periodicity": {
         "once": "Esdeveniment únic",
         "daily": "Cada dia",
@@ -1072,15 +1088,48 @@
           "short": "Sol",
           "full": "Diumenge"
         }
+      },
+      "months": {
+        "january": "gener",
+        "february": "febrer",
+        "march": "març",
+        "april": "abril",
+        "may": "maig",
+        "june": "juny",
+        "july": "juliol",
+        "august": "agost",
+        "september": "setembre",
+        "october": "octubre",
+        "november": "novembre",
+        "december": "desembre"
+      },
+      "fullScheduleText": {
+        "once": "{date} de {startTime} a {endTime}",
+        "daily": "Diàriament del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXDays": "Cada {interval} dies del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyWeekdays": "Cada {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekdays": "Cada {interval} setmanes els {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXWeeksOnWeekday": "Cada {interval} setmanes el {weekday} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyOtherWeekOnWeekdays": "Cada dues setmanes els {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "weekly": "Setmanalment del {startDate} al {endDate}, {startTime} - {endTime}",
+        "biweekly": "Quinzenalment del {startDate} al {endDate}, {startTime} - {endTime}",
+        "monthlyOnWeek": "{weekOfMonth} {weekday} de cada mes del {startDate} al {endDate}, {startTime} - {endTime}",
+        "monthly": "Mensualment del {startDate} al {endDate}, {startTime} - {endTime}",
+        "everyXMonths": "Cada {interval} mesos del {startDate} al {endDate}, {startTime} - {endTime}",
+        "customWithWeekdays": "{weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
+        "custom": "Del {startDate} al {endDate}, {startTime} - {endTime}"
       }
     }
+  },
+  "bonificationTexts": {
+    "summary": "Part de les nostres formacions poden bonificar-se via FUNDAE/SEPE i/o encaixar en convocatòries cofinançades per FSE+ i PRTR-NextGenerationEU, sempre que la seva empresa compleixi requisits i tramiti l'ajuda pel seu compte.",
+    "details": "\n**FUNDAE / SEPE - Formació programada per les empreses:** permet bonificar part del cost formatiu en les quotes a la Seguretat Social. Informació oficial per a Empreses ([FUNDAE](https://www.fundae.es/empresas)) i Formació per a ocupats ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fons UE - FSE+ 2021-2027:** programes estatals i regionals (inclosa Andalusia) que financen actuacions d'ocupació, educació i formació mitjançant convocatòries públiques. Consulteu [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Component 23):** mesures per a capacitació i polítiques actives d'ocupació; la cobertura depèn de cada convocatòria. Informació oficial del [Pla de Recuperació](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resilient (truncated...)"
   },
   "profile": {
     "title": "El meu perfil",
     "subtitle": "Gestioneu la vostra informació personal i la configuració del compte",
     "loading": "Perfil de càrrega ...",
     "personalInfo": "Informació personal",
-    "accountSettings": "Configuració del compte",
     "dangerZone": "Zona de perill",
     "form": {
       "firstName": "Nom",
@@ -1093,8 +1142,8 @@
       "emailPlaceholder": "Introduïu la vostra adreça de correu electrònic",
       "company": "Companyia",
       "companyPlaceholder": "Introduïu el nom de la vostra empresa",
-      "region": "Regió",
-      "regionPlaceholder": "Introduïu la vostra regió (opcional)",
+      "region": "País",
+      "regionPlaceholder": "Introduïu la vostra país (opcional)",
       "city": "Ciutat",
       "cityPlaceholder": "Entra a la teva ciutat (opcional)",
       "saveChanges": "Desa els canvis",

@@ -1,5 +1,5 @@
 import tempfile
-import shutil
+import os
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -10,13 +10,16 @@ from PIL import Image
 from io import BytesIO
 from datetime import date, time
 from django.db import IntegrityError
-
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
-
 from users.models import CustomUser
 from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
+from courses.admin import CourseAdmin
+from django.contrib import admin as django_admin
+
+
+TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
 
 
 # Helper function to create a test image
@@ -29,19 +32,71 @@ def get_test_image_file():
     return SimpleUploadedFile(file.name, file.read(), content_type='image/png')
 
 
-# Model Tests
-@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class CourseModelTest(TestCase):
+# General-purpose test data mixin for user, course, and enrollment
+class TestUserCourseEnrollmentMixin:
+    def create_test_user(self, **overrides):
+        data = {
+            'email': 'test@example.com',
+            'username': 'testuser',
+            'password': TEST_PASSWORD,
+            'name': 'Test',
+            'surname': 'User',
+            'company': 'Test Company',
+        }
+        data.update(overrides)
+        return CustomUser.objects.create_user(**data)
 
+    def create_test_course(self, **overrides):
+        data = {
+            'title': 'Test Course',
+            'description': 'Test Description',
+            'image': get_test_image_file(),
+            'price': Decimal('99.99'),
+            'location': 'Test Location',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
+            'max_attendants': 20,
+        }
+        data.update(overrides)
+        return Course.objects.create(**data)
+
+    def create_test_enrollment(self, user=None, course=None, **overrides):
+        user = user or self.create_test_user()
+        course = course or self.create_test_course()
+        data = {
+            'user': user,
+            'course': course,
+        }
+        data.update(overrides)
+        return Enrollment.objects.create(**data)
+
+
+class CourseImageCleanupTestMixin:
     @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
+    def teardown_class(cls):
+        """Remove only test-generated images from MEDIA_ROOT/course_images/"""
+        course_images_dir = os.path.join(settings.MEDIA_ROOT, 'course_images')
+        test_prefixes = [
+            'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp',
+            'Existing', 'Admin', 'Serializer', 'Model', 'Duration', 'Complex', 'One-time', 'Yoga', 'Advanced',
+            'Monthly', 'Special', 'Daily', 'Description'
+        ]
+        if os.path.isdir(course_images_dir):
+            for fname in os.listdir(course_images_dir):
+                if fname.endswith('.png') and any(fname.startswith(prefix) for prefix in test_prefixes):
+                    try:
+                        os.remove(os.path.join(course_images_dir, fname))
+                    except Exception:
+                        pass
         super().tearDownClass()
 
+
+# Model Tests
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.course_data = {
             'title': 'Test Course',
@@ -49,7 +104,7 @@ class CourseModelTest(TestCase):
             'description': 'Test Description',
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
-            'location': 'Test Location',
+            'location': None,
             'start_date': date(2023, 12, 31),
             'end_date': date(2023, 12, 31),
             'start_time': time(14, 0),
@@ -76,7 +131,7 @@ class CourseModelTest(TestCase):
         self.assertEqual(self.course.subtitle, 'Test Subtitle')
         self.assertEqual(self.course.description, 'Test Description')
         self.assertEqual(self.course.price, Decimal('99.99'))
-        self.assertEqual(self.course.location, 'Test Location')
+        self.assertIsNone(self.course.location)
         self.assertEqual(self.course.start_date, date(2023, 12, 31))
         self.assertEqual(self.course.end_date, date(2023, 12, 31))
         self.assertEqual(self.course.start_time, time(14, 0))
@@ -84,6 +139,20 @@ class CourseModelTest(TestCase):
         self.assertEqual(self.course.periodicity, 'once')
         self.assertEqual(self.course.max_attendants, 20)
         self.assertTrue(self.course.image)
+
+    def test_course_location_nullable(self):
+        # Should allow blank location
+        course_data = self.course_data.copy()
+        course_data['location'] = ''
+        course = Course(**course_data)
+        course.full_clean()  # Should not raise ValidationError
+        self.assertEqual(course.location, '')
+
+        # Should allow null location
+        course_data['location'] = None
+        course = Course(**course_data)
+        course.full_clean()  # Should not raise ValidationError
+        self.assertIsNone(course.location)
 
     def test_course_string_representation(self):
         self.assertEqual(str(self.course), 'Test Course')
@@ -209,43 +278,11 @@ class CourseModelTest(TestCase):
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentModelTest(TestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class EnrollmentModelTest(TestUserCourseEnrollmentMixin, CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
-        self.user = CustomUser.objects.create_user(
-            email='test@example.com',
-            username='testuser',
-            password='testpassword',
-            name='Test',
-            surname='User',
-            company='Test Company'
-        )
-        self.course = Course.objects.create(
-            title='Test Course',
-            description='Test Description',
-            image=get_test_image_file(),
-            price=Decimal('99.99'),
-            location='Test Location',
-            start_date=date(2023, 12, 31),
-            end_date=date(2023, 12, 31),
-            start_time=time(14, 0),
-            end_time=time(17, 0),
-            periodicity='once',
-            max_attendants=20
-        )
-        self.enrollment = Enrollment.objects.create(
-            user=self.user,
-            course=self.course
-        )
+        self.user = self.create_test_user()
+        self.course = self.create_test_course()
+        self.enrollment = self.create_test_enrollment(user=self.user, course=self.course)
 
     def tearDown(self):
         """Clean up database objects"""
@@ -297,17 +334,7 @@ class EnrollmentModelTest(TestCase):
 
 # Serializer Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class CourseSerializerTest(TestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.course_data = {
             'title': 'Test Course',
@@ -352,7 +379,7 @@ class CourseSerializerTest(TestCase):
         user = CustomUser.objects.create_user(
             email='test@example.com',
             username='testuser',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -401,22 +428,12 @@ class CourseSerializerTest(TestCase):
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentSerializerTest(TestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class EnrollmentSerializerTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(
             email='test@example.com',
             username='testuser',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -465,7 +482,7 @@ class EnrollmentSerializerTest(TestCase):
         user2 = CustomUser.objects.create_user(
             email='test2@example.com',
             username='testuser2',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test2',
             surname='User2',
             company='Test Company'
@@ -489,23 +506,13 @@ class EnrollmentSerializerTest(TestCase):
 
 # View Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class CourseViewSetTest(APITestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class CourseViewSetTest(CourseImageCleanupTestMixin, APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.admin_user = CustomUser.objects.create_user(
             email='admin@example.com',
             username='adminuser',
-            password='adminpassword',
+            password=TEST_PASSWORD,
             name='Admin',
             surname='User',
             company='Admin Company',
@@ -514,7 +521,7 @@ class CourseViewSetTest(APITestCase):
         self.regular_user = CustomUser.objects.create_user(
             email='user@example.com',
             username='regularuser',
-            password='userpassword',
+            password=TEST_PASSWORD,
             name='Regular',
             surname='User',
             company='User Company'
@@ -655,7 +662,7 @@ class CourseViewSetTest(APITestCase):
             user = CustomUser.objects.create_user(
                 email=f'user{i}@example.com',
                 username=f'user{i}',
-                password='password',
+                password=TEST_PASSWORD,
                 name=f'User{i}',
                 surname='Test',
                 company='Test Company'
@@ -694,23 +701,13 @@ class CourseViewSetTest(APITestCase):
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentViewSetTest(APITestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class EnrollmentViewSetTest(CourseImageCleanupTestMixin, APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.admin_user = CustomUser.objects.create_user(
             email='admin@example.com',
             username='adminuser',
-            password='adminpassword',
+            password=TEST_PASSWORD,
             name='Admin',
             surname='User',
             company='Admin Company',
@@ -719,7 +716,7 @@ class EnrollmentViewSetTest(APITestCase):
         self.regular_user = CustomUser.objects.create_user(
             email='user@example.com',
             username='regularuser',
-            password='userpassword',
+            password=TEST_PASSWORD,
             name='Regular',
             surname='User',
             company='User Company'
@@ -727,7 +724,7 @@ class EnrollmentViewSetTest(APITestCase):
         self.other_user = CustomUser.objects.create_user(
             email='other@example.com',
             username='otheruser',
-            password='otherpassword',
+            password=TEST_PASSWORD,
             name='Other',
             surname='User',
             company='Other Company'
@@ -831,21 +828,12 @@ class EnrollmentViewSetTest(APITestCase):
 
 # Advanced Scheduling Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class AdvancedSchedulingTestCase(TestCase):
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class AdvancedSchedulingTestCase(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(
             username='testuser',
             email='test@example.com',
-            password='testpass123',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -1105,3 +1093,37 @@ class AdvancedSchedulingTestCase(TestCase):
         self.assertIn('Monday', description)
         self.assertIn('Wednesday', description)
         self.assertIn('Excluded dates: 1', description)
+
+
+class CourseAdminTest(CourseImageCleanupTestMixin, TestCase):
+    def setUp(self):
+        self.course = Course.objects.create(
+            title='Admin Test',
+            description='desc',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=date(2025, 1, 1),
+            end_date=date(2025, 1, 2),
+            start_time=time(10, 0),
+            end_time=time(12, 0),
+            periodicity='once',
+            max_attendants=5
+        )
+        self.admin = CourseAdmin(Course, django_admin.site)
+
+    def test_get_enrolled_count(self):
+        self.assertEqual(self.admin.get_enrolled_count(self.course), 0)
+
+    def test_get_weekdays_display_empty(self):
+        self.assertEqual(self.admin.get_weekdays_display(self.course), '-')
+
+    def test_get_weekdays_display_some(self):
+        self.course.weekdays = [0, 2]
+        self.assertIn('Monday', self.admin.get_weekdays_display(self.course))
+        self.assertIn('Wednesday', self.admin.get_weekdays_display(self.course))
+
+    def test_get_form_help_text(self):
+        form = self.admin.get_form(request=None)
+        self.assertIn('Select specific weekdays', form.base_fields['weekdays'].help_text)
+        self.assertIn('Dates to exclude from schedule', form.base_fields['exclude_dates'].help_text)

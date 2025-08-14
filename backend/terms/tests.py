@@ -9,60 +9,71 @@ import tempfile
 from .models import Terms
 from .serializers import TermsSerializer
 from django.urls import reverse
-import shutil
 from django.conf import settings
 from django.test import override_settings
+from unittest.mock import patch
 
+
+TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
 
 User = get_user_model()
 
 
+# General-purpose test mixin for terms test setup and teardown
+class TestTermsSetupMixin:
+    @classmethod
+    def teardown_class(cls):
+        """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
+        terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
+        if os.path.isdir(terms_dir):
+            for fname in os.listdir(terms_dir):
+                if fname.endswith('.pdf') and fname.split('_')[0] in [
+                  'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp']:
+                    try:
+                        os.remove(os.path.join(terms_dir, fname))
+                    except Exception:
+                        pass
+        super().teardown_class()
+
+    def create_test_user(self, **overrides):
+        data = {
+            'username': 'testuser',
+            'email': 'test@example.com',
+            'password': TEST_PASSWORD,
+            'name': 'Test',
+            'surname': 'User',
+            'company': 'Test Company',
+        }
+        data.update(overrides)
+        return User.objects.create_user(**data)
+
+    def create_test_pdf(self, name="test_terms.pdf", content=b"%PDF-1.5\n%Test PDF content"):
+        return SimpleUploadedFile(name, content, content_type="application/pdf")
+
+    def get_basic_terms_data(self, **overrides):
+        data = {
+            'name': 'Test Terms',
+            'author': getattr(self, 'user', None),
+            'pdf_content': getattr(self, 'pdf_content', None),
+            'version': '1.0',
+            'tag': 'terms',
+        }
+        data.update(overrides)
+        return data
+
+
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class TermsModelTests(TestCase):
+class TermsModelTests(TestTermsSetupMixin, TestCase):
     """Tests for the Terms model"""
 
     @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
+    def teardown_class(cls):
+        super().teardown_class()
 
     def setUp(self):
-        # Create a test user
-        self.user = User.objects.create_user(
-            username='testuser',
-            email='test@example.com',
-            password='testpassword123',
-            name='Test',
-            surname='User',
-            company='Test Company'
-        )
-
-        # Create test files
-        self.md_content = SimpleUploadedFile(
-            "test_terms.md",
-            b"# Test Terms\n\nThis is a test markdown file.",
-            content_type="text/markdown"
-        )
-
-        self.pdf_content = SimpleUploadedFile(
-            "test_terms.pdf",
-            b"%PDF-1.5\n%Test PDF content",
-            content_type="application/pdf"
-        )
-
-        # Basic valid terms data
-        self.terms_data = {
-            'name': 'Test Terms',
-            'author': self.user,
-            'content': self.md_content,
-            'pdf_content': self.pdf_content,
-            'version': '1.0',
-            'tag': 'terms'
-        }
+        self.user = self.create_test_user()
+        self.pdf_content = self.create_test_pdf()
+        self.terms_data = self.get_basic_terms_data()
 
     def tearDown(self):
         """Clean up database objects"""
@@ -76,7 +87,6 @@ class TermsModelTests(TestCase):
         self.assertEqual(terms.author, self.user)
         self.assertEqual(terms.version, '1.0')
         self.assertEqual(terms.tag, 'terms')
-        self.assertTrue(terms.content.name.endswith('.md'))
         self.assertTrue(terms.pdf_content.name.endswith('.pdf'))
 
     def test_str_method(self):
@@ -90,11 +100,6 @@ class TermsModelTests(TestCase):
             terms_data = self.terms_data.copy()
             terms_data['tag'] = tag
             terms_data['name'] = f'Test {tag}'
-            terms_data['content'] = SimpleUploadedFile(
-                f"test_{tag}.md",
-                f"# Test {tag}\n\nThis is a test markdown file.".encode(),
-                content_type="text/markdown"
-            )
             terms_data['pdf_content'] = SimpleUploadedFile(
                 f"test_{tag}.pdf",
                 b"%PDF-1.5\n%Test PDF content",
@@ -120,11 +125,6 @@ class TermsModelTests(TestCase):
         duplicate_terms = Terms(
             name='Duplicate Terms',
             author=self.user,
-            content=SimpleUploadedFile(
-                "duplicate_terms.md",
-                b"# Duplicate Terms\n\nThis is a duplicate test.",
-                content_type="text/markdown"
-            ),
             pdf_content=SimpleUploadedFile(
                 "duplicate_terms.pdf",
                 b"%PDF-1.5\n%Duplicate PDF content",
@@ -137,30 +137,10 @@ class TermsModelTests(TestCase):
         with self.assertRaises(ValidationError):
             duplicate_terms.clean()
 
-    def test_missing_content_file(self):
-        """Test missing content file raises ValidationError"""
-        terms_data = self.terms_data.copy()
-        terms_data['content'] = None
-        terms = Terms(**terms_data)
-        with self.assertRaises(ValidationError):
-            terms.clean()
-
     def test_missing_pdf_content_file(self):
         """Test missing pdf_content file raises ValidationError"""
         terms_data = self.terms_data.copy()
         terms_data['pdf_content'] = None
-        terms = Terms(**terms_data)
-        with self.assertRaises(ValidationError):
-            terms.clean()
-
-    def test_invalid_content_extension(self):
-        """Test invalid content file extension raises ValidationError"""
-        terms_data = self.terms_data.copy()
-        terms_data['content'] = SimpleUploadedFile(
-            "test_terms.txt",
-            b"This is a text file, not markdown.",
-            content_type="text/plain"
-        )
         terms = Terms(**terms_data)
         with self.assertRaises(ValidationError):
             terms.clean()
@@ -178,53 +158,32 @@ class TermsModelTests(TestCase):
             terms.clean()
 
     def test_delete_removes_files(self):
-        """Test that deleting a Terms object removes the associated files"""
-        # Create a Terms object with temporary files
-        with tempfile.NamedTemporaryFile(suffix='.md') as md_temp:
-            with tempfile.NamedTemporaryFile(suffix='.pdf') as pdf_temp:
-                md_temp.write(b"# Test Terms\n\nThis is a test markdown file.")
-                md_temp.flush()
-                pdf_temp.write(b"%PDF-1.5\n%Test PDF content")
-                pdf_temp.flush()
+        """Test that deleting a Terms object removes the associated PDF file"""
+        with tempfile.NamedTemporaryFile(suffix='.pdf') as pdf_temp:
+            pdf_temp.write(b"%PDF-1.5\n%Test PDF content")
+            pdf_temp.flush()
 
-                # Create SimpleUploadedFile objects from the temporary files
-                md_file = SimpleUploadedFile(
-                    os.path.basename(md_temp.name),
-                    md_temp.read(),
-                    content_type="text/markdown"
-                )
-                pdf_file = SimpleUploadedFile(
-                    os.path.basename(pdf_temp.name),
-                    pdf_temp.read(),
-                    content_type="application/pdf"
-                )
+            pdf_file = SimpleUploadedFile(
+                os.path.basename(pdf_temp.name),
+                pdf_temp.read(),
+                content_type="application/pdf"
+            )
 
-                terms = Terms.objects.create(
-                    name='Temp Terms',
-                    author=self.user,
-                    content=md_file,
-                    pdf_content=pdf_file,
-                    version='1.0',
-                    tag='privacy'
-                )
+            terms = Terms.objects.create(
+                name='Temp Terms',
+                author=self.user,
+                pdf_content=pdf_file,
+                version='1.0',
+                tag='privacy'
+            )
 
-                # Save the paths for later checking
-                # Note: For SimpleUploadedFile, .path might not be directly available or meaningful
-                # We need to ensure the files are actually saved to the storage system.
-                # The save method of the model handles this.
-                content_path = terms.content.path
-                pdf_content_path = terms.pdf_content.path
+            pdf_content_path = terms.pdf_content.path
 
-                # Ensure the files exist
-                self.assertTrue(os.path.exists(content_path))
-                self.assertTrue(os.path.exists(pdf_content_path))
+            self.assertTrue(os.path.exists(pdf_content_path))
 
-                # Delete the Terms object
-                terms.delete()
+            terms.delete()
 
-                # Check that the files are deleted
-                self.assertFalse(os.path.exists(content_path))
-                self.assertFalse(os.path.exists(pdf_content_path))
+            self.assertFalse(os.path.exists(pdf_content_path))
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
@@ -232,32 +191,31 @@ class TermsSerializerTests(TestCase):
     """Tests for the TermsSerializer"""
 
     @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
+    def teardown_class(cls):
+        """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
+        terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
+        if os.path.isdir(terms_dir):
+            for fname in os.listdir(terms_dir):
+                if fname.endswith('.pdf') and fname.split('_')[0] in [
+                  'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp']:
+                    try:
+                        os.remove(os.path.join(terms_dir, fname))
+                    except Exception:
+                        pass
+        super().teardown_class()
 
     def setUp(self):
         # Create a test user
         self.user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
-            password='testpassword123',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
         )
 
-        # Create test files
-        self.md_content = SimpleUploadedFile(
-            "test_terms.md",
-            b"# Test Terms\n\nThis is a test markdown file.",
-            content_type="text/markdown"
-        )
-
+        # Create test PDF file
         self.pdf_content = SimpleUploadedFile(
             "test_terms.pdf",
             b"%PDF-1.5\n%Test PDF content",
@@ -267,7 +225,6 @@ class TermsSerializerTests(TestCase):
         # Basic valid terms data
         self.terms_data = {
             'name': 'Test Terms',
-            'content': self.md_content,
             'pdf_content': self.pdf_content,
             'version': '1.0',
             'tag': 'terms'
@@ -285,7 +242,7 @@ class TermsSerializerTests(TestCase):
 
     def test_serializer_with_missing_required_fields(self):
         """Test serializer with missing required fields"""
-        required_fields = ['content', 'pdf_content', 'version']
+        required_fields = ['pdf_content', 'version']
         for field in required_fields:
             data = self.terms_data.copy()
             data.pop(field)
@@ -301,26 +258,8 @@ class TermsSerializerTests(TestCase):
             data[field] = 'test_value'
         serializer = TermsSerializer(data=data)
         self.assertTrue(serializer.is_valid())
-        # The read-only fields should not be in validated_data
         for field in read_only_fields:
             self.assertNotIn(field, serializer.validated_data)
-
-    def test_validate_content_valid(self):
-        """Test content validator with valid file"""
-        serializer = TermsSerializer(data=self.terms_data)
-        self.assertTrue(serializer.is_valid())
-
-    def test_validate_content_invalid(self):
-        """Test content validator with invalid file"""
-        data = self.terms_data.copy()
-        data['content'] = SimpleUploadedFile(
-            "test_terms.txt",
-            b"This is a text file, not markdown.",
-            content_type="text/plain"
-        )
-        serializer = TermsSerializer(data=data)
-        self.assertFalse(serializer.is_valid())
-        self.assertIn('content', serializer.errors)
 
     def test_validate_pdf_content_valid(self):
         """Test pdf_content validator with valid file"""
@@ -339,36 +278,11 @@ class TermsSerializerTests(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn('pdf_content', serializer.errors)
 
-    def test_validate_auto_name_generation(self):
-        """Test automatic name generation when name is not provided"""
-        data = self.terms_data.copy()
-        data.pop('name')
-
-        # Create fresh file objects since the original ones might have been consumed
-        data['content'] = SimpleUploadedFile(
-            "test_terms.md",
-            b"# Test Terms\n\nThis is a test markdown file.",
-            content_type="text/markdown"
-        )
-        data['pdf_content'] = SimpleUploadedFile(
-            "test_terms.pdf",
-            b"%PDF-1.5\n%Test PDF content",
-            content_type="application/pdf"
-        )
-
-        serializer = TermsSerializer(data=data)
-        # Validation check
-        if not serializer.is_valid():
-            pass  # Test will fail if not valid
-        self.assertTrue(serializer.is_valid())
-        self.assertEqual(serializer.validated_data['name'], 'Terms v1.0')
-
     def test_tag_display_field(self):
         """Test tag_display field is correctly generated"""
         terms = Terms.objects.create(
             name='Test Terms',
             author=self.user,
-            content=self.md_content,
             pdf_content=self.pdf_content,
             version='1.0',
             tag='terms'
@@ -382,13 +296,18 @@ class TermsViewSetTests(APITestCase):
     """Tests for the TermsViewSet"""
 
     @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
+    def teardown_class(cls):
+        """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
+        terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
+        if os.path.isdir(terms_dir):
+            for fname in os.listdir(terms_dir):
+                if fname.endswith('.pdf') and fname.split('_')[0] in [
+                  'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp']:
+                    try:
+                        os.remove(os.path.join(terms_dir, fname))
+                    except Exception:
+                        pass
+        super().teardown_class()
 
     def setUp(self):
         self.client = APIClient()
@@ -397,7 +316,7 @@ class TermsViewSetTests(APITestCase):
         self.user = User.objects.create_user(
             username='testuser',
             email='test@example.com',
-            password='testpassword123',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -407,7 +326,7 @@ class TermsViewSetTests(APITestCase):
         self.admin = User.objects.create_user(
             username='adminuser',
             email='admin@example.com',
-            password='adminpassword123',
+            password=TEST_PASSWORD,
             is_staff=True,
             is_superuser=True,
             name='Admin',
@@ -415,13 +334,7 @@ class TermsViewSetTests(APITestCase):
             company='Admin Company'
         )
 
-        # Create test files for terms
-        self.md_content = SimpleUploadedFile(
-            "test_terms.md",
-            b"# Test Terms\n\nThis is a test markdown file.",
-            content_type="text/markdown"
-        )
-
+    # Create test PDF file for terms
         self.pdf_content = SimpleUploadedFile(
             "test_terms.pdf",
             b"%PDF-1.5\n%Test PDF content",
@@ -431,11 +344,6 @@ class TermsViewSetTests(APITestCase):
         # Define terms_data for create tests
         self.terms_data = {
             'name': 'Test Terms',
-            'content': SimpleUploadedFile(
-                "create_terms.md",
-                b"# Create Terms\n\nThis is a test markdown file for creation.",
-                content_type="text/markdown"
-            ),
             'pdf_content': SimpleUploadedFile(
                 "create_terms.pdf",
                 b"%PDF-1.5\n%Create PDF content",
@@ -449,7 +357,6 @@ class TermsViewSetTests(APITestCase):
         self.terms = Terms.objects.create(
             name='Existing Terms',
             author=self.user,
-            content=self.md_content,
             pdf_content=self.pdf_content,
             version='1.0',
             tag='privacy'
@@ -490,13 +397,8 @@ class TermsViewSetTests(APITestCase):
         """Test creating terms as admin user should succeed"""
         self.client.force_authenticate(user=self.admin)
 
-        # Use new files since the old ones were consumed
+        # Use new PDF file since the old one was consumed
         terms_data = self.terms_data.copy()
-        terms_data['content'] = SimpleUploadedFile(
-            "new_terms.md",
-            b"# New Terms\n\nThis is a new markdown file.",
-            content_type="text/markdown"
-        )
         terms_data['pdf_content'] = SimpleUploadedFile(
             "new_terms.pdf",
             b"%PDF-1.5\n%New PDF content",
@@ -514,13 +416,8 @@ class TermsViewSetTests(APITestCase):
         """Test creating terms with duplicate tag should fail"""
         self.client.force_authenticate(user=self.admin)
 
-        # Use new files since the old ones were consumed
+        # Use new PDF file since the old one was consumed
         terms_data = self.terms_data.copy()
-        terms_data['content'] = SimpleUploadedFile(
-            "duplicate_terms.md",
-            b"# Duplicate Terms\n\nThis is a duplicate markdown file.",
-            content_type="text/markdown"
-        )
         terms_data['pdf_content'] = SimpleUploadedFile(
             "duplicate_terms.pdf",
             b"%PDF-1.5\n%Duplicate PDF content",
@@ -547,14 +444,9 @@ class TermsViewSetTests(APITestCase):
         """Test updating terms as admin user should succeed"""
         self.client.force_authenticate(user=self.admin)
 
-        # Use new files since the old ones were consumed
+        # Use new PDF file since the old one was consumed
         update_data = {
             'name': 'Updated Terms',
-            'content': SimpleUploadedFile(
-                "updated_terms.md",
-                b"# Updated Terms\n\nThis is an updated markdown file.",
-                content_type="text/markdown"
-            ),
             'pdf_content': SimpleUploadedFile(
                 "updated_terms.pdf",
                 b"%PDF-1.5\n%Updated PDF content",
@@ -593,11 +485,6 @@ class TermsViewSetTests(APITestCase):
         Terms.objects.create(
             name='License Terms',
             author=self.admin,
-            content=SimpleUploadedFile(
-                "license_terms.md",
-                b"# License Terms\n\nThis is a license markdown file.",
-                content_type="text/markdown"
-            ),
             pdf_content=SimpleUploadedFile(
                 "license_terms.pdf",
                 b"%PDF-1.5\n%License PDF content",
@@ -625,11 +512,6 @@ class TermsViewSetTests(APITestCase):
         Terms.objects.create(
             name='Searchable Terms',
             author=self.admin,
-            content=SimpleUploadedFile(
-                "searchable_terms.md",
-                b"# Searchable Terms\n\nThis is a searchable markdown file.",
-                content_type="text/markdown"
-            ),
             pdf_content=SimpleUploadedFile(
                 "searchable_terms.pdf",
                 b"%PDF-1.5\n%Searchable PDF content",
@@ -650,3 +532,145 @@ class TermsViewSetTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['name'], 'Existing Terms')
+
+
+class TermsViewSetExtraTests(APITestCase):
+    @classmethod
+    def teardown_class(cls):
+        """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
+        terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
+        if os.path.isdir(terms_dir):
+            for fname in os.listdir(terms_dir):
+                if fname.endswith('.pdf') and fname.split('_')[0] in [
+                  'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp']:
+                    try:
+                        os.remove(os.path.join(terms_dir, fname))
+                    except Exception:
+                        pass
+        super().teardown_class()
+
+    """Extra tests for TermsViewSet custom actions and error handling"""
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.admin_password = TEST_PASSWORD or 'adminpass123'
+        cls.user_password = TEST_PASSWORD or 'userpass123'
+
+    def setUp(self):
+        self.client = APIClient()
+        self.admin = User.objects.create_user(
+            username='adminuser2',
+            email='admin2@example.com',
+            password=self.admin_password,
+            is_staff=True,
+            is_superuser=True,
+            name='Admin2',
+            surname='User',
+            company='Admin Company'
+        )
+        self.user = User.objects.create_user(
+            username='user2',
+            email='user2@example.com',
+            password=self.user_password,
+            name='User2',
+            surname='User',
+            company='User Company'
+        )
+        self.terms = Terms.objects.create(
+            name='Extra Terms',
+            author=self.admin,
+            pdf_content=SimpleUploadedFile(
+                "extra_terms.pdf",
+                b"%PDF-1.5\n%Extra PDF content",
+                content_type="application/pdf"
+            ),
+            version='1.0',
+            tag='extra-tag'
+        )
+        self.detail_url = reverse('terms-detail', kwargs={'pk': self.terms.pk})
+        self.available_tags_url = reverse('terms-available-tags')
+        self.download_url = reverse('terms-download', kwargs={'pk': self.terms.pk})
+
+    def tearDown(self):
+        Terms.objects.all().delete()
+        User.objects.all().delete()
+        super().tearDown()
+
+    def test_available_tags_admin(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.get(self.available_tags_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('available_tags', response.data)
+
+    def test_available_tags_non_admin(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.get(self.available_tags_url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_download_success(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.get(self.download_url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response['Content-Type'], 'application/pdf')
+        self.assertIn('Content-Disposition', response)
+
+    def test_download_no_file(self):
+        self.client.force_authenticate(user=self.admin)
+        self.terms.pdf_content.delete(save=True)
+        response = self.client.get(self.download_url)
+        self.assertEqual(response.status_code, 404)
+        self.assertIn('detail', response.data)
+
+    def test_download_file_missing_on_disk(self):
+        self.client.force_authenticate(user=self.admin)
+        # Remove file from disk but keep DB reference
+        file_path = self.terms.pdf_content.path
+        os.remove(file_path)
+        response = self.client.get(self.download_url)
+        self.assertEqual(response.status_code, 404)
+        self.assertIn('detail', response.data)
+
+    def test_download_error(self):
+        self.client.force_authenticate(user=self.admin)
+        with patch('terms.views.TermsViewSet.get_object', side_effect=Exception('fail')):
+            response = self.client.get(self.download_url)
+            self.assertEqual(response.status_code, 500)
+            self.assertIn('detail', response.data)
+
+    def test_partial_update_admin(self):
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.patch(self.detail_url, {'version': '2.0'}, format='json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data['version'], '2.0')
+
+    def test_partial_update_non_admin(self):
+        self.client.force_authenticate(user=self.user)
+        response = self.client.patch(self.detail_url, {'version': '2.0'}, format='json')
+        self.assertEqual(response.status_code, 403)
+
+    def test_partial_update_error(self):
+        self.client.force_authenticate(user=self.admin)
+        with patch('rest_framework.viewsets.ModelViewSet.partial_update', side_effect=Exception('fail')):
+            with patch('terms.views.logger') as mock_logger:
+                response = self.client.patch(self.detail_url, {'version': '2.0'}, format='json')
+                self.assertEqual(response.status_code, 500)
+                self.assertIn('detail', response.data)
+                mock_logger.error.assert_called()
+
+    def test_update_error(self):
+        self.client.force_authenticate(user=self.admin)
+        with patch('rest_framework.viewsets.ModelViewSet.update', side_effect=Exception('fail')):
+            with patch('terms.views.logger') as mock_logger:
+                response = self.client.put(self.detail_url, {'version': '2.0'}, format='json')
+                self.assertEqual(response.status_code, 500)
+                self.assertIn('detail', response.data)
+                mock_logger.error.assert_called()
+
+    def test_destroy_error(self):
+        self.client.force_authenticate(user=self.admin)
+        with patch('terms.views.TermsViewSet.get_object', side_effect=Exception('fail')):
+            with patch('terms.views.logger') as mock_logger:
+                response = self.client.delete(self.detail_url)
+                self.assertEqual(response.status_code, 500)
+                self.assertIn('detail', response.data)
+                mock_logger.error.assert_called()

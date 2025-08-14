@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AdminTabs, AdminTabsTab } from "@/components/ui/admin-tabs";
 import Navbar from "@/components/ui/navbar";
-import Footer from "@/components/home/footer";
+import Footer from "@/components/ui/footer";
 import Alert from "@/components/ui/alert";
 import { AnimatePresence, motion } from "framer-motion";
 import { 

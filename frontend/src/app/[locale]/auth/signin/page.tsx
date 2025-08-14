@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Navbar from "@/components/ui/navbar";
-import Footer from "@/components/home/footer";
+import Footer from "@/components/ui/footer";
 import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
@@ -277,7 +277,6 @@ export default function LoginPage() {
         </div>
       </section>
 
-      {/* Footer */}
       <Footer />
 
     </div>

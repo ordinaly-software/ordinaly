@@ -1,6 +1,7 @@
 import jsPDF from 'jspdf';
 
-interface Course {
+
+export interface Course {
   id: number;
   title: string;
   subtitle?: string;
@@ -19,6 +20,8 @@ interface Course {
   interval: number;
   exclude_dates: string[];
   max_attendants: number;
+  created_at: string;
+  updated_at: string;
   duration_hours?: number;
   formatted_schedule?: string;
   schedule_description?: string;
@@ -26,18 +29,16 @@ interface Course {
   weekday_display?: string[];
 }
 
-export const generateCoursesCatalogPDF = async (
-  courses: Course[], 
-  locale: string = 'es', 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  t?: any
-) => {
+export async function generateCoursesCatalogPDF(
+  courses: Course[],
+  t: (key: string, params?: Record<string, string | number | Date>) => string
+) {
   const pdf = new jsPDF('p', 'mm', 'a4');
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
   const margin = 20;
   const contentWidth = pageWidth - (margin * 2);
-  
+
   let currentY = margin;
   let pageNumber = 1;
 
@@ -80,7 +81,8 @@ export const generateCoursesCatalogPDF = async (
   // Helper function to format date
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
+    // Use browser locale for formatting, or customize as needed
+    return date.toLocaleDateString(undefined, {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -93,19 +95,8 @@ export const generateCoursesCatalogPDF = async (
     return `${hours}:${minutes}`;
   };
 
-  // Helper function to get translated text with fallback
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const getText = (key: string, fallbackEs: string, fallbackEn: string, params?: any) => {
-    if (t) {
-      try {
-        return t(key, params);
-      } catch {
-        // Fallback to manual translation if key not found
-        return locale === 'es' ? fallbackEs : fallbackEn;
-      }
-    }
-    return locale === 'es' ? fallbackEs : fallbackEn;
-  };
+  // All translation is now handled by the provided t function
+  const bonificationDisclaimer = t('bonificationDisclaimer');
 
   // Helper function to load image as base64
   const loadImageAsBase64 = async (imagePath: string): Promise<string> => {
@@ -140,11 +131,7 @@ export const generateCoursesCatalogPDF = async (
       pdf.setFontSize(14);
       pdf.setTextColor('#666666');
       pdf.setFont('helvetica', 'normal');
-    const slogan = getText(
-      'pdf.slogan',
-      'Soluciones de Software y Formación',
-      'Software & Training Solutions'
-    );
+  const slogan = t('slogan');
     pdf.text(slogan, margin + 50, currentY + 25);
       
       pdf.setDrawColor('#22A60D');
@@ -178,36 +165,36 @@ export const generateCoursesCatalogPDF = async (
   pdf.setFontSize(28);
   pdf.setTextColor('#000000');
   pdf.setFont('helvetica', 'bold');
-  const mainTitle = getText('pdf.title', 'Catálogo de Formación', 'Training Catalog');
+  const mainTitle = t('title');
   pdf.text(mainTitle, pageWidth / 2, currentY + 20, { align: 'center' });
   
   // Subtitle
   pdf.setFontSize(16);
   pdf.setTextColor(secondaryColor);
   pdf.setFont('helvetica', 'normal');
-  const subtitle = getText(
-    'pdf.subtitle', 
-    'Cursos de formación y tecnológica',
-    'Training and technological courses'
-  );
-  pdf.text(subtitle, pageWidth / 2, currentY + 35, { align: 'center' });
+  const subtitle = t('subtitle');
+  const subtitleLines = wrapText(subtitle, contentWidth, 16);
+  let subtitleY = currentY + 35;
+  subtitleLines.forEach((line: string) => {
+    pdf.text(line, pageWidth / 2, subtitleY, { align: 'center' });
+    subtitleY += 8;
+  });
+  // Adjust currentY for date and following content
+  const subtitleBlockHeight = (subtitleLines.length - 1) * 8;
   
   // Date
-  const currentDate = new Date().toLocaleDateString(locale === 'es' ? 'es-ES' : 'en-US', {
+  // Use browser locale for current date
+  const currentDate = new Date().toLocaleDateString(undefined, {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
   });
   pdf.setFontSize(12);
-  pdf.text(currentDate, pageWidth / 2, currentY + 50, { align: 'center' });
+  pdf.text(currentDate, pageWidth / 2, currentY + 50 + subtitleBlockHeight, { align: 'center' });
   
-  currentY += 80;
+  currentY += 80 + subtitleBlockHeight;
 
-  const introduction = getText(
-    'pdf.introduction',
-    'En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras.',
-    'At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.'
-  );
+  const introduction = t('introduction');
 
   const introLines = wrapText(introduction, contentWidth, 12);
   pdf.setFontSize(12);
@@ -221,15 +208,31 @@ export const generateCoursesCatalogPDF = async (
   });
 
   currentY += 20;
-  addPageFooter();
 
+  // Bonification disclaimer block (styled)
+  const bonifLines = wrapText(bonificationDisclaimer, contentWidth, 11);
+  pdf.setFontSize(11);
+  pdf.setTextColor('#22A60D');
+  pdf.setFont('helvetica', 'bold');
+  pdf.text(t('bonificationTitle'), margin, currentY);
+  currentY += 8;
+  pdf.setFont('helvetica', 'normal');
+  pdf.setTextColor('#333333');
+  bonifLines.forEach((line: string) => {
+    checkPageBreak(10);
+    pdf.text(line, margin, currentY);
+    currentY += 6;
+  });
+
+  currentY += 10;
+  addPageFooter();
   addNewPage();
   
   // Courses section title
   pdf.setFontSize(22);
   pdf.setTextColor(primaryColor);
   pdf.setFont('helvetica', 'bold');
-  const coursesTitle = getText('pdf.coursesTitle', 'Nuestros Cursos', 'Our Courses');
+  const coursesTitle = t('coursesTitle');
   pdf.text(coursesTitle, margin, currentY);
   currentY += 20;
 
@@ -248,76 +251,87 @@ export const generateCoursesCatalogPDF = async (
     pdf.setFontSize(18);
     pdf.setTextColor('#000000');
     pdf.setFont('helvetica', 'bold');
-    const upcomingTitle = getText('pdf.upcomingCourses', 'Próximos Cursos', 'Upcoming Courses');
-    pdf.text(upcomingTitle, margin, currentY);
     currentY += 15;
 
     upcomingCourses.forEach((course) => {
-      const courseHeight = 90; // Estimated height for each course
-      checkPageBreak(courseHeight);
+      // Dynamic height calculation for each course block
+      const descLines = wrapText(course.description, contentWidth - 20, 10);
+      const descLineCount = Math.min(descLines.length, 3);
+      // Calculate Y positions for all elements
+      let y = currentY + 12; // title
+      if (course.subtitle) y += 10; // subtitle
+      y += descLineCount * 5; // description
+      y += 5; // space before details
+      y += 16; // details block (3 lines, 8px apart)
+      const blockHeight = y - currentY + 20;
+      checkPageBreak(blockHeight);
 
-      // Course background
+      // Course background (now fits content)
       pdf.setFillColor(250, 250, 250);
-      pdf.rect(margin, currentY, contentWidth, courseHeight - 5, 'F');
+      pdf.rect(margin, currentY, contentWidth, blockHeight, 'F');
 
       // Course title
       pdf.setFontSize(16);
       pdf.setTextColor(primaryColor);
       pdf.setFont('helvetica', 'bold');
-      pdf.text(course.title, margin + 5, currentY + 12);
+      pdf.text(wrapText(course.title, contentWidth - 10, 16)[0], margin + 5, currentY + 12, { maxWidth: contentWidth - 10 });
 
       // Course subtitle
+      let subtitleY = currentY + 12;
       if (course.subtitle) {
+        subtitleY += 10;
         pdf.setFontSize(12);
         pdf.setTextColor(secondaryColor);
         pdf.setFont('helvetica', 'italic');
-        pdf.text(course.subtitle, margin + 5, currentY + 22);
+        pdf.text(wrapText(course.subtitle, contentWidth - 10, 12)[0], margin + 5, subtitleY, { maxWidth: contentWidth - 10 });
       }
 
       // Course description
       pdf.setFontSize(10);
       pdf.setTextColor('#000000');
       pdf.setFont('helvetica', 'normal');
-      const descLines = wrapText(course.description, contentWidth - 20, 10);
-      let descY = currentY + (course.subtitle ? 30 : 25);
-      descLines.slice(0, 3).forEach((line: string) => { // Limit to 3 lines
-        pdf.text(line, margin + 5, descY);
+      let descY = currentY + (course.subtitle ? 32 : 25);
+      descLines.slice(0, 3).forEach((line: string) => {
+        pdf.text(line, margin + 5, descY, { maxWidth: contentWidth - 20 });
         descY += 5;
       });
 
       // Course details
-      const detailsY = currentY + 55;
+      const detailsY = descY + 5;
       pdf.setFontSize(10);
       pdf.setFont('helvetica', 'bold');
       pdf.setTextColor('#000000');
 
       // Date and time (show fallback if missing)
-      const dateLabel = getText('pdf.date', 'Fecha:', 'Date:');
+  const dateLabel = t('date');
       const dateText = course.start_date && course.start_date !== "0000-00-00"
         ? formatDate(course.start_date)
-        : getText('pdf.noSpecificDate', 'Por confirmar', 'TBA');
-      pdf.text(`${dateLabel} ${dateText}`, margin + 5, detailsY);
+  : t('noSpecificDate');
+      pdf.text(`${dateLabel}: ${dateText}`, margin + 5, detailsY);
 
-      const timeLabel = getText('pdf.time', 'Horario:', 'Time:');
+  const timeLabel = t('time');
       const timeText = (course.start_time && course.end_time)
         ? `${formatTime(course.start_time)} - ${formatTime(course.end_time)}`
-        : getText('pdf.noSpecificTime', 'Por confirmar', 'TBA');
+  : t('noSpecificTime');
       pdf.text(`${timeLabel} ${timeText}`, margin + 5, detailsY + 8);
 
       // Location
-      const locationLabel = getText('pdf.location', 'Ubicación:', 'Location:');
-      pdf.text(`${locationLabel} ${course.location}`, margin + 5, detailsY + 16);
+  const locationLabel = t('location');
+  const locationText = (course.location && course.location !== "null" && course.location !== "")
+    ? course.location
+    : t('locationSoon');
+  pdf.text(`${locationLabel}: ${locationText}`, margin + 5, detailsY + 16);
 
       // Price and capacity
-      const priceLabel = getText('pdf.price', 'Precio:', 'Price:');
-      const price = course.price ? `€ ${course.price}` : getText('pdf.free', 'Gratuito', 'Free');
-      pdf.text(`${priceLabel} ${price}`, margin + 100, detailsY);
+  const priceLabel = t('price');
+  const price = course.price ? `€ ${course.price}` : t('free');
+      pdf.text(`${priceLabel}: ${price}`, margin + 100, detailsY);
 
-      const capacityLabel = getText('pdf.capacity', 'Capacidad:', 'Capacity:');
-      const peopleLabel = getText('pdf.people', 'personas', 'people');
+  const capacityLabel = t('capacity');
+  const peopleLabel = t('people');
       pdf.text(`${capacityLabel} ${course.max_attendants} ${peopleLabel}`, margin + 100, detailsY + 8);
 
-      currentY += courseHeight;
+      currentY += blockHeight;
     });
   }
 
@@ -327,7 +341,7 @@ export const generateCoursesCatalogPDF = async (
   pdf.setFontSize(18);
   pdf.setTextColor(primaryColor);
   pdf.setFont('helvetica', 'bold');
-  const contactTitle = getText('pdf.contactTitle', 'Información de Contacto', 'Contact Information');
+  const contactTitle = t('contactTitle');
   pdf.text(contactTitle, margin, currentY);
   currentY += 15;
 
@@ -337,20 +351,16 @@ export const generateCoursesCatalogPDF = async (
 
   const contactInfo = [
     { 
-      label: getText('pdf.email', 'Email:', 'Email:'), 
+  label: t('email'),
       value: 'ordinalysoftware@gmail.com' 
     },
     { 
-      label: getText('pdf.website', 'Web:', 'Website:'), 
+  label: t('website'),
       value: 'www.ordinaly.ai' 
     },
     { 
-      label: getText('pdf.specialization', 'Especialización:', 'Specialization:'), 
-      value: getText(
-        'pdf.specializationText',
-        'Desarrollo de Software y Formación Tecnológica',
-        'Software Development and Technology Training'
-      )
+  label: t('specialization'),
+  value: t('specializationText')
     }
   ];
 
@@ -365,10 +375,8 @@ export const generateCoursesCatalogPDF = async (
   addPageFooter();
 
   // Save the PDF
-  const fileName = getText(
-    'pdf.filename',
-    'Catalogo_Formacion_Ordinaly.pdf',
-    'Ordinaly_Training_Catalog.pdf'
-  );
+  const fileName = t('filename');
   pdf.save(fileName);
 };
+
+

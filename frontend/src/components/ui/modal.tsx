@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 
@@ -21,6 +21,19 @@ export const Modal = ({
   title,
   showHeader = false
 }: ModalProps) => {
+
+  // Prevent background scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -77,9 +90,11 @@ export const Modal = ({
           />
         )}
 
-        <div className={showHeader ? "p-6" : "p-0"}>
-          {children}
-        </div>
+          <div className="flex-1 overflow-y-auto" style={{ maxHeight: 'calc(90vh - 0.5rem)' }}>
+            <div className={showHeader ? "p-6" : "p-0"}>
+              {children}
+            </div>
+          </div>
       </div>
     </div>,
     document.body

@@ -1,0 +1,561 @@
+'use client';
+
+import { Modal } from "@/components/ui/modal";
+import { Button } from "@/components/ui/button";
+import { Calendar, Clock, MapPin, Users, Euro, Info, BookOpen, Star, CheckCircle, GraduationCap } from 'lucide-react';
+import { AddToCalendarButtons } from './add-to-calendar-buttons';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
+import { ModalCloseButton } from "../ui/modal-close-button";
+
+interface Course {
+  id: number;
+  title: string;
+  subtitle?: string;
+  description: string;
+  image: string;
+  price?: number;
+  location: string;
+  start_date: string;
+  end_date: string;
+  start_time: string;
+  end_time: string;
+  periodicity: 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom';
+  timezone: string;
+  weekdays: number[];
+  week_of_month?: number | null;
+  interval: number;
+  exclude_dates: string[];
+  max_attendants: number;
+  created_at: string;
+  updated_at: string;
+  duration_hours?: number;
+  formatted_schedule?: string;
+  schedule_description?: string;
+  next_occurrences?: string[];
+  weekday_display?: string[];
+}
+
+interface CourseDetailsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  course: Course;
+  isEnrolled: boolean;
+  isAuthenticated: boolean;
+  onEnroll: () => void;
+  onCancel: () => void;
+  onAuthRequired: () => void;
+}
+
+// Custom image loader to handle potential URL issues
+const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+  if (!src || src === 'undefined' || src === 'null') {
+    return `/api/placeholder/600/400`;
+  }
+  
+  if (src.startsWith('/')) {
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+    return `${baseUrl}${src}?w=${width}&q=${quality || 75}`;
+  }
+  
+  return `${src}?w=${width}&q=${quality || 75}`;
+};
+
+// Helper to robustly map backend schedule string to translation key and variables
+function renderFullScheduleText(course: Course, t: ReturnType<typeof useTranslations>) {
+  // Try to parse the formatted_schedule and map to a translation key
+  // Example: "Every 4 weeks on Thursday from September 01, 2025 to September 30, 2025, 11:00 - 13:00"
+  const fs = course.formatted_schedule;
+  if (!fs) return '';
+
+  // English to localized weekday and month mapping
+  const weekdayMap: Record<string, string> = {
+    'Monday': t('weekdays.monday.full'),
+    'Tuesday': t('weekdays.tuesday.full'),
+    'Wednesday': t('weekdays.wednesday.full'),
+    'Thursday': t('weekdays.thursday.full'),
+    'Friday': t('weekdays.friday.full'),
+    'Saturday': t('weekdays.saturday.full'),
+    'Sunday': t('weekdays.sunday.full'),
+  };
+  const monthMap: Record<string, string> = {
+    'January': t('months.january', { default: 'enero' }),
+    'February': t('months.february', { default: 'febrero' }),
+    'March': t('months.march', { default: 'marzo' }),
+    'April': t('months.april', { default: 'abril' }),
+    'May': t('months.may', { default: 'mayo' }),
+    'June': t('months.june', { default: 'junio' }),
+    'July': t('months.july', { default: 'julio' }),
+    'August': t('months.august', { default: 'agosto' }),
+    'September': t('months.september', { default: 'septiembre' }),
+    'October': t('months.october', { default: 'octubre' }),
+    'November': t('months.november', { default: 'noviembre' }),
+    'December': t('months.december', { default: 'diciembre' }),
+  };
+
+  // Helper to localize weekday(s) and month in a string
+  function localizeWeekdays(weekdays: string) {
+    return weekdays.split(',').map(w => {
+      const trimmed = w.trim();
+      return weekdayMap[trimmed] || trimmed;
+    }).join(', ');
+  }
+
+  function localizeMonthDate(date: string) {
+    // e.g. "September 01, 2025" => "1 de septiembre de 2025" for es/gl/ca/eu
+    const parts = date.split(' ');
+    if (parts.length === 3 && monthMap[parts[0]]) {
+      // Detect locale (from t or window.navigator)
+      const locale = (typeof window !== 'undefined' && window.navigator.language) || 'en';
+  // Use browser locale only
+      // For Spanish, Galician, Catalan, Basque, use day de month de year
+      if (/^(es|gl|ca|eu)/.test(locale)) {
+        // parts[0]=Month, parts[1]=day,, parts[2]=year
+        const day = parts[1].replace(',', '');
+        const month = monthMap[parts[0]];
+        const year = parts[2];
+        return `${day} de ${month} de ${year}`;
+      } else {
+        // Default: just localize month name
+        return date.replace(parts[0], monthMap[parts[0]]);
+      }
+    }
+    return date;
+  }
+
+  // Patterns for dynamic keys
+  const patterns = [
+    {
+      // Once: "July 08, 2025 from 09:30 to 11:30"
+      regex: /^([A-Za-z]+ \d{2}, \d{4}) from (\d{2}:\d{2}) to (\d{2}:\d{2})$/,
+      key: 'fullScheduleText.once',
+      getVars: (m: RegExpMatchArray) => ({
+        date: localizeMonthDate(m[1]),
+        startTime: m[2],
+        endTime: m[3],
+      })
+    },
+    {
+      // Every Thursday from September 01, 2025 to September 30, 2025, 11:00 - 13:00
+      regex: /^Every ([A-Za-z]+) from ([A-Za-z]+ \d{2}, \d{4}) to ([A-Za-z]+ \d{2}, \d{4}), (\d{2}:\d{2}) - (\d{2}:\d{2})$/,
+      key: 'fullScheduleText.everyWeekdays',
+      getVars: (m: RegExpMatchArray) => ({
+        weekdays: localizeWeekdays(m[1]),
+        startDate: localizeMonthDate(m[2]),
+        endDate: localizeMonthDate(m[3]),
+        startTime: m[4],
+        endTime: m[5],
+      })
+    },
+    {
+      regex: /^Every (\d+) weeks on ([A-Za-z, ]+) from ([A-Za-z]+ \d{2}, \d{4}) to ([A-Za-z]+ \d{2}, \d{4}), (\d{2}:\d{2}) - (\d{2}:\d{2})$/,
+      key: 'fullScheduleText.everyXWeeksOnWeekdays',
+      getVars: (m: RegExpMatchArray) => ({
+        interval: m[1],
+        weekdays: localizeWeekdays(m[2]),
+        startDate: localizeMonthDate(m[3]),
+        endDate: localizeMonthDate(m[4]),
+        startTime: m[5],
+        endTime: m[6],
+      })
+    },
+    {
+      regex: /^Every (\d+) weeks on ([A-Za-z]+) from ([A-Za-z]+ \d{2}, \d{4}) to ([A-Za-z]+ \d{2}, \d{4}), (\d{2}:\d{2}) - (\d{2}:\d{2})$/,
+      key: 'fullScheduleText.everyXWeeksOnWeekday',
+      getVars: (m: RegExpMatchArray) => ({
+        interval: m[1],
+        weekday: localizeWeekdays(m[2]),
+        startDate: localizeMonthDate(m[3]),
+        endDate: localizeMonthDate(m[4]),
+        startTime: m[5],
+        endTime: m[6],
+      })
+    },
+  ];
+
+  for (const { regex, key, getVars } of patterns) {
+    const match = fs.match(regex);
+    if (match) {
+      return t(key, getVars(match));
+    }
+  }
+
+  // Fallback: show raw string (never use literal as translation key)
+  return fs;
+}
+
+const CourseDetailsModal = ({
+  isOpen,
+  onClose,
+  course,
+  isEnrolled,
+  isAuthenticated,
+  onEnroll,
+  onCancel,
+  onAuthRequired
+}: CourseDetailsModalProps) => {
+  const t = useTranslations('formation.courseDetails');
+  // ...existing code...
+
+  const formatDate = (dateString: string) => {
+    if (!dateString || dateString === "0000-00-00") {
+      return t('noSpecificDate'); // Use a translation key for flexibility
+    }
+    try {
+      return new Date(dateString).toLocaleDateString(undefined, {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch {
+      return dateString;
+    }
+  };
+
+  const formatTime = (timeString: string) => {
+    if (!timeString) {
+      return ''; // Return empty string for null/undefined time
+    }
+    try {
+      return new Date(`1970-01-01T${timeString}`).toLocaleTimeString(undefined, {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+    } catch {
+      return timeString;
+    }
+  };
+
+  const getPeriodicityDisplay = (periodicity: string) => {
+    try {
+      return t(`periodicity.${periodicity}` as 'periodicity.once' | 'periodicity.daily' | 'periodicity.weekly' | 'periodicity.biweekly' | 'periodicity.monthly' | 'periodicity.custom');
+    } catch {
+      return periodicity;
+    }
+  };
+
+  const getWeekdayNames = (weekdays: number[]) => {
+    const names = [
+      t('weekdays.monday.full'),
+      t('weekdays.tuesday.full'),
+      t('weekdays.wednesday.full'),
+      t('weekdays.thursday.full'),
+      t('weekdays.friday.full'),
+      t('weekdays.saturday.full'),
+      t('weekdays.sunday.full')
+    ];
+    return weekdays.map(day => names[day]).join(', ');
+  };
+
+  const handleEnrollClick = () => {
+    if (!isAuthenticated) {
+      onAuthRequired();
+    } else {
+      onEnroll();
+    }
+  };
+
+  // Handle null/empty dates
+  const hasNoDates = !course.start_date || !course.end_date;
+  const hasStarted = !hasNoDates && new Date(course.start_date) <= new Date();
+  const hasEnded = !hasNoDates && new Date(course.end_date) < new Date();
+  const canEnroll = isAuthenticated && !isEnrolled && !hasStarted && !hasNoDates;
+  const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl" showHeader={false}>
+      <div className="max-h-[85vh] overflow-y-auto">
+        {/* Header Image at the very top, with blur effect */}
+        <div className="relative w-full h-64 bg-gray-200 overflow-hidden group">
+          {/* Blurred background */}
+            <Image
+            loader={imageLoader}
+            src={course.image}
+            alt={course.title}
+            fill
+            className="object-cover scale-105 blur-sm opacity-95"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+            priority
+            aria-hidden="true"
+            />
+          {/* Main image on top, sharp */}
+          <Image
+            loader={imageLoader}
+            src={course.image}
+            alt={course.title}
+            fill
+            className="object-cover hidden"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          {/* Overlay close button for visibility on image */}
+          <div className="absolute top-3 right-3 z-20">
+            <ModalCloseButton onClick={onClose} variant="overlay" size="md" />
+          </div>
+          <div className="absolute bottom-4 left-4 right-4">
+            <div className="flex items-center gap-2 mb-2 flex-wrap">
+              {course.price !== null && course.price !== undefined && (
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500 text-white">
+                  <Euro className="w-3 h-3 mr-1" />
+                  €{course.price}
+                </span>
+              )}
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue text-white">
+                {getPeriodicityDisplay(course.periodicity)}
+              </span>
+              {isEnrolled && (
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green text-white">
+                  <CheckCircle className="w-3 h-3 mr-1" />
+                  {t('enrolled')}
+                </span>
+              )}
+            </div>
+            <h1 className="text-2xl font-bold text-white mb-1">{course.title}</h1>
+            {course.subtitle && (
+              <p className="text-gray-200 text-sm">{course.subtitle}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Main Content */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Calendar Buttons (Mobile Only) */}
+              <div className="block md:hidden">
+                {isEnrolled && !hasEnded && (
+                  <AddToCalendarButtons
+                    courseId={course.id}
+                    courseTitle={course.title}
+                    isEnrolled={isEnrolled}
+                  />
+                )}
+              </div>
+              {/* Description */}
+              <div>
+                <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                  <BookOpen className="w-5 h-5 text-blue" />
+                  {t('courseDescription')}
+                </h2>
+                <div className="prose dark:prose-invert max-w-none">
+                  <MarkdownRenderer>{course.description}</MarkdownRenderer>
+                </div>
+              </div>
+
+              {/* Schedule Details */}
+              <div>
+                <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-blue" />
+                  {t('scheduleInformation')}
+                </h2>
+                <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('startDate')}</p>
+                      <p className="text-gray-900 dark:text-gray-100">{formatDate(course.start_date)}</p>
+                    </div>
+                    {course.periodicity !== 'once' && (
+                      <div>
+                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('endDate')}</p>
+                        <p className="text-gray-900 dark:text-gray-100">{formatDate(course.end_date)}</p>
+                      </div>
+                    )}
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('time')}</p>
+                      <p className="text-gray-900 dark:text-gray-100">
+                        {formatTime(course.start_time)} - {formatTime(course.end_time)}
+                      </p>
+                    </div>
+                    {course.duration_hours && (
+                      <div>
+                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('duration')}</p>
+                        <p className="text-gray-900 dark:text-gray-100">{course.duration_hours} {t('hours')}</p>
+                      </div>
+                    )}
+                  </div>
+                  
+                  {course.weekdays && course.weekdays.length > 0 && (
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('daysOfWeek')}</p>
+                      <p className="text-gray-900 dark:text-gray-100">{getWeekdayNames(course.weekdays)}</p>
+                    </div>
+                  )}
+
+                  {course.formatted_schedule && (
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('fullSchedule')}</p>
+                      <p className="text-gray-900 dark:text-gray-100 text-sm">
+                        {renderFullScheduleText(course, t)}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Next Occurrences */}
+              {course.next_occurrences && course.next_occurrences.length > 0 && (
+                <div>
+                  <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                    <Star className="w-5 h-5 text-blue" />
+                    {t('upcomingSessions')}
+                  </h2>
+                  <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+                    <div className="space-y-2">
+                      {course.next_occurrences.slice(0, 5).map((occurrence, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm">
+                          <Calendar className="w-4 h-4 text-blue" />
+                          <span className="text-gray-700 dark:text-gray-300">{formatDate(occurrence)}</span>
+                        </div>
+                      ))}
+                      {course.next_occurrences.length > 5 && (
+                        <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                          {t('moreSessions', { count: course.next_occurrences.length - 5 })}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Sidebar */}
+            <div className="space-y-6">
+              {/* Quick Info */}
+              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-4">
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
+                  <Info className="w-4 h-4" />
+                  {t('courseInformation')}
+                </h3>
+                
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <MapPin className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('location')}</p>
+                      {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
+                        <a
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#22A60D]"
+                          title={course.location}
+                        >
+                          {course.location}
+                        </a>
+                      ) : (
+                        <p className="text-gray-900 dark:text-gray-100 text-sm">{t('locationSoon')}</p>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <Users className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('maxAttendants')}</p>
+                      <p className="text-gray-900 dark:text-gray-100 text-sm">{course.max_attendants} {t('people')}</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center gap-3">
+                    <Clock className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('scheduleType')}</p>
+                      <p className="text-gray-900 dark:text-gray-100 text-sm">{getPeriodicityDisplay(course.periodicity)}</p>
+                    </div>
+                  </div>
+
+                  {course.price !== null && course.price !== undefined && (
+                    <div className="flex items-center gap-3">
+                      <Euro className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                      <div>
+                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('price')}</p>
+                        <p className="text-gray-900 dark:text-gray-100 text-sm font-semibold">€{course.price}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-3">
+                {/* Calendar Buttons (Desktop Only) */}
+                <div className="hidden md:block">
+                  {isEnrolled && !hasEnded && (
+                    <AddToCalendarButtons
+                      courseId={course.id}
+                      courseTitle={course.title}
+                      isEnrolled={isEnrolled}
+                    />
+                  )}
+                </div>
+                {hasNoDates ? (
+                  <div className="text-center">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700 text-yellow-700 dark:text-yellow-200 mb-2">
+                      {t('noSpecificDate')}
+                    </span>
+                  </div>
+                ) : hasStarted ? (
+                  <div className="text-center">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 mb-2">
+                      {t('courseHasStarted')}
+                    </span>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {t('courseStartedMessage')}
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    {shouldShowAuth ? (
+                        <Button
+                        onClick={handleEnrollClick}
+                        className="w-full"
+                        style={{ backgroundColor: '#46B1C9', color: '#fff' }}
+                        >
+                        {t('signInToEnroll')}
+                        </Button>
+                    ) : canEnroll ? (
+                      <Button
+                        onClick={onEnroll}
+                        className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                      >
+                        <GraduationCap className="w-5 h-5 mr-2" />
+                        {t('enrollNow')}
+                      </Button>
+                    ) : null}
+                  </>
+                )}
+                <br></br>
+                {!hasStarted && (
+                  <Button
+                    onClick={onCancel}
+                    variant="outline"
+                    className="w-full border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20 mb-2"
+                  >
+                    {t('cancelEnrollment')}
+                  </Button>
+                )}
+              </div>
+
+              {/* Additional Info */}
+              {course.exclude_dates && course.exclude_dates.length > 0 && (
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                  <h4 className="font-medium text-yellow-800 dark:text-yellow-200 mb-2">{t('importantDates')}</h4>
+                  <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                    {t('excludedDatesMessage', { count: course.exclude_dates.length })}
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Modal>
+  );
+};
+
+export default CourseDetailsModal;

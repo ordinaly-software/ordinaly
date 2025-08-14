@@ -4,11 +4,17 @@ from users.models import CustomUser
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Image is required only on creation (no instance)
+        self.fields['image'].required = self.instance is None
+
     image = serializers.ImageField(required=False, allow_null=True)
+    location = serializers.CharField(required=False, allow_null=True, allow_blank=True)
 
     def validate_image(self, value):
         # Only require image on creation
-        if self.instance is None and not value:
+        if self.instance is None and (value is None or value == ''):
             raise serializers.ValidationError("Course image is required.")
         max_size = 1024 * 1024  # 1MB
         if value and hasattr(value, 'size'):

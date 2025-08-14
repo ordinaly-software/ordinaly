@@ -1,65 +1,33 @@
 "use client";
 
-import { useState, useEffect, useCallback, use } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { getApiEndpoint } from "@/lib/api-config";
 import Navbar from "@/components/ui/navbar";
-import Footer from "@/components/home/footer";
-import { Card, CardContent } from "@/components/ui/card";
+import Footer from "@/components/ui/footer";
 import { Button } from "@/components/ui/button";
+import CourseCard from "@/components/formation/course-card";
 import { Input } from "@/components/ui/input";
-import { Modal } from "@/components/ui/modal";
 import Alert from "@/components/ui/alert";
 import AuthModal from "@/components/auth/auth-modal";
-import CourseDetailsModal from "@/components/admin/course-details-modal";
-import Image from "next/image";
+import CourseDetailsModal from "@/components/formation/course-details-modal";
+import EnrollmentConfirmationModal from "@/components/formation/enrollment-confirmation-modal";
+import EnrollmentCancellationModal from "@/components/formation/enrollment-cancellation-modal";
 import {
   Search,
   Calendar,
   MapPin,
-  Users,
   BookOpen,
   Award,
-  ArrowRight,
   Mail,
   ChevronDown,
-  GraduationCap,
-  UserCheck,
-  UserX,
-  CalendarDays,
-  Euro
 } from "lucide-react";
+import type { Course } from "@/utils/pdf-generator";
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
-import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
+import BonificationInfo from "@/components/formation/bonification-info";
 
-interface Course {
-  id: number;
-  title: string;
-  subtitle?: string;
-  description: string;
-  image: string;
-  price?: number;
-  location: string;
-  start_date: string;
-  end_date: string;
-  start_time: string;
-  end_time: string;
-  periodicity: 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom';
-  timezone: string;
-  weekdays: number[];
-  week_of_month?: number | null;
-  interval: number;
-  exclude_dates: string[];
-  max_attendants: number;
-  created_at: string;
-  updated_at: string;
-  duration_hours?: number;
-  formatted_schedule?: string;
-  schedule_description?: string;
-  next_occurrences?: string[];
-  weekday_display?: string[];
-}
+
 
 interface Enrollment {
   id: number;
@@ -68,16 +36,7 @@ interface Enrollment {
   enrolled_at: string;
 }
 
-// Custom image loader to handle potential URL issues
-const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
-  if (!src || src === 'undefined' || src === 'null') {
-    return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZjNmNGY2Ii8+CjxwYXRoIGQ9Im0xMiA2LTItMiA0IDRoNCIgc3Ryb2tlPSIjOWNhM2FmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K';
-  }
-  return `${src}?w=${width}&q=${quality || 75}`;
-};
-
-const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
-  const { locale } = use(params);
+const FormationPage = () => {
   const t = useTranslations("formation");
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
@@ -320,7 +279,7 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
   const handleDownloadCatalog = async () => {
     try {
       setAlert({type: 'info', message: t('alerts.generatingCatalog')});
-      await generateCoursesCatalogPDF(courses, locale, t);
+      await generateCoursesCatalogPDF(courses, t);
       setAlert({type: 'success', message: t('alerts.catalogDownloaded')});
     } catch {
       setAlert({type: 'error', message: t('alerts.catalogError')});
@@ -388,7 +347,6 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         />
       )}
 
-      {/* Navigation */}
       <Navbar />
 
       {/* Hero Section */}
@@ -452,8 +410,14 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
         </div>
       </section>
 
+
+      {/* Funding/Bonification Info Dropdown */}
+      <section className="max-w-4xl mx-auto mt-8 mb-2 px-4">
+        <BonificationInfo />
+      </section>
+
       {/* Courses Grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="pt-6 pb-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {filteredCourses.length === 0 ? (
             <div className="text-center py-16">
@@ -469,136 +433,19 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
             </div>
           ) : (
             <>
-              {filteredCourses.length > 0 && (
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-            {t("upcomingCourses")}
-          </h3>
-              )}
               <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10">
-          {filteredCourses.map((course) => {
-            const enrolled = isEnrolled(course.id);
-            // Disable enroll if any date/time field is missing/null/empty
-            const isIncompleteSchedule = !course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time;
-            return (
-              <Card
-                key={course.id}
-                className="group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-500 hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2 w-full max-w-2xl mx-auto"
-                style={{ minHeight: "520px" }}
-              >
-                <div className="relative">
-            {/* Course Image */}
-            <div className="relative h-72 md:h-80 lg:h-96 overflow-hidden">
-              <Image
-                loader={imageLoader}
-                src={course.image}
-                alt={course.title}
-                fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 70vw, 50vw"
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-                onError={(e) => {
-                  
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              
-              {/* Enrollment Status Badge */}
-              {enrolled && (
-                <div className="absolute top-4 right-4 z-10">
-                  <div className="bg-[#22A60D] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
-              <UserCheck className="w-3 h-3" />
-              {t("enrolled")}
-                  </div>
-                </div>
-              )}
-
-              {/* Price Badge */}
-              <div className="absolute top-4 left-4 z-10">
-                <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white px-3 py-1 rounded-full text-sm font-semibold">
-                  {course.price ? `€${course.price}` : t("free")}
-                </div>
-              </div>
-            </div>
-
-            <CardContent className="p-8">
-              {/* Course Title */}
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-[#22A60D] transition-colors duration-300 line-clamp-2">
-                {course.title}
-              </h3>
-
-              {/* Course Subtitle */}
-              {course.subtitle && (
-                <p className="text-base text-gray-600 dark:text-gray-400 mb-4 line-clamp-1">
-                  {course.subtitle}
-                </p>
-              )}
-
-              {/* Course Description */}
-              <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed line-clamp-3 text-lg">
-                {course.description}
-              </p>
-
-              {/* Course Meta Information */}
-              <div className="space-y-3 mb-8">
-                <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
-                  <Calendar className="w-5 h-5 text-[#22A60D]" />
-                  <span>
-                    {course.start_date && course.start_date !== "0000-00-00" 
-                      ? new Date(course.start_date).toLocaleDateString()
-                      : t('noSpecificDate')}
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
-                  <MapPin className="w-5 h-5 text-[#22A60D]" />
-                  <span>{course.location}</span>
-                </div>
-                <div className="flex items-center gap-2 text-base text-gray-600 dark:text-gray-400">
-                  <Users className="w-5 h-5 text-[#22A60D]" />
-                  <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex flex-col gap-4">
-                {enrolled ? (
-                  <Button
-                    onClick={() => handleCancelEnrollment(course.id)}
-                    variant="outline"
-                    className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-14 text-lg"
-                  >
-                    <UserX className="w-5 h-5 mr-2" />
-                    {t("cancelEnrollment")}
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={() => handleEnrollCourse(course)}
-                    className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
-                    disabled={isIncompleteSchedule}
-                    title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
-                  >
-                    <GraduationCap className="w-5 h-5 mr-2" />
-                    {t("enroll")}
-                  </Button>
-                )}
-                
-                <Button
-                  variant="outline"
-                  onClick={() => handleViewDetails(course)}
-                  className="w-full border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 h-14 text-lg"
-                >
-                  {t("viewDetails")}
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </Button>
-              </div>
-            </CardContent>
-                </div>
-
-                {/* Hover Effect Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/5 to-[#9333EA]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-              </Card>
-            );
-          })}
+                {filteredCourses.map((course) => (
+                  <CourseCard
+                    key={course.id}
+                    course={course}
+                    variant="upcoming"
+                    enrolled={isEnrolled(course.id)}
+                    onEnroll={() => handleEnrollCourse(course)}
+                    onCancel={() => handleCancelEnrollment(course.id)}
+                    onViewDetails={() => handleViewDetails(course)}
+                    disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
+                  />
+                ))}
               </div>
             </>
           )}
@@ -635,97 +482,14 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
                   {t("pastCourses")}
                 </h3>
                 <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-                  {pastCourses.map((course) => {
-                    return (
-                      <Card
-                        key={course.id}
-                        className="group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 opacity-75 hover:opacity-100 transition-all duration-500"
-                      >
-                        <div className="relative">
-                          {/* Course Image */}
-                          <div className="relative h-48 overflow-hidden">
-                            <Image
-                              loader={imageLoader}
-                              src={course.image}
-                              alt={course.title}
-                              fill
-                              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                              className="object-cover"
-                              onError={(e) => {
-                                
-                                const target = e.target as HTMLImageElement;
-                                target.style.display = 'none';
-                              }}
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                            
-                            {/* Past Course Badge */}
-                            <div className="absolute top-4 right-4 z-10">
-                              <div className="bg-gray-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                                {t("finished")}
-                              </div>
-                            </div>
-
-                            {/* Price Badge */}
-                            <div className="absolute top-4 left-4 z-10">
-                              <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm text-gray-900 dark:text-white px-3 py-1 rounded-full text-sm font-semibold">
-                                {course.price ? `€${course.price}` : t("free")}
-                              </div>
-                            </div>
-                          </div>
-
-                          <CardContent className="p-6">
-                            {/* Course Title */}
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
-                              {course.title}
-                            </h3>
-
-                            {/* Course Subtitle */}
-                            {course.subtitle && (
-                              <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-1">
-                                {course.subtitle}
-                              </p>
-                            )}
-
-                            {/* Course Description */}
-                            <div className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed line-clamp-3">
-                              <MarkdownRenderer>
-                                {course.description}
-                              </MarkdownRenderer>
-                            </div>
-
-                            {/* Course Meta Information */}
-                            <div className="space-y-2 mb-6">
-                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                <Calendar className="w-4 h-4 text-[#22A60D]" />
-                                <span>{new Date(course.start_date).toLocaleDateString()}</span>
-                              </div>
-                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                <MapPin className="w-4 h-4 text-[#22A60D]" />
-                                <span>{course.location}</span>
-                              </div>
-                              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                                <Users className="w-4 h-4 text-[#22A60D]" />
-                                <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
-                              </div>
-                            </div>
-
-                            {/* Action Button */}
-                            <div className="flex flex-col gap-3">
-                              <Button
-                                onClick={() => handleViewDetails(course)}
-                                variant="outline"
-                                className="w-full border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 transition-all duration-300 h-12"
-                              >
-                                {t("viewDetails")}
-                                <ArrowRight className="w-4 h-4 ml-2" />
-                              </Button>
-                            </div>
-                          </CardContent>
-                        </div>
-                      </Card>
-                    );
-                  })}
+                  {pastCourses.map((course) => (
+                    <CourseCard
+                      key={course.id}
+                      course={course}
+                      variant="past"
+                      onViewDetails={() => handleViewDetails(course)}
+                    />
+                  ))}
                 </div>
                 
                 {pastCourses.length === 0 && (
@@ -778,185 +542,26 @@ const FormationPage = ({ params }: { params: Promise<{ locale: string }> }) => {
       </section>
 
       {/* Enrollment Confirmation Modal */}
-      <Modal
+      <EnrollmentConfirmationModal
         isOpen={showEnrollModal}
         onClose={() => {
           setShowEnrollModal(false);
           setSelectedCourse(null);
         }}
-        title={selectedCourse ? `${t("enrollment.confirm")} - ${selectedCourse.title}` : t("enrollment.confirm")}
-        showHeader={true}
-      >
-        {selectedCourse && (
-          <div className="space-y-6">
-            {/* Course Information */}
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                {t("enrollment.courseDetails")}
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <CalendarDays className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("date")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{new Date(selectedCourse.start_date).toLocaleDateString()}</span>
-                  </div>
-                  
-                  <div className="flex items-center text-sm">
-                    <MapPin className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("location")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{selectedCourse.location}</span>
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="flex items-center text-sm">
-                    <Euro className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("price")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">
-                      {selectedCourse.price ? `€${selectedCourse.price}` : t("free")}
-                    </span>
-                  </div>
-                  
-                  <div className="flex items-center text-sm">
-                    <Users className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("maxAttendants")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{selectedCourse.max_attendants}</span>
-                  </div>
-                </div>
-              </div>
-              
-              {selectedCourse.description && (
-                <div className="pt-2 border-t border-gray-200 dark:border-gray-700">
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {selectedCourse.description}
-                  </p>
-                </div>
-              )}
-            </div>
-
-            {/* Confirmation Message */}
-            <div className="text-center py-4">
-              <p className="text-gray-700 dark:text-gray-300 mb-2">
-                {t("enrollment.confirmMessage")}
-              </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {t("enrollment.paymentNote")}
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setShowEnrollModal(false)}
-                className="px-6 h-10"
-              >
-                {t("enrollment.cancel")}
-              </Button>
-              <Button
-                onClick={handleEnrollmentConfirm}
-                className="bg-[#22A60D] hover:bg-[#22A010] text-white px-6 h-10 flex items-center gap-2"
-              >
-                <GraduationCap className="w-4 h-4" />
-                {t("enrollment.confirmEnroll")}
-              </Button>
-            </div>
-          </div>
-        )}
-      </Modal>
+        selectedCourse={selectedCourse}
+        onConfirm={handleEnrollmentConfirm}
+      />
 
       {/* Enrollment Cancellation Modal */}
-      <Modal
+      <EnrollmentCancellationModal
         isOpen={showCancelModal}
         onClose={() => {
           setShowCancelModal(false);
           setCourseToCancel(null);
         }}
-        title={t("cancellation.title")}
-        showHeader={true}
-      >
-        {courseToCancel && (
-          <div className="space-y-6">
-            {/* Warning Message */}
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-              <div className="flex items-start space-x-3">
-                <UserX className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
-                <div>
-                  <h3 className="text-sm font-medium text-red-800 dark:text-red-200 mb-1">
-                    {t("cancellation.warning")}
-                  </h3>
-                  <p className="text-sm text-red-700 dark:text-red-300">
-                    {t("cancellation.warningMessage", { courseTitle: courseToCancel.title })}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Course Information */}
-            <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                {courseToCancel.title}
-              </h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                <div className="space-y-2">
-                  <div className="flex items-center">
-                    <CalendarDays className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("date")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{new Date(courseToCancel.start_date).toLocaleDateString()}</span>
-                  </div>
-                  
-                  <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("location")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">{courseToCancel.location}</span>
-                  </div>
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="flex items-center">
-                    <Euro className="w-4 h-4 mr-2 text-[#22A60D]" />
-                    <span className="font-medium">{t("price")}:</span>
-                    <span className="ml-2 text-gray-600 dark:text-gray-400">
-                      {courseToCancel.price ? `€${courseToCancel.price}` : t("free")}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Confirmation Message */}
-            <div className="text-center py-2">
-              <p className="text-gray-700 dark:text-gray-300">
-                {t("cancellation.confirmMessage")}
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <Button
-                type="button"
-                variant="ghost"
-                onClick={() => setShowCancelModal(false)}
-                className="px-6 h-10"
-              >
-                {t("cancellation.keepEnrollment")}
-              </Button>
-              <Button
-                onClick={handleCancelEnrollmentConfirm}
-                variant="destructive"
-                className="bg-red-600 hover:bg-red-700 text-white px-6 h-10 flex items-center gap-2"
-              >
-                <UserX className="w-4 h-4" />
-                {t("cancellation.confirmCancel")}
-              </Button>
-            </div>
-          </div>
-        )}
-      </Modal>
+        courseToCancel={courseToCancel}
+        onConfirm={handleCancelEnrollmentConfirm}
+      />
 
       {/* Authentication Modal */}
       <AuthModal
