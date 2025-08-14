@@ -12,8 +12,8 @@ const urlsToCache = [
 
 // Lazy load static assets - only cache when accessed
 const staticAssets = [
-  '/static/girl_resting_transparent.webp',
-  '/static/hand_shake_transparent.webp',
+  '/static/main_home_ilustration.webp',
+  '/static/cta_ilustration.webp',
   '/android-chrome-192x192.png',
   '/android-chrome-512x512.png',
   '/apple-touch-icon.png',

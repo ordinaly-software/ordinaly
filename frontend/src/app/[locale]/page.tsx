@@ -55,11 +55,11 @@ export default function HomePage() {
   // Preload hero image for home page only
   useEffect(() => {
     const preloadHeroImage = () => {
-      const existingPreload = document.querySelector('link[rel="preload"][href="/static/girl_resting_transparent.webp"]');
+      const existingPreload = document.querySelector('link[rel="preload"][href="/static/main_home_ilustration.webp"]');
       if (!existingPreload) {
         const link = document.createElement('link');
         link.rel = 'preload';
-        link.href = '/static/girl_resting_transparent.webp';
+        link.href = '/static/main_home_ilustration.webp';
         link.as = 'image';
         link.type = 'image/webp';
         (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = 'high';
@@ -192,11 +192,11 @@ export default function HomePage() {
             </div>
             <div className="scroll-animate slide-in-right">
                 <Image
-                  src="/static/girl_resting_transparent.webp"
+                  src="/static/main_home_ilustration.webp"
                   alt="AI Automation Dashboard"
                   width={600}
                   height={500}
-                  className="rounded-2xl shadow-2xl"
+                  className="rounded-2xl"
                   style={{ width: '100%', height: 'auto' }}
                   priority
                   placeholder="blur"
@@ -300,7 +300,7 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
               <Image
-                src="/static/hand_shake_transparent.webp"
+                src="/static/cta_ilustration.webp"
                 width={600}
                 height={500}
                 alt="Andalusian Business Transformation"

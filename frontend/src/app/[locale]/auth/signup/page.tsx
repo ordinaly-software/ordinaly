@@ -229,7 +229,7 @@ export default function SignupPage() {
                 {t("subtitle")}
               </p>
               <div
-                className={`relative overflow-hidden rounded-2xl shadow-2xl ${
+                className={`relative overflow-hidden rounded-2xl ${
                   showImage ? "block" : "hidden"
                 }`}
               >
@@ -240,7 +240,6 @@ export default function SignupPage() {
                   height={300}
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#22A60D]/20 via-transparent to-[#623CEA]/20"></div>
               </div>
             </div>
 
