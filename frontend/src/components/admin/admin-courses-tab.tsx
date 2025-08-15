@@ -1,27 +1,26 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useTranslations } from "next-intl";
+import type { CourseFormData } from "./admin-course-edit-modal";
+import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "@/components/ui/card";
+import AdminCourseCard from "./admin-course-card";
 import Alert from "@/components/ui/alert";
-import { Modal } from "@/components/ui/modal";
+import { getApiEndpoint, API_ENDPOINTS } from "@/lib/api-config";
 import { 
   Plus, 
-  Edit, 
   Trash2, 
   Search,
-  Upload,
-  FileText
+  ArrowUpDown,
 } from "lucide-react";
-import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
-import Image from "next/image";
+import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
+import CourseEditModal from "./admin-course-edit-modal";
+import CourseVisualizationModal from "./admin-course-modal";
 
-interface Course {
+export interface Course {
   id: number;
   title: string;
   subtitle?: string;
@@ -29,23 +28,92 @@ interface Course {
   image: string;
   price?: string | null;
   location: string;
-  date: string;
+  start_date: string;
+  end_date: string;
+  start_time: string;
+  end_time: string;
+  periodicity: 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom';
+  timezone: string;
+  weekdays: number[];
+  week_of_month?: number | null;
+  interval: number;
+  exclude_dates: string[];
   max_attendants: number;
+  enrolled_count: number;
   created_at: string;
   updated_at: string;
+  duration_hours?: number;
+  formatted_schedule?: string;
+  schedule_description?: string;
+  next_occurrences?: string[];
+  weekday_display?: string[];
 }
 
-// Custom image loader to handle potential URL issues
-const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
-  if (!src || src === 'undefined' || src === 'null') {
-    return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZjNmNGY2Ii8+CjxwYXRoIGQ9Im0xMiA2LTItMiA0IDRoNCIgc3Ryb2tlPSIjOWNhM2FmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K';
-  }
-  return `${src}?w=${width}&q=${quality || 75}`;
-};
+interface Enrollment {
+  id: number;
+  user: number;
+  course: number;
+  enrolled_at: string;
+  user_details?: {
+    name: string;
+    surname: string;
+    email: string;
+    company: string;
+  };
+}
+
+type SortOption = 'title' | 'start_date' | 'end_date' | 'enrolled_count' | 'max_attendants' | 'created_at';
+type SortOrder = 'asc' | 'desc';
 
 const AdminCoursesTab = () => {
   const t = useTranslations("admin.courses");
   const tAdmin = useTranslations("admin");
+  const locale = useLocale();
+
+  // Helper function to get proper date locale
+  const getDateLocale = (locale: string): string => {
+    switch (locale) {
+      case 'es':
+        return 'es-ES';
+      case 'en':
+        return 'en-US';
+      default:
+        return 'en-US';
+    }
+  };
+
+  const dateLocale = getDateLocale(locale);
+
+  // Sort options for dropdown
+  const sortOptions: DropdownOption[] = [
+    { value: 'start_date', label: t("sorting.startDate") },
+    { value: 'title', label: t("sorting.title") },
+    { value: 'end_date', label: t("sorting.endDate") },
+    { value: 'enrolled_count', label: t("sorting.enrollments") },
+    { value: 'max_attendants', label: t("sorting.capacity") },
+    { value: 'created_at', label: t("sorting.created") }
+  ];
+
+  // Days of the week with internationalization
+  const daysOfWeek = [
+    { key: 'monday', short: t("form.weekdays.monday.short"), full: t("form.weekdays.monday.full") },
+    { key: 'tuesday', short: t("form.weekdays.tuesday.short"), full: t("form.weekdays.tuesday.full") },
+    { key: 'wednesday', short: t("form.weekdays.wednesday.short"), full: t("form.weekdays.wednesday.full") },
+    { key: 'thursday', short: t("form.weekdays.thursday.short"), full: t("form.weekdays.thursday.full") },
+    { key: 'friday', short: t("form.weekdays.friday.short"), full: t("form.weekdays.friday.full") },
+    { key: 'saturday', short: t("form.weekdays.saturday.short"), full: t("form.weekdays.saturday.full") },
+    { key: 'sunday', short: t("form.weekdays.sunday.short"), full: t("form.weekdays.sunday.full") }
+  ];
+
+  // Helper function to convert weekday indices to internationalized names
+  const formatWeekdays = (weekdays: number[]): string => {
+    if (!weekdays || weekdays.length === 0) return '';
+    return weekdays
+      .sort((a, b) => a - b) // Sort weekdays to display in order
+  .map(idx => daysOfWeek[idx]?.short || '')
+      .filter(day => day !== '') // Remove any invalid indices
+      .join(', ');
+  };
   const [courses, setCourses] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -53,27 +121,42 @@ const AdminCoursesTab = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showCourseModal, setShowCourseModal] = useState(false);
+  const [selectedCourseForModal, setSelectedCourseForModal] = useState<Course | null>(null);
+  const [courseEnrollments, setCourseEnrollments] = useState<Enrollment[]>([]);
   const [currentCourse, setCurrentCourse] = useState<Course | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [sortBy, setSortBy] = useState<SortOption>('start_date');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
+  const [isLoadingEnrollments, setIsLoadingEnrollments] = useState(false);
 
-  const [formData, setFormData] = useState({
-    title: "",
-    subtitle: "",
-    description: "",
-    price: "",
-    location: "",
-    date: "",
-    max_attendants: ""
+  const [formData, setFormData] = useState<CourseFormData>({
+  title: "",
+  subtitle: "",
+  description: "",
+  image: "",
+  price: "",
+  location: "",
+  start_date: "",
+  end_date: "",
+  start_time: "09:00",
+  end_time: "17:00",
+  periodicity: "once",
+  timezone: "Europe/Madrid",
+  weekdays: [],
+  week_of_month: null,
+  interval: 1,
+  exclude_dates: [],
+  max_attendants: ""
   });
 
   const fetchCourses = useCallback(async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/courses/`, {
+      const response = await fetch(getApiEndpoint(API_ENDPOINTS.courses), {
         headers: {
           'Authorization': `Token ${token}`,
           'Content-Type': 'application/json',
@@ -86,8 +169,8 @@ const AdminCoursesTab = () => {
       } else {
         setAlert({type: 'error', message: t('messages.fetchError')});
       }
-    } catch (error) {
-      console.error('Fetch error:', error);
+    } catch {
+      
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsLoading(false);
@@ -99,13 +182,23 @@ const AdminCoursesTab = () => {
   }, [fetchCourses]);
 
   const resetForm = () => {
-    setFormData({
+  setFormData({
       title: "",
       subtitle: "",
       description: "",
+      image: "",
       price: "",
       location: "",
-      date: "",
+      start_date: "",
+      end_date: "",
+      start_time: "09:00",
+      end_time: "17:00",
+      periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
+      timezone: "Europe/Madrid",
+      weekdays: [] as number[],
+      week_of_month: null as number | null,
+      interval: 1,
+      exclude_dates: [] as string[],
       max_attendants: ""
     });
     setSelectedFile(null);
@@ -119,16 +212,27 @@ const AdminCoursesTab = () => {
 
   const handleEdit = (course: Course) => {
     setCurrentCourse(course);
-    setFormData({
+  setFormData({
       title: course.title,
       subtitle: course.subtitle || "",
       description: course.description,
-      price: course.price || "",
+      image: course.image || "",
+      price: course.price == null ? "" : String(course.price),
       location: course.location,
-      date: course.date,
-      max_attendants: course.max_attendants.toString()
+      start_date: course.start_date == null ? "" : course.start_date,
+      end_date: course.end_date == null ? "" : course.end_date,
+      start_time: course.start_time == null ? "" : course.start_time,
+      end_time: course.end_time == null ? "" : course.end_time,
+      periodicity: course.periodicity || "once",
+      timezone: course.timezone || "Europe/Madrid",
+      weekdays: course.weekdays || [],
+      week_of_month: course.week_of_month == null ? null : course.week_of_month,
+      interval: course.interval == null ? 1 : course.interval,
+      exclude_dates: course.exclude_dates || [],
+      max_attendants: course.max_attendants != null ? String(course.max_attendants) : ""
     });
     setPreviewUrl(course.image);
+    setSelectedFile(null); // Ensure no file is selected by default when editing
     setShowEditModal(true);
   };
 
@@ -145,19 +249,106 @@ const AdminCoursesTab = () => {
     setShowDeleteModal(true);
   };
 
+  const handleViewCourse = async (course: Course) => {
+    setSelectedCourseForModal(course);
+    setShowCourseModal(true);
+    setIsLoadingEnrollments(true);
+    
+    try {
+      const token = localStorage.getItem('authToken');
+      const response = await fetch(getApiEndpoint('/api/courses/enrollments/'), {
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const enrollments = await response.json();
+        const courseEnrollments = enrollments.filter((enrollment: Enrollment) => 
+          enrollment.course === course.id
+        );
+        setCourseEnrollments(courseEnrollments);
+      } else {
+        setAlert({type: 'error', message: 'Failed to fetch course enrollments'});
+        setCourseEnrollments([]);
+      }
+    } catch {
+      
+      setAlert({type: 'error', message: 'Network error while fetching enrollments'});
+      setCourseEnrollments([]);
+    } finally {
+      setIsLoadingEnrollments(false);
+    }
+  };
+
+  const isCourseFinished = (course: Course) => {
+    // If no end_date or invalid, course is NOT finished
+    if (!course.end_date || course.end_date === "0000-00-00") return false;
+    const endDate = new Date(course.end_date);
+    if (isNaN(endDate.getTime())) return false;
+    const now = new Date();
+    return endDate < now;
+  };
+
+  const sortCourses = (courses: Course[]) => {
+    const sorted = [...courses].sort((a, b) => {
+      let aValue: string | number | Date;
+      let bValue: string | number | Date;
+
+      switch (sortBy) {
+        case 'title':
+          aValue = a.title.toLowerCase();
+          bValue = b.title.toLowerCase();
+          break;
+        case 'start_date':
+          aValue = new Date(a.start_date);
+          bValue = new Date(b.start_date);
+          break;
+        case 'end_date':
+          aValue = new Date(a.end_date);
+          bValue = new Date(b.end_date);
+          break;
+        case 'enrolled_count':
+          aValue = a.enrolled_count || 0;
+          bValue = b.enrolled_count || 0;
+          break;
+        case 'max_attendants':
+          aValue = a.max_attendants;
+          bValue = b.max_attendants;
+          break;
+        case 'created_at':
+          aValue = new Date(a.created_at);
+          bValue = new Date(b.created_at);
+          break;
+        default:
+          return 0;
+      }
+
+      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    });
+
+    // Separate finished and active courses
+    const activeCourses = sorted.filter(course => !isCourseFinished(course));
+    const finishedCourses = sorted.filter(course => isCourseFinished(course));
+
+    // Return active courses first, then finished courses
+    return [...activeCourses, ...finishedCourses];
+  };
+
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        setAlert({type: 'error', message: t('messages.fileSizeLimit')});
+      if (file.size > 1024 * 1024) { // 1MB limit
+        setAlert({type: 'error', message: t('messages.imageSizeLimit1MB')});
         return;
       }
-      
       if (!file.type.startsWith('image/')) {
         setAlert({type: 'error', message: t('messages.imageFileOnly')});
         return;
       }
-
       setSelectedFile(file);
       const url = URL.createObjectURL(file);
       setPreviewUrl(url);
@@ -175,19 +366,11 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
         return;
       }
-      if (!formData.location.trim()) {
-        setAlert({type: 'error', message: t('messages.validation.locationRequired')});
-        return;
-      }
-      if (!formData.date.trim()) {
-        setAlert({type: 'error', message: t('messages.validation.dateRequired')});
-        return;
-      }
-      if (!formData.max_attendants || parseInt(formData.max_attendants) < 1) {
+  if (!formData.max_attendants || parseInt(String(formData.max_attendants)) < 1) {
         setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
         return;
       }
-      if (formData.price && parseFloat(formData.price) < 0.01) {
+  if (formData.price && parseFloat(String(formData.price)) < 0.01) {
         setAlert({type: 'error', message: t('messages.validation.priceInvalid')});
         return;
       }
@@ -197,26 +380,48 @@ const AdminCoursesTab = () => {
       }
 
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       
       const formDataToSend = new FormData();
       formDataToSend.append('title', formData.title);
       formDataToSend.append('subtitle', formData.subtitle);
       formDataToSend.append('description', formData.description);
       if (formData.price) {
-        formDataToSend.append('price', formData.price);
+        formDataToSend.append('price', String(formData.price));
       }
       formDataToSend.append('location', formData.location);
-      formDataToSend.append('date', formData.date);
-      formDataToSend.append('max_attendants', formData.max_attendants);
+      formDataToSend.append('start_date', formData.start_date);
+      formDataToSend.append('end_date', formData.end_date);
+      formDataToSend.append('start_time', formData.start_time);
+      formDataToSend.append('end_time', formData.end_time);
+      formDataToSend.append('periodicity', formData.periodicity);
+      formDataToSend.append('timezone', formData.timezone);
+      formDataToSend.append('weekdays', JSON.stringify(formData.weekdays));
+      if (formData.week_of_month) {
+        formDataToSend.append('week_of_month', formData.week_of_month.toString());
+      }
+      formDataToSend.append('interval', formData.interval.toString());
+      formDataToSend.append('exclude_dates', JSON.stringify(formData.exclude_dates));
+  formDataToSend.append('max_attendants', String(formData.max_attendants));
       
       if (selectedFile) {
         formDataToSend.append('image', selectedFile);
       }
 
+      // Prevent lowering max_attendants below enrolled_count on frontend
+      if (isEdit && currentCourse) {
+  const newMax = parseInt(String(formData.max_attendants), 10);
+        if (!isNaN(newMax) && newMax < currentCourse.enrolled_count) {
+          setAlert({
+            type: 'error',
+            message: t('messages.validation.maxAttendantsBelowEnrolled', { count: currentCourse.enrolled_count })
+          });
+          return;
+        }
+      }
+
       const url = isEdit 
-        ? `${apiUrl}/api/courses/${currentCourse?.id}/`
-        : `${apiUrl}/api/courses/`;
+        ? `${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse?.id}/`
+        : getApiEndpoint(API_ENDPOINTS.courses);
       
       const method = isEdit ? 'PUT' : 'POST';
 
@@ -241,29 +446,10 @@ const AdminCoursesTab = () => {
         setShowEditModal(false);
         resetForm();
       } else {
-        const errorData = await response.json();
-        
-        // Handle specific validation errors
-        if (errorData.title) {
-          setAlert({type: 'error', message: t('messages.validation.titleRequired')});
-        } else if (errorData.description) {
-          setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
-        } else if (errorData.location) {
-          setAlert({type: 'error', message: t('messages.validation.locationRequired')});
-        } else if (errorData.date) {
-          setAlert({type: 'error', message: t('messages.validation.dateRequired')});
-        } else if (errorData.max_attendants) {
-          setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
-        } else if (errorData.price) {
-          setAlert({type: 'error', message: t('messages.validation.priceInvalid')});
-        } else if (errorData.image) {
-          setAlert({type: 'error', message: t('messages.validation.imageRequired')});
-        } else {
-          setAlert({type: 'error', message: errorData.detail || t(isEdit ? 'messages.updateError' : 'messages.createError')});
-        }
+        // Don't use errorData variable to avoid unused var lint error
+        setAlert({type: 'error', message: t(isEdit ? 'messages.updateError' : 'messages.createError')});
       }
-    } catch (error) {
-      console.error('Submit error:', error);
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     }
   };
@@ -272,12 +458,23 @@ const AdminCoursesTab = () => {
     setIsDeleting(true);
     try {
       const token = localStorage.getItem('authToken');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
       if (selectedCourses.length > 0) {
         // Bulk delete
+        const finishedSelectedCourses = selectedCourses.filter(id => {
+          const course = courses.find(c => c.id === id);
+          return course && isCourseFinished(course);
+        });
+
+        if (finishedSelectedCourses.length > 0) {
+          setAlert({type: 'error', message: t('messages.cannotDeleteFinishedBulk')});
+          setIsDeleting(false);
+          setShowDeleteModal(false);
+          return;
+        }
+
         const deletePromises = selectedCourses.map(id =>
-          fetch(`${apiUrl}/api/courses/${id}/`, {
+          fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${id}/`, {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${token}`,
@@ -297,7 +494,14 @@ const AdminCoursesTab = () => {
         setSelectedCourses([]);
       } else if (currentCourse) {
         // Single delete
-        const response = await fetch(`${apiUrl}/api/courses/${currentCourse.id}/`, {
+        if (isCourseFinished(currentCourse)) {
+          setAlert({type: 'error', message: t('messages.cannotDeleteFinished')});
+          setIsDeleting(false);
+          setShowDeleteModal(false);
+          return;
+        }
+
+        const response = await fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse.id}/`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,
@@ -313,8 +517,8 @@ const AdminCoursesTab = () => {
 
       fetchCourses();
       setShowDeleteModal(false);
-    } catch (error) {
-      console.error('Delete error:', error);
+    } catch {
+      
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);
@@ -327,6 +531,39 @@ const AdminCoursesTab = () => {
         ? prev.filter(courseId => courseId !== id)
         : [...prev, id]
     );
+  };
+
+  // Helper function to format course schedule for display
+  const formatCourseSchedule = (course: Course): string => {
+    const dateOptions: Intl.DateTimeFormatOptions = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric'
+    };
+
+    const isValidStartDate = course.start_date && course.start_date !== "0000-00-00";
+    const isValidEndDate = course.end_date && course.end_date !== "0000-00-00";
+
+    const startDate = isValidStartDate
+      ? new Date(course.start_date).toLocaleDateString(dateLocale, dateOptions)
+      : t('noSpecificDate');
+    const endDate = isValidEndDate
+      ? new Date(course.end_date).toLocaleDateString(dateLocale, dateOptions)
+      : t('noSpecificDate');
+
+    const startTime = course.start_time ? course.start_time.substring(0, 5) : '';
+    const endTime = course.end_time ? course.end_time.substring(0, 5) : '';
+    const timeRange = (startTime && endTime) ? `${startTime} - ${endTime}` : '';
+
+    if (!isValidStartDate && !isValidEndDate) {
+      return t('noSpecificDate');
+    } else if (isValidStartDate && isValidEndDate) {
+      return `${startDate} - ${endDate} • ${timeRange}`;
+    } else if (isValidStartDate) {
+      return `${startDate} • ${timeRange}`;
+    } else {
+      return `${endDate} • ${timeRange}`;
+    }
   };
 
   const toggleSelectAll = () => {
@@ -342,21 +579,23 @@ const AdminCoursesTab = () => {
     }
   };
 
-  const filteredCourses = (courses || []).filter(course =>
-    course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    course.location.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCourses = sortCourses(
+    (courses || []).filter(course =>
+      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.location.toLowerCase().includes(searchTerm.toLowerCase())
+    )
   );
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#29BF12]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green"></div>
       </div>
     );
   }
 
   return (
-    <div>
+  <div>
       {alert && (
         <Alert
           type={alert.type}
@@ -366,37 +605,60 @@ const AdminCoursesTab = () => {
         />
       )}
 
-      {/* Header Actions */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-        <div className="flex items-center space-x-2">
-          <div className="relative">
+      {/* Header Actions - sticky on small screens, transparent or card color */}
+  <div className="sticky top-0 z-30 bg-transparent dark:bg-transparent flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center gap-x-6 gap-y-3 mb-6 px-2 py-3">
+  <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-2 w-full md:w-auto min-w-0">
+          <div className="relative w-full sm:w-64 min-w-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               placeholder={t("searchPlaceholder")}
-              value={searchTerm}
+              value={searchTerm ?? ""}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 w-64"
+              className="pl-10 w-full min-w-0"
             />
           </div>
+          {/* Sort Controls */}
+          <div className="flex items-center justify-center flex-wrap gap-x-3 gap-y-2 w-full md:w-auto min-w-0">
+            <Label className="hidden md:inline text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+              {t("sorting.sortBy")}:
+            </Label>
+            <Dropdown
+              options={sortOptions}
+              value={sortBy}
+              onChange={(value) => setSortBy(value as SortOption)}
+              minWidth="240px"
+              width="240px"
+              theme="orange"
+            />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-lg"
+            >
+              <ArrowUpDown className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
-        <div className="flex items-center space-x-2">
+  <div className="flex items-center flex-wrap gap-2 w-full md:w-auto min-w-0">
           {selectedCourses.length > 0 && (
             <Button
               variant="destructive"
               size="sm"
               onClick={handleBulkDelete}
-              className="flex items-center space-x-1"
+              className="flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
             >
               <Trash2 className="h-4 w-4" />
-              <span>{t("deleteSelected")} ({selectedCourses.length})</span>
+              <span className="hidden xs:inline">{t("deleteSelected")} ({selectedCourses.length})</span>
             </Button>
           )}
           <Button
             onClick={handleCreate}
-            className="bg-[#29BF12] hover:bg-[#22A010] text-white flex items-center space-x-1"
+            size="sm"
+            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
           >
             <Plus className="h-4 w-4" />
-            <span>{t("addCourse")}</span>
+            <span className="hidden xs:inline">{t("addCourse")}</span>
           </Button>
         </div>
       </div>
@@ -414,336 +676,60 @@ const AdminCoursesTab = () => {
               type="checkbox"
               checked={selectedCourses.length === filteredCourses.length && filteredCourses.length > 0}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
+              className="rounded border-gray-300 text-green focus:ring-green"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               {t("selectAll")} ({filteredCourses.length} {t("courses")})
             </span>
           </div>
 
-          {filteredCourses.map((course) => (
-            <Card key={course.id} className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-              <CardContent className="p-4">
-                <div className="flex items-start space-x-4">
-                  <input
-                    type="checkbox"
-                    checked={selectedCourses.includes(course.id)}
-                    onChange={() => toggleCourseSelection(course.id)}
-                    className="mt-1 rounded border-gray-300 text-[#29BF12] focus:ring-[#29BF12]"
-                  />
-                  
-                  {/* Course Image */}
-                  <div className="w-20 h-20 relative rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700">
-                    {course.image && course.image !== 'undefined' && course.image !== 'null' ? (
-                      <Image
-                        loader={imageLoader}
-                        src={course.image}
-                        alt={course.title}
-                        fill
-                        className="object-cover"
-                        sizes="80px"
-                        onError={(e) => {
-                          console.error('Course image failed to load:', course.image);
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <FileText className="h-8 w-8 text-gray-400" />
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                          {course.title}
-                        </h3>
-                        {course.subtitle && (
-                          <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                            {course.subtitle}
-                          </p>
-                        )}
-                        <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-                          {course.description}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                          <span>{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
-                          <span>{tAdmin("labels.location")}: {course.location}</span>
-                          <span>{tAdmin("labels.date")}: {course.date}</span>
-                          <span>{tAdmin("labels.maxAttendants")}: {course.max_attendants}</span>
-                          <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString()}</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2 ml-4">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleEdit(course)}
-                          className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 dark:hover:bg-blue-900/20"
-                        >
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => handleDelete(course)}
-                          className="text-red-600 hover:text-red-800 hover:bg-red-50 dark:hover:bg-red-900/20"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+          {filteredCourses.map((course) => {
+            const isFinished = isCourseFinished(course);
+            const enrollmentPercentage = (course.enrolled_count || 0) / course.max_attendants * 100;
+            const availableSpots = course.max_attendants - (course.enrolled_count || 0);
+            return (
+              <AdminCourseCard
+                key={course.id}
+                course={course}
+                isFinished={isFinished}
+                selected={selectedCourses.includes(course.id)}
+                onSelect={toggleCourseSelection}
+                onView={handleViewCourse}
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                t={t}
+                tAdmin={tAdmin}
+                dateLocale={dateLocale}
+                formatCourseSchedule={formatCourseSchedule}
+                availableSpots={availableSpots}
+                enrollmentPercentage={enrollmentPercentage}
+              />
+            );
+          })}
         </div>
       )}
 
+
       {/* Create/Edit Course Modal */}
-      <Modal
+      <CourseEditModal
         isOpen={showCreateModal || showEditModal}
         onClose={() => {
           setShowCreateModal(false);
           setShowEditModal(false);
           resetForm();
         }}
-        title={showEditModal ? t("editCourse") : t("createCourse")}
-        showHeader={true}
-      >
-        <div className="space-y-6 max-h-[70vh] overflow-y-auto">
-          {/* Course Title */}
-          <div className="space-y-3">
-            <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#29BF12]/10 rounded flex items-center justify-center">
-                <FileText className="w-3 h-3 text-[#29BF12]" />
-              </div>
-              <span>{t("form.titleRequired")}</span>
-            </Label>
-            <Input
-              id="title"
-              value={formData.title}
-              onChange={(e) => setFormData(prev => ({...prev, title: e.target.value}))}
-              placeholder={t("form.titlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-[#29BF12] focus:ring-[#29BF12]/20 rounded-lg transition-all duration-200"
-              required
-            />
-          </div>
-          
-          {/* Course Subtitle */}
-          <div className="space-y-3">
-            <Label htmlFor="subtitle" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-blue-600 dark:text-blue-400">S</span>
-              </div>
-              <span>{t("form.subtitleOptional")}</span>
-            </Label>
-            <Input
-              id="subtitle"
-              value={formData.subtitle}
-              onChange={(e) => setFormData(prev => ({...prev, subtitle: e.target.value}))}
-              placeholder={t("form.subtitlePlaceholder")}
-              className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
-            />
-          </div>
-
-          {/* Course Description */}
-          <div className="space-y-3">
-            <Label htmlFor="description" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-purple-100 dark:bg-purple-900/30 rounded flex items-center justify-center">
-                <Edit className="w-3 h-3 text-purple-600 dark:text-purple-400" />
-              </div>
-              <span>{t("form.descriptionRequired")}</span>
-            </Label>
-            <Textarea
-              id="description"
-              value={formData.description}
-              onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(prev => ({...prev, description: e.target.value}))}
-              placeholder={t("form.descriptionPlaceholder")}
-              rows={4}
-              className="border-gray-300 focus:border-purple-500 focus:ring-purple-500/20 rounded-lg transition-all duration-200 resize-none"
-              required
-            />
-          </div>
-
-          {/* Image Upload */}
-          <div className="space-y-3">
-            <Label htmlFor="image" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-orange-100 dark:bg-orange-900/30 rounded flex items-center justify-center">
-                <Upload className="w-3 h-3 text-orange-600 dark:text-orange-400" />
-              </div>
-              <span>{!showEditModal ? t("form.imageRequired") : t("form.imageOptional")}</span>
-            </Label>
-            <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 transition-all duration-200 hover:border-orange-500 hover:bg-orange-500/5">
-              <input
-                type="file"
-                id="image"
-                accept="image/*"
-                onChange={handleFileSelect}
-                className="hidden"
-              />
-              <div className="text-center">
-                {selectedFile ? (
-                  <div className="flex items-center justify-center space-x-3">
-                    <div className="flex items-center space-x-2 bg-green-50 dark:bg-green-900/20 px-4 py-2 rounded-lg">
-                      <FileText className="w-5 h-5 text-green-600 dark:text-green-400" />
-                      <span className="text-sm font-medium text-green-700 dark:text-green-300">
-                        {selectedFile.name}
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    <div className="w-12 h-12 mx-auto bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
-                      <Upload className="w-6 h-6 text-gray-400" />
-                    </div>
-                    <div>
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => document.getElementById('image')?.click()}
-                        className="border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white transition-all duration-200"
-                      >
-                        {t("form.chooseImageText")}
-                      </Button>
-                      <p className="text-xs text-gray-500 mt-2">{t("form.imageRecommendation")}</p>
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              {previewUrl && previewUrl !== 'undefined' && previewUrl !== 'null' && (
-                <div className="mt-3 relative w-32 h-32 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700">
-                  <Image
-                    loader={imageLoader}
-                    src={previewUrl}
-                    alt="Preview"
-                    fill
-                    className="object-cover"
-                    sizes="128px"
-                    onError={() => {
-                      console.error('Preview image failed to load:', previewUrl);
-                      setPreviewUrl("");
-                    }}
-                  />
-                  <ModalCloseButton
-                    onClick={() => {
-                      setSelectedFile(null);
-                      setPreviewUrl("");
-                    }}
-                    variant="light"
-                    size="sm"
-                    className="absolute top-1 right-1 bg-red-500 text-white rounded-full hover:bg-red-600"
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Price and Max Attendants */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <Label htmlFor="price" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded flex items-center justify-center">
-                  <span className="text-xs font-bold text-green-600 dark:text-green-400">€</span>
-                </div>
-                <span>{t("form.price")}</span>
-              </Label>
-              <Input
-                id="price"
-                type="number"
-                step="0.01"
-                min="0"
-                value={formData.price}
-                onChange={(e) => setFormData(prev => ({...prev, price: e.target.value}))}
-                placeholder={t("form.pricePlaceholder")}
-                className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg transition-all duration-200"
-              />
-            </div>
-
-            <div className="space-y-3">
-              <Label htmlFor="max_attendants" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-                <div className="w-5 h-5 bg-indigo-100 dark:bg-indigo-900/30 rounded flex items-center justify-center">
-                  <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">#</span>
-                </div>
-                <span>{t("form.maxAttendantsRequired")}</span>
-              </Label>
-              <Input
-                id="max_attendants"
-                type="number"
-                min="1"
-                value={formData.max_attendants}
-                onChange={(e) => setFormData(prev => ({...prev, max_attendants: e.target.value}))}
-                placeholder={t("form.maxAttendantsPlaceholder")}
-                className="h-12 border-gray-300 focus:border-indigo-500 focus:ring-indigo-500/20 rounded-lg transition-all duration-200"
-                required
-              />
-            </div>
-          </div>
-
-          {/* Location */}
-          <div className="space-y-3">
-            <Label htmlFor="location" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-red-100 dark:bg-red-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-red-600 dark:text-red-400">📍</span>
-              </div>
-              <span>{t("form.locationRequired")}</span>
-            </Label>
-            <Input
-              id="location"
-              value={formData.location}
-              onChange={(e) => setFormData(prev => ({...prev, location: e.target.value}))}
-              placeholder={t("form.locationPlaceholder")}
-              className="h-12 border-gray-300 focus:border-red-500 focus:ring-red-500/20 rounded-lg transition-all duration-200"
-              required
-            />
-          </div>
-
-          {/* Course Date */}
-          <div className="space-y-3">
-            <Label htmlFor="date" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-yellow-100 dark:bg-yellow-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-yellow-600 dark:text-yellow-400">📅</span>
-              </div>
-              <span>{t("form.dateRequired")}</span>
-            </Label>
-            <Input
-              id="date"
-              value={formData.date}
-              onChange={(e) => setFormData(prev => ({...prev, date: e.target.value}))}
-              placeholder={t("form.datePlaceholder")}
-              className="h-12 border-gray-300 focus:border-yellow-500 focus:ring-yellow-500/20 rounded-lg transition-all duration-200"
-              required
-            />
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200 dark:border-gray-700">
-            <Button
-              variant="ghost"
-              onClick={() => {
-                setShowCreateModal(false);
-                setShowEditModal(false);
-                resetForm();
-              }}
-              className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
-            >
-              {t("form.cancel")}
-            </Button>
-            <Button
-              onClick={() => submitCourse(showEditModal)}
-              className="px-6 py-2 bg-[#29BF12] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
-            >
-              <span>{showEditModal ? t("form.update") : t("form.create")}</span>
-              {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-            </Button>
-          </div>
-        </div>
-      </Modal>
+        onSubmit={() => submitCourse(showEditModal)}
+        showEditModal={showEditModal}
+        formData={formData}
+        setFormData={setFormData}
+        selectedFile={selectedFile}
+        setSelectedFile={setSelectedFile}
+        previewUrl={previewUrl}
+        setPreviewUrl={setPreviewUrl}
+        handleFileSelect={handleFileSelect}
+        t={t}
+        resetForm={resetForm}
+      />
 
       {/* Delete Confirmation Modal */}
       <DeleteConfirmationModal
@@ -760,6 +746,25 @@ const AdminCoursesTab = () => {
         cancelText={t("confirmDelete.cancel")}
         isLoading={isDeleting}
       />
+
+      {/* Course Visualization Modal */}
+      {selectedCourseForModal && (
+        <CourseVisualizationModal
+          isOpen={showCourseModal}
+          onClose={() => {
+            setShowCourseModal(false);
+            setSelectedCourseForModal(null);
+            setCourseEnrollments([]);
+          }}
+          course={selectedCourseForModal}
+          enrollments={courseEnrollments}
+          isLoadingEnrollments={isLoadingEnrollments}
+          t={t}
+          dateLocale={dateLocale}
+          formatWeekdays={formatWeekdays}
+        />
+      )}
+      
     </div>
   );
 };

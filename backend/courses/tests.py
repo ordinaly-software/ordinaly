@@ -1,5 +1,5 @@
 import tempfile
-import shutil
+import os
 from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
@@ -8,13 +8,18 @@ from django.conf import settings
 from decimal import Decimal
 from PIL import Image
 from io import BytesIO
-
+from datetime import date, time
+from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
-
 from users.models import CustomUser
 from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
+from courses.admin import CourseAdmin
+from django.contrib import admin as django_admin
+
+
+TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
 
 
 # Helper function to create a test image
@@ -27,19 +32,71 @@ def get_test_image_file():
     return SimpleUploadedFile(file.name, file.read(), content_type='image/png')
 
 
-# Model Tests
-@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class CourseModelTest(TestCase):
+# General-purpose test data mixin for user, course, and enrollment
+class TestUserCourseEnrollmentMixin:
+    def create_test_user(self, **overrides):
+        data = {
+            'email': 'test@example.com',
+            'username': 'testuser',
+            'password': TEST_PASSWORD,
+            'name': 'Test',
+            'surname': 'User',
+            'company': 'Test Company',
+        }
+        data.update(overrides)
+        return CustomUser.objects.create_user(**data)
 
+    def create_test_course(self, **overrides):
+        data = {
+            'title': 'Test Course',
+            'description': 'Test Description',
+            'image': get_test_image_file(),
+            'price': Decimal('99.99'),
+            'location': 'Test Location',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
+            'max_attendants': 20,
+        }
+        data.update(overrides)
+        return Course.objects.create(**data)
+
+    def create_test_enrollment(self, user=None, course=None, **overrides):
+        user = user or self.create_test_user()
+        course = course or self.create_test_course()
+        data = {
+            'user': user,
+            'course': course,
+        }
+        data.update(overrides)
+        return Enrollment.objects.create(**data)
+
+
+class CourseImageCleanupTestMixin:
     @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
+    def teardown_class(cls):
+        """Remove only test-generated images from MEDIA_ROOT/course_images/"""
+        course_images_dir = os.path.join(settings.MEDIA_ROOT, 'course_images')
+        test_prefixes = [
+            'test', 'create', 'duplicate', 'updated', 'extra', 'new', 'searchable', 'license', 'Temp',
+            'Existing', 'Admin', 'Serializer', 'Model', 'Duration', 'Complex', 'One-time', 'Yoga', 'Advanced',
+            'Monthly', 'Special', 'Daily', 'Description'
+        ]
+        if os.path.isdir(course_images_dir):
+            for fname in os.listdir(course_images_dir):
+                if fname.endswith('.png') and any(fname.startswith(prefix) for prefix in test_prefixes):
+                    try:
+                        os.remove(os.path.join(course_images_dir, fname))
+                    except Exception:
+                        pass
         super().tearDownClass()
 
+
+# Model Tests
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.course_data = {
             'title': 'Test Course',
@@ -47,8 +104,12 @@ class CourseModelTest(TestCase):
             'description': 'Test Description',
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
-            'location': 'Test Location',
-            'date': '2023-12-31',
+            'location': None,
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
             'max_attendants': 20
         }
         self.course = Course.objects.create(**self.course_data)
@@ -70,10 +131,28 @@ class CourseModelTest(TestCase):
         self.assertEqual(self.course.subtitle, 'Test Subtitle')
         self.assertEqual(self.course.description, 'Test Description')
         self.assertEqual(self.course.price, Decimal('99.99'))
-        self.assertEqual(self.course.location, 'Test Location')
-        self.assertEqual(self.course.date, '2023-12-31')
+        self.assertIsNone(self.course.location)
+        self.assertEqual(self.course.start_date, date(2023, 12, 31))
+        self.assertEqual(self.course.end_date, date(2023, 12, 31))
+        self.assertEqual(self.course.start_time, time(14, 0))
+        self.assertEqual(self.course.end_time, time(17, 0))
+        self.assertEqual(self.course.periodicity, 'once')
         self.assertEqual(self.course.max_attendants, 20)
         self.assertTrue(self.course.image)
+
+    def test_course_location_nullable(self):
+        # Should allow blank location
+        course_data = self.course_data.copy()
+        course_data['location'] = ''
+        course = Course(**course_data)
+        course.full_clean()  # Should not raise ValidationError
+        self.assertEqual(course.location, '')
+
+        # Should allow null location
+        course_data['location'] = None
+        course = Course(**course_data)
+        course.full_clean()  # Should not raise ValidationError
+        self.assertIsNone(course.location)
 
     def test_course_string_representation(self):
         self.assertEqual(str(self.course), 'Test Course')
@@ -90,7 +169,11 @@ class CourseModelTest(TestCase):
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
             'location': 'Test Location',
-            'date': '2023-12-31',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
             'max_attendants': 20
         }
         course = Course(**course_data)
@@ -105,7 +188,11 @@ class CourseModelTest(TestCase):
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
             'location': 'Test Location',
-            'date': '2023-12-31',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
             'max_attendants': 20
         }
         course = Course(**course_data)
@@ -120,7 +207,11 @@ class CourseModelTest(TestCase):
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
             'location': 'a' * 101,  # Assuming max_length=100 for location
-            'date': '2023-12-31',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
             'max_attendants': 20
         }
         course = Course(**course_data)
@@ -136,7 +227,11 @@ class CourseModelTest(TestCase):
             'image': get_test_image_file(),
             'price': Decimal('0.00'),  # Invalid price
             'location': 'Test Location',
-            'date': '2023-12-31',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
             'max_attendants': 20
         }
         course = Course(**course_data)
@@ -151,7 +246,11 @@ class CourseModelTest(TestCase):
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
             'location': 'Test Location',
-            'date': '2023-12-31',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
             'max_attendants': 0  # Invalid max_attendants
         }
         course = Course(**course_data)
@@ -166,7 +265,11 @@ class CourseModelTest(TestCase):
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
             'location': 'Test Location',
-            'date': '2023-12-31',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
             'max_attendants': 20
         }
         course = Course(**course_data)
@@ -175,39 +278,11 @@ class CourseModelTest(TestCase):
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentModelTest(TestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class EnrollmentModelTest(TestUserCourseEnrollmentMixin, CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
-        self.user = CustomUser.objects.create_user(
-            email='test@example.com',
-            username='testuser',
-            password='testpassword',
-            name='Test',
-            surname='User',
-            company='Test Company'
-        )
-        self.course = Course.objects.create(
-            title='Test Course',
-            description='Test Description',
-            image=get_test_image_file(),
-            price=Decimal('99.99'),
-            location='Test Location',
-            date='2023-12-31',
-            max_attendants=20
-        )
-        self.enrollment = Enrollment.objects.create(
-            user=self.user,
-            course=self.course
-        )
+        self.user = self.create_test_user()
+        self.course = self.create_test_course()
+        self.enrollment = self.create_test_enrollment(user=self.user, course=self.course)
 
     def tearDown(self):
         """Clean up database objects"""
@@ -236,7 +311,6 @@ class EnrollmentModelTest(TestCase):
 
     def test_enrollment_unique_together_constraint(self):
         # Attempt to create a duplicate enrollment
-        from django.db import IntegrityError
         with self.assertRaises(IntegrityError):
             Enrollment.objects.create(
                 user=self.user,
@@ -260,17 +334,7 @@ class EnrollmentModelTest(TestCase):
 
 # Serializer Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class CourseSerializerTest(TestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.course_data = {
             'title': 'Test Course',
@@ -279,7 +343,11 @@ class CourseSerializerTest(TestCase):
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
             'location': 'Test Location',
-            'date': '2023-12-31',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
             'max_attendants': 20
         }
         self.course = Course.objects.create(**self.course_data)
@@ -293,12 +361,15 @@ class CourseSerializerTest(TestCase):
 
     def test_contains_expected_fields(self):
         data = self.serializer.data
-        self.assertCountEqual(
-            data.keys(),
-            ['id', 'title', 'subtitle', 'description', 'image', 'price',
-             'location', 'date', 'max_attendants', 'enrolled_count',
-             'created_at', 'updated_at']
-        )
+        expected_fields = [
+            'id', 'title', 'subtitle', 'description', 'image', 'price',
+            'location', 'start_date', 'end_date', 'start_time', 'end_time',
+            'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
+            'exclude_dates', 'max_attendants', 'enrolled_count',
+            'duration_hours', 'formatted_schedule', 'schedule_description',
+            'next_occurrences', 'weekday_display', 'created_at', 'updated_at'
+        ]
+        self.assertCountEqual(data.keys(), expected_fields)
 
     def test_enrolled_count_field(self):
         # Initially there should be no enrollments
@@ -308,7 +379,7 @@ class CourseSerializerTest(TestCase):
         user = CustomUser.objects.create_user(
             email='test@example.com',
             username='testuser',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -326,7 +397,11 @@ class CourseSerializerTest(TestCase):
         self.assertEqual(data['description'], 'Test Description')
         self.assertEqual(data['price'], '99.99')
         self.assertEqual(data['location'], 'Test Location')
-        self.assertEqual(data['date'], '2023-12-31')
+        self.assertEqual(data['start_date'], '2023-12-31')
+        self.assertEqual(data['end_date'], '2023-12-31')
+        self.assertEqual(data['start_time'], '14:00:00')
+        self.assertEqual(data['end_time'], '17:00:00')
+        self.assertEqual(data['periodicity'], 'once')
         self.assertEqual(data['max_attendants'], 20)
         self.assertTrue(data['image'])
 
@@ -337,7 +412,11 @@ class CourseSerializerTest(TestCase):
             'description': 'Test Description',
             'price': '-10.00',  # Negative price
             'location': 'Test Location',
-            'date': '2023-12-31',
+            'start_date': '2023-12-31',
+            'end_date': '2023-12-31',
+            'start_time': '14:00:00',
+            'end_time': '17:00:00',
+            'periodicity': 'once',
             'max_attendants': 0  # Invalid max_attendants
         }
         serializer = CourseSerializer(data=invalid_data)
@@ -349,22 +428,12 @@ class CourseSerializerTest(TestCase):
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentSerializerTest(TestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class EnrollmentSerializerTest(CourseImageCleanupTestMixin, TestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(
             email='test@example.com',
             username='testuser',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test',
             surname='User',
             company='Test Company'
@@ -375,7 +444,11 @@ class EnrollmentSerializerTest(TestCase):
             image=get_test_image_file(),
             price=Decimal('99.99'),
             location='Test Location',
-            date='2023-12-31',
+            start_date=date(2023, 12, 31),
+            end_date=date(2023, 12, 31),
+            start_time=time(14, 0),
+            end_time=time(17, 0),
+            periodicity='once',
             max_attendants=20
         )
         self.enrollment = Enrollment.objects.create(
@@ -395,7 +468,7 @@ class EnrollmentSerializerTest(TestCase):
         data = self.serializer.data
         self.assertCountEqual(
             data.keys(),
-            ['id', 'user', 'course', 'enrolled_at']
+            ['id', 'user', 'course', 'enrolled_at', 'user_details']
         )
 
     def test_field_content(self):
@@ -409,7 +482,7 @@ class EnrollmentSerializerTest(TestCase):
         user2 = CustomUser.objects.create_user(
             email='test2@example.com',
             username='testuser2',
-            password='testpassword',
+            password=TEST_PASSWORD,
             name='Test2',
             surname='User2',
             company='Test Company'
@@ -433,23 +506,13 @@ class EnrollmentSerializerTest(TestCase):
 
 # View Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class CourseViewSetTest(APITestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class CourseViewSetTest(CourseImageCleanupTestMixin, APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.admin_user = CustomUser.objects.create_user(
             email='admin@example.com',
             username='adminuser',
-            password='adminpassword',
+            password=TEST_PASSWORD,
             name='Admin',
             surname='User',
             company='Admin Company',
@@ -458,7 +521,7 @@ class CourseViewSetTest(APITestCase):
         self.regular_user = CustomUser.objects.create_user(
             email='user@example.com',
             username='regularuser',
-            password='userpassword',
+            password=TEST_PASSWORD,
             name='Regular',
             surname='User',
             company='User Company'
@@ -470,7 +533,11 @@ class CourseViewSetTest(APITestCase):
             'image': get_test_image_file(),
             'price': '99.99',
             'location': 'Test Location',
-            'date': '2023-12-31',
+            'start_date': '2023-12-31',
+            'end_date': '2023-12-31',
+            'start_time': '14:00:00',
+            'end_time': '17:00:00',
+            'periodicity': 'once',
             'max_attendants': 20
         }
         self.course = Course.objects.create(
@@ -479,7 +546,11 @@ class CourseViewSetTest(APITestCase):
             image=get_test_image_file(),
             price=Decimal('49.99'),
             location='Existing Location',
-            date='2023-11-30',
+            start_date=date(2023, 11, 30),
+            end_date=date(2023, 11, 30),
+            start_time=time(10, 0),
+            end_time=time(13, 0),
+            periodicity='once',
             max_attendants=10
         )
         self.course_url = reverse('course-list')
@@ -572,7 +643,7 @@ class CourseViewSetTest(APITestCase):
     def test_enroll_in_course_unauthenticated(self):
         # Unauthenticated user cannot enroll
         response = self.client.post(self.course_enroll_url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertEqual(Enrollment.objects.count(), 0)
 
     def test_enroll_in_course_already_enrolled(self):
@@ -591,7 +662,7 @@ class CourseViewSetTest(APITestCase):
             user = CustomUser.objects.create_user(
                 email=f'user{i}@example.com',
                 username=f'user{i}',
-                password='password',
+                password=TEST_PASSWORD,
                 name=f'User{i}',
                 surname='Test',
                 company='Test Company'
@@ -603,25 +674,40 @@ class CourseViewSetTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertFalse(Enrollment.objects.filter(user=self.regular_user, course=self.course).exists())
 
+    def test_enroll_in_course_without_dates(self):
+        # Create a course without dates
+        course_without_dates = Course.objects.create(
+            title='Course Without Dates',
+            description='Test Description',
+            image=get_test_image_file(),
+            price=Decimal('99.99'),
+            location='Test Location',
+            start_time=time(14, 0),
+            end_time=time(17, 0),
+            periodicity='once',
+            max_attendants=20
+        )
+
+        # Set up the URL for enrollment
+        course_enroll_url = reverse('course-enroll', kwargs={'pk': course_without_dates.pk})
+
+        # Attempt to enroll as a regular user
+        self.client.force_authenticate(user=self.regular_user)
+        response = self.client.post(course_enroll_url)
+
+        # Verify enrollment is rejected
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(Enrollment.objects.filter(user=self.regular_user, course=course_without_dates).exists())
+
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
-class EnrollmentViewSetTest(APITestCase):
-
-    @classmethod
-    def tearDownClass(cls):
-        """Remove the temporary media directory"""
-        try:
-            shutil.rmtree(settings.MEDIA_ROOT)
-        except (OSError, FileNotFoundError):
-            pass
-        super().tearDownClass()
-
+class EnrollmentViewSetTest(CourseImageCleanupTestMixin, APITestCase):
     def setUp(self):
         self.client = APIClient()
         self.admin_user = CustomUser.objects.create_user(
             email='admin@example.com',
             username='adminuser',
-            password='adminpassword',
+            password=TEST_PASSWORD,
             name='Admin',
             surname='User',
             company='Admin Company',
@@ -630,7 +716,7 @@ class EnrollmentViewSetTest(APITestCase):
         self.regular_user = CustomUser.objects.create_user(
             email='user@example.com',
             username='regularuser',
-            password='userpassword',
+            password=TEST_PASSWORD,
             name='Regular',
             surname='User',
             company='User Company'
@@ -638,7 +724,7 @@ class EnrollmentViewSetTest(APITestCase):
         self.other_user = CustomUser.objects.create_user(
             email='other@example.com',
             username='otheruser',
-            password='otherpassword',
+            password=TEST_PASSWORD,
             name='Other',
             surname='User',
             company='Other Company'
@@ -649,7 +735,11 @@ class EnrollmentViewSetTest(APITestCase):
             image=get_test_image_file(),
             price=Decimal('99.99'),
             location='Test Location',
-            date='2023-12-31',
+            start_date=date(2023, 12, 31),
+            end_date=date(2023, 12, 31),
+            start_time=time(14, 0),
+            end_time=time(17, 0),
+            periodicity='once',
             max_attendants=20
         )
         self.enrollment = Enrollment.objects.create(
@@ -733,4 +823,307 @@ class EnrollmentViewSetTest(APITestCase):
     def test_unauthenticated_access(self):
         # Unauthenticated user cannot access enrollments
         response = self.client.get(self.enrollment_url)
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+# Advanced Scheduling Tests
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class AdvancedSchedulingTestCase(CourseImageCleanupTestMixin, TestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.create_user(
+            username='testuser',
+            email='test@example.com',
+            password=TEST_PASSWORD,
+            name='Test',
+            surname='User',
+            company='Test Company'
+        )
+
+    def tearDown(self):
+        """Clean up database objects"""
+        Course.objects.all().delete()
+        CustomUser.objects.all().delete()
+        super().tearDown()
+
+    def test_once_schedule(self):
+        """Test one-time event scheduling"""
+        course = Course.objects.create(
+            title='One-time Workshop',
+            description='A single workshop session',
+            image=get_test_image_file(),
+            price=50.00,
+            location='Conference Room A',
+            start_date=date(2025, 9, 15),
+            end_date=date(2025, 9, 15),
+            start_time=time(14, 0),
+            end_time=time(17, 0),
+            periodicity='once',
+            max_attendants=20
+        )
+
+        occurrences = course.get_next_occurrences()
+        self.assertEqual(len(occurrences), 1)
+        self.assertEqual(occurrences[0], date(2025, 9, 15))
+
+    def test_weekly_multiple_weekdays(self):
+        """Test weekly schedule on multiple weekdays (e.g., Mon & Wed)"""
+        course = Course.objects.create(
+            title='Yoga Classes',
+            description='Weekly yoga sessions',
+            image=get_test_image_file(),
+            price=80.00,
+            location='Studio B',
+            start_date=date(2025, 9, 1),  # Sunday
+            end_date=date(2025, 12, 31),
+            start_time=time(18, 0),
+            end_time=time(19, 30),
+            periodicity='weekly',
+            weekdays=[0, 2],  # Monday and Wednesday
+            max_attendants=15
+        )
+
+        occurrences = course.get_next_occurrences(limit=8)
+        # Should get Mondays and Wednesdays
+        for occurrence in occurrences:
+            self.assertIn(occurrence.weekday(), [0, 2])  # Mon=0, Wed=2
+
+    def test_biweekly_schedule(self):
+        """Test biweekly schedule"""
+        course = Course.objects.create(
+            title='Advanced Programming',
+            description='Biweekly coding sessions',
+            image=get_test_image_file(),
+            price=120.00,
+            location='Lab 1',
+            start_date=date(2025, 9, 2),  # Monday
+            end_date=date(2025, 12, 31),
+            start_time=time(19, 0),
+            end_time=time(21, 0),
+            periodicity='biweekly',
+            weekdays=[0],  # Monday only
+            max_attendants=10
+        )
+
+        occurrences = course.get_next_occurrences(limit=4)
+        # Should be every other Monday
+        for i in range(1, len(occurrences)):
+            days_diff = (occurrences[i] - occurrences[i-1]).days
+            self.assertEqual(days_diff, 14)  # Exactly 2 weeks
+
+    def test_monthly_first_monday(self):
+        """Test monthly schedule on first Monday of each month"""
+        course = Course.objects.create(
+            title='Monthly Team Meeting',
+            description='First Monday of every month',
+            image=get_test_image_file(),
+            price=0.00,
+            location='Meeting Room',
+            start_date=date(2025, 9, 1),
+            end_date=date(2025, 12, 31),
+            start_time=time(9, 0),
+            end_time=time(10, 0),
+            periodicity='monthly',
+            weekdays=[0],  # Monday
+            week_of_month=1,  # First week
+            max_attendants=50
+        )
+
+        occurrences = course.get_next_occurrences(limit=4)
+        # Each occurrence should be the first Monday of its month
+        for occurrence in occurrences:
+            self.assertEqual(occurrence.weekday(), 0)  # Monday
+            # Should be in the first 7 days of the month
+            self.assertLessEqual(occurrence.day, 7)
+
+    def test_custom_interval(self):
+        """Test custom interval (every 3 weeks)"""
+        course = Course.objects.create(
+            title='Special Workshop Series',
+            description='Every 3 weeks',
+            image=get_test_image_file(),
+            price=75.00,
+            location='Workshop Space',
+            start_date=date(2025, 9, 1),
+            end_date=date(2025, 12, 31),
+            start_time=time(10, 0),
+            end_time=time(12, 0),
+            periodicity='weekly',
+            interval=3,  # Every 3 weeks
+            max_attendants=25
+        )
+
+        occurrences = course.get_next_occurrences(limit=4)
+        # Should be every 3 weeks (21 days)
+        for i in range(1, len(occurrences)):
+            days_diff = (occurrences[i] - occurrences[i-1]).days
+            self.assertEqual(days_diff, 21)
+
+    def test_exclude_dates(self):
+        """Test excluding specific dates (holidays)"""
+        course = Course.objects.create(
+            title='Daily Exercise',
+            description='Daily except holidays',
+            image=get_test_image_file(),
+            price=100.00,
+            location='Gym',
+            start_date=date(2025, 12, 20),
+            end_date=date(2025, 12, 30),
+            start_time=time(7, 0),
+            end_time=time(8, 0),
+            periodicity='daily',
+            exclude_dates=['2025-12-25', '2025-12-26'],  # Christmas holidays
+            max_attendants=30
+        )
+
+        occurrences = course.get_next_occurrences()
+        excluded_dates = [date(2025, 12, 25), date(2025, 12, 26)]
+
+        # None of the excluded dates should be in occurrences
+        for excluded_date in excluded_dates:
+            self.assertNotIn(excluded_date, occurrences)
+
+    def test_calendar_export_google(self):
+        """Test Google Calendar export"""
+        course = Course.objects.create(
+            title='Test Course',
+            description='Test description',
+            image=get_test_image_file(),
+            price=50.00,
+            location='Test Location',
+            start_date=date(2025, 9, 15),
+            end_date=date(2025, 9, 15),
+            start_time=time(14, 0),
+            end_time=time(17, 0),
+            periodicity='once',
+            max_attendants=20
+        )
+
+        export_data = course.get_calendar_export_data('google')
+        self.assertIsInstance(export_data, list)
+        self.assertGreater(len(export_data), 0)
+        self.assertIn('url', export_data[0])
+        self.assertIn('calendar.google.com', export_data[0]['url'])
+
+    def test_calendar_export_ics(self):
+        """Test ICS calendar export"""
+        course = Course.objects.create(
+            title='Test Course',
+            description='Test description',
+            image=get_test_image_file(),
+            price=50.00,
+            location='Test Location',
+            start_date=date(2025, 9, 15),
+            end_date=date(2025, 9, 15),
+            start_time=time(14, 0),
+            end_time=time(17, 0),
+            periodicity='once',
+            max_attendants=20
+        )
+
+        export_data = course.get_calendar_export_data('ics')
+        self.assertIsInstance(export_data, str)
+        self.assertIn('BEGIN:VCALENDAR', export_data)
+        self.assertIn('BEGIN:VEVENT', export_data)
+        self.assertIn('Test Course', export_data)
+
+    def test_formatted_schedule_display(self):
+        """Test formatted schedule display for complex patterns"""
+        course = Course.objects.create(
+            title='Complex Schedule',
+            description='Test complex schedule display',
+            image=get_test_image_file(),
+            price=60.00,
+            location='Test Room',
+            start_date=date(2025, 9, 1),
+            end_date=date(2025, 12, 31),
+            start_time=time(18, 0),
+            end_time=time(19, 30),
+            periodicity='weekly',
+            weekdays=[0, 2, 4],  # Mon, Wed, Fri
+            max_attendants=15
+        )
+
+        formatted = course.formatted_schedule
+        self.assertIn('Monday', formatted)
+        self.assertIn('Wednesday', formatted)
+        self.assertIn('Friday', formatted)
+        self.assertIn('18:00', formatted)
+        self.assertIn('19:30', formatted)
+
+    def test_duration_calculation(self):
+        """Test course duration calculation"""
+        course = Course.objects.create(
+            title='Duration Test',
+            description='Test duration calculation',
+            image=get_test_image_file(),
+            price=50.00,
+            location='Test Room',
+            start_date=date(2025, 9, 1),
+            end_date=date(2025, 9, 1),
+            start_time=time(14, 0),
+            end_time=time(16, 30),  # 2.5 hours
+            periodicity='once',
+            max_attendants=20
+        )
+
+        self.assertEqual(course.duration_hours, 2.5)
+
+    def test_schedule_description(self):
+        """Test detailed schedule description"""
+        course = Course.objects.create(
+            title='Description Test',
+            description='Test schedule description',
+            image=get_test_image_file(),
+            price=50.00,
+            location='Test Room',
+            start_date=date(2025, 9, 1),
+            end_date=date(2025, 12, 31),
+            start_time=time(18, 0),
+            end_time=time(19, 30),
+            periodicity='weekly',
+            weekdays=[0, 2],  # Mon, Wed
+            interval=2,  # Every 2 weeks
+            exclude_dates=['2025-12-25'],
+            max_attendants=15
+        )
+
+        description = course.get_schedule_description()
+        self.assertIn('Weekly', description)
+        self.assertIn('Every 2', description)
+        self.assertIn('Monday', description)
+        self.assertIn('Wednesday', description)
+        self.assertIn('Excluded dates: 1', description)
+
+
+class CourseAdminTest(CourseImageCleanupTestMixin, TestCase):
+    def setUp(self):
+        self.course = Course.objects.create(
+            title='Admin Test',
+            description='desc',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=date(2025, 1, 1),
+            end_date=date(2025, 1, 2),
+            start_time=time(10, 0),
+            end_time=time(12, 0),
+            periodicity='once',
+            max_attendants=5
+        )
+        self.admin = CourseAdmin(Course, django_admin.site)
+
+    def test_get_enrolled_count(self):
+        self.assertEqual(self.admin.get_enrolled_count(self.course), 0)
+
+    def test_get_weekdays_display_empty(self):
+        self.assertEqual(self.admin.get_weekdays_display(self.course), '-')
+
+    def test_get_weekdays_display_some(self):
+        self.course.weekdays = [0, 2]
+        self.assertIn('Monday', self.admin.get_weekdays_display(self.course))
+        self.assertIn('Wednesday', self.admin.get_weekdays_display(self.course))
+
+    def test_get_form_help_text(self):
+        form = self.admin.get_form(request=None)
+        self.assertIn('Select specific weekdays', form.base_fields['weekdays'].help_text)
+        self.assertIn('Dates to exclude from schedule', form.base_fields['exclude_dates'].help_text)

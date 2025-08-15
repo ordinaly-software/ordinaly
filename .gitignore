@@ -4,6 +4,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 venv/
+.vscode/
 
 # Unit test / coverage reports
 htmlcov/
@@ -31,4 +32,9 @@ backend/db.sqlite3
 db.sqlite3
 **/migrations/**
 !**/migrations/__init__.py
-*/media/*
+*/media/course_images/*
+*/media/terms/*
+
+
+# Backend Django interface
+/backend/staticfiles/*

@@ -10,7 +10,6 @@ import {
   Download, 
   Calendar,
   Tag,
-  User,
   ExternalLink
 } from "lucide-react";
 import Link from "next/link";
@@ -51,8 +50,8 @@ const LegalPage = () => {
 
   const fetchDocuments = useCallback(async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/terms/public/`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+      const response = await fetch(`${apiUrl}/api/terms/`, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -64,8 +63,7 @@ const LegalPage = () => {
       } else {
         setAlert({type: 'error', message: t('messages.fetchError')});
       }
-    } catch (error) {
-      console.error('Fetch error:', error);
+    } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsLoading(false);
@@ -76,67 +74,28 @@ const LegalPage = () => {
     fetchDocuments();
   }, [fetchDocuments]);
 
-  const downloadPDF = async (doc: LegalDocument) => {
+  const downloadPDF = (doc: LegalDocument) => {
     if (!doc.pdf_content) {
       setAlert({type: 'warning', message: t('messages.noPdfAvailable')});
       return;
     }
-
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${apiUrl}/api/terms/${doc.id}/download/`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const blob = await response.blob();
-        const url = window.URL.createObjectURL(blob);
-        const a = window.document.createElement('a');
-        a.href = url;
-        a.download = `${doc.name}_v${doc.version}.pdf`;
-        window.document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        window.document.body.removeChild(a);
-        setAlert({type: 'success', message: t('messages.downloadSuccess')});
-      } else {
-        setAlert({type: 'error', message: t('messages.downloadError')});
-      }
-    } catch (error) {
-      console.error('Download error:', error);
-      setAlert({type: 'error', message: t('messages.networkError')});
-    }
+    window.open(doc.pdf_content, '_blank');
   };
 
   const getDocumentsByTag = (tag: string) => {
     return documents.filter(doc => doc.tag === tag);
   };
 
-  const renderMarkdown = (content: string) => {
-    // Simple markdown parsing for basic formatting
-    return content
-      .replace(/^### (.*$)/gim, '<h3 class="text-xl font-semibold mt-6 mb-3 text-gray-900 dark:text-white">$1</h3>')
-      .replace(/^## (.*$)/gim, '<h2 class="text-2xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">$1</h2>')
-      .replace(/^# (.*$)/gim, '<h1 class="text-3xl font-bold mt-10 mb-6 text-gray-900 dark:text-white">$1</h1>')
-      .replace(/\*\*(.*)\*\*/gim, '<strong class="font-semibold text-gray-900 dark:text-white">$1</strong>')
-      .replace(/\*(.*)\*/gim, '<em class="italic">$1</em>')
-      .replace(/\n\n/gim, '</p><p class="mb-4 text-gray-700 dark:text-gray-300">')
-      .replace(/\n/gim, '<br>')
-      .replace(/^(.*)$/gim, '<p class="mb-4 text-gray-700 dark:text-gray-300">$1</p>');
-  };
-
   const DocumentCard = ({ document }: { document: LegalDocument }) => (
     <Card className="mb-6">
       <CardHeader>
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div className="flex-1">
             <CardTitle className="flex items-center space-x-2">
-              <FileText className="w-5 h-5 text-[#29BF12]" />
+              <FileText className="w-5 h-5 text-[#22A60D]" />
               <span>{document.name}</span>
             </CardTitle>
-            <div className="flex items-center space-x-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
+            <div className="flex flex-wrap items-center gap-2 mt-2 text-sm text-gray-500 dark:text-gray-400">
               <div className="flex items-center space-x-1">
                 <Tag className="w-4 h-4" />
                 <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
@@ -147,12 +106,6 @@ const LegalPage = () => {
                 <Calendar className="w-4 h-4" />
                 <span>{new Date(document.updated_at).toLocaleDateString()}</span>
               </div>
-              {document.author && (
-                <div className="flex items-center space-x-1">
-                  <User className="w-4 h-4" />
-                  <span>{document.author.first_name} {document.author.last_name}</span>
-                </div>
-              )}
             </div>
           </div>
           {document.pdf_content && (
@@ -160,7 +113,7 @@ const LegalPage = () => {
               variant="outline"
               size="sm"
               onClick={() => downloadPDF(document)}
-              className="ml-4 border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white"
+              className="sm:ml-4 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white w-full sm:w-auto"
             >
               <Download className="w-4 h-4 mr-2" />
               {t('downloadPdf')}
@@ -169,10 +122,18 @@ const LegalPage = () => {
         </div>
       </CardHeader>
       <CardContent>
-        <div 
-          className="prose prose-sm max-w-none dark:prose-invert"
-          dangerouslySetInnerHTML={{ __html: renderMarkdown(document.content) }}
-        />
+        <div className="prose prose-sm max-w-none dark:prose-invert mb-6" />
+        {document.pdf_content && (
+          <div className="my-4">
+            <object
+              data={document.pdf_content}
+              type="application/pdf"
+              className="w-full h-64 sm:h-96 border rounded-lg shadow"
+            >
+              <p>{t('messages.noPdfAvailable')}</p>
+            </object>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
@@ -189,7 +150,7 @@ const LegalPage = () => {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#29BF12]"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
           </div>
         </div>
       </div>
@@ -220,17 +181,21 @@ const LegalPage = () => {
 
         {/* Custom Tab Navigation */}
         <div className="mb-8">
-          <div className="border-b border-gray-200 dark:border-gray-700">
-            <nav className="-mb-px flex space-x-8">
+          <div className="border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+            <nav
+              className="-mb-px flex flex-nowrap space-x-4 sm:space-x-8 overflow-x-auto scrollbar-hide px-1"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+            >
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center space-x-2 py-2 px-1 border-b-2 font-medium text-sm ${
+                  className={`flex items-center space-x-2 py-2 px-4 border-b-2 font-medium text-sm whitespace-nowrap transition-colors duration-150 ${
                     activeTab === tab.id
-                      ? 'border-[#29BF12] text-[#29BF12]'
+                      ? 'border-[#22A60D] text-[#22A60D] bg-[#22a60d0d] dark:bg-[#22a60d1a]'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
                   }`}
+                  style={{ minWidth: 140 }}
                 >
                   <tab.icon className="w-4 h-4" />
                   <span>{tab.label}</span>
@@ -244,9 +209,6 @@ const LegalPage = () => {
         <div className="min-h-96">
           {activeTab === 'terms' && (
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                {t('sections.terms.title')}
-              </h2>
               {getDocumentsByTag('terms').length === 0 ? (
                 <Card>
                   <CardContent className="text-center py-12">
@@ -331,10 +293,12 @@ const LegalPage = () => {
           )}
         </div>
 
-        {/* Back to Home */}
-        <div className="mt-12 text-center">
+        {/* Back to Home - fixed at bottom foreground */}
+        <div
+          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300"
+        >
           <Link href="/">
-            <Button variant="outline" className="border-[#29BF12] text-[#29BF12] hover:bg-[#29BF12] hover:text-white">
+            <Button variant="outline" className="border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white shadow-lg px-6 py-3 text-base">
               <ExternalLink className="w-4 h-4 mr-2" />
               {tCommon('backToHome')}
             </Button>

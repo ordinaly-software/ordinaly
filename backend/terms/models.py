@@ -20,12 +20,6 @@ class Terms(models.Model):
         null=True,
         related_name='authored_terms'
     )
-    content = models.FileField(
-        upload_to='terms/',
-        validators=[
-            FileExtensionValidator(allowed_extensions=['md']),
-        ]
-    )
     pdf_content = models.FileField(
         upload_to='terms/',
         validators=[
@@ -47,7 +41,6 @@ class Terms(models.Model):
         existing_terms = Terms.objects.filter(tag=self.tag)
         if self.pk:  # This is an update
             existing_terms = existing_terms.exclude(pk=self.pk)
-        
         if existing_terms.exists():
             tag_display = dict(self.TAG_CHOICES).get(self.tag, self.tag)
             raise ValidationError(
@@ -55,15 +48,12 @@ class Terms(models.Model):
                 f'Each document type can only be created once.'
             )
 
-        # Ensure the uploaded files are valid
-        if not self.content or not self.pdf_content:
-            raise ValidationError("Both a markdown (.md) file and a PDF file must be provided.")
+        # Only require both files on creation
+        if not self.pk:
+            if not self.pdf_content:
+                raise ValidationError("PDF file must be provided.")
 
-        if self.content:
-            if not self.content.name.endswith('.md'):
-                raise ValidationError("The content file must be a markdown (.md) file.")
-            # Remove the strict content-type check for markdown files
-            # as it's not consistently set across different systems
+        max_size = 1024 * 1024  # 1MB
 
         if self.pdf_content:
             if not self.pdf_content.name.endswith('.pdf'):
@@ -71,6 +61,8 @@ class Terms(models.Model):
             if (hasattr(self.pdf_content.file, 'content_type') and
                self.pdf_content.file.content_type != "application/pdf"):
                 raise ValidationError("The uploaded PDF file must have a valid PDF content type.")
+            if self.pdf_content.size > max_size:
+                raise ValidationError("The PDF file must be 1MB or less.")
 
         super().clean()
 
@@ -80,22 +72,17 @@ class Terms(models.Model):
             try:
                 old_instance = Terms.objects.get(pk=self.pk)
                 # Delete old files if they're being replaced
-                if old_instance.content and old_instance.content != self.content:
-                    if os.path.isfile(old_instance.content.path):
-                        os.remove(old_instance.content.path)
                 if old_instance.pdf_content and old_instance.pdf_content != self.pdf_content:
                     if os.path.isfile(old_instance.pdf_content.path):
                         os.remove(old_instance.pdf_content.path)
             except Terms.DoesNotExist:
                 pass  # This shouldn't happen, but handle gracefully
-        
+
         self.clean()
         super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         # Delete the files from filesystem when model is deleted
-        if self.content and os.path.isfile(self.content.path):
-            os.remove(self.content.path)
         if self.pdf_content and os.path.isfile(self.pdf_content.path):
             os.remove(self.pdf_content.path)
         super().delete(*args, **kwargs)

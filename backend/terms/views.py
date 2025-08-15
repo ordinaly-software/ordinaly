@@ -1,18 +1,24 @@
 from rest_framework import filters, viewsets, status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, BasePermission
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.core.exceptions import ValidationError
+from django.http import FileResponse
 import logging
+import os
 from .models import Terms
 from .serializers import TermsSerializer
 
 logger = logging.getLogger(__name__)
 
 
-class IsAdmin(IsAuthenticated):
+class IsAdmin(BasePermission):
+    """
+    Custom permission to only allow admin users.
+    Returns 403 for both unauthenticated and non-admin users.
+    """
     def has_permission(self, request, view):
-        return super().has_permission(request, view) and request.user.is_staff
+        return bool(request.user and request.user.is_authenticated and request.user.is_staff)
 
 
 class TermsViewSet(viewsets.ModelViewSet):
@@ -41,14 +47,14 @@ class TermsViewSet(viewsets.ModelViewSet):
         existing_tags = set(Terms.objects.values_list('tag', flat=True))
         all_tags = dict(Terms.TAG_CHOICES)
         available_tags = []
-        
+
         for tag_key, tag_display in all_tags.items():
             if tag_key not in existing_tags:
                 available_tags.append({
                     'value': tag_key,
                     'label': tag_key  # Send key for translation lookup
                 })
-        
+
         return Response({
             'available_tags': available_tags,
             'total_available': len(available_tags),
@@ -109,3 +115,40 @@ class TermsViewSet(viewsets.ModelViewSet):
             return Response({'detail': e.messages}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+    @action(detail=True, methods=['get'])
+    def download(self, request, pk=None):
+        """Download the PDF file associated with a term."""
+        try:
+            term = self.get_object()
+            if not term.pdf_content:
+                return Response(
+                    {"detail": "No PDF file available for this document."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            # Check if file exists
+            if not os.path.exists(term.pdf_content.path):
+                return Response(
+                    {"detail": "PDF file not found on server."},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            # Open the file in binary mode
+            file_handle = open(term.pdf_content.path, 'rb')
+
+            # Create a FileResponse with the appropriate content type
+            response = FileResponse(file_handle, content_type='application/pdf')
+
+            # Set the Content-Disposition header to make the browser download the file
+            filename = f"{term.name}_v{term.version}.pdf"
+            response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+            return response
+
+        except Exception as e:
+            logger.error(f"Error downloading PDF for term {pk}: {str(e)}")
+            return Response(
+                {"detail": "An error occurred while downloading the PDF."},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

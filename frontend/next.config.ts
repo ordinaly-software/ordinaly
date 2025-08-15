@@ -2,11 +2,57 @@ import {NextConfig} from 'next';
 import createNextIntlPlugin from 'next-intl/plugin';
  
 const nextConfig: NextConfig = {
+  // External packages for server components
+  productionBrowserSourceMaps: true,
+  serverExternalPackages: ['@tsparticles/engine', '@tsparticles/slim'],
+  
   // Enable experimental features for better performance
   experimental: {
+    optimizeCss: true,
     // Enable optimizePackageImports for better tree shaking
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['lucide-react', 'framer-motion', '@radix-ui/react-label', '@radix-ui/react-slot'],
   },
+  
+  // Turbopack configuration (moved from experimental)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
+  
+  // Bundle analyzer for production builds
+  ...(process.env.ANALYZE === 'true' && {
+    webpack: (config, { isServer }) => {
+      if (!isServer) {
+        config.resolve.fallback = {
+          ...config.resolve.fallback,
+          fs: false,
+        };
+      }
+
+      // Optimize bundle splitting
+      config.optimization.splitChunks.cacheGroups = {
+        ...config.optimization.splitChunks.cacheGroups,
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all',
+          maxSize: 244000, // 244KB
+        },
+        common: {
+          name: 'common',
+          minChunks: 2,
+          chunks: 'all',
+          maxSize: 244000,
+        }
+      };
+      
+      return config;
+    },
+  }),
   
   // Image optimization
   images: {
@@ -17,6 +63,29 @@ const nextConfig: NextConfig = {
     // Enable responsive images
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Loader optimization
+    loader: 'default',
+    // Disable optimization for development to avoid IPv6 issues
+    unoptimized: process.env.NODE_ENV === 'development',
+    // Allow images from localhost for development
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8000',
+        pathname: '/media/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '8000',
+        pathname: '/media/**',
+      },
+      {
+        protocol: 'https',
+        hostname: '**', // Allow any HTTPS hostname for production
+      },
+    ],
   },
   
   // Enable compression
@@ -25,23 +94,13 @@ const nextConfig: NextConfig = {
   // Enable React compiler optimizations
   reactStrictMode: true,
   
-  // Optimize bundle
-  webpack: (config, { isServer }) => {
-    // Optimize for production
-    if (!isServer) {
-      config.resolve.fallback = {
-        ...config.resolve.fallback,
-        fs: false,
-      };
-    }
-    
-    return config;
-  },
-  
   // Power optimizations
   poweredByHeader: false,
   
-  // Headers for performance
+  // Output optimization
+  output: 'standalone',
+  
+  // Headers for performance and security
   async headers() {
     return [
       {
@@ -53,7 +112,48 @@ const nextConfig: NextConfig = {
           },
         ],
       },
+      {
+        source: '/_next/image(.*)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'DENY'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'origin-when-cross-origin'
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()'
+          }
+        ]
+      }
     ];
+  },
+  
+  // Enable logging for production debugging
+  logging: {
+    fetches: {
+      fullUrl: process.env.NODE_ENV === 'development',
+    },
   },
 };
  

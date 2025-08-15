@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,9 +54,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'config.urls'
 
@@ -138,7 +139,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ['https://ordinaly.netlify.app', 'http://localhost:3000', 'https://ordinaly.duckdns.org']
+
+# CORS para producción y previews de Netlify
+CORS_ALLOWED_ORIGINS = [
+    'https://ordinaly.netlify.app',
+    'http://localhost:3000',
+    'https://ordinaly.duckdns.org',
+]
+# Permitir cualquier subdominio de Netlify para previews (solo para desarrollo/staging)
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https:\/\/[a-z0-9\-]+--ordinaly\.netlify\.app$",
+]
 
 AUTH_USER_MODEL = 'users.CustomUser'
 

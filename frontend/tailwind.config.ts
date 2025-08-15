@@ -45,6 +45,32 @@ const config: Config = {
   				DEFAULT: '#1A1924',
   				foreground: '#FFFFFF'
   			},
+  			blue: {
+  				DEFAULT: '#46B1C9',
+  				50: '#E6F7FA',
+  				100: '#B3E5FC',
+  				200: '#81D4FA',
+  				300: '#4FC3F7',
+  				400: '#46B1C9',
+  				500: '#46B1C9',
+  				600: '#3A96A8',
+  				700: '#2F7C87',
+  				800: '#246166',
+  				900: '#194749'
+  			},
+  			green: {
+  				DEFAULT: '#22A60D',
+  				50: '#E8F5E8',
+  				100: '#C3E6C3',
+  				200: '#9DD69D',
+  				300: '#76C676',
+  				400: '#4FB64F',
+  				500: '#22A60D',
+  				600: '#1E950B',
+  				700: '#1A8409',
+  				800: '#167307',
+  				900: '#126205'
+  			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'

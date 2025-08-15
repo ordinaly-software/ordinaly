@@ -20,7 +20,7 @@ export const ModalCloseButton = ({
   const baseStyles = "transition-all duration-200 rounded-lg flex items-center justify-center";
   
   const variantStyles = {
-    default: "text-white/80 hover:text-white hover:bg-white/10 p-1",
+    default: "text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 p-2 rounded-lg",
     overlay: "bg-black/20 hover:bg-black/40 text-white backdrop-blur-md rounded-full h-10 w-10",
     header: "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full h-10 w-10",
     light: "text-muted-foreground hover:text-foreground hover:bg-accent p-2"

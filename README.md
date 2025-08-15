@@ -27,8 +27,13 @@
   - [Índice del proyecto](#índice-del-proyecto)
 - [Primeros pasos](#primeros-pasos)
   - [Requisitos previos](#requisitos-previos)
-  - [Instalación](#instalación)
-  - [Uso](#uso)
+  - [Instalación y ejecución](#instalación-y-ejecución)
+- [Características principales](#características-principales)
+- [Dependencias principales](#dependencias-principales)
+  - [Backend (Django)](#backend-django)
+  - [Frontend (Next.js)](#frontend-nextjs)
+- [Testing](#testing)
+  - [Ejecutar tests y obtener cobertura:](#ejecutar-tests-y-obtener-cobertura)
 - [Contribuir](#contribuir)
 - [Licencia](#licencia)
 - [Reconocimientos](#reconocimientos)
@@ -63,159 +68,112 @@ Monitoreo y mejora constante de tus procesos automatizados.
 ## Estructura del proyecto
 
 ```sh
-└── ordinaly/
-    ├── LICENSE
-    ├── README.md
-    └── frontend
-        ├── components.json
-        ├── eslint.config.mjs
-        ├── next-env.d.ts
-        ├── next.config.ts
-        ├── node_modules
-        ├── package-lock.json
-        ├── package.json
-        ├── postcss.config.mjs
-        ├── public/
-        ├── src/
-        ├── tailwind.config.ts
-        └── tsconfig.json
+ordinaly/
+├── LICENSE
+├── README.md
+├── backend/
+│   ├── manage.py
+│   ├── requirements.txt
+│   ├── db.sqlite3
+│   ├── config/           # Configuración Django
+│   ├── api/              # API REST principal
+│   ├── users/            # Gestión de usuarios
+│   ├── courses/          # Cursos y formación
+│   ├── services/         # Servicios empresariales
+│   ├── terms/            # Términos legales
+│   └── ...
+└── frontend/
+    ├── package.json
+    ├── public/
+    ├── src/
+    │   ├── components/
+    │   ├── hooks/
+    │   ├── i18n/
+    │   ├── lib/
+    │   └── ...
+    ├── messages/         # Archivos de traducción (es, en, ca, eu, gl)
+    └── ...
 ```
 
 
 ###  Índice del proyecto
 <details open>
+        <summary><b>backend</b></summary>
+        <blockquote>
+            <b>Apps principales (Django):</b>
+            <ul>
+                <li><b>api/</b> — API REST principal
+                    <ul>
+                        <li>models.py, serializers.py, views.py, urls.py, admin.py, tests.py</li>
+                        <li>management/commands/ — Comandos personalizados</li>
+                    </ul>
+                </li>
+                <li><b>users/</b> — Gestión de usuarios y autenticación
+                    <ul>
+                        <li>models.py, serializers.py, views.py, urls.py, admin.py, authentication.py, tests.py</li>
+                    </ul>
+                </li>
+                <li><b>courses/</b> — Cursos y formación
+                    <ul>
+                        <li>models.py, serializers.py, views.py, urls.py, admin.py, tests.py</li>
+                    </ul>
+                </li>
+                <li><b>services/</b> — Servicios empresariales
+                    <ul>
+                        <li>models.py, serializers.py, views.py, urls.py, admin.py, tests.py</li>
+                    </ul>
+                </li>
+                <li><b>terms/</b> — Términos legales y documentos
+                    <ul>
+                        <li>models.py, serializers.py, views.py, urls.py, admin.py, tests.py</li>
+                    </ul>
+                </li>
+                <li><b>config/</b> — Configuración global del proyecto
+                    <ul>
+                        <li>settings.py, urls.py, wsgi.py, asgi.py, __init__.py</li>
+                    </ul>
+                </li>
+            </ul>
+            <b>Otros:</b>
+            <ul>
+                <li><b>manage.py</b> — Script principal de gestión Django</li>
+                <li><b>requirements.txt</b> — Dependencias del backend</li>
+                <li><b>media/</b> — Archivos subidos (imágenes, PDFs, etc.)</li>
+                <li><b>staticfiles/</b> — Archivos estáticos recolectados</li>
+            </ul>
+        </blockquote>
     <summary><b><code>ORDINALY/</code></b></summary>
         <summary><b>frontend</b></summary>
         <blockquote>
-            <table>
-            <tr>
-                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/components.json'>components.json</a></b></td>
-                <td><code>Archivo de configuración de componentes personalizados.</code></td>
-            </tr>
-            <tr>
-                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/postcss.config.mjs'>postcss.config.mjs</a></b></td>
-                <td><code>Configuración para PostCSS, utilizado en el procesamiento de CSS.</code></td>
-            </tr>
-            <tr>
-                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/eslint.config.mjs'>eslint.config.mjs</a></b></td>
-                <td><code>Configuración de ESLint para mantener la calidad del código.</code></td>
-            </tr>
-            <tr>
-                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/tsconfig.json'>tsconfig.json</a></b></td>
-                <td><code>Configuración de TypeScript para el proyecto frontend.</code></td>
-            </tr>
-            <tr>
-                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/package.json'>package.json</a></b></td>
-                <td><code>Gestión de dependencias y scripts del frontend.</code></td>
-            </tr>
-            <tr>
-                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/tailwind.config.ts'>tailwind.config.ts</a></b></td>
-                <td><code>Configuración de Tailwind CSS para estilos personalizados.</code></td>
-            </tr>
-            <tr>
-                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/package-lock.json'>package-lock.json</a></b></td>
-                <td><code>Archivo de bloqueo de dependencias generado por npm.</code></td>
-            </tr>
-            <tr>
-                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/next.config.ts'>next.config.ts</a></b></td>
-                <td><code>Configuración personalizada para Next.js.</code></td>
-            </tr>
-            </table>
-            <details>
-                <summary><b>src</b></summary>
-                <blockquote>
-                    <details>
-                        <summary><b>lib</b></summary>
-                        <blockquote>
-                            <table>
-                            <tr>
-                                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/lib/utils.ts'>utils.ts</a></b></td>
-                                <td><code>Funciones utilitarias reutilizables en el proyecto.</code></td>
-                            </tr>
-                            </table>
-                        </blockquote>
-                    </details>
-                    <details>
-                        <summary><b>components</b></summary>
-                        <blockquote>
-                            <table>
-                            <tr>
-                                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/components/footer.tsx'>footer.tsx</a></b></td>
-                                <td><code>Componente para el pie de página de la aplicación.</code></td>
-                            </tr>
-                            </table>
-                            <details>
-                                <summary><b>ui</b></summary>
-                                <blockquote>
-                                    <table>
-                                    <tr>
-                                        <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/components/ui/sparkles.tsx'>sparkles.tsx</a></b></td>
-                                        <td><code>Efecto visual de destellos para la interfaz de usuario.</code></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/components/ui/card.tsx'>card.tsx</a></b></td>
-                                        <td><code>Componente de tarjeta reutilizable para mostrar contenido.</code></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/components/ui/button.tsx'>button.tsx</a></b></td>
-                                        <td><code>Componente de botón personalizado.</code></td>
-                                    </tr>
-                                    </table>
-                                </blockquote>
-                            </details>
-                            <details>
-                                <summary><b>home</b></summary>
-                                <blockquote>
-                                    <table>
-                                    <tr>
-                                        <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/components/home/styled-button.tsx'>styled-button.tsx</a></b></td>
-                                        <td><code>Botón estilizado para la página de inicio.</code></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/components/home/cover.tsx'>cover.tsx</a></b></td>
-                                        <td><code>Componente de portada principal de la página de inicio.</code></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/components/home/colourful-text.tsx'>colourful-text.tsx</a></b></td>
-                                        <td><code>Texto colorido para destacar información en la home.</code></td>
-                                    </tr>
-                                    </table>
-                                </blockquote>
-                            </details>
-                        </blockquote>
-                    </details>
-                    <details>
-                        <summary><b>app</b></summary>
-                        <blockquote>
-                            <table>
-                            <tr>
-                                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/app/page.tsx'>page.tsx</a></b></td>
-                                <td><code>Página principal de la aplicación Next.js.</code></td>
-                            </tr>
-                            <tr>
-                                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/app/layout.tsx'>layout.tsx</a></b></td>
-                                <td><code>Diseño base y estructura global de la app.</code></td>
-                            </tr>
-                            <tr>
-                                <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/src/app/globals.css'>globals.css</a></b></td>
-                                <td><code>Estilos globales de la aplicación.</code></td>
-                            </tr>
-                            </table>
-                        </blockquote>
-                    </details>
-                </blockquote>
-            </details>
-            <details>
-                <summary><b>public</b></summary>
-                <blockquote>
-                    <table>
-                    <tr>
-                        <td><b><a href='/home/amacias/Developer/ordinaly/blob/master/frontend/public/robots.txt'>robots.txt</a></b></td>
-                        <td><code>Archivo para controlar el acceso de bots y motores de búsqueda.</code></td>
-                    </tr>
-                    </table>
-                </blockquote>
-            </details>
+            <b>Páginas principales (Next.js App Router):</b>
+            <ul>
+                <li><code>/[locale]/page.tsx</code> — Home</li>
+                <li><code>/[locale]/services/page.tsx</code> — Servicios</li>
+                <li><code>/[locale]/formation/page.tsx</code> — Cursos y formación</li>
+                <li><code>/[locale]/legal/page.tsx</code> — Documentación legal</li>
+                <li><code>/[locale]/profile/page.tsx</code> — Perfil de usuario</li>
+                <li><code>/[locale]/admin/page.tsx</code> — Panel de administración</li>
+                <li><code>/[locale]/auth/signin/page.tsx</code> — Iniciar sesión</li>
+                <li><code>/[locale]/auth/signup/page.tsx</code> — Registro</li>
+            </ul>
+            <b>Componentes principales:</b>
+            <ul>
+                <li><b>Admin:</b> admin-course-card, admin-course-modal, admin-courses-tab, admin-service-card, admin-service-edit-modal, admin-services-tab, admin-terms-tab, admin-users-tab</li>
+                <li><b>Formation:</b> course-card, course-details-modal, add-to-calendar-buttons, bonification-info, enrollment-confirmation-modal, enrollment-cancellation-modal</li>
+                <li><b>Home:</b> courses-showcase, demo-modal, pricing-plans, service-showcase, whatsapp-bubble</li>
+                <li><b>Services:</b> service-details-modal</li>
+                <li><b>UI:</b> admin-tabs, alert, back-to-top-button, badge, button, card, colourful-text, cookies, delete-account-modal, delete-confirmation-modal, dropdown, footer, icon-select, input, label, lazy-image, locale-switcher, logout-modal, markdown-renderer, modal-close-button, modal, navbar, slider, styled-button, textarea</li>
+                <li><b>Auth:</b> auth-modal, google-signin-button</li>
+            </ul>
+            <b>Utilidades y hooks:</b>
+            <ul>
+                <li>useCourses, useServices, usePreloadResources, useIntersectionObserver</li>
+            </ul>
+            <b>Internacionalización:</b>
+            <ul>
+                <li>Archivos de mensajes en <code>/frontend/messages/</code> (es, en, ca, eu, gl)</li>
+                <li>Soporte para next-intl y rutas localizadas</li>
+            </ul>
         </blockquote>
     </details>
 </details>
@@ -225,45 +183,57 @@ Monitoreo y mejora constante de tus procesos automatizados.
 
 ###  Requisitos previos
 
-Antes de comenzar con ordinaly, asegúrate de que tu entorno de ejecución cumpla con los siguientes requisitos:
+Antes de comenzar con Ordinaly, asegúrate de tener instalado:
 
-- **Lenguaje de programación:** JavaScript
-- **Gestor de paquetes:** Npm
-
-
-###  Instalación
-
-Instala ordinaly usando uno de los siguientes métodos:
-
-**Compilar desde el código fuente:**
-
-1. Clona el repositorio de ordinaly:
-```sh
-❯ git clone https://github.com/ordinaly-software/ordinaly.git
-```
-
-2. Navega al directorio del proyecto:
-```sh
-❯ cd ordinaly/frontend
-```
-
-3. Instala las dependencias del proyecto:
+- **Python 3.10+** y **pip** (para el backend)
+- **Node.js 18+** y **npm** (para el frontend)
 
 
-**Usando `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
-```sh
-❯ npm install
-```
+### Instalación y ejecución
+
+1. Clona el repositorio:
+    ```sh
+    git clone https://github.com/ordinaly-software/ordinaly.git
+    cd ordinaly
+    ```
+
+2. Instala dependencias del backend (Django):
+    ```sh
+    cd backend
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    # Copia y configura .env proporcionada (DJANGO_SECRET_KEY, GOOGLE_OAUTH2_CLIENT_ID, GOOGLE_OAUTH2_CLIENT_SECRET, y ORDINALY_TEST_PASSWORD)
+    # Migraciones iniciales
+    python manage.py migrate
+    # (Opcional) Crea superusuario
+    python manage.py createsuperuser
+    # Ejecuta el servidor
+    python manage.py runserver
+    ```
+
+3. Instala dependencias del frontend (Next.js):
+    ```sh
+    cd ../frontend
+    Copia y configura .env.local proporcionada (se puede encontrar la plantilla en .env.example)
+    npm install
+    npm run dev
+    ```
 
 
-###  Uso
-Ejecuta ordinaly usando el siguiente comando:
-**Usando `npm`** &nbsp; [<img align="center" src="https://img.shields.io/badge/npm-CB3837.svg?style={badge_style}&logo=npm&logoColor=white" />](https://www.npmjs.com/)
 
-```sh
-❯ npm run dev
-```
+---
+
+## Características principales
+
+- **Backend Django REST:** API robusta para cursos, usuarios, servicios y términos legales.
+- **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones.
+- **Internacionalización (i18n):** Traducciones completas (es, en, ca, eu, gl) usando next-intl.
+- **Gestión de cursos:** Horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook).
+- **Panel de administración:** Gestión avanzada de usuarios, cursos, servicios y términos.
+- **Integración con WhatsApp y Odoo:** Automatización de ventas y flujos empresariales.
+- **Accesibilidad y SEO:** Buenas prácticas, sitemap, robots.txt, imágenes optimizadas.
 
 
 
@@ -276,6 +246,33 @@ Ejecuta ordinaly usando el siguiente comando:
 
 --- -->
 
+
+
+##  Dependencias principales
+
+### Backend (Django)
+- Django, djangorestframework, django-cors-headers, Pillow, gunicorn, whitenoise, dotenv, markdown, reportlab
+
+### Frontend (Next.js)
+- next, react, next-intl, tailwindcss, lucide-react, styled-components, react-markdown, framer-motion, jspdf
+
+---
+
+
+## Testing
+
+Para asegurar la calidad del backend, es obligatorio mantener al menos un 80% de cobertura de tests.
+
+### Ejecutar tests y obtener cobertura:
+
+```sh
+coverage run --source='.' --omit='*/migrations/*,*/tests.py,api/*,config/*,manage.py,*__init__.py' manage.py test
+coverage report -m
+```
+
+> **Nota:** El proyecto no se considerará válido si la cobertura es inferior al 80%.
+
+---
 
 ##  Contribuir
 

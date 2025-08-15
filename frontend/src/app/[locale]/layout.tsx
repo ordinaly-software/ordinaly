@@ -7,7 +7,7 @@ import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
 import CookieConsent from '@/components/ui/cookies';
 import BackToTopButton from '@/components/ui/back-to-top-button';
-// import AnalyticsManager from '@/components/ui/analyticsManager';
+import { ThemeProvider } from '@/contexts/theme-context';
 
 
 const inter = Inter({
@@ -67,13 +67,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Ordinaly Software - Automatización Empresarial con IA",
-    description: "Transformamos empresas con soluciones de automatización inteligente.",
-    images: ["/og-image.jpg"],
-    creator: "@ordinaly_ai",
-  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -84,7 +77,7 @@ export const metadata: Metadata = {
       {
         rel: "mask-icon",
         url: "/safari-pinned-tab.svg",
-        color: "#29BF12",
+        color: "#22A60D",
       },
     ],
   },
@@ -95,6 +88,9 @@ export const metadata: Metadata = {
     languages: {
       "es-ES": "/",
       "en-US": "/en",
+      "ca-ES": "/ca",
+      "eu-ES": "/eu", 
+      "gl-ES": "/gl",
     },
   },
   verification: {
@@ -110,7 +106,7 @@ export const viewport = {
   maximumScale: 5,
   minimumScale: 1,
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#29BF12" },
+    { media: "(prefers-color-scheme: light)", color: "#22A60D" },
     { media: "(prefers-color-scheme: dark)", color: "#1A1924" },
   ],
   viewportFit: "cover",
@@ -126,9 +122,38 @@ export default async function RootLayout({ children, params } :
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
-        {/* Preconnect to external domains for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* DNS prefetch for critical domains */}
+        <link rel="dns-prefetch" href="//wa.me" />
+        
+        {/* Theme initialization script to prevent flash */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function getInitialTheme() {
+                  const savedTheme = localStorage.getItem('theme');
+                  if (savedTheme) {
+                    return savedTheme;
+                  }
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  return prefersDark ? 'dark' : 'light';
+                }
+                
+                const theme = getInitialTheme();
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                } else {
+                  document.documentElement.classList.remove('dark');
+                }
+              })();
+            `,
+          }}
+        />
+        
+        
+        {/* Only preload logo as it's used on all pages in navbar */}
+        <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
+        
         
         {/* PWA meta tags */}
         <meta name="application-name" content="Ordinaly" />
@@ -139,7 +164,7 @@ export default async function RootLayout({ children, params } :
         
         {/* Additional meta tags for better SEO */}
         <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-TileColor" content="#29BF12" />
+        <meta name="msapplication-TileColor" content="#22A60D" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
         
         {/* Structured Data for SEO */}
@@ -158,7 +183,7 @@ export default async function RootLayout({ children, params } :
                 "@type": "ContactPoint",
                 telephone: "+34-XXX-XXX-XXX",
                 contactType: "customer service",
-                availableLanguage: ["Spanish", "English"],
+                availableLanguage: ["Spanish", "English", "Catalan", "Basque", "Galician"],
               },
               address: {
                 "@type": "PostalAddress",
@@ -182,8 +207,7 @@ export default async function RootLayout({ children, params } :
           }}
         />
         
-        {/* Accessibility Integration */}
-        {/* WCAG Accessibility Script - only load if token is available */}
+        {/* Accessibility Integration - moved to be conditional */}
         {process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN && (
           <script
             dangerouslySetInnerHTML={{
@@ -201,18 +225,30 @@ export default async function RootLayout({ children, params } :
           />
         )}
         
-        {/* Service Worker Registration */}
+        {/* Optimized Service Worker Registration */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
               if ('serviceWorker' in navigator) {
                 window.addEventListener('load', function() {
-                  navigator.serviceWorker.register('/sw.js').then(
+                  navigator.serviceWorker.register('/sw.js', { 
+                    scope: '/',
+                    updateViaCache: 'none'
+                  }).then(
                     function(registration) {
-                      console.log('Service Worker registration successful with scope: ', registration.scope);
+                      // Check for updates periodically
+                      registration.addEventListener('updatefound', function() {
+                        const newWorker = registration.installing;
+                        if (newWorker) {
+                          newWorker.addEventListener('statechange', function() {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                              // New version available, could show update prompt
+                            }
+                          });
+                        }
+                      });
                     },
                     function(error) {
-                      console.log('Service Worker registration failed: ', error);
                     }
                   );
                 });
@@ -226,20 +262,21 @@ export default async function RootLayout({ children, params } :
         suppressHydrationWarning
       >
         <NextIntlClientProvider>
-          {/* Skip to main content for accessibility */}
-          <a
-            href="#main-content"
-            className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#29BF12] text-black px-4 py-2 rounded-md z-50"
-          >
-            Saltar / Skip
-          </a>
-          
-          <div id="main-content">{children}</div>
-          
-          <CookieConsent />
-          {/* <AnalyticsManager /> */}
-          <BackToTopButton />
-
+          <ThemeProvider>
+            {/* Skip to main content for accessibility */}
+            <a
+              href="#main-content"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#22A60D] text-black px-4 py-2 rounded-md z-50"
+            >
+              Saltar / Skip
+            </a>
+            
+            <div id="main-content">{children}</div>
+            
+            <CookieConsent />
+            {/* <AnalyticsManager /> */}
+            <BackToTopButton />
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

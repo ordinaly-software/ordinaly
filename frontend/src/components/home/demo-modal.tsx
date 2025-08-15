@@ -16,11 +16,10 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
   const videoRef = useRef<HTMLVideoElement>(null);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Handle video playback when modal opens/closes
   useEffect(() => {
     if (isOpen && videoRef.current) {
-      videoRef.current.play().catch((error) => {
-        console.error(t("demoModal.videoError"), error);
+      videoRef.current.play().catch(() => {
+        // Video autoplay failed - user interaction required
       });
     } else if (!isOpen && videoRef.current) {
       videoRef.current.pause();
@@ -28,7 +27,6 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
     }
   }, [isOpen, t]);
 
-  // Handle click outside to close
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
@@ -36,7 +34,6 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
       }
     };
 
-    // Handle escape key press
     const handleEscKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         onClose();
@@ -89,10 +86,10 @@ export default function DemoModal({ isOpen, onClose, videoSrc = "/static/demo-vi
 
           {/* Video Info */}
           <div className="p-6 bg-gradient-to-b from-transparent to-white/5 dark:to-black/20">
-            <h3 className="text-2xl font-bold bg-gradient-to-r from-[#29BF12] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+            <h3 className="text-2xl font-bold bg-gradient-to-r from-[#158003] via-[#46B1C9] to-[#3B1E8A] bg-clip-text text-transparent">
               {t("demoModal.title")}
             </h3>
-            <p className="text-gray-700 dark:text-gray-300 mt-2">
+            <p className="text-gray-800 dark:text-gray-200 mt-2">
               {t("demoModal.description")}
             </p>
           </div>
