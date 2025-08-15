@@ -1,15 +1,18 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useEffect, useState, lazy, Suspense, useCallback } from "react";
+import { useEffect, useState, lazy, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Image from 'next/image';
-import Navbar from "@/components/ui/navbar";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
+
+const Navbar = dynamic(() => import("@/components/ui/navbar"), { ssr: false });
 import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
-import { ServiceDetailsModal } from "@/components/services/service-details-modal";
-import { ServiceShowcase } from "@/components/home/service-showcase";
+const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.ServiceShowcase), { ssr: false });
+const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false });
 
 
 interface Service {
@@ -35,10 +38,10 @@ interface Service {
 const DemoModal = lazy(() => import("@/components/home/demo-modal"));
 const Footer = lazy(() => import("@/components/ui/footer"));
 // const PricingPlans = lazy(() => import("@/components/home/pricing-plans"));
-const WhatsAppBubble = lazy(() => import("@/components/home/whatsapp-bubble"));
-const StyledButton = lazy(() => import("@/components/ui/styled-button"));
-const ColourfulText = lazy(() => import("@/components/ui/colourful-text"));
-const CoursesShowcase = lazy(() => import("@/components/home/courses-showcase"));
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble").then(mod => mod.default), { ssr: false });
+const StyledButton = dynamic(() => import("@/components/ui/styled-button").then(mod => mod.default), { ssr: false });
+const ColourfulText = dynamic(() => import("@/components/ui/colourful-text").then(mod => mod.default), { ssr: false });
+const CoursesShowcase = dynamic(() => import("@/components/home/courses-showcase").then(mod => mod.default), { ssr: false });
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -52,23 +55,22 @@ export default function HomePage() {
   // Preload critical resources for better performance
   usePreloadResources();
 
-  // Preload hero image for home page only
-  useEffect(() => {
-    const preloadHeroImage = () => {
-      const existingPreload = document.querySelector('link[rel="preload"][href="/static/main_home_ilustration.webp"]');
-      if (!existingPreload) {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.href = '/static/main_home_ilustration.webp';
-        link.as = 'image';
-        link.type = 'image/webp';
-        (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = 'high';
-        document.head.appendChild(link);
-      }
-    };
+  // useEffect(() => {
+  //   const preloadHeroImage = () => {
+  //     const existingPreload = document.querySelector('link[rel="preload"][href="/static/main_home_ilustration.webp"]');
+  //     if (!existingPreload) {
+  //       const link = document.createElement('link');
+  //       link.rel = 'preload';
+  //       link.href = '/static/main_home_ilustration.webp';
+  //       link.as = 'image';
+  //       link.type = 'image/webp';
+  //       (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = 'high';
+  //       document.head.appendChild(link);
+  //     }
+  //   };
     
-    preloadHeroImage();
-  }, []);
+  //   preloadHeroImage();
+  // }, []);
 
   // Service modal handlers - optimize with useCallback
   const handleServiceClick = useCallback((service: Service) => {
@@ -138,8 +140,10 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-      {/* Navigation - now using the Navbar component */}
-      <Navbar />
+      {/* Navigation - now using the Navbar component (dynamically loaded) */}
+      <Suspense fallback={<nav className="h-16 w-full bg-white dark:bg-[#1A1924]" />}> 
+        <Navbar />
+      </Suspense>
 
       {/* Hero Section */}
   <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#23272F] dark:via-[#23272F] dark:to-[#23272F]">
@@ -194,14 +198,14 @@ export default function HomePage() {
                 <Image
                   src="/static/main_home_ilustration.webp"
                   alt="AI Automation Dashboard"
-                  width={600}
-                  height={500}
+                  width={450}
+                  height={450}
                   className="rounded-2xl"
                   style={{ width: '100%', height: 'auto' }}
                   priority
                   placeholder="blur"
                   blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
                 />
             </div>
           </div>
@@ -214,16 +218,18 @@ export default function HomePage() {
       </Suspense>
 
       {/* Services Section */}
-      <ServiceShowcase
-        services={services}
-        isLoading={servicesLoading}
-        isOnVacation={isOnVacation}
-        error={servicesError}
-        t={t}
-        refetch={refetch}
-        onServiceClick={handleServiceClick}
-        onServiceContact={handleServiceContact}
-      />
+      <Suspense fallback={<div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div>}>
+        <ServiceShowcase
+          services={services}
+          isLoading={servicesLoading}
+          isOnVacation={isOnVacation}
+          error={servicesError}
+          t={t}
+          refetch={refetch}
+          onServiceClick={handleServiceClick}
+          onServiceContact={handleServiceContact}
+        />
+      </Suspense>
 
       {/* Partners Section */}
   <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-white">
@@ -503,12 +509,14 @@ export default function HomePage() {
       </Suspense>
 
       {/* Service Details Modal */}
-      <ServiceDetailsModal
-        service={selectedService}
-        isOpen={isServiceModalOpen}
-        onClose={closeServiceModal}
-        onContact={handleServiceContact}
-      />
+      <Suspense fallback={null}>
+        <ServiceDetailsModal
+          service={selectedService}
+          isOpen={isServiceModalOpen}
+          onClose={closeServiceModal}
+          onContact={handleServiceContact}
+        />
+      </Suspense>
     </div>
   );
 }

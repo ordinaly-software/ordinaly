@@ -138,3 +138,8 @@ svg[width="2rem"], svg[height="2rem"] {
 .animate-in {
   animation: slide-in-from-bottom-5 0.3s ease-out;
 }
+
+.no-scroll {
+  overflow: hidden !important;
+  position: relative !important;
+}
