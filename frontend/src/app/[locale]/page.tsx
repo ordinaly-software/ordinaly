@@ -203,9 +203,11 @@ export default function HomePage() {
                   className="rounded-2xl"
                   style={{ width: '100%', height: 'auto' }}
                   priority
+                  fetchPriority="high"
                   placeholder="blur"
                   blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
+                  loading="eager"
                 />
             </div>
           </div>
