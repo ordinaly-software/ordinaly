@@ -55,23 +55,22 @@ export default function HomePage() {
   // Preload critical resources for better performance
   usePreloadResources();
 
-  // Preload hero image for home page only
-  useEffect(() => {
-    const preloadHeroImage = () => {
-      const existingPreload = document.querySelector('link[rel="preload"][href="/static/main_home_ilustration.webp"]');
-      if (!existingPreload) {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.href = '/static/main_home_ilustration.webp';
-        link.as = 'image';
-        link.type = 'image/webp';
-        (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = 'high';
-        document.head.appendChild(link);
-      }
-    };
+  // useEffect(() => {
+  //   const preloadHeroImage = () => {
+  //     const existingPreload = document.querySelector('link[rel="preload"][href="/static/main_home_ilustration.webp"]');
+  //     if (!existingPreload) {
+  //       const link = document.createElement('link');
+  //       link.rel = 'preload';
+  //       link.href = '/static/main_home_ilustration.webp';
+  //       link.as = 'image';
+  //       link.type = 'image/webp';
+  //       (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = 'high';
+  //       document.head.appendChild(link);
+  //     }
+  //   };
     
-    preloadHeroImage();
-  }, []);
+  //   preloadHeroImage();
+  // }, []);
 
   // Service modal handlers - optimize with useCallback
   const handleServiceClick = useCallback((service: Service) => {
@@ -155,10 +154,6 @@ export default function HomePage() {
                 <Suspense fallback={<span>Ordinaly</span>}>
                   <ColourfulText text={t("hero.title")} />
                 </Suspense>
-      {/* Courses Showcase Section - dynamically loaded */}
-      <Suspense fallback={<div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div>}>
-        <CoursesShowcase />
-      </Suspense>
               </h1>
               <h2 className="text-3xl md:text-5xl font-bold mb-8 text-gray-900 dark:text-white">{t("hero.subtitle")}</h2>
               <p className="text-xl text-gray-800 dark:text-gray-200 mb-12 leading-relaxed">
@@ -203,14 +198,14 @@ export default function HomePage() {
                 <Image
                   src="/static/main_home_ilustration.webp"
                   alt="AI Automation Dashboard"
-                  width={600}
-                  height={500}
+                  width={450}
+                  height={450}
                   className="rounded-2xl"
                   style={{ width: '100%', height: 'auto' }}
                   priority
                   placeholder="blur"
                   blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
                 />
             </div>
           </div>

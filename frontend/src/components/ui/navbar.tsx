@@ -270,9 +270,10 @@ const Navbar = () => {
                   src="/logo.webp" 
                   alt={t("logo.alt")} 
                   width={64} 
-                  height={64} 
+                  height={64}
                   className="h-6 sm:h-8 w-auto"
                   priority
+                  sizes="49px"
                 />
               </div>
               <div className="text-lg sm:text-xl md:text-2xl font-bold text-green truncate">

@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   
   // Enable experimental features for better performance
   experimental: {
+    optimizeCss: true,
     // Enable optimizePackageImports for better tree shaking
     optimizePackageImports: ['lucide-react', 'framer-motion', '@radix-ui/react-label', '@radix-ui/react-slot'],
   },
