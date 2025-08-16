@@ -12,8 +12,8 @@ const Footer = () => {
   return (
     <footer className="border-t border-gray-300 dark:border-gray-700 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
       <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-5 gap-8">
-          <div className="col-span-2">
+  <div className="grid md:grid-cols-10 gap-4">
+          <div className="md:col-span-3">
             <div className="flex items-center mb-4">
               <Image
                 src={isDark ? '/logo_2_dark.webp' : '/logo_2.webp'}
@@ -27,7 +27,7 @@ const Footer = () => {
               {t("footer.description")}
             </p>
           </div>
-          <div>
+          <div className="md:col-span-2">
             <h3 className="text-gray-900 dark:text-white font-semibold mb-4">{t("footer.legal.title")}</h3>
             <ul className="space-y-2 text-gray-800 dark:text-gray-200">
               <li>
@@ -64,7 +64,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+          <div className="md:col-span-2">
             <h3 className="text-gray-900 dark:text-white font-semibold mb-4">{t("footer.social.title")}</h3>
             <ul className="space-y-2 text-gray-800 dark:text-gray-200">
               <li>
@@ -121,7 +121,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="min-w-0">
+          <div className="md:col-span-3">
             <h3 className="text-gray-900 dark:text-white font-semibold mb-4">
               {t("footer.contact.title")}
             </h3>
@@ -129,7 +129,7 @@ const Footer = () => {
               <li className="min-w-0">
                 <a
                   href={`mailto:${t("footer.contact.email")}`}
-                  className="hover:text-black dark:hover:text-white hover:underline transition-colors break-all block"
+                  className="hover:text-black dark:hover:text-white hover:underline transition-colors truncate block"
                 >
                   {t("footer.contact.email")}
                 </a>
