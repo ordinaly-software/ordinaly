@@ -824,9 +824,9 @@
     "description": "Accediu a les nostres Condicions de servei, Política de privadesa, Política de Cookie i Informació de la llicència.",
     "downloadPdf": "Descarregueu PDF",
     "tabs": {
-      "terms": "Condicions del servei",
-      "privacy": "Política de privadesa",
-      "cookies": "Política de cookies",
+      "terms": "Servei",
+      "privacy": "Privadesa",
+      "cookies": "Cookies",
       "license": "Llicenciar"
     },
     "sections": {

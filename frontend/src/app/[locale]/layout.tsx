@@ -122,6 +122,15 @@ export default async function RootLayout({ children, params } :
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
+        {/* Open Graph & Twitter Card for link previews */}
+        <meta property="og:title" content="Ordinaly - Automatiza tu negocio con IA" />
+        <meta property="og:description" content="Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y más para liderar la innovación en España y Europa." />
+        <meta property="og:image" content="https://ordinaly.netlify.app/og-image.jpg" />
+        <meta property="og:url" content="https://ordinaly.netlify.app/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Ordinaly - Automatiza tu negocio con IA" />
+        <meta name="twitter:description" content="Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y más para liderar la innovación en España y Europa." />
+        <meta name="twitter:image" content="https://ordinaly.netlify.app/og-image.jpg" />
         {/* DNS prefetch for critical domains */}
         <link rel="dns-prefetch" href="//wa.me" />
         
@@ -135,8 +144,8 @@ export default async function RootLayout({ children, params } :
                   if (savedTheme) {
                     return savedTheme;
                   }
-                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  return prefersDark ? 'dark' : 'light';
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: light)').matches;
+                  return prefersDark ? 'light' : 'dark';
                 }
                 
                 const theme = getInitialTheme();
