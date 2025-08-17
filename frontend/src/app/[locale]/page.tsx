@@ -1,18 +1,18 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useEffect, useState, lazy, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
 import Image from 'next/image';
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 
-const Navbar = dynamic(() => import("@/components/ui/navbar"), { ssr: false });
+const Navbar = dynamic(() => import("@/components/ui/navbar"), { ssr: false, loading: () => <nav className="h-16 w-full bg-white dark:bg-[#1A1924]" /> });
 import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
-const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.ServiceShowcase), { ssr: false });
-const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false });
+const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.ServiceShowcase), { ssr: false, loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div> });
+const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false, loading: () => null });
 
 
 interface Service {
@@ -34,14 +34,13 @@ interface Service {
   color_hex: string;
 }
 
-// Lazy load heavy components that are below the fold
-const DemoModal = lazy(() => import("@/components/home/demo-modal"));
-const Footer = lazy(() => import("@/components/ui/footer"));
-// const PricingPlans = lazy(() => import("@/components/home/pricing-plans"));
-const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble").then(mod => mod.default), { ssr: false });
-const StyledButton = dynamic(() => import("@/components/ui/styled-button").then(mod => mod.default), { ssr: false });
-const ColourfulText = dynamic(() => import("@/components/ui/colourful-text").then(mod => mod.default), { ssr: false });
-const CoursesShowcase = dynamic(() => import("@/components/home/courses-showcase").then(mod => mod.default), { ssr: false });
+// Use next/dynamic for all heavy/below-the-fold components
+const DemoModal = dynamic(() => import("@/components/home/demo-modal"), { ssr: false, loading: () => null });
+const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false, loading: () => <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]"><div className="max-w-7xl mx-auto"><div className="grid md:grid-cols-4 gap-8"><div className="col-span-2"><div className="h-24 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div></div></div></div></footer> });
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble").then(mod => mod.default), { ssr: false, loading: () => null });
+const StyledButton = dynamic(() => import("@/components/ui/styled-button").then(mod => mod.default), { ssr: false, loading: () => null });
+const ColourfulText = dynamic(() => import("@/components/ui/colourful-text").then(mod => mod.default), { ssr: false, loading: () => <span>Ordinaly</span> });
+const CoursesShowcase = dynamic(() => import("@/components/home/courses-showcase").then(mod => mod.default), { ssr: false, loading: () => <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50"><div className="max-w-7xl mx-auto"><div className="text-center mb-16"><div className="h-12 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-6 max-w-md mx-auto"></div><div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse max-w-2xl mx-auto"></div></div><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">{Array.from({ length: 3 }).map((_, index) => (<div key={index} className="bg-white dark:bg-gray-800/50 rounded-xl p-6"><div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mb-4"></div><div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div><div className="space-y-2"><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4"></div></div></div>))}</div></div></section> });
 
 export default function HomePage() {
   const t = useTranslations("home");
@@ -68,7 +67,7 @@ export default function HomePage() {
   //       document.head.appendChild(link);
   //     }
   //   };
-    
+  //   
   //   preloadHeroImage();
   // }, []);
 
@@ -129,10 +128,8 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-      {/* Navigation - now using the Navbar component (dynamically loaded) */}
-      <Suspense fallback={<nav className="h-16 w-full bg-white dark:bg-[#1A1924]" />}> 
-        <Navbar />
-      </Suspense>
+  {/* Navigation - now using the Navbar component (dynamically loaded) */}
+  <Navbar />
 
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#23272F] dark:via-[#23272F] dark:to-[#23272F]">
@@ -203,23 +200,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Demo Modal - Lazy loaded */}
-      <Suspense fallback={null}>
-        <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
-      </Suspense>
+  {/* Demo Modal - Dynamically loaded */}
+  <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
 
       {/* Services Section */}
-      <Suspense fallback={<div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div>}>
-        <ServiceShowcase
-          services={services}
-          isLoading={servicesLoading}
-          isOnVacation={isOnVacation}
-          error={servicesError}
-          t={t}
-          refetch={refetch}
-          onServiceClick={handleServiceClick}
-        />
-      </Suspense>
+      <ServiceShowcase
+        services={services}
+        isLoading={servicesLoading}
+        isOnVacation={isOnVacation}
+        error={servicesError}
+        t={t}
+        refetch={refetch}
+        onServiceClick={handleServiceClick}
+      />
 
       {/* Partners Section */}
   <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-white">
@@ -261,34 +254,10 @@ export default function HomePage() {
       </section>
 
       {/* Courses Showcase Section */}
-      <Suspense fallback={
-        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <div className="h-12 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-6 max-w-md mx-auto"></div>
-              <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse max-w-2xl mx-auto"></div>
-            </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Array.from({ length: 3 }).map((_, index) => (
-                <div key={index} className="bg-white dark:bg-gray-800/50 rounded-xl p-6">
-                  <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mb-4"></div>
-                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
-                  <div className="space-y-2">
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4"></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      }>
-        <CoursesShowcase 
-          limit={3} 
-          showUpcomingOnly={false}
-        />
-      </Suspense>
+      <CoursesShowcase 
+        limit={3} 
+        showUpcomingOnly={false}
+      />
 
       {/* About Section */}
   <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#23272F]">
@@ -477,35 +446,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <Suspense fallback={
-        <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-8">
-              <div className="col-span-2">
-                <div className="h-24 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
-                <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div>
-              </div>
-            </div>
-          </div>
-        </footer>
-      }>
-        <Footer />
-      </Suspense>
+  {/* Footer */}
+  <Footer />
 
-      <Suspense fallback={null}>
-        <WhatsAppBubble />
-      </Suspense>
+      <WhatsAppBubble />
 
-      {/* Service Details Modal */}
-      <Suspense fallback={null}>
-        <ServiceDetailsModal
-          service={selectedService}
-          isOpen={isServiceModalOpen}
-          onClose={closeServiceModal}
-        />
-      </Suspense>
+      <ServiceDetailsModal
+        service={selectedService}
+        isOpen={isServiceModalOpen}
+        onClose={closeServiceModal}
+      />
     </div>
   );
 }

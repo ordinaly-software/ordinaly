@@ -1,31 +1,18 @@
-from datetime import date, time
+
+from datetime import date, time, datetime, timedelta
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from django.contrib.auth import get_user_model
 from users.models import CustomUser
 from terms.models import Terms
-from courses.models import Course
+from courses.models import Course, Enrollment
 from services.models import Service
-from courses.models import Enrollment
 import os
 from django.conf import settings
 import random
 import secrets
-from datetime import datetime, timedelta
-
 
 User = get_user_model()
-
-# Try to import optional dependencies
-try:
-    PIL_AVAILABLE = True
-except ImportError:
-    PIL_AVAILABLE = False
-
-try:
-    REPORTLAB_AVAILABLE = True
-except ImportError:
-    REPORTLAB_AVAILABLE = False
 
 
 class Command(BaseCommand):
@@ -383,7 +370,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                     "- Número de teñefóno con cuenta de Whatsapp Business.    "
                     "- Disponibilidad para consultas.     "
                 ),
-                # 'price': Decimal('300.00'),
+                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
             },
@@ -413,7 +400,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                 'icon': 'Bot',
                 'duration': 10,
                 'requisites': None,
-                # 'price': Decimal('300.00'),
+                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
             },
@@ -447,7 +434,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                     "- Colaboración de tu equipo de desarrollo y diseño.     "
                     "- Disponibilidad para llamadas y videoconferencias para probar el resultado.     "
                 ),
-                # 'price': Decimal('300.00'),
+                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
             },
@@ -472,14 +459,14 @@ Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles
                     "- Acceso al código fuente de la web.    "
                     "- Disponibilidad para consultas.    "
                 ),
-                # 'price': Decimal('300.00'),
+                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': False,
             },
             {
-                'title': 'Automatización de Redes Sociales',
-                'subtitle': 'Automatización la publicación de tu contenidos en distintas redes sociales',
-                'description': '''
+                     'title': 'Automatización de Redes Sociales',
+                     'subtitle': 'Automatización la publicación de tu contenidos en distintas redes sociales',
+                     'description': '''
 Estas automatizaciones te permitirán centrarte en la creación de contenido dejando toda la gestión y subida de los
  mismos a la Inteligencia Artificial.
 
@@ -491,17 +478,68 @@ Estas automatizaciones te permitirán centrarte en la creación de contenido dej
 - 👥 El equipo se centra en relizar tareas que de verdad necesitan de una persona
 
 ''',
-                'color': '1A1924',
-                'icon': 'TrendingUp',
-                'duration': None,
-                'requisites': (
-                    "- Acceso a las (temporalmente) a las redes sociales que se quieran automatizar.    "
-                    "- Acceso a una cuenta de Google Drive con espacio suficiente para alamacenar el contenido.    "
-                ),
-                # 'price': Decimal('300.00'),
-                'price': None,
-                'is_featured': False,
+                     'color': '1A1924',
+                     'icon': 'TrendingUp',
+                     'duration': None,
+                     'requisites': (
+                          "- Acceso a las (temporalmente) a las redes sociales que se quieran automatizar.    "
+                          "- Acceso a una cuenta de Google Drive para alamacenar el contenido.    "
+                     ),
+                     # price field is intentionally left as None for demo
+                     'price': None,
+                     'is_featured': False,
             },
+            {
+                     'title': 'Implantación de CRM/ERP con Odoo',
+                     'subtitle': 'Consultoría, despliegue y personalización de Odoo para la gestión empresarial',
+                     'description': '''
+Odoo es un potente software de gestión empresarial (**ERP**) de código abierto. Nuestro servicio abarca desde la
+consultoría inicial hasta el despliegue y personalización completa de Odoo en la empresa.
+
+## 📝 Alcance del Servicio
+
+1. **Análisis de requerimientos:**
+    - Evaluamos las necesidades del negocio y definimos qué módulos de Odoo serán útiles.
+    - Odoo es modular: CRM, ventas (incluyendo e-commerce), facturación, contabilidad, inventarios, proyectos, etc.
+    - Identificamos áreas prioritarias para la empresa cliente.
+
+2. **Configuración y personalización:**
+    - Instalamos Odoo y configuramos los módulos seleccionados para reflejar los procesos de la empresa.
+
+3. **Migración de datos:**
+    - Si el cliente viene de otro sistema, migramos datos existentes (clientes, productos, facturas, históricos, etc.).
+    - Permite comenzar a usar la nueva plataforma sin perder información previa.
+
+4. **Formación y arranque:**
+    - Capacitamos al equipo en el uso de los distintos módulos de Odoo (ventas, administración, logística, etc.).
+    - Acompañamos en el go-live, supervisando el uso correcto en operaciones diarias.
+
+5. **Soporte post-implementación:**
+    - Tras la implantación, brindamos soporte para resolver dudas o incidencias.
+    - Podemos desarrollar funcionalidades adicionales a medida que el cliente expanda sus requerimientos,
+    gracias a la naturaleza modular de Odoo.
+
+## 🚀 Beneficios
+
+- Automatización y centralización de procesos empresariales en una única plataforma.
+- Ventas desde diferentes canales registradas automáticamente en CRM y facturación.
+- Inventario actualizado en tiempo real.
+- Informes gerenciales en tiempo real de todas las áreas.
+- Mayor eficiencia operativa y reducción de tareas manuales duplicadas.
+- Mejor toma de decisiones gracias a datos unificados.
+''',
+                     'color': '623CEA',
+                     'icon': 'Settings',
+                     'duration': 15,
+                     'requisites': (
+                          "- Acceso a información sobre los procesos actuales de la empresa.    "
+                          "- Disponibilidad para entrevistas y talleres de requerimientos.    "
+                          "- Acceso a datos históricos si se requiere migración.    "
+                          "- Colaboración del equipo para formación y pruebas.    "
+                     ),
+                     'price': None,
+                     'is_featured': True,
+                },
         ]
 
         servicios = []
