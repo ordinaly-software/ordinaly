@@ -91,11 +91,11 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
       >
         {/* Scrollable Content */}
         <div
-          className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-6 pb-28"
+          className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-6 pb-40"
           style={{
             scrollbarWidth: 'thin',
             scrollbarColor: '#CBD5E0 transparent',
-            paddingBottom: 'calc(env(safe-area-inset-bottom) + 7rem)'
+            paddingBottom: 'calc(env(safe-area-inset-bottom) + 8rem)'
           }}
         >
           {/* Service Icon and Title Section */}
@@ -241,7 +241,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
               }}
             >
               <Mail className="h-6 w-6 flex-shrink-0" />
-              <span className="hidden sm:inline truncate">. {t("services.contactEmail")}</span>
+              <span className="hidden sm:inline truncate"> {t("services.contactEmail")}</span>
             </Button>
           </div>
         </div>
