@@ -3,7 +3,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { FileText, Edit, Trash2, Eye, Users, CheckCircle } from "lucide-react";
-import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
+import dynamic from "next/dynamic";
+const MarkdownRenderer = dynamic(() => import("@/components/ui/markdown-renderer").then(mod => mod.MarkdownRenderer), { ssr: false });
 
 interface Course {
   id: number;
