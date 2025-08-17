@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Star, Eye, Edit, Trash2 } from "lucide-react";
 import { renderIcon } from "@/components/ui/icon-select";
-import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
+import dynamic from "next/dynamic";
+const MarkdownRenderer = dynamic(() => import("@/components/ui/markdown-renderer").then(mod => mod.MarkdownRenderer), { ssr: false });
 
 import type { Service } from "@/hooks/useServices";
 

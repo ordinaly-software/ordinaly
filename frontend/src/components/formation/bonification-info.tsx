@@ -3,7 +3,8 @@
 
 import { ChevronDown, ChevronUp, Star } from "lucide-react";
 import { useState as useLocalState } from "react";
-import { MarkdownRenderer } from "../ui/markdown-renderer";
+import dynamic from "next/dynamic";
+const MarkdownRenderer = dynamic(() => import("../ui/markdown-renderer").then(mod => mod.MarkdownRenderer), { ssr: false });
 import { useTranslations } from "next-intl";
 
 

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,7 +17,6 @@ export interface ServiceShowcaseProps {
   t: (key: string, params?: Record<string, string | number | Date>) => string;
   refetch: () => void;
   onServiceClick: (service: Service) => void;
-  onServiceContact: () => void;
 }
 
 export const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({

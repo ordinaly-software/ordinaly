@@ -78,17 +78,6 @@ export default function HomePage() {
     setIsServiceModalOpen(true);
   }, []);
 
-  const handleServiceContact = useCallback(() => {
-    setIsServiceModalOpen(false);
-    // Open WhatsApp with a service-specific message
-    const message = selectedService 
-      ? `Hello, I'm interested in your "${selectedService.title}" service. Could you provide more information?`
-      : t("defaultWhatsAppMessage");
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/34658977045?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
-  }, [selectedService, t]);
-
   const closeServiceModal = useCallback(() => {
     setIsServiceModalOpen(false);
     setSelectedService(null);
@@ -146,7 +135,7 @@ export default function HomePage() {
       </Suspense>
 
       {/* Hero Section */}
-  <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#23272F] dark:via-[#23272F] dark:to-[#23272F]">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#23272F] dark:via-[#23272F] dark:to-[#23272F]">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
@@ -229,7 +218,6 @@ export default function HomePage() {
           t={t}
           refetch={refetch}
           onServiceClick={handleServiceClick}
-          onServiceContact={handleServiceContact}
         />
       </Suspense>
 
@@ -516,7 +504,6 @@ export default function HomePage() {
           service={selectedService}
           isOpen={isServiceModalOpen}
           onClose={closeServiceModal}
-          onContact={handleServiceContact}
         />
       </Suspense>
     </div>

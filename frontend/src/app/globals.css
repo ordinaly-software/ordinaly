@@ -1,3 +1,16 @@
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  overscroll-behavior-x: none;
+}
+
+/* Hide vertical scrollbar on mobile browsers */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

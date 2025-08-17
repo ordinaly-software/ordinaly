@@ -31,6 +31,10 @@
     "partners": {
       "title": "Transformated by Ordinaly"
     },
+    "contact": {
+      "emailSubject": "Inquiry about service: {service}",
+      "message": "Hello,\n\nI'm interested in the service \"{service}\".\n\nCould you please provide me with more information?\n\nThank you."
+    },
     "services": {
       "title": "OUR SERVICES",
       "retryButton": "Retry",

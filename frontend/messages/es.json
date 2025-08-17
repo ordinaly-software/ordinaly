@@ -31,10 +31,14 @@
     "partners": {
       "title": "Empresas Transformadas"
     },
+    "contact": {
+      "emailSubject": "Consulta sobre servicio: {service}",
+      "message": "Hola,\n\nEstoy interesado en el servicio \"{service}\".\n\n¿Podrían proporcionarme más información?\n\nGracias."
+    },
     "services": {
       "title": "NUESTROS SERVICIOS",
       "description": "Soluciones de automatización diseñadas para impulsar y acelerar tu empresa.",
-      "contactForQuote": "Consulta a nuestros agentes para un presupuesto detallado",
+      "contactForQuote": "Consulta a nuestros agentes para un presupuesto",
       "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia.",
       "vacationTitle": "De Vacaciones",
       "retryButton": "Reintentar",
@@ -1153,7 +1157,7 @@
       "button": "Eliminar Cuenta",
       "confirmTitle": "Confirmar Eliminación de Cuenta",
       "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente. Escribe tu nombre de usuario abajo para confirmar",
-      "confirmPlaceholder": "Escribe tu nombre de usuario para confirmar",
+      "confirmPlaceholder": "Escribe tu nombre de usuario",
       "confirmButton": "Eliminar Cuenta",
       "cancelButton": "Cancelar"
     },
