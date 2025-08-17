@@ -131,15 +131,6 @@ const AdminServicesTab = () => {
     setShowServiceModal(true);
   };
 
-  const handleContact = () => {
-    // Simple WhatsApp contact functionality
-    const message = selectedServiceForModal 
-      ? `Hola, estoy interesado en el servicio "${selectedServiceForModal.title}". ¿Podrían proporcionarme más información?`
-      : "Hola, me gustaría obtener más información sobre sus servicios.";
-    const whatsappUrl = `https://wa.me/34123456789?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
-  };
-
   const toggleServiceSelection = (id: number) => {
     setSelectedServices(prev =>
       prev.includes(id)
@@ -295,7 +286,6 @@ const AdminServicesTab = () => {
           setShowServiceModal(false);
           setSelectedServiceForModal(null);
         }}
-        onContact={handleContact}
       />
     </div>
   );
