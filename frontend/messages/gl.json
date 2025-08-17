@@ -74,6 +74,10 @@
       },
       "viewAllServices": "Ver todos os servizos"
     },
+    "contact": {
+      "emailSubject": "Consulta sobre o servizo: {service}",
+      "message": "Ola,\n\nEstou interesado no servizo \"{service}\".\n\n¿Poderían proporcionarme máis información?\n\nGrazas."
+    },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
       "locationSoon": "Localización próximamente",

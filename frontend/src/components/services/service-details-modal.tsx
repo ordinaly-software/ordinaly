@@ -12,10 +12,9 @@ interface ServiceDetailsModalProps {
   service: Service | null;
   isOpen: boolean;
   onClose: () => void;
-  onContact: () => void;
 }
 
-export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: ServiceDetailsModalProps) => {
+export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetailsModalProps) => {
   const t = useTranslations("home");
 
   if (!service) return null;
@@ -54,18 +53,27 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
   };
 
   const getEmailSubject = (service: Service) => {
-    // Generate email subject based on service title
-    const baseSubject = "Consulta sobre servicio";
-    return `${baseSubject}: ${service.title}`;
+    return t("contact.emailSubject", { service: service.title });
+  };
+
+  // Internationalized contact message for both email and WhatsApp
+  const getContactMessage = (service: Service) => {
+    return t("contact.message", {
+      service: service.title,
+    });
   };
 
   const handleEmailContact = () => {
     const subject = encodeURIComponent(getEmailSubject(service));
-    const body = encodeURIComponent(
-      `Hola,\n\nEstoy interesado en el servicio "${service.title}".\n\n${service.clean_description}\n\n¿Podrían proporcionarme más información?\n\nGracias.`
-    );
+    const body = encodeURIComponent(getContactMessage(service));
     const emailUrl = `mailto:ordinalysoftware@gmail.com?subject=${subject}&body=${body}`;
     window.open(emailUrl, '_self');
+  };
+
+  const handleWhatsAppContact = (service: Service) => {
+    const message = encodeURIComponent(getContactMessage(service));
+    const whatsappUrl = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   return (
@@ -178,7 +186,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose, onContact }: Ser
         <div className="sticky bottom-0 left-0 right-0 z-20 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 pt-6 pb-8 mt-8">
           <div className="flex flex-col sm:flex-row gap-3">
             <Button 
-              onClick={onContact}
+              onClick={() => handleWhatsAppContact(service)}
               className="text-white px-8 py-3 flex items-center justify-center gap-2 transition-all duration-300"
               size="lg"
               style={{

@@ -85,7 +85,8 @@ const ServicesPage = () => {
       `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`
     );
     // Spanish phone number format: +34 followed by 9 digits
-    const whatsappUrl = `https://wa.me/34655777777?text=${message}`;
+    const whatsappUrl = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER}?text=${message}`;
+    // Open in new tab
     window.open(whatsappUrl, '_blank');
   }, []);
 
@@ -426,12 +427,6 @@ const ServicesPage = () => {
         onClose={() => {
           setShowServiceModal(false);
           setSelectedService(null);
-        }}
-        onContact={() => {
-          setShowServiceModal(false);
-          if (selectedService) {
-            handleWhatsAppContact(selectedService);
-          }
         }}
       />
 

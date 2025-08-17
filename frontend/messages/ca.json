@@ -31,6 +31,10 @@
     "partners": {
       "title": "Transformat per ordinaly"
     },
+    "contact": {
+      "emailSubject": "Consulta sobre servei: {service}",
+      "message": "Hola,\n\nEstic interessat en el servei \"{service}\".\n\nPodrien proporcionar-me més informació?\n\nGràcies."
+    },
     "services": {
       "title": "Els nostres serveis",
       "description": "Solucions d'automatització dissenyades per augmentar i accelerar el vostre negoci.",
@@ -72,7 +76,7 @@
         "title": "Optimització contínua",
         "description": "Monitorització i millora dels processos automatitzats"
       },
-            "viewAllServices": "Veure Tots els Serveis"
+      "viewAllServices": "Veure Tots els Serveis"
     },
     "courses": {
       "noSpecificDate": "Data específica properament",

@@ -31,6 +31,10 @@
     "partners": {
       "title": "Empresas Transformadas"
     },
+    "contact": {
+      "emailSubject": "Consulta sobre servicio: {service}",
+      "message": "Hola,\n\nEstoy interesado en el servicio \"{service}\".\n\n¿Podrían proporcionarme más información?\n\nGracias."
+    },
     "services": {
       "title": "NUESTROS SERVICIOS",
       "description": "Soluciones de automatización diseñadas para impulsar y acelerar tu empresa.",

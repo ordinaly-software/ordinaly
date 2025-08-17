@@ -2,7 +2,7 @@
   "home": {
     "logo": {
       "alt": "Ordutegiaren logotipoa",
-      "title": "Arauztapen"
+      "title": "ORDINALY"
     },
     "navigation": {
       "home": "Ezagutu gaitzazu!",
@@ -73,6 +73,10 @@
         "description": "Zure prozesu automatizatuen jarraipena eta hobekuntza etengabe"
       },
       "viewAllServices": "Ikusi zerbitzu guztiak"
+    },
+    "contact": {
+      "emailSubject": "Zerbitzuari buruzko kontsulta: {service}",
+      "message": "Kaixo,\n\n\"{service}\" zerbitzuan interesa dut.\n\nInformazio gehiago eman diezadakezue?\n\nEskerrik asko."
     },
     "courses": {
       "noSpecificDate": "Data zehazteko",
@@ -172,7 +176,7 @@
     },
     "footer": {
       "logo": {
-        "title": "Arauztapen",
+        "title": "ORDINALY",
         "alt": "Ordutegiaren logotipoa"
       },
       "description": "Analusiako enpresak adimen artifiziala eta automatizazioarekin eraldatzea.",

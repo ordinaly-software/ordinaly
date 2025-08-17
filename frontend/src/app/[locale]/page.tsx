@@ -78,17 +78,6 @@ export default function HomePage() {
     setIsServiceModalOpen(true);
   }, []);
 
-  const handleServiceContact = useCallback(() => {
-    setIsServiceModalOpen(false);
-    // Open WhatsApp with a service-specific message
-    const message = selectedService 
-      ? `Hello, I'm interested in your "${selectedService.title}" service. Could you provide more information?`
-      : t("defaultWhatsAppMessage");
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/34658977045?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
-  }, [selectedService, t]);
-
   const closeServiceModal = useCallback(() => {
     setIsServiceModalOpen(false);
     setSelectedService(null);
@@ -229,7 +218,6 @@ export default function HomePage() {
           t={t}
           refetch={refetch}
           onServiceClick={handleServiceClick}
-          onServiceContact={handleServiceContact}
         />
       </Suspense>
 
@@ -516,7 +504,6 @@ export default function HomePage() {
           service={selectedService}
           isOpen={isServiceModalOpen}
           onClose={closeServiceModal}
-          onContact={handleServiceContact}
         />
       </Suspense>
     </div>
