@@ -162,6 +162,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
             WebkitOverflowScrolling: 'touch'
           }}
         >
+          <br />
           {/* Service Icon and Title */}
           <div className="flex items-center gap-4">
             {service.icon && (
