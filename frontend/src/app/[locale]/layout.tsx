@@ -131,8 +131,13 @@ export default async function RootLayout({ children, params } :
         <meta name="twitter:title" content="Ordinaly - Automatiza tu negocio con IA" />
         <meta name="twitter:description" content="Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y más para liderar la innovación en España y Europa." />
         <meta name="twitter:image" content="https://ordinaly.netlify.app/og-image.jpg" />
-        {/* DNS prefetch for critical domains */}
+        {/* DNS prefetch and preconnect for critical domains */}
         <link rel="dns-prefetch" href="//wa.me" />
+        <link rel="preconnect" href="https://ordinaly.duckdns.org" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://sessions.bugsnag.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.segment.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://app.netlify.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://wcag.dock.codes" crossOrigin="anonymous" />
         
         {/* Theme initialization script to prevent flash */}
         <script

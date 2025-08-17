@@ -308,9 +308,11 @@ export const AdminServiceEditModal = ({
                   } else if (colorChoice.value === "29BF12") {
                     return "bg-[#29BF12] dark:bg-[#3DD421] text-white";
                   } else {
-                    return `bg-[${colorChoice.color}] text-white`;
+                    return "text-white";
                   }
                 };
+                // Use inline style for dynamic color
+                const isDynamicColor = !["1A1924", "623CEA", "46B1C9", "29BF12"].includes(colorChoice.value);
                 return (
                   <button
                     key={colorChoice.value}
@@ -321,6 +323,11 @@ export const AdminServiceEditModal = ({
                         ? "border-gray-400 dark:border-gray-500 shadow-lg scale-105"
                         : "border-transparent hover:shadow-md hover:scale-102"
                     } ${getColorClasses()}`}
+                    style={
+                      isDynamicColor
+                        ? { backgroundColor: colorChoice.color }
+                        : undefined
+                    }
                   >
                     <div className="text-center">
                       <div className="text-xs font-bold leading-tight">{t(`form.colors.${colorChoice.label}`)}</div>
