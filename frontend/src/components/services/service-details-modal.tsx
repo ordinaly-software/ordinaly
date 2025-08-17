@@ -85,7 +85,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
       showHeader={true}
       className="max-w-4xl w-full mx-4 my-8"
     >
-        <div className="flex flex-col h-full max-h-screen relative">
+      <div className="flex flex-col max-h-screen overflow-y-auto relative">
         {/* Contact Buttons – now at the top below the title */}
         <div
             className="w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 pt-3 pb-2 px-2 mb-2 flex items-center"
