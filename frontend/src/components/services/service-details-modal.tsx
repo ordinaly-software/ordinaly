@@ -85,10 +85,10 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
       showHeader={true}
       className="max-w-4xl w-full mx-4 my-8"
     >
-      <div className="flex flex-col h-full relative" style={{ maxHeight: 'calc(100vh - 8rem)' }}>
+        <div className="flex flex-col h-full relative" style={{ maxHeight: 'calc(100vh - 6rem)' }}>
         {/* Contact Buttons – now at the top below the title */}
         <div
-          className="w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 pt-2 pb-4 px-2 mb-2 flex items-center"
+            className="w-full bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 pt-3 pb-2 px-2 mb-2 flex items-center"
         >
           <div className="flex flex-row gap-3 w-full">
             <Button
@@ -145,14 +145,14 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
           </div>
         </div>
         {/* Scrollable Content */}
-        <div
-          className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-6"
-          style={{
-            scrollbarWidth: 'thin',
-            scrollbarColor: '#CBD5E0 transparent',
-            paddingBottom: '2rem'
-          }}
-        >
+          <div
+            className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-6"
+            style={{
+              scrollbarWidth: 'thin',
+              scrollbarColor: '#CBD5E0 transparent',
+              paddingBottom: '1rem'
+            }}
+          >
           {/* Service Icon and Title Section */}
           <div className="flex items-center space-x-4">
             {service.icon && (

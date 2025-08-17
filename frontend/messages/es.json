@@ -1157,7 +1157,7 @@
       "button": "Eliminar Cuenta",
       "confirmTitle": "Confirmar Eliminación de Cuenta",
       "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente. Escribe tu nombre de usuario abajo para confirmar",
-      "confirmPlaceholder": "Escribe tu nombre de usuario para confirmar",
+      "confirmPlaceholder": "Escribe tu nombre de usuario",
       "confirmButton": "Eliminar Cuenta",
       "cancelButton": "Cancelar"
     },
