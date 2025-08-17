@@ -85,17 +85,14 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
       showHeader={true}
       className="max-w-4xl w-full mx-4 my-8"
     >
-      <div
-        className="flex flex-col h-full relative"
-        style={{ maxHeight: 'calc(100vh - 8rem)' }}
-      >
+      <div className="flex flex-col h-full relative" style={{ maxHeight: 'calc(100vh - 8rem)' }}>
         {/* Scrollable Content */}
         <div
-          className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-6 pb-40"
+          className="flex-1 min-h-0 overflow-y-auto pr-2 space-y-6"
           style={{
             scrollbarWidth: 'thin',
             scrollbarColor: '#CBD5E0 transparent',
-            paddingBottom: 'calc(env(safe-area-inset-bottom) + 8rem)'
+            paddingBottom: '6.5rem' // Height of button bar + some spacing
           }}
         >
           {/* Service Icon and Title Section */}
@@ -186,10 +183,17 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
             </div>
           )}
         </div>
-        {/* Contact Buttons – fixed at the bottom of the modal */}
+        {/* Contact Buttons – always visible at the bottom of the modal */}
         <div
-          className="sticky bottom-0 left-0 right-0 z-20 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 pt-6 mb-4"
-          style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 1rem)' }}
+          className="w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 pt-6 px-2 mb-4"
+          style={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 20,
+            paddingBottom: 'calc(env(safe-area-inset-bottom) + 1rem)'
+          }}
         >
           <div className="flex flex-row gap-3 w-full">
             <Button
