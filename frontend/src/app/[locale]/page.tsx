@@ -135,7 +135,7 @@ export default function HomePage() {
       </Suspense>
 
       {/* Hero Section */}
-  <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#23272F] dark:via-[#23272F] dark:to-[#23272F]">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#23272F] dark:via-[#23272F] dark:to-[#23272F]">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">
