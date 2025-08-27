@@ -6,7 +6,6 @@ import { useTheme } from "@/contexts/theme-context";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
@@ -157,9 +156,6 @@ export default function LoginPage() {
           duration={alert.type === 'success' ? 2000 : 5000}
         />
       )}
-      
-      {/* Navigation */}
-      <Navbar />
 
       {/* Login Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#22A60D]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">

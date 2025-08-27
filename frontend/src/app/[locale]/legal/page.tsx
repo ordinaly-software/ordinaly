@@ -179,33 +179,33 @@ const LegalPage = () => {
           </p>
         </div>
 
-{/* Custom Tab Navigation */}
-<div className="mb-8">
-  <div className="border-b border-gray-200 dark:border-gray-700">
-    <nav
-      className="flex gap-2 sm:gap-4 overflow-x-auto overscroll-x-contain snap-x snap-mandatory px-2 py-1 -mb-px"
-      style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'thin' }}
-    >
-      {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => setActiveTab(tab.id)}
-          className={`inline-flex items-center gap-2 py-2 px-4 border-b-2 font-medium text-sm
-                      whitespace-nowrap transition-colors duration-150 rounded-md
-                      shrink-0 flex-none snap-center
-                      ${activeTab === tab.id
-                        ? 'border-[#22A60D] text-[#22A60D] bg-[#22a60d0d] dark:bg-[#22a60d1a]'
-                        : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
-                      }`}
-          style={{ minWidth: '8.75rem' }}  // ~140px
-        >
-          <tab.icon className="w-4 h-4 shrink-0" />
-          <span className="truncate">{tab.label}</span>
-        </button>
-      ))}
-    </nav>
-  </div>
-</div>
+        {/* Custom Tab Navigation */}
+        <div className="mb-8">
+          <div className="border-b border-gray-200 dark:border-gray-700">
+            <nav
+              className="flex gap-2 sm:gap-4 overflow-x-auto overscroll-x-contain snap-x snap-mandatory px-2 py-1 -mb-px"
+              style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'thin' }}
+            >
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`inline-flex items-center gap-2 py-2 px-4 border-b-2 font-medium text-sm
+                              whitespace-nowrap transition-colors duration-150 rounded-md
+                              shrink-0 flex-none snap-center
+                              ${activeTab === tab.id
+                                ? 'border-[#22A60D] text-[#22A60D] bg-[#22a60d0d] dark:bg-[#22a60d1a]'
+                                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                              }`}
+                  style={{ minWidth: '8.75rem' }}  // ~140px
+                >
+                  <tab.icon className="w-4 h-4 shrink-0" />
+                  <span className="truncate">{tab.label}</span>
+                </button>
+              ))}
+            </nav>
+          </div>
+        </div>
 
         {/* Tab Content */}
         <div className="min-h-96">

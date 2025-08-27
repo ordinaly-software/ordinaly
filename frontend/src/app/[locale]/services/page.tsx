@@ -22,7 +22,6 @@ import {
 import { Dropdown } from "@/components/ui/dropdown";
 
 // Dynamic imports for components that might not be immediately needed
-const Navbar = dynamic(() => import("@/components/ui/navbar"), { ssr: false });
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
 const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => ({ default: mod.ServiceDetailsModal })), { ssr: false });
 
@@ -291,7 +290,6 @@ const ServicesPage = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D]"></div>
         </div>
@@ -310,9 +308,6 @@ const ServicesPage = () => {
           duration={alert.type === 'success' ? 3000 : 5000}
         />
       )}
-
-      {/* Navigation */}
-      <Navbar />
 
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E8F5E8] via-[#E6F7E6] to-[#F3E8FF] dark:from-[#22C55E]/5 dark:via-[#10B981]/5 dark:to-[#9333EA]/5 overflow-hidden">

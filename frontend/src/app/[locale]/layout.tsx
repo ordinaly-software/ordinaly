@@ -7,6 +7,7 @@ import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
 import CookieConsent from '@/components/ui/cookies';
 import BackToTopButton from '@/components/ui/back-to-top-button';
+import Navbar from '@/components/ui/navbar';
 import { ThemeProvider } from '@/contexts/theme-context';
 
 
@@ -222,18 +223,18 @@ export default async function RootLayout({ children, params } :
         />
         
         {/* Accessibility Integration - moved to be conditional */}
-        {process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN && (
+        {process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN && (
           <script
             dangerouslySetInnerHTML={{
               __html: `
-                (function (d, s, t) { 
-                  var f = d.getElementsByTagName(s)[0], 
-                      j = d.createElement(s), 
-                      a = new Date().getTime(); 
-                  j.async = true; 
-                  j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
-                  f.parentNode.insertBefore(j, f); 
-                })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
+          (function (d, s, t) { 
+            var f = d.getElementsByTagName(s)[0], 
+                j = d.createElement(s), 
+                a = new Date().getTime(); 
+            j.async = true; 
+            j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
+            f.parentNode.insertBefore(j, f); 
+          })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
               `,
             }}
           />
@@ -284,9 +285,12 @@ export default async function RootLayout({ children, params } :
             >
               Saltar / Skip
             </a>
-            
+
+
+            <Navbar />
+
             <div id="main-content">{children}</div>
-            
+
             <CookieConsent />
             {/* <AnalyticsManager /> */}
             <BackToTopButton />

@@ -5,7 +5,6 @@ import { useTranslations } from "next-intl";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Navbar from "@/components/ui/navbar";
 import Alert from "@/components/ui/alert";
 import DeleteAccountModal from "@/components/ui/delete-account-modal";
 import { User, Mail, Building2, MapPin, Globe, AlertTriangle } from "lucide-react";
@@ -332,7 +331,6 @@ export default function ProfilePage() {
   if (!isAuthenticated || isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <Navbar />
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D] mx-auto mb-4"></div>
@@ -354,9 +352,6 @@ export default function ProfilePage() {
           duration={alert.type === 'success' ? 3000 : 5000}
         />
       )}
-      
-      {/* Navigation */}
-      <Navbar />
 
       {/* Profile Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">

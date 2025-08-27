@@ -257,10 +257,19 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className={cn(
-        "border-b border-gray-300 dark:border-gray-800 bg-white/80 dark:bg-[#1A1924]/80 backdrop-blur-md sticky top-0 z-50 transition-all duration-300",
-        isScrolled && "shadow-md"
-      )}>
+      <nav
+        className={cn(
+          "border-b border-gray-300 dark:border-gray-800 bg-white/80 dark:bg-[#1A1924]/80 backdrop-blur-md w-full transition-all duration-300",
+          isScrolled
+            ? "fixed top-0 left-0 z-50 shadow-md navbar-animate-in"
+            : "relative navbar-animate-out"
+        )}
+        style={{
+          transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s cubic-bezier(0.4,0,0.2,1)',
+          transform: isScrolled ? 'translateY(0)' : 'translateY(-5px)',
+          opacity: isScrolled ? 1 : 0.98,
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-4">
           <div className="flex justify-between items-center py-4 md:py-6 min-h-[60px]">
             {/* Logo and Title */}

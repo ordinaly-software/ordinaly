@@ -7,10 +7,9 @@ import { useTranslations } from "next-intl";
 import Image from 'next/image';
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-
-const Navbar = dynamic(() => import("@/components/ui/navbar"), { ssr: false, loading: () => <nav className="h-16 w-full bg-white dark:bg-[#1A1924]" /> });
 import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
+
 const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.ServiceShowcase), { ssr: false, loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div> });
 const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false, loading: () => null });
 
@@ -128,8 +127,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-  {/* Navigation - now using the Navbar component (dynamically loaded) */}
-  <Navbar />
 
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#23272F] dark:via-[#23272F] dark:to-[#23272F]">
