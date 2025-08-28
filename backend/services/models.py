@@ -147,6 +147,13 @@ class Service(models.Model):
         ('Diamond', 'Diamond'),
     ]
 
+    SERVICE = "SERVICE"
+    PRODUCT = "PRODUCT"
+    TYPE_CHOICES = [
+        (SERVICE, "Service"),
+        (PRODUCT, "Product"),
+    ]
+    type = models.CharField(max_length=16, choices=TYPE_CHOICES, default=SERVICE)
     title = models.CharField(max_length=100)
     draft = models.BooleanField(
         default=False,

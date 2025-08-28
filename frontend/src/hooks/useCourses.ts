@@ -58,7 +58,7 @@ export const useCourses = (options: UseCoursesOptions = {}, isAdmin: boolean = f
         queryParams.append('limit', options.limit.toString());
       }
       const url = `${baseUrl}/api/courses/courses/${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
-      let headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (isAdmin) {
         const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
         if (token) headers['Authorization'] = `Token ${token}`;

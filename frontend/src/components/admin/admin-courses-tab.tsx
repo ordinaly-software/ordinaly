@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useCourses } from "@/hooks/useCourses";
 import type { CourseFormData } from "./admin-course-edit-modal";
 import { useTranslations, useLocale } from "next-intl";
@@ -117,7 +117,7 @@ const AdminCoursesTab = () => {
       .join(', ');
   };
   // Use admin mode to see drafts
-  const { courses, isLoading, error, refetch } = useCourses({}, true);
+  const { courses, isLoading, refetch } = useCourses({}, true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCourses, setSelectedCourses] = useState<number[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -155,8 +155,6 @@ const AdminCoursesTab = () => {
   max_attendants: "",
   draft: false
   });
-
-  // useCourses already fetches, no need for useEffect
 
   const resetForm = () => {
   setFormData({

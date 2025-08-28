@@ -14,6 +14,7 @@ import { getApiEndpoint } from "@/lib/api-config";
 import { servicesEvents } from "@/lib/events";
 import Alert from "@/components/ui/alert";
 import React, { useState, useEffect } from "react";
+import { Dropdown } from "@/components/ui/dropdown";
 
 interface AdminServiceEditModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ interface AdminServiceEditModalProps {
 }
 
 const defaultFormData = {
+  type: "SERVICE",
   title: "",
   subtitle: "",
   description: "",
@@ -49,6 +51,7 @@ export const AdminServiceEditModal = ({
   const [formData, setFormData] = useState(() => {
     if (isEdit && initialService) {
       return {
+        type: initialService.type || "SERVICE",
         title: initialService.title,
         subtitle: initialService.subtitle || "",
         description: initialService.description,
@@ -72,6 +75,7 @@ export const AdminServiceEditModal = ({
   useEffect(() => {
     if (isEdit && initialService) {
       setFormData({
+        type: initialService.type || "SERVICE",
         title: initialService.title,
         subtitle: initialService.subtitle || "",
         description: initialService.description,
@@ -120,6 +124,7 @@ export const AdminServiceEditModal = ({
         duration: formData.duration ? parseInt(formData.duration) : null,
         price: formData.price ? parseFloat(formData.price) : null,
         draft: !!formData.draft,
+        type: formData.type,
       };
       const url = isEdit && initialService
         ? getApiEndpoint(`/api/services/${initialService.id}/`)
@@ -187,27 +192,47 @@ export const AdminServiceEditModal = ({
       )}
       <div className="space-y-6 max-h-[80vh] overflow-y-auto pb-40">
         {/* Toggles */}
-        <div className="flex items-center gap-3">
-          <Label htmlFor="draft" className="text-sm font-medium cursor-pointer text-orange-600 flex items-center gap-1">
-            <FileText className="w-4 h-4 text-orange-500" />
-            {t("form.draftMode")}
-          </Label>
-          <Slider
-            checked={!!formData.draft}
-            onChange={() => setFormData(prev => ({ ...prev, draft: !prev.draft }))}
-            className="mr-2"
-            color="orange"
-          />
-          <br />
-          <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer text-green-600 flex items-center gap-1">
-            <Star className="w-4 h-4 text-green-500 fill-green-500" />
-            {t("form.featured")}
-          </Label>
-          <Slider
-            checked={!!formData.is_featured}
-            onChange={() => setFormData(prev => ({ ...prev, is_featured: !prev.is_featured }))}
-            className="mr-2"
-          />
+        <div className="flex flex-wrap items-center w-full gap-x-8 gap-y-6 md:gap-x-12 md:gap-y-8">
+          <div className="flex items-center px-4 py-3">
+            <Label htmlFor="type" className="text-sm font-medium cursor-pointer text-purple-600 flex items-center gap-1 min-w-0 mr-2 md:mr-4">
+              <span className="w-4 h-4 rounded-full bg-purple-200 flex items-center justify-center text-purple-600">{formData.type === 'SERVICE' ? 'S' : 'P'}</span>
+              {t("form.type")}
+            </Label>
+            <Dropdown
+              options={[
+          { value: 'SERVICE', label: t('form.service') },
+          { value: 'PRODUCT', label: t('form.product') }
+              ]}
+              value={formData.type}
+              onChange={(val: string) => setFormData(prev => ({ ...prev, type: val as 'SERVICE' | 'PRODUCT' }))}
+              placeholder={t('form.type')}
+              className="min-w-[120px] flex-shrink"
+              theme="default"
+            />
+          </div>
+          <div className="flex items-center px-4 py-3">
+            <Label htmlFor="draft" className="text-sm font-medium cursor-pointer text-orange-600 flex items-center gap-1 min-w-0 mr-2 md:mr-4">
+              <FileText className="w-4 h-4 text-orange-500" />
+              {t("form.draftMode")}
+            </Label>
+            <Slider
+              checked={!!formData.draft}
+              onChange={() => setFormData(prev => ({ ...prev, draft: !prev.draft }))}
+              className="flex-shrink"
+              color="orange"
+            />
+          </div>
+          <div className="flex items-center px-4 py-3">
+            <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer text-green-600 flex items-center gap-1 min-w-0 mr-2 md:mr-4">
+              <Star className="w-4 h-4 text-green-500 fill-green-500" />
+              {t("form.featured")}
+            </Label>
+            <Slider
+              checked={!!formData.is_featured}
+              onChange={() => setFormData(prev => ({ ...prev, is_featured: !prev.is_featured }))}
+              className="flex-shrink"
+            />
+          </div>
         </div>
         {/* Service Title */}
         <div className="space-y-3">

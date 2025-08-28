@@ -6,7 +6,7 @@
     },
     "navigation": {
       "home": "Meet us!",
-      "services": "Services",
+      "services": "Services and Products",
       "formation": "Formation",
       "start": "Get Started",
       "darkMode": "Switch to dark mode",
@@ -36,9 +36,9 @@
       "message": "Hello,\n\nI'm interested in the service \"{service}\".\n\nCould you please provide me with more information?\n\nThank you."
     },
     "services": {
-      "title": "OUR SERVICES",
+      "title": "Products and Services",
+      "description": "Discover our personalized services and exclusive, closed products. Choose what fits your business: from tailored consulting to ready-to-use solutions.",
       "retryButton": "Retry",
-      "description": "Automation solutions designed to boost and accelerate your business.",
       "contactForQuote": "Contact our agents for a detailed quote",
       "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
       "vacationTitle": "On Vacation",
@@ -434,6 +434,9 @@
         "icon": "Icon",
         "iconPlaceholder": "Choose a Lucide React icon",
         "color": "Service Color *",
+        "type": "Type",
+        "service": "Service",
+        "product": "Product",
         "colors": {
           "darkPurple": "Neutral",
           "purple": "Dark purple",
@@ -842,9 +845,11 @@
     }
   },
   "services": {
-    "title": "Our Services",
-    "subtitle": "Comprehensive solutions designed to transform your business and drive digital innovation",
-    "searchPlaceholder": "Search services...",
+    "productsAndServicesTitle": "Our products and services",
+    "productsAndServicesDescription": "Discover our personalized services and exclusive, closed products. Choose what fits your business: from tailored consulting to ready-to-use solutions.",
+    "productsSectionTitle": "Closed Products",
+    "servicesSectionTitle": "Personalized Services",
+    "searchPlaceholder": "Search services and products...",
     "featured": "Featured",
     "details": "Details",
     "duration": "Duration",
@@ -857,7 +862,8 @@
     "filters": {
       "all": "All Services",
       "featured": "Featured Only",
-      "standard": "Standard Services"
+      "service": "Services",
+      "product": "Products"
     },
     "noResults": {
       "title": "No Services Found",

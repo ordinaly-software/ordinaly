@@ -342,6 +342,7 @@ class Command(BaseCommand):
             {
                 'title': 'Chatbot de WhatsApp',
                 'subtitle': 'Automatiza atención al cliente 24/7 con IA conversacional avanzada',
+                'type': 'SERVICE',
                 'description': '''
 Automatiza la atención al cliente y las ventas a través de **WhatsApp Business API** de Meta con nuestra solución
  de chatbot inteligente. Proporciona respuestas instantáneas, gestiona consultas frecuentes y mejora la
@@ -375,6 +376,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
             },
             {
                 'title': 'Automatizaciones a Medida',
+                'type': 'SERVICE',
                 'subtitle': 'Integración con Odoo, Slack y herramientas empresariales',
                 'description': '''
 ⚡ Conecta tus sistemas y optimiza procesos internos para ahorrar tiempo y eliminar errores manuales.
@@ -407,6 +409,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
             {
                 'title': 'Accesibilidad Global (WCAG)',
                 'subtitle': 'Garantiza la inclusión digital según WCAG 2.1',
+                'type': 'SERVICE',
                 'description': '''
 ♿ Auditamos e implementamos las mejores prácticas de accesibilidad para que tu web o app cumpla con\
  **WCAG 2.1** y llegue a todo tipo de usuarios.
@@ -442,6 +445,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
             {
                 'title': 'Chatbot web',
                 'subtitle': 'Chatbot personalizado para la web de tu negocio',
+                'type': 'SERVICE',
                 'description': '''
 Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles a navegar por tu sistema,\n\
  ofrecerles asistencia técnica o ponerles en contacto con quién necesiten.
@@ -466,9 +470,10 @@ Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles
                 'draft': True
             },
             {
-                     'title': 'Automatización de Redes Sociales',
-                     'subtitle': 'Automatización la publicación de tu contenidos en distintas redes sociales',
-                     'description': '''
+                'title': 'Automatización de Redes Sociales',
+                'subtitle': 'Automatización la publicación de tu contenidos en distintas redes sociales',
+                'type': 'SERVICE',
+                'description': '''
 Estas automatizaciones te permitirán centrarte en la creación de contenido dejando toda la gestión y subida de los
  mismos a la Inteligencia Artificial.
 
@@ -480,22 +485,23 @@ Estas automatizaciones te permitirán centrarte en la creación de contenido dej
 - 👥 El equipo se centra en relizar tareas que de verdad necesitan de una persona
 
 ''',
-                     'color': '1A1924',
-                     'icon': 'TrendingUp',
-                     'duration': None,
-                     'requisites': (
-                          "- Acceso a las (temporalmente) a las redes sociales que se quieran automatizar.    "
-                          "- Acceso a una cuenta de Google Drive para alamacenar el contenido.    "
-                     ),
-                     # price field is intentionally left as None for demo
-                     'price': None,
-                     'is_featured': False,
-                     'draft': False
+                'color': '1A1924',
+                'icon': 'TrendingUp',
+                'duration': None,
+                'requisites': (
+                     "- Acceso a las (temporalmente) a las redes sociales que se quieran automatizar.    "
+                     "- Acceso a una cuenta de Google Drive para alamacenar el contenido.    "
+                ),
+                # price field is intentionally left as None for demo
+                'price': None,
+                'is_featured': False,
+                'draft': False
             },
             {
-                     'title': 'Implantación de CRM/ERP con Odoo',
-                     'subtitle': 'Consultoría, despliegue y personalización de Odoo para la gestión empresarial',
-                     'description': '''
+                'title': 'Implantación de CRM/ERP con Odoo',
+                'subtitle': 'Consultoría, despliegue y personalización de Odoo para la gestión empresarial',
+                'type': 'SERVICE',
+                'description': '''
 Odoo es un potente software de gestión empresarial (**ERP**) de código abierto. Nuestro servicio abarca desde la
 consultoría inicial hasta el despliegue y personalización completa de Odoo en la empresa.
 
@@ -531,19 +537,19 @@ consultoría inicial hasta el despliegue y personalización completa de Odoo en 
 - Mayor eficiencia operativa y reducción de tareas manuales duplicadas.
 - Mejor toma de decisiones gracias a datos unificados.
 ''',
-                     'color': '623CEA',
-                     'icon': 'Settings',
-                     'duration': 15,
-                     'requisites': (
-                          "- Acceso a información sobre los procesos actuales de la empresa.    "
-                          "- Disponibilidad para entrevistas y talleres de requerimientos.    "
-                          "- Acceso a datos históricos si se requiere migración.    "
-                          "- Colaboración del equipo para formación y pruebas.    "
-                     ),
-                     'price': None,
-                     'is_featured': True,
-                     'draft': False
-                },
+                'color': '623CEA',
+                'icon': 'Settings',
+                'duration': 15,
+                'requisites': (
+                     "- Acceso a información sobre los procesos actuales de la empresa.    "
+                     "- Disponibilidad para entrevistas y talleres de requerimientos.    "
+                     "- Acceso a datos históricos si se requiere migración.    "
+                     "- Colaboración del equipo para formación y pruebas.    "
+                ),
+                'price': None,
+                'is_featured': True,
+                'draft': False
+            },
         ]
 
         servicios = []

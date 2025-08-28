@@ -6,7 +6,7 @@
     },
     "navigation": {
       "home": "Coneix -nos!",
-      "services": "Serveis",
+      "services": "Productes/Serveis",
       "formation": "Formació",
       "start": "Comenceu",
       "darkMode": "Canvieu al mode fosc",
@@ -35,9 +35,9 @@
       "emailSubject": "Consulta sobre servei: {service}",
       "message": "Hola,\n\nEstic interessat en el servei \"{service}\".\n\nPodrien proporcionar-me més informació?\n\nGràcies"
     },
-    "services": {
-      "title": "Els nostres serveis",
-      "description": "Solucions d'automatització dissenyades per augmentar i accelerar el vostre negoci",
+  "services": {
+      "title": "Productes i Serveis",
+      "description": "Descobreix els nostres serveis personalitzats i productes tancats exclusius. Tria el que millor s'adapti al teu negoci: des de consultoria a mida fins a solucions llestes per utilitzar.",
       "contactForQuote": "Poseu -vos en contacte amb els nostres agents per obtenir un pressupost detallat",
       "vacationMessage": "Actualment estem de vacances! ",
       "vacationTitle": "De vacances",
@@ -434,6 +434,9 @@
         "icon": "Icona",
         "iconPlaceholder": "Trieu una icona Lucide React",
         "color": "Color del servei *",
+        "type": "Tipus",
+        "service": "Servei",
+        "product": "Producte",
         "colors": {
           "darkPurple": "Neutre",
           "purple": "Porpra",
@@ -842,9 +845,11 @@
     }
   },
   "services": {
-    "title": "Els nostres serveis",
-    "subtitle": "Solucions exhaustives dissenyades per transformar el vostre negoci i impulsar la innovació digital",
-    "searchPlaceholder": "SERVEIS DE CERCA ...",
+    "productsAndServicesTitle": "Els nostres productes i serveis",
+    "productsAndServicesDescription": "Descobreix els nostres serveis personalitzats i productes tancats exclusius. Tria el que millor s'adapti al teu negoci: des de consultoria a mida fins a solucions llestes per utilitzar.",
+    "productsSectionTitle": "Productes Tancats",
+    "servicesSectionTitle": "Serveis Personalitzats",
+    "searchPlaceholder": "Cerca de productes i serveis...",
     "featured": "Destacada",
     "details": "Detalls",
     "duration": "Durada",
@@ -855,9 +860,10 @@
     "contactUs": "Poseu -vos en contacte amb nosaltres",
     "learnMore": "Obteniu més informació",
     "filters": {
-      "all": "Tots els serveis",
+      "all": "Tots els catàlegs",
       "featured": "Només apareix",
-      "standard": "Serveis estàndard"
+      "service": "Serveis Personalitzats",
+      "product": "Productes Encapsulats"
     },
     "noResults": {
       "title": "No es van trobar serveis",

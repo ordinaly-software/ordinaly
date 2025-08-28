@@ -6,7 +6,7 @@
     },
     "navigation": {
       "home": "¡Coñece Ordinaly!",
-      "services": "Servizos",
+      "services": "Produtos/Servizos",
       "formation": "Formación",
       "start": "Comeza Agora",
       "darkMode": "Cambiar a modo escuro",
@@ -36,8 +36,8 @@
       "message": "Ola,\n\nEstou interesado no servizo \"{service}\".\n\n¿Poderían proporcionarme máis información?\n\nGrazas."
     },
     "services": {
-      "title": "OS NOSOS SERVIZOS",
-      "description": "Solucións de automatización deseñadas para impulsar e acelerar a túa empresa.",
+      "title": "Produtos e Servizos",
+      "description": "Descubre os nosos servizos personalizados e produtos encapsulados exclusivos. Elixe o que mellor se adapte ao teu negocio: desde consultoría a medida ata solucións listas para usar.",
       "contactForQuote": "Consulta aos nosos axentes para un orzamento",
       "vacationMessage": "¡Estamos de vacacións! Os nosos servizos volverán pronto despois das festas. Grazas pola túa paciencia.",
       "vacationTitle": "De Vacacións",
@@ -434,6 +434,9 @@
         "icon": "Icona",
         "iconPlaceholder": "Escolle icona de Lucide React",
         "color": "Cor do Servizo *",
+        "type": "Tipo",
+        "service": "Servizo",
+        "product": "Produto",
         "colors": {
           "darkPurple": "Neutro",
           "purple": "Morado escuro", 
@@ -842,9 +845,11 @@
     }
   },
   "services": {
-    "title": "Os nosos Servizos",
-    "subtitle": "Solucións integrais deseñadas para transformar o teu negocio e impulsar a innovación dixital",
-    "searchPlaceholder": "Buscar servizos...",
+    "productsAndServicesTitle": "Os nosos produtos e servizos",
+    "productsAndServicesDescription": "Descubre os nosos servizos personalizados e produtos encapsulados exclusivos. Elixe o que mellor se adapte ao teu negocio: desde consultoría a medida ata solucións listas para usar.",
+    "productsSectionTitle": "Produtos Encapsulados",
+    "servicesSectionTitle": "Servizos Personalizados",
+    "searchPlaceholder": "Buscar produtos e servizos...",
     "featured": "Destacado",
     "details": "Detalles",
     "duration": "Durada",
@@ -855,9 +860,10 @@
     "contactUs": "Contactar connosco",
     "learnMore": "Saber máis",
     "filters": {
-      "all": "Todos os Servizos",
+      "all": "Todos os productos",
       "featured": "Só destacados",
-      "standard": "Servizos estándar"
+      "service": "Servizos Personalizados",
+      "product": "Produtos"
     },
     "noResults": {
       "title": "Non se atoparon servizos",

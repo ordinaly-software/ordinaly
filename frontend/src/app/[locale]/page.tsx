@@ -9,6 +9,7 @@ import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
+import Link from "next/link";
 
 const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.ServiceShowcase), { ssr: false, loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div> });
 const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false, loading: () => null });
@@ -145,7 +146,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="relative inline-flex items-center justify-center gap-4 group">
                   <Button variant="special" size="lg" asChild>
-                    <a href="/services">
+                    <Link href="/services">
                       {t("hero.discoverButton")}
                       <svg
                         aria-hidden="true"
@@ -164,7 +165,7 @@ export default function HomePage() {
                           className="transition group-hover:translate-x-[3px]"
                         ></path>
                       </svg>
-                    </a>
+                    </Link>
                   </Button>
                 </div>
                 <Button

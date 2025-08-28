@@ -5,6 +5,7 @@ import { getApiEndpoint } from '@/lib/api-config';
 
 export interface Service {
   id: number;
+  type: 'SERVICE' | 'PRODUCT';
   title: string;
   subtitle?: string;
   description: string;
@@ -48,7 +49,7 @@ export const useServices = (limit?: number, isAdmin: boolean = false) => {
       setIsLoading(true);
       setError(null);
       const apiUrl = getApiEndpoint('/api/services/');
-      let headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (isAdmin) {
         const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
         if (token) headers['Authorization'] = `Token ${token}`;

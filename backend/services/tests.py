@@ -24,6 +24,7 @@ User = get_user_model()
 class ServiceModelTests(TestCase):
     def test_service_draft_default_false(self):
         service = Service.objects.create(
+            type='SERVICE',
             title='Draft Default',
             subtitle='Subtitle',
             description='Desc',
@@ -32,6 +33,18 @@ class ServiceModelTests(TestCase):
             created_by=self.user
         )
         self.assertFalse(service.draft)
+
+    def test_product_type(self):
+        product = Service.objects.create(
+            type='PRODUCT',
+            title='Product',
+            subtitle='Subtitle',
+            description='Desc',
+            color='29BF12',
+            icon='Bot',
+            created_by=self.user
+        )
+        self.assertEqual(product.type, 'PRODUCT')
 
     def test_service_draft_explicit_true(self):
         service = Service.objects.create(

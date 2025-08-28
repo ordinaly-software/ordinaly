@@ -6,7 +6,7 @@
     },
     "navigation": {
       "home": "Ezagutu gaitzazu!",
-      "services": "Zeregin",
+      "services": "Zerbitzuak/Produktuak",
       "formation": "Ermena",
       "start": "Hasi",
       "darkMode": "Aldatu Modu Iluna",
@@ -36,8 +36,20 @@
       "message": "Kaixo,\n\n\"{service}\" zerbitzuan interesa dut.\n\nInformazio gehiago eman diezadakezue?\n\nEskerrik asko."
     },
     "services": {
-      "title": "Gure zerbitzuak",
-      "description": "Automatizazio irtenbideak zure negozioa bultzatzeko eta azkartzeko diseinatuak.",
+      "title": "Produktuak eta Zerbitzuak",
+      "description": "Ezagutu gure zerbitzu pertsonalizatuak eta produktu itxi esklusiboak. Aukeratu zure negoziorako egokiena: aholkularitza pertsonalizatutik hasi eta prest dauden soluzioetaraino.",
+      "productsSectionTitle": "Produktu Itxiak",
+      "servicesSectionTitle": "Zerbitzu Pertsonalizatuak",
+      "filters": {
+        "all": "Guztiak",
+        "featured": "Nabarmenduak",
+        "service": "Zerbitzu Pertsonalizatuak",
+        "product": "Produktu Itxiak"
+      },
+      "type": {
+        "service": "Zerbitzua",
+        "product": "Produktua"
+      },
       "contactForQuote": "Jarri harremanetan gure agenteekin aurrekontu zehatza lortzeko",
       "vacationMessage": "Gaur egun oporretan gaude! ",
       "vacationTitle": "Oporretan",
@@ -434,6 +446,9 @@
         "icon": "Ikonoa",
         "iconPlaceholder": "Aukeratu Lucide ikono bat",
         "color": "Zerbitzuaren kolorea *",
+        "type": "Zerbitzua",
+        "service": "Zerbitzua",
+        "product": "Produktua",
         "colors": {
           "darkPurple": "More iluna",
           "purple": "Morea",
@@ -843,7 +858,7 @@
   },
   "services": {
     "title": "Gure zerbitzuak",
-    "subtitle": "Zure negozioa eraldatzeko eta berrikuntza digitala bultzatzeko diseinatutako soluzio integralak",
+    "productsAndServicesDescription": "Ezagutu gure zerbitzu pertsonalizatuak eta produktu itxi esklusiboak. Aukeratu zure negoziorako egokiena: aholkularitza pertsonalizatutik hasi eta prest dauden soluzioetaraino.",
     "searchPlaceholder": "Bilatu zerbitzuak...",
     "featured": "Nabarmendua",
     "details": "Xehetasunak",
@@ -854,6 +869,10 @@
     "contactForQuote": "Kontsultatu prezioa",
     "contactUs": "Jarri harremanetan",
     "learnMore": "Ikusi xehetasunak",
+    "type": {
+      "service": "Zerbitzua",
+      "product": "Produktua"
+    },
     "filters": {
       "all": "Zerbitzu guztiak",
       "featured": "Nabarmenduak bakarrik",

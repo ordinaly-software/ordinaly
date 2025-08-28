@@ -6,7 +6,7 @@
     },
     "navigation": {
       "home": "¡Conoce Ordinaly!",
-      "services": "Servicios",
+      "services": "Productos/Servicios",
       "formation": "Formación",
       "start": "Empieza Ahora",
       "darkMode": "Cambiar a modo oscuro",
@@ -36,8 +36,8 @@
       "message": "Hola,\n\nEstoy interesado en el servicio \"{service}\".\n\n¿Podrían proporcionarme más información?\n\nGracias"
     },
     "services": {
-      "title": "NUESTROS SERVICIOS",
-      "description": "Soluciones de automatización diseñadas para impulsar y acelerar tu empresa",
+      "title": "Productos y Servicios",
+      "description": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar.",
       "contactForQuote": "Consulta a nuestros agentes para un presupuesto",
       "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
       "vacationTitle": "De Vacaciones",
@@ -434,6 +434,9 @@
         "icon": "Icono",
         "iconPlaceholder": "Elige un icono de Lucide React",
         "color": "Color del Servicio *",
+        "type": "Tipo",
+        "service": "Servicio",
+        "product": "Producto",
         "colors": {
           "darkPurple": "Neutro",
           "purple": "Morado oscuro",
@@ -842,9 +845,11 @@
     }
   },
   "services": {
-    "title": "Nuestros Servicios", 
-    "subtitle": "Soluciones integrales diseñadas para transformar tu negocio e impulsar la innovación digital",
-    "searchPlaceholder": "Buscar servicios...",
+    "productsAndServicesTitle": "Nuestros productos y servicios",
+    "productsAndServicesDescription": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar.",
+    "productsSectionTitle": "Productos Encapsulados",
+    "servicesSectionTitle": "Servicios Personalizados",
+    "searchPlaceholder": "Buscar productos y servicios...",
     "featured": "Destacado",
     "details": "Detalles",
     "duration": "Duración",
@@ -855,9 +860,10 @@
     "contactUs": "Contáctanos",
     "learnMore": "Ver detalles",
     "filters": {
-      "all": "Todos los Servicios",
+      "all": "Todos el catálogo",
       "featured": "Solo Destacados",
-      "standard": "Servicios Estándar"
+      "service": "Servicios personalizados",
+      "product": "Productos cerrados"
     },
     "noResults": {
       "title": "No se Encontraron Servicios",
