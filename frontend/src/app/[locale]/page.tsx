@@ -10,29 +10,10 @@ import { Suspense } from "react";
 import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
 import Link from "next/link";
+import type { Service } from "@/hooks/useServices";
 
 const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.ServiceShowcase), { ssr: false, loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div> });
 const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false, loading: () => null });
-
-
-interface Service {
-  id: number;
-  title: string;
-  subtitle?: string;
-  description: string;
-  icon: string;
-  duration?: number;
-  requisites?: string;
-  price?: string | null;
-  is_featured: boolean;
-  created_by?: number;
-  created_by_username?: string;
-  created_at: string;
-  updated_at: string;
-  clean_description: string;
-  color: string;
-  color_hex: string;
-}
 
 // Use next/dynamic for all heavy/below-the-fold components
 const DemoModal = dynamic(() => import("@/components/home/demo-modal"), { ssr: false, loading: () => null });
