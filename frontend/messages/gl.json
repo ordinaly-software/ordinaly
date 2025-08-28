@@ -31,12 +31,17 @@
     "partners": {
       "title": "Empresas Transformadas"
     },
+    "contact": {
+      "emailSubject": "Consulta sobre o servizo: {service}",
+      "message": "Ola,\n\nEstou interesado no servizo \"{service}\".\n\n¿Poderían proporcionarme máis información?\n\nGrazas."
+    },
     "services": {
       "title": "OS NOSOS SERVIZOS",
       "description": "Solucións de automatización deseñadas para impulsar e acelerar a túa empresa.",
       "contactForQuote": "Consulta aos nosos axentes para un orzamento",
       "vacationMessage": "¡Estamos de vacacións! Os nosos servizos volverán pronto despois das festas. Grazas pola túa paciencia.",
       "vacationTitle": "De Vacacións",
+      "retryButton": "Tentar de Novo",
       "featured": "Destacado",
       "duration": "Listo en",
       "durationDay": "1 día",
@@ -74,10 +79,6 @@
       },
       "viewAllServices": "Ver todos os servizos"
     },
-    "contact": {
-      "emailSubject": "Consulta sobre o servizo: {service}",
-      "message": "Ola,\n\nEstou interesado no servizo \"{service}\".\n\n¿Poderían proporcionarme máis información?\n\nGrazas."
-    },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
       "locationSoon": "Localización próximamente",
@@ -97,11 +98,11 @@
       "spotsLeft": "prazas dispoñibles",
       "enrolled": "inscritos",
       "max": "máximo",
-  "almostFull": "Case Completo",
-  "fillingFast": "Enchéndose Rápido",
-  "available": "Dispoñible",
-  "inProgress": "En curso",
-  "finished": "Rematado",
+      "almostFull": "Case Completo",
+      "fillingFast": "Enchéndose Rápido",
+      "available": "Dispoñible",
+      "inProgress": "En curso",
+      "finished": "Rematado",
       "datesSoon": "Fechas próximamente",
       "durationSoon": "Duración próximamente",
       "signUpModal": {
@@ -366,30 +367,6 @@
       "googleSignUpError": "Erro no rexistro con Google."
     }
   },
-  "completeProfile": {
-    "title": "Completa o teu perfil",
-    "subtitle": "Só faltan uns poucos datos máis para comezar",
-    "welcome": "¡Benvido, {name}!",
-    "form": {
-      "title": "Información da empresa",
-      "companyLabel": "Empresa",
-      "companyPlaceholder": "Introduce o nome da túa empresa",
-      "regionLabel": "País",
-      "regionPlaceholder": "Introduce a túa país",
-      "cityLabel": "Cidade",
-      "cityPlaceholder": "Introduce a túa cidade",
-      "optional": "opcional",
-      "submitButton": "Completar perfil",
-      "submitButtonLoading": "Completando perfil..."
-    },
-    "validation": {
-      "companyRequired": "O nome da empresa é obrigatorio"
-    },
-    "messages": {
-      "success": "¡Perfil completado con éxito!",
-      "networkError": "Erro de rede."
-    }
-  },
   "admin": {
     "title": "Panel de Administración",
     "subtitle": "Xestiona o teu contido e configuración da aplicación",
@@ -405,7 +382,8 @@
       "location": "Localización",
       "date": "Data",
       "schedule": "Horario",
-      "maxAttendants": "Máx asistentes"
+      "maxAttendants": "Máx asistentes",
+      "draft": "Borrador"
     },
     "tabs": {
       "overview": "Vista xeral",
@@ -474,7 +452,8 @@
         "update": "Actualizar servizo",
         "markdownSupported": "Markdown soportado",
         "requisites": "Requisitos",
-        "requisitesPlaceholder": "Introduce cualquier requisito o prerrequisito"
+        "requisitesPlaceholder": "Introduce cualquier requisito o prerrequisito",
+        "draftMode": "Modo borrador"
       },
       "messages": {
         "createSuccess": "Servizo creado con éxito!",
@@ -521,13 +500,8 @@
       "selectAll": "Seleccionar todo",
       "courses": "cursos",
       "noCourses": "Non hai cursos dispoñibles.",
-      "noPastCourses": "Non hai cursos pasados dispoñibles.",
-      "pastCourses": "Cursos pasados",
-      "viewPastCourses": "Ver cursos pasados",
-      "hidePastCourses": "Ocultar cursos pasados",
-      "upcomingCourses": "Próximos cursos",
-      "finished": "Rematado",
       "noCoursesFound": "Non se atoparon cursos que coincidan coa túa busca.",
+      "noPastCourses": "Non hai cursos pasados dispoñibles.",
       "contactForQuote": "Gratuito",
       "edit": "Editar",
       "delete": "Eliminar",
@@ -565,6 +539,7 @@
         "intervalOptional": "Intervalo",
         "intervalPlaceholder": "ex. 2 para cada 2 semanas",
         "timezoneOptional": "Zona horaria",
+        "draftMode": "Borrador",
         "periodicity": {
           "once": "Evento único",
           "daily": "Diario",
@@ -629,7 +604,7 @@
         "deleteError": "Erro ao eliminar curso",
         "networkError": "Non se puido gardar o curso.",
         "selectToDelete": "Por favor, selecciona cursos para eliminar",
-        "fileSizeLimit": "O tamaño do arquivo debe ser menor de 5MB",
+        "imageSizeLimit1MB": "O tamaño do arquivo debe ser menor de 1MB",
         "imageFileOnly": "Por favor, selecciona un arquivo de imaxe",
         "cannotDeleteFinished": "Non se pode eliminar un curso finalizado.",
         "cannotDeleteFinishedBulk": "Non se pode eliminar un ou máis cursos finalizados.",
@@ -641,7 +616,8 @@
           "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica.",
           "locationRequired": "A localización é obrigatoria e debe ter 100 caracteres ou menos.",
           "dateRequired": "A data é obrigatoria e debe ter 100 caracteres ou menos.",
-          "maxAttendantsInvalid": "O máximo de asistentes debe ser polo menos 1."
+          "maxAttendantsInvalid": "O máximo de asistentes debe ser polo menos 1.",
+          "maxAttendantsBelowEnrolled": "Non se pode establecer un máximo de prazas menor que o número de inscritos actuais ({count})."
         },
         "capacity": {
           "warning": "AVISO: Este curso xa ten inscricións."
@@ -701,7 +677,12 @@
         "enrollments": "Inscricións",
         "capacity": "Capacidade",
         "created": "Creado"
-      }
+      },
+      "pastCourses": "Cursos pasados",
+      "viewPastCourses": "Ver cursos pasados",
+      "hidePastCourses": "Ocultar cursos pasados",
+      "upcomingCourses": "Próximos cursos",
+      "finished": "Rematado"
     },
     "terms": {
       "title": "Xestión de Termos",
@@ -869,6 +850,7 @@
     "durationDay": "1 día",
     "durationDays": "{count} días",
     "price": "Prezo",
+    "contactForQuote": "Consultar prezo",
     "contactUs": "Contactar connosco",
     "learnMore": "Saber máis",
     "filters": {

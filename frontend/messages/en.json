@@ -367,30 +367,6 @@
       "googleSignUpError": "Google sign-up failed. Please try again."
     }
   },
-  "completeProfile": {
-    "title": "Complete Your Profile",
-    "subtitle": "Just a few more details to get you started",
-    "welcome": "Welcome, {name}!",
-    "form": {
-      "title": "Company Information",
-      "companyLabel": "Company",
-      "companyPlaceholder": "Enter your company name",
-      "regionLabel": "Country",
-      "regionPlaceholder": "Enter your country",
-      "cityLabel": "City",
-      "cityPlaceholder": "Enter your city",
-      "optional": "optional",
-      "submitButton": "Complete Profile",
-      "submitButtonLoading": "Completing Profile..."
-    },
-    "validation": {
-      "companyRequired": "Company name is required"
-    },
-    "messages": {
-      "success": "Profile completed successfully! Redirecting...",
-      "networkError": "Network error. Please check your connection and try again."
-    }
-  },
   "admin": {
     "title": "Admin Dashboard",
     "subtitle": "Manage your application content and settings",
@@ -406,7 +382,8 @@
       "location": "Location",
       "date": "Date",
       "schedule": "Schedule",
-      "maxAttendants": "Max Attendants"
+      "maxAttendants": "Max Attendants",
+      "draft": "Draft"
     },
     "tabs": {
       "overview": "Overview",
@@ -475,7 +452,8 @@
         "update": "Update Service",
         "markdownSupported": "Markdown supported",
         "requisites": "Requisites",
-        "requisitesPlaceholder": "Enter any requirements or prerequisites"
+        "requisitesPlaceholder": "Enter any requirements or prerequisites",
+        "draftMode": "Draft Mode"
       },
       "messages": {
         "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
@@ -522,13 +500,8 @@
       "selectAll": "Select All",
       "courses": "courses",
       "noCourses": "No courses available.",
-      "noPastCourses": "No past courses available.",
-      "pastCourses": "Past Courses",
-      "viewPastCourses": "View Past Courses",
-      "hidePastCourses": "Hide Past Courses",
-      "upcomingCourses": "Upcoming Courses",
-      "finished": "Finished",
       "noCoursesFound": "No courses found matching your search.",
+      "noPastCourses": "No past courses available",
       "contactForQuote": "Free",
       "edit": "Edit",
       "delete": "Delete",
@@ -553,8 +526,8 @@
         "pricePlaceholder": "Leave empty for 'Contact for quote'",
         "location": "Location",
         "locationPlaceholder": "Enter the course location or 'Online'",
-  "locationRequired": "Location *",
-  "locationOptional": "Location (Optional)",
+        "locationRequired": "Location *",
+        "locationOptional": "Location (Optional)",
         "scheduleSettings": "Professional Schedule Settings",
         "startDateRequired": "Start Date *",
         "endDateRequired": "End Date *",
@@ -566,6 +539,7 @@
         "intervalOptional": "Interval",
         "intervalPlaceholder": "e.g., 2 for every 2 weeks",
         "timezoneOptional": "Timezone",
+        "draftMode": "Draft Mode",
         "periodicity": {
           "once": "One-time event",
           "daily": "Daily",
@@ -630,8 +604,7 @@
         "deleteError": "Failed to delete course",
         "networkError": "Unable to save course. Please check your connection and try again.",
         "selectToDelete": "Please select courses to delete",
-  "fileSizeLimit": "File size must be less than 5MB",
-  "imageSizeLimit1MB": "Course image must be 1MB or less.",
+        "imageSizeLimit1MB": "Course image must be 1MB or less.",
         "imageFileOnly": "Please select an image file",
         "validation": {
           "titleRequired": "Course title is required and must be 100 characters or less.",
@@ -704,7 +677,12 @@
         "enrollments": "Enrollments",
         "capacity": "Capacity",
         "created": "Created"
-      }
+      },
+      "pastCourses": "Past Courses",
+      "viewPastCourses": "View Past Courses",
+      "hidePastCourses": "Hide Past Courses",
+      "upcomingCourses": "Upcoming Courses",
+      "finished": "Finished"
     },
     "terms": {
       "title": "Terms Management",
@@ -1096,6 +1074,20 @@
           "short": "Sun",
           "full": "Sunday"
         }
+      },
+      "months": {
+        "january": "enero",
+        "february": "febrero",
+        "march": "marzo",
+        "april": "abril",
+        "may": "mayo",
+        "june": "junio",
+        "july": "julio",
+        "august": "agosto",
+        "september": "septiembre",
+        "october": "octubre",
+        "november": "noviembre",
+        "december": "diciembre"
       },
       "fullScheduleText": {
         "once": "{date} from {startTime} to {endTime}",

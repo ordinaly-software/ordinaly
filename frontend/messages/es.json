@@ -33,13 +33,13 @@
     },
     "contact": {
       "emailSubject": "Consulta sobre servicio: {service}",
-      "message": "Hola,\n\nEstoy interesado en el servicio \"{service}\".\n\n¿Podrían proporcionarme más información?\n\nGracias."
+      "message": "Hola,\n\nEstoy interesado en el servicio \"{service}\".\n\n¿Podrían proporcionarme más información?\n\nGracias"
     },
     "services": {
       "title": "NUESTROS SERVICIOS",
-      "description": "Soluciones de automatización diseñadas para impulsar y acelerar tu empresa.",
+      "description": "Soluciones de automatización diseñadas para impulsar y acelerar tu empresa",
       "contactForQuote": "Consulta a nuestros agentes para un presupuesto",
-      "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia.",
+      "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
       "vacationTitle": "De Vacaciones",
       "retryButton": "Reintentar",
       "featured": "Destacado",
@@ -108,15 +108,15 @@
       "signUpModal": {
         "title": "Registro de Curso",
         "description": "Recibe notificaciones cuando se abra la inscripción para \"{courseName}\"",
-        "generalDescription": "Recibe notificaciones sobre nuevos anuncios de cursos y oportunidades de inscripción temprana.",
+        "generalDescription": "Recibe notificaciones sobre nuevos anuncios de cursos y oportunidades de inscripción temprana",
         "close": "Cerrar",
         "notify": "Notificarme"
       }
     },
     "about": {
       "title": "LIDERANDO LA TRANSFORMACIÓN DIGITAL EN ANDALUCÍA",
-      "description1": "En Ordinaly, creemos que las empresas andaluzas tienen el potencial de liderar la innovación tecnológica en España y Europa. Nuestra misión es democratizar el acceso a la inteligencia artificial y la automatización.",
-      "description2": "Trabajamos codo con codo con empresas locales para implementar soluciones que no solo mejoran la eficiencia, sino que las posicionan como referentes en sus sectores."
+      "description1": "En Ordinaly, creemos que las empresas andaluzas tienen el potencial de liderar la innovación tecnológica en España y Europa. Nuestra misión es democratizar el acceso a la inteligencia artificial y la automatización",
+      "description2": "Trabajamos codo con codo con empresas locales para implementar soluciones que no solo mejoran la eficiencia, sino que las posicionan como referentes en sus sectores"
     },
     "technologies": {
       "title": "TECNOLOGÍAS QUE IMPULSAN NUESTROS SERVICIOS",
@@ -171,8 +171,8 @@
     },
     "demoModal": {
       "title": "Demo de Ordinaly",
-      "description": "Descubre cómo nuestra plataforma puede transformar tu negocio con automatizaciones inteligentes.",
-      "videoNotSupported": "Tu navegador no soporta este tipo de video.",
+      "description": "Descubre cómo nuestra plataforma puede transformar tu negocio con automatizaciones inteligentes",
+      "videoNotSupported": "Tu navegador no soporta este tipo de video",
       "videoError": "Error reproduciendo video:"
     },
     "footer": {
@@ -180,7 +180,7 @@
         "title": "ORDINALY",
         "alt": "Logo de Ordinaly"
       },
-      "description": "Transformando empresas con inteligencia artificial y automatización.",
+      "description": "Transformando empresas con inteligencia artificial y automatización",
       "legal": {
         "title": "Documentación Legal",
         "terms": "Términos",
@@ -200,7 +200,7 @@
         "phone": "+34 626 27 08 06",
         "location": "Andalucía, España"
       },
-      "copyright": "© 2025 Ordinaly Software. Todos los derechos reservados."
+      "copyright": "© 2025 Ordinaly Software. Todos los derechos reservados"
     },
     "pricingPlans": {
       "1": {
@@ -233,7 +233,8 @@
   },
   "common": {
     "onVacation": "De Vacaciones",
-    "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia.",
+    "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
+    "retry": "Intentar de Nuevo",
     "learnMore": "Detalles",
     "backToHome": "Volver al Inicio"
   },
@@ -246,25 +247,25 @@
   "cookie": {
     "title": "Configuración de Cookies",
     "openCookieSettings": "Abrir Configuración de Cookies",
-    "description": "Utilizamos cookies para mejorar tu experiencia, personalizar el contenido y analizar el tráfico. Puedes elegir qué tipos de cookies aceptar.",
+    "description": "Utilizamos cookies para mejorar tu experiencia, personalizar el contenido y analizar el tráfico. Puedes elegir qué tipos de cookies aceptar",
     "whatAre": "¿Qué son las cookies?",
-    "whatAreDescription": "Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Nos ayudan a recordar tus preferencias y mejorar tu experiencia.",
+    "whatAreDescription": "Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Nos ayudan a recordar tus preferencias y mejorar tu experiencia",
     "acceptAll": "Aceptar Todas",
     "rejectAll": "Rechazar Todas",
     "customize": "Personalizar Configuración",
     "personalizeTitle": "Personaliza tus preferencias de cookies",
-    "personalizeDescription": "Puedes activar o desactivar diferentes tipos de cookies según tus preferencias.",
+    "personalizeDescription": "Puedes activar o desactivar diferentes tipos de cookies según tus preferencias",
     "necessary": "Cookies Necesarias",
-    "necessaryDescription": "Estas cookies son esenciales para el funcionamiento del sitio web y no se pueden desactivar.",
+    "necessaryDescription": "Estas cookies son esenciales para el funcionamiento del sitio web y no se pueden desactivar",
     "necessaryAlways": "Siempre activas",
     "functional": "Cookies Funcionales",
-    "functionalDescription": "Permiten funcionalidades mejoradas y personalización del sitio.",
+    "functionalDescription": "Permiten funcionalidades mejoradas y personalización del sitio",
     "functionalExamples": "Recordar preferencias de idioma, configuraciones de usuario",
     "analytics": "Cookies de Análisis",
-    "analyticsDescription": "Nos ayudan a entender cómo los usuarios interactúan con el sitio web.",
+    "analyticsDescription": "Nos ayudan a entender cómo los usuarios interactúan con el sitio web",
     "analyticsExamples": "Google Analytics, métricas de rendimiento",
     "marketing": "Cookies de Marketing",
-    "marketingDescription": "Permiten mostrar anuncios más relevantes basados en tus intereses.",
+    "marketingDescription": "Permiten mostrar anuncios más relevantes basados en tus intereses",
     "marketingExamples": "Publicidad personalizada, seguimiento de campañas",
     "back": "Volver",
     "save": "Guardar Preferencias",
@@ -309,9 +310,9 @@
     "messages": {
       "success": "¡Sesión iniciada exitosamente! Redirigiendo...",
       "invalidCredentials": "Correo electrónico/nombre de usuario o contraseña inválidos",
-      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo.",
+      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo",
       "fillAllFields": "Por favor completa todos los campos",
-      "googleSignInError": "Error al iniciar sesión con Google. Por favor, intenta de nuevo."
+      "googleSignInError": "Error al iniciar sesión con Google. Por favor, intenta de nuevo"
     }
   },
   "signup": {
@@ -351,7 +352,7 @@
     },
     "messages": {
       "success": "¡Cuenta creada exitosamente! Redirigiendo...",
-      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo.",
+      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo",
       "validation": {
         "nameRequired": "El nombre es requerido",
         "surnameRequired": "El apellido es requerido",
@@ -363,31 +364,7 @@
         "passwordMismatch": "Las contraseñas no coinciden",
         "termsRequired": "Debes aceptar los Términos de Servicio y la Política de Privacidad para continuar"
       },
-      "googleSignUpError": "Error al registrarse con Google. Por favor, intenta de nuevo."
-    }
-  },
-  "completeProfile": {
-    "title": "Completa Tu Perfil",
-    "subtitle": "Solo unos pocos detalles más para comenzar",
-    "welcome": "¡Bienvenido, {name}!",
-    "form": {
-      "title": "Información de la Empresa",
-      "companyLabel": "Empresa",
-      "companyPlaceholder": "Ingresa el nombre de tu empresa",
-      "regionLabel": "País",
-      "regionPlaceholder": "Ingresa tu país",
-      "cityLabel": "Ciudad",
-      "cityPlaceholder": "Ingresa tu ciudad",
-      "optional": "opcional",
-      "submitButton": "Completar Perfil",
-      "submitButtonLoading": "Completando Perfil..."
-    },
-    "validation": {
-      "companyRequired": "El nombre de la empresa es obligatorio"
-    },
-    "messages": {
-      "success": "¡Perfil completado exitosamente! Redirigiendo...",
-      "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo."
+      "googleSignUpError": "Error al registrarse con Google. Por favor, intenta de nuevo"
     }
   },
   "admin": {
@@ -395,7 +372,7 @@
     "subtitle": "Gestiona el contenido y configuración de tu aplicación",
     "loading": "Cargando panel de administración...",
     "accessDenied": "Acceso Denegado",
-    "noPermission": "No tienes permisos para acceder a esta página.",
+    "noPermission": "No tienes permisos para acceder a esta página",
     "labels": {
       "price": "Precio",
       "duration": "Listo en ",
@@ -405,7 +382,8 @@
       "location": "Ubicación",
       "date": "Fecha",
       "schedule": "Horario",
-      "maxAttendants": "Máximo de Asistentes"
+      "maxAttendants": "Máximo de Asistentes",
+      "draft": "Borrador"
     },
     "tabs": {
       "overview": "Resumen",
@@ -420,7 +398,7 @@
       "surname": "Apellido",
       "email": "Correo Electrónico",
       "company": "Empresa",
-      "errorFetching": "No se pudo cargar la lista de usuarios. Por favor, intenta de nuevo más tarde.",
+      "errorFetching": "No se pudo cargar la lista de usuarios. Por favor, intenta de nuevo más tarde",
       "sendMail": "Enviar correo",
       "selectAll": "Seleccionar todo",
       "searchPlaceholder": "Buscar usuarios...",
@@ -441,8 +419,8 @@
       "createService": "Crear Nuevo Servicio",
       "deleteSelected": "Eliminar Seleccionados",
       "selectAll": "Seleccionar Todo",
-      "noServices": "No hay servicios disponibles.",
-      "noServicesFound": "No se encontraron servicios que coincidan con tu búsqueda.",
+      "noServices": "No hay servicios disponibles",
+      "noServicesFound": "No se encontraron servicios que coincidan con tu búsqueda",
       "durationDay": "1 día",
       "durationDays": "{count} días",
       "services": "servicios",
@@ -468,16 +446,17 @@
         "price": "Precio (€)",
         "pricePlaceholder": "Deja vacío para 'Consultar presupuesto'",
         "contactForQuote": "Consultar presupuesto",
-        "featured": "Servicio Destacado",
+        "featured": "Destacado",
         "cancel": "Cancelar",
         "create": "Crear Servicio",
         "update": "Actualizar Servicio",
-        "markdownSupported": "Markdown soportado",
+        "markdownSupported": "Con soporte para formato Markdown",
         "requisites": "Requisitos",
-        "requisitesPlaceholder": "Ingrese cualquier requisito o prerrequisito"
+        "requisitesPlaceholder": "Ingrese cualquier requisito o prerrequisito",
+        "draftMode": "Borrador"
       },
       "messages": {
-        "createSuccess": "¡Servicio creado correctamente! Ya está disponible para los clientes.",
+        "createSuccess": "¡Servicio creado correctamente! Ya está disponible para los clientes",
         "updateSuccess": "¡Servicio actualizado correctamente!",
         "deleteSuccess": "¡Servicio eliminado correctamente!",
         "bulkDeleteSuccess": "¡Servicios eliminados correctamente!",
@@ -485,26 +464,26 @@
         "createError": "Error al crear servicio",
         "updateError": "Error al actualizar servicio",
         "deleteError": "Error al eliminar servicio",
-        "networkError": "No se pudo guardar el servicio. Por favor verifica tu conexión e intenta de nuevo.",
+        "networkError": "No se pudo guardar el servicio. Por favor verifica tu conexión e intenta de nuevo",
         "selectToDelete": "Por favor selecciona servicios para eliminar",
         "validation": {
-          "titleRequired": "El título del servicio es requerido y debe tener 100 caracteres o menos.",
-          "subtitleRequired": "El subtítulo es requerido y debe tener 200 caracteres o menos.",
-          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos.",
-          "iconRequired": "Por favor selecciona un icono válido para el servicio.",
-          "durationInvalid": "La duración debe ser de al menos 1 día si se especifica.",
-          "requisitesLimit": "Los requisitos deben tener 2000 caracteres o menos.",
-          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica."
+          "titleRequired": "El título del servicio es requerido y debe tener 100 caracteres o menos",
+          "subtitleRequired": "El subtítulo es requerido y debe tener 200 caracteres o menos",
+          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos",
+          "iconRequired": "Por favor selecciona un icono válido para el servicio",
+          "durationInvalid": "La duración debe ser de al menos 1 día si se especifica",
+          "requisitesLimit": "Los requisitos deben tener 2000 caracteres o menos",
+          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica"
         },
         "featured": {
-          "enabled": "El servicio ha sido marcado como destacado.",
-          "disabled": "El servicio ya no está destacado."
+          "enabled": "El servicio ha sido marcado como destacado",
+          "disabled": "El servicio ya no está destacado"
         }
       },
       "confirmDelete": {
         "title": "Confirmar Eliminación",
-        "single": "¿Estás seguro de que quieres eliminar \"{title}\"? Esta acción no se puede deshacer.",
-        "multiple": "¿Estás seguro de que quieres eliminar {count} servicios seleccionados? Esta acción no se puede deshacer.",
+        "single": "¿Estás seguro de que quieres eliminar \"{title}\"? Esta acción no se puede deshacer",
+        "multiple": "¿Estás seguro de que quieres eliminar {count} servicios seleccionados? Esta acción no se puede deshacer",
         "delete": "Eliminar",
         "cancel": "Cancelar"
       }
@@ -520,8 +499,9 @@
       "deleteSelected": "Eliminar Seleccionados",
       "selectAll": "Seleccionar Todo",
       "courses": "cursos",
-      "noCourses": "No hay cursos disponibles.",
-      "noCoursesFound": "No se encontraron cursos que coincidan con tu búsqueda.",
+      "noCourses": "No hay cursos disponibles",
+      "noCoursesFound": "No se encontraron cursos que coincidan con tu búsqueda",
+      "noPastCourses": "No hay cursos pasados disponibles",
       "contactForQuote": "Gratuito",
       "edit": "Editar",
       "delete": "Eliminar",
@@ -546,8 +526,8 @@
         "pricePlaceholder": "Deja vacío para 'Contactar para presupuesto'",
         "location": "Ubicación",
         "locationPlaceholder": "Ingresa la ubicación del curso o 'Online'",
-  "locationRequired": "Ubicación *",
-  "locationOptional": "Ubicación (Opcional)",
+        "locationRequired": "Ubicación *",
+        "locationOptional": "Ubicación (Opcional)",
         "scheduleSettings": "Configuración de Horario Profesional",
         "startDateRequired": "Fecha de Inicio *",
         "endDateRequired": "Fecha de Fin *",
@@ -559,6 +539,7 @@
         "intervalOptional": "Intervalo",
         "intervalPlaceholder": "ej., 2 para cada 2 semanas",
         "timezoneOptional": "Zona Horaria",
+        "draftMode": "Borrador",
         "periodicity": {
           "once": "Evento único",
           "daily": "Diario",
@@ -577,32 +558,32 @@
         },
         "weekdays": {
           "monday": {
-            "short": "Lun",
-            "full": "Lunes"
+          "short": "Lun",
+          "full": "Lunes"
           },
           "tuesday": {
-            "short": "Mar",
-            "full": "Martes"
+          "short": "Mar",
+          "full": "Martes"
           },
           "wednesday": {
-            "short": "Mié",
-            "full": "Miércoles"
+          "short": "Mié",
+          "full": "Miércoles"
           },
           "thursday": {
-            "short": "Jue",
-            "full": "Jueves"
+          "short": "Jue",
+          "full": "Jueves"
           },
           "friday": {
-            "short": "Vie",
-            "full": "Viernes"
+          "short": "Vie",
+          "full": "Viernes"
           },
           "saturday": {
-            "short": "Sáb",
-            "full": "Sábado"
+          "short": "Sáb",
+          "full": "Sábado"
           },
           "sunday": {
-            "short": "Dom",
-            "full": "Domingo"
+          "short": "Dom",
+          "full": "Domingo"
           }
         },
         "maxAttendants": "Máximo de Asistentes",
@@ -613,40 +594,39 @@
         "update": "Actualizar Curso"
       },
       "messages": {
-        "createSuccess": "¡Curso creado exitosamente! Los estudiantes ya pueden inscribirse.",
+        "createSuccess": "¡Curso creado exitosamente! Los estudiantes ya pueden inscribirse",
         "updateSuccess": "¡Curso actualizado exitosamente!",
         "deleteSuccess": "Curso eliminado exitosamente",
-        "bulkDeleteSuccess": "cursos eliminados exitosamente",
+        "bulkDeleteSuccess": "Cursos eliminados exitosamente",
         "fetchError": "Error al obtener cursos",
         "createError": "Error al crear curso",
         "updateError": "Error al actualizar curso",
         "deleteError": "Error al eliminar curso",
-        "networkError": "No se pudo guardar el curso. Por favor verifica tu conexión e intenta de nuevo.",
+        "networkError": "No se pudo guardar el curso. Por favor verifica tu conexión e intenta de nuevo",
         "selectToDelete": "Por favor selecciona cursos para eliminar",
-        "fileSizeLimit": "El tamaño del archivo debe ser menor a 5MB",
-  "imageSizeLimit1MB": "La imagen del curso debe pesar 1MB o menos.",
+        "imageSizeLimit1MB": "La imagen del curso debe pesar 1MB o menos",
         "imageFileOnly": "Por favor selecciona un archivo de imagen",
-        "cannotDeleteFinished": "No se puede eliminar un curso finalizado.",
-        "cannotDeleteFinishedBulk": "No se puede eliminar uno o más cursos finalizados.",
+        "cannotDeleteFinished": "No se puede eliminar un curso finalizado",
+        "cannotDeleteFinishedBulk": "No se puede eliminar uno o más cursos finalizados",
         "validation": {
-          "titleRequired": "El título del curso es requerido y debe tener 100 caracteres o menos.",
-          "subtitleLimit": "El subtítulo debe tener 200 caracteres o menos.",
-          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos.",
-          "imageRequired": "Por favor sube una imagen válida para el curso.",
-          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica.",
-          "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos.",
-          "dateRequired": "La fecha es requerida y debe tener 100 caracteres o menos.",
-          "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1.",
-          "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})."
+          "titleRequired": "El título del curso es requerido y debe tener 100 caracteres o menos",
+          "subtitleLimit": "El subtítulo debe tener 200 caracteres o menos",
+          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos",
+          "imageRequired": "Por favor sube una imagen válida para el curso",
+          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica",
+          "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos",
+          "dateRequired": "La fecha es requerida y debe tener 100 caracteres o menos",
+          "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1",
+          "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})"
         },
         "capacity": {
-          "warning": "Advertencia: Este curso ya tiene {current} inscripciones. Reducir el máximo de asistentes por debajo de este número puede causar problemas."
+          "warning": "Advertencia: Este curso ya tiene {current} inscripciones. Reducir el máximo de asistentes por debajo de este número puede causar problemas"
         }
       },
       "confirmDelete": {
         "title": "Confirmar Eliminación",
-        "single": "¿Estás seguro de que quieres eliminar \"{title}\"? Esta acción no se puede deshacer.",
-        "multiple": "¿Estás seguro de que quieres eliminar {count} cursos seleccionados? Esta acción no se puede deshacer.",
+        "single": "¿Estás seguro de que quieres eliminar \"{title}\"? Esta acción no se puede deshacer",
+        "multiple": "¿Estás seguro de que quieres eliminar {count} cursos seleccionados? Esta acción no se puede deshacer",
         "delete": "Eliminar",
         "cancel": "Cancelar"
       },
@@ -697,7 +677,12 @@
         "enrollments": "Inscripciones",
         "capacity": "Capacidad",
         "created": "Creado"
-      }
+      },
+      "pastCourses": "Cursos Pasados",
+      "viewPastCourses": "Ver Cursos Pasados",
+      "hidePastCourses": "Ocultar Cursos Pasados",
+      "upcomingCourses": "Próximos Cursos",
+      "finished": "Finalizado"
     },
     "terms": {
       "title": "Gestión de Términos",
@@ -707,8 +692,8 @@
       "createTerm": "Crear Nuevo Término",
       "deleteSelected": "Eliminar Seleccionados",
       "selectAll": "Seleccionar Todo",
-      "noTerms": "No hay términos disponibles.",
-      "noTermsFound": "No se encontraron términos que coincidan con tu búsqueda.",
+      "noTerms": "No hay términos disponibles",
+      "noTermsFound": "No se encontraron términos que coincidan con tu búsqueda",
       "pdfAvailable": "PDF Disponible",
       "mdAvailable": "Documento Markdown Disponible",
       "downloadPdf": "Descargar PDF",
@@ -727,7 +712,7 @@
         "tagPlaceholder": "Selecciona el tipo de documento",
         "selectTag": "Selecciona un tipo de documento",
         "noAvailableTags": "No hay tipos de documento disponibles",
-        "allTagsUsed": "Todos los tipos de documento han sido creados. Solo puedes tener uno de cada tipo.",
+        "allTagsUsed": "Todos los tipos de documento han sido creados. Solo puedes tener uno de cada tipo",
         "allTagsUsedTitle": "Todos los tipos de documento ya están en uso",
         "allTagsUsedButton": "Todos los Tipos Creados",
         "markdownSupported": "Markdown soportado",
@@ -783,7 +768,7 @@
         "deleteError": "Error al eliminar documento",
         "downloadError": "Error al descargar PDF",
         "downloadSuccess": "PDF descargado exitosamente",
-        "networkError": "No se pudo guardar el documento. Por favor verifica tu conexión e intenta de nuevo.",
+        "networkError": "No se pudo guardar el documento. Por favor verifica tu conexión e intenta de nuevo",
         "selectToDelete": "Por favor selecciona documentos para eliminar",
         "fileSizeLimit": "El tamaño del archivo debe ser menor a 10MB",
         "pdfFileOnly": "Por favor selecciona un archivo PDF",
@@ -800,16 +785,16 @@
           "pdfSize": "El archivo debe tener 1MB o menos"
         },
         "upload": {
-          "error": "Error en la carga del archivo. Por favor asegúrate de que tus archivos sean válidos e intenta de nuevo."
+          "error": "Error en la carga del archivo. Por favor asegúrate de que tus archivos sean válidos e intenta de nuevo"
         },
         "version": {
-          "updateWarning": "Importante: Actualizar este documento de términos creará una nueva versión. Los usuarios pueden necesitar re-aceptar los términos actualizados."
+          "updateWarning": "Importante: Actualizar este documento de términos creará una nueva versión. Los usuarios pueden necesitar re-aceptar los términos actualizados"
         }
       },
       "confirmDelete": {
         "title": "Confirmar Eliminación",
-        "single": "¿Estás seguro de que quieres eliminar \"{name}\"? Esta acción no se puede deshacer.",
-        "multiple": "¿Estás seguro de que quieres eliminar {count} términos seleccionados? Esta acción no se puede deshacer.",
+        "single": "¿Estás seguro de que quieres eliminar \"{name}\"? Esta acción no se puede deshacer",
+        "multiple": "¿Estás seguro de que quieres eliminar {count} términos seleccionados? Esta acción no se puede deshacer",
         "delete": "Eliminar",
         "cancel": "Cancelar"
       },
@@ -821,7 +806,7 @@
   },
   "legal": {
     "title": "Documentación Legal",
-    "description": "Accede a nuestros términos de servicio, política de privacidad, política de cookies e información de licencia.",
+    "description": "Accede a nuestros términos de servicio, política de privacidad, política de cookies e información de licencia",
     "downloadPdf": "Descargar PDF",
     "tabs": {
       "terms": "Términos de Servicio",
@@ -832,19 +817,19 @@
     "sections": {
       "terms": {
         "title": "Términos de Servicio",
-        "noDocuments": "No hay documentos de términos de servicio disponibles actualmente."
+        "noDocuments": "No hay documentos de términos de servicio disponibles actualmente"
       },
       "privacy": {
         "title": "Política de Privacidad",
-        "noDocuments": "No hay documentos de política de privacidad disponibles actualmente."
+        "noDocuments": "No hay documentos de política de privacidad disponibles actualmente"
       },
       "cookies": {
         "title": "Política de Cookies",
-        "noDocuments": "No hay documentos de política de cookies disponibles actualmente."
+        "noDocuments": "No hay documentos de política de cookies disponibles actualmente"
       },
       "license": {
         "title": "Información de Licencia",
-        "noDocuments": "No hay documentos de licencia disponibles actualmente."
+        "noDocuments": "No hay documentos de licencia disponibles actualmente"
       }
     },
     "messages": {
@@ -875,15 +860,15 @@
     },
     "noResults": {
       "title": "No se Encontraron Servicios",
-      "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar lo que buscas."
+      "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar lo que buscas"
     },
     "cta": {
       "title": "¿Listo para Transformar tu Negocio?",
-      "description": "Hablemos sobre cómo nuestros servicios pueden ayudarte a alcanzar tus objetivos de transformación digital.",
+      "description": "Hablemos sobre cómo nuestros servicios pueden ayudarte a alcanzar tus objetivos de transformación digital",
       "contact": "Ponte en Contacto",
       "call": "Programar una Llamada",
       "emailSubject": "Consulta sobre Servicios de Ordinaly",
-      "emailBody": "Hola, estoy interesado en conocer más sobre sus servicios de transformación digital. ¿Podrían proporcionarme más información?\n\nGracias."
+      "emailBody": "Hola, estoy interesado en conocer más sobre sus servicios de transformación digital. ¿Podrían proporcionarme más información?\n\nGracias"
     },
     "contact": {
       "title": "Contáctanos",
@@ -933,27 +918,27 @@
     },
     "noResults": {
       "title": "No se Encontraron Cursos",
-      "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar el curso perfecto para ti."
+      "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar el curso perfecto para ti"
     },
-    "noPastCourses": "No hay cursos pasados disponibles.",
+    "noPastCourses": "No hay cursos pasados disponibles",
     "pastCourses": "Cursos Pasados",
     "viewPastCourses": "Ver Cursos Pasados",
     "hidePastCourses": "Ocultar Cursos Pasados",
     "finished": "Finalizado",
     "cta": {
       "title": "¿Listo para Avanzar en tu Carrera?",
-      "description": "Únete a miles de profesionales que han transformado sus carreras con nuestros programas de formación dirigidos por expertos.",
+      "description": "Únete a miles de profesionales que han transformado sus carreras con nuestros programas de formación dirigidos por expertos",
       "contact": "Contactar Asesor",
       "catalog": "Descargar Catálogo",
       "emailSubject": "Consulta sobre Programas de Formación de Ordinaly",
-      "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias."
+      "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias"
     },
     "enrollment": {
       "title": "Inscripción al Curso",
       "confirm": "Confirmar Inscripción",
       "courseDetails": "Detalles del Curso",
       "confirmMessage": "¿Estás seguro de que quieres inscribirte en este curso?",
-      "paymentNote": "El procesamiento del pago se manejará en el siguiente paso.",
+      "paymentNote": "El procesamiento del pago se manejará en el siguiente paso",
       "confirmEnroll": "Confirmar Inscripción",
       "name": "Nombre Completo",
       "namePlaceholder": "Ingresa tu nombre completo",
@@ -973,7 +958,7 @@
     "cancellation": {
       "title": "Cancelar Inscripción",
       "warning": "Cancelar Inscripción al Curso",
-      "warningMessage": "¿Estás seguro de que quieres cancelar tu inscripción en \"{courseTitle}\"? Esta acción no se puede deshacer.",
+      "warningMessage": "¿Estás seguro de que quieres cancelar tu inscripción en \"{courseTitle}\"? Esta acción no se puede deshacer",
       "confirmMessage": "Esto te eliminará del curso y podrías perder tu plaza",
       "keepEnrollment": "Mantener Inscripción",
       "confirmCancel": "Cancelar Inscripción"
@@ -982,20 +967,20 @@
       "signInToEnroll": "Por favor inicia sesión para inscribirte en los cursos",
       "signInRequired": "Por favor inicia sesión para gestionar las inscripciones",
       "enrollmentSuccess": "¡Te inscribiste exitosamente en {courseTitle}!",
-      "enrollmentFailed": "Error al inscribirse. Por favor intenta de nuevo.",
+      "enrollmentFailed": "Error al inscribirse. Por favor intenta de nuevo",
       "enrollmentCancelled": "Inscripción cancelada exitosamente",
       "cancelEnrollmentFailed": "Error al cancelar la inscripción",
       "notEnrolled": "No estás inscrito actualmente en este curso",
       "authenticationFailed": "Falló la autenticación. Por favor inicia sesión de nuevo",
-      "networkError": "Error de red. Por favor verifica tu conexión.",
+      "networkError": "Error de red. Por favor verifica tu conexión",
       "failedToLoadCourses": "Error al cargar los cursos",
       "networkErrorLoadingCourses": "Error de red al cargar los cursos",
       "generatingCatalog": "Generando catálogo de cursos...",
       "catalogDownloaded": "¡Catálogo descargado exitosamente!",
-      "catalogError": "Error al generar el catálogo. Por favor intenta de nuevo."
+      "catalogError": "Error al generar el catálogo. Por favor intenta de nuevo"
     },
     "slogan": "Soluciones de Software y Formación",
-    "introduction": "En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras.",
+    "introduction": "En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras",
     "coursesTitle": "Nuestros Cursos",
     "time": "Horario:",
     "capacity": "Capacidad:",
@@ -1008,7 +993,7 @@
     "filename": "Catalogo_Formacion_Ordinaly.pdf",
     "noSpecificTime": "No hay una hora específica aún",
     "bonificationTitle": "Bonificación y Subvenciones",
-    "bonificationDisclaimer": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar.",
+    "bonificationDisclaimer": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar",
     "pdf": {
       "title": "Catálogo de Formación",
       "subtitle": "Cursos de formación profesional y tecnológica",
@@ -1041,11 +1026,11 @@
       "enrolled": "Inscrito",
       "cancelEnrollment": "Cancelar Inscripción",
       "courseHasStarted": "El curso ha comenzado",
-      "courseStartedMessage": "Este curso ya ha comenzado y ya no acepta nuevas inscripciones.",
+      "courseStartedMessage": "Este curso ya ha comenzado y ya no acepta nuevas inscripciones",
       "signInToEnroll": "Iniciar Sesión para Inscribirse",
       "enrollNow": "Inscribirse Ahora",
       "importantDates": "Fechas Importantes",
-      "excludedDatesMessage": "Este curso tiene {count} fecha(s) excluida(s) (feriados o descansos) que no están incluidas en el horario regular.",
+      "excludedDatesMessage": "Este curso tiene {count} fecha(s) excluida(s) (feriados o descansos) que no están incluidas en el horario regular",
       "moreSessions": "Y {count} sesiones más...",
       "noSpecificDate": "Todavía no hay una fecha establecida",
       "downloadingCalendar": "Descargando...",
@@ -1123,8 +1108,8 @@
     }
   },
   "bonificationTexts": {
-    "summary": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda.",
-    "details": "\n**FUNDAE / SEPE - Formación programada por las empresas:** permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas ([FUNDAE](https://www.fundae.es/empresas)) y Formación para ocupados ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fondos UE - FSE+ 2021-2027:** programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Componente 23):** medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del [Plan de Recuperación](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) y del [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalucía (ámbito autonómico):** Programa FSE+ Andalucía 2021-2027 y Formación Profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte [Junta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) y [FPE](https://www.juntadeandalucia.es/temas/trabajar/formacion/fpe.html).\n\n**Aviso:** La elegibilidad, intensidad y compatibilidad de la financiación varían por normativa y convocatoria vigente. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar."
+    "summary": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda",
+    "details": "\n**FUNDAE / SEPE - Formación programada por las empresas:** permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas ([FUNDAE](https://www.fundae.es/empresas)) y Formación para ocupados ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fondos UE - FSE+ 2021-2027:** programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Componente 23):** medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del [Plan de Recuperación](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) y del [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalucía (ámbito autonómico):** Programa FSE+ Andalucía 2021-2027 y Formación Profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte [Junta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) y [FPE](https://www.juntadeandalucia.es/temas/trabajar/formacion/fpe.html).\n\n**Aviso:** La elegibilidad, intensidad y compatibilidad de la financiación varían por normativa y convocatoria vigente. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar"
   },
   "profile": {
     "title": "Mi Perfil",
