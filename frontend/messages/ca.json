@@ -540,6 +540,7 @@
         "intervalPlaceholder": "per exemple, 2 per cada 2 setmanes",
         "timezoneOptional": "Zona horària",
         "draftMode": "Esborrany",
+        "markdownSupported": "Markdown suportat",
         "periodicity": {
           "once": "Esdeveniment únic",
           "daily": "Cada dia",

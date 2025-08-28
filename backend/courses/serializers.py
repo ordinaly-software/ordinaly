@@ -57,6 +57,8 @@ class CourseSerializer(serializers.ModelSerializer):
                   'next_occurrences', 'weekday_display', 'draft', 'created_at', 'updated_at']
 
     def to_internal_value(self, data):
+        # Make data mutable (QueryDict is immutable)
+        data = data.copy() if hasattr(data, 'copy') else dict(data)
         # Ensure draft is always set to False if not provided or null
         if 'draft' not in data or data.get('draft') is None:
             data['draft'] = False

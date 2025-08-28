@@ -540,6 +540,7 @@
         "intervalPlaceholder": "adib. 2, bi astean behin",
         "timezoneOptional": "Ordu-zona (aukerakoa)",
         "draftMode": "Zirriborro modua",
+        "markdownSupported": "Markdown onartua",
         "periodicity": {
           "once": "Behin bakarrik",
           "daily": "Egunero",

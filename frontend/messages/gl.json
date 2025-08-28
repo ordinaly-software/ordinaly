@@ -540,6 +540,7 @@
         "intervalPlaceholder": "ex. 2 para cada 2 semanas",
         "timezoneOptional": "Zona horaria",
         "draftMode": "Borrador",
+        "markdownSupported": "Markdown soportado",
         "periodicity": {
           "once": "Evento único",
           "daily": "Diario",

@@ -241,7 +241,7 @@ export const AdminServiceEditModal = ({
             value={formData.description}
             onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
             placeholder={t("form.descriptionPlaceholder")}
-            rows={8}
+            rows={10}
             className="border-gray-300 focus:border-purple-500 focus:ring-purple-500/20 rounded-lg transition-all duration-200 resize-none font-mono text-sm"
             required
           />

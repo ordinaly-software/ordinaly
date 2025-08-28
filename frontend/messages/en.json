@@ -540,6 +540,7 @@
         "intervalPlaceholder": "e.g., 2 for every 2 weeks",
         "timezoneOptional": "Timezone",
         "draftMode": "Draft Mode",
+        "markdownSupported": "Markdown supported",
         "periodicity": {
           "once": "One-time event",
           "daily": "Daily",

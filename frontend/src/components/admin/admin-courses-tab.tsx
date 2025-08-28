@@ -48,6 +48,7 @@ export interface Course {
   schedule_description?: string;
   next_occurrences?: string[];
   weekday_display?: string[];
+  draft?: boolean;
 }
 
 interface Enrollment {
@@ -151,31 +152,33 @@ const AdminCoursesTab = () => {
   week_of_month: null,
   interval: 1,
   exclude_dates: [],
-  max_attendants: ""
+  max_attendants: "",
+  draft: false
   });
 
   // useCourses already fetches, no need for useEffect
 
   const resetForm = () => {
   setFormData({
-      title: "",
-      subtitle: "",
-      description: "",
-      image: "",
-      price: "",
-      location: "",
-      start_date: "",
-      end_date: "",
-      start_time: "09:00",
-      end_time: "17:00",
-      periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
-      timezone: "Europe/Madrid",
-      weekdays: [] as number[],
-      week_of_month: null as number | null,
-      interval: 1,
-      exclude_dates: [] as string[],
-      max_attendants: ""
-    });
+    title: "",
+    subtitle: "",
+    description: "",
+    image: "",
+    price: "",
+    location: "",
+    start_date: "",
+    end_date: "",
+    start_time: "09:00",
+    end_time: "17:00",
+    periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
+    timezone: "Europe/Madrid",
+    weekdays: [] as number[],
+    week_of_month: null as number | null,
+    interval: 1,
+    exclude_dates: [] as string[],
+    max_attendants: "",
+    draft: false
+  });
     setSelectedFile(null);
     setPreviewUrl("");
   };
@@ -188,24 +191,25 @@ const AdminCoursesTab = () => {
   const handleEdit = (course: Course) => {
     setCurrentCourse(course);
   setFormData({
-      title: course.title,
-      subtitle: course.subtitle || "",
-      description: course.description,
-      image: course.image || "",
-      price: course.price == null ? "" : String(course.price),
-      location: course.location,
-      start_date: course.start_date == null ? "" : course.start_date,
-      end_date: course.end_date == null ? "" : course.end_date,
-      start_time: course.start_time == null ? "" : course.start_time,
-      end_time: course.end_time == null ? "" : course.end_time,
-      periodicity: course.periodicity || "once",
-      timezone: course.timezone || "Europe/Madrid",
-      weekdays: course.weekdays || [],
-      week_of_month: course.week_of_month == null ? null : course.week_of_month,
-      interval: course.interval == null ? 1 : course.interval,
-      exclude_dates: course.exclude_dates || [],
-      max_attendants: course.max_attendants != null ? String(course.max_attendants) : ""
-    });
+    title: course.title,
+    subtitle: course.subtitle || "",
+    description: course.description,
+    image: course.image || "",
+    price: course.price == null ? "" : String(course.price),
+    location: course.location,
+    start_date: course.start_date == null ? "" : course.start_date,
+    end_date: course.end_date == null ? "" : course.end_date,
+    start_time: course.start_time == null ? "" : course.start_time,
+    end_time: course.end_time == null ? "" : course.end_time,
+    periodicity: course.periodicity || "once",
+    timezone: course.timezone || "Europe/Madrid",
+    weekdays: course.weekdays || [],
+    week_of_month: course.week_of_month == null ? null : course.week_of_month,
+    interval: course.interval == null ? 1 : course.interval,
+    exclude_dates: course.exclude_dates || [],
+    max_attendants: course.max_attendants != null ? String(course.max_attendants) : "",
+    draft: typeof course.draft === 'boolean' ? course.draft : false
+  });
     setPreviewUrl(course.image);
     setSelectedFile(null); // Ensure no file is selected by default when editing
     setShowEditModal(true);
@@ -376,8 +380,8 @@ const AdminCoursesTab = () => {
       }
       formDataToSend.append('interval', formData.interval.toString());
       formDataToSend.append('exclude_dates', JSON.stringify(formData.exclude_dates));
-  formDataToSend.append('max_attendants', String(formData.max_attendants));
-      
+      formDataToSend.append('max_attendants', String(formData.max_attendants));
+      formDataToSend.append('draft', formData.draft ? 'true' : 'false');
       if (selectedFile) {
         formDataToSend.append('image', selectedFile);
       }
