@@ -14,6 +14,8 @@ import secrets
 
 User = get_user_model()
 
+PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
+
 
 class Command(BaseCommand):
     help = 'Populate the database with sample data for testing'
@@ -23,15 +25,14 @@ class Command(BaseCommand):
         parser.add_argument('--seed', type=int, help='Seed for reproducible pseudo-random data')
 
     def handle(self, *args, **options):
+        # Ensure there are mock users for course/enrollment/service population
+        self.create_mock_users()
         if options.get('seed') is not None:
             random.seed(options['seed'])
-
-        if options['clear']:
+        if options.get('clear'):
             self.stdout.write('Clearing existing data...')
             self.clear_data()
-
         self.stdout.write('Creating sample data...')
-
         # Create terms (only if the model exists)
         try:
             admin_user = CustomUser.objects.filter(is_staff=True, is_superuser=True).first()
@@ -42,25 +43,43 @@ class Command(BaseCommand):
                 self.stdout.write('No admin user found, skipping terms creation.')
         except Exception as e:
             self.stdout.write(f'Skipped terms creation: {e}')
-
         # Create courses
         courses = self.create_courses()
         self.stdout.write(f'Created {len(courses)} courses')
-
         # Create enrollments for realistic user engagement
         enrollments = self.create_enrollments(courses)
         self.stdout.write(f'Created {len(enrollments)} enrollments')
-
         # Create services (only if the model exists)
         try:
             services = self.create_services()
             self.stdout.write(f'Created {len(services)} services')
         except Exception as e:
             self.stdout.write(f'Skipped services creation: {e}')
-
         self.stdout.write(
             self.style.SUCCESS('Successfully populated database with sample data!')
         )
+
+    def create_mock_users(self):
+        """Create mock users if none exist (for demo population)"""
+        if CustomUser.objects.filter(is_staff=False).count() == 0:
+            for i in range(10):
+                CustomUser.objects.create_user(
+                    username=f"user{i+1}",
+                    email=f"user{i+1}@example.com",
+                    password=PASSWORD,
+                    name=f"User{i+1}",
+                    surname="Demo",
+                    company="DemoCorp"
+                )
+        if not CustomUser.objects.filter(is_staff=True, is_superuser=True).exists():
+            CustomUser.objects.create_superuser(
+                username="admin_test",
+                email="admin@example.com",
+                password=PASSWORD,
+                name="Admin",
+                surname="User",
+                company="DemoCorp"
+            )
 
     def clear_data(self):
         """Clear existing data and associated media files"""
@@ -103,31 +122,6 @@ class Command(BaseCommand):
         except Exception as e:
             self.stdout.write(f"Error during data cleanup: {e}")
 
-        try:
-            Enrollment.objects.all().delete()
-            self.stdout.write("Deleted all enrollments")
-        except Exception as e:
-            self.stdout.write(f"Error deleting enrollments: {e}")
-
-        try:
-            Course.objects.all().delete()
-            self.stdout.write("Deleted all courses")
-        except Exception as e:
-            self.stdout.write(f"Error deleting courses: {e}")
-
-        try:
-            Service.objects.all().delete()
-            self.stdout.write("Deleted all services")
-        except Exception as e:
-            self.stdout.write(f"Error deleting services: {e}")
-
-        try:
-            # Make sure to delete all terms
-            Terms.objects.all().delete()
-            self.stdout.write("Deleted all terms")
-        except Exception as e:
-            self.stdout.write(f"Error deleting terms: {e}")
-
     def create_terms(self, author):
         terms_dir = os.path.join(settings.BASE_DIR, 'media', 'test_media', 'terms')
         # Create the directory if it doesn't exist
@@ -164,7 +158,6 @@ class Command(BaseCommand):
                     pdf_content=ContentFile(pdf_content, name=f"{tag}.pdf"),
                 )
                 terms.append(term)
-                self.stdout.write(f"Created term: {name}")
             except Exception as e:
                 self.stdout.write(f"Error creating term {tag}: {e}")
 
@@ -205,6 +198,7 @@ class Command(BaseCommand):
                 'periodicity': 'once',
                 'timezone': 'Europe/Madrid',
                 'max_attendants': 25,
+                'draft': False
             },
             {
                 'title': 'Sesión formativa "La Inteligencia Artificial en la inmobiliaria"',
@@ -236,6 +230,7 @@ class Command(BaseCommand):
                 'periodicity': 'once',
                 'timezone': 'Europe/Madrid',
                 'max_attendants': 90,
+                'draft': False
             },
             {
                 'title': 'Curso / Bootcamp "La Inteligencia Artificial en la inmobiliaria"',
@@ -279,6 +274,7 @@ class Command(BaseCommand):
                 'periodicity': 'weekly',
                 'timezone': 'Europe/Madrid',
                 'max_attendants': 90,
+                'draft': False
             },
         ]
         courses = []
@@ -373,6 +369,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                 # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
+                'draft': False
             },
             {
                 'title': 'Automatizaciones a Medida',
@@ -403,6 +400,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                 # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
+                'draft': False
             },
             {
                 'title': 'Accesibilidad Global (WCAG)',
@@ -437,6 +435,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                 # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
+                'draft': False
             },
             {
                 'title': 'Chatbot web',
@@ -462,6 +461,7 @@ Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles
                 # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': False,
+                'draft': True
             },
             {
                      'title': 'Automatización de Redes Sociales',
@@ -488,6 +488,7 @@ Estas automatizaciones te permitirán centrarte en la creación de contenido dej
                      # price field is intentionally left as None for demo
                      'price': None,
                      'is_featured': False,
+                     'draft': False
             },
             {
                      'title': 'Implantación de CRM/ERP con Odoo',
@@ -539,6 +540,7 @@ consultoría inicial hasta el despliegue y personalización completa de Odoo en 
                      ),
                      'price': None,
                      'is_featured': True,
+                     'draft': False
                 },
         ]
 

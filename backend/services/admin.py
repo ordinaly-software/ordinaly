@@ -5,14 +5,14 @@ from .models import Service
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'subtitle', 'duration', 'price', 'is_featured', 'created_by', 'created_at')
-    list_filter = ('is_featured', 'created_at', 'color')
+    list_display = ('title', 'subtitle', 'duration', 'price', 'is_featured', 'draft', 'created_by', 'created_at')
+    list_filter = ('is_featured', 'draft', 'created_at', 'color')
     search_fields = ('title', 'subtitle', 'description')
     readonly_fields = ('created_at', 'updated_at', 'description_preview')
 
     fieldsets = (
         (None, {
-            'fields': ('title', 'subtitle', 'description', 'description_preview', 'icon')
+            'fields': ('title', 'subtitle', 'description', 'description_preview', 'icon', 'draft')
         }),
         ('Styling', {
             'fields': ('color',)

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
+import { useCourses } from "@/hooks/useCourses";
 import type { CourseFormData } from "./admin-course-edit-modal";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -114,8 +115,8 @@ const AdminCoursesTab = () => {
       .filter(day => day !== '') // Remove any invalid indices
       .join(', ');
   };
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // Use admin mode to see drafts
+  const { courses, isLoading, error, refetch } = useCourses({}, true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCourses, setSelectedCourses] = useState<number[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -153,33 +154,7 @@ const AdminCoursesTab = () => {
   max_attendants: ""
   });
 
-  const fetchCourses = useCallback(async () => {
-    try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch(getApiEndpoint(API_ENDPOINTS.courses), {
-        headers: {
-          'Authorization': `Token ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setCourses(Array.isArray(data) ? data : []);
-      } else {
-        setAlert({type: 'error', message: t('messages.fetchError')});
-      }
-    } catch {
-      
-      setAlert({type: 'error', message: t('messages.networkError')});
-    } finally {
-      setIsLoading(false);
-    }
-  }, [t]);
-
-  useEffect(() => {
-    fetchCourses();
-  }, [fetchCourses]);
+  // useCourses already fetches, no need for useEffect
 
   const resetForm = () => {
   setFormData({
@@ -441,7 +416,7 @@ const AdminCoursesTab = () => {
         
         setAlert({type: 'success', message: successMessage});
         
-        fetchCourses();
+  refetch();
         setShowCreateModal(false);
         setShowEditModal(false);
         resetForm();
@@ -463,7 +438,22 @@ const AdminCoursesTab = () => {
         // Bulk delete
         const finishedSelectedCourses = selectedCourses.filter(id => {
           const course = courses.find(c => c.id === id);
-          return course && isCourseFinished(course);
+          if (!course) return false;
+          // Ensure periodicity is typed correctly for isCourseFinished
+          const safeCourse = {
+            ...course,
+            periodicity: ([
+              "once",
+              "daily",
+              "weekly",
+              "biweekly",
+              "monthly",
+              "custom"
+            ].includes(course.periodicity)
+              ? course.periodicity
+              : "once") as Course["periodicity"]
+          };
+          return isCourseFinished(safeCourse);
         });
 
         if (finishedSelectedCourses.length > 0) {
@@ -515,10 +505,9 @@ const AdminCoursesTab = () => {
         }
       }
 
-      fetchCourses();
+      refetch();
       setShowDeleteModal(false);
     } catch {
-      
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);
@@ -580,10 +569,26 @@ const AdminCoursesTab = () => {
   };
 
   const filteredCourses = sortCourses(
-    (courses || []).filter(course =>
-      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.location.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    (courses || [])
+      .map(course => ({
+        ...course,
+        periodicity: (
+          [
+            "once",
+            "daily",
+            "weekly",
+            "biweekly",
+            "monthly",
+            "custom"
+          ].includes(course.periodicity)
+            ? course.periodicity
+            : "once"
+        ) as Course["periodicity"]
+      }))
+      .filter(course =>
+        course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.location.toLowerCase().includes(searchTerm.toLowerCase())
+      )
   );
 
   if (isLoading) {

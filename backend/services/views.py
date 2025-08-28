@@ -12,6 +12,14 @@ class IsAdmin(IsAuthenticated):
 
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all()
+
+    def get_queryset(self):
+        qs = Service.objects.all()
+        user = self.request.user
+        # Only show draft services to admin users
+        if not (user and user.is_authenticated and user.is_staff):
+            qs = qs.filter(draft=False)
+        return qs
     serializer_class = ServiceSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['title', 'subtitle', 'description']

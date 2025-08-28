@@ -18,6 +18,7 @@ export interface Service {
   price?: string | null;
   is_featured: boolean;
   featured?: boolean; // for backward compatibility
+  draft?: boolean;
   created_by?: number;
   created_by_username?: string;
   created_at: string;
@@ -28,33 +29,33 @@ export interface Service {
 const servicesCache = new Map<string, { data: Service[]; timestamp: number }>();
 const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes cache
 
-export const useServices = (limit?: number) => {
+
+export const useServices = (limit?: number, isAdmin: boolean = false) => {
   const [services, setServices] = useState<Service[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isOnVacation, setIsOnVacation] = useState(false);
 
-  // Simplified fetch function
   const fetchServices = useCallback(async () => {
     try {
-      const cacheKey = `services_${limit || 'all'}`;
+      const cacheKey = `services_${limit || 'all'}_${isAdmin}`;
       const cached = servicesCache.get(cacheKey);
-      
       if (cached && (Date.now() - cached.timestamp) < CACHE_DURATION) {
         setServices(cached.data);
         setIsLoading(false);
         return;
       }
-
       setIsLoading(true);
       setError(null);
-
       const apiUrl = getApiEndpoint('/api/services/');
-
+      let headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (isAdmin) {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+        if (token) headers['Authorization'] = `Token ${token}`;
+      }
       const response = await fetch(apiUrl, {
-        headers: { 'Content-Type': 'application/json' },
+        headers,
       });
-
       if (!response.ok) {
         if (response.status >= 500) {
           setIsOnVacation(true);
@@ -63,25 +64,21 @@ export const useServices = (limit?: number) => {
         }
         throw new Error(`API Error: ${response.status}`);
       }
-
       const data = await response.json();
       let servicesData = Array.isArray(data) ? data : [];
-      
-      // Simple sorting: featured first, then by creation date
+      // Filter out draft services for non-admins
+      if (!isAdmin) {
+        servicesData = servicesData.filter((s: Service) => !s.draft);
+      }
       servicesData.sort((a, b) => {
         if (a.is_featured && !b.is_featured) return -1;
         if (!a.is_featured && b.is_featured) return 1;
         return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
       });
-
-      // Apply limit if specified
       if (limit) {
         servicesData = servicesData.slice(0, limit);
       }
-
-      // Cache the result
       servicesCache.set(cacheKey, { data: servicesData, timestamp: Date.now() });
-      
       setServices(servicesData);
       setError(null);
       setIsOnVacation(false);
@@ -97,15 +94,13 @@ export const useServices = (limit?: number) => {
     } finally {
       setIsLoading(false);
     }
-  }, [limit]);
+  }, [limit, isAdmin]);
 
-  // Single effect for initial fetch
   useEffect(() => {
     fetchServices();
   }, [fetchServices]);
 
   const refetch = useCallback(() => {
-    // Clear cache and refetch
     servicesCache.clear();
     fetchServices();
   }, [fetchServices]);

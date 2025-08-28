@@ -19,6 +19,14 @@ class IsAdminUserOrReadOnly(permissions.BasePermission):
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
+
+    def get_queryset(self):
+        qs = Course.objects.all()
+        user = self.request.user
+        # Only show draft courses to admin users
+        if not (user and user.is_authenticated and user.is_staff):
+            qs = qs.filter(draft=False)
+        return qs
     serializer_class = CourseSerializer
     permission_classes = [IsAdminUserOrReadOnly]
 

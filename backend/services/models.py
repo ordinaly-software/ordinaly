@@ -148,6 +148,11 @@ class Service(models.Model):
     ]
 
     title = models.CharField(max_length=100)
+    draft = models.BooleanField(
+        default=False,
+        null=False,
+        help_text="If true, this service is a draft and not visible to non-admin users."
+    )
     subtitle = models.CharField(max_length=200)
     description = models.TextField(
         max_length=2000,
@@ -182,6 +187,12 @@ class Service(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        # Ensure draft is never None
+        if self.draft is None:
+            self.draft = False
+        super().save(*args, **kwargs)
 
     def get_clean_description(self):
         """Return description with Markdown formatting removed for plain text display"""

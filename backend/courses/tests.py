@@ -97,6 +97,24 @@ class CourseImageCleanupTestMixin:
 # Model Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
 class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
+    def test_course_draft_default_false(self):
+        course_data = self.course_data.copy()
+        course_data['draft'] = None
+        course = Course.objects.create(**course_data)
+        self.assertFalse(course.draft)
+
+    def test_course_draft_explicit_true(self):
+        course_data = self.course_data.copy()
+        course_data['draft'] = True
+        course = Course.objects.create(**course_data)
+        self.assertTrue(course.draft)
+
+    def test_course_draft_null_treated_false(self):
+        course_data = self.course_data.copy()
+        course_data['draft'] = None
+        course = Course.objects.create(**course_data)
+        self.assertFalse(course.draft)
+
     def setUp(self):
         self.course_data = {
             'title': 'Test Course',

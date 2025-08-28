@@ -311,7 +311,6 @@ const ServicesPage = () => {
 
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E8F5E8] via-[#E6F7E6] to-[#F3E8FF] dark:from-[#22C55E]/5 dark:via-[#10B981]/5 dark:to-[#9333EA]/5 overflow-hidden">
-        {/* Background Image */}
         <div className="absolute inset-0 opacity-30 dark:opacity-20">
           <video
             className="absolute inset-0 w-full h-full object-cover blur-sm scale-110"
@@ -323,6 +322,7 @@ const ServicesPage = () => {
             <source src="/static/backgrounds/services_background.mp4" type="video/mp4" />
           </video>
         </div>
+        
         {/* Background blur effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/20 via-[#10B981]/20 to-[#9333EA]/20 blur-3xl transform scale-150"></div>
         <div className="relative z-10 max-w-7xl mx-auto text-center">
