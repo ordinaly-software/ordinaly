@@ -447,7 +447,7 @@
         "pricePlaceholder": "Deixeu en blanc per a \"Contacteu per pressupost\"",
         "contactForQuote": "Contacteu per pressupost",
         "featured": "Servei destacat",
-        "cancel": "Cancel·lar",
+        "cancel": "Cancellar",
         "create": "Crea un servei",
         "update": "Actualitza servei",
         "markdownSupported": "Markdown suportat",
@@ -731,7 +731,7 @@
         },
         "pdfVersion": "Versió PDF (opcional)",
         "choosePdf": "Tria PDF",
-        "cancel": "Cancel·la",
+        "cancel": "Cancella",
         "create": "Crea terme",
         "update": "Actualitza terme",
         "noTagsLeft": "No queden més tipus de document",
@@ -797,7 +797,7 @@
         "single": "Estàs segur que vols eliminar \"{name}\"? Aquesta acció no es pot desfer",
         "multiple": "Estàs segur que vols eliminar els {count} termes seleccionats? Aquesta acció no es pot desfer",
         "delete": "Elimina",
-        "cancel": "Cancel·la"
+        "cancel": "Cancella"
       },
       "details": {
         "created": "Creat",
@@ -994,7 +994,7 @@
       "filename": "Cataleg_formacio_Ordinaly.pdf",
       "noSpecificTime": "Encara no hi ha hora específica",
       "bonificationTitle": "Bonificació i Subvencions",
-      "bonificationDisclaimer": "Part de les nostres formacions poden bonificar-se via FUNDAE/SEPE i/o encaixar en convocatòries cofinançades per FSE+ i PRTR-NextGenerationEU, sempre que la seva empresa compleixi requisits i tramiti l'ajuda. Ordinaly facilita la documentació del curs, però no sol·licita ni tramita bonificacions o subvencions en nom del client. Reviseu sempre els enllaços oficials abans de contractar",
+      "bonificationDisclaimer": "Part de les nostres formacions poden bonificar-se via FUNDAE/SEPE i/o encaixar en convocatòries cofinançades per FSE+ i PRTR-NextGenerationEU, sempre que la seva empresa compleixi requisits i tramiti l'ajuda. Ordinaly facilita la documentació del curs, però no sollicita ni tramita bonificacions o subvencions en nom del client. Reviseu sempre els enllaços oficials abans de contractar",
     "pdf": {
       "title": "Catàleg de formació",
       "subtitle": "Cursos de formació professional i tecnològica",
@@ -1121,7 +1121,7 @@
     "form": {
       "firstName": "Nom",
       "firstNamePlaceholder": "Introduïu el vostre nom",
-      "lastName": "Nom",
+      "lastName": "Cognom",
       "lastNamePlaceholder": "Introduïu el vostre cognom",
       "username": "Nom d'usuari",
       "usernamePlaceholder": "Introduïu el vostre nom d'usuari",
@@ -1130,12 +1130,20 @@
       "company": "Companyia",
       "companyPlaceholder": "Introduïu el nom de la vostra empresa",
       "region": "País",
-      "regionPlaceholder": "Introduïu la vostra país (opcional)",
+      "regionPlaceholder": "Introduïu el vostre país (opcional)",
       "city": "Ciutat",
       "cityPlaceholder": "Entra a la teva ciutat (opcional)",
       "saveChanges": "Desa els canvis",
-      "saveChangesLoading": "Desar els canvis ...",
-      "cancel": "Cancella els canvis"
+      "saveChangesLoading": "Desant els canvis ...",
+      "cancel": "Cancella els canvis",
+      "allowNotificationsTitle": "Preferències de correu electrònic",
+      "allowNotificationsDesc": "Rep comunicacions per correu electrònic",
+      "allowNotifications": "Rebre correus electrònics",
+      "allowNotificationsModalTitle": "Confirma les preferències de correu electrònic",
+      "allowNotificationsModalOn": "Esteu segur que voleu habilitar els butlletins i les comunicacions per correu electrònic?",
+      "allowNotificationsModalOff": "Esteu segur que voleu desactivar els butlletins i les comunicacions per correu electrònic?",
+      "allowNotificationsModalConfirm": "Confirma",
+      "allowNotificationsModalCancel": "Cancella"
     },
     "deleteAccount": {
       "title": "Suprimeix el compte",
@@ -1184,7 +1192,7 @@
     "title": "404 - Pàgina No Trobada",
     "heading": "Ups! Pàgina Perduda a l'Espai Digital",
     "message": "La pàgina que busques sembla haver-se perdut en el nostre univers d'automatització empresarial",
-    "description": "No et preocupis, fins i tot a Ordinaly de vegades ens desviem del camí. Però tenim solucions intel·ligents per a tot",
+    "description": "No et preocupis, fins i tot a Ordinaly de vegades ens desviem del camí. Però tenim solucions intelligents per a tot",
     "homeButton": "Tornar a l'Inici",
     "exploreButton": "Explorar Serveis",
     "contactButton": "Contactar Suport",

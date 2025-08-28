@@ -121,6 +121,7 @@ class CustomUserModelTests(TestCase):
             'name': 'Test',
             'surname': 'User',
             'company': 'Test Company'
+            , 'allow_notifications': False
         }
 
     def test_create_user_success(self):
@@ -131,6 +132,7 @@ class CustomUserModelTests(TestCase):
         self.assertEqual(user.name, self.user_data['name'])
         self.assertEqual(user.surname, self.user_data['surname'])
         self.assertEqual(user.company, self.user_data['company'])
+        self.assertFalse(user.allow_notifications)
         self.assertTrue(user.is_active)
         self.assertFalse(user.is_staff)
         self.assertFalse(user.is_superuser)
@@ -220,6 +222,7 @@ class CustomUserModelTests(TestCase):
         user = CustomUser.objects.create_user(**user_data)
         self.assertEqual(user.region, 'Test Region')
         self.assertEqual(user.city, 'Test City')
+        self.assertFalse(user.allow_notifications)
 
 
 class CustomUserSerializerTests(TestCase):
@@ -244,12 +247,14 @@ class CustomUserSerializerTests(TestCase):
             'name': 'Test',
             'surname': 'User',
             'company': 'Test Company'
+            , 'allow_notifications': True
         }
 
     def test_serializer_with_valid_data(self):
         """Test serializer with valid data"""
         serializer = self.serializer_class(data=self.user_data)
         self.assertTrue(serializer.is_valid())
+        self.assertTrue(serializer.validated_data['allow_notifications'])
 
     def test_serializer_with_missing_required_field(self):
         """Test serializer with missing required field"""
@@ -276,6 +281,7 @@ class CustomUserSerializerTests(TestCase):
         self.assertEqual(user.email, self.user_data['email'])
         self.assertEqual(user.username, self.user_data['username'])
         self.assertTrue(user.check_password(self.user_data['password']))
+        self.assertTrue(user.allow_notifications)
 
     def test_serializer_update_method(self):
         """Test serializer update method"""
@@ -283,7 +289,8 @@ class CustomUserSerializerTests(TestCase):
         update_data = {
             'name': 'Updated',
             'surname': 'Name',
-            'password': TEST_PASSWORD+"1a2b"
+            'password': TEST_PASSWORD+"1a2b",
+            'allow_notifications': False
         }
         serializer = self.serializer_class(user, data=update_data, partial=True)
         self.assertTrue(serializer.is_valid())
@@ -291,6 +298,7 @@ class CustomUserSerializerTests(TestCase):
         self.assertEqual(updated_user.name, 'Updated')
         self.assertEqual(updated_user.surname, 'Name')
         self.assertTrue(updated_user.check_password(TEST_PASSWORD+"1a2b"))
+        self.assertFalse(updated_user.allow_notifications)
 
     def test_password_write_only(self):
         """Test that password is write-only"""

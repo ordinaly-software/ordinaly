@@ -14,6 +14,7 @@ const colorClassMap: Record<string, string> = {
   orange: 'bg-orange-600',
   blue: 'bg-blue-600',
   red: 'bg-red-600',
+  purple: 'bg-purple',
 };
 
 const Slider: React.FC<SliderProps> = ({ checked, onChange, className = '', color = 'green' }) => {

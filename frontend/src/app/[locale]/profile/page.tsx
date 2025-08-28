@@ -5,6 +5,8 @@ import { useTranslations } from "next-intl";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Slider from "@/components/ui/slider";
+import { ConfirmationModal } from "@/components/ui/confirmation-modal";
 import Alert from "@/components/ui/alert";
 import DeleteAccountModal from "@/components/ui/delete-account-modal";
 import { User, Mail, Building2, MapPin, Globe, AlertTriangle } from "lucide-react";
@@ -24,6 +26,7 @@ interface UserProfile {
   city: string | null;
   created_at: string;
   updated_at: string;
+  allow_notifications?: boolean;
 }
 
 export default function ProfilePage() {
@@ -49,35 +52,84 @@ export default function ProfilePage() {
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
+  const [allowNotifications, setAllowNotifications] = useState(false);
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
+  const [pendingNotificationValue, setPendingNotificationValue] = useState<boolean | null>(null);
 
   // Track changes to form fields
-  const handleFieldChange = (field: string, value: string) => {
+  const handleFieldChange = (field: string, value: string | boolean) => {
     switch (field) {
       case 'firstName':
-        setFirstName(value);
+        setFirstName(value as string);
         break;
       case 'lastName':
-        setLastName(value);
+        setLastName(value as string);
         break;
       case 'username':
-        setUsername(value);
+        setUsername(value as string);
         break;
       case 'email':
-        setEmail(value);
+        setEmail(value as string);
         break;
       case 'company':
-        setCompany(value);
+        setCompany(value as string);
         break;
       case 'region':
-        setRegion(value);
+        setRegion(value as string);
         break;
       case 'city':
-        setCity(value);
+        setCity(value as string);
         break;
+      case 'allow_notifications':
+        // Show confirmation modal before changing
+        setPendingNotificationValue(!!value);
+        setShowNotificationModal(true);
+        return;
     }
-    
-    // Mark that there are changes
     setHasChanges(true);
+  };
+
+  // Confirm notification toggle and update immediately
+  const handleConfirmNotificationChange = async () => {
+    if (pendingNotificationValue !== null) {
+      setAllowNotifications(pendingNotificationValue);
+      setShowNotificationModal(false);
+      setPendingNotificationValue(null);
+
+      // Immediately update notification preference in backend
+      setIsSaving(true);
+      setAlert(null);
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+        const response = await fetch(`${apiUrl}/api/users/update_profile/`, {
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Token ${authToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ allow_notifications: pendingNotificationValue }),
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setProfile((prev) => prev ? { ...prev, allow_notifications: data.allow_notifications } : prev);
+          setAlert({ type: 'success', message: t("messages.updateSuccess") });
+        } else {
+          setAlert({ type: 'error', message: t("messages.updateError") });
+        }
+      } catch {
+        setAlert({ type: 'error', message: t("messages.networkError") });
+      } finally {
+        setIsSaving(false);
+      }
+    } else {
+      setShowNotificationModal(false);
+      setPendingNotificationValue(null);
+    }
+  };
+
+  const handleCancelNotificationChange = () => {
+    setShowNotificationModal(false);
+    setPendingNotificationValue(null);
   };
 
   // Check if current form values match the original profile data
@@ -90,6 +142,7 @@ export default function ProfilePage() {
     const originalCompany = profile.company || '';
     const originalRegion = profile.region || '';
     const originalCity = profile.city || '';
+    const originalAllowNotifications = profile.allow_notifications ?? false;
     const hasAnyChanges = 
       firstName !== originalFirstName ||
       lastName !== originalLastName ||
@@ -97,9 +150,10 @@ export default function ProfilePage() {
       email !== originalEmail ||
       company !== originalCompany ||
       region !== originalRegion ||
-      city !== originalCity;
+      city !== originalCity ||
+      allowNotifications !== originalAllowNotifications;
     setHasChanges(hasAnyChanges);
-  }, [profile, firstName, lastName, username, email, company, region, city]);
+  }, [profile, firstName, lastName, username, email, company, region, city, allowNotifications]);
 
     const fetchProfile = useCallback(async (token?: string) => {
     const authTokenToUse = token || authToken;
@@ -126,6 +180,7 @@ export default function ProfilePage() {
         setCompany(data.company || "");
         setRegion(data.region || "");
         setCity(data.city || "");
+        setAllowNotifications(!!data.allow_notifications);
       } else if (response.status === 401) {
         // Token is invalid
         window.location.href = "/auth/signin";
@@ -185,6 +240,7 @@ export default function ProfilePage() {
         company: company.trim(),
         region: region.trim() || null,
         city: city.trim() || null,
+        allow_notifications: allowNotifications,
       };
 
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
@@ -209,6 +265,7 @@ export default function ProfilePage() {
         setCompany(data.company || "");
         setRegion(data.region || "");
         setCity(data.city || "");
+        setAllowNotifications(!!data.allow_notifications);
         
         setAlert({ type: 'success', message: t("messages.updateSuccess") });
         setHasChanges(false);
@@ -271,6 +328,7 @@ export default function ProfilePage() {
       setErrors({});
       setAlert(null);
       setHasChanges(false);
+      setAllowNotifications(profile.allow_notifications ?? false);
     }
   };
 
@@ -518,6 +576,7 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
+
                     {/* Action Buttons */}
                     {hasChanges && (
                       <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
@@ -567,6 +626,33 @@ export default function ProfilePage() {
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Notification Toggle Below Danger Zone */}
+              <Card className="bg-white dark:bg-gray-800/50 border-[1.5px] border-[#623cea80] dark:border-[#623CEA]/80">
+                <CardHeader>
+                  <CardTitle className="text-lg font-bold text-[#623CEA] dark:text-[#623CEA] flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" style={{ color: '#623CEA' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    {t("form.allowNotificationsTitle")}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex items-center gap-4 w-full">
+                    <p className="text-sm text-gray-600 dark:text-gray-400 flex-1 min-w-0 break-words">
+                      {t("form.allowNotificationsDesc")}
+                    </p>
+                    <div className="flex-shrink-0">
+                      <Slider
+                        checked={allowNotifications}
+                        onChange={() => handleFieldChange('allow_notifications', !allowNotifications)}
+                        color="purple"
+                        className="[&_.slider-track]:bg-[#623cea33] [&_.slider-thumb]:bg-[#623CEA] [&_.slider-thumb]:border-[#623CEA] [&_.slider-track]:border-[#623CEA] [&_.slider-track]:shadow [&_.slider-thumb]:shadow-lg [&_.slider-thumb]:shadow-[#623CEA40]"
+                      />
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
@@ -579,6 +665,18 @@ export default function ProfilePage() {
         onConfirm={handleDeleteAccount}
         isLoading={isDeleting}
         username={profile?.username || username || ""}
+      />
+
+      {/* Notification Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={showNotificationModal}
+        onClose={handleCancelNotificationChange}
+        onConfirm={handleConfirmNotificationChange}
+        title={t("form.allowNotificationsModalTitle")}
+        message={pendingNotificationValue === true ? t("form.allowNotificationsModalOn") : t("form.allowNotificationsModalOff")}
+        confirmText={t("form.allowNotificationsModalConfirm")}
+        cancelText={t("form.allowNotificationsModalCancel")}
+        isLoading={false}
       />
     </div>
   );

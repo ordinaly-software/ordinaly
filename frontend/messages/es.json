@@ -1135,7 +1135,15 @@
       "cityPlaceholder": "Ingresa tu ciudad (opcional)",
       "saveChanges": "Guardar Cambios",
       "saveChangesLoading": "Guardando Cambios...",
-      "cancel": "Cancelar Cambios"
+      "cancel": "Cancelar Cambios",
+      "allowNotificationsTitle": "Preferencias de email",
+      "allowNotificationsDesc": "Recibe comunicaciones por correo",
+      "allowNotifications": "Recibir boletines y correos electrónicos",
+      "allowNotificationsModalTitle": "Confirmar Preferencias de email",
+      "allowNotificationsModalOn": "¿Estás seguro de que deseas habilitar los boletines y comunicaciones por correo electrónico?",
+      "allowNotificationsModalOff": "¿Estás seguro de que deseas deshabilitar los boletines y comunicaciones por correo electrónico?",
+      "allowNotificationsModalConfirm": "Confirmar",
+      "allowNotificationsModalCancel": "Cancelar"
     },
     "deleteAccount": {
       "title": "Eliminar Cuenta",

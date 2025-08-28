@@ -41,6 +41,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
 
+    # User preference for receiving newsletters and email communications
+    allow_notifications = models.BooleanField(
+        default=False,
+        help_text="User has opted in to receive newsletters and email communications."
+    )
+
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'

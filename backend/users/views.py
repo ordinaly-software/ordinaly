@@ -48,7 +48,11 @@ class UserViewSet(viewsets.ModelViewSet):
             old_password = request.data.get('oldPassword')
             if not user.check_password(old_password):
                 return Response({'oldPassword': 'Wrong password.'}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = self.get_serializer(user, data=request.data, partial=True)
+        # Only allow updating allow_notifications if present
+        update_data = request.data.copy()
+        if 'allow_notifications' in update_data:
+            user.allow_notifications = bool(update_data['allow_notifications'])
+        serializer = self.get_serializer(user, data=update_data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)

@@ -1130,12 +1130,20 @@
       "company": "Empresa",
       "companyPlaceholder": "Introduce o nome da túa empresa",
       "region": "País",
-      "regionPlaceholder": "Introduce a túa país (opcional)",
+      "regionPlaceholder": "Introduce o teu país (opcional)",
       "city": "Cidade",
       "cityPlaceholder": "Introduce a túa cidade (opcional)",
       "saveChanges": "Gardar cambios",
       "saveChangesLoading": "Gardando cambios...",
-      "cancel": "Cancelar cambios"
+      "cancel": "Cancelar cambios",
+      "allowNotificationsTitle": "Preferencias de Email",
+      "allowNotificationsDesc": "Recibe comunicacións por correo electrónico",
+      "allowNotifications": "Recibir boletíns e correos electrónicos",
+      "allowNotificationsModalTitle": "Confirmar preferencias de correo electrónico",
+      "allowNotificationsModalOn": "¿Seguro que queres habilitar os boletíns e comunicacións por correo electrónico?",
+      "allowNotificationsModalOff": "¿Seguro que queres desactivar os boletíns e comunicacións por correo electrónico?",
+      "allowNotificationsModalConfirm": "Confirmar",
+      "allowNotificationsModalCancel": "Cancelar"
     },
     "deleteAccount": {
       "title": "Eliminar Conta",

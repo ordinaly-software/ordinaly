@@ -69,7 +69,8 @@ class Command(BaseCommand):
                     password=PASSWORD,
                     name=f"User{i+1}",
                     surname="Demo",
-                    company="DemoCorp"
+                    company="DemoCorp",
+                    allow_notifications=False
                 )
         if not CustomUser.objects.filter(is_staff=True, is_superuser=True).exists():
             CustomUser.objects.create_superuser(
@@ -78,7 +79,8 @@ class Command(BaseCommand):
                 password=PASSWORD,
                 name="Admin",
                 surname="User",
-                company="DemoCorp"
+                company="DemoCorp",
+                allow_notifications=False
             )
 
     def clear_data(self):

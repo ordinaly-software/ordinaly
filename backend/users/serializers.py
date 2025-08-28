@@ -16,6 +16,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'id', 'username', 'email', 'password', 'name', 'surname',
             'first_name', 'last_name',  # Add alias fields for frontend compatibility
             'region', 'city', 'company', 'is_staff', 'is_superuser',
+            'allow_notifications',
             'created_at', 'updated_at'
         )
         extra_kwargs = {
@@ -25,6 +26,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'company': {'required': True, 'allow_null': False},
             'is_staff': {'read_only': True},
             'is_superuser': {'read_only': True},
+            'allow_notifications': {'required': False},
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True}
         }
