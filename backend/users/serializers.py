@@ -49,7 +49,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             validated_data['name'] = validated_data.pop('first_name')
         if 'last_name' in validated_data:
             validated_data['surname'] = validated_data.pop('last_name')
-            
+
         user = CustomUser.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
@@ -59,6 +59,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             region=validated_data.get('region'),
             city=validated_data.get('city'),
             company=validated_data.get('company'),
+            allow_notifications=validated_data.get('allow_notifications', True)
         )
         return user
 
@@ -68,7 +69,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             validated_data['name'] = validated_data.pop('first_name')
         if 'last_name' in validated_data:
             validated_data['surname'] = validated_data.pop('last_name')
-            
+
         if 'password' in validated_data:
             password = validated_data.pop('password')
             instance.set_password(password)

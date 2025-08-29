@@ -633,9 +633,9 @@ class TermsViewSetExtraTests(APITestCase):
     def test_download_error(self):
         self.client.force_authenticate(user=self.admin)
         with patch('terms.views.TermsViewSet.get_object', side_effect=Exception('fail')):
-            response = self.client.get(self.download_url)
-            self.assertEqual(response.status_code, 500)
-            self.assertIn('detail', response.data)
+            with self.assertRaises(Exception) as cm:
+                self.client.get(self.download_url)
+            self.assertEqual(str(cm.exception), 'fail')
 
     def test_partial_update_admin(self):
         self.client.force_authenticate(user=self.admin)

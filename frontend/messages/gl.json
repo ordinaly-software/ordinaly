@@ -770,7 +770,6 @@
         "createError": "Erro ao crear documento",
         "updateError": "Erro ao actualizar documento",
         "deleteError": "Erro ao eliminar documento",
-        "downloadError": "Erro ao descargar PDF",
         "downloadSuccess": "PDF descargado con éxito",
         "networkError": "Non se puido gardar o documento. Por favor, verifica a túa conexión e intenta de novo.",
         "selectToDelete": "Por favor, selecciona documentos para eliminar",
@@ -840,8 +839,7 @@
       "fetchError": "Erro ao obter documentos legais",
       "networkError": "Erro de rede ao obter documentos",
       "noPdfAvailable": "Non hai versión PDF dispoñible para este documento",
-      "downloadSuccess": "PDF descargado con éxito",
-      "downloadError": "Erro ao descargar PDF"
+      "downloadSuccess": "PDF descargado con éxito"
     }
   },
   "services": {

@@ -770,7 +770,6 @@
         "createError": "Error al crear documento",
         "updateError": "Error al actualizar documento",
         "deleteError": "Error al eliminar documento",
-        "downloadError": "Error al descargar PDF",
         "downloadSuccess": "PDF descargado exitosamente",
         "networkError": "No se pudo guardar el documento. Por favor verifica tu conexión e intenta de nuevo",
         "selectToDelete": "Por favor selecciona documentos para eliminar",
@@ -840,8 +839,7 @@
       "fetchError": "Error al obtener documentos legales",
       "networkError": "Error de red al obtener documentos", 
       "noPdfAvailable": "La versión PDF no está disponible para este documento",
-      "downloadSuccess": "PDF descargado exitosamente",
-      "downloadError": "Error al descargar PDF"
+      "downloadSuccess": "PDF descargado exitosamente"
     }
   },
   "services": {

@@ -782,7 +782,6 @@
         "createError": "Errorea dokumentua sortzean",
         "updateError": "Errorea dokumentua eguneratzean",
         "deleteError": "Errorea dokumentua ezabatzean",
-        "downloadError": "Errorea PDF deskargatzean",
         "downloadSuccess": "PDF behar bezala deskargatu da",
         "networkError": "Ezin izan da dokumentua gorde. Mesedez, egiaztatu zure konexioa eta saiatu berriro.",
         "selectToDelete": "Mesedez, hautatu ezabatu nahi dituzun dokumentuak",
@@ -852,8 +851,7 @@
       "fetchError": "Ezin izan da legezko dokumentuak eskuratzean",
       "networkError": "Sareko errorea dokumentuak eskuratzean",
       "noPdfAvailable": "PDF bertsioa ez dago eskuragarri dokumentu honetarako",
-      "downloadSuccess": "PDF behar bezala deskargatu da",
-      "downloadError": "Ezin izan da pdf deskargatzean"
+      "downloadSuccess": "PDF behar bezala deskargatu da"
     }
   },
   "services": {

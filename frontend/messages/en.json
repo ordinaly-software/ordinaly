@@ -770,7 +770,6 @@
         "createError": "Error creating document",
         "updateError": "Error updating document",
         "deleteError": "Error deleting document",
-        "downloadError": "Error downloading PDF",
         "downloadSuccess": "PDF downloaded successfully",
         "networkError": "Unable to save document. Please check your connection and try again.",
         "selectToDelete": "Please select documents to delete",
@@ -840,9 +839,7 @@
       "fetchError": "Failed to fetch legal documents",
       "networkError": "Network error while fetching documents",
       "noPdfAvailable": "PDF version is not available for this document",
-      "downloadSuccess": "PDF downloaded successfully",
-      "downloadError": "Failed to download PDF"
-    }
+      "downloadSuccess": "PDF downloaded successfully"    }
   },
   "services": {
     "productsAndServicesTitle": "Our products and services",

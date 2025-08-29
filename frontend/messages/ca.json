@@ -770,7 +770,6 @@
         "createError": "Error en crear terme",
         "updateError": "Error en actualitzar terme",
         "deleteError": "Error en eliminar terme",
-        "downloadError": "Error en descarregar PDF",
         "downloadSuccess": "PDF descarregat amb èxit",
         "networkError": "No s'ha pogut desar el document de termes. Si us plau, comprova la teva connexió i torna-ho a intentar",
         "selectToDelete": "Si us plau, selecciona termes per eliminar",
@@ -840,8 +839,7 @@
       "fetchError": "No s'ha pogut obtenir documents legals",
       "networkError": "Error de xarxa mentre es recupera documents",
       "noPdfAvailable": "La versió PDF no està disponible per a aquest document",
-      "downloadSuccess": "PDF es va descarregar amb èxit",
-      "downloadError": "No s'ha pogut descarregar PDF"
+      "downloadSuccess": "PDF es va descarregar amb èxit"
     }
   },
   "services": {
