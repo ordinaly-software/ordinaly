@@ -146,9 +146,8 @@ class TermsViewSet(viewsets.ModelViewSet):
 
             return response
 
-        except Exception as e:
-            logger.error(f"Error downloading PDF for term {pk}: {str(e)}")
+        except Terms.DoesNotExist:
             return Response(
-                {"detail": "An error occurred while downloading the PDF."},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {"detail": "Term not found."},
+                status=status.HTTP_404_NOT_FOUND
             )

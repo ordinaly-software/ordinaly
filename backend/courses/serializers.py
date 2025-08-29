@@ -54,7 +54,15 @@ class CourseSerializer(serializers.ModelSerializer):
                   'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
                   'exclude_dates', 'max_attendants', 'enrolled_count',
                   'duration_hours', 'formatted_schedule', 'schedule_description',
-                  'next_occurrences', 'weekday_display', 'created_at', 'updated_at']
+                  'next_occurrences', 'weekday_display', 'draft', 'created_at', 'updated_at']
+
+    def to_internal_value(self, data):
+        # Make data mutable (QueryDict is immutable)
+        data = data.copy() if hasattr(data, 'copy') else dict(data)
+        # Ensure draft is always set to False if not provided or null
+        if 'draft' not in data or data.get('draft') is None:
+            data['draft'] = False
+        return super().to_internal_value(data)
 
     def get_enrolled_count(self, obj):
         return obj.enrollments.count()

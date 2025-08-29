@@ -97,6 +97,24 @@ class CourseImageCleanupTestMixin:
 # Model Tests
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
 class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
+    def test_course_draft_default_false(self):
+        course_data = self.course_data.copy()
+        course_data['draft'] = None
+        course = Course.objects.create(**course_data)
+        self.assertFalse(course.draft)
+
+    def test_course_draft_explicit_true(self):
+        course_data = self.course_data.copy()
+        course_data['draft'] = True
+        course = Course.objects.create(**course_data)
+        self.assertTrue(course.draft)
+
+    def test_course_draft_null_treated_false(self):
+        course_data = self.course_data.copy()
+        course_data['draft'] = None
+        course = Course.objects.create(**course_data)
+        self.assertFalse(course.draft)
+
     def setUp(self):
         self.course_data = {
             'title': 'Test Course',
@@ -367,7 +385,7 @@ class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
             'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
             'exclude_dates', 'max_attendants', 'enrolled_count',
             'duration_hours', 'formatted_schedule', 'schedule_description',
-            'next_occurrences', 'weekday_display', 'created_at', 'updated_at'
+            'next_occurrences', 'weekday_display', 'created_at', 'updated_at', 'draft',
         ]
         self.assertCountEqual(data.keys(), expected_fields)
 

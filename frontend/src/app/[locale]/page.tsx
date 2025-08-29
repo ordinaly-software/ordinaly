@@ -7,32 +7,13 @@ import { useTranslations } from "next-intl";
 import Image from 'next/image';
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-
-const Navbar = dynamic(() => import("@/components/ui/navbar"), { ssr: false, loading: () => <nav className="h-16 w-full bg-white dark:bg-[#1A1924]" /> });
 import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
+import Link from "next/link";
+import type { Service } from "@/hooks/useServices";
+
 const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.ServiceShowcase), { ssr: false, loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div> });
 const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false, loading: () => null });
-
-
-interface Service {
-  id: number;
-  title: string;
-  subtitle?: string;
-  description: string;
-  icon: string;
-  duration?: number;
-  requisites?: string;
-  price?: string | null;
-  is_featured: boolean;
-  created_by?: number;
-  created_by_username?: string;
-  created_at: string;
-  updated_at: string;
-  clean_description: string;
-  color: string;
-  color_hex: string;
-}
 
 // Use next/dynamic for all heavy/below-the-fold components
 const DemoModal = dynamic(() => import("@/components/home/demo-modal"), { ssr: false, loading: () => null });
@@ -128,8 +109,6 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-  {/* Navigation - now using the Navbar component (dynamically loaded) */}
-  <Navbar />
 
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#23272F] dark:via-[#23272F] dark:to-[#23272F]">
@@ -148,7 +127,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <div className="relative inline-flex items-center justify-center gap-4 group">
                   <Button variant="special" size="lg" asChild>
-                    <a href="#process">
+                    <Link href="/services">
                       {t("hero.discoverButton")}
                       <svg
                         aria-hidden="true"
@@ -167,7 +146,7 @@ export default function HomePage() {
                           className="transition group-hover:translate-x-[3px]"
                         ></path>
                       </svg>
-                    </a>
+                    </Link>
                   </Button>
                 </div>
                 <Button
@@ -203,16 +182,26 @@ export default function HomePage() {
   {/* Demo Modal - Dynamically loaded */}
   <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
 
-      {/* Services Section */}
-      <ServiceShowcase
-        services={services}
-        isLoading={servicesLoading}
-        isOnVacation={isOnVacation}
-        error={servicesError}
-        t={t}
-        refetch={refetch}
-        onServiceClick={handleServiceClick}
-      />
+    {/* Services Section */}
+    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16 scroll-animate fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">{t("services.title")}</h2>
+          <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
+            {t("services.description")}
+          </p>
+        </div>
+        <ServiceShowcase
+          services={services}
+          isLoading={servicesLoading}
+          isOnVacation={isOnVacation}
+          error={servicesError}
+          t={t}
+          refetch={refetch}
+          onServiceClick={handleServiceClick}
+        />
+      </div>
+    </section>
 
       {/* Partners Section */}
   <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-white">

@@ -3,16 +3,18 @@
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import Slider from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Modal } from "@/components/ui/modal";
 import { IconSelect } from "@/components/ui/icon-select";
-import { Plus, Edit } from "lucide-react";
+import { Plus, Edit, Star, FileText } from "lucide-react";
 import { Service } from "@/hooks/useServices";
 import { getApiEndpoint } from "@/lib/api-config";
 import { servicesEvents } from "@/lib/events";
 import Alert from "@/components/ui/alert";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Dropdown } from "@/components/ui/dropdown";
 
 interface AdminServiceEditModalProps {
   isOpen: boolean;
@@ -24,6 +26,7 @@ interface AdminServiceEditModalProps {
 }
 
 const defaultFormData = {
+  type: "SERVICE",
   title: "",
   subtitle: "",
   description: "",
@@ -33,6 +36,7 @@ const defaultFormData = {
   price: "",
   requisites: "",
   is_featured: false,
+  draft: false,
 };
 
 export const AdminServiceEditModal = ({
@@ -47,6 +51,7 @@ export const AdminServiceEditModal = ({
   const [formData, setFormData] = useState(() => {
     if (isEdit && initialService) {
       return {
+        type: initialService.type || "SERVICE",
         title: initialService.title,
         subtitle: initialService.subtitle || "",
         description: initialService.description,
@@ -56,6 +61,7 @@ export const AdminServiceEditModal = ({
         price: initialService.price || "",
         requisites: initialService.requisites || "",
         is_featured: initialService.is_featured,
+        draft: initialService.draft ?? false,
       };
     }
     return { ...defaultFormData };
@@ -66,23 +72,23 @@ export const AdminServiceEditModal = ({
   } | null>(null);
 
   // Reset form when modal opens/closes or initialService changes
-  React.useEffect(() => {
-    if (isOpen) {
-      if (isEdit && initialService) {
-        setFormData({
-          title: initialService.title,
-          subtitle: initialService.subtitle || "",
-          description: initialService.description,
-          icon: initialService.icon,
-          color: initialService.color || "29BF12",
-          duration: initialService.duration?.toString() || "",
-          price: initialService.price || "",
-          requisites: initialService.requisites || "",
-          is_featured: initialService.is_featured,
-        });
-      } else {
-        setFormData({ ...defaultFormData });
-      }
+  useEffect(() => {
+    if (isEdit && initialService) {
+      setFormData({
+        type: initialService.type || "SERVICE",
+        title: initialService.title,
+        subtitle: initialService.subtitle || "",
+        description: initialService.description,
+        icon: initialService.icon,
+        color: initialService.color || "29BF12",
+        duration: initialService.duration?.toString() || "",
+        price: initialService.price || "",
+        requisites: initialService.requisites || "",
+        is_featured: initialService.is_featured,
+        draft: initialService.draft ?? false,
+      });
+    } else {
+      setFormData({ ...defaultFormData });
     }
   }, [isOpen, isEdit, initialService]);
 
@@ -117,6 +123,8 @@ export const AdminServiceEditModal = ({
         ...formData,
         duration: formData.duration ? parseInt(formData.duration) : null,
         price: formData.price ? parseFloat(formData.price) : null,
+        draft: !!formData.draft,
+        type: formData.type,
       };
       const url = isEdit && initialService
         ? getApiEndpoint(`/api/services/${initialService.id}/`)
@@ -183,6 +191,49 @@ export const AdminServiceEditModal = ({
         />
       )}
       <div className="space-y-6 max-h-[80vh] overflow-y-auto pb-40">
+        {/* Toggles */}
+        <div className="flex flex-wrap items-center w-full gap-x-8 gap-y-6 md:gap-x-12 md:gap-y-8">
+          <div className="flex items-center px-4 py-3">
+            <Label htmlFor="type" className="text-sm font-medium cursor-pointer text-purple-600 flex items-center gap-1 min-w-0 mr-2 md:mr-4">
+              <span className="w-4 h-4 rounded-full bg-purple-200 flex items-center justify-center text-purple-600">{formData.type === 'SERVICE' ? 'S' : 'P'}</span>
+              {t("form.type")}
+            </Label>
+            <Dropdown
+              options={[
+          { value: 'SERVICE', label: t('form.service') },
+          { value: 'PRODUCT', label: t('form.product') }
+              ]}
+              value={formData.type}
+              onChange={(val: string) => setFormData(prev => ({ ...prev, type: val as 'SERVICE' | 'PRODUCT' }))}
+              placeholder={t('form.type')}
+              className="min-w-[120px] flex-shrink"
+              theme="default"
+            />
+          </div>
+          <div className="flex items-center px-4 py-3">
+            <Label htmlFor="draft" className="text-sm font-medium cursor-pointer text-orange-600 flex items-center gap-1 min-w-0 mr-2 md:mr-4">
+              <FileText className="w-4 h-4 text-orange-500" />
+              {t("form.draftMode")}
+            </Label>
+            <Slider
+              checked={!!formData.draft}
+              onChange={() => setFormData(prev => ({ ...prev, draft: !prev.draft }))}
+              className="flex-shrink"
+              color="orange"
+            />
+          </div>
+          <div className="flex items-center px-4 py-3">
+            <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer text-green-600 flex items-center gap-1 min-w-0 mr-2 md:mr-4">
+              <Star className="w-4 h-4 text-green-500 fill-green-500" />
+              {t("form.featured")}
+            </Label>
+            <Slider
+              checked={!!formData.is_featured}
+              onChange={() => setFormData(prev => ({ ...prev, is_featured: !prev.is_featured }))}
+              className="flex-shrink"
+            />
+          </div>
+        </div>
         {/* Service Title */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
@@ -192,18 +243,6 @@ export const AdminServiceEditModal = ({
               </div>
               <span>{t("form.title")} *</span>
             </Label>
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="is_featured"
-                checked={formData.is_featured}
-                onChange={e => setFormData(prev => ({ ...prev, is_featured: e.target.checked }))}
-                className="w-4 h-4 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] transition-colors"
-              />
-              <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer">
-                {t("form.featured")}
-              </Label>
-            </div>
           </div>
           <Input
             id="title"
@@ -211,23 +250,6 @@ export const AdminServiceEditModal = ({
             onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
             placeholder={t("form.titlePlaceholder")}
             className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
-            required
-          />
-        </div>
-        {/* Service Subtitle */}
-        <div className="space-y-3">
-          <Label htmlFor="subtitle" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-            <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
-              <span className="text-xs font-bold text-blue">S</span>
-            </div>
-            <span>{t("form.subtitle")} *</span>
-          </Label>
-          <Input
-            id="subtitle"
-            value={formData.subtitle}
-            onChange={e => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
-            placeholder={t("form.subtitlePlaceholder")}
-            className="h-12 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
             required
           />
         </div>
@@ -244,7 +266,7 @@ export const AdminServiceEditModal = ({
             value={formData.description}
             onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
             placeholder={t("form.descriptionPlaceholder")}
-            rows={8}
+            rows={10}
             className="border-gray-300 focus:border-purple-500 focus:ring-purple-500/20 rounded-lg transition-all duration-200 resize-none font-mono text-sm"
             required
           />

@@ -25,6 +25,7 @@ interface Course {
   schedule_description: string;
   next_occurrences: string[];
   weekday_display: string[];
+  draft?: boolean;
   created_at: string;
   updated_at: string;
 }
@@ -42,7 +43,7 @@ interface UseCoursesReturn {
   refetch: () => void;
 }
 
-export const useCourses = (options: UseCoursesOptions = {}): UseCoursesReturn => {
+export const useCourses = (options: UseCoursesOptions = {}, isAdmin: boolean = false): UseCoursesReturn => {
   const [courses, setCourses] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -51,37 +52,33 @@ export const useCourses = (options: UseCoursesOptions = {}): UseCoursesReturn =>
     try {
       setIsLoading(true);
       setError(null);
-
       const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      
-      // Build query parameters
       const queryParams = new URLSearchParams();
       if (options.limit) {
         queryParams.append('limit', options.limit.toString());
       }
-
       const url = `${baseUrl}/api/courses/courses/${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
-      
+      const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+      if (isAdmin) {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+        if (token) headers['Authorization'] = `Token ${token}`;
+      }
       const response = await fetch(url, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers,
       });
-
       if (!response.ok) {
         throw new Error(`Failed to fetch courses: ${response.status} ${response.statusText}`);
       }
-
       let data = await response.json();
-      
       if (data.results) {
         data = data.results;
       }
-
-      // Filter courses based on options
       let filteredCourses = data;
-
+      // Filter out draft courses for non-admins
+      if (!isAdmin) {
+        filteredCourses = filteredCourses.filter((course: Course) => !course.draft);
+      }
       if (options.upcoming) {
         const now = new Date();
         filteredCourses = filteredCourses.filter((course: Course) => {
@@ -89,19 +86,14 @@ export const useCourses = (options: UseCoursesOptions = {}): UseCoursesReturn =>
           return startDate >= now;
         });
       }
-
-      // Sort courses by start date (upcoming first)
       filteredCourses.sort((a: Course, b: Course) => {
         const dateA = new Date(a.start_date);
         const dateB = new Date(b.start_date);
         return dateA.getTime() - dateB.getTime();
       });
-
-      // Apply limit after filtering and sorting
       if (options.limit && options.limit > 0) {
         filteredCourses = filteredCourses.slice(0, options.limit);
       }
-
       setCourses(filteredCourses);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'An error occurred while fetching courses';
@@ -109,7 +101,7 @@ export const useCourses = (options: UseCoursesOptions = {}): UseCoursesReturn =>
     } finally {
       setIsLoading(false);
     }
-  }, [options.limit, options.upcoming]);
+  }, [options.limit, options.upcoming, isAdmin]);
 
   const refetch = useCallback(() => {
     fetchCourses();

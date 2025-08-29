@@ -36,7 +36,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
 
   return (
     <Card
-      className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg"
+      className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg relative"
       style={{
         '--hover-border-color': serviceColor,
         '--hover-shadow-color': `${serviceColor}10`,
@@ -50,9 +50,22 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
         e.currentTarget.style.boxShadow = '';
       }}
     >
+      {/* Draft badge */}
+      {service.draft && (
+        <>
+          {/* Mobile and up to md: top-right */}
+          <span className="absolute top-2 right-2 md:hidden bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded shadow z-10">
+            {tAdmin("labels.draft")}
+          </span>
+          {/* Desktop md and up: bottom-right, next to action buttons */}
+          <span className="hidden md:flex items-center absolute bottom-4 right-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded shadow z-10">
+            {tAdmin("labels.draft")}
+          </span>
+        </>
+      )}
       <CardContent className="p-4">
         {/* Mobile layout */}
-        <div className="block sm:hidden">
+        <div className="block md:hidden">
           <div className="flex flex-row items-start gap-2 mb-2">
             <input
               type="checkbox"
@@ -124,7 +137,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
           </div>
         </div>
         {/* Desktop layout */}
-        <div className="hidden sm:flex items-start space-x-4">
+        <div className="hidden md:flex items-start space-x-4">
           <input
             type="checkbox"
             checked={isSelected}

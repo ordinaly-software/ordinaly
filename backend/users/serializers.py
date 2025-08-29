@@ -16,6 +16,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'id', 'username', 'email', 'password', 'name', 'surname',
             'first_name', 'last_name',  # Add alias fields for frontend compatibility
             'region', 'city', 'company', 'is_staff', 'is_superuser',
+            'allow_notifications',
             'created_at', 'updated_at'
         )
         extra_kwargs = {
@@ -25,6 +26,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'company': {'required': True, 'allow_null': False},
             'is_staff': {'read_only': True},
             'is_superuser': {'read_only': True},
+            'allow_notifications': {'required': False},
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True}
         }
@@ -47,7 +49,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             validated_data['name'] = validated_data.pop('first_name')
         if 'last_name' in validated_data:
             validated_data['surname'] = validated_data.pop('last_name')
-            
+
         user = CustomUser.objects.create_user(
             username=validated_data['username'],
             email=validated_data['email'],
@@ -57,6 +59,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             region=validated_data.get('region'),
             city=validated_data.get('city'),
             company=validated_data.get('company'),
+            allow_notifications=validated_data.get('allow_notifications', True)
         )
         return user
 
@@ -66,7 +69,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             validated_data['name'] = validated_data.pop('first_name')
         if 'last_name' in validated_data:
             validated_data['surname'] = validated_data.pop('last_name')
-            
+
         if 'password' in validated_data:
             password = validated_data.pop('password')
             instance.set_password(password)

@@ -45,6 +45,13 @@ class Course(models.Model):
     ]
 
     title = models.CharField(max_length=100)
+    draft = models.BooleanField(
+        default=False,
+        null=False,
+        help_text=(
+            "If true, this course is a draft and not visible to non-admin users."
+        )
+    )
     subtitle = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(max_length=2000)
     image = models.ImageField(upload_to='course_images/')
@@ -391,6 +398,8 @@ class Course(models.Model):
         return False
 
     def save(self, *args, **kwargs):
+        if self.draft is None:
+            self.draft = False
         # Handle image replacement on update
         if self.pk:  # This is an update
             try:

@@ -6,7 +6,7 @@
     },
     "navigation": {
       "home": "Meet us!",
-      "services": "Services",
+      "services": "Services and Products",
       "formation": "Formation",
       "start": "Get Started",
       "darkMode": "Switch to dark mode",
@@ -36,9 +36,9 @@
       "message": "Hello,\n\nI'm interested in the service \"{service}\".\n\nCould you please provide me with more information?\n\nThank you."
     },
     "services": {
-      "title": "OUR SERVICES",
+      "title": "Products and Services",
+      "description": "Discover our personalized services and exclusive, closed products. Choose what fits your business: from tailored consulting to ready-to-use solutions.",
       "retryButton": "Retry",
-      "description": "Automation solutions designed to boost and accelerate your business.",
       "contactForQuote": "Contact our agents for a detailed quote",
       "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
       "vacationTitle": "On Vacation",
@@ -367,30 +367,6 @@
       "googleSignUpError": "Google sign-up failed. Please try again."
     }
   },
-  "completeProfile": {
-    "title": "Complete Your Profile",
-    "subtitle": "Just a few more details to get you started",
-    "welcome": "Welcome, {name}!",
-    "form": {
-      "title": "Company Information",
-      "companyLabel": "Company",
-      "companyPlaceholder": "Enter your company name",
-      "regionLabel": "Country",
-      "regionPlaceholder": "Enter your country",
-      "cityLabel": "City",
-      "cityPlaceholder": "Enter your city",
-      "optional": "optional",
-      "submitButton": "Complete Profile",
-      "submitButtonLoading": "Completing Profile..."
-    },
-    "validation": {
-      "companyRequired": "Company name is required"
-    },
-    "messages": {
-      "success": "Profile completed successfully! Redirecting...",
-      "networkError": "Network error. Please check your connection and try again."
-    }
-  },
   "admin": {
     "title": "Admin Dashboard",
     "subtitle": "Manage your application content and settings",
@@ -406,7 +382,8 @@
       "location": "Location",
       "date": "Date",
       "schedule": "Schedule",
-      "maxAttendants": "Max Attendants"
+      "maxAttendants": "Max Attendants",
+      "draft": "Draft"
     },
     "tabs": {
       "overview": "Overview",
@@ -457,6 +434,9 @@
         "icon": "Icon",
         "iconPlaceholder": "Choose a Lucide React icon",
         "color": "Service Color *",
+        "type": "Type",
+        "service": "Service",
+        "product": "Product",
         "colors": {
           "darkPurple": "Neutral",
           "purple": "Dark purple",
@@ -475,7 +455,8 @@
         "update": "Update Service",
         "markdownSupported": "Markdown supported",
         "requisites": "Requisites",
-        "requisitesPlaceholder": "Enter any requirements or prerequisites"
+        "requisitesPlaceholder": "Enter any requirements or prerequisites",
+        "draftMode": "Draft Mode"
       },
       "messages": {
         "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
@@ -522,13 +503,8 @@
       "selectAll": "Select All",
       "courses": "courses",
       "noCourses": "No courses available.",
-      "noPastCourses": "No past courses available.",
-      "pastCourses": "Past Courses",
-      "viewPastCourses": "View Past Courses",
-      "hidePastCourses": "Hide Past Courses",
-      "upcomingCourses": "Upcoming Courses",
-      "finished": "Finished",
       "noCoursesFound": "No courses found matching your search.",
+      "noPastCourses": "No past courses available",
       "contactForQuote": "Free",
       "edit": "Edit",
       "delete": "Delete",
@@ -553,8 +529,8 @@
         "pricePlaceholder": "Leave empty for 'Contact for quote'",
         "location": "Location",
         "locationPlaceholder": "Enter the course location or 'Online'",
-  "locationRequired": "Location *",
-  "locationOptional": "Location (Optional)",
+        "locationRequired": "Location *",
+        "locationOptional": "Location (Optional)",
         "scheduleSettings": "Professional Schedule Settings",
         "startDateRequired": "Start Date *",
         "endDateRequired": "End Date *",
@@ -566,6 +542,8 @@
         "intervalOptional": "Interval",
         "intervalPlaceholder": "e.g., 2 for every 2 weeks",
         "timezoneOptional": "Timezone",
+        "draftMode": "Draft Mode",
+        "markdownSupported": "Markdown supported",
         "periodicity": {
           "once": "One-time event",
           "daily": "Daily",
@@ -630,8 +608,7 @@
         "deleteError": "Failed to delete course",
         "networkError": "Unable to save course. Please check your connection and try again.",
         "selectToDelete": "Please select courses to delete",
-  "fileSizeLimit": "File size must be less than 5MB",
-  "imageSizeLimit1MB": "Course image must be 1MB or less.",
+        "imageSizeLimit1MB": "Course image must be 1MB or less.",
         "imageFileOnly": "Please select an image file",
         "validation": {
           "titleRequired": "Course title is required and must be 100 characters or less.",
@@ -704,7 +681,12 @@
         "enrollments": "Enrollments",
         "capacity": "Capacity",
         "created": "Created"
-      }
+      },
+      "pastCourses": "Past Courses",
+      "viewPastCourses": "View Past Courses",
+      "hidePastCourses": "Hide Past Courses",
+      "upcomingCourses": "Upcoming Courses",
+      "finished": "Finished"
     },
     "terms": {
       "title": "Terms Management",
@@ -788,7 +770,6 @@
         "createError": "Error creating document",
         "updateError": "Error updating document",
         "deleteError": "Error deleting document",
-        "downloadError": "Error downloading PDF",
         "downloadSuccess": "PDF downloaded successfully",
         "networkError": "Unable to save document. Please check your connection and try again.",
         "selectToDelete": "Please select documents to delete",
@@ -858,14 +839,14 @@
       "fetchError": "Failed to fetch legal documents",
       "networkError": "Network error while fetching documents",
       "noPdfAvailable": "PDF version is not available for this document",
-      "downloadSuccess": "PDF downloaded successfully",
-      "downloadError": "Failed to download PDF"
-    }
+      "downloadSuccess": "PDF downloaded successfully"    }
   },
   "services": {
-    "title": "Our Services",
-    "subtitle": "Comprehensive solutions designed to transform your business and drive digital innovation",
-    "searchPlaceholder": "Search services...",
+    "productsAndServicesTitle": "Our products and services",
+    "productsAndServicesDescription": "Discover our personalized services and exclusive, closed products. Choose what fits your business: from tailored consulting to ready-to-use solutions.",
+    "productsSectionTitle": "Closed Products",
+    "servicesSectionTitle": "Personalized Services",
+    "searchPlaceholder": "Search services and products...",
     "featured": "Featured",
     "details": "Details",
     "duration": "Duration",
@@ -878,7 +859,8 @@
     "filters": {
       "all": "All Services",
       "featured": "Featured Only",
-      "standard": "Standard Services"
+      "service": "Services",
+      "product": "Products"
     },
     "noResults": {
       "title": "No Services Found",
@@ -1097,6 +1079,20 @@
           "full": "Sunday"
         }
       },
+      "months": {
+        "january": "enero",
+        "february": "febrero",
+        "march": "marzo",
+        "april": "abril",
+        "may": "mayo",
+        "june": "junio",
+        "july": "julio",
+        "august": "agosto",
+        "september": "septiembre",
+        "october": "octubre",
+        "november": "noviembre",
+        "december": "diciembre"
+      },
       "fullScheduleText": {
         "once": "{date} from {startTime} to {endTime}",
         "daily": "Daily from {startDate} to {endDate}, {startTime} - {endTime}",
@@ -1142,7 +1138,15 @@
       "cityPlaceholder": "Enter your city (optional)",
       "saveChanges": "Save Changes",
       "saveChangesLoading": "Saving Changes...",
-      "cancel": "Cancel Changes"
+      "cancel": "Cancel Changes",
+      "allowNotificationsTitle": "Email & Newsletter Preferences",
+      "allowNotificationsDesc": "Receive newsletters and email communications",
+      "allowNotifications": "Receive newsletters and emails",
+      "allowNotificationsModalTitle": "Confirm Email Preferences",
+      "allowNotificationsModalOn": "Are you sure you want to enable newsletters and email communications?",
+      "allowNotificationsModalOff": "Are you sure you want to disable newsletters and email communications?",
+      "allowNotificationsModalConfirm": "Confirm",
+      "allowNotificationsModalCancel": "Cancel"
     },
     "deleteAccount": {
       "title": "Delete Account",

@@ -70,7 +70,7 @@ const AdminServicesTab = () => {
   };
   const t = useTranslations("admin.services");
   const tAdmin = useTranslations("admin");
-  const { services, isLoading, refetch } = useServices();
+  const { services, isLoading, refetch } = useServices(undefined, true);
 
   // Color choices matching backend
   const COLOR_CHOICES = [

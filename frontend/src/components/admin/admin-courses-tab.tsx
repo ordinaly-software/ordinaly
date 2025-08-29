@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
+import { useCourses } from "@/hooks/useCourses";
 import type { CourseFormData } from "./admin-course-edit-modal";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -47,6 +48,7 @@ export interface Course {
   schedule_description?: string;
   next_occurrences?: string[];
   weekday_display?: string[];
+  draft?: boolean;
 }
 
 interface Enrollment {
@@ -114,8 +116,8 @@ const AdminCoursesTab = () => {
       .filter(day => day !== '') // Remove any invalid indices
       .join(', ');
   };
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // Use admin mode to see drafts
+  const { courses, isLoading, refetch } = useCourses({}, true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCourses, setSelectedCourses] = useState<number[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -150,57 +152,31 @@ const AdminCoursesTab = () => {
   week_of_month: null,
   interval: 1,
   exclude_dates: [],
-  max_attendants: ""
+  max_attendants: "",
+  draft: false
   });
-
-  const fetchCourses = useCallback(async () => {
-    try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch(getApiEndpoint(API_ENDPOINTS.courses), {
-        headers: {
-          'Authorization': `Token ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setCourses(Array.isArray(data) ? data : []);
-      } else {
-        setAlert({type: 'error', message: t('messages.fetchError')});
-      }
-    } catch {
-      
-      setAlert({type: 'error', message: t('messages.networkError')});
-    } finally {
-      setIsLoading(false);
-    }
-  }, [t]);
-
-  useEffect(() => {
-    fetchCourses();
-  }, [fetchCourses]);
 
   const resetForm = () => {
   setFormData({
-      title: "",
-      subtitle: "",
-      description: "",
-      image: "",
-      price: "",
-      location: "",
-      start_date: "",
-      end_date: "",
-      start_time: "09:00",
-      end_time: "17:00",
-      periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
-      timezone: "Europe/Madrid",
-      weekdays: [] as number[],
-      week_of_month: null as number | null,
-      interval: 1,
-      exclude_dates: [] as string[],
-      max_attendants: ""
-    });
+    title: "",
+    subtitle: "",
+    description: "",
+    image: "",
+    price: "",
+    location: "",
+    start_date: "",
+    end_date: "",
+    start_time: "09:00",
+    end_time: "17:00",
+    periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
+    timezone: "Europe/Madrid",
+    weekdays: [] as number[],
+    week_of_month: null as number | null,
+    interval: 1,
+    exclude_dates: [] as string[],
+    max_attendants: "",
+    draft: false
+  });
     setSelectedFile(null);
     setPreviewUrl("");
   };
@@ -213,24 +189,25 @@ const AdminCoursesTab = () => {
   const handleEdit = (course: Course) => {
     setCurrentCourse(course);
   setFormData({
-      title: course.title,
-      subtitle: course.subtitle || "",
-      description: course.description,
-      image: course.image || "",
-      price: course.price == null ? "" : String(course.price),
-      location: course.location,
-      start_date: course.start_date == null ? "" : course.start_date,
-      end_date: course.end_date == null ? "" : course.end_date,
-      start_time: course.start_time == null ? "" : course.start_time,
-      end_time: course.end_time == null ? "" : course.end_time,
-      periodicity: course.periodicity || "once",
-      timezone: course.timezone || "Europe/Madrid",
-      weekdays: course.weekdays || [],
-      week_of_month: course.week_of_month == null ? null : course.week_of_month,
-      interval: course.interval == null ? 1 : course.interval,
-      exclude_dates: course.exclude_dates || [],
-      max_attendants: course.max_attendants != null ? String(course.max_attendants) : ""
-    });
+    title: course.title,
+    subtitle: course.subtitle || "",
+    description: course.description,
+    image: course.image || "",
+    price: course.price == null ? "" : String(course.price),
+    location: course.location,
+    start_date: course.start_date == null ? "" : course.start_date,
+    end_date: course.end_date == null ? "" : course.end_date,
+    start_time: course.start_time == null ? "" : course.start_time,
+    end_time: course.end_time == null ? "" : course.end_time,
+    periodicity: course.periodicity || "once",
+    timezone: course.timezone || "Europe/Madrid",
+    weekdays: course.weekdays || [],
+    week_of_month: course.week_of_month == null ? null : course.week_of_month,
+    interval: course.interval == null ? 1 : course.interval,
+    exclude_dates: course.exclude_dates || [],
+    max_attendants: course.max_attendants != null ? String(course.max_attendants) : "",
+    draft: typeof course.draft === 'boolean' ? course.draft : false
+  });
     setPreviewUrl(course.image);
     setSelectedFile(null); // Ensure no file is selected by default when editing
     setShowEditModal(true);
@@ -401,8 +378,8 @@ const AdminCoursesTab = () => {
       }
       formDataToSend.append('interval', formData.interval.toString());
       formDataToSend.append('exclude_dates', JSON.stringify(formData.exclude_dates));
-  formDataToSend.append('max_attendants', String(formData.max_attendants));
-      
+      formDataToSend.append('max_attendants', String(formData.max_attendants));
+      formDataToSend.append('draft', formData.draft ? 'true' : 'false');
       if (selectedFile) {
         formDataToSend.append('image', selectedFile);
       }
@@ -441,7 +418,7 @@ const AdminCoursesTab = () => {
         
         setAlert({type: 'success', message: successMessage});
         
-        fetchCourses();
+  refetch();
         setShowCreateModal(false);
         setShowEditModal(false);
         resetForm();
@@ -463,7 +440,22 @@ const AdminCoursesTab = () => {
         // Bulk delete
         const finishedSelectedCourses = selectedCourses.filter(id => {
           const course = courses.find(c => c.id === id);
-          return course && isCourseFinished(course);
+          if (!course) return false;
+          // Ensure periodicity is typed correctly for isCourseFinished
+          const safeCourse = {
+            ...course,
+            periodicity: ([
+              "once",
+              "daily",
+              "weekly",
+              "biweekly",
+              "monthly",
+              "custom"
+            ].includes(course.periodicity)
+              ? course.periodicity
+              : "once") as Course["periodicity"]
+          };
+          return isCourseFinished(safeCourse);
         });
 
         if (finishedSelectedCourses.length > 0) {
@@ -515,10 +507,9 @@ const AdminCoursesTab = () => {
         }
       }
 
-      fetchCourses();
+      refetch();
       setShowDeleteModal(false);
     } catch {
-      
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);
@@ -580,10 +571,26 @@ const AdminCoursesTab = () => {
   };
 
   const filteredCourses = sortCourses(
-    (courses || []).filter(course =>
-      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.location.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    (courses || [])
+      .map(course => ({
+        ...course,
+        periodicity: (
+          [
+            "once",
+            "daily",
+            "weekly",
+            "biweekly",
+            "monthly",
+            "custom"
+          ].includes(course.periodicity)
+            ? course.periodicity
+            : "once"
+        ) as Course["periodicity"]
+      }))
+      .filter(course =>
+        course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.location.toLowerCase().includes(searchTerm.toLowerCase())
+      )
   );
 
   if (isLoading) {

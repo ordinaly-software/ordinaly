@@ -22,7 +22,6 @@ import {
 import { Dropdown } from "@/components/ui/dropdown";
 
 // Dynamic imports for components that might not be immediately needed
-const Navbar = dynamic(() => import("@/components/ui/navbar"), { ssr: false });
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
 const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => ({ default: mod.ServiceDetailsModal })), { ssr: false });
 
@@ -31,7 +30,8 @@ const ServicesPage = () => {
   const { services, isLoading } = useServices();
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
-  const [filterFeatured, setFilterFeatured] = useState<'all' | 'featured' | 'standard'>('all');
+  // Add filter for type: all, product, service, featured
+  const [filterType, setFilterType] = useState<'all' | 'featured' | 'service' | 'product'>('all');
   const [showServiceModal, setShowServiceModal] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
@@ -46,10 +46,9 @@ const ServicesPage = () => {
   }, [searchTerm]);
 
   // Memoized filtered services
+  // Filter and separate products/services
   const filteredServices = useMemo(() => {
     let filtered = services;
-
-    // Filter by search term
     if (debouncedSearchTerm.trim()) {
       const searchLower = debouncedSearchTerm.toLowerCase();
       filtered = filtered.filter(service =>
@@ -57,22 +56,31 @@ const ServicesPage = () => {
         service.description.toLowerCase().includes(searchLower)
       );
     }
-
-    // Filter by featured status
-    if (filterFeatured === 'featured') {
+    if (filterType === 'featured') {
       filtered = filtered.filter(service => service.is_featured);
-    } else if (filterFeatured === 'standard') {
-      filtered = filtered.filter(service => !service.is_featured);
+    } else if (filterType === 'service') {
+      filtered = filtered.filter(service => service.type === 'SERVICE');
+    } else if (filterType === 'product') {
+      filtered = filtered.filter(service => service.type === 'PRODUCT');
     }
-
     return filtered;
-  }, [services, debouncedSearchTerm, filterFeatured]);
+  }, [services, debouncedSearchTerm, filterType]);
+
+  // Separate into products and services for display
+  const separated = useMemo(() => {
+    return {
+      services: filteredServices.filter(s => s.type === 'SERVICE'),
+      products: filteredServices.filter(s => s.type === 'PRODUCT'),
+    };
+  }, [filteredServices]);
 
   // Memoized filter options
+  // New filter options for type
   const filterOptions = useMemo(() => [
     { value: 'all' as const, label: t("filters.all") },
     { value: 'featured' as const, label: t("filters.featured") },
-    { value: 'standard' as const, label: t("filters.standard") }
+    { value: 'service' as const, label: t("filters.service") },
+    { value: 'product' as const, label: t("filters.product") },
   ], [t]);
 
   const handleMoreInfo = useCallback((service: Service) => {
@@ -90,14 +98,16 @@ const ServicesPage = () => {
     window.open(whatsappUrl, '_blank');
   }, []);
 
-  const getFilterLabel = useCallback((value: 'all' | 'featured' | 'standard') => {
+  const getFilterLabel = useCallback((value: 'all' | 'featured' | 'service' | 'product') => {
     switch (value) {
       case 'all':
         return t("filters.all");
       case 'featured':
         return t("filters.featured");
-      case 'standard':
-        return t("filters.standard");
+      case 'service':
+        return t("filters.service");
+      case 'product':
+        return t("filters.product");
       default:
         return t("filters.all");
     }
@@ -291,7 +301,6 @@ const ServicesPage = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D]"></div>
         </div>
@@ -311,12 +320,8 @@ const ServicesPage = () => {
         />
       )}
 
-      {/* Navigation */}
-      <Navbar />
-
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E8F5E8] via-[#E6F7E6] to-[#F3E8FF] dark:from-[#22C55E]/5 dark:via-[#10B981]/5 dark:to-[#9333EA]/5 overflow-hidden">
-        {/* Background Image */}
+  <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E8F5E8] via-[#E6F7E6] to-[#F3E8FF] dark:from-[#22C55E]/5 dark:via-[#10B981]/5 dark:to-[#9333EA]/5 overflow-hidden">
         <div className="absolute inset-0 opacity-30 dark:opacity-20">
           <video
             className="absolute inset-0 w-full h-full object-cover blur-sm scale-110"
@@ -328,15 +333,16 @@ const ServicesPage = () => {
             <source src="/static/backgrounds/services_background.mp4" type="video/mp4" />
           </video>
         </div>
+        
         {/* Background blur effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/20 via-[#10B981]/20 to-[#9333EA]/20 blur-3xl transform scale-150"></div>
         <div className="relative z-10 max-w-7xl mx-auto text-center">
           <div className="mb-8">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-black to-[#22C55E] dark:from-white dark:to-[#22C55E] bg-clip-text text-transparent">
-              {t("title")}
+              {t("productsAndServicesTitle")}
             </h1>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              {t("subtitle")}
+              {t("productsAndServicesDescription")}
             </p>
           </div>
 
@@ -358,11 +364,11 @@ const ServicesPage = () => {
               <div className="relative z-50">
                 <Dropdown
                   options={filterOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-                  value={filterFeatured}
-                  onChange={(value) => setFilterFeatured(value as 'all' | 'featured' | 'standard')}
+                  value={filterType}
+                  onChange={(value) => setFilterType(value as 'all' | 'featured' | 'service' | 'product')}
                   icon={Filter}
                   minWidth="250px"
-                  placeholder={getFilterLabel(filterFeatured)}
+                  placeholder={getFilterLabel(filterType)}
                 />
               </div>
             </div>
@@ -386,11 +392,34 @@ const ServicesPage = () => {
               </p>
             </div>
           ) : (
-            <div className="grid lg:grid-cols-2 gap-8">
-              {filteredServices.map((service) => (
-                <ServiceCard key={service.id} service={service} />
-              ))}
-            </div>
+            <>
+              {/* Products Section */}
+              {separated.products.length > 0 && (
+                <div className="mb-12">
+                  <h2 className="text-3xl font-bold mb-6 text-[#623CEA] dark:text-[#8B5FF7]">
+                    {t("productsSectionTitle")}
+                  </h2>
+                  <div className="grid lg:grid-cols-2 gap-8">
+                    {separated.products.map((service) => (
+                      <ServiceCard key={service.id} service={service} />
+                    ))}
+                  </div>
+                </div>
+              )}
+              {/* Services Section */}
+              {separated.services.length > 0 && (
+                <div>
+                  <h2 className="text-3xl font-bold mb-6 text-[#22A60D] dark:text-[#22C55E]">
+                    {t("servicesSectionTitle")}
+                  </h2>
+                  <div className="grid lg:grid-cols-2 gap-8">
+                    {separated.services.map((service) => (
+                      <ServiceCard key={service.id} service={service} />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
