@@ -955,11 +955,11 @@
       "emailBody": "Kaixo, zure eraketa profesionalen programei buruz gehiago ikasteko interesa dut. "
     },
     "enrollment": {
-      "title": "Ikastaroen matrikula",
+      "title": "Ikastaroaren matrikula",
       "confirm": "Berretsi matrikula",
       "courseDetails": "Ikastaroaren xehetasunak",
       "confirmMessage": "Ziur zaude ikastaro honetan izena eman nahi duzula?",
-      "paymentNote": "Ordainketa prozesamendua hurrengo urratsean kudeatuko da.",
+      "paymentNote": "Ordainketa prozesua hurrengo urratsean kudeatuko da.",
       "confirmEnroll": "Berretsi matrikula",
       "name": "Izen osoa",
       "namePlaceholder": "Idatzi zure izen osoa",
@@ -967,14 +967,16 @@
       "emailPlaceholder": "Idatzi zure helbide elektronikoa",
       "phone": "Telefono zenbakia",
       "phonePlaceholder": "Idatzi zure telefono zenbakia",
-      "company": "Lagundi",
+      "company": "Enpresa",
       "companyPlaceholder": "Idatzi zure enpresaren izena",
       "experience": "Esperientzia garrantzitsua",
-      "experiencePlaceholder": "Esan iezaguzu zure esperientzia edo atzeko plano garrantzitsuaz ...",
+      "experiencePlaceholder": "Kontatu zure esperientzia edo atzeko plano garrantzitsuaz ...",
       "motivation": "Zergatik nahi duzu ikastaro hau egin?",
       "motivationPlaceholder": "Partekatu zure motibazioa eta zer espero duzun ...",
       "cancel": "Indargabetu",
-      "submit": "Izena eman ikastaroan"
+      "submit": "Izena eman ikastaroan",
+      "successMessage": "Izen-ematea arrakastaz burutu da!",
+      "enrolled": "Dagoeneko matrikulatuta zaude ikastaro honetan."
     },
     "cancellation": {
       "title": "Utzi matrikula",

@@ -184,7 +184,8 @@ const FormationPage = () => {
         setAlert({type: 'success', message: t('alerts.enrollmentSuccess', { courseTitle: selectedCourse.title })});
         setShowEnrollModal(false);
         setSelectedCourse(null);
-        fetchEnrollments(); // Refresh enrollments
+        fetchEnrollments();
+        fetchCourses();
       } else {
         await response.json(); // Consume response to prevent memory leaks
         setAlert({type: 'error', message: t('alerts.enrollmentFailed')});
@@ -222,7 +223,8 @@ const FormationPage = () => {
         setAlert({type: 'success', message: t('alerts.enrollmentCancelled')});
         setShowCancelModal(false);
         setCourseToCancel(null);
-        fetchEnrollments(); // Refresh enrollments
+        fetchEnrollments();
+        fetchCourses();
       } else {
         await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
         if (response.status === 400) {
@@ -543,9 +545,10 @@ const FormationPage = () => {
         onClose={() => {
           setShowEnrollModal(false);
           setSelectedCourse(null);
+          fetchEnrollments();
+          fetchCourses();
         }}
         selectedCourse={selectedCourse}
-        onConfirm={handleEnrollmentConfirm}
       />
 
       {/* Enrollment Cancellation Modal */}
@@ -554,6 +557,8 @@ const FormationPage = () => {
         onClose={() => {
           setShowCancelModal(false);
           setCourseToCancel(null);
+          fetchEnrollments();
+          fetchCourses();
         }}
         courseToCancel={courseToCancel}
         onConfirm={handleCancelEnrollmentConfirm}

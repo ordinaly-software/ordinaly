@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { CalendarDays, MapPin, Euro, UserX } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
+import { useCourseRefund } from "@/hooks/useCourseRefund";
 
 interface Course {
   id: number;
@@ -43,9 +44,16 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
   isOpen,
   onClose,
   courseToCancel,
-  onConfirm,
 }) => {
   const t = useTranslations("formation");
+  const { requestRefund, loading } = useCourseRefund();
+
+  const handleRefund = () => {
+    if (courseToCancel) {
+      requestRefund(courseToCancel.id);
+      onClose();
+    }
+  };
 
   return (
     <Modal
@@ -140,13 +148,14 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
               {t("cancellation.keepEnrollment")}
             </Button>
             <Button
-              onClick={onConfirm}
+              onClick={handleRefund}
               variant="destructive"
               className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-6 h-10 flex items-center gap-2"
               style={{ borderRadius: '1rem' }}
+              disabled={loading}
             >
               <UserX className="w-4 h-4" />
-              {t("cancellation.confirmCancel")}
+              {loading ? t("cancellation.processing") : t("cancellation.confirmCancel")}
             </Button>
           </div>
         </div>

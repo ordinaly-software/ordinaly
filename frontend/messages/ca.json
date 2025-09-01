@@ -961,7 +961,9 @@
       "motivation": "Per què voleu fer aquest curs?",
       "motivationPlaceholder": "Comparteix la teva motivació i el que esperes aconseguir ...",
       "cancel": "Cancellar",
-      "submit": "Inscriviu -vos al curs"
+      "submit": "Inscriviu -vos al curs",
+      "successMessage": "Inscripció realitzada amb èxit!",
+      "enrolled": "Ja esteu inscrits en aquest curs"
     },
     "cancellation": {
       "title": "Cancella la matrícula",

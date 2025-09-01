@@ -960,7 +960,9 @@
       "motivation": "Why do you want to take this course?",
       "motivationPlaceholder": "Share your motivation and what you hope to achieve...",
       "cancel": "Cancel",
-      "submit": "Enroll in Course"
+      "submit": "Enroll in Course",
+      "successMessage": "Enrollment successful!",
+      "enrolled": "You are already enrolled in this course"
     },
     "cancellation": {
       "title": "Cancel Enrollment",

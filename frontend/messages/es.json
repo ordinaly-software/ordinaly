@@ -961,7 +961,9 @@
       "motivation": "¿Por qué quieres tomar este curso?",
       "motivationPlaceholder": "Comparte tu motivación y lo que esperas lograr...",
       "cancel": "Cancelar",
-      "submit": "Inscribirse al Curso"
+      "submit": "Inscribirse al Curso",
+      "successMessage": "¡Inscripción realizada con éxito!",
+      "enrolled": "Ya estás inscrito en este curso"
     },
     "cancellation": {
       "title": "Cancelar Inscripción",

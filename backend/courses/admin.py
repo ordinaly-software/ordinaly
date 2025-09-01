@@ -24,6 +24,8 @@ class CourseAdmin(admin.ModelAdmin):
             'fields': ('max_attendants',)
         }),
     )
+    from .forms import CourseAdminForm
+    form = CourseAdminForm
     readonly_fields = ('created_at', 'updated_at')
 
     def get_enrolled_count(self, obj):
