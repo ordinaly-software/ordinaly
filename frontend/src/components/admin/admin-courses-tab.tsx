@@ -335,6 +335,8 @@ const AdminCoursesTab = () => {
   const submitCourse = async (isEdit: boolean) => {
     try {
       // Basic validation
+      const today = new Date();
+      today.setHours(0,0,0,0);
       if (!formData.title.trim()) {
         setAlert({type: 'error', message: t('messages.validation.titleRequired')});
         return;
@@ -343,17 +345,42 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
         return;
       }
-  if (!formData.max_attendants || parseInt(String(formData.max_attendants)) < 1) {
+      if (!formData.max_attendants || parseInt(String(formData.max_attendants)) < 1) {
         setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
         return;
       }
-  if (formData.price && parseFloat(String(formData.price)) < 0.01) {
+      if (formData.price && parseFloat(String(formData.price)) < 0.01) {
         setAlert({type: 'error', message: t('messages.validation.priceInvalid')});
         return;
       }
       if (!isEdit && !selectedFile) {
         setAlert({type: 'error', message: t('messages.validation.imageRequired')});
         return;
+      }
+      // Prevent start_date or end_date in the past
+      if (formData.start_date) {
+        const startDate = new Date(formData.start_date);
+        startDate.setHours(0,0,0,0);
+        if (startDate < today) {
+          setAlert({type: 'error', message: t('messages.validation.startDatePast') || 'Start date cannot be in the past.'});
+          return;
+        }
+      }
+      if (formData.end_date) {
+        const endDate = new Date(formData.end_date);
+        endDate.setHours(0,0,0,0);
+        if (endDate < today) {
+          setAlert({type: 'error', message: t('messages.validation.endDatePast') || 'End date cannot be in the past.'});
+          return;
+        }
+        if (formData.start_date) {
+          const startDate = new Date(formData.start_date);
+          startDate.setHours(0,0,0,0);
+          if (endDate < startDate) {
+            setAlert({type: 'error', message: t('messages.validation.endDateBeforeStart') || 'End date cannot be before start date.'});
+            return;
+          }
+        }
       }
 
       const token = localStorage.getItem('authToken');

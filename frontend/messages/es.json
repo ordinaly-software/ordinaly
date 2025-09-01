@@ -621,7 +621,10 @@
           "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos",
           "dateRequired": "La fecha es requerida y debe tener 100 caracteres o menos",
           "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1",
-          "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})"
+          "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})",
+          "endDatePast": "La fecha de finalización no puede ser en el pasado",
+          "startDatePast": "La fecha de inicio no puede ser en el pasado",
+          "endDateBeforeStart": "La fecha de finalización no puede estar antes de la fecha de inicio"
         },
         "capacity": {
           "warning": "Advertencia: Este curso ya tiene {current} inscripciones. Reducir el máximo de asistentes por debajo de este número puede causar problemas"
@@ -666,7 +669,7 @@
         "member": "Miembro",
         "company": "Empresa",
         "moreSessions": "sesiones más",
-        "hours": "horas"
+        "hours": "hora(s)"
       },
       "courseCard": {
         "enrollments": "Inscripciones",
@@ -1020,7 +1023,7 @@
       "endDate": "Fecha de Fin",
       "time": "Horario",
       "duration": "Duración",
-      "hours": "horas",
+      "hours": "hora(s)",
       "daysOfWeek": "Días de la semana",
       "fullSchedule": "Horario Completo",
       "location": "Ubicación",

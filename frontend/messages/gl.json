@@ -610,18 +610,21 @@
         "selectToDelete": "Por favor, selecciona cursos para eliminar",
         "imageSizeLimit1MB": "O tamaño do arquivo debe ser menor de 1MB",
         "imageFileOnly": "Por favor, selecciona un arquivo de imaxe",
-        "cannotDeleteFinished": "Non se pode eliminar un curso finalizado.",
-        "cannotDeleteFinishedBulk": "Non se pode eliminar un ou máis cursos finalizados.",
+        "cannotDeleteFinished": "Non se pode eliminar un curso finalizado",
+        "cannotDeleteFinishedBulk": "Non se pode eliminar un ou máis cursos finalizados",
         "validation": {
-          "titleRequired": "O título do curso é obrigatorio e debe ter 100 caracteres ou menos.",
-          "subtitleLimit": "O subtítulo debe ter 200 caracteres ou menos.",
-          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos.",
-          "imageRequired": "Por favor, sube un arquivo de imaxe válido para o curso.",
-          "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica.",
+          "titleRequired": "O título do curso é obrigatorio e debe ter 100 caracteres ou menos",
+          "subtitleLimit": "O subtítulo debe ter 200 caracteres ou menos",
+          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos",
+          "imageRequired": "Por favor, sube un arquivo de imaxe válido para o curso",
+          "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica",
           "locationRequired": "A localización é obrigatoria e debe ter 100 caracteres ou menos.",
           "dateRequired": "A data é obrigatoria e debe ter 100 caracteres ou menos.",
-          "maxAttendantsInvalid": "O máximo de asistentes debe ser polo menos 1.",
-          "maxAttendantsBelowEnrolled": "Non se pode establecer un máximo de prazas menor que o número de inscritos actuais ({count})."
+          "maxAttendantsInvalid": "O máximo de asistentes debe ser polo menos 1",
+          "maxAttendantsBelowEnrolled": "Non se pode establecer un máximo de prazas menor que o número de inscritos actuais ({count}).",
+          "endDatePast": "A data de fin non pode estar no pasado",
+          "startDatePast": "A data de inicio non pode estar no pasado",
+          "endDateBeforeStart": "A data de fin non pode estar antes da data de inicio"
         },
         "capacity": {
           "warning": "AVISO: Este curso xa ten inscricións."

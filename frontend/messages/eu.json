@@ -622,18 +622,21 @@
         "selectToDelete": "Mesedez, hautatu ezabatu nahi dituzun ikastaroak",
         "fileSizeLimit": "Fitxategiaren tamaina 5MB baino txikiagoa izan behar da",
         "imageFileOnly": "Mesedez, hautatu irudi fitxategi bat",
-        "cannotDeleteFinished": "Amaitutako ikastaroa ezin da ezabatu.",
-        "cannotDeleteFinishedBulk": "Amaitutako ikastaroak ezin dira ezabatu.",
+        "cannotDeleteFinished": "Amaitutako ikastaroa ezin da ezabatu",
+        "cannotDeleteFinishedBulk": "Amaitutako ikastaroak ezin dira ezabatu",
         "validation": {
-          "titleRequired": "Ikastaroaren izenburua beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
-          "subtitleLimit": "Azpitituluak 200 karaktere edo gutxiago izan behar du.",
-          "descriptionRequired": "Deskribapena beharrezkoa da eta 2000 karaktere edo gutxiago izan behar du.",
-          "imageRequired": "Kargatu ikastaroarentzako baliozko irudi fitxategia.",
-          "priceInvalid": "Prezioak gutxienez 0,01 € izan behar du zehaztuta badago.",
-          "locationRequired": "Kokalekua beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
-          "dateRequired": "Data beharrezkoa da eta 100 karaktere edo gutxiago izan behar du.",
-          "maxAttendantsInvalid": "Gehienezko parte-hartzaileak gutxienez 1 izan behar dira.",
-          "maxAttendantsBelowEnrolled": "Ez da posible ezartzea gehienezko leku kopurua egungo matrikulatutakoen kopurua ({count}) baino txikiagoa"
+          "titleRequired": "Ikastaroaren izenburua beharrezkoa da eta 100 karaktere edo gutxiago izan behar du",
+          "subtitleLimit": "Azpitituluak 200 karaktere edo gutxiago izan behar du",
+          "descriptionRequired": "Deskribapena beharrezkoa da eta 2000 karaktere edo gutxiago izan behar du",
+          "imageRequired": "Kargatu ikastaroarentzako baliozko irudi fitxategia",
+          "priceInvalid": "Prezioak gutxienez 0,01 € izan behar du zehaztuta badago",
+          "locationRequired": "Kokalekua beharrezkoa da eta 100 karaktere edo gutxiago izan behar du",
+          "dateRequired": "Data beharrezkoa da eta 100 karaktere edo gutxiago izan behar du",
+          "maxAttendantsInvalid": "Gehienezko parte-hartzaileak gutxienez 1 izan behar dira",
+          "maxAttendantsBelowEnrolled": "Ez da posible ezartzea gehienezko leku kopurua egungo matrikulatutakoen kopurua ({count}) baino txikiagoa",
+          "endDatePast": "Amaiera data ezin da izan iragana",
+          "startDatePast": "Hasiera data ezin da izan iragana",
+          "endDateBeforeStart": "Amaiera data ezin da izan hasiera dataren aurretik"
         },
         "capacity": {
           "warning": "Abisua: ikastaro honek {current} matrikulak ditu."

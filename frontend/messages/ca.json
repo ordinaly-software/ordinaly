@@ -621,7 +621,10 @@
           "locationRequired": "La ubicació és necessària i ha de tenir 100 caràcters o menys",
           "dateRequired": "La data és necessària i ha de tenir 100 caràcters o menys",
           "maxAttendantsInvalid": "Els assistents màxims han de ser almenys 1",
-            "maxAttendantsBelowEnrolled": "No es pot establir un màxim de places inferior al nombre d'inscrits actuals ({count})"
+          "maxAttendantsBelowEnrolled": "No es pot establir un màxim de places inferior al nombre d'inscrits actuals ({count})",
+          "endDatePast": "La data de finalització no pot ser en el passat",
+          "startDatePast": "La data d'inici no pot ser en el passat",
+          "endDateBeforeStart": "La data de finalització no pot ser anterior a la data d'inici"
         },
         "capacity": {
           "warning": "ADVERTIMENT: aquest curs ja té matriculacions {actual}. "
