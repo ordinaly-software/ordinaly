@@ -21,7 +21,7 @@ export function useCourseCheckout() {
       const data = await response.json();
       if (response.ok && data.checkout_url) {
         // Paid course: redirect to Stripe Checkout
-        window.open(data.checkout_url, '_blank', 'noopener');
+        window.location.href = data.checkout_url;
         toast.success('Redirigido a Stripe para completar el pago.');
         if (onSuccess) onSuccess();
       } else if (response.ok && data.enrolled) {

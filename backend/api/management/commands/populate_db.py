@@ -235,7 +235,7 @@ class Command(BaseCommand):
                 'draft': False
             },
             {
-                'title': 'Curso / Bootcamp "La Inteligencia Artificial en la inmobiliaria"',
+                'title': 'Bootcamp "La Inteligencia Artificial en la inmobiliaria"',
                 'subtitle': (
                     'En este curso partiremos de la base de los casos de uso básicos de las herramientas de IA '
                     'más conocidas e iremos escalando hasta dominar herramientas específicas para el sector '
@@ -271,9 +271,12 @@ class Command(BaseCommand):
                     '**Incluye**: Material didáctico, certificado de finalización, '
                     'TODAS LAS HERRAMIENTAS DEL CURSO SERÁN GRATUITAS.'
                 ),
-                'price': None,
+                'price': 0.50,
                 'location': None,
-                'periodicity': 'weekly',
+                'start_date': date(2025, 10, 8),
+                'end_date': date(2025, 10, 22),
+                'start_time': time(9, 30),
+                'end_time': time(11, 30),
                 'timezone': 'Europe/Madrid',
                 'max_attendants': 90,
                 'draft': False
