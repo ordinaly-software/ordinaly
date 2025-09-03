@@ -2,7 +2,7 @@
 
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { CalendarDays, MapPin, Euro, Users, GraduationCap } from "lucide-react";
+import { CalendarDays, MapPin, Euro, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
 import CheckoutButton from "./checkout-button";

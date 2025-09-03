@@ -168,33 +168,6 @@ const FormationPage = () => {
     setShowEnrollModal(true);
   };
 
-  const handleEnrollmentConfirm = async () => {
-    if (!selectedCourse) return;
-
-    try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch(getApiEndpoint(`/api/courses/courses/${selectedCourse.id}/enroll/`), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`,
-        },
-      });
-      if (response.ok) {
-        setAlert({type: 'success', message: t('alerts.enrollmentSuccess', { courseTitle: selectedCourse.title })});
-        setShowEnrollModal(false);
-        setSelectedCourse(null);
-        fetchEnrollments();
-        fetchCourses();
-      } else {
-        await response.json(); // Consume response to prevent memory leaks
-        setAlert({type: 'error', message: t('alerts.enrollmentFailed')});
-      }
-    } catch {
-      setAlert({type: 'error', message: t('alerts.networkError')});
-    }
-  };
-
   const handleCancelEnrollment = (courseId: number) => {
     const course = courses.find(c => c.id === courseId);
     if (course) {

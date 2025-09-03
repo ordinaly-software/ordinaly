@@ -21,8 +21,8 @@ export function useCourseRefund() {
       } else {
         toast.error(data.detail || 'No se pudo procesar el reembolso.');
       }
-    } catch (error: any) {
-      toast.error(error?.message || 'Error de red al solicitar el reembolso.');
+    } catch (error: unknown) {
+      toast.error((error as Error)?.message || 'Error de red al solicitar el reembolso.');
     }
     setLoading(false);
   };

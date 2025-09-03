@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
 import { toast } from 'react-toastify';
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string);
 
 export function useCourseCheckout() {
   const [loading, setLoading] = useState(false);
@@ -31,8 +28,8 @@ export function useCourseCheckout() {
       } else {
         toast.error(data.detail || 'Error inesperado en el proceso de inscripción.');
       }
-    } catch (error: any) {
-      toast.error(error?.message || 'Error de red al procesar la inscripción.');
+    } catch (error: unknown) {
+      toast.error((error as Error)?.message || 'Error de red al procesar la inscripción.');
     }
     setLoading(false);
   };
