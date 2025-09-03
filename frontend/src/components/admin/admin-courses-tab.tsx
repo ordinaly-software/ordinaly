@@ -209,7 +209,7 @@ const AdminCoursesTab = () => {
     draft: typeof course.draft === 'boolean' ? course.draft : false
   });
     setPreviewUrl(course.image);
-    setSelectedFile(null); // Ensure no file is selected by default when editing
+    setSelectedFile(null);
     setShowEditModal(true);
   };
 
@@ -392,9 +392,8 @@ const AdminCoursesTab = () => {
       formDataToSend.append('title', formData.title);
       formDataToSend.append('subtitle', formData.subtitle);
       formDataToSend.append('description', formData.description);
-      if (formData.price) {
-        formDataToSend.append('price', String(formData.price));
-      }
+      // Always send price, even if empty, so backend can clear it
+      formDataToSend.append('price', formData.price !== undefined && formData.price !== null ? String(formData.price) : '');
       formDataToSend.append('location', formData.location);
       formDataToSend.append('start_date', formData.start_date);
       formDataToSend.append('end_date', formData.end_date);

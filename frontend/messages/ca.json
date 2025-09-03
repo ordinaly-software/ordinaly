@@ -476,7 +476,7 @@
           "iconRequired": "Seleccioneu una icona vàlida per al servei",
           "durationInvalid": "La durada ha de ser almenys un dia si s'especifica",
           "requisitesLimit": "Els requisits han de tenir 2000 caràcters o menys",
-          "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica"
+          "priceInvalid": "El preu ha de ser almenys 0,50€ si s'especifica"
         },
         "featured": {
           "enabled": "El servei ha estat marcat com a destacat",
@@ -617,7 +617,7 @@
           "subtitleLimit": "El subtítol ha de tenir 200 caràcters o menys",
           "descriptionRequired": "La descripció és necessària i ha de tenir 2000 caràcters o menys",
           "imageRequired": "Pengeu un fitxer d'imatges vàlid per al curs",
-          "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica",
+          "priceInvalid": "El preu ha de ser almenys 0,50€ si s'especifica",
           "locationRequired": "La ubicació és necessària i ha de tenir 100 caràcters o menys",
           "dateRequired": "La data és necessària i ha de tenir 100 caràcters o menys",
           "maxAttendantsInvalid": "Els assistents màxims han de ser almenys 1",

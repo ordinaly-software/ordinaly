@@ -117,15 +117,15 @@ const FormationPage = () => {
 
     // Filter by location
     if (filterLocation === 'online') {
-      filtered = filtered.filter(course => 
-        course.location.toLowerCase().includes('online') || 
-        course.location.toLowerCase().includes('virtual')
-      );
+      filtered = filtered.filter(course => {
+        const loc = course.location ? course.location.toLowerCase() : '';
+        return loc.includes('online') || loc.includes('virtual');
+      });
     } else if (filterLocation === 'onsite') {
-      filtered = filtered.filter(course => 
-        !course.location.toLowerCase().includes('online') && 
-        !course.location.toLowerCase().includes('virtual')
-      );
+      filtered = filtered.filter(course => {
+        const loc = course.location ? course.location.toLowerCase() : '';
+        return !loc.includes('online') && !loc.includes('virtual');
+      });
     }
 
     // Filter by price

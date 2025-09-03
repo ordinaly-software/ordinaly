@@ -476,7 +476,7 @@
           "iconRequired": "Por favor selecciona un icono válido para el servicio",
           "durationInvalid": "La duración debe ser de al menos 1 día si se especifica",
           "requisitesLimit": "Los requisitos deben tener 2000 caracteres o menos",
-          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica"
+          "priceInvalid": "El precio debe ser de al menos 0.50€ si se especifica"
         },
         "featured": {
           "enabled": "El servicio ha sido marcado como destacado",
@@ -617,7 +617,7 @@
           "subtitleLimit": "El subtítulo debe tener 200 caracteres o menos",
           "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos",
           "imageRequired": "Por favor sube una imagen válida para el curso",
-          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica",
+          "priceInvalid": "El precio debe ser de al menos 0.50€ si se especifica",
           "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos",
           "dateRequired": "La fecha es requerida y debe tener 100 caracteres o menos",
           "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1",

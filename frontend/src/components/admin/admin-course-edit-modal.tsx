@@ -295,7 +295,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               placeholder={t("form.pricePlaceholder")}
               className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg transition-all duration-200"
             />
-            {/* Price validation feedback */}
+            {/* Price validation */}
             {(() => {
               const price = parseFloat(formData.price as string);
               if (formData.price === "" || isNaN(price)) return null;

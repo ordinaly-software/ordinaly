@@ -276,7 +276,8 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                         <div className="absolute top-3 right-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-1">
                           <div className="flex items-center gap-1 text-sm font-semibold text-gray-900 dark:text-white">
                             <Euro className="w-4 h-4" />
-                            {Math.round(Number(course.price))}
+                            {/* {Math.round(Number(course.price))} */}
+                            {course.price}
                           </div>
                         </div>
                       )}
@@ -312,15 +313,18 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                         </div>
                         <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200 col-span-2">                          <MapPin className="w-4 h-4 flex-shrink-0" />
                           {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
-                            <a
-                              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="truncate underline hover:text-[#22A60D]"
-                              title={course.location}
-                            >
-                              {course.location}
-                            </a>
+                            (/online|virtual/i.test(course.location)
+                              ? <span className="truncate underline" title={course.location}>{course.location}</span>
+                              : <a
+                                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="truncate underline hover:text-[#22A60D]"
+                                  title={course.location}
+                                >
+                                  {course.location}
+                                </a>
+                            )
                           ) : (
                             <span className="truncate">
                               {t('locationSoon')}

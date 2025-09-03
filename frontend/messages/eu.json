@@ -488,7 +488,7 @@
           "iconRequired": "Mesedez, aukeratu baliozko ikono bat zerbitzuarentzat.",
           "durationInvalid": "Iraupena gutxienez egun bat izan behar da zehazten bada.",
           "requisitesLimit": "Baldintzak 2000 karaktere edo gutxiago izan behar dira.",
-          "priceInvalid": "Prezioak gutxienez 0,01 € izan behar du zehaztuta badago."
+          "priceInvalid": "Prezioak gutxienez 0,50€ izan behar du zehaztuta badago."
         },
         "featured": {
           "enabled": "Zerbitzua nabarmendua da.",
@@ -629,7 +629,7 @@
           "subtitleLimit": "Azpitituluak 200 karaktere edo gutxiago izan behar du",
           "descriptionRequired": "Deskribapena beharrezkoa da eta 2000 karaktere edo gutxiago izan behar du",
           "imageRequired": "Kargatu ikastaroarentzako baliozko irudi fitxategia",
-          "priceInvalid": "Prezioak gutxienez 0,01 € izan behar du zehaztuta badago",
+          "priceInvalid": "Prezioak gutxienez 0,50€ izan behar du zehaztuta badago",
           "locationRequired": "Kokalekua beharrezkoa da eta 100 karaktere edo gutxiago izan behar du",
           "dateRequired": "Data beharrezkoa da eta 100 karaktere edo gutxiago izan behar du",
           "maxAttendantsInvalid": "Gehienezko parte-hartzaileak gutxienez 1 izan behar dira",
