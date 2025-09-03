@@ -14,6 +14,7 @@ import stripe
 
 from decimal import Decimal
 import os
+import logging
 
 # Set Stripe API key from environment at import time
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
@@ -193,8 +194,8 @@ class CourseViewSet(viewsets.ModelViewSet):
             # print(f"[Stripe Checkout] Session created: {session.id}")
             return Response({"checkout_url": session.url})
         except Exception as e:
-            # print(f"[Stripe Checkout] Stripe error: {str(e)}")
-            return Response({"detail": f"Stripe error: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logging.exception("[Stripe Checkout] Stripe error during checkout session:")
+            return Response({"detail": "An internal error occurred during Stripe checkout."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated], url_path='refund-course')
     def refund_course(self, request, pk=None):
