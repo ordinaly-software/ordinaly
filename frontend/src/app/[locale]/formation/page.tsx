@@ -59,7 +59,7 @@ const FormationPage = () => {
   const [courseForAuth, setCourseForAuth] = useState<Course | null>(null);
   const [courseForDetails, setCourseForDetails] = useState<Course | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [successCourseTitle, setSuccessCourseTitle] = useState<string | undefined>(undefined);
+  const [successCourseTitle] = useState<string | undefined>(undefined);
   const [showCancelSuccessModal, setShowCancelSuccessModal] = useState(false);
   // Show success modal after Stripe redirect if ?enrolled=1 is present
   useEffect(() => {
