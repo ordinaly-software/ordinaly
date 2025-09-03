@@ -624,7 +624,10 @@
           "maxAttendantsBelowEnrolled": "Non se pode establecer un máximo de prazas menor que o número de inscritos actuais ({count})",
           "endDatePast": "A data de fin non pode estar no pasado",
           "startDatePast": "A data de inicio non pode estar no pasado",
-          "endDateBeforeStart": "A data de fin non pode estar antes da data de inicio"
+          "endDateBeforeStart": "A data de fin non pode estar antes da data de inicio",
+          "descriptionTooLong": "A descrición non pode ter máis de {max} caracteres",
+          "priceRange": "O prezo debe estar entre {min} e {max} euros",
+          "priceForbiddenRange": "O prezo non pode estar entre {min} e {max} euros"
         },
         "capacity": {
           "warning": "AVISO: Este curso xa ten inscricións"

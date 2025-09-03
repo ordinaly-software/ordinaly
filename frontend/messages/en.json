@@ -624,7 +624,10 @@
           "cannotDeleteFinishedBulk": "Cannot delete one or more finished courses",
           "endDatePast": "End date cannot be in the past",
           "startDatePast": "Start date cannot be in the past",
-          "endDateBeforeStart": "End date cannot be before start date"
+          "endDateBeforeStart": "End date cannot be before start date",
+          "descriptionTooLong": "Description cannot be longer than {max} characters",
+          "priceRange": "Price must be between €{min} and €{max}",
+          "priceForbiddenRange": "Price cannot be between €{min} and €{max}"
         },
         "capacity": {
           "warning": "Warning: This course already has {current} enrollments. Reducing max attendants below this number may cause issues."

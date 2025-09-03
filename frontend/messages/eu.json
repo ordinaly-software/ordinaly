@@ -636,7 +636,10 @@
           "maxAttendantsBelowEnrolled": "Ez da posible ezartzea gehienezko leku kopurua egungo matrikulatutakoen kopurua ({count}) baino txikiagoa",
           "endDatePast": "Amaiera data ezin da izan iragana",
           "startDatePast": "Hasiera data ezin da izan iragana",
-          "endDateBeforeStart": "Amaiera data ezin da izan hasiera dataren aurretik"
+          "endDateBeforeStart": "Amaiera data ezin da izan hasiera dataren aurretik",
+          "descriptionTooLong": "Deskribapenak {max} karaktere baino gehiago izan ezin du",
+          "priceRange": "Prezioak {min} eta {max} euro artean izan behar du",
+          "priceForbiddenRange": "Prezioak {min} eta {max} euro artean izan ezin du"
         },
         "capacity": {
           "warning": "Abisua: ikastaro honek {current} matrikulak ditu."

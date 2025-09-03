@@ -191,8 +191,13 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             className="border-gray-300 focus:border-purple-500 focus:ring-purple-500/20 rounded-lg transition-all duration-200 resize-none font-mono text-sm"
             required
           />
-          <div className="text-xs text-gray-500 dark:text-gray-400">
-            {t("form.markdownSupported")}
+          <div className="flex items-center gap-2">
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              {t("form.markdownSupported")}
+            </div>
+            <div className="text-xs ml-auto">
+              {formData.description.length}/2000
+            </div>
           </div>
         </div>
 
@@ -284,11 +289,24 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               type="number"
               step="0.01"
               min="0"
+              max="999999.99"
               value={formData.price ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, price: e.target.value}))}
               placeholder={t("form.pricePlaceholder")}
               className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg transition-all duration-200"
             />
+            {/* Price validation feedback */}
+            {(() => {
+              const price = parseFloat(formData.price as string);
+              if (formData.price === "" || isNaN(price)) return null;
+              if (price < 0 || price > 999999.99) {
+                return <div className="text-xs text-red-600 font-semibold mt-1">{t('messages.validation.priceRange', { min: 0, max: 999999.99 })}</div>;
+              }
+              if (price >= 0.01 && price <= 0.49) {
+                return <div className="text-xs text-red-600 font-semibold mt-1">{t('messages.validation.priceForbiddenRange', { min: 0.01, max: 0.49 })}</div>;
+              }
+              return null;
+            })()}
           </div>
 
           <div className="space-y-3">

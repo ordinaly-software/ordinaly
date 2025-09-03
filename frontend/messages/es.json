@@ -624,7 +624,10 @@
           "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})",
           "endDatePast": "La fecha de finalización no puede ser en el pasado",
           "startDatePast": "La fecha de inicio no puede ser en el pasado",
-          "endDateBeforeStart": "La fecha de finalización no puede estar antes de la fecha de inicio"
+          "endDateBeforeStart": "La fecha de finalización no puede estar antes de la fecha de inicio",
+          "descriptionTooLong": "La descripción no puede tener más de {max} caracteres",
+          "priceRange": "El precio debe estar entre {min} y {max} euros",
+          "priceForbiddenRange": "El precio no puede estar entre {min} y {max} euros"
         },
         "capacity": {
           "warning": "Advertencia: Este curso ya tiene {current} inscripciones. Reducir el máximo de asistentes por debajo de este número puede causar problemas"

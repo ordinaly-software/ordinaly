@@ -237,13 +237,53 @@ class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
             course.full_clean()
 
     def test_course_min_value_validation(self):
-        # Test price min value
+
+        # Test forbidden price range [0.01, 0.49]
+        for forbidden_price in [Decimal('0.01'), Decimal('0.10'), Decimal('0.49')]:
+            course_data = {
+                'title': 'Test Course',
+                'subtitle': 'Test Subtitle',
+                'description': 'Test Description',
+                'image': get_test_image_file(),
+                'price': forbidden_price,
+                'location': 'Test Location',
+                'start_date': date(2023, 12, 31),
+                'end_date': date(2023, 12, 31),
+                'start_time': time(14, 0),
+                'end_time': time(17, 0),
+                'periodicity': 'once',
+                'max_attendants': 20
+            }
+            course = Course(**course_data)
+            with self.assertRaises(ValidationError):
+                course.full_clean()
+
+        # Test negative price
         course_data = {
             'title': 'Test Course',
             'subtitle': 'Test Subtitle',
             'description': 'Test Description',
             'image': get_test_image_file(),
-            'price': Decimal('0.00'),  # Invalid price
+            'price': Decimal('-1.00'),
+            'location': 'Test Location',
+            'start_date': date(2023, 12, 31),
+            'end_date': date(2023, 12, 31),
+            'start_time': time(14, 0),
+            'end_time': time(17, 0),
+            'periodicity': 'once',
+            'max_attendants': 20
+        }
+        course = Course(**course_data)
+        with self.assertRaises(ValidationError):
+            course.full_clean()
+
+        # Test price > 999999.99
+        course_data = {
+            'title': 'Test Course',
+            'subtitle': 'Test Subtitle',
+            'description': 'Test Description',
+            'image': get_test_image_file(),
+            'price': Decimal('1000000.00'),
             'location': 'Test Location',
             'start_date': date(2023, 12, 31),
             'end_date': date(2023, 12, 31),

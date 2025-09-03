@@ -4,6 +4,14 @@ from users.models import CustomUser
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    def validate_price(self, value):
+        if value is not None:
+            if value < 0 or value > 999999.99:
+                raise serializers.ValidationError("Price must be between 0 and 999999.99.")
+            if 0.01 <= value <= 0.49:
+                raise serializers.ValidationError("Price cannot be between 0.01 and 0.49 (inclusive).")
+        return value
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Image is required only on creation (no instance)

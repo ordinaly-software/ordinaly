@@ -8,15 +8,7 @@ from django.core.exceptions import ValidationError
 
 
 class Course(models.Model):
-    def clean(self):
-        # Validate image size (max 1MB)
-        max_size = 1024 * 1024  # 1MB
-        if self.image and hasattr(self.image, 'size'):
-            if self.image.size > max_size:
-                raise ValidationError({
-                    'image': 'Course image must be 1MB or less.'
-                })
-        super().clean()
+
     PERIODICITY_CHOICES = [
         ('once', 'One-time event'),
         ('daily', 'Daily'),
@@ -58,10 +50,25 @@ class Course(models.Model):
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        validators=[MinValueValidator(Decimal('0.01'))],
         null=True,
         blank=True
     )
+
+    def clean(self):
+        # Validate image size (max 1MB)
+        max_size = 1024 * 1024  # 1MB
+        if self.image and hasattr(self.image, 'size'):
+            if self.image.size > max_size:
+                raise ValidationError({
+                    'image': 'Course image must be 1MB or less.'
+                })
+        # Custom price validation
+        if self.price is not None:
+            if self.price < 0 or self.price > Decimal('999999.99'):
+                raise ValidationError({'price': 'Price must be between 0 and 999999.99.'})
+            if Decimal('0.01') <= self.price <= Decimal('0.49'):
+                raise ValidationError({'price': 'Price cannot be between 0.01 and 0.49 (inclusive).'})
+        super().clean()
     location = models.CharField(max_length=100, null=True, blank=True)
 
     # New professional scheduling fields

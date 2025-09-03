@@ -334,7 +334,6 @@ const AdminCoursesTab = () => {
 
   const submitCourse = async (isEdit: boolean) => {
     try {
-      // Basic validation
       const today = new Date();
       today.setHours(0,0,0,0);
       if (!formData.title.trim()) {
@@ -343,6 +342,10 @@ const AdminCoursesTab = () => {
       }
       if (!formData.description.trim()) {
         setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
+        return;
+      }
+      if (formData.description.length > 2000) {
+        setAlert({type: 'error', message: t('messages.validation.descriptionTooLong', { max: 2000 })});
         return;
       }
       if (!formData.max_attendants || parseInt(String(formData.max_attendants)) < 1) {
