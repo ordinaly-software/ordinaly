@@ -4,7 +4,6 @@ from rest_framework.response import Response
 from django.http import HttpResponse
 from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
-from django.conf import settings
 from django.utils import timezone
 
 # Stripe webhook endpoint to handle payment events
@@ -142,25 +141,23 @@ class CourseViewSet(viewsets.ModelViewSet):
             serializer = EnrollmentSerializer(enrollment)
             return Response({"enrolled": True, "enrollment": serializer.data})
 
-
         # Ensure Stripe API key is set
         stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
         if not stripe.api_key:
-            print("[Stripe Checkout] Stripe secret key not configured.")
+            # print("[Stripe Checkout] Stripe secret key not configured.")
             return Response({"detail": "Stripe secret key not configured."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         # Validate user email
         if not user.email:
-            print(f"[Stripe Checkout] User email missing for user id {user.id}")
+            # print(f"[Stripe Checkout] User email missing for user id {user.id}")
             return Response({"detail": "User email is required for Stripe checkout."},
                             status=status.HTTP_400_BAD_REQUEST)
 
         # Validate course price
         try:
             price_int = int(Decimal(course.price) * 100)
-        except Exception as e:
-            print(f"[Stripe Checkout] Invalid course price: {course.price}, error: {e}")
+        except Exception:
             return Response({"detail": "Invalid course price."},
                             status=status.HTTP_400_BAD_REQUEST)
 
@@ -169,8 +166,6 @@ class CourseViewSet(viewsets.ModelViewSet):
             frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
             success_url = f"{frontend_url}/formation?payment=success"
             cancel_url = f"{frontend_url}/formation?payment=cancel"
-
-            print(f"[Stripe Checkout] Creating session for user {user.id} ({user.email}), course {course.id}, price {price_int}")
 
             product_data = {"name": course.title}
             if course.subtitle:
@@ -195,10 +190,10 @@ class CourseViewSet(viewsets.ModelViewSet):
                 success_url=success_url,
                 cancel_url=cancel_url,
             )
-            print(f"[Stripe Checkout] Session created: {session.id}")
+            # print(f"[Stripe Checkout] Session created: {session.id}")
             return Response({"checkout_url": session.url})
         except Exception as e:
-            print(f"[Stripe Checkout] Stripe error: {str(e)}")
+            # print(f"[Stripe Checkout] Stripe error: {str(e)}")
             return Response({"detail": f"Stripe error: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated], url_path='refund-course')
@@ -313,17 +308,17 @@ class StripeWebhookView(APIView):
         webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
         payload = request.body
         sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
-        print(f"[Stripe Webhook] Payload: {payload}")
-        print(f"[Stripe Webhook] Signature Header: {sig_header}")
-        print(f"[Stripe Webhook] Webhook Secret: {webhook_secret}")
+        # print(f"[Stripe Webhook] Payload: {payload}")
+        # print(f"[Stripe Webhook] Signature Header: {sig_header}")
+        # print(f"[Stripe Webhook] Webhook Secret: {webhook_secret}")
         event = None
         try:
             event = stripe.Webhook.construct_event(
                 payload, sig_header, webhook_secret
             )
-            print(f"[Stripe Webhook] Event: {event}")
+            # print(f"[Stripe Webhook] Event: {event}")
         except Exception as e:
-            print(f"[Stripe Webhook] Error constructing event: {e}")
+            # print(f"[Stripe Webhook] Error constructing event: {e}")
             return Response({'detail': f'Webhook error: {str(e)}'}, status=400)
 
         # Handle successful payment
@@ -332,8 +327,8 @@ class StripeWebhookView(APIView):
             user_id = session['metadata'].get('user_id')
             course_id = session['metadata'].get('course_id')
             payment_intent = session.get('payment_intent')
-            print(f"[Stripe Webhook] Session: {session}")
-            print(f"[Stripe Webhook] user_id: {user_id}, course_id: {course_id}, payment_intent: {payment_intent}")
+            # print(f"[Stripe Webhook] Session: {session}")
+            # print(f"[Stripe Webhook] user_id: {user_id}, course_id: {course_id}, payment_intent: {payment_intent}")
             # Enroll user and store payment intent
             try:
                 from users.models import CustomUser
@@ -341,7 +336,7 @@ class StripeWebhookView(APIView):
                 user = CustomUser.objects.filter(id=user_id).first()
                 course = Course.objects.filter(id=course_id).first()
                 if not user or not course:
-                    print(f"[Stripe Webhook] User or course not found. user: {user}, course: {course}")
+                    # print(f"[Stripe Webhook] User or course not found. user: {user}, course: {course}")
                     return Response({'detail': 'User or course not found.'}, status=400)
                 enrollment, created = Enrollment.objects.get_or_create(
                     user=user, course=course,
@@ -350,9 +345,9 @@ class StripeWebhookView(APIView):
                 if not created and not enrollment.stripe_payment_intent_id:
                     enrollment.stripe_payment_intent_id = payment_intent
                     enrollment.save()
-                print(f"[Stripe Webhook] Enrollment created: {created}, enrollment: {enrollment}")
+                # print(f"[Stripe Webhook] Enrollment created: {created}, enrollment: {enrollment}")
             except Exception as e:
-                print(f"[Stripe Webhook] Enrollment error: {e}")
+                # print(f"[Stripe Webhook] Enrollment error: {e}")
                 return Response({'detail': f'Enrollment error: {str(e)}'}, status=500)
         return Response({'status': 'success'})
 
