@@ -440,15 +440,17 @@ const CourseDetailsModal = ({
                     <div>
                       <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('location')}</p>
                       {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
-                        <a
-                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#22A60D]"
-                          title={course.location}
-                        >
-                          {course.location}
-                        </a>
+                        /online|virtual/i.test(course.location)
+                          ? <span className="underline cursor-default text-[#22A60D] text-sm">{course.location}</span>
+                          : <a
+                              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#22A60D]"
+                              title={course.location}
+                            >
+                              {course.location}
+                            </a>
                       ) : (
                         <p className="text-gray-900 dark:text-gray-100 text-sm">{t('locationSoon')}</p>
                       )}
