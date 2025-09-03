@@ -976,6 +976,8 @@
     },
     "cancellation": {
       "title": "Cancella la matrícula",
+      "message": "La teva inscripció ha estat cancellada correctament",
+      "processing": "Cancellant...",
       "warning": "Cancella la matrícula del curs",
       "warningMessage": "Esteu segur que voleu cancellar la vostra inscripció a \"{courseTitle}\"? ",
       "confirmMessage": "Això us eliminarà del curs i és possible que perdeu el lloc",

@@ -6,7 +6,7 @@ import { CalendarDays, MapPin, Euro, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
 import CheckoutButton from "./checkout-button";
-import CourseEnrollmentSuccessModal from "@/components/ui/CourseEnrollmentSuccessModal";
+import CourseEnrollmentSuccessModal from "@/components/formation/enrollment-success-modal";
 import { useTheme } from "@/contexts/theme-context";
 
 

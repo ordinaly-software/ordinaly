@@ -975,7 +975,9 @@
       "enrolled": "Ya estás inscrito en este curso"
     },
     "cancellation": {
-      "title": "Cancelar Inscripción",
+      "title": "Inscripción Cancelada",
+      "message": "Tu inscripción ha sido cancelada correctamente",
+      "processing": "Cancelando...",
       "warning": "Cancelar Inscripción al Curso",
       "warningMessage": "¿Estás seguro de que quieres cancelar tu inscripción en \"{courseTitle}\"? Esta acción no se puede deshacer",
       "confirmMessage": "Esto te eliminará del curso y podrías perder tu plaza",

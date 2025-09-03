@@ -974,7 +974,9 @@
       "enrolled": "You are already enrolled in this course"
     },
     "cancellation": {
-      "title": "Cancel Enrollment",
+      "title": "Enrollment cancelled",
+      "message": "Your enrollment has been successfully canceled",
+      "processing": "Canceling...",
       "warning": "Cancel Course Enrollment",
       "warningMessage": "Are you sure you want to cancel your enrollment in \"{courseTitle}\"? This action cannot be undone.",
       "confirmMessage": "This will remove you from the course and you may lose your spot.",

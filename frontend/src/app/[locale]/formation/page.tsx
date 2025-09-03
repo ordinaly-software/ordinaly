@@ -12,7 +12,8 @@ import AuthModal from "@/components/auth/auth-modal";
 import CourseDetailsModal from "@/components/formation/course-details-modal";
 import EnrollmentConfirmationModal from "@/components/formation/enrollment-confirmation-modal";
 import EnrollmentCancellationModal from "@/components/formation/enrollment-cancellation-modal";
-import CourseEnrollmentSuccessModal from "@/components/ui/CourseEnrollmentSuccessModal";
+import CourseEnrollmentSuccessModal from "@/components/formation/enrollment-success-modal";
+import CourseCancelEnrollmentSuccessModal from "@/components/formation/enrollment-cancellation-success-modal";
 import {
   Search,
   Calendar,
@@ -59,6 +60,7 @@ const FormationPage = () => {
   const [courseForDetails, setCourseForDetails] = useState<Course | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successCourseTitle, setSuccessCourseTitle] = useState<string | undefined>(undefined);
+  const [showCancelSuccessModal, setShowCancelSuccessModal] = useState(false);
   // Show success modal after Stripe redirect if ?enrolled=1 is present
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -216,6 +218,7 @@ const FormationPage = () => {
         setCourseToCancel(null);
         fetchEnrollments();
         fetchCourses();
+        setShowCancelSuccessModal(true);
       } else {
         await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
         if (response.status === 400) {
@@ -560,6 +563,13 @@ const FormationPage = () => {
         }}
         courseToCancel={courseToCancel}
         onConfirm={handleCancelEnrollmentConfirm}
+      />
+
+      {/* Cancel Enrollment Success Modal */}
+      <CourseCancelEnrollmentSuccessModal
+        isOpen={showCancelSuccessModal}
+        onClose={() => setShowCancelSuccessModal(false)}
+        t={t}
       />
 
       {/* Authentication Modal */}

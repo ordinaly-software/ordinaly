@@ -989,6 +989,8 @@
     },
     "cancellation": {
       "title": "Utzi matrikula",
+      "message": "Zure matrikula arrakastaz bertan behera utzi da",
+      "processing": "Bertan behera uzten...",
       "warning": "Utzi ikastaroaren matrikula",
       "warningMessage": "Ziur \"{courseTitle}\" matrikula bertan behera utzi nahi duzula? ",
       "confirmMessage": "Horrek kurtsoretik kenduko zaitu eta baliteke zure lekua galtzea.",
