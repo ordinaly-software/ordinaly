@@ -1050,6 +1050,8 @@
       "cancelEnrollment": "Utzi matrikula",
       "courseHasStarted": "Ikastaroa hasi da",
       "courseStartedMessage": "Ikastaro hau dagoeneko hasi da eta jada ez da matrikulazio berriak onartzen.",
+      "courseHasFinished": "Ikastaroa amaitu da",
+      "courseFinishedMessage": "Ikastaro hau amaitu da eta jada ez da matrikulazio berriak onartzen.",
       "signInToEnroll": "Hasi saioa matrikulatzeko",
       "enrollNow": "Izena eman orain",
       "importantDates": "Data garrantzitsuak",

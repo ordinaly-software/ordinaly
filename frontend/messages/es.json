@@ -1037,6 +1037,8 @@
       "cancelEnrollment": "Cancelar Inscripción",
       "courseHasStarted": "El curso ha comenzado",
       "courseStartedMessage": "Este curso ya ha comenzado y ya no acepta nuevas inscripciones",
+      "courseHasFinished": "El curso ha finalizado",
+      "courseFinishedMessage": "Este curso ya ha finalizado y ya no acepta nuevas inscripciones",
       "signInToEnroll": "Iniciar Sesión para Inscribirse",
       "enrollNow": "Inscribirse Ahora",
       "importantDates": "Fechas Importantes",

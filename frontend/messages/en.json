@@ -1036,6 +1036,8 @@
       "cancelEnrollment": "Cancel Enrollment",
       "courseHasStarted": "Course has started",
       "courseStartedMessage": "This course has already begun and is no longer accepting new enrollments.",
+      "courseHasFinished": "Course has finished",
+      "courseFinishedMessage": "This course has already finished and is no longer accepting new enrollments",
       "signInToEnroll": "Sign In to Enroll",
       "enrollNow": "Enroll Now",
       "importantDates": "Important Dates",

@@ -1037,6 +1037,8 @@
       "cancelEnrollment": "Cancella la matrícula",
       "courseHasStarted": "El curs ha començat",
       "courseStartedMessage": "Aquest curs ja ha començat i ja no accepta noves inscripcions",
+      "courseHasFinished": "El curs ha finalitzat",
+      "courseFinishedMessage": "Aquest curs ja ha finalitzat i ja no accepta noves inscripcions",
       "signInToEnroll": "Inicieu la sessió per inscriure's",
       "enrollNow": "Inscriviu -vos ara",
       "importantDates": "Dates importants",
