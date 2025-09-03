@@ -900,6 +900,12 @@
     }
   },
   "formation": {
+    "enrollmentSuccess": {
+      "title": "¡Inscripción confirmada!",
+      "description": "Te has inscrito correctamente en {courseTitle}. Te hemos enviado un correo de confirmación con todos los detalles.",
+      "close": "Cerrar",
+      "message": "Te has inscrito correctamente."
+    },
     "title": "Formación Profesional",
     "subtitle": "Avanza en tu carrera con nuestros programas de formación integral diseñados por expertos de la industria",
     "searchPlaceholder": "Buscar cursos...",

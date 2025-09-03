@@ -899,6 +899,12 @@
     }
   },
   "formation": {
+    "enrollmentSuccess": {
+      "title": "Enrollment Confirmed!",
+      "description": "You have successfully enrolled in {courseTitle}. We have sent you a confirmation email with all the details.",
+      "close": "Close",
+      "message": "You have been successfully enrolled."
+    },
     "title": "Professional Formation",
     "subtitle": "Advance your career with our comprehensive training programs designed by industry experts",
     "searchPlaceholder": "Search courses...",

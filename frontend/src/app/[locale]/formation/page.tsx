@@ -12,6 +12,7 @@ import AuthModal from "@/components/auth/auth-modal";
 import CourseDetailsModal from "@/components/formation/course-details-modal";
 import EnrollmentConfirmationModal from "@/components/formation/enrollment-confirmation-modal";
 import EnrollmentCancellationModal from "@/components/formation/enrollment-cancellation-modal";
+import CourseEnrollmentSuccessModal from "@/components/ui/CourseEnrollmentSuccessModal";
 import {
   Search,
   Calendar,
@@ -56,6 +57,23 @@ const FormationPage = () => {
   const [showCourseDetailsModal, setShowCourseDetailsModal] = useState(false);
   const [courseForAuth, setCourseForAuth] = useState<Course | null>(null);
   const [courseForDetails, setCourseForDetails] = useState<Course | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successCourseTitle, setSuccessCourseTitle] = useState<string | undefined>(undefined);
+  // Show success modal after Stripe redirect if ?enrolled=1 is present
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      const enrolledParam = url.searchParams.get('enrolled');
+      if (enrolledParam === '1') {
+        // Try to get course title from state or fallback
+        setShowSuccessModal(true);
+        // Optionally, you could get the course title from localStorage or another source
+        // Remove the param from the URL
+        url.searchParams.delete('enrolled');
+        window.history.replaceState({}, document.title, url.pathname + url.search);
+      }
+    }
+  }, []);
 
   const fetchCourses = useCallback(async () => {
     try {
@@ -522,6 +540,13 @@ const FormationPage = () => {
           fetchCourses();
         }}
         selectedCourse={selectedCourse}
+      />
+      {/* Enrollment Success Modal after Stripe redirect */}
+      <CourseEnrollmentSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        courseTitle={successCourseTitle}
+        t={t}
       />
 
       {/* Enrollment Cancellation Modal */}

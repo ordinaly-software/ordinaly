@@ -913,6 +913,12 @@
     }
   },
   "formation": {
+    "enrollmentSuccess": {
+      "title": "Izen-ematea baieztatu da!",
+      "description": "{courseTitle}(e)n izena eman duzu arrakastaz. Berrespen-mezu bat bidali dizugu xehetasun guztiekin.",
+      "close": "Itxi",
+      "message": "Izen-ematea arrakastatsua izan da."
+    },
     "title": "Formazio profesionala",
     "subtitle": "Aurreratu zure ibilbidea industria adituek diseinatutako gure prestakuntza programa integralekin",
     "searchPlaceholder": "Bilatu ikastaroak ...",

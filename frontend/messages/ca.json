@@ -900,6 +900,12 @@
     }
   },
   "formation": {
+    "enrollmentSuccess": {
+      "title": "Inscripció confirmada!",
+      "description": "T'has inscrit correctament a {courseTitle}. T'hem enviat un correu de confirmació amb tots els detalls.",
+      "close": "Tancar",
+      "message": "T'has inscrit correctament."
+    },
     "title": "Formació professional",
     "subtitle": "Avanceu la vostra carrera amb els nostres programes de formació integrals dissenyats per experts de la indústria",
     "searchPlaceholder": "Cursos de cerca ...",
