@@ -110,19 +110,21 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             </div>
             <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-400 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
               <MapPin className="w-5 h-5 text-[#22A60D]" />
-              {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:text-[#22A60D]"
-                  title={course.location}
-                >
-                  {course.location}
-                </a>
-              ) : (
-                <span>{t('locationSoon')}</span>
-              )}
+                    {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
+                      /online|virtual/i.test(course.location)
+                        ? <span className="underline cursor-default text-[#22A60D]">{course.location}</span>
+                        : <a
+                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline hover:text-[#22A60D] transition"
+                            title={course.location}
+                          >
+                            {course.location}
+                          </a>
+                    ) : (
+                      <span>{t('locationSoon')}</span>
+                    )}
             </div>
             <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-400 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
               <Users className="w-5 h-5 text-[#22A60D]" />

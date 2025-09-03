@@ -37,7 +37,7 @@
     },
     "services": {
       "title": "Productos y Servicios",
-      "description": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar.",
+      "description": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar",
       "contactForQuote": "Consulta a nuestros agentes para un presupuesto",
       "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
       "vacationTitle": "De Vacaciones",
@@ -420,7 +420,7 @@
       "deleteSelected": "Eliminar Seleccionados",
       "selectAll": "Seleccionar Todo",
       "noServices": "No hay servicios disponibles",
-      "noServicesFound": "No se encontraron servicios que coincidan con tu búsqueda",
+      "noServicesFound": "No se encontraron servicios ni productos que coincidan con tu búsqueda",
       "durationDay": "1 día",
       "durationDays": "{count} días",
       "services": "servicios",
@@ -621,7 +621,10 @@
           "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos",
           "dateRequired": "La fecha es requerida y debe tener 100 caracteres o menos",
           "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1",
-          "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})"
+          "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})",
+          "endDatePast": "La fecha de finalización no puede ser en el pasado",
+          "startDatePast": "La fecha de inicio no puede ser en el pasado",
+          "endDateBeforeStart": "La fecha de finalización no puede estar antes de la fecha de inicio"
         },
         "capacity": {
           "warning": "Advertencia: Este curso ya tiene {current} inscripciones. Reducir el máximo de asistentes por debajo de este número puede causar problemas"
@@ -666,7 +669,7 @@
         "member": "Miembro",
         "company": "Empresa",
         "moreSessions": "sesiones más",
-        "hours": "horas"
+        "hours": "hora(s)"
       },
       "courseCard": {
         "enrollments": "Inscripciones",
@@ -844,7 +847,7 @@
   },
   "services": {
     "productsAndServicesTitle": "Nuestros productos y servicios",
-    "productsAndServicesDescription": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar.",
+    "productsAndServicesDescription": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar",
     "productsSectionTitle": "Productos Encapsulados",
     "servicesSectionTitle": "Servicios Personalizados",
     "searchPlaceholder": "Buscar productos y servicios...",
@@ -859,12 +862,12 @@
     "learnMore": "Ver detalles",
     "filters": {
       "all": "Todos el catálogo",
-      "featured": "Solo Destacados",
+      "featured": "Solo destacados",
       "service": "Servicios personalizados",
-      "product": "Productos cerrados"
+      "product": "Productos encapsulados"
     },
     "noResults": {
-      "title": "No se Encontraron Servicios",
+      "title": "No se Encontraron servicios ni productos",
       "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar lo que buscas"
     },
     "cta": {
@@ -958,7 +961,9 @@
       "motivation": "¿Por qué quieres tomar este curso?",
       "motivationPlaceholder": "Comparte tu motivación y lo que esperas lograr...",
       "cancel": "Cancelar",
-      "submit": "Inscribirse al Curso"
+      "submit": "Inscribirse al Curso",
+      "successMessage": "¡Inscripción realizada con éxito!",
+      "enrolled": "Ya estás inscrito en este curso"
     },
     "cancellation": {
       "title": "Cancelar Inscripción",
@@ -1020,7 +1025,7 @@
       "endDate": "Fecha de Fin",
       "time": "Horario",
       "duration": "Duración",
-      "hours": "horas",
+      "hours": "hora(s)",
       "daysOfWeek": "Días de la semana",
       "fullSchedule": "Horario Completo",
       "location": "Ubicación",
@@ -1032,6 +1037,8 @@
       "cancelEnrollment": "Cancelar Inscripción",
       "courseHasStarted": "El curso ha comenzado",
       "courseStartedMessage": "Este curso ya ha comenzado y ya no acepta nuevas inscripciones",
+      "courseHasFinished": "El curso ha finalizado",
+      "courseFinishedMessage": "Este curso ya ha finalizado y ya no acepta nuevas inscripciones",
       "signInToEnroll": "Iniciar Sesión para Inscribirse",
       "enrollNow": "Inscribirse Ahora",
       "importantDates": "Fechas Importantes",

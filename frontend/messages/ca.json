@@ -621,7 +621,10 @@
           "locationRequired": "La ubicació és necessària i ha de tenir 100 caràcters o menys",
           "dateRequired": "La data és necessària i ha de tenir 100 caràcters o menys",
           "maxAttendantsInvalid": "Els assistents màxims han de ser almenys 1",
-            "maxAttendantsBelowEnrolled": "No es pot establir un màxim de places inferior al nombre d'inscrits actuals ({count})"
+          "maxAttendantsBelowEnrolled": "No es pot establir un màxim de places inferior al nombre d'inscrits actuals ({count})",
+          "endDatePast": "La data de finalització no pot ser en el passat",
+          "startDatePast": "La data d'inici no pot ser en el passat",
+          "endDateBeforeStart": "La data de finalització no pot ser anterior a la data d'inici"
         },
         "capacity": {
           "warning": "ADVERTIMENT: aquest curs ja té matriculacions {actual}. "
@@ -958,7 +961,9 @@
       "motivation": "Per què voleu fer aquest curs?",
       "motivationPlaceholder": "Comparteix la teva motivació i el que esperes aconseguir ...",
       "cancel": "Cancellar",
-      "submit": "Inscriviu -vos al curs"
+      "submit": "Inscriviu -vos al curs",
+      "successMessage": "Inscripció realitzada amb èxit!",
+      "enrolled": "Ja esteu inscrits en aquest curs"
     },
     "cancellation": {
       "title": "Cancella la matrícula",
@@ -1032,6 +1037,8 @@
       "cancelEnrollment": "Cancella la matrícula",
       "courseHasStarted": "El curs ha començat",
       "courseStartedMessage": "Aquest curs ja ha començat i ja no accepta noves inscripcions",
+      "courseHasFinished": "El curs ha finalitzat",
+      "courseFinishedMessage": "Aquest curs ja ha finalitzat i ja no accepta noves inscripcions",
       "signInToEnroll": "Inicieu la sessió per inscriure's",
       "enrollNow": "Inscriviu -vos ara",
       "importantDates": "Dates importants",

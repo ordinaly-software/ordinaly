@@ -39,7 +39,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: '3.12.8'
 
     - name: Install backend dependencies
       working-directory: backend/
@@ -57,7 +57,7 @@ jobs:
         coverage xml
 
     - name: Run SonarCloud analysis
-      uses: SonarSource/sonarqube-scan-action@v5.0.0
+      uses: SonarSource/sonarqube-scan-action@v5.3.1
       with:
         args: >
           -Dsonar.projectKey=ordinaly-software_ordinaly

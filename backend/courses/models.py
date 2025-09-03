@@ -427,6 +427,8 @@ class Enrollment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='enrollments')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
     enrolled_at = models.DateTimeField(auto_now_add=True)
+    stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True,
+                                                help_text="Stripe PaymentIntent ID for paid enrollments.")
 
     class Meta:
         unique_together = ['user', 'course']

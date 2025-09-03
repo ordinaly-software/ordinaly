@@ -24,7 +24,7 @@
     "hero": {
       "title": "AUTOMATIZA",
       "subtitle": "O TEU NEGOCIO CON IA",
-      "description": "Transformamos empresas con automatizacións intelixentes. Desde chatbots, CRMs e ata fluxos de traballo avanzados, axudámosche a modernizar a túa empresa e a ser máis eficiente.",
+      "description": "Transformamos empresas con automatizacións intelixentes. Desde chatbots, CRMs e ata fluxos de traballo avanzados, axudámosche a modernizar a túa empresa e a ser máis eficiente",
       "discoverButton": "Descobre como",
       "demoButton": "Ver Demo"
     },
@@ -33,13 +33,13 @@
     },
     "contact": {
       "emailSubject": "Consulta sobre o servizo: {service}",
-      "message": "Ola,\n\nEstou interesado no servizo \"{service}\".\n\n¿Poderían proporcionarme máis información?\n\nGrazas."
+      "message": "Ola,\n\nEstou interesado no servizo \"{service}\".\n\n¿Poderían proporcionarme máis información?\n\nGrazas"
     },
     "services": {
       "title": "Produtos e Servizos",
-      "description": "Descubre os nosos servizos personalizados e produtos encapsulados exclusivos. Elixe o que mellor se adapte ao teu negocio: desde consultoría a medida ata solucións listas para usar.",
+      "description": "Descubre os nosos servizos personalizados e produtos encapsulados exclusivos. Elixe o que mellor se adapte ao teu negocio: desde consultoría a medida ata solucións listas para usar",
       "contactForQuote": "Consulta aos nosos axentes para un orzamento",
-      "vacationMessage": "¡Estamos de vacacións! Os nosos servizos volverán pronto despois das festas. Grazas pola túa paciencia.",
+      "vacationMessage": "¡Estamos de vacacións! Os nosos servizos volverán pronto despois das festas. Grazas pola túa paciencia",
       "vacationTitle": "De Vacacións",
       "retryButton": "Tentar de Novo",
       "featured": "Destacado",
@@ -67,7 +67,7 @@
       },
       "accessibility": {
         "title": "Accesibilidade global",
-        "description": "Incorporamos ferramentas de accesibilidade na túa web ou aplicación para garantir que sexa inclusiva no mercado dixital."
+        "description": "Incorporamos ferramentas de accesibilidade na túa web ou aplicación para garantir que sexa inclusiva no mercado dixital"
       },
       "consulting": {
         "title": "Consultoría personalizada",
@@ -108,15 +108,15 @@
       "signUpModal": {
         "title": "Rexistro de Curso",
         "description": "Recibe notificacións cando se abra a inscrición para \"{courseName}\"",
-        "generalDescription": "Recibe notificacións sobre novos anuncios de cursos e oportunidades de inscrición anticipada.",
+        "generalDescription": "Recibe notificacións sobre novos anuncios de cursos e oportunidades de inscrición anticipada",
         "close": "Pechar",
         "notify": "Notificarme"
       }
     },
     "about": {
       "title": "Liderando a transformación dixital en Andalucía",
-      "description1": "En Ordinaly, cremos que as empresas andaluzas teñen o potencial de liderar a innovación tecnolóxica en España e Europa.",
-      "description2": "Traballamos cóbado con cóbado con empresas locais para implementar solucións que melloren a eficiencia, pero tamén as convertan en líderes nas súas industrias."
+      "description1": "En Ordinaly, cremos que as empresas andaluzas teñen o potencial de liderar a innovación tecnolóxica en España e Europa",
+      "description2": "Traballamos cóbado con cóbado con empresas locais para implementar solucións que melloren a eficiencia, pero tamén as convertan en líderes nas súas industrias"
     },
     "technologies": {
       "title": "Tecnoloxías que potencian os nosos servizos",
@@ -171,8 +171,8 @@
     },
     "demoModal": {
       "title": "Demo",
-      "description": "Descobre como a nosa plataforma pode transformar o teu negocio con automatización intelixente.",
-      "videoNotSupported": "O teu navegador non soporta este tipo de vídeo.",
+      "description": "Descobre como a nosa plataforma pode transformar o teu negocio con automatización intelixente",
+      "videoNotSupported": "O teu navegador non soporta este tipo de vídeo",
       "videoError": "Erro reproducindo o vídeo:"
     },
     "footer": {
@@ -180,7 +180,7 @@
         "title": "ORDINALY",
         "alt": "Logo de Ordinaly"
       },
-      "description": "Transformando empresas andaluzas con intelixencia artificial e automatización.",
+      "description": "Transformando empresas andaluzas con intelixencia artificial e automatización",
       "legal": {
         "title": "Docs Legais",
         "terms": "Termos",
@@ -200,7 +200,7 @@
         "phone": "+34 626 27 08 06",
         "location": "Andalucía, España"
       },
-      "copyright": "© 2025 Ordinaly Software."
+      "copyright": "© 2025 Ordinaly Software"
     },
     "pricingPlans": {
       "1": {
@@ -233,7 +233,7 @@
   },
   "common": {
     "onVacation": "De vacacións",
-    "vacationMessage": "¡Estamos de vacacións! Os nosos servizos volverán pronto despois das festas. Grazas pola túa paciencia.",
+    "vacationMessage": "¡Estamos de vacacións! Os nosos servizos volverán pronto despois das festas. Grazas pola túa paciencia",
     "retry": "Reintentar",
     "learnMore": "Saber máis",
     "backToHome": "Volver ao inicio"
@@ -247,25 +247,25 @@
   "cookie": {
     "title": "Configuración de cookies",
     "openCookieSettings": "Abrir configuración de cookies",
-    "description": "Utilizamos cookies para mellorar a túa experiencia, personalizar contido e analizar o tráfico.",
+    "description": "Utilizamos cookies para mellorar a túa experiencia, personalizar contido e analizar o tráfico",
     "whatAre": "¿Que son as cookies?",
-    "whatAreDescription": "As cookies son pequenos arquivos de texto que se almacenan no teu dispositivo cando visitas un sitio web.",
+    "whatAreDescription": "As cookies son pequenos arquivos de texto que se almacenan no teu dispositivo cando visitas un sitio web",
     "acceptAll": "Aceptar todas",
     "rejectAll": "Rexeitar todas",
     "customize": "Personalizar configuración",
     "personalizeTitle": "Personaliza as túas preferencias de cookies",
-    "personalizeDescription": "Podes activar ou desactivar diferentes tipos de cookies segundo as túas preferencias.",
+    "personalizeDescription": "Podes activar ou desactivar diferentes tipos de cookies segundo as túas preferencias",
     "necessary": "Cookies necesarias",
-    "necessaryDescription": "Estas cookies son esenciais para o funcionamento do sitio web e non se poden desactivar.",
+    "necessaryDescription": "Estas cookies son esenciais para o funcionamento do sitio web e non se poden desactivar",
     "necessaryAlways": "Sempre activadas",
     "functional": "Cookies funcionais",
-    "functionalDescription": "Permiten funcionalidades e personalización melloradas.",
+    "functionalDescription": "Permiten funcionalidades e personalización melloradas",
     "functionalExamples": "Preferencias de idioma, configuracións de usuario",
     "analytics": "Cookies de análise",
-    "analyticsDescription": "Axúdannos a entender como os usuarios interactúan co sitio web.",
+    "analyticsDescription": "Axúdannos a entender como os usuarios interactúan co sitio web",
     "analyticsExamples": "Google Analytics, métricas de rendemento",
     "marketing": "Cookies de marketing",
-    "marketingDescription": "Permítennos mostrarche anuncios máis relevantes baseados nos teus intereses.",
+    "marketingDescription": "Permítennos mostrarche anuncios máis relevantes baseados nos teus intereses",
     "marketingExamples": "Publicidade personalizada, seguimento de campañas",
     "back": "Atrás",
     "save": "Gardar preferencias",
@@ -310,9 +310,9 @@
     "messages": {
       "success": "¡Sesión iniciada con éxito!",
       "invalidCredentials": "Email/nome de usuario ou contrasinal inválidos",
-      "networkError": "Erro de rede.",
+      "networkError": "Erro de rede",
       "fillAllFields": "Por favor, enche todos os campos",
-      "googleSignInError": "Erro no inicio de sesión con Google."
+      "googleSignInError": "Erro no inicio de sesión con Google"
     }
   },
   "signup": {
@@ -352,7 +352,7 @@
     },
     "messages": {
       "success": "¡Conta creada con éxito!",
-      "networkError": "Erro de rede.",
+      "networkError": "Erro de rede",
       "validation": {
         "nameRequired": "O nome é obrigatorio",
         "surnameRequired": "Os apelidos son obrigatorios",
@@ -364,7 +364,7 @@
         "passwordMismatch": "Os contrasinais non coinciden",
         "termsRequired": "Debes aceptar os Termos de Servizo e a Política de Privacidade para continuar"
       },
-      "googleSignUpError": "Erro no rexistro con Google."
+      "googleSignUpError": "Erro no rexistro con Google"
     }
   },
   "admin": {
@@ -372,7 +372,7 @@
     "subtitle": "Xestiona o teu contido e configuración da aplicación",
     "loading": "Cargando panel de administración...",
     "accessDenied": "Acceso denegado",
-    "noPermission": "Non tes permisos para acceder a esta páxina.",
+    "noPermission": "Non tes permisos para acceder a esta páxina",
     "labels": {
       "price": "Prezo",
       "duration": "Dispoñible en",
@@ -398,7 +398,7 @@
       "surname": "Apelido",
       "email": "Email",
       "company": "Empresa",
-      "errorFetching": "Non se puido cargar a lista de usuarios. Por favor, intenta de novo máis tarde.",
+      "errorFetching": "Non se puido cargar a lista de usuarios. Por favor, intenta de novo máis tarde",
       "sendMail": "Enviar correo",
       "selectAll": "Seleccionar todo",
       "searchPlaceholder": "Buscar usuarios...",
@@ -419,8 +419,8 @@
       "createService": "Crear novo servizo",
       "deleteSelected": "Eliminar seleccionados",
       "selectAll": "Seleccionar todo",
-      "noServices": "Non hai servizos dispoñibles.",
-      "noServicesFound": "Non se atoparon servizos que coincidan coa túa busca.",
+      "noServices": "Non hai servizos dispoñibles",
+      "noServicesFound": "Non se atoparon servizos que coincidan coa túa busca",
       "durationDay": "1 día",
       "durationDays": "{count} días",
       "services": "servizos",
@@ -467,20 +467,20 @@
         "createError": "Erro ao crear servizo",
         "updateError": "Erro ao actualizar servizo",
         "deleteError": "Erro ao eliminar servizo",
-        "networkError": "Non se puido gardar o servizo.",
+        "networkError": "Non se puido gardar o servizo",
         "selectToDelete": "Por favor, selecciona servizos para eliminar",
         "validation": {
-          "titleRequired": "O título do servizo é obrigatorio e debe ter 100 caracteres ou menos.",
-          "subtitleRequired": "O subtítulo é obrigatorio e debe ter 200 caracteres ou menos.",
-          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos.",
-          "iconRequired": "Por favor, selecciona unha icona válida para o servizo.",
-          "durationInvalid": "A duración debe ser polo menos 1 día se se especifica.",
-          "requisitesLimit": "Os requisitos deben ter 2000 caracteres ou menos.",
-          "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica."
+          "titleRequired": "O título do servizo é obrigatorio e debe ter 100 caracteres ou menos",
+          "subtitleRequired": "O subtítulo é obrigatorio e debe ter 200 caracteres ou menos",
+          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos",
+          "iconRequired": "Por favor, selecciona unha icona válida para o servizo",
+          "durationInvalid": "A duración debe ser polo menos 1 día se se especifica",
+          "requisitesLimit": "Os requisitos deben ter 2000 caracteres ou menos",
+          "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica"
         },
         "featured": {
-          "enabled": "Servizo marcado como destacado.",
-          "disabled": "Servizo xa non está destacado."
+          "enabled": "Servizo marcado como destacado",
+          "disabled": "Servizo xa non está destacado"
         }
       },
       "confirmDelete": {
@@ -502,9 +502,9 @@
       "deleteSelected": "Eliminar seleccionados",
       "selectAll": "Seleccionar todo",
       "courses": "cursos",
-      "noCourses": "Non hai cursos dispoñibles.",
-      "noCoursesFound": "Non se atoparon cursos que coincidan coa túa busca.",
-      "noPastCourses": "Non hai cursos pasados dispoñibles.",
+      "noCourses": "Non hai cursos dispoñibles",
+      "noCoursesFound": "Non se atoparon cursos que coincidan coa túa busca",
+      "noPastCourses": "Non hai cursos pasados dispoñibles",
       "contactForQuote": "Gratuito",
       "edit": "Editar",
       "delete": "Eliminar",
@@ -606,25 +606,28 @@
         "createError": "Erro ao crear curso",
         "updateError": "Erro ao actualizar curso",
         "deleteError": "Erro ao eliminar curso",
-        "networkError": "Non se puido gardar o curso.",
+        "networkError": "Non se puido gardar o curso",
         "selectToDelete": "Por favor, selecciona cursos para eliminar",
         "imageSizeLimit1MB": "O tamaño do arquivo debe ser menor de 1MB",
         "imageFileOnly": "Por favor, selecciona un arquivo de imaxe",
-        "cannotDeleteFinished": "Non se pode eliminar un curso finalizado.",
-        "cannotDeleteFinishedBulk": "Non se pode eliminar un ou máis cursos finalizados.",
+        "cannotDeleteFinished": "Non se pode eliminar un curso finalizado",
+        "cannotDeleteFinishedBulk": "Non se pode eliminar un ou máis cursos finalizados",
         "validation": {
-          "titleRequired": "O título do curso é obrigatorio e debe ter 100 caracteres ou menos.",
-          "subtitleLimit": "O subtítulo debe ter 200 caracteres ou menos.",
-          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos.",
-          "imageRequired": "Por favor, sube un arquivo de imaxe válido para o curso.",
-          "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica.",
-          "locationRequired": "A localización é obrigatoria e debe ter 100 caracteres ou menos.",
-          "dateRequired": "A data é obrigatoria e debe ter 100 caracteres ou menos.",
-          "maxAttendantsInvalid": "O máximo de asistentes debe ser polo menos 1.",
-          "maxAttendantsBelowEnrolled": "Non se pode establecer un máximo de prazas menor que o número de inscritos actuais ({count})."
+          "titleRequired": "O título do curso é obrigatorio e debe ter 100 caracteres ou menos",
+          "subtitleLimit": "O subtítulo debe ter 200 caracteres ou menos",
+          "descriptionRequired": "A descrición é obrigatoria e debe ter 2000 caracteres ou menos",
+          "imageRequired": "Por favor, sube un arquivo de imaxe válido para o curso",
+          "priceInvalid": "O prezo debe ser polo menos €0.01 se se especifica",
+          "locationRequired": "A localización é obrigatoria e debe ter 100 caracteres ou menos",
+          "dateRequired": "A data é obrigatoria e debe ter 100 caracteres ou menos",
+          "maxAttendantsInvalid": "O máximo de asistentes debe ser polo menos 1",
+          "maxAttendantsBelowEnrolled": "Non se pode establecer un máximo de prazas menor que o número de inscritos actuais ({count})",
+          "endDatePast": "A data de fin non pode estar no pasado",
+          "startDatePast": "A data de inicio non pode estar no pasado",
+          "endDateBeforeStart": "A data de fin non pode estar antes da data de inicio"
         },
         "capacity": {
-          "warning": "AVISO: Este curso xa ten inscricións."
+          "warning": "AVISO: Este curso xa ten inscricións"
         }
       },
       "confirmDelete": {
@@ -696,8 +699,8 @@
       "createTerm": "Crear novo termo",
       "deleteSelected": "Eliminar seleccionados",
       "selectAll": "Seleccionar todo",
-      "noTerms": "Non hai termos dispoñibles.",
-      "noTermsFound": "Non se atoparon termos que coincidan coa túa busca.",
+      "noTerms": "Non hai termos dispoñibles",
+      "noTermsFound": "Non se atoparon termos que coincidan coa túa busca",
       "pdfAvailable": "PDF dispoñible",
       "mdAvailable": "Document md dispoñible",
       "downloadPdf": "Descargar PDF",
@@ -716,7 +719,7 @@
         "tagPlaceholder": "Selecciona o tipo de documento",
         "selectTag": "Selecciona un tipo de documento",
         "noAvailableTags": "Non hai tipos de documento dispoñibles",
-        "allTagsUsed": "Todos os tipos de documento foron creados. Só podes ter un de cada tipo.",
+        "allTagsUsed": "Todos os tipos de documento foron creados. Só podes ter un de cada tipo",
         "allTagsUsedTitle": "Todos os tipos de documento xa están en uso",
         "allTagsUsedButton": "Todos os tipos creados",
         "markdownSupported": "Markdown soportado",
@@ -771,33 +774,33 @@
         "updateError": "Erro ao actualizar documento",
         "deleteError": "Erro ao eliminar documento",
         "downloadSuccess": "PDF descargado con éxito",
-        "networkError": "Non se puido gardar o documento. Por favor, verifica a túa conexión e intenta de novo.",
+        "networkError": "Non se puido gardar o documento. Por favor, verifica a túa conexión e intenta de novo",
         "selectToDelete": "Por favor, selecciona documentos para eliminar",
         "fileSizeLimit": "O tamaño do arquivo debe ser menor de 10MB",
         "pdfFileOnly": "Por favor, selecciona un arquivo PDF",
         "validation": {
-          "nameRequired": "O nome do documento é obrigatorio e debe ter 127 caracteres ou menos.",
-          "contentRequired": "Por favor, sube un arquivo Markdown (.md) válido para o contido.",
-          "pdfRequired": "Por favor, sube un arquivo PDF válido para o documento.",
-          "versionRequired": "A versión é obrigatoria e debe ter 20 caracteres ou menos.",
-          "tagUnique": "Xa existe un documento con este tipo de etiqueta. Por favor, escolle unha etiqueta diferente ou edita o documento existente.",
-          "fileExtension": "O arquivo de contido debe ser un arquivo .md e o contido PDF debe ser un arquivo .pdf.",
-          "fileMissing": "Deben proporcionarse tanto un arquivo markdown (.md) como un arquivo PDF.",
-          "tagRequired": "Por favor, selecciona un tipo de documento.",
-          "mdSize": "O arquivo Markdown debe ter 1MB ou menos.",
-          "pdfSize": "O arquivo PDF debe ter 1MB ou menos."
+          "nameRequired": "O nome do documento é obrigatorio e debe ter 127 caracteres ou menos",
+          "contentRequired": "Por favor, sube un arquivo Markdown (.md) válido para o contido",
+          "pdfRequired": "Por favor, sube un arquivo PDF válido para o documento",
+          "versionRequired": "A versión é obrigatoria e debe ter 20 caracteres ou menos",
+          "tagUnique": "Xa existe un documento con este tipo de etiqueta. Por favor, escolle unha etiqueta diferente ou edita o documento existente",
+          "fileExtension": "O arquivo de contido debe ser un arquivo .md e o contido PDF debe ser un arquivo .pdf",
+          "fileMissing": "Deben proporcionarse tanto un arquivo markdown (.md) como un arquivo PDF",
+          "tagRequired": "Por favor, selecciona un tipo de documento",
+          "mdSize": "O arquivo Markdown debe ter 1MB ou menos",
+          "pdfSize": "O arquivo PDF debe ter 1MB ou menos"
         }
       },
       "upload": {
-        "error": "Erro ao cargar o arquivo. Por favor, asegúrate de que os teus arquivos sexan válidos e intenta de novo."
+        "error": "Erro ao cargar o arquivo. Por favor, asegúrate de que os teus arquivos sexan válidos e intenta de novo"
       },
       "version": {
-        "updateWarning": "Importante: Actualizar este documento de termos creará unha nova versión. Os usuarios poden necesitar re-aceptar os termos actualizados."
+        "updateWarning": "Importante: Actualizar este documento de termos creará unha nova versión. Os usuarios poden necesitar re-aceptar os termos actualizados"
       },
       "confirmDelete": {
         "title": "Confirmar eliminación",
-        "single": "¿Estás seguro de que queres eliminar \"{name}\"? Esta acción non se pode desfacer.",
-        "multiple": "¿Estás seguro de que queres eliminar {count} termos seleccionados? Esta acción non se pode desfacer.",
+        "single": "¿Estás seguro de que queres eliminar \"{name}\"? Esta acción non se pode desfacer",
+        "multiple": "¿Estás seguro de que queres eliminar {count} termos seleccionados? Esta acción non se pode desfacer",
         "delete": "Eliminar",
         "cancel": "Cancelar"
       },
@@ -809,7 +812,7 @@
   },
   "legal": {
     "title": "Documentación legal",
-    "description": "Accede aos nosos Termos de Servizo, Política de Privacidade, Política de Cookies e información de Licencia.",
+    "description": "Accede aos nosos Termos de Servizo, Política de Privacidade, Política de Cookies e información de Licencia",
     "downloadPdf": "Descargar PDF",
     "tabs": {
       "terms": "Termos de Servizo",
@@ -820,19 +823,19 @@
     "sections": {
       "terms": {
         "title": "Termos de Servizo",
-        "noDocuments": "Non hai documentos de termos de servizo dispoñibles actualmente."
+        "noDocuments": "Non hai documentos de termos de servizo dispoñibles actualmente"
       },
       "privacy": {
         "title": "Política de Privacidade",
-        "noDocuments": "Non hai documentos de política de privacidade dispoñibles actualmente."
+        "noDocuments": "Non hai documentos de política de privacidade dispoñibles actualmente"
       },
       "cookies": {
         "title": "Política de Cookies",
-        "noDocuments": "Non hai documentos de política de cookies dispoñibles actualmente."
+        "noDocuments": "Non hai documentos de política de cookies dispoñibles actualmente"
       },
       "license": {
         "title": "Información de Licencia",
-        "noDocuments": "Non hai documentos de licencia dispoñibles actualmente."
+        "noDocuments": "Non hai documentos de licencia dispoñibles actualmente"
       }
     },
     "messages": {
@@ -844,7 +847,7 @@
   },
   "services": {
     "productsAndServicesTitle": "Os nosos produtos e servizos",
-    "productsAndServicesDescription": "Descubre os nosos servizos personalizados e produtos encapsulados exclusivos. Elixe o que mellor se adapte ao teu negocio: desde consultoría a medida ata solucións listas para usar.",
+    "productsAndServicesDescription": "Descubre os nosos servizos personalizados e produtos encapsulados exclusivos. Elixe o que mellor se adapte ao teu negocio: desde consultoría a medida ata solucións listas para usar",
     "productsSectionTitle": "Produtos Encapsulados",
     "servicesSectionTitle": "Servizos Personalizados",
     "searchPlaceholder": "Buscar produtos e servizos...",
@@ -865,15 +868,15 @@
     },
     "noResults": {
       "title": "Non se atoparon servizos",
-      "description": "Proba a axustar os teus termos de busca ou filtros para atopar o que buscas."
+      "description": "Proba a axustar os teus termos de busca ou filtros para atopar o que buscas"
     },
     "cta": {
       "title": "Preparado para transformar o teu negocio?",
-      "description": "Conversemos sobre como poden axudarche os nosos servizos a conseguir os teus obxectivos de transformación dixital.",
+      "description": "Conversemos sobre como poden axudarche os nosos servizos a conseguir os teus obxectivos de transformación dixital",
       "contact": "Poñerse en contacto",
       "call": "Programar unha chamada",
       "emailSubject": "Consulta sobre os Servizos de Ordinaly",
-      "emailBody": "Ola, estou interesado en saber máis sobre os vosos servizos de transformación dixital."
+      "emailBody": "Ola, estou interesado en saber máis sobre os vosos servizos de transformación dixital"
     },
     "contact": {
       "title": "Contactar connosco",
@@ -923,27 +926,27 @@
     },
     "noResults": {
       "title": "Non se atoparon cursos",
-      "description": "Proba a axustar os teus termos de busca ou filtros para atopar o curso perfecto para ti."
+      "description": "Proba a axustar os teus termos de busca ou filtros para atopar o curso perfecto para ti"
     },
-    "noPastCourses": "Non hai cursos anteriores dispoñibles.",
+    "noPastCourses": "Non hai cursos anteriores dispoñibles",
     "pastCourses": "Cursos anteriores",
     "viewPastCourses": "Ver cursos anteriores",
     "hidePastCourses": "Ocultar cursos anteriores",
     "finished": "Finalizado",
     "cta": {
       "title": "Preparado para avanzar na túa carreira?",
-      "description": "Únete aos miles de profesionais que transformaron as súas carreiras cos nosos programas de formación dirixidos por expertos.",
+      "description": "Únete aos miles de profesionais que transformaron as súas carreiras cos nosos programas de formación dirixidos por expertos",
       "contact": "Contactar Asesor",
       "catalog": "Descargar catálogo",
       "emailSubject": "Consulta sobre os Programas de Formación de Ordinaly",
-      "emailBody": "Ola, estou interesado en saber máis sobre os vosos programas de formación."
+      "emailBody": "Ola, estou interesado en saber máis sobre os vosos programas de formación"
     },
     "enrollment": {
       "title": "Inscrición no curso",
       "confirm": "Confirmar inscrición",
       "courseDetails": "Detalles do curso",
       "confirmMessage": "¿Estás seguro de que queres inscribirse neste curso?",
-      "paymentNote": "O procesamento do pago será xestionado no seguinte paso.",
+      "paymentNote": "O procesamento do pago será xestionado no seguinte paso",
       "confirmEnroll": "Confirmar inscrición",
       "name": "Nome completo",
       "namePlaceholder": "Introduce o teu nome completo",
@@ -958,13 +961,15 @@
       "motivation": "¿Por que queres facer este curso?",
       "motivationPlaceholder": "Comparte a túa motivación e o que esperas conseguir...",
       "cancel": "Cancelar",
-      "submit": "Realizar inscrición"
+      "submit": "Realizar inscrición",
+      "successMessage": "Inscrición realizada con éxito!",
+      "enrolled": "Xa estás inscrito neste curso"
     },
     "cancellation": {
       "title": "Cancelar inscrición",
       "warning": "Cancelar Inscrición no Curso",
       "warningMessage": "¿Estás seguro de que queres cancelar a túa inscrición en \"{courseTitle}\"?",
-      "confirmMessage": "Isto te eliminará do curso e poderías perder a túa praza.",
+      "confirmMessage": "Isto te eliminará do curso e poderías perder a túa praza",
       "keepEnrollment": "Manter inscrición",
       "confirmCancel": "Cancelar inscrición"
     },
@@ -972,20 +977,20 @@
       "signInToEnroll": "Por favor, inicia sesión para inscribirse nos cursos",
       "signInRequired": "Por favor, inicia sesión para xestionar inscricións",
       "enrollmentSuccess": "Inscrito con éxito en {courseTitle}!",
-      "enrollmentFailed": "Erro na inscrición.",
+      "enrollmentFailed": "Erro na inscrición",
       "enrollmentCancelled": "Inscrición cancelada con éxito",
       "cancelEnrollmentFailed": "Erro ao cancelar a inscrición",
       "notEnrolled": "Non estás inscrito neste curso actualmente",
-      "authenticationFailed": "Erro de autenticación.",
-      "networkError": "Erro de rede.",
+      "authenticationFailed": "Erro de autenticación",
+      "networkError": "Erro de rede",
       "failedToLoadCourses": "Erro ao cargar cursos",
       "networkErrorLoadingCourses": "Erro de rede ao cargar cursos",
       "generatingCatalog": "Xerando catálogo do curso...",
       "catalogDownloaded": "Catálogo descargado con éxito!",
-      "catalogError": "Erro ao xerar catálogo."
+      "catalogError": "Erro ao xerar catálogo"
     },
       "slogan": "Solucións de Software e Formación",
-      "introduction": "En Ordinaly, ofrecemos formación especializada en tecnoloxías emerxentes e desenvolvemento profesional.",
+      "introduction": "En Ordinaly, ofrecemos formación especializada en tecnoloxías emerxentes e desenvolvemento profesional",
       "coursesTitle": "Os nosos cursos",
       "time": "Hora:",
       "capacity": "Capacidade:",
@@ -996,9 +1001,9 @@
       "specialization": "Especialización:",
       "specializationText": "Desenvolvemento de Software e Formación Tecnolóxica",
       "filename": "Ordinaly_catalogo_formacion.pdf",
-      "noSpecificTime": "Aínda non hai hora específica.",
+      "noSpecificTime": "Aínda non hai hora específica",
       "bonificationTitle": "Bonificación e Subvencións",
-      "bonificationDisclaimer": "Parte das nosas formacións poden bonificarse vía FUNDAE/SEPE e/ou encaixar en convocatorias cofinanciadas por FSE+ e PRTR-NextGenerationEU, sempre que a súa empresa cumpra requisitos e tramite a axuda. Ordinaly facilita a documentación do curso, pero non solicita nin tramita bonificacións ou subvencións en nome do cliente. Revise sempre as ligazóns oficiais antes de contratar.",
+      "bonificationDisclaimer": "Parte das nosas formacións poden bonificarse vía FUNDAE/SEPE e/ou encaixar en convocatorias cofinanciadas por FSE+ e PRTR-NextGenerationEU, sempre que a súa empresa cumpra requisitos e tramite a axuda. Ordinaly facilita a documentación do curso, pero non solicita nin tramita bonificacións ou subvencións en nome do cliente. Revise sempre as ligazóns oficiais antes de contratar",
     "pdf": {
       "title": "Catálogo de formación",
       "subtitle": "Cursos de formación profesional e tecnolóxica",
@@ -1031,11 +1036,13 @@
       "enrolled": "Inscrito",
       "cancelEnrollment": "Cancelar inscrición",
       "courseHasStarted": "O curso xa comezou",
-      "courseStartedMessage": "Este curso xa comezou e xa non acepta novas inscricións.",
+      "courseStartedMessage": "Este curso xa comezou e xa non acepta novas inscricións",
+      "courseHasFinished": "O curso xa finalizou",
+      "courseFinishedMessage": "Este curso xa finalizou e xa non acepta novas inscricións",
       "signInToEnroll": "Iniciar sesión para inscribirse",
       "enrollNow": "Inscribirse agora",
       "importantDates": "Datas importantes",
-      "excludedDatesMessage": "Hai {count} data(s) excluída(s) (vacacións ou descansos) que non están incluídas no horario regular.",
+      "excludedDatesMessage": "Hai {count} data(s) excluída(s) (vacacións ou descansos) que non están incluídas no horario regular",
       "moreSessions": "E {count} sesións máis...",
       "noSpecificDate": "Non hai unha data específica",
       "downloadingCalendar": "Descargando...",
@@ -1113,8 +1120,8 @@
     }
   },
   "bonificationTexts": {
-    "summary": "Parte das nosas formacións poden bonificarse vía FUNDAE/SEPE e/ou encaixar en convocatorias cofinanciadas por FSE+ e PRTR-NextGenerationEU, sempre que a súa empresa cumpra requisitos e tramite a axuda pola súa conta.",
-    "details": "\n**FUNDAE / SEPE - Formación programada polas empresas:** permite bonificar parte do custo formativo nas cotas á Seguridade Social. Información oficial para Empresas ([FUNDAE](https://www.fundae.es/empresas)) e Formación para ocupados ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fondos UE - FSE+ 2021-2027:** programas estatais e rexionais (incluída Andalucía) que financian actuacións de emprego, educación e formación mediante convocatorias públicas. Consulte [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Compoñente 23):** medidas para capacitación e políticas activas de emprego; a cobertura depende de cada convocatoria. Información oficial do [Plan de Recuperación](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) e do [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalucía (ámbito autonómico):** Programa FSE+ Andalucía 2021-2027 e Formación Profesional para o Emprego (FPE) publican axudas/convocatorias específicas. Consulte [Xunta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) e [FPE](https://www.juntadeandalucia.es/temas/traballar/formacion/fpe.html).\n\n**Aviso:** A elixibilidade, intensidade e compatibilidade do financiamento varían segundo a normativa e convocatoria vixente. Ordinaly facilita a documentación do curso, pero non solicita nin tramita bonificacións ou subvencións en nome do cliente. Revise sempre as ligazóns oficiais antes de contratar."
+    "summary": "Parte das nosas formacións poden bonificarse vía FUNDAE/SEPE e/ou encaixar en convocatorias cofinanciadas por FSE+ e PRTR-NextGenerationEU, sempre que a súa empresa cumpra requisitos e tramite a axuda pola súa conta",
+    "details": "\n**FUNDAE / SEPE - Formación programada polas empresas:** permite bonificar parte do custo formativo nas cotas á Seguridade Social. Información oficial para Empresas ([FUNDAE](https://www.fundae.es/empresas)) e Formación para ocupados ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fondos UE - FSE+ 2021-2027:** programas estatais e rexionais (incluída Andalucía) que financian actuacións de emprego, educación e formación mediante convocatorias públicas. Consulte [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Compoñente 23):** medidas para capacitación e políticas activas de emprego; a cobertura depende de cada convocatoria. Información oficial do [Plan de Recuperación](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) e do [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalucía (ámbito autonómico):** Programa FSE+ Andalucía 2021-2027 e Formación Profesional para o Emprego (FPE) publican axudas/convocatorias específicas. Consulte [Xunta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) e [FPE](https://www.juntadeandalucia.es/temas/traballar/formacion/fpe.html).\n\n**Aviso:** A elixibilidade, intensidade e compatibilidade do financiamento varían segundo a normativa e convocatoria vixente. Ordinaly facilita a documentación do curso, pero non solicita nin tramita bonificacións ou subvencións en nome do cliente. Revise sempre as ligazóns oficiais antes de contratar"
   },
   "profile": {
     "title": "O meu perfil",
@@ -1151,7 +1158,7 @@
     },
     "deleteAccount": {
       "title": "Eliminar Conta",
-      "description": "Unha vez que elimines a túa conta, non hai volta atrás.",
+      "description": "Unha vez que elimines a túa conta, non hai volta atrás",
       "button": "Eliminar Conta",
       "confirmTitle": "Confirmar eliminación da conta",
       "confirmMessage": "¿Estás seguro de que queres eliminar a túa conta?",
@@ -1161,11 +1168,11 @@
     },
     "messages": {
       "updateSuccess": "Perfil actualizado con éxito!",
-      "updateError": "Erro ao actualizar o perfil.",
-      "deleteSuccess": "Conta eliminada con éxito.",
-      "deleteError": "Erro ao eliminar a conta.",
-      "networkError": "Erro de rede.",
-      "unauthorizedError": "Non tes autorización para realizar esta acción.",
+      "updateError": "Erro ao actualizar o perfil",
+      "deleteSuccess": "Conta eliminada con éxito",
+      "deleteError": "Erro ao eliminar a conta",
+      "networkError": "Erro de rede",
+      "unauthorizedError": "Non tes autorización para realizar esta acción",
       "validation": {
         "firstNameRequired": "O nome é obrigatorio",
         "lastNameRequired": "Os apelidos son obrigatorios",
@@ -1195,8 +1202,8 @@
   "notFound": {
     "title": "404 - Páxina Non Atopada",
     "heading": "¡Vaia! Páxina Perdida no Espazo Dixital",
-    "message": "A páxina que buscas semella haberse perdido no noso universo de automatización empresarial.",
-    "description": "Non te preocupes, incluso en Ordinaly ás veces nos desviamos do camiño. Pero temos solucións intelixentes para todo.",
+    "message": "A páxina que buscas semella haberse perdido no noso universo de automatización empresarial",
+    "description": "Non te preocupes, incluso en Ordinaly ás veces nos desviamos do camiño. Pero temos solucións intelixentes para todo",
     "homeButton": "Volver ao Inicio",
     "exploreButton": "Explorar Servizos", 
     "contactButton": "Contactar Soporte",

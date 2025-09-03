@@ -434,19 +434,23 @@ const CourseDetailsModal = ({
                 
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <MapPin className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                    <span className="flex items-center">
+                      <MapPin className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                    </span>
                     <div>
                       <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('location')}</p>
                       {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
-                        <a
-                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#22A60D]"
-                          title={course.location}
-                        >
-                          {course.location}
-                        </a>
+                        /online|virtual/i.test(course.location)
+                          ? <span className="underline cursor-default text-[#22A60D] text-sm">{course.location}</span>
+                          : <a
+                              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#22A60D]"
+                              title={course.location}
+                            >
+                              {course.location}
+                            </a>
                       ) : (
                         <p className="text-gray-900 dark:text-gray-100 text-sm">{t('locationSoon')}</p>
                       )}
@@ -498,6 +502,15 @@ const CourseDetailsModal = ({
                     <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700 text-yellow-700 dark:text-yellow-200 mb-2">
                       {t('noSpecificDate')}
                     </span>
+                  </div>
+                ) : hasEnded ? (
+                  <div className="text-center">
+                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 mb-2">
+                      {t('courseHasFinished')}
+                    </span>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      {t('courseFinishedMessage')}
+                    </p>
                   </div>
                 ) : hasStarted ? (
                   <div className="text-center">

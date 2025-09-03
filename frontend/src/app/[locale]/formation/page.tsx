@@ -168,32 +168,6 @@ const FormationPage = () => {
     setShowEnrollModal(true);
   };
 
-  const handleEnrollmentConfirm = async () => {
-    if (!selectedCourse) return;
-
-    try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch(getApiEndpoint(`/api/courses/courses/${selectedCourse.id}/enroll/`), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${token}`,
-        },
-      });
-      if (response.ok) {
-        setAlert({type: 'success', message: t('alerts.enrollmentSuccess', { courseTitle: selectedCourse.title })});
-        setShowEnrollModal(false);
-        setSelectedCourse(null);
-        fetchEnrollments(); // Refresh enrollments
-      } else {
-        await response.json(); // Consume response to prevent memory leaks
-        setAlert({type: 'error', message: t('alerts.enrollmentFailed')});
-      }
-    } catch {
-      setAlert({type: 'error', message: t('alerts.networkError')});
-    }
-  };
-
   const handleCancelEnrollment = (courseId: number) => {
     const course = courses.find(c => c.id === courseId);
     if (course) {
@@ -222,7 +196,8 @@ const FormationPage = () => {
         setAlert({type: 'success', message: t('alerts.enrollmentCancelled')});
         setShowCancelModal(false);
         setCourseToCancel(null);
-        fetchEnrollments(); // Refresh enrollments
+        fetchEnrollments();
+        fetchCourses();
       } else {
         await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
         if (response.status === 400) {
@@ -543,9 +518,10 @@ const FormationPage = () => {
         onClose={() => {
           setShowEnrollModal(false);
           setSelectedCourse(null);
+          fetchEnrollments();
+          fetchCourses();
         }}
         selectedCourse={selectedCourse}
-        onConfirm={handleEnrollmentConfirm}
       />
 
       {/* Enrollment Cancellation Modal */}
@@ -554,6 +530,8 @@ const FormationPage = () => {
         onClose={() => {
           setShowCancelModal(false);
           setCourseToCancel(null);
+          fetchEnrollments();
+          fetchCourses();
         }}
         courseToCancel={courseToCancel}
         onConfirm={handleCancelEnrollmentConfirm}
