@@ -6,6 +6,7 @@ import { CalendarDays, MapPin, Euro, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
 import CheckoutButton from "./checkout-button";
+import CourseEnrollmentSuccessModal from "@/components/formation/enrollment-success-modal";
 import { useTheme } from "@/contexts/theme-context";
 
 
@@ -53,6 +54,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
   const t = useTranslations("formation");
   const { isDark } = useTheme();
   const [enrolled, setEnrolled] = React.useState(false);
+  const [showSuccessModal, setShowSuccessModal] = React.useState(false);
 
   // Reset enrolled state when modal opens/closes or course changes
   React.useEffect(() => {
@@ -61,24 +63,31 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
 
   const handleEnrollSuccess = () => {
     setEnrolled(true);
-    setTimeout(() => {
-      if (onEnroll) onEnroll();
-      onClose();
-    }, 1200); // Show success for a moment before closing
+    // If course is free, show the success modal
+    if (selectedCourse && (!selectedCourse.price || selectedCourse.price === 0)) {
+      setShowSuccessModal(true);
+    } else {
+      // For paid courses, let Stripe redirect handle the modal
+      setTimeout(() => {
+        if (onEnroll) onEnroll();
+        onClose();
+      }, 1200);
+    }
   };
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      showHeader={false}
-      className="w-[min(100vw-1rem,28rem)] mx-2 sm:mx-4 p-0 rounded-2xl overflow-hidden"
-    >
-      {selectedCourse && (
-        <div
-          className={`overflow-hidden grid grid-rows-[auto,1fr,auto] max-h-[clamp(560px,90svh,820px)] ${isDark ? 'bg-[#12121A]' : 'bg-white'}`}
-        >
-          {/* HEADER */}
+    <>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        showHeader={false}
+        className="w-[min(100vw-1rem,28rem)] mx-2 sm:mx-4 p-0 rounded-2xl overflow-hidden"
+      >
+        {selectedCourse && (
+          <div
+            className={`overflow-hidden grid grid-rows-[auto,1fr,auto] max-h-[clamp(560px,90svh,820px)] ${isDark ? 'bg-[#12121A]' : 'bg-white'}`}
+          >
+            {/* HEADER */}
           <div className={`flex items-start justify-between px-4 pt-4 pb-3 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
             <h2 className={`${isDark ? 'text-white' : 'text-gray-900'} font-bold leading-tight flex-1 mr-2`}
                 style={{ fontSize: 'clamp(1rem, 3.8vw, 1.35rem)' }}>
@@ -142,25 +151,39 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
             </div>
           </div>
 
-          <div
-            className={`px-4 pt-3 pb-[calc(env(safe-area-inset-bottom)+16px)] ${isDark ? 'bg-[#12121A] border-white/10' : 'bg-white border-gray-200'} border-t flex flex-col sm:flex-row gap-3 justify-end shadow-[0_-6px_12px_-6px_rgba(0,0,0,0.03)]`}
-          >
-            <Button type="button" variant="ghost" onClick={onClose} className="w-full sm:w-auto px-6 h-10">
-              {t("enrollment.cancel")}
-            </Button>
-            {selectedCourse && (
-              <CheckoutButton
-                courseId={selectedCourse.id}
-                label={enrolled ? t("enrollment.enrolled") : t("enrollment.confirmEnroll")}
-                className="w-full sm:w-auto bg-[#22A60D] hover:bg-[#1C8C0B] text-white px-6 h-10 flex items-center gap-2 rounded-2xl"
-                onSuccess={handleEnrollSuccess}
-                disabled={enrolled}
-              />
-            )}
+            <div
+              className={`px-4 pt-3 pb-[calc(env(safe-area-inset-bottom)+16px)] ${isDark ? 'bg-[#12121A] border-white/10' : 'bg-white border-gray-200'} border-t flex flex-col sm:flex-row gap-3 justify-end shadow-[0_-6px_12px_-6px_rgba(0,0,0,0.03)]`}
+            >
+              <Button type="button" variant="ghost" onClick={onClose} className="w-full sm:w-auto px-6 h-10">
+                {t("enrollment.cancel")}
+              </Button>
+              {selectedCourse && (
+                <CheckoutButton
+                  courseId={selectedCourse.id}
+                  label={enrolled ? t("enrollment.enrolled") : t("enrollment.confirmEnroll")}
+                  className="w-full sm:w-auto bg-[#22A60D] hover:bg-[#1C8C0B] text-white px-6 h-10 flex items-center gap-2 rounded-2xl"
+                  onSuccess={handleEnrollSuccess}
+                  disabled={enrolled}
+                />
+              )}
+            </div>
           </div>
-        </div>
+        )}
+      </Modal>
+      {/* Success Modal for free courses */}
+      {selectedCourse && showSuccessModal && (
+        <CourseEnrollmentSuccessModal
+          isOpen={showSuccessModal}
+          onClose={() => {
+            setShowSuccessModal(false);
+            if (onEnroll) onEnroll();
+            onClose();
+          }}
+          courseTitle={selectedCourse.title}
+          t={t}
+        />
       )}
-    </Modal>
+    </>
   );
 };
 

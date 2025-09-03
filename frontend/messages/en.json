@@ -476,7 +476,7 @@
           "iconRequired": "Please select a valid icon for the service.",
           "durationInvalid": "Duration must be at least 1 day if specified.",
           "requisitesLimit": "Requisites must be 2000 characters or less.",
-          "priceInvalid": "Price must be at least $0.01 if specified."
+          "priceInvalid": "Price must be at least €0.50 if specified."
         },
         "featured": {
           "enabled": "Service has been marked as featured.",
@@ -615,7 +615,7 @@
           "subtitleLimit": "Subtitle must be 200 characters or less.",
           "descriptionRequired": "Description is required and must be 2000 characters or less",
           "imageRequired": "Please upload a valid image file for the course",
-          "priceInvalid": "Price must be at least $0.01 if specified",
+          "priceInvalid": "Price must be at least €0.50 if specified",
           "locationRequired": "Location is required and must be 100 characters or less",
           "dateRequired": "Date is required and must be 100 characters or less.",
           "maxAttendantsInvalid": "Maximum attendants must be at least 1",
@@ -624,7 +624,10 @@
           "cannotDeleteFinishedBulk": "Cannot delete one or more finished courses",
           "endDatePast": "End date cannot be in the past",
           "startDatePast": "Start date cannot be in the past",
-          "endDateBeforeStart": "End date cannot be before start date"
+          "endDateBeforeStart": "End date cannot be before start date",
+          "descriptionTooLong": "Description cannot be longer than {max} characters",
+          "priceRange": "Price must be between €{min} and €{max}",
+          "priceForbiddenRange": "Price cannot be between €{min} and €{max}"
         },
         "capacity": {
           "warning": "Warning: This course already has {current} enrollments. Reducing max attendants below this number may cause issues."
@@ -896,6 +899,12 @@
     }
   },
   "formation": {
+    "enrollmentSuccess": {
+      "title": "Enrollment Confirmed!",
+      "description": "You have successfully enrolled in {courseTitle}. We have sent you a confirmation email with all the details.",
+      "close": "Close",
+      "message": "You have been successfully enrolled."
+    },
     "title": "Professional Formation",
     "subtitle": "Advance your career with our comprehensive training programs designed by industry experts",
     "searchPlaceholder": "Search courses...",
@@ -965,7 +974,9 @@
       "enrolled": "You are already enrolled in this course"
     },
     "cancellation": {
-      "title": "Cancel Enrollment",
+      "title": "Enrollment cancelled",
+      "message": "Your enrollment has been successfully canceled",
+      "processing": "Canceling...",
       "warning": "Cancel Course Enrollment",
       "warningMessage": "Are you sure you want to cancel your enrollment in \"{courseTitle}\"? This action cannot be undone.",
       "confirmMessage": "This will remove you from the course and you may lose your spot.",

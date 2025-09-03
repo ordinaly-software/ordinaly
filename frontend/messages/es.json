@@ -476,7 +476,7 @@
           "iconRequired": "Por favor selecciona un icono válido para el servicio",
           "durationInvalid": "La duración debe ser de al menos 1 día si se especifica",
           "requisitesLimit": "Los requisitos deben tener 2000 caracteres o menos",
-          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica"
+          "priceInvalid": "El precio debe ser de al menos 0.50€ si se especifica"
         },
         "featured": {
           "enabled": "El servicio ha sido marcado como destacado",
@@ -617,14 +617,17 @@
           "subtitleLimit": "El subtítulo debe tener 200 caracteres o menos",
           "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos",
           "imageRequired": "Por favor sube una imagen válida para el curso",
-          "priceInvalid": "El precio debe ser de al menos $0.01 si se especifica",
+          "priceInvalid": "El precio debe ser de al menos 0.50€ si se especifica",
           "locationRequired": "La ubicación es requerida y debe tener 100 caracteres o menos",
           "dateRequired": "La fecha es requerida y debe tener 100 caracteres o menos",
           "maxAttendantsInvalid": "El máximo de asistentes debe ser de al menos 1",
           "maxAttendantsBelowEnrolled": "No se puede establecer un máximo de plazas menor que el número de inscritos actuales ({count})",
           "endDatePast": "La fecha de finalización no puede ser en el pasado",
           "startDatePast": "La fecha de inicio no puede ser en el pasado",
-          "endDateBeforeStart": "La fecha de finalización no puede estar antes de la fecha de inicio"
+          "endDateBeforeStart": "La fecha de finalización no puede estar antes de la fecha de inicio",
+          "descriptionTooLong": "La descripción no puede tener más de {max} caracteres",
+          "priceRange": "El precio debe estar entre {min} y {max} euros",
+          "priceForbiddenRange": "El precio no puede estar entre {min} y {max} euros"
         },
         "capacity": {
           "warning": "Advertencia: Este curso ya tiene {current} inscripciones. Reducir el máximo de asistentes por debajo de este número puede causar problemas"
@@ -897,6 +900,12 @@
     }
   },
   "formation": {
+    "enrollmentSuccess": {
+      "title": "¡Inscripción confirmada!",
+      "description": "Te has inscrito correctamente en {courseTitle}. Te hemos enviado un correo de confirmación con todos los detalles.",
+      "close": "Cerrar",
+      "message": "Te has inscrito correctamente."
+    },
     "title": "Formación Profesional",
     "subtitle": "Avanza en tu carrera con nuestros programas de formación integral diseñados por expertos de la industria",
     "searchPlaceholder": "Buscar cursos...",
@@ -966,7 +975,9 @@
       "enrolled": "Ya estás inscrito en este curso"
     },
     "cancellation": {
-      "title": "Cancelar Inscripción",
+      "title": "Inscripción Cancelada",
+      "message": "Tu inscripción ha sido cancelada correctamente",
+      "processing": "Cancelando...",
       "warning": "Cancelar Inscripción al Curso",
       "warningMessage": "¿Estás seguro de que quieres cancelar tu inscripción en \"{courseTitle}\"? Esta acción no se puede deshacer",
       "confirmMessage": "Esto te eliminará del curso y podrías perder tu plaza",

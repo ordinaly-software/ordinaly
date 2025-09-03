@@ -12,6 +12,8 @@ import AuthModal from "@/components/auth/auth-modal";
 import CourseDetailsModal from "@/components/formation/course-details-modal";
 import EnrollmentConfirmationModal from "@/components/formation/enrollment-confirmation-modal";
 import EnrollmentCancellationModal from "@/components/formation/enrollment-cancellation-modal";
+import CourseEnrollmentSuccessModal from "@/components/formation/enrollment-success-modal";
+import CourseCancelEnrollmentSuccessModal from "@/components/formation/enrollment-cancellation-success-modal";
 import {
   Search,
   Calendar,
@@ -56,6 +58,24 @@ const FormationPage = () => {
   const [showCourseDetailsModal, setShowCourseDetailsModal] = useState(false);
   const [courseForAuth, setCourseForAuth] = useState<Course | null>(null);
   const [courseForDetails, setCourseForDetails] = useState<Course | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successCourseTitle] = useState<string | undefined>(undefined);
+  const [showCancelSuccessModal, setShowCancelSuccessModal] = useState(false);
+  // Show success modal after Stripe redirect if ?enrolled=1 is present
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      const enrolledParam = url.searchParams.get('enrolled');
+      if (enrolledParam === '1') {
+        // Try to get course title from state or fallback
+        setShowSuccessModal(true);
+        // Optionally, you could get the course title from localStorage or another source
+        // Remove the param from the URL
+        url.searchParams.delete('enrolled');
+        window.history.replaceState({}, document.title, url.pathname + url.search);
+      }
+    }
+  }, []);
 
   const fetchCourses = useCallback(async () => {
     try {
@@ -117,15 +137,15 @@ const FormationPage = () => {
 
     // Filter by location
     if (filterLocation === 'online') {
-      filtered = filtered.filter(course => 
-        course.location.toLowerCase().includes('online') || 
-        course.location.toLowerCase().includes('virtual')
-      );
+      filtered = filtered.filter(course => {
+        const loc = course.location ? course.location.toLowerCase() : '';
+        return loc.includes('online') || loc.includes('virtual');
+      });
     } else if (filterLocation === 'onsite') {
-      filtered = filtered.filter(course => 
-        !course.location.toLowerCase().includes('online') && 
-        !course.location.toLowerCase().includes('virtual')
-      );
+      filtered = filtered.filter(course => {
+        const loc = course.location ? course.location.toLowerCase() : '';
+        return !loc.includes('online') && !loc.includes('virtual');
+      });
     }
 
     // Filter by price
@@ -198,6 +218,7 @@ const FormationPage = () => {
         setCourseToCancel(null);
         fetchEnrollments();
         fetchCourses();
+        setShowCancelSuccessModal(true);
       } else {
         await response.json().catch(() => ({ detail: 'Unknown error occurred' }));
         if (response.status === 400) {
@@ -523,6 +544,13 @@ const FormationPage = () => {
         }}
         selectedCourse={selectedCourse}
       />
+      {/* Enrollment Success Modal after Stripe redirect */}
+      <CourseEnrollmentSuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        courseTitle={successCourseTitle}
+        t={t}
+      />
 
       {/* Enrollment Cancellation Modal */}
       <EnrollmentCancellationModal
@@ -535,6 +563,13 @@ const FormationPage = () => {
         }}
         courseToCancel={courseToCancel}
         onConfirm={handleCancelEnrollmentConfirm}
+      />
+
+      {/* Cancel Enrollment Success Modal */}
+      <CourseCancelEnrollmentSuccessModal
+        isOpen={showCancelSuccessModal}
+        onClose={() => setShowCancelSuccessModal(false)}
+        t={t}
       />
 
       {/* Authentication Modal */}

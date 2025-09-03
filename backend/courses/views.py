@@ -193,8 +193,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             )
             # print(f"[Stripe Checkout] Session created: {session.id}")
             return Response({"checkout_url": session.url})
-        except Exception as e:
-            logging.exception("[Stripe Checkout] Stripe error during checkout session:")
+        except Exception:
             return Response({"detail": "An internal error occurred during Stripe checkout."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated], url_path='refund-course')

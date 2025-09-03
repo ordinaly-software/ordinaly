@@ -44,6 +44,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
   isOpen,
   onClose,
   courseToCancel,
+  onConfirm,
 }) => {
   const t = useTranslations("formation");
   const { requestRefund, loading } = useCourseRefund();
@@ -51,7 +52,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
   const handleRefund = () => {
     if (courseToCancel) {
       requestRefund(courseToCancel.id);
-      onClose();
+      onConfirm();
     }
   };
 

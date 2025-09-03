@@ -476,7 +476,7 @@
           "iconRequired": "Seleccioneu una icona vàlida per al servei",
           "durationInvalid": "La durada ha de ser almenys un dia si s'especifica",
           "requisitesLimit": "Els requisits han de tenir 2000 caràcters o menys",
-          "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica"
+          "priceInvalid": "El preu ha de ser almenys 0,50€ si s'especifica"
         },
         "featured": {
           "enabled": "El servei ha estat marcat com a destacat",
@@ -617,14 +617,17 @@
           "subtitleLimit": "El subtítol ha de tenir 200 caràcters o menys",
           "descriptionRequired": "La descripció és necessària i ha de tenir 2000 caràcters o menys",
           "imageRequired": "Pengeu un fitxer d'imatges vàlid per al curs",
-          "priceInvalid": "El preu ha de ser almenys 0,01 dòlars si s'especifica",
+          "priceInvalid": "El preu ha de ser almenys 0,50€ si s'especifica",
           "locationRequired": "La ubicació és necessària i ha de tenir 100 caràcters o menys",
           "dateRequired": "La data és necessària i ha de tenir 100 caràcters o menys",
           "maxAttendantsInvalid": "Els assistents màxims han de ser almenys 1",
           "maxAttendantsBelowEnrolled": "No es pot establir un màxim de places inferior al nombre d'inscrits actuals ({count})",
           "endDatePast": "La data de finalització no pot ser en el passat",
           "startDatePast": "La data d'inici no pot ser en el passat",
-          "endDateBeforeStart": "La data de finalització no pot ser anterior a la data d'inici"
+          "endDateBeforeStart": "La data de finalització no pot ser anterior a la data d'inici",
+          "descriptionTooLong": "La descripció no pot tenir més de {max} caràcters",
+          "priceRange": "El preu ha de ser entre {min} i {max} euros",
+          "priceForbiddenRange": "El preu no pot estar entre {min} i {max} euros"
         },
         "capacity": {
           "warning": "ADVERTIMENT: aquest curs ja té matriculacions {actual}. "
@@ -897,6 +900,12 @@
     }
   },
   "formation": {
+    "enrollmentSuccess": {
+      "title": "Inscripció confirmada!",
+      "description": "T'has inscrit correctament a {courseTitle}. T'hem enviat un correu de confirmació amb tots els detalls.",
+      "close": "Tancar",
+      "message": "T'has inscrit correctament."
+    },
     "title": "Formació professional",
     "subtitle": "Avanceu la vostra carrera amb els nostres programes de formació integrals dissenyats per experts de la indústria",
     "searchPlaceholder": "Cursos de cerca ...",
@@ -967,6 +976,8 @@
     },
     "cancellation": {
       "title": "Cancella la matrícula",
+      "message": "La teva inscripció ha estat cancellada correctament",
+      "processing": "Cancellant...",
       "warning": "Cancella la matrícula del curs",
       "warningMessage": "Esteu segur que voleu cancellar la vostra inscripció a \"{courseTitle}\"? ",
       "confirmMessage": "Això us eliminarà del curs i és possible que perdeu el lloc",
