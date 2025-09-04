@@ -669,10 +669,12 @@
         "members": "miembros",
         "noEnrollments": "Aún no hay inscripciones",
         "enrolledOn": "Inscrito",
-        "member": "Miembro",
         "company": "Empresa",
         "moreSessions": "sesiones más",
-        "hours": "hora(s)"
+        "hours": "hora(s)",
+        "mailSubject": "Información sobre tu curso",
+        "mailBody": "Hola,\n\nEn Ordinaly te enviamos información importante sobre tu curso\n",
+        "sendMail": "Enviar correo"
       },
       "courseCard": {
         "enrollments": "Inscripciones",

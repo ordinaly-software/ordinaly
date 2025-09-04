@@ -681,10 +681,12 @@
         "members": "kide",
         "noEnrollments": "Ez dago oraindik matrikulaturik",
         "enrolledOn": "Matrikulatua",
-        "member": "Kidea",
         "company": "Enpresa",
         "moreSessions": "Saio gehiago",
-        "hours": "ordu"
+        "hours": "ordu",
+        "mailSubject": "Informazioa zure ikastaroari buruz",
+        "mailBody": "Kaixo,\n\nOrdinaly-n zure ikastaroari buruzko informazio garrantzitsua bidaltzen dizugu\n",
+        "sendMail": "Bidali posta"
       },
       "courseCard": {
         "enrollments": "Matrikulak",
