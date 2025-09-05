@@ -669,10 +669,12 @@
         "members": "members",
         "noEnrollments": "No enrollments yet",
         "enrolledOn": "Enrolled",
-        "member": "Member",
         "company": "Company",
         "moreSessions": "more sessions",
-        "hours": "hours"
+        "hours": "hours",
+        "mailSubject": "Information about your course",
+        "mailBody": "Hello,\n\nAt Ordinaly we are sending you important information about your course\n",
+        "sendMail": "Send email"
       },
       "courseCard": {
         "enrollments": "Enrollments",

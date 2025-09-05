@@ -651,8 +651,8 @@
         "maxAttendants": "Máx asistentes",
         "created": "Creado",
         "schedule": "Horario",
-        "locationInfo": "Localización e Información",
-        "enrollmentStatus": "Estado de inscripción",
+        "locationInfo": "Localización e información",
+        "enrollmentStatus": "Estado de inscrición",
         "enrolledMembers": "Membros inscritos",
         "upcomingSessions": "Próximas sesións",
         "finished": "Rematado",
@@ -669,10 +669,12 @@
         "members": "membros",
         "noEnrollments": "Sen inscricións aínda",
         "enrolledOn": "Inscrito o",
-        "member": "Membro",
         "company": "Empresa",
-        "moreSessions": "Máis Sesións",
-        "hours": "horas"
+        "moreSessions": "Máis sesións",
+        "hours": "horas",
+        "mailSubject": "Información sobre o teu curso",
+        "mailBody": "Ola,\n\nEn Ordinaly enviámosche información importante sobre o teu curso\n",
+        "sendMail": "Enviar correo"
       },
       "courseCard": {
         "enrollments": "Inscricións",

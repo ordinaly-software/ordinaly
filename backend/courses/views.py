@@ -164,7 +164,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
         # Create Stripe Checkout session
         try:
-            frontend_url = os.getenv('FRONTEND_URL', 'http://localhost:3000')
+            frontend_url = os.getenv('FRONTEND_BASE_URL', 'http://localhost:3000')
             success_url = f"{frontend_url}/formation?payment=success"
             cancel_url = f"{frontend_url}/formation?payment=cancel"
 

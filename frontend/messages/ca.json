@@ -386,24 +386,21 @@
       "draft": "Esborrany"
     },
     "tabs": {
-      "overview": "Visió de conjunt",
-      "services": "Serveis",
-      "courses": "Cursos",
-      "terms": "Condicions",
-      "users": "Usuaris"
-    },
-    "users": {
-      "userId": "ID d'usuari",
-      "name": "Nom",
-      "surname": "Cognom",
-      "email": "Correu electrònic",
-      "company": "Empresa",
-      "errorFetching": "No s'han pogut obtenir els usuaris. Si us plau, torneu-ho a intentar més tard",
-      "sendMail": "Enviar correu",
-      "selectAll": "Seleccionar tot",
-      "searchPlaceholder": "Cerca usuaris...",
-      "users": "usuaris",
-      "lastLogin": "Darrera connexió"
+  "overview": "Visió de conjunt",
+  "services": "Serveis",
+  "courses": "Cursos",
+  "terms": "Condicions",
+  "users": "usuaris",
+  "lastLogin": "Darrera connexió",
+  "sendMail": "Enviar correu",
+  "sendMailSubject": "Notificació de curs Ordinaly",
+  "sendMailBody": "Hola, estàs inscrit al curs. Per a qualsevol dubte, contacta amb l'equip d'Ordinaly.",
+  "surname": "Cognom",
+  "email": "Correu electrònic",
+  "company": "Empresa",
+  "errorFetching": "No s'han pogut obtenir els usuaris. Si us plau, torneu-ho a intentar més tard",
+  "selectAll": "Seleccionar tot",
+  "searchPlaceholder": "Cerca usuaris..."
     },
     "stats": {
       "totalServices": "Serveis totals",
@@ -669,10 +666,12 @@
         "members": "membres",
         "noEnrollments": "Encara no hi ha inscripcions",
         "enrolledOn": "Matriculat",
-        "member": "Membre",
         "company": "Companyia",
         "moreSessions": "Més sessions",
-        "hours": "hores"
+        "hours": "hores",
+        "mailSubject": "Informació sobre el teu curs",
+        "mailBody": "Hola,\n\nA Ordinaly t'enviem informació important sobre el teu curs\n",
+        "sendMail": "Enviar correu"
       },
       "courseCard": {
         "enrollments": "Inscripcions",

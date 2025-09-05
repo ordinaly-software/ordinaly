@@ -86,10 +86,29 @@ export const useCourses = (options: UseCoursesOptions = {}, isAdmin: boolean = f
           return startDate >= now;
         });
       }
+      const now = new Date();
       filteredCourses.sort((a: Course, b: Course) => {
-        const dateA = new Date(a.start_date);
-        const dateB = new Date(b.start_date);
-        return dateA.getTime() - dateB.getTime();
+        const aStart = new Date(a.start_date);
+        const bStart = new Date(b.start_date);
+        const aEnd = new Date(a.end_date);
+        const bEnd = new Date(b.end_date);
+
+        const aHasStarted = aStart <= now;
+        const bHasStarted = bStart <= now;
+
+        if (!aHasStarted && !bHasStarted) {
+          // Both upcoming: order by closest start date
+          return aStart.getTime() - bStart.getTime();
+        } else if (aHasStarted && bHasStarted) {
+          // Both started: order by closest end date
+          return aEnd.getTime() - bEnd.getTime();
+        } else if (!aHasStarted && bHasStarted) {
+          // a upcoming, b started: a comes first
+          return -1;
+        } else {
+          // b upcoming, a started: b comes first
+          return 1;
+        }
       });
       if (options.limit && options.limit > 0) {
         filteredCourses = filteredCourses.slice(0, options.limit);
