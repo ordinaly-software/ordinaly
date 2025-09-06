@@ -325,7 +325,7 @@ const ServicesPage = () => {
       <Banner
         title={t('productsAndServicesTitle')}
         subtitle={t('productsAndServicesDescription')}
-        backgroundVideo={'/static/backgrounds/services_background.mp4'}
+        backgroundImage={'/static/backgrounds/services_background.webp'}
       >
         <div className="max-w-4xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl relative z-10 mt-6">
           <div className="flex flex-col md:flex-row gap-4 items-center relative">
