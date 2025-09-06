@@ -21,6 +21,8 @@ export const categoryType = defineType({
     defineField({
       name: 'description',
       type: 'text',
+      title: 'SEO Description',
+      description: 'Description for search engines and social sharing.'
     }),
   ],
 })

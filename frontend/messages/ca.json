@@ -19,7 +19,8 @@
       "signOut": "Inscriure's",
       "userMenu": "Menú de l'usuari",
       "adminDashboard": "Tauler de control d'administració",
-      "profile": "Perfil"
+      "profile": "Perfil",
+      "blog": "Blog"
     },
     "hero": {
       "title": "Automatitzar",
@@ -53,30 +54,6 @@
       "contactNow": "Poseu -vos en contacte ara",
       "contactEmail": "Contacte per correu electrònic",
       "viewDetails": "Veure detalls",
-      "chatbots": {
-        "title": "CHATBOTS SMART",
-        "description": "Automatitzeu l'assistència al client les 24 hores del dia amb IA de conversa avançada"
-      },
-      "workflows": {
-        "title": "Automatització de flux de treball",
-        "description": "Integració amb eines Odoo, Slack i Business"
-      },
-      "whatsapp": {
-        "title": "Negoci de WhatsApp",
-        "description": "Automatització de vendes i suport mitjançant API de WhatsApp Business"
-      },
-      "accessibility": {
-        "title": "Accessibilitat global",
-        "description": "Incorporem eines d'accessibilitat al vostre lloc web o aplicació per assegurar la seva inclusió al mercat digital"
-      },
-      "consulting": {
-        "title": "Consultor personalitzada",
-        "description": "Anàlisi i estratègia d'automatització adaptada al vostre negoci"
-      },
-      "optimization": {
-        "title": "Optimització contínua",
-        "description": "Monitorització i millora dels processos automatitzats"
-      },
       "viewAllServices": "Veure Tots els Serveis"
     },
     "courses": {
@@ -386,27 +363,36 @@
       "draft": "Esborrany"
     },
     "tabs": {
-  "overview": "Visió de conjunt",
-  "services": "Serveis",
-  "courses": "Cursos",
-  "terms": "Condicions",
-  "users": "usuaris",
-  "lastLogin": "Darrera connexió",
-  "sendMail": "Enviar correu",
-  "sendMailSubject": "Notificació de curs Ordinaly",
-  "sendMailBody": "Hola, estàs inscrit al curs. Per a qualsevol dubte, contacta amb l'equip d'Ordinaly.",
-  "surname": "Cognom",
-  "email": "Correu electrònic",
-  "company": "Empresa",
-  "errorFetching": "No s'han pogut obtenir els usuaris. Si us plau, torneu-ho a intentar més tard",
-  "selectAll": "Seleccionar tot",
-  "searchPlaceholder": "Cerca usuaris..."
+      "overview": "Resum",
+      "services": "Serveis",
+      "courses": "Cursos",
+      "terms": "Termes",
+      "users": "Usuaris",
+      "blog": "Blog"
     },
     "stats": {
       "totalServices": "Serveis totals",
       "totalCourses": "Cursos totals",
       "totalTerms": "Condicions totals",
       "totalUsers": "Total usuaris"
+    },
+    "users": {
+      "userId": "ID d'usuari",
+      "name": "Nom",
+      "surname": "Cognom",
+      "email": "Correu electrònic",
+      "company": "Empresa",
+      "errorFetching": "No s'ha pogut carregar la llista d'usuaris. Si us plau, torna-ho a intentar més tard",
+      "sendMail": "Enviar correu",
+      "selectAll": "Selecciona tot",
+      "searchPlaceholder": "Cerca usuaris...",
+      "users": "usuaris"
+    },
+    "blogTab": {
+      "title": "Edició de Blog CMS",
+      "openedMessage": "El CMS d'edició de blog s'ha obert en una altra pestanya. Si no el veieu, feu clic al botó següent",
+      "openButton": "Obrir Blog CMS",
+      "loginWarning": "És possible que hàgiu d'iniciar sessió al CMS amb un compte d'administrador"
     },
     "services": {
       "title": "Gestió de serveis",
@@ -1219,5 +1205,20 @@
     "contactButton": "Contactar Suport",
     "redirectMessage": "Seràs redirigit automàticament en {seconds} segons...",
     "robotText": "El nostre robot d'automatització està buscant la pàgina..."
+  },
+  "blog": {
+    "title": "Blog d'Ordinaly",
+    "subtitle": "Novetats, idees i actualitzacions sobre transformació digital i tecnologia",
+    "noResults": {
+      "title": "No s'han trobat resultats",
+      "description": "Intenta tornar a buscar"
+    },
+    "backToBlog": "Torna al Blog",
+    "postCategories": "Categories de publicació",
+    "searchPlaceholder": "Cerca articles del blog...",
+    "filters": {
+      "category": "Categoria",
+      "all": "Totes les categories"
+    }
   }
 }

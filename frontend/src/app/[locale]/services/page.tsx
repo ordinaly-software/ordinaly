@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
+import Banner from '@/components/ui/banner';
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { Card, CardContent } from "@/components/ui/card";
@@ -320,61 +321,39 @@ const ServicesPage = () => {
         />
       )}
 
-      {/* Hero Section */}
-  <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E8F5E8] via-[#E6F7E6] to-[#F3E8FF] dark:from-[#22C55E]/5 dark:via-[#10B981]/5 dark:to-[#9333EA]/5 overflow-hidden">
-        <div className="absolute inset-0 opacity-30 dark:opacity-20">
-          <video
-            className="absolute inset-0 w-full h-full object-cover blur-sm scale-110"
-            autoPlay
-            loop
-            muted
-            playsInline
-          >
-            <source src="/static/backgrounds/services_background.mp4" type="video/mp4" />
-          </video>
-        </div>
-        
-        {/* Background blur effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/20 via-[#10B981]/20 to-[#9333EA]/20 blur-3xl transform scale-150"></div>
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <div className="mb-8">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-black to-[#22C55E] dark:from-white dark:to-[#22C55E] bg-clip-text text-transparent">
-              {t("productsAndServicesTitle")}
-            </h1>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              {t("productsAndServicesDescription")}
-            </p>
-          </div>
+      {/* Banner Section (generalized) */}
+      <Banner
+        title={t('productsAndServicesTitle')}
+        subtitle={t('productsAndServicesDescription')}
+        backgroundVideo={'/static/backgrounds/services_background.mp4'}
+      >
+        <div className="max-w-4xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl relative z-10 mt-6">
+          <div className="flex flex-col md:flex-row gap-4 items-center relative">
+            {/* Search */}
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Input
+                placeholder={t('searchPlaceholder')}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+              />
+            </div>
 
-          {/* Search and Filter Section */}
-          <div className="max-w-4xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl relative z-10">
-            <div className="flex flex-col md:flex-row gap-4 items-center relative">
-              {/* Search */}
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <Input
-                  placeholder={t("searchPlaceholder")}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
-                />
-              </div>
-
-              {/* Filter */}
-              <div className="relative z-50">
-                <Dropdown
-                  options={filterOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-                  value={filterType}
-                  onChange={(value) => setFilterType(value as 'all' | 'featured' | 'service' | 'product')}
-                  icon={Filter}
-                  minWidth="250px"
-                  placeholder={getFilterLabel(filterType)}
-                />
-              </div>
+            {/* Filter */}
+            <div className="relative z-50">
+              <Dropdown
+                options={filterOptions.map(opt => ({ value: opt.value, label: opt.label }))}
+                value={filterType}
+                onChange={(value) => setFilterType(value as 'all' | 'featured' | 'service' | 'product')}
+                icon={Filter}
+                minWidth="250px"
+                placeholder={getFilterLabel(filterType)}
+              />
             </div>
           </div>
         </div>
-      </section>
+      </Banner>
 
       {/* Services Grid */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">

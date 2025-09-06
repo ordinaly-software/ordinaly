@@ -2,12 +2,29 @@ import {groq} from 'next-sanity'
 
 // Common projection
 export const postFields = groq`{
-  _id, postType, title, "slug": slug.current, excerpt, coverImage, body, lang,
-  "categories": categories[]-> {title, "slug": slug.current},
-  "tags": tags[]-> {title, "slug": slug.current},
-  "author": author-> {name, avatar},
-  publishedAt, updatedAt, isPrivate,
-  seo{metaTitle, metaDescription, canonical, ogImage}
+  _id,
+  postType,
+  title,
+  seoTitle,
+  seoDescription,
+  ogImage { asset, alt },
+  mainImage { asset, alt },
+  "slug": slug.current,
+  excerpt,
+  coverImage { asset, alt },
+  body,
+  lang,
+  "categories": categories[]-> {
+    _id,
+    title,
+    "slug": slug.current,
+    ogImage { asset, alt }
+  },
+  "tags": tags[]-> { title, "slug": slug.current },
+  "author": author-> { name, avatar },
+  publishedAt,
+  updatedAt,
+  isPrivate
 }`
 
 export const allPublicSlugs = groq`*[_type=="post" && (!defined(isPrivate) || isPrivate==false) && defined(slug.current)].slug.current`

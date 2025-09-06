@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AdminTabs, AdminTabsTab } from "@/components/ui/admin-tabs";
+import { AdminTabs, AdminTabsTab } from "@/components/admin/admin-tabs";
 import Footer from "@/components/ui/footer";
 import Alert from "@/components/ui/alert";
 import { AnimatePresence, motion } from "framer-motion";
@@ -13,14 +13,16 @@ import {
   FileText, 
   Settings,
   BarChart3,
+  ArrowUpRight,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminServicesTab from "@/components/admin/admin-services-tab";
 import AdminCoursesTab from "@/components/admin/admin-courses-tab";
 import AdminTermsTab from "@/components/admin/admin-terms-tab";
 import AdminUsersTab from "@/components/admin/admin-users-tab";
+import AdminBlogTab from "@/components/admin/admin-blog-tab";
 
-type TabType = 'overview' | 'services' | 'courses' | 'terms' | 'users';
+type TabType = 'overview' | 'services' | 'courses' | 'terms' | 'users' | 'blog';
 
 interface User {
   id: number;
@@ -51,18 +53,22 @@ export default function AdminPage() {
     { id: 'courses', name: t("tabs.courses"), icon: BookOpen },
     { id: 'terms', name: t("tabs.terms"), icon: FileText },
     { id: 'users', name: t("tabs.users"), icon: Users },
+  { id: 'blog', name: t("tabs.blog"), icon: ArrowUpRight },
   ];
 
   // Load saved tab from localStorage on component mount
   useEffect(() => {
     const savedTab = localStorage.getItem('adminActiveTab') as TabType;
-    if (savedTab && ['overview', 'services', 'courses', 'terms', 'users'].includes(savedTab)) {
+    if (savedTab && ['overview', 'services', 'courses', 'terms', 'users', 'blog'].includes(savedTab)) {
       setActiveTab(savedTab);
     }
   }, []);
 
   // Save active tab to localStorage whenever it changes
   const handleTabChange = (tabId: TabType) => {
+    if (tabId === 'blog') {
+      window.open('/studio', '_blank');
+    }
     setActiveTab(tabId);
     localStorage.setItem('adminActiveTab', tabId);
   };
@@ -295,6 +301,18 @@ export default function AdminPage() {
             exit="exit"
           >
             <AdminUsersTab />
+          </motion.div>
+        );
+      case 'blog':
+        return (
+          <motion.div
+            key="blog"
+            variants={tabVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <AdminBlogTab />
           </motion.div>
         );
       default:
