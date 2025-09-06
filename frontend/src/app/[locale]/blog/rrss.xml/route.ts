@@ -7,7 +7,14 @@ export const revalidate = 600
 export async function GET() {
   const base = process.env.NEXT_PUBLIC_BASE_URL!
   const posts = await client.fetch(listPosts, {}, {next:{tags:['blog']}})
-  const items = posts.map((p:any)=>`
+  type Post = {
+    title: string;
+    slug: string;
+    excerpt?: string;
+    publishedAt?: string;
+    _createdAt: string;
+  };
+  const items = posts.map((p: Post) => `
     <item>
       <title><![CDATA[${p.title}]]></title>
       <link>${base}/blog/${p.slug}</link>

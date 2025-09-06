@@ -6,7 +6,7 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2025-08-04</lastmod>
+    <lastmod>2025-09-06</lastmod>
   </url>
   <url>
     <loc>https://ordinaly.ai/en</loc>
@@ -14,6 +14,70 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en" />
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <lastmod>2025-08-04</lastmod>
+    <lastmod>2025-09-06</lastmod>
+  </url>
+  <url>
+    <loc>https://ordinaly.ai/admin</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ordinaly.ai/admin" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en/admin" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2025-09-06</lastmod>
+  </url>
+  <url>
+    <loc>https://ordinaly.ai/auth/signin</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ordinaly.ai/auth/signin" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en/auth/signin" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2025-09-06</lastmod>
+  </url>
+  <url>
+    <loc>https://ordinaly.ai/auth/signup</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ordinaly.ai/auth/signup" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en/auth/signup" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2025-09-06</lastmod>
+  </url>
+  <url>
+    <loc>https://ordinaly.ai/blog</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ordinaly.ai/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en/blog" />
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-09-06</lastmod>
+  </url>
+  <url>
+    <loc>https://ordinaly.ai/formation</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ordinaly.ai/formation" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en/formation" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2025-09-06</lastmod>
+  </url>
+  <url>
+    <loc>https://ordinaly.ai/legal</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ordinaly.ai/legal" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en/legal" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2025-09-06</lastmod>
+  </url>
+  <url>
+    <loc>https://ordinaly.ai/profile</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ordinaly.ai/profile" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en/profile" />
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2025-09-06</lastmod>
+  </url>
+  <url>
+    <loc>https://ordinaly.ai/services</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://ordinaly.ai/services" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://ordinaly.ai/en/services" />
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2025-09-06</lastmod>
   </url>
 </urlset>
