@@ -985,7 +985,8 @@
       "networkErrorLoadingCourses": "Error de red al cargar los cursos",
       "generatingCatalog": "Generando catálogo de cursos...",
       "catalogDownloaded": "¡Catálogo descargado exitosamente!",
-      "catalogError": "Error al generar el catálogo. Por favor intenta de nuevo"
+      "catalogError": "Error al generar el catálogo. Por favor intenta de nuevo",
+      "invalidCourseIdentifier": "Identificador de curso no válido"
     },
     "slogan": "Soluciones de Software y Formación",
     "introduction": "En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras",

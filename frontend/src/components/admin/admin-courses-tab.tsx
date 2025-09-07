@@ -190,7 +190,7 @@ const AdminCoursesTab = () => {
   const handleEdit = (course: Course) => {
     setCurrentCourse(course);
   setFormData({
-  slug: course.slug || "",
+    slug: course.slug ?? "",
     title: course.title,
     subtitle: course.subtitle || "",
     description: course.description,

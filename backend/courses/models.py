@@ -413,15 +413,19 @@ class Course(models.Model):
             self.draft = False
         # Auto-generate slug from title if not provided
         if not self.slug and self.title:
-            base_slug = slugify(self.title)[:100]
+            max_slug_length = 110
+            # Estimate maximum suffix length (e.g., '-99999')
+            max_suffix_length = len(f"-{99999}")
+            base_slug = slugify(self.title)[:max_slug_length - max_suffix_length]
             slug_candidate = base_slug
             i = 1
             # Ensure uniqueness
             while Course.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
-                slug_candidate = f"{base_slug}-{i}"
-                # ensure slug max length
-                if len(slug_candidate) > 110:
-                    slug_candidate = slug_candidate[:110]
+                suffix = f"-{i}"
+                # Truncate base_slug so that base_slug + suffix <= max_slug_length
+                allowed_base_length = max_slug_length - len(suffix)
+                truncated_base = base_slug[:allowed_base_length]
+                slug_candidate = f"{truncated_base}{suffix}"
                 i += 1
             self.slug = slug_candidate
         # Handle image replacement on update

@@ -265,9 +265,9 @@ class CourseViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         try:
-            stripe.Refund.create(payment_intent=enrollment.stripe_payment_intent_id)
+            refund = stripe.Refund.create(payment_intent=enrollment.stripe_payment_intent_id)
             enrollment.delete()
-            return Response({"detail": "Refund processed and unenrolled from course."})
+            return Response({"detail": f"Refund processed and unenrolled from course: {refund.id}"})
         except Exception as e:
             return Response({"detail": f"Stripe refund error: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 

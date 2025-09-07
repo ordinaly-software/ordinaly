@@ -199,6 +199,10 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
         return;
       }
       const identifier = courseToCancel.slug ?? courseToCancel.id;
+      if (!identifier) {
+        setAlert({type: 'error', message: t('alerts.invalidCourseIdentifier')});
+        return;
+      }
       const response = await fetch(getApiEndpoint(`/api/courses/courses/${identifier}/unenroll/`), {
         method: 'POST',
         headers: {

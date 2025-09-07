@@ -985,7 +985,8 @@
       "networkErrorLoadingCourses": "Sareko errorea ikastaroak kargatzean",
       "generatingCatalog": "Ikastaroen katalogoa sortzen ...",
       "catalogDownloaded": "Katalogoa behar bezala deskargatuta!",
-      "catalogError": "Errorea katalogoa sortzean. "
+      "catalogError": "Errorea katalogoa sortzean",
+      "invalidCourseIdentifier": "Ikastaroaren identifikatzaile baliogabea"
     },
       "slogan": "Software eta Prestakuntza Irtenbideak",
       "introduction": "Ordinalyn, teknologia berrietan eta garapen profesionalean espezializatutako prestakuntza eskaintzen dugu.",

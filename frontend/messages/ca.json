@@ -985,7 +985,8 @@
       "networkErrorLoadingCourses": "Error de xarxa mentre carregueu cursos",
       "generatingCatalog": "Generar el catàleg de cursos ...",
       "catalogDownloaded": "El catàleg es va descarregar amb èxit",
-      "catalogError": "Error de generació del catàleg. "
+      "catalogError": "Error de generació del catàleg. ",
+      "invalidCourseIdentifier": "Identificador de curs no vàlid"
     },
       "slogan": "Solucions de programari i formació",
       "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional",

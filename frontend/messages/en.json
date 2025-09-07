@@ -985,7 +985,8 @@
       "networkErrorLoadingCourses": "Network error while loading courses",
       "generatingCatalog": "Generating course catalog...",
       "catalogDownloaded": "Catalog downloaded successfully!",
-      "catalogError": "Error generating catalog. Please try again."
+      "catalogError": "Error generating catalog. Please try again",
+      "invalidCourseIdentifier": "Invalid course identifier"
     },
     "slogan": "Software & Training Solutions",
     "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",

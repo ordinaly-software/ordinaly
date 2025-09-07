@@ -33,7 +33,7 @@ const OutlookIcon = () => (
 
 interface AddToCalendarButtonsProps {
   // Accept either the numeric id (legacy) or the slug (preferred)
-  courseId?: number;
+  courseId: number;
   courseSlug?: string;
   courseTitle: string;
   isEnrolled: boolean;
