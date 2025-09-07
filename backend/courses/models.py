@@ -38,7 +38,7 @@ class Course(models.Model):
     ]
 
     title = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=110, unique=True, blank=True, null=True,
+    slug = models.SlugField(max_length=110, unique=True, blank=True, null=False,
                             help_text="URL-friendly identifier generated from the title")
     draft = models.BooleanField(
         default=False,

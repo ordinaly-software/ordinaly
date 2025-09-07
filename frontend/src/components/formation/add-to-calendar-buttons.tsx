@@ -52,7 +52,7 @@ export const AddToCalendarButtons = ({
 
   const handleAddToCalendar = async (format: "ics" | "google" | "outlook") => {
   // Prefer slug when available, fall back to id for backwards compatibility
-  const identifier = courseSlug ?? courseId;
+  const identifier = (courseSlug && courseSlug.trim()) ? courseSlug : courseId;
   if (!identifier) return;
     setDownloading(true);
     try {

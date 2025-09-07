@@ -14,7 +14,7 @@ import Image from "next/image";
 import type { Course } from "./admin-courses-tab";
 
 export interface CourseFormData {
-  slug?: string;
+  slug: string;
   title: string;
   subtitle: string;
   description: string;

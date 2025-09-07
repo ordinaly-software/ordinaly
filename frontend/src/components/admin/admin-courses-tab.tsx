@@ -137,29 +137,31 @@ const AdminCoursesTab = () => {
   const [isLoadingEnrollments, setIsLoadingEnrollments] = useState(false);
 
   const [formData, setFormData] = useState<CourseFormData>({
-  title: "",
-  subtitle: "",
-  description: "",
-  image: "",
-  price: "",
-  location: "",
-  start_date: "",
-  end_date: "",
-  start_time: "09:00",
-  end_time: "17:00",
-  periodicity: "once",
-  timezone: "Europe/Madrid",
-  weekdays: [],
-  week_of_month: null,
-  interval: 1,
-  exclude_dates: [],
-  max_attendants: "",
-  draft: false
+    title: "",
+    slug: "",
+    subtitle: "",
+    description: "",
+    image: "",
+    price: "",
+    location: "",
+    start_date: "",
+    end_date: "",
+    start_time: "09:00",
+    end_time: "17:00",
+    periodicity: "once",
+    timezone: "Europe/Madrid",
+    weekdays: [],
+    week_of_month: null,
+    interval: 1,
+    exclude_dates: [],
+    max_attendants: "",
+    draft: false
   });
 
   const resetForm = () => {
   setFormData({
     title: "",
+    slug: "",
     subtitle: "",
     description: "",
     image: "",
@@ -189,27 +191,27 @@ const AdminCoursesTab = () => {
 
   const handleEdit = (course: Course) => {
     setCurrentCourse(course);
-  setFormData({
-    slug: course.slug ?? "",
-    title: course.title,
-    subtitle: course.subtitle || "",
-    description: course.description,
-    image: course.image || "",
-    price: course.price == null ? "" : String(course.price),
-    location: course.location,
-    start_date: course.start_date == null ? "" : course.start_date,
-    end_date: course.end_date == null ? "" : course.end_date,
-    start_time: course.start_time == null ? "" : course.start_time,
-    end_time: course.end_time == null ? "" : course.end_time,
-    periodicity: course.periodicity || "once",
-    timezone: course.timezone || "Europe/Madrid",
-    weekdays: course.weekdays || [],
-    week_of_month: course.week_of_month == null ? null : course.week_of_month,
-    interval: course.interval == null ? 1 : course.interval,
-    exclude_dates: course.exclude_dates || [],
-    max_attendants: course.max_attendants != null ? String(course.max_attendants) : "",
-    draft: typeof course.draft === 'boolean' ? course.draft : false
-  });
+    setFormData({
+      slug: course.slug ?? "",
+      title: course.title,
+      subtitle: course.subtitle || "",
+      description: course.description,
+      image: course.image || "",
+      price: course.price == null ? "" : String(course.price),
+      location: course.location,
+      start_date: course.start_date == null ? "" : course.start_date,
+      end_date: course.end_date == null ? "" : course.end_date,
+      start_time: course.start_time == null ? "" : course.start_time,
+      end_time: course.end_time == null ? "" : course.end_time,
+      periodicity: course.periodicity || "once",
+      timezone: course.timezone || "Europe/Madrid",
+      weekdays: course.weekdays || [],
+      week_of_month: course.week_of_month == null ? null : course.week_of_month,
+      interval: course.interval == null ? 1 : course.interval,
+      exclude_dates: course.exclude_dates || [],
+      max_attendants: course.max_attendants != null ? String(course.max_attendants) : "",
+      draft: typeof course.draft === 'boolean' ? course.draft : false
+    });
     setPreviewUrl(course.image);
     setSelectedFile(null);
     setShowEditModal(true);
