@@ -23,6 +23,7 @@ import CourseVisualizationModal from "./admin-course-modal";
 
 export interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;
@@ -189,6 +190,7 @@ const AdminCoursesTab = () => {
   const handleEdit = (course: Course) => {
     setCurrentCourse(course);
   setFormData({
+  slug: course.slug || "",
     title: course.title,
     subtitle: course.subtitle || "",
     description: course.description,
@@ -408,6 +410,8 @@ const AdminCoursesTab = () => {
       formDataToSend.append('interval', formData.interval.toString());
       formDataToSend.append('exclude_dates', JSON.stringify(formData.exclude_dates));
       formDataToSend.append('max_attendants', String(formData.max_attendants));
+  // include slug if provided (backend will auto-generate if empty)
+  formDataToSend.append('slug', formData.slug ?? '');
       formDataToSend.append('draft', formData.draft ? 'true' : 'false');
       if (selectedFile) {
         formDataToSend.append('image', selectedFile);
@@ -425,8 +429,8 @@ const AdminCoursesTab = () => {
         }
       }
 
-      const url = isEdit 
-        ? `${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse?.id}/`
+      const url = isEdit
+        ? `${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse?.slug ?? currentCourse?.id}/`
         : getApiEndpoint(API_ENDPOINTS.courses);
       
       const method = isEdit ? 'PUT' : 'POST';
@@ -439,7 +443,7 @@ const AdminCoursesTab = () => {
         body: formDataToSend,
       });
 
-      if (response.ok) {
+  if (response.ok) {
         const courseTitle = formData.title;
         const successMessage = isEdit 
           ? t('messages.updateSuccess', { title: courseTitle })
@@ -452,8 +456,14 @@ const AdminCoursesTab = () => {
         setShowEditModal(false);
         resetForm();
       } else {
-        // Don't use errorData variable to avoid unused var lint error
-        setAlert({type: 'error', message: t(isEdit ? 'messages.updateError' : 'messages.createError')});
+        // Try to show server validation / error message when available
+        try {
+          const errorData = await response.json();
+          const errMsg = errorData?.detail || errorData?.message || JSON.stringify(errorData);
+          setAlert({ type: 'error', message: errMsg || t(isEdit ? 'messages.updateError' : 'messages.createError') });
+        } catch {
+          setAlert({ type: 'error', message: t(isEdit ? 'messages.updateError' : 'messages.createError') });
+        }
       }
     } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
@@ -494,14 +504,16 @@ const AdminCoursesTab = () => {
           return;
         }
 
-        const deletePromises = selectedCourses.map(id =>
-          fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${id}/`, {
+        const deletePromises = selectedCourses.map(id => {
+          const course = courses.find(c => c.id === id);
+          const identifier = course?.slug ?? id;
+          return fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${identifier}/`, {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${token}`,
             },
-          })
-        );
+          });
+        });
 
         const results = await Promise.all(deletePromises);
         const failedCount = results.filter(r => !r.ok).length;
@@ -522,7 +534,8 @@ const AdminCoursesTab = () => {
           return;
         }
 
-        const response = await fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse.id}/`, {
+  const identifier = currentCourse.slug ?? currentCourse.id;
+  const response = await fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${identifier}/`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,

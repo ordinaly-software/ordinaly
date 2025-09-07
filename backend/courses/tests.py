@@ -420,7 +420,7 @@ class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
     def test_contains_expected_fields(self):
         data = self.serializer.data
         expected_fields = [
-            'id', 'title', 'subtitle', 'description', 'image', 'price',
+            'id', 'slug', 'title', 'subtitle', 'description', 'image', 'price',
             'location', 'start_date', 'end_date', 'start_time', 'end_time',
             'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
             'exclude_dates', 'max_attendants', 'enrolled_count',
@@ -612,8 +612,8 @@ class CourseViewSetTest(CourseImageCleanupTestMixin, APITestCase):
             max_attendants=10
         )
         self.course_url = reverse('course-list')
-        self.course_detail_url = reverse('course-detail', kwargs={'pk': self.course.pk})
-        self.course_enroll_url = reverse('course-enroll', kwargs={'pk': self.course.pk})
+        self.course_detail_url = reverse('course-detail', kwargs={'slug': self.course.slug})
+        self.course_enroll_url = reverse('course-enroll', kwargs={'slug': self.course.slug})
 
     def tearDown(self):
         """Clean up database objects"""
@@ -747,7 +747,7 @@ class CourseViewSetTest(CourseImageCleanupTestMixin, APITestCase):
         )
 
         # Set up the URL for enrollment
-        course_enroll_url = reverse('course-enroll', kwargs={'pk': course_without_dates.pk})
+        course_enroll_url = reverse('course-enroll', kwargs={'slug': course_without_dates.slug})
 
         # Attempt to enroll as a regular user
         self.client.force_authenticate(user=self.regular_user)

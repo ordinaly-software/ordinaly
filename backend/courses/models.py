@@ -5,6 +5,7 @@ from decimal import Decimal
 import os
 from datetime import datetime, timedelta
 from django.core.exceptions import ValidationError
+from django.utils.text import slugify
 
 
 class Course(models.Model):
@@ -37,6 +38,8 @@ class Course(models.Model):
     ]
 
     title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=110, unique=True, blank=True, null=True,
+                            help_text="URL-friendly identifier generated from the title")
     draft = models.BooleanField(
         default=False,
         null=False,
@@ -405,8 +408,22 @@ class Course(models.Model):
         return False
 
     def save(self, *args, **kwargs):
+        # Ensure draft default
         if self.draft is None:
             self.draft = False
+        # Auto-generate slug from title if not provided
+        if not self.slug and self.title:
+            base_slug = slugify(self.title)[:100]
+            slug_candidate = base_slug
+            i = 1
+            # Ensure uniqueness
+            while Course.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
+                slug_candidate = f"{base_slug}-{i}"
+                # ensure slug max length
+                if len(slug_candidate) > 110:
+                    slug_candidate = slug_candidate[:110]
+                i += 1
+            self.slug = slug_candidate
         # Handle image replacement on update
         if self.pk:  # This is an update
             try:

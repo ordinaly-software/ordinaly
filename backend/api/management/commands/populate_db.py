@@ -172,6 +172,7 @@ class Command(BaseCommand):
         courses_data = [
             {
                 'title': 'Taller gratuito "La Inteligencia Artificial sin complicaciones"',
+                'slug': 'taller-ia-sin-complicaciones',
                 'subtitle': (
                     'Familiarízate con las webs y apps de IA del momento y aprende los conceptos básicos '
                     'con ejemplos prácticos.'
@@ -204,6 +205,7 @@ class Command(BaseCommand):
             },
             {
                 'title': 'Sesión formativa "La Inteligencia Artificial en la inmobiliaria"',
+                'slug': 'sesion-ia-en-la-inmobiliaria',
                 'subtitle': (
                     'Abordaremos los principales casos de uso de la IA generativa enfocados al sector inmobiliario.'
                 ),
@@ -236,6 +238,7 @@ class Command(BaseCommand):
             },
             {
                 'title': 'Bootcamp "La Inteligencia Artificial en la inmobiliaria"',
+                'slug': 'bootcamp-ia-en-la-inmobiliaria',
                 'subtitle': (
                     'En este curso partiremos de la base de los casos de uso básicos de las herramientas de IA '
                     'más conocidas e iremos escalando hasta dominar herramientas específicas para el sector '

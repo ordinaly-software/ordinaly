@@ -32,7 +32,9 @@ const OutlookIcon = () => (
 
 
 interface AddToCalendarButtonsProps {
-  courseId: number;
+  // Accept either the numeric id (legacy) or the slug (preferred)
+  courseId?: number;
+  courseSlug?: string;
   courseTitle: string;
   isEnrolled: boolean;
   disabled?: boolean;
@@ -40,6 +42,7 @@ interface AddToCalendarButtonsProps {
 
 export const AddToCalendarButtons = ({
   courseId,
+  courseSlug,
   courseTitle,
   isEnrolled,
   disabled = false,
@@ -48,11 +51,13 @@ export const AddToCalendarButtons = ({
   const [downloading, setDownloading] = useState(false);
 
   const handleAddToCalendar = async (format: "ics" | "google" | "outlook") => {
-    if (!courseId) return;
+  // Prefer slug when available, fall back to id for backwards compatibility
+  const identifier = courseSlug ?? courseId;
+  if (!identifier) return;
     setDownloading(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://ordinaly.duckdns.org";
-      const url = `${apiUrl}/api/courses/courses/${courseId}/calendar-export-test/?calendar_format=${format}`;
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://ordinaly.duckdns.org";
+  const url = `${apiUrl}/api/courses/courses/${identifier}/calendar-export-test/?calendar_format=${format}`;
       const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
       const res = await fetch(url, {
         credentials: "include",

@@ -8,6 +8,7 @@ const MarkdownRenderer = dynamic(() => import("@/components/ui/markdown-renderer
 
 interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;

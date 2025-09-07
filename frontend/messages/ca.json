@@ -434,8 +434,8 @@
         "contactForQuote": "Contacteu per pressupost",
         "featured": "Servei destacat",
         "cancel": "Cancellar",
-        "create": "Crea un servei",
-        "update": "Actualitza servei",
+        "create": "Crea",
+        "update": "Actualitza",
         "markdownSupported": "Markdown suportat",
         "requisites": "Requisits",
         "requisitesPlaceholder": "Introduïu qualsevol requisit o prerrequisit",
@@ -527,6 +527,8 @@
         "timezoneOptional": "Zona horària",
         "draftMode": "Esborrany",
         "markdownSupported": "Markdown suportat",
+        "slugOptional": "Slug del curs (opcional)",
+        "slugPlaceholder": "ex: curs-python-avançat",
         "periodicity": {
           "once": "Esdeveniment únic",
           "daily": "Cada dia",
@@ -577,8 +579,8 @@
         "maxAttendantsRequired": "Assistents màxims *",
         "maxAttendantsPlaceholder": "10",
         "cancel": "Cancellar",
-        "create": "Crea curs",
-        "update": "Curs d'actualització"
+        "create": "Crea",
+        "update": "Actualitzar"
       },
       "messages": {
         "createSuccess": "El curs creat amb èxit! ",

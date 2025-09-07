@@ -12,6 +12,7 @@ import { useTheme } from "@/contexts/theme-context";
 
 interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;

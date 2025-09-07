@@ -14,6 +14,7 @@ import Image from "next/image";
 import type { Course } from "./admin-courses-tab";
 
 export interface CourseFormData {
+  slug?: string;
   title: string;
   subtitle: string;
   description: string;
@@ -171,6 +172,23 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               onChange={(e) => setFormData(prev => ({...prev, subtitle: e.target.value}))}
               placeholder={t("form.subtitlePlaceholder")}
               className="h-12 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
+            />
+          </div>
+
+          {/* Slug (optional) */}
+          <div className="space-y-3">
+            <Label htmlFor="slug" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <div className="w-5 h-5 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-gray-600">#</span>
+              </div>
+              <span>{t("form.slugOptional")}</span>
+            </Label>
+            <Input
+              id="slug"
+              value={formData.slug ?? ""}
+              onChange={(e) => setFormData(prev => ({...prev, slug: e.target.value}))}
+              placeholder={t("form.slugPlaceholder")}
+              className="h-12 border-gray-300 focus:border-gray-500 focus:ring-gray-500/20 rounded-lg transition-all duration-200"
             />
           </div>
 

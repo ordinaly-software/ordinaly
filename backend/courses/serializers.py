@@ -57,7 +57,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ['id', 'title', 'subtitle', 'description', 'image', 'price',
+        fields = ['id', 'slug', 'title', 'subtitle', 'description', 'image', 'price',
                   'location', 'start_date', 'end_date', 'start_time', 'end_time',
                   'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
                   'exclude_dates', 'max_attendants', 'enrolled_count',
