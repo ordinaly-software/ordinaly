@@ -241,7 +241,7 @@ const Navbar = () => {
   };
 
   const navLinks = [
-    { href: "/", label: t("navigation.home") },
+    // { href: "/", label: t("navigation.home") },
     { href: "/services", label: t("navigation.services") },
     { href: "/formation", label: t("navigation.formation") },
     { href: "/blog", label: t("navigation.blog") },

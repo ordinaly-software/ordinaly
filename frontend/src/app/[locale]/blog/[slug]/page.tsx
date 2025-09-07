@@ -10,8 +10,9 @@ export async function generateStaticParams() {
   return slugs.map(slug => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const p = await client.fetch(postBySlug, { slug: params.slug });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const p = await client.fetch(postBySlug, { slug });
   if (!p) return {};
   const title = p?.seoTitle ?? p.title;
   const desc = p?.seoDescription ?? p.excerpt ?? '';
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export const revalidate = 300;
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const p = await client.fetch(postBySlug, { slug }, { next: { tags: ['blog', `post:${slug}`] } });
   if (!p || p.isPrivate) return null;

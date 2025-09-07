@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Euro, Users, User, XCircle, Calendar, MapPin, Clock } from "lucide-react";
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import { Modal } from "@/components/ui/modal";
-import EnrolledMembers from "@/components/admin/EnrolledMembers";
+import EnrolledMembers from "@/components/admin/enrolled-members";
 
 interface Course {
   id: number;

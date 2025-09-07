@@ -4,6 +4,7 @@ import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { useTranslations } from 'next-intl';
 import { BlogCard } from './blog-card';
+import type { BlogPost, Category } from './types';
 import { Search } from 'lucide-react';
 import Banner from '@/components/ui/banner';
 import { Input } from '@/components/ui/input';
@@ -11,7 +12,7 @@ import { Dropdown } from '@/components/ui/dropdown';
 import { useMemo, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function BlogClient({ posts }: { posts: any[] }) {
+export default function BlogClient({ posts }: { posts: BlogPost[] }) {
   const t = useTranslations('blog');
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -33,11 +34,9 @@ export default function BlogClient({ posts }: { posts: any[] }) {
     const cats: string[] = [];
     posts.forEach(p => {
       if (Array.isArray(p.categories)) {
-        p.categories.forEach((cat: any) => {
+        p.categories.forEach((cat: Category) => {
           if (cat?.title) cats.push(cat.title);
         });
-      } else if (p.category) {
-        cats.push(p.category);
       }
     });
     return ['all', ...Array.from(new Set(cats))];
@@ -49,13 +48,11 @@ export default function BlogClient({ posts }: { posts: any[] }) {
       const matchesSearch =
         !searchTerm ||
         (p.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.subtitle?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.description?.toLowerCase().includes(searchTerm.toLowerCase()));
+          p.seoDescription?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          p.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()));
       let postCategories: string[] = [];
       if (Array.isArray(p.categories)) {
-        postCategories = p.categories.map((cat: any) => cat?.title).filter(Boolean);
-      } else if (p.category) {
-        postCategories = [p.category];
+        postCategories = p.categories.map((cat: Category) => cat?.title).filter(Boolean);
       }
       const matchesCategory =
         selectedCategory === 'all' || postCategories.includes(selectedCategory);
@@ -119,8 +116,8 @@ export default function BlogClient({ posts }: { posts: any[] }) {
             </div>
           ) : (
             <ul className="space-y-12">
-              {filteredPosts.map((p: any) => (
-                <li key={p._id}>
+              {filteredPosts.map((p: BlogPost) => (
+                <li key={p.slug}>
                   <BlogCard
                     post={p}
                     onCategoryClick={(cat: string) => {

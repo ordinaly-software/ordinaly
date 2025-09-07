@@ -1,9 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Category } from './types';
+import { BlogPost } from './types';
 import { urlFor } from '@/lib/image';
 export interface BlogCardProps {
-  post: any;
+  post: BlogPost;
   onCategoryClick?: (cat: string) => void;
 }
 
@@ -14,16 +16,15 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
     <div className="group relative flex flex-row items-stretch overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-[#22A60D] hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2 transition-all duration-500 w-full max-w-4xl mx-auto rounded-2xl">
       {/* Image on the left, smaller */}
       <div className="flex-shrink-0 flex items-center justify-center w-40 h-40 md:w-56 md:h-56 bg-gray-100 dark:bg-gray-900 rounded-l-2xl overflow-hidden">
-        {(post.ogImage || post.mainImage || post.coverImage) ? (
+        {post.ogImage && post.ogImage.asset && (
           <Image
-            src={urlFor(post.ogImage || post.mainImage || post.coverImage).width(224).height(224).url()}
-            alt={post.ogImage?.alt || post.mainImage?.alt || post.coverImage?.alt || post.title}
+            src={urlFor(post.ogImage.asset).url()}
+            alt={post.ogImage?.alt || post.mainImage?.alt || post.title}
             width={224}
             height={224}
             className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
-            priority
           />
-        ) : null}
+        )}
       </div>
       {/* Card content on the right */}
       <div className="flex-1 p-6 flex flex-col justify-center">
@@ -35,7 +36,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
         )}
         {/* Category pill section */}
         <div className="mb-3 flex flex-wrap gap-2">
-          {categories.map((cat: any) => (
+          {categories.map((cat: Category) => (
             cat?.slug ? (
               onCategoryClick ? (
                 <button
@@ -44,15 +45,6 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
                   onClick={() => onCategoryClick(cat.title)}
                   className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#22C55E]/10 text-[#22C55E] text-sm font-medium hover:bg-[#22C55E]/20 transition w-fit"
                 >
-                  {cat.ogImage && (
-                    <Image
-                      src={urlFor(cat.ogImage).width(24).height(24).url()}
-                      alt={cat.title}
-                      width={16}
-                      height={16}
-                      className="rounded-full"
-                    />
-                  )}
                   {cat.title}
                 </button>
               ) : (
@@ -61,15 +53,6 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
                   href={`/blog?category=${cat.slug}`}
                   className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#22C55E]/10 text-[#22C55E] text-sm font-medium hover:bg-[#22C55E]/20 transition w-fit"
                 >
-                  {cat.ogImage && (
-                    <Image
-                      src={urlFor(cat.ogImage).width(24).height(24).url()}
-                      alt={cat.title}
-                      width={16}
-                      height={16}
-                      className="rounded-full"
-                    />
-                  )}
                   {cat.title}
                 </Link>
               )

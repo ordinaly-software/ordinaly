@@ -66,7 +66,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
         </div>
       ) : (
         <div className="space-y-2 max-h-48 overflow-y-auto">
-          {enrollments.map((enrollment, idx) => {
+          {enrollments.map((enrollment, ) => {
             const userName = enrollment.user_details?.name?.trim();
             const userSurname = enrollment.user_details?.surname?.trim();
             const userEmail = enrollment.user_details?.email;

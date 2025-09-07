@@ -25,7 +25,7 @@ export default function StudioPage() {
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [alert, setAlert] = useState<{ type: string; message: string } | null>(null);
+  const [, setAlert] = useState<{ type: string; message: string } | null>(null);
 
   useEffect(() => {
     const checkAdminAccess = async () => {

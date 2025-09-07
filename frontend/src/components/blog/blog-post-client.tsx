@@ -9,8 +9,9 @@ import { PortableText } from '@portabletext/react';
 import { portableTextComponents } from './portable-text-components';
 import { urlFor } from '@/lib/image';
 import Banner from '@/components/ui/banner';
+import type { BlogPost, MediaItem, Category } from './types';
 
-export default function BlogPostClient({ post }: { post: any }) {
+export default function BlogPostClient({ post }: { post: BlogPost }) {
   const t = useTranslations('blog');
   if (!post) return null;
   const p = post;
@@ -21,7 +22,7 @@ export default function BlogPostClient({ post }: { post: any }) {
     datePublished: p.publishedAt || p._createdAt,
     dateModified: p.updatedAt || p._updatedAt,
     author: { '@type': 'Person', name: p.author?.name },
-    image: p.coverImage ? [urlFor(p.coverImage).width(1200).height(630).url()] : undefined,
+    image: p.coverImage && p.coverImage.asset ? [urlFor(p.coverImage.asset).width(1200).height(630).url()] : undefined,
     mainEntityOfPage: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${p.slug}`,
   };
 
@@ -30,7 +31,7 @@ export default function BlogPostClient({ post }: { post: any }) {
       <Banner
         title={p.title}
         subtitle={p.seoDescription || p.excerpt || ''}
-        backgroundImage={p.mainImage && p.mainImage.asset ? urlFor(p.mainImage).width(1600).height(900).url() : undefined}
+        backgroundImage={p.mainImage && p.mainImage.asset ? urlFor(p.mainImage.asset).width(1600).height(900).url() : undefined}
       />
       <main className="mx-auto max-w-3xl px-4 py-10">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -47,7 +48,7 @@ export default function BlogPostClient({ post }: { post: any }) {
         {/* Main cover image (already shown in banner, so skip here) */}
         {p.media && Array.isArray(p.media) && p.media.length > 0 && (
           <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {p.media.map((m: any, idx: number) => (
+            {p.media.map((m: MediaItem, idx: number) => (
               <div key={idx} className="rounded-lg overflow-hidden">
                 {m.type === 'image' && m.asset && (
                   <Image
@@ -77,22 +78,13 @@ export default function BlogPostClient({ post }: { post: any }) {
         <div className="max-w-3xl mx-auto px-4 pb-10">
           <div className="mt-8 mb-2 text-base font-semibold text-gray-700 dark:text-gray-300">{t("postCategories")}:</div>
           <div className="flex flex-wrap gap-2">
-            {p.categories.map((cat: any) => (
+            {p.categories.map((cat: Category) => (
               cat?.slug ? (
                 <Link
                   key={cat.slug}
                   href={`/blog?category=${cat.title}`}
                   className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#22C55E]/10 text-[#22C55E] text-sm font-medium hover:bg-[#22C55E]/20 transition w-fit"
                 >
-                  {cat.ogImage && (
-                    <Image
-                      src={cat.ogImage?.asset ? cat.ogImage.asset.url : cat.ogImage}
-                      alt={cat.title}
-                      width={16}
-                      height={16}
-                      className="rounded-full"
-                    />
-                  )}
                   {cat.title}
                 </Link>
               ) : null
