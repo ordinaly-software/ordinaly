@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Euro, Users, User, XCircle, Calendar, MapPin, Clock } from "lucide-react";
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import { Modal } from "@/components/ui/modal";
+import EnrolledMembers from "@/components/admin/enrolled-members";
 
 interface Course {
   id: number;
@@ -301,79 +302,12 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
           </div>
         </div>
         {/* Enrolled Members */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 min-w-0">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center space-x-2">
-              <Users className="h-5 w-5" />
-              <span>{t("details.enrolledMembers")}</span>
-            </h3>
-            <span className="bg-[#22A60D]/10 text-[#22A60D] px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap">
-              {enrollments.length} {t("details.members")}
-            </span>
-          </div>
-          {isLoadingEnrollments ? (
-            <div className="flex items-center justify-center py-6">
-              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#22A60D]"></div>
-            </div>
-          ) : enrollments.length === 0 ? (
-            <div className="text-center py-6 text-gray-500 dark:text-gray-400">
-              <Users className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-              <p>{t("details.noEnrollments")}</p>
-            </div>
-          ) : (
-            <div className="space-y-2 max-h-48 overflow-y-auto">
-              {enrollments.map((enrollment, idx) => {
-                const userName = enrollment.user_details?.name?.trim();
-                const userSurname = enrollment.user_details?.surname?.trim();
-                const userEmail = enrollment.user_details?.email;
-                let displayName = '';
-                if (userName && userSurname) {
-                  displayName = `${userName} ${userSurname}`;
-                } else if (userName) {
-                  displayName = userName;
-                } else if (userSurname) {
-                  displayName = userSurname;
-                } else if (userEmail) {
-                  displayName = userEmail.split('@')[0];
-                } else {
-                  displayName = `User #${enrollment.user}`;
-                }
-                return (
-                  <div key={enrollment.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-[#22A60D]/10 rounded-full flex items-center justify-center">
-                        <User className="h-4 w-4 text-[#22A60D]" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-gray-900 dark:text-white">
-                          {displayName}
-                        </p>
-                        {enrollment.user_details?.email && (
-                          <p className="text-xs text-gray-500 dark:text-gray-400">
-                            {enrollment.user_details.email}
-                          </p>
-                        )}
-                        {enrollment.user_details?.company && (
-                          <p className="text-xs text-blue">
-                            {enrollment.user_details.company}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        {t("details.enrolledOn")} {new Date(enrollment.enrolled_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
-                      </p>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">
-                        {t("details.member")} #{idx + 1}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
+        <EnrolledMembers
+          enrollments={enrollments}
+          isLoading={isLoadingEnrollments}
+          t={t}
+          dateLocale={dateLocale}
+        />
         {/* Next Occurrences */}
         {course.next_occurrences && course.next_occurrences.length > 0 && (
           <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-xl p-5 min-w-0">

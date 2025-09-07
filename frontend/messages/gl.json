@@ -19,7 +19,8 @@
       "signOut": "Pechar Sesión",
       "userMenu": "Menú de usuario",
       "adminDashboard": "Panel de Administración",
-      "profile": "Perfil"
+      "profile": "Perfil",
+      "blog": "Blog"
     },
     "hero": {
       "title": "AUTOMATIZA",
@@ -53,30 +54,6 @@
       "contactNow": "Contactar Agora",
       "contactEmail": "Contactar por Email",
       "viewDetails": "Ver Detalles",
-      "chatbots": {
-        "title": "Chatbots Intelixentes",
-        "description": "Automatiza a atención ao cliente 24/7 con IA conversacional avanzada"
-      },
-      "workflows": {
-        "title": "Automatización de fluxos de traballo",
-        "description": "Integración con ferramentas Odoo, Slack e Business"
-      },
-      "whatsapp": {
-        "title": "WhatsApp Business",
-        "description": "Automatización de vendas e soporte a través da WhatsApp Business API"
-      },
-      "accessibility": {
-        "title": "Accesibilidade global",
-        "description": "Incorporamos ferramentas de accesibilidade na túa web ou aplicación para garantir que sexa inclusiva no mercado dixital"
-      },
-      "consulting": {
-        "title": "Consultoría personalizada",
-        "description": "Análise e estratexia de automatización adaptada ao teu negocio"
-      },
-      "optimization": {
-        "title": "Optimización continua",
-        "description": "Monitorización e mellora continua dos teus procesos automatizados"
-      },
       "viewAllServices": "Ver todos os servizos"
     },
     "courses": {
@@ -390,7 +367,8 @@
       "services": "Servizos",
       "courses": "Cursos",
       "terms": "Termos",
-      "users": "Usuarios"
+      "users": "Usuarios",
+      "blog": "Blog"
     },
     "users": {
       "userId": "ID de Usuario",
@@ -402,8 +380,13 @@
       "sendMail": "Enviar correo",
       "selectAll": "Seleccionar todo",
       "searchPlaceholder": "Buscar usuarios...",
-      "users": "usuarios",
-      "lastLogin": "Último acceso"
+      "users": "usuarios"
+    },
+    "blogTab": {
+      "title": "Edición do Blog (CMS)",
+      "openedMessage": "O CMS de edición do blog abriuse noutra lapela. Se non o ves, preme o botón de abaixo",
+      "openButton": "Abrir CMS do Blog",
+      "loginWarning": "Pode que necesites iniciar sesión no CMS cunha conta de administrador"
     },
     "stats": {
       "totalServices": "Total de servizos",
@@ -651,8 +634,8 @@
         "maxAttendants": "Máx asistentes",
         "created": "Creado",
         "schedule": "Horario",
-        "locationInfo": "Localización e Información",
-        "enrollmentStatus": "Estado de inscripción",
+        "locationInfo": "Localización e información",
+        "enrollmentStatus": "Estado de inscrición",
         "enrolledMembers": "Membros inscritos",
         "upcomingSessions": "Próximas sesións",
         "finished": "Rematado",
@@ -669,10 +652,12 @@
         "members": "membros",
         "noEnrollments": "Sen inscricións aínda",
         "enrolledOn": "Inscrito o",
-        "member": "Membro",
         "company": "Empresa",
-        "moreSessions": "Máis Sesións",
-        "hours": "horas"
+        "moreSessions": "Máis sesións",
+        "hours": "horas",
+        "mailSubject": "Información sobre o teu curso",
+        "mailBody": "Ola,\n\nEn Ordinaly enviámosche información importante sobre o teu curso\n",
+        "sendMail": "Enviar correo"
       },
       "courseCard": {
         "enrollments": "Inscricións",
@@ -1220,5 +1205,20 @@
     "contactButton": "Contactar Soporte",
     "redirectMessage": "Serás redirixido automaticamente en {seconds} segundos...",
     "robotText": "O noso robot de automatización está buscando a páxina..."
+  },
+  "blog": {
+    "title": "Blog de Ordinaly",
+    "subtitle": "Novas, ideas e actualizacións sobre transformación dixital e tecnoloxía",
+    "noResults": {
+      "title": "Non se atoparon resultados",
+      "description": "Intenta buscar de novo ou explora outras categorías."
+    },
+    "backToBlog": "Volver ao Blog",
+    "postCategories": "Categorías de publicación",
+    "searchPlaceholder": "Buscar publicacións do blog...",
+    "filters": {
+      "category": "Categoría",
+      "all": "Todas as categorías"
+    }
   }
 }

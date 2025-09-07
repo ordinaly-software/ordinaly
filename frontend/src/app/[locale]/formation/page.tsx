@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { getApiEndpoint } from "@/lib/api-config";
 import Footer from "@/components/ui/footer";
+import Banner from '@/components/ui/banner';
 import { Button } from "@/components/ui/button";
 import CourseCard from "@/components/formation/course-card";
 import { Input } from "@/components/ui/input";
@@ -341,66 +342,47 @@ const FormationPage = () => {
         />
       )}
 
-      {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E8F5E8] via-[#E6F7E6] to-[#F3E8FF] dark:from-[#22C55E]/5 dark:via-[#10B981]/5 dark:to-[#9333EA]/5 overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 opacity-30 dark:opacity-20">
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat blur-sm scale-110"
-            style={{
-              backgroundImage: "url('/static/backgrounds/formation_background.webp')"
-            }}
-          />
-        </div>
-        {/* Background blur effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/20 via-[#10B981]/20 to-[#9333EA]/20 blur-3xl transform scale-150"></div>
-        <div className="relative z-10 max-w-7xl mx-auto text-center">
-          <div className="mb-8">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-black to-[#22C55E] dark:from-white dark:to-[#22A60D] bg-clip-text text-transparent">
-              {t("title")}
-            </h1>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              {t("subtitle")}
-            </p>
-          </div>
-
-          {/* Search and Filter Section */}
-          <div className="max-w-5xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-            <div className="flex flex-col lg:flex-row gap-4 items-center">
-              {/* Search */}
-              <div className="relative flex-1">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <Input
-                  placeholder={t("searchPlaceholder")}
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
-                />
-              </div>
-
-              {/* Location Filter */}
-              <Dropdown
-                options={locationOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-                value={filterLocation}
-                onChange={(value) => setFilterLocation(value as 'all' | 'online' | 'onsite')}
-                icon={MapPin}
-                minWidth="240px"
-                placeholder={getLocationLabel(filterLocation)}
-              />
-
-              {/* Price Filter */}
-              <Dropdown
-                options={priceOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-                value={filterPrice}
-                onChange={(value) => setFilterPrice(value as 'all' | 'free' | 'paid')}
-                icon={Award}
-                minWidth="240px"
-                placeholder={getPriceLabel(filterPrice)}
+      {/* Banner Section (generalized) */}
+      <Banner
+        title={t('title')}
+        subtitle={t('subtitle')}
+        backgroundImage={'/static/backgrounds/formation_background.webp'}
+      >
+        <div className="max-w-5xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+          <div className="flex flex-col lg:flex-row gap-4 items-center">
+            {/* Search */}
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+              <Input
+                placeholder={t('searchPlaceholder')}
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
               />
             </div>
+
+            {/* Location Filter */}
+            <Dropdown
+              options={locationOptions.map(opt => ({ value: opt.value, label: opt.label }))}
+              value={filterLocation}
+              onChange={(value) => setFilterLocation(value as 'all' | 'online' | 'onsite')}
+              icon={MapPin}
+              minWidth="240px"
+              placeholder={getLocationLabel(filterLocation)}
+            />
+
+            {/* Price Filter */}
+            <Dropdown
+              options={priceOptions.map(opt => ({ value: opt.value, label: opt.label }))}
+              value={filterPrice}
+              onChange={(value) => setFilterPrice(value as 'all' | 'free' | 'paid')}
+              icon={Award}
+              minWidth="240px"
+              placeholder={getPriceLabel(filterPrice)}
+            />
           </div>
         </div>
-      </section>
+      </Banner>
 
 
       {/* Funding/Bonification Info Dropdown */}

@@ -19,7 +19,8 @@
       "signOut": "HIitu saioa",
       "userMenu": "Erabiltzaileen menua",
       "adminDashboard": "Admin Arbela",
-      "profile": "Profil"
+      "profile": "Profil",
+      "blog": "Blog"
     },
     "hero": {
       "title": "Automatizatu",
@@ -37,58 +38,22 @@
     },
     "services": {
       "title": "Produktuak eta Zerbitzuak",
-      "description": "Ezagutu gure zerbitzu pertsonalizatuak eta produktu itxi esklusiboak. Aukeratu zure negoziorako egokiena: aholkularitza pertsonalizatutik hasi eta prest dauden soluzioetaraino.",
-      "productsSectionTitle": "Produktu Itxiak",
-      "servicesSectionTitle": "Zerbitzu Pertsonalizatuak",
-      "filters": {
-        "all": "Guztiak",
-        "featured": "Nabarmenduak",
-        "service": "Zerbitzu Pertsonalizatuak",
-        "product": "Produktu Itxiak"
-      },
-      "type": {
-        "service": "Zerbitzua",
-        "product": "Produktua"
-      },
-      "contactForQuote": "Jarri harremanetan gure agenteekin aurrekontu zehatza lortzeko",
-      "vacationMessage": "Gaur egun oporretan gaude! ",
+      "description": "Ezagutu gure zerbitzu pertsonalizatuak eta produktu kapsulatu esklusiboak. Aukeratu zure enpresarako egokiena: aholkularitza pertsonalizatutik hasi eta prest dauden soluzioetaraino.",
+      "contactForQuote": "Eskatu aurrekontua gure agenteei",
+      "vacationMessage": "Oporretan gaude! Gure zerbitzuak laster itzuliko dira jaien ondoren. Eskerrik asko zure pazientziagatik.",
       "vacationTitle": "Oporretan",
-      "retryButton": "Berriro Saiatu",
-      "featured": "Proidatu",
-      "duration": "Eskuragarri",
-      "durationDay": "Egun 1",
-      "durationDays": "{count} egunak",
-      "price": "Salneurri",
-      "created": "Sortu",
-      "createdBy": "Sortua",
+      "retryButton": "Berriro saiatu",
+      "featured": "Nabarmendua",
+      "duration": "Prest ",
+      "durationDay": "1 egun",
+      "durationDays": "{count} egun",
+      "price": "Prezioa",
+      "created": "Sortua",
+      "createdBy": "Sortzailea",
       "requisites": "Baldintzak",
-      "contactNow": "Harremanetarako orain",
-      "contactEmail": "Harremanetarako posta elektroniko bidez",
+      "contactNow": "Jarri harremanetan orain",
+      "contactEmail": "Jarri harremanetan emailez",
       "viewDetails": "Xehetasunak ikusi",
-      "chatbots": {
-        "title": "Chatbots adimendunak",
-        "description": "Bezeroarentzako laguntza automatizatu 24/7 elkarrizketa aurreratuarekin AI"
-      },
-      "workflows": {
-        "title": "Lan-fluxuaren automatizazioa",
-        "description": "Integrazioa Odoo, Slack eta Negozio tresnekin"
-      },
-      "whatsapp": {
-        "title": "Whatsapp negozioa",
-        "description": "Salmentak eta laguntza automatizazioa WhatsApp negozio API bidez"
-      },
-      "accessibility": {
-        "title": "Irisgarritasun globala",
-        "description": "Irisgarritasun tresnak zure webgunean edo aplikazioan sartzen ditugu merkatu digitalean sartzea ziurtatzeko."
-      },
-      "consulting": {
-        "title": "Pertsonalizatutako aholkularitza",
-        "description": "Automatizazioaren azterketa eta zure negoziora egokitutako estrategia"
-      },
-      "optimization": {
-        "title": "Etengabeko optimizazioa",
-        "description": "Zure prozesu automatizatuen jarraipena eta hobekuntza etengabe"
-      },
       "viewAllServices": "Ikusi zerbitzu guztiak"
     },
     "courses": {
@@ -402,7 +367,8 @@
       "services": "Zerbitzuak",
       "courses": "Ikastaroak",
       "terms": "Baldintzak",
-      "users": "Erabiltzaileak"
+      "users": "Erabiltzaileak",
+      "blog": "Bloga"
     },
     "users": {
       "userId": "Erabiltzaile IDa",
@@ -414,8 +380,13 @@
       "sendMail": "Bidali posta",
       "selectAll": "Hautatu guztiak",
       "searchPlaceholder": "Bilatu erabiltzaileak...",
-      "users": "erabiltzaileak",
-      "lastLogin": "Azken saioa"
+      "users": "erabiltzaileak"
+    },
+    "blogTab": {
+      "title": "Blogaren Edizio CMSa",
+      "openedMessage": "Blogaren edizio CMSa beste fitxa batean ireki da. Ez baduzu ikusten, klikatu beheko botoia",
+      "openButton": "Ireki Blog CMSa",
+      "loginWarning": "Baliteke CMSan administratzaile kontuarekin saioa hasi behar izatea"
     },
     "stats": {
       "totalServices": "Zerbitzu guztira",
@@ -681,10 +652,12 @@
         "members": "kide",
         "noEnrollments": "Ez dago oraindik matrikulaturik",
         "enrolledOn": "Matrikulatua",
-        "member": "Kidea",
         "company": "Enpresa",
         "moreSessions": "Saio gehiago",
-        "hours": "ordu"
+        "hours": "ordu",
+        "mailSubject": "Informazioa zure ikastaroari buruz",
+        "mailBody": "Kaixo,\n\nOrdinaly-n zure ikastaroari buruzko informazio garrantzitsua bidaltzen dizugu\n",
+        "sendMail": "Bidali posta"
       },
       "courseCard": {
         "enrollments": "Matrikulak",
@@ -861,8 +834,10 @@
     }
   },
   "services": {
-    "title": "Gure zerbitzuak",
-    "productsAndServicesDescription": "Ezagutu gure zerbitzu pertsonalizatuak eta produktu itxi esklusiboak. Aukeratu zure negoziorako egokiena: aholkularitza pertsonalizatutik hasi eta prest dauden soluzioetaraino.",
+    "productsAndServicesTitle": "Gure produktuak eta zerbitzuak",
+    "productsAndServicesDescription": "Ezagutu gure zerbitzu pertsonalizatuak eta produktu kapsulatu esklusiboak. Aukeratu zure enpresarako egokiena: aholkularitza pertsonalizatutik hasi eta prest dauden soluzioetaraino.",
+    "productsSectionTitle": "Produktu kapsulatuak",
+    "servicesSectionTitle": "Zerbitzu pertsonalizatuak",
     "searchPlaceholder": "Bilatu zerbitzuak...",
     "featured": "Nabarmendua",
     "details": "Xehetasunak",
@@ -873,14 +848,11 @@
     "contactForQuote": "Kontsultatu prezioa",
     "contactUs": "Jarri harremanetan",
     "learnMore": "Ikusi xehetasunak",
-    "type": {
-      "service": "Zerbitzua",
-      "product": "Produktua"
-    },
     "filters": {
-      "all": "Zerbitzu guztiak",
-      "featured": "Nabarmenduak bakarrik",
-      "standard": "Zerbitzu estandarrak"
+      "all": "Katalogo osoa",
+      "featured": "Nabarmenduak soilik",
+      "service": "Zerbitzu pertsonalizatuak",
+      "product": "Produktu kapsulatuak"
     },
     "noResults": {
       "title": "Ez da zerbitzurik aurkitu",
@@ -1233,5 +1205,20 @@
     "contactButton": "Laguntza Jarri Harremanetan",
     "redirectMessage": "Automatikoki birbideratuko zara {seconds} segundotan...",
     "robotText": "Gure automatizazio robota orrialdea bilatzen ari da..."
+  },
+  "blog": {
+    "title": "Ordinaly Bloga",
+    "subtitle": "Berriak, ideiak eta eguneraketak eraldaketa digitalari eta teknologiari buruz",
+    "noResults": {
+      "title": "Ez da emaitzarik aurkitu",
+      "description": "Saiatu berriro bilatzen"
+    },
+    "backToBlog": "Itzuli Blogera",
+    "postCategories": "Post kategoriak",
+    "searchPlaceholder": "Bilatu blogeko mezuak...",
+    "filters": {
+      "category": "Kategoria",
+      "all": "Kategoria guztiak"
+    }
   }
 }

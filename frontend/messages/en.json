@@ -19,7 +19,8 @@
       "signOut": "Sign Out",
       "userMenu": "User menu",
       "adminDashboard": "Admin Dashboard",
-      "profile": "Profile"
+      "profile": "Profile",
+      "blog": "Blog"
     },
     "hero": {
       "title": "AUTOMATE",
@@ -53,30 +54,6 @@
       "contactNow": "Contact Now",
       "contactEmail": "Contact via Email",
       "viewDetails": "View Details",
-      "chatbots": {
-        "title": "Smart Chatbots",
-        "description": "Automate customer support 24/7 with advanced conversational AI"
-      },
-      "workflows": {
-        "title": "Workflow Automation",
-        "description": "Integration with Odoo, Slack, and business tools"
-      },
-      "whatsapp": {
-        "title": "WhatsApp Business",
-        "description": "Sales and support automation via WhatsApp Business API"
-      },
-      "accessibility": {
-        "title": "Global Accessibility",
-        "description": "We incorporate accessibility tools into your website or application to ensure its inclusion in the digital market."
-      },
-      "consulting": {
-        "title": "Custom Consulting",
-        "description": "Automation analysis and strategy tailored to your business"
-      },
-      "optimization": {
-        "title": "Continuous Optimization",
-        "description": "Ongoing monitoring and improvement of your automated processes"
-      },
       "viewAllServices": "View All Services"
     },
     "courses": {
@@ -390,7 +367,8 @@
       "services": "Services",
       "courses": "Courses",
       "terms": "Terms",
-      "users": "Users"
+      "users": "Users",
+      "blog": "Blog"
     },
     "users": {
       "userId": "User ID",
@@ -402,8 +380,13 @@
       "sendMail": "Send Mail",
       "selectAll": "Select All",
       "searchPlaceholder": "Search users...",
-      "users": "users",
-      "lastLogin": "Last Login"
+      "users": "users"
+    },
+    "blogTab": {
+      "title": "Blog Edition CMS",
+      "openedMessage": "The blog edition CMS has been opened in another tab. If you don't see it, click the button below.",
+      "openButton": "Open Blog CMS",
+      "loginWarning": "You may need to log in to the CMS with an admin account."
     },
     "stats": {
       "totalServices": "Total Services",
@@ -669,10 +652,12 @@
         "members": "members",
         "noEnrollments": "No enrollments yet",
         "enrolledOn": "Enrolled",
-        "member": "Member",
         "company": "Company",
         "moreSessions": "more sessions",
-        "hours": "hours"
+        "hours": "hours",
+        "mailSubject": "Information about your course",
+        "mailBody": "Hello,\n\nAt Ordinaly we are sending you important information about your course\n",
+        "sendMail": "Send email"
       },
       "courseCard": {
         "enrollments": "Enrollments",
@@ -801,11 +786,11 @@
         }
       },
       "confirmDelete": {
-      "title": "Confirm Deletion",
-      "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
-      "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
-      "delete": "Delete",
-      "cancel": "Cancel"
+        "title": "Confirm Deletion",
+        "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+        "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
+        "delete": "Delete",
+        "cancel": "Cancel"
       },
       "details": {
       "created": "Created",
@@ -845,7 +830,8 @@
       "fetchError": "Failed to fetch legal documents",
       "networkError": "Network error while fetching documents",
       "noPdfAvailable": "PDF version is not available for this document",
-      "downloadSuccess": "PDF downloaded successfully"    }
+      "downloadSuccess": "PDF downloaded successfully"
+    }
   },
   "services": {
     "productsAndServicesTitle": "Our products and services",
@@ -1219,5 +1205,20 @@
     "contactButton": "Contact Support",
     "redirectMessage": "You will be automatically redirected in {seconds} seconds...",
     "robotText": "Our automation robot is searching for the page..."
+  },
+  "blog": {
+    "title": "Ordinaly Blog",
+    "subtitle": "News, ideas, and updates about digital transformation and technology",
+    "noResults": {
+      "title": "No results found",
+      "description": "Try searching again"
+    },
+    "backToBlog": "Back to Blog",
+    "postCategories": "Post categories",
+    "searchPlaceholder": "Search blog posts...",
+    "filters": {
+      "category": "Category",
+      "all": "All Categories"
+    }
   }
 }

@@ -19,7 +19,8 @@
       "signOut": "Cerrar Sesión",
       "userMenu": "Menú de usuario",
       "adminDashboard": "Panel de Administración",
-      "profile": "Perfil"
+      "profile": "Perfil",
+      "blog": "Blog"
     },
     "hero": {
       "title": "AUTOMATIZA",
@@ -53,30 +54,6 @@
       "contactNow": "Contactar Ahora",
       "contactEmail": "Contactar por Email",
       "viewDetails": "Ver Detalles",
-      "chatbots": {
-        "title": "Chatbots Inteligentes",
-        "description": "Automatiza atención al cliente 24/7 con IA conversacional avanzada"
-      },
-      "workflows": {
-        "title": "Automatización de Flujos de Trabajo",
-        "description": "Integración con Odoo, Slack y herramientas empresariales"
-      },
-      "whatsapp": {
-        "title": "WhatsApp Business",
-        "description": "Automatización de ventas y soporte vía WhatsApp Business API"
-      },
-      "accessibility": {
-        "title": "Accesibilidad Global",
-        "description": "Incorporamos herramientas de accesibilidad a tu web o aplicación para garantizar su inclusión en el mercado digital"
-      },
-      "consulting": {
-        "title": "Consultoría Personalizada",
-        "description": "Análisis y estrategia de automatización adaptada a tu negocio"
-      },
-      "optimization": {
-        "title": "Optimización Continua",
-        "description": "Monitoreo y mejora constante de tus procesos automatizados"
-      },
       "viewAllServices": "Ver Todos los Servicios"
     },
     "courses": {
@@ -390,7 +367,14 @@
       "services": "Servicios",
       "courses": "Cursos",
       "terms": "Términos",
-      "users": "Usuarios"
+      "users": "Usuarios",
+      "blog": "Blog"
+    },
+    "stats": {
+      "totalServices": "Total de Servicios",
+      "totalCourses": "Total de Cursos",
+      "totalTerms": "Total de Términos",
+      "totalUsers": "Total de Usuarios"
     },
     "users": {
       "userId": "ID de Usuario",
@@ -402,14 +386,13 @@
       "sendMail": "Enviar correo",
       "selectAll": "Seleccionar todo",
       "searchPlaceholder": "Buscar usuarios...",
-      "users": "usuarios",
-      "lastLogin": "Último acceso"
+      "users": "usuarios"
     },
-    "stats": {
-      "totalServices": "Total de Servicios",
-      "totalCourses": "Total de Cursos",
-      "totalTerms": "Total de Términos",
-      "totalUsers": "Total de Usuarios"
+    "blogTab": {
+      "title": "Edición de Blog (CMS)",
+      "openedMessage": "El CMS de edición de blog se ha abierto en otra pestaña. Si no lo ves, haz clic en el botón de abajo",
+      "openButton": "Abrir CMS de Blog",
+      "loginWarning": "Es posible que debas iniciar sesión en el CMS con una cuenta de administrador"
     },
     "services": {
       "title": "Gestión de Servicios",
@@ -669,10 +652,12 @@
         "members": "miembros",
         "noEnrollments": "Aún no hay inscripciones",
         "enrolledOn": "Inscrito",
-        "member": "Miembro",
         "company": "Empresa",
         "moreSessions": "sesiones más",
-        "hours": "hora(s)"
+        "hours": "hora(s)",
+        "mailSubject": "Información sobre tu curso",
+        "mailBody": "Hola,\n\nEn Ordinaly te enviamos información importante sobre tu curso\n",
+        "sendMail": "Enviar correo"
       },
       "courseCard": {
         "enrollments": "Inscripciones",
@@ -1220,5 +1205,20 @@
     "contactButton": "Contactar Soporte",
     "redirectMessage": "Serás redirigido automáticamente en {seconds} segundos...",
     "robotText": "Nuestro robot de automatización está buscando la página..."
+  },
+  "blog": {
+    "title": "Blog de Ordinaly",
+    "subtitle": "Noticias, ideas y actualizaciones sobre transformación digital y tecnología",
+    "noResults": {
+      "title": "No se encontraron resultados",
+      "description": "Intenta buscar de nuevo"
+    },
+    "backToBlog": "Volver al Blog",
+    "postCategories": "Categorías de publicaciones",
+    "searchPlaceholder": "Buscar publicaciones del blog...",
+    "filters": {
+      "category": "Categoría",
+      "all": "Todas las categorías"
+    }
   }
 }
