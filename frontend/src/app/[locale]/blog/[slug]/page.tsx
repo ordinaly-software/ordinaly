@@ -1,7 +1,6 @@
 import { client } from '@/lib/sanity';
 import { postBySlug } from '@/lib/queries';
 import { Metadata } from 'next';
-import BlogPostClient from '@/components/blog/blog-post-client';
 
 export async function generateStaticParams() {
   const slugs: string[] = await client.fetch(
@@ -34,5 +33,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const { slug } = await params;
   const p = await client.fetch(postBySlug, { slug }, { next: { tags: ['blog', `post:${slug}`] } });
   if (!p || p.isPrivate) return null;
+
+  // Dynamically import the client component at render time so the server
+  // component doesn't import any client-only modules at module scope.
+  const { default: BlogPostClient } = await import('@/components/blog/blog-post-client');
   return <BlogPostClient post={p} />;
 }
