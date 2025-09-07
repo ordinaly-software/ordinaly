@@ -1635,7 +1635,7 @@ class CourseModelsMoreTest(CourseImageCleanupTestMixin, TestCase):
             week_of_month=1,
             max_attendants=1,
         )
-        self.assertIn('First week', c_month2.formatted_schedule or c_month2.formatted_schedule)
+        self.assertIn('First week', c_month2.formatted_schedule)
 
     def test_get_next_occurrences_weekly_no_weekdays_and_monthly_complex(self):
         # Weekly fallback to start_date weekday

@@ -414,8 +414,7 @@ class Course(models.Model):
         # Auto-generate slug from title if not provided
         if not self.slug and self.title:
             max_slug_length = 110
-            # Estimate maximum suffix length (e.g., '-99999')
-            max_suffix_length = len(f"-{99999}")
+            max_suffix_length = len("-99999")  # Reserve space for suffixes
             base_slug = slugify(self.title)[:max_slug_length - max_suffix_length]
             slug_candidate = base_slug
             i = 1

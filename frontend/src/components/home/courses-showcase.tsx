@@ -71,16 +71,16 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     if (onCourseClick) {
       onCourseClick(course);
     } else {
-      // Navigate to formation page with course highlighted/modal opened
-  router.push(`/formation?course=${course.slug}`);
+    // Navigate to formation page with course highlighted/modal opened
+  router.push(`/formation/${course.slug ?? course.id}`);
     }
   }, [onCourseClick, router]);
 
   const handleSignUpClick = useCallback((e: React.MouseEvent, course: Course) => {
     e.stopPropagation();
     if (isAuthenticated) {
-  router.push(`/formation?course=${course.slug}`);
-    } else {
+    router.push(`/formation/${course.slug ?? course.id}`);
+      } else {
       setSelectedCourse(course);
       setIsAuthModalOpen(true);
     }

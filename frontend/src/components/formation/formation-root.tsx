@@ -198,8 +198,14 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
         setAlert({type: 'error', message: t('alerts.signInRequired')});
         return;
       }
-      const identifier = courseToCancel.slug ?? courseToCancel.id;
-      if (!identifier) {
+      // Prefer slug if present and non-empty, otherwise use id if it's a positive number
+      let identifier: string | number | undefined;
+      if (courseToCancel.slug && typeof courseToCancel.slug === 'string' && courseToCancel.slug.trim() !== '') {
+        identifier = courseToCancel.slug;
+      } else if (typeof courseToCancel.id === 'number' && courseToCancel.id > 0) {
+        identifier = courseToCancel.id;
+      }
+      if (identifier === undefined) {
         setAlert({type: 'error', message: t('alerts.invalidCourseIdentifier')});
         return;
       }
