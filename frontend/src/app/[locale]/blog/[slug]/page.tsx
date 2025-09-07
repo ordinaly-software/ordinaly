@@ -1,6 +1,7 @@
 import { client } from '@/lib/sanity';
 import { postBySlug } from '@/lib/queries';
 import { Metadata } from 'next';
+export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const slugs: string[] = await client.fetch(
