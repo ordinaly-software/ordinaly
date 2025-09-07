@@ -2,15 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "../globals.css"
-// NextIntlClientProvider is a client component; we'll dynamically import it
-// inside RootLayout to avoid client imports at module scope.
 import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
-// Note: CookieConsent, BackToTopButton, Navbar and ThemeProvider are
-// client-only. We will dynamically import them inside the RootLayout
-// function to avoid importing client modules at module scope which can
-// trigger DYNAMIC_SERVER_USAGE in production.
-
 
 const inter = Inter({
   subsets: ["latin"],

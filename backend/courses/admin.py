@@ -10,7 +10,7 @@ class CourseAdmin(admin.ModelAdmin):
     list_filter = ('start_date', 'periodicity', 'price', 'weekdays', 'draft')
     fieldsets = (
         ('Basic Information', {
-            'fields': ('title', 'subtitle', 'description', 'image', 'price', 'location', 'draft')
+            'fields': ('slug', 'title', 'subtitle', 'description', 'image', 'price', 'location', 'draft')
         }),
         ('Basic Schedule', {
             'fields': ('start_date', 'end_date', 'start_time', 'end_time', 'periodicity', 'timezone')

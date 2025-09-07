@@ -3,6 +3,7 @@ import jsPDF from 'jspdf';
 
 export interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;

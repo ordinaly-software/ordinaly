@@ -4,14 +4,14 @@ import { toast } from 'react-toastify';
 export function useCourseCheckout() {
   const [loading, setLoading] = useState(false);
 
-  const startCheckout = async (courseId: number, onSuccess?: () => void) => {
+  const startCheckout = async (courseIdOrSlug: number | string, onSuccess?: () => void) => {
     setLoading(true);
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (token) headers['Authorization'] = `Token ${token}`;
-      const response = await fetch(`${baseUrl}/api/courses/courses/${courseId}/create-checkout-session/`, {
+      const response = await fetch(`${baseUrl}/api/courses/courses/${courseIdOrSlug}/create-checkout-session/`, {
         method: 'POST',
         headers,
       });

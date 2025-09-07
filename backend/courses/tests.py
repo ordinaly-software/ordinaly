@@ -5,10 +5,11 @@ from django.urls import reverse
 from django.core.files.uploadedfile import SimpleUploadedFile
 from django.core.exceptions import ValidationError
 from django.conf import settings
+from django.utils import timezone
 from decimal import Decimal
 from PIL import Image
 from io import BytesIO
-from datetime import date, time
+from datetime import date, time, timedelta
 from django.db import IntegrityError
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
@@ -17,6 +18,8 @@ from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
 from courses.admin import CourseAdmin
 from django.contrib import admin as django_admin
+from .forms import CourseAdminForm
+import json
 
 
 TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
@@ -194,6 +197,7 @@ class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
             'periodicity': 'once',
             'max_attendants': 20
         }
+        # Use the local course_data (with an overly long title) and validate without saving
         course = Course(**course_data)
         with self.assertRaises(ValidationError):
             course.full_clean()
@@ -420,7 +424,7 @@ class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
     def test_contains_expected_fields(self):
         data = self.serializer.data
         expected_fields = [
-            'id', 'title', 'subtitle', 'description', 'image', 'price',
+            'id', 'slug', 'title', 'subtitle', 'description', 'image', 'price',
             'location', 'start_date', 'end_date', 'start_time', 'end_time',
             'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
             'exclude_dates', 'max_attendants', 'enrolled_count',
@@ -483,6 +487,140 @@ class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
         self.assertIn('price', serializer.errors)
         self.assertIn('max_attendants', serializer.errors)
         self.assertIn('image', serializer.errors)  # Required field
+
+
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class CourseSerializerExtraTest(CourseImageCleanupTestMixin, TestCase):
+    """Targeted tests for serializer validation branches and method fallbacks."""
+    def setUp(self):
+        self.today = date.today()
+
+    def test_validate_price_edges_and_forbidden_range(self):
+        # Negative price
+        data = {
+            'title': 'P', 'description': 'd', 'image': get_test_image_file(),
+            'price': Decimal('-1.00'), 'start_date': self.today, 'end_date': self.today,
+            'start_time': time(9, 0), 'end_time': time(10, 0), 'periodicity': 'once', 'max_attendants': 1
+        }
+        s = CourseSerializer(data=data)
+        self.assertFalse(s.is_valid())
+        self.assertIn('price', s.errors)
+
+        # Too large price
+        data['price'] = Decimal('1000000.00')
+        s = CourseSerializer(data=data)
+        self.assertFalse(s.is_valid())
+        self.assertIn('price', s.errors)
+
+        # Forbidden small range
+        data['price'] = Decimal('0.10')
+        s = CourseSerializer(data=data)
+        self.assertFalse(s.is_valid())
+        self.assertIn('price', s.errors)
+
+    def test_image_required_on_create_and_size_limit(self):
+        # Missing image on create
+        data = {
+            'title': 'No Image', 'description': 'd', 'price': Decimal('10.00'),
+            'start_date': self.today, 'end_date': self.today, 'start_time': time(9, 0),
+            'end_time': time(10, 0), 'periodicity': 'once', 'max_attendants': 1
+        }
+        s = CourseSerializer(data=data)
+        self.assertFalse(s.is_valid())
+        self.assertIn('image', s.errors)
+
+        # Image too large (>1MB)
+        big = BytesIO()
+        big.write(b"\0" * (1024 * 1024 + 10))
+        big.name = 'big.png'
+        big.seek(0)
+        big_file = SimpleUploadedFile(big.name, big.read(), content_type='image/png')
+        data['image'] = big_file
+        s = CourseSerializer(data=data)
+        self.assertFalse(s.is_valid())
+        self.assertIn('image', s.errors)
+
+    def test_to_internal_value_sets_draft_false_and_empty_strings_to_none(self):
+        data = {
+            'title': 'Draft Test', 'description': 'd', 'image': get_test_image_file(),
+            'price': Decimal('10.00'), 'start_date': None, 'end_date': None, 'start_time': None, 'end_time': None,
+            'periodicity': 'once', 'max_attendants': 1
+        }
+        s = CourseSerializer(data=data)
+        # validate to populate validated_data
+        self.assertTrue(s.is_valid())
+        self.assertIn('draft', s.validated_data)
+        self.assertFalse(s.validated_data['draft'])
+        # None values should remain None
+        self.assertIsNone(s.validated_data.get('start_date'))
+        self.assertIsNone(s.validated_data.get('start_time'))
+
+    def test_prevent_lowering_max_attendants_below_enrolled(self):
+        # Create course with one enrollment
+        course = Course.objects.create(
+            title='CapTest', description='d', image=get_test_image_file(), price=10.0,
+            start_date=self.today, end_date=self.today, start_time=time(9, 0), end_time=time(10, 0),
+            periodicity='once', max_attendants=5
+        )
+        user = CustomUser.objects.create_user(email='u@example.com', username='u', password=TEST_PASSWORD,
+                                              name='A', surname='B', company='C')
+        Enrollment.objects.create(user=user, course=course)
+
+        s = CourseSerializer(instance=course, data={'max_attendants': 0}, partial=True)
+        self.assertFalse(s.is_valid())
+        self.assertIn('max_attendants', s.errors)
+
+    def test_method_field_exception_fallbacks_and_weekday_display(self):
+        # Create a course and monkeypatch instance methods to raise
+        course = Course.objects.create(
+            title='MethTest', description='d', image=get_test_image_file(), price=10.0,
+            start_date=self.today, end_date=self.today, start_time=time(9, 0), end_time=time(10, 0),
+            periodicity='once', max_attendants=1
+        )
+
+        def boom_next(limit=5):
+            raise Exception('boom')
+
+        def boom_desc():
+            raise Exception('boom')
+
+        course.get_next_occurrences = boom_next
+        course.get_schedule_description = boom_desc
+        course.weekdays = []
+
+        s = CourseSerializer(instance=course)
+        data = s.data
+        self.assertEqual(data['next_occurrences'], [])
+        self.assertIsNone(data['schedule_description'])
+        self.assertEqual(data['weekday_display'], [])
+
+    def test_weekday_display_populated(self):
+        course = Course.objects.create(
+            title='WeekTest', description='d', image=get_test_image_file(), price=10.0,
+            start_date=self.today, end_date=self.today, start_time=time(9, 0), end_time=time(10, 0),
+            periodicity='once', weekdays=[0, 2], max_attendants=1
+        )
+        s = CourseSerializer(instance=course)
+        wd = s.data['weekday_display']
+        self.assertIn('Monday', wd)
+        self.assertIn('Wednesday', wd)
+
+    def test_enrollment_serializer_user_details_handles_missing_names(self):
+        user = CustomUser.objects.create_user(
+            email='n@example.com', username='n', password=TEST_PASSWORD,
+            name='', surname='', company=''
+        )
+        course = Course.objects.create(
+            title='E', description='d', image=get_test_image_file(), price=10.0,
+            start_date=self.today, end_date=self.today, start_time=time(9, 0), end_time=time(10, 0),
+            periodicity='once', max_attendants=1
+        )
+        e = Enrollment.objects.create(user=user, course=course)
+        s = EnrollmentSerializer(instance=e)
+        ud = s.data['user_details']
+        self.assertEqual(ud['name'], '')
+        self.assertEqual(ud['surname'], '')
+        self.assertEqual(ud['company'], '')
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
@@ -612,8 +750,8 @@ class CourseViewSetTest(CourseImageCleanupTestMixin, APITestCase):
             max_attendants=10
         )
         self.course_url = reverse('course-list')
-        self.course_detail_url = reverse('course-detail', kwargs={'pk': self.course.pk})
-        self.course_enroll_url = reverse('course-enroll', kwargs={'pk': self.course.pk})
+        self.course_detail_url = reverse('course-detail', kwargs={'slug': self.course.slug})
+        self.course_enroll_url = reverse('course-enroll', kwargs={'slug': self.course.slug})
 
     def tearDown(self):
         """Clean up database objects"""
@@ -740,14 +878,16 @@ class CourseViewSetTest(CourseImageCleanupTestMixin, APITestCase):
             image=get_test_image_file(),
             price=Decimal('99.99'),
             location='Test Location',
-            start_time=time(14, 0),
-            end_time=time(17, 0),
+            start_date=None,
+            end_date=None,
+            start_time=None,
+            end_time=None,
             periodicity='once',
             max_attendants=20
         )
 
         # Set up the URL for enrollment
-        course_enroll_url = reverse('course-enroll', kwargs={'pk': course_without_dates.pk})
+        course_enroll_url = reverse('course-enroll', kwargs={'slug': course_without_dates.slug})
 
         # Attempt to enroll as a regular user
         self.client.force_authenticate(user=self.regular_user)
@@ -1185,3 +1325,523 @@ class CourseAdminTest(CourseImageCleanupTestMixin, TestCase):
         form = self.admin.get_form(request=None)
         self.assertIn('Select specific weekdays', form.base_fields['weekdays'].help_text)
         self.assertIn('Dates to exclude from schedule', form.base_fields['exclude_dates'].help_text)
+
+
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class CourseFormTest(TestCase):
+    def setUp(self):
+        # Minimal course data for form validation
+        self.today = timezone.now().date()
+        self.course_data = {
+            'title': 'Form Test',
+            'description': 'desc',
+            'image': get_test_image_file(),
+            'price': Decimal('10.00'),
+            'location': 'loc',
+            'start_date': self.today,
+            'end_date': self.today + timedelta(days=1),
+            'start_time': time(10, 0),
+            'end_time': time(12, 0),
+            'periodicity': 'once',
+            'max_attendants': 5
+        }
+
+    def test_clean_start_date_in_past(self):
+        past = self.today - timedelta(days=1)
+        data = self.course_data.copy()
+        data['start_date'] = past
+        form = CourseAdminForm(data, files={'image': get_test_image_file()})
+        self.assertFalse(form.is_valid())
+        self.assertIn('start_date', form.errors)
+
+    def test_clean_end_date_in_past(self):
+        past = self.today - timedelta(days=1)
+        data = self.course_data.copy()
+        data['end_date'] = past
+        form = CourseAdminForm(data, files={'image': get_test_image_file()})
+        self.assertFalse(form.is_valid())
+        self.assertIn('end_date', form.errors)
+
+    def test_clean_end_date_before_start_date(self):
+        data = self.course_data.copy()
+        data['start_date'] = self.today + timedelta(days=5)
+        data['end_date'] = self.today + timedelta(days=1)
+        form = CourseAdminForm(data, files={'image': get_test_image_file()})
+        self.assertFalse(form.is_valid())
+        self.assertIn('end_date', form.errors)
+
+
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class CourseModelsExtraTest(CourseImageCleanupTestMixin, TestCase):
+    def setUp(self):
+        self.today = date.today()
+
+    def get_large_image_file(self):
+        # Create a fake image >1MB to trigger validation
+        big = BytesIO()
+        big.write(b"\0" * (1024 * 1024 + 10))
+        big.name = 'big.png'
+        big.seek(0)
+        return SimpleUploadedFile(big.name, big.read(), content_type='image/png')
+
+    def test_clean_image_too_large_raises(self):
+        course = Course(
+            title='Big Image',
+            description='desc',
+            image=self.get_large_image_file(),
+            price=Decimal('10.00'),
+            start_date=self.today,
+            end_date=self.today,
+            start_time=time(10, 0),
+            end_time=time(11, 0),
+            periodicity='once',
+            max_attendants=1
+        )
+        with self.assertRaises(ValidationError):
+            course.full_clean()
+
+    def test_formatted_schedule_daily_and_biweekly_and_custom(self):
+        # Daily interval >1
+        c1 = Course.objects.create(
+            title='Daily',
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=self.today,
+            end_date=self.today + timedelta(days=5),
+            start_time=time(9, 0),
+            end_time=time(10, 0),
+            periodicity='daily',
+            interval=2,
+            max_attendants=1,
+        )
+        fs = c1.formatted_schedule
+        self.assertIn('Every 2 days', fs)
+
+        # Biweekly with weekdays
+        c2 = Course.objects.create(
+            title='Biweekly',
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=self.today,
+            end_date=self.today + timedelta(days=30),
+            start_time=time(9, 0),
+            end_time=time(10, 0),
+            periodicity='biweekly',
+            weekdays=[self.today.weekday()],
+            max_attendants=1,
+        )
+        self.assertIn('Every other week on', c2.formatted_schedule)
+
+        # Custom with no weekdays
+        c3 = Course.objects.create(
+            title='Custom',
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=self.today,
+            end_date=self.today + timedelta(days=5),
+            start_time=time(9, 0),
+            end_time=time(10, 0),
+            periodicity='custom',
+            max_attendants=1,
+        )
+        self.assertIn('Custom schedule', c3.formatted_schedule)
+
+    def test_get_schedule_description_all_parts(self):
+        c = Course.objects.create(
+            title='Desc',
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=self.today,
+            end_date=self.today + timedelta(days=30),
+            start_time=time(9, 0),
+            end_time=time(10, 0),
+            periodicity='weekly',
+            interval=2,
+            weekdays=[0, 2],
+            week_of_month=1,
+            exclude_dates=['2025-12-25'],
+            max_attendants=5,
+        )
+        desc = c.get_schedule_description()
+        self.assertIn('Interval: Every 2', desc)
+        self.assertIn('Weekdays:', desc)
+        self.assertIn('Week of month:', desc)
+        self.assertIn('Excluded dates: 1', desc)
+
+    def test_calendar_export_missing_times(self):
+        c = Course.objects.create(
+            title='NoTimes',
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=self.today,
+            end_date=self.today + timedelta(days=1),
+            start_time=None,
+            end_time=None,
+            periodicity='once',
+            max_attendants=1,
+        )
+        self.assertEqual(c.get_calendar_export_data('google'), [])
+        self.assertEqual(c.get_calendar_export_data('outlook'), [])
+        self.assertIsNone(c.get_calendar_export_data('ics'))
+
+    def test_get_next_occurrences_daily_and_custom(self):
+        start = self.today
+        c = Course.objects.create(
+            title='DailyOcc',
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=start,
+            end_date=start + timedelta(days=4),
+            start_time=time(9, 0),
+            end_time=time(10, 0),
+            periodicity='daily',
+            interval=1,
+            max_attendants=1,
+        )
+        occ = c.get_next_occurrences(limit=3)
+        self.assertGreaterEqual(len(occ), 1)
+
+        # Custom using weekdays fallback
+        c2 = Course.objects.create(
+            title='CustomOcc',
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=start,
+            end_date=start + timedelta(days=10),
+            start_time=time(9, 0),
+            end_time=time(10, 0),
+            periodicity='custom',
+            weekdays=[start.weekday()],
+            max_attendants=1,
+        )
+        occ2 = c2.get_next_occurrences(limit=5)
+        self.assertTrue(all([d.weekday() == start.weekday() for d in occ2]))
+
+    def test__is_nth_weekday_of_month_last_and_invalid(self):
+        c = Course()
+        # Pick a known date which is last Monday of September 2025: 29 Sep 2025 is Monday and last Monday
+        test_date = date(2025, 9, 29)
+        self.assertTrue(c._is_nth_weekday_of_month(test_date, 0, -1))
+        # Invalid week_of_month (too large)
+        self.assertFalse(c._is_nth_weekday_of_month(test_date, 0, 10))
+
+    def test_save_slug_uniqueness_and_truncation_and_image_replace_delete(self):
+        # Create a base course with a long title
+        long_title = 'a' * 150
+        c1 = Course.objects.create(
+            title=long_title,
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=self.today,
+            end_date=self.today,
+            start_time=time(9, 0),
+            end_time=time(10, 0),
+            periodicity='once',
+            max_attendants=1,
+        )
+        self.assertTrue(len(c1.slug) <= 110)
+
+        # Create another with same title -> should get suffix
+        c2 = Course.objects.create(
+            title=long_title,
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=self.today,
+            end_date=self.today,
+            start_time=time(9, 0),
+            end_time=time(10, 0),
+            periodicity='once',
+            max_attendants=1,
+        )
+        self.assertNotEqual(c1.slug, c2.slug)
+
+        # Test image replacement deletes old file
+        old_path = c2.image.path
+        new_image = get_test_image_file()
+        c2.image = new_image
+        c2.save()
+        self.assertFalse(os.path.exists(old_path))
+
+        # Test delete removes file
+        path = c2.image.path
+        c2.delete()
+        self.assertFalse(os.path.exists(path))
+
+
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class CourseModelsMoreTest(CourseImageCleanupTestMixin, TestCase):
+    def setUp(self):
+        self.today = date.today()
+
+    def test_formatted_schedule_once_and_weekly_no_weekdays(self):
+        # Once
+        c_once = Course.objects.create(
+            title='OnceFmt', description='d', image=get_test_image_file(), price=10.0,
+            location='loc', start_date=self.today, end_date=self.today, start_time=time(8, 0), end_time=time(9, 0),
+            periodicity='once', max_attendants=1
+        )
+        fs = c_once.formatted_schedule
+        self.assertIn('from', fs)
+
+        # Weekly with no weekdays (fallback)
+        c_week = Course.objects.create(
+            title='WeekFmt', description='d', image=get_test_image_file(), price=10.0,
+            location='loc', start_date=self.today, end_date=self.today + timedelta(days=14),
+            start_time=time(8, 0), end_time=time(9, 0), periodicity='weekly', weekdays=[], interval=1, max_attendants=1
+        )
+        self.assertIn('Weekly', c_week.formatted_schedule)
+
+    def test_formatted_schedule_monthly_simple_and_with_week_of_month(self):
+        # Simple monthly (same day)
+        start = date(self.today.year, self.today.month, 5)
+        c_month = Course.objects.create(
+            title='MonthSimple', description='d', image=get_test_image_file(), price=10.0,
+            location='loc', start_date=start, end_date=start + timedelta(days=90),
+            start_time=time(8, 0), end_time=time(9, 0), periodicity='monthly', interval=1, max_attendants=1
+        )
+        self.assertIn('Monthly', c_month.formatted_schedule)
+
+        # Monthly with week_of_month and weekdays
+        c_month2 = Course.objects.create(
+            title='MonthComplex',
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=start,
+            end_date=start + timedelta(days=90),
+            start_time=time(8, 0),
+            end_time=time(9, 0),
+            periodicity='monthly',
+            weekdays=[0],
+            week_of_month=1,
+            max_attendants=1,
+        )
+        self.assertIn('First week', c_month2.formatted_schedule)
+
+    def test_get_next_occurrences_weekly_no_weekdays_and_monthly_complex(self):
+        # Weekly fallback to start_date weekday
+        start = self.today
+        c = Course.objects.create(
+            title='WeeklyFallback', description='d', image=get_test_image_file(), price=10.0,
+            location='loc', start_date=start, end_date=start + timedelta(days=21),
+            start_time=time(8, 0), end_time=time(9, 0), periodicity='weekly', weekdays=[], interval=1, max_attendants=1
+        )
+        occ = c.get_next_occurrences(limit=5)
+        # occurrences should include dates with same weekday as start
+        self.assertTrue(all([d.weekday() == start.weekday() for d in occ]))
+
+        # Monthly complex: first Monday of next months (use a date that is a Monday)
+        test_date = date(2025, 9, 1)  # 1 Sep 2025 is Monday
+        c2 = Course.objects.create(
+            title='MonthlyNth',
+            description='d',
+            image=get_test_image_file(),
+            price=10.0,
+            location='loc',
+            start_date=test_date,
+            end_date=date(2025, 12, 31),
+            start_time=time(8, 0),
+            end_time=time(9, 0),
+            periodicity='monthly',
+            weekdays=[0],
+            week_of_month=1,
+            max_attendants=1,
+        )
+        occ2 = c2.get_next_occurrences(limit=3)
+        self.assertTrue(len(occ2) >= 1)
+
+    def test_save_handles_missing_old_instance_and_calendar_unknown(self):
+        # Create and delete underlying DB row to trigger Course.DoesNotExist in save()
+        c = Course.objects.create(
+            title='Transient', description='d', image=get_test_image_file(), price=10.0,
+            location='loc', start_date=self.today, end_date=self.today, start_time=time(8, 0), end_time=time(9, 0),
+            periodicity='once', max_attendants=1
+        )
+        pk = c.pk
+        # Delete DB row
+        Course.objects.filter(pk=pk).delete()
+        # c still has pk set; calling save should handle missing old_instance gracefully
+        c.title = 'Transient Updated'
+        c.save()  # should not raise
+
+        # Unknown calendar format returns None
+        c3 = Course.objects.create(
+            title='CalUnknown', description='d', image=get_test_image_file(), price=10.0,
+            location='loc', start_date=self.today, end_date=self.today, start_time=time(8, 0), end_time=time(9, 0),
+            periodicity='once', max_attendants=1
+        )
+        self.assertIsNone(c3.get_calendar_export_data('unknown'))
+
+
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class CourseViewActionsExtraTest(CourseImageCleanupTestMixin, APITestCase):
+    """Focused tests for specific CourseViewSet actions and Stripe webhook handling."""
+    def setUp(self):
+        self.client = APIClient()
+        self.user = CustomUser.objects.create_user(
+            email='view@example.com', username='viewuser', password=TEST_PASSWORD,
+            name='V', surname='U', company='VC'
+        )
+        self.course = Course.objects.create(
+            title='ActionCourse', description='d', image=get_test_image_file(), price=Decimal('10.00'),
+            start_date=date.today() + timedelta(days=7), end_date=date.today() + timedelta(days=7),
+            start_time=time(9, 0), end_time=time(10, 0), periodicity='once', max_attendants=10
+        )
+
+    def tearDown(self):
+        Enrollment.objects.all().delete()
+        Course.objects.all().delete()
+        CustomUser.objects.all().delete()
+        super().tearDown()
+
+    def test_create_checkout_session_without_stripe_key_returns_500(self):
+        # Ensure STRIPE_SECRET_KEY is not set
+        if 'STRIPE_SECRET_KEY' in os.environ:
+            del os.environ['STRIPE_SECRET_KEY']
+        self.client.force_authenticate(user=self.user)
+        url = reverse('course-create-checkout-session', kwargs={'slug': self.course.slug})
+        resp = self.client.post(url)
+        self.assertEqual(resp.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def test_refund_course_without_payment_intent_unenrolls(self):
+        # Enroll the user without a stripe payment intent
+        Enrollment.objects.create(user=self.user, course=self.course)
+        self.client.force_authenticate(user=self.user)
+        url = reverse('course-refund-course', kwargs={'slug': self.course.slug})
+        resp = self.client.post(url)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertFalse(Enrollment.objects.filter(user=self.user, course=self.course).exists())
+
+    def test_calendar_export_test_forbidden_when_not_enrolled(self):
+        self.client.force_authenticate(user=self.user)
+        url = reverse('course-calendar-export-test', kwargs={'slug': self.course.slug})
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_stripe_webhook_invalid_signature_returns_400(self):
+        # Call webhook endpoint with invalid signature
+        webhook_url = reverse('stripe-webhook')
+        payload = json.dumps({'type': 'test.event'}).encode('utf-8')
+        resp = self.client.post(webhook_url, data=payload, content_type='application/json', HTTP_STRIPE_SIGNATURE='bad')
+        self.assertEqual(resp.status_code, 400)
+
+    def test_get_object_numeric_fallback_allows_numeric_id_in_url(self):
+        # Retrieve course using numeric id in the slug position
+        url = reverse('course-detail', kwargs={'slug': str(self.course.pk)})
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(resp.data['title'], self.course.title)
+
+    def test_create_checkout_session_missing_user_email_returns_400(self):
+        # User without email cannot create checkout session. create_user requires an email,
+        # so create with a placeholder and then clear the field to simulate missing email.
+        no_email_user = CustomUser.objects.create_user(
+            email='placeholder@example.com', username='noemail', password=TEST_PASSWORD,
+            name='N', surname='E', company='C'
+        )
+        no_email_user.email = ''
+        no_email_user.save()
+        self.client.force_authenticate(user=no_email_user)
+        url = reverse('course-create-checkout-session', kwargs={'slug': self.course.slug})
+        resp = self.client.post(url)
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_checkout_session_success_with_mocked_stripe(self):
+        # Mock stripe.checkout.Session.create to simulate a successful session creation
+        import stripe as _stripe_module
+
+        class DummySession:
+            def __init__(self, url):
+                self.url = url
+
+        orig_create = None
+        try:
+            orig_create = _stripe_module.checkout.Session.create
+        except Exception:
+            orig_create = None
+
+        def fake_create(*args, **kwargs):
+            return DummySession(url='https://checkout.example/session')
+
+        # Ensure stripe key is present for this branch
+        os.environ['STRIPE_SECRET_KEY'] = 'sk_test'
+        # Patch
+        _stripe_module.checkout.Session.create = fake_create
+        try:
+            self.client.force_authenticate(user=self.user)
+            url = reverse('course-create-checkout-session', kwargs={'slug': self.course.slug})
+            resp = self.client.post(url)
+            self.assertEqual(resp.status_code, status.HTTP_200_OK)
+            self.assertIn('checkout_url', resp.data)
+        finally:
+            # Restore if possible
+            if orig_create is not None:
+                _stripe_module.checkout.Session.create = orig_create
+            if 'STRIPE_SECRET_KEY' in os.environ:
+                del os.environ['STRIPE_SECRET_KEY']
+
+    def test_destroy_unexpected_exception_returns_500(self):
+        # Monkeypatch the viewset get_object to raise a non-API exception
+        from courses.views import CourseViewSet
+
+        original = CourseViewSet.get_object
+
+        def raise_exc(self):
+            raise Exception('boom')
+
+        CourseViewSet.get_object = raise_exc
+        try:
+            # Make an admin user to attempt delete
+            admin = CustomUser.objects.create_user(
+                email='a2@example.com',
+                username='admin2',
+                password=TEST_PASSWORD,
+                name='A',
+                surname='B',
+                company='C',
+                is_staff=True,
+            )
+            self.client.force_authenticate(user=admin)
+            url = reverse('course-detail', kwargs={'slug': self.course.slug})
+            resp = self.client.delete(url)
+            self.assertEqual(resp.status_code, status.HTTP_500_INTERNAL_SERVER_ERROR)
+        finally:
+            CourseViewSet.get_object = original
+
+    def test_unenroll_success_and_not_enrolled(self):
+        # Enroll then unenroll
+        Enrollment.objects.create(user=self.user, course=self.course)
+        self.client.force_authenticate(user=self.user)
+        url = reverse('course-unenroll', kwargs={'slug': self.course.slug})
+        resp = self.client.post(url)
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        # Unenroll again should return 400
+        resp2 = self.client.post(url)
+        self.assertEqual(resp2.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_calendar_export_ics_for_enrolled_user_returns_file(self):
+        Enrollment.objects.create(user=self.user, course=self.course)
+        self.client.force_authenticate(user=self.user)
+        url = reverse('course-calendar-export-test', kwargs={'slug': self.course.slug}) + '?calendar_format=ics'
+        resp = self.client.get(url)
+        self.assertEqual(resp.status_code, 200)
+        self.assertEqual(resp['Content-Type'], 'text/calendar')

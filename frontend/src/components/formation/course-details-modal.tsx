@@ -11,6 +11,7 @@ import { ModalCloseButton } from "../ui/modal-close-button";
 
 interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;
@@ -331,6 +332,7 @@ const CourseDetailsModal = ({
                 {isEnrolled && !hasEnded && (
                   <AddToCalendarButtons
                     courseId={course.id}
+                    courseSlug={course.slug}
                     courseTitle={course.title}
                     isEnrolled={isEnrolled}
                   />
@@ -492,6 +494,7 @@ const CourseDetailsModal = ({
                   {isEnrolled && !hasEnded && (
                     <AddToCalendarButtons
                       courseId={course.id}
+                      courseSlug={course.slug}
                       courseTitle={course.title}
                       isEnrolled={isEnrolled}
                     />

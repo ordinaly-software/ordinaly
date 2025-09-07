@@ -7,6 +7,7 @@ import { useCourseRefund } from "@/hooks/useCourseRefund";
 
 interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;
@@ -51,7 +52,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
 
   const handleRefund = () => {
     if (courseToCancel) {
-      requestRefund(courseToCancel.id);
+  requestRefund(courseToCancel.slug ?? courseToCancel.id);
       onConfirm();
     }
   };

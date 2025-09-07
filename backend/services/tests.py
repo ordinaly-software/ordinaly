@@ -531,6 +531,23 @@ class ServiceAdminExtraTests(TestCase):
         self.admin.save_model(request, obj, form, change=False)
         self.assertEqual(obj.created_by, self.user)
 
+    def test_save_model_does_not_override_on_update(self):
+        """Ensure save_model doesn't change created_by when updating"""
+        # original creator is self.user from setUp
+        original_creator = self.service.created_by
+        updater = User.objects.create_user(
+            email='updater@example.com', username='updater', password=TEST_PASSWORD, company='C'
+        )
+        request = MagicMock()
+        request.user = updater
+        # Modify a field and call save_model with change=True (update)
+        self.service.title = 'Updated by admin'
+        form = MagicMock()
+        self.admin.save_model(request, self.service, form, change=True)
+        # Refresh and assert created_by remains unchanged
+        self.service.refresh_from_db()
+        self.assertEqual(self.service.created_by, original_creator)
+
 
 class ServiceViewSetExtraTests(TestCase):
     def test_is_admin_permission_true_and_false(self):

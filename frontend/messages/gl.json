@@ -434,8 +434,8 @@
         "contactForQuote": "Contactar para orzamento",
         "featured": "Servizo destacado",
         "cancel": "Cancelar",
-        "create": "Crear servizo",
-        "update": "Actualizar servizo",
+        "create": "Crear",
+        "update": "Actualizar",
         "markdownSupported": "Markdown soportado",
         "requisites": "Requisitos",
         "requisitesPlaceholder": "Introduce cualquier requisito o prerrequisito",
@@ -527,6 +527,8 @@
         "timezoneOptional": "Zona horaria",
         "draftMode": "Borrador",
         "markdownSupported": "Markdown soportado",
+        "slugOptional": "Slug do Curso (Opcional)",
+        "slugPlaceholder": "ex. curso-python-avanzado",
         "periodicity": {
           "once": "Evento único",
           "daily": "Diario",
@@ -577,8 +579,8 @@
         "maxAttendantsRequired": "Máx asistentes *",
         "maxAttendantsPlaceholder": "10",
         "cancel": "Cancelar",
-        "create": "Crear curso",
-        "update": "Actualizar curso"
+        "create": "Crear",
+        "update": "Actualizar"
       },
       "messages": {
         "createSuccess": "Curso creado con éxito!",
@@ -983,7 +985,8 @@
       "networkErrorLoadingCourses": "Erro de rede ao cargar cursos",
       "generatingCatalog": "Xerando catálogo do curso...",
       "catalogDownloaded": "Catálogo descargado con éxito!",
-      "catalogError": "Erro ao xerar catálogo"
+      "catalogError": "Erro ao xerar catálogo",
+      "invalidCourseIdentifier": "Identificador de curso inválido"
     },
       "slogan": "Solucións de Software e Formación",
       "introduction": "En Ordinaly, ofrecemos formación especializada en tecnoloxías emerxentes e desenvolvemento profesional",

@@ -434,8 +434,8 @@
         "contactForQuote": "Kontaktua aurrekontua",
         "featured": "Nabarmendutako zerbitzua",
         "cancel": "Indargabetu",
-        "create": "Sortu zerbitzua",
-        "update": "Eguneratu zerbitzua",
+        "create": "Sortu",
+        "update": "Eguneratu",
         "markdownSupported": "Markdown onartua",
         "requisites": "Baldintzak",
         "requisitesPlaceholder": "Idatzi zure zerbitzuaren baldintzak",
@@ -527,6 +527,8 @@
         "timezoneOptional": "Ordu-zona (aukerakoa)",
         "draftMode": "Zirriborro modua",
         "markdownSupported": "Markdown onartua",
+        "slugOptional": "Ikastaroaren Sluga (aukerakoa)",
+        "slugPlaceholder": "adib., ikastaroa-advanced-python",
         "periodicity": {
           "once": "Behin bakarrik",
           "daily": "Egunero",
@@ -577,8 +579,8 @@
         "maxAttendantsRequired": "Gehienezko parte-hartzaileak *",
         "maxAttendantsPlaceholder": "10",
         "cancel": "Indargabetu",
-        "create": "Sortu ikastaroa",
-        "update": "Eguneratu ikastaroa"
+        "create": "Sortu",
+        "update": "Eguneratu"
       },
       "messages": {
         "createSuccess": "Ikastaroa arrakastaz sortu da!",
@@ -983,7 +985,8 @@
       "networkErrorLoadingCourses": "Sareko errorea ikastaroak kargatzean",
       "generatingCatalog": "Ikastaroen katalogoa sortzen ...",
       "catalogDownloaded": "Katalogoa behar bezala deskargatuta!",
-      "catalogError": "Errorea katalogoa sortzean. "
+      "catalogError": "Errorea katalogoa sortzean",
+      "invalidCourseIdentifier": "Ikastaroaren identifikatzaile baliogabea"
     },
       "slogan": "Software eta Prestakuntza Irtenbideak",
       "introduction": "Ordinalyn, teknologia berrietan eta garapen profesionalean espezializatutako prestakuntza eskaintzen dugu.",

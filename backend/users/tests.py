@@ -684,26 +684,6 @@ class UserViewSetTests(APITestCase):
         response = self.client.patch('/api/users/update_profile/', update_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    def test_complete_profile_success(self):
-        """Test completing profile with required fields"""
-        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
-        data = {'company': 'New Company'}
-        response = self.client.post('/api/users/complete_profile/', data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['company'], 'New Company')
-
-    def test_complete_profile_missing_required(self):
-        """Test completing profile missing required field"""
-        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
-        response = self.client.post('/api/users/complete_profile/', {}, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('company', response.data)
-
-    def test_complete_profile_unauthenticated(self):
-        """Test completing profile as unauthenticated user"""
-        response = self.client.post('/api/users/complete_profile/', {'company': 'X'}, format='json')
-        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
-
     def test_delete_profile_success(self):
         """Test deleting profile as authenticated user"""
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')

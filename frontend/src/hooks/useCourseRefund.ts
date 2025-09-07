@@ -4,14 +4,14 @@ import { toast } from 'react-toastify';
 export function useCourseRefund() {
   const [loading, setLoading] = useState(false);
 
-  const requestRefund = async (courseId: number) => {
+  const requestRefund = async (courseIdOrSlug: number | string) => {
     setLoading(true);
     try {
       const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (token) headers['Authorization'] = `Token ${token}`;
-        const response = await fetch(`${baseUrl}/api/courses/courses/${courseId}/refund-course/`, {
+        const response = await fetch(`${baseUrl}/api/courses/courses/${courseIdOrSlug}/refund-course/`, {
         method: 'POST',
         headers,
       });

@@ -13,6 +13,7 @@ import AuthModal from "@/components/auth/auth-modal";
 
 interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;
@@ -70,16 +71,16 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     if (onCourseClick) {
       onCourseClick(course);
     } else {
-      // Navigate to formation page with course highlighted/modal opened
-      router.push(`/formation?course=${course.id}`);
+    // Navigate to formation page with course highlighted/modal opened
+  router.push(`/formation/${course.slug ?? course.id}`);
     }
   }, [onCourseClick, router]);
 
   const handleSignUpClick = useCallback((e: React.MouseEvent, course: Course) => {
     e.stopPropagation();
     if (isAuthenticated) {
-      router.push(`/formation?course=${course.id}`);
-    } else {
+    router.push(`/formation/${course.slug ?? course.id}`);
+      } else {
       setSelectedCourse(course);
       setIsAuthModalOpen(true);
     }

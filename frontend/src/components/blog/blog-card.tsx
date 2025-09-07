@@ -15,14 +15,13 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
   return (
     <div className="group relative flex flex-row items-stretch overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:border-[#22A60D] hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2 transition-all duration-500 w-full max-w-4xl mx-auto rounded-2xl">
       {/* Image on the left, smaller */}
-      <div className="flex-shrink-0 flex items-center justify-center w-40 h-40 md:w-56 md:h-56 bg-gray-100 dark:bg-gray-900 rounded-l-2xl overflow-hidden">
+      <div className="flex-shrink-0 relative w-40 md:w-56 bg-gray-100 dark:bg-gray-900 rounded-l-2xl overflow-hidden">
         {post.ogImage && post.ogImage.asset && (
           <Image
             src={urlFor(post.ogImage.asset).url()}
             alt={post.ogImage?.alt || post.mainImage?.alt || post.title}
-            width={224}
-            height={224}
-            className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-500"
           />
         )}
       </div>

@@ -1,4 +1,5 @@
 from rest_framework import viewsets, permissions, status
+from rest_framework.exceptions import APIException, NotFound
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.http import HttpResponse
@@ -14,7 +15,6 @@ import stripe
 
 from decimal import Decimal
 import os
-import logging
 
 # Set Stripe API key from environment at import time
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
@@ -33,6 +33,35 @@ class IsAdminUserOrReadOnly(permissions.BasePermission):
 
 class CourseViewSet(viewsets.ModelViewSet):
     queryset = Course.objects.all()
+    lookup_field = 'slug'
+
+    def get_object(self):
+        """Resolve object by slug first, then fall back to numeric PK if needed.
+
+        This allows older clients that still send numeric IDs in the URL to work
+        while the viewset primarily uses slug lookups.
+        """
+        lookup_value = self.kwargs.get(self.lookup_field) or self.kwargs.get('pk')
+        queryset = self.filter_queryset(self.get_queryset())
+
+        # Try slug lookup first
+        if lookup_value is None:
+            raise NotFound(detail="Course not found")
+
+        try:
+            obj = queryset.get(**{self.lookup_field: lookup_value})
+            self.check_object_permissions(self.request, obj)
+            return obj
+        except Course.DoesNotExist:
+            # If the lookup value looks numeric, try PK fallback
+            if str(lookup_value).isdigit():
+                try:
+                    obj = queryset.get(pk=lookup_value)
+                    self.check_object_permissions(self.request, obj)
+                    return obj
+                except Course.DoesNotExist:
+                    pass
+            raise NotFound(detail="Course not found")
 
     def get_queryset(self):
         qs = Course.objects.all()
@@ -51,7 +80,11 @@ class CourseViewSet(viewsets.ModelViewSet):
             # The file deletion is handled in the model's delete method
             self.perform_destroy(instance)
             return Response(status=status.HTTP_204_NO_CONTENT)
+        except APIException:
+            # Let DRF handle expected API exceptions (404, 403, etc.)
+            raise
         except Exception:
+            # Log unexpected exceptions and return 500
             return Response(
                 {"detail": "An error occurred while deleting the course."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -61,6 +94,9 @@ class CourseViewSet(viewsets.ModelViewSet):
         """Override update method to handle file replacement properly."""
         try:
             return super().update(request, *args, **kwargs)
+        except APIException:
+            # Re-raise DRF API exceptions so they are converted to proper 4xx responses
+            raise
         except Exception:
             return Response(
                 {"detail": "An error occurred while updating the course."},
@@ -71,6 +107,8 @@ class CourseViewSet(viewsets.ModelViewSet):
         """Override partial_update method to handle file replacement properly."""
         try:
             return super().partial_update(request, *args, **kwargs)
+        except APIException:
+            raise
         except Exception:
             return Response(
                 {"detail": "An error occurred while updating the course."},
@@ -78,7 +116,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             )
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
-    def enroll(self, request, pk=None):
+    def enroll(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return Response(
                 {"detail": "Authentication credentials were not provided."},
@@ -115,7 +153,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated],
             url_path='create-checkout-session')
-    def create_checkout_session(self, request, pk=None):
+    def create_checkout_session(self, request, *args, **kwargs):
         """Create a Stripe Checkout session for the course, or enroll directly if free."""
         course = self.get_object()
         user = self.request.user
@@ -194,10 +232,11 @@ class CourseViewSet(viewsets.ModelViewSet):
             # print(f"[Stripe Checkout] Session created: {session.id}")
             return Response({"checkout_url": session.url})
         except Exception:
-            return Response({"detail": "An internal error occurred during Stripe checkout."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({"detail": "An internal error occurred during Stripe checkout."},
+                            status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated], url_path='refund-course')
-    def refund_course(self, request, pk=None):
+    def refund_course(self, request, *args, **kwargs):
         """Refund the course if not started and unenroll the user. If not paid, just unenroll."""
         course = self.get_object()
         user = request.user
@@ -228,12 +267,12 @@ class CourseViewSet(viewsets.ModelViewSet):
         try:
             refund = stripe.Refund.create(payment_intent=enrollment.stripe_payment_intent_id)
             enrollment.delete()
-            return Response({"detail": "Refund processed and unenrolled from course."})
+            return Response({"detail": f"Refund processed and unenrolled from course: {refund.id}"})
         except Exception as e:
             return Response({"detail": f"Stripe refund error: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
-    def unenroll(self, request, pk=None):
+    def unenroll(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return Response(
                 {"detail": "Authentication credentials were not provided."},
@@ -258,7 +297,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'], permission_classes=[permissions.IsAuthenticated],
             url_path='calendar-export-test')
-    def calendar_export_test(self, request, pk=None):
+    def calendar_export_test(self, request, *args, **kwargs):
         """Export course schedule to various calendar formats (test endpoint)"""
         course = self.get_object()
 

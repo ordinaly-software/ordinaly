@@ -434,8 +434,8 @@
         "contactForQuote": "Contact for quote",
         "featured": "Featured Service",
         "cancel": "Cancel",
-        "create": "Create Service",
-        "update": "Update Service",
+        "create": "Create",
+        "update": "Update",
         "markdownSupported": "Markdown supported",
         "requisites": "Requisites",
         "requisitesPlaceholder": "Enter any requirements or prerequisites",
@@ -527,6 +527,8 @@
         "timezoneOptional": "Timezone",
         "draftMode": "Draft Mode",
         "markdownSupported": "Markdown supported",
+        "slugOptional": "Course Slug (Optional)",
+        "slugPlaceholder": "e.g., course-advanced-python",
         "periodicity": {
           "once": "One-time event",
           "daily": "Daily",
@@ -577,8 +579,8 @@
         "maxAttendantsRequired": "Max Attendants *",
         "maxAttendantsPlaceholder": "10",
         "cancel": "Cancel",
-        "create": "Create Course",
-        "update": "Update Course"
+        "create": "Create",
+        "update": "Update"
       },
       "messages": {
         "createSuccess": "Course created successfully! Students can now enroll.",
@@ -983,7 +985,8 @@
       "networkErrorLoadingCourses": "Network error while loading courses",
       "generatingCatalog": "Generating course catalog...",
       "catalogDownloaded": "Catalog downloaded successfully!",
-      "catalogError": "Error generating catalog. Please try again."
+      "catalogError": "Error generating catalog. Please try again",
+      "invalidCourseIdentifier": "Invalid course identifier"
     },
     "slogan": "Software & Training Solutions",
     "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",

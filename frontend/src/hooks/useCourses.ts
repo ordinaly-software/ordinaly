@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;
