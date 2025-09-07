@@ -15,7 +15,6 @@ import stripe
 
 from decimal import Decimal
 import os
-import logging
 
 # Set Stripe API key from environment at import time
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
@@ -86,7 +85,6 @@ class CourseViewSet(viewsets.ModelViewSet):
             raise
         except Exception:
             # Log unexpected exceptions and return 500
-            logging.exception("Error while deleting course")
             return Response(
                 {"detail": "An error occurred while deleting the course."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -100,7 +98,6 @@ class CourseViewSet(viewsets.ModelViewSet):
             # Re-raise DRF API exceptions so they are converted to proper 4xx responses
             raise
         except Exception:
-            logging.exception("Error while updating course")
             return Response(
                 {"detail": "An error occurred while updating the course."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -113,14 +110,13 @@ class CourseViewSet(viewsets.ModelViewSet):
         except APIException:
             raise
         except Exception:
-            logging.exception("Error while partially updating course")
             return Response(
                 {"detail": "An error occurred while updating the course."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
-    def enroll(self, request, pk=None):
+    def enroll(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return Response(
                 {"detail": "Authentication credentials were not provided."},
@@ -157,7 +153,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated],
             url_path='create-checkout-session')
-    def create_checkout_session(self, request, pk=None):
+    def create_checkout_session(self, request, *args, **kwargs):
         """Create a Stripe Checkout session for the course, or enroll directly if free."""
         course = self.get_object()
         user = self.request.user
@@ -240,7 +236,7 @@ class CourseViewSet(viewsets.ModelViewSet):
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated], url_path='refund-course')
-    def refund_course(self, request, pk=None):
+    def refund_course(self, request, *args, **kwargs):
         """Refund the course if not started and unenroll the user. If not paid, just unenroll."""
         course = self.get_object()
         user = request.user
@@ -276,7 +272,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             return Response({"detail": f"Stripe refund error: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
-    def unenroll(self, request, pk=None):
+    def unenroll(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return Response(
                 {"detail": "Authentication credentials were not provided."},
@@ -301,7 +297,7 @@ class CourseViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['get'], permission_classes=[permissions.IsAuthenticated],
             url_path='calendar-export-test')
-    def calendar_export_test(self, request, pk=None):
+    def calendar_export_test(self, request, *args, **kwargs):
         """Export course schedule to various calendar formats (test endpoint)"""
         course = self.get_object()
 

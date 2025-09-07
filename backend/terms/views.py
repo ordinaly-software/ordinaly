@@ -4,12 +4,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.core.exceptions import ValidationError
 from django.http import FileResponse
-import logging
 import os
 from .models import Terms
 from .serializers import TermsSerializer
-
-logger = logging.getLogger(__name__)
 
 
 class IsAdmin(BasePermission):
@@ -71,8 +68,7 @@ class TermsViewSet(viewsets.ModelViewSet):
             # The file deletion is handled in the model's delete method
             self.perform_destroy(instance)
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except Exception as e:
-            logger.error(f"Error deleting terms {kwargs.get('pk')}: {str(e)}")
+        except Exception:
             return Response(
                 {"detail": "An error occurred while deleting the document."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -82,8 +78,7 @@ class TermsViewSet(viewsets.ModelViewSet):
         """Override update method to handle file replacement properly."""
         try:
             return super().update(request, *args, **kwargs)
-        except Exception as e:
-            logger.error(f"Error updating terms {kwargs.get('pk')}: {str(e)}")
+        except Exception:
             return Response(
                 {"detail": "An error occurred while updating the document."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -93,8 +88,7 @@ class TermsViewSet(viewsets.ModelViewSet):
         """Override partial_update method to handle file replacement properly."""
         try:
             return super().partial_update(request, *args, **kwargs)
-        except Exception as e:
-            logger.error(f"Error updating terms {kwargs.get('pk')}: {str(e)}")
+        except Exception:
             return Response(
                 {"detail": "An error occurred while updating the document."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
