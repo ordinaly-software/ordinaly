@@ -38,8 +38,14 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run backend tests
-        working-directory: backend
-        run: python manage.py test --verbosity 2 --failfast
+        run: |
+          mkdir -p backend
+          if [ -n "${{ secrets.DJANGO_SECRET_KEY }}" ]; then
+            echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > backend/.env
+          else
+            python -c "import secrets; print('DJANGO_SECRET_KEY='+secrets.token_urlsafe(50))" > backend/.env
+          fi
+          python manage.py test --verbosity 2 --failfast
 
       - name: Deploy via SSH
         if: success()
