@@ -2,13 +2,14 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "../globals.css"
-import {NextIntlClientProvider} from 'next-intl';
+// NextIntlClientProvider is a client component; we'll dynamically import it
+// inside RootLayout to avoid client imports at module scope.
 import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
-import CookieConsent from '@/components/ui/cookies';
-import BackToTopButton from '@/components/ui/back-to-top-button';
-import Navbar from '@/components/ui/navbar';
-import { ThemeProvider } from '@/contexts/theme-context';
+// Note: CookieConsent, BackToTopButton, Navbar and ThemeProvider are
+// client-only. We will dynamically import them inside the RootLayout
+// function to avoid importing client modules at module scope which can
+// trigger DYNAMIC_SERVER_USAGE in production.
 
 
 const inter = Inter({
@@ -119,7 +120,23 @@ export default async function RootLayout({ children, params } :
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
-  
+  // Dynamically load client-only UI components and providers
+  const [
+    { default: Navbar },
+    { default: CookieConsent },
+    { default: BackToTopButton },
+    themeMod,
+    nextIntlMod,
+  ] = await Promise.all([
+    import('@/components/ui/navbar'),
+    import('@/components/ui/cookies'),
+    import('@/components/ui/back-to-top-button'),
+    import('@/contexts/theme-context'),
+    import('next-intl'),
+  ]);
+  const ThemeProvider = themeMod.ThemeProvider;
+  const NextIntlClientProvider = nextIntlMod.NextIntlClientProvider;
+
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
