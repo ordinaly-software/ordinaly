@@ -3,7 +3,8 @@ name: Deploy Django backend
 on:
   push:
     branches:
-      - main
+      - develop
+      # - main
   workflow_dispatch: {}
 
 concurrency:
@@ -45,6 +46,8 @@ jobs:
           else
             python -c "import secrets; print('DJANGO_SECRET_KEY='+secrets.token_urlsafe(50))" > .env
           fi
+          # Ensure tests have a deterministic Stripe key available
+          export STRIPE_SECRET_KEY=sk_test
           python manage.py makemigrations --noinput
           python manage.py migrate --noinput
           python manage.py test --verbosity 2 --failfast
