@@ -529,6 +529,7 @@
         "markdownSupported": "Markdown suportat",
         "slugOptional": "Slug del curs (opcional)",
         "slugPlaceholder": "ex: curs-python-avançat",
+        "slugInvalid": "El slug només pot contenir lletres ASCII, números, subratllats i guions (sense accents).",
         "periodicity": {
           "once": "Esdeveniment únic",
           "daily": "Cada dia",

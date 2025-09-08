@@ -529,6 +529,7 @@
         "markdownSupported": "Markdown supported",
         "slugOptional": "Course Slug (Optional)",
         "slugPlaceholder": "e.g., course-advanced-python",
+        "slugInvalid": "Slug may only contain ASCII letters, numbers, underscores, and hyphens (no accents).",
         "periodicity": {
           "once": "One-time event",
           "daily": "Daily",

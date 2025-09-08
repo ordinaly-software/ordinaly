@@ -529,6 +529,7 @@
         "markdownSupported": "Con soporte para formato Markdown",
         "slugOptional": "Slug del Curso (Opcional)",
         "slugPlaceholder": "ej., curso-python-avanzado",
+        "slugInvalid": "El slug solo puede contener letras ASCII, números, guiones bajos y guiones (sin acentos).",
         "periodicity": {
           "once": "Evento único",
           "daily": "Diario",
