@@ -190,6 +190,16 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               placeholder={t("form.slugPlaceholder")}
               className="h-12 border-gray-300 focus:border-gray-500 focus:ring-gray-500/20 rounded-lg transition-all duration-200"
             />
+            {/* Slug validation: only ASCII letters, numbers, underscores and hyphens are allowed */}
+            {(() => {
+              const slugVal = formData.slug ?? "";
+              if (!slugVal) return null;
+              const slugRegex = /^[A-Za-z0-9_-]+$/;
+              if (!slugRegex.test(slugVal)) {
+                return <div className="text-xs text-red-600 font-semibold mt-1">{t('form.slugInvalid')}</div>;
+              }
+              return null;
+            })()}
           </div>
 
         {/* Course Description */}

@@ -364,6 +364,14 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.imageRequired')});
         return;
       }
+      // Client-side slug validation: match backend (ASCII-only) rule
+      if (formData.slug) {
+        const slugRegex = /^[A-Za-z0-9_-]+$/;
+        if (!slugRegex.test(formData.slug)) {
+          setAlert({ type: 'error', message: t('form.slugInvalid') });
+          return;
+        }
+      }
       // Prevent start_date or end_date in the past
       if (formData.start_date) {
         const startDate = new Date(formData.start_date);
@@ -445,7 +453,7 @@ const AdminCoursesTab = () => {
         body: formDataToSend,
       });
 
-  if (response.ok) {
+      if (response.ok) {
         const courseTitle = formData.title;
         const successMessage = isEdit 
           ? t('messages.updateSuccess', { title: courseTitle })
@@ -453,7 +461,7 @@ const AdminCoursesTab = () => {
         
         setAlert({type: 'success', message: successMessage});
         
-  refetch();
+        refetch();
         setShowCreateModal(false);
         setShowEditModal(false);
         resetForm();
