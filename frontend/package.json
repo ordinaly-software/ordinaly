@@ -59,8 +59,5 @@
     ">=1% in US",
     "not dead",
     "not op_mini all"
-  ],
-  "overrides": {
-    "@sanity/client": "^7.11.0"
-  }
+  ]
 }
