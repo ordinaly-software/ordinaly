@@ -100,7 +100,7 @@ const UserMenu = ({
         <User className={iconSize} />
       </Button>
 
-      {isOpen && typeof document !== 'undefined' &&
+      {isOpen &&
         createPortal(
           <motion.div
             ref={dropdownRef}
