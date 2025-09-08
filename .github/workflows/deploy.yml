@@ -38,8 +38,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run backend tests
+        working-directory: backend
         run: |
-          mkdir -p backend
           if [ -n "${{ secrets.DJANGO_SECRET_KEY }}" ]; then
             echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > backend/.env
           else
