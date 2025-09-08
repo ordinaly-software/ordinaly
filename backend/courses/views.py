@@ -180,18 +180,18 @@ class CourseViewSet(viewsets.ModelViewSet):
             serializer = EnrollmentSerializer(enrollment)
             return Response({"enrolled": True, "enrollment": serializer.data})
 
+        # Validate user email
+        if not user.email:
+            # print(f"[Stripe Checkout] User email missing for user id {user.id}")
+            return Response({"detail": "User email is required for Stripe checkout."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
         # Ensure Stripe API key is set
         stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
         if not stripe.api_key:
             # print("[Stripe Checkout] Stripe secret key not configured.")
             return Response({"detail": "Stripe secret key not configured."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        # Validate user email
-        if not user.email:
-            # print(f"[Stripe Checkout] User email missing for user id {user.id}")
-            return Response({"detail": "User email is required for Stripe checkout."},
-                            status=status.HTTP_400_BAD_REQUEST)
 
         # Validate course price
         try:
