@@ -148,7 +148,6 @@ const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [userData, setUserData] = useState<{is_staff?: boolean, is_superuser?: boolean} | null>(null);
-  const [isInitialized, setIsInitialized] = useState(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Optimized scroll handler with throttling
@@ -216,7 +215,6 @@ const Navbar = () => {
     
     // Set initial scroll state
     setIsScrolled(window.scrollY > 20);
-    setIsInitialized(true);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -305,23 +303,6 @@ const Navbar = () => {
     return pathname.includes(href);
   }, [pathname]);
 
-  // Early return during hydration to prevent flash
-  if (!isInitialized) {
-    return (
-      <nav className="border-b border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-900 backdrop-blur-md w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-3 sm:py-4 lg:py-6 min-h-[60px] sm:min-h-[72px]">
-            <div className="flex items-center">
-              <div className="mr-3 sm:mr-4">
-                <div className="h-8 sm:h-10 w-8 sm:w-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-              </div>
-              <div className="h-6 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-            </div>
-          </div>
-        </div>
-      </nav>
-    );
-  }
 
   return (
     <>
