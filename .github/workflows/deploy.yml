@@ -41,9 +41,9 @@ jobs:
         working-directory: backend
         run: |
           if [ -n "${{ secrets.DJANGO_SECRET_KEY }}" ]; then
-            echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > backend/.env
+            echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > .env
           else
-            python -c "import secrets; print('DJANGO_SECRET_KEY='+secrets.token_urlsafe(50))" > backend/.env
+            python -c "import secrets; print('DJANGO_SECRET_KEY='+secrets.token_urlsafe(50))" > .env
           fi
           python manage.py test --verbosity 2 --failfast
 
