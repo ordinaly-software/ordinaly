@@ -224,7 +224,7 @@ const Navbar = () => {
         clearTimeout(scrollTimeoutRef.current);
       }
     };
-  }, [handleScroll, fetchUserData]);
+  }, []);
 
   // Memoized navigation functions
   const goHome = useCallback(() => {
