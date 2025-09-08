@@ -45,6 +45,7 @@ jobs:
           else
             python -c "import secrets; print('DJANGO_SECRET_KEY='+secrets.token_urlsafe(50))" > .env
           fi
+          python manage.py makemigrations && python manage.py migrate --noinput
           python manage.py test --verbosity 2 --failfast
 
       - name: Deploy via SSH
