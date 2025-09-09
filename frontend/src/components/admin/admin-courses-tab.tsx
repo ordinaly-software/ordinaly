@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
+import { useCourses } from "@/hooks/useCourses";
 import type { CourseFormData } from "./admin-course-edit-modal";
 import { useTranslations, useLocale } from "next-intl";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,7 @@ import CourseVisualizationModal from "./admin-course-modal";
 
 export interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;
@@ -47,6 +49,7 @@ export interface Course {
   schedule_description?: string;
   next_occurrences?: string[];
   weekday_display?: string[];
+  draft?: boolean;
 }
 
 interface Enrollment {
@@ -114,8 +117,8 @@ const AdminCoursesTab = () => {
       .filter(day => day !== '') // Remove any invalid indices
       .join(', ');
   };
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // Use admin mode to see drafts
+  const { courses, isLoading, refetch } = useCourses({}, true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCourses, setSelectedCourses] = useState<number[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -134,73 +137,49 @@ const AdminCoursesTab = () => {
   const [isLoadingEnrollments, setIsLoadingEnrollments] = useState(false);
 
   const [formData, setFormData] = useState<CourseFormData>({
-  title: "",
-  subtitle: "",
-  description: "",
-  image: "",
-  price: "",
-  location: "",
-  start_date: "",
-  end_date: "",
-  start_time: "09:00",
-  end_time: "17:00",
-  periodicity: "once",
-  timezone: "Europe/Madrid",
-  weekdays: [],
-  week_of_month: null,
-  interval: 1,
-  exclude_dates: [],
-  max_attendants: ""
+    title: "",
+    slug: "",
+    subtitle: "",
+    description: "",
+    image: "",
+    price: "",
+    location: "",
+    start_date: "",
+    end_date: "",
+    start_time: "09:00",
+    end_time: "17:00",
+    periodicity: "once",
+    timezone: "Europe/Madrid",
+    weekdays: [],
+    week_of_month: null,
+    interval: 1,
+    exclude_dates: [],
+    max_attendants: "",
+    draft: false
   });
-
-  const fetchCourses = useCallback(async () => {
-    try {
-      const token = localStorage.getItem('authToken');
-      const response = await fetch(getApiEndpoint(API_ENDPOINTS.courses), {
-        headers: {
-          'Authorization': `Token ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        setCourses(Array.isArray(data) ? data : []);
-      } else {
-        setAlert({type: 'error', message: t('messages.fetchError')});
-      }
-    } catch {
-      
-      setAlert({type: 'error', message: t('messages.networkError')});
-    } finally {
-      setIsLoading(false);
-    }
-  }, [t]);
-
-  useEffect(() => {
-    fetchCourses();
-  }, [fetchCourses]);
 
   const resetForm = () => {
   setFormData({
-      title: "",
-      subtitle: "",
-      description: "",
-      image: "",
-      price: "",
-      location: "",
-      start_date: "",
-      end_date: "",
-      start_time: "09:00",
-      end_time: "17:00",
-      periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
-      timezone: "Europe/Madrid",
-      weekdays: [] as number[],
-      week_of_month: null as number | null,
-      interval: 1,
-      exclude_dates: [] as string[],
-      max_attendants: ""
-    });
+    title: "",
+    slug: "",
+    subtitle: "",
+    description: "",
+    image: "",
+    price: "",
+    location: "",
+    start_date: "",
+    end_date: "",
+    start_time: "09:00",
+    end_time: "17:00",
+    periodicity: "once" as 'once' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'custom',
+    timezone: "Europe/Madrid",
+    weekdays: [] as number[],
+    week_of_month: null as number | null,
+    interval: 1,
+    exclude_dates: [] as string[],
+    max_attendants: "",
+    draft: false
+  });
     setSelectedFile(null);
     setPreviewUrl("");
   };
@@ -212,7 +191,8 @@ const AdminCoursesTab = () => {
 
   const handleEdit = (course: Course) => {
     setCurrentCourse(course);
-  setFormData({
+    setFormData({
+      slug: course.slug ?? "",
       title: course.title,
       subtitle: course.subtitle || "",
       description: course.description,
@@ -229,10 +209,11 @@ const AdminCoursesTab = () => {
       week_of_month: course.week_of_month == null ? null : course.week_of_month,
       interval: course.interval == null ? 1 : course.interval,
       exclude_dates: course.exclude_dates || [],
-      max_attendants: course.max_attendants != null ? String(course.max_attendants) : ""
+      max_attendants: course.max_attendants != null ? String(course.max_attendants) : "",
+      draft: typeof course.draft === 'boolean' ? course.draft : false
     });
     setPreviewUrl(course.image);
-    setSelectedFile(null); // Ensure no file is selected by default when editing
+    setSelectedFile(null);
     setShowEditModal(true);
   };
 
@@ -357,7 +338,8 @@ const AdminCoursesTab = () => {
 
   const submitCourse = async (isEdit: boolean) => {
     try {
-      // Basic validation
+      const today = new Date();
+      today.setHours(0,0,0,0);
       if (!formData.title.trim()) {
         setAlert({type: 'error', message: t('messages.validation.titleRequired')});
         return;
@@ -366,17 +348,54 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.descriptionRequired')});
         return;
       }
-  if (!formData.max_attendants || parseInt(String(formData.max_attendants)) < 1) {
+      if (formData.description.length > 2000) {
+        setAlert({type: 'error', message: t('messages.validation.descriptionTooLong', { max: 2000 })});
+        return;
+      }
+      if (!formData.max_attendants || parseInt(String(formData.max_attendants)) < 1) {
         setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
         return;
       }
-  if (formData.price && parseFloat(String(formData.price)) < 0.01) {
+      if (formData.price && parseFloat(String(formData.price)) < 0.01) {
         setAlert({type: 'error', message: t('messages.validation.priceInvalid')});
         return;
       }
       if (!isEdit && !selectedFile) {
         setAlert({type: 'error', message: t('messages.validation.imageRequired')});
         return;
+      }
+      // Client-side slug validation: match backend (ASCII-only) rule
+      if (formData.slug) {
+        const slugRegex = /^[A-Za-z0-9_-]+$/;
+        if (!slugRegex.test(formData.slug)) {
+          setAlert({ type: 'error', message: t('form.slugInvalid') });
+          return;
+        }
+      }
+      // Prevent start_date or end_date in the past
+      if (formData.start_date) {
+        const startDate = new Date(formData.start_date);
+        startDate.setHours(0,0,0,0);
+        if (startDate < today) {
+          setAlert({type: 'error', message: t('messages.validation.startDatePast') || 'Start date cannot be in the past.'});
+          return;
+        }
+      }
+      if (formData.end_date) {
+        const endDate = new Date(formData.end_date);
+        endDate.setHours(0,0,0,0);
+        if (endDate < today) {
+          setAlert({type: 'error', message: t('messages.validation.endDatePast') || 'End date cannot be in the past.'});
+          return;
+        }
+        if (formData.start_date) {
+          const startDate = new Date(formData.start_date);
+          startDate.setHours(0,0,0,0);
+          if (endDate < startDate) {
+            setAlert({type: 'error', message: t('messages.validation.endDateBeforeStart') || 'End date cannot be before start date.'});
+            return;
+          }
+        }
       }
 
       const token = localStorage.getItem('authToken');
@@ -385,9 +404,8 @@ const AdminCoursesTab = () => {
       formDataToSend.append('title', formData.title);
       formDataToSend.append('subtitle', formData.subtitle);
       formDataToSend.append('description', formData.description);
-      if (formData.price) {
-        formDataToSend.append('price', String(formData.price));
-      }
+      // Always send price, even if empty, so backend can clear it
+      formDataToSend.append('price', formData.price !== undefined && formData.price !== null ? String(formData.price) : '');
       formDataToSend.append('location', formData.location);
       formDataToSend.append('start_date', formData.start_date);
       formDataToSend.append('end_date', formData.end_date);
@@ -401,8 +419,10 @@ const AdminCoursesTab = () => {
       }
       formDataToSend.append('interval', formData.interval.toString());
       formDataToSend.append('exclude_dates', JSON.stringify(formData.exclude_dates));
-  formDataToSend.append('max_attendants', String(formData.max_attendants));
-      
+      formDataToSend.append('max_attendants', String(formData.max_attendants));
+  // include slug if provided (backend will auto-generate if empty)
+  formDataToSend.append('slug', formData.slug ?? '');
+      formDataToSend.append('draft', formData.draft ? 'true' : 'false');
       if (selectedFile) {
         formDataToSend.append('image', selectedFile);
       }
@@ -419,8 +439,8 @@ const AdminCoursesTab = () => {
         }
       }
 
-      const url = isEdit 
-        ? `${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse?.id}/`
+      const url = isEdit
+        ? `${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse?.slug ?? currentCourse?.id}/`
         : getApiEndpoint(API_ENDPOINTS.courses);
       
       const method = isEdit ? 'PUT' : 'POST';
@@ -441,13 +461,19 @@ const AdminCoursesTab = () => {
         
         setAlert({type: 'success', message: successMessage});
         
-        fetchCourses();
+        refetch();
         setShowCreateModal(false);
         setShowEditModal(false);
         resetForm();
       } else {
-        // Don't use errorData variable to avoid unused var lint error
-        setAlert({type: 'error', message: t(isEdit ? 'messages.updateError' : 'messages.createError')});
+        // Try to show server validation / error message when available
+        try {
+          const errorData = await response.json();
+          const errMsg = errorData?.detail || errorData?.message || JSON.stringify(errorData);
+          setAlert({ type: 'error', message: errMsg || t(isEdit ? 'messages.updateError' : 'messages.createError') });
+        } catch {
+          setAlert({ type: 'error', message: t(isEdit ? 'messages.updateError' : 'messages.createError') });
+        }
       }
     } catch {
       setAlert({type: 'error', message: t('messages.networkError')});
@@ -463,7 +489,22 @@ const AdminCoursesTab = () => {
         // Bulk delete
         const finishedSelectedCourses = selectedCourses.filter(id => {
           const course = courses.find(c => c.id === id);
-          return course && isCourseFinished(course);
+          if (!course) return false;
+          // Ensure periodicity is typed correctly for isCourseFinished
+          const safeCourse = {
+            ...course,
+            periodicity: ([
+              "once",
+              "daily",
+              "weekly",
+              "biweekly",
+              "monthly",
+              "custom"
+            ].includes(course.periodicity)
+              ? course.periodicity
+              : "once") as Course["periodicity"]
+          };
+          return isCourseFinished(safeCourse);
         });
 
         if (finishedSelectedCourses.length > 0) {
@@ -473,14 +514,16 @@ const AdminCoursesTab = () => {
           return;
         }
 
-        const deletePromises = selectedCourses.map(id =>
-          fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${id}/`, {
+        const deletePromises = selectedCourses.map(id => {
+          const course = courses.find(c => c.id === id);
+          const identifier = course?.slug ?? id;
+          return fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${identifier}/`, {
             method: 'DELETE',
             headers: {
               'Authorization': `Token ${token}`,
             },
-          })
-        );
+          });
+        });
 
         const results = await Promise.all(deletePromises);
         const failedCount = results.filter(r => !r.ok).length;
@@ -501,7 +544,8 @@ const AdminCoursesTab = () => {
           return;
         }
 
-        const response = await fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${currentCourse.id}/`, {
+  const identifier = currentCourse.slug ?? currentCourse.id;
+  const response = await fetch(`${getApiEndpoint(API_ENDPOINTS.courses)}${identifier}/`, {
           method: 'DELETE',
           headers: {
             'Authorization': `Token ${token}`,
@@ -515,10 +559,9 @@ const AdminCoursesTab = () => {
         }
       }
 
-      fetchCourses();
+      refetch();
       setShowDeleteModal(false);
     } catch {
-      
       setAlert({type: 'error', message: t('messages.networkError')});
     } finally {
       setIsDeleting(false);
@@ -580,10 +623,26 @@ const AdminCoursesTab = () => {
   };
 
   const filteredCourses = sortCourses(
-    (courses || []).filter(course =>
-      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.location.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    (courses || [])
+      .map(course => ({
+        ...course,
+        periodicity: (
+          [
+            "once",
+            "daily",
+            "weekly",
+            "biweekly",
+            "monthly",
+            "custom"
+          ].includes(course.periodicity)
+            ? course.periodicity
+            : "once"
+        ) as Course["periodicity"]
+      }))
+      .filter(course =>
+        course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        course.location.toLowerCase().includes(searchTerm.toLowerCase())
+      )
   );
 
   if (isLoading) {

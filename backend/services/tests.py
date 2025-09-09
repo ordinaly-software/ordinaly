@@ -22,6 +22,53 @@ User = get_user_model()
 
 
 class ServiceModelTests(TestCase):
+    def test_service_draft_default_false(self):
+        service = Service.objects.create(
+            type='SERVICE',
+            title='Draft Default',
+            subtitle='Subtitle',
+            description='Desc',
+            color='29BF12',
+            icon='Bot',
+            created_by=self.user
+        )
+        self.assertFalse(service.draft)
+
+    def test_product_type(self):
+        product = Service.objects.create(
+            type='PRODUCT',
+            title='Product',
+            subtitle='Subtitle',
+            description='Desc',
+            color='29BF12',
+            icon='Bot',
+            created_by=self.user
+        )
+        self.assertEqual(product.type, 'PRODUCT')
+
+    def test_service_draft_explicit_true(self):
+        service = Service.objects.create(
+            title='Draft True',
+            subtitle='Subtitle',
+            description='Desc',
+            color='29BF12',
+            icon='Bot',
+            created_by=self.user,
+            draft=True
+        )
+        self.assertTrue(service.draft)
+
+    def test_service_draft_null_treated_false(self):
+        service = Service.objects.create(
+            title='Draft Null',
+            subtitle='Subtitle',
+            description='Desc',
+            color='29BF12',
+            icon='Bot',
+            created_by=self.user,
+            draft=None
+        )
+        self.assertFalse(service.draft)
     """Tests for the Service model"""
 
     def setUp(self):
@@ -483,6 +530,23 @@ class ServiceAdminExtraTests(TestCase):
         form = MagicMock()
         self.admin.save_model(request, obj, form, change=False)
         self.assertEqual(obj.created_by, self.user)
+
+    def test_save_model_does_not_override_on_update(self):
+        """Ensure save_model doesn't change created_by when updating"""
+        # original creator is self.user from setUp
+        original_creator = self.service.created_by
+        updater = User.objects.create_user(
+            email='updater@example.com', username='updater', password=TEST_PASSWORD, company='C'
+        )
+        request = MagicMock()
+        request.user = updater
+        # Modify a field and call save_model with change=True (update)
+        self.service.title = 'Updated by admin'
+        form = MagicMock()
+        self.admin.save_model(request, self.service, form, change=True)
+        # Refresh and assert created_by remains unchanged
+        self.service.refresh_from_db()
+        self.assertEqual(self.service.created_by, original_creator)
 
 
 class ServiceViewSetExtraTests(TestCase):

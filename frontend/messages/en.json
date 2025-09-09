@@ -6,7 +6,7 @@
     },
     "navigation": {
       "home": "Meet us!",
-      "services": "Services",
+      "services": "Services and Products",
       "formation": "Formation",
       "start": "Get Started",
       "darkMode": "Switch to dark mode",
@@ -19,7 +19,8 @@
       "signOut": "Sign Out",
       "userMenu": "User menu",
       "adminDashboard": "Admin Dashboard",
-      "profile": "Profile"
+      "profile": "Profile",
+      "blog": "Blog"
     },
     "hero": {
       "title": "AUTOMATE",
@@ -31,10 +32,14 @@
     "partners": {
       "title": "Transformated by Ordinaly"
     },
+    "contact": {
+      "emailSubject": "Inquiry about service: {service}",
+      "message": "Hello,\n\nI'm interested in the service \"{service}\".\n\nCould you please provide me with more information?\n\nThank you."
+    },
     "services": {
-      "title": "OUR SERVICES",
+      "title": "Products and Services",
+      "description": "Discover our personalized services and exclusive, closed products. Choose what fits your business: from tailored consulting to ready-to-use solutions.",
       "retryButton": "Retry",
-      "description": "Automation solutions designed to boost and accelerate your business.",
       "contactForQuote": "Contact our agents for a detailed quote",
       "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
       "vacationTitle": "On Vacation",
@@ -49,30 +54,6 @@
       "contactNow": "Contact Now",
       "contactEmail": "Contact via Email",
       "viewDetails": "View Details",
-      "chatbots": {
-        "title": "Smart Chatbots",
-        "description": "Automate customer support 24/7 with advanced conversational AI"
-      },
-      "workflows": {
-        "title": "Workflow Automation",
-        "description": "Integration with Odoo, Slack, and business tools"
-      },
-      "whatsapp": {
-        "title": "WhatsApp Business",
-        "description": "Sales and support automation via WhatsApp Business API"
-      },
-      "accessibility": {
-        "title": "Global Accessibility",
-        "description": "We incorporate accessibility tools into your website or application to ensure its inclusion in the digital market."
-      },
-      "consulting": {
-        "title": "Custom Consulting",
-        "description": "Automation analysis and strategy tailored to your business"
-      },
-      "optimization": {
-        "title": "Continuous Optimization",
-        "description": "Ongoing monitoring and improvement of your automated processes"
-      },
       "viewAllServices": "View All Services"
     },
     "courses": {
@@ -363,30 +344,6 @@
       "googleSignUpError": "Google sign-up failed. Please try again."
     }
   },
-  "completeProfile": {
-    "title": "Complete Your Profile",
-    "subtitle": "Just a few more details to get you started",
-    "welcome": "Welcome, {name}!",
-    "form": {
-      "title": "Company Information",
-      "companyLabel": "Company",
-      "companyPlaceholder": "Enter your company name",
-      "regionLabel": "Country",
-      "regionPlaceholder": "Enter your country",
-      "cityLabel": "City",
-      "cityPlaceholder": "Enter your city",
-      "optional": "optional",
-      "submitButton": "Complete Profile",
-      "submitButtonLoading": "Completing Profile..."
-    },
-    "validation": {
-      "companyRequired": "Company name is required"
-    },
-    "messages": {
-      "success": "Profile completed successfully! Redirecting...",
-      "networkError": "Network error. Please check your connection and try again."
-    }
-  },
   "admin": {
     "title": "Admin Dashboard",
     "subtitle": "Manage your application content and settings",
@@ -402,14 +359,16 @@
       "location": "Location",
       "date": "Date",
       "schedule": "Schedule",
-      "maxAttendants": "Max Attendants"
+      "maxAttendants": "Max Attendants",
+      "draft": "Draft"
     },
     "tabs": {
       "overview": "Overview",
       "services": "Services",
       "courses": "Courses",
       "terms": "Terms",
-      "users": "Users"
+      "users": "Users",
+      "blog": "Blog"
     },
     "users": {
       "userId": "User ID",
@@ -421,8 +380,13 @@
       "sendMail": "Send Mail",
       "selectAll": "Select All",
       "searchPlaceholder": "Search users...",
-      "users": "users",
-      "lastLogin": "Last Login"
+      "users": "users"
+    },
+    "blogTab": {
+      "title": "Blog Edition CMS",
+      "openedMessage": "The blog edition CMS has been opened in another tab. If you don't see it, click the button below.",
+      "openButton": "Open Blog CMS",
+      "loginWarning": "You may need to log in to the CMS with an admin account."
     },
     "stats": {
       "totalServices": "Total Services",
@@ -453,6 +417,9 @@
         "icon": "Icon",
         "iconPlaceholder": "Choose a Lucide React icon",
         "color": "Service Color *",
+        "type": "Type",
+        "service": "Service",
+        "product": "Product",
         "colors": {
           "darkPurple": "Neutral",
           "purple": "Dark purple",
@@ -467,11 +434,12 @@
         "contactForQuote": "Contact for quote",
         "featured": "Featured Service",
         "cancel": "Cancel",
-        "create": "Create Service",
-        "update": "Update Service",
+        "create": "Create",
+        "update": "Update",
         "markdownSupported": "Markdown supported",
         "requisites": "Requisites",
-        "requisitesPlaceholder": "Enter any requirements or prerequisites"
+        "requisitesPlaceholder": "Enter any requirements or prerequisites",
+        "draftMode": "Draft Mode"
       },
       "messages": {
         "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
@@ -491,7 +459,7 @@
           "iconRequired": "Please select a valid icon for the service.",
           "durationInvalid": "Duration must be at least 1 day if specified.",
           "requisitesLimit": "Requisites must be 2000 characters or less.",
-          "priceInvalid": "Price must be at least $0.01 if specified."
+          "priceInvalid": "Price must be at least €0.50 if specified."
         },
         "featured": {
           "enabled": "Service has been marked as featured.",
@@ -518,13 +486,8 @@
       "selectAll": "Select All",
       "courses": "courses",
       "noCourses": "No courses available.",
-      "noPastCourses": "No past courses available.",
-      "pastCourses": "Past Courses",
-      "viewPastCourses": "View Past Courses",
-      "hidePastCourses": "Hide Past Courses",
-      "upcomingCourses": "Upcoming Courses",
-      "finished": "Finished",
       "noCoursesFound": "No courses found matching your search.",
+      "noPastCourses": "No past courses available",
       "contactForQuote": "Free",
       "edit": "Edit",
       "delete": "Delete",
@@ -549,8 +512,8 @@
         "pricePlaceholder": "Leave empty for 'Contact for quote'",
         "location": "Location",
         "locationPlaceholder": "Enter the course location or 'Online'",
-  "locationRequired": "Location *",
-  "locationOptional": "Location (Optional)",
+        "locationRequired": "Location *",
+        "locationOptional": "Location (Optional)",
         "scheduleSettings": "Professional Schedule Settings",
         "startDateRequired": "Start Date *",
         "endDateRequired": "End Date *",
@@ -562,6 +525,11 @@
         "intervalOptional": "Interval",
         "intervalPlaceholder": "e.g., 2 for every 2 weeks",
         "timezoneOptional": "Timezone",
+        "draftMode": "Draft Mode",
+        "markdownSupported": "Markdown supported",
+        "slugOptional": "Course Slug (Optional)",
+        "slugPlaceholder": "e.g., course-advanced-python",
+        "slugInvalid": "Slug may only contain ASCII letters, numbers, underscores, and hyphens (no accents).",
         "periodicity": {
           "once": "One-time event",
           "daily": "Daily",
@@ -612,8 +580,8 @@
         "maxAttendantsRequired": "Max Attendants *",
         "maxAttendantsPlaceholder": "10",
         "cancel": "Cancel",
-        "create": "Create Course",
-        "update": "Update Course"
+        "create": "Create",
+        "update": "Update"
       },
       "messages": {
         "createSuccess": "Course created successfully! Students can now enroll.",
@@ -626,21 +594,26 @@
         "deleteError": "Failed to delete course",
         "networkError": "Unable to save course. Please check your connection and try again.",
         "selectToDelete": "Please select courses to delete",
-  "fileSizeLimit": "File size must be less than 5MB",
-  "imageSizeLimit1MB": "Course image must be 1MB or less.",
+        "imageSizeLimit1MB": "Course image must be 1MB or less.",
         "imageFileOnly": "Please select an image file",
         "validation": {
           "titleRequired": "Course title is required and must be 100 characters or less.",
           "subtitleLimit": "Subtitle must be 200 characters or less.",
-          "descriptionRequired": "Description is required and must be 2000 characters or less.",
-          "imageRequired": "Please upload a valid image file for the course.",
-          "priceInvalid": "Price must be at least $0.01 if specified.",
-          "locationRequired": "Location is required and must be 100 characters or less.",
+          "descriptionRequired": "Description is required and must be 2000 characters or less",
+          "imageRequired": "Please upload a valid image file for the course",
+          "priceInvalid": "Price must be at least €0.50 if specified",
+          "locationRequired": "Location is required and must be 100 characters or less",
           "dateRequired": "Date is required and must be 100 characters or less.",
-          "maxAttendantsInvalid": "Maximum attendants must be at least 1.",
+          "maxAttendantsInvalid": "Maximum attendants must be at least 1",
           "maxAttendantsBelowEnrolled": "Cannot set maximum attendants below the current number of enrolled users ({count}).",
-          "cannotDeleteFinished": "Cannot delete a finished course.",
-          "cannotDeleteFinishedBulk": "Cannot delete one or more finished courses."
+          "cannotDeleteFinished": "Cannot delete a finished course",
+          "cannotDeleteFinishedBulk": "Cannot delete one or more finished courses",
+          "endDatePast": "End date cannot be in the past",
+          "startDatePast": "Start date cannot be in the past",
+          "endDateBeforeStart": "End date cannot be before start date",
+          "descriptionTooLong": "Description cannot be longer than {max} characters",
+          "priceRange": "Price must be between €{min} and €{max}",
+          "priceForbiddenRange": "Price cannot be between €{min} and €{max}"
         },
         "capacity": {
           "warning": "Warning: This course already has {current} enrollments. Reducing max attendants below this number may cause issues."
@@ -682,10 +655,12 @@
         "members": "members",
         "noEnrollments": "No enrollments yet",
         "enrolledOn": "Enrolled",
-        "member": "Member",
         "company": "Company",
         "moreSessions": "more sessions",
-        "hours": "hours"
+        "hours": "hours",
+        "mailSubject": "Information about your course",
+        "mailBody": "Hello,\n\nAt Ordinaly we are sending you important information about your course\n",
+        "sendMail": "Send email"
       },
       "courseCard": {
         "enrollments": "Enrollments",
@@ -700,7 +675,12 @@
         "enrollments": "Enrollments",
         "capacity": "Capacity",
         "created": "Created"
-      }
+      },
+      "pastCourses": "Past Courses",
+      "viewPastCourses": "View Past Courses",
+      "hidePastCourses": "Hide Past Courses",
+      "upcomingCourses": "Upcoming Courses",
+      "finished": "Finished"
     },
     "terms": {
       "title": "Terms Management",
@@ -784,7 +764,6 @@
         "createError": "Error creating document",
         "updateError": "Error updating document",
         "deleteError": "Error deleting document",
-        "downloadError": "Error downloading PDF",
         "downloadSuccess": "PDF downloaded successfully",
         "networkError": "Unable to save document. Please check your connection and try again.",
         "selectToDelete": "Please select documents to delete",
@@ -810,11 +789,11 @@
         }
       },
       "confirmDelete": {
-      "title": "Confirm Deletion",
-      "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
-      "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
-      "delete": "Delete",
-      "cancel": "Cancel"
+        "title": "Confirm Deletion",
+        "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
+        "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
+        "delete": "Delete",
+        "cancel": "Cancel"
       },
       "details": {
       "created": "Created",
@@ -854,14 +833,15 @@
       "fetchError": "Failed to fetch legal documents",
       "networkError": "Network error while fetching documents",
       "noPdfAvailable": "PDF version is not available for this document",
-      "downloadSuccess": "PDF downloaded successfully",
-      "downloadError": "Failed to download PDF"
+      "downloadSuccess": "PDF downloaded successfully"
     }
   },
   "services": {
-    "title": "Our Services",
-    "subtitle": "Comprehensive solutions designed to transform your business and drive digital innovation",
-    "searchPlaceholder": "Search services...",
+    "productsAndServicesTitle": "Our products and services",
+    "productsAndServicesDescription": "Discover our personalized services and exclusive, closed products. Choose what fits your business: from tailored consulting to ready-to-use solutions.",
+    "productsSectionTitle": "Closed Products",
+    "servicesSectionTitle": "Personalized Services",
+    "searchPlaceholder": "Search services and products...",
     "featured": "Featured",
     "details": "Details",
     "duration": "Duration",
@@ -874,7 +854,8 @@
     "filters": {
       "all": "All Services",
       "featured": "Featured Only",
-      "standard": "Standard Services"
+      "service": "Services",
+      "product": "Products"
     },
     "noResults": {
       "title": "No Services Found",
@@ -907,6 +888,12 @@
     }
   },
   "formation": {
+    "enrollmentSuccess": {
+      "title": "Enrollment Confirmed!",
+      "description": "You have successfully enrolled in {courseTitle}. We have sent you a confirmation email with all the details.",
+      "close": "Close",
+      "message": "You have been successfully enrolled."
+    },
     "title": "Professional Formation",
     "subtitle": "Advance your career with our comprehensive training programs designed by industry experts",
     "searchPlaceholder": "Search courses...",
@@ -971,10 +958,14 @@
       "motivation": "Why do you want to take this course?",
       "motivationPlaceholder": "Share your motivation and what you hope to achieve...",
       "cancel": "Cancel",
-      "submit": "Enroll in Course"
+      "submit": "Enroll in Course",
+      "successMessage": "Enrollment successful!",
+      "enrolled": "You are already enrolled in this course"
     },
     "cancellation": {
-      "title": "Cancel Enrollment",
+      "title": "Enrollment cancelled",
+      "message": "Your enrollment has been successfully canceled",
+      "processing": "Canceling...",
       "warning": "Cancel Course Enrollment",
       "warningMessage": "Are you sure you want to cancel your enrollment in \"{courseTitle}\"? This action cannot be undone.",
       "confirmMessage": "This will remove you from the course and you may lose your spot.",
@@ -995,7 +986,8 @@
       "networkErrorLoadingCourses": "Network error while loading courses",
       "generatingCatalog": "Generating course catalog...",
       "catalogDownloaded": "Catalog downloaded successfully!",
-      "catalogError": "Error generating catalog. Please try again."
+      "catalogError": "Error generating catalog. Please try again",
+      "invalidCourseIdentifier": "Invalid course identifier"
     },
     "slogan": "Software & Training Solutions",
     "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",
@@ -1045,6 +1037,8 @@
       "cancelEnrollment": "Cancel Enrollment",
       "courseHasStarted": "Course has started",
       "courseStartedMessage": "This course has already begun and is no longer accepting new enrollments.",
+      "courseHasFinished": "Course has finished",
+      "courseFinishedMessage": "This course has already finished and is no longer accepting new enrollments",
       "signInToEnroll": "Sign In to Enroll",
       "enrollNow": "Enroll Now",
       "importantDates": "Important Dates",
@@ -1093,6 +1087,20 @@
           "full": "Sunday"
         }
       },
+      "months": {
+        "january": "enero",
+        "february": "febrero",
+        "march": "marzo",
+        "april": "abril",
+        "may": "mayo",
+        "june": "junio",
+        "july": "julio",
+        "august": "agosto",
+        "september": "septiembre",
+        "october": "octubre",
+        "november": "noviembre",
+        "december": "diciembre"
+      },
       "fullScheduleText": {
         "once": "{date} from {startTime} to {endTime}",
         "daily": "Daily from {startDate} to {endDate}, {startTime} - {endTime}",
@@ -1138,7 +1146,15 @@
       "cityPlaceholder": "Enter your city (optional)",
       "saveChanges": "Save Changes",
       "saveChangesLoading": "Saving Changes...",
-      "cancel": "Cancel Changes"
+      "cancel": "Cancel Changes",
+      "allowNotificationsTitle": "Email & Newsletter Preferences",
+      "allowNotificationsDesc": "Receive newsletters and email communications",
+      "allowNotifications": "Receive newsletters and emails",
+      "allowNotificationsModalTitle": "Confirm Email Preferences",
+      "allowNotificationsModalOn": "Are you sure you want to enable newsletters and email communications?",
+      "allowNotificationsModalOff": "Are you sure you want to disable newsletters and email communications?",
+      "allowNotificationsModalConfirm": "Confirm",
+      "allowNotificationsModalCancel": "Cancel"
     },
     "deleteAccount": {
       "title": "Delete Account",
@@ -1193,5 +1209,20 @@
     "contactButton": "Contact Support",
     "redirectMessage": "You will be automatically redirected in {seconds} seconds...",
     "robotText": "Our automation robot is searching for the page..."
+  },
+  "blog": {
+    "title": "Ordinaly Blog",
+    "subtitle": "News, ideas, and updates about digital transformation and technology",
+    "noResults": {
+      "title": "No results found",
+      "description": "Try searching again"
+    },
+    "backToBlog": "Back to Blog",
+    "postCategories": "Post categories",
+    "searchPlaceholder": "Search blog posts...",
+    "filters": {
+      "category": "Category",
+      "all": "All Categories"
+    }
   }
 }

@@ -14,3 +14,6 @@ google-auth-oauthlib==1.1.0
 google-auth-httplib2==0.1.1
 python-decouple==3.8
 markdown==3.7
+markdown==3.7
+stripe==12.5.0
+typing-extensions==4.15.0

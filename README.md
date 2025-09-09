@@ -209,6 +209,14 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
     python manage.py migrate
     # (Opcional) Crea superusuario
     python manage.py createsuperuser
+    # (Opcional) Crea datos de prueba para ver cómo quedaría la web
+    python manage.py populate_db
+    ````
+
+    [!WARNING]
+    NO usar bajo ningún concepto este último comando con la opción `--clear` en el entorno de producción ya que borraría todos los usuarios del sistema.
+
+    ```sh
     # Ejecuta el servidor
     python manage.py runserver
     ```

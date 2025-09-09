@@ -117,8 +117,8 @@ const CookieConsent = () => {
   if (!isMounted) return null;
 
   const modalContent = showPopup ? (
-    <div className="fixed top-0 left-0 right-0 bottom-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-4" style={{ position: 'fixed', inset: '0', height: '100vh', width: '100vw' }}>
-      <div className="bg-card text-card-foreground rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-border transform transition-all duration-300 scale-100 opacity-100 mx-auto my-auto">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-2 sm:p-4">
+      <div className="bg-card text-card-foreground rounded-2xl shadow-2xl w-[95vw] max-w-2xl min-h-[200px] max-h-[85vh] overflow-y-auto border border-border transform transition-all duration-300 scale-100 opacity-100 mx-auto my-auto">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b border-border">
           <div className="flex items-center space-x-3">

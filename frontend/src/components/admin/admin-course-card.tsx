@@ -3,10 +3,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { FileText, Edit, Trash2, Eye, Users, CheckCircle } from "lucide-react";
-import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
+import dynamic from "next/dynamic";
+const MarkdownRenderer = dynamic(() => import("@/components/ui/markdown-renderer").then(mod => mod.MarkdownRenderer), { ssr: false });
 
 interface Course {
   id: number;
+  slug?: string;
   title: string;
   subtitle?: string;
   description: string;
@@ -32,6 +34,7 @@ interface Course {
   schedule_description?: string;
   next_occurrences?: string[];
   weekday_display?: string[];
+  draft?: boolean;
 }
 interface AdminCourseCardProps {
   course: Course;
@@ -76,7 +79,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
   return (
     <Card
       className={
-        `bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg` +
+        `bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg relative` +
         (isFinished ? ' opacity-75 grayscale' : '')
       }
       style={{
@@ -92,6 +95,19 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
         (e.currentTarget as HTMLDivElement).style.boxShadow = '';
       }}
     >
+      {/* Draft badge */}
+      {course.draft && (
+        <>
+          {/* Mobile and up to md: top-right */}
+          <span className="absolute top-2 right-2 md:hidden bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded shadow z-10">
+            {tAdmin("labels.draft")}
+          </span>
+          {/* Desktop md and up: bottom-right, next to action buttons */}
+          <span className="hidden md:flex items-center absolute bottom-4 right-4 bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded shadow z-10">
+            {tAdmin("labels.draft")}
+          </span>
+        </>
+      )}
       <CardContent className="p-4">
         {/* Mobile layout */}
         <div className="block sm:hidden">

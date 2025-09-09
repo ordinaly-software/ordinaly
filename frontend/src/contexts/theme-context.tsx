@@ -12,6 +12,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [isDark, setIsDark] = useState(false);
+
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

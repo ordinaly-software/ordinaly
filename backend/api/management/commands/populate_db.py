@@ -1,31 +1,20 @@
-from datetime import date, time
+
+from datetime import date, time, datetime, timedelta
 from django.core.management.base import BaseCommand
 from django.core.files.base import ContentFile
 from django.contrib.auth import get_user_model
 from users.models import CustomUser
 from terms.models import Terms
-from courses.models import Course
+from courses.models import Course, Enrollment
 from services.models import Service
-from courses.models import Enrollment
 import os
 from django.conf import settings
 import random
 import secrets
-from datetime import datetime, timedelta
-
 
 User = get_user_model()
 
-# Try to import optional dependencies
-try:
-    PIL_AVAILABLE = True
-except ImportError:
-    PIL_AVAILABLE = False
-
-try:
-    REPORTLAB_AVAILABLE = True
-except ImportError:
-    REPORTLAB_AVAILABLE = False
+PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
 
 
 class Command(BaseCommand):
@@ -36,15 +25,14 @@ class Command(BaseCommand):
         parser.add_argument('--seed', type=int, help='Seed for reproducible pseudo-random data')
 
     def handle(self, *args, **options):
+        # Ensure there are mock users for course/enrollment/service population
+        self.create_mock_users()
         if options.get('seed') is not None:
             random.seed(options['seed'])
-
-        if options['clear']:
+        if options.get('clear'):
             self.stdout.write('Clearing existing data...')
             self.clear_data()
-
         self.stdout.write('Creating sample data...')
-
         # Create terms (only if the model exists)
         try:
             admin_user = CustomUser.objects.filter(is_staff=True, is_superuser=True).first()
@@ -55,25 +43,45 @@ class Command(BaseCommand):
                 self.stdout.write('No admin user found, skipping terms creation.')
         except Exception as e:
             self.stdout.write(f'Skipped terms creation: {e}')
-
         # Create courses
         courses = self.create_courses()
         self.stdout.write(f'Created {len(courses)} courses')
-
         # Create enrollments for realistic user engagement
         enrollments = self.create_enrollments(courses)
         self.stdout.write(f'Created {len(enrollments)} enrollments')
-
         # Create services (only if the model exists)
         try:
             services = self.create_services()
             self.stdout.write(f'Created {len(services)} services')
         except Exception as e:
             self.stdout.write(f'Skipped services creation: {e}')
-
         self.stdout.write(
             self.style.SUCCESS('Successfully populated database with sample data!')
         )
+
+    def create_mock_users(self):
+        """Create mock users if none exist (for demo population)"""
+        if CustomUser.objects.filter(is_staff=False).count() == 0:
+            for i in range(10):
+                CustomUser.objects.create_user(
+                    username=f"user{i+1}",
+                    email=f"user{i+1}@example.com",
+                    password=PASSWORD,
+                    name=f"User{i+1}",
+                    surname="Demo",
+                    company="DemoCorp",
+                    allow_notifications=False
+                )
+        if not CustomUser.objects.filter(is_staff=True, is_superuser=True).exists():
+            CustomUser.objects.create_superuser(
+                username="admin_test",
+                email="admin@example.com",
+                password=PASSWORD,
+                name="Admin",
+                surname="User",
+                company="DemoCorp",
+                allow_notifications=False
+            )
 
     def clear_data(self):
         """Clear existing data and associated media files"""
@@ -116,31 +124,6 @@ class Command(BaseCommand):
         except Exception as e:
             self.stdout.write(f"Error during data cleanup: {e}")
 
-        try:
-            Enrollment.objects.all().delete()
-            self.stdout.write("Deleted all enrollments")
-        except Exception as e:
-            self.stdout.write(f"Error deleting enrollments: {e}")
-
-        try:
-            Course.objects.all().delete()
-            self.stdout.write("Deleted all courses")
-        except Exception as e:
-            self.stdout.write(f"Error deleting courses: {e}")
-
-        try:
-            Service.objects.all().delete()
-            self.stdout.write("Deleted all services")
-        except Exception as e:
-            self.stdout.write(f"Error deleting services: {e}")
-
-        try:
-            # Make sure to delete all terms
-            Terms.objects.all().delete()
-            self.stdout.write("Deleted all terms")
-        except Exception as e:
-            self.stdout.write(f"Error deleting terms: {e}")
-
     def create_terms(self, author):
         terms_dir = os.path.join(settings.BASE_DIR, 'media', 'test_media', 'terms')
         # Create the directory if it doesn't exist
@@ -177,7 +160,6 @@ class Command(BaseCommand):
                     pdf_content=ContentFile(pdf_content, name=f"{tag}.pdf"),
                 )
                 terms.append(term)
-                self.stdout.write(f"Created term: {name}")
             except Exception as e:
                 self.stdout.write(f"Error creating term {tag}: {e}")
 
@@ -190,6 +172,7 @@ class Command(BaseCommand):
         courses_data = [
             {
                 'title': 'Taller gratuito "La Inteligencia Artificial sin complicaciones"',
+                'slug': 'taller-ia-sin-complicaciones',
                 'subtitle': (
                     'Familiarízate con las webs y apps de IA del momento y aprende los conceptos básicos '
                     'con ejemplos prácticos.'
@@ -218,9 +201,11 @@ class Command(BaseCommand):
                 'periodicity': 'once',
                 'timezone': 'Europe/Madrid',
                 'max_attendants': 25,
+                'draft': False
             },
             {
                 'title': 'Sesión formativa "La Inteligencia Artificial en la inmobiliaria"',
+                'slug': 'sesion-ia-en-la-inmobiliaria',
                 'subtitle': (
                     'Abordaremos los principales casos de uso de la IA generativa enfocados al sector inmobiliario.'
                 ),
@@ -249,9 +234,11 @@ class Command(BaseCommand):
                 'periodicity': 'once',
                 'timezone': 'Europe/Madrid',
                 'max_attendants': 90,
+                'draft': False
             },
             {
-                'title': 'Curso / Bootcamp "La Inteligencia Artificial en la inmobiliaria"',
+                'title': 'Bootcamp "La Inteligencia Artificial en la inmobiliaria"',
+                'slug': 'bootcamp-ia-en-la-inmobiliaria',
                 'subtitle': (
                     'En este curso partiremos de la base de los casos de uso básicos de las herramientas de IA '
                     'más conocidas e iremos escalando hasta dominar herramientas específicas para el sector '
@@ -287,11 +274,15 @@ class Command(BaseCommand):
                     '**Incluye**: Material didáctico, certificado de finalización, '
                     'TODAS LAS HERRAMIENTAS DEL CURSO SERÁN GRATUITAS.'
                 ),
-                'price': None,
+                'price': 0.50,
                 'location': None,
-                'periodicity': 'weekly',
+                'start_date': date(2025, 10, 8),
+                'end_date': date(2025, 10, 22),
+                'start_time': time(9, 30),
+                'end_time': time(11, 30),
                 'timezone': 'Europe/Madrid',
                 'max_attendants': 90,
+                'draft': False
             },
         ]
         courses = []
@@ -357,6 +348,7 @@ class Command(BaseCommand):
             {
                 'title': 'Chatbot de WhatsApp',
                 'subtitle': 'Automatiza atención al cliente 24/7 con IA conversacional avanzada',
+                'type': 'SERVICE',
                 'description': '''
 Automatiza la atención al cliente y las ventas a través de **WhatsApp Business API** de Meta con nuestra solución
  de chatbot inteligente. Proporciona respuestas instantáneas, gestiona consultas frecuentes y mejora la
@@ -383,12 +375,14 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                     "- Número de teñefóno con cuenta de Whatsapp Business.    "
                     "- Disponibilidad para consultas.     "
                 ),
-                # 'price': Decimal('300.00'),
+                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
+                'draft': False
             },
             {
                 'title': 'Automatizaciones a Medida',
+                'type': 'SERVICE',
                 'subtitle': 'Integración con Odoo, Slack y herramientas empresariales',
                 'description': '''
 ⚡ Conecta tus sistemas y optimiza procesos internos para ahorrar tiempo y eliminar errores manuales.
@@ -413,13 +407,15 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                 'icon': 'Bot',
                 'duration': 10,
                 'requisites': None,
-                # 'price': Decimal('300.00'),
+                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
+                'draft': False
             },
             {
                 'title': 'Accesibilidad Global (WCAG)',
                 'subtitle': 'Garantiza la inclusión digital según WCAG 2.1',
+                'type': 'SERVICE',
                 'description': '''
 ♿ Auditamos e implementamos las mejores prácticas de accesibilidad para que tu web o app cumpla con\
  **WCAG 2.1** y llegue a todo tipo de usuarios.
@@ -447,13 +443,15 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                     "- Colaboración de tu equipo de desarrollo y diseño.     "
                     "- Disponibilidad para llamadas y videoconferencias para probar el resultado.     "
                 ),
-                # 'price': Decimal('300.00'),
+                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
+                'draft': False
             },
             {
                 'title': 'Chatbot web',
                 'subtitle': 'Chatbot personalizado para la web de tu negocio',
+                'type': 'SERVICE',
                 'description': '''
 Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles a navegar por tu sistema,\n\
  ofrecerles asistencia técnica o ponerles en contacto con quién necesiten.
@@ -472,13 +470,15 @@ Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles
                     "- Acceso al código fuente de la web.    "
                     "- Disponibilidad para consultas.    "
                 ),
-                # 'price': Decimal('300.00'),
+                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': False,
+                'draft': True
             },
             {
                 'title': 'Automatización de Redes Sociales',
                 'subtitle': 'Automatización la publicación de tu contenidos en distintas redes sociales',
+                'type': 'SERVICE',
                 'description': '''
 Estas automatizaciones te permitirán centrarte en la creación de contenido dejando toda la gestión y subida de los
  mismos a la Inteligencia Artificial.
@@ -495,12 +495,66 @@ Estas automatizaciones te permitirán centrarte en la creación de contenido dej
                 'icon': 'TrendingUp',
                 'duration': None,
                 'requisites': (
-                    "- Acceso a las (temporalmente) a las redes sociales que se quieran automatizar.    "
-                    "- Acceso a una cuenta de Google Drive con espacio suficiente para alamacenar el contenido.    "
+                     "- Acceso a las (temporalmente) a las redes sociales que se quieran automatizar.    "
+                     "- Acceso a una cuenta de Google Drive para alamacenar el contenido.    "
                 ),
-                # 'price': Decimal('300.00'),
+                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': False,
+                'draft': False
+            },
+            {
+                'title': 'Implantación de CRM/ERP con Odoo',
+                'subtitle': 'Consultoría, despliegue y personalización de Odoo para la gestión empresarial',
+                'type': 'SERVICE',
+                'description': '''
+Odoo es un potente software de gestión empresarial (**ERP**) de código abierto. Nuestro servicio abarca desde la
+consultoría inicial hasta el despliegue y personalización completa de Odoo en la empresa.
+
+## 📝 Alcance del Servicio
+
+1. **Análisis de requerimientos:**
+    - Evaluamos las necesidades del negocio y definimos qué módulos de Odoo serán útiles.
+    - Odoo es modular: CRM, ventas (incluyendo e-commerce), facturación, contabilidad, inventarios, proyectos, etc.
+    - Identificamos áreas prioritarias para la empresa cliente.
+
+2. **Configuración y personalización:**
+    - Instalamos Odoo y configuramos los módulos seleccionados para reflejar los procesos de la empresa.
+
+3. **Migración de datos:**
+    - Si el cliente viene de otro sistema, migramos datos existentes (clientes, productos, facturas, históricos, etc.).
+    - Permite comenzar a usar la nueva plataforma sin perder información previa.
+
+4. **Formación y arranque:**
+    - Capacitamos al equipo en el uso de los distintos módulos de Odoo (ventas, administración, logística, etc.).
+    - Acompañamos en el go-live, supervisando el uso correcto en operaciones diarias.
+
+5. **Soporte post-implementación:**
+    - Tras la implantación, brindamos soporte para resolver dudas o incidencias.
+    - Podemos desarrollar funcionalidades adicionales a medida que el cliente expanda sus requerimientos,
+    gracias a la naturaleza modular de Odoo.
+
+## 🚀 Beneficios
+
+- Automatización y centralización de procesos empresariales en una única plataforma.
+- Ventas desde diferentes canales registradas automáticamente en CRM y facturación.
+- Inventario actualizado en tiempo real.
+- Informes gerenciales en tiempo real de todas las áreas.
+- Mayor eficiencia operativa y reducción de tareas manuales duplicadas.
+- Mejor toma de decisiones gracias a datos unificados.
+''',
+                'color': '623CEA',
+                'icon': 'Settings',
+                'duration': 15,
+                'requisites': (
+                     "- Acceso a información sobre los procesos actuales de la empresa.    "
+                     "- Disponibilidad para entrevistas y talleres de requerimientos.    "
+                     "- Acceso a datos históricos si se requiere migración.    "
+                     "- Colaboración del equipo para formación y pruebas.    "
+                ),
+                'price': None,
+                'is_featured': True,
+                'draft': False
             },
         ]
 

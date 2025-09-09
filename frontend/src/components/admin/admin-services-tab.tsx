@@ -70,7 +70,7 @@ const AdminServicesTab = () => {
   };
   const t = useTranslations("admin.services");
   const tAdmin = useTranslations("admin");
-  const { services, isLoading, refetch } = useServices();
+  const { services, isLoading, refetch } = useServices(undefined, true);
 
   // Color choices matching backend
   const COLOR_CHOICES = [
@@ -129,15 +129,6 @@ const AdminServicesTab = () => {
   const handleServiceClick = (service: Service) => {
     setSelectedServiceForModal(service);
     setShowServiceModal(true);
-  };
-
-  const handleContact = () => {
-    // Simple WhatsApp contact functionality
-    const message = selectedServiceForModal 
-      ? `Hola, estoy interesado en el servicio "${selectedServiceForModal.title}". ¿Podrían proporcionarme más información?`
-      : "Hola, me gustaría obtener más información sobre sus servicios.";
-    const whatsappUrl = `https://wa.me/34123456789?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
   };
 
   const toggleServiceSelection = (id: number) => {
@@ -295,7 +286,6 @@ const AdminServicesTab = () => {
           setShowServiceModal(false);
           setSelectedServiceForModal(null);
         }}
-        onContact={handleContact}
       />
     </div>
   );

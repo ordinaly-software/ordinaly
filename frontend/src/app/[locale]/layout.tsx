@@ -2,13 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "../globals.css"
-import {NextIntlClientProvider} from 'next-intl';
 import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
-import CookieConsent from '@/components/ui/cookies';
-import BackToTopButton from '@/components/ui/back-to-top-button';
-import { ThemeProvider } from '@/contexts/theme-context';
-
 
 const inter = Inter({
   subsets: ["latin"],
@@ -118,12 +113,42 @@ export default async function RootLayout({ children, params } :
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
-  
+  // Dynamically load client-only UI components and providers
+  const [
+    { default: Navbar },
+    { default: CookieConsent },
+    { default: BackToTopButton },
+    themeMod,
+    nextIntlMod,
+  ] = await Promise.all([
+    import('@/components/ui/navbar'),
+    import('@/components/ui/cookies'),
+    import('@/components/ui/back-to-top-button'),
+    import('@/contexts/theme-context'),
+    import('next-intl'),
+  ]);
+  const ThemeProvider = themeMod.ThemeProvider;
+  const NextIntlClientProvider = nextIntlMod.NextIntlClientProvider;
+
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
-        {/* DNS prefetch for critical domains */}
+        {/* Open Graph & Twitter Card for link previews */}
+        <meta property="og:title" content="Ordinaly - Automatiza tu negocio con IA" />
+        <meta property="og:description" content="Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y más para liderar la innovación en España y Europa." />
+        <meta property="og:image" content="https://ordinaly.netlify.app/og-image.jpg" />
+        <meta property="og:url" content="https://ordinaly.netlify.app/" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Ordinaly - Automatiza tu negocio con IA" />
+        <meta name="twitter:description" content="Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y más para liderar la innovación en España y Europa." />
+        <meta name="twitter:image" content="https://ordinaly.netlify.app/og-image.jpg" />
+        {/* DNS prefetch and preconnect for critical domains */}
         <link rel="dns-prefetch" href="//wa.me" />
+        <link rel="preconnect" href="https://ordinaly.duckdns.org" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://sessions.bugsnag.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://cdn.segment.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://app.netlify.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://wcag.dock.codes" crossOrigin="anonymous" />
         
         {/* Theme initialization script to prevent flash */}
         <script
@@ -135,8 +160,8 @@ export default async function RootLayout({ children, params } :
                   if (savedTheme) {
                     return savedTheme;
                   }
-                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  return prefersDark ? 'dark' : 'light';
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: light)').matches;
+                  return prefersDark ? 'light' : 'dark';
                 }
                 
                 const theme = getInitialTheme();
@@ -208,18 +233,18 @@ export default async function RootLayout({ children, params } :
         />
         
         {/* Accessibility Integration - moved to be conditional */}
-        {process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN && (
+        {process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN && (
           <script
             dangerouslySetInnerHTML={{
               __html: `
-                (function (d, s, t) { 
-                  var f = d.getElementsByTagName(s)[0], 
-                      j = d.createElement(s), 
-                      a = new Date().getTime(); 
-                  j.async = true; 
-                  j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
-                  f.parentNode.insertBefore(j, f); 
-                })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
+          (function (d, s, t) { 
+            var f = d.getElementsByTagName(s)[0], 
+                j = d.createElement(s), 
+                a = new Date().getTime(); 
+            j.async = true; 
+            j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
+            f.parentNode.insertBefore(j, f); 
+          })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
               `,
             }}
           />
@@ -270,9 +295,12 @@ export default async function RootLayout({ children, params } :
             >
               Saltar / Skip
             </a>
-            
+
+
+            <Navbar />
+
             <div id="main-content">{children}</div>
-            
+
             <CookieConsent />
             {/* <AnalyticsManager /> */}
             <BackToTopButton />

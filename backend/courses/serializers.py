@@ -4,6 +4,14 @@ from users.models import CustomUser
 
 
 class CourseSerializer(serializers.ModelSerializer):
+    def validate_price(self, value):
+        if value is not None:
+            if value < 0 or value > 999999.99:
+                raise serializers.ValidationError("Price must be between 0 and 999999.99.")
+            if 0.01 <= value <= 0.49:
+                raise serializers.ValidationError("Price cannot be between 0.01 and 0.49 (inclusive).")
+        return value
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Image is required only on creation (no instance)
@@ -49,12 +57,20 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ['id', 'title', 'subtitle', 'description', 'image', 'price',
+        fields = ['id', 'slug', 'title', 'subtitle', 'description', 'image', 'price',
                   'location', 'start_date', 'end_date', 'start_time', 'end_time',
                   'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
                   'exclude_dates', 'max_attendants', 'enrolled_count',
                   'duration_hours', 'formatted_schedule', 'schedule_description',
-                  'next_occurrences', 'weekday_display', 'created_at', 'updated_at']
+                  'next_occurrences', 'weekday_display', 'draft', 'created_at', 'updated_at']
+
+    def to_internal_value(self, data):
+        # Make data mutable (QueryDict is immutable)
+        data = data.copy() if hasattr(data, 'copy') else dict(data)
+        # Ensure draft is always set to False if not provided or null
+        if 'draft' not in data or data.get('draft') is None:
+            data['draft'] = False
+        return super().to_internal_value(data)
 
     def get_enrolled_count(self, obj):
         return obj.enrollments.count()

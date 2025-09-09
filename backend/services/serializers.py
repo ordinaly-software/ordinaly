@@ -11,15 +11,21 @@ class ServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Service
         fields = [
-            'id', 'title', 'subtitle', 'description', 'clean_description',
+            'id', 'type', 'title', 'subtitle', 'description', 'clean_description',
             'html_description', 'color', 'color_hex', 'icon', 'duration',
-            'requisites', 'price', 'is_featured', 'created_by',
+            'requisites', 'price', 'is_featured', 'draft', 'created_by',
             'created_by_username', 'created_at', 'updated_at'
         ]
         read_only_fields = [
             'created_by', 'created_at', 'updated_at',
             'clean_description', 'html_description', 'color_hex'
         ]
+
+    def to_internal_value(self, data):
+        # Ensure draft is always set to False if not provided or null
+        if 'draft' not in data or data.get('draft') is None:
+            data['draft'] = False
+        return super().to_internal_value(data)
 
     def get_clean_description(self, obj):
         """Return description with Markdown formatting removed for plain text display"""

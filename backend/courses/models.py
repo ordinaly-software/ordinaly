@@ -5,18 +5,11 @@ from decimal import Decimal
 import os
 from datetime import datetime, timedelta
 from django.core.exceptions import ValidationError
+from django.utils.text import slugify
 
 
 class Course(models.Model):
-    def clean(self):
-        # Validate image size (max 1MB)
-        max_size = 1024 * 1024  # 1MB
-        if self.image and hasattr(self.image, 'size'):
-            if self.image.size > max_size:
-                raise ValidationError({
-                    'image': 'Course image must be 1MB or less.'
-                })
-        super().clean()
+
     PERIODICITY_CHOICES = [
         ('once', 'One-time event'),
         ('daily', 'Daily'),
@@ -45,16 +38,40 @@ class Course(models.Model):
     ]
 
     title = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=110, unique=True, blank=True, null=False,
+                            help_text="URL-friendly identifier generated from the title")
+    draft = models.BooleanField(
+        default=False,
+        null=False,
+        help_text=(
+            "If true, this course is a draft and not visible to non-admin users."
+        )
+    )
     subtitle = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(max_length=2000)
     image = models.ImageField(upload_to='course_images/')
     price = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        validators=[MinValueValidator(Decimal('0.01'))],
         null=True,
         blank=True
     )
+
+    def clean(self):
+        # Validate image size (max 1MB)
+        max_size = 1024 * 1024  # 1MB
+        if self.image and hasattr(self.image, 'size'):
+            if self.image.size > max_size:
+                raise ValidationError({
+                    'image': 'Course image must be 1MB or less.'
+                })
+        # Custom price validation
+        if self.price is not None:
+            if self.price < 0 or self.price > Decimal('999999.99'):
+                raise ValidationError({'price': 'Price must be between 0 and 999999.99.'})
+            if Decimal('0.01') <= self.price <= Decimal('0.49'):
+                raise ValidationError({'price': 'Price cannot be between 0.01 and 0.49 (inclusive).'})
+        super().clean()
     location = models.CharField(max_length=100, null=True, blank=True)
 
     # New professional scheduling fields
@@ -391,6 +408,25 @@ class Course(models.Model):
         return False
 
     def save(self, *args, **kwargs):
+        # Ensure draft default
+        if self.draft is None:
+            self.draft = False
+        # Auto-generate slug from title if not provided
+        if not self.slug and self.title:
+            max_slug_length = 110
+            max_suffix_length = len("-99999")  # Reserve space for suffixes
+            base_slug = slugify(self.title)[:max_slug_length - max_suffix_length]
+            slug_candidate = base_slug
+            i = 1
+            # Ensure uniqueness
+            while Course.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
+                suffix = f"-{i}"
+                # Truncate base_slug so that base_slug + suffix <= max_slug_length
+                allowed_base_length = max_slug_length - len(suffix)
+                truncated_base = base_slug[:allowed_base_length]
+                slug_candidate = f"{truncated_base}{suffix}"
+                i += 1
+            self.slug = slug_candidate
         # Handle image replacement on update
         if self.pk:  # This is an update
             try:
@@ -418,6 +454,8 @@ class Enrollment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='enrollments')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
     enrolled_at = models.DateTimeField(auto_now_add=True)
+    stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True,
+                                                help_text="Stripe PaymentIntent ID for paid enrollments.")
 
     class Meta:
         unique_together = ['user', 'course']

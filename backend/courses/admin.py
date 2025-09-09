@@ -5,12 +5,12 @@ from .models import Course, Enrollment
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'location', 'start_date', 'start_time',
-                    'periodicity', 'get_weekdays_display', 'max_attendants', 'get_enrolled_count')
+                    'periodicity', 'get_weekdays_display', 'max_attendants', 'get_enrolled_count', 'draft')
     search_fields = ('title', 'description', 'location')
-    list_filter = ('start_date', 'periodicity', 'price', 'weekdays')
+    list_filter = ('start_date', 'periodicity', 'price', 'weekdays', 'draft')
     fieldsets = (
         ('Basic Information', {
-            'fields': ('title', 'subtitle', 'description', 'image', 'price', 'location')
+            'fields': ('slug', 'title', 'subtitle', 'description', 'image', 'price', 'location', 'draft')
         }),
         ('Basic Schedule', {
             'fields': ('start_date', 'end_date', 'start_time', 'end_time', 'periodicity', 'timezone')
@@ -24,6 +24,8 @@ class CourseAdmin(admin.ModelAdmin):
             'fields': ('max_attendants',)
         }),
     )
+    from .forms import CourseAdminForm
+    form = CourseAdminForm
     readonly_fields = ('created_at', 'updated_at')
 
     def get_enrolled_count(self, obj):

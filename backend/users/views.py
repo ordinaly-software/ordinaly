@@ -49,7 +49,11 @@ class UserViewSet(viewsets.ModelViewSet):
             old_password = request.data.get('oldPassword')
             if not user.check_password(old_password):
                 return Response({'oldPassword': 'Wrong password.'}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = self.get_serializer(user, data=request.data, partial=True)
+        # Only allow updating allow_notifications if present
+        update_data = request.data.copy()
+        if 'allow_notifications' in update_data:
+            user.allow_notifications = bool(update_data['allow_notifications'])
+        serializer = self.get_serializer(user, data=update_data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
@@ -119,23 +123,6 @@ class UserViewSet(viewsets.ModelViewSet):
     def update_profile(self, request):
         """Update current user's profile information"""
         user = request.user
-        serializer = self.get_serializer(user, data=request.data, partial=True)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    @action(detail=False, methods=['post'], permission_classes=[IsAuthenticated])
-    def complete_profile(self, request):
-        """Complete user's profile information (specifically for required fields like company)"""
-        user = request.user
-
-        # Validate required fields for profile completion
-        required_fields = ['company']
-        for field in required_fields:
-            if not request.data.get(field):
-                return Response({field: f"{field.capitalize()} is required"}, status=status.HTTP_400_BAD_REQUEST)
-
         serializer = self.get_serializer(user, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()

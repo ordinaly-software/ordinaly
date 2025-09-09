@@ -24,7 +24,7 @@ if not SECRET_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['ordinaly.duckdns.org', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['ordinaly.duckdns.org', 'localhost', '127.0.0.1', '352050c4d5f6.ngrok-free.app',]
 # ALLOWED_HOSTS += ['136.144.243.11', 'ordinaly.duckdns.org']
 
 # Application definition
