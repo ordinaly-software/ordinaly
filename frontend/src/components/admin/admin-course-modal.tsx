@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Euro, Users, User, XCircle, Calendar, MapPin, Clock } from "lucide-react";
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
+import ShareCourseButtons from '@/components/formation/share-course-buttons';
 import { Modal } from "@/components/ui/modal";
 import EnrolledMembers from "@/components/admin/enrolled-members";
 
@@ -86,7 +87,8 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
       <div className="space-y-4 max-h-[75vh] overflow-y-auto px-1 sm:px-0">
         {/* Course Image at the very top, full width */}
         {course.image && course.image !== "undefined" && course.image !== "null" && (
-          <div className="relative w-full h-56 sm:h-64 bg-gray-200 overflow-hidden group rounded-xl mb-4">
+          // make header a bit taller on smaller screens so share buttons don't overlap
+          <div className="relative w-full h-64 sm:h-72 bg-gray-200 overflow-hidden group rounded-xl mb-4">
             {/* Blurred image */}
             <Image
               loader={imageLoader}
@@ -107,7 +109,9 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
               <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
             </div>
             {/* Tags and title: top on mobile, bottom on desktop */}
-            <div className="absolute top-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 sm:top-auto">
+              {/* add right padding on small screens so the title doesn't collide with the share buttons */}
+                {/* limit title block height and reserve bottom space so share buttons fit inside header */}
+                <div className="absolute top-3 sm:top-4 left-3 right-3 sm:left-4 sm:right-4 pr-16 sm:pr-0 pb-16 sm:pb-0 max-h-[60%] sm:max-h-none overflow-hidden">
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 {course.price !== null && course.price !== undefined && (
                   <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500 text-white">
@@ -123,16 +127,25 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
               {course.subtitle && (
                 <p className="text-gray-200 text-sm sm:text-base leading-snug max-w-full break-words line-clamp-none">{course.subtitle}</p>
               )}
-            </div>
-          </div>
-        )}
+              </div>
+
+              {/* Share buttons pinned to bottom of the header image */}
+              {/* Position share buttons at top-right on small screens, keep pinned to bottom on larger screens */}
+                {/* place share buttons in the empty bottom area of the header on small screens; on larger screens keep bottom-right */}
+                <div className="absolute left-3 right-3 bottom-3 sm:left-4 sm:right-4 sm:bottom-4 sm:top-auto flex justify-center sm:justify-end z-10">
+                  <div className="inline-flex items-center bg-transparent rounded">
+                    <ShareCourseButtons title={course.title} subtitle={course.subtitle} slug={course.slug} theme="white" />
+                  </div>
+                </div>
+      </div>
+    )}
         {/* Course Header and rest of modal content below */}
         <div className="flex flex-col sm:flex-row landscape:flex-col-reverse items-start sm:space-x-6 space-y-4 sm:space-y-0 landscape:space-y-4 landscape:sm:space-x-0">
           {/* Course Info */}
           <div className="flex-1 min-w-0 w-full">
             {/* Title and subtitle removed from body, as they are shown on the image */}
             {/* Key Metrics - stack vertically on mobile */}
-            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
               <div className="bg-[#22A60D]/10 rounded-lg p-4 flex-1 min-w-0">
                 <div className="flex flex-col items-center">
                   <div className="flex items-center justify-between w-full mb-2">

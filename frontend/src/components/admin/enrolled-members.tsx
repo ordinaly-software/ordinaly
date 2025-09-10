@@ -41,9 +41,6 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             {t("details.enrolledMembers")}
           </h3>
-          <span className="bg-[#22A60D]/10 text-[#22A60D] px-3 py-1 rounded-full text-sm font-medium whitespace-nowrap">
-            {enrollments.length} {t("details.members")}
-          </span>
         </div>
         <Button
           onClick={handleSendMail}

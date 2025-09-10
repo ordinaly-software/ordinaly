@@ -1,13 +1,14 @@
 'use client';
 
 import { Modal } from "@/components/ui/modal";
-import { Button } from "@/components/ui/button";
-import { Calendar, Clock, MapPin, Users, Euro, Info, BookOpen, Star, CheckCircle, GraduationCap } from 'lucide-react';
+import { Calendar, BookOpen, Star } from 'lucide-react';
 import { AddToCalendarButtons } from './add-to-calendar-buttons';
+import CourseHeader from './course-header';
+import CourseSidebar from './course-sidebar';
+import ShareCourseButtons from './share-course-buttons';
+import CourseFooter from './course-footer';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
-import { ModalCloseButton } from "../ui/modal-close-button";
 
 interface Course {
   id: number;
@@ -48,20 +49,6 @@ interface CourseDetailsModalProps {
   onCancel: () => void;
   onAuthRequired: () => void;
 }
-
-// Custom image loader to handle potential URL issues
-const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
-  if (!src || src === 'undefined' || src === 'null') {
-    return `/api/placeholder/600/400`;
-  }
-  
-  if (src.startsWith('/')) {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-    return `${baseUrl}${src}?w=${width}&q=${quality || 75}`;
-  }
-  
-  return `${src}?w=${width}&q=${quality || 75}`;
-};
 
 // Helper to robustly map backend schedule string to translation key and variables
 function renderFullScheduleText(course: Course, t: ReturnType<typeof useTranslations>) {
@@ -230,14 +217,6 @@ const CourseDetailsModal = ({
     }
   };
 
-  const getPeriodicityDisplay = (periodicity: string) => {
-    try {
-      return t(`periodicity.${periodicity}` as 'periodicity.once' | 'periodicity.daily' | 'periodicity.weekly' | 'periodicity.biweekly' | 'periodicity.monthly' | 'periodicity.custom');
-    } catch {
-      return periodicity;
-    }
-  };
-
   const getWeekdayNames = (weekdays: number[]) => {
     const names = [
       t('weekdays.monday.full'),
@@ -267,63 +246,12 @@ const CourseDetailsModal = ({
   const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl" showHeader={false}>
-      <div className="max-h-[85vh] overflow-y-auto">
-        {/* Header Image at the very top, with blur effect */}
-        <div className="relative w-full h-64 bg-gray-200 overflow-hidden group">
-          {/* Blurred background */}
-            <Image
-            loader={imageLoader}
-            src={course.image}
-            alt={course.title}
-            fill
-            className="object-cover scale-105 blur-sm opacity-95"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-            priority
-            aria-hidden="true"
-            />
-          {/* Main image on top, sharp */}
-          <Image
-            loader={imageLoader}
-            src={course.image}
-            alt={course.title}
-            fill
-            className="object-cover hidden"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-          {/* Overlay close button for visibility on image */}
-          <div className="absolute top-3 right-3 z-20">
-            <ModalCloseButton onClick={onClose} variant="overlay" size="md" />
-          </div>
-          <div className="absolute bottom-4 left-4 right-4">
-            <div className="flex items-center gap-2 mb-2 flex-wrap">
-              {course.price !== null && course.price !== undefined && (
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500 text-white">
-                  <Euro className="w-3 h-3 mr-1" />
-                  €{course.price}
-                </span>
-              )}
-              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue text-white">
-                {getPeriodicityDisplay(course.periodicity)}
-              </span>
-              {isEnrolled && (
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green text-white">
-                  <CheckCircle className="w-3 h-3 mr-1" />
-                  {t('enrolled')}
-                </span>
-              )}
-            </div>
-            <h1 className="text-2xl font-bold text-white mb-1">{course.title}</h1>
-            {course.subtitle && (
-              <p className="text-gray-200 text-sm">{course.subtitle}</p>
-            )}
-          </div>
-        </div>
+    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl lg:max-w-6xl xl:max-w-7xl 2xl:max-w-[1200px]" showHeader={false}>
+      <div className="max-h-[85vh] lg:max-h-[92vh] xl:max-h-[95vh] flex flex-col">
+        <CourseHeader course={course} isEnrolled={isEnrolled} onClose={onClose} />
 
-        {/* Content */}
-        <div className="p-6">
+        {/* Scrollable content area */}
+        <div className="p-6 overflow-y-auto flex-1 pb-28 lg:pb-0">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
@@ -338,12 +266,19 @@ const CourseDetailsModal = ({
                   />
                 )}
               </div>
+            
+              {/* Share buttons for mobile footer */}
+              <div className="mt-3 lg:hidden">
+              <ShareCourseButtons title={course.title} subtitle={course.subtitle} slug={course.slug} />
+              </div>
+
               {/* Description */}
               <div>
                 <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-blue" />
                   {t('courseDescription')}
                 </h2>
+                {/* share buttons intentionally shown in sidebar (desktop) and footer (mobile) */}
                 <div className="prose dark:prose-invert max-w-none">
                   <MarkdownRenderer>{course.description}</MarkdownRenderer>
                 </div>
@@ -425,151 +360,21 @@ const CourseDetailsModal = ({
               )}
             </div>
 
-            {/* Sidebar */}
-            <div className="space-y-6">
-              {/* Quick Info */}
-              <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-4">
-                <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
-                  <Info className="w-4 h-4" />
-                  {t('courseInformation')}
-                </h3>
-                
-                <div className="space-y-3">
-                  <div className="flex items-center gap-3">
-                    <span className="flex items-center">
-                      <MapPin className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-                    </span>
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('location')}</p>
-                      {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
-                        /online|virtual/i.test(course.location)
-                          ? <span className="underline cursor-default text-[#22A60D] text-sm">{course.location}</span>
-                          : <a
-                              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#22A60D]"
-                              title={course.location}
-                            >
-                              {course.location}
-                            </a>
-                      ) : (
-                        <p className="text-gray-900 dark:text-gray-100 text-sm">{t('locationSoon')}</p>
-                      )}
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <Users className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('maxAttendants')}</p>
-                      <p className="text-gray-900 dark:text-gray-100 text-sm">{course.max_attendants} {t('people')}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-3">
-                    <Clock className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('scheduleType')}</p>
-                      <p className="text-gray-900 dark:text-gray-100 text-sm">{getPeriodicityDisplay(course.periodicity)}</p>
-                    </div>
-                  </div>
-
-                  {course.price !== null && course.price !== undefined && (
-                    <div className="flex items-center gap-3">
-                      <Euro className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-                      <div>
-                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('price')}</p>
-                        <p className="text-gray-900 dark:text-gray-100 text-sm font-semibold">€{course.price}</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="space-y-3">
-                {/* Calendar Buttons (Desktop Only) */}
-                <div className="hidden md:block">
-                  {isEnrolled && !hasEnded && (
-                    <AddToCalendarButtons
-                      courseId={course.id}
-                      courseSlug={course.slug}
-                      courseTitle={course.title}
-                      isEnrolled={isEnrolled}
-                    />
-                  )}
-                </div>
-                {hasNoDates ? (
-                  <div className="text-center">
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700 text-yellow-700 dark:text-yellow-200 mb-2">
-                      {t('noSpecificDate')}
-                    </span>
-                  </div>
-                ) : hasEnded ? (
-                  <div className="text-center">
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 mb-2">
-                      {t('courseHasFinished')}
-                    </span>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      {t('courseFinishedMessage')}
-                    </p>
-                  </div>
-                ) : hasStarted ? (
-                  <div className="text-center">
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 mb-2">
-                      {t('courseHasStarted')}
-                    </span>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      {t('courseStartedMessage')}
-                    </p>
-                  </div>
-                ) : (
-                  <>
-                    {shouldShowAuth ? (
-                        <Button
-                        onClick={handleEnrollClick}
-                        className="w-full"
-                        style={{ backgroundColor: '#46B1C9', color: '#fff' }}
-                        >
-                        {t('signInToEnroll')}
-                        </Button>
-                    ) : canEnroll ? (
-                      <Button
-                        onClick={onEnroll}
-                        className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
-                      >
-                        <GraduationCap className="w-5 h-5 mr-2" />
-                        {t('enrollNow')}
-                      </Button>
-                    ) : null}
-                  </>
-                )}
-                <br></br>
-                {/* Show 'Cancel Enrollment' only if enrolled and course has NOT started yet */}
-                {isEnrolled && !hasStarted && (
-                  <Button
-                    onClick={onCancel}
-                    variant="outline"
-                    className="w-full border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20 mb-2"
-                  >
-                    {t('cancelEnrollment')}
-                  </Button>
-                )}
-              </div>
-
-              {/* Additional Info */}
-              {course.exclude_dates && course.exclude_dates.length > 0 && (
-                <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
-                  <h4 className="font-medium text-yellow-800 dark:text-yellow-200 mb-2">{t('importantDates')}</h4>
-                  <p className="text-sm text-yellow-700 dark:text-yellow-300">
-                    {t('excludedDatesMessage', { count: course.exclude_dates.length })}
-                  </p>
-                </div>
-              )}
-            </div>
+            <CourseSidebar
+              course={course}
+              isEnrolled={isEnrolled}
+              hasStarted={hasStarted}
+              hasEnded={hasEnded}
+              canEnroll={canEnroll}
+              shouldShowAuth={shouldShowAuth}
+              onEnroll={onEnroll}
+              onCancel={onCancel}
+              onAuthRequired={onAuthRequired}
+            />
           </div>
         </div>
+
+    <CourseFooter shouldShowAuth={shouldShowAuth} canEnroll={canEnroll} handleEnrollClick={handleEnrollClick} onEnroll={onEnroll} t={t} />
       </div>
     </Modal>
   );

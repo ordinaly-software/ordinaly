@@ -1116,6 +1116,13 @@
         "everyXMonths": "Cada {interval} mesos del {startDate} al {endDate}, {startTime} - {endTime}",
         "customWithWeekdays": "{weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
         "custom": "Del {startDate} al {endDate}, {startTime} - {endTime}"
+      },
+      "share": {
+        "label": "Comparteix",
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "shareMessage": "Uneix-te a la nova formació de {siteTag}: \"{title}\" - {subtitle}"
       }
     }
   },

@@ -89,6 +89,15 @@
         "close": "Close",
         "notify": "Notify Me"
       }
+    ,
+      "courseDetails": {
+        "share": {
+          "label": "Share",
+          "whatsapp": "WhatsApp",
+          "facebook": "Facebook",
+          "linkedin": "LinkedIn"
+        }
+      }
     },
     "about": {
       "title": "LEADING DIGITAL TRANSFORMATION IN ANDALUSIA",
@@ -1116,6 +1125,13 @@
         "everyXMonths": "Every {interval} months from {startDate} to {endDate}, {startTime} - {endTime}",
         "customWithWeekdays": "{weekdays} from {startDate} to {endDate}, {startTime} - {endTime}",
         "custom": "From {startDate} to {endDate}, {startTime} - {endTime}"
+      },
+      "share": {
+        "label": "Share this course:",
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "shareMessage": "Join the new training from {siteTag}: \"{title}\" - {subtitle}"
       }
     }
   },

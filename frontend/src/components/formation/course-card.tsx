@@ -37,8 +37,12 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 
   return (
     <Card
-      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? "hover:border-[#22A60D] hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2" : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto`}
+      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? "hover:border-[#22A60D] hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2" : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto${onViewDetails ? ' cursor-pointer' : ''}`}
       style={variant === "upcoming" ? { minHeight: "520px" } : {}}
+      onClick={onViewDetails ? () => onViewDetails() : undefined}
+      role={onViewDetails ? 'button' : undefined}
+      tabIndex={onViewDetails ? 0 : undefined}
+      onKeyDown={onViewDetails ? (e) => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); onViewDetails(); } } : undefined}
     >
       <div className="relative">
         {/* Course Image */}
@@ -137,7 +141,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             {variant === "upcoming" && (
               enrolled ? (
                 <Button
-                  onClick={onCancel}
+                  onClick={(e) => { e.stopPropagation(); if (onCancel) onCancel(); }}
                   variant="outline"
                   className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-14 text-lg"
                 >
@@ -146,7 +150,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                 </Button>
               ) : (
                 <Button
-                  onClick={onEnroll}
+                  onClick={(e) => { e.stopPropagation(); if (onEnroll) onEnroll(); }}
                   className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
                   disabled={disableEnroll || isIncompleteSchedule}
                   title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
@@ -158,7 +162,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             )}
             <Button
               variant={variant === "upcoming" ? "outline" : "outline"}
-              onClick={onViewDetails}
+              onClick={(e) => { e.stopPropagation(); if (onViewDetails) onViewDetails(); }}
               className={`w-full ${variant === "upcoming" ? "border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white h-14 text-lg" : "border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 h-12"} transition-all duration-300`}
             >
               {t("viewDetails")}

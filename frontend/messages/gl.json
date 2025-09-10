@@ -131,7 +131,7 @@
         "description": "Avaliamos os teus procesos actuais e identificamos oportunidades de automatización"
       },
       "step2": {
-        "title": "Implementación",
+        "title": "Implementation",
         "description": "Desenvolvemos e integramos solucións personalizadas para o teu negocio"
       },
       "step3": {
@@ -1116,6 +1116,13 @@
         "everyXMonths": "Cada {interval} meses do {startDate} ao {endDate}, {startTime} - {endTime}",
         "customWithWeekdays": "{weekdays} do {startDate} ao {endDate}, {startTime} - {endTime}",
         "custom": "Do {startDate} ao {endDate}, {startTime} - {endTime}"
+      },
+      "share": {
+        "label": "Compartir",
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "shareMessage": "Únete á nova formación de {siteTag}: \"{title}\" - {subtitle}"
       }
     }
   },
