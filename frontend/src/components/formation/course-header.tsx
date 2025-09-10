@@ -44,7 +44,7 @@ const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
   const t = useTranslations('formation.courseDetails');
 
   return (
-  <div className="relative w-full min-h-[18rem] md:h-64 bg-gray-200 overflow-hidden group">
+  <div className="relative w-full min-h-[10rem] sm:min-h-[14rem] md:h-64 lg:h-72 bg-gray-200 overflow-hidden group">
       {/* Blurred background */}
       <Image
         loader={imageLoader}
@@ -88,7 +88,7 @@ const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
             </span>
           )}
         </div>
-        <h1 className="text-4xl md:text-xl font-bold text-white mb-1 leading-tight">{course.title}</h1>
+  <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1 leading-tight">{course.title}</h1>
         {course.subtitle && (
           <p className="hidden sm:block text-gray-100 text-base md:text-sm max-w-none leading-relaxed">{course.subtitle}</p>
         )}

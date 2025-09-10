@@ -1116,6 +1116,13 @@
         "everyXMonths": "{interval} hilero {startDate}tik {endDate}ra, {startTime} - {endTime}",
         "customWithWeekdays": "{weekdays} {startDate}tik {endDate}ra, {startTime} - {endTime}",
         "custom": "Ordutegi pertsonalizatua {startDate}tik {endDate}ra, {startTime} - {endTime}"
+      },
+      "share": {
+        "label": "Partekatu",
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "shareMessage": "Batu Ordinaly-ren prestakuntza berrira {siteTag}: \"{title}\" - {subtitle}"
       }
     }
   },

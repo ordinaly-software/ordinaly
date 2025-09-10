@@ -2,10 +2,12 @@
 
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, MapPin, Users, Euro, Info, BookOpen, Star, CheckCircle, GraduationCap } from 'lucide-react';
+import { Calendar, BookOpen, Star, GraduationCap } from 'lucide-react';
 import { AddToCalendarButtons } from './add-to-calendar-buttons';
 import CourseHeader from './course-header';
 import CourseSidebar from './course-sidebar';
+import ShareCourseButtons from './share-course-buttons';
+import CourseFooter from './course-footer';
 import { useTranslations } from 'next-intl';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 
@@ -267,12 +269,12 @@ const CourseDetailsModal = ({
   const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl" showHeader={false}>
-      <div className="max-h-[85vh] flex flex-col">
+    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl lg:max-w-6xl xl:max-w-7xl 2xl:max-w-[1200px]" showHeader={false}>
+      <div className="max-h-[85vh] lg:max-h-[92vh] xl:max-h-[95vh] flex flex-col">
         <CourseHeader course={course} isEnrolled={isEnrolled} onClose={onClose} />
 
         {/* Scrollable content area */}
-  <div className="p-6 overflow-y-auto flex-1 pb-28 lg:pb-0">
+        <div className="p-6 overflow-y-auto flex-1 pb-28 lg:pb-0">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
@@ -287,12 +289,19 @@ const CourseDetailsModal = ({
                   />
                 )}
               </div>
+            
+              {/* Share buttons for mobile footer */}
+              <div className="mt-3 lg:hidden">
+              <ShareCourseButtons title={course.title} subtitle={course.subtitle} slug={course.slug} />
+              </div>
+
               {/* Description */}
               <div>
                 <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-blue" />
                   {t('courseDescription')}
                 </h2>
+                {/* share buttons intentionally shown in sidebar (desktop) and footer (mobile) */}
                 <div className="prose dark:prose-invert max-w-none">
                   <MarkdownRenderer>{course.description}</MarkdownRenderer>
                 </div>
@@ -388,28 +397,7 @@ const CourseDetailsModal = ({
           </div>
         </div>
 
-        {/* Footer fixed inside modal for small screens (hidden when sidebar shows on lg+) */}
-        <div className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 lg:hidden">
-          <div className="max-w-4xl mx-auto">
-            {shouldShowAuth ? (
-              <Button
-                onClick={handleEnrollClick}
-                className="w-full"
-                style={{ backgroundColor: '#46B1C9', color: '#fff' }}
-              >
-                {t('signInToEnroll')}
-              </Button>
-            ) : canEnroll ? (
-              <Button
-                onClick={onEnroll}
-                className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
-              >
-                <GraduationCap className="w-5 h-5 mr-2" />
-                {t('enrollNow')}
-              </Button>
-            ) : null}
-          </div>
-        </div>
+    <CourseFooter shouldShowAuth={shouldShowAuth} canEnroll={canEnroll} handleEnrollClick={handleEnrollClick} onEnroll={onEnroll} t={t} />
       </div>
     </Modal>
   );

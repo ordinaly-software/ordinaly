@@ -89,6 +89,15 @@
         "close": "Cerrar",
         "notify": "Notificarme"
       }
+    ,
+      "courseDetails": {
+        "share": {
+          "label": "Compartir",
+          "whatsapp": "WhatsApp",
+          "facebook": "Facebook",
+          "linkedin": "LinkedIn"
+        }
+      }
     },
     "about": {
       "title": "LIDERANDO LA TRANSFORMACIÓN DIGITAL EN ANDALUCÍA",
@@ -1116,6 +1125,13 @@
         "everyXMonths": "Cada {interval} meses del {startDate} al {endDate}, {startTime} - {endTime}",
         "customWithWeekdays": "Los {weekdays} del {startDate} al {endDate}, {startTime} - {endTime}",
         "custom": "Del {startDate} al {endDate}, {startTime} - {endTime}"
+      },
+      "share": {
+        "label": "Comparte este curso: ",
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "shareMessage": "Únete a la nueva formación de {siteTag}: \"{title}\" - {subtitle}"
       }
     }
   },
