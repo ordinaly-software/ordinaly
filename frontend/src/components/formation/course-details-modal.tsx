@@ -1,8 +1,7 @@
 'use client';
 
 import { Modal } from "@/components/ui/modal";
-import { Button } from "@/components/ui/button";
-import { Calendar, BookOpen, Star, GraduationCap } from 'lucide-react';
+import { Calendar, BookOpen, Star } from 'lucide-react';
 import { AddToCalendarButtons } from './add-to-calendar-buttons';
 import CourseHeader from './course-header';
 import CourseSidebar from './course-sidebar';
@@ -50,20 +49,6 @@ interface CourseDetailsModalProps {
   onCancel: () => void;
   onAuthRequired: () => void;
 }
-
-// Custom image loader to handle potential URL issues
-const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
-  if (!src || src === 'undefined' || src === 'null') {
-    return `/api/placeholder/600/400`;
-  }
-  
-  if (src.startsWith('/')) {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
-    return `${baseUrl}${src}?w=${width}&q=${quality || 75}`;
-  }
-  
-  return `${src}?w=${width}&q=${quality || 75}`;
-};
 
 // Helper to robustly map backend schedule string to translation key and variables
 function renderFullScheduleText(course: Course, t: ReturnType<typeof useTranslations>) {
@@ -229,14 +214,6 @@ const CourseDetailsModal = ({
       });
     } catch {
       return timeString;
-    }
-  };
-
-  const getPeriodicityDisplay = (periodicity: string) => {
-    try {
-      return t(`periodicity.${periodicity}` as 'periodicity.once' | 'periodicity.daily' | 'periodicity.weekly' | 'periodicity.biweekly' | 'periodicity.monthly' | 'periodicity.custom');
-    } catch {
-      return periodicity;
     }
   };
 

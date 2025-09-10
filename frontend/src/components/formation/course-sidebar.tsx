@@ -2,11 +2,25 @@ import React from 'react';
 import { AddToCalendarButtons } from './add-to-calendar-buttons';
 import ShareCourseButtons from './share-course-buttons';
 import { Button } from '@/components/ui/button';
-import { Info, MapPin, Users, Clock, Euro, CheckCircle, GraduationCap } from 'lucide-react';
+import { Info, MapPin, Users, Clock, Euro, GraduationCap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+interface CourseBrief {
+  id?: number | string;
+  slug?: string;
+  title: string;
+  subtitle?: string;
+  location?: string;
+  max_attendants?: number;
+  price?: number | null;
+  periodicity?: string;
+  exclude_dates?: unknown[];
+  start_date?: string | null;
+  end_date?: string | null;
+}
+
 interface Props {
-  course: any;
+  course: CourseBrief;
   isEnrolled: boolean;
   hasStarted: boolean;
   hasEnded: boolean;
@@ -22,21 +36,10 @@ const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnd
 
   const getPeriodicityDisplay = (periodicity: string) => {
     try {
-      return t(`periodicity.${periodicity}` as any);
+      return t(`periodicity.${periodicity}`);
     } catch {
       return periodicity;
     }
-  };
-
-  const handleEnrollClick = () => {
-    if (!course) return;
-    if (!course) return;
-    if (!course) return;
-    if (!course) return;
-    if (!course) return;
-    if (!course) return;
-    // Delegate authorization to parent via onEnroll/onAuthRequired
-    if (!course) return;
   };
 
   return (
@@ -89,7 +92,7 @@ const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnd
             <Clock className="w-4 h-4 text-gray-500 dark:text-gray-400" />
             <div>
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('scheduleType')}</p>
-              <p className="text-gray-900 dark:text-gray-100 text-sm">{getPeriodicityDisplay(course.periodicity)}</p>
+              <p className="text-gray-900 dark:text-gray-100 text-sm">{getPeriodicityDisplay(course.periodicity || '')}</p>
             </div>
           </div>
 
@@ -109,8 +112,8 @@ const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnd
         <div className="hidden md:block">
           {isEnrolled && !hasEnded && (
             <AddToCalendarButtons
-              courseId={course.id}
-              courseSlug={course.slug}
+              courseId={Number(course.id || 0)}
+              courseSlug={course.slug || ''}
               courseTitle={course.title}
               isEnrolled={isEnrolled}
             />
@@ -162,7 +165,7 @@ const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnd
   );
 };
 
-function hasNoDatesPlaceholder(course: any) {
+function hasNoDatesPlaceholder(course: CourseBrief) {
   return !course.start_date || !course.end_date;
 }
 

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { useTranslations } from 'next-intl';
 import { GraduationCap } from 'lucide-react';
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
   canEnroll: boolean;
   handleEnrollClick: () => void;
   onEnroll: () => void;
-  t: any;
+  t: ReturnType<typeof useTranslations>;
 }
 
 const CourseFooter: React.FC<Props> = ({ shouldShowAuth, canEnroll, handleEnrollClick, onEnroll, t }) => {

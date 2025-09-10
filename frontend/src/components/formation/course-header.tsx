@@ -32,9 +32,9 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
-const getPeriodicityDisplay = (periodicity: string, t: ReturnType<typeof useTranslations>) => {
+const getPeriodicityDisplay = (periodicity: string, t: (key: string, values?: Record<string, string | number | Date> | undefined) => string) => {
   try {
-    return t(`periodicity.${periodicity}` as any);
+    return t(`periodicity.${periodicity}`);
   } catch {
     return periodicity;
   }

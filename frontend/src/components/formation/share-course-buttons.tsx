@@ -78,7 +78,7 @@ export const ShareCourseButtons: React.FC<Props> = ({ title, subtitle, slug, the
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-    } catch (e) {
+    } catch {
       // last resort: navigate current window
       window.location.href = url;
     }
@@ -92,7 +92,7 @@ export const ShareCourseButtons: React.FC<Props> = ({ title, subtitle, slug, the
         // You can add a toast notification here if desired
         console.log('Message copied to clipboard');
       }
-    } catch (e) {
+    } catch {
       // Fallback for older browsers
       try {
         const textArea = document.createElement('textarea');
@@ -106,7 +106,7 @@ export const ShareCourseButtons: React.FC<Props> = ({ title, subtitle, slug, the
         document.execCommand('copy');
         textArea.remove();
         console.log('Message copied to clipboard (fallback)');
-      } catch (err) {
+      } catch {
         console.log('Failed to copy to clipboard');
       }
     }
@@ -145,8 +145,7 @@ export const ShareCourseButtons: React.FC<Props> = ({ title, subtitle, slug, the
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
         a.click();
-      } catch (e) {
-        // Last resort
+      } catch {
         window.location.href = linkedinUrl;
       }
     }
