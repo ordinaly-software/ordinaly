@@ -89,8 +89,6 @@ export const ShareCourseButtons: React.FC<Props> = ({ title, subtitle, slug, the
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(text);
-        // You can add a toast notification here if desired
-        console.log('Message copied to clipboard');
       }
     } catch {
       // Fallback for older browsers
@@ -105,9 +103,8 @@ export const ShareCourseButtons: React.FC<Props> = ({ title, subtitle, slug, the
         textArea.select();
         document.execCommand('copy');
         textArea.remove();
-        console.log('Message copied to clipboard (fallback)');
       } catch {
-        console.log('Failed to copy to clipboard');
+        // Failed to copy to clipboard
       }
     }
   };

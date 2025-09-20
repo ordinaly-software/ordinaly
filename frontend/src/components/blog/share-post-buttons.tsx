@@ -64,7 +64,6 @@ export const SharePostButtons: React.FC<Props> = ({ title, excerpt, slug, theme 
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         await navigator.clipboard.writeText(text);
-        console.log('Message copied to clipboard');
       }
     } catch {
       try {

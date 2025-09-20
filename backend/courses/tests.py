@@ -1051,8 +1051,8 @@ class AdvancedSchedulingTestCase(CourseImageCleanupTestMixin, TestCase):
             image=get_test_image_file(),
             price=50.00,
             location='Conference Room A',
-            start_date=date(2025, 9, 15),
-            end_date=date(2025, 9, 15),
+            start_date=date(2125, 9, 15),
+            end_date=date(2125, 9, 15),
             start_time=time(14, 0),
             end_time=time(17, 0),
             periodicity='once',
@@ -1061,7 +1061,7 @@ class AdvancedSchedulingTestCase(CourseImageCleanupTestMixin, TestCase):
 
         occurrences = course.get_next_occurrences()
         self.assertEqual(len(occurrences), 1)
-        self.assertEqual(occurrences[0], date(2025, 9, 15))
+        self.assertEqual(occurrences[0], date(2125, 9, 15))
 
     def test_weekly_multiple_weekdays(self):
         """Test weekly schedule on multiple weekdays (e.g., Mon & Wed)"""
@@ -1188,8 +1188,8 @@ class AdvancedSchedulingTestCase(CourseImageCleanupTestMixin, TestCase):
             image=get_test_image_file(),
             price=50.00,
             location='Test Location',
-            start_date=date(2025, 9, 15),
-            end_date=date(2025, 9, 15),
+            start_date=date(2225, 9, 15),
+            end_date=date(2225, 9, 15),
             start_time=time(14, 0),
             end_time=time(17, 0),
             periodicity='once',
@@ -1210,8 +1210,8 @@ class AdvancedSchedulingTestCase(CourseImageCleanupTestMixin, TestCase):
             image=get_test_image_file(),
             price=50.00,
             location='Test Location',
-            start_date=date(2025, 9, 15),
-            end_date=date(2025, 9, 15),
+            start_date=date(2125, 9, 15),
+            end_date=date(2125, 9, 15),
             start_time=time(14, 0),
             end_time=time(17, 0),
             periodicity='once',
