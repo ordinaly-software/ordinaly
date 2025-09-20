@@ -789,17 +789,17 @@
         "updateWarning": "Garrantzitsua: Baldintza hau eguneratzeak bertsio berria sortuko du. Erabiltzaileek eguneratutako baldintzak berriro onartu beharko dituzte."
       }
     },
-      "confirmDelete": {
-        "title": "Ezabatzea berretsi",
-        "single": "Ziur zaude \"{name}\" ezabatu nahi duzula? Ekintza hau ezin da desegin.",
-        "multiple": "Ziur zaude {count} hautatutako baldintzak ezabatu nahi dituzula? Ekintza hau ezin da desegin.",
-        "delete": "Ezabatu",
-        "cancel": "Indargabetu"
-      },
-      "details": {
-        "created": "Sortua",
-        "updated": "Eguneratua"
-      }
+    "confirmDelete": {
+      "title": "Ezabatzea berretsi",
+      "single": "Ziur zaude \"{name}\" ezabatu nahi duzula? Ekintza hau ezin da desegin.",
+      "multiple": "Ziur zaude {count} hautatutako baldintzak ezabatu nahi dituzula? Ekintza hau ezin da desegin.",
+      "delete": "Ezabatu",
+      "cancel": "Indargabetu"
+    },
+    "details": {
+      "created": "Sortua",
+      "updated": "Eguneratua"
+    }
   },
   "legal": {
     "title": "Lege dokumentazioa",
@@ -989,21 +989,21 @@
       "catalogError": "Errorea katalogoa sortzean",
       "invalidCourseIdentifier": "Ikastaroaren identifikatzaile baliogabea"
     },
-      "slogan": "Software eta Prestakuntza Irtenbideak",
-      "introduction": "Ordinalyn, teknologia berrietan eta garapen profesionalean espezializatutako prestakuntza eskaintzen dugu.",
-      "coursesTitle": "Gure ikastaroak",
-      "time": "Ordua:",
-      "capacity": "Edukiera:",
-      "people": "jende",
-      "contactTitle": "Harremanetarako informazioa",
-      "email": "Posta elektronikoa:",
-      "website": "Webgunea:",
-      "specialization": "Espezializazioa:",
-      "specializationText": "Software garapena eta teknologia prestakuntza",
-      "filename": "Ordinaly_prestakuntza_katalogoa.pdf",
-      "noSpecificTime": "Ez dago ordu zehatzik",
-      "bonificationTitle": "Bonifikazioa eta Dirulaguntzak",
-      "bonificationDisclaimer": "Gure prestakuntza batzuk FUNDAE/SEPE bidez bonifika daitezke eta/edo FSE+ eta PRTR-NextGenerationEU-k kofinantzatutako deialdietan sar daitezke, zure enpresak baldintzak betetzen baditu eta laguntza bere kabuz kudeatzen badu. Ordinalyk ikastaroaren dokumentazioa ematen du, baina ez du bezeroaren izenean bonifikazio edo dirulaguntzarik eskatzen edo kudeatzen. Beti egiaztatu esteka ofizialak kontratatu aurretik.",
+    "slogan": "Software eta Prestakuntza Irtenbideak",
+    "introduction": "Ordinalyn, teknologia berrietan eta garapen profesionalean espezializatutako prestakuntza eskaintzen dugu.",
+    "coursesTitle": "Gure ikastaroak",
+    "time": "Ordua:",
+    "capacity": "Edukiera:",
+    "people": "jende",
+    "contactTitle": "Harremanetarako informazioa",
+    "email": "Posta elektronikoa:",
+    "website": "Webgunea:",
+    "specialization": "Espezializazioa:",
+    "specializationText": "Software garapena eta teknologia prestakuntza",
+    "filename": "Ordinaly_prestakuntza_katalogoa.pdf",
+    "noSpecificTime": "Ez dago ordu zehatzik",
+    "bonificationTitle": "Bonifikazioa eta Dirulaguntzak",
+    "bonificationDisclaimer": "Gure prestakuntza batzuk FUNDAE/SEPE bidez bonifika daitezke eta/edo FSE+ eta PRTR-NextGenerationEU-k kofinantzatutako deialdietan sar daitezke, zure enpresak baldintzak betetzen baditu eta laguntza bere kabuz kudeatzen badu. Ordinalyk ikastaroaren dokumentazioa ematen du, baina ez du bezeroaren izenean bonifikazio edo dirulaguntzarik eskatzen edo kudeatzen. Beti egiaztatu esteka ofizialak kontratatu aurretik.",
     "pdf": {
       "title": "Prestakuntza katalogoa",
       "subtitle": "Prestakuntza profesional eta teknologikoko ikastaroak",
@@ -1230,6 +1230,14 @@
     "filters": {
       "category": "Kategoria",
       "all": "Kategoria guztiak"
+    },
+    "shareLabel": "Partekatu hau:",
+    "share": {
+      "label": "Partekatu:",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "shareMessage": "Irakurri post hau {siteTag}-etik: \"{title}\" - {excerpt}"
     }
   }
 }
