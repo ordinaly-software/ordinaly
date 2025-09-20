@@ -114,18 +114,7 @@ export const SharePostButtons: React.FC<Props> = ({ title, excerpt, slug, theme 
     const message = `${textBase} ${pageUrl}`;
     copyToClipboard(message);
     const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encode(pageUrl)}`;
-    const newWindow = window.open(linkedinUrl, '_blank', 'noopener,noreferrer');
-    if (!newWindow) {
-      try {
-        const a = document.createElement('a');
-        a.href = linkedinUrl;
-        a.target = '_blank';
-        a.rel = 'noopener noreferrer';
-        a.click();
-      } catch {
-        window.location.href = linkedinUrl;
-      }
-    }
+    openShareUrl(linkedinUrl);
   };
 
   const isWhite = theme === 'white';
