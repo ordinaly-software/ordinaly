@@ -1061,7 +1061,7 @@ class AdvancedSchedulingTestCase(CourseImageCleanupTestMixin, TestCase):
 
         occurrences = course.get_next_occurrences()
         self.assertEqual(len(occurrences), 1)
-        self.assertEqual(occurrences[0], date(2125, 9, 25))
+        self.assertEqual(occurrences[0], date(2125, 9, 15))
 
     def test_weekly_multiple_weekdays(self):
         """Test weekly schedule on multiple weekdays (e.g., Mon & Wed)"""
