@@ -80,7 +80,7 @@ export const SharePostButtons: React.FC<Props> = ({ title, excerpt, slug, theme 
         textArea.remove();
         
       } catch {
-        console.log('Failed to copy to clipboard');
+        // Failed to copy to clipboard
       }
     }
   };
