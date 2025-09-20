@@ -36,7 +36,7 @@
       "emailSubject": "Consulta sobre servei: {service}",
       "message": "Hola,\n\nEstic interessat en el servei \"{service}\".\n\nPodrien proporcionar-me més informació?\n\nGràcies"
     },
-  "services": {
+    "services": {
       "title": "Productes i Serveis",
       "description": "Descobreix els nostres serveis personalitzats i productes tancats exclusius. Tria el que millor s'adapti al teu negoci: des de consultoria a mida fins a solucions llestes per utilitzar.",
       "contactForQuote": "Poseu -vos en contacte amb els nostres agents per obtenir un pressupost detallat",
@@ -989,21 +989,21 @@
       "catalogError": "Error de generació del catàleg. ",
       "invalidCourseIdentifier": "Identificador de curs no vàlid"
     },
-      "slogan": "Solucions de programari i formació",
-      "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional",
-      "coursesTitle": "Els nostres cursos",
-      "time": "Hora:",
-      "capacity": "Capacitat:",
-      "people": "persones",
-      "contactTitle": "Informació de contacte",
-      "email": "Correu electrònic:",
-      "website": "Lloc web:",
-      "specialization": "Especialització:",
-      "specializationText": "Desenvolupament de programari i formació en tecnologia",
-      "filename": "Cataleg_formacio_Ordinaly.pdf",
-      "noSpecificTime": "Encara no hi ha hora específica",
-      "bonificationTitle": "Bonificació i Subvencions",
-      "bonificationDisclaimer": "Part de les nostres formacions poden bonificar-se via FUNDAE/SEPE i/o encaixar en convocatòries cofinançades per FSE+ i PRTR-NextGenerationEU, sempre que la seva empresa compleixi requisits i tramiti l'ajuda. Ordinaly facilita la documentació del curs, però no sollicita ni tramita bonificacions o subvencions en nom del client. Reviseu sempre els enllaços oficials abans de contractar",
+    "slogan": "Solucions de programari i formació",
+    "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional",
+    "coursesTitle": "Els nostres cursos",
+    "time": "Hora:",
+    "capacity": "Capacitat:",
+    "people": "persones",
+    "contactTitle": "Informació de contacte",
+    "email": "Correu electrònic:",
+    "website": "Lloc web:",
+    "specialization": "Especialització:",
+    "specializationText": "Desenvolupament de programari i formació en tecnologia",
+    "filename": "Cataleg_formacio_Ordinaly.pdf",
+    "noSpecificTime": "Encara no hi ha hora específica",
+    "bonificationTitle": "Bonificació i Subvencions",
+    "bonificationDisclaimer": "Part de les nostres formacions poden bonificar-se via FUNDAE/SEPE i/o encaixar en convocatòries cofinançades per FSE+ i PRTR-NextGenerationEU, sempre que la seva empresa compleixi requisits i tramiti l'ajuda. Ordinaly facilita la documentació del curs, però no sollicita ni tramita bonificacions o subvencions en nom del client. Reviseu sempre els enllaços oficials abans de contractar",
     "pdf": {
       "title": "Catàleg de formació",
       "subtitle": "Cursos de formació professional i tecnològica",
@@ -1230,6 +1230,14 @@
     "filters": {
       "category": "Categoria",
       "all": "Totes les categories"
+    },
+    "shareLabel": "Comparteix aquest article:",
+    "share": {
+      "label": "Comparteix:",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "shareMessage": "Llegeix aquest post de {siteTag}: \"{title}\" - {excerpt}"
     }
   }
 }

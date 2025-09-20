@@ -10,7 +10,7 @@
       "formation": "Formación",
       "start": "Empieza Ahora",
       "darkMode": "Cambiar a modo oscuro",
-      "lightMode": "Cambiar a modo claro", 
+      "lightMode": "Cambiar a modo claro",
       "localeSwitcher": "Cambiar idioma",
       "openMenu": "Abrir menú",
       "closeMenu": "Cerrar menú",
@@ -88,8 +88,7 @@
         "generalDescription": "Recibe notificaciones sobre nuevos anuncios de cursos y oportunidades de inscripción temprana",
         "close": "Cerrar",
         "notify": "Notificarme"
-      }
-    ,
+      },
       "courseDetails": {
         "share": {
           "label": "Compartir",
@@ -557,32 +556,32 @@
         },
         "weekdays": {
           "monday": {
-          "short": "Lun",
-          "full": "Lunes"
+            "short": "Lun",
+            "full": "Lunes"
           },
           "tuesday": {
-          "short": "Mar",
-          "full": "Martes"
+            "short": "Mar",
+            "full": "Martes"
           },
           "wednesday": {
-          "short": "Mié",
-          "full": "Miércoles"
+            "short": "Mié",
+            "full": "Miércoles"
           },
           "thursday": {
-          "short": "Jue",
-          "full": "Jueves"
+            "short": "Jue",
+            "full": "Jueves"
           },
           "friday": {
-          "short": "Vie",
-          "full": "Viernes"
+            "short": "Vie",
+            "full": "Viernes"
           },
           "saturday": {
-          "short": "Sáb",
-          "full": "Sábado"
+            "short": "Sáb",
+            "full": "Sábado"
           },
           "sunday": {
-          "short": "Dom",
-          "full": "Domingo"
+            "short": "Dom",
+            "full": "Domingo"
           }
         },
         "maxAttendants": "Máximo de Asistentes",
@@ -817,7 +816,7 @@
     "tabs": {
       "terms": "Términos de Servicio",
       "privacy": "Política de Privacidad",
-      "cookies": "Política de Cookies", 
+      "cookies": "Política de Cookies",
       "license": "Licencia"
     },
     "sections": {
@@ -840,7 +839,7 @@
     },
     "messages": {
       "fetchError": "Error al obtener documentos legales",
-      "networkError": "Error de red al obtener documentos", 
+      "networkError": "Error de red al obtener documentos",
       "noPdfAvailable": "La versión PDF no está disponible para este documento",
       "downloadSuccess": "PDF descargado exitosamente"
     }
@@ -908,7 +907,7 @@
     "searchPlaceholder": "Buscar cursos...",
     "free": "Gratuito",
     "price": "Precio",
-    "location": "Ubicación", 
+    "location": "Ubicación",
     "date": "Fecha",
     "enrolled": "Inscrito",
     "enroll": "Inscribirse",
@@ -1148,7 +1147,7 @@
     "form": {
       "firstName": "Nombre",
       "firstNamePlaceholder": "Ingresa tu nombre",
-      "lastName": "Apellido", 
+      "lastName": "Apellido",
       "lastNamePlaceholder": "Ingresa tu apellido",
       "username": "Nombre de Usuario",
       "usernamePlaceholder": "Ingresa tu nombre de usuario",
@@ -1239,6 +1238,14 @@
     "filters": {
       "category": "Categoría",
       "all": "Todas las categorías"
+    },
+    "shareLabel": "Comparte este post:",
+    "share": {
+      "label": "Comparte:",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "shareMessage": "Lee este post de {siteTag}: \"{title}\" - {excerpt}"
     }
   }
 }

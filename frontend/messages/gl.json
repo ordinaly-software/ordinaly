@@ -422,7 +422,7 @@
         "product": "Produto",
         "colors": {
           "darkPurple": "Neutro",
-          "purple": "Morado escuro", 
+          "purple": "Morado escuro",
           "cyan": "Cian",
           "green": "Folla",
           "orange": "Mandarina"
@@ -989,21 +989,21 @@
       "catalogError": "Erro ao xerar catálogo",
       "invalidCourseIdentifier": "Identificador de curso inválido"
     },
-      "slogan": "Solucións de Software e Formación",
-      "introduction": "En Ordinaly, ofrecemos formación especializada en tecnoloxías emerxentes e desenvolvemento profesional",
-      "coursesTitle": "Os nosos cursos",
-      "time": "Hora:",
-      "capacity": "Capacidade:",
-      "people": "persoas",
-      "contactTitle": "Información de contacto",
-      "email": "Correo electrónico:",
-      "website": "Sitio web:",
-      "specialization": "Especialización:",
-      "specializationText": "Desenvolvemento de Software e Formación Tecnolóxica",
-      "filename": "Ordinaly_catalogo_formacion.pdf",
-      "noSpecificTime": "Aínda non hai hora específica",
-      "bonificationTitle": "Bonificación e Subvencións",
-      "bonificationDisclaimer": "Parte das nosas formacións poden bonificarse vía FUNDAE/SEPE e/ou encaixar en convocatorias cofinanciadas por FSE+ e PRTR-NextGenerationEU, sempre que a súa empresa cumpra requisitos e tramite a axuda. Ordinaly facilita a documentación do curso, pero non solicita nin tramita bonificacións ou subvencións en nome do cliente. Revise sempre as ligazóns oficiais antes de contratar",
+    "slogan": "Solucións de Software e Formación",
+    "introduction": "En Ordinaly, ofrecemos formación especializada en tecnoloxías emerxentes e desenvolvemento profesional",
+    "coursesTitle": "Os nosos cursos",
+    "time": "Hora:",
+    "capacity": "Capacidade:",
+    "people": "persoas",
+    "contactTitle": "Información de contacto",
+    "email": "Correo electrónico:",
+    "website": "Sitio web:",
+    "specialization": "Especialización:",
+    "specializationText": "Desenvolvemento de Software e Formación Tecnolóxica",
+    "filename": "Ordinaly_catalogo_formacion.pdf",
+    "noSpecificTime": "Aínda non hai hora específica",
+    "bonificationTitle": "Bonificación e Subvencións",
+    "bonificationDisclaimer": "Parte das nosas formacións poden bonificarse vía FUNDAE/SEPE e/ou encaixar en convocatorias cofinanciadas por FSE+ e PRTR-NextGenerationEU, sempre que a súa empresa cumpra requisitos e tramite a axuda. Ordinaly facilita a documentación do curso, pero non solicita nin tramita bonificacións ou subvencións en nome do cliente. Revise sempre as ligazóns oficiais antes de contratar",
     "pdf": {
       "title": "Catálogo de formación",
       "subtitle": "Cursos de formación profesional e tecnolóxica",
@@ -1212,7 +1212,7 @@
     "message": "A páxina que buscas semella haberse perdido no noso universo de automatización empresarial",
     "description": "Non te preocupes, incluso en Ordinaly ás veces nos desviamos do camiño. Pero temos solucións intelixentes para todo",
     "homeButton": "Volver ao Inicio",
-    "exploreButton": "Explorar Servizos", 
+    "exploreButton": "Explorar Servizos",
     "contactButton": "Contactar Soporte",
     "redirectMessage": "Serás redirixido automaticamente en {seconds} segundos...",
     "robotText": "O noso robot de automatización está buscando a páxina..."
@@ -1230,6 +1230,14 @@
     "filters": {
       "category": "Categoría",
       "all": "Todas as categorías"
+    },
+    "shareLabel": "Comparte este post:",
+    "share": {
+      "label": "Comparte:",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "shareMessage": "Le este artigo de {siteTag}: \"{title}\" - {excerpt}"
     }
   }
 }

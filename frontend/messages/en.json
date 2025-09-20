@@ -75,7 +75,7 @@
       "enrolled": "enrolled",
       "max": "max",
       "almostFull": "Almost Full",
-      "fillingFast": "Filling Fast", 
+      "fillingFast": "Filling Fast",
       "available": "Available",
       "inProgress": "In Progress",
       "finished": "Finished",
@@ -88,8 +88,7 @@
         "generalDescription": "Get notified about new course announcements and early registration opportunities.",
         "close": "Close",
         "notify": "Notify Me"
-      }
-    ,
+      },
       "courseDetails": {
         "share": {
           "label": "Share",
@@ -267,7 +266,7 @@
     "description": "Hi! I'm your virtual assistant...",
     "canHelpWith": "How can I help you?",
     "help1": "Service information",
-    "help2": "Price consultation", 
+    "help2": "Price consultation",
     "help3": "Availability and schedules",
     "help4": "Technical support",
     "help5": "Custom quotes",
@@ -319,7 +318,7 @@
       "companyPlaceholder": "Enter your company name",
       "regionLabel": "Country",
       "regionPlaceholder": "Enter your country (optional)",
-      "cityLabel": "City", 
+      "cityLabel": "City",
       "cityPlaceholder": "Enter your city (optional)",
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter your password",
@@ -638,7 +637,7 @@
       "details": {
         "title": "Course Details",
         "enrolled": "Enrolled",
-        "capacity": "Capacity", 
+        "capacity": "Capacity",
         "vacant": "Vacant",
         "price": "Price",
         "location": "Location",
@@ -648,7 +647,7 @@
         "schedule": "Schedule",
         "locationInfo": "Location & Info",
         "enrollmentStatus": "Enrollment Status",
-        "enrolledMembers": "Enrolled Members", 
+        "enrolledMembers": "Enrolled Members",
         "upcomingSessions": "Upcoming Sessions",
         "finished": "Finished",
         "startDate": "Start Date",
@@ -805,8 +804,8 @@
         "cancel": "Cancel"
       },
       "details": {
-      "created": "Created",
-      "updated": "Updated"
+        "created": "Created",
+        "updated": "Updated"
       }
     }
   },
@@ -816,7 +815,7 @@
     "downloadPdf": "Download PDF",
     "tabs": {
       "terms": "Terms of Service",
-      "privacy": "Privacy Policy", 
+      "privacy": "Privacy Policy",
       "cookies": "Cookie Policy",
       "license": "License"
     },
@@ -826,7 +825,7 @@
         "noDocuments": "No terms of service documents are currently available."
       },
       "privacy": {
-        "title": "Privacy Policy", 
+        "title": "Privacy Policy",
         "noDocuments": "No privacy policy documents are currently available."
       },
       "cookies": {
@@ -956,7 +955,7 @@
       "confirmEnroll": "Confirm Enrollment",
       "name": "Full Name",
       "namePlaceholder": "Enter your full name",
-      "email": "Email Address", 
+      "email": "Email Address",
       "emailPlaceholder": "Enter your email address",
       "phone": "Phone Number",
       "phonePlaceholder": "Enter your phone number",
@@ -1148,7 +1147,7 @@
     "form": {
       "firstName": "First Name",
       "firstNamePlaceholder": "Enter your first name",
-      "lastName": "Last Name", 
+      "lastName": "Last Name",
       "lastNamePlaceholder": "Enter your last name",
       "username": "Username",
       "usernamePlaceholder": "Enter your username",
@@ -1239,6 +1238,14 @@
     "filters": {
       "category": "Category",
       "all": "All Categories"
+    },
+    "shareLabel": "Share this post:",
+    "share": {
+      "label": "Share:",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "shareMessage": "Read this post from {siteTag}: \"{title}\" - {excerpt}"
     }
   }
 }
