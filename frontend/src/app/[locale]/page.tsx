@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslations } from "next-intl";
+import RateOnGoogle from '@/components/home/RateOnGoogle';
 import Image from 'next/image';
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
@@ -157,6 +158,10 @@ export default function HomePage() {
                 >
                   {t("hero.demoButton")}
                 </Button>
+                  {/* Rate on Google example */}
+                  <div className="flex items-center">
+                    <RateOnGoogle placeId={process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID || ''} size="sm" variant="ghost" label={t('rateLabel') || 'Comparte tu opinión en Google'} />
+                  </div>
               </div>
             </div>
             <div className="scroll-animate slide-in-right">
