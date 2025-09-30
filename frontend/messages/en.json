@@ -54,7 +54,9 @@
       "contactNow": "Contact Now",
       "contactEmail": "Contact via Email",
       "viewDetails": "View Details",
-      "viewAllServices": "View All Services"
+  "viewAllServices": "View All Services",
+  "errorTitle": "Error Loading Services",
+  "errorMessage": "Failed to load services"
     },
     "courses": {
       "noSpecificDate": "No specific date",
@@ -65,7 +67,8 @@
       "noCoursesTitle": "No Upcoming Courses",
       "noCoursesMessage": "Stay tuned for new course announcements!",
       "notifyButton": "See all courses",
-      "errorTitle": "Error Loading Courses",
+  "errorTitle": "Error Loading Courses",
+  "errorMessage": "Failed to load courses",
       "retryButton": "Try Again",
       "enrollButton": "Enroll Now",
       "moreInfo": "More Info",

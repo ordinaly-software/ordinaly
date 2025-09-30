@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import ErrorCard from "@/components/ui/error-card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, MapPin, Calendar, Euro, ArrowRight, BookOpen } from "lucide-react";
 import { useCourses } from "@/hooks/useCourses";
@@ -124,39 +125,12 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
 
   if (error) {
     return (
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <div className="max-w-md mx-auto bg-white dark:bg-gray-800/50 rounded-xl shadow-lg p-8">
-              <div className="w-16 h-16 mx-auto mb-4 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-red dark:text-red">
-                  <circle cx="12" cy="12" r="10"/>
-                  <line x1="15" y1="9" x2="9" y2="15"/>
-                  <line x1="9" y1="9" x2="15" y2="15"/>
-                </svg>
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
-                {t('errorTitle', { defaultValue: 'Error Loading Courses' })}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-6">
-                {error}
-              </p>
-              <Button
-                variant="outline"
-                onClick={refetch}
-                className="flex items-center gap-2"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="23 4 23 10 17 10"/>
-                  <polyline points="1 20 1 14 7 14"/>
-                  <path d="m3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
-                </svg>
-                {t('retryButton', { defaultValue: 'Try Again' })}
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ErrorCard
+        title={t('errorTitle', { defaultValue: 'Error Loading Courses' })}
+        message={t('errorMessage', { defaultValue: 'Failed to load courses' })}
+        buttonText={t('retryButton', { defaultValue: 'Try Again' })}
+        onRetry={refetch}
+      />
     );
   }
 

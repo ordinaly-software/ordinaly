@@ -54,7 +54,9 @@
       "contactNow": "Jarri harremanetan orain",
       "contactEmail": "Jarri harremanetan emailez",
       "viewDetails": "Xehetasunak ikusi",
-      "viewAllServices": "Ikusi zerbitzu guztiak"
+  "viewAllServices": "Ikusi zerbitzu guztiak",
+  "errorTitle": "Errorea zerbitzuak kargatzean",
+  "errorMessage": "Ezin izan dira zerbitzuak kargatu"
     },
     "courses": {
       "noSpecificDate": "Data zehazteko",
@@ -67,6 +69,7 @@
       "noCoursesMessage": "Mantendu erne kurtso berri iragarpenei!",
       "notifyButton": "Ikusi kurtso guztiak",
       "errorTitle": "Errorea Kurtsoak Kargatzen",
+      "errorMessage": "Ezin izan dira kurtsoak kargatu",
       "retryButton": "Berriro Saiatu",
       "enrollButton": "Orain Eman Izena",
       "moreInfo": "Informazio Gehiago",

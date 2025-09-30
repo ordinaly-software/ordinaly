@@ -54,7 +54,9 @@
       "contactNow": "Contactar Ahora",
       "contactEmail": "Contactar por Email",
       "viewDetails": "Ver Detalles",
-      "viewAllServices": "Ver Todos los Servicios"
+  "viewAllServices": "Ver Todos los Servicios",
+  "errorTitle": "Error Cargando Servicios",
+  "errorMessage": "No se pudieron cargar los servicios"
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
@@ -67,7 +69,8 @@
       "noCoursesMessage": "¡Mantente atento a los nuevos anuncios de cursos!",
       "notifyButton": "Ver todos los cursos",
       "errorTitle": "Error Cargando Cursos",
-      "retryButton": "Intentar de Nuevo",
+      "errorMessage": "No se pudieron cargar los cursos",
+      "retryButton": "Reintentar",
       "enrollButton": "Inscribirse Ahora",
       "moreInfo": "Más Información",
       "viewDetails": "Ver Detalles",
@@ -219,7 +222,7 @@
   "common": {
     "onVacation": "De Vacaciones",
     "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
-    "retry": "Intentar de Nuevo",
+    "retry": "Reintentar",
     "learnMore": "Detalles",
     "backToHome": "Volver al Inicio"
   },

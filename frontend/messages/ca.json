@@ -54,7 +54,9 @@
       "contactNow": "Poseu -vos en contacte ara",
       "contactEmail": "Contacte per correu electrònic",
       "viewDetails": "Veure detalls",
-      "viewAllServices": "Veure Tots els Serveis"
+  "viewAllServices": "Veure Tots els Serveis",
+        "errorTitle": "Error en carregar els cursos",
+  "errorMessage": "No s'han pogut carregar els serveis"
     },
     "courses": {
       "noSpecificDate": "Data específica properament",
@@ -65,7 +67,8 @@
       "noCoursesTitle": "No Hi Ha Cursos Propers",
       "noCoursesMessage": "Mantén-te atent als nous anuncis de cursos!",
       "notifyButton": "Veure tots els cursos",
-      "errorTitle": "Error Carregant Cursos",
+        "errorTitle": "Error en carregar els cursos",
+        "errorMessage": "No s'han pogut carregar els cursos",
       "retryButton": "Tornar-ho a Intentar",
       "enrollButton": "Inscriu-te Ara",
       "moreInfo": "Més Informació",

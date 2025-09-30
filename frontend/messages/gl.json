@@ -54,7 +54,9 @@
       "contactNow": "Contactar Agora",
       "contactEmail": "Contactar por Email",
       "viewDetails": "Ver Detalles",
-      "viewAllServices": "Ver todos os servizos"
+  "viewAllServices": "Ver todos os servizos",
+  "errorTitle": "Erro ao cargar servizos",
+  "errorMessage": "Non se puideron cargar os servizos"
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
@@ -66,7 +68,8 @@
       "noCoursesTitle": "Non Hai Cursos Próximos",
       "noCoursesMessage": "Mantente atento aos novos anuncios de cursos!",
       "notifyButton": "Ver todos os cursos",
-      "errorTitle": "Erro Cargando Cursos",
+  "errorTitle": "Erro Cargando Cursos",
+  "errorMessage": "Non se puideron cargar os cursos",
       "retryButton": "Tentar de Novo",
       "enrollButton": "Inscribirse Agora",
       "moreInfo": "Máis Información",
