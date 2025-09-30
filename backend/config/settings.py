@@ -143,6 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS para producción y previews de Netlify
 CORS_ALLOWED_ORIGINS = [
     'https://ordinaly.netlify.app',
+    'https://ordinaly.ai',
     'http://localhost:3000',
     'https://ordinaly.duckdns.org',
 ]
