@@ -82,7 +82,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                 href="https://www.tiktok.com/@ordinalysoftware"
+                 href="https://www.tiktok.com/@ordinaly.ai"
                  className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors flex items-center gap-2"
                  target="_blank"
                  rel="noopener noreferrer"
@@ -95,7 +95,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://www.instagram.com/ordinalysoftware/"
+                  href="https://www.instagram.com/ordinaly.ai/"
                   className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors flex items-center gap-2"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -108,7 +108,7 @@ const Footer = () => {
               </li>
               <li>
                 <a 
-                  href="https://www.youtube.com/@ordinalysoftware"
+                  href="https://www.youtube.com/@ordinaly"
                   className="hover:text-gray-900 dark:hover:text-white hover:underline transition-colors flex items-center gap-2"
                   target="_blank"
                   rel="noopener noreferrer"
