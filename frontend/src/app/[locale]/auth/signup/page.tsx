@@ -235,6 +235,8 @@ export default function SignupPage() {
                   width={600}
                   height={300}
                   className="w-full h-full object-cover"
+                  loading="eager"
+                  priority
                 />
               </div>
             </div>

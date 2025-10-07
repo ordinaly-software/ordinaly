@@ -1,4 +1,6 @@
+
 import React from 'react';
+import Image from 'next/image';
 
 interface BannerProps {
   title: string;
@@ -32,9 +34,14 @@ const Banner: React.FC<BannerProps> = ({
           playsInline
         />
       ) : backgroundImage ? (
-        <div
-          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat blur-sm z-0"
-          style={{ backgroundImage: `url(${backgroundImage})` }}
+        <Image
+          src={backgroundImage}
+          alt="Banner background"
+          fill
+          className="absolute inset-0 w-full h-full object-cover z-0 blur-sm"
+          priority
+          loading="eager"
+          sizes="100vw"
         />
       ) : null}
       {/* Overlay for darkening */}

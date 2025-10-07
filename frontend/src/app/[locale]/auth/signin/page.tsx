@@ -25,7 +25,6 @@ export default function LoginPage() {
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      // Redirect to home if already authenticated
       window.location.href = '/';
       return;
     }

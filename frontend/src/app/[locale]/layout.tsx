@@ -4,6 +4,11 @@ import { Inter } from "next/font/google"
 import "../globals.css"
 import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
+import Navbar from '@/components/ui/navbar';
+import CookieConsent from '@/components/ui/cookies';
+import BackToTopButton from '@/components/ui/back-to-top-button';
+import { ThemeProvider } from '@/contexts/theme-context';
+import { NextIntlClientProvider } from 'next-intl';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -113,22 +118,6 @@ export default async function RootLayout({ children, params } :
   if (!routing.locales.includes(locale as Locale)) {
     notFound();
   }
-  // Dynamically load client-only UI components and providers
-  const [
-    { default: Navbar },
-    { default: CookieConsent },
-    { default: BackToTopButton },
-    themeMod,
-    nextIntlMod,
-  ] = await Promise.all([
-    import('@/components/ui/navbar'),
-    import('@/components/ui/cookies'),
-    import('@/components/ui/back-to-top-button'),
-    import('@/contexts/theme-context'),
-    import('next-intl'),
-  ]);
-  const ThemeProvider = themeMod.ThemeProvider;
-  const NextIntlClientProvider = nextIntlMod.NextIntlClientProvider;
 
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
@@ -295,7 +284,6 @@ export default async function RootLayout({ children, params } :
             >
               Saltar / Skip
             </a>
-
 
             <Navbar />
 

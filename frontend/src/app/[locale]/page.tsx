@@ -35,23 +35,6 @@ export default function HomePage() {
   // Preload critical resources for better performance
   usePreloadResources();
 
-  // useEffect(() => {
-  //   const preloadHeroImage = () => {
-  //     const existingPreload = document.querySelector('link[rel="preload"][href="/static/main_home_ilustration.webp"]');
-  //     if (!existingPreload) {
-  //       const link = document.createElement('link');
-  //       link.rel = 'preload';
-  //       link.href = '/static/main_home_ilustration.webp';
-  //       link.as = 'image';
-  //       link.type = 'image/webp';
-  //       (link as HTMLLinkElement & { fetchPriority?: string }).fetchPriority = 'high';
-  //       document.head.appendChild(link);
-  //     }
-  //   };
-  //   
-  //   preloadHeroImage();
-  // }, []);
-
   // Service modal handlers - optimize with useCallback
   const handleServiceClick = useCallback((service: Service) => {
     setSelectedService(service);
@@ -160,20 +143,25 @@ export default function HomePage() {
               </div>
             </div>
             <div className="scroll-animate slide-in-right">
-                <Image
-                  src="/static/main_home_ilustration.webp"
-                  alt="AI Automation Dashboard"
-                  width={450}
-                  height={450}
-                  className="rounded-2xl"
-                  style={{ width: '100%', height: 'auto' }}
-                  priority
-                  fetchPriority="high"
-                  placeholder="blur"
-                  blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
-                  loading="eager"
-                />
+              <link
+                rel="preload"
+                as="image"
+                href="/static/main_home_ilustration.webp"
+              />
+              <Image
+                src="/static/main_home_ilustration.webp"
+                alt="AI Automation Dashboard"
+                width={450}
+                height={450}
+                className="rounded-2xl"
+                style={{ width: '100%', height: 'auto' }}
+                priority
+                fetchPriority="high"
+                placeholder="blur"
+                blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 450px"
+                loading="eager"
+              />
             </div>
           </div>
         </div>
@@ -204,14 +192,15 @@ export default function HomePage() {
     </section>
 
       {/* Partners Section */}
-  <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-white">
-        <div className="max-w-5xl mx-auto">
+      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-[#176b0a]">
+        <div className="max-w-3xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 items-center justify-items-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center justify-items-center">
             {[
               { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Aviva Publicidad Partner", delay: "0.1s", url: "https://avivapublicidad.es" },
               { src: "/static/logos/logo_grupo_addu.webp", alt: "Grupo Addu Partner", delay: "0.2s", url: "https://grupoaddu.com" },
               { src: "/static/logos/logo_proinca_consultores.webp", alt: "Proinca Consultores Partner", delay: "0.3s", url: "https://www.proincaconsultores.es" },
+              { src: "/static/logos/logo_aires_de_feria.webp", alt: "Aires de Feria", delay: "0.4s", url: "https://www.airesdeferia.com" },
             ].map(({ src, alt, delay, url }, i) => (
               <div
                 key={i}
