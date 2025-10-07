@@ -517,7 +517,7 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
               onClick={() => {
                 const subject = encodeURIComponent(t("cta.emailSubject"));
                 const body = encodeURIComponent(t("cta.emailBody"));
-                window.location.href = `mailto:ordinalysoftware@gmail.com?subject=${subject}&body=${body}`;
+                window.location.href = `mailto:info@ordinaly.ai?subject=${subject}&body=${body}`;
               }}
             >
               <Mail className="w-5 h-5 mr-2" />

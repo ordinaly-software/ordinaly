@@ -342,7 +342,7 @@ Este proyecto fue realizado por <a href="https://github.com/antoniommff">Antonio
     <img height="20" src="https://skillicons.dev/icons?i=linkedin"/>
   </a>
   o
-  <a href="mailto:antoniommff@gmail.com">
+  <a href="mailto:antonio.macias@ordinaly.ai">
     <img height="20" src="https://skillicons.dev/icons?i=gmail"/>
   </a>.
   <br>

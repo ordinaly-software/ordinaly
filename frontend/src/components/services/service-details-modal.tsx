@@ -67,7 +67,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
   const handleEmailContact = () => {
     const subject = encodeURIComponent(getEmailSubject(service));
     const body = encodeURIComponent(getContactMessage(service));
-    const emailUrl = `mailto:ordinalysoftware@gmail.com?subject=${subject}&body=${body}`;
+    const emailUrl = `mailto:info@ordinaly.ai?subject=${subject}&body=${body}`;
     window.open(emailUrl, '_self');
   };
 

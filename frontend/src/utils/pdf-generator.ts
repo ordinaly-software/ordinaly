@@ -63,7 +63,7 @@ export async function generateCoursesCatalogPDF(
     pdf.text(`${pageNumber}`, pageWidth - margin, pageHeight - 10, { align: 'right' });
     
     // Contact info
-    pdf.text('ordinalysoftware@gmail.com | www.ordinaly.ai', margin, pageHeight - 15);
+    pdf.text('info@ordinaly.ai | www.ordinaly.ai', margin, pageHeight - 15);
   };
 
   // Helper function to check if we need new page
@@ -353,7 +353,7 @@ export async function generateCoursesCatalogPDF(
   const contactInfo = [
     { 
   label: t('email'),
-      value: 'ordinalysoftware@gmail.com' 
+      value: 'info@ordinaly.ai' 
     },
     { 
   label: t('website'),

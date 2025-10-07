@@ -185,7 +185,7 @@ const AdminUsersTab = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.surname}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 dark:text-blue-400 underline">
-                  <a href={`mailto:${user.email}?from=ordinalysoftware@gmail.com`} target="_blank" rel="noopener noreferrer">{user.email}</a>
+                  <a href={`mailto:${user.email}?from=noreply@ordinaly.ai`} target="_blank" rel="noopener noreferrer">{user.email}</a>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.company}</td>
               </tr>

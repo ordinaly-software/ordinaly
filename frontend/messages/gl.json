@@ -68,8 +68,8 @@
       "noCoursesTitle": "Non Hai Cursos Próximos",
       "noCoursesMessage": "Mantente atento aos novos anuncios de cursos!",
       "notifyButton": "Ver todos os cursos",
-  "errorTitle": "Erro Cargando Cursos",
-  "errorMessage": "Non se puideron cargar os cursos",
+      "errorTitle": "Erro Cargando Cursos",
+      "errorMessage": "Non se puideron cargar os cursos",
       "retryButton": "Tentar de Novo",
       "enrollButton": "Inscribirse Agora",
       "moreInfo": "Máis Información",
@@ -176,9 +176,9 @@
       },
       "contact": {
         "title": "Contacto",
-        "email": "ordinalySoftware@gmail.com",
+        "email": "info@ordinaly.ai",
         "phone": "+34 626 27 08 06",
-        "location": "Andalucía, España"
+        "location": "Plaza del Duque 1, 41002 Sevilla, Andalucía, España"
       },
       "copyright": "© 2025 Ordinaly Software"
     },

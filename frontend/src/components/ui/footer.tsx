@@ -143,9 +143,14 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <span className="text-gray-800 dark:text-gray-200">
+                <a
+                  href="https://www.google.es/maps/place/Ordinaly+Software+-+Automatizaciones+e+IA/@37.3926273,-5.9958374,19z/data=!3m1!4b1!4m6!3m5!1s0xd126d4f91b87a51:0xa8b9785b4669f853!8m2!3d37.3926273!4d-5.9958374!16s%2Fg%2F11x_qys0qr?entry=ttu&g_ep=EgoyMDI1MTAwMS4wIKXMDSoASAFQAw%3D%3D"
+                  className="hover:text-black dark:hover:text-white hover:underline transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {t("footer.contact.location")}
-                </span>
+                </a>
               </li>
             </ul>
           </div>
