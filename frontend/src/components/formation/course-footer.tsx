@@ -21,7 +21,7 @@ const CourseFooter: React.FC<Props> = ({ shouldShowAuth, canEnroll, handleEnroll
           <Button
             onClick={handleEnrollClick}
             className="w-full"
-            style={{ backgroundColor: '#46B1C9', color: '#fff' }}
+            style={{ backgroundColor: '#217093', color: '#fff' }}
           >
             {t('signInToEnroll')}
           </Button>

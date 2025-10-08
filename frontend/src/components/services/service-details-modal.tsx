@@ -212,7 +212,7 @@ export const ServiceDetailsModal = ({ service, isOpen, onClose }: ServiceDetails
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 mt-5">
             {service.duration && (
               <div className="flex items-center gap-3 p-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                <Clock className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                <Clock className="h-5 w-5 text-[#174ea6] dark:text-[#174ea6]" />
                 <div>
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
                     {t("services.duration")}

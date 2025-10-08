@@ -326,7 +326,7 @@ export const AdminServiceEditModal = ({
                   } else if (colorChoice.value === "623CEA") {
                     return "bg-[#623CEA] dark:bg-[#8B5FF7] text-white";
                   } else if (colorChoice.value === "46B1C9") {
-                    return "bg-[#46B1C9] dark:bg-[#5ECAE0] text-white";
+                    return "bg-[#217093] dark:bg-[#5ECAE0] text-white";
                   } else if (colorChoice.value === "29BF12") {
                     return "bg-[#29BF12] dark:bg-[#3DD421] text-white";
                   } else {

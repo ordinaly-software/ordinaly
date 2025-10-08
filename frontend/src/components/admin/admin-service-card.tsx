@@ -115,10 +115,10 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => onEdit(service)}
-              style={{ color: '#46B1C9' }}
+              style={{ color: '#217093' }}
               className="hover:bg-opacity-10 w-full"
               onMouseEnter={e => {
-                e.currentTarget.style.backgroundColor = '#46B1C9' + '10';
+                e.currentTarget.style.backgroundColor = '#217093' + '10';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.backgroundColor = '';
@@ -205,10 +205,10 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onEdit(service)}
-                  style={{ color: '#46B1C9' }}
+                  style={{ color: '#217093' }}
                   className="hover:bg-opacity-10"
                   onMouseEnter={e => {
-                    e.currentTarget.style.backgroundColor = '#46B1C9' + '10';
+                    e.currentTarget.style.backgroundColor = '#217093' + '10';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.backgroundColor = '';

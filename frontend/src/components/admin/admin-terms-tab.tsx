@@ -428,7 +428,7 @@ const AdminTermsTab = () => {
                           variant="ghost"
                           size="icon"
                           onClick={() => handleEdit(term)}
-                          className="text-[#46B1C9] hover:bg-[#46B1C9] hover:bg-opacity-10"
+                          className="text-[#217093] hover:bg-[#217093] hover:bg-opacity-10"
                           title={t("edit")}
                         >
                           <Edit className="h-5 w-5 sm:h-4 sm:w-4" />
@@ -559,7 +559,7 @@ const AdminTermsTab = () => {
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-green-600 bg-green-50 px-2 py-1 rounded shadow-sm border border-green-200">{t("pdfAvailable")}</span>
                     )}
                     {formData.pdf_content && (
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded shadow-sm border border-blue-200">{formData.pdf_content.name}</span>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#174ea6] bg-[#174ea6]/10 px-2 py-1 rounded shadow-sm border border-[#174ea6]">{formData.pdf_content.name}</span>
                     )}
                   </div>
                 </div>
