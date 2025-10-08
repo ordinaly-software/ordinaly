@@ -214,4 +214,4 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
   );
 };
 
-export { ServiceShowcase };
+export default ServiceShowcase;
