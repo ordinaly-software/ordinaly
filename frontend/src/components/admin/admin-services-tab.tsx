@@ -76,7 +76,7 @@ const AdminServicesTab = () => {
   const COLOR_CHOICES = [
     { value: '1A1924', label: 'darkPurple', color: '#1A1924', darkModeColor: '#efefefbb' },
     { value: '623CEA', label: 'purple', color: '#623CEA', darkModeColor: '#8B5FF7' },
-    { value: '46B1C9', label: 'cyan', color: '#46B1C9', darkModeColor: '#5ECAE0' },
+  { value: '217093', label: 'cyan', color: '#217093', darkModeColor: '#5ECAE0' },
     { value: '29BF12', label: 'green', color: '#29BF12', darkModeColor: '#3DD421' },
     { value: 'E4572E', label: 'orange', color: '#E4572E' },
   ];

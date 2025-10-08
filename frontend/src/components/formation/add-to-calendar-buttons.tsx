@@ -95,30 +95,30 @@ export const AddToCalendarButtons = ({
     <div className="space-y-2">
       {/* .ics Button */}
       <Button
-        onClick={() => handleAddToCalendar("ics")}
-        variant="outline"
-        className="w-full border-blue-300 text-blue-700 bg-white hover:bg-blue-50 dark:border-blue-700 dark:text-blue-200 dark:bg-gray-900 dark:hover:bg-blue-900/30 h-12 text-base font-semibold transition-colors"
-        disabled={downloading || disabled}
+  onClick={() => handleAddToCalendar("ics")}
+  variant="outline"
+  className="w-full border-[#174ea6] text-[#174ea6] bg-white hover:bg-[#174ea6]/10 dark:border-[#174ea6] dark:text-[#174ea6] dark:bg-gray-900 dark:hover:bg-[#174ea6]/30 h-12 text-base font-semibold transition-colors"
+  disabled={downloading || disabled}
       >
         <CalendarPlus className="w-5 h-5 mr-2" />
         {downloading ? t("downloadingCalendar") || "Downloading..." : t("addToCalendarICS") || "Add to Calendar (.ics)"}
       </Button>
       {/* Google Calendar Button */}
       <Button
-        onClick={() => handleAddToCalendar("google")}
-        variant="outline"
-        className="w-full border-blue-400 bg-blue-100 text-blue-800 hover:bg-blue-200 dark:border-blue-600 dark:text-blue-100 dark:bg-blue-900/40 dark:hover:bg-blue-900/60 h-12 text-base font-bold shadow-md transition-colors"
-        disabled={downloading || disabled}
+  onClick={() => handleAddToCalendar("google")}
+  variant="outline"
+  className="w-full border-[#174ea6] bg-[#174ea6]/10 text-[#174ea6] hover:bg-[#174ea6]/20 dark:border-[#174ea6] dark:text-[#174ea6] dark:bg-[#174ea6]/40 dark:hover:bg-[#174ea6]/60 h-12 text-base font-bold shadow-md transition-colors"
+  disabled={downloading || disabled}
       >
         <GoogleIcon />
         {downloading ? t("downloadingCalendar") || "Downloading..." : t("addToGoogleCalendar") || "Add to Google Calendar"}
       </Button>
       {/* Outlook Calendar Button */}
       <Button
-        onClick={() => handleAddToCalendar("outlook")}
-        variant="outline"
-        className="w-full border-blue-300 text-blue-700 bg-white hover:bg-blue-50 dark:border-blue-700 dark:text-blue-200 dark:bg-gray-900 dark:hover:bg-blue-900/30 h-12 text-base font-semibold transition-colors"
-        disabled={downloading || disabled}
+  onClick={() => handleAddToCalendar("outlook")}
+  variant="outline"
+  className="w-full border-[#174ea6] text-[#174ea6] bg-white hover:bg-[#174ea6]/10 dark:border-[#174ea6] dark:text-[#174ea6] dark:bg-gray-900 dark:hover:bg-[#174ea6]/30 h-12 text-base font-semibold transition-colors"
+  disabled={downloading || disabled}
       >
         <OutlookIcon />
         {downloading ? t("downloadingCalendar") || "Downloading..." : t("addToOutlookCalendar") || "Add to Outlook Calendar"}

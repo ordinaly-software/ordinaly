@@ -4,7 +4,7 @@ import { Inter } from "next/font/google"
 import "../globals.css"
 import {notFound} from 'next/navigation';
 import {Locale, routing} from '@/i18n/routing';
-import Navbar from '@/components/ui/navbar';
+import NavbarWrapper from '@/components/ui/navbar-wrapper';
 import CookieConsent from '@/components/ui/cookies';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { ThemeProvider } from '@/contexts/theme-context';
@@ -125,19 +125,15 @@ export default async function RootLayout({ children, params } :
         {/* Open Graph & Twitter Card for link previews */}
         <meta property="og:title" content="Ordinaly - Automatiza tu negocio con IA" />
         <meta property="og:description" content="Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y más para liderar la innovación en España y Europa." />
-        <meta property="og:image" content="https://ordinaly.netlify.app/og-image.jpg" />
-        <meta property="og:url" content="https://ordinaly.netlify.app/" />
+        <meta property="og:image" content="https://ordinaly.ai/og-image.jpg" />
+        <meta property="og:url" content="https://ordinaly.ai/" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Ordinaly - Automatiza tu negocio con IA" />
         <meta name="twitter:description" content="Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y más para liderar la innovación en España y Europa." />
-        <meta name="twitter:image" content="https://ordinaly.netlify.app/og-image.jpg" />
+        <meta name="twitter:image" content="https://ordinaly.ai/og-image.jpg" />
         {/* DNS prefetch and preconnect for critical domains */}
         <link rel="dns-prefetch" href="//wa.me" />
         <link rel="preconnect" href="https://ordinaly.duckdns.org" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://sessions.bugsnag.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://cdn.segment.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://app.netlify.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://wcag.dock.codes" crossOrigin="anonymous" />
         
         {/* Theme initialization script to prevent flash */}
         <script
@@ -165,11 +161,11 @@ export default async function RootLayout({ children, params } :
         />
         
         
-        {/* Only preload logo as it's used on all pages in navbar */}
-        <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
-        
-        
-        {/* PWA meta tags */}
+  {/* Preload only the logo and hero image for home */}
+  <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
+  <link rel="preload" href="/static/main_home_ilustration.webp" as="image" type="image/webp" />
+
+  {/* PWA meta tags */}
         <meta name="application-name" content="Ordinaly" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -221,19 +217,21 @@ export default async function RootLayout({ children, params } :
           }}
         />
         
-        {/* Accessibility Integration - moved to be conditional */}
+        {/* Accessibility Integration - defer to after window load */}
         {process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN && (
           <script
             dangerouslySetInnerHTML={{
               __html: `
-          (function (d, s, t) { 
-            var f = d.getElementsByTagName(s)[0], 
-                j = d.createElement(s), 
-                a = new Date().getTime(); 
-            j.async = true; 
-            j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
-            f.parentNode.insertBefore(j, f); 
-          })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
+                window.addEventListener('load', function() {
+                  (function (d, s, t) { 
+                    var f = d.getElementsByTagName(s)[0], 
+                        j = d.createElement(s), 
+                        a = new Date().getTime(); 
+                    j.async = true; 
+                    j.src = 'https://wcag.dock.codes/accessibility/' + t + '/start.js?t=' + a; 
+                    f.parentNode.insertBefore(j, f); 
+                  })(document, 'script', '${process.env.NEXT_PUBLIC_WCAG_ACCESSIBILITY_TOKEN}');
+                });
               `,
             }}
           />
@@ -280,12 +278,12 @@ export default async function RootLayout({ children, params } :
             {/* Skip to main content for accessibility */}
             <a
               href="#main-content"
-              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#22A60D] text-black px-4 py-2 rounded-md z-50"
+              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#217093] text-white px-4 py-2 rounded-md z-50"
             >
               Saltar / Skip
             </a>
 
-            <Navbar />
+            <NavbarWrapper />
 
             <div id="main-content">{children}</div>
 

@@ -143,7 +143,7 @@ const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnd
         ) : (
           <div className="hidden lg:block">
             {shouldShowAuth ? (
-              <Button onClick={onAuthRequired} className="w-full" style={{ backgroundColor: '#46B1C9', color: '#fff' }}>{t('signInToEnroll')}</Button>
+              <Button onClick={onAuthRequired} className="w-full" style={{ backgroundColor: '#217093', color: '#fff' }}>{t('signInToEnroll')}</Button>
             ) : canEnroll ? (
               <Button onClick={onEnroll} className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"><GraduationCap className="w-5 h-5 mr-2" />{t('enrollNow')}</Button>
             ) : null}

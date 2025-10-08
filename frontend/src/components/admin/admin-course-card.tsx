@@ -175,10 +175,10 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onEdit(course)}
-                  style={{ color: '#46B1C9' }}
+                  style={{ color: '#217093' }}
                   className="hover:bg-opacity-10 w-full"
                   onMouseEnter={e => {
-                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#46B1C9' + '10';
+                    (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#217093' + '10';
                   }}
                   onMouseLeave={e => {
                     (e.currentTarget as HTMLButtonElement).style.backgroundColor = '';
@@ -292,10 +292,10 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                       variant="ghost"
                       size="sm"
                       onClick={() => onEdit(course)}
-                      style={{ color: '#46B1C9' }}
+                      style={{ color: '#217093' }}
                       className="hover:bg-opacity-10"
                       onMouseEnter={e => {
-                        (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#46B1C9' + '10';
+                        (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#217093' + '10';
                       }}
                       onMouseLeave={e => {
                         (e.currentTarget as HTMLButtonElement).style.backgroundColor = '';

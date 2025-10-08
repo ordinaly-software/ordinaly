@@ -223,6 +223,7 @@ export default function HomePage() {
                     loading="lazy"
                     placeholder="blur"
                     blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+                    sizes="(max-width: 768px) 100vw, 300px"
                   />
                 </a>
               </div>
@@ -288,7 +289,8 @@ export default function HomePage() {
               className="h-14 w-auto mb-2 dark:invert"
               loading="lazy"
               placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
+              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+              sizes="80px" />
               <div className="text-lg font-semibold text-[#22A60D] dark:text-[#7CFC00] mb-1">{t("technologies.odoo.title")}</div>
               <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.odoo.description")}</div>
             </div>
@@ -301,7 +303,8 @@ export default function HomePage() {
               style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
+              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+              sizes="80px" />
               <div className="text-lg font-semibold text-[#46B1C9] dark:text-[#00E5FF] mb-1">{t("technologies.whatsapp.title")}</div>
               <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.whatsapp.description")}</div>
             </div>
@@ -314,7 +317,8 @@ export default function HomePage() {
               style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
+              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+              sizes="80px" />
               <div className="text-lg font-semibold text-[#623CEA] dark:text-[#B388FF] mb-1">{t("technologies.chatgpt.title")}</div>
               <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.chatgpt.description")}</div>
             </div>
@@ -327,7 +331,8 @@ export default function HomePage() {
               style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
+              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+              sizes="80px" />
               <div className="text-lg font-semibold text-[#00BFAE] dark:text-[#1DE9B6] mb-1">{t("technologies.gemini.title")}</div>
               <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.gemini.description")}</div>
             </div>
@@ -340,8 +345,9 @@ export default function HomePage() {
               style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
-              <div className="text-lg font-semibold text-[#4285F4] dark:text-[#82B1FF] mb-1">{t("technologies.looker.title")}</div>
+              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+              sizes="80px" />
+              <div className="text-lg font-semibold text-[#174ea6] dark:text-[#174ea6] mb-1">{t("technologies.looker.title")}</div>
               <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.looker.description")}</div>
             </div>
             <div className="text-center p-6 bg-[#4285F4]/10 dark:bg-[#1a2a4d] rounded-2xl flex flex-col items-center">
@@ -353,8 +359,9 @@ export default function HomePage() {
               style={{ height: '2.5rem', width: 'auto' }}
               loading="lazy"
               placeholder="blur"
-              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA=" />
-              <div className="text-lg font-semibold text-[#4285F4] dark:text-[#82B1FF] mb-1">{t("technologies.meta.title")}</div>
+              blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
+              sizes="80px" />
+              <div className="text-lg font-semibold text-[#174ea6] dark:text-[#174ea6] mb-1">{t("technologies.meta.title")}</div>
               <div className="text-gray-800 dark:text-gray-200 text-sm">{t("technologies.meta.description")}</div>
             </div>
             </div>
