@@ -12,7 +12,7 @@ import { useServices } from "@/hooks/useServices";
 import Link from "next/link";
 import type { Service } from "@/hooks/useServices";
 
-const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.ServiceShowcase), { ssr: false, loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div> });
+const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.default), { ssr: false, loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div> });
 const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false, loading: () => null });
 
 // Use next/dynamic for all heavy/below-the-fold components
