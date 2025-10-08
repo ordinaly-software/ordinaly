@@ -13,14 +13,14 @@ export interface ServiceShowcaseProps {
   refetch: () => void;
   onServiceClick: (service: Service) => void;
 }
+import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import ErrorCard from "@/components/ui/error-card";
+import Link from "next/link";
+import { renderIcon } from "@/components/ui/icon-select";
+import { truncateText } from "@/utils/text";
+
 const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
-  // Import UI components and icons only when component is rendered
-  const { Card, CardHeader, CardTitle, CardDescription } = require("@/components/ui/card");
-  const { Button } = require("@/components/ui/button");
-  const ErrorCard = require("@/components/ui/error-card").default;
-  const Link = require("next/link").default;
-  const { renderIcon } = require("@/components/ui/icon-select");
-  const { truncateText } = require("@/utils/text");
   // Helper for color
   const getServiceColor = (service: Service) => {
     const isDarkMode = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
