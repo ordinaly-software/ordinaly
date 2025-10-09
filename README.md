@@ -25,10 +25,10 @@
 - [Visión general](#visión-general)
 - [Estructura del proyecto](#estructura-del-proyecto)
   - [Índice del proyecto](#índice-del-proyecto)
+- [Características principales](#características-principales)
 - [Primeros pasos](#primeros-pasos)
   - [Requisitos previos](#requisitos-previos)
   - [Instalación y ejecución](#instalación-y-ejecución)
-- [Características principales](#características-principales)
 - [Dependencias principales](#dependencias-principales)
   - [Backend (Django)](#backend-django)
   - [Frontend (Next.js)](#frontend-nextjs)
@@ -179,6 +179,21 @@ ordinaly/
 </details>
 
 ---
+
+
+## Características principales
+
+- **Backend Django REST:** API robusta para cursos, usuarios, servicios y términos legales.
+- **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones.
+- **Internacionalización (i18n):** Traducciones completas (es, en, ca, eu, gl) usando next-intl.
+- **Gestión de cursos:** Horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook).
+- **Panel de administración:** Gestión avanzada de usuarios, cursos, servicios y términos.
+- **Integración con WhatsApp y Odoo:** Automatización de ventas y flujos empresariales.
+- **Accesibilidad y SEO:** Buenas prácticas, sitemap, robots.txt, imágenes optimizadas.
+
+
+---
+
 ##  Primeros pasos
 
 ###  Requisitos previos
@@ -233,27 +248,6 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
 
 ---
 
-## Características principales
-
-- **Backend Django REST:** API robusta para cursos, usuarios, servicios y términos legales.
-- **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones.
-- **Internacionalización (i18n):** Traducciones completas (es, en, ca, eu, gl) usando next-intl.
-- **Gestión de cursos:** Horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook).
-- **Panel de administración:** Gestión avanzada de usuarios, cursos, servicios y términos.
-- **Integración con WhatsApp y Odoo:** Automatización de ventas y flujos empresariales.
-- **Accesibilidad y SEO:** Buenas prácticas, sitemap, robots.txt, imágenes optimizadas.
-
-
-
-<!-- ---
-##  Project Roadmap
-
-- [X] **`Task 1`**: <strike>Implement feature one.</strike>
-- [ ] **`Task 2`**: Implement feature two.
-- [ ] **`Task 3`**: Implement feature three.
-
---- -->
-
 
 
 ##  Dependencias principales
@@ -295,24 +289,25 @@ coverage report -m
 
 1. **Haz un fork del repositorio**: Comienza haciendo un fork del repositorio del proyecto a tu cuenta de LOCAL.
 2. **Clona localmente**: Clona el repositorio forkeado en tu máquina local usando un cliente de git.
-   ```sh
-   git clone /home/amacias/Developer/ordinaly
-   ```
+    ```sh
+    git clone /home/tu_usuario/Developer/ordinaly
+    ```
 3. **Crea una nueva rama**: Trabaja siempre en una nueva rama, dándole un nombre descriptivo.
-   ```sh
-   git checkout -b nueva-caracteristica-x
-   ```
+    ```sh
+    git checkout -b nueva-caracteristica-x
+    ```
 4. **Realiza tus cambios**: Desarrolla y prueba tus cambios localmente.
-5. **Confirma tus cambios**: Realiza el commit con un mensaje claro que describa tus actualizaciones.
-   ```sh
-   git commit -m 'Implementada la nueva característica x.'
-   ```
-6. **Envía a LOCAL**: Envía los cambios a tu repositorio forkeado.
-   ```sh
-   git push origin nueva-caracteristica-x
-   ```
-7. **Envía una solicitud de extracción**: Crea una PR contra el repositorio del proyecto original. Describe claramente los cambios y sus motivaciones.
-8. **Revisión**: Una vez que tu PR sea revisada y aprobada, se fusionará en la rama principal. ¡Felicidades por tu contribución!
+5. **Comprueba la build del frontend**: Antes de hacer commit, ejecuta `npm run build` en la carpeta `frontend` para asegurarte de que no hay errores de compilación.
+6. **Confirma tus cambios**: Realiza el commit con un mensaje claro que describa tus actualizaciones.
+    ```sh
+    git commit -m 'Implementada la nueva característica x.'
+    ```
+7. **Envía a LOCAL**: Envía los cambios a tu repositorio forkeado.
+    ```sh
+    git push origin nueva-caracteristica-x
+    ```
+8. **Envía una solicitud de extracción**: Crea una PR contra el repositorio del proyecto original. Describe claramente los cambios y sus motivaciones.
+9. **Revisión**: Una vez que tu PR sea revisada y aprobada, se fusionará en la rama principal. ¡Felicidades por tu contribución!
 </details>
 
 <!-- <details closed>
