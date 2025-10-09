@@ -115,31 +115,64 @@ export async function generateCoursesCatalogPDF(
     }
   };
 
+  // Helper to ensure image is in JPEG base64 (jsPDF prefers JPEG/PNG).
+  const loadImageAsJpegBase64 = async (imagePath: string): Promise<string> => {
+    try {
+      const dataUrl = await loadImageAsBase64(imagePath);
+      // Convert to JPEG via canvas to maximize compatibility
+      return await new Promise((resolve, reject) => {
+        const img = new Image();
+        img.crossOrigin = 'Anonymous';
+        img.onload = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return reject(new Error('Canvas context unavailable'));
+            ctx.drawImage(img, 0, 0);
+            const jpeg = canvas.toDataURL('image/jpeg', 0.9);
+            resolve(jpeg);
+          } catch (e) {
+            reject(e);
+          }
+        };
+        img.onerror = reject;
+        img.src = dataUrl;
+      });
+    } catch (e) {
+      throw new Error('Failed to load/convert image');
+    }
+  };
+
   // Helper function to load and add logo
   const addLogo = async () => {
     try {
       // Try to load the actual logo image
-      const logoBase64 = await loadImageAsBase64('/logo.webp');
-      
-      pdf.addImage(logoBase64, 'WEBP', margin, currentY, 40, 40);
-      
-      // Company name next to logo
+      const logoBase64 = await loadImageAsBase64('/maskable-icon.png');
+    
+      // Smaller logo for a tighter header
+      const logoSize = 28; // was 40
+      pdf.addImage(logoBase64, 'PNG', margin, currentY, logoSize, logoSize);
+    
+      // Company name next to logo (offset by logoSize + gap)
+      const textOffsetX = margin + logoSize + 10;
       pdf.setFontSize(28);
       pdf.setTextColor('#22A60D');
       pdf.setFont('helvetica', 'bold');
-      pdf.text('ORDINALY', margin + 50, currentY + 15);
-      
+      pdf.text('ORDINALY', textOffsetX, currentY + 12);
+    
       pdf.setFontSize(14);
       pdf.setTextColor('#666666');
       pdf.setFont('helvetica', 'normal');
-  const slogan = t('slogan');
-    pdf.text(slogan, margin + 50, currentY + 25);
-      
+      const slogan = t('slogan');
+      pdf.text(slogan, textOffsetX, currentY + 22);
+    
       pdf.setDrawColor('#22A60D');
       pdf.setLineWidth(0.8);
-      pdf.line(margin, currentY + 35, margin + 140, currentY + 35);
-      
-      currentY += 45;
+      pdf.line(margin, currentY + 30, margin + 140, currentY + 30);
+    
+      currentY += 36;
     } catch {
       // Fallback to text-only logo
       pdf.setFontSize(28);
@@ -160,23 +193,23 @@ export async function generateCoursesCatalogPDF(
     }
   };
 
-  await addLogo();
+    await addLogo();
   
-  // Main title
-  pdf.setFontSize(28);
-  pdf.setTextColor('#000000');
-  pdf.setFont('helvetica', 'bold');
-  const mainTitle = t('title');
-  pdf.text(mainTitle, pageWidth / 2, currentY + 20, { align: 'center' });
-  
-  // Subtitle
-  pdf.setFontSize(16);
-  pdf.setTextColor(secondaryColor);
-  pdf.setFont('helvetica', 'normal');
-  const subtitle = t('subtitle');
-  const subtitleLines = wrapText(subtitle, contentWidth, 16);
-  let subtitleY = currentY + 35;
-  subtitleLines.forEach((line: string) => {
+    // Main title
+    pdf.setFontSize(28);
+    pdf.setTextColor('#000000');
+    pdf.setFont('helvetica', 'bold');
+    const mainTitle = t('title');
+    pdf.text(mainTitle, pageWidth / 2, currentY + 20, { align: 'center' });
+    
+    // Subtitle
+    pdf.setFontSize(16);
+    pdf.setTextColor(secondaryColor);
+    pdf.setFont('helvetica', 'normal');
+    const subtitle = t('subtitle');
+    const subtitleLines = wrapText(subtitle, contentWidth, 16);
+    let subtitleY = currentY + 35;
+    subtitleLines.forEach((line: string) => {
     pdf.text(line, pageWidth / 2, subtitleY, { align: 'center' });
     subtitleY += 8;
   });
@@ -254,17 +287,33 @@ export async function generateCoursesCatalogPDF(
     pdf.setFont('helvetica', 'bold');
     currentY += 15;
 
-    upcomingCourses.forEach((course) => {
+    // Use for..of so we can await image loading per course
+    for (const course of upcomingCourses) {
       // Dynamic height calculation for each course block
       const descLines = wrapText(course.description, contentWidth - 20, 10);
       const descLineCount = Math.min(descLines.length, 3);
+
+      // Attempt to load course image (convert to JPEG for jsPDF). Non-blocking on failure.
+      let courseImageBase64: string | null = null;
+      try {
+        if (course.image) {
+          courseImageBase64 = await loadImageAsJpegBase64(course.image);
+        }
+      } catch (e) {
+        courseImageBase64 = null;
+      }
+
+      const imageWidth = courseImageBase64 ? 36 : 0; // mm
+      const imageHeight = courseImageBase64 ? 26 : 0; // mm
+
       // Calculate Y positions for all elements
       let y = currentY + 12; // title
       if (course.subtitle) y += 10; // subtitle
       y += descLineCount * 5; // description
       y += 5; // space before details
       y += 16; // details block (3 lines, 8px apart)
-      const blockHeight = y - currentY + 20;
+      // Ensure there's room for image if present
+      const blockHeight = Math.max(y - currentY + 20, imageHeight + 20);
       checkPageBreak(blockHeight);
 
       // Course background (now fits content)
@@ -275,7 +324,7 @@ export async function generateCoursesCatalogPDF(
       pdf.setFontSize(16);
       pdf.setTextColor(primaryColor);
       pdf.setFont('helvetica', 'bold');
-      pdf.text(wrapText(course.title, contentWidth - 10, 16)[0], margin + 5, currentY + 12, { maxWidth: contentWidth - 10 });
+      pdf.text(wrapText(course.title, contentWidth - imageWidth - 15, 16)[0], margin + 5, currentY + 12, { maxWidth: contentWidth - imageWidth - 15 });
 
       // Course subtitle
       let subtitleY = currentY + 12;
@@ -284,7 +333,7 @@ export async function generateCoursesCatalogPDF(
         pdf.setFontSize(12);
         pdf.setTextColor(secondaryColor);
         pdf.setFont('helvetica', 'italic');
-        pdf.text(wrapText(course.subtitle, contentWidth - 10, 12)[0], margin + 5, subtitleY, { maxWidth: contentWidth - 10 });
+        pdf.text(wrapText(course.subtitle, contentWidth - imageWidth - 15, 12)[0], margin + 5, subtitleY, { maxWidth: contentWidth - imageWidth - 15 });
       }
 
       // Course description
@@ -293,7 +342,7 @@ export async function generateCoursesCatalogPDF(
       pdf.setFont('helvetica', 'normal');
       let descY = currentY + (course.subtitle ? 32 : 25);
       descLines.slice(0, 3).forEach((line: string) => {
-        pdf.text(line, margin + 5, descY, { maxWidth: contentWidth - 20 });
+        pdf.text(line, margin + 5, descY, { maxWidth: contentWidth - imageWidth - 20 });
         descY += 5;
       });
 
@@ -304,36 +353,64 @@ export async function generateCoursesCatalogPDF(
       pdf.setTextColor('#000000');
 
       // Date and time (show fallback if missing)
-  const dateLabel = t('date');
+      const dateLabel = t('date');
       const dateText = course.start_date && course.start_date !== "0000-00-00"
         ? formatDate(course.start_date)
-  : t('noSpecificDate');
+        : t('noSpecificDate');
       pdf.text(`${dateLabel}: ${dateText}`, margin + 5, detailsY);
 
-  const timeLabel = t('time');
+      const timeLabel = t('time');
       const timeText = (course.start_time && course.end_time)
         ? `${formatTime(course.start_time)} - ${formatTime(course.end_time)}`
-  : t('noSpecificTime');
+        : t('noSpecificTime');
       pdf.text(`${timeLabel} ${timeText}`, margin + 5, detailsY + 8);
 
       // Location
-  const locationLabel = t('location');
-  const locationText = (course.location && course.location !== "null" && course.location !== "")
-    ? course.location
-    : t('locationSoon');
-  pdf.text(`${locationLabel}: ${locationText}`, margin + 5, detailsY + 16);
+      const locationLabel = t('location');
+      const locationText = (course.location && course.location !== "null" && course.location !== "")
+        ? course.location
+        : t('locationSoon');
+      pdf.text(`${locationLabel}: ${locationText}`, margin + 5, detailsY + 16);
 
       // Price and capacity
-  const priceLabel = t('price');
-  const price = course.price ? `€ ${course.price}` : t('free');
+      const priceLabel = t('price');
+      const price = course.price ? `€ ${course.price}` : t('free');
       pdf.text(`${priceLabel}: ${price}`, margin + 100, detailsY);
 
-  const capacityLabel = t('capacity');
-  const peopleLabel = t('people');
+      const capacityLabel = t('capacity');
+      const peopleLabel = t('people');
       pdf.text(`${capacityLabel} ${course.max_attendants} ${peopleLabel}`, margin + 100, detailsY + 8);
 
+      // Course image on the right (if available)
+      if (courseImageBase64) {
+        try {
+          const imgX = margin + contentWidth - imageWidth - 5;
+          const imgY = currentY + 8;
+          pdf.addImage(courseImageBase64, 'JPEG', imgX, imgY, imageWidth, imageHeight);
+        } catch (e) {
+          // ignore image draw failures
+        }
+      }
+
+      // Course link (clickable)
+      try {
+        const origin = (typeof window !== 'undefined' && window.location && window.location.origin) ? window.location.origin : '';
+        const courseSlug = course.slug || '';
+        const courseUrl = `${origin}/formation/${courseSlug}`;
+        pdf.setFontSize(10);
+        pdf.setTextColor(primaryColor);
+        pdf.setFont('helvetica', 'normal');
+        const linkY = detailsY + 24;
+        pdf.text(courseUrl, margin + 5, linkY);
+        const linkWidth = (pdf as any).getTextWidth ? (pdf as any).getTextWidth(courseUrl) : courseUrl.length * 2.8;
+        // add clickable link area over the text
+        pdf.link(margin + 5, linkY - 4, linkWidth, 6, { url: courseUrl });
+      } catch (e) {
+        // ignore link failures
+      }
+
       currentY += blockHeight;
-    });
+    }
   }
 
   currentY += 20;

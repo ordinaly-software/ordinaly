@@ -162,7 +162,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                 <CheckoutButton
                   courseId={selectedCourse.id}
                   label={enrolled ? t("enrollment.enrolled") : t("enrollment.confirmEnroll")}
-                  className="w-full sm:w-auto bg-[#22A60D] hover:bg-[#1C8C0B] text-white px-6 h-10 flex items-center gap-2 rounded-2xl"
+                  className="w-full sm:w-auto bg-[#22A60D] hover:bg-[#1C8C0B] text-white px-6 h-10 flex items-center justify-center gap-2 rounded-2xl"
                   onSuccess={handleEnrollSuccess}
                   disabled={enrolled}
                 />
