@@ -140,7 +140,7 @@ export async function generateCoursesCatalogPDF(
         img.onerror = reject;
         img.src = dataUrl;
       });
-    } catch (e) {
+    } catch {
       throw new Error('Failed to load/convert image');
     }
   };
@@ -299,7 +299,7 @@ export async function generateCoursesCatalogPDF(
         if (course.image) {
           courseImageBase64 = await loadImageAsJpegBase64(course.image);
         }
-      } catch (e) {
+      } catch {
         courseImageBase64 = null;
       }
 
@@ -387,7 +387,7 @@ export async function generateCoursesCatalogPDF(
           const imgX = margin + contentWidth - imageWidth - 5;
           const imgY = currentY + 8;
           pdf.addImage(courseImageBase64, 'JPEG', imgX, imgY, imageWidth, imageHeight);
-        } catch (e) {
+        } catch {
           // ignore image draw failures
         }
       }
@@ -402,10 +402,12 @@ export async function generateCoursesCatalogPDF(
         pdf.setFont('helvetica', 'normal');
         const linkY = detailsY + 24;
         pdf.text(courseUrl, margin + 5, linkY);
-        const linkWidth = (pdf as any).getTextWidth ? (pdf as any).getTextWidth(courseUrl) : courseUrl.length * 2.8;
+        // Extend jsPDF type to include getTextWidth
+        const getTextWidth = (pdf as jsPDF & { getTextWidth?: (text: string) => number }).getTextWidth;
+        const linkWidth = getTextWidth ? getTextWidth.call(pdf, courseUrl) : courseUrl.length * 2.8;
         // add clickable link area over the text
         pdf.link(margin + 5, linkY - 4, linkWidth, 6, { url: courseUrl });
-      } catch (e) {
+      } catch {
         // ignore link failures
       }
 
