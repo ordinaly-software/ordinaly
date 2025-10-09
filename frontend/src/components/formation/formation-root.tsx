@@ -67,6 +67,20 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
+      // Handle Stripe payment return
+      const paymentStatus = url.searchParams.get('payment');
+      if (paymentStatus === 'success') {
+        setAlert({ type: 'success', message: t('enrollment.successMessage') });
+        fetchEnrollments();
+        // Remove the query param from the URL
+        url.searchParams.delete('payment');
+        window.history.replaceState({}, document.title, url.pathname + url.search);
+      } else if (paymentStatus === 'cancel') {
+        setAlert({ type: 'error', message: t('enrollment.cancelledMessage') || 'El pago fue cancelado.' });
+        url.searchParams.delete('payment');
+        window.history.replaceState({}, document.title, url.pathname + url.search);
+      }
+      // Retain old logic for enrolled param (for free courses)
       const enrolledParam = url.searchParams.get('enrolled');
       if (enrolledParam === '1') {
         setShowSuccessModal(true);
@@ -74,7 +88,7 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
         window.history.replaceState({}, document.title, url.pathname + url.search);
       }
     }
-  }, []);
+  }, [t]);
 
   const fetchCourses = useCallback(async () => {
     try {

@@ -209,12 +209,17 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
           <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
             {courses.map((course) => {
               const availabilityBadge = getAvailabilityBadge(course);
+              const isInProgress = availabilityBadge.text === t('inProgress', { defaultValue: 'In Progress' }) && availabilityBadge.variant === 'default';
               // Removed isUserEnrolled logic for homepage
               
               return (
                 <Card 
                   key={course.id} 
-                  className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl cursor-pointer group w-full"
+                  className={
+                    `bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl cursor-pointer group w-full ` +
+                    (isInProgress ? 'ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[1.025] z-10' : '')
+                  }
+                  style={isInProgress ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 32px 0 #FFB80044' } : {}}
                   onClick={() => handleCourseClick(course)}
                 >
                   <CardHeader className="pb-4">

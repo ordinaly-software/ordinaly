@@ -128,7 +128,7 @@ const LegalPage = () => {
             <object
               data={document.pdf_content}
               type="application/pdf"
-              className="w-full h-64 sm:h-96 border rounded-lg shadow"
+              className="w-full h-80 sm:h-[40rem] md:h-[48rem] border rounded-lg shadow"
             >
               <p>{t('messages.noPdfAvailable')}</p>
             </object>

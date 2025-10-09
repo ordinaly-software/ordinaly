@@ -269,8 +269,33 @@ const CourseDetailsModal = ({
             
               {/* Share buttons for mobile footer */}
               <div className="mt-3 lg:hidden">
-              <ShareCourseButtons title={course.title} subtitle={course.subtitle} slug={course.slug} />
+                <ShareCourseButtons title={course.title} subtitle={course.subtitle} slug={course.slug} />
               </div>
+
+              {/* Next Occurrences */}
+              {course.next_occurrences && course.next_occurrences.length > 0 && (
+                <div>
+                  <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                    <Star className="w-5 h-5 text-blue" />
+                    {t('upcomingSessions')}
+                  </h2>
+                  <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+                    <div className="space-y-2">
+                      {course.next_occurrences.slice(0, 5).map((occurrence, idx) => (
+                        <div key={idx} className="flex items-center gap-2 text-sm">
+                          <Calendar className="w-4 h-4 text-blue" />
+                          <span className="text-gray-700 dark:text-gray-300">{formatDate(occurrence)}</span>
+                        </div>
+                      ))}
+                      {course.next_occurrences.length > 5 && (
+                        <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                          {t('moreSessions', { count: course.next_occurrences.length - 5 })}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Description */}
               <div>
@@ -334,30 +359,7 @@ const CourseDetailsModal = ({
                 </div>
               </div>
 
-              {/* Next Occurrences */}
-              {course.next_occurrences && course.next_occurrences.length > 0 && (
-                <div>
-                  <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <Star className="w-5 h-5 text-blue" />
-                    {t('upcomingSessions')}
-                  </h2>
-                  <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
-                    <div className="space-y-2">
-                      {course.next_occurrences.slice(0, 5).map((occurrence, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm">
-                          <Calendar className="w-4 h-4 text-blue" />
-                          <span className="text-gray-700 dark:text-gray-300">{formatDate(occurrence)}</span>
-                        </div>
-                      ))}
-                      {course.next_occurrences.length > 5 && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                          {t('moreSessions', { count: course.next_occurrences.length - 5 })}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
+              <br />
             </div>
 
             <CourseSidebar
