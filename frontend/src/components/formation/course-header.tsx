@@ -51,7 +51,7 @@ const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
   const inProgress = !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
 
   return (
-    <div className="relative w-full min-h-[10rem] sm:min-h-[8rem] md:h-44 lg:h-52 bg-gray-200 overflow-hidden group">
+    <div className="relative w-full min-h-[10rem] md:h-44 lg:h-52 bg-gray-200 overflow-hidden group">
       {/* Blurred background */}
       <Image
         loader={imageLoader}
