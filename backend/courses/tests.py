@@ -1845,3 +1845,55 @@ class CourseViewActionsExtraTest(CourseImageCleanupTestMixin, APITestCase):
         resp = self.client.get(url)
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp['Content-Type'], 'text/calendar')
+
+
+class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
+
+    def setUp(self):
+        self.user = self.create_test_user(email='unenrolltest@example.com', username='unenrolltest')
+        self.client.force_authenticate(user=self.user)
+
+    def test_cannot_unenroll_within_24h(self):
+        from datetime import timedelta
+        now = timezone.now()
+        course = self.create_test_course(
+            start_date=now.date(),
+            start_time=(now + timedelta(hours=2)).time(),
+            end_date=now.date(),
+            end_time=(now + timedelta(hours=4)).time(),
+        )
+        self.create_test_enrollment(user=self.user, course=course)
+        url = reverse('course-unenroll', kwargs={'slug': course.slug})
+        resp = self.client.post(url)
+        self.assertEqual(resp.status_code, 400)
+        self.assertIn('24 horas', resp.data['detail'])
+
+    def test_cannot_unenroll_after_start(self):
+        from datetime import timedelta
+        now = timezone.now()
+        course = self.create_test_course(
+            start_date=now.date(),
+            start_time=(now - timedelta(hours=1)).time(),
+            end_date=now.date(),
+            end_time=(now + timedelta(hours=2)).time(),
+        )
+        self.create_test_enrollment(user=self.user, course=course)
+        url = reverse('course-unenroll', kwargs={'slug': course.slug})
+        resp = self.client.post(url)
+        self.assertEqual(resp.status_code, 400)
+        self.assertIn('comenzado', resp.data['detail'])
+
+    def test_cannot_unenroll_after_end(self):
+        from datetime import timedelta
+        now = timezone.now()
+        course = self.create_test_course(
+            start_date=(now - timedelta(days=2)).date(),
+            start_time=(now - timedelta(days=2)).time(),
+            end_date=(now - timedelta(days=1)).date(),
+            end_time=(now - timedelta(days=1)).time(),
+        )
+        self.create_test_enrollment(user=self.user, course=course)
+        url = reverse('course-unenroll', kwargs={'slug': course.slug})
+        resp = self.client.post(url)
+        self.assertEqual(resp.status_code, 400)
+        self.assertIn('finalizado', resp.data['detail'])

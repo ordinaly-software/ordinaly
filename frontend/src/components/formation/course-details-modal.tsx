@@ -238,10 +238,18 @@ const CourseDetailsModal = ({
     }
   };
 
-  // Handle null/empty dates
-  const hasNoDates = !course.start_date || !course.end_date;
-  const hasStarted = !hasNoDates && new Date(course.start_date) <= new Date();
-  const hasEnded = !hasNoDates && new Date(course.end_date) < new Date();
+  // Handle null/empty dates and use time for accuracy
+  const getDateTime = (dateStr: string, timeStr: string): Date | null => {
+    if (!dateStr || dateStr === "0000-00-00" || !timeStr) return null;
+    return new Date(`${dateStr}T${timeStr}`);
+  };
+  const hasNoDates = !course.start_date || !course.end_date || !course.start_time || !course.end_time;
+  const now = new Date();
+  const startDateTime = getDateTime(course.start_date, course.start_time);
+  const endDateTime = getDateTime(course.end_date, course.end_time);
+  const hasStarted = !hasNoDates && !!(startDateTime && startDateTime <= now);
+  const hasEnded = !hasNoDates && !!(endDateTime && endDateTime <= now);
+  const inProgress = !hasNoDates && !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
   const canEnroll = isAuthenticated && !isEnrolled && !hasStarted && !hasNoDates;
   const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
 

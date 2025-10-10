@@ -6,14 +6,10 @@ import { ModalCloseButton } from "../ui/modal-close-button";
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
+import type { Course } from '@/utils/pdf-generator';
+
 interface CourseHeaderProps {
-  course: {
-    image: string;
-    title: string;
-    subtitle?: string;
-    price?: number;
-    periodicity: string;
-  };
+  course: Course;
   isEnrolled: boolean;
   onClose: () => void;
 }
@@ -43,8 +39,19 @@ const getPeriodicityDisplay = (periodicity: string, t: (key: string, values?: Re
 const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
   const t = useTranslations('formation.courseDetails');
 
+  // Compute hasStarted/hasEnded (same logic as in formation-root)
+  const now = new Date();
+  const getDateTime = (dateStr: string, timeStr: string): Date | null => {
+    if (!dateStr || dateStr === "0000-00-00" || !timeStr) return null;
+    return new Date(`${dateStr}T${timeStr}`);
+  };
+  const startDateTime = getDateTime(course.start_date, course.start_time);
+  const endDateTime = getDateTime(course.end_date, course.end_time);
+  const hasEnded = !!(endDateTime && endDateTime <= now);
+  const inProgress = !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
+
   return (
-  <div className="relative w-full min-h-[10rem] sm:min-h-[14rem] md:h-64 lg:h-72 bg-gray-200 overflow-hidden group">
+    <div className="relative w-full min-h-[10rem] sm:min-h-[8rem] md:h-44 lg:h-52 bg-gray-200 overflow-hidden group">
       {/* Blurred background */}
       <Image
         loader={imageLoader}
@@ -66,7 +73,7 @@ const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
         priority
       />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
       <div className="absolute top-3 right-3 z-20">
         <ModalCloseButton onClick={onClose} variant="overlay" size="md" />
       </div>
@@ -81,6 +88,16 @@ const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue text-white">
             {getPeriodicityDisplay(course.periodicity, t)}
           </span>
+          {hasEnded && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-bold bg-gray-400 text-white">
+              {t('finished', { defaultValue: 'Course has finished' })}
+            </span>
+          )}
+          {!hasEnded && inProgress && (
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-bold bg-[#FFB800] text-white">
+              {t('inProgress', { defaultValue: 'In Progress' })}
+            </span>
+          )}
           {isEnrolled && (
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green text-white">
               <CheckCircle className="w-3 h-3 mr-1" />
@@ -88,10 +105,7 @@ const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
             </span>
           )}
         </div>
-  <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-1 leading-tight">{course.title}</h1>
-        {course.subtitle && (
-          <p className="hidden sm:block text-gray-100 text-base md:text-sm max-w-none leading-relaxed">{course.subtitle}</p>
-        )}
+        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-0 leading-tight">{course.title}</h1>
       </div>
     </div>
   );

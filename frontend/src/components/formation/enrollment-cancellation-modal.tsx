@@ -41,6 +41,7 @@ interface EnrollmentCancellationModalProps {
   onConfirm: () => void;
 }
 
+
 const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = ({
   isOpen,
   onClose,
@@ -50,9 +51,37 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
   const t = useTranslations("formation");
   const { requestRefund, loading } = useCourseRefund();
 
+  // Unenroll restriction logic (same as in CourseCard)
+  let disableUnenroll = false;
+  let unenrollRestrictionReason: string | null = null;
+  if (courseToCancel) {
+    const now = new Date();
+    const startDateTime = courseToCancel.start_date && courseToCancel.start_time
+      ? new Date(`${courseToCancel.start_date}T${courseToCancel.start_time}`)
+      : null;
+    const endDateTime = courseToCancel.end_date && courseToCancel.end_time
+      ? new Date(`${courseToCancel.end_date}T${courseToCancel.end_time}`)
+      : null;
+    if (startDateTime) {
+      const diffMs = startDateTime.getTime() - now.getTime();
+      const diffHours = diffMs / (1000 * 60 * 60);
+      if (diffHours <= 24 && diffHours > 0) {
+        disableUnenroll = true;
+        unenrollRestrictionReason = t('alerts.unenroll24hRestriction');
+      } else if (diffHours <= 0) {
+        disableUnenroll = true;
+        unenrollRestrictionReason = t('alerts.unenrollStartedRestriction');
+      }
+    }
+    if (endDateTime && endDateTime < now) {
+      disableUnenroll = true;
+      unenrollRestrictionReason = t('alerts.unenrollEndedRestriction');
+    }
+  }
+
   const handleRefund = () => {
-    if (courseToCancel) {
-  requestRefund(courseToCancel.slug ?? courseToCancel.id);
+    if (courseToCancel && !disableUnenroll) {
+      requestRefund(courseToCancel.slug ?? courseToCancel.id);
       onConfirm();
     }
   };
@@ -87,6 +116,11 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
                   <p className="text-sm text-red-700 dark:text-red-300">
                     {t("cancellation.warningMessage", { courseTitle: courseToCancel.title })}
                   </p>
+                  {disableUnenroll && unenrollRestrictionReason && (
+                    <div className="mt-2 text-sm font-semibold text-red-700 dark:text-red-300">
+                      {unenrollRestrictionReason}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -154,10 +188,13 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
               variant="destructive"
               className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-6 h-10 flex items-center gap-2"
               style={{ borderRadius: '1rem' }}
-              disabled={loading}
+              disabled={loading || disableUnenroll}
+              title={disableUnenroll && unenrollRestrictionReason ? unenrollRestrictionReason : undefined}
             >
               <UserX className="w-4 h-4" />
-              {loading ? t("cancellation.processing") : t("cancellation.confirmCancel")}
+              {disableUnenroll && unenrollRestrictionReason
+                ? unenrollRestrictionReason
+                : (loading ? t("cancellation.processing") : t("cancellation.confirmCancel"))}
             </Button>
           </div>
         </div>

@@ -91,14 +91,6 @@
         "generalDescription": "Recibe notificaciones sobre nuevos anuncios de cursos y oportunidades de inscripción temprana",
         "close": "Cerrar",
         "notify": "Notificarme"
-      },
-      "courseDetails": {
-        "share": {
-          "label": "Compartir",
-          "whatsapp": "WhatsApp",
-          "facebook": "Facebook",
-          "linkedin": "LinkedIn"
-        }
       }
     },
     "about": {
@@ -381,12 +373,6 @@
       "users": "Usuarios",
       "blog": "Blog"
     },
-    "stats": {
-      "totalServices": "Total de Servicios",
-      "totalCourses": "Total de Cursos",
-      "totalTerms": "Total de Términos",
-      "totalUsers": "Total de Usuarios"
-    },
     "users": {
       "userId": "ID de Usuario",
       "name": "Nombre",
@@ -404,6 +390,12 @@
       "openedMessage": "El CMS de edición de blog se ha abierto en otra pestaña. Si no lo ves, haz clic en el botón de abajo",
       "openButton": "Abrir CMS de Blog",
       "loginWarning": "Es posible que debas iniciar sesión en el CMS con una cuenta de administrador"
+    },
+    "stats": {
+      "totalServices": "Total de Servicios",
+      "totalCourses": "Total de Cursos",
+      "totalTerms": "Total de Términos",
+      "totalUsers": "Total de Usuarios"
     },
     "services": {
       "title": "Gestión de Servicios",
@@ -920,16 +912,17 @@
     "maxAttendeesCount": "Máximo {count} asistentes",
     "noSpecificDate": "Todavía no hay una fecha establecida",
     "locationSoon": "Ubicación próximamente",
+    "inProgress": "En curso",
     "filters": {
       "location": {
-        "all": "Todas las Ubicaciones",
+        "all": "Todas las ubicaciones",
         "online": "En línea",
         "onsite": "Presencial"
       },
       "price": {
-        "all": "Todos los Precios",
+        "all": "Todos los precios",
         "free": "Gratuito",
-        "paid": "De Pago"
+        "paid": "De pago"
       }
     },
     "noResults": {
@@ -971,7 +964,8 @@
       "cancel": "Cancelar",
       "submit": "Inscribirse al Curso",
       "successMessage": "¡Inscripción realizada con éxito!",
-      "enrolled": "Ya estás inscrito en este curso"
+      "enrolled": "Ya estás inscrito en este curso",
+      "cancelledMessage": "Tu inscripción ha sido cancelada"
     },
     "cancellation": {
       "title": "Inscripción Cancelada",
@@ -998,7 +992,10 @@
       "generatingCatalog": "Generando catálogo de cursos...",
       "catalogDownloaded": "¡Catálogo descargado exitosamente!",
       "catalogError": "Error al generar el catálogo. Por favor intenta de nuevo",
-      "invalidCourseIdentifier": "Identificador de curso no válido"
+      "invalidCourseIdentifier": "Identificador de curso no válido",
+      "unenroll24hRestriction": "No puedes cancelar la inscripción menos de 24 horas antes del inicio del curso.",
+      "unenrollStartedRestriction": "No puedes cancelar la inscripción después de que el curso ha comenzado.",
+      "unenrollEndedRestriction": "No puedes cancelar la inscripción después de que el curso ha finalizado."
     },
     "slogan": "Soluciones de Software y Formación",
     "introduction": "En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras",
@@ -1048,8 +1045,8 @@
       "cancelEnrollment": "Cancelar Inscripción",
       "courseHasStarted": "El curso ha comenzado",
       "courseStartedMessage": "Este curso ya ha comenzado y ya no acepta nuevas inscripciones",
-      "courseHasFinished": "El curso ha finalizado",
-      "courseFinishedMessage": "Este curso ya ha finalizado y ya no acepta nuevas inscripciones",
+      "courseHasFinished": "Las inscripciones están cerradas",
+      "courseFinishedMessage": "Este curso ya ha comenzado y ya no acepta nuevas inscripciones",
       "signInToEnroll": "Iniciar Sesión para Inscribirse",
       "enrollNow": "Inscribirse Ahora",
       "importantDates": "Fechas Importantes",
@@ -1061,6 +1058,7 @@
       "addToCalendarICS": "Añadir al calendario (.ics)",
       "addToGoogleCalendar": "Añadir a Google Calendar",
       "addToOutlookCalendar": "Añadir a Outlook Calendar",
+      "inProgress": "En curso",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",
