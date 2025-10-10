@@ -41,7 +41,6 @@ interface EnrollmentCancellationModalProps {
   onConfirm: () => void;
 }
 
-
 const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = ({
   isOpen,
   onClose,
