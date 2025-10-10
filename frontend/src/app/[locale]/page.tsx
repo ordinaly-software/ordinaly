@@ -271,8 +271,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Technologies Section */}
-  <section id="technologies" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#23272F]">
+      {/* Technologies Section
+      <section id="technologies" className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#23272F]">
         <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16 scroll-animate fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#E4572E] dark:text-[#FF7043]">{t("technologies.title")}</h2>
@@ -366,7 +366,7 @@ export default function HomePage() {
             </div>
             </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Process Section */}
       {/* <section id="process" className="py-20 px-4 sm:px-6 lg:px-8">

@@ -912,6 +912,7 @@
     "maxAttendeesCount": "Max {count} laguntzaileak",
     "noSpecificDate": "Ez dago data zehatzik",
     "locationSoon": "Kokalekua laster",
+    "inProgress": "Martxan",
     "filters": {
       "location": {
         "all": "Kokapen guztiak",
@@ -963,7 +964,8 @@
       "cancel": "Indargabetu",
       "submit": "Izena eman ikastaroan",
       "successMessage": "Izen-ematea arrakastaz burutu da!",
-      "enrolled": "Dagoeneko matrikulatuta zaude ikastaro honetan."
+      "enrolled": "Dagoeneko matrikulatuta zaude ikastaro honetan.",
+      "cancelledMessage": "Zure matrikula ikastaro honetan arrakastaz bertan behera utzi da."
     },
     "cancellation": {
       "title": "Utzi matrikula",
@@ -990,7 +992,10 @@
       "generatingCatalog": "Ikastaroen katalogoa sortzen ...",
       "catalogDownloaded": "Katalogoa behar bezala deskargatuta!",
       "catalogError": "Errorea katalogoa sortzean",
-      "invalidCourseIdentifier": "Ikastaroaren identifikatzaile baliogabea"
+      "invalidCourseIdentifier": "Ikastaroaren identifikatzaile baliogabea",
+      "unenroll24hRestriction": "Ez du matrikula bertan behera utzi dezakezu ikastaroaren hasieratik 24 ordu lehenago.",
+      "unenrollStartedRestriction": "Ez du matrikula bertan behera utzi dezakezu ikastaroa hasi ondoren.",
+      "unenrollEndedRestriction": "Ez du matrikula bertan behera utzi dezakezu ikastaroa amaitu ondoren."
     },
     "slogan": "Software eta Prestakuntza Irtenbideak",
     "introduction": "Ordinalyn, teknologia berrietan eta garapen profesionalean espezializatutako prestakuntza eskaintzen dugu.",
@@ -1040,8 +1045,8 @@
       "cancelEnrollment": "Utzi matrikula",
       "courseHasStarted": "Ikastaroa hasi da",
       "courseStartedMessage": "Ikastaro hau dagoeneko hasi da eta jada ez da matrikulazio berriak onartzen.",
-      "courseHasFinished": "Ikastaroa amaitu da",
-      "courseFinishedMessage": "Ikastaro hau amaitu da eta jada ez da matrikulazio berriak onartzen.",
+      "courseHasFinished": "Izen-emateak itxita daude",
+      "courseFinishedMessage": "Ikastaro hau dagoeneko amaitu da eta ez du matrikulazio berririk onartzen",
       "signInToEnroll": "Hasi saioa matrikulatzeko",
       "enrollNow": "Izena eman orain",
       "importantDates": "Data garrantzitsuak",
@@ -1053,6 +1058,7 @@
       "addToCalendarICS": "Gehitu egutegira (.ics)",
       "addToGoogleCalendar": "Gehitu Google Calendar",
       "addToOutlookCalendar": "Gehitu Outlook Calendar",
+      "inProgress": "Martxan",
       "periodicity": {
         "once": "Behin-behineko gertaera",
         "daily": "Eguneroko",

@@ -91,14 +91,6 @@
         "generalDescription": "Get notified about new course announcements and early registration opportunities.",
         "close": "Close",
         "notify": "Notify Me"
-      },
-      "courseDetails": {
-        "share": {
-          "label": "Share",
-          "whatsapp": "WhatsApp",
-          "facebook": "Facebook",
-          "linkedin": "LinkedIn"
-        }
       }
     },
     "about": {
@@ -920,9 +912,10 @@
     "maxAttendeesCount": "Max {count} attendants",
     "noSpecificDate": "No specific date has been set yet",
     "locationSoon": "Location coming soon",
+    "inProgress": "In progress",
     "filters": {
       "location": {
-        "all": "All Locations",
+        "all": "All locations",
         "online": "Online",
         "onsite": "On-site"
       },
@@ -971,7 +964,8 @@
       "cancel": "Cancel",
       "submit": "Enroll in Course",
       "successMessage": "Enrollment successful!",
-      "enrolled": "You are already enrolled in this course"
+      "enrolled": "You are already enrolled in this course",
+      "cancelledMessage": "Enrollment cancelled successfully"
     },
     "cancellation": {
       "title": "Enrollment cancelled",
@@ -998,7 +992,10 @@
       "generatingCatalog": "Generating course catalog...",
       "catalogDownloaded": "Catalog downloaded successfully!",
       "catalogError": "Error generating catalog. Please try again",
-      "invalidCourseIdentifier": "Invalid course identifier"
+      "invalidCourseIdentifier": "Invalid course identifier",
+      "unenroll24hRestriction": "You cannot unenroll less than 24 hours before the course starts.",
+      "unenrollStartedRestriction": "You cannot unenroll after the course has started.",
+      "unenrollEndedRestriction": "You cannot unenroll after the course has finished."
     },
     "slogan": "Software & Training Solutions",
     "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",
@@ -1048,8 +1045,8 @@
       "cancelEnrollment": "Cancel Enrollment",
       "courseHasStarted": "Course has started",
       "courseStartedMessage": "This course has already begun and is no longer accepting new enrollments.",
-      "courseHasFinished": "Course has finished",
-      "courseFinishedMessage": "This course has already finished and is no longer accepting new enrollments",
+      "courseHasFinished": "Inscription closed",
+      "courseFinishedMessage": "This course has already started and is no longer accepting new enrollments",
       "signInToEnroll": "Sign In to Enroll",
       "enrollNow": "Enroll Now",
       "importantDates": "Important Dates",
@@ -1061,6 +1058,7 @@
       "addToCalendarICS": "Add to calendar (.ics)",
       "addToGoogleCalendar": "Add to Google Calendar",
       "addToOutlookCalendar": "Add to Outlook Calendar",
+      "inProgress": "In Progress",
       "periodicity": {
         "once": "One-time event",
         "daily": "Daily",

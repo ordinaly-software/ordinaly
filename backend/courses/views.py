@@ -284,16 +284,54 @@ class CourseViewSet(viewsets.ModelViewSet):
         # Check if user is enrolled
         try:
             enrollment = Enrollment.objects.get(user=user, course=course)
-            enrollment.delete()
-            return Response(
-                {"detail": "Successfully unenrolled from the course."},
-                status=status.HTTP_200_OK
-            )
         except Enrollment.DoesNotExist:
             return Response(
                 {"detail": "You are not enrolled in this course."},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
+        # Check if course has started, finished, or is within 24h of start
+        now = timezone.now()
+        if course.start_date:
+            # Combine start_date and start_time if available
+            from datetime import datetime, time, timedelta
+            start_time = getattr(course, 'start_time', None)
+            if start_time:
+                course_start = datetime.combine(course.start_date, start_time)
+            else:
+                course_start = datetime.combine(course.start_date, time(0, 0))
+            course_start = timezone.make_aware(course_start, timezone.get_current_timezone())
+            # If course has ended
+            if course.end_date:
+                end_time = getattr(course, 'end_time', None)
+                if end_time:
+                    course_end = datetime.combine(course.end_date, end_time)
+                else:
+                    course_end = datetime.combine(course.end_date, time(23, 59))
+                course_end = timezone.make_aware(course_end, timezone.get_current_timezone())
+                if now > course_end:
+                    return Response(
+                        {"detail": "No puedes cancelar la inscripción porque el curso ya ha finalizado."},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+            # If course has started
+            if now >= course_start:
+                return Response(
+                    {"detail": "No puedes cancelar la inscripción porque el curso ya ha comenzado."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            # If course starts in 24h or less
+            if (course_start - now) <= timedelta(hours=24):
+                return Response(
+                    {"detail": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+        enrollment.delete()
+        return Response(
+            {"detail": "Successfully unenrolled from the course."},
+            status=status.HTTP_200_OK
+        )
 
     @action(detail=True, methods=['get'], permission_classes=[permissions.IsAuthenticated],
             url_path='calendar-export-test')

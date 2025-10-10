@@ -10,15 +10,14 @@ item1.EMAIL;type=INTERNET:antmacfer1@alum.us.es
 item1.X-ABLabel:Universidad
 item2.EMAIL;type=INTERNET:antoniommff@gmail.com
 item2.X-ABLabel:Personal
-TEL;type=CELL;type=VOICE;type=pref:626270806
-ADR;type=HOME;type=pref:;;Pasaje Del Marqués De Esquivel\, 8;Sevilla;Sevilla;41002;ES
 ADR;type=WORK:;;Plaza del Duque de la Victoria 1\, planta 3 modulo 9;Sevilla;Sevilla;41002;ES
 item3.ADR:;;Avenida Reina Mercedes sn\, Escuela Tecnica Superior de Ingenieria Informatica - Universidad de Sevilla;Sevilla;Sevilla;41012;ES
 item3.X-ABLabel:_$!<School>!$_
-X-SOCIALPROFILE;type=INSTAGRAM:x-apple://INSTAGRAM.COM/ANTONIOMMFF/:x-apple%5C
-X-SOCIALPROFILE;type=TIKTOK:x-apple://TIKTOK.COM/@ANTONIOMMFF
-X-SOCIALPROFILE;type=linkedin:http://
+X-SOCIALPROFILE;type=INSTAGRAM:https://www.instagram.com/antoniommff
+X-SOCIALPROFILE;type=TIKTOK:https://www.tiktok.com/@antoniommff
+X-SOCIALPROFILE;type=linkedin:www.linkedin.com/in/antoniommff
 item4.URL;type=pref:https://bento.me/antoniommff
+item4.URL;https://github.com/antoniommff/antoniommff
 item4.X-ABLabel:_$!<HomePage>!$_
 BDAY:2003-01-19
 PHOTO;ENCODING=b;TYPE=JPEG:/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAMCAggICAgICAgI

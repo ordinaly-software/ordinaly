@@ -14,6 +14,9 @@ interface CourseCardProps {
   onCancel?: () => void;
   onViewDetails?: () => void;
   disableEnroll?: boolean;
+  disableUnenroll?: boolean;
+  unenrollRestrictionReason?: string | null;
+  inProgress?: boolean;
 }
 
 const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
@@ -31,14 +34,17 @@ export const CourseCard: React.FC<CourseCardProps> = ({
   onCancel,
   onViewDetails,
   disableEnroll = false,
+  disableUnenroll = false,
+  unenrollRestrictionReason = null,
+  inProgress = false,
 }) => {
   const t = useTranslations("formation");
   const isIncompleteSchedule = !course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time;
 
   return (
     <Card
-      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? "hover:border-[#22A60D] hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2" : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto${onViewDetails ? ' cursor-pointer' : ''}`}
-      style={variant === "upcoming" ? { minHeight: "520px" } : {}}
+      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? `hover:border-[#22A60D] hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2${inProgress ? ' ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[1.025] z-10' : ''}` : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto${onViewDetails ? ' cursor-pointer' : ''}`}
+      style={variant === "upcoming" ? { minHeight: "520px", ...(inProgress ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 32px 0 #FFB80044' } : {}) } : {}}
       onClick={onViewDetails ? () => onViewDetails() : undefined}
       role={onViewDetails ? 'button' : undefined}
       tabIndex={onViewDetails ? 0 : undefined}
@@ -70,6 +76,14 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             </div>
           ) : (
             <>
+              {/* In Progress Badge */}
+              {inProgress && (
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
+                  <div className="bg-[#FFB800] text-white px-4 py-1 rounded-full text-base font-bold shadow-lg border-2 border-[#FFB800]">
+                    {t('inProgress', { defaultValue: 'In Progress' })}
+                  </div>
+                </div>
+              )}
               {/* Enrollment Status Badge */}
               {enrolled && (
                 <div className="absolute top-4 right-4 z-10">
@@ -141,9 +155,11 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             {variant === "upcoming" && (
               enrolled ? (
                 <Button
-                  onClick={(e) => { e.stopPropagation(); if (onCancel) onCancel(); }}
+                  onClick={(e) => { e.stopPropagation(); if (!disableUnenroll && onCancel) onCancel(); }}
                   variant="outline"
                   className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-14 text-lg"
+                  disabled={disableUnenroll}
+                  title={disableUnenroll && unenrollRestrictionReason ? unenrollRestrictionReason : undefined}
                 >
                   <UserX className="w-5 h-5 mr-2" />
                   {t("cancelEnrollment")}

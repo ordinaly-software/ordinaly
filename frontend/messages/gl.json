@@ -912,6 +912,7 @@
     "maxAttendeesCount": "Máx {count} asistentes",
     "noSpecificDate": "Non hai unha data específica",
     "locationSoon": "Localización próximamente",
+    "inProgress": "En progreso",
     "filters": {
       "location": {
         "all": "Todas as localizacións",
@@ -963,7 +964,8 @@
       "cancel": "Cancelar",
       "submit": "Realizar inscrición",
       "successMessage": "Inscrición realizada con éxito!",
-      "enrolled": "Xa estás inscrito neste curso"
+      "enrolled": "Xa estás inscrito neste curso",
+      "cancelledMessage": "A túa inscrición foi cancelada"
     },
     "cancellation": {
       "title": "Cancelar inscrición",
@@ -990,7 +992,10 @@
       "generatingCatalog": "Xerando catálogo do curso...",
       "catalogDownloaded": "Catálogo descargado con éxito!",
       "catalogError": "Erro ao xerar catálogo",
-      "invalidCourseIdentifier": "Identificador de curso inválido"
+      "invalidCourseIdentifier": "Identificador de curso inválido",
+      "unenroll24hRestriction": "Non podes cancelar a inscrición menos de 24 horas antes do inicio do curso.",
+      "unenrollStartedRestriction": "Non podes cancelar a inscrición despois de que o curso comezou.",
+      "unenrollEndedRestriction": "Non podes cancelar a inscrición despois de que o curso finalizou."
     },
     "slogan": "Solucións de Software e Formación",
     "introduction": "En Ordinaly, ofrecemos formación especializada en tecnoloxías emerxentes e desenvolvemento profesional",
@@ -1040,7 +1045,7 @@
       "cancelEnrollment": "Cancelar inscrición",
       "courseHasStarted": "O curso xa comezou",
       "courseStartedMessage": "Este curso xa comezou e xa non acepta novas inscricións",
-      "courseHasFinished": "O curso xa finalizou",
+      "courseHasFinished": "As inscricións están pechadas",
       "courseFinishedMessage": "Este curso xa finalizou e xa non acepta novas inscricións",
       "signInToEnroll": "Iniciar sesión para inscribirse",
       "enrollNow": "Inscribirse agora",
@@ -1053,6 +1058,7 @@
       "addToCalendarICS": "Engadir ao calendario (.ics)",
       "addToGoogleCalendar": "Engadir ao Google Calendar",
       "addToOutlookCalendar": "Engadir ao Outlook Calendar",
+      "inProgress": "En progreso",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",

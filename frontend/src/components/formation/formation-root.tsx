@@ -76,7 +76,7 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
         url.searchParams.delete('payment');
         window.history.replaceState({}, document.title, url.pathname + url.search);
       } else if (paymentStatus === 'cancel') {
-        setAlert({ type: 'error', message: t('enrollment.cancelledMessage') || 'El pago fue cancelado.' });
+        setAlert({ type: 'error', message: t('enrollment.cancelledMessage') });
         url.searchParams.delete('payment');
         window.history.replaceState({}, document.title, url.pathname + url.search);
       }
@@ -118,16 +118,23 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
 
   useEffect(() => {
     const now = new Date();
-    const upcoming = courses.filter(course => 
-      course.start_date && course.start_date !== "0000-00-00" 
-        ? new Date(course.start_date) >= now 
-        : true
-    );
-    const past = courses.filter(course => 
-      course.start_date && course.start_date !== "0000-00-00" 
-        ? new Date(course.start_date) < now 
-        : false
-    );
+    // Helper to get Date from date+time
+    const getDateTime = (dateStr: string, timeStr: string): Date | null => {
+      if (!dateStr || dateStr === "0000-00-00" || !timeStr) return null;
+      return new Date(`${dateStr}T${timeStr}`);
+    };
+
+    // Only finished courses go to past
+    const past = courses.filter(course => {
+      const end = getDateTime(course.end_date, course.end_time);
+      return end && end < now;
+    });
+
+    // All others (not finished) are main/upcoming
+    const upcoming = courses.filter(course => {
+      const end = getDateTime(course.end_date, course.end_time);
+      return !(end && end < now);
+    });
 
     upcoming.sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime());
     past.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime());
@@ -455,18 +462,55 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
           ) : (
             <>
               <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10">
-                {filteredCourses.map((course) => (
-                  <CourseCard
-                    key={course.id}
-                    course={course}
-                    variant="upcoming"
-                    enrolled={isEnrolled(course.id)}
-                    onEnroll={() => handleEnrollCourse(course)}
-                    onCancel={() => handleCancelEnrollment(course.id)}
-                    onViewDetails={() => handleViewDetails(course)}
-                    disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
-                  />
-                ))}
+                {filteredCourses.map((course) => {
+                  // Compute unenroll restriction
+                  let disableUnenroll = false;
+                  let unenrollRestrictionReason: string | null = null;
+                  const now = new Date();
+                  const startDateTime = course.start_date && course.start_time
+                    ? new Date(`${course.start_date}T${course.start_time}`)
+                    : null;
+                  const endDateTime = course.end_date && course.end_time
+                    ? new Date(`${course.end_date}T${course.end_time}`)
+                    : null;
+                  if (isEnrolled(course.id)) {
+                    if (startDateTime) {
+                      const diffMs = startDateTime.getTime() - now.getTime();
+                      const diffHours = diffMs / (1000 * 60 * 60);
+                      if (diffHours <= 24 && diffHours > 0) {
+                        disableUnenroll = true;
+                        unenrollRestrictionReason = t('alerts.unenroll24hRestriction');
+                      } else if (diffHours <= 0) {
+                        disableUnenroll = true;
+                        unenrollRestrictionReason = t('alerts.unenrollStartedRestriction');
+                      }
+                    }
+                    if (endDateTime && endDateTime < now) {
+                      disableUnenroll = true;
+                      unenrollRestrictionReason = t('alerts.unenrollEndedRestriction');
+                    }
+                  }
+                  // Highlight in-progress courses (started but not finished)
+                  let inProgress = false;
+                  if (startDateTime && endDateTime && startDateTime <= now && endDateTime > now) {
+                    inProgress = true;
+                  }
+                  return (
+                    <CourseCard
+                      key={course.id}
+                      course={course}
+                      variant="upcoming"
+                      enrolled={isEnrolled(course.id)}
+                      onEnroll={() => handleEnrollCourse(course)}
+                      onCancel={() => handleCancelEnrollment(course.id)}
+                      onViewDetails={() => handleViewDetails(course)}
+                      disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
+                      disableUnenroll={disableUnenroll}
+                      unenrollRestrictionReason={unenrollRestrictionReason}
+                      inProgress={inProgress}
+                    />
+                  );
+                })}
               </div>
             </>
           )}

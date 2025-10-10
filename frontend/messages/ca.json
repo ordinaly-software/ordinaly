@@ -912,6 +912,7 @@
     "maxAttendeesCount": "Max {count} assistents",
     "noSpecificDate": "No s'ha establert cap data específica",
     "locationSoon": "Localització pròximament",
+    "inProgress": "En progrés",
     "filters": {
       "location": {
         "all": "Totes les ubicacions",
@@ -963,7 +964,8 @@
       "cancel": "Cancellar",
       "submit": "Inscriviu -vos al curs",
       "successMessage": "Inscripció realitzada amb èxit!",
-      "enrolled": "Ja esteu inscrits en aquest curs"
+      "enrolled": "Ja esteu inscrits en aquest curs",
+      "cancelledMessage": "La vostra inscripció ha estat cancellada"
     },
     "cancellation": {
       "title": "Cancella la matrícula",
@@ -990,7 +992,10 @@
       "generatingCatalog": "Generar el catàleg de cursos ...",
       "catalogDownloaded": "El catàleg es va descarregar amb èxit",
       "catalogError": "Error de generació del catàleg. ",
-      "invalidCourseIdentifier": "Identificador de curs no vàlid"
+      "invalidCourseIdentifier": "Identificador de curs no vàlid",
+      "unenroll24hRestriction": "No podeu cancellar la inscripció menys de 24 hores abans de l'inici del curs.",
+      "unenrollStartedRestriction": "No podeu cancellar la inscripció després que el curs hagi començat.",
+      "unenrollEndedRestriction": "No podeu cancellar la inscripció després que el curs hagi finalitzat."
     },
     "slogan": "Solucions de programari i formació",
     "introduction": "A Ordinaly, oferim formació especialitzada en tecnologies emergents i desenvolupament professional",
@@ -1040,7 +1045,7 @@
       "cancelEnrollment": "Cancella la matrícula",
       "courseHasStarted": "El curs ha començat",
       "courseStartedMessage": "Aquest curs ja ha començat i ja no accepta noves inscripcions",
-      "courseHasFinished": "El curs ha finalitzat",
+      "courseHasFinished": "Les inscripcions estan tancades",
       "courseFinishedMessage": "Aquest curs ja ha finalitzat i ja no accepta noves inscripcions",
       "signInToEnroll": "Inicieu la sessió per inscriure's",
       "enrollNow": "Inscriviu -vos ara",
@@ -1053,6 +1058,7 @@
       "addToCalendarICS": "Afegeix al calendari (.ics)",
       "addToGoogleCalendar": "Afegeix a Google Calendar",
       "addToOutlookCalendar": "Afegeix a Outlook Calendar",
+      "inProgress": "En progrés",
       "periodicity": {
         "once": "Esdeveniment únic",
         "daily": "Cada dia",
