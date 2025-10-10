@@ -249,7 +249,6 @@ const CourseDetailsModal = ({
   const endDateTime = getDateTime(course.end_date, course.end_time);
   const hasStarted = !hasNoDates && !!(startDateTime && startDateTime <= now);
   const hasEnded = !hasNoDates && !!(endDateTime && endDateTime <= now);
-  const inProgress = !hasNoDates && !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
   const canEnroll = isAuthenticated && !isEnrolled && !hasStarted && !hasNoDates;
   const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
 
