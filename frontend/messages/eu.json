@@ -1059,6 +1059,7 @@
       "addToGoogleCalendar": "Gehitu Google Calendar",
       "addToOutlookCalendar": "Gehitu Outlook Calendar",
       "inProgress": "Martxan",
+      "finished": "Amaituta",
       "periodicity": {
         "once": "Behin-behineko gertaera",
         "daily": "Eguneroko",

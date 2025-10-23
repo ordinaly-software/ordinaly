@@ -1059,6 +1059,7 @@
       "addToGoogleCalendar": "Añadir a Google Calendar",
       "addToOutlookCalendar": "Añadir a Outlook Calendar",
       "inProgress": "En curso",
+      "finished": "Finalizado",
       "periodicity": {
         "once": "Evento único",
         "daily": "Diario",
