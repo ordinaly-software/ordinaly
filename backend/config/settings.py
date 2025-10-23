@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     "default": dj_database_url.config(
         default=os.getenv("DATABASE_URL", "sqlite:///db.sqlite3"),
-        conn_max_age=600,          # pooling de conexiones
-        conn_health_checks=True,   # chequeo de conexiones inactivas
-        ssl_require=False          # en producción con proveedor gestionado => True/sslmode=require
+        conn_max_age=600,          # connection pooling
+        conn_health_checks=True,   # inactive connection checks
+        ssl_require=False          # in production with managed provider => True/sslmode=require
     )
 }
 
