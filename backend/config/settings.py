@@ -98,7 +98,7 @@ DATABASES["default"]["OPTIONS"].setdefault("application_name", "django-app")
 
 # Zona horaria y TZ
 TIME_ZONE = os.getenv("TIME_ZONE", "Europe/Madrid")
-USE_TZ = True  # Django almacena en UTC y convierte a TIME_ZONE
+USE_TZ = True  # Django stores in UTC and converts to TIME_ZONE
 
 
 # Password validation
