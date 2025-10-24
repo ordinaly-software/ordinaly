@@ -85,7 +85,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     "default": dj_database_url.config(
-        default=os.getenv("DATABASE_URL", "sqlite:///db.sqlite3"),
         conn_max_age=600,          # connection pooling
         conn_health_checks=True,   # inactive connection checks
         ssl_require=False          # in production with managed provider => True/sslmode=require
@@ -95,6 +94,13 @@ DATABASES = {
 DATABASES["default"]["ATOMIC_REQUESTS"] = False
 DATABASES["default"].setdefault("OPTIONS", {})
 DATABASES["default"]["OPTIONS"].setdefault("application_name", "django-app")
+
+ENGINE = DATABASES["default"]["ENGINE"]
+
+if ENGINE == "django.db.backends.postgresql":
+    DATABASES["default"].setdefault("OPTIONS", {})
+    DATABASES["default"]["OPTIONS"].setdefault("application_name", "django-app")
+
 
 # Zona horaria y TZ
 TIME_ZONE = os.getenv("TIME_ZONE", "Europe/Madrid")

@@ -74,7 +74,6 @@ ordinaly/
 ├── backend/
 │   ├── manage.py
 │   ├── requirements.txt
-│   ├── db.sqlite3
 │   ├── config/           # Configuración Django
 │   ├── api/              # API REST principal
 │   ├── users/            # Gestión de usuarios
