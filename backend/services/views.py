@@ -104,6 +104,15 @@ class ServiceViewSet(viewsets.ModelViewSet):
             if data is None:
                 data = getattr(request, 'data', None)
         serializer = self.get_serializer(instance, data=data, partial=True)
+        # If the overridden get_serializer returned a serializer instance that
+        # set `partial` to False, override it here to ensure partial update
+        # semantics (accept missing required fields).
+        try:
+            if hasattr(serializer, 'partial') and not getattr(serializer, 'partial'):
+                serializer.partial = True
+        except Exception:
+            # If serializer doesn't expose `partial` cleanly, ignore and proceed
+            pass
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
