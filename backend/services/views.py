@@ -1,6 +1,7 @@
 from rest_framework import viewsets, filters, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.request import Request as DRFRequest
 from .models import Service
 from .serializers import ServiceSerializer
 
@@ -61,6 +62,13 @@ class ServiceViewSet(viewsets.ModelViewSet):
     def update(self, request, *args, **kwargs):
         # Prefer view.request if tests set it directly (many tests set view.request = request)
         req = getattr(self, 'request', request)
+        # If req is a raw WSGIRequest (no .data) wrap it into a DRF Request
+        if not hasattr(req, 'data'):
+            try:
+                req = DRFRequest(req)
+            except Exception:
+                # If wrapping fails, fall back to original request
+                pass
         # Resolve authenticated user from req or underlying WSGIRequest
         user = getattr(req, 'user', None)
         if not user:
@@ -74,7 +82,11 @@ class ServiceViewSet(viewsets.ModelViewSet):
         if not (user and getattr(user, 'is_authenticated', False)):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data, partial=kwargs.get('partial', False))
+        # Use parsed data from DRF Request when available
+        data = getattr(req, 'data', None)
+        if data is None:
+            data = getattr(request, 'data', None)
+        serializer = self.get_serializer(instance, data=data, partial=kwargs.get('partial', False))
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
