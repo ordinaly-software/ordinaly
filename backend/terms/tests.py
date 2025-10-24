@@ -22,7 +22,7 @@ User = get_user_model()
 # General-purpose test mixin for terms test setup and teardown
 class TestTermsSetupMixin:
     @classmethod
-    def teardown_class(cls):
+    def tearDownClass(cls):
         """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
         terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
         if os.path.isdir(terms_dir):
@@ -33,7 +33,12 @@ class TestTermsSetupMixin:
                         os.remove(os.path.join(terms_dir, fname))
                     except Exception:
                         pass
-        super().teardown_class()
+        # Call unittest-style tearDownClass on super if present
+        try:
+            super().tearDownClass()
+        except AttributeError:
+            # If the superclass does not implement tearDownClass, ignore
+            pass
 
     def create_test_user(self, **overrides):
         data = {
@@ -67,8 +72,12 @@ class TermsModelTests(TestTermsSetupMixin, TestCase):
     """Tests for the Terms model"""
 
     @classmethod
-    def teardown_class(cls):
-        super().teardown_class()
+    def tearDownClass(cls):
+        # call mixin cleanup if present
+        try:
+            super().tearDownClass()
+        except AttributeError:
+            pass
 
     def setUp(self):
         self.user = self.create_test_user()
@@ -191,7 +200,7 @@ class TermsSerializerTests(TestCase):
     """Tests for the TermsSerializer"""
 
     @classmethod
-    def teardown_class(cls):
+    def tearDownClass(cls):
         """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
         terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
         if os.path.isdir(terms_dir):
@@ -202,7 +211,10 @@ class TermsSerializerTests(TestCase):
                         os.remove(os.path.join(terms_dir, fname))
                     except Exception:
                         pass
-        super().teardown_class()
+        try:
+            super().tearDownClass()
+        except AttributeError:
+            pass
 
     def setUp(self):
         # Create a test user
@@ -296,7 +308,7 @@ class TermsViewSetTests(APITestCase):
     """Tests for the TermsViewSet"""
 
     @classmethod
-    def teardown_class(cls):
+    def tearDownClass(cls):
         """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
         terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
         if os.path.isdir(terms_dir):
@@ -307,7 +319,10 @@ class TermsViewSetTests(APITestCase):
                         os.remove(os.path.join(terms_dir, fname))
                     except Exception:
                         pass
-        super().teardown_class()
+        try:
+            super().tearDownClass()
+        except AttributeError:
+            pass
 
     def setUp(self):
         self.client = APIClient()
@@ -536,7 +551,7 @@ class TermsViewSetTests(APITestCase):
 
 class TermsViewSetExtraTests(APITestCase):
     @classmethod
-    def teardown_class(cls):
+    def tearDownClass(cls):
         """Remove only test-generated PDF files from MEDIA_ROOT/terms/"""
         terms_dir = os.path.join(settings.MEDIA_ROOT, 'terms')
         if os.path.isdir(terms_dir):
@@ -547,7 +562,10 @@ class TermsViewSetExtraTests(APITestCase):
                         os.remove(os.path.join(terms_dir, fname))
                     except Exception:
                         pass
-        super().teardown_class()
+        try:
+            super().tearDownClass()
+        except AttributeError:
+            pass
 
     """Extra tests for TermsViewSet custom actions and error handling"""
     @classmethod

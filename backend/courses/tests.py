@@ -79,7 +79,7 @@ class TestUserCourseEnrollmentMixin:
 
 class CourseImageCleanupTestMixin:
     @classmethod
-    def teardown_class(cls):
+    def tearDownClass(cls):
         """Remove only test-generated images from MEDIA_ROOT/course_images/"""
         course_images_dir = os.path.join(settings.MEDIA_ROOT, 'course_images')
         test_prefixes = [
@@ -94,7 +94,10 @@ class CourseImageCleanupTestMixin:
                         os.remove(os.path.join(course_images_dir, fname))
                     except Exception:
                         pass
-        super().tearDownClass()
+        try:
+            super().tearDownClass()
+        except AttributeError:
+            pass
 
 
 # Model Tests

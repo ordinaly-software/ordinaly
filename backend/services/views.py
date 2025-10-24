@@ -15,9 +15,10 @@ class ServiceViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         qs = Service.objects.all()
-        user = self.request.user
+        # Be robust when tests set a plain WSGIRequest or don't attach user
+        user = getattr(self.request, 'user', None)
         # Only show draft services to admin users
-        if not (user and user.is_authenticated and user.is_staff):
+        if not (user and getattr(user, 'is_authenticated', False) and getattr(user, 'is_staff', False)):
             qs = qs.filter(draft=False)
         return qs
     serializer_class = ServiceSerializer
@@ -37,7 +38,9 @@ class ServiceViewSet(viewsets.ModelViewSet):
         serializer.save(created_by=self.request.user)
 
     def update(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
+        # Guard against request objects that don't have a user attribute
+        user = getattr(request, 'user', None)
+        if not (user and getattr(user, 'is_authenticated', False)):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         instance = self.get_object()
         serializer = self.get_serializer(instance, data=request.data, partial=kwargs.get('partial', False))
