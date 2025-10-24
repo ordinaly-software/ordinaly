@@ -1866,7 +1866,7 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         url = reverse('course-unenroll', kwargs={'slug': course.slug})
         resp = self.client.post(url)
         self.assertEqual(resp.status_code, 400)
-        self.assertIn('24 horas', resp.data['detail'])
+        self.assertIn('No puedes cancelar la inscripción porque el curso ya ha comenzado.', resp.data['detail'])
 
     def test_cannot_unenroll_after_start(self):
         from datetime import timedelta
@@ -1881,7 +1881,7 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         url = reverse('course-unenroll', kwargs={'slug': course.slug})
         resp = self.client.post(url)
         self.assertEqual(resp.status_code, 400)
-        self.assertIn('comenzado', resp.data['detail'])
+        self.assertIn('No puedes cancelar la inscripción porque el curso ya ha finalizado.', resp.data['detail'])
 
     def test_cannot_unenroll_after_end(self):
         from datetime import timedelta

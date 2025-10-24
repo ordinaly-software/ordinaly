@@ -3,7 +3,6 @@ name: Deploy Django backend
 on:
   push:
     branches:
-      # - develop
       - main
   workflow_dispatch: {}
 
@@ -15,12 +14,28 @@ jobs:
   ci-and-deploy:
     name: Run tests, then deploy if green
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_USER: ordinaly_ci
+          POSTGRES_PASSWORD: ${{ secrets.CI_DB_PASSWORD }}
+          POSTGRES_DB: ordinaly_ci   # DB “base”; Django creará test_ordinaly_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U ordinaly_ci -d ordinaly_ci"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=10
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
@@ -38,19 +53,29 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run backend tests
-        working-directory: backend
+      - name: Wait for Postgres
         run: |
-          if [ -n "${{ secrets.DJANGO_SECRET_KEY }}" ]; then
-            echo "DJANGO_SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}" > .env
-          else
-            python -c "import secrets; print('DJANGO_SECRET_KEY='+secrets.token_urlsafe(50))" > .env
-          fi
-          # Ensure tests have a deterministic test password & Stripe key available
-          export STRIPE_SECRET_KEY=sk_test
-          export ORDINALY_TEST_PASSWORD=test_password
-          python manage.py makemigrations --noinput
+          for i in {1..30}; do
+            pg_isready -h 127.0.0.1 -p 5432 -U ordinaly_ci && break
+            sleep 1
+          done
+
+      - name: Run backend tests (PostgreSQL)
+        working-directory: backend
+        env:
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+          # DB para runtime y para tests; Django creará y usará test_ordinaly_ci automáticamente
+          DATABASE_URL: postgresql://ordinaly_ci:${{ secrets.CI_DB_PASSWORD }}@127.0.0.1:5432/ordinaly_ci
+          TEST_DATABASE_URL: postgresql://ordinaly_ci:${{ secrets.CI_DB_PASSWORD }}@127.0.0.1:5432/ordinaly_ci
+          ORDINALY_TEST_PASSWORD: test_password
+          STRIPE_SECRET_KEY: sk_test
+          TIME_ZONE: Europe/Madrid
+        run: |
+          # Comprueba que no falten migraciones (no las generes en CI)
+          python manage.py makemigrations --check --dry-run
+          # Aplica migraciones en la DB “base”; la de test se creará desde cero
           python manage.py migrate --noinput
+          # Ejecuta tests; si prefieres pytest: `pytest -q --reuse-db`
           python manage.py test --verbosity 2 --failfast
 
       - name: Deploy via SSH
@@ -73,5 +98,6 @@ jobs:
               source venv/bin/activate
             fi
             pip install -r requirements.txt
-            python manage.py makemigrations && python manage.py migrate --noinput
+            python manage.py makemigrations --check --dry-run
+            python manage.py migrate --noinput
             echo "${{ secrets.SUDO_PASSWORD }}" | sudo -S systemctl restart gunicorn
