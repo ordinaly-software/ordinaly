@@ -38,7 +38,7 @@ class Course(models.Model):
     ]
 
     title = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=110, unique=True, blank=True, null=False,
+    slug = models.SlugField(max_length=100, unique=True, blank=True, null=False,
                             help_text="URL-friendly identifier generated from the title")
     draft = models.BooleanField(
         default=False,
@@ -411,9 +411,17 @@ class Course(models.Model):
         # Ensure draft default
         if self.draft is None:
             self.draft = False
+        # Truncate title to the model's max_length to avoid DB-level DataError
+        try:
+            title_max = self._meta.get_field('title').max_length
+            if self.title and title_max and len(self.title) > title_max:
+                self.title = self.title[:title_max]
+        except Exception:
+            # If meta lookup fails for some reason, continue without truncation
+            pass
         # Auto-generate slug from title if not provided
         if not self.slug and self.title:
-            max_slug_length = 110
+            max_slug_length = 100
             max_suffix_length = len("-99999")  # Reserve space for suffixes
             base_slug = slugify(self.title)[:max_slug_length - max_suffix_length]
             slug_candidate = base_slug

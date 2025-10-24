@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
@@ -24,8 +25,8 @@ if not SECRET_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['ordinaly.duckdns.org', 'localhost', '127.0.0.1', '352050c4d5f6.ngrok-free.app',]
-# ALLOWED_HOSTS += ['136.144.243.11', 'ordinaly.duckdns.org']
+ALLOWED_HOSTS = ['ordinaly.duckdns.org', 'localhost', '127.0.0.1',]
+# ALLOWED_HOSTS += ['136.144.243.11', '352050c4d5f6.ngrok-free.app']
 
 # Application definition
 INSTALLED_APPS = [
@@ -83,11 +84,27 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.config(
+        conn_max_age=600,          # connection pooling
+        conn_health_checks=True,   # inactive connection checks
+        ssl_require=False          # in production with managed provider => True/sslmode=require
+    )
 }
+
+DATABASES["default"]["ATOMIC_REQUESTS"] = False
+DATABASES["default"].setdefault("OPTIONS", {})
+DATABASES["default"]["OPTIONS"].setdefault("application_name", "django-app")
+
+ENGINE = DATABASES["default"]["ENGINE"]
+
+if ENGINE == "django.db.backends.postgresql":
+    DATABASES["default"].setdefault("OPTIONS", {})
+    DATABASES["default"]["OPTIONS"].setdefault("application_name", "django-app")
+
+
+# Zona horaria y TZ
+TIME_ZONE = os.getenv("TIME_ZONE", "Europe/Madrid")
+USE_TZ = True  # Django stores in UTC and converts to TIME_ZONE
 
 
 # Password validation
@@ -113,12 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
-USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
