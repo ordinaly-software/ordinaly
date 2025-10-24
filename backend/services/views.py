@@ -103,7 +103,7 @@ class ServiceViewSet(viewsets.ModelViewSet):
             data = getattr(req, 'data', None)
             if data is None:
                 data = getattr(request, 'data', None)
-        serializer = self.get_serializer(instance, data=data, partial=kwargs.get('partial', False))
+        serializer = self.get_serializer(instance, data=data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
