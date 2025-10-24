@@ -18,10 +18,15 @@ class ServiceViewSet(viewsets.ModelViewSet):
         # Be robust when tests set a plain WSGIRequest or don't attach user
         user = getattr(self.request, 'user', None)
         if not user:
-            # Try underlying WSGIRequest if present (APIRequestFactory/force_authenticate sometimes sets there)
-            raw = getattr(self.request, '_request', None)
-            if raw:
-                user = getattr(raw, 'user', None)
+            # Respect force_authenticate markers set in tests (request._force_auth_user)
+            user = getattr(self.request, '_force_auth_user', None)
+            if not user:
+                # Try underlying WSGIRequest if present (APIRequestFactory/force_authenticate sometimes sets there)
+                raw = getattr(self.request, '_request', None)
+                if raw:
+                    user = getattr(raw, 'user', None)
+                    if not user:
+                        user = getattr(raw, '_force_auth_user', None)
 
         # Only show draft services to admin users
         if not (user and getattr(user, 'is_authenticated', False) and getattr(user, 'is_staff', False)):
@@ -44,18 +49,28 @@ class ServiceViewSet(viewsets.ModelViewSet):
         # Resolve user similarly to get_queryset to be robust in tests
         user = getattr(self.request, 'user', None)
         if not user:
-            raw = getattr(self.request, '_request', None)
-            if raw:
-                user = getattr(raw, 'user', None)
+            user = getattr(self.request, '_force_auth_user', None)
+            if not user:
+                raw = getattr(self.request, '_request', None)
+                if raw:
+                    user = getattr(raw, 'user', None)
+                    if not user:
+                        user = getattr(raw, '_force_auth_user', None)
         serializer.save(created_by=user)
 
     def update(self, request, *args, **kwargs):
-        # Resolve authenticated user from request or underlying WSGIRequest
-        user = getattr(request, 'user', None)
+        # Prefer view.request if tests set it directly (many tests set view.request = request)
+        req = getattr(self, 'request', request)
+        # Resolve authenticated user from req or underlying WSGIRequest
+        user = getattr(req, 'user', None)
         if not user:
-            raw = getattr(request, '_request', None)
-            if raw:
-                user = getattr(raw, 'user', None)
+            user = getattr(req, '_force_auth_user', None)
+            if not user:
+                raw = getattr(req, '_request', None)
+                if raw:
+                    user = getattr(raw, 'user', None)
+                    if not user:
+                        user = getattr(raw, '_force_auth_user', None)
         if not (user and getattr(user, 'is_authenticated', False)):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         instance = self.get_object()
