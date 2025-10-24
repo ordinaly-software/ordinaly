@@ -17,6 +17,12 @@ class ServiceViewSet(viewsets.ModelViewSet):
         qs = Service.objects.all()
         # Be robust when tests set a plain WSGIRequest or don't attach user
         user = getattr(self.request, 'user', None)
+        if not user:
+            # Try underlying WSGIRequest if present (APIRequestFactory/force_authenticate sometimes sets there)
+            raw = getattr(self.request, '_request', None)
+            if raw:
+                user = getattr(raw, 'user', None)
+
         # Only show draft services to admin users
         if not (user and getattr(user, 'is_authenticated', False) and getattr(user, 'is_staff', False)):
             qs = qs.filter(draft=False)
@@ -35,11 +41,21 @@ class ServiceViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def perform_create(self, serializer):
-        serializer.save(created_by=self.request.user)
+        # Resolve user similarly to get_queryset to be robust in tests
+        user = getattr(self.request, 'user', None)
+        if not user:
+            raw = getattr(self.request, '_request', None)
+            if raw:
+                user = getattr(raw, 'user', None)
+        serializer.save(created_by=user)
 
     def update(self, request, *args, **kwargs):
-        # Guard against request objects that don't have a user attribute
+        # Resolve authenticated user from request or underlying WSGIRequest
         user = getattr(request, 'user', None)
+        if not user:
+            raw = getattr(request, '_request', None)
+            if raw:
+                user = getattr(raw, 'user', None)
         if not (user and getattr(user, 'is_authenticated', False)):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         instance = self.get_object()
