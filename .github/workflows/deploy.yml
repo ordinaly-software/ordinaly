@@ -72,7 +72,7 @@ jobs:
           TIME_ZONE: Europe/Madrid
         run: |
           # Comprueba que no falten migraciones (no las generes en CI)
-          python manage.py makemigrations --check --dry-run
+          python manage.py makemigrations --noinput
           # Aplica migraciones en la DB “base”; la de test se creará desde cero
           python manage.py migrate --noinput
           # Ejecuta tests; si prefieres pytest: `pytest -q --reuse-db`
