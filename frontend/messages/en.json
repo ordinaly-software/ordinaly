@@ -808,6 +808,14 @@
     "title": "Legal Documentation",
     "description": "Access our terms of service, privacy policy, cookie policy, and license information.",
     "downloadPdf": "Download PDF",
+    "downloadDesc": "Download Terms of Service in PDF",
+    "cookieManage": "Manage Cookies",
+    "cookieDesc": "Toggle your cookie preferences",
+    "supportKicker": "Need Help?",
+    "supportTitle": "Contact Support",
+    "supportDesc": "Have questions about our legal documents?",
+    "contactCta": "Contact Us",
+    "openCookieSettings": "Open Cookie Settings",
     "tabs": {
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",
@@ -815,21 +823,222 @@
       "license": "License"
     },
     "sections": {
-      "terms": {
+    "terms": {
         "title": "Terms of Service",
-        "noDocuments": "No terms of service documents are currently available."
+        "noDocuments": "There are currently no terms of service documents available",
+        "identification": {
+          "title": "SERVICE PROVIDER IDENTIFICATION",
+          "p1": "In compliance with Law 34/2002 (LSSI-CE), this website is owned by:",
+          "bullet1": "Company: Ordinaly Software S.L.",
+          "bullet2": "Registered address: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville, Spain",
+          "bullet3": "Contact email: ordinalysoftware@gmail.com",
+          "bullet4": "Website: https://ordinaly.netlify.app"
+        },
+        "purpose": {
+          "title": "PURPOSE",
+          "p1": "These Terms of Service govern access, navigation, contracting and use of the services provided by Ordinaly Software S.L."
+        },
+        "serviceModalities": {
+          "title": "SERVICE MODALITIES",
+          "p1": "Ordinaly offers the following service types:",
+          "bullet1": "Monthly or annual subscription services.",
+          "bullet2": "One-off services without continuity.",
+          "bullet3": "On-site or remote training."
+        },
+        "economicConditions": {
+          "title": "ECONOMIC CONDITIONS AND PAYMENT METHODS",
+          "bullet1": "Payments are made exclusively by card via Stripe.",
+          "bullet2": "Invoices are not issued automatically and can be requested by email.",
+          "bullet3": "Subscription charges are recurring as agreed.",
+          "bullet4": "No refunds are accepted, except for courses cancelled at least 48 hours in advance."
+        },
+        "accessRequirements": {
+          "title": "ACCESS AND TECHNICAL REQUIREMENTS",
+          "p1": "Ordinaly provides all the infrastructure and technical requirements needed."
+        },
+        "correctUse": {
+          "title": "PROPER USE OF SERVICES",
+          "p1": "Users agree to use the services lawfully.",
+          "bullet1": "Use for illegal or unauthorized activities.",
+          "bullet2": "Spam, misinformation or infringement of third-party rights.",
+          "bullet3": "Unauthorized reproduction or modification of tools."
+        },
+        "intellectualProperty": {
+          "title": "INTELLECTUAL PROPERTY",
+          "p1": "All website content is owned by Ordinaly Software S.L. or its licensors.",
+          "p2": "Content may not be reproduced or modified without consent.",
+          "p3": "Deliverables may only be used while the contract is active."
+        },
+        "thirdPartyLicenses": {
+          "title": "THIRD-PARTY LICENSES",
+          "p1": "Third-party technologies and APIs are properly licensed and must be respected."
+        }
       },
       "privacy": {
         "title": "Privacy Policy",
-        "noDocuments": "No privacy policy documents are currently available."
+        "noDocuments": "There are currently no privacy policy documents available",
+        "dataController": {
+          "title": "DATA CONTROLLER",
+          "p1": "In accordance with GDPR (EU) 2016/679 and Organic Law 3/2018, the data controller is:",
+          "p2": "Ordinaly Software S.L.",
+          "bullet1": "Registered address: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville, Spain",
+          "bullet2": "Contact email: ordinalysoftware@gmail.com"
+        },
+        "personalDataCollected": {
+          "title": "PERSONAL DATA WE COLLECT",
+          "p1": "Through the website and during service provision, we collect:",
+          "bullet1": "First and last name",
+          "bullet2": "Email address",
+          "bullet3": "Phone number",
+          "bullet4": "Access credentials",
+          "bullet5": "Website configuration preferences"
+        },
+        "processingPurposes": {
+          "title": "PURPOSES OF PROCESSING",
+          "p1": "Personal data is processed to:",
+          "bullet1": "Handle inquiries and requests",
+          "bullet2": "Manage contractual relationships",
+          "bullet3": "Personalize user experience",
+          "bullet4": "Send marketing communications with explicit consent"
+        },
+        "legalBases": {
+          "title": "LEGAL BASES",
+          "p1": "The legal bases for processing are:",
+          "bullet1": "User consent",
+          "bullet2": "Legitimate interest",
+          "bullet3": "Performance of a contract"
+        },
+        "recipients": {
+          "title": "RECIPIENTS AND INTERNATIONAL TRANSFERS",
+          "p1": "Data may be processed by external providers:",
+          "bullet1": "Stripe, for secure online payments",
+          "bullet2": "Google Analytics, for website usage analysis"
+        },
+        "dataRetention": {
+          "title": "DATA RETENTION",
+          "bullet1": "Contact and configuration data are kept until deletion is requested.",
+          "bullet2": "Contract and billing data are kept for the legally required period.",
+          "bullet3": "Browsing data is handled according to the Cookie Policy."
+        },
+        "aiInteractions": {
+          "title": "AI SYSTEM INTERACTIONS",
+          "p1": "This website may include AI-based chatbots or virtual assistants.",
+          "bullet1": "Conversations may be stored to improve the service.",
+          "bullet2": "Data is collected only during active service use.",
+          "bullet3": "Conversations are not guaranteed to be anonymous."
+        },
+        "userRights": {
+          "title": "USER RIGHTS",
+          "p1": "Users may exercise the rights granted by the GDPR:",
+          "bullet1": "Access",
+          "bullet2": "Rectification",
+          "bullet3": "Erasure",
+          "bullet4": "Objection",
+          "bullet5": "Restriction of processing",
+          "bullet6": "Data portability",
+          "bullet7": "Withdrawal of consent"
+        },
+        "dataSecurity": {
+          "title": "DATA SECURITY",
+          "p1": "Ordinaly Software S.L. implements appropriate technical and organizational measures to protect personal data."
+        }
       },
       "cookies": {
         "title": "Cookie Policy",
-        "noDocuments": "No cookie policy documents are currently available."
+        "noDocuments": "There are currently no cookie policy documents available",
+        "whatAreCookies": {
+          "title": "WHAT ARE COOKIES?",
+          "p1": "Cookies are small files installed on the user's device to store and retrieve browsing information."
+        },
+        "typesOfCookies": {
+          "title": "WHAT TYPES OF COOKIES DO WE USE?",
+          "p1": "This website only uses:",
+          "bullet1": "Technical cookies: required for basic website operation.",
+          "bullet2": "Analytics cookies: collect anonymous statistical information."
+        },
+        "cookiesList": {
+          "title": "LIST OF COOKIES USED",
+          "p1": "The following cookies are used:",
+          "bullet1": "__next_hmr_refresh_hash__ (Technical)",
+          "bullet2": "NEXT_LOCALE (Technical)",
+          "bullet3": "_ga (Analytics)"
+        },
+        "localStorage": {
+          "title": "BROWSER LOCAL STORAGE (LocalStorage)",
+          "p1": "The website may store information using local storage.",
+          "p2": "This data is not shared with third parties.",
+          "bullet1": "theme",
+          "bullet2": "cookie-preferences",
+          "bullet3": "cookie-consent",
+          "bullet4": "authToken"
+        },
+        "cookieManagement": {
+          "title": "COOKIE MANAGEMENT",
+          "p1": "Users can accept, reject or configure cookies via the banner or browser settings.",
+          "bullet1": "Google Chrome",
+          "bullet2": "Mozilla Firefox",
+          "bullet3": "Safari",
+          "bullet4": "Microsoft Edge"
+        },
+        "internationalTransfer": {
+          "title": "INTERNATIONAL DATA TRANSFERS",
+          "p1": "Some analytics cookies may involve data transfers outside the EEA."
+        },
+        "policyModification": {
+          "title": "CHANGES TO THE COOKIE POLICY",
+          "p1": "Ordinaly Software S.L. may update this Cookie Policy when required."
+        }
       },
       "license": {
         "title": "License Information",
-        "noDocuments": "No license documents are currently available."
+        "noDocuments": "There are currently no license documents available",
+        "purpose": {
+          "title": "PURPOSE",
+          "p1": "This document governs the terms of use for deliverables developed by Ordinaly Software S.L., including:",
+          "bullet1": "Source code",
+          "bullet2": "Visual interfaces and dashboards",
+          "bullet3": "Images, illustrations and graphic content",
+          "bullet4": "Technical or training documentation",
+          "bullet5": "Configuration files, scripts and templates"
+        },
+        "scope": {
+          "title": "LICENSE SCOPE",
+          "p1": "Ordinaly Software S.L. grants a non-exclusive license with the following rights:",
+          "bullet1": "Right of use",
+          "bullet2": "Right to modify"
+        },
+        "validity": {
+          "title": "LICENSE VALIDITY",
+          "p1": "License validity depends on the contracted service:",
+          "p2": "Active subscription deliverables: valid while the subscription is active.",
+          "p3": "Closed deliverables: perpetual license if fully delivered and paid."
+        },
+        "restrictions": {
+          "title": "RESTRICTIONS",
+          "p1": "Without explicit authorization, the client may not:",
+          "bullet1": "Remove intellectual property notices",
+          "bullet2": "Use the product for illegal purposes",
+          "bullet3": "Share, sublicense or transfer the development"
+        },
+        "thirdPartySoftware": {
+          "title": "THIRD-PARTY SOFTWARE",
+          "p1": "Deliverables may include third-party components such as:",
+          "bullet1": "Meta",
+          "bullet2": "WhatsApp Business API",
+          "bullet3": "Gemini (Google)",
+          "bullet4": "Stripe",
+          "bullet5": "Google Analytics",
+          "bullet6": "Other connected platforms"
+        },
+        "intellectualProperty": {
+          "title": "INTELLECTUAL PROPERTY",
+          "p1": "All intellectual property rights belong to Ordinaly Software S.L.",
+          "p2": "The license does not imply transfer of ownership."
+        },
+        "applicableLaw": {
+          "title": "APPLICABLE LAW AND JURISDICTION",
+          "p1": "This license is governed by Spanish law and subject to the courts of Seville, Spain."
+        }
       }
     },
     "messages": {

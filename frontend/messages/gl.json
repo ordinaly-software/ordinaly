@@ -808,6 +808,14 @@
     "title": "Documentación legal",
     "description": "Accede aos nosos Termos de Servizo, Política de Privacidade, Política de Cookies e información de Licencia",
     "downloadPdf": "Descargar PDF",
+    "downloadDesc": "Descarga a versión en PDF deste documento legal",
+    "cookieManage": "Xestionar configuración de cookies",
+    "cookieDesc": "Axusta as túas preferencias de cookies segundo as túas necesidades",
+    "supportKicker": "¿Necesitas Axuda?",
+    "supportTitle": "Contactar Soporte",
+    "supportDesc": "¿Tes preguntas sobre os nosos documentos legais?",
+    "contactCta": "Contacta connosco",
+    "openCookieSettings": "Abrir configuración Cookies",
     "tabs": {
       "terms": "Termos de Servizo",
       "privacy": "Política de Privacidade",
@@ -816,20 +824,221 @@
     },
     "sections": {
       "terms": {
-        "title": "Termos de Servizo",
-        "noDocuments": "Non hai documentos de termos de servizo dispoñibles actualmente"
+        "title": "Termos do Servizo",
+        "noDocuments": "Actualmente non hai documentos de termos do servizo dispoñibles",
+        "identification": {
+          "title": "IDENTIFICACIÓN DO PRESTADOR DE SERVIZOS",
+          "p1": "En cumprimento da Lei 34/2002 (LSSI-CE), infórmase de que este sitio web é propiedade de:",
+          "bullet1": "Empresa: Ordinaly Software S.L.",
+          "bullet2": "Domicilio fiscal: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla, Sevilla (España)",
+          "bullet3": "Correo de contacto: ordinalysoftware@gmail.com",
+          "bullet4": "Sitio web: https://ordinaly.netlify.app"
+        },
+        "purpose": {
+          "title": "OBXECTO",
+          "p1": "Estes Termos do Servizo regulan o acceso, navegación, contratación e uso dos servizos ofrecidos por Ordinaly Software S.L."
+        },
+        "serviceModalities": {
+          "title": "MODALIDADES DE SERVIZO",
+          "p1": "Ordinaly ofrece os seguintes tipos de servizo:",
+          "bullet1": "Servizos de subscrición mensual ou anual.",
+          "bullet2": "Servizos puntuais sen continuidade.",
+          "bullet3": "Formación presencial ou telemática."
+        },
+        "economicConditions": {
+          "title": "CONDICIÓNS ECONÓMICAS E FORMAS DE PAGAMENTO",
+          "bullet1": "Os pagos realízanse exclusivamente con tarxeta a través de Stripe.",
+          "bullet2": "A factura pode solicitarse por correo electrónico.",
+          "bullet3": "Os cargos son periódicos segundo o contrato.",
+          "bullet4": "Non se admiten reembolsos, salvo cancelacións con 48 horas de antelación."
+        },
+        "accessRequirements": {
+          "title": "ACCESO E REQUISITOS TÉCNICOS",
+          "p1": "Ordinaly fornece toda a infraestrutura técnica necesaria."
+        },
+        "correctUse": {
+          "title": "USO CORRECTO DOS SERVIZOS",
+          "p1": "O usuario comprométese a facer un uso lícito dos servizos.",
+          "bullet1": "Uso para actividades ilegais ou non autorizadas.",
+          "bullet2": "Spam ou vulneración de dereitos de terceiros.",
+          "bullet3": "Reprodución non autorizada das ferramentas."
+        },
+        "intellectualProperty": {
+          "title": "PROPIEDADE INTELECTUAL",
+          "p1": "Todo o contido é propiedade de Ordinaly Software S.L.",
+          "p2": "Non se permite a súa modificación sen consentimento.",
+          "p3": "Os entregables só poden empregarse mentres o contrato estea vixente."
+        },
+        "thirdPartyLicenses": {
+          "title": "LICENZAS DE TERCEIROS",
+          "p1": "Utilízanse tecnoloxías e API de terceiros debidamente licenciadas."
+        }
       },
       "privacy": {
         "title": "Política de Privacidade",
-        "noDocuments": "Non hai documentos de política de privacidade dispoñibles actualmente"
+        "noDocuments": "Actualmente non hai documentos de política de privacidade dispoñibles",
+        "dataController": {
+          "title": "RESPONSABLE DO TRATAMENTO",
+          "p1": "En cumprimento do RGPD (UE) 2016/679 e da Lei Orgánica 3/2018, infórmase que o responsable do tratamento é:",
+          "p2": "Ordinaly Software S.L.",
+          "bullet1": "Domicilio fiscal: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla, España",
+          "bullet2": "Correo electrónico de contacto: ordinalysoftware@gmail.com"
+        },
+        "personalDataCollected": {
+          "title": "DATOS PERSOAIS QUE RECOLLEMOS",
+          "p1": "A través do sitio web e durante a prestación dos servizos, recollemos:",
+          "bullet1": "Nome e apelidos",
+          "bullet2": "Correo electrónico",
+          "bullet3": "Teléfono",
+          "bullet4": "Datos de acceso",
+          "bullet5": "Preferencias de configuración do sitio web"
+        },
+        "processingPurposes": {
+          "title": "FINALIDADES DO TRATAMENTO",
+          "p1": "Os datos persoais trátanse para:",
+          "bullet1": "Atender consultas recibidas",
+          "bullet2": "Xestionar a relación contractual",
+          "bullet3": "Personalizar a experiencia do usuario",
+          "bullet4": "Enviar comunicacións comerciais con consentimento"
+        },
+        "legalBases": {
+          "title": "BASES XURÍDICAS",
+          "p1": "As bases legais do tratamento son:",
+          "bullet1": "Consentimento do interesado",
+          "bullet2": "Interese lexítimo",
+          "bullet3": "Execución dun contrato"
+        },
+        "recipients": {
+          "title": "DESTINATARIOS E TRANSFERENCIAS INTERNACIONAIS",
+          "p1": "Os datos poden ser tratados por provedores externos:",
+          "bullet1": "Stripe",
+          "bullet2": "Google Analytics"
+        },
+        "dataRetention": {
+          "title": "CONSERVACIÓN DOS DATOS",
+          "bullet1": "Os datos conservaranse ata que o usuario solicite a súa supresión.",
+          "bullet2": "Os datos contractuais conservaranse segundo o prazo legal.",
+          "bullet3": "Os datos de navegación réxense pola Política de Cookies."
+        },
+        "aiInteractions": {
+          "title": "INTERACCIÓNS CON SISTEMAS DE IA",
+          "p1": "O sitio pode incluír chatbots ou asistentes virtuais baseados en IA.",
+          "bullet1": "As conversas poden almacenarse para mellorar o servizo.",
+          "bullet2": "Os datos recóllense só durante o uso activo do servizo.",
+          "bullet3": "Non se garante o anonimato das conversas."
+        },
+        "userRights": {
+          "title": "DEREITOS DOS USUARIOS",
+          "p1": "Os usuarios poden exercer os dereitos recoñecidos polo RGPD:",
+          "bullet1": "Acceso",
+          "bullet2": "Rectificación",
+          "bullet3": "Supresión",
+          "bullet4": "Oposición",
+          "bullet5": "Limitación do tratamento",
+          "bullet6": "Portabilidade",
+          "bullet7": "Retirada do consentimento"
+        },
+        "dataSecurity": {
+          "title": "SEGURIDADE DOS DATOS",
+          "p1": "Ordinaly Software S.L. adopta medidas adecuadas para protexer os datos persoais."
+        }
       },
       "cookies": {
         "title": "Política de Cookies",
-        "noDocuments": "Non hai documentos de política de cookies dispoñibles actualmente"
+        "noDocuments": "Actualmente non hai documentos de política de cookies dispoñibles",
+        "whatAreCookies": {
+          "title": "QUE SON AS COOKIES?",
+          "p1": "As cookies son pequenos ficheiros que se instalan no dispositivo do usuario para almacenar información de navegación."
+        },
+        "typesOfCookies": {
+          "title": "QUE TIPOS DE COOKIES UTILIZAMOS?",
+          "p1": "Neste sitio web utilízanse:",
+          "bullet1": "Cookies técnicas: necesarias para o funcionamento básico.",
+          "bullet2": "Cookies analíticas: recollen información estatística anónima."
+        },
+        "cookiesList": {
+          "title": "LISTADO DE COOKIES UTILIZADAS",
+          "p1": "Cookies empregadas:",
+          "bullet1": "__next_hmr_refresh_hash__ (Técnica)",
+          "bullet2": "NEXT_LOCALE (Técnica)",
+          "bullet3": "_ga (Analítica)"
+        },
+        "localStorage": {
+          "title": "ALMACENAMENTO LOCAL (LocalStorage)",
+          "p1": "O sitio pode usar almacenamento local no navegador.",
+          "p2": "Os datos non se comparten con terceiros.",
+          "bullet1": "theme",
+          "bullet2": "cookie-preferences",
+          "bullet3": "cookie-consent",
+          "bullet4": "authToken"
+        },
+        "cookieManagement": {
+          "title": "XESTIÓN DE COOKIES",
+          "p1": "O usuario pode xestionar as cookies desde o banner ou o navegador.",
+          "bullet1": "Google Chrome",
+          "bullet2": "Mozilla Firefox",
+          "bullet3": "Safari",
+          "bullet4": "Microsoft Edge"
+        },
+        "internationalTransfer": {
+          "title": "TRANSFERENCIA INTERNACIONAL DE DATOS",
+          "p1": "Algunhas cookies poden implicar transferencias internacionais."
+        },
+        "policyModification": {
+          "title": "MODIFICACIÓN DA POLÍTICA DE COOKIES",
+          "p1": "A política poderá actualizarse cando sexa necesario."
+        }
       },
       "license": {
-        "title": "Información de Licencia",
-        "noDocuments": "Non hai documentos de licencia dispoñibles actualmente"
+        "title": "Información da Licenza",
+        "noDocuments": "Actualmente non hai documentos de licenza dispoñibles",
+        "purpose": {
+          "title": "OBXECTO",
+          "p1": "Este documento regula os termos de uso dos entregables desenvolvidos por Ordinaly Software S.L., incluíndo:",
+          "bullet1": "Código fonte",
+          "bullet2": "Interfaces visuais e paneis",
+          "bullet3": "Imaxes e contido gráfico",
+          "bullet4": "Documentación técnica ou formativa",
+          "bullet5": "Ficheiros de configuración, scripts e modelos"
+        },
+        "scope": {
+          "title": "ALCANCE DA LICENZA",
+          "p1": "Concédese unha licenza non exclusiva cos seguintes dereitos:",
+          "bullet1": "Dereito de uso",
+          "bullet2": "Dereito de modificación"
+        },
+        "validity": {
+          "title": "VIXENCIA DA LICENZA",
+          "p1": "A vixencia depende do servizo contratado:",
+          "p2": "Con subscrición activa, a licenza permanece válida.",
+          "p3": "Entregables pechados teñen licenza indefinida se están pagados."
+        },
+        "restrictions": {
+          "title": "RESTRICIÓNS",
+          "p1": "Sen autorización expresa non se permite:",
+          "bullet1": "Eliminar marcas ou metadatos",
+          "bullet2": "Uso ilegal do produto",
+          "bullet3": "Compartir ou transferir o desenvolvemento"
+        },
+        "thirdPartySoftware": {
+          "title": "SOFTWARE DE TERCEIROS",
+          "p1": "Os entregables poden incluír compoñentes de:",
+          "bullet1": "Meta",
+          "bullet2": "WhatsApp Business API",
+          "bullet3": "Gemini (Google)",
+          "bullet4": "Stripe",
+          "bullet5": "Google Analytics",
+          "bullet6": "Outras plataformas"
+        },
+        "intellectualProperty": {
+          "title": "PROPIEDADE INTELECTUAL",
+          "p1": "Os dereitos pertencen a Ordinaly Software S.L.",
+          "p2": "A licenza non implica cesión de titularidade."
+        },
+        "applicableLaw": {
+          "title": "LEXISLACIÓN APLICABLE E XURISDICIÓN",
+          "p1": "A licenza réxese pola lexislación española e polos xulgados de Sevilla."
+        }
       }
     },
     "messages": {
