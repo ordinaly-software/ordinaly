@@ -46,7 +46,8 @@ export default function AdminPage() {
     totalServices: 0,
     totalCourses: 0,
     totalUsers: 0,
-    totalTerms: 0
+    totalTerms: 0,
+    totalPosts: 0, // added
   });
   const tabs: AdminTabsTab[] = [
     { id: 'overview', name: t("tabs.overview"), icon: BarChart3 },
@@ -100,25 +101,44 @@ export default function AdminPage() {
             setIsAuthorized(true);
             await fetchStats(token);
           } else {
-            setAlert({type: 'error', message: 'Access denied. Admin privileges required.'});
+            setAlert({type: 'error', message: t("errors.adminOnly")});
             setTimeout(() => router.push('/'), 3000);
           }
         } else {
-          setAlert({type: 'error', message: 'Failed to verify admin status. Please try signing in again.'});
+          setAlert({type: 'error', message: t("errors.verifyFailed")});
           setTimeout(() => router.push('/auth/signin'), 3000);
         }
       } catch {
-        setAlert({type: 'error', message: 'Authentication error. Please sign in again.'});
+        setAlert({type: 'error', message: t("errors.authError")});
         setTimeout(() => router.push('/auth/signin'), 3000);
       } finally {
         setIsLoading(false);
       }
     };
 
+    const fetchSanityPostsCount = async (): Promise<number> => {
+      try {
+        const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+        const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+        if (!projectId || !dataset) return 0;
+
+        // Count all posts (example mirrors blog pages Sanity usage)
+        const groq = encodeURIComponent(`count(*[_type == "post"])`);
+        const url = `https://${projectId}.api.sanity.io/v2021-10-21/data/query/${dataset}?query=${groq}`;
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return 0;
+        const data = await res.json();
+        const count = typeof data?.result === 'number' ? data.result : 0;
+        return count;
+      } catch {
+        return 0;
+      }
+    };
+
     const fetchStats = async (token: string) => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
-        const [servicesRes, coursesRes, termsRes, usersRes] = await Promise.all([
+        const [servicesRes, coursesRes, termsRes, usersRes, postsCount] = await Promise.all([
           fetch(`${apiUrl}/api/services/`, {
             headers: { 'Authorization': `Token ${token}` }
           }),
@@ -130,28 +150,31 @@ export default function AdminPage() {
           }),
           fetch(`${apiUrl}/api/users/`, {
             headers: { 'Authorization': `Token ${token}` }
-          })
+          }),
+          fetchSanityPostsCount()
         ]);
 
         const [services, courses, terms, users] = await Promise.all([
           servicesRes.ok ? servicesRes.json() : [],
           coursesRes.ok ? coursesRes.json() : [],
           termsRes.ok ? termsRes.json() : [],
-          usersRes.ok ? usersRes.json() : []
+          usersRes.ok ? usersRes.json() : [],
         ]);
 
         setStats({
-          totalServices: services.length || 0,
-          totalCourses: courses.length || 0,
-          totalUsers: users.length || 0,
-          totalTerms: terms.length || 0
+          totalServices: Array.isArray(services) ? services.length : 0,
+          totalCourses: Array.isArray(courses) ? courses.length : 0,
+          totalUsers: Array.isArray(users) ? users.length : 0,
+          totalTerms: Array.isArray(terms) ? terms.length : 0,
+          totalPosts: typeof postsCount === 'number' ? postsCount : 0,
         });
       } catch {
         setStats({
           totalServices: 0,
           totalCourses: 0,
           totalUsers: 0,
-          totalTerms: 0
+          totalTerms: 0,
+          totalPosts: 0,
         });
       }
     };
@@ -178,6 +201,7 @@ export default function AdminPage() {
             exit="exit"
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
           >
+            {/* Services */}
             <Card
               className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('services')}
@@ -197,6 +221,8 @@ export default function AdminPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Courses */}
             <Card
               className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('courses')}
@@ -216,6 +242,8 @@ export default function AdminPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Terms */}
             <Card
               className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('terms')}
@@ -235,6 +263,8 @@ export default function AdminPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Users */}
             <Card
               className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('users')}
@@ -251,6 +281,95 @@ export default function AdminPage() {
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {stats.totalUsers}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Blog (posts count + quick access, same size as others) */}
+            <Card
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleTabChange('blog')}
+              tabIndex={0}
+              role="button"
+              aria-label={t("tabs.blog")}
+            >
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  {t("tabs.blog")}
+                </CardTitle>
+                <ArrowUpRight className="h-4 w-4 text-[#22A60D]" />
+              </CardHeader>
+              <CardContent className="flex items-center justify-between">
+                <div>
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {stats.totalPosts}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {t("stats.totalPosts")}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Quick access: Odoo */}
+            <Card
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleTabChange('odoo')}
+              tabIndex={0}
+              role="button"
+              aria-label={t("tabs.odoo")}
+            >
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  {t("tabs.odoo")}
+                </CardTitle>
+                <BarChart3 className="h-4 w-4 text-[#623CEA]" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-sm text-gray-700 dark:text-gray-300">
+                  {t("externalTabs.odoo.description")}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Quick access: n8n */}
+            <Card
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleTabChange('n8n')}
+              tabIndex={0}
+              role="button"
+              aria-label={t("tabs.n8n")}
+            >
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  {t("tabs.n8n")}
+                </CardTitle>
+                <Command className="h-4 w-4 text-[#E4572E]" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-sm text-gray-700 dark:text-gray-300">
+                  {t("externalTabs.n8n.description")}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Quick access: API */}
+            <Card
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleTabChange('api')}
+              tabIndex={0}
+              role="button"
+              aria-label={t("tabs.api")}
+            >
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  {t("tabs.api")}
+                </CardTitle>
+                <Settings className="h-4 w-4 text-[#46B1C9]" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-sm text-gray-700 dark:text-gray-300">
+                  {t("externalTabs.api.description")}
                 </div>
               </CardContent>
             </Card>

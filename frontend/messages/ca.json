@@ -380,7 +380,8 @@
       "totalServices": "Serveis totals",
       "totalCourses": "Cursos totals",
       "totalTerms": "Condicions totals",
-      "totalUsers": "Total usuaris"
+      "totalUsers": "Total usuaris",
+      "totalPosts": "Publicacions totals del blog"
     },
     "users": {
       "userId": "ID d'usuari",

@@ -415,13 +415,14 @@
       }
     },
     "stats": {
-      "totalServices": "Total Services",
-      "totalCourses": "Total Courses",
-      "totalTerms": "Total Terms",
-      "totalUsers": "Total Users"
+      "totalServices": "Total services",
+      "totalCourses": "Total courses",
+      "totalTerms": "Total terms",
+      "totalUsers": "Total users",
+      "totalPosts": "Total blog posts"
     },
     "services": {
-      "title": "Services Management",
+      "title": "Services management",
       "searchPlaceholder": "Search services...",
       "addService": "Add Service",
       "editService": "Edit Service",

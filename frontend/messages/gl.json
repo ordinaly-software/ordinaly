@@ -418,7 +418,8 @@
       "totalServices": "Total de servizos",
       "totalCourses": "Total de cursos",
       "totalTerms": "Total de termos",
-      "totalUsers": "Total de usuarios"
+      "totalUsers": "Total de usuarios",
+      "totalPosts": "Total de publicacións do blog"
     },
     "services": {
       "title": "Xestión de servizos",

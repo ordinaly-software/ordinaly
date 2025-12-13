@@ -16,9 +16,19 @@ const ogLocales: Record<string, string> = {
 const defaultDescription =
   "Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y integración con Odoo, n8n y WhatsApp Business para liderar la innovación en España y Europa.";
 
-type OpenGraphType = NonNullable<Metadata["openGraph"]> extends { type?: infer T }
-  ? NonNullable<T>
-  : "website";
+type OpenGraphType =
+  | "website"
+  | "article"
+  | "book"
+  | "profile"
+  | "music.song"
+  | "music.album"
+  | "music.playlist"
+  | "music.radio_station"
+  | "video.movie"
+  | "video.episode"
+  | "video.tv_show"
+  | "video.other";
 const defaultOpenGraphType: OpenGraphType = "website";
 
 type MetadataOptions = {

@@ -418,7 +418,8 @@
       "totalServices": "Zerbitzu guztira",
       "totalCourses": "Ikastaro guztira",
       "totalTerms": "Baldintza guztira",
-      "totalUsers": "Erabiltzaile guztira"
+      "totalUsers": "Erabiltzaile guztira",
+      "totalPosts": "Blogeko argitalpen guztira"
     },
     "services": {
       "title": "Zerbitzuen Kudeaketa",
