@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { getCookiePreferences } from '@/utils/cookieManager';
 
 interface ThemeContextType {
   isDark: boolean;
@@ -12,46 +13,89 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [isDark, setIsDark] = useState(false);
+  const [functionalAllowed, setFunctionalAllowed] = useState(false);
 
   const [mounted, setMounted] = useState(false);
 
+  const getFunctionalConsent = () => {
+    try {
+      const preferences = getCookiePreferences();
+      return Boolean(preferences?.functional);
+    } catch {
+      return false;
+    }
+  };
+
+  const resolvePreferredTheme = (allowPersistence: boolean) => {
+    if (typeof window === 'undefined') return false;
+
+    if (allowPersistence) {
+      try {
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") return true;
+        if (savedTheme === "light") return false;
+      } catch {
+        // Ignore storage failures
+      }
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+  };
+
+  const applyTheme = (dark: boolean, shouldPersist: boolean) => {
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+
+    try {
+      if (shouldPersist) {
+        localStorage.setItem("theme", dark ? "dark" : "light");
+      } else {
+        localStorage.removeItem("theme");
+      }
+    } catch {
+      // Ignore storage failures (likely blocked by user settings)
+    }
+  };
+
   useEffect(() => {
-    // Initialize theme from localStorage and system preference
-    const savedTheme = localStorage.getItem("theme");
-    // Default to light theme if not set
-    const shouldBeDark = savedTheme === "dark";
+    // Initialize theme from localStorage when functional cookies are allowed, otherwise fall back to system preference
+    const allowPersistence = getFunctionalConsent();
+    setFunctionalAllowed(allowPersistence);
+    const shouldBeDark = resolvePreferredTheme(allowPersistence);
     setIsDark(shouldBeDark);
-    updateDocumentTheme(shouldBeDark);
+    applyTheme(shouldBeDark, allowPersistence);
     setMounted(true);
   }, []);
 
   // Handle theme changes from other tabs/windows
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'theme') {
+      if (e.key === 'cookie-preferences') {
+        const allowPersistence = getFunctionalConsent();
+        setFunctionalAllowed(allowPersistence);
+        const shouldBeDark = resolvePreferredTheme(allowPersistence);
+        setIsDark(shouldBeDark);
+        applyTheme(shouldBeDark, allowPersistence);
+        return;
+      }
+
+      if (functionalAllowed && e.key === 'theme') {
         const shouldBeDark = e.newValue === 'dark';
         setIsDark(shouldBeDark);
-        updateDocumentTheme(shouldBeDark);
+        applyTheme(shouldBeDark, true);
       }
     };
 
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
-
-  const updateDocumentTheme = (dark: boolean) => {
-    if (dark) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    }
-  };
+  }, [functionalAllowed]);
 
   const setTheme = (dark: boolean) => {
     setIsDark(dark);
-    updateDocumentTheme(dark);
+    applyTheme(dark, functionalAllowed);
   };
 
   const toggleTheme = () => {

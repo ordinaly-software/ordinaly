@@ -12,6 +12,7 @@ import StyledButton from "@/components/ui/styled-button";
 import Image from "next/image";
 import GoogleSignInButton from '@/components/auth/google-signin-button';
 import Link from "next/link";
+import { getCookiePreferences } from "@/utils/cookieManager";
 
 export default function SignupPage() {
   const t = useTranslations("signup");
@@ -57,10 +58,20 @@ export default function SignupPage() {
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
     } else {
       document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+    }
+
+    try {
+      const preferences = getCookiePreferences();
+      const canPersistTheme = Boolean(preferences?.functional);
+      if (canPersistTheme) {
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      } else {
+        localStorage.removeItem("theme");
+      }
+    } catch {
+      // Ignore storage failures
     }
   }, [isDark]);
 

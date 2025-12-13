@@ -808,6 +808,14 @@
     "title": "Lege dokumentazioa",
     "description": "Sartu gure zerbitzuaren baldintzak, pribatutasun politika, cookie politika eta lizentzia informazioa.",
     "downloadPdf": "Deskargatu pdf",
+    "downloadDesc": "Descargar Terms in PDF",
+    "cookieManage": "Manage Cookies",
+    "cookieDesc": "Toggle your cookie preferences",
+    "supportKicker": "Laguntza behar duzu?",
+    "supportTitle": "Harremanetan jarri laguntzarekin",
+    "supportDesc": "Gure lege dokumentuei buruzko galderarik al duzu?",
+    "contactCta": "Jarri gurekin harremanetan",
+    "openCookieSettings": "Ireki cookie ezarpenak",
     "tabs": {
       "terms": "Zerbitzu baldintzak",
       "privacy": "Pribatutasun politika",
@@ -816,20 +824,221 @@
     },
     "sections": {
       "terms": {
-        "title": "Zerbitzu baldintzak",
-        "noDocuments": "Ez dago zerbitzuen agiri baldintzarik eskuragarri."
+        "title": "Zerbitzu Baldintzak",
+        "noDocuments": "Une honetan ez dago zerbitzu baldintzen dokumenturik eskuragarri",
+        "identification": {
+          "title": "ZERBITZU EMAILEAREN IDENTIFIKAZIOA",
+          "p1": "Informazioaren gizarteko zerbitzuei eta merkataritza elektronikoari buruzko 34/2002 Legea (LSSI-CE) betez, jakinarazten da webgune hau honakoaren jabetzakoa dela:",
+          "bullet1": "Enpresa: Ordinaly Software S.L.",
+          "bullet2": "Helbide fiskala: Plaza del Duque de la Victoria 1, 3. solairua, 9. bulegoa, 41002 Sevilla, Sevilla (Espainia)",
+          "bullet3": "Harremanetarako posta: ordinalysoftware@gmail.com",
+          "bullet4": "Webgunea: https://ordinaly.netlify.app"
+        },
+        "purpose": {
+          "title": "XEDEA",
+          "p1": "Zerbitzu Baldintza hauek Ordinaly Software S.L.k bere webgunearen bidez eskaintzen dituen zerbitzuen sarbidea, nabigazioa, kontratazioa eta erabilera arautzen dituzte, baita erabileratik eratorritako erantzukizunak ere."
+        },
+        "serviceModalities": {
+          "title": "ZERBITZU MODALITATEAK",
+          "p1": "Ordinaly-k honako zerbitzu motak eskaintzen ditu:",
+          "bullet1": "Hileko edo urteko harpidetzako zerbitzuak: laguntza teknikoa, mantentzea, eguneraketak eta funtzionaltasun errepikarietarako sarbidea barne.",
+          "bullet2": "Zerbitzu puntualak: jarraipenik gabeko esku-hartze zehatzak. Ez dute mantentzerik ezta entregaren ondorengo laguntzarik.",
+          "bullet3": "Prestakuntza: automatizazio tresnei buruzko aurrez aurreko edo urrutiko ikastaroak, asistentzia eta baliogabetze baldintza espezifikoekin."
+        },
+        "economicConditions": {
+          "title": "BALDINTZA EKONOMIKOAK ETA ORDAINKETA MODUAK",
+          "bullet1": "Ordainketak txartel bidez soilik egiten dira, Stripe plataforma seguruaren bidez.",
+          "bullet2": "Enpresak ez du faktura automatikoki jaulkitzen, posta elektronikoz eska daiteke.",
+          "bullet3": "Harpidetza zerbitzuetan, kobrantzak aldizkakoak izango dira (hileko edo urteko).",
+          "bullet4": "Ez da itzulketarik onartzen, 48 ordu lehenago bertan behera uzten diren ikastaroetan izan ezik."
+        },
+        "accessRequirements": {
+          "title": "SARBIDEA ETA BALDINTZA TEKNIKOAK",
+          "p1": "Ordinaly-k bere zerbitzuak ezartzeko beharrezko azpiegitura eta baldintza tekniko guztiak eskaintzen ditu."
+        },
+        "correctUse": {
+          "title": "ZERBITZUEN ERABILERA EGOKIA",
+          "p1": "Erabiltzaileak zerbitzuak modu zilegian erabiltzeko konpromisoa hartzen du. Debekatuta dago:",
+          "bullet1": "Jarduera ilegal, iruzurrezko edo baimenik gabekoetarako erabiltzea.",
+          "bullet2": "Spam kanpainak edo hirugarrenen eskubideak urratzea.",
+          "bullet3": "Tresnak baimenik gabe erreproduzitzea edo aldatzea."
+        },
+        "intellectualProperty": {
+          "title": "JABETZA INTELEKTUALA",
+          "p1": "Webguneko eduki guztia Ordinaly Software S.L.ren edo bere lizentziadunen jabetzakoa da.",
+          "p2": "Ezin da eduki hori baimen espresurik gabe erreproduzitu edo aldatu.",
+          "p3": "Ordinaly-k garatutako entregagarriak kontratua indarrean dagoen bitartean soilik erabil daitezke."
+        },
+        "thirdPartyLicenses": {
+          "title": "HIRUGARRENEN LIZENTZIAK",
+          "p1": "Erabilitako teknologiak behar bezala lizentziatuta daude, eta hirugarrenen APIak erabiltzen dira."
+        }
       },
       "privacy": {
-        "title": "Pribatutasun politika",
-        "noDocuments": "Gaur egun ez dago pribatutasun politikarik."
+        "title": "Pribatutasun Politika",
+        "noDocuments": "Une honetan ez dago pribatutasun politikaren dokumenturik eskuragarri",
+        "dataController": {
+          "title": "DATUEN TRATAMENDUAREN ARDURADUNA",
+          "p1": "DBEO (EB) 2016/679 eta 3/2018 Lege Organikoa betez, datuen tratamenduaren arduraduna honakoa da:",
+          "p2": "Ordinaly Software S.L.",
+          "bullet1": "Helbide fiskala: Plaza del Duque de la Victoria 1, 3. solairua, 9. bulegoa, 41002 Sevilla, Espainia",
+          "bullet2": "Harremanetarako posta elektronikoa: ordinalysoftware@gmail.com"
+        },
+        "personalDataCollected": {
+          "title": "BILTZEN DITUGUN DATU PERTSONALAK",
+          "p1": "Webgunearen bidez eta zerbitzuak ematean, honako datuak biltzen ditugu:",
+          "bullet1": "Izena eta abizenak",
+          "bullet2": "Posta elektronikoa",
+          "bullet3": "Telefonoa",
+          "bullet4": "Sarbide datuak (erabiltzailea eta pasahitza)",
+          "bullet5": "Webguneko konfigurazio lehentasunak (gaia, hizkuntza)"
+        },
+        "processingPurposes": {
+          "title": "TRATAMENDUAREN HELBURUAK",
+          "p1": "Datu pertsonalak honako helburuetarako tratatzen ditugu:",
+          "bullet1": "Harremanetarako formularioen bidez jasotako eskaerei erantzutea",
+          "bullet2": "Kontratu-harremana eta kontratatutako zerbitzuen kudeaketa",
+          "bullet3": "Erabiltzailearen esperientzia pertsonalizatzea",
+          "bullet4": "Komunikazio komertzialak bidaltzea, baimen espresua badago soilik"
+        },
+        "legalBases": {
+          "title": "TRATAMENDUAREN OINARRI JURIDIKOAK",
+          "p1": "Datuen tratamendua honako oinarri juridiko hauetan oinarritzen da:",
+          "bullet1": "Interesdunaren baimena",
+          "bullet2": "Interes legitimoa, webguneko funtzio oinarrizkoak pertsonalizatzeko",
+          "bullet3": "Zerbitzuen kontratazioan, kontratuaren exekuzioa"
+        },
+        "recipients": {
+          "title": "HARTZAILEAK ETA NAZIOARTEKO TRANSFERENTZIAK",
+          "p1": "Datuak kanpoko hornitzaileek tratatu ditzakete:",
+          "bullet1": "Stripe, online ordainketen kudeaketarako",
+          "bullet2": "Google Analytics, webgunearen erabileraren analisirako"
+        },
+        "dataRetention": {
+          "title": "DATUEN KONTSERBAZIOA",
+          "bullet1": "Harremanetarako eta konfigurazioko datuak erabiltzaileak ezabatzeko eskatu arte gordeko dira.",
+          "bullet2": "Fakturazioari edo kontratatutako zerbitzuei lotutako datuak legezko epean gordeko dira.",
+          "bullet3": "Nabigazio datuak Cookie Politikaren arabera gordetzen dira."
+        },
+        "aiInteractions": {
+          "title": "AA SISTEMEKIKO INTERAKZIOAK",
+          "p1": "Webguneak AA oinarritutako chatbot edo laguntzaile birtualak izan ditzake.",
+          "bullet1": "AA bidezko elkarrizketak zerbitzua hobetzeko gorde daitezke.",
+          "bullet2": "Datuak zerbitzua aktiboki erabiltzean bakarrik biltzen dira.",
+          "bullet3": "Elkarrizketak ez dira anonimoak bermatzen, hornitzaileen baldintza teknikoengatik."
+        },
+        "userRights": {
+          "title": "ERABILTZAILEEN ESKUBIDEAK",
+          "p1": "Erabiltzaileek DBEOk aitortutako eskubide hauek erabil ditzakete:",
+          "bullet1": "Sarbide eskubidea",
+          "bullet2": "Zuzenketa eskubidea",
+          "bullet3": "Ezabaketa eskubidea",
+          "bullet4": "Aurka egiteko eskubidea",
+          "bullet5": "Tratamendua mugatzeko eskubidea",
+          "bullet6": "Datuen eramangarritasuna",
+          "bullet7": "Baimena edozein unetan kentzeko eskubidea"
+        },
+        "dataSecurity": {
+          "title": "DATUEN SEGURTASUNA",
+          "p1": "Ordinaly Software S.L.k neurri tekniko eta antolakuntzako egokiak hartzen ditu datuak babesteko."
+        }
       },
       "cookies": {
-        "title": "Cookie politika",
-        "noDocuments": "Gaur egun ez dago cookie politikaren dokumenturik."
+        "title": "Cookieen Politika",
+        "noDocuments": "Une honetan ez dago cookieen politikaren dokumenturik eskuragarri",
+        "whatAreCookies": {
+          "title": "ZER DIRA COOKIEAK?",
+          "p1": "Cookieak webgune batek erabiltzailearen gailuan instalatzen dituen fitxategi txikiak dira. Nabigazio-ohiturei edo gailuari buruzko informazioa gordetzea eta berreskuratzea ahalbidetzen dute, erabiltzailea ezagutzeko eta esperientzia pertsonalizatzeko."
+        },
+        "typesOfCookies": {
+          "title": "ZEIN COOKIE MOTA ERABILTZEN DITUGU?",
+          "p1": "Webgune honetan cookie mota hauek bakarrik erabiltzen ditugu:",
+          "bullet1": "Cookie teknikoak (beharrezkoak): webgunearen oinarrizko funtzionamendurako ezinbestekoak dira.",
+          "bullet2": "Cookie analitikoak: webgunearen erabilerari buruzko informazio estatistiko anonimoa biltzen dute."
+        },
+        "cookiesList": {
+          "title": "ERABILITAKO COOKIEEN ZERRENDA",
+          "p1": "Ondoren, webgune honetan erabiltzen diren cookieak zehazten dira:",
+          "bullet1": "__next_hmr_refresh_hash__ (Teknikoa): eduki dinamikoa freskatzea. Iraupena: saioa.",
+          "bullet2": "NEXT_LOCALE (Teknikoa): hautatutako hizkuntza gordetzen du. Iraupena: saioa.",
+          "bullet3": "_ga (Analitikoa): Google Analytics. Iraupena: saioa."
+        },
+        "localStorage": {
+          "title": "NABIGATZAILEAREN TOKIKO BILTEGIA (LocalStorage)",
+          "p1": "Cookieez gain, webguneak localStorage erabil dezake informazioa gordetzeko.",
+          "p2": "Datu hauek ez dira hirugarrenei partekatzen.",
+          "bullet1": "theme",
+          "bullet2": "cookie-preferences",
+          "bullet3": "cookie-consent",
+          "bullet4": "authToken"
+        },
+        "cookieManagement": {
+          "title": "COOKIEEN KUDEAKETA",
+          "p1": "Lehenengo sarbidean cookieen kudeaketa-banner bat erakusten da.",
+          "bullet1": "Google Chrome",
+          "bullet2": "Mozilla Firefox",
+          "bullet3": "Safari",
+          "bullet4": "Microsoft Edge"
+        },
+        "internationalTransfer": {
+          "title": "NAZIOARTEKO DATU TRANSFERENTZIA",
+          "p1": "Cookie analitiko batzuek datuen nazioarteko transferentzia ekar dezakete."
+        },
+        "policyModification": {
+          "title": "COOKIEEN POLITIKAREN ALDAKETA",
+          "p1": "Ordinaly Software S.L.k cookieen politika hau eguneratu ahal izango du."
+        }
       },
       "license": {
-        "title": "Lizentzia informazioa",
-        "noDocuments": "Ez dago lizentziarik dokumenturik eskuragarri."
+        "title": "Lizentziari buruzko Informazioa",
+        "noDocuments": "Une honetan ez dago lizentzia-dokumenturik eskuragarri",
+        "purpose": {
+          "title": "XEDEA",
+          "p1": "Dokumentu honek Ordinaly Software S.L.k garatutako entregagarrien erabilera-baldintzak arautzen ditu, honakoak barne baina ez horietara mugatuta:",
+          "bullet1": "Iturburu-kodea",
+          "bullet2": "Interfaze bisualak eta panelak",
+          "bullet3": "Irudiak, ilustrazioak eta eduki grafikoa",
+          "bullet4": "Dokumentazio teknikoa edo prestakuntzakoa",
+          "bullet5": "Konfigurazio-fitxategiak, scriptak eta txantiloiak"
+        },
+        "scope": {
+          "title": "LIZENTZIAREN EREMUA",
+          "p1": "Ordinaly Software S.L.k bezeroari lizentzia ez-esklusiboa ematen dio, eskubide hauekin:",
+          "bullet1": "Erabilera-eskubidea: entregagarriak bere jarduera profesionalean edo enpresarialean erabiltzea.",
+          "bullet2": "Aldaketa-eskubidea: kodea eta bestelako elementuak pertsonalizatu edo aldatzea."
+        },
+        "validity": {
+          "title": "LIZENTZIAREN INDARRALDIA",
+          "p1": "Lizentziaren indarraldia kontratatutako zerbitzu motaren araberakoa izango da:",
+          "p2": "Harpidetza aktiboa duten entregagarriak: lizentzia indarrean egongo da harpidetza aktibo dagoen bitartean.",
+          "p3": "Entregagarri itxiak: lizentzia mugagabea izango da, proiektua guztiz entregatu eta ordaindu bada."
+        },
+        "restrictions": {
+          "title": "MURRIZKETAK",
+          "p1": "Bezeroak ezin izango ditu ekintza hauek egin baimen espresurik gabe:",
+          "bullet1": "Jabetza intelektualeko markak edo metadatuak kentzea edo aldatzea",
+          "bullet2": "Produktua legez kanpoko helburuetarako erabiltzea",
+          "bullet3": "Garapena hirugarrenei partekatu edo transferitzea"
+        },
+        "thirdPartySoftware": {
+          "title": "HIRUGARRENEN SOFTWAREAREN INKLUSIOA",
+          "p1": "Entregagarrietan hirugarrenen osagaiak sar daitezke:",
+          "bullet1": "Meta",
+          "bullet2": "WhatsApp Business API",
+          "bullet3": "Gemini (Google)",
+          "bullet4": "Stripe",
+          "bullet5": "Google Analytics",
+          "bullet6": "Beste plataforma konektatu batzuk"
+        },
+        "intellectualProperty": {
+          "title": "JABETZA INTELEKTUALA",
+          "p1": "Entregagarrien jabetza intelektualeko eskubide guztiak Ordinaly Software S.L.renak dira.",
+          "p2": "Bezeroak erabilera-lizentzia bat jasotzen du, titulartasunik eskualdatu gabe."
+        },
+        "applicableLaw": {
+          "title": "LEGE APLIKAGARRIA ETA JURISDIKZIOA",
+          "p1": "Lizentzia hau Espainiako legediaren arabera arautuko da, eta Sevillako epaitegien menpe egongo da."
+        }
       }
     },
     "messages": {

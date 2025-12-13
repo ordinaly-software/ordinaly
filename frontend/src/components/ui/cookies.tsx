@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Cookie, Settings, Shield, Target, BarChart3 } from 'lucide-react';
+import { Cookie, Settings, Shield, BarChart3 } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
+import { clearFunctionalStorage, getCookiePreferences, initializeAnalytics } from '@/utils/cookieManager';
 
 const CookieConsent = () => {
   const t = useTranslations('cookie');
@@ -19,25 +20,55 @@ const CookieConsent = () => {
     necessary: true,
     functional: true,
     analytics: false,
-    marketing: false
   });
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
 
-  useEffect(() => {
     let hasConsented = null;
     try {
       hasConsented = localStorage.getItem('cookie-consent');
+      const storedPreferences = getCookiePreferences();
+      if (storedPreferences) {
+        setCookiePreferences(prev => ({
+          ...prev,
+          ...storedPreferences
+        }));
+      }
     } catch {
       // localStorage not available - handle silently
     }
-    if (!hasConsented && !showBubble) {
+    if (!hasConsented) {
       setShowPopup(true);
       setShowBubble(true);
     }
-  }, [showBubble]);
+  }, []);
+
+  useEffect(() => {
+    if (!isMounted) return;
+    initializeAnalytics(cookiePreferences);
+
+    if (!cookiePreferences.functional) {
+      clearFunctionalStorage();
+    }
+  }, [cookiePreferences, isMounted]);
+
+  useEffect(() => {
+    const syncPreferencesFromStorage = (event: StorageEvent) => {
+      if (event.key === 'cookie-preferences') {
+        const storedPreferences = getCookiePreferences();
+        if (storedPreferences) {
+          setCookiePreferences(prev => ({
+            ...prev,
+            ...storedPreferences
+          }));
+        }
+      }
+    };
+
+    window.addEventListener('storage', syncPreferencesFromStorage);
+    return () => window.removeEventListener('storage', syncPreferencesFromStorage);
+  }, []);
 
   // Lock body scroll when popup is open
   useEffect(() => {
@@ -66,11 +97,14 @@ const CookieConsent = () => {
       necessary: true,
       functional: true,
       analytics: true,
-      marketing: true
     };
     setCookiePreferences(preferences);
-    localStorage.setItem('cookie-consent', 'accepted');
-    localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+    try {
+      localStorage.setItem('cookie-consent', 'accepted');
+      localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+    } catch {
+      // localStorage not available - handle silently
+    }
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
@@ -81,25 +115,36 @@ const CookieConsent = () => {
       necessary: true,
       functional: false,
       analytics: false,
-      marketing: false
     };
     setCookiePreferences(preferences);
-    localStorage.setItem('cookie-consent', 'rejected');
-    localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+    try {
+      localStorage.setItem('cookie-consent', 'rejected');
+      localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+    } catch {
+      // localStorage not available - handle silently
+    }
+    clearFunctionalStorage();
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
   };
 
   const handleSavePreferences = () => {
-    localStorage.setItem('cookie-consent', 'customized');
-    localStorage.setItem('cookie-preferences', JSON.stringify(cookiePreferences));
+    try {
+      localStorage.setItem('cookie-consent', 'customized');
+      localStorage.setItem('cookie-preferences', JSON.stringify(cookiePreferences));
+    } catch {
+      // localStorage not available - handle silently
+    }
+    if (!cookiePreferences.functional) {
+      clearFunctionalStorage();
+    }
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
   };
 
-  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'marketing') => {
+  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics') => {
     if (type === 'necessary') return;
     setCookiePreferences(prev => ({
       ...prev,
@@ -213,13 +258,6 @@ const CookieConsent = () => {
                       toggle: true,
                       note: t('analyticsExamples')
                     },
-                    {
-                      key: 'marketing',
-                      icon: <Target className="text-[#E4572E]" size={20} />,
-                      enabled: cookiePreferences.marketing,
-                      toggle: true,
-                      note: t('marketingExamples')
-                    }
                   ].map(({ key, icon, enabled, toggle, note }) => (
                     <div key={key} className="border border-border rounded-lg p-4 bg-card">
                       <div className="flex items-center justify-between mb-2">
@@ -230,7 +268,7 @@ const CookieConsent = () => {
                         {toggle ? (
                           <Slider
                             checked={enabled}
-                            onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing')}
+                            onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics')}
                           />
                         ) : (
                           <div className="bg-[#22A60D] rounded-full w-6 h-6 flex items-center justify-center">

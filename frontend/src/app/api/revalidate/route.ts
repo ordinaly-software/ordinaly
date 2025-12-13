@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ok:false}, {status:401})
   }
   const { slugs = [], tags = [] } = await req.json().catch(()=>({}))
-  tags.forEach((t: string) => revalidateTag(t))
+  tags.forEach((t: string) => revalidateTag(t, 'max'))
   slugs.forEach((s:string)=> revalidatePath(`/blog/${s}`))
   revalidatePath('/blog')
   return NextResponse.json({ok:true, ts: Date.now()})

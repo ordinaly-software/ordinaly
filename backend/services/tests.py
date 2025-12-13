@@ -299,9 +299,9 @@ class ServiceSerializerTests(TestCase):
         """Test that the serializer contains the expected fields"""
         data = self.serializer.data
         self.assertEqual(set(data.keys()), set([
-            'id', 'title', 'subtitle', 'description', 'clean_description',
+            'id', 'type', 'title', 'subtitle', 'description', 'clean_description',
             'html_description', 'color', 'color_hex', 'icon', 'duration',
-            'requisites', 'price', 'is_featured', 'created_by',
+            'requisites', 'price', 'is_featured', 'draft', 'created_by',
             'created_by_username', 'created_at', 'updated_at'
         ]))
 
