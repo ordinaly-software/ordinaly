@@ -9,8 +9,9 @@ import CookieConsent from '@/components/ui/cookies';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { ThemeProvider } from '@/contexts/theme-context';
 import { NextIntlClientProvider } from 'next-intl';
-import AnalyticsBootstrap from '@/components/analytics/AnalyticsBootstrap';
+import GoogleAnalyticsScript from '@/components/analytics/GoogleAnalyticsScript';
 import GoogleAnalyticsPageViews from '@/components/analytics/GoogleAnalyticsPageViews';
+import AnalyticsManager from "@/utils/analyticsManager";
 
 
 const inter = Inter({
@@ -293,12 +294,7 @@ export default async function RootLayout({ children, params } :
         suppressHydrationWarning
       >
 
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            <AnalyticsBootstrap />
-            <GoogleAnalyticsPageViews />
-          </>
-        )}
+        <AnalyticsManager />
 
         <NextIntlClientProvider>
           <ThemeProvider>
