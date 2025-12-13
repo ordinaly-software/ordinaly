@@ -9,6 +9,9 @@ import CookieConsent from '@/components/ui/cookies';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { ThemeProvider } from '@/contexts/theme-context';
 import { NextIntlClientProvider } from 'next-intl';
+import AnalyticsBootstrap from '@/components/analytics/AnalyticsBootstrap';
+import GoogleAnalyticsPageViews from '@/components/analytics/GoogleAnalyticsPageViews';
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -140,13 +143,29 @@ export default async function RootLayout({ children, params } :
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
-                function getInitialTheme() {
-                  const savedTheme = localStorage.getItem('theme');
-                  if (savedTheme) {
-                    return savedTheme;
+                function canPersistTheme() {
+                  try {
+                    const rawPreferences = localStorage.getItem('cookie-preferences');
+                    if (!rawPreferences) return false;
+                    const parsed = JSON.parse(rawPreferences);
+                    return Boolean(parsed.functional);
+                  } catch {
+                    return false;
                   }
-                  const prefersDark = window.matchMedia('(prefers-color-scheme: light)').matches;
-                  return prefersDark ? 'light' : 'dark';
+                }
+
+                function getInitialTheme() {
+                  const allowPersistence = canPersistTheme();
+                  if (allowPersistence) {
+                    const savedTheme = localStorage.getItem('theme');
+                    if (savedTheme === 'dark' || savedTheme === 'light') {
+                      return savedTheme;
+                    }
+                  } else {
+                    localStorage.removeItem('theme');
+                  }
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  return prefersDark ? 'dark' : 'light';
                 }
                 
                 const theme = getInitialTheme();
@@ -161,11 +180,11 @@ export default async function RootLayout({ children, params } :
         />
         
         
-  {/* Preload only the logo and hero image for home */}
-  <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
-  <link rel="preload" href="/static/main_home_ilustration.webp" as="image" type="image/webp" />
-
-  {/* PWA meta tags */}
+        {/* Preload only the logo and hero image for home */}
+        <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/static/main_home_ilustration.webp" as="image" type="image/webp" />
+              
+        {/* PWA meta tags */}
         <meta name="application-name" content="Ordinaly" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -273,6 +292,14 @@ export default async function RootLayout({ children, params } :
         className={`${inter.className} antialiased min-h-screen bg-background text-foreground`}
         suppressHydrationWarning
       >
+
+        {process.env.NODE_ENV === 'production' && (
+          <>
+            <AnalyticsBootstrap />
+            <GoogleAnalyticsPageViews />
+          </>
+        )}
+
         <NextIntlClientProvider>
           <ThemeProvider>
             {/* Skip to main content for accessibility */}
@@ -288,7 +315,6 @@ export default async function RootLayout({ children, params } :
             <div id="main-content">{children}</div>
 
             <CookieConsent />
-            {/* <AnalyticsManager /> */}
             <BackToTopButton />
           </ThemeProvider>
         </NextIntlClientProvider>

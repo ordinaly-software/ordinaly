@@ -6,6 +6,9 @@ export interface CookiePreferences {
   marketing: boolean;
 }
 
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GA_ID_REGEX = /^(UA-\d{4,9}-\d{1,4}|G-[A-Z0-9]{10})$/;
+
 export const getCookiePreferences = (): CookiePreferences | null => {
   if (typeof window === 'undefined') return null;
   
@@ -24,20 +27,52 @@ export const hasUserConsented = (): boolean => {
   return localStorage.getItem('cookie-consent') !== null;
 };
 
-export const initializeAnalytics = () => {
+export const isFunctionalAllowed = (): boolean => {
   const preferences = getCookiePreferences();
+  return Boolean(preferences?.functional);
+};
+
+export const isAnalyticsAllowed = (): boolean => {
+  const preferences = getCookiePreferences();
+  return Boolean(preferences?.analytics);
+};
+
+export const clearFunctionalStorage = () => {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem('theme');
+  localStorage.removeItem('preferred-locale');
+};
+
+const updateGaConsentFlag = (analyticsAllowed: boolean) => {
+  if (typeof window === 'undefined' || !GA_ID || !GA_ID_REGEX.test(GA_ID)) return;
+  
+  (window as unknown as Record<string, boolean>)[`ga-disable-${GA_ID}`] = !analyticsAllowed;
+  
+  if (typeof (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag === 'function') {
+    (window as unknown as { gtag: (...args: unknown[]) => void }).gtag('consent', 'update', {
+      analytics_storage: analyticsAllowed ? 'granted' : 'denied',
+    });
+  }
+};
+
+export const initializeAnalytics = (preferencesOverride?: Partial<CookiePreferences>) => {
+  const preferences = preferencesOverride ?? getCookiePreferences();
   
   if (preferences?.analytics && process.env.NODE_ENV === "production") {
-    const gaId = process.env.NEXT_PUBLIC_GA_ID;
-    if (!gaId || !/^(UA-\d{4,9}-\d{1,4}|G-[A-Z0-9]{10})$/.test(gaId)) {
+    if (!GA_ID || !GA_ID_REGEX.test(GA_ID)) {
       console.warn("Google Analytics ID is missing or invalid. Analytics will not be initialized.");
       return;
     }
+
+    updateGaConsentFlag(true);
+    
+    const existingScript = document.querySelector<HTMLScriptElement>(`script[src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"]`);
+    if (existingScript) return;
     
     // Initialize Google Analytics
     const script = document.createElement('script');
     script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
     document.head.appendChild(script);
     
     const configScript = document.createElement('script');
@@ -45,9 +80,11 @@ export const initializeAnalytics = () => {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}');
+      gtag('config', '${GA_ID}');
     `;
     document.head.appendChild(configScript);
+  } else {
+    updateGaConsentFlag(false);
   }
 };
 
