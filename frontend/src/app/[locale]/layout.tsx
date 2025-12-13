@@ -8,6 +8,7 @@ import { Locale, routing } from "@/i18n/routing";
 import NavbarWrapper from "@/components/ui/navbar-wrapper";
 import CookieConsent from "@/components/ui/cookies";
 import BackToTopButton from "@/components/ui/back-to-top-button";
+import { metadataBaseUrl } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
 import AnalyticsManager from "@/utils/analyticsManager";
@@ -25,11 +26,11 @@ export const metadata: Metadata = {
   },
   description:
     "Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y integración con Odoo, n8n y WhatsApp Business para liderar la innovación en España y Europa.",
-  metadataBase: new URL("https://ordinaly.ai"),
+  metadataBase: new URL(metadataBaseUrl),
   openGraph: {
     type: "website",
     locale: "es_ES",
-    url: "https://ordinaly.ai",
+    url: metadataBaseUrl,
     siteName: "Ordinaly",
     title: "Ordinaly Software - Automatización Empresarial con IA",
     description:
