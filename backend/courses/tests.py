@@ -1652,16 +1652,24 @@ class CourseModelsMoreTest(CourseImageCleanupTestMixin, TestCase):
         # occurrences should include dates with same weekday as start
         self.assertTrue(all([d.weekday() == start.weekday() for d in occ]))
 
-        # Monthly complex: first Monday of next months (use a date that is a Monday)
-        test_date = date(2025, 9, 1)  # 1 Sep 2025 is Monday
+        # Monthly complex: first Monday of next months (use a future date that is a Monday)
+        # Find the next Monday that is the first Monday of a month
+        future_start = self.today + timedelta(days=30)
+        # Find first day of next month that is a Monday
+        first_of_month = date(future_start.year, future_start.month, 1)
+        while first_of_month.weekday() != 0:  # 0 = Monday
+            first_of_month = date(first_of_month.year, first_of_month.month + 1 if first_of_month.month < 12 else 1, 1)
+            if first_of_month.month == 1:
+                first_of_month = date(first_of_month.year + 1, 1, 1)
+
         c2 = Course.objects.create(
             title='MonthlyNth',
             description='d',
             image=get_test_image_file(),
             price=10.0,
             location='loc',
-            start_date=test_date,
-            end_date=date(2025, 12, 31),
+            start_date=first_of_month,
+            end_date=first_of_month + timedelta(days=120),
             start_time=time(8, 0),
             end_time=time(9, 0),
             periodicity='monthly',
@@ -1869,7 +1877,8 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         url = reverse('course-unenroll', kwargs={'slug': course.slug})
         resp = self.client.post(url)
         self.assertEqual(resp.status_code, 400)
-        self.assertIn('No puedes cancelar la inscripción porque el curso ya ha comenzado.', resp.data['detail'])
+        self.assertIn('No puedes cancelar la inscripción en las 24 horas previas al inicio del curso.',
+                      resp.data['detail'])
 
     def test_cannot_unenroll_after_start(self):
         from datetime import timedelta
@@ -1884,7 +1893,7 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         url = reverse('course-unenroll', kwargs={'slug': course.slug})
         resp = self.client.post(url)
         self.assertEqual(resp.status_code, 400)
-        self.assertIn('No puedes cancelar la inscripción porque el curso ya ha finalizado.', resp.data['detail'])
+        self.assertIn('No puedes cancelar la inscripción porque el curso ya ha comenzado.', resp.data['detail'])
 
     def test_cannot_unenroll_after_end(self):
         from datetime import timedelta
