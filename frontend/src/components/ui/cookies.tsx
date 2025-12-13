@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
-import { clearFunctionalStorage, getCookiePreferences, initializeAnalytics } from '@/utils/cookieManager';
+import { getCookiePreferences } from '@/utils/cookieManager';
 
 const CookieConsent = () => {
   const t = useTranslations('cookie');
@@ -46,11 +46,8 @@ const CookieConsent = () => {
 
   useEffect(() => {
     if (!isMounted) return;
-    initializeAnalytics(cookiePreferences);
-
-    if (!cookiePreferences.functional) {
-      clearFunctionalStorage();
-    }
+    // Analytics loading is handled by AnalyticsManager via events
+    // Functional cleanup intentionally omitted to avoid removing required app state
   }, [cookiePreferences, isMounted]);
 
   useEffect(() => {
@@ -123,7 +120,6 @@ const CookieConsent = () => {
     } catch {
       // localStorage not available - handle silently
     }
-    clearFunctionalStorage();
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
@@ -136,9 +132,7 @@ const CookieConsent = () => {
     } catch {
       // localStorage not available - handle silently
     }
-    if (!cookiePreferences.functional) {
-      clearFunctionalStorage();
-    }
+    // Functional cleanup intentionally omitted
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);

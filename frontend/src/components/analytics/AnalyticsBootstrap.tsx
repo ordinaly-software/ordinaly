@@ -1,12 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { initializeAnalytics } from '@/utils/cookieManager';
+import AnalyticsManager from '@/utils/analyticsManager';
 
 export default function AnalyticsBootstrap() {
-  useEffect(() => {
-    initializeAnalytics();
-  }, []);
-
-  return null;
+  // Delegate analytics bootstrapping to AnalyticsManager
+  return <AnalyticsManager />;
 }

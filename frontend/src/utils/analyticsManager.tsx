@@ -1,29 +1,45 @@
-// components/AnalyticsManager.tsx
 'use client';
 
 import { useEffect } from 'react';
-import { initializeAnalytics, initializeMarketing } from '@/utils/cookieManager';
+import { isAnalyticsAllowed, applyConsentMode } from '@/utils/cookieManager';
+
+let analyticsLoaded = false;
 
 export default function AnalyticsManager() {
   useEffect(() => {
-    // Listen for cookie consent changes
-    const handleConsentChange = () => {
-      initializeAnalytics();
-      initializeMarketing();
+    const loadAnalytics = () => {
+      if (!isAnalyticsAllowed() || analyticsLoaded) return;
+
+      analyticsLoaded = true;
+
+      const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+      if (!GA_ID) return;
+
+      const script = document.createElement('script');
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+      script.async = true;
+
+      script.onload = () => {
+        (window as any).dataLayer = (window as any).dataLayer || [];
+        const gtag = (...args: any[]) => { (window as any).dataLayer.push(args); };
+        (window as any).gtag = gtag;
+
+        (window as any).gtag?.('js', new Date());
+        (window as any).gtag?.('config', GA_ID, { anonymize_ip: true } as any);
+        applyConsentMode();
+      };
+
+      document.head.appendChild(script);
     };
 
-    // Initialize on mount
-    handleConsentChange();
+    loadAnalytics();
 
-    // Listen for storage changes (when user changes preferences)
-    window.addEventListener('storage', handleConsentChange);
+    window.addEventListener('cookieConsentChange', loadAnalytics);
+    window.addEventListener('storage', loadAnalytics);
 
-    // Listen for same-tab cookie consent changes
-    window.addEventListener('cookieConsentChange', handleConsentChange);
-    
     return () => {
-      window.removeEventListener('storage', handleConsentChange);
-      window.removeEventListener('cookieConsentChange', handleConsentChange);
+      window.removeEventListener('cookieConsentChange', loadAnalytics);
+      window.removeEventListener('storage', loadAnalytics);
     };
   }, []);
 
