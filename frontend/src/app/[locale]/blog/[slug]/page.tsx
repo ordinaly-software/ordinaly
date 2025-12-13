@@ -29,7 +29,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: `/blog/${p.slug}`,
-    title,
+    title: title + " | Ordinaly",
     description: desc,
     image,
     type: "article",

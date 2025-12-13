@@ -12,9 +12,10 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/services",
-    title: "Servicios y productos de automatización",
+    title: "Servicios de automatización para empresas | Ordinaly",
     description:
-      "Explora servicios, productos y soluciones de automatización con IA, Odoo, n8n y WhatsApp Business diseñados por Ordinaly.",
+      "Explora servicios, productos y soluciones de automatización con IA para empresas.",
+    image: "/static/backgrounds/services_background.webp",
   });
 }
 

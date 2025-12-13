@@ -72,10 +72,6 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
-        {/* Preconnect útiles */}
-        <link rel="dns-prefetch" href="//wa.me" />
-        <link rel="preconnect" href="https://api.ordinaly.ai" crossOrigin="anonymous" />
-
         {/* Theme init (tu script) */}
         <script
           dangerouslySetInnerHTML={{

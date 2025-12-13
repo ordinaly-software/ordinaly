@@ -188,19 +188,20 @@ export default function HomePage() {
     </section>
 
       {/* Partners Section */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8 bg-[#22A60D] text-[#176b0a]">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-center justify-items-center">
+      <section className="py-10 px-4 sm:px-6 lg:px-4 bg-[#22A60D] text-[#176b0a]">
+        <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
+        <div className="relative">
+          <div className="flex gap-12 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-white/40 scrollbar-track-white/10 snap-x snap-mandatory justify-center">
             {[
               { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Aviva Publicidad Partner", delay: "0.1s", url: "https://avivapublicidad.es" },
               { src: "/static/logos/logo_grupo_addu.webp", alt: "Grupo Addu Partner", delay: "0.2s", url: "https://grupoaddu.com" },
               { src: "/static/logos/logo_proinca_consultores.webp", alt: "Proinca Consultores Partner", delay: "0.3s", url: "https://www.proincaconsultores.es" },
               { src: "/static/logos/logo_aires_de_feria.webp", alt: "Aires de Feria", delay: "0.4s", url: "https://www.airesdeferia.com" },
+              { src: "/static/logos/guadalquivir_fincas_logo.webp", alt: "Guadalquivir Fincas", delay: "0.5s", url: "https://www.guadalquivirfincas.com" },
             ].map(({ src, alt, delay, url }, i) => (
               <div
                 key={i}
-                className="scroll-animate fade-in-up w-full flex justify-center"
+                className="scroll-animate fade-in-up flex-shrink-0 snap-start w-[220px] flex justify-center"
                 style={{ animationDelay: delay }}
               >
                 <a

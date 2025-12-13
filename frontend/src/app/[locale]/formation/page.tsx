@@ -12,8 +12,9 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/formation",
-    title: "Cursos y formación en automatización e IA",
-    description: "Aprende a usar IA, n8n, Odoo y herramientas low-code con las formaciones de Ordinaly.",
+    title: "Cursos y formación | Ordinaly",
+    description: "Aprende a usar IA, n8n, y herramientas low-code con las formaciones de Ordinaly.",
+    image: "/static/backgrounds/formation_background.webp",
   });
 }
 
