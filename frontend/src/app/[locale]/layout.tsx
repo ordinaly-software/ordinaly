@@ -63,11 +63,10 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
 
-  if (!routing.locales.includes(locale as Locale)) {
-    notFound();
-  }
+  if (!routing.locales.includes(locale as Locale)) notFound();
 
-  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+  const TAG_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID;
+  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
@@ -115,44 +114,44 @@ export default async function RootLayout({
       </head>
 
       <body className={`${inter.className} antialiased min-h-screen bg-background text-foreground`} suppressHydrationWarning>
-        {/* ===== Google Tag (siempre en prod), Consent por defecto DENIED ===== */}
-        {process.env.NODE_ENV === "production" && GA_ID && (
+        {process.env.NODE_ENV === "production" && TAG_ID && (
           <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${TAG_ID}`}
+              strategy="afterInteractive"
+            />
             <Script id="gtag-init" strategy="afterInteractive">
               {`
                 window.dataLayer = window.dataLayer || [];
                 function gtag(){dataLayer.push(arguments);}
                 window.gtag = gtag;
 
-                // Consent default (RGPD): todo denegado salvo security
+                // Consent por defecto (RGPD)
                 gtag('consent', 'default', {
-                  analytics_storage: 'denied',
                   ad_storage: 'denied',
+                  analytics_storage: 'denied',
                   functionality_storage: 'denied',
                   security_storage: 'granted',
                   wait_for_update: 500
                 });
 
                 gtag('js', new Date());
-                gtag('config', '${GA_ID}', { anonymize_ip: true });
+
+                // Inicializa el Google tag base (AW o G)
+                gtag('config', '${TAG_ID}', { anonymize_ip: true });
+
+                // Si tienes Measurement ID GA4, configúralo también
+                ${GA_MEASUREMENT_ID ? `gtag('config', '${GA_MEASUREMENT_ID}', { anonymize_ip: true });` : ``}
               `}
             </Script>
           </>
         )}
 
-        {/* Cliente: actualiza consentimiento + pageviews SPA */}
         <AnalyticsManager />
 
         <NextIntlClientProvider>
           <ThemeProvider>
-            <a
-              href="#main-content"
-              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-[#217093] text-white px-4 py-2 rounded-md z-50"
-            >
-              Saltar / Skip
-            </a>
-
+            {/* tu body tal cual */}
             <NavbarWrapper />
             <div id="main-content">{children}</div>
             <CookieConsent />
