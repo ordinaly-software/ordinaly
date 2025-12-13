@@ -6,6 +6,7 @@ export interface AdminTabsTab {
   icon?: React.ElementType;
   external?: boolean;
   href?: string;
+  accentColor?: string;
 }
 
 interface AdminTabsProps {
@@ -66,15 +67,18 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
       >
         {tabs.map((tab, idx) => {
           const Icon = tab.icon;
+          const active = activeTab === tab.id;
+          const accent = tab.accentColor || "#22A60D";
+          const baseClasses =
+            "relative py-2 px-2 font-medium text-sm flex items-center space-x-2 transition-colors";
+
           return tab.external ? (
             <a
               key={tab.id}
               href={tab.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 transition-colors ${
-                "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
-              }`}
+              className={`${baseClasses} text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300`}
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               {Icon && <Icon className="h-4 w-4" />}
@@ -87,15 +91,21 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
                 tabButtonRefs.current[idx] = el;
               }}
               onClick={() => onTabChange(tab.id)}
-              className={`py-2 px-1 border-b-2 font-medium text-sm flex items-center space-x-2 transition-colors ${
-                activeTab === tab.id
-                  ? "border-[#22A60D] text-[#22A60D]"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300"
+              className={`${baseClasses} ${
+                active
+                  ? "text-gray-900 dark:text-white"
+                  : "text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
               }`}
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none", color: active ? accent : undefined }}
             >
-              {Icon && <Icon className="h-4 w-4" />}
+              {Icon && <Icon className="h-4 w-4" style={{ color: active ? accent : undefined }} />}
               <span>{tab.name}</span>
+              {active && (
+                <span
+                  className="absolute left-1 right-1 -bottom-0.5 h-0.5 rounded-full"
+                  style={{ backgroundColor: accent }}
+                />
+              )}
             </button>
           );
         })}

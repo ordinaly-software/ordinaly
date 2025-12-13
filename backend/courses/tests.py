@@ -1865,7 +1865,6 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         self.client.force_authenticate(user=self.user)
 
     def test_cannot_unenroll_within_24h(self):
-        from datetime import timedelta
         now = timezone.now()
         course = self.create_test_course(
             start_date=now.date(),
@@ -1881,7 +1880,6 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
                       resp.data['detail'])
 
     def test_cannot_unenroll_after_start(self):
-        from datetime import timedelta
         now = timezone.now()
         course = self.create_test_course(
             start_date=now.date(),
@@ -1896,7 +1894,6 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         self.assertIn('No puedes cancelar la inscripción porque el curso ya ha comenzado.', resp.data['detail'])
 
     def test_cannot_unenroll_after_end(self):
-        from datetime import timedelta
         now = timezone.now()
         course = self.create_test_course(
             start_date=(now - timedelta(days=2)).date(),

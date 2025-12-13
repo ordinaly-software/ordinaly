@@ -6,6 +6,8 @@ from django.http import HttpResponse
 from .models import Course, Enrollment
 from .serializers import CourseSerializer, EnrollmentSerializer
 from django.utils import timezone
+from datetime import datetime, time, timedelta
+from zoneinfo import ZoneInfo
 
 # Stripe webhook endpoint to handle payment events
 from rest_framework.views import APIView
@@ -290,42 +292,62 @@ class CourseViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        # Check if course has started, finished, or is within 24h of start
-        now = timezone.now()
-        if course.start_date:
-            # Combine start_date and start_time if available
-            from datetime import datetime, time, timedelta
-            start_time = getattr(course, 'start_time', None)
-            if start_time:
-                course_start = datetime.combine(course.start_date, start_time)
+        def build_dt(date_value, time_value):
+            if not date_value:
+                return None
+            base_time = time_value or time(0, 0)
+            dt = datetime.combine(date_value, base_time)
+            tzinfo = None
+            if isinstance(getattr(course, "timezone", None), str):
+                try:
+                    tzinfo = ZoneInfo(course.timezone)
+                except Exception:
+                    tzinfo = None
+            tzinfo = tzinfo or timezone.get_current_timezone()
+            if timezone.is_naive(dt):
+                dt = timezone.make_aware(dt, tzinfo)
             else:
-                course_start = datetime.combine(course.start_date, time(0, 0))
-            course_start = timezone.make_aware(course_start, timezone.get_current_timezone())
-            # If course has ended
-            if course.end_date:
-                end_time = getattr(course, 'end_time', None)
-                if end_time:
-                    course_end = datetime.combine(course.end_date, end_time)
-                else:
-                    course_end = datetime.combine(course.end_date, time(23, 59))
-                course_end = timezone.make_aware(course_end, timezone.get_current_timezone())
-                if now > course_end:
-                    return Response(
-                        {"detail": "No puedes cancelar la inscripción porque el curso ya ha finalizado."},
-                        status=status.HTTP_400_BAD_REQUEST
-                    )
-            # If course has started
-            if now >= course_start:
-                return Response(
-                    {"detail": "No puedes cancelar la inscripción porque el curso ya ha comenzado."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            # If course starts in 24h or less
-            if (course_start - now) <= timedelta(hours=24):
-                return Response(
-                    {"detail": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
+                dt = timezone.localtime(dt, tzinfo)
+            return dt
+
+        now = timezone.localtime(timezone.now(), timezone.get_current_timezone())
+
+        # Build start/end datetimes with timezone awareness
+        course_start = build_dt(getattr(course, "start_date", None), getattr(course, "start_time", None))
+        course_end = build_dt(getattr(course, "end_date", None), getattr(course, "end_time", None))
+
+        # If the times wrap past midnight but the date is "today", shift forward a day
+        if course_start and course_start.date() == now.date():
+            hours_diff = (now - course_start).total_seconds() / 3600
+            if hours_diff > 12:  # likely rolled past midnight, so interpret as next day
+                course_start = course_start + timedelta(days=1)
+                if course_end:
+                    course_end = course_end + timedelta(days=1)
+
+        # Ensure end is not before start (e.g., overnight courses)
+        if course_start and course_end and course_end <= course_start:
+            course_end = course_end + timedelta(days=1)
+
+        # Check if course has ended
+        if course_end and now > course_end:
+            return Response(
+                {"detail": "No puedes cancelar la inscripción porque el curso ya ha finalizado."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check if course has started
+        if course_start and now >= course_start:
+            return Response(
+                {"detail": "No puedes cancelar la inscripción porque el curso ya ha comenzado."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # Check 24h restriction
+        if course_start and (course_start - now) <= timedelta(hours=24):
+            return Response(
+                {"detail": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
         enrollment.delete()
         return Response(

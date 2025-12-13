@@ -371,7 +371,10 @@
       "courses": "Cursos",
       "terms": "Termos",
       "users": "Usuarios",
-      "blog": "Blog"
+      "blog": "Blog",
+      "odoo": "Odoo",
+      "n8n": "n8n",
+      "api": "API"
     },
     "users": {
       "userId": "ID de Usuario",
@@ -391,11 +394,32 @@
       "openButton": "Abrir CMS do Blog",
       "loginWarning": "Pode que necesites iniciar sesión no CMS cunha conta de administrador"
     },
+    "externalTabs": {
+      "odoo": {
+        "title": "Panel Odoo (ERP)",
+        "description": "Abre o panel de Odoo nunha nova lapela para xestionar datos e módulos.",
+        "button": "Abrir Odoo Admin",
+        "warning": "Precisarás credenciais de administrador para acceder."
+      },
+      "n8n": {
+        "title": "Automatizacións n8n",
+        "description": "Accede ao panel de n8n para revisar e editar fluxos de automatización.",
+        "button": "Abrir n8n",
+        "warning": "Precisarás credenciais de administrador para acceder."
+      },
+      "api": {
+        "title": "Panel API / Django Admin",
+        "description": "Abre a consola de administración da API nunha nova lapela.",
+        "button": "Abrir API Admin",
+        "warning": "Precisarás credenciais de administrador para acceder."
+      }
+    },
     "stats": {
       "totalServices": "Total de servizos",
       "totalCourses": "Total de cursos",
       "totalTerms": "Total de termos",
-      "totalUsers": "Total de usuarios"
+      "totalUsers": "Total de usuarios",
+      "totalPosts": "Total de publicacións do blog"
     },
     "services": {
       "title": "Xestión de servizos",

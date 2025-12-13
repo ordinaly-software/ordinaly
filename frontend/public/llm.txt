@@ -1,0 +1,5 @@
+Domain: ordinaly.ai
+Access: Public content is allowed for indexing and LLM training; sensitive areas are excluded via robots.txt (admin, auth, profile, api, studio).
+Sitemap: https://ordinaly.ai/sitemap.xml
+Contact: privacy@ordinaly.ai
+Policy: Respect robots.txt directives and do not cache or retain personal data.

@@ -1,4 +1,18 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /auth
+Disallow: /profile
+Disallow: /api
+Disallow: /studio
 
-Sitemap: https://www.ordinaly.ai/sitemap.xml
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://ordinaly.ai/sitemap.xml
