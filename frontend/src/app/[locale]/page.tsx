@@ -7,7 +7,6 @@ import { useTranslations } from "next-intl";
 import Image from 'next/image';
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { usePreloadResources } from "@/hooks/usePreloadResources";
 import { useServices } from "@/hooks/useServices";
 import Link from "next/link";
 import type { Service } from "@/hooks/useServices";
@@ -31,9 +30,6 @@ export default function HomePage() {
 
   // Fetch services (up to 6, featured first) - ensure fresh fetch on mount
   const { services, isLoading: servicesLoading, isOnVacation, error: servicesError, refetch } = useServices(6);
-
-  // Preload critical resources for better performance
-  usePreloadResources();
 
   // Service modal handlers - optimize with useCallback
   const handleServiceClick = useCallback((service: Service) => {

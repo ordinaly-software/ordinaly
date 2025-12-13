@@ -371,7 +371,10 @@
       "courses": "Cursos",
       "terms": "Termes",
       "users": "Usuaris",
-      "blog": "Blog"
+      "blog": "Blog",
+      "odoo": "Odoo",
+      "n8n": "n8n",
+      "api": "API"
     },
     "stats": {
       "totalServices": "Serveis totals",
@@ -396,6 +399,26 @@
       "openedMessage": "El CMS d'edició de blog s'ha obert en una altra pestanya. Si no el veieu, feu clic al botó següent",
       "openButton": "Obrir Blog CMS",
       "loginWarning": "És possible que hàgiu d'iniciar sessió al CMS amb un compte d'administrador"
+    },
+    "externalTabs": {
+      "odoo": {
+        "title": "Panell Odoo (ERP)",
+        "description": "Obre el panell d'Odoo en una pestanya nova per gestionar dades i mòduls.",
+        "button": "Obrir Odoo Admin",
+        "warning": "Necessitaràs credencials d'administrador per accedir."
+      },
+      "n8n": {
+        "title": "Automatitzacions n8n",
+        "description": "Accedeix al panell de n8n per revisar i editar fluxos d'automatització.",
+        "button": "Obrir n8n",
+        "warning": "Necessitaràs credencials d'administrador per accedir."
+      },
+      "api": {
+        "title": "Panell API / Django Admin",
+        "description": "Obre la consola d'administració de l'API en una pestanya nova.",
+        "button": "Obrir API Admin",
+        "warning": "Necessitaràs credencials d'administrador per accedir."
+      }
     },
     "services": {
       "title": "Gestió de serveis",

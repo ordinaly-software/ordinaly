@@ -371,7 +371,10 @@
       "courses": "Courses",
       "terms": "Terms",
       "users": "Users",
-      "blog": "Blog"
+      "blog": "Blog",
+      "odoo": "Odoo",
+      "n8n": "n8n",
+      "api": "API"
     },
     "users": {
       "userId": "User ID",
@@ -390,6 +393,26 @@
       "openedMessage": "The blog edition CMS has been opened in another tab. If you don't see it, click the button below.",
       "openButton": "Open Blog CMS",
       "loginWarning": "You may need to log in to the CMS with an admin account."
+    },
+    "externalTabs": {
+      "odoo": {
+        "title": "Odoo Admin (ERP)",
+        "description": "Open the Odoo admin panel in a new tab to manage data and modules.",
+        "button": "Open Odoo Admin",
+        "warning": "Admin credentials are required to access."
+      },
+      "n8n": {
+        "title": "n8n Automations",
+        "description": "Open the n8n panel to review and edit automation flows.",
+        "button": "Open n8n",
+        "warning": "Admin credentials are required to access."
+      },
+      "api": {
+        "title": "API / Django Admin",
+        "description": "Open the API administration console in a new tab.",
+        "button": "Open API Admin",
+        "warning": "Admin credentials are required to access."
+      }
     },
     "stats": {
       "totalServices": "Total Services",

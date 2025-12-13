@@ -371,7 +371,10 @@
       "courses": "Cursos",
       "terms": "Términos",
       "users": "Usuarios",
-      "blog": "Blog"
+      "blog": "Blog",
+      "odoo": "Odoo",
+      "n8n": "n8n",
+      "api": "API"
     },
     "users": {
       "userId": "ID de Usuario",
@@ -390,6 +393,26 @@
       "openedMessage": "El CMS de edición de blog se ha abierto en otra pestaña. Si no lo ves, haz clic en el botón de abajo",
       "openButton": "Abrir CMS de Blog",
       "loginWarning": "Es posible que debas iniciar sesión en el CMS con una cuenta de administrador"
+    },
+    "externalTabs": {
+      "odoo": {
+        "title": "Panel Odoo (ERP)",
+        "description": "Abre el panel de Odoo en una nueva pestaña para gestionar datos y módulos.",
+        "button": "Abrir Odoo Admin",
+        "warning": "Necesitarás credenciales de administrador para acceder."
+      },
+      "n8n": {
+        "title": "Automatizaciones n8n",
+        "description": "Accede al panel de n8n para revisar y editar flujos de automatización.",
+        "button": "Abrir n8n",
+        "warning": "Necesitarás credenciales de administrador para acceder."
+      },
+      "api": {
+        "title": "Panel API / Django Admin",
+        "description": "Abre la consola de administración de la API en una nueva pestaña.",
+        "button": "Abrir API Admin",
+        "warning": "Necesitarás credenciales de administrador para acceder."
+      }
     },
     "stats": {
       "totalServices": "Total de Servicios",

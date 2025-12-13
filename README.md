@@ -166,7 +166,7 @@ ordinaly/
             </ul>
             <b>Utilidades y hooks:</b>
             <ul>
-                <li>useCourses, useServices, usePreloadResources, useIntersectionObserver</li>
+                <li>useCourses, useServices, useIntersectionObserver</li>
             </ul>
             <b>Internacionalización:</b>
             <ul>

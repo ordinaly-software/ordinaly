@@ -371,7 +371,10 @@
       "courses": "Ikastaroak",
       "terms": "Baldintzak",
       "users": "Erabiltzaileak",
-      "blog": "Bloga"
+      "blog": "Bloga",
+      "odoo": "Odoo",
+      "n8n": "n8n",
+      "api": "API"
     },
     "users": {
       "userId": "Erabiltzaile IDa",
@@ -390,6 +393,26 @@
       "openedMessage": "Blogaren edizio CMSa beste fitxa batean ireki da. Ez baduzu ikusten, klikatu beheko botoia",
       "openButton": "Ireki Blog CMSa",
       "loginWarning": "Baliteke CMSan administratzaile kontuarekin saioa hasi behar izatea"
+    },
+    "externalTabs": {
+      "odoo": {
+        "title": "Odoo Panela (ERP)",
+        "description": "Ireki Odoo administrazio panela fitxa berri batean datuak eta moduluak kudeatzeko.",
+        "button": "Ireki Odoo Admin",
+        "warning": "Sarbiderako administratzaile kredentzialak beharko dituzu."
+      },
+      "n8n": {
+        "title": "n8n Automatizazioak",
+        "description": "Sartu n8n panelera automatizazio-fluxuak berrikusi eta editatzeko.",
+        "button": "Ireki n8n",
+        "warning": "Sarbiderako administratzaile kredentzialak beharko dituzu."
+      },
+      "api": {
+        "title": "API / Django Admin Panela",
+        "description": "Ireki APIren administrazio kontsola fitxa berri batean.",
+        "button": "Ireki API Admin",
+        "warning": "Sarbiderako administratzaile kredentzialak beharko dituzu."
+      }
     },
     "stats": {
       "totalServices": "Zerbitzu guztira",

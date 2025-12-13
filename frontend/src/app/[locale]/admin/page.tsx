@@ -14,15 +14,16 @@ import {
   Settings,
   BarChart3,
   ArrowUpRight,
+  Command,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminServicesTab from "@/components/admin/admin-services-tab";
 import AdminCoursesTab from "@/components/admin/admin-courses-tab";
 import AdminTermsTab from "@/components/admin/admin-terms-tab";
 import AdminUsersTab from "@/components/admin/admin-users-tab";
-import AdminBlogTab from "@/components/admin/admin-blog-tab";
+import AdminExternalTab from "@/components/admin/admin-external-tab";
 
-type TabType = 'overview' | 'services' | 'courses' | 'terms' | 'users' | 'blog';
+type TabType = 'overview' | 'services' | 'courses' | 'terms' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api';
 
 interface User {
   id: number;
@@ -53,22 +54,22 @@ export default function AdminPage() {
     { id: 'courses', name: t("tabs.courses"), icon: BookOpen },
     { id: 'terms', name: t("tabs.terms"), icon: FileText },
     { id: 'users', name: t("tabs.users"), icon: Users },
-  { id: 'blog', name: t("tabs.blog"), icon: ArrowUpRight },
+    { id: 'blog', name: t("tabs.blog"), icon: ArrowUpRight, accentColor: "#22A60D" },
+    { id: 'odoo', name: t("tabs.odoo"), icon: () => <BarChart3 className="h-4 w-4" />, accentColor: "#623CEA" },
+    { id: 'n8n', name: t("tabs.n8n"), icon: () => <Command className="h-4 w-4" />, accentColor: "#E4572E" },
+    { id: 'api', name: t("tabs.api"), icon: () => <Settings className="h-4 w-4" />, accentColor: "#46B1C9" },
   ];
 
   // Load saved tab from localStorage on component mount
   useEffect(() => {
     const savedTab = localStorage.getItem('adminActiveTab') as TabType;
-    if (savedTab && ['overview', 'services', 'courses', 'terms', 'users', 'blog'].includes(savedTab)) {
+    if (savedTab && ['overview', 'services', 'courses', 'terms', 'users', 'blog', 'odoo', 'n8n', 'api'].includes(savedTab)) {
       setActiveTab(savedTab);
     }
   }, []);
 
   // Save active tab to localStorage whenever it changes
   const handleTabChange = (tabId: TabType) => {
-    if (tabId === 'blog') {
-      window.open('/studio', '_blank');
-    }
     setActiveTab(tabId);
     localStorage.setItem('adminActiveTab', tabId);
   };
@@ -312,7 +313,73 @@ export default function AdminPage() {
             animate="visible"
             exit="exit"
           >
-            <AdminBlogTab />
+            <AdminExternalTab
+              title={t("blogTab.title")}
+              description={t("blogTab.openedMessage")}
+              buttonLabel={t("blogTab.openButton")}
+              warning={t("blogTab.loginWarning")}
+              href="/studio"
+            />
+          </motion.div>
+        );
+      case 'odoo':
+        return (
+          <motion.div
+            key="odoo"
+            variants={tabVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <AdminExternalTab
+              title={t("externalTabs.odoo.title")}
+              description={t("externalTabs.odoo.description")}
+              buttonLabel={t("externalTabs.odoo.button")}
+              warning={t("externalTabs.odoo.warning")}
+              href="https://odoo.ordinaly.ai"
+              accentColor="#7a55ffff"
+              backgroundImage="/static/backgrounds/odoo_background.webp"
+            />
+          </motion.div>
+        );
+      case 'n8n':
+        return (
+          <motion.div
+            key="n8n"
+            variants={tabVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <AdminExternalTab
+              title={t("externalTabs.n8n.title")}
+              description={t("externalTabs.n8n.description")}
+              buttonLabel={t("externalTabs.n8n.button")}
+              warning={t("externalTabs.n8n.warning")}
+              href="https://n8n.ordinaly.ai"
+              accentColor="#E4572E"
+              backgroundImage="/static/backgrounds/n8n_background.webp"
+            />
+          </motion.div>
+        );
+      case 'api':
+        return (
+          <motion.div
+            key="api"
+            variants={tabVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <AdminExternalTab
+              title={t("externalTabs.api.title")}
+              description={t("externalTabs.api.description")}
+              buttonLabel={t("externalTabs.api.button")}
+              warning={t("externalTabs.api.warning")}
+              href="https://api.ordinaly.ai/admin"
+              accentColor="#46B1C9"
+              backgroundImage="/static/backgrounds/api_background.webp"
+            />
           </motion.div>
         );
       default:
