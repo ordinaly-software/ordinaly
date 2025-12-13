@@ -102,6 +102,7 @@ const CookieConsent = () => {
     } catch {
       // localStorage not available - handle silently
     }
+    window.dispatchEvent(new Event('cookieConsentChange'));
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
@@ -120,6 +121,8 @@ const CookieConsent = () => {
     } catch {
       // localStorage not available - handle silently
     }
+    clearFunctionalStorage();
+    window.dispatchEvent(new Event('cookieConsentChange'));
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
@@ -132,7 +135,10 @@ const CookieConsent = () => {
     } catch {
       // localStorage not available - handle silently
     }
-    // Functional cleanup intentionally omitted
+    if (!cookiePreferences.functional) {
+      clearFunctionalStorage();
+    }
+    window.dispatchEvent(new Event('cookieConsentChange'));
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);

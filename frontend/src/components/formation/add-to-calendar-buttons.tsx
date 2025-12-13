@@ -56,7 +56,7 @@ export const AddToCalendarButtons = ({
   if (!identifier) return;
     setDownloading(true);
     try {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://ordinaly.duckdns.org";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
   const url = `${apiUrl}/api/courses/courses/${identifier}/calendar-export-test/?calendar_format=${format}`;
       const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
       const res = await fetch(url, {

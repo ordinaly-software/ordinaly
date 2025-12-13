@@ -468,7 +468,7 @@ const LegalPage = () => {
 
   const fetchDocuments = useCallback(async () => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
       const response = await fetch(`${apiUrl}/api/terms/`, {
         headers: {
           'Content-Type': 'application/json',

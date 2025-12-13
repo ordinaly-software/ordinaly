@@ -35,7 +35,7 @@ export default function StudioPage() {
         return;
       }
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://ordinaly.duckdns.org";
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
         const response = await fetch(`${apiUrl}/api/users/profile/`, {
           headers: {
             Authorization: `Token ${token}`,

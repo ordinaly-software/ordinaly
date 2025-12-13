@@ -21,7 +21,7 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
   }
   
   if (src.startsWith('/')) {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
     return `${baseUrl}${src}?w=${width}&q=${quality || 75}`;
   }
   

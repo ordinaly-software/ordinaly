@@ -49,7 +49,7 @@ const AdminUsersTab = () => {
       setErrorMsg(null);
       try {
         const token = localStorage.getItem("authToken");
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://ordinaly.duckdns.org";
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
         const response = await fetch(`${apiUrl}/api/users/`, {
           headers: { "Authorization": `Token ${token}` }
         });
