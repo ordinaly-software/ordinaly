@@ -2,6 +2,17 @@ const CACHE_NAME = 'ordinaly-cache-v3';
 const STATIC_CACHE = 'ordinaly-static-v3';
 const DYNAMIC_CACHE = 'ordinaly-dynamic-v3';
 
+const THIRD_PARTY_HOSTS = [
+  'www.googletagmanager.com',
+  'www.google-analytics.com',
+  'connect.facebook.net',
+  'js.stripe.com'
+];
+
+if (THIRD_PARTY_HOSTS.includes(url.hostname)) {
+  return;
+}
+
 // Reduced initial cache to only critical resources
 const urlsToCache = [
   '/',
