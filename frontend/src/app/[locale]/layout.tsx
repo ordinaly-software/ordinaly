@@ -65,15 +65,15 @@ export default async function RootLayout({
 
   if (!routing.locales.includes(locale as Locale)) notFound();
 
-  const TAG_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID;
-  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  // GA4 measurement ID (e.g. G-XXXXXXXXXX)
+  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
         {/* Preconnect útiles */}
         <link rel="dns-prefetch" href="//wa.me" />
-        <link rel="preconnect" href="https://ordinaly.duckdns.org" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.ordinaly.ai" crossOrigin="anonymous" />
 
         {/* Theme init (tu script) */}
         <script
@@ -107,17 +107,13 @@ export default async function RootLayout({
             `,
           }}
         />
-
-        {/* Preload: mejor solo en home real, pero lo mantengo como lo tienes */}
-        <link rel="preload" href="/logo.webp" as="image" type="image/webp" />
-        <link rel="preload" href="/static/main_home_ilustration.webp" as="image" type="image/webp" />
       </head>
 
       <body className={`${inter.className} antialiased min-h-screen bg-background text-foreground`} suppressHydrationWarning>
-        {process.env.NODE_ENV === "production" && TAG_ID && (
+        {process.env.NODE_ENV === "production" && GA_ID && (
           <>
             <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${TAG_ID}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
               strategy="afterInteractive"
             />
             <Script id="gtag-init" strategy="afterInteractive">
@@ -137,11 +133,8 @@ export default async function RootLayout({
 
                 gtag('js', new Date());
 
-                // Inicializa el Google tag base (AW o G)
-                gtag('config', '${TAG_ID}', { anonymize_ip: true });
-
-                // Si tienes Measurement ID GA4, configúralo también
-                ${GA_MEASUREMENT_ID ? `gtag('config', '${GA_MEASUREMENT_ID}', { anonymize_ip: true });` : ``}
+                // Inicializa el Google tag base (GA4)
+                gtag('config', '${GA_ID}', { anonymize_ip: true });
               `}
             </Script>
           </>

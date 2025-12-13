@@ -22,4 +22,4 @@ for = "/start.js"
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.segment.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://ordinaly.duckdns.org; font-src 'self' https://fonts.gstatic.com; frame-src 'none';"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.segment.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.ordinaly.ai; font-src 'self' https://fonts.gstatic.com; frame-src 'none';"

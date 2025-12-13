@@ -138,7 +138,7 @@ export default function SignupPage() {
         password: password,
       };
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
       const response = await fetch(`${apiUrl}/api/users/signup/`, {
         method: 'POST',
         headers: {

@@ -25,7 +25,7 @@ if not SECRET_KEY:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['ordinaly.duckdns.org', 'localhost', '127.0.0.1',]
+ALLOWED_HOSTS = ['api.ordinaly.ai', 'localhost', '127.0.0.1',]
 # ALLOWED_HOSTS += ['136.144.243.11', '352050c4d5f6.ngrok-free.app']
 
 # Application definition
@@ -157,7 +157,7 @@ CORS_ALLOWED_ORIGINS = [
     'https://ordinaly.netlify.app',
     'https://ordinaly.ai',
     'http://localhost:3000',
-    'https://ordinaly.duckdns.org',
+    'https://api.ordinaly.ai',
 ]
 # Permitir cualquier subdominio de Netlify para previews (solo para desarrollo/staging)
 CORS_ALLOWED_ORIGIN_REGEXES = [

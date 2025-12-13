@@ -182,7 +182,7 @@ const Navbar = () => {
 
   const fetchUserData = useCallback(async (token: string) => {
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
       const response = await fetch(`${apiUrl}/api/users/profile/`, {
         headers: {
           'Authorization': `Token ${token}`,
@@ -248,7 +248,7 @@ const Navbar = () => {
     try {
       const token = localStorage.getItem('authToken');
       if (token) {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
         // Fire and forget API call
         fetch(`${apiUrl}/api/users/signout/`, {
           method: 'POST',

@@ -85,7 +85,7 @@ export default function LoginPage() {
     setAlert(null);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
       const response = await fetch(`${apiUrl}/api/users/signin/`, {
         method: 'POST',
         headers: {

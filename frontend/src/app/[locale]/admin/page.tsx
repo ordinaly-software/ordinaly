@@ -83,7 +83,7 @@ export default function AdminPage() {
       }
 
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
         
         const response = await fetch(`${apiUrl}/api/users/profile/`, {
           headers: {
@@ -116,7 +116,7 @@ export default function AdminPage() {
 
     const fetchStats = async (token: string) => {
       try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://ordinaly.duckdns.org';
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
         const [servicesRes, coursesRes, termsRes, usersRes] = await Promise.all([
           fetch(`${apiUrl}/api/services/`, {
             headers: { 'Authorization': `Token ${token}` }

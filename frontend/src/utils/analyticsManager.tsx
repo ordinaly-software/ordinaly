@@ -20,7 +20,7 @@ function applyConsentUpdate() {
 export default function AnalyticsManager() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
   useEffect(() => {
     const handler = () => applyConsentUpdate();
@@ -39,12 +39,12 @@ export default function AnalyticsManager() {
   useEffect(() => {
     const prefs = getCookiePreferences();
     const gtag = (window as any).gtag as undefined | ((...args: any[]) => void);
-    if (!GA_MEASUREMENT_ID || typeof gtag !== 'function') return;
+    if (!GA_ID || typeof gtag !== 'function') return;
     if (!prefs?.analytics) return;
 
     const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
     gtag('event', 'page_view', { page_path: url, page_location: url });
-  }, [pathname, searchParams, GA_MEASUREMENT_ID]);
+  }, [pathname, searchParams, GA_ID]);
 
   return null;
 }

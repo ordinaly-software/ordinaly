@@ -44,6 +44,20 @@ export function isFunctionalAllowed(): boolean {
 }
 
 /* =========================
+   Cleanup helpers
+========================= */
+
+export function clearFunctionalStorage() {
+  if (typeof window === 'undefined') return;
+  try {
+    localStorage.removeItem('theme');
+    localStorage.removeItem('preferred-locale');
+  } catch {
+    // ignore storage errors (e.g., unavailable)
+  }
+}
+
+/* =========================
    Side effects (light)
 ========================= */
 
