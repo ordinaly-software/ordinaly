@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
-import { getCookiePreferences } from '@/utils/cookieManager';
+import { clearFunctionalStorage, getCookiePreferences } from '@/utils/cookieManager';
 
 const CookieConsent = () => {
   const t = useTranslations('cookie');
