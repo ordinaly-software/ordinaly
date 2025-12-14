@@ -3,10 +3,6 @@
 // jsdom/isomorphic-dompurify file resolution during builds.
 export function getVisionPlugin(apiVersion: string) {
   try {
-    // Use require in a try/catch so missing or problematic packages won't crash the config.
-     
-    // @ts-expect-error: optional runtime require may not exist in all environments
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { visionTool } = require('@sanity/vision');
     return visionTool({ defaultApiVersion: apiVersion });
   } catch {

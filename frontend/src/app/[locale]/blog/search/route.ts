@@ -1,6 +1,6 @@
 import {NextRequest, NextResponse} from 'next/server'
 import {client} from '@/lib/sanity'
-import {paginatedPosts} from '@/lib/queries'
+import {paginatedPosts, paginatedPostsAsc} from '@/lib/queries'
 
 const DEFAULT_PAGE_SIZE = 6;
 const MAX_PAGE_SIZE = 24;
@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
   const q = searchParams.get('q')
   const tag = searchParams.get('tag')
   const cat = searchParams.get('category')
+  const order = searchParams.get('order') === 'asc' ? 'asc' : 'desc'
   const pageParam = Number(searchParams.get('page') || '1')
   const pageSizeParam = Number(searchParams.get('pageSize') || DEFAULT_PAGE_SIZE)
 
@@ -28,10 +29,7 @@ export async function GET(req: NextRequest) {
     cat: cat ?? ''
   }
 
-  const { items, total } = await client.fetch(
-    paginatedPosts,
-    params,
-    { next:{ revalidate: 60, tags:['blog'] } }
-  )
+  const query = order === 'asc' ? paginatedPostsAsc : paginatedPosts
+  const { items, total } = await client.fetch(query, params, { next:{ revalidate: 60, tags:['blog'] } })
   return NextResponse.json({items, total, page, pageSize})
 }

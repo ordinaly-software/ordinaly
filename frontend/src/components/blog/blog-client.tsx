@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Dropdown } from '@/components/ui/dropdown';
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { ArrowLeft, ArrowRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 type Props = {
   posts: BlogPost[];
@@ -47,6 +48,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [categoryMap, setCategoryMap] = useState<Record<string, string>>(() => mapCategories(initialPosts));
+  const [order, setOrder] = useState<'asc' | 'desc'>('desc');
 
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
@@ -65,11 +67,13 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
   useEffect(() => {
     const urlCategory = searchParams.get('category');
     const urlPage = Number(searchParams.get('page') || '1');
+    const urlOrder = searchParams.get('order') === 'asc' ? 'asc' : 'desc';
     const nextCategory = urlCategory ?? 'all';
     const nextPage = Number.isFinite(urlPage) && urlPage > 0 ? Math.floor(urlPage) : 1;
 
     setSelectedCategory(prev => (prev === nextCategory ? prev : nextCategory));
     setCurrentPage(prev => (prev === nextPage ? prev : nextPage));
+    setOrder(prev => (prev === urlOrder ? prev : urlOrder));
   }, [searchParams]);
 
   useEffect(() => {
@@ -79,16 +83,17 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
     return () => clearTimeout(handle);
   }, [searchTerm]);
 
-  const updateRouteParams = useCallback((categoryValue: string, pageValue: number) => {
+  const updateRouteParams = useCallback((categoryValue: string, pageValue: number, orderValue: 'asc' | 'desc') => {
     const params = new URLSearchParams();
     if (categoryValue !== 'all') params.set('category', categoryValue);
     if (pageValue > 1) params.set('page', String(pageValue));
+    if (orderValue === 'asc') params.set('order', 'asc');
     const query = params.toString();
     router.push(`${localePrefix}/blog${query ? `?${query}` : ''}`);
   }, [router, localePrefix]);
 
   useEffect(() => {
-    const baseState = debouncedSearch === '' && selectedCategory === 'all' && currentPage === 1;
+    const baseState = debouncedSearch === '' && selectedCategory === 'all' && currentPage === 1 && order === 'desc';
     if (baseState) {
       setPosts(initialPosts);
       setTotal(initialTotal);
@@ -104,6 +109,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
     const params = new URLSearchParams();
     params.set('page', String(currentPage));
     params.set('pageSize', String(pageSize));
+    params.set('order', order);
     if (debouncedSearch) params.set('q', debouncedSearch);
     if (selectedCategory !== 'all') params.set('category', selectedCategory);
 
@@ -128,7 +134,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
     return () => {
       cancelled = true;
     };
-  }, [debouncedSearch, selectedCategory, currentPage, pageSize, initialPosts, initialTotal, mergeCategories, t, localePrefix]);
+  }, [debouncedSearch, selectedCategory, currentPage, pageSize, initialPosts, initialTotal, mergeCategories, t, localePrefix, order]);
 
   const categories = useMemo(() => {
     const options = Object.entries(categoryMap).map(([value, label]) => ({ value, label }));
@@ -142,22 +148,28 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
     setCurrentPage(1);
-    updateRouteParams(value, 1);
+    updateRouteParams(value, 1, order);
   };
 
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
     if (currentPage !== 1) {
       setCurrentPage(1);
-      updateRouteParams(selectedCategory, 1);
+      updateRouteParams(selectedCategory, 1, order);
     }
   };
 
   const handlePageChange = (nextPage: number) => {
     if (nextPage < 1 || nextPage > totalPages) return;
     setCurrentPage(nextPage);
-    updateRouteParams(selectedCategory, nextPage);
+    updateRouteParams(selectedCategory, nextPage, order);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOrderChange = (value: 'asc' | 'desc') => {
+    setOrder(value);
+    setCurrentPage(1);
+    updateRouteParams(selectedCategory, 1, value);
   };
 
   return (
@@ -188,6 +200,17 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
               minWidth="200px"
               placeholder={t('filters.category', { default: 'Category' })}
             />
+            {/* Order Dropdown */}
+            <Dropdown
+              options={[
+                { value: 'desc', label: t('sort.newest', { default: 'Newest first' }) },
+                { value: 'asc', label: t('sort.oldest', { default: 'Oldest first' }) },
+              ]}
+              value={order}
+              onChange={value => handleOrderChange(value as 'asc' | 'desc')}
+              minWidth="200px"
+              placeholder={t('sort.label', { default: 'Sort by date' })}
+            />
           </div>
         </div>
       </Banner>
@@ -202,41 +225,43 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
           )}
 
           {totalPages > 1 && (
-            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
-              <button
-                type="button"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1 || loading}
-                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
-              >
-                {t('pagination.prev', { default: 'Previous' })}
-              </button>
-
+            <div className="flex items-center justify-center gap-4 mb-4 text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1 || loading}
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {t('pagination.prev', { default: 'Previous' })}
+                </button>
+              </div>
               {loading ? (
-                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                   {t('loading', { default: 'Loading posts...' })}
                 </div>
               ) : (
-                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                   <span>{t('pagination.page', { default: 'Page' })}</span>
                   <strong className="text-gray-900 dark:text-white">{currentPage}</strong>
                   <span>{t('pagination.of', { default: 'of' })}</span>
                   <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
                 </div>
               )}
-
-              <button
-                type="button"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages || loading}
-                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
-              >
-                {t('pagination.next', { default: 'Next' })}
-              </button>
+              <div className="flex justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages || loading}
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+                >
+                  {t('pagination.next', { default: 'Next' })}
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           )}
-
-          <br />
 
           {!loading && posts.length === 0 ? (
             <div className="text-center py-16">
@@ -263,32 +288,57 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
             </ul>
           )}
 
+          <br></br>
+
           {totalPages > 1 && (
-            <div className="mt-12 flex flex-col sm:flex-row items-center justify-between">
+            <div className="flex items-center justify-center gap-4 mb-4 text-sm text-gray-600 dark:text-gray-300">
+              <button
+                type="button"
+                onClick={() => handlePageChange(1)}
+                disabled={currentPage === 1 || loading}
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+              >
+                <ChevronsLeft className="h-4 w-4" />
+                {t('pagination.first', { default: 'First' })}
+              </button>
+
               <button
                 type="button"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1 || loading}
-                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
               >
-                {t('pagination.prev')}
+                <ArrowLeft className="h-4 w-4" />
+                {t('pagination.prev', { default: 'Previous' })}
               </button>
 
-              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                 <span>{t('pagination.page')}</span>
                 <strong className="text-gray-900 dark:text-white">{currentPage}</strong>
                 <span>{t('pagination.of')}</span>
                 <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
               </div>
 
-              <button
-                type="button"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages || loading}
-                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
-              >
-                {t('pagination.next')}
-              </button>
+              <div className="flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages || loading}
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+                >
+                  {t('pagination.next')}
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handlePageChange(totalPages)}
+                  disabled={currentPage === totalPages || loading}
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+                >
+                  {t('pagination.last', { default: 'Last' })}
+                  <ChevronsRight className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           )}
         </div>

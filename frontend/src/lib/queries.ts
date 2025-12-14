@@ -41,7 +41,12 @@ export const postBySlug = groq`*[_type=="post" && slug.current==$slug && (!defin
 
 export const listPosts = groq`*[${publicPostFilter}] ${orderedPosts} [0...50] ${postFields}`
 
-export const paginatedPosts = groq`{
+export const paginatedPosts: string = groq`{
   "items": *[${searchablePostFilter}] ${orderedPosts} [$offset...$end] ${postFields},
+  "total": count(*[${searchablePostFilter}])
+}`
+
+export const paginatedPostsAsc: string = groq`{
+  "items": *[${searchablePostFilter}] | order(coalesce(publishedAt,_updatedAt) asc) [$offset...$end] ${postFields},
   "total": count(*[${searchablePostFilter}])
 }`
