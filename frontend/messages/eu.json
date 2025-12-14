@@ -22,7 +22,8 @@
       "profile": "Profil",
       "blog": "Blog",
       "contact": "Kontaktua",
-      "us": "Gu"
+      "us": "Gu",
+      "loading": "Kargatzen..."
     },
     "hero": {
       "title": "Automatizatu",
@@ -1511,7 +1512,22 @@
     },
     "team": {
       "title": "Ezagutu taldea",
-      "cta": "¡Ezagutu gaitzazu!"
+      "cta": "¡Ezagutu gaitzazu!",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Software Ingeniera & Sortzailea",
+        "quote": "Software ingeniera automatizazio eta Adimen Artifizialean espezialista."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Kalitatea eta Proiektuen Ingeniera & Sortzailea",
+        "quote": "Aholkularia eta proiektuaren zuzendaria IA eta kalitateen ingenieran espezialista."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Marketina, Publizitatea eta Eraldaketa Digitala Aditzalea & Sortzailea",
+        "quote": "Marketing digital estrategian eta enpresa eraldaketan espezialista."
+      }
     },
     "map": {
       "title": "Bisitatu gaitzazu Sevillan",
@@ -1520,10 +1536,91 @@
     }
   },
   "usPage": {
-    "eyebrow": "Guri buruz",
-    "title": "Gu gara Ordinaly",
-    "description": "Laster partekatuko dugu gure historia, taldea eta lan egiteko modua.",
-    "comingSoon": "Laster eguneratuko dugu orri hau."
+    "hero": {
+      "tagline": "Guri buruz",
+      "title": "Helburudun automatizazioa",
+      "subtitle": "Talde multidiziplinarra IA + automatizazioa sortzen, pertsonak kontrolan eta negozioak aurrera doazela bermatuz.",
+      "ctaPrimary": "Ezagutu taldea",
+      "ctaSecondary": "Ikusi gure lana",
+      "missionLabel": "Misioa",
+      "visionLabel": "Ikuspegia"
+    },
+    "mission": {
+      "title": "Pertsonak indartu, ez ordezkatu",
+      "body": "Automatizazioak diseinatzen ditugu frikzioa kentzeko, taldeek sormenari, erabakiei eta harremanei heltzeko."
+    },
+    "vision": {
+      "title": "Konfiantzazko automatizazioa",
+      "body": "Fluxu adimendunak sinple, garden eta neurgarri bihurtzea edozein enpresarentzat."
+    },
+    "stats": {
+      "teamLabel": "Adituak IA, automatizazio eta CXn",
+      "teamValue": "Produktua, teknologia, eragiketak, hazkundea"
+    },
+    "values": {
+      "eyebrow": "Zertan sinesten dugu",
+      "title": "Gure lana gidatzen duten printzipioak",
+      "items": {
+        "1": {
+          "title": "Pertsona erdigunean",
+          "body": "Pertsonen ohituretatik eta indarguneetatik abiatuta automatizatzen dugu, ez alderantziz."
+        },
+        "2": {
+          "title": "Bidali eta ikasi",
+          "body": "Pilotuak, neurketak eta iterazio azkarra, erritmoa eta arrisku kontrola mantentzeko."
+        },
+        "3": {
+          "title": "Eragin gardena",
+          "body": "Fluxu bakoitzak arduraduna, KPIa eta babesak ditu, taldeak sisteman fida dadin."
+        }
+      }
+    },
+    "story": {
+      "eyebrow": "Gure ibilbidea",
+      "title": "Esperimentuetatik enpresa-mailako hedapenera",
+      "lead": "Hasieran entrega azkartzea zen gure obsesioa. Gaur, IA eta automatizazioa eskalatzen laguntzen dugu gobernantza, datu eta konfiantzarekin.",
+      "2021": {
+        "title": "Oinarriak",
+        "body": "Lehen barne frameworkak txat eta Odoo konektoreetarako."
+      },
+      "2022": {
+        "title": "Produktibizatu",
+        "body": "n8n workflow berrerabilgarriak eta CX playbookak jaurti genituen lehen bezeroentzat."
+      },
+      "2023": {
+        "title": "Eskalatzea",
+        "body": "Enpresa-pilotuetara hedatu, behagarritasuna, RBAC eta QA gehituz."
+      },
+      "2024": {
+        "title": "Konfiantza geruza",
+        "body": "Governance eta analitika fluxu bakoitzaren ROI neurtzeko."
+      }
+    },
+    "testimonials": {
+      "title": "Taldearen ahotsak",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Software Ingeniera & Sortzailea",
+        "quote": "Software ingeniera automatizazio eta Adimen Artifizialean espezialista."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Kalitatea eta Proiektuen Ingeniera & Sortzailea",
+        "quote": "Aholkularia eta proiektuaren zuzendaria IA eta kalitateen ingenieran espezialista."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Marketina, Publizitatea eta Eraldaketa Digitala Aditzalea & Sortzailea",
+        "quote": "Marketing digital estrategian eta enpresa eraldaketan espezialista."
+      }
+    },
+    "cta": {
+      "eyebrow": "Lan egin gurekin",
+      "title": "Prest zure hurrengo automatizazioa eraikitzeko?",
+      "body": "Kontatu zure helburuak. Batera diseinatzen dugu bidea, pilotu neurgarri batekin hasten gara eta arduraz eskalatzen dugu.",
+      "primary": "Hasi proiektua",
+      "secondary": "Erreserbatu deia"
+    }
   },
   "notFound": {
     "title": "Orria ez da aurkitu",

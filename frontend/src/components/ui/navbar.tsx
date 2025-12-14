@@ -12,6 +12,9 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { createPortal } from "react-dom";
+import { Menu as HoverMenu, MenuItem, ProductItem, HoveredLink } from "@/components/ui/navbar-menu";
+import { useServices } from "@/hooks/useServices";
+import { useCourses } from "@/hooks/useCourses";
 
 // Custom User Menu Component
 const UserMenu = ({ 
@@ -145,7 +148,10 @@ const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [userData, setUserData] = useState<{is_staff?: boolean, is_superuser?: boolean} | null>(null);
+  const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { services: menuServices } = useServices(6);
+  const { courses: menuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 3, upcoming: true });
 
   // Optimized scroll handler with throttling
   const handleScroll = useCallback(() => {
@@ -282,15 +288,27 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   // Memoized nav links
-  const navLinks = useMemo(
+  const desktopLinks = useMemo(
     () => [
-      { href: "/services", label: t("navigation.services") },
-      { href: "/formation", label: t("navigation.formation") },
       { href: "/blog", label: t("navigation.blog") },
       { href: "/contact", label: t("navigation.contact", { defaultValue: "Contacto" }) },
       { href: "/us", label: t("navigation.us", { defaultValue: "Nosotros" }) },
     ],
     [t]
+  );
+
+  const mobileLinks = useMemo(
+    () => [
+      { href: "/services", label: t("navigation.services") },
+      { href: "/formation", label: t("navigation.formation") },
+      ...desktopLinks,
+    ],
+    [desktopLinks, t]
+  );
+
+  const featuredServices = useMemo(
+    () => menuServices.filter((s) => s.is_featured).slice(0, 4),
+    [menuServices]
   );
 
   // Helper function to check if link is active
@@ -306,9 +324,9 @@ const Navbar = () => {
     <>
       <nav
         className={cn(
-          "border-b border-gray-200/50 dark:border-gray-700/50 bg-white/90 dark:bg-[#1A1924]/90 backdrop-blur-xl w-full transition-all duration-500 ease-out",
+          "border-b border-gray-200/50 dark:border-gray-700/50 bg-white/90 dark:bg-[#1A1924]/90 backdrop-blur-xl w-full transition-all duration-500 ease-out overflow-visible z-[40]",
           isScrolled
-            ? "fixed top-0 left-0 z-40 shadow-lg shadow-black/5 dark:shadow-black/20"
+            ? "fixed top-0 left-0 z-[50] shadow-lg shadow-black/5 dark:shadow-black/20"
             : "relative"
         )}
         style={{
@@ -317,7 +335,7 @@ const Navbar = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-3 sm:py-4 lg:py-6 min-h-[60px] sm:min-h-[72px]">
+          <div className="flex justify-between items-center py-2.5 sm:py-3.5 lg:py-5 min-h-[54px] sm:min-h-[66px]">
             {/* Logo and Title */}
             <div 
               className="flex items-center flex-shrink-0 min-w-0 cursor-pointer group transition-transform duration-200 hover:scale-[1.02]" 
@@ -349,7 +367,54 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 flex-shrink-0">
-              {navLinks.map((link) => (
+              <HoverMenu setActive={setActiveMegaItem}>
+                <MenuItem
+                  item={t("navigation.services")}
+                  active={activeMegaItem}
+                  setActive={setActiveMegaItem}
+                  href="/services"
+                  isActiveLink={isLinkActive("/services")}
+                >
+                  <div className="grid grid-cols-1 gap-2 min-w-[240px]">
+                    {featuredServices.length === 0 ? (
+                      <HoveredLink href="/services">{t("navigation.services")}</HoveredLink>
+                    ) : (
+                      featuredServices.map((service) => (
+                        <HoveredLink key={service.id} href="/services">
+                          {service.title}
+                        </HoveredLink>
+                      ))
+                    )}
+                  </div>
+                </MenuItem>
+                <MenuItem
+                  item={t("navigation.formation")}
+                  active={activeMegaItem}
+                  setActive={setActiveMegaItem}
+                  href="/formation"
+                  isActiveLink={isLinkActive("/formation")}
+                >
+                  <div className="grid grid-cols-1 gap-3 min-w-[360px]">
+                    {menuCoursesLoading && (
+                      <div className="text-sm text-gray-500 dark:text-gray-400 px-2 py-1">{t("navigation.loading", { defaultValue: "Loading..." })}</div>
+                    )}
+                    {!menuCoursesLoading && menuCourses.length === 0 ? (
+                      <HoveredLink href="/formation">{t("navigation.formation")}</HoveredLink>
+                    ) : (
+                      menuCourses.map((course) => (
+                        <ProductItem
+                          key={course.id}
+                          title={course.title}
+                          description={course.subtitle || course.description}
+                          href={`/formation/${course.slug ?? course.id}`}
+                          src={course.image}
+                        />
+                      ))
+                    )}
+                  </div>
+                </MenuItem>
+              </HoverMenu>
+              {desktopLinks.map((link) => (
                 <Link 
                   key={link.href}
                   href={link.href}
@@ -453,7 +518,7 @@ const Navbar = () => {
             >
               <div className="py-4 px-4 sm:px-6">
                 <div className="flex flex-col space-y-1">
-                  {navLinks.map((link) => (
+                  {mobileLinks.map((link) => (
                     <Link 
                       key={link.href}
                       href={link.href}

@@ -11,8 +11,8 @@
       "start": "Get Started",
       "darkMode": "Switch to dark mode",
       "lightMode": "Switch to light Mode",
-      "contact": "Contact",
       "localeSwitcher": "Change language",
+      "contact": "Contact",
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
       "signIn": "Sign In",
@@ -22,7 +22,8 @@
       "adminDashboard": "Admin Dashboard",
       "profile": "Profile",
       "blog": "Blog",
-      "us": "Us"
+      "us": "Us",
+      "loading": "Loading..."
     },
     "hero": {
       "title": "AUTOMATE",
@@ -1512,7 +1513,22 @@
     "team": {
       "title": "Our team",
       "subtitle": "Talk directly with the people who will build and launch your solution.",
-      "cta": "Get to know us!"
+      "cta": "Get to know us!",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Software Engineer & Co-founder",
+        "quote": "Software Engineer specializing in automation and Artificial Intelligence."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Quality and Project Engineer & Co-founder",
+        "quote": "Consultant and project manager specialized in AI and quality engineering."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Expert in Marketing, Advertising and Digital Transformation & Co-founder",
+        "quote": "Specialist in digital marketing strategies and business transformation."
+      }
     },
     "map": {
       "title": "Visit us in Seville",
@@ -1521,10 +1537,91 @@
     }
   },
   "usPage": {
-    "eyebrow": "About us",
-    "title": "We are Ordinaly",
-    "description": "Soon we'll share the story, team, and culture behind our automation projects.",
-    "comingSoon": "This page will be updated shortly."
+    "hero": {
+      "tagline": "About us",
+      "title": "We automate with purpose",
+      "subtitle": "A multidisciplinary team building AI + automation that keeps humans in control and businesses moving faster.",
+      "ctaPrimary": "Meet the builders",
+      "ctaSecondary": "See our work",
+      "missionLabel": "Mission",
+      "visionLabel": "Vision"
+    },
+    "mission": {
+      "title": "Augment people, not replace them",
+      "body": "We design automations that remove friction so teams can focus on creativity, decisions, and relationships."
+    },
+    "vision": {
+      "title": "Automation everyone can trust",
+      "body": "Make intelligent workflows simple, transparent, and measurable for companies of any size."
+    },
+    "stats": {
+      "teamLabel": "Experts across AI, automation & CX",
+      "teamValue": "Product, tech, ops, growth"
+    },
+    "values": {
+      "eyebrow": "What we believe",
+      "title": "Principles that guide our build",
+      "items": {
+        "1": {
+          "title": "Human-centered",
+          "body": "We automate around people's strengths and habits—not the other way around."
+        },
+        "2": {
+          "title": "Ship & learn",
+          "body": "We pilot, measure, and iterate fast to keep momentum and reduce risk."
+        },
+        "3": {
+          "title": "Transparent impact",
+          "body": "Every workflow has a clear owner, KPI, and fail-safe so teams can trust the system."
+        }
+      }
+    },
+    "story": {
+      "eyebrow": "Our journey",
+      "title": "From experiments to enterprise rollouts",
+      "lead": "We started as builders obsessed with faster delivery. Today we partner with teams to scale AI and automation with governance, data, and trust.",
+      "2021": {
+        "title": "Foundations",
+        "body": "First internal frameworks for chat automation and Odoo connectors."
+      },
+      "2022": {
+        "title": "Productizing",
+        "body": "Launched reusable n8n workflows and CX playbooks for early adopters."
+      },
+      "2023": {
+        "title": "Scale",
+        "body": "Expanded to enterprise pilots, adding observability, RBAC, and QA layers."
+      },
+      "2024": {
+        "title": "Trust layer",
+        "body": "Built governance packs and analytics to measure ROI for every flow."
+      }
+    },
+    "testimonials": {
+      "title": "Voices from the team",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Software Engineer & Co-founder",
+        "quote": "Software Engineer specializing in automation and Artificial Intelligence."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Quality and Project Engineer & Co-founder",
+        "quote": "Consultant and project manager specialized in AI and quality engineering."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Expert in Marketing, Advertising and Digital Transformation & Co-founder",
+        "quote": "Specialist in digital marketing strategies and business transformation."
+      }
+    },
+    "cta": {
+      "eyebrow": "Work with us",
+      "title": "Ready to build your next automation?",
+      "body": "Tell us about your goals. We'll co-design a roadmap, start with a measurable pilot, and scale responsibly.",
+      "primary": "Start a project",
+      "secondary": "Book a call"
+    }
   },
   "notFound": {
     "title": "Page not found",

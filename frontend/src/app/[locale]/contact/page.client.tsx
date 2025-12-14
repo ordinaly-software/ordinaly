@@ -25,24 +25,24 @@ export default function ContactPage() {
 
   const team = [
     {
-      name: "Antonio Macías Ferrera",
-      title: "CTO Ingeniero de Software & Co-founder",
+      name: t('team.1.name'),
+      title: t('team.1.role'),
       image: "/static/team/antonio.webp",
-      bio: "Ingeniero de Software especialista en automatización e Inteligencia Artificial.",
+      bio: t('team.1.quote'),
       linkedin: "https://www.linkedin.com/in/antoniommff/",
     },
     {
-      name: "Guillermo Montero Fernández-Vivancos",
-      title: "Ingniero de Calidad y Proyectos & Co-founder",
+      name: t('team.2.name'),
+      title: t('team.2.role'),
       image: "/static/team/guillermo.webp",
-      bio: "Consultor y project manager especializados en IA e ingeniería de calidad.",
+      bio: t('team.2.quote'),
       linkedin: "https://www.linkedin.com/in/guillermomontero/",
     },
     {
-      name: "Emilio Cid Pérez",
-      title: "Experto en Márketing, Publicidad y Transformación Digital & Co-founder",
+      name: t('team.3.name'),
+      title: t('team.3.role'),
       image: "/static/team/emilio.webp",
-      bio: "Especialista en estrategias de marketing digital y transformación empresarial.",
+      bio: t('team.3.quote'),
       linkedin: "https://www.linkedin.com/in/emiliocidperez/",
     },
   ];

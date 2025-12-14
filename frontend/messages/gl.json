@@ -22,7 +22,8 @@
       "profile": "Perfil",
       "blog": "Blog",
       "contact": "Contacto",
-      "us": "Nós"
+      "us": "Nós",
+      "loading": "Cargando..."
     },
     "hero": {
       "title": "AUTOMATIZA",
@@ -1511,7 +1512,22 @@
     },
     "team": {
       "title": "Noso equipo",
-      "cta": "¡Coñécenos!"
+      "cta": "¡Coñécenos!",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Enxeñeiro de Software & Co-fundador",
+        "quote": "Enxeñeiro de Software especialista en automatización e Intelixencia Artificial."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Enxeñeiro de Calidade e Proxectos & Co-fundador",
+        "quote": "Consultor e xestor de proxectos especializados en IA e enxeñería de calidade."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Experto en Márketing, Publicidade e Transformación Dixital & Co-fundador",
+        "quote": "Especialista en estratexias de márketing dixital e transformación empresarial."
+      }
     },
     "map": {
       "title": "Visítanos en Sevilla",
@@ -1520,10 +1536,91 @@
     }
   },
   "usPage": {
-    "eyebrow": "Sobre nós",
-    "title": "Somos Ordinaly",
-    "description": "Moi pronto compartiremos a nosa historia, o equipo e a forma de traballar.",
-    "comingSoon": "Actualizaremos esta páxina en breve."
+    "hero": {
+      "tagline": "Sobre nós",
+      "title": "Automatizamos con propósito",
+      "subtitle": "Un equipo multidisciplinar creando IA + automatización que mantén ás persoas no control e aos negocios avanzando.",
+      "ctaPrimary": "Coñece o equipo",
+      "ctaSecondary": "Ver o noso traballo",
+      "missionLabel": "Misión",
+      "visionLabel": "Visión"
+    },
+    "mission": {
+      "title": "Potenciar ás persoas, non substituílas",
+      "body": "Deseñamos automatizacións que eliminan fricción para que os equipos se centren en creatividade, decisións e relacións."
+    },
+    "vision": {
+      "title": "Automatización na que confiar",
+      "body": "Facer que os fluxos intelixentes sexan simples, transparentes e medibles para calquera empresa."
+    },
+    "stats": {
+      "teamLabel": "Expertos en IA, automatización e CX",
+      "teamValue": "Produto, tecnoloxía, operacións, crecemento"
+    },
+    "values": {
+      "eyebrow": "No que cremos",
+      "title": "Principios que guían como construímos",
+      "items": {
+        "1": {
+          "title": "Centrados nas persoas",
+          "body": "Automatizamos arredor dos hábitos e fortalezas das persoas, non ao revés."
+        },
+        "2": {
+          "title": "Entregar e aprender",
+          "body": "Pilotamos, medimos e iteramos rápido para manter o impulso e reducir risco."
+        },
+        "3": {
+          "title": "Impacto transparente",
+          "body": "Cada fluxo ten responsable, KPI e salvagardas para que o equipo confíe no sistema."
+        }
+      }
+    },
+    "story": {
+      "eyebrow": "A nosa historia",
+      "title": "Dos experimentos aos despregamentos empresariais",
+      "lead": "Comezamos obsesionados con entregar máis rápido. Hoxe acompañamos equipos para escalar IA e automatización con goberno, datos e confianza.",
+      "2021": {
+        "title": "Fundacións",
+        "body": "Primeiros frameworks internos para chat e conectores con Odoo."
+      },
+      "2022": {
+        "title": "Productivizar",
+        "body": "Lanzamos workflows reutilizables en n8n e playbooks de CX para os primeiros clientes."
+      },
+      "2023": {
+        "title": "Escala",
+        "body": "Expansión a pilotos enterprise engadindo observabilidade, RBAC e QA."
+      },
+      "2024": {
+        "title": "Capa de confianza",
+        "body": "Governance e analítica para medir o ROI de cada fluxo."
+      }
+    },
+    "testimonials": {
+      "title": "Voces do equipo",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Enxeñeiro de Software & Co-fundador",
+        "quote": "Enxeñeiro de Software especialista en automatización e Intelixencia Artificial."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Enxeñeiro de Calidade e Proxectos & Co-fundador",
+        "quote": "Consultor e xestor de proxectos especializados en IA e enxeñería de calidade."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Experto en Márketing, Publicidade e Transformación Dixital & Co-fundador",
+        "quote": "Especialista en estratexias de márketing dixital e transformación empresarial."
+      }
+    },
+    "cta": {
+      "eyebrow": "Traballa connosco",
+      "title": "Preparado para construír a túa próxima automatización?",
+      "body": "Cóntanos os teus obxectivos. Codeseñamos a folla de ruta, comezamos cun piloto medible e escalamos con responsabilidade.",
+      "primary": "Comezar un proxecto",
+      "secondary": "Reservar unha chamada"
+    }
   },
   "notFound": {
     "title": "Páxina non atopada",

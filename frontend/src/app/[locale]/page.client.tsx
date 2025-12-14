@@ -163,29 +163,35 @@ export default function HomePage() {
         </div>
       </section>
 
-  {/* Demo Modal - Dynamically loaded */}
-  <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
+      {/* Demo Modal - Dynamically loaded */}
+      <DemoModal isOpen={isDemoModalOpen} onClose={() => setIsDemoModalOpen(false)} />
 
-    {/* Services Section */}
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 scroll-animate fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">{t("services.title")}</h2>
-          <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
-            {t("services.description")}
-          </p>
+      {/* Courses Showcase Section */}
+      <CoursesShowcase 
+        limit={3} 
+        showUpcomingOnly={false}
+      />
+
+      {/* Services Section */}
+      <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 scroll-animate fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">{t("services.title")}</h2>
+            <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
+              {t("services.description")}
+            </p>
+          </div>
+          <ServiceShowcase
+            services={services}
+            isLoading={servicesLoading}
+            isOnVacation={isOnVacation}
+            error={servicesError}
+            t={t}
+            refetch={refetch}
+            onServiceClick={handleServiceClick}
+          />
         </div>
-        <ServiceShowcase
-          services={services}
-          isLoading={servicesLoading}
-          isOnVacation={isOnVacation}
-          error={servicesError}
-          t={t}
-          refetch={refetch}
-          onServiceClick={handleServiceClick}
-        />
-      </div>
-    </section>
+      </section>
 
       {/* Partners Section */}
       <section className="py-10 px-4 sm:px-6 lg:px-4 bg-[#22A60D] text-[#176b0a]">
@@ -229,14 +235,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Courses Showcase Section */}
-      <CoursesShowcase 
-        limit={3} 
-        showUpcomingOnly={false}
-      />
-
       {/* About Section */}
-  <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#23272F]">
+      <section id="about" className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#23272F]">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="scroll-animate slide-in-left">

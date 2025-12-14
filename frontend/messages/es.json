@@ -22,7 +22,8 @@
       "profile": "Perfil",
       "blog": "Blog",
       "contact": "Contacto",
-      "us": "Nosotros"
+      "us": "Nosotros",
+      "loading": "Cargando..."
     },
     "hero": {
       "title": "AUTOMATIZA",
@@ -1512,7 +1513,22 @@
     "team": {
       "title": "Nuestro equipo",
       "subtitle": "Habla directamente con quienes diseñarán e implantarán tu solución.",
-      "cta": "¡Conócenos!"
+      "cta": "¡Conócenos!",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Ingeniero de Software & Co-founder",
+        "quote": "Ingeniero de Software especialista en automatización e Inteligencia Artificial."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Ingniero de Calidad y Proyectos & Co-founder",
+        "quote": "Consultor y project manager especializados en IA e ingeniería de calidad."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Experto en Márketing, Publicidad y Transformación Digital & Co-founder",
+        "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
+      }
     },
     "map": {
       "title": "Visita nuestras oficinas en Sevilla",
@@ -1521,10 +1537,93 @@
     }
   },
   "usPage": {
-    "eyebrow": "Sobre nosotros",
-    "title": "Somos Ordinaly",
-    "description": "Muy pronto compartiremos nuestra historia, el equipo y cómo trabajamos.",
-    "comingSoon": "Actualizaremos esta página en breve."
+    "hero": {
+      "tagline": "Sobre nosotros",
+      "title": "Automatizamos con propósito",
+      "subtitle": "Un equipo multidisciplinar creando IA + automatización que mantiene a las personas en control y a los negocios avanzando.",
+      "ctaPrimary": "Conoce al equipo",
+      "ctaSecondary": "Ver nuestro trabajo",
+      "missionLabel": "Misión",
+      "visionLabel": "Visión"
+    },
+    "mission": {
+      "title": "Potenciar a las personas, no sustituirlas",
+      "body": "Diseñamos automatizaciones que eliminan fricción para que los equipos se centren en creatividad, decisiones y relaciones."
+    },
+    "vision": {
+      "title": "Automatización en la que confiar",
+      "body": "Hacer que los flujos inteligentes sean simples, transparentes y medibles para cualquier empresa."
+    },
+    "stats": {
+      "teamLabel": "Expertos en IA, automatización y CX",
+      "teamValue": "Producto, tecnología, operaciones, crecimiento"
+    },
+    "values": {
+      "eyebrow": "En lo que creemos",
+      "title": "Principios que guían cómo construimos",
+      "items": {
+        "1": {
+          "title": "Centrados en las personas",
+          "body": "Automatizamos alrededor de los hábitos y fortalezas de las personas, no al revés."
+        },
+        "2": {
+          "title": "Entregar y aprender",
+          "body": "Pilotamos, medimos e iteramos rápido para mantener el impulso y reducir el riesgo."
+        },
+        "3": {
+          "title": "Impacto transparente",
+          "body": "Cada flujo tiene responsable, KPI y salvaguardas para que el equipo confíe en el sistema."
+        }
+      }
+    },
+    "story": {
+      "eyebrow": "Nuestra historia",
+      "title": "De los experimentos a los despliegues empresariales",
+      "lead": "Empezamos obsesionados con entregar más rápido. Hoy acompañamos a equipos a escalar IA y automatización con gobierno, datos y confianza.",
+      "2021": {
+        "title": "Fundaciones",
+        "body": "Primeros frameworks internos para chat y conectores con Odoo."
+      },
+      "2022": {
+        "title": "Productivizar",
+        "body": "Lanzamos workflows reutilizables en n8n y playbooks de CX para los primeros clientes."
+      },
+      "2023": {
+        "title": "Escala",
+        "body": "Expansión a pilotos enterprise añadiendo observabilidad, RBAC y QA."
+      },
+      "2024": {
+        "title": "Capa de confianza",
+        "body": "Governance y analítica para medir el ROI de cada flujo."
+      }
+    },
+    "testimonials": {
+      "title": "Nuestro equipo",
+      "subtitle": "Habla directamente con quienes diseñarán e implantarán tu solución.",
+      "cta": "¡Conócenos!",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Ingeniero de Software & Co-founder",
+        "quote": "Ingeniero de Software especialista en automatización e Inteligencia Artificial."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Ingniero de Calidad y Proyectos & Co-founder",
+        "quote": "Consultor y project manager especializados en IA e ingeniería de calidad."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Experto en Márketing, Publicidad y Transformación Digital & Co-founder",
+        "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
+      }
+    },
+    "cta": {
+      "eyebrow": "Trabaja con nosotros",
+      "title": "¿Listo para construir tu próxima automatización?",
+      "body": "Cuéntanos tus objetivos. Co-diseñamos la hoja de ruta, empezamos con un piloto medible y escalamos con responsabilidad.",
+      "primary": "Empezar un proyecto",
+      "secondary": "Reservar una llamada"
+    }
   },
   "notFound": {
     "title": "Página no encontrada",
