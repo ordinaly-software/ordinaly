@@ -20,7 +20,8 @@
       "userMenu": "Erabiltzaileen menua",
       "adminDashboard": "Admin Arbela",
       "profile": "Profil",
-      "blog": "Blog"
+      "blog": "Blog",
+      "contact": "Kontaktua"
     },
     "hero": {
       "title": "Automatizatu",
@@ -54,9 +55,9 @@
       "contactNow": "Jarri harremanetan orain",
       "contactEmail": "Jarri harremanetan emailez",
       "viewDetails": "Xehetasunak ikusi",
-  "viewAllServices": "Ikusi zerbitzu guztiak",
-  "errorTitle": "Errorea zerbitzuak kargatzean",
-  "errorMessage": "Ezin izan dira zerbitzuak kargatu"
+      "viewAllServices": "Ikusi zerbitzu guztiak",
+      "errorTitle": "Errorea zerbitzuak kargatzean",
+      "errorMessage": "Ezin izan dira zerbitzuak kargatu"
     },
     "courses": {
       "noSpecificDate": "Data zehazteko",
@@ -1482,5 +1483,56 @@
       "linkedin": "LinkedIn",
       "shareMessage": "Irakurri post hau {siteTag}-etik: \"{title}\" - {excerpt}"
     }
+  },
+  "contactPage": {
+    "hero": {
+      "title": "Eraiki dezagun zure hurrengo automatizazioa",
+      "subtitle": "Kontatu zure taldea, tresnak eta helburuak. 24 ordutan erantzungo dugu.",
+      "primaryCta": "Idatzi guri",
+      "secondaryCta": "Ireki inprimakia",
+      "contactCardTitle": "Nahiago duzu zuzenean hitz egin?",
+      "contactCardText": "Azkar erantzungo dugu proposamenarekin eta hurrengo pausoekin.",
+      "location": "¡Bisita gaitzazu Sevillan!"
+    },
+    "info": {
+      "title": "Harreman zuzena",
+      "emailLabel": "Email",
+      "phoneLabel": "Telefonoa",
+      "addressLabel": "Bulegoa",
+      "hoursLabel": "Ordutegia",
+      "hoursValue": "Ast-Lar · 09:00-19:00 CET",
+      "socialTitle": "Jarraitu gurekin"
+    },
+    "form": {
+      "eyebrow": "Harreman inprimakia",
+      "title": "Kontatu zure proiektua",
+      "subtitle": "Partekatu helburuak, epeak eta tresnak plan onena proposatzeko.",
+      "name": "Izena",
+      "namePlaceholder": "Izen-abizenak",
+      "email": "Email",
+      "company": "Enpresa (aukerakoa)",
+      "companyPlaceholder": "Enpresa edo talde tamaina",
+      "message": "Proiektuaren xehetasunak",
+      "messagePlaceholder": "Deskribatu helburuak, epeak, uneko tresnak eta itxaropenak.",
+      "submit": "Bidali mezua",
+      "sending": "Bidaltzen...",
+      "success": "Eskerrik asko! Zure mezua jaso dugu eta laster erantzungo dugu.",
+      "errorFallback": "Ezin izan dugu inprimakia bidali. Idatzi info@ordinaly.ai helbidera."
+    },
+    "team": {
+      "title": "Ezagutu taldea",
+      "cta": "¡Ezagutu gaitzazu!"
+    },
+    "map": {
+      "title": "Bisitatu gaitzazu Sevillan",
+      "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "photoAlt": "Ordinaly-ren bulegoak Plaza del Duque de la Victoria-n, Sevillan"
+    }
+  },
+  "usPage": {
+    "eyebrow": "Guri buruz",
+    "title": "Gu gara Ordinaly",
+    "description": "Laster partekatuko dugu gure historia, taldea eta lan egiteko modua.",
+    "comingSoon": "Laster eguneratuko dugu orri hau."
   }
 }

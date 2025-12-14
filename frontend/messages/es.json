@@ -20,7 +20,8 @@
       "userMenu": "Menú de usuario",
       "adminDashboard": "Panel de Administración",
       "profile": "Perfil",
-      "blog": "Blog"
+      "blog": "Blog",
+      "contact": "Contacto"
     },
     "hero": {
       "title": "AUTOMATIZA",
@@ -54,9 +55,9 @@
       "contactNow": "Contactar Ahora",
       "contactEmail": "Contactar por Email",
       "viewDetails": "Ver Detalles",
-  "viewAllServices": "Ver Todos los Servicios",
-  "errorTitle": "Error Cargando Servicios",
-  "errorMessage": "No se pudieron cargar los servicios"
+      "viewAllServices": "Ver Todos los Servicios",
+      "errorTitle": "Error Cargando Servicios",
+      "errorMessage": "No se pudieron cargar los servicios"
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
@@ -1482,5 +1483,57 @@
       "linkedin": "LinkedIn",
       "shareMessage": "Lee este post de {siteTag}: \"{title}\" - {excerpt}"
     }
+  },
+  "contactPage": {
+    "hero": {
+      "title": "Construyamos tu próxima automatización",
+      "subtitle": "Cuéntanos tu equipo, herramientas y objetivos. Respondemos en menos de 24 horas.",
+      "primaryCta": "Escríbenos",
+      "secondaryCta": "Abrir formulario",
+      "contactCardTitle": "¿Prefieres hablar directo?",
+      "contactCardText": "Respondemos rápido con una propuesta y los siguientes pasos.",
+      "location": "¡Visítanos en Sevilla!"
+    },
+    "info": {
+      "title": "Contactos directos",
+      "emailLabel": "Correo",
+      "phoneLabel": "Teléfono",
+      "addressLabel": "Oficina",
+      "hoursLabel": "Disponibilidad",
+      "hoursValue": "L-V · 09:00-19:00 CET",
+      "socialTitle": "Síguenos"
+    },
+    "form": {
+      "eyebrow": "Formulario de contacto",
+      "title": "Cuéntanos tu proyecto",
+      "subtitle": "Comparte objetivos, plazos y herramientas para proponerte el mejor plan.",
+      "name": "Nombre",
+      "namePlaceholder": "Nombre y apellidos",
+      "email": "Email",
+      "company": "Empresa (opcional)",
+      "companyPlaceholder": "Empresa o tamaño de equipo",
+      "message": "Detalles del proyecto",
+      "messagePlaceholder": "Describe objetivos, plazos, herramientas actuales y expectativas.",
+      "submit": "Enviar mensaje",
+      "sending": "Enviando...",
+      "success": "¡Gracias! Hemos recibido tu mensaje y responderemos pronto.",
+      "errorFallback": "No pudimos enviar el formulario. Escríbenos a info@ordinaly.ai."
+    },
+    "team": {
+      "title": "Nuestro equipo",
+      "subtitle": "Habla directamente con quienes diseñarán e implantarán tu solución.",
+      "cta": "¡Conócenos!"
+    },
+    "map": {
+      "title": "Visita nuestras oficinas en Sevilla",
+      "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "photoAlt": "Oficinas de Ordinaly en Plaza del Duque de la Victoria, Sevilla"
+    }
+  },
+  "usPage": {
+    "eyebrow": "Sobre nosotros",
+    "title": "Somos Ordinaly",
+    "description": "Muy pronto compartiremos nuestra historia, el equipo y cómo trabajamos.",
+    "comingSoon": "Actualizaremos esta página en breve."
   }
 }

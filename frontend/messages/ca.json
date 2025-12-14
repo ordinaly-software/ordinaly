@@ -20,7 +20,8 @@
       "userMenu": "Menú de l'usuari",
       "adminDashboard": "Tauler de control d'administració",
       "profile": "Perfil",
-      "blog": "Blog"
+      "blog": "Blog",
+      "contact": "Contacte"
     },
     "hero": {
       "title": "Automatitzar",
@@ -54,9 +55,9 @@
       "contactNow": "Poseu -vos en contacte ara",
       "contactEmail": "Contacte per correu electrònic",
       "viewDetails": "Veure detalls",
-  "viewAllServices": "Veure Tots els Serveis",
-        "errorTitle": "Error en carregar els cursos",
-  "errorMessage": "No s'han pogut carregar els serveis"
+      "viewAllServices": "Veure Tots els Serveis",
+      "errorTitle": "Error en carregar els cursos",
+      "errorMessage": "No s'han pogut carregar els serveis"
     },
     "courses": {
       "noSpecificDate": "Data específica properament",
@@ -67,8 +68,8 @@
       "noCoursesTitle": "No Hi Ha Cursos Propers",
       "noCoursesMessage": "Mantén-te atent als nous anuncis de cursos!",
       "notifyButton": "Veure tots els cursos",
-        "errorTitle": "Error en carregar els cursos",
-        "errorMessage": "No s'han pogut carregar els cursos",
+      "errorTitle": "Error en carregar els cursos",
+      "errorMessage": "No s'han pogut carregar els cursos",
       "retryButton": "Tornar-ho a Intentar",
       "enrollButton": "Inscriu-te Ara",
       "moreInfo": "Més Informació",
@@ -1482,5 +1483,57 @@
       "linkedin": "LinkedIn",
       "shareMessage": "Llegeix aquest post de {siteTag}: \"{title}\" - {excerpt}"
     }
+  },
+  "contactPage": {
+    "hero": {
+      "title": "Construïm la teva propera automatització",
+      "subtitle": "Explica'ns l'equip, eines i objectius. Responem en menys de 24 hores.",
+      "primaryCta": "Escriu-nos",
+      "secondaryCta": "Obrir formulari",
+      "contactCardTitle": "Prefereixes parlar directament?",
+      "contactCardText": "Respondrem ràpid amb una proposta i els següents passos.",
+      "location": "Visita'ns a Sevilla!"
+    },
+    "info": {
+      "title": "Contactes directes",
+      "emailLabel": "Correu",
+      "phoneLabel": "Telèfon",
+      "addressLabel": "Oficina",
+      "hoursLabel": "Disponibilitat",
+      "hoursValue": "Dl-Dv · 09:00-19:00 CET",
+      "socialTitle": "Segueix-nos"
+    },
+    "form": {
+      "eyebrow": "Formulari de contacte",
+      "title": "Explica'ns el teu projecte",
+      "subtitle": "Comparteix objectius, terminis i eines per proposar el millor pla.",
+      "name": "Nom",
+      "namePlaceholder": "Nom i cognoms",
+      "email": "Email",
+      "company": "Empresa (opcional)",
+      "companyPlaceholder": "Empresa o mida de l'equip",
+      "message": "Detalls del projecte",
+      "messagePlaceholder": "Descriu objectius, terminis, eines actuals i expectatives.",
+      "submit": "Enviar missatge",
+      "sending": "Enviant...",
+      "success": "Gràcies! Hem rebut el teu missatge i respondrem aviat.",
+      "errorFallback": "No hem pogut enviar el formulari. Escriu a info@ordinaly.ai."
+    },
+    "team": {
+      "title": "L'equip",
+      "subtitle": "Parla amb qui dissenyarà i desplegarà la teva solució.",
+      "cta": "¡Contacta'ns!"
+    },
+    "map": {
+      "title": "Visita'ns a Sevilla",
+      "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "photoAlt": "Oficines d'Ordinaly a la Plaza del Duque de la Victoria, Sevilla"
+    }
+  },
+  "usPage": {
+    "eyebrow": "Sobre nosaltres",
+    "title": "Som Ordinaly",
+    "description": "Aviat compartirem la nostra història, l'equip i com treballem.",
+    "comingSoon": "Aquesta pàgina s'actualitzarà aviat."
   }
 }

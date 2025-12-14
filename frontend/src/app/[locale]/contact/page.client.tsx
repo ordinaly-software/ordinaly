@@ -1,0 +1,511 @@
+"use client";
+
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { getApiEndpoint } from "@/lib/api-config";
+import { Mail, Phone, MapPin, Clock, Send, Instagram, Youtube, Pin, Linkedin, VideoIcon, ExternalLink } from "lucide-react";
+import Footer from "@/components/ui/footer";
+
+type Status = "idle" | "loading" | "success" | "error";
+
+export default function ContactPage() {
+  const t = useTranslations("contactPage");
+  const formRef = useRef<HTMLFormElement | null>(null);
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
+  const [status, setStatus] = useState<Status>("idle");
+  const [formError, setFormError] = useState<string | null>(null);
+  const [locationImageIndex, setLocationImageIndex] = useState(0);
+  const [shouldLoadHeroVideo, setShouldLoadHeroVideo] = useState(false);
+  const contactEndpoint = getApiEndpoint("/api/contact/");
+
+  const team = [
+    {
+      name: "Antonio Macías Ferrera",
+      title: "CTO Ingeniero de Software & Co-founder",
+      image: "/static/team/antonio.webp",
+      bio: "Ingeniero de Software especialista en automatización e Inteligencia Artificial.",
+      linkedin: "https://www.linkedin.com/in/antoniommff/",
+    },
+    {
+      name: "Guillermo Montero Fernández-Vivancos",
+      title: "Ingniero de Calidad y Proyectos & Co-founder",
+      image: "/static/team/guillermo.webp",
+      bio: "Consultor y project manager especializados en IA e ingeniería de calidad.",
+      linkedin: "https://www.linkedin.com/in/guillermomontero/",
+    },
+    {
+      name: "Emilio Cid Pérez",
+      title: "Experto en Márketing, Publicidad y Transformación Digital & Co-founder",
+      image: "/static/team/emilio.webp",
+      bio: "Especialista en estrategias de marketing digital y transformación empresarial.",
+      linkedin: "https://www.linkedin.com/in/emiliocidperez/",
+    },
+  ];
+
+  const contactMethods = useMemo(
+    () => [
+      {
+        icon: Mail,
+        label: t("info.emailLabel"),
+        value: "info@ordinaly.ai",
+        href: "mailto:info@ordinaly.ai",
+      },
+      {
+        icon: Phone,
+        label: t("info.phoneLabel"),
+        value: "+34 626 27 08 06",
+        href: "tel:+34626270806",
+      },
+      {
+        icon: MapPin,
+        label: t("info.addressLabel"),
+        value: "Plaza del Duque de la Victoria 1, 3º 9. 41002, Sevilla, España",
+        href: "https://maps.app.goo.gl/2a4Rheb6u94wFe46A",
+        target: "_blank",
+        rel: "noopener noreferrer",
+      },
+      {
+        icon: Clock,
+        label: t("info.hoursLabel"),
+        value: t("info.hoursValue"),
+      },
+    ],
+    [t]
+  );
+
+  const socials = useMemo(
+    () => [
+      {
+        icon: Instagram,
+        label: "Instagram",
+        href: "https://www.instagram.com/ordinaly.ai",
+        handle: "@ordinaly.ai",
+        color: "linear-gradient(135deg, #f58529 0%, #dd2a7b 50%, #8134af 75%, #515bd4 100%)",
+      },
+      {
+        icon: Youtube,
+        label: "YouTube",
+        href: "https://www.youtube.com/@ordinaly",
+        handle: "youtube.com/@ordinaly",
+        color: "#FF0000",
+      },
+      {
+        icon: Linkedin,
+        label: "LinkedIn",
+        href: "https://www.linkedin.com/company/ordinalysoftware/",
+        handle: "LinkedIn",
+        color: "#0A66C2",
+      },
+      {
+        icon: VideoIcon,
+        label: "TikTok",
+        href: "https://www.tiktok.com/@ordinaly.ai",
+        handle: "TikTok @ordinaly.ai",
+        color: "#010101",
+      },
+    ],
+    []
+  );
+
+  const locationImages = useMemo(
+    () => [
+      { src: "/static/office_01.webp", alt: t("map.photoAlt") },
+      { src: "/static/office_02.webp", alt: t("map.photoAlt") },
+    ],
+    [t]
+  );
+
+  useEffect(() => {
+    const videoEl = heroVideoRef.current;
+    if (!videoEl) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoadHeroVideo(true);
+            videoEl.play().catch(() => {});
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(videoEl);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLocationImageIndex((prev) => (prev + 1) % locationImages.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [locationImages.length]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setStatus("loading");
+    setFormError(null);
+    const formData = new FormData(event.currentTarget);
+    const payload = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      company: formData.get("company"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch(contactEndpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      if (response.status === 404) {
+        const subject = encodeURIComponent("Contacto desde la web");
+        const body = encodeURIComponent(
+          `Nombre: ${payload.name}\nEmail: ${payload.email}\nEmpresa: ${payload.company}\n\nMensaje:\n${payload.message}`
+        );
+        window.location.href = `mailto:info@ordinaly.ai?subject=${subject}&body=${body}`;
+        setStatus("success");
+        formRef.current?.reset();
+        return;
+      }
+
+      if (!response.ok) {
+        throw new Error(await response.text());
+      }
+
+      setStatus("success");
+      formRef.current?.reset();
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
+      setFormError(t("form.errorFallback"));
+    }
+  };
+
+  return (
+    <div className="bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white min-h-screen">
+      <section className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 -z-10 bg-[url('/static/backgrounds/services_background.webp')] bg-cover bg-center opacity-60 scale-110"
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#22A60D]/20 via-[#46B1C9]/20 to-[#623CEA]/15 blur-3xl" />
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
+              <h1 className="text-4xl md:text-5xl font-bold leading-tight text-gray-900 dark:text-white">
+                {t("hero.title")}
+              </h1>
+              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-200">
+                {t("hero.subtitle")}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  asChild
+                  className="inline-flex items-center gap-2 bg-[#22A60D] text-white"
+                >
+                  <a href="#location">
+                    <Pin className="h-4 w-4" />
+                    {t("hero.location")}
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  className="inline-flex items-center gap-2 py-3 rounded-xl font-semibold border border-gray-300/70 dark:border-gray-700 hover:-translate-y-0.5 transition-transform bg-white/70 dark:bg-white/5 text-gray-800 dark:text-white"
+                >
+                  <a href="#contact-form">
+                    <Send className="h-4 w-4" />
+                    {t("hero.secondaryCta")}
+                  </a>
+                </Button>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="absolute -inset-8 bg-white/50 dark:bg-black/30 blur-3xl rounded-full" />
+              <div className="relative bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
+                <div className="w-full">
+                  <div className="relative w-full aspect-video overflow-hidden">
+                    <video
+                      ref={heroVideoRef}
+                      className="absolute inset-0 h-full w-full object-cover"
+                      playsInline
+                      muted
+                      loop
+                      preload="none"
+                      controls={false}
+                      poster="/static/backgrounds/services_background.webp"
+                    >
+                      {shouldLoadHeroVideo && (
+                        <>
+                          <source src="/static/office_video.mp4" type="video/mp4" />
+                        </>
+                      )}
+                    </video>
+                  </div>
+                </div>
+                <div className="p-6 space-y-4">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {t("hero.contactCardTitle")}
+                  </h3>
+                  <p className="text-gray-700 dark:text-gray-300">{t("hero.contactCardText")}</p>
+                  <div className="grid grid-cols-2 gap-3 text-sm">
+                    <div className="p-3 rounded-xl bg-gray-50 dark:bg-gray-800">
+                      <p className="text-gray-500 dark:text-gray-400">{t("info.emailLabel")}</p>
+                      <a
+                        href="mailto:info@ordinaly.ai"
+                        className="font-semibold text-[#22A60D] hover:underline"
+                      >
+                        info@ordinaly.ai
+                      </a>
+                    </div>
+                    <div className="p-3 rounded-xl bg-gray-50 dark:bg-gray-800">
+                      <p className="text-gray-500 dark:text-gray-400">{t("info.phoneLabel")}</p>
+                      <a
+                        href="tel:+34626270806"
+                        className="font-semibold text-[#22A60D] hover:underline"
+                      >
+                        +34 626 27 08 06
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" id="direct-contacts">
+        <br></br>
+        <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl p-6">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            {t("info.title")}
+          </h3>
+          <div className="space-y-3">
+            {contactMethods.map((item) => (
+              <div key={item.label} className="flex items-start gap-3">
+                <div className="h-10 w-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[#22A60D]">
+                  <item.icon className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.label}</p>
+                  <a
+                    href={item.href}
+                    className="font-semibold text-gray-900 dark:text-white hover:text-[#22A60D]"
+                  >
+                    {item.value}
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 border-t border-gray-100 dark:border-gray-800 pt-4">
+            <h2 className="text-sm uppercase tracking-[0.2em] text-[#22A60D] font-semibold mb-3">
+              {t("info.socialTitle")}
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              {socials.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-white shadow-sm transition-transform hover:-translate-y-0.5"
+                  style={{
+                    background: item.color,
+                    borderColor: "transparent",
+                  }}
+                  aria-label={item.label}
+                >
+                  <item.icon className="h-4 w-4" />
+                  <span className="text-sm font-medium">{item.handle}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" id="location">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-6">
+          <div className="space-y-2">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t("map.title")}</h3>
+            <p className="text-gray-700 dark:text-gray-300">{t("map.subtitle")}</p>
+          </div>
+          <div className="grid lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 rounded-2xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800">
+              <iframe
+                title="Ordinaly Sevilla - Plaza del Duque de la Victoria, 1, 3º 9. 41002 Sevilla"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.8818083265837!2d-5.995837400000001!3d37.39262730000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126d4f91b87a51%3A0xa8b9785b4669f853!2sOrdinaly%20Software%20-%20Automatizaciones%20e%20IA!5e0!3m2!1ses!2ses!4v1765702540305!5m2!1ses!2ses"
+                width="100%"
+                height="420"
+                style={{ border: 0 }}
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                className="w-full"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800">
+              <div className="relative h-full min-h-[260px]">
+                <button
+                  type="button"
+                  onClick={() => setLocationImageIndex((prev) => (prev + 1) % locationImages.length)}
+                  className="absolute inset-0 h-full w-full"
+                  aria-label={t("map.title")}
+                >
+                  <Image
+                    src={locationImages[locationImageIndex].src}
+                    alt={locationImages[locationImageIndex].alt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                    priority={false}
+                  />
+                </button>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent pointer-events-none" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 text-white space-y-1 pointer-events-none">
+                  <p className="text-sm uppercase tracking-[0.15em]">{t("map.title")}</p>
+                  <p className="text-lg font-semibold leading-tight">
+                    Plaza del Duque de la Victoria 1, 3º 9 <br />
+                    41002 Sevilla, España
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" id="contact-form">
+        <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl p-6 md:p-8">
+          <div className="space-y-2 text-center">
+            <p className="text-sm uppercase tracking-[0.2em] text-[#22A60D] font-semibold">
+              {t("form.eyebrow")}
+            </p>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{t("form.title")}</h2>
+            <p className="text-gray-700 dark:text-gray-300">{t("form.subtitle")}</p>
+          </div>
+
+          <form ref={formRef} onSubmit={handleSubmit} className="mt-8 space-y-4">
+            <div className="grid md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  {t("form.name")}
+                </label>
+                <Input name="name" required placeholder={t("form.namePlaceholder")} />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  {t("form.email")}
+                </label>
+                <Input name="email" type="email" required placeholder="you@email.com" />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {t("form.company")}
+              </label>
+              <Input name="company" placeholder={t("form.companyPlaceholder")} />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                {t("form.message")}
+              </label>
+              <Textarea
+                name="message"
+                required
+                rows={4}
+                placeholder={t("form.messagePlaceholder")}
+                className="min-h-[120px]"
+              />
+            </div>
+
+            {formError && (
+              <div className="text-sm text-red-600 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl px-4 py-3">
+                {formError}
+              </div>
+            )}
+
+            <div className="flex flex-col items-center gap-3">
+              <Button
+                type="submit"
+                disabled={status === "loading"}
+                className="w-full md:w-auto bg-[#22A60D] hover:bg-[#1c8d0c] text-white px-6 py-6 rounded-xl text-lg shadow-lg shadow-[#22A60D]/30 flex items-center gap-2 justify-center"
+              >
+                {status === "loading" ? t("form.sending") : t("form.submit")}
+              </Button>
+
+              {status === "success" && (
+                <p className="text-sm text-green-700 dark:text-green-400">
+                  {t("form.success")}
+                </p>
+              )}
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl p-6">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            {t("team.title")}
+          </h3>
+          <div className="space-y-4">
+            {team.map((person) => (
+              <div
+                key={person.name}
+                className="flex items-center gap-4 p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50/70 dark:bg-gray-800/50"
+              >
+                <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700 bg-white flex-shrink-0">
+                  <Image
+                    src={person.image}
+                    alt={person.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex-1 min-w-0 pr-4">
+                  <p className="font-semibold text-gray-900 dark:text-white text-lg">{person.name}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{person.title}</p>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">{person.bio}</p>
+                </div>
+                <a
+                  href={person.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`LinkedIn de ${person.name}`}
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border text-white shadow-sm transition-transform hover:-translate-y-0.5"
+                  style={{background: "#0A66C2", borderColor: "transparent"}}                >
+                  <ExternalLink className="h-5 w-5" />
+                </a>
+              </div>
+            ))}
+          </div>
+          <div className="pt-4 align-center flex justify-center">
+            <Button
+              asChild
+              className="bg-[#22A60D] text-white shadow-[0_15px_40px_rgba(34,166,13,0.35)] hover:shadow-[0_20px_50px_rgba(34,166,13,0.4)] hover:bg-[#1a7d09] normal-case not-italic font-semibold tracking-tight"
+            >
+              <Link href="/us">
+                <ExternalLink className="mr-2 h-4 w-4" />
+                {t("team.cta")}
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}

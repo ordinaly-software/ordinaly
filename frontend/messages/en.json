@@ -11,6 +11,7 @@
       "start": "Get Started",
       "darkMode": "Switch to dark mode",
       "lightMode": "Switch to light Mode",
+      "contact": "Contact",
       "localeSwitcher": "Change language",
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
@@ -54,9 +55,9 @@
       "contactNow": "Contact Now",
       "contactEmail": "Contact via Email",
       "viewDetails": "View Details",
-  "viewAllServices": "View All Services",
-  "errorTitle": "Error Loading Services",
-  "errorMessage": "Failed to load services"
+      "viewAllServices": "View All Services",
+      "errorTitle": "Error Loading Services",
+      "errorMessage": "Failed to load services"
     },
     "courses": {
       "noSpecificDate": "No specific date",
@@ -67,8 +68,8 @@
       "noCoursesTitle": "No Upcoming Courses",
       "noCoursesMessage": "Stay tuned for new course announcements!",
       "notifyButton": "See all courses",
-  "errorTitle": "Error Loading Courses",
-  "errorMessage": "Failed to load courses",
+      "errorTitle": "Error Loading Courses",
+      "errorMessage": "Failed to load courses",
       "retryButton": "Try Again",
       "enrollButton": "Enroll Now",
       "moreInfo": "More Info",
@@ -847,7 +848,7 @@
       "license": "License"
     },
     "sections": {
-    "terms": {
+      "terms": {
         "title": "Terms of Service",
         "noDocuments": "There are currently no terms of service documents available",
         "identification": {
@@ -1482,5 +1483,57 @@
       "linkedin": "LinkedIn",
       "shareMessage": "Read this post from {siteTag}: \"{title}\" - {excerpt}"
     }
+  },
+  "contactPage": {
+    "hero": {
+      "title": "Let's build your next automation",
+      "subtitle": "Tell us about your team, tools and goals. We'll reply in less than 24 hours.",
+      "primaryCta": "Write to us",
+      "secondaryCta": "Open the form",
+      "contactCardTitle": "Prefer to speak directly?",
+      "contactCardText": "We reply fast with a tailored proposal and next steps.",
+      "location": "Visit us in Seville!"
+    },
+    "info": {
+      "title": "Direct contacts",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone",
+      "addressLabel": "Office",
+      "hoursLabel": "Availability",
+      "hoursValue": "Mon-Fri · 09:00-19:00 CET",
+      "socialTitle": "Follow us"
+    },
+    "form": {
+      "eyebrow": "Contact form",
+      "title": "Tell us about your project",
+      "subtitle": "Share objectives, deadlines and tools so we can propose the best path.",
+      "name": "Name",
+      "namePlaceholder": "Full name",
+      "email": "Email",
+      "company": "Company (optional)",
+      "companyPlaceholder": "Company or team size",
+      "message": "Project details",
+      "messagePlaceholder": "Describe goals, timeline, current tools, and expectations.",
+      "submit": "Send message",
+      "sending": "Sending...",
+      "success": "Thanks! We've received your message and will reply shortly.",
+      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai."
+    },
+    "team": {
+      "title": "Our team",
+      "subtitle": "Talk directly with the people who will build and launch your solution.",
+      "cta": "Get to know us!"
+    },
+    "map": {
+      "title": "Visit us in Seville",
+      "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "photoAlt": "Our offices in Plaza del Duque de la Victoria, Seville"
+    }
+  },
+  "usPage": {
+    "eyebrow": "About us",
+    "title": "We are Ordinaly",
+    "description": "Soon we'll share the story, team, and culture behind our automation projects.",
+    "comingSoon": "This page will be updated shortly."
   }
 }
