@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | Ordinaly",
   },
   description:
-    "Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y integración con Odoo, n8n y WhatsApp Business para liderar la innovación en España y Europa.",
+    "Transformamos empresas con soluciones de automatización inteligente en Sevilla, España y Europa.",
   metadataBase: new URL(metadataBaseUrl),
   openGraph: {
     type: "website",

@@ -14,7 +14,7 @@ export async function generateMetadata({
     path: "/",
     title: "Ordinaly - Automatización Empresarial con IA",
     description:
-      "Transformamos empresas con soluciones de automatización inteligente en Andalucía, España y Europa.",
+      "Transformamos empresas con soluciones de automatización inteligente en Sevilla, España y Europa.",
   });
 }
 

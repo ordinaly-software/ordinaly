@@ -39,7 +39,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       }
     }
 
-    return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    return window.matchMedia('(prefers-color-scheme: light)').matches;
   };
 
   const applyTheme = (dark: boolean, shouldPersist: boolean) => {

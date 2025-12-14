@@ -197,7 +197,7 @@ export default function HomePage() {
       <section className="py-10 px-4 sm:px-6 lg:px-4 bg-[#22A60D] text-[#176b0a]">
         <h2 className="text-3xl font-bold text-center mb-12 text-white">{t("partners.title")}</h2>
         <div className="relative">
-          <div className="flex gap-12 overflow-x-auto pb-4 scrollbar-thin scrollbar-thumb-white/40 scrollbar-track-white/10 snap-x snap-mandatory justify-center">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 py-6 px-4 items-center justify-items-center">
             {[
               { src: "/static/logos/logo_aviva_publicidad.webp", alt: "Aviva Publicidad Partner", delay: "0.1s", url: "https://avivapublicidad.es" },
               { src: "/static/logos/logo_grupo_addu.webp", alt: "Grupo Addu Partner", delay: "0.2s", url: "https://grupoaddu.com" },
@@ -207,26 +207,26 @@ export default function HomePage() {
             ].map(({ src, alt, delay, url }, i) => (
               <div
                 key={i}
-                className="scroll-animate fade-in-up flex-shrink-0 snap-start w-[220px] flex justify-center"
+                className="scroll-animate fade-in-up w-full max-w-[220px] flex items-center justify-center"
                 style={{ animationDelay: delay }}
               >
                 <a
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-transform duration-300 hover:scale-105 hover:opacity-80 cursor-pointer"
+                  className="transition-transform duration-300 hover:scale-105 hover:opacity-80 cursor-pointer flex items-center justify-center w-full"
                   aria-label={`Visit ${alt} website`}
                 >
                   <Image
                     src={src}
                     alt={alt}
-                    width={300}
-                    height={120}
-                    className="h-24 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
+                    width={220}
+                    height={88}
+                    className="h-16 sm:h-20 md:h-24 w-auto object-contain filter dark:invert dark:brightness-0 dark:contrast-100"
                     loading="lazy"
                     placeholder="blur"
                     blurDataURL="data:image/webp;base64,UklGRpQBAABXRUJQVlA4WAoAAAAQAAAADwAACAAAQUxQSAwAAAARBxAR/Q9ERP8DAABWUDggGAAAABQBAJ0BKhAACQABQM0JaQAA/v1qAAA="
-                    sizes="(max-width: 768px) 100vw, 300px"
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 220px"
                   />
                 </a>
               </div>
@@ -319,7 +319,7 @@ export default function HomePage() {
   {/* Footer */}
   <Footer />
 
-      <WhatsAppBubble />
+      {/* <WhatsAppBubble /> */}
 
       <ServiceDetailsModal
         service={selectedService}
