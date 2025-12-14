@@ -14,7 +14,7 @@ export async function generateMetadata({
     path: "/",
     title: "Ordinaly - Automatización Empresarial con IA",
     description:
-      "Transformamos empresas con soluciones de automatización inteligente. Chatbots, workflows y para liderar la innovación en Andacuía, España y Europa.",
+      "Transformamos empresas con soluciones de automatización inteligente en Andalucía, España y Europa.",
   });
 }
 

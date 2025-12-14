@@ -160,11 +160,11 @@ export const ProductItem = ({
 
 export const HoveredLink = ({ children, ...rest }: any) => {
   return (
-    <a
+    <Link
       {...rest}
       className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-green transition"
     >
       {children}
-    </a>
+    </Link>
   );
 };
