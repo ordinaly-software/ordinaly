@@ -20,7 +20,10 @@
       "userMenu": "Menú de usuario",
       "adminDashboard": "Panel de Administración",
       "profile": "Perfil",
-      "blog": "Blog"
+      "blog": "Blog",
+      "contact": "Contacto",
+      "us": "Nós",
+      "loading": "Cargando..."
     },
     "hero": {
       "title": "AUTOMATIZA",
@@ -54,9 +57,9 @@
       "contactNow": "Contactar Agora",
       "contactEmail": "Contactar por Email",
       "viewDetails": "Ver Detalles",
-  "viewAllServices": "Ver todos os servizos",
-  "errorTitle": "Erro ao cargar servizos",
-  "errorMessage": "Non se puideron cargar os servizos"
+      "viewAllServices": "Ver todos os servizos",
+      "errorTitle": "Erro ao cargar servizos",
+      "errorMessage": "Non se puideron cargar os servizos"
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
@@ -1449,17 +1452,6 @@
     },
     "termsText": "Ao continuar, aceptas os nosos termos de servizo e política de privacidade"
   },
-  "notFound": {
-    "title": "404 - Páxina Non Atopada",
-    "heading": "¡Vaia! Páxina Perdida no Espazo Dixital",
-    "message": "A páxina que buscas semella haberse perdido no noso universo de automatización empresarial",
-    "description": "Non te preocupes, incluso en Ordinaly ás veces nos desviamos do camiño. Pero temos solucións intelixentes para todo",
-    "homeButton": "Volver ao Inicio",
-    "exploreButton": "Explorar Servizos",
-    "contactButton": "Contactar Soporte",
-    "redirectMessage": "Serás redirixido automaticamente en {seconds} segundos...",
-    "robotText": "O noso robot de automatización está buscando a páxina..."
-  },
   "blog": {
     "title": "Blog de Ordinaly",
     "subtitle": "Novas, ideas e actualizacións sobre transformación dixital e tecnoloxía",
@@ -1482,5 +1474,157 @@
       "linkedin": "LinkedIn",
       "shareMessage": "Le este artigo de {siteTag}: \"{title}\" - {excerpt}"
     }
+  },
+  "contactPage": {
+    "hero": {
+      "title": "Construamos a túa próxima automatización",
+      "subtitle": "Cóntanos equipo, ferramentas e obxectivos. Respondemos en menos de 24 horas.",
+      "primaryCta": "Escríbenos",
+      "secondaryCta": "Abrir formulario",
+      "contactCardTitle": "Prefires falar directo?",
+      "contactCardText": "Respondemos rápido cunha proposta e os seguintes pasos.",
+      "location": "¡Visítanos en Sevilla!"
+    },
+    "info": {
+      "title": "Contactos directos",
+      "emailLabel": "Correo",
+      "phoneLabel": "Teléfono",
+      "addressLabel": "Oficina",
+      "hoursLabel": "Horario",
+      "hoursValue": "L-V · 09:00-19:00 CET",
+      "socialTitle": "Séguenos"
+    },
+    "form": {
+      "eyebrow": "Formulario de contacto",
+      "title": "Cóntanos o teu proxecto",
+      "subtitle": "Comparte obxectivos, prazos e ferramentas para propoñer o mellor plan.",
+      "name": "Nome",
+      "namePlaceholder": "Nome e apelidos",
+      "email": "Email",
+      "company": "Empresa (opcional)",
+      "companyPlaceholder": "Empresa ou tamaño do equipo",
+      "message": "Detalles do proxecto",
+      "messagePlaceholder": "Describe obxectivos, prazos, ferramentas actuais e expectativas.",
+      "submit": "Enviar mensaxe",
+      "sending": "Enviando...",
+      "success": "Grazas! Recibimos a túa mensaxe e responderemos axiña.",
+      "errorFallback": "Non puidemos enviar o formulario. Escríbenos a info@ordinaly.ai."
+    },
+    "team": {
+      "title": "Noso equipo",
+      "cta": "¡Coñécenos!",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Enxeñeiro de Software & Co-fundador",
+        "quote": "Enxeñeiro de Software especialista en automatización e Intelixencia Artificial."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Enxeñeiro de Calidade e Proxectos & Co-fundador",
+        "quote": "Consultor e xestor de proxectos especializados en IA e enxeñería de calidade."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Experto en Márketing, Publicidade e Transformación Dixital & Co-fundador",
+        "quote": "Especialista en estratexias de márketing dixital e transformación empresarial."
+      }
+    },
+    "map": {
+      "title": "Visítanos en Sevilla",
+      "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "photoAlt": "Oficinas de Ordinaly na Plaza del Duque de la Victoria, Sevilla"
+    }
+  },
+  "usPage": {
+    "hero": {
+      "tagline": "Sobre nós",
+      "title": "Automatizamos con propósito",
+      "subtitle": "Un equipo multidisciplinar creando IA + automatización que mantén ás persoas no control e aos negocios avanzando.",
+      "ctaPrimary": "Coñece o equipo",
+      "ctaSecondary": "Ver o noso traballo",
+      "missionLabel": "Misión",
+      "visionLabel": "Visión"
+    },
+    "mission": {
+      "title": "Potenciar ás persoas, non substituílas",
+      "body": "Deseñamos automatizacións que eliminan fricción para que os equipos se centren en creatividade, decisións e relacións."
+    },
+    "vision": {
+      "title": "Automatización na que confiar",
+      "body": "Facer que os fluxos intelixentes sexan simples, transparentes e medibles para calquera empresa."
+    },
+    "stats": {
+      "teamLabel": "Expertos en IA, automatización e CX",
+      "teamValue": "Produto, tecnoloxía, operacións, crecemento"
+    },
+    "values": {
+      "eyebrow": "No que cremos",
+      "title": "Principios que guían como construímos",
+      "items": {
+        "1": {
+          "title": "Centrados nas persoas",
+          "body": "Automatizamos arredor dos hábitos e fortalezas das persoas, non ao revés."
+        },
+        "2": {
+          "title": "Entregar e aprender",
+          "body": "Pilotamos, medimos e iteramos rápido para manter o impulso e reducir risco."
+        },
+        "3": {
+          "title": "Impacto transparente",
+          "body": "Cada fluxo ten responsable, KPI e salvagardas para que o equipo confíe no sistema."
+        }
+      }
+    },
+    "story": {
+      "eyebrow": "A nosa historia",
+      "title": "Dos experimentos aos despregamentos empresariais",
+      "lead": "Comezamos obsesionados con entregar máis rápido. Hoxe acompañamos equipos para escalar IA e automatización con goberno, datos e confianza.",
+      "2021": {
+        "title": "Fundacións",
+        "body": "Primeiros frameworks internos para chat e conectores con Odoo."
+      },
+      "2022": {
+        "title": "Productivizar",
+        "body": "Lanzamos workflows reutilizables en n8n e playbooks de CX para os primeiros clientes."
+      },
+      "2023": {
+        "title": "Escala",
+        "body": "Expansión a pilotos enterprise engadindo observabilidade, RBAC e QA."
+      },
+      "2024": {
+        "title": "Capa de confianza",
+        "body": "Governance e analítica para medir o ROI de cada fluxo."
+      }
+    },
+    "testimonials": {
+      "title": "Voces do equipo",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Enxeñeiro de Software & Co-fundador",
+        "quote": "Enxeñeiro de Software especialista en automatización e Intelixencia Artificial."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Enxeñeiro de Calidade e Proxectos & Co-fundador",
+        "quote": "Consultor e xestor de proxectos especializados en IA e enxeñería de calidade."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Experto en Márketing, Publicidade e Transformación Dixital & Co-fundador",
+        "quote": "Especialista en estratexias de márketing dixital e transformación empresarial."
+      }
+    },
+    "cta": {
+      "eyebrow": "Traballa connosco",
+      "title": "Preparado para construír a túa próxima automatización?",
+      "body": "Cóntanos os teus obxectivos. Codeseñamos a folla de ruta, comezamos cun piloto medible e escalamos con responsabilidade.",
+      "primary": "Comezar un proxecto",
+      "secondary": "Reservar unha chamada"
+    }
+  },
+  "notFound": {
+    "title": "Páxina non atopada",
+    "description": "A páxina que buscas non existe ou moveuse.",
+    "backHome": "Volver á portada"
   }
 }

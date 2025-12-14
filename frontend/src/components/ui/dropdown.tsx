@@ -31,6 +31,7 @@ interface DropdownProps {
   disabled?: boolean;
   minWidth?: string;
   width?: string;
+  direction?: "down" | "up";
   position?: 'left' | 'right' | 'center';
   offset?: string;
   children?: ReactNode;
@@ -57,6 +58,7 @@ export const Dropdown = ({
   width,
   children,
   theme = 'default',
+  direction = "down",
   renderTrigger
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,11 +72,11 @@ export const Dropdown = ({
   // Theme configuration
   const themes: Record<string, DropdownTheme> = {
     default: {
-      accent: 'text-[#22A60D]',
-      hoverBg: 'hover:bg-gray-50 dark:hover:bg-gray-600',
-      selectedBg: 'bg-[#22A60D]/10 text-[#22A60D] dark:bg-[#22A60D]/20',
-      focusBorder: 'focus:border-[#22A60D] dark:focus:border-[#22A60D]',
-      focusRing: 'focus:ring-[#22A60D]/20'
+      accent: 'text-green-600',
+      hoverBg: 'hover:bg-green-50 dark:hover:bg-green-900/20',
+      selectedBg: 'bg-green-50 text-green-900 dark:bg-green-900/20 dark:text-green-100',
+      focusBorder: 'focus:border-green-600',
+      focusRing: 'focus:ring-green-600/20'
     },
     orange: {
       accent: 'text-orange-500',
@@ -113,13 +115,23 @@ export const Dropdown = ({
   useEffect(() => {
     if (isOpen && triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
+      const dropdownHeight = options.length * 50 + 16; // Approximate height per option + padding
+      
+      let top: number;
+      if (direction === "down") {
+        top = rect.bottom + window.scrollY + 8;
+      } else {
+        // For "up" direction, position above the trigger
+        top = rect.top + window.scrollY - dropdownHeight - 8;
+      }
+
       setDropdownPosition({
-        top: rect.bottom + window.scrollY + 8, // 8px offset
+        top,
         left: rect.left + window.scrollX,
-        width: rect.width
+        width: rect.width,
       });
     }
-  }, [isOpen]);
+  }, [direction, isOpen, options.length]);
 
   const triggerButton = (
     <button
@@ -187,8 +199,9 @@ export const Dropdown = ({
           <div 
             ref={dropdownRef}
             className={cn(
-              "absolute bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600",
-              "rounded-lg shadow-xl overflow-hidden animate-in slide-in-from-top-2 duration-200",
+              "absolute bg-white/95 dark:bg-[#0b1220]/95 border border-white/30 dark:border-white/15",
+              "rounded-2xl shadow-2xl overflow-hidden animate-in duration-200 backdrop-blur",
+              direction === "up" ? "slide-in-from-top-2" : "slide-in-from-bottom-2",
               dropdownClassName
             )}
             style={{ 
@@ -196,7 +209,8 @@ export const Dropdown = ({
               left: dropdownPosition.left,
               width: dropdownPosition.width,
               position: 'absolute',
-              zIndex: 99999
+              zIndex: 99999,
+              transform: "translateY(0)"
             }}
           >
             {options.map((option) => {
@@ -208,10 +222,9 @@ export const Dropdown = ({
                   onClick={() => handleOptionClick(option.value)}
                   className={cn(
                     "w-full px-4 py-3 text-left transition-all duration-150 flex items-center justify-between",
-                    currentTheme.hoverBg,
                     value === option.value 
                       ? currentTheme.selectedBg
-                      : 'text-gray-900 dark:text-white'
+                      : "text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5"
                   )}
                 >
                   <div className="flex items-center gap-2">

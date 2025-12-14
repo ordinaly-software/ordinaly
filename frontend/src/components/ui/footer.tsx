@@ -4,15 +4,24 @@ import { useTranslations } from "next-intl";
 import { useTheme } from "@/contexts/theme-context";
 import Image from 'next/image';
 import Link from "next/link";
+import LocaleSwitcher from "./locale-switcher";
+import { Moon, Sun } from "lucide-react";
+import { Button } from "./button";
+import { useCallback } from "react";
 
 const Footer = () => {
   const t = useTranslations("home");
-  const { isDark } = useTheme();
+  const { isDark, setIsDark } = useTheme();
+
+  const toggleTheme = useCallback(() => {
+    setIsDark(!isDark);
+  }, [isDark, setIsDark]);
 
   return (
-    <footer className="border-t border-gray-300 dark:border-gray-700 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
-      <div className="max-w-7xl mx-auto">
-  <div className="grid md:grid-cols-10 gap-4">
+    <footer className="border-t border-gray-300 dark:border-gray-700 pb-0 bg-white dark:bg-[#1A1924]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* top content */}
+        <div className="grid md:grid-cols-10 gap-4">
           <div className="md:col-span-3">
             <div className="flex items-center mb-4">
               <Image
@@ -155,10 +164,71 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className="border-t border-gray-300 dark:border-gray-700 mt-8 pt-8 text-center text-gray-800 dark:text-gray-200">
-          <p>{t("footer.copyright")}</p>
+      </div>
+
+      {/* Bottom Bar - full width, no lateral/bottom margins */}
+      <div className="relative z-10 w-full bg-gradient-to-r from-gray-100 to-gray-200 py-6 px-4 sm:px-6 lg:px-8 text-slate-900 dark:from-gray-900 dark:to-black dark:text-white">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
+          <div className="text-sm">{t("footer.copyright")}</div>
+          <div className="flex items-center gap-3">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleTheme}
+              className="text-gray-700 dark:text-gray-300 h-8 w-8 transition-all duration-200"
+              aria-label={isDark ? t("navigation.lightMode") : t("navigation.darkMode")}
+            >
+              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </Button>
+            <div className="flex-shrink-0">
+              <LocaleSwitcher aria-label={t("navigation.localeSwitcher")} />
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <a
+              href="https://www.linkedin.com/company/ordinalysoftware/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center transition-colors shadow-lg"
+            >
+              <svg className="w-5 h-5" fill="white" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+              </svg>
+            </a>
+            <a
+              href="https://www.tiktok.com/@ordinaly.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center transition-colors shadow-lg"
+            >
+              <svg className="w-5 h-5" fill="white" viewBox="0 0 24 24">
+                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+              </svg>
+            </a>
+            <a
+              href="https://www.instagram.com/ordinaly.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center transition-colors shadow-lg"
+            >
+              <svg className="w-5 h-5" fill="white" viewBox="0 0 24 24">
+              <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/>
+              </svg>
+            </a>
+            <a
+              href="https://www.youtube.com/@ordinaly"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center transition-colors shadow-lg"
+            >
+              <svg className="w-5 h-5" fill="white" viewBox="0 0 24 24">
+                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+              </svg>
+            </a>
+            </div>
         </div>
       </div>
+
     </footer>
   );
 };

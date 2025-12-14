@@ -12,6 +12,7 @@
       "darkMode": "Switch to dark mode",
       "lightMode": "Switch to light Mode",
       "localeSwitcher": "Change language",
+      "contact": "Contact",
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
       "signIn": "Sign In",
@@ -20,7 +21,9 @@
       "userMenu": "User menu",
       "adminDashboard": "Admin Dashboard",
       "profile": "Profile",
-      "blog": "Blog"
+      "blog": "Blog",
+      "us": "Us",
+      "loading": "Loading..."
     },
     "hero": {
       "title": "AUTOMATE",
@@ -54,9 +57,9 @@
       "contactNow": "Contact Now",
       "contactEmail": "Contact via Email",
       "viewDetails": "View Details",
-  "viewAllServices": "View All Services",
-  "errorTitle": "Error Loading Services",
-  "errorMessage": "Failed to load services"
+      "viewAllServices": "View All Services",
+      "errorTitle": "Error Loading Services",
+      "errorMessage": "Failed to load services"
     },
     "courses": {
       "noSpecificDate": "No specific date",
@@ -67,8 +70,8 @@
       "noCoursesTitle": "No Upcoming Courses",
       "noCoursesMessage": "Stay tuned for new course announcements!",
       "notifyButton": "See all courses",
-  "errorTitle": "Error Loading Courses",
-  "errorMessage": "Failed to load courses",
+      "errorTitle": "Error Loading Courses",
+      "errorMessage": "Failed to load courses",
       "retryButton": "Try Again",
       "enrollButton": "Enroll Now",
       "moreInfo": "More Info",
@@ -847,7 +850,7 @@
       "license": "License"
     },
     "sections": {
-    "terms": {
+      "terms": {
         "title": "Terms of Service",
         "noDocuments": "There are currently no terms of service documents available",
         "identification": {
@@ -1449,17 +1452,6 @@
     },
     "termsText": "By continuing, you agree to our Terms of Service and Privacy Policy"
   },
-  "notFound": {
-    "title": "404 - Page Not Found",
-    "heading": "Oops! Page Lost in Digital Space",
-    "message": "The page you're looking for seems to have gotten lost in our business automation universe.",
-    "description": "Don't worry, even at Ordinaly we sometimes stray from the path. But we have intelligent solutions for everything.",
-    "homeButton": "Back to Home",
-    "exploreButton": "Explore Services",
-    "contactButton": "Contact Support",
-    "redirectMessage": "You will be automatically redirected in {seconds} seconds...",
-    "robotText": "Our automation robot is searching for the page..."
-  },
   "blog": {
     "title": "Ordinaly Blog",
     "subtitle": "News, ideas, and updates about digital transformation and technology",
@@ -1482,5 +1474,158 @@
       "linkedin": "LinkedIn",
       "shareMessage": "Read this post from {siteTag}: \"{title}\" - {excerpt}"
     }
+  },
+  "contactPage": {
+    "hero": {
+      "title": "Let's build your next automation",
+      "subtitle": "Tell us about your team, tools and goals. We'll reply in less than 24 hours.",
+      "primaryCta": "Write to us",
+      "secondaryCta": "Open the form",
+      "contactCardTitle": "Prefer to speak directly?",
+      "contactCardText": "We reply fast with a tailored proposal and next steps.",
+      "location": "Visit us in Seville!"
+    },
+    "info": {
+      "title": "Direct contacts",
+      "emailLabel": "Email",
+      "phoneLabel": "Phone",
+      "addressLabel": "Office",
+      "hoursLabel": "Availability",
+      "hoursValue": "Mon-Fri · 09:00-19:00 CET",
+      "socialTitle": "Follow us"
+    },
+    "form": {
+      "eyebrow": "Contact form",
+      "title": "Tell us about your project",
+      "subtitle": "Share objectives, deadlines and tools so we can propose the best path.",
+      "name": "Name",
+      "namePlaceholder": "Full name",
+      "email": "Email",
+      "company": "Company (optional)",
+      "companyPlaceholder": "Company or team size",
+      "message": "Project details",
+      "messagePlaceholder": "Describe goals, timeline, current tools, and expectations.",
+      "submit": "Send message",
+      "sending": "Sending...",
+      "success": "Thanks! We've received your message and will reply shortly.",
+      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai."
+    },
+    "team": {
+      "title": "Our team",
+      "subtitle": "Talk directly with the people who will build and launch your solution.",
+      "cta": "Get to know us!",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Software Engineer & Co-founder",
+        "quote": "Software Engineer specializing in automation and Artificial Intelligence."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Quality and Project Engineer & Co-founder",
+        "quote": "Consultant and project manager specialized in AI and quality engineering."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Expert in Marketing, Advertising and Digital Transformation & Co-founder",
+        "quote": "Specialist in digital marketing strategies and business transformation."
+      }
+    },
+    "map": {
+      "title": "Visit us in Seville",
+      "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "photoAlt": "Our offices in Plaza del Duque de la Victoria, Seville"
+    }
+  },
+  "usPage": {
+    "hero": {
+      "tagline": "About us",
+      "title": "We automate with purpose",
+      "subtitle": "A multidisciplinary team building AI + automation that keeps humans in control and businesses moving faster.",
+      "ctaPrimary": "Meet the builders",
+      "ctaSecondary": "See our work",
+      "missionLabel": "Mission",
+      "visionLabel": "Vision"
+    },
+    "mission": {
+      "title": "Augment people, not replace them",
+      "body": "We design automations that remove friction so teams can focus on creativity, decisions, and relationships."
+    },
+    "vision": {
+      "title": "Automation everyone can trust",
+      "body": "Make intelligent workflows simple, transparent, and measurable for companies of any size."
+    },
+    "stats": {
+      "teamLabel": "Experts across AI, automation & CX",
+      "teamValue": "Product, tech, ops, growth"
+    },
+    "values": {
+      "eyebrow": "What we believe",
+      "title": "Principles that guide our build",
+      "items": {
+        "1": {
+          "title": "Human-centered",
+          "body": "We automate around people's strengths and habits—not the other way around."
+        },
+        "2": {
+          "title": "Ship & learn",
+          "body": "We pilot, measure, and iterate fast to keep momentum and reduce risk."
+        },
+        "3": {
+          "title": "Transparent impact",
+          "body": "Every workflow has a clear owner, KPI, and fail-safe so teams can trust the system."
+        }
+      }
+    },
+    "story": {
+      "eyebrow": "Our journey",
+      "title": "From experiments to enterprise rollouts",
+      "lead": "We started as builders obsessed with faster delivery. Today we partner with teams to scale AI and automation with governance, data, and trust.",
+      "2021": {
+        "title": "Foundations",
+        "body": "First internal frameworks for chat automation and Odoo connectors."
+      },
+      "2022": {
+        "title": "Productizing",
+        "body": "Launched reusable n8n workflows and CX playbooks for early adopters."
+      },
+      "2023": {
+        "title": "Scale",
+        "body": "Expanded to enterprise pilots, adding observability, RBAC, and QA layers."
+      },
+      "2024": {
+        "title": "Trust layer",
+        "body": "Built governance packs and analytics to measure ROI for every flow."
+      }
+    },
+    "testimonials": {
+      "title": "Voices from the team",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Software Engineer & Co-founder",
+        "quote": "Software Engineer specializing in automation and Artificial Intelligence."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Quality and Project Engineer & Co-founder",
+        "quote": "Consultant and project manager specialized in AI and quality engineering."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Expert in Marketing, Advertising and Digital Transformation & Co-founder",
+        "quote": "Specialist in digital marketing strategies and business transformation."
+      }
+    },
+    "cta": {
+      "eyebrow": "Work with us",
+      "title": "Ready to build your next automation?",
+      "body": "Tell us about your goals. We'll co-design a roadmap, start with a measurable pilot, and scale responsibly.",
+      "primary": "Start a project",
+      "secondary": "Book a call"
+    }
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "backHome": "Return home"
   }
 }

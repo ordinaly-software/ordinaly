@@ -2,11 +2,9 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Moon, Sun, Menu, X, User, LogOut, LogIn, Settings } from "lucide-react";
+import { Menu, X, User, LogOut, LogIn, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
-import { useTheme } from "@/contexts/theme-context";
-import LocaleSwitcher from "@/components/ui/locale-switcher";
 import LogoutModal from "@/components/ui/logout-modal";
 import { DropdownOption } from "@/components/ui/dropdown";
 import Image from 'next/image';
@@ -14,6 +12,9 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { createPortal } from "react-dom";
+import { Menu as HoverMenu, MenuItem, ProductItem, HoveredLink } from "@/components/ui/navbar-menu";
+import { useServices } from "@/hooks/useServices";
+import { useCourses } from "@/hooks/useCourses";
 
 // Custom User Menu Component
 const UserMenu = ({ 
@@ -142,13 +143,15 @@ const Navbar = () => {
   const t = useTranslations("home");
   const router = useRouter();
   const pathname = usePathname();
-  const { isDark, setIsDark } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [userData, setUserData] = useState<{is_staff?: boolean, is_superuser?: boolean} | null>(null);
+  const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const { services: menuServices } = useServices(6);
+  const { courses: menuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 3, upcoming: true });
 
   // Optimized scroll handler with throttling
   const handleScroll = useCallback(() => {
@@ -280,20 +283,33 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [router]);
 
-  const toggleTheme = useCallback(() => {
-    setIsDark(!isDark);
-  }, [isDark, setIsDark]);
-
   const toggleMenu = useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
   }, [isMenuOpen]);
 
   // Memoized nav links
-  const navLinks = useMemo(() => [
-    { href: "/services", label: t("navigation.services") },
-    { href: "/formation", label: t("navigation.formation") },
-    { href: "/blog", label: t("navigation.blog") },
-  ], [t]);
+  const desktopLinks = useMemo(
+    () => [
+      { href: "/blog", label: t("navigation.blog") },
+      { href: "/contact", label: t("navigation.contact", { defaultValue: "Contacto" }) },
+      { href: "/us", label: t("navigation.us", { defaultValue: "Nosotros" }) },
+    ],
+    [t]
+  );
+
+  const mobileLinks = useMemo(
+    () => [
+      { href: "/services", label: t("navigation.services") },
+      { href: "/formation", label: t("navigation.formation") },
+      ...desktopLinks,
+    ],
+    [desktopLinks, t]
+  );
+
+  const featuredServices = useMemo(
+    () => menuServices.filter((s) => s.is_featured).slice(0, 4),
+    [menuServices]
+  );
 
   // Helper function to check if link is active
   const isLinkActive = useCallback((href: string) => {
@@ -308,9 +324,9 @@ const Navbar = () => {
     <>
       <nav
         className={cn(
-          "border-b border-gray-200/50 dark:border-gray-700/50 bg-white/90 dark:bg-[#1A1924]/90 backdrop-blur-xl w-full transition-all duration-500 ease-out",
+          "border-b border-gray-200/50 dark:border-gray-700/50 bg-white/90 dark:bg-[#1A1924]/90 backdrop-blur-xl w-full transition-all duration-500 ease-out overflow-visible z-[40]",
           isScrolled
-            ? "fixed top-0 left-0 z-40 shadow-lg shadow-black/5 dark:shadow-black/20"
+            ? "fixed top-0 left-0 z-[50] shadow-lg shadow-black/5 dark:shadow-black/20"
             : "relative"
         )}
         style={{
@@ -319,7 +335,7 @@ const Navbar = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-3 sm:py-4 lg:py-6 min-h-[60px] sm:min-h-[72px]">
+          <div className="flex justify-between items-center py-2.5 sm:py-3.5 lg:py-5 min-h-[54px] sm:min-h-[66px]">
             {/* Logo and Title */}
             <div 
               className="flex items-center flex-shrink-0 min-w-0 cursor-pointer group transition-transform duration-200 hover:scale-[1.02]" 
@@ -351,7 +367,54 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 flex-shrink-0">
-              {navLinks.map((link) => (
+              <HoverMenu setActive={setActiveMegaItem}>
+                <MenuItem
+                  item={t("navigation.services")}
+                  active={activeMegaItem}
+                  setActive={setActiveMegaItem}
+                  href="/services"
+                  isActiveLink={isLinkActive("/services")}
+                >
+                  <div className="grid grid-cols-1 gap-2 min-w-[240px]">
+                    {featuredServices.length === 0 ? (
+                      <HoveredLink href="/services">{t("navigation.services")}</HoveredLink>
+                    ) : (
+                      featuredServices.map((service) => (
+                        <HoveredLink key={service.id} href="/services">
+                          {service.title}
+                        </HoveredLink>
+                      ))
+                    )}
+                  </div>
+                </MenuItem>
+                <MenuItem
+                  item={t("navigation.formation")}
+                  active={activeMegaItem}
+                  setActive={setActiveMegaItem}
+                  href="/formation"
+                  isActiveLink={isLinkActive("/formation")}
+                >
+                  <div className="grid grid-cols-1 gap-3 min-w-[360px]">
+                    {menuCoursesLoading && (
+                      <div className="text-sm text-gray-500 dark:text-gray-400 px-2 py-1">{t("navigation.loading", { defaultValue: "Loading..." })}</div>
+                    )}
+                    {!menuCoursesLoading && menuCourses.length === 0 ? (
+                      <HoveredLink href="/formation">{t("navigation.formation")}</HoveredLink>
+                    ) : (
+                      menuCourses.map((course) => (
+                        <ProductItem
+                          key={course.id}
+                          title={course.title}
+                          description={course.subtitle || course.description}
+                          href={`/formation/${course.slug ?? course.id}`}
+                          src={course.image}
+                        />
+                      ))
+                    )}
+                  </div>
+                </MenuItem>
+              </HoverMenu>
+              {desktopLinks.map((link) => (
                 <Link 
                   key={link.href}
                   href={link.href}
@@ -372,17 +435,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Controls */}
-            <div className="hidden lg:flex items-center space-x-2 xl:space-x-3 flex-shrink-0">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="text-gray-700 dark:text-gray-300 h-9 w-9 sm:h-10 sm:w-10 transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                aria-label={isDark ? t("navigation.lightMode") : t("navigation.darkMode")}
-              >
-                {isDark ? <Sun className="h-4 w-4 sm:h-5 sm:w-5" /> : <Moon className="h-4 w-4 sm:h-5 sm:w-5" />}
-              </Button>
-              
+            <div className="hidden lg:flex items-center flex-shrink-0">
               {/* Authentication Controls - Desktop */}
               {isAuthenticated ? (
                 <UserMenu
@@ -411,24 +464,10 @@ const Navbar = () => {
                   </Button>
                 </div>
               )}
-              
-              <div className="flex-shrink-0">
-                <LocaleSwitcher aria-label={t("navigation.localeSwitcher")} />
-              </div>
             </div>
 
             {/* Mobile Controls */}
             <div className="flex lg:hidden items-center space-x-2 flex-shrink-0">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="text-gray-700 dark:text-gray-300 h-8 w-8 transition-all duration-200"
-                aria-label={isDark ? t("navigation.lightMode") : t("navigation.darkMode")}
-              >
-                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
-              
               {!isAuthenticated && (
                 <Button
                   size="sm"
@@ -479,7 +518,7 @@ const Navbar = () => {
             >
               <div className="py-4 px-4 sm:px-6">
                 <div className="flex flex-col space-y-1">
-                  {navLinks.map((link) => (
+                  {mobileLinks.map((link) => (
                     <Link 
                       key={link.href}
                       href={link.href}
@@ -538,9 +577,6 @@ const Navbar = () => {
                     )}
                   </div>
                   
-                  <div className="pt-3 mt-3 border-t border-gray-200 dark:border-gray-700">
-                    <LocaleSwitcher aria-label={t("navigation.localeSwitcher")} />
-                  </div>
                 </div>
               </div>
             </motion.div>

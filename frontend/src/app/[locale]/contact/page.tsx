@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ServicesPage from "./page.client";
+import ContactPage from "./page.client";
 import { createPageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -11,19 +11,18 @@ export async function generateMetadata({
 
   return createPageMetadata({
     locale,
-    path: "/services",
-    title: "Servicios de automatización para empresas | Ordinaly",
-    description:
-      "Explora servicios, productos y soluciones de automatización con IA para empresas.",
+    path: "/contact",
+    title: "Contacto | Ordinaly",
+    description: "Hablemos sobre tus proyectos de automatización e IA. Escríbenos y te responderemos en menos de 24h.",
     image: "/static/backgrounds/services_background.webp",
   });
 }
 
-export default async function Services({
+export default async function Contact({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
   await params;
-  return <ServicesPage />;
+  return <ContactPage />;
 }

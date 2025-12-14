@@ -20,7 +20,10 @@
       "userMenu": "Menú de l'usuari",
       "adminDashboard": "Tauler de control d'administració",
       "profile": "Perfil",
-      "blog": "Blog"
+      "blog": "Blog",
+      "contact": "Contacte",
+      "us": "Nosaltres",
+      "loading": "Carregant ..."
     },
     "hero": {
       "title": "Automatitzar",
@@ -54,9 +57,9 @@
       "contactNow": "Poseu -vos en contacte ara",
       "contactEmail": "Contacte per correu electrònic",
       "viewDetails": "Veure detalls",
-  "viewAllServices": "Veure Tots els Serveis",
-        "errorTitle": "Error en carregar els cursos",
-  "errorMessage": "No s'han pogut carregar els serveis"
+      "viewAllServices": "Veure Tots els Serveis",
+      "errorTitle": "Error en carregar els cursos",
+      "errorMessage": "No s'han pogut carregar els serveis"
     },
     "courses": {
       "noSpecificDate": "Data específica properament",
@@ -67,8 +70,8 @@
       "noCoursesTitle": "No Hi Ha Cursos Propers",
       "noCoursesMessage": "Mantén-te atent als nous anuncis de cursos!",
       "notifyButton": "Veure tots els cursos",
-        "errorTitle": "Error en carregar els cursos",
-        "errorMessage": "No s'han pogut carregar els cursos",
+      "errorTitle": "Error en carregar els cursos",
+      "errorMessage": "No s'han pogut carregar els cursos",
       "retryButton": "Tornar-ho a Intentar",
       "enrollButton": "Inscriu-te Ara",
       "moreInfo": "Més Informació",
@@ -1449,17 +1452,6 @@
     },
     "termsText": "Continuant, accepteu les nostres Condicions de servei i Política de privadesa"
   },
-  "notFound": {
-    "title": "404 - Pàgina No Trobada",
-    "heading": "Ups! Pàgina Perduda a l'Espai Digital",
-    "message": "La pàgina que busques sembla haver-se perdut en el nostre univers d'automatització empresarial",
-    "description": "No et preocupis, fins i tot a Ordinaly de vegades ens desviem del camí. Però tenim solucions intelligents per a tot",
-    "homeButton": "Tornar a l'Inici",
-    "exploreButton": "Explorar Serveis",
-    "contactButton": "Contactar Suport",
-    "redirectMessage": "Seràs redirigit automàticament en {seconds} segons...",
-    "robotText": "El nostre robot d'automatització està buscant la pàgina..."
-  },
   "blog": {
     "title": "Blog d'Ordinaly",
     "subtitle": "Novetats, idees i actualitzacions sobre transformació digital i tecnologia",
@@ -1482,5 +1474,158 @@
       "linkedin": "LinkedIn",
       "shareMessage": "Llegeix aquest post de {siteTag}: \"{title}\" - {excerpt}"
     }
+  },
+  "contactPage": {
+    "hero": {
+      "title": "Construïm la teva propera automatització",
+      "subtitle": "Explica'ns l'equip, eines i objectius. Responem en menys de 24 hores.",
+      "primaryCta": "Escriu-nos",
+      "secondaryCta": "Obrir formulari",
+      "contactCardTitle": "Prefereixes parlar directament?",
+      "contactCardText": "Respondrem ràpid amb una proposta i els següents passos.",
+      "location": "Visita'ns a Sevilla!"
+    },
+    "info": {
+      "title": "Contactes directes",
+      "emailLabel": "Correu",
+      "phoneLabel": "Telèfon",
+      "addressLabel": "Oficina",
+      "hoursLabel": "Disponibilitat",
+      "hoursValue": "Dl-Dv · 09:00-19:00 CET",
+      "socialTitle": "Segueix-nos"
+    },
+    "form": {
+      "eyebrow": "Formulari de contacte",
+      "title": "Explica'ns el teu projecte",
+      "subtitle": "Comparteix objectius, terminis i eines per proposar el millor pla.",
+      "name": "Nom",
+      "namePlaceholder": "Nom i cognoms",
+      "email": "Email",
+      "company": "Empresa (opcional)",
+      "companyPlaceholder": "Empresa o mida de l'equip",
+      "message": "Detalls del projecte",
+      "messagePlaceholder": "Descriu objectius, terminis, eines actuals i expectatives.",
+      "submit": "Enviar missatge",
+      "sending": "Enviant...",
+      "success": "Gràcies! Hem rebut el teu missatge i respondrem aviat.",
+      "errorFallback": "No hem pogut enviar el formulari. Escriu a info@ordinaly.ai."
+    },
+    "team": {
+      "title": "L'equip",
+      "subtitle": "Parla amb qui dissenyarà i desplegarà la teva solució.",
+      "cta": "¡Contacta'ns!",
+            "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Enginyer de Software & Co-fundador",
+        "quote": "Enginyer de Software especialista en automatització i Intel·ligència Artificial."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Enginyer de Qualitat i Projectes & Co-fundador",
+        "quote": "Consultor i gestor de projectes especialitzats en IA i enginyeria de qualitat."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Expert en Màrqueting, Publicitat i Transformació Digital & Co-fundador",
+        "quote": "Especialista en estratègies de màrqueting digital i transformació empresarial."
+      }
+    },
+    "map": {
+      "title": "Visita'ns a Sevilla",
+      "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "photoAlt": "Oficines d'Ordinaly a la Plaza del Duque de la Victoria, Sevilla"
+    }
+  },
+  "usPage": {
+    "hero": {
+      "tagline": "Sobre nosaltres",
+      "title": "Automatitzem amb propòsit",
+      "subtitle": "Un equip multidisciplinari creant IA + automatització que manté les persones al control i els negocis avançant.",
+      "ctaPrimary": "Coneix l'equip",
+      "ctaSecondary": "Veure el nostre treball",
+      "missionLabel": "Missió",
+      "visionLabel": "Visió"
+    },
+    "mission": {
+      "title": "Potenciar les persones, no substituir-les",
+      "body": "Dissenyem automatitzacions que eliminen fricció perquè els equips se centrin en creativitat, decisions i relacions."
+    },
+    "vision": {
+      "title": "Automatització en la qual confiar",
+      "body": "Fer que els fluxos intel·ligents siguin simples, transparents i mesurables per a qualsevol empresa."
+    },
+    "stats": {
+      "teamLabel": "Experts en IA, automatització i CX",
+      "teamValue": "Producte, tecnologia, operacions, creixement"
+    },
+    "values": {
+      "eyebrow": "En què creiem",
+      "title": "Principis que guien com construïm",
+      "items": {
+        "1": {
+          "title": "Centrats en les persones",
+          "body": "Automatitzem al voltant dels hàbits i fortaleses de les persones, no a l'inrevés."
+        },
+        "2": {
+          "title": "Lliurar i aprendre",
+          "body": "Pilotem, mesurem i iterem ràpid per mantenir l'impuls i reduir el risc."
+        },
+        "3": {
+          "title": "Impacte transparent",
+          "body": "Cada flux té responsable, KPI i salvaguardes perquè l'equip confiï en el sistema."
+        }
+      }
+    },
+    "story": {
+      "eyebrow": "La nostra història",
+      "title": "Dels experiments als desplegaments empresarials",
+      "lead": "Vam començar obsessionats amb entregar més ràpid. Avui ajudem equips a escalar IA i automatització amb govern, dades i confiança.",
+      "2021": {
+        "title": "Fonaments",
+        "body": "Primers frameworks interns per a xat i connectors amb Odoo."
+      },
+      "2022": {
+        "title": "Productivitzar",
+        "body": "Llançament de workflows reutilitzables a n8n i playbooks de CX per als primers clients."
+      },
+      "2023": {
+        "title": "Escala",
+        "body": "Expansió a pilots enterprise afegint observabilitat, RBAC i QA."
+      },
+      "2024": {
+        "title": "Capa de confiança",
+        "body": "Governance i analítica per mesurar el ROI de cada flux."
+      }
+    },
+    "testimonials": {
+      "title": "Veus de l'equip",
+      "1": {
+        "name": "Antonio Macías Ferrera",
+        "role": "CTO Enginyer de Software & Co-fundador",
+        "quote": "Enginyer de Software especialista en automatització i Intel·ligència Artificial."
+      },
+      "2": {
+        "name": "Guillermo Montero Fernández-Vivancos",
+        "role": "Enginyer de Qualitat i Projectes & Co-fundador",
+        "quote": "Consultor i gestor de projectes especialitzats en IA i enginyeria de qualitat."
+      },
+      "3": {
+        "name": "Emilio Cid Pérez",
+        "role": "Expert en Màrqueting, Publicitat i Transformació Digital & Co-fundador",
+        "quote": "Especialista en estratègies de màrqueting digital i transformació empresarial."
+      }
+    },
+    "cta": {
+      "eyebrow": "Treballa amb nosaltres",
+      "title": "A punt per construir la teva propera automatització?",
+      "body": "Explica'ns els teus objectius. Co-dissenyem la fulla de ruta, comencem amb un pilot mesurable i escalem amb responsabilitat.",
+      "primary": "Començar un projecte",
+      "secondary": "Reservar una trucada"
+    }
+  },
+  "notFound": {
+    "title": "Pàgina no trobada",
+    "description": "La pàgina que cerques no existeix o s'ha mogut.",
+    "backHome": "Tornar a l'inici"
   }
 }
