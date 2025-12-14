@@ -31,13 +31,14 @@ const servicesCache = new Map<string, { data: Service[]; timestamp: number }>();
 const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes cache
 
 
-export const useServices = (limit?: number, isAdmin: boolean = false) => {
+export const useServices = (limit?: number, isAdmin: boolean = false, enabled: boolean = true) => {
   const [services, setServices] = useState<Service[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isOnVacation, setIsOnVacation] = useState(false);
 
   const fetchServices = useCallback(async () => {
+    if (!enabled) return;
     try {
       const cacheKey = `services_${limit || 'all'}_${isAdmin}`;
       const cached = servicesCache.get(cacheKey);
@@ -95,11 +96,12 @@ export const useServices = (limit?: number, isAdmin: boolean = false) => {
     } finally {
       setIsLoading(false);
     }
-  }, [limit, isAdmin]);
+  }, [limit, isAdmin, enabled]);
 
   useEffect(() => {
+    if (!enabled) return;
     fetchServices();
-  }, [fetchServices]);
+  }, [fetchServices, enabled]);
 
   const refetch = useCallback(() => {
     servicesCache.clear();

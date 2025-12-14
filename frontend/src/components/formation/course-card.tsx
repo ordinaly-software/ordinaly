@@ -80,7 +80,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               {inProgress && (
                 <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
                   <div className="bg-[#FFB800] text-white px-4 py-1 rounded-full text-base font-bold shadow-lg border-2 border-[#FFB800]">
-                    {t('inProgress', { defaultValue: 'In Progress' })}
+                    {t('inProgress')}
                   </div>
                 </div>
               )}

@@ -88,9 +88,9 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
         } else if (error) {
           return (
             <ErrorCard
-              title={t('services.errorTitle', { defaultValue: 'Error Loading Services' })}
-              message={t('services.errorMessage', { defaultValue: 'Failed to load services' })}
-              buttonText={t('services.retryButton', { defaultValue: 'Try Again' })}
+              title={t('services.errorTitle')}
+              message={t('services.errorMessage')}
+              buttonText={t('services.retryButton')}
               onRetry={refetch}
             />
           );

@@ -51,357 +51,357 @@ interface DocumentContent {
 
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false, loading: () => <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]"><div className="max-w-7xl mx-auto"><div className="grid md:grid-cols-4 gap-8"><div className="col-span-2"><div className="h-24 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div></div></div></div></footer> });
 
-const getTermsContent = (t: (key: string, opts?: Record<string, unknown>) => string): DocumentContent => ({
-  title: t('sections.terms.title', { defaultValue: 'Términos de Servicio' }),
+const getTermsContent = (t: (key: string, opts?: Record<string, string | number | Date> | undefined) => string): DocumentContent => ({
+  title: t('sections.terms.title'),
   sections: [
     {
       id: 'identification',
-      title: t('sections.terms.identification.title', { defaultValue: 'IDENTIFICACIÓN DEL PRESTADOR DE SERVICIOS' }),
+      title: t('sections.terms.identification.title'),
       paragraphs: [
-        t('sections.terms.identification.p1', { defaultValue: 'En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y comercio electrónico (LSSI-CE), se informa que el presente sitio web es propiedad de:' }),
+        t('sections.terms.identification.p1'),
       ],
       bullets: [
-        t('sections.terms.identification.bullet1', { defaultValue: 'Empresa: Ordinaly Software S.L.' }),
-        t('sections.terms.identification.bullet2', { defaultValue: 'Domicilio fiscal: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla, Sevilla (España)' }),
-        t('sections.terms.identification.bullet3', { defaultValue: 'Correo de contacto: ordinalysoftware@gmail.com' }),
-        t('sections.terms.identification.bullet4', { defaultValue: 'Sitio web: https://ordinaly.ai' }),
+        t('sections.terms.identification.bullet1'),
+        t('sections.terms.identification.bullet2'),
+        t('sections.terms.identification.bullet3'),
+        t('sections.terms.identification.bullet4'),
       ],
     },
     {
       id: 'purpose',
-      title: t('sections.terms.purpose.title', { defaultValue: 'OBJETO' }),
+      title: t('sections.terms.purpose.title'),
       paragraphs: [
-        t('sections.terms.purpose.p1', { defaultValue: 'Estos Términos de Servicio regulan el acceso, navegación, contratación y uso de los servicios ofrecidos por Ordinaly Software S.L. a través de su sitio web, así como las responsabilidades derivadas de su utilización.' }),
+        t('sections.terms.purpose.p1'),
       ],
     },
     {
       id: 'service-modalities',
-      title: t('sections.terms.serviceModalities.title', { defaultValue: 'MODALIDADES DE SERVICIO' }),
+      title: t('sections.terms.serviceModalities.title'),
       paragraphs: [
-        t('sections.terms.serviceModalities.p1', { defaultValue: 'Ordinaly ofrece los siguientes tipos de servicio:' }),
+        t('sections.terms.serviceModalities.p1'),
       ],
       bullets: [
-        t('sections.terms.serviceModalities.bullet1', { defaultValue: 'Servicios bajo suscripción mensual o anual: incluyen soporte técnico, mantenimiento, actualizaciones y acceso a funcionalidades recurrentes (ej. chatbots, automatizaciones, dashboards).' }),
-        t('sections.terms.serviceModalities.bullet2', { defaultValue: 'Servicios puntuales: intervenciones concretas sin continuidad (ej. implementación única de un CRM, flujo de trabajo específico). No incluyen mantenimiento ni soporte posterior a la entrega.' }),
-        t('sections.terms.serviceModalities.bullet3', { defaultValue: 'Formación: cursos presenciales o telemáticos sobre herramientas de automatización, con condiciones específicas de asistencia y cancelación.' }),
+        t('sections.terms.serviceModalities.bullet1'),
+        t('sections.terms.serviceModalities.bullet2'),
+        t('sections.terms.serviceModalities.bullet3'),
       ],
     },
     {
       id: 'economic-conditions',
-      title: t('sections.terms.economicConditions.title', { defaultValue: 'CONDICIONES ECONÓMICAS Y FORMAS DE PAGO' }),
+      title: t('sections.terms.economicConditions.title'),
       paragraphs: [],
       bullets: [
-        t('sections.terms.economicConditions.bullet1', { defaultValue: 'Los pagos se realizan exclusivamente mediante tarjeta bancaria, a través de la plataforma segura Stripe.' }),
-        t('sections.terms.economicConditions.bullet2', { defaultValue: 'La empresa no emite factura automáticamente; se puede solicitar por correo.' }),
-        t('sections.terms.economicConditions.bullet3', { defaultValue: 'En los servicios de suscripción, los cobros serán periódicos conforme al acuerdo contractual (mensual o anual).' }),
-        t('sections.terms.economicConditions.bullet4', { defaultValue: 'No se admiten reembolsos, salvo para cursos cancelados con al menos 48 horas de antelación al inicio. La inasistencia o cancelación con menos de 48 horas no da derecho a devolución.' }),
+        t('sections.terms.economicConditions.bullet1'),
+        t('sections.terms.economicConditions.bullet2'),
+        t('sections.terms.economicConditions.bullet3'),
+        t('sections.terms.economicConditions.bullet4'),
       ],
     },
     {
       id: 'access-requirements',
-      title: t('sections.terms.accessRequirements.title', { defaultValue: 'ACCESO Y REQUISITOS TÉCNICOS' }),
+      title: t('sections.terms.accessRequirements.title'),
       paragraphs: [
-        t('sections.terms.accessRequirements.p1', { defaultValue: 'Ordinaly proporciona toda la infraestructura y requisitos técnicos necesarios para la implementación de sus servicios. El cliente no necesita disponer de plataformas previas (ej. Odoo, hosting), salvo acuerdo expreso.' }),
+        t('sections.terms.accessRequirements.p1'),
       ],
     },
     {
       id: 'correct-use',
-      title: t('sections.terms.correctUse.title', { defaultValue: 'USO CORRECTO DE LOS SERVICIOS' }),
+      title: t('sections.terms.correctUse.title'),
       paragraphs: [
-        t('sections.terms.correctUse.p1', { defaultValue: 'El usuario se compromete a utilizar los servicios de forma lícita y conforme a los presentes términos. Queda expresamente prohibido:' }),
+        t('sections.terms.correctUse.p1'),
       ],
       bullets: [
-        t('sections.terms.correctUse.bullet1', { defaultValue: 'Usar los servicios para actividades ilegales, fraudulentas o no autorizadas.' }),
-        t('sections.terms.correctUse.bullet2', { defaultValue: 'Realizar campañas de spam, desinformación o vulnerar derechos de terceros.' }),
-        t('sections.terms.correctUse.bullet3', { defaultValue: 'Reproducir o modificar las herramientas entregadas sin autorización expresa.' }),
+        t('sections.terms.correctUse.bullet1'),
+        t('sections.terms.correctUse.bullet2'),
+        t('sections.terms.correctUse.bullet3'),
       ],
     },
     {
       id: 'intellectual-property',
-      title: t('sections.terms.intellectualProperty.title', { defaultValue: 'PROPIEDAD INTELECTUAL' }),
+      title: t('sections.terms.intellectualProperty.title'),
       paragraphs: [
-        t('sections.terms.intellectualProperty.p1', { defaultValue: 'Todo el contenido del sitio web (textos, imágenes, documentación, dashboards, flujos, interfaces…) es propiedad de Ordinaly Software S.L. o de sus licenciantes y está protegido por la normativa vigente.' }),
-        t('sections.terms.intellectualProperty.p2', { defaultValue: 'El cliente no podrá reproducir, distribuir o modificar dichos contenidos sin consentimiento expreso.' }),
-        t('sections.terms.intellectualProperty.p3', { defaultValue: 'Los entregables desarrollados por Ordinaly (chatbots, automatizaciones, etc.) se conceden para su uso únicamente mientras el contrato esté vigente o el servicio se mantenga activo. Su uso queda restringido en caso de impago, cancelación o cese de la actividad.' }),
+        t('sections.terms.intellectualProperty.p1'),
+        t('sections.terms.intellectualProperty.p2'),
+        t('sections.terms.intellectualProperty.p3'),
       ],
     },
     {
       id: 'third-party-licenses',
-      title: t('sections.terms.thirdPartyLicenses.title', { defaultValue: 'LICENCIAS DE TERCEROS' }),
+      title: t('sections.terms.thirdPartyLicenses.title'),
       paragraphs: [
-        t('sections.terms.thirdPartyLicenses.p1', { defaultValue: 'Las tecnologías y bibliotecas utilizadas están debidamente licenciadas. Ordinaly mantiene un archivo de control (license.json) con la documentación correspondiente. Se hace uso de APIs de terceros como Google, Meta, Gemini, WhatsApp Business API, Stripe, entre otras, cuya normativa de uso también debe ser respetada por el cliente.' }),
+        t('sections.terms.thirdPartyLicenses.p1'),
       ],
     },
   ],
 });
 
-const getPrivacyContent = (t: (key: string, opts?: Record<string, unknown>) => string): DocumentContent => ({
-  title: t('sections.privacy.title', { defaultValue: 'Política de Privacidad' }),
+const getPrivacyContent = (t: (key: string, opts?: Record<string, string | number | Date> | undefined) => string): DocumentContent => ({
+  title: t('sections.privacy.title'),
   sections: [
     {
       id: 'data-controller',
-      title: t('sections.privacy.dataController.title', { defaultValue: 'RESPONSABLE DEL TRATAMIENTO' }),
+      title: t('sections.privacy.dataController.title'),
       paragraphs: [
-        t('sections.privacy.dataController.p1', { defaultValue: 'En cumplimiento del Reglamento General de Protección de Datos (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD), se informa que el responsable del tratamiento de los datos es:' }),
-        t('sections.privacy.dataController.p2', { defaultValue: 'Ordinaly Software S.L.' }),
+        t('sections.privacy.dataController.p1'),
+        t('sections.privacy.dataController.p2'),
       ],
       bullets: [
-        t('sections.privacy.dataController.bullet1', { defaultValue: 'Domicilio fiscal: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla, Sevilla (España)' }),
-        t('sections.privacy.dataController.bullet2', { defaultValue: 'Correo electrónico de contacto: ordinalysoftware@gmail.com' }),
+        t('sections.privacy.dataController.bullet1'),
+        t('sections.privacy.dataController.bullet2'),
       ],
     },
     {
       id: 'personal-data-collected',
-      title: t('sections.privacy.personalDataCollected.title', { defaultValue: 'DATOS PERSONALES QUE RECOGEMOS' }),
+      title: t('sections.privacy.personalDataCollected.title'),
       paragraphs: [
-        t('sections.privacy.personalDataCollected.p1', { defaultValue: 'A través del sitio web y durante la prestación de servicios, recogemos los siguientes datos:' }),
+        t('sections.privacy.personalDataCollected.p1'),
       ],
       bullets: [
-        t('sections.privacy.personalDataCollected.bullet1', { defaultValue: 'Nombre y apellidos' }),
-        t('sections.privacy.personalDataCollected.bullet2', { defaultValue: 'Correo electrónico' }),
-        t('sections.privacy.personalDataCollected.bullet3', { defaultValue: 'Teléfono' }),
-        t('sections.privacy.personalDataCollected.bullet4', { defaultValue: 'Datos de acceso (usuario y contraseña)' }),
-        t('sections.privacy.personalDataCollected.bullet5', { defaultValue: 'Preferencias de configuración de la web (tema, idioma)' }),
+        t('sections.privacy.personalDataCollected.bullet1'),
+        t('sections.privacy.personalDataCollected.bullet2'),
+        t('sections.privacy.personalDataCollected.bullet3'),
+        t('sections.privacy.personalDataCollected.bullet4'),
+        t('sections.privacy.personalDataCollected.bullet5'),
       ],
     },
     {
       id: 'processing-purposes',
-      title: t('sections.privacy.processingPurposes.title', { defaultValue: 'FINALIDADES DEL TRATAMIENTO' }),
+      title: t('sections.privacy.processingPurposes.title'),
       paragraphs: [
-        t('sections.privacy.processingPurposes.p1', { defaultValue: 'Tratamos los datos personales para las siguientes finalidades:' }),
+        t('sections.privacy.processingPurposes.p1'),
       ],
       bullets: [
-        t('sections.privacy.processingPurposes.bullet1', { defaultValue: 'Atender consultas o solicitudes recibidas a través de los formularios de contacto' }),
-        t('sections.privacy.processingPurposes.bullet2', { defaultValue: 'Gestionar la relación contractual y la prestación de los servicios contratados' }),
-        t('sections.privacy.processingPurposes.bullet3', { defaultValue: 'Personalizar la experiencia del usuario (tema, idioma)' }),
-        t('sections.privacy.processingPurposes.bullet4', { defaultValue: 'Enviar comunicaciones comerciales únicamente si el usuario ha dado su consentimiento expreso' }),
+        t('sections.privacy.processingPurposes.bullet1'),
+        t('sections.privacy.processingPurposes.bullet2'),
+        t('sections.privacy.processingPurposes.bullet3'),
+        t('sections.privacy.processingPurposes.bullet4'),
       ],
     },
     {
       id: 'legal-bases',
-      title: t('sections.privacy.legalBases.title', { defaultValue: 'BASES JURÍDICAS DEL TRATAMIENTO' }),
+      title: t('sections.privacy.legalBases.title'),
       paragraphs: [
-        t('sections.privacy.legalBases.p1', { defaultValue: 'Las bases legales que amparan el tratamiento de los datos son:' }),
+        t('sections.privacy.legalBases.p1'),
       ],
       bullets: [
-        t('sections.privacy.legalBases.bullet1', { defaultValue: 'Consentimiento del interesado, al enviar formularios o aceptar comunicaciones comerciales' }),
-        t('sections.privacy.legalBases.bullet2', { defaultValue: 'Interés legítimo, para personalizar funciones básicas de la web como idioma o tema' }),
-        t('sections.privacy.legalBases.bullet3', { defaultValue: 'En caso de contratación de servicios, también se aplicará la base de ejecución de un contrato.' }),
+        t('sections.privacy.legalBases.bullet1'),
+        t('sections.privacy.legalBases.bullet2'),
+        t('sections.privacy.legalBases.bullet3'),
       ],
     },
     {
       id: 'recipients',
-      title: t('sections.privacy.recipients.title', { defaultValue: 'DESTINATARIOS Y TRANSFERENCIAS INTERNACIONALES' }),
+      title: t('sections.privacy.recipients.title'),
       paragraphs: [
-        t('sections.privacy.recipients.p1', { defaultValue: 'Los datos pueden ser tratados por proveedores externos que actúan como encargados del tratamiento:' }),
+        t('sections.privacy.recipients.p1'),
       ],
       bullets: [
-        t('sections.privacy.recipients.bullet1', { defaultValue: 'Stripe, para la gestión segura de pagos online' }),
-        t('sections.privacy.recipients.bullet2', { defaultValue: 'Google Analytics, para el análisis de uso del sitio web' }),
+        t('sections.privacy.recipients.bullet1'),
+        t('sections.privacy.recipients.bullet2'),
       ],
     },
     {
       id: 'data-retention',
-      title: t('sections.privacy.dataRetention.title', { defaultValue: 'CONSERVACIÓN DE LOS DATOS' }),
+      title: t('sections.privacy.dataRetention.title'),
       paragraphs: [],
       bullets: [
-        t('sections.privacy.dataRetention.bullet1', { defaultValue: 'Los datos de contacto y configuración se conservarán hasta que el usuario solicite su supresión.' }),
-        t('sections.privacy.dataRetention.bullet2', { defaultValue: 'Los datos asociados a servicios contratados o facturación se conservarán durante el plazo legal mínimo exigido (5-6 años).' }),
-        t('sections.privacy.dataRetention.bullet3', { defaultValue: 'Los datos de navegación se conservan conforme a lo descrito en la Política de Cookies.' }),
+        t('sections.privacy.dataRetention.bullet1'),
+        t('sections.privacy.dataRetention.bullet2'),
+        t('sections.privacy.dataRetention.bullet3'),
       ],
     },
     {
       id: 'ai-interactions',
-      title: t('sections.privacy.aiInteractions.title', { defaultValue: 'INTERACCIONES CON SISTEMAS DE IA' }),
+      title: t('sections.privacy.aiInteractions.title'),
       paragraphs: [
-        t('sections.privacy.aiInteractions.p1', { defaultValue: 'Este sitio puede incluir chatbots o asistentes virtuales basados en inteligencia artificial (IA). El usuario será informado de forma clara al interactuar con dichos sistemas.' }),
+        t('sections.privacy.aiInteractions.p1'),
       ],
       bullets: [
-        t('sections.privacy.aiInteractions.bullet1', { defaultValue: 'Las conversaciones mantenidas con sistemas de IA pueden almacenarse con fines de mejora del servicio.' }),
-        t('sections.privacy.aiInteractions.bullet2', { defaultValue: 'Estos datos se recogen únicamente si el usuario está utilizando activamente un servicio, y no durante la simple navegación por el sitio.' }),
-        t('sections.privacy.aiInteractions.bullet3', { defaultValue: 'Actualmente, las conversaciones no se garantizan como anónimas, debido a las condiciones técnicas de los proveedores utilizados (como Meta o WhatsApp API).' }),
+        t('sections.privacy.aiInteractions.bullet1'),
+        t('sections.privacy.aiInteractions.bullet2'),
+        t('sections.privacy.aiInteractions.bullet3'),
       ],
     },
     {
       id: 'user-rights',
-      title: t('sections.privacy.userRights.title', { defaultValue: 'DERECHOS DE LOS USUARIOS' }),
+      title: t('sections.privacy.userRights.title'),
       paragraphs: [
-        t('sections.privacy.userRights.p1', { defaultValue: 'Los usuarios pueden ejercer los siguientes derechos reconocidos por el RGPD:' }),
+        t('sections.privacy.userRights.p1'),
       ],
       bullets: [
-        t('sections.privacy.userRights.bullet1', { defaultValue: 'Derecho de acceso' }),
-        t('sections.privacy.userRights.bullet2', { defaultValue: 'Derecho de rectificación' }),
-        t('sections.privacy.userRights.bullet3', { defaultValue: 'Derecho de supresión' }),
-        t('sections.privacy.userRights.bullet4', { defaultValue: 'Derecho de oposición' }),
-        t('sections.privacy.userRights.bullet5', { defaultValue: 'Derecho a la limitación del tratamiento' }),
-        t('sections.privacy.userRights.bullet6', { defaultValue: 'Derecho a la portabilidad de los datos' }),
-        t('sections.privacy.userRights.bullet7', { defaultValue: 'Derecho a retirar el consentimiento en cualquier momento' }),
+        t('sections.privacy.userRights.bullet1'),
+        t('sections.privacy.userRights.bullet2'),
+        t('sections.privacy.userRights.bullet3'),
+        t('sections.privacy.userRights.bullet4'),
+        t('sections.privacy.userRights.bullet5'),
+        t('sections.privacy.userRights.bullet6'),
+        t('sections.privacy.userRights.bullet7'),
       ],
     },
     {
       id: 'data-security',
-      title: t('sections.privacy.dataSecurity.title', { defaultValue: 'SEGURIDAD DE LOS DATOS' }),
+      title: t('sections.privacy.dataSecurity.title'),
       paragraphs: [
-        t('sections.privacy.dataSecurity.p1', { defaultValue: 'Ordinaly Software S.L. adopta medidas técnicas y organizativas apropiadas para proteger los datos personales frente a pérdida, acceso no autorizado o uso indebido, en cumplimiento del principio de integridad y confidencialidad establecido por el RGPD.' }),
+        t('sections.privacy.dataSecurity.p1'),
       ],
     },
   ],
 });
 
-const getCookiesContent = (t: (key: string, opts?: Record<string, unknown>) => string): DocumentContent => ({
-  title: t('sections.cookies.title', { defaultValue: 'Política de Cookies' }),
+const getCookiesContent = (t: (key: string, opts?: Record<string, string | number | Date> | undefined) => string): DocumentContent => ({
+  title: t('sections.cookies.title'),
   sections: [
     {
       id: 'what-are-cookies',
-      title: t('sections.cookies.whatAreCookies.title', { defaultValue: '¿QUÉ SON LAS COOKIES?' }),
+      title: t('sections.cookies.whatAreCookies.title'),
       paragraphs: [
-        t('sections.cookies.whatAreCookies.p1', { defaultValue: 'Las cookies son pequeños archivos que un sitio web instala en el dispositivo del usuario al navegar por sus páginas. Permiten almacenar y recuperar información sobre hábitos de navegación o del dispositivo, y pueden utilizarse para reconocer al usuario y personalizar la experiencia.' }),
+        t('sections.cookies.whatAreCookies.p1'),
       ],
     },
     {
       id: 'types-of-cookies',
-      title: t('sections.cookies.typesOfCookies.title', { defaultValue: '¿QUÉ TIPOS DE COOKIES UTILIZAMOS?' }),
+      title: t('sections.cookies.typesOfCookies.title'),
       paragraphs: [
-        t('sections.cookies.typesOfCookies.p1', { defaultValue: 'En este sitio web solo utilizamos los siguientes tipos de cookies:' }),
+        t('sections.cookies.typesOfCookies.p1'),
       ],
       bullets: [
-        t('sections.cookies.typesOfCookies.bullet1', { defaultValue: 'Cookies técnicas (necesarias): Son imprescindibles para el funcionamiento básico de la web. No requieren consentimiento del usuario.' }),
-        t('sections.cookies.typesOfCookies.bullet2', { defaultValue: 'Cookies analíticas: Permiten recopilar información estadística anónima sobre el uso del sitio web. Estas cookies requieren el consentimiento previo del usuario.' }),
+        t('sections.cookies.typesOfCookies.bullet1'),
+        t('sections.cookies.typesOfCookies.bullet2'),
       ],
     },
     {
       id: 'cookies-list',
-      title: t('sections.cookies.cookiesList.title', { defaultValue: 'LISTADO DE COOKIES UTILIZADAS' }),
+      title: t('sections.cookies.cookiesList.title'),
       paragraphs: [
-        t('sections.cookies.cookiesList.p1', { defaultValue: 'A continuación se detallan las cookies utilizadas en este sitio:' }),
+        t('sections.cookies.cookiesList.p1'),
       ],
       bullets: [
-        t('sections.cookies.cookiesList.bullet1', { defaultValue: '__next_hmr_refresh_hash__ (Técnica): Refrescar el contenido dinámico de la web. Duración: Sesión. Proveedor: Ordinaly (local)' }),
-        t('sections.cookies.cookiesList.bullet2', { defaultValue: 'NEXT_LOCALE (Técnica): Almacena el idioma seleccionado. Duración: Sesión. Proveedor: Ordinaly (local)' }),
-        t('sections.cookies.cookiesList.bullet3', { defaultValue: '_ga (Analítica): Google Analytics para análisis de uso web. Duración: Sesión. Proveedor: Google Inc.' }),
+        t('sections.cookies.cookiesList.bullet1'),
+        t('sections.cookies.cookiesList.bullet2'),
+        t('sections.cookies.cookiesList.bullet3'),
       ],
     },
     {
       id: 'local-storage',
-      title: t('sections.cookies.localStorage.title', { defaultValue: 'ALMACENAMIENTO LOCAL DEL NAVEGADOR (LocalStorage)' }),
+      title: t('sections.cookies.localStorage.title'),
       paragraphs: [
-        t('sections.cookies.localStorage.p1', { defaultValue: 'Además de cookies, este sitio web puede almacenar información en el navegador del usuario mediante almacenamiento local (localStorage), que se comporta de forma similar a las cookies, pero sin fecha de expiración automática. Elementos almacenados:' }),
-        t('sections.cookies.localStorage.p2', { defaultValue: 'Estos datos no se comparten con terceros y se utilizan exclusivamente para mejorar la experiencia de usuario.' }),
+        t('sections.cookies.localStorage.p1'),
+        t('sections.cookies.localStorage.p2'),
       ],
       bullets: [
-        t('sections.cookies.localStorage.bullet1', { defaultValue: 'theme: Guarda el modo visual del sitio (claro u oscuro)' }),
-        t('sections.cookies.localStorage.bullet2', { defaultValue: 'cookie-preferences: Almacena las preferencias del usuario sobre el uso de cookies' }),
-        t('sections.cookies.localStorage.bullet3', { defaultValue: 'cookie-consent: Indica si el usuario ha aceptado el uso de cookies' }),
-        t('sections.cookies.localStorage.bullet4', { defaultValue: 'authToken: Token de autenticación del usuario registrado' }),
+        t('sections.cookies.localStorage.bullet1'),
+        t('sections.cookies.localStorage.bullet2'),
+        t('sections.cookies.localStorage.bullet3'),
+        t('sections.cookies.localStorage.bullet4'),
       ],
     },
     {
       id: 'cookie-management',
-      title: t('sections.cookies.cookieManagement.title', { defaultValue: 'GESTIÓN DE COOKIES' }),
+      title: t('sections.cookies.cookieManagement.title'),
       paragraphs: [
-        t('sections.cookies.cookieManagement.p1', { defaultValue: 'El sitio muestra un banner de gestión de cookies al acceder por primera vez. Desde él, el usuario puede aceptar, rechazar o configurar las cookies no necesarias. También puede eliminar o bloquear las cookies desde su navegador:' }),
+        t('sections.cookies.cookieManagement.p1'),
       ],
       bullets: [
-        t('sections.cookies.cookieManagement.bullet1', { defaultValue: 'Google Chrome: https://support.google.com/chrome/answer/95647?hl=es' }),
-        t('sections.cookies.cookieManagement.bullet2', { defaultValue: 'Mozilla Firefox' }),
-        t('sections.cookies.cookieManagement.bullet3', { defaultValue: 'Safari: https://support.apple.com/es-es/guide/safari/sfri11471/mac' }),
-        t('sections.cookies.cookieManagement.bullet4', { defaultValue: 'Microsoft Edge' }),
+        t('sections.cookies.cookieManagement.bullet1'),
+        t('sections.cookies.cookieManagement.bullet2'),
+        t('sections.cookies.cookieManagement.bullet3'),
+        t('sections.cookies.cookieManagement.bullet4'),
       ],
     },
     {
       id: 'international-transfer',
-      title: t('sections.cookies.internationalTransfer.title', { defaultValue: 'TRANSFERENCIA INTERNACIONAL DE DATOS' }),
+      title: t('sections.cookies.internationalTransfer.title'),
       paragraphs: [
-        t('sections.cookies.internationalTransfer.p1', { defaultValue: 'Algunas cookies analíticas, como las de Google Analytics, pueden implicar la transferencia de datos a servidores fuera del Espacio Económico Europeo (por ejemplo, EE. UU.). Estas transferencias están reguladas mediante cláusulas contractuales tipo aprobadas por la Comisión Europea.' }),
+        t('sections.cookies.internationalTransfer.p1'),
       ],
     },
     {
       id: 'policy-modification',
-      title: t('sections.cookies.policyModification.title', { defaultValue: 'MODIFICACIÓN DE LA POLÍTICA DE COOKIES' }),
+      title: t('sections.cookies.policyModification.title'),
       paragraphs: [
-        t('sections.cookies.policyModification.p1', { defaultValue: 'Ordinaly Software S.L. podrá actualizar esta Política de Cookies en función de exigencias normativas, técnicas o por cambios en la configuración de cookies del sitio web. Cualquier cambio relevante será comunicado al usuario.' }),
+        t('sections.cookies.policyModification.p1'),
       ],
     },
   ],
 });
 
-const getLicenseContent = (t: (key: string, opts?: Record<string, unknown>) => string): DocumentContent => ({
-  title: t('sections.license.title', { defaultValue: 'Información de Licencia' }),
+const getLicenseContent = (t: (key: string, opts?: Record<string, string | number | Date> | undefined) => string): DocumentContent => ({
+  title: t('sections.license.title'),
   sections: [
     {
       id: 'purpose',
-      title: t('sections.license.purpose.title', { defaultValue: 'OBJETO' }),
+      title: t('sections.license.purpose.title'),
       paragraphs: [
-        t('sections.license.purpose.p1', { defaultValue: 'El presente documento regula los términos de uso aplicables a los entregables desarrollados por Ordinaly Software S.L., incluyendo pero no limitándose a:' }),
+        t('sections.license.purpose.p1'),
       ],
       bullets: [
-        t('sections.license.purpose.bullet1', { defaultValue: 'Código fuente' }),
-        t('sections.license.purpose.bullet2', { defaultValue: 'Interfaces visuales y dashboards' }),
-        t('sections.license.purpose.bullet3', { defaultValue: 'Imágenes, ilustraciones, y contenido gráfico' }),
-        t('sections.license.purpose.bullet4', { defaultValue: 'Documentación técnica o formativa' }),
-        t('sections.license.purpose.bullet5', { defaultValue: 'Archivos de configuración, scripts y plantillas' }),
+        t('sections.license.purpose.bullet1'),
+        t('sections.license.purpose.bullet2'),
+        t('sections.license.purpose.bullet3'),
+        t('sections.license.purpose.bullet4'),
+        t('sections.license.purpose.bullet5'),
       ],
     },
     {
       id: 'scope',
-      title: t('sections.license.scope.title', { defaultValue: 'ALCANCE DE LA LICENCIA' }),
+      title: t('sections.license.scope.title'),
       paragraphs: [
-        t('sections.license.scope.p1', { defaultValue: 'Ordinaly Software S.L. concede al cliente una licencia no exclusiva con los siguientes derechos:' }),
+        t('sections.license.scope.p1'),
       ],
       bullets: [
-        t('sections.license.scope.bullet1', { defaultValue: 'Derecho de uso: el cliente podrá utilizar los entregables en el marco de su actividad profesional o empresarial.' }),
-        t('sections.license.scope.bullet2', { defaultValue: 'Derecho de modificación: el cliente podrá personalizar, adaptar o modificar el código y otros elementos entregados.' }),
+        t('sections.license.scope.bullet1'),
+        t('sections.license.scope.bullet2'),
       ],
     },
     {
       id: 'validity',
-      title: t('sections.license.validity.title', { defaultValue: 'VIGENCIA DE LA LICENCIA' }),
+      title: t('sections.license.validity.title'),
       paragraphs: [
-        t('sections.license.validity.p1', { defaultValue: 'La vigencia de la licencia dependerá del tipo de servicio contratado:' }),
-        t('sections.license.validity.p2', { defaultValue: 'Entregables con suscripción activa (por ejemplo, chatbots, webs alojadas, flujos en mantenimiento): La licencia es válida mientras la suscripción esté vigente y al día. Si el cliente deja de pagar o cancela, la licencia quedará automáticamente revocada.' }),
-        t('sections.license.validity.p3', { defaultValue: 'Entregables cerrados (por ejemplo, diseño web o app sin mantenimiento ni alojamiento): La licencia será indefinida, siempre que el proyecto haya sido completamente entregado y pagado.' }),
+        t('sections.license.validity.p1'),
+        t('sections.license.validity.p2'),
+        t('sections.license.validity.p3'),
       ],
     },
     {
       id: 'restrictions',
-      title: t('sections.license.restrictions.title', { defaultValue: 'RESTRICCIONES' }),
+      title: t('sections.license.restrictions.title'),
       paragraphs: [
-        t('sections.license.restrictions.p1', { defaultValue: 'El cliente se compromete a no realizar las siguientes acciones sin autorización expresa de Ordinaly Software S.L.:' }),
+        t('sections.license.restrictions.p1'),
       ],
       bullets: [
-        t('sections.license.restrictions.bullet1', { defaultValue: 'Eliminar o alterar marcas, logotipos, metadatos o notas de propiedad intelectual' }),
-        t('sections.license.restrictions.bullet2', { defaultValue: 'Usar el producto para fines ilegales o contrarios a la normativa vigente' }),
-        t('sections.license.restrictions.bullet3', { defaultValue: 'Compartir, sublicenciar o transferir total o parcialmente el desarrollo a terceros' }),
+        t('sections.license.restrictions.bullet1'),
+        t('sections.license.restrictions.bullet2'),
+        t('sections.license.restrictions.bullet3'),
       ],
     },
     {
       id: 'third-party-software',
-      title: t('sections.license.thirdPartySoftware.title', { defaultValue: 'INCLUSIÓN DE SOFTWARE DE TERCEROS' }),
+      title: t('sections.license.thirdPartySoftware.title'),
       paragraphs: [
-        t('sections.license.thirdPartySoftware.p1', { defaultValue: 'Los entregables desarrollados por Ordinaly pueden incorporar componentes de terceros, incluyendo APIs, bibliotecas o sistemas integrados de:' }),
+        t('sections.license.thirdPartySoftware.p1'),
       ],
       bullets: [
-        t('sections.license.thirdPartySoftware.bullet1', { defaultValue: 'Meta' }),
-        t('sections.license.thirdPartySoftware.bullet2', { defaultValue: 'WhatsApp Business API' }),
-        t('sections.license.thirdPartySoftware.bullet3', { defaultValue: 'Gemini (Google)' }),
-        t('sections.license.thirdPartySoftware.bullet4', { defaultValue: 'Stripe' }),
-        t('sections.license.thirdPartySoftware.bullet5', { defaultValue: 'Google Analytics' }),
-        t('sections.license.thirdPartySoftware.bullet6', { defaultValue: 'Otras plataformas conectadas' }),
+        t('sections.license.thirdPartySoftware.bullet1'),
+        t('sections.license.thirdPartySoftware.bullet2'),
+        t('sections.license.thirdPartySoftware.bullet3'),
+        t('sections.license.thirdPartySoftware.bullet4'),
+        t('sections.license.thirdPartySoftware.bullet5'),
+        t('sections.license.thirdPartySoftware.bullet6'),
       ],
     },
     {
       id: 'intellectual-property',
-      title: t('sections.license.intellectualProperty.title', { defaultValue: 'PROPIEDAD INTELECTUAL' }),
+      title: t('sections.license.intellectualProperty.title'),
       paragraphs: [
-        t('sections.license.intellectualProperty.p1', { defaultValue: 'Todos los derechos de propiedad intelectual sobre los entregables, incluyendo los derechos morales y patrimoniales, son titularidad de Ordinaly Software S.L., salvo que se indique lo contrario mediante acuerdo contractual específico.' }),
-        t('sections.license.intellectualProperty.p2', { defaultValue: 'El cliente obtiene una licencia de uso bajo las condiciones expuestas, sin que ello suponga una cesión de titularidad.' }),
+        t('sections.license.intellectualProperty.p1'),
+        t('sections.license.intellectualProperty.p2'),
       ],
     },
     {
       id: 'applicable-law',
-      title: t('sections.license.applicableLaw.title', { defaultValue: 'LEGISLACIÓN APLICABLE Y JURISDICCIÓN' }),
+      title: t('sections.license.applicableLaw.title'),
       paragraphs: [
-        t('sections.license.applicableLaw.p1', { defaultValue: 'La presente Licencia se regirá por la legislación española. En caso de conflicto, las partes se someterán a los Juzgados y Tribunales de Sevilla (España), salvo en los casos en los que la normativa de protección al consumidor disponga otra jurisdicción.' }),
+        t('sections.license.applicableLaw.p1'),
       ],
     },
   ],
@@ -659,12 +659,12 @@ const LegalPage = () => {
                       {t('tabs.cookies')}
                   </p>
                   <h3 className={isDark ? "text-xl font-bold text-white" : "text-xl font-bold text-slate-900"}>
-                        {t('cookieManage', {defaultValue: 'Manage Cookies'})}
+                        {t('cookieManage', {})}
                   </h3>
                 </div>
               </div>
               <p className={`${isDark ? "text-slate-100/85 text-sm" : "text-slate-700 text-sm"} mt-4 mb-4 flex-grow`}>
-                {t('cookieDesc', {defaultValue: 'Toggle analytics cookies on this page.'})}
+                {t('cookieDesc', {})}
               </p>
               <Button
                 onClick={() => {
@@ -678,7 +678,7 @@ const LegalPage = () => {
                 className="w-full bg-[#22A60D] text-white shadow-[0_15px_40px_rgba(34,166,13,0.35)] hover:shadow-[0_18px_46px_rgba(34,166,13,0.4)] hover:bg-[#1a7d09] normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <Sparkles className="mr-2 h-4 w-4" />
-                {t('openCookieSettings', {defaultValue: 'Open Cookie Settings'})}
+                {t('openCookieSettings', {})}
               </Button>
             </CardContent>
           </Card>
@@ -690,21 +690,21 @@ const LegalPage = () => {
                 <Mail className={isDark ? "h-5 w-5 text-[#22A60D]" : "h-5 w-5 text-[#22A60D]"} />
                 <div>
                   <p className={isDark ? "text-sm font-semibold uppercase tracking-[0.2em] text-[#22A60D]" : "text-sm font-semibold uppercase tracking-[0.2em] text-[#22A60D]"}>
-                    {t('supportKicker', {defaultValue: 'Need Help?'})}
+                    {t('supportKicker', {})}
                   </p>
                   <h3 className={isDark ? "text-xl font-bold text-white" : "text-xl font-bold text-slate-900"}>
-                    {t('supportTitle', {defaultValue: 'Contact Support'})}
+                    {t('supportTitle', {})}
                   </h3>
                 </div>
               </div>
               <p className={`${isDark ? "text-slate-100/85 text-sm" : "text-slate-700 text-sm"} mt-4 mb-4 flex-grow`}>
-                {t('supportDesc', {defaultValue: 'Have questions about our legal documents?'})}
+                {t('supportDesc', {})}
               </p>
               <Button
                 asChild
                 className="w-full bg-[#22A60D] text-white shadow-[0_15px_40px_rgba(34,166,13,0.35)] hover:shadow-[0_18px_46px_rgba(34,166,13,0.4)] hover:bg-[#1a7d09] normal-case not-italic font-semibold tracking-tight mt-auto"
               >
-                <a href="mailto:compliance@ordinaly.ai">{t('contactCta', {defaultValue: 'Contact Us'})}</a>
+                <a href="mailto:compliance@ordinaly.ai">{t('contactCta', {})}</a>
               </Button>
             </CardContent>
           </Card>

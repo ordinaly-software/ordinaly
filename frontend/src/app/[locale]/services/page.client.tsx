@@ -21,6 +21,7 @@ import {
   Mail,
 } from "lucide-react";
 import { Dropdown } from "@/components/ui/dropdown";
+import { SeoArticleSection } from "@/components/home/home-sections";
 
 // Dynamic imports for components that might not be immediately needed
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
@@ -28,6 +29,7 @@ const ServiceDetailsModal = dynamic(() => import("@/components/services/service-
 
 const ServicesPage = () => {
   const t = useTranslations("services");
+  const t_home = useTranslations("home");
   const { services, isLoading } = useServices();
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
@@ -45,6 +47,13 @@ const ServicesPage = () => {
 
     return () => clearTimeout(timer);
   }, [searchTerm]);
+
+  const handleWhatsAppChat = useCallback(() => {
+    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
+    const message = encodeURIComponent(t_home('defaultWhatsAppMessage'));
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  }, [t]);
 
   // Memoized filtered services
   // Filter and separate products/services
@@ -437,6 +446,9 @@ const ServicesPage = () => {
           setSelectedService(null);
         }}
       />
+
+      {/* SEO Article Section */}
+      <SeoArticleSection t={t_home} onWhatsApp={handleWhatsAppChat} />
 
       {/* Footer */}
       <Footer />

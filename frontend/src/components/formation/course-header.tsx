@@ -90,12 +90,12 @@ const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
           </span>
           {hasEnded && (
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-bold bg-gray-400 text-white">
-              {t('finished', { defaultValue: 'Course has finished' })}
+              {t('finished')}
             </span>
           )}
           {!hasEnded && inProgress && (
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-bold bg-[#FFB800] text-white">
-              {t('inProgress', { defaultValue: 'In Progress' })}
+              {t('inProgress')}
             </span>
           )}
           {isEnrolled && (

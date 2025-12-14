@@ -35,6 +35,7 @@ interface UseCoursesOptions {
   limit?: number;
   featured?: boolean;
   upcoming?: boolean;
+  enabled?: boolean;
 }
 
 interface UseCoursesReturn {
@@ -48,8 +49,10 @@ export const useCourses = (options: UseCoursesOptions = {}, isAdmin: boolean = f
   const [courses, setCourses] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const enabled = options.enabled ?? true;
 
   const fetchCourses = useCallback(async () => {
+    if (!enabled) return;
     try {
       setIsLoading(true);
       setError(null);
@@ -121,15 +124,16 @@ export const useCourses = (options: UseCoursesOptions = {}, isAdmin: boolean = f
     } finally {
       setIsLoading(false);
     }
-  }, [options.limit, options.upcoming, isAdmin]);
+  }, [options.limit, options.upcoming, enabled, isAdmin]);
 
   const refetch = useCallback(() => {
     fetchCourses();
   }, [fetchCourses]);
 
   useEffect(() => {
+    if (!enabled) return;
     fetchCourses();
-  }, [fetchCourses]);
+  }, [fetchCourses, enabled]);
 
   return {
     courses,
