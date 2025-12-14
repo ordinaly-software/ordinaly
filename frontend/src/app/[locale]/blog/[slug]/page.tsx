@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
   const slugs: string[] = await client.fetch(
-    '*[_type=="post" && (!defined(isPrivate) || isPrivate==false)].slug.current'
+    '*[_type=="post" && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())].slug.current'
   );
   return slugs.map(slug => ({ slug }));
 }

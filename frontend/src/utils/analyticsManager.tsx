@@ -6,7 +6,9 @@ import { getCookiePreferences } from '@/utils/cookieManager';
 
 function applyConsentUpdate() {
   const prefs = getCookiePreferences();
-  const gtag = (window as any).gtag as undefined | ((...args: any[]) => void);
+  type Gtag = (...args: unknown[]) => void;
+  const w = window as unknown as { gtag?: Gtag };
+  const gtag = w.gtag;
   if (!prefs || typeof gtag !== 'function') return;
 
   gtag('consent', 'update', {
@@ -14,7 +16,7 @@ function applyConsentUpdate() {
     ad_storage: prefs.marketing ? 'granted' : 'denied',
     functionality_storage: prefs.functional ? 'granted' : 'denied',
     security_storage: 'granted',
-  });
+  } as Record<string, unknown>);
 }
 
 export default function AnalyticsManager() {
@@ -26,24 +28,26 @@ export default function AnalyticsManager() {
     const handler = () => applyConsentUpdate();
     handler();
 
-    window.addEventListener('cookieConsentChange', handler as any);
-    window.addEventListener('storage', handler);
+    window.addEventListener('cookieConsentChange', handler as EventListener);
+    window.addEventListener('storage', handler as EventListener);
 
     return () => {
-      window.removeEventListener('cookieConsentChange', handler as any);
-      window.removeEventListener('storage', handler);
+      window.removeEventListener('cookieConsentChange', handler as EventListener);
+      window.removeEventListener('storage', handler as EventListener);
     };
   }, []);
 
   // Pageviews SPA (solo si analytics está granted)
   useEffect(() => {
     const prefs = getCookiePreferences();
-    const gtag = (window as any).gtag as undefined | ((...args: any[]) => void);
+    type Gtag = (...args: unknown[]) => void;
+    const w = window as unknown as { gtag?: Gtag };
+    const gtag = w.gtag;
     if (!GA_ID || typeof gtag !== 'function') return;
     if (!prefs?.analytics) return;
 
     const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
-    gtag('event', 'page_view', { page_path: url, page_location: url });
+    gtag('event', 'page_view', { page_path: url, page_location: url } as Record<string, unknown>);
   }, [pathname, searchParams, GA_ID]);
 
   return null;

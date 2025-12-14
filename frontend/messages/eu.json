@@ -1473,6 +1473,13 @@
       "facebook": "Facebook",
       "linkedin": "LinkedIn",
       "shareMessage": "Irakurri post hau {siteTag}-etik: \"{title}\" - {excerpt}"
+    },
+    "loading": "Argitarapen gehiago kargatzen...",
+    "pagination": {
+      "prev": "Aurrekoa",
+      "next": "Hurrengoa",
+      "page": "Orri ",
+      "of": " de "
     }
   },
   "contactPage": {

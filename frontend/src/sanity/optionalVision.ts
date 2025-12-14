@@ -4,11 +4,12 @@
 export function getVisionPlugin(apiVersion: string) {
   try {
     // Use require in a try/catch so missing or problematic packages won't crash the config.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    // @ts-ignore
-    const {visionTool} = require('@sanity/vision')
-    return visionTool({defaultApiVersion: apiVersion})
-  } catch (err) {
-    return undefined
+     
+    // @ts-expect-error: optional runtime require may not exist in all environments
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { visionTool } = require('@sanity/vision');
+    return visionTool({ defaultApiVersion: apiVersion });
+  } catch {
+    return undefined;
   }
 }

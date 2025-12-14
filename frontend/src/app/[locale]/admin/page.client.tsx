@@ -180,7 +180,7 @@ export default function AdminPage() {
     };
 
     checkAdminAccess();
-  }, [router]);
+  }, [router, t]);
 
   // No need for scroll/tab memory logic here, handled by AdminTabs
 

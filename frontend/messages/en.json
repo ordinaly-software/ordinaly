@@ -1473,6 +1473,13 @@
       "facebook": "Facebook",
       "linkedin": "LinkedIn",
       "shareMessage": "Read this post from {siteTag}: \"{title}\" - {excerpt}"
+    },
+    "loading": "Loading more posts...",
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "page": "Page ",
+      "of": " of "
     }
   },
   "contactPage": {

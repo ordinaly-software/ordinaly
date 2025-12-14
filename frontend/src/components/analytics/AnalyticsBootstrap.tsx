@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect } from 'react';
 import AnalyticsManager from '@/utils/analyticsManager';
 
 export default function AnalyticsBootstrap() {

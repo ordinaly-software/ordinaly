@@ -1,5 +1,13 @@
 import {groq} from 'next-sanity'
 
+const publicPostFilter =
+  `_type=="post" && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())`;
+
+const searchablePostFilter =
+  `${publicPostFilter} && (!defined($q) || $q == "" || pt::text(body) match $q) && (!defined($tag) || $tag == "" || $tag in tags[]->slug.current) && (!defined($cat) || $cat == "" || $cat in categories[]->slug.current)`;
+
+const orderedPosts = '| order(coalesce(publishedAt,_updatedAt) desc)';
+
 // Common projection
 export const postFields = groq`{
   _id,
@@ -27,16 +35,13 @@ export const postFields = groq`{
   isPrivate
 }`
 
-export const allPublicSlugs = groq`*[_type=="post" && (!defined(isPrivate) || isPrivate==false) && defined(slug.current)].slug.current`
+export const allPublicSlugs = groq`*[${publicPostFilter} && defined(slug.current)].slug.current`
 
-export const postBySlug = groq`*[_type=="post" && slug.current==$slug][0] ${postFields}`
+export const postBySlug = groq`*[_type=="post" && slug.current==$slug && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())][0] ${postFields}`
 
-export const listPosts = groq`*[_type=="post" && (!defined(isPrivate) || isPrivate==false)]
-| order(coalesce(publishedAt,_updatedAt) desc) [0...50] ${postFields}`
+export const listPosts = groq`*[${publicPostFilter}] ${orderedPosts} [0...50] ${postFields}`
 
-export const searchPosts = groq`*[_type=="post" &&
-  (!defined(isPrivate) || isPrivate==false) &&
-  (!defined($q) || pt::text(body) match $q) &&
-  (!defined($tag) || $tag in tags[]->slug.current) &&
-  (!defined($cat) || $cat in categories[]->slug.current)
-]| order(coalesce(publishedAt,_updatedAt) desc) [0...50] ${postFields}`
+export const paginatedPosts = groq`{
+  "items": *[${searchablePostFilter}] ${orderedPosts} [$offset...$end] ${postFields},
+  "total": count(*[${searchablePostFilter}])
+}`

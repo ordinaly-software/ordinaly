@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 import { motion, type Transition } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 const transition: Transition = {
   type: "spring",
@@ -139,9 +140,7 @@ export const ProductItem = ({
 }) => {
   return (
     <a href={href} className="flex space-x-3 w-full max-w-[420px]">
-      <img
-        src={src}
-        width={120}
+      <Image src={src} width={120}
         height={120}
         alt={title}
         className="shrink-0 rounded-lg shadow-md object-cover h-20 w-28"
@@ -158,7 +157,7 @@ export const ProductItem = ({
   );
 };
 
-export const HoveredLink = ({ children, ...rest }: any) => {
+export const HoveredLink = ({ children, ...rest }: React.ComponentPropsWithoutRef<typeof Link>) => {
   return (
     <Link
       {...rest}

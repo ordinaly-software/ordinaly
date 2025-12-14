@@ -234,7 +234,7 @@ export default function ContactPage() {
               <div className="relative bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
                 <div className="w-full">
                   <div className="relative w-full aspect-video overflow-hidden">
-                    <video
+                    {/* <video
                       ref={heroVideoRef}
                       className="absolute inset-0 h-full w-full object-cover"
                       playsInline
@@ -242,14 +242,22 @@ export default function ContactPage() {
                       loop
                       preload="none"
                       controls={false}
-                      poster="/static/backgrounds/services_background.webp"
+                      poster="/static/contact/contact_pic.webp"
                     >
                       {shouldLoadHeroVideo && (
                         <>
                           <source src="/static/office_video.mp4" type="video/mp4" />
                         </>
                       )}
-                    </video>
+                    </video> */}
+                    <Image
+                      src="/static/contact/contact_pic.webp"
+                      alt="Contact us at Ordinaly"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      priority={true}
+                    />
                   </div>
                 </div>
                 <div className="p-6 space-y-4">
@@ -374,7 +382,6 @@ export default function ContactPage() {
                 </button>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent pointer-events-none" />
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white space-y-1 pointer-events-none">
-                  <p className="text-sm uppercase tracking-[0.15em]">{t("map.title")}</p>
                   <p className="text-lg font-semibold leading-tight">
                     Plaza del Duque de la Victoria 1, 3º 9 <br />
                     41002 Sevilla, España

@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
-import Slider from "@/components/ui/slider";
+// Slider component not used; removed to fix lint
 import { 
   FileText, 
   Download, 
@@ -51,7 +51,7 @@ interface DocumentContent {
 
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false, loading: () => <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]"><div className="max-w-7xl mx-auto"><div className="grid md:grid-cols-4 gap-8"><div className="col-span-2"><div className="h-24 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div></div></div></div></footer> });
 
-const getTermsContent = (t: any): DocumentContent => ({
+const getTermsContent = (t: (key: string, opts?: Record<string, unknown>) => string): DocumentContent => ({
   title: t('sections.terms.title', { defaultValue: 'Términos de Servicio' }),
   sections: [
     {
@@ -135,7 +135,7 @@ const getTermsContent = (t: any): DocumentContent => ({
   ],
 });
 
-const getPrivacyContent = (t: any): DocumentContent => ({
+const getPrivacyContent = (t: (key: string, opts?: Record<string, unknown>) => string): DocumentContent => ({
   title: t('sections.privacy.title', { defaultValue: 'Política de Privacidad' }),
   sections: [
     {
@@ -248,7 +248,7 @@ const getPrivacyContent = (t: any): DocumentContent => ({
   ],
 });
 
-const getCookiesContent = (t: any): DocumentContent => ({
+const getCookiesContent = (t: (key: string, opts?: Record<string, unknown>) => string): DocumentContent => ({
   title: t('sections.cookies.title', { defaultValue: 'Política de Cookies' }),
   sections: [
     {
@@ -325,7 +325,7 @@ const getCookiesContent = (t: any): DocumentContent => ({
   ],
 });
 
-const getLicenseContent = (t: any): DocumentContent => ({
+const getLicenseContent = (t: (key: string, opts?: Record<string, unknown>) => string): DocumentContent => ({
   title: t('sections.license.title', { defaultValue: 'Información de Licencia' }),
   sections: [
     {
@@ -416,7 +416,7 @@ const LegalPage = () => {
   const [activeTab, setActiveTab] = useState<LegalTab>("terms");
   const [isDark, setIsDark] = useState(false);
   
-  const [analyticsEnabled, setAnalyticsEnabled] = useState<boolean>(() => {
+  const [, setAnalyticsEnabled] = useState<boolean>(() => {
     try {
       if (typeof window === 'undefined') return false;
       const raw = localStorage.getItem('cookie-preferences');
@@ -441,7 +441,7 @@ const LegalPage = () => {
   useEffect(() => {
     const onPrefs = (e: Event) => {
       try {
-        // @ts-ignore
+        // @ts-expect-error: event detail may be typed loosely
         const detail = e?.detail;
         if (detail && typeof detail === 'object') {
           setAnalyticsEnabled(!!detail.analytics);
@@ -671,7 +671,7 @@ const LegalPage = () => {
                   try {
                     localStorage.removeItem('cookie-consent');
                     window.location.reload();
-                  } catch (err) {
+                  } catch {
                     // ignore
                   }
                 }}

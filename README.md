@@ -271,6 +271,13 @@ coverage run --source='.' --omit='*/migrations/*,*/tests.py,api/*,config/*,manag
 coverage report -m
 ```
 
+Para el fronend, basta con probar el *linting* y la sintaxis de Typescript y JS con los siguientes comando:
+
+```
+npx eslint --ext .ts,.tsx src public --no-error-on-unmatched-pattern || true
+npm run build
+```
+
 > **Nota:** El proyecto no se considerará válido si la cobertura es inferior al 80%.
 
 ---

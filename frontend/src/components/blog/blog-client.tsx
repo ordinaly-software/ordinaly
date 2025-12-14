@@ -2,63 +2,163 @@
 
 import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import { BlogCard } from './blog-card';
 import type { BlogPost, Category } from './types';
 import { Search } from 'lucide-react';
 import Banner from '@/components/ui/banner';
 import { Input } from '@/components/ui/input';
 import { Dropdown } from '@/components/ui/dropdown';
-import { useMemo, useState, useEffect } from 'react';
+import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function BlogClient({ posts }: { posts: BlogPost[] }) {
+type Props = {
+  posts: BlogPost[];
+  total: number;
+  pageSize?: number;
+};
+
+const mapCategories = (items: BlogPost[]) => {
+  const categories: Record<string, string> = {};
+  items.forEach(p => {
+    if (Array.isArray(p.categories)) {
+      p.categories.forEach((cat: Category) => {
+        const key = cat?.slug || cat?.title;
+        const label = cat?.title || cat?.slug;
+        if (key && label) categories[key] = label;
+      });
+    }
+  });
+  return categories;
+};
+
+export default function BlogClient({ posts: initialPosts, total: initialTotal, pageSize = 6 }: Props) {
   const t = useTranslations('blog');
+  const locale = useLocale() || 'es';
+  const localePrefix = locale ? `/${locale}` : '';
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
+  const [debouncedSearch, setDebouncedSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
+  const [total, setTotal] = useState(initialTotal);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [categoryMap, setCategoryMap] = useState<Record<string, string>>(() => mapCategories(initialPosts));
 
-  // Sync selectedCategory with ?category=... in URL
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+
+  const mergeCategories = useCallback((items: BlogPost[]) => {
+    setCategoryMap(prev => ({ ...prev, ...mapCategories(items) }));
+  }, []);
+
+  // Keep local state in sync with server-provided defaults
+  useEffect(() => {
+    setPosts(initialPosts);
+    setTotal(initialTotal);
+    mergeCategories(initialPosts);
+  }, [initialPosts, initialTotal, mergeCategories]);
+
+  // Sync selectedCategory and page with URL params
   useEffect(() => {
     const urlCategory = searchParams.get('category');
-    if (urlCategory && urlCategory !== selectedCategory) {
-      setSelectedCategory(urlCategory);
-    } else if (!urlCategory && selectedCategory !== 'all') {
-      setSelectedCategory('all');
+    const urlPage = Number(searchParams.get('page') || '1');
+    const nextCategory = urlCategory ?? 'all';
+    const nextPage = Number.isFinite(urlPage) && urlPage > 0 ? Math.floor(urlPage) : 1;
+
+    setSelectedCategory(prev => (prev === nextCategory ? prev : nextCategory));
+    setCurrentPage(prev => (prev === nextPage ? prev : nextPage));
+  }, [searchParams]);
+
+  useEffect(() => {
+    const handle = setTimeout(() => {
+      setDebouncedSearch(searchTerm.trim());
+    }, 300);
+    return () => clearTimeout(handle);
+  }, [searchTerm]);
+
+  const updateRouteParams = useCallback((categoryValue: string, pageValue: number) => {
+    const params = new URLSearchParams();
+    if (categoryValue !== 'all') params.set('category', categoryValue);
+    if (pageValue > 1) params.set('page', String(pageValue));
+    const query = params.toString();
+    router.push(`${localePrefix}/blog${query ? `?${query}` : ''}`);
+  }, [router, localePrefix]);
+
+  useEffect(() => {
+    const baseState = debouncedSearch === '' && selectedCategory === 'all' && currentPage === 1;
+    if (baseState) {
+      setPosts(initialPosts);
+      setTotal(initialTotal);
+      setLoading(false);
+      setError(null);
+      return;
     }
-  }, [searchParams, selectedCategory]);
 
-  // Extract unique categories from posts (support array of categories)
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+
+    const params = new URLSearchParams();
+    params.set('page', String(currentPage));
+    params.set('pageSize', String(pageSize));
+    if (debouncedSearch) params.set('q', debouncedSearch);
+    if (selectedCategory !== 'all') params.set('category', selectedCategory);
+
+    fetch(`${localePrefix}/blog/search?${params.toString()}`, { cache: 'no-store' })
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch posts');
+        return res.json();
+      })
+      .then(data => {
+        if (cancelled) return;
+        setPosts(data.items ?? []);
+        setTotal(data.total ?? 0);
+        mergeCategories(data.items ?? []);
+      })
+      .catch(() => {
+        if (!cancelled) setError(t('errors.loadPosts', { default: 'No se pudieron cargar las publicaciones.' }));
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [debouncedSearch, selectedCategory, currentPage, pageSize, initialPosts, initialTotal, mergeCategories, t, localePrefix]);
+
   const categories = useMemo(() => {
-    const cats: string[] = [];
-    posts.forEach(p => {
-      if (Array.isArray(p.categories)) {
-        p.categories.forEach((cat: Category) => {
-          if (cat?.title) cats.push(cat.title);
-        });
-      }
-    });
-    return ['all', ...Array.from(new Set(cats))];
-  }, [posts]);
+    const options = Object.entries(categoryMap).map(([value, label]) => ({ value, label }));
+    options.sort((a, b) => a.label.localeCompare(b.label));
+    return [
+      { value: 'all', label: t('filters.all', { default: 'All Categories' }) },
+      ...options
+    ];
+  }, [categoryMap, t]);
 
-  // Filter posts by search term and category
-  const filteredPosts = useMemo(() => {
-    return posts.filter(p => {
-      const matchesSearch =
-        !searchTerm ||
-        (p.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.seoDescription?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()));
-      let postCategories: string[] = [];
-      if (Array.isArray(p.categories)) {
-        postCategories = p.categories.map((cat: Category) => cat?.title).filter(Boolean);
-      }
-      const matchesCategory =
-        selectedCategory === 'all' || postCategories.includes(selectedCategory);
-      return matchesSearch && matchesCategory;
-    });
-  }, [posts, searchTerm, selectedCategory]);
+  const handleCategoryChange = (value: string) => {
+    setSelectedCategory(value);
+    setCurrentPage(1);
+    updateRouteParams(value, 1);
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    if (currentPage !== 1) {
+      setCurrentPage(1);
+      updateRouteParams(selectedCategory, 1);
+    }
+  };
+
+  const handlePageChange = (nextPage: number) => {
+    if (nextPage < 1 || nextPage > totalPages) return;
+    setCurrentPage(nextPage);
+    updateRouteParams(selectedCategory, nextPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
@@ -68,7 +168,7 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
         subtitle={t('subtitle', { default: 'Discover our latest news, articles, and updates.' })}
         backgroundImage={'/static/backgrounds/blog_background.webp'}
       >
-        <div className="max-w-3xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl mt-6">
+        <div className="max-w-2xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl mt-6">
           <div className="flex flex-col md:flex-row gap-4 items-center">
             {/* Search Bar */}
             <div className="relative flex-1 w-full">
@@ -76,22 +176,15 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
               <Input
                 placeholder={t('searchPlaceholder', { default: 'Search blog posts...' })}
                 value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
+                onChange={e => handleSearchChange(e.target.value)}
                 className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
               />
             </div>
             {/* Category Dropdown */}
             <Dropdown
-              options={categories.map(cat => ({ value: cat, label: cat === 'all' ? t('filters.all', { default: 'All Categories' }) : cat }))}
+              options={categories}
               value={selectedCategory}
-              onChange={value => {
-                setSelectedCategory(value);
-                if (value === 'all') {
-                  router.push('/blog');
-                } else {
-                  router.push(`/blog?category=${encodeURIComponent(value)}`);
-                }
-              }}
+              onChange={handleCategoryChange}
               minWidth="200px"
               placeholder={t('filters.category', { default: 'Category' })}
             />
@@ -102,7 +195,50 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
       {/* Blog Posts Grid */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          {filteredPosts.length === 0 ? (
+          {error && (
+            <div className="text-center mb-8 text-red-600 dark:text-red-400">
+              {error}
+            </div>
+          )}
+
+          {totalPages > 1 && (
+            <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
+              <button
+                type="button"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1 || loading}
+                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+              >
+                {t('pagination.prev', { default: 'Previous' })}
+              </button>
+
+              {loading ? (
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                  {t('loading', { default: 'Loading posts...' })}
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                  <span>{t('pagination.page', { default: 'Page' })}</span>
+                  <strong className="text-gray-900 dark:text-white">{currentPage}</strong>
+                  <span>{t('pagination.of', { default: 'of' })}</span>
+                  <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages || loading}
+                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+              >
+                {t('pagination.next', { default: 'Next' })}
+              </button>
+            </div>
+          )}
+
+          <br />
+
+          {!loading && posts.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
                 <Search className="w-12 h-12 text-gray-400" />
@@ -116,17 +252,44 @@ export default function BlogClient({ posts }: { posts: BlogPost[] }) {
             </div>
           ) : (
             <ul className="space-y-12">
-              {filteredPosts.map((p: BlogPost) => (
+              {posts.map((p: BlogPost) => (
                 <li key={p.slug}>
                   <BlogCard
                     post={p}
-                    onCategoryClick={(cat: string) => {
-                      router.push(`/blog?category=${encodeURIComponent(cat)}`);
-                    }}
+                    onCategoryClick={(cat: string) => handleCategoryChange(cat)}
                   />
                 </li>
               ))}
             </ul>
+          )}
+
+          {totalPages > 1 && (
+            <div className="mt-12 flex flex-col sm:flex-row items-center justify-between">
+              <button
+                type="button"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1 || loading}
+                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+              >
+                {t('pagination.prev')}
+              </button>
+
+              <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                <span>{t('pagination.page')}</span>
+                <strong className="text-gray-900 dark:text-white">{currentPage}</strong>
+                <span>{t('pagination.of')}</span>
+                <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages || loading}
+                className="px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#22A60D] hover:text-[#22A60D] transition"
+              >
+                {t('pagination.next')}
+              </button>
+            </div>
           )}
         </div>
       </section>
