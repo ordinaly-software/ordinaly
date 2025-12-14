@@ -26,28 +26,63 @@
       "loading": "Loading..."
     },
     "hero": {
-      "title": "AUTOMATE",
-      "subtitle": "YOUR BUSINESS WITH AI",
-      "description": "We transform businesses with smart automation. From chatbots to advanced workflows, we help modernize your company and make it more efficient.",
-      "discoverButton": "Discover How",
-      "demoButton": "Watch Demo"
+      "title": "Business Automation & AIin Seville",
+      "subtitle": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
+      "description1": "Especialistas en automatización empresarial con inteligencia artificial para PYMEs en Sevilla. Implementamos agentes de IA para negocios, optimizamos procesos y creamos soluciones personalizadas para inmobiliarias, administradores de fincas, marketing y retail.",
+      "trust1": "+5 Empresas Transformadas",
+      "trust2": "Based in Seville",
+      "trust3": "Certificados y Profesionales",
+      "ctaServices": "See Our AI Services",
+      "ctaDemo": "Request a Free Demo",
+      "imageAlt": "Automatización empresarial con IA y agentes inteligentes para negocios en Sevilla"
     },
-    "partners": {
-      "title": "Transformed by Ordinaly"
-    },
-    "contact": {
-      "emailSubject": "Inquiry about service: {service}",
-      "message": "Hello,\n\nI'm interested in the service \"{service}\".\n\nCould you please provide me with more information?\n\nThank you."
+    "benefits": {
+      "title": "¿Por qué Elegir Ordinaly para la Automatización de tu Empresa en Sevilla?",
+      "subtitle": "Somos expertos locales en implementación de agentes de IA y optimización de procesos empresariales",
+      "items": {
+        "0": {
+          "title": "Ahorro de Tiempo Real",
+          "description": "Automatiza tareas repetitivas y ahorra hasta 20 horas semanales con nuestros agentes de IA"
+        },
+        "1": {
+          "title": "Soluciones a Medida",
+          "description": "Diseñamos workflows personalizados adaptados a tu sector: inmobiliaria, fincas, marketing"
+        },
+        "2": {
+          "title": "Formación Incluida",
+          "description": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo"
+        },
+        "3": {
+          "title": "Soporte Local",
+          "description": "Equipo en Sevilla disponible para reuniones presenciales y soporte continuo"
+        }
+      }
     },
     "services": {
-      "title": "Products and Services",
-      "description": "Discover our personalized services and exclusive, closed products. Choose what fits your business: from tailored consulting to ready-to-use solutions.",
-      "retryButton": "Retry",
-      "contactForQuote": "Contact our agents for a detailed quote",
-      "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
+      "title": "AI and Automation Services for Companies in Seville",
+      "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs.",
+      "description": "Integrations with Odoo, Slack, WhatsApp Business and all the tools your company already uses",
+      "cta": "Schedule Your Free Analysis",
+      "extra": {
+        "0": {
+          "title": "Fast Implementation",
+          "description": "First visible results in 2-4 weeks. We work by phases for immediate value."
+        },
+        "1": {
+          "title": "100% Customizable",
+          "description": "We don't use generic templates. Each solution is designed specifically for your business."
+        },
+        "2": {
+          "title": "Continuous Support",
+          "description": "Technical team in Seville available. Updates and improvements included in the service."
+        }
+      },
+      "contactForQuote": "Contact our agents for a quote",
+      "vacationMessage": "We're on vacation! Our services will return soon after the holidays. Thank you for your patience",
       "vacationTitle": "On Vacation",
+      "retryButton": "Retry",
       "featured": "Featured",
-      "duration": "Available in",
+      "duration": "Ready in ",
       "durationDay": "1 day",
       "durationDays": "{count} days",
       "price": "Price",
@@ -55,11 +90,282 @@
       "createdBy": "Created by",
       "requisites": "Requirements",
       "contactNow": "Contact Now",
-      "contactEmail": "Contact via Email",
+      "contactEmail": "Contact by Email",
       "viewDetails": "View Details",
       "viewAllServices": "View All Services",
       "errorTitle": "Error Loading Services",
-      "errorMessage": "Failed to load services"
+      "errorMessage": "Services could not be loaded"
+    },
+    "process": {
+      "title": "¿Cómo Funciona Nuestro Proceso de Automatización?",
+      "subtitle": "Metodología probada para implementar agentes de IA sin interrumpir tu operativa diaria",
+      "meta": "Tiempo promedio: 2-8 semanas según complejidad • Sin costes ocultos • Garantía de satisfacción",
+      "steps": {
+        "0": {
+          "title": "Initial Analysis",
+          "description": "Free meeting (in person in Seville or via video call) where we review your current processes.",
+          "bullets": {
+            "0": "Identification of automatable processes",
+            "1": "Estimated time savings",
+            "2": "Technical proposal and budget"
+          }
+        },
+        "1": {
+          "title": "Design and Development",
+          "description": "We build the tailored solution with partial deliveries so you can validate progress.",
+          "bullets": {
+            "0": "Agile development by sprints",
+            "1": "Continuous feedback",
+            "2": "Real-time adjustments"
+          }
+        },
+        "2": {
+          "title": "Implementation",
+          "description": "We deploy the solution without interrupting your day-to-day work. Full testing included.",
+          "bullets": {
+            "0": "Gradual and controlled rollout",
+            "1": "Exhaustive quality testing",
+            "2": "Secure data migration"
+          }
+        },
+        "3": {
+          "title": "Training and Support",
+          "description": "We train your team and provide ongoing support. You keep full control.",
+          "bullets": {
+            "0": "Hands-on training sessions",
+            "1": "Complete documentation",
+            "2": "Continuous technical support"
+          }
+        }
+      }
+    },
+    "useCases": {
+      "title": "Casos de Uso: ¿Cómo Puede Ayudar la IA a tu Negocio?",
+      "subtitle": "Soluciones probadas para sectores específicos en Sevilla y Andalucía",
+      "items": {
+        "0": {
+          "title": "Property Managers",
+          "bullets": [
+            "CRM system for property tracking"
+          ]
+        },
+        "1": {
+          "title": "Real Estate Agencies",
+          "bullets": [
+            "AI agent for customer inquiries",
+            "Automation of listings on property portals",
+            "Visit and follow-up workflow",
+            "Automatic generation of descriptions"
+          ]
+        },
+        "2": {
+          "title": "Marketing Agencies",
+          "bullets": [
+            "Social media automation",
+            "Content generation with AI",
+            "Automated campaign analytics",
+            "Chatbots for lead capture"
+          ]
+        },
+        "3": {
+          "title": "Retail Commerce",
+          "bullets": [
+            "Intelligent inventory management",
+            "Automated customer support",
+            "Demand forecasting with AI",
+            "Integration with eCommerce"
+          ]
+        },
+        "4": {
+          "title": "Consulting and Services",
+          "bullets": [
+            "Custom CRM with Odoo",
+            "Proposal automation",
+            "Project management with AI",
+            "Billing workflows"
+          ]
+        },
+        "5": {
+          "title": "Construction and Engineering",
+          "bullets": [
+            "Automated site control",
+            "Vendor and budget management",
+            "Intelligent documentation with AI",
+            "Automated planning and schedules"
+          ]
+        }
+      }
+    },
+    "testimonials": {
+      "title": "Lo Que Dicen Nuestros Clientes en Sevilla",
+      "subtitle": "Casos reales de empresas que han transformado su operativa con nuestros agentes de IA",
+      "items": {
+        "0": {
+          "name": "Ana García",
+          "role": "Directora, Inmobiliaria en Sevilla",
+          "quote": "El chatbot de WhatsApp nos ha cambiado la vida. Ahorramos 15 horas semanales en consultas repetitivas y nuestros clientes están encantados con la atención 24/7. La inversión se recuperó en 4 meses."
+        },
+        "1": {
+          "name": "José Martínez",
+          "role": "Gerente, Administrador de Fincas",
+          "quote": "La automatización de incidencias ha revolucionado nuestra gestión. Los vecinos reportan problemas por WhatsApp y el sistema asigna proveedores automáticamente. Profesionales y muy cercanos."
+        },
+        "2": {
+          "name": "Laura Rodríguez",
+          "role": "CEO, Agencia de Marketing",
+          "quote": "Los workflows de contenido con IA nos permiten gestionar 3x más clientes con el mismo equipo. El curso de formación fue fundamental para aprovechar todo el potencial. Totalmente recomendable."
+        }
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes sobre Automatización Empresarial con IA",
+      "subtitle": "Resolvemos tus dudas sobre agentes de IA y optimización de procesos",
+      "items": {
+        "0": {
+          "q": "¿Qué es un agente de IA para negocios y cómo puede ayudar a mi empresa?",
+          "a": "Un agente de IA es un sistema inteligente que puede realizar tareas específicas de forma autónoma, como responder consultas de clientes, procesar documentos, gestionar citas o automatizar flujos de trabajo.",
+          "extra": "Para tu empresa en Sevilla, esto significa ahorro de tiempo, reducción de errores humanos y disponibilidad 24/7. Por ejemplo, un administrador de fincas puede tener un agente que gestione incidencias de comunidades automáticamente por WhatsApp."
+        },
+        "1": {
+          "q": "¿Cuánto cuesta implementar automatización con IA en mi empresa?",
+          "a": "El coste varía según la complejidad del proyecto. Los proyectos simples como chatbots de WhatsApp o automatizaciones básicas pueden arrancar desde presupuestos accesibles para PYMEs.",
+          "extra": "Ofrecemos consultas gratuitas donde analizamos tu caso específico y te damos un presupuesto personalizado. La mayoría de nuestros clientes recuperan la inversión en menos de 6 meses gracias al ahorro de tiempo y recursos."
+        },
+        "2": {
+          "q": "¿Necesito conocimientos técnicos para usar sistemas de automatización?",
+          "a": "No, en absoluto. Diseñamos todas nuestras soluciones para que sean intuitivas y fáciles de usar. Además, incluimos formación práctica para tu equipo.",
+          "extra": "También ofrecemos cursos de IA en Sevilla donde aprenderás a usar herramientas como ChatGPT, automatizaciones y más, sin necesidad de conocimientos previos de programación."
+        },
+        "3": {
+          "q": "¿Qué diferencia a Ordinaly de otras empresas de automatización?",
+          "a": "Somos un equipo local en Sevilla que entiende las necesidades específicas de las empresas andaluzas. No somos una consultora internacional que aplica soluciones genéricas.",
+          "extra": "Nos especializamos en PYMEs y sectores específicos (inmobiliarias, administradores de fincas, marketing, retail) y combinamos automatización con formación práctica para que tu equipo sea autónomo."
+        },
+        "4": {
+          "q": "¿Cuánto tiempo tarda en implementarse un proyecto de automatización?",
+          "a": "Los proyectos simples como chatbots o automatizaciones básicas pueden estar funcionando en 2-4 semanas.",
+          "extra": "Proyectos más complejos como implementación de CRM/ERP con Odoo o workflows avanzados pueden tomar entre 1-3 meses, dependiendo del alcance. Siempre trabajamos por fases para que veas resultados rápidos."
+        },
+        "5": {
+          "q": "¿Ofrecen soporte después de la implementación?",
+          "a": "Sí, por supuesto. Incluimos soporte técnico y mantenimiento. Al estar basados en Sevilla, podemos hacer reuniones presenciales cuando sea necesario.",
+          "extra": "Además, nuestros sistemas son escalables: a medida que tu negocio crece, podemos ampliar y mejorar las automatizaciones sin empezar desde cero."
+        }
+      }
+    },
+    "local": {
+      "title": "Expertos en Automatización Empresarial en Sevilla y Toda Andalucía",
+      "description1": "Somos un equipo de ingenieros de software especializados en IA con sede en el corazón de Sevilla. Conocemos el tejido empresarial andaluz y entendemos las necesidades específicas de las PYMEs locales.",
+      "description2": "Ya sea que estés en Sevilla capital, Andalucía, o cualquier punto de España ofrecemos tanto consultoría presencial como implementación remota con los más altos estándares de calidad.",
+      "points": {
+        "0": {
+          "title": "Oficina en Sevilla Centro",
+          "description": "Plaza del Duque 1, 41002 Sevilla • Reuniones presenciales disponibles"
+        },
+        "1": {
+          "title": "Contacto Directo",
+          "description": "+34 626 27 08 06 • info@ordinaly.ai • Respuesta en 24h"
+        },
+        "2": {
+          "title": "Cobertura Regional",
+          "description": "Servicios en toda Andalucía • Formación presencial en Sevilla"
+        }
+      },
+      "cta": "Contacta con Nosotros"
+    },
+    "partnersSection": {
+      "title": "Empresas que Confían en Ordinaly",
+      "subtitle": "We collaborate with leading companies in Seville and Andalusia to transform their processes with AI",
+      "visit": "Visitar web del partner"
+    },
+    "cta": {
+      "title": "¿Listo para Automatizar tu Empresa con Agentes de IA?",
+      "subtitle": "Agenda una consulta gratuita y descubre cómo la inteligencia artificial puede transformar tu negocio en Sevilla",
+      "description": "Sin compromiso, sin letra pequeña. Analizamos tu caso específico y te mostramos el potencial real de automatización para tu empresa.",
+      "meta": "Respuesta garantizada en menos de 24 horas laborables • +34 626 27 08 06 • info@ordinaly.ai",
+      "buttons": {
+        "whatsapp": "Consulta Gratis por WhatsApp",
+        "services": "Ver Todos los Servicios"
+      },
+      "items": {
+        "0": {
+          "title": "Análisis Personalizado",
+          "description": "Estudiamos tu negocio y te mostramos oportunidades de automatización concretas"
+        },
+        "1": {
+          "title": "Presupuesto Transparente",
+          "description": "Sin costes ocultos. Sabrás exactamente qué vas a recibir y cuánto costará"
+        },
+        "2": {
+          "title": "Resultados Rápidos",
+          "description": "Primeras automatizaciones funcionando en 2-4 semanas. Valor desde el día 1"
+        }
+      }
+    },
+    "tech": {
+      "title": "Tecnologías y Herramientas que Dominamos",
+      "subtitle": "Trabajamos con las plataformas líderes en IA y automatización empresarial",
+      "description": "Y muchas más. Si tu empresa ya utiliza herramientas específicas, las integramos en tu flujo de automatización. No necesitas cambiar tus sistemas actuales.",
+      "items": {
+        "0": "ChatGPT",
+        "1": "Odoo ERP",
+        "2": "WhatsApp Business",
+        "3": "Slack",
+        "4": "Make/Zapier",
+        "5": "Google Cloud",
+        "6": "OpenAI API",
+        "7": "Python",
+        "8": "Node.js",
+        "9": "React",
+        "10": "PostgreSQL",
+        "11": "MongoDB"
+      }
+    },
+    "seoArticle": {
+      "title": "Business Automation with AI in Seville: The Complete Guide",
+      "intro": "Business automation with artificial intelligence has gone from a futuristic option to a competitive necessity for SMEs in Seville and across Andalusia. At Ordinaly, we help local companies implement AI agents for business that radically transform their daily operations.",
+      "section1": {
+        "title": "What are AI Agents and how do they benefit your business in Seville?",
+        "body": "AI agents are intelligent systems designed to perform specific tasks autonomously. Unlike simple chatbots, these agents can make decisions, learn from previous interactions, and execute complex workflows without human intervention. For a real estate company in Seville, this means managing customer inquiries 24/7, scheduling visits automatically, and generating property descriptions in seconds."
+      },
+      "section2": {
+        "title": "Industries that benefit most from AI automation in Andalusia",
+        "body": "Our experience working with Andalusian businesses has shown that certain sectors gain immediate benefits:",
+        "list": {
+          "0": "Property managers: Incident automation, community communications, and vendor management. A manager in Seville can save up to 20 hours per week with our systems.",
+          "1": "Real estate agencies: Conversational agents that qualify leads, schedule visits, and automatically send property information. Ideal for Seville agencies handling dozens of listings at once.",
+          "2": "Marketing agencies: Automation of social media posts, AI-powered content generation, and campaign analytics. Seville agencies working with us manage 3x more clients with the same team.",
+          "3": "Retail commerce: Intelligent inventory management, demand forecasting, and automated customer support via WhatsApp Business."
+        }
+      },
+      "section3": {
+        "title": "AI training for companies: The essential complement",
+        "body": "We don't just implement technology: we train your team to be self-sufficient. Our artificial intelligence courses in Seville are 100% practical and focused on real use cases. From introductory ChatGPT to advanced automations with Make and Zapier, we tailor training to your sector's specific needs."
+      },
+      "section4": {
+        "title": "Why choose Ordinaly to automate your business in Seville?",
+        "body": "We're software engineers specialized in AI with a physical headquarters in Seville. This sets us apart from international consultancies that apply generic solutions:",
+        "list": {
+          "0": "Knowledge of the local market: We understand the nuances of Andalusian SMEs",
+          "1": "In-person availability: Face-to-face meetings at our downtown Seville office",
+          "2": "100% tailored solutions: We don't use templates. Every project is designed specifically for you",
+          "3": "Training included: Your team learns to manage and improve the systems we implement",
+          "4": "Ongoing support: We don't disappear after implementation"
+        }
+      },
+      "cta": {
+        "title": "Ready to make the leap to business automation?",
+        "body": "Book a free consultation and discover how AI agents can transform your business in Seville. No commitment—we analyze your case and show you concrete automation opportunities.",
+        "button": "Contact via WhatsApp"
+      }
+    },
+    "partners": {
+      "title": "Transformed by Ordinaly",
+      "visit": "Visit partner's website"
+    },
+    "contact": {
+      "emailSubject": "Inquiry about service: {service}",
+      "message": "Hello,\n\nI'm interested in the service \"{service}\".\n\nCould you please provide me with more information?\n\nThank you."
     },
     "courses": {
       "noSpecificDate": "No specific date",
@@ -94,63 +400,16 @@
         "generalDescription": "Get notified about new course announcements and early registration opportunities.",
         "close": "Close",
         "notify": "Notify Me"
-      }
+      },
+      "previous": "Previous",
+      "next": "Next"
     },
     "about": {
       "title": "LEADING DIGITAL TRANSFORMATION IN ANDALUSIA",
       "description1": "At Ordinaly, we believe Andalusian companies have the potential to lead technological innovation in Spain and Europe. Our mission is to democratize access to artificial intelligence and automation.",
-      "description2": "We work side by side with local businesses to implement solutions that not only improve efficiency, but also position them as leaders in their industries."
-    },
-    "technologies": {
-      "title": "TECHNOLOGIES POWERING OUR SERVICES",
-      "description": "We use the latest AI and automation technologies",
-      "odoo": {
-        "title": "Odoo",
-        "description": "ERP and business automation"
-      },
-      "whatsapp": {
-        "title": "WhatsApp Business",
-        "description": "Sales and support automation"
-      },
-      "chatgpt": {
-        "title": "OpenAI",
-        "description": "Advanced conversational AI"
-      },
-      "gemini": {
-        "title": "Gemini API",
-        "description": "Google's generative AI"
-      },
-      "looker": {
-        "title": "Looker",
-        "description": "Data visualization and BI"
-      },
-      "meta": {
-        "title": "Meta Developers API",
-        "description": "Meta services that help us with cahtbot and WhatsApp integrations"
-      }
-    },
-    "process": {
-      "title": "OUR PROCESS",
-      "description": "A structured approach to transform your business step by step",
-      "step1": {
-        "title": "Analysis",
-        "description": "We evaluate your current processes and identify automation opportunities"
-      },
-      "step2": {
-        "title": "Implementation",
-        "description": "We develop and integrate custom solutions for your business"
-      },
-      "step3": {
-        "title": "Optimization",
-        "description": "We continuously monitor and improve the performance of your systems"
-      }
-    },
-    "cta": {
-      "title1": "Ready to ",
-      "title2": "accelerate",
-      "title3": " your business?",
-      "description": "Try our WhatsApp chatbot and ask it about our services and everything we can help you with!",
-      "button": "Chat Now!"
+      "description2": "We work side by side with local businesses to implement solutions that not only improve efficiency, but also position them as leaders in their industries.",
+      "cta": "Discover our services",
+      "imageAlt": "Ordinaly team working on AI solutions for Andalusian businesses"
     },
     "demoModal": {
       "title": "Ordinaly Demo",
@@ -1473,6 +1732,20 @@
       "facebook": "Facebook",
       "linkedin": "LinkedIn",
       "shareMessage": "Read this post from {siteTag}: \"{title}\" - {excerpt}"
+    },
+    "loading": "Loading more posts...",
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "page": "Page ",
+      "of": " of ",
+      "first": "First",
+      "last": "Last"
+    },
+    "sort": {
+      "label": "Sort by:",
+      "newest": "Newest",
+      "oldest": "Oldest"
     }
   },
   "contactPage": {
@@ -1511,9 +1784,6 @@
       "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai."
     },
     "team": {
-      "title": "Our team",
-      "subtitle": "Talk directly with the people who will build and launch your solution.",
-      "cta": "Get to know us!",
       "1": {
         "name": "Antonio Macías Ferrera",
         "role": "CTO Software Engineer & Co-founder",
@@ -1528,7 +1798,10 @@
         "name": "Emilio Cid Pérez",
         "role": "Expert in Marketing, Advertising and Digital Transformation & Co-founder",
         "quote": "Specialist in digital marketing strategies and business transformation."
-      }
+      },
+      "title": "Our team",
+      "subtitle": "Talk directly with the people who will build and launch your solution.",
+      "cta": "Get to know us!"
     },
     "map": {
       "title": "Visit us in Seville",
@@ -1577,9 +1850,6 @@
       }
     },
     "story": {
-      "eyebrow": "Our journey",
-      "title": "From experiments to enterprise rollouts",
-      "lead": "We started as builders obsessed with faster delivery. Today we partner with teams to scale AI and automation with governance, data, and trust.",
       "2021": {
         "title": "Foundations",
         "body": "First internal frameworks for chat automation and Odoo connectors."
@@ -1595,10 +1865,12 @@
       "2024": {
         "title": "Trust layer",
         "body": "Built governance packs and analytics to measure ROI for every flow."
-      }
+      },
+      "eyebrow": "Our journey",
+      "title": "From experiments to enterprise rollouts",
+      "lead": "We started as builders obsessed with faster delivery. Today we partner with teams to scale AI and automation with governance, data, and trust."
     },
     "testimonials": {
-      "title": "Voices from the team",
       "1": {
         "name": "Antonio Macías Ferrera",
         "role": "CTO Software Engineer & Co-founder",
@@ -1613,7 +1885,8 @@
         "name": "Emilio Cid Pérez",
         "role": "Expert in Marketing, Advertising and Digital Transformation & Co-founder",
         "quote": "Specialist in digital marketing strategies and business transformation."
-      }
+      },
+      "title": "Voices from the team"
     },
     "cta": {
       "eyebrow": "Work with us",

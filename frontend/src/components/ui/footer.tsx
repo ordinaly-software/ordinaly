@@ -178,7 +178,7 @@ const Footer = () => {
               className="text-gray-700 dark:text-gray-300 h-8 w-8 transition-all duration-200"
               aria-label={isDark ? t("navigation.lightMode") : t("navigation.darkMode")}
             >
-              {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {isDark ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
             </Button>
             <div className="flex-shrink-0">
               <LocaleSwitcher aria-label={t("navigation.localeSwitcher")} />

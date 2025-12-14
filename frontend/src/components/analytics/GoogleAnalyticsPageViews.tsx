@@ -15,10 +15,10 @@ export default function GoogleAnalyticsPageViews() {
     const url =
       pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
 
-    const w = window as unknown as { gtag?: (...args: any[]) => void };
+    const w = window as unknown as { gtag?: (...args: unknown[]) => void };
 
     if (typeof w.gtag === 'function') {
-      w.gtag('config', GA_ID, { page_path: url });
+      w.gtag('config', GA_ID, { page_path: url } as Record<string, unknown>);
     }
   }, [pathname, searchParams]);
 

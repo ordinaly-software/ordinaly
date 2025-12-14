@@ -15,7 +15,7 @@ export function getCookiePreferences(): CookiePreferences | null {
   if (typeof window === 'undefined') return null;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
+    return raw ? (JSON.parse(raw) as CookiePreferences) : null;
   } catch {
     return null;
   }
@@ -67,7 +67,9 @@ export function applyConsentMode() {
   const prefs = getCookiePreferences();
   if (!prefs) return;
 
-  const gtag = (window as any).gtag;
+  type Gtag = (...args: unknown[]) => void;
+  const w = window as unknown as { gtag?: Gtag };
+  const gtag = w.gtag;
   if (typeof gtag !== 'function') return;
 
   gtag('consent', 'update', {
@@ -75,5 +77,5 @@ export function applyConsentMode() {
     ad_storage: prefs.marketing ? 'granted' : 'denied',
     functionality_storage: prefs.functional ? 'granted' : 'denied',
     security_storage: 'granted',
-  });
+  } as Record<string, unknown>);
 }

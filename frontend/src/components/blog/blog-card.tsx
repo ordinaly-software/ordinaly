@@ -61,7 +61,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
                 <button
                   key={cat.slug}
                   type="button"
-                  onClick={() => onCategoryClick(cat.title)}
+                  onClick={() => onCategoryClick(cat.slug || cat.title)}
                   className="
                     px-2 py-0.5
                     md:px-3 md:py-1

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
-import { Sparkles, Rocket, Heart, Target, ArrowRight, Users, Sparkle } from "lucide-react";
+import { Rocket, Heart, Target, ArrowRight, Users, Sparkle } from "lucide-react";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), {
   ssr: false,

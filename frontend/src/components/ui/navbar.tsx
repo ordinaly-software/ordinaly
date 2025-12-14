@@ -291,8 +291,8 @@ const Navbar = () => {
   const desktopLinks = useMemo(
     () => [
       { href: "/blog", label: t("navigation.blog") },
-      { href: "/contact", label: t("navigation.contact", { defaultValue: "Contacto" }) },
-      { href: "/us", label: t("navigation.us", { defaultValue: "Nosotros" }) },
+      { href: "/contact", label: t("navigation.contact") },
+      { href: "/us", label: t("navigation.us") },
     ],
     [t]
   );
@@ -396,7 +396,7 @@ const Navbar = () => {
                 >
                   <div className="grid grid-cols-1 gap-3 min-w-[360px]">
                     {menuCoursesLoading && (
-                      <div className="text-sm text-gray-500 dark:text-gray-400 px-2 py-1">{t("navigation.loading", { defaultValue: "Loading..." })}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400 px-2 py-1">{t("navigation.loading")}</div>
                     )}
                     {!menuCoursesLoading && menuCourses.length === 0 ? (
                       <HoveredLink href="/formation">{t("navigation.formation")}</HoveredLink>
