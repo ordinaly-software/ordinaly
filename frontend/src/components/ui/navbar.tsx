@@ -2,11 +2,9 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Moon, Sun, Menu, X, User, LogOut, LogIn, Settings } from "lucide-react";
+import { Menu, X, User, LogOut, LogIn, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
-import { useTheme } from "@/contexts/theme-context";
-import LocaleSwitcher from "@/components/ui/locale-switcher";
 import LogoutModal from "@/components/ui/logout-modal";
 import { DropdownOption } from "@/components/ui/dropdown";
 import Image from 'next/image';
@@ -142,7 +140,6 @@ const Navbar = () => {
   const t = useTranslations("home");
   const router = useRouter();
   const pathname = usePathname();
-  const { isDark, setIsDark } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -280,20 +277,21 @@ const Navbar = () => {
     setIsMenuOpen(false);
   }, [router]);
 
-  const toggleTheme = useCallback(() => {
-    setIsDark(!isDark);
-  }, [isDark, setIsDark]);
-
   const toggleMenu = useCallback(() => {
     setIsMenuOpen(!isMenuOpen);
   }, [isMenuOpen]);
 
   // Memoized nav links
-  const navLinks = useMemo(() => [
-    { href: "/services", label: t("navigation.services") },
-    { href: "/formation", label: t("navigation.formation") },
-    { href: "/blog", label: t("navigation.blog") },
-  ], [t]);
+  const navLinks = useMemo(
+    () => [
+      { href: "/services", label: t("navigation.services") },
+      { href: "/formation", label: t("navigation.formation") },
+      { href: "/blog", label: t("navigation.blog") },
+      { href: "/contact", label: t("navigation.contact", { defaultValue: "Contacto" }) },
+      { href: "/us", label: t("navigation.us", { defaultValue: "Nosotros" }) },
+    ],
+    [t]
+  );
 
   // Helper function to check if link is active
   const isLinkActive = useCallback((href: string) => {
@@ -372,17 +370,7 @@ const Navbar = () => {
             </div>
 
             {/* Desktop Controls */}
-            <div className="hidden lg:flex items-center space-x-2 xl:space-x-3 flex-shrink-0">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="text-gray-700 dark:text-gray-300 h-9 w-9 sm:h-10 sm:w-10 transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
-                aria-label={isDark ? t("navigation.lightMode") : t("navigation.darkMode")}
-              >
-                {isDark ? <Sun className="h-4 w-4 sm:h-5 sm:w-5" /> : <Moon className="h-4 w-4 sm:h-5 sm:w-5" />}
-              </Button>
-              
+            <div className="hidden lg:flex items-center flex-shrink-0">
               {/* Authentication Controls - Desktop */}
               {isAuthenticated ? (
                 <UserMenu
@@ -411,24 +399,10 @@ const Navbar = () => {
                   </Button>
                 </div>
               )}
-              
-              <div className="flex-shrink-0">
-                <LocaleSwitcher aria-label={t("navigation.localeSwitcher")} />
-              </div>
             </div>
 
             {/* Mobile Controls */}
             <div className="flex lg:hidden items-center space-x-2 flex-shrink-0">
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={toggleTheme}
-                className="text-gray-700 dark:text-gray-300 h-8 w-8 transition-all duration-200"
-                aria-label={isDark ? t("navigation.lightMode") : t("navigation.darkMode")}
-              >
-                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              </Button>
-              
               {!isAuthenticated && (
                 <Button
                   size="sm"
@@ -538,9 +512,6 @@ const Navbar = () => {
                     )}
                   </div>
                   
-                  <div className="pt-3 mt-3 border-t border-gray-200 dark:border-gray-700">
-                    <LocaleSwitcher aria-label={t("navigation.localeSwitcher")} />
-                  </div>
                 </div>
               </div>
             </motion.div>

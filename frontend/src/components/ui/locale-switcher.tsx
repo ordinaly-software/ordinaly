@@ -47,8 +47,10 @@ export default function LocaleSwitcher() {
         onChange={handleLocaleChange}
         disabled={isPending}
         minWidth="140px"
-        position="right"
-        buttonClassName="h-12 px-6 py-3 rounded-xl text-sm font-medium bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-all duration-200"
+        direction="up"
+        theme="default"
+        buttonClassName="flex h-11 items-center gap-2 rounded-full border border-white/40 bg-white/80 px-4 text-sm font-semibold shadow-md backdrop-blur transition hover:-translate-y-0.5 hover:shadow-lg dark:border-white/15 dark:bg-[#0b1220]/80 dark:text-white"
+        dropdownClassName="rounded-2xl border border-white/30 bg-white/95 shadow-2xl backdrop-blur dark:bg-[#0b1220]/95 dark:border-white/15"
       />
     </div>
   );

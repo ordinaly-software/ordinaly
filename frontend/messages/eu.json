@@ -7,21 +7,22 @@
     "navigation": {
       "home": "Ezagutu gaitzazu!",
       "services": "Zerbitzuak/Produktuak",
-      "formation": "Ermena",
+      "formation": "Formazioa",
       "start": "Hasi",
       "darkMode": "Aldatu Modu Iluna",
-      "lightMode": "Aldatu argi moduan",
+      "lightMode": "Aldatu Modu Argia",
       "localeSwitcher": "Hizkuntza aldatu",
       "openMenu": "Ireki menua",
       "closeMenu": "Itxi menua",
       "signIn": "Hasi saioa",
       "signUp": "Eman izena!",
-      "signOut": "HIitu saioa",
+      "signOut": "Irten saiotik",
       "userMenu": "Erabiltzaileen menua",
       "adminDashboard": "Admin Arbela",
       "profile": "Profil",
       "blog": "Blog",
-      "contact": "Kontaktua"
+      "contact": "Kontaktua",
+      "us": "Gu"
     },
     "hero": {
       "title": "Automatizatu",
@@ -1450,17 +1451,6 @@
     },
     "termsText": "Jarraituz, gure zerbitzu baldintzak eta pribatutasun politika onartzen dituzu"
   },
-  "notFound": {
-    "title": "404 - Orrialdea Ez da Aurkitu",
-    "heading": "Hara! Orrialdea Espazio Digitalean Galdu",
-    "message": "Bilatzen ari zaren orrialdea gure enpresa automatizazio unibertsoan galdu dela dirudi.",
-    "description": "Ez kezkatu, Ordinaly-n ere batzuetan bidetik desbideratzen gara. Baina denentzako soluzio adimentsuak ditugu.",
-    "homeButton": "Hasierara Itzuli",
-    "exploreButton": "Zerbitzuak Arakatu",
-    "contactButton": "Laguntza Jarri Harremanetan",
-    "redirectMessage": "Automatikoki birbideratuko zara {seconds} segundotan...",
-    "robotText": "Gure automatizazio robota orrialdea bilatzen ari da..."
-  },
   "blog": {
     "title": "Ordinaly Bloga",
     "subtitle": "Berriak, ideiak eta eguneraketak eraldaketa digitalari eta teknologiari buruz",
@@ -1534,5 +1524,10 @@
     "title": "Gu gara Ordinaly",
     "description": "Laster partekatuko dugu gure historia, taldea eta lan egiteko modua.",
     "comingSoon": "Laster eguneratuko dugu orri hau."
+  },
+  "notFound": {
+    "title": "Orria ez da aurkitu",
+    "description": "Bilatzen ari zaren orria ez dago edo mugitu egin da.",
+    "backHome": "Itzuli hasierara"
   }
 }

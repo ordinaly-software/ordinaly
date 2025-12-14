@@ -21,7 +21,8 @@
       "adminDashboard": "Panel de Administración",
       "profile": "Perfil",
       "blog": "Blog",
-      "contact": "Contacto"
+      "contact": "Contacto",
+      "us": "Nós"
     },
     "hero": {
       "title": "AUTOMATIZA",
@@ -1450,17 +1451,6 @@
     },
     "termsText": "Ao continuar, aceptas os nosos termos de servizo e política de privacidade"
   },
-  "notFound": {
-    "title": "404 - Páxina Non Atopada",
-    "heading": "¡Vaia! Páxina Perdida no Espazo Dixital",
-    "message": "A páxina que buscas semella haberse perdido no noso universo de automatización empresarial",
-    "description": "Non te preocupes, incluso en Ordinaly ás veces nos desviamos do camiño. Pero temos solucións intelixentes para todo",
-    "homeButton": "Volver ao Inicio",
-    "exploreButton": "Explorar Servizos",
-    "contactButton": "Contactar Soporte",
-    "redirectMessage": "Serás redirixido automaticamente en {seconds} segundos...",
-    "robotText": "O noso robot de automatización está buscando a páxina..."
-  },
   "blog": {
     "title": "Blog de Ordinaly",
     "subtitle": "Novas, ideas e actualizacións sobre transformación dixital e tecnoloxía",
@@ -1534,5 +1524,10 @@
     "title": "Somos Ordinaly",
     "description": "Moi pronto compartiremos a nosa historia, o equipo e a forma de traballar.",
     "comingSoon": "Actualizaremos esta páxina en breve."
+  },
+  "notFound": {
+    "title": "Páxina non atopada",
+    "description": "A páxina que buscas non existe ou moveuse.",
+    "backHome": "Volver á portada"
   }
 }
