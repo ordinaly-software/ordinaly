@@ -281,7 +281,6 @@
     "cta": {
       "title": "¿Listo para Automatizar tu Empresa con Agentes de IA?",
       "subtitle": "Agenda una consulta gratuita y descubre cómo la inteligencia artificial puede transformar tu negocio en Sevilla",
-      "description": "Sin compromiso, sin letra pequeña. Analizamos tu caso específico y te mostramos el potencial real de automatización para tu empresa.",
       "meta": "Respuesta garantizada en menos de 24 horas laborables • +34 626 27 08 06 • info@ordinaly.ai",
       "buttons": {
         "whatsapp": "Consulta Gratis por WhatsApp",
@@ -1814,7 +1813,7 @@
       "title": "Automatizamos con propósito",
       "subtitle": "Un equipo multidisciplinar creando IA + automatización que mantén ás persoas no control e aos negocios avanzando.",
       "ctaPrimary": "Coñece o equipo",
-      "ctaSecondary": "Ver o noso traballo",
+      "ctaSecondary": "¡Traballa con nós!",
       "missionLabel": "Misión",
       "visionLabel": "Visión"
     },
@@ -1830,44 +1829,28 @@
       "teamLabel": "Expertos en IA, automatización e CX",
       "teamValue": "Produto, tecnoloxía, operacións, crecemento"
     },
-    "values": {
-      "eyebrow": "No que cremos",
-      "title": "Principios que guían como construímos",
-      "items": {
+    "story": {
+      "eyebrow": "A nosa historia",
+      "title": "Como naceu Ordinary para automatizar empresas desde Sevilla",
+      "lead": "Un estudo de automatización e axentes de IA creado en Andalucía para eliminar tarefas repetitivas e xerar impacto medible en negocios esixentes.",
+      "timeline": {
         "1": {
-          "title": "Centrados nas persoas",
-          "body": "Automatizamos arredor dos hábitos e fortalezas das persoas, non ao revés."
+          "title": "Verán de 2025 · A idea prende na Universidade de Sevilla",
+          "body": "Mentres remata Enxeñaría Informática, Antonio únese a Emilio e Guillermo para deseñar Ordinary: un estudo de automatización pensado para liberar equipos de tarefas repetitivas e manter ás persoas ao mando."
         },
         "2": {
-          "title": "Entregar e aprender",
-          "body": "Pilotamos, medimos e iteramos rápido para manter o impulso e reducir risco."
+          "title": "Verán de 2025 · Marca, modelo de negocio e promesa",
+          "body": "Durante o verán sevillano damos forma á empresa, afinamos o modelo e creamos a marca cunha promesa clara: workflows con IA que entregan ROI rápido."
         },
         "3": {
-          "title": "Impacto transparente",
-          "body": "Cada fluxo ten responsable, KPI e salvagardas para que o equipo confíe no sistema."
+          "title": "Setembro de 2025 · Constituimos a empresa e chegan os primeiros clientes",
+          "body": "Lanzamos Ordinary, iniciamos proxectos cos primeiros clientes e entregamos pilotos mentres Antonio cursa o seu máster en Ciencias da Computación e Intelixencia Artificial."
+        },
+        "4": {
+          "title": "2026 · Escalamos a automatización para máis empresas",
+          "body": "Redobramos esforzos para que máis organizacións automaticen os seus procesos, deixen atrás tarefas repetitivas e comproben o valor da IA con resultados reais."
         }
       }
-    },
-    "story": {
-      "2021": {
-        "title": "Fundacións",
-        "body": "Primeiros frameworks internos para chat e conectores con Odoo."
-      },
-      "2022": {
-        "title": "Productivizar",
-        "body": "Lanzamos workflows reutilizables en n8n e playbooks de CX para os primeiros clientes."
-      },
-      "2023": {
-        "title": "Escala",
-        "body": "Expansión a pilotos enterprise engadindo observabilidade, RBAC e QA."
-      },
-      "2024": {
-        "title": "Capa de confianza",
-        "body": "Governance e analítica para medir o ROI de cada fluxo."
-      },
-      "eyebrow": "A nosa historia",
-      "title": "Dos experimentos aos despregamentos empresariais",
-      "lead": "Comezamos obsesionados con entregar máis rápido. Hoxe acompañamos equipos para escalar IA e automatización con goberno, datos e confianza."
     },
     "testimonials": {
       "1": {
@@ -1889,10 +1872,12 @@
     },
     "cta": {
       "eyebrow": "Traballa connosco",
-      "title": "Preparado para construír a túa próxima automatización?",
-      "body": "Cóntanos os teus obxectivos. Codeseñamos a folla de ruta, comezamos cun piloto medible e escalamos con responsabilidade.",
-      "primary": "Comezar un proxecto",
-      "secondary": "Reservar unha chamada"
+      "title": "Únete a Ordinary e constrúe a próxima onda de automatización",
+      "body": "Se che apaixona a IA, a automatización e o impacto medible, queremos coñecerte. Mándanos o teu CV ou falemos de como podes axudarnos a entregar máis rápido.",
+      "primary": "Enviar CV",
+      "secondary": "Falar connosco",
+      "mailSubject": "CV para unirme a Ordinary",
+      "mailBody": "Ola equipo,\n\nEncantaríame unirme a Ordinary. Aquí vai o meu perfil e por que encaixo:\n\n- Rol/área de interese:\n- Experiencia relevante:\n- Ligazóns (CV/portfolio/LinkedIn):\n\nGrazas!"
     }
   },
   "notFound": {

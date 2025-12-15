@@ -281,7 +281,6 @@
     "cta": {
       "title": "¿Listo para Automatizar tu Empresa con Agentes de IA?",
       "subtitle": "Agenda una consulta gratuita y descubre cómo la inteligencia artificial puede transformar tu negocio en Sevilla",
-      "description": "Sin compromiso, sin letra pequeña. Analizamos tu caso específico y te mostramos el potencial real de automatización para tu empresa.",
       "meta": "Respuesta garantizada en menos de 24 horas laborables • +34 626 27 08 06 • info@ordinaly.ai",
       "buttons": {
         "whatsapp": "Consulta Gratis por WhatsApp",
@@ -1815,7 +1814,7 @@
       "title": "Automatitzem amb propòsit",
       "subtitle": "Un equip multidisciplinari creant IA + automatització que manté les persones al control i els negocis avançant.",
       "ctaPrimary": "Coneix l'equip",
-      "ctaSecondary": "Veure el nostre treball",
+      "ctaSecondary": "¡Treballa amb nosaltres!",
       "missionLabel": "Missió",
       "visionLabel": "Visió"
     },
@@ -1831,44 +1830,28 @@
       "teamLabel": "Experts en IA, automatització i CX",
       "teamValue": "Producte, tecnologia, operacions, creixement"
     },
-    "values": {
-      "eyebrow": "En què creiem",
-      "title": "Principis que guien com construïm",
-      "items": {
+    "story": {
+      "eyebrow": "La nostra història",
+      "title": "Com va néixer Ordinary per automatitzar empreses des de Sevilla",
+      "lead": "Un estudi d'automatització i IA fundat a Andalusia per eliminar tasques repetitives i aportar impacte mesurable a negocis exigents.",
+      "timeline": {
         "1": {
-          "title": "Centrats en les persones",
-          "body": "Automatitzem al voltant dels hàbits i fortaleses de les persones, no a l'inrevés."
+          "title": "Estiu 2025 · La idea s'encén a la Universitat de Sevilla",
+          "body": "Mentre acabava Enginyeria Informàtica, l'Antonio s'uneix a l'Emilio i en Guillermo per dissenyar Ordinary: un estudi d'automatització per alliberar els equips de les tasques repetitives i mantenir les persones al control."
         },
         "2": {
-          "title": "Lliurar i aprendre",
-          "body": "Pilotem, mesurem i iterem ràpid per mantenir l'impuls i reduir el risc."
+          "title": "Estiu 2025 · Marca, model de negoci i promesa",
+          "body": "Durant l'estiu sevillà vam donar forma a l'empresa, vam afinar el model de negoci i vam crear la marca amb una promesa clara: workflows amb IA que aportin ROI ràpid."
         },
         "3": {
-          "title": "Impacte transparent",
-          "body": "Cada flux té responsable, KPI i salvaguardes perquè l'equip confiï en el sistema."
+          "title": "Setembre 2025 · Constituïm l'empresa i primers clients",
+          "body": "Llancem Ordinary, iniciem projectes amb els primers clients i lliurem pilots mentre l'Antonio cursa el seu màster en Ciències de la Computació i Intel·ligència Artificial."
+        },
+        "4": {
+          "title": "2026 · Escalem l'automatització per a més empreses",
+          "body": "Reforcem l'ajuda a més organitzacions perquè automatitzin processos, deixin enrere tasques repetitives i demostrin el valor de la IA amb resultats reals."
         }
       }
-    },
-    "story": {
-      "2021": {
-        "title": "Fonaments",
-        "body": "Primers frameworks interns per a xat i connectors amb Odoo."
-      },
-      "2022": {
-        "title": "Productivitzar",
-        "body": "Llançament de workflows reutilitzables a n8n i playbooks de CX per als primers clients."
-      },
-      "2023": {
-        "title": "Escala",
-        "body": "Expansió a pilots enterprise afegint observabilitat, RBAC i QA."
-      },
-      "2024": {
-        "title": "Capa de confiança",
-        "body": "Governance i analítica per mesurar el ROI de cada flux."
-      },
-      "eyebrow": "La nostra història",
-      "title": "Dels experiments als desplegaments empresarials",
-      "lead": "Vam començar obsessionats amb entregar més ràpid. Avui ajudem equips a escalar IA i automatització amb govern, dades i confiança."
     },
     "testimonials": {
       "1": {
@@ -1890,10 +1873,12 @@
     },
     "cta": {
       "eyebrow": "Treballa amb nosaltres",
-      "title": "A punt per construir la teva propera automatització?",
-      "body": "Explica'ns els teus objectius. Co-dissenyem la fulla de ruta, comencem amb un pilot mesurable i escalem amb responsabilitat.",
-      "primary": "Començar un projecte",
-      "secondary": "Reservar una trucada"
+      "title": "Uneix-te a Ordinary i construeix la propera onada d'automatització",
+      "body": "Si t'apassiona la IA, l'automatització i l'impacte mesurable, volem conèixer-te. Envia'ns el teu CV o parlem de com pots ajudar-nos a entregar més ràpid.",
+      "primary": "Enviar CV",
+      "secondary": "Parlar amb nosaltres",
+      "mailSubject": "CV per unir-me a Ordinary",
+      "mailBody": "Hola equip,\n\nM'encantaria unir-me a Ordinary. Aquí teniu el meu perfil i per què encaixo:\n\n- Rol/àrea d'interès:\n- Experiència rellevant:\n- Enllaços (CV/portfoli/LinkedIn):\n\nGràcies!"
     }
   },
   "notFound": {

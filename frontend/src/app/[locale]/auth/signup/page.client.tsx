@@ -476,7 +476,7 @@ export default function SignupPage() {
                           required
                         />
                         <Label htmlFor="acceptTerms" className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                          {t("form.acceptTerms")}{" "}
+                          {t("form.acceptTerms")}
                           <a 
                             href="/legal?tab=terms" 
                             target="_blank" 
@@ -485,7 +485,7 @@ export default function SignupPage() {
                           >
                             {t("form.termsLink")}
                           </a>
-                          {" "}{t("form.and")}{" "}
+                          {t("form.and")}
                           <a 
                             href="/legal?tab=privacy" 
                             target="_blank" 
@@ -508,7 +508,7 @@ export default function SignupPage() {
                   </form>
 
                   <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-                    {t("form.loginPrompt")}{" "}
+                    {t("form.loginPrompt")}
                     <Link href="/auth/signin" className="text-[#46B1C9] hover:underline">
                       {t("form.loginLink")}
                     </Link>

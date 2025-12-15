@@ -281,7 +281,6 @@
     "cta": {
       "title": "¿Listo para Automatizar tu Empresa con Agentes de IA?",
       "subtitle": "Agenda una consulta gratuita y descubre cómo la inteligencia artificial puede transformar tu negocio en Sevilla",
-      "description": "Sin compromiso, sin letra pequeña. Analizamos tu caso específico y te mostramos el potencial real de automatización para tu empresa.",
       "meta": "Respuesta garantizada en menos de 24 horas laborables • +34 626 27 08 06 • info@ordinaly.ai",
       "buttons": {
         "whatsapp": "Consulta Gratis por WhatsApp",
@@ -1815,7 +1814,7 @@
       "title": "We automate with purpose",
       "subtitle": "A multidisciplinary team building AI + automation that keeps humans in control and businesses moving faster.",
       "ctaPrimary": "Meet the builders",
-      "ctaSecondary": "See our work",
+      "ctaSecondary": "Work with us!",
       "missionLabel": "Mission",
       "visionLabel": "Vision"
     },
@@ -1831,44 +1830,28 @@
       "teamLabel": "Experts across AI, automation & CX",
       "teamValue": "Product, tech, ops, growth"
     },
-    "values": {
-      "eyebrow": "What we believe",
-      "title": "Principles that guide our build",
-      "items": {
+    "story": {
+      "eyebrow": "Our journey",
+      "title": "How Ordinary grew from Seville to automate ambitious teams",
+      "lead": "A founder-led automation and AI studio born in Andalucía to replace repetitive work with measurable impact for fast-moving businesses.",
+      "timeline": {
         "1": {
-          "title": "Human-centered",
-          "body": "We automate around people's strengths and habits—not the other way around."
+          "title": "Summer 2025 · Idea ignition at the University of Seville",
+          "body": "While wrapping up his Computer Engineering degree, Antonio teams up with Emilio and Guillermo to design Ordinary: an automation studio built to free teams from repetitive tasks and keep humans in control."
         },
         "2": {
-          "title": "Ship & learn",
-          "body": "We pilot, measure, and iterate fast to keep momentum and reduce risk."
+          "title": "Summer 2025 · Brand, business model, and our promise",
+          "body": "During the Sevillian summer we shaped the company, sharpened the business model, and crafted the brand around a clear promise: AI-powered workflows that deliver ROI fast."
         },
         "3": {
-          "title": "Transparent impact",
-          "body": "Every workflow has a clear owner, KPI, and fail-safe so teams can trust the system."
+          "title": "September 2025 · Company incorporated and first clients",
+          "body": "We officially launch Ordinary, start working with our first customers, and deliver pilots while Antonio pursues his Master’s in Computer Science and Artificial Intelligence."
+        },
+        "4": {
+          "title": "2026 · Scaling automation for more companies",
+          "body": "We double down on helping more organizations automate their processes, eliminate repetitive tasks, and prove the value of AI with real business outcomes."
         }
       }
-    },
-    "story": {
-      "2021": {
-        "title": "Foundations",
-        "body": "First internal frameworks for chat automation and Odoo connectors."
-      },
-      "2022": {
-        "title": "Productizing",
-        "body": "Launched reusable n8n workflows and CX playbooks for early adopters."
-      },
-      "2023": {
-        "title": "Scale",
-        "body": "Expanded to enterprise pilots, adding observability, RBAC, and QA layers."
-      },
-      "2024": {
-        "title": "Trust layer",
-        "body": "Built governance packs and analytics to measure ROI for every flow."
-      },
-      "eyebrow": "Our journey",
-      "title": "From experiments to enterprise rollouts",
-      "lead": "We started as builders obsessed with faster delivery. Today we partner with teams to scale AI and automation with governance, data, and trust."
     },
     "testimonials": {
       "1": {
@@ -1890,10 +1873,12 @@
     },
     "cta": {
       "eyebrow": "Work with us",
-      "title": "Ready to build your next automation?",
-      "body": "Tell us about your goals. We'll co-design a roadmap, start with a measurable pilot, and scale responsibly.",
-      "primary": "Start a project",
-      "secondary": "Book a call"
+      "title": "Join Ordinary and build the next wave of automation",
+      "body": "If you love AI, automation and measurable impact, we want to meet you. Send us your CV or reach out to talk about how you can help us ship faster.",
+      "primary": "Send your CV",
+      "secondary": "Talk with us",
+      "mailSubject": "CV for Ordinary",
+      "mailBody": "Hi team,\n\nI’d love to join Ordinary. Here’s my profile and why I’m a fit:\n\n- Role/area of interest:\n- Relevant experience:\n- Links (CV/portfolio/LinkedIn):\n\nThanks!"
     }
   },
   "notFound": {

@@ -247,7 +247,7 @@ export default function LoginPage() {
                   </form>
 
                   <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
-                    {t("form.signupPrompt")}{" "}
+                    {t("form.signupPrompt")}
                     <Link href="/auth/signup" className="text-[#46B1C9] hover:underline">
                       {t("form.signupLink")}
                     </Link>

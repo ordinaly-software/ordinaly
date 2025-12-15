@@ -281,7 +281,6 @@
     "cta": {
       "title": "¿Listo para Automatizar tu Empresa con Agentes de IA?",
       "subtitle": "Agenda una consulta gratuita y descubre cómo la inteligencia artificial puede transformar tu negocio en Sevilla",
-      "description": "Sin compromiso, sin letra pequeña. Analizamos tu caso específico y te mostramos el potencial real de automatización para tu empresa.",
       "meta": "Respuesta garantizada en menos de 24 horas laborables • +34 626 27 08 06 • info@ordinaly.ai",
       "buttons": {
         "whatsapp": "Consulta Gratis por WhatsApp",
@@ -1814,7 +1813,7 @@
       "title": "Helburudun automatizazioa",
       "subtitle": "Talde multidiziplinarra IA + automatizazioa sortzen, pertsonak kontrolan eta negozioak aurrera doazela bermatuz.",
       "ctaPrimary": "Ezagutu taldea",
-      "ctaSecondary": "Ikusi gure lana",
+      "ctaSecondary": "Lan egin gurekin!",
       "missionLabel": "Misioa",
       "visionLabel": "Ikuspegia"
     },
@@ -1830,44 +1829,28 @@
       "teamLabel": "Adituak IA, automatizazio eta CXn",
       "teamValue": "Produktua, teknologia, eragiketak, hazkundea"
     },
-    "values": {
-      "eyebrow": "Zertan sinesten dugu",
-      "title": "Gure lana gidatzen duten printzipioak",
-      "items": {
+    "story": {
+      "eyebrow": "Gure ibilbidea",
+      "title": "Ordinaryk nola jaio zen Sevillatik enpresak automatizatzeko",
+      "lead": "Andaluzian sortutako automatizazio eta IA agentzien estudioa, lan errepikakorrak kentzeko eta inpaktu neurgarria emateko negozio aurreratuetan.",
+      "timeline": {
         "1": {
-          "title": "Pertsona erdigunean",
-          "body": "Pertsonen ohituretatik eta indarguneetatik abiatuta automatizatzen dugu, ez alderantziz."
+          "title": "2025eko uda · Ideia pizten da Sevillako Unibertsitatean",
+          "body": "Informatikako Ingeniaritza amaitzen ari zela, Antoniok Emilio eta Guillermorekin bat egiten du Ordinary diseinatzeko: automatizazio-estudioa, lan errepikakorrak kentzeko eta pertsonak kontrolan mantentzeko."
         },
         "2": {
-          "title": "Bidali eta ikasi",
-          "body": "Pilotuak, neurketak eta iterazio azkarra, erritmoa eta arrisku kontrola mantentzeko."
+          "title": "2025eko uda · Marka, negozio eredua eta promesa",
+          "body": "Sevillako udan enpresa moldatu genuen, negozio eredua findu eta marka sortu genuen, promesa argi batekin: IAko workflowek ROI azkarra ematea."
         },
         "3": {
-          "title": "Eragin gardena",
-          "body": "Fluxu bakoitzak arduraduna, KPIa eta babesak ditu, taldeak sisteman fida dadin."
+          "title": "2025eko iraila · Enpresa eratu eta lehen bezeroak",
+          "body": "Ordinary jaurti genuen, lehen bezeroekin proiektuak abiatu eta pilotuak entregatu genituen Antoniok Konputazioko eta Adimen Artifizialeko masterra egiten zuen bitartean."
+        },
+        "4": {
+          "title": "2026 · Automatizazioa eskalatzen gehiago enpresentzat",
+          "body": "Ahalegina biderkatu dugu erakunde gehiagori prozesuak automatizatzen laguntzeko, lan errepikakorrak uzteko eta IAren balioa benetako emaitzekin frogatzeko."
         }
       }
-    },
-    "story": {
-      "2021": {
-        "title": "Oinarriak",
-        "body": "Lehen barne frameworkak txat eta Odoo konektoreetarako."
-      },
-      "2022": {
-        "title": "Produktibizatu",
-        "body": "n8n workflow berrerabilgarriak eta CX playbookak jaurti genituen lehen bezeroentzat."
-      },
-      "2023": {
-        "title": "Eskalatzea",
-        "body": "Enpresa-pilotuetara hedatu, behagarritasuna, RBAC eta QA gehituz."
-      },
-      "2024": {
-        "title": "Konfiantza geruza",
-        "body": "Governance eta analitika fluxu bakoitzaren ROI neurtzeko."
-      },
-      "eyebrow": "Gure ibilbidea",
-      "title": "Esperimentuetatik enpresa-mailako hedapenera",
-      "lead": "Hasieran entrega azkartzea zen gure obsesioa. Gaur, IA eta automatizazioa eskalatzen laguntzen dugu gobernantza, datu eta konfiantzarekin."
     },
     "testimonials": {
       "1": {
@@ -1889,10 +1872,12 @@
     },
     "cta": {
       "eyebrow": "Lan egin gurekin",
-      "title": "Prest zure hurrengo automatizazioa eraikitzeko?",
-      "body": "Kontatu zure helburuak. Batera diseinatzen dugu bidea, pilotu neurgarri batekin hasten gara eta arduraz eskalatzen dugu.",
-      "primary": "Hasi proiektua",
-      "secondary": "Erreserbatu deia"
+      "title": "Bat egin Ordinaryrekin eta eraiki automatizazioaren hurrengo olatua",
+      "body": "IA, automatizazioa eta inpaktu neurgarria gustuko badituzu, ezagutu nahi zaitugu. Bidali zure CVa edo hitz egin dezagun nola lagun dezakezun azkarrago entregatzen.",
+      "primary": "Bidali CVa",
+      "secondary": "Hitz egin gurekin",
+      "mailSubject": "CV Ordinaryra bat egiteko",
+      "mailBody": "Kaixo taldea,\n\nGustatuko litzaidake Ordinaryrekin bat egitea. Hona hemen nire profila eta zergatik naizen egokia:\n\n- Rola/intereseko arloa:\n- Esperientzia garrantzitsua:\n- Estekak (CV/portfolio/LinkedIn):\n\nEskerrik asko!"
     }
   },
   "notFound": {

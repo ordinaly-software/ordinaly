@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useServices } from "@/hooks/useServices";
 import type { Service } from "@/hooks/useServices";
+import ContactForm from "@/components/ui/contact-form.client";
 import {
   HomeHero,
   BenefitsSection,
@@ -18,6 +19,7 @@ import {
   CtaSection,
   SeoArticleSection,
 } from "@/components/home/home-sections";
+import { WorkWithUsSection } from "@/components/ui/work-with-us";
 
 const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.default), { ssr: false, loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div> });
 const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false, loading: () => null });
@@ -218,12 +220,16 @@ export default function HomePage() {
           />
         }
       />
+      <WorkWithUsSection/>
       <ProcessSection t={t} />
       <UseCasesSection t={t} />
       {/* <TestimonialsSection t={t} /> */}
       <FaqSection t={t} />
       <LocalSeoSection t={t} onWhatsApp={handleWhatsAppChat} />
       <PartnersSection t={t} />
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <ContactForm />
+      </section>
       <SeoArticleSection t={t} onWhatsApp={handleWhatsAppChat} />
       <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
       <Footer />

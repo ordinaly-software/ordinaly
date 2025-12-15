@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import ContactForm from "@/components/ui/contact-form.client";
+import { WorkWithUsSection } from "@/components/ui/work-with-us";
 import { getApiEndpoint } from "@/lib/api-config";
 import { Mail, Phone, MapPin, Clock, Send, Instagram, Youtube, Pin, Linkedin, VideoIcon, ExternalLink } from "lucide-react";
 import Footer from "@/components/ui/footer";
@@ -112,8 +113,8 @@ export default function ContactPage() {
 
   const locationImages = useMemo(
     () => [
-      { src: "/static/office_01.webp", alt: t("map.photoAlt") },
-      { src: "/static/office_02.webp", alt: t("map.photoAlt") },
+      { src: "/static/contact/office_01.webp", alt: t("map.photoAlt") },
+      { src: "/static/contact/office_02.webp", alt: t("map.photoAlt") },
     ],
     [t]
   );
@@ -403,6 +404,7 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+      <WorkWithUsSection />
 
       <Footer />
     </div>
