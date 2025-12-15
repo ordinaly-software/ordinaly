@@ -12,7 +12,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/services",
-    title: "Servicios de automatización para empresas | Ordinaly",
+    title: "Servicios de automatización para empresas",
     description:
       "Explora servicios, productos y soluciones de automatización con IA para empresas.",
     image: "/static/backgrounds/services_background.webp",
