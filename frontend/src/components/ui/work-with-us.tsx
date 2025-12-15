@@ -33,7 +33,7 @@ export function WorkWithUsSection({
   return (
     <section
       id={id}
-      className={`relative overflow-hidden min-h-[400px] md:min-h-[450px] flex items-center py-0 my-0 ${
+      className={`relative overflow-hidden min-h-[460px] md:min-h-[480px] flex items-center py-0 my-0 ${
         fullBleed
           ? "w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]"
           : ""
@@ -46,16 +46,16 @@ export function WorkWithUsSection({
         fill
         priority={false}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
-        className="object-cover object-center brightness-[.6] blur-[2px]"
+        className="object-cover object-center brightness-[.7] blur-[2px]"
       />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 lg:px-12 w-full">
-        <div className="space-y-3 max-w-2xl text-white">
-          <p className="text-sm uppercase tracking-[0.3em] font-semibold">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 lg:px-12 py-6 w-full">
+        <div className="space-y-3 max-w-2xl text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)]">
+          <p className="text-sm uppercase tracking-[0.3em] font-semibold drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
             {t("cta.eyebrow")}
           </p>
-          <h3 className="text-3xl md:text-4xl font-bold drop-shadow-sm">{t("cta.title")}</h3>
-            <p className="text-white/90 drop-shadow-sm">
+          <h3 className="text-3xl md:text-4xl font-bold drop-shadow-[0_3px_12px_rgba(0,0,0,0.7)]">{t("cta.title")}</h3>
+            <p className="text-white/90 drop-shadow-[0_3px_12px_rgba(0,0,0,0.7)]">
             <span className="bg-green-500 px-1">{t("cta.body").split(" ").slice(0, 7).join(" ")}</span>
             {" " + t("cta.body").split(" ").slice(7).join(" ")}
             </p>

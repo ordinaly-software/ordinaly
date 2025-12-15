@@ -12,7 +12,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/contact",
-    title: "Contacto | Ordinaly",
+    title: "Contacto",
     description: "Hablemos sobre tus proyectos de automatización e IA. Escríbenos y te responderemos en menos de 24h.",
     image: "/static/backgrounds/services_background.webp",
   });

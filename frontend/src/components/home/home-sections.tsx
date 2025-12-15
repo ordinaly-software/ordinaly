@@ -225,7 +225,7 @@ export function ServicesSection({ t, servicesContent, onWhatsApp, sectionRef }: 
 
 export function ProcessSection({ t }: SectionProps) {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
+    <section className="py-20 px-6 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
@@ -502,7 +502,7 @@ const LocalVideoPreview: React.FC = () => {
               muted
               loop
               autoPlay
-              controls
+              controlsList="nodownload"
               preload="none"
               poster="/static/main_home_ilustration.webp"
             >
@@ -558,7 +558,14 @@ export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
                     {t("local.points.0.title")}
                   </h4>
                   <p className="text-gray-700 dark:text-gray-300">
-                    {t("local.points.0.description")}
+                    <Link
+                      href="https://maps.app.goo.gl/oiHuuWtSsxdbdSTD6"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-[#22A60D] underline underline-offset-4"
+                    >
+                      {t("local.points.0.description")}
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -573,7 +580,9 @@ export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
                     {t("local.points.1.title")}
                   </h4>
                   <p className="text-gray-700 dark:text-gray-300">
-                    {t("local.points.1.description")}
+                    <Link href="/contact" className="hover:text-[#22A60D] underline underline-offset-4">
+                      {t("local.points.1.description")}
+                    </Link>
                   </p>
                 </div>
               </div>
@@ -588,7 +597,9 @@ export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
                     {t("local.points.2.title")}
                   </h4>
                   <p className="text-gray-700 dark:text-gray-300">
-                    {t("local.points.2.description")}
+                    <Link href="/formation" className="hover:text-[#22A60D] underline underline-offset-4">
+                      {t("local.points.2.description")}
+                    </Link>
                   </p>
                 </div>
               </div>

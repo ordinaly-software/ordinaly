@@ -1,6 +1,5 @@
 
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { urlFor } from '@/lib/image';
 import type { PortableTextComponentProps } from '@portabletext/react';
@@ -14,13 +13,12 @@ export const portableTextComponents = {
   types: {
     image: ({ value }: { value: ImageType }) => (
       value?.asset && value.asset._ref ? (
-        <div className="my-6 rounded-lg overflow-hidden">
-          <Image
-            src={urlFor(value.asset._ref).width(800).height(600).url()}
+        <div className="my-6 flex justify-center">
+          <img
+            src={urlFor(value.asset._ref).width(1200).url()}
             alt={value.alt || 'Blog image'}
-            width={600}
-            height={350}
-            className="w-full h-auto"
+            loading="lazy"
+            className="w-full h-auto max-w-lg md:max-w-lg rounded-sm shadow-sm"
           />
         </div>
       ) : null

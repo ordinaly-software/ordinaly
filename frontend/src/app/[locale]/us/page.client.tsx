@@ -4,9 +4,9 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
+import { AnimatedTestimonials } from "@/components/us/animated-testimonials";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
-import { Timeline } from "@/components/ui/timeline";
+import { Timeline } from "@/components/us/timeline";
 import { Rocket, ArrowRight, Users, Sparkle } from "lucide-react";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), {
@@ -26,19 +26,22 @@ export default function UsPage() {
       quote: t("testimonials.1.quote"),
       name: t("testimonials.1.name"),
       designation: t("testimonials.1.role"),
-      src: "/static/team/antonio.webp",
+      src: "/static/team/antonio_hd.webp",
+      linkedin: "https://www.linkedin.com/in/antoniommff/",
     },
     {
       quote: t("testimonials.2.quote"),
       name: t("testimonials.2.name"),
       designation: t("testimonials.2.role"),
-      src: "/static/team/guillermo.webp",
+      src: "/static/team/guillermo_hd.webp",
+      linkedin: "https://www.linkedin.com/in/guillermomontero/",
     },
     {
       quote: t("testimonials.3.quote"),
       name: t("testimonials.3.name"),
       designation: t("testimonials.3.role"),
-      src: "/static/team/emilio.webp",
+      src: "/static/team/emilio_hd.webp",
+      linkedin: "https://www.linkedin.com/in/emiliocidperez/",
     },
   ];
 
