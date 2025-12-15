@@ -1,4 +1,5 @@
 User-agent: *
+Allow: /
 Disallow: /admin/
 Disallow: /auth/
 Disallow: /profile/
@@ -13,4 +14,9 @@ Allow: /
 User-agent: GPTBot
 Allow: /
 
-Sitemap: https://ordinaly.ai/sitemap.xml
+Sitemap: https://ordinaly.ai/sitemap_index.xml
+Sitemap: https://ordinaly.ai/sitemap-es.xml
+Sitemap: https://ordinaly.ai/sitemap-en.xml
+Sitemap: https://ordinaly.ai/sitemap-ca.xml
+Sitemap: https://ordinaly.ai/sitemap-eu.xml
+Sitemap: https://ordinaly.ai/sitemap-gl.xml

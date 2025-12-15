@@ -46,7 +46,7 @@ const normalizePath = (path?: string) => {
 };
 
 export const absoluteUrl = (path?: string, locale?: string) => {
-  const prefix = locale && locale !== routing.defaultLocale ? `/${locale}` : "";
+  const prefix = locale ? `/${locale}` : "";
   const pathname = normalizePath(path);
   return `${baseUrl}${prefix}${pathname}`;
 };

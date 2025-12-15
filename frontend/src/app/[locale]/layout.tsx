@@ -8,7 +8,7 @@ import { Locale, routing } from "@/i18n/routing";
 import NavbarWrapper from "@/components/ui/navbar-wrapper";
 import CookieConsent from "@/components/ui/cookies";
 import BackToTopButton from "@/components/ui/back-to-top-button";
-import { metadataBaseUrl } from "@/lib/metadata";
+import { absoluteUrl, metadataBaseUrl } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
 import AnalyticsManager from "@/utils/analyticsManager";
@@ -19,7 +19,15 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-export const metadata: Metadata = {
+const localeHrefLangs: Record<string, string> = {
+  es: "es-ES",
+  en: "en-US",
+  ca: "ca-ES",
+  eu: "eu-ES",
+  gl: "gl-ES",
+};
+
+const baseMetadata: Metadata = {
   title: {
     default: "Ordinaly - Automatización Empresarial con IA",
     template: "%s | Ordinaly",
@@ -29,25 +37,40 @@ export const metadata: Metadata = {
   metadataBase: new URL(metadataBaseUrl),
   openGraph: {
     type: "website",
-    locale: "es_ES",
-    url: metadataBaseUrl,
     siteName: "Ordinaly",
     title: "Ordinaly Software - Automatización Empresarial con IA",
     description:
       "Transformamos empresas con soluciones de automatización inteligente para liderar la innovación en Andalucía, España y Europa.",
     images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Ordinaly" }],
   },
-  alternates: {
-    canonical: metadataBaseUrl,
-    languages: {
-      "es-ES": "/",
-      "en-US": "/en",
-      "ca-ES": "/ca",
-      "eu-ES": "/eu",
-      "gl-ES": "/gl",
-    },
-  },
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  const canonical = absoluteUrl("/", locale);
+  const alternateLanguages = Object.fromEntries(
+    routing.locales.map((loc) => [localeHrefLangs[loc], absoluteUrl("/", loc)])
+  );
+  const ogLocale = localeHrefLangs[locale] ?? localeHrefLangs.es;
+
+  return {
+    ...baseMetadata,
+    alternates: {
+      canonical,
+      languages: alternateLanguages,
+    },
+    openGraph: {
+      ...baseMetadata.openGraph,
+      url: canonical,
+      locale: ogLocale,
+    },
+  };
+}
 
 export const viewport = {
   width: "device-width",

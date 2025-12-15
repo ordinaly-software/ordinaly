@@ -112,8 +112,8 @@ export default function ContactPage() {
 
   const locationImages = useMemo(
     () => [
-      { src: "/static/office_01.webp", alt: t("map.photoAlt") },
-      { src: "/static/office_02.webp", alt: t("map.photoAlt") },
+      { src: "/static/contact/office_01.webp", alt: t("map.photoAlt") },
+      { src: "/static/contact/office_02.webp", alt: t("map.photoAlt") },
     ],
     [t]
   );
