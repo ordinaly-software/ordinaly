@@ -99,14 +99,19 @@ export const Timeline = ({ data, eyebrow, title, description, className }: Timel
               </h3>
               <div className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/60 p-5 md:p-7 shadow-sm overflow-visible">
                 {item.media ? (
-                  <div className="absolute -left-4 -top-10 md:-left-14 md:-top-14 lg:-left-16 lg:-top-16 w-28 h-28 md:w-64 md:h-64 lg:w-72 lg:h-72 overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
-                    {item.media}
-                  </div>
+                  <>
+                    <div className="lg:hidden relative w-full h-48 sm:h-56 overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5 mb-4">
+                      {item.media}
+                    </div>
+                    <div className="hidden lg:block absolute -left-16 -top-16 w-72 h-72 xl:w-80 xl:h-80 overflow-hidden rounded-2xl bg-white dark:bg-neutral-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
+                      {item.media}
+                    </div>
+                  </>
                 ) : null}
                 <div
                   className={cn(
                     "text-base text-gray-700 dark:text-gray-200 leading-relaxed",
-                    item.media ? "pl-0 pt-16 md:pt-8 md:pl-72 lg:pl-80" : "",
+                    item.media ? "pt-0 lg:pt-8 lg:pl-80 xl:pl-[22rem]" : "",
                   )}
                 >
                   {item.content}
