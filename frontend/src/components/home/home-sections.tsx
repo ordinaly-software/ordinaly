@@ -31,13 +31,11 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
           <div className="scroll-animate slide-in-left">
             <h1 className="text-4xl md:text-6xl font-bold mb-4 text-gray-900 dark:text-white">
               <span className="text-green-500">
-              {t("hero.title").split(" ")[0]}
+              {t("hero.title").split(" ")[0]}{" "}
               </span>
-              {" "}
-              {t("hero.title").slice(8, -7)}
-              {" "}
+              {t("hero.title").split(" ").slice(1, -1).join(" ")}{" "}
               <span className="text-green-500">
-              {t("hero.title").split(" ").slice(-1)}
+              {t("hero.title").split(" ").slice(-1)[0]}
               </span>
             </h1>
             <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-gray-800 dark:text-gray-200">
@@ -408,12 +406,12 @@ export function FaqSection({ t }: SectionProps) {
 
 export function PartnersSection({ t }: SectionProps) {
   return (
-    <section className="py-10 px-4 sm:px-6 lg:px-4 bg-[#22A60D] text-[#176b0a]">
+    <section className="py-8 px-4 sm:px-6 lg:px-4 bg-[#22A60D] text-[#176b0a]">
       <h2 className="text-3xl font-bold text-center mb-4 text-white">
         {t("partners.title")}
       </h2>
       <div className="relative">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 py-6 px-4 items-center justify-items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4 items-center justify-items-center">
           {partners.map((partner, index) => (
             <div
               key={partner.src}
@@ -496,7 +494,7 @@ const LocalVideoPreview: React.FC = () => {
   return (
     <div ref={containerRef} className="hidden lg:block">
       <div className="relative w-full max-w-xl ml-auto">
-        <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
+        <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
           {canLoadVideo ? (
             <video
               className="absolute inset-0 h-full w-full object-cover"
@@ -595,9 +593,11 @@ export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
                 </div>
               </div>
             </div>
-            <Button size="lg" variant="special" onClick={() => window.location.href = "/contact"} className="text-lg px-10 py-6">
-              {t("local.cta")}
-              <ArrowRight className="ml-2 w-5 h-5" />
+            <Button size="lg" variant="special" asChild className="text-lg px-10 py-6">
+              <Link href="/contact">
+                {t("local.cta")}
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Link>
             </Button>
           </div>
           <div className="scroll-animate slide-in-right">{resolvedSideContent}</div>

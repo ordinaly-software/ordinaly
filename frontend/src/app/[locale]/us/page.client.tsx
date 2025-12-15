@@ -1,10 +1,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
-import { Rocket, Heart, Target, ArrowRight, Users, Sparkle } from "lucide-react";
+import { WorkWithUsSection } from "@/components/ui/work-with-us";
+import { Timeline } from "@/components/ui/timeline";
+import { Rocket, ArrowRight, Users, Sparkle } from "lucide-react";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), {
   ssr: false,
@@ -39,12 +42,27 @@ export default function UsPage() {
     },
   ];
 
-  const milestones = [
-    { year: "2021", title: t("story.2021.title"), body: t("story.2021.body") },
-    { year: "2022", title: t("story.2022.title"), body: t("story.2022.body") },
-    { year: "2023", title: t("story.2023.title"), body: t("story.2023.body") },
-    { year: "2024", title: t("story.2024.title"), body: t("story.2024.body") },
-  ];
+  const timelineMedia = {
+    "1": "/static/us/story_01.webp",
+    "2": "/static/us/story_02.webp",
+    "3": "/static/us/story_03.webp",
+    "4": "/static/us/story_04.webp",
+  } as const;
+
+  const timelineData = (["1", "2", "3", "4"] as const).map((key) => ({
+    title: t(`story.timeline.${key}.title`),
+    media: (
+      <Image
+        src={timelineMedia[key]}
+        alt={t(`story.timeline.${key}.title`)}
+        fill
+        sizes="(min-width: 1024px) 224px, 100vw"
+        className="object-cover"
+        priority={key === "1"}
+      />
+    ),
+    content: <p>{t(`story.timeline.${key}.body`)}</p>,
+  }));
 
   return (
     <div className="bg-[#F9FAFB] dark:bg-[#0b1220] text-gray-900 dark:text-white min-h-screen">
@@ -64,13 +82,17 @@ export default function UsPage() {
                 {t("hero.subtitle")}
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button className="bg-[#22A60D] hover:bg-[#1c8d0c] text-white gap-2">
+                <Button className="bg-[#22A60D] hover:bg-[#1c8d0c] text-white gap-2" asChild>
+                  <a href="#testimonials">
                   <Rocket className="h-4 w-4" />
                   {t("hero.ctaPrimary")}
+                  </a>
                 </Button>
-                <Button variant="outline" className="border-gray-200 dark:border-gray-700 gap-2">
+                <Button variant="outline" className="border-gray-200 dark:border-gray-700 gap-2" asChild>
+                  <a href="#cta">
                   <ArrowRight className="h-4 w-4" />
                   {t("hero.ctaSecondary")}
+                  </a>
                 </Button>
               </div>
             </div>
@@ -102,76 +124,24 @@ export default function UsPage() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 space-y-8">
-        <div className="flex items-center gap-3">
-          <Heart className="h-5 w-5 text-[#22A60D]" />
-          <p className="text-sm uppercase tracking-[0.18em] text-[#22A60D] font-semibold">
-            {t("values.eyebrow")}
-          </p>
-        </div>
-        <h2 className="text-3xl font-bold">{t("values.title")}</h2>
-        <div className="grid md:grid-cols-3 gap-4">
-          {["1", "2", "3"].map((key) => (
-            <div
-              key={key}
-              className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/60 p-5 shadow-sm"
-            >
-              <p className="text-lg font-semibold mb-2">{t(`values.items.${key}.title`)}</p>
-              <p className="text-sm text-gray-700 dark:text-gray-300">{t(`values.items.${key}.body`)}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
-          <div className="space-y-4">
-            <p className="text-sm uppercase tracking-[0.18em] text-[#22A60D] font-semibold">
-              {t("story.eyebrow")}
-            </p>
-            <h3 className="text-3xl font-bold">{t("story.title")}</h3>
-            <p className="text-gray-700 dark:text-gray-300">{t("story.lead")}</p>
-          </div>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {milestones.map((item) => (
-              <div
-                key={item.year}
-                className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/60 p-4 shadow-sm"
-              >
-                <p className="text-sm text-[#22A60D] font-semibold">{item.year}</p>
-                <p className="text-lg font-semibold">{item.title}</p>
-                <p className="text-sm text-gray-700 dark:text-gray-300">{item.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <Timeline
+          data={timelineData}
+          eyebrow={t("story.eyebrow")}
+          title={t("story.title")}
+          description={t("story.lead")}
+          className="bg-transparent dark:bg-transparent"
+        />
       </section>
 
-      <section className="bg-white dark:bg-gray-900/60 border-y border-gray-200 dark:border-gray-800">
+      <section className="bg-white dark:bg-gray-900/60 border-y border-gray-200 dark:border-gray-800" id="testimonials">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           <h3 className="text-3xl font-bold mb-6">{t("testimonials.title")}</h3>
           <AnimatedTestimonials testimonials={testimonials} autoplay />
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 space-y-6">
-        <div className="space-y-2">
-          <p className="text-sm uppercase tracking-[0.18em] text-[#22A60D] font-semibold">
-            {t("cta.eyebrow")}
-          </p>
-          <h3 className="text-3xl font-bold">{t("cta.title")}</h3>
-          <p className="text-gray-700 dark:text-gray-300">{t("cta.body")}</p>
-        </div>
-        <div className="flex flex-wrap gap-3">
-          <Button className="bg-[#22A60D] hover:bg-[#1c8d0c] text-white gap-2">
-            <Target className="h-4 w-4" />
-            {t("cta.primary")}
-          </Button>
-          <Button variant="outline" className="border-gray-200 dark:border-gray-700">
-            {t("cta.secondary")}
-          </Button>
-        </div>
-      </section>
+      <WorkWithUsSection id="cta" />
       <Footer />
     </div>
   );
