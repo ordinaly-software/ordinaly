@@ -26,15 +26,20 @@
       "loading": "Kargatzen..."
     },
     "hero": {
-      "title": "Automatización Empresarial e IA en Sevilla",
-      "subtitle": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
-      "description1": "Especialistas en automatización empresarial con inteligencia artificial para PYMEs en Sevilla. Implementamos agentes de IA para negocios, optimizamos procesos y creamos soluciones personalizadas para inmobiliarias, administradores de fincas, marketing y retail.",
-      "trust1": "+5 Empresas Transformadas",
-      "trust2": "Oficina zentral Sevilla",
-      "trust3": "Ziurtagiriak eta Profesionalak",
-      "ctaServices": "Ikusi gure IA zerbitzuak",
-      "ctaDemo": "Eskatu doako demo bat",
-      "imageAlt": "Automatización empresarial con IA y agentes inteligentes para negocios en Sevilla"
+      "titleLine1": "ZURE NEGOZIOA,",
+      "titleLine2": "AUTOMATIZATUTA.",
+      "subtitle": "IA eta berrikuntza Sevillatik mundura.",
+      "description1": "Zure prozesuak automatizatzen ditugu IA agenteekin, chatbotekin eta kode gabeko fluxuekin 24/7 saltzeko eta eragiteko.",
+      "trust1": "Automatizazio pertsonalizatuak",
+      "trust2": "IA agenteak 24/7 salmenta eta laguntzarako.",
+      "trust3": "Soluzioei higiezinen, txikizkako merkataritza eta marketingarako.",
+      "trust4": "IA-n praktikako prestakuntza taldeentzat.",
+      "ctaServices": "Ikusi Zerbitzuak",
+      "ctaDemo": "Eskatu Demo Doakoa",
+      "clientsTitle": "Gugan konfiantza dute",
+      "statHeadline": "+500 ORDU AURREZTUTA",
+      "statCaption": "Andaluziako enpresentzat hilabete honetan.",
+      "imageAlt": "Sevillako dorrea eta datu arrasto berdeak dituen automatizazio ilustrazioa"
     },
     "benefits": {
       "title": "¿Por qué Elegir Ordinaly para la Automatización de tu Empresa en Sevilla?",

@@ -66,7 +66,7 @@ export const Timeline = ({ data, eyebrow, title, description, className }: Timel
             </p>
           ) : null}
           {title ? (
-            <h2 className="text-lg md:text-4xl mb-4 text-black dark:text-white max-w-4xl">
+            <h2 className="text-xl md:text-4xl mb-4 text-black dark:text-white max-w-4xl">
               {title}
             </h2>
           ) : null}
