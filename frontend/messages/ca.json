@@ -22,19 +22,24 @@
       "profile": "Perfil",
       "blog": "Blog",
       "contact": "Contacte",
-      "us": "Nosaltres",
+      "us": "Sobre nosaltres",
       "loading": "Carregant ..."
     },
     "hero": {
-      "title": "Automatización Empresarial e IA en Sevilla",
-      "subtitle": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
-      "description1": "Especialistas en automatización empresarial con inteligencia artificial para PYMEs en Sevilla. Implementamos agentes de IA para negocios, optimizamos procesos y creamos soluciones personalizadas para inmobiliarias, administradores de fincas, marketing y retail.",
-      "trust1": "+5 Empresas Transformadas",
-      "trust2": "Oficina central en Sevilla",
-      "trust3": "Certificados y Profesionales",
-      "ctaServices": "Veure els nostres serveis d'IA",
-      "ctaDemo": "Sol·licitar una demo gratuïta",
-      "imageAlt": "Automatización empresarial con IA y agentes inteligentes para negocios en Sevilla"
+      "titleLine1": "EL TEU NEGOCI,",
+      "titleLine2": "AUTOMATITZAT.",
+      "subtitle": "IA i innovació des de Sevilla per al món.",
+      "description1": "Automatitzem els teus processos amb agents d'IA, chatbots i fluxos sense codi perquè venguis i operis 24/7.",
+      "trust1": "Automatitzacions a mida",
+      "trust2": "Agents d'IA 24/7 per a vendes i suport.",
+      "trust3": "Solucions per a Immobiliàries, Retail i Màrqueting.",
+      "trust4": "Formació pràctica en IA per a equips.",
+      "ctaServices": "Veure Serveis",
+      "ctaDemo": "Sol·licitar Demo Gratuïta",
+      "clientsTitle": "Confien en nosaltres",
+      "statHeadline": "+500 HORES ESTALVIADES",
+      "statCaption": "a empreses andaluses aquest mes.",
+      "imageAlt": "Il·lustració d'automatització amb la torre de Sevilla i traços de dades verds"
     },
     "benefits": {
       "title": "¿Por qué Elegir Ordinaly para la Automatización de tu Empresa en Sevilla?",
@@ -1799,7 +1804,6 @@
         "quote": "Especialista en estratègies de màrqueting digital i transformació empresarial."
       },
       "title": "L'equip",
-      "subtitle": "Parla amb qui dissenyarà i desplegarà la teva solució.",
       "cta": "¡Contacta'ns!"
     },
     "map": {

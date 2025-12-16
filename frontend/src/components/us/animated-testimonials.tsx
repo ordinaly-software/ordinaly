@@ -36,7 +36,7 @@ export const AnimatedTestimonials = ({
 
   useEffect(() => {
     if (autoplay) {
-      const interval = setInterval(handleNext, 5000);
+      const interval = setInterval(handleNext, 10000);
       return () => clearInterval(interval);
     }
   }, [autoplay, handleNext]);
@@ -82,7 +82,8 @@ export const AnimatedTestimonials = ({
                     duration: 0.4,
                     ease: "easeInOut",
                   }}
-                  className="absolute inset-0 origin-bottom"
+                  className="absolute inset-0 origin-bottom cursor-pointer"
+                  onClick={handleNext}
                 >
                   <Image src={testimonial.src} alt={testimonial.name}
                     width={500}

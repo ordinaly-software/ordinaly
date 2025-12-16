@@ -299,6 +299,7 @@ const Navbar = () => {
 
   const mobileLinks = useMemo(
     () => [
+      { href: "/", label: t("navigation.home") },
       { href: "/services", label: t("navigation.services") },
       { href: "/formation", label: t("navigation.formation") },
       ...desktopLinks,
