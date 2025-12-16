@@ -26,7 +26,6 @@ interface HeroProps {
 export function HomeHero({ t, onWhatsApp }: HeroProps) {
   const { isDark } = useTheme();
   const primaryGreen = "#22A60D";
-  // const heroImage = isDark ? "/static/main_home_ilustration_dark.webp" : "/static/main_home_ilustration_light.webp";
   const heroImage = "/static/main_home_ilustration.webp";
   const sectionTextColor = isDark ? "text-white" : "text-[#0B1B17]";
   const subtitleColor = isDark ? "rgba(34,166,13,0.85)" : "#1F7A12";
@@ -67,8 +66,8 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
       height: 42,
     },
     {
-      src: "/static/logos/logo_aires_de_feria.webp",
-      alt: "Aires de Feria",
+      src: "/static/logos/logo_proinca_consultores.webp",
+      alt: "Proinca Consultores",
       width: 120,
       height: 42,
     },
@@ -135,10 +134,10 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
           src={heroImage}
           alt={t("hero.imageAlt")}
           fill
-          className="object-cover lg:object-contain object-center blur-sm brightness-1.5"
+          className="object-cover lg:object-contain blur-sm brightness-1.5"
           priority
           fetchPriority="high"
-          sizes="100vw"
+          sizes="90vw"
         />
       </div>
       <div
@@ -155,12 +154,12 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
           <div className="relative z-10 scroll-animate slide-in-left space-y-4">
 
             <div className="relative lg:hidden -mx-4 sm:-mx-6 overflow-hidden">
-              <div className="relative h-[260px] sm:h-[320px] md:h-[360px] w-full overflow-hidden">
+              <div className="relative h-[220px] sm:h-[220px] md:h-[240px] w-full overflow-hidden">
                 <Image
                   src={heroImage}
                   alt={t("hero.imageAlt")}
                   fill
-                  className="object-cover object-center"
+                  className="object-cover"
                   priority
                   fetchPriority="high"
                   sizes="100vw"
@@ -175,7 +174,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 <span
                   className="block text-transparent bg-clip-text drop-shadow-[0_12px_35px_rgba(34,166,13,0.35)]"
                   style={{
-                    backgroundImage: `linear-gradient(90deg, ${primaryGreen}, #6dff6a, #b59cffff)`,
+                    backgroundImage: `linear-gradient(90deg, ${primaryGreen}, #53c651ff, #9978fdff)`,
                   }}
                 >
                   {t("hero.titleLine2")}
@@ -218,14 +217,14 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
             </div>
 
             <div className="flex flex-wrap gap-4">
-                <Button
-                size="lg"
-                className={`px-8 py-4 text-lg shadow-[0_20px_60px_-25px_rgba(34,166,13,0.8)] hover:shadow-[0_20px_70px_-28px_rgba(34,166,13,0.95)] ${isDark ? "text-gray-900" : "text-white"}`}
-                style={{ backgroundColor: primaryGreen }}
-                onClick={onWhatsApp}
-                >
-                {t("hero.ctaDemo")}
-                </Button>
+              <Button
+              size="lg"
+              className={`px-8 py-4 text-lg shadow-[0_20px_60px_-25px_rgba(34,166,13,0.8)] hover:shadow-[0_20px_70px_-28px_rgba(34,166,13,0.95)] ${isDark ? "text-gray-900" : "text-white"}`}
+              style={{ backgroundColor: primaryGreen }}
+              onClick={onWhatsApp}
+              >
+              {t("hero.ctaDemo")}
+              </Button>
               <Button
                 size="lg"
                 variant="outline"
@@ -278,7 +277,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                       alt={logo.alt}
                       width={logo.width}
                       height={logo.height}
-                      className="w-auto max-h-10 opacity-90"
+                      className="w-auto max-h-14 opacity-90"
                       style={{
                         filter: isDark ? "none" : "invert(1) brightness(0.2)",
                       }}
@@ -305,7 +304,6 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 }}
               />
               <div className="relative">
-                <link rel="preload" as="image" href={heroImage} />
                 <Image
                   src={heroImage}
                   alt={t("hero.imageAlt")}
@@ -848,10 +846,10 @@ export function CtaSection({ t, onWhatsApp }: HeroProps) {
             </div>
           ))}
         </div>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
           <Button
             size="lg"
-            className="bg-white text-[#22A60D] hover:bg-gray-100 px-10 py-6 text-lg font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all"
+            className="bg-white text-[#22A60D] hover:bg-gray-100 px-10 py-6 text-lg font-bold shadow-lg hover:shadow-lg transform hover:scale-105 transition-all"
             onClick={onWhatsApp}
           >
             <div className="flex items-center gap-3">

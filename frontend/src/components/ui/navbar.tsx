@@ -366,77 +366,79 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-6 xl:space-x-8 flex-shrink-0">
-              <HoverMenu setActive={setActiveMegaItem}>
-                <MenuItem
-                  item={t("navigation.services")}
-                  active={activeMegaItem}
-                  setActive={setActiveMegaItem}
-                  href="/services"
-                  isActiveLink={isLinkActive("/services")}
-                >
-                  <div className="grid grid-cols-1 gap-2 min-w-[240px]">
-                    {featuredServices.length === 0 ? (
-                      <HoveredLink href="/services">{t("navigation.services")}</HoveredLink>
-                    ) : (
-                      featuredServices.map((service) => (
-                        <HoveredLink key={service.id} href="/services">
-                          {service.title}
-                        </HoveredLink>
-                      ))
+            {/* Right Side: Desktop Navigation + Controls */}
+            <div className="hidden lg:flex items-center flex-shrink-0 space-x-6 xl:space-x-8">
+              {/* Desktop Navigation moved next to controls */}
+              <div className="flex items-center space-x-6 xl:space-x-8">
+                <HoverMenu setActive={setActiveMegaItem}>
+                  <MenuItem
+                    item={t("navigation.services")}
+                    active={activeMegaItem}
+                    setActive={setActiveMegaItem}
+                    href="/services"
+                    isActiveLink={isLinkActive("/services")}
+                  >
+                    <div className="grid grid-cols-1 gap-2 min-w-[240px]">
+                      {featuredServices.length === 0 ? (
+                        <HoveredLink href="/services">{t("navigation.services")}</HoveredLink>
+                      ) : (
+                        featuredServices.map((service) => (
+                          <HoveredLink key={service.id} href="/services">
+                            {service.title}
+                          </HoveredLink>
+                        ))
+                      )}
+                    </div>
+                  </MenuItem>
+                  <MenuItem
+                    item={t("navigation.formation")}
+                    active={activeMegaItem}
+                    setActive={setActiveMegaItem}
+                    href="/formation"
+                    isActiveLink={isLinkActive("/formation")}
+                  >
+                    <div className="grid grid-cols-1 gap-3 min-w-[360px]">
+                      {menuCoursesLoading && (
+                        <div className="text-sm text-gray-500 dark:text-gray-400 px-2 py-1">{t("navigation.loading")}</div>
+                      )}
+                      {!menuCoursesLoading && menuCourses.length === 0 ? (
+                        <HoveredLink href="/formation">{t("navigation.formation")}</HoveredLink>
+                      ) : (
+                        menuCourses.map((course) => (
+                          <ProductItem
+                            key={course.id}
+                            title={course.title}
+                            description={course.subtitle || course.description}
+                            href={`/formation/${course.slug ?? course.id}`}
+                            src={course.image}
+                          />
+                        ))
+                      )}
+                    </div>
+                  </MenuItem>
+                </HoverMenu>
+                {desktopLinks.map((link) => (
+                  <Link 
+                    key={link.href}
+                    href={link.href}
+                    className={cn(
+                      "transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group",
+                      isLinkActive(link.href)
+                        ? 'text-green'
+                        : 'text-gray-700 dark:text-gray-300 hover:text-green'
                     )}
-                  </div>
-                </MenuItem>
-                <MenuItem
-                  item={t("navigation.formation")}
-                  active={activeMegaItem}
-                  setActive={setActiveMegaItem}
-                  href="/formation"
-                  isActiveLink={isLinkActive("/formation")}
-                >
-                  <div className="grid grid-cols-1 gap-3 min-w-[360px]">
-                    {menuCoursesLoading && (
-                      <div className="text-sm text-gray-500 dark:text-gray-400 px-2 py-1">{t("navigation.loading")}</div>
-                    )}
-                    {!menuCoursesLoading && menuCourses.length === 0 ? (
-                      <HoveredLink href="/formation">{t("navigation.formation")}</HoveredLink>
-                    ) : (
-                      menuCourses.map((course) => (
-                        <ProductItem
-                          key={course.id}
-                          title={course.title}
-                          description={course.subtitle || course.description}
-                          href={`/formation/${course.slug ?? course.id}`}
-                          src={course.image}
-                        />
-                      ))
-                    )}
-                  </div>
-                </MenuItem>
-              </HoverMenu>
-              {desktopLinks.map((link) => (
-                <Link 
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    "transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group",
-                    isLinkActive(link.href)
-                      ? 'text-green'
-                      : 'text-gray-700 dark:text-gray-300 hover:text-green'
-                  )}
-                >
-                  {link.label}
-                  <span className={cn(
-                    "absolute -bottom-1 left-0 w-0 h-0.5 bg-green transition-all duration-300 group-hover:w-full",
-                    isLinkActive(link.href) ? "w-full" : "w-0"
-                  )} />
-                </Link>
-              ))}
-            </div>
+                  >
+                    {link.label}
+                    <span className={cn(
+                      "absolute -bottom-1 left-0 w-0 h-0.5 bg-green transition-all duration-300 group-hover:w-full",
+                      isLinkActive(link.href) ? "w-full" : "w-0"
+                    )} />
+                  </Link>
+                ))}
+              </div>
 
-            {/* Desktop Controls */}
-            <div className="hidden lg:flex items-center flex-shrink-0">
+              {/* Desktop Controls */}
+              <div className="flex items-center">
               {/* Authentication Controls - Desktop */}
               {isAuthenticated ? (
                 <UserMenu
@@ -465,6 +467,7 @@ const Navbar = () => {
                   </Button>
                 </div>
               )}
+              </div>
             </div>
 
             {/* Mobile Controls */}

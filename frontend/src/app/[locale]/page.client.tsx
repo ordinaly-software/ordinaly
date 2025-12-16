@@ -230,7 +230,6 @@ export default function HomePage() {
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <ContactForm />
       </section>
-      <SeoArticleSection t={t} onWhatsApp={handleWhatsAppChat} />
       <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
       <Footer />
       <ServiceDetailsModal service={selectedService} isOpen={isServiceModalOpen} onClose={closeServiceModal} />
