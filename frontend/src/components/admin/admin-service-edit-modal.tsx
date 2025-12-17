@@ -150,7 +150,16 @@ export const AdminServiceEditModal = ({
   }, [imagePreview]);
 
   const safeImagePreview = useMemo(() => {
-    return sanitizeImageSrc(imagePreview);
+    const sanitized = sanitizeImageSrc(imagePreview);
+    if (!sanitized) return null;
+
+    // Keep an explicit allowlist check close to the sink for SAST tools.
+    const isAllowed =
+      /^(?:blob:|\/(?!\/)|https?:\/\/|data:image\/(png|jpe?g|gif|webp|avif);base64,)/i.test(sanitized);
+    if (!isAllowed) return null;
+
+    // Encode as a defense-in-depth step (and to avoid control/meta chars in attributes).
+    return encodeURI(sanitized);
   }, [imagePreview]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
