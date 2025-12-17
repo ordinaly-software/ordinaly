@@ -59,10 +59,10 @@ const extractYoutubeId = (url?: string | null) => {
     const parsed = new URL(url);
     const host = parsed.hostname.toLowerCase();
     const parts = parsed.pathname.split("/").filter(Boolean);
-    if (host.includes("youtu.be")) {
+    if (host === "youtu.be") {
       return parts[0] || null;
     }
-    if (host.includes("youtube.com")) {
+    if (host === "youtube.com" || host.endsWith(".youtube.com")) {
       const v = parsed.searchParams.get("v");
       if (v) return v;
       if (parts[0] === "embed" && parts[1]) return parts[1];

@@ -8,7 +8,7 @@ import { Locale, routing } from "@/i18n/routing";
 import NavbarWrapper from "@/components/ui/navbar-wrapper";
 import CookieConsent from "@/components/ui/cookies";
 import BackToTopButton from "@/components/ui/back-to-top-button";
-import { absoluteUrl, getFullBrandName, metadataBaseUrl, siteName } from "@/lib/metadata";
+import { absoluteUrl, getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
 import AnalyticsManager from "@/utils/analyticsManager";
@@ -19,14 +19,6 @@ const inter = Inter({
   variable: "--font-inter",
   preload: false,
 });
-
-const localeHrefLangs: Record<string, string> = {
-  es: "es-ES",
-  en: "en-US",
-  ca: "ca-ES",
-  eu: "eu-ES",
-  gl: "gl-ES",
-};
 
 const baseDescription =
   "Transformamos empresas con soluciones de automatización inteligente en Sevilla, España y Europa.";

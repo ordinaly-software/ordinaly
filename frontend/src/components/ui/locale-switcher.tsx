@@ -16,9 +16,6 @@ export default function LocaleSwitcher() {
   const localeOptions: DropdownOption[] = [
     { value: 'en', label: 'English', icon: Globe },
     { value: 'es', label: 'Español', icon: Globe },
-    { value: 'ca', label: 'Català', icon: Globe },
-    { value: 'eu', label: 'Euskera', icon: Globe },
-    { value: 'gl', label: 'Galego', icon: Globe }
   ];
 
   const handleLocaleChange = (value: string) => {
