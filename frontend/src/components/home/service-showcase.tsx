@@ -86,6 +86,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
           return (
             <ServiceAppleCarousel
               services={services}
+              variant="compact"
               labels={{
                 featured: t("services.featured"),
                 contactForQuote: t("services.contactForQuote"),

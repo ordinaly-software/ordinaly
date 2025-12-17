@@ -11,6 +11,7 @@ interface ServiceAppleCarouselProps {
   onSelect?: (service: Service) => void;
   onContact?: (service: Service) => void;
   initialScroll?: number;
+  variant?: "default" | "compact";
 }
 
 const normalizeHex = (color?: string) => {
@@ -33,7 +34,9 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
   onSelect,
   onContact,
   initialScroll = 0,
+  variant = "default",
 }) => {
+  const spacingClassName = variant === "compact" ? "py-4 md:py-8" : undefined;
   const cards = useMemo(
     () =>
       services.map((service, index) => {
@@ -70,5 +73,5 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
     [services, labels, onSelect, onContact],
   );
 
-  return <Carousel items={cards} initialScroll={initialScroll} />;
+  return <Carousel items={cards} initialScroll={initialScroll} className={spacingClassName} />;
 };

@@ -128,6 +128,14 @@ export const AdminServiceEditModal = ({
       setAlert({ type: "error", message: t("messages.validation.imageTooLarge") });
       return;
     }
+    // Disallow SVG images due to XSS risk
+    const isSvg =
+      file.type === "image/svg+xml" ||
+      (file.name && file.name.toLowerCase().endsWith(".svg"));
+    if (!file.type.startsWith("image/") || isSvg) {
+      setAlert({ type: "error", message: t("messages.validation.imageInvalidType") });
+      return;
+    }
     setImageFile(file);
     setImagePreview(URL.createObjectURL(file));
     setRemoveImage(false);

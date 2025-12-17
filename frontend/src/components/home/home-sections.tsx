@@ -132,12 +132,13 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
       <div className="absolute inset-0 opacity-40">
         <Image
           src={heroImage}
-          alt={t("hero.imageAlt")}
+          alt=""
           fill
           className="object-cover lg:object-contain blur-sm brightness-1.5"
           priority
           fetchPriority="high"
           sizes="90vw"
+          aria-hidden="true"
         />
       </div>
       <div
@@ -157,12 +158,13 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
               <div className="relative h-[220px] sm:h-[220px] md:h-[240px] w-full overflow-hidden">
                 <Image
                   src={heroImage}
-                  alt={t("hero.imageAlt")}
+                  alt=""
                   fill
                   className="object-cover"
                   priority
                   fetchPriority="high"
                   sizes="100vw"
+                  aria-hidden="true"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/5 to-transparent" />
               </div>
@@ -306,7 +308,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
               <div className="relative">
                 <Image
                   src={heroImage}
-                  alt={t("hero.imageAlt")}
+                  alt=""
                   width={720}
                   height={880}
                   className="mx-auto h-auto w-full max-w-[640px]"
@@ -314,6 +316,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   fetchPriority="high"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px"
                   loading="eager"
+                  aria-hidden="true"
                 />
               </div>
             </div>
@@ -371,7 +374,7 @@ interface ServicesIntroProps extends HeroProps {
 
 export function ServicesSection({ t, servicesContent, onWhatsApp, sectionRef }: ServicesIntroProps) {
   return (
-    <section id="services" ref={sectionRef} className="py-10 px-4 sm:px-6 lg:px-8">
+    <section id="services" ref={sectionRef} className="py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16 scroll-animate fade-in-up">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">
@@ -379,9 +382,6 @@ export function ServicesSection({ t, servicesContent, onWhatsApp, sectionRef }: 
           </h2>
           <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto mb-4">
             {t("services.subtitle")}
-          </p>
-          <p className="text-lg text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-            {t("services.description")}
           </p>
         </div>
         {servicesContent}

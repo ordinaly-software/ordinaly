@@ -9,6 +9,8 @@
       "services": "Productos/Servicios",
       "formation": "Formación",
       "start": "Empieza Ahora",
+      "ctaConsultation": "Agenda una consulta",
+      "ctaConsultationMessage": "Hola, quiero agendar una consulta para empezar a automatizar procesos en mi empresa.",
       "darkMode": "Cambiar a modo oscuro",
       "lightMode": "Cambiar a modo claro",
       "localeSwitcher": "Cambiar idioma",
@@ -35,7 +37,7 @@
       "trust3": "Soluciones para Inmobiliarias, Retail y Marketing.",
       "trust4": "Formación práctica en IA para equipos.",
       "ctaServices": "Ver Servicios",
-      "ctaDemo": "Solicitar Demo Gratuita",
+      "ctaDemo": "Agenda una consulta",
       "clientsTitle": "Confían en nosotros",
       "statHeadline": "+500 HORAS AHORRADAS",
       "statCaption": "a empresas andaluzas este mes.",
@@ -66,7 +68,6 @@
     "services": {
       "title": "Servicios de Automatización e IA para Empresas en Sevilla",
       "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos. Especialistas en automatización para inmobiliarias, administradores de fincas y PYMEs andaluzas.",
-      "description": "Integraciones con Odoo, Slack, WhatsApp Business y todas las herramientas que tu empresa ya utiliza",
       "cta": "Agenda tu Análisis Gratuito",
       "extra": {
         "0": {

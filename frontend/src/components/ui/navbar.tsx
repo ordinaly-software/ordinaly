@@ -153,6 +153,13 @@ const Navbar = () => {
   const { services: menuServices } = useServices(6);
   const { courses: menuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 3, upcoming: true });
 
+  const handleBookConsultation = useCallback(() => {
+    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
+    if (!phoneNumber) return;
+    const message = encodeURIComponent(t("navigation.ctaConsultationMessage"));
+    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+  }, [t]);
+
   // Optimized scroll handler with throttling
   const handleScroll = useCallback(() => {
     if (scrollTimeoutRef.current) {
@@ -353,12 +360,13 @@ const Navbar = () => {
               <div className="mr-3 sm:mr-4 flex-shrink-0">
                 <Image 
                   src="/logo.webp" 
-                  alt={t("logo.alt")} 
+                  alt="" 
                   width={40} 
                   height={40}
                   className="h-8 w-8 sm:h-10 sm:w-10 transition-transform duration-200 group-hover:rotate-3"
                   priority
                   sizes="(max-width: 640px) 32px, 40px"
+                  aria-hidden="true"
                 />
               </div>
               <div className="text-lg sm:text-xl lg:text-2xl font-bold text-green truncate transition-colors duration-200">
@@ -443,6 +451,13 @@ const Navbar = () => {
 
               {/* Desktop Controls */}
               <div className="flex items-center">
+              <Button
+                size="sm"
+                onClick={handleBookConsultation}
+                className="mr-3 h-9 bg-green text-white shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-200"
+              >
+                {t("navigation.ctaConsultation")}
+              </Button>
               {/* Authentication Controls - Desktop */}
               {isAuthenticated ? (
                 <UserMenu
@@ -526,6 +541,15 @@ const Navbar = () => {
             >
               <div className="py-4 px-4 sm:px-6">
                 <div className="flex flex-col space-y-1">
+                  <Button
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      handleBookConsultation();
+                    }}
+                    className="mb-2 w-full bg-green text-white hover:bg-green-600"
+                  >
+                    {t("navigation.ctaConsultation")}
+                  </Button>
                   {mobileLinks.map((link) => (
                     <Link 
                       key={link.href}

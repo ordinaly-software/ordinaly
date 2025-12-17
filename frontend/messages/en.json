@@ -9,6 +9,8 @@
       "services": "Services and Products",
       "formation": "Formation",
       "start": "Get Started",
+      "ctaConsultation": "Book a consultation",
+      "ctaConsultationMessage": "Hi, I'd like to book a consultation to start automating processes in my business.",
       "darkMode": "Switch to dark mode",
       "lightMode": "Switch to light Mode",
       "localeSwitcher": "Change language",
@@ -35,7 +37,7 @@
       "trust3": "Solutions for Real Estate, Retail, and Marketing.",
       "trust4": "Practical AI training for teams.",
       "ctaServices": "View Services",
-      "ctaDemo": "Request Free Demo",
+      "ctaDemo": "Book a consultation",
       "clientsTitle": "Trusted by",
       "statHeadline": "+500 HOURS SAVED",
       "statCaption": "for Andalusian companies this month.",
@@ -66,7 +68,6 @@
     "services": {
       "title": "AI and Automation Services for Companies in Seville",
       "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs.",
-      "description": "Integrations with Odoo, Slack, WhatsApp Business and all the tools your company already uses",
       "cta": "Schedule Your Free Analysis",
       "extra": {
         "0": {
