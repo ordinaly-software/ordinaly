@@ -1,5 +1,10 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import ErrorCard from "@/components/ui/error-card";
+import Link from "next/link";
+import { Card, CardHeader } from "@/components/ui/card";
+import { ServiceAppleCarousel } from "@/components/services/service-apple-carousel";
 import React from "react";
 
 import type { Service } from "@/hooks/useServices";
@@ -11,32 +16,15 @@ export interface ServiceShowcaseProps {
   error: string | null;
   t: (key: string, params?: Record<string, string | number | Date>) => string;
   refetch: () => void;
-  onServiceClick: (service: Service) => void;
+  onContact?: (service: Service) => void;
 }
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import ErrorCard from "@/components/ui/error-card";
-import Link from "next/link";
-import { renderIcon } from "@/components/ui/icon-select";
-import { truncateText } from "@/utils/text";
 
 const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
-  // Helper for color
-  const getServiceColor = (service: Service) => {
-    const isDarkMode = typeof document !== "undefined" && document.documentElement.classList.contains("dark");
-    if (service.color === '1A1924' && isDarkMode) {
-      return '#efefefbb';
-    } else if (service.color === '623CEA' && isDarkMode) {
-      return '#8B5FF7';
-    }
-    return service.color_hex;
-  };
-
   // --- RETURN COMPONENT JSX ---
   return (
     <>
       {(() => {
-        const { isLoading, isOnVacation, error, t, refetch, services, onServiceClick } = props;
+        const { isLoading, isOnVacation, error, t, refetch, services, onContact } = props;
         if (isLoading) {
           return (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -96,82 +84,23 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
           );
         } else if (services.length > 0) {
           return (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services.map((service) => {
-                const serviceColor = getServiceColor(service) ?? "#22A60D";
-                return (
-                  <Card 
-                    key={service.id} 
-                    className={`bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl cursor-pointer opacity-100`}
-                    onClick={() => onServiceClick(service)}
-                    style={{
-                      '--hover-border-color': serviceColor,
-                      '--hover-shadow-color': `${serviceColor}10`
-                    } as React.CSSProperties}
-                    onMouseEnter={(e: React.MouseEvent<HTMLDivElement>) => {
-                      e.currentTarget.style.borderColor = serviceColor ?? "#22A60D";
-                      e.currentTarget.style.boxShadow = `0 25px 50px -12px ${(serviceColor ?? "#22A60D")}10`;
-                    }}
-                    onMouseLeave={(e: React.MouseEvent<HTMLDivElement>) => {
-                      e.currentTarget.style.borderColor = '';
-                      e.currentTarget.style.boxShadow = '';
-                    }}
-                  >
-                    <CardHeader>
-                      <div 
-                        className="w-16 h-16 rounded-2xl flex items-center justify-center mb-4"
-                        style={{ backgroundColor: `${serviceColor ?? "#22A60D"}10` }}
-                      >
-                        <div style={{ color: serviceColor ?? "#22A60D" }}>
-                          {service.icon && renderIcon(service.icon, `h-8 w-8`)}
-                        </div>
-                      </div>
-                      <CardTitle className="text-xl text-gray-900 dark:text-white">{service.title}</CardTitle>
-                      {service.subtitle && (
-                        <p className="text-sm text-gray-800 dark:text-gray-200 mb-2">{service.subtitle}</p>
-                      )}
-                      <CardDescription className="text-gray-800 dark:text-gray-200">
-                        {truncateText(service.clean_description ?? "", 120)}
-                      </CardDescription>
-                      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                        <div className="flex flex-col">
-                          {service.price && !isNaN(Number(service.price)) ? (
-                            <span className="text-lg font-semibold text-gray-900 dark:text-white">€{Math.round(Number(service.price))}</span>
-                          ) : (
-                            <span className="text-sm text-gray-800 dark:text-gray-200 italic">{t("services.contactForQuote")}</span>
-                          )}
-                        </div>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                            e.stopPropagation();
-                            onServiceClick(service);
-                          }}
-                          className="transition-colors border-gray-300 text-gray-600 hover:text-white"
-                          style={{
-                            borderColor: serviceColor ?? "#22A60D",
-                            color: serviceColor ?? "#22A60D"
-                          }}
-                          onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
-                            e.currentTarget.style.backgroundColor = serviceColor ?? "#22A60D";
-                            e.currentTarget.style.color = 'white';
-                            e.currentTarget.style.borderColor = serviceColor ?? "#22A60D";
-                          }}
-                          onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
-                            e.currentTarget.style.backgroundColor = '';
-                            e.currentTarget.style.color = serviceColor ?? "#22A60D";
-                            e.currentTarget.style.borderColor = serviceColor ?? "#22A60D";
-                          }}
-                        >
-                          {t("services.viewDetails")}
-                        </Button>
-                      </div>
-                    </CardHeader>
-                  </Card>
-                );
-              })}
-            </div>
+            <ServiceAppleCarousel
+              services={services}
+              labels={{
+                featured: t("services.featured"),
+                contactForQuote: t("services.contactForQuote"),
+                viewDetails: t("services.viewDetails"),
+                price: t("services.price"),
+                duration: t("services.duration"),
+                durationDay: t("services.durationDay"),
+                durationDays: t("services.durationDays"),
+                requisites: t("services.requisites"),
+                none: t("services.contactForQuote"),
+                video: t("services.video"),
+                playVideo: t("services.playVideo"),
+              }}
+              onContact={onContact}
+            />
           );
         } else {
           return (

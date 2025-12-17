@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Send, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PaginationControls } from "@/components/ui/pagination-controls";
 
 interface User {
   id: number;
@@ -21,6 +22,8 @@ const AdminUsersTab = () => {
   const [search, setSearch] = useState("");
   const [sortKey, setSortKey] = useState<keyof User>("name");
   const [sortAsc, setSortAsc] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(25);
 
   const handleSelectUser = (id: number) => {
     setSelectedUsers((prev) =>
@@ -28,12 +31,49 @@ const AdminUsersTab = () => {
     );
   };
 
+  const filteredAndSortedUsers = useMemo(() => {
+    return users
+      .filter(u => {
+        const q = search.trim().toLowerCase();
+        if (!q) return true;
+        return (
+          u.name.toLowerCase().includes(q) ||
+          u.surname.toLowerCase().includes(q) ||
+          u.email.toLowerCase().includes(q) ||
+          u.company.toLowerCase().includes(q) ||
+          String(u.id).includes(q)
+        );
+      })
+      .sort((a, b) => {
+        const aVal = a[sortKey] ?? "";
+        const bVal = b[sortKey] ?? "";
+        if (aVal < bVal) return sortAsc ? -1 : 1;
+        if (aVal > bVal) return sortAsc ? 1 : -1;
+        return 0;
+      });
+  }, [users, search, sortKey, sortAsc]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredAndSortedUsers.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const startIndex = (safeCurrentPage - 1) * pageSize;
+  const paginatedUsers = filteredAndSortedUsers.slice(startIndex, startIndex + pageSize);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [search, sortKey, sortAsc, pageSize]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+  }, [currentPage, totalPages]);
+
   const handleSelectAll = () => {
-    if (selectedUsers.length === filteredAndSortedUsers.length) {
-      setSelectedUsers([]);
-    } else {
-      setSelectedUsers(filteredAndSortedUsers.map((u) => u.id));
+    const visibleIds = paginatedUsers.map((u) => u.id);
+    const allVisibleSelected = visibleIds.length > 0 && visibleIds.every((id) => selectedUsers.includes(id));
+    if (allVisibleSelected) {
+      setSelectedUsers((prev) => prev.filter((id) => !visibleIds.includes(id)));
+      return;
     }
+    setSelectedUsers((prev) => Array.from(new Set([...prev, ...visibleIds])));
   };
 
   const handleSendMail = () => {
@@ -67,27 +107,6 @@ const AdminUsersTab = () => {
     };
     fetchUsers();
   }, [t]);
-
-  // Filter and sort users client-side
-  const filteredAndSortedUsers = users
-    .filter(u => {
-      const q = search.trim().toLowerCase();
-      if (!q) return true;
-      return (
-        u.name.toLowerCase().includes(q) ||
-        u.surname.toLowerCase().includes(q) ||
-        u.email.toLowerCase().includes(q) ||
-        u.company.toLowerCase().includes(q) ||
-        String(u.id).includes(q)
-      );
-    })
-    .sort((a, b) => {
-      const aVal = a[sortKey] ?? "";
-      const bVal = b[sortKey] ?? "";
-      if (aVal < bVal) return sortAsc ? -1 : 1;
-      if (aVal > bVal) return sortAsc ? 1 : -1;
-      return 0;
-    });
 
   if (isLoading) {
     return (
@@ -133,7 +152,7 @@ const AdminUsersTab = () => {
       <div className="flex items-center space-x-2 pb-2 border-b border-gray-200 dark:border-gray-700 mb-2">
         <input
           type="checkbox"
-          checked={selectedUsers.length === filteredAndSortedUsers.length && filteredAndSortedUsers.length > 0}
+          checked={paginatedUsers.length > 0 && paginatedUsers.every((u) => selectedUsers.includes(u.id))}
           onChange={handleSelectAll}
           className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
         />
@@ -171,7 +190,7 @@ const AdminUsersTab = () => {
             </tr>
           </thead>
           <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
-            {filteredAndSortedUsers.map((user) => (
+            {paginatedUsers.map((user) => (
               <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                 <td className="px-4 py-4">
                   <input
@@ -193,6 +212,18 @@ const AdminUsersTab = () => {
           </tbody>
         </table>
       </div>
+
+      <PaginationControls
+        totalItems={filteredAndSortedUsers.length}
+        currentPage={safeCurrentPage}
+        pageSize={pageSize}
+        onPageChange={setCurrentPage}
+        onPageSizeChange={(size) => {
+          setPageSize(size);
+          setCurrentPage(1);
+        }}
+        className="mt-4"
+      />
     </div>
   );
 };

@@ -774,7 +774,7 @@ export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
                     {t("local.points.1.title")}
                   </h4>
                   <p className="text-gray-700 dark:text-gray-300">
-                    <Link href="/contact" className="hover:text-[#22A60D] underline underline-offset-4">
+                    <Link href="/contact" scroll={true} className="hover:text-[#22A60D] underline underline-offset-4">
                       {t("local.points.1.description")}
                     </Link>
                   </p>
@@ -799,7 +799,7 @@ export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
               </div>
             </div>
             <Button size="lg" variant="special" asChild className="text-lg px-10 py-6">
-              <Link href="/contact">
+              <Link href="/contact" scroll={true}>
                 {t("local.cta")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
@@ -826,10 +826,10 @@ export function CtaSection({ t, onWhatsApp }: HeroProps) {
         <h2 className="text-4xl md:text-6xl font-bold mb-6">
           {t("cta.title")}
         </h2>
-        <p className="text-xl md:text-2xl mb-4 max-w-2xl mx-auto font-semibold">
+        <p className="text-xl md:text-xl mb-4 max-w-2xl mx-auto font-semibold">
           {t("cta.subtitle")}
         </p>
-        <div className="grid md:grid-cols-3 gap-6 mb-12 text-left">
+        <div className="hidden md:grid md:grid-cols-3 gap-6 mb-12 text-left">
           {ctaBenefits.map((benefit, index) => (
             <div
               key={benefit.titleKey}
@@ -846,10 +846,10 @@ export function CtaSection({ t, onWhatsApp }: HeroProps) {
             </div>
           ))}
         </div>
-        <div className="flex flex-col sm:flex-row gap-2 justify-center items-center">
+        <div className="flex flex-col md:flex-row gap-3 justify-center items-center px-4">
           <Button
             size="lg"
-            className="bg-white text-[#22A60D] hover:bg-gray-100 px-10 py-6 text-lg font-bold shadow-lg hover:shadow-lg transform hover:scale-105 transition-all"
+            className="w-full md:w-auto bg-white text-[#22A60D] hover:bg-gray-100 px-6 py-4 md:px-10 md:py-6 text-base md:text-lg font-bold shadow-lg hover:shadow-lg transform hover:scale-105 transition-all"
             onClick={onWhatsApp}
           >
             <div className="flex items-center gap-3">
@@ -862,7 +862,7 @@ export function CtaSection({ t, onWhatsApp }: HeroProps) {
           <Button
             size="lg"
             variant="outline"
-            className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#22A60D] px-10 py-6 text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+            className="w-full md:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#22A60D] px-6 py-4 md:px-10 md:py-6 text-base md:text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
             asChild
           >
             <Link href="/services">

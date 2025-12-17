@@ -13,8 +13,9 @@ import { Service } from "@/hooks/useServices";
 import { getApiEndpoint } from "@/lib/api-config";
 import { servicesEvents } from "@/lib/events";
 import Alert from "@/components/ui/alert";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Dropdown } from "@/components/ui/dropdown";
+import { ModalCloseButton } from "@/components/ui/modal-close-button";
 
 interface AdminServiceEditModalProps {
   isOpen: boolean;
@@ -28,6 +29,7 @@ interface AdminServiceEditModalProps {
 const defaultFormData = {
   type: "SERVICE",
   title: "",
+  slug: "",
   subtitle: "",
   description: "",
   icon: "",
@@ -37,6 +39,7 @@ const defaultFormData = {
   requisites: "",
   is_featured: false,
   draft: false,
+  youtube_video_url: "",
 };
 
 export const AdminServiceEditModal = ({
@@ -53,6 +56,7 @@ export const AdminServiceEditModal = ({
       return {
         type: initialService.type || "SERVICE",
         title: initialService.title,
+        slug: initialService.slug || "",
         subtitle: initialService.subtitle || "",
         description: initialService.description,
         icon: initialService.icon,
@@ -62,10 +66,15 @@ export const AdminServiceEditModal = ({
         requisites: initialService.requisites || "",
         is_featured: initialService.is_featured,
         draft: initialService.draft ?? false,
+        youtube_video_url: initialService.youtube_video_url || "",
       };
     }
     return { ...defaultFormData };
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(initialService?.image || null);
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
+  const [removeImage, setRemoveImage] = useState(false);
   const [alert, setAlert] = useState<{
     type: "success" | "error" | "info" | "warning";
     message: string;
@@ -77,6 +86,7 @@ export const AdminServiceEditModal = ({
       setFormData({
         type: initialService.type || "SERVICE",
         title: initialService.title,
+        slug: initialService.slug || "",
         subtitle: initialService.subtitle || "",
         description: initialService.description,
         icon: initialService.icon,
@@ -86,17 +96,106 @@ export const AdminServiceEditModal = ({
         requisites: initialService.requisites || "",
         is_featured: initialService.is_featured,
         draft: initialService.draft ?? false,
+        youtube_video_url: initialService.youtube_video_url || "",
       });
+      setImagePreview(initialService.image || null);
+      setImageFile(null);
+      setRemoveImage(false);
     } else {
       setFormData({ ...defaultFormData });
+      setImageFile(null);
+      setImagePreview(null);
+      setRemoveImage(false);
     }
   }, [isOpen, isEdit, initialService]);
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview && imagePreview.startsWith("blob:")) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      setImageFile(null);
+      setImagePreview(initialService?.image || null);
+      return;
+    }
+    if (file.size > 1024 * 1024) {
+      setAlert({ type: "error", message: t("messages.validation.imageTooLarge") });
+      return;
+    }
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+    setRemoveImage(false);
+  };
+
+  const handleImageFile = (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      setAlert({ type: "error", message: t("messages.validation.imageInvalidType") });
+      return;
+    }
+    if (file.size > 1024 * 1024) {
+      setAlert({ type: "error", message: t("messages.validation.imageTooLarge") });
+      return;
+    }
+    setImageFile(file);
+    setImagePreview(URL.createObjectURL(file));
+    setRemoveImage(false);
+  };
+
+  const handleImageDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files?.[0];
+    if (file) handleImageFile(file);
+  };
+
+  const buildFormData = () => {
+    const payload = new FormData();
+    payload.append("type", formData.type);
+    payload.append("title", formData.title.trim());
+    if ((formData.slug || "").trim() !== "") {
+      payload.append("slug", (formData.slug || "").trim());
+    }
+    payload.append("subtitle", formData.subtitle.trim());
+    payload.append("description", formData.description);
+    payload.append("icon", formData.icon);
+    payload.append("color", formData.color);
+    payload.append("draft", String(!!formData.draft));
+    payload.append("is_featured", String(!!formData.is_featured));
+    payload.append("youtube_video_url", (formData.youtube_video_url || "").trim());
+    if (formData.duration) {
+      payload.append("duration", String(parseInt(formData.duration, 10)));
+    }
+    if (formData.price !== "" && formData.price !== null && formData.price !== undefined) {
+      payload.append("price", String(formData.price));
+    }
+    if (formData.requisites) {
+      payload.append("requisites", formData.requisites);
+    }
+    if (imageFile) {
+      payload.append("image", imageFile);
+    } else if (removeImage) {
+      payload.append("remove_image", "true");
+    }
+    return payload;
+  };
 
   const submitService = async () => {
     try {
       if (!formData.title.trim()) {
         setAlert({ type: "error", message: t("messages.validation.titleRequired") });
         return;
+      }
+      if (formData.slug) {
+        const slugRegex = /^[A-Za-z0-9_-]+$/;
+        if (!slugRegex.test(formData.slug.trim())) {
+          setAlert({ type: "error", message: t("messages.validation.slugInvalid") });
+          return;
+        }
       }
       if (!formData.subtitle.trim()) {
         setAlert({ type: "error", message: t("messages.validation.subtitleRequired") });
@@ -110,6 +209,14 @@ export const AdminServiceEditModal = ({
         setAlert({ type: "error", message: t("messages.validation.iconRequired") });
         return;
       }
+      if (formData.youtube_video_url && !formData.youtube_video_url.includes("youtu")) {
+        setAlert({ type: "error", message: t("messages.validation.videoInvalid") });
+        return;
+      }
+      if (imageFile && imageFile.size > 1024 * 1024) {
+        setAlert({ type: "error", message: t("messages.validation.imageTooLarge") });
+        return;
+      }
       if (formData.duration && parseInt(formData.duration) < 1) {
         setAlert({ type: "error", message: t("messages.validation.durationInvalid") });
         return;
@@ -119,13 +226,7 @@ export const AdminServiceEditModal = ({
         return;
       }
       const token = localStorage.getItem("authToken");
-      const payload = {
-        ...formData,
-        duration: formData.duration ? parseInt(formData.duration) : null,
-        price: formData.price ? parseFloat(formData.price) : null,
-        draft: !!formData.draft,
-        type: formData.type,
-      };
+      const payload = buildFormData();
       const url = isEdit && initialService
         ? getApiEndpoint(`/api/services/${initialService.id}/`)
         : getApiEndpoint("/api/services/");
@@ -134,9 +235,8 @@ export const AdminServiceEditModal = ({
         method,
         headers: {
           Authorization: `Token ${token}`,
-          "Content-Type": "application/json",
         },
-        body: JSON.stringify(payload),
+        body: payload,
       });
       if (response.ok) {
         const responseData = await response.json();
@@ -165,6 +265,12 @@ export const AdminServiceEditModal = ({
           setAlert({ type: "error", message: t("messages.validation.durationInvalid") });
         } else if (errorData.price) {
           setAlert({ type: "error", message: t("messages.validation.priceInvalid") });
+        } else if (errorData.slug) {
+          setAlert({ type: "error", message: t("messages.validation.slugInvalid") });
+        } else if (errorData.image) {
+          setAlert({ type: "error", message: t("messages.validation.imageTooLarge") });
+        } else if (errorData.youtube_video_url) {
+          setAlert({ type: "error", message: t("messages.validation.videoInvalid") });
         } else {
           setAlert({ type: "error", message: errorData.detail || t(isEdit ? "messages.updateError" : "messages.createError") });
         }
@@ -253,6 +359,31 @@ export const AdminServiceEditModal = ({
             required
           />
         </div>
+        {/* Service Slug (optional) */}
+        <div className="space-y-3">
+          <Label htmlFor="slug" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            <div className="w-5 h-5 bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center">
+              <span className="text-xs font-bold text-gray-600">#</span>
+            </div>
+            <span>{t("form.slugOptional")}</span>
+          </Label>
+          <Input
+            id="slug"
+            value={formData.slug}
+            onChange={e => setFormData(prev => ({ ...prev, slug: e.target.value }))}
+            placeholder={t("form.slugPlaceholder")}
+            className="h-12 border-gray-300 focus:border-gray-500 focus:ring-gray-500/20 rounded-lg transition-all duration-200"
+          />
+          {(() => {
+            const slugVal = (formData.slug || "").trim();
+            if (!slugVal) return null;
+            const slugRegex = /^[A-Za-z0-9_-]+$/;
+            if (!slugRegex.test(slugVal)) {
+              return <div className="text-xs text-red-600 font-semibold mt-1">{t("form.slugInvalid")}</div>;
+            }
+            return null;
+          })()}
+        </div>
         {/* Service Description */}
         <div className="space-y-3">
           <Label htmlFor="description" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -272,6 +403,120 @@ export const AdminServiceEditModal = ({
           />
           <div className="text-xs text-gray-500 dark:text-gray-400">
             {t("form.markdownSupported")}
+          </div>
+        </div>
+        {/* Image and Video */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <Label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-blue-600 dark:text-blue-400">🖼️</span>
+              </div>
+              <span>{t("form.image")}</span>
+            </Label>
+            <div className="space-y-2">
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                {t("form.imageHelp")}
+              </p>
+              <div
+                className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-2 transition-all duration-200 hover:border-blue-500 hover:bg-blue-500/5 max-w-xs"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={handleImageDrop}
+              >
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                  ref={imageInputRef}
+                />
+                <div className="text-center">
+                  {imageFile ? (
+                    <div className="flex items-center justify-center space-x-2">
+                      <div className="flex items-center space-x-1 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">
+                        <FileText className="w-4 h-4 text-green-600 dark:text-green-400" />
+                        <span className="text-xs font-medium text-green-700 dark:text-green-300">
+                          {imageFile.name}
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      <div className="w-8 h-8 mx-auto bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                        <span className="text-sm text-gray-400">⬆</span>
+                      </div>
+                      <div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => imageInputRef.current?.click()}
+                          className="border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white transition-all duration-200 text-xs px-2 py-1"
+                        >
+                          {t("form.chooseImageText")}
+                        </Button>
+                        <p className="text-[10px] text-gray-500 mt-1">{t("form.imageRecommendation")}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {imagePreview && imagePreview !== "undefined" && imagePreview !== "null" && (
+                  <div
+                    className="mt-3 relative w-48 h-48 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 mx-auto"
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={handleImageDrop}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => imageInputRef.current?.click()}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") imageInputRef.current?.click();
+                    }}
+                    aria-label={t("form.image")}
+                  >
+                    <img src={imagePreview} alt={t("form.image")} className="h-full w-full object-cover" />
+                    <ModalCloseButton
+                      onClick={() => {
+                        if (imageFile) {
+                          setImageFile(null);
+                          setImagePreview(initialService?.image || null);
+                          setRemoveImage(false);
+                          return;
+                        }
+                        // No newly selected file: interpret as "remove existing image"
+                        setImagePreview(null);
+                        setRemoveImage(true);
+                      }}
+                      variant="light"
+                      size="sm"
+                      className="absolute top-1 right-1 bg-red-500 text-white rounded-full hover:bg-red-600"
+                    />
+                  </div>
+                )}
+              </div>
+              {removeImage && isEdit && (
+                <p className="text-xs text-red-600 dark:text-red-400">
+                  {t("form.imageWillBeRemoved")}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="space-y-3">
+            <Label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <div className="w-5 h-5 bg-red-100 dark:bg-red-900/30 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-red-600 dark:text-red-400">▶️</span>
+              </div>
+              <span>{t("form.video")}</span>
+            </Label>
+            <Input
+              type="url"
+              value={formData.youtube_video_url}
+              onChange={e => setFormData(prev => ({ ...prev, youtube_video_url: e.target.value }))}
+              placeholder={t("form.videoPlaceholder")}
+              className="h-12 border-gray-300 focus:border-red-500 focus:ring-red-500/20 rounded-lg transition-all duration-200"
+            />
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {t("form.videoHelp")}
+            </p>
           </div>
         </div>
         {/* Icon and Price */}
@@ -379,6 +624,9 @@ export const AdminServiceEditModal = ({
               rows={4}
               className="border-gray-300 focus:border-yellow-500 focus:ring-yellow-500/20 rounded-lg transition-all duration-200 resize-none"
             />
+            <div className="text-xs text-gray-500 dark:text-gray-400">
+              {t("form.markdownSupported")}
+            </div>
           </div>
         </div>
         {/* Duration */}

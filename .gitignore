@@ -30,6 +30,7 @@ venv/*
 **/migrations/**
 !**/migrations/__init__.py
 */media/course_images/*
+*/media/service_images/*
 */media/terms/*
 
 

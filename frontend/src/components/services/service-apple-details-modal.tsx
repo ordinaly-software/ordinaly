@@ -1,0 +1,61 @@
+"use client";
+
+import React, { useMemo } from "react";
+import { useTranslations } from "next-intl";
+import type { Service } from "@/hooks/useServices";
+import { AppleModal } from "@/components/ui/apple-modal";
+import { ServiceDetailsContent, type ServiceDetailsLabels } from "@/components/services/service-details-content";
+
+export const ServiceAppleDetailsModal = ({
+  service,
+  isOpen,
+  onClose,
+  showContact = false,
+  onContact,
+}: {
+  service: Service | null;
+  isOpen: boolean;
+  onClose: () => void;
+  showContact?: boolean;
+  onContact?: (service: Service) => void;
+}) => {
+  const t = useTranslations("services");
+  const tHome = useTranslations("home");
+  if (!service) return null;
+
+  const labels = useMemo<ServiceDetailsLabels>(
+    () => ({
+      featured: t("featured"),
+      contactForQuote: t("contactForQuote"),
+      viewDetails: t("details"),
+      contactNow: t("cta.contact"),
+      productType: t("productsSectionTitle"),
+      serviceType: t("servicesSectionTitle"),
+      price: t("price"),
+      duration: t("duration"),
+      durationDay: t("durationDay"),
+      durationDays: t("durationDays"),
+      requisites: t("requisites"),
+      none: t("contactForQuote"),
+      video: tHome("services.video"),
+      playVideo: tHome("services.playVideo"),
+    }),
+    [t, tHome],
+  );
+
+  const category = service.type === "PRODUCT" ? t("productsSectionTitle") : t("servicesSectionTitle");
+
+  return (
+    <AppleModal isOpen={isOpen} onClose={onClose} category={category} title={service.title}>
+      <div className="pt-6">
+        <ServiceDetailsContent
+          service={service}
+          labels={labels}
+          onContact={onContact}
+          showContact={showContact}
+          showViewDetails={false}
+        />
+      </div>
+    </AppleModal>
+  );
+};

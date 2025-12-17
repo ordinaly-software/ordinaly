@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { FileText, Edit, Trash2, Eye, Users, CheckCircle } from "lucide-react";
+import { FileText, Edit, Trash2, Eye, Users, CheckCircle, Copy } from "lucide-react";
 import dynamic from "next/dynamic";
 const MarkdownRenderer = dynamic(() => import("@/components/ui/markdown-renderer").then(mod => mod.MarkdownRenderer), { ssr: false });
 
@@ -44,6 +44,7 @@ interface AdminCourseCardProps {
   onView: (course: Course) => void;
   onEdit: (course: Course) => void;
   onDelete: (course: Course) => void;
+  onDuplicate: (course: Course) => void;
   t: (key: string, params?: Record<string, string | number | Date>) => string;
   tAdmin: (key: string, params?: Record<string, string | number | Date>) => string;
   dateLocale: string;
@@ -67,6 +68,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
   onView,
   onEdit,
   onDelete,
+  onDuplicate,
   t,
   tAdmin,
   dateLocale,
@@ -171,6 +173,15 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
             </Button>
             {!isFinished && (
               <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onDuplicate(course)}
+                  className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/40 w-full"
+                  aria-label={t("duplicate")}
+                >
+                  <Copy className="h-4 w-4" />
+                </Button>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -288,6 +299,15 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                 </Button>
                 {!isFinished && (
                   <>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => onDuplicate(course)}
+                      className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/40"
+                      aria-label={t("duplicate")}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
                     <Button
                       variant="ghost"
                       size="sm"

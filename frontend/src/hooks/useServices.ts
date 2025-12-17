@@ -5,17 +5,21 @@ import { getApiEndpoint } from '@/lib/api-config';
 
 export interface Service {
   id: number;
+  slug?: string;
   type: 'SERVICE' | 'PRODUCT';
   title: string;
   subtitle?: string;
   description: string;
   clean_description: string;
   html_description?: string;
+  image?: string | null;
+  youtube_video_url?: string | null;
   color: string;
   color_hex: string;
   icon: string;
   duration?: number;
   requisites?: string;
+  requisites_html?: string;
   price?: string | null;
   is_featured: boolean;
   featured?: boolean; // for backward compatibility

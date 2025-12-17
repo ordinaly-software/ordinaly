@@ -396,7 +396,7 @@ export default function ContactPage() {
               asChild
               className="bg-[#22A60D] text-white shadow-[0_15px_40px_rgba(34,166,13,0.35)] hover:shadow-[0_20px_50px_rgba(34,166,13,0.4)] hover:bg-[#1a7d09] normal-case not-italic font-semibold tracking-tight"
             >
-              <Link href="/us">
+              <Link href="/us" scroll={true}>
                 <ExternalLink className="mr-2 h-4 w-4" />
                 {t("team.cta")}
               </Link>

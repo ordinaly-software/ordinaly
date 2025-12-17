@@ -1,7 +1,10 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
 from decimal import Decimal
+from urllib.parse import urlparse
+from django.utils.text import slugify
 import markdown
 
 
@@ -155,6 +158,13 @@ class Service(models.Model):
     ]
     type = models.CharField(max_length=16, choices=TYPE_CHOICES, default=SERVICE)
     title = models.CharField(max_length=100)
+    slug = models.SlugField(
+        max_length=100,
+        unique=True,
+        blank=True,
+        null=False,
+        help_text="URL-friendly identifier generated from the title"
+    )
     draft = models.BooleanField(
         default=False,
         null=False,
@@ -164,6 +174,13 @@ class Service(models.Model):
     description = models.TextField(
         max_length=2000,
         help_text="Markdown content that will be converted to HTML for display"
+    )
+    image = models.ImageField(upload_to='service_images/', null=True, blank=True)
+    youtube_video_url = models.URLField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="YouTube link with a service or product explanation"
     )
     color = models.CharField(
         max_length=6,
@@ -196,10 +213,81 @@ class Service(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
+        old_image = None
+        if self.pk:
+            old_image = (
+                Service.objects.filter(pk=self.pk)
+                .only('image')
+                .values_list('image', flat=True)
+                .first()
+            )
+        # Truncate title to avoid DB-level DataError
+        try:
+            title_max = self._meta.get_field('title').max_length
+            if self.title and title_max and len(self.title) > title_max:
+                self.title = self.title[:title_max]
+        except Exception:
+            pass
+        # Auto-generate slug from title if not provided
+        if not self.slug and self.title:
+            max_slug_length = 100
+            max_suffix_length = len("-99999")
+            base_slug = slugify(self.title)[:max_slug_length - max_suffix_length]
+            slug_candidate = base_slug
+            i = 1
+            while Service.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
+                suffix = f"-{i}"
+                allowed_base_length = max_slug_length - len(suffix)
+                truncated_base = base_slug[:allowed_base_length]
+                slug_candidate = f"{truncated_base}{suffix}"
+                i += 1
+            self.slug = slug_candidate
         # Ensure draft is never None
         if self.draft is None:
             self.draft = False
         super().save(*args, **kwargs)
+        # Remove previous image file when it gets replaced/cleared
+        if old_image and (not self.image or self.image.name != old_image):
+            try:
+                storage = self.image.storage if self.image else None
+                # If image was cleared, use default storage via the field
+                storage = storage or self._meta.get_field('image').storage
+                if storage.exists(old_image):
+                    storage.delete(old_image)
+            except Exception:
+                # File cleanup should never block saving the model
+                pass
+
+    def delete(self, *args, **kwargs):
+        image_name = self.image.name if self.image else None
+        storage = self.image.storage if self.image else self._meta.get_field('image').storage
+        super().delete(*args, **kwargs)
+        if image_name:
+            try:
+                if storage.exists(image_name):
+                    storage.delete(image_name)
+            except Exception:
+                pass
+
+    def clean(self):
+        max_size = 1024 * 1024  # 1MB
+        if self.image and hasattr(self.image, 'size') and self.image.size > max_size:
+            raise ValidationError({'image': 'Service image must be 1MB or less.'})
+
+        if self.youtube_video_url:
+            parsed = urlparse(self.youtube_video_url)
+            allowed_hosts = {
+                'youtube.com',
+                'www.youtube.com',
+                'm.youtube.com',
+                'youtu.be',
+                'www.youtu.be',
+            }
+            if parsed.netloc.lower() not in allowed_hosts:
+                raise ValidationError({
+                    'youtube_video_url': 'Service video must be a YouTube link.'
+                })
+        super().clean()
 
     def get_clean_description(self):
         """Return description with Markdown formatting removed for plain text display"""
@@ -214,6 +302,21 @@ class Service(models.Model):
         """Convert Markdown description to HTML for display"""
         return markdown.markdown(
             self.description,
+            extensions=['codehilite', 'tables', 'fenced_code', 'nl2br'],
+            extension_configs={
+                'codehilite': {
+                    'css_class': 'highlight',
+                    'use_pygments': True
+                }
+            }
+        )
+
+    def get_html_requisites(self):
+        """Convert Markdown requisites to HTML for display"""
+        if not self.requisites:
+            return ""
+        return markdown.markdown(
+            self.requisites,
             extensions=['codehilite', 'tables', 'fenced_code', 'nl2br'],
             extension_configs={
                 'codehilite': {

@@ -62,7 +62,7 @@ jobs:
           python manage.py migrate --noinput
           # Ejecuta tests con coverage (usa pytest o el runner de Django)
             coverage run -m pytest -q --reuse-db
-            coverage xml -o coverage.xml --omit='*/migrations/*,*/tests.py,api/*,config/*,manage.py,*__init__.py'
+            coverage xml -o coverage.xml --omit='*/migrations/*,*/tests.py,api/*,config/*,manage.py,conftest.py,*__init__.py'
 
       - name: Run SonarCloud analysis
         uses: SonarSource/sonarqube-scan-action@v5.3.1

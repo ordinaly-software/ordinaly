@@ -22,14 +22,11 @@ import {
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 
 const ServiceShowcase = dynamic(() => import("@/components/home/service-showcase").then(mod => mod.default), { ssr: false, loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div> });
-const ServiceDetailsModal = dynamic(() => import("@/components/services/service-details-modal").then(mod => mod.ServiceDetailsModal), { ssr: false, loading: () => null });
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false, loading: () => <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]"><div className="max-w-7xl mx-auto"><div className="grid md:grid-cols-4 gap-8"><div className="col-span-2"><div className="h-24 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div></div></div></div></footer> });
 const CoursesShowcase = dynamic(() => import("@/components/home/courses-showcase").then(mod => mod.default), { ssr: false, loading: () => <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50"><div className="max-w-7xl mx-auto"><div className="text-center mb-16"><div className="h-12 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-6 max-w-md mx-auto"></div><div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse max-w-2xl mx-auto"></div></div><div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">{Array.from({ length: 3 }).map((_, index) => (<div key={index} className="bg-white dark:bg-gray-800/50 rounded-xl p-6"><div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mb-4"></div><div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div><div className="space-y-2"><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse w-3/4"></div></div></div>))}</div></div></section> });
 
 export default function HomePage() {
   const t = useTranslations("home");
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [isServiceModalOpen, setIsServiceModalOpen] = useState(false);
   const servicesSectionRef = useRef<HTMLElement | null>(null);
   const [servicesEnabled, setServicesEnabled] = useState(false);
 
@@ -38,14 +35,12 @@ export default function HomePage() {
   const servicesErrorState = servicesEnabled ? servicesError : null;
   const servicesVacationState = servicesEnabled ? isOnVacation : false;
 
-  const handleServiceClick = useCallback((service: Service) => {
-    setSelectedService(service);
-    setIsServiceModalOpen(true);
-  }, []);
-
-  const closeServiceModal = useCallback(() => {
-    setIsServiceModalOpen(false);
-    setSelectedService(null);
+  const handleServiceContact = useCallback((service: Service) => {
+    const message = encodeURIComponent(
+      `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`
+    );
+    const whatsappUrl = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
   }, []);
 
   const handleWhatsAppChat = useCallback(() => {
@@ -216,7 +211,7 @@ export default function HomePage() {
             error={servicesErrorState}
             t={t}
             refetch={refetch}
-            onServiceClick={handleServiceClick}
+            onContact={handleServiceContact}
           />
         }
       />
@@ -232,7 +227,6 @@ export default function HomePage() {
       </section>
       <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
       <Footer />
-      <ServiceDetailsModal service={selectedService} isOpen={isServiceModalOpen} onClose={closeServiceModal} />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Star, Eye, Edit, Trash2 } from "lucide-react";
+import { Star, Eye, Edit, Trash2, Copy } from "lucide-react";
 import { renderIcon } from "@/components/ui/icon-select";
 import dynamic from "next/dynamic";
 const MarkdownRenderer = dynamic(() => import("@/components/ui/markdown-renderer").then(mod => mod.MarkdownRenderer), { ssr: false });
@@ -15,6 +15,7 @@ interface AdminServiceCardProps {
   onView: (service: Service) => void;
   onEdit: (service: Service) => void;
   onDelete: (service: Service) => void;
+  onDuplicate: (service: Service) => void;
   tAdmin: (key: string, params?: Record<string, string | number | Date>) => string;
   t: (key: string, params?: Record<string, string | number | Date>) => string;
   getServiceColor: (service: Service, isDarkMode?: boolean) => string;
@@ -27,6 +28,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
   onView,
   onEdit,
   onDelete,
+  onDuplicate,
   tAdmin,
   t,
   getServiceColor,
@@ -110,6 +112,15 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10 w-full"
             >
               <Eye className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onDuplicate(service)}
+              className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/40 w-full"
+              aria-label={t("duplicate")}
+            >
+              <Copy className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"
@@ -200,6 +211,15 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10"
                 >
                   <Eye className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => onDuplicate(service)}
+                  className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/40"
+                  aria-label={t("duplicate")}
+                >
+                  <Copy className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="ghost"

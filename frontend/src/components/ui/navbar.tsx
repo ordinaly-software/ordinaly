@@ -290,9 +290,9 @@ const Navbar = () => {
   // Memoized nav links
   const desktopLinks = useMemo(
     () => [
-      { href: "/blog", label: t("navigation.blog") },
-      { href: "/contact", label: t("navigation.contact") },
-      { href: "/us", label: t("navigation.us") },
+      { href: "/blog", label: t("navigation.blog"), scroll: true },
+      { href: "/contact", label: t("navigation.contact"), scroll: true },
+      { href: "/us", label: t("navigation.us"), scroll: true },
     ],
     [t]
   );
@@ -383,7 +383,10 @@ const Navbar = () => {
                         <HoveredLink href="/services">{t("navigation.services")}</HoveredLink>
                       ) : (
                         featuredServices.map((service) => (
-                          <HoveredLink key={service.id} href="/services">
+                          <HoveredLink
+                            key={service.id}
+                            href={`/services/${service.slug ?? service.id}`}
+                          >
                             {service.title}
                           </HoveredLink>
                         ))
@@ -421,6 +424,7 @@ const Navbar = () => {
                   <Link 
                     key={link.href}
                     href={link.href}
+                    scroll={true}
                     className={cn(
                       "transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group",
                       isLinkActive(link.href)
@@ -526,6 +530,7 @@ const Navbar = () => {
                     <Link 
                       key={link.href}
                       href={link.href}
+                      scroll={true}
                       className={cn(
                         "transition-colors py-3 px-2 block rounded-md font-medium",
                         isLinkActive(link.href)

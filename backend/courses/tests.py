@@ -22,7 +22,7 @@ from .forms import CourseAdminForm
 import json
 
 
-TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
+TEST_PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD") or "test-password"
 
 
 # Helper function to create a test image
@@ -817,6 +817,22 @@ class CourseViewSetTest(CourseImageCleanupTestMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
         self.course.refresh_from_db()
         self.assertEqual(self.course.title, 'Existing Course')
+
+    def test_duplicate_course_as_admin(self):
+        self.client.force_authenticate(user=self.admin_user)
+        duplicate_url = reverse('course-duplicate', kwargs={'slug': self.course.slug})
+        response = self.client.post(duplicate_url)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Course.objects.count(), 2)
+        self.assertNotEqual(response.data['id'], self.course.id)
+        self.assertNotEqual(response.data['slug'], self.course.slug)
+        self.assertTrue(response.data.get('draft', False))
+
+    def test_duplicate_course_as_regular_user_forbidden(self):
+        self.client.force_authenticate(user=self.regular_user)
+        duplicate_url = reverse('course-duplicate', kwargs={'slug': self.course.slug})
+        response = self.client.post(duplicate_url)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_delete_course_as_admin(self):
         # Admin can delete a course

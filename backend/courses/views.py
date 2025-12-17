@@ -17,6 +17,8 @@ import stripe
 
 from decimal import Decimal
 import os
+from django.core.files.base import ContentFile
+from uuid import uuid4
 
 # Set Stripe API key from environment at import time
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
@@ -151,6 +153,44 @@ class CourseViewSet(viewsets.ModelViewSet):
         # Create enrollment
         enrollment = Enrollment.objects.create(user=user, course=course)
         serializer = EnrollmentSerializer(enrollment)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAdminUser])
+    def duplicate(self, request, *args, **kwargs):
+        """Create a copy of this course with a new slug and copied image."""
+        course = self.get_object()
+
+        copy = Course(
+            title=f"{course.title} (Copy)",
+            subtitle=course.subtitle,
+            description=course.description,
+            price=course.price,
+            location=course.location,
+            start_date=course.start_date,
+            end_date=course.end_date,
+            start_time=course.start_time,
+            end_time=course.end_time,
+            periodicity=course.periodicity,
+            timezone=course.timezone,
+            weekdays=course.weekdays,
+            week_of_month=course.week_of_month,
+            interval=course.interval,
+            exclude_dates=course.exclude_dates,
+            max_attendants=course.max_attendants,
+            draft=True,
+        )
+        copy.slug = ""
+        if course.image:
+            try:
+                course.image.open('rb')
+                content = course.image.read()
+                ext = os.path.splitext(course.image.name)[1] or ".jpg"
+                filename = f"{uuid4().hex}{ext}"
+                copy.image.save(filename, ContentFile(content), save=False)
+            except Exception:
+                pass
+        copy.save()
+        serializer = self.get_serializer(copy)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated],
