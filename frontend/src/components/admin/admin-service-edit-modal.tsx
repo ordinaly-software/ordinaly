@@ -42,6 +42,37 @@ const defaultFormData = {
   youtube_video_url: "",
 };
 
+const sanitizeImageSrc = (value: string | null | undefined): string | null => {
+  if (!value) return null;
+  const trimmed = value.trim();
+  if (!trimmed || trimmed === "undefined" || trimmed === "null") return null;
+  if (/[\u0000-\u001F\u007F]/.test(trimmed)) return null;
+
+  if (trimmed.startsWith("blob:")) return trimmed;
+
+  if (trimmed.startsWith("/")) {
+    // Disallow protocol-relative URLs like `//evil.com/...`
+    if (trimmed.startsWith("//")) return null;
+    return trimmed;
+  }
+
+  // Be strict with `data:` URLs to reduce XSS risk (notably SVG).
+  if (trimmed.startsWith("data:")) {
+    const isAllowedImageDataUrl =
+      /^data:image\/(png|jpe?g|gif|webp|avif);base64,[a-z0-9+/]+=*$/i.test(trimmed);
+    return isAllowedImageDataUrl ? trimmed : null;
+  }
+
+  try {
+    const url = new URL(trimmed);
+    if (url.protocol === "http:" || url.protocol === "https:") return url.toString();
+  } catch {
+    // Ignore invalid URLs
+  }
+
+  return null;
+};
+
 export const AdminServiceEditModal = ({
   isOpen,
   onClose,
@@ -51,6 +82,7 @@ export const AdminServiceEditModal = ({
   COLOR_CHOICES,
 }: AdminServiceEditModalProps) => {
   const t = useTranslations("admin.services");
+
   const [formData, setFormData] = useState(() => {
     if (isEdit && initialService) {
       return {
@@ -118,14 +150,7 @@ export const AdminServiceEditModal = ({
   }, [imagePreview]);
 
   const safeImagePreview = useMemo(() => {
-    if (!imagePreview) return null;
-    const trimmed = imagePreview.trim();
-    if (!trimmed || trimmed === "undefined" || trimmed === "null") return null;
-    if (trimmed.startsWith("/")) return trimmed;
-    if (trimmed.startsWith("blob:")) return trimmed;
-    if (/^https?:\/\//i.test(trimmed)) return trimmed;
-    if (/^data:image\//i.test(trimmed)) return trimmed;
-    return null;
+    return sanitizeImageSrc(imagePreview);
   }, [imagePreview]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -452,7 +477,7 @@ export const AdminServiceEditModal = ({
               >
                 <input
                   type="file"
-                  accept="image/*"
+                  accept="image/png,image/jpeg,image/gif,image/webp,image/avif"
                   onChange={handleImageChange}
                   className="hidden"
                   ref={imageInputRef}
