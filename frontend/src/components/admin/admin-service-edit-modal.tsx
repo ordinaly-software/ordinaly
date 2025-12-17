@@ -13,7 +13,7 @@ import { Service } from "@/hooks/useServices";
 import { getApiEndpoint } from "@/lib/api-config";
 import { servicesEvents } from "@/lib/events";
 import Alert from "@/components/ui/alert";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import { Dropdown } from "@/components/ui/dropdown";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 
@@ -117,6 +117,17 @@ export const AdminServiceEditModal = ({
     };
   }, [imagePreview]);
 
+  const safeImagePreview = useMemo(() => {
+    if (!imagePreview) return null;
+    const trimmed = imagePreview.trim();
+    if (!trimmed || trimmed === "undefined" || trimmed === "null") return null;
+    if (trimmed.startsWith("/")) return trimmed;
+    if (trimmed.startsWith("blob:")) return trimmed;
+    if (/^https?:\/\//i.test(trimmed)) return trimmed;
+    if (/^data:image\//i.test(trimmed)) return trimmed;
+    return null;
+  }, [imagePreview]);
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
@@ -142,7 +153,15 @@ export const AdminServiceEditModal = ({
   };
 
   const handleImageFile = (file: File) => {
+    // Disallow SVG images due to XSS risk
+    const isSvg =
+      file.type === "image/svg+xml" ||
+      (file.name && file.name.toLowerCase().endsWith(".svg"));
     if (!file.type.startsWith("image/")) {
+      setAlert({ type: "error", message: t("messages.validation.imageInvalidType") });
+      return;
+    }
+    if (isSvg) {
       setAlert({ type: "error", message: t("messages.validation.imageInvalidType") });
       return;
     }
@@ -468,7 +487,7 @@ export const AdminServiceEditModal = ({
                   )}
                 </div>
 
-                {imagePreview && imagePreview !== "undefined" && imagePreview !== "null" && (
+                {safeImagePreview && (
                   <div
                     className="mt-3 relative w-48 h-48 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 mx-auto"
                     onDragOver={(e) => e.preventDefault()}
@@ -481,7 +500,7 @@ export const AdminServiceEditModal = ({
                     }}
                     aria-label={t("form.image")}
                   >
-                    <img src={imagePreview} alt={t("form.image")} className="h-full w-full object-cover" />
+                    <img src={safeImagePreview} alt={t("form.image")} className="h-full w-full object-cover" />
                     <ModalCloseButton
                       onClick={() => {
                         if (imageFile) {
