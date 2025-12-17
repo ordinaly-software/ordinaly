@@ -21,7 +21,6 @@ export const ServiceAppleDetailsModal = ({
 }) => {
   const t = useTranslations("services");
   const tHome = useTranslations("home");
-  if (!service) return null;
 
   const labels = useMemo<ServiceDetailsLabels>(
     () => ({
@@ -42,6 +41,8 @@ export const ServiceAppleDetailsModal = ({
     }),
     [t, tHome],
   );
+
+  if (!service) return null;
 
   const category = service.type === "PRODUCT" ? t("productsSectionTitle") : t("servicesSectionTitle");
 

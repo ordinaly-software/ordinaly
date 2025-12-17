@@ -53,6 +53,8 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
               src: background,
               title: service.title,
               category,
+              onOpen: onSelect ? () => onSelect(service) : undefined,
+              disableModal: Boolean(onSelect),
               content: (
                 <ServiceDetailsContent
                   service={service}

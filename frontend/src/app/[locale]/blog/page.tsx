@@ -14,7 +14,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/blog",
-    title: "Blog de Noticias de Ordinaly",
+    title: "Blog de automatización e IA de empresas | Ordinaly",
     description: "Noticias, guías y casos de éxito sobre automatización, IA y productividad.",
     image: "/static/backgrounds/blog_background.webp",
   });

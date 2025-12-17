@@ -25,6 +25,9 @@ type Card = {
   title: string;
   category: string;
   content: React.ReactNode;
+  onOpen?: () => void;
+  onClose?: () => void;
+  disableModal?: boolean;
 };
 
 export const CarouselContext = createContext<{
@@ -166,27 +169,32 @@ export const Card = ({
   const { onCardClose, currentIndex } = useContext(CarouselContext);
 
   const handleOpen = () => {
+    card.onOpen?.();
+    if (card.disableModal) return;
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
+    card.onClose?.();
     onCardClose(index);
   };
 
   return (
     <>
-      <AppleModal
-        isOpen={open}
-        onClose={handleClose}
-        category={card.category}
-        title={card.title}
-        layoutId={layout ? `card-${card.title}` : undefined}
-        categoryLayoutId={layout ? `category-${card.title}` : undefined}
-        titleLayoutId={layout ? `title-${card.title}` : undefined}
-      >
-        {card.content}
-      </AppleModal>
+      {!card.disableModal && (
+        <AppleModal
+          isOpen={open}
+          onClose={handleClose}
+          category={card.category}
+          title={card.title}
+          layoutId={layout ? `card-${card.title}` : undefined}
+          categoryLayoutId={layout ? `category-${card.title}` : undefined}
+          titleLayoutId={layout ? `title-${card.title}` : undefined}
+        >
+          {card.content}
+        </AppleModal>
+      )}
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}

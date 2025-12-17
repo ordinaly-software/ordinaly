@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-interface Course {
+export interface Course {
   id: number;
   slug?: string;
   title: string;
@@ -36,6 +36,7 @@ interface UseCoursesOptions {
   featured?: boolean;
   upcoming?: boolean;
   enabled?: boolean;
+  initialData?: Course[];
 }
 
 interface UseCoursesReturn {
@@ -46,8 +47,8 @@ interface UseCoursesReturn {
 }
 
 export const useCourses = (options: UseCoursesOptions = {}, isAdmin: boolean = false): UseCoursesReturn => {
-  const [courses, setCourses] = useState<Course[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [courses, setCourses] = useState<Course[]>(() => options.initialData ?? []);
+  const [isLoading, setIsLoading] = useState(() => !(options.initialData && options.initialData.length > 0));
   const [error, setError] = useState<string | null>(null);
   const enabled = options.enabled ?? true;
 

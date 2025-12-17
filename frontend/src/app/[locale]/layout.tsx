@@ -8,7 +8,7 @@ import { Locale, routing } from "@/i18n/routing";
 import NavbarWrapper from "@/components/ui/navbar-wrapper";
 import CookieConsent from "@/components/ui/cookies";
 import BackToTopButton from "@/components/ui/back-to-top-button";
-import { absoluteUrl, metadataBaseUrl } from "@/lib/metadata";
+import { absoluteUrl, getFullBrandName, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
 import AnalyticsManager from "@/utils/analyticsManager";
@@ -28,23 +28,11 @@ const localeHrefLangs: Record<string, string> = {
   gl: "gl-ES",
 };
 
-const baseMetadata: Metadata = {
-  title: {
-    default: "Ordinaly - Automatización Empresarial con IA",
-    template: "%s | Ordinaly",
-  },
-  description:
-    "Transformamos empresas con soluciones de automatización inteligente en Sevilla, España y Europa.",
-  metadataBase: new URL(metadataBaseUrl),
-  openGraph: {
-    type: "website",
-    siteName: "Ordinaly",
-    title: "Ordinaly Software - Automatización Empresarial con IA",
-    description:
-      "Transformamos empresas con soluciones de automatización inteligente para liderar la innovación en Andalucía, España y Europa.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Ordinaly" }],
-  },
-};
+const baseDescription =
+  "Transformamos empresas con soluciones de automatización inteligente en Sevilla, España y Europa.";
+
+const ogDescription =
+  "Transformamos empresas con soluciones de automatización inteligente para liderar la innovación en Andalucía, España y Europa.";
 
 export async function generateMetadata({
   params,
@@ -53,6 +41,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
+  const fullBrandName = getFullBrandName(locale);
   const canonical = absoluteUrl("/", locale);
   const alternateLanguages = Object.fromEntries(
     routing.locales.map((loc) => [localeHrefLangs[loc], absoluteUrl("/", loc)])
@@ -60,13 +49,22 @@ export async function generateMetadata({
   const ogLocale = localeHrefLangs[locale] ?? localeHrefLangs.es;
 
   return {
-    ...baseMetadata,
+    title: {
+      default: fullBrandName,
+      template: `%s | ${fullBrandName}`,
+    },
+    description: baseDescription,
+    metadataBase: new URL(metadataBaseUrl),
     alternates: {
       canonical,
       languages: alternateLanguages,
     },
     openGraph: {
-      ...baseMetadata.openGraph,
+      type: "website",
+      siteName,
+      title: fullBrandName,
+      description: ogDescription,
+      images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: fullBrandName }],
       url: canonical,
       locale: ogLocale,
     },

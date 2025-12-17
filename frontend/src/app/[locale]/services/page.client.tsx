@@ -160,16 +160,29 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
     fetchOne();
   }, [initialServiceSlug, services]);
 
+  const buildServicesPath = useCallback(
+    (slug?: string) => {
+      const parts = pathname.split("/").filter(Boolean);
+      const base =
+        parts.length >= 2 && parts[1] === "services" ? `/${parts[0]}/services` : "/services";
+      return slug ? `${base}/${slug}` : base;
+    },
+    [pathname],
+  );
+
+  const handleServiceSelect = useCallback(
+    (service: Service) => {
+      if (!service.slug) return;
+      router.push(buildServicesPath(service.slug));
+    },
+    [buildServicesPath, router],
+  );
+
   const closeDeepLink = useCallback(() => {
     setDeepLinkOpen(false);
     setDeepLinkedService(null);
-    const parts = pathname.split("/").filter(Boolean);
-    if (parts.length >= 2 && parts[1] === "services") {
-      router.replace(`/${parts[0]}/services`);
-    } else {
-      router.replace("/services");
-    }
-  }, [pathname, router]);
+    router.replace(buildServicesPath());
+  }, [buildServicesPath, router]);
 
   if (isLoading) {
     return (
@@ -260,6 +273,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                   <ServiceAppleCarousel
                     services={separated.products}
                     labels={carouselLabels}
+                    onSelect={handleServiceSelect}
                     onContact={handleWhatsAppContact}
                   />
                 </div>
@@ -273,6 +287,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                   <ServiceAppleCarousel
                     services={separated.services}
                     labels={carouselLabels}
+                    onSelect={handleServiceSelect}
                     onContact={handleWhatsAppContact}
                     initialScroll={separated.products.length > 0 ? 150 : 0}
                   />

@@ -31,7 +31,7 @@ export async function generateMetadata({
     // ignore and fall back to defaults
   }
 
-  const title = course?.title ? `${course.title} | Ordinaly` : `Formación: ${slug} | Ordinaly`;
+  const title = course?.title ? `${course.title} | Ordinaly` : `Formación: ${slug}`;
   const description = course?.subtitle || course?.description || defaultDescription;
   const rawImage = course?.image;
   const image =
