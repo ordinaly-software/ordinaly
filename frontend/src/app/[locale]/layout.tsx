@@ -8,7 +8,7 @@ import { Locale, routing } from "@/i18n/routing";
 import NavbarWrapper from "@/components/ui/navbar-wrapper";
 import CookieConsent from "@/components/ui/cookies";
 import BackToTopButton from "@/components/ui/back-to-top-button";
-import { absoluteUrl, metadataBaseUrl } from "@/lib/metadata";
+import { absoluteUrl, getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
 import AnalyticsManager from "@/utils/analyticsManager";
@@ -17,33 +17,14 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  preload: false,
 });
 
-const localeHrefLangs: Record<string, string> = {
-  es: "es-ES",
-  en: "en-US",
-  ca: "ca-ES",
-  eu: "eu-ES",
-  gl: "gl-ES",
-};
+const baseDescription =
+  "Transformamos empresas con soluciones de automatización inteligente en Sevilla, España y Europa.";
 
-const baseMetadata: Metadata = {
-  title: {
-    default: "Ordinaly - Automatización Empresarial con IA",
-    template: "%s | Ordinaly",
-  },
-  description:
-    "Transformamos empresas con soluciones de automatización inteligente en Sevilla, España y Europa.",
-  metadataBase: new URL(metadataBaseUrl),
-  openGraph: {
-    type: "website",
-    siteName: "Ordinaly",
-    title: "Ordinaly Software - Automatización Empresarial con IA",
-    description:
-      "Transformamos empresas con soluciones de automatización inteligente para liderar la innovación en Andalucía, España y Europa.",
-    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Ordinaly" }],
-  },
-};
+const ogDescription =
+  "Transformamos empresas con soluciones de automatización inteligente para liderar la innovación en Andalucía, España y Europa.";
 
 export async function generateMetadata({
   params,
@@ -52,6 +33,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
+  const fullBrandName = getFullBrandName(locale);
   const canonical = absoluteUrl("/", locale);
   const alternateLanguages = Object.fromEntries(
     routing.locales.map((loc) => [localeHrefLangs[loc], absoluteUrl("/", loc)])
@@ -59,13 +41,22 @@ export async function generateMetadata({
   const ogLocale = localeHrefLangs[locale] ?? localeHrefLangs.es;
 
   return {
-    ...baseMetadata,
+    title: {
+      default: fullBrandName,
+      template: `%s | ${fullBrandName}`,
+    },
+    description: baseDescription,
+    metadataBase: new URL(metadataBaseUrl),
     alternates: {
       canonical,
       languages: alternateLanguages,
     },
     openGraph: {
-      ...baseMetadata.openGraph,
+      type: "website",
+      siteName,
+      title: fullBrandName,
+      description: ogDescription,
+      images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: fullBrandName }],
       url: canonical,
       locale: ogLocale,
     },
@@ -130,6 +121,12 @@ export default async function RootLayout({
       </head>
 
       <body className={`${inter.className} antialiased min-h-screen bg-background text-foreground`} suppressHydrationWarning>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[9999] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-gray-900 focus:shadow-lg dark:focus:bg-neutral-900 dark:focus:text-white"
+        >
+          Skip to content
+        </a>
         {process.env.NODE_ENV === "production" && GA_ID && (
           <>
             <Script
@@ -166,7 +163,7 @@ export default async function RootLayout({
           <ThemeProvider>
             {/* tu body tal cual */}
             <NavbarWrapper />
-            <div id="main-content">{children}</div>
+            <main id="main-content">{children}</main>
             <CookieConsent />
             <BackToTopButton />
           </ThemeProvider>

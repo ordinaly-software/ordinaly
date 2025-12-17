@@ -1,6 +1,11 @@
 from rest_framework import viewsets, filters, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.decorators import action
+from rest_framework.exceptions import NotFound
+from django.core.files.base import ContentFile
+from uuid import uuid4
+import os
 import json
 from .models import Service
 from .serializers import ServiceSerializer
@@ -13,6 +18,27 @@ class IsAdmin(IsAuthenticated):
 
 class ServiceViewSet(viewsets.ModelViewSet):
     queryset = Service.objects.all()
+    lookup_field = 'slug'
+
+    def get_object(self):
+        """Resolve object by slug first, then fall back to numeric PK if needed."""
+        lookup_value = self.kwargs.get(self.lookup_field) or self.kwargs.get('pk')
+        queryset = self.filter_queryset(self.get_queryset())
+        if lookup_value is None:
+            raise NotFound(detail="Service not found")
+        try:
+            obj = queryset.get(**{self.lookup_field: lookup_value})
+            self.check_object_permissions(self.request, obj)
+            return obj
+        except Service.DoesNotExist:
+            if str(lookup_value).isdigit():
+                try:
+                    obj = queryset.get(pk=lookup_value)
+                    self.check_object_permissions(self.request, obj)
+                    return obj
+                except Service.DoesNotExist:
+                    pass
+            raise NotFound(detail="Service not found")
 
     def get_queryset(self):
         qs = Service.objects.all()
@@ -35,7 +61,7 @@ class ServiceViewSet(viewsets.ModelViewSet):
         return qs
     serializer_class = ServiceSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
-    search_fields = ['title', 'subtitle', 'description']
+    search_fields = ['title', 'subtitle', 'description', 'slug']
     ordering_fields = ['title', 'created_at', 'price', 'duration', 'color']
     ordering = ['-is_featured', 'title']
 
@@ -121,3 +147,37 @@ class ServiceViewSet(viewsets.ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(detail=True, methods=['post'])
+    def duplicate(self, request, *args, **kwargs):
+        """Create a copy of this service with a new slug and title."""
+        instance = self.get_object()
+        copy = Service(
+            type=instance.type,
+            title=f"{instance.title} (Copy)",
+            subtitle=instance.subtitle,
+            description=instance.description,
+            requisites=instance.requisites,
+            price=instance.price,
+            duration=instance.duration,
+            is_featured=False,
+            draft=True,
+            color=instance.color,
+            icon=instance.icon,
+            youtube_video_url=instance.youtube_video_url,
+        )
+        copy.created_by = getattr(request, 'user', None) if getattr(request, 'user', None) and request.user.is_authenticated else instance.created_by
+        copy.slug = ""
+        # Duplicate image file if present
+        if instance.image:
+            try:
+                instance.image.open('rb')
+                content = instance.image.read()
+                ext = os.path.splitext(instance.image.name)[1] or ".jpg"
+                filename = f"{uuid4().hex}{ext}"
+                copy.image.save(filename, ContentFile(content), save=False)
+            except Exception:
+                pass
+        copy.save()
+        serializer = self.get_serializer(copy)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

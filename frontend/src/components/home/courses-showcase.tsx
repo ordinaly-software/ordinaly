@@ -6,43 +6,22 @@ import { Button } from "@/components/ui/button";
 import ErrorCard from "@/components/ui/error-card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, MapPin, Calendar, Euro, ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
-import { useCourses } from "@/hooks/useCourses";
+import { useCourses, type Course } from "@/hooks/useCourses";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
 import AuthModal from "@/components/auth/auth-modal";
 
-interface Course {
-  id: number;
-  slug?: string;
-  title: string;
-  subtitle?: string;
-  description: string;
-  image: string;
-  price?: string | null;
-  location?: string | null;
-  start_date?: string | null;
-  end_date?: string | null;
-  start_time?: string | null;
-  end_time?: string | null;
-  periodicity: string;
-  max_attendants: number;
-  enrolled_count: number;
-  duration_hours: number;
-  formatted_schedule: string;
-  weekday_display: string[];
-  next_occurrences: string[];
-}
-
 interface CoursesShowcaseProps {
   limit?: number;
   showUpcomingOnly?: boolean;
+  initialCourses?: Course[];
   onCourseClick?: (course: Course) => void;
   onViewAllClick?: () => void;
 }
 
 export default function CoursesShowcase(props: CoursesShowcaseProps) {
-  const { limit = 3, showUpcomingOnly = true, onCourseClick } = props;
+  const { limit = 3, showUpcomingOnly = true, onCourseClick, initialCourses } = props;
   const t = useTranslations("home.courses");
   const router = useRouter();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -51,7 +30,8 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [slidesToShow, setSlidesToShow] = useState(3);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [hasBeenVisible, setHasBeenVisible] = useState(false);
+  const shouldLazyLoad = !initialCourses || initialCourses.length === 0;
+  const [hasBeenVisible, setHasBeenVisible] = useState(!shouldLazyLoad);
   const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -78,7 +58,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   }, []);
 
   useEffect(() => {
-    if (hasBeenVisible) return;
+    if (!shouldLazyLoad || hasBeenVisible) return;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -96,13 +76,14 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     return () => {
       observer.disconnect();
     };
-  }, [hasBeenVisible]);
+  }, [hasBeenVisible, shouldLazyLoad]);
   // Removed enrollments and authentication state for homepage
 
   const { courses, isLoading, error, refetch } = useCourses({
     limit: limit,
     upcoming: showUpcomingOnly,
-    enabled: hasBeenVisible,
+    enabled: shouldLazyLoad ? hasBeenVisible : false,
+    initialData: initialCourses,
   });
 
   useEffect(() => {

@@ -5,17 +5,21 @@ import { getApiEndpoint } from '@/lib/api-config';
 
 export interface Service {
   id: number;
+  slug?: string;
   type: 'SERVICE' | 'PRODUCT';
   title: string;
   subtitle?: string;
   description: string;
   clean_description: string;
   html_description?: string;
+  image?: string | null;
+  youtube_video_url?: string | null;
   color: string;
   color_hex: string;
   icon: string;
   duration?: number;
   requisites?: string;
+  requisites_html?: string;
   price?: string | null;
   is_featured: boolean;
   featured?: boolean; // for backward compatibility
@@ -30,10 +34,14 @@ export interface Service {
 const servicesCache = new Map<string, { data: Service[]; timestamp: number }>();
 const CACHE_DURATION = 2 * 60 * 1000; // 2 minutes cache
 
-
-export const useServices = (limit?: number, isAdmin: boolean = false, enabled: boolean = true) => {
-  const [services, setServices] = useState<Service[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+export const useServices = (
+  limit?: number,
+  isAdmin: boolean = false,
+  enabled: boolean = true,
+  initialData?: Service[],
+) => {
+  const [services, setServices] = useState<Service[]>(() => initialData ?? []);
+  const [isLoading, setIsLoading] = useState(() => !(initialData && initialData.length > 0));
   const [error, setError] = useState<string | null>(null);
   const [isOnVacation, setIsOnVacation] = useState(false);
 

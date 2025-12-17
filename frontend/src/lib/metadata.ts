@@ -1,16 +1,37 @@
 import type { Metadata } from "next";
-import { routing } from "@/i18n/routing";
+import { routing, type Locale } from "@/i18n/routing";
 
 const SITE_NAME = "Ordinaly";
 const FALLBACK_BASE_URL = "https://ordinaly.ai";
 const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || FALLBACK_BASE_URL).replace(/\/$/, "");
 
+export const localeHrefLangs: Record<string, string> = {
+  es: "es-ES",
+  en: "en-US",
+};
+
+const brandContextByLocale: Record<string, string> = {
+  es: "Automatización empresarial con IA en Sevilla",
+  en: "AI business automation in Seville",
+};
+
+export const getBrandContext = (locale?: string) => {
+  if (!locale) return brandContextByLocale.es;
+  return brandContextByLocale[locale] ?? brandContextByLocale.es;
+};
+
+export const getFullBrandName = (locale?: string) => `${SITE_NAME} — ${getBrandContext(locale)}`;
+
+export const buildSocialTitle = (pageTitle: string, locale?: string) => {
+  const fullBrand = getFullBrandName(locale);
+  const normalizedTitle = pageTitle?.trim();
+  if (!normalizedTitle) return fullBrand;
+  return `${normalizedTitle} | ${fullBrand}`;
+};
+
 const ogLocales: Record<string, string> = {
   es: "es_ES",
   en: "en_US",
-  ca: "ca_ES",
-  eu: "eu_ES",
-  gl: "gl_ES",
 };
 
 const defaultDescription =
@@ -62,13 +83,19 @@ export function createPageMetadata({
   const url = absoluteUrl(path, locale);
   const imageUrl = image.startsWith("http") ? image : `${baseUrl}${normalizePath(image)}`;
   const ogLocale = locale ? ogLocales[locale] ?? locale : undefined;
+  const socialTitle = buildSocialTitle(title, locale);
+
+  const alternateLanguages = Object.fromEntries(
+    routing.locales.map((loc) => [localeHrefLangs[loc] ?? loc, absoluteUrl(path, loc)])
+  );
+  alternateLanguages["x-default"] = absoluteUrl(path, routing.defaultLocale);
 
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: url, languages: alternateLanguages },
     openGraph: {
-      title,
+      title: socialTitle,
       description,
       url,
       siteName: SITE_NAME,
@@ -78,7 +105,7 @@ export function createPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: socialTitle,
       description,
       images: [imageUrl],
     },

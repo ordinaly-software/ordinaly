@@ -91,14 +91,14 @@ function renderFullScheduleText(course: Course, t: ReturnType<typeof useTranslat
   }
 
   function localizeMonthDate(date: string) {
-    // e.g. "September 01, 2025" => "1 de septiembre de 2025" for es/gl/ca/eu
+    // e.g. "September 01, 2025" => "1 de septiembre de 2025" for es
     const parts = date.split(' ');
     if (parts.length === 3 && monthMap[parts[0]]) {
       // Detect locale (from t or window.navigator)
       const locale = (typeof window !== 'undefined' && window.navigator.language) || 'en';
   // Use browser locale only
-      // For Spanish, Galician, Catalan, Basque, use day de month de year
-      if (/^(es|gl|ca|eu)/.test(locale)) {
+      // For Spanish, use day de month de year
+      if (/^es/.test(locale)) {
         // parts[0]=Month, parts[1]=day,, parts[2]=year
         const day = parts[1].replace(',', '');
         const month = monthMap[parts[0]];

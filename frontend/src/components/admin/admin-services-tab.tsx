@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { AdminServiceCard } from "@/components/admin/admin-service-card";
 import Alert from "@/components/ui/alert";
 import { getApiEndpoint } from "@/lib/api-config";
@@ -11,12 +12,18 @@ import {
   Plus, 
   Trash2, 
   Search,
+  ArrowUpDown,
 } from "lucide-react";
 import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
-import { ServiceDetailsModal } from "@/components/services/service-details-modal";
+import { ServiceAppleDetailsModal } from "@/components/services/service-apple-details-modal";
 import AdminServiceEditModal from "@/components/admin/admin-service-edit-modal";
 import { servicesEvents } from "@/lib/events";
 import { Service, useServices } from "@/hooks/useServices";
+import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
+import { PaginationControls } from "@/components/ui/pagination-controls";
+
+type SortOption = 'title' | 'created_at' | 'updated_at' | 'price' | 'duration' | 'type' | 'featured';
+type SortOrder = 'asc' | 'desc';
 
 const AdminServicesTab = () => {
   // Confirm delete logic must be inside the component to access state
@@ -101,6 +108,73 @@ const AdminServicesTab = () => {
   const [currentService, setCurrentService] = useState<Service | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [sortBy, setSortBy] = useState<SortOption>('created_at');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  const sortOptions: DropdownOption[] = [
+    { value: 'created_at', label: t("sorting.created") },
+    { value: 'updated_at', label: t("sorting.updated") },
+    { value: 'title', label: t("sorting.title") },
+    { value: 'featured', label: t("sorting.featured") },
+    { value: 'type', label: t("sorting.type") },
+    { value: 'duration', label: t("sorting.duration") },
+    { value: 'price', label: t("sorting.price") },
+  ];
+
+  const sortServices = (items: Service[]) => {
+    const compare = (a: Service, b: Service) => {
+      let aValue: string | number | Date | boolean;
+      let bValue: string | number | Date | boolean;
+
+      switch (sortBy) {
+        case 'title':
+          aValue = a.title.toLowerCase();
+          bValue = b.title.toLowerCase();
+          break;
+        case 'created_at':
+          aValue = new Date(a.created_at);
+          bValue = new Date(b.created_at);
+          break;
+        case 'updated_at':
+          aValue = new Date(a.updated_at);
+          bValue = new Date(b.updated_at);
+          break;
+        case 'duration':
+          aValue = a.duration ?? -1;
+          bValue = b.duration ?? -1;
+          break;
+        case 'price':
+          aValue = a.price == null || a.price === "" ? -1 : Number(a.price);
+          bValue = b.price == null || b.price === "" ? -1 : Number(b.price);
+          break;
+        case 'type':
+          aValue = a.type;
+          bValue = b.type;
+          break;
+        case 'featured':
+          aValue = a.is_featured;
+          bValue = b.is_featured;
+          break;
+        default:
+          return 0;
+      }
+
+      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+      return 0;
+    };
+
+    const sorted = [...items].sort(compare);
+
+    // Keep featured services grouped first (like courses separating finished courses),
+    // unless the user is explicitly sorting by "featured".
+    if (sortBy === 'featured') return sorted;
+    const featured = sorted.filter(s => s.is_featured);
+    const notFeatured = sorted.filter(s => !s.is_featured);
+    return [...featured, ...notFeatured];
+  };
 
 
   const handleCreate = () => {
@@ -131,6 +205,29 @@ const AdminServicesTab = () => {
     setShowServiceModal(true);
   };
 
+  const handleDuplicate = async (service: Service) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      const identifier = service.slug ?? service.id;
+      const response = await fetch(getApiEndpoint(`/api/services/${identifier}/duplicate/`), {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${token}`,
+        },
+      });
+      if (!response.ok) {
+        setAlert({ type: 'error', message: t('messages.duplicateError') });
+        return;
+      }
+      const data = await response.json();
+      servicesEvents.emitCreated(data);
+      setAlert({ type: 'success', message: t('messages.duplicateSuccess') });
+      refetch();
+    } catch {
+      setAlert({ type: 'error', message: t('messages.networkError') });
+    }
+  };
+
   const toggleServiceSelection = (id: number) => {
     setSelectedServices(prev =>
       prev.includes(id)
@@ -139,23 +236,37 @@ const AdminServicesTab = () => {
     );
   };
 
-  const toggleSelectAll = () => {
-    const filteredServices = (services || []).filter(service =>
+  const filteredServices = sortServices(
+    (services || []).filter(service =>
       service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (service.subtitle && service.subtitle.toLowerCase().includes(searchTerm.toLowerCase()))
-    );
-
-    if (selectedServices.length === filteredServices.length) {
-      setSelectedServices([]);
-    } else {
-      setSelectedServices(filteredServices.map(service => service.id));
-    }
-  };
-
-  const filteredServices = (services || []).filter(service =>
-    service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (service.subtitle && service.subtitle.toLowerCase().includes(searchTerm.toLowerCase()))
+    )
   );
+
+  const totalPages = Math.max(1, Math.ceil(filteredServices.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const startIndex = (safeCurrentPage - 1) * pageSize;
+  const paginatedServices = filteredServices.slice(startIndex, startIndex + pageSize);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, sortBy, sortOrder, pageSize]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+  }, [currentPage, totalPages]);
+
+  const toggleSelectAll = () => {
+    const visibleIds = paginatedServices.map((service) => service.id);
+    const allVisibleSelected =
+      visibleIds.length > 0 && visibleIds.every((id) => selectedServices.includes(id));
+
+    if (allVisibleSelected) {
+      setSelectedServices((prev) => prev.filter((id) => !visibleIds.includes(id)));
+      return;
+    }
+    setSelectedServices((prev) => Array.from(new Set([...prev, ...visibleIds])));
+  };
 
   if (isLoading) {
     return (
@@ -178,7 +289,7 @@ const AdminServicesTab = () => {
 
       {/* Header Actions */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-        <div className="flex items-center space-x-2">
+        <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-2 w-full md:w-auto min-w-0">
           <div className="relative w-full sm:w-64 min-w-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
@@ -187,6 +298,30 @@ const AdminServicesTab = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 w-full min-w-0"
             />
+          </div>
+
+          {/* Sort Controls (like courses) */}
+          <div className="flex items-center justify-center flex-wrap gap-x-3 gap-y-2 w-full md:w-auto min-w-0">
+            <Label className="hidden md:inline text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+              {t("sorting.sortBy")}:
+            </Label>
+            <Dropdown
+              options={sortOptions}
+              value={sortBy}
+              onChange={(value) => setSortBy(value as SortOption)}
+              minWidth="240px"
+              width="240px"
+              theme="orange"
+            />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
+              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-lg"
+              aria-label={t("sorting.toggleOrder")}
+            >
+              <ArrowUpDown className="h-4 w-4" />
+            </Button>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -215,7 +350,7 @@ const AdminServicesTab = () => {
       {/* Services List */}
       {filteredServices.length === 0 ? (
         <div className="text-center py-12 text-gray-500 dark:text-gray-400">
-          {searchTerm ? 'No services found matching your search.' : 'No services available.'}
+          {searchTerm ? t('noServicesFound') : t('noServices')}
         </div>
       ) : (
         <div className="space-y-4">
@@ -223,7 +358,7 @@ const AdminServicesTab = () => {
           <div className="flex items-center space-x-2 pb-2 border-b border-gray-200 dark:border-gray-700">
             <input
               type="checkbox"
-              checked={selectedServices.length === filteredServices.length && filteredServices.length > 0}
+              checked={paginatedServices.length > 0 && paginatedServices.every((s) => selectedServices.includes(s.id))}
               onChange={toggleSelectAll}
               className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
             />
@@ -232,7 +367,7 @@ const AdminServicesTab = () => {
             </span>
           </div>
 
-          {filteredServices.map((service) => (
+          {paginatedServices.map((service) => (
             <AdminServiceCard
               key={service.id}
               service={service}
@@ -241,11 +376,24 @@ const AdminServicesTab = () => {
               onView={handleServiceClick}
               onEdit={handleEdit}
               onDelete={handleDelete}
+              onDuplicate={handleDuplicate}
               tAdmin={tAdmin}
               t={t}
               getServiceColor={getServiceColor}
             />
           ))}
+
+          <PaginationControls
+            totalItems={filteredServices.length}
+            currentPage={safeCurrentPage}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={(size) => {
+              setPageSize(size);
+              setCurrentPage(1);
+            }}
+            className="pt-2"
+          />
         </div>
       )}
 
@@ -279,7 +427,7 @@ const AdminServicesTab = () => {
       />
 
       {/* Service Details Modal */}
-      <ServiceDetailsModal
+      <ServiceAppleDetailsModal
         service={selectedServiceForModal}
         isOpen={showServiceModal}
         onClose={() => {

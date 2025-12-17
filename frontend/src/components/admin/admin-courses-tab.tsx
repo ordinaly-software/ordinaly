@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCourses } from "@/hooks/useCourses";
 import type { CourseFormData } from "./admin-course-edit-modal";
 import { useTranslations, useLocale } from "next-intl";
@@ -20,6 +20,7 @@ import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-mod
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
 import CourseEditModal from "./admin-course-edit-modal";
 import CourseVisualizationModal from "./admin-course-modal";
+import { PaginationControls } from "@/components/ui/pagination-controls";
 
 export interface Course {
   id: number;
@@ -135,6 +136,8 @@ const AdminCoursesTab = () => {
   const [sortBy, setSortBy] = useState<SortOption>('start_date');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
   const [isLoadingEnrollments, setIsLoadingEnrollments] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
   const [formData, setFormData] = useState<CourseFormData>({
     title: "",
@@ -220,6 +223,27 @@ const AdminCoursesTab = () => {
   const handleDelete = (course: Course) => {
     setCurrentCourse(course);
     setShowDeleteModal(true);
+  };
+
+  const handleDuplicate = async (course: Course) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      const identifier = course.slug ?? course.id;
+      const response = await fetch(getApiEndpoint(`/api/courses/courses/${identifier}/duplicate/`), {
+        method: 'POST',
+        headers: {
+          'Authorization': `Token ${token}`,
+        },
+      });
+      if (!response.ok) {
+        setAlert({ type: 'error', message: t('messages.duplicateError') });
+        return;
+      }
+      setAlert({ type: 'success', message: t('messages.duplicateSuccess') });
+      refetch();
+    } catch {
+      setAlert({ type: 'error', message: t('messages.networkError') });
+    }
   };
 
   const handleBulkDelete = () => {
@@ -610,16 +634,15 @@ const AdminCoursesTab = () => {
   };
 
   const toggleSelectAll = () => {
-    const filteredCourses = (courses || []).filter(course =>
-      course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.location.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const visibleIds = paginatedCourses.map((course) => course.id);
+    const allVisibleSelected =
+      visibleIds.length > 0 && visibleIds.every((id) => selectedCourses.includes(id));
 
-    if (selectedCourses.length === filteredCourses.length) {
-      setSelectedCourses([]);
-    } else {
-      setSelectedCourses(filteredCourses.map(course => course.id));
+    if (allVisibleSelected) {
+      setSelectedCourses((prev) => prev.filter((id) => !visibleIds.includes(id)));
+      return;
     }
+    setSelectedCourses((prev) => Array.from(new Set([...prev, ...visibleIds])));
   };
 
   const filteredCourses = sortCourses(
@@ -644,6 +667,19 @@ const AdminCoursesTab = () => {
         course.location.toLowerCase().includes(searchTerm.toLowerCase())
       )
   );
+
+  const totalPages = Math.max(1, Math.ceil(filteredCourses.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const startIndex = (safeCurrentPage - 1) * pageSize;
+  const paginatedCourses = filteredCourses.slice(startIndex, startIndex + pageSize);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, sortBy, sortOrder, pageSize]);
+
+  useEffect(() => {
+    if (currentPage > totalPages) setCurrentPage(totalPages);
+  }, [currentPage, totalPages]);
 
   if (isLoading) {
     return (
@@ -733,7 +769,7 @@ const AdminCoursesTab = () => {
           <div className="flex items-center space-x-2 pb-2 border-b border-gray-200 dark:border-gray-700">
             <input
               type="checkbox"
-              checked={selectedCourses.length === filteredCourses.length && filteredCourses.length > 0}
+              checked={paginatedCourses.length > 0 && paginatedCourses.every((c) => selectedCourses.includes(c.id))}
               onChange={toggleSelectAll}
               className="rounded border-gray-300 text-green focus:ring-green"
             />
@@ -742,7 +778,7 @@ const AdminCoursesTab = () => {
             </span>
           </div>
 
-          {filteredCourses.map((course) => {
+          {paginatedCourses.map((course) => {
             const isFinished = isCourseFinished(course);
             const enrollmentPercentage = (course.enrolled_count || 0) / course.max_attendants * 100;
             const availableSpots = course.max_attendants - (course.enrolled_count || 0);
@@ -756,6 +792,7 @@ const AdminCoursesTab = () => {
                 onView={handleViewCourse}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onDuplicate={handleDuplicate}
                 t={t}
                 tAdmin={tAdmin}
                 dateLocale={dateLocale}
@@ -765,6 +802,18 @@ const AdminCoursesTab = () => {
               />
             );
           })}
+
+          <PaginationControls
+            totalItems={filteredCourses.length}
+            currentPage={safeCurrentPage}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={(size) => {
+              setPageSize(size);
+              setCurrentPage(1);
+            }}
+            className="pt-2"
+          />
         </div>
       )}
 

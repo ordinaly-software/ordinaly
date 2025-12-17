@@ -12,7 +12,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/auth/signin",
-    title: "Inicia sesión en Ordinaly",
+    title: "Inicia sesión",
     description: "Accede a tu cuenta para gestionar servicios, cursos y automatizaciones de Ordinaly.",
   });
 }
