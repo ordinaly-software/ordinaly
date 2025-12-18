@@ -358,7 +358,7 @@ const Navbar = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-2.5 sm:py-3.5 lg:py-5 min-h-[54px] sm:min-h-[66px]">
+          <div className="flex justify-between items-center py-2.5 sm:py-3.5 lg:py-5 min-h-[54px] sm:min-h-[66px] gap-4 lg:gap-6">
             {/* Logo and Title */}
             <div 
               className="flex items-center flex-shrink-0 min-w-0 cursor-pointer group transition-transform duration-200 hover:scale-[1.02]" 
@@ -390,9 +390,9 @@ const Navbar = () => {
             </div>
 
             {/* Right Side: Desktop Navigation + Controls */}
-            <div className="hidden lg:flex items-center flex-shrink-0 space-x-6 xl:space-x-8">
+            <div className="hidden lg:flex items-center justify-between w-full gap-5 xl:gap-6">
               {/* Desktop Navigation moved next to controls */}
-              <div className="flex items-center space-x-6 xl:space-x-8">
+              <div className="flex items-center gap-6 flex-1 min-w-0">
                 <HoverMenu setActive={setActiveMegaItem}>
                   <MenuItem
                     item={t("navigation.services")}
@@ -465,11 +465,11 @@ const Navbar = () => {
               </div>
 
               {/* Desktop Controls */}
-              <div className="flex items-center">
+              <div className="flex items-center flex-shrink-0 gap-2">
               <Button
                 size="sm"
                 onClick={handleBookConsultation}
-                className="mr-3 h-9 bg-green text-white shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-200"
+                className="h-9 bg-green text-white shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-200 text-sm px-4"
               >
                 {t("navigation.ctaConsultation")}
               </Button>
@@ -505,7 +505,7 @@ const Navbar = () => {
             </div>
 
             {/* Mobile / Tablet Controls */}
-            <div className="flex 2xl:hidden items-center space-x-2 flex-shrink-0">
+            <div className="flex lg:hidden items-center space-x-2 flex-shrink-0">
               <Button
                 size="sm"
                 onClick={handleBookConsultation}
