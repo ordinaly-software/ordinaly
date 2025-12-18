@@ -4,6 +4,7 @@ import React, { useMemo } from "react";
 import { Carousel, Card as AppleCard } from "@/components/ui/apple-cards-carousel";
 import { Service } from "@/hooks/useServices";
 import { ServiceDetailsContent, type ServiceDetailsLabels } from "@/components/services/service-details-content";
+import { useTranslations } from "next-intl";
 
 interface ServiceAppleCarouselProps {
   services: Service[];
@@ -36,16 +37,14 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
   initialScroll = 0,
   variant = "default",
 }) => {
+  const t = useTranslations("services");
   const spacingClassName = variant === "compact" ? "py-4 md:py-8" : undefined;
   const cards = useMemo(
     () =>
       services.map((service, index) => {
         const accent = service.color_hex || service.color || "#22A60D";
         const background = service.image || FALLBACK_CARD_IMAGE || buildGradient(accent);
-        const category =
-          service.type === "PRODUCT"
-            ? labels.productType || "Product"
-            : labels.serviceType || "Service";
+        const category = service.type === 'SERVICE' ? t("servicesSectionTitle") : t("productsSectionTitle");
 
         return (
           <AppleCard

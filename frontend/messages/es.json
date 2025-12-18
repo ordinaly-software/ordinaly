@@ -8,8 +8,9 @@
       "home": "¡Conoce Ordinaly!",
       "services": "Productos/Servicios",
       "formation": "Formación",
+      "formationSubmenu": "Ver nuestros cursos y talleres",
       "start": "Empieza Ahora",
-      "ctaConsultation": "Agenda una consulta",
+      "ctaConsultation": "Habla con un experto",
       "ctaConsultationMessage": "Hola, quiero agendar una consulta para empezar a automatizar procesos en mi empresa.",
       "darkMode": "Cambiar a modo oscuro",
       "lightMode": "Cambiar a modo claro",
@@ -41,7 +42,7 @@
       "clientsTitle": "Confían en nosotros",
       "statHeadline": "+500 HORAS AHORRADAS",
       "statCaption": "a empresas andaluzas este mes.",
-      "imageAlt": "Ilustración de automatización con torre de Sevilla y trazas de datos verdes"
+      "imageAlt": "Automatización empresarial e IA desde Sevilla para el mundo."
     },
     "benefits": {
       "title": "¿Por qué Elegir Ordinaly para la Automatización de tu Empresa en Sevilla?",
@@ -83,7 +84,7 @@
           "description": "Equipo técnico en Sevilla disponible. Actualizaciones y mejoras incluidas en el servicio."
         }
       },
-      "contactForQuote": "Consulta a nuestros agentes para un presupuesto",
+      "contactForQuote": "¡Quiero más información!",
       "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
       "vacationTitle": "De Vacaciones",
       "retryButton": "Reintentar",
@@ -112,7 +113,7 @@
       "steps": {
         "0": {
           "title": "Análisis Inicial",
-          "description": "Reunión gratuita (presencial en Sevilla o videollamada) donde analizamos tus procesos actuales.",
+          "description": "Reunión gratuita (presencial en Sevilla o videollamada)",
           "bullets": {
             "0": "Identificación de procesos automatizables",
             "1": "Estimación de ahorro de tiempo",
@@ -710,7 +711,7 @@
         "updated": "Actualizado",
         "featured": "Destacado",
         "type": "Tipo",
-        "duration": "Duración",
+        "duration": "Tiempo de implantación",
         "price": "Precio",
         "toggleOrder": "Cambiar orden"
       },
@@ -758,7 +759,7 @@
           "green": "Hoja",
           "orange": "Mandarina"
         },
-        "duration": "Duración (días)",
+        "duration": "Tiempo de implantación (días)",
         "durationPlaceholder": "ej: 2 días",
         "price": "Precio (€)",
         "pricePlaceholder": "Deja vacío para 'Consultar presupuesto'",
@@ -791,7 +792,7 @@
           "subtitleRequired": "El subtítulo es requerido y debe tener 200 caracteres o menos",
           "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos",
           "iconRequired": "Por favor selecciona un icono válido para el servicio",
-          "durationInvalid": "La duración debe ser de al menos 1 día si se especifica",
+          "durationInvalid": "El tiempo de implantación debe ser de al menos 1 día si se especifica",
           "requisitesLimit": "Los requisitos deben tener 2000 caracteres o menos",
           "priceInvalid": "El precio debe ser de al menos 0.50€ si se especifica",
           "imageTooLarge": "La imagen debe pesar 1MB o menos.",
@@ -1394,7 +1395,7 @@
     "requisites": "Requisitos",
     "featured": "Destacado",
     "details": "Detalles",
-    "duration": "Duración",
+    "duration": "Tiempo de implantación",
     "durationDay": "1 día",
     "durationDays": "días",
     "price": "Precio",

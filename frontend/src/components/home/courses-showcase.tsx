@@ -33,6 +33,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const shouldLazyLoad = !initialCourses || initialCourses.length === 0;
   const [hasBeenVisible, setHasBeenVisible] = useState(!shouldLazyLoad);
   const sectionRef = useRef<HTMLElement | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // Check authentication status on mount
@@ -136,14 +137,45 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const atStart = currentIndex === 0;
   const atEnd = currentIndex >= maxIndex;
 
+  const getCardWidth = () => {
+    const container = scrollContainerRef.current;
+    if (!container) return null;
+    const row = container.firstElementChild as HTMLElement | null;
+    const card = row?.firstElementChild as HTMLElement | null;
+    if (!card) return null;
+    return card.getBoundingClientRect().width;
+  };
+
+  const handleTouchScroll = () => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const cardWidth = getCardWidth();
+    if (!cardWidth) return;
+    const totalCards = courses.length || 1;
+    const index = Math.round(container.scrollLeft / (cardWidth + 24));
+    setCurrentIndex(Math.max(0, Math.min(totalCards - 1, index)));
+  };
+
   const goToPrev = () => {
-    if (!canSlide || atStart) return;
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
+    const cardWidth = getCardWidth();
+    const nextIndex = Math.max(currentIndex - 1, 0);
+    if (scrollContainerRef.current && cardWidth) {
+      scrollContainerRef.current.scrollTo({ left: cardWidth * nextIndex, behavior: 'smooth' });
+      setCurrentIndex(nextIndex);
+    } else if (!atStart) {
+      setCurrentIndex(nextIndex);
+    }
   };
 
   const goToNext = () => {
-    if (!canSlide || atEnd) return;
-    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
+    const cardWidth = getCardWidth();
+    const nextIndex = Math.min(currentIndex + 1, courses.length - 1);
+    if (scrollContainerRef.current && cardWidth) {
+      scrollContainerRef.current.scrollTo({ left: cardWidth * nextIndex, behavior: 'smooth' });
+      setCurrentIndex(nextIndex);
+    } else if (!atEnd) {
+      setCurrentIndex(nextIndex);
+    }
   };
 
   const getAvailabilityBadge = (course: Course) => {
@@ -234,11 +266,11 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
         {isLoading ? (
           <div className="relative max-w-6xl mx-auto">
             <div className="overflow-hidden">
-              <div className="flex -mx-3">
+              <div className="flex gap-6 px-3">
                 {Array.from({ length: Math.max(slidesToShow, Math.min(limit, 3)) }).map((_, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 px-3"
+                    className="flex-shrink-0"
                     style={{ flexBasis: `${100 / slidesToShow}%` }}
                   >
                     <Card className="h-full flex flex-col bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
@@ -263,11 +295,12 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
           </div>
         ) : (
           <div className="relative max-w-6xl mx-auto">
-            <div className="overflow-hidden">
-              <div
-                className="flex transition-transform duration-500 ease-in-out -mx-3"
-                style={{ transform: `translateX(-${(100 / slidesToShow) * currentIndex}%)` }}
-              >
+            <div
+              className="overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none]"
+              ref={scrollContainerRef}
+              onScroll={handleTouchScroll}
+            >
+              <div className="flex transition-transform duration-500 ease-in-out gap-6 px-3">
                 {courses.map((course) => {
                   const availabilityBadge = getAvailabilityBadge(course);
                   const isInProgress = availabilityBadge.text === t('inProgress') && availabilityBadge.variant === 'default';
@@ -275,7 +308,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   return (
                     <div
                       key={course.id}
-                      className="flex-shrink-0 px-3"
+                      className="flex-shrink-0"
                       style={{ flexBasis: `${100 / slidesToShow}%` }}
                     >
                       <Card 
@@ -425,13 +458,13 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
             </div>
 
             {canSlide && (
-              <>
+              <div className="relative flex justify-end gap-2 mt-4 md:mt-6 pr-2 md:pr-4">
                 <button
                   type="button"
                   aria-label={t('previous')}
                   onClick={goToPrev}
                   disabled={atStart}
-                  className="absolute top-1/2 -left-3 md:-left-6 -translate-y-1/2 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 p-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 p-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </button>
@@ -440,11 +473,11 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   aria-label={t('next')}
                   onClick={goToNext}
                   disabled={atEnd}
-                  className="absolute top-1/2 -right-3 md:-right-6 -translate-y-1/2 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 p-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 p-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowRight className="w-5 h-5" />
                 </button>
-              </>
+              </div>
             )}
           </div>
         )}

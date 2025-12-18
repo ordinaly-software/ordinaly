@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { notFound } from "next/navigation";
 import { Locale, routing } from "@/i18n/routing";
-import NavbarWrapper from "@/components/ui/navbar-wrapper";
+import Navbar from "@/components/ui/navbar";
 import CookieConsent from "@/components/ui/cookies";
 import BackToTopButton from "@/components/ui/back-to-top-button";
 import { absoluteUrl, getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
@@ -34,10 +34,12 @@ export async function generateMetadata({
   const { locale } = await params;
 
   const fullBrandName = getFullBrandName(locale);
-  const canonical = absoluteUrl("/", locale);
-  const alternateLanguages = Object.fromEntries(
+  const canonicalLocale = routing.locales.includes(locale as Locale) ? locale : routing.defaultLocale;
+  const canonical = absoluteUrl("/", canonicalLocale);
+  const alternateLanguages: Record<string, string> = Object.fromEntries(
     routing.locales.map((loc) => [localeHrefLangs[loc], absoluteUrl("/", loc)])
   );
+  alternateLanguages["x-default"] = absoluteUrl("/", routing.defaultLocale);
   const ogLocale = localeHrefLangs[locale] ?? localeHrefLangs.es;
 
   return {
@@ -162,7 +164,7 @@ export default async function RootLayout({
         <NextIntlClientProvider>
           <ThemeProvider>
             {/* tu body tal cual */}
-            <NavbarWrapper />
+            <Navbar />
             <main id="main-content">{children}</main>
             <CookieConsent />
             <BackToTopButton />

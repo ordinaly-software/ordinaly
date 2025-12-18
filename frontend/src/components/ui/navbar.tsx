@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Menu, X, User, LogOut, LogIn, Settings } from "lucide-react";
+import { Menu, X, User, LogOut, LogIn, Settings, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import LogoutModal from "@/components/ui/logout-modal";
@@ -149,6 +149,8 @@ const Navbar = () => {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [userData, setUserData] = useState<{is_staff?: boolean, is_superuser?: boolean} | null>(null);
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
+  const [isMobileFormationOpen, setIsMobileFormationOpen] = useState(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { services: menuServices } = useServices(6);
   const { courses: menuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 3, upcoming: true });
@@ -234,6 +236,13 @@ const Navbar = () => {
     };
   }, [fetchUserData, handleScroll]);
 
+  useEffect(() => {
+    if (!isMenuOpen) {
+      setIsMobileServicesOpen(false);
+      setIsMobileFormationOpen(false);
+    }
+  }, [isMenuOpen]);
+
   // Memoized navigation functions
   const goHome = useCallback(() => {
     router.push("/");
@@ -304,14 +313,20 @@ const Navbar = () => {
     [t]
   );
 
-  const mobileLinks = useMemo(
+  const mobileLinksBeforeMenus = useMemo(
     () => [
       { href: "/", label: t("navigation.home") },
-      { href: "/services", label: t("navigation.services") },
-      { href: "/formation", label: t("navigation.formation") },
-      ...desktopLinks,
+      { href: "/us", label: t("navigation.us") },
     ],
-    [desktopLinks, t]
+    [t]
+  );
+
+  const mobileLinksAfterMenus = useMemo(
+    () => [
+      { href: "/blog", label: t("navigation.blog") },
+      { href: "/contact", label: t("navigation.contact") },
+    ],
+    [t]
   );
 
   const featuredServices = useMemo(
@@ -343,7 +358,7 @@ const Navbar = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-2.5 sm:py-3.5 lg:py-5 min-h-[54px] sm:min-h-[66px]">
+          <div className="flex justify-between items-center py-2.5 sm:py-3.5 lg:py-5 min-h-[54px] sm:min-h-[66px] gap-4 lg:gap-6">
             {/* Logo and Title */}
             <div 
               className="flex items-center flex-shrink-0 min-w-0 cursor-pointer group transition-transform duration-200 hover:scale-[1.02]" 
@@ -375,9 +390,9 @@ const Navbar = () => {
             </div>
 
             {/* Right Side: Desktop Navigation + Controls */}
-            <div className="hidden lg:flex items-center flex-shrink-0 space-x-6 xl:space-x-8">
+            <div className="hidden lg:flex items-center justify-between w-full gap-5 xl:gap-6">
               {/* Desktop Navigation moved next to controls */}
-              <div className="flex items-center space-x-6 xl:space-x-8">
+              <div className="flex items-center gap-6 flex-1 min-w-0">
                 <HoverMenu setActive={setActiveMegaItem}>
                   <MenuItem
                     item={t("navigation.services")}
@@ -450,11 +465,11 @@ const Navbar = () => {
               </div>
 
               {/* Desktop Controls */}
-              <div className="flex items-center">
+              <div className="flex items-center flex-shrink-0 gap-2">
               <Button
                 size="sm"
                 onClick={handleBookConsultation}
-                className="mr-3 h-9 bg-green text-white shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-200"
+                className="h-9 bg-green text-white shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-200 text-sm px-4"
               >
                 {t("navigation.ctaConsultation")}
               </Button>
@@ -489,13 +504,21 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Mobile Controls */}
+            {/* Mobile / Tablet Controls */}
             <div className="flex lg:hidden items-center space-x-2 flex-shrink-0">
+              <Button
+                size="sm"
+                onClick={handleBookConsultation}
+                className="bg-green hover:bg-green-600 text-white text-xs px-3 py-2 h-8 transition-all duration-200 max-[380px]:hidden whitespace-nowrap"
+              >
+                {t("navigation.ctaConsultation")}
+              </Button>
+
               {!isAuthenticated && (
                 <Button
                   size="sm"
                   onClick={goToSignUp}
-                  className="bg-green hover:bg-green-600 text-white text-xs px-3 py-2 h-8 transition-all duration-200"
+                  className="bg-green hover:bg-green-600 text-white text-xs px-3 py-2 h-8 transition-all duration-200 whitespace-nowrap"
                 >
                   {t("navigation.signUp")}
                 </Button>
@@ -541,16 +564,146 @@ const Navbar = () => {
             >
               <div className="py-4 px-4 sm:px-6">
                 <div className="flex flex-col space-y-1">
-                  <Button
-                    onClick={() => {
-                      setIsMenuOpen(false);
-                      handleBookConsultation();
-                    }}
-                    className="mb-2 w-full bg-green text-white hover:bg-green-600"
-                  >
-                    {t("navigation.ctaConsultation")}
-                  </Button>
-                  {mobileLinks.map((link) => (
+                  {mobileLinksBeforeMenus.map((link) => (
+                    <Link 
+                      key={link.href}
+                      href={link.href}
+                      scroll={true}
+                      className={cn(
+                        "transition-colors py-3 px-2 block rounded-md font-medium",
+                        isLinkActive(link.href)
+                          ? 'text-green bg-green/10'
+                          : 'text-gray-700 dark:text-gray-300 hover:text-green hover:bg-gray-50 dark:hover:bg-gray-800/50'
+                      )}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+
+                  <div className="space-y-3 pt-2">
+                    <div className="rounded-xl border border-gray-200 dark:border-gray-700/70 bg-gray-50/60 dark:bg-gray-800/60">
+                      <button
+                        className="w-full flex items-center justify-between px-3 py-3 text-left"
+                        onClick={() => setIsMobileServicesOpen((prev) => !prev)}
+                      >
+                        <div>
+                          <p className="font-semibold text-gray-900 dark:text-white">{t("navigation.services")}</p>
+                        </div>
+                        <motion.div animate={{ rotate: isMobileServicesOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                          <ChevronDown className="h-4 w-4 text-gray-600 dark:text-gray-300" />
+                        </motion.div>
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {isMobileServicesOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-2 px-3 pb-3"
+                          >
+                            {featuredServices.length === 0 ? (
+                              <Link
+                                href="/services"
+                                onClick={() => setIsMenuOpen(false)}
+                                className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-green hover:bg-gray-100 dark:hover:bg-gray-800/70"
+                              >
+                                {t("navigation.services")}
+                              </Link>
+                            ) : (
+                              featuredServices.map((service) => (
+                                <Link
+                                  key={service.id}
+                                  href={`/services/${service.slug ?? service.id}`}
+                                  onClick={() => setIsMenuOpen(false)}
+                                  className="block rounded-md px-2 py-2 text-sm font-medium text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800/70 hover:text-green"
+                                >
+                                  {service.title}
+                                </Link>
+                              ))
+                            )}
+                            <Link
+                              href="/services"
+                              onClick={() => setIsMenuOpen(false)}
+                              className="block rounded-md px-2 py-2 text-sm font-semibold text-green hover:text-green-600"
+                            >
+                              {t("navigation.services")}
+                            </Link>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    <div className="rounded-xl border border-gray-200 dark:border-gray-700/70 bg-gray-50/60 dark:bg-gray-800/60">
+                      <button
+                        className="w-full flex items-center justify-between px-3 py-3 text-left"
+                        onClick={() => setIsMobileFormationOpen((prev) => !prev)}
+                      >
+                        <div>
+                          <p className="font-semibold text-gray-900 dark:text-white">{t("navigation.formation")}</p>
+                        </div>
+                        <motion.div animate={{ rotate: isMobileFormationOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                          <ChevronDown className="h-4 w-4 text-gray-600 dark:text-gray-300" />
+                        </motion.div>
+                      </button>
+                      <AnimatePresence initial={false}>
+                        {isMobileFormationOpen && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.25 }}
+                            className="space-y-2 px-3 pb-3"
+                          >
+                            {menuCoursesLoading && (
+                              <div className="rounded-md px-2 py-2 text-sm text-gray-500 dark:text-gray-400 bg-white/40 dark:bg-black/20">
+                                {t("navigation.loading")}
+                              </div>
+                            )}
+                            {!menuCoursesLoading && menuCourses.length === 0 ? (
+                              <Link
+                                href="/formation"
+                                onClick={() => setIsMenuOpen(false)}
+                                className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-green hover:bg-gray-100 dark:hover:bg-gray-800/70"
+                              >
+                                {t("navigation.formationSubmenu")}
+                              </Link>
+                            ) : (
+                              <>
+                                {menuCourses.map((course) => (
+                                  <Link
+                                    key={course.id}
+                                    href={`/formation/${course.slug ?? course.id}`}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors"
+                                  >
+                                    <div className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2">
+                                      {course.title}
+                                    </div>
+                                    {(course.subtitle || course.description) && (
+                                      <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                                        {course.subtitle || course.description}
+                                      </div>
+                                    )}
+                                  </Link>
+                                ))}
+                                <Link
+                                  href="/formation"
+                                  onClick={() => setIsMenuOpen(false)}
+                                  className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-green hover:bg-gray-100 dark:hover:bg-gray-800/70"
+                                >
+                                  {t("navigation.formationSubmenu")}
+                                </Link>
+                              </>
+                            )}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </div>
+                  </div>
+
+                  {mobileLinksAfterMenus.map((link) => (
                     <Link 
                       key={link.href}
                       href={link.href}

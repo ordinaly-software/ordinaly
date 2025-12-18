@@ -362,7 +362,6 @@ export const AdminServiceEditModal = ({
         <div className="flex flex-wrap items-center w-full gap-x-8 gap-y-6 md:gap-x-12 md:gap-y-8">
           <div className="flex items-center px-4 py-3">
             <Label htmlFor="type" className="text-sm font-medium cursor-pointer text-purple-600 flex items-center gap-1 min-w-0 mr-2 md:mr-4">
-              <span className="w-4 h-4 rounded-full bg-purple-200 flex items-center justify-center text-purple-600">{formData.type === 'SERVICE' ? 'S' : 'P'}</span>
               {t("form.type")}
             </Label>
             <Dropdown
@@ -417,6 +416,24 @@ export const AdminServiceEditModal = ({
             onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
             placeholder={t("form.titlePlaceholder")}
             className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
+            required
+          />
+        </div>
+        {/* Service Subtitle */}
+        <div className="space-y-3">
+          <Label htmlFor="subtitle" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded flex items-center justify-center">
+              <span className="text-xs font-bold text-blue-600 dark:text-blue-400">T2</span>
+            </div>
+            <span>{t("form.subtitle")} *</span>
+          </Label>
+          <Input
+            id="subtitle"
+            value={formData.subtitle}
+            onChange={e => setFormData(prev => ({ ...prev, subtitle: e.target.value }))}
+            placeholder={t("form.subtitlePlaceholder")}
+            className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500/20 rounded-lg transition-all duration-200"
+            maxLength={200}
             required
           />
         </div>

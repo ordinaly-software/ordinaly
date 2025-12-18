@@ -8,6 +8,7 @@
       "home": "Meet us!",
       "services": "Services and Products",
       "formation": "Formation",
+      "formationSubmenu":  "See our courses and Workshops",
       "start": "Get Started",
       "ctaConsultation": "Book a consultation",
       "ctaConsultationMessage": "Hi, I'd like to book a consultation to start automating processes in my business.",
@@ -41,7 +42,7 @@
       "clientsTitle": "Trusted by",
       "statHeadline": "+500 HOURS SAVED",
       "statCaption": "for Andalusian companies this month.",
-      "imageAlt": "Automation illustration with Seville tower and green data trails"
+      "imageAlt": "Business automation and AI from Seville to the world."
     },
     "benefits": {
       "title": "Why Choose Ordinaly for Business Automation in Seville?",
@@ -83,7 +84,7 @@
           "description": "Technical team in Seville available. Updates and improvements included in the service."
         }
       },
-      "contactForQuote": "Contact our agents for a quote",
+      "contactForQuote": "I want to know more!",
       "vacationMessage": "We're on vacation! Our services will return soon after the holidays. Thank you for your patience",
       "vacationTitle": "On Vacation",
       "retryButton": "Retry",
@@ -112,7 +113,7 @@
       "steps": {
       "0": {
         "title": "Initial Analysis",
-        "description": "Free meeting (in person in Seville or via video call) where we review your current processes.",
+        "description": "Free meeting (in person in Seville or via video call).",
         "bullets": {
         "0": "Identification of automatable processes",
         "1": "Estimated time savings",
