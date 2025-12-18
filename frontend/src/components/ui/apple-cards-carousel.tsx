@@ -75,7 +75,7 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
       const cardWidth = isMobile() ? 224 : 384; // align with w-56 and md:w-96
-      const gap = isMobile() ? 4 : 8;
+      const gap = 16; // align with gap-4 (16px) used in the carousel container
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
         left: scrollPosition,
