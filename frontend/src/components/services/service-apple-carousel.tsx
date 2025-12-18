@@ -69,7 +69,7 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
           />
         );
       }),
-    [services, labels, onSelect, onContact],
+    [services, labels, onSelect, onContact, t],
   );
 
   return <Carousel items={cards} initialScroll={initialScroll} className={spacingClassName} />;

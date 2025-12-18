@@ -7,8 +7,9 @@
     "navigation": {
       "home": "¡Conoce Ordinaly!",
       "services": "Productos/Servicios",
+      "serviceSubmenu": "Ver TODOS nuestros servicios y productos",
       "formation": "Formación",
-      "formationSubmenu": "Ver nuestros cursos y talleres",
+      "formationSubmenu": "Ver TODOS nuestros cursos y talleres",
       "start": "Empieza Ahora",
       "ctaConsultation": "Habla con un experto",
       "ctaConsultationMessage": "Hola, quiero agendar una consulta para empezar a automatizar procesos en mi empresa.",
@@ -100,6 +101,7 @@
       "contactEmail": "Contactar por Email",
       "viewDetails": "Ver Detalles",
       "viewAllServices": "Ver Todos los Servicios",
+      "viewAllServicesAndProducts": "Ver todos los servicios y productos",
       "video": "Vídeo",
       "playVideo": "Reproducir vídeo",
       "imageAlt": "Imagen de {title}",

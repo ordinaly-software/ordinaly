@@ -43,7 +43,6 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -74,14 +73,13 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 224 : 384; // align with w-56 and md:w-96
+      const cardWidth = isMobile() ? 280 : 380; // align with w-60 (mobile) and md:w-96
       const gap = 16; // align with gap-4 (16px) used in the carousel container
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
         left: scrollPosition,
         behavior: "smooth",
       });
-      setCurrentIndex(index);
     }
   };
 
@@ -90,9 +88,7 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
   };
 
   return (
-    <CarouselContext.Provider
-      value={{ onCardClose: handleCardClose, currentIndex }}
-    >
+    <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex: 0 }}>
       <div className="relative w-full">
         <div
           className={cn(
@@ -174,7 +170,7 @@ export const Card = ({
   layout?: boolean;
 }) => {
   const [open, setOpen] = useState(false);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const { onCardClose } = useContext(CarouselContext);
 
   const handleOpen = () => {
     card.onOpen?.();
@@ -206,7 +202,7 @@ export const Card = ({
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="relative z-10 flex w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 aspect-[2/3.4] md:w-96 md:aspect-[2/3] dark:bg-neutral-900"
+        className="relative z-10 flex w-80 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 aspect-[2/3.8] md:w-96 md:aspect-[2/3] dark:bg-neutral-900"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/65 via-black/25 to-transparent" />
         <div className="relative z-40 p-8">
@@ -237,7 +233,6 @@ export const Card = ({
 export const BlurImage = ({
   height,
   width,
-  fill: _fill,
   src,
   className,
   alt,
@@ -245,6 +240,7 @@ export const BlurImage = ({
 }: ImageProps) => {
   const [isLoading, setLoading] = useState(true);
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       className={cn(
         "h-full w-full transition duration-300",

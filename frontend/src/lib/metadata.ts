@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { routing, type Locale } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 
 const SITE_NAME = "Ordinaly";
 const FALLBACK_BASE_URL = "https://ordinaly.ai";
@@ -88,7 +88,7 @@ export function createPageMetadata({
   const alternateLanguages = Object.fromEntries(
     routing.locales.map((loc) => [localeHrefLangs[loc] ?? loc, absoluteUrl(path, loc)])
   );
-  alternateLanguages["x-default"] = absoluteUrl(path, routing.defaultLocale);
+  alternateLanguages["x-default"] = absoluteUrl(path);
 
   return {
     title,

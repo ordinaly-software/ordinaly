@@ -7,8 +7,9 @@
     "navigation": {
       "home": "Meet us!",
       "services": "Services and Products",
+      "serviceSubmenu": "See ALL our services and products",
       "formation": "Formation",
-      "formationSubmenu":  "See our courses and Workshops",
+      "formationSubmenu":  "See ALL our courses and workshops",
       "start": "Get Started",
       "ctaConsultation": "Book a consultation",
       "ctaConsultationMessage": "Hi, I'd like to book a consultation to start automating processes in my business.",
@@ -100,6 +101,7 @@
       "contactEmail": "Contact by Email",
       "viewDetails": "View Details",
       "viewAllServices": "View All Services",
+      "viewAllServicesAndProducts": "See all services and products",
       "video": "Video",
       "playVideo": "Play video",
       "imageAlt": "Image for {title}",

@@ -211,7 +211,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
 
   if (courses.length === 0 && !isLoading) {
     return (
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section id="courses" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">
@@ -250,11 +250,12 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
 
   return (
     <section
+      id="courses"
       ref={sectionRef}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50"
+      className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-10 md:mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">
             {t('showcaseTitle')}
           </h2>
@@ -464,7 +465,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   aria-label={t('previous')}
                   onClick={goToPrev}
                   disabled={atStart}
-                  className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 p-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </button>
@@ -473,7 +474,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   aria-label={t('next')}
                   onClick={goToNext}
                   disabled={atEnd}
-                  className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 p-2 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowRight className="w-5 h-5" />
                 </button>

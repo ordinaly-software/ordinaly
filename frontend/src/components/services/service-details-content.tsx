@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { renderIcon } from "@/components/ui/icon-select";
 import type { Service } from "@/hooks/useServices";
+import Image from "next/image";
 
 export type ServiceDetailsLabels = {
   featured: string;
@@ -122,11 +123,14 @@ export function ServiceDetailsContent({
       </div>
 
       <div className="overflow-hidden rounded-2xl border border-white/40 bg-white/40 shadow-lg backdrop-blur dark:border-neutral-700 dark:bg-neutral-900/60">
-        <img
+        <Image
           src={hero}
           alt={service.title}
           className="h-40 w-full object-cover md:h-56"
+          width={1200}
+          height={560}
           loading="lazy"
+          sizes="(min-width: 768px) 100vw, 100vw"
         />
       </div>
 
@@ -251,7 +255,7 @@ const YoutubePreview = ({
             aria-label={playLabel}
           >
             {thumbnailUrl ? (
-              <img
+              <Image
                 src={thumbnailUrl}
                 alt={title}
                 className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
@@ -272,4 +276,3 @@ const YoutubePreview = ({
     </div>
   );
 };
-

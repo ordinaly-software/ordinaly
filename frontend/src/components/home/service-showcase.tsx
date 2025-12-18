@@ -86,7 +86,6 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
           return (
             <ServiceAppleCarousel
               services={services}
-              variant="compact"
               labels={{
                 featured: t("services.featured"),
                 contactForQuote: t("services.contactForQuote"),
@@ -112,14 +111,14 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
         }
       })()}
       {/* View All Services Button */}
-      <div className="text-center mt-12 scroll-animate fade-in-up">
+      <div className="text-center mt-12">
         <Link href="/services">
           <Button
             variant="outline"
             size="lg"
-            className="bg-transparent border-2 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#22A60D]/20"
+            className="group bg-transparent border-2 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#22A60D]/20"
           >
-            {props.t("services.viewAllServices")}
+            {props.t("services.viewAllServicesAndProducts")}
             <svg
               aria-hidden="true"
               viewBox="0 0 10 10"

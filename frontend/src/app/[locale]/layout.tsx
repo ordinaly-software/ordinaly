@@ -39,7 +39,7 @@ export async function generateMetadata({
   const alternateLanguages: Record<string, string> = Object.fromEntries(
     routing.locales.map((loc) => [localeHrefLangs[loc], absoluteUrl("/", loc)])
   );
-  alternateLanguages["x-default"] = absoluteUrl("/", routing.defaultLocale);
+  alternateLanguages["x-default"] = absoluteUrl("/");
   const ogLocale = localeHrefLangs[locale] ?? localeHrefLangs.es;
 
   return {

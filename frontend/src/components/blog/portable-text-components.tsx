@@ -14,6 +14,7 @@ export const portableTextComponents = {
     image: ({ value }: { value: ImageType }) => (
       value?.asset && value.asset._ref ? (
         <div className="my-6 flex justify-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={urlFor(value.asset._ref).width(1200).url()}
             alt={value.alt || 'Blog image'}

@@ -151,6 +151,7 @@ const Navbar = () => {
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [isMobileFormationOpen, setIsMobileFormationOpen] = useState(false);
+  const [hideMobileConsultationCta, setHideMobileConsultationCta] = useState(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const { services: menuServices } = useServices(6);
   const { courses: menuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 3, upcoming: true });
@@ -243,6 +244,16 @@ const Navbar = () => {
     }
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    const updateMobileCtaVisibility = () => {
+      setHideMobileConsultationCta(window.innerWidth < 440);
+    };
+
+    updateMobileCtaVisibility();
+    window.addEventListener("resize", updateMobileCtaVisibility);
+    return () => window.removeEventListener("resize", updateMobileCtaVisibility);
+  }, []);
+
   // Memoized navigation functions
   const goHome = useCallback(() => {
     router.push("/");
@@ -308,7 +319,7 @@ const Navbar = () => {
     () => [
       { href: "/blog", label: t("navigation.blog"), scroll: true },
       { href: "/contact", label: t("navigation.contact"), scroll: true },
-      { href: "/us", label: t("navigation.us"), scroll: true },
+      { href: "/about", label: t("navigation.us"), scroll: true },
     ],
     [t]
   );
@@ -316,7 +327,6 @@ const Navbar = () => {
   const mobileLinksBeforeMenus = useMemo(
     () => [
       { href: "/", label: t("navigation.home") },
-      { href: "/us", label: t("navigation.us") },
     ],
     [t]
   );
@@ -325,6 +335,7 @@ const Navbar = () => {
     () => [
       { href: "/blog", label: t("navigation.blog") },
       { href: "/contact", label: t("navigation.contact") },
+      { href: "/about", label: t("navigation.us") },
     ],
     [t]
   );
@@ -506,13 +517,15 @@ const Navbar = () => {
 
             {/* Mobile / Tablet Controls */}
             <div className="flex lg:hidden items-center space-x-2 flex-shrink-0">
-              <Button
-                size="sm"
-                onClick={handleBookConsultation}
-                className="bg-green hover:bg-green-600 text-white text-xs px-3 py-2 h-8 transition-all duration-200 max-[380px]:hidden whitespace-nowrap"
-              >
-                {t("navigation.ctaConsultation")}
-              </Button>
+              {!hideMobileConsultationCta && (
+                <Button
+                  size="sm"
+                  onClick={handleBookConsultation}
+                  className="bg-green hover:bg-green-600 text-white text-xs px-3 py-2 h-8 transition-all duration-200 max-[380px]:hidden whitespace-nowrap"
+                >
+                  {t("navigation.ctaConsultation")}
+                </Button>
+              )}
 
               {!isAuthenticated && (
                 <Button
@@ -628,7 +641,7 @@ const Navbar = () => {
                               onClick={() => setIsMenuOpen(false)}
                               className="block rounded-md px-2 py-2 text-sm font-semibold text-green hover:text-green-600"
                             >
-                              {t("navigation.services")}
+                              {t("navigation.serviceSubmenu")}
                             </Link>
                           </motion.div>
                         )}

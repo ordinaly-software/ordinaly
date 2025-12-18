@@ -13,7 +13,7 @@ export default async function sitemap() {
   const staticPaths = [
     { path: "/", changeFrequency: "weekly" as const, priority: 0.9 },
     { path: "/contact", changeFrequency: "weekly" as const, priority: 0.7 },
-    { path: "/us", changeFrequency: "weekly" as const, priority: 0.7 },
+    { path: "/about", changeFrequency: "weekly" as const, priority: 0.7 },
     { path: "/services", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/formation", changeFrequency: "weekly" as const, priority: 0.7 },
     { path: "/blog", changeFrequency: "daily" as const, priority: 0.8 },
@@ -24,21 +24,23 @@ export default async function sitemap() {
     { next: { tags: ["blog"] } },
   );
 
-  const fetchApiCollection = async (path: string) => {
+  const fetchApiCollection = async <T,>(path: string): Promise<T[]> => {
     if (!apiBase) return [];
     try {
       const res = await fetch(`${apiBase}${path}`, { next: { revalidate: 60 * 60 } });
       if (!res.ok) return [];
       const data = await res.json();
-      return Array.isArray(data) ? data : [];
+      return Array.isArray(data) ? (data as T[]) : [];
     } catch {
       return [];
     }
   };
 
   const services =
-    (await fetchApiCollection("/api/services/")).filter((s: any) => !s?.draft);
-  const courses = await fetchApiCollection("/api/courses/courses/");
+    (await fetchApiCollection<{ slug?: string; id?: string; draft?: boolean }>("/api/services/")).filter(
+      (s) => !s?.draft,
+    );
+  const courses = await fetchApiCollection<{ slug?: string; id?: string }>("/api/courses/courses/");
 
   const entries = [];
   for (const locale of routing.locales) {

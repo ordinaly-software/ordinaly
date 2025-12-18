@@ -16,7 +16,7 @@ import {
   ctaBenefits,
   TranslateFn,
 } from "./home-content";
-import { ArrowRight, Book, Bot, Building2, Gauge, Workflow } from "lucide-react";
+import { ArrowRight, Book, Bot, Building2, Workflow } from "lucide-react";
 
 interface HeroProps {
   t: TranslateFn;
@@ -191,31 +191,40 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
             </div>
 
             <div className="grid sm:grid-cols-2 gap-3">
-              {bulletPoints.map(({ icon: Icon, text }, index) => (
-              <div
-                key={`bullet-${index}`}
-                className="flex items-center gap-3 rounded-2xl px-4 py-3"
-                style={{
-                backgroundColor: bulletBg,
-                border: `1px solid ${bulletBorder}`,
-                backdropFilter: "blur(8px)",
-                }}
-              >
-                <div
-                className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl ring-1"
-                style={{
-                  backgroundColor: "rgba(34,166,13,0.12)",
-                  color: primaryGreen,
-                  borderColor: "rgba(34,166,13,0.35)",
-                }}
-                >
-                <Icon className="h-6 w-6 flex-shrink-0" strokeWidth={1.5} />
-                </div>
-                <p className="text-base md:text-lg" style={{ color: bulletTextColor }}>
-                {text}
-                </p>
-              </div>
-              ))}
+              {bulletPoints.map(({ icon: Icon, text }, index) => {
+                const targetId = index < 3 ? "#services" : "#courses";
+                return (
+                  <Link
+                    key={`bullet-${index}`}
+                    href={targetId}
+                    scroll
+                    className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#22A60D] focus-visible:ring-offset-transparent rounded-2xl"
+                  >
+                    <div
+                      className="flex items-center gap-3 rounded-2xl px-4 py-3"
+                      style={{
+                        backgroundColor: bulletBg,
+                        border: `1px solid ${bulletBorder}`,
+                        backdropFilter: "blur(8px)",
+                      }}
+                    >
+                      <div
+                        className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl ring-1"
+                        style={{
+                          backgroundColor: "rgba(34,166,13,0.12)",
+                          color: primaryGreen,
+                          borderColor: "rgba(34,166,13,0.35)",
+                        }}
+                      >
+                        <Icon className="h-6 w-6 flex-shrink-0" strokeWidth={1.5} />
+                      </div>
+                      <p className="text-base md:text-lg" style={{ color: bulletTextColor }}>
+                        {text}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
 
             <div className="flex flex-wrap gap-4">
@@ -376,11 +385,11 @@ export function ServicesSection({ t, servicesContent, onWhatsApp, sectionRef }: 
   return (
     <section id="services" ref={sectionRef} className="py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16 scroll-animate fade-in-up">
+        <div className="text-center mb-4 scroll-animate fade-in-up">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">
             {t("services.title")}
           </h2>
-          <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto mb-4">
+          <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto mb-2">
             {t("services.subtitle")}
           </p>
         </div>
@@ -404,7 +413,7 @@ export function ServicesSection({ t, servicesContent, onWhatsApp, sectionRef }: 
             </div>
           ))}
         </div>
-        <div className="mt-12 text-center">
+        <div className="mt-6 text-center">
           <Button size="lg" variant="special" onClick={onWhatsApp} className="text-lg px-10 py-6">
             {t("services.cta")}
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -639,7 +648,8 @@ export function PartnersSection({ t }: SectionProps) {
   );
 }
 
-interface LocalSeoProps extends HeroProps {
+interface LocalSeoProps {
+  t: TranslateFn;
   sideContent?: React.ReactNode;
 }
 
@@ -722,7 +732,7 @@ const LocalVideoPreview: React.FC = () => {
   );
 };
 
-export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
+export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
   const resolvedSideContent = sideContent ?? <LocalVideoPreview />;
 
   return (
