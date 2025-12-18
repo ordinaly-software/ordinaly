@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { routing, type Locale } from "@/i18n/routing";
+import { routing } from "@/i18n/routing";
 
 const SITE_NAME = "Ordinaly";
 const FALLBACK_BASE_URL = "https://ordinaly.ai";

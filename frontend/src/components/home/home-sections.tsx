@@ -16,7 +16,7 @@ import {
   ctaBenefits,
   TranslateFn,
 } from "./home-content";
-import { ArrowRight, Book, Bot, Building2, Gauge, Workflow } from "lucide-react";
+import { ArrowRight, Book, Bot, Building2, Workflow } from "lucide-react";
 
 interface HeroProps {
   t: TranslateFn;
@@ -648,7 +648,8 @@ export function PartnersSection({ t }: SectionProps) {
   );
 }
 
-interface LocalSeoProps extends HeroProps {
+interface LocalSeoProps {
+  t: TranslateFn;
   sideContent?: React.ReactNode;
 }
 
@@ -731,7 +732,7 @@ const LocalVideoPreview: React.FC = () => {
   );
 };
 
-export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
+export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
   const resolvedSideContent = sideContent ?? <LocalVideoPreview />;
 
   return (

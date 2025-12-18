@@ -1,6 +1,6 @@
 "use client";
 
-export type TranslateFn = (key: string, values?: Record<string, any>) => string;
+export type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
 export const homeBenefits = [
   {

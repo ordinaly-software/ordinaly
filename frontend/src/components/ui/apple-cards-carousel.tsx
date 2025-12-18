@@ -43,7 +43,6 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -81,7 +80,6 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
         left: scrollPosition,
         behavior: "smooth",
       });
-      setCurrentIndex(index);
     }
   };
 
@@ -90,9 +88,7 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
   };
 
   return (
-    <CarouselContext.Provider
-      value={{ onCardClose: handleCardClose, currentIndex }}
-    >
+    <CarouselContext.Provider value={{ onCardClose: handleCardClose, currentIndex: 0 }}>
       <div className="relative w-full">
         <div
           className={cn(
@@ -174,7 +170,7 @@ export const Card = ({
   layout?: boolean;
 }) => {
   const [open, setOpen] = useState(false);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const { onCardClose } = useContext(CarouselContext);
 
   const handleOpen = () => {
     card.onOpen?.();
@@ -237,7 +233,6 @@ export const Card = ({
 export const BlurImage = ({
   height,
   width,
-  fill: _fill,
   src,
   className,
   alt,
@@ -245,6 +240,7 @@ export const BlurImage = ({
 }: ImageProps) => {
   const [isLoading, setLoading] = useState(true);
   return (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       className={cn(
         "h-full w-full transition duration-300",

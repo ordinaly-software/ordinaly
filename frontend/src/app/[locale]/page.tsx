@@ -37,18 +37,25 @@ export default async function Home({
     }
   };
 
+  const extractItems = <T,>(data: unknown): T[] => {
+    if (Array.isArray(data)) return data as T[];
+    if (data && typeof data === "object" && "results" in data) {
+      const results = (data as { results?: unknown }).results;
+      if (Array.isArray(results)) return results as T[];
+    }
+    return [];
+  };
+
   const getInitialServices = async (): Promise<Service[]> => {
     const data = await fetchJson<unknown>(getApiEndpoint("/api/services/"));
-    const items = Array.isArray(data) ? data : (data as any)?.results;
-    if (!Array.isArray(items)) return [];
-    return (items as Service[]).filter((service) => !service.draft).slice(0, 6);
+    const items = extractItems<Service>(data);
+    return items.filter((service) => !service.draft).slice(0, 6);
   };
 
   const getInitialCourses = async (): Promise<Course[]> => {
     const data = await fetchJson<unknown>(getApiEndpoint("/api/courses/courses/?limit=3"));
-    const items = Array.isArray(data) ? data : (data as any)?.results;
-    if (!Array.isArray(items)) return [];
-    return (items as Course[]).filter((course) => !(course as any).draft).slice(0, 3);
+    const items = extractItems<Course>(data);
+    return items.filter((course) => !course.draft).slice(0, 3);
   };
 
   const [initialServices, initialCourses] = await Promise.all([

@@ -1,21 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
-import { getApiEndpoint } from "@/lib/api-config";
 import { Mail, Phone, MapPin, Clock, Send, Instagram, Youtube, Pin, Linkedin, VideoIcon, ExternalLink } from "lucide-react";
 import Footer from "@/components/ui/footer";
 
 export default function ContactPage() {
   const t = useTranslations("contactPage");
-  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const [locationImageIndex, setLocationImageIndex] = useState(0);
-  const [shouldLoadHeroVideo, setShouldLoadHeroVideo] = useState(false);
 
   const team = [
     {
@@ -113,27 +110,6 @@ export default function ContactPage() {
     ],
     [t]
   );
-
-  useEffect(() => {
-    const videoEl = heroVideoRef.current;
-    if (!videoEl) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setShouldLoadHeroVideo(true);
-            videoEl.play().catch(() => {});
-            observer.disconnect();
-          }
-        });
-      },
-      { threshold: 0.25 }
-    );
-
-    observer.observe(videoEl);
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {

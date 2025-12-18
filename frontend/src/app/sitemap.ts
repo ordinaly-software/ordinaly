@@ -24,21 +24,23 @@ export default async function sitemap() {
     { next: { tags: ["blog"] } },
   );
 
-  const fetchApiCollection = async (path: string) => {
+  const fetchApiCollection = async <T,>(path: string): Promise<T[]> => {
     if (!apiBase) return [];
     try {
       const res = await fetch(`${apiBase}${path}`, { next: { revalidate: 60 * 60 } });
       if (!res.ok) return [];
       const data = await res.json();
-      return Array.isArray(data) ? data : [];
+      return Array.isArray(data) ? (data as T[]) : [];
     } catch {
       return [];
     }
   };
 
   const services =
-    (await fetchApiCollection("/api/services/")).filter((s: any) => !s?.draft);
-  const courses = await fetchApiCollection("/api/courses/courses/");
+    (await fetchApiCollection<{ slug?: string; id?: string; draft?: boolean }>("/api/services/")).filter(
+      (s) => !s?.draft,
+    );
+  const courses = await fetchApiCollection<{ slug?: string; id?: string }>("/api/courses/courses/");
 
   const entries = [];
   for (const locale of routing.locales) {

@@ -546,12 +546,13 @@ export const AdminServiceEditModal = ({
                     role="button"
                     tabIndex={0}
                     onClick={() => imageInputRef.current?.click()}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") imageInputRef.current?.click();
-                    }}
-                    aria-label={t("form.image")}
-                  >
-                    <img src={safeImagePreview} alt={t("form.image")} className="h-full w-full object-cover" />
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") imageInputRef.current?.click();
+                  }}
+                  aria-label={t("form.image")}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={safeImagePreview} alt={t("form.image")} className="h-full w-full object-cover" />
                     <ModalCloseButton
                       onClick={() => {
                         if (imageFile) {
