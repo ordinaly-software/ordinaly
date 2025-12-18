@@ -87,9 +87,6 @@ export function ServiceDetailsContent({
   const hero = service.image || FALLBACK_CARD_IMAGE;
   const description = service.clean_description || service.description || "";
   const priceLabel = formatPrice(service, labels.contactForQuote);
-  const category =
-    service.type === "PRODUCT" ? labels.productType || "Product" : labels.serviceType || "Service";
-
   const youtubeId = useMemo(() => extractYoutubeId(service.youtube_video_url), [service.youtube_video_url]);
   const youtubeEmbed = youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : null;
   const youtubeThumbnail = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
@@ -120,12 +117,6 @@ export function ServiceDetailsContent({
               {priceLabel}
             </Badge>
             {service.is_featured && <Badge className="bg-emerald-600 text-white shadow">{labels.featured}</Badge>}
-            <Badge
-              variant="outline"
-              className="border-white/40 text-neutral-700 dark:text-neutral-200"
-            >
-              {category}
-            </Badge>
           </div>
         </div>
       </div>
@@ -187,11 +178,14 @@ export function ServiceDetailsContent({
       </div>
 
       {(onSelect || onContact) && (
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           {onContact && showContact && (
             <Button
               size="lg"
-              className="bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-white dark:text-neutral-900 dark:hover:bg-gray-100"
+              className="w-full sm:flex-1 text-white hover:opacity-90 transition-opacity shadow-lg"
+              style={{
+                background: 'linear-gradient(90deg, #22A60D, #53c651ff, #9978fdff)',
+              }}
               onClick={() => onContact(service)}
             >
               {labels.contactNow ?? labels.contactForQuote}
@@ -201,7 +195,7 @@ export function ServiceDetailsContent({
             <Button
               size="lg"
               variant="outline"
-              className="border-neutral-300 bg-white/70 text-neutral-900 hover:bg-white dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+              className="w-full sm:flex-1 border-neutral-300 bg-white/70 text-neutral-900 hover:bg-white dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
               onClick={() => onSelect(service)}
             >
               {labels.viewDetails ?? labels.contactForQuote}

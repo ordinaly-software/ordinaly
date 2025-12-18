@@ -74,7 +74,7 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
+      const cardWidth = isMobile() ? 224 : 384; // align with w-56 and md:w-96
       const gap = isMobile() ? 4 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
@@ -139,7 +139,7 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
             ))}
           </div>
         </div>
-        <div className="mr-10 flex justify-end gap-2">
+        <div className="mr-6 mt-4 flex justify-end gap-2 md:mt-6">
           <button
             className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
             onClick={scrollLeft}
@@ -202,7 +202,7 @@ export const Card = ({
       <motion.button
         layoutId={layout ? `card-${card.title}` : undefined}
         onClick={handleOpen}
-        className="relative z-10 flex h-72 w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 md:h-[28rem] md:w-96 dark:bg-neutral-900"
+        className="relative z-10 flex w-56 flex-col items-start justify-start overflow-hidden rounded-3xl bg-gray-100 aspect-[2/3.4] md:w-96 md:aspect-[2/3] dark:bg-neutral-900"
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 z-30 h-full bg-gradient-to-b from-black/50 via-transparent to-transparent" />
         <div className="relative z-40 p-8">

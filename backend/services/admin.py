@@ -6,7 +6,7 @@ from .models import Service
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ('title', 'subtitle', 'duration', 'price', 'is_featured',
-                    'draft', 'created_by', 'created_at', 'type')
+                    'draft', 'created_by', 'created_at', 'type', 'slug')
     list_filter = ('is_featured', 'draft', 'created_at', 'color', 'type')
     search_fields = ('title', 'subtitle', 'description', 'type')
     readonly_fields = ('created_at', 'updated_at', 'description_preview')
@@ -22,7 +22,7 @@ class ServiceAdmin(admin.ModelAdmin):
             'fields': ('color',)
         }),
         ('Additional Information', {
-            'fields': ('duration', 'requisites', 'price', 'is_featured')
+            'fields': ('duration', 'requisites', 'price', 'is_featured', 'slug')
         }),
         ('Metadata', {
             'fields': ('created_by', 'created_at', 'updated_at')

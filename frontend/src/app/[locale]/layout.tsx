@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { notFound } from "next/navigation";
 import { Locale, routing } from "@/i18n/routing";
-import NavbarWrapper from "@/components/ui/navbar-wrapper";
+import Navbar from "@/components/ui/navbar";
 import CookieConsent from "@/components/ui/cookies";
 import BackToTopButton from "@/components/ui/back-to-top-button";
 import { absoluteUrl, getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
@@ -162,7 +162,7 @@ export default async function RootLayout({
         <NextIntlClientProvider>
           <ThemeProvider>
             {/* tu body tal cual */}
-            <NavbarWrapper />
+            <Navbar />
             <main id="main-content">{children}</main>
             <CookieConsent />
             <BackToTopButton />

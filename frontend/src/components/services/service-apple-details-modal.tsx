@@ -44,7 +44,7 @@ export const ServiceAppleDetailsModal = ({
 
   if (!service) return null;
 
-  const category = service.type === "PRODUCT" ? t("productsSectionTitle") : t("servicesSectionTitle");
+  const category = service.type === 'SERVICE' ? t("servicesSectionTitle") : t("productsSectionTitle");
 
   return (
     <AppleModal isOpen={isOpen} onClose={onClose} category={category} title={service.title}>

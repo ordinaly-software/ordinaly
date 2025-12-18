@@ -200,7 +200,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                 </div>
                 <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
                   <span>{tAdmin("labels.price")}: {service.price ? `€${Math.round(Number(service.price))}` : t("form.contactForQuote") || 'Contact for quote'}</span>
-                  {service.duration && <span>{tAdmin("labels.duration")}: {service.duration === 1 ? t("durationDay") : t("durationDays", { count: service.duration })}</span>}
+                  {service.duration && <span>{tAdmin("labels.duration")}: {service.duration} {service.duration === 1 ? t("durationDay") : t("durationDays")}</span>}
                 </div>
               </div>
               <div className="flex flex-col gap-2 ml-0 md:ml-4 mt-2 md:mt-0">

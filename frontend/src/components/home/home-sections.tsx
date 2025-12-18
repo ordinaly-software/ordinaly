@@ -132,7 +132,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
       <div className="absolute inset-0 opacity-40">
         <Image
           src={heroImage}
-          alt=""
+          alt={t("hero.imageAlt")}
           fill
           className="object-cover lg:object-contain blur-sm brightness-1.5"
           priority
@@ -158,7 +158,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
               <div className="relative h-[220px] sm:h-[220px] md:h-[240px] w-full overflow-hidden">
                 <Image
                   src={heroImage}
-                  alt=""
+                  alt={t("hero.imageAlt")}
                   fill
                   className="object-cover"
                   priority
@@ -171,7 +171,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
             </div>
 
             <div className="space-y-4 pt-6 lg:pt-0">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight">
+              <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight">
                 <span className="block">{t("hero.titleLine1")}</span>
                 <span
                   className="block text-transparent bg-clip-text drop-shadow-[0_12px_35px_rgba(34,166,13,0.35)]"
@@ -308,7 +308,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
               <div className="relative">
                 <Image
                   src={heroImage}
-                  alt=""
+                  alt={t("hero.imageAlt")}
                   width={720}
                   height={880}
                   className="mx-auto h-auto w-full max-w-[640px]"
