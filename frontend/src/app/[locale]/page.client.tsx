@@ -18,7 +18,6 @@ import {
   LocalSeoSection,
   PartnersSection,
   CtaSection,
-  SeoArticleSection,
 } from "@/components/home/home-sections";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 

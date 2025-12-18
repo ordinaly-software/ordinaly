@@ -11,4 +11,3 @@ export default createMiddleware({
 export const config = {
   matcher: ["/((?!api|studio|trpc|_next|_vercel|.*\\..*).*)"],
 };
-

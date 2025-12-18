@@ -4,10 +4,10 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
-import { AnimatedTestimonials } from "@/components/us/animated-testimonials";
+import { AnimatedTestimonials } from "@/components/about/animated-testimonials";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
-import { Timeline } from "@/components/us/timeline";
-import { Rocket, ArrowRight, Users, Sparkle, Users2 } from "lucide-react";
+import { Timeline } from "@/components/about/timeline";
+import { Rocket, ArrowRight, Users, Users2 } from "lucide-react";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), {
   ssr: false,

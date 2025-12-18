@@ -13,7 +13,7 @@ export default async function sitemap() {
   const staticPaths = [
     { path: "/", changeFrequency: "weekly" as const, priority: 0.9 },
     { path: "/contact", changeFrequency: "weekly" as const, priority: 0.7 },
-    { path: "/us", changeFrequency: "weekly" as const, priority: 0.7 },
+    { path: "/about", changeFrequency: "weekly" as const, priority: 0.7 },
     { path: "/services", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/formation", changeFrequency: "weekly" as const, priority: 0.7 },
     { path: "/blog", changeFrequency: "daily" as const, priority: 0.8 },

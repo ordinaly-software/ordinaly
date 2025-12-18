@@ -88,7 +88,7 @@ export function createPageMetadata({
   const alternateLanguages = Object.fromEntries(
     routing.locales.map((loc) => [localeHrefLangs[loc] ?? loc, absoluteUrl(path, loc)])
   );
-  alternateLanguages["x-default"] = absoluteUrl(path, routing.defaultLocale);
+  alternateLanguages["x-default"] = absoluteUrl(path);
 
   return {
     title,

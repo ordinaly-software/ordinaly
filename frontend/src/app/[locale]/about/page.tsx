@@ -11,8 +11,8 @@ export async function generateMetadata({
 
   return createPageMetadata({
     locale,
-    path: "/us",
-    title: "Nosotros",
+    path: "/about",
+    title: "About Ordinaly",
     description: "Conoce más sobre el equipo y la visión de Ordinaly.",
   });
 }

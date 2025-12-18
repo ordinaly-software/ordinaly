@@ -5,13 +5,12 @@ Disallow: /auth/
 Disallow: /profile/
 Disallow: /studio/
 
-# Major web crawlers
 User-agent: Googlebot
 Allow: /
 
-# AI/LLM crawlers (explicit allow list; remove unknown directives)
 User-agent: GPTBot
 Allow: /
+
 User-agent: OAI-SearchBot
 Allow: /
 
