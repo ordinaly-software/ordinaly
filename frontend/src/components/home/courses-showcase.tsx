@@ -152,7 +152,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     const cardWidth = getCardWidth();
     if (!cardWidth) return;
     const totalCards = courses.length || 1;
-    const index = Math.round(container.scrollLeft / cardWidth);
+    const index = Math.round(container.scrollLeft / (cardWidth + 24));
     setCurrentIndex(Math.max(0, Math.min(totalCards - 1, index)));
   };
 
