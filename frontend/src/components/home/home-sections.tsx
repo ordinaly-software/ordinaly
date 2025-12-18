@@ -748,9 +748,9 @@ export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 dark:text-white mb-1">
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">
                     {t("local.points.0.title")}
-                  </h4>
+                  </h3>
                   <p className="text-gray-700 dark:text-gray-300">
                     <Link
                       href="https://maps.app.goo.gl/oiHuuWtSsxdbdSTD6"
@@ -770,9 +770,9 @@ export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 dark:text-white mb-1">
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">
                     {t("local.points.1.title")}
-                  </h4>
+                  </h3>
                   <p className="text-gray-700 dark:text-gray-300">
                     <Link href="/contact" scroll={true} className="hover:text-[#22A60D] underline underline-offset-4">
                       {t("local.points.1.description")}
@@ -787,9 +787,9 @@ export function LocalSeoSection({ t, onWhatsApp, sideContent }: LocalSeoProps) {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="font-bold text-gray-900 dark:text-white mb-1">
+                  <h3 className="font-bold text-gray-900 dark:text-white mb-1">
                     {t("local.points.2.title")}
-                  </h4>
+                  </h3>
                   <p className="text-gray-700 dark:text-gray-300">
                     <Link href="/formation" className="hover:text-[#22A60D] underline underline-offset-4">
                       {t("local.points.2.description")}

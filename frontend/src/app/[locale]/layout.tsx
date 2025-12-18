@@ -34,10 +34,12 @@ export async function generateMetadata({
   const { locale } = await params;
 
   const fullBrandName = getFullBrandName(locale);
-  const canonical = absoluteUrl("/", locale);
-  const alternateLanguages = Object.fromEntries(
+  const canonicalLocale = routing.locales.includes(locale as Locale) ? locale : routing.defaultLocale;
+  const canonical = absoluteUrl("/", canonicalLocale);
+  const alternateLanguages: Record<string, string> = Object.fromEntries(
     routing.locales.map((loc) => [localeHrefLangs[loc], absoluteUrl("/", loc)])
   );
+  alternateLanguages["x-default"] = absoluteUrl("/", routing.defaultLocale);
   const ogLocale = localeHrefLangs[locale] ?? localeHrefLangs.es;
 
   return {
