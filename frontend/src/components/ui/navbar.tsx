@@ -670,23 +670,32 @@ const Navbar = () => {
                                 {t("navigation.formationSubmenu")}
                               </Link>
                             ) : (
-                              menuCourses.map((course) => (
-                                <Link
-                                  key={course.id}
-                                  href={`/formation/${course.slug ?? course.id}`}
-                                  onClick={() => setIsMenuOpen(false)}
-                                  className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors"
-                                >
-                                  <div className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2">
-                                    {course.title}
-                                  </div>
-                                  {(course.subtitle || course.description) && (
-                                    <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
-                                      {course.subtitle || course.description}
+                              <>
+                                {menuCourses.map((course) => (
+                                  <Link
+                                    key={course.id}
+                                    href={`/formation/${course.slug ?? course.id}`}
+                                    onClick={() => setIsMenuOpen(false)}
+                                    className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-gray-100 dark:hover:bg-gray-800/70 transition-colors"
+                                  >
+                                    <div className="text-sm font-semibold text-gray-900 dark:text-white line-clamp-2">
+                                      {course.title}
                                     </div>
-                                  )}
+                                    {(course.subtitle || course.description) && (
+                                      <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 line-clamp-2">
+                                        {course.subtitle || course.description}
+                                      </div>
+                                    )}
+                                  </Link>
+                                ))}
+                                <Link
+                                  href="/formation"
+                                  onClick={() => setIsMenuOpen(false)}
+                                  className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-green hover:bg-gray-100 dark:hover:bg-gray-800/70"
+                                >
+                                  {t("navigation.formationSubmenu")}
                                 </Link>
-                              ))
+                              </>
                             )}
                           </motion.div>
                         )}
