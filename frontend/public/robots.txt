@@ -15,7 +15,4 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-Sitemap: https://ordinaly.ai/sitemap_index.xml
-Sitemap: https://ordinaly.ai/sitemap-es.xml
-Sitemap: https://ordinaly.ai/sitemap-en.xml
 Sitemap: https://ordinaly.ai/sitemap.xml
