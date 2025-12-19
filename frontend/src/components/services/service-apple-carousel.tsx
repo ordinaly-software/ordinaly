@@ -11,6 +11,8 @@ interface ServiceAppleCarouselProps {
   labels: ServiceDetailsLabels;
   onSelect?: (service: Service) => void;
   onContact?: (service: Service) => void;
+  onOpenSlug?: (service: Service) => void;
+  onCloseSlug?: () => void;
   initialScroll?: number;
   variant?: "default" | "compact";
 }
@@ -34,6 +36,8 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
   labels,
   onSelect,
   onContact,
+  onOpenSlug,
+  onCloseSlug,
   initialScroll = 0,
   variant = "default",
 }) => {
@@ -55,7 +59,8 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
               src: background,
               title: service.title,
               category,
-              onOpen: onSelect ? () => onSelect(service) : undefined,
+              onOpen: onOpenSlug ? () => onOpenSlug(service) : undefined,
+              onClose: onCloseSlug,
               disableModal: Boolean(onSelect),
               content: (
                 <ServiceDetailsContent

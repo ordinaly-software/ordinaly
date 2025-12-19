@@ -243,6 +243,14 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
     npm run dev
     ```
 
+4. Opcionalmente, para ejecurtar la build de producción:
+    ```sh
+    cd ../frontend
+    npm run build
+    npm run start -- -p 3000
+    ```
+
+
 
 
 ---
@@ -276,6 +284,12 @@ Para el fronend, basta con probar el *linting* y la sintaxis de Typescript y JS 
 ```
 npx eslint --ext .ts,.tsx src public --no-error-on-unmatched-pattern || true
 npm run build
+```
+
+Y para comprobar el rendimiento, SEO, medidas de accesibilidad y buenas prácticas de cada página, haz:
+````
+npx lighthouse http://localhost:3000/es --form-factor=mobile --view
+# Se puede probar /es, /es/services o cualquier otra ruta
 ```
 
 > **Nota:** El proyecto no se considerará válido si la cobertura es inferior al 80%.
