@@ -47,8 +47,7 @@ export default async function Page({
   const p = await client.fetch(postBySlug, { slug }, { next: { tags: ['blog', `post:${slug}`] } });
   if (!p || p.isPrivate) return null;
 
-  // Dynamically import the client component at render time so the server
-  // component doesn't import any client-only modules at module scope.
   const { default: BlogPostClient } = await import('@/components/blog/blog-post-client');
+
   return <BlogPostClient post={p} />;
 }

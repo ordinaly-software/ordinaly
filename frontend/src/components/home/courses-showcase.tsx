@@ -34,6 +34,8 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const [hasBeenVisible, setHasBeenVisible] = useState(!shouldLazyLoad);
   const sectionRef = useRef<HTMLElement | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const sampleCardRef = useRef<HTMLDivElement | null>(null);
+  const cardWidthRef = useRef<number | null>(null);
 
   useEffect(() => {
     // Check authentication status on mount
@@ -91,6 +93,30 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     setCurrentIndex(0);
   }, [courses.length, slidesToShow]);
 
+  useEffect(() => {
+    const card = sampleCardRef.current;
+    if (!card) return;
+
+    const updateWidth = () => {
+      const width = card.getBoundingClientRect().width;
+      if (width > 0) {
+        cardWidthRef.current = width;
+      }
+    };
+
+    updateWidth();
+
+    const observer = new ResizeObserver(() => {
+      updateWidth();
+    });
+
+    observer.observe(card);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [courses.length, slidesToShow]);
+
   // Removed enrollments fetching effect for homepage
 
   const handleImageError = useCallback((courseId: number) => {
@@ -138,12 +164,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const atEnd = currentIndex >= maxIndex;
 
   const getCardWidth = () => {
-    const container = scrollContainerRef.current;
-    if (!container) return null;
-    const row = container.firstElementChild as HTMLElement | null;
-    const card = row?.firstElementChild as HTMLElement | null;
-    if (!card) return null;
-    return card.getBoundingClientRect().width;
+    return cardWidthRef.current;
   };
 
   const handleTouchScroll = () => {
@@ -302,7 +323,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               onScroll={handleTouchScroll}
             >
               <div className="flex transition-transform duration-500 ease-in-out gap-6 px-3">
-                {courses.map((course) => {
+                {courses.map((course, index) => {
                   const availabilityBadge = getAvailabilityBadge(course);
                   const isInProgress = availabilityBadge.text === t('inProgress') && availabilityBadge.variant === 'default';
                   
@@ -311,6 +332,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                       key={course.id}
                       className="flex-shrink-0"
                       style={{ flexBasis: `${100 / slidesToShow}%` }}
+                      ref={index === 0 ? sampleCardRef : undefined}
                     >
                       <Card 
                         className={
@@ -442,7 +464,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
 
                           {/* Action Button */}
                           <Button
-                            className="mt-6 w-full bg-[#1F8A0D] hover:bg-[#1A740B] dark:bg-[#7CFC00] dark:hover:bg-[#7CFC00] text-white dark:text-white transition-all duration-300 group shadow-sm hover:shadow-md"
+                            className="mt-6 w-full bg-[#1F8A0D] hover:bg-[#1A740B] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] transition-all duration-300 group shadow-sm hover:shadow-md"
                             onClick={(e) => handleSignUpClick(e, course)}
                           >
                             <>

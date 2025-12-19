@@ -92,7 +92,7 @@ export default function UsPage() {
                 {t("hero.subtitle")}
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white gap-2" asChild>
+                <Button className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] gap-2" asChild>
                   <a href="#testimonials">
                   <Rocket className="h-4 w-4" />
                   {t("hero.ctaPrimary")}
@@ -120,7 +120,7 @@ export default function UsPage() {
                     <p className="text-lg text-gray-600 dark:text-gray-300 font-semibold">{t("vision.title")}</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{t("vision.body")}</p>
                   </div>
-                  <div className="col-span-2 rounded-2xl bg-[#1F8A0D] dark:bg-[#7CFC00] text-white p-4 flex items-center gap-3 shadow-lg">
+                  <div className="col-span-2 rounded-2xl bg-[#1F8A0D] dark:bg-[#0F2E1E] text-white p-4 flex items-center gap-3 shadow-lg">
                     <Users className="h-8 w-8" />
                     <div>
                       <p className="text-sm opacity-90">{t("stats.teamLabel")}</p>

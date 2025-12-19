@@ -87,7 +87,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               {/* Enrollment Status Badge */}
               {enrolled && (
                 <div className="absolute top-4 right-4 z-10">
-                  <div className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                  <div className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                     <UserCheck className="w-3 h-3" />
                     {t("enrolled")}
                   </div>
@@ -105,20 +105,20 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 
         <CardContent className={variant === "upcoming" ? "p-8" : "p-6"}>
           {/* Course Title */}
-          <h3 className={`font-bold text-gray-900 dark:text-white mb-3 break-words whitespace-pre-line ${variant === "upcoming" ? "text-2xl group-hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition-colors duration-300" : "text-xl"}`}>
+          <h3 className={`font-bold text-gray-900 dark:text-white mb-3 break-words whitespace-pre-line ${variant === "upcoming" ? "text-2xl group-hover:text-[#1F8A0D] dark:hover:text-[#B8FF9A] transition-colors duration-300" : "text-xl"}`}>
             {course.title}
           </h3>
 
           {/* Course Subtitle */}
           {course.subtitle && (
-            <p className={`text-gray-600 dark:text-gray-400 break-words whitespace-pre-line ${variant === "upcoming" ? "text-base mb-4" : "text-sm mb-3"}`}>
+            <p className={`text-gray-600 dark:text-gray-200 break-words whitespace-pre-line ${variant === "upcoming" ? "text-base mb-4" : "text-sm mb-3"}`}>
               {course.subtitle}
             </p>
           )}
 
           {/* Course Meta Information */}
           <div className={`mb-8 ${variant === "upcoming" ? "space-y-3" : "space-y-2 mb-6"}`}>
-            <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-400 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
+            <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-200 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
               <Calendar className="w-5 h-5 text-[#1F8A0D] dark:text-[#7CFC00]" />
               <span>
                 {course.start_date && course.start_date !== "0000-00-00" 
@@ -126,7 +126,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                   : t('noSpecificDate')}
               </span>
             </div>
-            <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-400 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
+            <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-200 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
               <MapPin className="w-5 h-5 text-[#1F8A0D] dark:text-[#7CFC00]" />
                     {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                       /online|virtual/i.test(course.location)
@@ -144,7 +144,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                       <span>{t('locationSoon')}</span>
                     )}
             </div>
-            <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-400 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
+            <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-200 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
               <Users className="w-5 h-5 text-[#1F8A0D] dark:text-[#7CFC00]" />
               <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
             </div>
@@ -167,7 +167,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               ) : (
                 <Button
                   onClick={(e) => { e.stopPropagation(); if (onEnroll) onEnroll(); }}
-                  className="w-full bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] to-[#166307] hover:from-[#166307] hover:to-[#1A740B] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                  className="w-full bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] dark:to-[#2E8A0D] to-[#166307] hover:from-[#166307] hover:to-[#1A740B] dark:hover:from-[#6BFF52] dark:hover:to-[#2E8A0D] text-white dark:text-[#0B1B17] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
                   disabled={disableEnroll || isIncompleteSchedule}
                   title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
                 >
@@ -179,7 +179,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             <Button
               variant={variant === "upcoming" ? "outline" : "outline"}
               onClick={(e) => { e.stopPropagation(); if (onViewDetails) onViewDetails(); }}
-              className={`w-full ${variant === "upcoming" ? "border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-[#7CFC00] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00] dark:bg-[#7CFC00] hover:text-white h-14 text-lg" : "border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 h-12"} transition-all duration-300`}
+              className={`w-full ${variant === "upcoming" ? "border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-white hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00] dark:hover:text-[#0B1B17] hover:text-white h-14 text-lg" : "border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 h-12"} transition-all duration-300`}
             >
               {t("viewDetails")}
               <ArrowRight className="w-5 h-5 ml-2" />

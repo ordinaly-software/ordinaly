@@ -140,7 +140,7 @@ export default function ContactPage() {
               <div className="flex flex-wrap gap-3">
                 <Button
                   asChild
-                  className="inline-flex items-center gap-2 bg-[#1F8A0D] dark:bg-[#7CFC00] text-white"
+                  className="inline-flex items-center gap-2 bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black"
                 >
                   <a href="#location">
                     <Pin className="h-4 w-4" />
@@ -365,7 +365,7 @@ export default function ContactPage() {
           <div className="pt-4 align-center flex justify-center">
             <Button
               asChild
-              className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight"
+              className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight"
             >
               <Link href="/about" scroll={true}>
                 <ExternalLink className="mr-2 h-4 w-4" />

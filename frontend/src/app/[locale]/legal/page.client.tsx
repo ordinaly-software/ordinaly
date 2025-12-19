@@ -601,7 +601,7 @@ const LegalPage = () => {
               </p>
             </div>
             <Link href="/" className="self-start lg:self-center">
-              <Button className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight">
+              <Button className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight">
                 <ExternalLink className="mr-2 h-4 w-4" />
                 {tCommon('backToHome')}
               </Button>
@@ -640,7 +640,7 @@ const LegalPage = () => {
                 </p>
                 <Button
                   onClick={() => downloadPDF(activeDoc)}
-                  className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_18px_46px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight mt-auto"
+                  className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_18px_46px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight mt-auto"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   {t('downloadPdf')}
@@ -675,7 +675,7 @@ const LegalPage = () => {
                     // ignore
                   }
                 }}
-                className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_18px_46px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_18px_46px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <Sparkles className="mr-2 h-4 w-4" />
                 {t('openCookieSettings', {})}
@@ -702,7 +702,7 @@ const LegalPage = () => {
               </p>
               <Button
                 asChild
-                className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_18px_46px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_18px_46px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <a href="mailto:compliance@ordinaly.ai">{t('contactCta', {})}</a>
               </Button>

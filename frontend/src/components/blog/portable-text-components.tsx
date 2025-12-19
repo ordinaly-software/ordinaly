@@ -18,6 +18,8 @@ export const portableTextComponents = {
           <Image
             src={urlFor(value.asset._ref).width(1200).url()}
             alt={value.alt || 'Blog image'}
+            width={1200}
+            height={800}
             loading="lazy"
             className="w-full h-auto max-w-lg md:max-w-lg rounded-sm shadow-sm"
           />

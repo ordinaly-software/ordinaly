@@ -46,8 +46,9 @@ export function WorkWithUsSection({
         fill
         priority={false}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1200px"
-        className="object-cover object-center brightness-[.7] blur-[2px]"
+        className="object-cover object-center brightness-[.7] dark:brightness-[.5] blur-[2px]"
       />
+      <div className="absolute inset-0 bg-black/20 dark:bg-black/55" aria-hidden />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-10 lg:px-12 py-6 w-full">
         <div className="space-y-3 max-w-2xl text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.55)]">
@@ -56,19 +57,21 @@ export function WorkWithUsSection({
           </p>
           <h3 className="text-3xl md:text-4xl font-bold drop-shadow-[0_3px_12px_rgba(0,0,0,0.7)]">{t("cta.title")}</h3>
             <p className="text-white/90 drop-shadow-[0_3px_12px_rgba(0,0,0,0.7)]">
-            <span className="bg-green-500 px-1">{t("cta.body").split(" ").slice(0, 7).join(" ")}</span>
+            <span className="bg-green-500 text-white dark:bg-[#7CFC00] dark:text-[#0B1B17] px-1">
+              {t("cta.body").split(" ").slice(0, 7).join(" ")}
+            </span>
             {" " + t("cta.body").split(" ").slice(7).join(" ")}
             </p>
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white gap-2" asChild>
+          <Button className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] gap-2" asChild>
             <a href={mailHref} target="_blank" rel="noreferrer">
               <Send className="h-4 w-4" />
               {t("cta.primary")}
             </a>
           </Button>
-          <Button variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 gap-2" asChild>
+          <Button variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 dark:border-white/40 dark:hover:bg-white/10 gap-2" asChild>
             <a href={`/${locale}/contact`}>
               <ArrowRight className="h-4 w-4" />
               {t("cta.secondary")}
