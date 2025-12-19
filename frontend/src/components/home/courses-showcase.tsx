@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from 'react';
+import dynamic from "next/dynamic";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ErrorCard from "@/components/ui/error-card";
@@ -10,7 +11,7 @@ import { useCourses, type Course } from "@/hooks/useCourses";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
-import AuthModal from "@/components/auth/auth-modal";
+const AuthModal = dynamic(() => import("@/components/auth/auth-modal"), { ssr: false });
 
 interface CoursesShowcaseProps {
   limit?: number;
@@ -350,7 +351,8 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                                 alt={course.title}
                                 fill
                                 className="object-cover group-hover:scale-105 transition-transform duration-300"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"
+                                quality={60}
                                 onError={() => handleImageError(course.id)}
                               />
                             ) : (
@@ -522,11 +524,13 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       </div>
 
       {/* Auth Modal */}
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        courseTitle={selectedCourse?.title.replace(/🌐 |🐍 |📊 |📱 |☁️ |🎨 |🤖 |🔒 |🔗 |💻 |📈 |🔧 /g, '')}
-      />
+      {isAuthModalOpen && (
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          courseTitle={selectedCourse?.title.replace(/🌐 |🐍 |📊 |📱 |☁️ |🎨 |🤖 |🔒 |🔗 |💻 |📈 |🔧 /g, '')}
+        />
+      )}
     </section>
   );
 }

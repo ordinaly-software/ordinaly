@@ -37,7 +37,7 @@ const ServiceAppleDetailsModal = dynamic(
     ),  { ssr: false, loading: () => null },
 );
 const SeoArticleSectionLazy = dynamic(
-  () => import("@/components/home/home-sections").then((mod) => mod.SeoArticleSection),
+  () => import("@/components/home/seo-article-section").then((mod) => mod.SeoArticleSection),
   {
     loading: () => (
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#23272F]">
@@ -198,19 +198,24 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
     [pathname],
   );
 
-  const handleServiceSelect = useCallback(
-    (service: Service) => {
-      if (!service.slug) return;
-      router.push(buildServicesPath(service.slug));
-    },
-    [buildServicesPath, router],
-  );
-
   const closeDeepLink = useCallback(() => {
     setDeepLinkOpen(false);
     setDeepLinkedService(null);
     router.replace(buildServicesPath());
   }, [buildServicesPath, router]);
+
+  const updateSlugInHistory = useCallback(
+    (service: Service) => {
+      if (!service.slug) return;
+      const nextPath = buildServicesPath(service.slug);
+      window.history.pushState(null, "", nextPath);
+    },
+    [buildServicesPath],
+  );
+
+  const resetSlugInHistory = useCallback(() => {
+    window.history.replaceState(null, "", buildServicesPath());
+  }, [buildServicesPath]);
 
   if (isLoading) {
     return (
@@ -308,8 +313,9 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                   <ServiceAppleCarousel
                     services={separated.products}
                     labels={carouselLabels}
-                    onSelect={handleServiceSelect}
                     onContact={handleWhatsAppContact}
+                    onOpenSlug={updateSlugInHistory}
+                    onCloseSlug={resetSlugInHistory}
                     variant="compact"
                   />
                 </div>
@@ -323,9 +329,10 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                   <ServiceAppleCarousel
                     services={separated.services}
                     labels={carouselLabels}
-                    onSelect={handleServiceSelect}
                     onContact={handleWhatsAppContact}
                     initialScroll={separated.products.length > 0 ? 150 : 0}
+                    onOpenSlug={updateSlugInHistory}
+                    onCloseSlug={resetSlugInHistory}
                     variant="compact"
                   />
                 </div>

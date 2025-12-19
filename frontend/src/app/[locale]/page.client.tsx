@@ -6,19 +6,16 @@ import dynamic from "next/dynamic";
 import { useServices } from "@/hooks/useServices";
 import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
+import { HomeHero } from "@/components/home/home-hero";
+import { ServicesSection } from "@/components/home/services-section";
+import { BenefitsSection } from "@/components/home/benefits-section";
+import { CtaSection } from "@/components/home/cta-section";
+import { FaqSection } from "@/components/home/faq-section";
+import { LocalSeoSection } from "@/components/home/local-seo-section";
+import { PartnersSection } from "@/components/home/partners-section";
+import { ProcessSection } from "@/components/home/process-section";
+import { UseCasesSection } from "@/components/home/use-cases-section";
 import ContactForm from "@/components/ui/contact-form.client";
-import {
-  HomeHero,
-  BenefitsSection,
-  ServicesSection,
-  ProcessSection,
-  UseCasesSection,
-  // TestimonialsSection,
-  FaqSection,
-  LocalSeoSection,
-  PartnersSection,
-  CtaSection,
-} from "@/components/home/home-sections";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 
 const ServiceShowcase = dynamic(
@@ -80,6 +77,10 @@ export default function HomePage({
 }) {
   const t = useTranslations("home");
   const servicesSectionRef = useRef<HTMLElement | null>(null);
+  const deferredSectionStyle = {
+    contentVisibility: "auto",
+    containIntrinsicSize: "1000px",
+  } as const;
 
   const shouldFetchServices = initialServices.length === 0;
   const {
@@ -158,18 +159,36 @@ export default function HomePage({
           />
         }
       />
-      <BenefitsSection t={t} />
-      <WorkWithUsSection/>
-      <ProcessSection t={t} />
-      <UseCasesSection t={t} />
+      <div style={deferredSectionStyle}>
+        <BenefitsSection t={t} />
+      </div>
+      <div style={deferredSectionStyle}>
+        <WorkWithUsSection />
+      </div>
+      <div style={deferredSectionStyle}>
+        <ProcessSection t={t} />
+      </div>
+      <div style={deferredSectionStyle}>
+        <UseCasesSection t={t} />
+      </div>
       {/* <TestimonialsSection t={t} /> */}
-      <FaqSection t={t} />
-      <LocalSeoSection t={t} />
-      <PartnersSection t={t} />
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <ContactForm />
-      </section>
-      <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
+      <div style={deferredSectionStyle}>
+        <FaqSection t={t} />
+      </div>
+      <div style={deferredSectionStyle}>
+        <LocalSeoSection t={t} />
+      </div>
+      <div style={deferredSectionStyle}>
+        <PartnersSection t={t} />
+      </div>
+      <div style={deferredSectionStyle}>
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <ContactForm />
+        </section>
+      </div>
+      <div style={deferredSectionStyle}>
+        <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
+      </div>
       <Footer />
     </div>
   );

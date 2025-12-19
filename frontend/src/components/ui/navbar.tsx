@@ -413,18 +413,21 @@ const Navbar = () => {
                     isActiveLink={isLinkActive("/services")}
                   >
                     <div className="grid grid-cols-1 gap-2 min-w-[240px]">
-                      {featuredServices.length === 0 ? (
-                        <HoveredLink href="/services">{t("navigation.services")}</HoveredLink>
-                      ) : (
-                        featuredServices.map((service) => (
-                          <HoveredLink
-                            key={service.id}
-                            href={`/services/${service.slug ?? service.id}`}
-                          >
-                            {service.title}
-                          </HoveredLink>
-                        ))
-                      )}
+                      <>
+                        {featuredServices.length === 0 ? (
+                          <></>
+                        ) : (
+                          featuredServices.map((service) => (
+                            <HoveredLink
+                              key={service.id}
+                              href={`/services/${service.slug ?? service.id}`}
+                            >
+                              {service.title}
+                            </HoveredLink>
+                          ))
+                        )}
+                        <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
+                      </>
                     </div>
                   </MenuItem>
                   <MenuItem
@@ -438,19 +441,22 @@ const Navbar = () => {
                       {menuCoursesLoading && (
                         <div className="text-sm text-gray-500 dark:text-gray-400 px-2 py-1">{t("navigation.loading")}</div>
                       )}
-                      {!menuCoursesLoading && menuCourses.length === 0 ? (
-                        <HoveredLink href="/formation">{t("navigation.formation")}</HoveredLink>
-                      ) : (
-                        menuCourses.map((course) => (
-                          <ProductItem
-                            key={course.id}
-                            title={course.title}
-                            description={course.subtitle || course.description}
-                            href={`/formation/${course.slug ?? course.id}`}
-                            src={course.image}
-                          />
-                        ))
-                      )}
+                      <>
+                        {!menuCoursesLoading && menuCourses.length === 0 ? (
+                          <></>
+                        ) : (
+                          menuCourses.map((course) => (
+                            <ProductItem
+                              key={course.id}
+                              title={course.title}
+                              description={course.subtitle || course.description}
+                              href={`/formation/${course.slug ?? course.id}`}
+                              src={course.image}
+                            />
+                          ))
+                        )}
+                        <HoveredLink href="/formation">{t("navigation.formationSubmenu")}</HoveredLink>
+                      </>
                     </div>
                   </MenuItem>
                 </HoverMenu>
@@ -616,6 +622,7 @@ const Navbar = () => {
                             transition={{ duration: 0.15 }}
                             className="space-y-2 px-3 pb-3"
                           >
+                          <>
                             {featuredServices.length === 0 ? (
                               <Link
                                 href="/services"
@@ -626,7 +633,6 @@ const Navbar = () => {
                               </Link>
                             ) : (
                               featuredServices.map((service) => (
-                                <>
                                 <Link
                                   key={service.id}
                                   href={`/services/${service.slug ?? service.id}`}
@@ -635,16 +641,16 @@ const Navbar = () => {
                                 >
                                   {service.title}
                                 </Link>
-                                <Link
-                                  href="/services"
-                                  onClick={() => setIsMenuOpen(false)}
-                                  className="block rounded-md px-2 py-2 text-sm font-semibold text-green hover:text-green-600"
-                                >
-                                  {t("navigation.serviceSubmenu")}
-                                </Link>
-                                </>
                               ))
                             )}
+                            <Link
+                              href="/services"
+                              onClick={() => setIsMenuOpen(false)}
+                              className="block rounded-md px-2 py-2 text-sm font-semibold text-green hover:text-green-600"
+                            >
+                              {t("navigation.serviceSubmenu")}
+                            </Link>
+                          </>
                           </motion.div>
                         )}
                       </AnimatePresence>
