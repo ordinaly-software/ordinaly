@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Slider from "@/components/ui/slider";
@@ -551,8 +552,13 @@ export const AdminServiceEditModal = ({
                   }}
                   aria-label={t("form.image")}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={safeImagePreview} alt={t("form.image")} className="h-full w-full object-cover" />
+                  <Image
+                    src={safeImagePreview}
+                    alt={t("form.image")}
+                    fill
+                    sizes="192px"
+                    className="object-cover"
+                  />
                     <ModalCloseButton
                       onClick={() => {
                         if (imageFile) {

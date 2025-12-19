@@ -85,6 +85,8 @@ export function ServiceDetailsContent({
   showViewDetails = true,
 }: ServiceDetailsContentProps) {
   const accent = service.color_hex || service.color || "#22A60D";
+  const accentHex = accent.startsWith("#") ? accent : `#${accent}`;
+  const accentSoft = `${accentHex}1a`;
   const hero = service.image || FALLBACK_CARD_IMAGE;
   const description = service.clean_description || service.description || "";
   const priceLabel = formatPrice(service, labels.contactForQuote);
@@ -99,10 +101,14 @@ export function ServiceDetailsContent({
     <div className="space-y-6 text-neutral-800 dark:text-neutral-100">
       <div className="flex flex-wrap items-center gap-3">
         <div
-          className="flex h-12 w-12 items-center justify-center rounded-2xl bg-neutral-100/70 ring-1 ring-white/40 backdrop-blur dark:bg-neutral-800/70"
-          style={{ boxShadow: `0 10px 30px -20px ${accent}` }}
+          className="flex h-12 w-12 items-center justify-center rounded-2xl ring-1 ring-white/40 backdrop-blur"
+          style={{
+            backgroundColor: accentSoft,
+            color: accentHex,
+            boxShadow: `0 10px 30px -20px ${accentHex}`,
+          }}
         >
-          {renderIcon(service.icon, "h-6 w-6 text-neutral-900 dark:text-white")}
+          {renderIcon(service.icon, "h-6 w-6 text-current")}
         </div>
         <div className="space-y-1">
           {service.subtitle && (

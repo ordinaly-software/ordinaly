@@ -248,7 +248,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
       </Banner>
 
       {/* Services Grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {filteredServices.length === 0 ? (
             <div className="text-center py-16">
@@ -266,8 +266,8 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
             <>
               {/* Products Section */}
               {separated.products.length > 0 && (
-                <div className="mb-12 space-y-6">
-                  <h2 className="text-3xl font-bold mb-6 text-[#623CEA] dark:text-[#8B5FF7]">
+                <div className="mb-12">
+                  <h2 className="text-3xl font-bold mb-2 text-[#623CEA] dark:text-[#8B5FF7]">
                     {t("productsSectionTitle")}
                   </h2>
                   <ServiceAppleCarousel
@@ -275,13 +275,14 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                     labels={carouselLabels}
                     onSelect={handleServiceSelect}
                     onContact={handleWhatsAppContact}
+                    variant="compact"
                   />
                 </div>
               )}
               {/* Services Section */}
               {separated.services.length > 0 && (
-                <div className="space-y-6">
-                  <h2 className="text-3xl font-bold mb-6 text-[#22A60D] dark:text-[#22C55E]">
+                <div>
+                  <h2 className="text-3xl font-bold mb-2 text-[#22A60D] dark:text-[#22C55E]">
                     {t("servicesSectionTitle")}
                   </h2>
                   <ServiceAppleCarousel
@@ -290,6 +291,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                     onSelect={handleServiceSelect}
                     onContact={handleWhatsAppContact}
                     initialScroll={separated.products.length > 0 ? 150 : 0}
+                    variant="compact"
                   />
                 </div>
               )}

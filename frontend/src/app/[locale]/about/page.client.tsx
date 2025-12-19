@@ -46,10 +46,10 @@ export default function UsPage() {
   ];
 
   const timelineMedia = {
-    "1": "/static/us/story_01.webp",
-    "2": "/static/us/story_02.webp",
-    "3": "/static/us/story_03.webp",
-    "4": "/static/us/story_04.webp",
+    "1": "/static/about/story_01.webp",
+    "2": "/static/about/story_02.webp",
+    "3": "/static/about/story_03.webp",
+    "4": "/static/about/story_04.webp",
   } as const;
 
   const timelineData = (["1", "2", "3", "4"] as const).map((key) => ({

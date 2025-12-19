@@ -5,6 +5,7 @@ import { urlFor } from '@/lib/image';
 import type { PortableTextComponentProps } from '@portabletext/react';
 import type { PortableTextBlock } from '@portabletext/types';
 import type { ReactNode } from 'react';
+import Image from 'next/image';
 
 type ImageType = { asset?: { _ref?: string; _id?: string; url?: string }; alt?: string };
 type VideoType = { url?: string };
@@ -14,8 +15,7 @@ export const portableTextComponents = {
     image: ({ value }: { value: ImageType }) => (
       value?.asset && value.asset._ref ? (
         <div className="my-6 flex justify-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={urlFor(value.asset._ref).width(1200).url()}
             alt={value.alt || 'Blog image'}
             loading="lazy"

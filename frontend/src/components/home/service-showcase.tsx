@@ -8,6 +8,8 @@ import { ServiceAppleCarousel } from "@/components/services/service-apple-carous
 import React from "react";
 
 import type { Service } from "@/hooks/useServices";
+import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 
 export interface ServiceShowcaseProps {
   services: Service[];
@@ -20,6 +22,7 @@ export interface ServiceShowcaseProps {
 }
 
 const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
+  const router = useRouter();
   // --- RETURN COMPONENT JSX ---
   return (
     <>
@@ -111,33 +114,16 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
         }
       })()}
       {/* View All Services Button */}
-      <div className="text-center mt-12">
-        <Link href="/services">
-          <Button
-            variant="outline"
-            size="lg"
-            className="group bg-transparent border-2 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#22A60D]/20"
-          >
-            {props.t("services.viewAllServicesAndProducts")}
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 10 10"
-              height="16"
-              width="16"
-              fill="none"
-              className="ml-2 stroke-current stroke-2"
-            >
-              <path
-                d="M0 5h7"
-                className="transition opacity-0 group-hover:opacity-100"
-              />
-              <path
-                d="M1 1l4 4-4 4"
-                className="transition group-hover:translate-x-[3px]"
-              />
-            </svg>
-          </Button>
-        </Link>
+      <div className="flex justify-center mt-12">
+        <Button
+          variant="outline"
+          size="lg"
+          onClick={() => router.push('/services')}
+          className="bg-transparent border-2 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white dark:border-[#22A60D] dark:text-[#22A60D] dark:hover:bg-[#22A60D] dark:hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#22A60D]/20 group"
+        >
+          {props.t("services.viewAllServicesAndProducts")}
+          <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+        </Button>
       </div>
     </>
   );

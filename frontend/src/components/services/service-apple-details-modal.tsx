@@ -45,9 +45,24 @@ export const ServiceAppleDetailsModal = ({
   if (!service) return null;
 
   const category = service.type === 'SERVICE' ? t("servicesSectionTitle") : t("productsSectionTitle");
+  const accent = service.color_hex || service.color || "#22A60D";
+  const accentHex = accent.startsWith("#") ? accent : `#${accent}`;
 
   return (
-    <AppleModal isOpen={isOpen} onClose={onClose} category={category} title={service.title}>
+    <AppleModal
+      isOpen={isOpen}
+      onClose={onClose}
+      category={
+        <span className="font-semibold" style={{ color: accentHex }}>
+          {category}
+        </span>
+      }
+      title={
+        <span className="font-semibold" style={{ color: accentHex }}>
+          {service.title}
+        </span>
+      }
+    >
       <div className="pt-6">
         <ServiceDetailsContent
           service={service}

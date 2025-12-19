@@ -43,7 +43,9 @@ export default async function sitemap() {
   const courses = await fetchApiCollection<{ slug?: string; id?: string }>("/api/courses/courses/");
 
   const entries = [];
-  for (const locale of routing.locales) {
+  // ¡OJO! Se ha eliminado la generación de URLs en inglés para evitar contenido duplicado y mejorar el SEO.
+  const sitemapLocales = routing.locales.filter((locale) => locale !== "en");
+  for (const locale of sitemapLocales) {
     for (const p of staticPaths) {
       entries.push({
         url: localized(p.path, locale),
