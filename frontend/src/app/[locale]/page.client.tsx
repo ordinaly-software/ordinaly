@@ -141,7 +141,6 @@ export default function HomePage({
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
       <HomeHero t={t} onWhatsApp={handleWhatsAppChat} />
-      <BenefitsSection t={t} />
       <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
       <ServicesSection
         t={t}
@@ -159,6 +158,7 @@ export default function HomePage({
           />
         }
       />
+      <BenefitsSection t={t} />
       <WorkWithUsSection/>
       <ProcessSection t={t} />
       <UseCasesSection t={t} />

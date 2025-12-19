@@ -34,9 +34,9 @@
       "titleLine2": "AUTOMATIZADO.",
       "subtitle": "Automatización empresarial e IA desde Sevilla para el mundo.",
       "description1": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
-      "trust1": "Automatizaciones a medida",
-      "trust2": "Agentes de IA 24/7 para ventas y soporte.",
-      "trust3": "Soluciones para Inmobiliarias, Retail y Marketing.",
+      "trust1": "Para contables, administradores, inmobiliarias, y más",
+      "trust2": "Agentes de IA 24/7 para ventas y soporte",
+      "trust3": "Automatización a medida",
       "trust4": "Formación práctica en IA para equipos.",
       "ctaServices": "Ver Servicios",
       "ctaDemo": "Agenda una consulta",
@@ -100,8 +100,7 @@
       "contactNow": "Contactar Ahora",
       "contactEmail": "Contactar por Email",
       "viewDetails": "Ver Detalles",
-      "viewAllServices": "Ver Todos los Servicios",
-      "viewAllServicesAndProducts": "Ver todos los servicios y productos",
+      "viewAllServicesAndProducts": "Ver todo el catálogo",
       "video": "Vídeo",
       "playVideo": "Reproducir vídeo",
       "imageAlt": "Imagen de {title}",
@@ -111,7 +110,6 @@
     "process": {
       "title": "¿Cómo Funciona Nuestro Proceso de Automatización?",
       "subtitle": "Metodología probada para implementar agentes de IA sin interrumpir tu operativa diaria",
-      "meta": "Tiempo promedio: 2-8 semanas según complejidad • Sin costes ocultos • Garantía de satisfacción",
       "steps": {
         "0": {
           "title": "Análisis Inicial",

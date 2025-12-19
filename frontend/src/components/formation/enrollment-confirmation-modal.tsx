@@ -114,14 +114,14 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center">
-                    <CalendarDays className="w-4 h-4 mr-2 text-[#22A60D]" />
+                    <CalendarDays className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
                     <span className="font-medium">{t("date")}:</span>
                     <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                       {new Date(selectedCourse.start_date).toLocaleDateString()}
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2 text-[#22A60D]" />
+                    <MapPin className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
                     <span className="font-medium">{t("location")}:</span>
                     <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                       {selectedCourse.location ?? t("locationSoon")}
@@ -130,14 +130,14 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex items-center">
-                    <Euro className="w-4 h-4 mr-2 text-[#22A60D]" />
+                    <Euro className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
                     <span className="font-medium">{t("price")}:</span>
                     <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                       {selectedCourse.price ? `€${selectedCourse.price}` : t("free")}
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <Users className="w-4 h-4 mr-2 text-[#22A60D]" />
+                    <Users className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
                     <span className="font-medium">{t("maxAttendants")}:</span>
                     <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{selectedCourse.max_attendants}</span>
                   </div>
@@ -162,7 +162,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                 <CheckoutButton
                   courseId={selectedCourse.id}
                   label={enrolled ? t("enrollment.enrolled") : t("enrollment.confirmEnroll")}
-                  className="w-full sm:w-auto bg-[#22A60D] hover:bg-[#1C8C0B] text-white px-6 h-10 flex items-center justify-center gap-2 rounded-2xl"
+                  className="w-full sm:w-auto bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white px-6 h-10 flex items-center justify-center gap-2 rounded-2xl"
                   onSuccess={handleEnrollSuccess}
                   disabled={enrolled}
                 />

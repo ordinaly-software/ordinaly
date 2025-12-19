@@ -63,7 +63,7 @@ export default function ContactForm({ className }: { className?: string }) {
     <div className={className}>
       <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl p-6 md:p-8">
         <div className="space-y-2 text-center">
-          <p className="text-sm uppercase tracking-[0.2em] text-[#22A60D] font-semibold">
+          <p className="text-sm uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00] font-semibold">
             {t("form.eyebrow")}
           </p>
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{t("form.title")}</h2>
@@ -114,7 +114,7 @@ export default function ContactForm({ className }: { className?: string }) {
             <Button
               type="submit"
               disabled={status === "loading"}
-              className="w-full md:w-auto bg-[#22A60D] hover:bg-[#1c8d0c] text-white px-6 py-6 rounded-xl text-lg shadow-lg shadow-[#22A60D]/30 flex items-center gap-2 justify-center"
+              className="w-full md:w-auto bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white dark:text-black px-6 py-6 rounded-xl text-lg shadow-lg shadow-[#1F8A0D]/30 flex items-center gap-2 justify-center"
             >
               {status === "loading" ? t("form.sending") : t("form.submit")}
             </Button>

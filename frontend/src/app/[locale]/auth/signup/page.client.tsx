@@ -224,12 +224,12 @@ export default function SignupPage() {
       )}
 
       {/* Signup Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#22A60D]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#7CFC00]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left side: Title + Illustration (hidden on mobile) */}
             <div className="scroll-animate slide-in-left">
-              <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#22A60D] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+              <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
                 {t("title")}
               </h1>
               <p className="text-xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed">
@@ -254,9 +254,9 @@ export default function SignupPage() {
 
             {/* Right side: Signup Card */}
             <div className="scroll-animate slide-in-right">
-              <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#22A60D] transition-all duration-300 hover:shadow-xl hover:shadow-[#22A60D]/10">
+              <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] transition-all duration-300 hover:shadow-xl hover:shadow-[#1F8A0D]/10">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-[#22A60D] text-center">
+                  <CardTitle className="text-2xl font-bold text-[#1F8A0D] dark:text-[#7CFC00] text-center">
                     {t("form.title")}
                   </CardTitle>
                 </CardHeader>
@@ -266,7 +266,7 @@ export default function SignupPage() {
                   <div className="mb-6">
                     <GoogleSignInButton
                       onSuccess={handleGoogleSuccess}
-                      className="border-gray-300 dark:border-gray-600 hover:border-[#22A60D] dark:hover:border-[#22A60D]"
+                      className="border-gray-300 dark:border-gray-600 hover:border-[#1F8A0D] dark:hover:border-[#7CFC00]"
                     >
                       {t("form.signupWithGoogle")}
                     </GoogleSignInButton>
@@ -297,7 +297,7 @@ export default function SignupPage() {
                             type="text"
                             value={name}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                             placeholder={t("form.namePlaceholder")}
                             required
                           />
@@ -316,7 +316,7 @@ export default function SignupPage() {
                             type="text"
                             value={surname}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSurname(e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                             placeholder={t("form.surnamePlaceholder")}
                             required
                           />
@@ -337,7 +337,7 @@ export default function SignupPage() {
                           type="email"
                           value={email}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                           placeholder={t("form.emailPlaceholder")}
                           required
                         />
@@ -357,7 +357,7 @@ export default function SignupPage() {
                           type="text"
                           value={company}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompany(e.target.value)}
-                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                           placeholder={t("form.companyPlaceholder")}
                           required
                         />
@@ -378,7 +378,7 @@ export default function SignupPage() {
                             type="text"
                             value={region}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRegion(e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                             placeholder={t("form.regionPlaceholder")}
                           />
                         </div>
@@ -395,7 +395,7 @@ export default function SignupPage() {
                             type="text"
                             value={city}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                             placeholder={t("form.cityPlaceholder")}
                           />
                         </div>
@@ -414,7 +414,7 @@ export default function SignupPage() {
                           type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                           placeholder={t("form.passwordPlaceholder")}
                           required
                         />
@@ -445,7 +445,7 @@ export default function SignupPage() {
                           type={showConfirmPassword ? "text" : "password"}
                           value={confirmPassword}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
-                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                           placeholder={t("form.confirmPasswordPlaceholder")}
                           required
                         />
@@ -472,7 +472,7 @@ export default function SignupPage() {
                           id="acceptTerms"
                           checked={acceptedTerms}
                           onChange={(e) => setAcceptedTerms(e.target.checked)}
-                          className="w-4 h-4 mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] focus:ring-offset-0"
+                          className="w-4 h-4 mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D] focus:ring-offset-0"
                           required
                         />
                         <Label htmlFor="acceptTerms" className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">

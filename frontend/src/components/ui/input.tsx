@@ -28,7 +28,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
         background: useMotionTemplate`
           radial-gradient(
             ${visible ? radius + "px" : "0px"} circle at ${mouseX}px ${mouseY}px,
-            ${theme === "dark" ? "rgba(41, 191, 18, 0.4)" : "rgba(41, 191, 18, 0.2)"},
+            ${theme === "dark" ? "rgba(31, 138, 13, 0.4)" : "rgba(31, 138, 13, 0.2)"},
             transparent 80%
           )
         `,

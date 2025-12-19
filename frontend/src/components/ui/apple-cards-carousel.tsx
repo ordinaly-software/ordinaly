@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
-import { ImageProps } from "next/image";
+import Image, { ImageProps } from "next/image";
 import { AppleModal } from "@/components/ui/apple-modal";
 
 interface CarouselProps {
@@ -107,7 +107,7 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
           <div
             className={cn(
               "flex flex-row justify-start gap-4 pl-4",
-              "mx-auto max-w-7xl", // remove max-w-4xl if you want the carousel to span the full width of its container
+              "mx-auto max-w-7xl",
             )}
           >
             {items.map((item, index) => (
@@ -135,7 +135,7 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
             ))}
           </div>
         </div>
-        <div className="mr-6 mt-4 flex justify-end gap-2 md:mt-6">
+        <div className="mr-6 -mt-2 flex max-w-7xl justify-end gap-2 px-4 md:-mt-4">
           <button
             className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
             onClick={scrollLeft}
@@ -240,8 +240,7 @@ export const BlurImage = ({
 }: ImageProps) => {
   const [isLoading, setLoading] = useState(true);
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       className={cn(
         "h-full w-full transition duration-300",
         isLoading ? "blur-sm" : "blur-0",

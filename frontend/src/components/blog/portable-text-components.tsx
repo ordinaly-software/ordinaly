@@ -5,6 +5,7 @@ import { urlFor } from '@/lib/image';
 import type { PortableTextComponentProps } from '@portabletext/react';
 import type { PortableTextBlock } from '@portabletext/types';
 import type { ReactNode } from 'react';
+import Image from 'next/image';
 
 type ImageType = { asset?: { _ref?: string; _id?: string; url?: string }; alt?: string };
 type VideoType = { url?: string };
@@ -14,10 +15,11 @@ export const portableTextComponents = {
     image: ({ value }: { value: ImageType }) => (
       value?.asset && value.asset._ref ? (
         <div className="my-6 flex justify-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={urlFor(value.asset._ref).width(1200).url()}
             alt={value.alt || 'Blog image'}
+            width={1200}
+            height={800}
             loading="lazy"
             className="w-full h-auto max-w-lg md:max-w-lg rounded-sm shadow-sm"
           />
@@ -43,13 +45,13 @@ export const portableTextComponents = {
     h5: (props: PortableTextComponentProps<PortableTextBlock>) => <h5 className="text-lg font-semibold mt-2 mb-2 text-gray-900 dark:text-white">{props.children}</h5>,
     h6: (props: PortableTextComponentProps<PortableTextBlock>) => <h6 className="text-base font-semibold mt-2 mb-2 text-gray-900 dark:text-white">{props.children}</h6>,
     blockquote: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <blockquote className="border-l-4 border-[#22C55E] pl-4 italic text-gray-700 dark:text-gray-300 my-6">{props.children}</blockquote>
+      <blockquote className="border-l-4 border-[#2BCB5C] pl-4 italic text-gray-700 dark:text-gray-300 my-6">{props.children}</blockquote>
     ),
     normal: (props: PortableTextComponentProps<PortableTextBlock>) => <p className="mb-4 text-base text-gray-800 dark:text-gray-200">{props.children}</p>,
   },
   marks: {
     link: ({ children, value }: { children: ReactNode; value?: { href?: string } }) => (
-      <Link href={value?.href || '#'} className="underline text-[#22C55E] hover:text-[#15803d]">{children}</Link>
+      <Link href={value?.href || '#'} className="underline text-[#2BCB5C] hover:text-[#15803d]">{children}</Link>
     ),
   },
 };

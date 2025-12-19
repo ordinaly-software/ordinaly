@@ -77,7 +77,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
   enrollmentPercentage,
 }) => {
   // Color for hover border/shadow (use green for courses)
-  const courseColor = "#22A60D";
+  const courseColor = "#1F8A0D";
   return (
     <Card
       className={
@@ -119,7 +119,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
               checked={selected}
               onChange={() => onSelect(course.id)}
               disabled={isFinished}
-              className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D] flex-shrink-0"
+              className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D] flex-shrink-0"
             />
             <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700 relative">
               {course.image && course.image !== 'undefined' && course.image !== 'null' ? (
@@ -167,7 +167,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => onView(course)}
-              className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10 w-full"
+              className="text-[#1F8A0D] dark:text-[#7CFC00] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/10 w-full"
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -216,7 +216,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
             checked={selected}
             onChange={() => onSelect(course.id)}
             disabled={isFinished}
-            className="mt-1 rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
+            className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D]"
           />
           <div className="w-20 h-20 relative rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700">
             {course.image && course.image !== 'undefined' && course.image !== 'null' ? (
@@ -285,7 +285,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                   <span>{Math.round(enrollmentPercentage)}% {t("courseCard.full")}</span>
                 </div>
                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
-                  <div className={`h-2 rounded-full transition-all duration-300 ${enrollmentPercentage >= 100 ? 'bg-red-500' : enrollmentPercentage >= 80 ? 'bg-orange-500' : 'bg-[#22A60D]'}`} style={{ width: `${Math.min(enrollmentPercentage, 100)}%` }}></div>
+                  <div className={`h-2 rounded-full transition-all duration-300 ${enrollmentPercentage >= 100 ? 'bg-red-500' : enrollmentPercentage >= 80 ? 'bg-orange-500' : 'bg-[#1F8A0D]'}`} style={{ width: `${Math.min(enrollmentPercentage, 100)}%` }}></div>
                 </div>
               </div>
               <div className="flex flex-col gap-2 ml-0 md:ml-4 mt-2 md:mt-0">
@@ -293,7 +293,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onView(course)}
-                  className="text-[#22A60D] hover:text-[#22A010] hover:bg-[#22A60D]/10"
+                  className="text-[#1F8A0D] dark:text-[#7CFC00] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/10"
                 >
                   <Eye className="h-4 w-4" />
                 </Button>

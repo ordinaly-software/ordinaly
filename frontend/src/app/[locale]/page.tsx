@@ -15,7 +15,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/",
-    title: "Automatización empresarial con IA en Sevilla",
+    title: "Automatización empresarial con IA en Sevilla - Ordinaly Software",
     description:
       "Transformamos empresas con soluciones de automatización inteligente en Sevilla, España y Europa.",
   });

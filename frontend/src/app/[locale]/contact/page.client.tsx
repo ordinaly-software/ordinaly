@@ -127,7 +127,7 @@ export default function ContactPage() {
           className="absolute inset-0 -z-10 bg-[url('/static/backgrounds/services_background.webp')] bg-cover bg-center opacity-60 scale-110"
           aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#22A60D]/20 via-[#46B1C9]/20 to-[#623CEA]/15 blur-3xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#1F8A0D]/20 dark:from-[#7CFC00]/20 via-[#46B1C9]/20 to-[#623CEA]/15 blur-3xl" />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -140,7 +140,7 @@ export default function ContactPage() {
               <div className="flex flex-wrap gap-3">
                 <Button
                   asChild
-                  className="inline-flex items-center gap-2 bg-[#22A60D] text-white"
+                  className="inline-flex items-center gap-2 bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black"
                 >
                   <a href="#location">
                     <Pin className="h-4 w-4" />
@@ -199,7 +199,7 @@ export default function ContactPage() {
                       <p className="text-gray-500 dark:text-gray-400">{t("info.emailLabel")}</p>
                       <a
                         href="mailto:info@ordinaly.ai"
-                        className="font-semibold text-[#22A60D] hover:underline"
+                        className="font-semibold text-[#1F8A0D] dark:text-[#7CFC00] hover:underline"
                       >
                         info@ordinaly.ai
                       </a>
@@ -208,7 +208,7 @@ export default function ContactPage() {
                       <p className="text-gray-500 dark:text-gray-400">{t("info.phoneLabel")}</p>
                       <a
                         href="tel:+34626270806"
-                        className="font-semibold text-[#22A60D] hover:underline"
+                        className="font-semibold text-[#1F8A0D] dark:text-[#7CFC00] hover:underline"
                       >
                         +34 626 27 08 06
                       </a>
@@ -230,14 +230,14 @@ export default function ContactPage() {
           <div className="space-y-3">
             {contactMethods.map((item) => (
               <div key={item.label} className="flex items-start gap-3">
-                <div className="h-10 w-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[#22A60D]">
+                <div className="h-10 w-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-[#1F8A0D] dark:text-[#7CFC00]">
                   <item.icon className="h-5 w-5" />
                 </div>
                 <div>
                   <p className="text-sm text-gray-600 dark:text-gray-400">{item.label}</p>
                   <a
                     href={item.href}
-                    className="font-semibold text-gray-900 dark:text-white hover:text-[#22A60D]"
+                    className="font-semibold text-gray-900 dark:text-white hover:text-[#1F8A0D] dark:hover:text-[#7CFC00]"
                   >
                     {item.value}
                   </a>
@@ -246,7 +246,7 @@ export default function ContactPage() {
             ))}
           </div>
           <div className="mt-6 border-t border-gray-100 dark:border-gray-800 pt-4">
-            <h2 className="text-sm uppercase tracking-[0.2em] text-[#22A60D] font-semibold mb-3">
+            <h2 className="text-sm uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00] font-semibold mb-3">
               {t("info.socialTitle")}
             </h2>
             <div className="flex flex-wrap gap-3">
@@ -365,7 +365,7 @@ export default function ContactPage() {
           <div className="pt-4 align-center flex justify-center">
             <Button
               asChild
-              className="bg-[#22A60D] text-white shadow-[0_15px_40px_rgba(34,166,13,0.35)] hover:shadow-[0_20px_50px_rgba(34,166,13,0.4)] hover:bg-[#1a7d09] normal-case not-italic font-semibold tracking-tight"
+              className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight"
             >
               <Link href="/about" scroll={true}>
                 <ExternalLink className="mr-2 h-4 w-4" />

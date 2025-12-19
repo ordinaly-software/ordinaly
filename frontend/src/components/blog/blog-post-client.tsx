@@ -104,7 +104,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                       <Link
                         key={cat.slug}
                         href={`/blog?category=${cat.title}`}
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#22C55E]/10 text-[#22C55E] text-sm font-medium hover:bg-[#22C55E]/20 transition w-fit"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#2BCB5C]/10 text-[#2BCB5C] text-sm font-medium hover:bg-[#2BCB5C]/20 transition w-fit"
                       >
                         {cat.title}
                       </Link>

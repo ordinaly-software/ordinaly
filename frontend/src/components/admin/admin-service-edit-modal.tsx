@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Slider from "@/components/ui/slider";
@@ -404,8 +405,8 @@ export const AdminServiceEditModal = ({
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#22A60D]/10 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-[#22A60D]">S</span>
+              <div className="w-5 h-5 bg-[#1F8A0D] dark:bg-[#7CFC00]/10 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-[#1F8A0D] dark:text-[#7CFC00]">S</span>
               </div>
               <span>{t("form.title")} *</span>
             </Label>
@@ -415,7 +416,7 @@ export const AdminServiceEditModal = ({
             value={formData.title}
             onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
             placeholder={t("form.titlePlaceholder")}
-            className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
+            className="h-12 border-gray-300 focus:border-[#1F8A0D] focus:ring-[#1F8A0D]/20 rounded-lg transition-all duration-200"
             required
           />
         </div>
@@ -551,8 +552,13 @@ export const AdminServiceEditModal = ({
                   }}
                   aria-label={t("form.image")}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={safeImagePreview} alt={t("form.image")} className="h-full w-full object-cover" />
+                  <Image
+                    src={safeImagePreview}
+                    alt={t("form.image")}
+                    fill
+                    sizes="192px"
+                    className="object-cover"
+                  />
                     <ModalCloseButton
                       onClick={() => {
                         if (imageFile) {
@@ -737,7 +743,7 @@ export const AdminServiceEditModal = ({
         </Button>
         <Button
           onClick={submitService}
-          className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+          className="px-6 py-2 bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#166307] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
         >
           <span>{isEdit ? t("form.update") : t("form.create")}</span>
           {isEdit ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}

@@ -518,12 +518,12 @@ const LegalPage = () => {
     const base = "group inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition-all";
     if (activeTab === id) {
       return isDark
-        ? `${base} border-[#22A60D]/60 bg-[#22A60D]/15 text-white shadow-[0_10px_30px_rgba(34,166,13,0.2)]`
-        : `${base} border-[#22A60D]/60 bg-[#22A60D]/15 text-[#22A60D] shadow-[0_8px_20px_rgba(34,166,13,0.12)]`;
+        ? `${base} border-[#1F8A0D]/60 bg-[#1F8A0D]/15 text-white shadow-[0_10px_30px_rgba(31,138,13,0.2)]`
+        : `${base} border-[#1F8A0D]/60 bg-[#1F8A0D]/15 text-[#1F8A0D] dark:text-[#7CFC00] shadow-[0_8px_20px_rgba(31,138,13,0.12)]`;
     }
     return isDark
-      ? `${base} border-white/10 bg-white/5 text-gray-200 hover:border-[#22A60D]/30 hover:bg-[#22A60D]/10 hover:text-white`
-      : `${base} border-gray-200 bg-white text-gray-700 hover:border-[#22A60D]/30 hover:bg-[#22A60D]/5 hover:text-[#22A60D]`;
+      ? `${base} border-white/10 bg-white/5 text-gray-200 hover:border-[#1F8A0D] dark:hover:border-[#7CFC00]/30 hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/10 hover:text-white`
+      : `${base} border-gray-200 bg-white text-gray-700 hover:border-[#1F8A0D] dark:hover:border-[#7CFC00]/30 hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/5 hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00]`;
   };
 
   const rootClass = isDark
@@ -533,7 +533,7 @@ const LegalPage = () => {
   const overlaySet = isDark
     ? (
         <div className="absolute inset-0 opacity-40">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,166,13,0.15),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(34,166,13,0.08),transparent_25%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(31,138,13,0.15),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(31,138,13,0.08),transparent_25%)]" />
           <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.02)_35%,transparent_70%)]" />
         </div>
       )
@@ -566,7 +566,7 @@ const LegalPage = () => {
         {overlaySet}
         <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-20 pt-24 md:px-6 lg:px-8 lg:pt-28">
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00]"></div>
           </div>
         </div>
       </div>
@@ -590,7 +590,7 @@ const LegalPage = () => {
         <div className={panelClass}>
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-3">
-              <p className={isDark ? "text-xs font-semibold uppercase tracking-[0.32em] text-[#22A60D]" : "text-xs font-semibold uppercase tracking-[0.32em] text-[#22A60D]"}>
+              <p className={isDark ? "text-xs font-semibold uppercase tracking-[0.32em] text-[#1F8A0D] dark:text-[#7CFC00]" : "text-xs font-semibold uppercase tracking-[0.32em] text-[#1F8A0D] dark:text-[#7CFC00]"}>
                 Ordinaly Software S.L
               </p>
               <h1 className={isDark ? "text-4xl font-black leading-tight text-white md:text-5xl" : "text-4xl font-black leading-tight text-slate-900 md:text-5xl"}>
@@ -601,7 +601,7 @@ const LegalPage = () => {
               </p>
             </div>
             <Link href="/" className="self-start lg:self-center">
-              <Button className="bg-[#22A60D] text-white shadow-[0_15px_40px_rgba(34,166,13,0.35)] hover:shadow-[0_20px_50px_rgba(34,166,13,0.4)] hover:bg-[#1a7d09] normal-case not-italic font-semibold tracking-tight">
+              <Button className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight">
                 <ExternalLink className="mr-2 h-4 w-4" />
                 {tCommon('backToHome')}
               </Button>
@@ -625,9 +625,9 @@ const LegalPage = () => {
             <Card className={cardClass("flex flex-col")}>
               <CardContent className={`flex flex-col p-6 md:p-7 ${isDark ? "" : "text-slate-800"}`}>
                 <div className="flex items-center gap-3">
-                  <Download className={isDark ? "h-5 w-5 text-[#22A60D]" : "h-5 w-5 text-[#22A60D]"} />
+                  <Download className={isDark ? "h-5 w-5 text-[#1F8A0D] dark:text-[#7CFC00]" : "h-5 w-5 text-[#1F8A0D] dark:text-[#7CFC00]"} />
                   <div>
-                    <p className={isDark ? "text-sm font-semibold uppercase tracking-[0.2em] text-[#22A60D]" : "text-sm font-semibold uppercase tracking-[0.2em] text-[#22A60D]"}>
+                    <p className={isDark ? "text-sm font-semibold uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00]" : "text-sm font-semibold uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00]"}>
                       {t('downloadPdf')}
                     </p>
                     <h3 className={isDark ? "text-xl font-bold text-white" : "text-xl font-bold text-slate-900"}>
@@ -640,7 +640,7 @@ const LegalPage = () => {
                 </p>
                 <Button
                   onClick={() => downloadPDF(activeDoc)}
-                  className="w-full bg-[#22A60D] text-white shadow-[0_15px_40px_rgba(34,166,13,0.35)] hover:shadow-[0_18px_46px_rgba(34,166,13,0.4)] hover:bg-[#1a7d09] normal-case not-italic font-semibold tracking-tight mt-auto"
+                  className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_18px_46px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight mt-auto"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   {t('downloadPdf')}
@@ -653,9 +653,9 @@ const LegalPage = () => {
           <Card className={cardClass("flex flex-col")}>
             <CardContent className={`flex flex-col p-6 md:p-7 ${isDark ? "" : "text-slate-800"}`}>
               <div className="flex items-center gap-3">
-                  <Sparkles className={isDark ? "h-5 w-5 text-[#22A60D]" : "h-5 w-5 text-[#22A60D]"} />
+                  <Sparkles className={isDark ? "h-5 w-5 text-[#1F8A0D] dark:text-[#7CFC00]" : "h-5 w-5 text-[#1F8A0D] dark:text-[#7CFC00]"} />
                   <div>
-                  <p className={isDark ? "text-sm font-semibold uppercase tracking-[0.2em] text-[#22A60D]" : "text-sm font-semibold uppercase tracking-[0.2em] text-[#22A60D]"}>
+                  <p className={isDark ? "text-sm font-semibold uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00]" : "text-sm font-semibold uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00]"}>
                       {t('tabs.cookies')}
                   </p>
                   <h3 className={isDark ? "text-xl font-bold text-white" : "text-xl font-bold text-slate-900"}>
@@ -675,7 +675,7 @@ const LegalPage = () => {
                     // ignore
                   }
                 }}
-                className="w-full bg-[#22A60D] text-white shadow-[0_15px_40px_rgba(34,166,13,0.35)] hover:shadow-[0_18px_46px_rgba(34,166,13,0.4)] hover:bg-[#1a7d09] normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_18px_46px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <Sparkles className="mr-2 h-4 w-4" />
                 {t('openCookieSettings', {})}
@@ -687,9 +687,9 @@ const LegalPage = () => {
           <Card className={cardClass("flex flex-col")}>
             <CardContent className={`flex flex-col p-6 md:p-7 ${isDark ? "" : "text-slate-800"}`}>
               <div className="flex items-center gap-3">
-                <Mail className={isDark ? "h-5 w-5 text-[#22A60D]" : "h-5 w-5 text-[#22A60D]"} />
+                <Mail className={isDark ? "h-5 w-5 text-[#1F8A0D] dark:text-[#7CFC00]" : "h-5 w-5 text-[#1F8A0D] dark:text-[#7CFC00]"} />
                 <div>
-                  <p className={isDark ? "text-sm font-semibold uppercase tracking-[0.2em] text-[#22A60D]" : "text-sm font-semibold uppercase tracking-[0.2em] text-[#22A60D]"}>
+                  <p className={isDark ? "text-sm font-semibold uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00]" : "text-sm font-semibold uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00]"}>
                     {t('supportKicker', {})}
                   </p>
                   <h3 className={isDark ? "text-xl font-bold text-white" : "text-xl font-bold text-slate-900"}>
@@ -702,7 +702,7 @@ const LegalPage = () => {
               </p>
               <Button
                 asChild
-                className="w-full bg-[#22A60D] text-white shadow-[0_15px_40px_rgba(34,166,13,0.35)] hover:shadow-[0_18px_46px_rgba(34,166,13,0.4)] hover:bg-[#1a7d09] normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_18px_46px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <a href="mailto:compliance@ordinaly.ai">{t('contactCta', {})}</a>
               </Button>
@@ -722,7 +722,7 @@ const LegalPage = () => {
                     </h2>
                   </div>
                   <div className={isDark ? "flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200" : "flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700"}>
-                    <Calendar className={isDark ? "h-4 w-4 text-[#22A60D]" : "h-4 w-4 text-[#22A60D]"} />
+                    <Calendar className={isDark ? "h-4 w-4 text-[#1F8A0D] dark:text-[#7CFC00]" : "h-4 w-4 text-[#1F8A0D] dark:text-[#7CFC00]"} />
                     {activeDoc ? new Date(activeDoc.updated_at).toLocaleDateString() : new Date().toLocaleDateString()}
                   </div>
                 </div>
@@ -792,7 +792,7 @@ const LegalPage = () => {
                 <CardContent className={`space-y-3 p-4 md:p-5 ${isDark ? "" : "text-slate-800"}`}>
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <p className={isDark ? "text-xs uppercase tracking-[0.2em] text-[#22A60D]" : "text-xs uppercase tracking-[0.2em] text-[#22A60D]"}>
+                      <p className={isDark ? "text-xs uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00]" : "text-xs uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#7CFC00]"}>
                         v{doc.version}
                       </p>
                       <h4 className={isDark ? "font-bold text-white" : "font-bold text-slate-900"}>
@@ -808,7 +808,7 @@ const LegalPage = () => {
                     <Button
                       onClick={() => downloadPDF(doc)}
                       size="sm"
-                      className="w-full bg-[#22A60D] text-white hover:bg-[#1a7d09]"
+                      className="w-full bg-[#1F8A0D] dark:bg-[#7CFC00] text-white hover:bg-[#145C07]"
                     >
                       <Download className="mr-2 h-3 w-3" />
                       {t('downloadPdf')}

@@ -55,7 +55,7 @@ export default function AdminPage() {
     { id: 'courses', name: t("tabs.courses"), icon: BookOpen },
     { id: 'terms', name: t("tabs.terms"), icon: FileText },
     { id: 'users', name: t("tabs.users"), icon: Users },
-    { id: 'blog', name: t("tabs.blog"), icon: ArrowUpRight, accentColor: "#22A60D" },
+    { id: 'blog', name: t("tabs.blog"), icon: ArrowUpRight, accentColor: "#1F8A0D" },
     { id: 'odoo', name: t("tabs.odoo"), icon: () => <BarChart3 className="h-4 w-4" />, accentColor: "#623CEA" },
     { id: 'n8n', name: t("tabs.n8n"), icon: () => <Command className="h-4 w-4" />, accentColor: "#E4572E" },
     { id: 'api', name: t("tabs.api"), icon: () => <Settings className="h-4 w-4" />, accentColor: "#46B1C9" },
@@ -213,7 +213,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalServices")}
                 </CardTitle>
-                <Settings className="h-4 w-4 text-[#22A60D]" />
+                <Settings className="h-4 w-4 text-[#1F8A0D] dark:text-[#7CFC00]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -297,7 +297,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("tabs.blog")}
                 </CardTitle>
-                <ArrowUpRight className="h-4 w-4 text-[#22A60D]" />
+                <ArrowUpRight className="h-4 w-4 text-[#1F8A0D] dark:text-[#7CFC00]" />
               </CardHeader>
               <CardContent className="flex items-center justify-between">
                 <div>
@@ -511,7 +511,7 @@ export default function AdminPage() {
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00] mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
           </div>
         </div>

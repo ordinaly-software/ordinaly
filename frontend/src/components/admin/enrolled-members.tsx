@@ -46,7 +46,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
           onClick={handleSendMail}
           disabled={enrollments.length === 0}
           size="sm"
-          className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#166307] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           <Send className="h-4 w-4" />
           <span className="xs:inline"> {t('details.sendMail')}</span>
@@ -54,7 +54,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
       </div>
       {isLoading ? (
         <div className="flex items-center justify-center py-6">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#22A60D]"></div>
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00]"></div>
         </div>
       ) : enrollments.length === 0 ? (
         <div className="text-center py-6 text-gray-500 dark:text-gray-400">
@@ -85,8 +85,8 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
                 className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1">
-                  <div className="w-8 h-8 bg-[#22A60D]/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <User className="h-4 w-4 text-[#22A60D]" />
+                  <div className="w-8 h-8 bg-[#1F8A0D]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <User className="h-4 w-4 text-[#1F8A0D] dark:text-[#7CFC00]" />
                   </div>
                   <div className="min-w-0">
                     <p className="font-medium text-gray-900 dark:text-white truncate">

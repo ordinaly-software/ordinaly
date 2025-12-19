@@ -189,7 +189,7 @@ const CookieConsent = () => {
                 <p className="text-muted-foreground mb-4">
                   {t('description')}
                 </p>
-                <div className="bg-gradient-to-r from-[#22A60D]/10 to-[#46B1C9]/10 p-4 rounded-lg border border-border">
+                <div className="bg-gradient-to-r from-[#1F8A0D]/10 dark:from-[#7CFC00]/10 to-[#46B1C9]/10 p-4 rounded-lg border border-border">
                   <p className="text-sm text-muted-foreground">
                     <strong className="text-foreground">{t('whatAre')}</strong>{' '}
                     {t('whatAreDescription')}
@@ -239,7 +239,7 @@ const CookieConsent = () => {
                   {[
                     {
                       key: 'necessary',
-                      icon: <Shield className="text-[#22A60D]" size={20} />,
+                      icon: <Shield className="text-[#1F8A0D] dark:text-[#7CFC00]" size={20} />,
                       enabled: true,
                       toggle: false,
                       note: t('necessaryAlways')
@@ -271,7 +271,7 @@ const CookieConsent = () => {
                             onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics')}
                           />
                         ) : (
-                          <div className="bg-[#22A60D] rounded-full w-6 h-6 flex items-center justify-center">
+                          <div className="bg-[#1F8A0D] dark:bg-[#7CFC00] rounded-full w-6 h-6 flex items-center justify-center">
                             <div className="w-3 h-3 bg-white rounded-full"></div>
                           </div>
                         )}

@@ -68,7 +68,7 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
         {tabs.map((tab, idx) => {
           const Icon = tab.icon;
           const active = activeTab === tab.id;
-          const accent = tab.accentColor || "#22A60D";
+          const accent = tab.accentColor || "#1F8A0D";
           const baseClasses =
             "relative py-2 px-2 font-medium text-sm flex items-center space-x-2 transition-colors";
 

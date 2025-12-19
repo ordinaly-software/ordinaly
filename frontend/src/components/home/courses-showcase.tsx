@@ -34,6 +34,8 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const [hasBeenVisible, setHasBeenVisible] = useState(!shouldLazyLoad);
   const sectionRef = useRef<HTMLElement | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+  const sampleCardRef = useRef<HTMLDivElement | null>(null);
+  const cardWidthRef = useRef<number | null>(null);
 
   useEffect(() => {
     // Check authentication status on mount
@@ -91,6 +93,30 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     setCurrentIndex(0);
   }, [courses.length, slidesToShow]);
 
+  useEffect(() => {
+    const card = sampleCardRef.current;
+    if (!card) return;
+
+    const updateWidth = () => {
+      const width = card.getBoundingClientRect().width;
+      if (width > 0) {
+        cardWidthRef.current = width;
+      }
+    };
+
+    updateWidth();
+
+    const observer = new ResizeObserver(() => {
+      updateWidth();
+    });
+
+    observer.observe(card);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [courses.length, slidesToShow]);
+
   // Removed enrollments fetching effect for homepage
 
   const handleImageError = useCallback((courseId: number) => {
@@ -138,12 +164,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const atEnd = currentIndex >= maxIndex;
 
   const getCardWidth = () => {
-    const container = scrollContainerRef.current;
-    if (!container) return null;
-    const row = container.firstElementChild as HTMLElement | null;
-    const card = row?.firstElementChild as HTMLElement | null;
-    if (!card) return null;
-    return card.getBoundingClientRect().width;
+    return cardWidthRef.current;
   };
 
   const handleTouchScroll = () => {
@@ -214,7 +235,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       <section id="courses" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1F8A0D] dark:text-[#7CFC00]">
               {t('upcomingTitle')}
             </h2>
             <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
@@ -256,7 +277,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1F8A0D] dark:text-[#7CFC00]">
             {t('showcaseTitle')}
           </h2>
           <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
@@ -302,7 +323,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               onScroll={handleTouchScroll}
             >
               <div className="flex transition-transform duration-500 ease-in-out gap-6 px-3">
-                {courses.map((course) => {
+                {courses.map((course, index) => {
                   const availabilityBadge = getAvailabilityBadge(course);
                   const isInProgress = availabilityBadge.text === t('inProgress') && availabilityBadge.variant === 'default';
                   
@@ -311,6 +332,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                       key={course.id}
                       className="flex-shrink-0"
                       style={{ flexBasis: `${100 / slidesToShow}%` }}
+                      ref={index === 0 ? sampleCardRef : undefined}
                     >
                       <Card 
                         className={
@@ -321,7 +343,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                         onClick={() => handleCourseClick(course)}
                       >
                         <CardHeader className="pb-4">
-                          <div className="relative w-full h-48 rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-[#22A60D]/10 to-[#46B1C9]/10">
+                          <div className="relative w-full h-48 rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-[#1F8A0D]/10 dark:from-[#7CFC00]/10 to-[#46B1C9]/10">
                             {!imageErrors.has(course.id) ? (
                               <Image
                                 src={course.image}
@@ -335,8 +357,8 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                               // Fallback content when image fails
                               <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400">
                                 <div className="text-center">
-                                  <div className="w-16 h-16 mx-auto mb-2 bg-[#22A60D]/20 rounded-full flex items-center justify-center">
-                                    <BookOpen className="w-8 h-8 text-[#22A60D]" />
+                                  <div className="w-16 h-16 mx-auto mb-2 bg-[#1F8A0D]/20 rounded-full flex items-center justify-center">
+                                    <BookOpen className="w-8 h-8 text-[#1F8A0D] dark:text-[#7CFC00]" />
                                   </div>
                                   <p className="text-sm font-medium px-4">
                                     {course.title.replace(/🌐 |🐍 |📊 |📱 |☁️ |🎨 |🤖 |🔒 |🔗 |💻 |📈 |🔧 /g, '').split(' ').slice(0, 3).join(' ')}
@@ -362,7 +384,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                           </div>
                           
                           <div className="space-y-2">
-                            <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#22A60D] transition-colors break-words whitespace-pre-line">
+                            <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition-colors break-words whitespace-pre-line">
                               {course.title.replace(/🌐 |🐍 |📊 |📱 |☁️ |🎨 |🤖 |🔒 |🔗 |💻 |📈 |🔧 /g, '')}
                             </CardTitle>
                             {course.subtitle && (
@@ -398,7 +420,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="truncate underline hover:text-[#22A60D]"
+                                        className="truncate underline hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00]"
                                         title={course.location}
                                       >
                                         {course.location}
@@ -432,7 +454,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                                 </div>
                                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                   <div 
-                                    className="bg-[#22A60D] h-2 rounded-full transition-all duration-300"
+                                    className="bg-[#1F8A0D] dark:bg-[#7CFC00] h-2 rounded-full transition-all duration-300"
                                     style={{ width: `${Math.min((course.enrolled_count / course.max_attendants) * 100, 100)}%` }}
                                   ></div>
                                 </div>
@@ -442,7 +464,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
 
                           {/* Action Button */}
                           <Button
-                            className="mt-6 w-full bg-[#22A60D] hover:bg-[#1e8f0a] dark:bg-[#22A60D] dark:hover:bg-[#1a7d08] text-white dark:text-white transition-all duration-300 group shadow-sm hover:shadow-md"
+                            className="mt-6 w-full bg-[#1F8A0D] hover:bg-[#1A740B] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] transition-all duration-300 group shadow-sm hover:shadow-md"
                             onClick={(e) => handleSignUpClick(e, course)}
                           >
                             <>
@@ -490,7 +512,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               variant="outline"
               size="lg"
               onClick={() => router.push('/formation')}
-              className="bg-transparent border-2 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white dark:border-[#22A60D] dark:text-[#22A60D] dark:hover:bg-[#22A60D] dark:hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#22A60D]/20 group"
+              className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#1F8A0D] hover:text-white dark:border-[#7CFC00] dark:text-[#7CFC00] dark:hover:bg-[#7CFC00] dark:hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
             >
               {t('viewAllCourses')}
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

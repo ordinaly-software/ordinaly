@@ -126,8 +126,8 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#22A60D]/10 rounded flex items-center justify-center">
-                <FileText className="w-3 h-3 text-[#22A60D]" />
+              <div className="w-5 h-5 bg-[#1F8A0D]/10 rounded flex items-center justify-center">
+                <FileText className="w-3 h-3 text-[#1F8A0D] dark:text-[#7CFC00]" />
               </div>
               <span>{t("form.titleRequired")}</span>
             </Label>
@@ -149,7 +149,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             value={formData.title ?? ""}
             onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
             placeholder={t("form.titlePlaceholder")}
-            className="h-12 border-gray-300 focus:border-[#22A60D] focus:ring-[#22A60D]/20 rounded-lg transition-all duration-200"
+            className="h-12 border-gray-300 focus:border-[#1F8A0D] focus:ring-[#1F8A0D]/20 rounded-lg transition-all duration-200"
             required
           />
           {!!formData.enrolled_count && formData.enrolled_count > 0 && (
@@ -551,7 +551,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           </Button>
           <Button
             onClick={onSubmit}
-            className="px-6 py-2 bg-[#22A60D] hover:bg-[#22A010] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+            className="px-6 py-2 bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#166307] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
           >
             <span>{showEditModal ? t("form.update") : t("form.create")}</span>
             {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}

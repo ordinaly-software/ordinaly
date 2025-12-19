@@ -2,12 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import ErrorCard from "@/components/ui/error-card";
-import Link from "next/link";
 import { Card, CardHeader } from "@/components/ui/card";
 import { ServiceAppleCarousel } from "@/components/services/service-apple-carousel";
 import React from "react";
 
 import type { Service } from "@/hooks/useServices";
+import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 
 export interface ServiceShowcaseProps {
   services: Service[];
@@ -20,6 +21,7 @@ export interface ServiceShowcaseProps {
 }
 
 const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
+  const router = useRouter();
   // --- RETURN COMPONENT JSX ---
   return (
     <>
@@ -44,8 +46,8 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
           return (
             <div className="text-center py-16">
               <div className="max-w-md mx-auto bg-white dark:bg-[#23272F] rounded-xl shadow-lg p-8">
-                <div className="w-16 h-16 mx-auto mb-4 bg-[#22A60D]/10 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#22A60D]">
+                <div className="w-16 h-16 mx-auto mb-4 bg-[#1F8A0D]/10 rounded-full flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#1F8A0D] dark:text-[#7CFC00]">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                     <line x1="16" y1="2" x2="16" y2="6"/>
                     <line x1="8" y1="2" x2="8" y2="6"/>
@@ -111,33 +113,16 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
         }
       })()}
       {/* View All Services Button */}
-      <div className="text-center mt-12">
-        <Link href="/services">
-          <Button
-            variant="outline"
-            size="lg"
-            className="group bg-transparent border-2 border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#22A60D]/20"
-          >
-            {props.t("services.viewAllServicesAndProducts")}
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 10 10"
-              height="16"
-              width="16"
-              fill="none"
-              className="ml-2 stroke-current stroke-2"
-            >
-              <path
-                d="M0 5h7"
-                className="transition opacity-0 group-hover:opacity-100"
-              />
-              <path
-                d="M1 1l4 4-4 4"
-                className="transition group-hover:translate-x-[3px]"
-              />
-            </svg>
-          </Button>
-        </Link>
+      <div className="flex justify-center mt-12">
+        <Button
+          variant="outline"
+          size="lg"
+          onClick={() => router.push('/services')}
+          className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#1F8A0D] hover:text-white dark:border-[#7CFC00] dark:text-[#7CFC00] dark:hover:bg-[#7CFC00] dark:hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
+        >
+          {props.t("services.viewAllServicesAndProducts")}
+          <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+        </Button>
       </div>
     </>
   );

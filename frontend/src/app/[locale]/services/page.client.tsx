@@ -14,14 +14,42 @@ import {
   Mail,
 } from "lucide-react";
 import { Dropdown } from "@/components/ui/dropdown";
-import { SeoArticleSection } from "@/components/home/home-sections";
-import { ServiceAppleCarousel } from "@/components/services/service-apple-carousel";
-import { ServiceAppleDetailsModal } from "@/components/services/service-apple-details-modal";
 import { usePathname, useRouter } from "next/navigation";
 import { getApiEndpoint } from "@/lib/api-config";
 
 // Dynamic imports for components that might not be immediately needed
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
+const ServiceAppleCarousel = dynamic(
+  () =>
+    import("@/components/services/service-apple-carousel").then(
+      (mod) => mod.ServiceAppleCarousel,
+    ),
+  {
+    loading: () => (
+      <div className="h-72 md:h-80 rounded-2xl bg-gray-200/80 dark:bg-gray-800/80 animate-pulse" />
+    ),
+  },
+);
+const ServiceAppleDetailsModal = dynamic(
+  () =>
+    import("@/components/services/service-apple-details-modal").then(
+      (mod) => mod.ServiceAppleDetailsModal,
+    ),  { ssr: false, loading: () => null },
+);
+const SeoArticleSectionLazy = dynamic(
+  () => import("@/components/home/home-sections").then((mod) => mod.SeoArticleSection),
+  {
+    loading: () => (
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#23272F]">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <div className="h-10 w-2/3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+          <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+          <div className="h-4 w-5/6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+        </div>
+      </section>
+    ),
+  },
+);
 
 const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) => {
   const t = useTranslations("services");
@@ -187,8 +215,15 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <div className="flex items-center justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D]"></div>
+        <div className="px-4 sm:px-6 lg:px-8 py-10">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="h-56 rounded-3xl bg-gray-200/80 dark:bg-gray-800/80 animate-pulse" />
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} className="h-64 rounded-2xl bg-gray-200/80 dark:bg-gray-800/80 animate-pulse" />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -228,7 +263,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                 placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:border-[#7CFC00] dark:focus:border-[#7CFC00]"
               />
             </div>
 
@@ -248,7 +283,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
       </Banner>
 
       {/* Services Grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {filteredServices.length === 0 ? (
             <div className="text-center py-16">
@@ -266,8 +301,8 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
             <>
               {/* Products Section */}
               {separated.products.length > 0 && (
-                <div className="mb-12 space-y-6">
-                  <h2 className="text-3xl font-bold mb-6 text-[#623CEA] dark:text-[#8B5FF7]">
+                <div className="mb-12">
+                  <h2 className="text-3xl font-bold mb-2 text-[#623CEA] dark:text-[#8B5FF7]">
                     {t("productsSectionTitle")}
                   </h2>
                   <ServiceAppleCarousel
@@ -275,13 +310,14 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                     labels={carouselLabels}
                     onSelect={handleServiceSelect}
                     onContact={handleWhatsAppContact}
+                    variant="compact"
                   />
                 </div>
               )}
               {/* Services Section */}
               {separated.services.length > 0 && (
-                <div className="space-y-6">
-                  <h2 className="text-3xl font-bold mb-6 text-[#22A60D] dark:text-[#22C55E]">
+                <div>
+                  <h2 className="text-3xl font-bold mb-2 text-[#1F8A0D] dark:text-[#2BCB5C]">
                     {t("servicesSectionTitle")}
                   </h2>
                   <ServiceAppleCarousel
@@ -290,6 +326,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                     onSelect={handleServiceSelect}
                     onContact={handleWhatsAppContact}
                     initialScroll={separated.products.length > 0 ? 150 : 0}
+                    variant="compact"
                   />
                 </div>
               )}
@@ -299,7 +336,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#22A60D] to-[#22A010] text-white">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] to-[#166307] text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             {t("cta.title")}
@@ -309,7 +346,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              className="bg-white text-[#22A60D] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
+              className="bg-white text-[#1F8A0D] dark:text-[#7CFC00] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
               onClick={() => {
                 const subject = encodeURIComponent(t("cta.emailSubject"));
                 const body = encodeURIComponent(t("cta.emailBody"));
@@ -324,7 +361,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
       </section>
 
       {/* SEO Article Section */}
-      <SeoArticleSection t={t_home} onWhatsApp={handleWhatsAppChat} />
+      <SeoArticleSectionLazy t={t_home} onWhatsApp={handleWhatsAppChat} />
 
       {/* Footer */}
       <Footer />

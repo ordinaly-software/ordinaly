@@ -25,17 +25,17 @@ interface HeroProps {
 
 export function HomeHero({ t, onWhatsApp }: HeroProps) {
   const { isDark } = useTheme();
-  const primaryGreen = "#22A60D";
+  const primaryGreen = "#1F8A0D";
   const heroImage = "/static/main_home_ilustration.webp";
   const sectionTextColor = isDark ? "text-white" : "text-[#0B1B17]";
-  const subtitleColor = isDark ? "rgba(34,166,13,0.85)" : "#1F7A12";
+  const subtitleColor = isDark ? "#B8FF9A" : "#1F7A12";
   const bulletTextColor = isDark ? "#FFFFFF" : "#0B1B17";
-  const bulletBg = isDark ? "rgba(255,255,255,0.05)" : "rgba(34,166,13,0.06)";
-  const bulletBorder = isDark ? "rgba(255,255,255,0.08)" : "rgba(34,166,13,0.18)";
+  const bulletBg = isDark ? "rgba(124,252,0,0.12)" : "rgba(31,138,13,0.06)";
+  const bulletBorder = isDark ? "rgba(124,252,0,0.35)" : "rgba(31,138,13,0.18)";
 
   const bulletPoints = [
     {
-      icon: Workflow,
+      icon: Building2,
       text: t("hero.trust1"),
     },
     {
@@ -43,7 +43,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
       text: t("hero.trust2"),
     },
     {
-      icon: Building2,
+      icon: Workflow,
       text: t("hero.trust3"),
     },
     {
@@ -88,19 +88,19 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(circle at 15% 20%, rgba(34,166,13,0.15), transparent 35%), radial-gradient(circle at 80% 15%, rgba(0,204,255,0.12), transparent 35%), linear-gradient(135deg, #040a11 0%, #05141f 40%, #040a11 100%)",
+                  "radial-gradient(circle at 15% 20%, rgba(31,138,13,0.15), transparent 35%), radial-gradient(circle at 80% 15%, rgba(0,204,255,0.12), transparent 35%), linear-gradient(135deg, #040a11 0%, #05141f 40%, #040a11 100%)",
               }}
             />
             <div
               className="absolute inset-0"
               style={{
-                background: "linear-gradient(120deg, rgba(34,166,13,0.08), transparent 40%, rgba(0,210,255,0.12) 70%, transparent 90%)",
+                background: "linear-gradient(120deg, rgba(31,138,13,0.08), transparent 40%, rgba(0,210,255,0.12) 70%, transparent 90%)",
               }}
             />
             <div
               className="absolute inset-0 opacity-30"
               style={{
-                background: "radial-gradient(circle at 50% 110%, rgba(34,166,13,0.22), transparent 55%)",
+                background: "radial-gradient(circle at 50% 110%, rgba(31,138,13,0.22), transparent 55%)",
               }}
             />
             <div
@@ -116,13 +116,13 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
               className="absolute inset-0"
               style={{
                 background:
-                  "radial-gradient(circle at 20% 25%, rgba(34,166,13,0.08), transparent 35%), radial-gradient(circle at 80% 10%, rgba(0,175,115,0.08), transparent 35%), linear-gradient(135deg, #ffffff 0%, #f7fcf9 55%, #e9f8ed 100%)",
+                  "radial-gradient(circle at 20% 25%, rgba(31,138,13,0.08), transparent 35%), radial-gradient(circle at 80% 10%, rgba(0,175,115,0.08), transparent 35%), linear-gradient(135deg, #ffffff 0%, #f7fcf9 55%, #e9f8ed 100%)",
               }}
             />
             <div
               className="absolute inset-0 opacity-60"
               style={{
-                background: "linear-gradient(120deg, rgba(34,166,13,0.05), transparent 45%, rgba(0,175,115,0.07) 75%, transparent 90%)",
+                background: "linear-gradient(120deg, rgba(31,138,13,0.05), transparent 45%, rgba(0,175,115,0.07) 75%, transparent 90%)",
               }}
             />
           </>
@@ -135,9 +135,9 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
           alt={t("hero.imageAlt")}
           fill
           className="object-cover lg:object-contain blur-sm brightness-1.5"
-          priority
-          fetchPriority="high"
-          sizes="90vw"
+          sizes="100vw"
+          quality={45}
+          loading="lazy"
           aria-hidden="true"
         />
       </div>
@@ -164,6 +164,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   priority
                   fetchPriority="high"
                   sizes="100vw"
+                  quality={65}
                   aria-hidden="true"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/5 to-transparent" />
@@ -174,9 +175,9 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
               <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight">
                 <span className="block">{t("hero.titleLine1")}</span>
                 <span
-                  className="block text-transparent bg-clip-text drop-shadow-[0_12px_35px_rgba(34,166,13,0.35)]"
+                  className="block text-transparent bg-clip-text drop-shadow-[0_12px_35px_rgba(31,138,13,0.35)]"
                   style={{
-                    backgroundImage: `linear-gradient(90deg, ${primaryGreen}, #53c651ff, #9978fdff)`,
+                    backgroundImage: `linear-gradient(90deg, ${primaryGreen}, #4BBE59FF, #9978fdff)`,
                   }}
                 >
                   {t("hero.titleLine2")}
@@ -198,7 +199,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                     key={`bullet-${index}`}
                     href={targetId}
                     scroll
-                    className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#22A60D] focus-visible:ring-offset-transparent rounded-2xl"
+                    className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1F8A0D] focus-visible:ring-offset-transparent rounded-2xl"
                   >
                     <div
                       className="flex items-center gap-3 rounded-2xl px-4 py-3"
@@ -211,9 +212,9 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                       <div
                         className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl ring-1"
                         style={{
-                          backgroundColor: "rgba(34,166,13,0.12)",
-                          color: primaryGreen,
-                          borderColor: "rgba(34,166,13,0.35)",
+                          backgroundColor: isDark ? "rgba(124,252,0,0.18)" : "rgba(31,138,13,0.12)",
+                          color: isDark ? "#7CFC00" : primaryGreen,
+                          borderColor: isDark ? "rgba(124,252,0,0.5)" : "rgba(31,138,13,0.35)",
                         }}
                       >
                         <Icon className="h-6 w-6 flex-shrink-0" strokeWidth={1.5} />
@@ -230,7 +231,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
             <div className="flex flex-wrap gap-4">
               <Button
               size="lg"
-              className={`px-8 py-4 text-lg shadow-[0_20px_60px_-25px_rgba(34,166,13,0.8)] hover:shadow-[0_20px_70px_-28px_rgba(34,166,13,0.95)] ${isDark ? "text-gray-900" : "text-white"}`}
+              className="px-8 py-4 text-lg text-white shadow-[0_20px_60px_-25px_rgba(31,138,13,0.8)] hover:shadow-[0_20px_70px_-28px_rgba(31,138,13,0.95)]"
               style={{ backgroundColor: primaryGreen }}
               onClick={onWhatsApp}
               >
@@ -241,9 +242,9 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 variant="outline"
                 className="border px-8 py-4 text-lg"
                 style={{
-                  borderColor: "rgba(34,166,13,0.5)",
-                  backgroundColor: "rgba(255,255,255,0.05)",
-                  color: "rgba(34,166,13,0.85)",
+                  borderColor: isDark ? "rgba(255,255,255,0.35)" : "rgba(31,138,13,0.5)",
+                  backgroundColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.05)",
+                  color: isDark ? "rgba(255,255,255,0.92)" : "rgba(31,138,13,0.85)",
                 }}
                 asChild
               >
@@ -262,14 +263,14 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 <div
                   className="h-px flex-1"
                   style={{
-                    background: `linear-gradient(to right, rgba(34,166,13,0.4), rgba(255,255,255,0.1), transparent)`,
+                    background: `linear-gradient(to right, rgba(31,138,13,0.4), rgba(255,255,255,0.1), transparent)`,
                   }}
                 />
                 <span>{t("hero.clientsTitle")}</span>
                 <div
                   className="h-px flex-1"
                   style={{
-                    background: `linear-gradient(to left, rgba(34,166,13,0.4), rgba(255,255,255,0.1), transparent)`,
+                    background: `linear-gradient(to left, rgba(31,138,13,0.4), rgba(255,255,255,0.1), transparent)`,
                   }}
                 />
               </div>
@@ -279,8 +280,8 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                     key={logo.alt}
                     className="flex items-center justify-center rounded-xl px-3 py-2"
                     style={{
-                      backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(34,166,13,0.04)",
-                      border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(34,166,13,0.12)"}`,
+                      backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(31,138,13,0.04)",
+                      border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(31,138,13,0.12)"}`,
                     }}
                   >
                     <Image
@@ -293,6 +294,8 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                         filter: isDark ? "none" : "invert(1) brightness(0.2)",
                       }}
                       loading="lazy"
+                      sizes="(max-width: 640px) 96px, (max-width: 1024px) 120px, 150px"
+                      quality={70}
                     />
                   </div>
                 ))}
@@ -306,12 +309,12 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
 
           <div className="relative hidden lg:block scroll-animate slide-in-right">
             <div className="relative">
-              <div className="absolute -left-24 -top-16 h-72 w-72 rounded-full blur-3xl" style={{ backgroundColor: "rgba(34,166,13,0.2)" }} />
+              <div className="absolute -left-24 -top-16 h-72 w-72 rounded-full blur-3xl" style={{ backgroundColor: "rgba(31,138,13,0.2)" }} />
               <div className="absolute -right-10 -bottom-24 h-80 w-80 rounded-full bg-cyan-400/25 blur-3xl" />
               <div
                 className="absolute inset-0 scale-105"
                 style={{
-                  background: "radial-gradient(circle at 70% 40%, rgba(34,166,13,0.18), transparent 45%)",
+                  background: "radial-gradient(circle at 70% 40%, rgba(31,138,13,0.18), transparent 45%)",
                 }}
               />
               <div className="relative">
@@ -325,6 +328,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   fetchPriority="high"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px"
                   loading="eager"
+                  quality={65}
                   aria-hidden="true"
                 />
               </div>
@@ -356,11 +360,11 @@ export function BenefitsSection({ t }: SectionProps) {
           {homeBenefits.map((item, index) => (
             <div
               key={item.titleKey}
-              className="scroll-animate fade-in-up p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl"
+              className="scroll-animate fade-in-up p-6 bg-gradient-to-br from-green-50 to-green-100 dark:from-[#0F2418] dark:to-[#143024] dark:border dark:border-white/10 dark:shadow-[0_20px_40px_-30px_rgba(0,0,0,0.7)] rounded-xl"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className={`w-12 h-12 ${item.iconBg} rounded-lg flex items-center justify-center mb-4`}>
-                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.iconPath} />
                 </svg>
               </div>
@@ -386,7 +390,7 @@ export function ServicesSection({ t, servicesContent, onWhatsApp, sectionRef }: 
     <section id="services" ref={sectionRef} className="py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-4 scroll-animate fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#22A60D] dark:text-[#7CFC00]">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1F8A0D] dark:text-[#7CFC00]">
             {t("services.title")}
           </h2>
           <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto mb-2">
@@ -461,7 +465,7 @@ export function ProcessSection({ t }: SectionProps) {
                   <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                     {step.bullets.map((bullet, idx) => (
                       <li key={idx} className="flex items-center gap-2">
-                        <span className="text-[#22A60D]">→</span>
+                        <span className="text-[#1F8A0D] dark:text-[#7CFC00]">→</span>
                         <span>{t(`${step.bulletKey ?? step.titleKey.replace(".title", "")}.bullets.${idx}`)}</span>
                       </li>
                     ))}
@@ -470,11 +474,6 @@ export function ProcessSection({ t }: SectionProps) {
               </div>
             </div>
           ))}
-        </div>
-        <div className="mt-16 text-center">
-          <p className="text-lg text-gray-700 dark:text-gray-300 mb-6">
-            {t("process.meta")}
-          </p>
         </div>
       </div>
     </section>
@@ -507,7 +506,7 @@ export function UseCasesSection({ t }: SectionProps) {
               <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                 {item.bullets.map((bullet, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#22A60D] mt-1">✓</span>
+                    <span className="text-[#1F8A0D] dark:text-[#7CFC00] mt-1">✓</span>
                     <span>{t(`${item.bulletKey ?? item.titleKey.replace(".title", "")}.bullets.${idx}`)}</span>
                   </li>
                 ))}
@@ -609,8 +608,8 @@ export function FaqSection({ t }: SectionProps) {
 
 export function PartnersSection({ t }: SectionProps) {
   return (
-    <section className="py-8 px-4 sm:px-6 lg:px-4 bg-[#22A60D] text-[#176b0a]">
-      <h2 className="text-3xl font-bold text-center mb-4 text-white">
+    <section className="py-8 px-4 sm:px-6 lg:px-4 bg-[#1F8A0D] dark:bg-[#0E1B12] text-[#145C07] dark:text-[#E6FFE0]">
+      <h2 className="text-3xl font-bold text-center mb-4 text-white dark:text-[#E6FFE0]">
         {t("partners.title")}
       </h2>
       <div className="relative">
@@ -716,7 +715,7 @@ const LocalVideoPreview: React.FC = () => {
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-gray-700 dark:text-gray-200">
               <div className="flex items-center gap-3 bg-white/70 dark:bg-gray-800/80 px-4 py-3 rounded-xl shadow-lg border border-white/50 dark:border-gray-700">
-                <div className="w-10 h-10 rounded-full bg-[#22A60D]/10 text-[#22A60D] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-[#1F8A0D]/10 text-[#1F8A0D] dark:text-[#7CFC00] flex items-center justify-center">
                   ▶
                 </div>
                 <div>
@@ -751,8 +750,8 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
             </p>
             <div className="space-y-4 mb-8">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-[#22A60D] rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 bg-[#1F8A0D] dark:bg-[#7CFC00] rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                  <svg className="w-5 h-5 text-white dark:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -766,7 +765,7 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
                       href="https://maps.app.goo.gl/oiHuuWtSsxdbdSTD6"
                       target="_blank"
                       rel="noreferrer"
-                      className="hover:text-[#22A60D] underline underline-offset-4"
+                      className="hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00] underline underline-offset-4"
                     >
                       {t("local.points.0.description")}
                     </Link>
@@ -784,7 +783,7 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
                     {t("local.points.1.title")}
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    <Link href="/contact" scroll={true} className="hover:text-[#22A60D] underline underline-offset-4">
+                    <Link href="/contact" scroll={true} className="hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00] underline underline-offset-4">
                       {t("local.points.1.description")}
                     </Link>
                   </p>
@@ -801,7 +800,7 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
                     {t("local.points.2.title")}
                   </h3>
                   <p className="text-gray-700 dark:text-gray-300">
-                    <Link href="/formation" className="hover:text-[#22A60D] underline underline-offset-4">
+                    <Link href="/formation" className="hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00] underline underline-offset-4">
                       {t("local.points.2.description")}
                     </Link>
                   </p>
@@ -826,7 +825,7 @@ export function CtaSection({ t, onWhatsApp }: HeroProps) {
   return (
     <section
       id="contact"
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#22A60D] via-[#46B1C9] to-[#623CEA] text-white relative overflow-hidden"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#1F8A0D] via-[#46B1C9] to-[#623CEA] dark:from-[#0E2417] dark:via-[#0F3A2E] dark:to-[#0B2A3A] text-white relative overflow-hidden"
     >
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-10 left-10 w-72 h-72 bg-white rounded-full blur-3xl animate-pulse"></div>
@@ -859,7 +858,7 @@ export function CtaSection({ t, onWhatsApp }: HeroProps) {
         <div className="flex flex-col md:flex-row gap-3 justify-center items-center px-4">
           <Button
             size="lg"
-            className="w-full md:w-auto bg-white text-[#22A60D] hover:bg-gray-100 px-6 py-4 md:px-10 md:py-6 text-base md:text-lg font-bold shadow-lg hover:shadow-lg transform hover:scale-105 transition-all"
+            className="w-full md:w-auto bg-white text-[#1F8A0D] hover:bg-gray-100 dark:bg-[#7CFC00] dark:text-[#0B1B17] dark:hover:bg-[#6BFF52] px-6 py-4 md:px-10 md:py-6 text-base md:text-lg font-bold shadow-lg hover:shadow-lg transform hover:scale-105 transition-all"
             onClick={onWhatsApp}
           >
             <div className="flex items-center gap-3">
@@ -872,7 +871,7 @@ export function CtaSection({ t, onWhatsApp }: HeroProps) {
           <Button
             size="lg"
             variant="outline"
-            className="w-full md:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#22A60D] px-6 py-4 md:px-10 md:py-6 text-base md:text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
+            className="w-full md:w-auto bg-transparent border-2 border-white text-white hover:bg-white hover:text-[#1F8A0D] dark:border-white/40 dark:text-white dark:hover:bg-white/10 dark:hover:text-white px-6 py-4 md:px-10 md:py-6 text-base md:text-lg font-bold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all"
             asChild
           >
             <Link href="/services">
@@ -929,7 +928,7 @@ export function SeoArticleSection({ t, onWhatsApp }: HeroProps) {
               "Comercio retail: Gestión inteligente de inventario, predicción de demanda y atención al cliente automatizada vía WhatsApp Business.",
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-3">
-                <span className="text-[#22A60D] font-bold mt-1">→</span>
+                <span className="text-[#1F8A0D] dark:text-[#7CFC00] font-bold mt-1">→</span>
                 <span>{t(`seoArticle.section2.list.${index}`)}</span>
               </li>
             ))}
@@ -955,7 +954,7 @@ export function SeoArticleSection({ t, onWhatsApp }: HeroProps) {
               "Soporte continuo: No desaparecemos después de la implementación",
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-3">
-                <span className="text-[#22A60D] font-bold mt-1">✓</span>
+                <span className="text-[#1F8A0D] dark:text-[#7CFC00] font-bold mt-1">✓</span>
                 <span>{t(`seoArticle.section4.list.${index}`)}</span>
               </li>
             ))}
