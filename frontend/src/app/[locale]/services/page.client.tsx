@@ -317,7 +317,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
               {/* Services Section */}
               {separated.services.length > 0 && (
                 <div>
-                  <h2 className="text-3xl font-bold mb-2 text-[#1F8A0D] dark:text-[#7CFC00] dark:text-[#2BCB5C]">
+                  <h2 className="text-3xl font-bold mb-2 text-[#1F8A0D] dark:text-[#2BCB5C]">
                     {t("servicesSectionTitle")}
                   </h2>
                   <ServiceAppleCarousel
