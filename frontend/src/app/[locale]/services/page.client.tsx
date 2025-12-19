@@ -14,14 +14,42 @@ import {
   Mail,
 } from "lucide-react";
 import { Dropdown } from "@/components/ui/dropdown";
-import { SeoArticleSection } from "@/components/home/home-sections";
-import { ServiceAppleCarousel } from "@/components/services/service-apple-carousel";
-import { ServiceAppleDetailsModal } from "@/components/services/service-apple-details-modal";
 import { usePathname, useRouter } from "next/navigation";
 import { getApiEndpoint } from "@/lib/api-config";
 
 // Dynamic imports for components that might not be immediately needed
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
+const ServiceAppleCarousel = dynamic(
+  () =>
+    import("@/components/services/service-apple-carousel").then(
+      (mod) => mod.ServiceAppleCarousel,
+    ),
+  {
+    loading: () => (
+      <div className="h-72 md:h-80 rounded-2xl bg-gray-200/80 dark:bg-gray-800/80 animate-pulse" />
+    ),
+  },
+);
+const ServiceAppleDetailsModal = dynamic(
+  () =>
+    import("@/components/services/service-apple-details-modal").then(
+      (mod) => mod.ServiceAppleDetailsModal,
+    ),  { ssr: false, loading: () => null },
+);
+const SeoArticleSectionLazy = dynamic(
+  () => import("@/components/home/home-sections").then((mod) => mod.SeoArticleSection),
+  {
+    loading: () => (
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#23272F]">
+        <div className="max-w-4xl mx-auto space-y-4">
+          <div className="h-10 w-2/3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+          <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+          <div className="h-4 w-5/6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+        </div>
+      </section>
+    ),
+  },
+);
 
 const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) => {
   const t = useTranslations("services");
@@ -187,8 +215,15 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <div className="flex items-center justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00]"></div>
+        <div className="px-4 sm:px-6 lg:px-8 py-10">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="h-56 rounded-3xl bg-gray-200/80 dark:bg-gray-800/80 animate-pulse" />
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} className="h-64 rounded-2xl bg-gray-200/80 dark:bg-gray-800/80 animate-pulse" />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -326,7 +361,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
       </section>
 
       {/* SEO Article Section */}
-      <SeoArticleSection t={t_home} onWhatsApp={handleWhatsAppChat} />
+      <SeoArticleSectionLazy t={t_home} onWhatsApp={handleWhatsAppChat} />
 
       {/* Footer */}
       <Footer />

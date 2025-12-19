@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import ErrorCard from "@/components/ui/error-card";
-import Link from "next/link";
 import { Card, CardHeader } from "@/components/ui/card";
 import { ServiceAppleCarousel } from "@/components/services/service-apple-carousel";
 import React from "react";
