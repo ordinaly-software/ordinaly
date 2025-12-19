@@ -43,7 +43,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 
   return (
     <Card
-      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? `hover:border-[#22A60D] hover:shadow-2xl hover:shadow-[#22A60D]/10 transform hover:-translate-y-2${inProgress ? ' ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[1.025] z-10' : ''}` : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto${onViewDetails ? ' cursor-pointer' : ''}`}
+      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? `hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:shadow-2xl hover:shadow-[#1F8A0D]/10 transform hover:-translate-y-2${inProgress ? ' ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[1.025] z-10' : ''}` : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto${onViewDetails ? ' cursor-pointer' : ''}`}
       style={variant === "upcoming" ? { minHeight: "520px", ...(inProgress ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 32px 0 #FFB80044' } : {}) } : {}}
       onClick={onViewDetails ? () => onViewDetails() : undefined}
       role={onViewDetails ? 'button' : undefined}
@@ -87,7 +87,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               {/* Enrollment Status Badge */}
               {enrolled && (
                 <div className="absolute top-4 right-4 z-10">
-                  <div className="bg-[#22A60D] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                  <div className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                     <UserCheck className="w-3 h-3" />
                     {t("enrolled")}
                   </div>
@@ -105,7 +105,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 
         <CardContent className={variant === "upcoming" ? "p-8" : "p-6"}>
           {/* Course Title */}
-          <h3 className={`font-bold text-gray-900 dark:text-white mb-3 break-words whitespace-pre-line ${variant === "upcoming" ? "text-2xl group-hover:text-[#22A60D] transition-colors duration-300" : "text-xl"}`}>
+          <h3 className={`font-bold text-gray-900 dark:text-white mb-3 break-words whitespace-pre-line ${variant === "upcoming" ? "text-2xl group-hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition-colors duration-300" : "text-xl"}`}>
             {course.title}
           </h3>
 
@@ -119,7 +119,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
           {/* Course Meta Information */}
           <div className={`mb-8 ${variant === "upcoming" ? "space-y-3" : "space-y-2 mb-6"}`}>
             <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-400 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
-              <Calendar className="w-5 h-5 text-[#22A60D]" />
+              <Calendar className="w-5 h-5 text-[#1F8A0D] dark:text-[#7CFC00]" />
               <span>
                 {course.start_date && course.start_date !== "0000-00-00" 
                   ? new Date(course.start_date).toLocaleDateString()
@@ -127,15 +127,15 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               </span>
             </div>
             <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-400 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
-              <MapPin className="w-5 h-5 text-[#22A60D]" />
+              <MapPin className="w-5 h-5 text-[#1F8A0D] dark:text-[#7CFC00]" />
                     {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                       /online|virtual/i.test(course.location)
-                        ? <span className="underline cursor-default text-[#22A60D]">{course.location}</span>
+                        ? <span className="underline cursor-default text-[#1F8A0D] dark:text-[#7CFC00]">{course.location}</span>
                         : <a
                             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="underline hover:text-[#22A60D] transition"
+                            className="underline hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00] transition"
                             title={course.location}
                           >
                             {course.location}
@@ -145,7 +145,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                     )}
             </div>
             <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-400 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
-              <Users className="w-5 h-5 text-[#22A60D]" />
+              <Users className="w-5 h-5 text-[#1F8A0D] dark:text-[#7CFC00]" />
               <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
             </div>
           </div>
@@ -167,7 +167,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               ) : (
                 <Button
                   onClick={(e) => { e.stopPropagation(); if (onEnroll) onEnroll(); }}
-                  className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                  className="w-full bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] to-[#166307] hover:from-[#166307] hover:to-[#1A740B] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
                   disabled={disableEnroll || isIncompleteSchedule}
                   title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
                 >
@@ -179,7 +179,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             <Button
               variant={variant === "upcoming" ? "outline" : "outline"}
               onClick={(e) => { e.stopPropagation(); if (onViewDetails) onViewDetails(); }}
-              className={`w-full ${variant === "upcoming" ? "border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white h-14 text-lg" : "border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 h-12"} transition-all duration-300`}
+              className={`w-full ${variant === "upcoming" ? "border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-[#7CFC00] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00] dark:bg-[#7CFC00] hover:text-white h-14 text-lg" : "border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 h-12"} transition-all duration-300`}
             >
               {t("viewDetails")}
               <ArrowRight className="w-5 h-5 ml-2" />
@@ -188,7 +188,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
         </CardContent>
       </div>
       {/* Hover Effect Background */}
-      {variant === "upcoming" && <div className="absolute inset-0 bg-gradient-to-br from-[#22C55E]/5 to-[#9333EA]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>}
+      {variant === "upcoming" && <div className="absolute inset-0 bg-gradient-to-br from-[#2BCB5C]/5 to-[#9333EA]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>}
     </Card>
   );
 };

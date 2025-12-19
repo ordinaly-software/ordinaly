@@ -45,7 +45,7 @@ export const ServiceAppleDetailsModal = ({
   if (!service) return null;
 
   const category = service.type === 'SERVICE' ? t("servicesSectionTitle") : t("productsSectionTitle");
-  const accent = service.color_hex || service.color || "#22A60D";
+  const accent = service.color_hex || service.color || "#1F8A0D";
   const accentHex = accent.startsWith("#") ? accent : `#${accent}`;
 
   return (

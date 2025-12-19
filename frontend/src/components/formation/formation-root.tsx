@@ -386,7 +386,7 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
         <div className="flex items-center justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D]"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1F8A0D]"></div>
         </div>
       </div>
     );
@@ -416,7 +416,7 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
                 placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
               />
             </div>
 
@@ -524,7 +524,7 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
               <Button
                 onClick={() => setShowPastCourses(!showPastCourses)}
                 variant="outline"
-                className="border-[#22A60D] text-[#22A60D] hover:bg-[#22A60D] hover:text-white transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
+                className="border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00] hover:text-white transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
               >
                 {showPastCourses ? (
                   <>
@@ -561,7 +561,7 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
         </section>
       )}
 
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#22A60D] to-[#22A010] text-white">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] to-[#166307] text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             {t("cta.title")}
@@ -571,7 +571,7 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              className="bg-white text-[#22A60D] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
+              className="bg-white text-[#1F8A0D] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
               onClick={() => {
                 const subject = encodeURIComponent(t("cta.emailSubject"));
                 const body = encodeURIComponent(t("cta.emailBody"));

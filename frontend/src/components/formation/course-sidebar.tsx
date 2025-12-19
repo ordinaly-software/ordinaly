@@ -64,12 +64,12 @@ const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnd
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('location')}</p>
               {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                 /online|virtual/i.test(course.location)
-                  ? <span className="underline cursor-default text-[#22A60D] text-sm">{course.location}</span>
+                  ? <span className="underline cursor-default text-[#1F8A0D] dark:text-[#7CFC00] text-sm">{course.location}</span>
                   : <a
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#22A60D]"
+                      className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#1F8A0D] dark:hover:text-[#7CFC00]"
                       title={course.location}
                     >
                       {course.location}
@@ -145,7 +145,7 @@ const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnd
             {shouldShowAuth ? (
               <Button onClick={onAuthRequired} className="w-full" style={{ backgroundColor: '#217093', color: '#fff' }}>{t('signInToEnroll')}</Button>
             ) : canEnroll ? (
-              <Button onClick={onEnroll} className="w-full bg-gradient-to-r from-[#22A60D] to-[#22A010] hover:from-[#22A010] hover:to-[#1E8B0C] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"><GraduationCap className="w-5 h-5 mr-2" />{t('enrollNow')}</Button>
+              <Button onClick={onEnroll} className="w-full bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] to-[#166307] hover:from-[#166307] hover:to-[#1A740B] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"><GraduationCap className="w-5 h-5 mr-2" />{t('enrollNow')}</Button>
             ) : null}
           </div>
         )}

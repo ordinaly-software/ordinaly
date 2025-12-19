@@ -111,7 +111,7 @@ const AdminUsersTab = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#22A60D]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00]"></div>
       </div>
     );
   }
@@ -140,7 +140,7 @@ const AdminUsersTab = () => {
             onClick={handleSendMail}
             disabled={selectedUsers.length === 0}
             size="sm"
-            className="bg-[#22A60D] hover:bg-[#22A010] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#166307] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             <Send className="h-4 w-4" />
             <span className="xs:inline"> {t('sendMail')}</span>
@@ -154,7 +154,7 @@ const AdminUsersTab = () => {
           type="checkbox"
           checked={paginatedUsers.length > 0 && paginatedUsers.every((u) => selectedUsers.includes(u.id))}
           onChange={handleSelectAll}
-          className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
+          className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D]"
         />
         <span className="text-sm text-gray-600 dark:text-gray-400">
           {t('selectAll')} ({filteredAndSortedUsers.length} {t('users')})
@@ -197,7 +197,7 @@ const AdminUsersTab = () => {
                     type="checkbox"
                     checked={selectedUsers.includes(user.id)}
                     onChange={() => handleSelectUser(user.id)}
-                    className="rounded border-gray-300 text-[#22A60D] focus:ring-[#22A60D]"
+                    className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D]"
                   />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.id}</td>

@@ -27,8 +27,8 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
         transition-all duration-300
         w-full max-w-4xl mx-auto
         flex flex-col md:flex-row
-        hover:border-[#22A60D]
-        hover:shadow-2xl hover:shadow-[#22A60D]/10
+        hover:border-[#1F8A0D] dark:hover:border-[#7CFC00]
+        hover:shadow-2xl hover:shadow-[#1F8A0D]/10
         hover:-translate-y-2
       "
     >
@@ -66,10 +66,10 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
                     px-2 py-0.5
                     md:px-3 md:py-1
                     rounded-full
-                    bg-[#22C55E]/10 text-[#22C55E]
+                    bg-[#2BCB5C]/10 text-[#2BCB5C]
                     text-xs md:text-sm
                     font-medium
-                    hover:bg-[#22C55E]/20 transition
+                    hover:bg-[#2BCB5C]/20 transition
                   "
                 >
                   {cat.title}
@@ -82,10 +82,10 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
                     px-2 py-0.5
                     md:px-3 md:py-1
                     rounded-full
-                    bg-[#22C55E]/10 text-[#22C55E]
+                    bg-[#2BCB5C]/10 text-[#2BCB5C]
                     text-xs md:text-sm
                     font-medium
-                    hover:bg-[#22C55E]/20 transition
+                    hover:bg-[#2BCB5C]/20 transition
                   "
                 >
                   {cat.title}
@@ -102,7 +102,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
             text-lg md:text-2xl
             leading-snug
             mb-1
-            md:group-hover:text-[#22A60D]
+            md:group-hover:text-[#1F8A0D] dark:hover:text-[#7CFC00]
             transition-colors
             line-clamp-2
           "

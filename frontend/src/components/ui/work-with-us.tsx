@@ -62,7 +62,7 @@ export function WorkWithUsSection({
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button className="bg-[#22A60D] hover:bg-[#1c8d0c] text-white gap-2" asChild>
+          <Button className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white gap-2" asChild>
             <a href={mailHref} target="_blank" rel="noreferrer">
               <Send className="h-4 w-4" />
               {t("cta.primary")}

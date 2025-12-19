@@ -43,13 +43,13 @@ export const portableTextComponents = {
     h5: (props: PortableTextComponentProps<PortableTextBlock>) => <h5 className="text-lg font-semibold mt-2 mb-2 text-gray-900 dark:text-white">{props.children}</h5>,
     h6: (props: PortableTextComponentProps<PortableTextBlock>) => <h6 className="text-base font-semibold mt-2 mb-2 text-gray-900 dark:text-white">{props.children}</h6>,
     blockquote: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <blockquote className="border-l-4 border-[#22C55E] pl-4 italic text-gray-700 dark:text-gray-300 my-6">{props.children}</blockquote>
+      <blockquote className="border-l-4 border-[#2BCB5C] pl-4 italic text-gray-700 dark:text-gray-300 my-6">{props.children}</blockquote>
     ),
     normal: (props: PortableTextComponentProps<PortableTextBlock>) => <p className="mb-4 text-base text-gray-800 dark:text-gray-200">{props.children}</p>,
   },
   marks: {
     link: ({ children, value }: { children: ReactNode; value?: { href?: string } }) => (
-      <Link href={value?.href || '#'} className="underline text-[#22C55E] hover:text-[#15803d]">{children}</Link>
+      <Link href={value?.href || '#'} className="underline text-[#2BCB5C] hover:text-[#15803d]">{children}</Link>
     ),
   },
 };

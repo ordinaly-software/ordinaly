@@ -8,7 +8,7 @@ export const homeBenefits = [
     defaultTitle: "Ahorro de Tiempo Real",
     descriptionKey: "benefits.items.0.description",
     defaultDescription: "Automatiza tareas repetitivas y ahorra hasta 20 horas semanales con nuestros agentes de IA",
-    iconBg: "bg-[#22A60D]",
+    iconBg: "bg-[#1F8A0D] dark:bg-[#7CFC00]",
     iconPath: "M13 10V3L4 14h7v7l9-11h-7z",
   },
   {
@@ -70,7 +70,7 @@ export const processSteps = [
     defaultTitle: "Análisis Inicial",
     descriptionKey: "process.steps.0.description",
     defaultDescription: "Reunión gratuita (presencial en Sevilla o videollamada) donde analizamos tus procesos actuales.",
-    color: "#22A60D",
+    color: "#1F8A0D",
     badge: "1",
     bulletKey: "process.steps.0",
     bullets: [

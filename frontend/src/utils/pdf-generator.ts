@@ -44,7 +44,7 @@ export async function generateCoursesCatalogPDF(
   let pageNumber = 1;
 
   // Colors
-  const primaryColor = '#22A60D';
+  const primaryColor = '#1F8A0D';
   const secondaryColor = '#666666';
 
   // Helper function to add new page
@@ -158,7 +158,7 @@ export async function generateCoursesCatalogPDF(
       // Company name next to logo (offset by logoSize + gap)
       const textOffsetX = margin + logoSize + 10;
       pdf.setFontSize(28);
-      pdf.setTextColor('#22A60D');
+      pdf.setTextColor('#1F8A0D');
       pdf.setFont('helvetica', 'bold');
       pdf.text('ORDINALY', textOffsetX, currentY + 12);
     
@@ -168,7 +168,7 @@ export async function generateCoursesCatalogPDF(
       const slogan = t('slogan');
       pdf.text(slogan, textOffsetX, currentY + 22);
     
-      pdf.setDrawColor('#22A60D');
+      pdf.setDrawColor('#1F8A0D');
       pdf.setLineWidth(0.8);
       pdf.line(margin, currentY + 30, margin + 140, currentY + 30);
     
@@ -176,7 +176,7 @@ export async function generateCoursesCatalogPDF(
     } catch {
       // Fallback to text-only logo
       pdf.setFontSize(28);
-      pdf.setTextColor('#22A60D');
+      pdf.setTextColor('#1F8A0D');
       pdf.setFont('helvetica', 'bold');
       pdf.text('ORDINALY', margin, currentY + 12);
       
@@ -185,7 +185,7 @@ export async function generateCoursesCatalogPDF(
       pdf.setFont('helvetica', 'normal');
       pdf.text('Software & Formation Solutions', margin, currentY + 25);
       
-      pdf.setDrawColor('#22A60D');
+      pdf.setDrawColor('#1F8A0D');
       pdf.setLineWidth(0.8);
       pdf.line(margin, currentY + 30, margin + 120, currentY + 30);
       
@@ -246,7 +246,7 @@ export async function generateCoursesCatalogPDF(
   // Bonification disclaimer block (styled)
   const bonifLines = wrapText(bonificationDisclaimer, contentWidth, 11);
   pdf.setFontSize(11);
-  pdf.setTextColor('#22A60D');
+  pdf.setTextColor('#1F8A0D');
   pdf.setFont('helvetica', 'bold');
   pdf.text(t('bonificationTitle'), margin, currentY);
   currentY += 8;

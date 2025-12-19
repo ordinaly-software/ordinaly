@@ -146,11 +146,11 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
             {/* Title and subtitle removed from body, as they are shown on the image */}
             {/* Key Metrics - stack vertically on mobile */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              <div className="bg-[#22A60D]/10 rounded-lg p-4 flex-1 min-w-0">
+              <div className="bg-[#1F8A0D]/10 rounded-lg p-4 flex-1 min-w-0">
                 <div className="flex flex-col items-center">
                   <div className="flex items-center justify-between w-full mb-2">
-                    <Users className="h-6 w-6 text-[#22A60D] flex-shrink-0" />
-                    <p className="text-lg font-bold text-[#22A60D]">
+                    <Users className="h-6 w-6 text-[#1F8A0D] dark:text-[#7CFC00] flex-shrink-0" />
+                    <p className="text-lg font-bold text-[#1F8A0D] dark:text-[#7CFC00]">
                       {course.enrolled_count || 0}
                     </p>
                   </div>
@@ -303,7 +303,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                   ? 'bg-red-500' 
                   : (course.enrolled_count || 0) / course.max_attendants >= 0.8
                     ? 'bg-orange-500' 
-                    : 'bg-[#22A60D]'
+                    : 'bg-[#1F8A0D]'
               }`}
               style={{ 
                 width: `${Math.min(((course.enrolled_count || 0) / course.max_attendants * 100), 100)}%` 

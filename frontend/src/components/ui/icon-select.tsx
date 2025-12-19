@@ -97,7 +97,7 @@ export const IconSelect = ({ value, onChange, placeholder = "Select an icon", cl
                     }}
                     className={cn(
                       "flex flex-col items-center justify-center p-3 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors",
-                      selectedIcon === iconName && "bg-[#22A60D]/10 border border-[#22A60D]"
+                      selectedIcon === iconName && "bg-[#1F8A0D]/10 border border-[#1F8A0D] dark:border-[#7CFC00]"
                     )}
                     title={iconName}
                   >

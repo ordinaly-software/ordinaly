@@ -16,9 +16,9 @@ interface ServiceAppleCarouselProps {
 }
 
 const normalizeHex = (color?: string) => {
-  if (!color) return "22A60D";
+  if (!color) return "1F8A0D";
   const cleaned = color.replace("#", "");
-  return cleaned.length === 6 ? cleaned : "22A60D";
+  return cleaned.length === 6 ? cleaned : "1F8A0D";
 };
 
 const buildGradient = (accent: string) => {
@@ -42,7 +42,7 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
   const cards = useMemo(
     () =>
       services.map((service, index) => {
-        const accent = service.color_hex || service.color || "#22A60D";
+        const accent = service.color_hex || service.color || "#1F8A0D";
         const background = service.image || FALLBACK_CARD_IMAGE || buildGradient(accent);
         const category = service.type === 'SERVICE' ? t("servicesSectionTitle") : t("productsSectionTitle");
 

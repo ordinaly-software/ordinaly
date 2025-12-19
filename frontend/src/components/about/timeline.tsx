@@ -61,7 +61,7 @@ export const Timeline = ({ data, eyebrow, title, description, className }: Timel
       {(eyebrow || title || description) && (
         <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10">
           {eyebrow ? (
-            <p className="text-xs uppercase tracking-[0.18em] text-[#22A60D] font-semibold mb-3">
+            <p className="text-xs uppercase tracking-[0.18em] text-[#1F8A0D] dark:text-[#7CFC00] font-semibold mb-3">
               {eyebrow}
             </p>
           ) : null}
@@ -131,7 +131,7 @@ export const Timeline = ({ data, eyebrow, title, description, className }: Timel
               height: heightTransform,
               opacity: opacityTransform,
             }}
-            className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-b from-[#22A60D] via-[#3FB89D] to-[#623CEA] from-[0%] via-[35%] to-[90%] rounded-full shadow-[0_0_10px_rgba(34,166,13,0.35)]"
+            className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-b from-[#1F8A0D] dark:from-[#7CFC00] via-[#3FB89D] to-[#623CEA] from-[0%] via-[35%] to-[90%] rounded-full shadow-[0_0_10px_rgba(31,138,13,0.35)]"
           />
         </div>
       </div>

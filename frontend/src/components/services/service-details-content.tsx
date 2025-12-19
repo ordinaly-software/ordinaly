@@ -84,7 +84,7 @@ export function ServiceDetailsContent({
   showContact = true,
   showViewDetails = true,
 }: ServiceDetailsContentProps) {
-  const accent = service.color_hex || service.color || "#22A60D";
+  const accent = service.color_hex || service.color || "#1F8A0D";
   const accentHex = accent.startsWith("#") ? accent : `#${accent}`;
   const accentSoft = `${accentHex}1a`;
   const hero = service.image || FALLBACK_CARD_IMAGE;
@@ -194,7 +194,7 @@ export function ServiceDetailsContent({
               size="lg"
               className="w-full sm:flex-1 text-white hover:opacity-90 transition-opacity shadow-lg"
               style={{
-                background: 'linear-gradient(90deg, #22A60D, #53c651ff, #9978fdff)',
+                background: 'linear-gradient(90deg, #1F8A0D, #4BBE59FF, #9978fdff)',
               }}
               onClick={() => onContact(service)}
             >

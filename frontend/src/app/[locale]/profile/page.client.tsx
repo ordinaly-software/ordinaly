@@ -391,7 +391,7 @@ export default function ProfilePage() {
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#22A60D] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00] mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
           </div>
         </div>
@@ -416,7 +416,7 @@ export default function ProfilePage() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#22A60D] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
               {t("title")}
             </h1>
             <p className="text-xl text-gray-700 dark:text-gray-300">
@@ -451,7 +451,7 @@ export default function ProfilePage() {
                             type="text"
                             value={firstName}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('firstName', e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                             placeholder={t("form.firstNamePlaceholder")}
                             required
                           />
@@ -470,7 +470,7 @@ export default function ProfilePage() {
                             type="text"
                             value={lastName}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('lastName', e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                             placeholder={t("form.lastNamePlaceholder")}
                             required
                           />
@@ -491,7 +491,7 @@ export default function ProfilePage() {
                           type="text"
                           value={username}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('username', e.target.value)}
-                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                           placeholder={t("form.usernamePlaceholder")}
                           required
                         />
@@ -511,7 +511,7 @@ export default function ProfilePage() {
                           type="email"
                           value={email}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('email', e.target.value)}
-                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                           placeholder={t("form.emailPlaceholder")}
                           required
                         />
@@ -531,7 +531,7 @@ export default function ProfilePage() {
                           type="text"
                           value={company}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('company', e.target.value)}
-                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                           placeholder={t("form.companyPlaceholder")}
                           required
                         />
@@ -552,7 +552,7 @@ export default function ProfilePage() {
                             type="text"
                             value={region}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('region', e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                             placeholder={t("form.regionPlaceholder")}
                           />
                         </div>
@@ -569,7 +569,7 @@ export default function ProfilePage() {
                             type="text"
                             value={city}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFieldChange('city', e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#22A60D] dark:focus:border-[#22A60D]"
+                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
                             placeholder={t("form.cityPlaceholder")}
                           />
                         </div>
@@ -583,7 +583,7 @@ export default function ProfilePage() {
                         <Button
                           onClick={handleSaveChanges}
                           disabled={isSaving}
-                          className="flex-1 bg-[#22A60D] hover:bg-[#22A010] text-white"
+                          className="flex-1 bg-[#1F8A0D] hover:bg-[#166307] text-white"
                         >
                           {isSaving ? t("form.saveChangesLoading") : t("form.saveChanges")}
                         </Button>

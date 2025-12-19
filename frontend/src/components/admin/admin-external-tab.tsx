@@ -18,7 +18,7 @@ const AdminExternalTab: React.FC<AdminExternalTabProps> = ({
   buttonLabel,
   href,
   warning,
-  accentColor = "#22A60D",
+  accentColor = "#1F8A0D",
   backgroundImage = "/static/backgrounds/blog_background.webp",
 }) => {
   const handleOpen = () => {

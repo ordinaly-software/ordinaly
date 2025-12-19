@@ -613,7 +613,7 @@ const Navbar = () => {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: "auto" }}
                             exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.25 }}
+                            transition={{ duration: 0.15 }}
                             className="space-y-2 px-3 pb-3"
                           >
                             {featuredServices.length === 0 ? (
@@ -622,10 +622,11 @@ const Navbar = () => {
                                 onClick={() => setIsMenuOpen(false)}
                                 className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-green hover:bg-gray-100 dark:hover:bg-gray-800/70"
                               >
-                                {t("navigation.services")}
+                                {t("navigation.serviceSubmenu")}
                               </Link>
                             ) : (
                               featuredServices.map((service) => (
+                                <>
                                 <Link
                                   key={service.id}
                                   href={`/services/${service.slug ?? service.id}`}
@@ -634,15 +635,16 @@ const Navbar = () => {
                                 >
                                   {service.title}
                                 </Link>
+                                <Link
+                                  href="/services"
+                                  onClick={() => setIsMenuOpen(false)}
+                                  className="block rounded-md px-2 py-2 text-sm font-semibold text-green hover:text-green-600"
+                                >
+                                  {t("navigation.serviceSubmenu")}
+                                </Link>
+                                </>
                               ))
                             )}
-                            <Link
-                              href="/services"
-                              onClick={() => setIsMenuOpen(false)}
-                              className="block rounded-md px-2 py-2 text-sm font-semibold text-green hover:text-green-600"
-                            >
-                              {t("navigation.serviceSubmenu")}
-                            </Link>
                           </motion.div>
                         )}
                       </AnimatePresence>

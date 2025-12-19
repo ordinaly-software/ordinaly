@@ -132,14 +132,14 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div className="space-y-2">
                   <div className="flex items-center">
-                    <CalendarDays className="w-4 h-4 mr-2 text-[#22A60D]" />
+                    <CalendarDays className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
                     <span className="font-medium text-gray-900 dark:text-gray-200">{t("date")}:</span>
                     <span className="ml-2 text-gray-600 dark:text-gray-400">
                       {new Date(courseToCancel.start_date).toLocaleDateString()}
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2 text-[#22A60D]" />
+                    <MapPin className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
                     <span className="font-medium text-gray-900 dark:text-gray-200">{t("location")}:</span>
                     <span className="ml-2 text-gray-600 dark:text-gray-400">
                       {courseToCancel.location}
@@ -148,7 +148,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center">
-                    <Euro className="w-4 h-4 mr-2 text-[#22A60D]" />
+                    <Euro className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
                     <span className="font-medium text-gray-900 dark:text-gray-200">{t("price")}:</span>
                     <span className="ml-2 text-gray-600 dark:text-gray-400">
                       {courseToCancel.price ? `€${courseToCancel.price}` : t("free")}
