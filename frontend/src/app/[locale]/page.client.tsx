@@ -141,7 +141,6 @@ export default function HomePage({
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
       <HomeHero t={t} onWhatsApp={handleWhatsAppChat} />
-      <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
       <ServicesSection
         t={t}
         onWhatsApp={handleWhatsAppChat}
@@ -159,22 +158,23 @@ export default function HomePage({
         }
       />
       <div style={deferredSectionStyle}>
-        <BenefitsSection t={t} />
-      </div>
-      <div style={deferredSectionStyle}>
-        <WorkWithUsSection />
+        <LocalSeoSection t={t} />
       </div>
       <div style={deferredSectionStyle}>
         <ProcessSection t={t} />
       </div>
       <div style={deferredSectionStyle}>
+        <BenefitsSection t={t} />
+      </div>
+      <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
+      <div style={deferredSectionStyle}>
         <UseCasesSection t={t} />
       </div>
       <div style={deferredSectionStyle}>
-        <TestimonialsSection t={t} />
+        <WorkWithUsSection />
       </div>
       <div style={deferredSectionStyle}>
-        <LocalSeoSection t={t} />
+        <TestimonialsSection t={t} />
       </div>
       <div style={deferredSectionStyle}>
         <PartnersSection t={t} />

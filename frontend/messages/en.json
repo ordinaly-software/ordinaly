@@ -70,7 +70,6 @@
     "services": {
       "title": "AI and Automation Services for Companies in Seville",
       "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs.",
-      "cta": "Schedule Your Free Analysis",
       "extra": {
         "0": {
           "title": "Fast Implementation",
@@ -156,17 +155,18 @@
       "items": {
         "0": {
           "title": "Property Managers",
-          "bullets": [
-            "CRM system for property tracking"
-          ]
+            "bullets": [
+            "Automated reports sent to property owners",
+            "Automated email management",
+            "Billing workflows"
+            ]
         },
         "1": {
           "title": "Real Estate Agencies",
           "bullets": [
             "AI agent for customer inquiries",
-            "Automation of listings on property portals",
-            "Visit and follow-up workflow",
-            "Automatic generation of descriptions"
+            "Automation of listings on social media",
+            "Visit and follow-up workflow"
           ]
         },
         "2": {
@@ -174,8 +174,7 @@
           "bullets": [
             "Social media automation",
             "Content generation with AI",
-            "Automated campaign analytics",
-            "Chatbots for lead capture"
+            "Automated campaign analytics"
           ]
         },
         "3": {
@@ -183,23 +182,20 @@
           "bullets": [
             "Intelligent inventory management",
             "Automated customer support",
-            "Demand forecasting with AI",
-            "Integration with eCommerce"
+            "Demand forecasting with AI"
           ]
         },
         "4": {
           "title": "Consulting and Services",
-          "bullets": [
-            "Custom CRM with Odoo",
-            "Proposal automation",
-            "Project management with AI",
-            "Billing workflows"
-          ]
+            "bullets": [
+            "Automated email management",
+            "Billing workflows",
+            "Custom CRM with VeriFactu"
+            ]
         },
         "5": {
           "title": "Construction and Engineering",
           "bullets": [
-            "Automated site control",
             "Vendor and budget management",
             "Intelligent documentation with AI",
             "Automated planning and schedules"
@@ -208,14 +204,13 @@
       }
     },
     "testimonials": {
-      "title": "Lo Que Dicen Nuestros Clientes en Sevilla",
-      "subtitle": "Casos reales de empresas que han transformado su operativa con nuestros agentes de IA",
-      "googleSummary": "{rating} en Google · {count} reseñas",
-      "googleLink": "Ver todas en Google",
-      "googleWrite": "Dejar una reseña",
-      "googleSource": "Reseña de Google",
-      "googleLoading": "Cargando reseñas de Google...",
-      "googleUnavailable": "Las reseñas de Google no están disponibles ahora mismo.",
+      "title": "What Our Clients Say in Seville",
+      "googleSummary": "{rating} on Google · {count} reviews",
+      "googleLink": "See all on Google",
+      "googleWrite": "Write a review",
+      "googleSource": "Google review",
+      "googleLoading": "Loading Google reviews...",
+      "googleUnavailable": "Google reviews are not available right now.",
       "items": {
         "0": {
           "name": "Ana García",
@@ -1898,8 +1893,8 @@
       "body": "Make intelligent workflows simple, transparent, and measurable for companies of any size."
     },
     "stats": {
-      "teamLabel": "Experts across AI, automation & CX",
-      "teamValue": "Product, tech, ops, growth"
+      "teamLabel": "More than 10 companies transformed",
+      "teamValue": "+500 hours saved for Andalusian companies"
     },
     "story": {
       "eyebrow": "Our journey",

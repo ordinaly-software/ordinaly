@@ -36,7 +36,7 @@ export async function generateMetadata({
   const fallbackDescription = isEs
     ? defaultDescription
     : "Professional training in AI, automation, and low-code tools to help teams scale faster.";
-  const title = course?.title ? `${course.title} | Ordinaly` : fallbackTitle;
+  const title = course?.title ? `${course.title} | Ordinaly Software` : fallbackTitle;
   const description = course?.subtitle || course?.description || fallbackDescription;
   const rawImage = course?.image;
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");

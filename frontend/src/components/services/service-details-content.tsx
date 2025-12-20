@@ -7,6 +7,7 @@ import { renderIcon } from "@/components/ui/icon-select";
 import type { Service } from "@/hooks/useServices";
 import Image from "next/image";
 import ShareServiceButtons from "@/components/services/share-service-buttons";
+import { cn } from "@/lib/utils";
 
 export type ServiceDetailsLabels = {
   featured: string;
@@ -33,6 +34,7 @@ export interface ServiceDetailsContentProps {
   showContact?: boolean;
   showViewDetails?: boolean;
   showShareButtons?: boolean;
+  density?: "default" | "compact";
 }
 
 const FALLBACK_CARD_IMAGE = "/static/main_service_home_ilustration.webp";
@@ -86,6 +88,7 @@ export function ServiceDetailsContent({
   showContact = true,
   showViewDetails = true,
   showShareButtons = false,
+  density = "default",
 }: ServiceDetailsContentProps) {
   const accent = service.color_hex || service.color || "#1F8A0D";
   const accentHex = accent.startsWith("#") ? accent : `#${accent}`;
@@ -96,12 +99,18 @@ export function ServiceDetailsContent({
   const youtubeId = useMemo(() => extractYoutubeId(service.youtube_video_url), [service.youtube_video_url]);
   const youtubeEmbed = youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : null;
   const youtubeThumbnail = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
+  const isCompact = density === "compact";
 
   const [playVideo, setPlayVideo] = useState(false);
   useEffect(() => setPlayVideo(false), [service.id]);
 
   return (
-    <div className="space-y-6 text-neutral-800 dark:text-neutral-100">
+    <div
+      className={cn(
+        "text-neutral-800 dark:text-neutral-100",
+        isCompact ? "space-y-4" : "space-y-6",
+      )}
+    >
       <div className="flex flex-wrap items-center gap-3">
         <div
           className="flex h-12 w-12 items-center justify-center rounded-2xl ring-1 ring-white/40 backdrop-blur"
@@ -135,7 +144,10 @@ export function ServiceDetailsContent({
         <Image
           src={hero}
           alt={service.title}
-          className="h-40 w-full object-cover md:h-56"
+          className={cn(
+            "w-full object-cover",
+            isCompact ? "h-36 md:h-48" : "h-40 md:h-56",
+          )}
           width={1200}
           height={560}
           loading="lazy"
@@ -155,7 +167,12 @@ export function ServiceDetailsContent({
         />
       )}
 
-      <div className="space-y-3 rounded-2xl bg-white/70 p-4 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-neutral-900/60 dark:ring-white/5">
+      <div
+        className={cn(
+          "rounded-2xl bg-white/70 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-neutral-900/60 dark:ring-white/5",
+          isCompact ? "space-y-2 p-3" : "space-y-3 p-4",
+        )}
+      >
         {service.html_description ? (
           <div
             className="prose prose-neutral max-w-none dark:prose-invert"
@@ -166,7 +183,7 @@ export function ServiceDetailsContent({
         )}
       </div>
 
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+      <div className={cn("grid grid-cols-1 md:grid-cols-2", isCompact ? "gap-2" : "gap-3")}>
         {service.requisites ? (
           <div className="md:row-span-2">
             <InfoTile
@@ -191,7 +208,12 @@ export function ServiceDetailsContent({
       </div>
 
       {showShareButtons && (
-        <div className="rounded-2xl bg-white/70 p-3 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-neutral-900/60 dark:ring-white/5">
+        <div
+          className={cn(
+            "rounded-2xl bg-white/70 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-neutral-900/60 dark:ring-white/5",
+            isCompact ? "p-2" : "p-3",
+          )}
+        >
           <ShareServiceButtons
             title={service.title}
             subtitle={service.subtitle}
@@ -202,7 +224,7 @@ export function ServiceDetailsContent({
       )}
 
       {(onSelect || onContact) && (
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className={cn("flex flex-col sm:flex-row", isCompact ? "gap-2" : "gap-3")}>
           {onContact && showContact && (
             <Button
               size="lg"

@@ -46,7 +46,7 @@
       "imageAlt": "Automatización empresarial e IA desde Sevilla para el mundo."
     },
     "benefits": {
-      "title": "¿Por qué Elegir Ordinaly para la Automatización de tu Empresa en Sevilla?",
+      "title": "¿Por qué Elegir Ordinaly para la Automatización de tu Empresa?",
       "subtitle": "Somos expertos locales en implementación de agentes de IA y optimización de procesos empresariales",
       "items": {
         "0": {
@@ -68,9 +68,8 @@
       }
     },
     "services": {
-      "title": "Servicios de Automatización e IA para Empresas en Sevilla",
+      "title": "Servicios de automatización con IA para empresas en Sevilla",
       "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos. Especialistas en automatización para inmobiliarias, administradores de fincas y PYMEs andaluzas.",
-      "cta": "Agenda tu Análisis Gratuito",
       "extra": {
         "0": {
           "title": "Implementación Rápida",
@@ -156,16 +155,17 @@
         "0": {
           "title": "Administradores de Fincas",
           "bullets": [
-            "Sistema CRM para seguimiento de propiedades"
+            "Envío automático de informes a propietarios",
+            "Gestión automática de correos",
+            "Workflows de facturación"
           ]
         },
         "1": {
           "title": "Inmobiliarias",
           "bullets": [
             "Agente de IA para consultas de clientes",
-            "Automatización de publicaciones en portales",
-            "Workflow de visitas y seguimiento",
-            "Generación automática de descripciones"
+            "Automatización de publicaciones en redes sociales",
+            "Workflow de visitas y seguimiento"
           ]
         },
         "2": {
@@ -173,32 +173,28 @@
           "bullets": [
             "Automatización de redes sociales",
             "Generación de contenido con IA",
-            "Análisis de campañas automatizado",
-            "Chatbots para captación de leads"
+            "Análisis de campañas automatizado"
           ]
         },
         "3": {
-          "title": "Comercio Retail",
+          "title": "Comercio local",
           "bullets": [
             "Gestión de inventario inteligente",
             "Atención al cliente automatizada",
-            "Predicción de demanda con IA",
-            "Integración con eCommerce"
+            "Predicción de demanda con IA"
           ]
         },
         "4": {
-          "title": "Consultoría y Servicios",
+          "title": "Consultoría y asesorías",
           "bullets": [
-            "CRM personalizado con Odoo",
-            "Automatización de propuestas",
-            "Gestión de proyectos con IA",
-            "Workflows de facturación"
+            "Gestión automática de correos",
+            "Workflows de facturación",
+            "CRM personalizado con VeriFactu"
           ]
         },
         "5": {
           "title": "Construcción e Ingeniería",
           "bullets": [
-            "Control de obras automatizado",
             "Gestión de proveedores y presupuestos",
             "Documentación inteligente con IA",
             "Planning y cronogramas automatizados"
@@ -208,7 +204,6 @@
     },
     "testimonials": {
       "title": "Lo Que Dicen Nuestros Clientes en Sevilla",
-      "subtitle": "Casos reales de empresas que han transformado su operativa con nuestros agentes de IA",
       "googleSummary": "{rating} en Google · {count} reseñas",
       "googleLink": "Ver todas en Google",
       "googleWrite": "Dejar una reseña",
@@ -322,7 +317,7 @@
         "body": "No solo implementamos tecnología: formamos a tu equipo para que sean autónomos. Nuestros cursos de inteligencia artificial en Sevilla son 100% prácticos y orientados a casos de uso reales. Desde introducción a ChatGPT hasta automatizaciones avanzadas con Make y Zapier, diseñamos la formación según las necesidades específicas de tu sector."
       },
       "section4": {
-        "title": "¿Por qué elegir Ordinaly para la automatización de tu empresa en Sevilla?",
+        "title": "¿Por qué elegir Ordinaly para la automatización de tu empresa?",
         "body": "Somos ingenieros de software especializados en IA con sede física en Sevilla. Esto nos diferencia de consultoras internacionales que aplican soluciones genéricas:",
         "list": {
           "0": "Conocimiento del mercado local: Entendemos las particularidades de las PYMEs andaluzas",
@@ -1897,8 +1892,8 @@
       "body": "Hacer que los flujos inteligentes sean simples, transparentes y medibles para cualquier empresa."
     },
     "stats": {
-      "teamLabel": "Expertos en IA, automatización y CX",
-      "teamValue": "Producto, tecnología, operaciones, crecimiento"
+      "teamLabel": "Más de 10 empresas transformadas",
+      "teamValue": "+500 horas ahorradas a empresas andaluzas"
     },
     "story": {
       "eyebrow": "Nuestra historia",

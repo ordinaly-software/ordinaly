@@ -13,7 +13,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/legal",
-    title: isEs ? "Legal, privacidad y cookies | Ordinaly" : "Legal, privacy, and cookies | Ordinaly",
+    title: isEs ? "Legal, privacidad y cookies | Ordinaly Software" : "Legal, privacy, and cookies | Ordinaly Software",
     description: isEs
       ? "Consulta términos de servicio, políticas de privacidad, cookies y licencias de Ordinaly."
       : "Review Ordinaly terms of service, privacy policy, cookies, and licenses.",

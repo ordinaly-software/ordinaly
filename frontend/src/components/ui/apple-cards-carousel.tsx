@@ -19,6 +19,7 @@ interface CarouselProps {
   items: JSX.Element[];
   initialScroll?: number;
   className?: string;
+  controlsVariant?: "default" | "compact";
 }
 
 type Card = {
@@ -39,10 +40,16 @@ export const CarouselContext = createContext<{
   currentIndex: 0,
 });
 
-export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps) => {
+export const Carousel = ({
+  items,
+  initialScroll = 0,
+  className,
+  controlsVariant = "default",
+}: CarouselProps) => {
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(true);
+  const isCompactControls = controlsVariant === "compact";
 
   useEffect(() => {
     if (carouselRef.current) {
@@ -106,7 +113,7 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
 
           <div
             className={cn(
-              "flex flex-row justify-start gap-4 pl-4",
+              "flex flex-row justify-start gap-4 px-4",
               "mx-auto max-w-7xl",
             )}
           >
@@ -128,31 +135,46 @@ export const Carousel = ({ items, initialScroll = 0, className }: CarouselProps)
                 onAnimationComplete={() => {}}
                 viewport={{ once: true }}
                 key={"card" + index}
-                className="rounded-3xl last:pr-[5%] md:last:pr-[33%]"
+                className="rounded-3xl"
               >
                 {item}
               </motion.div>
             ))}
           </div>
         </div>
-        <div className="mr-6 -mt-2 flex max-w-7xl justify-end gap-2 px-4 md:-mt-4">
+        <div
+          className={cn(
+            "mr-6 -mt-2 flex max-w-7xl justify-end gap-2 px-4 md:-mt-4",
+            isCompactControls && "mr-4 -mt-1 gap-1.5 md:-mt-2",
+          )}
+        >
           <button
-            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+            className={cn(
+              "relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50",
+              isCompactControls && "h-9 w-9",
+            )}
             onClick={scrollLeft}
             disabled={!canScrollLeft}
             type="button"
             aria-label="Scroll carousel left"
           >
-            <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
+            <IconArrowNarrowLeft
+              className={cn("h-6 w-6 text-gray-500", isCompactControls && "h-5 w-5")}
+            />
           </button>
           <button
-            className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+            className={cn(
+              "relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50",
+              isCompactControls && "h-9 w-9",
+            )}
             onClick={scrollRight}
             disabled={!canScrollRight}
             type="button"
             aria-label="Scroll carousel right"
           >
-            <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
+            <IconArrowNarrowRight
+              className={cn("h-6 w-6 text-gray-500", isCompactControls && "h-5 w-5")}
+            />
           </button>
         </div>
       </div>

@@ -17,6 +17,7 @@ import {
 import { Dropdown } from "@/components/ui/dropdown";
 import { usePathname, useRouter } from "next/navigation";
 import { getApiEndpoint } from "@/lib/api-config";
+import { UseCasesSection } from "@/components/home/use-cases-section";
 
 // Dynamic imports for components that might not be immediately needed
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
@@ -363,6 +364,9 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
           </div>
         </div>
       </section>
+
+      {/* Use cases Section */}
+      <UseCasesSection t={t_home} />
 
       {/* SEO Article Section */}
       <SeoArticleSectionLazy t={t_home} onWhatsApp={handleWhatsAppChat} />

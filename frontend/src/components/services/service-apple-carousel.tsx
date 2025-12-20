@@ -42,7 +42,8 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
   variant = "default",
 }) => {
   const t = useTranslations("services");
-  const spacingClassName = variant === "compact" ? "py-4 md:py-8" : undefined;
+  const isCompact = variant === "compact";
+  const spacingClassName = isCompact ? "py-4 md:py-6" : undefined;
   const cards = useMemo(
     () =>
       services.map((service, index) => {
@@ -69,6 +70,7 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
                   onContact={onContact}
                   onSelect={onSelect}
                   showShareButtons
+                  density={isCompact ? "compact" : "default"}
                 />
               ),
             }}
@@ -78,5 +80,12 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
     [services, labels, onSelect, onContact, onOpenSlug, onCloseSlug, t],
   );
 
-  return <Carousel items={cards} initialScroll={initialScroll} className={spacingClassName} />;
+  return (
+    <Carousel
+      items={cards}
+      initialScroll={initialScroll}
+      className={spacingClassName}
+      controlsVariant={isCompact ? "compact" : "default"}
+    />
+  );
 };

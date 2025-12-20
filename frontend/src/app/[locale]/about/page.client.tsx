@@ -8,6 +8,8 @@ import { AnimatedTestimonials } from "@/components/about/animated-testimonials";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 import { Timeline } from "@/components/about/timeline";
 import { Rocket, ArrowRight, Users, Users2 } from "lucide-react";
+import { PartnersSection } from "@/components/home/partners-section";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), {
   ssr: false,
@@ -20,6 +22,7 @@ const Footer = dynamic(() => import("@/components/ui/footer"), {
 
 export default function UsPage() {
   const t = useTranslations("usPage");
+  const t_home = useTranslations("home");
 
   const testimonials = [
     {
@@ -134,6 +137,8 @@ export default function UsPage() {
         </div>
       </section>
 
+      <PartnersSection t={t_home} />
+
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <Timeline
           data={timelineData}
@@ -152,6 +157,9 @@ export default function UsPage() {
       </section>
 
       <WorkWithUsSection id="cta" />
+
+      <TestimonialsSection t={t_home} />
+      
       <Footer />
     </div>
   );

@@ -56,7 +56,7 @@ const LocalVideoPreview = () => {
 
   return (
     <div ref={containerRef} className="hidden lg:block">
-      <div className="relative w-full max-w-xl ml-auto">
+      <div className="relative w-full max-w-lg ml-auto">
         <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
           {canLoadVideo ? (
             <video
@@ -95,8 +95,9 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
   const resolvedSideContent = sideContent ?? <LocalVideoPreview />;
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="max-w-7xl mx-auto">
+    <section className="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+      <div className="absolute inset-0 z-0 lg:hidden bg-[url('/static/local_seo_section_light.webp')] dark:bg-[url('/static/local_seo_section_dark.webp')] bg-cover bg-center blur-sm opacity-30 scale-105" />
+      <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="scroll-animate slide-in-left">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-900 dark:text-white">
