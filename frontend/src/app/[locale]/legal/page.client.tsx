@@ -523,7 +523,7 @@ const LegalPage = () => {
     }
     return isDark
       ? `${base} border-white/10 bg-white/5 text-gray-200 hover:border-[#1F8A0D] dark:hover:border-[#7CFC00]/30 hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/10 hover:text-white`
-      : `${base} border-gray-200 bg-white text-gray-700 hover:border-[#1F8A0D] dark:hover:border-[#7CFC00]/30 hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/5 hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00]`;
+      : `${base} border-gray-200 bg-white text-gray-700 hover:border-[#1F8A0D] dark:hover:border-[#7CFC00]/30 hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/5 hover:text-white dark:hover:text-[#7CFC00] dark:text-[#7CFC00]`;
   };
 
   const rootClass = isDark

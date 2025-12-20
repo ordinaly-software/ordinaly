@@ -163,6 +163,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const canSlide = courses.length > slidesToShow;
   const atStart = currentIndex === 0;
   const atEnd = currentIndex >= maxIndex;
+  const now = new Date();
 
   const getCardWidth = () => {
     return cardWidthRef.current;
@@ -207,7 +208,11 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       !course.start_time || !course.end_time ||
       !course.location || !course.description;
     const now = new Date();
+    const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
     const endDate = course.end_date && course.end_date !== "0000-00-00" ? new Date(course.end_date) : null;
+    if (startDate && endDate && startDate <= now && endDate > now) {
+      return { text: t('inProgress'), variant: 'default' as const };
+    }
     if (missing) {
       return { text: t('inProgress'), variant: 'default' as const };
     }
@@ -326,7 +331,8 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               <div className="flex transition-transform duration-500 ease-in-out gap-6 px-3">
                 {courses.map((course, index) => {
                   const availabilityBadge = getAvailabilityBadge(course);
-                  const isInProgress = availabilityBadge.text === t('inProgress') && availabilityBadge.variant === 'default';
+                  const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
+                  const highlightUpcoming = !!(startDate && startDate > now);
                   
                   return (
                     <div
@@ -338,9 +344,9 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                       <Card 
                         className={
                           `h-full flex flex-col bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl cursor-pointer group ` +
-                          (isInProgress ? 'ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[0.93] z-10' : '')
+                          (highlightUpcoming ? 'ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[0.93] z-10' : '')
                         }
-                        style={isInProgress ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 15px 0 #FFB80044' } : {}}
+                        style={highlightUpcoming ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 15px 0 #FFB80044' } : {}}
                         onClick={() => handleCourseClick(course)}
                       >
                         <CardHeader className="pb-4">
@@ -451,7 +457,6 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             {new Date(course.start_date) > new Date() && new Date(course.end_date) > new Date() && (
                               <div className="space-y-2">
                                 <div className="flex justify-between text-sm text-gray-800 dark:text-gray-200">
-                                  <span>{course.enrolled_count} {t('enrolled')}</span>
                                   <span>{course.max_attendants} {t('max')}</span>
                                 </div>
                                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
@@ -470,7 +475,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             onClick={(e) => handleSignUpClick(e, course)}
                           >
                             <>
-                              <span>{t('moreInfo')}</span>
+                              <span>{new Date(course.start_date) > new Date() ? t('enrollCta') : t('moreInfo')}</span>
                               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </>
                           </Button>

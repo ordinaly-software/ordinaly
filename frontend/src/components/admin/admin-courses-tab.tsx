@@ -28,6 +28,7 @@ export interface Course {
   title: string;
   subtitle?: string;
   description: string;
+  bonified_course_link?: string | null;
   image: string;
   price?: string | null;
   location: string;
@@ -144,6 +145,7 @@ const AdminCoursesTab = () => {
     slug: "",
     subtitle: "",
     description: "",
+    bonified_course_link: "",
     image: "",
     price: "",
     location: "",
@@ -161,12 +163,25 @@ const AdminCoursesTab = () => {
     draft: false
   });
 
+  const normalizeDateInput = (value: string) => {
+    if (!value) return "";
+    const trimmed = value.trim();
+    if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+      return trimmed;
+    }
+    const match = trimmed.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);
+    if (!match) return null;
+    const [, day, month, year] = match;
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  };
+
   const resetForm = () => {
   setFormData({
     title: "",
     slug: "",
     subtitle: "",
     description: "",
+    bonified_course_link: "",
     image: "",
     price: "",
     location: "",
@@ -199,6 +214,7 @@ const AdminCoursesTab = () => {
       title: course.title,
       subtitle: course.subtitle || "",
       description: course.description,
+      bonified_course_link: course.bonified_course_link || "",
       image: course.image || "",
       price: course.price == null ? "" : String(course.price),
       location: course.location,
@@ -376,6 +392,22 @@ const AdminCoursesTab = () => {
         setAlert({type: 'error', message: t('messages.validation.descriptionTooLong', { max: 2000 })});
         return;
       }
+      const bonifiedLink = (formData.bonified_course_link ?? "").trim();
+      if (bonifiedLink.length > 500) {
+        setAlert({type: 'error', message: t('messages.validation.bonifiedCourseLinkTooLong')});
+        return;
+      }
+      if (bonifiedLink) {
+        try {
+          const parsed = new URL(bonifiedLink);
+          if (!['http:', 'https:'].includes(parsed.protocol)) {
+            throw new Error("Invalid protocol");
+          }
+        } catch {
+          setAlert({type: 'error', message: t('messages.validation.bonifiedCourseLinkInvalid')});
+          return;
+        }
+      }
       if (!formData.max_attendants || parseInt(String(formData.max_attendants)) < 1) {
         setAlert({type: 'error', message: t('messages.validation.maxAttendantsInvalid')});
         return;
@@ -396,24 +428,31 @@ const AdminCoursesTab = () => {
           return;
         }
       }
+      const normalizedStartDate = normalizeDateInput(formData.start_date);
+      const normalizedEndDate = normalizeDateInput(formData.end_date);
+      if (normalizedStartDate === null || normalizedEndDate === null) {
+        setAlert({ type: 'error', message: t('messages.validation.dateFormatInvalid') || 'Date must be in YYYY-MM-DD format.' });
+        return;
+      }
+
       // Prevent start_date or end_date in the past
-      if (formData.start_date) {
-        const startDate = new Date(formData.start_date);
+      if (normalizedStartDate) {
+        const startDate = new Date(normalizedStartDate);
         startDate.setHours(0,0,0,0);
         if (startDate < today) {
           setAlert({type: 'error', message: t('messages.validation.startDatePast') || 'Start date cannot be in the past.'});
           return;
         }
       }
-      if (formData.end_date) {
-        const endDate = new Date(formData.end_date);
+      if (normalizedEndDate) {
+        const endDate = new Date(normalizedEndDate);
         endDate.setHours(0,0,0,0);
         if (endDate < today) {
           setAlert({type: 'error', message: t('messages.validation.endDatePast') || 'End date cannot be in the past.'});
           return;
         }
-        if (formData.start_date) {
-          const startDate = new Date(formData.start_date);
+        if (normalizedStartDate) {
+          const startDate = new Date(normalizedStartDate);
           startDate.setHours(0,0,0,0);
           if (endDate < startDate) {
             setAlert({type: 'error', message: t('messages.validation.endDateBeforeStart') || 'End date cannot be before start date.'});
@@ -428,11 +467,12 @@ const AdminCoursesTab = () => {
       formDataToSend.append('title', formData.title);
       formDataToSend.append('subtitle', formData.subtitle);
       formDataToSend.append('description', formData.description);
+      formDataToSend.append('bonified_course_link', bonifiedLink);
       // Always send price, even if empty, so backend can clear it
       formDataToSend.append('price', formData.price !== undefined && formData.price !== null ? String(formData.price) : '');
       formDataToSend.append('location', formData.location);
-      formDataToSend.append('start_date', formData.start_date);
-      formDataToSend.append('end_date', formData.end_date);
+      formDataToSend.append('start_date', normalizedStartDate);
+      formDataToSend.append('end_date', normalizedEndDate);
       formDataToSend.append('start_time', formData.start_time);
       formDataToSend.append('end_time', formData.end_time);
       formDataToSend.append('periodicity', formData.periodicity);

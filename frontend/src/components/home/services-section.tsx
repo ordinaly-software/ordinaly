@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode, RefObject } from "react";
-import { Button } from "@/components/ui/button";
 
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
@@ -44,7 +43,7 @@ const serviceBenefits = [
   },
 ];
 
-export function ServicesSection({ t, servicesContent, onWhatsApp, sectionRef }: ServicesIntroProps) {
+export function ServicesSection({ t, servicesContent, sectionRef }: ServicesIntroProps) {
   return (
     <section id="services" ref={sectionRef} className="py-4 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">

@@ -18,6 +18,7 @@ export interface CourseFormData {
   title: string;
   subtitle: string;
   description: string;
+  bonified_course_link?: string;
   image: string;
   price: string | number;
   max_attendants: string | number;
@@ -173,6 +174,26 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               placeholder={t("form.subtitlePlaceholder")}
               className="h-12 border-gray-300 focus:border-blue focus:ring-blue/20 rounded-lg transition-all duration-200"
             />
+          </div>
+
+          {/* Bonified Course Link */}
+          <div className="space-y-3">
+            <Label htmlFor="bonified_course_link" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+              <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-green-700 dark:text-green-400">€</span>
+              </div>
+              <span>{t("form.bonifiedCourseLinkOptional")}</span>
+            </Label>
+            <Input
+              id="bonified_course_link"
+              value={formData.bonified_course_link ?? ""}
+              onChange={(e) => setFormData(prev => ({...prev, bonified_course_link: e.target.value}))}
+              placeholder={t("form.bonifiedCourseLinkPlaceholder")}
+              className="h-12 border-gray-300 focus:border-green-600 focus:ring-green-600/20 rounded-lg transition-all duration-200"
+            />
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {t("form.bonifiedCourseLinkHelp")}
+            </p>
           </div>
 
           {/* Slug (optional) */}

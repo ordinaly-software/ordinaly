@@ -106,12 +106,7 @@ export async function GET() {
     );
   }
 
-  // Google puede devolver 200 con status != OK
   if (!data || data.status !== "OK" || !data.result) {
-    console.error("GOOGLE RAW RESPONSE", {
-      httpStatus: response.status,
-      text,
-    });
     return NextResponse.json(
       {
         error: "Google reviews unavailable",

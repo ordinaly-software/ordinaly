@@ -156,13 +156,6 @@ export function TestimonialsSection({ t }: SectionProps) {
     };
   }, []);
 
-  useEffect(() => {
-    const container = sectionRef.current;
-    if (!container) return;
-    const items = container.querySelectorAll<HTMLElement>(".scroll-animate");
-    items.forEach((el) => el.classList.add("animate-in"));
-  }, []);
-
   const fallbackCards = useMemo<TestimonialCard[]>(
     () =>
       localTestimonials.map((item) => ({
@@ -179,7 +172,7 @@ export function TestimonialsSection({ t }: SectionProps) {
   const googleCards = useMemo<TestimonialCard[]>(() => {
     if (!googleData?.reviews?.length) return [];
     return googleData.reviews.map((review, index) => ({
-      name: review.author_name ?? t("testimonials.googleSource"),
+      name: (review.author_name?.split(" ")[0] ?? t("testimonials.googleSource")) + "...",
       meta: review.relative_time_description || t("testimonials.googleSource"),
       quote: review.text?.trim(),
       rating: review.rating ?? 0,

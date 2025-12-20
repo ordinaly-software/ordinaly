@@ -1,5 +1,5 @@
 from django import forms
-from .models import Course
+from .models import Course, Enrollment
 from django.utils import timezone
 
 
@@ -22,3 +22,15 @@ class CourseAdminForm(forms.ModelForm):
         if start_date and end_date < start_date:
             raise forms.ValidationError('End date cannot be before start date.')
         return end_date
+
+
+class EnrollmentAdminForm(forms.ModelForm):
+    class Meta:
+        model = Enrollment
+        fields = '__all__'
+
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if commit:
+            instance.save(skip_full_clean=True)
+        return instance

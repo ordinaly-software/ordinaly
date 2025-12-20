@@ -77,7 +77,7 @@ export const ServiceAppleCarousel: React.FC<ServiceAppleCarouselProps> = ({
           />
         );
       }),
-    [services, labels, onSelect, onContact, onOpenSlug, onCloseSlug, t],
+    [services, labels, onSelect, onContact, onOpenSlug, onCloseSlug, t, isCompact],
   );
 
   return (

@@ -6,6 +6,7 @@ export interface Course {
   title: string;
   subtitle?: string;
   description: string;
+  bonified_course_link?: string | null;
   image: string;
   price?: string | null;
   location: string;

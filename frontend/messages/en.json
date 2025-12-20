@@ -25,6 +25,7 @@
       "userMenu": "User menu",
       "adminDashboard": "Admin Dashboard",
       "profile": "Profile",
+      "myCourses": "My courses",
       "blog": "Blog",
       "us": "About us",
       "loading": "Loading..."
@@ -356,6 +357,7 @@
       "retryButton": "Try Again",
       "enrollButton": "Enroll Now",
       "moreInfo": "More Info",
+      "enrollCta": "Enroll",
       "viewDetails": "View Details",
       "viewAllCourses": "View All Courses",
       "spotsLeft": "spots left",
@@ -807,6 +809,9 @@
         "description": "Description",
         "descriptionPlaceholder": "Describe what students will learn in this course...",
         "descriptionRequired": "Description *",
+        "bonifiedCourseLinkOptional": "Bonified course link (Optional)",
+        "bonifiedCourseLinkPlaceholder": "https://example.com/bonified-course",
+        "bonifiedCourseLinkHelp": "Optional link with bonification details (http/https only).",
         "image": "Course Image",
         "imageRequired": "Course Image *",
         "imageOptional": "Course Image",
@@ -918,7 +923,10 @@
           "endDatePast": "End date cannot be in the past",
           "startDatePast": "Start date cannot be in the past",
           "endDateBeforeStart": "End date cannot be before start date",
+          "dateFormatInvalid": "Date must be in YYYY-MM-DD format",
           "descriptionTooLong": "Description cannot be longer than {max} characters",
+          "bonifiedCourseLinkInvalid": "Enter a valid link (http or https).",
+          "bonifiedCourseLinkTooLong": "The link cannot exceed 500 characters.",
           "priceRange": "Price must be between €{min} and €{max}",
           "priceForbiddenRange": "Price cannot be between €{min} and €{max}"
         },
@@ -1434,6 +1442,7 @@
     "noSpecificDate": "No specific date has been set yet",
     "locationSoon": "Location coming soon",
     "inProgress": "In progress",
+    "startsSoon": "Starts soon",
     "filters": {
       "location": {
         "all": "All locations",
@@ -1504,6 +1513,14 @@
       "confirm": "Confirm Enrollment",
       "courseDetails": "Course Details",
       "confirmMessage": "Are you sure you want to enroll in this course?",
+      "bonificationQuestion": "Does your company have training credits?",
+      "bonificationHint": "If this training is eligible, you can continue from the corresponding link.",
+      "bonificationYes": "Yes, we have credits",
+      "bonificationNo": "No, continue",
+      "bonificationMissingLink": "We couldn't find the bonified course link. Please contact support.",
+      "bonificationInfo": "Some of our trainings may be subsidized via FUNDAE/SEPE and/or fit into co‑funded calls by FSE+ and PRTR‑NextGenerationEU, provided your company meets requirements and processes the aid.\n\nFUNDAE / SEPE – Company‑funded training: allows part of the training cost to be offset in Social Security contributions. Official info for companies (FUNDAE) and training for employees (SEPE).\n\nEU Funds – FSE+ 2021‑2027: national and regional programs (including Andalusia) financing employment, education, and training through public calls. See UAFSE.\n\nPRTR – NextGenerationEU (Component 23): measures for upskilling and active employment policies; coverage depends on each call. Official info from the Recovery Plan and SEPE.\n\nAndalusia (regional scope): FSE+ Andalusia 2021‑2027 and Vocational Training for Employment (FPE) publish specific grants/calls. See Junta de Andalucía and FPE.\n\nNotice: Eligibility, intensity, and compatibility vary by regulation and current calls. Ordinaly provides course documentation but does not apply for or process subsidies on the client’s behalf. Always review official links before contracting.",
+      "stepBonification": "Step 1 · Bonification",
+      "stepCheckout": "Step 2 · Enrollment",
       "paymentNote": "Payment processing will be handled in the next step.",
       "confirmEnroll": "Confirm Enrollment",
       "name": "Full Name",
@@ -1703,6 +1720,27 @@
     "loading": "Loading profile...",
     "personalInfo": "Personal Information",
     "dangerZone": "Danger Zone",
+    "tabs": {
+      "profile": "Profile",
+      "courses": "My courses"
+    },
+    "courses": {
+      "title": "Enrolled courses",
+      "current": "Current courses",
+      "past": "Past courses",
+      "emptyCurrent": "You don't have any current courses yet.",
+      "emptyPast": "You don't have any past courses yet.",
+      "loading": "Loading courses...",
+      "loadError": "We couldn't load your courses.",
+      "viewDetails": "View course",
+      "dateTbd": "Dates to be confirmed",
+      "enrolledOn": "Enrolled on {date}",
+      "status": {
+        "inProgress": "In progress",
+        "startsSoon": "Starts soon",
+        "finished": "Finished"
+      }
+    },
     "form": {
       "firstName": "First Name",
       "firstNamePlaceholder": "Enter your first name",

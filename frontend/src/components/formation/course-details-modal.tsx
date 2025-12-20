@@ -16,6 +16,7 @@ interface Course {
   title: string;
   subtitle?: string;
   description: string;
+  bonified_course_link?: string | null;
   image: string;
   price?: number;
   location: string;
@@ -311,7 +312,13 @@ const CourseDetailsModal = ({
                   {t('courseDescription')}
                 </h2>
                 {/* share buttons intentionally shown in sidebar (desktop) and footer (mobile) */}
-                <div className="prose dark:prose-invert max-w-none">
+                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 break-words prose-a:break-all">
+                  {course.subtitle && (
+                    <p className="text-base font-semibold text-gray-800 dark:text-gray-200">
+                      {course.subtitle}
+                    </p>
+                  )}
+                  <br />
                   <MarkdownRenderer>{course.description}</MarkdownRenderer>
                 </div>
               </div>
