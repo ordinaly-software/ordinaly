@@ -93,7 +93,11 @@ export async function generateCoursesCatalogPDF(
     value = value.replace(/^#{1,6}\s+/gm, '');
     value = value.replace(/^\s*[-*+]\s+/gm, '');
     value = value.replace(/^\s*\d+\.\s+/gm, '');
-    value = value.replace(/<[^>]+>/g, '');
+    let previous: string;
+    do {
+      previous = value;
+      value = value.replace(/<[^>]+>/g, '');
+    } while (value !== previous);
     value = value.replace(/\s{2,}/g, ' ');
     return value.trim();
   };

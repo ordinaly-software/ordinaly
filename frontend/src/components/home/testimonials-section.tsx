@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BadgeCheck } from "lucide-react";
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
@@ -111,6 +110,7 @@ export function TestimonialsSection({ t }: SectionProps) {
   const [googleData, setGoogleData] = useState<GoogleReviewsPayload | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -307,14 +307,23 @@ export function TestimonialsSection({ t }: SectionProps) {
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
                 <div className="flex items-center mb-4">
-                  {item.profilePhotoUrl ? (
+                  {item.profilePhotoUrl && !failedImages[item.profilePhotoUrl] ? (
                     <div className="w-12 h-12 relative mr-3">
-                      <Image
+                      <img
                         src={item.profilePhotoUrl}
                         alt={item.name}
                         width={48}
                         height={48}
                         className="rounded-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
+                        onError={() =>
+                          setFailedImages((prev) => ({
+                            ...prev,
+                            [item.profilePhotoUrl ?? "unknown"]: true,
+                          }))
+                        }
                       />
                     </div>
                   ) : (

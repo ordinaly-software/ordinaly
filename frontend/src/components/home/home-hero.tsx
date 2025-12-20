@@ -123,19 +123,6 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
         )}
       </div>
 
-      <div className="absolute inset-0 opacity-40">
-        <Image
-          src={heroImage}
-          alt={t("hero.imageAlt")}
-          fill
-          className="object-cover lg:object-contain blur-sm brightness-1.5"
-          sizes="100vw"
-          quality={35}
-          priority
-          fetchPriority="high"
-          aria-hidden="true"
-        />
-      </div>
       <div
         className="absolute inset-0"
         style={{
@@ -320,8 +307,8 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 <Image
                   src={heroImage}
                   alt={t("hero.imageAlt")}
-                  width={720}
-                  height={880}
+                  width={516}
+                  height={640}
                   className="mx-auto h-auto w-full max-w-[640px]"
                   priority
                   fetchPriority="high"

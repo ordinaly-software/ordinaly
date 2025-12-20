@@ -59,19 +59,14 @@ const LocalVideoPreview = () => {
       <div className="relative w-full max-w-lg ml-auto">
         <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
           {canLoadVideo ? (
-            <video
-              className="absolute inset-0 h-full w-full object-cover"
-              playsInline
-              muted
-              loop
-              autoPlay
-              controlsList="nodownload"
-              preload="none"
-              poster="/static/main_home_ilustration.webp"
-            >
-              <source src="/static/office_video.mp4" type="video/mp4" />
-              Tu navegador no soporta el vídeo.
-            </video>
+            <iframe
+              className="absolute inset-0 h-full w-full"
+              src="https://www.youtube.com/embed/13OwGUo4PJw?playsinline=1&modestbranding=1&rel=0"
+              title="Ordinaly short"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              loading="lazy"
+            />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-gray-700 dark:text-gray-200">
               <div className="flex items-center gap-3 bg-white/70 dark:bg-gray-800/80 px-4 py-3 rounded-xl shadow-lg border border-white/50 dark:border-gray-700">
@@ -79,7 +74,7 @@ const LocalVideoPreview = () => {
                   ▶
                 </div>
                 <div>
-                  <p className="font-semibold">Vídeo rápido de la oficina</p>
+                  <p className="font-semibold">Short de Ordinaly</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Se carga al llegar a la sección</p>
                 </div>
               </div>
