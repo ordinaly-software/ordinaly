@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import FormationRoot from "@/components/formation/formation-root";
+import FormationPageClient from "./page.client";
 import { createPageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -8,12 +8,17 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   return createPageMetadata({
     locale,
     path: "/formation",
-    title: "Cursos y formación",
-    description: "Aprende a usar IA, n8n, y herramientas low-code con las formaciones de Ordinaly.",
+    title: isEs
+      ? "Cursos de IA y automatización | Ordinaly"
+      : "AI and automation courses | Ordinaly",
+    description: isEs
+      ? "Aprende IA, n8n y herramientas low-code con formaciones prácticas para empresas y profesionales."
+      : "Learn AI, n8n, and low-code tools with practical training for companies and professionals.",
     image: "/static/backgrounds/formation_background.webp",
   });
 }
@@ -25,5 +30,5 @@ export default async function FormationPage({
 }) {
   await params;
   // Server component: render the client root without initial slug
-  return <FormationRoot />;
+  return <FormationPageClient />;
 }

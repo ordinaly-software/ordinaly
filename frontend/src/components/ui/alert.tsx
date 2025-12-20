@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 
 const styleMap = {
   success: {
@@ -41,6 +42,11 @@ const Alert: React.FC<AlertProps> = ({ type, message, onClose, duration = 5000 }
   const { bg, border, text, icon } = styleMap[type];
   const [isVisible, setIsVisible] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     // Trigger entrance animation
@@ -68,44 +74,51 @@ const Alert: React.FC<AlertProps> = ({ type, message, onClose, duration = 5000 }
   };
 
   return (
-    <div className={`fixed top-6 left-1/2 z-[99999] w-[90%] max-w-md transition-all duration-200 ease-out ${
-      isVisible && !isExiting 
-        ? 'transform -translate-x-1/2 translate-y-0 opacity-100' 
-        : 'transform -translate-x-1/2 -translate-y-4 opacity-0'
-    }`}>
-      <div
-        role="alert"
-        className={`${bg} ${border} ${text} border-l-4 px-4 py-3 rounded-lg flex items-center justify-between shadow-lg transition-all duration-200 ease-out ${
-          isVisible && !isExiting ? 'scale-100' : 'scale-95'
-        }`}
-      >
-        <div className="flex items-center">
-          <svg
-            stroke="currentColor"
-            fill="none"
-            viewBox="0 0 24 24"
-            className={`h-5 w-5 mr-2 ${icon}`}
-            xmlns="http://www.w3.org/2000/svg"
+    isMounted
+      ? createPortal(
+          <div
+            className={`fixed top-6 left-1/2 z-[99999] w-[90%] max-w-md transition-all duration-200 ease-out ${
+              isVisible && !isExiting
+                ? "transform -translate-x-1/2 translate-y-0 opacity-100"
+                : "transform -translate-x-1/2 -translate-y-4 opacity-0"
+            }`}
           >
-            <path
-              d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              strokeWidth={2}
-              strokeLinejoin="round"
-              strokeLinecap="round"
-            />
-          </svg>
-          <p className="text-sm font-medium">{message}</p>
-        </div>
-        {onClose && (
-          <button
-            onClick={handleClose}
-            className={`${text} ml-4 text-sm hover:opacity-70 transition-opacity duration-150`}
-          >
-            ✕
-          </button>
-        )}
-      </div>
-    </div>
+            <div
+              role="alert"
+              className={`${bg} ${border} ${text} border-l-4 px-4 py-3 rounded-lg flex items-center justify-between shadow-lg transition-all duration-200 ease-out ${
+                isVisible && !isExiting ? "scale-100" : "scale-95"
+              }`}
+            >
+              <div className="flex items-center">
+                <svg
+                  stroke="currentColor"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className={`h-5 w-5 mr-2 ${icon}`}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    strokeWidth={2}
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <p className="text-sm font-medium">{message}</p>
+              </div>
+              {onClose && (
+                <button
+                  onClick={handleClose}
+                  className={`${text} ml-4 text-sm hover:opacity-70 transition-opacity duration-150`}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
+          </div>,
+          document.body
+        )
+      : null
   );
 };
 

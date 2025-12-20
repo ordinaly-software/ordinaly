@@ -8,12 +8,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   return createPageMetadata({
     locale,
     path: "/legal",
-    title: "Información legal, privacidad y cookies",
-    description: "Consulta términos de servicio, políticas de privacidad, cookies y licencias de Ordinaly.",
+    title: isEs ? "Legal, privacidad y cookies | Ordinaly" : "Legal, privacy, and cookies | Ordinaly",
+    description: isEs
+      ? "Consulta términos de servicio, políticas de privacidad, cookies y licencias de Ordinaly."
+      : "Review Ordinaly terms of service, privacy policy, cookies, and licenses.",
+    image: "/static/backgrounds/api_background.webp",
   });
 }
 

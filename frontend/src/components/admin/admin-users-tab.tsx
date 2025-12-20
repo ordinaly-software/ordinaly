@@ -140,7 +140,7 @@ const AdminUsersTab = () => {
             onClick={handleSendMail}
             disabled={selectedUsers.length === 0}
             size="sm"
-            className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#166307] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#166307] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             <Send className="h-4 w-4" />
             <span className="xs:inline"> {t('sendMail')}</span>

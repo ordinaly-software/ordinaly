@@ -27,6 +27,7 @@ import type { Course } from "@/utils/pdf-generator";
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
 import BonificationInfo from "@/components/formation/bonification-info";
+import { FaqSection } from "@/components/formation/faq-section";
 
 interface Enrollment {
   id: number;
@@ -35,11 +36,11 @@ interface Enrollment {
   enrolled_at: string;
 }
 
-interface FormationRootProps {
+interface FormationPageClientProps {
   initialCourseSlug?: string;
 }
 
-export default function FormationRoot({ initialCourseSlug }: FormationRootProps) {
+export default function FormationPageClient({ initialCourseSlug }: FormationPageClientProps) {
   const t = useTranslations("formation");
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
@@ -536,7 +537,7 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
               <Button
                 onClick={() => setShowPastCourses(!showPastCourses)}
                 variant="outline"
-                className="border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00] hover:text-white transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
+                className="border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-[#7CFC00] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
               >
                 {showPastCourses ? (
                   <>
@@ -573,6 +574,8 @@ export default function FormationRoot({ initialCourseSlug }: FormationRootProps)
         </section>
       )}
 
+      <FaqSection t={t} />
+    
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] to-[#166307] text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">

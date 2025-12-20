@@ -70,6 +70,7 @@ export const ServiceAppleDetailsModal = ({
           onContact={onContact}
           showContact={showContact}
           showViewDetails={false}
+          showShareButtons
         />
       </div>
     </AppleModal>

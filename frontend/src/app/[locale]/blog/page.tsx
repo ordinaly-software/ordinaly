@@ -10,12 +10,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   return createPageMetadata({
     locale,
     path: "/blog",
-    title: "Blog de automatización e IA de empresas | Ordinaly",
-    description: "Noticias, guías y casos de éxito sobre automatización, IA y productividad.",
+    title: isEs ? "Blog de automatización e IA | Ordinaly" : "Automation & AI blog | Ordinaly",
+    description: isEs
+      ? "Noticias, guías y casos de éxito sobre automatización, IA y productividad para empresas."
+      : "News, guides, and success stories on automation, AI, and productivity for companies.",
     image: "/static/backgrounds/blog_background.webp",
   });
 }

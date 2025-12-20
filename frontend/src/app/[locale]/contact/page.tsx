@@ -8,13 +8,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   return createPageMetadata({
     locale,
     path: "/contact",
-    title: "Contacto",
-    description: "Hablemos sobre tus proyectos de automatización e IA. Escríbenos y te responderemos en menos de 24h.",
-    image: "/static/backgrounds/services_background.webp",
+    title: isEs ? "Contacto | Ordinaly" : "Contact | Ordinaly",
+    description: isEs
+      ? "Hablemos sobre tus proyectos de automatización e IA. Escríbenos y te responderemos en menos de 24h."
+      : "Let’s talk about your automation and AI projects. Write to us and we’ll reply within 24 hours.",
+    image: "/static/contact/contact_pic.webp",
   });
 }
 

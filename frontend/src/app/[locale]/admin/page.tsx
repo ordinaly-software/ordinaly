@@ -8,12 +8,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   return createPageMetadata({
     locale,
     path: "/admin",
-    title: "Panel de administración",
-    description: "Gestiona servicios, cursos, usuarios y contenidos desde el panel de administración de Ordinaly.",
+    title: isEs ? "Panel de administración | Ordinaly" : "Admin dashboard | Ordinaly",
+    description: isEs
+      ? "Gestiona servicios, cursos, usuarios y contenidos desde el panel de administración de Ordinaly."
+      : "Manage services, courses, users, and content from the Ordinaly admin dashboard.",
+    image: "/static/backgrounds/api_background.webp",
   });
 }
 
