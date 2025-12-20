@@ -20,6 +20,7 @@ export default function ContactForm({ className }: { className?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [alert, setAlert] = useState<AlertState | null>(null);
   const contactEndpoint = "/api/leads";
+  // Keep the list intentionally short; expand or load dynamically if broader international coverage is needed.
   const phonePrefixes = [
     { label: "ES +34", value: "+34" },
     { label: "PT +351", value: "+351" },
@@ -52,13 +53,17 @@ export default function ContactForm({ className }: { className?: string }) {
       return;
     }
     const phonePrefix = String(formData.get("phonePrefix") ?? "+34");
-    const payload = {
+    const payload: Record<string, string> = {
       name: String(formData.get("name") ?? ""),
       email: String(formData.get("email") ?? ""),
-      phone: phoneDigits ? `${phonePrefix}${phoneDigits}` : "",
       company: String(formData.get("company") ?? ""),
+      // Map UI "message" field to the API "details" payload expected by the webhook.
       details: String(formData.get("message") ?? ""),
     };
+
+    if (phoneDigits) {
+      payload.phone = `${phonePrefix}${phoneDigits}`;
+    }
 
     try {
       const response = await fetch(contactEndpoint, {

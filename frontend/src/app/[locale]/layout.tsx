@@ -58,7 +58,7 @@ export async function generateMetadata({
       siteName,
       title: fullBrandName,
       description: ogDescription,
-      images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: fullBrandName }],
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: fullBrandName }],
       url: canonical,
       locale: ogLocale,
     },

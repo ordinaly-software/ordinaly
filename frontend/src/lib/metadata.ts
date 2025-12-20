@@ -77,7 +77,7 @@ export function createPageMetadata({
   description = defaultDescription,
   path,
   locale,
-  image = "/og-image.jpg",
+  image = "/og-image.png",
   type = defaultOpenGraphType,
 }: MetadataOptions): Metadata {
   const url = absoluteUrl(path, locale);

@@ -3,9 +3,8 @@ export function getWhatsAppUrl(message: string, phoneNumber?: string) {
   if (!rawNumber) return null;
 
   const digits = rawNumber.replace(/[^\d]/g, "");
-  const normalized = digits.replace(/^0+/, "");
-  if (!normalized) return null;
+  if (!digits) return null;
 
   const encodedMessage = encodeURIComponent(message);
-  return `https://wa.me/${normalized}?text=${encodedMessage}`;
+  return `https://wa.me/${digits}?text=${encodedMessage}`;
 }
