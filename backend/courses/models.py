@@ -484,9 +484,10 @@ class Enrollment(models.Model):
                 raise ValidationError({"course": "This course is already full."})
 
     def save(self, *args, **kwargs):
-        skip_full_clean = kwargs.pop("skip_full_clean", False)
-        if not skip_full_clean:
-            self.full_clean()
+        # Preserve the skip_full_clean kwarg for backward compatibility,
+        # but always run full_clean to enforce capacity and other validation.
+        kwargs.pop("skip_full_clean", None)
+        self.full_clean()
         return super().save(*args, **kwargs)
 
     def __str__(self):
