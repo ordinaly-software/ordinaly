@@ -503,11 +503,8 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                       unenrollRestrictionReason = t('alerts.unenrollEndedRestriction');
                     }
                   }
-                  // Highlight in-progress courses (started but not finished)
-                  let inProgress = false;
-                  if (startDateTime && endDateTime && startDateTime <= now && endDateTime > now) {
-                    inProgress = true;
-                  }
+                  const highlightUpcoming = !!(startDateTime && startDateTime > now);
+                  const inProgress = !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
                   return (
                     <CourseCard
                       key={course.id}
@@ -520,6 +517,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                       disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
                       disableUnenroll={disableUnenroll}
                       unenrollRestrictionReason={unenrollRestrictionReason}
+                      highlightUpcoming={highlightUpcoming}
                       inProgress={inProgress}
                     />
                   );

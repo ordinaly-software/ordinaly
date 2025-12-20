@@ -16,6 +16,7 @@ interface CourseCardProps {
   disableEnroll?: boolean;
   disableUnenroll?: boolean;
   unenrollRestrictionReason?: string | null;
+  highlightUpcoming?: boolean;
   inProgress?: boolean;
 }
 
@@ -36,6 +37,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
   disableEnroll = false,
   disableUnenroll = false,
   unenrollRestrictionReason = null,
+  highlightUpcoming = false,
   inProgress = false,
 }) => {
   const t = useTranslations("formation");
@@ -43,8 +45,8 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 
   return (
     <Card
-      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? `hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:shadow-2xl hover:shadow-[#1F8A0D]/10 transform hover:-translate-y-2${inProgress ? ' ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[1.025] z-10' : ''}` : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto${onViewDetails ? ' cursor-pointer' : ''}`}
-      style={variant === "upcoming" ? { minHeight: "520px", ...(inProgress ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 32px 0 #FFB80044' } : {}) } : {}}
+      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? `hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:shadow-2xl hover:shadow-[#1F8A0D]/10 transform hover:-translate-y-2${highlightUpcoming ? ' ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[1.025] z-10' : ''}` : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto${onViewDetails ? ' cursor-pointer' : ''}`}
+      style={variant === "upcoming" ? { minHeight: "520px", ...(highlightUpcoming ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 32px 0 #FFB80044' } : {}) } : {}}
       onClick={onViewDetails ? () => onViewDetails() : undefined}
       role={onViewDetails ? 'button' : undefined}
       tabIndex={onViewDetails ? 0 : undefined}
@@ -81,6 +83,14 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                 <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
                   <div className="bg-[#FFB800] text-white px-4 py-1 rounded-full text-base font-bold shadow-lg border-2 border-[#FFB800]">
                     {t('inProgress')}
+                  </div>
+                </div>
+              )}
+              {/* Upcoming Badge */}
+              {!inProgress && highlightUpcoming && (
+                <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
+                  <div className="bg-[#FFB800] text-white px-4 py-1 rounded-full text-base font-bold shadow-lg border-2 border-[#FFB800]">
+                    {t('startsSoon')}
                   </div>
                 </div>
               )}

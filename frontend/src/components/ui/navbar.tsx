@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Menu, X, User, LogOut, LogIn, Settings, ChevronDown } from "lucide-react";
+import { Menu, X, User, LogOut, LogIn, Settings, ChevronDown, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 import LogoutModal from "@/components/ui/logout-modal";
@@ -149,6 +149,7 @@ const Navbar = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [userData, setUserData] = useState<{is_staff?: boolean, is_superuser?: boolean} | null>(null);
+  const [hasEnrolledCourses, setHasEnrolledCourses] = useState(false);
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [isMobileFormationOpen, setIsMobileFormationOpen] = useState(false);
@@ -184,6 +185,10 @@ const Navbar = () => {
     const options: DropdownOption[] = [
       { value: 'profile', label: t("navigation.profile"), icon: User }
     ];
+
+    if (hasEnrolledCourses) {
+      options.push({ value: 'courses', label: t("navigation.myCourses"), icon: BookOpen });
+    }
     
     if (userData && (userData.is_staff || userData.is_superuser)) {
       options.push({ value: 'admin', label: t("navigation.adminDashboard"), icon: Settings });
@@ -191,7 +196,7 @@ const Navbar = () => {
     
     options.push({ value: 'logout', label: t("navigation.signOut"), icon: LogOut });
     return options;
-  }, [userData, t]);
+  }, [hasEnrolledCourses, userData, t]);
 
   const fetchUserData = useCallback(async (token: string) => {
     try {
@@ -212,6 +217,24 @@ const Navbar = () => {
     }
   }, []);
 
+  const fetchEnrollmentStatus = useCallback(async (token: string) => {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
+      const response = await fetch(`${apiUrl}/api/courses/enrollments/`, {
+        headers: {
+          'Authorization': `Token ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setHasEnrolledCourses(Array.isArray(data) && data.length > 0);
+      }
+    } catch (error) {
+      console.warn('Failed to fetch enrollment data:', error);
+    }
+  }, []);
+
   useEffect(() => {
     // Initialize authentication state
     const token = localStorage.getItem('authToken');
@@ -221,6 +244,7 @@ const Navbar = () => {
     // Fetch user data if authenticated
     if (token) {
       fetchUserData(token);
+      fetchEnrollmentStatus(token);
     }
 
     // Set up scroll listener with passive option for better performance
@@ -235,7 +259,7 @@ const Navbar = () => {
         clearTimeout(scrollTimeoutRef.current);
       }
     };
-  }, [fetchUserData, handleScroll]);
+  }, [fetchUserData, fetchEnrollmentStatus, handleScroll]);
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -264,6 +288,9 @@ const Navbar = () => {
     switch (value) {
       case 'profile':
         router.push('/profile');
+        break;
+      case 'courses':
+        router.push('/profile?tab=courses');
         break;
       case 'admin':
         router.push('/admin');
@@ -295,6 +322,7 @@ const Navbar = () => {
     localStorage.removeItem('authToken');
     setIsAuthenticated(false);
     setUserData(null);
+    setHasEnrolledCourses(false);
     setIsMenuOpen(false);
     setShowLogoutModal(false);
     window.location.href = '/';
@@ -743,7 +771,7 @@ const Navbar = () => {
                   
                   {/* Authentication Controls - Mobile */}
                   <div className="pt-3 mt-3 border-t border-gray-200 dark:border-gray-700">
-                    {isAuthenticated ? (
+                  {isAuthenticated ? (
                       <div className="space-y-1">
                         <Link
                           href="/profile"
@@ -753,6 +781,17 @@ const Navbar = () => {
                           <User className="h-4 w-4 mr-3" />
                           {t("navigation.profile")}
                         </Link>
+
+                        {hasEnrolledCourses && (
+                          <Link
+                            href="/profile?tab=courses"
+                            onClick={() => setIsMenuOpen(false)}
+                            className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-green hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors py-3 px-2 rounded-md"
+                          >
+                            <BookOpen className="h-4 w-4 mr-3" />
+                            {t("navigation.myCourses")}
+                          </Link>
+                        )}
                         
                         {userData && (userData.is_staff || userData.is_superuser) && (
                           <Link

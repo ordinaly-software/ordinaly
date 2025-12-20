@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Course, Enrollment
+from .forms import CourseAdminForm, EnrollmentAdminForm
 
 
 @admin.register(Course)
@@ -10,7 +11,8 @@ class CourseAdmin(admin.ModelAdmin):
     list_filter = ('start_date', 'periodicity', 'price', 'weekdays', 'draft')
     fieldsets = (
         ('Basic Information', {
-            'fields': ('slug', 'title', 'subtitle', 'description', 'image', 'price', 'location', 'draft')
+            'fields': ('slug', 'title', 'subtitle', 'description', 'bonified_course_link',
+                       'image', 'price', 'location', 'draft')
         }),
         ('Basic Schedule', {
             'fields': ('start_date', 'end_date', 'start_time', 'end_time', 'periodicity', 'timezone')
@@ -24,7 +26,6 @@ class CourseAdmin(admin.ModelAdmin):
             'fields': ('max_attendants',)
         }),
     )
-    from .forms import CourseAdminForm
     form = CourseAdminForm
     readonly_fields = ('created_at', 'updated_at')
 
@@ -65,4 +66,5 @@ class CourseAdmin(admin.ModelAdmin):
 class EnrollmentAdmin(admin.ModelAdmin):
     list_display = ('user', 'course', 'enrolled_at')
     list_filter = ('enrolled_at',)
+    form = EnrollmentAdminForm
     search_fields = ('user__username', 'user__email', 'course__title')

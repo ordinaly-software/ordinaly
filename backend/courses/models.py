@@ -49,6 +49,12 @@ class Course(models.Model):
     )
     subtitle = models.CharField(max_length=200, blank=True, null=True)
     description = models.TextField(max_length=2000)
+    bonified_course_link = models.URLField(
+        max_length=500,
+        blank=True,
+        null=True,
+        help_text="Optional link to subsidized/bonified course details."
+    )
     image = models.ImageField(upload_to='course_images/')
     price = models.DecimalField(
         max_digits=10,
@@ -467,6 +473,22 @@ class Enrollment(models.Model):
 
     class Meta:
         unique_together = ['user', 'course']
+
+    def clean(self):
+        if self.course_id:
+            enrollments_qs = self.course.enrollments.all()
+            if self.pk is not None:
+                enrollments_qs = enrollments_qs.exclude(pk=self.pk)
+            enrolled_count = enrollments_qs.count()
+            if enrolled_count >= self.course.max_attendants:
+                raise ValidationError({"course": "This course is already full."})
+
+    def save(self, *args, **kwargs):
+        # Preserve the skip_full_clean kwarg for backward compatibility,
+        # but always run full_clean to enforce capacity and other validation.
+        kwargs.pop("skip_full_clean", None)
+        self.full_clean()
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.user.username} enrolled in {self.course.title}"

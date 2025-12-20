@@ -640,6 +640,10 @@ class ServiceAdminExtraTests(TestCase):
         self.service.description = ''
         self.assertEqual(self.admin.description_preview(self.service), 'No description')
 
+    def test_description_preview_none(self):
+        self.service.description = None
+        self.assertEqual(self.admin.description_preview(self.service), 'No description')
+
     def test_save_model_sets_created_by(self):
         request = MagicMock()
         request.user = self.user
@@ -1268,6 +1272,24 @@ class ServiceViewSetCoverageTests(TestCase):
         qs = view.get_queryset()
         self.assertTrue(qs.filter(pk=self.draft.pk).exists())
 
+    def test_get_queryset_resolves_force_auth_user(self):
+        view = ServiceViewSet()
+        request = self.factory.get('/api/services/')
+        request.user = None
+        request._force_auth_user = self.admin_user
+        view.request = request
+        qs = view.get_queryset()
+        self.assertTrue(qs.filter(pk=self.draft.pk).exists())
+
+    def test_get_queryset_resolves_raw_request_user(self):
+        from types import SimpleNamespace
+        raw_request = SimpleNamespace(user=self.admin_user)
+        request = SimpleNamespace(user=None, _force_auth_user=None, _request=raw_request)
+        view = ServiceViewSet()
+        view.request = request
+        qs = view.get_queryset()
+        self.assertTrue(qs.filter(pk=self.draft.pk).exists())
+
     def test_get_object_pk_fallback_when_slug_is_numeric(self):
         view = ServiceViewSet()
         request = self.factory.get(f'/api/services/{self.published.pk}/')
@@ -1278,6 +1300,16 @@ class ServiceViewSetCoverageTests(TestCase):
         view.kwargs = {'slug': str(self.published.pk)}
         obj = view.get_object()
         self.assertEqual(obj.pk, self.published.pk)
+
+    def test_get_object_without_lookup_value_raises(self):
+        view = ServiceViewSet()
+        request = self.factory.get('/api/services/')
+        request.user = AnonymousUser()
+        view.filter_queryset = lambda qs: qs
+        view.request = request
+        view.kwargs = {}
+        with self.assertRaises(NotFound):
+            view.get_object()
 
     def test_update_with_raw_wsgi_request_json(self):
         # Use RequestFactory to build a raw WSGIRequest without DRF's .data
@@ -1300,6 +1332,22 @@ class ServiceViewSetCoverageTests(TestCase):
         self.published.refresh_from_db()
         self.assertEqual(self.published.title, 'Updated Title')
 
+    def test_update_with_drf_request_data(self):
+        request = self.factory.patch(
+            f"/api/services/{self.published.slug}/",
+            {"title": "Updated Via DRF"},
+            format="json",
+        )
+        request.user = self.admin_user
+        view = ServiceViewSet()
+        view.request = request
+        view.kwargs = {"slug": self.published.slug}
+        view.get_object = lambda: self.published
+        response = view.update(request, slug=self.published.slug)
+        self.assertEqual(response.status_code, 200)
+        self.published.refresh_from_db()
+        self.assertEqual(self.published.title, "Updated Via DRF")
+
     def test_update_with_raw_wsgi_request_form_fallback(self):
         # Build a minimal raw request object that exposes a POST payload and
         # does NOT have a `.data` attribute (to hit the form fallback branch).
@@ -1320,6 +1368,14 @@ class ServiceViewSetCoverageTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.published.refresh_from_db()
         self.assertEqual(self.published.title, 'Updated Via Form')
+
+    def test_is_admin_has_permission(self):
+        permission = IsAdmin()
+        request = self.factory.get('/api/services/')
+        request.user = self.admin_user
+        self.assertTrue(permission.has_permission(request, view=None))
+        request.user = self.user
+        self.assertFalse(permission.has_permission(request, view=None))
 
     def test_duplicate_sets_created_by_to_instance_when_unauthenticated(self):
         request = self.factory.post(f'/api/services/{self.published.slug}/duplicate/')
@@ -1346,6 +1402,16 @@ class ServiceViewSetCoverageTests(TestCase):
         with self.assertRaises(NotFound):
             view.get_object()
 
+    def test_get_object_by_slug_success(self):
+        view = ServiceViewSet()
+        request = self.factory.get(f"/api/services/{self.published.slug}/")
+        request.user = AnonymousUser()
+        view.filter_queryset = lambda qs: qs
+        view.request = request
+        view.kwargs = {"slug": self.published.slug}
+        obj = view.get_object()
+        self.assertEqual(obj.pk, self.published.pk)
+
     def test_perform_create_resolves_force_auth_user(self):
         view = ServiceViewSet()
         request = self.factory.post('/api/services/', {})
@@ -1365,6 +1431,86 @@ class ServiceViewSetCoverageTests(TestCase):
         view.perform_create(serializer)
         created = Service.objects.get(title='Created')
         self.assertEqual(created.created_by, self.admin_user)
+
+    def test_perform_create_resolves_raw_request_user(self):
+        from types import SimpleNamespace
+        raw_request = SimpleNamespace(user=self.admin_user)
+        request = SimpleNamespace(user=None, _force_auth_user=None, _request=raw_request)
+        view = ServiceViewSet()
+        view.request = request
+        serializer = ServiceSerializer(data={
+            'title': 'Created Raw',
+            'subtitle': 'Subtitle',
+            'description': 'Desc',
+            'color': '29BF12',
+            'icon': 'Bot',
+            'price': '10.00',
+        })
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        view.perform_create(serializer)
+        created = Service.objects.get(title='Created Raw')
+        self.assertEqual(created.created_by, self.admin_user)
+
+    def test_get_permissions_returns_expected_classes(self):
+        view = ServiceViewSet()
+        view.action = "list"
+        perms = view.get_permissions()
+        self.assertTrue(any(isinstance(p, AllowAny) for p in perms))
+        view.action = "create"
+        perms = view.get_permissions()
+        self.assertTrue(any(isinstance(p, IsAdmin) for p in perms))
+
+    def test_update_unauthenticated_returns_401(self):
+        request = self.factory.patch(f"/api/services/{self.published.slug}/", {"title": "Nope"})
+        request.user = AnonymousUser()
+        view = ServiceViewSet()
+        view.request = request
+        view.kwargs = {"slug": self.published.slug}
+        view.get_object = lambda: self.published
+        response = view.update(request, slug=self.published.slug)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_destroy_calls_perform_destroy(self):
+        view = ServiceViewSet()
+        request = self.factory.delete(f"/api/services/{self.published.slug}/")
+        request.user = self.admin_user
+        view.request = request
+        view.kwargs = {"slug": self.published.slug}
+        view.get_object = lambda: self.published
+        destroyed = {"called": False}
+
+        def perform_destroy(instance):
+            destroyed["called"] = True
+
+        view.perform_destroy = perform_destroy
+        response = view.destroy(request, slug=self.published.slug)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertTrue(destroyed["called"])
+
+    def test_duplicate_with_image_copies_and_sets_created_by(self):
+        service = Service.objects.create(
+            title="Dup Image",
+            subtitle="Subtitle",
+            description="Desc",
+            color="29BF12",
+            icon="Bot",
+            created_by=self.admin_user,
+            image=make_test_image("dup.png"),
+        )
+        request = self.factory.post(f"/api/services/{service.slug}/duplicate/")
+        force_authenticate(request, user=self.admin_user)
+        view = ServiceViewSet()
+        view.request = request
+        view.kwargs = {"slug": service.slug}
+        view.format_kwarg = None
+        view.get_object = lambda: service
+        view.get_serializer = ServiceSerializer
+        response = view.duplicate(request, slug=service.slug)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        created = Service.objects.get(id=response.data["id"])
+        self.assertTrue(created.title.endswith("(Copy)"))
+        self.assertEqual(created.created_by, self.admin_user)
+        self.assertTrue(bool(created.image))
 
 
 class ServiceSerializerCoverageTests(TestCase):

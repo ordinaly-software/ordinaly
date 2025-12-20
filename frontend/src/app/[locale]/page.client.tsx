@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useCallback, useRef } from "react";
+import { useEffect, useCallback, useRef, useState, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useServices } from "@/hooks/useServices";
@@ -8,15 +8,8 @@ import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
 import { HomeHero } from "@/components/home/home-hero";
 import { ServicesSection } from "@/components/home/services-section";
-import { BenefitsSection } from "@/components/home/benefits-section";
-import { CtaSection } from "@/components/home/cta-section";
 import { LocalSeoSection } from "@/components/home/local-seo-section";
-import { PartnersSection } from "@/components/home/partners-section";
-import { ProcessSection } from "@/components/home/process-section";
-import { UseCasesSection } from "@/components/home/use-cases-section";
-import { TestimonialsSection } from "@/components/home/testimonials-section";
-import ContactForm from "@/components/ui/contact-form.client";
-import { WorkWithUsSection } from "@/components/ui/work-with-us";
+import { CtaSection } from "@/components/home/cta-section";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 
 const ServiceShowcase = dynamic(
@@ -68,6 +61,117 @@ const CoursesShowcase = dynamic(
     ),
   },
 );
+const ProcessSection = dynamic(
+  () => import("@/components/home/process-section").then((mod) => mod.ProcessSection),
+  { loading: () => null },
+);
+const BenefitsSection = dynamic(
+  () => import("@/components/home/benefits-section").then((mod) => mod.BenefitsSection),
+  { loading: () => null },
+);
+const UseCasesSection = dynamic(
+  () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
+  { loading: () => null },
+);
+const WorkWithUsSection = dynamic(
+  () => import("@/components/ui/work-with-us").then((mod) => mod.WorkWithUsSection),
+  { loading: () => null },
+);
+const TestimonialsSection = dynamic(
+  () => import("@/components/home/testimonials-section").then((mod) => mod.TestimonialsSection),
+  { loading: () => null },
+);
+const PartnersSection = dynamic(
+  () => import("@/components/home/partners-section").then((mod) => mod.PartnersSection),
+  { loading: () => null },
+);
+const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"), {
+  loading: () => null,
+});
+function DeferredSection({
+  children,
+  className,
+  rootMargin = "300px 0px",
+}: {
+  children: ReactNode;
+  className?: string;
+  rootMargin?: string;
+}) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [shouldRender, setShouldRender] = useState(false);
+  const deferredSectionStyle = {
+    contentVisibility: "auto",
+    containIntrinsicSize: "1000px",
+  } as const;
+
+  useEffect(() => {
+    const node = containerRef.current;
+    if (!node) return;
+
+    let cancelled = false;
+    const handleVisible = () => {
+      if (!cancelled) {
+        setShouldRender(true);
+      }
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              handleVisible();
+              observer.disconnect();
+            }
+          });
+        },
+        { rootMargin },
+      );
+      observer.observe(node);
+      return () => {
+        cancelled = true;
+        observer.disconnect();
+      };
+    }
+
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    let idleId: number | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    if (idleWindow.requestIdleCallback) {
+      idleId = idleWindow.requestIdleCallback(handleVisible);
+    } else {
+      timeoutId = globalThis.setTimeout(handleVisible, 1);
+    }
+
+    return () => {
+      cancelled = true;
+      if (idleId !== null) {
+        idleWindow.cancelIdleCallback?.(idleId);
+      }
+      if (timeoutId !== null) {
+        globalThis.clearTimeout(timeoutId);
+      }
+    };
+  }, [rootMargin]);
+
+  useEffect(() => {
+    if (shouldRender) {
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new Event("scroll-animate:refresh"));
+      });
+    }
+  }, [shouldRender]);
+
+  return (
+    <div ref={containerRef} style={deferredSectionStyle} className={className}>
+      {shouldRender ? children : null}
+    </div>
+  );
+}
 
 export default function HomePage({
   initialServices = [],
@@ -78,10 +182,6 @@ export default function HomePage({
 }) {
   const t = useTranslations("home");
   const servicesSectionRef = useRef<HTMLElement | null>(null);
-  const deferredSectionStyle = {
-    contentVisibility: "auto",
-    containIntrinsicSize: "1000px",
-  } as const;
 
   const shouldFetchServices = initialServices.length === 0;
   const {
@@ -131,9 +231,12 @@ export default function HomePage({
     };
 
     const observerTimeout = setTimeout(setupObserver, 100);
+    const handleRefresh = () => setupObserver();
+    window.addEventListener("scroll-animate:refresh", handleRefresh);
 
     return () => {
       clearTimeout(observerTimeout);
+      window.removeEventListener("scroll-animate:refresh", handleRefresh);
       observer.disconnect();
     };
   }, [services]);
@@ -157,37 +260,37 @@ export default function HomePage({
           />
         }
       />
-      <div style={deferredSectionStyle}>
-        <LocalSeoSection t={t} />
-      </div>
-      <div style={deferredSectionStyle}>
+      <LocalSeoSection t={t} />
+      <DeferredSection rootMargin="1200px 0px">
         <ProcessSection t={t} />
-      </div>
-      <div style={deferredSectionStyle}>
+      </DeferredSection>
+      <DeferredSection rootMargin="1200px 0px">
         <BenefitsSection t={t} />
-      </div>
-      <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
-      <div style={deferredSectionStyle}>
+      </DeferredSection>
+      <DeferredSection>
+        <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
+      </DeferredSection>
+      <DeferredSection rootMargin="1400px 0px">
         <UseCasesSection t={t} />
-      </div>
-      <div style={deferredSectionStyle}>
+      </DeferredSection>
+      <DeferredSection>
         <WorkWithUsSection />
-      </div>
-      <div style={deferredSectionStyle}>
+      </DeferredSection>
+      <DeferredSection>
         <TestimonialsSection t={t} />
-      </div>
-      <div style={deferredSectionStyle}>
+      </DeferredSection>
+      <DeferredSection>
         <PartnersSection t={t} />
-      </div>
-      <div style={deferredSectionStyle}>
+      </DeferredSection>
+      <DeferredSection>
         <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
           <ContactForm />
         </section>
-      </div>
-      <div style={deferredSectionStyle}>
-        <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
-      </div>
-      <Footer />
+      </DeferredSection>
+      <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
+      <DeferredSection>
+        <Footer />
+      </DeferredSection>
     </div>
   );
 }

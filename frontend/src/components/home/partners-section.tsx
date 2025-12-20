@@ -35,6 +35,7 @@ const partners = [
   {
     src: "/static/logos/logo_esau.webp",
     alt: "Esaú Galván García - Economista abogado",
+    url: "#",
     delay: "0.5s",
   },
   {

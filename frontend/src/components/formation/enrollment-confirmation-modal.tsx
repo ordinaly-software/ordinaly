@@ -8,6 +8,7 @@ import React from "react";
 import CheckoutButton from "./checkout-button";
 import CourseEnrollmentSuccessModal from "@/components/formation/enrollment-success-modal";
 import { useTheme } from "@/contexts/theme-context";
+import Alert from "@/components/ui/alert";
 
 
 interface Course {
@@ -16,6 +17,7 @@ interface Course {
   title: string;
   subtitle?: string;
   description: string;
+  bonified_course_link?: string | null;
   image: string;
   price?: number;
   location: string;
@@ -56,10 +58,14 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
   const { isDark } = useTheme();
   const [enrolled, setEnrolled] = React.useState(false);
   const [showSuccessModal, setShowSuccessModal] = React.useState(false);
+  const [currentStep, setCurrentStep] = React.useState<"bonification" | "checkout">("bonification");
+  const [alert, setAlert] = React.useState<{ type: "success" | "error" | "info" | "warning"; message: string } | null>(null);
 
   // Reset enrolled state when modal opens/closes or course changes
   React.useEffect(() => {
     setEnrolled(false);
+    setCurrentStep("bonification");
+    setAlert(null);
   }, [isOpen, selectedCourse]);
 
   const handleEnrollSuccess = () => {
@@ -74,6 +80,23 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
         onClose();
       }, 1200);
     }
+  };
+
+  const bonificationText = t("enrollment.bonificationInfo");
+  const bonificationParagraphs = bonificationText.split("\n\n").filter(Boolean);
+
+  const handleBonificationDecision = (hasCredits: boolean) => {
+    if (!selectedCourse) return;
+    if (!hasCredits) {
+      setCurrentStep("checkout");
+      return;
+    }
+    const link = selectedCourse.bonified_course_link?.trim();
+    if (!link) {
+      setAlert({ type: "error", message: t("enrollment.bonificationMissingLink") });
+      return;
+    }
+    window.location.href = link;
   };
 
   return (
@@ -98,58 +121,96 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
 
           {/* SCROLL AREA */}
           <div className={`min-h-0 overflow-y-auto px-3 sm:px-4 py-4`}>
-            <div className="text-center">
-              <p className={`${isDark ? 'text-gray-200' : 'text-gray-800'} mb-2 font-semibold`}
-                 style={{ fontSize: 'clamp(.95rem, 3.6vw, 1.125rem)' }}>
-                {enrolled ? t("enrollment.successMessage") : t("enrollment.confirmMessage")}
-              </p>
-              <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{t("enrollment.paymentNote")}</p>
+            {alert && (
+              <div className="mb-4">
+                <Alert
+                  type={alert.type}
+                  message={alert.message}
+                  onClose={() => setAlert(null)}
+                  duration={5000}
+                />
+              </div>
+            )}
+            <div className="flex items-center justify-center mb-3">
+              <span className={`text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full ${isDark ? 'bg-white/10 text-white' : 'bg-green-100 text-green-800'}`}>
+                {currentStep === "bonification" ? t("enrollment.stepBonification") : t("enrollment.stepCheckout")}
+              </span>
             </div>
-
-            <div className={`mt-4 ${isDark ? 'bg-gray-50/5 ring-1 ring-white/10' : 'bg-gray-50 ring-1 ring-gray-200'} rounded-xl p-4 space-y-3`}>
-              <h3 className={`${isDark ? 'text-white' : 'text-gray-900'} text-lg font-semibold`}>
-                {t("enrollment.courseDetails")}
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center">
-                    <CalendarDays className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
-                    <span className="font-medium">{t("date")}:</span>
-                    <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                      {new Date(selectedCourse.start_date).toLocaleDateString()}
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
-                    <span className="font-medium">{t("location")}:</span>
-                    <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                      {selectedCourse.location ?? t("locationSoon")}
-                    </span>
-                  </div>
+            {currentStep === "bonification" ? (
+              <div className="space-y-4">
+                <div className="text-center">
+                  <p className={`${isDark ? 'text-gray-200' : 'text-gray-800'} mb-2 font-semibold`}
+                     style={{ fontSize: 'clamp(.95rem, 3.6vw, 1.125rem)' }}>
+                    {t("enrollment.bonificationQuestion")}
+                  </p>
+                  <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                    {t("enrollment.bonificationHint")}
+                  </p>
                 </div>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center">
-                    <Euro className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
-                    <span className="font-medium">{t("price")}:</span>
-                    <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                      {selectedCourse.price ? `€${selectedCourse.price}` : t("free")}
-                    </span>
-                  </div>
-                  <div className="flex items-center">
-                    <Users className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
-                    <span className="font-medium">{t("maxAttendants")}:</span>
-                    <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{selectedCourse.max_attendants}</span>
-                  </div>
+                <div className={`rounded-xl p-4 space-y-3 ${isDark ? 'bg-gray-50/5 ring-1 ring-white/10' : 'bg-gray-50 ring-1 ring-gray-200'}`}>
+                  {bonificationParagraphs.map((paragraph, idx) => (
+                    <p key={idx} className={`text-sm leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {paragraph}
+                    </p>
+                  ))}
                 </div>
               </div>
+            ) : (
+              <>
+              <div className="text-center">
+                <p className={`${isDark ? 'text-gray-200' : 'text-gray-800'} mb-2 font-semibold`}
+                   style={{ fontSize: 'clamp(.95rem, 3.6vw, 1.125rem)' }}>
+                  {enrolled ? t("enrollment.successMessage") : t("enrollment.confirmMessage")}
+                </p>
+                <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>{t("enrollment.paymentNote")}</p>
+              </div>
 
-              {selectedCourse.description && (
-                <div className={`pt-2 border-t ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
-                  <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{selectedCourse.subtitle}</p>
+              <div className={`mt-4 ${isDark ? 'bg-gray-50/5 ring-1 ring-white/10' : 'bg-gray-50 ring-1 ring-gray-200'} rounded-xl p-4 space-y-3`}>
+                <h3 className={`${isDark ? 'text-white' : 'text-gray-900'} text-lg font-semibold`}>
+                  {t("enrollment.courseDetails")}
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center">
+                      <CalendarDays className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                      <span className="font-medium">{t("date")}:</span>
+                      <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {new Date(selectedCourse.start_date).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <div className="flex items-center">
+                      <MapPin className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                      <span className="font-medium">{t("location")}:</span>
+                      <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {selectedCourse.location ?? t("locationSoon")}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center">
+                      <Euro className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                      <span className="font-medium">{t("price")}:</span>
+                      <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                        {selectedCourse.price ? `€${selectedCourse.price}` : t("free")}
+                      </span>
+                    </div>
+                    <div className="flex items-center">
+                      <Users className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                      <span className="font-medium">{t("maxAttendants")}:</span>
+                      <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{selectedCourse.max_attendants}</span>
+                    </div>
+                  </div>
                 </div>
-              )}
-            </div>
+
+                {selectedCourse.description && (
+                  <div className={`pt-2 border-t ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
+                    <p className={`text-sm ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{selectedCourse.subtitle}</p>
+                  </div>
+                )}
+              </div>
+              </>
+            )}
           </div>
 
             <div
@@ -158,10 +219,27 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
               <Button type="button" variant="ghost" onClick={onClose} className="w-full sm:w-auto px-6 h-10">
                 {t("enrollment.cancel")}
               </Button>
-              {selectedCourse && (
+              {currentStep === "bonification" ? (
+                <>
+                  <Button
+                    type="button"
+                    onClick={() => handleBonificationDecision(false)}
+                    className="w-full sm:w-auto bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white px-6 h-10"
+                  >
+                    {t("enrollment.bonificationNo")}
+                  </Button>
+                  <Button
+                    type="button"
+                    onClick={() => handleBonificationDecision(true)}
+                    className="w-full sm:w-auto px-6 h-10"
+                  >
+                    {t("enrollment.bonificationYes")}
+                  </Button>
+                </>
+              ) : (
                 <CheckoutButton
                   courseId={selectedCourse.id}
-                  label={enrolled ? t("enrollment.enrolled") : t("enrollment.confirmEnroll")}
+                  label={t("enrollment.confirmEnroll")}
                   className="w-full sm:w-auto bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white px-6 h-10 flex items-center justify-center gap-2 rounded-2xl"
                   onSuccess={handleEnrollSuccess}
                   disabled={enrolled}

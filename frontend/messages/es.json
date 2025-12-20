@@ -24,6 +24,7 @@
       "userMenu": "Menú de usuario",
       "adminDashboard": "Panel de administración",
       "profile": "Perfil",
+      "myCourses": "Mis cursos",
       "blog": "Blog",
       "contact": "Contacto",
       "us": "Sobre nosotros",
@@ -356,6 +357,7 @@
       "retryButton": "Reintentar",
       "enrollButton": "Inscribirse Ahora",
       "moreInfo": "Más Información",
+      "enrollCta": "Inscríbete",
       "viewDetails": "Ver Detalles",
       "viewAllCourses": "Ver Todos los Cursos",
       "spotsLeft": "plazas disponibles",
@@ -806,6 +808,9 @@
         "description": "Descripción",
         "descriptionPlaceholder": "Describe lo que los estudiantes aprenderán en este curso...",
         "descriptionRequired": "Descripción *",
+        "bonifiedCourseLinkOptional": "Enlace curso bonificado (Opcional)",
+        "bonifiedCourseLinkPlaceholder": "https://ejemplo.com/curso-bonificado",
+        "bonifiedCourseLinkHelp": "Enlace opcional para la información de la bonificación del curso (solo http/https).",
         "image": "Imagen del Curso",
         "imageRequired": "Imagen del Curso *",
         "imageOptional": "Imagen del Curso",
@@ -917,7 +922,10 @@
           "endDatePast": "La fecha de finalización no puede ser en el pasado",
           "startDatePast": "La fecha de inicio no puede ser en el pasado",
           "endDateBeforeStart": "La fecha de finalización no puede estar antes de la fecha de inicio",
+          "dateFormatInvalid": "La fecha debe tener el formato dd-mm-aaaa",
           "descriptionTooLong": "La descripción no puede tener más de {max} caracteres",
+          "bonifiedCourseLinkInvalid": "Introduce un enlace válido (http o https).",
+          "bonifiedCourseLinkTooLong": "El enlace no puede superar los 500 caracteres.",
           "priceRange": "El precio debe estar entre {min} y {max} euros",
           "priceForbiddenRange": "El precio no puede estar entre {min} y {max} euros"
         },
@@ -1433,6 +1441,7 @@
     "noSpecificDate": "Todavía no hay una fecha establecida",
     "locationSoon": "Ubicación próximamente",
     "inProgress": "En curso",
+    "startsSoon": "Empieza pronto",
     "filters": {
       "location": {
         "all": "Todas las ubicaciones",
@@ -1503,6 +1512,14 @@
       "confirm": "Confirmar Inscripción",
       "courseDetails": "Detalles del Curso",
       "confirmMessage": "¿Estás seguro de que quieres inscribirte en este curso?",
+      "bonificationQuestion": "¿Tu empresa dispone de créditos de formación?",
+      "bonificationHint": "Si la formación es bonificable, podrás continuar desde el enlace correspondiente.",
+      "bonificationYes": "Sí, tengo créditos",
+      "bonificationNo": "No, pagar desde aquí",
+      "bonificationMissingLink": "No hemos encontrado el enlace del curso bonificado. Contacta con soporte.",
+      "bonificationInfo": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda.\n\nFUNDAE / SEPE - Formación programada por las empresas: permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas (FUNDAE) y Formación para ocupados (SEPE).\n\nFondos UE - FSE+ 2021-2027: programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte UAFSE.\n\nPRTR - NextGenerationEU (Componente 23): medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del Plan de Recuperación y del SEPE.\n\nAndalucía (ámbito autonómico): Programa FSE+ Andalucía 2021-2027 y Formación Profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte Junta de Andalucía y FPE.\n\nAviso: La elegibilidad, intensidad y compatibilidad de la financiación varían por normativa y convocatoria vigente. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar",
+      "stepBonification": "Paso 1 · Bonificación",
+      "stepCheckout": "Paso 2 · Inscripción",
       "paymentNote": "El procesamiento del pago se manejará en el siguiente paso",
       "confirmEnroll": "Confirmar Inscripción",
       "name": "Nombre Completo",
@@ -1702,6 +1719,27 @@
     "loading": "Cargando perfil...",
     "personalInfo": "Información Personal",
     "dangerZone": "Zona de Peligro",
+    "tabs": {
+      "profile": "Perfil",
+      "courses": "Mis cursos"
+    },
+    "courses": {
+      "title": "Cursos inscritos",
+      "current": "Cursos actuales",
+      "past": "Cursos pasados",
+      "emptyCurrent": "Todavía no tienes cursos actuales.",
+      "emptyPast": "Todavía no tienes cursos pasados.",
+      "loading": "Cargando cursos...",
+      "loadError": "No se pudieron cargar tus cursos.",
+      "viewDetails": "Ver curso",
+      "dateTbd": "Fechas por confirmar",
+      "enrolledOn": "Inscrito el {date}",
+      "status": {
+        "inProgress": "En curso",
+        "startsSoon": "Empieza pronto",
+        "finished": "Finalizado"
+      }
+    },
     "form": {
       "firstName": "Nombre",
       "firstNamePlaceholder": "Ingresa tu nombre",

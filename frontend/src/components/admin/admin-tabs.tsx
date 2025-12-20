@@ -15,6 +15,7 @@ interface AdminTabsProps {
   onTabChange: (tabId: string) => void;
   className?: string;
   style?: React.CSSProperties;
+  storageKey?: string;
 }
 
 /**
@@ -29,6 +30,7 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
   onTabChange,
   className = "",
   style = {},
+  storageKey = "adminActiveTab",
 }) => {
   const tabBarRef = useRef<HTMLDivElement>(null);
   const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -43,17 +45,17 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
 
   // Save active tab to localStorage
   useEffect(() => {
-    localStorage.setItem("adminActiveTab", activeTab);
-  }, [activeTab]);
+    localStorage.setItem(storageKey, activeTab);
+  }, [activeTab, storageKey]);
 
   // On mount, restore tab from localStorage if present
   useEffect(() => {
-    const savedTab = localStorage.getItem("adminActiveTab");
+    const savedTab = localStorage.getItem(storageKey);
     if (savedTab && tabs.some((tab) => tab.id === savedTab) && savedTab !== activeTab) {
       onTabChange(savedTab);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [storageKey]);
 
   return (
     <div

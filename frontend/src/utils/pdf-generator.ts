@@ -7,6 +7,7 @@ export interface Course {
   title: string;
   subtitle?: string;
   description: string;
+  bonified_course_link?: string | null;
   image: string;
   price?: number;
   location: string;
@@ -77,6 +78,47 @@ export async function generateCoursesCatalogPDF(
   const wrapText = (text: string, maxWidth: number, fontSize: number) => {
     pdf.setFontSize(fontSize);
     return pdf.splitTextToSize(text, maxWidth);
+  };
+
+  const stripMarkdown = (text: string) => {
+    if (!text) return '';
+    let value = text;
+    value = value.replace(/```[\s\S]*?```/g, '');
+    value = value.replace(/`[^`]*`/g, '');
+    value = value.replace(/!\[[^\]]*?\]\([^)]+?\)/g, '');
+    value = value.replace(/\[([^\]]+?)\]\([^)]+?\)/g, '$1');
+    value = value.replace(/~~([^~]+)~~/g, '$1');
+    value = value.replace(/[*_]{1,3}([^*_]+)[*_]{1,3}/g, '$1');
+    value = value.replace(/^>+\s?/gm, '');
+    value = value.replace(/^#{1,6}\s+/gm, '');
+    value = value.replace(/^\s*[-*+]\s+/gm, '');
+    value = value.replace(/^\s*\d+\.\s+/gm, '');
+    let previous: string;
+    do {
+      previous = value;
+      value = value.replace(/<[^>]+>/g, '');
+    } while (value !== previous);
+    value = value.replace(/\s{2,}/g, ' ');
+    return value.trim();
+  };
+
+  const truncateLines = (lines: string[], maxLines: number, maxWidth: number) => {
+    if (lines.length <= maxLines) {
+      return lines;
+    }
+    const truncated = lines.slice(0, maxLines);
+    const ellipsis = '...';
+    const getTextWidth = (pdf as jsPDF & { getTextWidth?: (text: string) => number }).getTextWidth;
+    let last = truncated[maxLines - 1];
+    if (getTextWidth) {
+      while (last.length > 0 && getTextWidth.call(pdf, `${last}${ellipsis}`) > maxWidth) {
+        last = last.slice(0, -1);
+      }
+    } else if (last.length > 3) {
+      last = last.slice(0, -3);
+    }
+    truncated[maxLines - 1] = `${last}${ellipsis}`;
+    return truncated;
   };
 
   // Helper function to format date
@@ -289,10 +331,6 @@ export async function generateCoursesCatalogPDF(
 
     // Use for..of so we can await image loading per course
     for (const course of upcomingCourses) {
-      // Dynamic height calculation for each course block
-      const descLines = wrapText(course.description, contentWidth - 20, 10);
-      const descLineCount = Math.min(descLines.length, 3);
-
       // Attempt to load course image (convert to JPEG for jsPDF). Non-blocking on failure.
       let courseImageBase64: string | null = null;
       try {
@@ -305,15 +343,35 @@ export async function generateCoursesCatalogPDF(
 
       const imageWidth = courseImageBase64 ? 36 : 0; // mm
       const imageHeight = courseImageBase64 ? 26 : 0; // mm
+      const textWidth = contentWidth - imageWidth - 15;
 
-      // Calculate Y positions for all elements
-      let y = currentY + 12; // title
-      if (course.subtitle) y += 10; // subtitle
-      y += descLineCount * 5; // description
-      y += 5; // space before details
-      y += 16; // details block (3 lines, 8px apart)
-      // Ensure there's room for image if present
-      const blockHeight = Math.max(y - currentY + 20, imageHeight + 20);
+      const titleText = stripMarkdown(course.title);
+      const rawTitleLines = wrapText(titleText, textWidth, 16);
+      const titleLines = truncateLines(rawTitleLines, 3, textWidth);
+
+      const subtitleText = course.subtitle ? stripMarkdown(course.subtitle) : '';
+      const rawSubtitleLines = subtitleText ? wrapText(subtitleText, textWidth, 11) : [];
+      const subtitleLines = truncateLines(rawSubtitleLines, 2, textWidth);
+
+      const descText = stripMarkdown(course.description || '');
+      const rawDescLines = wrapText(descText, textWidth, 10);
+      const descLines = truncateLines(rawDescLines, 3, textWidth);
+
+      const titleLineHeight = 7;
+      const subtitleLineHeight = 5;
+      const descLineHeight = 5;
+
+      const titleBlockHeight = titleLines.length * titleLineHeight;
+      const subtitleBlockHeight = subtitleLines.length ? (subtitleLines.length * subtitleLineHeight + 2) : 0;
+      const descBlockHeight = descLines.length * descLineHeight;
+      const detailsBlockHeight = 16;
+      const linkBlockHeight = 8;
+
+      const blockPadding = 6;
+      const blockHeight = Math.max(
+        titleBlockHeight + subtitleBlockHeight + descBlockHeight + detailsBlockHeight + linkBlockHeight + 18,
+        imageHeight + 20
+      ) + blockPadding;
       checkPageBreak(blockHeight);
 
       // Course background (now fits content)
@@ -324,30 +382,36 @@ export async function generateCoursesCatalogPDF(
       pdf.setFontSize(16);
       pdf.setTextColor(primaryColor);
       pdf.setFont('helvetica', 'bold');
-      pdf.text(wrapText(course.title, contentWidth - imageWidth - 15, 16)[0], margin + 5, currentY + 12, { maxWidth: contentWidth - imageWidth - 15 });
+      let cursorY = currentY + 12;
+      titleLines.forEach((line: string) => {
+        pdf.text(line, margin + 5, cursorY, { maxWidth: textWidth });
+        cursorY += titleLineHeight;
+      });
 
       // Course subtitle
-      let subtitleY = currentY + 12;
-      if (course.subtitle) {
-        subtitleY += 10;
-        pdf.setFontSize(12);
+      if (subtitleLines.length) {
+        cursorY += 2;
+        pdf.setFontSize(11);
         pdf.setTextColor(secondaryColor);
         pdf.setFont('helvetica', 'italic');
-        pdf.text(wrapText(course.subtitle, contentWidth - imageWidth - 15, 12)[0], margin + 5, subtitleY, { maxWidth: contentWidth - imageWidth - 15 });
+        subtitleLines.forEach((line: string) => {
+          pdf.text(line, margin + 5, cursorY, { maxWidth: textWidth });
+          cursorY += subtitleLineHeight;
+        });
       }
 
       // Course description
       pdf.setFontSize(10);
       pdf.setTextColor('#000000');
       pdf.setFont('helvetica', 'normal');
-      let descY = currentY + (course.subtitle ? 32 : 25);
-      descLines.slice(0, 3).forEach((line: string) => {
-        pdf.text(line, margin + 5, descY, { maxWidth: contentWidth - imageWidth - 20 });
-        descY += 5;
+      cursorY += 2;
+      descLines.forEach((line: string) => {
+        pdf.text(line, margin + 5, cursorY, { maxWidth: textWidth });
+        cursorY += descLineHeight;
       });
 
       // Course details
-      const detailsY = descY + 5;
+      const detailsY = cursorY + 5;
       pdf.setFontSize(10);
       pdf.setFont('helvetica', 'bold');
       pdf.setTextColor('#000000');
@@ -411,7 +475,7 @@ export async function generateCoursesCatalogPDF(
         // ignore link failures
       }
 
-      currentY += blockHeight;
+      currentY += blockHeight + 8;
     }
   }
 
@@ -458,5 +522,3 @@ export async function generateCoursesCatalogPDF(
   const fileName = t('filename');
   pdf.save(fileName);
 };
-
-

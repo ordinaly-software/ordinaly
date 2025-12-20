@@ -8,6 +8,7 @@ from .serializers import CourseSerializer, EnrollmentSerializer
 from django.utils import timezone
 from datetime import datetime, time, timedelta
 from zoneinfo import ZoneInfo
+from django.db import transaction
 
 # Stripe webhook endpoint to handle payment events
 from rest_framework.views import APIView
@@ -135,25 +136,26 @@ class CourseViewSet(viewsets.ModelViewSet):
                 {"detail": "Cannot enroll in a course without specified dates."},
                 status=status.HTTP_400_BAD_REQUEST
             )
+        with transaction.atomic():
+            locked_course = Course.objects.select_for_update().get(pk=course.pk)
+            # Check if the course is full
+            if locked_course.enrollments.count() >= locked_course.max_attendants:
+                return Response(
+                    {"detail": "This course is already full."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
-        # Check if the course is full
-        if course.enrollments.count() >= course.max_attendants:
-            return Response(
-                {"detail": "This course is already full."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            # Check if user is already enrolled
+            if Enrollment.objects.filter(user=user, course=locked_course).exists():
+                return Response(
+                    {"detail": "You are already enrolled in this course."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
 
-        # Check if user is already enrolled
-        if Enrollment.objects.filter(user=user, course=course).exists():
-            return Response(
-                {"detail": "You are already enrolled in this course."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        # Create enrollment
-        enrollment = Enrollment.objects.create(user=user, course=course)
-        serializer = EnrollmentSerializer(enrollment)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+            # Create enrollment
+            enrollment = Enrollment.objects.create(user=user, course=locked_course)
+            serializer = EnrollmentSerializer(enrollment)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAdminUser])
     def duplicate(self, request, *args, **kwargs):
@@ -164,6 +166,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             title=f"{course.title} (Copy)",
             subtitle=course.subtitle,
             description=course.description,
+            bonified_course_link=course.bonified_course_link,
             price=course.price,
             location=course.location,
             start_date=course.start_date,
@@ -190,6 +193,8 @@ class CourseViewSet(viewsets.ModelViewSet):
             except Exception:
                 pass
         copy.save()
+        # Ensure duplicated course starts with zero enrollments.
+        Enrollment.objects.filter(course=copy).delete()
         serializer = self.get_serializer(copy)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -218,9 +223,17 @@ class CourseViewSet(viewsets.ModelViewSet):
         # If course is free, enroll directly
 
         if course.price is None or course.price == Decimal('0.00'):
-            enrollment = Enrollment.objects.create(user=user, course=course)
-            serializer = EnrollmentSerializer(enrollment)
-            return Response({"enrolled": True, "enrollment": serializer.data})
+            with transaction.atomic():
+                locked_course = Course.objects.select_for_update().get(pk=course.pk)
+                if locked_course.enrollments.count() >= locked_course.max_attendants:
+                    return Response({"detail": "This course is already full."},
+                                    status=status.HTTP_400_BAD_REQUEST)
+                if Enrollment.objects.filter(user=user, course=locked_course).exists():
+                    return Response({"detail": "You are already enrolled in this course."},
+                                    status=status.HTTP_400_BAD_REQUEST)
+                enrollment = Enrollment.objects.create(user=user, course=locked_course)
+                serializer = EnrollmentSerializer(enrollment)
+                return Response({"enrolled": True, "enrollment": serializer.data})
 
         # Validate user email
         if not user.email:
@@ -477,14 +490,23 @@ class StripeWebhookView(APIView):
                 if not user or not course:
                     # print(f"[Stripe Webhook] User or course not found. user: {user}, course: {course}")
                     return Response({'detail': 'User or course not found.'}, status=400)
-                enrollment, created = Enrollment.objects.get_or_create(
-                    user=user, course=course,
-                    defaults={'stripe_payment_intent_id': payment_intent}
-                )
-                if not created and not enrollment.stripe_payment_intent_id:
-                    enrollment.stripe_payment_intent_id = payment_intent
-                    enrollment.save()
-                # print(f"[Stripe Webhook] Enrollment created: {created}, enrollment: {enrollment}")
+                with transaction.atomic():
+                    locked_course = Course.objects.select_for_update().get(pk=course.pk)
+                    if Enrollment.objects.filter(user=user, course=locked_course).exists():
+                        enrollment = Enrollment.objects.get(user=user, course=locked_course)
+                        if not enrollment.stripe_payment_intent_id:
+                            enrollment.stripe_payment_intent_id = payment_intent
+                            enrollment.save()
+                    else:
+                        if locked_course.enrollments.count() >= locked_course.max_attendants:
+                            return Response({'detail': 'This course is already full.'}, status=400)
+                        enrollment = Enrollment.objects.create(
+                            user=user,
+                            course=locked_course,
+                            stripe_payment_intent_id=payment_intent
+                        )
+                        # print(f"[Stripe Webhook] Enrollment created: {enrollment}")
+                return Response({'status': 'success'})
             except Exception as e:
                 # print(f"[Stripe Webhook] Enrollment error: {e}")
                 return Response({'detail': f'Enrollment error: {str(e)}'}, status=500)
