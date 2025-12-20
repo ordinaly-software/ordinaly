@@ -207,7 +207,6 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       !course.end_date || course.end_date === "0000-00-00" ||
       !course.start_time || !course.end_time ||
       !course.location || !course.description;
-    const now = new Date();
     const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
     const endDate = course.end_date && course.end_date !== "0000-00-00" ? new Date(course.end_date) : null;
     if (startDate && endDate && startDate <= now && endDate > now) {
