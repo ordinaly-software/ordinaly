@@ -1504,7 +1504,7 @@ class ServiceViewSetCoverageTests(TestCase):
         view.kwargs = {"slug": service.slug}
         view.format_kwarg = None
         view.get_object = lambda: service
-        view.get_serializer = lambda obj: ServiceSerializer(obj)
+        view.get_serializer = ServiceSerializer
         response = view.duplicate(request, slug=service.slug)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         created = Service.objects.get(id=response.data["id"])
