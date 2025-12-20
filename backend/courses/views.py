@@ -497,15 +497,16 @@ class StripeWebhookView(APIView):
                         if not enrollment.stripe_payment_intent_id:
                             enrollment.stripe_payment_intent_id = payment_intent
                             enrollment.save()
-                        return Response({'status': 'success'})
-                    if locked_course.enrollments.count() >= locked_course.max_attendants:
-                        return Response({'detail': 'This course is already full.'}, status=400)
-                    enrollment = Enrollment.objects.create(
-                        user=user,
-                        course=locked_course,
-                        stripe_payment_intent_id=payment_intent
-                    )
-                    # print(f"[Stripe Webhook] Enrollment created: {enrollment}")
+                    else:
+                        if locked_course.enrollments.count() >= locked_course.max_attendants:
+                            return Response({'detail': 'This course is already full.'}, status=400)
+                        enrollment = Enrollment.objects.create(
+                            user=user,
+                            course=locked_course,
+                            stripe_payment_intent_id=payment_intent
+                        )
+                        # print(f"[Stripe Webhook] Enrollment created: {enrollment}")
+                return Response({'status': 'success'})
             except Exception as e:
                 # print(f"[Stripe Webhook] Enrollment error: {e}")
                 return Response({'detail': f'Enrollment error: {str(e)}'}, status=500)
