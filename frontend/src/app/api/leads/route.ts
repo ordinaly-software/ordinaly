@@ -19,7 +19,21 @@ export async function POST(req: Request) {
     lead[key] = value.trim();
   }
 
-  if (lead.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) {
+  const isValidEmail = (email: string) => {
+    if (email.length > 254 || email.includes(" ")) return false;
+    const atIndex = email.indexOf("@");
+    if (atIndex <= 0 || atIndex !== email.lastIndexOf("@")) return false;
+    const local = email.slice(0, atIndex);
+    const domain = email.slice(atIndex + 1);
+    if (!local || !domain || domain.startsWith(".") || domain.endsWith(".")) {
+      return false;
+    }
+    const domainLabels = domain.split(".");
+    if (domainLabels.length < 2) return false;
+    return domainLabels.every((label) => label.length > 0);
+  };
+
+  if (lead.email && !isValidEmail(lead.email)) {
     return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
   }
 
