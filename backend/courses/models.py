@@ -476,7 +476,10 @@ class Enrollment(models.Model):
 
     def clean(self):
         if self.course_id:
-            enrolled_count = self.course.enrollments.exclude(pk=self.pk).count()
+            enrollments_qs = self.course.enrollments.all()
+            if self.pk is not None:
+                enrollments_qs = enrollments_qs.exclude(pk=self.pk)
+            enrolled_count = enrollments_qs.count()
             if enrolled_count >= self.course.max_attendants:
                 raise ValidationError({"course": "This course is already full."})
 
