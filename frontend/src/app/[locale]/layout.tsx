@@ -12,6 +12,7 @@ import { absoluteUrl, getFullBrandName, localeHrefLangs, metadataBaseUrl, siteNa
 import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
 import AnalyticsManager from "@/utils/analyticsManager";
+import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -49,6 +50,15 @@ export async function generateMetadata({
     },
     description: baseDescription,
     metadataBase: new URL(metadataBaseUrl),
+    manifest: "/manifest.json",
+    themeColor: "#22A60D",
+    icons: {
+      icon: [
+        { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+        { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    },
     alternates: {
       canonical,
       languages: alternateLanguages,
@@ -167,6 +177,7 @@ export default async function RootLayout({
 
         <NextIntlClientProvider>
           <ThemeProvider>
+            <ServiceWorkerRegistrar />
             {/* tu body tal cual */}
             <Navbar />
             <main id="main-content">{children}</main>

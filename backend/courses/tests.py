@@ -1899,9 +1899,9 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         now = timezone.now()
         course = self.create_test_course(
             start_date=now.date(),
-            start_time=(now + timedelta(hours=2)).time(),
+            start_time=(now + timedelta(days=4)).time(),
             end_date=now.date(),
-            end_time=(now + timedelta(hours=4)).time(),
+            end_time=(now + timedelta(days=4)).time(),
         )
         self.create_test_enrollment(user=self.user, course=course)
         url = reverse('course-unenroll', kwargs={'slug': course.slug})
