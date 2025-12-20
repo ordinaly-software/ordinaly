@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   }
 
   if (lead.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email)) {
-    return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+    return NextResponse.json({ error: "Invalid email format" }, { status: 400 });
   }
 
   const response = await fetch(process.env.N8N_WEBHOOK_URL!, {
