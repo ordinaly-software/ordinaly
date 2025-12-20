@@ -13,7 +13,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/profile",
-    title: isEs ? "Tu perfil y ajustes | Ordinaly" : "Your profile and settings | Ordinaly",
+    title: isEs ? "Tu perfil y ajustes | Ordinaly Software" : "Your profile and settings | Ordinaly Software",
     description: isEs
       ? "Gestiona tu perfil, pagos y preferencias dentro de Ordinaly."
       : "Manage your profile, payments, and preferences in Ordinaly.",

@@ -8,11 +8,26 @@ interface SectionProps {
 
 const useCases = [
   {
+    titleKey: "useCases.items.4.title",
+    bulletKey: "useCases.items.4",
+    defaultTitle: "Consultoría y Servicios",
+    icon: "💼",
+    bullets: [
+      "Gestión automática de correos",
+      "Workflows de facturación",
+      "CRM personalizado con VeriFactu"
+    ],
+  },
+  {
     titleKey: "useCases.items.0.title",
     bulletKey: "useCases.items.0",
     defaultTitle: "Administradores de Fincas",
     icon: "🏢",
-    bullets: ["Sistema CRM para seguimiento de propiedades"],
+    bullets: [
+      "Envío automático de informes a propietarios",
+      "Gestión automática de correos",
+      "Workflows de facturación"
+    ]
   },
   {
     titleKey: "useCases.items.1.title",
@@ -21,9 +36,8 @@ const useCases = [
     icon: "🏠",
     bullets: [
       "Agente de IA para consultas de clientes",
-      "Automatización de publicaciones en portales",
+      "Automatización de publicaciones en redes sociales",
       "Workflow de visitas y seguimiento",
-      "Generación automática de descripciones",
     ],
   },
   {
@@ -35,7 +49,6 @@ const useCases = [
       "Automatización de redes sociales",
       "Generación de contenido con IA",
       "Análisis de campañas automatizado",
-      "Chatbots para captación de leads",
     ],
   },
   {
@@ -47,19 +60,6 @@ const useCases = [
       "Gestión de inventario inteligente",
       "Atención al cliente automatizada",
       "Predicción de demanda con IA",
-      "Integración con eCommerce",
-    ],
-  },
-  {
-    titleKey: "useCases.items.4.title",
-    bulletKey: "useCases.items.4",
-    defaultTitle: "Consultoría y Servicios",
-    icon: "💼",
-    bullets: [
-      "CRM personalizado con Odoo",
-      "Automatización de propuestas",
-      "Gestión de proyectos con IA",
-      "Workflows de facturación",
     ],
   },
   {
@@ -68,7 +68,6 @@ const useCases = [
     defaultTitle: "Construcción e Ingeniería",
     icon: "🏗️",
     bullets: [
-      "Control de obras automatizado",
       "Gestión de proveedores y presupuestos",
       "Documentación inteligente con IA",
       "Planning y cronogramas automatizados",

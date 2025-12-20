@@ -1,7 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { BadgeCheck } from "lucide-react";
+import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
+import { Button } from "@/components/ui/button";
 
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
@@ -90,10 +93,27 @@ const getInitials = (name: string) =>
     .map((part) => part[0]?.toUpperCase())
     .join("");
 
+const GoogleIcon = ({ className }: { className?: string }) => (
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 48 48"
+    className={className}
+  >
+    <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303C33.837 32.661 29.345 36 24 36c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.963 3.037l5.657-5.657C34.045 6.053 29.272 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z" />
+    <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.656 16.104 19.001 12 24 12c3.059 0 5.842 1.154 7.963 3.037l5.657-5.657C34.045 6.053 29.272 4 24 4 16.319 4 9.656 8.276 6.306 14.691z" />
+    <path fill="#4CAF50" d="M24 44c5.237 0 9.917-2.006 13.469-5.268l-6.219-5.268C29.205 35.091 26.715 36 24 36c-5.324 0-9.814-3.319-11.281-7.946l-6.529 5.028C9.512 39.556 16.227 44 24 44z" />
+    <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a11.99 11.99 0 01-4.053 5.464h.003l6.219 5.268C36.999 39.187 44 34 44 24c0-1.341-.138-2.65-.389-3.917z" />
+  </svg>
+);
+
 export function TestimonialsSection({ t }: SectionProps) {
+  const sectionRef = useRef<HTMLElement | null>(null);
   const [googleData, setGoogleData] = useState<GoogleReviewsPayload | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -119,16 +139,34 @@ export function TestimonialsSection({ t }: SectionProps) {
       }
     };
 
-    fetchReviews();
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+    const idleId = idleWindow.requestIdleCallback?.(fetchReviews) ?? null;
+    const timeoutId = idleId ? null : window.setTimeout(fetchReviews, 800);
     return () => {
       isMounted = false;
+      if (idleId !== null) {
+        idleWindow.cancelIdleCallback?.(idleId);
+      }
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
     };
+  }, []);
+
+  useEffect(() => {
+    const container = sectionRef.current;
+    if (!container) return;
+    const items = container.querySelectorAll<HTMLElement>(".scroll-animate");
+    items.forEach((el) => el.classList.add("animate-in"));
   }, []);
 
   const fallbackCards = useMemo<TestimonialCard[]>(
     () =>
       localTestimonials.map((item) => ({
-        name: t(item.nameKey),
+        name: t(item.nameKey).split(" ")[0] + "...",
         meta: t(item.roleKey),
         quote: t(item.quoteKey),
         rating: 5,
@@ -160,24 +198,60 @@ export function TestimonialsSection({ t }: SectionProps) {
     [fallbackCards, googleCards],
   );
 
+  // Ensure newly added testimonial cards become visible by triggering their animation
+  useEffect(() => {
+    const container = sectionRef.current;
+    if (!container) return;
+    const items = container.querySelectorAll<HTMLElement>(".scroll-animate");
+    items.forEach((el) => el.classList.add("animate-in"));
+  }, [visibleTestimonials.length]);
+
   const aggregateRating = googleData?.rating ?? null;
   const aggregateCount = googleData?.userRatingsTotal ?? null;
+  const cardScrollStep = 320;
+
+  const checkScrollability = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const { scrollLeft, scrollWidth, clientWidth } = container;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+  };
+
+  const handleScrollLeft = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const newScroll = Math.max(container.scrollLeft - cardScrollStep, 0);
+    container.scrollTo({ left: newScroll, behavior: "smooth" });
+  };
+
+  const handleScrollRight = () => {
+    const container = scrollRef.current;
+    if (!container) return;
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    const newScroll = Math.min(container.scrollLeft + cardScrollStep, maxScroll);
+    container.scrollTo({ left: newScroll, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    checkScrollability();
+  }, [visibleTestimonials.length]);
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
+    <section
+      ref={sectionRef}
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
             {t("testimonials.title")}
           </h2>
-          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-            {t("testimonials.subtitle")}
-          </p>
           <div className="mt-6 flex flex-col items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
             {aggregateRating !== null && aggregateCount !== null && (
-              <div className="flex flex-wrap items-center justify-center gap-3">
+              <div className="flex flex-wrap items-center justify-center gap-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl font-semibold text-gray-900 dark:text-white">
+                  <span className="text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
                     {aggregateRating.toFixed(1)}
                   </span>
                   <div className="flex">
@@ -205,89 +279,111 @@ export function TestimonialsSection({ t }: SectionProps) {
                 </span>
               </div>
             )}
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3">
               {googleData?.googleMapsUrl && (
-                <a
-                  href={googleData.googleMapsUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-semibold text-gray-900 dark:text-white hover:text-green-600 transition-colors"
-                >
-                  {t("testimonials.googleLink")}
-                </a>
+                <Button asChild size="sm" variant="outline" className="gap-2">
+                  <a href={googleData.googleMapsUrl} target="_blank" rel="noreferrer">
+                    <BadgeCheck className="h-4 w-4" />
+                    {t("testimonials.googleLink")}
+                  </a>
+                </Button>
               )}
               {googleData?.writeReviewUrl && (
-                <a
-                  href={googleData.writeReviewUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-semibold text-gray-900 dark:text-white hover:text-green-600 transition-colors"
-                >
-                  {t("testimonials.googleWrite")}
-                </a>
+                <Button asChild size="sm" className="gap-2">
+                  <a href={googleData.writeReviewUrl} target="_blank" rel="noreferrer">
+                    <GoogleIcon className="h-4 w-4" />
+                    {t("testimonials.googleWrite")}
+                  </a>
+                </Button>
               )}
             </div>
             {isLoading && <span>{t("testimonials.googleLoading")}</span>}
             {hasError && !isLoading && <span>{t("testimonials.googleUnavailable")}</span>}
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-8">
-          {visibleTestimonials.map((item, index) => (
-            <div
-              key={`${item.name}-${index}`}
-              className="scroll-animate fade-in-up bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="flex items-center mb-6">
-                {item.profilePhotoUrl ? (
-                  <div className="w-16 h-16 relative mr-4">
-                    <Image
-                      src={item.profilePhotoUrl}
-                      alt={item.name}
-                      width={64}
-                      height={64}
-                      className="rounded-full object-cover"
-                    />
-                  </div>
-                ) : (
-                  <div
-                    className={`w-16 h-16 bg-gradient-to-br ${
-                      item.color ?? avatarGradients[index % avatarGradients.length]
-                    } rounded-full flex items-center justify-center text-white font-bold text-2xl mr-4`}
-                  >
-                    {item.initials ?? getInitials(item.name)}
-                  </div>
-                )}
-                <div>
-                  <h4 className="font-bold text-gray-900 dark:text-white">{item.name}</h4>
-                  {item.meta && (
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{item.meta}</p>
+        <div className="relative">
+          <div
+            ref={scrollRef}
+            onScroll={checkScrollability}
+            className="flex gap-6 overflow-x-auto scroll-smooth pb-6 [scrollbar-width:none] [-ms-overflow-style:none]"
+          >
+            {visibleTestimonials.map((item, index) => (
+              <div
+                key={`${item.name}-${index}`}
+                className="scroll-animate fade-in-up bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg min-w-[260px] sm:min-w-[300px] md:min-w-[320px]"
+                style={{ animationDelay: `${index * 0.08}s` }}
+              >
+                <div className="flex items-center mb-4">
+                  {item.profilePhotoUrl ? (
+                    <div className="w-12 h-12 relative mr-3">
+                      <Image
+                        src={item.profilePhotoUrl}
+                        alt={item.name}
+                        width={48}
+                        height={48}
+                        className="rounded-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className={`w-12 h-12 bg-gradient-to-br ${
+                        item.color ?? avatarGradients[index % avatarGradients.length]
+                      } rounded-full flex items-center justify-center text-white font-semibold text-lg mr-3`}
+                    >
+                      {item.initials ?? getInitials(item.name)}
+                    </div>
                   )}
+                  <div>
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{item.name}</h4>
+                    {item.meta && (
+                      <p className="text-xs text-gray-600 dark:text-gray-400">{item.meta}</p>
+                    )}
+                  </div>
                 </div>
+                <div className="flex mb-3">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <svg
+                      key={i}
+                      className={`w-4 h-4 ${
+                        i < clampStars(item.rating)
+                          ? "text-yellow-400"
+                          : "text-gray-300 dark:text-gray-700"
+                      }`}
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                {item.quote && (
+                  <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                    “{item.quote}”
+                  </p>
+                )}
               </div>
-              <div className="flex mb-4">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <svg
-                    key={i}
-                    className={`w-5 h-5 ${
-                      i < clampStars(item.rating)
-                        ? "text-yellow-400"
-                        : "text-gray-300 dark:text-gray-700"
-                    }`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              {item.quote && (
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  “{item.quote}”
-                </p>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="mr-2 mt-4 flex justify-end gap-2 px-1">
+            <button
+              className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+              onClick={handleScrollLeft}
+              disabled={!canScrollLeft}
+              type="button"
+              aria-label="Scroll testimonials left"
+            >
+              <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
+            </button>
+            <button
+              className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+              onClick={handleScrollRight}
+              disabled={!canScrollRight}
+              type="button"
+              aria-label="Scroll testimonials right"
+            >
+              <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
+            </button>
+          </div>
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import { createPageMetadata } from "@/lib/metadata";
 import { getApiEndpoint } from "@/lib/api-config";
 import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
+import { unstable_cache } from "next/cache";
 
 export async function generateMetadata({
   params,
@@ -17,8 +18,8 @@ export async function generateMetadata({
     locale,
     path: "/",
     title: isEs
-      ? "Ordinaly | Automatización empresarial con IA en Sevilla"
-      : "Ordinaly | AI business automation in Seville",
+      ? "Ordinaly Software | Automatización empresarial con IA en Sevilla"
+      : "Ordinaly Software | AI business automation in Seville",
     description: isEs
       ? "Consultoría y soluciones de automatización con IA: agentes, chatbots, workflows, Odoo y formación para empresas en Sevilla y Europa."
       : "AI automation consulting: agents, chatbots, workflows, Odoo, and training for companies in Seville and Europe.",
@@ -51,17 +52,25 @@ export default async function Home({
     return [];
   };
 
-  const getInitialServices = async (): Promise<Service[]> => {
-    const data = await fetchJson<unknown>(getApiEndpoint("/api/services/"));
-    const items = extractItems<Service>(data);
-    return items.filter((service) => !service.draft).slice(0, 6);
-  };
+  const getInitialServices = unstable_cache(
+    async (): Promise<Service[]> => {
+      const data = await fetchJson<unknown>(getApiEndpoint("/api/services/"));
+      const items = extractItems<Service>(data);
+      return items.filter((service) => !service.draft).slice(0, 6);
+    },
+    ["home-services"],
+    { revalidate: 300 },
+  );
 
-  const getInitialCourses = async (): Promise<Course[]> => {
-    const data = await fetchJson<unknown>(getApiEndpoint("/api/courses/courses/?limit=3"));
-    const items = extractItems<Course>(data);
-    return items.filter((course) => !course.draft).slice(0, 3);
-  };
+  const getInitialCourses = unstable_cache(
+    async (): Promise<Course[]> => {
+      const data = await fetchJson<unknown>(getApiEndpoint("/api/courses/courses/?limit=3"));
+      const items = extractItems<Course>(data);
+      return items.filter((course) => !course.draft).slice(0, 3);
+    },
+    ["home-courses"],
+    { revalidate: 300 },
+  );
 
   const [initialServices, initialCourses] = await Promise.all([
     getInitialServices(),

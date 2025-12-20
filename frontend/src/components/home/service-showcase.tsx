@@ -102,6 +102,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
                 playVideo: t("services.playVideo"),
               }}
               onContact={onContact}
+              variant="compact"
             />
           );
         } else {
@@ -113,15 +114,15 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
         }
       })()}
       {/* View All Services Button */}
-      <div className="flex justify-center mt-12">
+      <div className="flex justify-center mt-8">
         <Button
           variant="outline"
           size="lg"
           onClick={() => router.push('/services')}
-          className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#1F8A0D] hover:text-white dark:border-[#7CFC00] dark:text-[#7CFC00] dark:hover:bg-[#7CFC00] dark:hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
+          className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#1F8A0D] hover:text-white dark:border-[#7CFC00] dark:text-[#7CFC00] dark:hover:bg-[#7CFC00] dark:hover:text-white transition-all duration-300 px-6 py-3 text-base font-semibold rounded-full shadow-md hover:shadow-lg hover:shadow-[#1F8A0D]/20 group"
         >
           {props.t("services.viewAllServicesAndProducts")}
-          <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
         </Button>
       </div>
     </>
