@@ -474,7 +474,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             onClick={(e) => handleSignUpClick(e, course)}
                           >
                             <>
-                              <span>{new Date(course.start_date) > new Date() ? t('enrollCta') : t('moreInfo')}</span>
+                              <span>{highlightUpcoming ? t('enrollCta') : t('moreInfo')}</span>
                               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </>
                           </Button>
