@@ -90,7 +90,7 @@ export default function ContactForm({ className }: { className?: string }) {
         message: t("form.success"),
       });
       formRef.current?.reset();
-    } catch (error) {
+    } catch {
       setStatus("idle");
       setAlert({
         key: Date.now(),

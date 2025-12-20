@@ -14,6 +14,7 @@ import { LocalSeoSection } from "@/components/home/local-seo-section";
 import { PartnersSection } from "@/components/home/partners-section";
 import { ProcessSection } from "@/components/home/process-section";
 import { UseCasesSection } from "@/components/home/use-cases-section";
+import { TestimonialsSection } from "@/components/home/testimonials-section";
 import ContactForm from "@/components/ui/contact-form.client";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
@@ -169,7 +170,9 @@ export default function HomePage({
       <div style={deferredSectionStyle}>
         <UseCasesSection t={t} />
       </div>
-      {/* <TestimonialsSection t={t} /> */}
+      <div style={deferredSectionStyle}>
+        <TestimonialsSection t={t} />
+      </div>
       <div style={deferredSectionStyle}>
         <LocalSeoSection t={t} />
       </div>

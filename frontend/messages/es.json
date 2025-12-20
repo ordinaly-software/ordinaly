@@ -209,6 +209,12 @@
     "testimonials": {
       "title": "Lo Que Dicen Nuestros Clientes en Sevilla",
       "subtitle": "Casos reales de empresas que han transformado su operativa con nuestros agentes de IA",
+      "googleSummary": "{rating} en Google · {count} reseñas",
+      "googleLink": "Ver todas en Google",
+      "googleWrite": "Dejar una reseña",
+      "googleSource": "Reseña de Google",
+      "googleLoading": "Cargando reseñas de Google...",
+      "googleUnavailable": "Las reseñas de Google no están disponibles ahora mismo.",
       "items": {
         "0": {
           "name": "Ana García",
