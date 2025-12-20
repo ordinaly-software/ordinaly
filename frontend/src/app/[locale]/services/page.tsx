@@ -8,13 +8,17 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   return createPageMetadata({
     locale,
     path: "/services",
-    title: "Servicios de automatización para empresas",
-    description:
-      "Explora servicios, productos y soluciones de automatización con IA para empresas.",
+    title: isEs
+      ? "Servicios y productos de automatización con IA | Ordinaly"
+      : "AI automation services and products | Ordinaly",
+    description: isEs
+      ? "Catálogo de servicios personalizados y productos listos para usar: agentes de IA, automatización de procesos, CRM/ERP y más."
+      : "Catalog of tailored services and ready-to-use products: AI agents, process automation, CRM/ERP, and more.",
     image: "/static/backgrounds/services_background.webp",
   });
 }

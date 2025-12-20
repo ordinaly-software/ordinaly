@@ -10,13 +10,13 @@ import { HomeHero } from "@/components/home/home-hero";
 import { ServicesSection } from "@/components/home/services-section";
 import { BenefitsSection } from "@/components/home/benefits-section";
 import { CtaSection } from "@/components/home/cta-section";
-import { FaqSection } from "@/components/home/faq-section";
 import { LocalSeoSection } from "@/components/home/local-seo-section";
 import { PartnersSection } from "@/components/home/partners-section";
 import { ProcessSection } from "@/components/home/process-section";
 import { UseCasesSection } from "@/components/home/use-cases-section";
 import ContactForm from "@/components/ui/contact-form.client";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
+import { getWhatsAppUrl } from "@/utils/whatsapp";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -95,17 +95,15 @@ export default function HomePage({
   const servicesVacationState = shouldFetchServices ? isOnVacation : false;
 
   const handleServiceContact = useCallback((service: Service) => {
-    const message = encodeURIComponent(
-      `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`
-    );
-    const whatsappUrl = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER}?text=${message}`;
+    const message = `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`;
+    const whatsappUrl = getWhatsAppUrl(message);
+    if (!whatsappUrl) return;
     window.open(whatsappUrl, '_blank');
   }, []);
 
   const handleWhatsAppChat = useCallback(() => {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
-    const message = encodeURIComponent(t('defaultWhatsAppMessage'));
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    const whatsappUrl = getWhatsAppUrl(t('defaultWhatsAppMessage'));
+    if (!whatsappUrl) return;
     window.open(whatsappUrl, '_blank');
   }, [t]);
 
@@ -172,9 +170,6 @@ export default function HomePage({
         <UseCasesSection t={t} />
       </div>
       {/* <TestimonialsSection t={t} /> */}
-      <div style={deferredSectionStyle}>
-        <FaqSection t={t} />
-      </div>
       <div style={deferredSectionStyle}>
         <LocalSeoSection t={t} />
       </div>

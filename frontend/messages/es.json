@@ -227,42 +227,6 @@
         }
       }
     },
-    "faq": {
-      "title": "Preguntas Frecuentes sobre Automatización Empresarial con IA",
-      "subtitle": "Resolvemos tus dudas sobre agentes de IA y optimización de procesos",
-      "items": {
-        "0": {
-          "q": "¿Qué es un agente de IA para negocios y cómo puede ayudar a mi empresa?",
-          "a": "Un agente de IA es un sistema inteligente que puede realizar tareas específicas de forma autónoma, como responder consultas de clientes, procesar documentos, gestionar citas o automatizar flujos de trabajo.",
-          "extra": "Para tu empresa en Sevilla, esto significa ahorro de tiempo, reducción de errores humanos y disponibilidad 24/7. Por ejemplo, un administrador de fincas puede tener un agente que gestione incidencias de comunidades automáticamente por WhatsApp."
-        },
-        "1": {
-          "q": "¿Cuánto cuesta implementar automatización con IA en mi empresa?",
-          "a": "El coste varía según la complejidad del proyecto. Los proyectos simples como chatbots de WhatsApp o automatizaciones básicas pueden arrancar desde presupuestos accesibles para PYMEs.",
-          "extra": "Ofrecemos consultas gratuitas donde analizamos tu caso específico y te damos un presupuesto personalizado. La mayoría de nuestros clientes recuperan la inversión en menos de 6 meses gracias al ahorro de tiempo y recursos."
-        },
-        "2": {
-          "q": "¿Necesito conocimientos técnicos para usar sistemas de automatización?",
-          "a": "No, en absoluto. Diseñamos todas nuestras soluciones para que sean intuitivas y fáciles de usar. Además, incluimos formación práctica para tu equipo.",
-          "extra": "También ofrecemos cursos de IA en Sevilla donde aprenderás a usar herramientas como ChatGPT, automatizaciones y más, sin necesidad de conocimientos previos de programación."
-        },
-        "3": {
-          "q": "¿Qué diferencia a Ordinaly de otras empresas de automatización?",
-          "a": "Somos un equipo local en Sevilla que entiende las necesidades específicas de las empresas andaluzas. No somos una consultora internacional que aplica soluciones genéricas.",
-          "extra": "Nos especializamos en PYMEs y sectores específicos (inmobiliarias, administradores de fincas, marketing, retail) y combinamos automatización con formación práctica para que tu equipo sea autónomo."
-        },
-        "4": {
-          "q": "¿Cuánto tiempo tarda en implementarse un proyecto de automatización?",
-          "a": "Los proyectos simples como chatbots o automatizaciones básicas pueden estar funcionando en 2-4 semanas.",
-          "extra": "Proyectos más complejos como implementación de CRM/ERP con Odoo o workflows avanzados pueden tomar entre 1-3 meses, dependiendo del alcance. Siempre trabajamos por fases para que veas resultados rápidos."
-        },
-        "5": {
-          "q": "¿Ofrecen soporte después de la implementación?",
-          "a": "Sí, por supuesto. Incluimos soporte técnico y mantenimiento. Al estar basados en Sevilla, podemos hacer reuniones presenciales cuando sea necesario.",
-          "extra": "Además, nuestros sistemas son escalables: a medida que tu negocio crece, podemos ampliar y mejorar las automatizaciones sin empezar desde cero."
-        }
-      }
-    },
     "local": {
       "title": "Expertos en Automatización Empresarial en Sevilla y Toda Andalucía",
       "description1": "Somos un equipo de ingenieros de software especializados en IA con sede en el corazón de Sevilla. Conocemos el tejido empresarial andaluz y entendemos las necesidades específicas de las PYMEs locales.",
@@ -1402,6 +1366,13 @@
     "contactForQuote": "Consultar precio",
     "contactUs": "Contáctanos",
     "learnMore": "Ver detalles",
+    "share": {
+      "label": "Comparte este servicio:",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "shareMessage": "Descubre este servicio de {siteTag}: \"{title}\" - {subtitle}"
+    },
     "filters": {
       "all": "Todos el catálogo",
       "featured": "Solo destacados",
@@ -1476,6 +1447,42 @@
     "noResults": {
       "title": "No se Encontraron Cursos",
       "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar el curso perfecto para ti"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes sobre Automatización Empresarial con IA",
+      "subtitle": "Resolvemos tus dudas sobre agentes de IA y optimización de procesos",
+      "items": {
+        "0": {
+          "q": "¿Qué es un agente de IA para negocios y cómo puede ayudar a mi empresa?",
+          "a": "Un agente de IA es un sistema inteligente que puede realizar tareas específicas de forma autónoma, como responder consultas de clientes, procesar documentos, gestionar citas o automatizar flujos de trabajo.",
+          "extra": "Para tu empresa en Sevilla, esto significa ahorro de tiempo, reducción de errores humanos y disponibilidad 24/7. Por ejemplo, un administrador de fincas puede tener un agente que gestione incidencias de comunidades automáticamente por WhatsApp."
+        },
+        "1": {
+          "q": "¿Cuánto cuesta implementar automatización con IA en mi empresa?",
+          "a": "El coste varía según la complejidad del proyecto. Los proyectos simples como chatbots de WhatsApp o automatizaciones básicas pueden arrancar desde presupuestos accesibles para PYMEs.",
+          "extra": "Ofrecemos consultas gratuitas donde analizamos tu caso específico y te damos un presupuesto personalizado. La mayoría de nuestros clientes recuperan la inversión en menos de 6 meses gracias al ahorro de tiempo y recursos."
+        },
+        "2": {
+          "q": "¿Necesito conocimientos técnicos para usar sistemas de automatización?",
+          "a": "No, en absoluto. Diseñamos todas nuestras soluciones para que sean intuitivas y fáciles de usar. Además, incluimos formación práctica para tu equipo.",
+          "extra": "También ofrecemos cursos de IA en Sevilla donde aprenderás a usar herramientas como ChatGPT, automatizaciones y más, sin necesidad de conocimientos previos de programación."
+        },
+        "3": {
+          "q": "¿Qué diferencia a Ordinaly de otras empresas de automatización?",
+          "a": "Somos un equipo local en Sevilla que entiende las necesidades específicas de las empresas andaluzas. No somos una consultora internacional que aplica soluciones genéricas.",
+          "extra": "Nos especializamos en PYMEs y sectores específicos (inmobiliarias, administradores de fincas, marketing, retail) y combinamos automatización con formación práctica para que tu equipo sea autónomo."
+        },
+        "4": {
+          "q": "¿Cuánto tiempo tarda en implementarse un proyecto de automatización?",
+          "a": "Los proyectos simples como chatbots o automatizaciones básicas pueden estar funcionando en 2-4 semanas.",
+          "extra": "Proyectos más complejos como implementación de CRM/ERP con Odoo o workflows avanzados pueden tomar entre 1-3 meses, dependiendo del alcance. Siempre trabajamos por fases para que veas resultados rápidos."
+        },
+        "5": {
+          "q": "¿Ofrecen soporte después de la implementación?",
+          "a": "Sí, por supuesto. Incluimos soporte técnico y mantenimiento. Al estar basados en Sevilla, podemos hacer reuniones presenciales cuando sea necesario.",
+          "extra": "Además, nuestros sistemas son escalables: a medida que tu negocio crece, podemos ampliar y mejorar las automatizaciones sin empezar desde cero."
+        }
+      }
     },
     "noPastCourses": "No hay cursos pasados disponibles",
     "pastCourses": "Cursos Pasados",
@@ -1829,6 +1836,10 @@
       "email": "Email",
       "company": "Empresa (opcional)",
       "companyPlaceholder": "Empresa o tamaño de equipo",
+      "phone": "Teléfono (opcional)",
+      "phonePrefix": "Prefijo",
+      "phonePlaceholder": "Número de teléfono",
+      "phoneInvalid": "Introduce un número válido (6-15 dígitos).",
       "message": "Detalles del proyecto",
       "messagePlaceholder": "Describe objetivos, plazos, herramientas actuales y expectativas.",
       "submit": "Enviar mensaje",

@@ -228,42 +228,6 @@
         }
       }
     },
-    "faq": {
-      "title": "Frequently Asked Questions About Business Automation with AI",
-      "subtitle": "We answer your questions about AI agents and process optimization",
-      "items": {
-      "0": {
-        "q": "What is an AI agent for business and how can it help my company?",
-        "a": "An AI agent is an intelligent system that can perform specific tasks autonomously, such as answering customer inquiries, processing documents, managing appointments, or automating workflows.",
-        "extra": "For your business in Seville, this means time savings, reduction of human errors, and 24/7 availability. For example, a property manager can have an agent that automatically manages community incidents via WhatsApp."
-      },
-      "1": {
-        "q": "How much does it cost to implement AI automation in my company?",
-        "a": "The cost varies depending on project complexity. Simple projects like WhatsApp chatbots or basic automations can start with budgets accessible to SMEs.",
-        "extra": "We offer free consultations where we analyze your specific case and provide a personalized quote. Most of our clients recover their investment in less than 6 months thanks to time and resource savings."
-      },
-      "2": {
-        "q": "Do I need technical knowledge to use automation systems?",
-        "a": "Not at all. We design all our solutions to be intuitive and easy to use. Plus, we include practical training for your team.",
-        "extra": "We also offer AI courses in Seville where you'll learn to use tools like ChatGPT, automations and more, without any prior programming knowledge."
-      },
-      "3": {
-        "q": "What sets Ordinaly apart from other automation companies?",
-        "a": "We are a local team in Seville that understands the specific needs of Andalusian companies. We are not an international consultancy that applies generic solutions.",
-        "extra": "We specialize in SMEs and specific sectors (real estate, property managers, marketing, retail) and combine automation with practical training so your team becomes self-sufficient."
-      },
-      "4": {
-        "q": "How long does it take to implement an automation project?",
-        "a": "Simple projects like chatbots or basic automations can be running in 2-4 weeks.",
-        "extra": "More complex projects like CRM/ERP implementation with Odoo or advanced workflows can take between 1-3 months, depending on scope. We always work in phases so you see quick results."
-      },
-      "5": {
-        "q": "Do you offer support after implementation?",
-        "a": "Yes, of course. We include technical support and maintenance. Being based in Seville, we can have in-person meetings when needed.",
-        "extra": "Additionally, our systems are scalable: as your business grows, we can expand and improve automations without starting from scratch."
-      }
-      }
-    },
     "local": {
       "title": "Business Automation Experts in Seville and All Andalusia",
       "description1": "We are a team of software engineers specialized in AI with headquarters in the heart of Seville. We know the Andalusian business community and understand the specific needs of local SMEs.",
@@ -1403,6 +1367,13 @@
     "contactForQuote": "Contact for quote",
     "contactUs": "Contact Us",
     "learnMore": "Learn More",
+    "share": {
+      "label": "Share this service:",
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "linkedin": "LinkedIn",
+      "shareMessage": "Discover this service from {siteTag}: \"{title}\" - {subtitle}"
+    },
     "filters": {
       "all": "All Services",
       "featured": "Featured Only",
@@ -1477,6 +1448,42 @@
     "noResults": {
       "title": "No Courses Found",
       "description": "Try adjusting your search terms or filters to find the perfect course for you."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions About Business Automation with AI",
+      "subtitle": "We answer your questions about AI agents and process optimization",
+      "items": {
+        "0": {
+          "q": "What is an AI agent for business and how can it help my company?",
+          "a": "An AI agent is an intelligent system that can perform specific tasks autonomously, such as answering customer inquiries, processing documents, managing appointments, or automating workflows.",
+          "extra": "For your business in Seville, this means time savings, reduction of human errors, and 24/7 availability. For example, a property manager can have an agent that automatically manages community incidents via WhatsApp."
+        },
+        "1": {
+          "q": "How much does it cost to implement AI automation in my company?",
+          "a": "The cost varies depending on project complexity. Simple projects like WhatsApp chatbots or basic automations can start with budgets accessible to SMEs.",
+          "extra": "We offer free consultations where we analyze your specific case and provide a personalized quote. Most of our clients recover their investment in less than 6 months thanks to time and resource savings."
+        },
+        "2": {
+          "q": "Do I need technical knowledge to use automation systems?",
+          "a": "Not at all. We design all our solutions to be intuitive and easy to use. Plus, we include practical training for your team.",
+          "extra": "We also offer AI courses in Seville where you'll learn to use tools like ChatGPT, automations and more, without any prior programming knowledge."
+        },
+        "3": {
+          "q": "What sets Ordinaly apart from other automation companies?",
+          "a": "We are a local team in Seville that understands the specific needs of Andalusian companies. We are not an international consultancy that applies generic solutions.",
+          "extra": "We specialize in SMEs and specific sectors (real estate, property managers, marketing, retail) and combine automation with practical training so your team becomes self-sufficient."
+        },
+        "4": {
+          "q": "How long does it take to implement an automation project?",
+          "a": "Simple projects like chatbots or basic automations can be running in 2-4 weeks.",
+          "extra": "More complex projects like CRM/ERP implementation with Odoo or advanced workflows can take between 1-3 months, depending on scope. We always work in phases so you see quick results."
+        },
+        "5": {
+          "q": "Do you offer support after implementation?",
+          "a": "Yes, of course. We include technical support and maintenance. Being based in Seville, we can have in-person meetings when needed.",
+          "extra": "Additionally, our systems are scalable: as your business grows, we can expand and improve automations without starting from scratch."
+        }
+      }
     },
     "noPastCourses": "No past courses available.",
     "pastCourses": "Past Courses",
@@ -1830,6 +1837,10 @@
       "email": "Email",
       "company": "Company (optional)",
       "companyPlaceholder": "Company or team size",
+      "phone": "Phone (optional)",
+      "phonePrefix": "Prefix",
+      "phonePlaceholder": "Phone number",
+      "phoneInvalid": "Enter a valid phone number (6-15 digits).",
       "message": "Project details",
       "messagePlaceholder": "Describe goals, timeline, current tools, and expectations.",
       "submit": "Send message",

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { renderIcon } from "@/components/ui/icon-select";
 import type { Service } from "@/hooks/useServices";
 import Image from "next/image";
+import ShareServiceButtons from "@/components/services/share-service-buttons";
 
 export type ServiceDetailsLabels = {
   featured: string;
@@ -31,6 +32,7 @@ export interface ServiceDetailsContentProps {
   onContact?: (service: Service) => void;
   showContact?: boolean;
   showViewDetails?: boolean;
+  showShareButtons?: boolean;
 }
 
 const FALLBACK_CARD_IMAGE = "/static/main_service_home_ilustration.webp";
@@ -83,6 +85,7 @@ export function ServiceDetailsContent({
   onContact,
   showContact = true,
   showViewDetails = true,
+  showShareButtons = false,
 }: ServiceDetailsContentProps) {
   const accent = service.color_hex || service.color || "#1F8A0D";
   const accentHex = accent.startsWith("#") ? accent : `#${accent}`;
@@ -186,6 +189,17 @@ export function ServiceDetailsContent({
           <InfoTile label={labels.duration ?? "Duration"} value={formatDuration(service.duration, labels)} />
         ) : null}
       </div>
+
+      {showShareButtons && (
+        <div className="rounded-2xl bg-white/70 p-3 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-neutral-900/60 dark:ring-white/5">
+          <ShareServiceButtons
+            title={service.title}
+            subtitle={service.subtitle}
+            slug={service.slug ?? service.id}
+            showLabel
+          />
+        </div>
+      )}
 
       {(onSelect || onContact) && (
         <div className="flex flex-col sm:flex-row gap-3">

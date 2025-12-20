@@ -545,14 +545,13 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           <Button
             variant="ghost"
             onClick={onClose}
-            className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all duration-200"
-          >
+            className="px-6 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white transition-all duration-200"
+            >
             {t("form.cancel")}
           </Button>
           <Button
             onClick={onSubmit}
-            className="px-6 py-2 bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#166307] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
-          >
+            className="px-6 py-2 bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#166307] text-white dark:text-black shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"          >
             <span>{showEditModal ? t("form.update") : t("form.create")}</span>
             {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
           </Button>

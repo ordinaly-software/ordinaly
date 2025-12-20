@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Alert from "@/components/ui/alert";
 import { Service, useServices } from "@/hooks/useServices";
+import { getWhatsAppUrl } from "@/utils/whatsapp";
 import {
   Search,
   Filter,
@@ -75,9 +76,8 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
   }, [searchTerm]);
 
   const handleWhatsAppChat = useCallback(() => {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
-    const message = encodeURIComponent(t_home('defaultWhatsAppMessage'));
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    const whatsappUrl = getWhatsAppUrl(t_home('defaultWhatsAppMessage'));
+    if (!whatsappUrl) return;
     window.open(whatsappUrl, '_blank');
   }, [t_home]);
 
@@ -120,12 +120,9 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
   ], [t]);
 
   const handleWhatsAppContact = useCallback((service: Service) => {
-    const message = encodeURIComponent(
-      `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`
-    );
-    // Spanish phone number format: +34 followed by 9 digits
-    const whatsappUrl = `https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER}?text=${message}`;
-    // Open in new tab
+    const message = `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`;
+    const whatsappUrl = getWhatsAppUrl(message);
+    if (!whatsappUrl) return;
     window.open(whatsappUrl, '_blank');
   }, []);
 

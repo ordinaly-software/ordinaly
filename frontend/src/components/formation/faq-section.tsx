@@ -84,7 +84,7 @@ export function FaqSection({ t }: SectionProps) {
           {faqItems.map((item, index) => (
             <details
               key={item.questionKey}
-              className="scroll-animate fade-in-up bg-gray-50 dark:bg-gray-800 rounded-xl p-6 cursor-pointer group"
+              className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 cursor-pointer group animate-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <summary className="text-xl font-bold text-gray-900 dark:text-white list-none flex items-center justify-between">

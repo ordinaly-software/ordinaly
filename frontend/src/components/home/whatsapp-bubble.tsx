@@ -4,6 +4,7 @@ import { MessageCircle, Send, Bot, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
+import { getWhatsAppUrl } from "@/utils/whatsapp";
 
 const WhatsAppBubble = () => {
   const t = useTranslations('whatsapp');
@@ -37,10 +38,8 @@ const WhatsAppBubble = () => {
   const closeModal = () => setShowModal(false);
 
   const handleWhatsAppChat = () => {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
-    const message = encodeURIComponent(t('defaultWhatsAppMessage'));
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-    
+    const whatsappUrl = getWhatsAppUrl(t('defaultWhatsAppMessage'));
+    if (!whatsappUrl) return;
     window.open(whatsappUrl, '_blank');
     closeModal();
   };

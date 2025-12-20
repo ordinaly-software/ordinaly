@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import FormationRoot from "@/components/formation/formation-root";
+import FormationPageClient from "../page.client";
 import { createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { getApiEndpoint } from "@/lib/api-config";
 import { absoluteUrl } from "@/lib/metadata";
@@ -17,6 +17,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
   const { slug, locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   let course: Course | null = null;
   try {
@@ -31,15 +32,22 @@ export async function generateMetadata({
     // ignore and fall back to defaults
   }
 
-  const title = course?.title ? `${course.title} | Ordinaly` : `Formación: ${slug}`;
-  const description = course?.subtitle || course?.description || defaultDescription;
+  const fallbackTitle = isEs ? `Formación: ${slug}` : `Training: ${slug}`;
+  const fallbackDescription = isEs
+    ? defaultDescription
+    : "Professional training in AI, automation, and low-code tools to help teams scale faster.";
+  const title = course?.title ? `${course.title} | Ordinaly` : fallbackTitle;
+  const description = course?.subtitle || course?.description || fallbackDescription;
   const rawImage = course?.image;
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
   const image =
-    rawImage && rawImage.startsWith("http")
-      ? rawImage
-      : rawImage
-        ? absoluteUrl(rawImage)
-        : "/static/backgrounds/formation_background.webp";
+    rawImage
+      ? /^https?:\/\//i.test(rawImage)
+        ? rawImage
+        : apiBaseUrl
+          ? `${apiBaseUrl}${rawImage.startsWith("/") ? "" : "/"}${rawImage}`
+          : absoluteUrl(rawImage)
+      : "/static/backgrounds/formation_background.webp";
 
   return createPageMetadata({
     locale,
@@ -58,5 +66,5 @@ export default async function FormationSlugPage({
 }) {
   const { slug } = await params;
   // Server component that renders the client FormationRoot with initialCourseSlug
-  return <FormationRoot initialCourseSlug={slug} />;
+  return <FormationPageClient initialCourseSlug={slug} />;
 }

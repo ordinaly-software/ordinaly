@@ -11,13 +11,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   return createPageMetadata({
     locale,
     path: "/",
-    title: "Automatización empresarial con IA en Sevilla - Ordinaly Software",
-    description:
-      "Transformamos empresas con soluciones de automatización inteligente en Sevilla, España y Europa.",
+    title: isEs
+      ? "Ordinaly | Automatización empresarial con IA en Sevilla"
+      : "Ordinaly | AI business automation in Seville",
+    description: isEs
+      ? "Consultoría y soluciones de automatización con IA: agentes, chatbots, workflows, Odoo y formación para empresas en Sevilla y Europa."
+      : "AI automation consulting: agents, chatbots, workflows, Odoo, and training for companies in Seville and Europe.",
+    image: "/static/main_home_ilustration.webp",
   });
 }
 

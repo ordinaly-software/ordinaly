@@ -8,12 +8,18 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   return createPageMetadata({
     locale,
     path: "/about",
-    title: "About Ordinaly",
-    description: "Conoce más sobre el equipo y la visión de Ordinaly.",
+    title: isEs
+      ? "Sobre Ordinaly | Equipo, misión y visión"
+      : "About Ordinaly | Team, mission, and vision",
+    description: isEs
+      ? "Conoce al equipo de Ordinaly, nuestra misión y cómo ayudamos a empresas a automatizar con IA."
+      : "Meet the Ordinaly team, our mission, and how we help companies automate with AI.",
+    image: "/static/backgrounds/us_background.webp",
   });
 }
 

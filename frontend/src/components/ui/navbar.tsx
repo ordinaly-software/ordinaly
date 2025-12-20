@@ -15,6 +15,7 @@ import { createPortal } from "react-dom";
 import { Menu as HoverMenu, MenuItem, ProductItem, HoveredLink } from "@/components/ui/navbar-menu";
 import { useServices } from "@/hooks/useServices";
 import { useCourses } from "@/hooks/useCourses";
+import { getWhatsAppUrl } from "@/utils/whatsapp";
 
 // Custom User Menu Component
 const UserMenu = ({ 
@@ -157,10 +158,9 @@ const Navbar = () => {
   const { courses: menuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 3, upcoming: true });
 
   const handleBookConsultation = useCallback(() => {
-    const phoneNumber = process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER;
-    if (!phoneNumber) return;
-    const message = encodeURIComponent(t("navigation.ctaConsultationMessage"));
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+    const whatsappUrl = getWhatsAppUrl(t("navigation.ctaConsultationMessage"));
+    if (!whatsappUrl) return;
+    window.open(whatsappUrl, "_blank");
   }, [t]);
 
   // Optimized scroll handler with throttling
