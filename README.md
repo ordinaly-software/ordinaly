@@ -34,6 +34,7 @@
   - [Frontend (Next.js)](#frontend-nextjs)
 - [Testing](#testing)
   - [Ejecutar tests y obtener cobertura:](#ejecutar-tests-y-obtener-cobertura)
+  - [Probar pagos de cursos (Stripe)](#probar-pagos-de-cursos-stripe)
 - [Contribuir](#contribuir)
 - [Licencia](#licencia)
 - [Reconocimientos](#reconocimientos)
@@ -287,10 +288,25 @@ npm run build
 ```
 
 Y para comprobar el rendimiento, SEO, medidas de accesibilidad y buenas prácticas de cada página, haz:
-````
+
+```
 npx lighthouse http://localhost:3000/es --form-factor=mobile --view
 # Se puede probar /es, /es/services o cualquier otra ruta
 ```
+
+### Probar pagos de cursos (Stripe)
+
+Para testear el flujo de pagos con Stripe en local:
+
+1. Levanta un túnel:
+   ```sh
+   ngrok http 8000
+   ```
+2. Actualiza `ALLOWED_HOSTS` en `backend/config/settings.py` con el dominio del túnel (`https://<tu-subdominio>.ngrok.io`).
+3. Asegúrate de que `FRONTEND_BASE_URL` apunte a tu frontend local y `STRIPE_SECRET_KEY` esté configurada en el backend.
+4. En el dashboard de Stripe, crea/actualiza el webhook a:
+   `https://<tu-subdominio>.ngrok.io/api/courses/stripe/webhook/`
+5. Ejecuta el backend (`python manage.py runserver`) y el frontend, y prueba una inscripción de curso de pago.
 
 > **Nota:** El proyecto no se considerará válido si la cobertura es inferior al 80%.
 

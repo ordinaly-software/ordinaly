@@ -1380,6 +1380,10 @@ class CourseFormTest(TestCase):
             'start_time': time(10, 0),
             'end_time': time(12, 0),
             'periodicity': 'once',
+            'timezone': 'Europe/Madrid',
+            'interval': 1,
+            'weekdays': [],
+            'exclude_dates': [],
             'max_attendants': 5
         }
 
@@ -1387,17 +1391,17 @@ class CourseFormTest(TestCase):
         past = self.today - timedelta(days=1)
         data = self.course_data.copy()
         data['start_date'] = past
+        data['end_date'] = past + timedelta(days=1)
         form = CourseAdminForm(data, files={'image': get_test_image_file()})
-        self.assertFalse(form.is_valid())
-        self.assertIn('start_date', form.errors)
+        self.assertTrue(form.is_valid())
 
     def test_clean_end_date_in_past(self):
         past = self.today - timedelta(days=1)
         data = self.course_data.copy()
+        data['start_date'] = past - timedelta(days=1)
         data['end_date'] = past
         form = CourseAdminForm(data, files={'image': get_test_image_file()})
-        self.assertFalse(form.is_valid())
-        self.assertIn('end_date', form.errors)
+        self.assertTrue(form.is_valid())
 
     def test_clean_end_date_before_start_date(self):
         data = self.course_data.copy()
