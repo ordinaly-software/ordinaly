@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import dynamic from "next/dynamic";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -84,15 +84,30 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   // Removed enrollments and authentication state for homepage
 
   const { courses, isLoading, error, refetch } = useCourses({
-    limit: limit,
     upcoming: showUpcomingOnly,
     enabled: shouldLazyLoad ? hasBeenVisible : false,
     initialData: initialCourses,
   });
+  const orderedCourses = useMemo(() => {
+    const items = [...courses];
+    const getSortTime = (course: Course) => {
+      const createdAt = Date.parse(course.created_at);
+      if (!Number.isNaN(createdAt)) return createdAt;
+      const startAt = Date.parse(course.start_date);
+      if (!Number.isNaN(startAt)) return startAt;
+      return 0;
+    };
+    items.sort((a, b) => getSortTime(b) - getSortTime(a));
+    return items;
+  }, [courses]);
+  const displayCourses = useMemo(() => {
+    if (!limit || limit <= 0) return orderedCourses;
+    return orderedCourses.slice(0, limit);
+  }, [limit, orderedCourses]);
 
   useEffect(() => {
     setCurrentIndex(0);
-  }, [courses.length, slidesToShow]);
+  }, [displayCourses.length, slidesToShow]);
 
   useEffect(() => {
     const card = sampleCardRef.current;
@@ -116,7 +131,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     return () => {
       observer.disconnect();
     };
-  }, [courses.length, slidesToShow]);
+  }, [displayCourses.length, slidesToShow]);
 
   // Removed enrollments fetching effect for homepage
 
@@ -159,8 +174,8 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     }
   };
 
-  const maxIndex = Math.max(courses.length - slidesToShow, 0);
-  const canSlide = courses.length > slidesToShow;
+  const maxIndex = Math.max(displayCourses.length - slidesToShow, 0);
+  const canSlide = displayCourses.length > slidesToShow;
   const atStart = currentIndex === 0;
   const atEnd = currentIndex >= maxIndex;
   const now = new Date();
@@ -174,7 +189,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     if (!container) return;
     const cardWidth = getCardWidth();
     if (!cardWidth) return;
-    const totalCards = courses.length || 1;
+    const totalCards = displayCourses.length || 1;
     const index = Math.round(container.scrollLeft / (cardWidth + 24));
     setCurrentIndex(Math.max(0, Math.min(totalCards - 1, index)));
   };
@@ -192,7 +207,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
 
   const goToNext = () => {
     const cardWidth = getCardWidth();
-    const nextIndex = Math.min(currentIndex + 1, courses.length - 1);
+    const nextIndex = Math.min(currentIndex + 1, displayCourses.length - 1);
     if (scrollContainerRef.current && cardWidth) {
       scrollContainerRef.current.scrollTo({ left: cardWidth * nextIndex, behavior: 'smooth' });
       setCurrentIndex(nextIndex);
@@ -235,7 +250,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     );
   }
 
-  if (courses.length === 0 && !isLoading) {
+  if (displayCourses.length === 0 && !isLoading) {
     return (
       <section id="courses" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -328,7 +343,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               onScroll={handleTouchScroll}
             >
               <div className="flex transition-transform duration-500 ease-in-out gap-6 px-3">
-                {courses.map((course, index) => {
+                  {displayCourses.map((course, index) => {
                   const availabilityBadge = getAvailabilityBadge(course);
                   const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
                   const highlightUpcoming = !!(startDate && startDate > now);
@@ -512,13 +527,13 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
         )}
 
         {/* View All Courses Button */}
-        {courses.length > 0 && (
+        {displayCourses.length > 0 && (
           <div className="flex justify-center mt-12">
             <Button
               variant="outline"
               size="lg"
               onClick={() => router.push('/formation')}
-              className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#1F8A0D] hover:text-white dark:border-[#7CFC00] dark:text-[#7CFC00] dark:hover:bg-[#7CFC00] dark:hover:text-white transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
+              className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#1F8A0D] hover:text-white dark:border-[#7CFC00] dark:text-[#7CFC00] dark:hover:bg-[#7CFC00] dark:hover:text-black transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
             >
               {t('viewAllCourses')}
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

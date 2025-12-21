@@ -217,7 +217,7 @@ const AdminCoursesTab = () => {
       bonified_course_link: course.bonified_course_link || "",
       image: course.image || "",
       price: course.price == null ? "" : String(course.price),
-      location: course.location,
+      location: course.location && course.location !== "null" ? course.location : "",
       start_date: course.start_date == null ? "" : course.start_date,
       end_date: course.end_date == null ? "" : course.end_date,
       start_time: course.start_time == null ? "" : course.start_time,
@@ -304,6 +304,7 @@ const AdminCoursesTab = () => {
   };
 
   const isCourseFinished = (course: Course) => {
+    if (course.draft) return false;
     // If no end_date or invalid, course is NOT finished
     if (!course.end_date || course.end_date === "0000-00-00") return false;
     const endDate = new Date(course.end_date);
@@ -434,9 +435,10 @@ const AdminCoursesTab = () => {
         setAlert({ type: 'error', message: t('messages.validation.dateFormatInvalid') || 'Date must be in YYYY-MM-DD format.' });
         return;
       }
+      const isDraft = !!formData.draft;
 
       // Prevent start_date or end_date in the past
-      if (normalizedStartDate) {
+      if (!isDraft && normalizedStartDate) {
         const startDate = new Date(normalizedStartDate);
         startDate.setHours(0,0,0,0);
         if (startDate < today) {
@@ -444,20 +446,22 @@ const AdminCoursesTab = () => {
           return;
         }
       }
-      if (normalizedEndDate) {
+      if (!isDraft && normalizedEndDate) {
         const endDate = new Date(normalizedEndDate);
         endDate.setHours(0,0,0,0);
         if (endDate < today) {
           setAlert({type: 'error', message: t('messages.validation.endDatePast') || 'End date cannot be in the past.'});
           return;
         }
-        if (normalizedStartDate) {
-          const startDate = new Date(normalizedStartDate);
-          startDate.setHours(0,0,0,0);
-          if (endDate < startDate) {
-            setAlert({type: 'error', message: t('messages.validation.endDateBeforeStart') || 'End date cannot be before start date.'});
-            return;
-          }
+      }
+      if (normalizedStartDate && normalizedEndDate) {
+        const startDate = new Date(normalizedStartDate);
+        startDate.setHours(0,0,0,0);
+        const endDate = new Date(normalizedEndDate);
+        endDate.setHours(0,0,0,0);
+        if (endDate < startDate) {
+          setAlert({type: 'error', message: t('messages.validation.endDateBeforeStart') || 'End date cannot be before start date.'});
+          return;
         }
       }
 
@@ -551,6 +555,17 @@ const AdminCoursesTab = () => {
 
       if (selectedCourses.length > 0) {
         // Bulk delete
+        const enrolledSelectedCourses = selectedCourses.filter(id => {
+          const course = courses.find(c => c.id === id);
+          return (course?.enrolled_count ?? 0) > 0;
+        });
+        if (enrolledSelectedCourses.length > 0) {
+          setAlert({type: 'error', message: t('messages.validation.cannotDeleteEnrolledBulk')});
+          setIsDeleting(false);
+          setShowDeleteModal(false);
+          return;
+        }
+
         const finishedSelectedCourses = selectedCourses.filter(id => {
           const course = courses.find(c => c.id === id);
           if (!course) return false;
@@ -601,6 +616,13 @@ const AdminCoursesTab = () => {
         setSelectedCourses([]);
       } else if (currentCourse) {
         // Single delete
+        if ((currentCourse.enrolled_count ?? 0) > 0) {
+          setAlert({type: 'error', message: t('messages.validation.cannotDeleteEnrolled')});
+          setIsDeleting(false);
+          setShowDeleteModal(false);
+          return;
+        }
+
         if (isCourseFinished(currentCourse)) {
           setAlert({type: 'error', message: t('messages.cannotDeleteFinished')});
           setIsDeleting(false);
