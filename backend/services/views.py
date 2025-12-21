@@ -66,11 +66,19 @@ class ServiceViewSet(viewsets.ModelViewSet):
     ordering = ['-is_featured', 'title']
 
     def get_permissions(self):
-        if self.action in ['list', 'retrieve']:
+        action = getattr(self, 'action', None)
+        if action in ['list', 'retrieve']:
             permission_classes = [AllowAny]
         else:
             permission_classes = [IsAdmin]
         return [permission() for permission in permission_classes]
+
+    def get_serializer_context(self):
+        return {
+            'request': self.request,
+            'format': getattr(self, 'format_kwarg', None),
+            'view': self,
+        }
 
     def perform_create(self, serializer):
         # Resolve user similarly to get_queryset to be robust in tests
@@ -166,7 +174,8 @@ class ServiceViewSet(viewsets.ModelViewSet):
             icon=instance.icon,
             youtube_video_url=instance.youtube_video_url,
         )
-        copy.created_by = getattr(request, 'user', None) if getattr(request, 'user', None) and request.user.is_authenticated else instance.created_by
+        copy.created_by = getattr(request, 'user', None) if getattr(request, 'user', None) \
+            and request.user.is_authenticated else instance.created_by
         copy.slug = ""
         # Duplicate image file if present
         if instance.image:
