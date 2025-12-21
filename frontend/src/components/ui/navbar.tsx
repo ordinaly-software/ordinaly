@@ -442,7 +442,7 @@ const Navbar = () => {
                   aria-hidden="true"
                 />
               </div>
-              <div className="text-base sm:text-lg xl:text-xl 2xl:text-2xl font-bold text-green truncate transition-colors duration-200">
+              <div className="text-base sm:text-lg xl:text-xl 2xl:text-2xl font-bold text-[#0B5A0A] dark:text-[#7CFC00] truncate transition-colors duration-200">
                 {t("logo.title")}
               </div>
             </div>
@@ -548,7 +548,7 @@ const Navbar = () => {
                   <Button
                     size="sm"
                     onClick={handleBookConsultation}
-                    className="h-9 bg-green text-white shadow-md hover:bg-green-600 hover:shadow-lg transition-all duration-200 text-sm px-4"
+                    className="h-9 bg-[#0B5A0A] text-white shadow-md hover:bg-[#0A4D08] hover:shadow-lg transition-all duration-200 text-sm px-4"
                   >
                     {t("navigation.ctaConsultation")}
                   </Button>
@@ -566,10 +566,12 @@ const Navbar = () => {
                       variant="ghost"
                       size="sm"
                       onClick={goToSignIn}
+                      aria-label={t("navigation.signIn")}
                       className="text-gray-700 dark:text-gray-300 hover:text-green transition-all duration-200 flex items-center h-9"
                     >
                       <LogIn className="h-4 w-4 mr-2" />
                       {!compactAuth && <span>{t("navigation.signIn")}</span>}
+                      {compactAuth && <span className="sr-only">{t("navigation.signIn")}</span>}
                     </Button>
                     {!compactAuth && (
                       <Button
