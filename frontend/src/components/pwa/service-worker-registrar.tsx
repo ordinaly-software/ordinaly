@@ -2,28 +2,21 @@
 
 import { useEffect } from "react";
 
-const SW_PATH = "/sw.js";
-const SW_SCOPE = "/";
-
 export default function ServiceWorkerRegistrar() {
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
 
-    const register = () => {
-      navigator.serviceWorker.register(SW_PATH, { scope: SW_SCOPE }).catch((error) => {
-        if (process.env.NODE_ENV === "development") {
-          console.warn("Service worker registration failed", error);
-        }
-      });
-    };
-
-    if (document.readyState === "complete") {
-      register();
+    // ⛔ NO registrar SW en Sanity Studio
+    if (window.location.pathname.startsWith("/studio")) {
+      navigator.serviceWorker.getRegistrations().then(regs =>
+        regs.forEach(r => r.unregister())
+      );
       return;
     }
 
-    window.addEventListener("load", register);
-    return () => window.removeEventListener("load", register);
+    navigator.serviceWorker
+      .register("/sw.js", { scope: "/" })
+      .catch(() => {});
   }, []);
 
   return null;
