@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { BadgeCheck } from "lucide-react";
 import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
@@ -349,7 +350,7 @@ export function TestimonialsSection({ t }: SectionProps) {
                     <div className="flex items-center mb-4">
                       {item.profilePhotoUrl && !failedImages[item.profilePhotoUrl] ? (
                         <div className="w-12 h-12 relative mr-3">
-                          <img
+                          <Image
                             src={item.profilePhotoUrl}
                             alt={item.name}
                             width={48}

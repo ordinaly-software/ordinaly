@@ -51,7 +51,6 @@ export async function generateMetadata({
     description: baseDescription,
     metadataBase: new URL(metadataBaseUrl),
     manifest: "/manifest.json",
-    themeColor: "#22A60D",
     icons: {
       icon: [
         { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
@@ -78,6 +77,7 @@ export async function generateMetadata({
 export const viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#22A60D",
   viewportFit: "cover",
 };
 
@@ -98,7 +98,6 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#22A60D" />
         <link rel="preconnect" href="https://api.ordinaly.ai" />
         <link rel="dns-prefetch" href="https://api.ordinaly.ai" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
