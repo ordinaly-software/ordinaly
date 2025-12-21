@@ -31,7 +31,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [slidesToShow, setSlidesToShow] = useState(3);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const shouldLazyLoad = !initialCourses || initialCourses.length === 0;
+  const shouldLazyLoad = showUpcomingOnly || !initialCourses || initialCourses.length < limit;
   const [hasBeenVisible, setHasBeenVisible] = useState(!shouldLazyLoad);
   const sectionRef = useRef<HTMLElement | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
@@ -84,7 +84,6 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   // Removed enrollments and authentication state for homepage
 
   const { courses, isLoading, error, refetch } = useCourses({
-    upcoming: showUpcomingOnly,
     enabled: shouldLazyLoad ? hasBeenVisible : false,
     initialData: initialCourses,
   });
@@ -101,9 +100,21 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     return items;
   }, [courses]);
   const displayCourses = useMemo(() => {
-    if (!limit || limit <= 0) return orderedCourses;
-    return orderedCourses.slice(0, limit);
-  }, [limit, orderedCourses]);
+    const now = Date.now();
+    const isUpcoming = (course: Course) => {
+      const startAt = Date.parse(course.start_date);
+      if (Number.isNaN(startAt)) return false;
+      return startAt >= now;
+    };
+    let combined = orderedCourses;
+    if (showUpcomingOnly) {
+      const upcoming = orderedCourses.filter(isUpcoming);
+      const past = orderedCourses.filter((course) => !isUpcoming(course));
+      combined = [...upcoming, ...past];
+    }
+    if (!limit || limit <= 0) return combined;
+    return combined.slice(0, limit);
+  }, [limit, orderedCourses, showUpcomingOnly]);
 
   useEffect(() => {
     setCurrentIndex(0);
