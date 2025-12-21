@@ -241,6 +241,30 @@ export default function HomePage({
     };
   }, [services]);
 
+  useEffect(() => {
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+
+    const preloadSections = () => {
+      void import("@/components/home/process-section");
+      void import("@/components/home/benefits-section");
+      void import("@/components/home/use-cases-section");
+    };
+
+    const idleId = idleWindow.requestIdleCallback?.(preloadSections) ?? null;
+    const timeoutId = idleId ? null : window.setTimeout(preloadSections, 1200);
+    return () => {
+      if (idleId !== null) {
+        idleWindow.cancelIdleCallback?.(idleId);
+      }
+      if (timeoutId !== null) {
+        window.clearTimeout(timeoutId);
+      }
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
       <HomeHero t={t} onWhatsApp={handleWhatsAppChat} />
@@ -261,16 +285,16 @@ export default function HomePage({
         }
       />
       <LocalSeoSection t={t} />
-      <DeferredSection rootMargin="1200px 0px">
-        <ProcessSection t={t} />
-      </DeferredSection>
-      <DeferredSection rootMargin="1200px 0px">
-        <BenefitsSection t={t} />
-      </DeferredSection>
       <DeferredSection>
         <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
       </DeferredSection>
-      <DeferredSection rootMargin="1400px 0px">
+      <DeferredSection rootMargin="2000px 0px">
+        <ProcessSection t={t} />
+      </DeferredSection>
+      <DeferredSection rootMargin="2000px 0px">
+        <BenefitsSection t={t} />
+      </DeferredSection>
+      <DeferredSection rootMargin="2400px 0px">
         <UseCasesSection t={t} />
       </DeferredSection>
       <DeferredSection>

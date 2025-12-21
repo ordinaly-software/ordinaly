@@ -182,13 +182,16 @@ export function TestimonialsSection({ t }: SectionProps) {
     }));
   }, [googleData, t]);
 
+  const shouldShowSkeleton = isLoading && !googleData;
   const visibleTestimonials = useMemo(
     () =>
-      sortTestimonials(googleCards.length ? googleCards : fallbackCards).slice(
-        0,
-        MAX_TESTIMONIALS,
-      ),
-    [fallbackCards, googleCards],
+      shouldShowSkeleton
+        ? []
+        : sortTestimonials(googleCards.length ? googleCards : fallbackCards).slice(
+            0,
+            MAX_TESTIMONIALS,
+          ),
+    [fallbackCards, googleCards, shouldShowSkeleton],
   );
 
   // Ensure newly added testimonial cards become visible by triggering their animation
@@ -241,57 +244,66 @@ export function TestimonialsSection({ t }: SectionProps) {
             {t("testimonials.title")}
           </h2>
           <div className="mt-6 flex flex-col items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-            {aggregateRating !== null && aggregateCount !== null && (
-              <div className="flex flex-wrap items-center justify-center gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-                    {aggregateRating.toFixed(1)}
-                  </span>
-                  <div className="flex">
-                    {Array.from({ length: 5 }).map((_, index) => (
-                      <svg
-                        key={index}
-                        className={`w-5 h-5 ${
-                          index < clampStars(aggregateRating)
-                            ? "text-yellow-400"
-                            : "text-gray-300 dark:text-gray-700"
-                        }`}
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    ))}
+            {shouldShowSkeleton ? (
+              <>
+                <div className="h-6 w-36 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                <div className="h-4 w-60 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+              </>
+            ) : (
+              <>
+                {aggregateRating !== null && aggregateCount !== null && (
+                  <div className="flex flex-wrap items-center justify-center gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+                        {aggregateRating.toFixed(1)}
+                      </span>
+                      <div className="flex">
+                        {Array.from({ length: 5 }).map((_, index) => (
+                          <svg
+                            key={index}
+                            className={`w-5 h-5 ${
+                              index < clampStars(aggregateRating)
+                                ? "text-yellow-400"
+                                : "text-gray-300 dark:text-gray-700"
+                            }`}
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                          </svg>
+                        ))}
+                      </div>
+                    </div>
+                    <span>
+                      {t("testimonials.googleSummary", {
+                        rating: aggregateRating.toFixed(1),
+                        count: aggregateCount,
+                      })}
+                    </span>
                   </div>
+                )}
+                <div className="flex flex-wrap items-center justify-center gap-3">
+                  {googleData?.googleMapsUrl && (
+                    <Button asChild size="sm" variant="outline" className="gap-2">
+                      <a href={googleData.googleMapsUrl} target="_blank" rel="noreferrer">
+                        <BadgeCheck className="h-4 w-4" />
+                        {t("testimonials.googleLink")}
+                      </a>
+                    </Button>
+                  )}
+                  {googleData?.writeReviewUrl && (
+                    <Button asChild size="sm" className="gap-2">
+                      <a href={googleData.writeReviewUrl} target="_blank" rel="noreferrer">
+                        <GoogleIcon className="h-4 w-4" />
+                        {t("testimonials.googleWrite")}
+                      </a>
+                    </Button>
+                  )}
                 </div>
-                <span>
-                  {t("testimonials.googleSummary", {
-                    rating: aggregateRating.toFixed(1),
-                    count: aggregateCount,
-                  })}
-                </span>
-              </div>
+                {isLoading && <span>{t("testimonials.googleLoading")}</span>}
+                {hasError && !isLoading && <span>{t("testimonials.googleUnavailable")}</span>}
+              </>
             )}
-            <div className="flex flex-wrap items-center justify-center gap-3">
-              {googleData?.googleMapsUrl && (
-                <Button asChild size="sm" variant="outline" className="gap-2">
-                  <a href={googleData.googleMapsUrl} target="_blank" rel="noreferrer">
-                    <BadgeCheck className="h-4 w-4" />
-                    {t("testimonials.googleLink")}
-                  </a>
-                </Button>
-              )}
-              {googleData?.writeReviewUrl && (
-                <Button asChild size="sm" className="gap-2">
-                  <a href={googleData.writeReviewUrl} target="_blank" rel="noreferrer">
-                    <GoogleIcon className="h-4 w-4" />
-                    {t("testimonials.googleWrite")}
-                  </a>
-                </Button>
-              )}
-            </div>
-            {isLoading && <span>{t("testimonials.googleLoading")}</span>}
-            {hasError && !isLoading && <span>{t("testimonials.googleUnavailable")}</span>}
           </div>
         </div>
         <div className="relative">
@@ -300,71 +312,101 @@ export function TestimonialsSection({ t }: SectionProps) {
             onScroll={checkScrollability}
             className="flex gap-6 overflow-x-auto scroll-smooth pb-6 [scrollbar-width:none] [-ms-overflow-style:none]"
           >
-            {visibleTestimonials.map((item, index) => (
-              <div
-                key={`${item.name}-${index}`}
-                className="scroll-animate fade-in-up bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg min-w-[260px] sm:min-w-[300px] md:min-w-[320px]"
-                style={{ animationDelay: `${index * 0.08}s` }}
-              >
-                <div className="flex items-center mb-4">
-                  {item.profilePhotoUrl && !failedImages[item.profilePhotoUrl] ? (
-                    <div className="w-12 h-12 relative mr-3">
-                      <img
-                        src={item.profilePhotoUrl}
-                        alt={item.name}
-                        width={48}
-                        height={48}
-                        className="rounded-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                        referrerPolicy="no-referrer"
-                        onError={() =>
-                          setFailedImages((prev) => ({
-                            ...prev,
-                            [item.profilePhotoUrl ?? "unknown"]: true,
-                          }))
-                        }
-                      />
+            {shouldShowSkeleton
+              ? Array.from({ length: 3 }).map((_, index) => (
+                  <div
+                    key={`testimonial-skeleton-${index}`}
+                    className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg min-w-[260px] sm:min-w-[300px] md:min-w-[320px] animate-pulse"
+                  >
+                    <div className="flex items-center mb-4">
+                      <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 mr-3"></div>
+                      <div className="space-y-2">
+                        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div className="h-3 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      </div>
                     </div>
-                  ) : (
-                    <div
-                      className={`w-12 h-12 bg-gradient-to-br ${
-                        item.color ?? avatarGradients[index % avatarGradients.length]
-                      } rounded-full flex items-center justify-center text-white font-semibold text-lg mr-3`}
-                    >
-                      {item.initials ?? getInitials(item.name)}
+                    <div className="flex mb-3 gap-2">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <div
+                          key={`star-skeleton-${index}-${i}`}
+                          className="h-3 w-3 rounded bg-gray-200 dark:bg-gray-700"
+                        ></div>
+                      ))}
                     </div>
-                  )}
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white">{item.name}</h4>
-                    {item.meta && (
-                      <p className="text-xs text-gray-600 dark:text-gray-400">{item.meta}</p>
+                    <div className="space-y-2">
+                      <div className="h-3 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      <div className="h-3 w-5/6 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      <div className="h-3 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                    </div>
+                  </div>
+                ))
+              : visibleTestimonials.map((item, index) => (
+                  <div
+                    key={`${item.name}-${index}`}
+                    className="scroll-animate fade-in-up bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg min-w-[260px] sm:min-w-[300px] md:min-w-[320px]"
+                    style={{ animationDelay: `${index * 0.08}s` }}
+                  >
+                    <div className="flex items-center mb-4">
+                      {item.profilePhotoUrl && !failedImages[item.profilePhotoUrl] ? (
+                        <div className="w-12 h-12 relative mr-3">
+                          <img
+                            src={item.profilePhotoUrl}
+                            alt={item.name}
+                            width={48}
+                            height={48}
+                            className="rounded-full object-cover"
+                            loading="lazy"
+                            decoding="async"
+                            referrerPolicy="no-referrer"
+                            onError={() =>
+                              setFailedImages((prev) => ({
+                                ...prev,
+                                [item.profilePhotoUrl ?? "unknown"]: true,
+                              }))
+                            }
+                          />
+                        </div>
+                      ) : (
+                        <div
+                          className={`w-12 h-12 bg-gradient-to-br ${
+                            item.color ?? avatarGradients[index % avatarGradients.length]
+                          } rounded-full flex items-center justify-center text-white font-semibold text-lg mr-3`}
+                        >
+                          {item.initials ?? getInitials(item.name)}
+                        </div>
+                      )}
+                      <div>
+                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+                          {item.name}
+                        </h4>
+                        {item.meta && (
+                          <p className="text-xs text-gray-600 dark:text-gray-400">{item.meta}</p>
+                        )}
+                      </div>
+                    </div>
+                    <div className="flex mb-3">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <svg
+                          key={i}
+                          className={`w-4 h-4 ${
+                            i < clampStars(item.rating)
+                              ? "text-yellow-400"
+                              : "text-gray-300 dark:text-gray-700"
+                          }`}
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      ))}
+                    </div>
+                    {item.quote && (
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                        “{item.quote}”
+                      </p>
                     )}
                   </div>
-                </div>
-                <div className="flex mb-3">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <svg
-                      key={i}
-                      className={`w-4 h-4 ${
-                        i < clampStars(item.rating)
-                          ? "text-yellow-400"
-                          : "text-gray-300 dark:text-gray-700"
-                      }`}
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                {item.quote && (
-                  <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                    “{item.quote}”
-                  </p>
-                )}
-              </div>
-            ))}
+                ))}
           </div>
           <div className="mr-2 mt-4 flex justify-end gap-2 px-1">
             <button

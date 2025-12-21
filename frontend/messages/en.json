@@ -918,6 +918,8 @@
           "dateRequired": "Date is required and must be 100 characters or less.",
           "maxAttendantsInvalid": "Maximum attendants must be at least 1",
           "maxAttendantsBelowEnrolled": "Cannot set maximum attendants below the current number of enrolled users ({count}).",
+          "cannotDeleteEnrolled": "Cannot delete a course with enrolled students",
+          "cannotDeleteEnrolledBulk": "Cannot delete one or more courses with enrolled students",
           "cannotDeleteFinished": "Cannot delete a finished course",
           "cannotDeleteFinishedBulk": "Cannot delete one or more finished courses",
           "endDatePast": "End date cannot be in the past",
@@ -1424,6 +1426,7 @@
       "title": "Enrollment Confirmed!",
       "description": "You have successfully enrolled in {courseTitle}. We have sent you a confirmation email with all the details.",
       "close": "Close",
+      "viewMyCourses": "View my courses",
       "message": "You have been successfully enrolled."
     },
     "title": "Professional Formation",
@@ -1735,6 +1738,7 @@
       "viewDetails": "View course",
       "dateTbd": "Dates to be confirmed",
       "enrolledOn": "Enrolled on {date}",
+      "enrollCta": "Enroll in one of our courses!",
       "status": {
         "inProgress": "In progress",
         "startsSoon": "Starts soon",

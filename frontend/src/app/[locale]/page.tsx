@@ -64,9 +64,22 @@ export default async function Home({
 
   const getInitialCourses = unstable_cache(
     async (): Promise<Course[]> => {
-      const data = await fetchJson<unknown>(getApiEndpoint("/api/courses/courses/?limit=3"));
+      const data = await fetchJson<unknown>(getApiEndpoint("/api/courses/courses/"));
       const items = extractItems<Course>(data);
-      return items.filter((course) => !course.draft).slice(0, 3);
+      const now = new Date();
+      const upcoming = items.filter((course) => {
+        if (course.draft) return false;
+        const startDate = Date.parse(course.start_date);
+        return !Number.isNaN(startDate) && startDate >= now.getTime();
+      });
+      const getSortTime = (course: Course) => {
+        const createdAt = Date.parse(course.created_at);
+        if (!Number.isNaN(createdAt)) return createdAt;
+        const startAt = Date.parse(course.start_date);
+        if (!Number.isNaN(startAt)) return startAt;
+        return 0;
+      };
+      return upcoming.sort((a, b) => getSortTime(b) - getSortTime(a)).slice(0, 3);
     },
     ["home-courses"],
     { revalidate: 300 },
@@ -80,7 +93,7 @@ export default async function Home({
   const schemaOrganization = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Ordinaly",
+    name: "Ordinaly Software - Automatización empresarial con IA en Sevilla",
     url: "https://ordinaly.ai",
     logo: "https://ordinaly.ai/logo.png",
     description:

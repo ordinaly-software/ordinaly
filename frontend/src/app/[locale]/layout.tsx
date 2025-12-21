@@ -98,6 +98,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
+        <meta name="theme-color" content="#22A60D" />
         <link rel="preconnect" href="https://api.ordinaly.ai" />
         <link rel="dns-prefetch" href="https://api.ordinaly.ai" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

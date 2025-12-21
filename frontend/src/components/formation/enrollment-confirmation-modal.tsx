@@ -59,14 +59,15 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
   const [enrolled, setEnrolled] = React.useState(false);
   const [showSuccessModal, setShowSuccessModal] = React.useState(false);
   const [currentStep, setCurrentStep] = React.useState<"bonification" | "checkout">("bonification");
+  const hasBonificationLink = !!selectedCourse?.bonified_course_link?.trim();
   const [alert, setAlert] = React.useState<{ type: "success" | "error" | "info" | "warning"; message: string } | null>(null);
 
   // Reset enrolled state when modal opens/closes or course changes
   React.useEffect(() => {
     setEnrolled(false);
-    setCurrentStep("bonification");
+    setCurrentStep(hasBonificationLink ? "bonification" : "checkout");
     setAlert(null);
-  }, [isOpen, selectedCourse]);
+  }, [isOpen, selectedCourse, hasBonificationLink]);
 
   const handleEnrollSuccess = () => {
     setEnrolled(true);
@@ -113,8 +114,10 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
           >
             {/* HEADER */}
           <div className={`flex items-start justify-between px-4 pt-4 pb-3 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
-            <h2 className={`${isDark ? 'text-white' : 'text-gray-900'} font-bold leading-tight flex-1 mr-2`}
-                style={{ fontSize: 'clamp(1rem, 3.8vw, 1.35rem)' }}>
+            <h2
+              className={`${isDark ? 'text-white' : 'text-gray-900'} font-bold leading-snug flex-1 min-w-0 break-words`}
+              style={{ fontSize: 'clamp(1rem, 3.8vw, 1.35rem)' }}
+            >
               {selectedCourse ? `${t("enrollment.confirm")} - ${selectedCourse.title}` : t("enrollment.confirm")}
             </h2>
           </div>
@@ -131,15 +134,17 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                 />
               </div>
             )}
-            <div className="flex items-center justify-center mb-3">
-              <span className={`text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full ${isDark ? 'bg-white/10 text-white' : 'bg-green-100 text-green-800'}`}>
-                {currentStep === "bonification" ? t("enrollment.stepBonification") : t("enrollment.stepCheckout")}
-              </span>
-            </div>
+            {hasBonificationLink && (
+              <div className="flex items-center justify-center mb-3">
+                <span className={`text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full ${isDark ? 'bg-white/10 text-white' : 'bg-green-100 text-green-800'}`}>
+                  {currentStep === "bonification" ? t("enrollment.stepBonification") : t("enrollment.stepCheckout")}
+                </span>
+              </div>
+            )}
             {currentStep === "bonification" ? (
               <div className="space-y-4">
                 <div className="text-center">
-                  <p className={`${isDark ? 'text-gray-200' : 'text-gray-800'} mb-2 font-semibold`}
+                  <p className={`${isDark ? 'text-gray-200' : 'text-gray-800'} mb-2 font-bold text-xl`}
                      style={{ fontSize: 'clamp(.95rem, 3.6vw, 1.125rem)' }}>
                     {t("enrollment.bonificationQuestion")}
                   </p>
@@ -214,9 +219,9 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
           </div>
 
             <div
-              className={`px-4 pt-3 pb-[calc(env(safe-area-inset-bottom)+16px)] ${isDark ? 'bg-[#12121A] border-white/10' : 'bg-white border-gray-200'} border-t flex flex-col sm:flex-row gap-3 justify-end shadow-[0_-6px_12px_-6px_rgba(0,0,0,0.03)]`}
+              className={`px-4 pt-3 pb-[calc(env(safe-area-inset-bottom)+16px)] ${isDark ? 'bg-[#12121A] border-white/10' : 'bg-white border-gray-200'} border-t flex flex-col sm:flex-row sm:flex-wrap gap-3 justify-end shadow-[0_-6px_12px_-6px_rgba(0,0,0,0.03)]`}
             >
-              <Button type="button" variant="ghost" onClick={onClose} className="w-full sm:w-auto px-6 h-10">
+              <Button type="button" variant="ghost" onClick={onClose} className="w-full sm:w-auto sm:min-w-[140px] px-6 h-11 whitespace-normal">
                 {t("enrollment.cancel")}
               </Button>
               {currentStep === "bonification" ? (
@@ -224,14 +229,14 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                   <Button
                     type="button"
                     onClick={() => handleBonificationDecision(false)}
-                    className="w-full sm:w-auto bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white px-6 h-10"
+                    className="w-full sm:w-auto sm:min-w-[180px] bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white dark:text-black px-6 h-11 whitespace-normal"
                   >
                     {t("enrollment.bonificationNo")}
                   </Button>
                   <Button
                     type="button"
                     onClick={() => handleBonificationDecision(true)}
-                    className="w-full sm:w-auto px-6 h-10"
+                    className="w-full sm:w-auto sm:min-w-[180px] px-6 h-11 whitespace-normal"
                   >
                     {t("enrollment.bonificationYes")}
                   </Button>
@@ -240,7 +245,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                 <CheckoutButton
                   courseId={selectedCourse.id}
                   label={t("enrollment.confirmEnroll")}
-                  className="w-full sm:w-auto bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white px-6 h-10 flex items-center justify-center gap-2 rounded-2xl"
+                  className="w-full sm:w-auto sm:min-w-[220px] bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white dark:text-black px-6 h-11 flex items-center justify-center rounded-2xl whitespace-normal"
                   onSuccess={handleEnrollSuccess}
                   disabled={enrolled}
                 />

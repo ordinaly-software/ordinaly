@@ -32,6 +32,7 @@ interface UserProfile {
 
 interface Enrollment {
   id: number;
+  user: number;
   course: number;
   enrolled_at: string;
 }
@@ -194,7 +195,7 @@ export default function ProfilePage() {
     { id: "courses", name: t("tabs.courses"), icon: BookOpen, accentColor: "#1F8A0D" },
   ];
 
-  const fetchEnrolledCourses = useCallback(async (token?: string) => {
+  const fetchEnrolledCourses = useCallback(async (token?: string, userId?: number) => {
     const authTokenToUse = token || authToken;
     if (!authTokenToUse) return;
     setCoursesLoading(true);
@@ -218,9 +219,15 @@ export default function ProfilePage() {
         return;
       }
 
-      const enrollmentsData: Enrollment[] = await enrollmentsResponse.json();
-      setEnrollments(enrollmentsData);
-      const enrolledIds = new Set(enrollmentsData.map((enrollment) => enrollment.course));
+      let enrollmentsData = await enrollmentsResponse.json();
+      if (enrollmentsData?.results) {
+        enrollmentsData = enrollmentsData.results;
+      }
+      const scopedEnrollments = userId
+        ? (enrollmentsData as Enrollment[]).filter((enrollment) => enrollment.user === userId)
+        : (enrollmentsData as Enrollment[]);
+      setEnrollments(scopedEnrollments);
+      const enrolledIds = new Set(scopedEnrollments.map((enrollment) => enrollment.course));
 
       const coursesResponse = await fetch(`${apiUrl}/api/courses/courses/`, {
         headers: {
@@ -246,9 +253,9 @@ export default function ProfilePage() {
     }
   }, [authToken, t]);
 
-    const fetchProfile = useCallback(async (token?: string) => {
+  const fetchProfile = useCallback(async (token?: string): Promise<UserProfile | null> => {
     const authTokenToUse = token || authToken;
-    if (!authTokenToUse) return;
+    if (!authTokenToUse) return null;
 
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
@@ -272,6 +279,7 @@ export default function ProfilePage() {
         setRegion(data.region || "");
         setCity(data.city || "");
         setAllowNotifications(!!data.allow_notifications);
+        return data;
       } else if (response.status === 401) {
         // Token is invalid
         window.location.href = "/auth/signin";
@@ -283,6 +291,7 @@ export default function ProfilePage() {
     } finally {
       setIsLoading(false);
     }
+    return null;
   }, [authToken, t]);
 
   useEffect(() => {
@@ -296,9 +305,11 @@ export default function ProfilePage() {
       return;
     }
 
-    // Fetch profile data
-    fetchProfile(token);
-    fetchEnrolledCourses(token);
+    const loadProfileAndCourses = async () => {
+      const profileData = await fetchProfile(token);
+      await fetchEnrolledCourses(token, profileData?.id);
+    };
+    loadProfileAndCourses();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

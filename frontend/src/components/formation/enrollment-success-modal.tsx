@@ -1,6 +1,8 @@
 import React from "react";
 import { Modal } from "@/components/ui/modal";
+import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface CourseEnrollmentSuccessModalProps {
   isOpen: boolean;
@@ -15,6 +17,7 @@ const CourseEnrollmentSuccessModal: React.FC<CourseEnrollmentSuccessModalProps> 
   courseTitle,
   t,
 }) => {
+  const router = useRouter();
   return (
     <Modal
       isOpen={isOpen}
@@ -34,12 +37,21 @@ const CourseEnrollmentSuccessModal: React.FC<CourseEnrollmentSuccessModalProps> 
               : t("enrollmentSuccess.message")
             : `You have been successfully enrolled${courseTitle ? ` in ${courseTitle}` : ""}.`}
         </p>
-        <button
-          className="bg-green text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700 transition"
-          onClick={onClose}
-        >
-          {t ? t("enrollmentSuccess.close") : "Close"}
-        </button>
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <Button
+            onClick={() => router.push("/profile?tab=courses")}
+            className="bg-[#1F8A0D] hover:bg-[#166307] text-white dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] dark:text-[#0B1B17] w-full sm:w-auto"
+          >
+            {t ? t("enrollmentSuccess.viewMyCourses") : "View my courses"}
+          </Button>
+          <Button
+            variant="outline"
+            onClick={onClose}
+            className="w-full sm:w-auto"
+          >
+            {t ? t("enrollmentSuccess.close") : "Close"}
+          </Button>
+        </div>
       </div>
     </Modal>
   );
