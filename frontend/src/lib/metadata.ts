@@ -62,7 +62,7 @@ type MetadataOptions = {
 };
 
 const normalizePath = (path?: string) => {
-  if (!path) return "/";
+  if (!path || path === "/") return "";
   return path.startsWith("/") ? path : `/${path}`;
 };
 
