@@ -10,6 +10,7 @@ import { HomeHero } from "@/components/home/home-hero";
 import { ServicesSection } from "@/components/home/services-section";
 import { LocalSeoSection } from "@/components/home/local-seo-section";
 import { CtaSection } from "@/components/home/cta-section";
+import Footer from "@/components/ui/footer";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 
 const ServiceShowcase = dynamic(
@@ -18,21 +19,6 @@ const ServiceShowcase = dynamic(
     loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div>,
   },
 );
-const Footer = dynamic(() => import("@/components/ui/footer"), {
-  loading: () => (
-    <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div className="col-span-2">
-            <div className="h-24 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div>
-          </div>
-        </div>
-      </div>
-    </footer>
-  ),
-});
 const CoursesShowcase = dynamic(
   () => import("@/components/home/courses-showcase").then((mod) => mod.default),
   {
@@ -286,9 +272,7 @@ export default function HomePage({
         </section>
       </DeferredSection>
       <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
-      <DeferredSection>
-        <Footer />
-      </DeferredSection>
+      <Footer />
     </div>
   );
 }

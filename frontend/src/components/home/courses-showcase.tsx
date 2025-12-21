@@ -234,17 +234,15 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   };
 
   const getAvailabilityBadge = (course: Course) => {
-    // If any required field is missing, show 'in progress'
-    const missing = !course.start_date || course.start_date === "0000-00-00" ||
-      !course.end_date || course.end_date === "0000-00-00" ||
-      !course.start_time || !course.end_time ||
-      !course.location || !course.description;
-    const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
-    const endDate = course.end_date && course.end_date !== "0000-00-00" ? new Date(course.end_date) : null;
-    if (startDate && endDate && startDate <= now && endDate > now) {
-      return { text: t('inProgress'), variant: 'default' as const };
+    const hasValidStartDate = Boolean(course.start_date && course.start_date !== "0000-00-00");
+    const hasValidEndDate = Boolean(course.end_date && course.end_date !== "0000-00-00");
+    if (!hasValidStartDate || !hasValidEndDate) {
+      return null;
     }
-    if (missing) {
+
+    const startDate = new Date(course.start_date);
+    const endDate = new Date(course.end_date);
+    if (startDate && endDate && startDate <= now && endDate > now) {
       return { text: t('inProgress'), variant: 'default' as const };
     }
     if (endDate && endDate < now) {
@@ -405,11 +403,13 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                                 </div>
                               </div>
                             )}
-                            <div className="absolute top-3 left-3">
-                              <Badge variant={availabilityBadge.variant}>
-                                {availabilityBadge.text}
-                              </Badge>
-                            </div>
+                            {availabilityBadge && (
+                              <div className="absolute top-3 left-3">
+                                <Badge variant={availabilityBadge.variant}>
+                                  {availabilityBadge.text}
+                                </Badge>
+                              </div>
+                            )}
 
                             {course.price && (
                               <div className="absolute top-3 right-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-1">

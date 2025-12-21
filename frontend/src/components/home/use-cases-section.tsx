@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
 interface SectionProps {
@@ -76,8 +78,42 @@ const useCases = [
 ];
 
 export function UseCasesSection({ t }: SectionProps) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const root = sectionRef.current;
+    if (!root) return;
+
+    const items = Array.from(root.querySelectorAll<HTMLElement>(".scroll-animate"));
+    if (items.length === 0) return;
+
+    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
+      items.forEach((item) => item.classList.add("animate-in"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    );
+
+    items.forEach((item) => observer.observe(item));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20">
+    <section
+      ref={sectionRef}
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
