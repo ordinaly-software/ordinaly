@@ -101,15 +101,21 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   }, [courses]);
   const displayCourses = useMemo(() => {
     const now = Date.now();
-    const isUpcoming = (course: Course) => {
+    const coursesWithUpcoming = orderedCourses.map((course) => {
       const startAt = Date.parse(course.start_date);
-      if (Number.isNaN(startAt)) return false;
-      return startAt >= now;
-    };
-    let combined = orderedCourses;
+      const upcoming = !Number.isNaN(startAt) && startAt >= now;
+      return { course, upcoming };
+    });
+
+    let combined: Course[] = orderedCourses;
+
     if (showUpcomingOnly) {
-      const upcoming = orderedCourses.filter(isUpcoming);
-      const past = orderedCourses.filter((course) => !isUpcoming(course));
+      const upcoming = coursesWithUpcoming
+        .filter((item) => item.upcoming)
+        .map((item) => item.course);
+      const past = coursesWithUpcoming
+        .filter((item) => !item.upcoming)
+        .map((item) => item.course);
       combined = [...upcoming, ...past];
     }
     if (!limit || limit <= 0) return combined;
