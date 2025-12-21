@@ -411,25 +411,25 @@ const Navbar = () => {
                 }
               }}
             >
-              <div className="mr-3 sm:mr-4 flex-shrink-0">
+              <div className="mr-2 sm:mr-3 flex-shrink-0">
                 <Image 
                   src="/logo.webp" 
                   alt="" 
                   width={40} 
                   height={40}
-                  className="h-8 w-8 sm:h-10 sm:w-10 transition-transform duration-200 group-hover:rotate-3"
+                  className="h-7 w-7 sm:h-9 sm:w-9 xl:h-10 xl:w-10 transition-transform duration-200 group-hover:rotate-3"
                   priority
-                  sizes="(max-width: 640px) 32px, 40px"
+                  sizes="(max-width: 640px) 28px, (max-width: 1279px) 36px, 40px"
                   aria-hidden="true"
                 />
               </div>
-              <div className="text-lg sm:text-xl lg:text-2xl font-bold text-green truncate transition-colors duration-200">
+              <div className="text-base sm:text-lg xl:text-xl 2xl:text-2xl font-bold text-green truncate transition-colors duration-200">
                 {t("logo.title")}
               </div>
             </div>
 
             {/* Right Side: Desktop Navigation + Controls */}
-            <div className="hidden lg:flex items-center justify-between w-full gap-5 xl:gap-6">
+            <div className="hidden xl:flex items-center justify-between flex-1 min-w-0 gap-5 xl:gap-6">
               {/* Desktop Navigation moved next to controls */}
               <div className="flex items-center gap-6 flex-1 min-w-0">
                 <HoverMenu setActive={setActiveMegaItem}>
@@ -540,7 +540,7 @@ const Navbar = () => {
                   <Button
                     size="sm"
                     onClick={goToSignUp}
-                    className="bg-green hover:bg-green-600 text-white transition-all duration-200 hover:scale-105 h-9"
+                    className="bg-green hover:bg-green-600 text-white transition-all duration-200 hover:scale-105 h-8 px-3 text-sm"
                   >
                     {t("navigation.signUp")}
                   </Button>
@@ -549,8 +549,42 @@ const Navbar = () => {
               </div>
             </div>
 
+            {/* Mid-size Navigation (lg to xl) */}
+            <div className="hidden lg:flex xl:hidden items-center justify-center flex-1 min-w-0 gap-4 text-sm font-medium text-gray-700 dark:text-gray-300">
+              <Link
+                href="/services"
+                scroll={true}
+                className={cn(
+                  "transition-colors duration-200 whitespace-nowrap hover:text-green",
+                  isLinkActive("/services") ? "text-green" : ""
+                )}
+              >
+                {t("navigation.services")}
+              </Link>
+              <Link
+                href="/formation"
+                scroll={true}
+                className={cn(
+                  "transition-colors duration-200 whitespace-nowrap hover:text-green",
+                  isLinkActive("/formation") ? "text-green" : ""
+                )}
+              >
+                {t("navigation.formation")}
+              </Link>
+              <Link
+                href="/blog"
+                scroll={true}
+                className={cn(
+                  "transition-colors duration-200 whitespace-nowrap hover:text-green",
+                  isLinkActive("/blog") ? "text-green" : ""
+                )}
+              >
+                {t("navigation.blog")}
+              </Link>
+            </div>
+
             {/* Mobile / Tablet Controls */}
-            <div className="flex lg:hidden items-center space-x-2 flex-shrink-0">
+            <div className="flex xl:hidden items-center space-x-2 flex-shrink-0">
               {!hideMobileConsultationCta && (
                 <Button
                   size="sm"
@@ -607,7 +641,7 @@ const Navbar = () => {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-              className="lg:hidden bg-white/95 dark:bg-[#1A1924]/95 border-t border-gray-200/50 dark:border-gray-700/50 overflow-hidden backdrop-blur-xl"
+              className="xl:hidden bg-white/95 dark:bg-[#1A1924]/95 border-t border-gray-200/50 dark:border-gray-700/50 overflow-hidden backdrop-blur-xl"
             >
               <div className="py-4 px-4 sm:px-6">
                 <div className="flex flex-col space-y-1">
