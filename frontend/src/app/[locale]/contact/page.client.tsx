@@ -181,7 +181,7 @@ export default function ContactPage() {
                     </video> */}
                     <Image
                       src="/static/contact/contact_pic.webp"
-                      alt="Contact us at Ordinaly"
+                      alt="Contact us at Ordinaly Software"
                       fill
                       className="object-cover"
                       sizes="(max-width: 1024px) 100vw, 33vw"
@@ -281,7 +281,7 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 rounded-2xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800">
               <iframe
-                title="Ordinaly Sevilla - Plaza del Duque de la Victoria, 1, 3º 9. 41002 Sevilla"
+                title="Ordinaly Software Sevilla - Plaza del Duque de la Victoria, 1, 3º 9. 41002 Sevilla"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.8818083265837!2d-5.995837400000001!3d37.39262730000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126d4f91b87a51%3A0xa8b9785b4669f853!2sOrdinaly%20Software%20-%20Automatizaciones%20e%20IA!5e0!3m2!1ses!2ses!4v1765702540305!5m2!1ses!2ses"
                 width="100%"
                 height="420"

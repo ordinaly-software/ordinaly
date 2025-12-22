@@ -73,7 +73,9 @@ ordinaly/
 ├── LICENSE
 ├── README.md
 ├── backend/
+│   ├── conftest.py
 │   ├── manage.py
+│   ├── pytest.ini
 │   ├── requirements.txt
 │   ├── config/           # Configuración Django
 │   ├── api/              # API REST principal
@@ -81,17 +83,39 @@ ordinaly/
 │   ├── courses/          # Cursos y formación
 │   ├── services/         # Servicios empresariales
 │   ├── terms/            # Términos legales
+│   ├── media/            # Archivos subidos (imágenes, PDFs, etc.)
+│   │   ├── course_images/
+│   │   ├── service_images/
+│   │   ├── terms/
+│   │   └── test_media/
+│   ├── staticfiles/       # Archivos estáticos del panel de Django
 │   └── ...
 └── frontend/
     ├── package.json
     ├── public/
+    │   ├── icons/
+    │   ├── assets/
+    │   └── static/
+    │       ├── about/
+    │       ├── backgrounds/
+    │       ├── contact/
+    │       ├── logos/
+    │       └── team/
     ├── src/
+    │   ├── app/
+    │   │   ├── api/        # Route handlers (leads, google-reviews, revalidate)
+    │   │   ├── studio/     # Sanity Studio
+    │   │   └── [locale]/   # Rutas intternacionalizadas de cada sección
     │   ├── components/
+    │   ├── contexts/
     │   ├── hooks/
     │   ├── i18n/
     │   ├── lib/
+    │   ├── sanity/
+    │   ├── styles/
+    │   ├── utils/
     │   └── ...
-    ├── messages/         # Archivos de traducción (es, en, ca, eu, gl)
+    ├── messages/         # Archivos de traducción (es, en)
     └── ...
 ```
 
@@ -136,7 +160,9 @@ ordinaly/
             </ul>
             <b>Otros:</b>
             <ul>
+                <li><b>conftest.py</b> — Configuración de fixtures para pytest</li>
                 <li><b>manage.py</b> — Script principal de gestión Django</li>
+                <li><b>pytest.ini</b> — Configuración de pytest</li>
                 <li><b>requirements.txt</b> — Dependencias del backend</li>
                 <li><b>media/</b> — Archivos subidos (imágenes, PDFs, etc.)</li>
                 <li><b>staticfiles/</b> — Archivos estáticos recolectados</li>
@@ -150,17 +176,32 @@ ordinaly/
                 <li><code>/[locale]/page.tsx</code> — Home</li>
                 <li><code>/[locale]/services/page.tsx</code> — Servicios</li>
                 <li><code>/[locale]/formation/page.tsx</code> — Cursos y formación</li>
+                <li><code>/[locale]/contact/page.tsx</code> — Contacto</li>
+                <li><code>/[locale]/about/page.tsx</code> — Sobre nosotros</li>
+                <li><code>/[locale]/blog/page.tsx</code> — Blog</li>
                 <li><code>/[locale]/legal/page.tsx</code> — Documentación legal</li>
                 <li><code>/[locale]/profile/page.tsx</code> — Perfil de usuario</li>
                 <li><code>/[locale]/admin/page.tsx</code> — Panel de administración</li>
                 <li><code>/[locale]/auth/signin/page.tsx</code> — Iniciar sesión</li>
                 <li><code>/[locale]/auth/signup/page.tsx</code> — Registro</li>
+                <li><code>/studio/[[...tool]]/page.tsx</code> — Sanity Studio</li>
+            </ul>
+            <b>API routes (Next.js):</b>
+            <ul>
+                <li><code>/api/leads/route.ts</code> — Captación de leads</li>
+                <li><code>/api/google-reviews/route.ts</code> — Reviews públicas</li>
+                <li><code>/api/revalidate/route.ts</code> — Revalidación ISR</li>
             </ul>
             <b>Componentes principales:</b>
             <ul>
                 <li><b>Admin:</b> admin-course-card, admin-course-modal, admin-courses-tab, admin-service-card, admin-service-edit-modal, admin-services-tab, admin-terms-tab, admin-users-tab</li>
+                <li><b>About:</b> animated-testimonials, timeline</li>
+                <li><b>Analytics:</b> AnalyticsBootstrap, GoogleAnalyticsPageViews, GoogleAnalyticsScript</li>
                 <li><b>Formation:</b> course-card, course-details-modal, add-to-calendar-buttons, bonification-info, enrollment-confirmation-modal, enrollment-cancellation-modal</li>
+                <li><b>Blog:</b> blog-card, blog-client, blog-post-client, portable-text-components, share-post-buttons</li>
                 <li><b>Home:</b> courses-showcase, demo-modal, pricing-plans, service-showcase, whatsapp-bubble</li>
+                <li><b>Profile:</b> profile-courses-tab, profile-info-tab</li>
+                <li><b>PWA:</b> service-worker-registrar</li>
                 <li><b>Services:</b> service-details-modal</li>
                 <li><b>UI:</b> admin-tabs, alert, back-to-top-button, badge, button, card, colourful-text, cookies, delete-account-modal, delete-confirmation-modal, dropdown, footer, icon-select, input, label, lazy-image, locale-switcher, logout-modal, markdown-renderer, modal-close-button, modal, navbar, slider, styled-button, textarea</li>
                 <li><b>Auth:</b> auth-modal, google-signin-button</li>
@@ -169,9 +210,13 @@ ordinaly/
             <ul>
                 <li>useCourses, useServices, useIntersectionObserver</li>
             </ul>
+            <b>CMS (Sanity):</b>
+            <ul>
+                <li>Esquemas en <code>/frontend/src/sanity/schemaTypes/</code> y utilidades en <code>/frontend/src/sanity/lib/</code></li>
+            </ul>
             <b>Internacionalización:</b>
             <ul>
-                <li>Archivos de mensajes en <code>/frontend/messages/</code> (es, en, ca, eu, gl)</li>
+                <li>Archivos de mensajes en <code>/frontend/messages/</code> (es, en)</li>
                 <li>Soporte para next-intl y rutas localizadas</li>
             </ul>
         </blockquote>
@@ -185,7 +230,7 @@ ordinaly/
 
 - **Backend Django REST:** API robusta para cursos, usuarios, servicios y términos legales.
 - **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones.
-- **Internacionalización (i18n):** Traducciones completas (es, en, ca, eu, gl) usando next-intl.
+- **Internacionalización (i18n):** Traducciones completas (es, en) usando next-intl.
 - **Gestión de cursos:** Horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook).
 - **Panel de administración:** Gestión avanzada de usuarios, cursos, servicios y términos.
 - **Integración con WhatsApp y Odoo:** Automatización de ventas y flujos empresariales.
@@ -280,7 +325,7 @@ coverage run --source='.' --omit='*/migrations/*,*/tests.py,api/*,config/*,manag
 coverage report -m
 ```
 
-Para el fronend, basta con probar el *linting* y la sintaxis de Typescript y JS con los siguientes comando:
+Para el frontend, basta con probar el *linting* y la sintaxis de Typescript y JS con los siguientes comando:
 
 ```
 npx eslint --ext .ts,.tsx src public --no-error-on-unmatched-pattern || true

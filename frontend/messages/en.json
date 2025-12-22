@@ -1,7 +1,7 @@
 {
   "home": {
     "logo": {
-      "alt": "Ordinaly Logo",
+      "alt": "Ordinaly Software Logo",
       "title": "ORDINALY"
     },
     "navigation": {
@@ -1521,7 +1521,7 @@
       "bonificationYes": "Yes, we have credits",
       "bonificationNo": "No, continue",
       "bonificationMissingLink": "We couldn't find the bonified course link. Please contact support.",
-      "bonificationInfo": "Some of our trainings may be subsidized via FUNDAE/SEPE and/or fit into co‑funded calls by FSE+ and PRTR‑NextGenerationEU, provided your company meets requirements and processes the aid.\n\nFUNDAE / SEPE – Company‑funded training: allows part of the training cost to be offset in Social Security contributions. Official info for companies (FUNDAE) and training for employees (SEPE).\n\nEU Funds – FSE+ 2021‑2027: national and regional programs (including Andalusia) financing employment, education, and training through public calls. See UAFSE.\n\nPRTR – NextGenerationEU (Component 23): measures for upskilling and active employment policies; coverage depends on each call. Official info from the Recovery Plan and SEPE.\n\nAndalusia (regional scope): FSE+ Andalusia 2021‑2027 and Vocational Training for Employment (FPE) publish specific grants/calls. See Junta de Andalucía and FPE.\n\nNotice: Eligibility, intensity, and compatibility vary by regulation and current calls. Ordinaly provides course documentation but does not apply for or process subsidies on the client’s behalf. Always review official links before contracting.",
+      "bonificationInfo": "Some of our trainings may be subsidized via FUNDAE/SEPE and/or fit into co‑funded calls by FSE+ and PRTR‑NextGenerationEU, provided your company meets requirements and processes the aid.\n\nFUNDAE / SEPE – Company‑funded training: allows part of the training cost to be offset in Social Security contributions. Official info for companies (FUNDAE) and training for employees (SEPE).\n\nEU Funds – FSE+ 2021‑2027: national and regional programs (including Andalusia) financing employment, education, and training through public calls. See UAFSE.\n\nPRTR – NextGenerationEU (Component 23): measures for upskilling and active employment policies; coverage depends on each call. Official info from the Recovery Plan and SEPE.\n\nAndalusia (regional scope): FSE+ Andalusia 2021‑2027 and Vocational Training for Employment (FPE) publish specific grants/calls. See Junta de Andalucía and FPE.\n\nNotice: Eligibility, intensity, and compatibility vary by regulation and current calls. Ordinaly provides course documentation but does not apply for or process subsidies on the client's behalf. Always review official links before contracting.",
       "stepBonification": "Step 1 · Bonification",
       "stepCheckout": "Step 2 · Enrollment",
       "paymentNote": "Payment processing will be handled in the next step.",

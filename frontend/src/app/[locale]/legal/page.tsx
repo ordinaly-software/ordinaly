@@ -15,8 +15,8 @@ export async function generateMetadata({
     path: "/legal",
     title: isEs ? "Legal, privacidad y cookies | Ordinaly Software" : "Legal, privacy, and cookies | Ordinaly Software",
     description: isEs
-      ? "Consulta términos de servicio, políticas de privacidad, cookies y licencias de Ordinaly."
-      : "Review Ordinaly terms of service, privacy policy, cookies, and licenses.",
+      ? "Consulta términos de servicio, políticas de privacidad, cookies y licencias de Ordinaly Software."
+      : "Review Ordinaly Software terms of service, privacy policy, cookies, and licenses.",
     image: "/static/backgrounds/api_background.webp",
   });
 }

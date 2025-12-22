@@ -24,7 +24,7 @@ export async function GET() {
     </item>`).join('')
   const xml = `<?xml version="1.0" encoding="UTF-8" ?>
   <rss version="2.0"><channel>
-  <title>Ordinaly — Blog de automatización e IA (Ordinaly, Sevilla)</title>
+  <title>Ordinaly Software — Blog de automatización e IA (Ordinaly, Sevilla)</title>
   <link>${base}/blog</link>
   <description>Noticias, guías y casos de éxito sobre automatización empresarial con IA en Sevilla.</description>
   ${items}

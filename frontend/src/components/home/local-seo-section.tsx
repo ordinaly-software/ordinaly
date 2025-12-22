@@ -62,7 +62,7 @@ const LocalVideoPreview = () => {
             <iframe
               className="absolute inset-0 h-full w-full"
               src="https://www.youtube.com/embed/13OwGUo4PJw?playsinline=1&modestbranding=1&rel=0"
-              title="Ordinaly short"
+              title="Ordinaly Software Software short"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               loading="lazy"
@@ -74,7 +74,7 @@ const LocalVideoPreview = () => {
                   ▶
                 </div>
                 <div>
-                  <p className="font-semibold">Short de Ordinaly</p>
+                  <p className="font-semibold">Short de Ordinaly Software</p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">Se carga al llegar a la sección</p>
                 </div>
               </div>

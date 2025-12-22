@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { routing } from "@/i18n/routing";
 
-const SITE_NAME = "Ordinaly";
+const SITE_NAME = "Ordinaly Software";
 const FALLBACK_BASE_URL = "https://ordinaly.ai";
 const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || FALLBACK_BASE_URL).replace(/\/$/, "");
 
