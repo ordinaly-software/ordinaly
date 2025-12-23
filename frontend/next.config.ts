@@ -73,7 +73,7 @@ const nextConfig: NextConfig = {
     // Loader optimization
     loader: 'default',
     // Disable optimization in dev unless explicitly running Lighthouse.
-    unoptimized: isDev ? !shouldOptimizeImages : false,
+    unoptimized: isDev ? !forceImageOptimization : false,
     // Allow images from localhost for development
     remotePatterns: [
       {
