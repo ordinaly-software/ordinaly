@@ -20,7 +20,7 @@ export default function GoogleAnalyticsScript({ enabled }: { enabled: boolean })
           window.gtag = gtag;
           gtag('consent', 'default', {
             ad_storage: 'denied',
-            analytics_storage: 'granted',
+            analytics_storage: 'denied',
             functionality_storage: 'denied',
             security_storage: 'granted'
           });
