@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
+ * This configuration is used to for the Sanity Studio that's mounted on the `/app/studio/[[...tool]]/page.tsx` route
  */
 
 import {getVisionPlugin} from './src/sanity/optionalVision'
@@ -38,7 +38,7 @@ const visionPlugin = getVisionPlugin(apiVersion)
 
 export default defineConfig({
   name: 'default',
-  title: 'Ordinaly CMS',
+  title: 'Ordinaly Software CMS',
   basePath: '/studio',
   projectId,
   dataset,
