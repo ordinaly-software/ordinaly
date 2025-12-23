@@ -10,7 +10,15 @@ import Image from 'next/image';
 type ImageType = { asset?: { _ref?: string; _id?: string; url?: string }; alt?: string };
 type VideoType = { url?: string };
 
-export const portableTextComponents = {
+const headingIdFor = (
+  props: PortableTextComponentProps<PortableTextBlock>,
+  headingIdByKey: Record<string, string>
+) => {
+  const key = props?.value?._key;
+  return key ? headingIdByKey[key] : undefined;
+};
+
+export const createPortableTextComponents = (headingIdByKey: Record<string, string> = {}) => ({
   types: {
     image: ({ value }: { value: ImageType }) => (
       value?.asset && value.asset._ref ? (
@@ -38,12 +46,36 @@ export const portableTextComponents = {
     ),
   },
   block: {
-    h1: (props: PortableTextComponentProps<PortableTextBlock>) => <h1 className="text-4xl md:text-5xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">{props.children}</h1>,
-    h2: (props: PortableTextComponentProps<PortableTextBlock>) => <h2 className="text-3xl md:text-4xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">{props.children}</h2>,
-    h3: (props: PortableTextComponentProps<PortableTextBlock>) => <h3 className="text-2xl md:text-3xl font-semibold mt-6 mb-3 text-gray-900 dark:text-white">{props.children}</h3>,
-    h4: (props: PortableTextComponentProps<PortableTextBlock>) => <h4 className="text-xl md:text-2xl font-semibold mt-4 mb-2 text-gray-900 dark:text-white">{props.children}</h4>,
-    h5: (props: PortableTextComponentProps<PortableTextBlock>) => <h5 className="text-lg font-semibold mt-2 mb-2 text-gray-900 dark:text-white">{props.children}</h5>,
-    h6: (props: PortableTextComponentProps<PortableTextBlock>) => <h6 className="text-base font-semibold mt-2 mb-2 text-gray-900 dark:text-white">{props.children}</h6>,
+    h1: (props: PortableTextComponentProps<PortableTextBlock>) => (
+      <h1 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-4xl md:text-5xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
+        {props.children}
+      </h1>
+    ),
+    h2: (props: PortableTextComponentProps<PortableTextBlock>) => (
+      <h2 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-3xl md:text-4xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
+        {props.children}
+      </h2>
+    ),
+    h3: (props: PortableTextComponentProps<PortableTextBlock>) => (
+      <h3 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-2xl md:text-3xl font-semibold mt-6 mb-3 text-gray-900 dark:text-white">
+        {props.children}
+      </h3>
+    ),
+    h4: (props: PortableTextComponentProps<PortableTextBlock>) => (
+      <h4 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-xl md:text-2xl font-semibold mt-4 mb-2 text-gray-900 dark:text-white">
+        {props.children}
+      </h4>
+    ),
+    h5: (props: PortableTextComponentProps<PortableTextBlock>) => (
+      <h5 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-lg font-semibold mt-2 mb-2 text-gray-900 dark:text-white">
+        {props.children}
+      </h5>
+    ),
+    h6: (props: PortableTextComponentProps<PortableTextBlock>) => (
+      <h6 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-base font-semibold mt-2 mb-2 text-gray-900 dark:text-white">
+        {props.children}
+      </h6>
+    ),
     blockquote: (props: PortableTextComponentProps<PortableTextBlock>) => (
       <blockquote className="border-l-4 border-[#2BCB5C] pl-4 italic text-gray-700 dark:text-gray-300 my-6">{props.children}</blockquote>
     ),
@@ -54,4 +86,6 @@ export const portableTextComponents = {
       <Link href={value?.href || '#'} className="underline text-[#2BCB5C] hover:text-[#15803d]">{children}</Link>
     ),
   },
-};
+});
+
+export const portableTextComponents = createPortableTextComponents();

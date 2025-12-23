@@ -67,28 +67,6 @@ const CookieConsent = () => {
     return () => window.removeEventListener('storage', syncPreferencesFromStorage);
   }, []);
 
-  // Lock body scroll when popup is open
-  useEffect(() => {
-    if (showPopup) {
-      // Store original values
-      const originalStyle = window.getComputedStyle(document.body);
-      const originalOverflow = originalStyle.overflow;
-      const originalPosition = originalStyle.position;
-      
-      // Apply scroll lock
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'relative';
-      document.documentElement.style.overflow = 'hidden';
-      
-      // Cleanup function
-      return () => {
-        document.body.style.overflow = originalOverflow;
-        document.body.style.position = originalPosition;
-        document.documentElement.style.overflow = 'auto';
-      };
-    }
-  }, [showPopup]);
-
   const handleAcceptAll = () => {
     const preferences = {
       necessary: true,
@@ -162,8 +140,8 @@ const CookieConsent = () => {
   if (!isMounted) return null;
 
   const modalContent = showPopup ? (
-    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9999] flex items-center justify-center p-2 sm:p-4">
-      <div className="bg-card text-card-foreground rounded-2xl shadow-2xl w-[95vw] max-w-2xl min-h-[200px] max-h-[85vh] overflow-y-auto border border-border transform transition-all duration-300 scale-100 opacity-100 mx-auto my-auto">
+    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 z-[9999] flex justify-end pointer-events-none">
+      <div className="pointer-events-auto bg-card text-card-foreground rounded-2xl shadow-2xl w-full sm:w-[420px] min-h-[200px] max-h-[70vh] overflow-y-auto border border-border transform transition-all duration-300 scale-100 opacity-100">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b border-border">
           <div className="flex items-center space-x-3">

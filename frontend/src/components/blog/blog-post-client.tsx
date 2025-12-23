@@ -6,16 +6,70 @@ import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { useTranslations } from 'next-intl';
 import { PortableText } from '@portabletext/react';
-import { portableTextComponents } from './portable-text-components';
+import { createPortableTextComponents } from './portable-text-components';
 import { urlFor } from '@/lib/image';
 import Banner from '@/components/ui/banner';
 import type { BlogPost, MediaItem, Category } from './types';
 import SharePostButtons from './share-post-buttons';
+import type { PortableTextBlock } from '@portabletext/types';
+
+type TocItem = {
+  id: string;
+  text: string;
+  level: number;
+};
+
+const headingLevels: Record<string, number> = {
+  h2: 2,
+  h3: 3,
+  h4: 4,
+  h5: 5,
+};
+
+const getHeadingText = (block: PortableTextBlock) => {
+  const children = Array.isArray(block.children) ? block.children : [];
+  return children
+    .map((child) => (typeof child.text === 'string' ? child.text : ''))
+    .join('')
+    .trim();
+};
+
+const slugifyHeading = (value: string) =>
+  value
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\p{L}\p{N}\s-]/gu, '')
+    .trim()
+    .replace(/\s+/g, '-');
 
 export default function BlogPostClient({ post }: { post: BlogPost }) {
   const t = useTranslations('blog');
   if (!post) return null;
   const p = post;
+  const headingIdByKey: Record<string, string> = {};
+  const tocItems: TocItem[] = [];
+  const headingCounts: Record<string, number> = {};
+
+  if (Array.isArray(p.body)) {
+    p.body.forEach((block, index) => {
+      if (block?._type !== 'block') return;
+      const style = block.style || '';
+      const level = headingLevels[style];
+      if (!level) return;
+      const text = getHeadingText(block);
+      if (!text) return;
+      const baseId = slugifyHeading(text) || `section-${index + 1}`;
+      const nextCount = (headingCounts[baseId] || 0) + 1;
+      headingCounts[baseId] = nextCount;
+      const id = nextCount > 1 ? `${baseId}-${nextCount}` : baseId;
+      if (block._key) {
+        headingIdByKey[block._key] = id;
+      }
+      tocItems.push({ id, text, level });
+    });
+  }
+  const portableTextComponents = createPortableTextComponents(headingIdByKey);
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -63,6 +117,22 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
             )}
           </div>
         </div>
+        {tocItems.length > 0 && (
+          <nav aria-label={t('toc.label', { default: 'Table of contents' })} className="mb-8 rounded-2xl border border-green-200/60 dark:border-green-500/30 bg-white/80 dark:bg-[#15151D]/70 p-5 shadow-sm backdrop-blur">
+            <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-green-700 dark:text-green-300">
+              {t('toc.title', { default: 'Table of contents' })}
+            </div>
+            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-200">
+              {tocItems.map((item) => (
+                <li key={item.id} className={item.level >= 4 ? 'ml-6' : item.level === 3 ? 'ml-4' : 'ml-0'}>
+                  <a href={`#${item.id}`} className="hover:text-green-700 dark:hover:text-green-300 transition-colors">
+                    {item.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
         {/* Main cover image (already shown in banner, so skip here) */}
         {p.media && Array.isArray(p.media) && p.media.length > 0 && (
           <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">

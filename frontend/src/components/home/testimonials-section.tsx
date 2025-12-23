@@ -13,6 +13,7 @@ interface SectionProps {
 }
 
 const MAX_TESTIMONIALS = 5;
+const MAX_GOOGLE_REVIEW_LENGTH = 5;
 const avatarGradients = [
   "from-amber-400 to-orange-500",
   "from-emerald-400 to-teal-600",
@@ -64,6 +65,7 @@ type GoogleReviewsPayload = {
 };
 
 type TestimonialCard = {
+  id: string;
   name: string;
   meta?: string;
   quote?: string;
@@ -71,6 +73,7 @@ type TestimonialCard = {
   profilePhotoUrl?: string;
   initials?: string;
   color?: string;
+  source: "google" | "local";
 };
 
 const clampStars = (rating: number) => Math.max(0, Math.min(5, Math.round(rating)));
@@ -93,6 +96,16 @@ const getInitials = (name: string) =>
     .map((part) => part[0]?.toUpperCase())
     .join("");
 
+const truncateText = (text: string, maxLength: number) => {
+  if (text.length <= maxLength) return text;
+  const sliced = text.slice(0, maxLength);
+  const lastSpace = sliced.lastIndexOf(" ");
+  if (lastSpace > Math.floor(maxLength * 0.6)) {
+    return sliced.slice(0, lastSpace).trim();
+  }
+  return sliced.trim();
+};
+
 const GoogleIcon = ({ className }: { className?: string }) => (
   <svg
     aria-hidden="true"
@@ -112,6 +125,7 @@ export function TestimonialsSection({ t }: SectionProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
+  const [expandedReviews, setExpandedReviews] = useState<Record<string, boolean>>({});
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -160,12 +174,14 @@ export function TestimonialsSection({ t }: SectionProps) {
   const fallbackCards = useMemo<TestimonialCard[]>(
     () =>
       localTestimonials.map((item) => ({
+        id: `local-${item.nameKey}`,
         name: t(item.nameKey).split(" ")[0] + "...",
         meta: t(item.roleKey),
         quote: t(item.quoteKey),
         rating: 5,
         initials: item.initials,
         color: item.color,
+        source: "local",
       })),
     [t],
   );
@@ -173,6 +189,7 @@ export function TestimonialsSection({ t }: SectionProps) {
   const googleCards = useMemo<TestimonialCard[]>(() => {
     if (!googleData?.reviews?.length) return [];
     return googleData.reviews.map((review, index) => ({
+      id: review.time ? `google-${review.time}` : `google-${review.author_name ?? "anon"}-${index}`,
       name: (review.author_name?.split(" ")[0] ?? t("testimonials.googleSource")) + "...",
       meta: review.relative_time_description || t("testimonials.googleSource"),
       quote: review.text?.trim(),
@@ -180,6 +197,7 @@ export function TestimonialsSection({ t }: SectionProps) {
       profilePhotoUrl: review.profile_photo_url,
       initials: review.author_name ? getInitials(review.author_name) : "G",
       color: avatarGradients[index % avatarGradients.length],
+      source: "google",
     }));
   }, [googleData, t]);
 
@@ -228,6 +246,10 @@ export function TestimonialsSection({ t }: SectionProps) {
     const maxScroll = container.scrollWidth - container.clientWidth;
     const newScroll = Math.min(container.scrollLeft + cardScrollStep, maxScroll);
     container.scrollTo({ left: newScroll, behavior: "smooth" });
+  };
+
+  const toggleReview = (id: string) => {
+    setExpandedReviews((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   useEffect(() => {
@@ -343,7 +365,7 @@ export function TestimonialsSection({ t }: SectionProps) {
                 ))
               : visibleTestimonials.map((item, index) => (
                   <div
-                    key={`${item.name}-${index}`}
+                    key={item.id}
                     className="scroll-animate fade-in-up bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg min-w-[260px] sm:min-w-[300px] md:min-w-[320px]"
                     style={{ animationDelay: `${index * 0.08}s` }}
                   >
@@ -401,11 +423,31 @@ export function TestimonialsSection({ t }: SectionProps) {
                         </svg>
                       ))}
                     </div>
-                    {item.quote && (
-                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-                        “{item.quote}”
-                      </p>
-                    )}
+                    {item.quote && (() => {
+                      const isGoogle = item.source === "google";
+                      const shouldTruncate = isGoogle && item.quote.length > MAX_GOOGLE_REVIEW_LENGTH;
+                      const isExpanded = shouldTruncate && expandedReviews[item.id];
+                      const displayText = shouldTruncate && !isExpanded
+                        ? `${truncateText(item.quote, MAX_GOOGLE_REVIEW_LENGTH)}...`
+                        : item.quote;
+                      return (
+                        <div className="space-y-2">
+                          <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                            “{displayText}”
+                          </p>
+                          {shouldTruncate && (
+                            <button
+                              type="button"
+                              onClick={() => toggleReview(item.id)}
+                              className="text-xs font-semibold text-green-700 hover:text-green-800 dark:text-green-300 dark:hover:text-green-200 transition-colors"
+                              aria-expanded={isExpanded}
+                            >
+                              {isExpanded ? t("testimonials.readLess") : t("testimonials.readMore")}
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </div>
                 ))}
           </div>
