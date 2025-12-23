@@ -339,7 +339,7 @@ const AdminServicesTab = () => {
           <Button
             onClick={handleCreate}
             size="sm"
-            className="bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#166307] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
+            className="bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
           >
             <Plus className="h-4 w-4" />
             <span className="hidden xs:inline">{t("addService")}</span>

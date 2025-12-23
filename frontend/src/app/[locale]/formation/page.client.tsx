@@ -535,7 +535,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
               <Button
                 onClick={() => setShowPastCourses(!showPastCourses)}
                 variant="outline"
-                className="border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-[#7CFC00] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
+                className="border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-[#7CFC00] hover:bg-[#0d6e0c] dark:hover:bg-[#7CFC00]/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
               >
                 {showPastCourses ? (
                   <>

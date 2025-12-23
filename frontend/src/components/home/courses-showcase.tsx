@@ -502,7 +502,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
 
                           {/* Action Button */}
                           <Button
-                            className="mt-6 w-full bg-[#1F8A0D] hover:bg-[#1A740B] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] transition-all duration-300 group shadow-sm hover:shadow-md"
+                            className="mt-6 w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] transition-all duration-300 group shadow-sm hover:shadow-md"
                             onClick={(e) => handleSignUpClick(e, course)}
                           >
                             <>
@@ -550,7 +550,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               variant="outline"
               size="lg"
               onClick={() => router.push('/formation')}
-              className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#1F8A0D] hover:text-white dark:border-[#7CFC00] dark:text-[#7CFC00] dark:hover:bg-[#7CFC00] dark:hover:text-black transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
+              className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#0d6e0c] hover:text-white dark:border-[#7CFC00] dark:text-[#7CFC00] dark:hover:bg-[#7CFC00] dark:hover:text-black transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
             >
               {t('viewAllCourses')}
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

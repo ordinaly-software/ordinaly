@@ -248,7 +248,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
               <div className="pt-4 flex justify-center">
                 <Button
                   onClick={() => router.push("/formation")}
-                  className="bg-[#1F8A0D] hover:bg-[#166307] text-white dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] dark:text-[#0B1B17] font-semibold px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
+                  className="bg-[#0d6e0c] hover:bg-[#0A4D08] text-white dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] dark:text-[#0B1B17] font-semibold px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
                 >
                   {t("courses.enrollCta")}
                 </Button>

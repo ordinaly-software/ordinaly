@@ -40,7 +40,7 @@ const CourseEnrollmentSuccessModal: React.FC<CourseEnrollmentSuccessModalProps> 
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <Button
             onClick={() => router.push("/profile?tab=courses")}
-            className="bg-[#1F8A0D] hover:bg-[#166307] text-white dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] dark:text-[#0B1B17] w-full sm:w-auto"
+            className="bg-[#0d6e0c] hover:bg-[#0A4D08] text-white dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] dark:text-[#0B1B17] w-full sm:w-auto"
           >
             {t ? t("enrollmentSuccess.viewMyCourses") : "View my courses"}
           </Button>

@@ -432,7 +432,7 @@ const Navbar = () => {
             >
               <div className="mr-2 sm:mr-3 flex-shrink-0">
                 <Image 
-                  src="/logo.webp" 
+                  src="/logo_80.webp" 
                   alt="" 
                   width={40} 
                   height={40}
@@ -442,7 +442,7 @@ const Navbar = () => {
                   aria-hidden="true"
                 />
               </div>
-              <div className="text-base sm:text-lg xl:text-xl 2xl:text-2xl font-bold text-[#0B5A0A] dark:text-[#7CFC00] truncate transition-colors duration-200">
+              <div className="text-base sm:text-lg xl:text-xl 2xl:text-2xl font-bold text-[#0d6e0c] dark:text-[#7CFC00] truncate transition-colors duration-200">
                 {t("logo.title")}
               </div>
             </div>
@@ -548,7 +548,7 @@ const Navbar = () => {
                   <Button
                     size="sm"
                     onClick={handleBookConsultation}
-                    className="h-9 bg-[#0B5A0A] text-white shadow-md hover:bg-[#0A4D08] hover:shadow-lg transition-all duration-200 text-sm px-4"
+                    className="h-9 bg-[#0d6e0c] text-white shadow-md hover:bg-[#0A4D08] hover:shadow-lg transition-all duration-200 text-sm px-4"
                   >
                     {t("navigation.ctaConsultation")}
                   </Button>
@@ -577,7 +577,7 @@ const Navbar = () => {
                       <Button
                         size="sm"
                         onClick={goToSignUp}
-                        className="bg-green hover:bg-green-600 text-white transition-all duration-200 hover:scale-105 h-8 px-3 text-sm"
+                        className="bg-[#0d6e0c] hover:bg-[#0A4D08] text-white transition-all duration-200 hover:scale-105 h-8 px-3 text-sm"
                       >
                         {t("navigation.signUp")}
                       </Button>

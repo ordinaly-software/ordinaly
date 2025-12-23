@@ -1,6 +1,5 @@
 import type React from "react";
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import { notFound } from "next/navigation";
@@ -12,6 +11,7 @@ import { absoluteUrl, getFullBrandName, localeHrefLangs, metadataBaseUrl, siteNa
 import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
 import AnalyticsManager from "@/utils/analyticsManager";
+import AnalyticsConsentGate from "@/components/analytics/analytics-consent-gate";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
 
 const inter = Inter({
@@ -92,9 +92,6 @@ export default async function RootLayout({
 
   if (!routing.locales.includes(locale as Locale)) notFound();
 
-  // GA4 measurement ID (e.g. G-XXXXXXXXXX)
-  const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-
   return (
     <html lang={locale} className={inter.variable} suppressHydrationWarning>
       <head>
@@ -143,35 +140,7 @@ export default async function RootLayout({
         >
           Skip to content
         </a>
-        {process.env.NODE_ENV === "production" && GA_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="gtag-init" strategy="afterInteractive">
-              {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                window.gtag = gtag;
-
-                // Consent por defecto (RGPD)
-                gtag('consent', 'default', {
-                  ad_storage: 'denied',
-                  analytics_storage: 'denied',
-                  functionality_storage: 'denied',
-                  security_storage: 'granted',
-                  wait_for_update: 500
-                });
-
-                gtag('js', new Date());
-
-                // Inicializa el Google tag base (GA4)
-                gtag('config', '${GA_ID}', { anonymize_ip: true });
-              `}
-            </Script>
-          </>
-        )}
+        {process.env.NODE_ENV === "production" && <AnalyticsConsentGate />}
 
         <AnalyticsManager />
 

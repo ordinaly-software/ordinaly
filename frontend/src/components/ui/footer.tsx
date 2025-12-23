@@ -193,7 +193,7 @@ const Footer = () => {
               href="https://www.linkedin.com/company/ordinalysoftware/"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center transition-colors shadow-lg"
+              className="w-10 h-10 bg-[#0d6e0c] hover:bg-[#0A4D08] rounded-full flex items-center justify-center transition-colors shadow-lg"
               aria-label="LinkedIn Ordinaly Software"
             >
               <svg className="w-5 h-5" fill="white" viewBox="0 0 24 24">
@@ -204,7 +204,7 @@ const Footer = () => {
               href="https://www.tiktok.com/@ordinaly.ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center transition-colors shadow-lg"
+              className="w-10 h-10 bg-[#0d6e0c] hover:bg-[#0A4D08] rounded-full flex items-center justify-center transition-colors shadow-lg"
               aria-label="TikTok Ordinaly Software"
             >
               <svg className="w-5 h-5" fill="white" viewBox="0 0 24 24">
@@ -215,7 +215,7 @@ const Footer = () => {
               href="https://www.instagram.com/ordinaly.ai/"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center transition-colors shadow-lg"
+              className="w-10 h-10 bg-[#0d6e0c] hover:bg-[#0A4D08] rounded-full flex items-center justify-center transition-colors shadow-lg"
               aria-label="Instagram Ordinaly Software"
             >
               <svg className="w-5 h-5" fill="white" viewBox="0 0 24 24">
@@ -226,7 +226,7 @@ const Footer = () => {
               href="https://www.youtube.com/@ordinaly"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-10 h-10 bg-green-600 hover:bg-green-700 rounded-full flex items-center justify-center transition-colors shadow-lg"
+              className="w-10 h-10 bg-[#0d6e0c] hover:bg-[#0A4D08] rounded-full flex items-center justify-center transition-colors shadow-lg"
               aria-label="YouTube Ordinaly Software"
             >
               <svg className="w-5 h-5" fill="white" viewBox="0 0 24 24">

@@ -5,8 +5,8 @@ import styled from "styled-components";
 const StyledButtonWrapper = styled.div`
   .button {
     --white: #ffffff;
-    --primary-light: #1F8A0D;
-    --primary-dark: #2bc765;
+    --primary-light: #0d6e0c;
+    --primary-dark: #0A4D08;
     --radius: 18px;
 
     border-radius: var(--radius);

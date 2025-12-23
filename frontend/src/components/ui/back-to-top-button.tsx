@@ -25,7 +25,7 @@ const BackToTopButton = () => {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-28 right-8 bg-green hover:bg-green-600 text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-40"
+          className="fixed bottom-28 right-8 bg-[#0d6e0c] hover:bg-[#0A4D08] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-40"
           aria-label="Back to top"
         >
           <ArrowRight className="w-5 h-5 rotate-[-90deg]" />

@@ -229,7 +229,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                   <Button
                     type="button"
                     onClick={() => handleBonificationDecision(false)}
-                    className="w-full sm:w-auto sm:min-w-[180px] bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white dark:text-black px-6 h-11 whitespace-normal"
+                    className="w-full sm:w-auto sm:min-w-[180px] bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black px-6 h-11 whitespace-normal"
                   >
                     {t("enrollment.bonificationNo")}
                   </Button>
@@ -245,7 +245,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                 <CheckoutButton
                   courseId={selectedCourse.id}
                   label={t("enrollment.confirmEnroll")}
-                  className="w-full sm:w-auto sm:min-w-[220px] bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white dark:text-black px-6 h-11 flex items-center justify-center rounded-2xl whitespace-normal"
+                  className="w-full sm:w-auto sm:min-w-[220px] bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black px-6 h-11 flex items-center justify-center rounded-2xl whitespace-normal"
                   onSuccess={handleEnrollSuccess}
                   disabled={enrolled}
                 />

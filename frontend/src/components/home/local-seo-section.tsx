@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useCookiePreferences } from "@/hooks/useCookiePreferences";
+import ThirdPartyConsent from "@/components/ui/third-party-consent";
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
 interface LocalSeoProps {
@@ -15,8 +17,15 @@ interface LocalSeoProps {
 const LocalVideoPreview = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [canLoadVideo, setCanLoadVideo] = useState(false);
+  const cookiePreferences = useCookiePreferences();
+  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
 
   useEffect(() => {
+    if (!canLoadMedia) {
+      setCanLoadVideo(false);
+      return;
+    }
+
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
     let observer: IntersectionObserver | null = null;
 
@@ -52,16 +61,18 @@ const LocalVideoPreview = () => {
       mediaQuery.removeEventListener("change", handleMediaChange);
       observer?.disconnect();
     };
-  }, [canLoadVideo]);
+  }, [canLoadVideo, canLoadMedia]);
 
   return (
     <div ref={containerRef} className="hidden lg:block">
       <div className="relative w-full max-w-lg ml-auto">
         <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
-          {canLoadVideo ? (
+          {!canLoadMedia ? (
+            <ThirdPartyConsent className="absolute inset-0" />
+          ) : canLoadVideo ? (
             <iframe
               className="absolute inset-0 h-full w-full"
-              src="https://www.youtube.com/embed/13OwGUo4PJw?playsinline=1&modestbranding=1&rel=0"
+              src="https://www.youtube-nocookie.com/embed/13OwGUo4PJw?playsinline=1&modestbranding=1&rel=0"
               title="Ordinaly Software Software short"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen

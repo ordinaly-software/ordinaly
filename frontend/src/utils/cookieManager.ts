@@ -2,6 +2,7 @@ export interface CookiePreferences {
   necessary: boolean;
   functional: boolean;
   analytics: boolean;
+  thirdParty: boolean;
   marketing: boolean;
 }
 
@@ -24,7 +25,7 @@ export function getCookiePreferences(): CookiePreferences | null {
 export function setCookiePreferences(prefs: CookiePreferences) {
   if (typeof window === 'undefined') return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-  window.dispatchEvent(new Event('cookieConsentChange'));
+  window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: prefs }));
 }
 
 /* =========================
@@ -41,6 +42,10 @@ export function isMarketingAllowed(): boolean {
 
 export function isFunctionalAllowed(): boolean {
   return Boolean(getCookiePreferences()?.functional);
+}
+
+export function isThirdPartyAllowed(): boolean {
+  return Boolean(getCookiePreferences()?.thirdParty);
 }
 
 /* =========================
@@ -78,4 +83,9 @@ export function applyConsentMode() {
     functionality_storage: prefs.functional ? 'granted' : 'denied',
     security_storage: 'granted',
   } as Record<string, unknown>);
+}
+
+export function openCookieSettings() {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new Event('openCookieSettings'));
 }
