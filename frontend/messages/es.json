@@ -211,6 +211,8 @@
       "googleSource": "Reseña de Google",
       "googleLoading": "Cargando reseñas de Google...",
       "googleUnavailable": "Las reseñas de Google no están disponibles ahora mismo.",
+      "readMore": "Leer más",
+      "readLess": "Leer menos",
       "items": {
         "0": {
           "name": "Ana García",
@@ -1829,6 +1831,10 @@
       "all": "Todas las categorías"
     },
     "shareLabel": "Comparte este post:",
+    "toc": {
+      "title": "Tabla de contenidos",
+      "label": "Tabla de contenidos"
+    },
     "share": {
       "label": "Comparte:",
       "whatsapp": "WhatsApp",

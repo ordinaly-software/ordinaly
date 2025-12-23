@@ -212,6 +212,8 @@
       "googleSource": "Google review",
       "googleLoading": "Loading Google reviews...",
       "googleUnavailable": "Google reviews are not available right now.",
+      "readMore": "Read more",
+      "readLess": "Read less",
       "items": {
         "0": {
           "name": "Ana García",
@@ -1830,6 +1832,10 @@
       "all": "All Categories"
     },
     "shareLabel": "Share this post:",
+    "toc": {
+      "title": "Table of contents",
+      "label": "Table of contents"
+    },
     "share": {
       "label": "Share:",
       "whatsapp": "WhatsApp",
