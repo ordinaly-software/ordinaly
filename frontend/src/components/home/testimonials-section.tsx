@@ -13,7 +13,7 @@ interface SectionProps {
 }
 
 const MAX_TESTIMONIALS = 5;
-const MAX_GOOGLE_REVIEW_LENGTH = 5;
+const MAX_GOOGLE_REVIEW_LENGTH = 200;
 const avatarGradients = [
   "from-amber-400 to-orange-500",
   "from-emerald-400 to-teal-600",
