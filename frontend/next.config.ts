@@ -5,6 +5,7 @@ const isDev = process.env.NODE_ENV === 'development';
 const forceImageOptimization = process.env.NEXT_PUBLIC_LH === 'true';
 const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
 const usesLocalApi = /localhost|127\\.0\\.0\\.1|\\[::1\\]/.test(apiUrl);
+const shouldOptimizeImages = forceImageOptimization || !usesLocalApi;
 
 const nextConfig: NextConfig = {
   // External packages for server components
@@ -71,8 +72,8 @@ const nextConfig: NextConfig = {
     qualities: [35, 60, 65, 70, 75],
     // Loader optimization
     loader: 'default',
-    // Disable optimization for development to avoid IPv6 issues unless Lighthouse is running.
-    unoptimized: (isDev && !forceImageOptimization) || usesLocalApi,
+    // Disable optimization in dev unless explicitly running Lighthouse.
+    unoptimized: isDev ? !shouldOptimizeImages : false,
     // Allow images from localhost for development
     remotePatterns: [
       {

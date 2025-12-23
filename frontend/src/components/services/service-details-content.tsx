@@ -8,6 +8,8 @@ import type { Service } from "@/hooks/useServices";
 import Image from "next/image";
 import ShareServiceButtons from "@/components/services/share-service-buttons";
 import { cn } from "@/lib/utils";
+import { useCookiePreferences } from "@/hooks/useCookiePreferences";
+import ThirdPartyConsent from "@/components/ui/third-party-consent";
 
 export type ServiceDetailsLabels = {
   featured: string;
@@ -97,12 +99,17 @@ export function ServiceDetailsContent({
   const description = service.clean_description || service.description || "";
   const priceLabel = formatPrice(service, labels.contactForQuote);
   const youtubeId = useMemo(() => extractYoutubeId(service.youtube_video_url), [service.youtube_video_url]);
-  const youtubeEmbed = youtubeId ? `https://www.youtube.com/embed/${youtubeId}` : null;
+  const youtubeEmbed = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}` : null;
   const youtubeThumbnail = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
+  const cookiePreferences = useCookiePreferences();
+  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
   const isCompact = density === "compact";
 
   const [playVideo, setPlayVideo] = useState(false);
   useEffect(() => setPlayVideo(false), [service.id]);
+  useEffect(() => {
+    if (!canLoadMedia) setPlayVideo(false);
+  }, [canLoadMedia]);
 
   return (
     <div
@@ -159,11 +166,12 @@ export function ServiceDetailsContent({
         <YoutubePreview
           title={service.title}
           embedUrl={youtubeEmbed}
-          thumbnailUrl={youtubeThumbnail}
+          thumbnailUrl={canLoadMedia ? youtubeThumbnail : null}
           label={labels.video ?? "Video"}
           playLabel={labels.playVideo ?? "Play video"}
           play={playVideo}
           onPlay={() => setPlayVideo(true)}
+          canLoad={canLoadMedia}
         />
       )}
 
@@ -268,6 +276,7 @@ const YoutubePreview = ({
   playLabel,
   play,
   onPlay,
+  canLoad,
 }: {
   title: string;
   embedUrl: string;
@@ -276,12 +285,15 @@ const YoutubePreview = ({
   playLabel: string;
   play: boolean;
   onPlay: () => void;
+  canLoad: boolean;
 }) => {
   return (
     <div className="space-y-2">
       <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">{label}</p>
       <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/30 bg-white/40 shadow-lg backdrop-blur dark:border-neutral-700 dark:bg-neutral-900/60">
-        {play ? (
+        {!canLoad ? (
+          <ThirdPartyConsent className="h-full w-full" />
+        ) : play ? (
           <iframe
             src={`${embedUrl}?autoplay=1&rel=0`}
             title={title}

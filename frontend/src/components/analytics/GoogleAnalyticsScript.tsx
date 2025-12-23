@@ -17,6 +17,13 @@ export default function GoogleAnalyticsScript({ enabled }: { enabled: boolean })
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
+          window.gtag = gtag;
+          gtag('consent', 'default', {
+            ad_storage: 'denied',
+            analytics_storage: 'granted',
+            functionality_storage: 'denied',
+            security_storage: 'granted'
+          });
           gtag('js', new Date());
           gtag('config', '${GA_ID}', {
             anonymize_ip: true

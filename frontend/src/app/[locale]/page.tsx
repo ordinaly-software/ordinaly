@@ -23,7 +23,7 @@ export async function generateMetadata({
     description: isEs
       ? "Consultoría y soluciones de automatización con IA: agentes, chatbots, workflows, Odoo y formación para empresas en Sevilla y Europa."
       : "AI automation consulting: agents, chatbots, workflows, Odoo, and training for companies in Seville and Europe.",
-    image: "/static/main_home_ilustration.webp",
+    image: "/og-image.png",
   });
 }
 
@@ -121,7 +121,7 @@ export default async function Home({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Ordinaly — Automatización empresarial con IA en Sevilla",
-    image: "https://ordinaly.ai/static/main_home_ilustration.webp",
+    image: "https://ordinaly.ai/static/main_home_ilustration_1200.webp",
     "@id": "https://ordinaly.ai",
     url: "https://ordinaly.ai",
     telephone: "+34626270806",

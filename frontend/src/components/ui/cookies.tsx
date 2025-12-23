@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Cookie, Settings, Shield, BarChart3 } from 'lucide-react';
+import { Cookie, Settings, Shield, BarChart3, Globe } from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
@@ -18,8 +18,9 @@ const CookieConsent = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [cookiePreferences, setCookiePreferences] = useState({
     necessary: true,
-    functional: true,
+    functional: false,
     analytics: false,
+    thirdParty: false,
   });
 
   useEffect(() => {
@@ -42,6 +43,17 @@ const CookieConsent = () => {
       setShowPopup(true);
       setShowBubble(true);
     }
+  }, []);
+
+  useEffect(() => {
+    const handleOpenSettings = () => {
+      setShowPopup(true);
+      setShowSettings(true);
+      setShowBubble(true);
+    };
+
+    window.addEventListener('openCookieSettings', handleOpenSettings as EventListener);
+    return () => window.removeEventListener('openCookieSettings', handleOpenSettings as EventListener);
   }, []);
 
   useEffect(() => {
@@ -72,6 +84,7 @@ const CookieConsent = () => {
       necessary: true,
       functional: true,
       analytics: true,
+      thirdParty: true,
     };
     setCookiePreferences(preferences);
     try {
@@ -80,7 +93,7 @@ const CookieConsent = () => {
     } catch {
       // localStorage not available - handle silently
     }
-    window.dispatchEvent(new Event('cookieConsentChange'));
+    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: preferences }));
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
@@ -91,6 +104,7 @@ const CookieConsent = () => {
       necessary: true,
       functional: false,
       analytics: false,
+      thirdParty: false,
     };
     setCookiePreferences(preferences);
     try {
@@ -100,7 +114,7 @@ const CookieConsent = () => {
       // localStorage not available - handle silently
     }
     clearFunctionalStorage();
-    window.dispatchEvent(new Event('cookieConsentChange'));
+    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: preferences }));
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
@@ -116,13 +130,13 @@ const CookieConsent = () => {
     if (!cookiePreferences.functional) {
       clearFunctionalStorage();
     }
-    window.dispatchEvent(new Event('cookieConsentChange'));
+    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: cookiePreferences }));
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
   };
 
-  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics') => {
+  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'thirdParty') => {
     if (type === 'necessary') return;
     setCookiePreferences(prev => ({
       ...prev,
@@ -175,16 +189,16 @@ const CookieConsent = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-3 mb-4">
+              <div className="flex flex-col md:flex-row gap-3 mb-4">
                 <Button
                   onClick={handleAcceptAll}
-                  className="flex-1 bg-[#623CEA] text-white"
+                  className="flex-1 bg-[#623CEA] text-white h-auto py-3 px-4 text-sm sm:text-base whitespace-normal text-center leading-snug"
                 >
                   {t('acceptAll')}
                 </Button>
                 <Button
                   onClick={handleRejectAll}
-                  className="flex-1 bg-secondary text-secondary-foreground border border-border"
+                  className="flex-1 bg-secondary text-secondary-foreground border border-border h-auto py-3 px-4 text-sm sm:text-base whitespace-normal text-center leading-snug"
                 >
                   {t('rejectAll')}
                 </Button>
@@ -230,6 +244,13 @@ const CookieConsent = () => {
                       note: t('functionalExamples')
                     },
                     {
+                      key: 'thirdParty',
+                      icon: <Globe className="text-[#1F8A0D] dark:text-[#7CFC00]" size={20} />,
+                      enabled: cookiePreferences.thirdParty,
+                      toggle: true,
+                      note: t('thirdPartyExamples')
+                    },
+                    {
                       key: 'analytics',
                       icon: <BarChart3 className="text-[hsl(var(--color-dark-blue))]" size={20} />,
                       enabled: cookiePreferences.analytics,
@@ -246,7 +267,7 @@ const CookieConsent = () => {
                         {toggle ? (
                           <Slider
                             checked={enabled}
-                            onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics')}
+                            onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'thirdParty')}
                           />
                         ) : (
                           <div className="bg-[#1F8A0D] dark:bg-[#7CFC00] rounded-full w-6 h-6 flex items-center justify-center">
@@ -260,16 +281,16 @@ const CookieConsent = () => {
                   ))}
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-border">
+                <div className="flex flex-col md:flex-row gap-3 pt-4 border-t border-border">
                   <Button
                     onClick={() => setShowSettings(false)}
-                    className="flex-1 bg-secondary text-secondary-foreground"
+                    className="flex-1 bg-secondary text-secondary-foreground h-auto py-3 px-4 text-sm sm:text-base whitespace-normal text-center leading-snug"
                   >
                     {t('back')}
                   </Button>
                   <Button
                     onClick={handleSavePreferences}
-                    className="flex-1 bg-[#623CEA] text-white"
+                    className="flex-1 bg-[#623CEA] text-white h-auto py-3 px-4 text-sm sm:text-base whitespace-normal text-center leading-snug"
                   >
                     {t('save')}
                   </Button>

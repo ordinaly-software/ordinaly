@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
+import { useCookiePreferences } from "@/hooks/useCookiePreferences";
+import ThirdPartyConsent from "@/components/ui/third-party-consent";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
@@ -13,6 +15,8 @@ import Footer from "@/components/ui/footer";
 export default function ContactPage() {
   const t = useTranslations("contactPage");
   const [locationImageIndex, setLocationImageIndex] = useState(0);
+  const cookiePreferences = useCookiePreferences();
+  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
 
   const team = [
     {
@@ -140,7 +144,7 @@ export default function ContactPage() {
               <div className="flex flex-wrap gap-3">
                 <Button
                   asChild
-                  className="inline-flex items-center gap-2 bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black"
+                  className="inline-flex items-center gap-2 bg-[#0d6e0c] dark:bg-[#7CFC00] text-white dark:text-black"
                 >
                   <a href="#location">
                     <Pin className="h-4 w-4" />
@@ -280,17 +284,23 @@ export default function ContactPage() {
           </div>
           <div className="grid lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 rounded-2xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800">
-              <iframe
-                title="Ordinaly Software Sevilla - Plaza del Duque de la Victoria, 1, 3º 9. 41002 Sevilla"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.8818083265837!2d-5.995837400000001!3d37.39262730000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126d4f91b87a51%3A0xa8b9785b4669f853!2sOrdinaly%20Software%20-%20Automatizaciones%20e%20IA!5e0!3m2!1ses!2ses!4v1765702540305!5m2!1ses!2ses"
-                width="100%"
-                height="420"
-                style={{ border: 0 }}
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-                className="w-full"
-              />
+              {canLoadMedia ? (
+                <iframe
+                  title="Ordinaly Software Sevilla - Plaza del Duque de la Victoria, 1, 3º 9. 41002 Sevilla"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3169.8818083265837!2d-5.995837400000001!3d37.39262730000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126d4f91b87a51%3A0xa8b9785b4669f853!2sOrdinaly%20Software%20-%20Automatizaciones%20e%20IA!5e0!3m2!1ses!2ses!4v1765702540305!5m2!1ses!2ses"
+                  width="100%"
+                  height="420"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full"
+                />
+              ) : (
+                <div className="h-[420px] w-full bg-white/70 dark:bg-gray-900/60">
+                  <ThirdPartyConsent className="h-full w-full" />
+                </div>
+              )}
             </div>
             <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-800">
               <div className="relative h-full min-h-[260px]">
@@ -365,7 +375,7 @@ export default function ContactPage() {
           <div className="pt-4 align-center flex justify-center">
             <Button
               asChild
-              className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#145C07] normal-case not-italic font-semibold tracking-tight"
+              className="bg-[#0d6e0c] dark:bg-[#7CFC00] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#0A4D08] normal-case not-italic font-semibold tracking-tight"
             >
               <Link href="/about" scroll={true}>
                 <ExternalLink className="mr-2 h-4 w-4" />

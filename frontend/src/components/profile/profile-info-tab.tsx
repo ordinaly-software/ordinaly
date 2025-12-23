@@ -205,7 +205,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                   <Button
                     onClick={onSave}
                     disabled={isSaving}
-                    className="flex-1 bg-[#1F8A0D] hover:bg-[#166307] text-white"
+                    className="flex-1 bg-[#0d6e0c] hover:bg-[#0A4D08] text-white"
                   >
                     {isSaving ? t("form.saveChangesLoading") : t("form.saveChanges")}
                   </Button>

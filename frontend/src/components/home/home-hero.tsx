@@ -43,25 +43,25 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
 
   const clientLogos = [
     {
-      src: "/static/logos/logo_grupo_addu.webp",
+      src: "/static/logos/logo_grupo_addu_small.webp",
       alt: "Grupo Addu",
       width: 130,
       height: 42,
     },
     {
-      src: "/static/logos/logo_aviva_publicidad.webp",
+      src: "/static/logos/logo_aviva_publicidad_small.webp",
       alt: "Aviva Publicidad",
       width: 140,
       height: 42,
     },
     {
-      src: "/static/logos/logo_proinca_consultores.webp",
+      src: "/static/logos/logo_proinca_consultores_small.webp",
       alt: "Proinca Consultores",
       width: 120,
       height: 42,
     },
     {
-      src: "/static/logos/guadalquivir_fincas_logo.webp",
+      src: "/static/logos/logo_guadalquivir_fincas_small.webp",
       alt: "Guadalquivir Fincas",
       width: 150,
       height: 42,
@@ -144,8 +144,8 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   className="object-cover"
                   priority
                   fetchPriority="high"
-                  sizes="100vw"
-                  quality={65}
+                  sizes="(max-width: 1024px) 100vw, 0px"
+                  quality={45}
                   aria-hidden="true"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/5 to-transparent" />
@@ -275,8 +275,8 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                         filter: isDark ? "none" : "invert(1) brightness(0.2)",
                       }}
                       loading="lazy"
-                      sizes="(max-width: 640px) 96px, (max-width: 1024px) 120px, 150px"
-                      quality={70}
+                      sizes="(max-width: 640px) 80px, (max-width: 1024px) 96px, 112px"
+                      quality={60}
                     />
                   </div>
                 ))}
@@ -312,9 +312,8 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   className="mx-auto h-auto w-full max-w-[640px]"
                   priority
                   fetchPriority="high"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px"
-                  loading="eager"
-                  quality={65}
+                  sizes="(max-width: 1024px) 0px, (max-width: 1200px) 50vw, 560px"
+                  quality={45}
                   aria-hidden="true"
                 />
               </div>

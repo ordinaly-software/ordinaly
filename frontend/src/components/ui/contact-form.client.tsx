@@ -183,7 +183,7 @@ export default function ContactForm({ className }: { className?: string }) {
             <Button
               type="submit"
               disabled={status === "loading"}
-              className="w-full md:w-auto bg-[#1F8A0D] dark:bg-[#7CFC00] hover:bg-[#1A740B] text-white dark:text-black px-6 py-6 rounded-xl text-lg shadow-lg shadow-[#1F8A0D]/30 flex items-center gap-2 justify-center"
+              className="w-full md:w-auto bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black px-6 py-6 rounded-xl text-lg shadow-lg shadow-[#1F8A0D]/30 flex items-center gap-2 justify-center"
             >
               {status === "loading" ? t("form.sending") : t("form.submit")}
             </Button>

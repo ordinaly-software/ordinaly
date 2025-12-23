@@ -28,7 +28,7 @@ const CourseFooter: React.FC<Props> = ({ shouldShowAuth, canEnroll, handleEnroll
         ) : canEnroll ? (
           <Button
             onClick={onEnroll}
-            className="w-full bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] to-[#166307] hover:from-[#166307] hover:to-[#1A740B] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+            className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
           >
             <GraduationCap className="w-5 h-5 mr-2" />
             {t('enrollNow')}

@@ -177,7 +177,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               ) : (
                 <Button
                   onClick={(e) => { e.stopPropagation(); if (onEnroll) onEnroll(); }}
-                  className="w-full bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] dark:to-[#2E8A0D] to-[#166307] hover:from-[#166307] hover:to-[#1A740B] dark:hover:from-[#6BFF52] dark:hover:to-[#2E8A0D] text-white dark:text-[#0B1B17] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                  className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
                   disabled={disableEnroll || isIncompleteSchedule}
                   title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
                 >
@@ -189,7 +189,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             <Button
               variant={variant === "upcoming" ? "outline" : "outline"}
               onClick={(e) => { e.stopPropagation(); if (onViewDetails) onViewDetails(); }}
-              className={`w-full ${variant === "upcoming" ? "border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-white hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00] dark:hover:text-[#0B1B17] hover:text-white h-14 text-lg" : "border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 h-12"} transition-all duration-300`}
+              className={`w-full ${variant === "upcoming" ? "border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-white hover:bg-[#0d6e0c] dark:hover:bg-[#7CFC00] dark:hover:text-[#0B1B17] hover:text-white h-14 text-lg" : "border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 h-12"} transition-all duration-300`}
             >
               {t("viewDetails")}
               <ArrowRight className="w-5 h-5 ml-2" />

@@ -9,25 +9,25 @@ interface SectionProps {
 
 const partners = [
   {
-    src: "/static/logos/logo_aviva_publicidad.webp",
+    src: "/static/logos/logo_aviva_publicidad_small.webp",
     alt: "Aviva Publicidad - Automatización Marketing",
     url: "https://avivapublicidad.es",
     delay: "0.1s",
   },
   {
-    src: "/static/logos/logo_grupo_addu.webp",
+    src: "/static/logos/logo_grupo_addu_small.webp",
     alt: "Grupo Addu - Soluciones IA",
     url: "https://grupoaddu.com",
     delay: "0.2s",
   },
   {
-    src: "/static/logos/logo_proinca_consultores.webp",
+    src: "/static/logos/logo_proinca_consultores_small.webp",
     alt: "Proinca Consultores - Optimización Procesos",
     url: "https://www.proincaconsultores.es",
     delay: "0.3s",
   },
   {
-    src: "/static/logos/guadalquivir_fincas_logo.webp",
+    src: "/static/logos/logo_guadalquivir_fincas_small.webp",
     alt: "Guadalquivir Fincas - Agentes IA Inmobiliaria",
     url: "https://www.guadalquivirfincas.com",
     delay: "0.5s",
