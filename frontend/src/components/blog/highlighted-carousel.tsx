@@ -81,6 +81,16 @@ export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({ posts,
         <div
           ref={carouselRef}
           onScroll={checkScrollability}
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowLeft') {
+              event.preventDefault();
+              scrollLeft();
+            } else if (event.key === 'ArrowRight') {
+              event.preventDefault();
+              scrollRight();
+            }
+          }}
+          tabIndex={0}
           className="flex overflow-x-auto gap-6 pt-6 pb-4 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           {posts.map((post) => (
