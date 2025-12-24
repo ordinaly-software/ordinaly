@@ -152,8 +152,8 @@ export function ServiceDetailsContent({
           src={hero}
           alt={service.title}
           className={cn(
-            "w-full object-cover",
-            isCompact ? "h-36 md:h-48" : "h-40 md:h-56",
+        "w-full object-cover",
+        isCompact ? "h-48 md:h-64" : "h-56 md:h-72",
           )}
           width={1200}
           height={560}

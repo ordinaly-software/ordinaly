@@ -1861,6 +1861,14 @@
       "label": "Sort by:",
       "newest": "Newest",
       "oldest": "Oldest"
+    },
+    "highlighted": {
+      "title": "Featured",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "otherPosts": {
+      "title": "Other posts"
     }
   },
   "contactPage": {
