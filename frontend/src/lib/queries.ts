@@ -50,3 +50,6 @@ export const paginatedPostsAsc: string = groq`{
   "items": *[${searchablePostFilter}] | order(coalesce(publishedAt,_updatedAt) asc) [$offset...$end] ${postFields},
   "total": count(*[${searchablePostFilter}])
 }`
+
+// Query for highlighted/featured posts (category = "Destacado" or "highlighted")
+export const highlightedPosts = groq`*[${publicPostFilter} && count((categories[]->slug.current)[@ in ["destacado", "highlighted"]]) > 0] ${orderedPosts} [0...10] ${postFields}`

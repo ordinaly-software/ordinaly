@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { QueryParams } from "@sanity/client";
 import { client } from "@/lib/sanity";
-import { paginatedPosts } from "@/lib/queries";
+import { paginatedPosts, highlightedPosts } from "@/lib/queries";
 import { createPageMetadata } from "@/lib/metadata";
 
 export async function generateMetadata({
@@ -36,11 +36,11 @@ export default async function BlogIndex() {
     cat: null,
   } as unknown as QueryParams;
 
-  const { items, total } = await client.fetch(
-    paginatedPosts,
-    params,
-    { next: { tags: ['blog'] } }
-  );
+  const [{ items, total }, highlighted] = await Promise.all([
+    client.fetch(paginatedPosts, params, { next: { tags: ['blog'] } }),
+    client.fetch(highlightedPosts, {}, { next: { tags: ['blog'] } })
+  ]);
+
   const { default: BlogClient } = await import('@/components/blog/blog-client');
-  return <BlogClient posts={items} total={total} pageSize={pageSize} />;
+  return <BlogClient posts={items} total={total} pageSize={pageSize} highlightedPosts={highlighted} />;
 }

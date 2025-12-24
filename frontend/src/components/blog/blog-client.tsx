@@ -4,6 +4,7 @@ import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { useTranslations, useLocale } from 'next-intl';
 import { BlogCard } from './blog-card';
+import { HighlightedCarousel } from './highlighted-carousel';
 import type { BlogPost, Category } from './types';
 import { Search } from 'lucide-react';
 import Banner from '@/components/ui/banner';
@@ -17,6 +18,7 @@ type Props = {
   posts: BlogPost[];
   total: number;
   pageSize?: number;
+  highlightedPosts?: BlogPost[];
 };
 
 const mapCategories = (items: BlogPost[]) => {
@@ -33,7 +35,7 @@ const mapCategories = (items: BlogPost[]) => {
   return categories;
 };
 
-export default function BlogClient({ posts: initialPosts, total: initialTotal, pageSize = 6 }: Props) {
+export default function BlogClient({ posts: initialPosts, total: initialTotal, pageSize = 6, highlightedPosts = [] }: Props) {
   const t = useTranslations('blog');
   const locale = useLocale() || 'es';
   const localePrefix = locale ? `/${locale}` : '';
@@ -215,9 +217,18 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
         </div>
       </Banner>
 
+      {/* Highlighted Posts Carousel */}
+      <HighlightedCarousel 
+        posts={highlightedPosts} 
+        onCategoryClick={(cat: string) => handleCategoryChange(cat)}
+      />
+
       {/* Blog Posts Grid */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      <section className="py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+            {t('otherPosts.title', { default: 'All posts' })}
+          </h2>
           {error && (
             <div className="text-center mb-8 text-red-600 dark:text-red-400">
               {error}

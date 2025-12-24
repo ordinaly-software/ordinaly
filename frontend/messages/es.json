@@ -1860,6 +1860,14 @@
       "label": "Ordenar por:",
       "newest": "Más recientes",
       "oldest": "Más antiguos"
+    },
+    "highlighted": {
+      "title": "Destacados",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "otherPosts": {
+      "title": "Todas las publicaciones"
     }
   },
   "contactPage": {
