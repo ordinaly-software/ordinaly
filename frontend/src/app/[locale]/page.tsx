@@ -27,6 +27,8 @@ export async function generateMetadata({
   });
 }
 
+export const revalidate = 3600; // ISR: revalidate home every hour
+
 export default async function Home({
   params,
 }: {
@@ -35,7 +37,7 @@ export default async function Home({
   await params;
   const fetchJson = async <T,>(url: string): Promise<T | null> => {
     try {
-      const res = await fetch(url, { next: { revalidate: 300 } });
+      const res = await fetch(url, { next: { revalidate: 3600 } });
       if (!res.ok) return null;
       return (await res.json()) as T;
     } catch {
@@ -59,7 +61,7 @@ export default async function Home({
       return items.filter((service) => !service.draft).slice(0, 6);
     },
     ["home-services"],
-    { revalidate: 300 },
+    { revalidate: 3600 },
   );
 
   const getInitialCourses = unstable_cache(
@@ -82,7 +84,7 @@ export default async function Home({
       return upcoming.sort((a, b) => getSortTime(b) - getSortTime(a)).slice(0, 3);
     },
     ["home-courses"],
-    { revalidate: 300 },
+    { revalidate: 3600 },
   );
 
   const [initialServices, initialCourses] = await Promise.all([

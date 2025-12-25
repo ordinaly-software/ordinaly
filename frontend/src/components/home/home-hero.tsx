@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import heroImage from "../../../public/static/main_home_ilustration.webp";
 import Link from "next/link";
 import { ArrowRight, Book, Bot, Building2, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +16,7 @@ interface HeroProps {
 export function HomeHero({ t, onWhatsApp }: HeroProps) {
   const { isDark } = useTheme();
   const primaryGreen = "#1F8A0D";
-  const heroImage = "/static/main_home_ilustration.webp";
+  // heroImage imported statically above to enable placeholder blur and optimal loading
   const sectionTextColor = isDark ? "text-white" : "text-[#0B1B17]";
   const subtitleColor = isDark ? "#B8FF9A" : "#1F7A12";
   const bulletTextColor = isDark ? "#FFFFFF" : "#0B1B17";
@@ -142,10 +143,11 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   alt={t("hero.imageAlt")}
                   fill
                   className="object-cover"
-                  priority
+                  priority={true}
                   fetchPriority="high"
                   sizes="(max-width: 1024px) 100vw, 0px"
                   quality={45}
+                  placeholder="blur"
                   aria-hidden="true"
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/5 to-transparent" />
@@ -310,10 +312,11 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   width={516}
                   height={640}
                   className="mx-auto h-auto w-full max-w-[640px]"
-                  priority
+                  priority={true}
                   fetchPriority="high"
                   sizes="(max-width: 1024px) 0px, (max-width: 1200px) 50vw, 560px"
                   quality={45}
+                  placeholder="blur"
                   aria-hidden="true"
                 />
               </div>
