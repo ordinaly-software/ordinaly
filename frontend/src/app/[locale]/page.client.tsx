@@ -49,30 +49,31 @@ const CoursesShowcase = dynamic(
 );
 const ProcessSection = dynamic(
   () => import("@/components/home/process-section").then((mod) => mod.ProcessSection),
-  { loading: () => null },
+  { loading: () => null, ssr: false },
 );
 const BenefitsSection = dynamic(
   () => import("@/components/home/benefits-section").then((mod) => mod.BenefitsSection),
-  { loading: () => null },
+  { loading: () => null, ssr: false },
 );
 const UseCasesSection = dynamic(
   () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
-  { loading: () => null },
+  { loading: () => null, ssr: false },
 );
 const WorkWithUsSection = dynamic(
   () => import("@/components/ui/work-with-us").then((mod) => mod.WorkWithUsSection),
-  { loading: () => null },
+  { loading: () => null, ssr: false },
 );
 const TestimonialsSection = dynamic(
   () => import("@/components/home/testimonials-section").then((mod) => mod.TestimonialsSection),
-  { loading: () => null },
+  { loading: () => null, ssr: false },
 );
 const PartnersSection = dynamic(
   () => import("@/components/home/partners-section").then((mod) => mod.PartnersSection),
-  { loading: () => null },
+  { loading: () => null, ssr: false },
 );
 const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"), {
   loading: () => null,
+  ssr: false,
 });
 function DeferredSection({
   children,

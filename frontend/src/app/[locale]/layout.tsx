@@ -1,5 +1,6 @@
 import type React from "react";
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import { notFound } from "next/navigation";
@@ -98,7 +99,6 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://api.ordinaly.ai" />
         <link rel="dns-prefetch" href="https://api.ordinaly.ai" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* Theme init (tu script) */}
         <script
           dangerouslySetInnerHTML={{
@@ -141,6 +141,18 @@ export default async function RootLayout({
           Skip to content
         </a>
         {process.env.NODE_ENV === "production" && <AnalyticsConsentGate />}
+
+        {process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_GA_ID ? (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
+              strategy="lazyOnload"
+            />
+            <Script id="gtag-init" strategy="lazyOnload">
+              {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { send_page_view: false });`}
+            </Script>
+          </>
+        ) : null}
 
         <AnalyticsManager />
 
