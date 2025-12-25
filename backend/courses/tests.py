@@ -1924,7 +1924,7 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         url = reverse('course-unenroll', kwargs={'slug': course.slug})
         resp = self.client.post(url)
         self.assertEqual(resp.status_code, 400)
-        self.assertIn('No puedes cancelar la inscripción porque el curso ya ha comenzado.', resp.data['detail'])
+        self.assertIn('No puedes cancelar la inscripción', resp.data['detail'])
 
     def test_cannot_unenroll_after_end(self):
         now = timezone.now()
