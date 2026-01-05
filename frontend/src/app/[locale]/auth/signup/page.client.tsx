@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@/contexts/theme-context";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -13,6 +13,9 @@ import Image from "next/image";
 import GoogleSignInButton from '@/components/auth/google-signin-button';
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
+import ReCAPTCHA from "react-google-recaptcha";
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 export default function SignupPage() {
   const t = useTranslations("signup");
@@ -32,6 +35,7 @@ export default function SignupPage() {
   const [showImage, setShowImage] = useState(true);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -124,10 +128,19 @@ export default function SignupPage() {
     setAlert(null);
 
     try {
+      let captchaToken: string | null = null;
+      if (RECAPTCHA_SITE_KEY) {
+        captchaToken = await recaptchaRef.current?.executeAsync();
+        if (!captchaToken) {
+          setAlert({ type: 'error', message: t("messages.captchaRequired") });
+          return;
+        }
+      }
+
       // Generate username from email prefix
       const username = email.split('@')[0];
       
-      const signupData = {
+      const signupData: Record<string, unknown> = {
         name: name.trim(),
         surname: surname.trim(),
         username: username.trim(),
@@ -137,6 +150,10 @@ export default function SignupPage() {
         city: city.trim() || null,
         password: password,
       };
+
+      if (captchaToken) {
+        signupData.captchaToken = captchaToken;
+      }
 
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
       const response = await fetch(`${apiUrl}/api/users/signup/`, {
@@ -162,6 +179,10 @@ export default function SignupPage() {
           window.location.href = '/';
         }, 2000);
       } else {
+        if (data.captcha) {
+          setAlert({ type: 'error', message: t("messages.captchaFailed") });
+          return;
+        }
         if (data.username) setErrors(prev => ({...prev, username: data.username[0] || data.username}));
         if (data.email) setErrors(prev => ({...prev, email: data.email[0] || data.email}));
         if (data.password) setErrors(prev => ({...prev, password: data.password[0] || data.password}));
@@ -172,6 +193,9 @@ export default function SignupPage() {
     } catch {
       setAlert({type: 'error', message: t("messages.networkError")});
     } finally {
+      if (RECAPTCHA_SITE_KEY) {
+        recaptchaRef.current?.reset();
+      }
       setIsLoading(false);
     }
   };
@@ -499,10 +523,18 @@ export default function SignupPage() {
                       {errors.terms && <p className="text-red-500 text-sm">{errors.terms}</p>}
                     </div>
 
+                    {RECAPTCHA_SITE_KEY && (
+                      <ReCAPTCHA
+                        sitekey={RECAPTCHA_SITE_KEY}
+                        size="invisible"
+                        ref={recaptchaRef}
+                      />
+                    )}
+
                     <div className="flex justify-center">
                       <StyledButton
-                      text={isLoading ? "Creating Account..." : t("form.submitButton")}
-                      onClick={handleButtonClick}
+                        text={isLoading ? "Creating Account..." : t("form.submitButton")}
+                        onClick={handleButtonClick}
                       />
                     </div>
                   </form>

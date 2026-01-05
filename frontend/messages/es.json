@@ -578,6 +578,8 @@
     "messages": {
       "success": "¡Cuenta creada exitosamente! Redirigiendo...",
       "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo",
+      "captchaRequired": "Confirma que no eres un robot.",
+      "captchaFailed": "La verificación del CAPTCHA falló. Por favor, inténtalo de nuevo",
       "validation": {
         "nameRequired": "El nombre es requerido",
         "surnameRequired": "El apellido es requerido",
@@ -1907,7 +1909,9 @@
       "submit": "Enviar mensaje",
       "sending": "Enviando...",
       "success": "¡Gracias! Nos pondremos en contacto contigo pronto.",
-      "errorFallback": "No pudimos enviar el formulario. Escríbenos a info@ordinaly.ai."
+      "errorFallback": "No pudimos enviar el formulario. Escríbenos a info@ordinaly.ai.",
+      "captchaRequired": "Confirma que no eres un robot.",
+      "captchaError": "No pudimos verificar el CAPTCHA. Por favor, inténtalo de nuevo."
     },
     "team": {
       "1": {

@@ -7,6 +7,7 @@ from rest_framework.decorators import action
 from django.contrib.auth import authenticate
 from .models import CustomUser
 from .serializers import CustomUserSerializer
+from utils.recaptcha import verify_recaptcha_token
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -27,7 +28,12 @@ class UserViewSet(viewsets.ModelViewSet):
     def signup(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return Response({'detail': 'You are already signed in.'}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = self.get_serializer(data=request.data)
+        data = dict(request.data)
+        captcha_token = data.pop("captchaToken", None)
+        if not verify_recaptcha_token(captcha_token):
+            return Response({'captcha': ['Captcha verification failed']}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         token, created = Token.objects.get_or_create(user=user)
