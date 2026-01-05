@@ -133,7 +133,7 @@ export default function SignupPage() {
     try {
       let captchaToken: string | null = null;
       if (RECAPTCHA_SITE_KEY) {
-        captchaToken = await recaptchaRef.current?.executeAsync();
+        captchaToken = (await recaptchaRef.current?.executeAsync()) ?? null;
         if (!captchaToken) {
           setAlert({ type: 'error', message: t("messages.captchaRequired") });
           return;
