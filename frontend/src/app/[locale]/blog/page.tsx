@@ -15,7 +15,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/blog",
-    title: isEs ? "Blog de automatización e IA | Ordinaly Software" : "Automation & AI blog | Ordinaly Software",
+    title: isEs ? "Blog de automatización e IA" : "Automation & AI blog",
     description: isEs
       ? "Noticias, guías y casos de éxito sobre automatización, IA y productividad para empresas."
       : "News, guides, and success stories on automation, AI, and productivity for companies.",

@@ -14,8 +14,8 @@ export async function generateMetadata({
     locale,
     path: "/services",
     title: isEs
-      ? "Servicios y productos de automatización con IA | Ordinaly Software"
-      : "AI automation services and products | Ordinaly Software",
+      ? "Servicios y productos de automatización con IA"
+      : "AI automation services and products",
     description: isEs
       ? "Catálogo de servicios personalizados y productos listos para usar: agentes de IA, automatización de procesos, CRM/ERP y más."
       : "Catalog of tailored services and ready-to-use products: AI agents, process automation, CRM/ERP, and more.",

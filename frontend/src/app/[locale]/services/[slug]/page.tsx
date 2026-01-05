@@ -37,7 +37,7 @@ export async function generateMetadata({
   const fallbackDescription = isEs
     ? defaultDescription
     : "AI automation services and products for companies looking to scale with intelligent workflows.";
-  const title = service?.title ? `${service.title} | Ordinaly Software` : fallbackTitle;
+  const title = service?.title ? `${service.title}` : fallbackTitle;
   const description = service?.subtitle || service?.description || fallbackDescription;
   const rawImage = service?.image || undefined;
   const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");

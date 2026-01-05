@@ -13,7 +13,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/admin",
-    title: isEs ? "Panel de administración | Ordinaly Software" : "Admin dashboard | Ordinaly Software",
+    title: isEs ? "Panel de administración" : "Admin dashboard",
     description: isEs
       ? "Gestiona servicios, cursos, usuarios y contenidos desde el panel de administración de Ordinaly."
       : "Manage services, courses, users, and content from the Ordinaly admin dashboard.",

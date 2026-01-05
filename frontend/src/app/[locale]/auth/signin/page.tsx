@@ -13,7 +13,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/auth/signin",
-    title: isEs ? "Inicia sesión | Ordinaly Software" : "Sign in | Ordinaly Software",
+    title: isEs ? "Inicia sesión en Ordinaly" : "Sign in Ordinaly",
     description: isEs
       ? "Accede a tu cuenta para gestionar servicios, cursos y automatizaciones de Ordinaly."
       : "Access your account to manage Ordinaly services, courses, and automations.",

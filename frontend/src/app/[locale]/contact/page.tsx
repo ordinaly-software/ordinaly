@@ -13,7 +13,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/contact",
-    title: isEs ? "Contacto | Ordinaly Software" : "Contact | Ordinaly Software",
+    title: isEs ? "Contacto" : "Contact us",
     description: isEs
       ? "Hablemos sobre tus proyectos de automatización e IA. Escríbenos y te responderemos en menos de 24h."
       : "Let's talk about your automation and AI projects. Write to us and we’ll reply within 24 hours.",
