@@ -530,7 +530,8 @@
       "signupPrompt": "¿No tienes una cuenta?",
       "signupLink": "Regístrate",
       "orContinueWith": "O continúa con",
-      "continueWithGoogle": "Continuar con Google"
+      "continueWithGoogle": "Continuar con Google",
+      "forgotPasswordHint": "Si has olvidado tu contraseña, contacta con {email} para recibir ayuda."
     },
     "messages": {
       "success": "¡Sesión iniciada exitosamente! Redirigiendo...",
@@ -589,7 +590,10 @@
         "passwordRequired": "La contraseña es requerida",
         "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
         "passwordMismatch": "Las contraseñas no coinciden",
-        "termsRequired": "Debes aceptar los Términos de Servicio y la Política de Privacidad para continuar"
+        "termsRequired": "Debes aceptar los Términos de Servicio y la Política de Privacidad para continuar",
+        "emailTaken": "Ya existe una cuenta con este correo electrónico.",
+        "usernameTaken": "Este nombre de usuario ya está en uso.",
+        "formIncomplete": "Por favor completa todos los campos obligatorios."
       },
       "googleSignUpError": "Error al registrarse con Google. Por favor, intenta de nuevo"
     }

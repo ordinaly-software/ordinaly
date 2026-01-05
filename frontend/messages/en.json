@@ -531,7 +531,8 @@
       "signupPrompt": "Don't have an account?",
       "signupLink": "Sign Up",
       "orContinueWith": "Or continue with",
-      "continueWithGoogle": "Continue with Google"
+      "continueWithGoogle": "Continue with Google",
+      "forgotPasswordHint": "If you've forgotten your password, please contact {email} for help."
     },
     "messages": {
       "success": "Signed in successfully! Redirecting...",
@@ -590,7 +591,10 @@
         "passwordRequired": "Password is required",
         "passwordTooShort": "Password must be at least 8 characters",
         "passwordMismatch": "Passwords do not match",
-        "termsRequired": "You must accept the Terms of Service and Privacy Policy to continue"
+        "termsRequired": "You must accept the Terms of Service and Privacy Policy to continue",
+        "emailTaken": "An account with this email already exists.",
+        "usernameTaken": "This username is already taken.",
+        "formIncomplete": "Please complete all required fields."
       },
       "googleSignUpError": "Google sign-up failed. Please try again."
     }
