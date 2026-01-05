@@ -136,6 +136,7 @@ export default function SignupPage() {
         captchaToken = (await recaptchaRef.current?.executeAsync()) ?? null;
         if (!captchaToken) {
           setAlert({ type: 'error', message: t("messages.captchaRequired") });
+          setIsLoading(false);
           return;
         }
       }
