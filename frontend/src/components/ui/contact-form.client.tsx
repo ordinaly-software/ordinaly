@@ -6,6 +6,7 @@ import Alert from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import ReCAPTCHA from "react-google-recaptcha";
 
 type Status = "idle" | "loading";
 type AlertState = {
@@ -14,9 +15,13 @@ type AlertState = {
   message: string;
 };
 
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+const CAPTCHA_FAILURE_MESSAGE = "Captcha verification failed";
+
 export default function ContactForm({ className }: { className?: string }) {
   const t = useTranslations("contactPage");
   const formRef = useRef<HTMLFormElement | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [alert, setAlert] = useState<AlertState | null>(null);
   const contactEndpoint = "/api/leads";
@@ -53,6 +58,21 @@ export default function ContactForm({ className }: { className?: string }) {
       return;
     }
     const phonePrefix = String(formData.get("phonePrefix") ?? "+34");
+    let captchaToken: string | null = null;
+    if (RECAPTCHA_SITE_KEY) {
+      captchaToken = await recaptchaRef.current?.executeAsync() ?? null;
+      if (!captchaToken) {
+        setStatus("idle");
+        setAlert({
+          key: Date.now(),
+          type: "error",
+          message: t("form.captchaRequired"),
+        });
+        recaptchaRef.current?.reset();
+        return;
+      }
+    }
+
     const payload: Record<string, string> = {
       name: String(formData.get("name") ?? ""),
       email: String(formData.get("email") ?? ""),
@@ -64,6 +84,9 @@ export default function ContactForm({ className }: { className?: string }) {
     if (phoneDigits) {
       payload.phone = `${phonePrefix}${phoneDigits}`;
     }
+    if (captchaToken) {
+      payload.captchaToken = captchaToken;
+    }
 
     try {
       const response = await fetch(contactEndpoint, {
@@ -74,11 +97,16 @@ export default function ContactForm({ className }: { className?: string }) {
 
       if (!response.ok) {
         const data = await response.json().catch(() => null);
+        const serverMessage = data?.error;
+        const message =
+          serverMessage === CAPTCHA_FAILURE_MESSAGE
+            ? t("form.captchaError")
+            : serverMessage ?? t("form.errorFallback");
         setStatus("idle");
         setAlert({
           key: Date.now(),
           type: "error",
-          message: data?.message ?? t("form.errorFallback"),
+          message,
         });
         return;
       }
@@ -97,6 +125,10 @@ export default function ContactForm({ className }: { className?: string }) {
         type: "error",
         message: t("form.errorFallback"),
       });
+    } finally {
+      if (RECAPTCHA_SITE_KEY) {
+        recaptchaRef.current?.reset();
+      }
     }
   };
 
@@ -178,6 +210,14 @@ export default function ContactForm({ className }: { className?: string }) {
               className="min-h-[120px]"
             />
           </div>
+
+          {RECAPTCHA_SITE_KEY && (
+            <ReCAPTCHA
+              sitekey={RECAPTCHA_SITE_KEY}
+              size="invisible"
+              ref={recaptchaRef}
+            />
+          )}
 
           <div className="flex flex-col items-center gap-3">
             <Button

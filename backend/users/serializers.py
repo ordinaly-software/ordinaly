@@ -9,6 +9,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     last_name = serializers.CharField(source='surname', required=False)
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
+    last_login = serializers.SerializerMethodField()
 
     class Meta:
         model = CustomUser
@@ -17,7 +18,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'first_name', 'last_name',  # Add alias fields for frontend compatibility
             'region', 'city', 'company', 'is_staff', 'is_superuser',
             'allow_notifications',
-            'created_at', 'updated_at'
+            'created_at', 'updated_at', 'last_login'
         )
         extra_kwargs = {
             'password': {'write_only': True},
@@ -28,7 +29,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'is_superuser': {'read_only': True},
             'allow_notifications': {'required': False},
             'created_at': {'read_only': True},
-            'updated_at': {'read_only': True}
+            'updated_at': {'read_only': True},
+            'last_login': {'read_only': True}
         }
 
     def get_created_at(self, obj):
@@ -42,6 +44,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
         if hasattr(obj, 'last_login') and obj.last_login:
             return obj.last_login.isoformat()
         return timezone.now().isoformat()
+
+    def get_last_login(self, obj):
+        if hasattr(obj, 'last_login') and obj.last_login:
+            return obj.last_login.isoformat()
+        return None
 
     def create(self, validated_data):
         # Handle the alias fields

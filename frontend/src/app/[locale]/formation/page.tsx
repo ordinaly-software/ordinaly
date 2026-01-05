@@ -14,8 +14,8 @@ export async function generateMetadata({
     locale,
     path: "/formation",
     title: isEs
-      ? "Cursos de IA y automatización | Ordinaly Software"
-      : "AI and automation courses | Ordinaly Software",
+      ? "Cursos de IA y automatización"
+      : "AI and automation courses",
     description: isEs
       ? "Aprende IA, n8n y herramientas low-code con formaciones prácticas para empresas y profesionales."
       : "Learn AI, n8n, and low-code tools with practical training for companies and professionals.",

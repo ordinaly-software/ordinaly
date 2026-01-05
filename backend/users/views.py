@@ -5,8 +5,12 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from django.contrib.auth import authenticate
+from django.db import IntegrityError
+from django.core.exceptions import ValidationError as DjangoValidationError
+from django.utils import timezone
 from .models import CustomUser
 from .serializers import CustomUserSerializer
+from utils.recaptcha import verify_recaptcha_token
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -27,14 +31,51 @@ class UserViewSet(viewsets.ModelViewSet):
     def signup(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return Response({'detail': 'You are already signed in.'}, status=status.HTTP_400_BAD_REQUEST)
-        serializer = self.get_serializer(data=request.data)
+        data = dict(request.data)
+        captcha_token = data.pop("captchaToken", None)
+        if not verify_recaptcha_token(captcha_token):
+            return Response({'captcha': ['Captcha verification failed']}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save()
+
+        try:
+            user = serializer.save()
+        except (IntegrityError, DjangoValidationError) as exc:
+            response = self._handle_duplicate_error(exc)
+            if response:
+                return response
+            return Response({'detail': 'An unexpected error occurred. Please try again.'}, status=status.HTTP_400_BAD_REQUEST)
         token, created = Token.objects.get_or_create(user=user)
         headers = self.get_success_headers(serializer.data)
         response_data = serializer.data
         response_data['token'] = token.key
         return Response(response_data, status=status.HTTP_201_CREATED, headers=headers)
+
+    def _handle_duplicate_error(self, exc):
+        response_data = {}
+        if isinstance(exc, DjangoValidationError):
+            message_dict = getattr(exc, "message_dict", {})
+            if "email" in message_dict:
+                response_data["email"] = ["email_taken"]
+            if "username" in message_dict:
+                response_data["username"] = ["username_taken"]
+            all_messages = message_dict.get("__all__")
+            if all_messages:
+                combined = " ".join(all_messages).lower()
+            else:
+                combined = ""
+        else:
+            combined = str(exc).lower()
+
+        if "unique_email_ci" in combined or "custom user with this email" in combined or "email_taken" in combined:
+            response_data.setdefault("email", ["email_taken"])
+        if "unique_username_ci" in combined or "custom user with this username" in combined or "username_taken" in combined:
+            response_data.setdefault("username", ["username_taken"])
+
+        if response_data:
+            return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
+        return None
 
     @action(detail=True, methods=['put'], permission_classes=[IsAuthenticated])
     def update_user(self, request, pk=None):
@@ -83,6 +124,8 @@ class UserViewSet(viewsets.ModelViewSet):
         user = authenticate(request, username=email_or_username, password=password)
 
         if user is not None:
+            user.last_login = timezone.now()
+            user.save(update_fields=['last_login'])
             token, created = Token.objects.get_or_create(user=user)
             serializer = self.get_serializer(user)
             response_data = serializer.data

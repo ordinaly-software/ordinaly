@@ -85,7 +85,7 @@ export default function LoginPage() {
     setAlert(null);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
       const response = await fetch(`${apiUrl}/api/users/signin/`, {
         method: 'POST',
         headers: {
@@ -231,10 +231,16 @@ export default function LoginPage() {
                         </button>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between">
-                      <Link href="/forgot-password" className="text-sm text-[#46B1C9] hover:underline">
+                    <div className="flex flex-col items-start">
+                      <a
+                        href="mailto:info@ordinaly.ai?subject=Password%20Assistance"
+                        className="text-sm text-[#46B1C9] hover:underline"
+                      >
                         {t("form.forgotPassword")}
-                      </Link>
+                      </a>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        {t("form.forgotPasswordHint", { email: "info@ordinaly.ai" })}
+                      </p>
                     </div>
 
                     {/* Centered and smaller sign-in button */}

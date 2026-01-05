@@ -531,7 +531,8 @@
       "signupPrompt": "Don't have an account?",
       "signupLink": "Sign Up",
       "orContinueWith": "Or continue with",
-      "continueWithGoogle": "Continue with Google"
+      "continueWithGoogle": "Continue with Google",
+      "forgotPasswordHint": "If you've forgotten your password, please contact {email} for help."
     },
     "messages": {
       "success": "Signed in successfully! Redirecting...",
@@ -579,6 +580,8 @@
     "messages": {
       "success": "Account created successfully! Redirecting...",
       "networkError": "Network error. Please check your connection and try again.",
+      "captchaRequired": "Please confirm you are not a robot.",
+      "captchaFailed": "CAPTCHA verification failed. Please try again.",
       "validation": {
         "nameRequired": "Name is required",
         "surnameRequired": "Surname is required",
@@ -588,7 +591,10 @@
         "passwordRequired": "Password is required",
         "passwordTooShort": "Password must be at least 8 characters",
         "passwordMismatch": "Passwords do not match",
-        "termsRequired": "You must accept the Terms of Service and Privacy Policy to continue"
+        "termsRequired": "You must accept the Terms of Service and Privacy Policy to continue",
+        "emailTaken": "An account with this email already exists.",
+        "usernameTaken": "This username is already taken.",
+        "formIncomplete": "Please complete all required fields."
       },
       "googleSignUpError": "Google sign-up failed. Please try again."
     }
@@ -1908,7 +1914,9 @@
       "submit": "Send message",
       "sending": "Sending...",
       "success": "Thanks! We've received your message and will reply shortly.",
-      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai."
+      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai.",
+      "captchaRequired": "Please confirm you are not a robot.",
+      "captchaError": "We couldn't verify the CAPTCHA. Please try again."
     },
     "team": {
       "1": {

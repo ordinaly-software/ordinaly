@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useTheme } from "@/contexts/theme-context";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
@@ -13,6 +13,9 @@ import Image from "next/image";
 import GoogleSignInButton from '@/components/auth/google-signin-button';
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
+import ReCAPTCHA from "react-google-recaptcha";
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
 
 export default function SignupPage() {
   const t = useTranslations("signup");
@@ -32,6 +35,7 @@ export default function SignupPage() {
   const [showImage, setShowImage] = useState(true);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
   useEffect(() => {
     const token = localStorage.getItem('authToken');
@@ -117,17 +121,30 @@ export default function SignupPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      setAlert({ type: 'error', message: t("messages.validation.formIncomplete") });
+      return;
+    }
 
     setIsLoading(true);
     setErrors({});
     setAlert(null);
 
     try {
+      let captchaToken: string | null = null;
+      if (RECAPTCHA_SITE_KEY) {
+        captchaToken = (await recaptchaRef.current?.executeAsync()) ?? null;
+        if (!captchaToken) {
+          setAlert({ type: 'error', message: t("messages.captchaRequired") });
+          setIsLoading(false);
+          return;
+        }
+      }
+
       // Generate username from email prefix
       const username = email.split('@')[0];
       
-      const signupData = {
+      const signupData: Record<string, unknown> = {
         name: name.trim(),
         surname: surname.trim(),
         username: username.trim(),
@@ -138,7 +155,11 @@ export default function SignupPage() {
         password: password,
       };
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
+      if (captchaToken) {
+        signupData.captchaToken = captchaToken;
+      }
+
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
       const response = await fetch(`${apiUrl}/api/users/signup/`, {
         method: 'POST',
         headers: {
@@ -162,16 +183,55 @@ export default function SignupPage() {
           window.location.href = '/';
         }, 2000);
       } else {
-        if (data.username) setErrors(prev => ({...prev, username: data.username[0] || data.username}));
-        if (data.email) setErrors(prev => ({...prev, email: data.email[0] || data.email}));
+        if (data.captcha) {
+          setAlert({ type: 'error', message: t("messages.captchaFailed") });
+          return;
+        }
+        let duplicateAlertMessage: string | null = null;
+        const getFieldError = (field: string, value: unknown) => {
+          if (!value) return null;
+          const rawValue = Array.isArray(value) ? (value[0] as string) : (value as string);
+          if (!rawValue) return null;
+          const normalized = rawValue.toLowerCase();
+
+          if (field === "email" && (normalized === "email_taken" || normalized.includes("custom user with this email"))) {
+            const message = t("messages.validation.emailTaken");
+            duplicateAlertMessage = message;
+            return { message, inline: false, alert: true };
+          }
+
+          if (field === "username" && (normalized === "username_taken" || normalized.includes("custom user with this username"))) {
+            const message = t("messages.validation.usernameTaken");
+            return { message, inline: true, alert: false };
+          }
+
+          return { message: rawValue, inline: true, alert: false };
+        };
+
+        const usernameError = data.username ? getFieldError('username', data.username) : null;
+        if (usernameError?.inline) setErrors(prev => ({...prev, username: usernameError.message}));
+        if (usernameError?.alert) duplicateAlertMessage = usernameError.message;
+
+        const emailError = data.email ? getFieldError('email', data.email) : null;
+        if (emailError?.inline) setErrors(prev => ({...prev, email: emailError.message}));
+        if (emailError?.alert) duplicateAlertMessage = emailError.message;
+
         if (data.password) setErrors(prev => ({...prev, password: data.password[0] || data.password}));
         if (data.company) setErrors(prev => ({...prev, company: data.company[0] || data.company}));
-        if (data.non_field_errors) setAlert({type: 'error', message: data.non_field_errors[0]});
-        if (data.detail) setAlert({type: 'error', message: data.detail});
+        if (duplicateAlertMessage) {
+          setAlert({type: 'error', message: duplicateAlertMessage});
+        } else if (data.non_field_errors) {
+          setAlert({type: 'error', message: Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors});
+        } else if (data.detail) {
+          setAlert({type: 'error', message: data.detail});
+        }
       }
     } catch {
       setAlert({type: 'error', message: t("messages.networkError")});
     } finally {
+      if (RECAPTCHA_SITE_KEY) {
+        recaptchaRef.current?.reset();
+      }
       setIsLoading(false);
     }
   };
@@ -499,10 +559,18 @@ export default function SignupPage() {
                       {errors.terms && <p className="text-red-500 text-sm">{errors.terms}</p>}
                     </div>
 
+                    {RECAPTCHA_SITE_KEY && (
+                      <ReCAPTCHA
+                        sitekey={RECAPTCHA_SITE_KEY}
+                        size="invisible"
+                        ref={recaptchaRef}
+                      />
+                    )}
+
                     <div className="flex justify-center">
                       <StyledButton
-                      text={isLoading ? "Creating Account..." : t("form.submitButton")}
-                      onClick={handleButtonClick}
+                        text={isLoading ? "Creating Account..." : t("form.submitButton")}
+                        onClick={handleButtonClick}
                       />
                     </div>
                   </form>

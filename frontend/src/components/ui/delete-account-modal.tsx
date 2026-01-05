@@ -74,7 +74,7 @@ const DeleteAccountModal = ({ isOpen, onClose, onConfirm, isLoading = false, use
         </div>
 
         {/* Action buttons */}
-        <div className="flex gap-3">
+        <div className="flex gap-3 justify-center">
           <Button
             variant="outline"
             onClick={handleClose}
