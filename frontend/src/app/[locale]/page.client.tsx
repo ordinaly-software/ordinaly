@@ -160,6 +160,29 @@ function DeferredSection({
   );
 }
 
+const SectionSkeleton = () => (
+  <section
+    aria-hidden="true"
+    className="mx-auto my-6 w-full max-w-6xl animate-pulse rounded-3xl bg-white/80 p-6 shadow-xl shadow-slate-900/10 dark:bg-white/[0.04] dark:shadow-black/30"
+  >
+    <div className="h-6 w-40 rounded-full bg-slate-200 dark:bg-slate-700 mb-6" />
+    <div className="space-y-3">
+      {[1, 2, 3].map((line) => (
+        <div
+          key={line}
+          className="h-3 rounded-full bg-slate-200 dark:bg-slate-700"
+          style={{ width: `${90 - line * 10}%` }}
+        />
+      ))}
+      <div className="mt-6 flex flex-wrap gap-3">
+        {[1, 2, 3].map((pill) => (
+          <div key={pill} className="h-3 min-w-[5rem] flex-1 rounded-full bg-slate-200 dark:bg-slate-700" />
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
 export default function HomePage({
   initialServices = [],
   initialCourses = [],
@@ -194,6 +217,33 @@ export default function HomePage({
     if (!whatsappUrl) return;
     window.open(whatsappUrl, '_blank');
   }, [t]);
+
+  const [shouldRenderDeferredSections, setShouldRenderDeferredSections] = useState(false);
+
+  useEffect(() => {
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+    const scheduleRender = () => setShouldRenderDeferredSections(true);
+    let idleHandle: number | null = null;
+    let timeoutHandle: number | null = null;
+
+    if (idleWindow.requestIdleCallback) {
+      idleHandle = idleWindow.requestIdleCallback(scheduleRender, { timeout: 1000 });
+    } else {
+      timeoutHandle = window.setTimeout(scheduleRender, 400);
+    }
+
+    return () => {
+      if (idleHandle !== null) {
+        idleWindow.cancelIdleCallback?.(idleHandle);
+      }
+      if (timeoutHandle !== null) {
+        window.clearTimeout(timeoutHandle);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const observerOptions = {
@@ -249,29 +299,41 @@ export default function HomePage({
       />
       <LocalSeoSection t={t} />
       <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
-      <DeferredSection rootMargin="2000px 0px">
-        <ProcessSection t={t} />
-      </DeferredSection>
-      <DeferredSection rootMargin="2000px 0px">
-        <BenefitsSection t={t} />
-      </DeferredSection>
-      <DeferredSection rootMargin="2400px 0px">
-        <UseCasesSection t={t} />
-      </DeferredSection>
-      <DeferredSection>
-        <WorkWithUsSection />
-      </DeferredSection>
-      <DeferredSection>
-        <TestimonialsSection t={t} />
-      </DeferredSection>
-      <DeferredSection>
-        <PartnersSection t={t} />
-      </DeferredSection>
-      <DeferredSection>
-        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-          <ContactForm />
-        </section>
-      </DeferredSection>
+      {shouldRenderDeferredSections ? (
+        <>
+          <DeferredSection rootMargin="2000px 0px">
+            <ProcessSection t={t} />
+          </DeferredSection>
+          <DeferredSection rootMargin="2000px 0px">
+            <BenefitsSection t={t} />
+          </DeferredSection>
+          <DeferredSection rootMargin="2400px 0px">
+            <UseCasesSection t={t} />
+          </DeferredSection>
+          <DeferredSection>
+            <WorkWithUsSection />
+          </DeferredSection>
+          <DeferredSection>
+            <TestimonialsSection t={t} />
+          </DeferredSection>
+          <DeferredSection>
+            <PartnersSection t={t} />
+          </DeferredSection>
+          <DeferredSection>
+            <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+              <ContactForm />
+            </section>
+          </DeferredSection>
+        </>
+      ) : (
+        <>
+          <SectionSkeleton />
+          <SectionSkeleton />
+          <SectionSkeleton />
+          <SectionSkeleton />
+          <SectionSkeleton />
+        </>
+      )}
       <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
       <Footer />
     </div>
