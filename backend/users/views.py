@@ -45,7 +45,8 @@ class UserViewSet(viewsets.ModelViewSet):
             response = self._handle_duplicate_error(exc)
             if response:
                 return response
-            return Response({'detail': 'An unexpected error occurred. Please try again.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'An unexpected error occurred. Please try again.'},
+                            status=status.HTTP_400_BAD_REQUEST)
         token, created = Token.objects.get_or_create(user=user)
         headers = self.get_success_headers(serializer.data)
         response_data = serializer.data
@@ -68,9 +69,17 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             combined = str(exc).lower()
 
-        if "unique_email_ci" in combined or "custom user with this email" in combined or "email_taken" in combined:
+        if (
+            "unique_email_ci" in combined
+            or "custom user with this email" in combined
+            or "email_taken" in combined
+        ):
             response_data.setdefault("email", ["email_taken"])
-        if "unique_username_ci" in combined or "custom user with this username" in combined or "username_taken" in combined:
+        if (
+            "unique_username_ci" in combined
+            or "custom user with this username" in combined
+            or "username_taken" in combined
+        ):
             response_data.setdefault("username", ["username_taken"])
 
         if response_data:

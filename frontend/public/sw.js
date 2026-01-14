@@ -1,6 +1,6 @@
-const CACHE_NAME = 'ordinaly-cache-v3';
-const STATIC_CACHE = 'ordinaly-static-v3';
-const DYNAMIC_CACHE = 'ordinaly-dynamic-v3';
+const CACHE_NAME = 'ordinaly-cache-v4';
+const STATIC_CACHE = 'ordinaly-static-v4';
+const DYNAMIC_CACHE = 'ordinaly-dynamic-v4';
 
 const THIRD_PARTY_HOSTS = [
   'www.googletagmanager.com',
