@@ -24,7 +24,9 @@ export async function generateMetadata({
   const desc = p?.seoDescription ?? p.excerpt ?? defaultDescription;
   const og = p?.ogImage ?? p?.mainImage ?? p?.coverImage;
   const imageBuilder = og ? urlFor(og) : null;
-  const image = imageBuilder ? imageBuilder.width(1200).height(630).fit("crop").url() : "/og-image.png";
+  const image = imageBuilder
+    ? imageBuilder.width(1200).height(630).fit("crop").format("png").url()
+    : "/og-image.png";
 
   return createPageMetadata({
     locale,

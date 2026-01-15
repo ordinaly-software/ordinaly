@@ -10,6 +10,7 @@ import ShareServiceButtons from "@/components/services/share-service-buttons";
 import { cn } from "@/lib/utils";
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
 import ThirdPartyConsent from "@/components/ui/third-party-consent";
+import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
 
 export type ServiceDetailsLabels = {
   featured: string;
@@ -96,7 +97,7 @@ export function ServiceDetailsContent({
   const accentHex = accent.startsWith("#") ? accent : `#${accent}`;
   const accentSoft = `${accentHex}1a`;
   const hero = service.image || FALLBACK_CARD_IMAGE;
-  const description = service.clean_description || service.description || "";
+  const markdownDescription = service.description || service.clean_description || "";
   const priceLabel = formatPrice(service, labels.contactForQuote);
   const youtubeId = useMemo(() => extractYoutubeId(service.youtube_video_url), [service.youtube_video_url]);
   const youtubeEmbed = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}` : null;
@@ -181,13 +182,15 @@ export function ServiceDetailsContent({
           isCompact ? "space-y-2 p-3" : "space-y-3 p-4",
         )}
       >
-        {service.html_description ? (
-          <div
-            className="prose prose-neutral max-w-none dark:prose-invert"
-            dangerouslySetInnerHTML={{ __html: service.html_description }}
-          />
+        {markdownDescription ? (
+          <MarkdownRenderer
+            color={accentHex}
+            className="prose prose-neutral max-w-none dark:prose-invert text-base leading-relaxed text-neutral-700 dark:text-neutral-200 break-words"
+          >
+            {markdownDescription}
+          </MarkdownRenderer>
         ) : (
-          <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-200">{description}</p>
+          <p className="text-base leading-relaxed text-neutral-700 dark:text-neutral-200">{service.clean_description ?? ""}</p>
         )}
       </div>
 
@@ -197,14 +200,12 @@ export function ServiceDetailsContent({
             <InfoTile
               label={labels.requisites ?? "Requisites"}
               value={
-                service.requisites_html ? (
-                  <div
-                    className="prose prose-neutral max-w-none text-sm dark:prose-invert"
-                    dangerouslySetInnerHTML={{ __html: service.requisites_html }}
-                  />
-                ) : (
-                  service.requisites
-                )
+                <MarkdownRenderer
+                  color={accentHex}
+                  className="prose prose-neutral max-w-none text-sm dark:prose-invert text-gray-700 dark:text-gray-200 break-words"
+                >
+                  {service.requisites}
+                </MarkdownRenderer>
               }
             />
           </div>

@@ -32,6 +32,7 @@ type ImageBuilder = {
 	width: (n: number) => ImageBuilder;
 	height: (n: number) => ImageBuilder;
 	fit: (s: string) => ImageBuilder;
+	format: (fmt: string) => ImageBuilder;
 	url: () => string;
 };
 
@@ -40,6 +41,7 @@ function createNoopBuilder(): ImageBuilder {
 	builder.width = () => builder as ImageBuilder;
 	builder.height = () => builder as ImageBuilder;
 	builder.fit = () => builder as ImageBuilder;
+	builder.format = () => builder as ImageBuilder;
 	builder.url = () => '';
 	return builder as ImageBuilder;
 }
