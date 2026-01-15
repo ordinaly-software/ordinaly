@@ -5,6 +5,7 @@ if (typeof window !== "undefined") {
 }
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { remarkAutolinkUrls } from "@/lib/remark-autolink-urls";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 
@@ -21,7 +22,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
   return (
     <div className={className}>
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkAutolinkUrls]}
         rehypePlugins={[rehypeRaw, rehypeHighlight]}
         components={{
           table: ({children}) => (
@@ -103,17 +104,22 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
           ),
           strong: ({children}) => <strong className="font-bold text-gray-900 dark:text-white">{children}</strong>,
           em: ({children}) => <em className="italic text-gray-700 dark:text-gray-300">{children}</em>,
-          a: ({children, href}) => (
-            <a 
-              href={href} 
-              className="hover:underline transition-colors" 
-              style={{ color: serviceColor }}
-              target="_blank" 
-              rel="noopener noreferrer"
-            >
-              {children}
-            </a>
-          ),
+          a: ({children, href}) => {
+            if (!href) {
+              return <>{children}</>;
+            }
+            return (
+              <a
+                href={href}
+                className="font-semibold underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-sky-500 transition-colors break-words"
+                style={{ color: serviceColor }}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {children}
+              </a>
+            );
+          },
           hr: () => <hr className="border-gray-200 dark:border-gray-700 my-6" />,
         }}
       >
