@@ -6,7 +6,7 @@ const URL_REGEX = /(https?:\/\/[^\s<>()]+)|(www\.[^\s<>()]+)/g;
 type TextNode = Literal & { value: string };
 
 const ensureProtocol = (value: string) => {
-  if (/^[a-zA-Z][\w-+.]?:\/\//.test(value)) {
+  if (/^[a-zA-Z][\w+.-]*:\/\//.test(value)) {
     return value;
   }
   return `https://${value}`;
