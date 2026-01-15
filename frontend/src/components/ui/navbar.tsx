@@ -449,7 +449,7 @@ const Navbar = () => {
 
             {/* Unified Navigation + Controls */}
             <div className="flex items-center justify-end flex-1 min-w-0 gap-4 overflow-hidden">
-              <div className="flex items-center justify-end gap-6 flex-1 min-w-0 overflow-hidden">
+              <div className="flex items-center justify-end gap-6 flex-1 min-w-0 overflow-visible">
                 <HoverMenu setActive={setActiveMegaItem}>
                   {visibleItems
                     .filter((item) => item.type === "mega")
