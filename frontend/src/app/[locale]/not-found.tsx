@@ -25,9 +25,9 @@ async function loadNotFoundMessages(locale: Locale): Promise<NotFoundStrings> {
 export default async function NotFoundPage({
   params,
 }: {
-  params: { locale?: string };
+  params?: { locale?: string };
 }) {
-  const requestedLocale = params.locale ?? "";
+  const requestedLocale = params?.locale ?? "";
   const isValidLocale = routing.locales.includes(requestedLocale as Locale);
   const locale = (isValidLocale
     ? (requestedLocale as Locale)
