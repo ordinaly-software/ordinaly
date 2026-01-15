@@ -246,6 +246,25 @@ export default function HomePage({
   }, []);
 
   useEffect(() => {
+    const componentsWithPreload = [
+      ServiceShowcase,
+      CoursesShowcase,
+      ProcessSection,
+      BenefitsSection,
+      UseCasesSection,
+      WorkWithUsSection,
+      TestimonialsSection,
+      PartnersSection,
+      ContactForm,
+    ];
+
+    componentsWithPreload.forEach((Component) => {
+      const preloadable = Component as { preload?: () => Promise<unknown> };
+      preloadable.preload?.();
+    });
+  }, []);
+
+  useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
       rootMargin: "0px 0px -50px 0px",

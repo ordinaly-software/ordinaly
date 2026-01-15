@@ -77,7 +77,10 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
     datePublished: p.publishedAt || p._createdAt,
     dateModified: p.updatedAt || p._updatedAt,
     author: { '@type': 'Person', name: p.author?.name },
-    image: p.coverImage && p.coverImage.asset ? [urlFor(p.coverImage.asset).width(1200).height(630).url()] : undefined,
+    image:
+      p.coverImage && p.coverImage.asset
+        ? [urlFor(p.coverImage.asset).width(1200).height(630).format("png").url()]
+        : undefined,
     mainEntityOfPage: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${p.slug}`,
   };
 
