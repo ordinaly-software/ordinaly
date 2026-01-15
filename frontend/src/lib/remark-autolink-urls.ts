@@ -26,10 +26,10 @@ export const remarkAutolinkUrls = () => {
 
       const segments: Node[] = [];
       let lastIndex = 0;
-      const matcher = new RegExp(URL_REGEX);
+      URL_REGEX.lastIndex = 0;
       let match: RegExpExecArray | null;
 
-      while ((match = matcher.exec(value)) !== null) {
+      while ((match = URL_REGEX.exec(value)) !== null) {
         const url = match[0];
         const start = match.index;
 
