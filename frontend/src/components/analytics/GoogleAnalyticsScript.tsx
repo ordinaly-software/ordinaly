@@ -4,6 +4,12 @@ import Script from 'next/script';
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
+declare global {
+  interface Window {
+    analyticsScriptLoaded?: boolean;
+  }
+}
+
 export default function GoogleAnalyticsScript({ enabled }: { enabled: boolean }) {
   if (!enabled || !GA_ID) return null;
 
