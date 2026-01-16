@@ -39,15 +39,24 @@ export default function AnalyticsManager() {
 
   // Pageviews SPA (solo si analytics está granted)
   useEffect(() => {
-    const prefs = getCookiePreferences();
     type Gtag = (...args: unknown[]) => void;
-    const w = window as unknown as { gtag?: Gtag };
-    const gtag = w.gtag;
-    if (!GA_ID || typeof gtag !== 'function') return;
-    if (!prefs?.analytics) return;
+    const sendPageview = () => {
+      const prefs = getCookiePreferences();
+      const w = window as unknown as { gtag?: Gtag };
+      const gtag = w.gtag;
+      if (!GA_ID || typeof gtag !== 'function') return;
+      if (!prefs?.analytics) return;
 
-    const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
-    gtag('event', 'page_view', { page_path: url, page_location: url } as Record<string, unknown>);
+      const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
+      gtag('event', 'page_view', { page_path: url, page_location: url } as Record<string, unknown>);
+    };
+
+    sendPageview();
+    window.addEventListener('analyticsScriptLoaded', sendPageview);
+
+    return () => {
+      window.removeEventListener('analyticsScriptLoaded', sendPageview);
+    };
   }, [pathname, searchParams, GA_ID]);
 
   return null;
