@@ -42,17 +42,18 @@ export default function AnalyticsManager() {
     type Gtag = (...args: unknown[]) => void;
     const sendPageview = () => {
       const prefs = getCookiePreferences();
-      const w = window as unknown as { gtag?: Gtag };
+      const w = window as Window & { gtag?: Gtag; analyticsScriptLoaded?: boolean };
       const gtag = w.gtag;
       if (!GA_ID || typeof gtag !== 'function') return;
       if (!prefs?.analytics) return;
+      if (!w.analyticsScriptLoaded) return;
 
       const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
       gtag('event', 'page_view', { page_path: url, page_location: url } as Record<string, unknown>);
     };
 
-    sendPageview();
     window.addEventListener('analyticsScriptLoaded', sendPageview);
+    sendPageview();
 
     return () => {
       window.removeEventListener('analyticsScriptLoaded', sendPageview);
