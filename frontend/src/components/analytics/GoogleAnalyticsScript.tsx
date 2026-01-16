@@ -28,6 +28,7 @@ export default function GoogleAnalyticsScript({ enabled }: { enabled: boolean })
           gtag('config', '${GA_ID}', {
             anonymize_ip: true
           });
+          window.analyticsScriptLoaded = true;
           window.dispatchEvent(new Event('analyticsScriptLoaded'));
         `}
       </Script>

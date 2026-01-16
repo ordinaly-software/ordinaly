@@ -51,8 +51,8 @@ export default function AnalyticsManager() {
       gtag('event', 'page_view', { page_path: url, page_location: url } as Record<string, unknown>);
     };
 
-    sendPageview();
     window.addEventListener('analyticsScriptLoaded', sendPageview);
+    sendPageview();
 
     return () => {
       window.removeEventListener('analyticsScriptLoaded', sendPageview);
