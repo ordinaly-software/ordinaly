@@ -12,6 +12,7 @@ import { LocalSeoSection } from "@/components/home/local-seo-section";
 import { CtaSection } from "@/components/home/cta-section";
 import Footer from "@/components/ui/footer";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -75,6 +76,13 @@ const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"),
   loading: () => null,
   ssr: false,
 });
+const WhatsAppBubble = dynamic(
+  () => import("@/components/home/whatsapp-bubble").then((mod) => mod.default),
+  {
+    ssr: false,
+    loading: () => <WhatsAppBubbleSkeleton />,
+  },
+);
 function DeferredSection({
   children,
   className,
@@ -219,13 +227,17 @@ export default function HomePage({
   }, [t]);
 
   const [shouldRenderDeferredSections, setShouldRenderDeferredSections] = useState(false);
+  const [showWhatsAppBubble, setShowWhatsAppBubble] = useState(false);
 
   useEffect(() => {
     const idleWindow = window as Window & {
       requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
       cancelIdleCallback?: (handle: number) => void;
     };
-    const scheduleRender = () => setShouldRenderDeferredSections(true);
+    const scheduleRender = () => {
+      setShouldRenderDeferredSections(true);
+      setShowWhatsAppBubble(true);
+    };
     let idleHandle: number | null = null;
     let timeoutHandle: number | null = null;
 
@@ -320,17 +332,11 @@ export default function HomePage({
       <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
       {shouldRenderDeferredSections ? (
         <>
-          <DeferredSection rootMargin="2000px 0px">
-            <ProcessSection t={t} />
-          </DeferredSection>
-          <DeferredSection rootMargin="2000px 0px">
-            <BenefitsSection t={t} />
+          <DeferredSection>
+            <ContactForm />
           </DeferredSection>
           <DeferredSection rootMargin="2400px 0px">
             <UseCasesSection t={t} />
-          </DeferredSection>
-          <DeferredSection>
-            <WorkWithUsSection />
           </DeferredSection>
           <DeferredSection>
             <TestimonialsSection t={t} />
@@ -338,10 +344,11 @@ export default function HomePage({
           <DeferredSection>
             <PartnersSection t={t} />
           </DeferredSection>
-          <DeferredSection>
-            <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-              <ContactForm />
-            </section>
+          <DeferredSection rootMargin="2000px 0px">
+            <ProcessSection t={t} />
+          </DeferredSection>
+          <DeferredSection rootMargin="2000px 0px">
+            <BenefitsSection t={t} />
           </DeferredSection>
         </>
       ) : (
@@ -354,6 +361,8 @@ export default function HomePage({
         </>
       )}
       <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
+
+      {showWhatsAppBubble ? <WhatsAppBubble /> : <WhatsAppBubbleSkeleton />}
       <Footer />
     </div>
   );

@@ -9,6 +9,7 @@ import ShareCourseButtons from './share-course-buttons';
 import CourseFooter from './course-footer';
 import { useTranslations } from 'next-intl';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
+import { openPastCourseWhatsApp } from '@/utils/past-course';
 
 interface Course {
   id: number;
@@ -185,6 +186,7 @@ const CourseDetailsModal = ({
   onAuthRequired
 }: CourseDetailsModalProps) => {
   const t = useTranslations('formation.courseDetails');
+  const formationT = useTranslations('formation');
   // ...existing code...
 
   const formatDate = (dateString: string) => {
@@ -229,6 +231,10 @@ const CourseDetailsModal = ({
       t('weekdays.sunday.full')
     ];
     return weekdays.map(day => names[day]).join(', ');
+  };
+
+  const handleRequestEdition = () => {
+    openPastCourseWhatsApp(course, formationT);
   };
 
   const handleEnrollClick = () => {
@@ -386,11 +392,24 @@ const CourseDetailsModal = ({
               onEnroll={onEnroll}
               onCancel={onCancel}
               onAuthRequired={onAuthRequired}
+              onRequestEdition={handleRequestEdition}
+              requestEditionLabel={formationT('wantNewEdition')}
+              showRequestEdition={hasEnded}
             />
           </div>
         </div>
 
-    <CourseFooter shouldShowAuth={shouldShowAuth} canEnroll={canEnroll} handleEnrollClick={handleEnrollClick} onEnroll={onEnroll} t={t} />
+    <CourseFooter
+      shouldShowAuth={shouldShowAuth}
+      canEnroll={canEnroll}
+      handleEnrollClick={handleEnrollClick}
+      onEnroll={onEnroll}
+      showRequestEdition={hasEnded}
+      hasEnded={hasEnded}
+      onRequestEdition={handleRequestEdition}
+      requestEditionLabel={formationT('wantNewEdition')}
+      t={t}
+    />
       </div>
     </Modal>
   );
