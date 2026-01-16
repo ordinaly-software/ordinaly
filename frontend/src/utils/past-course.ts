@@ -9,7 +9,7 @@ type CourseReference = {
   id?: number | string | null;
 };
 
-type TranslationFn = (key: string, vars?: Record<string, unknown>) => string;
+type TranslationFn = (key: string, vars?: Record<string, string | number | Date>) => string;
 
 export function cleanCourseTitle(title: string) {
   if (!title) return "";
