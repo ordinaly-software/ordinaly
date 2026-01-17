@@ -1,36 +1,6 @@
+"use server";
+
 import { NextResponse } from "next/server";
-
-const RECAPTCHA_SECRET_KEY = process.env.RECAPTCHA_SECRET_KEY;
-const CAPTCHA_FAILURE_MESSAGE = "Captcha verification failed";
-const RECAPTCHA_VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
-
-async function verifyRecaptcha(token?: string | null): Promise<boolean> {
-  if (!RECAPTCHA_SECRET_KEY) {
-    return true;
-  }
-  if (!token) {
-    return false;
-  }
-
-  const payload = new URLSearchParams();
-  payload.append("secret", RECAPTCHA_SECRET_KEY);
-  payload.append("response", token);
-
-  try {
-    const verifyResponse = await fetch(RECAPTCHA_VERIFY_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: payload,
-    });
-    if (!verifyResponse.ok) {
-      return false;
-    }
-    const data = await verifyResponse.json().catch(() => null);
-    return Boolean(data?.success);
-  } catch {
-    return false;
-  }
-}
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -40,11 +10,6 @@ export async function POST(req: Request) {
   }
 
   const requestBody = body as Record<string, unknown>;
-  const captchaToken = typeof requestBody.captchaToken === "string" ? requestBody.captchaToken : null;
-  if (!(await verifyRecaptcha(captchaToken))) {
-    return NextResponse.json({ error: CAPTCHA_FAILURE_MESSAGE }, { status: 400 });
-  }
-
   const allowedKeys = ["name", "email", "phone", "company", "details"] as const;
   const lead: Record<string, string> = {};
 
