@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+import type { MouseEvent } from 'react';
 import dynamic from "next/dynamic";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,6 +12,7 @@ import { useCourses, type Course } from "@/hooks/useCourses";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import Image from 'next/image';
+import { openPastCourseWhatsApp, cleanCourseTitle } from "@/utils/past-course";
 const AuthModal = dynamic(() => import("@/components/auth/auth-modal"), { ssr: false });
 
 interface CoursesShowcaseProps {
@@ -165,7 +167,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     router.push(`/formation/${course.slug ?? course.id}`);
   }, [onCourseClick, router]);
 
-  const handleSignUpClick = useCallback((e: React.MouseEvent, course: Course) => {
+  const handleSignUpClick = useCallback((e: MouseEvent<HTMLButtonElement>, course: Course) => {
     e.stopPropagation();
     if (isAuthenticated) {
       router.push(`/formation/${course.slug ?? course.id}`);
@@ -174,6 +176,10 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       setIsAuthModalOpen(true);
     }
   }, [isAuthenticated, router]);
+
+  const handlePastCourseInquiry = useCallback((course: Course) => {
+    openPastCourseWhatsApp(course, t);
+  }, [t]);
 
   const formatDate = (dateString: string) => {
     if (!dateString || dateString === "0000-00-00") {
@@ -361,7 +367,28 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   {displayCourses.map((course, index) => {
                   const availabilityBadge = getAvailabilityBadge(course);
                   const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
-                  const highlightUpcoming = !!(startDate && startDate > now);
+                  const endDate = course.end_date && course.end_date !== "0000-00-00" ? new Date(course.end_date) : null;
+                  const highlightUpcoming = Boolean(startDate && startDate > now);
+                  const isPastCourse = Boolean(
+                    endDate
+                      ? endDate < now
+                      : startDate
+                        ? startDate < now
+                        : false
+                  );
+                  const cleanTitle = cleanCourseTitle(course.title);
+                  const fallbackTitle = cleanTitle.split(' ').slice(0, 3).join(' ');
+                  const handleAction = (event: React.MouseEvent<HTMLButtonElement>) => {
+                    if (isPastCourse) {
+                      event.stopPropagation();
+                      handlePastCourseInquiry(course);
+                      return;
+                    }
+                    handleSignUpClick(event, course);
+                  };
+                  const buttonLabel = highlightUpcoming
+                    ? t('enrollCta')
+                    : t('moreInfo');
                   
                   return (
                     <div
@@ -398,11 +425,11 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                                     <BookOpen className="w-8 h-8 text-[#1F8A0D] dark:text-[#7CFC00]" />
                                   </div>
                                   <p className="text-sm font-medium px-4">
-                                    {course.title.replace(/🌐 |🐍 |📊 |📱 |☁️ |🎨 |🤖 |🔒 |🔗 |💻 |📈 |🔧 /g, '').split(' ').slice(0, 3).join(' ')}
+                                    {fallbackTitle || course.title}
                                   </p>
                                 </div>
                               </div>
-                            )}
+                        )}
                             {availabilityBadge && (
                               <div className="absolute top-3 left-3">
                                 <Badge variant={availabilityBadge.variant}>
@@ -424,7 +451,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                           
                           <div className="space-y-2">
                             <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition-colors break-words whitespace-pre-line">
-                              {course.title.replace(/🌐 |🐍 |📊 |📱 |☁️ |🎨 |🤖 |🔒 |🔗 |💻 |📈 |🔧 /g, '')}
+                              {cleanTitle}
                             </CardTitle>
                             {course.subtitle && (
                               <CardDescription className="text-gray-800 dark:text-gray-200 line-clamp-2">
@@ -500,16 +527,43 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             )}
                           </div>
 
-                          {/* Action Button */}
-                          <Button
-                            className="mt-6 w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] transition-all duration-300 group shadow-sm hover:shadow-md"
-                            onClick={(e) => handleSignUpClick(e, course)}
-                          >
-                            <>
-                              <span>{highlightUpcoming ? t('enrollCta') : t('moreInfo')}</span>
-                              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                            </>
-                          </Button>
+                          {/* Action Buttons */}
+                          <div className="flex flex-col gap-3 mt-6">
+                            {isPastCourse ? (
+                              <>
+                                <Button
+                                  className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] transition-all duration-300 shadow-sm hover:shadow-md"
+                                  onClick={(event) => {
+                                    event.stopPropagation();
+                                    handlePastCourseInquiry(course);
+                                  }}
+                                >
+                                  <span>{t('wantNewEdition')}</span>
+                                </Button>
+                                <Button
+                                  variant="outline"
+                                  className="w-full border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/70"
+                                  onClick={(event) => {
+                                    event.stopPropagation();
+                                    handleCourseClick(course);
+                                  }}
+                                >
+                                  {t('viewDetails')}
+                                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                </Button>
+                              </>
+                            ) : (
+                              <Button
+                                className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] transition-all duration-300 group shadow-sm hover:shadow-md"
+                                onClick={handleAction}
+                              >
+                                <>
+                                  <span>{buttonLabel}</span>
+                                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                </>
+                              </Button>
+                            )}
+                          </div>
                         </CardContent>
                       </Card>
                     </div>

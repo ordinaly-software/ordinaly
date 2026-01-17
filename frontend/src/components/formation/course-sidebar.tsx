@@ -29,9 +29,25 @@ interface Props {
   onEnroll: () => void;
   onCancel: () => void;
   onAuthRequired: () => void;
+  onRequestEdition: () => void;
+  requestEditionLabel: string;
+  showRequestEdition: boolean;
 }
 
-const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnded, canEnroll, shouldShowAuth, onEnroll, onCancel, onAuthRequired }) => {
+const CourseSidebar: React.FC<Props> = ({
+  course,
+  isEnrolled,
+  hasStarted,
+  hasEnded,
+  canEnroll,
+  shouldShowAuth,
+  onEnroll,
+  onCancel,
+  onAuthRequired,
+  onRequestEdition,
+  requestEditionLabel,
+  showRequestEdition,
+}) => {
   const t = useTranslations('formation.courseDetails');
 
   const getPeriodicityDisplay = (periodicity: string) => {
@@ -120,7 +136,7 @@ const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnd
           )}
         </div>
 
-        {hasNoDatesPlaceholder(course) ? (
+          {hasNoDatesPlaceholder(course) ? (
           <div className="text-center">
             <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-200 dark:bg-yellow-700 text-yellow-700 dark:text-yellow-200 mb-2">
               {t('noSpecificDate')}
@@ -152,6 +168,15 @@ const CourseSidebar: React.FC<Props> = ({ course, isEnrolled, hasStarted, hasEnd
 
         {isEnrolled && !hasStarted && (
           <Button onClick={onCancel} variant="outline" className="w-full border-red-200 text-red-600 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-900/20 mb-2">{t('cancelEnrollment')}</Button>
+        )}
+
+        {hasEnded && showRequestEdition && (
+          <Button
+            onClick={onRequestEdition}
+            className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white shadow-lg transition-all duration-300 transform hover:scale-105"
+          >
+            {requestEditionLabel}
+          </Button>
         )}
       </div>
 

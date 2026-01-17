@@ -45,7 +45,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
   const [pastCourses, setPastCourses] = useState<Course[]>([]);
-  const [showPastCourses, setShowPastCourses] = useState(false);
+  const [showPastCourses, setShowPastCourses] = useState(true);
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterLocation, setFilterLocation] = useState<'all' | 'online' | 'onsite'>('all');

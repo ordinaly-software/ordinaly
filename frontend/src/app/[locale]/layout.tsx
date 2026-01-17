@@ -11,9 +11,8 @@ import BackToTopButton from "@/components/ui/back-to-top-button";
 import { absoluteUrl, getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
-import AnalyticsManager from "@/utils/analyticsManager";
-import AnalyticsConsentGate from "@/components/analytics/analytics-consent-gate";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
+import GoogleAnalyticsLoader from "@/components/analytics/google-analytics-loader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -94,7 +93,7 @@ export default async function RootLayout({
   if (!routing.locales.includes(locale as Locale)) notFound();
 
   return (
-    <html lang={locale} className={inter.variable} suppressHydrationWarning>
+    <html lang={locale} data-scroll-behavior="smooth" className={inter.variable} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://api.ordinaly.ai" />
         <link rel="dns-prefetch" href="https://api.ordinaly.ai" />
@@ -140,21 +139,8 @@ export default async function RootLayout({
         >
           Skip to content
         </a>
-        {process.env.NODE_ENV === "production" && <AnalyticsConsentGate />}
 
-        {process.env.NODE_ENV === "production" && process.env.NEXT_PUBLIC_GA_ID ? (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_ID}`}
-              strategy="lazyOnload"
-            />
-            <Script id="gtag-init" strategy="lazyOnload">
-              {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${process.env.NEXT_PUBLIC_GA_ID}', { send_page_view: false });`}
-            </Script>
-          </>
-        ) : null}
-
-        <AnalyticsManager />
+        <GoogleAnalyticsLoader />
 
         <NextIntlClientProvider>
           <ThemeProvider>

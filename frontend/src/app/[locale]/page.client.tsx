@@ -12,6 +12,7 @@ import { LocalSeoSection } from "@/components/home/local-seo-section";
 import { CtaSection } from "@/components/home/cta-section";
 import Footer from "@/components/ui/footer";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -47,13 +48,35 @@ const CoursesShowcase = dynamic(
     ),
   },
 );
+const SectionSkeleton = () => (
+  <section
+    aria-hidden="true"
+    className="mx-auto my-6 w-full max-w-6xl animate-pulse rounded-3xl bg-white/80 p-6 shadow-xl shadow-slate-900/10 dark:bg-white/[0.04] dark:shadow-black/30"
+  >
+    <div className="h-6 w-40 rounded-full bg-slate-200 dark:bg-slate-700 mb-6" />
+    <div className="space-y-3">
+      {[1, 2, 3].map((line) => (
+        <div
+          key={line}
+          className="h-3 rounded-full bg-slate-200 dark:bg-slate-700"
+          style={{ width: `${90 - line * 10}%` }}
+        />
+      ))}
+      <div className="mt-6 flex flex-wrap gap-3">
+        {[1, 2, 3].map((pill) => (
+          <div key={pill} className="h-3 min-w-[5rem] flex-1 rounded-full bg-slate-200 dark:bg-slate-700" />
+        ))}
+      </div>
+    </div>
+  </section>
+);
 const ProcessSection = dynamic(
   () => import("@/components/home/process-section").then((mod) => mod.ProcessSection),
-  { loading: () => null, ssr: false },
+  { loading: () => <SectionSkeleton />, ssr: false },
 );
 const BenefitsSection = dynamic(
   () => import("@/components/home/benefits-section").then((mod) => mod.BenefitsSection),
-  { loading: () => null, ssr: false },
+  { loading: () => <SectionSkeleton />, ssr: false },
 );
 const UseCasesSection = dynamic(
   () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
@@ -75,6 +98,13 @@ const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"),
   loading: () => null,
   ssr: false,
 });
+const WhatsAppBubble = dynamic(
+  () => import("@/components/home/whatsapp-bubble").then((mod) => mod.default),
+  {
+    ssr: false,
+    loading: () => <WhatsAppBubbleSkeleton />,
+  },
+);
 function DeferredSection({
   children,
   className,
@@ -160,29 +190,6 @@ function DeferredSection({
   );
 }
 
-const SectionSkeleton = () => (
-  <section
-    aria-hidden="true"
-    className="mx-auto my-6 w-full max-w-6xl animate-pulse rounded-3xl bg-white/80 p-6 shadow-xl shadow-slate-900/10 dark:bg-white/[0.04] dark:shadow-black/30"
-  >
-    <div className="h-6 w-40 rounded-full bg-slate-200 dark:bg-slate-700 mb-6" />
-    <div className="space-y-3">
-      {[1, 2, 3].map((line) => (
-        <div
-          key={line}
-          className="h-3 rounded-full bg-slate-200 dark:bg-slate-700"
-          style={{ width: `${90 - line * 10}%` }}
-        />
-      ))}
-      <div className="mt-6 flex flex-wrap gap-3">
-        {[1, 2, 3].map((pill) => (
-          <div key={pill} className="h-3 min-w-[5rem] flex-1 rounded-full bg-slate-200 dark:bg-slate-700" />
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
 export default function HomePage({
   initialServices = [],
   initialCourses = [],
@@ -219,13 +226,17 @@ export default function HomePage({
   }, [t]);
 
   const [shouldRenderDeferredSections, setShouldRenderDeferredSections] = useState(false);
+  const [showWhatsAppBubble, setShowWhatsAppBubble] = useState(false);
 
   useEffect(() => {
     const idleWindow = window as Window & {
       requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
       cancelIdleCallback?: (handle: number) => void;
     };
-    const scheduleRender = () => setShouldRenderDeferredSections(true);
+    const scheduleRender = () => {
+      setShouldRenderDeferredSections(true);
+      setShowWhatsAppBubble(true);
+    };
     let idleHandle: number | null = null;
     let timeoutHandle: number | null = null;
 
@@ -320,17 +331,11 @@ export default function HomePage({
       <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
       {shouldRenderDeferredSections ? (
         <>
-          <DeferredSection rootMargin="2000px 0px">
-            <ProcessSection t={t} />
-          </DeferredSection>
-          <DeferredSection rootMargin="2000px 0px">
-            <BenefitsSection t={t} />
+          <DeferredSection>
+            <ContactForm />
           </DeferredSection>
           <DeferredSection rootMargin="2400px 0px">
             <UseCasesSection t={t} />
-          </DeferredSection>
-          <DeferredSection>
-            <WorkWithUsSection />
           </DeferredSection>
           <DeferredSection>
             <TestimonialsSection t={t} />
@@ -338,10 +343,14 @@ export default function HomePage({
           <DeferredSection>
             <PartnersSection t={t} />
           </DeferredSection>
+          <DeferredSection rootMargin="2000px 0px">
+            <ProcessSection t={t} />
+          </DeferredSection>
           <DeferredSection>
-            <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-              <ContactForm />
-            </section>
+            <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
+          </DeferredSection>
+          <DeferredSection rootMargin="2000px 0px">
+            <BenefitsSection t={t} />
           </DeferredSection>
         </>
       ) : (
@@ -353,7 +362,8 @@ export default function HomePage({
           <SectionSkeleton />
         </>
       )}
-      <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
+
+      {showWhatsAppBubble ? <WhatsAppBubble /> : <WhatsAppBubbleSkeleton />}
       <Footer />
     </div>
   );

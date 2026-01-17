@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Calendar, MapPin, Users, UserCheck, UserX, ArrowRight, GraduationCap } from "lucide-react";
 import type { Course } from "@/utils/pdf-generator";
+import { openPastCourseWhatsApp } from "@/utils/past-course";
 
 interface CourseCardProps {
   course: Course;
@@ -42,6 +43,17 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 }) => {
   const t = useTranslations("formation");
   const isIncompleteSchedule = !course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time;
+  const isPastVariant = variant === "past";
+
+  const handleRequestEdition = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    openPastCourseWhatsApp(course, t);
+  };
+
+  const handleViewDetailsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+    if (onViewDetails) onViewDetails();
+  };
 
   return (
     <Card
@@ -162,38 +174,57 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 
           {/* Action Buttons */}
           <div className="flex flex-col gap-4">
-            {variant === "upcoming" && (
-              enrolled ? (
+            {isPastVariant ? (
+              <>
                 <Button
-                  onClick={(e) => { e.stopPropagation(); if (!disableUnenroll && onCancel) onCancel(); }}
-                  variant="outline"
-                  className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-14 text-lg"
-                  disabled={disableUnenroll}
-                  title={disableUnenroll && unenrollRestrictionReason ? unenrollRestrictionReason : undefined}
-                >
-                  <UserX className="w-5 h-5 mr-2" />
-                  {t("cancelEnrollment")}
-                </Button>
-              ) : (
-                <Button
-                  onClick={(e) => { e.stopPropagation(); if (onEnroll) onEnroll(); }}
+                  onClick={handleRequestEdition}
                   className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
-                  disabled={disableEnroll || isIncompleteSchedule}
-                  title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
                 >
-                  <GraduationCap className="w-5 h-5 mr-2" />
-                  {t("enroll")}
+                  {t("wantNewEdition")}
                 </Button>
-              )
+                <Button
+                  variant="outline"
+                  onClick={handleViewDetailsClick}
+                  className="w-full border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 h-12 transition-all duration-300"
+                >
+                  {t("viewDetails")}
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </>
+            ) : (
+              <>
+                {enrolled ? (
+                  <Button
+                    onClick={(e) => { e.stopPropagation(); if (!disableUnenroll && onCancel) onCancel(); }}
+                    variant="outline"
+                    className="w-full border-red-500 text-red-500 hover:bg-red-500 hover:text-white transition-all duration-300 h-14 text-lg"
+                    disabled={disableUnenroll}
+                    title={disableUnenroll && unenrollRestrictionReason ? unenrollRestrictionReason : undefined}
+                  >
+                    <UserX className="w-5 h-5 mr-2" />
+                    {t("cancelEnrollment")}
+                  </Button>
+                ) : (
+                  <Button
+                    onClick={(e) => { e.stopPropagation(); if (onEnroll) onEnroll(); }}
+                    className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                    disabled={disableEnroll || isIncompleteSchedule}
+                    title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
+                  >
+                    <GraduationCap className="w-5 h-5 mr-2" />
+                    {t("enroll")}
+                  </Button>
+                )}
+                <Button
+                  variant="outline"
+                  onClick={handleViewDetailsClick}
+                  className="w-full border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-white hover:bg-[#0d6e0c] dark:hover:bg-[#7CFC00] dark:hover:text-[#0B1B17] hover:text-white h-14 text-lg transition-all duration-300"
+                >
+                  {t("viewDetails")}
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </Button>
+              </>
             )}
-            <Button
-              variant={variant === "upcoming" ? "outline" : "outline"}
-              onClick={(e) => { e.stopPropagation(); if (onViewDetails) onViewDetails(); }}
-              className={`w-full ${variant === "upcoming" ? "border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-white hover:bg-[#0d6e0c] dark:hover:bg-[#7CFC00] dark:hover:text-[#0B1B17] hover:text-white h-14 text-lg" : "border-gray-400 text-gray-600 hover:bg-gray-100 hover:text-gray-800 h-12"} transition-all duration-300`}
-            >
-              {t("viewDetails")}
-              <ArrowRight className="w-5 h-5 ml-2" />
-            </Button>
           </div>
         </CardContent>
       </div>

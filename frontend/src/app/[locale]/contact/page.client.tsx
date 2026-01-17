@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "next-intl";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
@@ -11,12 +12,22 @@ import ContactForm from "@/components/ui/contact-form.client";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 import { Mail, Phone, MapPin, Clock, Send, Instagram, Youtube, Pin, Linkedin, VideoIcon, ExternalLink } from "lucide-react";
 import Footer from "@/components/ui/footer";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+
+const WhatsAppBubble = dynamic(
+  () => import("@/components/home/whatsapp-bubble").then((mod) => mod.default),
+  {
+    ssr: false,
+    loading: () => <WhatsAppBubbleSkeleton />,
+  },
+);
 
 export default function ContactPage() {
   const t = useTranslations("contactPage");
   const [locationImageIndex, setLocationImageIndex] = useState(0);
   const cookiePreferences = useCookiePreferences();
   const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
+  const [showWhatsAppBubble, setShowWhatsAppBubble] = useState(false);
 
   const team = [
     {
@@ -122,6 +133,31 @@ export default function ContactPage() {
     return () => clearInterval(interval);
   }, [locationImages.length]);
 
+  useEffect(() => {
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+    const scheduleBubble = () => setShowWhatsAppBubble(true);
+    let idleHandle: number | null = null;
+    let timeoutHandle: number | null = null;
+
+    if (idleWindow.requestIdleCallback) {
+      idleHandle = idleWindow.requestIdleCallback(scheduleBubble, { timeout: 800 });
+    } else {
+      timeoutHandle = window.setTimeout(scheduleBubble, 600);
+    }
+
+    return () => {
+      if (idleHandle !== null) {
+        idleWindow.cancelIdleCallback?.(idleHandle);
+      }
+      if (timeoutHandle !== null) {
+        window.clearTimeout(timeoutHandle);
+      }
+    };
+  }, []);
+
 
 
   return (
@@ -225,8 +261,11 @@ export default function ContactPage() {
         </div>
       </section>
 
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" id="contact-form">
+        <ContactForm />
+      </section>
+
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" id="direct-contacts">
-        <br></br>
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
             {t("info.title")}
@@ -332,10 +371,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" id="contact-form">
-        <ContactForm />
-      </section>
-
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl p-6">
           <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
@@ -386,6 +421,7 @@ export default function ContactPage() {
         </div>
       </section>
       <WorkWithUsSection />
+      {showWhatsAppBubble ? <WhatsAppBubble /> : <WhatsAppBubbleSkeleton />}
 
       <Footer />
     </div>
