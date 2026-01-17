@@ -93,7 +93,7 @@ export default async function RootLayout({
   if (!routing.locales.includes(locale as Locale)) notFound();
 
   return (
-    <html lang={locale} className={inter.variable} suppressHydrationWarning>
+    <html lang={locale} data-scroll-behavior="smooth" className={inter.variable} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://api.ordinaly.ai" />
         <link rel="dns-prefetch" href="https://api.ordinaly.ai" />
