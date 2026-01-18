@@ -264,7 +264,7 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
     python3 -m venv venv
     source venv/bin/activate
     pip install -r requirements.txt
-    # Copia y configura .env proporcionada (DJANGO_SECRET_KEY, GOOGLE_OAUTH2_CLIENT_ID, GOOGLE_OAUTH2_CLIENT_SECRET, ORDINALY_TEST_PASSWORD y RECAPTCHA_SECRET_KEY para proteger formularios)
+    # Copia y configura .env proporcionada (DJANGO_SECRET_KEY, GOOGLE_OAUTH2_CLIENT_ID, GOOGLE_OAUTH2_CLIENT_SECRET, ORDINALY_TEST_PASSWORD para proteger formularios)
     # Migraciones iniciales
     python manage.py migrate
     # (Opcional) Crea superusuario
@@ -284,7 +284,7 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
 3. Instala dependencias del frontend (Next.js):
     ```sh
     cd ../frontend
-    Copia y configura .env.local proporcionada (se puede encontrar la plantilla en .env.example y recuerda definir NEXT_PUBLIC_RECAPTCHA_SITE_KEY)
+    Copia y configura .env.local proporcionada (se puede encontrar la plantilla en .env.example)
     npm install
     npm run dev
     ```

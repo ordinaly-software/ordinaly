@@ -10,7 +10,6 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils import timezone
 from .models import CustomUser
 from .serializers import CustomUserSerializer
-from utils.recaptcha import verify_recaptcha_token
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -32,9 +31,6 @@ class UserViewSet(viewsets.ModelViewSet):
         if request.user.is_authenticated:
             return Response({'detail': 'You are already signed in.'}, status=status.HTTP_400_BAD_REQUEST)
         data = dict(request.data)
-        captcha_token = data.pop("captchaToken", None)
-        if not verify_recaptcha_token(captcha_token):
-            return Response({'captcha': ['Captcha verification failed']}, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)

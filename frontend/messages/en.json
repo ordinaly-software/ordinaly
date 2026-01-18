@@ -581,8 +581,6 @@
     "messages": {
       "success": "Account created successfully! Redirecting...",
       "networkError": "Network error. Please check your connection and try again.",
-      "captchaRequired": "Please confirm you are not a robot.",
-      "captchaFailed": "CAPTCHA verification failed. Please try again.",
       "validation": {
         "nameRequired": "Name is required",
         "surnameRequired": "Surname is required",
@@ -1917,9 +1915,7 @@
       "submit": "Send message",
       "sending": "Sending...",
       "success": "Thanks! We've received your message and will reply shortly.",
-      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai.",
-      "captchaRequired": "Please confirm you are not a robot.",
-      "captchaError": "We couldn't verify the CAPTCHA. Please try again."
+      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai."
     },
     "team": {
       "1": {
