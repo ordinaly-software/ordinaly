@@ -166,6 +166,8 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+X_FRAME_OPTIONS = "SAMEORIGIN"  # allow same-origin embedding (needed for the blog iframe)
+
 # Authentication backends
 AUTHENTICATION_BACKENDS = [
     'users.authentication.EmailOrUsernameModelBackend',
