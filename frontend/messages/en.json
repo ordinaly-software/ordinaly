@@ -2015,6 +2015,75 @@
       "mailBody": "Hi team,\n\nI'd love to join Ordinary. Here's my profile and why I'm a fit:\n\n- Role/area of interest:\n- Relevant experience:\n- Links (CV/portfolio/LinkedIn):\n\nThanks!"
     }
   },
+  "investors": {
+    "hero": {
+      "tagline": "Investors",
+      "title": "Investing in automation that keeps companies agile",
+      "subtitle": "Ordinaly designs AI agents, automation operating systems, and bespoke training to help organizations move faster without losing human oversight.",
+      "ctaPrimary": "Download investor deck",
+      "ctaSecondary": "Schedule a call",
+      "footnote": "Detailed metrics and supporting materials are available upon request.",
+      "focusLabel": "Investor focus",
+      "focusTitle": "Compound automation runway",
+      "focusBody": "We keep delivery teams lean while serving complex, regulated clients across Europe."
+    },
+    "stats": {
+      "title": "Momentum at a glance",
+      "subtitle": "Performance indicators that back our growth story.",
+      "market": {
+        "label": "Addressable market",
+        "value": "€1.2B+",
+        "detail": "Automation demand across Iberia and the broader European market."
+      },
+      "clients": {
+        "label": "Enterprise partners",
+        "value": "45+",
+        "detail": "Active automation retainers and multi-project engagements."
+      },
+      "efficiency": {
+        "label": "Efficiency uplift",
+        "value": "38%",
+        "detail": "Average reduction in manual work for our portfolio clients."
+      }
+    },
+    "highlights": {
+      "title": "Why partner with Ordinaly",
+      "subtitle": "We combine domain expertise, trust, and disciplined governance.",
+      "global": {
+        "title": "Pan-European reach",
+        "body": "We deliver automation across industries and geographies with localized teams."
+      },
+      "traction": {
+        "title": "Proven traction",
+        "body": "Recurring revenue, healthy margins, and an actionable sales pipeline."
+      },
+      "governance": {
+        "title": "Sound governance",
+        "body": "Transparent reporting, measurable KPIs, and investor-first communication."
+      }
+    },
+    "roadmap": {
+      "title": "Next milestones",
+      "subtitle": "Our capital plan unlocks the next acceleration phase.",
+      "1": {
+        "title": "Expand service-led revenue",
+        "body": "Scale our consulting squads and packaged offerings to cover more industries."
+      },
+      "2": {
+        "title": "Automate the automation",
+        "body": "Ship internal tooling that accelerates delivery and improves margins."
+      },
+      "3": {
+        "title": "Launch new product tiers",
+        "body": "Introduce platform-grade offers for strategic partners and training programs."
+      }
+    },
+    "cta": {
+      "title": "Ready to explore the opportunity?",
+      "body": "Let’s align on KPIs, runway, and how your capital will translate into measurable impact.",
+      "button": "Talk with the team"
+    }
+  },
   "notFound": {
     "title": "Page not found",
     "description": "The page you're looking for doesn't exist or has been moved.",

@@ -59,16 +59,18 @@ const config: Config = {
   			},
   			green: {
   				DEFAULT: '#1F8A0D',
-  				50: '#E9F6E9',
-  				100: '#CDEACD',
-  				200: '#A0D9A0',
-  				300: '#74C874',
-  				400: '#47B747',
+  				50: '#F0F8F3',
+  				100: '#D1EFE0',
+  				200: '#A3DFC6',
+  				300: '#75CEAC',
+  				400: '#47BD92',
   				500: '#1F8A0D',
   				600: '#1B7A0B',
   				700: '#176A09',
   				800: '#135A07',
-  				900: '#0F4A05'
+  				900: '#0F4A05',
+  				dark: '#3FBD6F',
+  				dark_alt: '#2EA55E'
   			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',

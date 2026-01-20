@@ -2014,6 +2014,75 @@
       "mailBody": "Hola equipo,\n\nMe encantaría unirme a Ordinary. Aquí va mi perfil y por qué encajo:\n\n- Rol/área de interés:\n- Experiencia relevante:\n- Enlaces (CV/portfolio/LinkedIn):\n\n¡Gracias!"
     }
   },
+  "investors": {
+    "hero": {
+      "tagline": "Inversores",
+      "title": "Invirtiendo en automatización que mantiene ágiles a las empresas",
+      "subtitle": "Ordinaly articula agentes con IA, automatizaciones empresariales y formación para acelerar organizaciones sin perder el control humano.",
+      "ctaPrimary": "Descargar deck",
+      "ctaSecondary": "Agendar una llamada",
+      "footnote": "Compartimos métricas detalladas bajo solicitud.",
+      "focusLabel": "Enfoque inversor",
+      "focusTitle": "Trayectoria de automatización compuesta",
+      "focusBody": "Operamos con equipos ligeros y clientes complejos distribuidos."
+    },
+    "stats": {
+      "title": "Impulso en cifras",
+      "subtitle": "Indicadores clave que sostienen nuestra historia de crecimiento.",
+      "market": {
+        "label": "Mercado abordable",
+        "value": "€1,2B+",
+        "detail": "Demanda de automatización en España y Europa."
+      },
+      "clients": {
+        "label": "Socios atendidos",
+        "value": "45+",
+        "detail": "Retenciones activas y proyectos recurrentes."
+      },
+      "efficiency": {
+        "label": "Reducción manual",
+        "value": "38%",
+        "detail": "Descenso promedio del trabajo repetitivo en los clientes."
+      }
+    },
+    "highlights": {
+      "title": "Por qué invertir con Ordinaly",
+      "subtitle": "Combinamos expertise, confianza y gobernanza disciplinada.",
+      "global": {
+        "title": "Alcance paneuropeo",
+        "body": "Servimos a múltiples industrias y gestionamos automatizaciones multinacionales."
+      },
+      "traction": {
+        "title": "Tracción sólida",
+        "body": "Ingresos recurrentes, márgenes sanos y pipeline cualificado."
+      },
+      "governance": {
+        "title": "Gobernanza clara",
+        "body": "KPIs transparentes y comunicación activa con inversores."
+      }
+    },
+    "roadmap": {
+      "title": "Próximos hitos",
+      "subtitle": "El plan de inversión impulsa la siguiente fase de escala.",
+      "1": {
+        "title": "Expandir ingresos de servicios",
+        "body": "Escalar equipos de consultoría y paquetes por industria."
+      },
+      "2": {
+        "title": "Automatizar la automatización",
+        "body": "Lanzar herramientas internas que aceleren entregas y mejoren márgenes."
+      },
+      "3": {
+        "title": "Nuevas líneas de producto",
+        "body": "Ofrecer plataformas estratégicas y programas formativos."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para explorar la oportunidad?",
+      "body": "Hablemos de KPIs, runway y cómo el capital multiplica el impacto.",
+      "button": "Contactar al equipo"
+    }
+  },
   "notFound": {
     "title": "Página no encontrada",
     "description": "La página que buscas no existe o se ha movido.",
