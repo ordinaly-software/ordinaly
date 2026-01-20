@@ -191,7 +191,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
                 placeholder={t('searchPlaceholder', { default: 'Search blog posts...' })}
                 value={searchTerm}
                 onChange={e => handleSearchChange(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
               />
             </div>
             {/* Category Dropdown */}
@@ -242,7 +242,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
                   type="button"
                   onClick={() => handlePageChange(currentPage - 1)}
                   disabled={currentPage === 1 || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition"
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   {t('pagination.prev', { default: 'Previous' })}
@@ -265,7 +265,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
                   type="button"
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition"
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
                 >
                   {t('pagination.next', { default: 'Next' })}
                   <ArrowRight className="h-4 w-4" />
@@ -307,7 +307,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
                 type="button"
                 onClick={() => handlePageChange(1)}
                 disabled={currentPage === 1 || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition"
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
               >
                 <ChevronsLeft className="h-4 w-4" />
                 {t('pagination.first', { default: 'First' })}
@@ -317,7 +317,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
                 type="button"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1 || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition"
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
               >
                 <ArrowLeft className="h-4 w-4" />
                 {t('pagination.prev', { default: 'Previous' })}
@@ -335,7 +335,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
                   type="button"
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition"
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
                 >
                   {t('pagination.next')}
                   <ArrowRight className="h-4 w-4" />
@@ -344,7 +344,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
                   type="button"
                   onClick={() => handlePageChange(totalPages)}
                   disabled={currentPage === totalPages || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition"
+                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
                 >
                   {t('pagination.last', { default: 'Last' })}
                   <ChevronsRight className="h-4 w-4" />

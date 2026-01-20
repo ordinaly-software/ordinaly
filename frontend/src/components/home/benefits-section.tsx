@@ -12,7 +12,7 @@ const homeBenefits = [
     defaultTitle: "Ahorro de Tiempo Real",
     descriptionKey: "benefits.items.0.description",
     defaultDescription: "Automatiza tareas repetitivas y ahorra hasta 20 horas semanales con nuestros agentes de IA",
-    iconBg: "bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-[#0B1B17]",
+    iconBg: "bg-[#1F8A0D] dark:bg-[#3FBD6F] text-white dark:text-[#0B1B17]",
     iconPath: "M13 10V3L4 14h7v7l9-11h-7z",
   },
   {

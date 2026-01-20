@@ -271,7 +271,7 @@ const AdminServicesTab = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1F8A0D] dark:border-[#3FBD6F]"></div>
       </div>
     );
   }
@@ -339,7 +339,7 @@ const AdminServicesTab = () => {
           <Button
             onClick={handleCreate}
             size="sm"
-            className="bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
+            className="bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
           >
             <Plus className="h-4 w-4" />
             <span className="hidden xs:inline">{t("addService")}</span>
@@ -360,7 +360,7 @@ const AdminServicesTab = () => {
               type="checkbox"
               checked={paginatedServices.length > 0 && paginatedServices.every((s) => selectedServices.includes(s.id))}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D]"
+              className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               {t("selectAll")} ({filteredServices.length} {t("services")})

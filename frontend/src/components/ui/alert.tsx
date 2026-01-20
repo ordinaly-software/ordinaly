@@ -4,10 +4,10 @@ import { createPortal } from "react-dom";
 
 const styleMap = {
   success: {
-    bg: "bg-green-100",
-    border: "border-green-500",
-    text: "text-green-800",
-    icon: "text-green-600",
+    bg: "bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/20",
+    border: "border-[#1F8A0D] dark:border-[#3FBD6F]",
+    text: "text-[#1F8A0D] dark:text-[#3FBD6F]",
+    icon: "text-[#1F8A0D] dark:text-[#3FBD6F]",
   },
   error: {
     bg: "bg-red-100",

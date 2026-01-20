@@ -137,7 +137,7 @@ export function UseCasesSection({ t }: SectionProps) {
               <ul className="space-y-2 text-gray-700 dark:text-gray-300">
                 {item.bullets.map((bullet, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#1F8A0D] dark:text-[#7CFC00] mt-1">✓</span>
+                    <span className="text-[#1F8A0D] dark:text-[#3FBD6F] mt-1">✓</span>
                     <span>{t(`${item.bulletKey ?? item.titleKey.replace(".title", "")}.bullets.${idx}`)}</span>
                   </li>
                 ))}

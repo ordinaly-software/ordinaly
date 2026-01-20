@@ -442,7 +442,7 @@ const Navbar = () => {
                   aria-hidden="true"
                 />
               </div>
-              <div className="text-base sm:text-lg xl:text-xl 2xl:text-2xl font-bold text-[#0d6e0c] dark:text-[#7CFC00] truncate transition-colors duration-200">
+              <div className="text-base sm:text-lg xl:text-xl 2xl:text-2xl font-bold text-[#0d6e0c] dark:text-[#3FBD6F] truncate transition-colors duration-200">
                 {t("logo.title")}
               </div>
             </div>
@@ -528,14 +528,14 @@ const Navbar = () => {
                       className={cn(
                         "transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group",
                         isLinkActive(item.href)
-                          ? "text-green"
-                          : "text-gray-700 dark:text-gray-300 hover:text-green"
+                          ? "text-[#1F8A0D] dark:text-[#3FBD6F]"
+                          : "text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F]"
                       )}
                     >
                       {item.label}
                       <span
                         className={cn(
-                          "absolute -bottom-1 left-0 w-0 h-0.5 bg-green transition-all duration-300 group-hover:w-full",
+                          "absolute -bottom-1 left-0 w-0 h-0.5 bg-[#1F8A0D] dark:bg-[#3FBD6F] transition-all duration-300 group-hover:w-full",
                           isLinkActive(item.href) ? "w-full" : "w-0"
                         )}
                       />
@@ -548,7 +548,7 @@ const Navbar = () => {
                   <Button
                     size="sm"
                     onClick={handleBookConsultation}
-                    className="h-9 bg-[#0d6e0c] text-white shadow-md hover:bg-[#0A4D08] hover:shadow-lg transition-all duration-200 text-sm px-4"
+                    className="h-9 bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black shadow-md hover:shadow-lg transition-all duration-200 text-sm px-4"
                   >
                     {t("navigation.ctaConsultation")}
                   </Button>
@@ -567,7 +567,7 @@ const Navbar = () => {
                       size="sm"
                       onClick={goToSignIn}
                       aria-label={t("navigation.signIn")}
-                      className="text-gray-700 dark:text-gray-300 hover:text-green transition-all duration-200 flex items-center h-9"
+                      className="text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-all duration-200 flex items-center h-9"
                     >
                       <LogIn className="h-4 w-4 mr-2" />
                       {!compactAuth && <span>{t("navigation.signIn")}</span>}
@@ -577,7 +577,7 @@ const Navbar = () => {
                       <Button
                         size="sm"
                         onClick={goToSignUp}
-                        className="bg-[#0d6e0c] hover:bg-[#0A4D08] text-white transition-all duration-200 hover:scale-105 h-8 px-3 text-sm"
+                        className="bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black transition-all duration-200 hover:scale-105 h-8 px-3 text-sm"
                       >
                         {t("navigation.signUp")}
                       </Button>
@@ -644,7 +644,7 @@ const Navbar = () => {
                                   <Link
                                     href="/services"
                                     onClick={() => setIsMenuOpen(false)}
-                                    className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-green hover:bg-gray-100 dark:hover:bg-gray-800/70"
+                                    className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-100 dark:hover:bg-gray-800/70"
                                   >
                                     {t("navigation.serviceSubmenu")}
                                   </Link>
@@ -654,7 +654,7 @@ const Navbar = () => {
                                       key={service.id}
                                       href={`/services/${service.slug ?? service.id}`}
                                       onClick={() => setIsMenuOpen(false)}
-                                      className="block rounded-md px-2 py-2 text-sm font-medium text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800/70 hover:text-green"
+                                      className="block rounded-md px-2 py-2 text-sm font-medium text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800/70 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F]"
                                     >
                                       {service.title}
                                     </Link>
@@ -663,7 +663,7 @@ const Navbar = () => {
                                 <Link
                                   href="/services"
                                   onClick={() => setIsMenuOpen(false)}
-                                  className="block rounded-md px-2 py-2 text-sm font-semibold text-green hover:text-green-600"
+                                  className="block rounded-md px-2 py-2 text-sm font-semibold text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E]"
                                 >
                                   {t("navigation.serviceSubmenu")}
                                 </Link>
@@ -703,7 +703,7 @@ const Navbar = () => {
                                   <Link
                                     href="/formation"
                                     onClick={() => setIsMenuOpen(false)}
-                                    className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-green hover:bg-gray-100 dark:hover:bg-gray-800/70"
+                                    className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-100 dark:hover:bg-gray-800/70"
                                   >
                                     {t("navigation.formationSubmenu")}
                                   </Link>
@@ -729,7 +729,7 @@ const Navbar = () => {
                                     <Link
                                       href="/formation"
                                       onClick={() => setIsMenuOpen(false)}
-                                      className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-green hover:bg-gray-100 dark:hover:bg-gray-800/70"
+                                      className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-100 dark:hover:bg-gray-800/70"
                                     >
                                       {t("navigation.formationSubmenu")}
                                     </Link>
@@ -750,8 +750,8 @@ const Navbar = () => {
                       className={cn(
                         "transition-colors py-3 px-2 block rounded-md font-medium",
                         isLinkActive(item.href)
-                          ? "text-green bg-green/10"
-                          : "text-gray-700 dark:text-gray-300 hover:text-green hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                          ? "text-[#1F8A0D] dark:text-[#3FBD6F] bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/10"
+                          : "text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-50 dark:hover:bg-gray-800/50"
                       )}
                       onClick={() => setIsMenuOpen(false)}
                     >
@@ -764,7 +764,7 @@ const Navbar = () => {
                         <Link
                           href="/profile"
                           onClick={() => setIsMenuOpen(false)}
-                          className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-green hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors py-3 px-2 rounded-md"
+                          className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors py-3 px-2 rounded-md"
                         >
                           <User className="h-4 w-4 mr-3" />
                           {t("navigation.profile")}
@@ -773,7 +773,7 @@ const Navbar = () => {
                           <Link
                             href="/profile?tab=courses"
                             onClick={() => setIsMenuOpen(false)}
-                            className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-green hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors py-3 px-2 rounded-md"
+                            className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors py-3 px-2 rounded-md"
                           >
                             <BookOpen className="h-4 w-4 mr-3" />
                             {t("navigation.myCourses")}
@@ -783,7 +783,7 @@ const Navbar = () => {
                           <Link
                             href="/admin"
                             onClick={() => setIsMenuOpen(false)}
-                            className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-green hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors py-3 px-2 rounded-md"
+                            className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors py-3 px-2 rounded-md"
                           >
                             <Settings className="h-4 w-4 mr-3" />
                             {t("navigation.adminDashboard")}
@@ -800,7 +800,7 @@ const Navbar = () => {
                     ) : (
                       <button
                         onClick={goToSignIn}
-                        className="flex items-center text-gray-700 dark:text-gray-300 hover:text-green hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors py-3 px-2 rounded-md w-full text-left"
+                        className="flex items-center text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors py-3 px-2 rounded-md w-full text-left"
                       >
                         <LogIn className="h-4 w-4 mr-3" />
                         {t("navigation.signIn")}

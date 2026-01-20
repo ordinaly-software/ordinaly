@@ -21,7 +21,7 @@ const CourseCancelEnrollmentSuccessModal: React.FC<CourseCancelEnrollmentSuccess
       className="max-w-md"
     >
       <div className="flex flex-col items-center justify-center py-8 px-4">
-        <UserX className="w-16 h-16 text-green mb-4" />
+        <UserX className="w-16 h-16 text-[#1F8A0D] dark:text-[#3FBD6F] mb-4" />
         <h2 className="text-2xl font-bold text-center mb-2">
           {t ? t("cancellation.title") : "Enrollment Cancelled"}
         </h2>

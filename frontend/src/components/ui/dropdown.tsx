@@ -72,11 +72,11 @@ export const Dropdown = ({
   // Theme configuration
   const themes: Record<string, DropdownTheme> = {
     default: {
-      accent: 'text-green-600',
-      hoverBg: 'hover:bg-green-50 dark:hover:bg-green-900/20',
-      selectedBg: 'bg-green-50 text-green-900 dark:bg-green-900/20 dark:text-green-100',
-      focusBorder: 'focus:border-green-600',
-      focusRing: 'focus:ring-green-600/20'
+      accent: 'text-[#1F8A0D] dark:text-[#3FBD6F]',
+      hoverBg: 'hover:bg-[#1F8A0D]/10 dark:hover:bg-[#3FBD6F]/20',
+      selectedBg: 'bg-[#1F8A0D]/10 text-[#0F4606] dark:bg-[#3FBD6F]/20 dark:text-[#E8FFF4]',
+      focusBorder: 'focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]',
+      focusRing: 'focus:ring-[#1F8A0D]/20 dark:focus:ring-[#3FBD6F]/25'
     },
     orange: {
       accent: 'text-orange-500',

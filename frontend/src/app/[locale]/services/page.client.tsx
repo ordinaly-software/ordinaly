@@ -266,7 +266,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                 placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:border-[#7CFC00] dark:focus:border-[#7CFC00]"
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:border-[#3FBD6F] dark:focus:border-[#3FBD6F]"
               />
             </div>
 
@@ -321,7 +321,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
               {/* Services Section */}
               {separated.services.length > 0 && (
                 <div>
-                  <h2 className="text-3xl font-bold mb-2 text-[#1F8A0D] dark:text-[#2BCB5C]">
+                  <h2 className="text-3xl font-bold mb-2 text-[#1F8A0D] dark:text-[green-600]">
                     {t("servicesSectionTitle")}
                   </h2>
                   <ServiceAppleCarousel
@@ -341,7 +341,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] to-[#166307] text-white">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#1F8A0D] dark:from-[#3FBD6F] to-[#166307] text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             {t("cta.title")}
@@ -351,7 +351,7 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              className="bg-white text-[#1F8A0D] dark:text-[#7CFC00] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
+              className="bg-white text-[#1F8A0D] dark:text-[#3FBD6F] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
               onClick={() => {
                 const subject = encodeURIComponent(t("cta.emailSubject"));
                 const body = encodeURIComponent(t("cta.emailBody"));

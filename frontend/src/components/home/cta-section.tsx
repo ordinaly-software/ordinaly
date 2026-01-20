@@ -73,7 +73,7 @@ export function CtaSection({ t, onWhatsApp }: HeroProps) {
         <div className="grid gap-3 px-4 md:px-0 md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)]">
           <Button
             size="lg"
-            className="w-full bg-white text-[#1F8A0D] hover:bg-gray-100 dark:bg-[#7CFC00] dark:text-[#0B1B17] dark:hover:bg-[#6BFF52] px-6 py-4 md:px-10 md:py-6 text-base md:text-lg font-bold shadow-lg hover:shadow-lg transform hover:scale-105 transition-all"
+            className="w-full bg-white text-[#1F8A0D] hover:bg-gray-100 dark:bg-[#3FBD6F] dark:text-[#0B1B17] dark:hover:bg-[#2EA55E] px-6 py-4 md:px-10 md:py-6 text-base md:text-lg font-bold shadow-lg hover:shadow-lg transform hover:scale-105 transition-all"
             onClick={onWhatsApp}
           >
             <div className="flex items-center gap-3">

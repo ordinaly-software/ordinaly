@@ -57,7 +57,7 @@ export function WorkWithUsSection({
           </p>
           <h3 className="text-3xl md:text-4xl font-bold drop-shadow-[0_3px_12px_rgba(0,0,0,0.7)]">{t("cta.title")}</h3>
             <p className="text-white/90 drop-shadow-[0_3px_12px_rgba(0,0,0,0.7)]">
-            <span className="bg-green-500 text-white dark:bg-[#7CFC00] dark:text-[#0B1B17] px-1">
+            <span className="bg-[#1F8A0D] dark:bg-[#3FBD6F] text-white dark:text-[#0B1B17] px-1">
               {t("cta.body").split(" ").slice(0, 7).join(" ")}
             </span>
             {" " + t("cta.body").split(" ").slice(7).join(" ")}
@@ -65,7 +65,7 @@ export function WorkWithUsSection({
         </div>
 
         <div className="mt-6 flex flex-wrap gap-3">
-          <Button className="bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] gap-2" asChild>
+          <Button className="bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] gap-2" asChild>
             <a href={mailHref} target="_blank" rel="noreferrer">
               <Send className="h-4 w-4" />
               {t("cta.primary")}

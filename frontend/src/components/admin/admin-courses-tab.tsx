@@ -812,7 +812,7 @@ const AdminCoursesTab = () => {
           <Button
             onClick={handleCreate}
             size="sm"
-            className="bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
+            className="bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] dark:hover:bg-[#2EA55E] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
             >
             <Plus className="h-4 w-4" />
             <span className="hidden xs:inline">{t("addCourse")}</span>
@@ -833,7 +833,7 @@ const AdminCoursesTab = () => {
               type="checkbox"
               checked={paginatedCourses.length > 0 && paginatedCourses.every((c) => selectedCourses.includes(c.id))}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-green focus:ring-green"
+              className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] dark:focus:ring-[#3FBD6F]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               {t("selectAll")} ({filteredCourses.length} {t("courses")})

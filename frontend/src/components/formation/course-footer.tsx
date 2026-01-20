@@ -34,7 +34,7 @@ const CourseFooter: React.FC<Props> = ({
         {showRequestEdition && hasEnded && (
           <Button
             onClick={onRequestEdition}
-            className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+            className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
           >
             <GraduationCap className="w-5 h-5 mr-2" />
             {requestEditionLabel}
@@ -51,7 +51,7 @@ const CourseFooter: React.FC<Props> = ({
         ) : canEnroll ? (
           <Button
             onClick={onEnroll}
-            className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+            className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
           >
             <GraduationCap className="w-5 h-5 mr-2" />
             {t('enrollNow')}

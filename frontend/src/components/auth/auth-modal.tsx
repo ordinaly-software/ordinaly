@@ -28,7 +28,7 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} className="w-full max-w-[440px] sm:max-w-lg md:max-w-xl lg:max-w-2xl">
-  <div className="bg-gradient-to-br from-[#1F8A0D]/10 dark:from-[#7CFC00]/10 via-[#217093]/10 to-[#623CEA]/10 p-6 rounded-t-lg">
+  <div className="bg-gradient-to-br from-[#1F8A0D]/10 dark:from-[#3FBD6F]/10 via-[#217093]/10 to-[#623CEA]/10 p-6 rounded-t-lg">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
             {courseTitle ? tAuth('courseEnrollTitle') : tAuth('welcome')}
@@ -48,12 +48,12 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
 
       <div className="p-6 space-y-4">
         {/* Sign In Card */}
-        <Card className="border border-gray-200 dark:border-gray-700 hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] transition-all duration-300 hover:shadow-lg hover:shadow-[#1F8A0D]/10 cursor-pointer group"
+        <Card className="border border-gray-200 dark:border-gray-700 hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] transition-all duration-300 hover:shadow-lg hover:shadow-[#1F8A0D]/10 cursor-pointer group"
               onClick={handleSignIn}>
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-[#1F8A0D]/10 rounded-xl flex items-center justify-center group-hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/20 transition-colors">
-                <User className="h-6 w-6 text-[#1F8A0D] dark:text-[#7CFC00]" />
+              <div className="w-12 h-12 bg-[#1F8A0D]/10 rounded-xl flex items-center justify-center group-hover:bg-[#1F8A0D] dark:hover:bg-[#3FBD6F]/20 transition-colors">
+                <User className="h-6 w-6 text-[#1F8A0D] dark:text-[#3FBD6F]" />
               </div>
               <div className="flex-1">
                 <CardTitle className="text-lg text-gray-900 dark:text-white">
@@ -63,7 +63,7 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
                   {tAuth('signIn.description')}
                 </CardDescription>
               </div>
-              <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00] group-hover:translate-x-1 transition-all" />
+              <ArrowRight className="h-5 w-5 text-gray-400 group-hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] dark:text-[#3FBD6F] group-hover:translate-x-1 transition-all" />
             </div>
           </CardHeader>
         </Card>

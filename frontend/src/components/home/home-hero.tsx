@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import heroImage from "../../../public/static/main_home_ilustration.webp";
+import heroImage from "../../../public/static/home/main_home_ilustration.webp";
 import Link from "next/link";
 import { ArrowRight, Book, Bot, Building2, Workflow } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/theme-context";
+import { useEffect, useMemo, useRef, useState } from "react";
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
+
+const secondaryHeroImages = ["/static/home/3.png", "/static/home/4.png"];
 
 interface HeroProps {
   t: TranslateFn;
@@ -14,6 +17,11 @@ interface HeroProps {
 }
 
 export function HomeHero({ t, onWhatsApp }: HeroProps) {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+  const [isHeroVisible, setIsHeroVisible] = useState(false);
+  const [hasPreloadedSecondary, setHasPreloadedSecondary] = useState(false);
+  const [shouldAnimate, setShouldAnimate] = useState(true);
   const { isDark } = useTheme();
   const primaryGreen = "#1F8A0D";
   // heroImage imported statically above to enable placeholder blur and optimal loading
@@ -22,6 +30,83 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
   const bulletTextColor = isDark ? "#FFFFFF" : "#0B1B17";
   const bulletBg = isDark ? "rgba(124,252,0,0.12)" : "rgba(31,138,13,0.06)";
   const bulletBorder = isDark ? "rgba(124,252,0,0.35)" : "rgba(31,138,13,0.18)";
+
+  const heroImages = useMemo(() => {
+    const primary = {
+      src: heroImage.src,
+      width: heroImage.width ?? 516,
+      height: heroImage.height ?? 640,
+      blurDataURL: heroImage.blurDataURL,
+    };
+
+    const secondary = secondaryHeroImages.map((src) => ({ src, width: primary.width, height: primary.height, blurDataURL: undefined }));
+
+    return [primary, ...secondary];
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setShouldAnimate(!media.matches);
+
+    updateMotionPreference();
+    media.addEventListener("change", updateMotionPreference);
+
+    return () => media.removeEventListener("change", updateMotionPreference);
+  }, []);
+
+  useEffect(() => {
+    const target = sectionRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => setIsHeroVisible(entry.isIntersecting));
+      },
+      { threshold: 0.22 },
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isHeroVisible || heroImages.length <= 1 || !shouldAnimate) return;
+
+    const intervalId = window.setInterval(() => {
+      setCurrentHeroIndex((prev) => (prev + 1) % heroImages.length);
+    }, 6500);
+
+    return () => window.clearInterval(intervalId);
+  }, [heroImages.length, isHeroVisible, shouldAnimate]);
+
+  useEffect(() => {
+    if (!isHeroVisible || hasPreloadedSecondary || heroImages.length <= 1) return;
+
+    const preloadSecondary = () => {
+      heroImages.slice(1).forEach((image) => {
+        const img = new window.Image();
+        img.decoding = "async";
+        img.loading = "eager";
+        img.src = image.src;
+      });
+
+      setHasPreloadedSecondary(true);
+    };
+
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      const idleId = (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(
+        preloadSecondary,
+        { timeout: 1400 },
+      );
+
+      return () => (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback?.(idleId);
+    }
+
+    const timeoutId = (window as Window).setTimeout(preloadSecondary, 400);
+    return () => (window as Window).clearTimeout(timeoutId);
+  }, [hasPreloadedSecondary, heroImages, isHeroVisible]);
 
   const bulletPoints = [
     {
@@ -71,6 +156,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
 
   return (
     <section
+      ref={sectionRef}
       className={`relative overflow-hidden ${sectionTextColor}`}
       style={{ backgroundColor: isDark ? "#030B13" : "#F7FCF9" }}
     >
@@ -138,19 +224,24 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
           <div className="relative z-10 scroll-animate slide-in-left space-y-4">
             <div className="relative lg:hidden -mx-4 sm:-mx-6 overflow-hidden">
               <div className="relative h-[220px] sm:h-[220px] md:h-[240px] w-full overflow-hidden">
-                <Image
-                  src={heroImage}
-                  alt={t("hero.imageAlt")}
-                  fill
-                  className="object-cover"
-                  priority={true}
-                  fetchPriority="high"
-                  sizes="(max-width: 1024px) 100vw, 0px"
-                  quality={45}
-                  placeholder="blur"
-                  aria-hidden="true"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/5 to-transparent" />
+                {heroImages.map((image, index) => (
+                  <Image
+                    key={`hero-mobile-${image.src}`}
+                    src={image.src}
+                    alt={t("hero.imageAlt")}
+                    fill
+                    className={`object-cover transition-opacity duration-700 ease-out ${index === currentHeroIndex ? "opacity-100" : "opacity-0"}`}
+                    priority={index === 0}
+                    fetchPriority={index === 0 ? "high" : "low"}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    sizes="(max-width: 1024px) 100vw, 0px"
+                    quality={45}
+                    placeholder={index === 0 && image.blurDataURL ? "blur" : "empty"}
+                    blurDataURL={index === 0 ? image.blurDataURL : undefined}
+                    aria-hidden="true"
+                  />
+                ))}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/15 via-black/5 to-transparent" />
               </div>
             </div>
 
@@ -196,7 +287,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                         className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl ring-1"
                         style={{
                           backgroundColor: isDark ? "rgba(124,252,0,0.18)" : "rgba(31,138,13,0.12)",
-                          color: isDark ? "#7CFC00" : primaryGreen,
+                          color: isDark ? "#3FBD6F" : primaryGreen,
                           borderColor: isDark ? "rgba(124,252,0,0.5)" : "rgba(31,138,13,0.35)",
                         }}
                       >
@@ -305,20 +396,25 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   background: "radial-gradient(circle at 70% 40%, rgba(31,138,13,0.18), transparent 45%)",
                 }}
               />
-              <div className="relative">
-                <Image
-                  src={heroImage}
-                  alt={t("hero.imageAlt")}
-                  width={516}
-                  height={640}
-                  className="mx-auto h-auto w-full max-w-[640px]"
-                  priority={true}
-                  fetchPriority="high"
-                  sizes="(max-width: 1024px) 0px, (max-width: 1200px) 50vw, 560px"
-                  quality={45}
-                  placeholder="blur"
-                  aria-hidden="true"
-                />
+              <div className="relative mx-auto h-full w-full max-w-[640px] overflow-hidden rounded-[28px] aspect-[516/640]">
+                {heroImages.map((image, index) => (
+                  <Image
+                    key={`hero-desktop-${image.src}`}
+                    src={image.src}
+                    alt={t("hero.imageAlt")}
+                    fill
+                    className={`object-cover transition-opacity duration-700 ease-out ${index === currentHeroIndex ? "opacity-100" : "opacity-0"}`}
+                    priority={index === 0}
+                    fetchPriority={index === 0 ? "high" : "low"}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    sizes="(max-width: 1024px) 0px, (max-width: 1200px) 50vw, 560px"
+                    quality={45}
+                    placeholder={index === 0 && image.blurDataURL ? "blur" : "empty"}
+                    blurDataURL={index === 0 ? image.blurDataURL : undefined}
+                    aria-hidden="true"
+                  />
+                ))}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
               </div>
             </div>
           </div>

@@ -80,7 +80,7 @@ const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
       <div className="absolute left-4 right-4 top-8 md:bottom-4 md:top-auto z-30">
         <div className="flex items-center gap-2 mb-2 flex-wrap pt-1 md:pt-0">
           {course.price !== null && course.price !== undefined && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500 text-white">
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#1F8A0D] dark:bg-[#3FBD6F] text-white dark:text-[#0B1B17]">
               <Euro className="w-3 h-3 mr-1" />
               €{course.price}
             </span>
@@ -99,7 +99,7 @@ const CourseHeader = ({ course, isEnrolled, onClose }: CourseHeaderProps) => {
             </span>
           )}
           {isEnrolled && (
-            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green text-white">
+            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#1F8A0D] dark:bg-[#3FBD6F] text-white dark:text-black">
               <CheckCircle className="w-3 h-3 mr-1" />
               {t('enrolled')}
             </span>
