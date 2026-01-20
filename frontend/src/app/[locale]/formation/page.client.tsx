@@ -429,7 +429,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                 placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
               />
             </div>
 
@@ -535,7 +535,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
               <Button
                 onClick={() => setShowPastCourses(!showPastCourses)}
                 variant="outline"
-                className="border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-[#7CFC00] hover:bg-[#0d6e0c] dark:hover:bg-[#7CFC00]/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
+                className="border-[#1F8A0D] dark:border-[#3FBD6F] text-[#1F8A0D] dark:text-[#3FBD6F] hover:bg-[#0d6e0c] dark:hover:bg-[#3FBD6F]/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
               >
                 {showPastCourses ? (
                   <>
@@ -574,7 +574,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
 
       <FaqSection t={t} />
     
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] to-[#166307] text-white">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#1F8A0D] dark:from-[#3FBD6F] to-[#166307] text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             {t("cta.title")}

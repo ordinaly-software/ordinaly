@@ -12,6 +12,12 @@ import Banner from '@/components/ui/banner';
 import type { BlogPost, MediaItem, Category } from './types';
 import SharePostButtons from './share-post-buttons';
 import type { PortableTextBlock } from '@portabletext/types';
+import dynamic from "next/dynamic";
+
+const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"), {
+  loading: () => null,
+  ssr: false,
+});
 
 type TocItem = {
   id: string;
@@ -96,7 +102,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         {/* Header row: back link | share buttons | date (responsive) */}
         <div className="mb-6 grid grid-cols-1 md:grid-cols-3 items-center gap-6">
           <div className="flex md:justify-start justify-center">
-            <Link href="/blog" className="inline-flex items-center gap-2 text-green-700 dark:text-green-400 hover:underline">
+            <Link href="/blog" className="inline-flex items-center gap-2 text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] hover:underline">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
               {t("backToBlog")}
             </Link>
@@ -121,14 +127,14 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
           </div>
         </div>
         {tocItems.length > 0 && (
-          <nav aria-label={t('toc.label', { default: 'Table of contents' })} className="mb-8 rounded-2xl border border-green-200/60 dark:border-green-500/30 bg-white/80 dark:bg-[#15151D]/70 p-5 shadow-sm backdrop-blur">
-            <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-green-700 dark:text-green-300">
+          <nav aria-label={t('toc.label', { default: 'Table of contents' })} className="mb-8 rounded-2xl border border-[#1F8A0D]/30 dark:border-[#3FBD6F]/40 bg-white/80 dark:bg-[#15151D]/70 p-5 shadow-sm backdrop-blur">
+            <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#3FBD6F]">
               {t('toc.title', { default: 'Table of contents' })}
             </div>
             <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-200">
               {tocItems.map((item) => (
                 <li key={item.id} className={item.level >= 4 ? 'ml-6' : item.level === 3 ? 'ml-4' : 'ml-0'}>
-                  <a href={`#${item.id}`} className="hover:text-green-700 dark:hover:text-green-300 transition-colors">
+                  <a href={`#${item.id}`} className="hover:text-[#2EA55E] dark:hover:text-[#2EA55E] transition-colors text-[#1F8A0D] dark:text-[#3FBD6F]">
                     {item.text}
                   </a>
                 </li>
@@ -177,7 +183,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                       <Link
                         key={cat.slug}
                         href={`/blog?category=${cat.slug}`}
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#2BCB5C]/10 text-[#2BCB5C] text-sm font-medium hover:bg-[#2BCB5C]/20 transition w-fit"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#1F8A0D]/10 text-[#1F8A0D] dark:bg-[#3FBD6F]/20 dark:text-[#3FBD6F] text-sm font-medium hover:bg-[#1F8A0D]/20 dark:hover:bg-[#3FBD6F]/30 transition w-fit"
                       >
                         {cat.title}
                       </Link>
@@ -198,6 +204,9 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
           </div>
         )}
       </div>
+
+      <ContactForm />
+
       <Footer />
       <BackToTopButton />
     </div>

@@ -42,15 +42,15 @@ export const MenuItem = ({
       {href ? (
         <Link
           href={href}
-          className={`transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group hover:text-green ${
+          className={`transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] ${
             finalActive
-              ? "text-green"
+              ? "text-[#1F8A0D] dark:text-[#3FBD6F]"
               : "text-gray-700 dark:text-gray-300"
           }`}
         >
           {item}
           <span
-            className={`absolute -bottom-1 left-0 h-0.5 bg-green transition-all duration-300 ${
+            className={`absolute -bottom-1 left-0 h-0.5 bg-[#1F8A0D] dark:bg-[#3FBD6F] transition-all duration-300 ${
               finalActive ? "w-full" : "w-0 group-hover:w-full"
             }`}
           />
@@ -58,7 +58,7 @@ export const MenuItem = ({
       ) : (
         <motion.p
           transition={{ duration: 0.2 }}
-          className="transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group text-gray-700 dark:text-gray-300 hover:text-green"
+          className="transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F]"
         >
           {item}
         </motion.p>
@@ -161,7 +161,7 @@ export const HoveredLink = ({ children, ...rest }: React.ComponentPropsWithoutRe
   return (
     <Link
       {...rest}
-      className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-green transition"
+      className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
     >
       {children}
     </Link>

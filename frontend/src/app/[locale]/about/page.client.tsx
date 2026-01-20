@@ -95,7 +95,7 @@ export default function UsPage() {
                 {t("hero.subtitle")}
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button className="bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] gap-2" asChild>
+                <Button className="bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] gap-2" asChild>
                   <a href="#testimonials">
                   <Rocket className="h-4 w-4" />
                   {t("hero.ctaPrimary")}

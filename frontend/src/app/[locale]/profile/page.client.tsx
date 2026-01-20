@@ -494,7 +494,7 @@ export default function ProfilePage() {
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1F8A0D] dark:border-[#3FBD6F] mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
           </div>
         </div>
@@ -519,7 +519,7 @@ export default function ProfilePage() {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#1F8A0D] dark:from-[#7CFC00] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#1F8A0D] dark:from-[#3FBD6F] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
               {t("title")}
             </h1>
             <p className="text-xl text-gray-700 dark:text-gray-300">

@@ -213,7 +213,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalServices")}
                 </CardTitle>
-                <Settings className="h-4 w-4 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                <Settings className="h-4 w-4 text-[#1F8A0D] dark:text-[#3FBD6F]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -297,7 +297,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("tabs.blog")}
                 </CardTitle>
-                <ArrowUpRight className="h-4 w-4 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                <ArrowUpRight className="h-4 w-4 text-[#1F8A0D] dark:text-[#3FBD6F]" />
               </CardHeader>
               <CardContent className="flex items-center justify-between">
                 <div>
@@ -511,7 +511,7 @@ export default function AdminPage() {
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1F8A0D] dark:border-[#3FBD6F] mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
           </div>
         </div>

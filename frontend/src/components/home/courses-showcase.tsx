@@ -276,7 +276,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       <section id="courses" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1F8A0D] dark:text-[#7CFC00]">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1F8A0D] dark:text-[#3FBD6F]">
               {t('upcomingTitle')}
             </h2>
             <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
@@ -318,7 +318,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1F8A0D] dark:text-[#7CFC00]">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1F8A0D] dark:text-[#3FBD6F]">
             {t('showcaseTitle')}
           </h2>
           <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
@@ -406,7 +406,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                         onClick={() => handleCourseClick(course)}
                       >
                         <CardHeader className="pb-4">
-                          <div className="relative w-full h-48 rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-[#1F8A0D]/10 dark:from-[#7CFC00]/10 to-[#46B1C9]/10">
+                          <div className="relative w-full h-48 rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-[#1F8A0D]/10 dark:from-[#3FBD6F]/10 to-[#46B1C9]/10">
                             {!imageErrors.has(course.id) ? (
                               <Image
                                 src={course.image}
@@ -422,7 +422,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                               <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400">
                                 <div className="text-center">
                                   <div className="w-16 h-16 mx-auto mb-2 bg-[#1F8A0D]/20 rounded-full flex items-center justify-center">
-                                    <BookOpen className="w-8 h-8 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                                    <BookOpen className="w-8 h-8 text-[#1F8A0D] dark:text-[#3FBD6F]" />
                                   </div>
                                   <p className="text-sm font-medium px-4">
                                     {fallbackTitle || course.title}
@@ -450,7 +450,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                           </div>
                           
                           <div className="space-y-2">
-                            <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] transition-colors break-words whitespace-pre-line">
+                            <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-colors break-words whitespace-pre-line">
                               {cleanTitle}
                             </CardTitle>
                             {course.subtitle && (
@@ -486,7 +486,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="truncate underline hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00]"
+                                        className="truncate underline hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] dark:text-[#3FBD6F]"
                                         title={course.location}
                                       >
                                         {course.location}
@@ -519,7 +519,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                                 </div>
                                 <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                                   <div 
-                                    className="bg-[#1F8A0D] dark:bg-[#7CFC00] h-2 rounded-full transition-all duration-300"
+                                    className="bg-[#1F8A0D] dark:bg-[#3FBD6F] h-2 rounded-full transition-all duration-300"
                                     style={{ width: `${Math.min((course.enrolled_count / course.max_attendants) * 100, 100)}%` }}
                                   ></div>
                                 </div>
@@ -532,7 +532,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             {isPastCourse ? (
                               <>
                                 <Button
-                                  className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] transition-all duration-300 shadow-sm hover:shadow-md"
+                                  className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] transition-all duration-300 shadow-sm hover:shadow-md"
                                   onClick={(event) => {
                                     event.stopPropagation();
                                     handlePastCourseInquiry(course);
@@ -554,7 +554,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                               </>
                             ) : (
                               <Button
-                                className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] transition-all duration-300 group shadow-sm hover:shadow-md"
+                                className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] transition-all duration-300 group shadow-sm hover:shadow-md"
                                 onClick={handleAction}
                               >
                                 <>
@@ -604,7 +604,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               variant="outline"
               size="lg"
               onClick={() => router.push('/formation')}
-              className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#0d6e0c] hover:text-white dark:border-[#7CFC00] dark:text-[#7CFC00] dark:hover:bg-[#7CFC00] dark:hover:text-black transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
+              className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#0d6e0c] hover:text-white dark:border-[#3FBD6F] dark:text-[#3FBD6F] dark:hover:bg-[#3FBD6F] dark:hover:text-black transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
             >
               {t('viewAllCourses')}
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

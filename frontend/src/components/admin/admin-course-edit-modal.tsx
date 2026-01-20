@@ -128,7 +128,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           <div className="flex items-center justify-between">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
               <div className="w-5 h-5 bg-[#1F8A0D]/10 rounded flex items-center justify-center">
-                <FileText className="w-3 h-3 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                <FileText className="w-3 h-3 text-[#1F8A0D] dark:text-[#3FBD6F]" />
               </div>
               <span>{t("form.titleRequired")}</span>
             </Label>
@@ -179,8 +179,8 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           {/* Bonified Course Link */}
           <div className="space-y-3">
             <Label htmlFor="bonified_course_link" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-green-700 dark:text-green-400">€</span>
+              <div className="w-5 h-5 bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/20 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-[#1F8A0D] dark:text-[#3FBD6F]">€</span>
               </div>
               <span>{t("form.bonifiedCourseLinkOptional")}</span>
             </Label>
@@ -189,7 +189,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.bonified_course_link ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, bonified_course_link: e.target.value}))}
               placeholder={t("form.bonifiedCourseLinkPlaceholder")}
-              className="h-12 border-gray-300 focus:border-green-600 focus:ring-green-600/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F] focus:ring-[#1F8A0D]/20 dark:focus:ring-[#3FBD6F]/25 rounded-lg transition-all duration-200"
             />
             <p className="text-xs text-gray-500 dark:text-gray-400">
               {t("form.bonifiedCourseLinkHelp")}
@@ -269,9 +269,9 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             <div className="text-center">
               {selectedFile ? (
                 <div className="flex items-center justify-center space-x-2">
-                  <div className="flex items-center space-x-1 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">
-                    <FileText className="w-4 h-4 text-green-600 dark:text-green-400" />
-                    <span className="text-xs font-medium text-green-700 dark:text-green-300">
+                  <div className="flex items-center space-x-1 bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/20 px-2 py-1 rounded-lg">
+                    <FileText className="w-4 h-4 text-[#1F8A0D] dark:text-[#3FBD6F]" />
+                    <span className="text-xs font-medium text-[#1F8A0D] dark:text-[#3FBD6F]">
                       {selectedFile.name}
                     </span>
                   </div>
@@ -328,8 +328,8 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-3">
             <Label htmlFor="price" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-green-600 dark:text-green-400">€</span>
+              <div className="w-5 h-5 bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/20 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-[#1F8A0D] dark:text-[#3FBD6F]">€</span>
               </div>
               <span>{t("form.price")}</span>
             </Label>
@@ -342,7 +342,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.price ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, price: e.target.value}))}
               placeholder={t("form.pricePlaceholder")}
-              className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F] focus:ring-[#1F8A0D]/20 dark:focus:ring-[#3FBD6F]/25 rounded-lg transition-all duration-200"
             />
             {/* Price validation */}
             {(() => {
@@ -572,7 +572,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           </Button>
           <Button
             onClick={onSubmit}
-            className="px-6 py-2 bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"          >
+            className="px-6 py-2 bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] text-white dark:text-black shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"          >
             <span>{showEditModal ? t("form.update") : t("form.create")}</span>
             {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
           </Button>

@@ -178,14 +178,14 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center">
-                      <CalendarDays className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                      <CalendarDays className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#3FBD6F]" />
                       <span className="font-medium">{t("date")}:</span>
                       <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                         {new Date(selectedCourse.start_date).toLocaleDateString()}
                       </span>
                     </div>
                     <div className="flex items-center">
-                      <MapPin className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                      <MapPin className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#3FBD6F]" />
                       <span className="font-medium">{t("location")}:</span>
                       <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                         {selectedCourse.location ?? t("locationSoon")}
@@ -194,14 +194,14 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                   </div>
                   <div className="space-y-2 text-sm">
                     <div className="flex items-center">
-                      <Euro className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                      <Euro className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#3FBD6F]" />
                       <span className="font-medium">{t("price")}:</span>
                       <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
                         {selectedCourse.price ? `€${selectedCourse.price}` : t("free")}
                       </span>
                     </div>
                     <div className="flex items-center">
-                      <Users className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#7CFC00]" />
+                      <Users className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#3FBD6F]" />
                       <span className="font-medium">{t("maxAttendants")}:</span>
                       <span className={`ml-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>{selectedCourse.max_attendants}</span>
                     </div>
@@ -229,7 +229,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                   <Button
                     type="button"
                     onClick={() => handleBonificationDecision(false)}
-                    className="w-full sm:w-auto sm:min-w-[180px] bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black px-6 h-11 whitespace-normal"
+                    className="w-full sm:w-auto sm:min-w-[180px] bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] text-white dark:text-black px-6 h-11 whitespace-normal"
                   >
                     {t("enrollment.bonificationNo")}
                   </Button>
@@ -245,7 +245,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
                 <CheckoutButton
                   courseId={selectedCourse.id}
                   label={t("enrollment.confirmEnroll")}
-                  className="w-full sm:w-auto sm:min-w-[220px] bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black px-6 h-11 flex items-center justify-center rounded-2xl whitespace-normal"
+                  className="w-full sm:w-auto sm:min-w-[220px] bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] text-white dark:text-black px-6 h-11 flex items-center justify-center rounded-2xl whitespace-normal"
                   onSuccess={handleEnrollSuccess}
                   disabled={enrolled}
                 />

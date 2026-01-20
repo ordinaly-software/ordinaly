@@ -154,15 +154,15 @@ const CookieConsent = () => {
   if (!isMounted) return null;
 
   const modalContent = showPopup ? (
-    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 z-[9999] flex justify-end pointer-events-none">
-      <div className="pointer-events-auto bg-card text-card-foreground rounded-2xl shadow-2xl w-full sm:w-[420px] min-h-[200px] max-h-[70vh] overflow-y-auto border border-border transform transition-all duration-300 scale-100 opacity-100">
+    <div className="fixed inset-0 z-[9999] flex items-end justify-center px-4 pb-6 sm:pb-10 pointer-events-none lg:justify-end lg:pr-8">
+      <div className="pointer-events-auto w-full max-w-[min(420px,calc(100vw-1.5rem))] max-h-[calc(100vh-2rem)] bg-card text-card-foreground rounded-[26px] shadow-2xl border border-border flex flex-col overflow-hidden lg:mr-6">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-border">
+        <div className="sticky top-0 z-10 border-b border-border bg-card/90 backdrop-blur-sm px-6 py-5 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="bg-[#623CEA] rounded-full p-2">
               <Cookie className="text-white" size={24} />
             </div>
-            <h2 className="text-2xl font-bold text-foreground">
+            <h2 className="text-xl font-bold text-foreground">
               {t('title')}
             </h2>
           </div>
@@ -174,14 +174,14 @@ const CookieConsent = () => {
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="flex-1 overflow-y-auto px-6 py-5 space-y-6">
           {!showSettings ? (
-            <>
-              <div className="mb-6">
-                <p className="text-muted-foreground mb-4">
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <p className="text-muted-foreground">
                   {t('description')}
                 </p>
-                <div className="bg-gradient-to-r from-[#1F8A0D]/10 dark:from-[#7CFC00]/10 to-[#46B1C9]/10 p-4 rounded-lg border border-border">
+                <div className="bg-gradient-to-r from-[#1F8A0D]/10 dark:from-[#3FBD6F]/10 to-[#46B1C9]/10 p-4 rounded-lg border border-border">
                   <p className="text-sm text-muted-foreground">
                     <strong className="text-foreground">{t('whatAre')}</strong>{' '}
                     {t('whatAreDescription')}
@@ -189,7 +189,7 @@ const CookieConsent = () => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-3 mb-4">
+              <div className="flex flex-col md:flex-row gap-3">
                 <Button
                   onClick={handleAcceptAll}
                   className="flex-1 bg-[#623CEA] text-white h-auto py-3 px-4 text-sm sm:text-base whitespace-normal text-center leading-snug"
@@ -204,103 +204,101 @@ const CookieConsent = () => {
                 </Button>
               </div>
 
-              <div className="w-full p-[2px] bg-[#623CEA] rounded-lg">
+              <div className="w-full">
                 <button
                   onClick={() => setShowSettings(true)}
-                  className="w-full bg-card text-card-foreground font-semibold py-3 px-6 rounded-lg hover:bg-accent transition-all duration-300 flex items-center justify-center space-x-2"
+                  className="w-full bg-card text-card-foreground font-semibold py-3 px-6 rounded-lg border border-border hover:border-[#623CEA] transition-all duration-300 flex items-center justify-center space-x-2"
                 >
                   <Settings size={20} />
                   <span>{t('customize')}</span>
                 </button>
               </div>
-            </>
+            </div>
           ) : (
-            <>
-              <div className="space-y-6">
-                <div className="mb-6">
-                  <h3 className="text-lg font-semibold text-foreground mb-2">
-                    {t('personalizeTitle')}
-                  </h3>
-                  <p className="text-muted-foreground text-sm">
-                    {t('personalizeDescription')}
-                  </p>
-                </div>
-
-                {/* Cookie Categories */}
-                <div className="space-y-4">
-                  {[
-                    {
-                      key: 'necessary',
-                      icon: <Shield className="text-[#1F8A0D] dark:text-[#7CFC00]" size={20} />,
-                      enabled: true,
-                      toggle: false,
-                      note: t('necessaryAlways')
-                    },
-                    {
-                      key: 'functional',
-                      icon: <Settings className="text-[#46B1C9]" size={20} />,
-                      enabled: cookiePreferences.functional,
-                      toggle: true,
-                      note: t('functionalExamples')
-                    },
-                    {
-                      key: 'thirdParty',
-                      icon: <Globe className="text-[#1F8A0D] dark:text-[#7CFC00]" size={20} />,
-                      enabled: cookiePreferences.thirdParty,
-                      toggle: true,
-                      note: t('thirdPartyExamples')
-                    },
-                    {
-                      key: 'analytics',
-                      icon: <BarChart3 className="text-[hsl(var(--color-dark-blue))]" size={20} />,
-                      enabled: cookiePreferences.analytics,
-                      toggle: true,
-                      note: t('analyticsExamples')
-                    },
-                  ].map(({ key, icon, enabled, toggle, note }) => (
-                    <div key={key} className="border border-border rounded-lg p-4 bg-card">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center space-x-3">
-                          {icon}
-                          <h4 className="font-semibold text-foreground">{t(`${key}`)}</h4>
-                        </div>
-                        {toggle ? (
-                          <Slider
-                            checked={enabled}
-                            onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'thirdParty')}
-                          />
-                        ) : (
-                          <div className="bg-[#1F8A0D] dark:bg-[#7CFC00] rounded-full w-6 h-6 flex items-center justify-center">
-                            <div className="w-3 h-3 bg-white rounded-full"></div>
-                          </div>
-                        )}
-                      </div>
-                      <p className="text-sm text-muted-foreground">{t(`${key}Description`)}</p>
-                      <p className="text-xs text-muted-foreground">{note}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="flex flex-col md:flex-row gap-3 pt-4 border-t border-border">
-                  <Button
-                    onClick={() => setShowSettings(false)}
-                    className="flex-1 bg-secondary text-secondary-foreground h-auto py-3 px-4 text-sm sm:text-base whitespace-normal text-center leading-snug"
-                  >
-                    {t('back')}
-                  </Button>
-                  <Button
-                    onClick={handleSavePreferences}
-                    className="flex-1 bg-[#623CEA] text-white h-auto py-3 px-4 text-sm sm:text-base whitespace-normal text-center leading-snug"
-                  >
-                    {t('save')}
-                  </Button>
-                </div>
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-foreground">
+                  {t('personalizeTitle')}
+                </h3>
+                <p className="text-muted-foreground text-sm">
+                  {t('personalizeDescription')}
+                </p>
               </div>
-            </>
+
+              {/* Cookie Categories */}
+              <div className="space-y-4">
+                {[
+                  {
+                    key: 'necessary',
+                    icon: <Shield className="text-[#1F8A0D] dark:text-[#3FBD6F]" size={20} />,
+                    enabled: true,
+                    toggle: false,
+                    note: t('necessaryAlways')
+                  },
+                  {
+                    key: 'functional',
+                    icon: <Settings className="text-[#46B1C9]" size={20} />,
+                    enabled: cookiePreferences.functional,
+                    toggle: true,
+                    note: t('functionalExamples')
+                  },
+                  {
+                    key: 'thirdParty',
+                    icon: <Globe className="text-[#1F8A0D] dark:text-[#3FBD6F]" size={20} />,
+                    enabled: cookiePreferences.thirdParty,
+                    toggle: true,
+                    note: t('thirdPartyExamples')
+                  },
+                  {
+                    key: 'analytics',
+                    icon: <BarChart3 className="text-[hsl(var(--color-dark-blue))]" size={20} />,
+                    enabled: cookiePreferences.analytics,
+                    toggle: true,
+                    note: t('analyticsExamples')
+                  },
+                ].map(({ key, icon, enabled, toggle, note }) => (
+                  <div key={key} className="border border-border rounded-lg p-4 bg-card">
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-3">
+                        {icon}
+                        <h4 className="font-semibold text-foreground">{t(`${key}`)}</h4>
+                      </div>
+                      {toggle ? (
+                        <Slider
+                          checked={enabled}
+                          onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'thirdParty')}
+                        />
+                      ) : (
+                        <div className="bg-[#1F8A0D] dark:bg-[#3FBD6F] rounded-full w-6 h-6 flex items-center justify-center">
+                          <div className="w-3 h-3 bg-white rounded-full"></div>
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-sm text-muted-foreground">{t(`${key}Description`)}</p>
+                    <p className="text-xs text-muted-foreground">{note}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex flex-col md:flex-row gap-3 pt-2 border-t border-border">
+                <Button
+                  onClick={() => setShowSettings(false)}
+                  className="flex-1 bg-secondary text-secondary-foreground h-auto py-3 px-4 text-sm sm:text-base whitespace-normal text-center leading-snug"
+                >
+                  {t('back')}
+                </Button>
+                <Button
+                  onClick={handleSavePreferences}
+                  className="flex-1 bg-[#623CEA] text-white h-auto py-3 px-4 text-sm sm:text-base whitespace-normal text-center leading-snug"
+                >
+                  {t('save')}
+                </Button>
+              </div>
+            </div>
           )}
         </div>
 
-        <div className="bg-muted/30 p-4 rounded-b-2xl border-t border-border">
+        <div className="sticky bottom-0 z-10 border-t border-border bg-muted/60 backdrop-blur-sm px-6 py-4">
           <p className="text-xs text-muted-foreground text-center">
             {t('footer')}
             <Link href="/legal?tab=privacy" className="text-[#46B1C9] hover:underline" target="_blank" rel="noopener noreferrer">

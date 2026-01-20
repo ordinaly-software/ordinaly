@@ -390,8 +390,8 @@ export const AdminServiceEditModal = ({
             />
           </div>
           <div className="flex items-center px-4 py-3">
-            <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer text-green-600 flex items-center gap-1 min-w-0 mr-2 md:mr-4">
-              <Star className="w-4 h-4 text-green-500 fill-green-500" />
+            <Label htmlFor="is_featured" className="text-sm font-medium cursor-pointer text-[#1F8A0D] dark:text-[#3FBD6F] flex items-center gap-1 min-w-0 mr-2 md:mr-4">
+              <Star className="w-4 h-4 text-[#1F8A0D] dark:text-[#3FBD6F] fill-[#1F8A0D] dark:fill-[#3FBD6F]" />
               {t("form.featured")}
             </Label>
             <Slider
@@ -405,8 +405,8 @@ export const AdminServiceEditModal = ({
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-[#1F8A0D] dark:bg-[#7CFC00]/10 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-[#1F8A0D] dark:text-[#7CFC00]">S</span>
+              <div className="w-5 h-5 bg-[#1F8A0D] dark:bg-[#3FBD6F]/10 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-[#1F8A0D] dark:text-[#3FBD6F]">S</span>
               </div>
               <span>{t("form.title")} *</span>
             </Label>
@@ -512,9 +512,9 @@ export const AdminServiceEditModal = ({
                 <div className="text-center">
                   {imageFile ? (
                     <div className="flex items-center justify-center space-x-2">
-                      <div className="flex items-center space-x-1 bg-green-50 dark:bg-green-900/20 px-2 py-1 rounded-lg">
-                        <FileText className="w-4 h-4 text-green-600 dark:text-green-400" />
-                        <span className="text-xs font-medium text-green-700 dark:text-green-300">
+                      <div className="flex items-center space-x-1 bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/20 px-2 py-1 rounded-lg">
+                          <FileText className="w-4 h-4 text-[#1F8A0D] dark:text-[#3FBD6F]" />
+                          <span className="text-xs font-medium text-[#1F8A0D] dark:text-[#3FBD6F]">
                           {imageFile.name}
                         </span>
                       </div>
@@ -622,8 +622,8 @@ export const AdminServiceEditModal = ({
           </div>
           <div className="space-y-3">
             <Label htmlFor="price" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
-              <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-green-600 dark:text-green-400">€</span>
+              <div className="w-5 h-5 bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/20 rounded flex items-center justify-center">
+                <span className="text-xs font-bold text-[#1F8A0D] dark:text-[#3FBD6F]">€</span>
               </div>
               <span>{t("form.price")}</span>
             </Label>
@@ -635,7 +635,7 @@ export const AdminServiceEditModal = ({
               value={formData.price}
               onChange={e => setFormData(prev => ({ ...prev, price: e.target.value }))}
               placeholder={t("form.pricePlaceholder") || "Leave empty for 'Contact for quote'"}
-              className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg transition-all duration-200"
+              className="h-12 border-gray-300 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F] focus:ring-[#1F8A0D]/20 dark:focus:ring-[#3FBD6F]/25 rounded-lg transition-all duration-200"
             />
           </div>
         </div>
@@ -686,7 +686,7 @@ export const AdminServiceEditModal = ({
                     </div>
                     {formData.color === colorChoice.value && (
                       <div className="absolute -top-1 -right-1 w-4 h-4 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-md border border-gray-200 dark:border-gray-600">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-[#1F8A0D] dark:bg-[#3FBD6F] rounded-full"></div>
                       </div>
                     )}
                   </button>
@@ -743,7 +743,7 @@ export const AdminServiceEditModal = ({
         </Button>
         <Button
           onClick={submitService}
-          className="px-6 py-2 bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+          className="px-6 py-2 bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] text-white dark:text-black hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
         >
           <span>{isEdit ? t("form.update") : t("form.create")}</span>
           {isEdit ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}

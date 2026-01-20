@@ -81,7 +81,7 @@ const LocalVideoPreview = () => {
           ) : (
             <div className="absolute inset-0 flex items-center justify-center text-gray-700 dark:text-gray-200">
               <div className="flex items-center gap-3 bg-white/70 dark:bg-gray-800/80 px-4 py-3 rounded-xl shadow-lg border border-white/50 dark:border-gray-700">
-                <div className="w-10 h-10 rounded-full bg-[#1F8A0D]/10 text-[#1F8A0D] dark:text-[#7CFC00] flex items-center justify-center">
+                <div className="w-10 h-10 rounded-full bg-[#1F8A0D]/10 text-[#1F8A0D] dark:text-[#3FBD6F] flex items-center justify-center">
                   ▶
                 </div>
                 <div>
@@ -117,7 +117,7 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
             </p>
             <div className="space-y-4 mb-8">
               <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-[#1F8A0D] dark:bg-[#7CFC00] rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
+                <div className="w-8 h-8 bg-[#1F8A0D] dark:bg-[#3FBD6F] rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                   <svg className="w-5 h-5 text-white dark:text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -132,7 +132,7 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
                       href="https://maps.app.goo.gl/oiHuuWtSsxdbdSTD6"
                       target="_blank"
                       rel="noreferrer"
-                      className="hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00] underline underline-offset-4"
+                      className="hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] dark:text-[#3FBD6F] underline underline-offset-4"
                     >
                       {t("local.points.0.description")}
                     </Link>
@@ -153,7 +153,7 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
                     <Link
                       href="/contact"
                       scroll={true}
-                      className="hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00] underline underline-offset-4"
+                      className="hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] dark:text-[#3FBD6F] underline underline-offset-4"
                     >
                       {t("local.points.1.description")}
                     </Link>
@@ -173,7 +173,7 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
                   <p className="text-gray-700 dark:text-gray-300">
                     <Link
                       href="/formation"
-                      className="hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00] underline underline-offset-4"
+                      className="hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] dark:text-[#3FBD6F] underline underline-offset-4"
                     >
                       {t("local.points.2.description")}
                     </Link>

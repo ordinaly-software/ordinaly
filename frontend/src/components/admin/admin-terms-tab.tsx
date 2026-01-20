@@ -342,7 +342,7 @@ const AdminTermsTab = () => {
           <Button
             onClick={handleCreate}
             size="sm"
-            className="bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
+            className="bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
             disabled={availableTags.length === 0}
             title={availableTags.length === 0 ? t("form.noTagsLeft") || "All document types are already in use." : undefined}
           >
@@ -355,7 +355,7 @@ const AdminTermsTab = () => {
       {/* List */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1F8A0D] dark:border-[#7CFC00]" />
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1F8A0D] dark:border-[#3FBD6F]" />
         </div>
       ) : filteredTerms.length === 0 ? (
         <div className="text-center py-12 text-gray-500 dark:text-gray-400">
@@ -370,7 +370,7 @@ const AdminTermsTab = () => {
               type="checkbox"
               checked={selectedTerms.length === filteredTerms.length && filteredTerms.length > 0}
               onChange={selectAll}
-              className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D]"
+              className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D]"
             />
             <span className="text-sm text-gray-600 dark:text-gray-400">
               {t("selectAll")} ({filteredTerms.length} {t("terms")})
@@ -388,7 +388,7 @@ const AdminTermsTab = () => {
                     type="checkbox"
                     checked={selectedTerms.includes(term.id)}
                     onChange={() => toggleSelection(term.id)}
-                    className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D] mt-1 xs:mt-0"
+                    className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] mt-1 xs:mt-0"
                   />
                   <div className="flex-1 min-w-0 w-full">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
@@ -418,7 +418,7 @@ const AdminTermsTab = () => {
                           variant="ghost"
                           size="icon"
                           onClick={() => term.pdf_content ? window.open(term.pdf_content, "_blank") : undefined}
-                          className="text-[#1F8A0D] dark:text-[#7CFC00] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/10"
+                          className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#3FBD6F]/10"
                           title={t("downloadPdf") || "Download PDF"}
                           disabled={!term.pdf_content}
                         >
@@ -470,7 +470,7 @@ const AdminTermsTab = () => {
             <button
               className={`px-4 py-2 text-sm font-medium ${
                 activeTab === "form"
-                  ? "border-b-2 border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D]"
+                  ? "border-b-2 border-[#1F8A0D] dark:border-[#3FBD6F] text-[#1F8A0D]"
                   : "text-gray-600 dark:text-gray-300"
               }`}
               onClick={() => setActiveTab("form")}
@@ -556,7 +556,7 @@ const AdminTermsTab = () => {
                       className="h-11 pr-32"
                     />
                     {(isEditing && currentTerm?.pdf_content && !formData.pdf_content) && (
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-green-600 bg-green-50 px-2 py-1 rounded shadow-sm border border-green-200">{t("pdfAvailable")}</span>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#1F8A0D] dark:text-[#3FBD6F] bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/20 px-2 py-1 rounded shadow-sm border border-[#1F8A0D]/30 dark:border-[#3FBD6F]/40">{t("pdfAvailable")}</span>
                     )}
                     {formData.pdf_content && (
                       <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-[#174ea6] bg-[#174ea6]/10 px-2 py-1 rounded shadow-sm border border-[#174ea6]">{formData.pdf_content.name}</span>
@@ -623,7 +623,7 @@ const AdminTermsTab = () => {
             <Button
               onClick={submitTerm}
               disabled={duplicateTag || (!isEditing && !formData.pdf_content)}
-              className="w-full sm:w-auto px-6 py-2 bg-[#0d6e0c] dark:bg-[#7CFC00] hover:bg-[#0A4D08] text-white dark:text-black"
+              className="w-full sm:w-auto px-6 py-2 bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] text-white dark:text-black"
             >
               {isEditing ? t("form.update") : t("form.create")}
             </Button>

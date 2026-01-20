@@ -26,7 +26,7 @@ const CourseEnrollmentSuccessModal: React.FC<CourseEnrollmentSuccessModalProps> 
       className="max-w-md"
     >
       <div className="flex flex-col items-center justify-center py-8 px-4">
-        <CheckCircle className="w-16 h-16 text-green mb-4" />
+        <CheckCircle className="w-16 h-16 text-[#1F8A0D] dark:text-[#3FBD6F] mb-4" />
         <h2 className="text-2xl font-bold text-center mb-2">
           {t ? t("enrollmentSuccess.title") : "Enrollment Confirmed!"}
         </h2>
@@ -40,7 +40,7 @@ const CourseEnrollmentSuccessModal: React.FC<CourseEnrollmentSuccessModalProps> 
         <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
           <Button
             onClick={() => router.push("/profile?tab=courses")}
-            className="bg-[#0d6e0c] hover:bg-[#0A4D08] text-white dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] dark:text-[#0B1B17] w-full sm:w-auto"
+            className="bg-[#0d6e0c] hover:bg-[#0A4D08] text-white dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] dark:text-[#FFFFFF] w-full sm:w-auto"
           >
             {t ? t("enrollmentSuccess.viewMyCourses") : "View my courses"}
           </Button>

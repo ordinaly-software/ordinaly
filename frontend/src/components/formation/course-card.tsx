@@ -57,7 +57,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 
   return (
     <Card
-      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? `hover:border-[#1F8A0D] dark:hover:border-[#7CFC00] hover:shadow-2xl hover:shadow-[#1F8A0D]/10 transform hover:-translate-y-2${highlightUpcoming ? ' ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[1.025] z-10' : ''}` : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto${onViewDetails ? ' cursor-pointer' : ''}`}
+      className={`group relative overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 ${variant === "upcoming" ? `hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] hover:shadow-2xl hover:shadow-[#1F8A0D]/10 transform hover:-translate-y-2${highlightUpcoming ? ' ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[1.025] z-10' : ''}` : "opacity-75 hover:opacity-100"} transition-all duration-500 w-full max-w-2xl mx-auto${onViewDetails ? ' cursor-pointer' : ''}`}
       style={variant === "upcoming" ? { minHeight: "520px", ...(highlightUpcoming ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 32px 0 #FFB80044' } : {}) } : {}}
       onClick={onViewDetails ? () => onViewDetails() : undefined}
       role={onViewDetails ? 'button' : undefined}
@@ -109,7 +109,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               {/* Enrollment Status Badge */}
               {enrolled && (
                 <div className="absolute top-4 right-4 z-10">
-                  <div className="bg-[#1F8A0D] dark:bg-[#7CFC00] text-white dark:text-black px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
+                  <div className="bg-[#1F8A0D] dark:bg-[#3FBD6F] text-white dark:text-black px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                     <UserCheck className="w-3 h-3" />
                     {t("enrolled")}
                   </div>
@@ -141,7 +141,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
           {/* Course Meta Information */}
           <div className={`mb-8 ${variant === "upcoming" ? "space-y-3" : "space-y-2 mb-6"}`}>
             <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-200 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
-              <Calendar className="w-5 h-5 text-[#1F8A0D] dark:text-[#7CFC00]" />
+              <Calendar className="w-5 h-5 text-[#1F8A0D] dark:text-[#3FBD6F]" />
               <span>
                 {course.start_date && course.start_date !== "0000-00-00" 
                   ? new Date(course.start_date).toLocaleDateString()
@@ -149,15 +149,15 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               </span>
             </div>
             <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-200 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
-              <MapPin className="w-5 h-5 text-[#1F8A0D] dark:text-[#7CFC00]" />
+              <MapPin className="w-5 h-5 text-[#1F8A0D] dark:text-[#3FBD6F]" />
                     {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                       /online|virtual/i.test(course.location)
-                        ? <span className="underline cursor-default text-[#1F8A0D] dark:text-[#7CFC00]">{course.location}</span>
+                        ? <span className="underline cursor-default text-[#1F8A0D] dark:text-[#3FBD6F]">{course.location}</span>
                         : <a
                             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="underline hover:text-[#1F8A0D] dark:hover:text-[#7CFC00] dark:text-[#7CFC00] transition"
+                            className="underline hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] dark:text-[#3FBD6F] transition"
                             title={course.location}
                           >
                             {course.location}
@@ -167,7 +167,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                     )}
             </div>
             <div className={`flex items-center gap-2 text-gray-600 dark:text-gray-200 ${variant === "upcoming" ? "text-base" : "text-sm"}`}>
-              <Users className="w-5 h-5 text-[#1F8A0D] dark:text-[#7CFC00]" />
+              <Users className="w-5 h-5 text-[#1F8A0D] dark:text-[#3FBD6F]" />
               <span>{t("maxAttendeesCount", { count: course.max_attendants })}</span>
             </div>
           </div>
@@ -178,7 +178,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               <>
                 <Button
                   onClick={handleRequestEdition}
-                  className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                  className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
                 >
                   {t("wantNewEdition")}
                 </Button>
@@ -207,7 +207,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                 ) : (
                   <Button
                     onClick={(e) => { e.stopPropagation(); if (onEnroll) onEnroll(); }}
-                    className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#7CFC00] dark:hover:bg-[#6BFF52] text-white dark:text-[#0B1B17] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
+                    className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"
                     disabled={disableEnroll || isIncompleteSchedule}
                     title={isIncompleteSchedule ? t('noSpecificDate') : undefined}
                   >
@@ -218,7 +218,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                 <Button
                   variant="outline"
                   onClick={handleViewDetailsClick}
-                  className="w-full border-[#1F8A0D] dark:border-[#7CFC00] text-[#1F8A0D] dark:text-white hover:bg-[#0d6e0c] dark:hover:bg-[#7CFC00] dark:hover:text-[#0B1B17] hover:text-white h-14 text-lg transition-all duration-300"
+                  className="w-full border-[#1F8A0D] dark:border-[#3FBD6F] text-[#1F8A0D] dark:text-white hover:bg-[#0d6e0c] dark:hover:bg-[#3FBD6F] dark:hover:text-[#0B1B17] hover:text-white h-14 text-lg transition-all duration-300"
                 >
                   {t("viewDetails")}
                   <ArrowRight className="w-5 h-5 ml-2" />
@@ -229,7 +229,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
         </CardContent>
       </div>
       {/* Hover Effect Background */}
-      {variant === "upcoming" && <div className="absolute inset-0 bg-gradient-to-br from-[#2BCB5C]/5 to-[#9333EA]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>}
+      {variant === "upcoming" && <div className="absolute inset-0 bg-gradient-to-br from-[green-600]/5 to-[#9333EA]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>}
     </Card>
   );
 };

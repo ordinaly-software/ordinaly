@@ -100,7 +100,7 @@ export function ProcessSection({ t }: SectionProps) {
                   <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
                     {step.bullets.map((bullet, idx) => (
                       <li key={idx} className="flex items-center gap-2">
-                        <span className="text-[#1F8A0D] dark:text-[#7CFC00]">→</span>
+                        <span className="text-[#1F8A0D] dark:text-[#3FBD6F]">→</span>
                         <span>{t(`${step.bulletKey ?? step.titleKey.replace(".title", "")}.bullets.${idx}`)}</span>
                       </li>
                     ))}

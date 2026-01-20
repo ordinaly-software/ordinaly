@@ -74,7 +74,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={firstName}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("firstName", e.target.value)}
-                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
+                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                       placeholder={t("form.firstNamePlaceholder")}
                       required
                     />
@@ -93,7 +93,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={lastName}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("lastName", e.target.value)}
-                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
+                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                       placeholder={t("form.lastNamePlaceholder")}
                       required
                     />
@@ -114,7 +114,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     type="text"
                     value={username}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("username", e.target.value)}
-                    className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
+                    className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                     placeholder={t("form.usernamePlaceholder")}
                     required
                   />
@@ -134,7 +134,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     type="email"
                     value={email}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("email", e.target.value)}
-                    className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
+                    className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                     placeholder={t("form.emailPlaceholder")}
                     required
                   />
@@ -154,7 +154,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     type="text"
                     value={company}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("company", e.target.value)}
-                    className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
+                    className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                     placeholder={t("form.companyPlaceholder")}
                     required
                   />
@@ -175,7 +175,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={region}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("region", e.target.value)}
-                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
+                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                       placeholder={t("form.regionPlaceholder")}
                     />
                   </div>
@@ -192,7 +192,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={city}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("city", e.target.value)}
-                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#7CFC00]"
+                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                       placeholder={t("form.cityPlaceholder")}
                     />
                   </div>

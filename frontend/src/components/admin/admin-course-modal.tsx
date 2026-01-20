@@ -114,7 +114,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                 <div className="absolute top-3 sm:top-4 left-3 right-3 sm:left-4 sm:right-4 pr-16 sm:pr-0 pb-16 sm:pb-0 max-h-[60%] sm:max-h-none overflow-hidden">
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 {course.price !== null && course.price !== undefined && (
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500 text-white">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#1F8A0D] dark:bg-[#3FBD6F] text-white dark:text-[#0B1B17]">
                     <Euro className="w-3 h-3 mr-1" />
                     €{course.price}
                   </span>
@@ -149,8 +149,8 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
               <div className="bg-[#1F8A0D]/10 rounded-lg p-4 flex-1 min-w-0">
                 <div className="flex flex-col items-center">
                   <div className="flex items-center justify-between w-full mb-2">
-                    <Users className="h-6 w-6 text-[#1F8A0D] dark:text-[#7CFC00] flex-shrink-0" />
-                    <p className="text-lg font-bold text-[#1F8A0D] dark:text-[#7CFC00]">
+                    <Users className="h-6 w-6 text-[#1F8A0D] dark:text-[#3FBD6F] flex-shrink-0" />
+                    <p className="text-lg font-bold text-[#1F8A0D] dark:text-[#3FBD6F]">
                       {course.enrolled_count || 0}
                     </p>
                   </div>
@@ -255,9 +255,9 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
             </div>
           </div>
           {/* Location & Logistics */}
-          <div className="bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 rounded-xl p-5 min-w-0">
+          <div className="bg-gradient-to-br from-[#1F8A0D]/8 to-[#1F8A0D]/14 dark:from-[#3FBD6F]/15 dark:to-[#3FBD6F]/18 rounded-xl p-5 min-w-0">
             <div className="flex items-center space-x-2 mb-3">
-              <MapPin className="h-5 w-5 text-green-600" />
+              <MapPin className="h-5 w-5 text-[#1F8A0D] dark:text-[#3FBD6F]" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.locationInfo")}</h3>
             </div>
             <div className="space-y-2 text-sm">

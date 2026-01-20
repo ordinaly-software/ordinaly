@@ -73,7 +73,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               type="checkbox"
               checked={isSelected}
               onChange={() => onSelect(service.id)}
-              className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D] flex-shrink-0"
+              className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] flex-shrink-0"
             />
             {service.icon && (
               <div
@@ -109,7 +109,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => onView(service)}
-              className="text-[#1F8A0D] dark:text-[#7CFC00] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/10 w-full"
+              className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#3FBD6F]/10 w-full"
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -153,7 +153,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
             type="checkbox"
             checked={isSelected}
             onChange={() => onSelect(service.id)}
-            className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#7CFC00] focus:ring-[#1F8A0D]"
+            className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D]"
           />
           {service.icon && (
             <div
@@ -208,7 +208,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onView(service)}
-                  className="text-[#1F8A0D] dark:text-[#7CFC00] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#7CFC00]/10"
+                  className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#3FBD6F]/10"
                 >
                   <Eye className="h-4 w-4" />
                 </Button>

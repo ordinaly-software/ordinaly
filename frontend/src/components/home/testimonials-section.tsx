@@ -439,7 +439,7 @@ export function TestimonialsSection({ t }: SectionProps) {
                             <button
                               type="button"
                               onClick={() => toggleReview(item.id)}
-                              className="text-xs font-semibold text-green-700 hover:text-green-800 dark:text-green-300 dark:hover:text-green-200 transition-colors"
+                              className="text-xs font-semibold text-[#1F8A0D] hover:text-[#2EA55E] dark:text-[#3FBD6F] dark:hover:text-[#2EA55E] transition-colors"
                               aria-expanded={isExpanded}
                             >
                               {isExpanded ? t("testimonials.readLess") : t("testimonials.readMore")}
