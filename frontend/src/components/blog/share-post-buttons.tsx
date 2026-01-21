@@ -136,7 +136,7 @@ export const SharePostButtons: React.FC<Props> = ({ title, excerpt, slug, theme 
   const liClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#0A66C2] dark:text-white`;
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-1">
       {/** internal label is optional; caller can render its own label and hide this one */}
       {showLabel !== false && (
         <span className={labelClass}>{t('label', { default: 'Share' })}</span>

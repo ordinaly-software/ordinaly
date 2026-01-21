@@ -327,8 +327,8 @@ export default function HomePage({
           />
         }
       />
-      <LocalSeoSection t={t} />
       <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
+      <LocalSeoSection t={t} />
       {shouldRenderDeferredSections ? (
         <>
           <DeferredSection>

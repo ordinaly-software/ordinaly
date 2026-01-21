@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import Slider from "@/components/ui/slider";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
-import { clearFunctionalStorage, getCookiePreferences } from '@/utils/cookieManager';
+import { getCookiePreferences } from '@/utils/cookieManager';
 
 const CookieConsent = () => {
   const t = useTranslations('cookie');
@@ -18,7 +18,7 @@ const CookieConsent = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [cookiePreferences, setCookiePreferences] = useState({
     necessary: true,
-    functional: false,
+    functional: true,
     analytics: false,
     thirdParty: false,
   });
@@ -31,10 +31,19 @@ const CookieConsent = () => {
       hasConsented = localStorage.getItem('cookie-consent');
       const storedPreferences = getCookiePreferences();
       if (storedPreferences) {
+        const sanitizedPreferences = {
+          ...storedPreferences,
+          functional: true,
+        };
         setCookiePreferences(prev => ({
           ...prev,
-          ...storedPreferences
+          ...sanitizedPreferences,
         }));
+        try {
+          localStorage.setItem('cookie-preferences', JSON.stringify(sanitizedPreferences));
+        } catch {
+          // ignore storage errors
+        }
       }
     } catch {
       // localStorage not available - handle silently
@@ -67,9 +76,13 @@ const CookieConsent = () => {
       if (event.key === 'cookie-preferences') {
         const storedPreferences = getCookiePreferences();
         if (storedPreferences) {
+          const sanitizedPreferences = {
+            ...storedPreferences,
+            functional: true,
+          };
           setCookiePreferences(prev => ({
             ...prev,
-            ...storedPreferences
+            ...sanitizedPreferences,
           }));
         }
       }
@@ -102,7 +115,7 @@ const CookieConsent = () => {
   const handleRejectAll = () => {
     const preferences = {
       necessary: true,
-      functional: false,
+      functional: true,
       analytics: false,
       thirdParty: false,
     };
@@ -113,7 +126,6 @@ const CookieConsent = () => {
     } catch {
       // localStorage not available - handle silently
     }
-    clearFunctionalStorage();
     window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: preferences }));
     setShowBubble(false);
     setShowPopup(false);
@@ -121,23 +133,26 @@ const CookieConsent = () => {
   };
 
   const handleSavePreferences = () => {
+    const sanitizedPreferences = {
+      ...cookiePreferences,
+      functional: true,
+      necessary: true,
+    };
     try {
       localStorage.setItem('cookie-consent', 'customized');
-      localStorage.setItem('cookie-preferences', JSON.stringify(cookiePreferences));
+      localStorage.setItem('cookie-preferences', JSON.stringify(sanitizedPreferences));
     } catch {
       // localStorage not available - handle silently
     }
-    if (!cookiePreferences.functional) {
-      clearFunctionalStorage();
-    }
-    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: cookiePreferences }));
+    setCookiePreferences(sanitizedPreferences);
+    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: sanitizedPreferences }));
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
   };
 
   const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'thirdParty') => {
-    if (type === 'necessary') return;
+    if (type === 'necessary' || type === 'functional') return;
     setCookiePreferences(prev => ({
       ...prev,
       [type]: !prev[type]
@@ -235,16 +250,9 @@ const CookieConsent = () => {
                     toggle: false,
                     note: t('necessaryAlways')
                   },
-                  {
-                    key: 'functional',
-                    icon: <Settings className="text-[#46B1C9]" size={20} />,
-                    enabled: cookiePreferences.functional,
-                    toggle: true,
-                    note: t('functionalExamples')
-                  },
-                  {
-                    key: 'thirdParty',
-                    icon: <Globe className="text-[#1F8A0D] dark:text-[#3FBD6F]" size={20} />,
+                {
+                  key: 'thirdParty',
+                  icon: <Globe className="text-[#1F8A0D] dark:text-[#3FBD6F]" size={20} />,
                     enabled: cookiePreferences.thirdParty,
                     toggle: true,
                     note: t('thirdPartyExamples')

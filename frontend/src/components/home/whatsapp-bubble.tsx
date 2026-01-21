@@ -101,9 +101,6 @@ const WhatsAppBubble = () => {
                   <h2 className="text-xl font-bold text-white">
                     {t('title')}
                   </h2>
-                  <p className="text-white/90 text-sm">
-                    {t('subtitle')}
-                  </p>
                 </div>
               </div>
             </div>
@@ -159,19 +156,6 @@ const WhatsAppBubble = () => {
                   <ExternalLink size={16} />
                 </Button>
 
-                <div className="text-center">
-                  <p className="text-xs text-gray-700 dark:text-gray-200">
-                    {t('responseTime')}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="bg-gray-100 dark:bg-[#23272F] p-4 border-t border-gray-200 dark:border-gray-700">
-              <div className="flex items-center justify-center space-x-2 text-xs text-gray-700 dark:text-gray-200">
-                <div className="w-2 h-2 bg-[#1F8A0D] dark:bg-[#3FBD6F] rounded-full animate-pulse"></div>
-                <span>{t('status')}</span>
               </div>
             </div>
           </div>

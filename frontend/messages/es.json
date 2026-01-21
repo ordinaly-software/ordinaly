@@ -467,7 +467,7 @@
     "cancelButton": "Cancelar"
   },
   "cookie": {
-    "title": "Configuración de Cookies",
+    "title": "Cookies",
     "openCookieSettings": "Abrir Configuración de Cookies",
     "description": "Utilizamos cookies para mejorar tu experiencia, personalizar el contenido y analizar el tráfico. Puedes elegir qué tipos de cookies aceptar",
     "thirdPartyTitle": "Contenido de terceros bloqueado",
@@ -482,7 +482,7 @@
     "necessaryDescription": "Estas cookies son esenciales para el funcionamiento del sitio web y no se pueden desactivar",
     "necessaryAlways": "Siempre activas",
     "functional": "Cookies Funcionales",
-    "functionalDescription": "Permiten funcionalidades mejoradas y personalización del sitio",
+    "functionalDescription": "Las cookies funcionales incluyen funciones esenciales y permanecen siempre activas junto con las cookies necesarias",
     "functionalExamples": "Recordar preferencias de idioma, configuraciones de usuario",
     "thirdParty": "Cookies de Terceros",
     "thirdPartyDescription": "Permiten cargar contenido externo como videos y mapas",
@@ -502,8 +502,7 @@
   "whatsapp": {
     "openLine": "Hablar con nuestro equipo",
     "tooltip": "¿Buscas ayuda comercial o técnica personalizada?",
-    "title": "Asesoría Personalizada",
-    "subtitle": "Equipo comercial y técnico listo para ti",
+    "title": "Contacta con un asesor",
     "description": "Habla con nuestros especialistas para diseñar la mejor estrategia de automatización, presupuesto e implementación para tu empresa.",
     "canHelpWith": "¿En qué podemos ayudarte?",
     "help1": "Definición de servicios y estrategia",
@@ -512,8 +511,6 @@
     "help4": "Aclaraciones técnicas",
     "help5": "Propuestas personalizadas y SLAs",
     "requestAssistance": "Solicitar asesoría",
-    "responseTime": "Tiempo de respuesta: menos de 5 minutos",
-    "status": "Equipo comercial disponible ahora",
     "defaultWhatsAppMessage": "Hola, quiero hablar con el equipo comercial o técnico de Ordinaly."
   },
   "signin": {

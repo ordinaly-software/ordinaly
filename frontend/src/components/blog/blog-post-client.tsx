@@ -171,7 +171,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         </article>
       </main>
       {/* Categories and share row - centered and evenly spaced */}
-      <div className="border-t border-gray-300 dark:border-gray-700 pt-6 pb-10">
+      <div className="border-t border-gray-300 dark:border-gray-700 pt-6 pb-2">
         {Array.isArray(p.categories) && p.categories.length > 0 && (
           <div className="max-w-3xl mx-auto px-4 pb-10">
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 md:gap-4">
@@ -195,9 +195,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
               <div className="flex flex-col items-center">
                 <div className="mb-2 text-base font-semibold text-gray-700 dark:text-gray-300">{t('shareLabel')}</div>
                 {p.slug && (
-                  <div className="px-2">
                     <SharePostButtons showLabel={false} title={p.title} excerpt={p.seoDescription || p.excerpt || ''} slug={p.slug} />
-                  </div>
                 )}
               </div>
             </div>
