@@ -120,7 +120,7 @@ export default async function RootLayout({
                   } else {
                     localStorage.removeItem('theme');
                   }
-                  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                  return 'light';
                 }
 
                 const theme = getInitialTheme();

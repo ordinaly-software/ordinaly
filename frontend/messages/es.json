@@ -621,7 +621,8 @@
       "blog": "Blog",
       "odoo": "Odoo",
       "n8n": "n8n",
-      "api": "API"
+      "api": "API",
+      "mail": "Correo"
     },
     "pagination": {
       "first": "Primera",
@@ -668,6 +669,12 @@
         "description": "Abre la consola de administración de la API en una nueva pestaña.",
         "button": "Abrir API Admin",
         "warning": "Necesitarás credenciales de administrador para acceder."
+      },
+      "mail": {
+        "title": "Servicio de Correo",
+        "description": "Abre el servicio de correo para gestionar emails corporativos.",
+        "button": "Abrir Servicio de Correo",
+        "warning": "Es posible que necesites credenciales de administrador para acceder al portal de correo."
       }
     },
     "stats": {
