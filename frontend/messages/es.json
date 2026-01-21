@@ -482,7 +482,7 @@
     "necessaryDescription": "Estas cookies son esenciales para el funcionamiento del sitio web y no se pueden desactivar",
     "necessaryAlways": "Siempre activas",
     "functional": "Cookies Funcionales",
-    "functionalDescription": "Incluyen las mismas cookies que las necesarias y se mantienen activas para conservar las funciones básicas",
+    "functionalDescription": "Las cookies funcionales incluyen funciones esenciales y permanecen siempre activas junto con las cookies necesarias",
     "functionalExamples": "Recordar preferencias de idioma, configuraciones de usuario",
     "thirdParty": "Cookies de Terceros",
     "thirdPartyDescription": "Permiten cargar contenido externo como videos y mapas",
