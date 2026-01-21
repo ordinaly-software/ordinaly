@@ -483,7 +483,7 @@
     "necessaryDescription": "These cookies are essential for the website to function and cannot be disabled.",
     "necessaryAlways": "Always enabled",
     "functional": "Functional Cookies",
-    "functionalDescription": "Enable enhanced functionality and personalization.",
+    "functionalDescription": "Functional cookies mirror the necessary cookies and stay enabled to keep core features working.",
     "functionalExamples": "Language preferences, user settings",
     "thirdParty": "Third-party Cookies",
     "thirdPartyDescription": "Allow loading external content like videos and maps",
@@ -504,7 +504,6 @@
     "openLine": "Talk to our team",
     "tooltip": "Need personalized commercial or technical help?",
     "title": "Personalized Assistance",
-    "subtitle": "Commercial & technical team ready for you",
     "description": "Connect with our commercial or technical specialists to co-design the ideal automation, pricing, and rollout plan for your business.",
     "canHelpWith": "How can our specialists assist?",
     "help1": "Service scoping and strategy",
@@ -513,8 +512,6 @@
     "help4": "Technical clarifications",
     "help5": "Custom proposals and SLAs",
     "requestAssistance": "Request assistance",
-    "responseTime": "Response time: under 5 minutes",
-    "status": "Commercial team available now",
     "defaultWhatsAppMessage": "Hello, I would like to speak with Ordinaly's commercial or technical team."
   },
   "signin": {

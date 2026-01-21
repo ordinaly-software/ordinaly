@@ -3,110 +3,32 @@
 import Image from "next/image";
 import heroImage from "../../../public/static/home/main_home_ilustration.webp";
 import Link from "next/link";
-import { ArrowRight, Book, Bot, Building2, Workflow } from "lucide-react";
+import { ArrowRight, Book, Bot, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/theme-context";
-import { useEffect, useMemo, useRef, useState } from "react";
-type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
-const secondaryHeroImages = ["/static/home/3.png", "/static/home/4.png"];
+type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
 interface HeroProps {
   t: TranslateFn;
   onWhatsApp: () => void;
 }
 
+const heroImageMeta = {
+  src: heroImage.src,
+  width: heroImage.width ?? 516,
+  height: heroImage.height ?? 640,
+  blurDataURL: heroImage.blurDataURL,
+};
+
 export function HomeHero({ t, onWhatsApp }: HeroProps) {
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
-  const [isHeroVisible, setIsHeroVisible] = useState(false);
-  const [hasPreloadedSecondary, setHasPreloadedSecondary] = useState(false);
-  const [shouldAnimate, setShouldAnimate] = useState(true);
   const { isDark } = useTheme();
   const primaryGreen = "#1F8A0D";
-  // heroImage imported statically above to enable placeholder blur and optimal loading
   const sectionTextColor = isDark ? "text-white" : "text-[#0B1B17]";
   const subtitleColor = isDark ? "#B8FF9A" : "#1F7A12";
   const bulletTextColor = isDark ? "#FFFFFF" : "#0B1B17";
   const bulletBg = isDark ? "rgba(124,252,0,0.12)" : "rgba(31,138,13,0.06)";
   const bulletBorder = isDark ? "rgba(124,252,0,0.35)" : "rgba(31,138,13,0.18)";
-
-  const heroImages = useMemo(() => {
-    const primary = {
-      src: heroImage.src,
-      width: heroImage.width ?? 516,
-      height: heroImage.height ?? 640,
-      blurDataURL: heroImage.blurDataURL,
-    };
-
-    const secondary = secondaryHeroImages.map((src) => ({ src, width: primary.width, height: primary.height, blurDataURL: undefined }));
-
-    return [primary, ...secondary];
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updateMotionPreference = () => setShouldAnimate(!media.matches);
-
-    updateMotionPreference();
-    media.addEventListener("change", updateMotionPreference);
-
-    return () => media.removeEventListener("change", updateMotionPreference);
-  }, []);
-
-  useEffect(() => {
-    const target = sectionRef.current;
-    if (!target) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => setIsHeroVisible(entry.isIntersecting));
-      },
-      { threshold: 0.22 },
-    );
-
-    observer.observe(target);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isHeroVisible || heroImages.length <= 1 || !shouldAnimate) return;
-
-    const intervalId = window.setInterval(() => {
-      setCurrentHeroIndex((prev) => (prev + 1) % heroImages.length);
-    }, 6500);
-
-    return () => window.clearInterval(intervalId);
-  }, [heroImages.length, isHeroVisible, shouldAnimate]);
-
-  useEffect(() => {
-    if (!isHeroVisible || hasPreloadedSecondary || heroImages.length <= 1) return;
-
-    const preloadSecondary = () => {
-      heroImages.slice(1).forEach((image) => {
-        const img = new window.Image();
-        img.decoding = "async";
-        img.loading = "eager";
-        img.src = image.src;
-      });
-
-      setHasPreloadedSecondary(true);
-    };
-
-    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
-      const idleId = (window as Window & { requestIdleCallback: (cb: () => void, opts?: { timeout: number }) => number }).requestIdleCallback(
-        preloadSecondary,
-        { timeout: 1400 },
-      );
-
-      return () => (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback?.(idleId);
-    }
-
-    const timeoutId = (window as Window).setTimeout(preloadSecondary, 400);
-    return () => (window as Window).clearTimeout(timeoutId);
-  }, [hasPreloadedSecondary, heroImages, isHeroVisible]);
 
   const bulletPoints = [
     {
@@ -118,11 +40,11 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
       text: t("hero.trust2"),
     },
     {
-      icon: Workflow,
+      icon: Book,
       text: t("hero.trust3"),
     },
     {
-      icon: Book,
+      icon: ArrowRight,
       text: t("hero.trust4"),
     },
   ];
@@ -154,12 +76,22 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
     },
   ];
 
+  const imageProps = {
+    src: heroImageMeta.src,
+    alt: t("hero.imageAlt"),
+    fill: true,
+    priority: true,
+    fetchPriority: "high" as const,
+    sizes: "(max-width: 1024px) 100vw, 600px",
+    quality: 60,
+    placeholder: heroImageMeta.blurDataURL ? ("blur" as const) : ("empty" as const),
+    blurDataURL: heroImageMeta.blurDataURL,
+    className: "object-cover",
+    "aria-hidden": true,
+  };
+
   return (
-    <section
-      ref={sectionRef}
-      className={`relative overflow-hidden ${sectionTextColor}`}
-      style={{ backgroundColor: isDark ? "#030B13" : "#F7FCF9" }}
-    >
+    <section className={`relative overflow-hidden ${sectionTextColor}`} style={{ backgroundColor: isDark ? "#030B13" : "#F7FCF9" }}>
       <div className="absolute inset-0">
         {isDark ? (
           <>
@@ -210,41 +142,11 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
         )}
       </div>
 
-      <div
-        className="absolute inset-0"
-        style={{
-          background: isDark
-            ? "linear-gradient(180deg, rgba(3,11,19,0.74) 0%, rgba(3,11,19,0.64) 60%, rgba(3,11,19,0.78) 100%)"
-            : "linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.72) 60%, rgba(247,252,249,0.85) 100%)",
-        }}
-      />
+      <div className="absolute inset-0" style={{ background: isDark ? "linear-gradient(180deg, rgba(3,11,19,0.74) 0%, rgba(3,11,19,0.64) 60%, rgba(3,11,19,0.78) 100%)" : "linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.72) 60%, rgba(247,252,249,0.85) 100%)" }} />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-12 lg:pt-14 lg:pb-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="relative z-10 scroll-animate slide-in-left space-y-4">
-            <div className="relative lg:hidden -mx-4 sm:-mx-6 overflow-hidden">
-              <div className="relative h-[220px] sm:h-[220px] md:h-[240px] w-full overflow-hidden">
-                {heroImages.map((image, index) => (
-                  <Image
-                    key={`hero-mobile-${image.src}`}
-                    src={image.src}
-                    alt={t("hero.imageAlt")}
-                    fill
-                    className={`object-cover transition-opacity duration-700 ease-out ${index === currentHeroIndex ? "opacity-100" : "opacity-0"}`}
-                    priority={index === 0}
-                    fetchPriority={index === 0 ? "high" : "low"}
-                    loading={index === 0 ? "eager" : "lazy"}
-                    sizes="(max-width: 1024px) 100vw, 0px"
-                    quality={45}
-                    placeholder={index === 0 && image.blurDataURL ? "blur" : "empty"}
-                    blurDataURL={index === 0 ? image.blurDataURL : undefined}
-                    aria-hidden="true"
-                  />
-                ))}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/15 via-black/5 to-transparent" />
-              </div>
-            </div>
-
             <div className="space-y-4 pt-6 lg:pt-0">
               <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight">
                 <span className="block">{t("hero.titleLine1")}</span>
@@ -334,19 +236,9 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 className="flex items-center gap-3 text-xs uppercase tracking-[0.18em]"
                 style={{ color: isDark ? "rgba(167,243,208,0.9)" : "#1F7A12" }}
               >
-                <div
-                  className="h-px flex-1"
-                  style={{
-                    background: `linear-gradient(to right, rgba(31,138,13,0.4), rgba(255,255,255,0.1), transparent)`,
-                  }}
-                />
+                <div className="h-px flex-1" style={{ background: `linear-gradient(to right, rgba(31,138,13,0.4), rgba(255,255,255,0.1), transparent)` }} />
                 <span>{t("hero.clientsTitle")}</span>
-                <div
-                  className="h-px flex-1"
-                  style={{
-                    background: `linear-gradient(to left, rgba(31,138,13,0.4), rgba(255,255,255,0.1), transparent)`,
-                  }}
-                />
+                <div className="h-px flex-1" style={{ background: `linear-gradient(to left, rgba(31,138,13,0.4), rgba(255,255,255,0.1), transparent)` }} />
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 items-center">
                 {clientLogos.map((logo) => (
@@ -364,9 +256,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                       width={logo.width}
                       height={logo.height}
                       className="w-auto max-h-14 opacity-90"
-                      style={{
-                        filter: isDark ? "none" : "invert(1) brightness(0.2)",
-                      }}
+                      style={{ filter: isDark ? "none" : "invert(1) brightness(0.2)" }}
                       loading="lazy"
                       sizes="(max-width: 640px) 80px, (max-width: 1024px) 96px, 112px"
                       quality={60}
@@ -383,38 +273,13 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
             </div>
           </div>
 
-          <div className="relative hidden lg:block scroll-animate slide-in-right">
+          <div className="relative scroll-animate slide-in-right">
             <div className="relative">
-              <div
-                className="absolute -left-24 -top-16 h-72 w-72 rounded-full blur-3xl"
-                style={{ backgroundColor: "rgba(31,138,13,0.2)" }}
-              />
+              <div className="absolute -left-24 -top-16 h-72 w-72 rounded-full blur-3xl" style={{ backgroundColor: "rgba(31,138,13,0.2)" }} />
               <div className="absolute -right-10 -bottom-24 h-80 w-80 rounded-full bg-cyan-400/25 blur-3xl" />
-              <div
-                className="absolute inset-0 scale-105"
-                style={{
-                  background: "radial-gradient(circle at 70% 40%, rgba(31,138,13,0.18), transparent 45%)",
-                }}
-              />
+              <div className="absolute inset-0 scale-105" style={{ background: "radial-gradient(circle at 70% 40%, rgba(31,138,13,0.18), transparent 45%)" }} />
               <div className="relative mx-auto h-full w-full max-w-[640px] overflow-hidden rounded-[28px] aspect-[516/640]">
-                {heroImages.map((image, index) => (
-                  <Image
-                    key={`hero-desktop-${image.src}`}
-                    src={image.src}
-                    alt={t("hero.imageAlt")}
-                    fill
-                    className={`object-cover transition-opacity duration-700 ease-out ${index === currentHeroIndex ? "opacity-100" : "opacity-0"}`}
-                    priority={index === 0}
-                    fetchPriority={index === 0 ? "high" : "low"}
-                    loading={index === 0 ? "eager" : "lazy"}
-                    sizes="(max-width: 1024px) 0px, (max-width: 1200px) 50vw, 560px"
-                    quality={45}
-                    placeholder={index === 0 && image.blurDataURL ? "blur" : "empty"}
-                    blurDataURL={index === 0 ? image.blurDataURL : undefined}
-                    aria-hidden="true"
-                  />
-                ))}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
+                <Image {...imageProps} />
               </div>
             </div>
           </div>

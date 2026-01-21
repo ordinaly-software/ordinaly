@@ -104,7 +104,7 @@ export default function ContactForm({ className }: { className?: string }) {
 
   return (
     <div className={className}>
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
         <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl p-6 md:p-8">
           <div className="space-y-2 text-center">
             <p className="text-sm uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#3FBD6F] font-semibold">
