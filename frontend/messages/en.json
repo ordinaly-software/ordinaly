@@ -483,7 +483,7 @@
     "necessaryDescription": "These cookies are essential for the website to function and cannot be disabled.",
     "necessaryAlways": "Always enabled",
     "functional": "Functional Cookies",
-    "functionalDescription": "Functional cookies mirror the necessary cookies and stay enabled to keep core features working.",
+    "functionalDescription": "Functional cookies include essential features and are always enabled alongside necessary cookies.",
     "functionalExamples": "Language preferences, user settings",
     "thirdParty": "Third-party Cookies",
     "thirdPartyDescription": "Allow loading external content like videos and maps",
