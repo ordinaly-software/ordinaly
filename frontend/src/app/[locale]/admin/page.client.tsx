@@ -60,7 +60,7 @@ export default function AdminPage() {
     { id: 'odoo', name: t("tabs.odoo"), icon: () => <BarChart3 className="h-4 w-4" />, accentColor: "#623CEA" },
     { id: 'n8n', name: t("tabs.n8n"), icon: () => <Command className="h-4 w-4" />, accentColor: "#E4572E" },
     { id: 'api', name: t("tabs.api"), icon: () => <Settings className="h-4 w-4" />, accentColor: "#46B1C9" },
-    { id: 'mail', name: t("tabs.mail"), icon: Mail, accentColor: "#0EA5E9" },
+    { id: 'mail', name: t("tabs.mail"), icon: () => <Mail className="h-4 w-4" />, accentColor: "#0EA5E9" },
   ];
 
   // Load saved tab from localStorage on component mount
