@@ -15,6 +15,7 @@ import {
   BarChart3,
   ArrowUpRight,
   Command,
+  Mail,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminServicesTab from "@/components/admin/admin-services-tab";
@@ -23,7 +24,7 @@ import AdminTermsTab from "@/components/admin/admin-terms-tab";
 import AdminUsersTab from "@/components/admin/admin-users-tab";
 import AdminExternalTab from "@/components/admin/admin-external-tab";
 
-type TabType = 'overview' | 'services' | 'courses' | 'terms' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api';
+type TabType = 'overview' | 'services' | 'courses' | 'terms' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api' | 'mail';
 
 interface User {
   id: number;
@@ -59,12 +60,13 @@ export default function AdminPage() {
     { id: 'odoo', name: t("tabs.odoo"), icon: () => <BarChart3 className="h-4 w-4" />, accentColor: "#623CEA" },
     { id: 'n8n', name: t("tabs.n8n"), icon: () => <Command className="h-4 w-4" />, accentColor: "#E4572E" },
     { id: 'api', name: t("tabs.api"), icon: () => <Settings className="h-4 w-4" />, accentColor: "#46B1C9" },
+    { id: 'mail', name: t("tabs.mail"), icon: () => <Mail className="h-4 w-4" />, accentColor: "#0EA5E9" },
   ];
 
   // Load saved tab from localStorage on component mount
   useEffect(() => {
     const savedTab = localStorage.getItem('adminActiveTab') as TabType;
-    if (savedTab && ['overview', 'services', 'courses', 'terms', 'users', 'blog', 'odoo', 'n8n', 'api'].includes(savedTab)) {
+    if (savedTab && ['overview', 'services', 'courses', 'terms', 'users', 'blog', 'odoo', 'n8n', 'api', 'mail'].includes(savedTab)) {
       setActiveTab(savedTab);
     }
   }, []);
@@ -498,6 +500,25 @@ export default function AdminPage() {
               href="https://api.ordinaly.ai/admin"
               accentColor="#46B1C9"
               backgroundImage="/static/backgrounds/api_background.webp"
+            />
+          </motion.div>
+        );
+      case 'mail':
+        return (
+          <motion.div
+            key="mail"
+            variants={tabVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <AdminExternalTab
+              title={t("externalTabs.mail.title")}
+              description={t("externalTabs.mail.description")}
+              buttonLabel={t("externalTabs.mail.button")}
+              warning={t("externalTabs.mail.warning")}
+              href="https://mail.ordinaly.ai/billion"
+              accentColor="#0EA5E9"
             />
           </motion.div>
         );

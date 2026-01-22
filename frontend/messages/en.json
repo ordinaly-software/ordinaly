@@ -622,7 +622,8 @@
       "blog": "Blog",
       "odoo": "Odoo",
       "n8n": "n8n",
-      "api": "API"
+      "api": "API",
+      "mail": "Mail"
     },
     "pagination": {
       "first": "First",
@@ -669,6 +670,12 @@
         "description": "Open the API administration console in a new tab.",
         "button": "Open API Admin",
         "warning": "Admin credentials are required to access."
+      },
+      "mail": {
+        "title": "Mail Service",
+        "description": "Open the Mail service to manage company emails.",
+        "button": "Open Mail Service",
+        "warning": "You may need admin credentials to access the mail portal."
       }
     },
     "stats": {
