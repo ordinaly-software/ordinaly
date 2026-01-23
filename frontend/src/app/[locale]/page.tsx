@@ -31,6 +31,8 @@ export async function generateMetadata({
 
 export const revalidate = 3600; // ISR: revalidate home every hour
 
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ordinaly.ai").replace(/\/$/, "");
+
 const fetchJson = async <T,>(url: string): Promise<T | null> => {
   try {
     const res = await fetch(url, { next: { revalidate: 3600 } });
@@ -82,6 +84,12 @@ const getInitialCourses = unstable_cache(
   ["home-courses"],
   { revalidate: 3600 },
 );
+
+const buildServiceUrl = (service: Service) =>
+  `${SITE_URL}/services/${service.slug ?? service.id}`;
+
+const buildCourseUrl = (course: Course) =>
+  `${SITE_URL}/formation/${course.slug ?? course.id}`;
 
 export default async function Home({
   params,
@@ -164,6 +172,69 @@ export default async function Home({
     description:
       "Servicios de agentes de IA, automatización de procesos, chatbots inteligentes, CRM/ERP con Odoo y formación en inteligencia artificial para empresas en Sevilla",
   };
+  const organizationReference = {
+    "@type": "Organization",
+    name: schemaOrganization.name,
+    url: schemaOrganization.url,
+  };
+  const [initialServices, initialCourses] = await Promise.all([
+    initialServicesPromise,
+    initialCoursesPromise,
+  ]);
+
+  const serviceSchemaDetails = initialServices
+    .filter((service) => Boolean(service.title))
+    .map((service) => {
+      const serviceUrl = buildServiceUrl(service);
+      const description = (service.clean_description ?? service.description ?? "").trim();
+      const entry: Record<string, unknown> = {
+        "@type": service.type === "PRODUCT" ? "Product" : "Service",
+        "@id": serviceUrl,
+        name: service.title,
+        url: serviceUrl,
+        provider: organizationReference,
+        serviceType: service.subtitle || service.title,
+      };
+      if (description) {
+        entry.description = description;
+      }
+      return entry;
+    });
+
+  const courseSchemaDetails = initialCourses
+    .filter((course) => Boolean(course.title))
+    .map((course) => {
+      const courseUrl = buildCourseUrl(course);
+      const durationHours = Number(course.duration_hours ?? 0);
+      const locationLabel = course.location?.trim();
+      const normalizedLocation = locationLabel?.toLowerCase() ?? "";
+      const isOnline = normalizedLocation.includes("online") || normalizedLocation.includes("virtual");
+      const entry: Record<string, unknown> = {
+        "@type": "Course",
+        "@id": courseUrl,
+        name: course.title,
+        description: course.description,
+        url: courseUrl,
+        provider: organizationReference,
+      };
+      if (course.start_date) {
+        entry.startDate = course.start_date;
+      }
+      if (course.end_date) {
+        entry.endDate = course.end_date;
+      }
+      if (durationHours > 0) {
+        entry.timeRequired = `PT${durationHours}H`;
+      }
+      if (locationLabel) {
+        entry.location = {
+          "@type": "Place",
+          name: locationLabel,
+        };
+        entry.courseMode = isOnline ? "Online" : "Offline";
+      }
+      return entry;
+    });
 
   return (
     <>
@@ -179,6 +250,28 @@ export default async function Home({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaService) }}
       />
+      {serviceSchemaDetails.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": serviceSchemaDetails,
+            }),
+          }}
+        />
+      )}
+      {courseSchemaDetails.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": courseSchemaDetails,
+            }),
+          }}
+        />
+      )}
       <Suspense fallback={<LoadingPage />}>
         <HomeContent
           initialServicesPromise={initialServicesPromise}

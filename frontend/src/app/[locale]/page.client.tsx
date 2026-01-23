@@ -13,6 +13,7 @@ import { CtaSection } from "@/components/home/cta-section";
 import Footer from "@/components/ui/footer";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+import { FaqSection } from "@/components/formation/faq-section";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -198,6 +199,7 @@ export default function HomePage({
   initialCourses?: Course[];
 }) {
   const t = useTranslations("home");
+  const formationT = useTranslations("formation");
   const servicesSectionRef = useRef<HTMLElement | null>(null);
 
   const shouldFetchServices = initialServices.length === 0;
@@ -351,6 +353,9 @@ export default function HomePage({
           </DeferredSection>
           <DeferredSection rootMargin="2000px 0px">
             <BenefitsSection t={t} />
+          </DeferredSection>
+          <DeferredSection rootMargin="1500px 0px">
+            <FaqSection t={formationT} />
           </DeferredSection>
         </>
       ) : (
