@@ -134,7 +134,7 @@ export default async function Home({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Ordinaly — Automatización empresarial con IA en Sevilla",
-    image: `${SITE_URL}/static/main_home_ilustration_1200.webp`,
+    image: `${SITE_URL}/static/home/main_home_ilustration.webp`,
     "@id": SITE_URL,
     url: SITE_URL,
     telephone: "+34626270806",
