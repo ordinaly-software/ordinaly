@@ -102,7 +102,7 @@ const WhatsAppBubble = dynamic(
   () => import("@/components/home/whatsapp-bubble").then((mod) => mod.default),
   {
     ssr: false,
-    loading: () => <WhatsAppBubbleSkeleton />, 
+    loading: () => <WhatsAppBubbleSkeleton />,
   },
 );
 const FaqSection = dynamic(
