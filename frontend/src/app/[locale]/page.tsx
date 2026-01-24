@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import HomePage from "./page.client";
 import LoadingPage from "./loading";
-import { createPageMetadata } from "@/lib/metadata";
+import { absoluteUrl, createPageMetadata, metadataBaseUrl } from "@/lib/metadata";
 import { getApiEndpoint } from "@/lib/api-config";
 import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
@@ -31,7 +31,7 @@ export async function generateMetadata({
 
 export const revalidate = 3600; // ISR: revalidate home every hour
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ordinaly.ai").replace(/\/$/, "");
+const SITE_URL = metadataBaseUrl;
 
 const fetchJson = async <T,>(url: string): Promise<T | null> => {
   try {
@@ -85,18 +85,21 @@ const getInitialCourses = unstable_cache(
   { revalidate: 3600 },
 );
 
-const buildServiceUrl = (service: Service) =>
-  `${SITE_URL}/services/${service.slug ?? service.id}`;
+const getServicePath = (service: Service) => `/services/${service.slug || service.id}`;
+const getCoursePath = (course: Course) => `/formation/${course.slug || course.id}`;
 
-const buildCourseUrl = (course: Course) =>
-  `${SITE_URL}/formation/${course.slug ?? course.id}`;
+const buildServiceUrl = (service: Service, locale?: string) =>
+  absoluteUrl(getServicePath(service), locale);
+
+const buildCourseUrl = (course: Course, locale?: string) =>
+  absoluteUrl(getCoursePath(course), locale);
 
 export default async function Home({
   params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params;
+  const { locale } = await params;
   const initialServicesPromise = getInitialServices();
   const initialCoursesPromise = getInitialCourses();
 
@@ -104,8 +107,8 @@ export default async function Home({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Ordinaly Software - Automatización empresarial con IA en Sevilla",
-    url: "https://ordinaly.ai",
-    logo: "https://ordinaly.ai/logo.png",
+    url: SITE_URL,
+    logo: `${SITE_URL}/logo.png`,
     description:
       "Agentes de IA y automatización empresarial en Sevilla. Transformamos negocios con inteligencia artificial: chatbots, CRMs, workflows y formación para empresas.",
     address: {
@@ -131,9 +134,9 @@ export default async function Home({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Ordinaly — Automatización empresarial con IA en Sevilla",
-    image: "https://ordinaly.ai/static/main_home_ilustration_1200.webp",
-    "@id": "https://ordinaly.ai",
-    url: "https://ordinaly.ai",
+    image: `${SITE_URL}/static/main_home_ilustration_1200.webp`,
+    "@id": SITE_URL,
+    url: SITE_URL,
     telephone: "+34626270806",
     priceRange: "€€",
     address: {
@@ -177,6 +180,67 @@ export default async function Home({
     name: schemaOrganization.name,
     url: schemaOrganization.url,
   };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrganization) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaLocalBusiness) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaService) }}
+      />
+      <Suspense fallback={<LoadingPage />}>
+        <ServiceCourseSchema
+          initialServicesPromise={initialServicesPromise}
+          initialCoursesPromise={initialCoursesPromise}
+          locale={locale}
+          organizationReference={organizationReference}
+        />
+        <HomeContent
+          initialServicesPromise={initialServicesPromise}
+          initialCoursesPromise={initialCoursesPromise}
+        />
+      </Suspense>
+    </>
+  );
+}
+
+type HomeContentProps = {
+  initialServicesPromise: Promise<Service[]>;
+  initialCoursesPromise: Promise<Course[]>;
+};
+
+async function HomeContent({
+  initialServicesPromise,
+  initialCoursesPromise,
+}: HomeContentProps) {
+  const [initialServices, initialCourses] = await Promise.all([
+    initialServicesPromise,
+    initialCoursesPromise,
+  ]);
+
+  return <HomePage initialServices={initialServices} initialCourses={initialCourses} />;
+}
+
+type ServiceCourseSchemaProps = {
+  initialServicesPromise: Promise<Service[]>;
+  initialCoursesPromise: Promise<Course[]>;
+  locale?: string;
+  organizationReference: Record<string, unknown>;
+};
+
+async function ServiceCourseSchema({
+  initialServicesPromise,
+  initialCoursesPromise,
+  locale,
+  organizationReference,
+}: ServiceCourseSchemaProps) {
   const [initialServices, initialCourses] = await Promise.all([
     initialServicesPromise,
     initialCoursesPromise,
@@ -185,7 +249,7 @@ export default async function Home({
   const serviceSchemaDetails = initialServices
     .filter((service) => Boolean(service.title))
     .map((service) => {
-      const serviceUrl = buildServiceUrl(service);
+      const serviceUrl = buildServiceUrl(service, locale);
       const description = (service.clean_description ?? service.description ?? "").trim();
       const entry: Record<string, unknown> = {
         "@type": service.type === "PRODUCT" ? "Product" : "Service",
@@ -204,7 +268,7 @@ export default async function Home({
   const courseSchemaDetails = initialCourses
     .filter((course) => Boolean(course.title))
     .map((course) => {
-      const courseUrl = buildCourseUrl(course);
+      const courseUrl = buildCourseUrl(course, locale);
       const durationHours = Number(course.duration_hours ?? 0);
       const locationLabel = course.location?.trim();
       const normalizedLocation = locationLabel?.toLowerCase() ?? "";
@@ -236,20 +300,12 @@ export default async function Home({
       return entry;
     });
 
+  if (courseSchemaDetails.length === 0 && serviceSchemaDetails.length === 0) {
+    return null;
+  }
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrganization) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaLocalBusiness) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaService) }}
-      />
       {serviceSchemaDetails.length > 0 && (
         <script
           type="application/ld+json"
@@ -272,29 +328,6 @@ export default async function Home({
           }}
         />
       )}
-      <Suspense fallback={<LoadingPage />}>
-        <HomeContent
-          initialServicesPromise={initialServicesPromise}
-          initialCoursesPromise={initialCoursesPromise}
-        />
-      </Suspense>
     </>
   );
-}
-
-type HomeContentProps = {
-  initialServicesPromise: Promise<Service[]>;
-  initialCoursesPromise: Promise<Course[]>;
-};
-
-async function HomeContent({
-  initialServicesPromise,
-  initialCoursesPromise,
-}: HomeContentProps) {
-  const [initialServices, initialCourses] = await Promise.all([
-    initialServicesPromise,
-    initialCoursesPromise,
-  ]);
-
-  return <HomePage initialServices={initialServices} initialCourses={initialCourses} />;
 }

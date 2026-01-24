@@ -19,7 +19,7 @@ export async function generateMetadata({
     description: isEs
       ? "Noticias, guías y casos de éxito sobre automatización, IA y productividad para empresas."
       : "News, guides, and success stories on automation, AI, and productivity for companies.",
-    image: "/static/backgrounds/blog_background.webp",
+    image: "/static/backgrounds/blog_background.png",
   });
 }
 

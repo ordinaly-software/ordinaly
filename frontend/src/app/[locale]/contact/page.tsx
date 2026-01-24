@@ -17,7 +17,7 @@ export async function generateMetadata({
     description: isEs
       ? "Hablemos sobre tus proyectos de automatización e IA. Escríbenos y te responderemos en menos de 24h."
       : "Let's talk about your automation and AI projects. Write to us and we’ll reply within 24 hours.",
-    image: "/static/contact/contact_pic.webp",
+    image: "/static/contact/contact_pic.png",
   });
 }
 

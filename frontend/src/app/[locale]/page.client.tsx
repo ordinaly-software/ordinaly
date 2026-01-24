@@ -13,7 +13,6 @@ import { CtaSection } from "@/components/home/cta-section";
 import Footer from "@/components/ui/footer";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
-import { FaqSection } from "@/components/formation/faq-section";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -103,8 +102,12 @@ const WhatsAppBubble = dynamic(
   () => import("@/components/home/whatsapp-bubble").then((mod) => mod.default),
   {
     ssr: false,
-    loading: () => <WhatsAppBubbleSkeleton />,
+    loading: () => <WhatsAppBubbleSkeleton />, 
   },
+);
+const FaqSection = dynamic(
+  () => import("@/components/formation/faq-section").then((mod) => mod.FaqSection),
+  { loading: () => <SectionSkeleton />, ssr: false },
 );
 function DeferredSection({
   children,
