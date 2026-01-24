@@ -108,7 +108,7 @@ export default async function Home({
     "@type": "Organization",
     name: "Ordinaly Software - Automatización empresarial con IA en Sevilla",
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.png`,
+    logo: `${SITE_URL}/logo.webp`,
     description:
       "Agentes de IA y automatización empresarial en Sevilla. Transformamos negocios con inteligencia artificial: chatbots, CRMs, workflows y formación para empresas.",
     address: {
