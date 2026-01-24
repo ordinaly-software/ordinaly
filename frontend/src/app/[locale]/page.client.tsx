@@ -105,6 +105,10 @@ const WhatsAppBubble = dynamic(
     loading: () => <WhatsAppBubbleSkeleton />,
   },
 );
+const FaqSection = dynamic(
+  () => import("@/components/formation/faq-section").then((mod) => mod.FaqSection),
+  { loading: () => <SectionSkeleton />, ssr: false },
+);
 function DeferredSection({
   children,
   className,
@@ -198,6 +202,7 @@ export default function HomePage({
   initialCourses?: Course[];
 }) {
   const t = useTranslations("home");
+  const formationT = useTranslations("formation");
   const servicesSectionRef = useRef<HTMLElement | null>(null);
 
   const shouldFetchServices = initialServices.length === 0;
@@ -351,6 +356,9 @@ export default function HomePage({
           </DeferredSection>
           <DeferredSection rootMargin="2000px 0px">
             <BenefitsSection t={t} />
+          </DeferredSection>
+          <DeferredSection rootMargin="1500px 0px">
+            <FaqSection t={formationT} />
           </DeferredSection>
         </>
       ) : (
