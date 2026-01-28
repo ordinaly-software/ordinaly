@@ -251,8 +251,12 @@ async function ServiceCourseSchema({
     .map((service) => {
       const serviceUrl = buildServiceUrl(service, locale);
       const description = (service.clean_description ?? service.description ?? "").trim();
+      const priceValue = service.price?.toString().trim();
+      const priceNumber = priceValue ? Number(priceValue) : Number.NaN;
+      const hasValidPrice = Number.isFinite(priceNumber) && priceNumber >= 0;
+      const isProduct = service.type === "PRODUCT" && hasValidPrice;
       const entry: Record<string, unknown> = {
-        "@type": service.type === "PRODUCT" ? "Product" : "Service",
+        "@type": isProduct ? "Product" : "Service",
         "@id": serviceUrl,
         name: service.title,
         url: serviceUrl,
@@ -261,6 +265,15 @@ async function ServiceCourseSchema({
       };
       if (description) {
         entry.description = description;
+      }
+      if (isProduct) {
+        entry.offers = {
+          "@type": "Offer",
+          priceCurrency: "EUR",
+          price: priceNumber,
+          availability: "https://schema.org/InStock",
+          url: serviceUrl,
+        };
       }
       return entry;
     });
