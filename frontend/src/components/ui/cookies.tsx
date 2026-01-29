@@ -196,12 +196,6 @@ const CookieConsent = () => {
                 <p className="text-muted-foreground">
                   {t('description')}
                 </p>
-                <div className="bg-gradient-to-r from-[#1F8A0D]/10 dark:from-[#3FBD6F]/10 to-[#46B1C9]/10 p-4 rounded-lg border border-border">
-                  <p className="text-sm text-muted-foreground">
-                    <strong className="text-foreground">{t('whatAre')}</strong>{' '}
-                    {t('whatAreDescription')}
-                  </p>
-                </div>
               </div>
 
               <div className="flex flex-col md:flex-row gap-3">
