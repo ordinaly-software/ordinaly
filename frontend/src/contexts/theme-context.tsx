@@ -39,7 +39,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       }
     }
 
-    return window.matchMedia('(prefers-color-scheme: light)').matches;
+    return false;
   };
 
   const applyTheme = (dark: boolean, shouldPersist: boolean) => {
@@ -61,7 +61,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // Initialize theme from localStorage when functional cookies are allowed, otherwise fall back to system preference
+    // Initialize theme from storage when allowed, otherwise default to light.
     const allowPersistence = getFunctionalConsent();
     setFunctionalAllowed(allowPersistence);
     const shouldBeDark = resolvePreferredTheme(allowPersistence);
