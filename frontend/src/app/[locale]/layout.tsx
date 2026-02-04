@@ -13,6 +13,8 @@ import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
 import GoogleAnalyticsLoader from "@/components/analytics/google-analytics-loader";
+import AutoKeywords from "@/components/seo/auto-keywords";
+import CommerceSchema from "@/components/seo/commerce-schema";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -145,6 +147,8 @@ export default async function RootLayout({
         <NextIntlClientProvider>
           <ThemeProvider>
             <ServiceWorkerRegistrar />
+            <CommerceSchema locale={locale} />
+            <AutoKeywords />
             {/* tu body tal cual */}
             <Navbar />
             <main id="main-content">{children}</main>
