@@ -43,7 +43,7 @@ export const ShareServiceButtons: React.FC<Props> = ({
 }) => {
   const t = useTranslations("services.share");
   const locale = useLocale() || "es";
-  const siteTag = "@OrdinalySoftware";
+  const siteTag = "@ordinaly.ai";
   const envBaseUrl = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, "");
 
   const textBase = t("shareMessage", {

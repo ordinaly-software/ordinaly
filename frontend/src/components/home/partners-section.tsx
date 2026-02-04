@@ -39,9 +39,9 @@ const partners = [
     delay: "0.5s",
   },
   {
-    src: "/static/logos/logo_aires_de_feria.webp",
-    alt: "Aires de Feria - Automatización Eventos",
-    url: "https://www.airesdeferia.com",
+    src: "/static/logos/logo_geesol.webp",
+    alt: "Geesol Instalaciones Fotovoltaicas",
+    url: "https://www.geesol.com",
     delay: "0.4s",
   },
 ];

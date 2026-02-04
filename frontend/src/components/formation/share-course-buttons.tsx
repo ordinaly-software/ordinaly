@@ -34,7 +34,7 @@ const LinkedInIcon = ({ className = "h-6 w-6" }: { className?: string }) => (
 export const ShareCourseButtons: React.FC<Props> = ({ title, subtitle, slug, theme = 'default' }) => {
   const t = useTranslations("formation.courseDetails.share");
   const locale = useLocale() || 'es';
-  const siteTag = "@OrdinalySoftware";
+  const siteTag = "@ordinaly.ai";
   const envBaseUrl = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, "");
 
   // Use locale JSON translations (key: formation.courseDetails.share.shareMessage)
