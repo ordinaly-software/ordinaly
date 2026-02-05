@@ -19,6 +19,7 @@ export interface CourseFormData {
   subtitle: string;
   description: string;
   bonified_course_link?: string;
+  youtube_video_url?: string;
   image: string;
   price: string | number;
   max_attendants: string | number;
@@ -322,6 +323,27 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               </div>
             )}
           </div>
+        </div>
+
+        {/* Video */}
+        <div className="space-y-3">
+          <Label htmlFor="youtube_video_url" className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            <div className="w-5 h-5 bg-red-100 dark:bg-red-900/30 rounded flex items-center justify-center">
+              <span className="text-xs font-bold text-red-600 dark:text-red-400">▶️</span>
+            </div>
+            <span>{t("form.video")}</span>
+          </Label>
+          <Input
+            id="youtube_video_url"
+            type="url"
+            value={formData.youtube_video_url ?? ""}
+            onChange={(e) => setFormData(prev => ({ ...prev, youtube_video_url: e.target.value }))}
+            placeholder={t("form.videoPlaceholder")}
+            className="h-12 border-gray-300 focus:border-red-500 focus:ring-red-500/20 rounded-lg transition-all duration-200"
+          />
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            {t("form.videoHelp")}
+          </p>
         </div>
 
         {/* Price and Max Attendants */}

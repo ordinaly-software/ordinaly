@@ -108,7 +108,7 @@ const UserMenu = ({
             style={{
               top: dropdownPosition.top,
               left: dropdownPosition.left,
-              zIndex: 99999,
+              zIndex: 45,
             }}
             role="menu"
           >
@@ -326,15 +326,17 @@ const Navbar = () => {
     [t],
   );
 
+  const showCta = viewportWidth >= 640;
+  const showAuthButtons = viewportWidth >= 640;
+
   const maxVisibleItems = useMemo(() => {
     if (viewportWidth >= 1440) return navItems.length;
-    if (viewportWidth >= 1280) return navItems.length;
-    if (viewportWidth >= 1160) return 4;
-    if (viewportWidth >= 1024) return 3;
-    if (viewportWidth >= 900) return 2;
-    if (viewportWidth >= 760) return 1;
+    if (viewportWidth >= 1360) return 4;
+    if (viewportWidth >= 1280) return 3;
+    if (viewportWidth >= 1200) return showCta || showAuthButtons ? 2 : 3;
+    // Prioritize CTA/auth and burger from md widths down.
     return 0;
-  }, [navItems.length, viewportWidth]);
+  }, [navItems.length, showAuthButtons, showCta, viewportWidth]);
 
   const visibleItems = useMemo(
     () => navItems.slice(0, Math.max(0, maxVisibleItems)),
@@ -346,8 +348,7 @@ const Navbar = () => {
     [navItems, maxVisibleItems],
   );
 
-  const showCta = viewportWidth >= 1280;
-  const showAuthButtons = viewportWidth >= 1280;
+  // showCta/showAuthButtons are computed above to keep buttons visible on mobile if space allows
   const showHamburger = viewportWidth < 1280 || hiddenItems.length > 0;
 
   useEffect(() => {
@@ -372,7 +373,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 z-[60] w-full border-b border-gray-200/50 dark:border-gray-700/50 bg-white/90 dark:bg-[#1A1924]/90 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 z-40 w-full border-b border-gray-200/50 dark:border-gray-700/50 bg-white/90 dark:bg-[#1A1924]/90 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-2.5 sm:py-3.5 lg:py-5 min-h-[54px] sm:min-h-[66px] gap-4 lg:gap-6">
             <Link href="/" className="flex items-center flex-shrink-0 min-w-0 group">
@@ -483,7 +484,7 @@ const Navbar = () => {
                 <Button
                   size="sm"
                   onClick={handleBookConsultation}
-                  className="h-9 bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black shadow-md hover:shadow-lg transition-all duration-200 text-sm px-4"
+                  className="h-8 sm:h-9 bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black shadow-md hover:shadow-lg transition-all duration-200 text-xs sm:text-sm px-3 sm:px-4"
                 >
                   {t("navigation.ctaConsultation")}
                 </Button>
@@ -504,7 +505,7 @@ const Navbar = () => {
                       size="sm"
                       onClick={goToSignIn}
                       aria-label={t("navigation.signIn")}
-                      className="text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-all duration-200 flex items-center h-9"
+                      className="text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-all duration-200 flex items-center h-8 sm:h-9 text-xs sm:text-sm"
                     >
                       <LogIn className="h-4 w-4 mr-2" />
                       <span>{t("navigation.signIn")}</span>
@@ -512,7 +513,7 @@ const Navbar = () => {
                     <Button
                       size="sm"
                       onClick={goToSignUp}
-                      className="bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black transition-all duration-200 hover:scale-105 h-8 px-3 text-sm"
+                      className="bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black transition-all duration-200 hover:scale-105 h-8 sm:h-9 px-3 sm:px-4 text-xs sm:text-sm"
                     >
                       {t("navigation.signUp")}
                     </Button>

@@ -13,6 +13,7 @@ interface Course {
   subtitle?: string;
   description: string;
   image: string;
+  youtube_video_url?: string | null;
   price?: string | null;
   location: string;
   start_date: string;

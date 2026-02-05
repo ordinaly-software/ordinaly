@@ -167,6 +167,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             subtitle=course.subtitle,
             description=course.description,
             bonified_course_link=course.bonified_course_link,
+            youtube_video_url=course.youtube_video_url,
             price=course.price,
             location=course.location,
             start_date=course.start_date,

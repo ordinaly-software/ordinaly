@@ -12,7 +12,7 @@ class CourseAdmin(admin.ModelAdmin):
     fieldsets = (
         ('Basic Information', {
             'fields': ('slug', 'title', 'subtitle', 'description', 'bonified_course_link',
-                       'image', 'price', 'location', 'draft')
+                       'youtube_video_url', 'image', 'price', 'location', 'draft')
         }),
         ('Basic Schedule', {
             'fields': ('start_date', 'end_date', 'start_time', 'end_time', 'periodicity', 'timezone')

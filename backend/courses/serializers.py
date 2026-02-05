@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 from rest_framework import serializers
 from .models import Course, Enrollment
 from users.models import CustomUser
@@ -19,6 +20,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     image = serializers.ImageField(required=False, allow_null=True)
     location = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    youtube_video_url = serializers.URLField(required=False, allow_null=True, allow_blank=True)
 
     def validate_image(self, value):
         # Only require image on creation
@@ -57,7 +59,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ['id', 'slug', 'title', 'subtitle', 'description', 'bonified_course_link', 'image', 'price',
+        fields = ['id', 'slug', 'title', 'subtitle', 'description', 'bonified_course_link', 'youtube_video_url', 'image', 'price',
                   'location', 'start_date', 'end_date', 'start_time', 'end_time',
                   'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
                   'exclude_dates', 'max_attendants', 'enrolled_count',
@@ -70,7 +72,30 @@ class CourseSerializer(serializers.ModelSerializer):
         # Ensure draft is always set to False if not provided or null
         if 'draft' not in data or data.get('draft') is None:
             data['draft'] = False
+        # Normalize empty strings to None for optional URL field
+        if data.get('youtube_video_url') == '':
+            data['youtube_video_url'] = None
         return super().to_internal_value(data)
+
+    def validate_youtube_video_url(self, value):
+        """Validate that the video URL points to YouTube"""
+        if not value:
+            return value
+        if isinstance(value, str):
+            value = value.strip()
+        if not value:
+            return None
+        parsed = urlparse(value)
+        allowed_hosts = {
+            'youtube.com',
+            'www.youtube.com',
+            'm.youtube.com',
+            'youtu.be',
+            'www.youtu.be',
+        }
+        if parsed.hostname is None or parsed.hostname.lower() not in allowed_hosts:
+            raise serializers.ValidationError("Course video must be a YouTube link.")
+        return value
 
     def get_enrolled_count(self, obj):
         return obj.enrollments.count()

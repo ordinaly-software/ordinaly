@@ -68,11 +68,11 @@ export const MenuItem = ({
           initial={{ opacity: 0, scale: 0.85, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={transition}
-          className="z-[70]"
+          className="z-[45]"
         >
           {active === item && (
             <div
-              className="absolute top-[calc(100%_+_0.75rem)] left-1/2 transform -translate-x-1/2 pt-3 z-[70]"
+              className="absolute top-[calc(100%_+_0.75rem)] left-1/2 transform -translate-x-1/2 pt-3 z-[45]"
               onMouseEnter={() => setActive(item)}
               onMouseLeave={() => setActive(null)}
             >
