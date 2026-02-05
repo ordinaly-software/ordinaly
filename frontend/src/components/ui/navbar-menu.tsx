@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, type Transition } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -132,26 +132,67 @@ export const ProductItem = ({
   description,
   href,
   src,
+  loadOnHover = true,
+  loadEnabled = true,
 }: {
   title: string;
-  description: string;
+  description?: string;
   href: string;
   src: string;
+  loadOnHover?: boolean;
+  loadEnabled?: boolean;
 }) => {
+  const [shouldLoadImage, setShouldLoadImage] = useState(!loadOnHover && loadEnabled);
+
+  useEffect(() => {
+    if (!loadOnHover && loadEnabled) {
+      setShouldLoadImage(true);
+    }
+  }, [loadEnabled, loadOnHover]);
+
+  useEffect(() => {
+    if (!loadEnabled) {
+      setShouldLoadImage(false);
+    }
+  }, [loadEnabled]);
+
+  const handleLoadIntent = () => {
+    if (!loadEnabled) return;
+    if (!shouldLoadImage) setShouldLoadImage(true);
+  };
+
   return (
-    <a href={href} className="flex space-x-3 w-full max-w-[420px]">
-      <Image src={src} width={120}
-        height={120}
-        alt={title}
-        className="shrink-0 rounded-lg shadow-md object-cover h-20 w-28"
-      />
+    <a
+      href={href}
+      className="flex space-x-3 w-full max-w-[420px]"
+      onMouseEnter={handleLoadIntent}
+      onFocus={handleLoadIntent}
+      onTouchStart={handleLoadIntent}
+    >
+      <div className="shrink-0 rounded-lg shadow-md bg-gray-100 dark:bg-gray-800 h-20 w-28 overflow-hidden">
+        {shouldLoadImage && src ? (
+          <Image
+            src={src}
+            width={120}
+            height={120}
+            alt={title}
+            className="h-20 w-28 object-cover"
+            loading="lazy"
+            fetchPriority="low"
+          />
+        ) : (
+          <div className="h-20 w-28 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700" />
+        )}
+      </div>
       <div className="flex-1 min-w-0">
         <h4 className="text-base font-semibold mb-1 text-black dark:text-white line-clamp-2">
           {title}
         </h4>
-        <p className="text-neutral-700 text-sm dark:text-neutral-300 line-clamp-3">
-          {description}
-        </p>
+        {description && (
+          <p className="text-neutral-700 text-sm dark:text-neutral-300 line-clamp-3">
+            {description}
+          </p>
+        )}
       </div>
     </a>
   );
