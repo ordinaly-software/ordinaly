@@ -9,10 +9,15 @@ import { useTranslations } from 'next-intl';
 interface HighlightedCarouselProps {
   posts: BlogPost[];
   onCategoryClick?: (cat: string) => void;
+  translationsNamespace?: "blog" | "news";
 }
 
-export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({ posts, onCategoryClick }) => {
-  const t = useTranslations('blog');
+export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({
+  posts,
+  onCategoryClick,
+  translationsNamespace = "blog",
+}) => {
+  const t = useTranslations(translationsNamespace);
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(true);

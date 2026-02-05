@@ -26,6 +26,7 @@
       "profile": "Perfil",
       "myCourses": "Mis cursos",
       "blog": "Blog",
+      "news": "Noticias",
       "contact": "Contacto",
       "us": "Sobre nosotros",
       "loading": "Cargando..."
@@ -1877,6 +1878,41 @@
     },
     "otherPosts": {
       "title": "Todas las publicaciones"
+    }
+  },
+  "news": {
+    "title": "Noticias de automatización e IA",
+    "subtitle": "Actualidad y novedades sobre automatización, IA y productividad para empresas",
+    "noResults": {
+      "title": "No se encontraron noticias",
+      "description": "Intenta buscar de nuevo"
+    },
+    "searchPlaceholder": "Buscar noticias...",
+    "filters": {
+      "category": "Categoría",
+      "all": "Todas las categorías"
+    },
+    "loading": "Cargando más noticias...",
+    "pagination": {
+      "prev": "Anterior",
+      "next": "Siguiente",
+      "page": "Página ",
+      "of": " de ",
+      "first": "Principio",
+      "last": "Final"
+    },
+    "sort": {
+      "label": "Ordenar por:",
+      "newest": "Más recientes",
+      "oldest": "Más antiguos"
+    },
+    "highlighted": {
+      "title": "Destacadas",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "otherPosts": {
+      "title": "Todas las noticias"
     }
   },
   "contactPage": {

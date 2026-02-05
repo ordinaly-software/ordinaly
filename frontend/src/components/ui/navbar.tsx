@@ -153,6 +153,7 @@ const Navbar = () => {
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false);
   const [isMobileFormationOpen, setIsMobileFormationOpen] = useState(false);
+  const [isMobileBlogOpen, setIsMobileBlogOpen] = useState(false);
   const [viewportWidth, setViewportWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1280
   );
@@ -349,7 +350,7 @@ const Navbar = () => {
     () => [
       { id: "services", type: "mega", href: "/services", label: t("navigation.services") },
       { id: "formation", type: "mega", href: "/formation", label: t("navigation.formation") },
-      { id: "blog", type: "link", href: "/blog", label: t("navigation.blog") },
+      { id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") },
       { id: "contact", type: "link", href: "/contact", label: t("navigation.contact") },
       { id: "about", type: "link", href: "/about", label: t("navigation.us") },
     ],
@@ -379,6 +380,7 @@ const Navbar = () => {
   const compactAuth = viewportWidth > 0 && viewportWidth < 520;
   const hasHiddenServices = hiddenItems.some((item) => item.id === "services");
   const hasHiddenFormation = hiddenItems.some((item) => item.id === "formation");
+  const hasHiddenBlog = hiddenItems.some((item) => item.id === "blog");
   const hiddenLinks = hiddenItems.filter((item) => item.type === "link");
 
   useEffect(() => {
@@ -399,6 +401,7 @@ const Navbar = () => {
     }
     return pathname.includes(href);
   }, [pathname]);
+  const isBlogSectionActive = pathname.includes("/blog") || pathname.includes("/noticias");
 
 
   return (
@@ -480,6 +483,23 @@ const Navbar = () => {
                                 )}
                                 <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
                               </>
+                            </div>
+                          </MenuItem>
+                        );
+                      }
+                      if (item.id === "blog") {
+                        return (
+                          <MenuItem
+                            key={item.id}
+                            item={item.label}
+                            active={activeMegaItem}
+                            setActive={setActiveMegaItem}
+                            href={item.href}
+                            isActiveLink={isBlogSectionActive}
+                          >
+                            <div className="grid grid-cols-1 gap-2 min-w-[200px]">
+                              <HoveredLink href="/blog">{t("navigation.blog")}</HoveredLink>
+                              <HoveredLink href="/noticias">{t("navigation.news")}</HoveredLink>
                             </div>
                           </MenuItem>
                         );
@@ -735,6 +755,47 @@ const Navbar = () => {
                                     </Link>
                                   </>
                                 )}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </div>
+                      )}
+                      {hasHiddenBlog && (
+                        <div className="rounded-xl border border-gray-200 dark:border-gray-700/70 bg-gray-50/60 dark:bg-gray-800/60">
+                          <button
+                            className="w-full flex items-center justify-between px-3 py-3 text-left"
+                            onClick={() => setIsMobileBlogOpen((prev) => !prev)}
+                          >
+                            <div>
+                              <p className="font-semibold text-gray-900 dark:text-white">{t("navigation.blog")}</p>
+                            </div>
+                            <motion.div animate={{ rotate: isMobileBlogOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                              <ChevronDown className="h-4 w-4 text-gray-600 dark:text-gray-300" />
+                            </motion.div>
+                          </button>
+                          <AnimatePresence initial={false}>
+                            {isMobileBlogOpen && (
+                              <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: "auto" }}
+                                exit={{ opacity: 0, height: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="space-y-2 px-3 pb-3"
+                              >
+                                <Link
+                                  href="/blog"
+                                  onClick={() => setIsMenuOpen(false)}
+                                  className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-100 dark:hover:bg-gray-800/70"
+                                >
+                                  {t("navigation.blog")}
+                                </Link>
+                                <Link
+                                  href="/noticias"
+                                  onClick={() => setIsMenuOpen(false)}
+                                  className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-100 dark:hover:bg-gray-800/70"
+                                >
+                                  {t("navigation.news")}
+                                </Link>
                               </motion.div>
                             )}
                           </AnimatePresence>

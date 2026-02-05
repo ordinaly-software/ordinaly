@@ -10,6 +10,7 @@ import { createPortableTextComponents } from './portable-text-components';
 import { urlFor } from '@/lib/image';
 import Banner from '@/components/ui/banner';
 import type { BlogPost, MediaItem, Category } from './types';
+import { filterVisibleCategories } from "./category-utils";
 import SharePostButtons from './share-post-buttons';
 import type { PortableTextBlock } from '@portabletext/types';
 import dynamic from "next/dynamic";
@@ -53,6 +54,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   const t = useTranslations('blog');
   if (!post) return null;
   const p = post;
+  const visibleCategories = filterVisibleCategories(Array.isArray(p.categories) ? p.categories : []);
   const headingIdByKey: Record<string, string> = {};
   const tocItems: TocItem[] = [];
   const headingCounts: Record<string, number> = {};
@@ -172,13 +174,13 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
       </main>
       {/* Categories and share row - centered and evenly spaced */}
       <div className="border-t border-gray-300 dark:border-gray-700 pt-6 pb-2">
-        {Array.isArray(p.categories) && p.categories.length > 0 && (
+        {visibleCategories.length > 0 && (
           <div className="max-w-3xl mx-auto px-4 pb-10">
             <div className="flex flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 md:gap-4">
               <div className="flex flex-col items-center">
                 <div className="mb-2 text-base font-semibold text-gray-700 dark:text-gray-300">{t("postCategories")}:</div>
                 <div className="flex flex-wrap gap-2 justify-center">
-                  {p.categories.map((cat: Category) => (
+                  {visibleCategories.map((cat: Category) => (
                     cat?.slug ? (
                       <Link
                         key={cat.slug}

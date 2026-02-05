@@ -1,0 +1,55 @@
+import type { Metadata } from "next";
+import type { QueryParams } from "@sanity/client";
+import { client } from "@/lib/sanity";
+import { highlightedNewsPosts, paginatedNewsPosts } from "@/lib/queries";
+import { createPageMetadata } from "@/lib/metadata";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEs = locale?.startsWith("es");
+
+  return createPageMetadata({
+    locale,
+    path: "/noticias",
+    title: isEs ? "Noticias de automatización e IA" : "Automation & AI news",
+    description: isEs
+      ? "Actualidad y novedades sobre automatización, IA y productividad para empresas."
+      : "Updates and news about automation, AI, and productivity for companies.",
+    image: "/static/backgrounds/blog_background.png",
+  });
+}
+
+export const revalidate = 300;
+export const dynamic = "force-static";
+
+export default async function NewsIndex() {
+  const pageSize = 6;
+  const params = {
+    offset: 0,
+    end: pageSize,
+    q: "",
+    tag: null,
+    cat: null,
+  } as unknown as QueryParams;
+
+  const [{ items, total }, highlighted] = await Promise.all([
+    client.fetch(paginatedNewsPosts, params, { next: { tags: ["news"] } }),
+    client.fetch(highlightedNewsPosts, {}, { next: { tags: ["news"] } }),
+  ]);
+
+  const { default: BlogClient } = await import("@/components/blog/blog-client");
+  return (
+    <BlogClient
+      posts={items}
+      total={total}
+      pageSize={pageSize}
+      highlightedPosts={highlighted}
+      basePath="/noticias"
+      translationsNamespace="news"
+    />
+  );
+}

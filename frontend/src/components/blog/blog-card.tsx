@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Category } from './types';
 import { BlogPost } from './types';
 import { urlFor } from '@/lib/image';
+import { filterVisibleCategories } from "./category-utils";
 export interface BlogCardProps {
   post: BlogPost;
   onCategoryClick?: (cat: string) => void;
@@ -15,7 +16,7 @@ export interface BlogCardProps {
 }
 
 export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => {
-  const categories = Array.isArray(post.categories) ? post.categories : [];
+  const categories = filterVisibleCategories(Array.isArray(post.categories) ? post.categories : []);
 
   return (
     <div
