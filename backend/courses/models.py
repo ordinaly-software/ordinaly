@@ -93,7 +93,8 @@ class Course(models.Model):
                 'youtu.be',
                 'www.youtu.be',
             }
-            if parsed.netloc.lower() not in allowed_hosts:
+            hostname = (parsed.hostname or '').lower()
+            if hostname not in allowed_hosts:
                 raise ValidationError({
                     'youtube_video_url': 'Course video must be a YouTube link.'
                 })
