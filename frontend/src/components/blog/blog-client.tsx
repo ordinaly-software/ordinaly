@@ -3,9 +3,11 @@
 import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { useTranslations, useLocale } from 'next-intl';
+import { routing } from '@/i18n/routing';
 import { BlogCard } from './blog-card';
 import { HighlightedCarousel } from './highlighted-carousel';
 import type { BlogPost, Category } from './types';
+import { isExcludedCategory } from "./category-utils";
 import { Search } from 'lucide-react';
 import Banner from '@/components/ui/banner';
 import { Input } from '@/components/ui/input';
@@ -19,6 +21,8 @@ type Props = {
   total: number;
   pageSize?: number;
   highlightedPosts?: BlogPost[];
+  basePath?: string;
+  translationsNamespace?: "blog" | "news";
 };
 
 const mapCategories = (items: BlogPost[]) => {
@@ -26,6 +30,7 @@ const mapCategories = (items: BlogPost[]) => {
   items.forEach(p => {
     if (Array.isArray(p.categories)) {
       p.categories.forEach((cat: Category) => {
+        if (isExcludedCategory(cat)) return;
         const key = cat?.slug || cat?.title;
         const label = cat?.title || cat?.slug;
         if (key && label) categories[key] = label;
@@ -35,10 +40,18 @@ const mapCategories = (items: BlogPost[]) => {
   return categories;
 };
 
-export default function BlogClient({ posts: initialPosts, total: initialTotal, pageSize = 6, highlightedPosts = [] }: Props) {
-  const t = useTranslations('blog');
+export default function BlogClient({
+  posts: initialPosts,
+  total: initialTotal,
+  pageSize = 6,
+  highlightedPosts = [],
+  basePath = "/blog",
+  translationsNamespace = "blog",
+}: Props) {
+  const t = useTranslations(translationsNamespace);
   const locale = useLocale() || 'es';
-  const localePrefix = locale ? `/${locale}` : '';
+  const localePrefix = locale === routing.defaultLocale ? '' : `/${locale}`;
+  const normalizedBasePath = basePath.startsWith("/") ? basePath : `/${basePath}`;
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchTerm, setSearchTerm] = useState('');
@@ -91,8 +104,8 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
     if (pageValue > 1) params.set('page', String(pageValue));
     if (orderValue === 'asc') params.set('order', 'asc');
     const query = params.toString();
-    router.push(`${localePrefix}/blog${query ? `?${query}` : ''}`);
-  }, [router, localePrefix]);
+    router.push(`${localePrefix}${normalizedBasePath}${query ? `?${query}` : ''}`);
+  }, [router, localePrefix, normalizedBasePath]);
 
   useEffect(() => {
     const baseState = debouncedSearch === '' && selectedCategory === 'all' && currentPage === 1 && order === 'desc';
@@ -115,7 +128,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
     if (debouncedSearch) params.set('q', debouncedSearch);
     if (selectedCategory !== 'all') params.set('category', selectedCategory);
 
-    fetch(`${localePrefix}/blog/search?${params.toString()}`, { cache: 'no-store' })
+    fetch(`${localePrefix}${normalizedBasePath}/search?${params.toString()}`, { cache: 'no-store' })
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch posts');
         return res.json();
@@ -136,7 +149,7 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
     return () => {
       cancelled = true;
     };
-  }, [debouncedSearch, selectedCategory, currentPage, pageSize, initialPosts, initialTotal, mergeCategories, t, localePrefix, order]);
+  }, [debouncedSearch, selectedCategory, currentPage, pageSize, initialPosts, initialTotal, mergeCategories, t, localePrefix, order, normalizedBasePath]);
 
   const categories = useMemo(() => {
     const options = Object.entries(categoryMap).map(([value, label]) => ({ value, label }));
@@ -218,9 +231,10 @@ export default function BlogClient({ posts: initialPosts, total: initialTotal, p
       </Banner>
 
       {/* Highlighted Posts Carousel */}
-      <HighlightedCarousel 
-        posts={highlightedPosts} 
+      <HighlightedCarousel
+        posts={highlightedPosts}
         onCategoryClick={(cat: string) => handleCategoryChange(cat)}
+        translationsNamespace={translationsNamespace}
       />
 
       {/* Blog Posts Grid */}

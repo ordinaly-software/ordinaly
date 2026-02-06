@@ -7,7 +7,8 @@ export default async function sitemap() {
   const localized = (path: string, locale: string) => {
     const normalized = path.startsWith("/") ? path : `/${path}`;
     const suffix = normalized === "/" ? "" : normalized;
-    return `${base}/${locale}${suffix}`;
+    const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+    return `${base}${prefix}${suffix}`;
   };
 
   const staticPaths = [
@@ -17,6 +18,7 @@ export default async function sitemap() {
     { path: "/services", changeFrequency: "weekly" as const, priority: 0.8 },
     { path: "/formation", changeFrequency: "weekly" as const, priority: 0.7 },
     { path: "/blog", changeFrequency: "daily" as const, priority: 0.8 },
+    { path: "/noticias", changeFrequency: "daily" as const, priority: 0.7 },
   ];
   const slugs: string[] = await client.fetch(
     '*[_type=="post" && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())].slug.current',

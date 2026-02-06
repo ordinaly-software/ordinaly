@@ -4,6 +4,7 @@ from users.models import CustomUser
 from decimal import Decimal
 import os
 from datetime import datetime, timedelta
+from urllib.parse import urlparse
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 
@@ -55,6 +56,12 @@ class Course(models.Model):
         null=True,
         help_text="Optional link to subsidized/bonified course details."
     )
+    youtube_video_url = models.URLField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="YouTube link with a course explanation"
+    )
     image = models.ImageField(upload_to='course_images/')
     price = models.DecimalField(
         max_digits=10,
@@ -77,6 +84,20 @@ class Course(models.Model):
                 raise ValidationError({'price': 'Price must be between 0 and 999999.99.'})
             if Decimal('0.01') <= self.price <= Decimal('0.49'):
                 raise ValidationError({'price': 'Price cannot be between 0.01 and 0.49 (inclusive).'})
+        if self.youtube_video_url:
+            parsed = urlparse(self.youtube_video_url)
+            allowed_hosts = {
+                'youtube.com',
+                'www.youtube.com',
+                'm.youtube.com',
+                'youtu.be',
+                'www.youtu.be',
+            }
+            hostname = (parsed.hostname or '').lower()
+            if hostname not in allowed_hosts:
+                raise ValidationError({
+                    'youtube_video_url': 'Course video must be a YouTube link.'
+                })
         super().clean()
     location = models.CharField(max_length=100, null=True, blank=True)
 

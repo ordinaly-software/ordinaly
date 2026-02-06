@@ -27,6 +27,7 @@
       "profile": "Profile",
       "myCourses": "My courses",
       "blog": "Blog",
+      "news": "News",
       "us": "About us",
       "loading": "Loading..."
     },
@@ -470,6 +471,7 @@
   "cookie": {
     "title": "Cookie Settings",
     "openCookieSettings": "Open Cookie Settings",
+    "openOnYoutube": "Open on YouTube",
     "description": "We use cookies to enhance your experience, personalize content, and analyze traffic. You can choose which types of cookies to accept.",
     "thirdPartyTitle": "Third-party content blocked",
     "acceptAll": "Accept",
@@ -826,6 +828,9 @@
         "bonifiedCourseLinkOptional": "Bonified course link (Optional)",
         "bonifiedCourseLinkPlaceholder": "https://example.com/bonified-course",
         "bonifiedCourseLinkHelp": "Optional link with bonification details (http/https only).",
+        "video": "YouTube video",
+        "videoPlaceholder": "https://www.youtube.com/watch?v=example",
+        "videoHelp": "Optional explainer video (YouTube links only).",
         "image": "Course Image",
         "imageRequired": "Course Image *",
         "imageOptional": "Course Image",
@@ -943,6 +948,7 @@
           "descriptionTooLong": "Description cannot be longer than {max} characters",
           "bonifiedCourseLinkInvalid": "Enter a valid link (http or https).",
           "bonifiedCourseLinkTooLong": "The link cannot exceed 500 characters.",
+          "videoInvalid": "Please provide a valid YouTube link.",
           "priceRange": "Price must be between €{min} and €{max}",
           "priceForbiddenRange": "Price cannot be between €{min} and €{max}"
         },
@@ -979,6 +985,8 @@
         "duration": "Duration",
         "frequency": "Frequency",
         "weekdays": "Weekdays",
+        "video": "Video",
+        "playVideo": "Play video",
         "timezone": "Timezone",
         "lastUpdated": "Last Updated",
         "fullStatus": "Full",
@@ -1634,6 +1642,8 @@
       "people": "people",
       "scheduleType": "Schedule Type",
       "price": "Price",
+      "video": "Video",
+      "playVideo": "Play video",
       "enrolled": "Enrolled",
       "cancelEnrollment": "Cancel Enrollment",
       "courseHasStarted": "Course has started",
@@ -1878,6 +1888,41 @@
     },
     "otherPosts": {
       "title": "Other posts"
+    }
+  },
+  "news": {
+    "title": "Automation & AI news",
+    "subtitle": "Updates and news about automation, AI, and productivity for companies",
+    "noResults": {
+      "title": "No news found",
+      "description": "Try searching again"
+    },
+    "searchPlaceholder": "Search news...",
+    "filters": {
+      "category": "Category",
+      "all": "All Categories"
+    },
+    "loading": "Loading more news...",
+    "pagination": {
+      "prev": "Previous",
+      "next": "Next",
+      "page": "Page ",
+      "of": " of ",
+      "first": "First",
+      "last": "Last"
+    },
+    "sort": {
+      "label": "Sort by:",
+      "newest": "Newest",
+      "oldest": "Oldest"
+    },
+    "highlighted": {
+      "title": "Featured",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "otherPosts": {
+      "title": "All news"
     }
   },
   "contactPage": {

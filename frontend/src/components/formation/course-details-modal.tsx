@@ -10,6 +10,8 @@ import CourseFooter from './course-footer';
 import { useTranslations } from 'next-intl';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import { openPastCourseWhatsApp } from '@/utils/past-course';
+import { useCookiePreferences } from "@/hooks/useCookiePreferences";
+import YoutubePreview from "@/components/ui/youtube-preview";
 
 interface Course {
   id: number;
@@ -18,6 +20,7 @@ interface Course {
   subtitle?: string;
   description: string;
   bonified_course_link?: string | null;
+  youtube_video_url?: string | null;
   image: string;
   price?: number;
   location: string;
@@ -187,6 +190,8 @@ const CourseDetailsModal = ({
 }: CourseDetailsModalProps) => {
   const t = useTranslations('formation.courseDetails');
   const formationT = useTranslations('formation');
+  const cookiePreferences = useCookiePreferences();
+  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
   // ...existing code...
 
   const formatDate = (dateString: string) => {
@@ -310,6 +315,14 @@ const CourseDetailsModal = ({
                   </div>
                 </div>
               )}
+
+              <YoutubePreview
+                url={course.youtube_video_url}
+                title={course.title}
+                label={t('video')}
+                playLabel={t('playVideo')}
+                canLoad={canLoadMedia}
+              />
 
               {/* Description */}
               <div>

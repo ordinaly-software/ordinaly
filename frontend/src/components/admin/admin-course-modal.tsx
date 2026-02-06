@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { Euro, Users, User, XCircle, Calendar, MapPin, Clock } from "lucide-react";
@@ -5,6 +7,8 @@ import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import ShareCourseButtons from '@/components/formation/share-course-buttons';
 import { Modal } from "@/components/ui/modal";
 import EnrolledMembers from "@/components/admin/enrolled-members";
+import { useCookiePreferences } from "@/hooks/useCookiePreferences";
+import YoutubePreview from "@/components/ui/youtube-preview";
 
 interface Course {
   id: number;
@@ -13,6 +17,7 @@ interface Course {
   subtitle?: string;
   description: string;
   image: string;
+  youtube_video_url?: string | null;
   price?: string | null;
   location: string;
   start_date: string;
@@ -74,6 +79,8 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
   dateLocale,
   formatWeekdays,
 }) => {
+  const cookiePreferences = useCookiePreferences();
+  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
   if (!course) return null;
 
   return (
@@ -139,6 +146,13 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                 </div>
       </div>
     )}
+        <YoutubePreview
+          url={course.youtube_video_url}
+          title={course.title}
+          label={t("details.video")}
+          playLabel={t("details.playVideo")}
+          canLoad={canLoadMedia}
+        />
         {/* Course Header and rest of modal content below */}
         <div className="flex flex-col sm:flex-row landscape:flex-col-reverse items-start sm:space-x-6 space-y-4 sm:space-y-0 landscape:space-y-4 landscape:sm:space-x-0">
           {/* Course Info */}

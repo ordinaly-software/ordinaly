@@ -418,6 +418,7 @@ class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
             'subtitle': 'Test Subtitle',
             'description': 'Test Description',
             'bonified_course_link': 'https://example.com/bonified-course',
+            'youtube_video_url': 'https://www.youtube.com/watch?v=testvideo',
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
             'location': 'Test Location',
@@ -440,7 +441,7 @@ class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
     def test_contains_expected_fields(self):
         data = self.serializer.data
         expected_fields = [
-            'id', 'slug', 'title', 'subtitle', 'description', 'bonified_course_link', 'image', 'price',
+            'id', 'slug', 'title', 'subtitle', 'description', 'bonified_course_link', 'youtube_video_url', 'image', 'price',
             'location', 'start_date', 'end_date', 'start_time', 'end_time',
             'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
             'exclude_dates', 'max_attendants', 'enrolled_count',
@@ -474,6 +475,7 @@ class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
         self.assertEqual(data['subtitle'], 'Test Subtitle')
         self.assertEqual(data['description'], 'Test Description')
         self.assertEqual(data['bonified_course_link'], 'https://example.com/bonified-course')
+        self.assertEqual(data['youtube_video_url'], 'https://www.youtube.com/watch?v=testvideo')
         self.assertEqual(data['price'], '99.99')
         self.assertEqual(data['location'], 'Test Location')
         self.assertEqual(data['start_date'], '2023-12-31')
@@ -561,7 +563,7 @@ class CourseSerializerExtraTest(CourseImageCleanupTestMixin, TestCase):
         data = {
             'title': 'Draft Test', 'description': 'd', 'image': get_test_image_file(),
             'price': Decimal('10.00'), 'start_date': None, 'end_date': None, 'start_time': None, 'end_time': None,
-            'periodicity': 'once', 'max_attendants': 1
+            'periodicity': 'once', 'max_attendants': 1, 'youtube_video_url': ''
         }
         s = CourseSerializer(data=data)
         # validate to populate validated_data
@@ -571,6 +573,22 @@ class CourseSerializerExtraTest(CourseImageCleanupTestMixin, TestCase):
         # None values should remain None
         self.assertIsNone(s.validated_data.get('start_date'))
         self.assertIsNone(s.validated_data.get('start_time'))
+        self.assertIsNone(s.validated_data.get('youtube_video_url'))
+
+    def test_validate_youtube_video_url(self):
+        data = {
+            'title': 'Video Test', 'description': 'd', 'image': get_test_image_file(),
+            'price': Decimal('10.00'), 'start_date': self.today, 'end_date': self.today,
+            'start_time': time(9, 0), 'end_time': time(10, 0), 'periodicity': 'once', 'max_attendants': 1,
+            'youtube_video_url': 'https://vimeo.com/123'
+        }
+        s = CourseSerializer(data=data)
+        self.assertFalse(s.is_valid())
+        self.assertIn('youtube_video_url', s.errors)
+
+        data['youtube_video_url'] = 'https://youtu.be/abcd'
+        s = CourseSerializer(data=data)
+        self.assertTrue(s.is_valid())
 
     def test_prevent_lowering_max_attendants_below_enrolled(self):
         # Create course with one enrollment

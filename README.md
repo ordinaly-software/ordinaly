@@ -321,7 +321,7 @@ Para asegurar la calidad del backend, es obligatorio mantener al menos un 80% de
 ### Ejecutar tests y obtener cobertura:
 
 ```sh
-coverage run --source='.' --omit='*/migrations/*,*/tests.py,api/*,config/*,manage.py,*__init__.py' manage.py test
+coverage run --source='.' --omit='*/migrations/*,*/tests.py,api/*,config/*,manage.py,*__init__.py,*conftest.py' manage.py test
 coverage report -m
 ```
 

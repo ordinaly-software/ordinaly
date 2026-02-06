@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { routing } from "@/i18n/routing";
+import { Locale, routing } from "@/i18n/routing";
 
 const SITE_NAME = "Ordinaly Software";
 const FALLBACK_BASE_URL = "https://ordinaly.ai";
@@ -59,6 +59,7 @@ type MetadataOptions = {
   locale?: string;
   image?: string;
   type?: OpenGraphType;
+  index?: boolean;
 };
 
 const normalizePath = (path?: string) => {
@@ -66,8 +67,14 @@ const normalizePath = (path?: string) => {
   return path.startsWith("/") ? path : `/${path}`;
 };
 
+const resolveLocale = (locale?: string) => {
+  if (!locale) return routing.defaultLocale;
+  return routing.locales.includes(locale as Locale) ? (locale as Locale) : routing.defaultLocale;
+};
+
 export const absoluteUrl = (path?: string, locale?: string) => {
-  const prefix = locale ? `/${locale}` : "";
+  const resolvedLocale = resolveLocale(locale);
+  const prefix = resolvedLocale !== routing.defaultLocale ? `/${resolvedLocale}` : "";
   const pathname = normalizePath(path);
   return `${baseUrl}${prefix}${pathname}`;
 };
@@ -79,20 +86,24 @@ export function createPageMetadata({
   locale,
   image = "/og-image.png",
   type = defaultOpenGraphType,
+  index,
 }: MetadataOptions): Metadata {
-  const url = absoluteUrl(path, locale);
+  const resolvedLocale = resolveLocale(locale);
+  const url = absoluteUrl(path, resolvedLocale);
   const imageUrl = image.startsWith("http") ? image : `${baseUrl}${normalizePath(image)}`;
-  const ogLocale = locale ? ogLocales[locale] ?? locale : undefined;
-  const socialTitle = buildSocialTitle(title, locale);
+  const ogLocale = ogLocales[resolvedLocale] ?? resolvedLocale;
+  const socialTitle = buildSocialTitle(title, resolvedLocale);
 
   const alternateLanguages = Object.fromEntries(
     routing.locales.map((loc) => [localeHrefLangs[loc] ?? loc, absoluteUrl(path, loc)])
   );
   alternateLanguages["x-default"] = absoluteUrl(path);
+  const shouldIndex = index ?? true;
 
   return {
     title,
     description,
+    ...(shouldIndex ? {} : { robots: { index: false, follow: false } }),
     alternates: { canonical: url, languages: alternateLanguages },
     openGraph: {
       title: socialTitle,

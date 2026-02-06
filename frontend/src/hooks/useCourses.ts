@@ -7,6 +7,7 @@ export interface Course {
   subtitle?: string;
   description: string;
   bonified_course_link?: string | null;
+  youtube_video_url?: string | null;
   image: string;
   price?: string | null;
   location: string;

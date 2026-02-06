@@ -26,6 +26,7 @@
       "profile": "Perfil",
       "myCourses": "Mis cursos",
       "blog": "Blog",
+      "news": "Noticias",
       "contact": "Contacto",
       "us": "Sobre nosotros",
       "loading": "Cargando..."
@@ -469,6 +470,7 @@
   "cookie": {
     "title": "Cookies",
     "openCookieSettings": "Abrir Configuración de Cookies",
+    "openOnYoutube": "Abrir en YouTube",
     "description": "Utilizamos cookies para mejorar tu experiencia, personalizar el contenido y analizar el tráfico. Puedes elegir qué tipos de cookies aceptar",
     "thirdPartyTitle": "Contenido de terceros bloqueado",
     "acceptAll": "Aceptar",
@@ -825,6 +827,9 @@
         "bonifiedCourseLinkOptional": "Enlace curso bonificado (Opcional)",
         "bonifiedCourseLinkPlaceholder": "https://ejemplo.com/curso-bonificado",
         "bonifiedCourseLinkHelp": "Enlace opcional para la información de la bonificación del curso (solo http/https).",
+        "video": "Vídeo de YouTube",
+        "videoPlaceholder": "https://www.youtube.com/watch?v=ejemplo",
+        "videoHelp": "Vídeo explicativo opcional (solo enlaces de YouTube).",
         "image": "Imagen del Curso",
         "imageRequired": "Imagen del Curso *",
         "imageOptional": "Imagen del Curso",
@@ -942,6 +947,7 @@
           "descriptionTooLong": "La descripción no puede tener más de {max} caracteres",
           "bonifiedCourseLinkInvalid": "Introduce un enlace válido (http o https).",
           "bonifiedCourseLinkTooLong": "El enlace no puede superar los 500 caracteres.",
+          "videoInvalid": "Introduce un enlace válido de YouTube.",
           "priceRange": "El precio debe estar entre {min} y {max} euros",
           "priceForbiddenRange": "El precio no puede estar entre {min} y {max} euros"
         },
@@ -978,6 +984,8 @@
         "duration": "Duración",
         "frequency": "Frecuencia",
         "weekdays": "Días de la Semana",
+        "video": "Vídeo",
+        "playVideo": "Reproducir vídeo",
         "timezone": "Zona Horaria",
         "lastUpdated": "Última Actualización",
         "fullStatus": "Completo",
@@ -1633,6 +1641,8 @@
       "people": "personas",
       "scheduleType": "Tipo de Horario",
       "price": "Precio",
+      "video": "Vídeo",
+      "playVideo": "Reproducir vídeo",
       "enrolled": "Inscrito",
       "cancelEnrollment": "Cancelar Inscripción",
       "courseHasStarted": "El curso ha comenzado",
@@ -1877,6 +1887,41 @@
     },
     "otherPosts": {
       "title": "Todas las publicaciones"
+    }
+  },
+  "news": {
+    "title": "Noticias de automatización e IA",
+    "subtitle": "Actualidad y novedades sobre automatización, IA y productividad para empresas",
+    "noResults": {
+      "title": "No se encontraron noticias",
+      "description": "Intenta buscar de nuevo"
+    },
+    "searchPlaceholder": "Buscar noticias...",
+    "filters": {
+      "category": "Categoría",
+      "all": "Todas las categorías"
+    },
+    "loading": "Cargando más noticias...",
+    "pagination": {
+      "prev": "Anterior",
+      "next": "Siguiente",
+      "page": "Página ",
+      "of": " de ",
+      "first": "Principio",
+      "last": "Final"
+    },
+    "sort": {
+      "label": "Ordenar por:",
+      "newest": "Más recientes",
+      "oldest": "Más antiguos"
+    },
+    "highlighted": {
+      "title": "Destacadas",
+      "previous": "Anterior",
+      "next": "Siguiente"
+    },
+    "otherPosts": {
+      "title": "Todas las noticias"
     }
   },
   "contactPage": {

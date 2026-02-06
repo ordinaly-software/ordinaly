@@ -18,6 +18,7 @@ export async function generateMetadata({
       ? "Gestiona tu perfil, pagos y preferencias dentro de Ordinaly."
       : "Manage your profile, payments, and preferences in Ordinaly.",
     image: "/static/backgrounds/api_background.webp",
+    index: false,
   });
 }
 

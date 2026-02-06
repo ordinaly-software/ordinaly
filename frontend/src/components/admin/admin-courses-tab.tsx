@@ -29,6 +29,7 @@ export interface Course {
   subtitle?: string;
   description: string;
   bonified_course_link?: string | null;
+  youtube_video_url?: string | null;
   image: string;
   price?: string | null;
   location: string;
@@ -146,6 +147,7 @@ const AdminCoursesTab = () => {
     subtitle: "",
     description: "",
     bonified_course_link: "",
+    youtube_video_url: "",
     image: "",
     price: "",
     location: "",
@@ -182,6 +184,7 @@ const AdminCoursesTab = () => {
     subtitle: "",
     description: "",
     bonified_course_link: "",
+    youtube_video_url: "",
     image: "",
     price: "",
     location: "",
@@ -215,6 +218,7 @@ const AdminCoursesTab = () => {
       subtitle: course.subtitle || "",
       description: course.description,
       bonified_course_link: course.bonified_course_link || "",
+      youtube_video_url: course.youtube_video_url || "",
       image: course.image || "",
       price: course.price == null ? "" : String(course.price),
       location: course.location && course.location !== "null" ? course.location : "",
@@ -394,6 +398,7 @@ const AdminCoursesTab = () => {
         return;
       }
       const bonifiedLink = (formData.bonified_course_link ?? "").trim();
+      const videoLink = (formData.youtube_video_url ?? "").trim();
       if (bonifiedLink.length > 500) {
         setAlert({type: 'error', message: t('messages.validation.bonifiedCourseLinkTooLong')});
         return;
@@ -406,6 +411,25 @@ const AdminCoursesTab = () => {
           }
         } catch {
           setAlert({type: 'error', message: t('messages.validation.bonifiedCourseLinkInvalid')});
+          return;
+        }
+      }
+      if (videoLink) {
+        try {
+          const parsed = new URL(videoLink);
+          const host = parsed.hostname.toLowerCase();
+          const allowedHosts = new Set([
+            'youtube.com',
+            'www.youtube.com',
+            'm.youtube.com',
+            'youtu.be',
+            'www.youtu.be',
+          ]);
+          if (!allowedHosts.has(host)) {
+            throw new Error("Invalid host");
+          }
+        } catch {
+          setAlert({type: 'error', message: t('messages.validation.videoInvalid')});
           return;
         }
       }
@@ -472,6 +496,7 @@ const AdminCoursesTab = () => {
       formDataToSend.append('subtitle', formData.subtitle);
       formDataToSend.append('description', formData.description);
       formDataToSend.append('bonified_course_link', bonifiedLink);
+      formDataToSend.append('youtube_video_url', videoLink);
       // Always send price, even if empty, so backend can clear it
       formDataToSend.append('price', formData.price !== undefined && formData.price !== null ? String(formData.price) : '');
       formDataToSend.append('location', formData.location);

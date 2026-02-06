@@ -18,6 +18,7 @@ export async function generateMetadata({
       ? "Accede a tu cuenta para gestionar servicios, cursos y automatizaciones de Ordinaly."
       : "Access your account to manage Ordinaly services, courses, and automations.",
     image: "/static/signup_illustration.webp",
+    index: false,
   });
 }
 

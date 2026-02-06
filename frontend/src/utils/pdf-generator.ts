@@ -8,6 +8,7 @@ export interface Course {
   subtitle?: string;
   description: string;
   bonified_course_link?: string | null;
+  youtube_video_url?: string | null;
   image: string;
   price?: number;
   location: string;
@@ -136,6 +137,19 @@ export async function generateCoursesCatalogPDF(
   const formatTime = (timeString: string) => {
     const [hours, minutes] = timeString.split(':');
     return `${hours}:${minutes}`;
+  };
+
+  const resolveImageUrl = (imagePath?: string | null) => {
+    if (!imagePath || imagePath === 'undefined' || imagePath === 'null') return null;
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) return imagePath;
+    if (imagePath.startsWith('/')) {
+      const apiBase = process.env.NEXT_PUBLIC_API_URL;
+      if (apiBase) return `${apiBase}${imagePath}`;
+      if (typeof window !== 'undefined' && window.location?.origin) {
+        return `${window.location.origin}${imagePath}`;
+      }
+    }
+    return imagePath;
   };
 
   // All translation is now handled by the provided t function
@@ -334,11 +348,20 @@ export async function generateCoursesCatalogPDF(
       // Attempt to load course image (convert to JPEG for jsPDF). Non-blocking on failure.
       let courseImageBase64: string | null = null;
       try {
-        if (course.image) {
-          courseImageBase64 = await loadImageAsJpegBase64(course.image);
+        const resolvedImage = resolveImageUrl(course.image);
+        if (resolvedImage) {
+          courseImageBase64 = await loadImageAsJpegBase64(resolvedImage);
         }
       } catch {
         courseImageBase64 = null;
+      }
+      if (!courseImageBase64) {
+        try {
+          const fallbackImage = resolveImageUrl('/api/placeholder/600/400') ?? '/api/placeholder/600/400';
+          courseImageBase64 = await loadImageAsJpegBase64(fallbackImage);
+        } catch {
+          courseImageBase64 = null;
+        }
       }
 
       const imageWidth = courseImageBase64 ? 36 : 0; // mm
