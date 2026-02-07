@@ -74,9 +74,28 @@ const isValidDateString = (value?: string | null) => {
 
 const resolvePriceValidUntil = (preferredDate?: string | null) => {
   const today = new Date();
+
   if (preferredDate && isValidDateString(preferredDate)) {
     const parsed = new Date(preferredDate);
-    if (parsed.getTime() >= today.getTime()) return preferredDate;
+    const hasTimeComponent = /[T ]/.test(preferredDate);
+
+    if (hasTimeComponent) {
+      // Datetime string: preserve original millisecond-precision comparison.
+      if (parsed.getTime() >= today.getTime()) return preferredDate;
+    } else {
+      // Date-only string: compare at calendar-day granularity.
+      const todayMidnight = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+      );
+      const parsedMidnight = new Date(
+        parsed.getFullYear(),
+        parsed.getMonth(),
+        parsed.getDate(),
+      );
+      if (parsedMidnight.getTime() >= todayMidnight.getTime()) return preferredDate;
+    }
   }
   const fallback = new Date(today.getTime() + PRICE_VALIDITY_DAYS * 24 * 60 * 60 * 1000);
   return toDateOnly(fallback);
