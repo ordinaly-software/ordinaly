@@ -74,9 +74,14 @@ const resolveLocale = (locale?: string) => {
 
 export const absoluteUrl = (path?: string, locale?: string) => {
   const resolvedLocale = resolveLocale(locale);
-  const prefix = resolvedLocale !== routing.defaultLocale ? `/${resolvedLocale}` : "";
+  const prefix = `/${resolvedLocale}`;
   const pathname = normalizePath(path);
   return `${baseUrl}${prefix}${pathname}`;
+};
+
+export const absoluteAssetUrl = (path?: string) => {
+  const pathname = normalizePath(path);
+  return `${baseUrl}${pathname}`;
 };
 
 export function createPageMetadata({

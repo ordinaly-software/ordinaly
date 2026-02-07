@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import FormationPageClient from "../page.client";
-import { createPageMetadata, defaultDescription } from "@/lib/metadata";
+import { absoluteAssetUrl, createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { getApiEndpoint } from "@/lib/api-config";
-import { absoluteUrl } from "@/lib/metadata";
 
 type Course = {
   title?: string;
@@ -46,7 +45,7 @@ export async function generateMetadata({
         ? rawImage
         : apiBaseUrl
           ? `${apiBaseUrl}${rawImage.startsWith("/") ? "" : "/"}${rawImage}`
-          : absoluteUrl(rawImage)
+          : absoluteAssetUrl(rawImage)
       : "/static/backgrounds/formation_background.webp";
 
   return createPageMetadata({

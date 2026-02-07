@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { renderIcon } from "@/components/ui/icon-select";
@@ -9,8 +9,8 @@ import Image from "next/image";
 import ShareServiceButtons from "@/components/services/share-service-buttons";
 import { cn } from "@/lib/utils";
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
-import ThirdPartyConsent from "@/components/ui/third-party-consent";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
+import YoutubePreview from "@/components/ui/youtube-preview";
 
 export type ServiceDetailsLabels = {
   featured: string;
@@ -61,28 +61,6 @@ const formatDuration = (duration: number, labels: ServiceDetailsLabels) => {
   return `${duration}d`;
 };
 
-const extractYoutubeId = (url?: string | null) => {
-  if (!url) return null;
-  try {
-    const parsed = new URL(url);
-    const host = parsed.hostname.toLowerCase();
-    const parts = parsed.pathname.split("/").filter(Boolean);
-    if (host === "youtu.be") {
-      return parts[0] || null;
-    }
-    if (host === "youtube.com" || host.endsWith(".youtube.com")) {
-      const v = parsed.searchParams.get("v");
-      if (v) return v;
-      if (parts[0] === "embed" && parts[1]) return parts[1];
-      if (parts[0] === "shorts" && parts[1]) return parts[1];
-      if (parts[0] === "live" && parts[1]) return parts[1];
-    }
-  } catch {
-    return null;
-  }
-  return null;
-};
-
 export function ServiceDetailsContent({
   service,
   labels,
@@ -99,24 +77,17 @@ export function ServiceDetailsContent({
   const hero = service.image || FALLBACK_CARD_IMAGE;
   const markdownDescription = service.description || service.clean_description || "";
   const priceLabel = formatPrice(service, labels.contactForQuote);
-  const youtubeId = useMemo(() => extractYoutubeId(service.youtube_video_url), [service.youtube_video_url]);
-  const youtubeEmbed = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}` : null;
-  const youtubeThumbnail = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
   const cookiePreferences = useCookiePreferences();
   const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
   const isCompact = density === "compact";
-
-  const [playVideo, setPlayVideo] = useState(false);
-  useEffect(() => setPlayVideo(false), [service.id]);
-  useEffect(() => {
-    if (!canLoadMedia) setPlayVideo(false);
-  }, [canLoadMedia]);
+  const hasCta = Boolean(onSelect || onContact);
 
   return (
     <div
       className={cn(
         "text-neutral-800 dark:text-neutral-100",
         isCompact ? "space-y-4" : "space-y-6",
+        hasCta && (isCompact ? "pb-6" : "pb-8"),
       )}
     >
       <div className="flex flex-wrap items-center gap-3">
@@ -163,15 +134,12 @@ export function ServiceDetailsContent({
         />
       </div>
 
-      {youtubeEmbed && (
+      {service.youtube_video_url && (
         <YoutubePreview
+          url={service.youtube_video_url}
           title={service.title}
-          embedUrl={youtubeEmbed}
-          thumbnailUrl={canLoadMedia ? youtubeThumbnail : null}
           label={labels.video ?? "Video"}
           playLabel={labels.playVideo ?? "Play video"}
-          play={playVideo}
-          onPlay={() => setPlayVideo(true)}
           canLoad={canLoadMedia}
         />
       )}
@@ -232,102 +200,54 @@ export function ServiceDetailsContent({
         </div>
       )}
 
-      {(onSelect || onContact) && (
-        <div className={cn("flex flex-col sm:flex-row", isCompact ? "gap-2" : "gap-3")}>
-          {onContact && showContact && (
-            <Button
-              size="lg"
-              className="w-full sm:flex-1 text-white hover:opacity-90 transition-opacity shadow-lg"
-              style={{
-                background: 'linear-gradient(90deg, #1F8A0D, #4BBE59FF, #9978fdff)',
-              }}
-              onClick={() => onContact(service)}
-            >
-              {labels.contactNow ?? labels.contactForQuote}
-            </Button>
+      {hasCta && (
+        <div
+          className={cn(
+            "sticky z-20 mx-auto w-[92%] max-w-[520px]",
+            isCompact ? "bottom-3" : "bottom-4",
           )}
-          {onSelect && showViewDetails && (
-            <Button
-              size="lg"
-              variant="outline"
-              className="w-full sm:flex-1 border-neutral-300 bg-white/70 text-neutral-900 hover:bg-white dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
-              onClick={() => onSelect(service)}
-            >
-              {labels.viewDetails ?? labels.contactForQuote}
-            </Button>
-          )}
+        >
+          <div
+            className={cn(
+              "rounded-2xl bg-white/90 shadow-lg ring-1 ring-black/5 backdrop-blur dark:bg-neutral-900/90 dark:ring-white/10",
+              isCompact ? "p-2" : "p-3",
+            )}
+          >
+            <div className={cn("flex flex-col sm:flex-row", isCompact ? "gap-2" : "gap-3")}>
+              {onContact && showContact && (
+                <Button
+                  size="lg"
+                  className="w-full sm:flex-1 text-white hover:opacity-90 transition-opacity shadow-lg"
+                  style={{
+                    backgroundColor: accentHex,
+                    boxShadow: `0 16px 30px -20px ${accentHex}`,
+                  }}
+                  onClick={() => onContact(service)}
+                >
+                  {labels.contactNow ?? labels.contactForQuote}
+                </Button>
+              )}
+              {onSelect && showViewDetails && (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:flex-1 border-neutral-300 bg-white/70 text-neutral-900 hover:bg-white dark:border-neutral-700 dark:bg-neutral-900 dark:text-white"
+                  onClick={() => onSelect(service)}
+                >
+                  {labels.viewDetails ?? labels.contactForQuote}
+                </Button>
+              )}
+            </div>
+          </div>
         </div>
       )}
     </div>
   );
 }
 
-const InfoTile = ({ label, value }: { label: string; value: React.ReactNode }) => (
+const InfoTile = ({ label, value }: { label: string; value: ReactNode }) => (
   <div className="rounded-xl bg-white/70 p-3 shadow-sm ring-1 ring-black/5 backdrop-blur dark:bg-neutral-900/60 dark:ring-white/5">
     <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">{label}</p>
     <div className="text-base text-neutral-900 dark:text-white">{value}</div>
   </div>
 );
-
-const YoutubePreview = ({
-  title,
-  embedUrl,
-  thumbnailUrl,
-  label,
-  playLabel,
-  play,
-  onPlay,
-  canLoad,
-}: {
-  title: string;
-  embedUrl: string;
-  thumbnailUrl: string | null;
-  label: string;
-  playLabel: string;
-  play: boolean;
-  onPlay: () => void;
-  canLoad: boolean;
-}) => {
-  return (
-    <div className="space-y-2">
-      <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">{label}</p>
-      <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/30 bg-white/40 shadow-lg backdrop-blur dark:border-neutral-700 dark:bg-neutral-900/60">
-        {!canLoad ? (
-          <ThirdPartyConsent className="h-full w-full" />
-        ) : play ? (
-          <iframe
-            src={`${embedUrl}?autoplay=1&rel=0`}
-            title={title}
-            className="absolute inset-0 h-full w-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          <button
-            type="button"
-            className="group absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden"
-            onClick={onPlay}
-            aria-label={playLabel}
-          >
-            {thumbnailUrl ? (
-              <Image
-                src={thumbnailUrl}
-                alt={title}
-                className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                loading="lazy"
-              />
-            ) : (
-              <div className="h-full w-full bg-neutral-200 dark:bg-neutral-800" />
-            )}
-            <div className="absolute inset-0 bg-black/45 transition group-hover:bg-black/55" />
-            <div className="relative flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-neutral-900 shadow-xl ring-2 ring-white/50 transition group-hover:scale-105 group-hover:ring-white">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" className="h-7 w-7 fill-current">
-                <path d="M25 18l22 14-22 14z" />
-              </svg>
-            </div>
-          </button>
-        )}
-      </div>
-    </div>
-  );
-};

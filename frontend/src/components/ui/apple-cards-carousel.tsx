@@ -107,7 +107,7 @@ export const Carousel = ({
         >
           <div
             className={cn(
-              "absolute right-0 z-[1000] h-auto w-[5%] overflow-hidden bg-gradient-to-l",
+              "absolute right-0 z-10 h-auto w-[5%] overflow-hidden bg-gradient-to-l",
             )}
           ></div>
 
@@ -148,30 +148,30 @@ export const Carousel = ({
             isCompactControls && "mr-4 -mt-1 gap-1.5 md:-mt-2",
           )}
         >
-          <button
-            className={cn(
-              "relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50",
-              isCompactControls && "h-9 w-9",
-            )}
-            onClick={scrollLeft}
-            disabled={!canScrollLeft}
-            type="button"
-            aria-label="Scroll carousel left"
-          >
+            <button
+              className={cn(
+                "relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50",
+                isCompactControls && "h-9 w-9",
+              )}
+              onClick={scrollLeft}
+              disabled={!canScrollLeft}
+              type="button"
+              aria-label="Scroll carousel left"
+            >
             <IconArrowNarrowLeft
               className={cn("h-6 w-6 text-gray-500", isCompactControls && "h-5 w-5")}
             />
           </button>
-          <button
-            className={cn(
-              "relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50",
-              isCompactControls && "h-9 w-9",
-            )}
-            onClick={scrollRight}
-            disabled={!canScrollRight}
-            type="button"
-            aria-label="Scroll carousel right"
-          >
+            <button
+              className={cn(
+                "relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50",
+                isCompactControls && "h-9 w-9",
+              )}
+              onClick={scrollRight}
+              disabled={!canScrollRight}
+              type="button"
+              aria-label="Scroll carousel right"
+            >
             <IconArrowNarrowRight
               className={cn("h-6 w-6 text-gray-500", isCompactControls && "h-5 w-5")}
             />

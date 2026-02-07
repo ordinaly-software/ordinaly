@@ -22,18 +22,16 @@ export async function generateMetadata({
   if (!p) return {};
   const title = p?.seoTitle ?? p.title;
   const desc = p?.seoDescription ?? p.excerpt ?? defaultDescription;
-  const og = p?.ogImage ?? p?.mainImage ?? p?.coverImage;
-  const imageBuilder = og ? urlFor(og) : null;
-  const image = imageBuilder
-    ? imageBuilder.width(1200).height(630).fit("crop").format("png").url()
-    : "/og-image.png";
+  const og = p.ogImage ?? p.mainImage ?? p.coverImage;
+  const ogUrl = og ? urlFor(og).width(1200).height(630).url() : "";
+  const imageUrl = ogUrl || "/og-image.png";
 
   return createPageMetadata({
     locale,
     path: `/blog/${p.slug}`,
     title,
     description: desc,
-    image,
+    image: imageUrl,
     type: "article",
   });
 }

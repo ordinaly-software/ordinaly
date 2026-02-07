@@ -236,6 +236,8 @@
       "title": "Expertos en Automatización Empresarial en Sevilla y Toda Andalucía",
       "description1": "Somos un equipo de ingenieros de software especializados en IA con sede en el corazón de Sevilla. Conocemos el tejido empresarial andaluz y entendemos las necesidades específicas de las PYMEs locales.",
       "description2": "Ya sea que estés en Sevilla capital, Andalucía, o cualquier punto de España ofrecemos tanto consultoría presencial como implementación remota con los más altos estándares de calidad.",
+      "videoLabel": "Video",
+      "playVideo": "Reproducir",
       "points": {
         "0": {
           "title": "Oficina en Sevilla Centro",

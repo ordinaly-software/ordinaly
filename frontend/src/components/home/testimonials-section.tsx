@@ -453,7 +453,7 @@ export function TestimonialsSection({ t }: SectionProps) {
           </div>
           <div className="mr-2 mt-4 flex justify-end gap-2 px-1">
             <button
-              className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
               onClick={handleScrollLeft}
               disabled={!canScrollLeft}
               type="button"
@@ -462,7 +462,7 @@ export function TestimonialsSection({ t }: SectionProps) {
               <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
             </button>
             <button
-              className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
               onClick={handleScrollRight}
               disabled={!canScrollRight}
               type="button"
