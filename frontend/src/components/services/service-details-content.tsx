@@ -139,6 +139,7 @@ export function ServiceDetailsContent({
           url={service.youtube_video_url}
           title={service.title}
           label={labels.video ?? "Video"}
+          playLabel={labels.playVideo ?? "Play video"}
           canLoad={canLoadMedia}
         />
       )}
