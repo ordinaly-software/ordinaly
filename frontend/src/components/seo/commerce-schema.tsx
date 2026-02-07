@@ -1,5 +1,5 @@
 import { unstable_cache } from "next/cache";
-import { absoluteUrl, metadataBaseUrl } from "@/lib/metadata";
+import { absoluteAssetUrl, absoluteUrl, metadataBaseUrl } from "@/lib/metadata";
 import { getApiEndpoint } from "@/lib/api-config";
 import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
@@ -61,7 +61,7 @@ const parsePrice = (value: string | number | null | undefined) => {
 const buildImageUrl = (value?: string | null) => {
   if (!value) return undefined;
   if (value.startsWith("http")) return value;
-  return absoluteUrl(value);
+  return absoluteAssetUrl(value);
 };
 
 const toDateOnly = (value: Date) => value.toISOString().split("T")[0];
@@ -88,13 +88,13 @@ const resolveEnvNumber = (value?: string | null) => {
   return Number.isFinite(parsed) ? parsed : null;
 };
 
-const buildMerchantReturnPolicy = () => {
+const buildMerchantReturnPolicy = (locale?: string) => {
   const policy: Record<string, unknown> = {
     "@type": "MerchantReturnPolicy",
     applicableCountry: process.env.SCHEMA_COUNTRY ?? DEFAULT_COUNTRY,
     returnPolicyCategory:
       process.env.SCHEMA_RETURN_POLICY_CATEGORY ?? "https://schema.org/MerchantReturnUnspecified",
-    returnPolicyUrl: absoluteUrl("/legal"),
+    returnPolicyUrl: absoluteUrl("/legal", locale),
   };
 
   const returnDays = resolveEnvNumber(process.env.SCHEMA_RETURN_DAYS);
@@ -153,7 +153,7 @@ type CommerceSchemaProps = {
 
 export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
   const [services, courses] = await Promise.all([getServices(), getCourses()]);
-  const merchantReturnPolicy = buildMerchantReturnPolicy();
+  const merchantReturnPolicy = buildMerchantReturnPolicy(locale);
   const shippingDetails = buildShippingDetails();
 
   const organizationId = `${SITE_URL}#organization`;

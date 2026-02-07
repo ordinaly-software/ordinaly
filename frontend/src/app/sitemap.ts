@@ -7,7 +7,7 @@ export default async function sitemap() {
   const localized = (path: string, locale: string) => {
     const normalized = path.startsWith("/") ? path : `/${path}`;
     const suffix = normalized === "/" ? "" : normalized;
-    const prefix = locale === routing.defaultLocale ? "" : `/${locale}`;
+    const prefix = `/${locale}`;
     return `${base}${prefix}${suffix}`;
   };
 
