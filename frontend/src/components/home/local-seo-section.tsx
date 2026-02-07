@@ -6,7 +6,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
-import ThirdPartyConsent from "@/components/ui/third-party-consent";
+import YoutubePreview from "@/components/ui/youtube-preview";
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
 interface LocalSeoProps {
@@ -14,7 +14,7 @@ interface LocalSeoProps {
   sideContent?: ReactNode;
 }
 
-const LocalVideoPreview = () => {
+const LocalVideoPreview = ({ t }: { t: TranslateFn }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [canLoadVideo, setCanLoadVideo] = useState(false);
   const cookiePreferences = useCookiePreferences();
@@ -68,7 +68,13 @@ const LocalVideoPreview = () => {
       <div className="relative w-full max-w-lg ml-auto">
         <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/40 dark:border-white/10 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-gray-800 dark:via-gray-900 dark:to-gray-800">
           {!canLoadMedia ? (
-            <ThirdPartyConsent className="absolute inset-0" />
+            <YoutubePreview
+              url="https://youtu.be/13OwGUo4PJw"
+              title="Ordinaly Software short"
+              label={t("local.videoLabel")}
+              playLabel={t("local.playVideo")}
+              canLoad={false}
+            />
           ) : canLoadVideo ? (
             <iframe
               className="absolute inset-0 h-full w-full"
@@ -98,7 +104,7 @@ const LocalVideoPreview = () => {
 };
 
 export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
-  const resolvedSideContent = sideContent ?? <LocalVideoPreview />;
+  const resolvedSideContent = sideContent ?? <LocalVideoPreview t={t} />;
 
   return (
     <section className="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">

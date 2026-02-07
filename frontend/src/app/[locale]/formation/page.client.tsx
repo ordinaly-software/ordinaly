@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
+import { routing, type Locale } from "@/i18n/routing";
 import { getApiEndpoint } from "@/lib/api-config";
 import Footer from "@/components/ui/footer";
 import Banner from '@/components/ui/banner';
@@ -270,11 +271,12 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
     // Push a clean URL for the course slug so sharing works
     if (typeof window !== 'undefined' && course.slug) {
       const url = new URL(window.location.href);
-      // Build localized path if present
+      // Build localized path only if the first segment is a locale
       const parts = url.pathname.split('/').filter(Boolean);
+      const maybeLocale = parts[0] ?? "";
+      const localePrefix = routing.locales.includes(maybeLocale as Locale) ? `/${maybeLocale}` : "";
       // Replace or append formation/<slug>
-      const locale = parts[0] || '';
-      const newPath = `/${locale}/formation/${course.slug}`;
+      const newPath = `${localePrefix}/formation/${course.slug}`;
       window.history.replaceState({}, document.title, newPath + url.search);
     }
   };

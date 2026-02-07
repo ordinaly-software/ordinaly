@@ -579,7 +579,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   aria-label={t('previous')}
                   onClick={goToPrev}
                   disabled={atStart}
-                  className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </button>
@@ -588,7 +588,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   aria-label={t('next')}
                   onClick={goToNext}
                   disabled={atEnd}
-                  className="relative z-40 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowRight className="w-5 h-5" />
                 </button>
