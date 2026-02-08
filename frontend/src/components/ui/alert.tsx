@@ -77,7 +77,7 @@ const Alert: React.FC<AlertProps> = ({ type, message, onClose, duration = 5000 }
     isMounted
       ? createPortal(
           <div
-            className={`fixed top-6 left-1/2 z-[1000] w-[90%] max-w-md transition-all duration-200 ease-out ${
+            className={`fixed top-20 left-1/2 z-[1000] w-[90%] max-w-md transition-all duration-200 ease-out ${
               isVisible && !isExiting
                 ? "transform -translate-x-1/2 translate-y-0 opacity-100"
                 : "transform -translate-x-1/2 -translate-y-4 opacity-0"

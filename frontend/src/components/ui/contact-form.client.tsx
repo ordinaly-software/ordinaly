@@ -59,6 +59,7 @@ export default function ContactForm({ className }: { className?: string }) {
       email: String(formData.get("email") ?? ""),
       company: String(formData.get("company") ?? ""),
       details: String(formData.get("message") ?? ""),
+      page: String(window.location.href ?? ""),
     };
 
     if (phoneDigits) {

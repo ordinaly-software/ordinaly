@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { AnimatedTestimonials } from "@/components/about/animated-testimonials";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
@@ -23,6 +23,18 @@ const Footer = dynamic(() => import("@/components/ui/footer"), {
 export default function UsPage() {
   const t = useTranslations("usPage");
   const t_home = useTranslations("home");
+  const locale = useLocale();
+  const isEs = locale.startsWith("es");
+
+  const factSheet = [
+    { label: isEs ? "Nombre legal" : "Legal name", value: "Ordinaly Software S.L." },
+    { label: isEs ? "Sede" : "Office", value: "Plaza del Duque de la Victoria 1, 3º 9, Sevilla" },
+    { label: "Email", value: "info@ordinaly.ai" },
+    { label: isEs ? "Teléfono" : "Phone", value: "+34 626 270 806" },
+    { label: isEs ? "Fundación" : "Founded", value: "2023, Sevilla" },
+    { label: isEs ? "Equipo" : "Team", value: isEs ? "Consultoría + ingeniería IA" : "AI consulting + engineering" },
+    { label: isEs ? "Áreas" : "Service area", value: "Sevilla, Andalucía, España" },
+  ];
 
   const testimonials = [
     {
@@ -134,6 +146,22 @@ export default function UsPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {factSheet.map((item) => (
+            <div
+              key={item.label}
+              className="rounded-2xl border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-[#111827] p-4 shadow-sm"
+            >
+              <p className="text-xs uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300 font-semibold">
+                {item.label}
+              </p>
+              <p className="mt-2 text-sm text-gray-800 dark:text-gray-100 leading-relaxed">{item.value}</p>
+            </div>
+          ))}
         </div>
       </section>
 
