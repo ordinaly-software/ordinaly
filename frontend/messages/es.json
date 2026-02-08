@@ -1163,13 +1163,13 @@
       "terms": {
         "title": "Términos de Servicio",
         "noDocuments": "No hay documentos de términos de servicio disponibles actualmente",
-        "identification": {
+          "identification": {
           "title": "IDENTIFICACIÓN DEL PRESTADOR DE SERVICIOS",
           "p1": "En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y comercio electrónico (LSSI-CE), se informa que el presente sitio web es propiedad de:",
           "bullet1": "Empresa: Ordinaly Software S.L.",
-          "bullet2": "Domicilio fiscal: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla, Sevilla (España)",
-          "bullet3": "Correo de contacto: ordinalysoftware@gmail.com",
-          "bullet4": "Sitio web: https://ordinaly.ai"
+          "bullet2": "Domicilio fiscal: Bormujos (Sevilla, España). Uso exclusivo para notificaciones oficiales.",
+          "bullet3": "Oficinas y atención al cliente: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla, Sevilla (España)",
+          "bullet4": "Web y correo de contacto: https://ordinaly.ai • info@ordinaly.ai"
         },
         "purpose": {
           "title": "OBJETO",
@@ -1214,12 +1214,12 @@
       "privacy": {
         "title": "Política de Privacidad",
         "noDocuments": "No hay documentos de política de privacidad disponibles actualmente",
-        "dataController": {
+          "dataController": {
           "title": "RESPONSABLE DEL TRATAMIENTO",
           "p1": "En cumplimiento del Reglamento General de Protección de Datos (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD), se informa que el responsable del tratamiento de los datos es:",
           "p2": "Ordinaly Software S.L.",
-          "bullet1": "Domicilio fiscal: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla, Sevilla (España)",
-          "bullet2": "Correo electrónico de contacto: ordinalysoftware@gmail.com"
+          "bullet1": "Domicilio fiscal: Bormujos (Sevilla, España). Solo para notificaciones y comunicaciones oficiales.",
+          "bullet2": "Atención al cliente y oficinas: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla. Contacto: info@ordinaly.ai"
         },
         "personalDataCollected": {
           "title": "DATOS PERSONALES QUE RECOGEMOS",

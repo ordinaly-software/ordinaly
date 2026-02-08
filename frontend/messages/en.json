@@ -1168,9 +1168,9 @@
           "title": "SERVICE PROVIDER IDENTIFICATION",
           "p1": "In compliance with Law 34/2002 (LSSI-CE), this website is owned by:",
           "bullet1": "Company: Ordinaly Software S.L.",
-          "bullet2": "Registered address: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville, Spain",
-          "bullet3": "Contact email: ordinalysoftware@gmail.com",
-          "bullet4": "Website: https://ordinaly.ai"
+          "bullet2": "Registered (tax) address: Bormujos, Seville, Spain. For official notices only.",
+          "bullet3": "Customer office and service: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville, Spain",
+          "bullet4": "Website & contact email: https://ordinaly.ai • info@ordinaly.ai"
         },
         "purpose": {
           "title": "PURPOSE",
@@ -1219,8 +1219,8 @@
           "title": "DATA CONTROLLER",
           "p1": "In accordance with GDPR (EU) 2016/679 and Organic Law 3/2018, the data controller is:",
           "p2": "Ordinaly Software S.L.",
-          "bullet1": "Registered address: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville, Spain",
-          "bullet2": "Contact email: ordinalysoftware@gmail.com"
+          "bullet1": "Registered (tax) address: Bormujos, Seville, Spain. Used only for official notices and tax matters.",
+          "bullet2": "Customer office and service: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville. Contact: info@ordinaly.ai"
         },
         "personalDataCollected": {
           "title": "PERSONAL DATA WE COLLECT",

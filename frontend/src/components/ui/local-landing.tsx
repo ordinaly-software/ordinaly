@@ -7,7 +7,8 @@ import { useTranslations } from "next-intl";
 import { CheckCircle2, MapPin, Sparkles, Clock3, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
-import type { LocalLandingMeta } from "@/app/[locale]/services/local-landings";
+// Local landings metadata now lives under /[locale]/landings instead of /services.
+import type { LocalLandingMeta } from "@/app/[locale]/landings";
 import { TestimonialsSection } from "../home/testimonials-section";
 
 const cardClass =
@@ -273,9 +274,11 @@ export function LocalLandingPage({ slug, locale, meta }: { slug: string; locale:
           </div>
         </section>
 
-        <TestimonialsSection t={t} />
+        <section>
+          <TestimonialsSection t={t} />
+        </section>
 
-        <section id="landing-contact" className={`${cardClass} p-0 overflow-hidden`}>
+        <section id="landing-contact">
           <ContactForm />
         </section>
       </div>

@@ -374,7 +374,7 @@ export function TestimonialsSection({ t }: SectionProps) {
                         <div className="w-12 h-12 relative mr-3">
                           <Image
                             src={item.profilePhotoUrl}
-                            alt={item.name}
+                            alt=""
                             width={48}
                             height={48}
                             className="rounded-full object-cover"

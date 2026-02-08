@@ -44,6 +44,7 @@ const businessSchema = {
     addressRegion: "Andalucía",
     addressCountry: "ES",
   },
+  // Tax address is in Bormujos (Sevilla) and used only for official notices; public-facing office shown above.
   areaServed: ["Sevilla", "Andalucía", "España"],
   sameAs: [
     "https://es.linkedin.com/company/ordinalysoftware",

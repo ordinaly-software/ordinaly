@@ -2,6 +2,17 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /auth/
+Disallow: /es/auth/
+Disallow: /en/auth/
+Disallow: /odoo/
+Disallow: /n8n/
+Disallow: /mail/
+Disallow: /es/odoo/
+Disallow: /en/odoo/
+Disallow: /es/n8n/
+Disallow: /en/n8n/
+Disallow: /es/mail/
+Disallow: /en/mail/
 Disallow: /profile/
 Disallow: /studio/
 
