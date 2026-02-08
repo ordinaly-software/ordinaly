@@ -246,6 +246,7 @@ export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
       const description = (service.clean_description ?? service.description ?? "").trim();
       const price = parsePrice(service.price ?? null);
       const isProduct = service.type === "PRODUCT";
+      const offerId = `${url}#offer`;
       const item: Record<string, unknown> = {
         "@type": isProduct ? "Product" : "Service",
         "@id": url,
@@ -260,8 +261,9 @@ export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
 
       const offer: Record<string, unknown> = {
         "@type": "Offer",
+        "@id": offerId,
         url,
-        itemOffered: item,
+        itemOffered: { "@id": url },
       };
       if (price !== null) {
         offer.priceCurrency = DEFAULT_CURRENCY;
@@ -271,13 +273,17 @@ export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
         offer.hasMerchantReturnPolicy = merchantReturnPolicy;
         offer.shippingDetails = shippingDetails;
       }
-      return offer;
+      // Explicitly satisfy Google's Product requirements: Product must have offers/review/aggregateRating.
+      item.offers = { "@id": offerId };
+
+      return { offer, item };
     });
 
   const courseOffers = courses
     .filter((course) => Boolean(course.title))
     .map((course) => {
       const url = absoluteUrl(getCoursePath(course), locale);
+      const offerId = `${url}#offer`;
       const item: Record<string, unknown> = {
         "@type": "Course",
         "@id": url,
@@ -305,8 +311,9 @@ export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
       const price = parsePrice((course as { price?: number | string | null }).price ?? null);
       const offer: Record<string, unknown> = {
         "@type": "Offer",
+        "@id": offerId,
         url,
-        itemOffered: item,
+        itemOffered: { "@id": url },
       };
       if (price !== null) {
         offer.priceCurrency = DEFAULT_CURRENCY;
@@ -316,11 +323,13 @@ export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
         offer.hasMerchantReturnPolicy = merchantReturnPolicy;
         offer.shippingDetails = shippingDetails;
       }
-      return offer;
+      item.offers = { "@id": offerId };
+      return { offer, item };
     });
 
-  const offers = [...serviceOffers, ...courseOffers];
-  const graph: Record<string, unknown>[] = [organization, localBusiness];
+  const offers = [...serviceOffers.map((x) => x.offer), ...courseOffers.map((x) => x.offer)];
+  const items = [...serviceOffers.map((x) => x.item), ...courseOffers.map((x) => x.item)];
+  const graph: Record<string, unknown>[] = [organization, localBusiness, ...items, ...offers];
 
   if (offers.length > 0) {
     const offerCatalog = {
