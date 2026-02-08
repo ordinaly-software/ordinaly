@@ -1,6 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /admin/
+Disallow: /es/admin/
+Disallow: /en/admin/
 Disallow: /auth/
 Disallow: /es/auth/
 Disallow: /en/auth/

@@ -106,6 +106,9 @@ export default function UsPage() {
               <p className="text-lg text-white max-w-2xl">
                 {t("hero.subtitle")}
               </p>
+              <p className="text-sm text-emerald-50/90 max-w-2xl">
+                {t("hero.definition")}
+              </p>
               <div className="flex flex-wrap gap-3">
                 <Button className="bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] gap-2" asChild>
                   <a href="#testimonials">

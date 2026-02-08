@@ -8,7 +8,7 @@ import { Locale, routing } from "@/i18n/routing";
 import Navbar from "@/components/ui/navbar";
 import CookieConsent from "@/components/ui/cookies";
 import BackToTopButton from "@/components/ui/back-to-top-button";
-import { absoluteUrl, getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
+import { getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { NextIntlClientProvider } from "next-intl";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
@@ -32,9 +32,11 @@ const ogDescription =
 const businessSchema = {
   "@context": "https://schema.org",
   "@type": ["Organization", "LocalBusiness"],
+  "@id": "https://ordinaly.ai/#organization",
   name: "Ordinaly Software",
   legalName: "Ordinaly Software S.L.",
   url: "https://ordinaly.ai",
+  logo: "https://ordinaly.ai/logo.webp",
   email: "info@ordinaly.ai",
   telephone: "+34 626 270 806",
   address: {
@@ -42,12 +44,16 @@ const businessSchema = {
     streetAddress: "Plaza del Duque de la Victoria 1, 3º 9",
     addressLocality: "Sevilla",
     addressRegion: "Andalucía",
+    postalCode: "41002",
     addressCountry: "ES",
   },
   // Tax address is in Bormujos (Sevilla) and used only for official notices; public-facing office shown above.
   areaServed: ["Sevilla", "Andalucía", "España"],
   sameAs: [
-    "https://es.linkedin.com/company/ordinalysoftware",
+    "https://www.linkedin.com/company/ordinaly",
+    "https://www.instagram.com/ordinaly",
+    "https://www.tiktok.com/@ordinaly",
+    "https://www.youtube.com/@ordinaly",
     "https://www.facebook.com/61579366744437/",
   ],
   makesOffer: [
@@ -68,12 +74,6 @@ export async function generateMetadata({
   const { locale } = await params;
 
   const fullBrandName = getFullBrandName(locale);
-  const canonicalLocale = routing.locales.includes(locale as Locale) ? locale : routing.defaultLocale;
-  const canonical = absoluteUrl("/", canonicalLocale);
-  const alternateLanguages: Record<string, string> = Object.fromEntries(
-    routing.locales.map((loc) => [localeHrefLangs[loc], absoluteUrl("/", loc)])
-  );
-  alternateLanguages["x-default"] = absoluteUrl("/");
   const ogLocale = localeHrefLangs[locale] ?? localeHrefLangs.es;
 
   return {
@@ -91,17 +91,12 @@ export async function generateMetadata({
       ],
       apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
     },
-    alternates: {
-      canonical,
-      languages: alternateLanguages,
-    },
     openGraph: {
       type: "website",
       siteName,
       title: fullBrandName,
       description: ogDescription,
       images: [{ url: "/og-image.png", width: 1200, height: 630, alt: fullBrandName }],
-      url: canonical,
       locale: ogLocale,
     },
   };
