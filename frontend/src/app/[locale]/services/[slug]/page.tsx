@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import ServicesPage from "../page.client";
 import { absoluteAssetUrl, createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { getApiEndpoint } from "@/lib/api-config";
-import { getLandingMeta } from "../local-landings";
-import { LocalLandingPage } from "@/components/services/local-landing";
+import { getLandingMeta } from "../../landings";
+import { permanentRedirect } from "next/navigation";
 import esMessages from "../../../../../messages/es.json";
 import enMessages from "../../../../../messages/en.json";
 
@@ -34,12 +34,14 @@ export async function generateMetadata({
         ? defaultDescription
         : "AI automation services and products for companies looking to scale with intelligent workflows.");
     const image = landingMeta.heroImage || "/static/backgrounds/services_background.webp";
+
     return createPageMetadata({
       locale,
-      path: `/services/${slug}`,
+      path: `/${slug}`,
       title,
       description,
       image,
+      index: false, // this route will permanently redirect; keep it non-indexable
     });
   }
 
@@ -90,7 +92,7 @@ export default async function ServiceSlugPage({
   const { slug, locale } = await params;
   const landingMeta = getLandingMeta(slug);
   if (landingMeta) {
-    return <LocalLandingPage slug={slug} locale={locale} meta={landingMeta} />;
+    return permanentRedirect(`/${locale}/${slug}`);
   }
   return <ServicesPage initialServiceSlug={slug} />;
 }

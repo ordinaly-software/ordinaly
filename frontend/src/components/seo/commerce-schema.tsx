@@ -194,6 +194,7 @@ export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
       addressRegion: "Andalucía",
       postalCode: "41002",
       addressCountry: "ES",
+      // Registered tax address: Bormujos (Sevilla), used only for official notices.
     },
     telephone: "+34626270806",
     email: "info@ordinaly.ai",

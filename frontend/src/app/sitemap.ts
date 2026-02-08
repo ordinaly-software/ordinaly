@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
 import { absoluteUrl, localeHrefLangs } from "@/lib/metadata";
 import { client } from "@/lib/sanity";
+import { landingsMeta } from "@/app/[locale]/landings";
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
 
@@ -71,6 +72,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (!identifier) return;
     addPath(`/services/${identifier}`, "weekly", 0.8);
   });
+
+  // Local SEO landings (top-level, locale-prefixed)
+  landingsMeta.forEach((landing) => addPath(`/${landing.slug}`, "weekly", 0.85));
 
   courses.forEach((course) => {
     const identifier = course?.slug || course?.id;
