@@ -29,6 +29,36 @@ const baseDescription =
 const ogDescription =
   "Transformamos empresas con soluciones de automatización inteligente para liderar la innovación en Andalucía, España y Europa.";
 
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness"],
+  name: "Ordinaly Software",
+  legalName: "Ordinaly Software S.L.",
+  url: "https://ordinaly.ai",
+  email: "info@ordinaly.ai",
+  telephone: "+34 626 270 806",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Plaza del Duque de la Victoria 1, 3º 9",
+    addressLocality: "Sevilla",
+    addressRegion: "Andalucía",
+    addressCountry: "ES",
+  },
+  areaServed: ["Sevilla", "Andalucía", "España"],
+  sameAs: [
+    "https://es.linkedin.com/company/ordinalysoftware",
+    "https://www.facebook.com/61579366744437/",
+  ],
+  makesOffer: [
+    "Chatbots empresariales",
+    "Agentes IA para soporte",
+    "Automatización con n8n",
+    "Integraciones WhatsApp Business",
+    "Integraciones CRM/ERP (Odoo, HubSpot)",
+    "Formación IA para PYMES",
+  ],
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -100,6 +130,10 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://api.ordinaly.ai" />
         <link rel="dns-prefetch" href="https://api.ordinaly.ai" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
+        />
         {/* Theme init (tu script) */}
         <script
           dangerouslySetInnerHTML={{

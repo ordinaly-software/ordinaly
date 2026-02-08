@@ -10,7 +10,7 @@ export async function POST(req: Request) {
   }
 
   const requestBody = body as Record<string, unknown>;
-  const allowedKeys = ["name", "email", "phone", "company", "details"] as const;
+  const allowedKeys = ["name", "email", "phone", "company", "details", "page"] as const;
   const lead: Record<string, string> = {};
 
   for (const key of allowedKeys) {

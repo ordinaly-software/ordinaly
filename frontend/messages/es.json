@@ -2132,6 +2132,272 @@
       "button": "Contactar al equipo"
     }
   },
+  "landings": {
+    "chatbots-empresas-sevilla": {
+      "title": "Chatbots para empresas en Sevilla",
+      "subtitle": "Atención 24/7 que entiende tus procesos y responde con datos de tu negocio.",
+      "description": "Diseñamos chatbots entrenados con tu base de conocimiento, conectados a tus sistemas (CRM/ERP) y listos para reducir tickets repetitivos.",
+      "heroBadge": "IA + soporte",
+      "heroCtaLabel": "Hablar con un consultor",
+      "secondaryCtaLabel": "Ver casos en Sevilla",
+      "valueProps": {
+        "0": "Respuestas con tus datos: fichas de productos, envíos, incidencias.",
+        "1": "Integración con WhatsApp, web y correo en menos de 2 semanas.",
+        "2": "Handoff a agente humano con contexto completo en CRM."
+      },
+      "outcomes": {
+        "0": "-35% tickets repetitivos en 3 meses",
+        "1": "CSAT +12 puntos al dar estado de pedidos en tiempo real",
+        "2": "Menos de 30s de tiempo medio de respuesta"
+      },
+      "steps": {
+        "0": "Auditamos FAQs y flujos de soporte actuales",
+        "1": "Conectamos fuentes (FAQ, manuales, CRM) y canales (web/WhatsApp)",
+        "2": "Pilotamos 2 semanas con objetivos de deflexión y CSAT"
+      },
+      "faqs": {
+        "0": {
+          "q": "¿En qué canales puedo desplegar el chatbot?",
+          "a": "Web, WhatsApp Business, Facebook Messenger y correo. Podemos empezar por un canal y extender al resto tras el piloto."
+        },
+        "1": {
+          "q": "¿Cómo evitáis alucinaciones?",
+          "a": "Usamos RAG con fuentes validadas y umbrales de confianza; si no hay certeza, el bot deriva a humano con el contexto capturado."
+        },
+        "2": {
+          "q": "¿Podéis integrarlo con mi CRM?",
+          "a": "Sí, integramos con Odoo, HubSpot o tu CRM vía API para leer pedidos, clientes y crear tickets."
+        }
+      },
+      "serviceType": "Chatbots empresariales",
+      "areaServed": "Sevilla, Andalucía, España",
+      "keywords": {
+        "0": "chatbots sevilla",
+        "1": "chatbot empresas sevilla",
+        "2": "atención al cliente ia sevilla"
+      }
+    },
+    "automatizacion-n8n-sevilla": {
+      "title": "Automatización con n8n en Sevilla",
+      "subtitle": "Workflows robustos en n8n para operaciones y soporte sin dependencias de código propietario.",
+      "description": "Diseñamos y operamos tus flujos en n8n: sincronización de datos, alertas, conciliaciones y tareas repetitivas que hoy haces a mano.",
+      "heroBadge": "Automatización",
+      "heroCtaLabel": "Planificar flujo",
+      "secondaryCtaLabel": "Revisar casos locales",
+      "valueProps": {
+        "0": "Blueprints reutilizables para ventas, soporte y operaciones.",
+        "1": "Monitorización y alertas para que no vuelvas a perder un dato.",
+        "2": "Gobernanza: control de versiones y credenciales seguras."
+      },
+      "outcomes": {
+        "0": "-50% tiempo en tareas manuales de backoffice",
+        "1": "Reducción de errores de copia/pega entre sistemas",
+        "2": "Alertas proactivas ante fallos en integraciones"
+      },
+      "steps": {
+        "0": "Mapeamos procesos y puntos de integración",
+        "1": "Construimos flujos en n8n con logs y retries",
+        "2": "Formamos a tu equipo y dejamos panel de control"
+      },
+      "faqs": {
+        "0": {
+          "q": "¿Trabajáis on-prem o en la nube?",
+          "a": "Podemos desplegar n8n en tu infraestructura o gestionarlo en nuestra nube gestionada en la UE."
+        },
+        "1": {
+          "q": "¿Qué sistemas integráis?",
+          "a": "ERP/CRM (Odoo, HubSpot), hojas de cálculo, bases SQL, webhooks y APIs internas."
+        },
+        "2": {
+          "q": "¿Cómo aseguráis la fiabilidad?",
+          "a": "Incluimos tests de flujos, reintentos, alertas y panel de métricas de éxito por flujo."
+        }
+      },
+      "serviceType": "Automatización de procesos con n8n",
+      "areaServed": "Sevilla, Andalucía, España",
+      "keywords": {
+        "0": "automatizacion n8n sevilla",
+        "1": "workflows ia sevilla",
+        "2": "integraciones n8n sevilla"
+      }
+    },
+    "agentes-ia-atencion-cliente-sevilla": {
+      "title": "Agentes IA para atención al cliente en Sevilla",
+      "subtitle": "Agentes autónomos que resuelven incidencias y ejecutan acciones en tus sistemas.",
+      "description": "Creamos agentes capaces de consultar pedidos, reponer stock, crear tickets o escalar a humano cuando corresponde, siempre con trazabilidad.",
+      "heroBadge": "Agentes operativos",
+      "heroCtaLabel": "Diseñar agente",
+      "secondaryCtaLabel": "Pedir demo",
+      "valueProps": {
+        "0": "Acciones seguras con permisos y validaciones.",
+        "1": "Logs y trazas para auditoría de cada decisión.",
+        "2": "Supervisión humana opcional en tareas críticas."
+      },
+      "outcomes": {
+        "0": "Tiempo de primera respuesta < 1 minuto",
+        "1": "Derivaciones a humano solo en casos complejos",
+        "2": "Ahorro de 20-40% en coste por ticket resuelto"
+      },
+      "steps": {
+        "0": "Definimos políticas y límites de cada agente",
+        "1": "Conectamos con APIs (pedidos, stock, envíos)",
+        "2": "Corremos piloto controlado con métricas de calidad"
+      },
+      "faqs": {
+        "0": {
+          "q": "¿Pueden hacer acciones en mis sistemas?",
+          "a": "Sí, con permisos y validaciones. Usamos cuentas de servicio y registramos cada acción."
+        },
+        "1": {
+          "q": "¿Cómo se controla la calidad?",
+          "a": "Revisión humana en las primeras semanas, scoring automático y alertas ante baja confianza."
+        },
+        "2": {
+          "q": "¿Qué modelo usáis?",
+          "a": "Seleccionamos el modelo según caso (OpenAI, Claude, etc.) y podemos enrutar por coste/latencia."
+        }
+      },
+      "serviceType": "Agentes de IA para soporte",
+      "areaServed": "Sevilla, Andalucía, España",
+      "keywords": {
+        "0": "agentes ia sevilla",
+        "1": "agentes atencion cliente ia sevilla",
+        "2": "ia soporte sevilla"
+      }
+    },
+    "automatizacion-whatsapp-business-sevilla": {
+      "title": "Automatización de WhatsApp Business en Sevilla",
+      "subtitle": "Ventas y soporte por WhatsApp con bots, asignación inteligente y métricas claras.",
+      "description": "Implementamos flujos de WhatsApp Business: captación, lead scoring, respuestas automáticas y handoff a equipo comercial con contexto.",
+      "heroBadge": "WhatsApp + IA",
+      "heroCtaLabel": "Optimizar mi WhatsApp",
+      "secondaryCtaLabel": "Solicitar auditoría",
+      "valueProps": {
+        "0": "Bots híbridos: botones + IA para casos abiertos.",
+        "1": "Integración con CRM para registrar cada conversación.",
+        "2": "Routing por horarios y skill del agente."
+      },
+      "outcomes": {
+        "0": "+18% conversión de leads calificados",
+        "1": "Respuesta inicial < 30 segundos",
+        "2": "Reporte semanal de ventas y soporte por canal"
+      },
+      "steps": {
+        "0": "Auditamos el flujo actual y SLA",
+        "1": "Configuramos plantillas aprobadas y bots",
+        "2": "Entrenamos al equipo y medimos conversión"
+      },
+      "faqs": {
+        "0": {
+          "q": "¿Trabajáis con la API oficial?",
+          "a": "Sí, usamos la API oficial de WhatsApp Business (BSP) y podemos trabajar con tu proveedor actual."
+        },
+        "1": {
+          "q": "¿Puedo ver métricas?",
+          "a": "Incluimos dashboards con leads, tiempos de respuesta y ventas atribuidas a WhatsApp."
+        },
+        "2": {
+          "q": "¿Se puede usar junto a chatbots web?",
+          "a": "Claro, reutilizamos conocimiento y flujos entre web y WhatsApp para mantener coherencia."
+        }
+      },
+      "serviceType": "Automatización de WhatsApp Business",
+      "areaServed": "Sevilla, Andalucía, España",
+      "keywords": {
+        "0": "whatsapp automatizacion sevilla",
+        "1": "whatsapp business sevilla",
+        "2": "chatbot whatsapp sevilla"
+      }
+    },
+    "formacion-ia-pymes-sevilla": {
+      "title": "Formación IA para PYMES en Sevilla",
+      "subtitle": "Programas prácticos para equipos de ventas, operaciones y soporte.",
+      "description": "Formaciones a medida con casos reales de tu negocio: prompts efectivos, automatizaciones ligeras y seguridad de datos.",
+      "heroBadge": "Formación",
+      "heroCtaLabel": "Planificar taller",
+      "secondaryCtaLabel": "Ver temario",
+      "valueProps": {
+        "0": "Módulos cortos (2-4h) con ejercicios sobre tus procesos.",
+        "1": "Plantillas y checklists listos para usar al día siguiente.",
+        "2": "Opcional: acompañamiento 30 días tras la sesión."
+      },
+      "outcomes": {
+        "0": "Equipos aplican IA en 1 semana",
+        "1": "Reducción de errores en tareas repetitivas",
+        "2": "Aumento de productividad medido por tarea"
+      },
+      "steps": {
+        "0": "Diagnóstico de usos y riesgos",
+        "1": "Sesión práctica con casos propios",
+        "2": "Seguimiento con retos semanales"
+      },
+      "faqs": {
+        "0": {
+          "q": "¿Incluye seguridad y privacidad?",
+          "a": "Sí, cubrimos políticas de uso seguro, gestión de datos y herramientas aprobadas."
+        },
+        "1": {
+          "q": "¿Puede ser presencial?",
+          "a": "Sí, hacemos sesiones presenciales en Sevilla o en remoto con dinámicas prácticas."
+        },
+        "2": {
+          "q": "¿Entregáis materiales?",
+          "a": "Entregamos guías, prompts y checklists adaptados a tus procesos."
+        }
+      },
+      "serviceType": "Formación en IA para PYMES",
+      "areaServed": "Sevilla, Andalucía, España",
+      "keywords": {
+        "0": "formacion ia pymes sevilla",
+        "1": "curso ia sevilla",
+        "2": "taller ia empresas sevilla"
+      }
+    },
+    "integraciones-crm-erp-sevilla": {
+      "title": "Integraciones CRM/ERP (Odoo, HubSpot) en Sevilla",
+      "subtitle": "Datos coherentes entre ventas, soporte y operaciones con integraciones robustas.",
+      "description": "Sincronizamos contactos, oportunidades, pedidos e inventario entre tus sistemas (Odoo, HubSpot, bases internas) con validaciones y logs.",
+      "heroBadge": "Integraciones",
+      "heroCtaLabel": "Unificar datos",
+      "secondaryCtaLabel": "Solicitar auditoría",
+      "valueProps": {
+        "0": "Mapeos claros: qué dato manda en cada dirección.",
+        "1": "Validaciones de calidad y deduplicación.",
+        "2": "Dashboards de sincronizaciones y errores."
+      },
+      "outcomes": {
+        "0": "Menos tickets por datos inconsistentes",
+        "1": "Mejores reportes de ventas y stock",
+        "2": "Reducción de tiempos de onboarding de clientes"
+      },
+      "steps": {
+        "0": "Auditoría de datos y sistemas",
+        "1": "Diseño del mapeo y reglas de sincronización",
+        "2": "Monitorización continua con alertas"
+      },
+      "faqs": {
+        "0": {
+          "q": "¿Qué CRMs soportáis?",
+          "a": "HubSpot, Odoo y CRMs propios vía API. Evaluamos otros bajo solicitud."
+        },
+        "1": {
+          "q": "¿Cómo gestionáis los errores?",
+          "a": "Logs con retries y alertas; definimos reglas de reconciliación con tu equipo."
+        },
+        "2": {
+          "q": "¿Incluye seguridad?",
+          "a": "Uso de tokens seguros, mínimos privilegios y cifrado en tránsito. Opcional: VPN o red privada."
+        }
+      },
+      "serviceType": "Integraciones CRM/ERP",
+      "areaServed": "Sevilla, Andalucía, España",
+      "keywords": {
+        "0": "integraciones crm sevilla",
+        "1": "odoo sevilla",
+        "2": "hubspot sevilla"
+      }
+    }
+  },
   "notFound": {
     "title": "Página no encontrada",
     "description": "La página que buscas no existe o se ha movido.",

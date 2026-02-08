@@ -1,0 +1,10 @@
+Domain: https://ordinaly.ai
+Entity: Ordinaly Software S.L.
+Office: Plaza del Duque de la Victoria 1, 3º 9, Sevilla, Andalucía, España
+Phone: +34 626 270 806
+Email: info@ordinaly.ai
+What we do: IA y automatización para empresas (chatbots, agentes IA, automatización con n8n, integraciones WhatsApp Business, integraciones CRM/ERP Odoo/HubSpot, formación IA para PYMES).
+Service area: Sevilla, Andalucía, España.
+Key pages: https://ordinaly.ai/es, https://ordinaly.ai/en, https://ordinaly.ai/es/services, https://ordinaly.ai/es/contact, https://ordinaly.ai/es/blog
+Notable work: Casos de automatización de soporte al cliente y flujos operativos en empresas andaluzas; despliegues de WhatsApp Business con IA y n8n; programas de formación aplicada en IA para equipos comerciales y de operaciones.
+Policies: Public content can be indexed by LLMs; respetar robots.txt; no almacenar datos personales.

@@ -2133,6 +2133,272 @@
       "button": "Talk with the team"
     }
   },
+  "landings": {
+    "chatbots-empresas-sevilla": {
+      "title": "Chatbots for businesses in Seville",
+      "subtitle": "24/7 support that understands your processes and answers with your data.",
+      "description": "We build chatbots trained on your knowledge base, connected to your CRM/ERP, ready to deflect repetitive tickets.",
+      "heroBadge": "AI + support",
+      "heroCtaLabel": "Talk to a consultant",
+      "secondaryCtaLabel": "See local cases",
+      "valueProps": {
+        "0": "Answers with your data: products, shipping, incidents.",
+        "1": "WhatsApp, web and email integration in under 2 weeks.",
+        "2": "Handoff to humans with full CRM context."
+      },
+      "outcomes": {
+        "0": "-35% repetitive tickets in 3 months",
+        "1": "+12 CSAT points thanks to real-time order status",
+        "2": "<30s average first response time"
+      },
+      "steps": {
+        "0": "Audit FAQs and current support flows",
+        "1": "Connect sources (FAQ, manuals, CRM) and channels (web/WhatsApp)",
+        "2": "2-week pilot with deflection and CSAT targets"
+      },
+      "faqs": {
+        "0": {
+          "q": "Which channels can I deploy to?",
+          "a": "Web, WhatsApp Business, Facebook Messenger and email. Start with one channel and extend after the pilot."
+        },
+        "1": {
+          "q": "How do you prevent hallucinations?",
+          "a": "RAG with validated sources and confidence thresholds; if unsure, the bot routes to a human with captured context."
+        },
+        "2": {
+          "q": "Can you integrate with my CRM?",
+          "a": "Yes, Odoo, HubSpot or your CRM via API to read orders/customers and create tickets."
+        }
+      },
+      "serviceType": "Business chatbots",
+      "areaServed": "Seville, Andalusia, Spain",
+      "keywords": {
+        "0": "chatbots seville",
+        "1": "business chatbot seville",
+        "2": "customer support ai seville"
+      }
+    },
+    "automatizacion-n8n-sevilla": {
+      "title": "n8n automation in Seville",
+      "subtitle": "Robust n8n workflows for operations and support without lock-in.",
+      "description": "We design and operate your n8n flows: data syncs, alerts, reconciliations and repetitive tasks you still do by hand.",
+      "heroBadge": "Automation",
+      "heroCtaLabel": "Plan a flow",
+      "secondaryCtaLabel": "Review local work",
+      "valueProps": {
+        "0": "Reusable blueprints for sales, support and ops.",
+        "1": "Monitoring and alerts so you never lose data again.",
+        "2": "Governance: version control and secure credentials."
+      },
+      "outcomes": {
+        "0": "-50% time on back-office manual tasks",
+        "1": "Fewer copy/paste errors between systems",
+        "2": "Proactive alerts on integration failures"
+      },
+      "steps": {
+        "0": "Map processes and integration points",
+        "1": "Build flows in n8n with logs and retries",
+        "2": "Train your team and leave a control panel"
+      },
+      "faqs": {
+        "0": {
+          "q": "Do you work on-prem or cloud?",
+          "a": "We can deploy n8n in your infra or manage it in our EU cloud."
+        },
+        "1": {
+          "q": "Which systems do you integrate?",
+          "a": "ERP/CRM (Odoo, HubSpot), spreadsheets, SQL DBs, webhooks and internal APIs."
+        },
+        "2": {
+          "q": "How do you ensure reliability?",
+          "a": "Flow tests, retries, alerts and success metrics per flow."
+        }
+      },
+      "serviceType": "Process automation with n8n",
+      "areaServed": "Seville, Andalusia, Spain",
+      "keywords": {
+        "0": "n8n automation seville",
+        "1": "workflows ai seville",
+        "2": "integrations n8n seville"
+      }
+    },
+    "agentes-ia-atencion-cliente-sevilla": {
+      "title": "AI agents for customer support in Seville",
+      "subtitle": "Autonomous agents that solve issues and execute actions in your systems.",
+      "description": "We build agents that can check orders, restock, create tickets or escalate to humans when needed, with full traceability.",
+      "heroBadge": "Operational agents",
+      "heroCtaLabel": "Design an agent",
+      "secondaryCtaLabel": "Request demo",
+      "valueProps": {
+        "0": "Secure actions with permissions and validations.",
+        "1": "Logs and traces for auditing every decision.",
+        "2": "Optional human-in-the-loop for critical tasks."
+      },
+      "outcomes": {
+        "0": "<1 minute first response time",
+        "1": "Escalations only for complex cases",
+        "2": "20-40% cost saving per resolved ticket"
+      },
+      "steps": {
+        "0": "Define policies and limits for each agent",
+        "1": "Connect to APIs (orders, stock, shipping)",
+        "2": "Run controlled pilot with quality metrics"
+      },
+      "faqs": {
+        "0": {
+          "q": "Can they act in my systems?",
+          "a": "Yes, with permissions and validations. Service accounts and full action logging."
+        },
+        "1": {
+          "q": "How do you control quality?",
+          "a": "Human review first weeks, automatic scoring and alerts on low confidence."
+        },
+        "2": {
+          "q": "Which model do you use?",
+          "a": "We pick the model per case (OpenAI, Claude, etc.) and can route by cost/latency."
+        }
+      },
+      "serviceType": "AI agents for support",
+      "areaServed": "Seville, Andalusia, Spain",
+      "keywords": {
+        "0": "ai agents seville",
+        "1": "customer support ai seville",
+        "2": "ai helpdesk seville"
+      }
+    },
+    "automatizacion-whatsapp-business-sevilla": {
+      "title": "WhatsApp Business automation in Seville",
+      "subtitle": "Sales and support on WhatsApp with bots, smart routing and clear metrics.",
+      "description": "We implement WhatsApp Business flows: acquisition, lead scoring, auto-replies and handoff to sales with full context.",
+      "heroBadge": "WhatsApp + AI",
+      "heroCtaLabel": "Optimize WhatsApp",
+      "secondaryCtaLabel": "Request audit",
+      "valueProps": {
+        "0": "Hybrid bots: buttons + AI for open questions.",
+        "1": "CRM integration to log every conversation.",
+        "2": "Routing by schedule and agent skill."
+      },
+      "outcomes": {
+        "0": "+18% qualified lead conversion",
+        "1": "<30s initial response time",
+        "2": "Weekly sales and support report by channel"
+      },
+      "steps": {
+        "0": "Audit current flow and SLA",
+        "1": "Configure approved templates and bots",
+        "2": "Train the team and track conversion"
+      },
+      "faqs": {
+        "0": {
+          "q": "Do you use the official API?",
+          "a": "Yes, official WhatsApp Business API (BSP) and we can work with your current provider."
+        },
+        "1": {
+          "q": "Can I see metrics?",
+          "a": "Dashboards with leads, response times and sales attributed to WhatsApp."
+        },
+        "2": {
+          "q": "Can it coexist with web chatbots?",
+          "a": "Yes, we reuse knowledge and flows between web and WhatsApp for consistency."
+        }
+      },
+      "serviceType": "WhatsApp Business automation",
+      "areaServed": "Seville, Andalusia, Spain",
+      "keywords": {
+        "0": "whatsapp automation seville",
+        "1": "whatsapp business seville",
+        "2": "whatsapp chatbot seville"
+      }
+    },
+    "formacion-ia-pymes-sevilla": {
+      "title": "AI training for SMBs in Seville",
+      "subtitle": "Hands-on programs for sales, ops and support teams.",
+      "description": "Custom trainings with your real cases: effective prompts, light automations and data safety.",
+      "heroBadge": "Training",
+      "heroCtaLabel": "Plan workshop",
+      "secondaryCtaLabel": "View syllabus",
+      "valueProps": {
+        "0": "Short modules (2-4h) with exercises on your processes.",
+        "1": "Templates and checklists ready to use next day.",
+        "2": "Optional 30-day follow-up after the session."
+      },
+      "outcomes": {
+        "0": "Teams apply AI within 1 week",
+        "1": "Fewer errors in repetitive tasks",
+        "2": "Productivity increase measured per task"
+      },
+      "steps": {
+        "0": "Use-case and risk assessment",
+        "1": "Practical session with your cases",
+        "2": "Follow-up with weekly challenges"
+      },
+      "faqs": {
+        "0": {
+          "q": "Do you cover security and privacy?",
+          "a": "Yes, safe-use policies, data handling and approved tools."
+        },
+        "1": {
+          "q": "Can it be in person?",
+          "a": "Yes, on-site in Seville or remote with hands-on dynamics."
+        },
+        "2": {
+          "q": "Do you provide materials?",
+          "a": "Guides, prompts and checklists tailored to your processes."
+        }
+      },
+      "serviceType": "AI training for SMBs",
+      "areaServed": "Seville, Andalusia, Spain",
+      "keywords": {
+        "0": "ai training seville",
+        "1": "smb ai training seville",
+        "2": "ai workshop seville"
+      }
+    },
+    "integraciones-crm-erp-sevilla": {
+      "title": "CRM/ERP integrations (Odoo, HubSpot) in Seville",
+      "subtitle": "Consistent data across sales, support and ops with robust integrations.",
+      "description": "We sync contacts, deals, orders and inventory between your systems (Odoo, HubSpot, internal bases) with validations and logs.",
+      "heroBadge": "Integrations",
+      "heroCtaLabel": "Unify data",
+      "secondaryCtaLabel": "Request audit",
+      "valueProps": {
+        "0": "Clear mappings: which system wins each field.",
+        "1": "Data quality checks and deduplication.",
+        "2": "Dashboards for syncs and errors."
+      },
+      "outcomes": {
+        "0": "Fewer tickets for inconsistent data",
+        "1": "Better sales and stock reporting",
+        "2": "Shorter customer onboarding times"
+      },
+      "steps": {
+        "0": "Data and systems audit",
+        "1": "Design mapping and sync rules",
+        "2": "Continuous monitoring with alerts"
+      },
+      "faqs": {
+        "0": {
+          "q": "Which CRMs do you support?",
+          "a": "HubSpot, Odoo and custom CRMs via API. Others evaluated on request."
+        },
+        "1": {
+          "q": "How do you handle errors?",
+          "a": "Logs with retries and alerts; reconciliation rules defined with your team."
+        },
+        "2": {
+          "q": "Do you include security?",
+          "a": "Secure tokens, least privilege, encrypted in transit. Optional VPN or private network."
+        }
+      },
+      "serviceType": "CRM/ERP integrations",
+      "areaServed": "Seville, Andalusia, Spain",
+      "keywords": {
+        "0": "crm integrations seville",
+        "1": "odoo seville",
+        "2": "hubspot seville"
+      }
+    }
+  },
   "notFound": {
     "title": "Page not found",
     "description": "The page you're looking for doesn't exist or has been moved.",

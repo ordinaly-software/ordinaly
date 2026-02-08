@@ -1,25 +1,28 @@
-import { client } from "@/lib/sanity";
+import type { MetadataRoute } from "next";
 import { routing } from "@/i18n/routing";
+import { absoluteUrl, localeHrefLangs } from "@/lib/metadata";
+import { client } from "@/lib/sanity";
 
-export default async function sitemap() {
-  const base = process.env.NEXT_PUBLIC_BASE_URL!;
+type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
+
+const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; priority: number }> = [
+  { path: "/", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/contact", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/about", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/services", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/formation", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/blog", changeFrequency: "daily", priority: 0.8 },
+  { path: "/noticias", changeFrequency: "daily", priority: 0.7 },
+];
+
+const buildAlternateLanguages = (path: string) =>
+  Object.fromEntries(
+    routing.locales.map((locale) => [localeHrefLangs[locale] ?? locale, absoluteUrl(path, locale)]),
+  );
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const apiBase = process.env.NEXT_PUBLIC_API_URL;
-  const localized = (path: string, locale: string) => {
-    const normalized = path.startsWith("/") ? path : `/${path}`;
-    const suffix = normalized === "/" ? "" : normalized;
-    const prefix = `/${locale}`;
-    return `${base}${prefix}${suffix}`;
-  };
 
-  const staticPaths = [
-    { path: "/", changeFrequency: "weekly" as const, priority: 0.9 },
-    { path: "/contact", changeFrequency: "weekly" as const, priority: 0.7 },
-    { path: "/about", changeFrequency: "weekly" as const, priority: 0.7 },
-    { path: "/services", changeFrequency: "weekly" as const, priority: 0.8 },
-    { path: "/formation", changeFrequency: "weekly" as const, priority: 0.7 },
-    { path: "/blog", changeFrequency: "daily" as const, priority: 0.8 },
-    { path: "/noticias", changeFrequency: "daily" as const, priority: 0.7 },
-  ];
   const slugs: string[] = await client.fetch(
     '*[_type=="post" && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())].slug.current',
     {},
@@ -44,43 +47,36 @@ export default async function sitemap() {
     );
   const courses = await fetchApiCollection<{ slug?: string; id?: string }>("/api/courses/courses/");
 
-  const entries = [];
-  // ¡OJO! Se ha eliminado la generación de URLs en inglés para evitar contenido duplicado y mejorar el SEO.
-  const sitemapLocales = routing.locales.filter((locale) => locale !== "en");
-  for (const locale of sitemapLocales) {
-    for (const p of staticPaths) {
+  const entries: MetadataRoute.Sitemap = [];
+  const addPath = (path: string, changeFrequency: ChangeFrequency, priority: number) => {
+    const alternates = buildAlternateLanguages(path);
+    routing.locales.forEach((locale) => {
       entries.push({
-        url: localized(p.path, locale),
-        changeFrequency: p.changeFrequency,
-        priority: p.priority,
+        url: absoluteUrl(path, locale),
+        changeFrequency,
+        priority,
+        alternates: { languages: alternates },
       });
-    }
-    for (const slug of slugs) {
-      entries.push({
-        url: localized(`/blog/${slug}`, locale),
-        changeFrequency: "weekly",
-        priority: 0.7,
-      });
-    }
-    for (const service of services) {
-      const identifier = service?.slug || service?.id;
-      if (!identifier) continue;
-      entries.push({
-        url: localized(`/services/${identifier}`, locale),
-        changeFrequency: "weekly",
-        priority: 0.8,
-      });
-    }
-    for (const course of courses) {
-      const identifier = course?.slug || course?.id;
-      if (!identifier) continue;
-      entries.push({
-        url: localized(`/formation/${identifier}`, locale),
-        changeFrequency: "weekly",
-        priority: 0.7,
-      });
-    }
-  }
+    });
+  };
+
+  staticPaths.forEach(({ path, changeFrequency, priority }) =>
+    addPath(path, changeFrequency, priority),
+  );
+
+  slugs.forEach((slug) => addPath(`/blog/${slug}`, "weekly", 0.7));
+
+  services.forEach((service) => {
+    const identifier = service?.slug || service?.id;
+    if (!identifier) return;
+    addPath(`/services/${identifier}`, "weekly", 0.8);
+  });
+
+  courses.forEach((course) => {
+    const identifier = course?.slug || course?.id;
+    if (!identifier) return;
+    addPath(`/formation/${identifier}`, "weekly", 0.7);
+  });
 
   return entries;
 }
