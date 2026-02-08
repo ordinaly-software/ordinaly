@@ -16,47 +16,64 @@ const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; prior
   { path: "/noticias", changeFrequency: "daily", priority: 0.7 },
 ];
 
-const buildAlternateLanguages = (path: string) =>
-  Object.fromEntries(
+const buildAlternateLanguages = (path: string) => {
+  const languages = Object.fromEntries(
     routing.locales.map((locale) => [localeHrefLangs[locale] ?? locale, absoluteUrl(path, locale)]),
   );
+  // x-default para indicar la versión por defecto
+  languages["x-default"] = absoluteUrl(path);
+  return languages;
+};
+
+const fetchApiCollection = async <T,>(path: string, apiBase?: string): Promise<T[]> => {
+  if (!apiBase) return [];
+  try {
+    const res = await fetch(`${apiBase}${path}`, { next: { revalidate: 60 * 60 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? (data as T[]) : [];
+  } catch {
+    return [];
+  }
+};
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const apiBase = process.env.NEXT_PUBLIC_API_URL;
 
-  const slugs: string[] = await client.fetch(
-    '*[_type=="post" && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())].slug.current',
-    {},
-    { next: { tags: ["blog"] } },
-  );
-
-  const fetchApiCollection = async <T,>(path: string): Promise<T[]> => {
-    if (!apiBase) return [];
-    try {
-      const res = await fetch(`${apiBase}${path}`, { next: { revalidate: 60 * 60 } });
-      if (!res.ok) return [];
-      const data = await res.json();
-      return Array.isArray(data) ? (data as T[]) : [];
-    } catch {
-      return [];
-    }
-  };
+  const slugs: string[] =
+    (await (async () => {
+      try {
+        return await client.fetch(
+          '*[_type=="post" && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())].slug.current',
+          {},
+          { next: { tags: ["blog"] } },
+        );
+      } catch {
+        return [];
+      }
+    })()) ?? [];
 
   const services =
-    (await fetchApiCollection<{ slug?: string; id?: string; draft?: boolean }>("/api/services/")).filter(
-      (s) => !s?.draft,
-    );
-  const courses = await fetchApiCollection<{ slug?: string; id?: string }>("/api/courses/courses/");
+    (await fetchApiCollection<{ slug?: string; id?: string; draft?: boolean }>(
+      "/api/services/",
+      apiBase,
+    )).filter((s) => !s?.draft) ?? [];
+
+  const courses =
+    (await fetchApiCollection<{ slug?: string; id?: string }>(
+      "/api/courses/courses/",
+      apiBase,
+    )) ?? [];
 
   const entries: MetadataRoute.Sitemap = [];
   const addPath = (path: string, changeFrequency: ChangeFrequency, priority: number) => {
-    const alternates = buildAlternateLanguages(path);
+    const languages = buildAlternateLanguages(path);
     routing.locales.forEach((locale) => {
       entries.push({
         url: absoluteUrl(path, locale),
         changeFrequency,
         priority,
-        alternates: { languages: alternates },
+        alternates: { languages },
       });
     });
   };
