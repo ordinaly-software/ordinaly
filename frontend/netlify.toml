@@ -55,7 +55,7 @@ for = "/start.js"
   to = "https://ordinaly.ai/:splat"
   status = 301
   force = true
-  conditions = { Host = ["ordinaly.netlify.app"] }
+  conditions = { Host = ["ordinaly.netlify.app", "orsinaly.netlify.app"] }
 
 # Move local landings out of /services/* to top-level locale paths
 [[redirects]]

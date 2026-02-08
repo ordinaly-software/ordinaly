@@ -4,27 +4,33 @@ import { client } from "@/lib/sanity";
 import { paginatedPosts, highlightedPosts } from "@/lib/queries";
 import { createPageMetadata } from "@/lib/metadata";
 
+export const dynamic = "force-dynamic";
+
 export async function generateMetadata({
   params,
+  searchParams,
 }: {
   params: Promise<{ locale: string }>;
+  searchParams?: Record<string, string | string[] | undefined>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const isEs = locale?.startsWith("es");
+  const hasParams = !!searchParams && Object.keys(searchParams).length > 0;
 
-  return createPageMetadata({
-    locale,
-    path: "/blog",
-    title: isEs ? "Blog de automatización e IA" : "Automation & AI blog",
-    description: isEs
-      ? "Noticias, guías y casos de éxito sobre automatización, IA y productividad para empresas."
-      : "News, guides, and success stories on automation, AI, and productivity for companies.",
-    image: "/static/backgrounds/blog_background.png",
-  });
+  const base = createPageMetadata({
+      locale,
+      path: "/blog",
+      title: isEs ? "Blog de automatización e IA" : "Automation & AI blog",
+      description: isEs
+        ? "Noticias, guías y casos de éxito sobre automatización, IA y productividad para empresas."
+        : "News, guides, and success stories on automation, AI, and productivity for companies.",
+      image: "/static/backgrounds/blog_background.png",
+    });
+
+  return hasParams ? { ...base, robots: { index: false, follow: true } } : base;
 }
 
 export const revalidate = 300;
-export const dynamic = 'force-static';
 
 export default async function BlogIndex() {
   const pageSize = 6;

@@ -38,6 +38,7 @@ const fetchApiCollection = async <T,>(path: string, apiBase?: string): Promise<T
 };
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  try {
   const apiBase = process.env.NEXT_PUBLIC_API_URL;
 
   const slugs: string[] =
@@ -64,6 +65,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       "/api/courses/courses/",
       apiBase,
     )) ?? [];
+
+  const isValidSlug = (value?: string | null) =>
+    !!value && value.length >= 4 && !value.endsWith("-");
 
   const entries: MetadataRoute.Sitemap = [];
   const addPath = (path: string, changeFrequency: ChangeFrequency, priority: number) => {
@@ -95,9 +99,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   courses.forEach((course) => {
     const identifier = course?.slug || course?.id;
-    if (!identifier) return;
+    if (!isValidSlug(identifier)) return;
     addPath(`/formation/${identifier}`, "weekly", 0.7);
   });
 
   return entries;
+  } catch (error) {
+    // Si algo explota (red, Sanity, etc.), devolvemos un sitemap vacío en vez de 500
+    console.warn("sitemap generation failed, returning empty sitemap", error);
+    return [];
+  }
 }

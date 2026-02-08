@@ -17,6 +17,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug, locale } = await params;
   const isEs = locale?.startsWith("es");
+  const looksBroken = !slug || slug.length < 4 || slug.endsWith("-");
 
   let course: Course | null = null;
   try {
@@ -55,6 +56,7 @@ export async function generateMetadata({
     description,
     image,
     type: "article",
+    index: !looksBroken,
   });
 }
 

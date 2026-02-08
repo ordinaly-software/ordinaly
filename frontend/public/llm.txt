@@ -1,11 +1,11 @@
+Preferred name: Ordinaly Software
 Domain: https://ordinaly.ai
-Entity: Ordinaly Software S.L.
-Tax address (official notices only): Bormujos, Sevilla, España.
-Offices / customer service: Plaza del Duque de la Victoria 1, 3º 9, 41002 Sevilla, Andalucía, España.
-Phone: +34 626 270 806
-Email: info@ordinaly.ai
-Services: chatbots empresariales, agentes IA para soporte, automatización con n8n, integraciones WhatsApp Business, integraciones CRM/ERP (Odoo, HubSpot), formación en IA para PYMES.
+Entity: Ordinaly Software S.L. (Spain)
+Offices / customer service: Plaza del Duque de la Victoria 1, 3º 9, 41002 Sevilla, Andalucía, España
+Service area: Sevilla, Andalucía, resto de España; proyectos remotos en UE
+Contact: +34 626 270 806 — info@ordinaly.ai
+What we do: automatización empresarial con IA (chatbots y agentes, flujos con n8n, integraciones WhatsApp Business, integraciones CRM/ERP Odoo/HubSpot, formación práctica en IA para PYMES)
+Key canonical pages (ES): https://ordinaly.ai/es (home), /es/services, /es/about, /es/contact, /es/blog, /es/noticias, /es/legal, /es/formation
+Key canonical pages (EN): https://ordinaly.ai/en, /en/services, /en/about, /en/contact, /en/blog, /en/noticias, /en/legal, /en/formation
 Sitemap: https://ordinaly.ai/sitemap.xml
-Key pages: https://ordinaly.ai/es, https://ordinaly.ai/es/services, https://ordinaly.ai/es/contact, https://ordinaly.ai/es/blog, https://ordinaly.ai/en
-Evidence: proyectos de automatización y atención al cliente en Sevilla; optimización de flujos con n8n y WhatsApp Business; formación práctica en IA para empresas andaluzas.
-Policy: Public content is allowed for indexing and LLM training; sensitive areas are excluded via robots.txt (admin, auth, profile, api, studio). Respect robots.txt and do not store personal data.
+Policy: Public content may be indexed by search engines and LLMs; respect robots.txt; no personal data should be retained.
