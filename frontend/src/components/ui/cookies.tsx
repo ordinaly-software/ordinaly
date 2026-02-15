@@ -149,8 +149,8 @@ const CookieConsent = () => {
   if (!isMounted) return null;
 
   const modalContent = showPopup ? (
-    <div className="fixed inset-0 z-[9999] flex items-end justify-center px-2 pb-4 sm:pb-6 pointer-events-none lg:justify-end lg:pr-5">
-      <div className="pointer-events-auto w-full max-w-[min(320px,calc(100vw-2.25rem))] max-h-[calc(100vh-2rem)] bg-card text-card-foreground rounded-[22px] shadow-2xl border border-border flex flex-col overflow-hidden lg:mr-4">
+    <div className="fixed inset-0 z-[9999] flex items-end justify-center px-2 pb-4 sm:pb-6 pointer-events-none md:justify-end md:pr-5">
+      <div className="pointer-events-auto w-full max-w-[min(320px,calc(100vw-2.25rem))] max-h-[calc(100vh-2rem)] bg-card text-card-foreground rounded-[22px] shadow-2xl border border-border flex flex-col overflow-hidden md:mr-4">
         {/* Header */}
         <div className="sticky top-0 z-10 border-b border-border bg-card/90 backdrop-blur-sm px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">

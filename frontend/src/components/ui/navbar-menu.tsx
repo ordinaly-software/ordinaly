@@ -42,6 +42,7 @@ export const MenuItem = ({
       {href ? (
         <Link
           href={href}
+          prefetch={false}
           className={`transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] ${
             finalActive
               ? "text-[#1F8A0D] dark:text-[#3FBD6F]"
@@ -202,6 +203,7 @@ export const HoveredLink = ({ children, ...rest }: React.ComponentPropsWithoutRe
   return (
     <Link
       {...rest}
+      prefetch={false}
       className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
     >
       {children}

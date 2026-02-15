@@ -1,6 +1,5 @@
 import type React from "react";
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Inter } from "next/font/google";
 import "../globals.css";
 import { notFound } from "next/navigation";
@@ -124,7 +123,6 @@ export default async function RootLayout({
     <html lang={locale} data-scroll-behavior="smooth" className={inter.variable} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://api.ordinaly.ai" />
-        <link rel="dns-prefetch" href="https://api.ordinaly.ai" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
