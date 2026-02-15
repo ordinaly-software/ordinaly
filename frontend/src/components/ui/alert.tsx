@@ -4,28 +4,28 @@ import { createPortal } from "react-dom";
 
 const styleMap = {
   success: {
-    bg: "bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/20",
+    bg: "bg-[#E8F8E5] dark:bg-[#1B3A27]",
     border: "border-[#1F8A0D] dark:border-[#3FBD6F]",
     text: "text-[#1F8A0D] dark:text-[#3FBD6F]",
     icon: "text-[#1F8A0D] dark:text-[#3FBD6F]",
   },
   error: {
-    bg: "bg-red-100",
-    border: "border-red-500",
-    text: "text-red-800",
-    icon: "text-red-600",
+    bg: "bg-red-100 dark:bg-red-950",
+    border: "border-red-500 dark:border-red-400",
+    text: "text-red-800 dark:text-red-200",
+    icon: "text-red-600 dark:text-red-300",
   },
   info: {
-    bg: "bg-blue-100",
-    border: "border-blue-500",
-    text: "text-blue-800",
-    icon: "text-blue-600",
+    bg: "bg-blue-100 dark:bg-blue-950",
+    border: "border-blue-500 dark:border-blue-400",
+    text: "text-blue-800 dark:text-blue-200",
+    icon: "text-blue-600 dark:text-blue-300",
   },
   warning: {
-    bg: "bg-yellow-100",
-    border: "border-yellow-500",
-    text: "text-yellow-800",
-    icon: "text-yellow-600",
+    bg: "bg-yellow-100 dark:bg-yellow-950",
+    border: "border-yellow-500 dark:border-yellow-400",
+    text: "text-yellow-800 dark:text-yellow-200",
+    icon: "text-yellow-600 dark:text-yellow-300",
   },
 };
 
@@ -79,8 +79,8 @@ const Alert: React.FC<AlertProps> = ({ type, message, onClose, duration = 5000 }
           <div
             className={`fixed top-20 left-1/2 z-[1000] w-[90%] max-w-md transition-all duration-200 ease-out ${
               isVisible && !isExiting
-                ? "transform -translate-x-1/2 translate-y-0 opacity-100"
-                : "transform -translate-x-1/2 -translate-y-4 opacity-0"
+                ? "transform -translate-x-1/2 translate-y-0"
+                : "transform -translate-x-1/2 -translate-y-4"
             }`}
           >
             <div

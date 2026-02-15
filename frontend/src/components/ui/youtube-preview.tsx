@@ -1,26 +1,27 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { openCookieSettings } from "@/utils/cookieManager";
 import { cn } from "@/lib/utils";
 
-const extractYoutubeId = (url?: string | null) => {
+const extractYoutubeData = (url?: string | null): { id: string; isShort: boolean } | null => {
   if (!url) return null;
   try {
     const parsed = new URL(url);
     const host = parsed.hostname.toLowerCase();
     const parts = parsed.pathname.split("/").filter(Boolean);
     if (host === "youtu.be") {
-      return parts[0] || null;
+      if (!parts[0]) return null;
+      return { id: parts[0], isShort: false };
     }
     if (host === "youtube.com" || host.endsWith(".youtube.com")) {
       const v = parsed.searchParams.get("v");
-      if (v) return v;
-      if (parts[0] === "embed" && parts[1]) return parts[1];
-      if (parts[0] === "shorts" && parts[1]) return parts[1];
-      if (parts[0] === "live" && parts[1]) return parts[1];
+      if (v) return { id: v, isShort: false };
+      if (parts[0] === "embed" && parts[1]) return { id: parts[1], isShort: false };
+      if (parts[0] === "shorts" && parts[1]) return { id: parts[1], isShort: true };
+      if (parts[0] === "live" && parts[1]) return { id: parts[1], isShort: false };
     }
   } catch {
     return null;
@@ -41,23 +42,62 @@ const YoutubePreview = ({
   url,
   title,
   label,
-  playLabel: _playLabel,
+  playLabel,
   canLoad,
   className,
 }: YoutubePreviewProps) => {
   const t = useTranslations("cookie");
-  const youtubeId = useMemo(() => extractYoutubeId(url), [url]);
+  const youtubeData = useMemo(() => extractYoutubeData(url), [url]);
+  const youtubeId = youtubeData?.id ?? null;
+  const isShort = youtubeData?.isShort ?? false;
   const youtubeEmbed = youtubeId ? `https://www.youtube-nocookie.com/embed/${youtubeId}` : null;
   const youtubeThumbnail = youtubeId ? `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg` : null;
-  const youtubeWatchUrl = youtubeId ? `https://www.youtube.com/watch?v=${youtubeId}` : null;
+  const youtubeWatchUrl = youtubeId
+    ? isShort
+      ? `https://www.youtube.com/shorts/${youtubeId}`
+      : `https://www.youtube.com/watch?v=${youtubeId}`
+    : null;
   const isBlocked = !canLoad;
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (!frameRef.current || typeof ResizeObserver === "undefined") return;
+
+    const node = frameRef.current;
+    const observer = new ResizeObserver((entries) => {
+      const entry = entries[0];
+      const width = Math.round(entry.contentRect.width);
+      const height = Math.round(entry.contentRect.height);
+      setFrameSize((prev) => (prev.width === width && prev.height === height ? prev : { width, height }));
+    });
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  const frameRatio =
+    frameSize.width > 0 && frameSize.height > 0 ? frameSize.width / frameSize.height : isShort ? 9 / 16 : 16 / 9;
+  const isPortraitFrame = frameRatio < 1;
+  const isNarrowFrame = frameSize.width > 0 && frameSize.width < 420;
+  const isShortFrame = frameSize.height > 0 && frameSize.height < 220;
+  const stackActions = isPortraitFrame || isNarrowFrame;
+  const compactLayout = isNarrowFrame || isShortFrame;
+  const hideDescription = isShortFrame && isPortraitFrame;
+  const youtubeLinkAriaLabel = `${playLabel}: ${title}`;
 
   if (!youtubeEmbed) return null;
 
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn("flex h-full w-full flex-col gap-2", className)}>
       <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">{label}</p>
-      <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-white/30 bg-black shadow-lg dark:border-neutral-700">
+      <div
+        ref={frameRef}
+        className={cn(
+          "relative w-full flex-1 min-h-0 overflow-hidden rounded-2xl border border-white/30 bg-black shadow-lg dark:border-neutral-700",
+          isShort ? "aspect-[9/16]" : "aspect-video",
+        )}
+      >
         {isBlocked ? (
           <>
             {youtubeThumbnail && (
@@ -71,29 +111,48 @@ const YoutubePreview = ({
               />
             )}
             <div className="absolute inset-0 bg-black/70" />
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-6 text-center">
-            <p className="text-sm font-semibold text-white">{t("thirdPartyTitle")}</p>
-            <p className="text-xs text-white/90">{t("thirdPartyDescription")}</p>
-            <div className="mt-2 flex flex-wrap items-center justify-center gap-2">
-              <button
-                type="button"
-                onClick={openCookieSettings}
-                className="inline-flex items-center justify-center rounded-full bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-neutral-900"
-              >
-                {t("openCookieSettings")}
-              </button>
-              {youtubeWatchUrl && (
-                <a
-                  href={youtubeWatchUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center justify-center rounded-full border border-white/60 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white"
-                >
-                  {t("openOnYoutube")}
-                </a>
-              )}
+            <div className={cn("absolute inset-0 flex items-center justify-center px-4 text-center", compactLayout ? "py-3" : "py-6")}>
+              <div className={cn("mx-auto flex w-full max-w-[34rem] flex-col items-center text-white", compactLayout ? "gap-2" : "gap-3")}>
+                <p className={cn("font-semibold", compactLayout ? "text-xs sm:text-sm" : "text-sm sm:text-base")}>
+                  {t("thirdPartyTitle")}
+                </p>
+                {!hideDescription && (
+                  <p className={cn("text-white/90", compactLayout ? "text-[11px] leading-snug sm:text-xs" : "text-xs sm:text-sm")}>
+                    {t("thirdPartyDescription")}
+                  </p>
+                )}
+                <div className={cn("mt-1 flex w-full items-center justify-center gap-2", stackActions ? "flex-col" : "flex-wrap")}>
+                  <button
+                    type="button"
+                    onClick={openCookieSettings}
+                    className={cn(
+                      "inline-flex items-center justify-center rounded-full bg-white font-semibold text-neutral-900",
+                      compactLayout
+                        ? "w-full max-w-[260px] px-3 py-1.5 text-[11px] uppercase tracking-[0.12em]"
+                        : "px-4 py-2 text-xs uppercase tracking-[0.2em]",
+                    )}
+                  >
+                    {t("openCookieSettings")}
+                  </button>
+                  {youtubeWatchUrl && (
+                    <a
+                      href={youtubeWatchUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={youtubeLinkAriaLabel}
+                      className={cn(
+                        "inline-flex items-center justify-center rounded-full border border-white/60 font-semibold text-white",
+                        compactLayout
+                          ? "w-full max-w-[260px] px-3 py-1.5 text-[11px] uppercase tracking-[0.12em]"
+                          : "px-4 py-2 text-xs uppercase tracking-[0.2em]",
+                      )}
+                    >
+                      {t("openOnYoutube")}
+                    </a>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
           </>
         ) : (
           <iframe
