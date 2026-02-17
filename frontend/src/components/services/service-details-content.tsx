@@ -124,8 +124,8 @@ export function ServiceDetailsContent({
           src={hero}
           alt={service.title}
           className={cn(
-        "w-full object-cover",
-        isCompact ? "h-48 md:h-64" : "h-56 md:h-72",
+            "w-full object-cover",
+            isCompact ? "h-48 md:h-64" : "h-56 md:h-72",
           )}
           width={1200}
           height={560}
@@ -214,19 +214,19 @@ export function ServiceDetailsContent({
             )}
           >
             <div className={cn("flex flex-col sm:flex-row", isCompact ? "gap-2" : "gap-3")}>
-              {onContact && showContact && (
-                <Button
-                  size="lg"
-                  className="w-full sm:flex-1 text-white hover:opacity-90 transition-opacity shadow-lg"
+              {showContact && service.contactButtonUrl && (
+                <a
+                  href={service.contactButtonUrl}
+                  className="w-full sm:flex-1 text-center px-4 py-3 rounded-xl text-white font-semibold hover:opacity-90 transition-opacity shadow-lg"
                   style={{
                     backgroundColor: accentHex,
                     boxShadow: `0 16px 30px -20px ${accentHex}`,
                   }}
-                  onClick={() => onContact(service)}
                 >
-                  {labels.contactNow ?? labels.contactForQuote}
-                </Button>
+                  {service.contactButtonText || labels.contactNow || "Contactar"}
+                </a>
               )}
+
               {onSelect && showViewDetails && (
                 <Button
                   size="lg"

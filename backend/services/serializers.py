@@ -19,7 +19,7 @@ class ServiceSerializer(serializers.ModelSerializer):
             'id', 'type', 'title', 'slug', 'subtitle', 'description', 'clean_description',
             'html_description', 'requisites_html', 'color', 'color_hex', 'icon', 'duration', 'image',
             'remove_image', 'youtube_video_url', 'requisites', 'price', 'is_featured', 'draft', 'created_by',
-            'created_by_username', 'created_at', 'updated_at'
+            'created_by_username', 'created_at', 'updated_at', 'contactButtonText', 'contactButtonUrl'
         ]
         read_only_fields = [
             'created_by', 'created_at', 'updated_at',

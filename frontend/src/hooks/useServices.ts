@@ -28,6 +28,9 @@ export interface Service {
   created_by_username?: string;
   created_at: string;
   updated_at: string;
+  contactButtonText?: string | null;
+  contactButtonUrl?: string | null;
+
 }
 
 // Simple cache with shorter duration

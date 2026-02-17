@@ -10,8 +10,7 @@ export const ServiceAppleDetailsModal = ({
   service,
   isOpen,
   onClose,
-  showContact = false,
-  onContact,
+  showContact = true,
 }: {
   service: Service | null;
   isOpen: boolean;
@@ -67,7 +66,6 @@ export const ServiceAppleDetailsModal = ({
         <ServiceDetailsContent
           service={service}
           labels={labels}
-          onContact={onContact}
           showContact={showContact}
           showViewDetails={false}
           showShareButtons

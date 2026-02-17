@@ -41,6 +41,9 @@ const defaultFormData = {
   is_featured: false,
   draft: false,
   youtube_video_url: "",
+  contactButtonText: "",
+  contactButtonUrl: "",
+
 };
 
 const sanitizeImageSrc = (value: string | null | undefined): string | null => {
@@ -100,6 +103,8 @@ export const AdminServiceEditModal = ({
         is_featured: initialService.is_featured,
         draft: initialService.draft ?? false,
         youtube_video_url: initialService.youtube_video_url || "",
+        contactButtonText: initialService.contactButtonText || "",
+        contactButtonUrl: initialService.contactButtonUrl || "",
       };
     }
     return { ...defaultFormData };
@@ -130,6 +135,10 @@ export const AdminServiceEditModal = ({
         is_featured: initialService.is_featured,
         draft: initialService.draft ?? false,
         youtube_video_url: initialService.youtube_video_url || "",
+        contactButtonText: initialService.contactButtonText || "",
+        contactButtonUrl: initialService.contactButtonUrl || "",
+
+
       });
       setImagePreview(initialService.image || null);
       setImageFile(null);
@@ -367,8 +376,8 @@ export const AdminServiceEditModal = ({
             </Label>
             <Dropdown
               options={[
-          { value: 'SERVICE', label: t('form.service') },
-          { value: 'PRODUCT', label: t('form.product') }
+                { value: 'SERVICE', label: t('form.service') },
+                { value: 'PRODUCT', label: t('form.product') }
               ]}
               value={formData.type}
               onChange={(val: string) => setFormData(prev => ({ ...prev, type: val as 'SERVICE' | 'PRODUCT' }))}
@@ -513,8 +522,8 @@ export const AdminServiceEditModal = ({
                   {imageFile ? (
                     <div className="flex items-center justify-center space-x-2">
                       <div className="flex items-center space-x-1 bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/20 px-2 py-1 rounded-lg">
-                          <FileText className="w-4 h-4 text-[#1F8A0D] dark:text-[#3FBD6F]" />
-                          <span className="text-xs font-medium text-[#1F8A0D] dark:text-[#3FBD6F]">
+                        <FileText className="w-4 h-4 text-[#1F8A0D] dark:text-[#3FBD6F]" />
+                        <span className="text-xs font-medium text-[#1F8A0D] dark:text-[#3FBD6F]">
                           {imageFile.name}
                         </span>
                       </div>
@@ -547,18 +556,18 @@ export const AdminServiceEditModal = ({
                     role="button"
                     tabIndex={0}
                     onClick={() => imageInputRef.current?.click()}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") imageInputRef.current?.click();
-                  }}
-                  aria-label={t("form.image")}
-                >
-                  <Image
-                    src={safeImagePreview}
-                    alt={t("form.image")}
-                    fill
-                    sizes="192px"
-                    className="object-cover"
-                  />
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") imageInputRef.current?.click();
+                    }}
+                    aria-label={t("form.image")}
+                  >
+                    <Image
+                      src={safeImagePreview}
+                      alt={t("form.image")}
+                      fill
+                      sizes="192px"
+                      className="object-cover"
+                    />
                     <ModalCloseButton
                       onClick={() => {
                         if (imageFile) {
@@ -604,6 +613,43 @@ export const AdminServiceEditModal = ({
             </p>
           </div>
         </div>
+        {/*Botones de servicio*/}
+        {/* Contact Button Text */}
+        <div className="space-y-3">
+          <Label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded flex items-center justify-center">
+              <span className="text-xs font-bold text-green-600 dark:text-green-400">TXT</span>
+            </div>
+            <span>Texto del botón de contacto</span>
+          </Label>
+          <Input
+            value={formData.contactButtonText}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, contactButtonText: e.target.value }))
+            }
+            placeholder="Ej: Contactar, Solicitar información…"
+            className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg"
+          />
+        </div>
+
+        {/* Contact Button URL */}
+        <div className="space-y-3">
+          <Label className="flex items-center space-x-2 text-sm font-semibold text-gray-700 dark:text-gray-300">
+            <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded flex items-center justify-center">
+              <span className="text-xs font-bold text-green-600 dark:text-green-400">URL</span>
+            </div>
+            <span>URL del botón de contacto</span>
+          </Label>
+          <Input
+            value={formData.contactButtonUrl}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, contactButtonUrl: e.target.value }))
+            }
+            placeholder="Ej: /contacto o https://tusitio.com/contacto"
+            className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg"
+          />
+        </div>
+
         {/* Icon and Price */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-3">
@@ -670,11 +716,10 @@ export const AdminServiceEditModal = ({
                     key={colorChoice.value}
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, color: colorChoice.value }))}
-                    className={`relative w-20 h-12 rounded-md transition-all duration-200 flex items-center justify-center text-xs font-medium border-2 ${
-                      formData.color === colorChoice.value
+                    className={`relative w-20 h-12 rounded-md transition-all duration-200 flex items-center justify-center text-xs font-medium border-2 ${formData.color === colorChoice.value
                         ? "border-gray-400 dark:border-gray-500 shadow-lg scale-105"
                         : "border-transparent hover:shadow-md hover:scale-102"
-                    } ${getColorClasses()}`}
+                      } ${getColorClasses()}`}
                     style={
                       isDynamicColor
                         ? { backgroundColor: colorChoice.color }
