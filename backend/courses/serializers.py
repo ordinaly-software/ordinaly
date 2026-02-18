@@ -147,9 +147,8 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             'email': user.email,
             'company': user.company if user.company else '',
         }
-    
+
     def validate_contactButtonUrl(self, value):
         if value and not value.startswith(("http://", "https://", "/")):
             raise serializers.ValidationError("URL inválida: solo se permiten http, https o rutas internas.")
         return value
-

@@ -41,6 +41,7 @@ export interface ServiceDetailsContentProps {
 }
 
 const FALLBACK_CARD_IMAGE = "/static/main_service_home_ilustration.webp";
+const FALLBACK_SITE_URL = "https://ordinaly.ai";
 
 const formatPrice = (service: Service, contactLabel: string) => {
   if (service.price && !Number.isNaN(Number(service.price))) {
@@ -59,6 +60,20 @@ const formatDuration = (duration: number, labels: ServiceDetailsLabels) => {
     return `${duration} ${labels.durationDays}`;
   }
   return `${duration}d`;
+};
+
+const resolveContactUrl = (value?: string | null) => {
+  if (!value) return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+
+  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || FALLBACK_SITE_URL).replace(/\/$/, "");
+
+  if (trimmed.startsWith("/")) return `${baseUrl}${trimmed}`;
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (trimmed.startsWith("//")) return `https:${trimmed}`;
+
+  return `${baseUrl}/${trimmed.replace(/^\/+/, "")}`;
 };
 
 export function ServiceDetailsContent({
@@ -81,6 +96,7 @@ export function ServiceDetailsContent({
   const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
   const isCompact = density === "compact";
   const hasCta = Boolean(onSelect || onContact);
+  const contactUrl = resolveContactUrl(service.contactButtonUrl);
 
   return (
     <div
@@ -214,9 +230,11 @@ export function ServiceDetailsContent({
             )}
           >
             <div className={cn("flex flex-col sm:flex-row", isCompact ? "gap-2" : "gap-3")}>
-              {showContact && service.contactButtonUrl && (
+              {showContact && contactUrl && (
                 <a
-                  href={service.contactButtonUrl}
+                  href={contactUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full sm:flex-1 text-center px-4 py-3 rounded-xl text-white font-semibold hover:opacity-90 transition-opacity shadow-lg"
                   style={{
                     backgroundColor: accentHex,
