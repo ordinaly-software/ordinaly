@@ -247,6 +247,8 @@ export const AdminServiceEditModal = ({
     if (formData.requisites) {
       payload.append("requisites", formData.requisites);
     }
+    payload.append("contactButtonText", formData.contactButtonText || "");
+    payload.append("contactButtonUrl", formData.contactButtonUrl || "");
     if (imageFile) {
       payload.append("image", imageFile);
     } else if (removeImage) {
@@ -645,7 +647,7 @@ export const AdminServiceEditModal = ({
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, contactButtonUrl: e.target.value }))
             }
-            placeholder="Ej: /contacto o https://tusitio.com/contacto"
+            placeholder="Ej: /contact o https://ordinaly.ai/es/contact"
             className="h-12 border-gray-300 focus:border-green-500 focus:ring-green-500/20 rounded-lg"
           />
         </div>
@@ -717,8 +719,8 @@ export const AdminServiceEditModal = ({
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, color: colorChoice.value }))}
                     className={`relative w-20 h-12 rounded-md transition-all duration-200 flex items-center justify-center text-xs font-medium border-2 ${formData.color === colorChoice.value
-                        ? "border-gray-400 dark:border-gray-500 shadow-lg scale-105"
-                        : "border-transparent hover:shadow-md hover:scale-102"
+                      ? "border-gray-400 dark:border-gray-500 shadow-lg scale-105"
+                      : "border-transparent hover:shadow-md hover:scale-102"
                       } ${getColorClasses()}`}
                     style={
                       isDynamicColor

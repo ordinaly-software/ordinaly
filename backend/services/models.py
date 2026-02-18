@@ -197,7 +197,7 @@ class Service(models.Model):
      
     contactButtonUrl = models.CharField(
         max_length=255, 
-        default="/contacto",
+        default="/contact",
         help_text="URL o acción del botón de contacto (https o ruta interna)" )
     
     duration = models.PositiveIntegerField(
