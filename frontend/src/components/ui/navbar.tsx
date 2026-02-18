@@ -367,7 +367,7 @@ const Navbar = () => {
     [pathname],
   );
 
-  const isBlogSectionActive = pathname.includes("/blog") || pathname.includes("/noticias");
+  const isBlogSectionActive = pathname.includes("/blog") || pathname.includes("/news");
   const shouldLoadServiceImages = activeMegaItem === t("navigation.services");
   const shouldLoadCourseImages = activeMegaItem === t("navigation.formation");
 
@@ -451,7 +451,7 @@ const Navbar = () => {
                       {item.id === "blog" && (
                         <div className="grid grid-cols-1 gap-2 min-w-[200px]">
                           <HoveredLink href="/blog">{t("navigation.blog")}</HoveredLink>
-                          <HoveredLink href="/noticias">{t("navigation.news")}</HoveredLink>
+                          <HoveredLink href="/news">{t("navigation.news")}</HoveredLink>
                         </div>
                       )}
                     </MenuItem>
@@ -622,7 +622,7 @@ const Navbar = () => {
                     {t("navigation.blog")}
                   </Link>
                   <Link
-                    href="/noticias"
+                    href="/news"
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-100 dark:hover:bg-gray-800/70"
                   >

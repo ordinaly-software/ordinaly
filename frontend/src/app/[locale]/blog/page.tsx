@@ -11,11 +11,12 @@ export async function generateMetadata({
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }): Promise<Metadata> {
   const { locale } = await params;
   const isEs = locale?.startsWith("es");
-  const hasParams = !!searchParams && Object.keys(searchParams).length > 0;
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const hasParams = !!resolvedSearchParams && Object.keys(resolvedSearchParams).length > 0;
 
   const base = createPageMetadata({
       locale,
