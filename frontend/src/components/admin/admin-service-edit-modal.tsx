@@ -247,8 +247,14 @@ export const AdminServiceEditModal = ({
     if (formData.requisites) {
       payload.append("requisites", formData.requisites);
     }
-    payload.append("contactButtonText", formData.contactButtonText || "");
-    payload.append("contactButtonUrl", formData.contactButtonUrl || "");
+    if (formData.contactButtonText) {
+      payload.append("contactButtonText", formData.contactButtonText)
+    }
+
+    if (formData.contactButtonUrl) {
+      payload.append("contactButtonUrl", formData.contactButtonUrl)
+    }
+
     if (imageFile) {
       payload.append("image", imageFile);
     } else if (removeImage) {
