@@ -1775,3 +1775,43 @@ class ServiceAdditionalCoverageTests(TestCase):
 
         with patch.object(default_storage, "exists", side_effect=Exception("boom")):
             service.delete()
+    
+    def test_service_serializer_includes_contact_fields(self):
+        service = Service.objects.create(
+            title="Test Service",
+            contactButtonText="Contactar",
+            contactButtonUrl="/contact"
+        )
+        data = ServiceSerializer(service).data
+
+        self.assertEqual(data["contactButtonText"], "Contactar")
+        self.assertEqual(data["contactButtonUrl"], "/contact")
+        
+    def test_service_serializer_normalizes_empty_strings(self):
+        serializer = ServiceSerializer(data={
+            "title": "Test",
+            "contactButtonText": "",
+            "contactButtonUrl": ""
+        })
+        serializer.is_valid()
+
+        self.assertIsNone(serializer.validated_data["contactButtonText"])
+        self.assertIsNone(serializer.validated_data["contactButtonUrl"])
+        
+    def test_service_serializer_rejects_unsafe_url(self):
+        serializer = ServiceSerializer(data={
+            "title": "Test",
+            "contactButtonUrl": "javascript:alert(1)"
+        })
+        self.assertFalse(serializer.is_valid())
+        self.assertIn("contactButtonUrl", serializer.errors)
+        
+    def test_service_defaults_are_applied(self):
+        service = Service.objects.create(title="Test")
+        self.assertEqual(service.contactButtonText, "Contactar")
+        self.assertEqual(service.contactButtonUrl, "/contact")
+
+
+
+
+

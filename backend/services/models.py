@@ -191,13 +191,15 @@ class Service(models.Model):
     icon = models.CharField(max_length=50, choices=ICON_CHOICES, help_text="Lucide React icon name")
     
     contactButtonText = models.CharField( 
-        max_length=50, default="Contactar", 
+        max_length=50, default="Contactar",
+        blank=True, 
         help_text="Texto del botón de contacto" 
         )
      
     contactButtonUrl = models.CharField(
         max_length=255, 
         default="/contact",
+        blank=True,
         help_text="URL o acción del botón de contacto (https o ruta interna)" )
     
     duration = models.PositiveIntegerField(
