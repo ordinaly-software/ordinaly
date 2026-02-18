@@ -15,7 +15,7 @@ class ServiceAdmin(admin.ModelAdmin):
         (None, {
             'fields': (
                 'title', 'subtitle', 'description', 'description_preview', 'icon',
-                'type', 'draft', 'image', 'youtube_video_url'
+                'type', 'draft', 'image', 'youtube_video_url', 'contactButtonText','contactButtonUrl'
             )
         }),
         ('Styling', {

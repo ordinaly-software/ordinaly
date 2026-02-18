@@ -189,6 +189,19 @@ class Service(models.Model):
         help_text="Theme color for the service card"
     )
     icon = models.CharField(max_length=50, choices=ICON_CHOICES, help_text="Lucide React icon name")
+
+    contactButtonText = models.CharField(
+        max_length=50, default="Contactar",
+        blank=True,
+        help_text="Texto del botón de contacto"
+        )
+
+    contactButtonUrl = models.CharField(
+        max_length=255,
+        default="/contact",
+        blank=True,
+        help_text="URL o acción del botón de contacto (https o ruta interna)")
+
     duration = models.PositiveIntegerField(
         validators=[MinValueValidator(1)],
         help_text="Duration in days",
@@ -334,3 +347,8 @@ class Service(models.Model):
         ordering = ['-is_featured', 'title']
         verbose_name = "Service"
         verbose_name_plural = "Services"
+        
+    def description_preview(self):
+        return self.description[:100] + "..."
+    description_preview.short_description = "Description Preview"
+
