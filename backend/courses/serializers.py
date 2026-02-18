@@ -59,15 +59,13 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ['id', 'slug', 'title', 'subtitle', 'description', 'bonified_course_link', 'youtube_video_url', 'image', 'price',
-                  'location', 'start_date', 'end_date', 'start_time', 'end_time',
+        fields = ['id', 'slug', 'title', 'subtitle', 'description', 'bonified_course_link', 'youtube_video_url',
+                  'image', 'price', 'location', 'start_date', 'end_date', 'start_time', 'end_time',
                   'periodicity', 'timezone', 'weekdays', 'week_of_month', 'interval',
                   'exclude_dates', 'max_attendants', 'enrolled_count',
                   'duration_hours', 'formatted_schedule', 'schedule_description',
                   'next_occurrences', 'weekday_display', 'draft', 'created_at', 'updated_at'
-]
-        
-        
+                  ]
 
     def to_internal_value(self, data):
         # Make data mutable (QueryDict is immutable)
@@ -78,9 +76,9 @@ class CourseSerializer(serializers.ModelSerializer):
         # Normalize empty strings to None for optional URL field
         if data.get('youtube_video_url') == '':
             data['youtube_video_url'] = None
-        if data.get("contactButtonText") == "": 
-            data["contactButtonText"] = None 
-        if data.get("contactButtonUrl") == "": 
+        if data.get("contactButtonText") == "":
+            data["contactButtonText"] = None
+        if data.get("contactButtonUrl") == "":
             data["contactButtonUrl"] = None
         return super().to_internal_value(data)
 
@@ -149,6 +147,6 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         }
 
     def validate_contactButtonUrl(self, value):
-        if value and not value.startswith(("http://", "https://", "/")):
+        if value and not value.startswith(("https://", "/")):
             raise serializers.ValidationError("URL inválida: solo se permiten http, https o rutas internas.")
         return value

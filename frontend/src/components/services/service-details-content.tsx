@@ -95,8 +95,10 @@ export function ServiceDetailsContent({
   const cookiePreferences = useCookiePreferences();
   const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
   const isCompact = density === "compact";
-  const hasCta = Boolean(onSelect || onContact);
   const contactUrl = resolveContactUrl(service.contactButtonUrl);
+  const showContactCta = Boolean(showContact && (contactUrl || onContact));
+  const showDetailsCta = Boolean(onSelect && showViewDetails);
+  const hasCta = showContactCta || showDetailsCta;
 
   return (
     <div
@@ -230,22 +232,36 @@ export function ServiceDetailsContent({
             )}
           >
             <div className={cn("flex flex-col sm:flex-row", isCompact ? "gap-2" : "gap-3")}>
-              {showContact && contactUrl && (
-                <a
-                  href={contactUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:flex-1 text-center px-4 py-3 rounded-xl text-white font-semibold hover:opacity-90 transition-opacity shadow-lg"
-                  style={{
-                    backgroundColor: accentHex,
-                    boxShadow: `0 16px 30px -20px ${accentHex}`,
-                  }}
-                >
-                  {service.contactButtonText || labels.contactNow || "Contactar"}
-                </a>
+              {showContactCta && (
+                contactUrl ? (
+                  <a
+                    href={contactUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:flex-1 text-center px-4 py-3 rounded-xl text-white font-semibold hover:opacity-90 transition-opacity shadow-lg"
+                    style={{
+                      backgroundColor: accentHex,
+                      boxShadow: `0 16px 30px -20px ${accentHex}`,
+                    }}
+                  >
+                    {service.contactButtonText || labels.contactNow || "Contactar"}
+                  </a>
+                ) : (
+                  <Button
+                    size="lg"
+                    className="w-full sm:flex-1 text-white font-semibold hover:opacity-90 transition-opacity shadow-lg"
+                    style={{
+                      backgroundColor: accentHex,
+                      boxShadow: `0 16px 30px -20px ${accentHex}`,
+                    }}
+                    onClick={() => onContact?.(service)}
+                  >
+                    {service.contactButtonText || labels.contactNow || "Contactar"}
+                  </Button>
+                )
               )}
 
-              {onSelect && showViewDetails && (
+              {showDetailsCta && onSelect && (
                 <Button
                   size="lg"
                   variant="outline"
