@@ -121,7 +121,7 @@ const InvestorsPage = () => {
       {/* Key Stats Highlight - Cleaner cards */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-10 pb-20">
         <div className="grid gap-6 md:grid-cols-3">
-          {stats.map((stat, idx) => (
+          {stats.map((stat) => (
             <div
               key={stat.label}
               className="group relative bg-white dark:bg-[#0f1621] rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
@@ -157,7 +157,7 @@ const InvestorsPage = () => {
         </div>
         
         <div className="grid gap-8 md:grid-cols-3">
-          {highlights.map((item, idx) => (
+          {highlights.map((item) => (
             <div
               key={item.title}
               className="group relative bg-white dark:bg-[#0f1621] rounded-3xl p-8 shadow-lg border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
