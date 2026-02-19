@@ -116,7 +116,7 @@ def google_callback(request):
                 username=username,
                 name=first_name,
                 surname=last_name,
-                company="Google",
+                company="",
             )
 
         if user.google_sub and user.google_sub != google_sub:

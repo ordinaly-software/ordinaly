@@ -24,7 +24,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'password': {'write_only': True},
             'region': {'required': False, 'allow_null': True},
             'city': {'required': False, 'allow_null': True},
-            'company': {'required': True, 'allow_null': False},
+            'company': {'required': False, 'allow_null': True, 'allow_blank': True},
             'is_staff': {'read_only': True},
             'is_superuser': {'read_only': True},
             'allow_notifications': {'required': False},
@@ -65,7 +65,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             surname=validated_data['surname'],
             region=validated_data.get('region'),
             city=validated_data.get('city'),
-            company=validated_data.get('company'),
+            company=validated_data.get('company') or "",
             allow_notifications=validated_data.get('allow_notifications', True)
         )
         return user

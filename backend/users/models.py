@@ -68,7 +68,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     region = models.CharField(max_length=50, null=True, blank=True, default=None)
     city = models.CharField(max_length=50, null=True, blank=True, default=None)
 
-    company = models.CharField(max_length=50, null=False, blank=False, default=None)
+    company = models.CharField(max_length=50, null=True, blank=True, default="")
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

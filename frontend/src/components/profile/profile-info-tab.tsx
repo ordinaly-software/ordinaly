@@ -156,7 +156,6 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("company", e.target.value)}
                     className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                     placeholder={t("form.companyPlaceholder")}
-                    required
                   />
                 </div>
                 {errors.company && <p className="text-red-500 text-sm">{errors.company}</p>}

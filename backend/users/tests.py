@@ -155,6 +155,13 @@ class CustomUserModelTests(TestCase):
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.check_password(self.user_data['password']))
 
+    def test_create_user_without_company(self):
+        """Test creating a user without company"""
+        user_data = self.user_data.copy()
+        user_data.pop('company')
+        user = CustomUser.objects.create_user(**user_data)
+        self.assertEqual(user.company, "")
+
     def test_username_validator_too_short(self):
         """Test username validator with too short username"""
         user = CustomUser(email='test@example.com', username='ab', password=TEST_PASSWORD,
@@ -258,12 +265,21 @@ class CustomUserSerializerTests(TestCase):
 
     def test_serializer_with_missing_required_field(self):
         """Test serializer with missing required field"""
-        for field in ['username', 'email', 'password', 'name', 'surname', 'company']:
+        for field in ['username', 'email', 'password', 'name', 'surname']:
             data = self.user_data.copy()
             data.pop(field)
             serializer = self.serializer_class(data=data)
             self.assertFalse(serializer.is_valid())
             self.assertIn(field, serializer.errors)
+
+    def test_serializer_without_company_is_valid(self):
+        """Test serializer accepts missing company"""
+        data = self.user_data.copy()
+        data.pop('company')
+        serializer = self.serializer_class(data=data)
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.company, "")
 
     def test_serializer_with_optional_fields(self):
         """Test serializer with optional fields"""
@@ -445,6 +461,16 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(response.data['email'], self.user_data['email'])
         self.assertEqual(CustomUser.objects.count(), 3)  # 2 from setUp + 1 new
 
+    def test_signup_without_company_success(self):
+        """Test successful user signup without company"""
+        data = self.user_data.copy()
+        data.pop('company')
+        response = self.client.post(self.signup_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIn('token', response.data)
+        self.assertIn('company', response.data)
+        self.assertEqual(response.data['company'], "")
+
     def test_signup_duplicate_email(self):
         """Test signup with duplicate email"""
         duplicate_data = self.user_data.copy()
@@ -473,7 +499,7 @@ class UserViewSetTests(APITestCase):
 
     def test_signup_missing_required_fields(self):
         """Test signup with missing required fields"""
-        for field in ['username', 'email', 'password', 'name', 'surname', 'company']:
+        for field in ['username', 'email', 'password', 'name', 'surname']:
             data = self.user_data.copy()
             data.pop(field)
             response = self.client.post(self.signup_url, data, format='json')

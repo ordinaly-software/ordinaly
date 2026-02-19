@@ -34,7 +34,7 @@ function SignupPageContent() {
 
   useEffect(() => {
     const token =
-      localStorage.getItem('auth_token') ||
+      localStorage.getItem('auth_token');
     if (token) {
       // Redirect to home if already authenticated
       window.location.href = '/';
@@ -104,7 +104,6 @@ function SignupPageContent() {
     if (!surname.trim()) newErrors.surname = t("messages.validation.surnameRequired");
     if (!email.trim()) newErrors.email = t("messages.validation.emailRequired");
     if (!email.includes("@")) newErrors.email = t("messages.validation.emailInvalid");
-    if (!company.trim()) newErrors.company = t("messages.validation.companyRequired");
     if (!password) newErrors.password = t("messages.validation.passwordRequired");
     if (password.length < 8) newErrors.password = t("messages.validation.passwordTooShort");
     if (password !== confirmPassword) newErrors.confirmPassword = t("messages.validation.passwordMismatch");
@@ -135,7 +134,7 @@ function SignupPageContent() {
         surname: surname.trim(),
         username: username.trim(),
         email: email.trim(),
-        company: company.trim(),
+        company: company.trim() || null,
         region: region.trim() || null,
         city: city.trim() || null,
         password: password,
@@ -408,7 +407,6 @@ function SignupPageContent() {
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompany(e.target.value)}
                           className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                           placeholder={t("form.companyPlaceholder")}
-                          required
                         />
                       </div>
                       {errors.company && <p className="text-red-500 text-sm">{errors.company}</p>}

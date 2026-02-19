@@ -22,7 +22,7 @@ interface UserProfile {
   // Also support backend field names
   name?: string;
   surname?: string;
-  company: string;
+  company: string | null;
   region: string | null;
   city: string | null;
   created_at: string;
@@ -334,7 +334,6 @@ export default function ProfilePage() {
     if (!username.trim()) newErrors.username = t("messages.validation.usernameRequired");
     if (!email.trim()) newErrors.email = t("messages.validation.emailRequired");
     if (!email.includes("@")) newErrors.email = t("messages.validation.emailInvalid");
-    if (!company.trim()) newErrors.company = t("messages.validation.companyRequired");
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -353,7 +352,7 @@ export default function ProfilePage() {
         last_name: lastName.trim(),
         username: username.trim(),
         email: email.trim(),
-        company: company.trim(),
+        company: company.trim() || null,
         region: region.trim() || null,
         city: city.trim() || null,
         allow_notifications: allowNotifications,

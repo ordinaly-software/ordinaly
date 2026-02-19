@@ -67,7 +67,7 @@ class GoogleCallbackTests(TestCase):
         user = CustomUser.objects.get(email="google.user@example.com")
         self.assertEqual(user.name, "Google")
         self.assertEqual(user.surname, "User")
-        self.assertEqual(user.company, "Google")
+        self.assertEqual(user.company, "")
         self.assertEqual(user.google_sub, "google-sub-1")
         self.assertTrue(Token.objects.filter(user=user).exists())
 
