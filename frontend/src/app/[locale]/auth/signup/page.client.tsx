@@ -155,7 +155,7 @@ function SignupPageContent() {
       if (response.ok) {
         // Store token if provided
         if (data.token) {
-          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('auth_Token', data.token);
         }
 
         setAlert({ type: 'success', message: t("messages.success") });
@@ -231,7 +231,7 @@ function SignupPageContent() {
     message: string;
   }) => {
     // Store token
-    localStorage.setItem('authToken', data.token);
+    localStorage.setItem('auth_Token', data.token);
 
     setAlert({ type: 'success', message: data.message });
 

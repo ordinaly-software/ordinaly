@@ -16,6 +16,9 @@ import { useServices } from "@/hooks/useServices";
 import { useCourses } from "@/hooks/useCourses";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 
+
+
+
 // Custom User Menu Component
 const UserMenu = ({
   options,
@@ -180,6 +183,13 @@ const Navbar = () => {
     window.open(whatsappUrl, "_blank");
   }, [t]);
 
+  const [isLogged, setIsLogged] = useState(false);
+
+useEffect(() => {
+  const token = localStorage.getItem("auth_token");
+  setIsLogged(Boolean(token));
+}, []);
+
   const userMenuOptions = useMemo((): DropdownOption[] => {
     const options: DropdownOption[] = [{ value: "profile", label: t("navigation.profile"), icon: User }];
 
@@ -286,7 +296,7 @@ const Navbar = () => {
             Authorization: `Token ${token}`,
             "Content-Type": "application/json",
           },
-        }).catch(() => {});
+        }).catch(() => { });
       }
     } catch (error) {
       console.warn("Signout error:", error);
@@ -499,25 +509,40 @@ const Navbar = () => {
                     ariaLabel={t("navigation.userMenu")}
                   />
                 ) : (
-                  <div className="flex items-center space-x-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={goToSignIn}
-                      aria-label={t("navigation.signIn")}
-                      className="text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-all duration-200 flex items-center h-8 sm:h-9 text-xs sm:text-sm"
-                    >
-                      <LogIn className="h-4 w-4 mr-2" />
-                      <span>{t("navigation.signIn")}</span>
-                    </Button>
-                    <Button
-                      size="sm"
-                      onClick={goToSignUp}
-                      className="bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black transition-all duration-200 hover:scale-105 h-8 sm:h-9 px-3 sm:px-4 text-xs sm:text-sm"
-                    >
-                      {t("navigation.signUp")}
-                    </Button>
-                  </div>
+                  <>
+                    {!isLogged ? (
+                      <div className="flex items-center space-x-2">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={goToSignIn}
+                          aria-label={t("navigation.signIn")}
+                          className="text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-all duration-200 flex items-center h-8 sm:h-9 text-xs sm:text-sm"
+                        >
+                          <LogIn className="h-4 w-4 mr-2" />
+                          <span>{t("navigation.signIn")}</span>
+                        </Button>
+
+                        <Button
+                          size="sm"
+                          onClick={goToSignUp}
+                          className="bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black transition-all duration-200 hover:scale-105 h-8 sm:h-9 px-3 sm:px-4 text-xs sm:text-sm"
+                        >
+                          {t("navigation.signUp")}
+                        </Button>
+                      </div>
+                    ) : (
+                      <Link href="/profile" className="flex items-center">
+                        <Image
+                          src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                          alt="Perfil"
+                          width={32}
+                          height={32}
+                          className="rounded-full cursor-pointer"
+                        />
+                      </Link>
+                    )}
+                  </>
                 )
               ) : null}
 

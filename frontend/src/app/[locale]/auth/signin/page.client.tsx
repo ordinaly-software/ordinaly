@@ -101,7 +101,7 @@ export default function LoginPage() {
 
       if (response.ok) {
         // Store token
-        localStorage.setItem('authToken', data.token);
+        localStorage.setItem('auth_Token', data.token);
 
         setAlert({ type: 'success', message: t('messages.success') });
 
@@ -140,7 +140,7 @@ export default function LoginPage() {
     message: string;
   }) => {
     // Store token
-    localStorage.setItem('authToken', data.token);
+    localStorage.setItem('auth_Token', data.token);
 
     setAlert({ type: 'success', message: data.message });
 
