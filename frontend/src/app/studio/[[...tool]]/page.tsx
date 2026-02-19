@@ -29,7 +29,7 @@ export default function StudioPage() {
 
   useEffect(() => {
     const checkAdminAccess = async () => {
-      const token = localStorage.getItem("authToken");
+      const token = localStorage.getItem("auth_token");
       if (!token) {
         router.push("/auth/signin");
         return;

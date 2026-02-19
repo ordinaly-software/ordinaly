@@ -298,7 +298,8 @@ export default function ProfilePage() {
   }, [authToken, t]);
 
   useEffect(() => {
-    const token = localStorage.getItem("auth_token");
+    const token =
+      localStorage.getItem("auth_token");
 
     if (!token) {
       setIsAuthenticated(false);

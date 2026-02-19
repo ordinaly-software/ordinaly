@@ -109,7 +109,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
   }, [t]);
 
   useEffect(() => {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
     setIsAuthenticated(!!token);
 
     fetchCourses();
@@ -176,7 +176,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
 
   const fetchEnrollments = async () => {
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       if (!token) return;
 
       const response = await fetch(getApiEndpoint('/api/courses/enrollments/'), {
@@ -216,7 +216,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
     if (!courseToCancel) return;
 
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       if (!token) {
         setAlert({type: 'error', message: t('alerts.signInRequired')});
         return;

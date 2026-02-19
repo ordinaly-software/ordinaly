@@ -10,7 +10,6 @@ import Alert from "@/components/ui/alert";
 import { User, Mail, Lock, Building2, Eye, EyeOff, Globe, MapPin } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
 import Image from "next/image";
-import GoogleSignInButton from '@/components/auth/google-signin-button';
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 
@@ -34,7 +33,8 @@ function SignupPageContent() {
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token =
+      localStorage.getItem('auth_token') ||
     if (token) {
       // Redirect to home if already authenticated
       window.location.href = '/';
@@ -155,7 +155,7 @@ function SignupPageContent() {
       if (response.ok) {
         // Store token if provided
         if (data.token) {
-          localStorage.setItem('auth_Token', data.token);
+          localStorage.setItem('auth_token', data.token);
         }
 
         setAlert({ type: 'success', message: t("messages.success") });
@@ -230,8 +230,8 @@ function SignupPageContent() {
     profile_complete: boolean;
     message: string;
   }) => {
-    // Store token
-    localStorage.setItem('auth_Token', data.token);
+    // Store token in all known keys for backward compatibility
+    localStorage.setItem('auth_token', data.token);
 
     setAlert({ type: 'success', message: data.message });
 

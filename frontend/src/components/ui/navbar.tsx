@@ -183,12 +183,14 @@ const Navbar = () => {
     window.open(whatsappUrl, "_blank");
   }, [t]);
 
+  const getStoredAuthToken = useCallback(() => localStorage.getItem("auth_token"), []);
+
   const [isLogged, setIsLogged] = useState(false);
 
-useEffect(() => {
-  const token = localStorage.getItem("auth_token");
-  setIsLogged(Boolean(token));
-}, []);
+  useEffect(() => {
+    const token = getStoredAuthToken();
+    setIsLogged(Boolean(token));
+  }, [getStoredAuthToken]);
 
   const userMenuOptions = useMemo((): DropdownOption[] => {
     const options: DropdownOption[] = [{ value: "profile", label: t("navigation.profile"), icon: User }];
@@ -243,7 +245,7 @@ useEffect(() => {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = getStoredAuthToken();
     const authState = !!token;
     setIsAuthenticated(authState);
 
@@ -251,7 +253,7 @@ useEffect(() => {
       fetchUserData(token);
       fetchEnrollmentStatus(token);
     }
-  }, [fetchUserData, fetchEnrollmentStatus]);
+  }, [fetchEnrollmentStatus, fetchUserData, getStoredAuthToken]);
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -287,7 +289,7 @@ useEffect(() => {
 
   const handleSignOut = useCallback(async () => {
     try {
-      const token = localStorage.getItem("authToken");
+      const token = getStoredAuthToken();
       if (token) {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
         fetch(`${apiUrl}/api/users/signout/`, {
@@ -302,14 +304,14 @@ useEffect(() => {
       console.warn("Signout error:", error);
     }
 
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("auth_token");
     setIsAuthenticated(false);
     setUserData(null);
     setHasEnrolledCourses(false);
     setIsMenuOpen(false);
     setShowLogoutModal(false);
     window.location.href = "/";
-  }, []);
+  }, [getStoredAuthToken]);
 
   const goToSignIn = useCallback(() => {
     router.push("/auth/signin");

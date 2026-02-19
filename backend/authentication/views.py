@@ -1,15 +1,46 @@
 import os
+import re
 import requests
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.views.decorators.http import require_GET
 from django.contrib.auth import get_user_model
-from django.conf import settings
-
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 
 from .utils import create_internal_token
+
+
+def _frontend_base_url():
+    return os.getenv("FRONTEND_URL", "http://localhost:3000").rstrip("/")
+
+
+def _split_google_name(display_name):
+    full_name = (display_name or "").strip()
+    if not full_name:
+        return "Google", "CustomUser"
+
+    parts = full_name.split(maxsplit=1)
+    first_name = parts[0][:30] or "Google"
+    last_name = (parts[1] if len(parts) > 1 else "CustomUser")[:30] or "CustomUser"
+    return first_name, last_name
+
+
+def _generate_unique_google_username(CustomUser, email):
+    local_part = (email or "").split("@")[0]
+    base = re.sub(r"[^a-zA-Z0-9_]", "_", local_part).strip("_").lower() or "google_user"
+    base = base[:30]
+    if len(base) < 3:
+        base = f"{base}user"[:30]
+
+    candidate = base
+    counter = 1
+    while CustomUser.objects.filter(username__iexact=candidate).exists():
+        suffix = f"_{counter}"
+        stem = base[: 30 - len(suffix)] or "usr"
+        candidate = f"{stem}{suffix}"
+        counter += 1
+    return candidate
 
 
 @require_GET
@@ -33,11 +64,11 @@ def google_login(request):
 @require_GET
 def google_callback(request):
     try:
+        frontend_base_url = _frontend_base_url()
         code = request.GET.get("code")
-    
-        if "error" in request.GET:
-            return redirect("http://localhost:3000/auth/signin?error=cancelled")
 
+        if "error" in request.GET:
+            return redirect(f"{frontend_base_url}/auth/signin?error=cancelled")
 
         if not code:
             return JsonResponse({"error": "Missing code"}, status=400)
@@ -66,32 +97,37 @@ def google_callback(request):
             )
         except Exception as e:
             print("Error validando id_token:", e)
-            return redirect("http://localhost:3000/auth/signin?error=invalid_token")
+            return redirect(f"{frontend_base_url}/auth/signin?error=invalid_token")
 
         email = google_info.get("email")
-        name = google_info.get("name")
-        picture = google_info.get("picture")
+        if not email:
+            return redirect(f"{frontend_base_url}/auth/signin?error=missing_email")
+
+        display_name = google_info.get("name")
         google_sub = google_info.get("sub")
 
+        CustomUser = get_user_model()
+        user = CustomUser.objects.filter(email__iexact=email).first()
+        if not user:
+            first_name, last_name = _split_google_name(display_name)
+            username = _generate_unique_google_username(CustomUser, email)
+            user = CustomUser.objects.create_user(
+                email=email,
+                username=username,
+                name=first_name,
+                surname=last_name,
+                company="Google",
+            )
 
-        User = get_user_model()
-        user, created = User.objects.get_or_create(
-            email=email,
-            defaults={"username": email, "first_name": name}
-        )
+        if user.google_sub and user.google_sub != google_sub:
+            return redirect(f"{frontend_base_url}/auth/signin?error=account_conflict")
 
-        if not getattr(user, "google_sub", None):
+        if not user.google_sub:
             user.google_sub = google_sub
-            user.save()
+            user.save(update_fields=["google_sub"])
 
         token = create_internal_token(user)
-    
-        user = User.objects.filter(email=email).first()
-        if user and user.google_sub and user.google_sub != google_sub: 
-            return redirect("http://localhost:3000/auth/signin?error=account_conflict")
-
-        return redirect(f"http://localhost:3000/auth/callback?token={token}")
+        return redirect(f"{frontend_base_url}/auth/callback?token={token}")
     except Exception as e:
         print("Unexpected OAuth error:", e)
-        return redirect("http://localhost:3000/auth/signin?error=unexpected")
-
+        return redirect(f"{_frontend_base_url()}/auth/signin?error=unexpected")

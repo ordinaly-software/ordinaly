@@ -24,7 +24,8 @@ export default function LoginPage() {
   const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token =
+      localStorage.getItem('auth_token');
     if (token) {
       window.location.href = '/';
       return;
@@ -100,8 +101,8 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Store token
-        localStorage.setItem('auth_Token', data.token);
+        // Store token in all known keys for backward compatibility
+        localStorage.setItem('auth_token', data.token);
 
         setAlert({ type: 'success', message: t('messages.success') });
 
@@ -139,8 +140,8 @@ export default function LoginPage() {
     profile_complete: boolean;
     message: string;
   }) => {
-    // Store token
-    localStorage.setItem('auth_Token', data.token);
+    // Store token in all known keys for backward compatibility
+    localStorage.setItem('auth_token', data.token);
 
     setAlert({ type: 'success', message: data.message });
 

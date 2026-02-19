@@ -80,7 +80,7 @@ export default function AdminPage() {
   useEffect(() => {
     // Check authentication and admin status
     const checkAdminAccess = async () => {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       if (!token) {
         router.push('/auth/signin');
         return;
