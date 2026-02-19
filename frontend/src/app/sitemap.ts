@@ -13,7 +13,7 @@ const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; prior
   { path: "/services", changeFrequency: "weekly", priority: 0.8 },
   { path: "/formation", changeFrequency: "weekly", priority: 0.7 },
   { path: "/blog", changeFrequency: "daily", priority: 0.8 },
-  { path: "/noticias", changeFrequency: "daily", priority: 0.7 },
+  { path: "/news", changeFrequency: "daily", priority: 0.7 },
 ];
 
 const buildAlternateLanguages = (path: string) => {

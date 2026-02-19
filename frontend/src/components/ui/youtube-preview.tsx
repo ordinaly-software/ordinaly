@@ -90,7 +90,6 @@ const YoutubePreview = ({
 
   return (
     <div className={cn("flex h-full w-full flex-col gap-2", className)}>
-      <p className="text-sm font-semibold text-neutral-700 dark:text-neutral-200">{label}</p>
       <div
         ref={frameRef}
         className={cn(

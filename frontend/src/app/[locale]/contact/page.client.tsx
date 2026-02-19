@@ -26,7 +26,7 @@ export default function ContactPage() {
   const t = useTranslations("contactPage");
   const [locationImageIndex, setLocationImageIndex] = useState(0);
   const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
+  const canLoadMedia = Boolean(cookiePreferences?.marketing);
   const [showWhatsAppBubble, setShowWhatsAppBubble] = useState(false);
 
   const team = [

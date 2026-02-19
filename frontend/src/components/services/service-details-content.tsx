@@ -93,7 +93,7 @@ export function ServiceDetailsContent({
   const markdownDescription = service.description || service.clean_description || "";
   const priceLabel = formatPrice(service, labels.contactForQuote);
   const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
+  const canLoadMedia = Boolean(cookiePreferences?.marketing);
   const isCompact = density === "compact";
   const contactUrl = resolveContactUrl(service.contactButtonUrl);
   const showContactCta = Boolean(showContact && (contactUrl || onContact));
