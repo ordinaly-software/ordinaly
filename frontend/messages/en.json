@@ -473,6 +473,7 @@
   "cookie": {
     "title": "Cookie Settings",
     "openCookieSettings": "Open Cookie Settings",
+    "getCookiePreferences": "Open Cookie Settings",
     "openOnYoutube": "Open on YouTube",
     "description": "We use cookies to enhance your experience, personalize content, and analyze traffic. You can choose which types of cookies to accept.",
     "thirdPartyTitle": "Third-party content blocked",

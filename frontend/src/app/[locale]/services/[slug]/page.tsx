@@ -25,8 +25,8 @@ export async function generateMetadata({
   const landingMeta = getLandingMeta(slug);
   if (landingMeta) {
     const messages = isEs ? esMessages : enMessages;
-    const landingDict = (messages as { landings?: Record<string, any> }).landings;
-    const landing = landingDict?.[slug] as Record<string, any> | undefined;
+    const landingDict = (messages as { landings?: Record<string, unknown> }).landings;
+    const landing = landingDict?.[slug] as Record<string, unknown> | undefined;
     const title = (landing?.title as string) ?? "Ordinaly Services";
     const description =
       (landing?.description as string) ??

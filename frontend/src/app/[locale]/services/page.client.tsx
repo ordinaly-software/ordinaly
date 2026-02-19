@@ -36,7 +36,7 @@ const ServiceAppleDetailsModal = dynamic(
   () =>
     import("@/components/services/service-apple-details-modal").then(
       (mod) => mod.ServiceAppleDetailsModal,
-    ),  { ssr: false, loading: () => null },
+    ), { ssr: false, loading: () => null },
 );
 const SeoArticleSectionLazy = dynamic(
   () => import("@/components/home/seo-article-section").then((mod) => mod.SeoArticleSection),
@@ -65,8 +65,8 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("");
   // Add filter for type: all, product, service, featured
   const [filterType, setFilterType] = useState<'all' | 'featured' | 'service' | 'product'>('all');
-  const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
-  
+  const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
+
   // Debounce search term
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -165,11 +165,15 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
   useEffect(() => {
     if (!initialServiceSlug) return;
     const match = services.find((s) => s.slug === initialServiceSlug);
+
     if (match) {
-      setDeepLinkedService(match);
+      // Buscar el servicio actualizado por ID
+      const updated = services.find((s) => s.id === match.id);
+      setDeepLinkedService(updated || match);
       setDeepLinkOpen(true);
       return;
     }
+
     const fetchOne = async () => {
       try {
         const res = await fetch(getApiEndpoint(`/api/services/${initialServiceSlug}/`), {
@@ -312,7 +316,12 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                     services={separated.products}
                     labels={carouselLabels}
                     onContact={handleWhatsAppContact}
-                    onOpenSlug={updateSlugInHistory}
+                    onOpenSlug={(service) => {
+                      const updated = services.find((s) => s.id === service.id);
+                      setDeepLinkedService(updated || service);
+                      setDeepLinkOpen(true);
+                      updateSlugInHistory(service);
+                    }}
                     onCloseSlug={resetSlugInHistory}
                     variant="compact"
                   />
@@ -329,7 +338,12 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
                     labels={carouselLabels}
                     onContact={handleWhatsAppContact}
                     initialScroll={separated.products.length > 0 ? 150 : 0}
-                    onOpenSlug={updateSlugInHistory}
+                    onOpenSlug={(service) => {
+                      const updated = services.find((s) => s.id === service.id);
+                      setDeepLinkedService(updated || service);
+                      setDeepLinkOpen(true);
+                      updateSlugInHistory(service);
+                    }}
                     onCloseSlug={resetSlugInHistory}
                     variant="compact"
                   />

@@ -12,12 +12,12 @@ type NotFoundStrings = {
 async function loadNotFoundMessages(locale: Locale): Promise<NotFoundStrings> {
   switch (locale) {
     case "es": {
-      const module = await import("../../../messages/es.json");
-      return module.default.notFound;
+      const mod = await import("../../../messages/es.json");
+      return mod.default.notFound;
     }
     default: {
-      const module = await import("../../../messages/en.json");
-      return module.default.notFound;
+      const mod = await import("../../../messages/en.json");
+      return mod.default.notFound;
     }
   }
 }

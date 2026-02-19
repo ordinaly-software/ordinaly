@@ -20,7 +20,7 @@ const CookieConsent = () => {
     necessary: true,
     functional: true,
     analytics: false,
-    thirdParty: false,
+    marketing: false,
   });
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const CookieConsent = () => {
       necessary: true,
       functional: true,
       analytics: true,
-      thirdParty: true,
+      marketing: true,
     };
     setCookiePreferences(preferences);
     try {
@@ -131,7 +131,7 @@ const CookieConsent = () => {
     setShowSettings(false);
   };
 
-  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'thirdParty') => {
+  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'marketing') => {
     if (type === 'necessary' || type === 'functional') return;
     setCookiePreferences(prev => ({
       ...prev,
@@ -215,9 +215,9 @@ const CookieConsent = () => {
                     note: t('necessaryAlways')
                   },
                 {
-                  key: 'thirdParty',
+                  key: 'marketing',
                   icon: <Globe className="text-[#1F8A0D] dark:text-[#3FBD6F]" size={20} />,
-                    enabled: cookiePreferences.thirdParty,
+                    enabled: cookiePreferences.marketing,
                     toggle: true,
                     note: t('thirdPartyExamples')
                   },
@@ -238,7 +238,7 @@ const CookieConsent = () => {
                       {toggle ? (
                         <Slider
                           checked={enabled}
-                          onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'thirdParty')}
+                          onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing')}
                         />
                       ) : (
                         <div className="bg-[#1F8A0D] dark:bg-[#3FBD6F] rounded-full w-6 h-6 flex items-center justify-center">

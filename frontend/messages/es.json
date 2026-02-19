@@ -472,6 +472,7 @@
   "cookie": {
     "title": "Cookies",
     "openCookieSettings": "Abrir Configuración de Cookies",
+    "getCookiePreferences": "Abrir Configuración de Cookies",
     "openOnYoutube": "Abrir en YouTube",
     "description": "Utilizamos cookies para mejorar tu experiencia, personalizar el contenido y analizar el tráfico. Puedes elegir qué tipos de cookies aceptar",
     "thirdPartyTitle": "Contenido de terceros bloqueado",

@@ -41,6 +41,7 @@ export interface ServiceDetailsContentProps {
 }
 
 const FALLBACK_CARD_IMAGE = "/static/main_service_home_ilustration.webp";
+const FALLBACK_SITE_URL = "https://ordinaly.ai";
 
 const formatPrice = (service: Service, contactLabel: string) => {
   if (service.price && !Number.isNaN(Number(service.price))) {
@@ -61,6 +62,20 @@ const formatDuration = (duration: number, labels: ServiceDetailsLabels) => {
   return `${duration}d`;
 };
 
+const resolveContactUrl = (value?: string | null) => {
+  if (!value) return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+
+  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL || FALLBACK_SITE_URL).replace(/\/$/, "");
+
+  if (trimmed.startsWith("/")) return `${baseUrl}${trimmed}`;
+  if (/^https?:\/\//i.test(trimmed)) return trimmed;
+  if (trimmed.startsWith("//")) return `https:${trimmed}`;
+
+  return `${baseUrl}/${trimmed.replace(/^\/+/, "")}`;
+};
+
 export function ServiceDetailsContent({
   service,
   labels,
@@ -78,9 +93,12 @@ export function ServiceDetailsContent({
   const markdownDescription = service.description || service.clean_description || "";
   const priceLabel = formatPrice(service, labels.contactForQuote);
   const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
+  const canLoadMedia = Boolean(cookiePreferences?.marketing);
   const isCompact = density === "compact";
-  const hasCta = Boolean(onSelect || onContact);
+  const contactUrl = resolveContactUrl(service.contactButtonUrl);
+  const showContactCta = Boolean(showContact && (contactUrl || onContact));
+  const showDetailsCta = Boolean(onSelect && showViewDetails);
+  const hasCta = showContactCta || showDetailsCta;
 
   return (
     <div
@@ -124,8 +142,8 @@ export function ServiceDetailsContent({
           src={hero}
           alt={service.title}
           className={cn(
-        "w-full object-cover",
-        isCompact ? "h-48 md:h-64" : "h-56 md:h-72",
+            "w-full object-cover",
+            isCompact ? "h-48 md:h-64" : "h-56 md:h-72",
           )}
           width={1200}
           height={560}
@@ -214,20 +232,36 @@ export function ServiceDetailsContent({
             )}
           >
             <div className={cn("flex flex-col sm:flex-row", isCompact ? "gap-2" : "gap-3")}>
-              {onContact && showContact && (
-                <Button
-                  size="lg"
-                  className="w-full sm:flex-1 text-white hover:opacity-90 transition-opacity shadow-lg"
-                  style={{
-                    backgroundColor: accentHex,
-                    boxShadow: `0 16px 30px -20px ${accentHex}`,
-                  }}
-                  onClick={() => onContact(service)}
-                >
-                  {labels.contactNow ?? labels.contactForQuote}
-                </Button>
+              {showContactCta && (
+                contactUrl ? (
+                  <a
+                    href={contactUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full sm:flex-1 text-center px-4 py-3 rounded-xl text-white font-semibold hover:opacity-90 transition-opacity shadow-lg"
+                    style={{
+                      backgroundColor: accentHex,
+                      boxShadow: `0 16px 30px -20px ${accentHex}`,
+                    }}
+                  >
+                    {service.contactButtonText || labels.contactNow || "Contactar"}
+                  </a>
+                ) : (
+                  <Button
+                    size="lg"
+                    className="w-full sm:flex-1 text-white font-semibold hover:opacity-90 transition-opacity shadow-lg"
+                    style={{
+                      backgroundColor: accentHex,
+                      boxShadow: `0 16px 30px -20px ${accentHex}`,
+                    }}
+                    onClick={() => onContact?.(service)}
+                  >
+                    {service.contactButtonText || labels.contactNow || "Contactar"}
+                  </Button>
+                )
               )}
-              {onSelect && showViewDetails && (
+
+              {showDetailsCta && onSelect && (
                 <Button
                   size="lg"
                   variant="outline"
