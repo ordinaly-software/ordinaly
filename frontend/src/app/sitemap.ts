@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
-import { routing } from "@/i18n/routing";
-import { absoluteUrl, localeHrefLangs } from "@/lib/metadata";
+import { metadataBaseUrl } from "@/lib/metadata";
 import { client } from "@/lib/sanity";
 import { landingsMeta } from "@/app/[locale]/landings";
 
@@ -16,13 +15,16 @@ const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; prior
   { path: "/news", changeFrequency: "daily", priority: 0.7 },
 ];
 
-const buildAlternateLanguages = (path: string) => {
-  const languages = Object.fromEntries(
-    routing.locales.map((locale) => [localeHrefLangs[locale] ?? locale, absoluteUrl(path, locale)]),
-  );
-  // x-default para indicar la versión por defecto
-  languages["x-default"] = absoluteUrl(path);
-  return languages;
+const stripLocalePrefix = (path: string) => {
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  const withoutLocale = normalized.replace(/^\/(es|en)(?=\/|$)/, "");
+  return withoutLocale || "/";
+};
+
+const canonical = (path: string) => {
+  const normalizedPath = stripLocalePrefix(path);
+  if (normalizedPath === "/") return metadataBaseUrl;
+  return `${metadataBaseUrl}${normalizedPath}`;
 };
 
 const fetchApiCollection = async <T,>(path: string, apiBase?: string): Promise<T[]> => {
@@ -39,71 +41,75 @@ const fetchApiCollection = async <T,>(path: string, apiBase?: string): Promise<T
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
-  const apiBase = process.env.NEXT_PUBLIC_API_URL;
+    const apiBase = process.env.NEXT_PUBLIC_API_URL;
 
-  const slugs: string[] =
-    (await (async () => {
-      try {
-        return await client.fetch(
-          '*[_type=="post" && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())].slug.current',
-          {},
-          { next: { tags: ["blog"] } },
-        );
-      } catch {
-        return [];
-      }
-    })()) ?? [];
+    const slugs: string[] =
+      (await (async () => {
+        try {
+          return await client.fetch(
+            '*[_type=="post" && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())].slug.current',
+            {},
+            { next: { tags: ["blog"] } },
+          );
+        } catch {
+          return [];
+        }
+      })()) ?? [];
 
-  const services =
-    (await fetchApiCollection<{ slug?: string; id?: string; draft?: boolean }>(
-      "/api/services/",
-      apiBase,
-    )).filter((s) => !s?.draft) ?? [];
+    const services =
+      (await fetchApiCollection<{ slug?: string; id?: string; draft?: boolean }>(
+        "/api/services/",
+        apiBase,
+      )).filter((s) => !s?.draft) ?? [];
 
-  const courses =
-    (await fetchApiCollection<{ slug?: string; id?: string }>(
-      "/api/courses/courses/",
-      apiBase,
-    )) ?? [];
+    const courses =
+      (await fetchApiCollection<{ slug?: string; id?: string }>(
+        "/api/courses/courses/",
+        apiBase,
+      )) ?? [];
 
-  const isValidSlug = (value?: string | null) =>
-    !!value && value.length >= 4 && !value.endsWith("-");
+    const isValidSlug = (value?: string | null) =>
+      !!value && value.length >= 4 && !value.endsWith("-");
 
-  const entries: MetadataRoute.Sitemap = [];
-  const addPath = (path: string, changeFrequency: ChangeFrequency, priority: number) => {
-    const languages = buildAlternateLanguages(path);
-    routing.locales.forEach((locale) => {
+    const entries: MetadataRoute.Sitemap = [];
+    const addPath = (path: string, changeFrequency: ChangeFrequency, priority: number) => {
       entries.push({
-        url: absoluteUrl(path, locale),
+        url: canonical(path),
         changeFrequency,
         priority,
-        alternates: { languages },
       });
+    };
+
+    staticPaths.forEach(({ path, changeFrequency, priority }) =>
+      addPath(path, changeFrequency, priority),
+    );
+
+    slugs.forEach((slug) => addPath(`/blog/${slug}`, "weekly", 0.7));
+
+    services.forEach((service) => {
+      const identifier = service?.slug || service?.id;
+      if (!identifier) return;
+      addPath(`/services/${identifier}`, "weekly", 0.8);
     });
-  };
 
-  staticPaths.forEach(({ path, changeFrequency, priority }) =>
-    addPath(path, changeFrequency, priority),
-  );
+    // Local SEO landings
+    landingsMeta.forEach((landing) => addPath(`/${landing.slug}`, "weekly", 0.85));
 
-  slugs.forEach((slug) => addPath(`/blog/${slug}`, "weekly", 0.7));
+    courses.forEach((course) => {
+      const identifier = course?.slug || course?.id;
+      if (!isValidSlug(identifier)) return;
+      addPath(`/formation/${identifier}`, "weekly", 0.7);
+    });
 
-  services.forEach((service) => {
-    const identifier = service?.slug || service?.id;
-    if (!identifier) return;
-    addPath(`/services/${identifier}`, "weekly", 0.8);
-  });
+    // Keep root and top-level sections before deeper routes.
+    entries.sort((a, b) => {
+      const depthA = new URL(a.url).pathname.split("/").filter(Boolean).length;
+      const depthB = new URL(b.url).pathname.split("/").filter(Boolean).length;
+      if (depthA !== depthB) return depthA - depthB;
+      return a.url.localeCompare(b.url);
+    });
 
-  // Local SEO landings (top-level, locale-prefixed)
-  landingsMeta.forEach((landing) => addPath(`/${landing.slug}`, "weekly", 0.85));
-
-  courses.forEach((course) => {
-    const identifier = course?.slug || course?.id;
-    if (!isValidSlug(identifier)) return;
-    addPath(`/formation/${identifier}`, "weekly", 0.7);
-  });
-
-  return entries;
+    return entries;
   } catch (error) {
     // Si algo explota (red, Sanity, etc.), devolvemos un sitemap vacío en vez de 500
     console.warn("sitemap generation failed, returning empty sitemap", error);
