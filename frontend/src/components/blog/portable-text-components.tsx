@@ -81,6 +81,30 @@ export const createPortableTextComponents = (headingIdByKey: Record<string, stri
     ),
     normal: (props: PortableTextComponentProps<PortableTextBlock>) => <p className="mb-4 text-base text-gray-800 dark:text-gray-200">{props.children}</p>,
   },
+  list: {
+    bullet: ({ children }: { children?: ReactNode }) => (
+      <ul className="mb-4 ml-6 list-disc text-base text-gray-800 dark:text-gray-200">
+        {children}
+      </ul>
+    ),
+    number: ({ children }: { children?: ReactNode }) => (
+      <ol className="mb-4 ml-6 list-decimal text-base text-gray-800 dark:text-gray-200">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }: { children?: ReactNode }) => (
+      <li className="mb-2 pl-1 marker:text-[#1F8A0D] dark:marker:text-[#3FBD6F]">
+        {children}
+      </li>
+    ),
+    number: ({ children }: { children?: ReactNode }) => (
+      <li className="mb-2 pl-1 marker:font-semibold marker:text-[#1F8A0D] dark:marker:text-[#3FBD6F]">
+        {children}
+      </li>
+    ),
+  },
   marks: {
     link: ({ children, value }: { children: ReactNode; value?: { href?: string } }) => (
       <Link href={value?.href || '#'} className="underline text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E]">{children}</Link>
