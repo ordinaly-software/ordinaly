@@ -352,6 +352,16 @@ class CustomUserSerializerTests(TestCase):
         serializer = CustomUserSerializer(user)
         self.assertIn('updated_at', serializer.data)
 
+    def test_is_google_authenticated_field(self):
+        serializer = CustomUserSerializer(self.user)
+        self.assertIn('is_google_authenticated', serializer.data)
+        self.assertFalse(serializer.data['is_google_authenticated'])
+
+        self.user.google_sub = 'google-sub-123'
+        self.user.save(update_fields=['google_sub'])
+        serializer = CustomUserSerializer(self.user)
+        self.assertTrue(serializer.data['is_google_authenticated'])
+
     def test_create_with_alias_fields(self):
         data = {
             'username': 'aliasuser',
@@ -681,6 +691,17 @@ class UserViewSetTests(APITestCase):
         response = self.client.get('/api/users/profile/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['username'], self.user.username)
+        self.assertIn('is_google_authenticated', response.data)
+        self.assertFalse(response.data['is_google_authenticated'])
+
+    def test_profile_authenticated_with_google_linked(self):
+        """Test profile includes Google auth flag when account is linked"""
+        self.user.google_sub = 'google-sub-456'
+        self.user.save(update_fields=['google_sub'])
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.get('/api/users/profile/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['is_google_authenticated'])
 
     def test_profile_unauthenticated(self):
         """Test getting profile as unauthenticated user"""

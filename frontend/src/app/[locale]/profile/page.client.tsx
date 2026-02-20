@@ -28,6 +28,7 @@ interface UserProfile {
   created_at: string;
   updated_at: string;
   allow_notifications?: boolean;
+  is_google_authenticated?: boolean;
 }
 
 interface Enrollment {
@@ -557,6 +558,7 @@ export default function ProfilePage() {
               company={company}
               region={region}
               city={city}
+              isGoogleAuthenticated={Boolean(profile?.is_google_authenticated)}
               errors={errors}
               hasChanges={hasChanges}
               isSaving={isSaving}

@@ -1,10 +1,8 @@
 import os
 from unittest.mock import Mock, patch
-
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from rest_framework.authtoken.models import Token
-
 from .utils import create_internal_token
 
 

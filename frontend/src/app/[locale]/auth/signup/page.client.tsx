@@ -315,7 +315,7 @@ function SignupPageContent() {
                       >
                         <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
                          className="w-5 h-5" alt="Google" />
-                        <span className="font-medium">Continuar con Google</span>
+                        <span className="font-medium">{t("form.signupWithGoogle")}</span>
                       </button>
 
 

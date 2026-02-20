@@ -10,6 +10,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
     last_login = serializers.SerializerMethodField()
+    is_google_authenticated = serializers.SerializerMethodField()
 
     class Meta:
         model = CustomUser
@@ -18,6 +19,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'first_name', 'last_name',  # Add alias fields for frontend compatibility
             'region', 'city', 'company', 'is_staff', 'is_superuser',
             'allow_notifications',
+            'is_google_authenticated',
             'created_at', 'updated_at', 'last_login'
         )
         extra_kwargs = {
@@ -49,6 +51,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
         if hasattr(obj, 'last_login') and obj.last_login:
             return obj.last_login.isoformat()
         return None
+
+    def get_is_google_authenticated(self, obj):
+        return bool(getattr(obj, 'google_sub', None))
 
     def create(self, validated_data):
         # Handle the alias fields

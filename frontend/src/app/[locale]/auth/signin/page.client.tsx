@@ -10,7 +10,6 @@ import Footer from "@/components/ui/footer";
 import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
-import GoogleSignInButton from '@/components/auth/google-signin-button';
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 
@@ -189,6 +188,43 @@ export default function LoginPage() {
                 <br></br>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
+
+                  {/* Google Sign-In */}
+                  <div className="mt-6">
+                    <div className="relative mb-6">
+                      <button
+                        onClick={() => {
+                          window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
+                        }}
+                        className="
+                              w-full flex items-center justify-center gap-3
+                              bg-white dark:bg-gray-900
+                              border border-gray-300 dark:border-gray-700
+                              rounded-lg py-3 px-4
+                              shadow hover:shadow-md
+                              transition-all
+                              hover:border-[#1F8A0D]
+                              hover:bg-[#1F8A0D]/10
+                              dark:hover:bg-[#3FBD6F]/20
+                              "
+                      >
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
+                        className="w-5 h-5" alt="Google" />
+                        <span className="font-medium">{t("form.continueWithGoogle")}</span>
+                      </button>
+                    </div>
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                      </div>
+                      <div className="relative flex justify-center text-sm">
+                        <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                          {t("form.orContinueWith")}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-gray-800 dark:text-gray-200">
                         {t("form.emailLabel")}
@@ -259,45 +295,6 @@ export default function LoginPage() {
                       {t("form.signupLink")}
                     </Link>
                   </p>
-
-                  {/* Add Google Sign-In */}
-                  <div className="mt-6">
-                    <div className="relative">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
-                      </div>
-                      <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
-                          {t("form.orContinueWith")}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="mt-6">
-                      <button
-                        onClick={() => {
-                          window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
-                        }}
-                        className="
-                              w-full flex items-center justify-center gap-3
-                              bg-white dark:bg-gray-900
-                              border border-gray-300 dark:border-gray-700
-                              rounded-lg py-3 px-4
-                              shadow hover:shadow-md
-                              transition-all
-                              hover:border-[#1F8A0D]
-                              hover:bg-[#1F8A0D]/10
-                              dark:hover:bg-[#3FBD6F]/20
-                              "
-                      >
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
-                        className="w-5 h-5" alt="Google" />
-                        <span className="font-medium">Continuar con Google</span>
-                      </button>
-
-
-                    </div>
-                  </div>
 
                 </CardContent>
               </Card>

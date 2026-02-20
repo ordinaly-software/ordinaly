@@ -69,7 +69,7 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
         </Card>
 
         {/* Sign Up Card */}
-  <Card className="border border-gray-200 dark:border-gray-700 hover:border-[#217093] transition-all duration-300 hover:shadow-lg hover:shadow-[#217093]/10 cursor-pointer group"
+        <Card className="border border-gray-200 dark:border-gray-700 hover:border-[#217093] transition-all duration-300 hover:shadow-lg hover:shadow-[#217093]/10 cursor-pointer group"
               onClick={handleSignUp}>
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
