@@ -10,6 +10,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()
     last_login = serializers.SerializerMethodField()
+    is_google_authenticated = serializers.SerializerMethodField()
 
     class Meta:
         model = CustomUser
@@ -18,13 +19,14 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'first_name', 'last_name',  # Add alias fields for frontend compatibility
             'region', 'city', 'company', 'is_staff', 'is_superuser',
             'allow_notifications',
+            'is_google_authenticated',
             'created_at', 'updated_at', 'last_login'
         )
         extra_kwargs = {
             'password': {'write_only': True},
             'region': {'required': False, 'allow_null': True},
             'city': {'required': False, 'allow_null': True},
-            'company': {'required': True, 'allow_null': False},
+            'company': {'required': False, 'allow_null': True, 'allow_blank': True},
             'is_staff': {'read_only': True},
             'is_superuser': {'read_only': True},
             'allow_notifications': {'required': False},
@@ -50,6 +52,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
             return obj.last_login.isoformat()
         return None
 
+    def get_is_google_authenticated(self, obj):
+        return bool(getattr(obj, 'google_sub', None))
+
     def create(self, validated_data):
         # Handle the alias fields
         if 'first_name' in validated_data:
@@ -65,7 +70,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             surname=validated_data['surname'],
             region=validated_data.get('region'),
             city=validated_data.get('city'),
-            company=validated_data.get('company'),
+            company=validated_data.get('company') or "",
             allow_notifications=validated_data.get('allow_notifications', True)
         )
         return user

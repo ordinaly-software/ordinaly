@@ -51,7 +51,7 @@ const AdminTermsTab = () => {
     const [tagsLoading, setTagsLoading] = useState(false);
 
     // Token for API requests
-    const token = typeof window !== "undefined" ? localStorage.getItem("authToken") : null;
+    const token = typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
 
   async function fetchAvailableTags(token?: string): Promise<{ value: string; label: string }[]> {
     const res = await fetch(getApiEndpoint("/api/terms/available_tags/"), {

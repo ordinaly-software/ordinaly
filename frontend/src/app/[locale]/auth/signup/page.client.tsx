@@ -10,7 +10,6 @@ import Alert from "@/components/ui/alert";
 import { User, Mail, Lock, Building2, Eye, EyeOff, Globe, MapPin } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
 import Image from "next/image";
-import GoogleSignInButton from '@/components/auth/google-signin-button';
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 
@@ -28,13 +27,14 @@ function SignupPageContent() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [showImage, setShowImage] = useState(true);
-  const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
+  const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token =
+      localStorage.getItem('auth_token');
     if (token) {
       // Redirect to home if already authenticated
       window.location.href = '/';
@@ -42,17 +42,17 @@ function SignupPageContent() {
     }
 
     const handleResize = () => {
-      if (window.innerWidth >= 1025 ) {
+      if (window.innerWidth >= 1025) {
         setShowImage(true);
       } else {
         setShowImage(false);
       }
     };
 
-  handleResize(); // Check on mount
-  window.addEventListener("resize", handleResize);
+    handleResize(); // Check on mount
+    window.addEventListener("resize", handleResize);
 
-  return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -98,13 +98,12 @@ function SignupPageContent() {
   }, []);
 
   const validateForm = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
 
     if (!name.trim()) newErrors.name = t("messages.validation.nameRequired");
     if (!surname.trim()) newErrors.surname = t("messages.validation.surnameRequired");
     if (!email.trim()) newErrors.email = t("messages.validation.emailRequired");
     if (!email.includes("@")) newErrors.email = t("messages.validation.emailInvalid");
-    if (!company.trim()) newErrors.company = t("messages.validation.companyRequired");
     if (!password) newErrors.password = t("messages.validation.passwordRequired");
     if (password.length < 8) newErrors.password = t("messages.validation.passwordTooShort");
     if (password !== confirmPassword) newErrors.confirmPassword = t("messages.validation.passwordMismatch");
@@ -116,7 +115,7 @@ function SignupPageContent() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       setAlert({ type: 'error', message: t("messages.validation.formIncomplete") });
       return;
@@ -129,13 +128,13 @@ function SignupPageContent() {
     try {
       // Generate username from email prefix
       const username = email.split('@')[0];
-      
+
       const signupData: Record<string, unknown> = {
         name: name.trim(),
         surname: surname.trim(),
         username: username.trim(),
         email: email.trim(),
-        company: company.trim(),
+        company: company.trim() || null,
         region: region.trim() || null,
         city: city.trim() || null,
         password: password,
@@ -155,11 +154,11 @@ function SignupPageContent() {
       if (response.ok) {
         // Store token if provided
         if (data.token) {
-          localStorage.setItem('authToken', data.token);
+          localStorage.setItem('auth_token', data.token);
         }
-        
-        setAlert({type: 'success', message: t("messages.success")});
-        
+
+        setAlert({ type: 'success', message: t("messages.success") });
+
         // Redirect to home after 2 seconds
         setTimeout(() => {
           window.location.href = '/';
@@ -187,25 +186,25 @@ function SignupPageContent() {
         };
 
         const usernameError = data.username ? getFieldError('username', data.username) : null;
-        if (usernameError?.inline) setErrors(prev => ({...prev, username: usernameError.message}));
+        if (usernameError?.inline) setErrors(prev => ({ ...prev, username: usernameError.message }));
         if (usernameError?.alert) duplicateAlertMessage = usernameError.message;
 
         const emailError = data.email ? getFieldError('email', data.email) : null;
-        if (emailError?.inline) setErrors(prev => ({...prev, email: emailError.message}));
+        if (emailError?.inline) setErrors(prev => ({ ...prev, email: emailError.message }));
         if (emailError?.alert) duplicateAlertMessage = emailError.message;
 
-        if (data.password) setErrors(prev => ({...prev, password: data.password[0] || data.password}));
-        if (data.company) setErrors(prev => ({...prev, company: data.company[0] || data.company}));
+        if (data.password) setErrors(prev => ({ ...prev, password: data.password[0] || data.password }));
+        if (data.company) setErrors(prev => ({ ...prev, company: data.company[0] || data.company }));
         if (duplicateAlertMessage) {
-          setAlert({type: 'error', message: duplicateAlertMessage});
+          setAlert({ type: 'error', message: duplicateAlertMessage });
         } else if (data.non_field_errors) {
-          setAlert({type: 'error', message: Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors});
+          setAlert({ type: 'error', message: Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors });
         } else if (data.detail) {
-          setAlert({type: 'error', message: data.detail});
+          setAlert({ type: 'error', message: data.detail });
         }
       }
     } catch {
-      setAlert({type: 'error', message: t("messages.networkError")});
+      setAlert({ type: 'error', message: t("messages.networkError") });
     } finally {
       setIsLoading(false);
     }
@@ -218,7 +217,7 @@ function SignupPageContent() {
     }
   };
 
-    const handleGoogleSuccess = (data: {
+  const handleGoogleSuccess = (data: {
     token: string;
     user: {
       id: number;
@@ -230,11 +229,11 @@ function SignupPageContent() {
     profile_complete: boolean;
     message: string;
   }) => {
-    // Store token
-    localStorage.setItem('authToken', data.token);
-    
-    setAlert({type: 'success', message: data.message});
-    
+    // Store token in all known keys for backward compatibility
+    localStorage.setItem('auth_token', data.token);
+
+    setAlert({ type: 'success', message: data.message });
+
     // Redirect based on profile completion
     setTimeout(() => {
       if (data.profile_complete) {
@@ -271,9 +270,8 @@ function SignupPageContent() {
                 {t("subtitle")}
               </p>
               <div
-                className={`relative overflow-hidden rounded-2xl ${
-                  showImage ? "block" : "hidden"
-                }`}
+                className={`relative overflow-hidden rounded-2xl ${showImage ? "block" : "hidden"
+                  }`}
               >
                 <Image
                   src="/static/signup_illustration.webp"
@@ -299,13 +297,28 @@ function SignupPageContent() {
 
                   {/* Add Google Sign-Up at the top */}
                   <div className="mb-6">
-                    <GoogleSignInButton
-                      onSuccess={handleGoogleSuccess}
-                      className="border-gray-300 dark:border-gray-600 hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F]"
-                    >
-                      {t("form.signupWithGoogle")}
-                    </GoogleSignInButton>
-                        
+                    <button
+                        onClick={() => {
+                          window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
+                        }}
+                        className="
+                              w-full flex items-center justify-center gap-3
+                              bg-white dark:bg-gray-900
+                              border border-gray-300 dark:border-gray-700
+                              rounded-lg py-3 px-4
+                              shadow hover:shadow-md
+                              transition-all
+                              hover:border-[#1F8A0D]
+                              hover:bg-[#1F8A0D]/10
+                              dark:hover:bg-[#3FBD6F]/20
+                              "
+                      >
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                         className="w-5 h-5" alt="Google" />
+                        <span className="font-medium">{t("form.signupWithGoogle")}</span>
+                      </button>
+
+
                     <div className="relative mt-6">
                       <div className="absolute inset-0 flex items-center">
                         <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
@@ -394,7 +407,6 @@ function SignupPageContent() {
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompany(e.target.value)}
                           className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                           placeholder={t("form.companyPlaceholder")}
-                          required
                         />
                       </div>
                       {errors.company && <p className="text-red-500 text-sm">{errors.company}</p>}
@@ -512,18 +524,18 @@ function SignupPageContent() {
                         />
                         <Label htmlFor="acceptTerms" className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                           {t("form.acceptTerms")}
-                          <a 
-                            href="/legal?tab=terms" 
-                            target="_blank" 
+                          <a
+                            href="/legal?tab=terms"
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] underline font-medium"
                           >
                             {t("form.termsLink")}
                           </a>
                           {t("form.and")}
-                          <a 
-                            href="/legal?tab=privacy" 
-                            target="_blank" 
+                          <a
+                            href="/legal?tab=privacy"
+                            target="_blank"
                             rel="noopener noreferrer"
                             className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] underline font-medium"
                           >

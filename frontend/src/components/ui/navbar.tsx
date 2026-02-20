@@ -16,6 +16,9 @@ import { useServices } from "@/hooks/useServices";
 import { useCourses } from "@/hooks/useCourses";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 
+
+
+
 // Custom User Menu Component
 const UserMenu = ({
   options,
@@ -180,6 +183,8 @@ const Navbar = () => {
     window.open(whatsappUrl, "_blank");
   }, [t]);
 
+  const getStoredAuthToken = useCallback(() => localStorage.getItem("auth_token"), []);
+
   const userMenuOptions = useMemo((): DropdownOption[] => {
     const options: DropdownOption[] = [{ value: "profile", label: t("navigation.profile"), icon: User }];
 
@@ -233,7 +238,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = getStoredAuthToken();
     const authState = !!token;
     setIsAuthenticated(authState);
 
@@ -241,7 +246,7 @@ const Navbar = () => {
       fetchUserData(token);
       fetchEnrollmentStatus(token);
     }
-  }, [fetchUserData, fetchEnrollmentStatus]);
+  }, [fetchEnrollmentStatus, fetchUserData, getStoredAuthToken]);
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -277,7 +282,7 @@ const Navbar = () => {
 
   const handleSignOut = useCallback(async () => {
     try {
-      const token = localStorage.getItem("authToken");
+      const token = getStoredAuthToken();
       if (token) {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
         fetch(`${apiUrl}/api/users/signout/`, {
@@ -286,20 +291,20 @@ const Navbar = () => {
             Authorization: `Token ${token}`,
             "Content-Type": "application/json",
           },
-        }).catch(() => {});
+        }).catch(() => { });
       }
     } catch (error) {
       console.warn("Signout error:", error);
     }
 
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("auth_token");
     setIsAuthenticated(false);
     setUserData(null);
     setHasEnrolledCourses(false);
     setIsMenuOpen(false);
     setShowLogoutModal(false);
     window.location.href = "/";
-  }, []);
+  }, [getStoredAuthToken]);
 
   const goToSignIn = useCallback(() => {
     router.push("/auth/signin");
@@ -499,25 +504,28 @@ const Navbar = () => {
                     ariaLabel={t("navigation.userMenu")}
                   />
                 ) : (
-                  <div className="flex items-center space-x-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={goToSignIn}
-                      aria-label={t("navigation.signIn")}
-                      className="text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-all duration-200 flex items-center h-8 sm:h-9 text-xs sm:text-sm"
-                    >
-                      <LogIn className="h-4 w-4 mr-2" />
-                      <span>{t("navigation.signIn")}</span>
-                    </Button>
-                    <Button
-                      size="sm"
-                      onClick={goToSignUp}
-                      className="bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black transition-all duration-200 hover:scale-105 h-8 sm:h-9 px-3 sm:px-4 text-xs sm:text-sm"
-                    >
-                      {t("navigation.signUp")}
-                    </Button>
-                  </div>
+                  <>
+                    <div className="flex items-center space-x-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={goToSignIn}
+                        aria-label={t("navigation.signIn")}
+                        className="text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-all duration-200 flex items-center h-8 sm:h-9 text-xs sm:text-sm"
+                      >
+                        <LogIn className="h-4 w-4 mr-2" />
+                        <span>{t("navigation.signIn")}</span>
+                      </Button>
+
+                      <Button
+                        size="sm"
+                        onClick={goToSignUp}
+                        className="bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black transition-all duration-200 hover:scale-105 h-8 sm:h-9 px-3 sm:px-4 text-xs sm:text-sm"
+                      >
+                        {t("navigation.signUp")}
+                      </Button>
+                    </div>
+                  </>
                 )
               ) : null}
 

@@ -22,12 +22,13 @@ interface UserProfile {
   // Also support backend field names
   name?: string;
   surname?: string;
-  company: string;
+  company: string | null;
   region: string | null;
   city: string | null;
   created_at: string;
   updated_at: string;
   allow_notifications?: boolean;
+  is_google_authenticated?: boolean;
 }
 
 interface Enrollment {
@@ -38,13 +39,15 @@ interface Enrollment {
 }
 
 export default function ProfilePage() {
+
+
   const t = useTranslations("profile");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [authToken, setAuthToken] = useState<string | null>(null);
-  
+
   // Form states
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [firstName, setFirstName] = useState("");
@@ -54,13 +57,13 @@ export default function ProfilePage() {
   const [company, setCompany] = useState("");
   const [region, setRegion] = useState("");
   const [city, setCity] = useState("");
-  
+
   // UI states
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [errors, setErrors] = useState<{[key: string]: string}>({});
-  const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
   const [allowNotifications, setAllowNotifications] = useState(false);
@@ -71,6 +74,7 @@ export default function ProfilePage() {
   const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([]);
   const [coursesLoading, setCoursesLoading] = useState(false);
   const [coursesError, setCoursesError] = useState<string | null>(null);
+
 
   // Track changes to form fields
   const handleFieldChange = (field: string, value: string | boolean) => {
@@ -120,7 +124,7 @@ export default function ProfilePage() {
         const response = await fetch(`${apiUrl}/api/users/update_profile/`, {
           method: 'PATCH',
           headers: {
-            'Authorization': `Token ${authToken}`,
+            Authorization: `Token ${authToken}`,
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ allow_notifications: pendingNotificationValue }),
@@ -159,7 +163,7 @@ export default function ProfilePage() {
     const originalRegion = profile.region || '';
     const originalCity = profile.city || '';
     const originalAllowNotifications = profile.allow_notifications ?? false;
-    const hasAnyChanges = 
+    const hasAnyChanges =
       firstName !== originalFirstName ||
       lastName !== originalLastName ||
       username !== originalUsername ||
@@ -204,7 +208,7 @@ export default function ProfilePage() {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
       const enrollmentsResponse = await fetch(`${apiUrl}/api/courses/enrollments/`, {
         headers: {
-          'Authorization': `Token ${authTokenToUse}`,
+          Authorization: `Token ${authTokenToUse}`,
           'Content-Type': 'application/json',
         },
       });
@@ -261,7 +265,7 @@ export default function ProfilePage() {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
       const response = await fetch(`${apiUrl}/api/users/profile/`, {
         headers: {
-          'Authorization': `Token ${authTokenToUse}`,
+          Authorization: `Token ${authTokenToUse}`,
           'Content-Type': 'application/json',
         },
       });
@@ -269,7 +273,7 @@ export default function ProfilePage() {
       if (response.ok) {
         const data = await response.json();
         setProfile(data);
-        
+
         // Set form values - handle both frontend and backend field names
         setFirstName(data.first_name || data.name || "");
         setLastName(data.last_name || data.surname || "");
@@ -295,33 +299,42 @@ export default function ProfilePage() {
   }, [authToken, t]);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    setAuthToken(token);
-    setIsAuthenticated(!!token);
+    const token =
+      localStorage.getItem("auth_token");
 
-    // Redirect if not authenticated
     if (!token) {
-      window.location.href = "/auth/signin";
+      setIsAuthenticated(false);
       return;
     }
+
+    setAuthToken(token);
+    setIsAuthenticated(true);
+
 
     const loadProfileAndCourses = async () => {
       const profileData = await fetchProfile(token);
       await fetchEnrolledCourses(token, profileData?.id);
     };
+
     loadProfileAndCourses();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+  if (isAuthenticated === false) {
+    window.location.href = "/auth/signin";
+  }
+}, [isAuthenticated]);
+
+
+
   const validateForm = () => {
-    const newErrors: {[key: string]: string} = {};
+    const newErrors: { [key: string]: string } = {};
 
     if (!firstName.trim()) newErrors.firstName = t("messages.validation.firstNameRequired");
     if (!lastName.trim()) newErrors.lastName = t("messages.validation.lastNameRequired");
     if (!username.trim()) newErrors.username = t("messages.validation.usernameRequired");
     if (!email.trim()) newErrors.email = t("messages.validation.emailRequired");
     if (!email.includes("@")) newErrors.email = t("messages.validation.emailInvalid");
-    if (!company.trim()) newErrors.company = t("messages.validation.companyRequired");
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -340,7 +353,7 @@ export default function ProfilePage() {
         last_name: lastName.trim(),
         username: username.trim(),
         email: email.trim(),
-        company: company.trim(),
+        company: company.trim() || null,
         region: region.trim() || null,
         city: city.trim() || null,
         allow_notifications: allowNotifications,
@@ -350,7 +363,7 @@ export default function ProfilePage() {
       const response = await fetch(`${apiUrl}/api/users/update_profile/`, {
         method: 'PATCH',
         headers: {
-          'Authorization': `Token ${authToken}`,
+          Authorization: `Token ${authToken}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updateData),
@@ -359,7 +372,7 @@ export default function ProfilePage() {
       if (response.ok) {
         const data = await response.json();
         setProfile(data);
-        
+
         // Update form fields with returned data
         setFirstName(data.first_name || data.name || "");
         setLastName(data.last_name || data.surname || "");
@@ -369,29 +382,29 @@ export default function ProfilePage() {
         setRegion(data.region || "");
         setCity(data.city || "");
         setAllowNotifications(!!data.allow_notifications);
-        
+
         setAlert({ type: 'success', message: t("messages.updateSuccess") });
         setHasChanges(false);
       } else {
         const data = await response.json();
-        
+
         // Handle validation errors from Django
         if (data.username) {
-          setErrors(prev => ({...prev, username: Array.isArray(data.username) ? data.username[0] : data.username}));
+          setErrors(prev => ({ ...prev, username: Array.isArray(data.username) ? data.username[0] : data.username }));
         }
         if (data.email) {
-          setErrors(prev => ({...prev, email: Array.isArray(data.email) ? data.email[0] : data.email}));
+          setErrors(prev => ({ ...prev, email: Array.isArray(data.email) ? data.email[0] : data.email }));
         }
         if (data.first_name || data.name) {
           const nameError = data.first_name || data.name;
-          setErrors(prev => ({...prev, firstName: Array.isArray(nameError) ? nameError[0] : nameError}));
+          setErrors(prev => ({ ...prev, firstName: Array.isArray(nameError) ? nameError[0] : nameError }));
         }
         if (data.last_name || data.surname) {
           const surnameError = data.last_name || data.surname;
-          setErrors(prev => ({...prev, lastName: Array.isArray(surnameError) ? surnameError[0] : surnameError}));
+          setErrors(prev => ({ ...prev, lastName: Array.isArray(surnameError) ? surnameError[0] : surnameError }));
         }
         if (data.company) {
-          setErrors(prev => ({...prev, company: Array.isArray(data.company) ? data.company[0] : data.company}));
+          setErrors(prev => ({ ...prev, company: Array.isArray(data.company) ? data.company[0] : data.company }));
         }
         if (data.non_field_errors) {
           setAlert({ type: 'error', message: Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors });
@@ -399,12 +412,12 @@ export default function ProfilePage() {
         if (data.detail) {
           setAlert({ type: 'error', message: data.detail });
         }
-        
+
         // If no specific errors, show generic error
         if (!data.username && !data.email && !data.first_name && !data.name && !data.last_name && !data.surname && !data.company && !data.non_field_errors && !data.detail) {
           setAlert({ type: 'error', message: t("messages.updateError") });
         }
-        
+
         if (response.status === 401) {
           // Token expired, redirect to sign in
           setTimeout(() => {
@@ -443,14 +456,14 @@ export default function ProfilePage() {
       const response = await fetch(`${apiUrl}/api/users/delete_profile/`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Token ${authToken}`,
+          Authorization: `Token ${authToken}`,
           'Content-Type': 'application/json',
         },
       });
 
       if (response.ok || response.status === 204) {
         setAlert({ type: 'success', message: t("messages.deleteSuccess") });
-        
+
         // Call signout API and then redirect after 2 seconds
         setTimeout(async () => {
           try {
@@ -459,7 +472,7 @@ export default function ProfilePage() {
               await fetch(`${apiUrl}/api/users/signout/`, {
                 method: 'POST',
                 headers: {
-                  'Authorization': `Token ${authToken}`,
+                  Authorization: `Token ${authToken}`,
                   'Content-Type': 'application/json',
                 },
               }).catch(() => {
@@ -470,7 +483,7 @@ export default function ProfilePage() {
             // Ignore errors, account is being deleted anyway
           }
 
-          localStorage.removeItem('authToken');
+          localStorage.removeItem('auth_token');
           window.location.href = '/';
         }, 2000);
       } else {
@@ -489,7 +502,7 @@ export default function ProfilePage() {
     }
   };
 
-  if (!isAuthenticated || isLoading) {
+  if (isAuthenticated === null || isLoading) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
         <div className="flex items-center justify-center min-h-[60vh]">
@@ -545,6 +558,7 @@ export default function ProfilePage() {
               company={company}
               region={region}
               city={city}
+              isGoogleAuthenticated={Boolean(profile?.is_google_authenticated)}
               errors={errors}
               hasChanges={hasChanges}
               isSaving={isSaving}

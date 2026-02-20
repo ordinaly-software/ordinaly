@@ -30,7 +30,7 @@ const AdminServicesTab = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       if (selectedServices.length > 0) {
         // Bulk delete
         const deletePromises = selectedServices.map(id =>
@@ -207,7 +207,7 @@ const AdminServicesTab = () => {
 
   const handleDuplicate = async (service: Service) => {
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       const identifier = service.slug ?? service.id;
       const response = await fetch(getApiEndpoint(`/api/services/${identifier}/duplicate/`), {
         method: 'POST',

@@ -10,7 +10,6 @@ import Footer from "@/components/ui/footer";
 import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
-import GoogleSignInButton from '@/components/auth/google-signin-button';
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 
@@ -21,10 +20,11 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
+  const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
+    const token =
+      localStorage.getItem('auth_token');
     if (token) {
       window.location.href = '/';
       return;
@@ -75,9 +75,9 @@ export default function LoginPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email.trim() || !password) {
-      setAlert({type: 'error', message: t('messages.fillAllFields')});
+      setAlert({ type: 'error', message: t('messages.fillAllFields') });
       return;
     }
 
@@ -85,7 +85,7 @@ export default function LoginPage() {
     setAlert(null);
 
     try {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
       const response = await fetch(`${apiUrl}/api/users/signin/`, {
         method: 'POST',
         headers: {
@@ -100,20 +100,20 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Store token
-        localStorage.setItem('authToken', data.token);
-        
-        setAlert({type: 'success', message: t('messages.success')});
-        
+        // Store token in all known keys for backward compatibility
+        localStorage.setItem('auth_token', data.token);
+
+        setAlert({ type: 'success', message: t('messages.success') });
+
         // Redirect to home after 1 second
         setTimeout(() => {
           window.location.href = '/';
         }, 1000);
       } else {
-        setAlert({type: 'error', message: t('messages.invalidCredentials')});
+        setAlert({ type: 'error', message: t('messages.invalidCredentials') });
       }
     } catch {
-      setAlert({type: 'error', message: t('messages.networkError')});
+      setAlert({ type: 'error', message: t('messages.networkError') });
     } finally {
       setIsLoading(false);
     }
@@ -139,11 +139,11 @@ export default function LoginPage() {
     profile_complete: boolean;
     message: string;
   }) => {
-    // Store token
-    localStorage.setItem('authToken', data.token);
-    
-    setAlert({type: 'success', message: data.message});
-    
+    // Store token in all known keys for backward compatibility
+    localStorage.setItem('auth_token', data.token);
+
+    setAlert({ type: 'success', message: data.message });
+
     // Redirect based on profile completion
     setTimeout(() => {
       if (data.profile_complete) {
@@ -171,7 +171,7 @@ export default function LoginPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#3FBD6F]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
-            
+
             {/* Left side: Title + Illustration (hidden on mobile) */}
             <div className="scroll-animate slide-in-left">
               <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#1F8A0D] dark:from-[#3FBD6F] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent leading-tight pb-2">
@@ -185,9 +185,46 @@ export default function LoginPage() {
             {/* Right side: Login Card */}
             <div className="scroll-animate slide-in-right">
               <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] transition-all duration-300 hover:shadow-xl hover:shadow-[#1F8A0D]/10">
-              <br></br>
+                <br></br>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
+
+                  {/* Google Sign-In */}
+                  <div className="mt-6">
+                    <div className="relative mb-6">
+                      <button
+                        onClick={() => {
+                          window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
+                        }}
+                        className="
+                              w-full flex items-center justify-center gap-3
+                              bg-white dark:bg-gray-900
+                              border border-gray-300 dark:border-gray-700
+                              rounded-lg py-3 px-4
+                              shadow hover:shadow-md
+                              transition-all
+                              hover:border-[#1F8A0D]
+                              hover:bg-[#1F8A0D]/10
+                              dark:hover:bg-[#3FBD6F]/20
+                              "
+                      >
+                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
+                        className="w-5 h-5" alt="Google" />
+                        <span className="font-medium">{t("form.continueWithGoogle")}</span>
+                      </button>
+                    </div>
+                    <div className="relative">
+                      <div className="absolute inset-0 flex items-center">
+                        <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                      </div>
+                      <div className="relative flex justify-center text-sm">
+                        <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                          {t("form.orContinueWith")}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-gray-800 dark:text-gray-200">
                         {t("form.emailLabel")}
@@ -258,29 +295,6 @@ export default function LoginPage() {
                       {t("form.signupLink")}
                     </Link>
                   </p>
-
-                   {/* Add Google Sign-In */}
-                   <div className="mt-6">
-                     <div className="relative">
-                       <div className="absolute inset-0 flex items-center">
-                         <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
-                       </div>
-                       <div className="relative flex justify-center text-sm">
-                         <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
-                           {t("form.orContinueWith")}
-                         </span>
-                       </div>
-                     </div>
-                                   
-                     <div className="mt-6">
-                       <GoogleSignInButton
-                         onSuccess={handleGoogleSuccess}
-                         className="border-gray-300 dark:border-gray-600 hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F]"
-                       >
-                         {t("form.continueWithGoogle")}
-                       </GoogleSignInButton>
-                     </div>
-                   </div>
 
                 </CardContent>
               </Card>

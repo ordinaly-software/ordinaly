@@ -597,6 +597,19 @@
       "googleSignUpError": "Error al registrarse con Google. Por favor, intenta de nuevo"
     }
   },
+  "oauthCallback": {
+    "processing": "Procesando autenticación...",
+    "errors": {
+      "cancelled": "El inicio de sesión con Google fue cancelado. Inténtalo de nuevo.",
+      "invalidToken": "El token de autenticación es inválido o ha expirado. Inicia sesión de nuevo.",
+      "accountConflict": "Este correo ya está vinculado a otro método de inicio de sesión.",
+      "generic": "Falló la autenticación. Por favor, intenta iniciar sesión de nuevo."
+    },
+    "actions": {
+      "goToSignIn": "Ir a iniciar sesión",
+      "goHome": "Ir al inicio"
+    }
+  },
   "admin": {
     "title": "Panel de Administración",
     "subtitle": "Gestiona el contenido y configuración de tu aplicación",
@@ -1751,6 +1764,11 @@
     "loading": "Cargando perfil...",
     "personalInfo": "Información Personal",
     "dangerZone": "Zona de Peligro",
+    "authProvider": {
+      "label": "Autenticación",
+      "google": "Cuenta de Google",
+      "credentials": "Correo y contraseña"
+    },
     "tabs": {
       "profile": "Perfil",
       "courses": "Mis cursos"

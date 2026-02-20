@@ -52,6 +52,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
+    google_sub = models.CharField(max_length=255, null=True, blank=True, unique=True)
 
     # User preference for receiving newsletters and email communications
     allow_notifications = models.BooleanField(
@@ -62,12 +63,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'company']
+    REQUIRED_FIELDS = ['username']
 
     region = models.CharField(max_length=50, null=True, blank=True, default=None)
     city = models.CharField(max_length=50, null=True, blank=True, default=None)
 
-    company = models.CharField(max_length=50, null=False, blank=False, default=None)
+    company = models.CharField(max_length=50, null=True, blank=True, default="")
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

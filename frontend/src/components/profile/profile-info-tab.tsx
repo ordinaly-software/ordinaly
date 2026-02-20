@@ -3,6 +3,7 @@
 import React from "react";
 import { useTranslations } from "next-intl";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Slider from "@/components/ui/slider";
@@ -17,6 +18,7 @@ interface ProfileInfoTabProps {
   company: string;
   region: string;
   city: string;
+  isGoogleAuthenticated: boolean;
   errors: Record<string, string>;
   hasChanges: boolean;
   isSaving: boolean;
@@ -35,6 +37,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
   company,
   region,
   city,
+  isGoogleAuthenticated,
   errors,
   hasChanges,
   isSaving,
@@ -58,6 +61,19 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                 {t("personalInfo")}
               </span>
             </CardTitle>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                {t("authProvider.label")}:
+              </span>
+              <Badge
+                variant={isGoogleAuthenticated ? "secondary" : "outline"}
+                className={isGoogleAuthenticated
+                  ? "border-transparent bg-[#DBEAFE] text-[#1D4ED8] dark:bg-[#1E3A8A]/40 dark:text-[#93C5FD]"
+                  : "border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-300"}
+              >
+                {isGoogleAuthenticated ? t("authProvider.google") : t("authProvider.credentials")}
+              </Badge>
+            </div>
           </CardHeader>
           <CardContent>
             <form className="space-y-6">
@@ -156,7 +172,6 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("company", e.target.value)}
                     className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                     placeholder={t("form.companyPlaceholder")}
-                    required
                   />
                 </div>
                 {errors.company && <p className="text-red-500 text-sm">{errors.company}</p>}

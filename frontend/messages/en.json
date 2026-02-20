@@ -598,6 +598,19 @@
       "googleSignUpError": "Google sign-up failed. Please try again."
     }
   },
+  "oauthCallback": {
+    "processing": "Processing authentication...",
+    "errors": {
+      "cancelled": "Google sign-in was cancelled. Please try again.",
+      "invalidToken": "The authentication token is invalid or expired. Please sign in again.",
+      "accountConflict": "This email is already linked to another sign-in method.",
+      "generic": "Authentication failed. Please try signing in again."
+    },
+    "actions": {
+      "goToSignIn": "Go to sign in",
+      "goHome": "Go to home"
+    }
+  },
   "admin": {
     "title": "Admin Dashboard",
     "subtitle": "Manage your application content and settings",
@@ -1752,6 +1765,11 @@
     "loading": "Loading profile...",
     "personalInfo": "Personal Information",
     "dangerZone": "Danger Zone",
+    "authProvider": {
+      "label": "Authentication",
+      "google": "Google account",
+      "credentials": "Email and password"
+    },
     "tabs": {
       "profile": "Profile",
       "courses": "My courses"

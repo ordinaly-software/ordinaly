@@ -42,7 +42,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
 
   useEffect(() => {
     // Check authentication status on mount
-    const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+    const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
     setIsAuthenticated(!!token);
   }, []);
   

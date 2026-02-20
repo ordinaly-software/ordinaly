@@ -304,7 +304,7 @@ export const AdminServiceEditModal = ({
         setAlert({ type: "error", message: t("messages.validation.priceInvalid") });
         return;
       }
-      const token = localStorage.getItem("authToken");
+      const token = localStorage.getItem("auth_token");
       const payload = buildFormData();
       const url = isEdit && initialService
         ? getApiEndpoint(`/api/services/${initialService.id}/`)

@@ -67,7 +67,7 @@ export const useCourses = (options: UseCoursesOptions = {}, isAdmin: boolean = f
       const url = `${baseUrl}/api/courses/courses/${queryParams.toString() ? `?${queryParams.toString()}` : ''}`;
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (isAdmin) {
-        const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+        const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
         if (token) headers['Authorization'] = `Token ${token}`;
       }
       const response = await fetch(url, {
