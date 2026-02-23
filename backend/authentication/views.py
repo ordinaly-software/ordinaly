@@ -10,12 +10,14 @@ from google.auth.transport import requests as google_requests
 
 from rest_framework import generics 
 from rest_framework.response import Response 
-from authentication.serializers import SignupSerializer
+from authentication.serializers import SignupSerializer, LoginSerializer
 from authentication.serializers import VerifyEmailSerializer
 from authentication.serializers import ResendVerificationSerializer
 from .utils import create_internal_token
 from rest_framework.permissions import IsAuthenticated 
 from authentication.serializers import ChangeEmailUnverifiedSerializer
+from rest_framework import status 
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 def _frontend_base_url():
@@ -139,12 +141,27 @@ def google_callback(request):
         print("Unexpected OAuth error:", e)
         return redirect(f"{_frontend_base_url()}/auth/signin?error=unexpected")
 
-class SignupView(generics.CreateAPIView): 
-    serializer_class = SignupSerializer 
-    
+class SignupView(generics.CreateAPIView):
+    serializer_class = SignupSerializer
+
     def create(self, request, *args, **kwargs):
-        super().create(request, *args, **kwargs)
-        return Response({"detail": "Cuenta creada. Revisa tu correo para verificarla."})
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+        return Response({
+            "token": access_token,
+            "user": {
+                "id": user.id,
+                "email": user.email,
+                "email_verified": bool(user.email_verified_at),
+            },
+            "message": "Cuenta creada. Revisa tu correo para verificarla."
+        }, status=status.HTTP_201_CREATED)
+
 
 class VerifyEmailView(generics.GenericAPIView):
     serializer_class = VerifyEmailSerializer
@@ -172,6 +189,27 @@ class ChangeEmailUnverifiedView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"detail": "Email actualizado. Revisa tu bandeja para el nuevo código."})
+    
+class LoginView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
+
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+
+        return Response({
+            "token": access_token,
+            "user": {
+                "id": user.id,
+                "email": user.email,
+                "email_verified": bool(user.email_verified_at),
+            }
+        })
+
 
 
 

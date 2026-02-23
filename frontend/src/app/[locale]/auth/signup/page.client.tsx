@@ -13,6 +13,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 
+type AuthUser = {
+  id: number;
+  email: string;
+  email_verified: boolean;
+};
+
+type AuthResponse = {
+  token: string;
+  user: AuthUser;
+  message?: string;
+};
+
+
+
 function SignupPageContent() {
   const t = useTranslations("signup");
   const { isDark } = useTheme();
@@ -149,22 +163,30 @@ function SignupPageContent() {
         body: JSON.stringify(signupData),
       });
 
-      const data = await response.json();
+      const data = (await response.json()) as AuthResponse;
 
       if (response.ok) {
-        // Store token if provided
         if (data.token) {
-          localStorage.setItem('auth_token', data.token);
+          localStorage.setItem("auth_token", data.token);
         }
 
-        setAlert({ type: 'success', message: t("messages.success") });
+        localStorage.setItem("pending_email", data.user.email);
 
-        // Redirect to home after 2 seconds
+        document.cookie = `access_token=${data.token}; path=/;`;
+        document.cookie = `email_verified=${data.user.email_verified ? "true" : "false"}; path=/;`;
+
+        setAlert({ type: "success", message: t("messages.success") });
+
         setTimeout(() => {
-          window.location.href = '/';
-        }, 2000);
+          if (data.user.email_verified) {
+            window.location.href = "/";
+          } else {
+            window.location.href = "/verify-email";
+          }
+        }, 1500);
       } else {
         let duplicateAlertMessage: string | null = null;
+
         const getFieldError = (field: string, value: unknown) => {
           if (!value) return null;
           const rawValue = Array.isArray(value) ? (value[0] as string) : (value as string);
@@ -185,22 +207,28 @@ function SignupPageContent() {
           return { message: rawValue, inline: true, alert: false };
         };
 
-        const usernameError = data.username ? getFieldError('username', data.username) : null;
+        const usernameError = (data as any).username ? getFieldError('username', (data as any).username) : null;
         if (usernameError?.inline) setErrors(prev => ({ ...prev, username: usernameError.message }));
         if (usernameError?.alert) duplicateAlertMessage = usernameError.message;
 
-        const emailError = data.email ? getFieldError('email', data.email) : null;
+        const emailError = (data as any).email ? getFieldError('email', (data as any).email) : null;
         if (emailError?.inline) setErrors(prev => ({ ...prev, email: emailError.message }));
         if (emailError?.alert) duplicateAlertMessage = emailError.message;
 
-        if (data.password) setErrors(prev => ({ ...prev, password: data.password[0] || data.password }));
-        if (data.company) setErrors(prev => ({ ...prev, company: data.company[0] || data.company }));
+        if ((data as any).password) setErrors(prev => ({ ...prev, password: (data as any).password[0] || (data as any).password }));
+        if ((data as any).company) setErrors(prev => ({ ...prev, company: (data as any).company[0] || (data as any).company }));
+
         if (duplicateAlertMessage) {
           setAlert({ type: 'error', message: duplicateAlertMessage });
-        } else if (data.non_field_errors) {
-          setAlert({ type: 'error', message: Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors });
-        } else if (data.detail) {
-          setAlert({ type: 'error', message: data.detail });
+        } else if ((data as any).non_field_errors) {
+          setAlert({
+            type: 'error',
+            message: Array.isArray((data as any).non_field_errors)
+              ? (data as any).non_field_errors[0]
+              : (data as any).non_field_errors
+          });
+        } else if ((data as any).detail) {
+          setAlert({ type: 'error', message: (data as any).detail });
         }
       }
     } catch {
@@ -210,6 +238,7 @@ function SignupPageContent() {
     }
   };
 
+
   const handleButtonClick = () => {
     const form = document.querySelector('form');
     if (form) {
@@ -217,32 +246,25 @@ function SignupPageContent() {
     }
   };
 
-  const handleGoogleSuccess = (data: {
-    token: string;
-    user: {
-      id: number;
-      username: string;
-      email: string;
-      first_name?: string;
-      last_name?: string;
-    };
-    profile_complete: boolean;
-    message: string;
-  }) => {
-    // Store token in all known keys for backward compatibility
-    localStorage.setItem('auth_token', data.token);
+  const handleGoogleSuccess = (data: AuthResponse) => {
+  localStorage.setItem("auth_token", data.token);
 
-    setAlert({ type: 'success', message: data.message });
+  localStorage.setItem("pending_email", data.user.email);
 
-    // Redirect based on profile completion
-    setTimeout(() => {
-      if (data.profile_complete) {
-        window.location.href = '/';
-      } else {
-        window.location.href = '/users/complete-profile';
-      }
-    }, 2000);
-  };
+  document.cookie = `access_token=${data.token}; path=/;`;
+  document.cookie = `email_verified=${data.user.email_verified ? "true" : "false"}; path=/;`;
+
+  setAlert({ type: "success", message: data.message ?? "Inicio de sesión correcto" });
+
+  setTimeout(() => {
+    if (data.user.email_verified) {
+      window.location.href = "/";
+    } else {
+      window.location.href = "/verify-email";
+    }
+  }, 1500);
+};
+
 
 
   return (
@@ -298,10 +320,10 @@ function SignupPageContent() {
                   {/* Add Google Sign-Up at the top */}
                   <div className="mb-6">
                     <button
-                        onClick={() => {
-                          window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
-                        }}
-                        className="
+                      onClick={() => {
+                        window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
+                      }}
+                      className="
                               w-full flex items-center justify-center gap-3
                               bg-white dark:bg-gray-900
                               border border-gray-300 dark:border-gray-700
@@ -312,11 +334,11 @@ function SignupPageContent() {
                               hover:bg-[#1F8A0D]/10
                               dark:hover:bg-[#3FBD6F]/20
                               "
-                      >
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                         className="w-5 h-5" alt="Google" />
-                        <span className="font-medium">{t("form.signupWithGoogle")}</span>
-                      </button>
+                    >
+                      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                        className="w-5 h-5" alt="Google" />
+                      <span className="font-medium">{t("form.signupWithGoogle")}</span>
+                    </button>
 
 
                     <div className="relative mt-6">

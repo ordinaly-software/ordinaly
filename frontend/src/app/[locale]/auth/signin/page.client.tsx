@@ -103,12 +103,20 @@ export default function LoginPage() {
         // Store token in all known keys for backward compatibility
         localStorage.setItem('auth_token', data.token);
 
+        localStorage.setItem('pending_email', data.user.email);
+        document.cookie = `access_token=${data.token}; path=/;`;
+        document.cookie = `email_verified=${data.user.email_verified ? "true" : "false"}; path=/;`;
+
         setAlert({ type: 'success', message: t('messages.success') });
 
-        // Redirect to home after 1 second
         setTimeout(() => {
-          window.location.href = '/';
+          if (data.user.email_verified) {
+            window.location.href = '/';
+          } else {
+            window.location.href = '/verify-email';
+          }
         }, 1000);
+
       } else {
         setAlert({ type: 'error', message: t('messages.invalidCredentials') });
       }
@@ -189,14 +197,14 @@ export default function LoginPage() {
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
 
-                  {/* Google Sign-In */}
-                  <div className="mt-6">
-                    <div className="relative mb-6">
-                      <button
-                        onClick={() => {
-                          window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
-                        }}
-                        className="
+                    {/* Google Sign-In */}
+                    <div className="mt-6">
+                      <div className="relative mb-6">
+                        <button
+                          onClick={() => {
+                            window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
+                          }}
+                          className="
                               w-full flex items-center justify-center gap-3
                               bg-white dark:bg-gray-900
                               border border-gray-300 dark:border-gray-700
@@ -207,23 +215,23 @@ export default function LoginPage() {
                               hover:bg-[#1F8A0D]/10
                               dark:hover:bg-[#3FBD6F]/20
                               "
-                      >
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
-                        className="w-5 h-5" alt="Google" />
-                        <span className="font-medium">{t("form.continueWithGoogle")}</span>
-                      </button>
-                    </div>
-                    <div className="relative">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                        >
+                          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                            className="w-5 h-5" alt="Google" />
+                          <span className="font-medium">{t("form.continueWithGoogle")}</span>
+                        </button>
                       </div>
-                      <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
-                          {t("form.orContinueWith")}
-                        </span>
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                          <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                            {t("form.orContinueWith")}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-gray-800 dark:text-gray-200">

@@ -4,6 +4,7 @@ from authentication.views import SignupView
 from authentication.views import VerifyEmailView
 from authentication.views import ResendVerificationView
 from authentication.views import ChangeEmailUnverifiedView
+from authentication.views import LoginView
 
 urlpatterns = [
     path("google/login/", views.google_login),
@@ -12,4 +13,6 @@ urlpatterns = [
     path("verify-email/", VerifyEmailView.as_view(), name="verify-email"),
     path("resend-verification/", ResendVerificationView.as_view(), name="resend-verification"),
     path("change-email-unverified/", ChangeEmailUnverifiedView.as_view(), name="change-email-unverified"),
+    path("login/", LoginView.as_view(), name="login"),
+
 ]
