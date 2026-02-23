@@ -8,7 +8,14 @@ from django.contrib.auth import get_user_model
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 
+from rest_framework import generics 
+from rest_framework.response import Response 
+from authentication.serializers import SignupSerializer
+from authentication.serializers import VerifyEmailSerializer
+from authentication.serializers import ResendVerificationSerializer
 from .utils import create_internal_token
+from rest_framework.permissions import IsAuthenticated 
+from authentication.serializers import ChangeEmailUnverifiedSerializer
 
 
 def _frontend_base_url():
@@ -131,3 +138,40 @@ def google_callback(request):
     except Exception as e:
         print("Unexpected OAuth error:", e)
         return redirect(f"{_frontend_base_url()}/auth/signin?error=unexpected")
+
+class SignupView(generics.CreateAPIView): 
+    serializer_class = SignupSerializer 
+    
+    def create(self, request, *args, **kwargs):
+        super().create(request, *args, **kwargs)
+        return Response({"detail": "Cuenta creada. Revisa tu correo para verificarla."})
+
+class VerifyEmailView(generics.GenericAPIView):
+    serializer_class = VerifyEmailSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response({"detail": "Correo verificado correctamente"})
+
+class ResendVerificationView(generics.GenericAPIView):
+    serializer_class = ResendVerificationSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"detail": "Si la cuenta existe, se ha enviado un nuevo código"})
+
+class ChangeEmailUnverifiedView(generics.GenericAPIView):
+    serializer_class = ChangeEmailUnverifiedSerializer
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request):
+        serializer = self.get_serializer(data=request.data, context={"request": request})
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({"detail": "Email actualizado. Revisa tu bandeja para el nuevo código."})
+
+
+
