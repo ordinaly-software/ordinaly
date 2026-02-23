@@ -9,7 +9,7 @@ def send_verification_email(email: str, code: str):
     try:
         payload = {
             "to": email,
-            "template_id": "verification",  # template
+            "template_id": "template_sign_in_verification",  # template
             "variables": {
                 "code": code
             }
@@ -37,7 +37,7 @@ def send_welcome_email(email: str):
     try:
         payload = {
             "to": email,
-            "template_id": "welcome",  # template
+            "template_id": "template_sign_up",  # template
             "variables": {}
         }
 

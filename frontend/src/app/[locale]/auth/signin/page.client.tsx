@@ -13,6 +13,16 @@ import StyledButton from "@/components/ui/styled-button";
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 
+
+type AuthResponse = {
+  id: number;
+  username: string;
+  email: string;
+  token: string;
+  email_verified?: boolean;
+  message?: string;
+};
+
 export default function LoginPage() {
   const t = useTranslations("signin");
   const { isDark } = useTheme();
@@ -77,7 +87,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     if (!email.trim() || !password) {
-      setAlert({ type: 'error', message: t('messages.fillAllFields') });
+      setAlert({ type: "error", message: t("messages.fillAllFields") });
       return;
     }
 
@@ -85,11 +95,11 @@ export default function LoginPage() {
     setAlert(null);
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "";
       const response = await fetch(`${apiUrl}/api/users/signin/`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           emailOrUsername: email.trim(),
@@ -97,35 +107,32 @@ export default function LoginPage() {
         }),
       });
 
-      const data = await response.json();
+
+      const data = (await response.json()) as AuthResponse;
 
       if (response.ok) {
-        // Store token in all known keys for backward compatibility
-        localStorage.setItem('auth_token', data.token);
 
-        localStorage.setItem('pending_email', data.user.email);
-        document.cookie = `access_token=${data.token}; path=/;`;
-        document.cookie = `email_verified=${data.user.email_verified ? "true" : "false"}; path=/;`;
+        localStorage.setItem("auth_token", data.token);
 
-        setAlert({ type: 'success', message: t('messages.success') });
+        localStorage.setItem("pending_email", data.email);
+        document.cookie = `email_verified=true; path=/;`;
+
+        setAlert({ type: "success", message: t("messages.success") });
 
         setTimeout(() => {
-          if (data.user.email_verified) {
-            window.location.href = '/';
-          } else {
-            window.location.href = '/verify-email';
-          }
+          window.location.href = "/verify-email";
         }, 1000);
 
       } else {
-        setAlert({ type: 'error', message: t('messages.invalidCredentials') });
+        setAlert({ type: "error", message: t("messages.invalidCredentials") });
       }
     } catch {
-      setAlert({ type: 'error', message: t('messages.networkError') });
+      setAlert({ type: "error", message: t("messages.networkError") });
     } finally {
       setIsLoading(false);
     }
   };
+
 
   const handleButtonClick = () => {
     const form = document.querySelector('form');
@@ -135,33 +142,21 @@ export default function LoginPage() {
   };
 
 
-  const handleGoogleSuccess = (data: {
-    token: string;
-    user: {
-      id: number;
-      username: string;
-      email: string;
-      first_name?: string;
-      last_name?: string;
-    };
-    profile_complete: boolean;
-    message: string;
-  }) => {
-    // Store token in all known keys for backward compatibility
-    localStorage.setItem('auth_token', data.token);
+  const handleGoogleSuccess = (data: AuthResponse) => {
+    localStorage.setItem("auth_token", data.token);
 
-    setAlert({ type: 'success', message: data.message });
+    localStorage.setItem("pending_email", data.email);
 
-    // Redirect based on profile completion
+    document.cookie = `access_token=${data.token}; path=/;`;
+    document.cookie = `email_verified=${data.email_verified ?? false}; path=/;`;
+    setAlert({
+      type: "success",
+      message: data.message ?? "Inicio de sesión correcto"
+    });
     setTimeout(() => {
-      if (data.profile_complete) {
-        window.location.href = '/';
-      } else {
-        window.location.href = '/users/complete-profile';
-      }
+      window.location.href = "/verify-email";
     }, 1000);
   };
-
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">

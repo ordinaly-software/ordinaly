@@ -26,13 +26,19 @@ export default function VerifyEmailPage() {
     setLoading(true);
     setError("");
 
+    const token = localStorage.getItem("auth_token");
+
     const res = await fetch("http://localhost:8000/auth/verify-email/", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, code }),
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${token}`,
+      },
+      body: JSON.stringify({email, code }),
     });
 
     const data = await res.json();
+    console.log("RESPUESTA DEL BACKEND:", data);
     setLoading(false);
 
     if (!res.ok) {
@@ -40,8 +46,9 @@ export default function VerifyEmailPage() {
       return;
     }
 
-    window.location.href = "/dashboard";
+    window.location.href = "/";
   };
+
 
   const handleResend = async () => {
     setError("");

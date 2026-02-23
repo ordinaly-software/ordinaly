@@ -13,19 +13,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 
-type AuthUser = {
-  id: number;
-  email: string;
-  email_verified: boolean;
-};
+
 
 type AuthResponse = {
+  id: number;
+  username: string;
+  email: string;
   token: string;
-  user: AuthUser;
+  email_verified?: boolean;
   message?: string;
 };
-
-
 
 function SignupPageContent() {
   const t = useTranslations("signup");
@@ -155,13 +152,17 @@ function SignupPageContent() {
       };
 
       const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
+      console.log("API URL:", apiUrl);
+      console.log("Final URL:", `${apiUrl}/api/users/signup/`);
+
       const response = await fetch(`${apiUrl}/api/users/signup/`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(signupData),
       });
+
 
       const data = (await response.json()) as AuthResponse;
 
@@ -170,20 +171,14 @@ function SignupPageContent() {
           localStorage.setItem("auth_token", data.token);
         }
 
-        localStorage.setItem("pending_email", data.user.email);
-
-        document.cookie = `access_token=${data.token}; path=/;`;
-        document.cookie = `email_verified=${data.user.email_verified ? "true" : "false"}; path=/;`;
+        localStorage.setItem("pending_email", data.email);
+        document.cookie = `email_verified=true; path=/;`;
 
         setAlert({ type: "success", message: t("messages.success") });
 
         setTimeout(() => {
-          if (data.user.email_verified) {
-            window.location.href = "/";
-          } else {
-            window.location.href = "/verify-email";
-          }
-        }, 1500);
+          window.location.href = "/verify-email";
+        }, 1000);
       } else {
         let duplicateAlertMessage: string | null = null;
 
@@ -247,25 +242,20 @@ function SignupPageContent() {
   };
 
   const handleGoogleSuccess = (data: AuthResponse) => {
-  localStorage.setItem("auth_token", data.token);
+    localStorage.setItem("auth_token", data.token);
 
-  localStorage.setItem("pending_email", data.user.email);
+    localStorage.setItem("pending_email", data.email);
 
-  document.cookie = `access_token=${data.token}; path=/;`;
-  document.cookie = `email_verified=${data.user.email_verified ? "true" : "false"}; path=/;`;
-
-  setAlert({ type: "success", message: data.message ?? "Inicio de sesión correcto" });
-
-  setTimeout(() => {
-    if (data.user.email_verified) {
-      window.location.href = "/";
-    } else {
+    document.cookie = `access_token=${data.token}; path=/;`;
+    document.cookie = `email_verified=${data.email_verified ?? false}; path=/;`;
+    setAlert({
+      type: "success",
+      message: data.message ?? "Inicio de sesión correcto"
+    });
+    setTimeout(() => {
       window.location.href = "/verify-email";
-    }
-  }, 1500);
-};
-
-
+    }, 1000);
+  };
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
