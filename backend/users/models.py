@@ -74,6 +74,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     company = models.CharField(max_length=50, null=True, blank=True, default="")
     email_verified_at = models.DateTimeField(null=True, blank=True)
+    deletion_token_hash = models.CharField(max_length=255, null=True, blank=True)
+    deletion_token_expires_at = models.DateTimeField(null=True, blank=True)
+
     status = models.CharField(
     max_length=50,
     default="pending_verification",

@@ -19,6 +19,16 @@ from authentication.serializers import ChangeEmailUnverifiedSerializer
 from rest_framework import status 
 from rest_framework_simplejwt.tokens import RefreshToken
 
+import secrets 
+import hashlib 
+from datetime import timedelta 
+from django.utils import timezone 
+from django.http import JsonResponse 
+from rest_framework.decorators import api_view, permission_classes 
+from rest_framework.permissions import IsAuthenticated
+import requests
+from django.conf import settings
+
 
 def _frontend_base_url():
     return os.getenv("FRONTEND_URL", "http://localhost:3000").rstrip("/")
@@ -209,6 +219,59 @@ class LoginView(generics.GenericAPIView):
                 "email_verified": bool(user.email_verified_at),
             }
         })
+
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def request_delete_account(request):
+    user = request.user
+    token = secrets.token_hex(16)
+
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
+
+    user.deletion_token_hash = token_hash
+    user.deletion_token_expires_at = timezone.now() + timedelta(minutes=15)
+    user.save()
+
+    # 4. Send email with BillionMail
+    send_delete_confirmation_email(user.email, token)
+
+    return JsonResponse({"message": "Correo enviado"})
+
+def send_delete_confirmation_email(email, token):
+    requests.post(
+        "https://api.billionmail.com/send",
+        json={
+            "to": email,
+            "template_id": "template_account_removal_confirmation",
+            "variables": {
+                "token": token
+            }
+        },
+        headers={
+            "Authorization": f"Bearer {settings.BILLIONMAIL_API_KEY}"
+        }
+    )
+@api_view(["POST"])
+@permission_classes([IsAuthenticated])
+def confirm_delete_account(request):
+    user = request.user
+    token = request.data.get("token")
+
+    if not token:
+        return JsonResponse({"error": "Token requerido"}, status=400)
+
+    token_hash = hashlib.sha256(token.encode()).hexdigest()
+
+    if user.deletion_token_hash != token_hash:
+        return JsonResponse({"error": "Token inválido"}, status=400)
+
+    if timezone.now() > user.deletion_token_expires_at:
+        return JsonResponse({"error": "Token expirado"}, status=400)
+
+    user.delete()
+
+    return JsonResponse({"message": "Cuenta eliminada"})
+
 
 
 
