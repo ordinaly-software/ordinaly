@@ -47,18 +47,20 @@ export default function ChangeEmailPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white px-6">
-      <div className="max-w-md w-full space-y-6">
-        <h1 className="text-3xl font-semibold text-gray-900">
-          Cambiar email
-        </h1>
+      <div className="max-w-md w-full space-y-6 bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
 
-        <p className="text-gray-600">
-          Email actual:
-        </p>
-
-        <p className="text-gray-900 font-medium bg-gray-100 px-4 py-2 rounded-lg">
-          {oldEmail}
-        </p>
+        <div className="text-center space-y-2">
+          <div className="text-4xl">✉️</div>
+          <h1 className="text-3xl font-semibold text-gray-900">
+            Cambiar email
+          </h1>
+          <p className="text-gray-600">
+            Email actual:
+          </p>
+          <p className="text-gray-900 font-medium bg-gray-100 px-4 py-2 rounded-lg border border-gray-200">
+            {oldEmail}
+          </p>
+        </div>
 
         <div className="space-y-2">
           <label className="text-gray-700 font-medium">Nuevo email</label>
@@ -66,13 +68,24 @@ export default function ChangeEmailPage() {
             type="email"
             value={newEmail}
             onChange={(e) => setNewEmail(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-lg focus:ring-2 focus:ring-black focus:outline-none"
+            className={`w-full border rounded-lg px-4 py-3 text-lg transition-all
+            ${error ? "border-red-500 bg-red-50" : "border-gray-300 focus:ring-2 focus:ring-black"}
+          `}
             placeholder="nuevo@email.com"
           />
         </div>
 
-        {error && <p className="text-red-500 text-sm font-medium">{error}</p>}
-        {success && <p className="text-green-600 text-sm font-medium">{success}</p>}
+        {error && (
+          <p className="text-red-500 text-sm font-medium text-center">
+            {error}
+          </p>
+        )}
+
+        {success && (
+          <p className="text-green-600 text-sm font-medium text-center">
+            {success}
+          </p>
+        )}
 
         <button
           onClick={handleSubmit}
@@ -84,11 +97,12 @@ export default function ChangeEmailPage() {
 
         <button
           onClick={() => (window.location.href = "/verify-email")}
-          className="w-full text-gray-700 font-medium hover:underline"
+          className="w-full text-gray-700 font-medium hover:underline text-center"
         >
           Volver a verificar
         </button>
       </div>
     </div>
   );
+
 }

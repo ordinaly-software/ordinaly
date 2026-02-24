@@ -34,7 +34,7 @@ export default function VerifyEmailPage() {
         "Content-Type": "application/json",
         "Authorization": `Token ${token}`,
       },
-      body: JSON.stringify({email, code }),
+      body: JSON.stringify({ email, code }),
     });
 
     const data = await res.json();
@@ -71,33 +71,41 @@ export default function VerifyEmailPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-white px-6">
-      <div className="max-w-md w-full space-y-6">
-        <h1 className="text-3xl font-semibold text-gray-900">
-          Verifica tu correo
-        </h1>
+      <div className="max-w-md w-full space-y-6 bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
 
-        <p className="text-gray-600">
-          Hemos enviado un código de verificación a:
-        </p>
-
-        <p className="text-gray-900 font-medium bg-gray-100 px-4 py-2 rounded-lg">
-          {email}
-        </p>
+        <div className="text-center space-y-2">
+          <div className="text-4xl">📩</div>
+          <h1 className="text-3xl font-semibold text-gray-900">
+            Verifica tu correo
+          </h1>
+          <p className="text-gray-600">
+            Hemos enviado un código de verificación a:
+          </p>
+          <p className="text-gray-900 font-medium bg-gray-100 px-4 py-2 rounded-lg border border-gray-200">
+            {email}
+          </p>
+        </div>
 
         <div className="space-y-2">
-          <label className="text-gray-700 font-medium">Código de verificación</label>
+          <label className="text-gray-700 font-medium">
+            Código de verificación
+          </label>
           <input
             type="text"
             maxLength={6}
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 text-lg tracking-widest text-center focus:ring-2 focus:ring-black focus:outline-none"
+            className={`w-full border rounded-lg px-4 py-3 text-lg tracking-widest text-center transition-all
+            ${error ? "border-red-500 bg-red-50" : "border-gray-300 focus:ring-2 focus:ring-black"}
+          `}
             placeholder="••••••"
           />
         </div>
 
         {error && (
-          <p className="text-red-500 text-sm font-medium">{error}</p>
+          <p className="text-red-500 text-sm font-medium text-center">
+            {error}
+          </p>
         )}
 
         <button
@@ -123,11 +131,12 @@ export default function VerifyEmailPage() {
 
         <button
           onClick={() => (window.location.href = "/change-email")}
-          className="w-full text-gray-700 font-medium hover:underline"
+          className="w-full text-gray-700 font-medium hover:underline text-center"
         >
           Cambiar email
         </button>
       </div>
     </div>
   );
+
 }
