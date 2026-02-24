@@ -233,7 +233,11 @@ def request_delete_account(request):
     user.save()
 
     # 4. Send email with BillionMail
-    send_delete_confirmation_email(user.email, token)
+    if settings.DEBUG:
+        print("DEBUG: Email de eliminación NO enviado (modo local). Token:", token)
+    else:
+        send_delete_confirmation_email(user.email, token)
+
 
     return JsonResponse({"message": "Correo enviado"})
 

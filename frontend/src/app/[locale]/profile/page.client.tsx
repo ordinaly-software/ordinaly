@@ -12,6 +12,7 @@ import { AdminTabs, type AdminTabsTab } from "@/components/admin/admin-tabs";
 import { User, BookOpen } from "lucide-react";
 import type { Course } from "@/hooks/useCourses";
 import Footer from "@/components/ui/footer";
+import { useParams } from "next/navigation";
 
 interface UserProfile {
   id: number;
@@ -74,6 +75,8 @@ export default function ProfilePage() {
   const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([]);
   const [coursesLoading, setCoursesLoading] = useState(false);
   const [coursesError, setCoursesError] = useState<string | null>(null);
+
+  const { locale } = useParams();
 
 
   // Track changes to form fields
@@ -320,10 +323,10 @@ export default function ProfilePage() {
   }, []);
 
   useEffect(() => {
-  if (isAuthenticated === false) {
-    window.location.href = "/auth/signin";
-  }
-}, [isAuthenticated]);
+    if (isAuthenticated === false) {
+      window.location.href = "/auth/signin";
+    }
+  }, [isAuthenticated]);
 
 
 
@@ -449,58 +452,41 @@ export default function ProfilePage() {
   };
 
   const handleDeleteAccount = async () => {
-    setIsDeleting(true);
+  setIsDeleting(true);
 
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
-      const response = await fetch(`${apiUrl}/api/users/delete_profile/`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Token ${authToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
+    
+    const response = await fetch(`${apiUrl}/auth/delete/request/`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${authToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username }),
+    });
 
-      if (response.ok || response.status === 204) {
-        setAlert({ type: 'success', message: t("messages.deleteSuccess") });
-
-        // Call signout API and then redirect after 2 seconds
-        setTimeout(async () => {
-          try {
-            // Call signout API if needed (optional since we're deleting the account)
-            if (authToken) {
-              await fetch(`${apiUrl}/api/users/signout/`, {
-                method: 'POST',
-                headers: {
-                  Authorization: `Token ${authToken}`,
-                  'Content-Type': 'application/json',
-                },
-              }).catch(() => {
-                // Ignore errors, account is being deleted anyway
-              });
-            }
-          } catch {
-            // Ignore errors, account is being deleted anyway
-          }
-
-          localStorage.removeItem('auth_token');
-          window.location.href = '/';
-        }, 2000);
-      } else {
-        const data = await response.json().catch(() => ({}));
-        if (response.status === 401) {
-          setAlert({ type: 'error', message: t("messages.unauthorizedError") });
-        } else {
-          setAlert({ type: 'error', message: data.detail || t("messages.deleteError") });
-        }
-      }
-    } catch {
-      setAlert({ type: 'error', message: t("messages.networkError") });
-    } finally {
-      setIsDeleting(false);
-      setShowDeleteModal(false);
+    if (response.ok) {
+      window.location.href = `/${locale}/delete_account/email-sent`;
+      return;
     }
-  };
+
+    const data = await response.json().catch(() => ({}));
+    if (response.status === 401) {
+      setAlert({ type: 'error', message: t("messages.unauthorizedError") });
+    } else {
+      setAlert({ type: 'error', message: data.detail || t("messages.deleteError") });
+    }
+
+  } catch {
+    setAlert({ type: 'error', message: t("messages.networkError") });
+  } finally {
+    setIsDeleting(false);
+    setShowDeleteModal(false);
+  }
+};
+
+
 
   if (isAuthenticated === null || isLoading) {
     return (
