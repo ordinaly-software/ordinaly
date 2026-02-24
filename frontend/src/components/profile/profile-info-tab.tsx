@@ -48,6 +48,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
   onDeleteAccount,
 }) => {
   const t = useTranslations("profile");
+  
 
   return (
     <div className="grid lg:grid-cols-3 gap-8">

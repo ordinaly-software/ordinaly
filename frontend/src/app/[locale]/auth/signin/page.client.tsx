@@ -111,19 +111,22 @@ export default function LoginPage() {
       const data = (await response.json()) as AuthResponse;
 
       if (response.ok) {
-
         localStorage.setItem("auth_token", data.token);
-
-        localStorage.setItem("pending_email", data.email);
-        document.cookie = `email_verified=true; path=/;`;
+        document.cookie = `email_verified=${data.email_verified}; path=/`;
 
         setAlert({ type: "success", message: t("messages.success") });
 
-        setTimeout(() => {
-          window.location.href = "/verify-email";
-        }, 1000);
-
-      } else {
+        if (!data.email_verified) {
+          setTimeout(() => {
+            window.location.href = "/verify-email";
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            window.location.href = "/profile";
+          }, 1000);
+        }
+      }
+      else {
         setAlert({ type: "error", message: t("messages.invalidCredentials") });
       }
     } catch {
@@ -153,9 +156,16 @@ export default function LoginPage() {
       type: "success",
       message: data.message ?? "Inicio de sesión correcto"
     });
-    setTimeout(() => {
-      window.location.href = "/verify-email";
-    }, 1000);
+    if (!data.email_verified) {
+      setTimeout(() => {
+        window.location.href = "/verify-email";
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        window.location.href = "/profile";
+      }, 1000);
+    }
+
   };
 
   return (
