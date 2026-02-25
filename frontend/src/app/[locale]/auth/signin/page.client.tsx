@@ -12,6 +12,8 @@ import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+
 
 export default function LoginPage() {
   const t = useTranslations("signin");
@@ -21,6 +23,8 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
 
   useEffect(() => {
     const token =
@@ -81,10 +85,16 @@ export default function LoginPage() {
       return;
     }
 
+    if (!executeRecaptcha) { 
+      setAlert({ type: "error", message: "reCAPTCHA no está listo aún" });
+      return; }
+
     setIsLoading(true);
     setAlert(null);
 
     try {
+      // reCAPTCHA 
+      const recaptchaToken = await executeRecaptcha("login_form");
       const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
       const response = await fetch(`${apiUrl}/api/users/signin/`, {
         method: 'POST',
@@ -94,6 +104,7 @@ export default function LoginPage() {
         body: JSON.stringify({
           emailOrUsername: email.trim(),
           password: password,
+          recaptchaToken,
         }),
       });
 
