@@ -4,13 +4,14 @@ import React, { useMemo } from "react";
 import { useTranslations } from "next-intl";
 import type { Service } from "@/hooks/useServices";
 import { AppleModal } from "@/components/ui/apple-modal";
-import { ServiceDetailsContent, type ServiceDetailsLabels } from "@/components/services/service-details-content";
+import { ServiceDetailsContent } from "@/components/services/service-details-content";
+import { ServiceDetailsLabels} from "@/components/services/service-details-content";
 
 export const ServiceAppleDetailsModal = ({
   service,
   isOpen,
   onClose,
-  showContact = false,
+  showContact = true,
   onContact,
 }: {
   service: Service | null;

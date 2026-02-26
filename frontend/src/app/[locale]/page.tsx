@@ -84,11 +84,11 @@ const getInitialCourses = unstable_cache(
 );
 
 export default async function Home({
-  params,
+  //params,
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params;
+  //const { locale } = await params;
   const initialServicesPromise = getInitialServices();
   const initialCoursesPromise = getInitialCourses();
 

@@ -2,7 +2,6 @@ export interface CookiePreferences {
   necessary: boolean;
   functional: boolean;
   analytics: boolean;
-  thirdParty: boolean;
   marketing: boolean;
 }
 
@@ -25,7 +24,23 @@ export function getCookiePreferences(): CookiePreferences | null {
 export function setCookiePreferences(prefs: CookiePreferences) {
   if (typeof window === 'undefined') return;
   localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
-  window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: prefs }));
+  try {
+    // Legacy event for backwards compatibility
+    window.dispatchEvent(new Event('cookieConsentChange'));
+  } catch {
+    // ignore
+  }
+  try {
+    // Modern, detailed event consumers can use
+    window.dispatchEvent(new CustomEvent('cookie-preferences-changed', { detail: prefs }));
+  } catch {
+    // ignore
+  }
+}
+
+export function openCookieSettings() {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new Event('openCookieSettings'));
 }
 
 /* =========================
@@ -40,12 +55,12 @@ export function isMarketingAllowed(): boolean {
   return Boolean(getCookiePreferences()?.marketing);
 }
 
-export function isFunctionalAllowed(): boolean {
-  return Boolean(getCookiePreferences()?.functional);
+export function isThirdPartyAllowed(): boolean {
+  return isMarketingAllowed();
 }
 
-export function isThirdPartyAllowed(): boolean {
-  return Boolean(getCookiePreferences()?.thirdParty);
+export function isFunctionalAllowed(): boolean {
+  return Boolean(getCookiePreferences()?.functional);
 }
 
 /* =========================
@@ -83,9 +98,4 @@ export function applyConsentMode() {
     functionality_storage: prefs.functional ? 'granted' : 'denied',
     security_storage: 'granted',
   } as Record<string, unknown>);
-}
-
-export function openCookieSettings() {
-  if (typeof window === 'undefined') return;
-  window.dispatchEvent(new Event('openCookieSettings'));
 }

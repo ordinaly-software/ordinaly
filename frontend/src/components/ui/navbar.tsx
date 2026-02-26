@@ -16,6 +16,9 @@ import { useServices } from "@/hooks/useServices";
 import { useCourses } from "@/hooks/useCourses";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 
+
+
+
 // Custom User Menu Component
 const UserMenu = ({
   options,
@@ -180,6 +183,8 @@ const Navbar = () => {
     window.open(whatsappUrl, "_blank");
   }, [t]);
 
+  const getStoredAuthToken = useCallback(() => localStorage.getItem("auth_token"), []);
+
   const userMenuOptions = useMemo((): DropdownOption[] => {
     const options: DropdownOption[] = [{ value: "profile", label: t("navigation.profile"), icon: User }];
 
@@ -210,7 +215,7 @@ const Navbar = () => {
         setUserData(data);
       }
     } catch (error) {
-      console.warn("Failed to fetch user data:", error);
+
     }
   }, []);
 
@@ -228,12 +233,12 @@ const Navbar = () => {
         setHasEnrolledCourses(Array.isArray(data) && data.length > 0);
       }
     } catch (error) {
-      console.warn("Failed to fetch enrollment data:", error);
+
     }
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = getStoredAuthToken();
     const authState = !!token;
     setIsAuthenticated(authState);
 
@@ -241,7 +246,7 @@ const Navbar = () => {
       fetchUserData(token);
       fetchEnrollmentStatus(token);
     }
-  }, [fetchUserData, fetchEnrollmentStatus]);
+  }, [fetchEnrollmentStatus, fetchUserData, getStoredAuthToken]);
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -277,7 +282,7 @@ const Navbar = () => {
 
   const handleSignOut = useCallback(async () => {
     try {
-      const token = localStorage.getItem("authToken");
+      const token = getStoredAuthToken();
       if (token) {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
         fetch(`${apiUrl}/api/users/signout/`, {
@@ -286,20 +291,20 @@ const Navbar = () => {
             Authorization: `Token ${token}`,
             "Content-Type": "application/json",
           },
-        }).catch(() => {});
+        }).catch(() => { });
       }
     } catch (error) {
-      console.warn("Signout error:", error);
+
     }
 
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("auth_token");
     setIsAuthenticated(false);
     setUserData(null);
     setHasEnrolledCourses(false);
     setIsMenuOpen(false);
     setShowLogoutModal(false);
     window.location.href = "/";
-  }, []);
+  }, [getStoredAuthToken]);
 
   const goToSignIn = useCallback(() => {
     router.push("/auth/signin");
@@ -367,7 +372,7 @@ const Navbar = () => {
     [pathname],
   );
 
-  const isBlogSectionActive = pathname.includes("/blog") || pathname.includes("/noticias");
+  const isBlogSectionActive = pathname.includes("/blog") || pathname.includes("/news");
   const shouldLoadServiceImages = activeMegaItem === t("navigation.services");
   const shouldLoadCourseImages = activeMegaItem === t("navigation.formation");
 
@@ -451,7 +456,7 @@ const Navbar = () => {
                       {item.id === "blog" && (
                         <div className="grid grid-cols-1 gap-2 min-w-[200px]">
                           <HoveredLink href="/blog">{t("navigation.blog")}</HoveredLink>
-                          <HoveredLink href="/noticias">{t("navigation.news")}</HoveredLink>
+                          <HoveredLink href="/news">{t("navigation.news")}</HoveredLink>
                         </div>
                       )}
                     </MenuItem>
@@ -499,25 +504,28 @@ const Navbar = () => {
                     ariaLabel={t("navigation.userMenu")}
                   />
                 ) : (
-                  <div className="flex items-center space-x-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={goToSignIn}
-                      aria-label={t("navigation.signIn")}
-                      className="text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-all duration-200 flex items-center h-8 sm:h-9 text-xs sm:text-sm"
-                    >
-                      <LogIn className="h-4 w-4 mr-2" />
-                      <span>{t("navigation.signIn")}</span>
-                    </Button>
-                    <Button
-                      size="sm"
-                      onClick={goToSignUp}
-                      className="bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black transition-all duration-200 hover:scale-105 h-8 sm:h-9 px-3 sm:px-4 text-xs sm:text-sm"
-                    >
-                      {t("navigation.signUp")}
-                    </Button>
-                  </div>
+                  <>
+                    <div className="flex items-center space-x-2">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={goToSignIn}
+                        aria-label={t("navigation.signIn")}
+                        className="text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-all duration-200 flex items-center h-8 sm:h-9 text-xs sm:text-sm"
+                      >
+                        <LogIn className="h-4 w-4 mr-2" />
+                        <span>{t("navigation.signIn")}</span>
+                      </Button>
+
+                      <Button
+                        size="sm"
+                        onClick={goToSignUp}
+                        className="bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black transition-all duration-200 hover:scale-105 h-8 sm:h-9 px-3 sm:px-4 text-xs sm:text-sm"
+                      >
+                        {t("navigation.signUp")}
+                      </Button>
+                    </div>
+                  </>
                 )
               ) : null}
 
@@ -622,7 +630,7 @@ const Navbar = () => {
                     {t("navigation.blog")}
                   </Link>
                   <Link
-                    href="/noticias"
+                    href="/news"
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-md px-2 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-100 dark:hover:bg-gray-800/70"
                   >

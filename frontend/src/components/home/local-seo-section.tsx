@@ -18,7 +18,7 @@ const LocalVideoPreview = ({ t }: { t: TranslateFn }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [canLoadVideo, setCanLoadVideo] = useState(false);
   const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
+  const canLoadMedia = Boolean(cookiePreferences?.marketing);
 
   useEffect(() => {
     if (!canLoadMedia) {

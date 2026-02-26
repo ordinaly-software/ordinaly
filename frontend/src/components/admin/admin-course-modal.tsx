@@ -80,7 +80,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
   formatWeekdays,
 }) => {
   const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
+  const canLoadMedia = Boolean(cookiePreferences?.marketing);
   if (!course) return null;
 
   return (

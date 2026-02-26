@@ -30,7 +30,7 @@ const AdminServicesTab = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       if (selectedServices.length > 0) {
         // Bulk delete
         const deletePromises = selectedServices.map(id =>
@@ -83,7 +83,7 @@ const AdminServicesTab = () => {
   const COLOR_CHOICES = [
     { value: '1A1924', label: 'darkPurple', color: '#1A1924', darkModeColor: '#efefefbb' },
     { value: '623CEA', label: 'purple', color: '#623CEA', darkModeColor: '#8B5FF7' },
-  { value: '217093', label: 'cyan', color: '#217093', darkModeColor: '#5ECAE0' },
+    { value: '46B1C9', label: 'cyan', color: '#46B1C9', darkModeColor: '#5ECAE0' },
     { value: '29BF12', label: 'green', color: '#29BF12', darkModeColor: '#3DD421' },
     { value: 'E4572E', label: 'orange', color: '#E4572E' },
   ];
@@ -207,7 +207,7 @@ const AdminServicesTab = () => {
 
   const handleDuplicate = async (service: Service) => {
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       const identifier = service.slug ?? service.id;
       const response = await fetch(getApiEndpoint(`/api/services/${identifier}/duplicate/`), {
         method: 'POST',

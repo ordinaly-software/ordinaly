@@ -247,7 +247,7 @@ const AdminCoursesTab = () => {
 
   const handleDuplicate = async (course: Course) => {
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       const identifier = course.slug ?? course.id;
       const response = await fetch(getApiEndpoint(`/api/courses/courses/${identifier}/duplicate/`), {
         method: 'POST',
@@ -280,7 +280,7 @@ const AdminCoursesTab = () => {
     setIsLoadingEnrollments(true);
     
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       const response = await fetch(getApiEndpoint('/api/courses/enrollments/'), {
         headers: {
           'Authorization': `Token ${token}`,
@@ -299,7 +299,6 @@ const AdminCoursesTab = () => {
         setCourseEnrollments([]);
       }
     } catch {
-      
       setAlert({type: 'error', message: 'Network error while fetching enrollments'});
       setCourseEnrollments([]);
     } finally {
@@ -489,7 +488,7 @@ const AdminCoursesTab = () => {
         }
       }
 
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
       
       const formDataToSend = new FormData();
       formDataToSend.append('title', formData.title);
@@ -576,7 +575,7 @@ const AdminCoursesTab = () => {
   const confirmDelete = async () => {
     setIsDeleting(true);
     try {
-      const token = localStorage.getItem('authToken');
+      const token = localStorage.getItem('auth_token');
 
       if (selectedCourses.length > 0) {
         // Bulk delete

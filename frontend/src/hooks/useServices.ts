@@ -28,6 +28,9 @@ export interface Service {
   created_by_username?: string;
   created_at: string;
   updated_at: string;
+  contactButtonText?: string | null;
+  contactButtonUrl?: string | null;
+
 }
 
 // Simple cache with shorter duration
@@ -60,7 +63,7 @@ export const useServices = (
       const apiUrl = getApiEndpoint('/api/services/');
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (isAdmin) {
-        const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
+        const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
         if (token) headers['Authorization'] = `Token ${token}`;
       }
       const response = await fetch(apiUrl, {

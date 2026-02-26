@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ServicesPage from "../page.client";
-import { absoluteAssetUrl, createPageMetadata, defaultDescription } from "@/lib/metadata";
+import { createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { getApiEndpoint } from "@/lib/api-config";
 import { getLandingMeta } from "../../landings";
 import { permanentRedirect } from "next/navigation";
@@ -14,6 +14,31 @@ type Service = {
   image?: string | null;
 };
 
+const FALLBACK_API_BASE_URL = "https://api.ordinaly.ai";
+const FALLBACK_OG_IMAGE = "/og-image.png";
+
+const resolveServiceOgImage = (rawImage?: string | null) => {
+  if (!rawImage) return FALLBACK_OG_IMAGE;
+  const trimmed = rawImage.trim();
+  if (!trimmed) return FALLBACK_OG_IMAGE;
+
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed.replace(/^http:\/\/api\.ordinaly\.ai/i, "https://api.ordinaly.ai");
+  }
+
+  if (trimmed.startsWith("//")) {
+    return `https:${trimmed}`;
+  }
+
+  if (trimmed.startsWith("/static/")) {
+    return trimmed;
+  }
+
+  const apiBaseUrl = (process.env.NEXT_PUBLIC_API_URL || FALLBACK_API_BASE_URL).replace(/\/$/, "");
+  const normalizedPath = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+  return `${apiBaseUrl}${normalizedPath}`;
+};
+
 export async function generateMetadata({
   params,
 }: {
@@ -25,8 +50,8 @@ export async function generateMetadata({
   const landingMeta = getLandingMeta(slug);
   if (landingMeta) {
     const messages = isEs ? esMessages : enMessages;
-    const landingDict = (messages as { landings?: Record<string, any> }).landings;
-    const landing = landingDict?.[slug] as Record<string, any> | undefined;
+    const landingDict = (messages as { landings?: Record<string, unknown> }).landings;
+    const landing = landingDict?.[slug] as Record<string, unknown> | undefined;
     const title = (landing?.title as string) ?? "Ordinaly Services";
     const description =
       (landing?.description as string) ??
@@ -65,15 +90,7 @@ export async function generateMetadata({
     : "AI automation services and products for companies looking to scale with intelligent workflows.";
   const title = service?.title ? `${service.title}` : fallbackTitle;
   const description = service?.subtitle || service?.description || fallbackDescription;
-  const rawImage = service?.image || undefined;
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
-  const image = rawImage
-    ? /^https?:\/\//i.test(rawImage)
-      ? rawImage
-      : apiBaseUrl
-        ? `${apiBaseUrl}${rawImage.startsWith("/") ? "" : "/"}${rawImage}`
-        : absoluteAssetUrl(rawImage)
-    : "/static/backgrounds/services_background.webp";
+  const image = resolveServiceOgImage(service?.image);
 
   return createPageMetadata({
     locale,

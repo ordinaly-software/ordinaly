@@ -191,7 +191,7 @@ const CourseDetailsModal = ({
   const t = useTranslations('formation.courseDetails');
   const formationT = useTranslations('formation');
   const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.thirdParty);
+  const canLoadMedia = Boolean(cookiePreferences?.marketing);
   // ...existing code...
 
   const formatDate = (dateString: string) => {

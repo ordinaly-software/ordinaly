@@ -5,7 +5,7 @@ Office: Plaza del Duque de la Victoria 1, 3º 9, 41002 Sevilla, Andalucía, Espa
 Service area: Sevilla, Andalucía, resto de España; proyectos remotos en UE
 Contact: +34 626 270 806 — info@ordinaly.ai
 What we do: automatización empresarial con IA (chatbots y agentes, flujos con n8n, integraciones WhatsApp Business, integraciones CRM/ERP Odoo/HubSpot, formación práctica en IA para PYMES)
-Key canonical pages (ES): https://ordinaly.ai/es (home), /es/services, /es/about, /es/contact, /es/blog, /es/noticias, /es/legal, /es/formation
-Key canonical pages (EN): https://ordinaly.ai/en, /en/services, /en/about, /en/contact, /en/blog, /en/noticias, /en/legal, /en/formation
+Key canonical pages (ES): https://ordinaly.ai/es (home), /es/services, /es/about, /es/contact, /es/blog, /es/news, /es/legal, /es/formation
+Key canonical pages (EN): https://ordinaly.ai/en, /en/services, /en/about, /en/contact, /en/blog, /en/news, /en/legal, /en/formation
 Sitemap: https://ordinaly.ai/sitemap.xml
 Policy: Public content may be indexed by search engines and LLMs; respect robots.txt; no personal data should be retained.

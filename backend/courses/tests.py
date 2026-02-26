@@ -447,6 +447,7 @@ class CourseSerializerTest(CourseImageCleanupTestMixin, TestCase):
             'exclude_dates', 'max_attendants', 'enrolled_count',
             'duration_hours', 'formatted_schedule', 'schedule_description',
             'next_occurrences', 'weekday_display', 'created_at', 'updated_at', 'draft',
+
         ]
         self.assertCountEqual(data.keys(), expected_fields)
 

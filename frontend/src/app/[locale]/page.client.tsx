@@ -82,10 +82,6 @@ const UseCasesSection = dynamic(
   () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
   { loading: () => null, ssr: false },
 );
-const WorkWithUsSection = dynamic(
-  () => import("@/components/ui/work-with-us").then((mod) => mod.WorkWithUsSection),
-  { loading: () => null, ssr: false },
-);
 const TestimonialsSection = dynamic(
   () => import("@/components/home/testimonials-section").then((mod) => mod.TestimonialsSection),
   { loading: () => null, ssr: false },
@@ -259,25 +255,6 @@ export default function HomePage({
         window.clearTimeout(timeoutHandle);
       }
     };
-  }, []);
-
-  useEffect(() => {
-    const componentsWithPreload = [
-      ServiceShowcase,
-      CoursesShowcase,
-      ProcessSection,
-      BenefitsSection,
-      UseCasesSection,
-      WorkWithUsSection,
-      TestimonialsSection,
-      PartnersSection,
-      ContactForm,
-    ];
-
-    componentsWithPreload.forEach((Component) => {
-      const preloadable = Component as { preload?: () => Promise<unknown> };
-      preloadable.preload?.();
-    });
   }, []);
 
   useEffect(() => {

@@ -4,6 +4,10 @@ from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from django.db.models.functions import Lower
 
+from django.utils import timezone 
+from django.conf import settings 
+from datetime import timedelta
+
 
 # Since we have a custom user model, we need a custom user manager
 # that inherits from BaseUserManager. This custom user manager will handle creating
@@ -52,6 +56,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     )
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
+    google_sub = models.CharField(max_length=255, null=True, blank=True, unique=True)
 
     # User preference for receiving newsletters and email communications
     allow_notifications = models.BooleanField(
@@ -62,12 +67,27 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'company']
+    REQUIRED_FIELDS = ['username']
 
     region = models.CharField(max_length=50, null=True, blank=True, default=None)
     city = models.CharField(max_length=50, null=True, blank=True, default=None)
 
-    company = models.CharField(max_length=50, null=False, blank=False, default=None)
+    company = models.CharField(max_length=50, null=True, blank=True, default="")
+    email_verified_at = models.DateTimeField(null=True, blank=True)
+    deletion_token_hash = models.CharField(max_length=255, null=True, blank=True)
+    deletion_token_expires_at = models.DateTimeField(null=True, blank=True)
+
+    status = models.CharField(
+    max_length=50,
+    default="pending_verification",
+    choices=[
+        ("pending_verification", "Pending verification"),
+        ("active", "Active"),
+        ("suspended", "Suspended"),
+    ]
+)
+
+
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -118,3 +138,23 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             raise ValidationError({
                 'email': 'email_taken'
             })
+            
+#Class for Email-verification
+
+class EmailVerificationOTP(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    code_hash = models.CharField(max_length=255)
+    expires_at = models.DateTimeField()
+    attempts = models.IntegerField(default=0)
+    resend_count = models.IntegerField(default=0)
+    last_sent_at = models.DateTimeField(null=True, blank=True)
+    invalidated_at = models.DateTimeField(null=True, blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def is_expired(self):
+        return timezone.now() > self.expires_at
+
+    def is_invalidated(self):
+        return self.invalidated_at is not None
+

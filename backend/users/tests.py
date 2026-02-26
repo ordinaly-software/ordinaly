@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .models import CustomUser
 from .authentication import EmailOrUsernameModelBackend
+from unittest.mock import Mock, patch
 import os
 
 
@@ -155,6 +156,13 @@ class CustomUserModelTests(TestCase):
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.check_password(self.user_data['password']))
 
+    def test_create_user_without_company(self):
+        """Test creating a user without company"""
+        user_data = self.user_data.copy()
+        user_data.pop('company')
+        user = CustomUser.objects.create_user(**user_data)
+        self.assertEqual(user.company, "")
+
     def test_username_validator_too_short(self):
         """Test username validator with too short username"""
         user = CustomUser(email='test@example.com', username='ab', password=TEST_PASSWORD,
@@ -258,12 +266,21 @@ class CustomUserSerializerTests(TestCase):
 
     def test_serializer_with_missing_required_field(self):
         """Test serializer with missing required field"""
-        for field in ['username', 'email', 'password', 'name', 'surname', 'company']:
+        for field in ['username', 'email', 'password', 'name', 'surname']:
             data = self.user_data.copy()
             data.pop(field)
             serializer = self.serializer_class(data=data)
             self.assertFalse(serializer.is_valid())
             self.assertIn(field, serializer.errors)
+
+    def test_serializer_without_company_is_valid(self):
+        """Test serializer accepts missing company"""
+        data = self.user_data.copy()
+        data.pop('company')
+        serializer = self.serializer_class(data=data)
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        user = serializer.save()
+        self.assertEqual(user.company, "")
 
     def test_serializer_with_optional_fields(self):
         """Test serializer with optional fields"""
@@ -336,6 +353,16 @@ class CustomUserSerializerTests(TestCase):
         serializer = CustomUserSerializer(user)
         self.assertIn('updated_at', serializer.data)
 
+    def test_is_google_authenticated_field(self):
+        serializer = CustomUserSerializer(self.user)
+        self.assertIn('is_google_authenticated', serializer.data)
+        self.assertFalse(serializer.data['is_google_authenticated'])
+
+        self.user.google_sub = 'google-sub-123'
+        self.user.save(update_fields=['google_sub'])
+        serializer = CustomUserSerializer(self.user)
+        self.assertTrue(serializer.data['is_google_authenticated'])
+
     def test_create_with_alias_fields(self):
         data = {
             'username': 'aliasuser',
@@ -404,6 +431,12 @@ class UserViewSetTests(APITestCase):
         self.signout_url = '/api/users/signout/'
         self.check_role_url = '/api/users/check_role/'
 
+        self.recaptcha_patcher = patch("users.views.requests.post")
+        self.mock_recaptcha_post = self.recaptcha_patcher.start()
+        self.mock_recaptcha_post.return_value = Mock(
+            json=lambda: {"success": True, "score": 0.9}
+        )
+
         self.user_data = {
             'username': 'testuser',
             'email': 'test@example.com',
@@ -436,6 +469,10 @@ class UserViewSetTests(APITestCase):
         )
         self.admin_token = Token.objects.create(user=self.admin)
 
+    def tearDown(self):
+        self.recaptcha_patcher.stop()
+        super().tearDown()
+
     def test_signup_success(self):
         """Test successful user signup"""
         response = self.client.post(self.signup_url, self.user_data, format='json')
@@ -444,6 +481,16 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(response.data['username'], self.user_data['username'])
         self.assertEqual(response.data['email'], self.user_data['email'])
         self.assertEqual(CustomUser.objects.count(), 3)  # 2 from setUp + 1 new
+
+    def test_signup_without_company_success(self):
+        """Test successful user signup without company"""
+        data = self.user_data.copy()
+        data.pop('company')
+        response = self.client.post(self.signup_url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIn('token', response.data)
+        self.assertIn('company', response.data)
+        self.assertEqual(response.data['company'], "")
 
     def test_signup_duplicate_email(self):
         """Test signup with duplicate email"""
@@ -473,7 +520,7 @@ class UserViewSetTests(APITestCase):
 
     def test_signup_missing_required_fields(self):
         """Test signup with missing required fields"""
-        for field in ['username', 'email', 'password', 'name', 'surname', 'company']:
+        for field in ['username', 'email', 'password', 'name', 'surname']:
             data = self.user_data.copy()
             data.pop(field)
             response = self.client.post(self.signup_url, data, format='json')
@@ -655,6 +702,17 @@ class UserViewSetTests(APITestCase):
         response = self.client.get('/api/users/profile/')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['username'], self.user.username)
+        self.assertIn('is_google_authenticated', response.data)
+        self.assertFalse(response.data['is_google_authenticated'])
+
+    def test_profile_authenticated_with_google_linked(self):
+        """Test profile includes Google auth flag when account is linked"""
+        self.user.google_sub = 'google-sub-456'
+        self.user.save(update_fields=['google_sub'])
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.get('/api/users/profile/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['is_google_authenticated'])
 
     def test_profile_unauthenticated(self):
         """Test getting profile as unauthenticated user"""

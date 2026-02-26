@@ -20,7 +20,7 @@ const CookieConsent = () => {
     necessary: true,
     functional: true,
     analytics: false,
-    thirdParty: false,
+    marketing: false,
   });
 
   useEffect(() => {
@@ -97,7 +97,7 @@ const CookieConsent = () => {
       necessary: true,
       functional: true,
       analytics: true,
-      thirdParty: true,
+      marketing: true,
     };
     setCookiePreferences(preferences);
     try {
@@ -131,7 +131,7 @@ const CookieConsent = () => {
     setShowSettings(false);
   };
 
-  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'thirdParty') => {
+  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'marketing') => {
     if (type === 'necessary' || type === 'functional') return;
     setCookiePreferences(prev => ({
       ...prev,
@@ -149,8 +149,8 @@ const CookieConsent = () => {
   if (!isMounted) return null;
 
   const modalContent = showPopup ? (
-    <div className="fixed inset-0 z-[9999] flex items-end justify-center px-2 pb-4 sm:pb-6 pointer-events-none lg:justify-end lg:pr-5">
-      <div className="pointer-events-auto w-full max-w-[min(320px,calc(100vw-2.25rem))] max-h-[calc(100vh-2rem)] bg-card text-card-foreground rounded-[22px] shadow-2xl border border-border flex flex-col overflow-hidden lg:mr-4">
+    <div className="fixed inset-0 z-[9999] flex items-end justify-center px-2 pb-4 sm:pb-6 pointer-events-none md:justify-end md:pr-5">
+      <div className="pointer-events-auto w-full max-w-[min(320px,calc(100vw-2.25rem))] max-h-[calc(100vh-2rem)] bg-card text-card-foreground rounded-[22px] shadow-2xl border border-border flex flex-col overflow-hidden md:mr-4">
         {/* Header */}
         <div className="sticky top-0 z-10 border-b border-border bg-card/90 backdrop-blur-sm px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
@@ -215,9 +215,9 @@ const CookieConsent = () => {
                     note: t('necessaryAlways')
                   },
                 {
-                  key: 'thirdParty',
+                  key: 'marketing',
                   icon: <Globe className="text-[#1F8A0D] dark:text-[#3FBD6F]" size={20} />,
-                    enabled: cookiePreferences.thirdParty,
+                    enabled: cookiePreferences.marketing,
                     toggle: true,
                     note: t('thirdPartyExamples')
                   },
@@ -238,7 +238,7 @@ const CookieConsent = () => {
                       {toggle ? (
                         <Slider
                           checked={enabled}
-                          onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'thirdParty')}
+                          onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing')}
                         />
                       ) : (
                         <div className="bg-[#1F8A0D] dark:bg-[#3FBD6F] rounded-full w-6 h-6 flex items-center justify-center">

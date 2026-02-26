@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { LocalLandingPage } from "@/components/ui/local-landing";
 import { createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { getLandingMeta } from "../landings";
+import { notFound } from "next/navigation";
 import esMessages from "../../../../messages/es.json";
 import enMessages from "../../../../messages/en.json";
 
@@ -26,8 +27,8 @@ export async function generateMetadata({
   }
 
   const messages = isEs ? esMessages : enMessages;
-  const landingDict = (messages as { landings?: Record<string, any> }).landings;
-  const landing = landingDict?.[slug] as Record<string, any> | undefined;
+  const landingDict = (messages as { landings?: Record<string, unknown> }).landings;
+  const landing = landingDict?.[slug] as Record<string, unknown> | undefined;
   const title = (landing?.title as string) ?? "Ordinaly Services";
   const description =
     (landing?.description as string) ??
@@ -54,7 +55,7 @@ export default async function LandingSlugPage({
   const landingMeta = getLandingMeta(slug);
 
   if (!landingMeta) {
-    return null;
+    notFound();
   }
 
   return <LocalLandingPage slug={slug} locale={locale} meta={landingMeta} />;

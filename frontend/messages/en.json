@@ -473,6 +473,7 @@
   "cookie": {
     "title": "Cookie Settings",
     "openCookieSettings": "Open Cookie Settings",
+    "getCookiePreferences": "Open Cookie Settings",
     "openOnYoutube": "Open on YouTube",
     "description": "We use cookies to enhance your experience, personalize content, and analyze traffic. You can choose which types of cookies to accept.",
     "thirdPartyTitle": "Third-party content blocked",
@@ -595,6 +596,19 @@
         "formIncomplete": "Please complete all required fields."
       },
       "googleSignUpError": "Google sign-up failed. Please try again."
+    }
+  },
+  "oauthCallback": {
+    "processing": "Processing authentication...",
+    "errors": {
+      "cancelled": "Google sign-in was cancelled. Please try again.",
+      "invalidToken": "The authentication token is invalid or expired. Please sign in again.",
+      "accountConflict": "This email is already linked to another sign-in method.",
+      "generic": "Authentication failed. Please try signing in again."
+    },
+    "actions": {
+      "goToSignIn": "Go to sign in",
+      "goHome": "Go to home"
     }
   },
   "admin": {
@@ -1751,6 +1765,11 @@
     "loading": "Loading profile...",
     "personalInfo": "Personal Information",
     "dangerZone": "Danger Zone",
+    "authProvider": {
+      "label": "Authentication",
+      "google": "Google account",
+      "credentials": "Email and password"
+    },
     "tabs": {
       "profile": "Profile",
       "courses": "My courses"
