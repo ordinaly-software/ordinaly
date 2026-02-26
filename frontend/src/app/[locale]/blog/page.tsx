@@ -25,7 +25,7 @@ export async function generateMetadata({
       description: isEs
         ? "Noticias, guías y casos de éxito sobre automatización, IA y productividad para empresas."
         : "News, guides, and success stories on automation, AI, and productivity for companies.",
-      image: "https://ordinaly.ai/static/backgrounds/blog_background.png",
+      image: "/static/backgrounds/blog_background.png",
     });
 
   return hasParams ? { ...base, robots: { index: false, follow: true } } : base;
