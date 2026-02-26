@@ -10,6 +10,9 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils import timezone
 from .models import CustomUser
 from .serializers import CustomUserSerializer
+import requests
+from django.http import JsonResponse
+from django.conf import settings
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -30,6 +33,23 @@ class UserViewSet(viewsets.ModelViewSet):
     def signup(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return Response({'detail': 'You are already signed in.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        recaptcha_token = request.data.get("recaptchaToken")
+
+        verify_url = "https://www.google.com/recaptcha/api/siteverify"
+        payload = {
+            "secret": settings.RECAPTCHA_SECRET_KEY,
+            "response": recaptcha_token,
+        }
+
+        r = requests.post(verify_url, data=payload)
+        result = r.json()
+
+        print("RECAPTCHA RESULT (SIGNUP):", result)
+
+        if not result.get("success") or result.get("score", 0) < 0.5:
+            return Response({"error": "reCAPTCHA failed"}, status=400)
+
         data = dict(request.data)
 
         serializer = self.get_serializer(data=data)
@@ -42,12 +62,14 @@ class UserViewSet(viewsets.ModelViewSet):
             if response:
                 return response
             return Response({'detail': 'An unexpected error occurred. Please try again.'},
-                            status=status.HTTP_400_BAD_REQUEST)
+                        status=status.HTTP_400_BAD_REQUEST)
+
         token, created = Token.objects.get_or_create(user=user)
         headers = self.get_success_headers(serializer.data)
         response_data = serializer.data
         response_data['token'] = token.key
         return Response(response_data, status=status.HTTP_201_CREATED, headers=headers)
+
 
     def _handle_duplicate_error(self, exc):
         response_data = {}
@@ -119,13 +141,28 @@ class UserViewSet(viewsets.ModelViewSet):
         if request.user.is_authenticated:
             return Response({'detail': 'You are already signed in.'}, status=status.HTTP_400_BAD_REQUEST)
 
+        recaptcha_token = request.data.get("recaptchaToken")
+
+        verify_url = "https://www.google.com/recaptcha/api/siteverify"
+        payload = {
+            "secret": settings.RECAPTCHA_SECRET_KEY,
+            "response": recaptcha_token,
+        }
+
+        r = requests.post(verify_url, data=payload)
+        result = r.json()
+
+        print("RECAPTCHA RESULT:", result)
+
+        if not result.get("success") or result.get("score", 0) < 0.5:
+            return Response({"error": "reCAPTCHA failed"}, status=400)
+
         email_or_username = request.data.get('emailOrUsername')
         password = request.data.get('password')
 
         if not email_or_username or not password:
             return Response({'detail': 'Email/Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Use our custom authentication backend
         user = authenticate(request, username=email_or_username, password=password)
 
         if user is not None:
@@ -138,6 +175,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(response_data, status=status.HTTP_200_OK)
 
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
     @action(detail=False, methods=['post'], permission_classes=[IsAuthenticated])
     def signout(self, request):

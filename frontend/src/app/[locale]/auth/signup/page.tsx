@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import SignUpPage from "./page.client";
 import { createPageMetadata } from "@/lib/metadata";
+import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 
 export async function generateMetadata({
   params,
@@ -28,5 +29,9 @@ export default async function SignUp({
   params: Promise<{ locale: string }>;
 }) {
   await params;
-  return <SignUpPage />;
+  return ( 
+  <ReCaptchaWrapper> 
+    <SignUpPage /> 
+  </ReCaptchaWrapper> 
+  );
 }

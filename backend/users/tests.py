@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .models import CustomUser
 from .authentication import EmailOrUsernameModelBackend
+from unittest.mock import Mock, patch
 import os
 
 
@@ -430,6 +431,12 @@ class UserViewSetTests(APITestCase):
         self.signout_url = '/api/users/signout/'
         self.check_role_url = '/api/users/check_role/'
 
+        self.recaptcha_patcher = patch("users.views.requests.post")
+        self.mock_recaptcha_post = self.recaptcha_patcher.start()
+        self.mock_recaptcha_post.return_value = Mock(
+            json=lambda: {"success": True, "score": 0.9}
+        )
+
         self.user_data = {
             'username': 'testuser',
             'email': 'test@example.com',
@@ -461,6 +468,10 @@ class UserViewSetTests(APITestCase):
             is_staff=True
         )
         self.admin_token = Token.objects.create(user=self.admin)
+
+    def tearDown(self):
+        self.recaptcha_patcher.stop()
+        super().tearDown()
 
     def test_signup_success(self):
         """Test successful user signup"""
