@@ -12,6 +12,8 @@ import StyledButton from "@/components/ui/styled-button";
 import Image from "next/image";
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+
 
 
 
@@ -42,6 +44,8 @@ function SignupPageContent() {
   const [showImage, setShowImage] = useState(true);
   const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
 
   useEffect(() => {
     const token =
@@ -132,11 +136,17 @@ function SignupPageContent() {
       return;
     }
 
+    if (!executeRecaptcha) { 
+      setAlert({ type: "error", message: "reCAPTCHA no está listo aún" });
+      return; }
+
     setIsLoading(true);
     setErrors({});
     setAlert(null);
 
     try {
+      // reCAPTCHA 
+      const recaptchaToken = await executeRecaptcha("signup_form");
       // Generate username from email prefix
       const username = email.split('@')[0];
 
@@ -149,6 +159,7 @@ function SignupPageContent() {
         region: region.trim() || null,
         city: city.trim() || null,
         password: password,
+        recaptchaToken,
       };
 
       const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
