@@ -1,8 +1,12 @@
 import os
+import hashlib
+from datetime import timedelta
 from unittest.mock import Mock, patch
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 from rest_framework.authtoken.models import Token
+from rest_framework.test import APITestCase
 from .utils import create_internal_token
 
 
@@ -135,3 +139,54 @@ class GoogleCallbackTests(TestCase):
             response.url,
             "http://localhost:3000/auth/signin?error=account_conflict",
         )
+
+
+class DeleteAccountViewsTests(APITestCase):
+    def setUp(self):
+        CustomUser = get_user_model()
+        self.user = CustomUser.objects.create_user(
+            email="delete@example.com",
+            username="delete_user",
+            password="test-password-123",
+            name="Delete",
+            surname="User",
+            company="Ordinaly",
+        )
+        self.token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
+
+    @override_settings(DEBUG=False)
+    @patch("authentication.views.send_delete_confirmation_email")
+    @patch("authentication.views.secrets.token_hex", return_value="plain-delete-token")
+    def test_request_delete_account_post_sets_token_hash_and_expiry(self, mock_token_hex, mock_send_email):
+        response = self.client.post("/auth/delete/request/", {}, format="json")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["message"], "Correo enviado")
+
+        self.user.refresh_from_db()
+        expected_hash = hashlib.sha256("plain-delete-token".encode()).hexdigest()
+        self.assertEqual(self.user.deletion_token_hash, expected_hash)
+        self.assertIsNotNone(self.user.deletion_token_expires_at)
+        self.assertGreater(self.user.deletion_token_expires_at, timezone.now())
+        mock_send_email.assert_called_once_with(self.user.email, "plain-delete-token")
+
+    def test_request_delete_account_get_not_allowed(self):
+        response = self.client.get("/auth/delete/request/")
+        self.assertEqual(response.status_code, 405)
+
+    def test_confirm_delete_account_post_deletes_user_when_token_is_valid(self):
+        raw_token = "valid-delete-token"
+        self.user.deletion_token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
+        self.user.deletion_token_expires_at = timezone.now() + timedelta(minutes=10)
+        self.user.save(update_fields=["deletion_token_hash", "deletion_token_expires_at"])
+
+        response = self.client.post("/auth/delete/confirm/", {"token": raw_token}, format="json")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data["message"], "Cuenta eliminada")
+        self.assertFalse(get_user_model().objects.filter(id=self.user.id).exists())
+
+    def test_confirm_delete_account_get_not_allowed(self):
+        response = self.client.get("/auth/delete/confirm/")
+        self.assertEqual(response.status_code, 405)

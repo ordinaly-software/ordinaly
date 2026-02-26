@@ -1,33 +1,32 @@
+import hashlib
 import os
 import re
-import requests
-from django.http import JsonResponse
-from django.shortcuts import redirect
-from django.views.decorators.http import require_GET
-from django.contrib.auth import get_user_model
-from google.oauth2 import id_token
-from google.auth.transport import requests as google_requests
+import secrets
+from datetime import timedelta
 
-from rest_framework import generics 
-from rest_framework.response import Response 
-from authentication.serializers import SignupSerializer, LoginSerializer
-from authentication.serializers import VerifyEmailSerializer
-from authentication.serializers import ResendVerificationSerializer
-from .utils import create_internal_token
-from rest_framework.permissions import IsAuthenticated 
-from authentication.serializers import ChangeEmailUnverifiedSerializer
-from rest_framework import status 
-from rest_framework_simplejwt.tokens import RefreshToken
-
-import secrets 
-import hashlib 
-from datetime import timedelta 
-from django.utils import timezone 
-from django.http import JsonResponse 
-from rest_framework.decorators import api_view, permission_classes 
-from rest_framework.permissions import IsAuthenticated
 import requests
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.http import JsonResponse
+from django.shortcuts import redirect
+from django.utils import timezone
+from django.views.decorators.http import require_GET
+from google.auth.transport import requests as google_requests
+from google.oauth2 import id_token
+from rest_framework import generics, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from authentication.serializers import (
+    ChangeEmailUnverifiedSerializer,
+    LoginSerializer,
+    ResendVerificationSerializer,
+    SignupSerializer,
+    VerifyEmailSerializer,
+)
+from .utils import create_internal_token
 
 
 def _frontend_base_url():
@@ -220,26 +219,25 @@ class LoginView(generics.GenericAPIView):
             }
         })
 
-@api_view(["POST"])
-@permission_classes([IsAuthenticated])
-def request_delete_account(request):
-    user = request.user
-    token = secrets.token_hex(16)
+class RequestDeleteAccountView(APIView):
+    permission_classes = [IsAuthenticated]
+    http_method_names = ["post", "options"]
 
-    token_hash = hashlib.sha256(token.encode()).hexdigest()
+    def post(self, request):
+        user = request.user
+        token = secrets.token_hex(16)
+        token_hash = hashlib.sha256(token.encode()).hexdigest()
 
-    user.deletion_token_hash = token_hash
-    user.deletion_token_expires_at = timezone.now() + timedelta(minutes=15)
-    user.save()
+        user.deletion_token_hash = token_hash
+        user.deletion_token_expires_at = timezone.now() + timedelta(minutes=15)
+        user.save(update_fields=["deletion_token_hash", "deletion_token_expires_at"])
 
-    # 4. Send email with BillionMail
-    if settings.DEBUG:
-        print("DEBUG: Email de eliminación NO enviado (modo local). Token:", token)
-    else:
-        send_delete_confirmation_email(user.email, token)
+        if settings.DEBUG:
+            print("DEBUG: Email de eliminación NO enviado (modo local). Token:", token)
+        else:
+            send_delete_confirmation_email(user.email, token)
 
-
-    return JsonResponse({"message": "Correo enviado"})
+        return Response({"message": "Correo enviado"}, status=status.HTTP_200_OK)
 
 def send_delete_confirmation_email(email, token):
     requests.post(
@@ -255,27 +253,31 @@ def send_delete_confirmation_email(email, token):
             "Authorization": f"Bearer {settings.BILLIONMAIL_API_KEY}"
         }
     )
-@api_view(["POST"])
-@permission_classes([IsAuthenticated])
-def confirm_delete_account(request):
-    user = request.user
-    token = request.data.get("token")
 
-    if not token:
-        return JsonResponse({"error": "Token requerido"}, status=400)
+class ConfirmDeleteAccountView(APIView):
+    permission_classes = [IsAuthenticated]
+    http_method_names = ["post", "options"]
 
-    token_hash = hashlib.sha256(token.encode()).hexdigest()
+    def post(self, request):
+        user = request.user
+        token = request.data.get("token")
 
-    if user.deletion_token_hash != token_hash:
-        return JsonResponse({"error": "Token inválido"}, status=400)
+        if not token:
+            return Response({"error": "Token requerido"}, status=status.HTTP_400_BAD_REQUEST)
 
-    if timezone.now() > user.deletion_token_expires_at:
-        return JsonResponse({"error": "Token expirado"}, status=400)
+        token_hash = hashlib.sha256(token.encode()).hexdigest()
+        if not user.deletion_token_hash or user.deletion_token_hash != token_hash:
+            return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
 
-    user.delete()
+        if not user.deletion_token_expires_at or timezone.now() > user.deletion_token_expires_at:
+            return Response({"error": "Token expirado"}, status=status.HTTP_400_BAD_REQUEST)
 
-    return JsonResponse({"message": "Cuenta eliminada"})
+        user.delete()
+        return Response({"message": "Cuenta eliminada"}, status=status.HTTP_200_OK)
 
+
+request_delete_account = RequestDeleteAccountView.as_view()
+confirm_delete_account = ConfirmDeleteAccountView.as_view()
 
 
 
