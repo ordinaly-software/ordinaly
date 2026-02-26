@@ -15,6 +15,16 @@ import { getCookiePreferences } from "@/utils/cookieManager";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 
+
+type AuthResponse = {
+  id: number;
+  username: string;
+  email: string;
+  token: string;
+  email_verified?: boolean;
+  message?: string;
+};
+
 export default function LoginPage() {
   const t = useTranslations("signin");
   const { isDark } = useTheme();
@@ -81,7 +91,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     if (!email.trim() || !password) {
-      setAlert({ type: 'error', message: t('messages.fillAllFields') });
+      setAlert({ type: "error", message: t("messages.fillAllFields") });
       return;
     }
 
@@ -97,9 +107,9 @@ export default function LoginPage() {
       const recaptchaToken = await executeRecaptcha("login_form");
       const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
       const response = await fetch(`${apiUrl}/api/users/signin/`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           emailOrUsername: email.trim(),
@@ -108,27 +118,35 @@ export default function LoginPage() {
         }),
       });
 
-      const data = await response.json();
+
+      const data = (await response.json()) as AuthResponse;
 
       if (response.ok) {
-        // Store token in all known keys for backward compatibility
-        localStorage.setItem('auth_token', data.token);
+        localStorage.setItem("auth_token", data.token);
+        document.cookie = `email_verified=${data.email_verified}; path=/`;
 
-        setAlert({ type: 'success', message: t('messages.success') });
+        setAlert({ type: "success", message: t("messages.success") });
 
-        // Redirect to home after 1 second
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 1000);
-      } else {
-        setAlert({ type: 'error', message: t('messages.invalidCredentials') });
+        if (!data.email_verified) {
+          setTimeout(() => {
+            window.location.href = "/verify-email";
+          }, 1000);
+        } else {
+          setTimeout(() => {
+            window.location.href = "/profile";
+          }, 1000);
+        }
+      }
+      else {
+        setAlert({ type: "error", message: t("messages.invalidCredentials") });
       }
     } catch {
-      setAlert({ type: 'error', message: t('messages.networkError') });
+      setAlert({ type: "error", message: t("messages.networkError") });
     } finally {
       setIsLoading(false);
     }
   };
+
 
   const handleButtonClick = () => {
     const form = document.querySelector('form');
@@ -138,33 +156,28 @@ export default function LoginPage() {
   };
 
 
-  const handleGoogleSuccess = (data: {
-    token: string;
-    user: {
-      id: number;
-      username: string;
-      email: string;
-      first_name?: string;
-      last_name?: string;
-    };
-    profile_complete: boolean;
-    message: string;
-  }) => {
-    // Store token in all known keys for backward compatibility
-    localStorage.setItem('auth_token', data.token);
+  const handleGoogleSuccess = (data: AuthResponse) => {
+    localStorage.setItem("auth_token", data.token);
 
-    setAlert({ type: 'success', message: data.message });
+    localStorage.setItem("pending_email", data.email);
 
-    // Redirect based on profile completion
-    setTimeout(() => {
-      if (data.profile_complete) {
-        window.location.href = '/';
-      } else {
-        window.location.href = '/users/complete-profile';
-      }
-    }, 1000);
+    document.cookie = `access_token=${data.token}; path=/;`;
+    document.cookie = `email_verified=${data.email_verified ?? false}; path=/;`;
+    setAlert({
+      type: "success",
+      message: data.message ?? "Inicio de sesión correcto"
+    });
+    if (!data.email_verified) {
+      setTimeout(() => {
+        window.location.href = "/verify-email";
+      }, 1000);
+    } else {
+      setTimeout(() => {
+        window.location.href = "/profile";
+      }, 1000);
+    }
+
   };
-
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
@@ -200,14 +213,14 @@ export default function LoginPage() {
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
 
-                  {/* Google Sign-In */}
-                  <div className="mt-6">
-                    <div className="relative mb-6">
-                      <button
-                        onClick={() => {
-                          window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
-                        }}
-                        className="
+                    {/* Google Sign-In */}
+                    <div className="mt-6">
+                      <div className="relative mb-6">
+                        <button
+                          onClick={() => {
+                            window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
+                          }}
+                          className="
                               w-full flex items-center justify-center gap-3
                               bg-white dark:bg-gray-900
                               border border-gray-300 dark:border-gray-700
@@ -218,23 +231,23 @@ export default function LoginPage() {
                               hover:bg-[#1F8A0D]/10
                               dark:hover:bg-[#3FBD6F]/20
                               "
-                      >
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" 
-                        className="w-5 h-5" alt="Google" />
-                        <span className="font-medium">{t("form.continueWithGoogle")}</span>
-                      </button>
-                    </div>
-                    <div className="relative">
-                      <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                        >
+                          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                            className="w-5 h-5" alt="Google" />
+                          <span className="font-medium">{t("form.continueWithGoogle")}</span>
+                        </button>
                       </div>
-                      <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
-                          {t("form.orContinueWith")}
-                        </span>
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                        </div>
+                        <div className="relative flex justify-center text-sm">
+                          <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                            {t("form.orContinueWith")}
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-gray-800 dark:text-gray-200">
