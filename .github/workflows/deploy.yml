@@ -71,7 +71,8 @@ jobs:
           STRIPE_SECRET_KEY: sk_test
           TIME_ZONE: Europe/Madrid
         run: |
-          python manage.py makemigrations --noinput
+          # Fail fast if model changes are missing migration files.
+          python manage.py makemigrations --check --dry-run
           python manage.py migrate --noinput
           python manage.py test --verbosity 2 --failfast
 
