@@ -1,15 +1,18 @@
 import hashlib
-import random
+import secrets
 from django.utils import timezone
 from datetime import timedelta
 from django.conf import settings
 from ..models import EmailVerificationOTP
 
+
 def generate_otp_code():
-    return f"{random.randint(0, 999999):06d}"
+    return f"{secrets.randbelow(1_000_000):06d}"
+
 
 def hash_code(code: str):
     return hashlib.sha256(code.encode()).hexdigest()
+
 
 def create_otp_for_user(user):
     # invalidate previous
@@ -30,6 +33,7 @@ def create_otp_for_user(user):
     )
 
     return code, otp
+
 
 def validate_otp(user, code):
     otp = EmailVerificationOTP.objects.filter(
