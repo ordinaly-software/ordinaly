@@ -1,5 +1,4 @@
 "use client";
-console.log("WRAPPER CARGADO");
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import type { ReactNode } from "react";
 

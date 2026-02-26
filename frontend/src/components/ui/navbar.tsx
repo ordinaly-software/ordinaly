@@ -215,7 +215,7 @@ const Navbar = () => {
         setUserData(data);
       }
     } catch (error) {
-      console.warn("Failed to fetch user data:", error);
+
     }
   }, []);
 
@@ -233,7 +233,7 @@ const Navbar = () => {
         setHasEnrolledCourses(Array.isArray(data) && data.length > 0);
       }
     } catch (error) {
-      console.warn("Failed to fetch enrollment data:", error);
+
     }
   }, []);
 
@@ -294,7 +294,7 @@ const Navbar = () => {
         }).catch(() => { });
       }
     } catch (error) {
-      console.warn("Signout error:", error);
+
     }
 
     localStorage.removeItem("auth_token");
