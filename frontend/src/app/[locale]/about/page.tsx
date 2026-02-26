@@ -19,7 +19,7 @@ export async function generateMetadata({
     description: isEs
       ? "Conoce al equipo de Ordinaly Software, nuestra misión y cómo ayudamos a empresas a automatizar con IA."
       : "Meet the Ordinaly Software team, our mission, and how we help companies automate with AI.",
-    image: "/static/backgrounds/us_background.webp",
+    image: "/static/backgrounds/us_background.png",
   });
 }
 
