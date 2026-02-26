@@ -60,6 +60,31 @@ const YoutubePreview = ({
   const isBlocked = !canLoad;
   const frameRef = useRef<HTMLDivElement | null>(null);
   const [frameSize, setFrameSize] = useState({ width: 0, height: 0 });
+  const [detectedAspectRatio, setDetectedAspectRatio] = useState<number | null>(null);
+
+  useEffect(() => {
+    setDetectedAspectRatio(null);
+    if (!youtubeThumbnail || typeof window === "undefined") return;
+
+    let isCancelled = false;
+    const probeImage = new window.Image();
+    probeImage.onload = () => {
+      if (isCancelled) return;
+      const width = probeImage.naturalWidth;
+      const height = probeImage.naturalHeight;
+      if (width > 0 && height > 0) {
+        setDetectedAspectRatio(width / height);
+      }
+    };
+    probeImage.onerror = () => {
+      if (!isCancelled) setDetectedAspectRatio(null);
+    };
+    probeImage.src = youtubeThumbnail;
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [youtubeThumbnail]);
 
   useEffect(() => {
     if (!frameRef.current || typeof ResizeObserver === "undefined") return;
@@ -76,8 +101,12 @@ const YoutubePreview = ({
     return () => observer.disconnect();
   }, []);
 
-  const frameRatio =
-    frameSize.width > 0 && frameSize.height > 0 ? frameSize.width / frameSize.height : isShort ? 9 / 16 : 16 / 9;
+  const hasDetectedAspectRatio = detectedAspectRatio !== null && Number.isFinite(detectedAspectRatio);
+  const isPortraitMedia = hasDetectedAspectRatio ? (detectedAspectRatio as number) < 1 : false;
+  const mediaAspectRatio = isPortraitMedia ? 9 / 16 : 16 / 9;
+  const frameRatio = frameSize.width > 0 && frameSize.height > 0
+    ? frameSize.width / frameSize.height
+    : mediaAspectRatio;
   const isPortraitFrame = frameRatio < 1;
   const isNarrowFrame = frameSize.width > 0 && frameSize.width < 420;
   const isShortFrame = frameSize.height > 0 && frameSize.height < 220;
@@ -94,8 +123,9 @@ const YoutubePreview = ({
         ref={frameRef}
         className={cn(
           "relative w-full flex-1 min-h-0 overflow-hidden rounded-2xl border border-white/30 bg-black shadow-lg dark:border-neutral-700",
-          isShort ? "aspect-[9/16]" : "aspect-video",
+          isPortraitMedia ? "mx-auto max-w-[380px] sm:max-w-[440px]" : "",
         )}
+        style={{ aspectRatio: `${mediaAspectRatio}` }}
       >
         {isBlocked ? (
           <>
