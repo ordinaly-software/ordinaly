@@ -426,7 +426,7 @@
         "phone": "+34 626 27 08 06",
         "location": "Plaza del Duque 1, 41002 Seville, Andalusia, Spain"
       },
-      "copyright": "© 2025 Ordinaly Software. All rights reserved."
+      "copyright": "© {year} Ordinaly Software. All rights reserved."
     },
     "pricingPlans": {
       "1": {
@@ -1960,7 +1960,6 @@
       "primaryCta": "Write to us",
       "secondaryCta": "Open the form",
       "contactCardTitle": "Prefer to speak directly?",
-      "contactCardText": "We reply fast with a tailored proposal and next steps.",
       "location": "Visit us in Seville!"
     },
     "info": {
@@ -2042,12 +2041,12 @@
     },
     "story": {
       "eyebrow": "Our journey",
-      "title": "How Ordinary grew from Seville to automate ambitious teams",
+      "title": "How Ordinaly grew from Seville to automate ambitious teams",
       "lead": "A founder-led automation and AI studio born in Andalucía to replace repetitive work with measurable impact for fast-moving businesses.",
       "timeline": {
         "1": {
           "title": "Summer 2025 · Idea ignition at the University of Seville",
-          "body": "While wrapping up his Computer Engineering degree, Antonio teams up with Emilio and Guillermo to design Ordinary: an automation studio built to free teams from repetitive tasks and keep humans in control."
+          "body": "While wrapping up his Computer Engineering degree, Antonio teams up with Emilio and Guillermo to design Ordinaly: an automation studio built to free teams from repetitive tasks and keep humans in control."
         },
         "2": {
           "title": "Summer 2025 · Brand, business model, and our promise",
@@ -2055,7 +2054,7 @@
         },
         "3": {
           "title": "September 2025 · Company incorporated and first clients",
-          "body": "We officially launch Ordinary, start working with our first customers, and deliver pilots while Antonio pursues his Master's in Computer Science and Artificial Intelligence."
+          "body": "We officially launch Ordinaly, start working with our first customers, and deliver pilots while Antonio pursues his Master's in Computer Science and Artificial Intelligence."
         },
         "4": {
           "title": "2026 · Scaling automation for more companies",
@@ -2083,12 +2082,12 @@
     },
     "cta": {
       "eyebrow": "Work with us",
-      "title": "Join Ordinary and build the next wave of automation",
+      "title": "Join Ordinaly and build the next wave of automation",
       "body": "If you love AI, automation and measurable impact, we want to meet you. Send us your CV or reach out to talk about how you can help us ship faster.",
       "primary": "Send your CV",
       "secondary": "Talk with us",
-      "mailSubject": "CV for Ordinary",
-      "mailBody": "Hi team,\n\nI'd love to join Ordinary. Here's my profile and why I'm a fit:\n\n- Role/area of interest:\n- Relevant experience:\n- Links (CV/portfolio/LinkedIn):\n\nThanks!"
+      "mailSubject": "CV for Ordinaly",
+      "mailBody": "Hi team,\n\nI'd love to join Ordinaly. Here's my profile and why I'm a fit:\n\n- Role/area of interest:\n- Relevant experience:\n- Links (CV/portfolio/LinkedIn):\n\nThanks!"
     }
   },
   "investors": {

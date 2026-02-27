@@ -425,7 +425,7 @@
         "phone": "+34 626 27 08 06",
         "location": "Plaza del Duque 1, 41002 Sevilla, Andalucía, España"
       },
-      "copyright": "© 2025 Ordinaly Software. Todos los derechos reservados"
+      "copyright": "© {year} Ordinaly Software. Todos los derechos reservados"
     },
     "pricingPlans": {
       "1": {
@@ -513,7 +513,7 @@
     "help3": "Plazos de implementación",
     "help4": "Aclaraciones técnicas",
     "help5": "Propuestas personalizadas y SLAs",
-    "requestAssistance": "Solicitar asesoría",
+    "requestAssistance": "Abrir WhatsApp",
     "defaultWhatsAppMessage": "Hola, quiero hablar con el equipo comercial o técnico de Ordinaly."
   },
   "signin": {
@@ -1959,7 +1959,6 @@
       "primaryCta": "Escríbenos",
       "secondaryCta": "Abrir formulario",
       "contactCardTitle": "¿Prefieres hablar directo?",
-      "contactCardText": "Respondemos rápido con una propuesta y los siguientes pasos.",
       "location": "¡Visítanos en Sevilla!"
     },
     "info": {
@@ -2041,12 +2040,12 @@
     },
     "story": {
       "eyebrow": "Nuestra historia",
-      "title": "Así nació Ordinary para automatizar empresas desde Sevilla",
+      "title": "Así nació Ordinaly para automatizar empresas desde Sevilla",
       "lead": "Un estudio de automatización y agentes de IA creado en Andalucía para eliminar tareas repetitivas y generar impacto medible en negocios exigentes.",
       "timeline": {
         "1": {
           "title": "Verano 2025 · La idea prende en la Universidad de Sevilla",
-          "body": "Mientras termina Ingeniería Informática, Antonio se une a Emilio y Guillermo para diseñar Ordinary: un estudio de automatización pensado para liberar equipos de tareas repetitivas y mantener a las personas al mando."
+          "body": "Mientras termina Ingeniería Informática, Antonio se une a Emilio y Guillermo para diseñar Ordinaly: un estudio de automatización pensado para liberar equipos de tareas repetitivas y mantener a las personas al mando."
         },
         "2": {
           "title": "Verano 2025 · Marca, modelo de negocio y promesa",
@@ -2054,7 +2053,7 @@
         },
         "3": {
           "title": "Septiembre 2025 · Constituimos la empresa y llegan los primeros clientes",
-          "body": "Lanzamos Ordinary, arrancamos proyectos con nuestros primeros clientes y entregamos pilotos mientras Antonio cursa su máster en Ciencias de la computación e inteligencia artificial."
+          "body": "Lanzamos Ordinaly, arrancamos proyectos con nuestros primeros clientes y entregamos pilotos mientras Antonio cursa su máster en Ciencias de la computación e inteligencia artificial."
         },
         "4": {
           "title": "2026 · Escalamos la automatización para más empresas",
@@ -2082,12 +2081,12 @@
     },
     "cta": {
       "eyebrow": "Trabaja con nosotros",
-      "title": "Trabaja en Ordinary y construye la próxima ola de automatizaciones",
+      "title": "Trabaja en Ordinaly y construye la próxima ola de automatizaciones",
       "body": "Si te apasionan la IA, la automatización y el impacto medible, queremos conocerte. Envíanos tu CV o hablemos sobre cómo puedes ayudarnos a entregar más rápido.",
       "primary": "Enviar CV",
       "secondary": "Hablar con nosotros",
-      "mailSubject": "CV para unirme a Ordinary",
-      "mailBody": "Hola equipo,\n\nMe encantaría unirme a Ordinary. Aquí va mi perfil y por qué encajo:\n\n- Rol/área de interés:\n- Experiencia relevante:\n- Enlaces (CV/portfolio/LinkedIn):\n\n¡Gracias!"
+      "mailSubject": "CV para unirme a Ordinaly",
+      "mailBody": "Hola equipo,\n\nMe encantaría unirme a Ordinaly. Aquí va mi perfil y por qué encajo:\n\n- Rol/área de interés:\n- Experiencia relevante:\n- Enlaces (CV/portfolio/LinkedIn):\n\n¡Gracias!"
     }
   },
   "investors": {

@@ -233,7 +233,6 @@ export default function ContactPage() {
                   <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {t("hero.contactCardTitle")}
                   </h3>
-                  <p className="text-gray-700 dark:text-gray-300">{t("hero.contactCardText")}</p>
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div className="p-3 rounded-xl bg-gray-50 dark:bg-gray-800">
                       <p className="text-gray-500 dark:text-gray-400">{t("info.emailLabel")}</p>

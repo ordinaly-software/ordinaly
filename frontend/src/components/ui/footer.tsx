@@ -12,6 +12,7 @@ import { useCallback } from "react";
 const Footer = () => {
   const t = useTranslations("home");
   const { isDark, setIsDark } = useTheme();
+  const currentYear = new Date().getUTCFullYear();
 
   const toggleTheme = useCallback(() => {
     setIsDark(!isDark);
@@ -173,7 +174,7 @@ const Footer = () => {
       {/* Bottom Bar - full width, no lateral/bottom margins */}
       <div className="relative z-10 w-full bg-gradient-to-r from-gray-100 to-gray-200 py-6 px-4 sm:px-6 lg:px-8 text-slate-900 dark:from-gray-900 dark:to-black dark:text-white">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 md:flex-row">
-          <div className="text-sm">{t("footer.copyright")}</div>
+          <div className="text-sm">{t("footer.copyright", { year: currentYear })}</div>
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
