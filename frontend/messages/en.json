@@ -1,29 +1,29 @@
 {
   "home": {
     "logo": {
-      "alt": "Ordinaly Software Logo",
+      "alt": "Ordinaly Software logo",
       "title": "ORDINALY"
     },
     "navigation": {
       "home": "Meet us!",
-      "services": "Services and Products",
+      "services": "Services and products",
       "serviceSubmenu": "See ALL our services and products",
       "formation": "Formation",
       "formationSubmenu":  "See ALL our courses and workshops",
-      "start": "Get Started",
+      "start": "Get started",
       "ctaConsultation": "Book a consultation",
       "ctaConsultationMessage": "Hi, I'd like to book a consultation to start automating processes in my business.",
       "darkMode": "Switch to dark mode",
-      "lightMode": "Switch to light Mode",
+      "lightMode": "Switch to light mode",
       "localeSwitcher": "Change language",
       "contact": "Contact",
       "openMenu": "Open menu",
       "closeMenu": "Close menu",
-      "signIn": "Sign In",
-      "signUp": "Sign Up!",
-      "signOut": "Sign Out",
+      "signIn": "Sign in",
+      "signUp": "Sign up!",
+      "signOut": "Sign out",
       "userMenu": "User menu",
-      "adminDashboard": "Admin Dashboard",
+      "adminDashboard": "Admin dashboard",
       "profile": "Profile",
       "myCourses": "My courses",
       "blog": "Blog",
@@ -36,11 +36,11 @@
       "titleLine2": "AUTOMATED.",
       "subtitle": "AI and innovation from Seville to the world.",
       "description1": "We automate your processes with AI agents, chatbots, and no-code workflows so you can sell and operate 24/7.",
-      "trust1": "Tailored Automation",
+      "trust1": "Tailored automation",
       "trust2": "24/7 AI agents for sales and support.",
-      "trust3": "Solutions for Real Estate, Retail, and Marketing.",
+      "trust3": "Solutions for real estate, retail, and marketing.",
       "trust4": "Practical AI training for teams.",
-      "ctaServices": "View Services",
+      "ctaServices": "View services",
       "ctaDemo": "Book a consultation",
       "clientsTitle": "Trusted by",
       "statHeadline": "+500 HOURS SAVED",
@@ -48,47 +48,47 @@
       "imageAlt": "Business automation and AI from Seville to the world."
     },
     "benefits": {
-      "title": "Why Choose Ordinaly for Business Automation in Seville?",
+      "title": "Why choose Ordinaly for business automation in Seville?",
       "subtitle": "We are local experts in AI agent implementation and business process optimization",
       "items": {
       "0": {
-        "title": "Real Time Savings",
+        "title": "Real time savings",
         "description": "Automate repetitive tasks and save up to 20 hours per week with our AI agents"
       },
       "1": {
-        "title": "Tailored Solutions",
+        "title": "Tailored solutions",
         "description": "We design personalized workflows adapted to your sector: real estate, property management, marketing"
       },
       "2": {
-        "title": "Training Included",
+        "title": "Training included",
         "description": "Practical AI courses so your team masters the tools and becomes self-sufficient"
       },
       "3": {
-        "title": "Local Support",
+        "title": "Local support",
         "description": "Team in Seville available for in-person meetings and ongoing support"
       }
       }
     },
     "services": {
-      "title": "AI and Automation Services for Companies in Seville",
+      "title": "AI and automation services for companies in Seville",
       "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs.",
       "extra": {
         "0": {
-          "title": "Fast Implementation",
+          "title": "Fast implementation",
           "description": "First visible results in 2-4 weeks. We work by phases for immediate value."
         },
         "1": {
-          "title": "100% Customizable",
+          "title": "100% customizable",
           "description": "We don't use generic templates. Each solution is designed specifically for your business."
         },
         "2": {
-          "title": "Continuous Support",
+          "title": "Continuous support",
           "description": "Technical team in Seville available. Updates and improvements included in the service."
         }
       },
       "contactForQuote": "I want to know more!",
       "vacationMessage": "We're on vacation! Our services will return soon after the holidays. Thank you for your patience",
-      "vacationTitle": "On Vacation",
+      "vacationTitle": "On vacation",
       "retryButton": "Retry",
       "featured": "Featured",
       "duration": "Ready in ",
@@ -98,23 +98,23 @@
       "created": "Created",
       "createdBy": "Created by",
       "requisites": "Requirements",
-      "contactNow": "Contact Now",
-      "contactEmail": "Contact by Email",
-      "viewDetails": "View Details",
+      "contactNow": "Contact now",
+      "contactEmail": "Contact by email",
+      "viewDetails": "View details",
       "viewAllServicesAndProducts": "See the entire catalog",
       "video": "Video",
       "playVideo": "Play video",
       "imageAlt": "Image for {title}",
-      "errorTitle": "Error Loading Services",
+      "errorTitle": "Error loading services",
       "errorMessage": "Services could not be loaded"
     },
     "process": {
-      "title": "How Does Our Automation Process Work?",
+      "title": "How does our automation process work?",
       "subtitle": "Proven methodology to implement AI agents without interrupting your daily operations",
       "meta": "Average time: 2-8 weeks depending on complexity • No hidden costs • Satisfaction guarantee",
       "steps": {
       "0": {
-        "title": "Initial Analysis",
+        "title": "Initial analysis",
         "description": "Free meeting (in person in Seville or via video call).",
         "bullets": {
         "0": "Identification of automatable processes",
@@ -123,7 +123,7 @@
         }
       },
       "1": {
-        "title": "Design and Development",
+        "title": "Design and development",
         "description": "We build the tailored solution with partial deliveries so you can validate progress.",
         "bullets": {
         "0": "Agile development by sprints",
@@ -141,7 +141,7 @@
         }
       },
       "3": {
-        "title": "Training and Support",
+        "title": "Training and support",
         "description": "We train your team and provide ongoing support. You keep full control.",
         "bullets": {
         "0": "Hands-on training sessions",
@@ -152,11 +152,11 @@
       }
     },
     "useCases": {
-      "title": "Use Cases: How Can AI Help Your Business?",
+      "title": "Use cases: how can AI help your business?",
       "subtitle": "Proven solutions for specific sectors in Seville and Andalusia",
       "items": {
         "0": {
-          "title": "Property Managers",
+          "title": "Property managers",
             "bullets": [
             "Automated reports sent to property owners",
             "Automated email management",
@@ -164,7 +164,7 @@
             ]
         },
         "1": {
-          "title": "Real Estate Agencies",
+          "title": "Real estate agencies",
           "bullets": [
             "AI agent for customer inquiries",
             "Automation of listings on social media",
@@ -172,7 +172,7 @@
           ]
         },
         "2": {
-          "title": "Marketing Agencies",
+          "title": "Marketing agencies",
           "bullets": [
             "Social media automation",
             "Content generation with AI",
@@ -180,7 +180,7 @@
           ]
         },
         "3": {
-          "title": "Retail Commerce",
+          "title": "Retail commerce",
           "bullets": [
             "Intelligent inventory management",
             "Automated customer support",
@@ -188,7 +188,7 @@
           ]
         },
         "4": {
-          "title": "Consulting and Services",
+          "title": "Consulting and services",
             "bullets": [
             "Automated email management",
             "Billing workflows",
@@ -196,7 +196,7 @@
             ]
         },
         "5": {
-          "title": "Construction and Engineering",
+          "title": "Construction and engineering",
           "bullets": [
             "Vendor and budget management",
             "Intelligent documentation with AI",
@@ -206,7 +206,7 @@
       }
     },
     "testimonials": {
-      "title": "What Our Clients Say in Seville",
+      "title": "What our clients say in Seville",
       "googleSummary": "{rating} on Google · {count} reviews",
       "googleLink": "See all on Google",
       "googleWrite": "Write a review",
@@ -234,57 +234,57 @@
       }
     },
     "local": {
-      "title": "Business Automation Experts in Seville and All Andalusia",
+      "title": "Business automation experts in Seville and all Andalusia",
       "description1": "We are a team of software engineers specialized in AI with headquarters in the heart of Seville. We know the Andalusian business community and understand the specific needs of local SMEs.",
       "description2": "Whether you are in Seville capital, Andalusia, or anywhere in Spain we offer both in-person consulting and remote implementation with the highest quality standards.",
       "videoLabel": "Video",
       "playVideo": "Play",
       "points": {
       "0": {
-        "title": "Office in Downtown Seville",
+        "title": "Office in downtown Seville",
         "description": "Plaza del Duque 1, 41002 Seville • In-person meetings available"
       },
       "1": {
-        "title": "Direct Contact",
+        "title": "Direct contact",
         "description": "+34 626 27 08 06 • info@ordinaly.ai • Response within 24h"
       },
       "2": {
-        "title": "Regional Coverage",
+        "title": "Regional coverage",
         "description": "Services throughout Andalusia • In-person training in Seville"
       }
       },
-      "cta": "Contact Us"
+      "cta": "Contact us"
     },
     "partnersSection": {
-      "title": "Companies That Trust Ordinaly",
+      "title": "Companies that trust Ordinaly",
       "subtitle": "We collaborate with leading companies in Seville and Andalusia to transform their processes with AI",
       "visit": "Visit partner's website"
     },
     "cta": {
-      "title": "Ready to Automate Your Business with AI Agents?",
+      "title": "Ready to automate your business with AI agents?",
       "subtitle": "Schedule a free consultation and discover how artificial intelligence can transform your business in Seville",
       "meta": "Guaranteed response within 24 business hours • +34 626 27 08 06 • info@ordinaly.ai",
       "buttons": {
-      "whatsapp": "Free Consultation via WhatsApp",
-      "services": "View All Services"
+      "whatsapp": "Free consultation via WhatsApp",
+      "services": "View all services"
       },
       "items": {
       "0": {
-        "title": "Personalized Analysis",
+        "title": "Personalized analysis",
         "description": "We study your business and show you specific automation opportunities"
       },
       "1": {
-        "title": "Transparent Budget",
+        "title": "Transparent budget",
         "description": "No hidden costs. You'll know exactly what you'll receive and how much it will cost"
       },
       "2": {
-        "title": "Fast Results",
+        "title": "Fast results",
         "description": "First automations running in 2-4 weeks. Value from day 1"
       }
       }
     },
     "tech": {
-      "title": "Technologies and Tools We Master",
+      "title": "Technologies and tools we master",
       "subtitle": "We work with leading AI and business automation platforms",
       "description": "And many more. If your company already uses specific tools, we integrate them into your automation workflow. You don't need to change your current systems.",
       "items": {
@@ -303,10 +303,10 @@
       }
     },
     "seoArticle": {
-      "title": "Business Automation with AI in Seville: The Complete Guide",
+      "title": "Business automation with AI in Seville: the complete guide",
       "intro": "Business automation with artificial intelligence has gone from a futuristic option to a competitive necessity for SMEs in Seville and across Andalusia. At Ordinaly, we help local companies implement AI agents for business that radically transform their daily operations.",
       "section1": {
-        "title": "What are AI Agents and how do they benefit your business in Seville?",
+        "title": "What are AI agents and how do they benefit your business in Seville?",
         "body": "AI agents are intelligent systems designed to perform specific tasks autonomously. Unlike simple chatbots, these agents can make decisions, learn from previous interactions, and execute complex workflows without human intervention. For a real estate company in Seville, this means managing customer inquiries 24/7, scheduling visits automatically, and generating property descriptions in seconds."
       },
       "section2": {
@@ -320,7 +320,7 @@
         }
       },
       "section3": {
-        "title": "AI training for companies: The essential complement",
+        "title": "AI training for companies: the essential complement",
         "body": "We don't just implement technology: we train your team to be self-sufficient. Our artificial intelligence courses in Seville are 100% practical and focused on real use cases. From introductory ChatGPT to advanced automations with Make and Zapier, we tailor training to your sector's specific needs."
       },
       "section4": {
@@ -350,40 +350,40 @@
     },
     "courses": {
       "noSpecificDate": "No specific date",
-      "showcaseTitle": "Featured Courses",
+      "showcaseTitle": "Featured courses",
       "showcaseDescription": "Join our professional training courses and advance your career",
-      "upcomingTitle": "Upcoming Courses",
+      "upcomingTitle": "Upcoming courses",
       "upcomingDescription": "Discover our professional training courses",
-      "noCoursesTitle": "No Upcoming Courses",
+      "noCoursesTitle": "No upcoming courses",
       "noCoursesMessage": "Stay tuned for new course announcements!",
       "notifyButton": "See all courses",
-      "errorTitle": "Error Loading Courses",
+      "errorTitle": "Error loading courses",
       "errorMessage": "Failed to load courses",
-      "retryButton": "Try Again",
-      "enrollButton": "Enroll Now",
-      "moreInfo": "More Info",
+      "retryButton": "Try again",
+      "enrollButton": "Enroll now",
+      "moreInfo": "More info",
       "enrollCta": "Enroll",
       "wantNewEdition": "I want a new edition",
       "pastCourseMessage": "Hello, I saw the course \"{course}\" ({link}) and I would love to request a new edition for it. Could you let me know when you schedule it?",
-      "viewDetails": "View Details",
-      "viewAllCourses": "View All Courses",
+      "viewDetails": "View details",
+      "viewAllCourses": "View all courses",
       "spotsLeft": "spots left",
       "enrolled": "enrolled",
       "max": "max",
-      "almostFull": "Almost Full",
-      "fillingFast": "Filling Fast",
+      "almostFull": "Almost full",
+      "fillingFast": "Filling fast",
       "available": "Available",
-      "inProgress": "In Progress",
+      "inProgress": "In progress",
       "finished": "Finished",
-      "datesSoon": "Dates Coming Soon",
-      "durationSoon": "Duration Coming Soon",
-      "locationSoon": "Location Coming Soon",
+      "datesSoon": "Dates coming soon",
+      "durationSoon": "Duration coming soon",
+      "locationSoon": "Location coming soon",
       "signUpModal": {
-        "title": "Course Registration",
+        "title": "Course registration",
         "description": "Get notified when registration opens for \"{courseName}\"",
         "generalDescription": "Get notified about new course announcements and early registration opportunities.",
         "close": "Close",
-        "notify": "Notify Me"
+        "notify": "Notify me"
       },
       "previous": "Previous",
       "next": "Next"
@@ -396,7 +396,7 @@
       "imageAlt": "Ordinaly team working on AI solutions for Andalusian businesses"
     },
     "demoModal": {
-      "title": "Ordinaly Demo",
+      "title": "Ordinaly demo",
       "description": "See how our platform can transform your business with smart automation.",
       "videoNotSupported": "Your browser does not support this type of video.",
       "videoError": "Error playing video:"
@@ -404,11 +404,11 @@
     "footer": {
       "logo": {
         "title": "ORDINALY",
-        "alt": "Ordinaly Logo"
+        "alt": "Ordinaly logo"
       },
       "description": "Transforming Andalusian companies with artificial intelligence and automation.",
       "legal": {
-        "title": "Legal Docs",
+        "title": "Legal docs",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy",
         "cookies": "Cookies Policy",
@@ -430,75 +430,75 @@
     },
     "pricingPlans": {
       "1": {
-        "title": "Robotic Assistance",
+        "title": "Robotic assistance",
         "features": [
-          "Intelligent Web Chatbot",
-          "AI-Powered WhatsApp Agent"
+          "Intelligent web chatbot",
+          "AI-powered WhatsApp agent"
         ]
       },
       "2": {
-        "title": "Sales Automation",
+        "title": "Sales automation",
         "features": [
-          "Everything in Robotic Assistance Plan",
+          "Everything in Robotic assistance plan",
           "Automated CRM (users, billing, reports, orders)",
-          "Automated Notifications (Email/SMS/WhatsApp)"
+          "Automated notifications (email/SMS/WhatsApp)"
         ]
       },
       "3": {
-        "title": "AI Predictive Strategy",
+        "title": "AI predictive strategy",
         "features": [
-          "Everything in Sales Automation Plan",
-          "Intelligent Diagnostic and Recommendation Assistants",
-          "Looker Studio Integration and Flow Automation",
-          "Predictive Analysis and Market Trends",
-          "Web Tools for Quick Quotes"
+          "Everything in Sales automation plan",
+          "Intelligent diagnostic and recommendation assistants",
+          "Looker Studio integration and flow automation",
+          "Predictive analysis and market trends",
+          "Web tools for quick quotes"
         ]
       }
     },
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   },
   "common": {
-    "onVacation": "On Vacation",
+    "onVacation": "On vacation",
     "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
-    "retry": "Try Again",
-    "learnMore": "Learn More",
-    "backToHome": "Back to Home"
+    "retry": "Try again",
+    "learnMore": "Learn more",
+    "backToHome": "Back to home"
   },
   "logoutModal": {
-    "title": "Confirm Sign Out",
+    "title": "Confirm sign out",
     "message": "Are you sure you want to sign out of your account?",
-    "confirmButton": "Sign Out",
+    "confirmButton": "Sign out",
     "cancelButton": "Cancel"
   },
   "cookie": {
-    "title": "Cookie Settings",
-    "openCookieSettings": "Open Cookie Settings",
-    "getCookiePreferences": "Open Cookie Settings",
+    "title": "Cookie settings",
+    "openCookieSettings": "Open cookie settings",
+    "getCookiePreferences": "Open cookie settings",
     "openOnYoutube": "Open on YouTube",
     "description": "We use cookies to enhance your experience, personalize content, and analyze traffic. You can choose which types of cookies to accept.",
     "thirdPartyTitle": "Third-party content blocked",
     "acceptAll": "Accept",
-    "rejectAll": "Reject All",
+    "rejectAll": "Reject all",
     "customize": "Configure",
     "personalizeTitle": "Customize your cookie preferences",
     "personalizeDescription": "You can enable or disable different types of cookies according to your preferences.",
-    "necessary": "Necessary Cookies",
+    "necessary": "Necessary cookies",
     "necessaryDescription": "These cookies are essential for the website to function and cannot be disabled.",
     "necessaryAlways": "Always enabled",
-    "functional": "Functional Cookies",
+    "functional": "Functional cookies",
     "functionalDescription": "Functional cookies include essential features and are always enabled alongside necessary cookies.",
     "functionalExamples": "Language preferences, user settings",
-    "thirdParty": "Third-party Cookies",
+    "thirdParty": "Third-party cookies",
     "thirdPartyDescription": "Allow loading external content like videos and maps",
     "thirdPartyExamples": "YouTube, Google Maps",
-    "analytics": "Analytics Cookies",
+    "analytics": "Analytics cookies",
     "analyticsDescription": "Help us understand how users interact with the site.",
     "analyticsExamples": "Google Analytics, performance metrics",
-    "marketing": "Marketing Cookies",
+    "marketing": "Marketing cookies",
     "marketingDescription": "Allow us to show you more relevant ads based on your interests.",
     "marketingExamples": "Personalized advertising, campaign tracking",
     "back": "Back",
-    "save": "Save Preferences",
+    "save": "Save preferences",
     "footer": "For more information, see our ",
     "privacy": "Privacy Policy",
     "cookies": "Cookies Policy"
@@ -506,7 +506,7 @@
   "whatsapp": {
     "openLine": "Talk to our team",
     "tooltip": "Need personalized commercial or technical help?",
-    "title": "Personalized Assistance",
+    "title": "Personalized assistance",
     "description": "Connect with our commercial or technical specialists to co-design the ideal automation, pricing, and rollout plan for your business.",
     "canHelpWith": "How can our specialists assist?",
     "help1": "Service scoping and strategy",
@@ -522,15 +522,15 @@
     "subtitle": "Welcome back!",
     "googleSignIn": "Continue with Google",
     "form": {
-      "emailLabel": "Email or Username",
+      "emailLabel": "Email or username",
       "emailPlaceholder": "Enter your email or username",
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter your password",
-      "forgotPassword": "Forgot Password?",
-      "submitButton": "Sign In",
-      "submitButtonLoading": "Signing In...",
+      "forgotPassword": "Forgot password?",
+      "submitButton": "Sign in",
+      "submitButtonLoading": "Signing in...",
       "signupPrompt": "Don't have an account?",
-      "signupLink": "Sign Up",
+      "signupLink": "Sign up",
       "orContinueWith": "Or continue with",
       "continueWithGoogle": "Continue with Google",
       "forgotPasswordHint": "If you've forgotten your password, please contact {email} for help."
@@ -544,18 +544,18 @@
     }
   },
   "signup": {
-    "title": "Create Your Account",
+    "title": "Create your account",
     "subtitle": "Fill out the form to sign up",
     "googleSignUp": "Continue with Google",
     "form": {
-      "title": "Sign Up Form",
-      "nameLabel": "First Name",
+      "title": "Sign up form",
+      "nameLabel": "First name",
       "namePlaceholder": "Enter your first name",
-      "surnameLabel": "Last Name",
+      "surnameLabel": "Last name",
       "surnamePlaceholder": "Enter your last name",
       "usernameLabel": "Username",
       "usernamePlaceholder": "Choose a username",
-      "emailLabel": "Email Address",
+      "emailLabel": "Email address",
       "emailPlaceholder": "Enter your email",
       "companyLabel": "Company",
       "companyPlaceholder": "Enter your company name",
@@ -565,16 +565,16 @@
       "cityPlaceholder": "Enter your city (optional)",
       "passwordLabel": "Password",
       "passwordPlaceholder": "Enter your password",
-      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordLabel": "Confirm password",
       "confirmPasswordPlaceholder": "Confirm your password",
       "acceptTerms": "I agree to the",
       "termsLink": "Terms of Service",
       "and": "and",
       "privacyLink": "Privacy Policy",
-      "submitButton": "Sign Up",
+      "submitButton": "Sign up",
       "submitButtonLoading": "Registering...",
       "loginPrompt": "Already have an account?",
-      "loginLink": "Sign In",
+      "loginLink": "Sign in",
       "signupWithGoogle": "Sign up with Google",
       "orSignupWithEmail": "Or sign up with email",
       "selectAll": "Select all",
@@ -614,10 +614,10 @@
     }
   },
   "admin": {
-    "title": "Admin Dashboard",
+    "title": "Admin dashboard",
     "subtitle": "Manage your application content and settings",
     "loading": "Loading admin panel...",
-    "accessDenied": "Access Denied",
+    "accessDenied": "Access denied",
     "noPermission": "You don't have permission to access this page.",
     "labels": {
       "price": "Price",
@@ -628,7 +628,7 @@
       "location": "Location",
       "date": "Date",
       "schedule": "Schedule",
-      "maxAttendants": "Max Attendants",
+      "maxAttendants": "Max attendants",
       "draft": "Draft"
     },
     "tabs": {
@@ -659,40 +659,40 @@
       "email": "Email",
       "company": "Company",
       "errorFetching": "Failed to fetch users. Please try again later.",
-      "sendMail": "Send Mail",
-      "selectAll": "Select All",
+      "sendMail": "Send mail",
+      "selectAll": "Select all",
       "searchPlaceholder": "Search users...",
       "users": "users"
     },
     "blogTab": {
-      "title": "Blog Edition CMS",
+      "title": "Blog edition CMS",
       "openedMessage": "The blog edition CMS has been opened in another tab. If you don't see it, click the button below.",
-      "openButton": "Open Blog CMS",
+      "openButton": "Open blog CMS",
       "loginWarning": "You may need to log in to the CMS with an admin account."
     },
     "externalTabs": {
       "odoo": {
-        "title": "Odoo Admin (ERP)",
+        "title": "Odoo admin (ERP)",
         "description": "Open the Odoo admin panel in a new tab to manage data and modules.",
-        "button": "Open Odoo Admin",
+        "button": "Open Odoo admin",
         "warning": "Admin credentials are required to access."
       },
       "n8n": {
-        "title": "n8n Automations",
+        "title": "n8n automations",
         "description": "Open the n8n panel to review and edit automation flows.",
         "button": "Open n8n",
         "warning": "Admin credentials are required to access."
       },
       "api": {
-        "title": "API / Django Admin",
+        "title": "API / Django admin",
         "description": "Open the API administration console in a new tab.",
-        "button": "Open API Admin",
+        "button": "Open API admin",
         "warning": "Admin credentials are required to access."
       },
       "mail": {
-        "title": "Mail Service",
-        "description": "Open the Mail service to manage company emails.",
-        "button": "Open Mail Service",
+        "title": "Mail service",
+        "description": "Open the mail service to manage company emails.",
+        "button": "Open mail service",
         "warning": "You may need admin credentials to access the mail portal."
       }
     },
@@ -717,12 +717,12 @@
         "price": "Price",
         "toggleOrder": "Toggle sort order"
       },
-      "addService": "Add Service",
+      "addService": "Add service",
       "duplicate": "Duplicate",
-      "editService": "Edit Service",
-      "createService": "Create New Service",
-      "deleteSelected": "Delete Selected",
-      "selectAll": "Select All",
+      "editService": "Edit service",
+      "createService": "Create new service",
+      "deleteSelected": "Delete selected",
+      "selectAll": "Select all",
       "noServices": "No services available.",
       "noServicesFound": "No services found matching your search.",
       "durationDay": "1 day",
@@ -731,7 +731,7 @@
       "form": {
         "title": "Title",
         "titlePlaceholder": "Service title",
-        "slugOptional": "Service Slug (Optional)",
+        "slugOptional": "Service slug (optional)",
         "slugPlaceholder": "e.g., automation-consulting",
         "slugInvalid": "Slug may only contain ASCII letters, numbers, underscores, and hyphens (no accents).",
         "subtitle": "Subtitle",
@@ -740,7 +740,7 @@
         "descriptionPlaceholder": "Service description",
         "icon": "Icon",
         "iconPlaceholder": "Choose a Lucide React icon",
-        "color": "Service Color *",
+        "color": "Service color *",
         "image": "Service image",
         "imageHelp": "Optional cover image (PNG/JPG, max 1MB).",
         "chooseImageText": "Choose image",
@@ -766,14 +766,14 @@
         "price": "Price (€)",
         "pricePlaceholder": "Leave empty for 'Contact for quote'",
         "contactForQuote": "Contact for quote",
-        "featured": "Featured Service",
+        "featured": "Featured service",
         "cancel": "Cancel",
         "create": "Create",
         "update": "Update",
         "markdownSupported": "Markdown supported",
         "requisites": "Requisites",
         "requisitesPlaceholder": "Enter any requirements or prerequisites",
-        "draftMode": "Draft Mode"
+        "draftMode": "Draft mode"
       },
       "messages": {
         "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
@@ -807,7 +807,7 @@
         }
       },
       "confirmDelete": {
-        "title": "Confirm Deletion",
+        "title": "Confirm deletion",
         "single": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
         "multiple": "Are you sure you want to delete {count} selected services? This action cannot be undone.",
         "delete": "Delete",
@@ -817,14 +817,14 @@
     "courses": {
       "noSpecificDate": "No specific date",
       "locationSoon": "Location coming soon",
-      "title": "Courses Management",
+      "title": "Courses management",
       "searchPlaceholder": "Search courses...",
-      "addCourse": "Add Course",
+      "addCourse": "Add course",
       "duplicate": "Duplicate",
-      "editCourse": "Edit Course",
-      "createCourse": "Create New Course",
-      "deleteSelected": "Delete Selected",
-      "selectAll": "Select All",
+      "editCourse": "Edit course",
+      "createCourse": "Create new course",
+      "deleteSelected": "Delete selected",
+      "selectAll": "Select all",
       "courses": "courses",
       "noCourses": "No courses available.",
       "noCoursesFound": "No courses found matching your search.",
@@ -836,45 +836,45 @@
       "form": {
         "title": "Title",
         "titlePlaceholder": "Enter an engaging course title",
-        "titleRequired": "Course Title *",
+        "titleRequired": "Course title *",
         "subtitle": "Subtitle",
         "subtitlePlaceholder": "Add a descriptive subtitle",
-        "subtitleOptional": "Subtitle (Optional)",
+        "subtitleOptional": "Subtitle (optional)",
         "description": "Description",
         "descriptionPlaceholder": "Describe what students will learn in this course...",
         "descriptionRequired": "Description *",
-        "bonifiedCourseLinkOptional": "Bonified course link (Optional)",
+        "bonifiedCourseLinkOptional": "Bonified course link (optional)",
         "bonifiedCourseLinkPlaceholder": "https://example.com/bonified-course",
         "bonifiedCourseLinkHelp": "Optional link with bonification details (http/https only).",
         "video": "YouTube video",
         "videoPlaceholder": "https://www.youtube.com/watch?v=example",
         "videoHelp": "Optional explainer video (YouTube links only).",
-        "image": "Course Image",
-        "imageRequired": "Course Image *",
-        "imageOptional": "Course Image",
-        "chooseImage": "Choose Image File",
-        "chooseImageText": "Choose Image File",
+        "image": "Course image",
+        "imageRequired": "Course image *",
+        "imageOptional": "Course image",
+        "chooseImage": "Choose image file",
+        "chooseImageText": "Choose image file",
         "imageRecommendation": "Recommended: 1200x800px, JPG or PNG",
         "price": "Price (€)",
         "pricePlaceholder": "Leave empty for 'Contact for quote'",
         "location": "Location",
         "locationPlaceholder": "Enter the course location or 'Online'",
         "locationRequired": "Location *",
-        "locationOptional": "Location (Optional)",
-        "scheduleSettings": "Professional Schedule Settings",
-        "startDateRequired": "Start Date *",
-        "endDateRequired": "End Date *",
-        "startTimeRequired": "Start Time *",
-        "endTimeRequired": "End Time *",
-        "periodicityRequired": "Recurrence Pattern *",
-        "weekdaysOptional": "Weekdays (Optional)",
-        "weekOfMonthOptional": "Week of Month (Optional)",
+        "locationOptional": "Location (optional)",
+        "scheduleSettings": "Professional schedule settings",
+        "startDateRequired": "Start date *",
+        "endDateRequired": "End date *",
+        "startTimeRequired": "Start time *",
+        "endTimeRequired": "End time *",
+        "periodicityRequired": "Recurrence pattern *",
+        "weekdaysOptional": "Weekdays (optional)",
+        "weekOfMonthOptional": "Week of month (optional)",
         "intervalOptional": "Interval",
         "intervalPlaceholder": "e.g., 2 for every 2 weeks",
         "timezoneOptional": "Timezone",
-        "draftMode": "Draft Mode",
+        "draftMode": "Draft mode",
         "markdownSupported": "Markdown supported",
-        "slugOptional": "Course Slug (Optional)",
+        "slugOptional": "Course slug (optional)",
         "slugPlaceholder": "e.g., course-advanced-python",
         "slugInvalid": "Slug may only contain ASCII letters, numbers, underscores, and hyphens (no accents).",
         "periodicity": {
@@ -923,8 +923,8 @@
             "full": "Sunday"
           }
         },
-        "maxAttendants": "Max Attendants",
-        "maxAttendantsRequired": "Max Attendants *",
+        "maxAttendants": "Max attendants",
+        "maxAttendantsRequired": "Max attendants *",
         "maxAttendantsPlaceholder": "10",
         "cancel": "Cancel",
         "create": "Create",
@@ -975,30 +975,30 @@
         }
       },
       "confirmDelete": {
-        "title": "Confirm Deletion",
+        "title": "Confirm deletion",
         "single": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
         "multiple": "Are you sure you want to delete {count} selected courses? This action cannot be undone.",
         "delete": "Delete",
         "cancel": "Cancel"
       },
       "details": {
-        "title": "Course Details",
+        "title": "Course details",
         "enrolled": "Enrolled",
         "capacity": "Capacity",
         "vacant": "Vacant",
         "price": "Price",
         "location": "Location",
         "date": "Date",
-        "maxAttendants": "Max Attendants",
+        "maxAttendants": "Max attendants",
         "created": "Created",
         "schedule": "Schedule",
-        "locationInfo": "Location & Info",
-        "enrollmentStatus": "Enrollment Status",
-        "enrolledMembers": "Enrolled Members",
-        "upcomingSessions": "Upcoming Sessions",
+        "locationInfo": "Location & info",
+        "enrollmentStatus": "Enrollment status",
+        "enrolledMembers": "Enrolled members",
+        "upcomingSessions": "Upcoming sessions",
         "finished": "Finished",
-        "startDate": "Start Date",
-        "endDate": "End Date",
+        "startDate": "Start date",
+        "endDate": "End date",
         "time": "Time",
         "duration": "Duration",
         "frequency": "Frequency",
@@ -1006,7 +1006,7 @@
         "video": "Video",
         "playVideo": "Play video",
         "timezone": "Timezone",
-        "lastUpdated": "Last Updated",
+        "lastUpdated": "Last updated",
         "fullStatus": "Full",
         "spotsRemaining": "spots remaining",
         "members": "members",
@@ -1026,34 +1026,34 @@
       },
       "sorting": {
         "sortBy": "Sort by",
-        "startDate": "Start Date",
+        "startDate": "Start date",
         "title": "Title",
-        "endDate": "End Date",
+        "endDate": "End date",
         "enrollments": "Enrollments",
         "capacity": "Capacity",
         "created": "Created"
       },
-      "pastCourses": "Past Courses",
-      "viewPastCourses": "View Past Courses",
-      "hidePastCourses": "Hide Past Courses",
-      "upcomingCourses": "Upcoming Courses",
+      "pastCourses": "Past courses",
+      "viewPastCourses": "View past courses",
+      "hidePastCourses": "Hide past courses",
+      "upcomingCourses": "Upcoming courses",
       "finished": "Finished"
     },
     "terms": {
-      "title": "Terms Management",
+      "title": "Terms management",
       "searchPlaceholder": "Search terms...",
-      "addTerm": "Add Term",
-      "editTerm": "Edit Term",
-      "createTerm": "Create New Term",
-      "deleteSelected": "Delete Selected",
-      "selectAll": "Select All",
+      "addTerm": "Add term",
+      "editTerm": "Edit term",
+      "createTerm": "Create new term",
+      "deleteSelected": "Delete selected",
+      "selectAll": "Select all",
       "noTerms": "No terms available.",
       "noTermsFound": "No terms found matching your search.",
-      "pdfAvailable": "PDF Available",
-      "mdAvailable": "Markdown Document Available",
+      "pdfAvailable": "PDF available",
+      "mdAvailable": "Markdown document available",
       "downloadPdf": "Download PDF",
-      "edit": "Edit Term",
-      "delete": "Delete Term",
+      "edit": "Edit term",
+      "delete": "Delete term",
       "noResults": "No terms found",
       "terms": "terms",
       "form": {
@@ -1063,18 +1063,18 @@
         "contentPlaceholder": "Term content in markdown format",
         "version": "Version",
         "versionPlaceholder": "e.g., 1.0",
-        "tag": "Document Type",
+        "tag": "Document type",
         "tagPlaceholder": "Select document type",
         "selectTag": "Select a document type",
         "noAvailableTags": "No document types available",
         "allTagsUsed": "All document types have been created. You can only have one of each type.",
         "allTagsUsedTitle": "All document types are already in use",
-        "allTagsUsedButton": "All Types Created",
+        "allTagsUsedButton": "All types created",
         "markdownSupported": "Markdown supported",
-        "pdfContent": "PDF Content",
-        "contentMd": "Markdown Content",
-        "mdFile": "Markdown File",
-        "chooseMd": "Choose Markdown File",
+        "pdfContent": "PDF content",
+        "contentMd": "Markdown content",
+        "mdFile": "Markdown file",
+        "chooseMd": "Choose Markdown file",
         "downloadCurrentPdf": "Download PDF",
         "downloadCurrentMd": "Download Markdown",
         "tagTypes": {
@@ -1083,28 +1083,28 @@
           "privacy": "Privacy Policy",
           "license": "License"
         },
-        "pdfVersion": "PDF Version (Optional)",
+        "pdfVersion": "PDF version (optional)",
         "choosePdf": "Choose PDF",
         "cancel": "Cancel",
-        "create": "Create Term",
-        "update": "Update Term",
+        "create": "Create term",
+        "update": "Update term",
         "noTagsLeft": "No more document types left",
         "noFileEdit": "Cannot edit the file"
       },
       "actions": {
-        "viewPreview": "View Preview",
+        "viewPreview": "View preview",
         "viewPdf": "View PDF"
       },
       "tabs": {
         "form": "Form",
-        "preview": "Markdown Preview",
-        "pdf": "PDF Preview"
+        "preview": "Markdown preview",
+        "pdf": "PDF preview"
       },
       "labels": {
         "name": "Name",
         "content": "Content",
         "version": "Version",
-        "tag": "Document Type",
+        "tag": "Document type",
         "created": "Created",
         "updated": "Updated"
       },
@@ -1146,7 +1146,7 @@
         }
       },
       "confirmDelete": {
-        "title": "Confirm Deletion",
+        "title": "Confirm deletion",
         "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
         "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
         "delete": "Delete",
@@ -1159,17 +1159,17 @@
     }
   },
   "legal": {
-    "title": "Legal Documentation",
+    "title": "Legal documentation",
     "description": "Access our terms of service, privacy policy, cookie policy, and license information.",
     "downloadPdf": "Download PDF",
     "downloadDesc": "Download Terms of Service in PDF",
-    "cookieManage": "Manage Cookies",
+    "cookieManage": "Manage cookies",
     "cookieDesc": "Toggle your cookie preferences",
-    "supportKicker": "Need Help?",
-    "supportTitle": "Contact Support",
+    "supportKicker": "Need help?",
+    "supportTitle": "Contact support",
     "supportDesc": "Have questions about our legal documents?",
-    "contactCta": "Contact Us",
-    "openCookieSettings": "Open Cookie Settings",
+    "contactCta": "Contact us",
+    "openCookieSettings": "Open cookie settings",
     "tabs": {
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",
@@ -1344,7 +1344,7 @@
         }
       },
       "license": {
-        "title": "License Information",
+        "title": "License information",
         "noDocuments": "There are currently no license documents available",
         "purpose": {
           "title": "PURPOSE",
@@ -1405,8 +1405,8 @@
   "services": {
     "productsAndServicesTitle": "Our products and services",
     "productsAndServicesDescription": "Discover our personalized services and exclusive, closed products. Choose what fits your business: from tailored consulting to ready-to-use solutions.",
-    "productsSectionTitle": "Closed Products",
-    "servicesSectionTitle": "Personalized Services",
+    "productsSectionTitle": "Closed products",
+    "servicesSectionTitle": "Personalized services",
     "searchPlaceholder": "Search services and products...",
     "requisites": "Requisites",
     "featured": "Featured",
@@ -1416,8 +1416,8 @@
     "durationDays": "days",
     "price": "Price",
     "contactForQuote": "Contact for quote",
-    "contactUs": "Contact Us",
-    "learnMore": "Learn More",
+    "contactUs": "Contact us",
+    "learnMore": "Learn more",
     "share": {
       "label": "Share this service:",
       "whatsapp": "WhatsApp",
@@ -1426,50 +1426,50 @@
       "shareMessage": "Discover this service from {siteTag}: \"{title}\" - {subtitle}"
     },
     "filters": {
-      "all": "All Services",
-      "featured": "Featured Only",
+      "all": "All services",
+      "featured": "Featured only",
       "service": "Services",
       "product": "Products"
     },
     "noResults": {
-      "title": "No Services Found",
+      "title": "No services found",
       "description": "Try adjusting your search terms or filters to find what you're looking for."
     },
     "cta": {
-      "title": "Ready to Transform Your Business?",
+      "title": "Ready to transform your business?",
       "description": "Let's discuss how our services can help you achieve your digital transformation goals.",
-      "contact": "Get in Touch",
-      "call": "Schedule a Call",
-      "emailSubject": "Inquiry about Ordinaly Services",
+      "contact": "Get in touch",
+      "call": "Schedule a call",
+      "emailSubject": "Inquiry about Ordinaly services",
       "emailBody": "Hello, I'm interested in learning more about your digital transformation services. Could you please provide me with more information?\n\nThank you."
     },
     "contact": {
-      "title": "Contact Us",
-      "name": "Full Name",
+      "title": "Contact us",
+      "name": "Full name",
       "namePlaceholder": "Enter your full name",
-      "email": "Email Address",
+      "email": "Email address",
       "emailPlaceholder": "Enter your email address",
-      "phone": "Phone Number",
+      "phone": "Phone number",
       "phonePlaceholder": "Enter your phone number",
       "company": "Company",
       "companyPlaceholder": "Enter your company name",
-      "service": "Service of Interest",
+      "service": "Service of interest",
       "servicePlaceholder": "Which service are you interested in?",
       "message": "Message",
       "messagePlaceholder": "Tell us about your project or requirements...",
       "cancel": "Cancel",
-      "send": "Send Message"
+      "send": "Send message"
     }
   },
   "formation": {
     "enrollmentSuccess": {
-      "title": "Enrollment Confirmed!",
+      "title": "Enrollment confirmed!",
       "description": "You have successfully enrolled in {courseTitle}. We have sent you a confirmation email with all the details.",
       "close": "Close",
       "viewMyCourses": "View my courses",
       "message": "You have been successfully enrolled."
     },
-    "title": "Professional Formation",
+    "title": "Professional formation",
     "subtitle": "Advance your career with our comprehensive training programs designed by industry experts",
     "searchPlaceholder": "Search courses...",
     "free": "Free",
@@ -1477,10 +1477,10 @@
     "location": "Location",
     "date": "Date",
     "enrolled": "Enrolled",
-    "enroll": "Enroll Now",
-    "cancelEnrollment": "Cancel Enrollment",
-    "viewDetails": "View Details",
-    "maxAttendants": "Max Attendants",
+    "enroll": "Enroll now",
+    "cancelEnrollment": "Cancel enrollment",
+    "viewDetails": "View details",
+    "maxAttendants": "Max attendants",
     "maxAttendeesCount": "Max {count} attendants",
     "noSpecificDate": "No specific date has been set yet",
     "locationSoon": "Location coming soon",
@@ -1493,17 +1493,17 @@
         "onsite": "On-site"
       },
       "price": {
-        "all": "All Prices",
+        "all": "All prices",
         "free": "Free",
         "paid": "Paid"
       }
     },
     "noResults": {
-      "title": "No Courses Found",
+      "title": "No courses found",
       "description": "Try adjusting your search terms or filters to find the perfect course for you."
     },
     "faq": {
-      "title": "Frequently Asked Questions About Business Automation with AI",
+      "title": "Frequently asked questions about business automation with AI",
       "subtitle": "We answer your questions about AI agents and process optimization",
       "items": {
         "0": {
@@ -1539,24 +1539,24 @@
       }
     },
     "noPastCourses": "No past courses available.",
-    "pastCourses": "Past Courses",
-    "viewPastCourses": "View Past Courses",
-    "hidePastCourses": "Hide Past Courses",
+    "pastCourses": "Past courses",
+    "viewPastCourses": "View past courses",
+    "hidePastCourses": "Hide past courses",
     "finished": "Finished",
     "wantNewEdition": "I want a new edition",
     "pastCourseMessage": "Hello, I saw the course \"{course}\" ({link}) and I would love to request a new edition for it. Could you let me know when you schedule it?",
     "cta": {
-      "title": "Ready to Advance Your Career?",
+      "title": "Ready to advance your career?",
       "description": "Join thousands of professionals who have transformed their careers with our expert-led training programs.",
-      "contact": "Contact Advisor",
-      "catalog": "Download Catalog",
-      "emailSubject": "Inquiry about Ordinaly Formation Programs",
+      "contact": "Contact advisor",
+      "catalog": "Download catalog",
+      "emailSubject": "Inquiry about Ordinaly formation programs",
       "emailBody": "Hello, I'm interested in learning more about your professional formation programs. Could you please provide me with more information about available courses and enrollment?\n\nThank you."
     },
     "enrollment": {
-      "title": "Course Enrollment",
-      "confirm": "Confirm Enrollment",
-      "courseDetails": "Course Details",
+      "title": "Course enrollment",
+      "confirm": "Confirm enrollment",
+      "courseDetails": "Course details",
       "confirmMessage": "Are you sure you want to enroll in this course?",
       "bonificationQuestion": "Does your company have training credits?",
       "bonificationHint": "If this training is eligible, you can continue from the corresponding link.",
@@ -1567,21 +1567,21 @@
       "stepBonification": "Step 1 · Bonification",
       "stepCheckout": "Step 2 · Enrollment",
       "paymentNote": "Payment processing will be handled in the next step.",
-      "confirmEnroll": "Confirm Enrollment",
-      "name": "Full Name",
+      "confirmEnroll": "Confirm enrollment",
+      "name": "Full name",
       "namePlaceholder": "Enter your full name",
-      "email": "Email Address",
+      "email": "Email address",
       "emailPlaceholder": "Enter your email address",
-      "phone": "Phone Number",
+      "phone": "Phone number",
       "phonePlaceholder": "Enter your phone number",
       "company": "Company",
       "companyPlaceholder": "Enter your company name",
-      "experience": "Relevant Experience",
+      "experience": "Relevant experience",
       "experiencePlaceholder": "Tell us about your relevant experience or background...",
       "motivation": "Why do you want to take this course?",
       "motivationPlaceholder": "Share your motivation and what you hope to achieve...",
       "cancel": "Cancel",
-      "submit": "Enroll in Course",
+      "submit": "Enroll in course",
       "successMessage": "Enrollment successful!",
       "enrolled": "You are already enrolled in this course",
       "cancelledMessage": "Enrollment cancelled successfully"
@@ -1590,11 +1590,11 @@
       "title": "Enrollment cancelled",
       "message": "Your enrollment has been successfully canceled",
       "processing": "Canceling...",
-      "warning": "Cancel Course Enrollment",
+      "warning": "Cancel course enrollment",
       "warningMessage": "Are you sure you want to cancel your enrollment in \"{courseTitle}\"? This action cannot be undone.",
       "confirmMessage": "This will remove you from the course and you may lose your spot.",
-      "keepEnrollment": "Keep Enrollment",
-      "confirmCancel": "Cancel Enrollment"
+      "keepEnrollment": "Keep enrollment",
+      "confirmCancel": "Cancel enrollment"
     },
     "alerts": {
       "signInToEnroll": "Please sign in to enroll in courses",
@@ -1616,23 +1616,23 @@
       "unenrollStartedRestriction": "You cannot unenroll after the course has started.",
       "unenrollEndedRestriction": "You cannot unenroll after the course has finished."
     },
-    "slogan": "Software & Training Solutions",
+    "slogan": "Software & training solutions",
     "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",
-    "coursesTitle": "Our Courses",
+    "coursesTitle": "Our courses",
     "time": "Time:",
     "capacity": "Capacity:",
     "people": "people",
-    "contactTitle": "Contact Information",
+    "contactTitle": "Contact information",
     "email": "Email:",
     "website": "Website:",
     "specialization": "Specialization:",
-    "specializationText": "Software Development and Technology Training",
+    "specializationText": "Software development and technology training",
     "filename": "Ordinaly_Training_Catalog.pdf",
     "noSpecificTime": "No specific time yet.",
-    "bonificationTitle": "Bonification and Grants",
+    "bonificationTitle": "Bonification and grants",
     "bonificationDisclaimer": "Some of our training courses may be eligible for funding through FUNDAE/SEPE and/or fit into co-financed calls by FSE+ and PRTR-NextGenerationEU, as long as your company meets the requirements and processes the aid. Ordinaly provides the course documentation but does not request or process bonuses or grants on behalf of the client. Always check the official links before contracting.",
     "pdf": {
-      "title": "Training Catalog",
+      "title": "Training catalog",
       "subtitle": "Professional and technological training courses",
       "date": "Date",
       "location": "Location",
@@ -1642,35 +1642,35 @@
       "locationSoon": "Location coming soon"
     },
     "courseDetails": {
-      "title": "Course Details",
+      "title": "Course details",
       "locationSoon": "Location coming soon",
-      "courseDescription": "Course Description",
-      "scheduleInformation": "Schedule Information",
-      "upcomingSessions": "Upcoming Sessions",
-      "courseInformation": "Course Information",
-      "startDate": "Start Date",
-      "endDate": "End Date",
+      "courseDescription": "Course description",
+      "scheduleInformation": "Schedule information",
+      "upcomingSessions": "Upcoming sessions",
+      "courseInformation": "Course information",
+      "startDate": "Start date",
+      "endDate": "End date",
       "time": "Time",
       "duration": "Duration",
       "hours": "hours",
       "daysOfWeek": "Days of the week",
-      "fullSchedule": "Full Schedule",
+      "fullSchedule": "Full schedule",
       "location": "Location",
-      "maxAttendants": "Max Attendants",
+      "maxAttendants": "Max attendants",
       "people": "people",
-      "scheduleType": "Schedule Type",
+      "scheduleType": "Schedule type",
       "price": "Price",
       "video": "Video",
       "playVideo": "Play video",
       "enrolled": "Enrolled",
-      "cancelEnrollment": "Cancel Enrollment",
+      "cancelEnrollment": "Cancel enrollment",
       "courseHasStarted": "Course has started",
       "courseStartedMessage": "This course has already begun and is no longer accepting new enrollments.",
       "courseHasFinished": "Inscription closed",
       "courseFinishedMessage": "This course has already started and is no longer accepting new enrollments",
-      "signInToEnroll": "Sign In to Enroll",
-      "enrollNow": "Enroll Now",
-      "importantDates": "Important Dates",
+      "signInToEnroll": "Sign in to enroll",
+      "enrollNow": "Enroll now",
+      "importantDates": "Important dates",
       "excludedDatesMessage": "This course has {count} excluded date(s) (holidays or breaks) that are not included in the regular schedule.",
       "moreSessions": "And {count} more sessions...",
       "noSpecificDate": "No specific date has been set yet",
@@ -1679,7 +1679,7 @@
       "addToCalendarICS": "Add to calendar (.ics)",
       "addToGoogleCalendar": "Add to Google Calendar",
       "addToOutlookCalendar": "Add to Outlook Calendar",
-      "inProgress": "In Progress",
+      "inProgress": "In progress",
       "finished": "Finished",
       "periodicity": {
         "once": "One-time event",
@@ -1762,16 +1762,16 @@
     "details": "\n**FUNDAE / SEPE - Company-sponsored training:** allows part of the training cost to be subsidized through Social Security contributions. Official info for Companies ([FUNDAE](https://www.fundae.es/empresas)) and Training for employees ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**EU Funds - FSE+ 2021-2027:** national and regional programs (including Andalusia) that finance employment, education, and training actions through public calls. See [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Component 23):** measures for training and active employment policies; coverage depends on each call. Official info from the [Recovery Plan](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) and [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalusia (regional):** FSE+ Andalusia 2021-2027 and Vocational Training for Employment (FPE) publish specific grants/calls. See [Junta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) and [FPE](https://www.juntadeandalucia.es/temas/trabajar/formacion/fpe.html).\n\n**Notice:** Eligibility, intensity, and compatibility of funding vary by regulations and current calls. Ordinaly provides course documentation but does not apply for or process subsidies or grants on behalf of the client. Always check official links before contracting."
   },
   "profile": {
-    "kicker": "My Account",
-    "title": "My Profile",
+    "kicker": "My account",
+    "title": "My profile",
     "subtitle": "Manage your personal information and account settings",
     "loading": "Loading profile...",
-    "personalInfo": "Personal Information",
-    "dangerZone": "Danger Zone",
+    "personalInfo": "Personal information",
+    "dangerZone": "Danger zone",
     "security": {
       "title": "Security",
       "description": "Update your password to keep your account secure.",
-      "changePassword": "Change Password"
+      "changePassword": "Change password"
     },
     "authProvider": {
       "label": "Authentication",
@@ -1801,13 +1801,13 @@
       }
     },
     "form": {
-      "firstName": "First Name",
+      "firstName": "First name",
       "firstNamePlaceholder": "Enter your first name",
-      "lastName": "Last Name",
+      "lastName": "Last name",
       "lastNamePlaceholder": "Enter your last name",
       "username": "Username",
       "usernamePlaceholder": "Enter your username",
-      "email": "Email Address",
+      "email": "Email address",
       "emailPlaceholder": "Enter your email address",
       "company": "Company",
       "companyPlaceholder": "Enter your company name",
@@ -1815,25 +1815,25 @@
       "regionPlaceholder": "Enter your country (optional)",
       "city": "City",
       "cityPlaceholder": "Enter your city (optional)",
-      "saveChanges": "Save Changes",
-      "saveChangesLoading": "Saving Changes...",
-      "cancel": "Cancel Changes",
-      "allowNotificationsTitle": "Email & Newsletter Preferences",
+      "saveChanges": "Save changes",
+      "saveChangesLoading": "Saving changes...",
+      "cancel": "Cancel changes",
+      "allowNotificationsTitle": "Email & newsletter preferences",
       "allowNotificationsDesc": "Receive newsletters and email communications",
       "allowNotifications": "Receive newsletters and emails",
-      "allowNotificationsModalTitle": "Confirm Email Preferences",
+      "allowNotificationsModalTitle": "Confirm email preferences",
       "allowNotificationsModalOn": "Are you sure you want to enable newsletters and email communications?",
       "allowNotificationsModalOff": "Are you sure you want to disable newsletters and email communications?",
       "allowNotificationsModalConfirm": "Confirm",
       "allowNotificationsModalCancel": "Cancel"
     },
     "deleteAccount": {
-      "title": "Delete Account",
+      "title": "Delete account",
       "description": "Once you delete your account, there is no going back. Please be certain.",
-      "button": "Delete Account",
-      "confirmTitle": "Confirm Account Deletion",
+      "button": "Delete account",
+      "confirmTitle": "Confirm account deletion",
       "confirmMessage": "Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.",
-      "confirmButton": "Delete Account",
+      "confirmButton": "Delete account",
       "cancelButton": "Cancel"
     },
     "messages": {
@@ -1856,32 +1856,32 @@
   },
   "authModal": {
     "welcome": "Welcome to Ordinaly",
-    "courseEnrollTitle": "Authentication Required",
+    "courseEnrollTitle": "Authentication required",
     "courseEnrollDescription": "Sign in or create an account to enroll in \"{courseTitle}\"",
     "generalDescription": "Join our community to access exclusive courses and services",
     "signIn": {
-      "title": "Sign In",
+      "title": "Sign in",
       "description": "Already have an account? Welcome back!"
     },
     "signUp": {
-      "title": "Sign Up",
+      "title": "Sign up",
       "description": "New to Ordinaly? Create your account"
     },
     "termsText": "By continuing, you agree to our Terms of Service and Privacy Policy"
   },
   "blog": {
-    "title": "Ordinaly Blog",
+    "title": "Ordinaly blog",
     "subtitle": "News, ideas, and updates about digital transformation and technology",
     "noResults": {
       "title": "No results found",
       "description": "Try searching again"
     },
-    "backToBlog": "Back to Blog",
+    "backToBlog": "Back to blog",
     "postCategories": "Post categories",
     "searchPlaceholder": "Search blog posts...",
     "filters": {
       "category": "Category",
-      "all": "All Categories"
+      "all": "All categories"
     },
     "shareLabel": "Share this post:",
     "toc": {
@@ -1928,7 +1928,7 @@
     "searchPlaceholder": "Search news...",
     "filters": {
       "category": "Category",
-      "all": "All Categories"
+      "all": "All categories"
     },
     "loading": "Loading more news...",
     "pagination": {
@@ -1995,17 +1995,17 @@
     "team": {
       "1": {
         "name": "Antonio Macías Ferrera",
-        "role": "CTO Software Engineer & Co-founder",
-        "quote": "Software Engineer specializing in automation and Artificial Intelligence."
+        "role": "CTO software engineer & co-founder",
+        "quote": "Software engineer specializing in automation and artificial intelligence."
       },
       "2": {
         "name": "Guillermo Montero Fernández-Vivancos",
-        "role": "CEO, Quality and Project Engineer & Co-founder",
+        "role": "CEO, Quality and project engineer & co-founder",
         "quote": "Consultant and project manager specialized in AI and quality engineering."
       },
       "3": {
         "name": "Emilio Cid Pérez",
-        "role": "CEO, Expert in Marketing, Advertising and Digital Transformation & Co-founder",
+        "role": "CEO, Expert in marketing, advertising and digital transformation & co-founder",
         "quote": "Specialist in digital marketing strategies and business transformation."
       },
       "title": "Our team",
@@ -2066,17 +2066,17 @@
     "testimonials": {
       "1": {
         "name": "Antonio Macías Ferrera",
-        "role": "CTO Software Engineer & Co-founder",
-        "quote": "Software Engineer specializing in automation and Artificial Intelligence."
+        "role": "CTO software engineer & co-founder",
+        "quote": "Software engineer specializing in automation and artificial intelligence."
       },
       "2": {
         "name": "Guillermo Montero Fernández-Vivancos",
-        "role": "Quality and Project Engineer & Co-founder",
+        "role": "Quality and project engineer & co-founder",
         "quote": "Consultant and project manager specialized in AI and quality engineering."
       },
       "3": {
         "name": "Emilio Cid Pérez",
-        "role": "Expert in Marketing, Advertising and Digital Transformation & Co-founder",
+        "role": "Expert in marketing, advertising and digital transformation & co-founder",
         "quote": "Specialist in digital marketing strategies and business transformation."
       },
       "title": "Voices from the team"
@@ -2433,45 +2433,45 @@
   },
   "resetPassword": {
     "request": {
-      "title": "Reset Password",
+      "title": "Reset password",
       "subtitle": "Enter your email address and we'll send you a link to reset your password.",
-      "emailLabel": "Email Address",
+      "emailLabel": "Email address",
       "emailPlaceholder": "Enter your email address",
       "emailRequired": "Please enter your email address.",
-      "submit": "Send Reset Link",
+      "submit": "Send reset link",
       "submitLoading": "Sending...",
       "error": "Could not send the reset link. Please check the email and try again.",
       "networkError": "Network error. Please check your connection and try again.",
-      "backToSignin": "Back to Sign In"
+      "backToSignin": "Back to sign in"
     },
     "emailSent": {
-      "title": "Check Your Email",
+      "title": "Check your email",
       "description": "If an account exists with that email address, we've sent a link to reset your password. Please check your inbox.",
       "expiry": "The link will expire in 1 hour.",
-      "backHome": "Back to Home"
+      "backHome": "Back to home"
     },
     "confirm": {
-      "title": "Set New Password",
+      "title": "Set new password",
       "subtitle": "Enter your new password below.",
-      "newPasswordLabel": "New Password",
+      "newPasswordLabel": "New password",
       "newPasswordPlaceholder": "Enter your new password",
-      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordLabel": "Confirm password",
       "confirmPasswordPlaceholder": "Confirm your new password",
       "passwordHint": "Password must be at least 8 characters long.",
       "passwordTooShort": "Password must be at least 8 characters.",
       "passwordMismatch": "Passwords do not match.",
-      "submit": "Reset Password",
+      "submit": "Reset password",
       "submitLoading": "Resetting...",
       "networkError": "Network error. Please check your connection and try again.",
-      "invalidToken": "Invalid or Expired Link",
+      "invalidToken": "Invalid or expired link",
       "invalidTokenDesc": "This password reset link is invalid or has expired. Please request a new one.",
-      "backToSignin": "Back to Sign In",
-      "successTitle": "Password Reset Successfully",
+      "backToSignin": "Back to sign in",
+      "successTitle": "Password reset successfully",
       "successDesc": "Your password has been updated. You can now sign in with your new password.",
-      "goToSignin": "Go to Sign In",
-      "errorTitle": "Password Reset Failed",
+      "goToSignin": "Go to sign in",
+      "errorTitle": "Password reset failed",
       "errorDesc": "Something went wrong while resetting your password. Please try again.",
-      "tryAgain": "Try Again"
+      "tryAgain": "Try again"
     }
   },
   "deleteAccountEmailSent": {
@@ -2486,18 +2486,18 @@
     "resendButton": "Resend email",
     "resending": "Resending...",
     "resendError": "Could not resend the email. Please try again.",
-    "backHome": "Back to Home",
-    "openMailApp": "Open Mail App"
+    "backHome": "Back to home",
+    "openMailApp": "Open mail app"
   },
   "deleteAccountConfirm": {
     "loadingTitle": "Confirming deletion...",
     "loadingDesc": "We are processing your request. One moment.",
     "successTitle": "Account deleted",
     "successDesc": "Your account has been successfully deleted. We are sorry to see you go.",
-    "successButton": "Back to Home",
+    "successButton": "Back to home",
     "errorTitle": "Could not complete the action",
     "errorDesc": "We could not confirm the deletion of your account. The link may have expired or already been used.",
-    "errorButton": "Back to Home"
+    "errorButton": "Back to home"
   },
   "verifyEmail": {
     "title": "Verify your email",

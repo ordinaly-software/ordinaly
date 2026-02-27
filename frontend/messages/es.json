@@ -6,11 +6,11 @@
     },
     "navigation": {
       "home": "¡Conoce Ordinaly!",
-      "services": "Productos/Servicios",
+      "services": "Servicios",
       "serviceSubmenu": "Ver TODOS nuestros servicios y productos",
       "formation": "Formación",
       "formationSubmenu": "Ver TODOS nuestros cursos y talleres",
-      "start": "Empieza Ahora",
+      "start": "Empieza ahora",
       "ctaConsultation": "Habla con un experto",
       "ctaConsultationMessage": "Hola, quiero agendar una consulta para empezar a automatizar procesos en mi empresa.",
       "darkMode": "Cambiar a modo oscuro",
@@ -18,9 +18,9 @@
       "localeSwitcher": "Cambiar idioma",
       "openMenu": "Abrir menú",
       "closeMenu": "Cerrar menú",
-      "signIn": "Iniciar Sesión",
-      "signUp": "¡Únete ya!",
-      "signOut": "Cerrar Sesión",
+      "signIn": "Iniciar sesión",
+      "signUp": "¡Regístrate!",
+      "signOut": "Cerrar sesión",
       "userMenu": "Menú de usuario",
       "adminDashboard": "Panel de administración",
       "profile": "Perfil",
@@ -28,7 +28,7 @@
       "blog": "Blog",
       "news": "Noticias",
       "contact": "Contacto",
-      "us": "Sobre nosotros",
+      "us": "Nosotros",
       "loading": "Cargando..."
     },
     "hero": {
@@ -40,7 +40,7 @@
       "trust2": "Agentes de IA 24/7 para ventas y atención al cliente",
       "trust3": "Automatización a medida",
       "trust4": "Formación práctica en IA para equipos.",
-      "ctaServices": "Ver Servicios",
+      "ctaServices": "Ver servicios",
       "ctaDemo": "Agenda una consulta",
       "clientsTitle": "Confían en nosotros",
       "statHeadline": "+500 HORAS AHORRADAS",
@@ -48,23 +48,23 @@
       "imageAlt": "La agencia de automatización e IA desde Sevilla para el mundo."
     },
     "benefits": {
-      "title": "¿Por qué Elegir Ordinaly para la Automatización de tu Empresa?",
+      "title": "¿Por qué elegir Ordinaly para la automatización de tu empresa?",
       "subtitle": "Somos expertos locales en implementación de agentes de IA y optimización de procesos empresariales",
       "items": {
         "0": {
-          "title": "Ahorro de Tiempo Real",
+          "title": "Ahorro de tiempo real",
           "description": "Automatiza tareas repetitivas y ahorra hasta 20 horas semanales con nuestros agentes de IA"
         },
         "1": {
-          "title": "Soluciones a Medida",
+          "title": "Soluciones a medida",
           "description": "Diseñamos workflows personalizados adaptados a tu sector: inmobiliaria, fincas, marketing"
         },
         "2": {
-          "title": "Formación Incluida",
+          "title": "Formación incluida",
           "description": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo"
         },
         "3": {
-          "title": "Soporte Local",
+          "title": "Soporte local",
           "description": "Equipo en Sevilla disponible para reuniones presenciales y soporte continuo"
         }
       }
@@ -74,21 +74,21 @@
       "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos. Especialistas en automatización para inmobiliarias, administradores de fincas y PYMEs andaluzas.",
       "extra": {
         "0": {
-          "title": "Implementación Rápida",
+          "title": "Implementación rápida",
           "description": "Primeros resultados visibles en 2-4 semanas. Trabajamos por fases para valor inmediato."
         },
         "1": {
-          "title": "100% Personalizable",
+          "title": "100% personalizable",
           "description": "No usamos plantillas genéricas. Cada solución se diseña específicamente para tu negocio."
         },
         "2": {
-          "title": "Soporte Continuo",
+          "title": "Soporte continuo",
           "description": "Equipo técnico en Sevilla disponible. Actualizaciones y mejoras incluidas en el servicio."
         }
       },
       "contactForQuote": "¡Quiero más información!",
       "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
-      "vacationTitle": "De Vacaciones",
+      "vacationTitle": "De vacaciones",
       "retryButton": "Reintentar",
       "featured": "Destacado",
       "duration": "Listo en ",
@@ -98,22 +98,22 @@
       "created": "Creado",
       "createdBy": "Creado por",
       "requisites": "Requisitos",
-      "contactNow": "Contactar Ahora",
-      "contactEmail": "Contactar por Email",
-      "viewDetails": "Ver Detalles",
+      "contactNow": "Contactar ahora",
+      "contactEmail": "Contactar por email",
+      "viewDetails": "Ver detalles",
       "viewAllServicesAndProducts": "Ver todo el catálogo",
       "video": "Vídeo",
       "playVideo": "Reproducir vídeo",
       "imageAlt": "Imagen de {title}",
-      "errorTitle": "Error Cargando Servicios",
+      "errorTitle": "Error cargando servicios",
       "errorMessage": "No se pudieron cargar los servicios"
     },
     "process": {
-      "title": "¿Cómo Funciona Nuestro Proceso de Automatización?",
+      "title": "¿Cómo funciona nuestro proceso de automatización?",
       "subtitle": "Metodología probada para implementar agentes de IA sin interrumpir tu operativa diaria",
       "steps": {
         "0": {
-          "title": "Análisis Inicial",
+          "title": "Análisis inicial",
           "description": "Reunión gratuita (presencial en Sevilla o videollamada)",
           "bullets": {
             "0": "Identificación de procesos automatizables",
@@ -122,7 +122,7 @@
           }
         },
         "1": {
-          "title": "Diseño y Desarrollo",
+          "title": "Diseño y desarrollo",
           "description": "Creamos la solución personalizada con entregas parciales para que valides el avance.",
           "bullets": {
             "0": "Desarrollo ágil por sprints",
@@ -140,7 +140,7 @@
           }
         },
         "3": {
-          "title": "Formación y Soporte",
+          "title": "Formación y soporte",
           "description": "Capacitamos a tu equipo y ofrecemos soporte continuo. Tú mantienes el control total.",
           "bullets": {
             "0": "Sesiones de formación práctica",
@@ -155,7 +155,7 @@
       "subtitle": "Soluciones probadas para sectores específicos en Sevilla y Andalucía",
       "items": {
         "0": {
-          "title": "Administradores de Fincas",
+          "title": "Administradores de fincas",
           "bullets": [
             "Envío automático de informes a propietarios",
             "Gestión automática de correos",
@@ -171,7 +171,7 @@
           ]
         },
         "2": {
-          "title": "Agencias de Marketing",
+          "title": "Agencias de marketing",
           "bullets": [
             "Automatización de redes sociales",
             "Generación de contenido con IA",
@@ -195,7 +195,7 @@
           ]
         },
         "5": {
-          "title": "Construcción e Ingeniería",
+          "title": "Construcción e ingeniería",
           "bullets": [
             "Gestión de proveedores y presupuestos",
             "Documentación inteligente con IA",
@@ -205,7 +205,7 @@
       }
     },
     "testimonials": {
-      "title": "Lo Que Dicen Nuestros Clientes en Sevilla",
+      "title": "Lo que dicen nuestros clientes en Sevilla",
       "googleSummary": "{rating} en Google · {count} reseñas",
       "googleLink": "Ver todas en Google",
       "googleWrite": "Dejar una reseña",
@@ -233,29 +233,29 @@
       }
     },
     "local": {
-      "title": "Expertos en Automatización Empresarial en Sevilla y Toda Andalucía",
+      "title": "Expertos en automatización empresarial en Sevilla y toda Andalucía",
       "description1": "Somos un equipo de ingenieros de software especializados en IA con sede en el corazón de Sevilla. Conocemos el tejido empresarial andaluz y entendemos las necesidades específicas de las PYMEs locales.",
       "description2": "Ya sea que estés en Sevilla capital, Andalucía, o cualquier punto de España ofrecemos tanto consultoría presencial como implementación remota con los más altos estándares de calidad.",
       "videoLabel": "Video",
       "playVideo": "Reproducir",
       "points": {
         "0": {
-          "title": "Oficina en Sevilla Centro",
+          "title": "Oficina en Sevilla centro",
           "description": "Plaza del Duque 1, 41002 Sevilla • Reuniones presenciales disponibles"
         },
         "1": {
-          "title": "Contacto Directo",
+          "title": "Contacto directo",
           "description": "+34 626 27 08 06 • info@ordinaly.ai • Respuesta en 24h"
         },
         "2": {
-          "title": "Cobertura Regional",
+          "title": "Cobertura regional",
           "description": "Servicios en toda Andalucía • Formación presencial en Sevilla"
         }
       },
-      "cta": "Contacta con Nosotros"
+      "cta": "Contacta con nosotros"
     },
     "partnersSection": {
-      "title": "Empresas que Confían en Ordinaly",
+      "title": "Empresas que confían en Ordinaly",
       "subtitle": "Colaboramos con empresas líderes en Sevilla y Andalucía para transformar sus procesos con IA",
       "visit": "Visitar web del partner"
     },
@@ -264,26 +264,26 @@
       "subtitle": "Agenda una consulta gratuita y descubre cómo la inteligencia artificial puede transformar tu negocio en Sevilla",
       "meta": "Respuesta garantizada en menos de 24 horas laborables • +34 626 27 08 06 • info@ordinaly.ai",
       "buttons": {
-        "whatsapp": "Consulta Gratis por WhatsApp",
-        "services": "Ver Todos los Servicios"
+        "whatsapp": "Consulta gratis por WhatsApp",
+        "services": "Ver todos los servicios"
       },
       "items": {
         "0": {
-          "title": "Análisis Personalizado",
+          "title": "Análisis personalizado",
           "description": "Estudiamos tu negocio y te mostramos oportunidades de automatización concretas"
         },
         "1": {
-          "title": "Presupuesto Transparente",
+          "title": "Presupuesto transparente",
           "description": "Sin costes ocultos. Sabrás exactamente qué vas a recibir y cuánto costará"
         },
         "2": {
-          "title": "Resultados Rápidos",
+          "title": "Resultados rápidos",
           "description": "Primeras automatizaciones funcionando en 2-4 semanas. Valor desde el día 1"
         }
       }
     },
     "tech": {
-      "title": "Tecnologías y Herramientas que Dominamos",
+      "title": "Tecnologías y herramientas que dominamos",
       "subtitle": "Trabajamos con las plataformas líderes en IA y automatización empresarial",
       "description": "Y muchas más. Si tu empresa ya utiliza herramientas específicas, las integramos en tu flujo de automatización. No necesitas cambiar tus sistemas actuales.",
       "items": {
@@ -302,10 +302,10 @@
       }
     },
     "seoArticle": {
-      "title": "Automatización Empresarial con IA en Sevilla: La Guía Completa",
+      "title": "Automatización empresarial con IA en Sevilla: la guía completa",
       "intro": "La automatización empresarial con inteligencia artificial ha dejado de ser una opción futurista para convertirse en una necesidad competitiva para las PYMEs en Sevilla y toda Andalucía. En Ordinaly, ayudamos a empresas locales a implementar agentes de IA para negocios que transforman radicalmente su operativa diaria.",
       "section1": {
-        "title": "¿Qué son los Agentes de IA y cómo benefician a tu empresa en Sevilla?",
+        "title": "¿Qué son los agentes de IA y cómo benefician a tu empresa en Sevilla?",
         "body": "Los agentes de IA son sistemas inteligentes diseñados para realizar tareas específicas de forma autónoma. A diferencia de los simples chatbots, estos agentes pueden tomar decisiones, aprender de interacciones previas y ejecutar workflows complejos sin intervención humana. Para una inmobiliaria en Sevilla, esto significa poder gestionar consultas de clientes 24/7, programar visitas automáticamente y generar descripciones de propiedades en segundos."
       },
       "section2": {
@@ -319,7 +319,7 @@
         }
       },
       "section3": {
-        "title": "Formación en IA para empresas: El complemento esencial",
+        "title": "Formación en IA para empresas: el complemento esencial",
         "body": "No solo implementamos tecnología: formamos a tu equipo para que sean autónomos. Nuestros cursos de inteligencia artificial en Sevilla son 100% prácticos y orientados a casos de uso reales. Desde introducción a ChatGPT hasta automatizaciones avanzadas con Make y Zapier, diseñamos la formación según las necesidades específicas de tu sector."
       },
       "section4": {
@@ -340,7 +340,7 @@
       }
     },
     "partners": {
-      "title": "Empresas Transformadas",
+      "title": "Empresas transformadas",
       "visit": "Visitar web del partner"
     },
     "contact": {
@@ -352,33 +352,33 @@
       "locationSoon": "Ubicación próximamente",
       "showcaseTitle": "Próximos cursos de formación",
       "showcaseDescription": "En Ordinaly, ofrecemos cursos de formación profesional para empresas y profesionales que desean aprovechar al máximo las tecnologías emergentes.",
-      "upcomingTitle": "Próximos Cursos",
+      "upcomingTitle": "Próximos cursos",
       "upcomingDescription": "Descubre nuestros cursos de formación",
-      "noCoursesTitle": "No Hay Cursos Próximos",
+      "noCoursesTitle": "No hay cursos próximos",
       "noCoursesMessage": "¡Mantente atento a los nuevos anuncios de cursos!",
       "notifyButton": "Ver todos los cursos",
-      "errorTitle": "Error Cargando Cursos",
+      "errorTitle": "Error cargando cursos",
       "errorMessage": "No se pudieron cargar los cursos",
       "retryButton": "Reintentar",
-      "enrollButton": "Inscribirse Ahora",
-      "moreInfo": "Más Información",
+      "enrollButton": "Inscribirse ahora",
+      "moreInfo": "Más información",
       "enrollCta": "Inscríbete",
       "wantNewEdition": "Quiero una nueva edición",
       "pastCourseMessage": "Hola, vi el curso \"{course}\" ({link}) y me gustaría solicitar una nueva edición. ¿Podéis avisarme cuando haya nueva fecha?",
-      "viewDetails": "Ver Detalles",
-      "viewAllCourses": "Ver Todos los Cursos",
+      "viewDetails": "Ver detalles",
+      "viewAllCourses": "Ver todos los cursos",
       "spotsLeft": "plazas disponibles",
       "enrolled": "inscritos",
       "max": "máximo",
-      "almostFull": "Casi Completo",
-      "fillingFast": "Llenándose Rápido",
+      "almostFull": "Casi completo",
+      "fillingFast": "Llenándose rápido",
       "available": "Disponible",
       "inProgress": "En curso",
       "finished": "Finalizado",
       "datesSoon": "Fechas próximamente",
       "durationSoon": "Duración próximamente",
       "signUpModal": {
-        "title": "Registro de Curso",
+        "title": "Registro de curso",
         "description": "Recibe notificaciones cuando se abra la inscripción para \"{courseName}\"",
         "generalDescription": "Recibe notificaciones sobre nuevos anuncios de cursos y oportunidades de inscripción temprana",
         "close": "Cerrar",
@@ -391,7 +391,7 @@
       "title": "LIDERANDO LA TRANSFORMACIÓN DIGITAL EN ANDALUCÍA",
       "description1": "En Ordinaly, creemos que las empresas andaluzas tienen el potencial de liderar la innovación tecnológica en España y Europa. Nuestra misión es democratizar el acceso a la inteligencia artificial y la automatización",
       "description2": "Trabajamos codo con codo con empresas locales para implementar soluciones que no solo mejoran la eficiencia, sino que las posicionan como referentes en sus sectores",
-      "cta": "Conoce Nuestros Servicios",
+      "cta": "Conoce nuestros servicios",
       "imageAlt": "Equipo de Ordinaly trabajando en soluciones de IA para empresas andaluzas"
     },
     "demoModal": {
@@ -407,7 +407,7 @@
       },
       "description": "Transformando empresas con inteligencia artificial y automatización",
       "legal": {
-        "title": "Documentación Legal",
+        "title": "Documentación legal",
         "terms": "Términos",
         "privacy": "Privacidad",
         "cookies": "Cookies",
@@ -429,27 +429,27 @@
     },
     "pricingPlans": {
       "1": {
-        "title": "Asistencia Robótica",
+        "title": "Asistencia robótica",
         "features": [
-          "Chatbot Inteligente en Web",
+          "Chatbot inteligente en web",
           "Agente de WhatsApp con IA"
         ]
       },
       "2": {
-        "title": "Automatización de Ventas",
+        "title": "Automatización de ventas",
         "features": [
-          "Todo lo del Plan Asistencia Robótica",
-          "CRM Automatizado (usuarios, facturación, informes, pedidos)",
-          "Notificaciones Automatizadas (Email/SMS/WhatsApp)"
+          "Todo lo del plan asistencia robótica",
+          "CRM automatizado (usuarios, facturación, informes, pedidos)",
+          "Notificaciones automatizadas (email/SMS/WhatsApp)"
         ]
       },
       "3": {
-        "title": "Estrategia Predictiva IA",
+        "title": "Estrategia predictiva IA",
         "features": [
-          "Todo lo del Plan Automatización de Ventas",
-          "Asistentes Inteligentes de Diagnóstico o Recomendación",
+          "Todo lo del plan automatización de ventas",
+          "Asistentes inteligentes de diagnóstico o recomendación",
           "Integración con Looker Studio y automatización de flujos",
-          "Análisis Predictivo y Tendencias de Mercado",
+          "Análisis predictivo y tendencias de mercado",
           "Herramientas web para presupuestos rápidos"
         ]
       }
@@ -457,22 +457,22 @@
     "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
   },
   "common": {
-    "onVacation": "De Vacaciones",
+    "onVacation": "De vacaciones",
     "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
     "retry": "Reintentar",
     "learnMore": "Detalles",
-    "backToHome": "Volver al Inicio"
+    "backToHome": "Volver al inicio"
   },
   "logoutModal": {
-    "title": "Confirmar Cerrar Sesión",
+    "title": "Confirmar cerrar sesión",
     "message": "¿Estás seguro de que quieres cerrar sesión de tu cuenta?",
-    "confirmButton": "Cerrar Sesión",
+    "confirmButton": "Cerrar sesión",
     "cancelButton": "Cancelar"
   },
   "cookie": {
     "title": "Cookies",
-    "openCookieSettings": "Abrir Configuración de Cookies",
-    "getCookiePreferences": "Abrir Configuración de Cookies",
+    "openCookieSettings": "Abrir configuración de cookies",
+    "getCookiePreferences": "Abrir configuración de cookies",
     "openOnYoutube": "Abrir en YouTube",
     "description": "Utilizamos cookies para mejorar tu experiencia, personalizar el contenido y analizar el tráfico. Puedes elegir qué tipos de cookies aceptar",
     "thirdPartyTitle": "Contenido de terceros bloqueado",
@@ -481,23 +481,23 @@
     "customize": "Configurar",
     "personalizeTitle": "Personaliza tus preferencias de cookies",
     "personalizeDescription": "Puedes activar o desactivar diferentes tipos de cookies según tus preferencias",
-    "necessary": "Cookies Necesarias",
+    "necessary": "Cookies necesarias",
     "necessaryDescription": "Estas cookies son esenciales para el funcionamiento del sitio web y no se pueden desactivar",
     "necessaryAlways": "Siempre activas",
-    "functional": "Cookies Funcionales",
+    "functional": "Cookies funcionales",
     "functionalDescription": "Las cookies funcionales incluyen funciones esenciales y permanecen siempre activas junto con las cookies necesarias",
     "functionalExamples": "Recordar preferencias de idioma, configuraciones de usuario",
-    "thirdParty": "Cookies de Terceros",
+    "thirdParty": "Cookies de terceros",
     "thirdPartyDescription": "Permiten cargar contenido externo como videos y mapas",
     "thirdPartyExamples": "YouTube, Google Maps",
-    "analytics": "Cookies de Análisis",
+    "analytics": "Cookies de análisis",
     "analyticsDescription": "Nos ayudan a entender cómo los usuarios interactúan con el sitio web",
     "analyticsExamples": "Google Analytics, métricas de rendimiento",
-    "marketing": "Cookies de Marketing",
+    "marketing": "Cookies de marketing",
     "marketingDescription": "Permiten mostrar anuncios más relevantes basados en tus intereses",
     "marketingExamples": "Publicidad personalizada, seguimiento de campañas",
     "back": "Volver",
-    "save": "Guardar Preferencias",
+    "save": "Guardar preferencias",
     "footer": "Para más información, consulta nuestra ",
     "privacy": "Política de Privacidad",
     "cookies": "Política de Cookies"
@@ -517,7 +517,7 @@
     "defaultWhatsAppMessage": "Hola, quiero hablar con el equipo comercial o técnico de Ordinaly."
   },
   "signin": {
-    "title": "Inicia sesión en tu Cuenta Ordinaly",
+    "title": "Inicia sesión en tu cuenta Ordinaly",
     "subtitle": "¡Bienvenido de nuevo!",
     "googleSignIn": "Continuar con Google",
     "form": {
@@ -526,8 +526,8 @@
       "passwordLabel": "Contraseña",
       "passwordPlaceholder": "Ingresa tu contraseña",
       "forgotPassword": "¿Olvidaste tu contraseña?",
-      "submitButton": "Iniciar Sesión",
-      "submitButtonLoading": "Iniciando Sesión...",
+      "submitButton": "Iniciar sesión",
+      "submitButtonLoading": "Iniciando sesión...",
       "signupPrompt": "¿No tienes una cuenta?",
       "signupLink": "Regístrate",
       "orContinueWith": "O continúa con",
@@ -543,18 +543,18 @@
     }
   },
   "signup": {
-    "title": "Crea Tu Cuenta",
+    "title": "Crea tu cuenta",
     "subtitle": "Rellena el formulario para registrarte",
     "googleSignUp": "Continuar con Google",
     "form": {
-      "title": "Formulario de Registro",
+      "title": "Formulario de registro",
       "nameLabel": "Nombre",
       "namePlaceholder": "Ingresa tu nombre",
       "surnameLabel": "Apellido",
       "surnamePlaceholder": "Ingresa tu apellido",
-      "usernameLabel": "Nombre de Usuario",
+      "usernameLabel": "Nombre de usuario",
       "usernamePlaceholder": "Elige un nombre de usuario",
-      "emailLabel": "Correo Electrónico",
+      "emailLabel": "Correo electrónico",
       "emailPlaceholder": "Ingresa tu correo electrónico",
       "companyLabel": "Empresa",
       "companyPlaceholder": "Ingresa el nombre de tu empresa",
@@ -564,7 +564,7 @@
       "cityPlaceholder": "Ingresa tu ciudad (opcional)",
       "passwordLabel": "Contraseña",
       "passwordPlaceholder": "Ingresa tu contraseña",
-      "confirmPasswordLabel": "Confirmar Contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
       "confirmPasswordPlaceholder": "Confirma tu contraseña",
       "acceptTerms": "Acepto los",
       "termsLink": "Términos de Servicio",
@@ -573,7 +573,7 @@
       "submitButton": "Registrarse",
       "submitButtonLoading": "Registrando...",
       "loginPrompt": "¿Ya tienes una cuenta?",
-      "loginLink": "Iniciar Sesión",
+      "loginLink": "Iniciar sesión",
       "signupWithGoogle": "Registrarse con Google",
       "orSignupWithEmail": "O regístrate con email",
       "selectAll": "Seleccionar todo",
@@ -613,10 +613,10 @@
     }
   },
   "admin": {
-    "title": "Panel de Administración",
+    "title": "Panel de administración",
     "subtitle": "Gestiona el contenido y configuración de tu aplicación",
     "loading": "Cargando panel de administración...",
-    "accessDenied": "Acceso Denegado",
+    "accessDenied": "Acceso denegado",
     "noPermission": "No tienes permisos para acceder a esta página",
     "labels": {
       "price": "Precio",
@@ -627,7 +627,7 @@
       "location": "Ubicación",
       "date": "Fecha",
       "schedule": "Horario",
-      "maxAttendants": "Máximo de Asistentes",
+      "maxAttendants": "Máximo de asistentes",
       "draft": "Borrador"
     },
     "tabs": {
@@ -652,10 +652,10 @@
       "perPage": "Por página"
     },
     "users": {
-      "userId": "ID de Usuario",
+      "userId": "ID de usuario",
       "name": "Nombre",
       "surname": "Apellido",
-      "email": "Correo Electrónico",
+      "email": "Correo electrónico",
       "company": "Empresa",
       "errorFetching": "No se pudo cargar la lista de usuarios. Por favor, intenta de nuevo más tarde",
       "sendMail": "Enviar correo",
@@ -664,16 +664,16 @@
       "users": "usuarios"
     },
     "blogTab": {
-      "title": "Edición de Blog (CMS)",
+      "title": "Edición de blog (CMS)",
       "openedMessage": "El CMS de edición de blog se ha abierto en otra pestaña. Si no lo ves, haz clic en el botón de abajo",
-      "openButton": "Abrir CMS de Blog",
+      "openButton": "Abrir CMS de blog",
       "loginWarning": "Es posible que debas iniciar sesión en el CMS con una cuenta de administrador"
     },
     "externalTabs": {
       "odoo": {
         "title": "Panel Odoo (ERP)",
         "description": "Abre el panel de Odoo en una nueva pestaña para gestionar datos y módulos.",
-        "button": "Abrir Odoo Admin",
+        "button": "Abrir Odoo admin",
         "warning": "Necesitarás credenciales de administrador para acceder."
       },
       "n8n": {
@@ -683,27 +683,27 @@
         "warning": "Necesitarás credenciales de administrador para acceder."
       },
       "api": {
-        "title": "Panel API / Django Admin",
+        "title": "Panel API / Django admin",
         "description": "Abre la consola de administración de la API en una nueva pestaña.",
-        "button": "Abrir API Admin",
+        "button": "Abrir API admin",
         "warning": "Necesitarás credenciales de administrador para acceder."
       },
       "mail": {
-        "title": "Servicio de Correo",
+        "title": "Servicio de correo",
         "description": "Abre el servicio de correo para gestionar emails corporativos.",
-        "button": "Abrir Servicio de Correo",
+        "button": "Abrir servicio de correo",
         "warning": "Es posible que necesites credenciales de administrador para acceder al portal de correo."
       }
     },
     "stats": {
-      "totalServices": "Total de Servicios",
-      "totalCourses": "Total de Cursos",
-      "totalTerms": "Total de Términos",
-      "totalUsers": "Total de Usuarios",
+      "totalServices": "Total de servicios",
+      "totalCourses": "Total de cursos",
+      "totalTerms": "Total de términos",
+      "totalUsers": "Total de usuarios",
       "totalPosts": "Publicaciones del blog"
     },
     "services": {
-      "title": "Gestión de Servicios",
+      "title": "Gestión de servicios",
       "searchPlaceholder": "Buscar servicios...",
       "sorting": {
         "sortBy": "Ordenar por",
@@ -716,12 +716,12 @@
         "price": "Precio",
         "toggleOrder": "Cambiar orden"
       },
-      "addService": "Añadir Servicio",
+      "addService": "Añadir servicio",
       "duplicate": "Duplicar",
-      "editService": "Editar Servicio",
-      "createService": "Crear Nuevo Servicio",
-      "deleteSelected": "Eliminar Seleccionados",
-      "selectAll": "Seleccionar Todo",
+      "editService": "Editar servicio",
+      "createService": "Crear nuevo servicio",
+      "deleteSelected": "Eliminar seleccionados",
+      "selectAll": "Seleccionar todo",
       "noServices": "No hay servicios disponibles",
       "noServicesFound": "No se encontraron servicios ni productos que coincidan con tu búsqueda",
       "durationDay": "1 día",
@@ -730,7 +730,7 @@
       "form": {
         "title": "Título",
         "titlePlaceholder": "Título del servicio",
-        "slugOptional": "Slug del Servicio (Opcional)",
+        "slugOptional": "Slug del servicio (opcional)",
         "slugPlaceholder": "ej., consultoria-automatizacion",
         "slugInvalid": "El slug solo puede contener letras ASCII, números, guiones bajos y guiones (sin acentos).",
         "subtitle": "Subtítulo",
@@ -739,7 +739,7 @@
         "descriptionPlaceholder": "Descripción del servicio",
         "icon": "Icono",
         "iconPlaceholder": "Elige un icono de Lucide React",
-        "color": "Color del Servicio *",
+        "color": "Color del servicio *",
         "image": "Imagen del servicio",
         "imageHelp": "Imagen de portada opcional (PNG/JPG, máx. 1MB).",
         "chooseImageText": "Elegir imagen",
@@ -806,7 +806,7 @@
         }
       },
       "confirmDelete": {
-        "title": "Confirmar Eliminación",
+        "title": "Confirmar eliminación",
         "single": "¿Estás seguro de que quieres eliminar \"{title}\"? Esta acción no se puede deshacer",
         "multiple": "¿Estás seguro de que quieres eliminar {count} servicios seleccionados? Esta acción no se puede deshacer",
         "delete": "Eliminar",
@@ -816,14 +816,14 @@
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
       "locationSoon": "Ubicación próximamente",
-      "title": "Gestión de Cursos",
+      "title": "Gestión de cursos",
       "searchPlaceholder": "Buscar cursos...",
-      "addCourse": "Añadir Curso",
+      "addCourse": "Añadir curso",
       "duplicate": "Duplicar",
-      "editCourse": "Editar Curso",
-      "createCourse": "Crear Nuevo Curso",
-      "deleteSelected": "Eliminar Seleccionados",
-      "selectAll": "Seleccionar Todo",
+      "editCourse": "Editar curso",
+      "createCourse": "Crear nuevo curso",
+      "deleteSelected": "Eliminar seleccionados",
+      "selectAll": "Seleccionar todo",
       "courses": "cursos",
       "noCourses": "No hay cursos disponibles",
       "noCoursesFound": "No se encontraron cursos que coincidan con tu búsqueda",
@@ -835,45 +835,45 @@
       "form": {
         "title": "Título",
         "titlePlaceholder": "Ingresa un título atractivo para el curso",
-        "titleRequired": "Título del Curso *",
+        "titleRequired": "Título del curso *",
         "subtitle": "Subtítulo",
         "subtitlePlaceholder": "Agrega un subtítulo descriptivo",
-        "subtitleOptional": "Subtítulo (Opcional)",
+        "subtitleOptional": "Subtítulo (opcional)",
         "description": "Descripción",
         "descriptionPlaceholder": "Describe lo que los estudiantes aprenderán en este curso...",
         "descriptionRequired": "Descripción *",
-        "bonifiedCourseLinkOptional": "Enlace curso bonificado (Opcional)",
+        "bonifiedCourseLinkOptional": "Enlace curso bonificado (opcional)",
         "bonifiedCourseLinkPlaceholder": "https://ejemplo.com/curso-bonificado",
         "bonifiedCourseLinkHelp": "Enlace opcional para la información de la bonificación del curso (solo http/https).",
         "video": "Vídeo de YouTube",
         "videoPlaceholder": "https://www.youtube.com/watch?v=ejemplo",
         "videoHelp": "Vídeo explicativo opcional (solo enlaces de YouTube).",
-        "image": "Imagen del Curso",
-        "imageRequired": "Imagen del Curso *",
-        "imageOptional": "Imagen del Curso",
-        "chooseImage": "Elegir Archivo de Imagen",
-        "chooseImageText": "Elegir Archivo de Imagen",
+        "image": "Imagen del curso",
+        "imageRequired": "Imagen del curso *",
+        "imageOptional": "Imagen del curso",
+        "chooseImage": "Elegir archivo de imagen",
+        "chooseImageText": "Elegir archivo de imagen",
         "imageRecommendation": "Recomendado: 1200x800px, JPG o PNG",
         "price": "Precio (€)",
         "pricePlaceholder": "Deja vacío para 'Contactar para presupuesto'",
         "location": "Ubicación",
         "locationPlaceholder": "Ingresa la ubicación del curso o 'Online'",
         "locationRequired": "Ubicación *",
-        "locationOptional": "Ubicación (Opcional)",
-        "scheduleSettings": "Configuración de Horario Profesional",
-        "startDateRequired": "Fecha de Inicio *",
-        "endDateRequired": "Fecha de Fin *",
-        "startTimeRequired": "Hora de Inicio *",
-        "endTimeRequired": "Hora de Fin *",
-        "periodicityRequired": "Patrón de Recurrencia *",
-        "weekdaysOptional": "Días de la Semana (Opcional)",
-        "weekOfMonthOptional": "Semana del Mes (Opcional)",
+        "locationOptional": "Ubicación (opcional)",
+        "scheduleSettings": "Configuración de horario profesional",
+        "startDateRequired": "Fecha de inicio *",
+        "endDateRequired": "Fecha de fin *",
+        "startTimeRequired": "Hora de inicio *",
+        "endTimeRequired": "Hora de fin *",
+        "periodicityRequired": "Patrón de recurrencia *",
+        "weekdaysOptional": "Días de la semana (opcional)",
+        "weekOfMonthOptional": "Semana del mes (opcional)",
         "intervalOptional": "Intervalo",
         "intervalPlaceholder": "ej., 2 para cada 2 semanas",
-        "timezoneOptional": "Zona Horaria",
+        "timezoneOptional": "Zona horaria",
         "draftMode": "Borrador",
         "markdownSupported": "Con soporte para formato Markdown",
-        "slugOptional": "Slug del Curso (Opcional)",
+        "slugOptional": "Slug del curso (opcional)",
         "slugPlaceholder": "ej., curso-python-avanzado",
         "slugInvalid": "El slug solo puede contener letras ASCII, números, guiones bajos y guiones (sin acentos).",
         "periodicity": {
@@ -922,8 +922,8 @@
             "full": "Domingo"
           }
         },
-        "maxAttendants": "Máximo de Asistentes",
-        "maxAttendantsRequired": "Máximo de Asistentes *",
+        "maxAttendants": "Máximo de asistentes",
+        "maxAttendantsRequired": "Máximo de asistentes *",
         "maxAttendantsPlaceholder": "10",
         "cancel": "Cancelar",
         "create": "Crear",
@@ -974,38 +974,38 @@
         }
       },
       "confirmDelete": {
-        "title": "Confirmar Eliminación",
+        "title": "Confirmar eliminación",
         "single": "¿Estás seguro de que quieres eliminar \"{title}\"? Esta acción no se puede deshacer",
         "multiple": "¿Estás seguro de que quieres eliminar {count} cursos seleccionados? Esta acción no se puede deshacer",
         "delete": "Eliminar",
         "cancel": "Cancelar"
       },
       "details": {
-        "title": "Detalles del Curso",
+        "title": "Detalles del curso",
         "enrolled": "Inscritos",
         "capacity": "Capacidad",
         "vacant": "Vacante",
         "price": "Precio",
         "location": "Ubicación",
         "date": "Fecha",
-        "maxAttendants": "Máximo de Asistentes",
+        "maxAttendants": "Máximo de asistentes",
         "created": "Creado",
         "schedule": "Horario",
-        "locationInfo": "Ubicación e Información",
-        "enrollmentStatus": "Estado de Inscripciones",
-        "enrolledMembers": "Miembros Inscritos",
-        "upcomingSessions": "Próximas Sesiones",
+        "locationInfo": "Ubicación e información",
+        "enrollmentStatus": "Estado de inscripciones",
+        "enrolledMembers": "Miembros inscritos",
+        "upcomingSessions": "Próximas sesiones",
         "finished": "Finalizado",
-        "startDate": "Fecha de Inicio",
-        "endDate": "Fecha de Fin",
+        "startDate": "Fecha de inicio",
+        "endDate": "Fecha de fin",
         "time": "Hora",
         "duration": "Duración",
         "frequency": "Frecuencia",
-        "weekdays": "Días de la Semana",
+        "weekdays": "Días de la semana",
         "video": "Vídeo",
         "playVideo": "Reproducir vídeo",
-        "timezone": "Zona Horaria",
-        "lastUpdated": "Última Actualización",
+        "timezone": "Zona horaria",
+        "lastUpdated": "Última actualización",
         "fullStatus": "Completo",
         "spotsRemaining": "plazas restantes",
         "members": "miembros",
@@ -1025,34 +1025,34 @@
       },
       "sorting": {
         "sortBy": "Ordenar por",
-        "startDate": "Fecha de Inicio",
+        "startDate": "Fecha de inicio",
         "title": "Título",
-        "endDate": "Fecha de Fin",
+        "endDate": "Fecha de fin",
         "enrollments": "Inscripciones",
         "capacity": "Capacidad",
         "created": "Creado"
       },
-      "pastCourses": "Cursos Pasados",
-      "viewPastCourses": "Ver Cursos Pasados",
-      "hidePastCourses": "Ocultar Cursos Pasados",
-      "upcomingCourses": "Próximos Cursos",
+      "pastCourses": "Cursos pasados",
+      "viewPastCourses": "Ver cursos pasados",
+      "hidePastCourses": "Ocultar cursos pasados",
+      "upcomingCourses": "Próximos cursos",
       "finished": "Finalizado"
     },
     "terms": {
-      "title": "Gestión de Términos",
+      "title": "Gestión de términos",
       "searchPlaceholder": "Buscar documentos...",
-      "addTerm": "Añadir Término",
-      "editTerm": "Editar Término",
-      "createTerm": "Crear Nuevo Término",
-      "deleteSelected": "Eliminar Seleccionados",
-      "selectAll": "Seleccionar Todo",
+      "addTerm": "Añadir término",
+      "editTerm": "Editar término",
+      "createTerm": "Crear nuevo término",
+      "deleteSelected": "Eliminar seleccionados",
+      "selectAll": "Seleccionar todo",
       "noTerms": "No hay términos disponibles",
       "noTermsFound": "No se encontraron términos que coincidan con tu búsqueda",
-      "pdfAvailable": "PDF Disponible",
-      "mdAvailable": "Documento Markdown Disponible",
+      "pdfAvailable": "PDF disponible",
+      "mdAvailable": "Documento Markdown disponible",
       "downloadPdf": "Descargar PDF",
-      "edit": "Editar Término",
-      "delete": "Eliminar Término",
+      "edit": "Editar término",
+      "delete": "Eliminar término",
       "noResults": "No se encontraron términos",
       "terms": "términos",
       "form": {
@@ -1062,18 +1062,18 @@
         "contentPlaceholder": "Contenido del término en formato markdown",
         "version": "Versión",
         "versionPlaceholder": "ej: 1.0",
-        "tag": "Tipo de Documento",
+        "tag": "Tipo de documento",
         "tagPlaceholder": "Selecciona el tipo de documento",
         "selectTag": "Selecciona un tipo de documento",
         "noAvailableTags": "No hay tipos de documento disponibles",
         "allTagsUsed": "Todos los tipos de documento han sido creados. Solo puedes tener uno de cada tipo",
         "allTagsUsedTitle": "Todos los tipos de documento ya están en uso",
-        "allTagsUsedButton": "Todos los Tipos Creados",
+        "allTagsUsedButton": "Todos los tipos creados",
         "markdownSupported": "Markdown soportado",
         "pdfContent": "Contenido PDF",
         "contentMd": "Contenido Markdown",
         "mdFile": "Archivo Markdown",
-        "chooseMd": "Elegir Archivo Markdown",
+        "chooseMd": "Elegir archivo Markdown",
         "downloadCurrentPdf": "Descargar PDF",
         "downloadCurrentMd": "Descargar Markdown",
         "tagTypes": {
@@ -1082,16 +1082,16 @@
           "privacy": "Política de Privacidad",
           "license": "Licencia"
         },
-        "pdfVersion": "Versión PDF (Opcional)",
+        "pdfVersion": "Versión PDF (opcional)",
         "choosePdf": "Elegir PDF",
         "cancel": "Cancelar",
-        "create": "Crear Término",
-        "update": "Actualizar Término",
+        "create": "Crear término",
+        "update": "Actualizar término",
         "noTagsLeft": "No quedan más tipos de documento",
         "noFileEdit": "No se puede editar el archivo"
       },
       "actions": {
-        "viewPreview": "Ver Vista Previa",
+        "viewPreview": "Ver vista previa",
         "viewPdf": "Ver PDF"
       },
       "tabs": {
@@ -1103,7 +1103,7 @@
         "name": "Nombre",
         "content": "Contenido",
         "version": "Versión",
-        "tag": "Tipo de Documento",
+        "tag": "Tipo de documento",
         "created": "Creado",
         "updated": "Actualizado"
       },
@@ -1145,7 +1145,7 @@
         }
       },
       "confirmDelete": {
-        "title": "Confirmar Eliminación",
+        "title": "Confirmar eliminación",
         "single": "¿Estás seguro de que quieres eliminar \"{name}\"? Esta acción no se puede deshacer",
         "multiple": "¿Estás seguro de que quieres eliminar {count} términos seleccionados? Esta acción no se puede deshacer",
         "delete": "Eliminar",
@@ -1158,17 +1158,17 @@
     }
   },
   "legal": {
-    "title": "Documentación Legal",
+    "title": "Documentación legal",
     "description": "Accede a nuestros términos de servicio, política de privacidad, política de cookies e información de licencia",
     "downloadPdf": "Descargar PDF",
     "downloadDesc": "Descargar Términos de Servicio en PDF",
-    "cookieManage": "Gestionar Cookies",
+    "cookieManage": "Gestionar cookies",
     "cookieDesc": "Activa o desactiva las cookies de análisis en esta página",
-    "supportKicker": "¿Necesitas Ayuda?",
-    "supportTitle": "Contactar Soporte",
+    "supportKicker": "¿Necesitas ayuda?",
+    "supportTitle": "Contactar soporte",
     "supportDesc": "¿Tienes preguntas sobre nuestros documentos legales?",
     "contactCta": "Contáctanos",
-    "openCookieSettings": "Abrir configuración Cookies",
+    "openCookieSettings": "Abrir configuración cookies",
     "tabs": {
       "terms": "Términos de Servicio",
       "privacy": "Política de Privacidad",
@@ -1343,7 +1343,7 @@
         }
       },
       "license": {
-        "title": "Información de Licencia",
+        "title": "Información de licencia",
         "noDocuments": "No hay documentos de licencia disponibles actualmente",
         "purpose": {
           "title": "OBJETO",
@@ -1431,7 +1431,7 @@
       "product": "Productos encapsulados"
     },
     "noResults": {
-      "title": "No se Encontraron servicios ni productos",
+      "title": "No se encontraron servicios ni productos",
       "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar lo que buscas"
     },
     "cta": {
@@ -1452,12 +1452,12 @@
       "phonePlaceholder": "Ingresa tu número de teléfono",
       "company": "Empresa",
       "companyPlaceholder": "Ingresa el nombre de tu empresa",
-      "service": "Servicio de Interés",
+      "service": "Servicio de interés",
       "servicePlaceholder": "¿Qué servicio te interesa?",
       "message": "Mensaje",
       "messagePlaceholder": "Cuéntanos sobre tu proyecto o requerimientos...",
       "cancel": "Cancelar",
-      "send": "Enviar Mensaje"
+      "send": "Enviar mensaje"
     }
   },
   "formation": {
@@ -1468,7 +1468,7 @@
       "viewMyCourses": "Ver mis cursos",
       "message": "Te has inscrito correctamente."
     },
-    "title": "Formación Profesional",
+    "title": "Formación profesional",
     "subtitle": "Avanza en tu carrera con nuestros programas de formación integral diseñados por expertos de la industria",
     "searchPlaceholder": "Buscar cursos...",
     "free": "Gratuito",
@@ -1477,9 +1477,9 @@
     "date": "Fecha",
     "enrolled": "Inscrito",
     "enroll": "Inscribirse",
-    "cancelEnrollment": "Cancelar Inscripción",
-    "viewDetails": "Ver Detalles",
-    "maxAttendants": "Máximo de Asistentes",
+    "cancelEnrollment": "Cancelar inscripción",
+    "viewDetails": "Ver detalles",
+    "maxAttendants": "Máximo de asistentes",
     "maxAttendeesCount": "Máximo {count} asistentes",
     "noSpecificDate": "Todavía no hay una fecha establecida",
     "locationSoon": "Ubicación próximamente",
@@ -1498,11 +1498,11 @@
       }
     },
     "noResults": {
-      "title": "No se Encontraron Cursos",
+      "title": "No se encontraron cursos",
       "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar el curso perfecto para ti"
     },
     "faq": {
-      "title": "Preguntas Frecuentes sobre Automatización Empresarial con IA",
+      "title": "Preguntas frecuentes sobre automatización empresarial con IA",
       "subtitle": "Resolvemos tus dudas sobre agentes de IA y optimización de procesos",
       "items": {
         "0": {
@@ -1538,62 +1538,62 @@
       }
     },
     "noPastCourses": "No hay cursos pasados disponibles",
-    "pastCourses": "Cursos Pasados",
-    "viewPastCourses": "Ver Cursos Pasados",
-    "hidePastCourses": "Ocultar Cursos Pasados",
+    "pastCourses": "Cursos pasados",
+    "viewPastCourses": "Ver cursos pasados",
+    "hidePastCourses": "Ocultar cursos pasados",
     "finished": "Finalizado",
     "wantNewEdition": "Quiero una nueva edición",
     "pastCourseMessage": "Hola, vi el curso \"{course}\" ({link}) y me gustaría solicitar una nueva edición. ¿Podéis avisarme cuando haya nueva fecha?",
     "cta": {
       "title": "¿Listo para avanzar en tu carrera?",
       "description": "Únete a miles de profesionales que han transformado sus carreras con nuestros programas de formación dirigidos por expertos",
-      "contact": "Contactar Asesor",
-      "catalog": "Descargar Catálogo",
-      "emailSubject": "Consulta sobre Programas de Formación de Ordinaly",
+      "contact": "Contactar asesor",
+      "catalog": "Descargar catálogo",
+      "emailSubject": "Consulta sobre programas de formación de Ordinaly",
       "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias"
     },
     "enrollment": {
-      "title": "Inscripción al Curso",
-      "confirm": "Confirmar Inscripción",
-      "courseDetails": "Detalles del Curso",
+      "title": "Inscripción al curso",
+      "confirm": "Confirmar inscripción",
+      "courseDetails": "Detalles del curso",
       "confirmMessage": "¿Estás seguro de que quieres inscribirte en este curso?",
       "bonificationQuestion": "¿Tu empresa dispone de créditos de formación?",
       "bonificationHint": "Si la formación es bonificable, podrás continuar desde el enlace correspondiente.",
       "bonificationYes": "Sí, tengo créditos",
       "bonificationNo": "No, pedir desde aquí",
       "bonificationMissingLink": "No hemos encontrado el enlace del curso bonificado. Contacta con soporte.",
-      "bonificationInfo": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda.\n\nFUNDAE / SEPE - Formación programada por las empresas: permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas (FUNDAE) y Formación para ocupados (SEPE).\n\nFondos UE - FSE+ 2021-2027: programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte UAFSE.\n\nPRTR - NextGenerationEU (Componente 23): medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del Plan de Recuperación y del SEPE.\n\nAndalucía (ámbito autonómico): Programa FSE+ Andalucía 2021-2027 y Formación Profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte Junta de Andalucía y FPE.",
+      "bonificationInfo": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda.\n\nFUNDAE / SEPE - Formación programada por las empresas: permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas (FUNDAE) y Formación para ocupados (SEPE).\n\nFondos UE - FSE+ 2021-2027: programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte UAFSE.\n\nPRTR - NextGenerationEU (Componente 23): medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del Plan de Recuperación y del SEPE.\n\nAndalucía (ámbito autonómico): Programa FSE+ Andalucía 2021-2027 y Formación profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte Junta de Andalucía y FPE.",
       "stepBonification": "Paso 1 · Bonificación",
       "stepCheckout": "Paso 2 · Inscripción",
       "paymentNote": "El procesamiento del pago se manejará en el siguiente paso",
-      "confirmEnroll": "Confirmar Inscripción",
-      "name": "Nombre Completo",
+      "confirmEnroll": "Confirmar inscripción",
+      "name": "Nombre completo",
       "namePlaceholder": "Ingresa tu nombre completo",
-      "email": "Correo Electrónico",
+      "email": "Correo electrónico",
       "emailPlaceholder": "Ingresa tu correo electrónico",
-      "phone": "Número de Teléfono",
+      "phone": "Número de teléfono",
       "phonePlaceholder": "Ingresa tu número de teléfono",
       "company": "Empresa",
       "companyPlaceholder": "Ingresa el nombre de tu empresa",
-      "experience": "Experiencia Relevante",
+      "experience": "Experiencia relevante",
       "experiencePlaceholder": "Cuéntanos sobre tu experiencia relevante o antecedentes...",
       "motivation": "¿Por qué quieres tomar este curso?",
       "motivationPlaceholder": "Comparte tu motivación y lo que esperas lograr...",
       "cancel": "Cancelar",
-      "submit": "Inscribirse al Curso",
+      "submit": "Inscribirse al curso",
       "successMessage": "¡Inscripción realizada con éxito!",
       "enrolled": "Ya estás inscrito en este curso",
       "cancelledMessage": "Tu inscripción ha sido cancelada"
     },
     "cancellation": {
-      "title": "Inscripción Cancelada",
+      "title": "Inscripción cancelada",
       "message": "Tu inscripción ha sido cancelada correctamente",
       "processing": "Cancelando...",
-      "warning": "Cancelar Inscripción al Curso",
+      "warning": "Cancelar inscripción al curso",
       "warningMessage": "¿Estás seguro de que quieres cancelar tu inscripción en \"{courseTitle}\"? Esta acción no se puede deshacer",
       "confirmMessage": "Esto te eliminará del curso y podrías perder tu plaza",
-      "keepEnrollment": "Mantener Inscripción",
-      "confirmCancel": "Cancelar Inscripción"
+      "keepEnrollment": "Mantener inscripción",
+      "confirmCancel": "Cancelar inscripción"
     },
     "alerts": {
       "signInToEnroll": "Por favor inicia sesión para inscribirte en los cursos",
@@ -1615,23 +1615,23 @@
       "unenrollStartedRestriction": "No puedes cancelar la inscripción después de que el curso ha comenzado.",
       "unenrollEndedRestriction": "No puedes cancelar la inscripción después de que el curso ha finalizado."
     },
-    "slogan": "Soluciones de Software y Formación",
+    "slogan": "Soluciones de software y formación",
     "introduction": "En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras",
-    "coursesTitle": "Nuestros Cursos",
+    "coursesTitle": "Nuestros cursos",
     "time": "Horario:",
     "capacity": "Capacidad:",
     "people": "personas",
-    "contactTitle": "Información de Contacto",
+    "contactTitle": "Información de contacto",
     "email": "Email:",
     "website": "Web:",
     "specialization": "Especialización:",
-    "specializationText": "Desarrollo de Software y Formación Tecnológica",
+    "specializationText": "Desarrollo de software y formación tecnológica",
     "filename": "Catalogo_Formacion_Ordinaly.pdf",
     "noSpecificTime": "No hay una hora específica aún",
-    "bonificationTitle": "Bonificación y Subvenciones",
+    "bonificationTitle": "Bonificación y subvenciones",
     "bonificationDisclaimer": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar",
     "pdf": {
-      "title": "Catálogo de Formación",
+      "title": "Catálogo de formación",
       "subtitle": "Cursos de formación profesional y tecnológica",
       "date": "Fecha",
       "location": "Ubicación",
@@ -1641,35 +1641,35 @@
       "locationSoon": "Ubicación próximamente"
     },
     "courseDetails": {
-      "title": "Detalles del Curso",
+      "title": "Detalles del curso",
       "locationSoon": "Ubicación próximamente",
-      "courseDescription": "Descripción del Curso",
-      "scheduleInformation": "Información de Horario",
-      "upcomingSessions": "Próximas Sesiones",
-      "courseInformation": "Información del Curso",
-      "startDate": "Fecha de Inicio",
-      "endDate": "Fecha de Fin",
+      "courseDescription": "Descripción del curso",
+      "scheduleInformation": "Información de horario",
+      "upcomingSessions": "Próximas sesiones",
+      "courseInformation": "Información del curso",
+      "startDate": "Fecha de inicio",
+      "endDate": "Fecha de fin",
       "time": "Horario",
       "duration": "Duración",
       "hours": "hora(s)",
       "daysOfWeek": "Días de la semana",
-      "fullSchedule": "Horario Completo",
+      "fullSchedule": "Horario completo",
       "location": "Ubicación",
-      "maxAttendants": "Máximo de Asistentes",
+      "maxAttendants": "Máximo de asistentes",
       "people": "personas",
-      "scheduleType": "Tipo de Horario",
+      "scheduleType": "Tipo de horario",
       "price": "Precio",
       "video": "Vídeo",
       "playVideo": "Reproducir vídeo",
       "enrolled": "Inscrito",
-      "cancelEnrollment": "Cancelar Inscripción",
+      "cancelEnrollment": "Cancelar inscripción",
       "courseHasStarted": "El curso ha comenzado",
       "courseStartedMessage": "Este curso ya ha comenzado y ya no acepta nuevas inscripciones",
       "courseHasFinished": "Las inscripciones están cerradas",
       "courseFinishedMessage": "Este curso ya ha comenzado y ya no acepta nuevas inscripciones",
-      "signInToEnroll": "Iniciar Sesión para Inscribirse",
-      "enrollNow": "Inscribirse Ahora",
-      "importantDates": "Fechas Importantes",
+      "signInToEnroll": "Iniciar sesión para inscribirse",
+      "enrollNow": "Inscribirse ahora",
+      "importantDates": "Fechas importantes",
       "excludedDatesMessage": "Este curso tiene {count} fecha(s) excluida(s) (feriados o descansos) que no están incluidas en el horario regular",
       "moreSessions": "Y {count} sesiones más...",
       "noSpecificDate": "Todavía no hay una fecha establecida",
@@ -1758,19 +1758,19 @@
   },
   "bonificationTexts": {
     "summary": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda",
-    "details": "\n**FUNDAE / SEPE - Formación programada por las empresas:** permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas ([FUNDAE](https://www.fundae.es/empresas)) y Formación para ocupados ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fondos UE - FSE+ 2021-2027:** programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Componente 23):** medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del [Plan de Recuperación](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) y del [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalucía (ámbito autonómico):** Programa FSE+ Andalucía 2021-2027 y Formación Profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte [Junta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) y [FPE](https://www.juntadeandalucia.es/temas/trabajar/formacion/fpe.html).\n\n**Aviso:** La elegibilidad, intensidad y compatibilidad de la financiación varían por normativa y convocatoria vigente. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar"
+    "details": "\n**FUNDAE / SEPE - Formación programada por las empresas:** permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas ([FUNDAE](https://www.fundae.es/empresas)) y Formación para ocupados ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fondos UE - FSE+ 2021-2027:** programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Componente 23):** medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del [Plan de Recuperación](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) y del [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalucía (ámbito autonómico):** Programa FSE+ Andalucía 2021-2027 y Formación profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte [Junta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) y [FPE](https://www.juntadeandalucia.es/temas/trabajar/formacion/fpe.html).\n\n**Aviso:** La elegibilidad, intensidad y compatibilidad de la financiación varían por normativa y convocatoria vigente. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar"
   },
   "profile": {
-    "kicker": "Mi Cuenta",
-    "title": "Mi Perfil",
+    "kicker": "Mi cuenta",
+    "title": "Mi perfil",
     "subtitle": "Gestiona tu información personal y configuración de cuenta",
     "loading": "Cargando perfil...",
-    "personalInfo": "Información Personal",
-    "dangerZone": "Zona de Peligro",
+    "personalInfo": "Información personal",
+    "dangerZone": "Zona de peligro",
     "security": {
       "title": "Seguridad",
       "description": "Actualiza tu contraseña para mantener tu cuenta segura.",
-      "changePassword": "Cambiar Contraseña"
+      "changePassword": "Cambiar contraseña"
     },
     "authProvider": {
       "label": "Autenticación",
@@ -1804,9 +1804,9 @@
       "firstNamePlaceholder": "Ingresa tu nombre",
       "lastName": "Apellido",
       "lastNamePlaceholder": "Ingresa tu apellido",
-      "username": "Nombre de Usuario",
+      "username": "Nombre de usuario",
       "usernamePlaceholder": "Ingresa tu nombre de usuario",
-      "email": "Correo Electrónico",
+      "email": "Correo electrónico",
       "emailPlaceholder": "Ingresa tu correo electrónico",
       "company": "Empresa",
       "companyPlaceholder": "Ingresa el nombre de tu empresa",
@@ -1814,25 +1814,25 @@
       "regionPlaceholder": "Ingresa tu país (opcional)",
       "city": "Ciudad",
       "cityPlaceholder": "Ingresa tu ciudad (opcional)",
-      "saveChanges": "Guardar Cambios",
-      "saveChangesLoading": "Guardando Cambios...",
-      "cancel": "Cancelar Cambios",
+      "saveChanges": "Guardar cambios",
+      "saveChangesLoading": "Guardando cambios...",
+      "cancel": "Cancelar cambios",
       "allowNotificationsTitle": "Preferencias de email",
       "allowNotificationsDesc": "Recibe comunicaciones por correo",
       "allowNotifications": "Recibir boletines y correos electrónicos",
-      "allowNotificationsModalTitle": "Confirmar Preferencias de email",
+      "allowNotificationsModalTitle": "Confirmar preferencias de email",
       "allowNotificationsModalOn": "¿Estás seguro de que deseas habilitar los boletines y comunicaciones por correo electrónico?",
       "allowNotificationsModalOff": "¿Estás seguro de que deseas deshabilitar los boletines y comunicaciones por correo electrónico?",
       "allowNotificationsModalConfirm": "Confirmar",
       "allowNotificationsModalCancel": "Cancelar"
     },
     "deleteAccount": {
-      "title": "Eliminar Cuenta",
+      "title": "Eliminar cuenta",
       "description": "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate.",
-      "button": "Eliminar Cuenta",
-      "confirmTitle": "Confirmar Eliminación de Cuenta",
+      "button": "Eliminar cuenta",
+      "confirmTitle": "Confirmar eliminación de cuenta",
       "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente.",
-      "confirmButton": "Eliminar Cuenta",
+      "confirmButton": "Eliminar cuenta",
       "cancelButton": "Cancelar"
     },
     "messages": {
@@ -1855,15 +1855,15 @@
   },
   "authModal": {
     "welcome": "Bienvenido a Ordinaly",
-    "courseEnrollTitle": "Autenticación Requerida",
+    "courseEnrollTitle": "Autenticación requerida",
     "courseEnrollDescription": "Inicia sesión o crea una cuenta para inscribirte en \"{courseTitle}\"",
     "generalDescription": "Únete a nuestra comunidad para acceder a cursos y servicios exclusivos",
     "signIn": {
-      "title": "Iniciar Sesión",
+      "title": "Iniciar sesión",
       "description": "¿Ya tienes una cuenta? ¡Bienvenido de vuelta!"
     },
     "signUp": {
-      "title": "Crear Cuenta",
+      "title": "Crear cuenta",
       "description": "¿Nuevo en Ordinaly? Crea tu cuenta"
     },
     "termsText": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad"
@@ -1875,7 +1875,7 @@
       "title": "No se encontraron resultados",
       "description": "Intenta buscar de nuevo"
     },
-    "backToBlog": "Volver al Blog",
+    "backToBlog": "Volver al blog",
     "postCategories": "Categorías de publicaciones",
     "searchPlaceholder": "Buscar publicaciones del blog...",
     "filters": {
@@ -1994,17 +1994,17 @@
     "team": {
       "1": {
         "name": "Antonio Macías Ferrera",
-        "role": "CTO Ingeniero de Software & Co-founder",
-        "quote": "Ingeniero de Software especialista en automatización e Inteligencia Artificial."
+        "role": "CTO ingeniero de software & co-founder",
+        "quote": "Ingeniero de software especialista en automatización e inteligencia artificial."
       },
       "2": {
         "name": "Guillermo Montero Fernández-Vivancos",
-        "role": "CEO, Ingeniero de Calidad y Proyectos & Co-founder",
+        "role": "CEO, Ingeniero de calidad y proyectos & Co-founder",
         "quote": "Consultor y project manager especializados en IA e ingeniería de calidad."
       },
       "3": {
         "name": "Emilio Cid Pérez",
-        "role": "CEO, Experto en Márketing, Publicidad y Transformación Digital & Co-founder",
+        "role": "CEO, Experto en Márketing, publicidad y transformación digital & Co-founder",
         "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
       },
       "title": "Nuestro equipo",
@@ -2054,7 +2054,7 @@
         },
         "3": {
           "title": "Septiembre 2025 · Constituimos la empresa y llegan los primeros clientes",
-          "body": "Lanzamos Ordinary, arrancamos proyectos con nuestros primeros clientes y entregamos pilotos mientras Antonio cursa su máster en Ciencias de la Computación e Inteligencia Artificial."
+          "body": "Lanzamos Ordinary, arrancamos proyectos con nuestros primeros clientes y entregamos pilotos mientras Antonio cursa su máster en Ciencias de la computación e inteligencia artificial."
         },
         "4": {
           "title": "2026 · Escalamos la automatización para más empresas",
@@ -2065,17 +2065,17 @@
     "testimonials": {
       "1": {
         "name": "Antonio Macías Ferrera",
-        "role": "CTO Ingeniero de Software & Co-founder",
-        "quote": "Ingeniero de Software especialista en automatización e Inteligencia Artificial."
+        "role": "CTO ingeniero de software & co-founder",
+        "quote": "Ingeniero de software especialista en automatización e inteligencia artificial."
       },
       "2": {
         "name": "Guillermo Montero Fernández-Vivancos",
-        "role": "Ingeniero de Calidad y Proyectos & Co-founder",
+        "role": "Ingeniero de calidad y proyectos & Co-founder",
         "quote": "Consultor y project manager especializados en IA e ingeniería de calidad."
       },
       "3": {
         "name": "Emilio Cid Pérez",
-        "role": "Experto en Márketing, Publicidad y Transformación Digital & Co-founder",
+        "role": "Experto en Márketing, publicidad y transformación digital & Co-founder",
         "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
       },
       "title": "Nuestro equipo"
@@ -2432,45 +2432,45 @@
   },
   "resetPassword": {
     "request": {
-      "title": "Restablecer Contraseña",
+      "title": "Restablecer contraseña",
       "subtitle": "Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
-      "emailLabel": "Correo Electrónico",
+      "emailLabel": "Correo electrónico",
       "emailPlaceholder": "Introduce tu correo electrónico",
       "emailRequired": "Por favor, introduce tu correo electrónico.",
-      "submit": "Enviar Enlace",
+      "submit": "Enviar enlace",
       "submitLoading": "Enviando...",
       "error": "No se pudo enviar el enlace. Verifica el correo e intenta de nuevo.",
       "networkError": "Error de red. Verifica tu conexión e intenta de nuevo.",
-      "backToSignin": "Volver a Iniciar Sesión"
+      "backToSignin": "Volver a iniciar sesión"
     },
     "emailSent": {
-      "title": "Revisa Tu Correo",
+      "title": "Revisa tu correo",
       "description": "Si existe una cuenta con ese correo electrónico, te hemos enviado un enlace para restablecer tu contraseña. Revisa tu bandeja de entrada.",
       "expiry": "El enlace expirará en 1 hora.",
-      "backHome": "Volver al Inicio"
+      "backHome": "Volver al inicio"
     },
     "confirm": {
-      "title": "Nueva Contraseña",
+      "title": "Nueva contraseña",
       "subtitle": "Introduce tu nueva contraseña a continuación.",
-      "newPasswordLabel": "Nueva Contraseña",
+      "newPasswordLabel": "Nueva contraseña",
       "newPasswordPlaceholder": "Introduce tu nueva contraseña",
-      "confirmPasswordLabel": "Confirmar Contraseña",
+      "confirmPasswordLabel": "Confirmar contraseña",
       "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
       "passwordHint": "La contraseña debe tener al menos 8 caracteres.",
       "passwordTooShort": "La contraseña debe tener al menos 8 caracteres.",
       "passwordMismatch": "Las contraseñas no coinciden.",
-      "submit": "Restablecer Contraseña",
+      "submit": "Restablecer contraseña",
       "submitLoading": "Restableciendo...",
       "networkError": "Error de red. Verifica tu conexión e intenta de nuevo.",
-      "invalidToken": "Enlace Inválido o Expirado",
+      "invalidToken": "Enlace inválido o expirado",
       "invalidTokenDesc": "Este enlace para restablecer la contraseña es inválido o ha expirado. Por favor, solicita uno nuevo.",
-      "backToSignin": "Volver a Iniciar Sesión",
-      "successTitle": "Contraseña Restablecida",
+      "backToSignin": "Volver a iniciar sesión",
+      "successTitle": "Contraseña restablecida",
       "successDesc": "Tu contraseña ha sido actualizada. Ya puedes iniciar sesión con tu nueva contraseña.",
-      "goToSignin": "Ir a Iniciar Sesión",
-      "errorTitle": "Error al Restablecer",
+      "goToSignin": "Ir a iniciar sesión",
+      "errorTitle": "Error al restablecer",
       "errorDesc": "Algo salió mal al restablecer tu contraseña. Por favor, intenta de nuevo.",
-      "tryAgain": "Intentar de Nuevo"
+      "tryAgain": "Intentar de nuevo"
     }
   },
   "deleteAccountEmailSent": {
@@ -2485,8 +2485,8 @@
     "resendButton": "Reenviar correo",
     "resending": "Reenviando...",
     "resendError": "No se pudo reenviar el correo. Inténtalo de nuevo.",
-    "backHome": "Volver al Inicio",
-    "openMailApp": "Abrir app de Correo"
+    "backHome": "Volver al inicio",
+    "openMailApp": "Abrir app de correo"
   },
   "deleteAccountConfirm": {
     "loadingTitle": "Confirmando eliminación...",
