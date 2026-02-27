@@ -2522,5 +2522,19 @@
     "error": "Error changing the email",
     "networkError": "Network error. Check your connection and try again.",
     "backToVerify": "Back to verify"
+  },
+  "emailVerificationModal": {
+    "title": "Verify your account",
+    "description": "You must verify your email address to perform this action. We sent a verification code to:",
+    "codeLabel": "Verification code",
+    "verify": "Verify",
+    "verifying": "Verifying...",
+    "resendIn": "Resend code in {seconds}s",
+    "resend": "Resend code",
+    "success": "Email verified successfully",
+    "error": "Error verifying the code",
+    "resendError": "Error resending the code",
+    "resendSuccess": "Code resent successfully",
+    "networkError": "Network error. Check your connection and try again."
   }
 }

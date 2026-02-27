@@ -66,7 +66,6 @@ class UserViewSet(viewsets.ModelViewSet):
         response_data['email_verified'] = False
         return Response(response_data, status=status.HTTP_201_CREATED, headers=headers)
 
-
     def _handle_duplicate_error(self, exc):
         response_data = {}
         if isinstance(exc, DjangoValidationError):
@@ -149,6 +148,15 @@ class UserViewSet(viewsets.ModelViewSet):
             user.last_login = timezone.now()
             user.save(update_fields=['last_login'])
             token, created = Token.objects.get_or_create(user=user)
+
+            # Auto-send verification OTP for unverified users (including legacy users)
+            if not user.email_verified_at:
+                try:
+                    code, otp = create_otp_for_user(user)
+                    send_verification_email(user.email, code)
+                except Exception:
+                    logger.exception("Failed to send verification email on signin for user %s", user.email)
+
             serializer = self.get_serializer(user)
             response_data = serializer.data
             response_data['token'] = token.key

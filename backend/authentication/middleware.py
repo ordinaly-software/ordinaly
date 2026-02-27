@@ -2,18 +2,26 @@ from django.http import JsonResponse
 from django.urls import resolve
 
 ALLOWED_UNVERIFIED_PATHS = [
-    "signup",
+    # Auth app named routes
     "verify-email",
     "resend-verification",
     "change-email-unverified",
-    "login",
-    "logout",
     "password-reset-request",
     "password-reset-confirm",
+    "delete-request",
+    "delete-confirm",
+    # DRF router-generated names (UserViewSet, basename=customuser)
+    "customuser-signout",
+    "customuser-signin",
+    "customuser-signup",
 ]
 
+# Read-only methods that never modify the database
+SAFE_METHODS = {"GET", "HEAD", "OPTIONS"}
+
+
 class EmailVerificationRequiredMiddleware:
-    #Blocks access to protected endpoints if the user has not verified their email.
+    """Blocks mutating requests to protected endpoints if the user has not verified their email."""
 
     def __init__(self, get_response):
         self.get_response = get_response
@@ -35,14 +43,25 @@ class EmailVerificationRequiredMiddleware:
         if request.path.startswith("/admin/"):
             return self.get_response(request)
 
+        # Allow read-only methods so unverified users can browse the app
+        if request.method in SAFE_METHODS:
+            return self.get_response(request)
+
         # Get name of current view
-        resolver = resolve(request.path)
-        current_view = resolver.url_name
+        try:
+            resolver = resolve(request.path)
+            current_view = resolver.url_name
+        except Exception:
+            current_view = None
 
         if current_view in ALLOWED_UNVERIFIED_PATHS:
             return self.get_response(request)
 
         return JsonResponse(
-            {"detail": "Tu cuenta aún no está verificada."},
-            status=403
+            {
+                "code": "email_not_verified",
+                "detail": "Tu cuenta aún no está verificada.",
+                "email": user.email,
+            },
+            status=403,
         )

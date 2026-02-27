@@ -2521,5 +2521,19 @@
     "error": "Error al cambiar el email",
     "networkError": "Error de red. Verifica tu conexión e intenta de nuevo.",
     "backToVerify": "Volver a verificar"
+  },
+  "emailVerificationModal": {
+    "title": "Verifica tu cuenta",
+    "description": "Debes verificar tu correo electrónico para realizar esta acción. Hemos enviado un código de verificación a:",
+    "codeLabel": "Código de verificación",
+    "verify": "Verificar",
+    "verifying": "Verificando...",
+    "resendIn": "Reenviar código en {seconds}s",
+    "resend": "Reenviar código",
+    "success": "Correo verificado correctamente",
+    "error": "Error al verificar el código",
+    "resendError": "Error al reenviar el código",
+    "resendSuccess": "Código reenviado correctamente",
+    "networkError": "Error de red. Verifica tu conexión e intenta de nuevo."
   }
 }

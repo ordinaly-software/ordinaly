@@ -17,13 +17,10 @@ from rest_framework import generics, status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework_simplejwt.tokens import RefreshToken
 
 from authentication.serializers import (
     ChangeEmailUnverifiedSerializer,
-    LoginSerializer,
     ResendVerificationSerializer,
-    SignupSerializer,
     VerifyEmailSerializer,
 )
 from .utils import create_internal_token
@@ -165,29 +162,6 @@ def google_callback(request):
         return redirect(f"{_frontend_base_url()}/auth/signin?error=unexpected")
 
 
-class SignupView(generics.CreateAPIView):
-    serializer_class = SignupSerializer
-    permission_classes = [AllowAny]
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.save()
-
-        refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
-
-        return Response({
-            "token": access_token,
-            "user": {
-                "id": user.id,
-                "email": user.email,
-                "email_verified": bool(user.email_verified_at),
-            },
-            "message": "Cuenta creada. Revisa tu correo para verificarla."
-        }, status=status.HTTP_201_CREATED)
-
-
 class VerifyEmailView(generics.GenericAPIView):
     serializer_class = VerifyEmailSerializer
     permission_classes = [AllowAny]
@@ -218,28 +192,6 @@ class ChangeEmailUnverifiedView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({"detail": "Email actualizado. Revisa tu bandeja para el nuevo código."})
-
-
-class LoginView(generics.GenericAPIView):
-    serializer_class = LoginSerializer
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data["user"]
-
-        refresh = RefreshToken.for_user(user)
-        access_token = str(refresh.access_token)
-
-        return Response({
-            "token": access_token,
-            "user": {
-                "id": user.id,
-                "email": user.email,
-                "email_verified": bool(user.email_verified_at),
-            }
-        })
 
 
 class RequestDeleteAccountView(APIView):

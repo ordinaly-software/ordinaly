@@ -8,16 +8,36 @@ import { ShieldCheck, Clock3, Mail, RefreshCw } from "lucide-react";
 export default function VerifyEmailPage() {
   const t = useTranslations("verifyEmail");
   const [code, setCode] = useState("");
-  const [seconds, setSeconds] = useState(120);
+  const [seconds, setSeconds] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
+  const [ready, setReady] = useState(false);
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+  // Guards: redirect if unauthenticated or already verified
   useEffect(() => {
+    const token = localStorage.getItem("auth_token");
+    if (!token) {
+      window.location.href = "/auth/signin";
+      return;
+    }
+
+    const cookies = document.cookie.split("; ").reduce<Record<string, string>>((acc, c) => {
+      const [k, v] = c.split("=");
+      acc[k] = v;
+      return acc;
+    }, {});
+
+    if (cookies.email_verified === "true") {
+      window.location.href = "/";
+      return;
+    }
+
     const savedEmail = localStorage.getItem("pending_email");
     if (savedEmail) setEmail(savedEmail);
+    setReady(true);
   }, []);
 
   useEffect(() => {
@@ -94,6 +114,14 @@ export default function VerifyEmailPage() {
       setError(t("networkError"));
     }
   };
+
+  if (!ready) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#F9FAFB] dark:bg-[#1A1924]">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#1F8A0D] dark:border-[#3FBD6F]" />
+      </div>
+    );
+  }
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#F9FAFB] text-gray-800 transition-colors duration-300 dark:bg-[#1A1924] dark:text-white">
