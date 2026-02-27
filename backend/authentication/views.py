@@ -14,13 +14,16 @@ from django.views.decorators.http import require_GET
 from google.auth.transport import requests as google_requests
 from google.oauth2 import id_token
 from rest_framework import generics, status
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from authentication.serializers import (
     ChangeEmailUnverifiedSerializer,
+    LoginSerializer,
     ResendVerificationSerializer,
+    SignupSerializer,
     VerifyEmailSerializer,
 )
 from .utils import create_internal_token
@@ -170,6 +173,50 @@ class VerifyEmailView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response({"detail": "Correo verificado correctamente"})
+
+
+class SignupView(generics.GenericAPIView):
+    serializer_class = SignupSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.save()
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response(
+            {
+                "token": token.key,
+                "user": {
+                    "id": user.id,
+                    "email": user.email,
+                    "email_verified": bool(user.email_verified_at),
+                },
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class LoginView(generics.GenericAPIView):
+    serializer_class = LoginSerializer
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
+        token, _ = Token.objects.get_or_create(user=user)
+        return Response(
+            {
+                "token": token.key,
+                "email_verified": bool(user.email_verified_at),
+                "user": {
+                    "id": user.id,
+                    "email": user.email,
+                },
+            },
+            status=status.HTTP_200_OK,
+        )
 
 
 class ResendVerificationView(generics.GenericAPIView):

@@ -3,12 +3,13 @@ from django.urls import resolve
 
 ALLOWED_UNVERIFIED_PATHS = [
     # Auth app named routes
+    "signup",
+    "login",
     "verify-email",
     "resend-verification",
     "change-email-unverified",
     "password-reset-request",
     "password-reset-confirm",
-    "delete-request",
     "delete-confirm",
     # DRF router-generated names (UserViewSet, basename=customuser)
     "customuser-signout",
