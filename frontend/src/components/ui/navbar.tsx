@@ -432,20 +432,24 @@ const Navbar = () => {
                       }
                     >
                       {item.id === "services" && (
-                        <div className="grid grid-cols-1 gap-3 min-w-[360px]">
-                          {featuredServices.length > 0 &&
-                            featuredServices.map((service) => (
-                              <ProductItem
-                                key={service.id}
-                                title={service.title}
-                                description={service.subtitle || service.description}
-                                href={`/${service.slug ?? service.id}`}
-                                src={service.image || ""}
-                                loadOnHover={false}
-                                loadEnabled={shouldLoadServiceImages}
-                              />
-                            ))}
-                          <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
+                        <div className="min-w-[1080px]">
+                          <div className="grid grid-cols-2 gap-4">
+                            {featuredServices.length > 0 &&
+                              featuredServices.map((service) => (
+                                <ProductItem
+                                  key={service.id}
+                                  title={service.title}
+                                  description={service.subtitle || service.description}
+                                  href={`/${service.slug ?? service.id}`}
+                                  src={service.image || ""}
+                                  loadOnHover={false}
+                                  loadEnabled={shouldLoadServiceImages}
+                                />
+                              ))}
+                          </div>
+                          <div className="mt-3">
+                            <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
+                          </div>
                         </div>
                       )}
                       {item.id === "formation" && (

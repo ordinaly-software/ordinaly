@@ -508,6 +508,33 @@ class AuthViewTests(APITestCase):
         self.assertEqual(response.status_code, 302)
         self.assertIn("accounts.google.com", response.url)
 
+    @override_settings(DEBUG=False)
+    @patch.dict(
+        os.environ,
+        {
+            "GOOGLE_CLIENT_ID": "cid",
+            "GOOGLE_REDIRECT_URI": "http://localhost:8000/auth/google/callback/",
+            "BACKEND_BASE_URL": "https://api.ordinaly.ai",
+        },
+    )
+    def test_google_login_uses_backend_base_url_in_production_when_redirect_uri_is_localhost(self):
+        response = self.client.get("/auth/google/login/")
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("redirect_uri=https%3A%2F%2Fapi.ordinaly.ai%2Fauth%2Fgoogle%2Fcallback%2F", response.url)
+
+    @override_settings(DEBUG=False)
+    @patch.dict(
+        os.environ,
+        {
+            "GOOGLE_CLIENT_ID": "cid",
+            "GOOGLE_REDIRECT_URI": "http://api.ordinaly.ai/auth/google/callback/",
+        },
+    )
+    def test_google_login_normalizes_http_redirect_uri_to_https_in_production(self):
+        response = self.client.get("/auth/google/login/")
+        self.assertEqual(response.status_code, 302)
+        self.assertIn("redirect_uri=https%3A%2F%2Fapi.ordinaly.ai%2Fauth%2Fgoogle%2Fcallback%2F", response.url)
+
     @patch.dict(os.environ, {"FRONTEND_URL": "http://localhost:3000"})
     def test_google_callback_error_param_redirects(self):
         response = self.client.get("/auth/google/callback/?error=access_denied")

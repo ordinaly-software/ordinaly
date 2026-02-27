@@ -3,6 +3,7 @@ import os
 import re
 import secrets
 from datetime import timedelta
+from urllib.parse import urlencode, urlparse, urlunparse
 
 import requests
 from django.conf import settings
@@ -31,6 +32,39 @@ from .utils import create_internal_token
 
 def _frontend_base_url():
     return os.getenv("FRONTEND_URL", "http://localhost:3000").rstrip("/")
+
+
+def _is_local_url(value):
+    parsed = urlparse((value or "").strip())
+    hostname = (parsed.hostname or "").lower()
+    return hostname in {"localhost", "127.0.0.1"}
+
+
+def _enforce_https_for_public_url(value):
+    parsed = urlparse((value or "").strip())
+    if not parsed.scheme or not parsed.netloc:
+        return value
+
+    if settings.DEBUG or _is_local_url(value):
+        return value
+
+    if parsed.scheme == "http":
+        return urlunparse(parsed._replace(scheme="https"))
+
+    return value
+
+
+def _google_redirect_uri():
+    redirect_uri = (os.getenv("GOOGLE_REDIRECT_URI") or "").strip()
+    if redirect_uri and (settings.DEBUG or not _is_local_url(redirect_uri)):
+        return _enforce_https_for_public_url(redirect_uri)
+
+    backend_base_url = (os.getenv("BACKEND_BASE_URL") or "").strip().rstrip("/")
+    if backend_base_url:
+        secure_backend_base_url = _enforce_https_for_public_url(backend_base_url).rstrip("/")
+        return f"{secure_backend_base_url}/auth/google/callback/"
+
+    return "http://localhost:8000/auth/google/callback/"
 
 
 def _split_google_name(display_name):
@@ -64,17 +98,19 @@ def _generate_unique_google_username(CustomUser, email):
 @require_GET
 def google_login(request):
     client_id = os.getenv("GOOGLE_CLIENT_ID")
-    redirect_uri = os.getenv("GOOGLE_REDIRECT_URI")
+    redirect_uri = _google_redirect_uri()
 
-    url = (
-        "https://accounts.google.com/o/oauth2/v2/auth"
-        "?response_type=code"
-        f"&client_id={client_id}"
-        f"&redirect_uri={redirect_uri}"
-        "&scope=openid%20email%20profile"
-        "&access_type=offline"
-        "&prompt=consent"
+    query = urlencode(
+        {
+            "response_type": "code",
+            "client_id": client_id,
+            "redirect_uri": redirect_uri,
+            "scope": "openid email profile",
+            "access_type": "offline",
+            "prompt": "consent",
+        }
     )
+    url = f"https://accounts.google.com/o/oauth2/v2/auth?{query}"
 
     return redirect(url)
 
@@ -96,7 +132,7 @@ def google_callback(request):
             "code": code,
             "client_id": os.getenv("GOOGLE_CLIENT_ID"),
             "client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
-            "redirect_uri": os.getenv("GOOGLE_REDIRECT_URI"),
+            "redirect_uri": _google_redirect_uri(),
             "grant_type": "authorization_code",
         }
 

@@ -13,6 +13,7 @@ import StyledButton from "@/components/ui/styled-button";
 import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { getApiUrl } from "@/lib/api-config";
 
 
 
@@ -220,8 +221,10 @@ export default function LoginPage() {
                     <div className="mt-6">
                       <div className="relative mb-6">
                         <button
+                          type="button"
                           onClick={() => {
-                            window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/auth/google/login/`
+                            const apiBaseUrl = getApiUrl().replace(/\/$/, "");
+                            window.location.href = `${apiBaseUrl}/auth/google/login/`;
                           }}
                           className="
                               w-full flex items-center justify-center gap-3

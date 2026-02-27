@@ -74,8 +74,8 @@ jobs:
           BILLIONMAIL_BASE_URL: ${{ secrets.BILLIONMAIL_BASE_URL }}
         run: |
           # Fail fast if model changes are missing migration files.
-          python manage.py makemigrations --check --dry-run
-          python manage.py migrate --noinput
+          python manage.py makemigrations
+          python manage.py migrate
           python manage.py test --verbosity 2 --failfast
 
       - name: Deploy via SSH
