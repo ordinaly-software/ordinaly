@@ -22,15 +22,14 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 if not SECRET_KEY:
     raise Exception("DJANGO_SECRET_KEY is not set!")
 
-#EMAIL-Service
+# EMAIL-Service
 BILLIONMAIL_API_KEY = os.getenv("BILLIONMAIL_API_KEY")
 BILLIONMAIL_BASE_URL = os.getenv("BILLIONMAIL_BASE_URL")
 BILLIONMAIL_SENDER = os.getenv("BILLIONMAIL_SENDER")
 
 EMAIL_OTP_TTL_MINUTES = int(os.getenv("EMAIL_OTP_TTL_MINUTES", 15))
 EMAIL_OTP_MAX_ATTEMPTS = int(os.getenv("EMAIL_OTP_MAX_ATTEMPTS", 5))
-EMAIL_OTP_RESEND_COOLDOWN_SECONDS = int(os.getenv("EMAIL_OTP_RESEND_COOLDOWN_SECONDS", 120))
-
+EMAIL_OTP_RESEND_COOLDOWN_SECONDS = int(os.getenv("EMAIL_OTP_RESEND_COOLDOWN_SECONDS", 60))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -157,10 +156,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-# RECAPTCHA
-RECAPTCHA_SECRET_KEY = os.getenv("RECAPTCHA_SECRET_KEY")
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

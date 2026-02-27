@@ -157,3 +157,12 @@ svg[width="2rem"], svg[height="2rem"] {
   overflow: hidden !important;
   position: relative !important;
 }
+
+.recaptcha-inline-badge {
+  min-height: 78px;
+}
+
+.recaptcha-inline-badge .grecaptcha-badge {
+  position: static !important;
+  box-shadow: none !important;
+}

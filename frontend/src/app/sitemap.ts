@@ -89,7 +89,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     services.forEach((service) => {
       const identifier = service?.slug || service?.id;
       if (!identifier) return;
-      addPath(`/services/${identifier}`, "weekly", 0.8);
+      addPath(`/${identifier}`, "weekly", 0.8);
     });
 
     // Local SEO landings

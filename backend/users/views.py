@@ -1,3 +1,5 @@
+import logging
+
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -10,9 +12,10 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils import timezone
 from .models import CustomUser
 from .serializers import CustomUserSerializer
-import requests
-from django.http import JsonResponse
-from django.conf import settings
+from .services.otp_service import create_otp_for_user
+from .services.email_service import send_verification_email
+
+logger = logging.getLogger(__name__)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -34,23 +37,8 @@ class UserViewSet(viewsets.ModelViewSet):
         if request.user.is_authenticated:
             return Response({'detail': 'You are already signed in.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        recaptcha_token = request.data.get("recaptchaToken")
-
-        verify_url = "https://www.google.com/recaptcha/api/siteverify"
-        payload = {
-            "secret": settings.RECAPTCHA_SECRET_KEY,
-            "response": recaptcha_token,
-        }
-
-        r = requests.post(verify_url, data=payload)
-        result = r.json()
-
-        print("RECAPTCHA RESULT (SIGNUP):", result)
-
-        if not result.get("success") or result.get("score", 0) < 0.5:
-            return Response({"error": "reCAPTCHA failed"}, status=400)
-
         data = dict(request.data)
+        data.pop("recaptchaToken", None)
 
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -64,12 +52,19 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'detail': 'An unexpected error occurred. Please try again.'},
                         status=status.HTTP_400_BAD_REQUEST)
 
+        # Create OTP and send verification email
+        try:
+            code, otp = create_otp_for_user(user)
+            send_verification_email(user.email, code)
+        except Exception:
+            logger.exception("Failed to send verification email for user %s", user.email)
+
         token, created = Token.objects.get_or_create(user=user)
         headers = self.get_success_headers(serializer.data)
         response_data = serializer.data
         response_data['token'] = token.key
+        response_data['email_verified'] = False
         return Response(response_data, status=status.HTTP_201_CREATED, headers=headers)
-
 
     def _handle_duplicate_error(self, exc):
         response_data = {}
@@ -141,22 +136,6 @@ class UserViewSet(viewsets.ModelViewSet):
         if request.user.is_authenticated:
             return Response({'detail': 'You are already signed in.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        recaptcha_token = request.data.get("recaptchaToken")
-
-        verify_url = "https://www.google.com/recaptcha/api/siteverify"
-        payload = {
-            "secret": settings.RECAPTCHA_SECRET_KEY,
-            "response": recaptcha_token,
-        }
-
-        r = requests.post(verify_url, data=payload)
-        result = r.json()
-
-        print("RECAPTCHA RESULT:", result)
-
-        if not result.get("success") or result.get("score", 0) < 0.5:
-            return Response({"error": "reCAPTCHA failed"}, status=400)
-
         email_or_username = request.data.get('emailOrUsername')
         password = request.data.get('password')
 
@@ -169,9 +148,19 @@ class UserViewSet(viewsets.ModelViewSet):
             user.last_login = timezone.now()
             user.save(update_fields=['last_login'])
             token, created = Token.objects.get_or_create(user=user)
+
+            # Auto-send verification OTP for unverified users (including legacy users)
+            if not user.email_verified_at:
+                try:
+                    code, otp = create_otp_for_user(user)
+                    send_verification_email(user.email, code)
+                except Exception:
+                    logger.exception("Failed to send verification email on signin for user %s", user.email)
+
             serializer = self.get_serializer(user)
             response_data = serializer.data
             response_data['token'] = token.key
+            response_data['email_verified'] = bool(user.email_verified_at)
             return Response(response_data, status=status.HTTP_200_OK)
 
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)

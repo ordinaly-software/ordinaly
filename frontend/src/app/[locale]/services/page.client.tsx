@@ -192,10 +192,15 @@ const ServicesPage = ({ initialServiceSlug }: { initialServiceSlug?: string }) =
 
   const buildServicesPath = useCallback(
     (slug?: string) => {
+      if (slug) {
+        // Service detail pages live at /[slug] (top-level)
+        return `/${slug}`;
+      }
+      // Services listing: keep current pathname structure
       const parts = pathname.split("/").filter(Boolean);
       const base =
         parts.length >= 2 && parts[1] === "services" ? `/${parts[0]}/services` : "/services";
-      return slug ? `${base}/${slug}` : base;
+      return base;
     },
     [pathname],
   );

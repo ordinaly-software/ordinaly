@@ -74,7 +74,8 @@ const resolveLocale = (locale?: string) => {
 
 export const absoluteUrl = (path?: string, locale?: string) => {
   const resolvedLocale = resolveLocale(locale);
-  const prefix = `/${resolvedLocale}`;
+  // Don't prefix the default locale ("as-needed" strategy)
+  const prefix = resolvedLocale === routing.defaultLocale ? "" : `/${resolvedLocale}`;
   const pathname = normalizePath(path);
   return `${baseUrl}${prefix}${pathname}`;
 };

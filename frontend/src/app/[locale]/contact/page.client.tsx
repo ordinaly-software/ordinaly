@@ -168,101 +168,77 @@ export default function ContactPage() {
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#1F8A0D]/20 dark:from-[#3FBD6F]/20 via-[#46B1C9]/20 to-[#623CEA]/15 blur-3xl" />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight text-gray-900 dark:text-white">
-                {t("hero.title")}
-              </h1>
-              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-200">
-                {t("hero.subtitle")}
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button
-                  asChild
-                  className="inline-flex items-center gap-2 bg-[#0d6e0c] dark:bg-[#3FBD6F] text-white dark:text-black"
-                >
-                  <a href="#location">
-                    <Pin className="h-4 w-4" />
-                    {t("hero.location")}
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  className="inline-flex items-center gap-2 py-3 rounded-xl font-semibold border border-gray-300/70 dark:border-gray-700 hover:-translate-y-0.5 transition-transform bg-white/70 dark:bg-white/5 text-gray-800 dark:text-white"
-                >
-                  <a href="#contact-form">
-                    <Send className="h-4 w-4" />
-                    {t("hero.secondaryCta")}
-                  </a>
-                </Button>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+          <div className="text-center max-w-3xl mx-auto space-y-6 mb-12">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-gray-900 dark:text-white">
+              {t("hero.title")}
+            </h1>
+            <p className="text-lg md:text-xl text-gray-700 dark:text-gray-200">
+              {t("hero.subtitle")}
+            </p>
+          </div>
+
+          {/* Prominent contact cards */}
+          <div className="grid sm:grid-cols-2 gap-5 max-w-2xl mx-auto mb-10">
+            <a
+              href="tel:+34626270806"
+              className="group flex items-center gap-4 p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
+            >
+              <div className="flex-shrink-0 h-14 w-14 rounded-xl bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/15 flex items-center justify-center">
+                <Phone className="h-7 w-7 text-[#1F8A0D] dark:text-[#3FBD6F]" />
               </div>
-            </div>
-            <div className="relative">
-              <div className="absolute -inset-8 bg-white/50 dark:bg-black/30 blur-3xl rounded-full" />
-              <div className="relative bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-2xl overflow-hidden">
-                <div className="w-full">
-                  <div className="relative w-full aspect-video overflow-hidden">
-                    {/* <video
-                      ref={heroVideoRef}
-                      className="absolute inset-0 h-full w-full object-cover"
-                      playsInline
-                      muted
-                      loop
-                      preload="none"
-                      controls={false}
-                      poster="/static/contact/contact_pic.webp"
-                    >
-                      {shouldLoadHeroVideo && (
-                        <>
-                          <source src="/static/office_video.mp4" type="video/mp4" />
-                        </>
-                      )}
-                    </video> */}
-                    <Image
-                      src="/static/contact/contact_pic.webp"
-                      alt="Contact us at Ordinaly Software"
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 1024px) 100vw, 33vw"
-                      priority={true}
-                    />
-                  </div>
-                </div>
-                <div className="p-6 space-y-4">
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">
-                    {t("hero.contactCardTitle")}
-                  </h3>
-                  <p className="text-gray-700 dark:text-gray-300">{t("hero.contactCardText")}</p>
-                  <div className="grid grid-cols-2 gap-3 text-sm">
-                    <div className="p-3 rounded-xl bg-gray-50 dark:bg-gray-800">
-                      <p className="text-gray-500 dark:text-gray-400">{t("info.emailLabel")}</p>
-                      <a
-                        href="mailto:info@ordinaly.ai"
-                        className="font-semibold text-[#1F8A0D] dark:text-[#3FBD6F] hover:underline"
-                      >
-                        info@ordinaly.ai
-                      </a>
-                    </div>
-                    <div className="p-3 rounded-xl bg-gray-50 dark:bg-gray-800">
-                      <p className="text-gray-500 dark:text-gray-400">{t("info.phoneLabel")}</p>
-                      <a
-                        href="tel:+34626270806"
-                        className="font-semibold text-[#1F8A0D] dark:text-[#3FBD6F] hover:underline"
-                      >
-                        +34 626 27 08 06
-                      </a>
-                    </div>
-                  </div>
-                </div>
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{t("info.phoneLabel")}</p>
+                <p className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-[#1F8A0D] dark:group-hover:text-[#3FBD6F] transition-colors">
+                  +34 626 27 08 06
+                </p>
               </div>
-            </div>
+            </a>
+            <a
+              href="mailto:info@ordinaly.ai"
+              className="group flex items-center gap-4 p-5 rounded-2xl bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1"
+            >
+              <div className="flex-shrink-0 h-14 w-14 rounded-xl bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/15 flex items-center justify-center">
+                <Mail className="h-7 w-7 text-[#1F8A0D] dark:text-[#3FBD6F]" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{t("info.emailLabel")}</p>
+                <p className="text-lg font-bold text-gray-900 dark:text-white group-hover:text-[#1F8A0D] dark:group-hover:text-[#3FBD6F] transition-colors">
+                  info@ordinaly.ai
+                </p>
+              </div>
+            </a>
+          </div>
+
+          {/* CTA buttons */}
+          <div className="flex flex-wrap justify-center gap-3">
+            <Button
+              asChild
+              className="inline-flex items-center gap-2 bg-[#0d6e0c] dark:bg-[#3FBD6F] text-white dark:text-black"
+            >
+              <a href="#contact-form">
+                <Send className="h-4 w-4" />
+                {t("hero.secondaryCta")}
+              </a>
+            </Button>
+            <Button
+              asChild
+              className="inline-flex items-center gap-2 py-3 rounded-xl font-semibold border border-gray-300/70 dark:border-gray-700 hover:-translate-y-0.5 transition-transform bg-white/70 dark:bg-white/5 text-gray-800 dark:text-white"
+            >
+              <a href="#location">
+                <Pin className="h-4 w-4" />
+                {t("hero.location")}
+              </a>
+            </Button>
           </div>
         </div>
       </section>
 
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" id="contact-form">
-        <ContactForm />
+        <ContactForm
+          recaptchaAction="contact_page_form"
+          recaptchaBadgeId="recaptcha-badge-contact-page"
+        />
       </section>
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" id="direct-contacts">

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -11,30 +10,15 @@ interface DeleteAccountModalProps {
   onClose: () => void;
   onConfirm: () => void;
   isLoading?: boolean;
-  username: string;
 }
 
-const DeleteAccountModal = ({ isOpen, onClose, onConfirm, isLoading = false, username }: DeleteAccountModalProps) => {
+const DeleteAccountModal = ({ isOpen, onClose, onConfirm, isLoading = false }: DeleteAccountModalProps) => {
   const t = useTranslations("profile");
-  const [confirmText, setConfirmText] = useState("");
-
-  const handleConfirm = () => {
-    if (confirmText === username) {
-      onConfirm();
-    }
-  };
-
-  const handleClose = () => {
-    setConfirmText("");
-    onClose();
-  };
-
-  const isConfirmValid = confirmText === username;
 
   return (
-    <Modal 
-      isOpen={isOpen} 
-      onClose={handleClose}
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
       className="max-w-md"
     >
       <div className="p-6">
@@ -53,31 +37,11 @@ const DeleteAccountModal = ({ isOpen, onClose, onConfirm, isLoading = false, use
           {t("deleteAccount.confirmMessage")}
         </p>
 
-        {/* Confirmation input */}
-        <div className="mb-6">
-          <div className="p-[2px] rounded-lg transition duration-300 bg-red-500/10 hover:bg-red-500/20">
-            <input
-              type="text"
-              value={confirmText}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmText(e.target.value)}
-              placeholder={t("deleteAccount.confirmPlaceholder")}
-              className="flex h-10 w-full border border-red-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-md px-3 py-2 text-sm text-center font-mono
-                file:border-0 file:bg-transparent file:text-sm file:font-medium 
-                placeholder:text-red-400 
-                focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-600
-                hover:border-red-600
-                disabled:cursor-not-allowed disabled:opacity-50"
-              disabled={isLoading}
-              autoFocus
-            />
-          </div>
-        </div>
-
         {/* Action buttons */}
         <div className="flex gap-3 justify-center">
           <Button
             variant="outline"
-            onClick={handleClose}
+            onClick={onClose}
             className="flex-1"
             disabled={isLoading}
           >
@@ -85,11 +49,11 @@ const DeleteAccountModal = ({ isOpen, onClose, onConfirm, isLoading = false, use
           </Button>
           <Button
             variant="destructive"
-            onClick={handleConfirm}
-            disabled={!isConfirmValid || isLoading}
+            onClick={onConfirm}
+            disabled={isLoading}
             className="flex-1"
           >
-            {isLoading ? "Deleting..." : t("deleteAccount.confirmButton")}
+            {isLoading ? "Eliminando..." : t("deleteAccount.confirmButton")}
           </Button>
         </div>
       </div>

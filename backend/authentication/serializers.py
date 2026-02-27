@@ -12,6 +12,7 @@ from django.contrib.auth import authenticate
 
 User = get_user_model()
 
+
 class SignupSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -21,8 +22,17 @@ class SignupSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
+        email = validated_data["email"]
+        base_username = email.split("@")[0]
+        username = base_username
+        counter = 1
+        while User.objects.filter(username=username).exists():
+            username = f"{base_username}{counter}"
+            counter += 1
+
         user = User.objects.create_user(
-            email=validated_data["email"],
+            email=email,
+            username=username,
             password=validated_data["password"],
             status="pending_verification",
             email_verified_at=None
@@ -32,6 +42,7 @@ class SignupSerializer(serializers.ModelSerializer):
         send_verification_email(user.email, code)
 
         return user
+
 
 class VerifyEmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -64,9 +75,10 @@ class VerifyEmailSerializer(serializers.Serializer):
         user.email_verified_at = timezone.now()
         user.status = "active"
         user.save()
-        send_welcome_email(user.email)
+        send_welcome_email(user.email, user.name or user.username)
 
         return data
+
 
 class ResendVerificationSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -104,6 +116,7 @@ class ResendVerificationSerializer(serializers.Serializer):
 
         return user
 
+
 class ChangeEmailUnverifiedSerializer(serializers.Serializer):
     new_email = serializers.EmailField()
 
@@ -137,6 +150,7 @@ class ChangeEmailUnverifiedSerializer(serializers.Serializer):
 
         return user
 
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
     password = serializers.CharField(write_only=True)
@@ -155,7 +169,3 @@ class LoginSerializer(serializers.Serializer):
 
         attrs["user"] = user
         return attrs
-
-
-
-

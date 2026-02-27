@@ -76,6 +76,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email_verified_at = models.DateTimeField(null=True, blank=True)
     deletion_token_hash = models.CharField(max_length=255, null=True, blank=True)
     deletion_token_expires_at = models.DateTimeField(null=True, blank=True)
+    password_reset_token_hash = models.CharField(max_length=255, null=True, blank=True)
+    password_reset_token_expires_at = models.DateTimeField(null=True, blank=True)
 
     status = models.CharField(
     max_length=50,

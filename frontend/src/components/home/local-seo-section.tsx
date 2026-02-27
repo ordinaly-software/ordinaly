@@ -108,7 +108,7 @@ export function LocalSeoSection({ t, sideContent }: LocalSeoProps) {
 
   return (
     <section className="relative overflow-hidden py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
-      <div className="absolute inset-0 z-0 lg:hidden bg-[url('/static/local_seo_section_light.webp')] dark:bg-[url('/static/local_seo_section_dark.webp')] bg-cover bg-center blur-sm opacity-30 scale-105" />
+      <div className="absolute inset-0 z-0 lg:hidden bg-[url('/static/home/local_seo_section_light.webp')] dark:bg-[url('/static/home/local_seo_section_dark.webp')] bg-cover bg-center blur-sm opacity-30 scale-105" />
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="scroll-animate slide-in-left">

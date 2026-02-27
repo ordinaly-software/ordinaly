@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Slider from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { User, Mail, Building2, MapPin, Globe, AlertTriangle } from "lucide-react";
+import { User, Mail, Building2, MapPin, Globe, AlertTriangle, Lock } from "lucide-react";
+import { useParams } from "next/navigation";
 
 interface ProfileInfoTabProps {
   firstName: string;
@@ -48,15 +49,15 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
   onDeleteAccount,
 }) => {
   const t = useTranslations("profile");
-  
+  const { locale } = useParams();
 
   return (
     <div className="grid lg:grid-cols-3 gap-8">
       {/* Personal Information */}
       <div className="lg:col-span-2">
-        <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
+        <Card className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold flex items-center">
+            <CardTitle className="text-2xl font-black flex items-center">
               <User className="h-6 w-6 mr-2 text-[#46B1C9]" />
               <span className="text-[#46B1C9]">
                 {t("personalInfo")}
@@ -91,7 +92,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={firstName}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("firstName", e.target.value)}
-                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                       placeholder={t("form.firstNamePlaceholder")}
                       required
                     />
@@ -110,7 +111,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={lastName}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("lastName", e.target.value)}
-                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                       placeholder={t("form.lastNamePlaceholder")}
                       required
                     />
@@ -131,7 +132,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     type="text"
                     value={username}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("username", e.target.value)}
-                    className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                    className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                     placeholder={t("form.usernamePlaceholder")}
                     required
                   />
@@ -151,7 +152,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     type="email"
                     value={email}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("email", e.target.value)}
-                    className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                    className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                     placeholder={t("form.emailPlaceholder")}
                     required
                   />
@@ -171,7 +172,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     type="text"
                     value={company}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("company", e.target.value)}
-                    className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                    className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                     placeholder={t("form.companyPlaceholder")}
                   />
                 </div>
@@ -191,7 +192,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={region}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("region", e.target.value)}
-                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                       placeholder={t("form.regionPlaceholder")}
                     />
                   </div>
@@ -208,7 +209,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={city}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("city", e.target.value)}
-                      className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
                       placeholder={t("form.cityPlaceholder")}
                     />
                   </div>
@@ -221,7 +222,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                   <Button
                     onClick={onSave}
                     disabled={isSaving}
-                    className="flex-1 bg-[#0d6e0c] hover:bg-[#0A4D08] text-white"
+                    className="flex-1 bg-[#0d6e0c] dark:bg-[#3FBD6F] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#0A4D08] font-semibold"
                   >
                     {isSaving ? t("form.saveChangesLoading") : t("form.saveChanges")}
                   </Button>
@@ -240,9 +241,39 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
         </Card>
       </div>
 
-      {/* Danger Zone */}
+      {/* Security & Danger Zone */}
       <div className="space-y-6">
-        <Card className="bg-white dark:bg-gray-800/50 border-red-200 dark:border-red-800">
+        {/* Security Card - Change Password */}
+        {!isGoogleAuthenticated && (
+          <Card className="rounded-3xl border-[1.5px] border-[#46B1C9]/40 dark:border-[#46B1C9]/30 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
+            <CardHeader>
+              <CardTitle className="text-lg font-bold text-[#46B1C9] flex items-center">
+                <Lock className="h-5 w-5 mr-2" />
+                {t("security.title")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {t("security.description")}
+                </p>
+                <Button
+                  variant="outline"
+                  className="w-full border-[#46B1C9] text-[#46B1C9] hover:bg-[#46B1C9]/10"
+                  onClick={() => {
+                    window.location.href = `/${locale}/reset-password?email=${encodeURIComponent(email)}`;
+                  }}
+                >
+                  <Lock className="h-4 w-4 mr-2" />
+                  {t("security.changePassword")}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Danger Zone */}
+        <Card className="rounded-3xl border border-red-200 dark:border-red-800/40 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-xl font-bold text-red-600 dark:text-red-400 flex items-center">
               <AlertTriangle className="h-5 w-5 mr-2" />
@@ -266,7 +297,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
         </Card>
 
         {/* Notification Toggle Below Danger Zone */}
-        <Card className="bg-white dark:bg-gray-800/50 border-[1.5px] border-[#623cea80] dark:border-[#623CEA]/80">
+        <Card className="rounded-3xl border-[1.5px] border-[#623CEA]/30 dark:border-[#623CEA]/25 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-lg font-bold text-[#623CEA] dark:text-[#623CEA] flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" style={{ color: "#623CEA" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -20,11 +20,11 @@ export async function generateMetadata({
     locale,
     path: "/",
     title: isEs
-      ? "Ordinaly Software | Automatización empresarial con IA en Sevilla"
-      : "Ordinaly Software | AI business automation in Seville",
+      ? "Agencia de automatización IA - Automatización empresarial con inteligencia artificial | Ordinaly Software"
+      : "AI Automation Agency - Business automation with artificial intelligence | Ordinaly Software",
     description: isEs
-      ? "Consultoría y soluciones de automatización con IA: agentes, chatbots, workflows, Odoo y formación para empresas en Sevilla y Europa."
-      : "AI automation consulting: agents, chatbots, workflows, Odoo, and training for companies in Seville and Europe.",
+      ? "Somos tu agencia de automatización IA: optimizamos procesos con agentes inteligentes, chatbots y soluciones de inteligencia artificial personalizadas para escalar tu empresa."
+      : "We are your AI automation agency: we optimise processes with intelligent agents, chatbots and custom AI solutions to scale your business.",
     image: "/og-image.png",
   });
 }
@@ -89,6 +89,7 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   //const { locale } = await params;
+  const renderedAt = Date.now();
   const initialServicesPromise = getInitialServices();
   const initialCoursesPromise = getInitialCourses();
 
@@ -96,6 +97,7 @@ export default async function Home({
     <>
       <Suspense fallback={<LoadingPage />}>
         <HomeContent
+          renderedAt={renderedAt}
           initialServicesPromise={initialServicesPromise}
           initialCoursesPromise={initialCoursesPromise}
         />
@@ -105,11 +107,13 @@ export default async function Home({
 }
 
 type HomeContentProps = {
+  renderedAt: number;
   initialServicesPromise: Promise<Service[]>;
   initialCoursesPromise: Promise<Course[]>;
 };
 
 async function HomeContent({
+  renderedAt,
   initialServicesPromise,
   initialCoursesPromise,
 }: HomeContentProps) {
@@ -118,5 +122,11 @@ async function HomeContent({
     initialCoursesPromise,
   ]);
 
-  return <HomePage initialServices={initialServices} initialCourses={initialCourses} />;
+  return (
+    <HomePage
+      renderedAt={renderedAt}
+      initialServices={initialServices}
+      initialCourses={initialCourses}
+    />
+  );
 }

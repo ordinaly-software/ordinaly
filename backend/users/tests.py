@@ -1,12 +1,13 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.exceptions import ValidationError
+from django.db import IntegrityError
+from django.utils import timezone
 from .serializers import CustomUserSerializer
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .models import CustomUser
 from .authentication import EmailOrUsernameModelBackend
-from unittest.mock import Mock, patch
 import os
 
 
@@ -431,12 +432,6 @@ class UserViewSetTests(APITestCase):
         self.signout_url = '/api/users/signout/'
         self.check_role_url = '/api/users/check_role/'
 
-        self.recaptcha_patcher = patch("users.views.requests.post")
-        self.mock_recaptcha_post = self.recaptcha_patcher.start()
-        self.mock_recaptcha_post.return_value = Mock(
-            json=lambda: {"success": True, "score": 0.9}
-        )
-
         self.user_data = {
             'username': 'testuser',
             'email': 'test@example.com',
@@ -468,10 +463,6 @@ class UserViewSetTests(APITestCase):
             is_staff=True
         )
         self.admin_token = Token.objects.create(user=self.admin)
-
-    def tearDown(self):
-        self.recaptcha_patcher.stop()
-        super().tearDown()
 
     def test_signup_success(self):
         """Test successful user signup"""
@@ -754,3 +745,318 @@ class UserViewSetTests(APITestCase):
         """Test deleting profile as unauthenticated user"""
         response = self.client.delete('/api/users/delete_profile/')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class OTPServiceTests(TestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.create_user(
+            email='otp@example.com',
+            username='otp_user',
+            password=TEST_PASSWORD,
+            name='OTP',
+            surname='User',
+            company='Test',
+        )
+
+    def test_generate_otp_code_is_six_digits(self):
+        from users.services.otp_service import generate_otp_code
+        code = generate_otp_code()
+        self.assertEqual(len(code), 6)
+        self.assertTrue(code.isdigit())
+
+    def test_generate_otp_code_zero_padded(self):
+        from users.services.otp_service import generate_otp_code
+        # Run multiple times to increase chance of hitting low numbers
+        for _ in range(50):
+            code = generate_otp_code()
+            self.assertEqual(len(code), 6)
+
+    def test_hash_code_deterministic(self):
+        from users.services.otp_service import hash_code
+        h1 = hash_code("123456")
+        h2 = hash_code("123456")
+        self.assertEqual(h1, h2)
+
+    def test_hash_code_different_for_different_inputs(self):
+        from users.services.otp_service import hash_code
+        h1 = hash_code("123456")
+        h2 = hash_code("654321")
+        self.assertNotEqual(h1, h2)
+
+    def test_create_otp_for_user_returns_code_and_otp(self):
+        from users.services.otp_service import create_otp_for_user
+        from users.models import EmailVerificationOTP
+        code, otp = create_otp_for_user(self.user)
+        self.assertEqual(len(code), 6)
+        self.assertIsInstance(otp, EmailVerificationOTP)
+        self.assertEqual(otp.user, self.user)
+        self.assertIsNotNone(otp.expires_at)
+        self.assertIsNotNone(otp.last_sent_at)
+
+    def test_create_otp_invalidates_previous(self):
+        from users.services.otp_service import create_otp_for_user
+        from users.models import EmailVerificationOTP
+        code1, otp1 = create_otp_for_user(self.user)
+        code2, otp2 = create_otp_for_user(self.user)
+        otp1.refresh_from_db()
+        self.assertIsNotNone(otp1.invalidated_at)
+        self.assertIsNone(otp2.invalidated_at)
+
+    def test_validate_otp_no_otp_exists(self):
+        from users.services.otp_service import validate_otp
+        valid, reason = validate_otp(self.user, "123456")
+        self.assertFalse(valid)
+        self.assertEqual(reason, "NO_OTP")
+
+    def test_validate_otp_expired(self):
+        from users.services.otp_service import create_otp_for_user, validate_otp
+        from users.models import EmailVerificationOTP
+        from datetime import timedelta
+        code, otp = create_otp_for_user(self.user)
+        otp.expires_at = timezone.now() - timedelta(minutes=1)
+        otp.save()
+        valid, reason = validate_otp(self.user, code)
+        self.assertFalse(valid)
+        self.assertEqual(reason, "EXPIRED")
+
+    @override_settings(EMAIL_OTP_MAX_ATTEMPTS=3)
+    def test_validate_otp_too_many_attempts(self):
+        from users.services.otp_service import create_otp_for_user, validate_otp
+        code, otp = create_otp_for_user(self.user)
+        otp.attempts = 3
+        otp.save()
+        valid, reason = validate_otp(self.user, code)
+        self.assertFalse(valid)
+        self.assertEqual(reason, "TOO_MANY_ATTEMPTS")
+
+    def test_validate_otp_invalid_code(self):
+        from users.services.otp_service import create_otp_for_user, validate_otp
+        code, otp = create_otp_for_user(self.user)
+        valid, reason = validate_otp(self.user, "000000")
+        self.assertFalse(valid)
+        self.assertEqual(reason, "INVALID")
+        otp.refresh_from_db()
+        self.assertEqual(otp.attempts, 1)
+
+    def test_validate_otp_success(self):
+        from users.services.otp_service import create_otp_for_user, validate_otp
+        code, otp = create_otp_for_user(self.user)
+        valid, reason = validate_otp(self.user, code)
+        self.assertTrue(valid)
+        self.assertEqual(reason, "OK")
+        otp.refresh_from_db()
+        self.assertIsNotNone(otp.invalidated_at)
+
+
+from unittest.mock import patch, Mock
+
+
+class EmailServiceTests(TestCase):
+    @patch('users.services.email_service.requests.post')
+    def test_send_email_success(self, mock_post):
+        from users.services.email_service import _send_email
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.text = '{"status":"ok"}'
+        mock_post.return_value = mock_response
+        result = _send_email("test@example.com", "<p>Hello</p>", subject="Test")
+        mock_post.assert_called_once()
+        self.assertEqual(result.status_code, 200)
+
+    @patch('users.services.email_service.requests.post')
+    def test_send_email_without_subject(self, mock_post):
+        from users.services.email_service import _send_email
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.text = '{"status":"ok"}'
+        mock_post.return_value = mock_response
+        _send_email("test@example.com", "<p>Hello</p>")
+        call_kwargs = mock_post.call_args
+        payload = call_kwargs.kwargs.get('json') or call_kwargs[1].get('json')
+        self.assertNotIn('subject', payload)
+
+    @patch('users.services.email_service.requests.post')
+    def test_send_email_with_subject(self, mock_post):
+        from users.services.email_service import _send_email
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.text = '{"status":"ok"}'
+        mock_post.return_value = mock_response
+        _send_email("test@example.com", "<p>Hello</p>", subject="My Subject")
+        call_kwargs = mock_post.call_args
+        payload = call_kwargs.kwargs.get('json') or call_kwargs[1].get('json')
+        self.assertEqual(payload['subject'], "My Subject")
+
+    @patch('users.services.email_service.requests.post')
+    def test_send_email_server_error_raises(self, mock_post):
+        from users.services.email_service import _send_email, EmailServiceError
+        mock_response = Mock()
+        mock_response.status_code = 500
+        mock_response.text = 'Internal Server Error'
+        mock_post.return_value = mock_response
+        with self.assertRaises(EmailServiceError):
+            _send_email("test@example.com", "<p>Hello</p>")
+
+    @patch('users.services.email_service._send_email')
+    def test_send_verification_email_calls_send_email(self, mock_send):
+        from users.services.email_service import send_verification_email
+        send_verification_email("test@example.com", "123456")
+        mock_send.assert_called_once()
+        args, kwargs = mock_send.call_args
+        self.assertIn("123456", args[1])  # code in HTML
+        subject = kwargs.get('subject') or (args[2] if len(args) > 2 else '')
+        self.assertEqual(subject, "Código de verificación - Ordinaly")
+
+    @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
+    def test_send_verification_email_raises_on_failure(self, mock_send):
+        from users.services.email_service import send_verification_email, EmailServiceError
+        with self.assertRaises(EmailServiceError):
+            send_verification_email("test@example.com", "123456")
+
+    @patch('users.services.email_service._send_email')
+    def test_send_welcome_email_calls_send_email(self, mock_send):
+        from users.services.email_service import send_welcome_email
+        send_welcome_email("test@example.com", "TestUser")
+        mock_send.assert_called_once()
+        args = mock_send.call_args
+        self.assertIn("TestUser", args[0][1])
+
+    @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
+    def test_send_welcome_email_raises_on_failure(self, mock_send):
+        from users.services.email_service import send_welcome_email, EmailServiceError
+        with self.assertRaises(EmailServiceError):
+            send_welcome_email("test@example.com", "TestUser")
+
+    @patch('users.services.email_service._send_email')
+    def test_send_password_reset_email_calls_send_email(self, mock_send):
+        from users.services.email_service import send_password_reset_email
+        send_password_reset_email("test@example.com", "abc123token", "TestUser")
+        mock_send.assert_called_once()
+        args = mock_send.call_args
+        self.assertIn("abc123token", args[0][1])
+        self.assertIn("TestUser", args[0][1])
+
+    @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
+    def test_send_password_reset_email_raises_on_failure(self, mock_send):
+        from users.services.email_service import send_password_reset_email, EmailServiceError
+        with self.assertRaises(EmailServiceError):
+            send_password_reset_email("test@example.com", "token", "User")
+
+
+class UserViewSetExtraCoverageTests(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.signup_url = '/api/users/signup/'
+        self.user = CustomUser.objects.create_user(
+            email='extra@example.com',
+            username='extra_user',
+            password=TEST_PASSWORD,
+            name='Extra',
+            surname='User',
+            company='Test',
+        )
+        self.token = Token.objects.create(user=self.user)
+
+    @patch('users.views.send_verification_email', side_effect=Exception("SMTP fail"))
+    @patch('users.views.create_otp_for_user', return_value=("123456", Mock()))
+    def test_signup_email_failure_still_creates_user(self, mock_otp, mock_email):
+        response = self.client.post(self.signup_url, {
+            'email': 'emailfail@example.com',
+            'username': 'emailfail_user',
+            'password': TEST_PASSWORD,
+            'name': 'EmailFail',
+            'surname': 'User',
+            'company': 'Test',
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(CustomUser.objects.filter(email='emailfail@example.com').exists())
+
+    def test_signup_integrity_error_duplicate_email(self):
+        # First signup succeeds
+        self.client.post(self.signup_url, {
+            'email': 'dup@example.com',
+            'username': 'dup_user',
+            'password': TEST_PASSWORD,
+            'name': 'Dup',
+            'surname': 'User',
+            'company': 'Test',
+        }, format='json')
+        # Second signup with same email fails
+        response = self.client.post(self.signup_url, {
+            'email': 'dup@example.com',
+            'username': 'dup_user2',
+            'password': TEST_PASSWORD,
+            'name': 'Dup2',
+            'surname': 'User',
+            'company': 'Test',
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_update_user_with_allow_notifications(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.put(f'/api/users/{self.user.id}/update_user/', {
+            'allow_notifications': True,
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.allow_notifications)
+
+    def test_signout_exception_returns_400(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        # Delete the token first to cause an issue
+        self.token.delete()
+        # Recreate token for auth but patch the deletion
+        new_token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {new_token.key}')
+        with patch.object(Token, 'delete', side_effect=Exception("DB error")):
+            response = self.client.post('/api/users/signout/', format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('error', response.data)
+
+    def test_handle_duplicate_error_integrity_error_email(self):
+        from users.views import UserViewSet
+        viewset = UserViewSet()
+        exc = IntegrityError("unique_email_ci")
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNotNone(response)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('email', response.data)
+
+    def test_handle_duplicate_error_integrity_error_username(self):
+        from users.views import UserViewSet
+        viewset = UserViewSet()
+        exc = IntegrityError("unique_username_ci")
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNotNone(response)
+        self.assertIn('username', response.data)
+
+    def test_handle_duplicate_error_django_validation_error(self):
+        from users.views import UserViewSet
+        from django.core.exceptions import ValidationError as DjangoValidationError
+        viewset = UserViewSet()
+        exc = DjangoValidationError({'email': ['email_taken'], 'username': ['username_taken']})
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNotNone(response)
+        self.assertIn('email', response.data)
+        self.assertIn('username', response.data)
+
+    def test_handle_duplicate_error_django_validation_error_all_messages(self):
+        from users.views import UserViewSet
+        from django.core.exceptions import ValidationError as DjangoValidationError
+        viewset = UserViewSet()
+        exc = DjangoValidationError({'__all__': ['custom user with this email already exists']})
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNotNone(response)
+        self.assertIn('email', response.data)
+
+    def test_handle_duplicate_error_unrecognized_returns_none(self):
+        from users.views import UserViewSet
+        viewset = UserViewSet()
+        exc = IntegrityError("some other error")
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNone(response)
+
+    def test_signin_missing_fields(self):
+        response = self.client.post('/api/users/signin/', {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('detail', response.data)
