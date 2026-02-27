@@ -8,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Slider from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
-import { User, Mail, Building2, MapPin, Globe, AlertTriangle } from "lucide-react";
+import { User, Mail, Building2, MapPin, Globe, AlertTriangle, Lock } from "lucide-react";
+import { useParams } from "next/navigation";
 
 interface ProfileInfoTabProps {
   firstName: string;
@@ -48,7 +49,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
   onDeleteAccount,
 }) => {
   const t = useTranslations("profile");
-  
+  const { locale } = useParams();
 
   return (
     <div className="grid lg:grid-cols-3 gap-8">
@@ -240,8 +241,38 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
         </Card>
       </div>
 
-      {/* Danger Zone */}
+      {/* Security & Danger Zone */}
       <div className="space-y-6">
+        {/* Security Card - Change Password */}
+        {!isGoogleAuthenticated && (
+          <Card className="bg-white dark:bg-gray-800/50 border-[1.5px] border-[#46B1C9]/50 dark:border-[#46B1C9]/40">
+            <CardHeader>
+              <CardTitle className="text-lg font-bold text-[#46B1C9] flex items-center">
+                <Lock className="h-5 w-5 mr-2" />
+                {t("security.title")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {t("security.description")}
+                </p>
+                <Button
+                  variant="outline"
+                  className="w-full border-[#46B1C9] text-[#46B1C9] hover:bg-[#46B1C9]/10"
+                  onClick={() => {
+                    window.location.href = `/${locale}/reset-password?email=${encodeURIComponent(email)}`;
+                  }}
+                >
+                  <Lock className="h-4 w-4 mr-2" />
+                  {t("security.changePassword")}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Danger Zone */}
         <Card className="bg-white dark:bg-gray-800/50 border-red-200 dark:border-red-800">
           <CardHeader>
             <CardTitle className="text-xl font-bold text-red-600 dark:text-red-400 flex items-center">

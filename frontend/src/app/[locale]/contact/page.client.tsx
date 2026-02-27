@@ -262,7 +262,10 @@ export default function ContactPage() {
       </section>
 
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-16" id="contact-form">
-        <ContactForm />
+        <ContactForm
+          recaptchaAction="contact_page_form"
+          recaptchaBadgeId="recaptcha-badge-contact-page"
+        />
       </section>
 
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12" id="direct-contacts">

@@ -40,10 +40,12 @@ function SignupPageContent() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [showImage, setShowImage] = useState(true);
   const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [allowNotifications, setAllowNotifications] = useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();
 
 
@@ -131,24 +133,24 @@ function SignupPageContent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (isLoading || isRedirecting) return;
+
     if (!validateForm()) {
       setAlert({ type: 'error', message: t("messages.validation.formIncomplete") });
       return;
     }
-
-    if (!executeRecaptcha) { 
-      setAlert({ type: "error", message: "reCAPTCHA no está listo aún" });
-      return; }
 
     setIsLoading(true);
     setErrors({});
     setAlert(null);
 
     try {
-      // reCAPTCHA 
-      const recaptchaToken = await executeRecaptcha("signup_form");
-      // Generate username from email prefix
-      const username = email.split('@')[0];
+      // reCAPTCHA (optional — skip if not loaded)
+      const recaptchaToken = executeRecaptcha ? await executeRecaptcha("signup_form") : "";
+      // Generate username from email prefix (sanitize to match ^[a-zA-Z0-9_]{3,30}$)
+      let username = email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '_').replace(/^_+|_+$/g, '').toLowerCase();
+      if (username.length < 3) username = `${username}user`.slice(0, 30);
+      if (username.length > 30) username = username.slice(0, 30);
 
       const signupData: Record<string, unknown> = {
         name: name.trim(),
@@ -159,13 +161,11 @@ function SignupPageContent() {
         region: region.trim() || null,
         city: city.trim() || null,
         password: password,
+        allow_notifications: allowNotifications,
         recaptchaToken,
       };
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
-      console.log("API URL:", apiUrl);
-      console.log("Final URL:", `${apiUrl}/api/users/signup/`);
-
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
       const response = await fetch(`${apiUrl}/api/users/signup/`, {
         method: "POST",
         headers: {
@@ -183,13 +183,10 @@ function SignupPageContent() {
         }
 
         localStorage.setItem("pending_email", data.email);
-        document.cookie = `email_verified=true; path=/;`;
+        document.cookie = `email_verified=false; path=/;`;
 
-        setAlert({ type: "success", message: t("messages.success") });
-
-        setTimeout(() => {
-          window.location.href = "/verify-email";
-        }, 1000);
+        setIsRedirecting(true);
+        window.location.href = "/verify-email";
       } else {
         let duplicateAlertMessage: string | null = null;
 
@@ -235,6 +232,8 @@ function SignupPageContent() {
           });
         } else if ((data as any).detail) {
           setAlert({ type: 'error', message: (data as any).detail });
+        } else if ((data as any).error) {
+          setAlert({ type: 'error', message: (data as any).error });
         }
       }
     } catch {
@@ -259,10 +258,7 @@ function SignupPageContent() {
 
     document.cookie = `access_token=${data.token}; path=/;`;
     document.cookie = `email_verified=${data.email_verified ?? false}; path=/;`;
-    setAlert({
-      type: "success",
-      message: data.message ?? "Inicio de sesión correcto"
-    });
+    setIsRedirecting(true);
     setTimeout(() => {
       window.location.href = "/verify-email";
     }, 1000);
@@ -270,6 +266,16 @@ function SignupPageContent() {
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+      {/* Fullscreen loading overlay during redirect */}
+      {isRedirecting && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#F9FAFB] dark:bg-[#1A1924]">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#1F8A0D] dark:border-gray-600 dark:border-t-[#3FBD6F]" />
+          <p className="mt-4 text-lg font-medium text-gray-700 dark:text-gray-300">
+            {t("messages.success")}
+          </p>
+        </div>
+      )}
+
       {/* Alert Component */}
       {alert && (
         <Alert
@@ -534,38 +540,73 @@ function SignupPageContent() {
                       {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
                     </div>
 
-                    {/* Terms and Conditions Acceptance */}
+                    {/* Terms, Notifications and Select All */}
                     <div className="space-y-3">
+                      {/* Select All */}
                       <div className="flex items-start space-x-3">
                         <input
                           type="checkbox"
-                          id="acceptTerms"
-                          checked={acceptedTerms}
-                          onChange={(e) => setAcceptedTerms(e.target.checked)}
+                          id="selectAll"
+                          checked={acceptedTerms && allowNotifications}
+                          onChange={(e) => {
+                            setAcceptedTerms(e.target.checked);
+                            setAllowNotifications(e.target.checked);
+                          }}
                           className="w-4 h-4 mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] focus:ring-offset-0"
-                          required
                         />
-                        <Label htmlFor="acceptTerms" className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                          {t("form.acceptTerms")}
-                          <a
-                            href="/legal?tab=terms"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] underline font-medium"
-                          >
-                            {t("form.termsLink")}
-                          </a>
-                          {t("form.and")}
-                          <a
-                            href="/legal?tab=privacy"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] underline font-medium"
-                          >
-                            {t("form.privacyLink")}
-                          </a>
+                        <Label htmlFor="selectAll" className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
+                          {t("form.selectAll")}
                         </Label>
                       </div>
+
+                      <div className="ml-1 space-y-3 border-l-2 border-gray-200 dark:border-gray-600 pl-4">
+                        {/* Terms and Privacy */}
+                        <div className="flex items-start space-x-3">
+                          <input
+                            type="checkbox"
+                            id="acceptTerms"
+                            checked={acceptedTerms}
+                            onChange={(e) => setAcceptedTerms(e.target.checked)}
+                            className="w-4 h-4 mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] focus:ring-offset-0"
+                            required
+                          />
+                          <Label htmlFor="acceptTerms" className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {t("form.acceptTerms")}
+                            <a
+                              href="/legal?tab=terms"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] underline font-medium"
+                            >
+                              {t("form.termsLink")}
+                            </a>
+                            {t("form.and")}
+                            <a
+                              href="/legal?tab=privacy"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] underline font-medium"
+                            >
+                              {t("form.privacyLink")}
+                            </a>
+                          </Label>
+                        </div>
+
+                        {/* Notifications */}
+                        <div className="flex items-start space-x-3">
+                          <input
+                            type="checkbox"
+                            id="allowNotifications"
+                            checked={allowNotifications}
+                            onChange={(e) => setAllowNotifications(e.target.checked)}
+                            className="w-4 h-4 mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] focus:ring-offset-0"
+                          />
+                          <Label htmlFor="allowNotifications" className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {t("form.allowNotifications")}
+                          </Label>
+                        </div>
+                      </div>
+
                       {errors.terms && <p className="text-red-500 text-sm">{errors.terms}</p>}
                     </div>
 

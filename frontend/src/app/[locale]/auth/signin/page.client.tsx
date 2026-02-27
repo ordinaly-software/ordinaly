@@ -95,17 +95,13 @@ export default function LoginPage() {
       return;
     }
 
-    if (!executeRecaptcha) { 
-      setAlert({ type: "error", message: "reCAPTCHA no está listo aún" });
-      return; }
-
     setIsLoading(true);
     setAlert(null);
 
     try {
-      // reCAPTCHA 
-      const recaptchaToken = await executeRecaptcha("login_form");
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
+      // reCAPTCHA (optional — skip if not loaded)
+      const recaptchaToken = executeRecaptcha ? await executeRecaptcha("login_form") : "";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
       const response = await fetch(`${apiUrl}/api/users/signin/`, {
         method: "POST",
         headers: {
@@ -128,6 +124,7 @@ export default function LoginPage() {
         setAlert({ type: "success", message: t("messages.success") });
 
         if (!data.email_verified) {
+          localStorage.setItem("pending_email", data.email);
           setTimeout(() => {
             window.location.href = "/verify-email";
           }, 1000);
@@ -138,7 +135,13 @@ export default function LoginPage() {
         }
       }
       else {
-        setAlert({ type: "error", message: t("messages.invalidCredentials") });
+        const errorData = data as Record<string, unknown>;
+        const message =
+          (errorData.error as string) ||
+          (errorData.detail as string) ||
+          (Array.isArray(errorData.non_field_errors) ? errorData.non_field_errors[0] as string : null) ||
+          t("messages.invalidCredentials");
+        setAlert({ type: "error", message });
       }
     } catch {
       setAlert({ type: "error", message: t("messages.networkError") });
@@ -293,15 +296,12 @@ export default function LoginPage() {
                       </div>
                     </div>
                     <div className="flex flex-col items-start">
-                      <a
-                        href="mailto:info@ordinaly.ai?subject=Password%20Assistance"
+                      <Link
+                        href="/reset-password"
                         className="text-sm text-[#46B1C9] hover:underline"
                       >
                         {t("form.forgotPassword")}
-                      </a>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-                        {t("form.forgotPasswordHint", { email: "info@ordinaly.ai" })}
-                      </p>
+                      </Link>
                     </div>
 
                     {/* Centered and smaller sign-in button */}

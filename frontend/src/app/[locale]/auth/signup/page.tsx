@@ -30,7 +30,7 @@ export default async function SignUp({
 }) {
   await params;
   return ( 
-  <ReCaptchaWrapper> 
+  <ReCaptchaWrapper badgeContainerId="recaptcha-badge-signup"> 
     <SignUpPage /> 
   </ReCaptchaWrapper> 
   );

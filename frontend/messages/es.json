@@ -575,7 +575,9 @@
       "loginPrompt": "¿Ya tienes una cuenta?",
       "loginLink": "Iniciar Sesión",
       "signupWithGoogle": "Registrarse con Google",
-      "orSignupWithEmail": "O regístrate con email"
+      "orSignupWithEmail": "O regístrate con email",
+      "selectAll": "Seleccionar todo",
+      "allowNotifications": "Recibir boletines y comunicaciones por correo electrónico"
     },
     "messages": {
       "success": "¡Cuenta creada exitosamente! Redirigiendo...",
@@ -1764,6 +1766,11 @@
     "loading": "Cargando perfil...",
     "personalInfo": "Información Personal",
     "dangerZone": "Zona de Peligro",
+    "security": {
+      "title": "Seguridad",
+      "description": "Actualiza tu contraseña para mantener tu cuenta segura.",
+      "changePassword": "Cambiar Contraseña"
+    },
     "authProvider": {
       "label": "Autenticación",
       "google": "Cuenta de Google",
@@ -1820,11 +1827,10 @@
     },
     "deleteAccount": {
       "title": "Eliminar Cuenta",
-      "description": "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate",
+      "description": "Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, asegúrate.",
       "button": "Eliminar Cuenta",
       "confirmTitle": "Confirmar Eliminación de Cuenta",
-      "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente. Escribe tu nombre de usuario abajo para confirmar",
-      "confirmPlaceholder": "Escribe tu nombre de usuario",
+      "confirmMessage": "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer y todos tus datos serán eliminados permanentemente.",
       "confirmButton": "Eliminar Cuenta",
       "cancelButton": "Cancelar"
     },
@@ -2422,5 +2428,98 @@
     "title": "Página no encontrada",
     "description": "La página que buscas no existe o se ha movido.",
     "backHome": "Volver al inicio"
+  },
+  "resetPassword": {
+    "request": {
+      "title": "Restablecer Contraseña",
+      "subtitle": "Introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
+      "emailLabel": "Correo Electrónico",
+      "emailPlaceholder": "Introduce tu correo electrónico",
+      "emailRequired": "Por favor, introduce tu correo electrónico.",
+      "submit": "Enviar Enlace",
+      "submitLoading": "Enviando...",
+      "error": "No se pudo enviar el enlace. Verifica el correo e intenta de nuevo.",
+      "networkError": "Error de red. Verifica tu conexión e intenta de nuevo.",
+      "backToSignin": "Volver a Iniciar Sesión"
+    },
+    "emailSent": {
+      "title": "Revisa Tu Correo",
+      "description": "Si existe una cuenta con ese correo electrónico, te hemos enviado un enlace para restablecer tu contraseña. Revisa tu bandeja de entrada.",
+      "expiry": "El enlace expirará en 1 hora.",
+      "backHome": "Volver al Inicio"
+    },
+    "confirm": {
+      "title": "Nueva Contraseña",
+      "subtitle": "Introduce tu nueva contraseña a continuación.",
+      "newPasswordLabel": "Nueva Contraseña",
+      "newPasswordPlaceholder": "Introduce tu nueva contraseña",
+      "confirmPasswordLabel": "Confirmar Contraseña",
+      "confirmPasswordPlaceholder": "Confirma tu nueva contraseña",
+      "passwordHint": "La contraseña debe tener al menos 8 caracteres.",
+      "passwordTooShort": "La contraseña debe tener al menos 8 caracteres.",
+      "passwordMismatch": "Las contraseñas no coinciden.",
+      "submit": "Restablecer Contraseña",
+      "submitLoading": "Restableciendo...",
+      "networkError": "Error de red. Verifica tu conexión e intenta de nuevo.",
+      "invalidToken": "Enlace Inválido o Expirado",
+      "invalidTokenDesc": "Este enlace para restablecer la contraseña es inválido o ha expirado. Por favor, solicita uno nuevo.",
+      "backToSignin": "Volver a Iniciar Sesión",
+      "successTitle": "Contraseña Restablecida",
+      "successDesc": "Tu contraseña ha sido actualizada. Ya puedes iniciar sesión con tu nueva contraseña.",
+      "goToSignin": "Ir a Iniciar Sesión",
+      "errorTitle": "Error al Restablecer",
+      "errorDesc": "Algo salió mal al restablecer tu contraseña. Por favor, intenta de nuevo.",
+      "tryAgain": "Intentar de Nuevo"
+    }
+  },
+  "deleteAccountEmailSent": {
+    "badge": "Solicitud enviada",
+    "panelTitle": "Tu solicitud de baja esta casi lista.",
+    "title": "Revisa tu correo",
+    "description": "Te enviamos un enlace para confirmar la eliminacion de tu cuenta. Abrelo para completar el proceso.",
+    "quickHint": "Si no lo ves, revisa Spam o Promociones.",
+    "expiry": "El enlace expira en 15 minutos.",
+    "resendIn": "Reenviar en {seconds}s",
+    "resendReady": "Ya puedes reenviar el correo",
+    "resendButton": "Reenviar correo",
+    "resending": "Reenviando...",
+    "resendError": "No se pudo reenviar el correo. Inténtalo de nuevo.",
+    "backHome": "Volver al Inicio",
+    "openMailApp": "Abrir app de Correo"
+  },
+  "deleteAccountConfirm": {
+    "loadingTitle": "Confirmando eliminación...",
+    "loadingDesc": "Estamos procesando tu solicitud. Un momento.",
+    "successTitle": "Cuenta eliminada",
+    "successDesc": "Tu cuenta ha sido eliminada correctamente. Sentimos verte marchar.",
+    "successButton": "Volver al inicio",
+    "errorTitle": "No se pudo completar la acción",
+    "errorDesc": "No hemos podido confirmar la eliminación de tu cuenta. Es posible que el enlace haya expirado o ya haya sido utilizado.",
+    "errorButton": "Volver al inicio"
+  },
+  "verifyEmail": {
+    "title": "Verifica tu correo",
+    "subtitle": "Hemos enviado un código de verificación a:",
+    "codeLabel": "Código de verificación",
+    "verify": "Verificar",
+    "verifying": "Verificando...",
+    "resendIn": "Reenviar código en {seconds}s",
+    "resend": "Reenviar código",
+    "changeEmail": "Cambiar email",
+    "error": "Error al verificar el código",
+    "resendError": "Error al reenviar el código",
+    "networkError": "Error de red. Verifica tu conexión e intenta de nuevo."
+  },
+  "changeEmail": {
+    "title": "Cambiar email",
+    "currentEmail": "Email actual:",
+    "newEmailLabel": "Nuevo email",
+    "newEmailPlaceholder": "nuevo@email.com",
+    "save": "Guardar email",
+    "saving": "Guardando...",
+    "success": "Email actualizado. Revisa tu bandeja para el nuevo código.",
+    "error": "Error al cambiar el email",
+    "networkError": "Error de red. Verifica tu conexión e intenta de nuevo.",
+    "backToVerify": "Volver a verificar"
   }
 }

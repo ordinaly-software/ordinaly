@@ -456,17 +456,17 @@ export default function ProfilePage() {
 
   try {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
-    
+
     const response = await fetch(`${apiUrl}/auth/delete/request/`, {
       method: 'POST',
       headers: {
         Authorization: `Token ${authToken}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username }),
     });
 
     if (response.ok) {
+      localStorage.setItem('deletion_requested', 'true');
       window.location.href = `/${locale}/delete_account/email-sent`;
       return;
     }
@@ -475,7 +475,7 @@ export default function ProfilePage() {
     if (response.status === 401) {
       setAlert({ type: 'error', message: t("messages.unauthorizedError") });
     } else {
-      setAlert({ type: 'error', message: data.detail || t("messages.deleteError") });
+      setAlert({ type: 'error', message: data.error || data.detail || t("messages.deleteError") });
     }
 
   } catch {
@@ -573,7 +573,6 @@ export default function ProfilePage() {
         onClose={() => setShowDeleteModal(false)}
         onConfirm={handleDeleteAccount}
         isLoading={isDeleting}
-        username={profile?.username || username || ""}
       />
 
       {/* Notification Confirmation Modal */}

@@ -30,7 +30,7 @@ export default async function SignIn({
 }) {
   await params;
   return ( 
-    <ReCaptchaWrapper> 
+    <ReCaptchaWrapper badgeContainerId="recaptcha-badge-signin"> 
       <SignInPage /> 
     </ReCaptchaWrapper> 
     );

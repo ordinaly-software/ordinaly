@@ -89,6 +89,7 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   //const { locale } = await params;
+  const renderedAt = Date.now();
   const initialServicesPromise = getInitialServices();
   const initialCoursesPromise = getInitialCourses();
 
@@ -96,6 +97,7 @@ export default async function Home({
     <>
       <Suspense fallback={<LoadingPage />}>
         <HomeContent
+          renderedAt={renderedAt}
           initialServicesPromise={initialServicesPromise}
           initialCoursesPromise={initialCoursesPromise}
         />
@@ -105,11 +107,13 @@ export default async function Home({
 }
 
 type HomeContentProps = {
+  renderedAt: number;
   initialServicesPromise: Promise<Service[]>;
   initialCoursesPromise: Promise<Course[]>;
 };
 
 async function HomeContent({
+  renderedAt,
   initialServicesPromise,
   initialCoursesPromise,
 }: HomeContentProps) {
@@ -118,5 +122,11 @@ async function HomeContent({
     initialCoursesPromise,
   ]);
 
-  return <HomePage initialServices={initialServices} initialCourses={initialCourses} />;
+  return (
+    <HomePage
+      renderedAt={renderedAt}
+      initialServices={initialServices}
+      initialCourses={initialCourses}
+    />
+  );
 }

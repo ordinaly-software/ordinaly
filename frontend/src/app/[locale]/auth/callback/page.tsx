@@ -25,7 +25,21 @@ export default function OAuthCallbackPage() {
 
     if (token) {
       localStorage.setItem("auth_token", token);
-      router.push("/profile");
+
+      const emailVerified = params.get("email_verified");
+      const emailParam = params.get("email");
+
+      if (emailVerified === "false") {
+        // Unverified user: redirect to verify-email
+        if (emailParam) {
+          localStorage.setItem("pending_email", emailParam);
+        }
+        document.cookie = `email_verified=false; path=/;`;
+        window.location.href = "/verify-email";
+      } else {
+        document.cookie = `email_verified=true; path=/;`;
+        router.push("/profile");
+      }
       return;
     }
 

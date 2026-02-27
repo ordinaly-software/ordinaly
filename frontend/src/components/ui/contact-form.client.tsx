@@ -6,6 +6,7 @@ import Alert from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 
 type Status = "idle" | "loading";
 type AlertState = {
@@ -29,12 +30,23 @@ const phonePrefixes = [
   { label: "CL +56", value: "+56" },
 ];
 
-export default function ContactForm({ className }: { className?: string }) {
+type ContactFormProps = {
+  className?: string;
+  recaptchaAction?: string;
+  recaptchaBadgeId?: string;
+};
+
+export default function ContactForm({
+  className,
+  recaptchaAction = "contact_form",
+  recaptchaBadgeId = "recaptcha-badge-contact",
+}: ContactFormProps) {
   const t = useTranslations("contactPage");
   const formRef = useRef<HTMLFormElement | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [alert, setAlert] = useState<AlertState | null>(null);
   const contactEndpoint = "/api/leads";
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -67,6 +79,11 @@ export default function ContactForm({ className }: { className?: string }) {
     }
 
     try {
+      // Skip reCAPTCHA when the provider is not available (key not configured)
+      if (executeRecaptcha) {
+        payload.recaptchaToken = await executeRecaptcha(recaptchaAction);
+      }
+
       const response = await fetch(contactEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -191,6 +208,7 @@ export default function ContactForm({ className }: { className?: string }) {
               >
                 {status === "loading" ? t("form.sending") : t("form.submit")}
               </Button>
+              <div id={recaptchaBadgeId} className="recaptcha-inline-badge self-end" aria-hidden="true" />
             </div>
           </form>
           {alert && (

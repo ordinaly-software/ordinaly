@@ -8,6 +8,8 @@ ALLOWED_UNVERIFIED_PATHS = [
     "change-email-unverified",
     "login",
     "logout",
+    "password-reset-request",
+    "password-reset-confirm",
 ]
 
 class EmailVerificationRequiredMiddleware:
@@ -23,6 +25,14 @@ class EmailVerificationRequiredMiddleware:
             return self.get_response(request)
 
         if user.email_verified_at:
+            return self.get_response(request)
+
+        # Always allow superusers and staff (Django admin access)
+        if user.is_superuser or user.is_staff:
+            return self.get_response(request)
+
+        # Always allow Django admin paths
+        if request.path.startswith("/admin/"):
             return self.get_response(request)
 
         # Get name of current view

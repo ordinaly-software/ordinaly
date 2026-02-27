@@ -71,7 +71,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             region=validated_data.get('region'),
             city=validated_data.get('city'),
             company=validated_data.get('company') or "",
-            allow_notifications=validated_data.get('allow_notifications', True)
+            allow_notifications=validated_data.get('allow_notifications', False)
         )
         return user
 

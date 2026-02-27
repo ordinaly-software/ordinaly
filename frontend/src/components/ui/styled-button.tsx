@@ -105,7 +105,7 @@ interface StyledButtonProps {
 
 const StyledButton: React.FC<StyledButtonProps> = ({ text, href, target, rel, onClick }) => {
   const buttonContent = (
-    <button className="button" onClick={onClick}>
+    <button type="button" className="button" onClick={onClick}>
       <div className="bg" />
       <div className="wrap">
         <div className="content">
