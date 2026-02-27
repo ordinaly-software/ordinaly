@@ -1,10 +1,7 @@
 import os
 
 import requests
-import urllib3
 from django.conf import settings
-
-urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class EmailServiceError(Exception):
@@ -37,7 +34,6 @@ def _send_email(recipient: str, html: str, subject: str = ""):
         json=payload,
         headers=headers,
         timeout=10,
-        verify=False,
     )
     # print(f"[BillionMail] Response {response.status_code}: {response.text}")
     if response.status_code >= 400:

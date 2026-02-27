@@ -151,7 +151,7 @@
       }
     },
     "useCases": {
-      "title": "Casos de Uso: ¿Cómo Puede Ayudar la IA a tu Negocio?",
+      "title": "Casos de uso: ¿Cómo puede ayudar la IA a tu negocio?",
       "subtitle": "Soluciones probadas para sectores específicos en Sevilla y Andalucía",
       "items": {
         "0": {
@@ -260,7 +260,7 @@
       "visit": "Visitar web del partner"
     },
     "cta": {
-      "title": "¿Listo para Automatizar tu Empresa con Agentes de IA?",
+      "title": "¿Listo para automatizar tu empresa con agentes de IA?",
       "subtitle": "Agenda una consulta gratuita y descubre cómo la inteligencia artificial puede transformar tu negocio en Sevilla",
       "meta": "Respuesta garantizada en menos de 24 horas laborables • +34 626 27 08 06 • info@ordinaly.ai",
       "buttons": {
@@ -1404,8 +1404,8 @@
   "services": {
     "productsAndServicesTitle": "Nuestros productos y servicios",
     "productsAndServicesDescription": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar",
-    "productsSectionTitle": "Productos Encapsulados",
-    "servicesSectionTitle": "Servicios Personalizados",
+    "productsSectionTitle": "Productos encapsulados",
+    "servicesSectionTitle": "Servicios personalizados",
     "searchPlaceholder": "Buscar productos y servicios...",
     "requisites": "Requisitos",
     "featured": "Destacado",
@@ -1435,20 +1435,20 @@
       "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar lo que buscas"
     },
     "cta": {
-      "title": "¿Listo para Transformar tu Negocio?",
+      "title": "¿Listo para transformar tu negocio?",
       "description": "Hablemos sobre cómo nuestros servicios pueden ayudarte a alcanzar tus objetivos de transformación digital",
-      "contact": "Ponte en Contacto",
-      "call": "Programar una Llamada",
-      "emailSubject": "Consulta sobre Servicios de Ordinaly",
+      "contact": "Ponte en contacto",
+      "call": "Programar una llamada",
+      "emailSubject": "Consulta sobre servicios de Ordinaly",
       "emailBody": "Hola, estoy interesado en conocer más sobre sus servicios de transformación digital. ¿Podrían proporcionarme más información?\n\nGracias"
     },
     "contact": {
       "title": "Contáctanos",
-      "name": "Nombre Completo",
+      "name": "Nombre completo",
       "namePlaceholder": "Ingresa tu nombre completo",
-      "email": "Correo Electrónico",
+      "email": "Correo electrónico",
       "emailPlaceholder": "Ingresa tu correo electrónico",
-      "phone": "Número de Teléfono",
+      "phone": "Número de teléfono",
       "phonePlaceholder": "Ingresa tu número de teléfono",
       "company": "Empresa",
       "companyPlaceholder": "Ingresa el nombre de tu empresa",
@@ -1545,7 +1545,7 @@
     "wantNewEdition": "Quiero una nueva edición",
     "pastCourseMessage": "Hola, vi el curso \"{course}\" ({link}) y me gustaría solicitar una nueva edición. ¿Podéis avisarme cuando haya nueva fecha?",
     "cta": {
-      "title": "¿Listo para Avanzar en tu Carrera?",
+      "title": "¿Listo para avanzar en tu carrera?",
       "description": "Únete a miles de profesionales que han transformado sus carreras con nuestros programas de formación dirigidos por expertos",
       "contact": "Contactar Asesor",
       "catalog": "Descargar Catálogo",
@@ -1761,6 +1761,7 @@
     "details": "\n**FUNDAE / SEPE - Formación programada por las empresas:** permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas ([FUNDAE](https://www.fundae.es/empresas)) y Formación para ocupados ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fondos UE - FSE+ 2021-2027:** programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Componente 23):** medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del [Plan de Recuperación](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) y del [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalucía (ámbito autonómico):** Programa FSE+ Andalucía 2021-2027 y Formación Profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte [Junta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) y [FPE](https://www.juntadeandalucia.es/temas/trabajar/formacion/fpe.html).\n\n**Aviso:** La elegibilidad, intensidad y compatibilidad de la financiación varían por normativa y convocatoria vigente. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar"
   },
   "profile": {
+    "kicker": "Mi Cuenta",
     "title": "Mi Perfil",
     "subtitle": "Gestiona tu información personal y configuración de cuenta",
     "loading": "Cargando perfil...",

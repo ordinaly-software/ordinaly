@@ -8,7 +8,6 @@ import DeleteAccountModal from "@/components/ui/delete-account-modal";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ProfileInfoTab from "@/components/profile/profile-info-tab";
 import ProfileCoursesTab from "@/components/profile/profile-courses-tab";
-import { AdminTabs, type AdminTabsTab } from "@/components/admin/admin-tabs";
 import { User, BookOpen } from "lucide-react";
 import type { Course } from "@/hooks/useCourses";
 import Footer from "@/components/ui/footer";
@@ -197,9 +196,9 @@ export default function ProfilePage() {
     setActiveTab(tabId);
   };
 
-  const profileTabs: AdminTabsTab[] = [
-    { id: "profile", name: t("tabs.profile"), icon: User, accentColor: "#1F8A0D" },
-    { id: "courses", name: t("tabs.courses"), icon: BookOpen, accentColor: "#1F8A0D" },
+  const profileTabs = [
+    { id: "profile" as const, label: t("tabs.profile"), icon: User },
+    { id: "courses" as const, label: t("tabs.courses"), icon: BookOpen },
   ];
 
   const fetchEnrolledCourses = useCallback(async (token?: string, userId?: number) => {
@@ -513,57 +512,73 @@ export default function ProfilePage() {
         />
       )}
 
-      {/* Profile Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#1F8A0D] dark:from-[#3FBD6F] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+      <div className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-20 pt-10 md:px-6 lg:px-8">
+        {/* Header Panel */}
+        <div className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-8 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md sm:px-10">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#1F8A0D] dark:text-[#3FBD6F]">
+              {t("kicker")}
+            </p>
+            <h1 className="text-4xl font-black leading-tight text-slate-900 dark:text-white md:text-5xl">
               {t("title")}
             </h1>
-            <p className="text-xl text-gray-700 dark:text-gray-300">
+            <p className="max-w-3xl text-base text-slate-700 dark:text-slate-200 md:text-lg">
               {t("subtitle")}
             </p>
           </div>
 
-          <AdminTabs
-            tabs={profileTabs}
-            activeTab={activeTab}
-            onTabChange={(tabId) => handleTabChange(tabId as "profile" | "courses")}
-            storageKey="profileActiveTab"
-            className="mb-10"
-            style={{ top: 0 }}
-          />
-
-          {activeTab === "profile" ? (
-            <ProfileInfoTab
-              firstName={firstName}
-              lastName={lastName}
-              username={username}
-              email={email}
-              company={company}
-              region={region}
-              city={city}
-              isGoogleAuthenticated={Boolean(profile?.is_google_authenticated)}
-              errors={errors}
-              hasChanges={hasChanges}
-              isSaving={isSaving}
-              allowNotifications={allowNotifications}
-              onFieldChange={handleFieldChange}
-              onSave={handleSaveChanges}
-              onCancel={handleCancelChanges}
-              onDeleteAccount={() => setShowDeleteModal(true)}
-            />
-          ) : (
-            <ProfileCoursesTab
-              enrolledCourses={enrolledCourses}
-              enrollments={enrollments}
-              isLoading={coursesLoading}
-              error={coursesError}
-            />
-          )}
+          {/* Pill-shaped tabs */}
+          <div className="mt-8 flex flex-wrap gap-3">
+            {profileTabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id)}
+                  className={`group inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition-all ${
+                    isActive
+                      ? "border-[#1F8A0D]/60 bg-[#1F8A0D]/15 text-[#1F8A0D] dark:text-[#3FBD6F] shadow-[0_8px_20px_rgba(31,138,13,0.12)]"
+                      : "border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:border-[#1F8A0D] hover:bg-[#1F8A0D]/5 dark:hover:border-[#3FBD6F]/30 dark:hover:bg-[#3FBD6F]/10 dark:hover:text-[#3FBD6F]"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </section>
+
+        {/* Tab Content */}
+        {activeTab === "profile" ? (
+          <ProfileInfoTab
+            firstName={firstName}
+            lastName={lastName}
+            username={username}
+            email={email}
+            company={company}
+            region={region}
+            city={city}
+            isGoogleAuthenticated={Boolean(profile?.is_google_authenticated)}
+            errors={errors}
+            hasChanges={hasChanges}
+            isSaving={isSaving}
+            allowNotifications={allowNotifications}
+            onFieldChange={handleFieldChange}
+            onSave={handleSaveChanges}
+            onCancel={handleCancelChanges}
+            onDeleteAccount={() => setShowDeleteModal(true)}
+          />
+        ) : (
+          <ProfileCoursesTab
+            enrolledCourses={enrolledCourses}
+            enrollments={enrollments}
+            isLoading={coursesLoading}
+            error={coursesError}
+          />
+        )}
+      </div>
 
       <Footer />
 
