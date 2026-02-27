@@ -101,7 +101,7 @@ export default function LoginPage() {
     try {
       // reCAPTCHA (optional — skip if not loaded)
       const recaptchaToken = executeRecaptcha ? await executeRecaptcha("login_form") : "";
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://api.ordinaly.ai";
       const response = await fetch(`${apiUrl}/api/users/signin/`, {
         method: "POST",
         headers: {

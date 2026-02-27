@@ -24,7 +24,7 @@ export default function EmailVerificationModal({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://api.ordinaly.ai";
   const autoSentRef = useRef(false);
 
   // Reset state and auto-send OTP when modal opens.

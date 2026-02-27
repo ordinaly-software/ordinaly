@@ -11,7 +11,7 @@ export function getApiUrl(): string {
     
     if (isDevelopment) {
       console.warn('NEXT_PUBLIC_API_URL not set, falling back to localhost for development');
-      return 'http://localhost:8000';
+      return 'http://api.ordinaly.ai';
     } else {
       throw new Error('NEXT_PUBLIC_API_URL environment variable is required for production');
     }

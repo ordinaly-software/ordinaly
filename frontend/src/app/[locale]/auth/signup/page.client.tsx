@@ -165,7 +165,7 @@ function SignupPageContent() {
         recaptchaToken,
       };
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://api.ordinaly.ai";
       const response = await fetch(`${apiUrl}/api/users/signup/`, {
         method: "POST",
         headers: {

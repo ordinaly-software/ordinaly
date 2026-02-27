@@ -637,7 +637,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
     """Send a confirmation email when a user successfully enrolls in a course."""
     try:
         frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
-        backend_url = os.getenv("BACKEND_BASE_URL", os.getenv("NEXT_PUBLIC_API_URL", "http://localhost:8000")).rstrip("/")
+        backend_url = os.getenv("BACKEND_BASE_URL", os.getenv("NEXT_PUBLIC_API_URL", "http://api.ordinaly.ai")).rstrip("/")
 
         course_url = f"{frontend_url}/formation/{course.slug}"
 
