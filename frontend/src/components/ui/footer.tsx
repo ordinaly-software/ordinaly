@@ -26,7 +26,7 @@ const Footer = () => {
           <div className="md:col-span-3">
             <div className="flex items-center mb-4">
               <Image
-                src={isDark ? '/logo_2_dark.webp' : '/logo_2.webp'}
+                src={isDark ? '/logo.webp' : '/logo.webp'}
                 alt={t("footer.logo.alt")}
                 width={120}
                 height={120}

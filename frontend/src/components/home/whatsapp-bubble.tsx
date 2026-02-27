@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MessageCircle, Send, Briefcase, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
@@ -11,28 +11,6 @@ const WhatsAppBubble = () => {
 
   const [showBubble] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [hasCookieConsent, setHasCookieConsent] = useState(true);
-
-  // Check if cookie consent exists to adjust bubble position
-  useEffect(() => {
-    const checkConsent = () => {
-      let hasConsented = null;
-      try {
-        hasConsented = localStorage.getItem('cookie-consent');
-      } catch {
-        // localStorage not available - handle silently
-      }
-      setHasCookieConsent(!!hasConsented);
-    };
-  
-    checkConsent();
-    window.addEventListener('storage', checkConsent);
-
-    return () => {
-      window.removeEventListener('storage', checkConsent);
-    };
-  }, []);
-
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
@@ -50,7 +28,7 @@ const WhatsAppBubble = () => {
     <>
       {/* WhatsApp Bubble */}
       <div 
-        className={`fixed ${hasCookieConsent ? 'bottom-24' : 'bottom-36'} left-6 z-40 transition-all duration-300`}
+        className={`fixed bottom-6 left-6 z-40 transition-all duration-300`}
       >
         <div className="relative">
           {/* Pulse animation */}

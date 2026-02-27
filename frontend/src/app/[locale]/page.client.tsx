@@ -79,6 +79,10 @@ const BenefitsSection = dynamic(
   () => import("@/components/home/benefits-section").then((mod) => mod.BenefitsSection),
   { loading: () => <SectionSkeleton />, ssr: false },
 );
+const SeoLeadershipSection = dynamic(
+  () => import("@/components/home/seo-leadership-section").then((mod) => mod.SeoLeadershipSection),
+  { loading: () => <SectionSkeleton />, ssr: false },
+);
 const UseCasesSection = dynamic(
   () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
   { loading: () => null, ssr: false },
@@ -346,6 +350,9 @@ export default function HomePage({
           </DeferredSection>
           <DeferredSection rootMargin="2000px 0px">
             <BenefitsSection t={t} />
+          </DeferredSection>
+          <DeferredSection>
+            <SeoLeadershipSection t={t} />
           </DeferredSection>
           <DeferredSection rootMargin="1500px 0px">
             <FaqSection t={formationT} />

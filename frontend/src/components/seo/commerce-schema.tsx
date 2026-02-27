@@ -163,7 +163,7 @@ const buildShippingDetails = () => {
   };
 };
 
-const getServicePath = (service: Service) => `/services/${service.slug || service.id}`;
+const getServicePath = (service: Service) => `/${service.slug || service.id}`;
 const getCoursePath = (course: Course) => `/formation/${course.slug || course.id}`;
 
 type CommerceSchemaProps = {

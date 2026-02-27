@@ -68,9 +68,9 @@ export const ShareServiceButtons: React.FC<Props> = ({
       }
 
       const cleanSlug = slugText.replace(/^\/+/, "");
-      const normalizedSlug = cleanSlug.replace(/^(?:[a-z]{2}\/)?services\//i, "");
-      const localePart = locale || "es";
-      return `${baseUrl}/${localePart}/services/${normalizedSlug}`;
+      const normalizedSlug = cleanSlug.replace(/^(?:[a-z]{2}\/)?(?:services\/)?(.*)/i, "$1");
+      // Service pages live at /[slug] directly (no /services/ prefix)
+      return `${baseUrl}/${normalizedSlug}`;
     }
 
     if (typeof window !== "undefined") {

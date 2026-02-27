@@ -12,6 +12,7 @@
       "formationSubmenu":  "See ALL our courses and workshops",
       "start": "Get started",
       "ctaConsultation": "Book a consultation",
+      "ctaShort": "Contact us",
       "ctaConsultationMessage": "Hi, I'd like to book a consultation to start automating processes in my business.",
       "darkMode": "Switch to dark mode",
       "lightMode": "Switch to light mode",
@@ -32,9 +33,9 @@
       "loading": "Loading..."
     },
     "hero": {
-      "titleLine1": "YOUR BUSINESS",
-      "titleLine2": "AUTOMATED.",
-      "subtitle": "AI and innovation from Seville to the world.",
+      "titleLine1": "AI AUTOMATION",
+      "titleLine2": "AGENCY",
+      "subtitle": "We are your AI automation agency. We optimize your business with artificial intelligence to scale results.",
       "description1": "We automate your processes with AI agents, chatbots, and no-code workflows so you can sell and operate 24/7.",
       "trust1": "Tailored automation",
       "trust2": "24/7 AI agents for sales and support.",
@@ -45,11 +46,11 @@
       "clientsTitle": "Trusted by",
       "statHeadline": "+500 HOURS SAVED",
       "statCaption": "for Andalusian companies this month.",
-      "imageAlt": "Business automation and AI from Seville to the world."
+      "imageAlt": "AI automation agency for businesses in Spain"
     },
     "benefits": {
       "title": "Why choose Ordinaly for business automation in Seville?",
-      "subtitle": "We are local experts in AI agent implementation and business process optimization",
+      "subtitle": "As an AI automation agency, we transform slow processes into immediate flows, guaranteeing real ROI through reduced operational errors.",
       "items": {
       "0": {
         "title": "Real time savings",
@@ -70,7 +71,7 @@
       }
     },
     "services": {
-      "title": "AI and automation services for companies in Seville",
+      "title": "Our AI automation agency",
       "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs.",
       "extra": {
         "0": {
@@ -109,13 +110,13 @@
       "errorMessage": "Services could not be loaded"
     },
     "process": {
-      "title": "How does our automation process work?",
-      "subtitle": "Proven methodology to implement AI agents without interrupting your daily operations",
+      "title": "AI automation agency process",
+      "subtitle": "Our AI automation agency's proven methodology",
       "meta": "Average time: 2-8 weeks depending on complexity • No hidden costs • Satisfaction guarantee",
       "steps": {
       "0": {
-        "title": "Initial analysis",
-        "description": "Free meeting (in person in Seville or via video call).",
+        "title": "Audit",
+        "description": "Your AI automation agency detects optimizable processes.",
         "bullets": {
         "0": "Identification of automatable processes",
         "1": "Estimated time savings",
@@ -123,8 +124,8 @@
         }
       },
       "1": {
-        "title": "Design and development",
-        "description": "We build the tailored solution with partial deliveries so you can validate progress.",
+        "title": "Strategy",
+        "description": "We create an AI automation roadmap tailored to your business.",
         "bullets": {
         "0": "Agile development by sprints",
         "1": "Continuous feedback",
@@ -132,8 +133,8 @@
         }
       },
       "2": {
-        "title": "Implementation",
-        "description": "We deploy the solution without interrupting your day-to-day work. Full testing included.",
+        "title": "Deployment",
+        "description": "Technical integration by your AI automation agency. Full testing included.",
         "bullets": {
         "0": "Gradual and controlled rollout",
         "1": "Exhaustive quality testing",
@@ -141,8 +142,8 @@
         }
       },
       "3": {
-        "title": "Training and support",
-        "description": "We train your team and provide ongoing support. You keep full control.",
+        "title": "Evolution",
+        "description": "Continuous improvement of the AI automation system.",
         "bullets": {
         "0": "Hands-on training sessions",
         "1": "Complete documentation",
@@ -152,8 +153,8 @@
       }
     },
     "useCases": {
-      "title": "Use cases: how can AI help your business?",
-      "subtitle": "Proven solutions for specific sectors in Seville and Andalusia",
+      "title": "Success stories: AI automation agency",
+      "subtitle": "AI automation agency solutions for specific sectors in Spain",
       "items": {
         "0": {
           "title": "Property managers",
@@ -234,8 +235,8 @@
       }
     },
     "local": {
-      "title": "Business automation experts in Seville and all Andalusia",
-      "description1": "We are a team of software engineers specialized in AI with headquarters in the heart of Seville. We know the Andalusian business community and understand the specific needs of local SMEs.",
+      "title": "Experts from the AI automation agency",
+      "description1": "We are your go-to AI automation agency in Spain. Our team of consultants implements AI automation solutions to scale businesses safely and efficiently.",
       "description2": "Whether you are in Seville capital, Andalusia, or anywhere in Spain we offer both in-person consulting and remote implementation with the highest quality standards.",
       "videoLabel": "Video",
       "playVideo": "Play",
@@ -261,8 +262,8 @@
       "visit": "Visit partner's website"
     },
     "cta": {
-      "title": "Ready to automate your business with AI agents?",
-      "subtitle": "Schedule a free consultation and discover how artificial intelligence can transform your business in Seville",
+      "title": "Contact your AI automation agency",
+      "subtitle": "Want us to be your AI automation agency? Take the leap with Spain's leading AI automation agency and revolutionize your profitability.",
       "meta": "Guaranteed response within 24 business hours • +34 626 27 08 06 • info@ordinaly.ai",
       "buttons": {
       "whatsapp": "Free consultation via WhatsApp",
@@ -350,7 +351,7 @@
     },
     "courses": {
       "noSpecificDate": "No specific date",
-      "showcaseTitle": "Featured courses",
+      "showcaseTitle": "Courses from the AI automation agency",
       "showcaseDescription": "Join our professional training courses and advance your career",
       "upcomingTitle": "Upcoming courses",
       "upcomingDescription": "Discover our professional training courses",
@@ -455,7 +456,12 @@
         ]
       }
     },
-    "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
+    "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services",
+    "seoLeadership": {
+      "title": "National leadership in corporate AI",
+      "description": "Our AI automation agency doesn't just install software; we design AI automation ecosystems that learn from your business to deliver a unique competitive advantage in the market.",
+      "imageAlt": "Leading AI automation agency in Spain"
+    }
   },
   "common": {
     "onVacation": "On vacation",
@@ -734,6 +740,7 @@
         "slugOptional": "Service slug (optional)",
         "slugPlaceholder": "e.g., automation-consulting",
         "slugInvalid": "Slug may only contain ASCII letters, numbers, underscores, and hyphens (no accents).",
+        "slugCollision": "This slug conflicts with a reserved site route. Please choose another.",
         "subtitle": "Subtitle",
         "subtitlePlaceholder": "Service subtitle (optional)",
         "description": "Description",
@@ -791,6 +798,7 @@
         "validation": {
           "titleRequired": "Service title is required and must be 100 characters or less.",
           "slugInvalid": "Please provide a valid unique slug.",
+          "slugCollision": "This slug conflicts with a reserved site route. Please choose another.",
           "subtitleRequired": "Subtitle is required and must be 200 characters or less.",
           "descriptionRequired": "Description is required and must be 2000 characters or less.",
           "iconRequired": "Please select a valid icon for the service.",
@@ -1503,38 +1511,38 @@
       "description": "Try adjusting your search terms or filters to find the perfect course for you."
     },
     "faq": {
-      "title": "Frequently asked questions about business automation with AI",
-      "subtitle": "We answer your questions about AI agents and process optimization",
+      "title": "FAQ de nuestra agencia de automatización IA",
+      "subtitle": "Resolvemos tus dudas sobre la agencia de automatización en inteligencia artificial líder",
       "items": {
         "0": {
-          "q": "What is an AI agent for business and how can it help my company?",
-          "a": "An AI agent is an intelligent system that can perform specific tasks autonomously, such as answering customer inquiries, processing documents, managing appointments, or automating workflows.",
-          "extra": "For your business in Seville, this means time savings, reduction of human errors, and 24/7 availability. For example, a property manager can have an agent that automatically manages community incidents via WhatsApp."
+          "q": "¿Qué soluciones ofrece una agencia de automatización IA para mi negocio?",
+          "a": "Como agencia de automatización IA, implementamos sistemas autónomos que gestionan consultas, procesan documentos y optimizan flujos de trabajo sin intervención humana.",
+          "extra": "Esto permite a las empresas reducir errores y garantizar una disponibilidad 24/7, escalando la operativa de forma inmediata."
         },
         "1": {
-          "q": "How much does it cost to implement AI automation in my company?",
-          "a": "The cost varies depending on project complexity. Simple projects like WhatsApp chatbots or basic automations can start with budgets accessible to SMEs.",
-          "extra": "We offer free consultations where we analyze your specific case and provide a personalized quote. Most of our clients recover their investment in less than 6 months thanks to time and resource savings."
+          "q": "¿Cuál es el coste de contratar una agencia de automatización IA?",
+          "a": "En nuestra agencia de automatización IA, adaptamos los presupuestos a la complejidad del proyecto.",
+          "extra": "Ofrecemos soluciones accesibles para PYMEs, desde integraciones básicas hasta ecosistemas complejos. La mayoría de nuestros clientes logran el ROI en menos de 6 meses gracias al ahorro de recursos."
         },
         "2": {
-          "q": "Do I need technical knowledge to use automation systems?",
-          "a": "Not at all. We design all our solutions to be intuitive and easy to use. Plus, we include practical training for your team.",
-          "extra": "We also offer AI courses in Seville where you'll learn to use tools like ChatGPT, automations and more, without any prior programming knowledge."
+          "q": "¿Es necesario tener perfil técnico para trabajar con una agencia de automatización IA?",
+          "a": "No. Nuestra agencia de automatización IA diseña herramientas intuitivas que no requieren conocimientos de programación.",
+          "extra": "Además, impartimos formación práctica en IA para que tu equipo domine las soluciones implementadas con total autonomía."
         },
         "3": {
-          "q": "What sets Ordinaly apart from other automation companies?",
-          "a": "We are a local team in Seville that understands the specific needs of Andalusian companies. We are not an international consultancy that applies generic solutions.",
-          "extra": "We specialize in SMEs and specific sectors (real estate, property managers, marketing, retail) and combine automation with practical training so your team becomes self-sufficient."
+          "q": "¿Qué nos define como tu agencia de automatización IA de referencia?",
+          "a": "Somos una agencia de automatización en inteligencia artificial que rechaza las soluciones genéricas.",
+          "extra": "Nos especializamos en sectores críticos (inmobiliaria, finanzas, marketing) para ofrecer estrategias personalizadas que realmente impulsan la competitividad nacional de tu empresa."
         },
         "4": {
-          "q": "How long does it take to implement an automation project?",
-          "a": "Simple projects like chatbots or basic automations can be running in 2-4 weeks.",
-          "extra": "More complex projects like CRM/ERP implementation with Odoo or advanced workflows can take between 1-3 months, depending on scope. We always work in phases so you see quick results."
+          "q": "¿Qué plazos de entrega maneja nuestra agencia de automatización IA?",
+          "a": "Como tu agencia de automatización IA, trabajamos por fases para ofrecer resultados rápidos.",
+          "extra": "Las automatizaciones básicas están listas en 2-4 semanas, mientras que integraciones complejas de ERP como Odoo suelen completarse en un plazo de 1 a 3 meses."
         },
         "5": {
-          "q": "Do you offer support after implementation?",
-          "a": "Yes, of course. We include technical support and maintenance. Being based in Seville, we can have in-person meetings when needed.",
-          "extra": "Additionally, our systems are scalable: as your business grows, we can expand and improve automations without starting from scratch."
+          "q": "¿Ofrece vuestra agencia de automatización IA soporte continuo?",
+          "a": "Sí. Como agencia de automatización IA comprometida con tu éxito, incluimos mantenimiento técnico y soporte post-implementación.",
+          "extra": "Nuestras soluciones son escalables, permitiendo que la tecnología crezca al mismo ritmo que tu negocio en toda España."
         }
       }
     },
