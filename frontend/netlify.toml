@@ -76,13 +76,6 @@ for = "/start.js"
   status = 301
   force = true
 
-# Redirect /es/* to /* (default locale should be unprefixed)
-[[redirects]]
-  from = "/es/*"
-  to = "/:splat"
-  status = 301
-  force = true
-
 # Move local landings out of /services/* to top-level paths (legacy redirects)
 [[redirects]]
   from = "/es/chatbots-empresas-sevilla"
