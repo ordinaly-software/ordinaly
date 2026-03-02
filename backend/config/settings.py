@@ -22,6 +22,9 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 if not SECRET_KEY:
     raise Exception("DJANGO_SECRET_KEY is not set!")
 
+BILLIONMAIL_GROUP_ID_NEWSLETTER = os.getenv('BILLIONMAIL_GROUP_ID_NEWSLETTER')
+BILLIONMAIL_API_KEY = os.getenv('BILLIONMAIL_API_KEY')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
     'services',
     'courses',
     'authentication',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
