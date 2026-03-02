@@ -4,6 +4,14 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { Modal } from "@/components/ui/modal";
 import { ShieldCheck, Mail, RefreshCw, Clock3 } from "lucide-react";
+import {
+  clearEmailCooldown,
+  EMAIL_RESEND_COOLDOWN_SECONDS,
+  getEmailCooldownRemaining,
+  parseCooldownSeconds,
+  setEmailCooldown,
+  VERIFY_EMAIL_COOLDOWN_KEY,
+} from "@/lib/email-confirmation";
 
 interface EmailVerificationModalProps {
   isOpen: boolean;
@@ -20,7 +28,7 @@ export default function EmailVerificationModal({
 }: EmailVerificationModalProps) {
   const t = useTranslations("emailVerificationModal");
   const [code, setCode] = useState("");
-  const [seconds, setSeconds] = useState(120);
+  const [seconds, setSeconds] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -34,7 +42,8 @@ export default function EmailVerificationModal({
     if (isOpen) {
       setCode("");
       setError("");
-      setSeconds(120);
+      const remainingSeconds = getEmailCooldownRemaining(VERIFY_EMAIL_COOLDOWN_KEY);
+      setSeconds(remainingSeconds || EMAIL_RESEND_COOLDOWN_SECONDS);
 
       if (!autoSentRef.current && email) {
         autoSentRef.current = true;
@@ -42,9 +51,38 @@ export default function EmailVerificationModal({
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
-        }).catch(() => {
-          // Silently ignore – the user can manually resend later
-        });
+        })
+          .then(async (res) => {
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok) {
+              const apiMessage =
+                data.non_field_errors?.[0] ||
+                data.email?.[0] ||
+                data.detail ||
+                data.error ||
+                "";
+              const cooldownSeconds =
+                parseCooldownSeconds(data.remaining_seconds) ||
+                parseCooldownSeconds(apiMessage);
+
+              if (cooldownSeconds) {
+                setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY, cooldownSeconds);
+                setSeconds(cooldownSeconds);
+                return;
+              }
+
+              setSeconds(0);
+              return;
+            }
+
+            setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
+            setSeconds(getEmailCooldownRemaining(VERIFY_EMAIL_COOLDOWN_KEY));
+          })
+          .catch(() => {
+            // Allow a manual resend if the auto-send fails.
+            setSeconds(0);
+          });
       }
     } else {
       autoSentRef.current = false;
@@ -91,7 +129,9 @@ export default function EmailVerificationModal({
 
       // Update verification state
       document.cookie = "email_verified=true; path=/;";
+      clearEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
       localStorage.removeItem("pending_email");
+      localStorage.removeItem("pending_email_requires_confirmation");
 
       setLoading(false);
       onVerified();
@@ -114,17 +154,29 @@ export default function EmailVerificationModal({
       const data = await res.json();
 
       if (!res.ok) {
-        const msg =
+        const apiMessage =
           data.non_field_errors?.[0] ||
           data.email?.[0] ||
           data.detail ||
           data.error ||
           t("resendError");
-        setError(msg);
+        const cooldownSeconds =
+          parseCooldownSeconds(data.remaining_seconds) ||
+          parseCooldownSeconds(apiMessage);
+
+        if (cooldownSeconds) {
+          setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY, cooldownSeconds);
+          setSeconds(cooldownSeconds);
+          setError("");
+          return;
+        }
+
+        setError(apiMessage);
         return;
       }
 
-      setSeconds(120);
+      setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
+      setSeconds(getEmailCooldownRemaining(VERIFY_EMAIL_COOLDOWN_KEY));
     } catch {
       setError(t("networkError"));
     }
@@ -183,7 +235,7 @@ export default function EmailVerificationModal({
         {/* Resend cooldown */}
         <div className="mt-4 flex items-center justify-center gap-2 text-sm font-medium text-amber-700 dark:text-amber-300">
           <Clock3 className="h-4 w-4" />
-          {seconds > 0 ? t("resendIn", { seconds }) : t("resend")}
+          {seconds > 0 ? t("resendIn", { seconds }) : t("resendReady")}
         </div>
 
         {/* Actions */}
@@ -197,7 +249,7 @@ export default function EmailVerificationModal({
             {loading ? t("verifying") : t("verify")}
           </button>
 
-          {seconds <= 0 && (
+          {seconds === 0 && (
             <button
               onClick={handleResend}
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"

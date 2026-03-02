@@ -2,6 +2,7 @@ from django.test import TestCase, override_settings
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.utils import timezone
+from unittest.mock import patch, Mock
 from .serializers import CustomUserSerializer
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
@@ -231,6 +232,11 @@ class CustomUserModelTests(TestCase):
         user = CustomUser.objects.create_user(**user_data)
         self.assertEqual(user.region, 'Test Region')
         self.assertEqual(user.city, 'Test City')
+
+    def test_pending_email_is_optional(self):
+        """Test that pending email defaults to None"""
+        user = CustomUser.objects.create_user(**self.user_data)
+        self.assertIsNone(user.pending_email)
         self.assertFalse(user.allow_notifications)
 
 
@@ -323,6 +329,17 @@ class CustomUserSerializerTests(TestCase):
         user = CustomUser.objects.create_user(**self.user_data)
         serializer = self.serializer_class(user)
         self.assertNotIn('password', serializer.data)
+
+    def test_serializer_hides_compulsory_notification_fields(self):
+        """Only optional notification preferences should be exposed to the frontend."""
+        serializer = self.serializer_class(self.user)
+        self.assertIn('allow_notifications', serializer.data)
+        self.assertIn('course_email_notifications', serializer.data)
+        self.assertNotIn('pending_email', serializer.data)
+        self.assertNotIn('email_notifications_enabled', serializer.data)
+        self.assertNotIn('account_email_notifications', serializer.data)
+        self.assertNotIn('security_email_notifications', serializer.data)
+        self.assertNotIn('course_reminder_email_notifications', serializer.data)
 
     def test_is_staff_read_only(self):
         """Test that is_staff is read-only"""
@@ -695,6 +712,13 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(response.data['username'], self.user.username)
         self.assertIn('is_google_authenticated', response.data)
         self.assertFalse(response.data['is_google_authenticated'])
+        self.assertIn('allow_notifications', response.data)
+        self.assertIn('course_email_notifications', response.data)
+        self.assertNotIn('pending_email', response.data)
+        self.assertNotIn('email_notifications_enabled', response.data)
+        self.assertNotIn('account_email_notifications', response.data)
+        self.assertNotIn('security_email_notifications', response.data)
+        self.assertNotIn('course_reminder_email_notifications', response.data)
 
     def test_profile_authenticated_with_google_linked(self):
         """Test profile includes Google auth flag when account is linked"""
@@ -718,6 +742,32 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], 'Updated')
         self.assertEqual(response.data['surname'], 'User')
+
+    @patch('users.views.send_verification_email')
+    @patch('users.views.create_otp_for_user', return_value=('123456', Mock()))
+    def test_update_profile_verified_email_requires_confirmation(self, mock_otp, mock_email):
+        """Verified users must confirm a new email before the change is applied."""
+        self.user.email_verified_at = timezone.now()
+        self.user.status = 'active'
+        self.user.save(update_fields=['email_verified_at', 'status'])
+
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.patch(
+            '/api/users/update_profile/',
+            {'name': 'Verified', 'email': 'verified-change@example.com'},
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['email_change_requires_verification'])
+        self.assertEqual(response.data['pending_email'], 'verified-change@example.com')
+        self.assertEqual(response.data['email'], 'existing@example.com')
+
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.email, 'existing@example.com')
+        self.assertEqual(self.user.pending_email, 'verified-change@example.com')
+        self.assertEqual(self.user.name, 'Verified')
+        mock_email.assert_called_once_with('verified-change@example.com', '123456')
 
     def test_update_profile_invalid(self):
         """Test updating profile with invalid data"""
@@ -847,10 +897,6 @@ class OTPServiceTests(TestCase):
         otp.refresh_from_db()
         self.assertIsNotNone(otp.invalidated_at)
 
-
-from unittest.mock import patch, Mock
-
-
 class EmailServiceTests(TestCase):
     @patch('users.services.email_service.requests.post')
     def test_send_email_success(self, mock_post):
@@ -920,6 +966,8 @@ class EmailServiceTests(TestCase):
         mock_send.assert_called_once()
         args = mock_send.call_args
         self.assertIn("TestUser", args[0][1])
+        self.assertIn("workspace_logo.png", args[0][1])
+        self.assertNotIn(".webp", args[0][1])
 
     @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
     def test_send_welcome_email_raises_on_failure(self, mock_send):
@@ -1060,3 +1108,258 @@ class UserViewSetExtraCoverageTests(APITestCase):
         response = self.client.post('/api/users/signin/', {}, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('detail', response.data)
+
+
+class EmailNotificationPreferenceTests(TestCase):
+    def setUp(self):
+        self.password = TEST_PASSWORD or "test-password-123"
+        self.user = CustomUser.objects.create_user(
+            email="notify@example.com",
+            username="notify_user",
+            password=self.password,
+            name="Notify",
+            surname="User",
+            company="Ordinaly",
+        )
+
+    def test_notification_preferences_default_values(self):
+        self.assertFalse(self.user.allow_notifications)
+        self.assertTrue(self.user.email_notifications_enabled)
+        self.assertTrue(self.user.account_email_notifications)
+        self.assertTrue(self.user.security_email_notifications)
+        self.assertTrue(self.user.course_email_notifications)
+        self.assertTrue(self.user.course_reminder_email_notifications)
+
+    @patch("users.services.notification_service._send_job")
+    def test_dispatch_email_job_now_marks_job_sent_immediately(self, mock_send_job):
+        from datetime import timedelta
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from courses.models import Course
+        from users.models import EmailNotificationJob
+        from users.services.notification_service import (
+            dispatch_email_job_now,
+            queue_course_enrollment_notification,
+        )
+
+        course = Course.objects.create(
+            title="Immediate Enrollment Notification",
+            description="Testing immediate delivery",
+            image=SimpleUploadedFile("course.jpg", b"filecontent", content_type="image/jpeg"),
+            price=10,
+            location="Sevilla",
+            start_date=(timezone.now() + timedelta(days=3)).date(),
+            end_date=(timezone.now() + timedelta(days=3)).date(),
+            start_time=(timezone.now() + timedelta(days=3)).time().replace(microsecond=0),
+            end_time=(timezone.now() + timedelta(days=3, hours=2)).time().replace(microsecond=0),
+            periodicity="once",
+            max_attendants=10,
+        )
+
+        job = queue_course_enrollment_notification(self.user, course)
+
+        self.assertTrue(dispatch_email_job_now(job))
+
+        job.refresh_from_db()
+        self.assertEqual(job.status, EmailNotificationJob.STATUS_SENT)
+        self.assertEqual(job.attempts, 1)
+        self.assertEqual(job.last_error, "")
+        self.assertIsNotNone(job.sent_at)
+        mock_send_job.assert_called_once()
+
+    @patch("users.services.email_service._send_email")
+    def test_account_created_notification_is_compulsory(self, mock_send):
+        from users.models import EmailNotificationJob
+        from users.services.notification_service import (
+            process_pending_email_jobs,
+            queue_account_created_notification,
+        )
+
+        self.user.email_notifications_enabled = False
+        self.user.account_email_notifications = False
+        self.user.save(update_fields=["email_notifications_enabled", "account_email_notifications"])
+
+        job = queue_account_created_notification(self.user)
+        self.assertIsNotNone(job)
+        result = process_pending_email_jobs()
+        self.assertEqual(result["sent"], 1)
+        self.assertEqual(EmailNotificationJob.objects.filter(status="sent").count(), 1)
+        self.assertEqual(mock_send.call_count, 1)
+
+    @patch("users.services.email_service._send_email")
+    def test_email_updated_notification_is_compulsory(self, mock_send):
+        from users.services.notification_service import (
+            process_pending_email_jobs,
+            queue_email_updated_notification,
+        )
+
+        self.user.email_notifications_enabled = False
+        self.user.account_email_notifications = False
+        self.user.save(update_fields=["email_notifications_enabled", "account_email_notifications"])
+
+        self.user.email = "new-notify@example.com"
+        self.user.save(update_fields=["email"])
+        job = queue_email_updated_notification(self.user, "notify@example.com")
+        self.assertIsNotNone(job)
+        result = process_pending_email_jobs()
+        self.assertEqual(result["sent"], 1)
+        self.assertEqual(mock_send.call_count, 1)
+
+    @patch("users.services.email_service._send_email")
+    def test_password_reset_completed_notification_is_compulsory(self, mock_send):
+        from users.services.notification_service import (
+            process_pending_email_jobs,
+            queue_password_reset_completed_notification,
+        )
+
+        self.user.email_notifications_enabled = False
+        self.user.security_email_notifications = False
+        self.user.save(update_fields=["email_notifications_enabled", "security_email_notifications"])
+
+        job = queue_password_reset_completed_notification(self.user)
+        self.assertIsNotNone(job)
+        result = process_pending_email_jobs()
+        self.assertEqual(result["sent"], 1)
+        self.assertEqual(mock_send.call_count, 1)
+
+    @patch("users.services.email_service._send_email")
+    def test_course_enrollment_and_cancellation_notifications_are_compulsory(self, mock_send):
+        from datetime import timedelta
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from courses.models import Course
+        from users.services.notification_service import (
+            process_pending_email_jobs,
+            queue_course_enrollment_notification,
+            queue_course_unenrollment_notification,
+        )
+
+        course = Course.objects.create(
+            title="Notification Course",
+            description="Testing course notifications",
+            image=SimpleUploadedFile("course.jpg", b"filecontent", content_type="image/jpeg"),
+            price=10,
+            location="Sevilla",
+            start_date=(timezone.now() + timedelta(days=5)).date(),
+            end_date=(timezone.now() + timedelta(days=5)).date(),
+            start_time=(timezone.now() + timedelta(days=5)).time().replace(microsecond=0),
+            end_time=(timezone.now() + timedelta(days=5, hours=2)).time().replace(microsecond=0),
+            periodicity="once",
+            max_attendants=20,
+        )
+
+        self.user.course_email_notifications = False
+        self.user.save(update_fields=["course_email_notifications"])
+
+        self.assertIsNotNone(queue_course_enrollment_notification(self.user, course))
+        self.assertIsNotNone(queue_course_unenrollment_notification(self.user, course))
+        result = process_pending_email_jobs()
+        self.assertEqual(result["sent"], 2)
+        self.assertEqual(mock_send.call_count, 2)
+
+    @patch("users.services.email_service._send_email")
+    def test_course_announcements_and_enrolled_reminders_are_queued(self, mock_send):
+        from datetime import timedelta
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from zoneinfo import ZoneInfo
+        from courses.models import Course, Enrollment
+        from users.models import EmailNotificationJob
+        from users.services.notification_service import (
+            enqueue_due_course_notifications,
+            process_pending_email_jobs,
+            queue_course_published_notifications,
+        )
+
+        madrid_tz = ZoneInfo("Europe/Madrid")
+        base_now = timezone.now().astimezone(madrid_tz).replace(second=0, microsecond=0)
+        session_start = base_now + timedelta(days=7)
+
+        course = Course.objects.create(
+            title="Reminder Course",
+            description="Testing reminders",
+            image=SimpleUploadedFile("reminder.jpg", b"filecontent", content_type="image/jpeg"),
+            price=10,
+            location="Madrid",
+            start_date=session_start.date(),
+            end_date=session_start.date(),
+            start_time=session_start.time().replace(tzinfo=None),
+            end_time=(session_start + timedelta(hours=2)).time().replace(tzinfo=None),
+            periodicity="once",
+            timezone="Europe/Madrid",
+            max_attendants=20,
+        )
+        Enrollment.objects.create(user=self.user, course=course)
+
+        published_count = queue_course_published_notifications(course)
+        self.assertEqual(published_count, 1)
+        self.assertEqual(
+            EmailNotificationJob.objects.filter(notification_type="course_published").count(),
+            1,
+        )
+
+        now_7d = session_start.astimezone(timezone.get_current_timezone()) - timedelta(days=7)
+        queued_7d = enqueue_due_course_notifications(now=now_7d)
+        self.assertEqual(queued_7d, 1)
+        self.assertEqual(
+            EmailNotificationJob.objects.filter(notification_type="course_starts_soon").count(),
+            1,
+        )
+
+        now_24h = session_start.astimezone(timezone.get_current_timezone()) - timedelta(hours=24)
+        queued_24h = enqueue_due_course_notifications(now=now_24h)
+        self.assertEqual(queued_24h, 1)
+        self.assertEqual(
+            EmailNotificationJob.objects.filter(notification_type="course_reminder_24h").count(),
+            1,
+        )
+
+        result = process_pending_email_jobs(limit=10, now=now_24h)
+        self.assertEqual(result["sent"], 3)
+        self.assertEqual(mock_send.call_count, 3)
+
+    def test_course_announcements_respect_disabled_preference_but_24h_reminders_are_compulsory(self):
+        from datetime import timedelta
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from zoneinfo import ZoneInfo
+        from courses.models import Course, Enrollment
+        from users.models import EmailNotificationJob
+        from users.services.notification_service import (
+            enqueue_due_course_notifications,
+            queue_course_published_notifications,
+        )
+
+        self.user.course_email_notifications = False
+        self.user.save(update_fields=["course_email_notifications"])
+
+        madrid_tz = ZoneInfo("Europe/Madrid")
+        base_now = timezone.now().astimezone(madrid_tz).replace(second=0, microsecond=0)
+        session_start = base_now + timedelta(days=7)
+
+        course = Course.objects.create(
+            title="Reminder Opt-out Course",
+            description="Testing reminder opt-out",
+            image=SimpleUploadedFile("reminder-optout.jpg", b"filecontent", content_type="image/jpeg"),
+            price=10,
+            location="Madrid",
+            start_date=session_start.date(),
+            end_date=session_start.date(),
+            start_time=session_start.time().replace(tzinfo=None),
+            end_time=(session_start + timedelta(hours=1)).time().replace(tzinfo=None),
+            periodicity="once",
+            timezone="Europe/Madrid",
+            max_attendants=20,
+        )
+        Enrollment.objects.create(user=self.user, course=course)
+
+        self.assertEqual(queue_course_published_notifications(course), 0)
+
+        now_7d = session_start.astimezone(timezone.get_current_timezone()) - timedelta(days=7)
+        queued_7d = enqueue_due_course_notifications(now=now_7d)
+        self.assertEqual(queued_7d, 0)
+        self.assertEqual(EmailNotificationJob.objects.count(), 0)
+
+        now_24h = session_start.astimezone(timezone.get_current_timezone()) - timedelta(hours=24)
+        queued_24h = enqueue_due_course_notifications(now=now_24h)
+        self.assertEqual(queued_24h, 1)
+        self.assertEqual(
+            EmailNotificationJob.objects.filter(notification_type="course_reminder_24h").count(),
+            1,
+        )

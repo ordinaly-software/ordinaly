@@ -23,8 +23,12 @@ interface ProfileInfoTabProps {
   errors: Record<string, string>;
   hasChanges: boolean;
   isSaving: boolean;
-  allowNotifications: boolean;
+  isUpdatingNotifications: boolean;
+  courseEmailNotifications: boolean;
+  newsletterConsent: boolean;
+  allOptionalNotificationsEnabled: boolean;
   onFieldChange: (field: string, value: string | boolean) => void;
+  onToggleAllNotifications: () => void;
   onSave: () => void;
   onCancel: () => void;
   onDeleteAccount: () => void;
@@ -42,8 +46,12 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
   errors,
   hasChanges,
   isSaving,
-  allowNotifications,
+  isUpdatingNotifications,
+  courseEmailNotifications,
+  newsletterConsent,
+  allOptionalNotificationsEnabled,
   onFieldChange,
+  onToggleAllNotifications,
   onSave,
   onCancel,
   onDeleteAccount,
@@ -241,10 +249,71 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
         </Card>
       </div>
 
-      {/* Security & Danger Zone */}
+      {/* Notification Toggle Below Danger Zone */}
       <div className="space-y-6">
-        {/* Security Card - Change Password */}
-        {!isGoogleAuthenticated && (
+        <Card className="rounded-3xl border-[1.5px] border-[#623CEA]/30 dark:border-[#623CEA]/25 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
+          <CardHeader>
+            <CardTitle className="text-lg font-bold text-[#623CEA] dark:text-[#623CEA] flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" style={{ color: "#623CEA" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              {t("form.allowNotificationsTitle")}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <Button
+                  type="button"
+                  variant="outline"
+                  onClick={onToggleAllNotifications}
+                  disabled={isUpdatingNotifications}
+                  className="border-[#623CEA]/30 text-[#623CEA] hover:bg-[#623CEA]/10"
+                >
+                  {allOptionalNotificationsEnabled ? t("form.disableAllOptionalNotifications") : t("form.enableAllOptionalNotifications")}
+              </Button>
+
+              <div className="grid gap-3 border-t border-gray-200 pt-4 dark:border-white/10">
+                {[
+                  {
+                    key: "course_email_notifications",
+                    checked: courseEmailNotifications,
+                    label: t("form.courseEmailNotifications"),
+                    description: t("form.courseEmailNotificationsDesc"),
+                  },
+                  {
+                    key: "allow_notifications",
+                    checked: newsletterConsent,
+                    label: t("form.newsletterConsent"),
+                    description: t("form.newsletterConsentDesc"),
+                  },
+                ].map((item) => (
+                  <div key={item.key} className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+                        {item.label}
+                      </p>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {item.description}
+                      </p>
+                    </div>
+                    <Slider
+                      checked={item.checked}
+                      onChange={() => onFieldChange(item.key, !item.checked)}
+                      disabled={isUpdatingNotifications}
+                      color="purple"
+                      className="[&_.slider-track]:bg-[#623cea33] [&_.slider-thumb]:bg-[#623CEA] [&_.slider-thumb]:border-[#623CEA] [&_.slider-track]:border-[#623CEA] [&_.slider-track]:shadow [&_.slider-thumb]:shadow-lg [&_.slider-thumb]:shadow-[#623CEA40]"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+        {/* Danger Zone */}
+        <div className="pt-6 lg:pt-0 space-y-6 lg:row-span-1">
+         {!isGoogleAuthenticated && (
           <Card className="rounded-3xl border-[1.5px] border-[#46B1C9]/40 dark:border-[#46B1C9]/30 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
             <CardHeader>
               <CardTitle className="text-lg font-bold text-[#46B1C9] flex items-center">
@@ -272,7 +341,6 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
           </Card>
         )}
 
-        {/* Danger Zone */}
         <Card className="rounded-3xl border border-red-200 dark:border-red-800/40 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-xl font-bold text-red-600 dark:text-red-400 flex items-center">
@@ -295,34 +363,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
             </div>
           </CardContent>
         </Card>
-
-        {/* Notification Toggle Below Danger Zone */}
-        <Card className="rounded-3xl border-[1.5px] border-[#623CEA]/30 dark:border-[#623CEA]/25 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
-          <CardHeader>
-            <CardTitle className="text-lg font-bold text-[#623CEA] dark:text-[#623CEA] flex items-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" style={{ color: "#623CEA" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-              </svg>
-              {t("form.allowNotificationsTitle")}
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-4 w-full">
-              <p className="text-sm text-gray-600 dark:text-gray-400 flex-1 min-w-0 break-words">
-                {t("form.allowNotificationsDesc")}
-              </p>
-              <div className="flex-shrink-0">
-                <Slider
-                  checked={allowNotifications}
-                  onChange={() => onFieldChange("allow_notifications", !allowNotifications)}
-                  color="purple"
-                  className="[&_.slider-track]:bg-[#623cea33] [&_.slider-thumb]:bg-[#623CEA] [&_.slider-thumb]:border-[#623CEA] [&_.slider-track]:border-[#623CEA] [&_.slider-track]:shadow [&_.slider-thumb]:shadow-lg [&_.slider-thumb]:shadow-[#623CEA40]"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+        </div>
     </div>
   );
 };

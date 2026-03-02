@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { ShieldCheck, Clock3, Mail, RefreshCw } from "lucide-react";
+import {
+  clearEmailCooldown,
+  getEmailCooldownRemaining,
+  parseCooldownSeconds,
+  setEmailCooldown,
+  VERIFY_EMAIL_COOLDOWN_KEY,
+} from "@/lib/email-confirmation";
 
 export default function VerifyEmailPage() {
   const t = useTranslations("verifyEmail");
@@ -30,13 +37,16 @@ export default function VerifyEmailPage() {
       return acc;
     }, {});
 
-    if (cookies.email_verified === "true") {
+    const savedEmail = localStorage.getItem("pending_email");
+    const hasPendingEmailConfirmation = localStorage.getItem("pending_email_requires_confirmation") === "true";
+
+    if (cookies.email_verified === "true" && !hasPendingEmailConfirmation) {
       window.location.href = "/";
       return;
     }
 
-    const savedEmail = localStorage.getItem("pending_email");
     if (savedEmail) setEmail(savedEmail);
+    setSeconds(getEmailCooldownRemaining(VERIFY_EMAIL_COOLDOWN_KEY));
     setReady(true);
   }, []);
 
@@ -78,7 +88,9 @@ export default function VerifyEmailPage() {
       }
 
       document.cookie = "email_verified=true; path=/;";
+      clearEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
       localStorage.removeItem("pending_email");
+      localStorage.removeItem("pending_email_requires_confirmation");
       window.location.href = "/profile";
     } catch {
       setLoading(false);
@@ -99,17 +111,29 @@ export default function VerifyEmailPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        const msg =
+        const apiMessage =
           data.non_field_errors?.[0] ||
           data.email?.[0] ||
           data.detail ||
           data.error ||
           t("resendError");
-        setError(msg);
+        const cooldownSeconds =
+          parseCooldownSeconds(data.remaining_seconds) ||
+          parseCooldownSeconds(apiMessage);
+
+        if (cooldownSeconds) {
+          setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY, cooldownSeconds);
+          setSeconds(cooldownSeconds);
+          setError("");
+          return;
+        }
+
+        setError(apiMessage);
         return;
       }
 
-      setSeconds(120);
+      setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
+      setSeconds(getEmailCooldownRemaining(VERIFY_EMAIL_COOLDOWN_KEY));
     } catch {
       setError(t("networkError"));
     }
@@ -187,7 +211,7 @@ export default function VerifyEmailPage() {
                 <Clock3 className="h-4 w-4" />
                 {seconds > 0
                   ? t("resendIn", { seconds })
-                  : t("resend")}
+                  : t("resendReady")}
               </div>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -200,7 +224,7 @@ export default function VerifyEmailPage() {
                   {loading ? t("verifying") : t("verify")}
                 </button>
 
-                {seconds <= 0 && (
+                {seconds === 0 && (
                   <button
                     onClick={handleResend}
                     className="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"

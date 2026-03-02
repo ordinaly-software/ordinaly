@@ -14,6 +14,10 @@ import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { getApiUrl } from "@/lib/api-config";
+import {
+  setEmailCooldown,
+  VERIFY_EMAIL_COOLDOWN_KEY,
+} from "@/lib/email-confirmation";
 
 
 
@@ -184,12 +188,14 @@ function SignupPageContent() {
         }
 
         localStorage.setItem("pending_email", data.email);
+        setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
         document.cookie = `email_verified=false; path=/;`;
 
         setIsRedirecting(true);
         window.location.href = "/verify-email";
       } else {
         let duplicateAlertMessage: string | null = null;
+        const errorData = data as Record<string, unknown>;
 
         const getFieldError = (field: string, value: unknown) => {
           if (!value) return null;
@@ -211,30 +217,44 @@ function SignupPageContent() {
           return { message: rawValue, inline: true, alert: false };
         };
 
-        const usernameError = (data as any).username ? getFieldError('username', (data as any).username) : null;
+        const usernameError = errorData.username ? getFieldError("username", errorData.username) : null;
         if (usernameError?.inline) setErrors(prev => ({ ...prev, username: usernameError.message }));
         if (usernameError?.alert) duplicateAlertMessage = usernameError.message;
 
-        const emailError = (data as any).email ? getFieldError('email', (data as any).email) : null;
+        const emailError = errorData.email ? getFieldError("email", errorData.email) : null;
         if (emailError?.inline) setErrors(prev => ({ ...prev, email: emailError.message }));
         if (emailError?.alert) duplicateAlertMessage = emailError.message;
 
-        if ((data as any).password) setErrors(prev => ({ ...prev, password: (data as any).password[0] || (data as any).password }));
-        if ((data as any).company) setErrors(prev => ({ ...prev, company: (data as any).company[0] || (data as any).company }));
+        if (errorData.password) {
+          setErrors(prev => ({
+            ...prev,
+            password: Array.isArray(errorData.password)
+              ? String(errorData.password[0] ?? "")
+              : String(errorData.password),
+          }));
+        }
+        if (errorData.company) {
+          setErrors(prev => ({
+            ...prev,
+            company: Array.isArray(errorData.company)
+              ? String(errorData.company[0] ?? "")
+              : String(errorData.company),
+          }));
+        }
 
         if (duplicateAlertMessage) {
           setAlert({ type: 'error', message: duplicateAlertMessage });
-        } else if ((data as any).non_field_errors) {
+        } else if (errorData.non_field_errors) {
           setAlert({
             type: 'error',
-            message: Array.isArray((data as any).non_field_errors)
-              ? (data as any).non_field_errors[0]
-              : (data as any).non_field_errors
+            message: Array.isArray(errorData.non_field_errors)
+              ? String(errorData.non_field_errors[0] ?? "")
+              : String(errorData.non_field_errors)
           });
-        } else if ((data as any).detail) {
-          setAlert({ type: 'error', message: (data as any).detail });
-        } else if ((data as any).error) {
-          setAlert({ type: 'error', message: (data as any).error });
+        } else if (errorData.detail) {
+          setAlert({ type: 'error', message: String(errorData.detail) });
+        } else if (errorData.error) {
+          setAlert({ type: 'error', message: String(errorData.error) });
         }
       }
     } catch {
@@ -250,19 +270,6 @@ function SignupPageContent() {
     if (form) {
       form.requestSubmit();
     }
-  };
-
-  const handleGoogleSuccess = (data: AuthResponse) => {
-    localStorage.setItem("auth_token", data.token);
-
-    localStorage.setItem("pending_email", data.email);
-
-    document.cookie = `access_token=${data.token}; path=/;`;
-    document.cookie = `email_verified=${data.email_verified ?? false}; path=/;`;
-    setIsRedirecting(true);
-    setTimeout(() => {
-      window.location.href = "/verify-email";
-    }, 1000);
   };
 
   return (

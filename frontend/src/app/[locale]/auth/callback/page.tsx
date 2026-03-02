@@ -3,6 +3,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
+import {
+  setEmailCooldown,
+  VERIFY_EMAIL_COOLDOWN_KEY,
+} from "@/lib/email-confirmation";
 
 export default function OAuthCallbackPage() {
   const router = useRouter();
@@ -34,6 +38,7 @@ export default function OAuthCallbackPage() {
         if (emailParam) {
           localStorage.setItem("pending_email", emailParam);
         }
+        setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
         document.cookie = `email_verified=false; path=/;`;
         window.location.href = "/verify-email";
       } else {

@@ -5,13 +5,19 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { Clock3, Home, MailCheck, RefreshCw } from "lucide-react";
 import { useTranslations } from "next-intl";
+import {
+  DELETE_ACCOUNT_COOLDOWN_KEY,
+  getEmailCooldownRemaining,
+  parseCooldownSeconds,
+  setEmailCooldown,
+} from "@/lib/email-confirmation";
 
 export default function EmailSent() {
   const t = useTranslations("deleteAccountEmailSent");
   const params = useParams<{ locale?: string | string[] }>();
   const router = useRouter();
   const [allowed, setAllowed] = useState(false);
-  const [seconds, setSeconds] = useState(120);
+  const [seconds, setSeconds] = useState(0);
   const [resending, setResending] = useState(false);
   const [resendError, setResendError] = useState("");
   const localeParam = params?.locale;
@@ -26,6 +32,7 @@ export default function EmailSent() {
       router.replace(homeHref);
       return;
     }
+    setSeconds(getEmailCooldownRemaining(DELETE_ACCOUNT_COOLDOWN_KEY));
     setAllowed(true);
   }, [homeHref, router]);
 
@@ -51,11 +58,24 @@ export default function EmailSent() {
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
-        setResendError(data.error || t("resendError"));
+        const apiMessage = data.error || data.detail || t("resendError");
+        const cooldownSeconds =
+          parseCooldownSeconds(data.remaining_seconds) ||
+          parseCooldownSeconds(apiMessage);
+
+        if (cooldownSeconds) {
+          setEmailCooldown(DELETE_ACCOUNT_COOLDOWN_KEY, cooldownSeconds);
+          setSeconds(cooldownSeconds);
+          setResendError("");
+          return;
+        }
+
+        setResendError(apiMessage);
         return;
       }
 
-      setSeconds(120);
+      setEmailCooldown(DELETE_ACCOUNT_COOLDOWN_KEY);
+      setSeconds(getEmailCooldownRemaining(DELETE_ACCOUNT_COOLDOWN_KEY));
     } catch {
       setResendError(t("resendError"));
     } finally {
@@ -128,7 +148,7 @@ export default function EmailSent() {
                   {t("backHome")}
                 </Link>
 
-                {seconds <= 0 && (
+                {seconds === 0 && (
                   <button
                     onClick={handleResend}
                     disabled={resending}

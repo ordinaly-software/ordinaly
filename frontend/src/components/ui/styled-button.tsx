@@ -101,11 +101,19 @@ interface StyledButtonProps {
   target?: string;
   rel?: string;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
 }
 
-const StyledButton: React.FC<StyledButtonProps> = ({ text, href, target, rel, onClick }) => {
+const StyledButton: React.FC<StyledButtonProps> = ({
+  text,
+  href,
+  target,
+  rel,
+  onClick,
+  type = "button",
+}) => {
   const buttonContent = (
-    <button type="button" className="button" onClick={onClick}>
+    <button type={type} className="button" onClick={onClick}>
       <div className="bg" />
       <div className="wrap">
         <div className="content">

@@ -105,7 +105,6 @@ DATABASES = {
 
 DATABASES["default"]["ATOMIC_REQUESTS"] = False
 DATABASES["default"].setdefault("OPTIONS", {})
-DATABASES["default"]["OPTIONS"].setdefault("application_name", "django-app")
 
 ENGINE = DATABASES["default"]["ENGINE"]
 

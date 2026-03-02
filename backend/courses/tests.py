@@ -1903,6 +1903,35 @@ class CourseViewActionsExtraTest(CourseImageCleanupTestMixin, APITestCase):
         resp2 = self.client.post(url)
         self.assertEqual(resp2.status_code, status.HTTP_400_BAD_REQUEST)
 
+    @patch("courses.views.dispatch_email_job_now")
+    @patch("courses.views.queue_course_enrollment_notification")
+    def test_enroll_dispatches_confirmation_email_immediately(self, mock_queue, mock_dispatch):
+        mock_job = object()
+        mock_queue.return_value = mock_job
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('course-enroll', kwargs={'slug': self.course.slug})
+        resp = self.client.post(url)
+
+        self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
+        mock_queue.assert_called_once()
+        mock_dispatch.assert_called_once_with(mock_job)
+
+    @patch("courses.views.dispatch_email_job_now")
+    @patch("courses.views.queue_course_unenrollment_notification")
+    def test_unenroll_dispatches_cancellation_email_immediately(self, mock_queue, mock_dispatch):
+        mock_job = object()
+        mock_queue.return_value = mock_job
+
+        Enrollment.objects.create(user=self.user, course=self.course)
+        self.client.force_authenticate(user=self.user)
+        url = reverse('course-unenroll', kwargs={'slug': self.course.slug})
+        resp = self.client.post(url)
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        mock_queue.assert_called_once()
+        mock_dispatch.assert_called_once_with(mock_job)
+
     def test_calendar_export_ics_for_enrolled_user_returns_file(self):
         Enrollment.objects.create(user=self.user, course=self.course)
         self.client.force_authenticate(user=self.user)

@@ -14,6 +14,10 @@ import Link from "next/link";
 import { getCookiePreferences } from "@/utils/cookieManager";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { getApiUrl } from "@/lib/api-config";
+import {
+  setEmailCooldown,
+  VERIFY_EMAIL_COOLDOWN_KEY,
+} from "@/lib/email-confirmation";
 
 
 
@@ -25,6 +29,8 @@ type AuthResponse = {
   email_verified?: boolean;
   message?: string;
 };
+
+type AuthErrorPayload = Record<string, unknown> | null;
 
 export default function LoginPage() {
   const t = useTranslations("signin");
@@ -88,6 +94,75 @@ export default function LoginPage() {
     };
   }, []);
 
+  const extractAuthErrorMessage = (value: unknown): string | null => {
+    if (typeof value === "string") {
+      return value;
+    }
+
+    if (Array.isArray(value)) {
+      for (const entry of value) {
+        const nestedMessage = extractAuthErrorMessage(entry);
+        if (nestedMessage) {
+          return nestedMessage;
+        }
+      }
+      return null;
+    }
+
+    if (value && typeof value === "object") {
+      const record = value as Record<string, unknown>;
+      const prioritizedKeys = ["detail", "error", "message", "non_field_errors", "emailOrUsername", "password"];
+
+      for (const key of prioritizedKeys) {
+        if (key in record) {
+          const nestedMessage = extractAuthErrorMessage(record[key]);
+          if (nestedMessage) {
+            return nestedMessage;
+          }
+        }
+      }
+
+      for (const nestedValue of Object.values(record)) {
+        const nestedMessage = extractAuthErrorMessage(nestedValue);
+        if (nestedMessage) {
+          return nestedMessage;
+        }
+      }
+    }
+
+    return null;
+  };
+
+  const getLocalizedAuthError = (payload: AuthErrorPayload, statusCode: number) => {
+    if (statusCode === 401) {
+      return t("messages.invalidCredentials");
+    }
+
+    const rawMessage = extractAuthErrorMessage(payload);
+    if (!rawMessage) return null;
+
+    const normalized = rawMessage.trim().toLowerCase();
+
+    if (
+      normalized === "invalid credentials" ||
+      normalized === "invalid credentials payload" ||
+      normalized === "no active account found with the given credentials" ||
+      normalized === "credenciales inválidas" ||
+      normalized === "credenciales invalidas"
+    ) {
+      return t("messages.invalidCredentials");
+    }
+
+    if (
+      normalized === "email/username and password are required" ||
+      normalized === "email y contraseña son obligatorios"
+    ) {
+      return t("messages.fillAllFields");
+    }
+
+    return rawMessage;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -102,8 +177,7 @@ export default function LoginPage() {
     try {
       // reCAPTCHA (optional — skip if not loaded)
       const recaptchaToken = executeRecaptcha ? await executeRecaptcha("login_form") : "";
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://api.ordinaly.ai";
-      const response = await fetch(`${apiUrl}/api/users/signin/`, {
+      const response = await fetch("/api/auth/signin/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -116,16 +190,19 @@ export default function LoginPage() {
       });
 
 
-      const data = (await response.json()) as AuthResponse;
+      const data = (await response.json().catch(() => null)) as AuthResponse | AuthErrorPayload;
 
       if (response.ok) {
-        localStorage.setItem("auth_token", data.token);
-        document.cookie = `email_verified=${data.email_verified}; path=/`;
+        const successData = data as AuthResponse;
+        localStorage.setItem("auth_token", successData.token);
+        document.cookie = `email_verified=${successData.email_verified}; path=/`;
+        window.dispatchEvent(new Event("auth-state-changed"));
 
         setAlert({ type: "success", message: t("messages.success") });
 
-        if (!data.email_verified) {
-          localStorage.setItem("pending_email", data.email);
+        if (!successData.email_verified) {
+          localStorage.setItem("pending_email", successData.email);
+          setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
           setTimeout(() => {
             window.location.href = "/verify-email";
           }, 1000);
@@ -136,12 +213,7 @@ export default function LoginPage() {
         }
       }
       else {
-        const errorData = data as Record<string, unknown>;
-        const message =
-          (errorData.error as string) ||
-          (errorData.detail as string) ||
-          (Array.isArray(errorData.non_field_errors) ? errorData.non_field_errors[0] as string : null) ||
-          t("messages.invalidCredentials");
+        const message = getLocalizedAuthError(data as AuthErrorPayload, response.status) || t("messages.invalidCredentials");
         setAlert({ type: "error", message });
       }
     } catch {
@@ -152,42 +224,11 @@ export default function LoginPage() {
   };
 
 
-  const handleButtonClick = () => {
-    const form = document.querySelector('form');
-    if (form) {
-      form.requestSubmit();
-    }
-  };
-
-
-  const handleGoogleSuccess = (data: AuthResponse) => {
-    localStorage.setItem("auth_token", data.token);
-
-    localStorage.setItem("pending_email", data.email);
-
-    document.cookie = `access_token=${data.token}; path=/;`;
-    document.cookie = `email_verified=${data.email_verified ?? false}; path=/;`;
-    setAlert({
-      type: "success",
-      message: data.message ?? "Inicio de sesión correcto"
-    });
-    if (!data.email_verified) {
-      setTimeout(() => {
-        window.location.href = "/verify-email";
-      }, 1000);
-    } else {
-      setTimeout(() => {
-        window.location.href = "/profile";
-      }, 1000);
-    }
-
-  };
-
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-      {/* Alert Component */}
       {alert && (
         <Alert
+          key={`${alert.type}:${alert.message}`}
           type={alert.type}
           message={alert.message}
           onClose={() => setAlert(null)}
@@ -311,7 +352,7 @@ export default function LoginPage() {
                     <div className="flex justify-center">
                       <StyledButton
                         text={isLoading ? t("form.submitButtonLoading") : t("form.submitButton")}
-                        onClick={handleButtonClick}
+                        type="submit"
                       />
                     </div>
                   </form>

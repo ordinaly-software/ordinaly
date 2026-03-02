@@ -36,33 +36,37 @@ interface AlertProps {
   message: string;
   onClose?: () => void;
   duration?: number;
+  inline?: boolean;
+  className?: string;
 }
 
-const Alert: React.FC<AlertProps> = ({ type, message, onClose, duration = 5000 }) => {
+const Alert: React.FC<AlertProps> = ({
+  type,
+  message,
+  onClose,
+  duration = 5000,
+  inline = false,
+  className = "",
+}) => {
   const { bg, border, text, icon } = styleMap[type];
   const [isVisible, setIsVisible] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    let frameId = 0;
+    frameId = window.requestAnimationFrame(() => setIsVisible(true));
 
-  useEffect(() => {
-    // Trigger entrance animation
-    const showTimeout = setTimeout(() => setIsVisible(true), 10);
-    
-    if (!onClose) return () => clearTimeout(showTimeout);
-    
-    // Handle auto-close with exit animation
+    if (!onClose) {
+      return () => window.cancelAnimationFrame(frameId);
+    }
+
     const closeTimeout = setTimeout(() => {
       setIsExiting(true);
-      // Wait for exit animation to complete before calling onClose
       setTimeout(onClose, 200);
     }, duration);
 
     return () => {
-      clearTimeout(showTimeout);
+      window.cancelAnimationFrame(frameId);
       clearTimeout(closeTimeout);
     };
   }, [onClose, duration]);
@@ -73,52 +77,72 @@ const Alert: React.FC<AlertProps> = ({ type, message, onClose, duration = 5000 }
     setTimeout(onClose, 200);
   };
 
+  const containerAnimationClass = inline
+    ? (isExiting ? "transform -translate-y-2 opacity-0" : "transform translate-y-0 opacity-100")
+    : (isVisible && !isExiting
+      ? "transform -translate-x-1/2 translate-y-0 opacity-100"
+      : "transform -translate-x-1/2 -translate-y-4 opacity-0");
+
+  const contentAnimationClass = inline
+    ? (isExiting ? "scale-95" : "scale-100")
+    : (isVisible && !isExiting ? "scale-100" : "scale-95");
+
+  const content = (
+    <div
+      role="alert"
+      className={`${bg} ${border} ${text} border-l-4 px-4 py-3 rounded-lg flex items-center justify-between shadow-lg transition-all duration-200 ease-out ${contentAnimationClass}`}
+    >
+      <div className="flex items-center">
+        <svg
+          stroke="currentColor"
+          fill="none"
+          viewBox="0 0 24 24"
+          className={`h-5 w-5 mr-2 ${icon}`}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            strokeWidth={2}
+            strokeLinejoin="round"
+            strokeLinecap="round"
+          />
+        </svg>
+        <p className="text-sm font-medium">{message}</p>
+      </div>
+      {onClose && (
+        <button
+          onClick={handleClose}
+          className={`${text} ml-4 text-sm hover:opacity-70 transition-opacity duration-150`}
+        >
+          ✕
+        </button>
+      )}
+    </div>
+  );
+
+  if (inline) {
+    return (
+      <div className={`w-full transition-all duration-200 ease-out ${containerAnimationClass} ${className}`.trim()}>
+        {content}
+      </div>
+    );
+  }
+
+  if (typeof document === "undefined") {
+    return null;
+  }
+
   return (
-    isMounted
-      ? createPortal(
-          <div
-            className={`fixed top-20 left-1/2 z-[1000] w-[90%] max-w-md transition-all duration-200 ease-out ${
-              isVisible && !isExiting
-                ? "transform -translate-x-1/2 translate-y-0"
-                : "transform -translate-x-1/2 -translate-y-4"
-            }`}
-          >
-            <div
-              role="alert"
-              className={`${bg} ${border} ${text} border-l-4 px-4 py-3 rounded-lg flex items-center justify-between shadow-lg transition-all duration-200 ease-out ${
-                isVisible && !isExiting ? "scale-100" : "scale-95"
-              }`}
-            >
-              <div className="flex items-center">
-                <svg
-                  stroke="currentColor"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  className={`h-5 w-5 mr-2 ${icon}`}
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M13 16h-1v-4h1m0-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    strokeWidth={2}
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                <p className="text-sm font-medium">{message}</p>
-              </div>
-              {onClose && (
-                <button
-                  onClick={handleClose}
-                  className={`${text} ml-4 text-sm hover:opacity-70 transition-opacity duration-150`}
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-          </div>,
-          document.body
-        )
-      : null
+    createPortal(
+      <div
+        className={`pointer-events-none fixed top-24 left-1/2 z-[1000] w-[90%] max-w-md transition-all duration-200 ease-out ${containerAnimationClass} ${className}`.trim()}
+      >
+        <div className="pointer-events-auto">
+          {content}
+        </div>
+      </div>,
+      document.body
+    )
   );
 };
 

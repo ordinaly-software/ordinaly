@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 
 import requests
 from django.conf import settings
@@ -8,7 +9,7 @@ class EmailServiceError(Exception):
     pass
 
 
-def _send_email(recipient: str, html: str, subject: str = ""):
+def _send_email(recipient: str, html: str, subject: str = "", message_type: str = "", metadata=None):
     """Send an email through BillionMail.
 
     The BillionMail template uses {{.API.html}} to inject content.
@@ -24,6 +25,12 @@ def _send_email(recipient: str, html: str, subject: str = ""):
             "html": html,
         },
     }
+    if message_type:
+        payload["attribs"]["message_type"] = message_type
+    if metadata:
+        payload["attribs"]["metadata"] = metadata
+    if getattr(settings, "BILLIONMAIL_SENDER", None):
+        payload["sender"] = settings.BILLIONMAIL_SENDER
     if subject:
         payload["subject"] = subject
     base_url = settings.BILLIONMAIL_BASE_URL.rstrip("/")
@@ -144,6 +151,17 @@ def send_verification_email(email: str, code: str):
 
 def send_welcome_email(email: str, user_name: str):
     try:
+        frontend_url = os.getenv("FRONTEND_BASE_URL", "https://ordinaly.ai").rstrip("/")
+        logo_url = f"{frontend_url}/assets/workspace_logo.png"
+        welcome_cards = {
+            "sonia": f"{frontend_url}/static/mail/sonia.png",
+            "facturas": f"{frontend_url}/static/mail/facturas.png",
+            "meta": f"{frontend_url}/static/mail/meta.png",
+            "linkedin": f"{frontend_url}/static/mail/linkedin.png",
+            "pymes": f"{frontend_url}/static/mail/pymes.png",
+            "odoo": f"{frontend_url}/static/mail/odoo.png",
+            "formation": f"{frontend_url}/static/mail/formation.png",
+        }
         html = f"""\
 <!doctype html>
 <html lang="es">
@@ -247,7 +265,7 @@ def send_welcome_email(email: str, user_name: str):
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td align="left" style="vertical-align:middle;">
-                    <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
+                    <img src="{logo_url}" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
                   </td>
                   <td align="right" style="vertical-align:middle;">
                     <span class="badge">Cuenta creada</span>
@@ -332,7 +350,7 @@ def send_welcome_email(email: str, user_name: str):
                   <td width="50%" style="padding-right:8px;vertical-align:top;">
                     <a href="https://ordinaly.ai/services/sonia-asistente-de-voz-con-ia-ordinaly" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
                       <div class="grid-card">
-                        <img src="https://api.ordinaly.ai/media/service_images/ChatGPT_Image_2_feb_2026_12_20_11_en_tamano_grande.jpeg" alt="SonIA" style="width:100%;height:auto;" />
+                        <img src="{welcome_cards["sonia"]}" alt="SonIA" style="width:100%;height:auto;" />
                         <div class="grid-body">
                           <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">SonIA, asistente de voz con IA</h3>
                           <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Recepci&oacute;n 24/7 para atender, filtrar y escalar conversaciones.</p>
@@ -344,7 +362,7 @@ def send_welcome_email(email: str, user_name: str):
                   <td width="50%" style="padding-left:8px;vertical-align:top;">
                     <a href="https://ordinaly.ai/services/recopilacion-automatica-de-facturas-para-empresas-y-asesorias" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
                       <div class="grid-card">
-                        <img src="https://api.ordinaly.ai/media/service_images/Diseno_sin_titulo_en_tamano_mediano.webp" alt="Facturas" style="width:100%;height:auto;" />
+                        <img src="{welcome_cards["facturas"]}" alt="Facturas" style="width:100%;height:auto;" />
                         <div class="grid-body">
                           <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Recopilaci&oacute;n autom&aacute;tica de facturas</h3>
                           <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Centraliza y clasifica facturas para empresa o asesor&iacute;a.</p>
@@ -360,7 +378,7 @@ def send_welcome_email(email: str, user_name: str):
                   <td width="50%" style="padding-right:8px;vertical-align:top;">
                     <a href="https://ordinaly.ai/services/automatizacion-facebook-instagram-meta" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
                       <div class="grid-card">
-                        <img src="https://api.ordinaly.ai/media/service_images/3_en_tamano_mediano.webp" alt="Meta" style="width:100%;height:auto;" />
+                        <img src="{welcome_cards["meta"]}" alt="Meta" style="width:100%;height:auto;" />
                         <div class="grid-body">
                           <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Automatizaci&oacute;n Facebook e Instagram</h3>
                           <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Publicaci&oacute;n constante sin estar pendiente cada d&iacute;a.</p>
@@ -372,7 +390,7 @@ def send_welcome_email(email: str, user_name: str):
                   <td width="50%" style="padding-left:8px;vertical-align:top;">
                     <a href="https://ordinaly.ai/services/automatizacion-de-publicaciones-en-linkedin-para-empresas-y-autonomos" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
                       <div class="grid-card">
-                        <img src="https://api.ordinaly.ai/media/service_images/people_ordinaly_07.jpg" alt="LinkedIn" style="width:100%;height:auto;" />
+                        <img src="{welcome_cards["linkedin"]}" alt="LinkedIn" style="width:100%;height:auto;" />
                         <div class="grid-body">
                           <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Automatizaci&oacute;n de LinkedIn</h3>
                           <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Workflow para preparar, programar y publicar con consistencia.</p>
@@ -388,7 +406,7 @@ def send_welcome_email(email: str, user_name: str):
                   <td width="50%" style="padding-right:8px;vertical-align:top;">
                     <a href="https://ordinaly.ai/services" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
                       <div class="grid-card">
-                        <img src="https://api.ordinaly.ai/media/service_images/2_en_tamano_mediano.webp" alt="Pymes" style="width:100%;height:auto;" />
+                        <img src="{welcome_cards["pymes"]}" alt="Pymes" style="width:100%;height:auto;" />
                         <div class="grid-body">
                           <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Automatizaci&oacute;n para pymes</h3>
                           <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Integraciones y procesos medibles para ahorrar tiempo.</p>
@@ -400,7 +418,7 @@ def send_welcome_email(email: str, user_name: str):
                   <td width="50%" style="padding-left:8px;vertical-align:top;">
                     <a href="https://ordinaly.ai/services" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
                       <div class="grid-card">
-                        <img src="https://api.ordinaly.ai/media/service_images/people_ordinaly_08.jpeg" alt="Odoo" style="width:100%;height:auto;" />
+                        <img src="{welcome_cards["odoo"]}" alt="Odoo" style="width:100%;height:auto;" />
                         <div class="grid-body">
                           <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Implantaci&oacute;n de Odoo</h3>
                           <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">ERP con foco en procesos, datos y adopci&oacute;n real del equipo.</p>
@@ -451,7 +469,7 @@ def send_welcome_email(email: str, user_name: str):
                 <tr>
                   <td width="150" style="vertical-align:top;padding-right:14px;">
                     <a href="https://ordinaly.ai/formation" target="_blank" rel="noopener noreferrer">
-                      <img class="mini-img" src="https://ordinaly.ai/static/backgrounds/formation_background.webp" alt="Formaci&oacute;n Ordinaly" width="150" />
+                      <img class="mini-img" src="{welcome_cards["formation"]}" alt="Formaci&oacute;n Ordinaly" width="150" />
                     </a>
                   </td>
                   <td style="vertical-align:top;">
@@ -631,6 +649,88 @@ def send_password_reset_email(email: str, token: str, user_name: str):
         _send_email(email, html, subject="Restablecer contraseña - Ordinaly")
     except Exception as e:
         raise EmailServiceError("No se pudo enviar el correo de restablecimiento de contraseña") from e
+
+
+def send_email_updated_email(email: str, user_name: str, previous_email: str, new_email: str):
+    try:
+        html = f"""\
+<!doctype html>
+<html lang="es">
+  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr><td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+          <tr><td style="padding:28px 24px;">
+            <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
+            <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">Tu correo se ha actualizado</h1>
+            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0 0 16px;">
+              Hola {user_name}, el correo principal de tu cuenta de Ordinaly se ha cambiado correctamente.
+            </p>
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border:1px solid #e5e7eb;border-radius:12px;">
+              <tr>
+                <td style="padding:14px 16px;border-bottom:1px solid #e5e7eb;">
+                  <strong>Correo anterior:</strong> {previous_email}
+                </td>
+              </tr>
+              <tr>
+                <td style="padding:14px 16px;">
+                  <strong>Correo nuevo:</strong> {new_email}
+                </td>
+              </tr>
+            </table>
+            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
+              Si no has realizado este cambio, contacta con <a href="mailto:info@ordinaly.ai" style="color:#0f172a;">info@ordinaly.ai</a> cuanto antes.
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>"""
+        _send_email(
+            email,
+            html,
+            subject="Correo actualizado - Ordinaly",
+            message_type="email_updated",
+            metadata={"previous_email": previous_email, "new_email": new_email},
+        )
+    except Exception as e:
+        raise EmailServiceError("No se pudo enviar el correo de actualización de email") from e
+
+
+def send_password_reset_completed_email(email: str, user_name: str):
+    try:
+        html = f"""\
+<!doctype html>
+<html lang="es">
+  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr><td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+          <tr><td style="padding:28px 24px;">
+            <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
+            <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">Tu contraseña ya se ha restablecido</h1>
+            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;">
+              Hola {user_name}, la contraseña de tu cuenta de Ordinaly se ha cambiado correctamente.
+            </p>
+            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
+              Si no has realizado este cambio, restablece de nuevo tu contraseña y escribe a
+              <a href="mailto:info@ordinaly.ai" style="color:#0f172a;">info@ordinaly.ai</a>.
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>"""
+        _send_email(
+            email,
+            html,
+            subject="Contraseña restablecida - Ordinaly",
+            message_type="password_reset_completed",
+        )
+    except Exception as e:
+        raise EmailServiceError("No se pudo enviar el correo de confirmación de contraseña") from e
 
 
 def send_enrollment_confirmation_email(email: str, user_name: str, course):
@@ -1026,3 +1126,143 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
         _send_email(email, html, subject=f"Inscripción cancelada - {course.title}")
     except Exception as e:
         raise EmailServiceError("No se pudo enviar el correo de cancelación de inscripción") from e
+
+
+def send_course_published_email(email: str, user_name: str, course):
+    try:
+        frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
+        course_url = f"{frontend_url}/formation/{course.slug}"
+        html = f"""\
+<!doctype html>
+<html lang="es">
+  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr><td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+          <tr><td style="padding:28px 24px;">
+            <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
+            <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">Nueva formación publicada</h1>
+            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;">
+              Hola {user_name}, ya está disponible una nueva formación en Ordinaly:
+              <strong style="color:#0f172a;"> {course.title}</strong>.
+            </p>
+            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
+              Consulta todos los detalles en <a href="{course_url}" style="color:#0f172a;">{course_url}</a>.
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>"""
+        _send_email(
+            email,
+            html,
+            subject=f"Nueva formación - {course.title}",
+            message_type="course_published",
+            metadata={"course_id": course.id},
+        )
+    except Exception as e:
+        raise EmailServiceError("No se pudo enviar el correo de nueva formación") from e
+
+
+def send_course_starts_soon_email(email: str, user_name: str, course, session_start_iso: str, days_before: int):
+    try:
+        frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
+        course_url = f"{frontend_url}/formation/{course.slug}"
+        session_text = session_start_iso
+        if session_start_iso:
+            try:
+                session_dt = datetime.fromisoformat(session_start_iso)
+                session_text = session_dt.strftime("%d/%m/%Y %H:%M %Z")
+            except Exception:
+                session_text = session_start_iso
+
+        html = f"""\
+<!doctype html>
+<html lang="es">
+  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr><td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+          <tr><td style="padding:28px 24px;">
+            <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
+            <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">La formación empieza en menos de una semana</h1>
+            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;">
+              Hola {user_name}, <strong style="color:#0f172a;">{course.title}</strong> empieza en {days_before} días o menos.
+            </p>
+            <p style="font-size:15px;line-height:1.6;color:#475569;margin:16px 0 0;">
+              Inicio previsto: <strong style="color:#0f172a;">{session_text}</strong>
+            </p>
+            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
+              Ver curso: <a href="{course_url}" style="color:#0f172a;">{course_url}</a>
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>"""
+        _send_email(
+            email,
+            html,
+            subject=f"Empieza pronto - {course.title}",
+            message_type="course_starts_soon",
+            metadata={"course_id": course.id, "days_before": days_before},
+        )
+    except Exception as e:
+        raise EmailServiceError("No se pudo enviar el aviso de inicio próximo") from e
+
+
+def send_course_reminder_email(email: str, user_name: str, course, session_start_iso: str, hours_before: int):
+    try:
+        frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
+        course_url = f"{frontend_url}/formation/{course.slug}"
+
+        session_text = session_start_iso
+        if session_start_iso:
+            try:
+                session_dt = datetime.fromisoformat(session_start_iso)
+                session_text = session_dt.strftime("%d/%m/%Y %H:%M %Z")
+            except Exception:
+                session_text = session_start_iso
+
+        html = f"""\
+<!doctype html>
+<html lang="es">
+  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+      <tr><td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+          <tr><td style="padding:28px 24px;">
+            <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
+            <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">Recordatorio de curso</h1>
+            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;">
+              Hola {user_name}, faltan {hours_before} horas para la próxima sesión de
+              <strong style="color:#0f172a;"> {course.title}</strong>.
+            </p>
+            <p style="font-size:15px;line-height:1.6;color:#475569;margin:16px 0 0;">
+              Inicio de la sesión: <strong style="color:#0f172a;">{session_text}</strong>
+            </p>
+            <p style="font-size:15px;line-height:1.6;color:#475569;margin:8px 0 0;">
+              Ubicación: <strong style="color:#0f172a;">{course.location or 'Por confirmar'}</strong>
+            </p>
+            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
+              Puedes revisar los detalles del curso en
+              <a href="{course_url}" style="color:#0f172a;">{course_url}</a>.
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>"""
+        _send_email(
+            email,
+            html,
+            subject=f"Recordatorio {hours_before}h - {course.title}",
+            message_type=f"course_reminder_{hours_before}h",
+            metadata={"hours_before": hours_before, "course_id": course.id},
+        )
+    except Exception as e:
+        raise EmailServiceError("No se pudo enviar el recordatorio del curso") from e
