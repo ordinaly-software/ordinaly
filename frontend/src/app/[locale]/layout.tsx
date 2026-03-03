@@ -9,11 +9,13 @@ import CookieConsent from "@/components/ui/cookies";
 import BackToTopButton from "@/components/ui/back-to-top-button";
 import { getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
+import { EmailVerificationProvider } from "@/contexts/email-verification-context";
 import { NextIntlClientProvider } from "next-intl";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
 import GoogleAnalyticsLoader from "@/components/analytics/google-analytics-loader";
 import AutoKeywords from "@/components/seo/auto-keywords";
 import CommerceSchema from "@/components/seo/commerce-schema";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -117,6 +119,7 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
 
+
   if (!routing.locales.includes(locale as Locale)) notFound();
 
   return (
@@ -162,29 +165,34 @@ export default async function RootLayout({
         />
       </head>
 
+
       <body className={`${inter.className} antialiased min-h-screen bg-background text-foreground`} suppressHydrationWarning>
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[9999] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-gray-900 focus:shadow-lg dark:focus:bg-neutral-900 dark:focus:text-white"
-        >
-          Skip to content
-        </a>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[9999] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-gray-900 focus:shadow-lg dark:focus:bg-neutral-900 dark:focus:text-white"
+          >
+            Skip to content
+          </a>
 
-        <GoogleAnalyticsLoader />
+          <GoogleAnalyticsLoader />
 
-        <NextIntlClientProvider>
-          <ThemeProvider>
-            <ServiceWorkerRegistrar />
-            <CommerceSchema locale={locale} />
-            <AutoKeywords />
-            {/* tu body tal cual */}
-            <Navbar />
-            <main id="main-content">{children}</main>
-            <CookieConsent />
-            <BackToTopButton />
-          </ThemeProvider>
-        </NextIntlClientProvider>
+          <NextIntlClientProvider>
+            <ThemeProvider>
+              <EmailVerificationProvider>
+                <ServiceWorkerRegistrar />
+                <CommerceSchema locale={locale} />
+                <AutoKeywords />
+                <Navbar />
+                <main id="main-content">{children}</main>
+                <CookieConsent />
+                <BackToTopButton />
+              </EmailVerificationProvider>
+            </ThemeProvider>
+          </NextIntlClientProvider>
       </body>
+
     </html>
   );
 }
+
+

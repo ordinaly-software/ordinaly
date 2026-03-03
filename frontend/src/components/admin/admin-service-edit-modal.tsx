@@ -271,8 +271,26 @@ export const AdminServiceEditModal = ({
       }
       if (formData.slug) {
         const slugRegex = /^[A-Za-z0-9_-]+$/;
-        if (!slugRegex.test(formData.slug.trim())) {
+        const trimmedSlug = formData.slug.trim().toLowerCase();
+        if (!slugRegex.test(trimmedSlug)) {
           setAlert({ type: "error", message: t("messages.validation.slugInvalid") });
+          return;
+        }
+        // Reserved routes that exist as top-level pages in the app
+        const reservedSlugs = [
+          "about", "admin", "auth", "blog", "change-email", "contact",
+          "delete_account", "formation", "investors", "legal", "news",
+          "profile", "reset-password", "services", "verify-email",
+          // Landing page slugs
+          "chatbots-empresas-sevilla", "automatizacion-n8n-sevilla",
+          "agentes-ia-atencion-cliente-sevilla", "automatizacion-whatsapp-business-sevilla",
+          "formacion-ia-pymes-sevilla", "integraciones-crm-erp-sevilla",
+          // Other reserved paths
+          "studio", "sitemap.xml", "robots.txt", "manifest.json", "sw.js", "llm.txt",
+          "en", "es",
+        ];
+        if (reservedSlugs.includes(trimmedSlug)) {
+          setAlert({ type: "error", message: t("messages.validation.slugCollision") });
           return;
         }
       }

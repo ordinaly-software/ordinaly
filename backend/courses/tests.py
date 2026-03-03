@@ -1903,6 +1903,35 @@ class CourseViewActionsExtraTest(CourseImageCleanupTestMixin, APITestCase):
         resp2 = self.client.post(url)
         self.assertEqual(resp2.status_code, status.HTTP_400_BAD_REQUEST)
 
+    @patch("courses.views.dispatch_email_job_now")
+    @patch("courses.views.queue_course_enrollment_notification")
+    def test_enroll_dispatches_confirmation_email_immediately(self, mock_queue, mock_dispatch):
+        mock_job = object()
+        mock_queue.return_value = mock_job
+
+        self.client.force_authenticate(user=self.user)
+        url = reverse('course-enroll', kwargs={'slug': self.course.slug})
+        resp = self.client.post(url)
+
+        self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
+        mock_queue.assert_called_once()
+        mock_dispatch.assert_called_once_with(mock_job)
+
+    @patch("courses.views.dispatch_email_job_now")
+    @patch("courses.views.queue_course_unenrollment_notification")
+    def test_unenroll_dispatches_cancellation_email_immediately(self, mock_queue, mock_dispatch):
+        mock_job = object()
+        mock_queue.return_value = mock_job
+
+        Enrollment.objects.create(user=self.user, course=self.course)
+        self.client.force_authenticate(user=self.user)
+        url = reverse('course-unenroll', kwargs={'slug': self.course.slug})
+        resp = self.client.post(url)
+
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        mock_queue.assert_called_once()
+        mock_dispatch.assert_called_once_with(mock_job)
+
     def test_calendar_export_ics_for_enrolled_user_returns_file(self):
         Enrollment.objects.create(user=self.user, course=self.course)
         self.client.force_authenticate(user=self.user)
@@ -2412,3 +2441,53 @@ class CourseViewsAdditionalCoverageTests(TestCase):
         request.user = self.admin
         view.request = request
         self.assertGreaterEqual(view.get_queryset().count(), 1)
+
+
+@override_settings(MEDIA_ROOT=tempfile.mkdtemp())
+class EnrollmentAdminFormTest(CourseImageCleanupTestMixin, TestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.create_user(
+            email='enroll_form@example.com',
+            username='enroll_form_user',
+            password=TEST_PASSWORD,
+            name='Enroll',
+            surname='Form',
+            company='Test',
+        )
+        self.course = Course.objects.create(
+            title='EnrollFormCourse',
+            description='desc',
+            image=get_test_image_file(),
+            price=Decimal('10.00'),
+            location='loc',
+            start_date=date.today() + timedelta(days=10),
+            end_date=date.today() + timedelta(days=10),
+            start_time=time(10, 0),
+            end_time=time(12, 0),
+            periodicity='once',
+            max_attendants=5,
+        )
+
+    def test_enrollment_admin_form_save_with_commit_true(self):
+        from courses.forms import EnrollmentAdminForm
+        form = EnrollmentAdminForm(data={
+            'user': self.user.id,
+            'course': self.course.id,
+        })
+        self.assertTrue(form.is_valid(), form.errors)
+        instance = form.save(commit=True)
+        self.assertIsNotNone(instance.pk)
+        self.assertEqual(instance.user, self.user)
+        self.assertEqual(instance.course, self.course)
+
+    def test_enrollment_admin_form_save_with_commit_false(self):
+        from courses.forms import EnrollmentAdminForm
+        form = EnrollmentAdminForm(data={
+            'user': self.user.id,
+            'course': self.course.id,
+        })
+        self.assertTrue(form.is_valid(), form.errors)
+        instance = form.save(commit=False)
+        self.assertIsNone(instance.pk)
+        self.assertEqual(instance.user, self.user)
+        self.assertEqual(instance.course, self.course)

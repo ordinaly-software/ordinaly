@@ -2,16 +2,20 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
-import { ConfirmationModal } from "@/components/ui/confirmation-modal";
 import Alert from "@/components/ui/alert";
 import DeleteAccountModal from "@/components/ui/delete-account-modal";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ProfileInfoTab from "@/components/profile/profile-info-tab";
 import ProfileCoursesTab from "@/components/profile/profile-courses-tab";
-import { AdminTabs, type AdminTabsTab } from "@/components/admin/admin-tabs";
 import { User, BookOpen } from "lucide-react";
 import type { Course } from "@/hooks/useCourses";
 import Footer from "@/components/ui/footer";
+import { useParams } from "next/navigation";
+import {
+  DELETE_ACCOUNT_COOLDOWN_KEY,
+  setEmailCooldown,
+  VERIFY_EMAIL_COOLDOWN_KEY,
+} from "@/lib/email-confirmation";
 
 interface UserProfile {
   id: number;
@@ -27,6 +31,8 @@ interface UserProfile {
   city: string | null;
   created_at: string;
   updated_at: string;
+  pending_email?: string | null;
+  course_email_notifications?: boolean;
   allow_notifications?: boolean;
   is_google_authenticated?: boolean;
 }
@@ -62,22 +68,34 @@ export default function ProfilePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isUpdatingNotifications, setIsUpdatingNotifications] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
-  const [allowNotifications, setAllowNotifications] = useState(false);
-  const [showNotificationModal, setShowNotificationModal] = useState(false);
-  const [pendingNotificationValue, setPendingNotificationValue] = useState<boolean | null>(null);
+  const [courseEmailNotifications, setCourseEmailNotifications] = useState(true);
+  const [newsletterConsent, setNewsletterConsent] = useState(false);
   const [activeTab, setActiveTab] = useState<"profile" | "courses">("profile");
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [enrolledCourses, setEnrolledCourses] = useState<Course[]>([]);
   const [coursesLoading, setCoursesLoading] = useState(false);
   const [coursesError, setCoursesError] = useState<string | null>(null);
 
+  const { locale } = useParams();
+
 
   // Track changes to form fields
   const handleFieldChange = (field: string, value: string | boolean) => {
+    if (field === 'course_email_notifications') {
+      void persistNotificationPreferences(Boolean(value), newsletterConsent);
+      return;
+    }
+
+    if (field === 'allow_notifications') {
+      void persistNotificationPreferences(courseEmailNotifications, Boolean(value));
+      return;
+    }
+
     switch (field) {
       case 'firstName':
         setFirstName(value as string);
@@ -100,56 +118,8 @@ export default function ProfilePage() {
       case 'city':
         setCity(value as string);
         break;
-      case 'allow_notifications':
-        // Show confirmation modal before changing
-        setPendingNotificationValue(!!value);
-        setShowNotificationModal(true);
-        return;
     }
     setHasChanges(true);
-  };
-
-  // Confirm notification toggle and update immediately
-  const handleConfirmNotificationChange = async () => {
-    if (pendingNotificationValue !== null) {
-      setAllowNotifications(pendingNotificationValue);
-      setShowNotificationModal(false);
-      setPendingNotificationValue(null);
-
-      // Immediately update notification preference in backend
-      setIsSaving(true);
-      setAlert(null);
-      try {
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
-        const response = await fetch(`${apiUrl}/api/users/update_profile/`, {
-          method: 'PATCH',
-          headers: {
-            Authorization: `Token ${authToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ allow_notifications: pendingNotificationValue }),
-        });
-        if (response.ok) {
-          const data = await response.json();
-          setProfile((prev) => prev ? { ...prev, allow_notifications: data.allow_notifications } : prev);
-          setAlert({ type: 'success', message: t("messages.updateSuccess") });
-        } else {
-          setAlert({ type: 'error', message: t("messages.updateError") });
-        }
-      } catch {
-        setAlert({ type: 'error', message: t("messages.networkError") });
-      } finally {
-        setIsSaving(false);
-      }
-    } else {
-      setShowNotificationModal(false);
-      setPendingNotificationValue(null);
-    }
-  };
-
-  const handleCancelNotificationChange = () => {
-    setShowNotificationModal(false);
-    setPendingNotificationValue(null);
   };
 
   // Check if current form values match the original profile data
@@ -162,7 +132,6 @@ export default function ProfilePage() {
     const originalCompany = profile.company || '';
     const originalRegion = profile.region || '';
     const originalCity = profile.city || '';
-    const originalAllowNotifications = profile.allow_notifications ?? false;
     const hasAnyChanges =
       firstName !== originalFirstName ||
       lastName !== originalLastName ||
@@ -170,10 +139,18 @@ export default function ProfilePage() {
       email !== originalEmail ||
       company !== originalCompany ||
       region !== originalRegion ||
-      city !== originalCity ||
-      allowNotifications !== originalAllowNotifications;
+      city !== originalCity;
     setHasChanges(hasAnyChanges);
-  }, [profile, firstName, lastName, username, email, company, region, city, allowNotifications]);
+  }, [
+    profile,
+    firstName,
+    lastName,
+    username,
+    email,
+    company,
+    region,
+    city,
+  ]);
 
   useEffect(() => {
     const tabParam = searchParams.get("tab");
@@ -194,9 +171,9 @@ export default function ProfilePage() {
     setActiveTab(tabId);
   };
 
-  const profileTabs: AdminTabsTab[] = [
-    { id: "profile", name: t("tabs.profile"), icon: User, accentColor: "#1F8A0D" },
-    { id: "courses", name: t("tabs.courses"), icon: BookOpen, accentColor: "#1F8A0D" },
+  const profileTabs = [
+    { id: "profile" as const, label: t("tabs.profile"), icon: User },
+    { id: "courses" as const, label: t("tabs.courses"), icon: BookOpen },
   ];
 
   const fetchEnrolledCourses = useCallback(async (token?: string, userId?: number) => {
@@ -257,6 +234,64 @@ export default function ProfilePage() {
     }
   }, [authToken, t]);
 
+  const persistNotificationPreferences = async (nextCourseEmailNotifications: boolean, nextNewsletterConsent: boolean) => {
+    if (!authToken) return;
+
+    const previousCourseEmailNotifications = courseEmailNotifications;
+    const previousNewsletterConsent = newsletterConsent;
+
+    setCourseEmailNotifications(nextCourseEmailNotifications);
+    setNewsletterConsent(nextNewsletterConsent);
+    setIsUpdatingNotifications(true);
+    setAlert(null);
+
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
+      const response = await fetch(`${apiUrl}/api/users/update_profile/`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Token ${authToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          course_email_notifications: nextCourseEmailNotifications,
+          allow_notifications: nextNewsletterConsent,
+        }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok) {
+        setProfile((currentProfile) => currentProfile ? { ...currentProfile, ...data } : currentProfile);
+        setCourseEmailNotifications(data.course_email_notifications ?? nextCourseEmailNotifications);
+        setNewsletterConsent(!!data.allow_notifications);
+        setAlert({ type: 'success', message: t("messages.notificationUpdateSuccess") });
+        return;
+      }
+
+      setCourseEmailNotifications(previousCourseEmailNotifications);
+      setNewsletterConsent(previousNewsletterConsent);
+
+      if (response.status === 401) {
+        setTimeout(() => {
+          window.location.href = "/auth/signin";
+        }, 2000);
+      }
+
+      const errorMessage =
+        (Array.isArray(data.detail) ? data.detail[0] : data.detail) ||
+        (Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors) ||
+        t("messages.notificationUpdateError");
+      setAlert({ type: 'error', message: errorMessage });
+    } catch {
+      setCourseEmailNotifications(previousCourseEmailNotifications);
+      setNewsletterConsent(previousNewsletterConsent);
+      setAlert({ type: 'error', message: t("messages.notificationUpdateError") });
+    } finally {
+      setIsUpdatingNotifications(false);
+    }
+  };
+
   const fetchProfile = useCallback(async (token?: string): Promise<UserProfile | null> => {
     const authTokenToUse = token || authToken;
     if (!authTokenToUse) return null;
@@ -282,7 +317,8 @@ export default function ProfilePage() {
         setCompany(data.company || "");
         setRegion(data.region || "");
         setCity(data.city || "");
-        setAllowNotifications(!!data.allow_notifications);
+        setCourseEmailNotifications(data.course_email_notifications ?? true);
+        setNewsletterConsent(!!data.allow_notifications);
         return data;
       } else if (response.status === 401) {
         // Token is invalid
@@ -317,13 +353,13 @@ export default function ProfilePage() {
     };
 
     loadProfileAndCourses();
-  }, []);
+  }, [fetchEnrolledCourses, fetchProfile]);
 
   useEffect(() => {
-  if (isAuthenticated === false) {
-    window.location.href = "/auth/signin";
-  }
-}, [isAuthenticated]);
+    if (isAuthenticated === false) {
+      window.location.href = "/auth/signin";
+    }
+  }, [isAuthenticated]);
 
 
 
@@ -338,6 +374,25 @@ export default function ProfilePage() {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const getLocalizedProfileFieldError = (field: string, value: unknown) => {
+    if (!value) return null;
+
+    const rawValue = Array.isArray(value) ? value[0] : value;
+    if (typeof rawValue !== "string") return null;
+
+    const normalized = rawValue.toLowerCase();
+
+    if (field === "email" && normalized === "email_taken") {
+      return t("messages.validation.emailTaken");
+    }
+
+    if (field === "username" && normalized === "username_taken") {
+      return t("messages.validation.usernameTaken");
+    }
+
+    return rawValue;
   };
 
   const handleSaveChanges = async () => {
@@ -356,7 +411,8 @@ export default function ProfilePage() {
         company: company.trim() || null,
         region: region.trim() || null,
         city: city.trim() || null,
-        allow_notifications: allowNotifications,
+        course_email_notifications: courseEmailNotifications,
+        allow_notifications: newsletterConsent,
       };
 
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
@@ -381,19 +437,39 @@ export default function ProfilePage() {
         setCompany(data.company || "");
         setRegion(data.region || "");
         setCity(data.city || "");
-        setAllowNotifications(!!data.allow_notifications);
+        setCourseEmailNotifications(data.course_email_notifications ?? true);
+        setNewsletterConsent(!!data.allow_notifications);
+
+        if (data.email_change_requires_verification) {
+          const pendingEmail = data.pending_email || email.trim();
+          localStorage.setItem("pending_email", pendingEmail);
+          localStorage.setItem("pending_email_requires_confirmation", "true");
+          setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
+          setAlert({ type: 'info', message: t("messages.emailChangeVerificationRequired") });
+          setHasChanges(false);
+          window.location.href = `/${locale}/verify-email`;
+          return;
+        }
 
         setAlert({ type: 'success', message: t("messages.updateSuccess") });
         setHasChanges(false);
       } else {
         const data = await response.json();
+        let priorityAlertMessage: string | null = null;
 
         // Handle validation errors from Django
         if (data.username) {
-          setErrors(prev => ({ ...prev, username: Array.isArray(data.username) ? data.username[0] : data.username }));
+          const usernameMessage = getLocalizedProfileFieldError("username", data.username);
+          if (usernameMessage) {
+            setErrors(prev => ({ ...prev, username: usernameMessage }));
+          }
         }
         if (data.email) {
-          setErrors(prev => ({ ...prev, email: Array.isArray(data.email) ? data.email[0] : data.email }));
+          const emailMessage = getLocalizedProfileFieldError("email", data.email);
+          if (emailMessage) {
+            setErrors(prev => ({ ...prev, email: emailMessage }));
+            priorityAlertMessage = emailMessage;
+          }
         }
         if (data.first_name || data.name) {
           const nameError = data.first_name || data.name;
@@ -406,10 +482,11 @@ export default function ProfilePage() {
         if (data.company) {
           setErrors(prev => ({ ...prev, company: Array.isArray(data.company) ? data.company[0] : data.company }));
         }
-        if (data.non_field_errors) {
+        if (priorityAlertMessage) {
+          setAlert({ type: 'error', message: priorityAlertMessage });
+        } else if (data.non_field_errors) {
           setAlert({ type: 'error', message: Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors });
-        }
-        if (data.detail) {
+        } else if (data.detail) {
           setAlert({ type: 'error', message: data.detail });
         }
 
@@ -444,63 +521,54 @@ export default function ProfilePage() {
       setErrors({});
       setAlert(null);
       setHasChanges(false);
-      setAllowNotifications(profile.allow_notifications ?? false);
     }
+  };
+
+  const allOptionalNotificationsEnabled = courseEmailNotifications && newsletterConsent;
+
+  const handleToggleAllNotifications = () => {
+    if (isUpdatingNotifications) return;
+    const nextValue = !allOptionalNotificationsEnabled;
+    void persistNotificationPreferences(nextValue, nextValue);
   };
 
   const handleDeleteAccount = async () => {
-    setIsDeleting(true);
+  setIsDeleting(true);
 
-    try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
-      const response = await fetch(`${apiUrl}/api/users/delete_profile/`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Token ${authToken}`,
-          'Content-Type': 'application/json',
-        },
-      });
+  try {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
 
-      if (response.ok || response.status === 204) {
-        setAlert({ type: 'success', message: t("messages.deleteSuccess") });
+    const response = await fetch(`${apiUrl}/auth/delete/request/`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${authToken}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
-        // Call signout API and then redirect after 2 seconds
-        setTimeout(async () => {
-          try {
-            // Call signout API if needed (optional since we're deleting the account)
-            if (authToken) {
-              await fetch(`${apiUrl}/api/users/signout/`, {
-                method: 'POST',
-                headers: {
-                  Authorization: `Token ${authToken}`,
-                  'Content-Type': 'application/json',
-                },
-              }).catch(() => {
-                // Ignore errors, account is being deleted anyway
-              });
-            }
-          } catch {
-            // Ignore errors, account is being deleted anyway
-          }
-
-          localStorage.removeItem('auth_token');
-          window.location.href = '/';
-        }, 2000);
-      } else {
-        const data = await response.json().catch(() => ({}));
-        if (response.status === 401) {
-          setAlert({ type: 'error', message: t("messages.unauthorizedError") });
-        } else {
-          setAlert({ type: 'error', message: data.detail || t("messages.deleteError") });
-        }
-      }
-    } catch {
-      setAlert({ type: 'error', message: t("messages.networkError") });
-    } finally {
-      setIsDeleting(false);
-      setShowDeleteModal(false);
+    if (response.ok) {
+      localStorage.setItem('deletion_requested', 'true');
+      setEmailCooldown(DELETE_ACCOUNT_COOLDOWN_KEY);
+      window.location.href = `/${locale}/delete_account/email-sent`;
+      return;
     }
-  };
+
+    const data = await response.json().catch(() => ({}));
+    if (response.status === 401) {
+      setAlert({ type: 'error', message: t("messages.unauthorizedError") });
+    } else {
+      setAlert({ type: 'error', message: data.error || data.detail || t("messages.deleteError") });
+    }
+
+  } catch {
+    setAlert({ type: 'error', message: t("messages.networkError") });
+  } finally {
+    setIsDeleting(false);
+    setShowDeleteModal(false);
+  }
+};
+
+
 
   if (isAuthenticated === null || isLoading) {
     return (
@@ -527,57 +595,77 @@ export default function ProfilePage() {
         />
       )}
 
-      {/* Profile Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-          {/* Header */}
-          <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-[#1F8A0D] dark:from-[#3FBD6F] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+      <div className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-20 pt-10 md:px-6 lg:px-8">
+        {/* Header Panel */}
+        <div className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-8 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md sm:px-10">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#1F8A0D] dark:text-[#3FBD6F]">
+              {t("kicker")}
+            </p>
+            <h1 className="text-4xl font-black leading-tight text-slate-900 dark:text-white md:text-5xl">
               {t("title")}
             </h1>
-            <p className="text-xl text-gray-700 dark:text-gray-300">
+            <p className="max-w-3xl text-base text-slate-700 dark:text-slate-200 md:text-lg">
               {t("subtitle")}
             </p>
           </div>
 
-          <AdminTabs
-            tabs={profileTabs}
-            activeTab={activeTab}
-            onTabChange={(tabId) => handleTabChange(tabId as "profile" | "courses")}
-            storageKey="profileActiveTab"
-            className="mb-10"
-            style={{ top: 0 }}
-          />
-
-          {activeTab === "profile" ? (
-            <ProfileInfoTab
-              firstName={firstName}
-              lastName={lastName}
-              username={username}
-              email={email}
-              company={company}
-              region={region}
-              city={city}
-              isGoogleAuthenticated={Boolean(profile?.is_google_authenticated)}
-              errors={errors}
-              hasChanges={hasChanges}
-              isSaving={isSaving}
-              allowNotifications={allowNotifications}
-              onFieldChange={handleFieldChange}
-              onSave={handleSaveChanges}
-              onCancel={handleCancelChanges}
-              onDeleteAccount={() => setShowDeleteModal(true)}
-            />
-          ) : (
-            <ProfileCoursesTab
-              enrolledCourses={enrolledCourses}
-              enrollments={enrollments}
-              isLoading={coursesLoading}
-              error={coursesError}
-            />
-          )}
+          {/* Pill-shaped tabs */}
+          <div className="mt-8 flex flex-wrap gap-3">
+            {profileTabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTabChange(tab.id)}
+                  className={`group inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition-all ${
+                    isActive
+                      ? "border-[#1F8A0D]/60 bg-[#1F8A0D]/15 text-[#1F8A0D] dark:text-[#3FBD6F] shadow-[0_8px_20px_rgba(31,138,13,0.12)]"
+                      : "border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:border-[#1F8A0D] hover:bg-[#1F8A0D]/5 dark:hover:border-[#3FBD6F]/30 dark:hover:bg-[#3FBD6F]/10 dark:hover:text-[#3FBD6F]"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </section>
+
+        {/* Tab Content */}
+        {activeTab === "profile" ? (
+          <ProfileInfoTab
+            firstName={firstName}
+            lastName={lastName}
+            username={username}
+            email={email}
+            company={company}
+            region={region}
+            city={city}
+            isGoogleAuthenticated={Boolean(profile?.is_google_authenticated)}
+            errors={errors}
+            hasChanges={hasChanges}
+            isSaving={isSaving}
+            isUpdatingNotifications={isUpdatingNotifications}
+            courseEmailNotifications={courseEmailNotifications}
+            newsletterConsent={newsletterConsent}
+            allOptionalNotificationsEnabled={allOptionalNotificationsEnabled}
+            onFieldChange={handleFieldChange}
+            onToggleAllNotifications={handleToggleAllNotifications}
+            onSave={handleSaveChanges}
+            onCancel={handleCancelChanges}
+            onDeleteAccount={() => setShowDeleteModal(true)}
+          />
+        ) : (
+          <ProfileCoursesTab
+            enrolledCourses={enrolledCourses}
+            enrollments={enrollments}
+            isLoading={coursesLoading}
+            error={coursesError}
+          />
+        )}
+      </div>
 
       <Footer />
 
@@ -587,19 +675,6 @@ export default function ProfilePage() {
         onClose={() => setShowDeleteModal(false)}
         onConfirm={handleDeleteAccount}
         isLoading={isDeleting}
-        username={profile?.username || username || ""}
-      />
-
-      {/* Notification Confirmation Modal */}
-      <ConfirmationModal
-        isOpen={showNotificationModal}
-        onClose={handleCancelNotificationChange}
-        onConfirm={handleConfirmNotificationChange}
-        title={t("form.allowNotificationsModalTitle")}
-        message={pendingNotificationValue === true ? t("form.allowNotificationsModalOn") : t("form.allowNotificationsModalOff")}
-        confirmText={t("form.allowNotificationsModalConfirm")}
-        cancelText={t("form.allowNotificationsModalCancel")}
-        isLoading={false}
       />
     </div>
   );

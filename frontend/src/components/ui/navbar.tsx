@@ -16,6 +16,8 @@ import { useServices } from "@/hooks/useServices";
 import { useCourses } from "@/hooks/useCourses";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 
+const AUTH_STATE_CHANGE_EVENT = "auth-state-changed";
+
 
 
 
@@ -170,12 +172,30 @@ const Navbar = () => {
   const [userData, setUserData] = useState<{ is_staff?: boolean; is_superuser?: boolean } | null>(null);
   const [hasEnrolledCourses, setHasEnrolledCourses] = useState(false);
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
-  const [viewportWidth, setViewportWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1280);
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
 
-  const { services: menuServices } = useServices(6);
-  const { courses: menuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 3, upcoming: true });
+  const { services: menuServices } = useServices(undefined);
+  const { courses: allMenuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 10 });
 
-  const featuredServices = useMemo(() => menuServices.filter((s) => s.is_featured).slice(0, 4), [menuServices]);
+  // Services: show up to 6, prioritize highlighted (is_featured), hide menu if none
+  const featuredServices = useMemo(() => {
+    if (!menuServices || menuServices.length === 0) return [];
+    const featured = menuServices.filter((s) => s.is_featured);
+    const nonFeatured = menuServices.filter((s) => !s.is_featured);
+    const combined = [...featured, ...nonFeatured];
+    return combined.slice(0, 6);
+  }, [menuServices]);
+
+  // Courses: show at least 1 (even if past/no date), hide menu if none at all
+  const menuCourses = useMemo(() => {
+    if (!allMenuCourses || allMenuCourses.length === 0) return [];
+    const now = new Date();
+    // Upcoming courses first
+    const upcoming = allMenuCourses.filter((c) => new Date(c.start_date) >= now);
+    if (upcoming.length > 0) return upcoming.slice(0, 3);
+    // Fallback: show at least 1 course even if passed
+    return allMenuCourses.slice(0, 1);
+  }, [allMenuCourses]);
 
   const handleBookConsultation = useCallback(() => {
     const whatsappUrl = getWhatsAppUrl(t("navigation.ctaConsultationMessage"));
@@ -184,6 +204,19 @@ const Navbar = () => {
   }, [t]);
 
   const getStoredAuthToken = useCallback(() => localStorage.getItem("auth_token"), []);
+
+  const clearClientAuth = useCallback((shouldBroadcast: boolean = false) => {
+    localStorage.removeItem("auth_token");
+    setIsAuthenticated(false);
+    setUserData(null);
+    setHasEnrolledCourses(false);
+    setIsMenuOpen(false);
+    setShowLogoutModal(false);
+
+    if (shouldBroadcast) {
+      window.dispatchEvent(new Event(AUTH_STATE_CHANGE_EVENT));
+    }
+  }, []);
 
   const userMenuOptions = useMemo((): DropdownOption[] => {
     const options: DropdownOption[] = [{ value: "profile", label: t("navigation.profile"), icon: User }];
@@ -210,14 +243,21 @@ const Navbar = () => {
         },
       });
 
+      if (response.status === 401) {
+        clearClientAuth(true);
+        return false;
+      }
+
       if (response.ok) {
         const data = await response.json();
         setUserData(data);
+        return true;
       }
-    } catch (error) {
-      console.warn("Failed to fetch user data:", error);
+    } catch {
+
     }
-  }, []);
+    return false;
+  }, [clearClientAuth]);
 
   const fetchEnrollmentStatus = useCallback(async (token: string) => {
     try {
@@ -228,25 +268,81 @@ const Navbar = () => {
           "Content-Type": "application/json",
         },
       });
+      if (response.status === 401) {
+        clearClientAuth(true);
+        return false;
+      }
       if (response.ok) {
         const data = await response.json();
         setHasEnrolledCourses(Array.isArray(data) && data.length > 0);
+        return true;
       }
-    } catch (error) {
-      console.warn("Failed to fetch enrollment data:", error);
+    } catch {
+
     }
-  }, []);
+    return false;
+  }, [clearClientAuth]);
+
+  const syncAuthState = useCallback(async () => {
+    const token = getStoredAuthToken();
+    if (!token) {
+      setIsAuthenticated(false);
+      setUserData(null);
+      setHasEnrolledCourses(false);
+      return;
+    }
+
+    setIsAuthenticated(true);
+    const isProfileValid = await fetchUserData(token);
+    if (!isProfileValid) {
+      return;
+    }
+
+    await fetchEnrollmentStatus(token);
+  }, [fetchEnrollmentStatus, fetchUserData, getStoredAuthToken]);
 
   useEffect(() => {
-    const token = getStoredAuthToken();
-    const authState = !!token;
-    setIsAuthenticated(authState);
+    void syncAuthState();
 
-    if (token) {
-      fetchUserData(token);
-      fetchEnrollmentStatus(token);
-    }
-  }, [fetchEnrollmentStatus, fetchUserData, getStoredAuthToken]);
+    const handleAuthStateChange = () => {
+      void syncAuthState();
+    };
+
+    const handleStorage = (event: StorageEvent) => {
+      if (!event.key || event.key === "auth_token") {
+        void syncAuthState();
+      }
+    };
+
+    const handleWindowFocus = () => {
+      void syncAuthState();
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        void syncAuthState();
+      }
+    };
+
+    const authRefreshInterval = window.setInterval(() => {
+      if (document.visibilityState === "visible") {
+        void syncAuthState();
+      }
+    }, 60_000);
+
+    window.addEventListener(AUTH_STATE_CHANGE_EVENT, handleAuthStateChange);
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("focus", handleWindowFocus);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.clearInterval(authRefreshInterval);
+      window.removeEventListener(AUTH_STATE_CHANGE_EVENT, handleAuthStateChange);
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("focus", handleWindowFocus);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [syncAuthState]);
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -293,18 +389,13 @@ const Navbar = () => {
           },
         }).catch(() => { });
       }
-    } catch (error) {
-      console.warn("Signout error:", error);
+    } catch {
+
     }
 
-    localStorage.removeItem("auth_token");
-    setIsAuthenticated(false);
-    setUserData(null);
-    setHasEnrolledCourses(false);
-    setIsMenuOpen(false);
-    setShowLogoutModal(false);
+    clearClientAuth(true);
     window.location.href = "/";
-  }, [getStoredAuthToken]);
+  }, [clearClientAuth, getStoredAuthToken]);
 
   const goToSignIn = useCallback(() => {
     router.push("/auth/signin");
@@ -322,26 +413,27 @@ const Navbar = () => {
 
   const navItems = useMemo(
     () => [
-      { id: "services", type: "mega", href: "/services", label: t("navigation.services") },
-      { id: "formation", type: "mega", href: "/formation", label: t("navigation.formation") },
+      ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/services", label: t("navigation.services") }] : []),
+      ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formation", label: t("navigation.formation") }] : []),
       { id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") },
-      { id: "contact", type: "link", href: "/contact", label: t("navigation.contact") },
       { id: "about", type: "link", href: "/about", label: t("navigation.us") },
+      { id: "contact", type: "link", href: "/contact", label: t("navigation.contact") },
     ],
-    [t],
+    [t, featuredServices.length, menuCourses.length],
   );
 
-  const showCta = viewportWidth >= 640;
-  const showAuthButtons = viewportWidth >= 640;
+  const showCta = true;
+  const effectiveViewportWidth = viewportWidth ?? 0;
+  const showAuthButtons = effectiveViewportWidth >= 640;
 
   const maxVisibleItems = useMemo(() => {
-    if (viewportWidth >= 1440) return navItems.length;
-    if (viewportWidth >= 1360) return 4;
-    if (viewportWidth >= 1280) return 3;
-    if (viewportWidth >= 1200) return showCta || showAuthButtons ? 2 : 3;
+    if (effectiveViewportWidth >= 1440) return navItems.length;
+    if (effectiveViewportWidth >= 1360) return 4;
+    if (effectiveViewportWidth >= 1280) return 3;
+    if (effectiveViewportWidth >= 1200) return showCta || showAuthButtons ? 2 : 3;
     // Prioritize CTA/auth and burger from md widths down.
     return 0;
-  }, [navItems.length, showAuthButtons, showCta, viewportWidth]);
+  }, [effectiveViewportWidth, navItems.length, showAuthButtons, showCta]);
 
   const visibleItems = useMemo(
     () => navItems.slice(0, Math.max(0, maxVisibleItems)),
@@ -354,7 +446,7 @@ const Navbar = () => {
   );
 
   // showCta/showAuthButtons are computed above to keep buttons visible on mobile if space allows
-  const showHamburger = viewportWidth < 1280 || hiddenItems.length > 0;
+  const showHamburger = effectiveViewportWidth < 1280 || hiddenItems.length > 0;
 
   useEffect(() => {
     if (!showHamburger && isMenuOpen) {
@@ -365,7 +457,7 @@ const Navbar = () => {
   const isLinkActive = useCallback(
     (href: string) => {
       if (href === "/") {
-        return pathname === "/" || pathname === "/en" || pathname === "/es";
+        return pathname === "/" || pathname === "/en";
       }
       return pathname.includes(href);
     },
@@ -399,7 +491,7 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <div className="hidden md:flex items-center justify-end flex-1 gap-5 min-w-0">
+            <div className="hidden md:flex items-center justify-end flex-1 gap-2 min-w-0">
               <HoverMenu setActive={setActiveMegaItem}>
                 {visibleItems.map((item) =>
                   item.type === "mega" ? (
@@ -414,20 +506,24 @@ const Navbar = () => {
                       }
                     >
                       {item.id === "services" && (
-                        <div className="grid grid-cols-1 gap-3 min-w-[360px]">
+                        <div className="min-w-[360px] sm:min-w-[480px] lg:min-w-[600px]">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                           {featuredServices.length > 0 &&
                             featuredServices.map((service) => (
-                              <ProductItem
-                                key={service.id}
-                                title={service.title}
-                                description={service.subtitle || service.description}
-                                href={`/services/${service.slug ?? service.id}`}
-                                src={service.image || ""}
-                                loadOnHover={false}
-                                loadEnabled={shouldLoadServiceImages}
-                              />
+                            <ProductItem
+                              key={service.id}
+                              title={service.title}
+                              description=""
+                              href={`/${service.slug ?? service.id}`}
+                              src={service.image || ""}
+                              loadOnHover={false}
+                              loadEnabled={shouldLoadServiceImages}
+                            />
                             ))}
+                          </div>
+                          <div className="mt-3">
                           <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
+                          </div>
                         </div>
                       )}
                       {item.id === "formation" && (
@@ -489,9 +585,13 @@ const Navbar = () => {
                 <Button
                   size="sm"
                   onClick={handleBookConsultation}
-                  className="h-8 sm:h-9 bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black shadow-md hover:shadow-lg transition-all duration-200 text-xs sm:text-sm px-3 sm:px-4"
+                  className="h-8 sm:h-9 bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-black shadow-md hover:shadow-lg transition-all duration-200 text-xs sm:text-sm px-2.5 sm:px-4 flex items-center gap-1.5 sm:gap-2"
                 >
-                  {t("navigation.ctaConsultation")}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="flex-shrink-0">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                  </svg>
+                  <span className="hidden sm:inline">{t("navigation.ctaConsultation")}</span>
+                  <span className="sm:hidden">{t("navigation.ctaShort")}</span>
                 </Button>
               )}
 
@@ -534,11 +634,11 @@ const Navbar = () => {
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsMenuOpen((prev) => !prev)}
-                  className="text-gray-700 dark:text-gray-300 h-8 w-8 transition-all duration-200"
+                  className="text-gray-700 dark:text-gray-300 h-10 w-10 sm:h-11 sm:w-11 transition-all duration-200"
                   aria-label={isMenuOpen ? t("navigation.closeMenu") : t("navigation.openMenu")}
                   aria-expanded={isMenuOpen}
                 >
-                  {isMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+                  {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                 </Button>
               )}
             </div>
@@ -554,6 +654,7 @@ const Navbar = () => {
           >
             <div className="py-4 px-4 sm:px-6">
               <div className="flex flex-col space-y-3">
+                {featuredServices.length > 0 && (
                 <MobileSection
                   title={t("navigation.services")}
                   isOpen={mobileSection === "services"}
@@ -563,7 +664,7 @@ const Navbar = () => {
                     featuredServices.map((service) => (
                       <Link
                         key={service.id}
-                        href={`/services/${service.slug ?? service.id}`}
+                        href={`/${service.slug ?? service.id}`}
                         onClick={() => setIsMenuOpen(false)}
                         className="block rounded-md px-2 py-2 text-sm font-medium text-gray-800 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800/70 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F]"
                       >
@@ -578,7 +679,9 @@ const Navbar = () => {
                     {t("navigation.serviceSubmenu")}
                   </Link>
                 </MobileSection>
+                )}
 
+                {menuCourses.length > 0 && (
                 <MobileSection
                   title={t("navigation.formation")}
                   isOpen={mobileSection === "formation"}
@@ -616,6 +719,7 @@ const Navbar = () => {
                     {t("navigation.formationSubmenu")}
                   </Link>
                 </MobileSection>
+                )}
 
                 <MobileSection
                   title={t("navigation.blog")}
@@ -640,18 +744,6 @@ const Navbar = () => {
 
                 <div className="grid gap-2">
                   <Link
-                    href="/contact"
-                    onClick={() => setIsMenuOpen(false)}
-                    className={cn(
-                      "transition-colors py-3 px-2 block rounded-md font-medium",
-                      isLinkActive("/contact")
-                        ? "text-[#1F8A0D] dark:text-[#3FBD6F] bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/10"
-                        : "text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-50 dark:hover:bg-gray-800/50",
-                    )}
-                  >
-                    {t("navigation.contact")}
-                  </Link>
-                  <Link
                     href="/about"
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
@@ -662,6 +754,18 @@ const Navbar = () => {
                     )}
                   >
                     {t("navigation.us")}
+                  </Link>
+                  <Link
+                    href="/contact"
+                    onClick={() => setIsMenuOpen(false)}
+                    className={cn(
+                      "transition-colors py-3 px-2 block rounded-md font-medium",
+                      isLinkActive("/contact")
+                        ? "text-[#1F8A0D] dark:text-[#3FBD6F] bg-[#1F8A0D]/10 dark:bg-[#3FBD6F]/10"
+                        : "text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] hover:bg-gray-50 dark:hover:bg-gray-800/50",
+                    )}
+                  >
+                    {t("navigation.contact")}
                   </Link>
                 </div>
 

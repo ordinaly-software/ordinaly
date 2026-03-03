@@ -21,10 +21,11 @@ interface CoursesShowcaseProps {
   initialCourses?: Course[];
   onCourseClick?: (course: Course) => void;
   onViewAllClick?: () => void;
+  referenceNow?: number;
 }
 
 export default function CoursesShowcase(props: CoursesShowcaseProps) {
-  const { limit = 3, showUpcomingOnly = true, onCourseClick, initialCourses } = props;
+  const { limit = 3, showUpcomingOnly = true, onCourseClick, initialCourses, referenceNow } = props;
   const t = useTranslations("home.courses");
   const router = useRouter();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -39,6 +40,14 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const sampleCardRef = useRef<HTMLDivElement | null>(null);
   const cardWidthRef = useRef<number | null>(null);
+  const [hydratedNowMs, setHydratedNowMs] = useState<number | null>(null);
+
+  useEffect(() => {
+    setHydratedNowMs(Date.now());
+  }, []);
+
+  const nowMs = hydratedNowMs ?? referenceNow ?? 0;
+  const nowDate = useMemo(() => new Date(nowMs), [nowMs]);
 
   useEffect(() => {
     // Check authentication status on mount
@@ -102,10 +111,9 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     return items;
   }, [courses]);
   const displayCourses = useMemo(() => {
-    const now = Date.now();
     const coursesWithUpcoming = orderedCourses.map((course) => {
       const startAt = Date.parse(course.start_date);
-      const upcoming = !Number.isNaN(startAt) && startAt >= now;
+      const upcoming = !Number.isNaN(startAt) && startAt >= nowMs;
       return { course, upcoming };
     });
 
@@ -122,7 +130,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     }
     if (!limit || limit <= 0) return combined;
     return combined.slice(0, limit);
-  }, [limit, orderedCourses, showUpcomingOnly]);
+  }, [limit, orderedCourses, showUpcomingOnly, nowMs]);
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -186,11 +194,14 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       return t('noSpecificDate');
     }
     try {
-      const date = new Date(dateString);
+      const [year, month, day] = dateString.split("-").map(Number);
+      if (!year || !month || !day) return t('noSpecificDate');
+      const date = new Date(Date.UTC(year, month - 1, day));
       return new Intl.DateTimeFormat('en-GB', {
         day: 'numeric',
         month: 'short',
-        year: 'numeric'
+        year: 'numeric',
+        timeZone: 'UTC',
       }).format(date);
     } catch {
       return t('noSpecificDate');
@@ -201,7 +212,6 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const canSlide = displayCourses.length > slidesToShow;
   const atStart = currentIndex === 0;
   const atEnd = currentIndex >= maxIndex;
-  const now = new Date();
 
   const getCardWidth = () => {
     return cardWidthRef.current;
@@ -248,10 +258,10 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
 
     const startDate = new Date(course.start_date);
     const endDate = new Date(course.end_date);
-    if (startDate && endDate && startDate <= now && endDate > now) {
+    if (startDate && endDate && startDate <= nowDate && endDate > nowDate) {
       return { text: t('inProgress'), variant: 'default' as const };
     }
-    if (endDate && endDate < now) {
+    if (endDate && endDate < nowDate) {
       return { text: t('finished'), variant: 'finished' as const };
     }
     const percentage = (course.enrolled_count / course.max_attendants) * 100;
@@ -368,12 +378,12 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   const availabilityBadge = getAvailabilityBadge(course);
                   const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
                   const endDate = course.end_date && course.end_date !== "0000-00-00" ? new Date(course.end_date) : null;
-                  const highlightUpcoming = Boolean(startDate && startDate > now);
+                  const highlightUpcoming = Boolean(startDate && startDate > nowDate);
                   const isPastCourse = Boolean(
                     endDate
-                      ? endDate < now
+                      ? endDate < nowDate
                       : startDate
-                        ? startDate < now
+                        ? startDate < nowDate
                         : false
                   );
                   const cleanTitle = cleanCourseTitle(course.title);
@@ -512,7 +522,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             )}
 
                             {/* Progress Bar */}
-                            {new Date(course.start_date) > new Date() && new Date(course.end_date) > new Date() && (
+                            {startDate && endDate && startDate > nowDate && endDate > nowDate && (
                               <div className="space-y-2">
                                 <div className="flex justify-between text-sm text-gray-800 dark:text-gray-200">
                                   <span>{course.max_attendants} {t('max')}</span>

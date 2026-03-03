@@ -24,6 +24,15 @@ if not SECRET_KEY:
 
 BILLIONMAIL_GROUP_ID_NEWSLETTER = os.getenv('BILLIONMAIL_GROUP_ID_NEWSLETTER')
 BILLIONMAIL_API_KEY = os.getenv('BILLIONMAIL_API_KEY')
+# EMAIL-Service
+BILLIONMAIL_API_KEY = os.getenv("BILLIONMAIL_API_KEY")
+BILLIONMAIL_BASE_URL = os.getenv("BILLIONMAIL_BASE_URL")
+BILLIONMAIL_SENDER = os.getenv("BILLIONMAIL_SENDER")
+
+EMAIL_OTP_TTL_MINUTES = int(os.getenv("EMAIL_OTP_TTL_MINUTES", 15))
+EMAIL_OTP_MAX_ATTEMPTS = int(os.getenv("EMAIL_OTP_MAX_ATTEMPTS", 5))
+EMAIL_OTP_RESEND_COOLDOWN_SECONDS = int(os.getenv("EMAIL_OTP_RESEND_COOLDOWN_SECONDS", 60))
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
@@ -57,6 +66,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    "authentication.middleware.EmailVerificationRequiredMiddleware",
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -97,7 +107,6 @@ DATABASES = {
 
 DATABASES["default"]["ATOMIC_REQUESTS"] = False
 DATABASES["default"].setdefault("OPTIONS", {})
-DATABASES["default"]["OPTIONS"].setdefault("application_name", "django-app")
 
 ENGINE = DATABASES["default"]["ENGINE"]
 
@@ -148,7 +157,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

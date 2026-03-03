@@ -1,6 +1,7 @@
 "use server";
 
 import { NextResponse } from "next/server";
+import { verifyRecaptchaToken } from "@/lib/recaptcha";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -10,6 +11,11 @@ export async function POST(req: Request) {
   }
 
   const requestBody = body as Record<string, unknown>;
+  const recaptchaCheck = await verifyRecaptchaToken(requestBody.recaptchaToken);
+  if (!recaptchaCheck.ok) {
+    return NextResponse.json({ error: recaptchaCheck.error }, { status: recaptchaCheck.status });
+  }
+
   const allowedKeys = ["name", "email", "phone", "company", "details", "page"] as const;
   const lead: Record<string, string> = {};
 

@@ -1,13 +1,38 @@
 import type { Metadata } from "next";
 import FormationPageClient from "../page.client";
-import { absoluteAssetUrl, createPageMetadata, defaultDescription } from "@/lib/metadata";
+import { createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { getApiEndpoint } from "@/lib/api-config";
 
 type Course = {
   title?: string;
   subtitle?: string;
   description?: string;
-  image?: string;
+  image?: string | null;
+};
+
+const FALLBACK_API_BASE_URL = "https://api.ordinaly.ai";
+const FALLBACK_OG_IMAGE = "/og-image.png";
+
+const resolveCourseOgImage = (rawImage?: string | null) => {
+  if (!rawImage) return FALLBACK_OG_IMAGE;
+  const trimmed = rawImage.trim();
+  if (!trimmed) return FALLBACK_OG_IMAGE;
+
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed.replace(/^http:\/\/api\.ordinaly\.ai/i, "https://api.ordinaly.ai");
+  }
+
+  if (trimmed.startsWith("//")) {
+    return `https:${trimmed}`;
+  }
+
+  if (trimmed.startsWith("/static/")) {
+    return trimmed;
+  }
+
+  const apiBaseUrl = (process.env.NEXT_PUBLIC_API_URL || FALLBACK_API_BASE_URL).replace(/\/$/, "");
+  const normalizedPath = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
+  return `${apiBaseUrl}${normalizedPath}`;
 };
 
 export async function generateMetadata({
@@ -38,16 +63,7 @@ export async function generateMetadata({
     : "Professional training in AI, automation, and low-code tools to help teams scale faster.";
   const title = course?.title ? `${course.title}` : fallbackTitle;
   const description = course?.subtitle || course?.description || fallbackDescription;
-  const rawImage = course?.image;
-  const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL?.replace(/\/$/, "");
-  const image =
-    rawImage
-      ? /^https?:\/\//i.test(rawImage)
-        ? rawImage
-        : apiBaseUrl
-          ? `${apiBaseUrl}${rawImage.startsWith("/") ? "" : "/"}${rawImage}`
-          : absoluteAssetUrl(rawImage)
-      : "/static/backgrounds/formation_background.webp";
+  const image = resolveCourseOgImage(course?.image);
 
   return createPageMetadata({
     locale,

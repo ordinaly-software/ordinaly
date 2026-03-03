@@ -19,6 +19,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'first_name', 'last_name',  # Add alias fields for frontend compatibility
             'region', 'city', 'company', 'is_staff', 'is_superuser',
             'allow_notifications',
+            'course_email_notifications',
             'is_google_authenticated',
             'created_at', 'updated_at', 'last_login'
         )
@@ -30,6 +31,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'is_staff': {'read_only': True},
             'is_superuser': {'read_only': True},
             'allow_notifications': {'required': False},
+            'course_email_notifications': {'required': False},
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True},
             'last_login': {'read_only': True}
@@ -71,7 +73,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
             region=validated_data.get('region'),
             city=validated_data.get('city'),
             company=validated_data.get('company') or "",
-            allow_notifications=validated_data.get('allow_notifications', True)
+            allow_notifications=validated_data.get('allow_notifications', False),
+            course_email_notifications=validated_data.get('course_email_notifications', True),
         )
         return user
 

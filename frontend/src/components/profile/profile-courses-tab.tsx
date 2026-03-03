@@ -89,9 +89,9 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
 
   return (
     <div className="space-y-8">
-      <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
+      <Card className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold flex items-center">
+          <CardTitle className="text-2xl font-black flex items-center">
             <BookOpen className="h-6 w-6 mr-2 text-[#46B1C9]" />
             <span className="text-[#46B1C9]">
               {t("courses.title")}
@@ -124,7 +124,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
                       return (
                         <div
                           key={course.id}
-                          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800/30"
+                          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 dark:backdrop-blur-sm px-4 py-3 transition-all hover:shadow-sm"
                         >
                           <div className="flex items-start gap-4">
                             <div className="relative h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700 flex-shrink-0">
@@ -193,7 +193,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
                       return (
                         <div
                           key={course.id}
-                          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl border border-gray-200 dark:border-gray-700 px-4 py-3 bg-white dark:bg-gray-800/30"
+                          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 dark:backdrop-blur-sm px-4 py-3 transition-all hover:shadow-sm"
                         >
                           <div className="flex items-start gap-4">
                             <div className="relative h-16 w-16 sm:h-20 sm:w-20 overflow-hidden rounded-lg bg-gray-100 dark:bg-gray-700 flex-shrink-0">
@@ -248,7 +248,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
               <div className="pt-4 flex justify-center">
                 <Button
                   onClick={() => router.push("/formation")}
-                  className="bg-[#0d6e0c] hover:bg-[#0A4D08] text-white dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] dark:text-[#FFFFFF] font-semibold px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200"
+                  className="bg-[#0d6e0c] hover:bg-[#0A4D08] text-white dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] dark:text-black font-semibold px-6 py-3 rounded-full shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] transition-all duration-200"
                 >
                   {t("courses.enrollCta")}
                 </Button>

@@ -17,7 +17,16 @@ from django.utils.decorators import method_decorator
 import stripe
 
 from decimal import Decimal
+import logging
 import os
+from users.services.notification_service import (
+    dispatch_email_job_now,
+    queue_course_enrollment_notification,
+    queue_course_published_notifications,
+    queue_course_unenrollment_notification,
+)
+
+logger = logging.getLogger(__name__)
 from django.core.files.base import ContentFile
 from uuid import uuid4
 
@@ -77,6 +86,23 @@ class CourseViewSet(viewsets.ModelViewSet):
         return qs
     serializer_class = CourseSerializer
     permission_classes = [IsAdminUserOrReadOnly]
+
+    def perform_create(self, serializer):
+        course = serializer.save()
+        if not course.draft:
+            try:
+                queue_course_published_notifications(course)
+            except Exception:
+                logger.exception("Failed to queue course publication notifications for course %s", course.pk)
+
+    def perform_update(self, serializer):
+        was_draft = serializer.instance.draft
+        course = serializer.save()
+        if was_draft and not course.draft:
+            try:
+                queue_course_published_notifications(course)
+            except Exception:
+                logger.exception("Failed to queue course publication notifications for course %s", course.pk)
 
     def destroy(self, request, *args, **kwargs):
         """Override destroy method to handle file deletion properly."""
@@ -154,6 +180,13 @@ class CourseViewSet(viewsets.ModelViewSet):
 
             # Create enrollment
             enrollment = Enrollment.objects.create(user=user, course=locked_course)
+
+            try:
+                job = queue_course_enrollment_notification(user, locked_course)
+                dispatch_email_job_now(job)
+            except Exception:
+                logger.exception("Failed to send enrollment confirmation email for user %s", user.email)
+
             serializer = EnrollmentSerializer(enrollment)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -233,6 +266,13 @@ class CourseViewSet(viewsets.ModelViewSet):
                     return Response({"detail": "You are already enrolled in this course."},
                                     status=status.HTTP_400_BAD_REQUEST)
                 enrollment = Enrollment.objects.create(user=user, course=locked_course)
+
+                try:
+                    job = queue_course_enrollment_notification(user, locked_course)
+                    dispatch_email_job_now(job)
+                except Exception:
+                    logger.exception("Failed to send enrollment confirmation email for user %s", user.email)
+
                 serializer = EnrollmentSerializer(enrollment)
                 return Response({"enrolled": True, "enrollment": serializer.data})
 
@@ -312,6 +352,13 @@ class CourseViewSet(viewsets.ModelViewSet):
         # If no Stripe payment, just unenroll (free or unpaid enrollment)
         if not getattr(enrollment, 'stripe_payment_intent_id', None):
             enrollment.delete()
+
+            try:
+                job = queue_course_unenrollment_notification(user, course)
+                dispatch_email_job_now(job)
+            except Exception:
+                logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
+
             return Response({"detail": "Unenrolled from course (no payment to refund)."}, status=status.HTTP_200_OK)
 
         # Otherwise, process Stripe refund
@@ -323,6 +370,13 @@ class CourseViewSet(viewsets.ModelViewSet):
         try:
             refund = stripe.Refund.create(payment_intent=enrollment.stripe_payment_intent_id)
             enrollment.delete()
+
+            try:
+                job = queue_course_unenrollment_notification(user, course)
+                dispatch_email_job_now(job)
+            except Exception:
+                logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
+
             return Response({"detail": f"Refund processed and unenrolled from course: {refund.id}"})
         except Exception as e:
             return Response({"detail": f"Stripe refund error: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -404,6 +458,13 @@ class CourseViewSet(viewsets.ModelViewSet):
             )
 
         enrollment.delete()
+
+        try:
+            job = queue_course_unenrollment_notification(user, course)
+            dispatch_email_job_now(job)
+        except Exception:
+            logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
+
         return Response(
             {"detail": "Successfully unenrolled from the course."},
             status=status.HTTP_200_OK
@@ -506,6 +567,11 @@ class StripeWebhookView(APIView):
                             course=locked_course,
                             stripe_payment_intent_id=payment_intent
                         )
+                        try:
+                            job = queue_course_enrollment_notification(user, locked_course)
+                            dispatch_email_job_now(job)
+                        except Exception:
+                            logger.exception("Failed to send enrollment confirmation email for user %s", user.email)
                         # print(f"[Stripe Webhook] Enrollment created: {enrollment}")
                 return Response({'status': 'success'})
             except Exception as e:

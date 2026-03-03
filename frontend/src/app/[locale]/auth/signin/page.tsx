@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import SignInPage from "./page.client";
 import { createPageMetadata } from "@/lib/metadata";
+import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 
 export async function generateMetadata({
   params,
@@ -28,5 +29,9 @@ export default async function SignIn({
   params: Promise<{ locale: string }>;
 }) {
   await params;
-  return <SignInPage />;
+  return ( 
+    <ReCaptchaWrapper badgeContainerId="recaptcha-badge-signin"> 
+      <SignInPage /> 
+    </ReCaptchaWrapper> 
+    );
 }

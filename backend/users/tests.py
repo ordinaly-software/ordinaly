@@ -1,5 +1,8 @@
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.core.exceptions import ValidationError
+from django.db import IntegrityError
+from django.utils import timezone
+from unittest.mock import patch, Mock
 from .serializers import CustomUserSerializer
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
@@ -229,6 +232,11 @@ class CustomUserModelTests(TestCase):
         user = CustomUser.objects.create_user(**user_data)
         self.assertEqual(user.region, 'Test Region')
         self.assertEqual(user.city, 'Test City')
+
+    def test_pending_email_is_optional(self):
+        """Test that pending email defaults to None"""
+        user = CustomUser.objects.create_user(**self.user_data)
+        self.assertIsNone(user.pending_email)
         self.assertFalse(user.allow_notifications)
 
 
@@ -321,6 +329,17 @@ class CustomUserSerializerTests(TestCase):
         user = CustomUser.objects.create_user(**self.user_data)
         serializer = self.serializer_class(user)
         self.assertNotIn('password', serializer.data)
+
+    def test_serializer_hides_compulsory_notification_fields(self):
+        """Only optional notification preferences should be exposed to the frontend."""
+        serializer = self.serializer_class(self.user)
+        self.assertIn('allow_notifications', serializer.data)
+        self.assertIn('course_email_notifications', serializer.data)
+        self.assertNotIn('pending_email', serializer.data)
+        self.assertNotIn('email_notifications_enabled', serializer.data)
+        self.assertNotIn('account_email_notifications', serializer.data)
+        self.assertNotIn('security_email_notifications', serializer.data)
+        self.assertNotIn('course_reminder_email_notifications', serializer.data)
 
     def test_is_staff_read_only(self):
         """Test that is_staff is read-only"""
@@ -693,6 +712,13 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(response.data['username'], self.user.username)
         self.assertIn('is_google_authenticated', response.data)
         self.assertFalse(response.data['is_google_authenticated'])
+        self.assertIn('allow_notifications', response.data)
+        self.assertIn('course_email_notifications', response.data)
+        self.assertNotIn('pending_email', response.data)
+        self.assertNotIn('email_notifications_enabled', response.data)
+        self.assertNotIn('account_email_notifications', response.data)
+        self.assertNotIn('security_email_notifications', response.data)
+        self.assertNotIn('course_reminder_email_notifications', response.data)
 
     def test_profile_authenticated_with_google_linked(self):
         """Test profile includes Google auth flag when account is linked"""
@@ -716,6 +742,32 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], 'Updated')
         self.assertEqual(response.data['surname'], 'User')
+
+    @patch('users.views.send_verification_email')
+    @patch('users.views.create_otp_for_user', return_value=('123456', Mock()))
+    def test_update_profile_verified_email_requires_confirmation(self, mock_otp, mock_email):
+        """Verified users must confirm a new email before the change is applied."""
+        self.user.email_verified_at = timezone.now()
+        self.user.status = 'active'
+        self.user.save(update_fields=['email_verified_at', 'status'])
+
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.patch(
+            '/api/users/update_profile/',
+            {'name': 'Verified', 'email': 'verified-change@example.com'},
+            format='json',
+        )
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(response.data['email_change_requires_verification'])
+        self.assertEqual(response.data['pending_email'], 'verified-change@example.com')
+        self.assertEqual(response.data['email'], 'existing@example.com')
+
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.email, 'existing@example.com')
+        self.assertEqual(self.user.pending_email, 'verified-change@example.com')
+        self.assertEqual(self.user.name, 'Verified')
+        mock_email.assert_called_once_with('verified-change@example.com', '123456')
 
     def test_update_profile_invalid(self):
         """Test updating profile with invalid data"""
@@ -743,3 +795,571 @@ class UserViewSetTests(APITestCase):
         """Test deleting profile as unauthenticated user"""
         response = self.client.delete('/api/users/delete_profile/')
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class OTPServiceTests(TestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.create_user(
+            email='otp@example.com',
+            username='otp_user',
+            password=TEST_PASSWORD,
+            name='OTP',
+            surname='User',
+            company='Test',
+        )
+
+    def test_generate_otp_code_is_six_digits(self):
+        from users.services.otp_service import generate_otp_code
+        code = generate_otp_code()
+        self.assertEqual(len(code), 6)
+        self.assertTrue(code.isdigit())
+
+    def test_generate_otp_code_zero_padded(self):
+        from users.services.otp_service import generate_otp_code
+        # Run multiple times to increase chance of hitting low numbers
+        for _ in range(50):
+            code = generate_otp_code()
+            self.assertEqual(len(code), 6)
+
+    def test_hash_code_deterministic(self):
+        from users.services.otp_service import hash_code
+        h1 = hash_code("123456")
+        h2 = hash_code("123456")
+        self.assertEqual(h1, h2)
+
+    def test_hash_code_different_for_different_inputs(self):
+        from users.services.otp_service import hash_code
+        h1 = hash_code("123456")
+        h2 = hash_code("654321")
+        self.assertNotEqual(h1, h2)
+
+    def test_create_otp_for_user_returns_code_and_otp(self):
+        from users.services.otp_service import create_otp_for_user
+        from users.models import EmailVerificationOTP
+        code, otp = create_otp_for_user(self.user)
+        self.assertEqual(len(code), 6)
+        self.assertIsInstance(otp, EmailVerificationOTP)
+        self.assertEqual(otp.user, self.user)
+        self.assertIsNotNone(otp.expires_at)
+        self.assertIsNotNone(otp.last_sent_at)
+
+    def test_create_otp_invalidates_previous(self):
+        from users.services.otp_service import create_otp_for_user
+        from users.models import EmailVerificationOTP
+        code1, otp1 = create_otp_for_user(self.user)
+        code2, otp2 = create_otp_for_user(self.user)
+        otp1.refresh_from_db()
+        self.assertIsNotNone(otp1.invalidated_at)
+        self.assertIsNone(otp2.invalidated_at)
+
+    def test_validate_otp_no_otp_exists(self):
+        from users.services.otp_service import validate_otp
+        valid, reason = validate_otp(self.user, "123456")
+        self.assertFalse(valid)
+        self.assertEqual(reason, "NO_OTP")
+
+    def test_validate_otp_expired(self):
+        from users.services.otp_service import create_otp_for_user, validate_otp
+        from users.models import EmailVerificationOTP
+        from datetime import timedelta
+        code, otp = create_otp_for_user(self.user)
+        otp.expires_at = timezone.now() - timedelta(minutes=1)
+        otp.save()
+        valid, reason = validate_otp(self.user, code)
+        self.assertFalse(valid)
+        self.assertEqual(reason, "EXPIRED")
+
+    @override_settings(EMAIL_OTP_MAX_ATTEMPTS=3)
+    def test_validate_otp_too_many_attempts(self):
+        from users.services.otp_service import create_otp_for_user, validate_otp
+        code, otp = create_otp_for_user(self.user)
+        otp.attempts = 3
+        otp.save()
+        valid, reason = validate_otp(self.user, code)
+        self.assertFalse(valid)
+        self.assertEqual(reason, "TOO_MANY_ATTEMPTS")
+
+    def test_validate_otp_invalid_code(self):
+        from users.services.otp_service import create_otp_for_user, validate_otp
+        code, otp = create_otp_for_user(self.user)
+        valid, reason = validate_otp(self.user, "000000")
+        self.assertFalse(valid)
+        self.assertEqual(reason, "INVALID")
+        otp.refresh_from_db()
+        self.assertEqual(otp.attempts, 1)
+
+    def test_validate_otp_success(self):
+        from users.services.otp_service import create_otp_for_user, validate_otp
+        code, otp = create_otp_for_user(self.user)
+        valid, reason = validate_otp(self.user, code)
+        self.assertTrue(valid)
+        self.assertEqual(reason, "OK")
+        otp.refresh_from_db()
+        self.assertIsNotNone(otp.invalidated_at)
+
+class EmailServiceTests(TestCase):
+    @patch('users.services.email_service.requests.post')
+    def test_send_email_success(self, mock_post):
+        from users.services.email_service import _send_email
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.text = '{"status":"ok"}'
+        mock_post.return_value = mock_response
+        result = _send_email("test@example.com", "<p>Hello</p>", subject="Test")
+        mock_post.assert_called_once()
+        self.assertEqual(result.status_code, 200)
+
+    @patch('users.services.email_service.requests.post')
+    def test_send_email_without_subject(self, mock_post):
+        from users.services.email_service import _send_email
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.text = '{"status":"ok"}'
+        mock_post.return_value = mock_response
+        _send_email("test@example.com", "<p>Hello</p>")
+        call_kwargs = mock_post.call_args
+        payload = call_kwargs.kwargs.get('json') or call_kwargs[1].get('json')
+        self.assertNotIn('subject', payload)
+
+    @patch('users.services.email_service.requests.post')
+    def test_send_email_with_subject(self, mock_post):
+        from users.services.email_service import _send_email
+        mock_response = Mock()
+        mock_response.status_code = 200
+        mock_response.text = '{"status":"ok"}'
+        mock_post.return_value = mock_response
+        _send_email("test@example.com", "<p>Hello</p>", subject="My Subject")
+        call_kwargs = mock_post.call_args
+        payload = call_kwargs.kwargs.get('json') or call_kwargs[1].get('json')
+        self.assertEqual(payload['subject'], "My Subject")
+
+    @patch('users.services.email_service.requests.post')
+    def test_send_email_server_error_raises(self, mock_post):
+        from users.services.email_service import _send_email, EmailServiceError
+        mock_response = Mock()
+        mock_response.status_code = 500
+        mock_response.text = 'Internal Server Error'
+        mock_post.return_value = mock_response
+        with self.assertRaises(EmailServiceError):
+            _send_email("test@example.com", "<p>Hello</p>")
+
+    @patch('users.services.email_service._send_email')
+    def test_send_verification_email_calls_send_email(self, mock_send):
+        from users.services.email_service import send_verification_email
+        send_verification_email("test@example.com", "123456")
+        mock_send.assert_called_once()
+        args, kwargs = mock_send.call_args
+        self.assertIn("123456", args[1])  # code in HTML
+        subject = kwargs.get('subject') or (args[2] if len(args) > 2 else '')
+        self.assertEqual(subject, "Código de verificación - Ordinaly")
+
+    @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
+    def test_send_verification_email_raises_on_failure(self, mock_send):
+        from users.services.email_service import send_verification_email, EmailServiceError
+        with self.assertRaises(EmailServiceError):
+            send_verification_email("test@example.com", "123456")
+
+    @patch('users.services.email_service._send_email')
+    def test_send_welcome_email_calls_send_email(self, mock_send):
+        from users.services.email_service import send_welcome_email
+        send_welcome_email("test@example.com", "TestUser")
+        mock_send.assert_called_once()
+        args = mock_send.call_args
+        self.assertIn("TestUser", args[0][1])
+        self.assertIn("workspace_logo.png", args[0][1])
+        self.assertNotIn(".webp", args[0][1])
+
+    @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
+    def test_send_welcome_email_raises_on_failure(self, mock_send):
+        from users.services.email_service import send_welcome_email, EmailServiceError
+        with self.assertRaises(EmailServiceError):
+            send_welcome_email("test@example.com", "TestUser")
+
+    @patch('users.services.email_service._send_email')
+    def test_send_password_reset_email_calls_send_email(self, mock_send):
+        from users.services.email_service import send_password_reset_email
+        send_password_reset_email("test@example.com", "abc123token", "TestUser")
+        mock_send.assert_called_once()
+        args = mock_send.call_args
+        self.assertIn("abc123token", args[0][1])
+        self.assertIn("TestUser", args[0][1])
+
+    @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
+    def test_send_password_reset_email_raises_on_failure(self, mock_send):
+        from users.services.email_service import send_password_reset_email, EmailServiceError
+        with self.assertRaises(EmailServiceError):
+            send_password_reset_email("test@example.com", "token", "User")
+
+
+class UserViewSetExtraCoverageTests(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.signup_url = '/api/users/signup/'
+        self.user = CustomUser.objects.create_user(
+            email='extra@example.com',
+            username='extra_user',
+            password=TEST_PASSWORD,
+            name='Extra',
+            surname='User',
+            company='Test',
+        )
+        self.token = Token.objects.create(user=self.user)
+
+    @patch('users.views.send_verification_email', side_effect=Exception("SMTP fail"))
+    @patch('users.views.create_otp_for_user', return_value=("123456", Mock()))
+    def test_signup_email_failure_still_creates_user(self, mock_otp, mock_email):
+        response = self.client.post(self.signup_url, {
+            'email': 'emailfail@example.com',
+            'username': 'emailfail_user',
+            'password': TEST_PASSWORD,
+            'name': 'EmailFail',
+            'surname': 'User',
+            'company': 'Test',
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(CustomUser.objects.filter(email='emailfail@example.com').exists())
+
+    def test_signup_integrity_error_duplicate_email(self):
+        # First signup succeeds
+        self.client.post(self.signup_url, {
+            'email': 'dup@example.com',
+            'username': 'dup_user',
+            'password': TEST_PASSWORD,
+            'name': 'Dup',
+            'surname': 'User',
+            'company': 'Test',
+        }, format='json')
+        # Second signup with same email fails
+        response = self.client.post(self.signup_url, {
+            'email': 'dup@example.com',
+            'username': 'dup_user2',
+            'password': TEST_PASSWORD,
+            'name': 'Dup2',
+            'surname': 'User',
+            'company': 'Test',
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_update_user_with_allow_notifications(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        response = self.client.put(f'/api/users/{self.user.id}/update_user/', {
+            'allow_notifications': True,
+        }, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.user.refresh_from_db()
+        self.assertTrue(self.user.allow_notifications)
+
+    def test_signout_exception_returns_400(self):
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
+        # Delete the token first to cause an issue
+        self.token.delete()
+        # Recreate token for auth but patch the deletion
+        new_token = Token.objects.create(user=self.user)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {new_token.key}')
+        with patch.object(Token, 'delete', side_effect=Exception("DB error")):
+            response = self.client.post('/api/users/signout/', format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('error', response.data)
+
+    def test_handle_duplicate_error_integrity_error_email(self):
+        from users.views import UserViewSet
+        viewset = UserViewSet()
+        exc = IntegrityError("unique_email_ci")
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNotNone(response)
+        self.assertEqual(response.status_code, 400)
+        self.assertIn('email', response.data)
+
+    def test_handle_duplicate_error_integrity_error_username(self):
+        from users.views import UserViewSet
+        viewset = UserViewSet()
+        exc = IntegrityError("unique_username_ci")
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNotNone(response)
+        self.assertIn('username', response.data)
+
+    def test_handle_duplicate_error_django_validation_error(self):
+        from users.views import UserViewSet
+        from django.core.exceptions import ValidationError as DjangoValidationError
+        viewset = UserViewSet()
+        exc = DjangoValidationError({'email': ['email_taken'], 'username': ['username_taken']})
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNotNone(response)
+        self.assertIn('email', response.data)
+        self.assertIn('username', response.data)
+
+    def test_handle_duplicate_error_django_validation_error_all_messages(self):
+        from users.views import UserViewSet
+        from django.core.exceptions import ValidationError as DjangoValidationError
+        viewset = UserViewSet()
+        exc = DjangoValidationError({'__all__': ['custom user with this email already exists']})
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNotNone(response)
+        self.assertIn('email', response.data)
+
+    def test_handle_duplicate_error_unrecognized_returns_none(self):
+        from users.views import UserViewSet
+        viewset = UserViewSet()
+        exc = IntegrityError("some other error")
+        response = viewset._handle_duplicate_error(exc)
+        self.assertIsNone(response)
+
+    def test_signin_missing_fields(self):
+        response = self.client.post('/api/users/signin/', {}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('detail', response.data)
+
+
+class EmailNotificationPreferenceTests(TestCase):
+    def setUp(self):
+        self.password = TEST_PASSWORD or "test-password-123"
+        self.user = CustomUser.objects.create_user(
+            email="notify@example.com",
+            username="notify_user",
+            password=self.password,
+            name="Notify",
+            surname="User",
+            company="Ordinaly",
+        )
+
+    def test_notification_preferences_default_values(self):
+        self.assertFalse(self.user.allow_notifications)
+        self.assertTrue(self.user.email_notifications_enabled)
+        self.assertTrue(self.user.account_email_notifications)
+        self.assertTrue(self.user.security_email_notifications)
+        self.assertTrue(self.user.course_email_notifications)
+        self.assertTrue(self.user.course_reminder_email_notifications)
+
+    @patch("users.services.notification_service._send_job")
+    def test_dispatch_email_job_now_marks_job_sent_immediately(self, mock_send_job):
+        from datetime import timedelta
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from courses.models import Course
+        from users.models import EmailNotificationJob
+        from users.services.notification_service import (
+            dispatch_email_job_now,
+            queue_course_enrollment_notification,
+        )
+
+        course = Course.objects.create(
+            title="Immediate Enrollment Notification",
+            description="Testing immediate delivery",
+            image=SimpleUploadedFile("course.jpg", b"filecontent", content_type="image/jpeg"),
+            price=10,
+            location="Sevilla",
+            start_date=(timezone.now() + timedelta(days=3)).date(),
+            end_date=(timezone.now() + timedelta(days=3)).date(),
+            start_time=(timezone.now() + timedelta(days=3)).time().replace(microsecond=0),
+            end_time=(timezone.now() + timedelta(days=3, hours=2)).time().replace(microsecond=0),
+            periodicity="once",
+            max_attendants=10,
+        )
+
+        job = queue_course_enrollment_notification(self.user, course)
+
+        self.assertTrue(dispatch_email_job_now(job))
+
+        job.refresh_from_db()
+        self.assertEqual(job.status, EmailNotificationJob.STATUS_SENT)
+        self.assertEqual(job.attempts, 1)
+        self.assertEqual(job.last_error, "")
+        self.assertIsNotNone(job.sent_at)
+        mock_send_job.assert_called_once()
+
+    @patch("users.services.email_service._send_email")
+    def test_account_created_notification_is_compulsory(self, mock_send):
+        from users.models import EmailNotificationJob
+        from users.services.notification_service import (
+            process_pending_email_jobs,
+            queue_account_created_notification,
+        )
+
+        self.user.email_notifications_enabled = False
+        self.user.account_email_notifications = False
+        self.user.save(update_fields=["email_notifications_enabled", "account_email_notifications"])
+
+        job = queue_account_created_notification(self.user)
+        self.assertIsNotNone(job)
+        result = process_pending_email_jobs()
+        self.assertEqual(result["sent"], 1)
+        self.assertEqual(EmailNotificationJob.objects.filter(status="sent").count(), 1)
+        self.assertEqual(mock_send.call_count, 1)
+
+    @patch("users.services.email_service._send_email")
+    def test_email_updated_notification_is_compulsory(self, mock_send):
+        from users.services.notification_service import (
+            process_pending_email_jobs,
+            queue_email_updated_notification,
+        )
+
+        self.user.email_notifications_enabled = False
+        self.user.account_email_notifications = False
+        self.user.save(update_fields=["email_notifications_enabled", "account_email_notifications"])
+
+        self.user.email = "new-notify@example.com"
+        self.user.save(update_fields=["email"])
+        job = queue_email_updated_notification(self.user, "notify@example.com")
+        self.assertIsNotNone(job)
+        result = process_pending_email_jobs()
+        self.assertEqual(result["sent"], 1)
+        self.assertEqual(mock_send.call_count, 1)
+
+    @patch("users.services.email_service._send_email")
+    def test_password_reset_completed_notification_is_compulsory(self, mock_send):
+        from users.services.notification_service import (
+            process_pending_email_jobs,
+            queue_password_reset_completed_notification,
+        )
+
+        self.user.email_notifications_enabled = False
+        self.user.security_email_notifications = False
+        self.user.save(update_fields=["email_notifications_enabled", "security_email_notifications"])
+
+        job = queue_password_reset_completed_notification(self.user)
+        self.assertIsNotNone(job)
+        result = process_pending_email_jobs()
+        self.assertEqual(result["sent"], 1)
+        self.assertEqual(mock_send.call_count, 1)
+
+    @patch("users.services.email_service._send_email")
+    def test_course_enrollment_and_cancellation_notifications_are_compulsory(self, mock_send):
+        from datetime import timedelta
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from courses.models import Course
+        from users.services.notification_service import (
+            process_pending_email_jobs,
+            queue_course_enrollment_notification,
+            queue_course_unenrollment_notification,
+        )
+
+        course = Course.objects.create(
+            title="Notification Course",
+            description="Testing course notifications",
+            image=SimpleUploadedFile("course.jpg", b"filecontent", content_type="image/jpeg"),
+            price=10,
+            location="Sevilla",
+            start_date=(timezone.now() + timedelta(days=5)).date(),
+            end_date=(timezone.now() + timedelta(days=5)).date(),
+            start_time=(timezone.now() + timedelta(days=5)).time().replace(microsecond=0),
+            end_time=(timezone.now() + timedelta(days=5, hours=2)).time().replace(microsecond=0),
+            periodicity="once",
+            max_attendants=20,
+        )
+
+        self.user.course_email_notifications = False
+        self.user.save(update_fields=["course_email_notifications"])
+
+        self.assertIsNotNone(queue_course_enrollment_notification(self.user, course))
+        self.assertIsNotNone(queue_course_unenrollment_notification(self.user, course))
+        result = process_pending_email_jobs()
+        self.assertEqual(result["sent"], 2)
+        self.assertEqual(mock_send.call_count, 2)
+
+    @patch("users.services.email_service._send_email")
+    def test_course_announcements_and_enrolled_reminders_are_queued(self, mock_send):
+        from datetime import timedelta
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from zoneinfo import ZoneInfo
+        from courses.models import Course, Enrollment
+        from users.models import EmailNotificationJob
+        from users.services.notification_service import (
+            enqueue_due_course_notifications,
+            process_pending_email_jobs,
+            queue_course_published_notifications,
+        )
+
+        madrid_tz = ZoneInfo("Europe/Madrid")
+        base_now = timezone.now().astimezone(madrid_tz).replace(second=0, microsecond=0)
+        session_start = base_now + timedelta(days=7)
+
+        course = Course.objects.create(
+            title="Reminder Course",
+            description="Testing reminders",
+            image=SimpleUploadedFile("reminder.jpg", b"filecontent", content_type="image/jpeg"),
+            price=10,
+            location="Madrid",
+            start_date=session_start.date(),
+            end_date=session_start.date(),
+            start_time=session_start.time().replace(tzinfo=None),
+            end_time=(session_start + timedelta(hours=2)).time().replace(tzinfo=None),
+            periodicity="once",
+            timezone="Europe/Madrid",
+            max_attendants=20,
+        )
+        Enrollment.objects.create(user=self.user, course=course)
+
+        published_count = queue_course_published_notifications(course)
+        self.assertEqual(published_count, 1)
+        self.assertEqual(
+            EmailNotificationJob.objects.filter(notification_type="course_published").count(),
+            1,
+        )
+
+        now_7d = session_start.astimezone(timezone.get_current_timezone()) - timedelta(days=7)
+        queued_7d = enqueue_due_course_notifications(now=now_7d)
+        self.assertEqual(queued_7d, 1)
+        self.assertEqual(
+            EmailNotificationJob.objects.filter(notification_type="course_starts_soon").count(),
+            1,
+        )
+
+        now_24h = session_start.astimezone(timezone.get_current_timezone()) - timedelta(hours=24)
+        queued_24h = enqueue_due_course_notifications(now=now_24h)
+        self.assertEqual(queued_24h, 1)
+        self.assertEqual(
+            EmailNotificationJob.objects.filter(notification_type="course_reminder_24h").count(),
+            1,
+        )
+
+        result = process_pending_email_jobs(limit=10, now=now_24h)
+        self.assertEqual(result["sent"], 3)
+        self.assertEqual(mock_send.call_count, 3)
+
+    def test_course_announcements_respect_disabled_preference_but_24h_reminders_are_compulsory(self):
+        from datetime import timedelta
+        from django.core.files.uploadedfile import SimpleUploadedFile
+        from zoneinfo import ZoneInfo
+        from courses.models import Course, Enrollment
+        from users.models import EmailNotificationJob
+        from users.services.notification_service import (
+            enqueue_due_course_notifications,
+            queue_course_published_notifications,
+        )
+
+        self.user.course_email_notifications = False
+        self.user.save(update_fields=["course_email_notifications"])
+
+        madrid_tz = ZoneInfo("Europe/Madrid")
+        base_now = timezone.now().astimezone(madrid_tz).replace(second=0, microsecond=0)
+        session_start = base_now + timedelta(days=7)
+
+        course = Course.objects.create(
+            title="Reminder Opt-out Course",
+            description="Testing reminder opt-out",
+            image=SimpleUploadedFile("reminder-optout.jpg", b"filecontent", content_type="image/jpeg"),
+            price=10,
+            location="Madrid",
+            start_date=session_start.date(),
+            end_date=session_start.date(),
+            start_time=session_start.time().replace(tzinfo=None),
+            end_time=(session_start + timedelta(hours=1)).time().replace(tzinfo=None),
+            periodicity="once",
+            timezone="Europe/Madrid",
+            max_attendants=20,
+        )
+        Enrollment.objects.create(user=self.user, course=course)
+
+        self.assertEqual(queue_course_published_notifications(course), 0)
+
+        now_7d = session_start.astimezone(timezone.get_current_timezone()) - timedelta(days=7)
+        queued_7d = enqueue_due_course_notifications(now=now_7d)
+        self.assertEqual(queued_7d, 0)
+        self.assertEqual(EmailNotificationJob.objects.count(), 0)
+
+        now_24h = session_start.astimezone(timezone.get_current_timezone()) - timedelta(hours=24)
+        queued_24h = enqueue_due_course_notifications(now=now_24h)
+        self.assertEqual(queued_24h, 1)
+        self.assertEqual(
+            EmailNotificationJob.objects.filter(notification_type="course_reminder_24h").count(),
+            1,
+        )

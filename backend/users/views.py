@@ -1,4 +1,7 @@
+import logging
+
 from rest_framework import viewsets, status
+from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
@@ -6,6 +9,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from django.contrib.auth import authenticate
 from django.db import IntegrityError
+from django.db.models import Q
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils import timezone
 from .models import CustomUser
@@ -13,12 +17,60 @@ from .serializers import CustomUserSerializer
 from rest_framework.views import APIView 
 from rest_framework.response import Response 
 from .models import NewsletterSubscriber
+from .services.otp_service import create_otp_for_user
+from .services.email_service import send_verification_email
+from .services.notification_service import queue_and_dispatch_email_updated_notification
+
+logger = logging.getLogger(__name__)
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
     authentication_classes = [TokenAuthentication]
+
+    def _validated_verified_email_change(self, user, raw_email):
+        requested_email = (raw_email or "").strip()
+        if not requested_email:
+            return None
+
+        current_email = (user.email or "").strip().lower()
+        if requested_email.lower() == current_email:
+            return None
+
+        if CustomUser.objects.exclude(pk=user.pk).filter(
+            Q(email__iexact=requested_email) | Q(pending_email__iexact=requested_email)
+        ).exists():
+            raise ValidationError({"email": ["email_taken"]})
+
+        return requested_email
+
+    def _start_verified_email_change(self, user, requested_email):
+        if user.pending_email and user.pending_email.strip().lower() == requested_email.lower():
+            return user.pending_email
+
+        previous_pending_email = user.pending_email
+        user.pending_email = requested_email
+        user.save(update_fields=["pending_email"])
+
+        try:
+            code, _ = create_otp_for_user(user)
+            send_verification_email(requested_email, code)
+        except Exception:
+            user.pending_email = previous_pending_email
+            user.save(update_fields=["pending_email"])
+            raise
+
+        return requested_email
+
+    def _update_response_payload(self, serializer, *, pending_email=None):
+        response_data = dict(serializer.data)
+        if pending_email:
+            response_data["pending_email"] = pending_email
+            response_data["email_change_requires_verification"] = True
+            response_data["detail"] = "Verification code sent to the new email address."
+        return response_data
 
     def get_permissions(self):
         if self.action in ['signup', 'signin']:
@@ -33,7 +85,9 @@ class UserViewSet(viewsets.ModelViewSet):
     def signup(self, request, *args, **kwargs):
         if request.user.is_authenticated:
             return Response({'detail': 'You are already signed in.'}, status=status.HTTP_400_BAD_REQUEST)
+
         data = dict(request.data)
+        data.pop("recaptchaToken", None)
 
         serializer = self.get_serializer(data=data)
         serializer.is_valid(raise_exception=True)
@@ -45,11 +99,20 @@ class UserViewSet(viewsets.ModelViewSet):
             if response:
                 return response
             return Response({'detail': 'An unexpected error occurred. Please try again.'},
-                            status=status.HTTP_400_BAD_REQUEST)
+                        status=status.HTTP_400_BAD_REQUEST)
+
+        # Create OTP and send verification email
+        try:
+            code, otp = create_otp_for_user(user)
+            send_verification_email(user.email, code)
+        except Exception:
+            logger.exception("Failed to send verification email for user %s", user.email)
+
         token, created = Token.objects.get_or_create(user=user)
         headers = self.get_success_headers(serializer.data)
         response_data = serializer.data
         response_data['token'] = token.key
+        response_data['email_verified'] = False
         return Response(response_data, status=status.HTTP_201_CREATED, headers=headers)
 
     def _handle_duplicate_error(self, exc):
@@ -97,14 +160,35 @@ class UserViewSet(viewsets.ModelViewSet):
             old_password = request.data.get('oldPassword')
             if not user.check_password(old_password):
                 return Response({'oldPassword': 'Wrong password.'}, status=status.HTTP_400_BAD_REQUEST)
-        # Only allow updating allow_notifications if present
+        previous_email = user.email
+        pending_email = None
         update_data = request.data.copy()
-        if 'allow_notifications' in update_data:
-            user.allow_notifications = bool(update_data['allow_notifications'])
+        raw_email = update_data.get("email")
+        if user.email_verified_at:
+            try:
+                pending_email = self._validated_verified_email_change(user, raw_email)
+            except ValidationError as exc:
+                return Response(exc.detail, status=status.HTTP_400_BAD_REQUEST)
+            if pending_email:
+                update_data.pop("email", None)
         serializer = self.get_serializer(user, data=update_data, partial=True)
         serializer.is_valid(raise_exception=True)
-        self.perform_update(serializer)
-        return Response(serializer.data)
+        if pending_email:
+            try:
+                self._start_verified_email_change(user, pending_email)
+            except Exception:
+                logger.exception("Failed to send verification email for pending email change on user %s", user.pk)
+                return Response(
+                    {"email": ["No se pudo enviar el correo de verificación"]},
+                    status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                )
+        updated_user = serializer.save()
+        if not pending_email:
+            try:
+                queue_and_dispatch_email_updated_notification(updated_user, previous_email)
+            except Exception:
+                logger.exception("Failed to send email update notification for user %s", updated_user.pk)
+        return Response(self._update_response_payload(serializer, pending_email=pending_email))
 
     @action(detail=True, methods=['delete'], permission_classes=[IsAuthenticated])
     def delete_user(self, request, pk=None):
@@ -128,19 +212,29 @@ class UserViewSet(viewsets.ModelViewSet):
         if not email_or_username or not password:
             return Response({'detail': 'Email/Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Use our custom authentication backend
         user = authenticate(request, username=email_or_username, password=password)
 
         if user is not None:
             user.last_login = timezone.now()
             user.save(update_fields=['last_login'])
             token, created = Token.objects.get_or_create(user=user)
+
+            # Auto-send verification OTP for unverified users (including legacy users)
+            if not user.email_verified_at:
+                try:
+                    code, otp = create_otp_for_user(user)
+                    send_verification_email(user.email, code)
+                except Exception:
+                    logger.exception("Failed to send verification email on signin for user %s", user.email)
+
             serializer = self.get_serializer(user)
             response_data = serializer.data
             response_data['token'] = token.key
+            response_data['email_verified'] = bool(user.email_verified_at)
             return Response(response_data, status=status.HTTP_200_OK)
 
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
     @action(detail=False, methods=['post'], permission_classes=[IsAuthenticated])
     def signout(self, request):
@@ -173,10 +267,40 @@ class UserViewSet(viewsets.ModelViewSet):
     def update_profile(self, request):
         """Update current user's profile information"""
         user = request.user
-        serializer = self.get_serializer(user, data=request.data, partial=True)
+        previous_email = user.email
+        pending_email = None
+        update_data = request.data.copy()
+        raw_email = update_data.get("email")
+
+        if user.email_verified_at:
+            try:
+                pending_email = self._validated_verified_email_change(user, raw_email)
+            except ValidationError as exc:
+                return Response(exc.detail, status=status.HTTP_400_BAD_REQUEST)
+            if pending_email:
+                update_data.pop("email", None)
+
+        serializer = self.get_serializer(user, data=update_data, partial=True)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            if pending_email:
+                try:
+                    self._start_verified_email_change(user, pending_email)
+                except Exception:
+                    logger.exception("Failed to send verification email for pending email change on user %s", user.pk)
+                    return Response(
+                        {"email": ["No se pudo enviar el correo de verificación"]},
+                        status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                    )
+            updated_user = serializer.save()
+            if not pending_email:
+                try:
+                    queue_and_dispatch_email_updated_notification(updated_user, previous_email)
+                except Exception:
+                    logger.exception("Failed to send email update notification for user %s", updated_user.pk)
+            return Response(
+                self._update_response_payload(serializer, pending_email=pending_email),
+                status=status.HTTP_200_OK,
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['delete'], permission_classes=[IsAuthenticated])

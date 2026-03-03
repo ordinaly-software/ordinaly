@@ -1,6 +1,6 @@
-const CACHE_NAME = 'ordinaly-cache-v4';
-const STATIC_CACHE = 'ordinaly-static-v4';
-const DYNAMIC_CACHE = 'ordinaly-dynamic-v4';
+const CACHE_NAME = 'ordinaly-cache-v5';
+const STATIC_CACHE = 'ordinaly-static-v5';
+const DYNAMIC_CACHE = 'ordinaly-dynamic-v5';
 
 const THIRD_PARTY_HOSTS = [
   'www.googletagmanager.com',
@@ -43,6 +43,7 @@ self.addEventListener('fetch', event => {
   // ⛔️ Nunca tocar terceros
   if (
     request.method !== 'GET' ||
+    url.origin !== self.location.origin ||
     url.protocol === 'chrome-extension:' ||
     THIRD_PARTY_HOSTS.includes(url.hostname) ||
     url.pathname.endsWith('sw.js')

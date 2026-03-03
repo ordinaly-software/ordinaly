@@ -6,6 +6,7 @@ interface SliderProps {
   onChange: () => void;
   className?: string;
   color?: 'green' | 'orange' | 'blue' | 'red' | string;
+  disabled?: boolean;
 }
 
 
@@ -17,14 +18,21 @@ const colorClassMap: Record<string, string> = {
   purple: 'bg-purple',
 };
 
-const Slider: React.FC<SliderProps> = ({ checked, onChange, className = '', color = 'green' }) => {
+const Slider: React.FC<SliderProps> = ({
+  checked,
+  onChange,
+  className = '',
+  color = 'green',
+  disabled = false,
+}) => {
   const checkedBg = colorClassMap[color] || colorClassMap['green'];
   return (
     <button
       onClick={onChange}
+      disabled={disabled}
       className={`w-12 h-6 rounded-full transition-colors flex items-center px-0.5 ${
         checked ? checkedBg : 'bg-muted'
-      } ${className}`}
+      } ${disabled ? 'cursor-not-allowed opacity-60' : ''} ${className}`}
     >
       <div
         className={`w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-200 ${

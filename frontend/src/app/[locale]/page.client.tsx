@@ -11,6 +11,7 @@ import { ServicesSection } from "@/components/home/services-section";
 import { LocalSeoSection } from "@/components/home/local-seo-section";
 import { CtaSection } from "@/components/home/cta-section";
 import Footer from "@/components/ui/footer";
+import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
@@ -76,6 +77,10 @@ const ProcessSection = dynamic(
 );
 const BenefitsSection = dynamic(
   () => import("@/components/home/benefits-section").then((mod) => mod.BenefitsSection),
+  { loading: () => <SectionSkeleton />, ssr: false },
+);
+const SeoLeadershipSection = dynamic(
+  () => import("@/components/home/seo-leadership-section").then((mod) => mod.SeoLeadershipSection),
   { loading: () => <SectionSkeleton />, ssr: false },
 );
 const UseCasesSection = dynamic(
@@ -191,9 +196,11 @@ function DeferredSection({
 }
 
 export default function HomePage({
+  renderedAt,
   initialServices = [],
   initialCourses = [],
 }: {
+  renderedAt: number;
   initialServices?: Service[];
   initialCourses?: Course[];
 }) {
@@ -309,12 +316,22 @@ export default function HomePage({
           />
         }
       />
-      <CoursesShowcase limit={3} showUpcomingOnly={false} initialCourses={initialCourses} />
+      <CoursesShowcase
+        limit={3}
+        showUpcomingOnly={false}
+        initialCourses={initialCourses}
+        referenceNow={renderedAt}
+      />
       <LocalSeoSection t={t} />
       {shouldRenderDeferredSections ? (
         <>
           <DeferredSection>
-            <ContactForm />
+            <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">
+              <ContactForm
+                recaptchaAction="home_contact_form"
+                recaptchaBadgeId="recaptcha-badge-home-contact"
+              />
+            </ReCaptchaWrapper>
           </DeferredSection>
           <DeferredSection rootMargin="2400px 0px">
             <UseCasesSection t={t} />
@@ -333,6 +350,9 @@ export default function HomePage({
           </DeferredSection>
           <DeferredSection rootMargin="2000px 0px">
             <BenefitsSection t={t} />
+          </DeferredSection>
+          <DeferredSection>
+            <SeoLeadershipSection t={t} />
           </DeferredSection>
           <DeferredSection rootMargin="1500px 0px">
             <FaqSection t={formationT} />

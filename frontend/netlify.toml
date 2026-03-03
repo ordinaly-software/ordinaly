@@ -22,7 +22,7 @@ for = "/start.js"
 [[headers]]
   for = "/*"
   [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.segment.com https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.ordinaly.ai https://www.google.com https://www.gstatic.com https://*.sanity.io https://core.sanity-cdn.com; font-src 'self' https://fonts.gstatic.com; frame-src https://www.google.com https://www.gstatic.com;"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://cdn.segment.com https://www.google.com https://www.gstatic.com https://www.recaptcha.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://api.ordinaly.ai https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://*.sanity.io https://core.sanity-cdn.com; font-src 'self' https://fonts.gstatic.com; frame-src https://www.google.com https://www.gstatic.com https://www.recaptcha.net;"
 
 [[headers]]
   for = "/auth/*"
@@ -57,75 +57,28 @@ for = "/start.js"
   force = true
   conditions = { Host = ["ordinaly.netlify.app", "orsinaly.netlify.app"] }
 
-# Move local landings out of /services/* to top-level locale paths
+# Redirect old /services/[slug] paths to /[slug]
 [[redirects]]
-  from = "/es/services/chatbots-empresas-sevilla"
-  to = "/es/chatbots-empresas-sevilla"
+  from = "/services/:slug"
+  to = "/:slug"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/en/services/chatbots-empresas-sevilla"
-  to = "/en/chatbots-empresas-sevilla"
+  from = "/es/services/:slug"
+  to = "/:slug"
   status = 301
   force = true
 
 [[redirects]]
-  from = "/es/services/automatizacion-n8n-sevilla"
-  to = "/es/automatizacion-n8n-sevilla"
+  from = "/en/services/:slug"
+  to = "/en/:slug"
   status = 301
   force = true
 
+# Move local landings out of /services/* to top-level paths (legacy redirects)
 [[redirects]]
-  from = "/en/services/automatizacion-n8n-sevilla"
-  to = "/en/automatizacion-n8n-sevilla"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/es/services/agentes-ia-atencion-cliente-sevilla"
-  to = "/es/agentes-ia-atencion-cliente-sevilla"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/en/services/agentes-ia-atencion-cliente-sevilla"
-  to = "/en/agentes-ia-atencion-cliente-sevilla"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/es/services/automatizacion-whatsapp-business-sevilla"
-  to = "/es/automatizacion-whatsapp-business-sevilla"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/en/services/automatizacion-whatsapp-business-sevilla"
-  to = "/en/automatizacion-whatsapp-business-sevilla"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/es/services/formacion-ia-pymes-sevilla"
-  to = "/es/formacion-ia-pymes-sevilla"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/en/services/formacion-ia-pymes-sevilla"
-  to = "/en/formacion-ia-pymes-sevilla"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/es/services/integraciones-crm-erp-sevilla"
-  to = "/es/integraciones-crm-erp-sevilla"
-  status = 301
-  force = true
-
-[[redirects]]
-  from = "/en/services/integraciones-crm-erp-sevilla"
-  to = "/en/integraciones-crm-erp-sevilla"
+  from = "/es/chatbots-empresas-sevilla"
+  to = "/chatbots-empresas-sevilla"
   status = 301
   force = true
