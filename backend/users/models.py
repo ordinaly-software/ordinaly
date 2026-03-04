@@ -162,6 +162,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
                 'email': 'email_taken'
             })
             
+
+class NewsletterSubscriber(models.Model):
+    email = models.EmailField(unique=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
 #Class for Email-verification
 
 class EmailVerificationOTP(models.Model):
@@ -231,3 +240,4 @@ class EmailNotificationJob(models.Model):
 
     def __str__(self):
         return f"{self.notification_type} -> {self.recipient_email} ({self.status})"
+

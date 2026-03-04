@@ -22,6 +22,8 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 if not SECRET_KEY:
     raise Exception("DJANGO_SECRET_KEY is not set!")
 
+BILLIONMAIL_GROUP_ID_NEWSLETTER = os.getenv('BILLIONMAIL_GROUP_ID_NEWSLETTER')
+BILLIONMAIL_API_KEY = os.getenv('BILLIONMAIL_API_KEY')
 # EMAIL-Service
 BILLIONMAIL_API_KEY = os.getenv("BILLIONMAIL_API_KEY")
 BILLIONMAIL_BASE_URL = os.getenv("BILLIONMAIL_BASE_URL")
@@ -35,7 +37,7 @@ EMAIL_OTP_RESEND_COOLDOWN_SECONDS = int(os.getenv("EMAIL_OTP_RESEND_COOLDOWN_SEC
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['api.ordinaly.ai', 'localhost', '127.0.0.1',]
+ALLOWED_HOSTS = ['api.ordinaly.ai', 'localhost', '127.0.0.1', '.ngrok-free.app']
 # ALLOWED_HOSTS += [''[...].ngrok-free.app']
 
 # Application definition
@@ -50,11 +52,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'api',
-    'users',
     'terms',
     'services',
     'courses',
     'authentication',
+    'users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [

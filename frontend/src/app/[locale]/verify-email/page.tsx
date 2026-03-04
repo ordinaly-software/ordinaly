@@ -21,7 +21,7 @@ export default function VerifyEmailPage() {
   const [email, setEmail] = useState("");
   const [ready, setReady] = useState(false);
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://api.ordinaly.ai";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
 
   // Guards: redirect if unauthenticated or already verified
   useEffect(() => {

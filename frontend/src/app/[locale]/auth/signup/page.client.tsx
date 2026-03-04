@@ -170,7 +170,7 @@ function SignupPageContent() {
         recaptchaToken,
       };
 
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://api.ordinaly.ai";
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
       const response = await fetch(`${apiUrl}/api/users/signup/`, {
         method: "POST",
         headers: {

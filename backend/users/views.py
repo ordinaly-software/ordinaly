@@ -14,11 +14,15 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils import timezone
 from .models import CustomUser
 from .serializers import CustomUserSerializer
+from rest_framework.views import APIView 
+from rest_framework.response import Response 
+from .models import NewsletterSubscriber
 from .services.otp_service import create_otp_for_user
 from .services.email_service import send_verification_email
 from .services.notification_service import queue_and_dispatch_email_updated_notification
 
 logger = logging.getLogger(__name__)
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -305,3 +309,10 @@ class UserViewSet(viewsets.ModelViewSet):
         user = request.user
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+class NewsletterSubscribersView(APIView):
+    def get(self, request):
+        subs = NewsletterSubscriber.objects.all().values("email", "name", "created_at")
+        return Response(list(subs))
+
