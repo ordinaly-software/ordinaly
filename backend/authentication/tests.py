@@ -566,7 +566,7 @@ class AuthViewTests(APITestCase):
         os.environ,
         {
             "GOOGLE_CLIENT_ID": "cid",
-            "GOOGLE_REDIRECT_URI": "http://api.ordinaly.ai/auth/google/callback/",
+            "GOOGLE_REDIRECT_URI": "https://api.ordinaly.ai/auth/google/callback/",
         },
     )
     def test_google_login_normalizes_http_redirect_uri_to_https_in_production(self):

@@ -37,7 +37,7 @@ EMAIL_OTP_RESEND_COOLDOWN_SECONDS = int(os.getenv("EMAIL_OTP_RESEND_COOLDOWN_SEC
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
 
-ALLOWED_HOSTS = ['api.ordinaly.ai', 'localhost', '127.0.0.1', '.ngrok-free.app','.ngrok-free.dev']
+ALLOWED_HOSTS = ['api.ordinaly.ai', 'localhost', '127.0.0.1', '.ngrok-free.app']
 # ALLOWED_HOSTS += [''[...].ngrok-free.app']
 
 # Application definition

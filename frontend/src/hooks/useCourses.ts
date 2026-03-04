@@ -59,7 +59,7 @@ export const useCourses = (options: UseCoursesOptions = {}, isAdmin: boolean = f
     try {
       setIsLoading(true);
       setError(null);
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://api.ordinaly.ai';
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
       const queryParams = new URLSearchParams();
       if (options.limit) {
         queryParams.append('limit', options.limit.toString());

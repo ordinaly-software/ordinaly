@@ -17,7 +17,7 @@ export default function ChangeEmailPage() {
   const [loading, setLoading] = useState(false);
   const [oldEmail, setOldEmail] = useState("");
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://api.ordinaly.ai";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
 
   useEffect(() => {
     const savedEmail = localStorage.getItem("pending_email");
