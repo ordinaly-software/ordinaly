@@ -19,7 +19,12 @@ import stripe
 from decimal import Decimal
 import logging
 import os
-from users.services.email_service import send_enrollment_confirmation_email, send_unenrollment_confirmation_email
+from users.services.notification_service import (
+    dispatch_email_job_now,
+    queue_course_enrollment_notification,
+    queue_course_published_notifications,
+    queue_course_unenrollment_notification,
+)
 
 logger = logging.getLogger(__name__)
 from django.core.files.base import ContentFile
@@ -81,6 +86,23 @@ class CourseViewSet(viewsets.ModelViewSet):
         return qs
     serializer_class = CourseSerializer
     permission_classes = [IsAdminUserOrReadOnly]
+
+    def perform_create(self, serializer):
+        course = serializer.save()
+        if not course.draft:
+            try:
+                queue_course_published_notifications(course)
+            except Exception:
+                logger.exception("Failed to queue course publication notifications for course %s", course.pk)
+
+    def perform_update(self, serializer):
+        was_draft = serializer.instance.draft
+        course = serializer.save()
+        if was_draft and not course.draft:
+            try:
+                queue_course_published_notifications(course)
+            except Exception:
+                logger.exception("Failed to queue course publication notifications for course %s", course.pk)
 
     def destroy(self, request, *args, **kwargs):
         """Override destroy method to handle file deletion properly."""
@@ -160,7 +182,8 @@ class CourseViewSet(viewsets.ModelViewSet):
             enrollment = Enrollment.objects.create(user=user, course=locked_course)
 
             try:
-                send_enrollment_confirmation_email(user.email, user.name or user.username, locked_course)
+                job = queue_course_enrollment_notification(user, locked_course)
+                dispatch_email_job_now(job)
             except Exception:
                 logger.exception("Failed to send enrollment confirmation email for user %s", user.email)
 
@@ -245,7 +268,8 @@ class CourseViewSet(viewsets.ModelViewSet):
                 enrollment = Enrollment.objects.create(user=user, course=locked_course)
 
                 try:
-                    send_enrollment_confirmation_email(user.email, user.name or user.username, locked_course)
+                    job = queue_course_enrollment_notification(user, locked_course)
+                    dispatch_email_job_now(job)
                 except Exception:
                     logger.exception("Failed to send enrollment confirmation email for user %s", user.email)
 
@@ -330,7 +354,8 @@ class CourseViewSet(viewsets.ModelViewSet):
             enrollment.delete()
 
             try:
-                send_unenrollment_confirmation_email(user.email, user.name or user.username, course)
+                job = queue_course_unenrollment_notification(user, course)
+                dispatch_email_job_now(job)
             except Exception:
                 logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
 
@@ -347,7 +372,8 @@ class CourseViewSet(viewsets.ModelViewSet):
             enrollment.delete()
 
             try:
-                send_unenrollment_confirmation_email(user.email, user.name or user.username, course)
+                job = queue_course_unenrollment_notification(user, course)
+                dispatch_email_job_now(job)
             except Exception:
                 logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
 
@@ -434,7 +460,8 @@ class CourseViewSet(viewsets.ModelViewSet):
         enrollment.delete()
 
         try:
-            send_unenrollment_confirmation_email(user.email, user.name or user.username, course)
+            job = queue_course_unenrollment_notification(user, course)
+            dispatch_email_job_now(job)
         except Exception:
             logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
 
@@ -541,7 +568,8 @@ class StripeWebhookView(APIView):
                             stripe_payment_intent_id=payment_intent
                         )
                         try:
-                            send_enrollment_confirmation_email(user.email, user.name or user.username, locked_course)
+                            job = queue_course_enrollment_notification(user, locked_course)
+                            dispatch_email_job_now(job)
                         except Exception:
                             logger.exception("Failed to send enrollment confirmation email for user %s", user.email)
                         # print(f"[Stripe Webhook] Enrollment created: {enrollment}")

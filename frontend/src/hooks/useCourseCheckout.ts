@@ -7,7 +7,7 @@ export function useCourseCheckout() {
   const startCheckout = async (courseIdOrSlug: number | string, onSuccess?: () => void) => {
     setLoading(true);
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://api.ordinaly.ai';
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
       const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null;
       const headers: Record<string, string> = { 'Content-Type': 'application/json' };
       if (token) headers['Authorization'] = `Token ${token}`;

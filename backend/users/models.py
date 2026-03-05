@@ -61,7 +61,27 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     # User preference for receiving newsletters and email communications
     allow_notifications = models.BooleanField(
         default=False,
-        help_text="User has opted in to receive newsletters and email communications."
+        help_text="User has explicitly opted in to receive the newsletter."
+    )
+    email_notifications_enabled = models.BooleanField(
+        default=True,
+        help_text="Master switch for transactional email notifications."
+    )
+    account_email_notifications = models.BooleanField(
+        default=True,
+        help_text="Allow account lifecycle emails, such as welcome and email update notices."
+    )
+    security_email_notifications = models.BooleanField(
+        default=True,
+        help_text="Allow security-related emails, such as password reset confirmations."
+    )
+    course_email_notifications = models.BooleanField(
+        default=True,
+        help_text="Allow course enrollment and cancellation emails."
+    )
+    course_reminder_email_notifications = models.BooleanField(
+        default=True,
+        help_text="Allow 24h and 48h reminders before course sessions."
     )
 
     objects = CustomUserManager()
@@ -73,6 +93,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(max_length=50, null=True, blank=True, default=None)
 
     company = models.CharField(max_length=50, null=True, blank=True, default="")
+    pending_email = models.EmailField(max_length=255, null=True, blank=True)
     email_verified_at = models.DateTimeField(null=True, blank=True)
     deletion_token_hash = models.CharField(max_length=255, null=True, blank=True)
     deletion_token_expires_at = models.DateTimeField(null=True, blank=True)
@@ -141,6 +162,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
                 'email': 'email_taken'
             })
             
+
+class NewsletterSubscriber(models.Model):
+    email = models.EmailField(unique=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
+
 #Class for Email-verification
 
 class EmailVerificationOTP(models.Model):
@@ -159,4 +189,55 @@ class EmailVerificationOTP(models.Model):
 
     def is_invalidated(self):
         return self.invalidated_at is not None
+
+
+class EmailNotificationJob(models.Model):
+    STATUS_PENDING = "pending"
+    STATUS_PROCESSING = "processing"
+    STATUS_SENT = "sent"
+    STATUS_FAILED = "failed"
+
+    STATUS_CHOICES = [
+        (STATUS_PENDING, "Pending"),
+        (STATUS_PROCESSING, "Processing"),
+        (STATUS_SENT, "Sent"),
+        (STATUS_FAILED, "Failed"),
+    ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="email_notification_jobs",
+    )
+    notification_type = models.CharField(max_length=64)
+    recipient_email = models.EmailField(max_length=255)
+    payload = models.JSONField(default=dict, blank=True)
+    status = models.CharField(
+        max_length=16,
+        choices=STATUS_CHOICES,
+        default=STATUS_PENDING,
+        db_index=True,
+    )
+    scheduled_for = models.DateTimeField(default=timezone.now, db_index=True)
+    attempts = models.PositiveIntegerField(default=0)
+    max_attempts = models.PositiveIntegerField(default=3)
+    unique_key = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        unique=True,
+        help_text="Optional idempotency key to prevent duplicate jobs.",
+    )
+    last_error = models.TextField(blank=True, default="")
+    sent_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["scheduled_for", "id"]
+
+    def __str__(self):
+        return f"{self.notification_type} -> {self.recipient_email} ({self.status})"
 

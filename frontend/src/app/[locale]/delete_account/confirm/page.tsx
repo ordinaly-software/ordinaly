@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { Trash2, CheckCircle2, XCircle, Loader2, Home } from "lucide-react";
+import { CheckCircle2, XCircle, Loader2, Home } from "lucide-react";
 
 export default function ConfirmDeletePage() {
   const t = useTranslations("deleteAccountConfirm");
@@ -35,6 +35,7 @@ export default function ConfirmDeletePage() {
           localStorage.removeItem("deletion_requested");
           document.cookie = "access_token=; path=/; max-age=0";
           document.cookie = "email_verified=; path=/; max-age=0";
+          window.dispatchEvent(new Event("auth-state-changed"));
           setStatus("success");
         } else {
           setStatus("error");

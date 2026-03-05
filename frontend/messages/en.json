@@ -112,44 +112,43 @@
     "process": {
       "title": "AI automation agency process",
       "subtitle": "Our AI automation agency's proven methodology",
-      "meta": "Average time: 2-8 weeks depending on complexity • No hidden costs • Satisfaction guarantee",
       "steps": {
-      "0": {
-        "title": "Audit",
-        "description": "Your AI automation agency detects optimizable processes.",
-        "bullets": {
-        "0": "Identification of automatable processes",
-        "1": "Estimated time savings",
-        "2": "Technical proposal and budget"
+        "0": {
+          "title": "Audit",
+          "description": "Your AI automation agency detects optimizable processes.",
+          "bullets": {
+            "0": "Identification of automatable processes",
+            "1": "Estimated time savings",
+            "2": "Technical proposal and budget"
+          }
+        },
+        "1": {
+          "title": "Strategy",
+          "description": "We create an AI automation roadmap tailored to your business.",
+          "bullets": {
+            "0": "Agile development by sprints",
+            "1": "Continuous feedback",
+            "2": "Real-time adjustments"
+          }
+        },
+        "2": {
+          "title": "Deployment",
+          "description": "Technical integration by your AI automation agency. Full testing included.",
+          "bullets": {
+            "0": "Gradual and controlled rollout",
+            "1": "Exhaustive quality testing",
+            "2": "Secure data migration"
+          }
+        },
+        "3": {
+          "title": "Evolution",
+          "description": "Continuous improvement of the AI automation system.",
+          "bullets": {
+            "0": "Hands-on training sessions",
+            "1": "Complete documentation",
+            "2": "Continuous technical support"
+          }
         }
-      },
-      "1": {
-        "title": "Strategy",
-        "description": "We create an AI automation roadmap tailored to your business.",
-        "bullets": {
-        "0": "Agile development by sprints",
-        "1": "Continuous feedback",
-        "2": "Real-time adjustments"
-        }
-      },
-      "2": {
-        "title": "Deployment",
-        "description": "Technical integration by your AI automation agency. Full testing included.",
-        "bullets": {
-        "0": "Gradual and controlled rollout",
-        "1": "Exhaustive quality testing",
-        "2": "Secure data migration"
-        }
-      },
-      "3": {
-        "title": "Evolution",
-        "description": "Continuous improvement of the AI automation system.",
-        "bullets": {
-        "0": "Hands-on training sessions",
-        "1": "Complete documentation",
-        "2": "Continuous technical support"
-        }
-      }
       }
     },
     "useCases": {
@@ -282,25 +281,6 @@
         "title": "Fast results",
         "description": "First automations running in 2-4 weeks. Value from day 1"
       }
-      }
-    },
-    "tech": {
-      "title": "Technologies and tools we master",
-      "subtitle": "We work with leading AI and business automation platforms",
-      "description": "And many more. If your company already uses specific tools, we integrate them into your automation workflow. You don't need to change your current systems.",
-      "items": {
-        "0": "ChatGPT",
-        "1": "Odoo ERP",
-        "2": "WhatsApp Business",
-        "3": "Slack",
-        "4": "Make/Zapier",
-        "5": "Google Cloud",
-        "6": "OpenAI API",
-        "7": "Python",
-        "8": "Node.js",
-        "9": "React",
-        "10": "PostgreSQL",
-        "11": "MongoDB"
       }
     },
     "seoArticle": {
@@ -584,7 +564,7 @@
       "signupWithGoogle": "Sign up with Google",
       "orSignupWithEmail": "Or sign up with email",
       "selectAll": "Select all",
-      "allowNotifications": "Receive newsletters and email communications"
+      "allowNotifications": "I want to receive the Ordinaly newsletter"
     },
     "messages": {
       "success": "Account created successfully! Redirecting...",
@@ -1827,8 +1807,13 @@
       "saveChangesLoading": "Saving changes...",
       "cancel": "Cancel changes",
       "allowNotificationsTitle": "Email & newsletter preferences",
-      "allowNotificationsDesc": "Receive newsletters and email communications",
-      "allowNotifications": "Receive newsletters and emails",
+      "allowNotifications": "Receive newsletter",
+      "enableAllOptionalNotifications": "Enable all",
+      "disableAllOptionalNotifications": "Disable all",
+      "courseEmailNotifications": "Course announcements",
+      "courseEmailNotificationsDesc": "New published courses and courses starting in less than a week. Enrollment, cancellation, and 24h reminders are always sent.",
+      "newsletterConsent": "Newsletter",
+      "newsletterConsentDesc": "Explicit consent to receive Ordinaly news and content.",
       "allowNotificationsModalTitle": "Confirm email preferences",
       "allowNotificationsModalOn": "Are you sure you want to enable newsletters and email communications?",
       "allowNotificationsModalOff": "Are you sure you want to disable newsletters and email communications?",
@@ -1847,6 +1832,9 @@
     "messages": {
       "updateSuccess": "Profile updated successfully!",
       "updateError": "Failed to update profile. Please try again.",
+      "notificationUpdateSuccess": "Notification preferences updated.",
+      "notificationUpdateError": "Failed to update notification preferences. Please try again.",
+      "emailChangeVerificationRequired": "Verify the new email address to complete the change.",
       "deleteSuccess": "Account deleted successfully. Redirecting...",
       "deleteError": "Failed to delete account. Please try again.",
       "networkError": "Network error. Please check your connection and try again.",
@@ -1857,6 +1845,8 @@
         "usernameRequired": "Username is required",
         "emailRequired": "Email is required",
         "emailInvalid": "Please enter a valid email address",
+        "emailTaken": "An account with this email already exists.",
+        "usernameTaken": "This username is already taken.",
         "companyRequired": "Company is required",
         "deleteConfirmRequired": "Please type your username to confirm"
       }
@@ -2513,6 +2503,7 @@
     "verify": "Verify",
     "verifying": "Verifying...",
     "resendIn": "Resend code in {seconds}s",
+    "resendReady": "You can now resend the code",
     "resend": "Resend code",
     "changeEmail": "Change email",
     "error": "Error verifying the code",
@@ -2538,6 +2529,7 @@
     "verify": "Verify",
     "verifying": "Verifying...",
     "resendIn": "Resend code in {seconds}s",
+    "resendReady": "You can now resend the code",
     "resend": "Resend code",
     "success": "Email verified successfully",
     "error": "Error verifying the code",

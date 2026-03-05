@@ -16,6 +16,8 @@ import { useServices } from "@/hooks/useServices";
 import { useCourses } from "@/hooks/useCourses";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 
+const AUTH_STATE_CHANGE_EVENT = "auth-state-changed";
+
 
 
 
@@ -170,7 +172,7 @@ const Navbar = () => {
   const [userData, setUserData] = useState<{ is_staff?: boolean; is_superuser?: boolean } | null>(null);
   const [hasEnrolledCourses, setHasEnrolledCourses] = useState(false);
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
-  const [viewportWidth, setViewportWidth] = useState(typeof window !== "undefined" ? window.innerWidth : 1280);
+  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
 
   const { services: menuServices } = useServices(undefined);
   const { courses: allMenuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 10 });
@@ -203,6 +205,19 @@ const Navbar = () => {
 
   const getStoredAuthToken = useCallback(() => localStorage.getItem("auth_token"), []);
 
+  const clearClientAuth = useCallback((shouldBroadcast: boolean = false) => {
+    localStorage.removeItem("auth_token");
+    setIsAuthenticated(false);
+    setUserData(null);
+    setHasEnrolledCourses(false);
+    setIsMenuOpen(false);
+    setShowLogoutModal(false);
+
+    if (shouldBroadcast) {
+      window.dispatchEvent(new Event(AUTH_STATE_CHANGE_EVENT));
+    }
+  }, []);
+
   const userMenuOptions = useMemo((): DropdownOption[] => {
     const options: DropdownOption[] = [{ value: "profile", label: t("navigation.profile"), icon: User }];
 
@@ -228,14 +243,21 @@ const Navbar = () => {
         },
       });
 
+      if (response.status === 401) {
+        clearClientAuth(true);
+        return false;
+      }
+
       if (response.ok) {
         const data = await response.json();
         setUserData(data);
+        return true;
       }
-    } catch (error) {
+    } catch {
 
     }
-  }, []);
+    return false;
+  }, [clearClientAuth]);
 
   const fetchEnrollmentStatus = useCallback(async (token: string) => {
     try {
@@ -246,25 +268,81 @@ const Navbar = () => {
           "Content-Type": "application/json",
         },
       });
+      if (response.status === 401) {
+        clearClientAuth(true);
+        return false;
+      }
       if (response.ok) {
         const data = await response.json();
         setHasEnrolledCourses(Array.isArray(data) && data.length > 0);
+        return true;
       }
-    } catch (error) {
+    } catch {
 
     }
-  }, []);
+    return false;
+  }, [clearClientAuth]);
+
+  const syncAuthState = useCallback(async () => {
+    const token = getStoredAuthToken();
+    if (!token) {
+      setIsAuthenticated(false);
+      setUserData(null);
+      setHasEnrolledCourses(false);
+      return;
+    }
+
+    setIsAuthenticated(true);
+    const isProfileValid = await fetchUserData(token);
+    if (!isProfileValid) {
+      return;
+    }
+
+    await fetchEnrollmentStatus(token);
+  }, [fetchEnrollmentStatus, fetchUserData, getStoredAuthToken]);
 
   useEffect(() => {
-    const token = getStoredAuthToken();
-    const authState = !!token;
-    setIsAuthenticated(authState);
+    void syncAuthState();
 
-    if (token) {
-      fetchUserData(token);
-      fetchEnrollmentStatus(token);
-    }
-  }, [fetchEnrollmentStatus, fetchUserData, getStoredAuthToken]);
+    const handleAuthStateChange = () => {
+      void syncAuthState();
+    };
+
+    const handleStorage = (event: StorageEvent) => {
+      if (!event.key || event.key === "auth_token") {
+        void syncAuthState();
+      }
+    };
+
+    const handleWindowFocus = () => {
+      void syncAuthState();
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        void syncAuthState();
+      }
+    };
+
+    const authRefreshInterval = window.setInterval(() => {
+      if (document.visibilityState === "visible") {
+        void syncAuthState();
+      }
+    }, 60_000);
+
+    window.addEventListener(AUTH_STATE_CHANGE_EVENT, handleAuthStateChange);
+    window.addEventListener("storage", handleStorage);
+    window.addEventListener("focus", handleWindowFocus);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.clearInterval(authRefreshInterval);
+      window.removeEventListener(AUTH_STATE_CHANGE_EVENT, handleAuthStateChange);
+      window.removeEventListener("storage", handleStorage);
+      window.removeEventListener("focus", handleWindowFocus);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [syncAuthState]);
 
   useEffect(() => {
     setIsMenuOpen(false);
@@ -311,18 +389,13 @@ const Navbar = () => {
           },
         }).catch(() => { });
       }
-    } catch (error) {
+    } catch {
 
     }
 
-    localStorage.removeItem("auth_token");
-    setIsAuthenticated(false);
-    setUserData(null);
-    setHasEnrolledCourses(false);
-    setIsMenuOpen(false);
-    setShowLogoutModal(false);
+    clearClientAuth(true);
     window.location.href = "/";
-  }, [getStoredAuthToken]);
+  }, [clearClientAuth, getStoredAuthToken]);
 
   const goToSignIn = useCallback(() => {
     router.push("/auth/signin");
@@ -350,16 +423,17 @@ const Navbar = () => {
   );
 
   const showCta = true;
-  const showAuthButtons = viewportWidth >= 640;
+  const effectiveViewportWidth = viewportWidth ?? 0;
+  const showAuthButtons = effectiveViewportWidth >= 640;
 
   const maxVisibleItems = useMemo(() => {
-    if (viewportWidth >= 1440) return navItems.length;
-    if (viewportWidth >= 1360) return 4;
-    if (viewportWidth >= 1280) return 3;
-    if (viewportWidth >= 1200) return showCta || showAuthButtons ? 2 : 3;
+    if (effectiveViewportWidth >= 1440) return navItems.length;
+    if (effectiveViewportWidth >= 1360) return 4;
+    if (effectiveViewportWidth >= 1280) return 3;
+    if (effectiveViewportWidth >= 1200) return showCta || showAuthButtons ? 2 : 3;
     // Prioritize CTA/auth and burger from md widths down.
     return 0;
-  }, [navItems.length, showAuthButtons, showCta, viewportWidth]);
+  }, [effectiveViewportWidth, navItems.length, showAuthButtons, showCta]);
 
   const visibleItems = useMemo(
     () => navItems.slice(0, Math.max(0, maxVisibleItems)),
@@ -372,7 +446,7 @@ const Navbar = () => {
   );
 
   // showCta/showAuthButtons are computed above to keep buttons visible on mobile if space allows
-  const showHamburger = viewportWidth < 1280 || hiddenItems.length > 0;
+  const showHamburger = effectiveViewportWidth < 1280 || hiddenItems.length > 0;
 
   useEffect(() => {
     if (!showHamburger && isMenuOpen) {
@@ -417,7 +491,7 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <div className="hidden md:flex items-center justify-end flex-1 gap-5 min-w-0">
+            <div className="hidden md:flex items-center justify-end flex-1 gap-2 min-w-0">
               <HoverMenu setActive={setActiveMegaItem}>
                 {visibleItems.map((item) =>
                   item.type === "mega" ? (
@@ -432,23 +506,23 @@ const Navbar = () => {
                       }
                     >
                       {item.id === "services" && (
-                        <div className="min-w-[1080px]">
-                          <div className="grid grid-cols-2 gap-4">
-                            {featuredServices.length > 0 &&
-                              featuredServices.map((service) => (
-                                <ProductItem
-                                  key={service.id}
-                                  title={service.title}
-                                  description={service.subtitle || service.description}
-                                  href={`/${service.slug ?? service.id}`}
-                                  src={service.image || ""}
-                                  loadOnHover={false}
-                                  loadEnabled={shouldLoadServiceImages}
-                                />
-                              ))}
+                        <div className="min-w-[360px] sm:min-w-[480px] lg:min-w-[600px]">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          {featuredServices.length > 0 &&
+                            featuredServices.map((service) => (
+                            <ProductItem
+                              key={service.id}
+                              title={service.title}
+                              description=""
+                              href={`/${service.slug ?? service.id}`}
+                              src={service.image || ""}
+                              loadOnHover={false}
+                              loadEnabled={shouldLoadServiceImages}
+                            />
+                            ))}
                           </div>
                           <div className="mt-3">
-                            <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
+                          <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
                           </div>
                         </div>
                       )}

@@ -4,6 +4,10 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { MailPlus, Mail, ArrowLeft } from "lucide-react";
+import {
+  setEmailCooldown,
+  VERIFY_EMAIL_COOLDOWN_KEY,
+} from "@/lib/email-confirmation";
 
 export default function ChangeEmailPage() {
   const t = useTranslations("changeEmail");
@@ -13,7 +17,7 @@ export default function ChangeEmailPage() {
   const [loading, setLoading] = useState(false);
   const [oldEmail, setOldEmail] = useState("");
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://api.ordinaly.ai";
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
 
   useEffect(() => {
     const savedEmail = localStorage.getItem("pending_email");
@@ -52,6 +56,7 @@ export default function ChangeEmailPage() {
       }
 
       localStorage.setItem("pending_email", newEmail);
+      setEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
       setSuccess(t("success"));
       setNewEmail("");
     } catch {

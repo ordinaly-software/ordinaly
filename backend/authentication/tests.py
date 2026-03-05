@@ -359,9 +359,9 @@ class AuthSerializerTests(TestCase):
         mock_otp.assert_called_once()
         mock_email.assert_called_once_with("new@example.com", "123456")
 
-    @patch("authentication.serializers.send_welcome_email")
+    @patch("authentication.serializers.queue_and_dispatch_account_created_notification")
     @patch("authentication.serializers.validate_otp", return_value=(True, "OK"))
-    def test_verify_email_serializer_success(self, mock_validate, mock_welcome):
+    def test_verify_email_serializer_success(self, mock_validate, mock_queue):
         from authentication.serializers import VerifyEmailSerializer
         from users.models import EmailVerificationOTP
 
@@ -376,6 +376,30 @@ class AuthSerializerTests(TestCase):
         self.user.refresh_from_db()
         self.assertIsNotNone(self.user.email_verified_at)
         self.assertEqual(self.user.status, "active")
+        mock_queue.assert_called_once_with(self.user)
+
+    @patch("authentication.serializers.queue_and_dispatch_email_updated_notification")
+    @patch("authentication.serializers.validate_otp", return_value=(True, "OK"))
+    def test_verify_email_serializer_applies_pending_email_after_verification(self, mock_validate, mock_queue):
+        from authentication.serializers import VerifyEmailSerializer
+        from users.models import EmailVerificationOTP
+
+        self.user.email_verified_at = timezone.now()
+        self.user.pending_email = "pending@example.com"
+        self.user.save(update_fields=["email_verified_at", "pending_email"])
+
+        EmailVerificationOTP.objects.create(
+            user=self.user,
+            code_hash="dummy",
+            expires_at=timezone.now() + timedelta(minutes=15),
+        )
+
+        serializer = VerifyEmailSerializer(data={"email": "pending@example.com", "code": "123456"})
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        self.user.refresh_from_db()
+        self.assertEqual(self.user.email, "pending@example.com")
+        self.assertIsNone(self.user.pending_email)
+        mock_queue.assert_called_once_with(self.user, "serializer@example.com")
 
     def test_verify_email_serializer_user_not_found(self):
         from authentication.serializers import VerifyEmailSerializer
@@ -448,6 +472,21 @@ class AuthSerializerTests(TestCase):
         user = serializer.save()
         self.assertEqual(user.email, self.user.email)
         mock_email.assert_called_once()
+
+    @patch("authentication.serializers.send_verification_email")
+    @patch("authentication.serializers.create_otp_for_user", return_value=("654321", Mock()))
+    @override_settings(EMAIL_OTP_RESEND_COOLDOWN_SECONDS=0)
+    def test_resend_verification_uses_pending_email_for_verified_user(self, mock_otp, mock_email):
+        from authentication.serializers import ResendVerificationSerializer
+
+        self.user.email_verified_at = timezone.now()
+        self.user.pending_email = "pending@example.com"
+        self.user.save(update_fields=["email_verified_at", "pending_email"])
+
+        serializer = ResendVerificationSerializer(data={"email": "pending@example.com"})
+        self.assertTrue(serializer.is_valid(), serializer.errors)
+        serializer.save()
+        mock_email.assert_called_once_with("pending@example.com", "654321")
 
     def test_change_email_duplicate(self):
         from authentication.serializers import ChangeEmailUnverifiedSerializer
@@ -527,7 +566,7 @@ class AuthViewTests(APITestCase):
         os.environ,
         {
             "GOOGLE_CLIENT_ID": "cid",
-            "GOOGLE_REDIRECT_URI": "http://api.ordinaly.ai/auth/google/callback/",
+            "GOOGLE_REDIRECT_URI": "https://api.ordinaly.ai/auth/google/callback/",
         },
     )
     def test_google_login_normalizes_http_redirect_uri_to_https_in_production(self):
@@ -599,9 +638,9 @@ class AuthViewTests(APITestCase):
         self.assertEqual(response.data["user"]["email"], "signup@example.com")
         self.assertFalse(response.data["user"]["email_verified"])
 
-    @patch("authentication.serializers.send_welcome_email")
+    @patch("authentication.serializers.queue_and_dispatch_account_created_notification")
     @patch("authentication.serializers.validate_otp", return_value=(True, "OK"))
-    def test_verify_email_view_success(self, mock_validate, mock_welcome):
+    def test_verify_email_view_success(self, mock_validate, mock_queue):
         user = self.User.objects.create_user(
             email="toverify@example.com",
             username="toverify",
@@ -756,6 +795,23 @@ class PasswordResetViewTests(APITestCase):
         self.user.refresh_from_db()
         self.assertTrue(self.user.check_password("newstrongpass123"))
         self.assertIsNone(self.user.password_reset_token_hash)
+
+    @patch("authentication.views.queue_and_dispatch_password_reset_completed_notification")
+    def test_confirm_password_reset_enqueues_confirmation_email(self, mock_queue):
+        import secrets
+
+        raw_token = secrets.token_hex(16)
+        self.user.password_reset_token_hash = hashlib.sha256(raw_token.encode()).hexdigest()
+        self.user.password_reset_token_expires_at = timezone.now() + timedelta(minutes=15)
+        self.user.save(update_fields=["password_reset_token_hash", "password_reset_token_expires_at"])
+
+        response = self.client.post("/auth/password/reset/confirm/", {
+            "token": raw_token,
+            "new_password": "newstrongpass123",
+        }, format="json")
+
+        self.assertEqual(response.status_code, 200)
+        mock_queue.assert_called_once_with(self.user)
 
 
 class GoogleHelperFunctionTests(TestCase):

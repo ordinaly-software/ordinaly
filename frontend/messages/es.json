@@ -283,25 +283,6 @@
         }
       }
     },
-    "tech": {
-      "title": "Tecnologías y herramientas que dominamos",
-      "subtitle": "Trabajamos con las plataformas líderes en IA y automatización empresarial",
-      "description": "Y muchas más. Si tu empresa ya utiliza herramientas específicas, las integramos en tu flujo de automatización. No necesitas cambiar tus sistemas actuales.",
-      "items": {
-        "0": "ChatGPT",
-        "1": "Odoo ERP",
-        "2": "WhatsApp Business",
-        "3": "Slack",
-        "4": "Make/Zapier",
-        "5": "Google Cloud",
-        "6": "OpenAI API",
-        "7": "Python",
-        "8": "Node.js",
-        "9": "React",
-        "10": "PostgreSQL",
-        "11": "MongoDB"
-      }
-    },
     "seoArticle": {
       "title": "Automatización empresarial con IA en Sevilla: la guía completa",
       "intro": "La automatización empresarial con inteligencia artificial ha dejado de ser una opción futurista para convertirse en una necesidad competitiva para las PYMEs en Sevilla y toda Andalucía. En Ordinaly, ayudamos a empresas locales a implementar agentes de IA para negocios que transforman radicalmente su operativa diaria.",
@@ -583,7 +564,7 @@
       "signupWithGoogle": "Registrarse con Google",
       "orSignupWithEmail": "O regístrate con email",
       "selectAll": "Seleccionar todo",
-      "allowNotifications": "Recibir boletines y comunicaciones por correo electrónico"
+      "allowNotifications": "Quiero recibir la newsletter de Ordinaly"
     },
     "messages": {
       "success": "¡Cuenta creada exitosamente! Redirigiendo...",
@@ -1826,8 +1807,13 @@
       "saveChangesLoading": "Guardando cambios...",
       "cancel": "Cancelar cambios",
       "allowNotificationsTitle": "Preferencias de email",
-      "allowNotificationsDesc": "Recibe comunicaciones por correo",
-      "allowNotifications": "Recibir boletines y correos electrónicos",
+      "allowNotifications": "Recibir newsletter",
+      "enableAllOptionalNotifications": "Activar todo",
+      "disableAllOptionalNotifications": "Desactivar todo",
+      "courseEmailNotifications": "Avisos de cursos",
+      "courseEmailNotificationsDesc": "Nuevos cursos publicados y avisos de inicio en menos de una semana. La inscripción, cancelación y recordatorios 24h se envían siempre.",
+      "newsletterConsent": "Newsletter",
+      "newsletterConsentDesc": "Consentimiento explícito para recibir novedades y contenidos de Ordinaly.",
       "allowNotificationsModalTitle": "Confirmar preferencias de email",
       "allowNotificationsModalOn": "¿Estás seguro de que deseas habilitar los boletines y comunicaciones por correo electrónico?",
       "allowNotificationsModalOff": "¿Estás seguro de que deseas deshabilitar los boletines y comunicaciones por correo electrónico?",
@@ -1846,6 +1832,9 @@
     "messages": {
       "updateSuccess": "¡Perfil actualizado exitosamente!",
       "updateError": "Error al actualizar el perfil. Por favor, intenta de nuevo",
+      "notificationUpdateSuccess": "Preferencias de notificaciones actualizadas.",
+      "notificationUpdateError": "No se pudieron actualizar las notificaciones. Por favor, inténtalo de nuevo.",
+      "emailChangeVerificationRequired": "Verifica el nuevo correo para completar el cambio.",
       "deleteSuccess": "Cuenta eliminada exitosamente. Redirigiendo...",
       "deleteError": "Error al eliminar la cuenta. Por favor, intenta de nuevo",
       "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo",
@@ -1856,6 +1845,8 @@
         "usernameRequired": "El nombre de usuario es obligatorio",
         "emailRequired": "El correo electrónico es obligatorio",
         "emailInvalid": "Por favor ingresa un correo electrónico válido",
+        "emailTaken": "Ya existe una cuenta con este correo electrónico.",
+        "usernameTaken": "Este nombre de usuario ya está en uso.",
         "companyRequired": "La empresa es obligatoria",
         "deleteConfirmRequired": "Por favor escribe tu nombre de usuario para confirmar"
       }
@@ -2512,6 +2503,7 @@
     "verify": "Verificar",
     "verifying": "Verificando...",
     "resendIn": "Reenviar código en {seconds}s",
+    "resendReady": "Ya puedes reenviar el código",
     "resend": "Reenviar código",
     "changeEmail": "Cambiar email",
     "error": "Error al verificar el código",
@@ -2537,6 +2529,7 @@
     "verify": "Verificar",
     "verifying": "Verificando...",
     "resendIn": "Reenviar código en {seconds}s",
+    "resendReady": "Ya puedes reenviar el código",
     "resend": "Reenviar código",
     "success": "Correo verificado correctamente",
     "error": "Error al verificar el código",

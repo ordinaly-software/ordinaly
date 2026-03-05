@@ -27,6 +27,7 @@ from authentication.serializers import (
     SignupSerializer,
     VerifyEmailSerializer,
 )
+from users.services.notification_service import queue_and_dispatch_password_reset_completed_notification
 from .utils import create_internal_token
 
 
@@ -563,6 +564,10 @@ class ConfirmPasswordResetView(APIView):
         user.password_reset_token_hash = None
         user.password_reset_token_expires_at = None
         user.save(update_fields=["password", "password_reset_token_hash", "password_reset_token_expires_at"])
+        try:
+            queue_and_dispatch_password_reset_completed_notification(user)
+        except Exception:
+            pass
 
         return Response({"message": "Contraseña actualizada correctamente"}, status=status.HTTP_200_OK)
 
