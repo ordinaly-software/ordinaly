@@ -70,6 +70,20 @@
         }
       }
     },
+    "hubIllustration": {
+      "title": "Automatización que fluye en tu organización",
+      "subtitle": "Ordinaly conecta todos tus departamentos en un único ecosistema inteligente",
+      "hubLabel": "ORDINALY",
+      "hubSublabel": "AUTOMATIZACIÓN · IA",
+      "ariaTitle": "Ordinaly conecta ventas, datos, finanzas y equipos en un hub central de IA",
+      "ariaDesc": "Ilustración isométrica que muestra cómo Ordinaly integra los departamentos de Ventas y CRM, Nube y Datos, Finanzas y Equipos mediante flujos de automatización con inteligencia artificial.",
+      "platforms": {
+        "topLeft":     { "label": "Ventas & CRM",    "sublabel": "Leads y seguimiento automático" },
+        "topRight":    { "label": "Nube & Datos",    "sublabel": "Integración en tiempo real" },
+        "bottomLeft":  { "label": "Finanzas",        "sublabel": "Facturación e informes auto." },
+        "bottomRight": { "label": "Equipos & Ops",   "sublabel": "Flujos de trabajo inteligentes" }
+      }
+    },
     "services": {
       "title": "Nuestra agencia de automatización IA",
       "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos. Especialistas en automatización para inmobiliarias, administradores de fincas y PYMEs andaluzas.",

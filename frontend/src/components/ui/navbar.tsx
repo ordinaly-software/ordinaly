@@ -435,15 +435,21 @@ const Navbar = () => {
     return 0;
   }, [effectiveViewportWidth, navItems.length, showAuthButtons, showCta]);
 
-  const visibleItems = useMemo(
-    () => navItems.slice(0, Math.max(0, maxVisibleItems)),
-    [navItems, maxVisibleItems],
-  );
+  // Priority: services and contact are last to be hidden
+  const NAV_PRIORITY: Record<string, number> = { services: 10, contact: 10, about: 5, formation: 4, blog: 3 };
 
-  const hiddenItems = useMemo(
-    () => navItems.slice(Math.max(0, maxVisibleItems)),
-    [navItems, maxVisibleItems],
-  );
+  const visibleItems = useMemo(() => {
+    const n = Math.max(0, maxVisibleItems);
+    if (n >= navItems.length) return navItems;
+    const sorted = [...navItems].sort((a, b) => (NAV_PRIORITY[b.id] ?? 5) - (NAV_PRIORITY[a.id] ?? 5));
+    const visibleIds = new Set(sorted.slice(0, n).map((i) => i.id));
+    return navItems.filter((i) => visibleIds.has(i.id));
+  }, [navItems, maxVisibleItems]);
+
+  const hiddenItems = useMemo(() => {
+    const visibleIds = new Set(visibleItems.map((i) => i.id));
+    return navItems.filter((i) => !visibleIds.has(i.id));
+  }, [navItems, visibleItems]);
 
   // showCta/showAuthButtons are computed above to keep buttons visible on mobile if space allows
   const showHamburger = effectiveViewportWidth < 1280 || hiddenItems.length > 0;
