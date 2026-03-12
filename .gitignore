@@ -36,3 +36,6 @@ venv/*
 
 # Backend Django interface
 /backend/staticfiles/*
+
+# Claude AI interface
+.claude/*

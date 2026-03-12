@@ -7,9 +7,17 @@ import { useTranslations } from "next-intl";
 import { CheckCircle2, MapPin, Sparkles, Clock3, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
-// Local landings metadata now lives under /[locale]/landings instead of /services.
 import type { LocalLandingMeta } from "@/app/[locale]/landings";
 import { TestimonialsSection } from "../home/testimonials-section";
+import { HubIllustration } from "@/components/ui/hub-illustration";
+import { HUB_FIGURES } from "@/components/ui/hub-figures";
+import dynamic from "next/dynamic";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  ssr: false,
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
 
 const cardClass =
   "rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0f1729] shadow-sm";
@@ -93,38 +101,6 @@ export function LocalLandingPage({ slug, locale, meta }: { slug: string; locale:
     [content.areaServed, content.keywords, content.serviceType, content.title, faqSchema],
   );
 
-  const testimonials = isEn
-    ? [
-        {
-          quote: "We went from hours to minutes on WhatsApp and web without losing CRM traceability.",
-          name: "Retail B2C, Seville",
-        },
-        {
-          quote: "We automated reconciliations and alerts in n8n; manual errors dropped and support is happier.",
-          name: "Industrial distribution, Andalusia",
-        },
-        {
-          quote: "AI agents handle order status and only escalate the complex cases; CSAT climbed with the same team.",
-          name: "Fashion ecommerce, Spain",
-        },
-      ]
-    : [
-        {
-          quote:
-            "Pasamos de responder en horas a minutos en WhatsApp y web sin perder trazabilidad en el CRM.",
-          name: "Retail B2C, Sevilla",
-        },
-        {
-          quote:
-            "Automatizamos conciliaciones y alertas en n8n; bajamos errores manuales y soporte nos lo agradece.",
-          name: "Distribución industrial, Andalucía",
-        },
-        {
-          quote:
-            "Los agentes IA resuelven estado de pedidos y derivan sólo lo complejo; el CSAT subió con el mismo equipo.",
-          name: "Ecommerce moda, España",
-        },
-      ];
 
   const ui = {
     results: isEn ? "Results" : "Resultados",
@@ -135,9 +111,13 @@ export function LocalLandingPage({ slug, locale, meta }: { slug: string; locale:
     readyText: isEn
       ? "We prepare a plan in 48h with scope, timing and owners. Includes pilot in Seville."
       : "Preparamos un plan en 48h con alcance, tiempos y responsables. Incluye piloto en Sevilla.",
-    testimonials: isEn ? "Local testimonials" : "Testimonios locales",
     localTeam: isEn ? "Local team in Seville" : "Equipo local en Sevilla",
   };
+
+  // Floating CTA config
+  const floatingCtaLabel = meta.cta ? (isEn ? meta.cta.labelEn : meta.cta.labelEs) : null;
+  const floatingCtaHref = meta.cta?.href ?? secondaryCtaHref;
+  const floatingCtaBg = meta.cta?.bgColor ?? "#0f8a0d";
 
   return (
     <div className="bg-gradient-to-b from-[#f7fbf4] via-white to-[#f7fbf4] dark:from-[#0b1220] dark:via-[#0b1220] dark:to-[#0b1220] text-gray-900 dark:text-gray-100">
@@ -178,7 +158,7 @@ export function LocalLandingPage({ slug, locale, meta }: { slug: string; locale:
               </span>
             </div>
           </div>
-          <div className={`${cardClass} overflow-hidden relative min-h-[260px]`}> 
+          <div className={`${cardClass} overflow-hidden relative min-h-[260px]`}>
             {content.heroImage ? (
               <Image
                 src={content.heroImage}
@@ -204,6 +184,23 @@ export function LocalLandingPage({ slug, locale, meta }: { slug: string; locale:
           ))}
         </section>
 
+        {meta.hub && (
+          <section className="-mx-4 sm:-mx-6 lg:-mx-8">
+            <HubIllustration
+              title={meta.hub.title[isEn ? "en" : "es"]}
+              subtitle={meta.hub.subtitle?.[isEn ? "en" : "es"]}
+              bgTheme={meta.hub.bgTheme}
+              platforms={meta.hub.platforms.map((p) => ({
+                position: p.position,
+                label: p.label[isEn ? "en" : "es"],
+                sublabel: p.sublabel[isEn ? "en" : "es"],
+                colorScheme: p.colorScheme,
+                figure: HUB_FIGURES[p.figureKey],
+              }))}
+            />
+          </section>
+        )}
+
         <section className={`${cardClass} p-6 grid lg:grid-cols-2 gap-6`}>
           <div className="space-y-3">
             <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-300">{ui.results}</p>
@@ -224,22 +221,6 @@ export function LocalLandingPage({ slug, locale, meta }: { slug: string; locale:
                 <li key={idx}>{item}</li>
               ))}
             </ol>
-          </div>
-        </section>
-
-        <section className={`${cardClass} p-6 space-y-4`}>
-          <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-300">
-            <Sparkles className="h-4 w-4" /> {ui.testimonials}
-          </div>
-          <div className="grid md:grid-cols-3 gap-4">
-            {testimonials.map((item, idx) => (
-              <div key={idx} className="rounded-xl border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-[#111827] p-4 shadow-sm">
-                <p className="text-sm text-gray-800 dark:text-gray-100 leading-relaxed">“{item.quote}”</p>
-                <p className="mt-3 text-xs uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-300 font-semibold">
-                  {item.name}
-                </p>
-              </div>
-            ))}
           </div>
         </section>
 
@@ -282,6 +263,26 @@ export function LocalLandingPage({ slug, locale, meta }: { slug: string; locale:
           <ContactForm />
         </section>
       </div>
+
+      {/* WhatsApp bubble (reuses existing component + skeleton) */}
+      <WhatsAppBubble />
+
+      {/* Floating CTA pill */}
+      {floatingCtaLabel && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+          <Button
+            asChild
+            size="lg"
+            className="rounded-full px-8 py-4 text-base font-bold shadow-2xl hover:scale-105 transition-transform whitespace-nowrap"
+            style={{ backgroundColor: floatingCtaBg }}
+          >
+            <a href={floatingCtaHref} target="_blank" rel="noopener noreferrer">
+              <Sparkles className="h-5 w-5 mr-2" />
+              {floatingCtaLabel}
+            </a>
+          </Button>
+        </div>
+      )}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />

@@ -70,6 +70,20 @@
       }
       }
     },
+    "hubIllustration": {
+      "title": "Automation that flows through your organisation",
+      "subtitle": "Ordinaly connects all your departments in one intelligent ecosystem",
+      "hubLabel": "ORDINALY",
+      "hubSublabel": "AUTOMATION · AI",
+      "ariaTitle": "Ordinaly connects sales, data, finance and teams in a central AI hub",
+      "ariaDesc": "Isometric illustration showing how Ordinaly integrates Sales & CRM, Cloud & Data, Finance and Teams departments through AI-powered automation workflows.",
+      "platforms": {
+        "topLeft":     { "label": "Sales & CRM",    "sublabel": "Leads & automatic follow-up" },
+        "topRight":    { "label": "Cloud & Data",   "sublabel": "Real-time integration" },
+        "bottomLeft":  { "label": "Finance",        "sublabel": "Auto invoicing & reports" },
+        "bottomRight": { "label": "Teams & Ops",    "sublabel": "Intelligent workflows" }
+      }
+    },
     "services": {
       "title": "Our AI automation agency",
       "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs.",
