@@ -48,8 +48,9 @@ export const AnimatedTestimonials = ({
   const activeTestimonial = testimonials[active];
 
   return (
-    <div className="mx-auto max-w-sm px-4 py-5 font-sans antialiased md:max-w-4xl md:px-8 lg:px-12">
-      <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
+    <div className="w-full font-sans antialiased">
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl px-6 py-8 md:px-10 md:py-10 transition-all duration-300">
+        <div className="relative grid grid-cols-1 gap-20 md:grid-cols-2">
         <div>
           <div className="relative h-80 w-full">
             <AnimatePresence>
@@ -177,6 +178,7 @@ export const AnimatedTestimonials = ({
               <IconArrowRight className="h-5 w-5" />
             </button>
           </div>
+        </div>
         </div>
       </div>
     </div>

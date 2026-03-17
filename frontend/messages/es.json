@@ -328,9 +328,9 @@
       "sections": {
         "navigate": "Navegar",
         "company": "Empresa",
-        "landings": "Landings",
+        "landings": "Catálogo",
         "legal": "Legal",
-        "connect": "Conectar"
+        "connect": "Contacto"
       },
       "links": {
         "home": "Inicio",
@@ -1486,7 +1486,8 @@
           "a": "Sí. Como agencia de automatización IA comprometida con tu éxito, incluimos mantenimiento técnico y soporte post-implementación.",
           "extra": "Nuestras soluciones son escalables, permitiendo que la tecnología crezca al mismo ritmo que tu negocio en toda España."
         }
-      }
+      },
+      "viewAllLabel": "Ver todas las preguntas frecuentes"
     },
     "noPastCourses": "No hay cursos pasados disponibles",
     "pastCourses": "Cursos pasados",

@@ -212,14 +212,9 @@ const Footer = () => {
               {t("footer.copyright", { year: currentYear })}
             </p>
 
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="text-xs font-medium uppercase tracking-[0.14em] text-cloud-dark dark:text-cloud-medium">
-                {t("footer.utility.language")}
-              </span>
-              <LocaleSwitcher />
-            </div>
+            <LocaleSwitcher variant="pill" label={t("footer.utility.language")} />
 
-            <div className="inline-flex items-center rounded-full border border-[--color-border-subtle] bg-white/70 p-1 dark:border-white/10 dark:bg-white/[0.04]">
+            <div className="inline-flex self-start items-center rounded-full border border-[--color-border-subtle] bg-white/70 p-1 dark:border-white/10 dark:bg-white/[0.04]">
               <span className="px-3 text-xs font-medium uppercase tracking-[0.14em] text-cloud-dark dark:text-cloud-medium">
                 {t("footer.utility.theme")}
               </span>

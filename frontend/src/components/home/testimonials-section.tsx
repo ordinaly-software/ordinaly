@@ -344,7 +344,7 @@ export function TestimonialsSection({ t }: SectionProps) {
               ? Array.from({ length: 3 }).map((_, index) => (
                   <div
                     key={`testimonial-skeleton-${index}`}
-                    className="bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] rounded-2xl p-6 shadow-lg min-w-[260px] sm:min-w-[300px] md:min-w-[320px] animate-pulse"
+                    className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 min-w-[260px] sm:min-w-[300px] md:min-w-[320px] animate-pulse"
                   >
                     <div className="flex items-center mb-4">
                       <div className="w-12 h-12 rounded-full bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] mr-3"></div>
@@ -371,7 +371,7 @@ export function TestimonialsSection({ t }: SectionProps) {
               : visibleTestimonials.map((item, index) => (
                   <div
                     key={item.id}
-                    className="scroll-animate fade-in-up bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] rounded-2xl p-6 shadow-lg min-w-[260px] sm:min-w-[300px] md:min-w-[320px]"
+                    className="scroll-animate fade-in-up group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 min-w-[260px] sm:min-w-[300px] md:min-w-[320px] transition-all duration-300 hover:border-clay dark:hover:border-clay hover:bg-clay/5 hover:shadow-2xl hover:shadow-clay/15 hover:-translate-y-2"
                     style={{ animationDelay: `${index * 0.08}s` }}
                   >
                     <div className="flex items-center mb-4">

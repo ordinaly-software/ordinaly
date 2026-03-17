@@ -239,7 +239,7 @@ export default function BlogClient({
 
       {/* Blog Posts Grid */}
       <section className="py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">
             {t('otherPosts.title', { default: 'All posts' })}
           </h2>
@@ -250,7 +250,7 @@ export default function BlogClient({
           )}
 
           {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-4 mb-4 text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center justify-center flex-wrap gap-2 mb-4 text-sm text-gray-600 dark:text-gray-300">
               <div className="flex justify-center gap-2">
                 <button
                   type="button"
@@ -301,7 +301,7 @@ export default function BlogClient({
               </p>
             </div>
           ) : (
-            <ul className="space-y-12">
+            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {posts.map((p: BlogPost) => (
                 <li key={p.slug}>
                   <BlogCard
@@ -316,12 +316,12 @@ export default function BlogClient({
           <br></br>
 
           {totalPages > 1 && (
-            <div className="flex items-center justify-center gap-4 mb-4 text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex items-center justify-center flex-wrap gap-2 mb-4 text-sm text-gray-600 dark:text-gray-300">
               <button
                 type="button"
                 onClick={() => handlePageChange(1)}
                 disabled={currentPage === 1 || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+                className="hidden sm:flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
               >
                 <ChevronsLeft className="h-4 w-4" />
                 {t('pagination.first', { default: 'First' })}
@@ -331,39 +331,38 @@ export default function BlogClient({
                 type="button"
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1 || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+                className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
               >
                 <ArrowLeft className="h-4 w-4" />
                 {t('pagination.prev', { default: 'Previous' })}
               </button>
 
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-300 px-1">
                 <span>{t('pagination.page')}</span>
                 <strong className="text-gray-900 dark:text-white">{currentPage}</strong>
                 <span>{t('pagination.of')}</span>
                 <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
               </div>
 
-              <div className="flex justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-                >
-                  {t('pagination.next')}
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handlePageChange(totalPages)}
-                  disabled={currentPage === totalPages || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-                >
-                  {t('pagination.last', { default: 'Last' })}
-                  <ChevronsRight className="h-4 w-4" />
-                </button>
-              </div>
+              <button
+                type="button"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages || loading}
+                className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+              >
+                {t('pagination.next')}
+                <ArrowRight className="h-4 w-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => handlePageChange(totalPages)}
+                disabled={currentPage === totalPages || loading}
+                className="hidden sm:flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+              >
+                {t('pagination.last', { default: 'Last' })}
+                <ChevronsRight className="h-4 w-4" />
+              </button>
             </div>
           )}
         </div>

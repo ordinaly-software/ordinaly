@@ -99,8 +99,8 @@ export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({
           className="flex overflow-x-auto gap-6 pt-6 pb-4 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           {posts.map((post) => (
-            <div key={post.slug} className="flex-shrink-0 w-[80%] md:w-full max-w-4xl pt-2">
-              <BlogCard post={post} onCategoryClick={onCategoryClick} />
+            <div key={post.slug} className="flex-shrink-0 w-[85%] sm:w-[60%] md:w-[40%] max-w-sm pt-2">
+              <BlogCard post={post} onCategoryClick={onCategoryClick} compact />
             </div>
           ))}
         </div>

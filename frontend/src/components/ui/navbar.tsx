@@ -482,7 +482,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 z-[45] w-full border-b border-[--color-border-subtle] shadow-[0_18px_45px_-40px_rgba(15,23,42,0.5)] dark:border-[--color-border-strong] dark:shadow-[0_18px_45px_-36px_rgba(0,0,0,0.7)] bg-[--swatch--ivory-light]/96 dark:bg-[--swatch--slate-dark]/96 backdrop-blur-xl">
+      <nav className="fixed top-0 left-0 z-[45] w-full border-b border-[--color-border-subtle] shadow-[0_18px_45px_-40px_rgba(15,23,42,0.5)] dark:border-[--color-border-strong] dark:shadow-[0_18px_45px_-36px_rgba(0,0,0,0.7)] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-1.5 sm:py-2 lg:py-2.5 min-h-[44px] sm:min-h-[52px] gap-4 lg:gap-6">
             <Link href="/" className="flex items-center flex-shrink-0 min-w-0 group">

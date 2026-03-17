@@ -1,11 +1,11 @@
 "use client";
 
 import { useDeferredValue, useEffect, useMemo, useState, startTransition } from "react";
-import { ArrowRight, Search, Sparkles, Tag, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronsLeft, ChevronsRight, Search, Tag, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
-import { PaginationControls } from "@/components/ui/pagination-controls";
+import Footer from "@/components/ui/footer";
 import { Link } from "@/i18n/navigation";
 import {
   faqCategories,
@@ -117,7 +117,6 @@ export default function FaqPageClient({ locale }: { locale: string }) {
   );
 
   const ui = {
-    eyebrow: isEn ? "FAQ browser" : "Navegador FAQ",
     title: isEn
       ? "Questions about chatbots, AI agents, n8n, WhatsApp and integrations"
       : "Preguntas sobre chatbots, agentes IA, n8n, WhatsApp e integraciones",
@@ -147,22 +146,19 @@ export default function FaqPageClient({ locale }: { locale: string }) {
       : "Podemos revisar tu stack actual, elegir el primer piloto correcto y definir criterios de éxito realistas.",
     contactPrimary: isEn ? "Go to contact page" : "Ir a contacto",
     contactSecondary: isEn ? "Open WhatsApp" : "Abrir WhatsApp",
+    pageLabel: isEn ? "Page" : "Página",
+    ofLabel: isEn ? "of" : "de",
+    first: isEn ? "First" : "Primero",
+    prev: isEn ? "Previous" : "Anterior",
+    next: isEn ? "Next" : "Siguiente",
+    last: isEn ? "Last" : "Último",
   };
 
   return (
     <div className="relative overflow-hidden bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
-      <div className="pointer-events-none absolute inset-0" aria-hidden>
-        <div className="absolute inset-x-0 top-0 h-[34rem] bg-[radial-gradient(circle_at_top,rgba(2,85,213,0.14),transparent_62%)] dark:bg-[radial-gradient(circle_at_top,rgba(2,85,213,0.2),transparent_62%)]" />
-        <div className="absolute left-[10%] top-52 h-40 w-40 rounded-full bg-[#0255D5]/8 blur-3xl dark:bg-[#0255D5]/16" />
-        <div className="absolute right-[6%] top-[24rem] h-44 w-44 rounded-full bg-clay/10 blur-3xl" />
-      </div>
 
       <div className="relative u-container pb-24 pt-10 lg:pb-28 lg:pt-12">
         <section className="mx-auto max-w-4xl text-center">
-          <span className="label-meta inline-flex items-center gap-2 rounded-full border border-[#0255D5]/15 bg-[#0255D5]/10 px-4 py-2 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]">
-            <Sparkles className="h-3.5 w-3.5" />
-            {ui.eyebrow}
-          </span>
           <h1 className="mt-6 text-4xl font-semibold leading-[0.98] tracking-[-0.045em] sm:text-5xl lg:text-[3.6rem]">
             {ui.title}
           </h1>
@@ -309,6 +305,34 @@ export default function FaqPageClient({ locale }: { locale: string }) {
           </div>
         </section>
 
+
+            {totalPages > 1 ? (
+              <div className="mt-8 flex items-center justify-center gap-4 text-sm text-gray-600 dark:text-gray-300">
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+                >
+                  <ArrowLeft className="h-4 w-4" />
+                  {ui.prev}
+                </button>
+                <span>
+                  {ui.pageLabel} <strong className="text-gray-900 dark:text-white">{currentPage}</strong>{" "}
+                  {ui.ofLabel} <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+                >
+                  {ui.next}
+                  <ArrowRight className="h-4 w-4" />
+                </button>
+              </div>
+            ) : null}
+
         <section className="mt-8">
           {query !== deferredQuery ? (
             <div className="mb-4 text-sm text-slate-medium dark:text-cloud-medium">{ui.loading}</div>
@@ -376,17 +400,49 @@ export default function FaqPageClient({ locale }: { locale: string }) {
           )}
         </section>
 
-        {filteredEntries.length > pageSize ? (
-          <PaginationControls
-            totalItems={filteredEntries.length}
-            currentPage={currentPage}
-            pageSize={pageSize}
-            onPageChange={(page) => {
-              setCurrentPage(page);
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
-            className="mt-8"
-          />
+        {totalPages > 1 ? (
+          <div className="mt-8 flex items-center justify-center gap-3 text-sm text-gray-600 dark:text-gray-300">
+            <button
+              type="button"
+              onClick={() => setCurrentPage(1)}
+              disabled={currentPage === 1}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+            >
+              <ChevronsLeft className="h-4 w-4" />
+              {ui.first}
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              {ui.prev}
+            </button>
+            <span>
+              {ui.pageLabel} <strong className="text-gray-900 dark:text-white">{currentPage}</strong>{" "}
+              {ui.ofLabel} <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
+            </span>
+            <button
+              type="button"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+            >
+              {ui.next}
+              <ArrowRight className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => setCurrentPage(totalPages)}
+              disabled={currentPage === totalPages}
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+            >
+              {ui.last}
+              <ChevronsRight className="h-4 w-4" />
+            </button>
+          </div>
         ) : null}
 
         <section id="faq-contact" className="mt-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
@@ -423,6 +479,7 @@ export default function FaqPageClient({ locale }: { locale: string }) {
       </div>
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <Footer />
     </div>
   );
 }

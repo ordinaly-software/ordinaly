@@ -82,9 +82,9 @@ export const Timeline = ({ data, eyebrow, title, description, className }: Timel
         {data.map((item, index) => (
           <div
             key={index}
-            className="flex justify-start pt-12 md:pt-24 md:gap-10"
+            className="flex justify-start pt-12 md:pt-24 md:gap-10 lg:gap-16 xl:gap-20"
           >
-            <div className="md:sticky flex flex-col md:flex-row z-40 items-start md:items-center md:top-28 self-start max-w-xs lg:max-w-sm md:w-full pr-4 md:pr-6">
+            <div className="md:sticky flex flex-col md:flex-row z-40 items-start md:items-center md:top-28 self-start max-w-xs lg:max-w-md xl:max-w-lg md:w-full pr-4 md:pr-6">
               <div className="h-8 md:h-10 absolute left-2 md:left-3 w-8 md:w-10 rounded-full bg-white dark:bg-black flex items-center justify-center shadow-sm ring-1 ring-neutral-200/60 dark:ring-neutral-800/60">
                 <div className="h-3 w-3 md:h-4 md:w-4 rounded-full bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700" />
               </div>

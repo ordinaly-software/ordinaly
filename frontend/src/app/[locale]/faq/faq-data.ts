@@ -348,4 +348,88 @@ export const faqEntries: FaqEntry[] = [
     },
     relatedPath: "/contact",
   },
+  {
+    id: "what-is-ai-agent",
+    category: "agents",
+    tags: ["automation", "operations"],
+    question: {
+      es: "¿Qué es un agente de IA para negocios y cómo puede ayudar a mi empresa?",
+      en: "What is an AI agent for business and how can it help my company?",
+    },
+    answer: {
+      es: "Un agente de IA es un sistema inteligente que puede realizar tareas específicas de forma autónoma: responder consultas de clientes, procesar documentos, gestionar citas o automatizar flujos de trabajo. Esto significa ahorro de tiempo, reducción de errores humanos y disponibilidad 24/7. Por ejemplo, una empresa puede tener un agente que gestione incidencias automáticamente por WhatsApp.",
+      en: "An AI agent is an intelligent system that can perform specific tasks autonomously: answering customer queries, processing documents, managing appointments or automating workflows. This means time savings, reduced human error and 24/7 availability. For example, a business can have an agent that automatically handles incidents over WhatsApp.",
+    },
+    relatedPath: "/agentes-ia-atencion-cliente-sevilla",
+  },
+  {
+    id: "automation-cost",
+    category: "delivery",
+    tags: ["roi", "sales"],
+    question: {
+      es: "¿Cuánto cuesta implementar automatización con IA en mi empresa?",
+      en: "How much does it cost to implement AI automation in my company?",
+    },
+    answer: {
+      es: "El coste varía según la complejidad del proyecto. Los proyectos simples como chatbots de WhatsApp o automatizaciones básicas pueden arrancar desde presupuestos accesibles para PYMEs. Ofrecemos consultas gratuitas donde analizamos tu caso específico y damos un presupuesto personalizado. La mayoría de nuestros clientes recuperan la inversión en menos de 6 meses.",
+      en: "Cost varies depending on project complexity. Simple projects like WhatsApp chatbots or basic automations can start at budgets accessible to SMEs. We offer free consultations where we analyze your specific case and provide a tailored quote. Most of our clients recover their investment in under 6 months.",
+    },
+    relatedPath: "/contact",
+  },
+  {
+    id: "no-technical-knowledge-needed",
+    category: "training",
+    tags: ["training", "operations"],
+    question: {
+      es: "¿Necesito conocimientos técnicos para usar sistemas de automatización?",
+      en: "Do I need technical knowledge to use automation systems?",
+    },
+    answer: {
+      es: "No, en absoluto. Diseñamos todas nuestras soluciones para que sean intuitivas y fáciles de usar, e incluimos formación práctica para tu equipo. También ofrecemos cursos de IA donde aprenderás a usar herramientas como ChatGPT y automatizaciones sin necesidad de conocimientos previos de programación.",
+      en: "Not at all. We design all our solutions to be intuitive and easy to use, and we include hands-on training for your team. We also offer AI courses where you will learn to use tools like ChatGPT and automations without any prior programming knowledge.",
+    },
+    relatedPath: "/formacion-ia-pymes-sevilla",
+  },
+  {
+    id: "ordinaly-differentiators",
+    category: "delivery",
+    tags: ["sevilla", "spain", "operations"],
+    question: {
+      es: "¿Qué diferencia a Ordinaly de otras empresas de automatización?",
+      en: "What sets Ordinaly apart from other automation companies?",
+    },
+    answer: {
+      es: "Somos un equipo local en Sevilla que entiende las necesidades específicas de las empresas andaluzas. No somos una consultora internacional que aplica soluciones genéricas. Nos especializamos en PYMEs y sectores concretos (inmobiliarias, administradores de fincas, marketing, retail) y combinamos automatización con formación práctica para que tu equipo sea autónomo.",
+      en: "We are a local team in Seville that understands the specific needs of Andalusian businesses. We are not an international consultancy applying generic solutions. We specialize in SMEs and specific sectors (real estate, property management, marketing, retail) and combine automation with hands-on training so your team becomes self-sufficient.",
+    },
+    relatedPath: "/contact",
+  },
+  {
+    id: "implementation-timeline",
+    category: "delivery",
+    tags: ["deployment", "roi"],
+    question: {
+      es: "¿Cuánto tiempo tarda en implementarse un proyecto de automatización?",
+      en: "How long does it take to implement an automation project?",
+    },
+    answer: {
+      es: "Los proyectos simples como chatbots o automatizaciones básicas pueden estar funcionando en 2–4 semanas. Proyectos más complejos como workflows avanzados o integraciones con CRM/ERP pueden tomar entre 1–3 meses según el alcance. Siempre trabajamos por fases para que veas resultados rápidos.",
+      en: "Simple projects like chatbots or basic automations can be up and running in 2–4 weeks. More complex projects such as advanced workflows or CRM/ERP integrations can take 1–3 months depending on scope. We always work in phases so you see results quickly.",
+    },
+    relatedPath: "/contact",
+  },
+  {
+    id: "post-implementation-support",
+    category: "delivery",
+    tags: ["support", "deployment"],
+    question: {
+      es: "¿Ofrecen soporte después de la implementación?",
+      en: "Do you offer support after implementation?",
+    },
+    answer: {
+      es: "Sí. Incluimos soporte técnico y mantenimiento. Al estar basados en Sevilla, podemos hacer reuniones presenciales cuando sea necesario. Además, nuestros sistemas son escalables: a medida que tu negocio crece, podemos ampliar y mejorar las automatizaciones sin empezar desde cero.",
+      en: "Yes. We include technical support and maintenance. Being based in Seville, we can hold in-person meetings when needed. Our systems are also scalable: as your business grows, we can extend and improve the automations without starting over.",
+    },
+    relatedPath: "/contact",
+  },
 ];
