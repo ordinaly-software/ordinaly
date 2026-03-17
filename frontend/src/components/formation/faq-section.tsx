@@ -70,7 +70,7 @@ const faqItems = [
 
 export function FaqSection({ t }: SectionProps) {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[--color-bg-inverted]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
@@ -84,7 +84,7 @@ export function FaqSection({ t }: SectionProps) {
           {faqItems.map((item, index) => (
             <details
               key={item.questionKey}
-              className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 cursor-pointer group animate-in"
+              className="bg-oat dark:bg-[var(--swatch--slate-medium)] rounded-xl p-6 cursor-pointer group animate-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <summary className="text-xl font-bold text-gray-900 dark:text-white list-none flex items-center justify-between">

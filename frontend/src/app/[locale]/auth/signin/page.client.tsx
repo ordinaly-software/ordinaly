@@ -225,7 +225,7 @@ export default function LoginPage() {
 
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] transition-colors duration-300">
       {alert && (
         <Alert
           key={`${alert.type}:${alert.message}`}
@@ -237,23 +237,23 @@ export default function LoginPage() {
       )}
 
       {/* Login Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#3FBD6F]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)]/40">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
 
             {/* Left side: Title + Illustration (hidden on mobile) */}
             <div className="scroll-animate slide-in-left">
-              <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#1F8A0D] dark:from-[#3FBD6F] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent leading-tight pb-2">
+              <h1 className="text-5xl md:text-5xl font-bold mb-6 text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] leading-tight pb-2">
                 {t("title")}
               </h1>
-              <p className="text-xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed">
+              <p className="text-xl text-[var(--swatch--slate-medium)] dark:text-[var(--swatch--cloud-medium)] mb-12 leading-relaxed">
                 {t("subtitle")}
               </p>
             </div>
 
             {/* Right side: Login Card */}
             <div className="scroll-animate slide-in-right">
-              <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] transition-all duration-300 hover:shadow-xl hover:shadow-[#1F8A0D]/10">
+              <Card className="bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)]/50 border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] hover:border-[var(--swatch--clay)] transition-all duration-300 hover:shadow-xl">
                 <br></br>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -269,14 +269,14 @@ export default function LoginPage() {
                           }}
                           className="
                               w-full flex items-center justify-center gap-3
-                              bg-white dark:bg-gray-900
-                              border border-gray-300 dark:border-gray-700
+                              bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)]
+                              border border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)]
                               rounded-lg py-3 px-4
                               shadow hover:shadow-md
                               transition-all
-                              hover:border-[#1F8A0D]
-                              hover:bg-[#1F8A0D]/10
-                              dark:hover:bg-[#3FBD6F]/20
+                              hover:border-[var(--swatch--clay)]
+                              hover:bg-[var(--swatch--clay)]/10
+                              dark:hover:bg-[var(--swatch--clay)]/20
                               "
                         >
                           <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
@@ -286,10 +286,10 @@ export default function LoginPage() {
                       </div>
                       <div className="relative">
                         <div className="absolute inset-0 flex items-center">
-                          <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                          <div className="w-full border-t border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)]"></div>
                         </div>
                         <div className="relative flex justify-center text-sm">
-                          <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                          <span className="px-2 bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)] text-[var(--swatch--cloud-medium)]">
                             {t("form.orContinueWith")}
                           </span>
                         </div>
@@ -297,7 +297,7 @@ export default function LoginPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-gray-800 dark:text-gray-200">
+                      <Label htmlFor="email" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                         {t("form.emailLabel")}
                       </Label>
                       <div className="relative">
@@ -306,14 +306,14 @@ export default function LoginPage() {
                           type="text"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                          className="pl-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                           placeholder={t("form.emailPlaceholder")}
                           required
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="password" className="text-gray-800 dark:text-gray-200">
+                      <Label htmlFor="password" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                         {t("form.passwordLabel")}
                       </Label>
                       <div className="relative">
@@ -322,7 +322,7 @@ export default function LoginPage() {
                           type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                          className="pl-10 pr-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                           placeholder={t("form.passwordPlaceholder")}
                           required
                         />
@@ -342,7 +342,7 @@ export default function LoginPage() {
                     <div className="flex flex-col items-start">
                       <Link
                         href="/reset-password"
-                        className="text-sm text-[#46B1C9] hover:underline"
+                        className="text-sm text-[var(--swatch--cobalt)] hover:underline"
                       >
                         {t("form.forgotPassword")}
                       </Link>
@@ -357,9 +357,9 @@ export default function LoginPage() {
                     </div>
                   </form>
 
-                  <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                  <p className="mt-6 text-center text-sm text-[var(--swatch--slate-medium)] dark:text-[var(--swatch--cloud-medium)]">
                     {t("form.signupPrompt")}
-                    <Link href="/auth/signup" className="text-[#46B1C9] hover:underline">
+                    <Link href="/auth/signup" className="text-[var(--swatch--cobalt)] hover:underline">
                       {t("form.signupLink")}
                     </Link>
                   </p>

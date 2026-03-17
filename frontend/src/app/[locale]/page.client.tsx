@@ -8,8 +8,6 @@ import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
 import { HomeHero } from "@/components/home/home-hero";
 import { ServicesSection } from "@/components/home/services-section";
-import { LocalSeoSection } from "@/components/home/local-seo-section";
-import { CtaSection } from "@/components/home/cta-section";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
@@ -71,16 +69,9 @@ const SectionSkeleton = () => (
     </div>
   </section>
 );
-const ProcessSection = dynamic(
-  () => import("@/components/home/process-section").then((mod) => mod.ProcessSection),
-  { loading: () => <SectionSkeleton />, ssr: false },
-);
+
 const BenefitsSection = dynamic(
   () => import("@/components/home/benefits-section").then((mod) => mod.BenefitsSection),
-  { loading: () => <SectionSkeleton />, ssr: false },
-);
-const SeoLeadershipSection = dynamic(
-  () => import("@/components/home/seo-leadership-section").then((mod) => mod.SeoLeadershipSection),
   { loading: () => <SectionSkeleton />, ssr: false },
 );
 const UseCasesSection = dynamic(
@@ -298,12 +289,13 @@ export default function HomePage({
   }, [services]);
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
       <HomeHero t={t} onWhatsApp={handleWhatsAppChat} />
       <ServicesSection
         t={t}
         onWhatsApp={handleWhatsAppChat}
         sectionRef={servicesSectionRef}
+        featuredServices={services.slice(0, 3)}
         servicesContent={
           <ServiceShowcase
             services={services}
@@ -322,17 +314,8 @@ export default function HomePage({
         initialCourses={initialCourses}
         referenceNow={renderedAt}
       />
-      <LocalSeoSection t={t} />
       {shouldRenderDeferredSections ? (
         <>
-          <DeferredSection>
-            <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">
-              <ContactForm
-                recaptchaAction="home_contact_form"
-                recaptchaBadgeId="recaptcha-badge-home-contact"
-              />
-            </ReCaptchaWrapper>
-          </DeferredSection>
           <DeferredSection rootMargin="2400px 0px">
             <UseCasesSection t={t} />
           </DeferredSection>
@@ -340,22 +323,15 @@ export default function HomePage({
             <TestimonialsSection t={t} />
           </DeferredSection>
           <DeferredSection>
-            <PartnersSection t={t} />
-          </DeferredSection>
-          <DeferredSection rootMargin="2000px 0px">
-            <ProcessSection t={t} />
-          </DeferredSection>
-          <DeferredSection>
-            <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
-          </DeferredSection>
-          <DeferredSection rootMargin="2000px 0px">
-            <BenefitsSection t={t} />
-          </DeferredSection>
-          <DeferredSection>
-            <SeoLeadershipSection t={t} />
-          </DeferredSection>
-          <DeferredSection rootMargin="1500px 0px">
             <FaqSection t={formationT} />
+          </DeferredSection>
+          <DeferredSection>
+            <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">
+              <ContactForm
+                recaptchaAction="home_contact_form"
+                recaptchaBadgeId="recaptcha-badge-home-contact"
+              />
+            </ReCaptchaWrapper>
           </DeferredSection>
         </>
       ) : (

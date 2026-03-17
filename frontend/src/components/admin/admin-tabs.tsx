@@ -60,7 +60,7 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
   return (
     <div
       ref={tabBarRef}
-      className={`border-b border-gray-200 dark:border-gray-700 mb-8 overflow-x-auto sticky top-[64px] z-30 bg-[#F9FAFB] dark:bg-[#1A1924] bg-opacity-95 backdrop-blur-sm min-h-[56px] flex items-center ${className}`}
+      className={`border-b border-gray-200 dark:border-gray-700 mb-8 overflow-x-auto sticky top-[64px] z-30 bg-[#F9FAFB] dark:bg-[var(--swatch--slate-dark)] bg-opacity-95 backdrop-blur-sm min-h-[56px] flex items-center ${className}`}
       style={{ scrollbarWidth: "none", msOverflowStyle: "none", ...style }}
     >
       <nav
@@ -70,7 +70,7 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
         {tabs.map((tab, idx) => {
           const Icon = tab.icon;
           const active = activeTab === tab.id;
-          const accent = tab.accentColor || "#1F8A0D";
+          const accent = tab.accentColor || "var(--swatch--clay)";
           const baseClasses =
             "relative py-2 px-2 font-medium text-sm flex items-center space-x-2 transition-colors";
 

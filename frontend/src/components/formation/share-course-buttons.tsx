@@ -174,13 +174,13 @@ export const ShareCourseButtons: React.FC<Props> = ({ title, subtitle, slug, the
     boxShadow: '0 1px 2px rgba(0,0,0,0.06)'
   };
 
-  const waStyle = isWhite ? { ...commonWhiteStyle, color: '#25D366' } : undefined;
+  const waStyle = isWhite ? { ...commonWhiteStyle, color: '#0d6e0c' } : undefined;
   const fbStyle = isWhite ? { ...commonWhiteStyle, color: '#1877F2' } : undefined;
   const liStyle = isWhite ? { ...commonWhiteStyle, color: '#0A66C2' } : undefined;
 
   const baseButtonClass = 'p-3 rounded-md';
   // When not using the white theme, force colored icons in light mode and white icons in dark mode
-  const waClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#25D366] dark:text-white`;
+  const waClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#0d6e0c] dark:text-white`;
   const fbClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#1877F2] dark:text-white`;
   const liClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#0A66C2] dark:text-white`;
 

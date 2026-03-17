@@ -28,6 +28,7 @@
       "profile": "Profile",
       "myCourses": "My courses",
       "blog": "Blog",
+      "faq": "FAQ",
       "news": "News",
       "us": "About us",
       "loading": "Loading..."
@@ -44,8 +45,17 @@
       "ctaServices": "View services",
       "ctaDemo": "Book a consultation",
       "clientsTitle": "Trusted by",
-      "statHeadline": "+500 HOURS SAVED",
-      "statCaption": "for Andalusian companies this month.",
+      "locationBadge": "Seville, Andalusia · local studio",
+      "coverageBadge": "On-site and remote delivery across Spain",
+      "localCardLabel": "Operating base",
+      "localCardValue": "Plaza del Duque 1, Seville. In-person meetings, workshops, and direct project follow-through.",
+      "coverageCardLabel": "Coverage",
+      "coverageCardValue": "Seville-based team with Andalusian roots and remote rollout support for projects across Spain.",
+      "deliveryCardLabel": "Delivery model",
+      "deliveryCardValue": "Discovery, automation, AI agents, and training handled by the same team.",
+      "globeCaption": "Showing where we are and where we operate from",
+      "globeFloatingTop": "Ordinaly - Seville",
+      "globeFloatingBottom": "In person across Andalusia. Remote across the rest of Spain.",
       "imageAlt": "AI automation agency for businesses in Spain"
     },
     "benefits": {
@@ -122,48 +132,6 @@
       "imageAlt": "Image for {title}",
       "errorTitle": "Error loading services",
       "errorMessage": "Services could not be loaded"
-    },
-    "process": {
-      "title": "AI automation agency process",
-      "subtitle": "Our AI automation agency's proven methodology",
-      "steps": {
-        "0": {
-          "title": "Audit",
-          "description": "Your AI automation agency detects optimizable processes.",
-          "bullets": {
-            "0": "Identification of automatable processes",
-            "1": "Estimated time savings",
-            "2": "Technical proposal and budget"
-          }
-        },
-        "1": {
-          "title": "Strategy",
-          "description": "We create an AI automation roadmap tailored to your business.",
-          "bullets": {
-            "0": "Agile development by sprints",
-            "1": "Continuous feedback",
-            "2": "Real-time adjustments"
-          }
-        },
-        "2": {
-          "title": "Deployment",
-          "description": "Technical integration by your AI automation agency. Full testing included.",
-          "bullets": {
-            "0": "Gradual and controlled rollout",
-            "1": "Exhaustive quality testing",
-            "2": "Secure data migration"
-          }
-        },
-        "3": {
-          "title": "Evolution",
-          "description": "Continuous improvement of the AI automation system.",
-          "bullets": {
-            "0": "Hands-on training sessions",
-            "1": "Complete documentation",
-            "2": "Continuous technical support"
-          }
-        }
-      }
     },
     "useCases": {
       "title": "Success stories: AI automation agency",
@@ -247,55 +215,10 @@
         }
       }
     },
-    "local": {
-      "title": "Experts from the AI automation agency",
-      "description1": "We are your go-to AI automation agency in Spain. Our team of consultants implements AI automation solutions to scale businesses safely and efficiently.",
-      "description2": "Whether you are in Seville capital, Andalusia, or anywhere in Spain we offer both in-person consulting and remote implementation with the highest quality standards.",
-      "videoLabel": "Video",
-      "playVideo": "Play",
-      "points": {
-      "0": {
-        "title": "Office in downtown Seville",
-        "description": "Plaza del Duque 1, 41002 Seville • In-person meetings available"
-      },
-      "1": {
-        "title": "Direct contact",
-        "description": "+34 626 27 08 06 • info@ordinaly.ai • Response within 24h"
-      },
-      "2": {
-        "title": "Regional coverage",
-        "description": "Services throughout Andalusia • In-person training in Seville"
-      }
-      },
-      "cta": "Contact us"
-    },
     "partnersSection": {
       "title": "Companies that trust Ordinaly",
       "subtitle": "We collaborate with leading companies in Seville and Andalusia to transform their processes with AI",
       "visit": "Visit partner's website"
-    },
-    "cta": {
-      "title": "Contact your AI automation agency",
-      "subtitle": "Want us to be your AI automation agency? Take the leap with Spain's leading AI automation agency and revolutionize your profitability.",
-      "meta": "Guaranteed response within 24 business hours • +34 626 27 08 06 • info@ordinaly.ai",
-      "buttons": {
-      "whatsapp": "Free consultation via WhatsApp",
-      "services": "View all services"
-      },
-      "items": {
-      "0": {
-        "title": "Personalized analysis",
-        "description": "We study your business and show you specific automation opportunities"
-      },
-      "1": {
-        "title": "Transparent budget",
-        "description": "No hidden costs. You'll know exactly what you'll receive and how much it will cost"
-      },
-      "2": {
-        "title": "Fast results",
-        "description": "First automations running in 2-4 weeks. Value from day 1"
-      }
-      }
     },
     "seoArticle": {
       "title": "Business automation with AI in Seville: the complete guide",
@@ -401,13 +324,43 @@
         "title": "ORDINALY",
         "alt": "Ordinaly logo"
       },
-      "description": "Transforming Andalusian companies with artificial intelligence and automation.",
+      "description": "Automation, AI agents, and training delivered from Seville for teams that need to operate better.",
+      "sections": {
+        "navigate": "Navigate",
+        "company": "Company",
+        "landings": "Landings",
+        "legal": "Legal",
+        "connect": "Connect"
+      },
+      "links": {
+        "home": "Home",
+        "services": "Services",
+        "formation": "Training",
+        "faq": "FAQ",
+        "blog": "Blog",
+        "news": "News",
+        "about": "About us",
+        "investors": "Investors",
+        "contact": "Contact",
+        "legalCenter": "Legal center",
+        "whatsapp": "WhatsApp",
+        "emailUs": "Email",
+        "callUs": "Call",
+        "officeMap": "Open map",
+        "linkedin": "LinkedIn"
+      },
       "legal": {
         "title": "Legal docs",
         "terms": "Terms of Service",
         "privacy": "Privacy Policy",
         "cookies": "Cookies Policy",
         "license": "License"
+      },
+      "utility": {
+        "language": "Language",
+        "theme": "Theme",
+        "light": "Light",
+        "dark": "Dark"
       },
       "social": {
         "title": "Follow us!",
@@ -450,12 +403,7 @@
         ]
       }
     },
-    "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services",
-    "seoLeadership": {
-      "title": "National leadership in corporate AI",
-      "description": "Our AI automation agency doesn't just install software; we design AI automation ecosystems that learn from your business to deliver a unique competitive advantage in the market.",
-      "imageAlt": "Leading AI automation agency in Spain"
-    }
+    "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   },
   "common": {
     "onVacation": "On vacation",
@@ -1967,12 +1915,81 @@
   },
   "contactPage": {
     "hero": {
-      "title": "Let's build your next automation",
-      "subtitle": "Tell us about your team, tools and goals. We'll reply in less than 24 hours.",
-      "primaryCta": "Write to us",
-      "secondaryCta": "Open the form",
+      "eyebrow": "Ordinaly Support",
+      "call": "Call us now!",
+      "title": "Talk with Ordinaly about AI agents, automation systems, and tailored rollouts",
+      "subtitle": "We help you define the next step: discovery, pilot, operational support, or training for your team. Based in Seville, replying within 24 hours.",
+      "primaryCta": "Open the form",
+      "secondaryCta": "View services",
       "contactCardTitle": "Prefer to speak directly?",
-      "location": "Visit us in Seville!"
+      "location": "Visit the Seville studio"
+    },
+    "services": {
+      "title": "Choose the area you need help with",
+      "subtitle": "Like a support page, we start from your need. Then we route you to the right service, the form, or a call.",
+      "cardCta": "Start here",
+      "items": {
+        "0": {
+          "title": "AI agents",
+          "description": "Operational bots, 24/7 support flows, and assistants grounded in your business context."
+        },
+        "1": {
+          "title": "Process automation",
+          "description": "n8n workflows, tool sync, and less manual work across your daily operations."
+        },
+        "2": {
+          "title": "WhatsApp and conversation",
+          "description": "Lead capture, support, and automated follow-up across WhatsApp and messaging channels."
+        },
+        "3": {
+          "title": "Integrations and systems",
+          "description": "CRM, ERP, forms, spreadsheets, and APIs connected with clear operational logic."
+        },
+        "4": {
+          "title": "Training for teams",
+          "description": "Hands-on programs for sales, operations, leadership, and rollout enablement."
+        },
+        "5": {
+          "title": "Support and guidance",
+          "description": "If you already have an idea or a bottleneck, we help you shape it quickly."
+        }
+      }
+    },
+    "supportHub": {
+      "eyebrow": "Guided entry",
+      "title": "Tell us what you need to solve",
+      "subtitle": "If you already know the problem, start here. If not, we can translate it into a realistic automation path.",
+      "searchPrompt": "Describe the process, bottleneck, or idea you want to automate",
+      "primaryCta": "Start request",
+      "secondaryCta": "Send email",
+      "topics": {
+        "0": "Capture and qualify leads",
+        "1": "Reduce repetitive work",
+        "2": "Launch a support agent",
+        "3": "Train the team in AI"
+      }
+    },
+    "assurance": {
+      "eyebrow": "What happens next",
+      "title": "How we work when you come through support",
+      "items": {
+        "0": {
+          "title": "Diagnosis before templates",
+          "description": "We do not force a generic solution. We review the process, tools, and real impact margin first."
+        },
+        "1": {
+          "title": "Local team, actual delivery",
+          "description": "You speak with the same team that scopes the solution, builds the pilot, and supports the rollout."
+        },
+        "2": {
+          "title": "Fast response",
+          "description": "We reply within 24 business hours and propose a clear next step."
+        }
+      }
+    },
+    "channels": {
+      "title": "Direct channels",
+      "subtitle": "Pick the fastest route for your case: call, email, office visit, or the detailed form."
     },
     "info": {
       "title": "Direct contacts",
@@ -2003,6 +2020,25 @@
       "success": "Thanks! We've received your message and will reply shortly.",
       "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai."
     },
+    "formAside": {
+      "eyebrow": "Before you send",
+      "title": "What to include so we can respond better",
+      "subtitle": "The more context we have, the sharper the first proposal will be.",
+      "items": {
+        "0": {
+          "label": "Process",
+          "value": "Explain which part of the work you want to automate or improve."
+        },
+        "1": {
+          "label": "Tools",
+          "value": "Tell us whether you already use CRM, ERP, WhatsApp, email marketing, or n8n flows."
+        },
+        "2": {
+          "label": "Goal",
+          "value": "Let us know whether you want to save time, sell more, answer faster, or train the team."
+        }
+      }
+    },
     "team": {
       "1": {
         "name": "Antonio Macías Ferrera",
@@ -2019,13 +2055,37 @@
         "role": "CEO, Expert in marketing, advertising and digital transformation & co-founder",
         "quote": "Specialist in digital marketing strategies and business transformation."
       },
+      "eyebrow": "Founding team",
       "title": "Our team",
       "cta": "Get to know us!"
     },
     "map": {
+      "eyebrow": "In person in Seville",
       "title": "Visit us in Seville",
-      "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "subtitle": "Plaza del Duque de la Victoria 1, office 9, 41002 Seville",
+      "cta": "Open in Google Maps",
       "photoAlt": "Our offices in Plaza del Duque de la Victoria, Seville"
+    },
+    "explore": {
+      "title": "More ways to stay in touch",
+      "subtitle": "Beyond direct support, you can get to know the team, follow our content, or visit the studio.",
+      "items": {
+        "0": {
+          "title": "Meet the team",
+          "description": "Who we are, how we work, and why we build automation from Seville.",
+          "cta": "Go to about"
+        },
+        "1": {
+          "title": "See content and resources",
+          "description": "YouTube, use cases, ideas, and material that show how we apply AI and automation.",
+          "cta": "Open channel"
+        },
+        "2": {
+          "title": "Come by the studio",
+          "description": "In-person meetings, workshops, and discovery sessions in Plaza del Duque.",
+          "cta": "Open location"
+        }
+      }
     }
   },
   "usPage": {

@@ -273,11 +273,11 @@ function SignupPageContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] transition-colors duration-300">
       {/* Fullscreen loading overlay during redirect */}
       {isRedirecting && (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#F9FAFB] dark:bg-[#1A1924]">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#1F8A0D] dark:border-gray-600 dark:border-t-[#3FBD6F]" />
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)]">
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-[var(--swatch--oat)] border-t-[var(--swatch--clay)] dark:border-[var(--swatch--slate-medium)] dark:border-t-[var(--swatch--clay)]" />
           <p className="mt-4 text-lg font-medium text-gray-700 dark:text-gray-300">
             {t("messages.success")}
           </p>
@@ -295,15 +295,15 @@ function SignupPageContent() {
       )}
 
       {/* Signup Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#3FBD6F]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)]/40">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left side: Title + Illustration (hidden on mobile) */}
             <div className="scroll-animate slide-in-left">
-              <h1 className="text-5xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-[#1F8A0D] dark:from-[#3FBD6F] via-[#46B1C9] to-[#623CEA] bg-clip-text text-transparent">
+              <h1 className="text-5xl md:text-5xl font-bold mb-6 text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)]">
                 {t("title")}
               </h1>
-              <p className="text-xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed">
+              <p className="text-xl text-[var(--swatch--slate-medium)] dark:text-[var(--swatch--cloud-medium)] mb-12 leading-relaxed">
                 {t("subtitle")}
               </p>
               <div
@@ -324,9 +324,9 @@ function SignupPageContent() {
 
             {/* Right side: Signup Card */}
             <div className="scroll-animate slide-in-right">
-              <Card className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] transition-all duration-300 hover:shadow-xl hover:shadow-[#1F8A0D]/10">
+              <Card className="bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)]/50 border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] hover:border-[var(--swatch--clay)] transition-all duration-300 hover:shadow-xl">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-bold text-[#1F8A0D] dark:text-[#3FBD6F] text-center">
+                  <CardTitle className="text-2xl font-bold text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] text-center">
                     {t("form.title")}
                   </CardTitle>
                 </CardHeader>
@@ -342,14 +342,14 @@ function SignupPageContent() {
                       }}
                       className="
                               w-full flex items-center justify-center gap-3
-                              bg-white dark:bg-gray-900
-                              border border-gray-300 dark:border-gray-700
+                              bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)]
+                              border border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)]
                               rounded-lg py-3 px-4
                               shadow hover:shadow-md
                               transition-all
-                              hover:border-[#1F8A0D]
-                              hover:bg-[#1F8A0D]/10
-                              dark:hover:bg-[#3FBD6F]/20
+                              hover:border-[var(--swatch--clay)]
+                              hover:bg-[var(--swatch--clay)]/10
+                              dark:hover:bg-[var(--swatch--clay)]/20
                               "
                     >
                       <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
@@ -360,10 +360,10 @@ function SignupPageContent() {
 
                     <div className="relative mt-6">
                       <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                        <div className="w-full border-t border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)]"></div>
                       </div>
                       <div className="relative flex justify-center text-sm">
-                        <span className="px-2 bg-white dark:bg-gray-800 text-gray-500">
+                        <span className="px-2 bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)] text-[var(--swatch--cloud-medium)]">
                           {t("form.orSignupWithEmail")}
                         </span>
                       </div>
@@ -374,7 +374,7 @@ function SignupPageContent() {
                     {/* Name and Surname Fields - Same Row */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="name" className="text-gray-800 dark:text-gray-200">
+                        <Label htmlFor="name" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                           {t("form.nameLabel")}
                         </Label>
                         <div className="relative">
@@ -384,7 +384,7 @@ function SignupPageContent() {
                             type="text"
                             value={name}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                            className="pl-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                             placeholder={t("form.namePlaceholder")}
                             required
                           />
@@ -393,7 +393,7 @@ function SignupPageContent() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="surname" className="text-gray-800 dark:text-gray-200">
+                        <Label htmlFor="surname" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                           {t("form.surnameLabel")}
                         </Label>
                         <div className="relative">
@@ -403,7 +403,7 @@ function SignupPageContent() {
                             type="text"
                             value={surname}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSurname(e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                            className="pl-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                             placeholder={t("form.surnamePlaceholder")}
                             required
                           />
@@ -414,7 +414,7 @@ function SignupPageContent() {
 
                     {/* Email Field */}
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-gray-800 dark:text-gray-200">
+                      <Label htmlFor="email" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                         {t("form.emailLabel")}
                       </Label>
                       <div className="relative">
@@ -424,7 +424,7 @@ function SignupPageContent() {
                           type="email"
                           value={email}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                          className="pl-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                           placeholder={t("form.emailPlaceholder")}
                           required
                         />
@@ -434,7 +434,7 @@ function SignupPageContent() {
 
                     {/* Company Field */}
                     <div className="space-y-2">
-                      <Label htmlFor="company" className="text-gray-800 dark:text-gray-200">
+                      <Label htmlFor="company" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                         {t("form.companyLabel")}
                       </Label>
                       <div className="relative">
@@ -444,7 +444,7 @@ function SignupPageContent() {
                           type="text"
                           value={company}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCompany(e.target.value)}
-                          className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                          className="pl-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                           placeholder={t("form.companyPlaceholder")}
                         />
                       </div>
@@ -454,7 +454,7 @@ function SignupPageContent() {
                     {/* Region and City Fields - Same Row (Optional) */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="region" className="text-gray-800 dark:text-gray-200">
+                        <Label htmlFor="region" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                           {t("form.regionLabel")}
                         </Label>
                         <div className="relative">
@@ -464,14 +464,14 @@ function SignupPageContent() {
                             type="text"
                             value={region}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setRegion(e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                            className="pl-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                             placeholder={t("form.regionPlaceholder")}
                           />
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="city" className="text-gray-800 dark:text-gray-200">
+                        <Label htmlFor="city" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                           {t("form.cityLabel")}
                         </Label>
                         <div className="relative">
@@ -481,7 +481,7 @@ function SignupPageContent() {
                             type="text"
                             value={city}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCity(e.target.value)}
-                            className="pl-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                            className="pl-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                             placeholder={t("form.cityPlaceholder")}
                           />
                         </div>
@@ -490,7 +490,7 @@ function SignupPageContent() {
 
                     {/* Password Field */}
                     <div className="space-y-2">
-                      <Label htmlFor="password" className="text-gray-800 dark:text-gray-200">
+                      <Label htmlFor="password" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                         {t("form.passwordLabel")}
                       </Label>
                       <div className="relative">
@@ -500,14 +500,14 @@ function SignupPageContent() {
                           type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                          className="pl-10 pr-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                           placeholder={t("form.passwordPlaceholder")}
                           required
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--swatch--cloud-medium)] hover:text-[var(--swatch--slate-medium)] dark:hover:text-[var(--swatch--cloud-light)] transition-colors"
                         >
                           {showPassword ? (
                             <EyeOff className="h-5 w-5" />
@@ -521,7 +521,7 @@ function SignupPageContent() {
 
                     {/* Confirm Password Field */}
                     <div className="space-y-2">
-                      <Label htmlFor="confirmPassword" className="text-gray-800 dark:text-gray-200">
+                      <Label htmlFor="confirmPassword" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
                         {t("form.confirmPasswordLabel")}
                       </Label>
                       <div className="relative">
@@ -531,14 +531,14 @@ function SignupPageContent() {
                           type={showConfirmPassword ? "text" : "password"}
                           value={confirmPassword}
                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setConfirmPassword(e.target.value)}
-                          className="pl-10 pr-10 bg-gray-50 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                          className="pl-10 pr-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
                           placeholder={t("form.confirmPasswordPlaceholder")}
                           required
                         />
                         <button
                           type="button"
                           onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-[var(--swatch--cloud-medium)] hover:text-[var(--swatch--slate-medium)] dark:hover:text-[var(--swatch--cloud-light)] transition-colors"
                         >
                           {showConfirmPassword ? (
                             <EyeOff className="h-5 w-5" />
@@ -562,14 +562,14 @@ function SignupPageContent() {
                             setAcceptedTerms(e.target.checked);
                             setAllowNotifications(e.target.checked);
                           }}
-                          className="w-4 h-4 mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] focus:ring-offset-0"
+                          className="w-4 h-4 mt-1 rounded border-[var(--swatch--oat)] text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)] focus:ring-offset-0"
                         />
                         <Label htmlFor="selectAll" className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed font-medium">
                           {t("form.selectAll")}
                         </Label>
                       </div>
 
-                      <div className="ml-1 space-y-3 border-l-2 border-gray-200 dark:border-gray-600 pl-4">
+                      <div className="ml-1 space-y-3 border-l-2 border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] pl-4">
                         {/* Terms and Privacy */}
                         <div className="flex items-start space-x-3">
                           <input
@@ -577,16 +577,16 @@ function SignupPageContent() {
                             id="acceptTerms"
                             checked={acceptedTerms}
                             onChange={(e) => setAcceptedTerms(e.target.checked)}
-                            className="w-4 h-4 mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] focus:ring-offset-0"
+                            className="w-4 h-4 mt-1 rounded border-[var(--swatch--oat)] text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)] focus:ring-offset-0"
                             required
                           />
-                          <Label htmlFor="acceptTerms" className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          <Label htmlFor="acceptTerms" className="text-sm text-[var(--swatch--slate-medium)] dark:text-[var(--swatch--cloud-medium)] leading-relaxed">
                             {t("form.acceptTerms")}
                             <a
                               href="/legal?tab=terms"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] underline font-medium"
+                              className="text-[var(--swatch--cobalt)] hover:text-[var(--swatch--clay)] underline font-medium"
                             >
                               {t("form.termsLink")}
                             </a>
@@ -595,7 +595,7 @@ function SignupPageContent() {
                               href="/legal?tab=privacy"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] underline font-medium"
+                              className="text-[var(--swatch--cobalt)] hover:text-[var(--swatch--clay)] underline font-medium"
                             >
                               {t("form.privacyLink")}
                             </a>
@@ -609,9 +609,9 @@ function SignupPageContent() {
                             id="allowNotifications"
                             checked={allowNotifications}
                             onChange={(e) => setAllowNotifications(e.target.checked)}
-                            className="w-4 h-4 mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] focus:ring-offset-0"
+                            className="w-4 h-4 mt-1 rounded border-[var(--swatch--oat)] text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)] focus:ring-offset-0"
                           />
-                          <Label htmlFor="allowNotifications" className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                          <Label htmlFor="allowNotifications" className="text-sm text-[var(--swatch--slate-medium)] dark:text-[var(--swatch--cloud-medium)] leading-relaxed">
                             {t("form.allowNotifications")}
                           </Label>
                         </div>
@@ -628,9 +628,9 @@ function SignupPageContent() {
                     </div>
                   </form>
 
-                  <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
+                  <p className="mt-6 text-center text-sm text-[var(--swatch--slate-medium)] dark:text-[var(--swatch--cloud-medium)]">
                     {t("form.loginPrompt")}
-                    <Link href="/auth/signin" className="text-[#46B1C9] hover:underline">
+                    <Link href="/auth/signin" className="text-[var(--swatch--cobalt)] hover:underline">
                       {t("form.loginLink")}
                     </Link>
                   </p>

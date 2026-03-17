@@ -11,6 +11,7 @@ const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; prior
   { path: "/about", changeFrequency: "weekly", priority: 0.7 },
   { path: "/services", changeFrequency: "weekly", priority: 0.8 },
   { path: "/formation", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/faq", changeFrequency: "weekly", priority: 0.75 },
   { path: "/blog", changeFrequency: "daily", priority: 0.8 },
   { path: "/news", changeFrequency: "daily", priority: 0.7 },
 ];

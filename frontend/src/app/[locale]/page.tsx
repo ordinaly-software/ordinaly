@@ -16,17 +16,23 @@ export async function generateMetadata({
   const { locale } = await params;
   const isEs = locale?.startsWith("es");
 
-  return createPageMetadata({
+  const base = createPageMetadata({
     locale,
     path: "/",
     title: isEs
-      ? "Agencia de automatización IA - Automatización empresarial con inteligencia artificial | Ordinaly Software"
-      : "AI Automation Agency - Business automation with artificial intelligence | Ordinaly Software",
+      ? "Automatización IA Sevilla | Chatbots y Agentes IA para Empresas | Ordinaly Software"
+      : "AI Automation Seville | Chatbots and AI Agents for Business | Ordinaly Software",
     description: isEs
-      ? "Somos tu agencia de automatización IA: optimizamos procesos con agentes inteligentes, chatbots y soluciones de inteligencia artificial personalizadas para escalar tu empresa."
-      : "We are your AI automation agency: we optimise processes with intelligent agents, chatbots and custom AI solutions to scale your business.",
+      ? "Agencia especializada en automatización IA en Sevilla: chatbots empresariales, agentes IA, n8n automation, WhatsApp CRM y formación IA para PYMES. Primeros resultados en 2-4 semanas."
+      : "AI automation agency in Seville: business chatbots, AI agents, n8n automation, WhatsApp CRM and AI training for SMEs. First results in 2-4 weeks.",
     image: "/og-image.png",
   });
+  return {
+    ...base,
+    keywords: isEs
+      ? ["automatización IA Sevilla", "agentes IA empresas", "chatbots empresas", "formación IA Sevilla", "n8n automatización", "WhatsApp CRM IA", "agencia automatización Sevilla", "inteligencia artificial PYMES"]
+      : ["AI automation Seville", "AI agents business", "business chatbots", "AI training Seville", "n8n automation", "WhatsApp CRM AI"],
+  };
 }
 
 export const revalidate = 3600; // ISR: revalidate home every hour

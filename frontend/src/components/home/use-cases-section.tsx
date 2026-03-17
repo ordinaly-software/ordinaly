@@ -112,14 +112,14 @@ export function UseCasesSection({ t }: SectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark]"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
             {t("useCases.title")}
           </h2>
-          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
             {t("useCases.subtitle")}
           </p>
         </div>
@@ -127,17 +127,17 @@ export function UseCasesSection({ t }: SectionProps) {
           {useCases.map((item, index) => (
             <div
               key={item.titleKey}
-              className="scroll-animate fade-in-up bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow"
+              className="scroll-animate fade-in-up bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="text-4xl mb-4">{item.icon}</div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">
+              <h3 className="text-2xl font-bold mb-3 text-slate-dark dark:text-ivory-light">
                 {t(item.titleKey)}
               </h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
+              <ul className="space-y-2 text-slate-medium dark:text-cloud-medium">
                 {item.bullets.map((bullet, idx) => (
                   <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#1F8A0D] dark:text-[#3FBD6F] mt-1">✓</span>
+                    <span className="text-clay dark:text-clay mt-1">✓</span>
                     <span>{t(`${item.bulletKey ?? item.titleKey.replace(".title", "")}.bullets.${idx}`)}</span>
                   </li>
                 ))}

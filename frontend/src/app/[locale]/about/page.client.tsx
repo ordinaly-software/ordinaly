@@ -93,7 +93,7 @@ export default function UsPage() {
           priority
         />
         <div className="absolute inset-0 bg-black/30 dark:bg-black/50" />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+        <div className="relative max-w-6xl mx-auto px-4 pb-16 pt-14 sm:px-6 lg:px-8 md:pb-20 md:pt-16">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div className="space-y-5">
               <p className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-white font-semibold">
@@ -110,7 +110,7 @@ export default function UsPage() {
                 {t("hero.definition")}
               </p>
               <div className="flex flex-wrap gap-3">
-                <Button className="bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] gap-2" asChild>
+                <Button className="bg-[#0144AA] dark:bg-[#7DB5FF] hover:bg-[#01388A] dark:hover:bg-[#60A5FA] text-white dark:text-[#0B1B17] gap-2" asChild>
                   <a href="#testimonials">
                   <Rocket className="h-4 w-4" />
                   {t("hero.ctaPrimary")}
@@ -138,7 +138,7 @@ export default function UsPage() {
                     <p className="text-lg text-gray-600 dark:text-gray-300 font-semibold">{t("vision.title")}</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400">{t("vision.body")}</p>
                   </div>
-                  <div className="col-span-2 rounded-2xl bg-[#1F8A0D] dark:bg-[#0F2E1E] text-white p-4 flex items-center gap-3 shadow-lg">
+                  <div className="col-span-2 rounded-2xl bg-[#0255D5] dark:bg-[#0A255C] text-white p-4 flex items-center gap-3 shadow-lg">
                     <Users className="h-8 w-8" />
                     <div>
                       <p className="text-sm opacity-90">{t("stats.teamLabel")}</p>

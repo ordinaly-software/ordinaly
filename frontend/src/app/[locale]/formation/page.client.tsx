@@ -431,7 +431,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                 placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
               />
             </div>
 
@@ -537,7 +537,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
               <Button
                 onClick={() => setShowPastCourses(!showPastCourses)}
                 variant="outline"
-                className="border-[#1F8A0D] dark:border-[#3FBD6F] text-[#1F8A0D] dark:text-[#3FBD6F] hover:bg-[#0d6e0c] dark:hover:bg-[#3FBD6F]/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
+                className="border-[#0255D5] dark:border-[#7DB5FF] text-[#0255D5] dark:text-[#7DB5FF] hover:bg-[#0144AA] dark:hover:bg-[#7DB5FF]/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
               >
                 {showPastCourses ? (
                   <>
@@ -576,7 +576,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
 
       <FaqSection t={t} />
     
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#1F8A0D] dark:from-[#3FBD6F] to-[#166307] text-white">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#0255D5] dark:from-[#7DB5FF] to-[#01388A] text-white">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             {t("cta.title")}
@@ -586,7 +586,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              className="bg-white text-[#1F8A0D] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
+              className="bg-white text-[#0255D5] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
               onClick={() => {
                 const subject = encodeURIComponent(t("cta.emailSubject"));
                 const body = encodeURIComponent(t("cta.emailBody"));

@@ -4,8 +4,6 @@ import { createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { getLandingMeta } from "../landings";
 import { getApiEndpoint } from "@/lib/api-config";
 import { notFound } from "next/navigation";
-import esMessages from "../../../../messages/es.json";
-import enMessages from "../../../../messages/en.json";
 
 // Reused by services/[slug]/page.tsx for OG images
 type Service = {
@@ -55,12 +53,9 @@ export async function generateMetadata({
   // 1. Check if it's a local SEO landing
   const landingMeta = getLandingMeta(slug);
   if (landingMeta) {
-    const messages = isEs ? esMessages : enMessages;
-    const landingDict = (messages as { landings?: Record<string, unknown> }).landings;
-    const landing = landingDict?.[slug] as Record<string, unknown> | undefined;
-    const title = (landing?.title as string) ?? "Ordinaly Services";
+    const title = isEs ? landingMeta.title.es : landingMeta.title.en;
     const description =
-      (landing?.description as string) ??
+      (isEs ? landingMeta.description.es : landingMeta.description.en) ??
       (isEs
         ? defaultDescription
         : "AI automation services and products for companies looking to scale with intelligent workflows.");
@@ -110,7 +105,7 @@ export default async function SlugPage({
   // 1. Local SEO landing
   const landingMeta = getLandingMeta(slug);
   if (landingMeta) {
-    return <LocalLandingPage slug={slug} locale={locale} meta={landingMeta} />;
+    return <LocalLandingPage locale={locale} meta={landingMeta} />;
   }
 
   // 2. Service (check API)

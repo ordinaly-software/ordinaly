@@ -3,12 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
-import { useTranslations } from "next-intl";
-import { CheckCircle2, MapPin, Sparkles, Clock3, ShieldCheck } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Clock3,
+  Microscope,
+  ShieldCheck,
+  Sparkles,
+  SquareStack,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
-import type { LocalLandingMeta } from "@/app/[locale]/landings";
-import { TestimonialsSection } from "../home/testimonials-section";
+import { localize, type LocalLandingMeta } from "@/app/[locale]/landings";
 import { HubIllustration } from "@/components/ui/hub-illustration";
 import { HUB_FIGURES } from "@/components/ui/hub-figures";
 import dynamic from "next/dynamic";
@@ -20,53 +26,69 @@ const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble")
 });
 
 const cardClass =
-  "rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0f1729] shadow-sm";
+  "rounded-[2rem] border border-[--color-border-subtle] bg-white/82 shadow-[0_24px_90px_-60px_rgba(15,23,42,0.28)] backdrop-blur dark:border-white/10 dark:bg-white/[0.04]";
+const softCardClass =
+  "rounded-[1.5rem] border border-[--color-border-subtle] bg-[--swatch--ivory-light]/85 dark:border-white/10 dark:bg-white/[0.04]";
+const darkCardClass =
+  "rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] text-white shadow-[0_24px_90px_-58px_rgba(0,0,0,0.56)] dark:border-white/10";
 
-export function LocalLandingPage({ slug, locale, meta }: { slug: string; locale: string; meta: LocalLandingMeta }) {
-  const t = useTranslations("home");
-  const tLanding = useTranslations(`landings.${slug}`);
+export function LocalLandingPage({ locale, meta }: { locale: string; meta: LocalLandingMeta }) {
   const isEn = locale.startsWith("en");
-
-  const buildList = (base: string, count: number) =>
-    Array.from({ length: count }, (_, idx) => tLanding(`${base}.${idx}`));
-
-  const valueProps = buildList("valueProps", meta.valueProps);
-  const outcomes = buildList("outcomes", meta.outcomes);
-  const steps = buildList("steps", meta.steps);
-  const keywords = buildList("keywords", meta.keywords);
-  const faqs = Array.from({ length: meta.faqs }, (_, idx) => ({
-    question: tLanding(`faqs.${idx}.q`),
-    answer: tLanding(`faqs.${idx}.a`),
-  }));
-
-  const heroCtaHref = `/${isEn ? "en" : "es"}/contact`;
-  const whatsappText = isEn ? "I want to automate my company with AI" : "Quiero automatizar mi empresa con IA";
-  const secondaryCtaHref = `https://wa.me/34626270806?text=${encodeURIComponent(whatsappText)}`;
+  const pick = (value: { es: string; en: string }) => localize(locale, value);
 
   const content = {
-    title: tLanding("title"),
-    subtitle: tLanding("subtitle"),
-    description: tLanding("description"),
-    heroBadge: tLanding("heroBadge"),
-    heroCtaLabel: tLanding("heroCtaLabel"),
-    secondaryCtaLabel: tLanding("secondaryCtaLabel"),
-    serviceType: tLanding("serviceType"),
-    areaServed: tLanding("areaServed"),
-    keywords,
+    title: pick(meta.title),
+    subtitle: pick(meta.subtitle),
+    description: pick(meta.description),
+    heroBadge: pick(meta.heroBadge),
+    heroCtaLabel: pick(meta.heroCtaLabel),
+    secondaryCtaLabel: pick(meta.secondaryCtaLabel),
+    serviceType: pick(meta.serviceType),
+    areaServed: pick(meta.areaServed),
+    valueProps: meta.valueProps.map(pick),
+    metrics: meta.metrics.map((metric) => ({
+      label: pick(metric.label),
+      value: pick(metric.value),
+      detail: pick(metric.detail),
+    })),
+    outcomes: meta.outcomes.map(pick),
+    steps: meta.steps.map(pick),
+    useCases: meta.useCases.map((useCase) => ({
+      tag: pick(useCase.tag),
+      title: pick(useCase.title),
+      description: pick(useCase.description),
+      bullets: useCase.bullets.map(pick),
+    })),
+    technologyFaqs: meta.technologyFaqs.map((faq) => ({
+      tag: faq.tag ? pick(faq.tag) : null,
+      question: pick(faq.question),
+      answer: pick(faq.answer),
+    })),
+    keywords: meta.keywords.map(pick),
     heroImage: meta.heroImage || "/static/backgrounds/services_background.webp",
   };
-  const jumpCtaLabel = isEn ? "Talk now" : "Hablar ahora";
+
+  const heroCtaHref = `/${isEn ? "en" : "es"}/contact`;
+  const jumpToFormHref = "#landing-contact";
+  const whatsappText = isEn
+    ? `I want to scope ${content.serviceType.toLowerCase()} with Ordinaly`
+    : `Quiero definir ${content.serviceType.toLowerCase()} con Ordinaly`;
+  const secondaryCtaHref = `https://wa.me/34626270806?text=${encodeURIComponent(whatsappText)}`;
+  const floatingCtaLabel = meta.cta ? pick(meta.cta.label) : null;
+  const floatingCtaHref = meta.cta?.href ?? secondaryCtaHref;
+  const floatingCtaBg = meta.cta?.bgColor ?? "#0255D5";
+
   const faqSchema = useMemo(
     () => ({
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: faqs.map((item) => ({
+      mainEntity: content.technologyFaqs.map((item) => ({
         "@type": "Question",
         name: item.question,
         acceptedAnswer: { "@type": "Answer", text: item.answer },
       })),
     }),
-    [faqs],
+    [content.technologyFaqs],
   );
 
   const serviceSchema = useMemo(
@@ -90,199 +112,412 @@ export function LocalLandingPage({ slug, locale, meta }: { slug: string; locale:
           addressCountry: "ES",
         },
       },
-        offers: {
-          "@type": "Offer",
-          availability: "https://schema.org/InStock",
-          areaServed: content.areaServed,
-        },
+      offers: {
+        "@type": "Offer",
+        availability: "https://schema.org/InStock",
+        areaServed: content.areaServed,
+      },
       keywords: content.keywords,
       hasFAQ: faqSchema,
     }),
     [content.areaServed, content.keywords, content.serviceType, content.title, faqSchema],
   );
 
-
   const ui = {
-    results: isEn ? "Results" : "Resultados",
-    impact: isEn ? "Impact in Seville" : "Impacto en Sevilla",
-    how: isEn ? "How we do it" : "Cómo lo hacemos",
-    faq: isEn ? "Frequently asked questions" : "Preguntas frecuentes",
-    ready: isEn ? "Ready to start?" : "¿Listo para empezar?",
+    blueprint: isEn ? "Technical blueprint" : "Blueprint técnico",
+    measuredDelivery: isEn ? "Measured delivery" : "Despliegue medible",
+    service: isEn ? "Service scope" : "Alcance del servicio",
+    coverage: isEn ? "Coverage" : "Cobertura",
+    delivery: isEn ? "Delivery model" : "Modelo de entrega",
+    deliveryText: isEn
+      ? "Audit, pilot, rollout and monitoring with versioned changes."
+      : "Auditoría, piloto, despliegue y monitorización con cambios versionados.",
+    capabilities: isEn ? "Core capabilities" : "Capacidades clave",
+    metrics: isEn ? "Benchmarks and operating targets" : "Benchmarks y objetivos operativos",
+    metricsText: isEn
+      ? "Precise parameters for the initial rollout, observability and control."
+      : "Parámetros concretos para el despliegue inicial, la observabilidad y el control.",
+    kpis: isEn ? "KPIs and acceptance criteria" : "KPIs y criterios de aceptación",
+    process: isEn ? "Implementation sequence" : "Secuencia de implantación",
+    processText: isEn
+      ? "We reduce ambiguity first, then automate with guardrails and observability."
+      : "Primero reducimos ambigüedad; después automatizamos con guardrails y observabilidad.",
+    useCases: isEn ? "Use cases by team" : "Casos de uso por equipo",
+    useCasesText: isEn
+      ? "Examples that fit real workflows rather than generic demos."
+      : "Ejemplos pensados para flujos reales y no para demos genéricas.",
+    faq: isEn ? "Technology FAQ" : "FAQ técnica",
+    ready: isEn ? "Scope the pilot" : "Definir el piloto",
     readyText: isEn
-      ? "We prepare a plan in 48h with scope, timing and owners. Includes pilot in Seville."
-      : "Preparamos un plan en 48h con alcance, tiempos y responsables. Incluye piloto en Sevilla.",
-    localTeam: isEn ? "Local team in Seville" : "Equipo local en Sevilla",
+      ? "We prepare a first technical scope with interfaces, target workflow, constraints and acceptance criteria."
+      : "Preparamos un primer alcance técnico con interfaces, flujo objetivo, restricciones y criterios de aceptación.",
+    keywords: isEn ? "Search intents" : "Intenciones de búsqueda",
+    architecture: isEn ? "Reference architecture" : "Arquitectura de referencia",
+    contactEyebrow: isEn ? "Project intake" : "Intake del proyecto",
+    contactTitle: isEn
+      ? "Talk with the team that scopes and ships the rollout"
+      : "Habla con el equipo que define y ejecuta el despliegue",
+    contactText: isEn
+      ? "The same people audit the process, build the pilot and review the first weeks in production."
+      : "El mismo equipo audita el proceso, construye el piloto y revisa las primeras semanas en producción.",
+    response: isEn ? "Response window" : "Ventana de respuesta",
+    responseText: isEn ? "Reply in under 24 business hours" : "Respuesta en menos de 24 horas laborables",
+    startNow: isEn ? "Open form" : "Abrir formulario",
   };
 
-  // Floating CTA config
-  const floatingCtaLabel = meta.cta ? (isEn ? meta.cta.labelEn : meta.cta.labelEs) : null;
-  const floatingCtaHref = meta.cta?.href ?? secondaryCtaHref;
-  const floatingCtaBg = meta.cta?.bgColor ?? "#0f8a0d";
+  const contactHighlights = [
+    { label: ui.service, value: content.serviceType },
+    { label: ui.coverage, value: content.areaServed },
+    { label: ui.response, value: ui.responseText },
+  ];
 
   return (
-    <div className="bg-gradient-to-b from-[#f7fbf4] via-white to-[#f7fbf4] dark:from-[#0b1220] dark:via-[#0b1220] dark:to-[#0b1220] text-gray-900 dark:text-gray-100">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 flex flex-col gap-10">
-        <section className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center">
-          <div className="space-y-6">
-            {content.heroBadge ? (
-              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#0f8a0d] dark:text-[#3FBD6F]">
-                <Sparkles className="h-4 w-4" />
-                {content.heroBadge}
-              </span>
-            ) : null}
-            <h1 className="text-3xl md:text-4xl font-bold leading-tight">{content.title}</h1>
-            <p className="text-lg text-gray-700 dark:text-gray-300">{content.subtitle}</p>
-            <p className="text-base text-gray-600 dark:text-gray-400">{content.description}</p>
-            <div className="flex flex-wrap gap-3">
-              <Button asChild className="bg-[#0f8a0d] hover:bg-[#0c6d0b] text-white shadow">
-                <Link href={heroCtaHref}>{content.heroCtaLabel}</Link>
-              </Button>
-              <Button
-                asChild
-                className="bg-[#f97316] hover:bg-[#ea580c] text-white shadow-lg px-5 py-3 text-sm md:text-base"
-              >
-                <Link href="#landing-contact">{jumpCtaLabel}</Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                className="border-[#0f8a0d]/30 text-[#0f8a0d] dark:text-[#3FBD6F]"
-              >
-                <Link href={secondaryCtaHref}>{content.secondaryCtaLabel}</Link>
-              </Button>
-            </div>
-            <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-              <MapPin className="h-4 w-4" /> {content.areaServed}
-              <span className="inline-flex items-center gap-2 text-xs font-semibold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-200 px-2 py-1 rounded-full">
-                <ShieldCheck className="h-3.5 w-3.5" /> {ui.localTeam}
-              </span>
-            </div>
-          </div>
-          <div className={`${cardClass} overflow-hidden relative min-h-[260px]`}>
-            {content.heroImage ? (
-              <Image
-                src={content.heroImage}
-                alt={content.title}
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 540px, 100vw"
-                priority
-              />
-            ) : (
-              <div className="h-full bg-gradient-to-br from-emerald-100 via-white to-emerald-50 dark:from-emerald-900/30 dark:via-[#0b1220] dark:to-emerald-800/10" />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/15 to-transparent" />
-          </div>
-        </section>
-
-        <section className="grid md:grid-cols-3 gap-4">
-          {valueProps.map((item, idx) => (
-            <div key={idx} className={`${cardClass} p-4 flex gap-3`}>
-              <CheckCircle2 className="h-5 w-5 text-emerald-600 dark:text-emerald-400 mt-0.5" />
-              <p className="text-sm text-gray-700 dark:text-gray-200 leading-relaxed">{item}</p>
-            </div>
-          ))}
-        </section>
-
-        {meta.hub && (
-          <section className="-mx-4 sm:-mx-6 lg:-mx-8">
-            <HubIllustration
-              title={meta.hub.title[isEn ? "en" : "es"]}
-              subtitle={meta.hub.subtitle?.[isEn ? "en" : "es"]}
-              bgTheme={meta.hub.bgTheme}
-              platforms={meta.hub.platforms.map((p) => ({
-                position: p.position,
-                label: p.label[isEn ? "en" : "es"],
-                sublabel: p.sublabel[isEn ? "en" : "es"],
-                colorScheme: p.colorScheme,
-                figure: HUB_FIGURES[p.figureKey],
-              }))}
-            />
-          </section>
-        )}
-
-        <section className={`${cardClass} p-6 grid lg:grid-cols-2 gap-6`}>
-          <div className="space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-300">{ui.results}</p>
-            <h2 className="text-2xl font-bold">{ui.impact}</h2>
-            <ul className="space-y-3 text-gray-700 dark:text-gray-300">
-              {outcomes.map((item, idx) => (
-                <li key={idx} className="flex gap-2">
-                  <Clock3 className="h-4 w-4 mt-1 text-emerald-600 dark:text-emerald-400" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-3">
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-300">{ui.how}</p>
-            <ol className="space-y-3 text-gray-700 dark:text-gray-300 list-decimal list-inside">
-              {steps.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ol>
-          </div>
-        </section>
-
-        <section className="grid lg:grid-cols-[1fr_0.9fr] gap-6 items-start">
-          <div className={`${cardClass} p-6 space-y-4`}>
-            <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-300">
-              <ShieldCheck className="h-4 w-4" /> {ui.faq}
-            </div>
-            <div className="divide-y divide-gray-200 dark:divide-gray-800">
-              {faqs.map((faq, idx) => (
-                <details key={idx} className="py-3 group" open={idx === 0}>
-                  <summary className="cursor-pointer text-base font-medium text-gray-900 dark:text-gray-100 flex items-start justify-between gap-3">
-                    <span>{faq.question}</span>
-                    <span className="text-emerald-600 dark:text-emerald-400">+</span>
-                  </summary>
-                  <p className="mt-2 text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-          <div className={`${cardClass} p-6 space-y-4 bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-900/20 dark:to-[#0b1220]`}>
-            <h3 className="text-xl font-semibold">{ui.ready}</h3>
-            <p className="text-sm text-gray-700 dark:text-gray-300">{ui.readyText}</p>
-            <div className="flex flex-col gap-3">
-              <Button asChild className="bg-[#0f8a0d] hover:bg-[#0c6d0b] text-white">
-                <Link href={heroCtaHref}>{content.heroCtaLabel}</Link>
-              </Button>
-              <Button asChild variant="outline" className="border-[#0f8a0d]/30 text-[#0f8a0d] dark:text-[#3FBD6F]">
-                <Link href={secondaryCtaHref}>{content.secondaryCtaLabel}</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <TestimonialsSection t={t} />
-        </section>
-
-        <section id="landing-contact">
-          <ContactForm />
-        </section>
+    <div className="relative overflow-hidden bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute inset-x-0 top-0 h-[36rem] bg-[radial-gradient(circle_at_top,rgba(2,85,213,0.14),transparent_60%)] dark:bg-[radial-gradient(circle_at_top,rgba(2,85,213,0.22),transparent_60%)]" />
+        <div className="absolute left-[8%] top-56 h-44 w-44 rounded-full bg-[#0255D5]/8 blur-3xl dark:bg-[#0255D5]/16" />
+        <div className="absolute right-[7%] top-[22rem] h-52 w-52 rounded-full bg-clay/10 blur-3xl" />
       </div>
 
-      {/* WhatsApp bubble (reuses existing component + skeleton) */}
+      <div className="relative u-container pb-24 pt-10 lg:pb-28 lg:pt-12">
+        <div className="flex flex-col gap-6 lg:gap-8">
+          <section className={`${cardClass} overflow-hidden p-6 md:p-8 lg:p-10`}>
+            <div className="grid gap-8 xl:grid-cols-[1.04fr_0.96fr] xl:items-start">
+              <div>
+                <div className="flex flex-wrap gap-3">
+                  <span className="label-meta inline-flex items-center gap-2 rounded-full border border-[#0255D5]/15 bg-[#0255D5]/10 px-4 py-2 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]">
+                    <Sparkles className="h-3.5 w-3.5" />
+                    {content.heroBadge}
+                  </span>
+                  <span className="label-meta inline-flex items-center gap-2 rounded-full border border-[#0255D5]/15 bg-white/70 px-4 py-2 text-slate-dark dark:border-white/10 dark:bg-white/[0.06] dark:text-ivory-light">
+                    <ShieldCheck className="h-3.5 w-3.5 text-[#0255D5] dark:text-[#7DB5FF]" />
+                    {ui.blueprint}
+                  </span>
+                </div>
+
+                <h1 className="mt-6 max-w-4xl text-4xl font-semibold leading-[0.98] tracking-[-0.045em] sm:text-5xl lg:text-[3.8rem]">
+                  {content.title}
+                </h1>
+                <p className="mt-4 max-w-3xl text-xl font-semibold leading-relaxed text-slate-medium dark:text-cloud-medium">
+                  {content.subtitle}
+                </p>
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-slate-medium dark:text-cloud-medium">
+                  {content.description}
+                </p>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button asChild size="lg" variant="cobalt">
+                    <Link href={heroCtaHref}>{content.heroCtaLabel}</Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline">
+                    <a href={jumpToFormHref}>{ui.startNow}</a>
+                  </Button>
+                  <Button asChild size="lg" variant="whatsapp">
+                    <a href={secondaryCtaHref} target="_blank" rel="noopener noreferrer">
+                      {content.secondaryCtaLabel}
+                    </a>
+                  </Button>
+                </div>
+
+                <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                  <div className={`${softCardClass} p-5`}>
+                    <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.service}</p>
+                    <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-dark dark:text-ivory-light">
+                      {content.serviceType}
+                    </p>
+                  </div>
+                  <div className={`${softCardClass} p-5`}>
+                    <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.coverage}</p>
+                    <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-dark dark:text-ivory-light">
+                      {content.areaServed}
+                    </p>
+                  </div>
+                  <div className={`${softCardClass} p-5`}>
+                    <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.delivery}</p>
+                    <p className="mt-3 text-sm font-semibold leading-relaxed text-slate-dark dark:text-ivory-light">
+                      {ui.deliveryText}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid gap-4">
+                <div className="relative min-h-[340px] overflow-hidden rounded-[1.75rem] border border-[--color-border-subtle] bg-[#0f172a] shadow-[0_28px_80px_-50px_rgba(15,23,42,0.5)] dark:border-white/10 lg:min-h-[420px]">
+                  <Image
+                    src={content.heroImage}
+                    alt={content.title}
+                    fill
+                    priority
+                    className="object-cover"
+                    style={{ objectPosition: meta.heroImagePosition ?? "center" }}
+                    sizes="(min-width: 1280px) 520px, (min-width: 768px) 60vw, 100vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/18 to-transparent" />
+                  <div className="absolute left-5 top-5 rounded-full border border-white/12 bg-black/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white backdrop-blur">
+                    {ui.measuredDelivery}
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                    <p className="label-meta text-white/65">{content.areaServed}</p>
+                    <h2 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">{content.serviceType}</h2>
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {content.keywords.map((keyword) => (
+                        <span
+                          key={keyword}
+                          className="rounded-full border border-white/12 bg-white/10 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur"
+                        >
+                          {keyword}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 sm:grid-cols-3">
+                  {content.metrics.map((metric) => (
+                    <div key={metric.label} className={`${softCardClass} p-5`}>
+                      <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{metric.label}</p>
+                      <p className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-slate-dark dark:text-ivory-light">
+                        {metric.value}
+                      </p>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                        {metric.detail}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section className="grid gap-4 md:grid-cols-3">
+            {content.valueProps.map((item, idx) => (
+              <div key={idx} className={`${cardClass} p-5 md:p-6`}>
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-[1rem] bg-[#0255D5]/10 text-[#0255D5] dark:bg-[#0255D5]/16 dark:text-[#7DB5FF]">
+                  <CheckCircle2 className="h-5 w-5" />
+                </span>
+                <p className="mt-4 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">{item}</p>
+              </div>
+            ))}
+          </section>
+
+          {meta.hub && (
+            <section className={`${cardClass} overflow-hidden p-0`}>
+              <div className="border-b border-[--color-border-subtle] px-6 py-4 dark:border-white/10 md:px-8">
+                <div className="flex items-center gap-2 text-[#0255D5] dark:text-[#7DB5FF]">
+                  <SquareStack className="h-4 w-4" />
+                  <span className="label-meta text-inherit">{ui.architecture}</span>
+                </div>
+              </div>
+              <HubIllustration
+                title={pick(meta.hub.title)}
+                subtitle={meta.hub.subtitle ? pick(meta.hub.subtitle) : undefined}
+                bgTheme={meta.hub.bgTheme}
+                platforms={meta.hub.platforms.map((platform) => ({
+                  position: platform.position,
+                  label: pick(platform.label),
+                  sublabel: pick(platform.sublabel),
+                  colorScheme: platform.colorScheme,
+                  figure: HUB_FIGURES[platform.figureKey],
+                }))}
+              />
+            </section>
+          )}
+
+          <section className="grid gap-6 xl:grid-cols-[1fr_0.92fr]">
+            <div className={`${cardClass} p-6 md:p-8`}>
+              <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.metrics}</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">{ui.kpis}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                {ui.metricsText}
+              </p>
+              <ul className="mt-6 space-y-4">
+                {content.outcomes.map((item, idx) => (
+                  <li key={idx} className="flex gap-3">
+                    <span className="mt-0.5 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#0255D5]/10 text-[#0255D5] dark:bg-[#0255D5]/16 dark:text-[#7DB5FF]">
+                      <Clock3 className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className={`${cardClass} p-6 md:p-8`}>
+              <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.process}</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">{ui.process}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                {ui.processText}
+              </p>
+              <ol className="mt-6 space-y-4">
+                {content.steps.map((item, idx) => (
+                  <li key={idx} className="flex gap-4">
+                    <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-[#0255D5]/10 text-sm font-semibold text-[#0255D5] dark:bg-[#0255D5]/16 dark:text-[#7DB5FF]">
+                      {idx + 1}
+                    </span>
+                    <span className="pt-1 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </section>
+
+          <section className="space-y-6">
+            <div className={`${cardClass} p-6 md:p-8`}>
+              <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.useCases}</p>
+              <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+                <h2 className="text-3xl font-semibold tracking-[-0.03em]">{ui.useCases}</h2>
+                <p className="max-w-2xl text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                  {ui.useCasesText}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-4 xl:grid-cols-3">
+              {content.useCases.map((useCase) => (
+                <div key={useCase.title} className={`${cardClass} p-6`}>
+                  <span className="label-meta inline-flex rounded-full border border-[#0255D5]/15 bg-[#0255D5]/10 px-3 py-1 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]">
+                    {useCase.tag}
+                  </span>
+                  <h3 className="mt-4 text-2xl font-semibold tracking-[-0.03em]">{useCase.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                    {useCase.description}
+                  </p>
+                  <ul className="mt-5 space-y-3">
+                    {useCase.bullets.map((bullet) => (
+                      <li key={bullet} className="flex items-start gap-3 text-sm text-slate-medium dark:text-cloud-medium">
+                        <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#0255D5]/10 text-[#0255D5] dark:bg-[#0255D5]/16 dark:text-[#7DB5FF]">
+                          <CheckCircle2 className="h-3.5 w-3.5" />
+                        </span>
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section className="grid gap-6 xl:grid-cols-[1.06fr_0.94fr] xl:items-start">
+            <div className={`${cardClass} p-6 md:p-8`}>
+              <div className="flex items-center gap-2 text-[#0255D5] dark:text-[#7DB5FF]">
+                <Microscope className="h-4 w-4" />
+                <span className="label-meta text-inherit">{ui.faq}</span>
+              </div>
+              <div className="mt-5 divide-y divide-[--color-border-subtle] dark:divide-white/10">
+                {content.technologyFaqs.map((faq, idx) => (
+                  <details key={faq.question} className="group py-4" open={idx === 0}>
+                    <summary className="flex cursor-pointer items-start justify-between gap-3 text-base font-medium text-slate-dark dark:text-ivory-light">
+                      <div className="space-y-2">
+                        {faq.tag ? (
+                          <span className="label-meta inline-flex rounded-full border border-[#0255D5]/15 bg-[#0255D5]/10 px-3 py-1 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]">
+                            {faq.tag}
+                          </span>
+                        ) : null}
+                        <span className="block">{faq.question}</span>
+                      </div>
+                      <span className="text-[#0255D5] transition-transform group-open:rotate-45 dark:text-[#7DB5FF]">
+                        +
+                      </span>
+                    </summary>
+                    <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                      {faq.answer}
+                    </p>
+                  </details>
+                ))}
+              </div>
+            </div>
+
+            <div className={`${cardClass} bg-[linear-gradient(135deg,rgba(2,85,213,0.08),rgba(214,119,63,0.08),rgba(255,255,255,0.92))] p-6 md:p-8 dark:bg-[linear-gradient(135deg,rgba(2,85,213,0.16),rgba(214,119,63,0.12),rgba(255,255,255,0.04))]`}>
+              <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.ready}</p>
+              <h3 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">{content.heroCtaLabel}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                {ui.readyText}
+              </p>
+
+              <div className="mt-6 grid gap-4">
+                <div className={`${softCardClass} p-5`}>
+                  <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.keywords}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {content.keywords.map((keyword) => (
+                      <span
+                        key={keyword}
+                        className="rounded-full border border-[#0255D5]/15 bg-white/70 px-3 py-1 text-xs font-medium text-slate-dark dark:border-white/10 dark:bg-white/[0.06] dark:text-ivory-light"
+                      >
+                        {keyword}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className={`${softCardClass} p-5`}>
+                  <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.coverage}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                    {content.areaServed}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-6 flex flex-col gap-3">
+                <Button asChild size="lg" variant="cobalt">
+                  <Link href={heroCtaHref}>{content.heroCtaLabel}</Link>
+                </Button>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="justify-between border-[#0255D5]/20 text-[#0255D5] hover:bg-[#0255D5]/5 dark:border-[#7DB5FF]/20 dark:text-[#7DB5FF] dark:hover:bg-white/5"
+                >
+                  <a href={secondaryCtaHref} target="_blank" rel="noopener noreferrer">
+                    {content.secondaryCtaLabel}
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </section>
+
+          <section id="landing-contact" className="grid gap-6 lg:grid-cols-[0.72fr_1fr]">
+            <div className={`${darkCardClass} p-6 md:p-8`}>
+              <p className="label-meta text-white/60">{ui.contactEyebrow}</p>
+              <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">{ui.contactTitle}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/75">{ui.contactText}</p>
+              <div className="mt-8 space-y-4">
+                {contactHighlights.map((item) => (
+                  <div key={item.label} className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4">
+                    <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/45">
+                      {item.label}
+                    </p>
+                    <p className="mt-2 text-sm leading-relaxed text-white/85">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className={`${cardClass} overflow-hidden`}>
+              <ContactForm className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0" />
+            </div>
+          </section>
+        </div>
+      </div>
+
       <WhatsAppBubble />
 
-      {/* Floating CTA pill */}
-      {floatingCtaLabel && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+      {floatingCtaLabel ? (
+        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
           <Button
             asChild
             size="lg"
-            className="rounded-full px-8 py-4 text-base font-bold shadow-2xl hover:scale-105 transition-transform whitespace-nowrap"
+            className="whitespace-nowrap rounded-full px-8 py-4 text-base font-bold shadow-2xl transition-transform hover:scale-105"
             style={{ backgroundColor: floatingCtaBg }}
           >
             <a href={floatingCtaHref} target="_blank" rel="noopener noreferrer">
-              <Sparkles className="h-5 w-5 mr-2" />
+              <Sparkles className="mr-2 h-5 w-5" />
               {floatingCtaLabel}
             </a>
           </Button>
         </div>
-      )}
+      ) : null}
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />

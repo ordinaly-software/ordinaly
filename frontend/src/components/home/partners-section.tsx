@@ -48,8 +48,8 @@ const partners = [
 
 export function PartnersSection({ t }: SectionProps) {
   return (
-    <section className="py-8 px-4 sm:px-6 lg:px-4 bg-[#1F8A0D] dark:bg-[#0E1B12] text-[#145C07] dark:text-[#E6FFE0]">
-      <h2 className="text-3xl font-bold text-center mb-4 text-white dark:text-[#E6FFE0]">
+    <section className="py-8 px-4 sm:px-6 lg:px-4 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark] text-slate-medium dark:text-cloud-medium">
+      <h2 className="text-3xl font-bold text-center mb-4 text-slate-dark dark:text-ivory-light">
         {t("partners.title")}
       </h2>
       <div className="relative">

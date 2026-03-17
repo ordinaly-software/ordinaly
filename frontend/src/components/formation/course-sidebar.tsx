@@ -80,12 +80,12 @@ const CourseSidebar: React.FC<Props> = ({
               <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('location')}</p>
               {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                 /online|virtual/i.test(course.location)
-                  ? <span className="underline cursor-default text-[#1F8A0D] dark:text-[#3FBD6F] text-sm">{course.location}</span>
+                  ? <span className="underline cursor-default text-clay text-sm">{course.location}</span>
                   : <a
                       href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F]"
+                      className="text-gray-900 dark:text-gray-100 text-sm underline hover:text-clay dark:hover:text-clay"
                       title={course.location}
                     >
                       {course.location}
@@ -159,9 +159,9 @@ const CourseSidebar: React.FC<Props> = ({
         ) : (
           <div className="hidden lg:block">
             {shouldShowAuth ? (
-              <Button onClick={onAuthRequired} className="w-full" style={{ backgroundColor: '#217093', color: '#fff' }}>{t('signInToEnroll')}</Button>
+              <Button onClick={onAuthRequired} variant="cobalt" className="w-full">{t('signInToEnroll')}</Button>
             ) : canEnroll ? (
-              <Button onClick={onEnroll} className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"><GraduationCap className="w-5 h-5 mr-2" />{t('enrollNow')}</Button>
+              <Button onClick={onEnroll} variant="flame" className="w-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"><GraduationCap className="w-5 h-5 mr-2" />{t('enrollNow')}</Button>
             ) : null}
           </div>
         )}
@@ -173,7 +173,8 @@ const CourseSidebar: React.FC<Props> = ({
         {hasEnded && showRequestEdition && (
           <Button
             onClick={onRequestEdition}
-            className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white shadow-lg transition-all duration-300 transform hover:scale-105"
+            variant="flame"
+            className="w-full shadow-lg transition-all duration-300 transform hover:scale-105"
           >
             {requestEditionLabel}
           </Button>

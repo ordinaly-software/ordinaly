@@ -73,7 +73,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               type="checkbox"
               checked={isSelected}
               onChange={() => onSelect(service.id)}
-              className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] flex-shrink-0"
+              className="mt-1 rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)] flex-shrink-0"
             />
             {service.icon && (
               <div
@@ -109,7 +109,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => onView(service)}
-              className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#3FBD6F]/10 w-full"
+              className="text-[var(--swatch--clay)] hover:bg-[var(--swatch--clay)]/10 w-full"
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -126,10 +126,10 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => onEdit(service)}
-              style={{ color: '#217093' }}
+              style={{ color: 'var(--swatch--cobalt)' }}
               className="hover:bg-opacity-10 w-full"
               onMouseEnter={e => {
-                e.currentTarget.style.backgroundColor = '#217093' + '10';
+                e.currentTarget.style.backgroundColor = 'var(--swatch--cobalt)' + '10';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.backgroundColor = '';
@@ -153,7 +153,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
             type="checkbox"
             checked={isSelected}
             onChange={() => onSelect(service.id)}
-            className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D]"
+            className="mt-1 rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
           />
           {service.icon && (
             <div
@@ -208,7 +208,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onView(service)}
-                  className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#3FBD6F]/10"
+                  className="text-[var(--swatch--clay)] hover:bg-[var(--swatch--clay)]/10"
                 >
                   <Eye className="h-4 w-4" />
                 </Button>
@@ -225,10 +225,10 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onEdit(service)}
-                  style={{ color: '#217093' }}
+                  style={{ color: 'var(--swatch--cobalt)' }}
                   className="hover:bg-opacity-10"
                   onMouseEnter={e => {
-                    e.currentTarget.style.backgroundColor = '#217093' + '10';
+                    e.currentTarget.style.backgroundColor = 'var(--swatch--cobalt)' + '10';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.backgroundColor = '';

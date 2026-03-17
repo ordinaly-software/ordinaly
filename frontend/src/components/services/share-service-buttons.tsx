@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface Props {
   title: string;
@@ -42,7 +42,6 @@ export const ShareServiceButtons: React.FC<Props> = ({
   compact = false,
 }) => {
   const t = useTranslations("services.share");
-  const locale = useLocale() || "es";
   const siteTag = "@ordinaly.ai";
   const envBaseUrl = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, "");
 
@@ -78,7 +77,7 @@ export const ShareServiceButtons: React.FC<Props> = ({
     }
 
     return "";
-  }, [envBaseUrl, slug, locale]);
+  }, [envBaseUrl, slug]);
 
   const openShareUrl = (url: string) => {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
@@ -150,12 +149,12 @@ export const ShareServiceButtons: React.FC<Props> = ({
     boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
   };
 
-  const waStyle = isWhite ? { ...commonWhiteStyle, color: "#25D366" } : undefined;
+  const waStyle = isWhite ? { ...commonWhiteStyle, color: "#0d6e0c" } : undefined;
   const fbStyle = isWhite ? { ...commonWhiteStyle, color: "#1877F2" } : undefined;
   const liStyle = isWhite ? { ...commonWhiteStyle, color: "#0A66C2" } : undefined;
 
   const baseButtonClass = compact ? "p-2 rounded-md" : "p-3 rounded-md";
-  const waClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#25D366] dark:text-white`;
+  const waClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#0d6e0c] dark:text-white`;
   const fbClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#1877F2] dark:text-white`;
   const liClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#0A66C2] dark:text-white`;
 

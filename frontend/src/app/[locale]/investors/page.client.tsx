@@ -73,9 +73,9 @@ const InvestorsPage = () => {
   return (
     <div className="bg-white dark:bg-[#0a0f1a] text-gray-900 dark:text-white min-h-screen transition-colors duration-300">
       {/* Hero Section - More spacious and clean */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-[#0a2818] via-[#0d3d20] to-[#1F8A0D]">
+      <section className="relative isolate overflow-hidden bg-gradient-to-br from-[#081D3F] via-[#0A255C] to-[#0255D5]">
         <div className="absolute inset-0 bg-[url('/static/backgrounds/us_background.webp')] bg-cover bg-center opacity-10" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+        <div className="relative max-w-7xl mx-auto px-4 pb-24 pt-20 sm:px-6 lg:px-8 md:pb-32 md:pt-24">
           <div className="max-w-4xl mx-auto text-center space-y-8 text-white">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
               <TrendingUp className="h-4 w-4" />
@@ -95,14 +95,14 @@ const InvestorsPage = () => {
             <div className="flex flex-wrap justify-center gap-4 pt-4">
               <a 
                 href="#cta"
-                className="inline-flex items-center bg-white text-[#0d3d20] hover:bg-gray-100 px-8 py-6 text-base font-bold shadow-2xl hover:shadow-xl transition-all hover:scale-105 rounded-lg"
+                className="inline-flex items-center bg-white text-[#0A255C] hover:bg-gray-100 px-8 py-6 text-base font-bold shadow-2xl hover:shadow-xl transition-all hover:scale-105 rounded-lg"
               >
                 {t("hero.ctaPrimary")}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>
               <a
                 href="mailto:info@ordinaly.ai"
-                className="inline-flex items-center border-2 border-white text-white hover:bg-white hover:text-[#0d3d20] px-8 py-6 text-base font-bold transition-all rounded-lg"
+                className="inline-flex items-center border-2 border-white text-white hover:bg-white hover:text-[#0A255C] px-8 py-6 text-base font-bold transition-all rounded-lg"
               >
                 {t("hero.ctaSecondary")}
               </a>
@@ -126,12 +126,12 @@ const InvestorsPage = () => {
               key={stat.label}
               className="group relative bg-white dark:bg-[#0f1621] rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
-              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#1F8A0D] to-[#0d3d20] rounded-l-2xl" />
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#0255D5] to-[#0A255C] rounded-l-2xl" />
               <div className="space-y-3">
                 <p className="text-xs uppercase tracking-widest text-gray-500 dark:text-gray-400 font-bold">
                   {stat.label}
                 </p>
-                <p className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#1F8A0D] to-[#0d6e0c]">
+                <p className="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#0255D5] to-[#0144AA]">
                   {stat.value}
                 </p>
                 <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -164,8 +164,8 @@ const InvestorsPage = () => {
             >
               <div className="flex flex-col items-center text-center space-y-5">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-[#1F8A0D] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity" />
-                  <div className="relative h-16 w-16 rounded-2xl bg-gradient-to-br from-[#1F8A0D] to-[#0d6e0c] text-white flex items-center justify-center shadow-lg">
+                  <div className="absolute inset-0 bg-[#0255D5] rounded-2xl blur-xl opacity-30 group-hover:opacity-50 transition-opacity" />
+                  <div className="relative h-16 w-16 rounded-2xl bg-gradient-to-br from-[#0255D5] to-[#0144AA] text-white flex items-center justify-center shadow-lg">
                     <item.icon className="h-8 w-8" />
                   </div>
                 </div>
@@ -195,7 +195,7 @@ const InvestorsPage = () => {
           
           <div className="grid gap-8 md:grid-cols-3 relative">
             {/* Connection line for desktop */}
-            <div className="hidden md:block absolute top-16 left-0 right-0 h-0.5 bg-gradient-to-r from-[#1F8A0D] via-[#0d6e0c] to-[#1F8A0D] -z-0" />
+            <div className="hidden md:block absolute top-16 left-0 right-0 h-0.5 bg-gradient-to-r from-[#0255D5] via-[#0144AA] to-[#0255D5] -z-0" />
             
             {roadmap.map((item, index) => (
               <div
@@ -203,7 +203,7 @@ const InvestorsPage = () => {
                 className="relative bg-white dark:bg-[#0f1621] rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-800 hover:shadow-2xl transition-all duration-300"
               >
                 <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-10">
-                  <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#1F8A0D] to-[#0d6e0c] text-white flex items-center justify-center text-xl font-black shadow-xl border-4 border-white dark:border-[#0a0f1a]">
+                  <div className="h-14 w-14 rounded-full bg-gradient-to-br from-[#0255D5] to-[#0144AA] text-white flex items-center justify-center text-xl font-black shadow-xl border-4 border-white dark:border-[#0a0f1a]">
                     {`0${index + 1}`}
                   </div>
                 </div>
@@ -223,7 +223,7 @@ const InvestorsPage = () => {
 
       {/* ROI Highlight Section - New addition inspired by FisioFind */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-br from-[#0a2818] to-[#0d3d20] rounded-3xl p-12 md:p-16 text-white relative overflow-hidden">
+        <div className="bg-gradient-to-br from-[#081D3F] to-[#0A255C] rounded-3xl p-12 md:p-16 text-white relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('/static/backgrounds/us_background.webp')] bg-cover bg-center opacity-5" />
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
@@ -256,7 +256,7 @@ const InvestorsPage = () => {
       </section>
 
       {/* CTA Section - More compelling */}
-      <section id="cta" className="bg-gradient-to-br from-[#0a2818] via-[#0d3d20] to-[#1F8A0D] py-20">
+      <section id="cta" className="bg-gradient-to-br from-[#081D3F] via-[#0A255C] to-[#0255D5] py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white space-y-8">
           <h2 className="text-4xl md:text-6xl font-black leading-tight">
             {t("cta.title")}
@@ -267,7 +267,7 @@ const InvestorsPage = () => {
           <div className="pt-4">
             <a 
               href="mailto:info@ordinaly.ai"
-              className="inline-flex items-center bg-white text-[#0d3d20] hover:bg-gray-100 px-10 py-7 text-lg font-bold shadow-2xl hover:shadow-xl transition-all hover:scale-105 rounded-lg"
+              className="inline-flex items-center bg-white text-[#0A255C] hover:bg-gray-100 px-10 py-7 text-lg font-bold shadow-2xl hover:shadow-xl transition-all hover:scale-105 rounded-lg"
             >
               {t("cta.button")}
               <ArrowRight className="ml-2 h-6 w-6" />

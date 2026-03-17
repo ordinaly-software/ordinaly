@@ -59,10 +59,18 @@ export const Dropdown = ({
   children,
   theme = 'default',
   direction = "down",
+  position = "left",
+  offset = "8",
   renderTrigger
 }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
+  const [dropdownPosition, setDropdownPosition] = useState({
+    top: 0,
+    left: 0,
+    width: 0,
+    maxHeight: 0,
+    direction,
+  });
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const containerClass = `${placeholder.toLowerCase().replace(/\s+/g, '-')}-dropdown-container`;
@@ -72,11 +80,11 @@ export const Dropdown = ({
   // Theme configuration
   const themes: Record<string, DropdownTheme> = {
     default: {
-      accent: 'text-[#1F8A0D] dark:text-[#3FBD6F]',
-      hoverBg: 'hover:bg-[#1F8A0D]/10 dark:hover:bg-[#3FBD6F]/20',
-      selectedBg: 'bg-[#1F8A0D]/10 text-[#0F4606] dark:bg-[#3FBD6F]/20 dark:text-[#E8FFF4]',
-      focusBorder: 'focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]',
-      focusRing: 'focus:ring-[#1F8A0D]/20 dark:focus:ring-[#3FBD6F]/25'
+      accent: 'text-[var(--swatch--cobalt)] dark:text-[#7DB5FF]',
+      hoverBg: 'hover:bg-[var(--swatch--cobalt)]/8 dark:hover:bg-[#7DB5FF]/16',
+      selectedBg: 'bg-[var(--swatch--cobalt)]/10 text-[#01388A] dark:bg-[#7DB5FF]/18 dark:text-[#EAF3FF]',
+      focusBorder: 'focus:border-[var(--swatch--cobalt)] dark:focus:border-[#7DB5FF]',
+      focusRing: 'focus:ring-[var(--swatch--cobalt)]/20 dark:focus:ring-[#7DB5FF]/25'
     },
     orange: {
       accent: 'text-orange-500',
@@ -88,6 +96,7 @@ export const Dropdown = ({
   };
 
   const currentTheme = typeof theme === 'string' ? themes[theme] : theme;
+  const resolvedOffset = Number.parseFloat(offset) || 8;
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -113,25 +122,82 @@ export const Dropdown = ({
   };
 
   useEffect(() => {
-    if (isOpen && triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect();
-      const dropdownHeight = options.length * 50 + 16; // Approximate height per option + padding
-      
-      let top: number;
-      if (direction === "down") {
-        top = rect.bottom + window.scrollY + 8;
-      } else {
-        // For "up" direction, position above the trigger
-        top = rect.top + window.scrollY - dropdownHeight - 8;
+    if (!isOpen || !triggerRef.current) {
+      return;
+    }
+
+    const updatePosition = () => {
+      if (!triggerRef.current) {
+        return;
       }
+
+      const rect = triggerRef.current.getBoundingClientRect();
+      const viewportPadding = 12;
+      const parsedWidth = width ? Number.parseFloat(width) : Number.NaN;
+      const parsedMinWidth = Number.parseFloat(minWidth);
+      const baseWidth = Number.isFinite(parsedWidth)
+        ? parsedWidth
+        : Math.max(rect.width, Number.isFinite(parsedMinWidth) ? parsedMinWidth : rect.width);
+      const nextWidth = Math.min(baseWidth, window.innerWidth - viewportPadding * 2);
+      const estimatedHeight = Math.min(options.length * 52 + 16, window.innerHeight - viewportPadding * 2);
+      const fitsBelow = rect.bottom + resolvedOffset + estimatedHeight <= window.innerHeight - viewportPadding;
+      const fitsAbove = rect.top - resolvedOffset - estimatedHeight >= viewportPadding;
+      const nextDirection =
+        direction === "up"
+          ? fitsAbove || !fitsBelow
+            ? "up"
+            : "down"
+          : fitsBelow || !fitsAbove
+            ? "down"
+            : "up";
+
+      let left = rect.left;
+      if (position === "center") {
+        left = rect.left + rect.width / 2 - nextWidth / 2;
+      } else if (position === "right") {
+        left = rect.right - nextWidth;
+      }
+
+      left = Math.min(
+        Math.max(left, viewportPadding),
+        Math.max(viewportPadding, window.innerWidth - nextWidth - viewportPadding),
+      );
+
+      const availableHeight =
+        nextDirection === "up"
+          ? rect.top - resolvedOffset - viewportPadding
+          : window.innerHeight - rect.bottom - resolvedOffset - viewportPadding;
+      const maxHeight = Math.max(120, Math.min(availableHeight, 360));
+
+      let top =
+        nextDirection === "up"
+          ? rect.top - Math.min(estimatedHeight, maxHeight) - resolvedOffset
+          : rect.bottom + resolvedOffset;
+
+      top = Math.min(
+        Math.max(top, viewportPadding),
+        Math.max(viewportPadding, window.innerHeight - Math.min(estimatedHeight, maxHeight) - viewportPadding),
+      );
 
       setDropdownPosition({
         top,
-        left: rect.left + window.scrollX,
-        width: rect.width,
+        left,
+        width: nextWidth,
+        maxHeight,
+        direction: nextDirection,
       });
-    }
-  }, [direction, isOpen, options.length]);
+    };
+
+    updatePosition();
+
+    window.addEventListener("resize", updatePosition);
+    window.addEventListener("scroll", updatePosition, true);
+
+    return () => {
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
+    };
+  }, [direction, isOpen, minWidth, offset, options.length, position, resolvedOffset, width]);
 
   const triggerButton = (
     <button
@@ -200,15 +266,16 @@ export const Dropdown = ({
             ref={dropdownRef}
             className={cn(
               "absolute bg-white/95 dark:bg-[#0b1220]/95 border border-white/30 dark:border-white/15",
-              "rounded-2xl shadow-2xl overflow-hidden animate-in duration-200 backdrop-blur",
-              direction === "up" ? "slide-in-from-top-2" : "slide-in-from-bottom-2",
+              "rounded-2xl shadow-2xl overflow-y-auto animate-in duration-200 backdrop-blur",
+              dropdownPosition.direction === "up" ? "slide-in-from-bottom-2" : "slide-in-from-top-2",
               dropdownClassName
             )}
             style={{ 
               top: dropdownPosition.top,
               left: dropdownPosition.left,
               width: dropdownPosition.width,
-              position: 'absolute',
+              maxHeight: dropdownPosition.maxHeight,
+              position: 'fixed',
               zIndex: 99999,
               transform: "translateY(0)"
             }}
@@ -223,8 +290,8 @@ export const Dropdown = ({
                   className={cn(
                     "w-full px-4 py-3 text-left transition-all duration-150 flex items-center justify-between",
                     value === option.value 
-                      ? currentTheme.selectedBg
-                      : "text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5"
+                      ? cn(currentTheme.selectedBg, currentTheme.hoverBg)
+                      : cn("text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5", currentTheme.hoverBg)
                   )}
                 >
                   <div className="flex items-center gap-2">

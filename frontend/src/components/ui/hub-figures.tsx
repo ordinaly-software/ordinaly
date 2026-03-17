@@ -117,21 +117,21 @@ export const ChatbotFigure = (
 export const WhatsAppFigure = (
   <>
     {/* Phone body */}
-    <rect x="-14" y="-48" width="28" height="48" rx="5" fill="#128C7E"/>
+    <rect x="-14" y="-48" width="28" height="48" rx="5" fill="#0F2E1E"/>
     <rect x="-11" y="-43" width="22" height="36" rx="2" fill="white" opacity=".96"/>
     {/* Green header bar */}
-    <rect x="-11" y="-43" width="22" height="8" rx="2" fill="#25D366"/>
+    <rect x="-11" y="-43" width="22" height="8" rx="2" fill="#1F8A0D"/>
     {/* Chat messages */}
     <rect x="-9"  y="-32" width="16" height="6" rx="2" fill="#DCF8C6"/>
     <rect x="-9"  y="-24" width="12" height="6" rx="2" fill="#ECECEC"/>
     <rect x="-9"  y="-16" width="17" height="6" rx="2" fill="#DCF8C6"/>
     {/* Home button */}
-    <circle cx="0" cy="-2" r="3" fill="#25D366" opacity=".7"/>
+    <circle cx="0" cy="-2" r="3" fill="#1F8A0D" opacity=".7"/>
     {/* Send-arrow indicators */}
-    <line x1="18" y1="-32" x2="30" y2="-37" stroke="#25D366" strokeWidth="2.5" strokeLinecap="round"/>
-    <polygon points="28,-38 33,-35 29,-31" fill="#25D366"/>
-    <line x1="18" y1="-21" x2="32" y2="-21" stroke="#25D366" strokeWidth="2.5" strokeLinecap="round"/>
-    <polygon points="30,-24 35,-21 30,-18" fill="#25D366"/>
+    <line x1="18" y1="-32" x2="30" y2="-37" stroke="#1F8A0D" strokeWidth="2.5" strokeLinecap="round"/>
+    <polygon points="28,-38 33,-35 29,-31" fill="#1F8A0D"/>
+    <line x1="18" y1="-21" x2="32" y2="-21" stroke="#1F8A0D" strokeWidth="2.5" strokeLinecap="round"/>
+    <polygon points="30,-24 35,-21 30,-18" fill="#1F8A0D"/>
   </>
 );
 

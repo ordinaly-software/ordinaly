@@ -154,7 +154,7 @@ const CookieConsent = () => {
         {/* Header */}
         <div className="sticky top-0 z-10 border-b border-border bg-card/90 backdrop-blur-sm px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="bg-[#623CEA] rounded-full p-2">
+            <div className="bg-cobalt rounded-full p-2">
               <Cookie className="text-white" size={24} />
             </div>
             <h2 className="text-xl font-bold text-foreground">
@@ -181,7 +181,7 @@ const CookieConsent = () => {
               <div className="flex flex-col md:flex-row gap-3">
                 <Button
                   onClick={handleAcceptAll}
-                  className="flex-1 bg-[#623CEA] text-white h-auto py-2.5 px-3 text-sm sm:text-base whitespace-normal text-center leading-snug"
+                  className="flex-1 bg-cobalt text-white h-auto py-2.5 px-3 text-sm sm:text-base whitespace-normal text-center leading-snug"
                 >
                   {t('acceptAll')}
                 </Button>
@@ -209,14 +209,14 @@ const CookieConsent = () => {
                 {[
                   {
                     key: 'necessary',
-                    icon: <Shield className="text-[#1F8A0D] dark:text-[#3FBD6F]" size={20} />,
+                    icon: <Shield className="text-clay dark:text-clay" size={20} />,
                     enabled: true,
                     toggle: false,
                     note: t('necessaryAlways')
                   },
                 {
                   key: 'marketing',
-                  icon: <Globe className="text-[#1F8A0D] dark:text-[#3FBD6F]" size={20} />,
+                  icon: <Globe className="text-clay dark:text-clay" size={20} />,
                     enabled: cookiePreferences.marketing,
                     toggle: true,
                     note: t('thirdPartyExamples')
@@ -241,7 +241,7 @@ const CookieConsent = () => {
                           onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing')}
                         />
                       ) : (
-                        <div className="bg-[#1F8A0D] dark:bg-[#3FBD6F] rounded-full w-6 h-6 flex items-center justify-center">
+                        <div className="bg-clay dark:bg-clay rounded-full w-6 h-6 flex items-center justify-center">
                           <div className="w-3 h-3 bg-white rounded-full"></div>
                         </div>
                       )}
@@ -266,7 +266,7 @@ const CookieConsent = () => {
               </Button>
               <Button
                 onClick={handleSavePreferences}
-                className="flex-1 bg-[#623CEA] text-white h-auto py-2.5 px-3 text-sm sm:text-base whitespace-normal text-center leading-snug"
+                className="flex-1 bg-cobalt text-white h-auto py-2.5 px-3 text-sm sm:text-base whitespace-normal text-center leading-snug"
               >
                 {t('save')}
               </Button>
@@ -277,11 +277,11 @@ const CookieConsent = () => {
         <div className="sticky bottom-0 z-10 border-t border-border bg-muted/60 backdrop-blur-sm px-4 py-2.5">
           <p className="text-xs text-muted-foreground text-center">
             {t('footer')}
-            <Link href="/legal?tab=privacy" className="text-[#46B1C9] hover:underline" target="_blank" rel="noopener noreferrer">
+            <Link href="/legal?tab=privacy" className="text-cobalt hover:underline" target="_blank" rel="noopener noreferrer">
               {t('privacy')}
             </Link>{' '}
             y{' '}
-            <Link href="/legal?tab=cookies" className="text-[#46B1C9] hover:underline" target="_blank" rel="noopener noreferrer">
+            <Link href="/legal?tab=cookies" className="text-cobalt hover:underline" target="_blank" rel="noopener noreferrer">
               {t('cookies')}
             </Link>
           </p>
@@ -297,7 +297,7 @@ const CookieConsent = () => {
         <div className="fixed bottom-20 right-6 z-30">
           <button
             onClick={openPopup}
-            className="bg-[#623CEA] hover:bg-purple-700 text-white rounded-full p-3.5 shadow-2xl transition-all duration-300 hover:scale-110 ring-4 ring-[#623CEA]/20"
+            className="bg-cobalt hover:bg-cobalt/80 text-white rounded-full p-3.5 shadow-2xl transition-all duration-300 hover:scale-110 ring-4 ring-cobalt/20"
             aria-label={t('openCookieSettings')}
           >
             <Cookie size={22} aria-hidden="true" />

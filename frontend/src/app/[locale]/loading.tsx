@@ -69,7 +69,7 @@ const SectionSkeleton = () => (
 
 export default function LoadingPage() {
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white transition-colors duration-300">
       <HeroSkeleton />
       <div className="space-y-10">
         <div>

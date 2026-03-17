@@ -39,7 +39,7 @@ export function SeoArticleSection({ t, onWhatsApp }: HeroProps) {
               "Comercio retail: Gestión inteligente de inventario, predicción de demanda y atención al cliente automatizada vía WhatsApp Business.",
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-3">
-                <span className="text-[#1F8A0D] dark:text-[#3FBD6F] font-bold mt-1">→</span>
+                <span className="text-clay dark:text-clay font-bold mt-1">→</span>
                 <span>{t(`seoArticle.section2.list.${index}`)}</span>
               </li>
             ))}
@@ -65,12 +65,12 @@ export function SeoArticleSection({ t, onWhatsApp }: HeroProps) {
               "Soporte continuo: No desaparecemos después de la implementación",
             ].map((item, index) => (
               <li key={index} className="flex items-start gap-3">
-                <span className="text-[#1F8A0D] dark:text-[#3FBD6F] font-bold mt-1">✓</span>
+                <span className="text-clay dark:text-clay font-bold mt-1">✓</span>
                 <span>{t(`seoArticle.section4.list.${index}`)}</span>
               </li>
             ))}
           </ul>
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-xl p-8 mt-8 border border-green-200 dark:border-green-800">
+          <div className="bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark] rounded-xl p-8 mt-8 border border-[--color-border-subtle] dark:border-[--color-border-strong]">
             <h4 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
               {t("seoArticle.cta.title")}
             </h4>

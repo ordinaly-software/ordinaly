@@ -219,7 +219,7 @@ export default function EmailVerificationModal({
             className={`w-full rounded-xl border px-4 py-3 text-center text-lg tracking-widest bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white transition-all ${
               error
                 ? "border-red-400 bg-red-50 dark:border-red-500/50 dark:bg-red-900/20"
-                : "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#1F8A0D] dark:focus:ring-[#3FBD6F]"
+                : "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#0255D5] dark:focus:ring-[#7DB5FF]"
             }`}
             placeholder="------"
           />
@@ -243,7 +243,7 @@ export default function EmailVerificationModal({
           <button
             onClick={handleVerify}
             disabled={loading || code.length < 6}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#1F8A0D] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0A4D08] disabled:opacity-50 dark:bg-[#3FBD6F] dark:text-[#1A1924] dark:hover:bg-[#2EA55E]"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0255D5] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#01388A] disabled:opacity-50 dark:bg-[#7DB5FF] dark:text-[#1A1924] dark:hover:bg-[#60A5FA]"
           >
             <ShieldCheck className="h-4 w-4" />
             {loading ? t("verifying") : t("verify")}

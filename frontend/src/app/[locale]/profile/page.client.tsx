@@ -575,7 +575,7 @@ export default function ProfilePage() {
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
         <div className="flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1F8A0D] dark:border-[#3FBD6F] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0255D5] dark:border-[#7DB5FF] mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
           </div>
         </div>
@@ -595,11 +595,11 @@ export default function ProfilePage() {
         />
       )}
 
-      <div className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-20 pt-10 md:px-6 lg:px-8">
+      <div className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-20 pt-8 md:px-6 lg:px-8">
         {/* Header Panel */}
         <div className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-8 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md sm:px-10">
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#1F8A0D] dark:text-[#3FBD6F]">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#0255D5] dark:text-[#7DB5FF]">
               {t("kicker")}
             </p>
             <h1 className="text-4xl font-black leading-tight text-slate-900 dark:text-white md:text-5xl">
@@ -621,8 +621,8 @@ export default function ProfilePage() {
                   onClick={() => handleTabChange(tab.id)}
                   className={`group inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition-all ${
                     isActive
-                      ? "border-[#1F8A0D]/60 bg-[#1F8A0D]/15 text-[#1F8A0D] dark:text-[#3FBD6F] shadow-[0_8px_20px_rgba(31,138,13,0.12)]"
-                      : "border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:border-[#1F8A0D] hover:bg-[#1F8A0D]/5 dark:hover:border-[#3FBD6F]/30 dark:hover:bg-[#3FBD6F]/10 dark:hover:text-[#3FBD6F]"
+                      ? "border-[#0255D5]/60 bg-[#0255D5]/15 text-[#0255D5] dark:text-[#7DB5FF] shadow-[0_8px_20px_rgba(2,85,213,0.12)]"
+                      : "border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:border-[#0255D5] hover:bg-[#0255D5]/5 dark:hover:border-[#7DB5FF]/30 dark:hover:bg-[#7DB5FF]/10 dark:hover:text-[#7DB5FF]"
                   }`}
                 >
                   <Icon className="h-4 w-4" />

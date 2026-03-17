@@ -286,22 +286,22 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       <section id="courses" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1F8A0D] dark:text-[#3FBD6F]">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
               {t('upcomingTitle')}
             </h2>
-            <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
+            <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
               {t('upcomingDescription')}
             </p>
           </div>
           <div className="text-center">
-            <div className="max-w-md mx-auto bg-white dark:bg-gray-800/50 rounded-xl shadow-lg p-8">
-              <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center">
-                <Calendar className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+            <div className="max-w-md mx-auto bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] rounded-xl shadow-lg p-8">
+              <div className="w-16 h-16 mx-auto mb-4 bg-oat dark:bg-[--swatch--slate-medium] rounded-full flex items-center justify-center">
+                <Calendar className="w-8 h-8 text-cobalt dark:text-[var(--swatch--cobalt)]" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+              <h3 className="text-xl font-semibold text-slate-dark dark:text-ivory-light mb-3">
                 {t('noCoursesTitle')}
               </h3>
-              <p className="text-gray-800 dark:text-gray-200 mb-6">
+              <p className="text-slate-medium dark:text-cloud-medium mb-6">
                 {t('noCoursesMessage')}
               </p>
               <div className="flex justify-center">
@@ -324,14 +324,14 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     <section
       id="courses"
       ref={sectionRef}
-      className="py-12 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50"
+      className="py-12 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark]"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-[#1F8A0D] dark:text-[#3FBD6F]">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
             {t('showcaseTitle')}
           </h2>
-          <p className="text-xl text-gray-800 dark:text-gray-200 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
             {t('showcaseDescription')}
           </p>
         </div>
@@ -346,18 +346,18 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                     className="flex-shrink-0"
                     style={{ flexBasis: `${100 / slidesToShow}%` }}
                   >
-                    <Card className="h-full flex flex-col bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
+                    <Card className="h-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong]">
                       <CardHeader>
-                        <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mb-4"></div>
-                        <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
-                        <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div>
+                        <div className="w-full h-48 bg-oat dark:bg-[--swatch--slate-medium] rounded-lg animate-pulse mb-4"></div>
+                        <div className="h-6 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse mb-2"></div>
+                        <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse mb-2"></div>
+                        <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded w-3/4 animate-pulse"></div>
                       </CardHeader>
                       <CardContent className="flex-1">
                         <div className="space-y-3">
-                          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                          <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                          <div className="h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                          <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
+                          <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
+                          <div className="h-10 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
                         </div>
                       </CardContent>
                     </Card>
@@ -409,14 +409,14 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                     >
                       <Card 
                         className={
-                          `h-full flex flex-col bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl cursor-pointer group ` +
+                          `h-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong] transition-all duration-300 hover:shadow-xl cursor-pointer group ` +
                           (highlightUpcoming ? 'ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[0.93] z-10' : '')
                         }
                         style={highlightUpcoming ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 15px 0 #FFB80044' } : {}}
                         onClick={() => handleCourseClick(course)}
                       >
                         <CardHeader className="pb-4">
-                          <div className="relative w-full h-48 rounded-lg overflow-hidden mb-4 bg-gradient-to-br from-[#1F8A0D]/10 dark:from-[#3FBD6F]/10 to-[#46B1C9]/10">
+                          <div className="relative w-full h-48 rounded-lg overflow-hidden mb-4 bg-oat/40 dark:bg-[--swatch--slate-medium]/40">
                             {!imageErrors.has(course.id) ? (
                               <Image
                                 src={course.image}
@@ -429,10 +429,10 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                               />
                             ) : (
                               // Fallback content when image fails
-                              <div className="absolute inset-0 flex items-center justify-center text-gray-500 dark:text-gray-400">
+                              <div className="absolute inset-0 flex items-center justify-center text-[var(--swatch--cloud-medium)] dark:text-[var(--swatch--cloud-medium)]">
                                 <div className="text-center">
-                                  <div className="w-16 h-16 mx-auto mb-2 bg-[#1F8A0D]/20 rounded-full flex items-center justify-center">
-                                    <BookOpen className="w-8 h-8 text-[#1F8A0D] dark:text-[#3FBD6F]" />
+                                  <div className="w-16 h-16 mx-auto mb-2 bg-clay/20 rounded-full flex items-center justify-center">
+                                    <BookOpen className="w-8 h-8 text-clay" />
                                   </div>
                                   <p className="text-sm font-medium px-4">
                                     {fallbackTitle || course.title}
@@ -449,8 +449,8 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             )}
 
                             {course.price && (
-                              <div className="absolute top-3 right-3 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg px-3 py-1">
-                                <div className="flex items-center gap-1 text-sm font-semibold text-gray-900 dark:text-white">
+                              <div className="absolute top-3 right-3 bg-white/90 dark:bg-[--swatch--slate-medium]/90 backdrop-blur-sm rounded-lg px-3 py-1">
+                                <div className="flex items-center gap-1 text-sm font-semibold text-slate-dark dark:text-ivory-light">
                                   <Euro className="w-4 h-4" />
                                   {/* {Math.round(Number(course.price))} */}
                                   {course.price}
@@ -460,11 +460,11 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                           </div>
                           
                           <div className="space-y-2">
-                            <CardTitle className="text-xl text-gray-900 dark:text-white group-hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition-colors break-words whitespace-pre-line">
+                            <CardTitle className="text-xl text-slate-dark dark:text-ivory-light group-hover:text-clay dark:group-hover:text-clay transition-colors break-words whitespace-pre-line">
                               {cleanTitle}
                             </CardTitle>
                             {course.subtitle && (
-                              <CardDescription className="text-gray-800 dark:text-gray-200 line-clamp-2">
+                              <CardDescription className="text-slate-medium dark:text-cloud-medium line-clamp-2">
                                 {course.subtitle}
                               </CardDescription>
                             )}
@@ -475,19 +475,19 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                           <div className="space-y-4 flex-1 flex flex-col">
                             {/* Course Details */}
                             <div className="grid grid-cols-2 gap-3 text-sm">
-                              <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200">
+                              <div className="flex items-center gap-2 text-slate-medium dark:text-cloud-medium">
                                 <Calendar className="w-4 h-4 flex-shrink-0" />
                                 <span className="truncate">
                                   {course.start_date ? formatDate(course.start_date) : t('datesSoon')}
                                 </span>
                               </div>
-                              <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200">
+                              <div className="flex items-center gap-2 text-slate-medium dark:text-cloud-medium">
                                 <Clock className="w-4 h-4 flex-shrink-0" />
                                 <span className="truncate">
                                   {course.duration_hours ? `${course.duration_hours}h` : t('durationSoon')}
                                 </span>
                               </div>
-                              <div className="flex items-center gap-2 text-gray-800 dark:text-gray-200 col-span-2">
+                              <div className="flex items-center gap-2 text-slate-medium dark:text-cloud-medium col-span-2">
                                 <MapPin className="w-4 h-4 flex-shrink-0" />
                                 {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? (
                                   (/online|virtual/i.test(course.location)
@@ -496,7 +496,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(course.location)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="truncate underline hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] dark:text-[#3FBD6F]"
+                                        className="truncate underline hover:text-clay dark:hover:text-clay dark:text-clay"
                                         title={course.location}
                                       >
                                         {course.location}
@@ -524,12 +524,12 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             {/* Progress Bar */}
                             {startDate && endDate && startDate > nowDate && endDate > nowDate && (
                               <div className="space-y-2">
-                                <div className="flex justify-between text-sm text-gray-800 dark:text-gray-200">
+                                <div className="flex justify-between text-sm text-slate-medium dark:text-cloud-medium">
                                   <span>{course.max_attendants} {t('max')}</span>
                                 </div>
-                                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                  <div 
-                                    className="bg-[#1F8A0D] dark:bg-[#3FBD6F] h-2 rounded-full transition-all duration-300"
+                                <div className="w-full bg-oat dark:bg-[--swatch--slate-medium] rounded-full h-2">
+                                  <div
+                                    className="bg-clay h-2 rounded-full transition-all duration-300"
                                     style={{ width: `${Math.min((course.enrolled_count / course.max_attendants) * 100, 100)}%` }}
                                   ></div>
                                 </div>
@@ -542,7 +542,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             {isPastCourse ? (
                               <>
                                 <Button
-                                  className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] transition-all duration-300 shadow-sm hover:shadow-md"
+                                  className="w-full bg-slate-dark hover:bg-slate-medium dark:bg-[--swatch--ivory-light] dark:text-slate-dark text-ivory-light transition-all duration-300 shadow-sm hover:shadow-md"
                                   onClick={(event) => {
                                     event.stopPropagation();
                                     handlePastCourseInquiry(course);
@@ -552,7 +552,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                                 </Button>
                                 <Button
                                   variant="outline"
-                                  className="w-full border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/70"
+                                  className="w-full border-[--color-border-subtle] text-slate-medium dark:border-[--color-border-strong] dark:text-cloud-medium hover:bg-oat dark:hover:bg-[--swatch--slate-medium]/70"
                                   onClick={(event) => {
                                     event.stopPropagation();
                                     handleCourseClick(course);
@@ -564,7 +564,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                               </>
                             ) : (
                               <Button
-                                className="w-full bg-[#0d6e0c] hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] transition-all duration-300 group shadow-sm hover:shadow-md"
+                                className="w-full bg-slate-dark hover:bg-slate-medium dark:bg-[--swatch--ivory-light] dark:text-slate-dark text-ivory-light transition-all duration-300 group shadow-sm hover:shadow-md"
                                 onClick={handleAction}
                               >
                                 <>
@@ -589,7 +589,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   aria-label={t('previous')}
                   onClick={goToPrev}
                   disabled={atStart}
-                  className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] text-slate-medium dark:text-cloud-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </button>
@@ -598,7 +598,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                   aria-label={t('next')}
                   onClick={goToNext}
                   disabled={atEnd}
-                  className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] text-slate-medium dark:text-cloud-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowRight className="w-5 h-5" />
                 </button>
@@ -614,7 +614,6 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               variant="outline"
               size="lg"
               onClick={() => router.push('/formation')}
-              className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#0d6e0c] hover:text-white dark:border-[#3FBD6F] dark:text-[#3FBD6F] dark:hover:bg-[#3FBD6F] dark:hover:text-black transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-[#1F8A0D]/20 group"
             >
               {t('viewAllCourses')}
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

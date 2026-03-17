@@ -13,21 +13,21 @@ const BonificationInfo = () => {
   const t = useTranslations("bonificationTexts");
   
   return (
-    <div className="rounded-2xl shadow-lg bg-white/90 dark:bg-gray-800/90 border border-gray-200 dark:border-gray-700 transition-colors">
+    <div className="rounded-2xl shadow-lg bg-white/90 dark:bg-[var(--swatch--slate-medium)]/90 border border-gray-200 dark:border-gray-700 transition-colors">
       <button
         className="w-full flex items-center justify-between gap-3 px-6 py-5 text-left focus:outline-none group"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >
       <span className="flex items-center gap-2 text-lg font-semibold text-gray-800 dark:text-white">
-        <Star className="w-7 h-7 min-w-7 min-h-7 text-[#623CEA]" />
+        <Star className="w-7 h-7 min-w-7 min-h-7 text-cobalt" />
         {t("summary")}
       </span>
         <span className="ml-2">
           {open ? (
-            <ChevronUp className="w-6 h-6 text-[#623CEA] group-hover:scale-110 transition-transform" />
+            <ChevronUp className="w-6 h-6 text-cobalt group-hover:scale-110 transition-transform" />
           ) : (
-            <ChevronDown className="w-6 h-6 text-[#623CEA] group-hover:scale-110 transition-transform" />
+            <ChevronDown className="w-6 h-6 text-cobalt group-hover:scale-110 transition-transform" />
           )}
         </span>
       </button>

@@ -27,6 +27,7 @@
       "profile": "Perfil",
       "myCourses": "Mis cursos",
       "blog": "Blog",
+      "faq": "FAQ",
       "news": "Noticias",
       "contact": "Contacto",
       "us": "Nosotros",
@@ -44,8 +45,17 @@
       "ctaServices": "Ver servicios",
       "ctaDemo": "Agenda una consulta",
       "clientsTitle": "Confían en nosotros",
-      "statHeadline": "+500 HORAS AHORRADAS",
-      "statCaption": "a empresas andaluzas este mes.",
+      "locationBadge": "Sevilla, Andalucía · estudio local",
+      "coverageBadge": "Implantación presencial y remota en España",
+      "localCardLabel": "Base operativa",
+      "localCardValue": "Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo.",
+      "coverageCardLabel": "Cobertura",
+      "coverageCardValue": "Equipo en Sevilla con despliegue en Andalucía y acompañamiento remoto para proyectos en toda España.",
+      "deliveryCardLabel": "Modelo de trabajo",
+      "deliveryCardValue": "Diagnóstico, automatización, agentes de IA y formación ejecutados por el mismo equipo.",
+      "globeCaption": "Mostrando dónde estamos y desde dónde operamos",
+      "globeFloatingTop": "Ordinaly - Sevilla",
+      "globeFloatingBottom": "Presencial en Andalucía. Remoto en el resto de España.",
       "imageAlt": "agencia de automatización IA para empresas en España"
     },
     "benefits": {
@@ -122,48 +132,6 @@
       "imageAlt": "Imagen de {title}",
       "errorTitle": "Error cargando servicios",
       "errorMessage": "No se pudieron cargar los servicios"
-    },
-    "process": {
-      "title": "Proceso de la agencia de automatización IA",
-      "subtitle": "Metodología de trabajo de nuestra agencia de automatización en inteligencia artificial",
-      "steps": {
-        "0": {
-          "title": "Auditoría",
-          "description": "Tu agencia de automatización IA detecta procesos optimizables",
-          "bullets": {
-            "0": "Identificación de procesos automatizables",
-            "1": "Estimación de ahorro de tiempo",
-            "2": "Propuesta técnica y presupuesto"
-          }
-        },
-        "1": {
-          "title": "Estrategia",
-          "description": "Creamos una hoja de ruta de agencia de automatización en inteligencia artificial.",
-          "bullets": {
-            "0": "Desarrollo ágil por sprints",
-            "1": "Feedback continuo",
-            "2": "Ajustes en tiempo real"
-          }
-        },
-        "2": {
-          "title": "Despliegue",
-          "description": "Integración técnica por tu agencia de automatización IA. Testing completo incluido.",
-          "bullets": {
-            "0": "Despliegue gradual y controlado",
-            "1": "Pruebas de calidad exhaustivas",
-            "2": "Migración de datos segura"
-          }
-        },
-        "3": {
-          "title": "Evolución",
-          "description": "Mejora continua del sistema de automatización con inteligencia artificial.",
-          "bullets": {
-            "0": "Sesiones de formación práctica",
-            "1": "Documentación completa",
-            "2": "Soporte técnico continuo"
-          }
-        }
-      }
     },
     "useCases": {
       "title": "Casos de éxito: agencia de automatización IA",
@@ -247,55 +215,10 @@
         }
       }
     },
-    "local": {
-      "title": "Expertos de la agencia de automatización IA",
-      "description1": "Somos tu agencia de automatización IA de referencia en España. Nuestro equipo de consultores implementa soluciones de agencia de automatización en inteligencia artificial para escalar negocios de forma segura y eficiente.",
-      "description2": "Ya sea que estés en Sevilla capital, Andalucía, o cualquier punto de España ofrecemos tanto consultoría presencial como implementación remota con los más altos estándares de calidad.",
-      "videoLabel": "Video",
-      "playVideo": "Reproducir",
-      "points": {
-        "0": {
-          "title": "Oficina en Sevilla centro",
-          "description": "Plaza del Duque 1, 41002 Sevilla • Reuniones presenciales disponibles"
-        },
-        "1": {
-          "title": "Contacto directo",
-          "description": "+34 626 27 08 06 • info@ordinaly.ai • Respuesta en 24h"
-        },
-        "2": {
-          "title": "Cobertura regional",
-          "description": "Servicios en toda Andalucía • Formación presencial en Sevilla"
-        }
-      },
-      "cta": "Contacta con nosotros"
-    },
     "partnersSection": {
       "title": "Empresas que confían en Ordinaly",
       "subtitle": "Colaboramos con empresas líderes en Sevilla y Andalucía para transformar sus procesos con IA",
       "visit": "Visitar web del partner"
-    },
-    "cta": {
-      "title": "Contacta con tu agencia de automatización IA",
-      "subtitle": "¿Quieres que seamos tu agencia de automatización IA? Da el salto a la agencia de automatización en inteligencia artificial líder en España y revoluciona tu rentabilidad.",
-      "meta": "Respuesta garantizada en menos de 24 horas laborables • +34 626 27 08 06 • info@ordinaly.ai",
-      "buttons": {
-        "whatsapp": "Consulta gratis por WhatsApp",
-        "services": "Ver todos los servicios"
-      },
-      "items": {
-        "0": {
-          "title": "Análisis personalizado",
-          "description": "Estudiamos tu negocio y te mostramos oportunidades de automatización concretas"
-        },
-        "1": {
-          "title": "Presupuesto transparente",
-          "description": "Sin costes ocultos. Sabrás exactamente qué vas a recibir y cuánto costará"
-        },
-        "2": {
-          "title": "Resultados rápidos",
-          "description": "Primeras automatizaciones funcionando en 2-4 semanas. Valor desde el día 1"
-        }
-      }
     },
     "seoArticle": {
       "title": "Automatización empresarial con IA en Sevilla: la guía completa",
@@ -401,13 +324,43 @@
         "title": "ORDINALY",
         "alt": "Logo de Ordinaly"
       },
-      "description": "Transformando empresas con inteligencia artificial y automatización",
+      "description": "Automatización, agentes IA y formación desde Sevilla para equipos que necesitan operar mejor.",
+      "sections": {
+        "navigate": "Navegar",
+        "company": "Empresa",
+        "landings": "Landings",
+        "legal": "Legal",
+        "connect": "Conectar"
+      },
+      "links": {
+        "home": "Inicio",
+        "services": "Servicios",
+        "formation": "Formación",
+        "faq": "FAQ",
+        "blog": "Blog",
+        "news": "Noticias",
+        "about": "Nosotros",
+        "investors": "Inversores",
+        "contact": "Contacto",
+        "legalCenter": "Centro legal",
+        "whatsapp": "WhatsApp",
+        "emailUs": "Email",
+        "callUs": "Llamar",
+        "officeMap": "Abrir mapa",
+        "linkedin": "LinkedIn"
+      },
       "legal": {
         "title": "Documentación legal",
         "terms": "Términos",
         "privacy": "Privacidad",
         "cookies": "Cookies",
         "license": "Licencia"
+      },
+      "utility": {
+        "language": "Idioma",
+        "theme": "Tema",
+        "light": "Claro",
+        "dark": "Oscuro"
       },
       "social": {
         "title": "¡Síguenos!",
@@ -450,12 +403,7 @@
         ]
       }
     },
-    "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly",
-    "seoLeadership": {
-      "title": "Liderazgo nacional en IA corporativa",
-      "description": "Nuestra agencia de automatización IA no solo instala software; diseñamos ecosistemas de agencia de automatización en inteligencia artificial que aprenden de tu negocio para ofrecer una ventaja competitiva única en el mercado español.",
-      "imageAlt": "agencia de automatización IA líder en España"
-    }
+    "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
   },
   "common": {
     "onVacation": "De vacaciones",
@@ -1967,12 +1915,81 @@
   },
   "contactPage": {
     "hero": {
-      "title": "Construyamos tu próxima automatización",
-      "subtitle": "Cuéntanos tu equipo, herramientas y objetivos. Respondemos en menos de 24 horas.",
-      "primaryCta": "Escríbenos",
-      "secondaryCta": "Abrir formulario",
+      "eyebrow": "Soporte Ordinaly",
+      "call": "¡Llámanos!",
+      "title": "Contacta con el equipo de Ordinaly",
+      "subtitle": "Te ayudamos a definir el siguiente paso: diagnóstico, piloto, soporte operativo o formación para tu equipo. Desde Sevilla, con respuesta en menos de 24 horas.",
+      "primaryCta": "Abrir formulario",
+      "secondaryCta": "Ver servicios",
       "contactCardTitle": "¿Prefieres hablar directo?",
-      "location": "¡Visítanos en Sevilla!"
+      "location": "Visitar estudio en Sevilla"
+    },
+    "services": {
+      "title": "Elige el área con la que necesitas ayuda",
+      "subtitle": "Igual que una página de soporte, empezamos por tu necesidad. Después te guiamos al servicio, al formulario o a una llamada.",
+      "cardCta": "Entrar por aquí",
+      "items": {
+        "0": {
+          "title": "Agentes de IA",
+          "description": "Bots operativos, atención 24/7 y asistentes con contexto real de negocio."
+        },
+        "1": {
+          "title": "Automatización de procesos",
+          "description": "Workflows en n8n, sincronización entre herramientas y menos trabajo manual."
+        },
+        "2": {
+          "title": "WhatsApp y conversación",
+          "description": "Captación, soporte y seguimiento automatizado desde WhatsApp y canales de mensajería."
+        },
+        "3": {
+          "title": "Integraciones y sistemas",
+          "description": "CRM, ERP, formularios, hojas de cálculo y APIs conectadas con criterio."
+        },
+        "4": {
+          "title": "Formación para equipos",
+          "description": "Talleres y programas prácticos para ventas, operaciones y dirección."
+        },
+        "5": {
+          "title": "Soporte y acompañamiento",
+          "description": "Si ya tienes una idea o un atasco concreto, te ayudamos a aterrizarlo rápido."
+        }
+      }
+    },
+    "supportHub": {
+      "eyebrow": "Entrada guiada",
+      "title": "Cuéntanos qué quieres resolver",
+      "subtitle": "Si ya sabes el problema, entra por aquí. Si no, te ayudamos a traducirlo a una automatización viable.",
+      "searchPrompt": "Describe el proceso, cuello de botella o idea que quieres automatizar",
+      "primaryCta": "Empezar solicitud",
+      "secondaryCta": "Enviar email",
+      "topics": {
+        "0": "Captar y cualificar leads",
+        "1": "Reducir tareas repetitivas",
+        "2": "Lanzar un agente para soporte",
+        "3": "Formar al equipo en IA"
+      }
+    },
+    "assurance": {
+      "eyebrow": "Qué pasa después",
+      "title": "Cómo trabajamos cuando entras por soporte",
+      "items": {
+        "0": {
+          "title": "Diagnóstico antes que plantilla",
+          "description": "No encajamos una solución genérica. Revisamos proceso, herramientas y margen de impacto."
+        },
+        "1": {
+          "title": "Equipo local y ejecución real",
+          "description": "Hablas con el mismo equipo que define la solución, construye el piloto y acompaña el despliegue."
+        },
+        "2": {
+          "title": "Respuesta rápida",
+          "description": "Respondemos en menos de 24 horas laborables y proponemos siguiente paso claro."
+        }
+      }
+    },
+    "channels": {
+      "title": "Canales directos",
+      "subtitle": "Elige el canal más rápido para tu caso: llamada, email, visita o formulario detallado."
     },
     "info": {
       "title": "Contactos directos",
@@ -2003,6 +2020,25 @@
       "success": "¡Gracias! Nos pondremos en contacto contigo pronto.",
       "errorFallback": "No pudimos enviar el formulario. Escríbenos a info@ordinaly.ai."
     },
+    "formAside": {
+      "eyebrow": "Antes de enviar",
+      "title": "Qué incluir para que podamos responder mejor",
+      "subtitle": "Cuanto más contexto tengamos, más precisa será la propuesta inicial.",
+      "items": {
+        "0": {
+          "label": "Proceso",
+          "value": "Explica qué parte del trabajo quieres automatizar o mejorar."
+        },
+        "1": {
+          "label": "Herramientas",
+          "value": "Indica si ya usáis CRM, ERP, WhatsApp, email marketing o flujos en n8n."
+        },
+        "2": {
+          "label": "Objetivo",
+          "value": "Cuéntanos si buscas ahorrar tiempo, vender más, responder mejor o formar al equipo."
+        }
+      }
+    },
     "team": {
       "1": {
         "name": "Antonio Macías Ferrera",
@@ -2019,13 +2055,37 @@
         "role": "CEO, Experto en Márketing, publicidad y transformación digital & Co-founder",
         "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
       },
+      "eyebrow": "Equipo fundador",
       "title": "Nuestro equipo",
       "cta": "¡Conócenos!"
     },
     "map": {
+      "eyebrow": "Presencial en Sevilla",
       "title": "Visita nuestras oficinas en Sevilla",
       "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "cta": "Abrir en Google Maps",
       "photoAlt": "Oficinas de Ordinaly en Plaza del Duque de la Victoria, Sevilla"
+    },
+    "explore": {
+      "title": "Más formas de seguir en contacto",
+      "subtitle": "Además del soporte directo, puedes conocernos mejor, seguir nuestro contenido o venir al estudio.",
+      "items": {
+        "0": {
+          "title": "Conoce al equipo",
+          "description": "Quiénes somos, cómo trabajamos y por qué construimos automatización desde Sevilla.",
+          "cta": "Ir a nosotros"
+        },
+        "1": {
+          "title": "Ver recursos y contenido",
+          "description": "YouTube, casos, ideas y material para entender mejor cómo aplicamos IA y automatización.",
+          "cta": "Abrir canal"
+        },
+        "2": {
+          "title": "Ven a vernos",
+          "description": "Reuniones presenciales, workshops y sesiones de descubrimiento en Plaza del Duque.",
+          "cta": "Abrir ubicación"
+        }
+      }
     }
   },
   "usPage": {

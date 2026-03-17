@@ -31,12 +31,12 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
           return (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {Array.from({ length: 6 }).map((_, index) => (
-                <Card key={index} className="bg-white dark:bg-gray-800/50 border-gray-200 dark:border-gray-700">
+                <Card key={index} className="bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium]/50 border-[--color-border-subtle] dark:border-[--color-border-strong]">
                   <CardHeader>
-                    <div className="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-2xl animate-pulse mb-4"></div>
-                    <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                    <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div>
+                    <div className="w-16 h-16 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded-2xl animate-pulse mb-4"></div>
+                    <div className="h-6 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded animate-pulse mb-2"></div>
+                    <div className="h-4 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
+                    <div className="h-4 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded w-3/4 animate-pulse"></div>
                   </CardHeader>
                 </Card>
               ))}
@@ -45,19 +45,19 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
         } else if (isOnVacation) {
           return (
             <div className="text-center py-16">
-              <div className="max-w-md mx-auto bg-white dark:bg-[#23272F] rounded-xl shadow-lg p-8">
-                <div className="w-16 h-16 mx-auto mb-4 bg-[#1F8A0D]/10 rounded-full flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#1F8A0D] dark:text-[#3FBD6F]">
+              <div className="max-w-md mx-auto bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] rounded-xl shadow-lg p-8">
+                <div className="w-16 h-16 mx-auto mb-4 bg-clay/10 rounded-full flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-clay dark:text-clay">
                     <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                     <line x1="16" y1="2" x2="16" y2="6"/>
                     <line x1="8" y1="2" x2="8" y2="6"/>
                     <line x1="3" y1="10" x2="21" y2="10"/>
                   </svg>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                <h3 className="text-xl font-semibold text-slate-dark dark:text-ivory-light mb-3">
                   {t('services.vacationTitle')}
                 </h3>
-                <p className="text-gray-800 dark:text-gray-200 mb-6">
+                <p className="text-slate-medium dark:text-cloud-medium mb-6">
                   {t('services.vacationMessage')}
                 </p>
                 <Button
@@ -107,7 +107,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
           );
         } else {
           return (
-            <div className="text-center py-8 text-gray-700 dark:text-gray-200">
+            <div className="text-center py-8 text-slate-medium dark:text-cloud-medium">
               {t("services.noServices")}
             </div>
           );
@@ -119,7 +119,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = (props) => {
           variant="outline"
           size="lg"
           onClick={() => router.push('/services')}
-          className="bg-transparent border-2 border-[#1F8A0D] text-[#1F8A0D] hover:bg-[#0d6e0c] hover:text-white dark:border-[#3FBD6F] dark:text-[#3FBD6F] dark:hover:bg-[#3FBD6F] dark:hover:text-black transition-all duration-300 px-6 py-3 text-base font-semibold rounded-full shadow-md hover:shadow-lg hover:shadow-[#1F8A0D]/20 group"
+          className="bg-transparent border-2 border-clay text-clay hover:bg-clay hover:text-white dark:border-clay dark:text-clay dark:hover:bg-clay dark:hover:text-ivory-light transition-all duration-300 px-6 py-3 text-base font-semibold rounded-full shadow-md hover:shadow-lg hover:shadow-clay/20 group"
         >
           {props.t("services.viewAllServicesAndProducts")}
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

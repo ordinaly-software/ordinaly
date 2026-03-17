@@ -28,9 +28,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
         transition-all duration-300
         w-full max-w-4xl mx-auto
         flex flex-col md:flex-row
-        hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F]
-        hover:bg-[#1F8A0D]/3 dark:hover:bg-[#3FBD6F]/8
-        hover:shadow-2xl hover:shadow-[#1F8A0D]/16 dark:hover:shadow-[#3FBD6F]/22
+        hover:border-clay dark:hover:border-clay
+        hover:bg-clay/5
+        hover:shadow-2xl hover:shadow-clay/15
         hover:-translate-y-2
       "
     >
@@ -68,11 +68,10 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
                     px-2 py-0.5
                     md:px-3 md:py-1
                     rounded-full
-                    bg-[#1F8A0D]/10 text-[#1F8A0D]
-                    dark:bg-[#3FBD6F]/20 dark:text-[#3FBD6F]
+                    bg-clay/10 text-clay
                     text-xs md:text-sm
                     font-medium
-                    hover:bg-[#1F8A0D]/20 dark:hover:bg-[#3FBD6F]/30 transition
+                    hover:bg-clay/20 transition
                   "
                 >
                   {cat.title}
@@ -85,11 +84,10 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
                     px-2 py-0.5
                     md:px-3 md:py-1
                     rounded-full
-                    bg-[#1F8A0D]/10 text-[#1F8A0D]
-                    dark:bg-[#3FBD6F]/20 dark:text-[#3FBD6F]
+                    bg-clay/10 text-clay
                     text-xs md:text-sm
                     font-medium
-                    hover:bg-[#1F8A0D]/20 dark:hover:bg-[#3FBD6F]/30 transition
+                    hover:bg-clay/20 transition
                   "
                 >
                   {cat.title}
@@ -106,7 +104,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
             text-lg md:text-2xl
             leading-snug
             mb-1
-            md:group-hover:text-[#1F8A0D] dark:md:group-hover:text-[#3FBD6F]
+            md:group-hover:text-clay
             transition-colors
             line-clamp-2
           "

@@ -61,11 +61,11 @@ export default function OAuthCallbackPage() {
   if (!errorMessage) {
     return (
       <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#E3F9E5] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#3FBD6F]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10 min-h-screen flex items-center">
+        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[#EFF6FF] via-[#E6F7FA] to-[#EDE9FE] dark:from-[#7DB5FF]/10 dark:via-[#46B1C9]/10 dark:to-[#623CEA]/10 min-h-screen flex items-center">
           <div className="max-w-7xl mx-auto w-full">
             <div className="flex justify-center">
               <div className="w-full max-w-md rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50 p-8 text-center shadow-xl">
-                <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#1F8A0D] dark:border-gray-600 dark:border-t-[#3FBD6F]" />
+                <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-[#0255D5] dark:border-gray-600 dark:border-t-[#7DB5FF]" />
                 <p className="mt-4 text-base font-medium text-gray-700 dark:text-gray-300">{t("processing")}</p>
               </div>
             </div>
@@ -83,7 +83,7 @@ export default function OAuthCallbackPage() {
           <button
             type="button"
             onClick={() => router.push("/auth/signin")}
-            className="rounded-md bg-[#1F8A0D] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#176708]"
+            className="rounded-md bg-[#0255D5] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#0144AA]"
           >
             {t("actions.goToSignIn")}
           </button>

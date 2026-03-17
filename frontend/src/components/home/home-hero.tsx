@@ -1,9 +1,9 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import heroImage from "../../../public/static/home/main_home_ilustration.webp";
 import Link from "next/link";
-import { ArrowRight, Book, Bot, Building2 } from "lucide-react";
+import { ArrowRight, Book, Bot, Building2, MapPin, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/contexts/theme-context";
 
@@ -14,272 +14,196 @@ interface HeroProps {
   onWhatsApp: () => void;
 }
 
-const heroImageMeta = {
-  src: heroImage.src,
-  width: heroImage.width ?? 516,
-  height: heroImage.height ?? 640,
-  blurDataURL: heroImage.blurDataURL,
-};
+const clientLogos = [
+  { src: "/static/logos/logo_grupo_addu_small.webp", alt: "Grupo Addu", width: 130, height: 42 },
+  { src: "/static/logos/logo_aviva_publicidad_small.webp", alt: "Aviva Publicidad", width: 140, height: 42 },
+  { src: "/static/logos/logo_proinca_consultores_small.webp", alt: "Proinca Consultores", width: 120, height: 42 },
+  { src: "/static/logos/logo_guadalquivir_fincas_small.webp", alt: "Guadalquivir Fincas", width: 150, height: 42 },
+];
+
+const bulletPoints = [
+  { icon: Building2, key: "hero.trust1", href: "#services" },
+  { icon: Bot, key: "hero.trust2", href: "#services" },
+  { icon: Book, key: "hero.trust3", href: "#courses" },
+  { icon: ArrowRight, key: "hero.trust4", href: "#courses" },
+];
+
+const heroContextCards = [
+  { icon: Building2, labelKey: "hero.localCardLabel", valueKey: "hero.localCardValue" },
+  { icon: MapPin, labelKey: "hero.coverageCardLabel", valueKey: "hero.coverageCardValue" },
+  { icon: Bot, labelKey: "hero.deliveryCardLabel", valueKey: "hero.deliveryCardValue" },
+];
 
 export function HomeHero({ t, onWhatsApp }: HeroProps) {
   const { isDark } = useTheme();
-  const primaryGreen = "#1F8A0D";
-  const sectionTextColor = isDark ? "text-white" : "text-[#0B1B17]";
-  const subtitleColor = isDark ? "#B8FF9A" : "#1F7A12";
-  const bulletTextColor = isDark ? "#FFFFFF" : "#0B1B17";
-  const bulletBg = isDark ? "rgba(124,252,0,0.12)" : "rgba(31,138,13,0.06)";
-  const bulletBorder = isDark ? "rgba(124,252,0,0.35)" : "rgba(31,138,13,0.18)";
-
-  const bulletPoints = [
-    {
-      icon: Building2,
-      text: t("hero.trust1"),
-    },
-    {
-      icon: Bot,
-      text: t("hero.trust2"),
-    },
-    {
-      icon: Book,
-      text: t("hero.trust3"),
-    },
-    {
-      icon: ArrowRight,
-      text: t("hero.trust4"),
-    },
-  ];
-
-  const clientLogos = [
-    {
-      src: "/static/logos/logo_grupo_addu_small.webp",
-      alt: "Grupo Addu",
-      width: 130,
-      height: 42,
-    },
-    {
-      src: "/static/logos/logo_aviva_publicidad_small.webp",
-      alt: "Aviva Publicidad",
-      width: 140,
-      height: 42,
-    },
-    {
-      src: "/static/logos/logo_proinca_consultores_small.webp",
-      alt: "Proinca Consultores",
-      width: 120,
-      height: 42,
-    },
-    {
-      src: "/static/logos/logo_guadalquivir_fincas_small.webp",
-      alt: "Guadalquivir Fincas",
-      width: 150,
-      height: 42,
-    },
-  ];
-
-  const imageProps = {
-    src: heroImageMeta.src,
-    alt: t("hero.imageAlt"),
-    fill: true,
-    priority: true,
-    fetchPriority: "high" as const,
-    sizes: "(max-width: 1024px) 100vw, 600px",
-    quality: 60,
-    placeholder: heroImageMeta.blurDataURL ? ("blur" as const) : ("empty" as const),
-    blurDataURL: heroImageMeta.blurDataURL,
-    className: "object-cover",
-    "aria-hidden": true,
-  };
 
   return (
-    <section className={`relative overflow-hidden ${sectionTextColor}`} style={{ backgroundColor: isDark ? "#030B13" : "#F7FCF9" }}>
-      <div className="absolute inset-0">
-        {isDark ? (
-          <>
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(circle at 15% 20%, rgba(31,138,13,0.15), transparent 35%), radial-gradient(circle at 80% 15%, rgba(0,204,255,0.12), transparent 35%), linear-gradient(135deg, #040a11 0%, #05141f 40%, #040a11 100%)",
-              }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(120deg, rgba(31,138,13,0.08), transparent 40%, rgba(0,210,255,0.12) 70%, transparent 90%)",
-              }}
-            />
-            <div
-              className="absolute inset-0 opacity-30"
-              style={{
-                background: "radial-gradient(circle at 50% 110%, rgba(31,138,13,0.22), transparent 55%)",
-              }}
-            />
-            <div
-              className="absolute inset-0 opacity-20"
-              style={{
-                background: "radial-gradient(circle at 40% 40%, rgba(255,255,255,0.04), transparent 45%)",
-              }}
-            />
-          </>
-        ) : (
-          <>
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "radial-gradient(circle at 20% 25%, rgba(31,138,13,0.08), transparent 35%), radial-gradient(circle at 80% 10%, rgba(0,175,115,0.08), transparent 35%), linear-gradient(135deg, #ffffff 0%, #f7fcf9 55%, #e9f8ed 100%)",
-              }}
-            />
-            <div
-              className="absolute inset-0 opacity-60"
-              style={{
-                background:
-                  "linear-gradient(120deg, rgba(31,138,13,0.05), transparent 45%, rgba(0,175,115,0.07) 75%, transparent 90%)",
-              }}
-            />
-          </>
-        )}
+    <section className="relative overflow-hidden bg-[--color-bg-primary] dark:bg-[--color-bg-inverted]">
+      <div className="pointer-events-none absolute inset-0" aria-hidden>
+        <div className="absolute inset-x-0 top-0 h-[30rem] bg-[radial-gradient(circle_at_top,rgba(2,85,213,0.12),transparent_58%)] dark:bg-[radial-gradient(circle_at_top,rgba(2,85,213,0.2),transparent_60%)]" />
+        <div className="absolute left-1/2 top-[18rem] h-[20rem] w-[20rem] -translate-x-1/2 rounded-full bg-clay/12 blur-3xl" />
       </div>
 
-      <div className="absolute inset-0" style={{ background: isDark ? "linear-gradient(180deg, rgba(3,11,19,0.74) 0%, rgba(3,11,19,0.64) 60%, rgba(3,11,19,0.78) 100%)" : "linear-gradient(180deg, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.72) 60%, rgba(247,252,249,0.85) 100%)" }} />
+      <div className="relative u-container pb-16 pt-14 lg:pb-20 lg:pt-16">
+        <div className="scroll-animate fade-in-up mx-auto max-w-4xl text-center lg:mx-0 lg:text-left">
+          <div className="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+            <div
+              className="label-meta inline-flex items-center gap-2 rounded-full border border-[--color-border-subtle] px-4 py-2 backdrop-blur-sm dark:border-white/10"
+              style={{ backgroundColor: isDark ? "rgba(250,249,245,0.06)" : "rgba(250,249,245,0.82)" }}
+            >
+              <MapPin className="h-3.5 w-3.5 text-clay" strokeWidth={1.5} />
+              <span>{t("hero.locationBadge")}</span>
+            </div>
+            <div
+              className="label-meta inline-flex items-center gap-2 rounded-full border border-[--color-border-subtle] px-4 py-2 backdrop-blur-sm dark:border-white/10"
+              style={{ backgroundColor: isDark ? "rgba(250,249,245,0.06)" : "rgba(250,249,245,0.7)" }}
+            >
+              <Sparkles className="h-3.5 w-3.5 text-cobalt" strokeWidth={1.5} />
+              <span>{t("hero.coverageBadge")}</span>
+            </div>
+          </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-12 lg:pt-14 lg:pb-16">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="relative z-10 scroll-animate slide-in-left space-y-4">
-            <div className="space-y-4 pt-6 lg:pt-0">
-              <h1 className="text-4xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight">
-                <span className="block">{t("hero.titleLine1")}</span>
-                <span
-                  className="block text-transparent bg-clip-text drop-shadow-[0_12px_35px_rgba(31,138,13,0.35)]"
-                  style={{
-                    backgroundImage: `linear-gradient(90deg, ${primaryGreen}, #4BBE59FF, #9978fdff)`,
-                  }}
+          <div className="mt-6 space-y-4">
+            <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[5.5rem]">
+              <span className="block">{t("hero.titleLine1")}</span>
+              <span className="block text-clay">{t("hero.titleLine2")}</span>
+            </h1>
+            <p className="mx-auto max-w-3xl text-xl font-semibold text-slate-medium dark:text-cloud-medium lg:mx-0 lg:text-2xl">
+              {t("hero.subtitle")}
+            </p>
+            <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-medium dark:text-cloud-medium lg:mx-0 lg:text-lg">
+              {t("hero.description1")}
+            </p>
+          </div>
+
+          <div className="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <Button size="lg" variant="default" onClick={onWhatsApp}>
+              {t("hero.ctaDemo")}
+            </Button>
+            <Button size="lg" variant="outline" asChild>
+              <Link href="/services" className="flex items-center gap-2">
+                {t("hero.ctaServices")}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+
+        <div className="scroll-animate fade-in-up mt-12">
+          <div
+            className="overflow-hidden rounded-[2rem] border border-[--color-border-subtle] p-4 shadow-[0_30px_120px_-60px_rgba(2,85,213,0.55)] dark:border-[--color-border-strong] sm:p-6 lg:p-8"
+            style={{
+              background: isDark
+                ? "linear-gradient(180deg, rgba(61,61,58,0.92) 0%, rgba(20,20,19,0.96) 100%)"
+                : "linear-gradient(180deg, rgba(250,249,245,0.96) 0%, rgba(240,238,230,0.94) 100%)",
+            }}
+          >
+            <div className="grid gap-4 lg:grid-cols-3">
+              {heroContextCards.map(({ icon: Icon, labelKey, valueKey }) => (
+                <div
+                  key={labelKey}
+                  className="rounded-[1.5rem] border border-[--color-border-subtle] p-5 dark:border-white/10"
+                  style={{ backgroundColor: isDark ? "rgba(250,249,245,0.04)" : "rgba(255,255,255,0.55)" }}
                 >
-                  {t("hero.titleLine2")}
-                </span>
-              </h1>
-              <p className="text-xl md:text-2xl font-semibold" style={{ color: subtitleColor }}>
-                {t("hero.subtitle")}
-              </p>
-              <p className={`text-lg max-w-2xl leading-relaxed ${isDark ? "text-gray-200/90" : "text-[#1C2A25]"}`}>
-                {t("hero.description1")}
-              </p>
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-[1rem] bg-clay/12 text-clay">
+                      <Icon className="h-5 w-5" strokeWidth={1.5} />
+                    </span>
+                    <p className="label-meta">{t(labelKey)}</p>
+                  </div>
+                  <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-dark dark:text-ivory-light">
+                    {t(valueKey)}
+                  </p>
+                </div>
+              ))}
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-3">
-              {bulletPoints.map(({ icon: Icon, text }, index) => {
-                const targetId = index < 3 ? "#services" : "#courses";
-                return (
-                  <Link
-                    key={`bullet-${index}`}
-                    href={targetId}
-                    scroll
-                    className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#1F8A0D] focus-visible:ring-offset-transparent rounded-2xl"
-                  >
-                    <div
-                      className="flex items-center gap-3 rounded-2xl px-4 py-3"
-                      style={{
-                        backgroundColor: bulletBg,
-                        border: `1px solid ${bulletBorder}`,
-                        backdropFilter: "blur(8px)",
-                      }}
-                    >
-                      <div
-                        className="flex-shrink-0 flex h-11 w-11 items-center justify-center rounded-xl ring-1"
-                        style={{
-                          backgroundColor: isDark ? "rgba(124,252,0,0.18)" : "rgba(31,138,13,0.12)",
-                          color: isDark ? "#3FBD6F" : primaryGreen,
-                          borderColor: isDark ? "rgba(124,252,0,0.5)" : "rgba(31,138,13,0.35)",
-                        }}
-                      >
-                        <Icon className="h-6 w-6 flex-shrink-0" strokeWidth={1.5} />
-                      </div>
-                      <p className="text-base md:text-lg" style={{ color: bulletTextColor }}>
-                        {text}
-                      </p>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <Button
-                size="lg"
-                className="px-8 py-4 text-lg text-white shadow-[0_20px_60px_-25px_rgba(31,138,13,0.8)] hover:shadow-[0_20px_70px_-28px_rgba(31,138,13,0.95)]"
-                style={{ backgroundColor: primaryGreen }}
-                onClick={onWhatsApp}
-              >
-                {t("hero.ctaDemo")}
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border px-8 py-4 text-lg"
-                style={{
-                  borderColor: isDark ? "rgba(255,255,255,0.35)" : "rgba(31,138,13,0.5)",
-                  backgroundColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0.05)",
-                  color: isDark ? "rgba(255,255,255,0.92)" : "rgba(31,138,13,0.85)",
-                }}
-                asChild
-              >
-                <Link href="/services" className="flex items-center">
-                  {t("hero.ctaServices")}
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-            </div>
-
-            <div className="space-y-5">
-              <div
-                className="flex items-center gap-3 text-xs uppercase tracking-[0.18em]"
-                style={{ color: isDark ? "rgba(167,243,208,0.9)" : "#1F7A12" }}
-              >
-                <div className="h-px flex-1" style={{ background: `linear-gradient(to right, rgba(31,138,13,0.4), rgba(255,255,255,0.1), transparent)` }} />
-                <span>{t("hero.clientsTitle")}</span>
-                <div className="h-px flex-1" style={{ background: `linear-gradient(to left, rgba(31,138,13,0.4), rgba(255,255,255,0.1), transparent)` }} />
+            <div
+              className="relative mt-6 overflow-hidden rounded-[2rem] border border-[--color-border-subtle] px-4 pt-6 dark:border-white/10 sm:px-6 lg:px-8 lg:pt-8"
+              style={{
+                background: isDark
+                  ? "radial-gradient(circle at 50% 24%, rgba(2,85,213,0.26), rgba(20,20,19,0.98) 64%)"
+                  : "radial-gradient(circle at 50% 24%, rgba(2,85,213,0.16), rgba(250,249,245,0.94) 66%)",
+              }}
+            >
+              <div className="pointer-events-none absolute inset-0" aria-hidden>
+                <div className="absolute left-1/2 top-14 h-[24rem] w-[24rem] -translate-x-1/2 rounded-full border border-white/10" />
+                <div className="absolute left-1/2 top-24 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full border border-white/5" />
+                <div className="absolute bottom-10 left-10 h-28 w-28 rounded-full bg-clay/15 blur-3xl" />
+                <div className="absolute right-10 top-10 h-28 w-28 rounded-full bg-cobalt/20 blur-3xl" />
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 items-center">
+
+              <div className="relative z-10">
+                <div className="mb-4 flex justify-center">
+                  <div className="label-meta inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/20 px-4 py-2 text-ivory-light backdrop-blur-sm">
+                    <MapPin className="h-3.5 w-3.5 text-clay" strokeWidth={1.5} />
+                    <span>{t("hero.globeCaption")}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute left-4 top-4 hidden max-w-[14rem] rounded-[1.25rem] border border-white/15 bg-white/10 p-4 text-left backdrop-blur-xl xl:block">
+                <p className="label-meta text-white/65">{t("hero.localCardLabel")}</p>
+                <p className="mt-2 text-base font-semibold text-white">{t("hero.globeFloatingTop")}</p>
+              </div>
+
+              <div className="absolute bottom-5 right-4 hidden max-w-[18rem] rounded-[1.25rem] border border-white/15 bg-black/30 p-4 text-left backdrop-blur-xl xl:block">
+                <p className="label-meta text-white/65">{t("hero.coverageCardLabel")}</p>
+                <p className="mt-2 text-sm leading-relaxed text-white/90">{t("hero.globeFloatingBottom")}</p>
+              </div>
+            </div>
+
+            <div className="mt-6 grid gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
+              {bulletPoints.map(({ icon: Icon, key, href }) => (
+                <Link
+                  key={key}
+                  href={href}
+                  scroll
+                  className="block rounded-a-m focus:outline-none focus-visible:ring-2 focus-visible:ring-clay focus-visible:ring-offset-2"
+                >
+                  <div
+                    className="flex h-full items-center gap-3 rounded-a-m border border-[--color-border-subtle] px-4 py-3 transition-colors dark:border-white/10"
+                    style={{ backgroundColor: isDark ? "rgba(250,249,245,0.05)" : "rgba(255,255,255,0.55)" }}
+                  >
+                    <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-a-s bg-clay/10 text-clay">
+                      <Icon className="h-4.5 w-4.5" strokeWidth={1.5} />
+                    </span>
+                    <p className="text-sm md:text-base text-slate-dark dark:text-ivory-light">{t(key)}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-8 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="h-px flex-1 bg-[--color-border-subtle] dark:bg-white/10" />
+                <span className="label-meta">{t("hero.clientsTitle")}</span>
+                <div className="h-px flex-1 bg-[--color-border-subtle] dark:bg-white/10" />
+              </div>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {clientLogos.map((logo) => (
                   <div
                     key={logo.alt}
-                    className="flex items-center justify-center rounded-xl px-3 py-2"
-                    style={{
-                      backgroundColor: isDark ? "rgba(255,255,255,0.05)" : "rgba(31,138,13,0.04)",
-                      border: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(31,138,13,0.12)"}`,
-                    }}
+                    className="flex items-center justify-center rounded-a-m border border-[--color-border-subtle] px-3 py-3 dark:border-white/10"
+                    style={{ backgroundColor: isDark ? "rgba(250,249,245,0.05)" : "rgba(255,255,255,0.5)" }}
                   >
                     <Image
                       src={logo.src}
                       alt={logo.alt}
                       width={logo.width}
                       height={logo.height}
-                      className="w-auto max-h-14 opacity-90"
-                      style={{ filter: isDark ? "none" : "invert(1) brightness(0.2)" }}
+                      className="max-h-10 w-auto opacity-90"
+                      style={{
+                        filter: isDark
+                          ? "brightness(1.1) invert(0)"
+                          : "invert(1) brightness(0.15) contrast(1.1)",
+                      }}
                       loading="lazy"
-                      sizes="(max-width: 640px) 80px, (max-width: 1024px) 96px, 112px"
+                      sizes="(max-width: 640px) 80px, 112px"
                       quality={60}
                     />
                   </div>
                 ))}
-              </div>
-              <div className={`flex flex-col sm:flex-row sm:items-center gap-2 ${sectionTextColor}`}>
-                <span className="text-3xl md:text-4xl font-black tracking-tight">{t("hero.statHeadline")}</span>
-                <span className={`text-base md:text-lg ${isDark ? "text-gray-200/90" : "text-[#1C2A25]"}`}>
-                  {t("hero.statCaption")}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative scroll-animate slide-in-right">
-            <div className="relative">
-              <div className="absolute -left-24 -top-16 h-72 w-72 rounded-full blur-3xl" style={{ backgroundColor: "rgba(31,138,13,0.2)" }} />
-              <div className="absolute -right-10 -bottom-24 h-80 w-80 rounded-full bg-cyan-400/25 blur-3xl" />
-              <div className="absolute inset-0 scale-105" style={{ background: "radial-gradient(circle at 70% 40%, rgba(31,138,13,0.18), transparent 45%)" }} />
-              <div className="relative mx-auto h-full w-full max-w-[640px] overflow-hidden rounded-[28px] aspect-[516/640]">
-                <Image {...imageProps} />
               </div>
             </div>
           </div>

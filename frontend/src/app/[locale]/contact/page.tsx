@@ -14,10 +14,10 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: "/contact",
-    title: isEs ? "Contacto" : "Contact us",
+    title: isEs ? "Contacto | Soporte y automatización IA" : "Contact | Support and AI automation",
     description: isEs
-      ? "Hablemos sobre tus proyectos de automatización e IA. Escríbenos y te responderemos en menos de 24h."
-      : "Let's talk about your automation and AI projects. Write to us and we’ll reply within 24 hours.",
+      ? "Habla con Ordinaly sobre agentes IA, automatización, formación y soporte operativo. Respondemos en menos de 24 horas."
+      : "Talk with Ordinaly about AI agents, automation systems, training, and operational support. We reply within 24 hours.",
     image: "/static/contact/contact_pic.png",
   });
 }

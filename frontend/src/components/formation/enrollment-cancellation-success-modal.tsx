@@ -21,7 +21,7 @@ const CourseCancelEnrollmentSuccessModal: React.FC<CourseCancelEnrollmentSuccess
       className="max-w-md"
     >
       <div className="flex flex-col items-center justify-center py-8 px-4">
-        <UserX className="w-16 h-16 text-[#1F8A0D] dark:text-[#3FBD6F] mb-4" />
+        <UserX className="w-16 h-16 text-clay mb-4" />
         <h2 className="text-2xl font-bold text-center mb-2">
           {t ? t("cancellation.title") : "Enrollment Cancelled"}
         </h2>
@@ -29,7 +29,7 @@ const CourseCancelEnrollmentSuccessModal: React.FC<CourseCancelEnrollmentSuccess
           {t ? t("cancellation.message") : "Your enrollment has been cancelled successfully."}
         </p>
         <button
-          className="bg-[#0d6e0c] text-white px-6 py-2 rounded-lg font-semibold hover:bg-[#0A4D08] transition"
+          className="bg-clay text-white px-6 py-2 rounded-lg font-semibold hover:bg-clay/80 transition"
           onClick={onClose}
         >
           {t ? t("enrollmentSuccess.close") : "Close"}

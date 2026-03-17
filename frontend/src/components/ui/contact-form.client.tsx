@@ -123,38 +123,38 @@ export default function ContactForm({
   return (
     <div className={className}>
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
-        <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl p-6 md:p-8">
+        <div className="bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] border border-[--color-border-subtle] dark:border-[--color-border-strong] rounded-2xl shadow-xl p-6 md:p-8">
           <div className="space-y-2 text-center">
-            <p className="text-sm uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#3FBD6F] font-semibold">
+            <p className="text-sm uppercase tracking-[0.2em] text-clay dark:text-clay font-semibold">
               {t("form.eyebrow")}
             </p>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{t("form.title")}</h2>
-            <p className="text-gray-700 dark:text-gray-300">{t("form.subtitle")}</p>
+            <h2 className="text-3xl font-bold text-slate-dark dark:text-[var(--swatch--ivory-light)]">{t("form.title")}</h2>
+            <p className="text-slate-medium dark:text-cloud-medium">{t("form.subtitle")}</p>
           </div>
 
           <form ref={formRef} onSubmit={handleSubmit} className="mt-8 space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                   {t("form.name")}
                 </label>
                 <Input name="name" required placeholder={t("form.namePlaceholder")} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                   {t("form.email")}
                 </label>
                 <Input name="email" type="email" required placeholder="you@email.com" />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                 {t("form.company")}
               </label>
               <Input name="company" placeholder={t("form.companyPlaceholder")} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                 {t("form.phone")}
               </label>
               <div className="flex gap-3">
@@ -167,7 +167,7 @@ export default function ContactForm({
                       id="phonePrefix"
                       name="phonePrefix"
                       defaultValue="+34"
-                      className="h-10 w-full rounded-md bg-card text-card-foreground px-3 py-2 text-sm shadow-input dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-green"
+                      className="h-10 w-full rounded-md bg-card text-card-foreground px-3 py-2 text-sm shadow-input dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-clay"
                     >
                       {phonePrefixes.map((prefix) => (
                         <option key={prefix.value} value={prefix.value}>
@@ -188,7 +188,7 @@ export default function ContactForm({
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                 {t("form.message")}
               </label>
               <Textarea
@@ -204,7 +204,7 @@ export default function ContactForm({
               <Button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full md:w-auto bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] text-white dark:text-black px-6 py-6 rounded-xl text-lg shadow-lg shadow-[#1F8A0D]/30 flex items-center gap-2 justify-center"
+                className="w-full md:w-auto bg-clay dark:bg-clay hover:bg-flame dark:hover:bg-flame text-white px-6 py-6 rounded-xl text-lg shadow-lg shadow-clay/30 flex items-center gap-2 justify-center"
               >
                 {status === "loading" ? t("form.sending") : t("form.submit")}
               </Button>
