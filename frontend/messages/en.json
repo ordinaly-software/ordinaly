@@ -9,7 +9,7 @@
       "services": "Services and products",
       "serviceSubmenu": "See ALL our services and products",
       "formation": "Formation",
-      "formationSubmenu":  "See ALL our courses and workshops",
+      "formationSubmenu": "See ALL our courses and workshops",
       "start": "Get started",
       "ctaConsultation": "Book a consultation",
       "ctaShort": "Contact us",
@@ -52,47 +52,7 @@
       "card3Label": "Equipo de ingenieros especializados",
       "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
       "card4Label": "Empresa local andaluza",
-      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo.",
-      "globeCaption": "Showing where we are and where we operate from",
-      "globeFloatingTop": "Ordinaly - Seville",
-      "globeFloatingBottom": "In person across Andalusia. Remote across the rest of Spain.",
-      "imageAlt": "AI automation agency for businesses in Spain"
-    },
-    "benefits": {
-      "title": "Why choose Ordinaly for business automation in Seville?",
-      "subtitle": "As an AI automation agency, we transform slow processes into immediate flows, guaranteeing real ROI through reduced operational errors.",
-      "items": {
-      "0": {
-        "title": "Real time savings",
-        "description": "Automate repetitive tasks and save up to 20 hours per week with our AI agents"
-      },
-      "1": {
-        "title": "Tailored solutions",
-        "description": "We design personalized workflows adapted to your sector: real estate, property management, marketing"
-      },
-      "2": {
-        "title": "Training included",
-        "description": "Practical AI courses so your team masters the tools and becomes self-sufficient"
-      },
-      "3": {
-        "title": "Local support",
-        "description": "Team in Seville available for in-person meetings and ongoing support"
-      }
-      }
-    },
-    "hubIllustration": {
-      "title": "Automation that flows through your organisation",
-      "subtitle": "Ordinaly connects all your departments in one intelligent ecosystem",
-      "hubLabel": "ORDINALY",
-      "hubSublabel": "AUTOMATION · AI",
-      "ariaTitle": "Ordinaly connects sales, data, finance and teams in a central AI hub",
-      "ariaDesc": "Isometric illustration showing how Ordinaly integrates Sales & CRM, Cloud & Data, Finance and Teams departments through AI-powered automation workflows.",
-      "platforms": {
-        "topLeft":     { "label": "Sales & CRM",    "sublabel": "Leads & automatic follow-up" },
-        "topRight":    { "label": "Cloud & Data",   "sublabel": "Real-time integration" },
-        "bottomLeft":  { "label": "Finance",        "sublabel": "Auto invoicing & reports" },
-        "bottomRight": { "label": "Teams & Ops",    "sublabel": "Intelligent workflows" }
-      }
+      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo."
     },
     "services": {
       "title": "Our AI automation agency",
@@ -111,25 +71,12 @@
           "description": "Technical team in Seville available. Updates and improvements included in the service."
         }
       },
-      "contactForQuote": "I want to know more!",
       "vacationMessage": "We're on vacation! Our services will return soon after the holidays. Thank you for your patience",
       "vacationTitle": "On vacation",
       "retryButton": "Retry",
-      "featured": "Featured",
-      "duration": "Ready in ",
-      "durationDay": "1 day",
-      "durationDays": "days",
-      "price": "Price",
-      "created": "Created",
-      "createdBy": "Created by",
-      "requisites": "Requirements",
-      "contactNow": "Contact now",
-      "contactEmail": "Contact by email",
-      "viewDetails": "View details",
       "viewAllServicesAndProducts": "See the entire catalog",
       "video": "Video",
       "playVideo": "Play video",
-      "imageAlt": "Image for {title}",
       "errorTitle": "Error loading services",
       "errorMessage": "Services could not be loaded"
     },
@@ -139,11 +86,11 @@
       "items": {
         "0": {
           "title": "Property managers",
-            "bullets": [
+          "bullets": [
             "Automated reports sent to property owners",
             "Automated email management",
             "Billing workflows"
-            ]
+          ]
         },
         "1": {
           "title": "Real estate agencies",
@@ -171,11 +118,11 @@
         },
         "4": {
           "title": "Consulting and services",
-            "bullets": [
+          "bullets": [
             "Automated email management",
             "Billing workflows",
             "Custom CRM with VeriFactu"
-            ]
+          ]
         },
         "5": {
           "title": "Construction and engineering",
@@ -215,52 +162,9 @@
         }
       }
     },
-    "seoArticle": {
-      "title": "Business automation with AI in Seville: the complete guide",
-      "intro": "Business automation with artificial intelligence has gone from a futuristic option to a competitive necessity for SMEs in Seville and across Andalusia. At Ordinaly, we help local companies implement AI agents for business that radically transform their daily operations.",
-      "section1": {
-        "title": "What are AI agents and how do they benefit your business in Seville?",
-        "body": "AI agents are intelligent systems designed to perform specific tasks autonomously. Unlike simple chatbots, these agents can make decisions, learn from previous interactions, and execute complex workflows without human intervention. For a real estate company in Seville, this means managing customer inquiries 24/7, scheduling visits automatically, and generating property descriptions in seconds."
-      },
-      "section2": {
-        "title": "Industries that benefit most from AI automation in Andalusia",
-        "body": "Our experience working with Andalusian businesses has shown that certain sectors gain immediate benefits:",
-        "list": {
-          "0": "Property managers: Incident automation, community communications, and vendor management. A manager in Seville can save up to 20 hours per week with our systems.",
-          "1": "Real estate agencies: Conversational agents that qualify leads, schedule visits, and automatically send property information. Ideal for Seville agencies handling dozens of listings at once.",
-          "2": "Marketing agencies: Automation of social media posts, AI-powered content generation, and campaign analytics. Seville agencies working with us manage 3x more clients with the same team.",
-          "3": "Retail commerce: Intelligent inventory management, demand forecasting, and automated customer support via WhatsApp Business."
-        }
-      },
-      "section3": {
-        "title": "AI training for companies: the essential complement",
-        "body": "We don't just implement technology: we train your team to be self-sufficient. Our artificial intelligence courses in Seville are 100% practical and focused on real use cases. From introductory ChatGPT to advanced automations with Make and Zapier, we tailor training to your sector's specific needs."
-      },
-      "section4": {
-        "title": "Why choose Ordinaly to automate your business in Seville?",
-        "body": "We're software engineers specialized in AI with a physical headquarters in Seville. This sets us apart from international consultancies that apply generic solutions:",
-        "list": {
-          "0": "Knowledge of the local market: We understand the nuances of Andalusian SMEs",
-          "1": "In-person availability: Face-to-face meetings at our downtown Seville office",
-          "2": "100% tailored solutions: We don't use templates. Every project is designed specifically for you",
-          "3": "Training included: Your team learns to manage and improve the systems we implement",
-          "4": "Ongoing support: We don't disappear after implementation"
-        }
-      },
-      "cta": {
-        "title": "Ready to make the leap to business automation?",
-        "body": "Book a free consultation and discover how AI agents can transform your business in Seville. No commitment—we analyze your case and show you concrete automation opportunities.",
-        "button": "Contact via WhatsApp"
-      }
-    },
     "partners": {
       "title": "Transformed companies",
       "subtitle": "Companies that trust us and have already automated their processes with AI"
-    },
-    "gradient": {
-      "label": "AI at work",
-      "title": "See automation in action",
-      "description": "Our AI agents handle the repetitive so your team can focus on what matters. From first contact to final delivery — automated, accurate, and always on."
     },
     "chatDemo": {
       "title": "AI that talks like your business",
@@ -271,37 +175,85 @@
         "0": {
           "label": "Real Estate",
           "messages": {
-            "0": { "sender": "customer", "text": "Hi! Is the apartment at Calle Sierpes 12 still available? I'd love to schedule a visit this Saturday." },
-            "1": { "sender": "agent", "text": "Hello! Yes, it's available. We have slots at 10:00 and 12:00 on Saturday. Which works best for you?" },
-            "2": { "sender": "customer", "text": "12:00 would be perfect. My name is María García." },
-            "3": { "sender": "agent", "text": "Done, María! Visit confirmed for Saturday at 12:00. A confirmation has been sent to your email. See you then! 🏠" }
+            "0": {
+              "sender": "customer",
+              "text": "Hi! Is the apartment at Calle Sierpes 12 still available? I'd love to schedule a visit this Saturday."
+            },
+            "1": {
+              "sender": "agent",
+              "text": "Hello! Yes, it's available. We have slots at 10:00 and 12:00 on Saturday. Which works best for you?"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "12:00 would be perfect. My name is María García."
+            },
+            "3": {
+              "sender": "agent",
+              "text": "Done, María! Visit confirmed for Saturday at 12:00. A confirmation has been sent to your email. See you then! 🏠"
+            }
           }
         },
         "1": {
           "label": "E-commerce",
           "messages": {
-            "0": { "sender": "customer", "text": "Hi, I ordered a laptop 3 days ago but I haven't received any tracking info. Order #8821." },
-            "1": { "sender": "agent", "text": "Hi! I found your order #8821. It shipped yesterday and is estimated to arrive tomorrow between 9:00–13:00. 📦" },
-            "2": { "sender": "customer", "text": "Great! Can I change the delivery address?" },
-            "3": { "sender": "agent", "text": "Of course! I've updated the delivery address. You'll receive a confirmation email shortly. Anything else I can help with? ✉️" }
+            "0": {
+              "sender": "customer",
+              "text": "Hi, I ordered a laptop 3 days ago but I haven't received any tracking info. Order #8821."
+            },
+            "1": {
+              "sender": "agent",
+              "text": "Hi! I found your order #8821. It shipped yesterday and is estimated to arrive tomorrow between 9:00–13:00. 📦"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "Great! Can I change the delivery address?"
+            },
+            "3": {
+              "sender": "agent",
+              "text": "Of course! I've updated the delivery address. You'll receive a confirmation email shortly. Anything else I can help with? ✉️"
+            }
           }
         },
         "2": {
           "label": "Restaurant",
           "messages": {
-            "0": { "sender": "customer", "text": "Hello! I'd like to book a table for 4 people this Friday at 9pm. Do you have availability?" },
-            "1": { "sender": "agent", "text": "Hi! We have a table available at 21:00 on Friday. Could I get your name and phone number to confirm the reservation?" },
-            "2": { "sender": "customer", "text": "Carlos Martín, 600123456. Any set menu for groups?" },
-            "3": { "sender": "agent", "text": "Perfect, Carlos! Table reserved for 4 at 21:00 on Friday. We do have a group menu at €35/person including drinks. 🍽️" }
+            "0": {
+              "sender": "customer",
+              "text": "Hello! I'd like to book a table for 4 people this Friday at 9pm. Do you have availability?"
+            },
+            "1": {
+              "sender": "agent",
+              "text": "Hi! We have a table available at 21:00 on Friday. Could I get your name and phone number to confirm the reservation?"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "Carlos Martín, 600123456. Any set menu for groups?"
+            },
+            "3": {
+              "sender": "agent",
+              "text": "Perfect, Carlos! Table reserved for 4 at 21:00 on Friday. We do have a group menu at €35/person including drinks. 🍽️"
+            }
           }
         },
         "3": {
           "label": "Legal",
           "messages": {
-            "0": { "sender": "customer", "text": "Good morning! I need help with a tenant who hasn't paid rent in 2 months. What are my options?" },
-            "1": { "sender": "agent", "text": "Good morning! I understand. The first step is a formal written notice to the tenant. Would you like us to schedule a call with one of our lawyers?" },
-            "2": { "sender": "customer", "text": "Yes, preferably this week. I'm available Tuesday or Thursday afternoon." },
-            "3": { "sender": "agent", "text": "Done! I've scheduled a call for Thursday at 17:00 with Atty. Rodríguez. A confirmation has been sent to your email. ⚖️" }
+            "0": {
+              "sender": "customer",
+              "text": "Good morning! I need help with a tenant who hasn't paid rent in 2 months. What are my options?"
+            },
+            "1": {
+              "sender": "agent",
+              "text": "Good morning! I understand. The first step is a formal written notice to the tenant. Would you like us to schedule a call with one of our lawyers?"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "Yes, preferably this week. I'm available Tuesday or Thursday afternoon."
+            },
+            "3": {
+              "sender": "agent",
+              "text": "Done! I've scheduled a call for Thursday at 17:00 with Atty. Rodríguez. A confirmation has been sent to your email. ⚖️"
+            }
           }
         }
       }
@@ -349,19 +301,6 @@
       },
       "previous": "Previous",
       "next": "Next"
-    },
-    "about": {
-      "title": "LEADING DIGITAL TRANSFORMATION IN ANDALUSIA",
-      "description1": "At Ordinaly, we believe Andalusian companies have the potential to lead technological innovation in Spain and Europe. Our mission is to democratize access to artificial intelligence and automation.",
-      "description2": "We work side by side with local businesses to implement solutions that not only improve efficiency, but also position them as leaders in their industries.",
-      "cta": "Discover our services",
-      "imageAlt": "Ordinaly team working on AI solutions for Andalusian businesses"
-    },
-    "demoModal": {
-      "title": "Ordinaly demo",
-      "description": "See how our platform can transform your business with smart automation.",
-      "videoNotSupported": "Your browser does not support this type of video.",
-      "videoError": "Error playing video:"
     },
     "footer": {
       "logo": {
@@ -419,33 +358,6 @@
         "location": "Plaza del Duque 1, 41002 Seville, Andalusia, Spain"
       },
       "copyright": "© {year} Ordinaly Software. All rights reserved."
-    },
-    "pricingPlans": {
-      "1": {
-        "title": "Robotic assistance",
-        "features": [
-          "Intelligent web chatbot",
-          "AI-powered WhatsApp agent"
-        ]
-      },
-      "2": {
-        "title": "Sales automation",
-        "features": [
-          "Everything in Robotic assistance plan",
-          "Automated CRM (users, billing, reports, orders)",
-          "Automated notifications (email/SMS/WhatsApp)"
-        ]
-      },
-      "3": {
-        "title": "AI predictive strategy",
-        "features": [
-          "Everything in Sales automation plan",
-          "Intelligent diagnostic and recommendation assistants",
-          "Looker Studio integration and flow automation",
-          "Predictive analysis and market trends",
-          "Web tools for quick quotes"
-        ]
-      }
     },
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   },
@@ -1627,16 +1539,6 @@
     "noSpecificTime": "No specific time yet.",
     "bonificationTitle": "Bonification and grants",
     "bonificationDisclaimer": "Some of our training courses may be eligible for funding through FUNDAE/SEPE and/or fit into co-financed calls by FSE+ and PRTR-NextGenerationEU, as long as your company meets the requirements and processes the aid. Ordinaly provides the course documentation but does not request or process bonuses or grants on behalf of the client. Always check the official links before contracting.",
-    "pdf": {
-      "title": "Training catalog",
-      "subtitle": "Professional and technological training courses",
-      "date": "Date",
-      "location": "Location",
-      "price": "Price",
-      "free": "Free",
-      "noSpecificDate": "No specific date yet",
-      "locationSoon": "Location coming soon"
-    },
     "courseDetails": {
       "title": "Course details",
       "locationSoon": "Location coming soon",
@@ -2255,8 +2157,6 @@
       }
     },
     "roadmap": {
-      "title": "Next milestones",
-      "subtitle": "Our capital plan unlocks the next acceleration phase.",
       "1": {
         "title": "Expand service-led revenue",
         "body": "Scale our consulting squads and packaged offerings to cover more industries."
@@ -2268,7 +2168,9 @@
       "3": {
         "title": "Launch new product tiers",
         "body": "Introduce platform-grade offers for strategic partners and training programs."
-      }
+      },
+      "title": "Next milestones",
+      "subtitle": "Our capital plan unlocks the next acceleration phase."
     },
     "cta": {
       "title": "Ready to explore the opportunity?",

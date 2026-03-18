@@ -253,44 +253,6 @@ const ServicesPage = ({
         />
       )}
 
-      {/* Banner with search + filter */}
-      <Banner
-        title={t("productsAndServicesTitle")}
-        subtitle={t("productsAndServicesDescription")}
-        backgroundImage={"/static/backgrounds/services_background.webp"}
-      >
-        <div className="max-w-4xl mx-auto bg-[var(--swatch--ivory-light)]/90 dark:bg-[var(--swatch--slate-medium)]/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl relative z-10 mt-6">
-          <div className="flex flex-col md:flex-row gap-4 items-center relative">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                placeholder={t("searchPlaceholder")}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#0255D5] dark:border-[#7DB5FF] dark:focus:border-[#7DB5FF]"
-              />
-            </div>
-            <div className="relative z-50">
-              <Dropdown
-                options={filterOptions.map((opt) => ({
-                  value: opt.value,
-                  label: opt.label,
-                }))}
-                value={filterType}
-                onChange={(value) =>
-                  setFilterType(
-                    value as "all" | "featured" | "service" | "product",
-                  )
-                }
-                icon={Filter}
-                minWidth="250px"
-                placeholder={getFilterLabel(filterType)}
-              />
-            </div>
-          </div>
-        </div>
-      </Banner>
-
       <AiChatDemo t={t_home} />
 
       {/* Bento grids */}

@@ -52,47 +52,7 @@
       "card3Label": "Equipo de ingenieros especializados",
       "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
       "card4Label": "Empresa local andaluza",
-      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo.",
-      "globeCaption": "Mostrando dónde estamos y desde dónde operamos",
-      "globeFloatingTop": "Ordinaly - Sevilla",
-      "globeFloatingBottom": "Presencial en Andalucía. Remoto en el resto de España.",
-      "imageAlt": "agencia de automatización IA para empresas en España"
-    },
-    "benefits": {
-      "title": "¿Por qué elegir Ordinaly para la automatización de tu empresa?",
-      "subtitle": "Como agencia de automatización IA, transformamos procesos lentos en flujos inmediatos, garantizando un ROI real mediante la reducción de errores operativos.",
-      "items": {
-        "0": {
-          "title": "Ahorro de tiempo real",
-          "description": "Automatiza tareas repetitivas y ahorra hasta 20 horas semanales con nuestros agentes de IA"
-        },
-        "1": {
-          "title": "Soluciones a medida",
-          "description": "Diseñamos workflows personalizados adaptados a tu sector: inmobiliaria, fincas, marketing"
-        },
-        "2": {
-          "title": "Formación incluida",
-          "description": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo"
-        },
-        "3": {
-          "title": "Soporte local",
-          "description": "Equipo en Sevilla disponible para reuniones presenciales y soporte continuo"
-        }
-      }
-    },
-    "hubIllustration": {
-      "title": "Automatización que fluye en tu organización",
-      "subtitle": "Ordinaly conecta todos tus departamentos en un único ecosistema inteligente",
-      "hubLabel": "ORDINALY",
-      "hubSublabel": "AUTOMATIZACIÓN · IA",
-      "ariaTitle": "Ordinaly conecta ventas, datos, finanzas y equipos en un hub central de IA",
-      "ariaDesc": "Ilustración isométrica que muestra cómo Ordinaly integra los departamentos de Ventas y CRM, Nube y Datos, Finanzas y Equipos mediante flujos de automatización con inteligencia artificial.",
-      "platforms": {
-        "topLeft":     { "label": "Ventas & CRM",    "sublabel": "Leads y seguimiento automático" },
-        "topRight":    { "label": "Nube & Datos",    "sublabel": "Integración en tiempo real" },
-        "bottomLeft":  { "label": "Finanzas",        "sublabel": "Facturación e informes auto." },
-        "bottomRight": { "label": "Equipos & Ops",   "sublabel": "Flujos de trabajo inteligentes" }
-      }
+      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo."
     },
     "services": {
       "title": "Nuestra agencia de automatización IA",
@@ -111,25 +71,12 @@
           "description": "Equipo técnico en Sevilla disponible. Actualizaciones y mejoras incluidas en el servicio."
         }
       },
-      "contactForQuote": "¡Quiero más información!",
       "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
       "vacationTitle": "De vacaciones",
       "retryButton": "Reintentar",
-      "featured": "Destacado",
-      "duration": "Listo en ",
-      "durationDay": "1 día",
-      "durationDays": "días",
-      "price": "Precio",
-      "created": "Creado",
-      "createdBy": "Creado por",
-      "requisites": "Requisitos",
-      "contactNow": "Contactar ahora",
-      "contactEmail": "Contactar por email",
-      "viewDetails": "Ver detalles",
       "viewAllServicesAndProducts": "Ver todo el catálogo",
       "video": "Vídeo",
       "playVideo": "Reproducir vídeo",
-      "imageAlt": "Imagen de {title}",
       "errorTitle": "Error cargando servicios",
       "errorMessage": "No se pudieron cargar los servicios"
     },
@@ -215,52 +162,9 @@
         }
       }
     },
-    "seoArticle": {
-      "title": "Automatización empresarial con IA en Sevilla: la guía completa",
-      "intro": "La automatización empresarial con inteligencia artificial ha dejado de ser una opción futurista para convertirse en una necesidad competitiva para las PYMEs en Sevilla y toda Andalucía. En Ordinaly, ayudamos a empresas locales a implementar agentes de IA para negocios que transforman radicalmente su operativa diaria.",
-      "section1": {
-        "title": "¿Qué son los agentes de IA y cómo benefician a tu empresa en Sevilla?",
-        "body": "Los agentes de IA son sistemas inteligentes diseñados para realizar tareas específicas de forma autónoma. A diferencia de los simples chatbots, estos agentes pueden tomar decisiones, aprender de interacciones previas y ejecutar workflows complejos sin intervención humana. Para una inmobiliaria en Sevilla, esto significa poder gestionar consultas de clientes 24/7, programar visitas automáticamente y generar descripciones de propiedades en segundos."
-      },
-      "section2": {
-        "title": "Sectores que más se benefician de la automatización con IA en Andalucía",
-        "body": "Nuestra experiencia trabajando con empresas andaluzas nos ha mostrado que ciertos sectores obtienen beneficios inmediatos:",
-        "list": {
-          "0": "Administradores de fincas: Automatización de incidencias, comunicación con comunidades y gestión de proveedores. Un administrador en Sevilla puede ahorrar hasta 20 horas semanales con nuestros sistemas.",
-          "1": "Inmobiliarias: Agentes conversacionales que cualifican leads, programan visitas y envían información de propiedades automáticamente. Ideal para agencias en Sevilla que gestionan decenas de inmuebles simultáneamente.",
-          "2": "Agencias de marketing: Automatización de publicaciones en redes sociales, generación de contenido con IA y análisis de campañas. Las agencias sevillanas que trabajan con nosotros gestionan 3x más clientes con el mismo equipo.",
-          "3": "Comercio retail: Gestión inteligente de inventario, predicción de demanda y atención al cliente automatizada vía WhatsApp Business."
-        }
-      },
-      "section3": {
-        "title": "Formación en IA para empresas: el complemento esencial",
-        "body": "No solo implementamos tecnología: formamos a tu equipo para que sean autónomos. Nuestros cursos de inteligencia artificial en Sevilla son 100% prácticos y orientados a casos de uso reales. Desde introducción a ChatGPT hasta automatizaciones avanzadas con Make y Zapier, diseñamos la formación según las necesidades específicas de tu sector."
-      },
-      "section4": {
-        "title": "¿Por qué elegir Ordinaly para la automatización de tu empresa?",
-        "body": "Somos ingenieros de software especializados en IA con sede física en Sevilla. Esto nos diferencia de consultoras internacionales que aplican soluciones genéricas:",
-        "list": {
-          "0": "Conocimiento del mercado local: Entendemos las particularidades de las PYMEs andaluzas",
-          "1": "Disponibilidad presencial: Reuniones cara a cara en nuestra oficina de Sevilla centro",
-          "2": "Soluciones 100% personalizadas: No usamos plantillas. Cada proyecto se diseña específicamente para ti",
-          "3": "Formación incluida: Tu equipo aprende a gestionar y mejorar los sistemas que implementamos",
-          "4": "Soporte continuo: No desaparecemos después de la implementación"
-        }
-      },
-      "cta": {
-        "title": "¿Listo para dar el salto a la automatización empresarial?",
-        "body": "Agenda una consulta gratuita y descubre cómo los agentes de IA pueden transformar tu negocio en Sevilla. Sin compromiso, analizamos tu caso y te mostramos oportunidades concretas de automatización.",
-        "button": "Contactar por WhatsApp"
-      }
-    },
     "partners": {
       "title": "Empresas transformandas",
       "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos con IA"
-    },
-    "gradient": {
-      "label": "IA en acción",
-      "title": "Mira la automatización en tiempo real",
-      "description": "Nuestros agentes de IA gestionan lo repetitivo para que tu equipo se centre en lo que importa. Desde el primer contacto hasta la entrega final — automatizado, preciso y siempre disponible."
     },
     "chatDemo": {
       "title": "IA que habla como tu negocio",
@@ -271,37 +175,85 @@
         "0": {
           "label": "Inmobiliaria",
           "messages": {
-            "0": { "sender": "customer", "text": "¡Hola! ¿Sigue disponible el piso en Calle Sierpes 12? Me gustaría concertar una visita este sábado." },
-            "1": { "sender": "agent", "text": "¡Hola! Sí, está disponible. Tenemos hueco a las 10:00 y a las 12:00 el sábado. ¿Cuál te viene mejor?" },
-            "2": { "sender": "customer", "text": "Las 12:00 sería perfecto. Me llamo María García." },
-            "3": { "sender": "agent", "text": "¡Listo, María! Visita confirmada el sábado a las 12:00. Te hemos enviado la confirmación al correo. ¡Hasta entonces! 🏠" }
+            "0": {
+              "sender": "customer",
+              "text": "¡Hola! ¿Sigue disponible el piso en Calle Sierpes 12? Me gustaría concertar una visita este sábado."
+            },
+            "1": {
+              "sender": "agent",
+              "text": "¡Hola! Sí, está disponible. Tenemos hueco a las 10:00 y a las 12:00 el sábado. ¿Cuál te viene mejor?"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "Las 12:00 sería perfecto. Me llamo María García."
+            },
+            "3": {
+              "sender": "agent",
+              "text": "¡Listo, María! Visita confirmada el sábado a las 12:00. Te hemos enviado la confirmación al correo. ¡Hasta entonces! 🏠"
+            }
           }
         },
         "1": {
           "label": "E-commerce",
           "messages": {
-            "0": { "sender": "customer", "text": "Hola, hace 3 días pedí un portátil y no he recibido ningún seguimiento. Pedido #8821." },
-            "1": { "sender": "agent", "text": "¡Hola! He localizado tu pedido #8821. Se envió ayer y llegará mañana entre las 9:00 y las 13:00. 📦" },
-            "2": { "sender": "customer", "text": "¡Genial! ¿Puedo cambiar la dirección de entrega?" },
-            "3": { "sender": "agent", "text": "¡Por supuesto! He actualizado la dirección de entrega. Recibirás un email de confirmación enseguida. ¿Necesitas algo más? ✉️" }
+            "0": {
+              "sender": "customer",
+              "text": "Hola, hace 3 días pedí un portátil y no he recibido ningún seguimiento. Pedido #8821."
+            },
+            "1": {
+              "sender": "agent",
+              "text": "¡Hola! He localizado tu pedido #8821. Se envió ayer y llegará mañana entre las 9:00 y las 13:00. 📦"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "¡Genial! ¿Puedo cambiar la dirección de entrega?"
+            },
+            "3": {
+              "sender": "agent",
+              "text": "¡Por supuesto! He actualizado la dirección de entrega. Recibirás un email de confirmación enseguida. ¿Necesitas algo más? ✉️"
+            }
           }
         },
         "2": {
           "label": "Restaurante",
           "messages": {
-            "0": { "sender": "customer", "text": "¡Buenas! Quisiera reservar una mesa para 4 personas este viernes a las 21:00. ¿Tenéis disponibilidad?" },
-            "1": { "sender": "agent", "text": "¡Hola! Tenemos mesa disponible el viernes a las 21:00. ¿Me das tu nombre y teléfono para confirmar la reserva?" },
-            "2": { "sender": "customer", "text": "Carlos Martín, 600123456. ¿Tenéis menú grupal?" },
-            "3": { "sender": "agent", "text": "¡Perfecto, Carlos! Mesa reservada para 4 el viernes a las 21:00. Tenemos menú grupal a 35 €/persona con bebida incluida. 🍽️" }
+            "0": {
+              "sender": "customer",
+              "text": "¡Buenas! Quisiera reservar una mesa para 4 personas este viernes a las 21:00. ¿Tenéis disponibilidad?"
+            },
+            "1": {
+              "sender": "agent",
+              "text": "¡Hola! Tenemos mesa disponible el viernes a las 21:00. ¿Me das tu nombre y teléfono para confirmar la reserva?"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "Carlos Martín, 600123456. ¿Tenéis menú grupal?"
+            },
+            "3": {
+              "sender": "agent",
+              "text": "¡Perfecto, Carlos! Mesa reservada para 4 el viernes a las 21:00. Tenemos menú grupal a 35 €/persona con bebida incluida. 🍽️"
+            }
           }
         },
         "3": {
           "label": "Legal",
           "messages": {
-            "0": { "sender": "customer", "text": "Buenos días. Necesito ayuda con un inquilino que lleva 2 meses sin pagar el alquiler. ¿Qué opciones tengo?" },
-            "1": { "sender": "agent", "text": "Buenos días. Lo entiendo. El primer paso es un requerimiento formal por escrito al inquilino. ¿Le agendamos una llamada con uno de nuestros abogados?" },
-            "2": { "sender": "customer", "text": "Sí, preferiblemente esta semana. Tengo disponibilidad el martes o jueves por la tarde." },
-            "3": { "sender": "agent", "text": "¡Listo! He agendado una llamada para el jueves a las 17:00 con la Lcda. Rodríguez. Te hemos enviado la confirmación al correo. ⚖️" }
+            "0": {
+              "sender": "customer",
+              "text": "Buenos días. Necesito ayuda con un inquilino que lleva 2 meses sin pagar el alquiler. ¿Qué opciones tengo?"
+            },
+            "1": {
+              "sender": "agent",
+              "text": "Buenos días. Lo entiendo. El primer paso es un requerimiento formal por escrito al inquilino. ¿Le agendamos una llamada con uno de nuestros abogados?"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "Sí, preferiblemente esta semana. Tengo disponibilidad el martes o jueves por la tarde."
+            },
+            "3": {
+              "sender": "agent",
+              "text": "¡Listo! He agendado una llamada para el jueves a las 17:00 con la Lcda. Rodríguez. Te hemos enviado la confirmación al correo. ⚖️"
+            }
           }
         }
       }
@@ -349,19 +301,6 @@
       },
       "previous": "Anteriores",
       "next": "Siguientes"
-    },
-    "about": {
-      "title": "LIDERANDO LA TRANSFORMACIÓN DIGITAL EN ANDALUCÍA",
-      "description1": "En Ordinaly, creemos que las empresas andaluzas tienen el potencial de liderar la innovación tecnológica en España y Europa. Nuestra misión es democratizar el acceso a la inteligencia artificial y la automatización",
-      "description2": "Trabajamos codo con codo con empresas locales para implementar soluciones que no solo mejoran la eficiencia, sino que las posicionan como referentes en sus sectores",
-      "cta": "Conoce nuestros servicios",
-      "imageAlt": "Equipo de Ordinaly trabajando en soluciones de IA para empresas andaluzas"
-    },
-    "demoModal": {
-      "title": "Demo de Ordinaly",
-      "description": "Descubre cómo nuestra plataforma puede transformar tu negocio con automatizaciones inteligentes",
-      "videoNotSupported": "Tu navegador no soporta este tipo de video",
-      "videoError": "Error reproduciendo video:"
     },
     "footer": {
       "logo": {
@@ -419,33 +358,6 @@
         "location": "Plaza del Duque 1, 41002 Sevilla, Andalucía, España"
       },
       "copyright": "© {year} Ordinaly Software. Todos los derechos reservados"
-    },
-    "pricingPlans": {
-      "1": {
-        "title": "Asistencia robótica",
-        "features": [
-          "Chatbot inteligente en web",
-          "Agente de WhatsApp con IA"
-        ]
-      },
-      "2": {
-        "title": "Automatización de ventas",
-        "features": [
-          "Todo lo del plan asistencia robótica",
-          "CRM automatizado (usuarios, facturación, informes, pedidos)",
-          "Notificaciones automatizadas (email/SMS/WhatsApp)"
-        ]
-      },
-      "3": {
-        "title": "Estrategia predictiva IA",
-        "features": [
-          "Todo lo del plan automatización de ventas",
-          "Asistentes inteligentes de diagnóstico o recomendación",
-          "Integración con Looker Studio y automatización de flujos",
-          "Análisis predictivo y tendencias de mercado",
-          "Herramientas web para presupuestos rápidos"
-        ]
-      }
     },
     "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
   },
@@ -1175,7 +1087,7 @@
       "terms": {
         "title": "Términos de Servicio",
         "noDocuments": "No hay documentos de términos de servicio disponibles actualmente",
-          "identification": {
+        "identification": {
           "title": "IDENTIFICACIÓN DEL PRESTADOR DE SERVICIOS",
           "p1": "En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y comercio electrónico (LSSI-CE), se informa que el presente sitio web es propiedad de:",
           "bullet1": "Empresa: Ordinaly Software S.L.",
@@ -1226,7 +1138,7 @@
       "privacy": {
         "title": "Política de Privacidad",
         "noDocuments": "No hay documentos de política de privacidad disponibles actualmente",
-          "dataController": {
+        "dataController": {
           "title": "RESPONSABLE DEL TRATAMIENTO",
           "p1": "En cumplimiento del Reglamento General de Protección de Datos (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD), se informa que el responsable del tratamiento de los datos es:",
           "p2": "Ordinaly Software S.L.",
@@ -1627,16 +1539,6 @@
     "noSpecificTime": "No hay una hora específica aún",
     "bonificationTitle": "Bonificación y subvenciones",
     "bonificationDisclaimer": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar",
-    "pdf": {
-      "title": "Catálogo de formación",
-      "subtitle": "Cursos de formación profesional y tecnológica",
-      "date": "Fecha",
-      "location": "Ubicación",
-      "price": "Precio",
-      "free": "Gratuito",
-      "noSpecificDate": "Todavía no hay una fecha establecida",
-      "locationSoon": "Ubicación próximamente"
-    },
     "courseDetails": {
       "title": "Detalles del curso",
       "locationSoon": "Ubicación próximamente",
@@ -2255,8 +2157,6 @@
       }
     },
     "roadmap": {
-      "title": "Próximos hitos",
-      "subtitle": "El plan de inversión impulsa la siguiente fase de escala.",
       "1": {
         "title": "Expandir ingresos de servicios",
         "body": "Escalar equipos de consultoría y paquetes por industria."
@@ -2268,7 +2168,9 @@
       "3": {
         "title": "Nuevas líneas de producto",
         "body": "Ofrecer plataformas estratégicas y programas formativos."
-      }
+      },
+      "title": "Próximos hitos",
+      "subtitle": "El plan de inversión impulsa la siguiente fase de escala."
     },
     "cta": {
       "title": "¿Listo para explorar la oportunidad?",
