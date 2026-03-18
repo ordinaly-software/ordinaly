@@ -45,14 +45,14 @@
       "ctaServices": "View services",
       "ctaDemo": "Book a consultation",
       "clientsTitle": "Trusted by",
-      "locationBadge": "Seville, Andalusia · local studio",
-      "coverageBadge": "On-site and remote delivery across Spain",
-      "localCardLabel": "Operating base",
-      "localCardValue": "Plaza del Duque 1, Seville. In-person meetings, workshops, and direct project follow-through.",
-      "coverageCardLabel": "Coverage",
-      "coverageCardValue": "Seville-based team with Andalusian roots and remote rollout support for projects across Spain.",
-      "deliveryCardLabel": "Delivery model",
-      "deliveryCardValue": "Discovery, automation, AI agents, and training handled by the same team.",
+      "card1Label": "Agentes de IA 24/7 para ventas y atención al cliente",
+      "card1Value": "Automatización de consultas, generación de leads y soporte continuo con inteligencia artificial.",
+      "card2Label": "Formación profesional para empresas",
+      "card2Value": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo.",
+      "card3Label": "Equipo de ingenieros especializados",
+      "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
+      "card4Label": "Empresa local andaluza",
+      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo.",
       "globeCaption": "Showing where we are and where we operate from",
       "globeFloatingTop": "Ordinaly - Seville",
       "globeFloatingBottom": "In person across Andalusia. Remote across the rest of Spain.",
@@ -215,11 +215,6 @@
         }
       }
     },
-    "partnersSection": {
-      "title": "Companies that trust Ordinaly",
-      "subtitle": "We collaborate with leading companies in Seville and Andalusia to transform their processes with AI",
-      "visit": "Visit partner's website"
-    },
     "seoArticle": {
       "title": "Business automation with AI in Seville: the complete guide",
       "intro": "Business automation with artificial intelligence has gone from a futuristic option to a competitive necessity for SMEs in Seville and across Andalusia. At Ordinaly, we help local companies implement AI agents for business that radically transform their daily operations.",
@@ -259,8 +254,57 @@
       }
     },
     "partners": {
-      "title": "Transformed by Ordinaly",
-      "visit": "Visit partner's website"
+      "title": "Transformed companies",
+      "subtitle": "Companies that trust us and have already automated their processes with AI"
+    },
+    "gradient": {
+      "label": "AI at work",
+      "title": "See automation in action",
+      "description": "Our AI agents handle the repetitive so your team can focus on what matters. From first contact to final delivery — automated, accurate, and always on."
+    },
+    "chatDemo": {
+      "title": "AI that talks like your business",
+      "subtitle": "See how our AI assistant handles real customer interactions across different industries.",
+      "you": "You",
+      "assistant": "AI Assistant",
+      "scenarios": {
+        "0": {
+          "label": "Real Estate",
+          "messages": {
+            "0": { "sender": "customer", "text": "Hi! Is the apartment at Calle Sierpes 12 still available? I'd love to schedule a visit this Saturday." },
+            "1": { "sender": "agent", "text": "Hello! Yes, it's available. We have slots at 10:00 and 12:00 on Saturday. Which works best for you?" },
+            "2": { "sender": "customer", "text": "12:00 would be perfect. My name is María García." },
+            "3": { "sender": "agent", "text": "Done, María! Visit confirmed for Saturday at 12:00. A confirmation has been sent to your email. See you then! 🏠" }
+          }
+        },
+        "1": {
+          "label": "E-commerce",
+          "messages": {
+            "0": { "sender": "customer", "text": "Hi, I ordered a laptop 3 days ago but I haven't received any tracking info. Order #8821." },
+            "1": { "sender": "agent", "text": "Hi! I found your order #8821. It shipped yesterday and is estimated to arrive tomorrow between 9:00–13:00. 📦" },
+            "2": { "sender": "customer", "text": "Great! Can I change the delivery address?" },
+            "3": { "sender": "agent", "text": "Of course! I've updated the delivery address. You'll receive a confirmation email shortly. Anything else I can help with? ✉️" }
+          }
+        },
+        "2": {
+          "label": "Restaurant",
+          "messages": {
+            "0": { "sender": "customer", "text": "Hello! I'd like to book a table for 4 people this Friday at 9pm. Do you have availability?" },
+            "1": { "sender": "agent", "text": "Hi! We have a table available at 21:00 on Friday. Could I get your name and phone number to confirm the reservation?" },
+            "2": { "sender": "customer", "text": "Carlos Martín, 600123456. Any set menu for groups?" },
+            "3": { "sender": "agent", "text": "Perfect, Carlos! Table reserved for 4 at 21:00 on Friday. We do have a group menu at €35/person including drinks. 🍽️" }
+          }
+        },
+        "3": {
+          "label": "Legal",
+          "messages": {
+            "0": { "sender": "customer", "text": "Good morning! I need help with a tenant who hasn't paid rent in 2 months. What are my options?" },
+            "1": { "sender": "agent", "text": "Good morning! I understand. The first step is a formal written notice to the tenant. Would you like us to schedule a call with one of our lawyers?" },
+            "2": { "sender": "customer", "text": "Yes, preferably this week. I'm available Tuesday or Thursday afternoon." },
+            "3": { "sender": "agent", "text": "Done! I've scheduled a call for Thursday at 17:00 with Atty. Rodríguez. A confirmation has been sent to your email. ⚖️" }
+          }
+        }
+      }
     },
     "contact": {
       "emailSubject": "Inquiry about service: {service}",
@@ -704,11 +748,12 @@
         "service": "Service",
         "product": "Product",
         "colors": {
-          "darkPurple": "Neutral",
-          "purple": "Dark purple",
-          "cyan": "Cyan",
-          "green": "Leaf",
-          "orange": "Tangerine"
+          "slate": "Slate",
+          "clay": "Clay",
+          "cobalt": "Cobalt",
+          "olive": "Olive",
+          "fig": "Fig",
+          "kraft": "Kraft"
         },
         "duration": "Available in (days)",
         "durationPlaceholder": "e.g., 2 days",
@@ -2165,7 +2210,6 @@
   },
   "investors": {
     "hero": {
-      "tagline": "Investors",
       "title": "Investing in automation that keeps companies agile",
       "subtitle": "Ordinaly designs AI agents, automation operating systems, and bespoke training to help organizations move faster without losing human oversight.",
       "ctaPrimary": "Download investor deck",
@@ -2185,7 +2229,7 @@
       },
       "clients": {
         "label": "Enterprise partners",
-        "value": "45+",
+        "value": "10+",
         "detail": "Active automation retainers and multi-project engagements."
       },
       "efficiency": {
@@ -2230,6 +2274,50 @@
       "title": "Ready to explore the opportunity?",
       "body": "Let’s align on KPIs, runway, and how your capital will translate into measurable impact.",
       "button": "Talk with the team"
+    },
+    "team": {
+      "label": "The team",
+      "title": "Technical & Business Capabilities",
+      "subtitle": "We combine high-level software engineering with decades of business consulting expertise.",
+      "antonio": {
+        "role": "CTO · Software Engineer & MsC in Artificial Intelligence",
+        "bio": "Software engineer graduated from the University of Seville with a Master in Computer Science, Logic and Artificial Intelligence.",
+        "tags": {
+          "0": "CS · Univ. of Seville",
+          "1": "AI & Automation",
+          "2": "Full-Stack",
+          "3": "Product"
+        }
+      },
+      "guillermo": {
+        "role": "CEO · Project Manager at Proinca Consultores",
+        "bio": "Project Manager at Proinca Consultores, Associate Professor at the University of Seville, PhD in Industrial Engineering.",
+        "tags": {
+          "0": "Process Consulting",
+          "1": "Proinca Consultores",
+          "2": "Digital Transformation",
+          "3": "Business Optimization"
+        }
+      }
+    },
+    "formation": {
+      "label": "Training",
+      "title": "Business AI Courses",
+      "subtitle": "We train teams to be autonomous with AI, creating a recurring revenue stream and a direct adoption channel.",
+      "courses": {
+        "0": {
+          "title": "AI for Business Teams",
+          "description": "Hands-on training for non-technical teams to integrate AI tools into their daily workflows, with real industry exercises."
+        },
+        "1": {
+          "title": "Process Automation with AI",
+          "description": "Intensive program on designing and deploying AI agents and automations to reduce repetitive tasks and scale operations."
+        },
+        "2": {
+          "title": "Digital Transformation Strategy",
+          "description": "Executive course for leaders who want to define an automation and AI roadmap tailored to their company and industry."
+        }
+      }
     }
   },
   "landings": {

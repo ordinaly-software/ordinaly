@@ -82,7 +82,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
   return (
     <Card
       className={
-        `bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg relative` +
+        `bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)] border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] transition-all duration-300 hover:shadow-lg relative rounded-2xl` +
         (isFinished ? ' opacity-75 grayscale' : '')
       }
       style={{
@@ -120,9 +120,9 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
               checked={selected}
               onChange={() => onSelect(course.id)}
               disabled={isFinished}
-              className="mt-1 rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)] flex-shrink-0"
+              className="mt-1 rounded border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)] flex-shrink-0"
             />
-            <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700 relative">
+            <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-[var(--swatch--oat)] dark:bg-[var(--swatch--slate-dark)] relative">
               {course.image && course.image !== 'undefined' && course.image !== 'null' ? (
                 <Image
                   loader={imageLoader}
@@ -138,7 +138,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <FileText className="h-8 w-8 text-gray-400" />
+                  <FileText className="h-8 w-8 text-[var(--swatch--cloud-dark)]" />
                 </div>
               )}
               {isFinished && (
@@ -149,14 +149,14 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 min-w-0">
-                <h3 className="text-base font-semibold text-gray-900 dark:text-white truncate max-w-[10rem]">
+                <h3 className="text-base font-semibold text-slate-dark dark:text-ivory-light truncate max-w-[10rem]">
                   {course.title}
                 </h3>
               </div>
               {course.subtitle && (
-                <p className="text-xs text-gray-600 dark:text-gray-400 mb-1 truncate max-w-[12rem]">{course.subtitle}</p>
+                <p className="text-xs text-slate-medium dark:text-cloud-medium mb-1 truncate max-w-[12rem]">{course.subtitle}</p>
               )}
-              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-light dark:text-cloud-medium mt-1">
                 <span className="truncate max-w-[8rem]">{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
                 <span className="truncate max-w-[7rem]">{tAdmin("labels.location")}: {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? course.location : t('locationSoon')}</span>
               </div>
@@ -178,7 +178,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onDuplicate(course)}
-                  className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/40 w-full"
+                  className="text-slate-medium dark:text-cloud-medium hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-dark)]/40 w-full"
                   aria-label={t("duplicate")}
                 >
                   <Copy className="h-4 w-4" />
@@ -219,7 +219,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
             disabled={isFinished}
             className="mt-1 rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
           />
-          <div className="w-20 h-20 relative rounded-lg overflow-hidden flex-shrink-0 bg-gray-100 dark:bg-gray-700">
+          <div className="w-20 h-20 relative rounded-lg overflow-hidden flex-shrink-0 bg-[var(--swatch--oat)] dark:bg-[var(--swatch--slate-dark)]">
             {course.image && course.image !== 'undefined' && course.image !== 'null' ? (
               <Image
                 loader={imageLoader}
@@ -235,7 +235,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <FileText className="h-8 w-8 text-gray-400" />
+                <FileText className="h-8 w-8 text-[var(--swatch--cloud-dark)]" />
               </div>
             )}
             {isFinished && (
@@ -247,7 +247,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
               <div
-                className="flex-1 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg p-2 -m-2 transition-colors duration-200"
+                className="flex-1 cursor-pointer hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-dark)]/50 rounded-lg p-2 -m-2 transition-colors duration-200"
                 onClick={() => onView(course)}
                 role="button"
                 tabIndex={0}
@@ -259,19 +259,19 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                 }}
               >
                 <div className="flex items-center space-x-2">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-semibold text-slate-dark dark:text-ivory-light">
                     {course.title}
                   </h3>
                 </div>
                 {course.subtitle && (
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">{course.subtitle}</p>
+                  <p className="text-sm text-slate-medium dark:text-cloud-medium mb-2">{course.subtitle}</p>
                 )}
                 <div className="hidden md:block">
                   <MarkdownRenderer>
                     {course.description.length > 200 ? `${course.description.substring(0, 200)}...` : course.description}
                   </MarkdownRenderer>
                 </div>
-                <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400 mt-2">
+                <div className="flex flex-wrap items-center gap-4 text-xs text-slate-light dark:text-cloud-medium mt-2">
                   <span>{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
                   <span>{tAdmin("labels.location")}: {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? course.location : t('locationSoon')}</span>
                   <span>{tAdmin("labels.schedule")}: {formatCourseSchedule(course)}</span>
@@ -281,11 +281,11 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                   </span>
                   <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
                 </div>
-                <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-1 mt-2">
+                <div className="flex items-center justify-between text-xs text-slate-light dark:text-cloud-medium mb-1 mt-2">
                   <span>{t("courseCard.enrollments")}: {course.enrolled_count || 0}/{course.max_attendants}</span>
                   <span>{Math.round(enrollmentPercentage)}% {t("courseCard.full")}</span>
                 </div>
-                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
+                <div className="w-full bg-[var(--swatch--oat)] dark:bg-[var(--swatch--slate-dark)] rounded-full h-2 mb-2">
                   <div className={`h-2 rounded-full transition-all duration-300 ${enrollmentPercentage >= 100 ? 'bg-red-500' : enrollmentPercentage >= 80 ? 'bg-orange-500' : 'bg-[var(--swatch--clay)]'}`} style={{ width: `${Math.min(enrollmentPercentage, 100)}%` }}></div>
                 </div>
               </div>
@@ -304,7 +304,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                       variant="ghost"
                       size="sm"
                       onClick={() => onDuplicate(course)}
-                      className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/40"
+                      className="text-slate-medium dark:text-cloud-medium hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-dark)]/40"
                       aria-label={t("duplicate")}
                     >
                       <Copy className="h-4 w-4" />

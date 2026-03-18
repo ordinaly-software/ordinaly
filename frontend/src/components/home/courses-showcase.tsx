@@ -324,7 +324,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     <section
       id="courses"
       ref={sectionRef}
-      className="py-12 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark]"
+      className="py-12 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark]"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-12">
@@ -407,12 +407,12 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                       style={{ flexBasis: `${100 / slidesToShow}%` }}
                       ref={index === 0 ? sampleCardRef : undefined}
                     >
-                      <Card 
+                      <Card
                         className={
-                          `h-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong] transition-all duration-300 hover:shadow-xl cursor-pointer group ` +
-                          (highlightUpcoming ? 'ring-4 ring-[#FFB800] border-[#FFB800] shadow-2xl scale-[0.93] z-10' : '')
+                          `h-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong] transition-all duration-300 hover:shadow-xl hover:border-clay/30 dark:hover:border-clay/30 hover:-translate-y-1 cursor-pointer group rounded-3xl ` +
+                          (highlightUpcoming ? 'ring-2 ring-clay shadow-2xl scale-[0.97] z-10' : '')
                         }
-                        style={highlightUpcoming ? { boxShadow: '0 0 0 4px #FFB80033, 0 8px 15px 0 #FFB80044' } : {}}
+                        style={highlightUpcoming ? { boxShadow: '0 0 0 3px var(--swatch--clay), 0 8px 15px 0 var(--swatch--clay)44' } : {}}
                         onClick={() => handleCourseClick(course)}
                       >
                         <CardHeader className="pb-4">
@@ -542,35 +542,35 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                             {isPastCourse ? (
                               <>
                                 <Button
-                                  className="w-full bg-slate-dark hover:bg-slate-medium dark:bg-[--swatch--ivory-light] dark:text-slate-dark text-ivory-light transition-all duration-300 shadow-sm hover:shadow-md"
+                                  variant="flame"
+                                  className="w-full shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
                                   onClick={(event) => {
                                     event.stopPropagation();
                                     handlePastCourseInquiry(course);
                                   }}
                                 >
-                                  <span>{t('wantNewEdition')}</span>
+                                  <span>{t("wantNewEdition")}</span>
                                 </Button>
                                 <Button
                                   variant="outline"
-                                  className="w-full border-[--color-border-subtle] text-slate-medium dark:border-[--color-border-strong] dark:text-cloud-medium hover:bg-oat dark:hover:bg-[--swatch--slate-medium]/70"
+                                  className="w-full border-[--color-border-subtle] text-slate-medium dark:border-[--color-border-strong] dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-dark]/70"
                                   onClick={(event) => {
                                     event.stopPropagation();
                                     handleCourseClick(course);
                                   }}
                                 >
-                                  {t('viewDetails')}
+                                  {t("viewDetails")}
                                   <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                                 </Button>
                               </>
                             ) : (
                               <Button
-                                className="w-full bg-slate-dark hover:bg-slate-medium dark:bg-[--swatch--ivory-light] dark:text-slate-dark text-ivory-light transition-all duration-300 group shadow-sm hover:shadow-md"
+                                variant="flame"
+                                className="w-full shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105 group"
                                 onClick={handleAction}
                               >
-                                <>
-                                  <span>{buttonLabel}</span>
-                                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                                </>
+                                <span>{buttonLabel}</span>
+                                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                               </Button>
                             )}
                           </div>

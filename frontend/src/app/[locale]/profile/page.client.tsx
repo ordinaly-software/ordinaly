@@ -597,21 +597,18 @@ export default function ProfilePage() {
 
       <div className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-20 pt-8 md:px-6 lg:px-8">
         {/* Header Panel */}
-        <div className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-8 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md sm:px-10">
+        <div className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-4 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md sm:px-10">
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#0255D5] dark:text-[#7DB5FF]">
               {t("kicker")}
             </p>
-            <h1 className="text-4xl font-black leading-tight text-slate-900 dark:text-white md:text-5xl">
+            <h1 className="text-3xl font-bold leading-tight text-slate-900 dark:text-white md:text-4xl">
               {t("title")}
             </h1>
-            <p className="max-w-3xl text-base text-slate-700 dark:text-slate-200 md:text-lg">
-              {t("subtitle")}
-            </p>
           </div>
 
           {/* Pill-shaped tabs */}
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-4 flex flex-wrap gap-3">
             {profileTabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;

@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Alert from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { ChevronDown } from "lucide-react";
 
 type Status = "idle" | "loading";
 type AlertState = {
@@ -43,10 +44,29 @@ export default function ContactForm({
 }: ContactFormProps) {
   const t = useTranslations("contactPage");
   const formRef = useRef<HTMLFormElement | null>(null);
+  const prefixDropdownRef = useRef<HTMLDivElement | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [alert, setAlert] = useState<AlertState | null>(null);
+  const [prefixOpen, setPrefixOpen] = useState(false);
+  const [prefixSearch, setPrefixSearch] = useState("");
+  const [selectedPrefix, setSelectedPrefix] = useState(phonePrefixes[0]);
   const contactEndpoint = "/api/leads";
   const { executeRecaptcha } = useGoogleReCaptcha();
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (prefixDropdownRef.current && !prefixDropdownRef.current.contains(event.target as Node)) {
+        setPrefixOpen(false);
+        setPrefixSearch("");
+      }
+    };
+    if (prefixOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [prefixOpen]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -158,24 +178,49 @@ export default function ContactForm({
                 {t("form.phone")}
               </label>
               <div className="flex gap-3">
-                <div className="min-w-[120px]">
+                <div className="min-w-[120px] relative" ref={prefixDropdownRef}>
                   <label className="sr-only" htmlFor="phonePrefix">
                     {t("form.phonePrefix")}
                   </label>
-                  <div className="p-[2px] rounded-lg transition duration-300 group/input">
-                    <select
-                      id="phonePrefix"
-                      name="phonePrefix"
-                      defaultValue="+34"
-                      className="h-10 w-full rounded-md bg-card text-card-foreground px-3 py-2 text-sm shadow-input dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-clay"
-                    >
-                      {phonePrefixes.map((prefix) => (
-                        <option key={prefix.value} value={prefix.value}>
-                          {prefix.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <input type="hidden" name="phonePrefix" value={selectedPrefix.value} />
+                  <button
+                    type="button"
+                    onClick={() => { setPrefixOpen((o) => !o); setPrefixSearch(""); }}
+                    className="flex items-center justify-between w-full h-10 px-3 text-sm rounded-md bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border border-[--color-border-subtle] dark:border-[--color-border-strong] shadow-sm text-slate-dark dark:text-ivory-light focus:outline-none focus:ring-1 focus:ring-clay"
+                  >
+                    <span>{selectedPrefix.label}</span>
+                    <ChevronDown className={`h-4 w-4 ml-1 shrink-0 transition-transform ${prefixOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {prefixOpen && (
+                    <div className="absolute top-full left-0 z-50 mt-1 w-52 rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-white dark:bg-[--swatch--slate-medium] shadow-lg overflow-hidden">
+                      <div className="p-2">
+                        <input
+                          autoFocus
+                          type="text"
+                          value={prefixSearch}
+                          onChange={(e) => setPrefixSearch(e.target.value)}
+                          placeholder="+34, ES..."
+                          className="w-full h-8 px-2 text-sm rounded-md border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] text-slate-dark dark:text-ivory-light outline-none focus:ring-1 focus:ring-clay"
+                        />
+                      </div>
+                      <ul className="max-h-44 overflow-y-auto">
+                        {phonePrefixes
+                          .filter((p) =>
+                            p.label.toLowerCase().includes(prefixSearch.toLowerCase()) ||
+                            p.value.includes(prefixSearch)
+                          )
+                          .map((prefix) => (
+                            <li
+                              key={prefix.value}
+                              onClick={() => { setSelectedPrefix(prefix); setPrefixOpen(false); setPrefixSearch(""); }}
+                              className={`px-3 py-1.5 text-sm cursor-pointer hover:bg-clay/10 dark:hover:bg-clay/20 text-slate-dark dark:text-ivory-light${selectedPrefix.value === prefix.value ? " bg-clay/15 text-clay font-semibold" : ""}`}
+                            >
+                              {prefix.label}
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
                 <div className="flex-1">
                   <Input

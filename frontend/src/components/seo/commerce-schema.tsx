@@ -211,7 +211,7 @@ export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
     "@type": "LocalBusiness",
     "@id": localBusinessId,
     name: "Ordinaly — Automatización empresarial con IA en Sevilla",
-    image: `${SITE_URL}/static/home/main_home_ilustration.webp`,
+    image: `${SITE_URL}/static/home/main_home_ilustration_1.webp`,
     url: SITE_URL,
     telephone: "+34626270806",
     priceRange: "€€",

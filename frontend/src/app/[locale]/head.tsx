@@ -1,5 +1,5 @@
 const PRELOAD_IMAGES = [
-  "/static/home/main_home_ilustration.webp",
+  "/static/home/main_home_ilustration_1.webp",
   "/logo_80.webp",
   "/static/logos/logo_grupo_addu_small.webp",
   "/static/logos/logo_aviva_publicidad_small.webp",

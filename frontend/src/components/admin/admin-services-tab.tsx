@@ -79,13 +79,14 @@ const AdminServicesTab = () => {
   const tAdmin = useTranslations("admin");
   const { services, isLoading, refetch } = useServices(undefined, true);
 
-  // Color choices matching backend
+  // Color choices matching backend — aligned with the design palette
   const COLOR_CHOICES = [
-    { value: '1A1924', label: 'darkPurple', color: '#1A1924', darkModeColor: '#efefefbb' },
-    { value: '623CEA', label: 'purple', color: '#623CEA', darkModeColor: '#8B5FF7' },
-    { value: '46B1C9', label: 'cyan', color: '#46B1C9', darkModeColor: '#5ECAE0' },
-    { value: '29BF12', label: 'green', color: '#29BF12', darkModeColor: '#3DD421' },
-    { value: 'E4572E', label: 'orange', color: '#E4572E' },
+    { value: '141413', label: 'slate', color: '#141413', darkModeColor: '#FAF9F5' },
+    { value: 'D97757', label: 'clay', color: '#D97757', darkModeColor: '#D97757' },
+    { value: '0255D5', label: 'cobalt', color: '#0255D5', darkModeColor: '#4D8EFF' },
+    { value: '788C5D', label: 'olive', color: '#788C5D', darkModeColor: '#9CB678' },
+    { value: 'C46686', label: 'fig', color: '#C46686', darkModeColor: '#E086A4' },
+    { value: 'D4A27F', label: 'kraft', color: '#D4A27F', darkModeColor: '#E8C4A0' },
   ];
 
   const getServiceColor = (service: Service, isDarkMode: boolean = false) => {
@@ -108,6 +109,9 @@ const AdminServicesTab = () => {
   const [currentService, setCurrentService] = useState<Service | null>(null);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showDuplicateModal, setShowDuplicateModal] = useState(false);
+  const [serviceToDuplicate, setServiceToDuplicate] = useState<Service | null>(null);
+  const [isDuplicating, setIsDuplicating] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('created_at');
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [currentPage, setCurrentPage] = useState(1);
@@ -205,10 +209,17 @@ const AdminServicesTab = () => {
     setShowServiceModal(true);
   };
 
-  const handleDuplicate = async (service: Service) => {
+  const handleDuplicate = (service: Service) => {
+    setServiceToDuplicate(service);
+    setShowDuplicateModal(true);
+  };
+
+  const executeDuplicate = async () => {
+    if (!serviceToDuplicate) return;
+    setIsDuplicating(true);
     try {
       const token = localStorage.getItem('auth_token');
-      const identifier = service.slug ?? service.id;
+      const identifier = serviceToDuplicate.slug ?? serviceToDuplicate.id;
       const response = await fetch(getApiEndpoint(`/api/services/${identifier}/duplicate/`), {
         method: 'POST',
         headers: {
@@ -225,6 +236,10 @@ const AdminServicesTab = () => {
       refetch();
     } catch {
       setAlert({ type: 'error', message: t('messages.networkError') });
+    } finally {
+      setIsDuplicating(false);
+      setShowDuplicateModal(false);
+      setServiceToDuplicate(null);
     }
   };
 
@@ -291,7 +306,7 @@ const AdminServicesTab = () => {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-2 w-full md:w-auto min-w-0">
           <div className="relative w-full sm:w-64 min-w-0">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-light dark:text-cloud-medium" />
             <Input
               placeholder={t("searchPlaceholder")}
               value={searchTerm}
@@ -302,7 +317,7 @@ const AdminServicesTab = () => {
 
           {/* Sort Controls (like courses) */}
           <div className="flex items-center justify-center flex-wrap gap-x-3 gap-y-2 w-full md:w-auto min-w-0">
-            <Label className="hidden md:inline text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+            <Label className="hidden md:inline text-sm font-medium text-slate-medium dark:text-cloud-medium whitespace-nowrap">
               {t("sorting.sortBy")}:
             </Label>
             <Dropdown
@@ -317,7 +332,7 @@ const AdminServicesTab = () => {
               variant="ghost"
               size="sm"
               onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-lg"
+              className="p-2 hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-medium)] transition-colors duration-200 rounded-lg"
               aria-label={t("sorting.toggleOrder")}
             >
               <ArrowUpDown className="h-4 w-4" />
@@ -349,20 +364,20 @@ const AdminServicesTab = () => {
 
       {/* Services List */}
       {filteredServices.length === 0 ? (
-        <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-12 text-slate-light dark:text-cloud-medium">
           {searchTerm ? t('noServicesFound') : t('noServices')}
         </div>
       ) : (
         <div className="space-y-4">
           {/* Select All */}
-          <div className="flex items-center space-x-2 pb-2 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center space-x-2 pb-2 border-b border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)]">
             <input
               type="checkbox"
               checked={paginatedServices.length > 0 && paginatedServices.every((s) => selectedServices.includes(s.id))}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
+              className="rounded border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
             />
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-sm text-slate-medium dark:text-cloud-medium">
               {t("selectAll")} ({filteredServices.length} {t("services")})
             </span>
           </div>
@@ -424,6 +439,18 @@ const AdminServicesTab = () => {
         confirmText={t("confirmDelete.delete")}
         cancelText={t("confirmDelete.cancel")}
         isLoading={isDeleting}
+      />
+
+      {/* Duplicate Confirmation Modal */}
+      <DeleteConfirmationModal
+        isOpen={showDuplicateModal}
+        onClose={() => { setShowDuplicateModal(false); setServiceToDuplicate(null); }}
+        onConfirm={executeDuplicate}
+        title={tAdmin("duplicateConfirm.title") || "¿Duplicar elemento?"}
+        message={tAdmin("duplicateConfirm.message") || `¿Confirmar la duplicación de "${serviceToDuplicate?.title}"?`}
+        confirmText={tAdmin("duplicateConfirm.confirm") || "Duplicar"}
+        cancelText={tAdmin("duplicateConfirm.cancel") || "Cancelar"}
+        isLoading={isDuplicating}
       />
 
       {/* Service Details Modal */}

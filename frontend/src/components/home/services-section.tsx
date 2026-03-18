@@ -2,7 +2,6 @@
 
 import type { ReactNode, RefObject } from "react";
 import Image from "next/image";
-import { Zap, SlidersHorizontal, Headphones } from "lucide-react";
 import { Lens } from "@/components/ui/lens";
 import type { Service } from "@/hooks/useServices";
 
@@ -15,24 +14,6 @@ interface ServicesIntroProps {
   sectionRef?: RefObject<HTMLElement | null>;
   featuredServices?: Service[];
 }
-
-const serviceBenefits = [
-  {
-    titleKey: "services.extra.0.title",
-    descriptionKey: "services.extra.0.description",
-    Icon: Zap,
-  },
-  {
-    titleKey: "services.extra.1.title",
-    descriptionKey: "services.extra.1.description",
-    Icon: SlidersHorizontal,
-  },
-  {
-    titleKey: "services.extra.2.title",
-    descriptionKey: "services.extra.2.description",
-    Icon: Headphones,
-  },
-];
 
 function LensServiceCard({ service }: { service: Service }) {
   const hasImage = !!service.image;
@@ -82,7 +63,7 @@ function LensServiceCard({ service }: { service: Service }) {
 
 export function ServicesSection({ t, servicesContent, sectionRef, featuredServices }: ServicesIntroProps) {
   return (
-    <section id="services" ref={sectionRef} className="py-16 px-4 sm:px-6 lg:px-8 bg-[--color-bg-secondary] dark:bg-[--color-bg-inverted]">
+    <section id="services" ref={sectionRef} className="py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-16">
 
         {/* Section header */}
@@ -97,25 +78,6 @@ export function ServicesSection({ t, servicesContent, sectionRef, featuredServic
 
         {/* Full service carousel */}
         {servicesContent}
-
-        {/* Benefit cards */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {serviceBenefits.map(({ titleKey, descriptionKey, Icon }, index) => (
-            <div
-              key={titleKey}
-              className="scroll-animate fade-in-up text-center p-6 bg-[--color-bg-card] dark:bg-[--swatch--slate-medium] rounded-a-l border border-[--color-border-subtle] dark:border-[--color-border-strong]"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="w-12 h-12 bg-clay/15 dark:bg-clay/20 rounded-a-m flex items-center justify-center mx-auto mb-4">
-                <Icon className="w-6 h-6 text-clay" strokeWidth={1.5} />
-              </div>
-              <h3 className="text-lg font-semibold mb-2 text-slate-dark dark:text-ivory-light">
-                {t(titleKey)}
-              </h3>
-              <p className="text-sm text-slate-medium dark:text-cloud-medium">{t(descriptionKey)}</p>
-            </div>
-          ))}
-        </div>
 
       </div>
     </section>

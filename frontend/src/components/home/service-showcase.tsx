@@ -3,19 +3,10 @@
 import { Button } from "@/components/ui/button";
 import ErrorCard from "@/components/ui/error-card";
 import { ServiceBentoGrid } from "@/components/services/service-bento-grid";
-import dynamic from "next/dynamic";
-import React, { useState, useCallback } from "react";
+import React, { useCallback } from "react";
 import type { Service } from "@/hooks/useServices";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
-
-const ServiceAppleDetailsModal = dynamic(
-  () =>
-    import("@/components/services/service-apple-details-modal").then(
-      (mod) => mod.ServiceAppleDetailsModal,
-    ),
-  { ssr: false, loading: () => null },
-);
 
 export interface ServiceShowcaseProps {
   services: Service[];
@@ -34,21 +25,20 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
   error,
   t,
   refetch,
-  onContact,
 }) => {
   const router = useRouter();
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleCardClick = useCallback((service: Service) => {
-    setSelectedService(service);
-    setIsModalOpen(true);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    setSelectedService(null);
-  }, []);
+  // Navigate to the services page, deep-linking to the specific service if it has a slug
+  const handleCardClick = useCallback(
+    (service: Service) => {
+      if (service.slug) {
+        router.push(`/services/${service.slug}`);
+      } else {
+        router.push("/services");
+      }
+    },
+    [router],
+  );
 
   const content = (() => {
     if (isOnVacation) {
@@ -80,11 +70,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
             <p className="text-slate-medium dark:text-cloud-medium mb-6">
               {t("services.vacationMessage")}
             </p>
-            <Button
-              variant="outline"
-              onClick={refetch}
-              className="flex items-center gap-2"
-            >
+            <Button variant="outline" onClick={refetch} className="flex items-center gap-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -139,14 +125,6 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
 
   return (
     <>
-      <ServiceAppleDetailsModal
-        service={selectedService}
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        showContact={true}
-        onContact={onContact}
-      />
-
       {content}
 
       <div className="flex justify-center mt-8">

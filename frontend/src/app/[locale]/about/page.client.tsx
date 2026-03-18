@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { AnimatedTestimonials } from "@/components/about/animated-testimonials";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 import { Timeline } from "@/components/about/timeline";
-import { Rocket, ArrowRight, Clock } from "lucide-react";
+import { Rocket, ArrowRight } from "lucide-react";
 import { LogoCarousel } from "@/components/ui/logo-carousel";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 
@@ -181,7 +181,7 @@ export default function UsPage() {
               </h2>
             </div>
             <div className="flex-1 flex justify-center overflow-hidden">
-              <LogoCarousel logos={partnerLogos} columnCount={4} colClassName="h-20 w-32 md:h-28 md:w-44" />
+              <LogoCarousel logos={partnerLogos} columnCount={3} mobileColumnCount={2} />
             </div>
           </div>
         </div>

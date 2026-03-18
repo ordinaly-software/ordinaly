@@ -1,20 +1,20 @@
 "use client";
 
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import Banner from "@/components/ui/banner";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Alert from "@/components/ui/alert";
 import { Service, useServices } from "@/hooks/useServices";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
-import { Search, Filter, Mail } from "lucide-react";
+import { Search, Filter } from "lucide-react";
 import { Dropdown } from "@/components/ui/dropdown";
 import { usePathname, useRouter } from "next/navigation";
 import { getApiEndpoint } from "@/lib/api-config";
 import { UseCasesSection } from "@/components/home/use-cases-section";
 import { ServiceBentoGrid } from "@/components/services/service-bento-grid";
+import { AiChatDemo } from "@/components/home/ai-chat-demo";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
 const ServiceAppleDetailsModal = dynamic(
@@ -24,29 +24,12 @@ const ServiceAppleDetailsModal = dynamic(
     ),
   { ssr: false, loading: () => null },
 );
-const SeoArticleSectionLazy = dynamic(
-  () =>
-    import("@/components/home/seo-article-section").then(
-      (mod) => mod.SeoArticleSection,
-    ),
-  {
-    loading: () => (
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-[#23272F]">
-        <div className="max-w-4xl mx-auto space-y-4">
-          <div className="h-10 w-2/3 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-          <div className="h-4 w-full bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-          <div className="h-4 w-5/6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-        </div>
-      </section>
-    ),
-  },
-);
 
 // ─── Loading skeleton matching the page structure ─────────────────────────────
 
 function ServicesPageSkeleton() {
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
       <div className="px-4 sm:px-6 lg:px-8 py-10">
         <div className="max-w-7xl mx-auto space-y-14">
           {/* Products section skeleton */}
@@ -108,12 +91,6 @@ const ServicesPage = ({
     }, 300);
     return () => clearTimeout(timer);
   }, [searchTerm]);
-
-  const handleWhatsAppChat = useCallback(() => {
-    const whatsappUrl = getWhatsAppUrl(t_home("defaultWhatsAppMessage"));
-    if (!whatsappUrl) return;
-    window.open(whatsappUrl, "_blank");
-  }, [t_home]);
 
   const filteredServices = useMemo(() => {
     let filtered = services;
@@ -258,7 +235,7 @@ const ServicesPage = ({
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
       <ServiceAppleDetailsModal
         service={deepLinkedService}
         isOpen={deepLinkOpen}
@@ -282,7 +259,7 @@ const ServicesPage = ({
         subtitle={t("productsAndServicesDescription")}
         backgroundImage={"/static/backgrounds/services_background.webp"}
       >
-        <div className="max-w-4xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl relative z-10 mt-6">
+        <div className="max-w-4xl mx-auto bg-[var(--swatch--ivory-light)]/90 dark:bg-[var(--swatch--slate-medium)]/90 backdrop-blur-sm rounded-2xl p-6 shadow-xl relative z-10 mt-6">
           <div className="flex flex-col md:flex-row gap-4 items-center relative">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -314,18 +291,20 @@ const ServicesPage = ({
         </div>
       </Banner>
 
+      <AiChatDemo t={t_home} />
+
       {/* Bento grids */}
       <section className="py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {filteredServices.length === 0 ? (
             <div className="text-center py-16">
-              <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                <Search className="w-12 h-12 text-gray-400" />
+              <div className="w-24 h-24 mx-auto mb-4 bg-[var(--swatch--cloud-light)] dark:bg-[var(--swatch--slate-medium)] rounded-full flex items-center justify-center">
+                <Search className="w-12 h-12 text-[var(--swatch--cloud-dark)] dark:text-[var(--swatch--cloud-medium)]" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              <h3 className="text-xl font-semibold text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] mb-2">
                 {t("noResults.title")}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-[var(--swatch--slate-light)] dark:text-[var(--swatch--cloud-medium)]">
                 {t("noResults.description")}
               </p>
             </div>
@@ -334,13 +313,18 @@ const ServicesPage = ({
               {/* Products grid */}
               {separated.products.length > 0 && (
                 <div>
-                  <h2 className="text-3xl font-bold mb-6 text-[#623CEA] dark:text-[#8B5FF7]">
+                  <h2 className="text-3xl font-bold mb-6 text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)]">
                     {t("productsSectionTitle")}
                   </h2>
                   <ServiceBentoGrid
                     services={separated.products}
                     onCardClick={handleCardClick}
+                    onCardContact={handleWhatsAppContact}
                     infiniteScroll
+                    cardSize="lg"
+                    consistentCardWidth
+                    viewDetailsLabel={t("details")}
+                    contactLabel={t("cta.contact")}
                   />
                 </div>
               )}
@@ -348,13 +332,18 @@ const ServicesPage = ({
               {/* Services grid */}
               {separated.services.length > 0 && (
                 <div>
-                  <h2 className="text-3xl font-bold mb-6 text-[#0255D5] dark:text-[#7DB5FF]">
+                  <h2 className="text-3xl font-bold mb-6 text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)]">
                     {t("servicesSectionTitle")}
                   </h2>
                   <ServiceBentoGrid
                     services={separated.services}
                     onCardClick={handleCardClick}
+                    onCardContact={handleWhatsAppContact}
                     infiniteScroll
+                    cardSize="lg"
+                    consistentCardWidth
+                    viewDetailsLabel={t("details")}
+                    contactLabel={t("cta.contact")}
                   />
                 </div>
               )}
@@ -363,31 +352,8 @@ const ServicesPage = ({
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#0255D5] dark:from-[#7DB5FF] to-[#01388A] text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            {t("cta.title")}
-          </h2>
-          <p className="text-xl mb-8 opacity-90">{t("cta.description")}</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              className="bg-white text-[#0255D5] dark:text-[#7DB5FF] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
-              onClick={() => {
-                const subject = encodeURIComponent(t("cta.emailSubject"));
-                const body = encodeURIComponent(t("cta.emailBody"));
-                window.location.href = `mailto:info@ordinaly.ai?subject=${subject}&body=${body}`;
-              }}
-            >
-              <Mail className="w-5 h-5 mr-2" />
-              {t("cta.contact")}
-            </Button>
-          </div>
-        </div>
-      </section>
-
       <UseCasesSection t={t_home} />
-      <SeoArticleSectionLazy t={t_home} onWhatsApp={handleWhatsAppChat} />
+
       <Footer />
     </div>
   );

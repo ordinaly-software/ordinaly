@@ -12,6 +12,9 @@ import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+import { Zap, SlidersHorizontal, Headphones } from "lucide-react";
+import { LogoCarousel } from "@/components/ui/logo-carousel";
+import { AiChatDemo } from "@/components/home/ai-chat-demo";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -70,20 +73,45 @@ const SectionSkeleton = () => (
   </section>
 );
 
-const BenefitsSection = dynamic(
-  () => import("@/components/home/benefits-section").then((mod) => mod.BenefitsSection),
-  { loading: () => <SectionSkeleton />, ssr: false },
-);
+const serviceBenefits = [
+  {
+    titleKey: "services.extra.0.title",
+    descriptionKey: "services.extra.0.description",
+    Icon: Zap,
+  },
+  {
+    titleKey: "services.extra.1.title",
+    descriptionKey: "services.extra.1.description",
+    Icon: SlidersHorizontal,
+  },
+  {
+    titleKey: "services.extra.2.title",
+    descriptionKey: "services.extra.2.description",
+    Icon: Headphones,
+  },
+];
+
+// Partner logo image components for LogoCarousel
+const partnerLogos: { name: string; id: number; img: React.ComponentType<React.SVGProps<SVGSVGElement>> }[] = [
+  "/static/logos/logo_aviva_publicidad_small.webp",
+  "/static/logos/logo_grupo_addu_small.webp",
+  "/static/logos/logo_proinca_consultores_small.webp",
+  "/static/logos/logo_guadalquivir_fincas_small.webp",
+  "/static/logos/logo_esau.webp",
+  "/static/logos/logo_geesol.webp",
+].map((src, i) => ({
+  name: src,
+  id: i + 1,
+  // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
+  img: ({ className }: React.SVGProps<SVGSVGElement>) => <img src={src} alt="" className={`object-contain invert brightness-0 contrast-100 ${className ?? ""}`} />,
+}));
+
 const UseCasesSection = dynamic(
   () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
   { loading: () => null, ssr: false },
 );
 const TestimonialsSection = dynamic(
   () => import("@/components/home/testimonials-section").then((mod) => mod.TestimonialsSection),
-  { loading: () => null, ssr: false },
-);
-const PartnersSection = dynamic(
-  () => import("@/components/home/partners-section").then((mod) => mod.PartnersSection),
   { loading: () => null, ssr: false },
 );
 const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"), {
@@ -291,6 +319,27 @@ export default function HomePage({
   return (
     <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
       <HomeHero t={t} onWhatsApp={handleWhatsAppChat} />
+      
+      {/* Benefits section */}
+      <section id="benefits" className="py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-5">
+          {serviceBenefits.map(({ titleKey, descriptionKey, Icon }, index) => (
+            <div
+              key={titleKey}
+              className="scroll-animate fade-in-up text-center p-5 bg-[--color-bg-card] dark:bg-[--swatch--slate-medium] rounded-a-l border border-[--color-border-subtle] dark:border-[--color-border-strong]"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className="w-10 h-10 bg-clay/15 dark:bg-clay/20 rounded-a-m flex items-center justify-center mx-auto mb-3">
+                <Icon className="w-5 h-5 text-clay" strokeWidth={1.5} />
+              </div>
+              <h3 className="text-base font-semibold mb-1.5 text-slate-dark dark:text-ivory-light">
+                {t(titleKey)}
+              </h3>
+              <p className="text-sm text-slate-medium dark:text-cloud-medium">{t(descriptionKey)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
       <ServicesSection
         t={t}
         onWhatsApp={handleWhatsAppChat}
@@ -323,6 +372,12 @@ export default function HomePage({
             <TestimonialsSection t={t} />
           </DeferredSection>
           <DeferredSection>
+            <LogoCarousel logos={partnerLogos} columnCount={3} mobileColumnCount={2} />
+          </DeferredSection>
+          <DeferredSection>
+            <AiChatDemo t={t} />
+          </DeferredSection>
+          <DeferredSection>
             <FaqSection t={formationT} />
           </DeferredSection>
           <DeferredSection>
@@ -336,6 +391,8 @@ export default function HomePage({
         </>
       ) : (
         <>
+          <SectionSkeleton />
+          <SectionSkeleton />
           <SectionSkeleton />
           <SectionSkeleton />
           <SectionSkeleton />

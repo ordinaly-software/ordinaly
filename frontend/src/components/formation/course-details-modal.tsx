@@ -1,9 +1,8 @@
 'use client';
 
-import { Modal } from "@/components/ui/modal";
+import { AppleModal } from "@/components/ui/apple-modal";
 import { Calendar, BookOpen, Star } from 'lucide-react';
 import { AddToCalendarButtons } from './add-to-calendar-buttons';
-import CourseHeader from './course-header';
 import CourseSidebar from './course-sidebar';
 import ShareCourseButtons from './share-course-buttons';
 import CourseFooter from './course-footer';
@@ -12,6 +11,7 @@ import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import { openPastCourseWhatsApp } from '@/utils/past-course';
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
 import YoutubePreview from "@/components/ui/youtube-preview";
+import Image from "next/image";
 
 interface Course {
   id: number;
@@ -178,6 +178,13 @@ function renderFullScheduleText(course: Course, t: ReturnType<typeof useTranslat
   return fs;
 }
 
+const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+  if (!src || src === 'undefined' || src === 'null') {
+    return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0IiBmaWxsPSIjZjNmNGY2Ii8+CjxwYXRoIGQ9Im0xMiA2LTItMiA0IDRoNCIgc3Ryb2tlPSIjOWNhM2FmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K';
+  }
+  return `${src}?w=${width}&q=${quality || 75}`;
+};
+
 const CourseDetailsModal = ({
   isOpen,
   onClose,
@@ -265,166 +272,206 @@ const CourseDetailsModal = ({
   const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className="max-w-4xl lg:max-w-6xl xl:max-w-7xl 2xl:max-w-[1200px]" showHeader={false}>
-      <div className="max-h-[85vh] lg:max-h-[92vh] xl:max-h-[95vh] flex flex-col">
-        <CourseHeader course={course} isEnrolled={isEnrolled} onClose={onClose} />
-
-        {/* Scrollable content area */}
-        <div className="p-6 overflow-y-auto flex-1 pb-28 lg:pb-0">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Calendar Buttons (Mobile Only) */}
-              <div className="block md:hidden">
-                {isEnrolled && !hasEnded && (
-                  <AddToCalendarButtons
-                    courseId={course.id}
-                    courseSlug={course.slug}
-                    courseTitle={course.title}
-                    isEnrolled={isEnrolled}
-                  />
-                )}
-              </div>
-            
-              {/* Share buttons for mobile footer */}
-              <div className="mt-3 lg:hidden">
-                <ShareCourseButtons title={course.title} subtitle={course.subtitle} slug={course.slug} />
-              </div>
-
-              {/* Next Occurrences */}
-              {course.next_occurrences && course.next_occurrences.length > 0 && (
-                <div>
-                  <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                    <Star className="w-5 h-5 text-blue" />
-                    {t('upcomingSessions')}
-                  </h2>
-                  <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
-                    <div className="space-y-2">
-                      {course.next_occurrences.slice(0, 5).map((occurrence, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-sm">
-                          <Calendar className="w-4 h-4 text-blue" />
-                          <span className="text-gray-700 dark:text-gray-300">{formatDate(occurrence)}</span>
-                        </div>
-                      ))}
-                      {course.next_occurrences.length > 5 && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 italic">
-                          {t('moreSessions', { count: course.next_occurrences.length - 5 })}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                </div>
+    <AppleModal
+      isOpen={isOpen}
+      onClose={onClose}
+      containerClassName="relative z-[60] mx-auto my-10 h-fit w-full max-w-5xl lg:max-w-6xl rounded-3xl bg-white dark:bg-[--swatch--slate-dark] p-0 font-sans overflow-hidden"
+      contentClassName="py-0"
+    >
+      {/* Course image strip at top - full width */}
+      {course.image && course.image !== "undefined" && course.image !== "null" && (
+        <div className="relative w-full h-56 overflow-hidden">
+          <Image
+            loader={imageLoader}
+            src={course.image}
+            alt={course.title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 80vw"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          {/* Title + badges overlay on image */}
+          <div className="absolute bottom-4 left-4 right-4">
+            <div className="flex flex-wrap gap-2 mb-2">
+              {course.price !== null && course.price !== undefined && (
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay text-white">€{course.price}</span>
               )}
-
-              <YoutubePreview
-                url={course.youtube_video_url}
-                title={course.title}
-                label={t('video')}
-                playLabel={t('playVideo')}
-                canLoad={canLoadMedia}
-              />
-
-              {/* Description */}
-              <div>
-                <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-blue" />
-                  {t('courseDescription')}
-                </h2>
-                {/* share buttons intentionally shown in sidebar (desktop) and footer (mobile) */}
-                <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 break-words prose-a:break-all">
-                  {course.subtitle && (
-                    <p className="text-base font-semibold text-gray-800 dark:text-gray-200">
-                      {course.subtitle}
-                    </p>
-                  )}
-                  <br />
-                  <MarkdownRenderer>{course.description}</MarkdownRenderer>
-                </div>
-              </div>
-
-              {/* Schedule Details */}
-              <div>
-                <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-blue" />
-                  {t('scheduleInformation')}
-                </h2>
-                <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('startDate')}</p>
-                      <p className="text-gray-900 dark:text-gray-100">{formatDate(course.start_date)}</p>
-                    </div>
-                    {course.periodicity !== 'once' && (
-                      <div>
-                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('endDate')}</p>
-                        <p className="text-gray-900 dark:text-gray-100">{formatDate(course.end_date)}</p>
-                      </div>
-                    )}
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('time')}</p>
-                      <p className="text-gray-900 dark:text-gray-100">
-                        {formatTime(course.start_time)} - {formatTime(course.end_time)}
-                      </p>
-                    </div>
-                    {course.duration_hours && (
-                      <div>
-                        <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('duration')}</p>
-                        <p className="text-gray-900 dark:text-gray-100">{course.duration_hours} {t('hours')}</p>
-                      </div>
-                    )}
-                  </div>
-                  
-                  {course.weekdays && course.weekdays.length > 0 && (
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('daysOfWeek')}</p>
-                      <p className="text-gray-900 dark:text-gray-100">{getWeekdayNames(course.weekdays)}</p>
-                    </div>
-                  )}
-
-                  {course.formatted_schedule && (
-                    <div>
-                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('fullSchedule')}</p>
-                      <p className="text-gray-900 dark:text-gray-100 text-sm">
-                        {renderFullScheduleText(course, t)}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <br />
+              <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue text-white">
+                {t(`periodicity.${course.periodicity}`)}
+              </span>
+              {isEnrolled && (
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay text-white">✓ {t('enrolled')}</span>
+              )}
             </div>
-
-            <CourseSidebar
-              course={course}
-              isEnrolled={isEnrolled}
-              hasStarted={hasStarted}
-              hasEnded={hasEnded}
-              canEnroll={canEnroll}
-              shouldShowAuth={shouldShowAuth}
-              onEnroll={onEnroll}
-              onCancel={onCancel}
-              onAuthRequired={onAuthRequired}
-              onRequestEdition={handleRequestEdition}
-              requestEditionLabel={formationT('wantNewEdition')}
-              showRequestEdition={hasEnded}
-            />
+            <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">{course.title}</h2>
           </div>
         </div>
+      )}
+      {/* No image fallback: show title header */}
+      {(!course.image || course.image === "undefined" || course.image === "null") && (
+        <div className="px-6 md:px-10 pt-8 pb-4">
+          <h2 className="text-2xl md:text-4xl font-bold text-slate-dark dark:text-ivory-light">{course.title}</h2>
+        </div>
+      )}
 
-    <CourseFooter
-      shouldShowAuth={shouldShowAuth}
-      canEnroll={canEnroll}
-      handleEnrollClick={handleEnrollClick}
-      onEnroll={onEnroll}
-      showRequestEdition={hasEnded}
-      hasEnded={hasEnded}
-      onRequestEdition={handleRequestEdition}
-      requestEditionLabel={formationT('wantNewEdition')}
-      t={t}
-    />
+      {/* Main content */}
+      <div className="p-6 overflow-y-auto max-h-[70vh]">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Calendar Buttons (Mobile Only) */}
+            <div className="block md:hidden">
+              {isEnrolled && !hasEnded && (
+                <AddToCalendarButtons
+                  courseId={course.id}
+                  courseSlug={course.slug}
+                  courseTitle={course.title}
+                  isEnrolled={isEnrolled}
+                />
+              )}
+            </div>
+
+            {/* Share buttons for mobile */}
+            <div className="mt-3 lg:hidden">
+              <ShareCourseButtons title={course.title} subtitle={course.subtitle} slug={course.slug} />
+            </div>
+
+            {/* Next Occurrences */}
+            {course.next_occurrences && course.next_occurrences.length > 0 && (
+              <div>
+                <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                  <Star className="w-5 h-5 text-blue" />
+                  {t('upcomingSessions')}
+                </h2>
+                <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
+                  <div className="space-y-2">
+                    {course.next_occurrences.slice(0, 5).map((occurrence, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-sm">
+                        <Calendar className="w-4 h-4 text-blue" />
+                        <span className="text-gray-700 dark:text-gray-300">{formatDate(occurrence)}</span>
+                      </div>
+                    ))}
+                    {course.next_occurrences.length > 5 && (
+                      <p className="text-sm text-gray-600 dark:text-gray-400 italic">
+                        {t('moreSessions', { count: course.next_occurrences.length - 5 })}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <YoutubePreview
+              url={course.youtube_video_url}
+              title={course.title}
+              label={t('video')}
+              playLabel={t('playVideo')}
+              canLoad={canLoadMedia}
+            />
+
+            {/* Description */}
+            <div>
+              <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                <BookOpen className="w-5 h-5 text-blue" />
+                {t('courseDescription')}
+              </h2>
+              <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 break-words prose-a:break-all">
+                {course.subtitle && (
+                  <p className="text-base font-semibold text-gray-800 dark:text-gray-200">
+                    {course.subtitle}
+                  </p>
+                )}
+                <br />
+                <MarkdownRenderer>{course.description}</MarkdownRenderer>
+              </div>
+            </div>
+
+            {/* Schedule Details */}
+            <div>
+              <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-blue" />
+                {t('scheduleInformation')}
+              </h2>
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('startDate')}</p>
+                    <p className="text-gray-900 dark:text-gray-100">{formatDate(course.start_date)}</p>
+                  </div>
+                  {course.periodicity !== 'once' && (
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('endDate')}</p>
+                      <p className="text-gray-900 dark:text-gray-100">{formatDate(course.end_date)}</p>
+                    </div>
+                  )}
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('time')}</p>
+                    <p className="text-gray-900 dark:text-gray-100">
+                      {formatTime(course.start_time)} - {formatTime(course.end_time)}
+                    </p>
+                  </div>
+                  {course.duration_hours && (
+                    <div>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('duration')}</p>
+                      <p className="text-gray-900 dark:text-gray-100">{course.duration_hours} {t('hours')}</p>
+                    </div>
+                  )}
+                </div>
+
+                {course.weekdays && course.weekdays.length > 0 && (
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('daysOfWeek')}</p>
+                    <p className="text-gray-900 dark:text-gray-100">{getWeekdayNames(course.weekdays)}</p>
+                  </div>
+                )}
+
+                {course.formatted_schedule && (
+                  <div>
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('fullSchedule')}</p>
+                    <p className="text-gray-900 dark:text-gray-100 text-sm">
+                      {renderFullScheduleText(course, t)}
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <br />
+          </div>
+
+          <CourseSidebar
+            course={course}
+            isEnrolled={isEnrolled}
+            hasStarted={hasStarted}
+            hasEnded={hasEnded}
+            canEnroll={canEnroll}
+            shouldShowAuth={shouldShowAuth}
+            onEnroll={onEnroll}
+            onCancel={onCancel}
+            onAuthRequired={onAuthRequired}
+            onRequestEdition={handleRequestEdition}
+            requestEditionLabel={formationT('wantNewEdition')}
+            showRequestEdition={hasEnded}
+          />
+        </div>
+
+        {/* Mobile CTA buttons */}
+        <div className="lg:hidden mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <CourseFooter
+            shouldShowAuth={shouldShowAuth}
+            canEnroll={canEnroll}
+            handleEnrollClick={handleEnrollClick}
+            onEnroll={onEnroll}
+            showRequestEdition={hasEnded}
+            hasEnded={hasEnded}
+            onRequestEdition={handleRequestEdition}
+            requestEditionLabel={formationT('wantNewEdition')}
+            t={t}
+          />
+        </div>
       </div>
-    </Modal>
+    </AppleModal>
   );
 };
 

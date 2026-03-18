@@ -23,6 +23,7 @@ import {
   Award,
   Mail,
   ChevronDown,
+  ArrowRight,
 } from "lucide-react";
 import type { Course } from "@/utils/pdf-generator";
 import { Dropdown } from "@/components/ui/dropdown";
@@ -476,7 +477,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
             </div>
           ) : (
             <>
-              <div className="grid md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-10">
+              <div className="mx-auto grid max-w-5xl grid-cols-1 gap-10">
                 {filteredCourses.map((course) => {
                   // Compute unenroll restriction
                   let disableUnenroll = false;
@@ -576,34 +577,66 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
 
       <FaqSection t={t} />
     
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[#0255D5] dark:from-[#7DB5FF] to-[#01388A] text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            {t("cta.title")}
-          </h2>
-          <p className="text-xl mb-8 opacity-90">
-            {t("cta.description")}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              className="bg-white text-[#0255D5] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
-              onClick={() => {
-                const subject = encodeURIComponent(t("cta.emailSubject"));
-                const body = encodeURIComponent(t("cta.emailBody"));
-                window.location.href = `mailto:info@ordinaly.ai?subject=${subject}&body=${body}`;
-              }}
-            >
-              <Mail className="w-5 h-5 mr-2" />
-              {t("cta.contact")}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={handleDownloadCatalog}
-              className="bg-white text-[#623CEA] hover:bg-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 px-8 py-3 text-lg font-semibold"
-            >
-              <BookOpen className="w-5 h-5 mr-2" />
-              {t("cta.catalog")}
-            </Button>
+      <section className="px-4 pb-24 pt-10 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <div className="relative overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-[linear-gradient(135deg,rgba(217,119,87,0.10),rgba(250,249,245,0.96),rgba(2,85,213,0.08))] shadow-[0_28px_90px_-60px_rgba(20,20,19,0.22)] dark:border-white/10 dark:bg-[linear-gradient(135deg,rgba(217,119,87,0.16),rgba(20,20,19,0.96),rgba(2,85,213,0.18))]">
+            <div className="pointer-events-none absolute -left-16 top-8 h-40 w-40 rounded-full bg-clay/15 blur-3xl" />
+            <div className="pointer-events-none absolute right-0 top-0 h-52 w-52 rounded-full bg-cobalt/10 blur-3xl dark:bg-cobalt/20" />
+            <div className="pointer-events-none absolute -bottom-12 right-16 h-36 w-36 rounded-full bg-oat/70 blur-3xl dark:bg-white/10" />
+
+            <div className="relative grid gap-8 p-8 md:p-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-clay/15 bg-white/70 px-4 py-2 text-sm font-semibold text-clay shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.05] dark:text-[#F1B29D]">
+                  <Award className="h-4 w-4" />
+                  {t("title")}
+                </div>
+
+                <h2 className="mt-5 text-4xl font-bold leading-[0.98] tracking-[-0.04em] text-slate-dark dark:text-ivory-light md:text-5xl">
+                  {t("cta.title")}
+                </h2>
+
+                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-medium dark:text-cloud-medium">
+                  {t("cta.description")}
+                </p>
+              </div>
+
+              <div className="rounded-[1.5rem] border border-black/5 bg-white/80 p-4 shadow-[0_24px_60px_-42px_rgba(20,20,19,0.24)] backdrop-blur dark:border-white/10 dark:bg-white/[0.05]">
+                <div className="grid gap-3">
+                  <Button
+                    variant="accent"
+                    size="lg"
+                    className="h-auto w-full justify-between rounded-[1.25rem] px-5 py-4 text-left shadow-[0_18px_36px_-24px_rgba(217,119,87,0.55)]"
+                    onClick={() => {
+                      const subject = encodeURIComponent(t("cta.emailSubject"));
+                      const body = encodeURIComponent(t("cta.emailBody"));
+                      window.location.href = `mailto:info@ordinaly.ai?subject=${subject}&body=${body}`;
+                    }}
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/20">
+                        <Mail className="h-5 w-5" />
+                      </span>
+                      <span>{t("cta.contact")}</span>
+                    </span>
+                    <ArrowRight className="h-5 w-5 shrink-0" />
+                  </Button>
+
+                  <Button
+                    size="lg"
+                    onClick={handleDownloadCatalog}
+                    className="h-auto w-full justify-between rounded-[1.25rem] border border-[--color-border-subtle] bg-[--swatch--ivory-light]/90 px-5 py-4 text-[--swatch--slate-dark] shadow-sm hover:bg-white dark:border-white/10 dark:bg-[--swatch--slate-medium] dark:text-[--swatch--ivory-light] dark:hover:bg-[--swatch--slate-light]"
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-cobalt/10 text-cobalt ring-1 ring-cobalt/10 dark:bg-white/10 dark:text-[#7DB5FF] dark:ring-white/10">
+                        <BookOpen className="h-5 w-5" />
+                      </span>
+                      <span>{t("cta.catalog")}</span>
+                    </span>
+                    <ArrowRight className="h-5 w-5 shrink-0 text-clay" />
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

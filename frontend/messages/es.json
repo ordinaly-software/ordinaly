@@ -35,7 +35,7 @@
     },
     "hero": {
       "titleLine1": "AGENCIA DE",
-      "titleLine2": "AUTOMATIZACIÓN IA",
+      "titleLine2": "AUTOMATIZACIÓN CON IA",
       "subtitle": "Somos tu agencia de automatización IA. Optimizamos tu negocio con inteligencia artificial para escalar resultados.",
       "description1": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
       "trust1": "Para contables, administradores, inmobiliarias, y más",
@@ -45,14 +45,14 @@
       "ctaServices": "Ver servicios",
       "ctaDemo": "Agenda una consulta",
       "clientsTitle": "Confían en nosotros",
-      "locationBadge": "Sevilla, Andalucía · estudio local",
-      "coverageBadge": "Implantación presencial y remota en España",
-      "localCardLabel": "Base operativa",
-      "localCardValue": "Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo.",
-      "coverageCardLabel": "Cobertura",
-      "coverageCardValue": "Equipo en Sevilla con despliegue en Andalucía y acompañamiento remoto para proyectos en toda España.",
-      "deliveryCardLabel": "Modelo de trabajo",
-      "deliveryCardValue": "Diagnóstico, automatización, agentes de IA y formación ejecutados por el mismo equipo.",
+      "card1Label": "Agentes de IA 24/7 para ventas y atención al cliente",
+      "card1Value": "Automatización de consultas, generación de leads y soporte continuo con inteligencia artificial.",
+      "card2Label": "Formación profesional para empresas",
+      "card2Value": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo.",
+      "card3Label": "Equipo de ingenieros especializados",
+      "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
+      "card4Label": "Empresa local andaluza",
+      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo.",
       "globeCaption": "Mostrando dónde estamos y desde dónde operamos",
       "globeFloatingTop": "Ordinaly - Sevilla",
       "globeFloatingBottom": "Presencial en Andalucía. Remoto en el resto de España.",
@@ -215,11 +215,6 @@
         }
       }
     },
-    "partnersSection": {
-      "title": "Empresas que confían en Ordinaly",
-      "subtitle": "Colaboramos con empresas líderes en Sevilla y Andalucía para transformar sus procesos con IA",
-      "visit": "Visitar web del partner"
-    },
     "seoArticle": {
       "title": "Automatización empresarial con IA en Sevilla: la guía completa",
       "intro": "La automatización empresarial con inteligencia artificial ha dejado de ser una opción futurista para convertirse en una necesidad competitiva para las PYMEs en Sevilla y toda Andalucía. En Ordinaly, ayudamos a empresas locales a implementar agentes de IA para negocios que transforman radicalmente su operativa diaria.",
@@ -259,8 +254,57 @@
       }
     },
     "partners": {
-      "title": "Empresas transformadas",
-      "visit": "Visitar web del partner"
+      "title": "Empresas transformandas",
+      "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos con IA"
+    },
+    "gradient": {
+      "label": "IA en acción",
+      "title": "Mira la automatización en tiempo real",
+      "description": "Nuestros agentes de IA gestionan lo repetitivo para que tu equipo se centre en lo que importa. Desde el primer contacto hasta la entrega final — automatizado, preciso y siempre disponible."
+    },
+    "chatDemo": {
+      "title": "IA que habla como tu negocio",
+      "subtitle": "Descubre cómo nuestro asistente IA gestiona interacciones reales en distintos sectores.",
+      "you": "Tú",
+      "assistant": "Asistente IA",
+      "scenarios": {
+        "0": {
+          "label": "Inmobiliaria",
+          "messages": {
+            "0": { "sender": "customer", "text": "¡Hola! ¿Sigue disponible el piso en Calle Sierpes 12? Me gustaría concertar una visita este sábado." },
+            "1": { "sender": "agent", "text": "¡Hola! Sí, está disponible. Tenemos hueco a las 10:00 y a las 12:00 el sábado. ¿Cuál te viene mejor?" },
+            "2": { "sender": "customer", "text": "Las 12:00 sería perfecto. Me llamo María García." },
+            "3": { "sender": "agent", "text": "¡Listo, María! Visita confirmada el sábado a las 12:00. Te hemos enviado la confirmación al correo. ¡Hasta entonces! 🏠" }
+          }
+        },
+        "1": {
+          "label": "E-commerce",
+          "messages": {
+            "0": { "sender": "customer", "text": "Hola, hace 3 días pedí un portátil y no he recibido ningún seguimiento. Pedido #8821." },
+            "1": { "sender": "agent", "text": "¡Hola! He localizado tu pedido #8821. Se envió ayer y llegará mañana entre las 9:00 y las 13:00. 📦" },
+            "2": { "sender": "customer", "text": "¡Genial! ¿Puedo cambiar la dirección de entrega?" },
+            "3": { "sender": "agent", "text": "¡Por supuesto! He actualizado la dirección de entrega. Recibirás un email de confirmación enseguida. ¿Necesitas algo más? ✉️" }
+          }
+        },
+        "2": {
+          "label": "Restaurante",
+          "messages": {
+            "0": { "sender": "customer", "text": "¡Buenas! Quisiera reservar una mesa para 4 personas este viernes a las 21:00. ¿Tenéis disponibilidad?" },
+            "1": { "sender": "agent", "text": "¡Hola! Tenemos mesa disponible el viernes a las 21:00. ¿Me das tu nombre y teléfono para confirmar la reserva?" },
+            "2": { "sender": "customer", "text": "Carlos Martín, 600123456. ¿Tenéis menú grupal?" },
+            "3": { "sender": "agent", "text": "¡Perfecto, Carlos! Mesa reservada para 4 el viernes a las 21:00. Tenemos menú grupal a 35 €/persona con bebida incluida. 🍽️" }
+          }
+        },
+        "3": {
+          "label": "Legal",
+          "messages": {
+            "0": { "sender": "customer", "text": "Buenos días. Necesito ayuda con un inquilino que lleva 2 meses sin pagar el alquiler. ¿Qué opciones tengo?" },
+            "1": { "sender": "agent", "text": "Buenos días. Lo entiendo. El primer paso es un requerimiento formal por escrito al inquilino. ¿Le agendamos una llamada con uno de nuestros abogados?" },
+            "2": { "sender": "customer", "text": "Sí, preferiblemente esta semana. Tengo disponibilidad el martes o jueves por la tarde." },
+            "3": { "sender": "agent", "text": "¡Listo! He agendado una llamada para el jueves a las 17:00 con la Lcda. Rodríguez. Te hemos enviado la confirmación al correo. ⚖️" }
+          }
+        }
+      }
     },
     "contact": {
       "emailSubject": "Consulta sobre servicio: {service}",
@@ -704,11 +748,12 @@
         "service": "Servicio",
         "product": "Producto",
         "colors": {
-          "darkPurple": "Neutro",
-          "purple": "Morado oscuro",
-          "cyan": "Cian",
-          "green": "Hoja",
-          "orange": "Mandarina"
+          "slate": "Pizarra",
+          "clay": "Arcilla",
+          "cobalt": "Cobalto",
+          "olive": "Oliva",
+          "fig": "Higo",
+          "kraft": "Kraft"
         },
         "duration": "Tiempo de implantación (días)",
         "durationPlaceholder": "ej: 2 días",
@@ -2165,7 +2210,6 @@
   },
   "investors": {
     "hero": {
-      "tagline": "Inversores",
       "title": "Invirtiendo en automatización que mantiene ágiles a las empresas",
       "subtitle": "Ordinaly articula agentes con IA, automatizaciones empresariales y formación para acelerar organizaciones sin perder el control humano.",
       "ctaPrimary": "Descargar deck",
@@ -2185,7 +2229,7 @@
       },
       "clients": {
         "label": "Socios atendidos",
-        "value": "45+",
+        "value": "10+",
         "detail": "Retenciones activas y proyectos recurrentes."
       },
       "efficiency": {
@@ -2230,6 +2274,50 @@
       "title": "¿Listo para explorar la oportunidad?",
       "body": "Hablemos de KPIs, runway y cómo el capital multiplica el impacto.",
       "button": "Contactar al equipo"
+    },
+    "team": {
+      "label": "El equipo",
+      "title": "Capacidades técnicas y empresariales",
+      "subtitle": "Combinamos ingeniería de software de alto nivel con décadas de consultoría empresarial.",
+      "antonio": {
+        "role": "CTO · Ingeniero de Software & MsC en Inteligencia Artificial",
+        "bio": "Ingeniero de software graduado en la Universidad de Sevilla con Master en Ciencias de la Computación, Lógica e Inteligencia Artificial.",
+        "tags": {
+          "0": "Ing. Informática · Univ. Sevilla",
+          "1": "IA & Automatización",
+          "2": "Full-Stack",
+          "3": "Scrum Master"
+        }
+      },
+      "guillermo": {
+        "role": "CEO · Director de Proyecto en Proinca Consultores",
+        "bio": "Director de Proyecto en Proinca Consultores, Profesor Asociado en la Universidad de Sevilla, PhD en Ingeniería Industrial.",
+        "tags": {
+          "0": "Consultoría de Procesos",
+          "1": "Proinca Consultores",
+          "2": "Transformación Digital",
+          "3": "Optimización Empresarial"
+        }
+      }
+    },
+    "formation": {
+      "label": "Formación",
+      "title": "Cursos de IA para empresas",
+      "subtitle": "Entrenamos a equipos para que sean autónomos con la IA, creando una línea de ingresos recurrente y un canal directo de adopción.",
+      "courses": {
+        "0": {
+          "title": "IA para Equipos de Negocio",
+          "description": "Formación práctica para que equipos no técnicos integren herramientas de IA en sus flujos de trabajo diarios, con ejercicios reales del sector."
+        },
+        "1": {
+          "title": "Automatización de Procesos con IA",
+          "description": "Programa intensivo sobre diseño e implementación de agentes de IA y automatizaciones para reducir tareas repetitivas y escalar operaciones."
+        },
+        "2": {
+          "title": "Estrategia de Transformación Digital",
+          "description": "Curso ejecutivo para líderes que quieren definir una hoja de ruta de automatización e IA adaptada a su empresa y sector."
+        }
+      }
     }
   },
   "landings": {

@@ -58,7 +58,7 @@ const LogoColumn: React.FC<LogoColumnProps> = React.memo(
 
     return (
       <motion.div
-        className={`relative overflow-hidden ${colClassName ?? "h-14 w-24 md:h-24 md:w-48"}`}
+        className={`relative overflow-hidden ${colClassName ?? "h-28 w-36 md:h-36 md:w-52"}`}
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -96,7 +96,7 @@ const LogoColumn: React.FC<LogoColumnProps> = React.memo(
               },
             }}
           >
-            <CurrentLogo className="h-20 w-20 max-h-[80%] max-w-[80%] object-contain md:h-32 md:w-32" />
+            <CurrentLogo className="h-24 w-24 max-h-[80%] max-w-[80%] object-contain md:h-36 md:w-36" />
           </motion.div>
         </AnimatePresence>
       </motion.div>
@@ -106,11 +106,13 @@ const LogoColumn: React.FC<LogoColumnProps> = React.memo(
 
 interface LogoCarouselProps {
   columnCount?: number
+  /** How many columns to show on screens narrower than md. Defaults to columnCount. */
+  mobileColumnCount?: number
   logos: Logo[]
   colClassName?: string
 }
 
-export function LogoCarousel({ columnCount = 2, logos, colClassName }: LogoCarouselProps) {
+export function LogoCarousel({ columnCount = 2, mobileColumnCount, logos, colClassName }: LogoCarouselProps) {
   const [logoSets, setLogoSets] = useState<Logo[][]>([])
   const [currentTime, setCurrentTime] = useState(0)
 
@@ -128,16 +130,19 @@ export function LogoCarousel({ columnCount = 2, logos, colClassName }: LogoCarou
     setLogoSets(distributedLogos)
   }, [logos, columnCount])
 
+  const hideAbove = mobileColumnCount ?? columnCount
+
   return (
     <div className="flex space-x-4">
       {logoSets.map((logos, index) => (
-        <LogoColumn
-          key={index}
-          logos={logos}
-          index={index}
-          currentTime={currentTime}
-          colClassName={colClassName}
-        />
+        <div key={index} className={index >= hideAbove ? "hidden md:block" : undefined}>
+          <LogoColumn
+            logos={logos}
+            index={index}
+            currentTime={currentTime}
+            colClassName={colClassName}
+          />
+        </div>
       ))}
     </div>
   )

@@ -338,7 +338,7 @@ export function TestimonialsSection({ t }: SectionProps) {
           <div
             ref={scrollRef}
             onScroll={checkScrollability}
-            className="flex gap-6 overflow-x-auto scroll-smooth pb-6 [scrollbar-width:none] [-ms-overflow-style:none]"
+            className="flex gap-6 overflow-x-auto scroll-smooth pt-4 pb-8 [scrollbar-width:none] [-ms-overflow-style:none]"
           >
             {shouldShowSkeleton
               ? Array.from({ length: 3 }).map((_, index) => (
