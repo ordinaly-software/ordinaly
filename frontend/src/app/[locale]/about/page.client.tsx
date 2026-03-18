@@ -103,49 +103,53 @@ export default function UsPage() {
           src="/static/about/story_01.webp"
           alt=""
           fill
-          className="object-cover blur-sm scale-105 opacity-60 dark:opacity-20"
+          className="object-cover blur-sm"
           priority
         />
-        <div className="absolute inset-0 bg-[--color-bg-primary]/70 dark:bg-[--color-bg-inverted]/80" />
+        <div className="absolute inset-0 opacity-50 bg-[linear-gradient(135deg,rgba(250,249,245,0.72),rgba(240,238,230,0.58))] dark:bg-[linear-gradient(135deg,rgba(10,16,26,0.74),rgba(20,20,19,0.62))]" />
         <div className="relative u-container pb-14 pt-10 md:pb-20 md:pt-12">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div className="space-y-5">
-              <h1 className="text-4xl font-semibold leading-tight tracking-[-0.04em] sm:text-5xl text-slate-dark dark:text-ivory-light">
-                {t("hero.title")}
-              </h1>
-              <p className="text-xl leading-relaxed text-slate-medium dark:text-cloud-medium max-w-xl">
-                {t("hero.subtitle")}
-              </p>
-              <div className="flex flex-wrap gap-3 pt-1">
-                <Button asChild>
-                  <a href="#testimonials">
-                    <Rocket className="h-4 w-4 mr-2" />
-                    {t("hero.ctaPrimary")}
-                  </a>
-                </Button>
-                <Button variant="outline" asChild>
-                  <a href="#cta">
-                    <ArrowRight className="h-4 w-4 mr-2" />
-                    {t("hero.ctaSecondary")}
-                  </a>
-                </Button>
+            <div className="rounded-[2rem] border border-[--color-border-subtle] bg-white/82 p-7 shadow-[0_24px_80px_-42px_rgba(20,20,19,0.32)] backdrop-blur-xl dark:border-white/10 dark:bg-[rgba(10,16,26,0.78)] md:p-8">
+              <div className="space-y-5">
+                <h1 className="text-4xl font-semibold leading-tight tracking-[-0.04em] sm:text-5xl text-slate-dark dark:text-ivory-light">
+                  {t("hero.title")}
+                </h1>
+                <p className="text-xl leading-relaxed text-slate-medium dark:text-[#DFDDD3] max-w-xl">
+                  {t("hero.subtitle")}
+                </p>
+                <div className="flex flex-wrap gap-3 pt-1">
+                  <Button asChild variant="accent" className="shadow-lg shadow-clay/20">
+                    <a href="#testimonials">
+                      <Rocket className="h-4 w-4 mr-2" />
+                      {t("hero.ctaPrimary")}
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    asChild
+                    className="dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10"
+                  >
+                    <a href="#cta">
+                      <ArrowRight className="h-4 w-4 mr-2" />
+                      {t("hero.ctaSecondary")}
+                    </a>
+                  </Button>
+                </div>
               </div>
             </div>
 
             <div className="hidden lg:grid grid-cols-2 gap-4">
-              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/75 p-5 dark:border-white/10 dark:bg-white/[0.04] space-y-2">
-                <p className="text-xs uppercase tracking-[0.16em] text-cloud-dark dark:text-cloud-medium">{t("hero.missionLabel")}</p>
+              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/82 p-5 shadow-sm dark:border-white/10 dark:bg-[rgba(18,26,40,0.82)] space-y-2">
                 <p className="text-base font-semibold text-slate-dark dark:text-ivory-light">{t("mission.title")}</p>
-                <p className="text-sm text-slate-medium dark:text-cloud-medium leading-relaxed">{t("mission.body")}</p>
+                <p className="text-sm text-slate-medium dark:text-[#D7DCE7] leading-relaxed">{t("mission.body")}</p>
               </div>
-              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/75 p-5 dark:border-white/10 dark:bg-white/[0.04] space-y-2">
-                <p className="text-xs uppercase tracking-[0.16em] text-cloud-dark dark:text-cloud-medium">{t("hero.visionLabel")}</p>
+              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/82 p-5 shadow-sm dark:border-white/10 dark:bg-[rgba(22,22,29,0.82)] space-y-2">
                 <p className="text-base font-semibold text-slate-dark dark:text-ivory-light">{t("vision.title")}</p>
-                <p className="text-sm text-slate-medium dark:text-cloud-medium leading-relaxed">{t("vision.body")}</p>
+                <p className="text-sm text-slate-medium dark:text-[#E1D8D4] leading-relaxed">{t("vision.body")}</p>
               </div>
-              <div className="col-span-2 rounded-[1.75rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-5 text-white dark:border-white/10 flex items-center gap-4">
+              <div className="col-span-2 rounded-[1.75rem] border border-white/10 bg-[linear-gradient(135deg,#141413,#1D2636)] p-5 text-white shadow-[0_20px_60px_-36px_rgba(2,85,213,0.45)] flex items-center gap-4">
                 <div>
-                  <p className="text-sm text-white/60">{t("hero.definition")}</p>
+                  <p className="text-sm text-white/72">{t("hero.definition")}</p>
                 </div>
               </div>
             </div>
@@ -177,7 +181,7 @@ export default function UsPage() {
             <div className="flex-shrink-0 lg:max-w-xs text-white space-y-3">
               <p className="text-xs uppercase tracking-[0.16em] text-white/50">{t_home("partners.title")}</p>
               <h2 className="text-2xl font-semibold tracking-[-0.03em]">
-                {isEs ? "Empresas que confían en nosotros" : "Companies that trust us"}
+                {t_home("partners.subtitle")}
               </h2>
             </div>
             <div className="flex-1 flex justify-center overflow-hidden">

@@ -372,7 +372,22 @@ export default function HomePage({
             <TestimonialsSection t={t} />
           </DeferredSection>
           <DeferredSection>
-            <LogoCarousel logos={partnerLogos} columnCount={3} mobileColumnCount={2} />
+            {/* Partners */}
+            <section className="u-container pb-12">
+              <div className="rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10">
+                <div className="flex flex-col lg:flex-row items-center gap-10">
+                  <div className="flex-shrink-0 lg:max-w-xs text-white space-y-3">
+                    <p className="text-xs uppercase tracking-[0.16em] text-white/50">{t("partners.title")}</p>
+                    <h2 className="text-2xl font-semibold tracking-[-0.03em]">
+                      {t("partners.subtitle")}
+                    </h2>
+                  </div>
+                  <div className="flex-1 flex justify-center overflow-hidden">
+                    <LogoCarousel logos={partnerLogos} columnCount={3} mobileColumnCount={2} />
+                  </div>
+                </div>
+              </div>
+            </section>
           </DeferredSection>
           <DeferredSection>
             <AiChatDemo t={t} />

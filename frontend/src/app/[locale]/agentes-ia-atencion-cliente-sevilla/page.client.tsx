@@ -1,10 +1,16 @@
 "use client";
 
-import { LocalLandingPage } from "@/components/ui/local-landing";
-import { getLandingMeta } from "@/app/[locale]/landings";
+import { useMessages, useTranslations } from "next-intl";
+import { AiChatDemo } from "@/components/home/ai-chat-demo";
+import LandingPageView from "@/components/landings/landing-page-view";
+import type { LandingPageContent } from "@/components/landings/landing-page-view";
 
-const meta = getLandingMeta("agentes-ia-atencion-cliente-sevilla")!;
+export default function AgentesIaAtencionClienteSevillaPage() {
+  const messages = useMessages() as { landings?: Record<string, LandingPageContent> };
+  const tHome = useTranslations("home");
+  const content = messages.landings?.["agentes-ia-atencion-cliente-sevilla"];
 
-export default function AgentesIaAtencionClienteSevillaPage({ locale }: { locale: string }) {
-  return <LocalLandingPage locale={locale} meta={meta} />;
+  if (!content) throw new Error("Missing landing content: agentes-ia-atencion-cliente-sevilla");
+
+  return <LandingPageView content={content} architectureOverride={<AiChatDemo t={tHome} />} />;
 }

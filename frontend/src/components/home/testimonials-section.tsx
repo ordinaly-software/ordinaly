@@ -16,11 +16,11 @@ const MAX_TESTIMONIALS = 5;
 const MAX_GOOGLE_REVIEW_LENGTH = 200;
 const avatarGradients = [
   "from-amber-400 to-orange-500",
-  "from-emerald-400 to-teal-600",
+  "from-clay to-[#C6613F]",
   "from-cobalt to-[#0144B0]",
   "from-rose-400 to-pink-500",
   "from-sky-400 to-cyan-600",
-  "from-lime-400 to-emerald-500",
+  "from-[#D4A27F] to-[#D97757]",
 ];
 
 const localTestimonials = [

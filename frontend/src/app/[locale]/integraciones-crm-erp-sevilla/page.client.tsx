@@ -1,10 +1,12 @@
 "use client";
 
-import { LocalLandingPage } from "@/components/ui/local-landing";
-import { getLandingMeta } from "@/app/[locale]/landings";
+import { useMessages } from "next-intl";
+import LandingPageView from "@/components/landings/landing-page-view";
+import type { LandingPageContent } from "@/components/landings/landing-page-view";
 
-const meta = getLandingMeta("integraciones-crm-erp-sevilla")!;
-
-export default function IntegracionesCrmErpSevillaPage({ locale }: { locale: string }) {
-  return <LocalLandingPage locale={locale} meta={meta} />;
+export default function IntegracionesCrmErpSevillaPage() {
+  const messages = useMessages() as { landings?: Record<string, LandingPageContent> };
+  const content = messages.landings?.["integraciones-crm-erp-sevilla"];
+  if (!content) throw new Error("Missing landing content: integraciones-crm-erp-sevilla");
+  return <LandingPageView content={content} />;
 }

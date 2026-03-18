@@ -22,7 +22,7 @@ const buttonVariants = cva(
         cobalt:
           "bg-[var(--swatch--cobalt)] text-[var(--swatch--ivory-light)] hover:bg-[var(--swatch--cobalt-dark)]",
         whatsapp:
-          "bg-[#0d6e0c] text-white hover:bg-[#0A4D08] dark:bg-[#3FBD6F] dark:text-[#0B1B17] dark:hover:bg-[#2EA55E]",
+          "bg-[var(--swatch--clay)] text-[var(--swatch--ivory-light)] hover:bg-[var(--swatch--flame)] dark:bg-[var(--swatch--clay)] dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[var(--swatch--flame)]",
         // Outline: transparent with border
         outline:
           "border border-[var(--swatch--slate-dark)]/25 bg-transparent text-[var(--swatch--slate-dark)] hover:bg-oat dark:border-[var(--swatch--ivory-light)]/25 dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[var(--swatch--slate-medium)]",

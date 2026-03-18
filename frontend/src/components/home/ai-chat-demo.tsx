@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback, type CSSProperties } from "react";
 import { ChatMessageList } from "@/components/ui/chat-message-list";
 import { Bot, User, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -52,6 +52,18 @@ const SCENARIO_THEMES = [
     secondary: "#CBCADB",
   },
 ] as const;
+
+const getScenarioThemeVars = (
+  theme: (typeof SCENARIO_THEMES)[number],
+): CSSProperties => ({
+  ["--scenario-accent" as string]: theme.accent,
+  ["--scenario-accent-dark" as string]: theme.accentDark,
+  ["--scenario-accent-soft" as string]: theme.accentSoft,
+  ["--scenario-accent-soft-dark" as string]: theme.accentSoftDark,
+  ["--scenario-secondary" as string]: theme.secondary,
+  ["--scenario-border" as string]: `${theme.accent}33`,
+  ["--scenario-shadow" as string]: `${theme.accentDark}66`,
+});
 
 function buildScenarios(t: TranslateFn): Scenario[] {
   return Array.from({ length: SCENARIO_COUNT }, (_, i) => ({
@@ -132,12 +144,17 @@ export function AiChatDemo({ t }: SectionProps) {
 
   const currentScenario = scenarios[activeIndex];
   const currentTheme = SCENARIO_THEMES[activeIndex % SCENARIO_THEMES.length];
+  const currentThemeVars = getScenarioThemeVars(currentTheme);
 
   return (
     <section
       ref={sectionRef}
       className="relative overflow-hidden py-10 px-4 sm:px-6 lg:px-8"
     >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-6 h-72 w-72 -translate-x-[68%] rounded-full bg-clay/12 blur-3xl dark:bg-clay/10" />
+        <div className="absolute right-8 top-20 h-64 w-64 rounded-full bg-cobalt/10 blur-3xl dark:bg-cobalt/12" />
+      </div>
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -150,23 +167,25 @@ export function AiChatDemo({ t }: SectionProps) {
         </div>
 
         {/* Carousel */}
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-6" style={currentThemeVars}>
           {/* Scenario tabs */}
           <div className="flex flex-wrap justify-center gap-2">
             {scenarios.map((scenario, i) => {
               const scenarioTheme = SCENARIO_THEMES[i % SCENARIO_THEMES.length];
               const isActive = i === activeIndex;
+              const scenarioThemeVars = getScenarioThemeVars(scenarioTheme);
 
               return (
                 <button
                   key={i}
                   onClick={() => goTo(i)}
-                  className="px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200"
+                  className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? "border-transparent bg-[var(--scenario-accent)] text-white"
+                      : "border-[var(--scenario-border)] bg-[var(--scenario-accent-soft)] text-[var(--scenario-accent-dark)] dark:bg-[var(--scenario-accent-soft-dark)] dark:text-[var(--scenario-secondary)]"
+                  }`}
                   style={{
-                    backgroundColor: isActive
-                      ? scenarioTheme.accent
-                      : scenarioTheme.accentSoft,
-                    color: isActive ? "#FFFFFF" : scenarioTheme.accentDark,
+                    ...scenarioThemeVars,
                     boxShadow: isActive ? `0 10px 24px -16px ${scenarioTheme.accent}` : undefined,
                   }}
                 >
@@ -182,62 +201,56 @@ export function AiChatDemo({ t }: SectionProps) {
             <button
               onClick={goPrev}
               aria-label="Previous scenario"
-              className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-medium] border border-[--color-border-subtle] dark:border-[--color-border-strong] text-slate-medium dark:text-cloud-medium transition-all duration-200 shadow-sm"
-              style={{
-                backgroundColor: currentTheme.accentSoft,
-                borderColor: `${currentTheme.accent}33`,
-                color: currentTheme.accentDark,
-              }}
+              className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--scenario-border)] bg-[var(--scenario-accent-soft)] text-[var(--scenario-accent-dark)] transition-all duration-200 shadow-sm dark:bg-[var(--scenario-accent-soft-dark)] dark:text-[var(--scenario-secondary)]"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
 
             {/* Chat window */}
             <div
-              className="flex-1 bg-white/80 dark:bg-[--swatch--slate-medium]/80 backdrop-blur-md rounded-3xl border border-[--color-border-subtle] dark:border-[--color-border-strong] shadow-2xl overflow-hidden"
+              className="flex-1 overflow-hidden rounded-3xl border border-[var(--scenario-border)] bg-white/88 shadow-2xl backdrop-blur-md dark:bg-[#121A27]/90"
               style={{
-                borderColor: `${currentTheme.accent}26`,
-                boxShadow: `0 24px 50px -36px ${currentTheme.accentDark}`,
+                boxShadow: "0 24px 50px -36px var(--scenario-shadow)",
               }}
             >
               {/* Chat header */}
-              <div
-                className="flex items-center gap-3 px-5 py-4 border-b border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[--swatch--ivory-medium]/60 dark:bg-[--swatch--slate-dark]/60"
-                style={{
-                  borderColor: `${currentTheme.accent}22`,
-                  backgroundImage: `linear-gradient(135deg, ${currentTheme.accentSoft} 0%, rgba(255,255,255,0.92) 100%)`,
-                }}
-              >
+              <div className="relative overflow-hidden border-b border-[var(--scenario-border)] bg-[--swatch--ivory-medium]/60 dark:bg-[#0F1724]">
                 <div
-                  className="h-9 w-9 rounded-full flex items-center justify-center"
+                  className="absolute inset-0 dark:hidden"
                   style={{
-                    backgroundImage: `linear-gradient(135deg, ${currentTheme.accent} 0%, ${currentTheme.secondary} 100%)`,
+                    backgroundImage:
+                      "linear-gradient(135deg, var(--scenario-accent-soft) 0%, rgba(255,255,255,0.94) 100%)",
                   }}
-                >
-                  <Bot className="h-5 w-5 text-white" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-slate-dark dark:text-ivory-light">{t("chatDemo.assistant")}</p>
-                  <p
-                    className="text-xs flex items-center gap-1"
-                    style={{ color: currentTheme.accentDark }}
+                />
+                <div
+                  className="absolute inset-0 hidden dark:block"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(135deg, var(--scenario-accent-soft-dark) 0%, rgba(15,23,36,0.94) 100%)",
+                  }}
+                />
+                <div className="relative flex items-center gap-3 px-5 py-4">
+                  <div
+                    className="flex h-9 w-9 items-center justify-center rounded-full"
+                    style={{
+                      backgroundImage: "linear-gradient(135deg, var(--scenario-accent) 0%, var(--scenario-secondary) 100%)",
+                    }}
                   >
-                    <span
-                      className="w-1.5 h-1.5 rounded-full inline-block animate-pulse"
-                      style={{ backgroundColor: currentTheme.accent }}
-                    />
-                    Online
-                  </p>
+                    <Bot className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-slate-dark dark:text-ivory-light">{t("chatDemo.assistant")}</p>
+                    <p className="text-xs flex items-center gap-1 text-[var(--scenario-accent-dark)] dark:text-[var(--scenario-secondary)]">
+                      <span
+                        className="w-1.5 h-1.5 rounded-full inline-block animate-pulse bg-[var(--scenario-accent)]"
+                      />
+                      Online
+                    </p>
+                  </div>
+                  <span className="ml-auto rounded-full bg-[var(--scenario-accent-soft)] px-2.5 py-1 text-xs font-medium text-[var(--scenario-accent-dark)] dark:bg-[var(--scenario-accent-soft-dark)] dark:text-[var(--scenario-secondary)]">
+                    {currentScenario.label}
+                  </span>
                 </div>
-                <span
-                  className="ml-auto text-xs font-medium px-2.5 py-1 rounded-full"
-                  style={{
-                    backgroundColor: currentTheme.accentSoft,
-                    color: currentTheme.accentDark,
-                  }}
-                >
-                  {currentScenario.label}
-                </span>
               </div>
 
               {/* Messages */}
@@ -267,17 +280,14 @@ export function AiChatDemo({ t }: SectionProps) {
                       <div
                         className={`max-w-[78%] px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${
                           msg.sender === "agent"
-                            ? "text-slate-dark dark:text-ivory-light rounded-bl-sm"
+                            ? "rounded-bl-sm border border-[var(--scenario-border)] bg-[var(--scenario-accent-soft)] text-slate-dark dark:bg-[var(--scenario-accent-soft-dark)] dark:text-ivory-light"
                             : "text-white rounded-br-sm"
                         }`}
-                        style={msg.sender === "agent"
+                        style={msg.sender === "customer"
                           ? {
-                              backgroundColor: currentTheme.accentSoft,
-                              border: `1px solid ${currentTheme.accent}22`,
+                              backgroundColor: "var(--scenario-accent)",
                             }
-                          : {
-                              backgroundColor: currentTheme.accent,
-                            }}
+                          : undefined}
                       >
                         {msg.text}
                       </div>
@@ -287,14 +297,14 @@ export function AiChatDemo({ t }: SectionProps) {
               </div>
 
               {/* Fake input */}
-              <div className="px-4 py-3 border-t border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[--swatch--ivory-medium]/40 dark:bg-[--swatch--slate-dark]/40">
-                <div className="flex items-center gap-2 bg-white dark:bg-[--swatch--slate-medium] rounded-full px-4 py-2 border border-[--color-border-subtle] dark:border-[--color-border-strong]">
+              <div className="border-t border-[var(--scenario-border)] bg-[--swatch--ivory-medium]/40 px-4 py-3 dark:bg-[#0E1622]/60">
+                <div className="flex items-center gap-2 rounded-full border border-[var(--scenario-border)] bg-white/90 px-4 py-2 dark:bg-[#192334]">
                   <span className="text-sm text-slate-light dark:text-cloud-medium flex-1">
                     {t("chatDemo.you")}…
                   </span>
                   <div
                     className="h-6 w-6 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: currentTheme.accent }}
+                    style={{ backgroundColor: "var(--scenario-accent)" }}
                   >
                     <svg className="h-3 w-3 text-white" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
@@ -308,12 +318,7 @@ export function AiChatDemo({ t }: SectionProps) {
             <button
               onClick={goNext}
               aria-label="Next scenario"
-              className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-medium] border border-[--color-border-subtle] dark:border-[--color-border-strong] text-slate-medium dark:text-cloud-medium transition-all duration-200 shadow-sm"
-              style={{
-                backgroundColor: currentTheme.accentSoft,
-                borderColor: `${currentTheme.accent}33`,
-                color: currentTheme.accentDark,
-              }}
+              className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[var(--scenario-border)] bg-[var(--scenario-accent-soft)] text-[var(--scenario-accent-dark)] transition-all duration-200 shadow-sm dark:bg-[var(--scenario-accent-soft-dark)] dark:text-[var(--scenario-secondary)]"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -330,10 +335,14 @@ export function AiChatDemo({ t }: SectionProps) {
                   key={i}
                   onClick={() => goTo(i)}
                   aria-label={`Go to scenario ${i + 1}`}
-                  className="h-2 rounded-full transition-all duration-300"
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    isActive
+                      ? "bg-[var(--scenario-accent)]"
+                      : "bg-[var(--scenario-accent-soft)] dark:bg-[var(--scenario-accent-soft-dark)]"
+                  }`}
                   style={{
                     width: isActive ? "1.5rem" : "0.5rem",
-                    backgroundColor: isActive ? scenarioTheme.accent : scenarioTheme.accentSoft,
+                    ...getScenarioThemeVars(scenarioTheme),
                   }}
                 />
               );

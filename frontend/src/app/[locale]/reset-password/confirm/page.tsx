@@ -63,7 +63,7 @@ function StatusPage({
                   href={buttonHref}
                   className={
                     variant === "primary"
-                      ? "inline-flex items-center justify-center gap-2 rounded-xl bg-[#0255D5] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#01388A] dark:bg-[#7DB5FF] dark:text-[#1A1924] dark:hover:bg-[#60A5FA]"
+                      ? "inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] dark:bg-[#E15D31] dark:text-white dark:hover:bg-[#C6613F]"
                       : "inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                   }
                 >
@@ -110,7 +110,7 @@ export default function ResetPasswordConfirmPage() {
     return (
       <StatusPage
         icon={<CheckCircle2 className="h-10 w-10" />}
-        iconColor="text-green-600 dark:text-green-400"
+        iconColor="text-[#D97757] dark:text-[#F6D2C5]"
         title={t("confirm.successTitle")}
         description={t("confirm.successDesc")}
         buttonLabel={t("confirm.goToSignin")}
@@ -225,7 +225,7 @@ export default function ResetPasswordConfirmPage() {
                       type={showPassword ? "text" : "password"}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-10 text-base text-gray-900 transition-all focus:ring-2 focus:ring-[#0255D5] dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-[#7DB5FF]"
+                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-10 text-base text-gray-900 transition-all focus:ring-2 focus:ring-[#D97757] dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-[#E15D31]"
                       placeholder={t("confirm.newPasswordPlaceholder")}
                       required
                     />
@@ -250,7 +250,7 @@ export default function ResetPasswordConfirmPage() {
                       type={showConfirmPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-10 text-base text-gray-900 transition-all focus:ring-2 focus:ring-[#0255D5] dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-[#7DB5FF]"
+                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-10 text-base text-gray-900 transition-all focus:ring-2 focus:ring-[#D97757] dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-[#E15D31]"
                       placeholder={t("confirm.confirmPasswordPlaceholder")}
                       required
                     />
@@ -278,7 +278,7 @@ export default function ResetPasswordConfirmPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0255D5] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#01388A] disabled:opacity-50 dark:bg-[#7DB5FF] dark:text-[#1A1924] dark:hover:bg-[#60A5FA]"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] disabled:opacity-50 dark:bg-[#E15D31] dark:text-white dark:hover:bg-[#C6613F]"
                   >
                     <KeyRound className="h-4 w-4" />
                     {isLoading ? t("confirm.submitLoading") : t("confirm.submit")}

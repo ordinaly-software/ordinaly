@@ -399,31 +399,29 @@ const InvestorsPage = () => {
 
       {/* ROI Focus */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-[--swatch--slate-dark] rounded-3xl p-10 md:p-16 text-white relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/static/backgrounds/us_background.webp')] bg-cover bg-center opacity-5" />
+        <div className="relative overflow-hidden rounded-[2.25rem] border border-[#C46686]/30 bg-[linear-gradient(135deg,#C46686,#D97757_58%,#E15D31)] p-10 text-white shadow-[0_32px_90px_-50px_rgba(196,102,134,0.42)] md:p-16">
+          <div className="absolute -right-10 top-12 h-48 w-48 rounded-full bg-white/14 blur-3xl" />
+          <div className="absolute left-10 bottom-0 h-56 w-56 rounded-full bg-[#0144AA]/16 blur-3xl" />
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-clay/20 border border-clay/30">
-                <TrendingUp className="h-4 w-4 text-clay" />
-                <span className="text-xs font-semibold uppercase tracking-wider text-clay">
-                  {t("hero.focusLabel")}
-                </span>
-              </div>
+            <div className="space-y-6 rounded-[1.75rem] border border-white/16 bg-black/14 p-7 backdrop-blur-sm">
               <h2 className="text-4xl md:text-5xl font-black tracking-tight">
                 {t("hero.focusTitle")}
               </h2>
-              <p className="text-xl text-white/80 leading-relaxed">
+              <p className="text-xl text-white/88 leading-relaxed">
                 {t("hero.focusBody")}
               </p>
             </div>
             <div className="grid gap-4">
               {stats.map((stat) => (
-                <div key={stat.label} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-5">
-                  <p className="text-xs uppercase text-white/60 tracking-widest font-bold mb-1">
+                <div
+                  key={stat.label}
+                  className="rounded-2xl border border-white/18 bg-white/18 p-5 backdrop-blur-xl shadow-[0_18px_40px_-30px_rgba(0,0,0,0.45)]"
+                >
+                  <p className="mb-1 text-xs font-bold uppercase tracking-widest text-white/68">
                     {stat.label}
                   </p>
-                  <p className="text-3xl font-black text-clay mb-1">{stat.value}</p>
-                  <p className="text-sm text-white/70">{stat.detail}</p>
+                  <p className="mb-1 text-3xl font-black text-white">{stat.value}</p>
+                  <p className="text-sm leading-relaxed text-white/82">{stat.detail}</p>
                 </div>
               ))}
             </div>

@@ -149,12 +149,12 @@ export const ShareServiceButtons: React.FC<Props> = ({
     boxShadow: "0 1px 2px rgba(0,0,0,0.06)",
   };
 
-  const waStyle = isWhite ? { ...commonWhiteStyle, color: "#0d6e0c" } : undefined;
+  const waStyle = isWhite ? { ...commonWhiteStyle, color: "#D97757" } : undefined;
   const fbStyle = isWhite ? { ...commonWhiteStyle, color: "#1877F2" } : undefined;
   const liStyle = isWhite ? { ...commonWhiteStyle, color: "#0A66C2" } : undefined;
 
   const baseButtonClass = compact ? "p-2 rounded-md" : "p-3 rounded-md";
-  const waClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#0d6e0c] dark:text-white`;
+  const waClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#D97757] hover:text-[#C6613F] dark:text-white`;
   const fbClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#1877F2] dark:text-white`;
   const liClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#0A66C2] dark:text-white`;
 

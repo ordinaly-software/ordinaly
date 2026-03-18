@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import { LocalLandingPage } from "@/components/ui/local-landing";
 import { createPageMetadata, defaultDescription } from "@/lib/metadata";
-import { getLandingMeta } from "../landings";
 import { getApiEndpoint } from "@/lib/api-config";
 import { notFound } from "next/navigation";
 
@@ -50,21 +48,7 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const isEs = locale?.startsWith("es");
 
-  // 1. Check if it's a local SEO landing
-  const landingMeta = getLandingMeta(slug);
-  if (landingMeta) {
-    const title = isEs ? landingMeta.title.es : landingMeta.title.en;
-    const description =
-      (isEs ? landingMeta.description.es : landingMeta.description.en) ??
-      (isEs
-        ? defaultDescription
-        : "AI automation services and products for companies looking to scale with intelligent workflows.");
-    const image = landingMeta.heroImage || "/static/backgrounds/services_background.webp";
-
-    return createPageMetadata({ locale, path: `/${slug}`, title, description, image });
-  }
-
-  // 2. Check if it's a service slug
+  // Check if it's a service slug
   const service = await fetchService(slug);
   if (service) {
     const fallbackTitle = isEs
@@ -80,7 +64,7 @@ export async function generateMetadata({
     return createPageMetadata({ locale, path: `/${slug}`, title, description, image });
   }
 
-  // 3. Unknown slug — return non-indexable fallback
+  // Unknown slug — return non-indexable fallback
   return createPageMetadata({
     locale,
     path: `/${slug}`,
@@ -100,21 +84,15 @@ export default async function SlugPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug, locale } = await params;
+  const { slug } = await params;
 
-  // 1. Local SEO landing
-  const landingMeta = getLandingMeta(slug);
-  if (landingMeta) {
-    return <LocalLandingPage locale={locale} meta={landingMeta} />;
-  }
-
-  // 2. Service (check API)
+  // Service (check API)
   const service = await fetchService(slug);
   if (service) {
     const ServicesPage = await getServicesPage();
     return <ServicesPage initialServiceSlug={slug} />;
   }
 
-  // 3. Nothing found
+  // Nothing found
   notFound();
 }

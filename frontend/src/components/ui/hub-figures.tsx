@@ -113,25 +113,25 @@ export const ChatbotFigure = (
   </>
 );
 
-/** WhatsApp Business: phone with green chat interface */
+/** WhatsApp Business: phone with clay chat interface */
 export const WhatsAppFigure = (
   <>
     {/* Phone body */}
-    <rect x="-14" y="-48" width="28" height="48" rx="5" fill="#0F2E1E"/>
+    <rect x="-14" y="-48" width="28" height="48" rx="5" fill="#3A231B"/>
     <rect x="-11" y="-43" width="22" height="36" rx="2" fill="white" opacity=".96"/>
-    {/* Green header bar */}
-    <rect x="-11" y="-43" width="22" height="8" rx="2" fill="#1F8A0D"/>
+    {/* Clay header bar */}
+    <rect x="-11" y="-43" width="22" height="8" rx="2" fill="#D97757"/>
     {/* Chat messages */}
-    <rect x="-9"  y="-32" width="16" height="6" rx="2" fill="#DCF8C6"/>
+    <rect x="-9"  y="-32" width="16" height="6" rx="2" fill="#FBE2D8"/>
     <rect x="-9"  y="-24" width="12" height="6" rx="2" fill="#ECECEC"/>
-    <rect x="-9"  y="-16" width="17" height="6" rx="2" fill="#DCF8C6"/>
+    <rect x="-9"  y="-16" width="17" height="6" rx="2" fill="#FBE2D8"/>
     {/* Home button */}
-    <circle cx="0" cy="-2" r="3" fill="#1F8A0D" opacity=".7"/>
+    <circle cx="0" cy="-2" r="3" fill="#D97757" opacity=".7"/>
     {/* Send-arrow indicators */}
-    <line x1="18" y1="-32" x2="30" y2="-37" stroke="#1F8A0D" strokeWidth="2.5" strokeLinecap="round"/>
-    <polygon points="28,-38 33,-35 29,-31" fill="#1F8A0D"/>
-    <line x1="18" y1="-21" x2="32" y2="-21" stroke="#1F8A0D" strokeWidth="2.5" strokeLinecap="round"/>
-    <polygon points="30,-24 35,-21 30,-18" fill="#1F8A0D"/>
+    <line x1="18" y1="-32" x2="30" y2="-37" stroke="#D97757" strokeWidth="2.5" strokeLinecap="round"/>
+    <polygon points="28,-38 33,-35 29,-31" fill="#D97757"/>
+    <line x1="18" y1="-21" x2="32" y2="-21" stroke="#D97757" strokeWidth="2.5" strokeLinecap="round"/>
+    <polygon points="30,-24 35,-21 30,-18" fill="#D97757"/>
   </>
 );
 

@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useMessages, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import {
   ExternalLink,
@@ -20,7 +20,15 @@ import { useTheme } from "@/contexts/theme-context";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 import { openCookieSettings } from "@/utils/cookieManager";
 import { cn } from "@/lib/utils";
-import { landingsMeta, localize } from "@/app/[locale]/landings";
+
+const LANDING_SLUGS = [
+  "chatbots-empresas-sevilla",
+  "automatizacion-n8n-sevilla",
+  "agentes-ia-atencion-cliente-sevilla",
+  "automatizacion-whatsapp-business-sevilla",
+  "formacion-ia-pymes-sevilla",
+  "integraciones-crm-erp-sevilla",
+] as const;
 
 type FooterLinkItem = {
   label: string;
@@ -34,10 +42,15 @@ type FooterGroup = {
   links: FooterLinkItem[];
 };
 
+type LandingFooterContent = {
+  shortTitle?: string;
+};
+
 const Footer = () => {
   const t = useTranslations("home");
   const tCookie = useTranslations("cookie");
   const locale = useLocale();
+  const messages = useMessages();
   const { isDark, setIsDark } = useTheme();
   const currentYear = new Date().getUTCFullYear();
   const whatsappUrl = getWhatsAppUrl(t("navigation.ctaConsultationMessage"));
@@ -79,9 +92,10 @@ const Footer = () => {
       });
     }
 
-    const landingLinks: FooterLinkItem[] = landingsMeta.map((landing) => ({
-      label: localize(locale, landing.shortTitle),
-      href: `/${landing.slug}`,
+    const landingMessages = (messages as { landings?: Record<string, LandingFooterContent> }).landings ?? {};
+    const landingLinks: FooterLinkItem[] = LANDING_SLUGS.map((slug) => ({
+      label: landingMessages[slug]?.shortTitle ?? slug,
+      href: `/${slug}`,
     }));
 
     return [
@@ -113,7 +127,7 @@ const Footer = () => {
         links: connectLinks,
       },
     ];
-  }, [locale, t, whatsappUrl]);
+  }, [messages, t, whatsappUrl]);
 
   const utilityLinks = useMemo<FooterLinkItem[]>(
     () => [

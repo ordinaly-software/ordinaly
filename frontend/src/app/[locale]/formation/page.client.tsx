@@ -457,7 +457,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
         </div>
       </Banner>
 
-      <section className="max-w-4xl mx-auto mt-8 mb-2 px-4">
+      <section className="relative z-10 max-w-5xl mx-auto -mt-4 mb-3 px-4">
         <BonificationInfo />
       </section>
 

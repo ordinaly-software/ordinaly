@@ -132,7 +132,7 @@ export function ServiceDetailsContent({
             >
               {priceLabel}
             </Badge>
-            {service.is_featured && <Badge className="bg-emerald-600 text-white shadow">{labels.featured}</Badge>}
+            {service.is_featured && <Badge className="bg-clay text-white shadow">{labels.featured}</Badge>}
           </div>
         </div>
       </div>

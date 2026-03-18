@@ -96,7 +96,7 @@ export default function ResetPasswordPage() {
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-4 text-base text-gray-900 transition-all focus:ring-2 focus:ring-[#0255D5] dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-[#7DB5FF]"
+                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-4 text-base text-gray-900 transition-all focus:ring-2 focus:ring-[#D97757] dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-[#E15D31]"
                       placeholder={t("request.emailPlaceholder")}
                       required
                     />
@@ -113,7 +113,7 @@ export default function ResetPasswordPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0255D5] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#01388A] disabled:opacity-50 dark:bg-[#7DB5FF] dark:text-[#1A1924] dark:hover:bg-[#60A5FA]"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] disabled:opacity-50 dark:bg-[#E15D31] dark:text-white dark:hover:bg-[#C6613F]"
                   >
                     <KeyRound className="h-4 w-4" />
                     {isLoading ? t("request.submitLoading") : t("request.submit")}

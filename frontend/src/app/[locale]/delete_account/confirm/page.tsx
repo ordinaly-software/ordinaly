@@ -52,7 +52,7 @@ export default function ConfirmDeletePage() {
 
   const iconColors = {
     loading: "text-[#46B1C9] dark:text-[#46B1C9]",
-    success: "text-green-600 dark:text-green-400",
+    success: "text-[#D97757] dark:text-[#F6D2C5]",
     error: "text-red-600 dark:text-red-400",
   };
 
@@ -109,7 +109,7 @@ export default function ConfirmDeletePage() {
                     href="/"
                     className={
                       status === "success"
-                        ? "inline-flex items-center justify-center gap-2 rounded-xl bg-[#0255D5] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#01388A] dark:bg-[#7DB5FF] dark:text-[#1A1924] dark:hover:bg-[#60A5FA]"
+                        ? "inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] dark:bg-[#E15D31] dark:text-white dark:hover:bg-[#C6613F]"
                         : "inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                     }
                   >

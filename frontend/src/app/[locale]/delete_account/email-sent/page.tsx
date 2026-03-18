@@ -142,7 +142,7 @@ export default function EmailSent() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href={homeHref}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0255D5] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#01388A] dark:bg-[#7DB5FF] dark:text-[#1A1924] dark:hover:bg-[#60A5FA]"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] dark:bg-[#E15D31] dark:text-white dark:hover:bg-[#C6613F]"
                 >
                   <Home className="h-4 w-4" />
                   {t("backHome")}

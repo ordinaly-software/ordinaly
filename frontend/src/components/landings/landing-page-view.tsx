@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
+import { useMemo, type ReactNode } from "react";
 import {
   ArrowRight,
   CheckCircle2,
@@ -14,11 +14,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
-import { localize, type LocalLandingMeta } from "@/app/[locale]/landings";
 import { HubIllustration } from "@/components/ui/hub-illustration";
 import { HUB_FIGURES } from "@/components/ui/hub-figures";
 import dynamic from "next/dynamic";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+import { useLocale, useTranslations } from "next-intl";
+import Footer from "@/components/ui/footer";
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
   ssr: false,
@@ -32,41 +33,80 @@ const softCardClass =
 const darkCardClass =
   "rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] text-white shadow-[0_24px_90px_-58px_rgba(0,0,0,0.56)] dark:border-white/10";
 
-export function LocalLandingPage({ locale, meta }: { locale: string; meta: LocalLandingMeta }) {
-  const isEn = locale.startsWith("en");
-  const pick = (value: { es: string; en: string }) => localize(locale, value);
+type LandingMetric = {
+  label: string;
+  value: string;
+  detail: string;
+};
 
-  const content = {
-    title: pick(meta.title),
-    subtitle: pick(meta.subtitle),
-    description: pick(meta.description),
-    heroBadge: pick(meta.heroBadge),
-    heroCtaLabel: pick(meta.heroCtaLabel),
-    secondaryCtaLabel: pick(meta.secondaryCtaLabel),
-    serviceType: pick(meta.serviceType),
-    areaServed: pick(meta.areaServed),
-    valueProps: meta.valueProps.map(pick),
-    metrics: meta.metrics.map((metric) => ({
-      label: pick(metric.label),
-      value: pick(metric.value),
-      detail: pick(metric.detail),
-    })),
-    outcomes: meta.outcomes.map(pick),
-    steps: meta.steps.map(pick),
-    useCases: meta.useCases.map((useCase) => ({
-      tag: pick(useCase.tag),
-      title: pick(useCase.title),
-      description: pick(useCase.description),
-      bullets: useCase.bullets.map(pick),
-    })),
-    technologyFaqs: meta.technologyFaqs.map((faq) => ({
-      tag: faq.tag ? pick(faq.tag) : null,
-      question: pick(faq.question),
-      answer: pick(faq.answer),
-    })),
-    keywords: meta.keywords.map(pick),
-    heroImage: meta.heroImage || "/static/backgrounds/services_background.webp",
-  };
+type LandingUseCase = {
+  tag: string;
+  title: string;
+  description: string;
+  bullets: string[];
+};
+
+type LandingFaq = {
+  tag?: string;
+  question: string;
+  answer: string;
+};
+
+type LandingHubPlatform = {
+  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  figureKey: keyof typeof HUB_FIGURES;
+  colorScheme: "indigo" | "cyan";
+  label: string;
+  sublabel: string;
+};
+
+type LandingHub = {
+  title: string;
+  subtitle?: string;
+  bgTheme?: "indigo" | "cyan" | "green" | "purple";
+  platforms: LandingHubPlatform[];
+};
+
+type LandingCta = {
+  label: string;
+  href: string;
+  bgColor: string;
+};
+
+export type LandingPageContent = {
+  slug: string;
+  heroImage?: string;
+  heroImagePosition?: string;
+  title: string;
+  shortTitle: string;
+  subtitle: string;
+  description: string;
+  heroBadge: string;
+  heroCtaLabel: string;
+  secondaryCtaLabel: string;
+  serviceType: string;
+  areaServed: string;
+  valueProps: string[];
+  metrics: LandingMetric[];
+  outcomes: string[];
+  steps: string[];
+  useCases: LandingUseCase[];
+  technologyFaqs: LandingFaq[];
+  keywords: string[];
+  hub?: LandingHub;
+  cta?: LandingCta;
+};
+
+export default function LandingPageView({
+  content,
+  architectureOverride,
+}: {
+  content: LandingPageContent;
+  architectureOverride?: ReactNode;
+}) {
+  const locale = useLocale();
+  const tUi = useTranslations("landingUi");
+  const isEn = locale.startsWith("en");
 
   const heroCtaHref = `/${isEn ? "en" : "es"}/contact`;
   const jumpToFormHref = "#landing-contact";
@@ -74,9 +114,9 @@ export function LocalLandingPage({ locale, meta }: { locale: string; meta: Local
     ? `I want to scope ${content.serviceType.toLowerCase()} with Ordinaly`
     : `Quiero definir ${content.serviceType.toLowerCase()} con Ordinaly`;
   const secondaryCtaHref = `https://wa.me/34626270806?text=${encodeURIComponent(whatsappText)}`;
-  const floatingCtaLabel = meta.cta ? pick(meta.cta.label) : null;
-  const floatingCtaHref = meta.cta?.href ?? secondaryCtaHref;
-  const floatingCtaBg = meta.cta?.bgColor ?? "#0255D5";
+  const floatingCtaLabel = content.cta?.label ?? null;
+  const floatingCtaHref = content.cta?.href ?? secondaryCtaHref;
+  const floatingCtaBg = content.cta?.bgColor ?? "#0255D5";
 
   const faqSchema = useMemo(
     () => ({
@@ -124,45 +164,30 @@ export function LocalLandingPage({ locale, meta }: { locale: string; meta: Local
   );
 
   const ui = {
-    blueprint: isEn ? "Technical blueprint" : "Blueprint técnico",
-    measuredDelivery: isEn ? "Measured delivery" : "Despliegue medible",
-    service: isEn ? "Service scope" : "Alcance del servicio",
-    coverage: isEn ? "Coverage" : "Cobertura",
-    delivery: isEn ? "Delivery model" : "Modelo de entrega",
-    deliveryText: isEn
-      ? "Audit, pilot, rollout and monitoring with versioned changes."
-      : "Auditoría, piloto, despliegue y monitorización con cambios versionados.",
-    capabilities: isEn ? "Core capabilities" : "Capacidades clave",
-    metrics: isEn ? "Benchmarks and operating targets" : "Benchmarks y objetivos operativos",
-    metricsText: isEn
-      ? "Precise parameters for the initial rollout, observability and control."
-      : "Parámetros concretos para el despliegue inicial, la observabilidad y el control.",
-    kpis: isEn ? "KPIs and acceptance criteria" : "KPIs y criterios de aceptación",
-    process: isEn ? "Implementation sequence" : "Secuencia de implantación",
-    processText: isEn
-      ? "We reduce ambiguity first, then automate with guardrails and observability."
-      : "Primero reducimos ambigüedad; después automatizamos con guardrails y observabilidad.",
-    useCases: isEn ? "Use cases by team" : "Casos de uso por equipo",
-    useCasesText: isEn
-      ? "Examples that fit real workflows rather than generic demos."
-      : "Ejemplos pensados para flujos reales y no para demos genéricas.",
-    faq: isEn ? "Technology FAQ" : "FAQ técnica",
-    ready: isEn ? "Scope the pilot" : "Definir el piloto",
-    readyText: isEn
-      ? "We prepare a first technical scope with interfaces, target workflow, constraints and acceptance criteria."
-      : "Preparamos un primer alcance técnico con interfaces, flujo objetivo, restricciones y criterios de aceptación.",
-    keywords: isEn ? "Search intents" : "Intenciones de búsqueda",
-    architecture: isEn ? "Reference architecture" : "Arquitectura de referencia",
-    contactEyebrow: isEn ? "Project intake" : "Intake del proyecto",
-    contactTitle: isEn
-      ? "Talk with the team that scopes and ships the rollout"
-      : "Habla con el equipo que define y ejecuta el despliegue",
-    contactText: isEn
-      ? "The same people audit the process, build the pilot and review the first weeks in production."
-      : "El mismo equipo audita el proceso, construye el piloto y revisa las primeras semanas en producción.",
-    response: isEn ? "Response window" : "Ventana de respuesta",
-    responseText: isEn ? "Reply in under 24 business hours" : "Respuesta en menos de 24 horas laborables",
-    startNow: isEn ? "Open form" : "Abrir formulario",
+    blueprint: tUi("blueprint"),
+    measuredDelivery: tUi("measuredDelivery"),
+    service: tUi("service"),
+    coverage: tUi("coverage"),
+    delivery: tUi("delivery"),
+    deliveryText: tUi("deliveryText"),
+    metrics: tUi("metrics"),
+    metricsText: tUi("metricsText"),
+    kpis: tUi("kpis"),
+    process: tUi("process"),
+    processText: tUi("processText"),
+    useCases: tUi("useCases"),
+    useCasesText: tUi("useCasesText"),
+    faq: tUi("faq"),
+    ready: tUi("ready"),
+    readyText: tUi("readyText"),
+    keywords: tUi("keywords"),
+    architecture: tUi("architecture"),
+    contactEyebrow: tUi("contactEyebrow"),
+    contactTitle: tUi("contactTitle"),
+    contactText: tUi("contactText"),
+    response: tUi("response"),
+    responseText: tUi("responseText"),
+    startNow: tUi("startNow"),
   };
 
   const contactHighlights = [
@@ -244,12 +269,12 @@ export function LocalLandingPage({ locale, meta }: { locale: string; meta: Local
               <div className="grid gap-4">
                 <div className="relative min-h-[340px] overflow-hidden rounded-[1.75rem] border border-[--color-border-subtle] bg-[#0f172a] shadow-[0_28px_80px_-50px_rgba(15,23,42,0.5)] dark:border-white/10 lg:min-h-[420px]">
                   <Image
-                    src={content.heroImage}
+                    src={content.heroImage || "/static/backgrounds/services_background.webp"}
                     alt={content.title}
                     fill
                     priority
                     className="object-cover"
-                    style={{ objectPosition: meta.heroImagePosition ?? "center" }}
+                    style={{ objectPosition: content.heroImagePosition ?? "center" }}
                     sizes="(min-width: 1280px) 520px, (min-width: 768px) 60vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/18 to-transparent" />
@@ -300,7 +325,11 @@ export function LocalLandingPage({ locale, meta }: { locale: string; meta: Local
             ))}
           </section>
 
-          {meta.hub && (
+          {architectureOverride ? (
+            <section className={`${cardClass} overflow-hidden p-0`}>
+              {architectureOverride}
+            </section>
+          ) : content.hub ? (
             <section className={`${cardClass} overflow-hidden p-0`}>
               <div className="border-b border-[--color-border-subtle] px-6 py-4 dark:border-white/10 md:px-8">
                 <div className="flex items-center gap-2 text-[#0255D5] dark:text-[#7DB5FF]">
@@ -309,19 +338,19 @@ export function LocalLandingPage({ locale, meta }: { locale: string; meta: Local
                 </div>
               </div>
               <HubIllustration
-                title={pick(meta.hub.title)}
-                subtitle={meta.hub.subtitle ? pick(meta.hub.subtitle) : undefined}
-                bgTheme={meta.hub.bgTheme}
-                platforms={meta.hub.platforms.map((platform) => ({
+                title={content.hub.title}
+                subtitle={content.hub.subtitle}
+                bgTheme={content.hub.bgTheme}
+                platforms={content.hub.platforms.map((platform) => ({
                   position: platform.position,
-                  label: pick(platform.label),
-                  sublabel: pick(platform.sublabel),
+                  label: platform.label,
+                  sublabel: platform.sublabel,
                   colorScheme: platform.colorScheme,
                   figure: HUB_FIGURES[platform.figureKey],
                 }))}
               />
             </section>
-          )}
+          ) : null}
 
           <section className="grid gap-6 xl:grid-cols-[1fr_0.92fr]">
             <div className={`${cardClass} p-6 md:p-8`}>
@@ -500,6 +529,8 @@ export function LocalLandingPage({ locale, meta }: { locale: string; meta: Local
           </section>
         </div>
       </div>
+
+      <Footer />
 
       <WhatsAppBubble />
 

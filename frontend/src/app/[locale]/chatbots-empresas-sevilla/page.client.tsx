@@ -1,10 +1,12 @@
 "use client";
 
-import { LocalLandingPage } from "@/components/ui/local-landing";
-import { getLandingMeta } from "@/app/[locale]/landings";
+import { useMessages } from "next-intl";
+import LandingPageView from "@/components/landings/landing-page-view";
+import type { LandingPageContent } from "@/components/landings/landing-page-view";
 
-const meta = getLandingMeta("chatbots-empresas-sevilla")!;
-
-export default function ChatbotsEmpresasSevillaPage({ locale }: { locale: string }) {
-  return <LocalLandingPage locale={locale} meta={meta} />;
+export default function ChatbotsEmpresasSevillaPage() {
+  const messages = useMessages() as { landings?: Record<string, LandingPageContent> };
+  const content = messages.landings?.["chatbots-empresas-sevilla"];
+  if (!content) throw new Error("Missing landing content: chatbots-empresas-sevilla");
+  return <LandingPageView content={content} />;
 }

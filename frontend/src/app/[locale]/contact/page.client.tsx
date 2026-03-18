@@ -140,10 +140,10 @@ export default function ContactPage() {
         href: "https://www.youtube.com/@ordinaly",
         handle: "youtube.com/@ordinaly",
         surfaceClass:
-          "border-[#0d6e0c]/15 bg-[linear-gradient(135deg,rgba(13,110,12,0.1),rgba(255,255,255,0.92))] hover:border-[#1F8A0D]/35 dark:border-[#3FBD6F]/20 dark:bg-[linear-gradient(135deg,rgba(13,110,12,0.16),rgba(255,255,255,0.04))]",
+          "border-[#D97757]/15 bg-[linear-gradient(135deg,rgba(217,119,87,0.12),rgba(255,255,255,0.92))] hover:border-[#C6613F]/35 dark:border-[#D97757]/20 dark:bg-[linear-gradient(135deg,rgba(217,119,87,0.18),rgba(255,255,255,0.04))]",
         iconClass:
-          "bg-[#1F8A0D]/12 text-[#0d6e0c] dark:bg-[#1F8A0D]/18 dark:text-[#3FBD6F]",
-        handleClass: "text-[#0d6e0c] dark:text-[#3FBD6F]",
+          "bg-[#D97757]/12 text-[#D97757] dark:bg-[#D97757]/18 dark:text-[#F6D2C5]",
+        handleClass: "text-[#D97757] dark:text-[#F6D2C5]",
       },
       {
         icon: Linkedin,
@@ -151,7 +151,7 @@ export default function ContactPage() {
         href: "https://www.linkedin.com/company/ordinalysoftware/",
         handle: "linkedin.com/company/ordinalysoftware",
         surfaceClass:
-          "border-[#0255D5]/15 bg-[linear-gradient(135deg,rgba(2,85,213,0.1),rgba(13,110,12,0.06),rgba(255,255,255,0.9))] hover:border-[#0255D5]/35 dark:border-[#7DB5FF]/20 dark:bg-[linear-gradient(135deg,rgba(2,85,213,0.16),rgba(13,110,12,0.1),rgba(255,255,255,0.04))]",
+          "border-[#0255D5]/15 bg-[linear-gradient(135deg,rgba(2,85,213,0.1),rgba(217,119,87,0.08),rgba(255,255,255,0.9))] hover:border-[#0255D5]/35 dark:border-[#7DB5FF]/20 dark:bg-[linear-gradient(135deg,rgba(2,85,213,0.16),rgba(217,119,87,0.12),rgba(255,255,255,0.04))]",
         iconClass:
           "bg-[#0255D5]/12 text-[#0255D5] dark:bg-[#0255D5]/18 dark:text-[#7DB5FF]",
         handleClass: "text-[#0255D5] dark:text-[#7DB5FF]",
@@ -162,10 +162,10 @@ export default function ContactPage() {
         href: "https://www.tiktok.com/@ordinaly.ai",
         handle: "@ordinaly.ai",
         surfaceClass:
-          "border-[#0d6e0c]/15 bg-[linear-gradient(135deg,rgba(13,110,12,0.08),rgba(2,85,213,0.08),rgba(255,255,255,0.92))] hover:border-[#1F8A0D]/35 dark:border-[#3FBD6F]/20 dark:bg-[linear-gradient(135deg,rgba(13,110,12,0.14),rgba(2,85,213,0.12),rgba(255,255,255,0.04))]",
+          "border-[#D97757]/15 bg-[linear-gradient(135deg,rgba(217,119,87,0.08),rgba(2,85,213,0.08),rgba(255,255,255,0.92))] hover:border-[#C6613F]/35 dark:border-[#D97757]/20 dark:bg-[linear-gradient(135deg,rgba(217,119,87,0.16),rgba(2,85,213,0.12),rgba(255,255,255,0.04))]",
         iconClass:
-          "bg-[#0d6e0c]/12 text-[#0d6e0c] dark:bg-[#0d6e0c]/20 dark:text-[#3FBD6F]",
-        handleClass: "text-[#0d6e0c] dark:text-[#3FBD6F]",
+          "bg-[#D97757]/12 text-[#D97757] dark:bg-[#D97757]/20 dark:text-[#F6D2C5]",
+        handleClass: "text-[#D97757] dark:text-[#F6D2C5]",
       },
     ],
     [],

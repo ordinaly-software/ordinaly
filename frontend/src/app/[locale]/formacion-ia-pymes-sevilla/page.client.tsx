@@ -1,10 +1,12 @@
 "use client";
 
-import { LocalLandingPage } from "@/components/ui/local-landing";
-import { getLandingMeta } from "@/app/[locale]/landings";
+import { useMessages } from "next-intl";
+import LandingPageView from "@/components/landings/landing-page-view";
+import type { LandingPageContent } from "@/components/landings/landing-page-view";
 
-const meta = getLandingMeta("formacion-ia-pymes-sevilla")!;
-
-export default function FormacionIaPymesSevillaPage({ locale }: { locale: string }) {
-  return <LocalLandingPage locale={locale} meta={meta} />;
+export default function FormacionIaPymesSevillaPage() {
+  const messages = useMessages() as { landings?: Record<string, LandingPageContent> };
+  const content = messages.landings?.["formacion-ia-pymes-sevilla"];
+  if (!content) throw new Error("Missing landing content: formacion-ia-pymes-sevilla");
+  return <LandingPageView content={content} />;
 }
