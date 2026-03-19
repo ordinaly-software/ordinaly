@@ -346,7 +346,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                     className="flex-shrink-0"
                     style={{ flexBasis: `${100 / slidesToShow}%` }}
                   >
-                    <Card className="h-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong]">
+                    <Card className="h-auto flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong]">
                       <CardHeader>
                         <div className="w-full h-48 bg-oat dark:bg-[--swatch--slate-medium] rounded-lg animate-pulse mb-4"></div>
                         <div className="h-6 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse mb-2"></div>
@@ -409,14 +409,14 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                     >
                       <Card
                         className={
-                          `h-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong] transition-all duration-300 hover:shadow-xl hover:border-clay/30 dark:hover:border-clay/30 hover:-translate-y-1 cursor-pointer group rounded-3xl ` +
+                          `h-auto flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong] transition-all duration-300 hover:shadow-xl hover:border-clay/30 dark:hover:border-clay/30 hover:-translate-y-1 cursor-pointer group rounded-3xl ` +
                           (highlightUpcoming ? 'ring-2 ring-clay shadow-2xl scale-[0.97] z-10' : '')
                         }
                         style={highlightUpcoming ? { boxShadow: '0 0 0 3px var(--swatch--clay), 0 8px 15px 0 var(--swatch--clay)44' } : {}}
                         onClick={() => handleCourseClick(course)}
                       >
-                        <CardHeader className="pb-4">
-                          <div className="relative w-full h-48 rounded-lg overflow-hidden mb-4 bg-oat/40 dark:bg-[--swatch--slate-medium]/40">
+                        <CardHeader className="pb-2">
+                          <div className="relative w-full h-36 rounded-lg overflow-hidden mb-4 bg-oat/40 dark:bg-[--swatch--slate-medium]/40">
                             {!imageErrors.has(course.id) ? (
                               <Image
                                 src={course.image}
@@ -471,7 +471,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                           </div>
                         </CardHeader>
                         
-                        <CardContent className="pt-0 flex-1 flex flex-col">
+                        <CardContent className="pt-0 flex flex-col">
                           <div className="space-y-4 flex-1 flex flex-col">
                             {/* Course Details */}
                             <div className="grid grid-cols-2 gap-3 text-sm">

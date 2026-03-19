@@ -23,9 +23,9 @@ const clientLogos = [
 
 const bulletPoints = [
   { icon: Building2, key: "hero.trust1", href: "#services" },
-  { icon: Bot,       key: "hero.trust2", href: "#services" },
-  { icon: Book,      key: "hero.trust3", href: "#courses"  },
-  { icon: ArrowRight,key: "hero.trust4", href: "#courses"  },
+  { icon: Bot, key: "hero.trust2", href: "#services" },
+  { icon: Book, key: "hero.trust3", href: "#courses" },
+  { icon: ArrowRight, key: "hero.trust4", href: "#courses" },
 ];
 
 const accordionImages: Omit<AccordionImageItem, "label" | "sublabel">[] = [
@@ -51,10 +51,10 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
   const { isDark } = useTheme();
 
   const accordionItems: AccordionImageItem[] = [
-    { ...accordionImages[0], label: t("hero.card1Label"),    sublabel: t("hero.card1Value")    },
+    { ...accordionImages[0], label: t("hero.card1Label"), sublabel: t("hero.card1Value") },
     { ...accordionImages[1], label: t("hero.card2Label"), sublabel: t("hero.card2Value") },
     { ...accordionImages[2], label: t("hero.card3Label"), sublabel: t("hero.card3Value") },
-    { ...accordionImages[3], label: t("hero.card4Label"),            sublabel: t("hero.card4Value")            },
+    { ...accordionImages[3], label: t("hero.card4Label"), sublabel: t("hero.card4Value") },
   ];
 
   return (
@@ -124,13 +124,22 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 className="block rounded-a-m focus:outline-none focus-visible:ring-2 focus-visible:ring-clay focus-visible:ring-offset-2"
               >
                 <div
-                  className="flex h-full items-center gap-3 rounded-a-m border border-[--color-border-subtle] px-4 py-3 transition-colors hover:border-clay/40 dark:border-white/10"
-                  style={{ backgroundColor: isDark ? "rgba(250,249,245,0.05)" : "rgba(255,255,255,0.55)" }}
+                  className={`group flex h-full items-center gap-3 rounded-a-m border border-[--color-border-subtle] px-4 py-3 transition-colors duration-300 cursor-pointer hover:bg-clay hover:border- dark:border-white/10
+                    ${isDark
+                      ? "bg-[rgba(250,249,245,0.05)]"
+                      : "bg-[rgba(255,255,255,0.55)]"
+                    }
+                  `}
                 >
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-a-s bg-clay/10 text-clay">
+                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center 
+                                    rounded-a-s bg-clay/10 text-clay 
+                                      transition-colors duration-300
+                                        group-hover:bg-white/20 group-hover:text-white">
                     <Icon className="h-4.5 w-4.5" strokeWidth={1.5} />
                   </span>
-                  <p className="text-sm md:text-base text-slate-dark dark:text-ivory-light">{t(key)}</p>
+                  <p className="text-sm md:text-base text-slate-dark dark:text-ivory-light
+                                transition-colors duration-300
+                                group-hover:text-white">{t(key)}</p>
                 </div>
               </Link>
             ))}

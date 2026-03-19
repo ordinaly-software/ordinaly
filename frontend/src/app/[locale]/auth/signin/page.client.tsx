@@ -237,7 +237,14 @@ export default function LoginPage() {
       )}
 
       {/* Login Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)]/40">
+      <section
+  className="
+    py-16 px-4 sm:px-6 lg:px-8
+    bg-[var(--swatch--ivory-medium)]
+    dark:bg-[var(--swatch--slate-dark)]
+  "
+>
+
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
 
@@ -253,7 +260,8 @@ export default function LoginPage() {
 
             {/* Right side: Login Card */}
             <div className="scroll-animate slide-in-right">
-              <Card className="bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)]/50 border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] hover:border-[var(--swatch--clay)] transition-all duration-300 hover:shadow-xl">
+              <Card className="bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] hover:border-[var(--swatch--clay)] transition-all duration-300 hover:shadow-xl">
+
                 <br></br>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -269,7 +277,7 @@ export default function LoginPage() {
                           }}
                           className="
                               w-full flex items-center justify-center gap-3
-                              bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)]
+                              hover:bg-[var(--swatch--clay)]/10 dark:hover:bg-[var(--swatch--clay)]/30
                               border border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)]
                               rounded-lg py-3 px-4
                               shadow hover:shadow-md
@@ -301,12 +309,12 @@ export default function LoginPage() {
                         {t("form.emailLabel")}
                       </Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-300" />
                         <Input
                           type="text"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="pl-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
+                          className="pl-10 bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] focus:border-[var(--swatch--clay)]"
                           placeholder={t("form.emailPlaceholder")}
                           required
                         />
@@ -322,7 +330,7 @@ export default function LoginPage() {
                           type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="pl-10 pr-10 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] focus:border-[var(--swatch--clay)]"
+                          className="pl-10 bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] focus:border-[var(--swatch--clay)]"
                           placeholder={t("form.passwordPlaceholder")}
                           required
                         />
