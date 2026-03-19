@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 
 interface Props {
   title: string;
@@ -34,7 +34,6 @@ const LinkedInIcon = ({ className = "h-6 w-6" }: { className?: string }) => (
 
 export const SharePostButtons: React.FC<Props> = ({ title, excerpt, slug, theme = 'default', showLabel = true }) => {
   const t = useTranslations('blog.share');
-  const locale = useLocale() || 'es';
 
   const siteTag = (typeof window !== 'undefined' && window.location && window.location.hostname)
     ? window.location.hostname.replace(/^www\./, '')
@@ -50,8 +49,7 @@ export const SharePostButtons: React.FC<Props> = ({ title, excerpt, slug, theme 
   let pageUrl = '';
   if (typeof window !== 'undefined') {
     const cleanSlug = slug.replace(/^\/+/, '');
-    const localePart = locale ? locale : 'es';
-    pageUrl = `${window.location.origin}/${localePart}/blog/${cleanSlug}`;
+    pageUrl = `${window.location.origin}/blog/${cleanSlug}`;
   }
 
   const whatsappShare = () => {

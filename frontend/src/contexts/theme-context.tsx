@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { getCookiePreferences } from '@/utils/cookieManager';
+import { isFunctionalAllowed } from '@/utils/cookieManager';
 
 interface ThemeContextType {
   isDark: boolean;
@@ -19,10 +19,9 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   const getFunctionalConsent = () => {
     try {
-      const preferences = getCookiePreferences();
-      return Boolean(preferences?.functional);
+      return isFunctionalAllowed();
     } catch {
-      return false;
+      return true;
     }
   };
 

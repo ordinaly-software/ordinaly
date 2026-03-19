@@ -7,26 +7,22 @@ import { createPageMetadata } from "@/lib/metadata";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
-  params,
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }): Promise<Metadata> {
-  const { locale } = await params;
-  const isEs = locale?.startsWith("es");
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const hasParams = !!resolvedSearchParams && Object.keys(resolvedSearchParams).length > 0;
 
   const base = createPageMetadata({
-      locale,
-      path: "/blog",
-      title: isEs ? "Blog de automatización e IA" : "Automation & AI blog",
-      description: isEs
-        ? "Noticias, guías y casos de éxito sobre automatización, IA y productividad para empresas."
-        : "News, guides, and success stories on automation, AI, and productivity for companies.",
-      image: "/static/backgrounds/blog_background.png",
-    });
+    locale: "es",
+    path: "/blog",
+    title: "Blog de automatización e IA",
+    description: "Noticias, guías y casos de éxito sobre automatización, IA y productividad para empresas.",
+    image: "/static/backgrounds/blog_background.png",
+    alternateLocales: ["es"],
+  });
 
   return hasParams ? { ...base, robots: { index: false, follow: true } } : base;
 }

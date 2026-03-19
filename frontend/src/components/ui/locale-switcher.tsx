@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "@/i18n/navigation";
 import { useTransition } from "react";
 import { Globe } from "lucide-react";
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
-import { getCookiePreferences } from "@/utils/cookieManager";
+import { isFunctionalAllowed } from "@/utils/cookieManager";
 import { cn } from "@/lib/utils";
 
 interface LocaleSwitcherProps {
@@ -29,8 +29,7 @@ export default function LocaleSwitcher({ variant, label }: LocaleSwitcherProps =
       router.push(pathname, { locale: value });
     });
     try {
-      const preferences = getCookiePreferences();
-      const canPersist = Boolean(preferences?.functional);
+      const canPersist = isFunctionalAllowed();
       if (canPersist) {
         localStorage.setItem("preferred-locale", value);
       } else {

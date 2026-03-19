@@ -142,10 +142,10 @@ export default async function RootLayout({
                 function canPersistTheme() {
                   try {
                     const rawPreferences = localStorage.getItem('cookie-preferences');
-                    if (!rawPreferences) return false;
+                    if (!rawPreferences) return true;
                     const parsed = JSON.parse(rawPreferences);
-                    return Boolean(parsed.functional);
-                  } catch { return false; }
+                    return parsed.functional !== false;
+                  } catch { return true; }
                 }
 
                 function getInitialTheme() {
@@ -197,5 +197,4 @@ export default async function RootLayout({
     </html>
   );
 }
-
 

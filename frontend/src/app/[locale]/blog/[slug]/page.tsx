@@ -3,6 +3,7 @@ import { client } from "@/lib/sanity";
 import { postBySlug } from "@/lib/queries";
 import { createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { urlFor } from "@/lib/image";
+
 export const dynamic = 'force-dynamic';
 
 export async function generateStaticParams() {
@@ -17,7 +18,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug, locale } = await params;
+  const { slug } = await params;
   const p = await client.fetch(postBySlug, { slug });
   if (!p) return {};
   const title = p?.seoTitle ?? p.title;
@@ -27,12 +28,13 @@ export async function generateMetadata({
   const imageUrl = ogUrl || "/og-image.png";
 
   return createPageMetadata({
-    locale,
+    locale: "es",
     path: `/blog/${p.slug}`,
     title,
     description: desc,
     image: imageUrl,
     type: "article",
+    alternateLocales: ["es"],
   });
 }
 

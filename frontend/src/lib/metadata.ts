@@ -60,6 +60,7 @@ type MetadataOptions = {
   image?: string;
   type?: OpenGraphType;
   index?: boolean;
+  alternateLocales?: string[];
 };
 
 const normalizePath = (path?: string) => {
@@ -93,6 +94,7 @@ export function createPageMetadata({
   image = "/og-image.png",
   type = defaultOpenGraphType,
   index,
+  alternateLocales,
 }: MetadataOptions): Metadata {
   const resolvedLocale = resolveLocale(locale);
   const url = absoluteUrl(path, resolvedLocale);
@@ -100,8 +102,11 @@ export function createPageMetadata({
   const ogLocale = ogLocales[resolvedLocale] ?? resolvedLocale;
   const socialTitle = buildSocialTitle(title, resolvedLocale);
 
+  const resolvedAlternateLocales = Array.from(
+    new Set((alternateLocales?.length ? alternateLocales : routing.locales).map(resolveLocale)),
+  );
   const alternateLanguages = Object.fromEntries(
-    routing.locales.map((loc) => [localeHrefLangs[loc] ?? loc, absoluteUrl(path, loc)])
+    resolvedAlternateLocales.map((loc) => [localeHrefLangs[loc] ?? loc, absoluteUrl(path, loc)])
   );
   alternateLanguages["x-default"] = absoluteUrl(path);
   const shouldIndex = index ?? true;

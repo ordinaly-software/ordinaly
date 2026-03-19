@@ -11,7 +11,7 @@ import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
 import Link from "next/link";
-import { getCookiePreferences } from "@/utils/cookieManager";
+import { isFunctionalAllowed } from "@/utils/cookieManager";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { getApiUrl } from "@/lib/api-config";
 import {
@@ -60,8 +60,7 @@ export default function LoginPage() {
     }
 
     try {
-      const preferences = getCookiePreferences();
-      const canPersistTheme = Boolean(preferences?.functional);
+      const canPersistTheme = isFunctionalAllowed();
       if (canPersistTheme) {
         localStorage.setItem("theme", isDark ? "dark" : "light");
       } else {

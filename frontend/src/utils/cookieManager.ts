@@ -60,7 +60,9 @@ export function isThirdPartyAllowed(): boolean {
 }
 
 export function isFunctionalAllowed(): boolean {
-  return Boolean(getCookiePreferences()?.functional);
+  const preferences = getCookiePreferences();
+  if (!preferences) return true;
+  return preferences.functional !== false;
 }
 
 /* =========================
