@@ -374,6 +374,7 @@ export default function HomePage({
           <DeferredSection>
             {/* Partners */}
             <section className="u-container pb-12">
+              <br className="my-10" />
               <div className="rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10">
                 <div className="flex flex-col lg:flex-row items-center gap-10">
                   <div className="flex-shrink-0 lg:max-w-xs text-white space-y-3">
