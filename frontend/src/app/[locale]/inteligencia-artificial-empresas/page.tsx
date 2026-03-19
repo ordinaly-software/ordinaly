@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
-import AgentesIaAtencionClienteSevillaPage from "./page.client";
+import InteligenciaArtificialEmpresas from "./page.client"
 
-const slug = "agentes-ia-atencion-cliente-sevilla" as const;
+const slug = "inteligencia-artificial-empresas" as const;
 type LandingMetadataContent = {
   title: string;
   description: string;
@@ -32,6 +32,6 @@ export async function generateMetadata({
   });
 }
 
-export default async function AgentesIaAtencionClienteSevilla() {
-  return <AgentesIaAtencionClienteSevillaPage />;
+export default async function InteligenciaArtificialParaEmpresas() {
+  return <InteligenciaArtificialEmpresas />;
 }

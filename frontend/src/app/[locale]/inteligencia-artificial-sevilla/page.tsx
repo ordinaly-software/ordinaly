@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
-import AutomatizacionWhatsappBusinessSevillaPage from "./page.client";
+import InteligenciaArtificialSevilla from "./page.client"
 
-const slug = "automatizacion-whatsapp-business-sevilla" as const;
+const slug = "inteligencia-artificial-sevilla" as const;
 type LandingMetadataContent = {
   title: string;
   description: string;
@@ -32,6 +32,6 @@ export async function generateMetadata({
   });
 }
 
-export default async function AutomatizacionWhatsappBusinessSevilla() {
-  return <AutomatizacionWhatsappBusinessSevillaPage />;
+export default async function InteligenciaArtificialEnSevilla() {
+  return <InteligenciaArtificialSevilla />;
 }

@@ -58,12 +58,14 @@ const businessSchema = {
     "https://www.facebook.com/61579366744437/",
   ],
   makesOffer: [
-    "Chatbots empresariales",
-    "Agentes IA para soporte",
+    "Agencia de Automatización IA",
+    "Automatización de Facturas",
     "Automatización con n8n",
-    "Integraciones WhatsApp Business",
-    "Integraciones CRM/ERP (Odoo, HubSpot)",
+    "Automatización Inteligente",
+    "Empresa de Inteligencia Artificial",
     "Formación IA para PYMES",
+    "Inteligencia Artificial para empresas",
+    "Inteligencia Artificial Sevilla"
   ],
 };
 

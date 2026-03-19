@@ -22,12 +22,14 @@ import { openCookieSettings } from "@/utils/cookieManager";
 import { cn } from "@/lib/utils";
 
 const LANDING_SLUGS = [
-  "chatbots-empresas-sevilla",
+  "agencia-automatizacion-ia",
   "automatizacion-n8n-sevilla",
-  "agentes-ia-atencion-cliente-sevilla",
-  "automatizacion-whatsapp-business-sevilla",
+  "automatizacion-facturas",
+  "automatizacion-inteligente",
   "formacion-ia-pymes-sevilla",
-  "integraciones-crm-erp-sevilla",
+  "empresa-inteligencia-artificial",
+  "inteligencia-artificial-empresas",
+  "inteligencia-artificial-sevilla"
 ] as const;
 
 type FooterLinkItem = {
