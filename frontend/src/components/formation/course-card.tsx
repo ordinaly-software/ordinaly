@@ -57,7 +57,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
   return (
     <div
       className={[
-        `group relative overflow-hidden rounded-3xl w-full ${variant === "upcoming" ? "max-w-5xl" : "max-w-2xl"} mx-auto transition-all duration-500`,
+        `group relative overflow-hidden rounded-3xl w-full mx-auto transition-all duration-500`,
         "bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium]",
         "border border-[--color-border-subtle] dark:border-[--color-border-strong]",
         variant === "upcoming"
@@ -96,7 +96,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
         ) : (
           <div className="absolute inset-x-4 top-4 z-20 flex flex-wrap items-start justify-between gap-2">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="bg-[--swatch--ivory-light]/90 dark:bg-[--swatch--slate-dark]/90 backdrop-blur-sm text-slate-dark dark:text-ivory-light px-3 py-1 rounded-full text-sm font-semibold">
+              <span className="bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] text-slate-dark dark:text-ivory-light px-3 py-1 rounded-full text-sm font-semibold">
                 {course.price ? `€${course.price}` : t("free")}
               </span>
 

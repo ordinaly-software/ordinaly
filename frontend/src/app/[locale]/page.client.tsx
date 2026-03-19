@@ -13,8 +13,8 @@ import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import { Zap, SlidersHorizontal, Headphones } from "lucide-react";
-import { LogoCarousel } from "@/components/ui/logo-carousel";
 import { AiChatDemo } from "@/components/home/ai-chat-demo";
+import { PartnerShowcase } from "@/components/ui/partner-showcase";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -91,21 +91,6 @@ const serviceBenefits = [
   },
 ];
 
-// Partner logo image components for LogoCarousel
-const partnerLogos: { name: string; id: number; img: React.ComponentType<React.SVGProps<SVGSVGElement>> }[] = [
-  "/static/logos/logo_aviva_publicidad_small.webp",
-  "/static/logos/logo_grupo_addu_small.webp",
-  "/static/logos/logo_proinca_consultores_small.webp",
-  "/static/logos/logo_guadalquivir_fincas_small.webp",
-  "/static/logos/logo_esau.webp",
-  "/static/logos/logo_geesol.webp",
-].map((src, i) => ({
-  name: src,
-  id: i + 1,
-  // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-  img: ({ className }: React.SVGProps<SVGSVGElement>) => <img src={src} alt="" className={`object-contain invert brightness-0 contrast-100 ${className ?? ""}`} />,
-}));
-
 const UseCasesSection = dynamic(
   () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
   { loading: () => null, ssr: false },
@@ -133,10 +118,12 @@ function DeferredSection({
   children,
   className,
   rootMargin = "300px 0px",
+  id,
 }: {
   children: ReactNode;
   className?: string;
   rootMargin?: string;
+  id?: string;
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [shouldRender, setShouldRender] = useState(false);
@@ -208,7 +195,7 @@ function DeferredSection({
   }, [shouldRender]);
 
   return (
-    <div ref={containerRef} style={deferredSectionStyle} className={className}>
+    <div id={id} ref={containerRef} style={deferredSectionStyle} className={className}>
       {shouldRender ? children : null}
     </div>
   );
@@ -363,32 +350,20 @@ export default function HomePage({
         initialCourses={initialCourses}
         referenceNow={renderedAt}
       />
+      <DeferredSection id="use-cases" className="scroll-mt-24">
+        <UseCasesSection t={t} />
+      </DeferredSection>
       {shouldRenderDeferredSections ? (
         <>
-          <DeferredSection rootMargin="2400px 0px">
-            <UseCasesSection t={t} />
-          </DeferredSection>
           <DeferredSection>
             <TestimonialsSection t={t} />
           </DeferredSection>
           <DeferredSection>
-            {/* Partners */}
-            <section className="u-container pb-12">
-              <br className="my-10" />
-              <div className="rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10">
-                <div className="flex flex-col lg:flex-row items-center gap-10">
-                  <div className="flex-shrink-0 lg:max-w-xs text-white space-y-3">
-                    <p className="text-xs uppercase tracking-[0.16em] text-white/50">{t("partners.title")}</p>
-                    <h2 className="text-2xl font-semibold tracking-[-0.03em]">
-                      {t("partners.subtitle")}
-                    </h2>
-                  </div>
-                  <div className="flex-1 flex justify-center overflow-hidden">
-                    <LogoCarousel logos={partnerLogos} columnCount={3} mobileColumnCount={2} />
-                  </div>
-                </div>
-              </div>
-            </section>
+            <PartnerShowcase
+              eyebrow={t("partners.title")}
+              title={t("partners.subtitle")}
+              className="pt-10 pb-12"
+            />
           </DeferredSection>
           <DeferredSection>
             <AiChatDemo t={t} />
