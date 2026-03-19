@@ -272,7 +272,7 @@ function SignupPageContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] transition-colors duration-300">
+    <div className="min-h-screen bg-[var(--swatch--ivory-light)] dark:bg-black text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] transition-colors duration-300">
       {/* Fullscreen loading overlay during redirect */}
       {isRedirecting && (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)]">
@@ -294,7 +294,13 @@ function SignupPageContent() {
       )}
 
       {/* Signup Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--swatch--ivory-medium)] dark:bg-[var(--swatch--slate-medium)]/40">
+      <section
+  className="
+    py-16 px-4 sm:px-6 lg:px-8
+    bg-[var(--swatch--ivory-medium)]
+    dark:bg-[var(--swatch--slate-dark)]
+  "
+>
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left side: Title + Illustration (hidden on mobile) */}
@@ -323,7 +329,7 @@ function SignupPageContent() {
 
             {/* Right side: Signup Card */}
             <div className="scroll-animate slide-in-right">
-              <Card className="bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)]/50 border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] hover:border-[var(--swatch--clay)] transition-all duration-300 hover:shadow-xl">
+              <Card className="bg-[var(--swatch--ivory-light)] dark:bg-slate-950 border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] hover:border-[var(--swatch--clay)] transition-all duration-300 hover:shadow-xl">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] text-center">
                     {t("form.title")}

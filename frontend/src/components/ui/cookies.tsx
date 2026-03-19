@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { Fingerprint, Shield, BarChart3, Globe, X } from 'lucide-react';
+import { Shield, BarChart3, Globe, X, Cookie, CookieIcon} from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import Slider from "@/components/ui/slider";
@@ -128,7 +128,7 @@ const CookieConsent = () => {
         {/* Header */}
         <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-[--color-border-subtle] dark:border-[--color-border-strong]">
           <div className="flex items-center gap-2">
-            <Fingerprint className="h-3.5 w-3.5 text-slate-medium dark:text-cloud-medium flex-shrink-0" />
+            <CookieIcon className="h-4 w-4" aria-hidden="true" />
             <span className="text-[10px] font-semibold tracking-[0.16em] uppercase text-slate-dark dark:text-ivory-light">
               {t('title')}
             </span>
@@ -268,7 +268,7 @@ const CookieConsent = () => {
             className="flex items-center justify-center rounded-full border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[#f5f5f7] dark:bg-[#111213] text-slate-medium dark:text-cloud-medium p-2.5 shadow-md transition hover:text-slate-dark dark:hover:text-ivory-light hover:shadow-lg"
             aria-label={t('openCookieSettings')}
           >
-            <Fingerprint className="h-4 w-4" aria-hidden="true" />
+            <Cookie className="h-4 w-4" aria-hidden="true" />
           </button>
         </div>
       )}
