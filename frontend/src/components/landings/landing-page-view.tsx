@@ -122,7 +122,7 @@ export default function LandingPageView({
     () => ({
       "@context": "https://schema.org",
       "@type": "FAQPage",
-      mainEntity: content.technologyFaqs.map((item) => ({
+      mainEntity: content.technologyFaqs?.map((item) => ({
         "@type": "Question",
         name: item.question,
         acceptedAnswer: { "@type": "Answer", text: item.answer },
@@ -298,7 +298,7 @@ export default function LandingPageView({
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-3">
-                  {content.metrics.map((metric) => (
+                  {(content.metrics ?? []).map((metric) => (
                     <div key={metric.label} className={`${softCardClass} p-5`}>
                       <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{metric.label}</p>
                       <p className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-slate-dark dark:text-ivory-light">

@@ -3182,142 +3182,105 @@
       "slug": "inteligencia-artificial-sevilla",
       "heroImage": "/static/backgrounds/odoo_background.webp",
       "heroImagePosition": "center center",
-      "title": "Integraciones CRM y ERP con reglas y calidad de dato",
-      "shortTitle": "Inteligencia Artificial Sevilla",
-      "subtitle": "Sincronizaciones robustas entre ventas, finanzas, soporte e inventario sin duplicados ni conflictos silenciosos.",
-      "description": "Unificamos sistemas con mapeos claros, ownership por campo y observabilidad de sincronización para que el dato circule con criterio y no solo con conectores.",
-      "heroBadge": "CRM + ERP conectados",
-      "heroCtaLabel": "Auditar integración",
-      "secondaryCtaLabel": "Hablar con el equipo",
-      "serviceType": "Integraciones CRM, ERP y datos operativos",
-      "areaServed": "España, equipos multi-sede y entornos híbridos",
+      "title": "Inteligencia Artificial en Sevilla",
+      "shortTitle": "IA para Empresas en Sevilla",
+      "subtitle": "Automatizamos, optimizamos y escalamos procesos con IA para que tu empresa gane velocidad y precisión.",
+      "description": "Desarrollamos soluciones de Inteligencia Artificial aplicadas a operaciones reales: automatización, asistentes inteligentes, análisis predictivo y optimización de procesos. Implementamos IA con criterio, datos limpios y despliegues que funcionan en producción.",
+      "heroCtaLabel": "Abrir formulario",
+      "heroCtaHref": "#formulario",
+      "serviceType": "Automatización, asistentes IA y soluciones aplicadas",
+      "areaServed": "Sevilla, Andalucía y empresas en España",
       "valueProps": [
-        "Definimos qué sistema manda cada campo, cuándo se sincroniza y qué pasa ante conflicto o falta de dato.",
-        "Validamos calidad, deduplicación y reconciliación para evitar errores que parecen integración pero son diseño de dato.",
-        "Paneles de ejecución y error para que el equipo operativo pueda ver qué falla y dónde."
+        "IA aplicada a procesos reales",
+        "Integración con tus sistemas actuales",
+        "Entrenamiento con tus datos",
+        "Supervisión y mejora continua"
       ],
-      "metrics": [
+      "cards": [
         {
-          "label": "Modelo de sync",
-          "value": "Bidireccional o dirigido",
-          "detail": "La dirección se decide por proceso y criticidad, no por comodidad técnica."
+          "title": "Alcance del servicio",
+          "description": "Definimos qué procesos, áreas y sistemas pueden beneficiarse de IA aplicada.",
+          "image": "../../../../../assets/Alcance_Servicio.jpg"
         },
         {
-          "label": "Reconciliación",
-          "value": "Reglas explícitas",
-          "detail": "Diferenciamos conflictos funcionales, duplicados y errores de transporte."
+          "title": "Cobertura",
+          "description": "Aplicamos IA en operaciones, soporte, ventas, dirección y áreas transversales.",
+          "image": "../../../../../assets/Cobertura.jpg"
         },
         {
-          "label": "Cobertura",
-          "value": "Campos críticos primero",
-          "detail": "Priorizamos aquello que impacta facturación, reporting, soporte o inventario."
+          "title": "Modelo de entrega",
+          "description": "Diagnóstico, diseño, entrenamiento, integración y mejora continua.",
+          "image": "../../../../../assets/Modelo_Entrega.jpg"
+        },
+        {
+          "title": "Automatización",
+          "description": "Eliminamos tareas repetitivas y reducimos errores operativos con IA.",
+          "image": "../../../../../assets/Automatización.jpg"
+        },
+        {
+          "title": "Asistentes IA",
+          "description": "Bots entrenados con tu documentación interna para soporte y operaciones.",
+          "image": "../../../../../assets/AsistenteIA.jpg"
         }
       ],
-      "outcomes": [
-        "Menos incidencias por datos inconsistentes entre comercial, soporte y facturación.",
-        "Menor tiempo de onboarding y actualización de clientes, productos o pedidos.",
-        "Más confianza en reportes operativos y financieros porque la base de dato es coherente."
+      "chips": [
+        "IA aplicada a procesos reales",
+        "Integración con tus sistemas",
+        "Entrenamiento con tus datos",
+        "Supervisión y mejora continua"
       ],
       "steps": [
-        "Auditamos sistemas, modelos de dato, ownership y fallos recurrentes de sincronización.",
-        "Diseñamos el mapeo, reglas de transformación y gestión de conflictos.",
-        "Desplegamos con monitorización, alertas y runbooks para soporte interno."
-      ],
-      "useCases": [
-        {
-          "tag": "Ventas",
-          "title": "Leads, oportunidades y pedidos sincronizados",
-          "description": "Evita pérdidas de contexto cuando una oportunidad pasa de marketing a comercial y luego a operación.",
-          "bullets": [
-            "Mismo identificador de cliente entre sistemas",
-            "Estados coherentes de venta y pedido"
-          ]
-        },
-        {
-          "tag": "Finanzas",
-          "title": "Facturación y cobro sin doble captura",
-          "description": "Conecta contratos, pedidos y facturas para eliminar repeticiones y errores manuales.",
-          "bullets": [
-            "Transformación de datos entre modelos distintos",
-            "Alertas de desajuste y conciliación"
-          ]
-        },
-        {
-          "tag": "Soporte",
-          "title": "Visión completa del cliente para soporte",
-          "description": "El equipo ve ventas, incidencias, facturación y estado operacional sin saltar entre cuatro herramientas.",
-          "bullets": [
-            "Contexto histórico y operativo unificado",
-            "Menos escalados por falta de información"
-          ]
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Compatibilidad",
-          "question": "¿Trabajáis solo con Odoo y HubSpot?",
-          "answer": "No. Son casos habituales, pero el enfoque sirve para CRMs propios, ERPs verticales y bases internas siempre que exista acceso por API, base de datos o exportación controlada."
-        },
-        {
-          "tag": "Conflictos",
-          "question": "¿Cómo gestionáis conflictos entre dos sistemas que discrepan?",
-          "answer": "Definimos ownership por campo, prioridad temporal y reglas de reconciliación. Si no se puede decidir automáticamente, el caso pasa a una cola de revisión con contexto."
-        },
-        {
-          "tag": "Seguridad",
-          "question": "¿Incluye seguridad y mínimos privilegios?",
-          "answer": "Sí. Trabajamos con credenciales segregadas, permisos mínimos, cifrado en tránsito y revisión de accesos según criticidad del flujo."
-        },
-        {
-          "tag": "Operación",
-          "question": "¿Quién mantiene la integración cuando está en producción?",
-          "answer": "Depende del acuerdo. Podemos operar nosotros, dejar ownership al equipo interno o compartirlo con runbooks, métricas y ventanas de cambio definidas."
-        }
+        "Identificamos oportunidades de IA en tus procesos.",
+        "Diseñamos la solución: automatización o asistente IA.",
+        "Entrenamos la IA con tus datos y documentación.",
+        "Integramos la solución en tus sistemas actuales.",
+        "Supervisamos, medimos y mejoramos continuamente."
       ],
       "keywords": [
-        "integraciones CRM ERP",
-        "calidad de dato",
-        "Odoo HubSpot integración",
-        "sincronización operacional"
+        "inteligencia artificial sevilla",
+        "automatización IA",
+        "asistentes IA empresas",
+        "optimización de procesos",
+        "IA para negocios"
       ],
       "hub": {
-        "title": "Sistemas conectados con ownership y reglas claras",
-        "subtitle": "Ventas, finanzas y operaciones compartiendo un mismo dato operativo.",
+        "title": "IA aplicada a procesos reales",
+        "subtitle": "Automatización, asistentes inteligentes y modelos predictivos para empresas de Sevilla.",
         "bgTheme": "cyan",
         "platforms": [
           {
             "position": "top-left",
-            "figureKey": "sales-crm",
+            "figureKey": "ai-bot",
             "colorScheme": "indigo",
-            "label": "CRM",
-            "sublabel": "Leads y clientes"
+            "label": "Asistentes IA",
+            "sublabel": "Entrenados con tu negocio"
           },
           {
             "position": "top-right",
-            "figureKey": "cloud-data",
+            "figureKey": "automation",
             "colorScheme": "cyan",
-            "label": "Capa de sync",
-            "sublabel": "Transformación y reglas"
+            "label": "Automatización",
+            "sublabel": "Procesos internos"
           },
           {
             "position": "bottom-left",
-            "figureKey": "finance",
+            "figureKey": "predictive",
             "colorScheme": "indigo",
-            "label": "ERP",
-            "sublabel": "Pedidos y finanzas"
+            "label": "Modelos",
+            "sublabel": "Predicción y análisis"
           },
           {
             "position": "bottom-right",
-            "figureKey": "workflow",
+            "figureKey": "integration",
             "colorScheme": "cyan",
-            "label": "Observabilidad",
-            "sublabel": "Errores y reconciliación"
+            "label": "Integración",
+            "sublabel": "CRM, ERP y APIs"
           }
         ]
       },
       "cta": {
-        "label": "Integrar CRM y ERP",
-        "href": "https://wa.me/34626270806?text=Quiero%20unificar%20CRM%20y%20ERP%20sin%20errores%20de%20dato",
+        "label": "Contactar por WhatsApp",
+        "href": "https://wa.me/34626270806?text=Hola%20IA%20en%20sevilla",
         "bgColor": "#0255D5"
       }
     }
