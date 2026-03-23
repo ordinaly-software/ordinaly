@@ -3200,27 +3200,27 @@
         {
           "title": "Alcance del servicio",
           "description": "Definimos qué procesos, áreas y sistemas pueden beneficiarse de IA aplicada.",
-          "image": "../../../../../assets/Alcance_Servicio.jpg"
+          "image": "../../../../../assets/Alcance_Servicio.webp"
         },
         {
           "title": "Cobertura",
           "description": "Aplicamos IA en operaciones, soporte, ventas, dirección y áreas transversales.",
-          "image": "../../../../../assets/Cobertura.jpg"
+          "image": "../../../../../assets/Cobertura.webp"
         },
         {
           "title": "Modelo de entrega",
           "description": "Diagnóstico, diseño, entrenamiento, integración y mejora continua.",
-          "image": "../../../../../assets/Modelo_Entrega.jpg"
+          "image": "../../../../../assets/Modelo_Entrega.webp"
         },
         {
           "title": "Automatización",
           "description": "Eliminamos tareas repetitivas y reducimos errores operativos con IA.",
-          "image": "../../../../../assets/Automatización.jpg"
+          "image": "../../../../../assets/Automatización.webp"
         },
         {
           "title": "Asistentes IA",
           "description": "Bots entrenados con tu documentación interna para soporte y operaciones.",
-          "image": "../../../../../assets/AsistenteIA.jpg"
+          "image": "../../../../../assets/AsistenteIA.webp"
         }
       ],
       "chips": [
