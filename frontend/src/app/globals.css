@@ -482,3 +482,21 @@ svg[width="2rem"], svg[height="2rem"] {
     }
   }
 }
+.boxes-optimized {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: moveGrid 22s linear infinite;
+  opacity: 0.15;
+  will-change: transform;
+}
+
+@keyframes moveGrid {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-120px, -120px, 0);
+  }
+}

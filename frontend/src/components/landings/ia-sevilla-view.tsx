@@ -1,10 +1,22 @@
 "use client";
 
 import React from "react";
-import { GlobeSevilla } from "../3d-globe-demo";
-import { Card3D } from "@/components/ui/card-3d";
-import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
+import dynamic from "next/dynamic"
+
+const GlobeSevilla = dynamic(() => import("../3d-globe-demo").then(m => m.GlobeSevilla), {
+  ssr: false,
+  loading: () => <div className="w-[300px] h-[300px] bg-black/10 rounded-xl" />,
+});
+
+const Card3D = dynamic(() => import("@/components/ui/card-3d").then(m => m.Card3D), {
+  ssr: false,
+});
+
+const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"), {
+  ssr: false,
+});
+
 
 export interface LandingPageContent {
     title: string;
