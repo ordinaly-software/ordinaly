@@ -2221,145 +2221,74 @@
   "landings": {
     "agencia-automatizacion-ia": {
       "slug": "agencia-automatizacion-ia",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 32%",
-      "title": "Chatbots empresariales con datos conectados",
+      "heroImage": "/static/backgrounds/services_background.webp",
+      "heroImagePosition": "center",
+      "title": "Automatizamos tu empresa con IA",
       "shortTitle": "Agencia de Automatización IA",
-      "subtitle": "RAG, guardrails y handoff humano para soporte, ventas y help desks internos.",
-      "description": "Diseñamos asistentes con fuentes versionadas, trazas por respuesta y políticas de escalado para que cada respuesta salga de documentos y sistemas validados, no de texto genérico.",
-      "heroBadge": "RAG + guardrails",
-      "heroCtaLabel": "Definir piloto",
-      "secondaryCtaLabel": "Abrir WhatsApp",
-      "serviceType": "Chatbots para soporte, ventas e información interna",
+      "subtitle": "Procesos más rápidos, menos errores, más beneficios.",
+      "description": "Diseñamos automatizaciones inteligentes, copilotos internos e integraciones avanzadas para que tu empresa funcione con la eficiencia de una organización moderna impulsada por IA.",
+      "heroBadge": "Automatización + IA",
+      "heroCtaLabel": "Solicitar auditoría gratuita",
+      "secondaryCtaLabel": "Hablar por WhatsApp",
+      "serviceType": "Automatización de procesos empresariales con IA",
       "areaServed": "España, Portugal y despliegue remoto en la UE",
-      "valueProps": [
-        "Pipelines de recuperación con chunking, ranking de fuentes y fallback cuando no hay evidencia suficiente.",
-        "Despliegue en web, WhatsApp y correo con memoria compartida y contexto persistente por cliente.",
-        "Escalado a humano con transcripción, intención detectada, score de confianza y siguiente acción sugerida."
-      ],
-      "metrics": [
+      "timeline": [
         {
-          "label": "Ventana de piloto",
-          "value": "2-4 semanas",
-          "detail": "Incluye limpieza documental, despliegue inicial y revisión con muestra real."
+          "title": "Auditoría",
+          "description": "Analizamos tus procesos actuales y detectamos oportunidades claras de automatización."
         },
         {
-          "label": "Capas de control",
-          "value": "3 niveles",
-          "detail": "Responder, pedir contexto o escalar según evidencia recuperada y política de riesgo."
+          "title": "Diseño",
+          "description": "Creamos flujos, integraciones y automatizaciones adaptadas a tu stack y tus objetivos."
         },
         {
-          "label": "Trazabilidad",
-          "value": "100% logado",
-          "detail": "Prompt, fuentes, confianza y handoff registrados para auditoría y tuning."
+          "title": "Implementación",
+          "description": "Desplegamos las automatizaciones en tu entorno real con pruebas y validaciones."
+        },
+        {
+          "title": "Monitorización",
+          "description": "Medimos impacto, optimizamos y ampliamos las automatizaciones según resultados."
         }
       ],
-      "outcomes": [
-        "Deflexión por intención y por canal, en lugar de medir solo conversaciones totales.",
-        "Tiempo mediano de primera respuesta y resolución con corte por idioma, canal y segmento.",
-        "Precisión de escalado para asegurar que el equipo humano reciba solo casos fuera de política o baja confianza."
+      "whatWeAutomate": [
+        "Automatización de procesos internos",
+        "Integración con CRM, ERP y herramientas internas",
+        "Copilotos internos para equipos de ventas, soporte y operaciones",
+        "Modelos privados y seguros con datos de la empresa",
+        "Automatización documental y extracción inteligente de información"
       ],
-      "steps": [
-        "Clasificamos intenciones, acciones permitidas y calidad de las fuentes antes de tocar prompts.",
-        "Construimos recuperación, prompts, guardrails e integraciones CRM en un entorno de staging.",
-        "Liberamos con QA muestral, revisión semanal de fallos y panel de métricas por intención."
-      ],
-      "useCases": [
+      "caseStudies": [
         {
-          "tag": "Soporte",
-          "title": "Estado de pedidos e incidencias",
-          "description": "El bot responde desde ERP, logística y base documental sin obligar al cliente a esperar a un agente.",
-          "bullets": [
-            "Consulta de envío, devoluciones y facturas",
-            "Clasificación automática por urgencia e intención"
-          ]
+          "metric": "40% menos tiempo",
+          "description": "Automatización del proceso de atención en una empresa de logística."
         },
         {
-          "tag": "Ventas",
-          "title": "Cualificación previa a demo",
-          "description": "Recoge variables de negocio, tamaño de equipo, stack y caso de uso antes de pasar al comercial.",
-          "bullets": [
-            "Preguntas ramificadas con scoring",
-            "Creación automática de lead y resumen en CRM"
-          ]
+          "metric": "3h → 12 min",
+          "description": "Reducción del tiempo de onboarding de empleados en una empresa SaaS."
         },
         {
-          "tag": "Operaciones",
-          "title": "Asistente documental interno",
-          "description": "Reduce tiempo de búsqueda en políticas, procedimientos y fichas de producto para equipos internos.",
-          "bullets": [
-            "Búsqueda con citas y documentos fuente",
-            "Permisos por área o tipo de documento"
-          ]
+          "metric": "98% precisión",
+          "description": "Clasificación automática de tickets en un equipo de soporte de 200+ personas."
         }
       ],
-      "technologyFaqs": [
+      "security": [
         {
-          "tag": "Arquitectura",
-          "question": "¿Qué arquitectura usáis para reducir alucinaciones?",
-          "answer": "Combinamos chunking por tipo documental, embeddings, reranking, reglas de citación y umbrales de confianza. Si la evidencia es insuficiente, el sistema pide más contexto o escala en vez de improvisar."
+          "title": "Modelos privados",
+          "description": "Infraestructura segura y modelos desplegados en entornos controlados."
         },
         {
-          "tag": "Integraciones",
-          "question": "¿Puede escribir en CRM o ticketing?",
-          "answer": "Sí. Limitamos acciones por endpoint, rol y escenario. Las operaciones sensibles pasan por validaciones adicionales o aprobación humana."
+          "title": "Cumplimiento RGPD",
+          "description": "Procesamiento de datos con garantías legales y técnicas."
         },
         {
-          "tag": "Evaluación",
-          "question": "¿Cómo evaluáis la calidad antes de salir a producción?",
-          "answer": "Montamos un set de preguntas reales, medimos exactitud, cobertura, escalado correcto y consistencia de cita. El piloto sale con baseline y revisión semanal."
-        },
-        {
-          "tag": "Infraestructura",
-          "question": "¿Podemos mantener nuestros documentos en nuestra infraestructura?",
-          "answer": "Sí. Podemos indexar desde almacenamiento interno, nubes privadas o servicios europeos. Definimos retención, acceso y sincronización incremental según vuestro entorno."
+          "title": "Encriptación",
+          "description": "Datos cifrados en tránsito y en reposo."
         }
       ],
-      "keywords": [
-        "chatbots empresariales",
-        "chatbot con RAG",
-        "automatización de soporte IA",
-        "chatbot CRM y WhatsApp"
-      ],
-      "hub": {
-        "title": "Arquitectura típica de un chatbot conectado",
-        "subtitle": "Orquestación, conocimiento, CRM y equipo humano bajo un flujo trazable.",
-        "bgTheme": "indigo",
-        "platforms": [
-          {
-            "position": "top-left",
-            "figureKey": "chatbot",
-            "colorScheme": "indigo",
-            "label": "Interfaz conversacional",
-            "sublabel": "Web y mensajería"
-          },
-          {
-            "position": "top-right",
-            "figureKey": "cloud-data",
-            "colorScheme": "cyan",
-            "label": "Conocimiento validado",
-            "sublabel": "FAQs, docs y políticas"
-          },
-          {
-            "position": "bottom-left",
-            "figureKey": "sales-crm",
-            "colorScheme": "indigo",
-            "label": "Sistemas de negocio",
-            "sublabel": "CRM, ERP, tickets"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "teams-ops",
-            "colorScheme": "cyan",
-            "label": "Handoff humano",
-            "sublabel": "Solo cuando conviene"
-          }
-        ]
-      },
       "cta": {
-        "label": "Pedir demo de chatbot",
-        "href": "https://wa.me/34626270806?text=Quiero%20un%20chatbot%20conectado%20a%20mis%20datos",
-        "bgColor": "#0255D5"
+        "label": "Reserva una reunión",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mi%20empresa%20con%20IA",
+        "bgColor": "#000000"
       }
     },
     "automatizacion-n8n-sevilla": {
