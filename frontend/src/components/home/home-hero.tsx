@@ -66,7 +66,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
         <div className="grid items-center gap-10 lg:grid-cols-2 xl:gap-14">
 
           {/* LEFT: copy + CTAs */}
-          <div className="scroll-animate fade-in-up">
+          <div>
 
             {/* Title */}
             <div className="mt-6 space-y-4">

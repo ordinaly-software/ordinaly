@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+
 
 export interface AccordionImageItem {
   id: number | string;
@@ -42,17 +44,18 @@ export function ImageAccordion({
             onClick={() => setActiveIndex(index)}
           >
             {/* Background image */}
-            <img
+            <Image
               src={item.imageUrl}
               alt={item.label}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out"
+              fill
+              className="object-cover transition-transform duration-700 ease-in-out"
               style={{ transform: isActive ? "scale(1.04)" : "scale(1)" }}
-              onError={(e) => {
-                const t = e.currentTarget;
-                t.onerror = null;
-                t.src = "/static/home/main_home_ilustration_1.webp";
-              }}
+              sizes="(max-width: 768px) 100vw, 540px"
+              quality={60}
+              loading={index === 0 ? "eager" : "lazy"}
+              priority={index === 0}
             />
+
 
             {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20 transition-opacity duration-500" />
