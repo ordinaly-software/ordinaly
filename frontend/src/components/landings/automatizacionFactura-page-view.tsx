@@ -32,33 +32,78 @@ export default function AutomatizacionFacturasView({
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="relative w-full h-[40rem] flex items-center justify-center">
-        <SparklesPreview />
-
-        <div className="absolute inset-0 flex flex-col items-center justify-start text-center px-4 pt-60">
-          <h1 className="text-white text-5xl md:text-8xl font-bold drop-shadow-lg">
+      <section className="relative w-full h-[40rem] flex items-center justify-center overflow-hidden bg-gradient-to-b from-neutral-900 to-black">
+        <div className="relative z-20 flex flex-col items-center text-center px-4">
+          <h1 className="text-white text-5xl md:text-7xl font-bold drop-shadow-xl">
             {content.title}
           </h1>
 
-          <p className="text-neutral-300 dark:text-neutral-200 mt-4 max-w-2xl">
+          <p className="text-neutral-300 mt-4 max-w-2xl">
             {content.subtitle}
           </p>
 
-          <p className="text-neutral-400 dark:text-neutral-300 mt-4 max-w-xl">
+          <p className="text-neutral-400 mt-4 max-w-xl">
             {content.description}
           </p>
 
           <a
             href="#formulario"
-            className="
-              mt-16 px-6 py-3 rounded-full 
-              bg-[#d97757] hover:bg-[#b45309] 
-              text-white font-semibold transition
-            "
+            className="mt-10 px-6 py-3 rounded-full bg-[#d97757] text-white font-semibold hover:bg-[#b45309] transition"
           >
             {content.heroCtaLabel}
           </a>
         </div>
+        <div className="absolute inset-0 pointer-events-none z-10">
+          <div className="papers-group">
+            <div className="paper-svg">
+              <svg width="90" height="120" viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="6" width="78" height="108" rx="10" fill="white" stroke="#d4d4d4" strokeWidth="4" />
+                <path d="M60 6 L84 30 L60 30 Z" fill="#f3f3f3" />
+                <text x="45" y="70" fontSize="24" fontWeight="bold" fill="#dc2626" opacity="0.9"
+                  transform="rotate(-18 45 70)" textAnchor="middle">
+                  FACTURA
+                </text>
+              </svg>
+            </div>
+            <div className="paper-svg">
+              <svg width="90" height="120" viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="6" width="78" height="108" rx="10" fill="white" stroke="#d4d4d4" strokeWidth="4" />
+                <path d="M60 6 L84 30 L60 30 Z" fill="#f3f3f3" />
+                <text x="45" y="70" fontSize="24" fontWeight="bold" fill="#dc2626" opacity="0.9"
+                  transform="rotate(-18 45 70)" textAnchor="middle">
+                  FACTURA
+                </text>
+              </svg>
+            </div>
+            <div className="paper-svg">
+              <svg width="90" height="120" viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">
+                <rect x="6" y="6" width="78" height="108" rx="10" fill="white" stroke="#d4d4d4" strokeWidth="4" />
+                <path d="M60 6 L84 30 L60 30 Z" fill="#f3f3f3" />
+                <text x="45" y="70" fontSize="24" fontWeight="bold" fill="#dc2626" opacity="0.9"
+                  transform="rotate(-18 45 70)" textAnchor="middle">
+                  FACTURA
+                </text>
+              </svg>
+            </div>
+
+          </div>
+          <div className="pipeline"></div>
+
+          <div className="folder-output">
+            <div className="folder-svg">
+              <svg width="140" height="100" viewBox="0 0 140 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="30" width="120" height="60" rx="10" fill="#fbbf24" stroke="#d97706" strokeWidth="4" />
+                <rect x="30" y="10" width="80" height="30" rx="8" fill="#fde68a" stroke="#d97706" strokeWidth="3" />
+
+                <rect x="40" y="20" width="60" height="40" rx="4" fill="white" stroke="#d4d4d4" strokeWidth="2" />
+                <rect x="45" y="25" width="50" height="30" rx="3" fill="white" stroke="#e5e5e5" strokeWidth="1.5" />
+                <rect x="50" y="30" width="40" height="20" rx="2" fill="white" stroke="#e5e5e5" strokeWidth="1" />
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
       </section>
       <section className="py-24 bg-white dark:bg-neutral-900 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">

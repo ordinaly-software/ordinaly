@@ -482,3 +482,98 @@ svg[width="2rem"], svg[height="2rem"] {
     }
   }
 }
+/* === GRUPO DE PAPELES === */
+.papers-group {
+  position: absolute;
+  top: 45%;
+  left: -260px;
+  display: flex;
+  gap: -40px;
+  animation: moveToPipeline 4s ease-in-out infinite;
+}
+
+.paper-svg {
+  transform: rotate(-6deg);
+  opacity: 0.95;
+}
+
+/* Movimiento de los papeles hacia el flujo */
+@keyframes moveToPipeline {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 1;
+  }
+  40% {
+    transform: translateX(520px) translateY(-20px);
+    opacity: 1;
+  }
+  55% {
+    opacity: 0; /* DESAPARECEN EN EL FLUJO */
+  }
+  100% {
+    transform: translateX(0) translateY(0);
+    opacity: 0;
+  }
+}
+
+/* === PIPELINE ESTILO N8N === */
+.pipeline {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 520px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  background: #3f3f46;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+/* Flujo que se colorea */
+.pipeline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #d97757, #fbbf24, #22c55e, #3b82f6);
+  background-size: 300% 100%;
+  animation: pipelineFlow 4s infinite;
+  opacity: 0;
+}
+
+@keyframes pipelineFlow {
+  0% { opacity: 0; background-position: 0% 0; }
+  40% { opacity: 1; }
+  100% { background-position: 300% 0; opacity: 1; }
+}
+
+/* === CARPETA FINAL === */
+.folder-output {
+  position: absolute;
+  top: 50%;
+  right: -220px;
+  transform: translateY(-50%);
+  animation: folderAppear 4s infinite;
+  opacity: 0;
+}
+
+/* La carpeta entra igual que los papeles pero más tarde */
+@keyframes folderAppear {
+  0%, 55% { 
+    opacity: 0; 
+    transform: translateY(-50%) translateX(0) scale(0.8); 
+  }
+  70% { 
+    opacity: 1; 
+    transform: translateY(-50%) translateX(-240px) scale(1); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateY(-50%) translateX(0) scale(0.8); 
+  }
+}
+
+
+
+
+
+
