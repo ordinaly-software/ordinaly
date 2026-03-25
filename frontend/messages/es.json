@@ -40,8 +40,8 @@
       "description1": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
       "trust1": "Para contables, administradores, inmobiliarias, y más",
       "trust2": "Agentes de IA 24/7 para ventas y atención al cliente",
-      "trust3": "Formación práctica en IA para equipos",
-      "trust4": "Automatización a medida",
+      "trust3": "Automatización a medida",
+      "trust4": "Formación práctica en IA para equipos.",
       "ctaServices": "Ver servicios",
       "ctaDemo": "Agenda una consulta",
       "clientsTitle": "Confían en nosotros",
@@ -3037,144 +3037,163 @@
     },
     "inteligencia-artificial-empresas": {
       "slug": "inteligencia-artificial-empresas",
-      "heroImage": "/static/backgrounds/odoo_background.webp",
-      "heroImagePosition": "center center",
-      "title": "Inteligencia Artificial aplicada a tu negocio",
-      "shortTitle": "Inteligencia Artificial para empresas",
-      "subtitle": "Detecta oportunidades, automatiza decisiones y mejora tus procesos con IA diseñada para tu operación, no para la demo.",
-      "description": "Te ayudamos a identificar casos de uso de Inteligencia Artificial con impacto real en ventas, operaciones y soporte; diseñamos y desplegamos modelos que se integran con tus sistemas actuales, con foco en ROI, gobernanza de dato y adopción por parte del equipo.",
-      "heroBadge": "IA aplicada al negocio",
-      "heroCtaLabel": "Explorar casos de IA",
+      "title": "Inteligencia Artificial aplicada a procesos empresariales",
+      "shortTitle": "IA para empresas",
+      "subtitle": "Automatizamos tareas, reducimos tiempos operativos y creamos copilotos internos adaptados a tu negocio.",
+      "description": "Diseñamos e implantamos soluciones de IA que mejoran productividad, eliminan trabajo repetitivo y permiten a los equipos centrarse en tareas de mayor valor. Modelos privados, automatizaciones seguras y asistentes entrenados con tu propio conocimiento.",
+      "heroBadge": "IA aplicada a negocio",
+      "heroCtaLabel": "Evaluar mi caso",
+      "heroCtaHref": "#formulario",
       "secondaryCtaLabel": "Hablar con el equipo",
-      "serviceType": "Diseño, despliegue y gobierno de soluciones de Inteligencia Artificial para empresas",
-      "areaServed": "España, equipos multi-sede y entornos híbridos",
+      "serviceType": "Automatización, copilotos internos y modelos privados",
+      "areaServed": "España y equipos remotos",
+      "cards": [
+        {
+          "title": "Copilotos internos",
+          "description": "Asistentes privados entrenados con tu documentación, procesos y datos internos. Responden dudas, generan contenido y guían tareas operativas.",
+          "image": "/assets/Copiloto_Interno.webp"
+        },
+        {
+          "title": "Automatización de procesos",
+          "description": "Eliminamos tareas repetitivas: clasificación de correos, generación de informes, resúmenes automáticos, extracción de datos y más.",
+          "image": "/assets/AutomatizacionProcesos.webp"
+        },
+        {
+          "title": "Modelos privados y seguros",
+          "description": "Infraestructura de IA en tu nube o entorno privado. Control total del dato, auditoría y cumplimiento normativo.",
+          "image": "/assets/ModelosPrivados_Seguros.webp"
+        }
+      ],
+      "steps": [
+        "Analizamos tus procesos, cuellos de botella y oportunidades reales de automatización.",
+        "Diseñamos la solución: copiloto, automatización o modelo privado según tu caso.",
+        "Desplegamos, entrenamos al equipo y dejamos métricas de uso y mejora continua."
+      ],
       "valueProps": [
-        "Definimos casos de uso de IA alineados a tus objetivos (ingresos, eficiencia, experiencia de cliente) y priorizamos por impacto y viabilidad.",
-        "Preparamos y gobernamos los datos necesarios (calidad, seguridad, privacidad) para que los modelos sean robustos y sostenibles.",
-        "Acompañamos el despliegue con métricas de negocio, explicación de modelos y formación al equipo para asegurar adopción."
+        "Copilotos internos entrenados con tu conocimiento.",
+        "Automatización de tareas repetitivas y operativas.",
+        "Modelos privados con control total del dato.",
+        "Integración con herramientas internas y flujos existentes."
       ],
       "metrics": [
         {
-          "label": "Tiempo a primer piloto",
-          "value": "4–8 semanas",
-          "detail": "De la identificación del caso de uso a un piloto funcional medido con KPIs de negocio."
+          "label": "Ahorro operativo",
+          "value": "30% - 60%",
+          "detail": "Reducción de tiempo en tareas repetitivas."
         },
         {
-          "label": "Enfoque de modelos",
-          "value": "Predictivo, generativo o híbrido",
-          "detail": "Seleccionamos la combinación adecuada de IA clásica y modelos generativos según el problema y el riesgo."
+          "label": "Velocidad",
+          "value": "x10",
+          "detail": "Generación de contenido, informes y respuestas."
         },
         {
-          "label": "Gobernanza",
-          "value": "Políticas y responsables claros",
-          "detail": "Definimos quién decide, cómo se monitoriza el rendimiento y qué hacer ante sesgos o degradación del modelo."
+          "label": "Seguridad",
+          "value": "Privado",
+          "detail": "Modelos desplegados en tu infraestructura."
         }
       ],
       "outcomes": [
-        "Procesos clave más rápidos y con menos errores gracias a decisiones asistidas por IA.",
-        "Equipos de negocio capaces de proponer y evolucionar nuevos casos de uso de IA sin depender solo de IT.",
-        "Mayor retorno sobre tus datos existentes al convertirlos en recomendaciones, priorizaciones y automatizaciones accionables."
-      ],
-      "steps": [
-        "Auditamos sistemas, modelos de dato, ownership y fallos recurrentes de sincronización.",
-        "Diseñamos el mapeo, reglas de transformación y gestión de conflictos.",
-        "Desplegamos con monitorización, alertas y runbooks para soporte interno."
+        "Menos tareas manuales y repetitivas.",
+        "Equipos más rápidos y con menos carga operativa.",
+        "Procesos más consistentes y auditables.",
+        "Mayor calidad en documentación, respuestas y análisis."
       ],
       "useCases": [
         {
-          "tag": "Ventas",
-          "title": "Leads, oportunidades y pedidos sincronizados",
-          "description": "Evita pérdidas de contexto cuando una oportunidad pasa de marketing a comercial y luego a operación.",
+          "tag": "Operaciones",
+          "title": "Automatización de tareas repetitivas",
+          "description": "Clasificación de correos, extracción de datos, generación de informes y resúmenes automáticos.",
           "bullets": [
-            "Mismo identificador de cliente entre sistemas",
-            "Estados coherentes de venta y pedido"
-          ]
-        },
-        {
-          "tag": "Finanzas",
-          "title": "Facturación y cobro sin doble captura",
-          "description": "Conecta contratos, pedidos y facturas para eliminar repeticiones y errores manuales.",
-          "bullets": [
-            "Transformación de datos entre modelos distintos",
-            "Alertas de desajuste y conciliación"
+            "Menos carga manual",
+            "Procesos más rápidos y consistentes"
           ]
         },
         {
           "tag": "Soporte",
-          "title": "Visión completa del cliente para soporte",
-          "description": "El equipo ve ventas, incidencias, facturación y estado operacional sin saltar entre cuatro herramientas.",
+          "title": "Copiloto para atención interna o externa",
+          "description": "Responde dudas, consulta documentación y genera respuestas basadas en tu conocimiento interno.",
           "bullets": [
-            "Contexto histórico y operativo unificado",
-            "Menos escalados por falta de información"
+            "Respuestas más rápidas",
+            "Menos escalados"
+          ]
+        },
+        {
+          "tag": "Dirección",
+          "title": "Informes automáticos y análisis",
+          "description": "Generación de reportes, resúmenes ejecutivos y análisis de datos en segundos.",
+          "bullets": [
+            "Decisiones más rápidas",
+            "Información siempre actualizada"
           ]
         }
       ],
       "technologyFaqs": [
         {
-          "tag": "Compatibilidad",
-          "question": "¿Trabajáis solo con Odoo y HubSpot?",
-          "answer": "No. Son casos habituales, pero el enfoque sirve para CRMs propios, ERPs verticales y bases internas siempre que exista acceso por API, base de datos o exportación controlada."
+          "tag": "Privacidad",
+          "question": "¿La IA usa mis datos para entrenar modelos externos?",
+          "answer": "No. Los modelos pueden ejecutarse en tu infraestructura o en entornos privados sin compartir datos con terceros."
         },
         {
-          "tag": "Conflictos",
-          "question": "¿Cómo gestionáis conflictos entre dos sistemas que discrepan?",
-          "answer": "Definimos ownership por campo, prioridad temporal y reglas de reconciliación. Si no se puede decidir automáticamente, el caso pasa a una cola de revisión con contexto."
+          "tag": "Integración",
+          "question": "¿Puede conectarse con mis herramientas actuales?",
+          "answer": "Sí. Podemos integrar la IA con tus sistemas internos, bases de datos, CRM, ERP o herramientas de comunicación."
         },
         {
           "tag": "Seguridad",
-          "question": "¿Incluye seguridad y mínimos privilegios?",
-          "answer": "Sí. Trabajamos con credenciales segregadas, permisos mínimos, cifrado en tránsito y revisión de accesos según criticidad del flujo."
+          "question": "¿Cumple con GDPR y requisitos internos?",
+          "answer": "Sí. Implementamos permisos mínimos, auditoría, cifrado y control de acceso por rol."
         },
         {
-          "tag": "Operación",
-          "question": "¿Quién mantiene la integración cuando está en producción?",
-          "answer": "Depende del acuerdo. Podemos operar nosotros, dejar ownership al equipo interno o compartirlo con runbooks, métricas y ventanas de cambio definidas."
+          "tag": "Mantenimiento",
+          "question": "¿Quién mantiene el sistema una vez implantado?",
+          "answer": "Podemos operarlo nosotros o dejarlo en manos de tu equipo con documentación y runbooks."
         }
       ],
       "keywords": [
-        "integraciones CRM ERP",
-        "calidad de dato",
-        "Odoo HubSpot integración",
-        "sincronización operacional"
+        "inteligencia artificial empresas",
+        "automatización IA",
+        "copilotos internos",
+        "modelos privados IA",
+        "IA para negocios"
       ],
       "hub": {
-        "title": "Sistemas conectados con ownership y reglas claras",
-        "subtitle": "Ventas, finanzas y operaciones compartiendo un mismo dato operativo.",
+        "title": "IA integrada en tus procesos",
+        "subtitle": "Automatización, copilotos y modelos privados conectados a tu negocio.",
         "bgTheme": "cyan",
         "platforms": [
           {
             "position": "top-left",
-            "figureKey": "sales-crm",
+            "figureKey": "ai-copilot",
             "colorScheme": "indigo",
-            "label": "CRM",
-            "sublabel": "Leads y clientes"
+            "label": "Copiloto",
+            "sublabel": "Asistente interno"
           },
           {
             "position": "top-right",
-            "figureKey": "cloud-data",
+            "figureKey": "automation",
             "colorScheme": "cyan",
-            "label": "Capa de sync",
-            "sublabel": "Transformación y reglas"
+            "label": "Automatización",
+            "sublabel": "Procesos repetitivos"
           },
           {
             "position": "bottom-left",
-            "figureKey": "finance",
+            "figureKey": "private-model",
             "colorScheme": "indigo",
-            "label": "ERP",
-            "sublabel": "Pedidos y finanzas"
+            "label": "Modelo privado",
+            "sublabel": "Seguridad y control"
           },
           {
             "position": "bottom-right",
-            "figureKey": "workflow",
+            "figureKey": "observability",
             "colorScheme": "cyan",
             "label": "Observabilidad",
-            "sublabel": "Errores y reconciliación"
+            "sublabel": "Métricas y control"
           }
         ]
       },
       "cta": {
-        "label": "Integrar CRM y ERP",
-        "href": "https://wa.me/34626270806?text=Quiero%20unificar%20CRM%20y%20ERP%20sin%20errores%20de%20dato",
+        "label": "Implantar IA en mi empresa",
+        "href": "https://wa.me/34626270806?text=Quiero%20implantar%20IA%20en%20mi%20empresa",
         "bgColor": "#0255D5"
       }
     },
