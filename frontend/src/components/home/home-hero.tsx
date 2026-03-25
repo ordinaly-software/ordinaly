@@ -22,10 +22,10 @@ const clientLogos = [
 ];
 
 const bulletPoints = [
-  { icon: Building2, key: "hero.trust1", href: "#services" },
+  { icon: Building2, key: "hero.trust1", href: "#use-cases" },
   { icon: Bot, key: "hero.trust2", href: "#services" },
   { icon: Book, key: "hero.trust3", href: "#courses" },
-  { icon: ArrowRight, key: "hero.trust4", href: "#courses" },
+  { icon: ArrowRight, key: "hero.trust4", href: "/services" },
 ];
 
 const accordionImages: Omit<AccordionImageItem, "label" | "sublabel">[] = [
@@ -58,19 +58,19 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[--color-bg-primary] dark:bg-[--color-bg-inverted]">
+    <section className="relative overflow-x-clip bg-[--color-bg-primary] dark:bg-[--color-bg-inverted]">
 
-      <div className="relative w-full max-w-[1440px] mx-auto px-6 md:px-10 xl:px-16 pb-16 pt-6 lg:pb-20 lg:pt-8">
+      <div className="relative w-full max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 pb-16 pt-6 lg:pb-20 lg:pt-8">
 
         {/* ─── Main split grid ──────────────────────────────────────────────── */}
-        <div className="grid items-center gap-10 lg:grid-cols-2 xl:gap-14">
+        <div className="grid items-center gap-10 lg:grid-cols-[3fr_2fr] xl:grid-cols-2 xl:gap-14">
 
           {/* LEFT: copy + CTAs */}
           <div className="scroll-animate fade-in-up">
 
             {/* Title */}
             <div className="mt-6 space-y-4">
-              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3.75rem] xl:text-[4.5rem]">
+              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3rem] xl:text-[4.5rem]">
                 <span className="block text-clay">
                   {t("hero.titleLine1")}
                 </span>
@@ -101,13 +101,13 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
           </div>
 
           {/* RIGHT: image accordion */}
-          <div className="scroll-animate fade-in-up">
+          <div className="hidden lg:block scroll-animate fade-in-up">
             <div className="overflow-x-auto lg:overflow-visible">
               <ImageAccordion
                 items={accordionItems}
                 initialActiveIndex={0}
-                itemHeight="h-[540px]"
-                className="min-w-[480px] lg:min-w-0"
+                itemHeight="h-[480px] xl:h-[540px]"
+                className="min-w-[360px] lg:min-w-0"
               />
             </div>
           </div>
@@ -145,41 +145,6 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
             ))}
           </div>
         </div>
-
-        {/* ─── Client logos — mobile only (hidden on lg, shown in left col there) */}
-        <div className="scroll-animate fade-in-up mt-8 lg:hidden">
-          <div className="flex items-center gap-3">
-            <div className="h-px flex-1 bg-[--color-border-subtle] dark:bg-white/10" />
-            <span className="label-meta">{t("hero.clientsTitle")}</span>
-            <div className="h-px flex-1 bg-[--color-border-subtle] dark:bg-white/10" />
-          </div>
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {clientLogos.map((logo) => (
-              <div
-                key={logo.alt}
-                className="flex items-center justify-center rounded-xl border border-[--color-border-subtle] px-3 py-3 dark:border-white/10"
-                style={{ backgroundColor: isDark ? "rgba(250,249,245,0.05)" : "rgba(255,255,255,0.5)" }}
-              >
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width}
-                  height={logo.height}
-                  className="max-h-9 w-auto opacity-90"
-                  style={{
-                    filter: isDark
-                      ? "brightness(1.1) invert(0)"
-                      : "invert(1) brightness(0.15) contrast(1.1)",
-                  }}
-                  loading="lazy"
-                  sizes="(max-width: 640px) 80px, 112px"
-                  quality={60}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
       </div>
     </section>
   );

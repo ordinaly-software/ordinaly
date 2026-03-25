@@ -314,7 +314,7 @@ const ServicesPage = ({
         </div>
       </section>
 
-      <UseCasesSection t={t_home} />
+      <UseCasesSection t={t_home} id="use-cases" />
 
       <Footer />
     </div>

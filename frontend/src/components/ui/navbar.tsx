@@ -433,7 +433,7 @@ const Navbar = () => {
 
   const showCta = true;
   const effectiveViewportWidth = viewportWidth ?? 0;
-  const showAuthButtons = effectiveViewportWidth >= 640;
+  const showAuthButtons = effectiveViewportWidth >= 1024;
 
   const maxVisibleItems = useMemo(() => {
     if (effectiveViewportWidth >= 1440) return navItems.length;
@@ -458,7 +458,7 @@ const Navbar = () => {
   }, [navItems, visibleItems]);
 
   // showCta/showAuthButtons are computed above to keep buttons visible on mobile if space allows
-  const showHamburger = effectiveViewportWidth < 1280 || hiddenItems.length > 0;
+  const showHamburger = effectiveViewportWidth < 1024 || hiddenItems.length > 0;
 
   useEffect(() => {
     if (!showHamburger && isMenuOpen) {
