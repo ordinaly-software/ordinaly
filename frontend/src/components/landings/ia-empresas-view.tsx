@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { CardContainer, CardBody, CardItem } from "@/components/ui/3d-card";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
