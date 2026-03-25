@@ -2502,143 +2502,161 @@
       "slug": "automatizacion-facturas",
       "heroImage": "/static/backgrounds/blog_background.webp",
       "heroImagePosition": "center 28%",
-      "title": "Agentes IA para atención al cliente con acción segura",
+      "title": "Automatización de facturas",
       "shortTitle": "Automatización de Facturas",
-      "subtitle": "Agentes capaces de consultar, ejecutar y escalar con políticas operativas bien definidas.",
-      "description": "Construimos agentes que no solo responden. También consultan sistemas, generan tickets, validan estado de pedidos o aplican reglas de negocio con supervisión cuando hace falta.",
-      "heroBadge": "Agentes con acciones",
-      "heroCtaLabel": "Diseñar agente",
-      "secondaryCtaLabel": "Abrir conversación",
-      "serviceType": "Agentes IA para soporte y operaciones",
-      "areaServed": "España, equipos distribuidos y soporte remoto",
+      "heroBadge": "Automatización documental",
+      "heroCtaLabel": "Solicitar información",
+      "secondaryCtaLabel": "Quiero automatizar mis facturas",
+      "serviceType": "Automatización documental y extracción inteligente",
+      "areaServed": "España, pymes, asesorías y equipos administrativos",
       "valueProps": [
-        "Acciones limitadas por permiso, tipo de caso y política de riesgo para evitar automatizaciones ciegas.",
-        "Trazas completas con entrada, razonamiento operacional y salida para revisión posterior.",
-        "Escalado a humano con contexto estructurado y sugerencia de siguiente paso."
+        "Clasificación automática por proveedor, fecha, importe o reglas personalizadas.",
+        "Extracción precisa de datos clave: cliente, fecha, conceptos, base imponible y total.",
+        "Integración con carpetas, ERPs, CRMs o sistemas contables sin fricción."
+      ],
+      "benefits": [
+        "Ahorra horas cada mes",
+        "Evita errores humanos",
+        "Todo organizado automáticamente",
+        "Compatible con cualquier formato"
       ],
       "metrics": [
         {
-          "label": "Control operativo",
-          "value": "Aprobación opcional",
-          "detail": "Los casos críticos pueden requerir confirmación humana antes de ejecutar."
+          "label": "Ahorro mensual",
+          "value": "6–20 horas",
+          "detail": "Reducción del tiempo dedicado a revisar emails, descargar facturas y copiar datos."
         },
         {
-          "label": "Cobertura de trazas",
-          "value": "Evento a evento",
-          "detail": "Registramos contexto, decisión, herramienta usada y resultado final."
+          "label": "Precisión",
+          "value": "98%",
+          "detail": "Extracción automática con validación opcional para casos dudosos."
         },
         {
-          "label": "Ventana de tuning",
-          "value": "Semanas 1-3",
-          "detail": "Primera fase con revisión intensiva para ajustar políticas, prompts y herramientas."
+          "label": "Clasificación",
+          "value": "Automática",
+          "detail": "Organización por año, proveedor o proyecto sin intervención humana."
         }
       ],
       "outcomes": [
-        "Tiempo de primera respuesta y tiempo hasta acción ejecutada, separados por tipo de caso.",
-        "Precisión de clasificación y tasa de escalado correcto frente a escalado innecesario.",
-        "Coste por ticket o interacción resuelta con comparación antes y después del piloto."
+        "Menos errores humanos en la transcripción de datos.",
+        "Facturas organizadas automáticamente en carpetas estructuradas.",
+        "Datos listos para contabilidad o análisis sin trabajo manual.",
+        "Procesos administrativos más rápidos y trazables."
+      ],
+      "before": [
+        "Facturas perdidas en emails",
+        "Copiar datos a mano",
+        "Errores al transcribir",
+        "Tiempo perdido buscando documentos"
+      ],
+      "after": [
+        "Facturas clasificadas automáticamente",
+        "Datos extraídos sin esfuerzo",
+        "Cero errores",
+        "Todo accesible en segundos"
       ],
       "steps": [
-        "Definimos qué puede hacer el agente, qué debe consultar y qué siempre debe escalar.",
-        "Conectamos APIs, diseñamos validaciones y montamos observabilidad de cada acción.",
-        "Lanzamos un piloto controlado con revisión humana y criterios de aceptación operativos."
+        "Conectamos tu bandeja de entrada o carpeta donde recibes facturas.",
+        "Definimos reglas de clasificación y extracción según tu negocio.",
+        "Activamos el flujo automático: detección, extracción y archivado."
       ],
       "useCases": [
         {
-          "tag": "Soporte",
-          "title": "Gestión de devoluciones y cambios",
-          "description": "El agente interpreta el caso, valida condiciones y ejecuta el flujo correcto o escala si hay riesgo.",
+          "tag": "Administración",
+          "title": "Recepción automática de facturas",
+          "description": "Detectamos facturas que llegan por email y las procesamos sin intervención humana.",
           "bullets": [
-            "Comprobación de plazos y estado del pedido",
-            "Creación de ticket o etiqueta logística"
+            "Lectura automática del correo",
+            "Descarga y clasificación inmediata"
+          ]
+        },
+        {
+          "tag": "Contabilidad",
+          "title": "Extracción de datos clave",
+          "description": "Extraemos proveedor, fecha, conceptos, base imponible y total.",
+          "bullets": [
+            "OCR avanzado",
+            "Validación opcional de datos"
           ]
         },
         {
           "tag": "Operaciones",
-          "title": "Reposición y consulta de stock",
-          "description": "Conecta inventario, compras y reglas de negocio para decidir si informar, crear solicitud o derivar.",
+          "title": "Archivado inteligente",
+          "description": "Guardamos cada factura en la carpeta correcta según reglas personalizadas.",
           "bullets": [
-            "Lectura de inventario en tiempo real",
-            "Reglas por umbral y proveedor"
-          ]
-        },
-        {
-          "tag": "CX",
-          "title": "Asistente multicanal con continuidad",
-          "description": "Mantiene contexto entre web, email y mensajería para que el cliente no repita información.",
-          "bullets": [
-            "Resumen automático del caso al escalar",
-            "Identificación y memoria por cliente"
+            "Carpetas por año o proveedor",
+            "Integración con Drive, Dropbox o ERP"
           ]
         }
       ],
       "technologyFaqs": [
         {
-          "tag": "Políticas",
-          "question": "¿Cómo evitáis que el agente haga acciones fuera de política?",
-          "answer": "Definimos herramientas permitidas, validaciones previas, límites por rol y rutas de aprobación. El agente opera dentro de esos bordes, no libremente."
+          "tag": "Procesamiento",
+          "question": "¿Cómo detectáis las facturas automáticamente?",
+          "answer": "Monitorizamos bandejas de entrada o carpetas y aplicamos modelos OCR que identifican documentos tipo factura sin necesidad de reglas manuales."
         },
         {
-          "tag": "Modelos",
-          "question": "¿Usáis un único modelo para todo?",
-          "answer": "No siempre. Podemos enrutar entre modelos según latencia, coste, idioma o criticidad del paso. La arquitectura se decide por tarea, no por moda."
+          "tag": "Extracción",
+          "question": "¿Qué datos se pueden extraer?",
+          "answer": "Proveedor, fecha, número de factura, conceptos, base imponible, IVA, total y cualquier campo adicional que necesites."
         },
         {
-          "tag": "QA",
-          "question": "¿Cómo controláis la calidad después del lanzamiento?",
-          "answer": "Con revisión muestral, scoring automático, alertas de baja confianza y un backlog de fallos clasificado por causa raíz."
+          "tag": "Integración",
+          "question": "¿Se puede conectar con mi ERP o contabilidad?",
+          "answer": "Sí. Podemos exportar a CSV, API, Google Drive, OneDrive, Holded, A3, Contasol y otros sistemas."
         },
         {
           "tag": "Seguridad",
-          "question": "¿Qué pasa con datos sensibles o identificables?",
-          "answer": "Aplicamos minimización de datos, controles de acceso, redacción cuando conviene y retención acorde al flujo. Si el caso lo requiere, limitamos el contexto al mínimo viable."
+          "question": "¿Cómo gestionáis datos sensibles?",
+          "answer": "Aplicamos minimización de datos, cifrado en tránsito y reglas de acceso estrictas. Solo procesamos lo necesario para la automatización."
         }
       ],
       "keywords": [
-        "agentes IA para soporte",
-        "agente con acciones",
-        "automatización helpdesk",
-        "agente IA con trazabilidad"
+        "automatización de facturas",
+        "procesamiento documental",
+        "OCR inteligente",
+        "clasificación automática de facturas",
+        "automatización administrativa"
       ],
       "hub": {
-        "title": "Agente IA orquestado sobre tus sistemas",
-        "subtitle": "Base de conocimiento, acciones seguras y escalado humano en una única capa.",
-        "bgTheme": "purple",
+        "title": "Automatización completa de facturas",
+        "subtitle": "Recepción, extracción, clasificación y archivado sin intervención humana.",
+        "bgTheme": "orange",
         "platforms": [
           {
             "position": "top-left",
-            "figureKey": "chatbot",
-            "colorScheme": "indigo",
-            "label": "Agente IA",
-            "sublabel": "Clasifica y responde"
+            "figureKey": "email-inbox",
+            "colorScheme": "orange",
+            "label": "Recepción",
+            "sublabel": "Desde email o carpeta"
           },
           {
             "position": "top-right",
-            "figureKey": "cloud-data",
-            "colorScheme": "cyan",
-            "label": "Conocimiento",
-            "sublabel": "Fuentes verificadas"
+            "figureKey": "document-ocr",
+            "colorScheme": "amber",
+            "label": "Extracción",
+            "sublabel": "Datos clave sin errores"
           },
           {
             "position": "bottom-left",
-            "figureKey": "workflow",
-            "colorScheme": "indigo",
-            "label": "Herramientas",
-            "sublabel": "APIs y acciones"
+            "figureKey": "folder-automation",
+            "colorScheme": "orange",
+            "label": "Clasificación",
+            "sublabel": "Carpetas automáticas"
           },
           {
             "position": "bottom-right",
-            "figureKey": "teams-ops",
-            "colorScheme": "cyan",
-            "label": "Supervisión",
-            "sublabel": "Aprobación y QA"
+            "figureKey": "erp-sync",
+            "colorScheme": "amber",
+            "label": "Integración",
+            "sublabel": "ERP y contabilidad"
           }
         ]
       },
       "cta": {
-        "label": "Explorar agente IA",
-        "href": "https://wa.me/34626270806?text=Quiero%20dise%C3%B1ar%20un%20agente%20IA%20para%20atenci%C3%B3n%20al%20cliente",
-        "bgColor": "#0255D5"
+        "label": "Quiero automatizar mis facturas",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20facturas",
+        "bgColor": "#d97706"
       }
     },
     "automatizacion-inteligente": {
