@@ -2219,12 +2219,12 @@
     }
   },
   "landings": {
-    "chatbots-empresas-sevilla": {
-      "slug": "chatbots-empresas-sevilla",
+    "agencia-automatizacion-ia": {
+      "slug": "agencia-automatizacion-ia",
       "heroImage": "/static/backgrounds/blog_background.webp",
       "heroImagePosition": "center 32%",
       "title": "Chatbots empresariales con datos conectados",
-      "shortTitle": "Chatbots",
+      "shortTitle": "Agencia de Automatización IA",
       "subtitle": "RAG, guardrails y handoff humano para soporte, ventas y help desks internos.",
       "description": "Diseñamos asistentes con fuentes versionadas, trazas por respuesta y políticas de escalado para que cada respuesta salga de documentos y sistemas validados, no de texto genérico.",
       "heroBadge": "RAG + guardrails",
@@ -2498,12 +2498,12 @@
         "bgColor": "#0255D5"
       }
     },
-    "agentes-ia-atencion-cliente-sevilla": {
-      "slug": "agentes-ia-atencion-cliente-sevilla",
+    "automatizacion-facturas": {
+      "slug": "automatizacion-facturas",
       "heroImage": "/static/backgrounds/blog_background.webp",
       "heroImagePosition": "center 28%",
       "title": "Agentes IA para atención al cliente con acción segura",
-      "shortTitle": "Agentes IA",
+      "shortTitle": "Automatización de Facturas",
       "subtitle": "Agentes capaces de consultar, ejecutar y escalar con políticas operativas bien definidas.",
       "description": "Construimos agentes que no solo responden. También consultan sistemas, generan tickets, validan estado de pedidos o aplican reglas de negocio con supervisión cuando hace falta.",
       "heroBadge": "Agentes con acciones",
@@ -2641,12 +2641,12 @@
         "bgColor": "#0255D5"
       }
     },
-    "automatizacion-whatsapp-business-sevilla": {
-      "slug": "automatizacion-whatsapp-business-sevilla",
+    "automatizacion-inteligente": {
+      "slug": "automatizacion-inteligente",
       "heroImage": "/static/backgrounds/us_background.webp",
       "heroImagePosition": "center 38%",
       "title": "WhatsApp Business automatizado con medición real",
-      "shortTitle": "WhatsApp Business",
+      "shortTitle": "Automatización Inteligente",
       "subtitle": "Mensajería operativa para captación, soporte y seguimiento con SLA, plantillas y contexto CRM.",
       "description": "Diseñamos flujos de WhatsApp que combinan plantillas aprobadas, bots híbridos y derivación a humanos para que el canal sirva de verdad a ventas y soporte sin perder trazabilidad.",
       "heroBadge": "WhatsApp + SLA",
@@ -2892,12 +2892,298 @@
         "bgColor": "#0255D5"
       }
     },
-    "integraciones-crm-erp-sevilla": {
-      "slug": "integraciones-crm-erp-sevilla",
+    "empresa-inteligencia-artificial": {
+      "slug": "empresa-inteligencia-artificial",
       "heroImage": "/static/backgrounds/odoo_background.webp",
       "heroImagePosition": "center center",
       "title": "Integraciones CRM y ERP con reglas y calidad de dato",
-      "shortTitle": "Integraciones CRM y ERP",
+      "shortTitle": "Empresa de Inteligencia Artificial",
+      "subtitle": "Sincronizaciones robustas entre ventas, finanzas, soporte e inventario sin duplicados ni conflictos silenciosos.",
+      "description": "Unificamos sistemas con mapeos claros, ownership por campo y observabilidad de sincronización para que el dato circule con criterio y no solo con conectores.",
+      "heroBadge": "CRM + ERP conectados",
+      "heroCtaLabel": "Auditar integración",
+      "secondaryCtaLabel": "Hablar con el equipo",
+      "serviceType": "Integraciones CRM, ERP y datos operativos",
+      "areaServed": "España, equipos multi-sede y entornos híbridos",
+      "valueProps": [
+        "Definimos qué sistema manda cada campo, cuándo se sincroniza y qué pasa ante conflicto o falta de dato.",
+        "Validamos calidad, deduplicación y reconciliación para evitar errores que parecen integración pero son diseño de dato.",
+        "Paneles de ejecución y error para que el equipo operativo pueda ver qué falla y dónde."
+      ],
+      "metrics": [
+        {
+          "label": "Modelo de sync",
+          "value": "Bidireccional o dirigido",
+          "detail": "La dirección se decide por proceso y criticidad, no por comodidad técnica."
+        },
+        {
+          "label": "Reconciliación",
+          "value": "Reglas explícitas",
+          "detail": "Diferenciamos conflictos funcionales, duplicados y errores de transporte."
+        },
+        {
+          "label": "Cobertura",
+          "value": "Campos críticos primero",
+          "detail": "Priorizamos aquello que impacta facturación, reporting, soporte o inventario."
+        }
+      ],
+      "outcomes": [
+        "Menos incidencias por datos inconsistentes entre comercial, soporte y facturación.",
+        "Menor tiempo de onboarding y actualización de clientes, productos o pedidos.",
+        "Más confianza en reportes operativos y financieros porque la base de dato es coherente."
+      ],
+      "steps": [
+        "Auditamos sistemas, modelos de dato, ownership y fallos recurrentes de sincronización.",
+        "Diseñamos el mapeo, reglas de transformación y gestión de conflictos.",
+        "Desplegamos con monitorización, alertas y runbooks para soporte interno."
+      ],
+      "useCases": [
+        {
+          "tag": "Ventas",
+          "title": "Leads, oportunidades y pedidos sincronizados",
+          "description": "Evita pérdidas de contexto cuando una oportunidad pasa de marketing a comercial y luego a operación.",
+          "bullets": [
+            "Mismo identificador de cliente entre sistemas",
+            "Estados coherentes de venta y pedido"
+          ]
+        },
+        {
+          "tag": "Finanzas",
+          "title": "Facturación y cobro sin doble captura",
+          "description": "Conecta contratos, pedidos y facturas para eliminar repeticiones y errores manuales.",
+          "bullets": [
+            "Transformación de datos entre modelos distintos",
+            "Alertas de desajuste y conciliación"
+          ]
+        },
+        {
+          "tag": "Soporte",
+          "title": "Visión completa del cliente para soporte",
+          "description": "El equipo ve ventas, incidencias, facturación y estado operacional sin saltar entre cuatro herramientas.",
+          "bullets": [
+            "Contexto histórico y operativo unificado",
+            "Menos escalados por falta de información"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Compatibilidad",
+          "question": "¿Trabajáis solo con Odoo y HubSpot?",
+          "answer": "No. Son casos habituales, pero el enfoque sirve para CRMs propios, ERPs verticales y bases internas siempre que exista acceso por API, base de datos o exportación controlada."
+        },
+        {
+          "tag": "Conflictos",
+          "question": "¿Cómo gestionáis conflictos entre dos sistemas que discrepan?",
+          "answer": "Definimos ownership por campo, prioridad temporal y reglas de reconciliación. Si no se puede decidir automáticamente, el caso pasa a una cola de revisión con contexto."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Incluye seguridad y mínimos privilegios?",
+          "answer": "Sí. Trabajamos con credenciales segregadas, permisos mínimos, cifrado en tránsito y revisión de accesos según criticidad del flujo."
+        },
+        {
+          "tag": "Operación",
+          "question": "¿Quién mantiene la integración cuando está en producción?",
+          "answer": "Depende del acuerdo. Podemos operar nosotros, dejar ownership al equipo interno o compartirlo con runbooks, métricas y ventanas de cambio definidas."
+        }
+      ],
+      "keywords": [
+        "integraciones CRM ERP",
+        "calidad de dato",
+        "Odoo HubSpot integración",
+        "sincronización operacional"
+      ],
+      "hub": {
+        "title": "Sistemas conectados con ownership y reglas claras",
+        "subtitle": "Ventas, finanzas y operaciones compartiendo un mismo dato operativo.",
+        "bgTheme": "cyan",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "sales-crm",
+            "colorScheme": "indigo",
+            "label": "CRM",
+            "sublabel": "Leads y clientes"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Capa de sync",
+            "sublabel": "Transformación y reglas"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "finance",
+            "colorScheme": "indigo",
+            "label": "ERP",
+            "sublabel": "Pedidos y finanzas"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "workflow",
+            "colorScheme": "cyan",
+            "label": "Observabilidad",
+            "sublabel": "Errores y reconciliación"
+          }
+        ]
+      },
+      "cta": {
+        "label": "Integrar CRM y ERP",
+        "href": "https://wa.me/34626270806?text=Quiero%20unificar%20CRM%20y%20ERP%20sin%20errores%20de%20dato",
+        "bgColor": "#0255D5"
+      }
+    },
+    "inteligencia-artificial-empresas": {
+      "slug": "inteligencia-artificial-empresas",
+      "heroImage": "/static/backgrounds/odoo_background.webp",
+      "heroImagePosition": "center center",
+      "title": "Inteligencia Artificial aplicada a tu negocio",
+      "shortTitle": "Inteligencia Artificial para empresas",
+      "subtitle": "Detecta oportunidades, automatiza decisiones y mejora tus procesos con IA diseñada para tu operación, no para la demo.",
+      "description": "Te ayudamos a identificar casos de uso de Inteligencia Artificial con impacto real en ventas, operaciones y soporte; diseñamos y desplegamos modelos que se integran con tus sistemas actuales, con foco en ROI, gobernanza de dato y adopción por parte del equipo.",
+      "heroBadge": "IA aplicada al negocio",
+      "heroCtaLabel": "Explorar casos de IA",
+      "secondaryCtaLabel": "Hablar con el equipo",
+      "serviceType": "Diseño, despliegue y gobierno de soluciones de Inteligencia Artificial para empresas",
+      "areaServed": "España, equipos multi-sede y entornos híbridos",
+      "valueProps": [
+        "Definimos casos de uso de IA alineados a tus objetivos (ingresos, eficiencia, experiencia de cliente) y priorizamos por impacto y viabilidad.",
+        "Preparamos y gobernamos los datos necesarios (calidad, seguridad, privacidad) para que los modelos sean robustos y sostenibles.",
+        "Acompañamos el despliegue con métricas de negocio, explicación de modelos y formación al equipo para asegurar adopción."
+      ],
+      "metrics": [
+        {
+          "label": "Tiempo a primer piloto",
+          "value": "4–8 semanas",
+          "detail": "De la identificación del caso de uso a un piloto funcional medido con KPIs de negocio."
+        },
+        {
+          "label": "Enfoque de modelos",
+          "value": "Predictivo, generativo o híbrido",
+          "detail": "Seleccionamos la combinación adecuada de IA clásica y modelos generativos según el problema y el riesgo."
+        },
+        {
+          "label": "Gobernanza",
+          "value": "Políticas y responsables claros",
+          "detail": "Definimos quién decide, cómo se monitoriza el rendimiento y qué hacer ante sesgos o degradación del modelo."
+        }
+      ],
+      "outcomes": [
+        "Procesos clave más rápidos y con menos errores gracias a decisiones asistidas por IA.",
+        "Equipos de negocio capaces de proponer y evolucionar nuevos casos de uso de IA sin depender solo de IT.",
+        "Mayor retorno sobre tus datos existentes al convertirlos en recomendaciones, priorizaciones y automatizaciones accionables."
+      ],
+      "steps": [
+        "Auditamos sistemas, modelos de dato, ownership y fallos recurrentes de sincronización.",
+        "Diseñamos el mapeo, reglas de transformación y gestión de conflictos.",
+        "Desplegamos con monitorización, alertas y runbooks para soporte interno."
+      ],
+      "useCases": [
+        {
+          "tag": "Ventas",
+          "title": "Leads, oportunidades y pedidos sincronizados",
+          "description": "Evita pérdidas de contexto cuando una oportunidad pasa de marketing a comercial y luego a operación.",
+          "bullets": [
+            "Mismo identificador de cliente entre sistemas",
+            "Estados coherentes de venta y pedido"
+          ]
+        },
+        {
+          "tag": "Finanzas",
+          "title": "Facturación y cobro sin doble captura",
+          "description": "Conecta contratos, pedidos y facturas para eliminar repeticiones y errores manuales.",
+          "bullets": [
+            "Transformación de datos entre modelos distintos",
+            "Alertas de desajuste y conciliación"
+          ]
+        },
+        {
+          "tag": "Soporte",
+          "title": "Visión completa del cliente para soporte",
+          "description": "El equipo ve ventas, incidencias, facturación y estado operacional sin saltar entre cuatro herramientas.",
+          "bullets": [
+            "Contexto histórico y operativo unificado",
+            "Menos escalados por falta de información"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Compatibilidad",
+          "question": "¿Trabajáis solo con Odoo y HubSpot?",
+          "answer": "No. Son casos habituales, pero el enfoque sirve para CRMs propios, ERPs verticales y bases internas siempre que exista acceso por API, base de datos o exportación controlada."
+        },
+        {
+          "tag": "Conflictos",
+          "question": "¿Cómo gestionáis conflictos entre dos sistemas que discrepan?",
+          "answer": "Definimos ownership por campo, prioridad temporal y reglas de reconciliación. Si no se puede decidir automáticamente, el caso pasa a una cola de revisión con contexto."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Incluye seguridad y mínimos privilegios?",
+          "answer": "Sí. Trabajamos con credenciales segregadas, permisos mínimos, cifrado en tránsito y revisión de accesos según criticidad del flujo."
+        },
+        {
+          "tag": "Operación",
+          "question": "¿Quién mantiene la integración cuando está en producción?",
+          "answer": "Depende del acuerdo. Podemos operar nosotros, dejar ownership al equipo interno o compartirlo con runbooks, métricas y ventanas de cambio definidas."
+        }
+      ],
+      "keywords": [
+        "integraciones CRM ERP",
+        "calidad de dato",
+        "Odoo HubSpot integración",
+        "sincronización operacional"
+      ],
+      "hub": {
+        "title": "Sistemas conectados con ownership y reglas claras",
+        "subtitle": "Ventas, finanzas y operaciones compartiendo un mismo dato operativo.",
+        "bgTheme": "cyan",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "sales-crm",
+            "colorScheme": "indigo",
+            "label": "CRM",
+            "sublabel": "Leads y clientes"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Capa de sync",
+            "sublabel": "Transformación y reglas"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "finance",
+            "colorScheme": "indigo",
+            "label": "ERP",
+            "sublabel": "Pedidos y finanzas"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "workflow",
+            "colorScheme": "cyan",
+            "label": "Observabilidad",
+            "sublabel": "Errores y reconciliación"
+          }
+        ]
+      },
+      "cta": {
+        "label": "Integrar CRM y ERP",
+        "href": "https://wa.me/34626270806?text=Quiero%20unificar%20CRM%20y%20ERP%20sin%20errores%20de%20dato",
+        "bgColor": "#0255D5"
+      }
+    },
+    "inteligencia-artificial-sevilla": {
+      "slug": "inteligencia-artificial-sevilla",
+      "heroImage": "/static/backgrounds/odoo_background.webp",
+      "heroImagePosition": "center center",
+      "title": "Integraciones CRM y ERP con reglas y calidad de dato",
+      "shortTitle": "Inteligencia Artificial Sevilla",
       "subtitle": "Sincronizaciones robustas entre ventas, finanzas, soporte e inventario sin duplicados ni conflictos silenciosos.",
       "description": "Unificamos sistemas con mapeos claros, ownership por campo y observabilidad de sincronización para que el dato circule con criterio y no solo con conectores.",
       "heroBadge": "CRM + ERP conectados",

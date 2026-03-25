@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
-import IntegracionesCrmErpSevillaPage from "./page.client";
+import AgenciaAutomatizacionIA from "./page.client"
 
-const slug = "integraciones-crm-erp-sevilla" as const;
+const slug = "agencia-automatizacion-ia" as const;
 type LandingMetadataContent = {
   title: string;
   description: string;
@@ -32,6 +32,6 @@ export async function generateMetadata({
   });
 }
 
-export default async function IntegracionesCrmErpSevilla() {
-  return <IntegracionesCrmErpSevillaPage />;
+export default async function AgenciaAutomatizacionesIA() {
+  return <AgenciaAutomatizacionIA />;
 }
