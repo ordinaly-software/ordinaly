@@ -3041,7 +3041,6 @@
       "shortTitle": "IA para empresas",
       "subtitle": "Automatizamos tareas, reducimos tiempos operativos y creamos copilotos internos adaptados a tu negocio.",
       "description": "Diseñamos e implantamos soluciones de IA que mejoran productividad, eliminan trabajo repetitivo y permiten a los equipos centrarse en tareas de mayor valor. Modelos privados, automatizaciones seguras y asistentes entrenados con tu propio conocimiento.",
-      "heroBadge": "IA aplicada a negocio",
       "heroCtaLabel": "Evaluar mi caso",
       "heroCtaHref": "#formulario",
       "secondaryCtaLabel": "Hablar con el equipo",
@@ -3050,18 +3049,15 @@
       "cards": [
         {
           "title": "Copilotos internos",
-          "description": "Asistentes privados entrenados con tu documentación, procesos y datos internos. Responden dudas, generan contenido y guían tareas operativas.",
-          "image": "/assets/Copiloto_Interno.webp"
+          "description": "Asistentes privados entrenados con tu documentación, procesos y datos internos. Responden dudas, generan contenido y guían tareas operativas."
         },
         {
           "title": "Automatización de procesos",
-          "description": "Eliminamos tareas repetitivas: clasificación de correos, generación de informes, resúmenes automáticos, extracción de datos y más.",
-          "image": "/assets/AutomatizacionProcesos.webp"
+          "description": "Eliminamos tareas repetitivas: clasificación de correos, generación de informes, resúmenes automáticos, extracción de datos y más."
         },
         {
           "title": "Modelos privados y seguros",
-          "description": "Infraestructura de IA en tu nube o entorno privado. Control total del dato, auditoría y cumplimiento normativo.",
-          "image": "/assets/ModelosPrivados_Seguros.webp"
+          "description": "Infraestructura de IA en tu nube o entorno privado. Control total del dato, auditoría y cumplimiento normativo."
         }
       ],
       "steps": [
