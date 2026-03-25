@@ -18,17 +18,19 @@ export async function generateMetadata({
   const { locale } = await params;
   const messages = await getMessages({ locale });
   const landing = (messages as { landings?: Record<string, LandingMetadataContent> }).landings?.[slug];
-
-  if (!landing) {
-    throw new Error(`Missing landing content: ${slug}`);
-  }
+  const effectiveLanding: LandingMetadataContent =
+    landing ?? {
+      title: "Artificial Intelligence for Businesses",
+      description: "Discover how our AI solutions can help your company improve efficiency and decision-making.",
+      heroImage: "/static/backgrounds/services_background.webp",
+    };
 
   return createPageMetadata({
     locale,
     path: `/${slug}`,
-    title: landing.title,
-    description: landing.description,
-    image: landing.heroImage || "/static/backgrounds/services_background.webp",
+    title: effectiveLanding.title,
+    description: effectiveLanding.description,
+    image: effectiveLanding.heroImage || "/static/backgrounds/services_background.webp",
   });
 }
 
