@@ -16,6 +16,9 @@ for = "/start.js"
   command = "npm run build"
   publish = ".next"
 
+[build.environment]
+  NODE_VERSION = "22.12.0"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
@@ -82,6 +85,3 @@ for = "/start.js"
   to = "/chatbots-empresas-sevilla"
   status = 301
   force = true
-
-[build.environment]
-NODE_VERSION = "22.12.0"
