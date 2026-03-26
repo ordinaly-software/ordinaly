@@ -10,7 +10,7 @@ const shouldOptimizeImages = forceImageOptimization || !usesLocalApi;
 const nextConfig: NextConfig = {
   // External packages for server components
   productionBrowserSourceMaps: true,
-  serverExternalPackages: ['@tsparticles/engine', '@tsparticles/slim'],
+  serverExternalPackages: ['@tsparticles/engine', '@tsparticles/slim', 'sanity', 'next-sanity', '@sanity/client', '@sanity/icons', '@sanity/image-url', '@sanity/vision'],
   
   // Enable experimental features for better performance
   experimental: {
