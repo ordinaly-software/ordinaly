@@ -2643,144 +2643,166 @@
     },
     "automatizacion-inteligente": {
       "slug": "automatizacion-inteligente",
-      "heroImage": "/static/backgrounds/us_background.webp",
+      "heroImage": "/static/backgrounds/automation_background.webp",
       "heroImagePosition": "center 38%",
-      "title": "WhatsApp Business automatizado con medición real",
+      "title": "Automatización Inteligente para Empresas",
       "shortTitle": "Automatización Inteligente",
-      "subtitle": "Mensajería operativa para captación, soporte y seguimiento con SLA, plantillas y contexto CRM.",
-      "description": "Diseñamos flujos de WhatsApp que combinan plantillas aprobadas, bots híbridos y derivación a humanos para que el canal sirva de verdad a ventas y soporte sin perder trazabilidad.",
-      "heroBadge": "WhatsApp + SLA",
-      "heroCtaLabel": "Optimizar canal",
-      "secondaryCtaLabel": "Escribir por WhatsApp",
-      "serviceType": "Automatización de WhatsApp Business para ventas y soporte",
-      "areaServed": "España y equipos comerciales distribuidos",
+      "heroBadge": "IA + Automatización",
+      "heroCtaLabel": "Quiero saber más",
+      "heroCtaHref": "#formulario",
+      "secondaryCtaLabel": "Hablar por WhatsApp",
+      "serviceType": "Automatización de procesos internos, comerciales y operativos",
+      "areaServed": "España y equipos distribuidos",
       "valueProps": [
-        "Diseño de journeys con plantillas, respuestas IA y handoff a comercial o soporte según intención.",
-        "Registro estructurado de cada conversación en CRM para no perder contexto ni atribución.",
-        "Paneles de tiempos de respuesta, conversión y carga por equipo o franja horaria."
+        "Automatización de procesos comerciales, operativos y administrativos con IA.",
+        "Integración entre CRM, ERP, email, WhatsApp, formularios y herramientas internas.",
+        "Reducción del 40–70% en tareas manuales y eliminación de errores repetitivos."
       ],
       "metrics": [
         {
-          "label": "Primer contacto",
-          "value": "<30 s objetivo",
-          "detail": "Diseñamos el flujo para responder rápido aunque el caso termine en humano."
+          "label": "Ahorro operativo",
+          "value": "40–70%",
+          "detail": "Reducción real de tareas manuales en procesos repetitivos."
         },
         {
-          "label": "Contexto compartido",
-          "value": "CRM sincronizado",
-          "detail": "Cada conversación deja trazas, etiquetas y resumen operativo para el equipo."
+          "label": "Velocidad de procesos",
+          "value": "3× más rápido",
+          "detail": "Automatizaciones que ejecutan tareas en segundos, no minutos."
         },
         {
-          "label": "Canal híbrido",
-          "value": "Plantillas + IA",
-          "detail": "Cumplimos restricciones del canal sin renunciar a conversaciones abiertas donde tienen sentido."
+          "label": "Integración total",
+          "value": "CRM + ERP + IA",
+          "detail": "Conectamos tus sistemas para que la información fluya sin fricción."
         }
       ],
       "outcomes": [
-        "Tasa de respuesta y conversión por campaña, plantilla e intención detectada.",
-        "Tiempo hasta asignación humana con trazabilidad completa del histórico.",
-        "Carga operativa por equipo para ajustar horarios, reglas y automatizaciones."
+        "Procesos automáticos funcionando 24/7 sin intervención humana.",
+        "Equipos más enfocados en tareas de alto valor.",
+        "Reducción de errores y mejora de la trazabilidad operativa."
       ],
       "steps": [
-        "Auditamos journeys, mensajes, aprobaciones y SLA antes de rediseñar el canal.",
-        "Configuramos plantillas, enrutado, IA híbrida e integración con CRM o ticketing.",
-        "Medimos durante el piloto y ajustamos reglas según conversión, tiempos y handoff."
+        "Analizamos tus procesos actuales y detectamos cuellos de botella.",
+        "Diseñamos el flujo automatizado y definimos reglas + IA.",
+        "Integramos tus herramientas y monitorizamos resultados."
+      ],
+      "benefits": [
+        "Reducción del 40–70% en tareas manuales",
+        "Procesos 3× más rápidos",
+        "Eliminación de errores repetitivos",
+        "Integración total entre tus herramientas",
+        "Ahorro directo en costes operativos",
+        "Equipos más enfocados en tareas de valor"
+      ],
+      "before": [
+        "Tareas repetitivas que consumen horas",
+        "Errores humanos constantes",
+        "Procesos lentos y poco escalables",
+        "Falta de integración entre herramientas",
+        "Equipos saturados con tareas administrativas"
+      ],
+      "after": [
+        "Procesos automáticos funcionando 24/7",
+        "Cero errores repetitivos",
+        "Integración total entre sistemas",
+        "Ahorro de tiempo y costes",
+        "Equipos centrados en tareas de alto valor"
       ],
       "useCases": [
         {
-          "tag": "Captación",
-          "title": "Cualificación y agenda comercial",
-          "description": "Recoge variables clave y deriva al comercial correcto con resumen previo en CRM.",
-          "bullets": [
-            "Lead scoring antes de llamada o demo",
-            "Asignación por idioma, zona o producto"
-          ]
-        },
-        {
-          "tag": "Soporte",
-          "title": "Seguimiento posventa con contexto",
-          "description": "Unifica incidencias, documentación y estado de pedido dentro del mismo hilo de conversación.",
-          "bullets": [
-            "Actualizaciones automáticas por evento",
-            "Escalado con resumen y archivos"
-          ]
-        },
-        {
           "tag": "Operaciones",
-          "title": "Notificaciones críticas y recordatorios",
-          "description": "Usa el canal para avisos relevantes sin convertirlo en ruido operativo.",
+          "title": "Automatización de procesos internos",
+          "description": "Flujos automáticos entre CRM, ERP, email, documentos y sistemas internos.",
           "bullets": [
-            "Recordatorios con plantillas aprobadas",
-            "Reglas de frecuencia y prioridad"
+            "Validaciones automáticas",
+            "Actualización de estados y registros"
+          ]
+        },
+        {
+          "tag": "Ventas",
+          "title": "Automatización comercial",
+          "description": "Seguimiento automático, lead scoring, respuestas inteligentes y agendas.",
+          "bullets": [
+            "Lead nurturing automático",
+            "Asignación por reglas"
+          ]
+        },
+        {
+          "tag": "Administración",
+          "title": "Automatización administrativa",
+          "description": "Facturas, reportes, conciliaciones y generación de documentos.",
+          "bullets": [
+            "Extracción de datos con IA",
+            "Generación automática de informes"
           ]
         }
       ],
       "technologyFaqs": [
         {
-          "tag": "API",
-          "question": "¿Trabajáis con la API oficial de WhatsApp Business?",
-          "answer": "Sí. Podemos trabajar con BSP existentes o ayudar a ordenar la capa de proveedor, plantillas y números si aún no está bien resuelta."
-        },
-        {
-          "tag": "Métricas",
-          "question": "¿Cómo medís si el canal realmente mejora ventas o soporte?",
-          "answer": "Atamos conversación, plantilla, intención y resultado final a dashboards de conversión, respuesta y escalado. Sin esa atribución, el canal no se considera optimizado."
-        },
-        {
-          "tag": "Diseño",
-          "question": "¿Todo debe resolverse con botones y plantillas?",
-          "answer": "No. Diseñamos capas: plantillas para apertura y recontacto, y respuestas IA o handoff para el tramo conversacional que sí necesita flexibilidad."
-        },
-        {
           "tag": "Integración",
-          "question": "¿Puede compartir lógica con el chatbot web?",
-          "answer": "Sí. Reutilizamos intención, conocimiento y reglas de negocio cuando conviene. El canal cambia; la capa de conocimiento y observabilidad no tiene por qué cambiar."
+          "question": "¿Con qué herramientas podéis integraros?",
+          "answer": "CRM, ERP, Google Workspace, Microsoft 365, WhatsApp, Slack, Notion, Airtable, bases de datos y APIs personalizadas."
+        },
+        {
+          "tag": "IA",
+          "question": "¿Qué tipo de IA utilizáis?",
+          "answer": "Clasificación, extracción de datos, resúmenes, generación de contenido y toma de decisiones basada en reglas + IA."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Es seguro automatizar procesos críticos?",
+          "answer": "Sí. Diseñamos flujos con validaciones, logs, control de errores y trazabilidad completa."
+        },
+        {
+          "tag": "Escalabilidad",
+          "question": "¿Las automatizaciones crecen con mi empresa?",
+          "answer": "Sí. Diseñamos flujos modulares que pueden ampliarse sin rehacer todo el sistema."
         }
       ],
       "keywords": [
-        "automatización WhatsApp Business",
-        "WhatsApp para ventas",
-        "SLA en mensajería",
-        "CRM y WhatsApp"
+        "automatización inteligente",
+        "automatización de procesos",
+        "IA para empresas",
+        "integración CRM ERP",
+        "automatización operativa"
       ],
       "hub": {
-        "title": "WhatsApp conectado a CRM, IA y reporting",
-        "subtitle": "Un canal comercial y de soporte con trazabilidad operativa completa.",
-        "bgTheme": "green",
+        "title": "Procesos conectados con IA, CRM y automatización",
+        "subtitle": "Un sistema operativo para tu empresa que funciona 24/7.",
+        "bgTheme": "orange",
         "platforms": [
           {
             "position": "top-left",
-            "figureKey": "whatsapp",
+            "figureKey": "automation",
             "colorScheme": "indigo",
-            "label": "Canal WhatsApp",
-            "sublabel": "Entrada principal"
+            "label": "Automatización",
+            "sublabel": "Flujos internos"
           },
           {
             "position": "top-right",
-            "figureKey": "chatbot",
+            "figureKey": "ai",
             "colorScheme": "cyan",
-            "label": "IA híbrida",
-            "sublabel": "Plantillas y respuesta"
+            "label": "IA",
+            "sublabel": "Clasificación y decisiones"
           },
           {
             "position": "bottom-left",
-            "figureKey": "sales-crm",
+            "figureKey": "crm",
             "colorScheme": "indigo",
             "label": "CRM",
-            "sublabel": "Contexto y atribución"
+            "sublabel": "Contexto y datos"
           },
           {
             "position": "bottom-right",
-            "figureKey": "cloud-data",
+            "figureKey": "dashboard",
             "colorScheme": "cyan",
             "label": "Paneles",
-            "sublabel": "SLA y conversión"
+            "sublabel": "KPIs y trazabilidad"
           }
         ]
       },
       "cta": {
-        "label": "Activar WhatsApp IA",
-        "href": "https://wa.me/34626270806?text=Quiero%20mejorar%20mi%20operaci%C3%B3n%20de%20WhatsApp%20Business",
+        "label": "Quiero automatizar mi empresa",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20procesos",
         "bgColor": "#D97757"
       }
     },
