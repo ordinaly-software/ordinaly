@@ -2788,108 +2788,113 @@
       "slug": "formacion-ia-pymes-sevilla",
       "heroImage": "/static/backgrounds/formation_background.webp",
       "heroImagePosition": "center 30%",
-      "title": "AI training applied to real processes",
-      "shortTitle": "AI training",
-      "subtitle": "Hands-on programs for teams that need to use AI with judgment, safety and clear ROI.",
-      "description": "We design workshops around business tasks, internal datasets and usage rules so the team leaves with habits, templates and operational boundaries, not just inspiration.",
-      "heroBadge": "Operational training",
-      "heroCtaLabel": "Plan training",
-      "secondaryCtaLabel": "Check availability",
-      "serviceType": "AI training for sales, support and operations",
-      "areaServed": "Spain, remote and on-site sessions",
+      "title": "Formación en IA aplicada a procesos reales",
+      "shortTitle": "Formación IA",
+      "heroBadge": "Formación operativa",
+      "heroCtaLabel": "Planificar formación",
+      "secondaryCtaLabel": "Consultar disponibilidad",
+      "serviceType": "Formación en IA para ventas, soporte y operaciones",
+      "areaServed": "España · Sesiones presenciales y online",
       "valueProps": [
-        "Sessions built around business examples and measurable tasks the team already performs today.",
-        "Security, data-governance and acceptable-use modules tailored to each team.",
-        "Templates, prompts and routines ready to apply the very next day."
+        "Sesiones construidas sobre ejemplos reales y tareas que el equipo ya realiza hoy.",
+        "Módulos de seguridad, gobernanza y uso responsable adaptados a cada departamento.",
+        "Plantillas, prompts y rutinas listas para aplicar al día siguiente."
       ],
       "metrics": [
         {
-          "label": "Format",
-          "value": "2-4 hours",
-          "detail": "Compact blocks that do not stop operations and can be repeated by team."
+          "label": "Formato",
+          "value": "2–4 horas",
+          "detail": "Bloques compactos que no interrumpen operaciones y pueden repetirse por equipo."
         },
         {
-          "label": "Follow-up",
-          "value": "Optional 30 days",
-          "detail": "We support adoption, answer doubts and measure actual usage after the session."
+          "label": "Seguimiento",
+          "value": "Opcional 30 días",
+          "detail": "Acompañamos la adopción, resolvemos dudas y medimos el uso real tras la sesión."
         },
         {
-          "label": "Materials",
-          "value": "Ready-to-use playbooks",
-          "detail": "Role-based guides, checklists and prompt libraries fitted to your tasks."
+          "label": "Materiales",
+          "value": "Playbooks listos para usar",
+          "detail": "Guías por rol, checklists y librerías de prompts adaptadas a tus tareas."
         }
       ],
-      "outcomes": [
-        "Adoption by team and use case, not just attendance.",
-        "Time saved on concrete tasks after introducing new routines and templates.",
-        "Security incidents or out-of-policy uses detected and corrected early."
-      ],
-      "steps": [
-        "We diagnose repetitive tasks, approved tools and team-specific risks.",
-        "We run a hands-on session with real exercises and review criteria.",
-        "We deliver materials and, when useful, follow with challenges and office hours."
+      "experts": [
+        {
+          "name": "Antonio Macías Ferrera",
+          "role": "Especialista en Automatización e IA aplicada a negocios",
+          "description": "Ha implementado sistemas inteligentes en más de 40 empresas."
+        },
+        {
+          "name": "Laura Gómez",
+          "role": "IA aplicada a marketing",
+          "description": "Experta en generación de contenido, análisis y workflows creativos."
+        },
+        {
+          "name": "Carlos Ruiz",
+          "role": "Automatización con n8n y APIs",
+          "description": "Crea sistemas que reducen horas de trabajo manual en operaciones."
+        }
       ],
       "useCases": [
         {
-          "tag": "Sales",
-          "title": "Proposal generation and meeting prep",
-          "description": "The team learns to use AI for context synthesis, objection prep and structured follow-up.",
+          "tag": "Ventas",
+          "title": "Preparación de propuestas y reuniones",
+          "description": "El equipo aprende a usar IA para síntesis de contexto, preparación de objeciones y seguimiento estructurado.",
           "bullets": [
-            "Reusable prompts by sales stage",
-            "Tone, risk and accuracy review"
+            "Prompts reutilizables por etapa comercial",
+            "Revisión de tono, riesgos y precisión"
           ]
         },
         {
-          "tag": "Operations",
-          "title": "Documentation, analysis and reporting",
-          "description": "We turn long synthesis and classification tasks into clear, repeatable routines.",
+          "tag": "Operaciones",
+          "title": "Documentación, análisis y reporting",
+          "description": "Convertimos tareas largas de síntesis y clasificación en rutinas claras y repetibles.",
           "bullets": [
-            "Consistent, comparable summaries",
-            "Checklist to validate outputs before use"
+            "Resúmenes consistentes y comparables",
+            "Checklist para validar outputs antes de usarlos"
           ]
         },
         {
-          "tag": "Leadership",
-          "title": "Internal AI usage policy",
-          "description": "We help define what can be used, with which data and under what supervision.",
+          "tag": "Dirección",
+          "title": "Política interna de uso de IA",
+          "description": "Definimos qué se puede usar, con qué datos y bajo qué supervisión.",
           "bullets": [
-            "Criteria by role and tool",
-            "Best practices for sensitive data"
+            "Criterios por rol y herramienta",
+            "Buenas prácticas para datos sensibles"
           ]
         }
       ],
       "technologyFaqs": [
         {
-          "tag": "Program",
-          "question": "Is the training generic or adapted to the business?",
-          "answer": "It always starts from real cases and real tasks. Without that anchor, adoption drops quickly and the team returns to old habits."
+          "tag": "Programa",
+          "question": "¿La formación es genérica o adaptada al negocio?",
+          "answer": "Siempre parte de casos y tareas reales. Sin ese anclaje, la adopción cae y el equipo vuelve a los hábitos anteriores."
         },
         {
-          "tag": "Security",
-          "question": "Do you include security, privacy and governance?",
-          "answer": "Yes. We cover data minimization, approved tools, usage limits and human review when impact requires it."
+          "tag": "Seguridad",
+          "question": "¿Incluye seguridad, privacidad y gobernanza?",
+          "answer": "Sí. Cubrimos minimización de datos, herramientas aprobadas, límites de uso y revisión humana cuando el impacto lo requiere."
         },
         {
-          "tag": "Format",
-          "question": "Can it be combined with a technical rollout?",
-          "answer": "Yes. It often works better when training accompanies a pilot or rollout because the team learns on top of its own workflow."
+          "tag": "Formato",
+          "question": "¿Puede combinarse con un despliegue técnico?",
+          "answer": "Sí. Funciona incluso mejor cuando acompaña un piloto o rollout, porque el equipo aprende sobre su propio flujo de trabajo."
         },
         {
-          "tag": "Adoption",
-          "question": "How do you measure whether training actually changes habits?",
-          "answer": "We define target tasks, baseline time or quality and post-session follow-up. Without measurement, training remains inspiration instead of operations."
+          "tag": "Adopción",
+          "question": "¿Cómo medís si la formación cambia hábitos?",
+          "answer": "Definimos tareas objetivo, tiempo o calidad base y seguimiento posterior. Sin medición, la formación se queda en inspiración."
         }
       ],
-      "keywords": [
-        "AI training for companies",
-        "AI adoption for teams",
-        "hands-on AI workshop",
-        "AI governance training"
+      "curiosities": [
+        "Más del 85% de las tareas administrativas pueden automatizarse parcial o totalmente con IA.",
+        "Las empresas que adoptan IA reportan un aumento medio del 30% en productividad en menos de 90 días.",
+        "Un modelo de IA puede analizar en milisegundos lo que un humano tardaría horas en revisar.",
+        "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos.",
+        "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
       ],
       "cta": {
-        "label": "Request training",
-        "href": "https://wa.me/34626270806?text=Quiero%20formaci%C3%B3n%20IA%20pr%C3%A1ctica%20para%20mi%20equipo",
-        "bgColor": "#0255D5"
+        "label": "Quiero saber más información",
+        "bgColor": "#d97757"
       }
     },
     "integraciones-crm-erp-sevilla": {
