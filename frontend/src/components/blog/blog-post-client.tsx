@@ -93,7 +93,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white transition-colors duration-300">
       <Banner
         title={p.title}
         subtitle={p.seoDescription || p.excerpt || ''}
@@ -104,7 +104,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         {/* Header row: back link | share buttons | date (responsive) */}
         <div className="mb-6 grid grid-cols-1 md:grid-cols-3 items-center gap-6">
           <div className="flex md:justify-start justify-center">
-            <Link href="/blog" className="inline-flex items-center gap-2 text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#2EA55E] dark:hover:text-[#2EA55E] hover:underline">
+            <Link href="/blog" className="inline-flex items-center gap-2 text-clay hover:text-flame hover:underline">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
               {t("backToBlog")}
             </Link>
@@ -129,14 +129,14 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
           </div>
         </div>
         {tocItems.length > 0 && (
-          <nav aria-label={t('toc.label', { default: 'Table of contents' })} className="mb-8 rounded-2xl border border-[#1F8A0D]/30 dark:border-[#3FBD6F]/40 bg-white/80 dark:bg-[#15151D]/70 p-5 shadow-sm backdrop-blur">
-            <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#3FBD6F]">
+          <nav aria-label={t('toc.label', { default: 'Table of contents' })} className="mb-8 rounded-2xl border border-clay/30 bg-white/80 dark:bg-slate-dark/70 p-5 shadow-sm backdrop-blur">
+            <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-clay">
               {t('toc.title', { default: 'Table of contents' })}
             </div>
             <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-200">
               {tocItems.map((item) => (
                 <li key={item.id} className={item.level >= 4 ? 'ml-6' : item.level === 3 ? 'ml-4' : 'ml-0'}>
-                  <a href={`#${item.id}`} className="hover:text-[#2EA55E] dark:hover:text-[#2EA55E] transition-colors text-[#1F8A0D] dark:text-[#3FBD6F]">
+                  <a href={`#${item.id}`} className="hover:text-flame transition-colors text-clay">
                     {item.text}
                   </a>
                 </li>
@@ -185,7 +185,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                       <Link
                         key={cat.slug}
                         href={`/blog?category=${cat.slug}`}
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#1F8A0D]/10 text-[#1F8A0D] dark:bg-[#3FBD6F]/20 dark:text-[#3FBD6F] text-sm font-medium hover:bg-[#1F8A0D]/20 dark:hover:bg-[#3FBD6F]/30 transition w-fit"
+                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-clay/10 text-clay text-sm font-medium hover:bg-clay/20 transition w-fit"
                       >
                         {cat.title}
                       </Link>

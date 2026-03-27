@@ -1,83 +1,151 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
+import {
+  Briefcase,
+  Building2,
+  Home,
+  TrendingUp,
+  ShoppingBag,
+  HardHat,
+  ArrowRight,
+  type LucideIcon,
+} from "lucide-react";
 
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
 interface SectionProps {
   t: TranslateFn;
+  id?: string;
 }
 
-const useCases = [
+interface UseCaseItem {
+  titleKey: string;
+  bulletKey: string;
+  bullets: string[];
+  Icon: LucideIcon;
+  /** Accent colour from the design-system palette */
+  accent: string;
+  /** Soft background tint (20 % of accent) */
+  accentSoft: string;
+  href: string;
+}
+
+const useCases: UseCaseItem[] = [
   {
     titleKey: "useCases.items.4.title",
     bulletKey: "useCases.items.4",
-    defaultTitle: "Consultoría y Servicios",
-    icon: "💼",
-    bullets: [
-      "Gestión automática de correos",
-      "Workflows de facturación",
-      "CRM personalizado con VeriFactu"
-    ],
+    bullets: ["bullets.0", "bullets.1", "bullets.2"],
+    Icon: Briefcase,
+    accent: "var(--swatch--clay)",
+    accentSoft: "var(--swatch--clay)/12",
+    href: "/services",
   },
   {
     titleKey: "useCases.items.0.title",
     bulletKey: "useCases.items.0",
-    defaultTitle: "Administradores de Fincas",
-    icon: "🏢",
-    bullets: [
-      "Envío automático de informes a propietarios",
-      "Gestión automática de correos",
-      "Workflows de facturación"
-    ]
+    bullets: ["bullets.0", "bullets.1", "bullets.2"],
+    Icon: Building2,
+    accent: "var(--swatch--cobalt)",
+    accentSoft: "var(--swatch--cobalt)/12",
+    href: "/services",
   },
   {
     titleKey: "useCases.items.1.title",
     bulletKey: "useCases.items.1",
-    defaultTitle: "Inmobiliarias",
-    icon: "🏠",
-    bullets: [
-      "Agente de IA para consultas de clientes",
-      "Automatización de publicaciones en redes sociales",
-      "Workflow de visitas y seguimiento",
-    ],
+    bullets: ["bullets.0", "bullets.1", "bullets.2"],
+    Icon: Home,
+    accent: "var(--swatch--olive)",
+    accentSoft: "var(--swatch--olive)/12",
+    href: "/services",
   },
   {
     titleKey: "useCases.items.2.title",
     bulletKey: "useCases.items.2",
-    defaultTitle: "Agencias de Marketing",
-    icon: "📱",
-    bullets: [
-      "Automatización de redes sociales",
-      "Generación de contenido con IA",
-      "Análisis de campañas automatizado",
-    ],
+    bullets: ["bullets.0", "bullets.1", "bullets.2"],
+    Icon: TrendingUp,
+    accent: "var(--swatch--sky)",
+    accentSoft: "var(--swatch--sky)/12",
+    href: "/services",
   },
   {
     titleKey: "useCases.items.3.title",
     bulletKey: "useCases.items.3",
-    defaultTitle: "Comercio Retail",
-    icon: "🛍️",
-    bullets: [
-      "Gestión de inventario inteligente",
-      "Atención al cliente automatizada",
-      "Predicción de demanda con IA",
-    ],
+    bullets: ["bullets.0", "bullets.1", "bullets.2"],
+    Icon: ShoppingBag,
+    accent: "var(--swatch--flame)",
+    accentSoft: "var(--swatch--flame)/12",
+    href: "/services",
   },
   {
     titleKey: "useCases.items.5.title",
     bulletKey: "useCases.items.5",
-    defaultTitle: "Construcción e Ingeniería",
-    icon: "🏗️",
-    bullets: [
-      "Gestión de proveedores y presupuestos",
-      "Documentación inteligente con IA",
-      "Planning y cronogramas automatizados",
-    ],
+    bullets: ["bullets.0", "bullets.1", "bullets.2"],
+    Icon: HardHat,
+    accent: "var(--swatch--slate-light)",
+    accentSoft: "var(--swatch--slate-light)/12",
+    href: "/services",
   },
 ];
 
-export function UseCasesSection({ t }: SectionProps) {
+// ─── Single card ──────────────────────────────────────────────────────────────
+
+function UseCaseCard({ item, t, index }: { item: UseCaseItem; t: TranslateFn; index: number }) {
+  const { Icon, accent, href } = item;
+
+  return (
+    <Link
+      href={href}
+      className="group scroll-animate fade-in-up relative flex flex-col items-start rounded-[1.875rem] border-2 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)] px-8 pt-14 pb-12 text-left no-underline transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-clay focus-visible:ring-offset-2"
+      style={{ animationDelay: `${index * 0.08}s` }}
+    >
+      {/* ── Icon circle — overflows the top edge ───────────────────────── */}
+      <div
+        className="absolute -top-7 left-1/2 -translate-x-1/2 flex h-14 w-14 items-center justify-center rounded-full border-2 border-[var(--swatch--ivory-light)] dark:border-[var(--swatch--slate-medium)] transition-colors duration-300"
+        style={{ backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)` }}
+      >
+        <Icon
+          className="h-6 w-6 transition-colors duration-300"
+          style={{ color: accent }}
+          strokeWidth={1.5}
+        />
+      </div>
+
+      {/* ── Title ──────────────────────────────────────────────────────── */}
+      <h3
+        className="mb-3 w-full text-center text-[1.35rem] font-semibold leading-snug text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] transition-colors duration-300"
+      >
+        {t(item.titleKey)}
+      </h3>
+
+      {/* ── Bullets ────────────────────────────────────────────────────── */}
+      <ul className="w-full space-y-1.5 text-center text-sm leading-relaxed text-[var(--swatch--slate-light)] dark:text-[var(--swatch--cloud-medium)] transition-colors duration-300">
+        {item.bullets.map((_, idx) => (
+          <li key={idx}>
+            {t(`${item.bulletKey}.bullets.${idx}`)}
+          </li>
+        ))}
+      </ul>
+
+      {/* ── Arrow button — overflows the bottom edge ───────────────────── */}
+      <div
+        className="absolute -bottom-4 left-1/2 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full border bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)] shadow-sm transition-all duration-300 group-hover:shadow-md"
+        style={{ borderColor: accent }}
+      >
+        <ArrowRight
+          className="h-4 w-4 transition-all duration-300 group-hover:translate-x-0.5"
+          style={{ color: accent }}
+          strokeWidth={1.5}
+        />
+      </div>
+    </Link>
+  );
+}
+
+// ─── Section ──────────────────────────────────────────────────────────────────
+
+export function UseCasesSection({ t, id }: SectionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -105,44 +173,30 @@ export function UseCasesSection({ t }: SectionProps) {
     );
 
     items.forEach((item) => observer.observe(item));
-
     return () => observer.disconnect();
   }, []);
 
   return (
     <section
       ref={sectionRef}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900/20"
+      id={id}
+      className="scroll-mt-24 bg-[--swatch--ivory-medium] px-4 py-20 dark:bg-[--swatch--slate-dark] sm:px-6 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+        {/* Header */}
+        <div className="text-center mb-20 scroll-animate fade-in-up">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
             {t("useCases.title")}
           </h2>
-          <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
             {t("useCases.subtitle")}
           </p>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        {/* Cards — extra vertical padding to show overflow circles */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14">
           {useCases.map((item, index) => (
-            <div
-              key={item.titleKey}
-              className="scroll-animate fade-in-up bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-shadow"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="text-4xl mb-4">{item.icon}</div>
-              <h3 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white">
-                {t(item.titleKey)}
-              </h3>
-              <ul className="space-y-2 text-gray-700 dark:text-gray-300">
-                {item.bullets.map((bullet, idx) => (
-                  <li key={idx} className="flex items-start gap-2">
-                    <span className="text-[#1F8A0D] dark:text-[#3FBD6F] mt-1">✓</span>
-                    <span>{t(`${item.bulletKey ?? item.titleKey.replace(".title", "")}.bullets.${idx}`)}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <UseCaseCard key={item.titleKey} item={item} t={t} index={index} />
           ))}
         </div>
       </div>

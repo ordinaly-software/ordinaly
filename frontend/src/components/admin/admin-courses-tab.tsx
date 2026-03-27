@@ -135,6 +135,9 @@ const AdminCoursesTab = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string>("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showDuplicateModal, setShowDuplicateModal] = useState(false);
+  const [courseToDuplicate, setCourseToDuplicate] = useState<Course | null>(null);
+  const [isDuplicating, setIsDuplicating] = useState(false);
   const [sortBy, setSortBy] = useState<SortOption>('start_date');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
   const [isLoadingEnrollments, setIsLoadingEnrollments] = useState(false);
@@ -245,15 +248,20 @@ const AdminCoursesTab = () => {
     setShowDeleteModal(true);
   };
 
-  const handleDuplicate = async (course: Course) => {
+  const handleDuplicate = (course: Course) => {
+    setCourseToDuplicate(course);
+    setShowDuplicateModal(true);
+  };
+
+  const executeDuplicate = async () => {
+    if (!courseToDuplicate) return;
+    setIsDuplicating(true);
     try {
       const token = localStorage.getItem('auth_token');
-      const identifier = course.slug ?? course.id;
+      const identifier = courseToDuplicate.slug ?? courseToDuplicate.id;
       const response = await fetch(getApiEndpoint(`/api/courses/courses/${identifier}/duplicate/`), {
         method: 'POST',
-        headers: {
-          'Authorization': `Token ${token}`,
-        },
+        headers: { 'Authorization': `Token ${token}` },
       });
       if (!response.ok) {
         setAlert({ type: 'error', message: t('messages.duplicateError') });
@@ -263,6 +271,10 @@ const AdminCoursesTab = () => {
       refetch();
     } catch {
       setAlert({ type: 'error', message: t('messages.networkError') });
+    } finally {
+      setIsDuplicating(false);
+      setShowDuplicateModal(false);
+      setCourseToDuplicate(null);
     }
   };
 
@@ -770,7 +782,7 @@ const AdminCoursesTab = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--swatch--clay)]"></div>
       </div>
     );
   }
@@ -790,7 +802,7 @@ const AdminCoursesTab = () => {
   <div className="sticky top-0 z-30 bg-transparent dark:bg-transparent flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center gap-x-6 gap-y-3 mb-6 px-2 py-3">
   <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-2 w-full md:w-auto min-w-0">
           <div className="relative w-full sm:w-64 min-w-0">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-light dark:text-cloud-medium" />
             <Input
               placeholder={t("searchPlaceholder")}
               value={searchTerm ?? ""}
@@ -800,7 +812,7 @@ const AdminCoursesTab = () => {
           </div>
           {/* Sort Controls */}
           <div className="flex items-center justify-center flex-wrap gap-x-3 gap-y-2 w-full md:w-auto min-w-0">
-            <Label className="hidden md:inline text-sm font-medium text-gray-700 dark:text-gray-300 whitespace-nowrap">
+            <Label className="hidden md:inline text-sm font-medium text-slate-medium dark:text-cloud-medium whitespace-nowrap">
               {t("sorting.sortBy")}:
             </Label>
             <Dropdown
@@ -815,7 +827,7 @@ const AdminCoursesTab = () => {
               variant="ghost"
               size="sm"
               onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 rounded-lg"
+              className="p-2 hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-medium)] transition-colors duration-200 rounded-lg"
             >
               <ArrowUpDown className="h-4 w-4" />
             </Button>
@@ -836,7 +848,7 @@ const AdminCoursesTab = () => {
           <Button
             onClick={handleCreate}
             size="sm"
-            className="bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] dark:hover:bg-[#2EA55E] text-white dark:text-black flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
+            className="bg-[var(--swatch--clay)] hover:bg-[var(--swatch--flame)] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
             >
             <Plus className="h-4 w-4" />
             <span className="hidden xs:inline">{t("addCourse")}</span>
@@ -846,20 +858,20 @@ const AdminCoursesTab = () => {
 
       {/* Courses List */}
       {filteredCourses.length === 0 ? (
-        <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+        <div className="text-center py-12 text-slate-light dark:text-cloud-medium">
           {searchTerm ? t('noCoursesFound') : t('noCourses')}
         </div>
       ) : (
         <div className="space-y-4">
           {/* Select All */}
-          <div className="flex items-center space-x-2 pb-2 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center space-x-2 pb-2 border-b border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)]">
             <input
               type="checkbox"
               checked={paginatedCourses.length > 0 && paginatedCourses.every((c) => selectedCourses.includes(c.id))}
               onChange={toggleSelectAll}
-              className="rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] dark:focus:ring-[#3FBD6F]"
+              className="rounded border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
             />
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="text-sm text-slate-medium dark:text-cloud-medium">
               {t("selectAll")} ({filteredCourses.length} {t("courses")})
             </span>
           </div>
@@ -939,6 +951,18 @@ const AdminCoursesTab = () => {
         confirmText={t("confirmDelete.delete")}
         cancelText={t("confirmDelete.cancel")}
         isLoading={isDeleting}
+      />
+
+      {/* Duplicate Confirmation Modal */}
+      <DeleteConfirmationModal
+        isOpen={showDuplicateModal}
+        onClose={() => { setShowDuplicateModal(false); setCourseToDuplicate(null); }}
+        onConfirm={executeDuplicate}
+        title={tAdmin("duplicateConfirm.title") || "¿Duplicar elemento?"}
+        message={tAdmin("duplicateConfirm.message") || `¿Confirmar la duplicación de "${courseToDuplicate?.title}"?`}
+        confirmText={tAdmin("duplicateConfirm.confirm") || "Duplicar"}
+        cancelText={tAdmin("duplicateConfirm.cancel") || "Cancelar"}
+        isLoading={isDuplicating}
       />
 
       {/* Course Visualization Modal */}

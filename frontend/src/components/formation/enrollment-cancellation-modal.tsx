@@ -125,21 +125,21 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
             </div>
 
             {/* Course Information */}
-            <div className="mt-4 bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
+            <div className="mt-4 bg-oat dark:bg-[var(--swatch--slate-medium)] rounded-lg p-4 space-y-3">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {courseToCancel.title}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div className="space-y-2">
                   <div className="flex items-center">
-                    <CalendarDays className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#3FBD6F]" />
+                    <CalendarDays className="w-4 h-4 mr-2 text-clay" />
                     <span className="font-medium text-gray-900 dark:text-gray-200">{t("date")}:</span>
                     <span className="ml-2 text-gray-600 dark:text-gray-400">
                       {new Date(courseToCancel.start_date).toLocaleDateString()}
                     </span>
                   </div>
                   <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#3FBD6F]" />
+                    <MapPin className="w-4 h-4 mr-2 text-clay" />
                     <span className="font-medium text-gray-900 dark:text-gray-200">{t("location")}:</span>
                     <span className="ml-2 text-gray-600 dark:text-gray-400">
                       {courseToCancel.location}
@@ -148,7 +148,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center">
-                    <Euro className="w-4 h-4 mr-2 text-[#1F8A0D] dark:text-[#3FBD6F]" />
+                    <Euro className="w-4 h-4 mr-2 text-clay" />
                     <span className="font-medium text-gray-900 dark:text-gray-200">{t("price")}:</span>
                     <span className="ml-2 text-gray-600 dark:text-gray-400">
                       {courseToCancel.price ? `€${courseToCancel.price}` : t("free")}

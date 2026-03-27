@@ -58,12 +58,14 @@ const businessSchema = {
     "https://www.facebook.com/61579366744437/",
   ],
   makesOffer: [
-    "Chatbots empresariales",
-    "Agentes IA para soporte",
+    "Agencia de Automatización IA",
+    "Automatización de Facturas",
     "Automatización con n8n",
-    "Integraciones WhatsApp Business",
-    "Integraciones CRM/ERP (Odoo, HubSpot)",
+    "Automatización Inteligente",
+    "Empresa de Inteligencia Artificial",
     "Formación IA para PYMES",
+    "Inteligencia Artificial para empresas",
+    "Inteligencia Artificial Sevilla"
   ],
 };
 
@@ -106,7 +108,10 @@ export async function generateMetadata({
 export const viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#1F8A0D",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FAF9F5" },
+    { media: "(prefers-color-scheme: dark)", color: "#141413" },
+  ],
   viewportFit: "cover",
 };
 
@@ -139,10 +144,10 @@ export default async function RootLayout({
                 function canPersistTheme() {
                   try {
                     const rawPreferences = localStorage.getItem('cookie-preferences');
-                    if (!rawPreferences) return false;
+                    if (!rawPreferences) return true;
                     const parsed = JSON.parse(rawPreferences);
-                    return Boolean(parsed.functional);
-                  } catch { return false; }
+                    return parsed.functional !== false;
+                  } catch { return true; }
                 }
 
                 function getInitialTheme() {
@@ -194,5 +199,4 @@ export default async function RootLayout({
     </html>
   );
 }
-
 

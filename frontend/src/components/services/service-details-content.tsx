@@ -86,7 +86,7 @@ export function ServiceDetailsContent({
   showShareButtons = false,
   density = "default",
 }: ServiceDetailsContentProps) {
-  const accent = service.color_hex || service.color || "#1F8A0D";
+  const accent = service.color_hex || service.color || "var(--swatch--clay)";
   const accentHex = accent.startsWith("#") ? accent : `#${accent}`;
   const accentSoft = `${accentHex}1a`;
   const hero = service.image || FALLBACK_CARD_IMAGE;
@@ -132,7 +132,7 @@ export function ServiceDetailsContent({
             >
               {priceLabel}
             </Badge>
-            {service.is_featured && <Badge className="bg-emerald-600 text-white shadow">{labels.featured}</Badge>}
+            {service.is_featured && <Badge className="bg-clay text-white shadow">{labels.featured}</Badge>}
           </div>
         </div>
       </div>

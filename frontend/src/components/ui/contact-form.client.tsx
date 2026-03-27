@@ -1,12 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Alert from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { ChevronDown } from "lucide-react";
 
 type Status = "idle" | "loading";
 type AlertState = {
@@ -43,10 +44,29 @@ export default function ContactForm({
 }: ContactFormProps) {
   const t = useTranslations("contactPage");
   const formRef = useRef<HTMLFormElement | null>(null);
+  const prefixDropdownRef = useRef<HTMLDivElement | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [alert, setAlert] = useState<AlertState | null>(null);
+  const [prefixOpen, setPrefixOpen] = useState(false);
+  const [prefixSearch, setPrefixSearch] = useState("");
+  const [selectedPrefix, setSelectedPrefix] = useState(phonePrefixes[0]);
   const contactEndpoint = "/api/leads";
   const { executeRecaptcha } = useGoogleReCaptcha();
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (prefixDropdownRef.current && !prefixDropdownRef.current.contains(event.target as Node)) {
+        setPrefixOpen(false);
+        setPrefixSearch("");
+      }
+    };
+    if (prefixOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [prefixOpen]);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -123,59 +143,84 @@ export default function ContactForm({
   return (
     <div className={className}>
       <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
-        <div className="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-2xl shadow-xl p-6 md:p-8">
+        <div className="bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] border border-[--color-border-subtle] dark:border-[--color-border-strong] rounded-2xl shadow-xl p-6 md:p-8">
           <div className="space-y-2 text-center">
-            <p className="text-sm uppercase tracking-[0.2em] text-[#1F8A0D] dark:text-[#3FBD6F] font-semibold">
+            <p className="text-sm uppercase tracking-[0.2em] text-clay dark:text-clay font-semibold">
               {t("form.eyebrow")}
             </p>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{t("form.title")}</h2>
-            <p className="text-gray-700 dark:text-gray-300">{t("form.subtitle")}</p>
+            <h2 className="text-3xl font-bold text-slate-dark dark:text-[var(--swatch--ivory-light)]">{t("form.title")}</h2>
+            <p className="text-slate-medium dark:text-cloud-medium">{t("form.subtitle")}</p>
           </div>
 
           <form ref={formRef} onSubmit={handleSubmit} className="mt-8 space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                   {t("form.name")}
                 </label>
                 <Input name="name" required placeholder={t("form.namePlaceholder")} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                   {t("form.email")}
                 </label>
                 <Input name="email" type="email" required placeholder="you@email.com" />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                 {t("form.company")}
               </label>
               <Input name="company" placeholder={t("form.companyPlaceholder")} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                 {t("form.phone")}
               </label>
               <div className="flex gap-3">
-                <div className="min-w-[120px]">
+                <div className="min-w-[120px] relative" ref={prefixDropdownRef}>
                   <label className="sr-only" htmlFor="phonePrefix">
                     {t("form.phonePrefix")}
                   </label>
-                  <div className="p-[2px] rounded-lg transition duration-300 group/input">
-                    <select
-                      id="phonePrefix"
-                      name="phonePrefix"
-                      defaultValue="+34"
-                      className="h-10 w-full rounded-md bg-card text-card-foreground px-3 py-2 text-sm shadow-input dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-green"
-                    >
-                      {phonePrefixes.map((prefix) => (
-                        <option key={prefix.value} value={prefix.value}>
-                          {prefix.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                  <input type="hidden" name="phonePrefix" value={selectedPrefix.value} />
+                  <button
+                    type="button"
+                    onClick={() => { setPrefixOpen((o) => !o); setPrefixSearch(""); }}
+                    className="flex items-center justify-between w-full h-10 px-3 text-sm rounded-md bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border border-[--color-border-subtle] dark:border-[--color-border-strong] shadow-sm text-slate-dark dark:text-ivory-light focus:outline-none focus:ring-1 focus:ring-clay"
+                  >
+                    <span>{selectedPrefix.label}</span>
+                    <ChevronDown className={`h-4 w-4 ml-1 shrink-0 transition-transform ${prefixOpen ? "rotate-180" : ""}`} />
+                  </button>
+                  {prefixOpen && (
+                    <div className="absolute top-full left-0 z-50 mt-1 w-52 rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-white dark:bg-[--swatch--slate-medium] shadow-lg overflow-hidden">
+                      <div className="p-2">
+                        <input
+                          autoFocus
+                          type="text"
+                          value={prefixSearch}
+                          onChange={(e) => setPrefixSearch(e.target.value)}
+                          placeholder="+34, ES..."
+                          className="w-full h-8 px-2 text-sm rounded-md border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] text-slate-dark dark:text-ivory-light outline-none focus:ring-1 focus:ring-clay"
+                        />
+                      </div>
+                      <ul className="max-h-44 overflow-y-auto">
+                        {phonePrefixes
+                          .filter((p) =>
+                            p.label.toLowerCase().includes(prefixSearch.toLowerCase()) ||
+                            p.value.includes(prefixSearch)
+                          )
+                          .map((prefix) => (
+                            <li
+                              key={prefix.value}
+                              onClick={() => { setSelectedPrefix(prefix); setPrefixOpen(false); setPrefixSearch(""); }}
+                              className={`px-3 py-1.5 text-sm cursor-pointer hover:bg-clay/10 dark:hover:bg-clay/20 text-slate-dark dark:text-ivory-light${selectedPrefix.value === prefix.value ? " bg-clay/15 text-clay font-semibold" : ""}`}
+                            >
+                              {prefix.label}
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
                 <div className="flex-1">
                   <Input
@@ -188,7 +233,7 @@ export default function ContactForm({
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                 {t("form.message")}
               </label>
               <Textarea
@@ -204,7 +249,7 @@ export default function ContactForm({
               <Button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full md:w-auto bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] text-white dark:text-black px-6 py-6 rounded-xl text-lg shadow-lg shadow-[#1F8A0D]/30 flex items-center gap-2 justify-center"
+                className="w-full md:w-auto bg-clay dark:bg-clay hover:bg-flame dark:hover:bg-flame text-white px-6 py-6 rounded-xl text-lg shadow-lg shadow-clay/30 flex items-center gap-2 justify-center"
               >
                 {status === "loading" ? t("form.sending") : t("form.submit")}
               </Button>

@@ -38,7 +38,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
 
   return (
     <Card
-      className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg relative"
+      className="bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)] border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] transition-all duration-300 hover:shadow-lg relative rounded-2xl"
       style={{
         '--hover-border-color': serviceColor,
         '--hover-shadow-color': `${serviceColor}10`,
@@ -73,7 +73,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               type="checkbox"
               checked={isSelected}
               onChange={() => onSelect(service.id)}
-              className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D] flex-shrink-0"
+              className="mt-1 rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)] flex-shrink-0"
             />
             {service.icon && (
               <div
@@ -87,17 +87,17 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
             )}
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 min-w-0">
-                <h3 className="text-base font-semibold text-gray-900 dark:text-white truncate max-w-[10rem]">
+                <h3 className="text-base font-semibold text-slate-dark dark:text-ivory-light truncate max-w-[10rem]">
                   {service.title}
                 </h3>
                 {service.is_featured && (
                   <Star className="h-4 w-4 fill-current flex-shrink-0" style={{ color: serviceColor }} />
                 )}
               </div>
-              <p className="text-xs text-gray-600 dark:text-gray-400 mb-1 truncate max-w-[12rem]">
+              <p className="text-xs text-slate-medium dark:text-cloud-medium mb-1 truncate max-w-[12rem]">
                 {service.subtitle}
               </p>
-              <div className="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <div className="flex flex-wrap items-center gap-2 text-xs text-slate-light dark:text-cloud-medium mt-1">
                 <span className="truncate max-w-[8rem]">{tAdmin("labels.price")}: {service.price ? `€${Math.round(Number(service.price))}` : t("form.contactForQuote") || 'Contact for quote'}</span>
                 {service.duration && <span className="truncate max-w-[7rem]">{tAdmin("labels.duration")}: {service.duration === 1 ? t("durationDay") : t("durationDays", { count: service.duration })}</span>}
               </div>
@@ -109,7 +109,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => onView(service)}
-              className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#3FBD6F]/10 w-full"
+              className="text-[var(--swatch--clay)] hover:bg-[var(--swatch--clay)]/10 w-full"
             >
               <Eye className="h-4 w-4" />
             </Button>
@@ -117,7 +117,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => onDuplicate(service)}
-              className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/40 w-full"
+              className="text-slate-medium dark:text-cloud-medium hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-dark)]/40 w-full"
               aria-label={t("duplicate")}
             >
               <Copy className="h-4 w-4" />
@@ -126,10 +126,10 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
               variant="ghost"
               size="sm"
               onClick={() => onEdit(service)}
-              style={{ color: '#217093' }}
+              style={{ color: 'var(--swatch--cobalt)' }}
               className="hover:bg-opacity-10 w-full"
               onMouseEnter={e => {
-                e.currentTarget.style.backgroundColor = '#217093' + '10';
+                e.currentTarget.style.backgroundColor = 'var(--swatch--cobalt)' + '10';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.backgroundColor = '';
@@ -153,7 +153,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
             type="checkbox"
             checked={isSelected}
             onChange={() => onSelect(service.id)}
-            className="mt-1 rounded border-gray-300 text-[#1F8A0D] dark:text-[#3FBD6F] focus:ring-[#1F8A0D]"
+            className="mt-1 rounded border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
           />
           {service.icon && (
             <div
@@ -168,7 +168,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
               <div
-                className="flex-1 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg p-2 -m-2 transition-colors duration-200"
+                className="flex-1 cursor-pointer hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-dark)]/50 rounded-lg p-2 -m-2 transition-colors duration-200"
                 onClick={() => onView(service)}
                 role="button"
                 tabIndex={0}
@@ -180,14 +180,14 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                 }}
               >
                 <div className="flex items-center space-x-2">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-semibold text-slate-dark dark:text-ivory-light">
                     {service.title}
                   </h3>
                   {service.is_featured && (
                     <Star className="h-4 w-4 fill-current" style={{ color: serviceColor }} />
                   )}
                 </div>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                <p className="text-sm text-slate-medium dark:text-cloud-medium mb-2">
                   {service.subtitle}
                 </p>
                 {/* Hide description on small screens, show on md+ */}
@@ -198,7 +198,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                       : service.description}
                   </MarkdownRenderer>
                 </div>
-                <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                <div className="flex flex-wrap items-center gap-4 text-xs text-slate-light dark:text-cloud-medium">
                   <span>{tAdmin("labels.price")}: {service.price ? `€${Math.round(Number(service.price))}` : t("form.contactForQuote") || 'Contact for quote'}</span>
                   {service.duration && <span>{tAdmin("labels.duration")}: {service.duration} {service.duration === 1 ? t("durationDay") : t("durationDays")}</span>}
                 </div>
@@ -208,7 +208,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onView(service)}
-                  className="text-[#1F8A0D] dark:text-[#3FBD6F] hover:text-[#166307] hover:bg-[#1F8A0D] dark:hover:bg-[#3FBD6F]/10"
+                  className="text-[var(--swatch--clay)] hover:bg-[var(--swatch--clay)]/10"
                 >
                   <Eye className="h-4 w-4" />
                 </Button>
@@ -216,7 +216,7 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onDuplicate(service)}
-                  className="text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700/40"
+                  className="text-slate-medium dark:text-cloud-medium hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-dark)]/40"
                   aria-label={t("duplicate")}
                 >
                   <Copy className="h-4 w-4" />
@@ -225,10 +225,10 @@ export const AdminServiceCard: React.FC<AdminServiceCardProps> = ({
                   variant="ghost"
                   size="sm"
                   onClick={() => onEdit(service)}
-                  style={{ color: '#217093' }}
+                  style={{ color: 'var(--swatch--cobalt)' }}
                   className="hover:bg-opacity-10"
                   onMouseEnter={e => {
-                    e.currentTarget.style.backgroundColor = '#217093' + '10';
+                    e.currentTarget.style.backgroundColor = 'var(--swatch--cobalt)' + '10';
                   }}
                   onMouseLeave={e => {
                     e.currentTarget.style.backgroundColor = '';

@@ -2,8 +2,8 @@
 
 import React, { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { IconX } from "@tabler/icons-react";
 import { useOutsideClick } from "@/hooks/use-outside-click";
+import { ModalCloseButton } from "@/components/ui/modal-close-button";
 
 export interface AppleModalProps {
   isOpen: boolean;
@@ -57,6 +57,7 @@ export function AppleModal({
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50 h-screen overflow-auto">
+          {/* Backdrop */}
           <motion.button
             type="button"
             initial={{ opacity: 0 }}
@@ -67,25 +68,26 @@ export function AppleModal({
             aria-label={closeLabel}
           />
 
+          {/* Close button — fixed to viewport, never covers scrolled content */}
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.15 }}
+            className="fixed top-4 right-4 z-[200]"
+          >
+            <ModalCloseButton onClick={onClose} variant="default" size="md" className="shadow-lg" />
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.2 }}
             ref={containerRef}
             layoutId={layoutId}
             className={containerClassName}
           >
-            <div className="sticky top-0 z-[90] -mx-4 bg-white/85 px-4 pb-3 pt-4 backdrop-blur md:-mx-10 md:px-10 dark:bg-neutral-900/85">
-              <button
-                className="ml-auto flex h-10 w-10 items-center justify-center rounded-full bg-black shadow-lg dark:bg-white"
-                onClick={onClose}
-                aria-label={closeLabel}
-                type="button"
-              >
-                <IconX className="h-6 w-6 text-neutral-100 dark:text-neutral-900" />
-              </button>
-            </div>
-
             {category != null && (
               <motion.p
                 layoutId={categoryLayoutId}

@@ -101,7 +101,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
         <CardContent className="space-y-8">
           {isLoading ? (
             <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
-              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#1F8A0D] dark:border-[#3FBD6F]" />
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#0255D5] dark:border-[#7DB5FF]" />
               {t("courses.loading")}
             </div>
           ) : error ? (
@@ -248,7 +248,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
               <div className="pt-4 flex justify-center">
                 <Button
                   onClick={() => router.push("/formation")}
-                  className="bg-[#0d6e0c] hover:bg-[#0A4D08] text-white dark:bg-[#3FBD6F] dark:hover:bg-[#2EA55E] dark:text-black font-semibold px-6 py-3 rounded-full shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] transition-all duration-200"
+                  className="bg-[#0144AA] hover:bg-[#01388A] text-white dark:bg-[#7DB5FF] dark:hover:bg-[#60A5FA] dark:text-black font-semibold px-6 py-3 rounded-full shadow-[0_15px_40px_rgba(2,85,213,0.35)] hover:shadow-[0_20px_50px_rgba(2,85,213,0.4)] transition-all duration-200"
                 >
                   {t("courses.enrollCta")}
                 </Button>

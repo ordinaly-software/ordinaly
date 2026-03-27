@@ -8,12 +8,13 @@ import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
 import { HomeHero } from "@/components/home/home-hero";
 import { ServicesSection } from "@/components/home/services-section";
-import { LocalSeoSection } from "@/components/home/local-seo-section";
-import { CtaSection } from "@/components/home/cta-section";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+import { Zap, SlidersHorizontal, Headphones } from "lucide-react";
+import { AiChatDemo } from "@/components/home/ai-chat-demo";
+import { PartnerShowcase } from "@/components/ui/partner-showcase";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -71,28 +72,31 @@ const SectionSkeleton = () => (
     </div>
   </section>
 );
-const ProcessSection = dynamic(
-  () => import("@/components/home/process-section").then((mod) => mod.ProcessSection),
-  { loading: () => <SectionSkeleton />, ssr: false },
-);
-const BenefitsSection = dynamic(
-  () => import("@/components/home/benefits-section").then((mod) => mod.BenefitsSection),
-  { loading: () => <SectionSkeleton />, ssr: false },
-);
-const SeoLeadershipSection = dynamic(
-  () => import("@/components/home/seo-leadership-section").then((mod) => mod.SeoLeadershipSection),
-  { loading: () => <SectionSkeleton />, ssr: false },
-);
+
+const serviceBenefits = [
+  {
+    titleKey: "services.extra.0.title",
+    descriptionKey: "services.extra.0.description",
+    Icon: Zap,
+  },
+  {
+    titleKey: "services.extra.1.title",
+    descriptionKey: "services.extra.1.description",
+    Icon: SlidersHorizontal,
+  },
+  {
+    titleKey: "services.extra.2.title",
+    descriptionKey: "services.extra.2.description",
+    Icon: Headphones,
+  },
+];
+
 const UseCasesSection = dynamic(
   () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
   { loading: () => null, ssr: false },
 );
 const TestimonialsSection = dynamic(
   () => import("@/components/home/testimonials-section").then((mod) => mod.TestimonialsSection),
-  { loading: () => null, ssr: false },
-);
-const PartnersSection = dynamic(
-  () => import("@/components/home/partners-section").then((mod) => mod.PartnersSection),
   { loading: () => null, ssr: false },
 );
 const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"), {
@@ -114,10 +118,12 @@ function DeferredSection({
   children,
   className,
   rootMargin = "300px 0px",
+  id,
 }: {
   children: ReactNode;
   className?: string;
   rootMargin?: string;
+  id?: string;
 }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [shouldRender, setShouldRender] = useState(false);
@@ -189,7 +195,7 @@ function DeferredSection({
   }, [shouldRender]);
 
   return (
-    <div ref={containerRef} style={deferredSectionStyle} className={className}>
+    <div id={id} ref={containerRef} style={deferredSectionStyle} className={className}>
       {shouldRender ? children : null}
     </div>
   );
@@ -298,12 +304,34 @@ export default function HomePage({
   }, [services]);
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
       <HomeHero t={t} onWhatsApp={handleWhatsAppChat} />
+      
+      {/* Benefits section */}
+      <section id="benefits" className="py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-5">
+          {serviceBenefits.map(({ titleKey, descriptionKey, Icon }, index) => (
+            <div
+              key={titleKey}
+              className="scroll-animate fade-in-up text-center p-5 bg-[--color-bg-card] dark:bg-[--swatch--slate-medium] rounded-a-l border border-[--color-border-subtle] dark:border-[--color-border-strong]"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              <div className="w-10 h-10 bg-clay/15 dark:bg-clay/20 rounded-a-m flex items-center justify-center mx-auto mb-3">
+                <Icon className="w-5 h-5 text-clay" strokeWidth={1.5} />
+              </div>
+              <h3 className="text-base font-semibold mb-1.5 text-slate-dark dark:text-ivory-light">
+                {t(titleKey)}
+              </h3>
+              <p className="text-sm text-slate-medium dark:text-cloud-medium">{t(descriptionKey)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
       <ServicesSection
         t={t}
         onWhatsApp={handleWhatsAppChat}
         sectionRef={servicesSectionRef}
+        featuredServices={services.slice(0, 3)}
         servicesContent={
           <ServiceShowcase
             services={services}
@@ -322,9 +350,27 @@ export default function HomePage({
         initialCourses={initialCourses}
         referenceNow={renderedAt}
       />
-      <LocalSeoSection t={t} />
+      <DeferredSection id="use-cases" className="scroll-mt-24">
+        <UseCasesSection t={t} />
+      </DeferredSection>
       {shouldRenderDeferredSections ? (
         <>
+          <DeferredSection>
+            <TestimonialsSection t={t} />
+          </DeferredSection>
+          <DeferredSection>
+            <PartnerShowcase
+              eyebrow={t("partners.title")}
+              title={t("partners.subtitle")}
+              className="pt-10 pb-12"
+            />
+          </DeferredSection>
+          <DeferredSection>
+            <AiChatDemo t={t} />
+          </DeferredSection>
+          <DeferredSection>
+            <FaqSection t={formationT} />
+          </DeferredSection>
           <DeferredSection>
             <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">
               <ContactForm
@@ -333,33 +379,11 @@ export default function HomePage({
               />
             </ReCaptchaWrapper>
           </DeferredSection>
-          <DeferredSection rootMargin="2400px 0px">
-            <UseCasesSection t={t} />
-          </DeferredSection>
-          <DeferredSection>
-            <TestimonialsSection t={t} />
-          </DeferredSection>
-          <DeferredSection>
-            <PartnersSection t={t} />
-          </DeferredSection>
-          <DeferredSection rootMargin="2000px 0px">
-            <ProcessSection t={t} />
-          </DeferredSection>
-          <DeferredSection>
-            <CtaSection t={t} onWhatsApp={handleWhatsAppChat} />
-          </DeferredSection>
-          <DeferredSection rootMargin="2000px 0px">
-            <BenefitsSection t={t} />
-          </DeferredSection>
-          <DeferredSection>
-            <SeoLeadershipSection t={t} />
-          </DeferredSection>
-          <DeferredSection rootMargin="1500px 0px">
-            <FaqSection t={formationT} />
-          </DeferredSection>
         </>
       ) : (
         <>
+          <SectionSkeleton />
+          <SectionSkeleton />
           <SectionSkeleton />
           <SectionSkeleton />
           <SectionSkeleton />

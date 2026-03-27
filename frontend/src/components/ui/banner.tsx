@@ -22,7 +22,7 @@ const Banner: React.FC<BannerProps> = ({
   children,
 }) => {
   return (
-    <div className="relative w-full min-h-[320px] md:min-h-[420px] flex flex-col justify-center items-center text-center overflow-hidden">
+    <div className="relative w-full min-h-[320px] md:min-h-[420px] flex flex-col justify-center items-center text-center overflow-hidden -mt-[20px]">
       {/* Background Layer: Image or Video */}
       {backgroundVideo ? (
         <video

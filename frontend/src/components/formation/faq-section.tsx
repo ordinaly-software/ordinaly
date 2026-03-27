@@ -1,5 +1,8 @@
 "use client";
 
+import { Link } from "@/i18n/navigation";
+import { ArrowRight } from "lucide-react";
+
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
 interface SectionProps {
@@ -70,8 +73,8 @@ const faqItems = [
 
 export function FaqSection({ t }: SectionProps) {
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
-      <div className="max-w-4xl mx-auto">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[--color-bg-inverted]">
+      <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
             {t("faq.title")}
@@ -84,7 +87,7 @@ export function FaqSection({ t }: SectionProps) {
           {faqItems.map((item, index) => (
             <details
               key={item.questionKey}
-              className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 cursor-pointer group animate-in"
+              className="bg-oat dark:bg-[var(--swatch--slate-medium)] rounded-xl p-6 cursor-pointer group animate-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <summary className="text-xl font-bold text-gray-900 dark:text-white list-none flex items-center justify-between">
@@ -99,6 +102,16 @@ export function FaqSection({ t }: SectionProps) {
               </div>
             </details>
           ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <Link
+            href="/faq"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-clay text-clay font-semibold hover:bg-clay hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-clay/20 group"
+          >
+            {t("faq.viewAllLabel")}
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
       </div>
     </section>

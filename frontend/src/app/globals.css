@@ -17,66 +17,200 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 93.7%;  /* #efefef */
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 93.7%;  /* #efefef */
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 93.7%;  /* #efefef */
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --background: 43 33% 97%;   /* ivory-light #FAF9F5 */
+    --foreground: 40 4% 8%;     /* slate-dark #141413 */
+    --card: 38 24% 84%;         /* oat #E3DACC */
+    --card-foreground: 40 4% 8%;
+    --popover: 43 33% 97%;
+    --popover-foreground: 40 4% 8%;
+    --primary: 40 4% 8%;        /* slate-dark */
+    --primary-foreground: 43 33% 97%;
+    --secondary: 45 25% 92%;    /* ivory-medium #F0EEE6 */
+    --secondary-foreground: 40 4% 8%;
+    --muted: 45 25% 92%;
+    --muted-foreground: 42 5% 67%;  /* cloud-medium #B0AEA5 */
+    --accent: 38 24% 84%;       /* oat */
+    --accent-foreground: 40 4% 8%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+    --border: 45 21% 87%;       /* ivory-dark #E8E6DC */
+    --input: 45 21% 87%;
+    --ring: 19 61% 59%;         /* clay #D97757 */
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-1: 19 61% 59%;
+    --chart-2: 38 24% 84%;
+    --chart-3: 40 4% 8%;
+    --chart-4: 45 25% 92%;
+    --chart-5: 42 5% 67%;
 
     /* Custom Colors */
-    --color-green-accent: 1F8A0D;
-    --color-green-accent-dark: 3FBD6F;
+    --color-green-accent: 0255D5;
+    --color-green-accent-dark: 7DB5FF;
     --color-blue-accent: 46B1C9;
     --color-orange-accent: E4572E;
     --color-dark-blue: 623CEA;
     --color-dark-gray: 1A1924;
+
+    /* ── ANTHROPIC DESIGN SYSTEM ── */
+
+    /* Swatches — ivories */
+    --swatch--ivory-light:   #FAF9F5;
+    --swatch--ivory-medium:  #F0EEE6;
+    --swatch--ivory-dark:    #E8E6DC;
+    --swatch--oat:           #E3DACC;
+    --swatch--oat-dark:      #E3DACC;
+
+    /* Swatches — clouds */
+    --swatch--cloud-light:   #D1CFC5;
+    --swatch--cloud-medium:  #B0AEA5;
+    --swatch--cloud-dark:    #87867F;
+
+    /* Swatches — warm accents */
+    --swatch--manilla:       #EBDBBC;
+    --swatch--kraft:         #D4A27F;
+
+    /* Swatches — slates */
+    --swatch--slate-dark:    #141413;
+    --swatch--slate-medium:  #3D3D3A;
+    --swatch--slate-light:   #5E5D59;
+    --swatch--slate-faded-10: #1414131A;
+    --swatch--slate-faded-20: #14141333;
+
+    /* Swatches — brand accents */
+    --swatch--clay:          #D97757;
+    --swatch--accent:        #C6613F;
+    --swatch--flame:         #E15D31;
+    --swatch--flame-dark:    #C44E24;
+    --swatch--cobalt:        #0255D5;
+    --swatch--cobalt-dark:   #0144AA;
+
+    /* Swatches — ivory alphas */
+    --swatch--ivory-faded-10: #FAF9F51A;
+    --swatch--ivory-faded-20: #FAF9F533;
+
+    /* Swatches — illustrative palette */
+    --swatch--olive:         #788C5D;
+    --swatch--cactus:        #BCD1CA;
+    --swatch--sky:           #6A9BCC;
+    --swatch--heather:       #CBCADB;
+    --swatch--fig:           #C46686;
+    --swatch--coral:         #EBCECE;
+
+    /* Semantic color tokens */
+    --color-bg-primary:      var(--swatch--ivory-light);
+    --color-bg-secondary:    var(--swatch--ivory-medium);
+    --color-bg-card:         var(--swatch--oat);
+    --color-bg-inverted:     var(--swatch--slate-dark);
+    --color-bg-featured:     #000000;
+
+    --color-text-primary:    var(--swatch--slate-dark);
+    --color-text-secondary:  var(--swatch--cloud-dark);
+    --color-text-inverted:   var(--swatch--ivory-light);
+    --color-text-muted:      var(--swatch--cloud-medium);
+
+    --color-accent-brand:    var(--swatch--clay);
+    --color-accent-hover:    var(--swatch--accent);
+
+    --color-border-subtle:   var(--swatch--slate-faded-10);
+    --color-border-strong:   var(--swatch--slate-faded-20);
+
+    /* Typography — families */
+    --font-sans:    "Inter", "DM Sans", Arial, sans-serif;
+    --font-serif:   "Lora", "Playfair Display", Georgia, serif;
+
+    /* Typography — weights */
+    --font-weight-light:     300;
+    --font-weight-regular:   400;
+    --font-weight-medium:    500;
+    --font-weight-semibold:  600;
+    --font-weight-bold:      700;
+
+    /* Typography — size scale */
+    --font-size-detail-xs:   0.75rem;
+    --font-size-detail-s:    0.875rem;
+    --font-size-detail-m:    1rem;
+    --font-size-detail-l:    1.125rem;
+    --font-size-detail-xl:   1.25rem;
+    --font-size-display-xs:  1.25rem;
+    --font-size-display-s:   1.5rem;
+    --font-size-display-m:   clamp(1.75rem, calc(1.67rem + 0.33vw), 2rem);
+    --font-size-display-l:   clamp(2.5rem, calc(2.3rem + 0.8vw), 3rem);
+    --font-size-display-xl:  clamp(3rem, calc(2.7rem + 1.3vw), 4rem);
+    --font-size-display-xxl: clamp(3.5rem, calc(3rem + 2vw), 4.5rem);
+    --font-size-display-xxxl:clamp(4rem, calc(3.5rem + 2.5vw), 6rem);
+    --font-size-paragraph-m: 1.25rem;
+
+    /* Typography — line heights */
+    --line-height-tight:   0.85;
+    --line-height-snug:    1.1;
+    --line-height-normal:  1.4;
+    --line-height-relaxed: 1.6;
+
+    /* Typography — letter spacing */
+    --letter-spacing-none:  0em;
+    --letter-spacing-tight: -0.005em;
+    --letter-spacing-wide:  0.017em;
+
+    /* Spacing — 4pt scale */
+    --space-1:  0.25rem;
+    --space-2:  0.5rem;
+    --space-3:  0.75rem;
+    --space-4:  1rem;
+    --space-5:  1.5rem;
+    --space-6:  clamp(1.75rem, calc(1.67rem + 0.33vw), 2rem);
+    --space-7:  2.5rem;
+    --space-8:  clamp(2.5rem, calc(2.3rem + 0.8vw), 3rem);
+    --space-9:  clamp(3rem, calc(2.7rem + 1.3vw), 4rem);
+    --space-10: 5rem;
+    --space-11: 6rem;
+
+    /* Section spacing */
+    --section-space-none:   0rem;
+    --section-space-small:  clamp(3rem, calc(2.5rem + 2vw), 4rem);
+    --section-space-main:   clamp(6rem, calc(5rem + 4vw), 10rem);
+    --section-space-large:  clamp(8rem, calc(7rem + 5vw), 14rem);
+
+    /* Grid gaps */
+    --gap-xs:  var(--space-2);
+    --gap-m:   var(--space-5);
+    --gap-xl:  var(--space-9);
+
+    /* Border radii */
+    --radius-s:    8px;
+    --radius-m:    12px;
+    --radius-l:    16px;
+    --radius-xl:   24px;
+    --radius-full: 1600px;
   }
 
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 40 4% 8%;     /* slate-dark #141413 */
+    --foreground: 43 33% 97%;   /* ivory-light #FAF9F5 */
+    --card: 50 2% 23%;          /* slate-medium #3D3D3A */
+    --card-foreground: 43 33% 97%;
+    --popover: 40 4% 8%;
+    --popover-foreground: 43 33% 97%;
+    --primary: 43 33% 97%;      /* ivory-light as primary in dark */
+    --primary-foreground: 40 4% 8%;
+    --secondary: 50 2% 23%;     /* slate-medium */
+    --secondary-foreground: 43 33% 97%;
+    --muted: 50 2% 36%;         /* slate-light #5E5D59 */
+    --muted-foreground: 42 5% 67%;
+    --accent: 50 2% 36%;
+    --accent-foreground: 43 33% 97%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --border: 50 2% 23%;
+    --input: 50 2% 23%;
+    --ring: 19 61% 59%;         /* clay — same in both modes */
+    --chart-1: 19 61% 59%;
+    --chart-2: 38 24% 84%;
+    --chart-3: 43 33% 97%;
+    --chart-4: 50 2% 23%;
+    --chart-5: 42 5% 67%;
+  }
+  .theme {
+    --animate-background-gradient: background-gradient var(--background-gradient-speed, 15s) cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
   }
 }
 
@@ -165,4 +299,186 @@ svg[width="2rem"], svg[height="2rem"] {
 .recaptcha-inline-badge .grecaptcha-badge {
   position: static !important;
   box-shadow: none !important;
+}
+
+/* ── ANTHROPIC DESIGN SYSTEM — COMPONENTS & UTILITIES ── */
+
+/* Layout container */
+.u-container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 4vw, 4rem);
+}
+
+/* Cards grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-xl);
+}
+
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Hero section */
+.hero-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  padding-block: var(--section-space-main);
+  background-color: var(--color-bg-primary);
+}
+
+/* Display hero text */
+.display-hero {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-display-xxxl);
+  font-weight: var(--font-weight-light);
+  line-height: var(--line-height-tight);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* Label / metadata tag */
+.label-meta {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-detail-s);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+/* Primary CTA button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--swatch--slate-dark);
+  color: var(--swatch--ivory-light);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-detail-m);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-s);
+  border: none;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--swatch--slate-medium);
+}
+
+/* Accent button */
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-accent-brand);
+  color: var(--swatch--ivory-light);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-detail-m);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-s);
+  border: none;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.btn-accent:hover {
+  background-color: var(--color-accent-hover);
+}
+
+/* Article / release card */
+.release-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--swatch--oat);
+  border-radius: var(--radius-l);
+  padding: clamp(1.5rem, 2vw, 2rem);
+  gap: clamp(1.5rem, 2vw, 2rem);
+  overflow: hidden;
+}
+
+.release-card__meta {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--space-4);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-detail-s);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* Featured / dark hero section */
+.featured-hero {
+  background-color: #000000;
+  border-radius: var(--radius-l);
+  padding-block: clamp(3rem, 5vw, 4rem);
+  overflow: hidden;
+  color: var(--swatch--ivory-light);
+}
+
+.featured-hero__label {
+  color: var(--swatch--clay);
+  font-size: var(--font-size-detail-s);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+}
+
+/* Article list row */
+.article-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  font-size: var(--font-size-detail-m);
+}
+
+.article-list-item__category {
+  color: var(--color-text-secondary);
+  text-align: right;
+}
+
+/* Contextual themes — light / dark sections */
+.theme-light {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
+
+.theme-dark {
+  background-color: var(--color-bg-inverted);
+  color: var(--color-text-inverted);
+}
+
+@theme inline {
+  @keyframes background-gradient {
+  0%, 100% {
+    transform: translate(0, 0);
+    animationDelay: var(--background-gradient-delay, 0s);
+    }
+  20% {
+    transform: translate(calc(100% * var(--tx-1, 1)), calc(100% * var(--ty-1, 1)));
+    }
+  40% {
+    transform: translate(calc(100% * var(--tx-2, -1)), calc(100% * var(--ty-2, 1)));
+    }
+  60% {
+    transform: translate(calc(100% * var(--tx-3, 1)), calc(100% * var(--ty-3, -1)));
+    }
+  80% {
+    transform: translate(calc(100% * var(--tx-4, -1)), calc(100% * var(--ty-4, -1)));
+    }
+  }
 }

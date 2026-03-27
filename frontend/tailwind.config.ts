@@ -45,32 +45,32 @@ const config: Config = {
   				foreground: '#FFFFFF'
   			},
   			blue: {
-  				DEFAULT: '#46B1C9',
-  				50: '#E6F7FA',
-  				100: '#B3E5FC',
-  				200: '#81D4FA',
-  				300: '#4FC3F7',
-  				400: '#46B1C9',
-  				500: '#46B1C9',
-  				600: '#3A96A8',
-  				700: '#2F7C87',
-  				800: '#246166',
-  				900: '#194749'
+  				'50': '#E6F7FA',
+  				'100': '#B3E5FC',
+  				'200': '#81D4FA',
+  				'300': '#4FC3F7',
+  				'400': '#46B1C9',
+  				'500': '#46B1C9',
+  				'600': '#3A96A8',
+  				'700': '#2F7C87',
+  				'800': '#246166',
+  				'900': '#194749',
+  				DEFAULT: '#46B1C9'
   			},
   			green: {
-  				DEFAULT: '#1F8A0D',
-  				50: '#F0F8F3',
-  				100: '#D1EFE0',
-  				200: '#A3DFC6',
-  				300: '#75CEAC',
-  				400: '#47BD92',
-  				500: '#1F8A0D',
-  				600: '#1B7A0B',
-  				700: '#176A09',
-  				800: '#135A07',
-  				900: '#0F4A05',
-  				dark: '#3FBD6F',
-  				dark_alt: '#2EA55E'
+  				'50': '#EFF6FF',
+  				'100': '#DBEAFE',
+  				'200': '#BFDBFE',
+  				'300': '#93C5FD',
+  				'400': '#60A5FA',
+  				'500': '#3B82F6',
+  				'600': '#0255D5',
+  				'700': '#0144AA',
+  				'800': '#01388A',
+  				'900': '#0A255C',
+  				DEFAULT: '#0255D5',
+  				dark: '#7DB5FF',
+  				dark_alt: '#60A5FA'
   			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
@@ -94,12 +94,67 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+  			ivory: {
+  				light: 'var(--swatch--ivory-light)',
+  				medium: 'var(--swatch--ivory-medium)',
+  				dark: 'var(--swatch--ivory-dark)'
+  			},
+  			oat: 'var(--swatch--oat)',
+  			cloud: {
+  				light: 'var(--swatch--cloud-light)',
+  				medium: 'var(--swatch--cloud-medium)',
+  				dark: 'var(--swatch--cloud-dark)'
+  			},
+  			slate: {
+  				dark: 'var(--swatch--slate-dark)',
+  				medium: 'var(--swatch--slate-medium)',
+  				light: 'var(--swatch--slate-light)'
+  			},
+  			clay: 'var(--swatch--clay)',
+  			flame: 'var(--swatch--flame)',
+  			cobalt: 'var(--swatch--cobalt)',
+  			kraft: 'var(--swatch--kraft)',
+  			manilla: 'var(--swatch--manilla)',
+  			olive: 'var(--swatch--olive)',
+  			cactus: 'var(--swatch--cactus)',
+  			sky: 'var(--swatch--sky)',
+  			heather: 'var(--swatch--heather)',
+  			fig: 'var(--swatch--fig)',
+  			coral: 'var(--swatch--coral)'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			sm: 'calc(var(--radius) - 4px)',
+  			'a-s': 'var(--radius-s)',
+  			'a-m': 'var(--radius-m)',
+  			'a-l': 'var(--radius-l)',
+  			'a-xl': 'var(--radius-xl)',
+  			'a-full': 'var(--radius-full)'
+  		},
+  		fontFamily: {
+  			sans: [
+  				'var(--font-sans)'
+  			],
+  			serif: [
+  				'var(--font-serif)'
+  			]
+  		},
+  		fontSize: {
+  			'detail-xs': 'var(--font-size-detail-xs)',
+  			'detail-s': 'var(--font-size-detail-s)',
+  			'detail-m': 'var(--font-size-detail-m)',
+  			'detail-l': 'var(--font-size-detail-l)',
+  			'detail-xl': 'var(--font-size-detail-xl)',
+  			'display-xs': 'var(--font-size-display-xs)',
+  			'display-s': 'var(--font-size-display-s)',
+  			'display-m': 'var(--font-size-display-m)',
+  			'display-l': 'var(--font-size-display-l)',
+  			'display-xl': 'var(--font-size-display-xl)',
+  			'display-xxl': 'var(--font-size-display-xxl)',
+  			'display-xxxl': 'var(--font-size-display-xxxl)',
+  			'paragraph-m': 'var(--font-size-paragraph-m)'
   		},
   		keyframes: {
   			'accordion-down': {
@@ -117,11 +172,30 @@ const config: Config = {
   				to: {
   					height: '0'
   				}
+  			},
+  			'background-gradient': {
+  				'0%, 100%': {
+  					transform: 'translate(0, 0)',
+  					animationDelay: 'var(--background-gradient-delay, 0s)'
+  				},
+  				'20%': {
+  					transform: 'translate(calc(100% * var(--tx-1, 1)), calc(100% * var(--ty-1, 1)))'
+  				},
+  				'40%': {
+  					transform: 'translate(calc(100% * var(--tx-2, -1)), calc(100% * var(--ty-2, 1)))'
+  				},
+  				'60%': {
+  					transform: 'translate(calc(100% * var(--tx-3, 1)), calc(100% * var(--ty-3, -1)))'
+  				},
+  				'80%': {
+  					transform: 'translate(calc(100% * var(--tx-4, -1)), calc(100% * var(--ty-4, -1)))'
+  				}
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'background-gradient': 'background-gradient var(--background-gradient-speed, 15s) cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite'
   		}
   	}
   },

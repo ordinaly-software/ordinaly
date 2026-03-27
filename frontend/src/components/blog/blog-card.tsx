@@ -8,47 +8,42 @@ import { filterVisibleCategories } from "./category-utils";
 export interface BlogCardProps {
   post: BlogPost;
   onCategoryClick?: (cat: string) => void;
+  compact?: boolean;
 }
 
-export interface BlogCardProps {
-  post: BlogPost;
-  onCategoryClick?: (cat: string) => void;
-}
-
-export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => {
+export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick, compact = false }) => {
   const categories = filterVisibleCategories(Array.isArray(post.categories) ? post.categories : []);
 
   return (
     <div
-      className="
+      className={`
         group relative overflow-hidden
         bg-white dark:bg-gray-800
         border border-gray-200 dark:border-gray-700
         rounded-2xl
         transition-all duration-300
-        w-full max-w-4xl mx-auto
-        flex flex-col md:flex-row
-        hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F]
-        hover:bg-[#1F8A0D]/3 dark:hover:bg-[#3FBD6F]/8
-        hover:shadow-2xl hover:shadow-[#1F8A0D]/16 dark:hover:shadow-[#3FBD6F]/22
+        w-full mx-auto
+        flex flex-col
+        hover:border-clay dark:hover:border-clay
+        hover:bg-clay/5
+        hover:shadow-2xl hover:shadow-clay/15
         hover:-translate-y-2
-      "
+        ${compact ? '' : 'md:flex-row max-w-4xl'}
+      `}
     >
       {/* Image */}
       <div
-        className="
-          relative w-full h-48
-          md:h-auto md:w-56 md:flex-shrink-0
-          bg-gray-100 dark:bg-gray-900
-          md:rounded-l-2xl overflow-hidden
-        "
+        className={`
+          relative w-full bg-gray-100 dark:bg-gray-900 overflow-hidden
+          ${compact ? 'h-40 rounded-t-2xl' : 'h-48 md:h-auto md:w-56 md:flex-shrink-0 md:rounded-l-2xl'}
+        `}
       >
         {post.ogImage?.asset && (
           <Image
             src={urlFor(post.ogImage.asset).url()}
             alt={post.ogImage?.alt || post.title}
             fill
-            className="object-cover md:group-hover:scale-110 transition-transform duration-500"
+            className="object-cover group-hover:scale-110 transition-transform duration-500"
           />
         )}
       </div>
@@ -56,6 +51,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
       {/* Content */}
       <div className="flex-1 p-4 md:p-6 flex flex-col">
         {/* Categories */}
+        {!compact && (
         <div className="mb-2 flex flex-wrap gap-1.5 md:gap-2">
           {categories.map((cat: Category) =>
             cat?.slug ? (
@@ -68,11 +64,10 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
                     px-2 py-0.5
                     md:px-3 md:py-1
                     rounded-full
-                    bg-[#1F8A0D]/10 text-[#1F8A0D]
-                    dark:bg-[#3FBD6F]/20 dark:text-[#3FBD6F]
+                    bg-clay/10 text-clay
                     text-xs md:text-sm
                     font-medium
-                    hover:bg-[#1F8A0D]/20 dark:hover:bg-[#3FBD6F]/30 transition
+                    hover:bg-clay/20 transition
                   "
                 >
                   {cat.title}
@@ -85,11 +80,10 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
                     px-2 py-0.5
                     md:px-3 md:py-1
                     rounded-full
-                    bg-[#1F8A0D]/10 text-[#1F8A0D]
-                    dark:bg-[#3FBD6F]/20 dark:text-[#3FBD6F]
+                    bg-clay/10 text-clay
                     text-xs md:text-sm
                     font-medium
-                    hover:bg-[#1F8A0D]/20 dark:hover:bg-[#3FBD6F]/30 transition
+                    hover:bg-clay/20 transition
                   "
                 >
                   {cat.title}
@@ -98,18 +92,16 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
             ) : null
           )}
         </div>
+        )}
 
         {/* Title */}
         <h2
-          className="
+          className={`
             font-bold text-gray-900 dark:text-white
-            text-lg md:text-2xl
-            leading-snug
-            mb-1
-            md:group-hover:text-[#1F8A0D] dark:md:group-hover:text-[#3FBD6F]
-            transition-colors
-            line-clamp-2
-          "
+            leading-snug mb-1
+            md:group-hover:text-clay transition-colors
+            ${compact ? 'text-base' : 'text-lg md:text-2xl line-clamp-2'}
+          `}
         >
           <Link href={`/blog/${post.slug}`}>
             {post.seoTitle || post.title}
@@ -127,8 +119,8 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick }) => 
           </div>
         )}
 
-        {/* Description – desktop only */}
-        {(post.seoDescription || post.excerpt) && (
+        {/* Description – desktop only, not in compact mode */}
+        {!compact && (post.seoDescription || post.excerpt) && (
           <p className="hidden md:block text-gray-600 dark:text-gray-400 text-base opacity-80 mt-2">
             {post.seoDescription || post.excerpt}
           </p>

@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
@@ -7,8 +8,8 @@ import { Button } from "@/components/ui/button";
 import { AnimatedTestimonials } from "@/components/about/animated-testimonials";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 import { Timeline } from "@/components/about/timeline";
-import { Rocket, ArrowRight, Users, Users2 } from "lucide-react";
-import { PartnersSection } from "@/components/home/partners-section";
+import { Rocket, ArrowRight } from "lucide-react";
+import { PartnerShowcase } from "@/components/ui/partner-showcase";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), {
@@ -31,9 +32,6 @@ export default function UsPage() {
     { label: isEs ? "Sede" : "Office", value: "Plaza del Duque de la Victoria 1, 3º 9, Sevilla" },
     { label: "Email", value: "info@ordinaly.ai" },
     { label: isEs ? "Teléfono" : "Phone", value: "+34 626 270 806" },
-    { label: isEs ? "Fundación" : "Founded", value: "2023, Sevilla" },
-    { label: isEs ? "Equipo" : "Team", value: isEs ? "Consultoría + ingeniería IA" : "AI consulting + engineering" },
-    { label: isEs ? "Áreas" : "Service area", value: "Sevilla, Andalucía, España" },
   ];
 
   const testimonials = [
@@ -83,68 +81,60 @@ export default function UsPage() {
   }));
 
   return (
-    <div className="bg-[#F9FAFB] dark:bg-[#0b1220] text-white min-h-screen">
-      <section className="relative overflow-hidden">
+    <div className="bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light min-h-screen mt-[-20px]">
+      {/* Hero */}
+      <section className="relative border-b border-[--color-border-subtle] dark:border-[--color-border-strong] overflow-hidden">
         <Image
           src="/static/about/story_01.webp"
-          alt="Hero background"
+          alt=""
           fill
-          className="object-cover blur-sm brightness-[.9]"
+          className="object-cover blur-sm"
           priority
         />
-        <div className="absolute inset-0 bg-black/30 dark:bg-black/50" />
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
-          <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div className="space-y-5">
-              <p className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.2em] text-white font-semibold">
-                <Users2 className="h-4 w-4" />
-                {t("hero.tagline")}
-              </p>
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-                {t("hero.title")}
-              </h1>
-              <p className="text-lg text-white max-w-2xl">
-                {t("hero.subtitle")}
-              </p>
-              <p className="text-sm text-emerald-50/90 max-w-2xl">
-                {t("hero.definition")}
-              </p>
-              <div className="flex flex-wrap gap-3">
-                <Button className="bg-[#0d6e0c] dark:bg-[#3FBD6F] hover:bg-[#0A4D08] dark:hover:bg-[#2EA55E] text-white dark:text-[#0B1B17] gap-2" asChild>
-                  <a href="#testimonials">
-                  <Rocket className="h-4 w-4" />
-                  {t("hero.ctaPrimary")}
-                  </a>
-                </Button>
-                <Button variant="outline" className="bg-white/10 text-white border-white/30 hover:bg-white/20 gap-2" asChild>
-                  <a href="#cta">
-                  <ArrowRight className="h-4 w-4" />
-                  {t("hero.ctaSecondary")}
-                  </a>
-                </Button>
+        <div className="absolute inset-0 opacity-50 bg-[linear-gradient(135deg,rgba(250,249,245,0.72),rgba(240,238,230,0.58))] dark:bg-[linear-gradient(135deg,rgba(10,16,26,0.74),rgba(20,20,19,0.62))]" />
+        <div className="relative u-container pb-14 pt-10 md:pb-20 md:pt-12">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="rounded-[2rem] border border-[--color-border-subtle] bg-white/82 p-7 shadow-[0_24px_80px_-42px_rgba(20,20,19,0.32)] backdrop-blur-xl dark:border-white/10 dark:bg-[rgba(10,16,26,0.78)] md:p-8">
+              <div className="space-y-5">
+                <h1 className="text-4xl font-semibold leading-tight tracking-[-0.04em] sm:text-5xl text-slate-dark dark:text-ivory-light">
+                  {t("hero.title")}
+                </h1>
+                <p className="text-xl leading-relaxed text-slate-medium dark:text-[#DFDDD3] max-w-xl">
+                  {t("hero.subtitle")}
+                </p>
+                <div className="flex flex-wrap gap-3 pt-1">
+                  <Button asChild variant="accent" className="shadow-lg shadow-clay/20">
+                    <a href="#testimonials">
+                      <Rocket className="h-4 w-4 mr-2" />
+                      {t("hero.ctaPrimary")}
+                    </a>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    asChild
+                    className="dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10"
+                  >
+                    <a href="#cta">
+                      <ArrowRight className="h-4 w-4 mr-2" />
+                      {t("hero.ctaSecondary")}
+                    </a>
+                  </Button>
+                </div>
               </div>
             </div>
-            <div className="relative hidden lg:block">
-              <div className="absolute -inset-6 bg-white/40 dark:bg-white/5 blur-3xl rounded-full" />
-              <div className="relative rounded-3xl overflow-hidden border border-white/40 dark:border-white/10 shadow-2xl bg-gradient-to-br from-white/70 to-white/40 dark:from-white/5 dark:to-white/0 p-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="rounded-2xl bg-white/90 dark:bg-white/5 border border-gray-200/70 dark:border-white/10 p-4 space-y-2 shadow-sm">
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{t("hero.missionLabel")}</p>
-                    <p className="text-lg text-gray-600 dark:text-gray-300 font-semibold">{t("mission.title")}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t("mission.body")}</p>
-                  </div>
-                  <div className="rounded-2xl bg-white/90 dark:bg-white/5 border border-gray-200/70 dark:border-white/10 p-4 space-y-2 shadow-sm">
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{t("hero.visionLabel")}</p>
-                    <p className="text-lg text-gray-600 dark:text-gray-300 font-semibold">{t("vision.title")}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t("vision.body")}</p>
-                  </div>
-                  <div className="col-span-2 rounded-2xl bg-[#1F8A0D] dark:bg-[#0F2E1E] text-white p-4 flex items-center gap-3 shadow-lg">
-                    <Users className="h-8 w-8" />
-                    <div>
-                      <p className="text-sm opacity-90">{t("stats.teamLabel")}</p>
-                      <p className="text-2xl font-bold">{t("stats.teamValue")}</p>
-                    </div>
-                  </div>
+
+            <div className="hidden lg:grid grid-cols-2 gap-4">
+              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/82 p-5 shadow-sm dark:border-white/10 dark:bg-[rgba(18,26,40,0.82)] space-y-2">
+                <p className="text-base font-semibold text-slate-dark dark:text-ivory-light">{t("mission.title")}</p>
+                <p className="text-sm text-slate-medium dark:text-[#D7DCE7] leading-relaxed">{t("mission.body")}</p>
+              </div>
+              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/82 p-5 shadow-sm dark:border-white/10 dark:bg-[rgba(22,22,29,0.82)] space-y-2">
+                <p className="text-base font-semibold text-slate-dark dark:text-ivory-light">{t("vision.title")}</p>
+                <p className="text-sm text-slate-medium dark:text-[#E1D8D4] leading-relaxed">{t("vision.body")}</p>
+              </div>
+              <div className="col-span-2 rounded-[1.75rem] border border-white/10 bg-[linear-gradient(135deg,#141413,#1D2636)] p-5 text-white shadow-[0_20px_60px_-36px_rgba(2,85,213,0.45)] flex items-center gap-4">
+                <div>
+                  <p className="text-sm text-white/72">{t("hero.definition")}</p>
                 </div>
               </div>
             </div>
@@ -152,25 +142,29 @@ export default function UsPage() {
         </div>
       </section>
 
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Fact sheet */}
+      <section className="u-container py-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {factSheet.map((item) => (
             <div
               key={item.label}
-              className="rounded-2xl border border-gray-200/80 dark:border-gray-800 bg-white dark:bg-[#111827] p-4 shadow-sm"
+              className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/75 p-5 transition hover:-translate-y-1 hover:border-clay/35 dark:border-white/10 dark:bg-white/[0.04]"
             >
-              <p className="text-xs uppercase tracking-[0.18em] text-emerald-700 dark:text-emerald-300 font-semibold">
+              <p className="text-xs uppercase tracking-[0.16em] text-cloud-dark dark:text-cloud-medium">
                 {item.label}
               </p>
-              <p className="mt-2 text-sm text-gray-800 dark:text-gray-100 leading-relaxed">{item.value}</p>
+              <p className="mt-2 text-sm font-semibold text-slate-dark dark:text-ivory-light leading-relaxed">{item.value}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <PartnersSection t={t_home} />
+      <PartnerShowcase
+        eyebrow={t_home("partners.title")}
+        title={t_home("partners.subtitle")}
+      />
 
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <section className="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <Timeline
           data={timelineData}
           eyebrow={t("story.eyebrow")}

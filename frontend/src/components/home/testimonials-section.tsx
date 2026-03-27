@@ -16,11 +16,11 @@ const MAX_TESTIMONIALS = 5;
 const MAX_GOOGLE_REVIEW_LENGTH = 200;
 const avatarGradients = [
   "from-amber-400 to-orange-500",
-  "from-emerald-400 to-teal-600",
-  "from-blue-500 to-indigo-600",
+  "from-clay to-[#C6613F]",
+  "from-cobalt to-[#0144B0]",
   "from-rose-400 to-pink-500",
   "from-sky-400 to-cyan-600",
-  "from-lime-400 to-emerald-500",
+  "from-[#D4A27F] to-[#D97757]",
 ];
 
 const localTestimonials = [
@@ -29,21 +29,21 @@ const localTestimonials = [
     nameKey: "testimonials.items.0.name",
     roleKey: "testimonials.items.0.role",
     quoteKey: "testimonials.items.0.quote",
-    color: "from-green-400 to-green-600",
+    color: "from-clay to-[#C6613F]",
   },
   {
     initials: "JM",
     nameKey: "testimonials.items.1.name",
     roleKey: "testimonials.items.1.role",
     quoteKey: "testimonials.items.1.quote",
-    color: "from-blue-400 to-blue-600",
+    color: "from-cobalt to-[#0144B0]",
   },
   {
     initials: "LR",
     nameKey: "testimonials.items.2.name",
     roleKey: "testimonials.items.2.role",
     quoteKey: "testimonials.items.2.quote",
-    color: "from-purple-400 to-purple-600",
+    color: "from-cobalt to-[#0144B0]",
   },
 ];
 
@@ -257,25 +257,25 @@ export function TestimonialsSection({ t }: SectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark]"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
             {t("testimonials.title")}
           </h2>
-          <div className="mt-6 flex flex-col items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+          <div className="mt-6 flex flex-col items-center gap-3 text-sm text-slate-light dark:text-cloud-medium">
             {shouldShowSkeleton ? (
               <>
-                <div className="h-6 w-36 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                <div className="h-4 w-60 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                <div className="h-6 w-36 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
+                <div className="h-4 w-60 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
               </>
             ) : (
               <>
                 {aggregateRating !== null && aggregateCount !== null && (
                   <div className="flex flex-wrap items-center justify-center gap-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+                      <span className="text-2xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
                         {aggregateRating.toFixed(1)}
                       </span>
                       <div className="flex">
@@ -338,40 +338,40 @@ export function TestimonialsSection({ t }: SectionProps) {
           <div
             ref={scrollRef}
             onScroll={checkScrollability}
-            className="flex gap-6 overflow-x-auto scroll-smooth pb-6 [scrollbar-width:none] [-ms-overflow-style:none]"
+            className="flex gap-6 overflow-x-auto scroll-smooth pt-4 pb-8 [scrollbar-width:none] [-ms-overflow-style:none]"
           >
             {shouldShowSkeleton
               ? Array.from({ length: 3 }).map((_, index) => (
                   <div
                     key={`testimonial-skeleton-${index}`}
-                    className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg min-w-[260px] sm:min-w-[300px] md:min-w-[320px] animate-pulse"
+                    className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 min-w-[260px] sm:min-w-[300px] md:min-w-[320px] animate-pulse"
                   >
                     <div className="flex items-center mb-4">
-                      <div className="w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-700 mr-3"></div>
+                      <div className="w-12 h-12 rounded-full bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] mr-3"></div>
                       <div className="space-y-2">
-                        <div className="h-3 w-24 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                        <div className="h-3 w-16 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                        <div className="h-3 w-24 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded"></div>
+                        <div className="h-3 w-16 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded"></div>
                       </div>
                     </div>
                     <div className="flex mb-3 gap-2">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <div
                           key={`star-skeleton-${index}-${i}`}
-                          className="h-3 w-3 rounded bg-gray-200 dark:bg-gray-700"
+                          className="h-3 w-3 rounded bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium]"
                         ></div>
                       ))}
                     </div>
                     <div className="space-y-2">
-                      <div className="h-3 w-full bg-gray-200 dark:bg-gray-700 rounded"></div>
-                      <div className="h-3 w-5/6 bg-gray-200 dark:bg-gray-700 rounded"></div>
-                      <div className="h-3 w-2/3 bg-gray-200 dark:bg-gray-700 rounded"></div>
+                      <div className="h-3 w-full bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded"></div>
+                      <div className="h-3 w-5/6 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded"></div>
+                      <div className="h-3 w-2/3 bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] rounded"></div>
                     </div>
                   </div>
                 ))
               : visibleTestimonials.map((item, index) => (
                   <div
                     key={item.id}
-                    className="scroll-animate fade-in-up bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg min-w-[260px] sm:min-w-[300px] md:min-w-[320px]"
+                    className="scroll-animate fade-in-up group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 min-w-[260px] sm:min-w-[300px] md:min-w-[320px] transition-all duration-300 hover:border-clay dark:hover:border-clay hover:bg-clay/5 hover:shadow-2xl hover:shadow-clay/15 hover:-translate-y-2"
                     style={{ animationDelay: `${index * 0.08}s` }}
                   >
                     <div className="flex items-center mb-4">
@@ -404,11 +404,11 @@ export function TestimonialsSection({ t }: SectionProps) {
                         </div>
                       )}
                       <div>
-                        <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+                        <h4 className="text-sm font-semibold text-slate-dark dark:text-ivory-light">
                           {item.name}
                         </h4>
                         {item.meta && (
-                          <p className="text-xs text-gray-600 dark:text-gray-400">{item.meta}</p>
+                          <p className="text-xs text-slate-light dark:text-cloud-medium">{item.meta}</p>
                         )}
                       </div>
                     </div>
@@ -444,14 +444,14 @@ export function TestimonialsSection({ t }: SectionProps) {
                         : item.quote;
                       return (
                         <div className="space-y-2">
-                          <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                          <p className="text-sm text-slate-medium dark:text-cloud-medium leading-relaxed">
                             “{displayText}”
                           </p>
                           {shouldTruncate && (
                             <button
                               type="button"
                               onClick={() => toggleReview(item.id)}
-                              className="text-xs font-semibold text-[#1F8A0D] hover:text-[#2EA55E] dark:text-[#3FBD6F] dark:hover:text-[#2EA55E] transition-colors"
+                              className="text-xs font-semibold text-clay hover:text-clay/80 dark:text-clay dark:hover:text-clay/80 transition-colors"
                               aria-expanded={isExpanded}
                             >
                               {isExpanded ? t("testimonials.readLess") : t("testimonials.readMore")}
@@ -465,22 +465,22 @@ export function TestimonialsSection({ t }: SectionProps) {
           </div>
           <div className="mr-2 mt-4 flex justify-end gap-2 px-1">
             <button
-              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
               onClick={handleScrollLeft}
               disabled={!canScrollLeft}
               type="button"
               aria-label="Scroll testimonials left"
             >
-              <IconArrowNarrowLeft className="h-6 w-6 text-gray-500" />
+              <IconArrowNarrowLeft className="h-6 w-6 text-clay dark:text-clay" />
             </button>
             <button
-              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 disabled:opacity-50"
+              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
               onClick={handleScrollRight}
               disabled={!canScrollRight}
               type="button"
               aria-label="Scroll testimonials right"
             >
-              <IconArrowNarrowRight className="h-6 w-6 text-gray-500" />
+              <IconArrowNarrowRight className="h-6 w-6 text-clay dark:text-clay" />
             </button>
           </div>
         </div>

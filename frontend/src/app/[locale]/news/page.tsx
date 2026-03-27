@@ -34,7 +34,7 @@ export async function generateMetadata({
 export const revalidate = 300;
 
 export default async function NewsIndex() {
-  const pageSize = 6;
+  const pageSize = 12;
   const params = {
     offset: 0,
     end: pageSize,

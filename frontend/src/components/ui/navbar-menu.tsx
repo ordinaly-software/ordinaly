@@ -43,15 +43,15 @@ export const MenuItem = ({
         <Link
           href={href}
           prefetch={false}
-          className={`transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] ${
+          className={`transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group hover:text-clay dark:hover:text-clay ${
             finalActive
-              ? "text-[#1F8A0D] dark:text-[#3FBD6F]"
-              : "text-gray-700 dark:text-gray-300"
+              ? "text-clay dark:text-clay"
+              : "text-slate-medium dark:text-cloud-medium"
           }`}
         >
           {item}
           <span
-            className={`absolute -bottom-1 left-0 h-0.5 bg-[#1F8A0D] dark:bg-[#3FBD6F] transition-all duration-300 ${
+            className={`absolute -bottom-1 left-0 h-0.5 bg-clay dark:bg-clay transition-all duration-300 ${
               finalActive ? "w-full" : "w-0 group-hover:w-full"
             }`}
           />
@@ -59,7 +59,7 @@ export const MenuItem = ({
       ) : (
         <motion.p
           transition={{ duration: 0.2 }}
-          className="transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F]"
+          className="transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay"
         >
           {item}
         </motion.p>
@@ -80,7 +80,7 @@ export const MenuItem = ({
               <motion.div
                 transition={transition}
                 layoutId="active" // layoutId ensures smooth animation
-                className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.15] dark:border-white/[0.15] shadow-xl"
+                className="bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] backdrop-blur-sm rounded-2xl overflow-hidden border border-black/[0.15] dark:border-white/[0.15] shadow-xl"
               >
                 <motion.div
                   layout // layout ensures smooth animation
@@ -170,7 +170,7 @@ export const ProductItem = ({
       onFocus={handleLoadIntent}
       onTouchStart={handleLoadIntent}
     >
-      <div className="shrink-0 rounded-lg shadow-md bg-gray-100 dark:bg-gray-800 h-20 w-28 overflow-hidden">
+      <div className="shrink-0 rounded-lg shadow-md bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-medium] h-20 w-28 overflow-hidden">
         {shouldLoadImage && src ? (
           <Image
             src={src}
@@ -182,7 +182,7 @@ export const ProductItem = ({
             fetchPriority="low"
           />
         ) : (
-          <div className="h-20 w-28 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700" />
+          <div className="h-20 w-28 bg-gradient-to-br from-[--swatch--ivory-medium] to-oat dark:from-[--swatch--slate-medium] dark:to-[--swatch--slate-light]" />
         )}
       </div>
       <div className="flex-1 min-w-0">
@@ -204,7 +204,7 @@ export const HoveredLink = ({ children, ...rest }: React.ComponentPropsWithoutRe
     <Link
       {...rest}
       prefetch={false}
-      className="text-sm xl:text-base font-medium text-gray-700 dark:text-gray-300 hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
+      className="text-sm xl:text-base font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay transition"
     >
       {children}
     </Link>

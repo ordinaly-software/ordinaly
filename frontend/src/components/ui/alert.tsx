@@ -5,9 +5,9 @@ import { createPortal } from "react-dom";
 const styleMap = {
   success: {
     bg: "bg-[#E8F8E5] dark:bg-[#1B3A27]",
-    border: "border-[#1F8A0D] dark:border-[#3FBD6F]",
-    text: "text-[#1F8A0D] dark:text-[#3FBD6F]",
-    icon: "text-[#1F8A0D] dark:text-[#3FBD6F]",
+    border: "border-[#0255D5] dark:border-[#7DB5FF]",
+    text: "text-[#0255D5] dark:text-[#7DB5FF]",
+    icon: "text-[#0255D5] dark:text-[#7DB5FF]",
   },
   error: {
     bg: "bg-red-100 dark:bg-red-950",

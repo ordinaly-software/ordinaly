@@ -39,3 +39,6 @@ venv/*
 
 # Claude AI interface
 .claude/*
+
+next-app/node_modules/
+node_modules/

@@ -27,6 +27,7 @@
       "profile": "Perfil",
       "myCourses": "Mis cursos",
       "blog": "Blog",
+      "faq": "FAQ",
       "news": "Noticias",
       "contact": "Contacto",
       "us": "Nosotros",
@@ -34,7 +35,7 @@
     },
     "hero": {
       "titleLine1": "AGENCIA DE",
-      "titleLine2": "AUTOMATIZACIÓN IA",
+      "titleLine2": "AUTOMATIZACIÓN CON IA",
       "subtitle": "Somos tu agencia de automatización IA. Optimizamos tu negocio con inteligencia artificial para escalar resultados.",
       "description1": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
       "trust1": "Para contables, administradores, inmobiliarias, y más",
@@ -44,45 +45,14 @@
       "ctaServices": "Ver servicios",
       "ctaDemo": "Agenda una consulta",
       "clientsTitle": "Confían en nosotros",
-      "statHeadline": "+500 HORAS AHORRADAS",
-      "statCaption": "a empresas andaluzas este mes.",
-      "imageAlt": "agencia de automatización IA para empresas en España"
-    },
-    "benefits": {
-      "title": "¿Por qué elegir Ordinaly para la automatización de tu empresa?",
-      "subtitle": "Como agencia de automatización IA, transformamos procesos lentos en flujos inmediatos, garantizando un ROI real mediante la reducción de errores operativos.",
-      "items": {
-        "0": {
-          "title": "Ahorro de tiempo real",
-          "description": "Automatiza tareas repetitivas y ahorra hasta 20 horas semanales con nuestros agentes de IA"
-        },
-        "1": {
-          "title": "Soluciones a medida",
-          "description": "Diseñamos workflows personalizados adaptados a tu sector: inmobiliaria, fincas, marketing"
-        },
-        "2": {
-          "title": "Formación incluida",
-          "description": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo"
-        },
-        "3": {
-          "title": "Soporte local",
-          "description": "Equipo en Sevilla disponible para reuniones presenciales y soporte continuo"
-        }
-      }
-    },
-    "hubIllustration": {
-      "title": "Automatización que fluye en tu organización",
-      "subtitle": "Ordinaly conecta todos tus departamentos en un único ecosistema inteligente",
-      "hubLabel": "ORDINALY",
-      "hubSublabel": "AUTOMATIZACIÓN · IA",
-      "ariaTitle": "Ordinaly conecta ventas, datos, finanzas y equipos en un hub central de IA",
-      "ariaDesc": "Ilustración isométrica que muestra cómo Ordinaly integra los departamentos de Ventas y CRM, Nube y Datos, Finanzas y Equipos mediante flujos de automatización con inteligencia artificial.",
-      "platforms": {
-        "topLeft":     { "label": "Ventas & CRM",    "sublabel": "Leads y seguimiento automático" },
-        "topRight":    { "label": "Nube & Datos",    "sublabel": "Integración en tiempo real" },
-        "bottomLeft":  { "label": "Finanzas",        "sublabel": "Facturación e informes auto." },
-        "bottomRight": { "label": "Equipos & Ops",   "sublabel": "Flujos de trabajo inteligentes" }
-      }
+      "card1Label": "Agentes de IA 24/7 para ventas y atención al cliente",
+      "card1Value": "Automatización de consultas, generación de leads y soporte continuo con inteligencia artificial.",
+      "card2Label": "Formación profesional para empresas",
+      "card2Value": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo.",
+      "card3Label": "Equipo de ingenieros especializados",
+      "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
+      "card4Label": "Empresa local andaluza",
+      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo."
     },
     "services": {
       "title": "Nuestra agencia de automatización IA",
@@ -101,69 +71,14 @@
           "description": "Equipo técnico en Sevilla disponible. Actualizaciones y mejoras incluidas en el servicio."
         }
       },
-      "contactForQuote": "¡Quiero más información!",
       "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
       "vacationTitle": "De vacaciones",
       "retryButton": "Reintentar",
-      "featured": "Destacado",
-      "duration": "Listo en ",
-      "durationDay": "1 día",
-      "durationDays": "días",
-      "price": "Precio",
-      "created": "Creado",
-      "createdBy": "Creado por",
-      "requisites": "Requisitos",
-      "contactNow": "Contactar ahora",
-      "contactEmail": "Contactar por email",
-      "viewDetails": "Ver detalles",
       "viewAllServicesAndProducts": "Ver todo el catálogo",
       "video": "Vídeo",
       "playVideo": "Reproducir vídeo",
-      "imageAlt": "Imagen de {title}",
       "errorTitle": "Error cargando servicios",
       "errorMessage": "No se pudieron cargar los servicios"
-    },
-    "process": {
-      "title": "Proceso de la agencia de automatización IA",
-      "subtitle": "Metodología de trabajo de nuestra agencia de automatización en inteligencia artificial",
-      "steps": {
-        "0": {
-          "title": "Auditoría",
-          "description": "Tu agencia de automatización IA detecta procesos optimizables",
-          "bullets": {
-            "0": "Identificación de procesos automatizables",
-            "1": "Estimación de ahorro de tiempo",
-            "2": "Propuesta técnica y presupuesto"
-          }
-        },
-        "1": {
-          "title": "Estrategia",
-          "description": "Creamos una hoja de ruta de agencia de automatización en inteligencia artificial.",
-          "bullets": {
-            "0": "Desarrollo ágil por sprints",
-            "1": "Feedback continuo",
-            "2": "Ajustes en tiempo real"
-          }
-        },
-        "2": {
-          "title": "Despliegue",
-          "description": "Integración técnica por tu agencia de automatización IA. Testing completo incluido.",
-          "bullets": {
-            "0": "Despliegue gradual y controlado",
-            "1": "Pruebas de calidad exhaustivas",
-            "2": "Migración de datos segura"
-          }
-        },
-        "3": {
-          "title": "Evolución",
-          "description": "Mejora continua del sistema de automatización con inteligencia artificial.",
-          "bullets": {
-            "0": "Sesiones de formación práctica",
-            "1": "Documentación completa",
-            "2": "Soporte técnico continuo"
-          }
-        }
-      }
     },
     "useCases": {
       "title": "Casos de éxito: agencia de automatización IA",
@@ -247,97 +162,101 @@
         }
       }
     },
-    "local": {
-      "title": "Expertos de la agencia de automatización IA",
-      "description1": "Somos tu agencia de automatización IA de referencia en España. Nuestro equipo de consultores implementa soluciones de agencia de automatización en inteligencia artificial para escalar negocios de forma segura y eficiente.",
-      "description2": "Ya sea que estés en Sevilla capital, Andalucía, o cualquier punto de España ofrecemos tanto consultoría presencial como implementación remota con los más altos estándares de calidad.",
-      "videoLabel": "Video",
-      "playVideo": "Reproducir",
-      "points": {
-        "0": {
-          "title": "Oficina en Sevilla centro",
-          "description": "Plaza del Duque 1, 41002 Sevilla • Reuniones presenciales disponibles"
-        },
-        "1": {
-          "title": "Contacto directo",
-          "description": "+34 626 27 08 06 • info@ordinaly.ai • Respuesta en 24h"
-        },
-        "2": {
-          "title": "Cobertura regional",
-          "description": "Servicios en toda Andalucía • Formación presencial en Sevilla"
-        }
-      },
-      "cta": "Contacta con nosotros"
-    },
-    "partnersSection": {
-      "title": "Empresas que confían en Ordinaly",
-      "subtitle": "Colaboramos con empresas líderes en Sevilla y Andalucía para transformar sus procesos con IA",
-      "visit": "Visitar web del partner"
-    },
-    "cta": {
-      "title": "Contacta con tu agencia de automatización IA",
-      "subtitle": "¿Quieres que seamos tu agencia de automatización IA? Da el salto a la agencia de automatización en inteligencia artificial líder en España y revoluciona tu rentabilidad.",
-      "meta": "Respuesta garantizada en menos de 24 horas laborables • +34 626 27 08 06 • info@ordinaly.ai",
-      "buttons": {
-        "whatsapp": "Consulta gratis por WhatsApp",
-        "services": "Ver todos los servicios"
-      },
-      "items": {
-        "0": {
-          "title": "Análisis personalizado",
-          "description": "Estudiamos tu negocio y te mostramos oportunidades de automatización concretas"
-        },
-        "1": {
-          "title": "Presupuesto transparente",
-          "description": "Sin costes ocultos. Sabrás exactamente qué vas a recibir y cuánto costará"
-        },
-        "2": {
-          "title": "Resultados rápidos",
-          "description": "Primeras automatizaciones funcionando en 2-4 semanas. Valor desde el día 1"
-        }
-      }
-    },
-    "seoArticle": {
-      "title": "Automatización empresarial con IA en Sevilla: la guía completa",
-      "intro": "La automatización empresarial con inteligencia artificial ha dejado de ser una opción futurista para convertirse en una necesidad competitiva para las PYMEs en Sevilla y toda Andalucía. En Ordinaly, ayudamos a empresas locales a implementar agentes de IA para negocios que transforman radicalmente su operativa diaria.",
-      "section1": {
-        "title": "¿Qué son los agentes de IA y cómo benefician a tu empresa en Sevilla?",
-        "body": "Los agentes de IA son sistemas inteligentes diseñados para realizar tareas específicas de forma autónoma. A diferencia de los simples chatbots, estos agentes pueden tomar decisiones, aprender de interacciones previas y ejecutar workflows complejos sin intervención humana. Para una inmobiliaria en Sevilla, esto significa poder gestionar consultas de clientes 24/7, programar visitas automáticamente y generar descripciones de propiedades en segundos."
-      },
-      "section2": {
-        "title": "Sectores que más se benefician de la automatización con IA en Andalucía",
-        "body": "Nuestra experiencia trabajando con empresas andaluzas nos ha mostrado que ciertos sectores obtienen beneficios inmediatos:",
-        "list": {
-          "0": "Administradores de fincas: Automatización de incidencias, comunicación con comunidades y gestión de proveedores. Un administrador en Sevilla puede ahorrar hasta 20 horas semanales con nuestros sistemas.",
-          "1": "Inmobiliarias: Agentes conversacionales que cualifican leads, programan visitas y envían información de propiedades automáticamente. Ideal para agencias en Sevilla que gestionan decenas de inmuebles simultáneamente.",
-          "2": "Agencias de marketing: Automatización de publicaciones en redes sociales, generación de contenido con IA y análisis de campañas. Las agencias sevillanas que trabajan con nosotros gestionan 3x más clientes con el mismo equipo.",
-          "3": "Comercio retail: Gestión inteligente de inventario, predicción de demanda y atención al cliente automatizada vía WhatsApp Business."
-        }
-      },
-      "section3": {
-        "title": "Formación en IA para empresas: el complemento esencial",
-        "body": "No solo implementamos tecnología: formamos a tu equipo para que sean autónomos. Nuestros cursos de inteligencia artificial en Sevilla son 100% prácticos y orientados a casos de uso reales. Desde introducción a ChatGPT hasta automatizaciones avanzadas con Make y Zapier, diseñamos la formación según las necesidades específicas de tu sector."
-      },
-      "section4": {
-        "title": "¿Por qué elegir Ordinaly para la automatización de tu empresa?",
-        "body": "Somos ingenieros de software especializados en IA con sede física en Sevilla. Esto nos diferencia de consultoras internacionales que aplican soluciones genéricas:",
-        "list": {
-          "0": "Conocimiento del mercado local: Entendemos las particularidades de las PYMEs andaluzas",
-          "1": "Disponibilidad presencial: Reuniones cara a cara en nuestra oficina de Sevilla centro",
-          "2": "Soluciones 100% personalizadas: No usamos plantillas. Cada proyecto se diseña específicamente para ti",
-          "3": "Formación incluida: Tu equipo aprende a gestionar y mejorar los sistemas que implementamos",
-          "4": "Soporte continuo: No desaparecemos después de la implementación"
-        }
-      },
-      "cta": {
-        "title": "¿Listo para dar el salto a la automatización empresarial?",
-        "body": "Agenda una consulta gratuita y descubre cómo los agentes de IA pueden transformar tu negocio en Sevilla. Sin compromiso, analizamos tu caso y te mostramos oportunidades concretas de automatización.",
-        "button": "Contactar por WhatsApp"
-      }
-    },
     "partners": {
-      "title": "Empresas transformadas",
-      "visit": "Visitar web del partner"
+      "title": "Empresas transformandas",
+      "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos con IA"
+    },
+    "chatDemo": {
+      "title": "IA que habla como tu negocio",
+      "subtitle": "Descubre cómo nuestro asistente IA gestiona interacciones reales en distintos sectores.",
+      "you": "Tú",
+      "assistant": "Asistente IA",
+      "scenarios": {
+        "0": {
+          "label": "Inmobiliaria",
+          "messages": {
+            "0": {
+              "sender": "customer",
+              "text": "¡Hola! ¿Sigue disponible el piso en Calle Sierpes 12? Me gustaría concertar una visita este sábado."
+            },
+            "1": {
+              "sender": "agent",
+              "text": "¡Hola! Sí, está disponible. Tenemos hueco a las 10:00 y a las 12:00 el sábado. ¿Cuál te viene mejor?"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "Las 12:00 sería perfecto. Me llamo María García."
+            },
+            "3": {
+              "sender": "agent",
+              "text": "¡Listo, María! Visita confirmada el sábado a las 12:00. Te hemos enviado la confirmación al correo. ¡Hasta entonces! 🏠"
+            }
+          }
+        },
+        "1": {
+          "label": "E-commerce",
+          "messages": {
+            "0": {
+              "sender": "customer",
+              "text": "Hola, hace 3 días pedí un portátil y no he recibido ningún seguimiento. Pedido #8821."
+            },
+            "1": {
+              "sender": "agent",
+              "text": "¡Hola! He localizado tu pedido #8821. Se envió ayer y llegará mañana entre las 9:00 y las 13:00. 📦"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "¡Genial! ¿Puedo cambiar la dirección de entrega?"
+            },
+            "3": {
+              "sender": "agent",
+              "text": "¡Por supuesto! He actualizado la dirección de entrega. Recibirás un email de confirmación enseguida. ¿Necesitas algo más? ✉️"
+            }
+          }
+        },
+        "2": {
+          "label": "Restaurante",
+          "messages": {
+            "0": {
+              "sender": "customer",
+              "text": "¡Buenas! Quisiera reservar una mesa para 4 personas este viernes a las 21:00. ¿Tenéis disponibilidad?"
+            },
+            "1": {
+              "sender": "agent",
+              "text": "¡Hola! Tenemos mesa disponible el viernes a las 21:00. ¿Me das tu nombre y teléfono para confirmar la reserva?"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "Carlos Martín, 600123456. ¿Tenéis menú grupal?"
+            },
+            "3": {
+              "sender": "agent",
+              "text": "¡Perfecto, Carlos! Mesa reservada para 4 el viernes a las 21:00. Tenemos menú grupal a 35 €/persona con bebida incluida. 🍽️"
+            }
+          }
+        },
+        "3": {
+          "label": "Legal",
+          "messages": {
+            "0": {
+              "sender": "customer",
+              "text": "Buenos días. Necesito ayuda con un inquilino que lleva 2 meses sin pagar el alquiler. ¿Qué opciones tengo?"
+            },
+            "1": {
+              "sender": "agent",
+              "text": "Buenos días. Lo entiendo. El primer paso es un requerimiento formal por escrito al inquilino. ¿Le agendamos una llamada con uno de nuestros abogados?"
+            },
+            "2": {
+              "sender": "customer",
+              "text": "Sí, preferiblemente esta semana. Tengo disponibilidad el martes o jueves por la tarde."
+            },
+            "3": {
+              "sender": "agent",
+              "text": "¡Listo! He agendado una llamada para el jueves a las 17:00 con la Lcda. Rodríguez. Te hemos enviado la confirmación al correo. ⚖️"
+            }
+          }
+        }
+      }
     },
     "contact": {
       "emailSubject": "Consulta sobre servicio: {service}",
@@ -383,31 +302,48 @@
       "previous": "Anteriores",
       "next": "Siguientes"
     },
-    "about": {
-      "title": "LIDERANDO LA TRANSFORMACIÓN DIGITAL EN ANDALUCÍA",
-      "description1": "En Ordinaly, creemos que las empresas andaluzas tienen el potencial de liderar la innovación tecnológica en España y Europa. Nuestra misión es democratizar el acceso a la inteligencia artificial y la automatización",
-      "description2": "Trabajamos codo con codo con empresas locales para implementar soluciones que no solo mejoran la eficiencia, sino que las posicionan como referentes en sus sectores",
-      "cta": "Conoce nuestros servicios",
-      "imageAlt": "Equipo de Ordinaly trabajando en soluciones de IA para empresas andaluzas"
-    },
-    "demoModal": {
-      "title": "Demo de Ordinaly",
-      "description": "Descubre cómo nuestra plataforma puede transformar tu negocio con automatizaciones inteligentes",
-      "videoNotSupported": "Tu navegador no soporta este tipo de video",
-      "videoError": "Error reproduciendo video:"
-    },
     "footer": {
       "logo": {
         "title": "ORDINALY",
         "alt": "Logo de Ordinaly"
       },
-      "description": "Transformando empresas con inteligencia artificial y automatización",
+      "description": "Automatización, agentes IA y formación desde Sevilla para equipos que necesitan operar mejor.",
+      "sections": {
+        "navigate": "Navegar",
+        "company": "Empresa",
+        "landings": "Catálogo",
+        "legal": "Legal",
+        "connect": "Contacto"
+      },
+      "links": {
+        "home": "Inicio",
+        "services": "Servicios",
+        "formation": "Formación",
+        "faq": "FAQ",
+        "blog": "Blog",
+        "news": "Noticias",
+        "about": "Nosotros",
+        "investors": "Inversores",
+        "contact": "Contacto",
+        "legalCenter": "Centro legal",
+        "whatsapp": "WhatsApp",
+        "emailUs": "Email",
+        "callUs": "Llamar",
+        "officeMap": "Abrir mapa",
+        "linkedin": "LinkedIn"
+      },
       "legal": {
         "title": "Documentación legal",
         "terms": "Términos",
         "privacy": "Privacidad",
         "cookies": "Cookies",
         "license": "Licencia"
+      },
+      "utility": {
+        "language": "Idioma",
+        "theme": "Tema",
+        "light": "Claro",
+        "dark": "Oscuro"
       },
       "social": {
         "title": "¡Síguenos!",
@@ -423,39 +359,7 @@
       },
       "copyright": "© {year} Ordinaly Software. Todos los derechos reservados"
     },
-    "pricingPlans": {
-      "1": {
-        "title": "Asistencia robótica",
-        "features": [
-          "Chatbot inteligente en web",
-          "Agente de WhatsApp con IA"
-        ]
-      },
-      "2": {
-        "title": "Automatización de ventas",
-        "features": [
-          "Todo lo del plan asistencia robótica",
-          "CRM automatizado (usuarios, facturación, informes, pedidos)",
-          "Notificaciones automatizadas (email/SMS/WhatsApp)"
-        ]
-      },
-      "3": {
-        "title": "Estrategia predictiva IA",
-        "features": [
-          "Todo lo del plan automatización de ventas",
-          "Asistentes inteligentes de diagnóstico o recomendación",
-          "Integración con Looker Studio y automatización de flujos",
-          "Análisis predictivo y tendencias de mercado",
-          "Herramientas web para presupuestos rápidos"
-        ]
-      }
-    },
-    "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly",
-    "seoLeadership": {
-      "title": "Liderazgo nacional en IA corporativa",
-      "description": "Nuestra agencia de automatización IA no solo instala software; diseñamos ecosistemas de agencia de automatización en inteligencia artificial que aprenden de tu negocio para ofrecer una ventaja competitiva única en el mercado español.",
-      "imageAlt": "agencia de automatización IA líder en España"
-    }
+    "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
   },
   "common": {
     "onVacation": "De vacaciones",
@@ -756,11 +660,12 @@
         "service": "Servicio",
         "product": "Producto",
         "colors": {
-          "darkPurple": "Neutro",
-          "purple": "Morado oscuro",
-          "cyan": "Cian",
-          "green": "Hoja",
-          "orange": "Mandarina"
+          "slate": "Pizarra",
+          "clay": "Arcilla",
+          "cobalt": "Cobalto",
+          "olive": "Oliva",
+          "fig": "Higo",
+          "kraft": "Kraft"
         },
         "duration": "Tiempo de implantación (días)",
         "durationPlaceholder": "ej: 2 días",
@@ -1182,7 +1087,7 @@
       "terms": {
         "title": "Términos de Servicio",
         "noDocuments": "No hay documentos de términos de servicio disponibles actualmente",
-          "identification": {
+        "identification": {
           "title": "IDENTIFICACIÓN DEL PRESTADOR DE SERVICIOS",
           "p1": "En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y comercio electrónico (LSSI-CE), se informa que el presente sitio web es propiedad de:",
           "bullet1": "Empresa: Ordinaly Software S.L.",
@@ -1233,7 +1138,7 @@
       "privacy": {
         "title": "Política de Privacidad",
         "noDocuments": "No hay documentos de política de privacidad disponibles actualmente",
-          "dataController": {
+        "dataController": {
           "title": "RESPONSABLE DEL TRATAMIENTO",
           "p1": "En cumplimiento del Reglamento General de Protección de Datos (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD), se informa que el responsable del tratamiento de los datos es:",
           "p2": "Ordinaly Software S.L.",
@@ -1538,7 +1443,8 @@
           "a": "Sí. Como agencia de automatización IA comprometida con tu éxito, incluimos mantenimiento técnico y soporte post-implementación.",
           "extra": "Nuestras soluciones son escalables, permitiendo que la tecnología crezca al mismo ritmo que tu negocio en toda España."
         }
-      }
+      },
+      "viewAllLabel": "Ver todas las preguntas frecuentes"
     },
     "noPastCourses": "No hay cursos pasados disponibles",
     "pastCourses": "Cursos pasados",
@@ -1633,16 +1539,6 @@
     "noSpecificTime": "No hay una hora específica aún",
     "bonificationTitle": "Bonificación y subvenciones",
     "bonificationDisclaimer": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar",
-    "pdf": {
-      "title": "Catálogo de formación",
-      "subtitle": "Cursos de formación profesional y tecnológica",
-      "date": "Fecha",
-      "location": "Ubicación",
-      "price": "Precio",
-      "free": "Gratuito",
-      "noSpecificDate": "Todavía no hay una fecha establecida",
-      "locationSoon": "Ubicación próximamente"
-    },
     "courseDetails": {
       "title": "Detalles del curso",
       "locationSoon": "Ubicación próximamente",
@@ -1967,12 +1863,81 @@
   },
   "contactPage": {
     "hero": {
-      "title": "Construyamos tu próxima automatización",
-      "subtitle": "Cuéntanos tu equipo, herramientas y objetivos. Respondemos en menos de 24 horas.",
-      "primaryCta": "Escríbenos",
-      "secondaryCta": "Abrir formulario",
+      "eyebrow": "Soporte Ordinaly",
+      "call": "¡Llámanos!",
+      "title": "Contacta con el equipo de Ordinaly",
+      "subtitle": "Te ayudamos a definir el siguiente paso: diagnóstico, piloto, soporte operativo o formación para tu equipo. Desde Sevilla, con respuesta en menos de 24 horas.",
+      "primaryCta": "Abrir formulario",
+      "secondaryCta": "Ver servicios",
       "contactCardTitle": "¿Prefieres hablar directo?",
-      "location": "¡Visítanos en Sevilla!"
+      "location": "Visitar estudio en Sevilla"
+    },
+    "services": {
+      "title": "Elige el área con la que necesitas ayuda",
+      "subtitle": "Igual que una página de soporte, empezamos por tu necesidad. Después te guiamos al servicio, al formulario o a una llamada.",
+      "cardCta": "Entrar por aquí",
+      "items": {
+        "0": {
+          "title": "Agentes de IA",
+          "description": "Bots operativos, atención 24/7 y asistentes con contexto real de negocio."
+        },
+        "1": {
+          "title": "Automatización de procesos",
+          "description": "Workflows en n8n, sincronización entre herramientas y menos trabajo manual."
+        },
+        "2": {
+          "title": "WhatsApp y conversación",
+          "description": "Captación, soporte y seguimiento automatizado desde WhatsApp y canales de mensajería."
+        },
+        "3": {
+          "title": "Integraciones y sistemas",
+          "description": "CRM, ERP, formularios, hojas de cálculo y APIs conectadas con criterio."
+        },
+        "4": {
+          "title": "Formación para equipos",
+          "description": "Talleres y programas prácticos para ventas, operaciones y dirección."
+        },
+        "5": {
+          "title": "Soporte y acompañamiento",
+          "description": "Si ya tienes una idea o un atasco concreto, te ayudamos a aterrizarlo rápido."
+        }
+      }
+    },
+    "supportHub": {
+      "eyebrow": "Entrada guiada",
+      "title": "Cuéntanos qué quieres resolver",
+      "subtitle": "Si ya sabes el problema, entra por aquí. Si no, te ayudamos a traducirlo a una automatización viable.",
+      "searchPrompt": "Describe el proceso, cuello de botella o idea que quieres automatizar",
+      "primaryCta": "Empezar solicitud",
+      "secondaryCta": "Enviar email",
+      "topics": {
+        "0": "Captar y cualificar leads",
+        "1": "Reducir tareas repetitivas",
+        "2": "Lanzar un agente para soporte",
+        "3": "Formar al equipo en IA"
+      }
+    },
+    "assurance": {
+      "eyebrow": "Qué pasa después",
+      "title": "Cómo trabajamos cuando entras por soporte",
+      "items": {
+        "0": {
+          "title": "Diagnóstico antes que plantilla",
+          "description": "No encajamos una solución genérica. Revisamos proceso, herramientas y margen de impacto."
+        },
+        "1": {
+          "title": "Equipo local y ejecución real",
+          "description": "Hablas con el mismo equipo que define la solución, construye el piloto y acompaña el despliegue."
+        },
+        "2": {
+          "title": "Respuesta rápida",
+          "description": "Respondemos en menos de 24 horas laborables y proponemos siguiente paso claro."
+        }
+      }
+    },
+    "channels": {
+      "title": "Canales directos",
+      "subtitle": "Elige el canal más rápido para tu caso: llamada, email, visita o formulario detallado."
     },
     "info": {
       "title": "Contactos directos",
@@ -2003,6 +1968,25 @@
       "success": "¡Gracias! Nos pondremos en contacto contigo pronto.",
       "errorFallback": "No pudimos enviar el formulario. Escríbenos a info@ordinaly.ai."
     },
+    "formAside": {
+      "eyebrow": "Antes de enviar",
+      "title": "Qué incluir para que podamos responder mejor",
+      "subtitle": "Cuanto más contexto tengamos, más precisa será la propuesta inicial.",
+      "items": {
+        "0": {
+          "label": "Proceso",
+          "value": "Explica qué parte del trabajo quieres automatizar o mejorar."
+        },
+        "1": {
+          "label": "Herramientas",
+          "value": "Indica si ya usáis CRM, ERP, WhatsApp, email marketing o flujos en n8n."
+        },
+        "2": {
+          "label": "Objetivo",
+          "value": "Cuéntanos si buscas ahorrar tiempo, vender más, responder mejor o formar al equipo."
+        }
+      }
+    },
     "team": {
       "1": {
         "name": "Antonio Macías Ferrera",
@@ -2019,13 +2003,37 @@
         "role": "CEO, Experto en Márketing, publicidad y transformación digital & Co-founder",
         "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
       },
+      "eyebrow": "Equipo fundador",
       "title": "Nuestro equipo",
       "cta": "¡Conócenos!"
     },
     "map": {
+      "eyebrow": "Presencial en Sevilla",
       "title": "Visita nuestras oficinas en Sevilla",
       "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
+      "cta": "Abrir en Google Maps",
       "photoAlt": "Oficinas de Ordinaly en Plaza del Duque de la Victoria, Sevilla"
+    },
+    "explore": {
+      "title": "Más formas de seguir en contacto",
+      "subtitle": "Además del soporte directo, puedes conocernos mejor, seguir nuestro contenido o venir al estudio.",
+      "items": {
+        "0": {
+          "title": "Conoce al equipo",
+          "description": "Quiénes somos, cómo trabajamos y por qué construimos automatización desde Sevilla.",
+          "cta": "Ir a nosotros"
+        },
+        "1": {
+          "title": "Ver recursos y contenido",
+          "description": "YouTube, casos, ideas y material para entender mejor cómo aplicamos IA y automatización.",
+          "cta": "Abrir canal"
+        },
+        "2": {
+          "title": "Ven a vernos",
+          "description": "Reuniones presenciales, workshops y sesiones de descubrimiento en Plaza del Duque.",
+          "cta": "Abrir ubicación"
+        }
+      }
     }
   },
   "usPage": {
@@ -2035,16 +2043,14 @@
       "subtitle": "Un equipo multidisciplinar creando IA + automatización que mantiene a las personas en control y a los negocios avanzando.",
       "definition": "Ordinaly Software S.L. es una empresa de automatización empresarial con IA en Sevilla que diseña agentes, chatbots y workflows para PYMEs y equipos corporativos.",
       "ctaPrimary": "Conoce al equipo",
-      "ctaSecondary": "¡Trabaja con nosotros!",
-      "missionLabel": "Misión",
-      "visionLabel": "Visión"
+      "ctaSecondary": "¡Trabaja con nosotros!"
     },
     "mission": {
-      "title": "Potenciar a las personas, no sustituirlas",
+      "title": "Misión: Potenciar a las personas, no sustituirlas",
       "body": "Diseñamos automatizaciones que eliminan fricción para que los equipos se centren en creatividad, decisiones y relaciones."
     },
     "vision": {
-      "title": "Automatización en la que confiar",
+      "title": "Visión: Automatización en la que confiar",
       "body": "Hacer que los flujos inteligentes sean simples, transparentes y medibles para cualquier empresa."
     },
     "stats": {
@@ -2093,7 +2099,6 @@
       "title": "Nuestro equipo"
     },
     "cta": {
-      "eyebrow": "Trabaja con nosotros",
       "title": "Trabaja en Ordinaly y construye la próxima ola de automatizaciones",
       "body": "Si te apasionan la IA, la automatización y el impacto medible, queremos conocerte. Envíanos tu CV o hablemos sobre cómo puedes ayudarnos a entregar más rápido.",
       "primary": "Enviar CV",
@@ -2104,13 +2109,11 @@
   },
   "investors": {
     "hero": {
-      "tagline": "Inversores",
       "title": "Invirtiendo en automatización que mantiene ágiles a las empresas",
       "subtitle": "Ordinaly articula agentes con IA, automatizaciones empresariales y formación para acelerar organizaciones sin perder el control humano.",
       "ctaPrimary": "Descargar deck",
       "ctaSecondary": "Agendar una llamada",
       "footnote": "Compartimos métricas detalladas bajo solicitud.",
-      "focusLabel": "Enfoque inversor",
       "focusTitle": "Trayectoria de automatización compuesta",
       "focusBody": "Operamos con equipos ligeros y clientes complejos distribuidos."
     },
@@ -2124,7 +2127,7 @@
       },
       "clients": {
         "label": "Socios atendidos",
-        "value": "45+",
+        "value": "10+",
         "detail": "Retenciones activas y proyectos recurrentes."
       },
       "efficiency": {
@@ -2150,8 +2153,6 @@
       }
     },
     "roadmap": {
-      "title": "Próximos hitos",
-      "subtitle": "El plan de inversión impulsa la siguiente fase de escala.",
       "1": {
         "title": "Expandir ingresos de servicios",
         "body": "Escalar equipos de consultoría y paquetes por industria."
@@ -2163,277 +2164,1176 @@
       "3": {
         "title": "Nuevas líneas de producto",
         "body": "Ofrecer plataformas estratégicas y programas formativos."
-      }
+      },
+      "title": "Próximos hitos",
+      "subtitle": "El plan de inversión impulsa la siguiente fase de escala."
     },
     "cta": {
       "title": "¿Listo para explorar la oportunidad?",
       "body": "Hablemos de KPIs, runway y cómo el capital multiplica el impacto.",
       "button": "Contactar al equipo"
+    },
+    "team": {
+      "label": "El equipo",
+      "title": "Capacidades técnicas y empresariales",
+      "subtitle": "Combinamos ingeniería de software de alto nivel con décadas de consultoría empresarial.",
+      "antonio": {
+        "role": "CTO · Ingeniero de Software & MsC en Inteligencia Artificial",
+        "bio": "Ingeniero de software graduado en la Universidad de Sevilla con Master en Ciencias de la Computación, Lógica e Inteligencia Artificial.",
+        "tags": {
+          "0": "Ing. Informática · Univ. Sevilla",
+          "1": "IA & Automatización",
+          "2": "Full-Stack",
+          "3": "Scrum Master"
+        }
+      },
+      "guillermo": {
+        "role": "CEO · Director de Proyecto en Proinca Consultores",
+        "bio": "Director de Proyecto en Proinca Consultores, Profesor Asociado en la Universidad de Sevilla, PhD en Ingeniería Industrial.",
+        "tags": {
+          "0": "Consultoría de Procesos",
+          "1": "Proinca Consultores",
+          "2": "Transformación Digital",
+          "3": "Optimización Empresarial"
+        }
+      }
+    },
+    "formation": {
+      "label": "Formación",
+      "title": "Cursos de IA para empresas",
+      "subtitle": "Entrenamos a equipos para que sean autónomos con la IA, creando una línea de ingresos recurrente y un canal directo de adopción.",
+      "courses": {
+        "0": {
+          "title": "IA para Equipos de Negocio",
+          "description": "Formación práctica para que equipos no técnicos integren herramientas de IA en sus flujos de trabajo diarios, con ejercicios reales del sector."
+        },
+        "1": {
+          "title": "Automatización de Procesos con IA",
+          "description": "Programa intensivo sobre diseño e implementación de agentes de IA y automatizaciones para reducir tareas repetitivas y escalar operaciones."
+        },
+        "2": {
+          "title": "Estrategia de Transformación Digital",
+          "description": "Curso ejecutivo para líderes que quieren definir una hoja de ruta de automatización e IA adaptada a su empresa y sector."
+        }
+      }
     }
   },
   "landings": {
-    "chatbots-empresas-sevilla": {
-      "title": "Chatbots para empresas en Sevilla",
-      "subtitle": "Atención 24/7 que entiende tus procesos y responde con datos de tu negocio.",
-      "description": "Diseñamos chatbots entrenados con tu base de conocimiento, conectados a tus sistemas (CRM/ERP) y listos para reducir tickets repetitivos.",
-      "heroBadge": "IA + soporte",
-      "heroCtaLabel": "Hablar con un consultor",
-      "secondaryCtaLabel": "Ver casos en Sevilla",
-      "valueProps": {
-        "0": "Respuestas con tus datos: fichas de productos, envíos, incidencias.",
-        "1": "Integración con WhatsApp, web y correo en menos de 2 semanas.",
-        "2": "Handoff a agente humano con contexto completo en CRM."
-      },
-      "outcomes": {
-        "0": "-35% tickets repetitivos en 3 meses",
-        "1": "CSAT +12 puntos al dar estado de pedidos en tiempo real",
-        "2": "Menos de 30s de tiempo medio de respuesta"
-      },
-      "steps": {
-        "0": "Auditamos FAQs y flujos de soporte actuales",
-        "1": "Conectamos fuentes (FAQ, manuales, CRM) y canales (web/WhatsApp)",
-        "2": "Pilotamos 2 semanas con objetivos de deflexión y CSAT"
-      },
-      "faqs": {
-        "0": {
-          "q": "¿En qué canales puedo desplegar el chatbot?",
-          "a": "Web, WhatsApp Business, Facebook Messenger y correo. Podemos empezar por un canal y extender al resto tras el piloto."
+    "agencia-automatizacion-ia": {
+      "slug": "agencia-automatizacion-ia",
+      "heroImage": "/static/backgrounds/blog_background.webp",
+      "heroImagePosition": "center 32%",
+      "title": "Chatbots empresariales con datos conectados",
+      "shortTitle": "Agencia de Automatización IA",
+      "subtitle": "RAG, guardrails y handoff humano para soporte, ventas y help desks internos.",
+      "description": "Diseñamos asistentes con fuentes versionadas, trazas por respuesta y políticas de escalado para que cada respuesta salga de documentos y sistemas validados, no de texto genérico.",
+      "heroBadge": "RAG + guardrails",
+      "heroCtaLabel": "Definir piloto",
+      "secondaryCtaLabel": "Abrir WhatsApp",
+      "serviceType": "Chatbots para soporte, ventas e información interna",
+      "areaServed": "España, Portugal y despliegue remoto en la UE",
+      "valueProps": [
+        "Pipelines de recuperación con chunking, ranking de fuentes y fallback cuando no hay evidencia suficiente.",
+        "Despliegue en web, WhatsApp y correo con memoria compartida y contexto persistente por cliente.",
+        "Escalado a humano con transcripción, intención detectada, score de confianza y siguiente acción sugerida."
+      ],
+      "metrics": [
+        {
+          "label": "Ventana de piloto",
+          "value": "2-4 semanas",
+          "detail": "Incluye limpieza documental, despliegue inicial y revisión con muestra real."
         },
-        "1": {
-          "q": "¿Cómo evitáis alucinaciones?",
-          "a": "Usamos RAG con fuentes validadas y umbrales de confianza; si no hay certeza, el bot deriva a humano con el contexto capturado."
+        {
+          "label": "Capas de control",
+          "value": "3 niveles",
+          "detail": "Responder, pedir contexto o escalar según evidencia recuperada y política de riesgo."
         },
-        "2": {
-          "q": "¿Podéis integrarlo con mi CRM?",
-          "a": "Sí, integramos con Odoo, HubSpot o tu CRM vía API para leer pedidos, clientes y crear tickets."
+        {
+          "label": "Trazabilidad",
+          "value": "100% logado",
+          "detail": "Prompt, fuentes, confianza y handoff registrados para auditoría y tuning."
         }
+      ],
+      "outcomes": [
+        "Deflexión por intención y por canal, en lugar de medir solo conversaciones totales.",
+        "Tiempo mediano de primera respuesta y resolución con corte por idioma, canal y segmento.",
+        "Precisión de escalado para asegurar que el equipo humano reciba solo casos fuera de política o baja confianza."
+      ],
+      "steps": [
+        "Clasificamos intenciones, acciones permitidas y calidad de las fuentes antes de tocar prompts.",
+        "Construimos recuperación, prompts, guardrails e integraciones CRM en un entorno de staging.",
+        "Liberamos con QA muestral, revisión semanal de fallos y panel de métricas por intención."
+      ],
+      "useCases": [
+        {
+          "tag": "Soporte",
+          "title": "Estado de pedidos e incidencias",
+          "description": "El bot responde desde ERP, logística y base documental sin obligar al cliente a esperar a un agente.",
+          "bullets": [
+            "Consulta de envío, devoluciones y facturas",
+            "Clasificación automática por urgencia e intención"
+          ]
+        },
+        {
+          "tag": "Ventas",
+          "title": "Cualificación previa a demo",
+          "description": "Recoge variables de negocio, tamaño de equipo, stack y caso de uso antes de pasar al comercial.",
+          "bullets": [
+            "Preguntas ramificadas con scoring",
+            "Creación automática de lead y resumen en CRM"
+          ]
+        },
+        {
+          "tag": "Operaciones",
+          "title": "Asistente documental interno",
+          "description": "Reduce tiempo de búsqueda en políticas, procedimientos y fichas de producto para equipos internos.",
+          "bullets": [
+            "Búsqueda con citas y documentos fuente",
+            "Permisos por área o tipo de documento"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Arquitectura",
+          "question": "¿Qué arquitectura usáis para reducir alucinaciones?",
+          "answer": "Combinamos chunking por tipo documental, embeddings, reranking, reglas de citación y umbrales de confianza. Si la evidencia es insuficiente, el sistema pide más contexto o escala en vez de improvisar."
+        },
+        {
+          "tag": "Integraciones",
+          "question": "¿Puede escribir en CRM o ticketing?",
+          "answer": "Sí. Limitamos acciones por endpoint, rol y escenario. Las operaciones sensibles pasan por validaciones adicionales o aprobación humana."
+        },
+        {
+          "tag": "Evaluación",
+          "question": "¿Cómo evaluáis la calidad antes de salir a producción?",
+          "answer": "Montamos un set de preguntas reales, medimos exactitud, cobertura, escalado correcto y consistencia de cita. El piloto sale con baseline y revisión semanal."
+        },
+        {
+          "tag": "Infraestructura",
+          "question": "¿Podemos mantener nuestros documentos en nuestra infraestructura?",
+          "answer": "Sí. Podemos indexar desde almacenamiento interno, nubes privadas o servicios europeos. Definimos retención, acceso y sincronización incremental según vuestro entorno."
+        }
+      ],
+      "keywords": [
+        "chatbots empresariales",
+        "chatbot con RAG",
+        "automatización de soporte IA",
+        "chatbot CRM y WhatsApp"
+      ],
+      "hub": {
+        "title": "Arquitectura típica de un chatbot conectado",
+        "subtitle": "Orquestación, conocimiento, CRM y equipo humano bajo un flujo trazable.",
+        "bgTheme": "indigo",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "chatbot",
+            "colorScheme": "indigo",
+            "label": "Interfaz conversacional",
+            "sublabel": "Web y mensajería"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Conocimiento validado",
+            "sublabel": "FAQs, docs y políticas"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "sales-crm",
+            "colorScheme": "indigo",
+            "label": "Sistemas de negocio",
+            "sublabel": "CRM, ERP, tickets"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "teams-ops",
+            "colorScheme": "cyan",
+            "label": "Handoff humano",
+            "sublabel": "Solo cuando conviene"
+          }
+        ]
       },
-      "serviceType": "Chatbots empresariales",
-      "areaServed": "Sevilla, Andalucía, España",
-      "keywords": {
-        "0": "chatbots sevilla",
-        "1": "chatbot empresas sevilla",
-        "2": "atención al cliente ia sevilla"
+      "cta": {
+        "label": "Pedir demo de chatbot",
+        "href": "https://wa.me/34626270806?text=Quiero%20un%20chatbot%20conectado%20a%20mis%20datos",
+        "bgColor": "#0255D5"
       }
     },
     "automatizacion-n8n-sevilla": {
-      "title": "Automatización con n8n en Sevilla",
-      "subtitle": "Workflows robustos en n8n para operaciones y soporte sin dependencias de código propietario.",
-      "description": "Diseñamos y operamos tus flujos en n8n: sincronización de datos, alertas, conciliaciones y tareas repetitivas que hoy haces a mano.",
-      "heroBadge": "Automatización",
-      "heroCtaLabel": "Planificar flujo",
-      "secondaryCtaLabel": "Revisar casos locales",
-      "valueProps": {
-        "0": "Blueprints reutilizables para ventas, soporte y operaciones.",
-        "1": "Monitorización y alertas para que no vuelvas a perder un dato.",
-        "2": "Gobernanza: control de versiones y credenciales seguras."
-      },
-      "outcomes": {
-        "0": "-50% tiempo en tareas manuales de backoffice",
-        "1": "Reducción de errores de copia/pega entre sistemas",
-        "2": "Alertas proactivas ante fallos en integraciones"
-      },
-      "steps": {
-        "0": "Mapeamos procesos y puntos de integración",
-        "1": "Construimos flujos en n8n con logs y retries",
-        "2": "Formamos a tu equipo y dejamos panel de control"
-      },
-      "faqs": {
-        "0": {
-          "q": "¿Trabajáis on-prem o en la nube?",
-          "a": "Podemos desplegar n8n en tu infraestructura o gestionarlo en nuestra nube gestionada en la UE."
+      "slug": "automatizacion-n8n-sevilla",
+      "heroImage": "/static/backgrounds/n8n_background.webp",
+      "heroImagePosition": "center center",
+      "title": "Automatización n8n con observabilidad y control",
+      "shortTitle": "Automatización n8n",
+      "subtitle": "Workflows versionados para sincronización, alertas, conciliación y operaciones asistidas por IA.",
+      "description": "Diseñamos flujos en n8n con reintentos, colas, logs y métricas por nodo para que la automatización deje de ser una caja negra y pase a ser infraestructura operable.",
+      "heroBadge": "n8n + observabilidad",
+      "heroCtaLabel": "Auditar procesos",
+      "secondaryCtaLabel": "Hablar por WhatsApp",
+      "serviceType": "Automatización de procesos e integraciones sobre n8n",
+      "areaServed": "España y despliegue remoto UE",
+      "valueProps": [
+        "Flujos reutilizables con control de versiones y separación clara entre secretos, lógica y configuración.",
+        "Métricas de éxito, error y latencia por workflow para detectar cuellos de botella reales.",
+        "Despliegue gestionado o self-hosted con copias, entornos y políticas de cambio."
+      ],
+      "metrics": [
+        {
+          "label": "Cobertura inicial",
+          "value": "2-5 flujos",
+          "detail": "Normalmente cubrimos primero las automatizaciones con más coste manual o más incidencias."
         },
-        "1": {
-          "q": "¿Qué sistemas integráis?",
-          "a": "ERP/CRM (Odoo, HubSpot), hojas de cálculo, bases SQL, webhooks y APIs internas."
+        {
+          "label": "Modelo de reintentos",
+          "value": "Idempotente",
+          "detail": "Diseñamos operaciones para que un retry no duplique registros ni provoque estados inconsistentes."
         },
-        "2": {
-          "q": "¿Cómo aseguráis la fiabilidad?",
-          "a": "Incluimos tests de flujos, reintentos, alertas y panel de métricas de éxito por flujo."
+        {
+          "label": "Visibilidad",
+          "value": "Nodo a nodo",
+          "detail": "Eventos, payloads críticos y errores correlacionados para depurar rápido."
         }
+      ],
+      "outcomes": [
+        "Tiempo ahorrado por proceso y por responsable, no solo número de ejecuciones.",
+        "Tasa de éxito por workflow con detalle de fallos transitorios frente a fallos de lógica.",
+        "Backlog operativo eliminado gracias a sincronizaciones y alertas automáticas."
+      ],
+      "steps": [
+        "Mapeamos el proceso, los sistemas implicados y los puntos donde el dato cambia de estado.",
+        "Diseñamos nodos, colas, webhooks y fallback manual con logs desde el día uno.",
+        "Dejamos runbooks, monitorización y ownership compartido con vuestro equipo."
+      ],
+      "useCases": [
+        {
+          "tag": "Finanzas",
+          "title": "Conciliación y reporting recurrente",
+          "description": "Automatiza exportaciones, validaciones y envío de reportes sin depender de hojas manuales.",
+          "bullets": [
+            "Cruce de facturas, pagos y cobros",
+            "Alertas cuando faltan datos o cuadran mal"
+          ]
+        },
+        {
+          "tag": "Operaciones",
+          "title": "Sincronización entre ERP, CRM y formularios",
+          "description": "Reduce copias manuales y asegura que cada alta o cambio llegue al sistema correcto.",
+          "bullets": [
+            "Altas y actualizaciones en cascada",
+            "Validación de duplicados y claves críticas"
+          ]
+        },
+        {
+          "tag": "Soporte",
+          "title": "Alertado y triage de incidencias",
+          "description": "Convierte eventos de sistemas en tickets priorizados con contexto y responsable asignado.",
+          "bullets": [
+            "Creación automática en Slack, email o ticketing",
+            "Reglas de escalado por severidad y SLA"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Despliegue",
+          "question": "¿Trabajáis con n8n cloud, self-hosted u on-prem?",
+          "answer": "Sí. Definimos el modo según requisitos de seguridad, latencia, acceso a sistemas internos y capacidad de operación del equipo."
+        },
+        {
+          "tag": "Fiabilidad",
+          "question": "¿Cómo evitáis flujos frágiles o imposibles de mantener?",
+          "answer": "Separamos lógica, credenciales y configuración; limitamos workflows gigantes; documentamos nodos críticos y diseñamos retries e idempotencia desde el inicio."
+        },
+        {
+          "tag": "Integraciones",
+          "question": "¿Qué sistemas integráis con más frecuencia?",
+          "answer": "ERP, CRM, SQL, hojas de cálculo, servicios de mensajería, herramientas financieras, ticketing y APIs internas o de terceros."
+        },
+        {
+          "tag": "Gobernanza",
+          "question": "¿El equipo puede mantener los flujos después?",
+          "answer": "Sí, si es el objetivo. Entregamos runbooks, naming conventions, paneles y formación para que el equipo pueda operar y extender sin rehacer la base."
+        }
+      ],
+      "keywords": [
+        "automatización n8n",
+        "workflows con observabilidad",
+        "integraciones operativas",
+        "n8n self hosted"
+      ],
+      "hub": {
+        "title": "Capa de automatización conectada a todo el stack",
+        "subtitle": "Flujos, datos, finanzas y equipo trabajando con la misma señal operativa.",
+        "bgTheme": "cyan",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "workflow",
+            "colorScheme": "indigo",
+            "label": "Workflows n8n",
+            "sublabel": "Orquestación y lógica"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Datos y APIs",
+            "sublabel": "Eventos y sincronización"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "finance",
+            "colorScheme": "cyan",
+            "label": "Métricas y reporting",
+            "sublabel": "KPIs por flujo"
+          }
+        ]
       },
-      "serviceType": "Automatización de procesos con n8n",
-      "areaServed": "Sevilla, Andalucía, España",
-      "keywords": {
-        "0": "automatizacion n8n sevilla",
-        "1": "workflows ia sevilla",
-        "2": "integraciones n8n sevilla"
+      "cta": {
+        "label": "Automatizar con n8n",
+        "href": "https://wa.me/34626270806?text=Quiero%20auditar%20procesos%20para%20automatizar%20con%20n8n",
+        "bgColor": "#0255D5"
       }
     },
-    "agentes-ia-atencion-cliente-sevilla": {
-      "title": "Agentes IA para atención al cliente en Sevilla",
-      "subtitle": "Agentes autónomos que resuelven incidencias y ejecutan acciones en tus sistemas.",
-      "description": "Creamos agentes capaces de consultar pedidos, reponer stock, crear tickets o escalar a humano cuando corresponde, siempre con trazabilidad.",
-      "heroBadge": "Agentes operativos",
+    "automatizacion-facturas": {
+      "slug": "automatizacion-facturas",
+      "heroImage": "/static/backgrounds/blog_background.webp",
+      "heroImagePosition": "center 28%",
+      "title": "Agentes IA para atención al cliente con acción segura",
+      "shortTitle": "Automatización de Facturas",
+      "subtitle": "Agentes capaces de consultar, ejecutar y escalar con políticas operativas bien definidas.",
+      "description": "Construimos agentes que no solo responden. También consultan sistemas, generan tickets, validan estado de pedidos o aplican reglas de negocio con supervisión cuando hace falta.",
+      "heroBadge": "Agentes con acciones",
       "heroCtaLabel": "Diseñar agente",
-      "secondaryCtaLabel": "Pedir demo",
-      "valueProps": {
-        "0": "Acciones seguras con permisos y validaciones.",
-        "1": "Logs y trazas para auditoría de cada decisión.",
-        "2": "Supervisión humana opcional en tareas críticas."
-      },
-      "outcomes": {
-        "0": "Tiempo de primera respuesta < 1 minuto",
-        "1": "Derivaciones a humano solo en casos complejos",
-        "2": "Ahorro de 20-40% en coste por ticket resuelto"
-      },
-      "steps": {
-        "0": "Definimos políticas y límites de cada agente",
-        "1": "Conectamos con APIs (pedidos, stock, envíos)",
-        "2": "Corremos piloto controlado con métricas de calidad"
-      },
-      "faqs": {
-        "0": {
-          "q": "¿Pueden hacer acciones en mis sistemas?",
-          "a": "Sí, con permisos y validaciones. Usamos cuentas de servicio y registramos cada acción."
+      "secondaryCtaLabel": "Abrir conversación",
+      "serviceType": "Agentes IA para soporte y operaciones",
+      "areaServed": "España, equipos distribuidos y soporte remoto",
+      "valueProps": [
+        "Acciones limitadas por permiso, tipo de caso y política de riesgo para evitar automatizaciones ciegas.",
+        "Trazas completas con entrada, razonamiento operacional y salida para revisión posterior.",
+        "Escalado a humano con contexto estructurado y sugerencia de siguiente paso."
+      ],
+      "metrics": [
+        {
+          "label": "Control operativo",
+          "value": "Aprobación opcional",
+          "detail": "Los casos críticos pueden requerir confirmación humana antes de ejecutar."
         },
-        "1": {
-          "q": "¿Cómo se controla la calidad?",
-          "a": "Revisión humana en las primeras semanas, scoring automático y alertas ante baja confianza."
+        {
+          "label": "Cobertura de trazas",
+          "value": "Evento a evento",
+          "detail": "Registramos contexto, decisión, herramienta usada y resultado final."
         },
-        "2": {
-          "q": "¿Qué modelo usáis?",
-          "a": "Seleccionamos el modelo según caso (OpenAI, Claude, etc.) y podemos enrutar por coste/latencia."
+        {
+          "label": "Ventana de tuning",
+          "value": "Semanas 1-3",
+          "detail": "Primera fase con revisión intensiva para ajustar políticas, prompts y herramientas."
         }
+      ],
+      "outcomes": [
+        "Tiempo de primera respuesta y tiempo hasta acción ejecutada, separados por tipo de caso.",
+        "Precisión de clasificación y tasa de escalado correcto frente a escalado innecesario.",
+        "Coste por ticket o interacción resuelta con comparación antes y después del piloto."
+      ],
+      "steps": [
+        "Definimos qué puede hacer el agente, qué debe consultar y qué siempre debe escalar.",
+        "Conectamos APIs, diseñamos validaciones y montamos observabilidad de cada acción.",
+        "Lanzamos un piloto controlado con revisión humana y criterios de aceptación operativos."
+      ],
+      "useCases": [
+        {
+          "tag": "Soporte",
+          "title": "Gestión de devoluciones y cambios",
+          "description": "El agente interpreta el caso, valida condiciones y ejecuta el flujo correcto o escala si hay riesgo.",
+          "bullets": [
+            "Comprobación de plazos y estado del pedido",
+            "Creación de ticket o etiqueta logística"
+          ]
+        },
+        {
+          "tag": "Operaciones",
+          "title": "Reposición y consulta de stock",
+          "description": "Conecta inventario, compras y reglas de negocio para decidir si informar, crear solicitud o derivar.",
+          "bullets": [
+            "Lectura de inventario en tiempo real",
+            "Reglas por umbral y proveedor"
+          ]
+        },
+        {
+          "tag": "CX",
+          "title": "Asistente multicanal con continuidad",
+          "description": "Mantiene contexto entre web, email y mensajería para que el cliente no repita información.",
+          "bullets": [
+            "Resumen automático del caso al escalar",
+            "Identificación y memoria por cliente"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Políticas",
+          "question": "¿Cómo evitáis que el agente haga acciones fuera de política?",
+          "answer": "Definimos herramientas permitidas, validaciones previas, límites por rol y rutas de aprobación. El agente opera dentro de esos bordes, no libremente."
+        },
+        {
+          "tag": "Modelos",
+          "question": "¿Usáis un único modelo para todo?",
+          "answer": "No siempre. Podemos enrutar entre modelos según latencia, coste, idioma o criticidad del paso. La arquitectura se decide por tarea, no por moda."
+        },
+        {
+          "tag": "QA",
+          "question": "¿Cómo controláis la calidad después del lanzamiento?",
+          "answer": "Con revisión muestral, scoring automático, alertas de baja confianza y un backlog de fallos clasificado por causa raíz."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Qué pasa con datos sensibles o identificables?",
+          "answer": "Aplicamos minimización de datos, controles de acceso, redacción cuando conviene y retención acorde al flujo. Si el caso lo requiere, limitamos el contexto al mínimo viable."
+        }
+      ],
+      "keywords": [
+        "agentes IA para soporte",
+        "agente con acciones",
+        "automatización helpdesk",
+        "agente IA con trazabilidad"
+      ],
+      "hub": {
+        "title": "Agente IA orquestado sobre tus sistemas",
+        "subtitle": "Base de conocimiento, acciones seguras y escalado humano en una única capa.",
+        "bgTheme": "purple",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "chatbot",
+            "colorScheme": "indigo",
+            "label": "Agente IA",
+            "sublabel": "Clasifica y responde"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Conocimiento",
+            "sublabel": "Fuentes verificadas"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "workflow",
+            "colorScheme": "indigo",
+            "label": "Herramientas",
+            "sublabel": "APIs y acciones"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "teams-ops",
+            "colorScheme": "cyan",
+            "label": "Supervisión",
+            "sublabel": "Aprobación y QA"
+          }
+        ]
       },
-      "serviceType": "Agentes de IA para soporte",
-      "areaServed": "Sevilla, Andalucía, España",
-      "keywords": {
-        "0": "agentes ia sevilla",
-        "1": "agentes atencion cliente ia sevilla",
-        "2": "ia soporte sevilla"
+      "cta": {
+        "label": "Explorar agente IA",
+        "href": "https://wa.me/34626270806?text=Quiero%20dise%C3%B1ar%20un%20agente%20IA%20para%20atenci%C3%B3n%20al%20cliente",
+        "bgColor": "#0255D5"
       }
     },
-    "automatizacion-whatsapp-business-sevilla": {
-      "title": "Automatización de WhatsApp Business en Sevilla",
-      "subtitle": "Ventas y soporte por WhatsApp con bots, asignación inteligente y métricas claras.",
-      "description": "Implementamos flujos de WhatsApp Business: captación, lead scoring, respuestas automáticas y handoff a equipo comercial con contexto.",
-      "heroBadge": "WhatsApp + IA",
-      "heroCtaLabel": "Optimizar mi WhatsApp",
-      "secondaryCtaLabel": "Solicitar auditoría",
-      "valueProps": {
-        "0": "Bots híbridos: botones + IA para casos abiertos.",
-        "1": "Integración con CRM para registrar cada conversación.",
-        "2": "Routing por horarios y skill del agente."
-      },
-      "outcomes": {
-        "0": "+18% conversión de leads calificados",
-        "1": "Respuesta inicial < 30 segundos",
-        "2": "Reporte semanal de ventas y soporte por canal"
-      },
-      "steps": {
-        "0": "Auditamos el flujo actual y SLA",
-        "1": "Configuramos plantillas aprobadas y bots",
-        "2": "Entrenamos al equipo y medimos conversión"
-      },
-      "faqs": {
-        "0": {
-          "q": "¿Trabajáis con la API oficial?",
-          "a": "Sí, usamos la API oficial de WhatsApp Business (BSP) y podemos trabajar con tu proveedor actual."
+    "automatizacion-inteligente": {
+      "slug": "automatizacion-inteligente",
+      "heroImage": "/static/backgrounds/us_background.webp",
+      "heroImagePosition": "center 38%",
+      "title": "WhatsApp Business automatizado con medición real",
+      "shortTitle": "Automatización Inteligente",
+      "subtitle": "Mensajería operativa para captación, soporte y seguimiento con SLA, plantillas y contexto CRM.",
+      "description": "Diseñamos flujos de WhatsApp que combinan plantillas aprobadas, bots híbridos y derivación a humanos para que el canal sirva de verdad a ventas y soporte sin perder trazabilidad.",
+      "heroBadge": "WhatsApp + SLA",
+      "heroCtaLabel": "Optimizar canal",
+      "secondaryCtaLabel": "Escribir por WhatsApp",
+      "serviceType": "Automatización de WhatsApp Business para ventas y soporte",
+      "areaServed": "España y equipos comerciales distribuidos",
+      "valueProps": [
+        "Diseño de journeys con plantillas, respuestas IA y handoff a comercial o soporte según intención.",
+        "Registro estructurado de cada conversación en CRM para no perder contexto ni atribución.",
+        "Paneles de tiempos de respuesta, conversión y carga por equipo o franja horaria."
+      ],
+      "metrics": [
+        {
+          "label": "Primer contacto",
+          "value": "<30 s objetivo",
+          "detail": "Diseñamos el flujo para responder rápido aunque el caso termine en humano."
         },
-        "1": {
-          "q": "¿Puedo ver métricas?",
-          "a": "Incluimos dashboards con leads, tiempos de respuesta y ventas atribuidas a WhatsApp."
+        {
+          "label": "Contexto compartido",
+          "value": "CRM sincronizado",
+          "detail": "Cada conversación deja trazas, etiquetas y resumen operativo para el equipo."
         },
-        "2": {
-          "q": "¿Se puede usar junto a chatbots web?",
-          "a": "Claro, reutilizamos conocimiento y flujos entre web y WhatsApp para mantener coherencia."
+        {
+          "label": "Canal híbrido",
+          "value": "Plantillas + IA",
+          "detail": "Cumplimos restricciones del canal sin renunciar a conversaciones abiertas donde tienen sentido."
         }
+      ],
+      "outcomes": [
+        "Tasa de respuesta y conversión por campaña, plantilla e intención detectada.",
+        "Tiempo hasta asignación humana con trazabilidad completa del histórico.",
+        "Carga operativa por equipo para ajustar horarios, reglas y automatizaciones."
+      ],
+      "steps": [
+        "Auditamos journeys, mensajes, aprobaciones y SLA antes de rediseñar el canal.",
+        "Configuramos plantillas, enrutado, IA híbrida e integración con CRM o ticketing.",
+        "Medimos durante el piloto y ajustamos reglas según conversión, tiempos y handoff."
+      ],
+      "useCases": [
+        {
+          "tag": "Captación",
+          "title": "Cualificación y agenda comercial",
+          "description": "Recoge variables clave y deriva al comercial correcto con resumen previo en CRM.",
+          "bullets": [
+            "Lead scoring antes de llamada o demo",
+            "Asignación por idioma, zona o producto"
+          ]
+        },
+        {
+          "tag": "Soporte",
+          "title": "Seguimiento posventa con contexto",
+          "description": "Unifica incidencias, documentación y estado de pedido dentro del mismo hilo de conversación.",
+          "bullets": [
+            "Actualizaciones automáticas por evento",
+            "Escalado con resumen y archivos"
+          ]
+        },
+        {
+          "tag": "Operaciones",
+          "title": "Notificaciones críticas y recordatorios",
+          "description": "Usa el canal para avisos relevantes sin convertirlo en ruido operativo.",
+          "bullets": [
+            "Recordatorios con plantillas aprobadas",
+            "Reglas de frecuencia y prioridad"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "API",
+          "question": "¿Trabajáis con la API oficial de WhatsApp Business?",
+          "answer": "Sí. Podemos trabajar con BSP existentes o ayudar a ordenar la capa de proveedor, plantillas y números si aún no está bien resuelta."
+        },
+        {
+          "tag": "Métricas",
+          "question": "¿Cómo medís si el canal realmente mejora ventas o soporte?",
+          "answer": "Atamos conversación, plantilla, intención y resultado final a dashboards de conversión, respuesta y escalado. Sin esa atribución, el canal no se considera optimizado."
+        },
+        {
+          "tag": "Diseño",
+          "question": "¿Todo debe resolverse con botones y plantillas?",
+          "answer": "No. Diseñamos capas: plantillas para apertura y recontacto, y respuestas IA o handoff para el tramo conversacional que sí necesita flexibilidad."
+        },
+        {
+          "tag": "Integración",
+          "question": "¿Puede compartir lógica con el chatbot web?",
+          "answer": "Sí. Reutilizamos intención, conocimiento y reglas de negocio cuando conviene. El canal cambia; la capa de conocimiento y observabilidad no tiene por qué cambiar."
+        }
+      ],
+      "keywords": [
+        "automatización WhatsApp Business",
+        "WhatsApp para ventas",
+        "SLA en mensajería",
+        "CRM y WhatsApp"
+      ],
+      "hub": {
+        "title": "WhatsApp conectado a CRM, IA y reporting",
+        "subtitle": "Un canal comercial y de soporte con trazabilidad operativa completa.",
+        "bgTheme": "green",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "whatsapp",
+            "colorScheme": "indigo",
+            "label": "Canal WhatsApp",
+            "sublabel": "Entrada principal"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "chatbot",
+            "colorScheme": "cyan",
+            "label": "IA híbrida",
+            "sublabel": "Plantillas y respuesta"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "sales-crm",
+            "colorScheme": "indigo",
+            "label": "CRM",
+            "sublabel": "Contexto y atribución"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Paneles",
+            "sublabel": "SLA y conversión"
+          }
+        ]
       },
-      "serviceType": "Automatización de WhatsApp Business",
-      "areaServed": "Sevilla, Andalucía, España",
-      "keywords": {
-        "0": "whatsapp automatizacion sevilla",
-        "1": "whatsapp business sevilla",
-        "2": "chatbot whatsapp sevilla"
+      "cta": {
+        "label": "Activar WhatsApp IA",
+        "href": "https://wa.me/34626270806?text=Quiero%20mejorar%20mi%20operaci%C3%B3n%20de%20WhatsApp%20Business",
+        "bgColor": "#D97757"
       }
     },
     "formacion-ia-pymes-sevilla": {
-      "title": "Formación IA para PYMES en Sevilla",
-      "subtitle": "Programas prácticos para equipos de ventas, operaciones y soporte.",
-      "description": "Formaciones a medida con casos reales de tu negocio: prompts efectivos, automatizaciones ligeras y seguridad de datos.",
-      "heroBadge": "Formación",
-      "heroCtaLabel": "Planificar taller",
-      "secondaryCtaLabel": "Ver temario",
-      "valueProps": {
-        "0": "Módulos cortos (2-4h) con ejercicios sobre tus procesos.",
-        "1": "Plantillas y checklists listos para usar al día siguiente.",
-        "2": "Opcional: acompañamiento 30 días tras la sesión."
-      },
-      "outcomes": {
-        "0": "Equipos aplican IA en 1 semana",
-        "1": "Reducción de errores en tareas repetitivas",
-        "2": "Aumento de productividad medido por tarea"
-      },
-      "steps": {
-        "0": "Diagnóstico de usos y riesgos",
-        "1": "Sesión práctica con casos propios",
-        "2": "Seguimiento con retos semanales"
-      },
-      "faqs": {
-        "0": {
-          "q": "¿Incluye seguridad y privacidad?",
-          "a": "Sí, cubrimos políticas de uso seguro, gestión de datos y herramientas aprobadas."
+      "slug": "formacion-ia-pymes-sevilla",
+      "heroImage": "/static/backgrounds/formation_background.webp",
+      "heroImagePosition": "center 30%",
+      "title": "Formación IA aplicada a procesos reales",
+      "shortTitle": "Formación IA",
+      "subtitle": "Programas prácticos para equipos que necesitan usar IA con criterio, seguridad y retorno claro.",
+      "description": "Diseñamos talleres con tareas del negocio, datasets propios y reglas de uso para que el equipo salga con hábitos, plantillas y límites operativos, no solo inspiración.",
+      "heroBadge": "Training operativo",
+      "heroCtaLabel": "Planificar formación",
+      "secondaryCtaLabel": "Consultar agenda",
+      "serviceType": "Formación IA para ventas, soporte y operaciones",
+      "areaServed": "España, sesiones remotas y presenciales",
+      "valueProps": [
+        "Sesiones con ejemplos del negocio y tareas medibles que el equipo ya hace hoy.",
+        "Módulos de seguridad, gobierno del dato y criterios de uso aceptable por equipo.",
+        "Plantillas, prompts y rutinas operativas listas para aplicar al día siguiente."
+      ],
+      "metrics": [
+        {
+          "label": "Formato",
+          "value": "2-4 horas",
+          "detail": "Bloques compactos para no detener la operación y poder iterar por equipo."
         },
-        "1": {
-          "q": "¿Puede ser presencial?",
-          "a": "Sí, hacemos sesiones presenciales en Sevilla o en remoto con dinámicas prácticas."
+        {
+          "label": "Seguimiento",
+          "value": "30 días opcionales",
+          "detail": "Acompañamos adopción, revisamos dudas y medimos uso real después de la sesión."
         },
-        "2": {
-          "q": "¿Entregáis materiales?",
-          "a": "Entregamos guías, prompts y checklists adaptados a tus procesos."
+        {
+          "label": "Materiales",
+          "value": "Playbooks listos",
+          "detail": "Guías por rol, checklists y librería de prompts ajustada a vuestras tareas."
         }
-      },
-      "serviceType": "Formación en IA para PYMES",
-      "areaServed": "Sevilla, Andalucía, España",
-      "keywords": {
-        "0": "formacion ia pymes sevilla",
-        "1": "curso ia sevilla",
-        "2": "taller ia empresas sevilla"
+      ],
+      "outcomes": [
+        "Adopción por equipo y por caso de uso, no solo asistencia al taller.",
+        "Tiempo ahorrado en tareas concretas después de introducir nuevas rutinas y plantillas.",
+        "Incidencias de seguridad o usos fuera de política detectadas y corregidas temprano."
+      ],
+      "steps": [
+        "Diagnosticamos tareas repetitivas, herramientas permitidas y riesgos del equipo.",
+        "Impartimos una sesión práctica con ejercicios reales y criterios de revisión.",
+        "Entregamos materiales y, si conviene, abrimos seguimiento con retos y office hours."
+      ],
+      "useCases": [
+        {
+          "tag": "Ventas",
+          "title": "Generación de propuestas y preparación de reuniones",
+          "description": "El equipo aprende a usar IA para sintetizar contexto, preparar objecciones y estructurar follow-ups.",
+          "bullets": [
+            "Prompts reutilizables por fase comercial",
+            "Revisión de tono, riesgo y exactitud"
+          ]
+        },
+        {
+          "tag": "Operaciones",
+          "title": "Documentación, análisis y reportes",
+          "description": "Convertimos tareas largas de síntesis y clasificación en rutinas claras y repetibles.",
+          "bullets": [
+            "Resúmenes consistentes y comparables",
+            "Checklist para validar salidas antes de usar"
+          ]
+        },
+        {
+          "tag": "Liderazgo",
+          "title": "Política interna de uso de IA",
+          "description": "Ayudamos a definir qué se puede usar, con qué datos y bajo qué supervisión.",
+          "bullets": [
+            "Criterios por perfil y por herramienta",
+            "Buenas prácticas para datos sensibles"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Programa",
+          "question": "¿La formación es genérica o se adapta al negocio?",
+          "answer": "Siempre parte de casos y tareas reales. Sin ese anclaje, la adopción cae rápido y el equipo vuelve a sus hábitos anteriores."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Incluís seguridad, privacidad y gobernanza?",
+          "answer": "Sí. Cubrimos minimización de datos, herramientas aprobadas, límites de uso y revisión humana cuando el impacto lo exige."
+        },
+        {
+          "tag": "Formato",
+          "question": "¿Puede combinarse con una implantación técnica?",
+          "answer": "Sí. Suele funcionar mejor cuando la formación acompaña a un piloto o despliegue, porque el equipo aprende sobre su propio flujo de trabajo."
+        },
+        {
+          "tag": "Adopción",
+          "question": "¿Cómo medís si la formación realmente cambia hábitos?",
+          "answer": "Definimos tareas objetivo, baseline de tiempo o calidad y seguimiento posterior. Sin medición, la formación queda en inspiración y no en operación."
+        }
+      ],
+      "keywords": [
+        "formación IA para empresas",
+        "adopción de IA en equipos",
+        "taller IA práctico",
+        "gobernanza de IA"
+      ],
+      "cta": {
+        "label": "Solicitar formación",
+        "href": "https://wa.me/34626270806?text=Quiero%20formaci%C3%B3n%20IA%20pr%C3%A1ctica%20para%20mi%20equipo",
+        "bgColor": "#0255D5"
       }
     },
-    "integraciones-crm-erp-sevilla": {
-      "title": "Integraciones CRM/ERP (Odoo, HubSpot) en Sevilla",
-      "subtitle": "Datos coherentes entre ventas, soporte y operaciones con integraciones robustas.",
-      "description": "Sincronizamos contactos, oportunidades, pedidos e inventario entre tus sistemas (Odoo, HubSpot, bases internas) con validaciones y logs.",
-      "heroBadge": "Integraciones",
-      "heroCtaLabel": "Unificar datos",
-      "secondaryCtaLabel": "Solicitar auditoría",
-      "valueProps": {
-        "0": "Mapeos claros: qué dato manda en cada dirección.",
-        "1": "Validaciones de calidad y deduplicación.",
-        "2": "Dashboards de sincronizaciones y errores."
-      },
-      "outcomes": {
-        "0": "Menos tickets por datos inconsistentes",
-        "1": "Mejores reportes de ventas y stock",
-        "2": "Reducción de tiempos de onboarding de clientes"
-      },
-      "steps": {
-        "0": "Auditoría de datos y sistemas",
-        "1": "Diseño del mapeo y reglas de sincronización",
-        "2": "Monitorización continua con alertas"
-      },
-      "faqs": {
-        "0": {
-          "q": "¿Qué CRMs soportáis?",
-          "a": "HubSpot, Odoo y CRMs propios vía API. Evaluamos otros bajo solicitud."
+    "empresa-inteligencia-artificial": {
+      "slug": "empresa-inteligencia-artificial",
+      "heroImage": "/static/backgrounds/odoo_background.webp",
+      "heroImagePosition": "center center",
+      "title": "Integraciones CRM y ERP con reglas y calidad de dato",
+      "shortTitle": "Empresa de Inteligencia Artificial",
+      "subtitle": "Sincronizaciones robustas entre ventas, finanzas, soporte e inventario sin duplicados ni conflictos silenciosos.",
+      "description": "Unificamos sistemas con mapeos claros, ownership por campo y observabilidad de sincronización para que el dato circule con criterio y no solo con conectores.",
+      "heroBadge": "CRM + ERP conectados",
+      "heroCtaLabel": "Auditar integración",
+      "secondaryCtaLabel": "Hablar con el equipo",
+      "serviceType": "Integraciones CRM, ERP y datos operativos",
+      "areaServed": "España, equipos multi-sede y entornos híbridos",
+      "valueProps": [
+        "Definimos qué sistema manda cada campo, cuándo se sincroniza y qué pasa ante conflicto o falta de dato.",
+        "Validamos calidad, deduplicación y reconciliación para evitar errores que parecen integración pero son diseño de dato.",
+        "Paneles de ejecución y error para que el equipo operativo pueda ver qué falla y dónde."
+      ],
+      "metrics": [
+        {
+          "label": "Modelo de sync",
+          "value": "Bidireccional o dirigido",
+          "detail": "La dirección se decide por proceso y criticidad, no por comodidad técnica."
         },
-        "1": {
-          "q": "¿Cómo gestionáis los errores?",
-          "a": "Logs con retries y alertas; definimos reglas de reconciliación con tu equipo."
+        {
+          "label": "Reconciliación",
+          "value": "Reglas explícitas",
+          "detail": "Diferenciamos conflictos funcionales, duplicados y errores de transporte."
         },
-        "2": {
-          "q": "¿Incluye seguridad?",
-          "a": "Uso de tokens seguros, mínimos privilegios y cifrado en tránsito. Opcional: VPN o red privada."
+        {
+          "label": "Cobertura",
+          "value": "Campos críticos primero",
+          "detail": "Priorizamos aquello que impacta facturación, reporting, soporte o inventario."
         }
+      ],
+      "outcomes": [
+        "Menos incidencias por datos inconsistentes entre comercial, soporte y facturación.",
+        "Menor tiempo de onboarding y actualización de clientes, productos o pedidos.",
+        "Más confianza en reportes operativos y financieros porque la base de dato es coherente."
+      ],
+      "steps": [
+        "Auditamos sistemas, modelos de dato, ownership y fallos recurrentes de sincronización.",
+        "Diseñamos el mapeo, reglas de transformación y gestión de conflictos.",
+        "Desplegamos con monitorización, alertas y runbooks para soporte interno."
+      ],
+      "useCases": [
+        {
+          "tag": "Ventas",
+          "title": "Leads, oportunidades y pedidos sincronizados",
+          "description": "Evita pérdidas de contexto cuando una oportunidad pasa de marketing a comercial y luego a operación.",
+          "bullets": [
+            "Mismo identificador de cliente entre sistemas",
+            "Estados coherentes de venta y pedido"
+          ]
+        },
+        {
+          "tag": "Finanzas",
+          "title": "Facturación y cobro sin doble captura",
+          "description": "Conecta contratos, pedidos y facturas para eliminar repeticiones y errores manuales.",
+          "bullets": [
+            "Transformación de datos entre modelos distintos",
+            "Alertas de desajuste y conciliación"
+          ]
+        },
+        {
+          "tag": "Soporte",
+          "title": "Visión completa del cliente para soporte",
+          "description": "El equipo ve ventas, incidencias, facturación y estado operacional sin saltar entre cuatro herramientas.",
+          "bullets": [
+            "Contexto histórico y operativo unificado",
+            "Menos escalados por falta de información"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Compatibilidad",
+          "question": "¿Trabajáis solo con Odoo y HubSpot?",
+          "answer": "No. Son casos habituales, pero el enfoque sirve para CRMs propios, ERPs verticales y bases internas siempre que exista acceso por API, base de datos o exportación controlada."
+        },
+        {
+          "tag": "Conflictos",
+          "question": "¿Cómo gestionáis conflictos entre dos sistemas que discrepan?",
+          "answer": "Definimos ownership por campo, prioridad temporal y reglas de reconciliación. Si no se puede decidir automáticamente, el caso pasa a una cola de revisión con contexto."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Incluye seguridad y mínimos privilegios?",
+          "answer": "Sí. Trabajamos con credenciales segregadas, permisos mínimos, cifrado en tránsito y revisión de accesos según criticidad del flujo."
+        },
+        {
+          "tag": "Operación",
+          "question": "¿Quién mantiene la integración cuando está en producción?",
+          "answer": "Depende del acuerdo. Podemos operar nosotros, dejar ownership al equipo interno o compartirlo con runbooks, métricas y ventanas de cambio definidas."
+        }
+      ],
+      "keywords": [
+        "integraciones CRM ERP",
+        "calidad de dato",
+        "Odoo HubSpot integración",
+        "sincronización operacional"
+      ],
+      "hub": {
+        "title": "Sistemas conectados con ownership y reglas claras",
+        "subtitle": "Ventas, finanzas y operaciones compartiendo un mismo dato operativo.",
+        "bgTheme": "cyan",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "sales-crm",
+            "colorScheme": "indigo",
+            "label": "CRM",
+            "sublabel": "Leads y clientes"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Capa de sync",
+            "sublabel": "Transformación y reglas"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "finance",
+            "colorScheme": "indigo",
+            "label": "ERP",
+            "sublabel": "Pedidos y finanzas"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "workflow",
+            "colorScheme": "cyan",
+            "label": "Observabilidad",
+            "sublabel": "Errores y reconciliación"
+          }
+        ]
       },
-      "serviceType": "Integraciones CRM/ERP",
-      "areaServed": "Sevilla, Andalucía, España",
-      "keywords": {
-        "0": "integraciones crm sevilla",
-        "1": "odoo sevilla",
-        "2": "hubspot sevilla"
+      "cta": {
+        "label": "Integrar CRM y ERP",
+        "href": "https://wa.me/34626270806?text=Quiero%20unificar%20CRM%20y%20ERP%20sin%20errores%20de%20dato",
+        "bgColor": "#0255D5"
+      }
+    },
+    "inteligencia-artificial-empresas": {
+      "slug": "inteligencia-artificial-empresas",
+      "title": "Inteligencia Artificial aplicada a procesos empresariales",
+      "shortTitle": "IA para empresas",
+      "subtitle": "Automatizamos tareas, reducimos tiempos operativos y creamos copilotos internos adaptados a tu negocio.",
+      "description": "Diseñamos e implantamos soluciones de IA que mejoran productividad, eliminan trabajo repetitivo y permiten a los equipos centrarse en tareas de mayor valor. Modelos privados, automatizaciones seguras y asistentes entrenados con tu propio conocimiento.",
+      "heroCtaLabel": "Evaluar mi caso",
+      "heroCtaHref": "#formulario",
+      "secondaryCtaLabel": "Hablar con el equipo",
+      "serviceType": "Automatización, copilotos internos y modelos privados",
+      "areaServed": "España y equipos remotos",
+      "cards": [
+        {
+          "title": "Copilotos internos",
+          "description": "Asistentes privados entrenados con tu documentación, procesos y datos internos. Responden dudas, generan contenido y guían tareas operativas."
+        },
+        {
+          "title": "Automatización de procesos",
+          "description": "Eliminamos tareas repetitivas: clasificación de correos, generación de informes, resúmenes automáticos, extracción de datos y más."
+        },
+        {
+          "title": "Modelos privados y seguros",
+          "description": "Infraestructura de IA en tu nube o entorno privado. Control total del dato, auditoría y cumplimiento normativo."
+        }
+      ],
+      "steps": [
+        "Analizamos tus procesos, cuellos de botella y oportunidades reales de automatización.",
+        "Diseñamos la solución: copiloto, automatización o modelo privado según tu caso.",
+        "Desplegamos, entrenamos al equipo y dejamos métricas de uso y mejora continua."
+      ],
+      "valueProps": [
+        "Copilotos internos entrenados con tu conocimiento.",
+        "Automatización de tareas repetitivas y operativas.",
+        "Modelos privados con control total del dato.",
+        "Integración con herramientas internas y flujos existentes."
+      ],
+      "metrics": [
+        {
+          "label": "Ahorro operativo",
+          "value": "30% - 60%",
+          "detail": "Reducción de tiempo en tareas repetitivas."
+        },
+        {
+          "label": "Velocidad",
+          "value": "x10",
+          "detail": "Generación de contenido, informes y respuestas."
+        },
+        {
+          "label": "Seguridad",
+          "value": "Privado",
+          "detail": "Modelos desplegados en tu infraestructura."
+        }
+      ],
+      "outcomes": [
+        "Menos tareas manuales y repetitivas.",
+        "Equipos más rápidos y con menos carga operativa.",
+        "Procesos más consistentes y auditables.",
+        "Mayor calidad en documentación, respuestas y análisis."
+      ],
+      "useCases": [
+        {
+          "tag": "Operaciones",
+          "title": "Automatización de tareas repetitivas",
+          "description": "Clasificación de correos, extracción de datos, generación de informes y resúmenes automáticos.",
+          "bullets": [
+            "Menos carga manual",
+            "Procesos más rápidos y consistentes"
+          ]
+        },
+        {
+          "tag": "Soporte",
+          "title": "Copiloto para atención interna o externa",
+          "description": "Responde dudas, consulta documentación y genera respuestas basadas en tu conocimiento interno.",
+          "bullets": [
+            "Respuestas más rápidas",
+            "Menos escalados"
+          ]
+        },
+        {
+          "tag": "Dirección",
+          "title": "Informes automáticos y análisis",
+          "description": "Generación de reportes, resúmenes ejecutivos y análisis de datos en segundos.",
+          "bullets": [
+            "Decisiones más rápidas",
+            "Información siempre actualizada"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Privacidad",
+          "question": "¿La IA usa mis datos para entrenar modelos externos?",
+          "answer": "No. Los modelos pueden ejecutarse en tu infraestructura o en entornos privados sin compartir datos con terceros."
+        },
+        {
+          "tag": "Integración",
+          "question": "¿Puede conectarse con mis herramientas actuales?",
+          "answer": "Sí. Podemos integrar la IA con tus sistemas internos, bases de datos, CRM, ERP o herramientas de comunicación."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Cumple con GDPR y requisitos internos?",
+          "answer": "Sí. Implementamos permisos mínimos, auditoría, cifrado y control de acceso por rol."
+        },
+        {
+          "tag": "Mantenimiento",
+          "question": "¿Quién mantiene el sistema una vez implantado?",
+          "answer": "Podemos operarlo nosotros o dejarlo en manos de tu equipo con documentación y runbooks."
+        }
+      ],
+      "keywords": [
+        "inteligencia artificial empresas",
+        "automatización IA",
+        "copilotos internos",
+        "modelos privados IA",
+        "IA para negocios"
+      ],
+      "hub": {
+        "title": "IA integrada en tus procesos",
+        "subtitle": "Automatización, copilotos y modelos privados conectados a tu negocio.",
+        "bgTheme": "cyan",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "ai-copilot",
+            "colorScheme": "indigo",
+            "label": "Copiloto",
+            "sublabel": "Asistente interno"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "automation",
+            "colorScheme": "cyan",
+            "label": "Automatización",
+            "sublabel": "Procesos repetitivos"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "private-model",
+            "colorScheme": "indigo",
+            "label": "Modelo privado",
+            "sublabel": "Seguridad y control"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "observability",
+            "colorScheme": "cyan",
+            "label": "Observabilidad",
+            "sublabel": "Métricas y control"
+          }
+        ]
+      },
+      "cta": {
+        "label": "Implantar IA en mi empresa",
+        "href": "https://wa.me/34626270806?text=Quiero%20implantar%20IA%20en%20mi%20empresa",
+        "bgColor": "#0255D5"
+      }
+    },
+    "inteligencia-artificial-sevilla": {
+      "slug": "inteligencia-artificial-sevilla",
+      "heroImage": "/static/backgrounds/odoo_background.webp",
+      "heroImagePosition": "center center",
+      "title": "Integraciones CRM y ERP con reglas y calidad de dato",
+      "shortTitle": "Inteligencia Artificial Sevilla",
+      "subtitle": "Sincronizaciones robustas entre ventas, finanzas, soporte e inventario sin duplicados ni conflictos silenciosos.",
+      "description": "Unificamos sistemas con mapeos claros, ownership por campo y observabilidad de sincronización para que el dato circule con criterio y no solo con conectores.",
+      "heroBadge": "CRM + ERP conectados",
+      "heroCtaLabel": "Auditar integración",
+      "secondaryCtaLabel": "Hablar con el equipo",
+      "serviceType": "Integraciones CRM, ERP y datos operativos",
+      "areaServed": "España, equipos multi-sede y entornos híbridos",
+      "valueProps": [
+        "Definimos qué sistema manda cada campo, cuándo se sincroniza y qué pasa ante conflicto o falta de dato.",
+        "Validamos calidad, deduplicación y reconciliación para evitar errores que parecen integración pero son diseño de dato.",
+        "Paneles de ejecución y error para que el equipo operativo pueda ver qué falla y dónde."
+      ],
+      "metrics": [
+        {
+          "label": "Modelo de sync",
+          "value": "Bidireccional o dirigido",
+          "detail": "La dirección se decide por proceso y criticidad, no por comodidad técnica."
+        },
+        {
+          "label": "Reconciliación",
+          "value": "Reglas explícitas",
+          "detail": "Diferenciamos conflictos funcionales, duplicados y errores de transporte."
+        },
+        {
+          "label": "Cobertura",
+          "value": "Campos críticos primero",
+          "detail": "Priorizamos aquello que impacta facturación, reporting, soporte o inventario."
+        }
+      ],
+      "outcomes": [
+        "Menos incidencias por datos inconsistentes entre comercial, soporte y facturación.",
+        "Menor tiempo de onboarding y actualización de clientes, productos o pedidos.",
+        "Más confianza en reportes operativos y financieros porque la base de dato es coherente."
+      ],
+      "steps": [
+        "Auditamos sistemas, modelos de dato, ownership y fallos recurrentes de sincronización.",
+        "Diseñamos el mapeo, reglas de transformación y gestión de conflictos.",
+        "Desplegamos con monitorización, alertas y runbooks para soporte interno."
+      ],
+      "useCases": [
+        {
+          "tag": "Ventas",
+          "title": "Leads, oportunidades y pedidos sincronizados",
+          "description": "Evita pérdidas de contexto cuando una oportunidad pasa de marketing a comercial y luego a operación.",
+          "bullets": [
+            "Mismo identificador de cliente entre sistemas",
+            "Estados coherentes de venta y pedido"
+          ]
+        },
+        {
+          "tag": "Finanzas",
+          "title": "Facturación y cobro sin doble captura",
+          "description": "Conecta contratos, pedidos y facturas para eliminar repeticiones y errores manuales.",
+          "bullets": [
+            "Transformación de datos entre modelos distintos",
+            "Alertas de desajuste y conciliación"
+          ]
+        },
+        {
+          "tag": "Soporte",
+          "title": "Visión completa del cliente para soporte",
+          "description": "El equipo ve ventas, incidencias, facturación y estado operacional sin saltar entre cuatro herramientas.",
+          "bullets": [
+            "Contexto histórico y operativo unificado",
+            "Menos escalados por falta de información"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Compatibilidad",
+          "question": "¿Trabajáis solo con Odoo y HubSpot?",
+          "answer": "No. Son casos habituales, pero el enfoque sirve para CRMs propios, ERPs verticales y bases internas siempre que exista acceso por API, base de datos o exportación controlada."
+        },
+        {
+          "tag": "Conflictos",
+          "question": "¿Cómo gestionáis conflictos entre dos sistemas que discrepan?",
+          "answer": "Definimos ownership por campo, prioridad temporal y reglas de reconciliación. Si no se puede decidir automáticamente, el caso pasa a una cola de revisión con contexto."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Incluye seguridad y mínimos privilegios?",
+          "answer": "Sí. Trabajamos con credenciales segregadas, permisos mínimos, cifrado en tránsito y revisión de accesos según criticidad del flujo."
+        },
+        {
+          "tag": "Operación",
+          "question": "¿Quién mantiene la integración cuando está en producción?",
+          "answer": "Depende del acuerdo. Podemos operar nosotros, dejar ownership al equipo interno o compartirlo con runbooks, métricas y ventanas de cambio definidas."
+        }
+      ],
+      "keywords": [
+        "integraciones CRM ERP",
+        "calidad de dato",
+        "Odoo HubSpot integración",
+        "sincronización operacional"
+      ],
+      "hub": {
+        "title": "Sistemas conectados con ownership y reglas claras",
+        "subtitle": "Ventas, finanzas y operaciones compartiendo un mismo dato operativo.",
+        "bgTheme": "cyan",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "sales-crm",
+            "colorScheme": "indigo",
+            "label": "CRM",
+            "sublabel": "Leads y clientes"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Capa de sync",
+            "sublabel": "Transformación y reglas"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "finance",
+            "colorScheme": "indigo",
+            "label": "ERP",
+            "sublabel": "Pedidos y finanzas"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "workflow",
+            "colorScheme": "cyan",
+            "label": "Observabilidad",
+            "sublabel": "Errores y reconciliación"
+          }
+        ]
+      },
+      "cta": {
+        "label": "Integrar CRM y ERP",
+        "href": "https://wa.me/34626270806?text=Quiero%20unificar%20CRM%20y%20ERP%20sin%20errores%20de%20dato",
+        "bgColor": "#0255D5"
       }
     }
   },
@@ -2550,5 +3450,32 @@
     "resendError": "Error al reenviar el código",
     "resendSuccess": "Código reenviado correctamente",
     "networkError": "Error de red. Verifica tu conexión e intenta de nuevo."
+  },
+  "landingUi": {
+    "blueprint": "Blueprint técnico",
+    "measuredDelivery": "Despliegue medible",
+    "service": "Alcance del servicio",
+    "coverage": "Cobertura",
+    "delivery": "Modelo de entrega",
+    "deliveryText": "Auditoría, piloto, despliegue y monitorización con cambios versionados.",
+    "capabilities": "Capacidades clave",
+    "metrics": "Benchmarks y objetivos operativos",
+    "metricsText": "Parámetros concretos para el despliegue inicial, la observabilidad y el control.",
+    "kpis": "KPIs y criterios de aceptación",
+    "process": "Secuencia de implantación",
+    "processText": "Primero reducimos ambigüedad; después automatizamos con guardrails y observabilidad.",
+    "useCases": "Casos de uso por equipo",
+    "useCasesText": "Ejemplos pensados para flujos reales y no para demos genéricas.",
+    "faq": "FAQ técnica",
+    "ready": "Definir el piloto",
+    "readyText": "Preparamos un primer alcance técnico con interfaces, flujo objetivo, restricciones y criterios de aceptación.",
+    "keywords": "Intenciones de búsqueda",
+    "architecture": "Arquitectura de referencia",
+    "contactEyebrow": "Intake del proyecto",
+    "contactTitle": "Habla con el equipo que define y ejecuta el despliegue",
+    "contactText": "El mismo equipo audita el proceso, construye el piloto y revisa las primeras semanas en producción.",
+    "response": "Ventana de respuesta",
+    "responseText": "Respuesta en menos de 24 horas laborables",
+    "startNow": "Abrir formulario"
   }
 }

@@ -121,7 +121,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                 <div className="absolute top-3 sm:top-4 left-3 right-3 sm:left-4 sm:right-4 pr-16 sm:pr-0 pb-16 sm:pb-0 max-h-[60%] sm:max-h-none overflow-hidden">
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 {course.price !== null && course.price !== undefined && (
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[#1F8A0D] dark:bg-[#3FBD6F] text-white dark:text-[#0B1B17]">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[var(--swatch--clay)] text-white">
                     <Euro className="w-3 h-3 mr-1" />
                     €{course.price}
                   </span>
@@ -160,11 +160,11 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
             {/* Title and subtitle removed from body, as they are shown on the image */}
             {/* Key Metrics - stack vertically on mobile */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              <div className="bg-[#1F8A0D]/10 rounded-lg p-4 flex-1 min-w-0">
+              <div className="bg-[var(--swatch--clay)]/10 rounded-lg p-4 flex-1 min-w-0">
                 <div className="flex flex-col items-center">
                   <div className="flex items-center justify-between w-full mb-2">
-                    <Users className="h-6 w-6 text-[#1F8A0D] dark:text-[#3FBD6F] flex-shrink-0" />
-                    <p className="text-lg font-bold text-[#1F8A0D] dark:text-[#3FBD6F]">
+                    <Users className="h-6 w-6 text-[var(--swatch--clay)] flex-shrink-0" />
+                    <p className="text-lg font-bold text-[var(--swatch--clay)]">
                       {course.enrolled_count || 0}
                     </p>
                   </div>
@@ -199,11 +199,11 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                   </p>
                 </div>
               </div>
-              <div className="bg-purple-100 dark:bg-purple-900/30 rounded-lg p-4 flex-1 min-w-0">
+              <div className="bg-[var(--swatch--cobalt)]/10 rounded-lg p-4 flex-1 min-w-0">
                 <div className="flex flex-col items-center">
                   <div className="flex items-center justify-between w-full mb-2">
-                    <Euro className="h-6 w-6 text-purple-600 flex-shrink-0" />
-                    <p className="text-lg font-bold text-purple-600 break-words text-right">
+                    <Euro className="h-6 w-6 text-[var(--swatch--cobalt)] flex-shrink-0" />
+                    <p className="text-lg font-bold text-[var(--swatch--cobalt)] break-words text-right">
                       {course.price ? `${Math.round(Number(course.price))}` : t("contactForQuote")}
                     </p>
                   </div>
@@ -269,9 +269,9 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
             </div>
           </div>
           {/* Location & Logistics */}
-          <div className="bg-gradient-to-br from-[#1F8A0D]/8 to-[#1F8A0D]/14 dark:from-[#3FBD6F]/15 dark:to-[#3FBD6F]/18 rounded-xl p-5 min-w-0">
+          <div className="bg-gradient-to-br from-[var(--swatch--clay)]/8 to-[var(--swatch--clay)]/14 rounded-xl p-5 min-w-0">
             <div className="flex items-center space-x-2 mb-3">
-              <MapPin className="h-5 w-5 text-[#1F8A0D] dark:text-[#3FBD6F]" />
+              <MapPin className="h-5 w-5 text-[var(--swatch--clay)]" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.locationInfo")}</h3>
             </div>
             <div className="space-y-2 text-sm">
@@ -314,10 +314,10 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
             <div 
               className={`h-3 rounded-full transition-all duration-500 ${
                 (course.enrolled_count || 0) >= course.max_attendants
-                  ? 'bg-red-500' 
+                  ? 'bg-red-500'
                   : (course.enrolled_count || 0) / course.max_attendants >= 0.8
-                    ? 'bg-orange-500' 
-                    : 'bg-[#1F8A0D]'
+                    ? 'bg-orange-500'
+                    : 'bg-[var(--swatch--clay)]'
               }`}
               style={{ 
                 width: `${Math.min(((course.enrolled_count || 0) / course.max_attendants * 100), 100)}%` 

@@ -1,7 +1,15 @@
 import type { MetadataRoute } from "next";
 import { metadataBaseUrl } from "@/lib/metadata";
 import { client } from "@/lib/sanity";
-import { landingsMeta } from "@/app/[locale]/landings";
+
+const LANDING_SLUGS = [
+  "chatbots-empresas-sevilla",
+  "automatizacion-n8n-sevilla",
+  "agentes-ia-atencion-cliente-sevilla",
+  "automatizacion-whatsapp-business-sevilla",
+  "formacion-ia-pymes-sevilla",
+  "integraciones-crm-erp-sevilla",
+] as const;
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
 
@@ -11,6 +19,7 @@ const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; prior
   { path: "/about", changeFrequency: "weekly", priority: 0.7 },
   { path: "/services", changeFrequency: "weekly", priority: 0.8 },
   { path: "/formation", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/faq", changeFrequency: "weekly", priority: 0.75 },
   { path: "/blog", changeFrequency: "daily", priority: 0.8 },
   { path: "/news", changeFrequency: "daily", priority: 0.7 },
 ];
@@ -93,7 +102,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
 
     // Local SEO landings
-    landingsMeta.forEach((landing) => addPath(`/${landing.slug}`, "weekly", 0.85));
+    LANDING_SLUGS.forEach((slug) => addPath(`/${slug}`, "weekly", 0.85));
 
     courses.forEach((course) => {
       const identifier = course?.slug || course?.id;

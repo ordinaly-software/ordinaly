@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1584" />
+  <title>Antonio Macías – LinkedIn Banner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 1584px;
+      height: 396px;
+      overflow: hidden;
+      background: #141413;
+      color: #FAF9F5;
+      font-family: 'Inter', Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Background decoration ─────────────────────────────────── */
+    .bg {
+      position: absolute;
+      inset: 0;
+      background: #141413;
+    }
+
+    /* Subtle radial glow top-left (warm) */
+    .bg::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: -80px;
+      width: 640px;
+      height: 640px;
+      background: radial-gradient(circle, rgba(217,119,87,0.07) 0%, transparent 65%);
+    }
+
+    /* Subtle radial glow bottom-right (cool) */
+    .bg::after {
+      content: '';
+      position: absolute;
+      bottom: -160px;
+      right: 80px;
+      width: 560px;
+      height: 560px;
+      background: radial-gradient(circle, rgba(2,85,213,0.05) 0%, transparent 65%);
+    }
+
+    /* Dot grid texture */
+    .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(250,249,245,0.045) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* ── Layout ─────────────────────────────────────────────────── */
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: stretch;
+      height: 100%;
+    }
+
+    /* ── Left – Name block ──────────────────────────────────────── */
+    .left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 44px 52px 44px 64px;
+      flex: 0 0 auto;
+      width: 510px;
+    }
+
+    .eyebrow {
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #D97757;
+      margin-bottom: 16px;
+    }
+
+    .name {
+      font-family: 'Lora', Georgia, serif;
+      font-weight: 400;
+      font-size: 78px;
+      line-height: 0.93;
+      letter-spacing: -0.01em;
+      color: #FAF9F5;
+      text-transform: uppercase;
+    }
+
+    .name-accent {
+      color: #FAF9F5;
+    }
+
+    .underline-bar {
+      width: 40px;
+      height: 2px;
+      background: #D97757;
+      margin-top: 22px;
+      border-radius: 2px;
+    }
+
+    /* ── Vertical divider ───────────────────────────────────────── */
+    .divider {
+      flex: 0 0 1px;
+      margin: 44px 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(217,119,87,0.5) 20%,
+        rgba(217,119,87,0.5) 80%,
+        transparent 100%
+      );
+    }
+
+    /* ── Right – Details ────────────────────────────────────────── */
+    .right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 44px 60px 44px 52px;
+      gap: 0;
+    }
+
+    .role-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #87867F;
+      margin-bottom: 6px;
+    }
+
+    .role-title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #FAF9F5;
+      line-height: 1.2;
+    }
+
+    .role-company {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .role-company-text {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #87867F;
+    }
+
+    .role-company-highlight {
+      color: #D97757;
+      font-weight: 500;
+    }
+
+    /* Separator */
+    .sep {
+      height: 1px;
+      background: rgba(250,249,245,0.08);
+      margin: 20px 0;
+    }
+
+    /* Skills tags */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .skill-tag {
+      border: 1px solid rgba(250,249,245,0.12);
+      padding: 4px 11px;
+      border-radius: 1600px;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.07em;
+      color: #B0AEA5;
+      white-space: nowrap;
+    }
+
+    /* Education row */
+    .edu-row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .edu-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .edu-degree {
+      font-size: 10.5px;
+      font-weight: 500;
+      color: #FAF9F5;
+      letter-spacing: 0.02em;
+    }
+
+    .edu-school {
+      font-size: 9.5px;
+      font-weight: 400;
+      color: #5E5D59;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .edu-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: rgba(250,249,245,0.15);
+      flex-shrink: 0;
+    }
+
+    /* ── Ordinaly brand block (bottom-right) ────────────────────── */
+    .brand {
+      position: absolute;
+      bottom: 32px;
+      right: 52px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    .brand-wordmark {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(250,249,245,0.3);
+    }
+
+    /* Ordinaly logo – two interlocking rings (SVG inline) */
+    .brand-logo {
+      opacity: 0.35;
+    }
+
+    /* ── Thin top/bottom border lines ───────────────────────────── */
+    .edge-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(217,119,87,0.35) 30%,
+        rgba(217,119,87,0.35) 70%,
+        transparent 100%
+      );
+      z-index: 2;
+    }
+
+    .edge-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(217,119,87,0.2) 30%,
+        rgba(217,119,87,0.2) 70%,
+        transparent 100%
+      );
+      z-index: 2;
+    }
+
+    /* ── Language badge ─────────────────────────────────────────── */
+    .lang-badges {
+      display: flex;
+      gap: 5px;
+      margin-top: 4px;
+    }
+
+    .lang-badge {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: #5E5D59;
+      border: 1px solid rgba(250,249,245,0.07);
+      padding: 2px 7px;
+      border-radius: 1600px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background layers -->
+  <div class="bg"></div>
+  <div class="dot-grid"></div>
+
+  <!-- Edge lines -->
+  <div class="edge-top"></div>
+  <div class="edge-bottom"></div>
+
+  <!-- Main layout -->
+  <div class="wrapper">
+
+    <!-- LEFT: Name -->
+    <div class="left">
+      <p class="eyebrow">Software Engineer</p>
+      <h1 class="name">
+        Antonio<br>
+        <span class="name-accent">Macías</span>
+      </h1>
+      <div class="underline-bar"></div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- RIGHT: Details -->
+    <div class="right">
+
+      <p class="role-label">Posición actual</p>
+      <p class="role-title">Ingeniero de Software Jefe</p>
+      <div class="role-company">
+        <span class="role-company-highlight role-company-text">Ordinaly Software</span>
+        <span class="role-company-text">·&nbsp; Automatización &amp; IA Empresarial</span>
+      </div>
+
+      <div class="sep"></div>
+
+      <!-- Skills -->
+      <div class="skills">
+        <span class="skill-tag">Arquitectura de Software</span>
+        <span class="skill-tag">Inteligencia Artificial</span>
+        <span class="skill-tag">Automatización de Procesos</span>
+        <span class="skill-tag">Backend · Frontend</span>
+        <span class="skill-tag">Spring · Django · Next.js</span>
+        <span class="skill-tag">TensorFlow · PyTorch</span>
+        <span class="skill-tag">Docker · GCP</span>
+        <span class="skill-tag">Scrum · PMBOK</span>
+      </div>
+
+      <!-- Education -->
+      <div class="edu-row">
+        <div class="edu-item">
+          <span class="edu-degree">Máster – Lógica, CC e IA</span>
+          <span class="edu-school">Universidad de Sevilla</span>
+        </div>
+        <div class="edu-dot"></div>
+        <div class="edu-item">
+          <span class="edu-degree">Grado – Ingeniería del Software</span>
+          <span class="edu-school">Universidad de Sevilla</span>
+        </div>
+        <div class="edu-dot"></div>
+        <div class="edu-item">
+          <div class="lang-badges">
+            <span class="lang-badge">ES</span>
+            <span class="lang-badge">EN · C1</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Ordinaly brand mark – bottom right -->
+  <div class="brand">
+    <span class="brand-wordmark">Ordinaly</span>
+    <!-- Two interlocking rings logo (inline SVG recreation) -->
+    <svg class="brand-logo" width="28" height="18" viewBox="0 0 28 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="9" cy="9" r="8" stroke="#D97757" stroke-width="1.6" fill="none"/>
+      <circle cx="19" cy="9" r="8" stroke="#0255D5" stroke-width="1.6" fill="none"/>
+    </svg>
+  </div>
+
+</body>
+</html>

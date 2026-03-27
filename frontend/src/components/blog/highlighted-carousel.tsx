@@ -65,7 +65,7 @@ export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({
               <button
                 onClick={scrollLeft}
                 disabled={!canScrollLeft}
-                className="p-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
+                className="p-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed hover:border-[#0255D5] dark:hover:border-[#7DB5FF] hover:text-[#0255D5] dark:hover:text-[#7DB5FF] transition"
                 aria-label={t('highlighted.previous', { default: 'Previous' })}
               >
                 <ChevronLeft className="h-5 w-5" />
@@ -73,7 +73,7 @@ export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({
               <button
                 onClick={scrollRight}
                 disabled={!canScrollRight}
-                className="p-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed hover:border-[#1F8A0D] dark:hover:border-[#3FBD6F] hover:text-[#1F8A0D] dark:hover:text-[#3FBD6F] transition"
+                className="p-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed hover:border-[#0255D5] dark:hover:border-[#7DB5FF] hover:text-[#0255D5] dark:hover:text-[#7DB5FF] transition"
                 aria-label={t('highlighted.next', { default: 'Next' })}
               >
                 <ChevronRight className="h-5 w-5" />
@@ -99,8 +99,8 @@ export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({
           className="flex overflow-x-auto gap-6 pt-6 pb-4 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         >
           {posts.map((post) => (
-            <div key={post.slug} className="flex-shrink-0 w-[80%] md:w-full max-w-4xl pt-2">
-              <BlogCard post={post} onCategoryClick={onCategoryClick} />
+            <div key={post.slug} className="flex-shrink-0 w-[85%] sm:w-[60%] md:w-[40%] max-w-sm pt-2">
+              <BlogCard post={post} onCategoryClick={onCategoryClick} compact />
             </div>
           ))}
         </div>

@@ -60,9 +60,9 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
   const { locale } = useParams();
 
   return (
-    <div className="grid lg:grid-cols-3 gap-8">
+    <div className="flex flex-col gap-6">
       {/* Personal Information */}
-      <div className="lg:col-span-2">
+      <div>
         <Card className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-2xl font-black flex items-center">
@@ -100,7 +100,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={firstName}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("firstName", e.target.value)}
-                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
                       placeholder={t("form.firstNamePlaceholder")}
                       required
                     />
@@ -119,7 +119,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={lastName}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("lastName", e.target.value)}
-                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
                       placeholder={t("form.lastNamePlaceholder")}
                       required
                     />
@@ -140,7 +140,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     type="text"
                     value={username}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("username", e.target.value)}
-                    className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                    className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
                     placeholder={t("form.usernamePlaceholder")}
                     required
                   />
@@ -160,7 +160,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     type="email"
                     value={email}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("email", e.target.value)}
-                    className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                    className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
                     placeholder={t("form.emailPlaceholder")}
                     required
                   />
@@ -180,7 +180,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     type="text"
                     value={company}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("company", e.target.value)}
-                    className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                    className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
                     placeholder={t("form.companyPlaceholder")}
                   />
                 </div>
@@ -200,7 +200,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={region}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("region", e.target.value)}
-                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
                       placeholder={t("form.regionPlaceholder")}
                     />
                   </div>
@@ -217,7 +217,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       type="text"
                       value={city}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFieldChange("city", e.target.value)}
-                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#1F8A0D] dark:focus:border-[#3FBD6F]"
+                      className="pl-10 bg-gray-50/80 dark:bg-white/5 border-gray-200 dark:border-white/10 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
                       placeholder={t("form.cityPlaceholder")}
                     />
                   </div>
@@ -230,7 +230,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                   <Button
                     onClick={onSave}
                     disabled={isSaving}
-                    className="flex-1 bg-[#0d6e0c] dark:bg-[#3FBD6F] text-white dark:text-black shadow-[0_15px_40px_rgba(31,138,13,0.35)] hover:shadow-[0_20px_50px_rgba(31,138,13,0.4)] hover:bg-[#0A4D08] font-semibold"
+                    className="flex-1 bg-[#0144AA] dark:bg-[#7DB5FF] text-white dark:text-black shadow-[0_15px_40px_rgba(2,85,213,0.35)] hover:shadow-[0_20px_50px_rgba(2,85,213,0.4)] hover:bg-[#01388A] font-semibold"
                   >
                     {isSaving ? t("form.saveChangesLoading") : t("form.saveChanges")}
                   </Button>
@@ -249,9 +249,9 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
         </Card>
       </div>
 
-      {/* Notification Toggle Below Danger Zone */}
-      <div className="space-y-6">
-        <Card className="rounded-3xl border-[1.5px] border-[#623CEA]/30 dark:border-[#623CEA]/25 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
+      {/* Notifications + Security + Danger Zone row */}
+      <div className={`grid items-start gap-6 ${isGoogleAuthenticated ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
+        <Card className="self-start rounded-3xl border-[1.5px] border-[#623CEA]/30 dark:border-[#623CEA]/25 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-lg font-bold text-[#623CEA] dark:text-[#623CEA] flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" style={{ color: "#623CEA" }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -309,12 +309,10 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
             </div>
           </CardContent>
         </Card>
-      </div>
 
-        {/* Danger Zone */}
-        <div className="pt-6 lg:pt-0 space-y-6 lg:row-span-1">
-         {!isGoogleAuthenticated && (
-          <Card className="rounded-3xl border-[1.5px] border-[#46B1C9]/40 dark:border-[#46B1C9]/30 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
+        {/* Security */}
+        {!isGoogleAuthenticated && (
+          <Card className="self-start rounded-3xl border-[1.5px] border-[#46B1C9]/40 dark:border-[#46B1C9]/30 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
             <CardHeader>
               <CardTitle className="text-lg font-bold text-[#46B1C9] flex items-center">
                 <Lock className="h-5 w-5 mr-2" />
@@ -341,7 +339,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
           </Card>
         )}
 
-        <Card className="rounded-3xl border border-red-200 dark:border-red-800/40 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
+        <Card className="self-start rounded-3xl border border-red-200 dark:border-red-800/40 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-xl font-bold text-red-600 dark:text-red-400 flex items-center">
               <AlertTriangle className="h-5 w-5 mr-2" />
@@ -363,7 +361,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
             </div>
           </CardContent>
         </Card>
-        </div>
+      </div>
     </div>
   );
 };
