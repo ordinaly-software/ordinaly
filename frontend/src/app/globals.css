@@ -482,3 +482,6 @@ svg[width="2rem"], svg[height="2rem"] {
     }
   }
 }
+.perspective {
+  perspective: 1200px;
+}

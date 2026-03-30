@@ -2786,7 +2786,7 @@
     },
     "formacion-ia-pymes-sevilla": {
       "slug": "formacion-ia-pymes-sevilla",
-      "heroImage": "/static/backgrounds/formation_background.webp",
+      "heroImage": "/assets/hero-blurred.webp",
       "heroImagePosition": "center 30%",
       "title": "Formación en IA aplicada a procesos reales",
       "shortTitle": "Formación IA",
@@ -2817,50 +2817,28 @@
           "detail": "Guías por rol, checklists y librerías de prompts adaptadas a tus tareas."
         }
       ],
+      "carousel": {
+        "images": [
+          "/assets/1-ordinaly.webp",
+          "/assets/2-ordinaly.webp",
+          "/assets/3-ordinaly.webp",
+          "/assets/4-ordinaly.webp",
+          "/assets/5-ordinaly.webp",
+          "/assets/6-ordinaly.webp"
+        ]
+      },
       "experts": [
         {
           "name": "Antonio Macías Ferrera",
-          "role": "Especialista en Automatización e IA aplicada a negocios",
-          "description": "Ha implementado sistemas inteligentes en más de 40 empresas."
+          "role": "CTO ingeniero de software & Co-founder",
+          "description": "Ingeniero de software especialista en automatización e inteligencia artificial.",
+          "image": "/assets/Antonio.webp"
         },
         {
-          "name": "Laura Gómez",
-          "role": "IA aplicada a marketing",
-          "description": "Experta en generación de contenido, análisis y workflows creativos."
-        },
-        {
-          "name": "Carlos Ruiz",
-          "role": "Automatización con n8n y APIs",
-          "description": "Crea sistemas que reducen horas de trabajo manual en operaciones."
-        }
-      ],
-      "useCases": [
-        {
-          "tag": "Ventas",
-          "title": "Preparación de propuestas y reuniones",
-          "description": "El equipo aprende a usar IA para síntesis de contexto, preparación de objeciones y seguimiento estructurado.",
-          "bullets": [
-            "Prompts reutilizables por etapa comercial",
-            "Revisión de tono, riesgos y precisión"
-          ]
-        },
-        {
-          "tag": "Operaciones",
-          "title": "Documentación, análisis y reporting",
-          "description": "Convertimos tareas largas de síntesis y clasificación en rutinas claras y repetibles.",
-          "bullets": [
-            "Resúmenes consistentes y comparables",
-            "Checklist para validar outputs antes de usarlos"
-          ]
-        },
-        {
-          "tag": "Dirección",
-          "title": "Política interna de uso de IA",
-          "description": "Definimos qué se puede usar, con qué datos y bajo qué supervisión.",
-          "bullets": [
-            "Criterios por rol y herramienta",
-            "Buenas prácticas para datos sensibles"
-          ]
+          "name": "Guillermo Montero Fernández Vivancos",
+          "role": "Ingeniero de calidad y proyectos & Co-founder",
+          "description": "Consultor y project manager especializados en IA e ingeniería de calidad.",
+          "image": "/assets/Guillermo.webp"
         }
       ],
       "technologyFaqs": [

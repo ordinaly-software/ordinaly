@@ -4,13 +4,13 @@ import { useMessages } from "next-intl";
 import Footer from "@/components/ui/footer";
 import CardStackDemo from "@/components/card-stack-demo"
 import ContactForm from "@/components/ui/contact-form.client";
+import Carousel3D from "@/components/ui/carrusel3D";
+import CoursesShowcase from "@/components/home/courses-showcase";
 
 export default function FormacionIaPymesSevillaPage() {
   const messages = useMessages() as any;
 
   const content = messages.landings?.["formacion-ia-pymes-sevilla"];
-
-
 
   if (!content) throw new Error("Missing content: formacion-ia-pymes-sevilla");
 
@@ -21,7 +21,7 @@ export default function FormacionIaPymesSevillaPage() {
       <section
         className="relative w-full min-h-[40rem] flex flex-col items-center justify-center text-center px-6 bg-cover bg-center"
         style={{
-          backgroundImage: `url(${content.heroImage})`,
+          backgroundImage: "url('/assets/hero-blurred.webp')",
           backgroundPosition: content.heroImagePosition || "center"
         }}
       >
@@ -30,56 +30,12 @@ export default function FormacionIaPymesSevillaPage() {
           <span className="block text-5xl md:text-7xl">{content.title}</span>
         </h1>
         <a
-  href="#formulario"
-  className="mt-10 px-6 py-3 rounded-full text-white font-semibold transition !bg-[#d97757]"
->
-  {content.cta?.label}
-</a>
+          href="#formulario"
+          className="mt-10 px-6 py-3 rounded-full text-white font-semibold transition !bg-[#d97757]"
+        >
+          {content.cta?.label}
+        </a>
 
-      </section>
-      <section className="py-24 max-w-5xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-center mb-16 
-                 text-neutral-900 dark:text-white tracking-tight">
-          ¿Por qué esta formación funciona?
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-10">
-          {content.valueProps.map((prop: string, i: number) => (
-            <div
-              key={i}
-              className="
-          group p-8 rounded-2xl 
-          bg-white dark:bg-neutral-900 
-          border border-neutral-200 dark:border-neutral-700 
-          shadow-[0_4px_20px_rgba(0,0,0,0.06)] 
-          dark:shadow-[0_4px_20px_rgba(0,0,0,0.35)]
-          hover:shadow-[0_8px_30px_rgba(0,0,0,0.12)]
-          dark:hover:shadow-[0_8px_30px_rgba(0,0,0,0.55)]
-          transition-all duration-300 hover:-translate-y-1
-        "
-            >
-              <div
-                className="w-12 h-12 flex items-center justify-center rounded-xl mb-6"
-                style={{ backgroundColor: "#d97757" }}
-              >
-                <span className="text-white text-2xl font-bold">✓</span>
-              </div>
-
-              <p className="text-neutral-700 dark:text-neutral-300 
-                      font-medium leading-relaxed text-lg">
-                {prop}
-              </p>
-              <div
-                className="
-            mt-6 h-1 w-0 
-            group-hover:w-full 
-            transition-all duration-300 rounded-full
-          "
-                style={{ backgroundColor: "#d97757" }}
-              />
-            </div>
-          ))}
-        </div>
       </section>
 
       <section className="py-24 bg-neutral-50 dark:bg-neutral-900 transition-colors">
@@ -163,29 +119,42 @@ export default function FormacionIaPymesSevillaPage() {
             </div>
           ))}
         </div>
-
-        <p className="text-center mt-16 text-lg font-medium 
-                text-neutral-700 dark:text-neutral-300">
-          Aprende con <span style={{ color: '#d97757' }}>Ordinaly AI</span>
-        </p>
       </section>
-      {/* EXPERTOS */}
-      <section className="py-24 max-w-6xl mx-auto px-6">
+      <section className="py-24">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
+          Formaciones reales impartidas a empresas
+        </h2>
+
+        <Carousel3D />
+      </section>
+
+      {/* EXPERTOS */}
+      <section className="py-24 max-w-4xl mx-auto px-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-neutral-900 dark:text-white">
           Nuestros expertos
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-10">
-          {content?.experts?.map((expert: any, i: number) => (
+        <div className="grid md:grid-cols-2 gap-12">
+          {content?.experts?.slice(0, 2).map((expert: any, i: number) => (
             <div
               key={i}
-              className="p-6 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 shadow-sm hover:-translate-y-1 hover:shadow-lg transition-all"
+              className="p-8 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all"
             >
-              <h3 className="text-xl font-bold text-neutral-900 dark:text-white">
+              <img
+                src={expert.image}
+                alt={expert.name}
+                className="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-md"
+              />
+
+              <h3 className="text-xl font-bold text-center text-neutral-900 dark:text-white">
                 {expert.name}
               </h3>
-              <p className="text-[#d97757] font-medium mt-1">{expert.role}</p>
-              <p className="text-neutral-600 dark:text-neutral-400 mt-3">
+
+              <p className="text-[#d97757] font-semibold text-center mt-1">
+                {expert.role}
+              </p>
+
+              <p className="text-neutral-600 dark:text-neutral-400 mt-4 text-center leading-relaxed">
                 {expert.description}
               </p>
             </div>
@@ -194,32 +163,7 @@ export default function FormacionIaPymesSevillaPage() {
       </section>
 
       <section className="py-24 bg-neutral-50 dark:bg-neutral-800">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-          Casos de uso reales
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
-          {content.useCases.map((useCase: any, i: number) => (
-            <div
-              key={i}
-              className="p-6 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 shadow-sm"
-            >
-              <span className="text-[#d97757] font-semibold">{useCase.tag}</span>
-              <h3 className="text-xl font-bold mt-2 text-neutral-900 dark:text-white">
-                {useCase.title}
-              </h3>
-              <p className="text-neutral-600 dark:text-neutral-400 mt-3">
-                {useCase.description}
-              </p>
-
-              <ul className="mt-4 space-y-2 text-neutral-700 dark:text-neutral-300">
-                {useCase.bullets.map((b: string, j: number) => (
-                  <li key={j}>• {b}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+        <CoursesShowcase />
       </section>
 
       <section className="py-24 max-w-5xl mx-auto px-6">
@@ -243,11 +187,12 @@ export default function FormacionIaPymesSevillaPage() {
 
         <div className="text-center mt-10">
           <a
-            href="/faq"
-            className="text-[#d97757] font-semibold underline hover:text-[#d97757] transition"
+            href="#preguntas"
+            className="inline-block border-2 border-[#d97757] text-[#d97757] font-semibold px-6 py-3 rounded-full transition duration-300 hover:bg-[#d97757] hover:text-white"
           >
-            Ver todas las preguntas frecuentes
+            Ver todas las preguntas frecuentes →
           </a>
+
         </div>
       </section>
 
