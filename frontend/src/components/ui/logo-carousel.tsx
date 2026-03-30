@@ -8,14 +8,18 @@ import React, {
 } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 
-interface Logo {
+interface LogoRendererProps {
+  className?: string
+}
+
+export interface LogoCarouselLogo {
   name: string
   id: number
-  img: React.ComponentType<React.SVGProps<SVGSVGElement>>
+  img: React.ComponentType<LogoRendererProps>
 }
 
 interface LogoColumnProps {
-  logos: Logo[]
+  logos: LogoCarouselLogo[]
   index: number
   currentTime: number
   colClassName?: string
@@ -30,9 +34,9 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled
 }
 
-const distributeLogos = (allLogos: Logo[], columnCount: number): Logo[][] => {
+const distributeLogos = (allLogos: LogoCarouselLogo[], columnCount: number): LogoCarouselLogo[][] => {
   const shuffled = shuffleArray(allLogos)
-  const columns: Logo[][] = Array.from({ length: columnCount }, () => [])
+  const columns: LogoCarouselLogo[][] = Array.from({ length: columnCount }, () => [])
 
   shuffled.forEach((logo, index) => {
     columns[index % columnCount].push(logo)
@@ -50,6 +54,8 @@ const distributeLogos = (allLogos: Logo[], columnCount: number): Logo[][] => {
 
 const LogoColumn: React.FC<LogoColumnProps> = React.memo(
   ({ logos, index, currentTime, colClassName }) => {
+    if (logos.length === 0) return null
+
     const cycleInterval = 2000
     const columnDelay = index * 200
     const adjustedTime = (currentTime + columnDelay) % (cycleInterval * logos.length)
@@ -108,12 +114,12 @@ interface LogoCarouselProps {
   columnCount?: number
   /** How many columns to show on screens narrower than md. Defaults to columnCount. */
   mobileColumnCount?: number
-  logos: Logo[]
+  logos: LogoCarouselLogo[]
   colClassName?: string
 }
 
 export function LogoCarousel({ columnCount = 2, mobileColumnCount, logos, colClassName }: LogoCarouselProps) {
-  const [logoSets, setLogoSets] = useState<Logo[][]>([])
+  const [logoSets, setLogoSets] = useState<LogoCarouselLogo[][]>([])
   const [currentTime, setCurrentTime] = useState(0)
 
   const updateTime = useCallback(() => {
@@ -126,9 +132,16 @@ export function LogoCarousel({ columnCount = 2, mobileColumnCount, logos, colCla
   }, [updateTime])
 
   useEffect(() => {
+    if (logos.length === 0) {
+      setLogoSets([])
+      return
+    }
+
     const distributedLogos = distributeLogos(logos, columnCount)
     setLogoSets(distributedLogos)
   }, [logos, columnCount])
+
+  if (logos.length === 0) return null
 
   const hideAbove = mobileColumnCount ?? columnCount
 

@@ -17,6 +17,7 @@ type TranslateFn = (key: string, values?: Record<string, string | number | Date>
 
 interface SectionProps {
   t: TranslateFn;
+  id?: string;
 }
 
 interface UseCaseItem {
@@ -144,7 +145,7 @@ function UseCaseCard({ item, t, index }: { item: UseCaseItem; t: TranslateFn; in
 
 // ─── Section ──────────────────────────────────────────────────────────────────
 
-export function UseCasesSection({ t }: SectionProps) {
+export function UseCasesSection({ t, id }: SectionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -178,7 +179,8 @@ export function UseCasesSection({ t }: SectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark]"
+      id={id}
+      className="scroll-mt-24 bg-[--swatch--ivory-medium] px-4 py-20 dark:bg-[--swatch--slate-dark] sm:px-6 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header */}

@@ -9,23 +9,8 @@ import { AnimatedTestimonials } from "@/components/about/animated-testimonials";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 import { Timeline } from "@/components/about/timeline";
 import { Rocket, ArrowRight } from "lucide-react";
-import { LogoCarousel } from "@/components/ui/logo-carousel";
+import { PartnerShowcase } from "@/components/ui/partner-showcase";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
-
-// Partner logo image components for LogoCarousel
-const partnerLogos: { name: string; id: number; img: React.ComponentType<React.SVGProps<SVGSVGElement>> }[] = [
-  "/static/logos/logo_aviva_publicidad_small.webp",
-  "/static/logos/logo_grupo_addu_small.webp",
-  "/static/logos/logo_proinca_consultores_small.webp",
-  "/static/logos/logo_guadalquivir_fincas_small.webp",
-  "/static/logos/logo_esau.webp",
-  "/static/logos/logo_geesol.webp",
-].map((src, i) => ({
-  name: src,
-  id: i + 1,
-  // eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text
-  img: ({ className }: React.SVGProps<SVGSVGElement>) => <img src={src} alt="" className={`object-contain invert brightness-0 contrast-100 ${className ?? ""}`} />,
-}));
 
 const Footer = dynamic(() => import("@/components/ui/footer"), {
   ssr: false,
@@ -174,22 +159,10 @@ export default function UsPage() {
         </div>
       </section>
 
-      {/* Partners */}
-      <section className="u-container pb-12">
-        <div className="rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10">
-          <div className="flex flex-col lg:flex-row items-center gap-10">
-            <div className="flex-shrink-0 lg:max-w-xs text-white space-y-3">
-              <p className="text-xs uppercase tracking-[0.16em] text-white/50">{t_home("partners.title")}</p>
-              <h2 className="text-2xl font-semibold tracking-[-0.03em]">
-                {t_home("partners.subtitle")}
-              </h2>
-            </div>
-            <div className="flex-1 flex justify-center overflow-hidden">
-              <LogoCarousel logos={partnerLogos} columnCount={3} mobileColumnCount={2} />
-            </div>
-          </div>
-        </div>
-      </section>
+      <PartnerShowcase
+        eyebrow={t_home("partners.title")}
+        title={t_home("partners.subtitle")}
+      />
 
       <section className="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <Timeline
