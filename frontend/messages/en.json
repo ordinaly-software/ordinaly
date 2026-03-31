@@ -3178,7 +3178,109 @@
         "href": "https://wa.me/34626270806?text=I%20want%20to%20deploy%20AI%20in%20my%20company",
         "bgColor": "#0255D5"
       }
+    },
+    "inteligencia-artificial-sevilla": {
+  "slug": "inteligencia-artificial-sevilla",
+  "heroImage": "/static/backgrounds/odoo_background.webp",
+  "heroImagePosition": "center center",
+  "title": "Artificial Intelligence in Seville",
+  "shortTitle": "AI for Businesses in Seville",
+  "subtitle": "We automate, optimize, and scale processes with AI so your company gains speed and precision.",
+  "description": "We develop Artificial Intelligence solutions applied to real operations: automation, intelligent assistants, predictive analytics, and process optimization. We implement AI with solid criteria, clean data, and deployments that work in production.",
+  "heroCtaLabel": "Open form",
+  "heroCtaHref": "#formulario",
+  "serviceType": "Automation, AI assistants, and applied solutions",
+  "areaServed": "Seville, Andalusia, and companies across Spain",
+  "valueProps": [
+    "AI applied to real processes",
+    "Integration with your current systems",
+    "Training with your own data",
+    "Continuous monitoring and improvement"
+  ],
+  "cards": [
+    {
+      "title": "Service Scope",
+      "description": "We define which processes, areas, and systems can benefit from applied AI.",
+      "image": "assets/Alcance_Servicio.webp"
+    },
+    {
+      "title": "Coverage",
+      "description": "We apply AI in operations, support, sales, management, and cross‑functional areas."
+    },
+    {
+      "title": "Delivery Model",
+      "description": "Diagnosis, design, training, integration, and continuous improvement."
+    },
+    {
+      "title": "Automation",
+      "description": "We eliminate repetitive tasks and reduce operational errors with AI."
+    },
+    {
+      "title": "AI Assistants",
+      "description": "Bots trained with your internal documentation for support and operations."
     }
+  ],
+  "chips": [
+    "AI applied to real processes",
+    "Integration with your systems",
+    "Training with your data",
+    "Continuous monitoring and improvement"
+  ],
+  "steps": [
+    "We identify AI opportunities in your processes.",
+    "We design the solution: automation or AI assistant.",
+    "We train the AI with your data and documentation.",
+    "We integrate the solution into your current systems.",
+    "We monitor, measure, and continuously improve."
+  ],
+  "keywords": [
+    "artificial intelligence seville",
+    "AI automation",
+    "AI assistants for businesses",
+    "process optimization",
+    "AI for business"
+  ],
+  "hub": {
+    "title": "AI applied to real processes",
+    "subtitle": "Automation, intelligent assistants, and predictive models for companies in Seville.",
+    "bgTheme": "cyan",
+    "platforms": [
+      {
+        "position": "top-left",
+        "figureKey": "ai-bot",
+        "colorScheme": "indigo",
+        "label": "AI Assistants",
+        "sublabel": "Trained with your business"
+      },
+      {
+        "position": "top-right",
+        "figureKey": "automation",
+        "colorScheme": "cyan",
+        "label": "Automation",
+        "sublabel": "Internal processes"
+      },
+      {
+        "position": "bottom-left",
+        "figureKey": "predictive",
+        "colorScheme": "indigo",
+        "label": "Models",
+        "sublabel": "Prediction and analysis"
+      },
+      {
+        "position": "bottom-right",
+        "figureKey": "integration",
+        "colorScheme": "cyan",
+        "label": "Integration",
+        "sublabel": "CRM, ERP, and APIs"
+      }
+    ]
+  },
+  "cta": {
+    "label": "Contact via WhatsApp",
+    "href": "https://wa.me/34626270806?text=Hello%20AI%20in%20Seville",
+    "bgColor": "#0255D5"
+  }
+}
   },
   "notFound": {
     "title": "Page not found",

@@ -3214,28 +3214,23 @@
       "cards": [
         {
           "title": "Alcance del servicio",
-          "description": "Definimos qué procesos, áreas y sistemas pueden beneficiarse de IA aplicada.",
-          "image": "assets/Alcance_Servicio.webp"
+          "description": "Definimos qué procesos, áreas y sistemas pueden beneficiarse de IA aplicada."
         },
         {
           "title": "Cobertura",
-          "description": "Aplicamos IA en operaciones, soporte, ventas, dirección y áreas transversales.",
-          "image": "assets/Cobertura.webp"
+          "description": "Aplicamos IA en operaciones, soporte, ventas, dirección y áreas transversales."
         },
         {
           "title": "Modelo de entrega",
-          "description": "Diagnóstico, diseño, entrenamiento, integración y mejora continua.",
-          "image": "assets/Modelo_Entrega.webp"
+          "description": "Diagnóstico, diseño, entrenamiento, integración y mejora continua."
         },
         {
           "title": "Automatización",
-          "description": "Eliminamos tareas repetitivas y reducimos errores operativos con IA.",
-          "image": "assets/Automatización.webp"
+          "description": "Eliminamos tareas repetitivas y reducimos errores operativos con IA."
         },
         {
           "title": "Asistentes IA",
-          "description": "Bots entrenados con tu documentación interna para soporte y operaciones.",
-          "image": "assets/AsistenteIA.webp"
+          "description": "Bots entrenados con tu documentación interna para soporte y operaciones."
         }
       ],
       "chips": [
