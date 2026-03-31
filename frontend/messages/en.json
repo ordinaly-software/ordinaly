@@ -3035,148 +3035,84 @@
         "bgColor": "#0255D5"
       }
     },
-    "inteligencia-artificial-empresas": {
-      "slug": "inteligencia-artificial-empresas",
-      "title": "Artificial Intelligence applied to business processes",
-      "shortTitle": "AI for business",
-      "subtitle": "We automate tasks, reduce operational time and build internal copilots tailored to your business.",
-      "description": "We design and deploy AI solutions that improve productivity, eliminate repetitive work and let teams focus on higher-value tasks. Private models, secure automations and assistants trained on your own knowledge.",
-      "heroCtaLabel": "Evaluate my case",
-      "heroCtaHref": "#formulario",
-      "secondaryCtaLabel": "Talk to the team",
-      "serviceType": "Automation, internal copilots and private models",
-      "areaServed": "Spain and remote teams",
-      "valueProps": [
-        "Internal copilots trained on your knowledge.",
-        "Automation of repetitive and operational tasks.",
-        "Private models with full data control.",
-        "Integration with internal tools and existing workflows."
-      ],
-      "metrics": [
+    "agencia-automatizacion-ia": {
+      "slug": "agencia-automatizacion-ia",
+      "heroImage": "/static/backgrounds/services_background.webp",
+      "heroImagePosition": "center",
+      "title": "We automate your company with AI",
+      "shortTitle": "AI Automation Agency",
+      "subtitle": "Faster processes, fewer errors, more profit.",
+      "description": "We design intelligent automations, internal copilots, and advanced integrations so your company operates with the efficiency of a modern AI‑powered organization.",
+      "heroBadge": "Automation + AI",
+      "heroCtaLabel": "Request a free audit",
+      "secondaryCtaLabel": "Chat on WhatsApp",
+      "serviceType": "Business process automation with AI",
+      "areaServed": "Spain, Portugal, and remote deployment across the EU",
+      "timeline": [
         {
-          "label": "Operational savings",
-          "value": "30% - 60%",
-          "detail": "Reduction in time spent on repetitive tasks."
+          "title": "Audit",
+          "description": "We analyze your current processes and identify clear automation opportunities."
         },
         {
-          "label": "Speed",
-          "value": "x10",
-          "detail": "Content generation, reports and responses."
+          "title": "Design",
+          "description": "We create flows, integrations, and automations tailored to your stack and objectives."
         },
         {
-          "label": "Security",
-          "value": "Private",
-          "detail": "Models deployed in your own infrastructure."
+          "title": "Implementation",
+          "description": "We deploy the automations in your real environment with testing and validation."
+        },
+        {
+          "title": "Monitoring",
+          "description": "We measure impact, optimize, and expand automations based on results."
         }
       ],
-      "outcomes": [
-        "Fewer manual and repetitive tasks.",
-        "Faster teams with less operational overhead.",
-        "More consistent and auditable processes.",
-        "Higher quality in documentation, responses and analysis."
-      ],
-      "steps": [
-        "We analyse your processes, bottlenecks and real automation opportunities.",
-        "We design the solution: copilot, automation or private model based on your case.",
-        "We deploy, train the team and set up usage metrics and continuous improvement."
-      ],
-      "useCases": [
-        {
-          "tag": "Operations",
-          "title": "Repetitive task automation",
-          "description": "Email classification, data extraction, report generation and automatic summaries.",
-          "bullets": [
-            "Less manual workload",
-            "Faster and more consistent processes"
-          ]
-        },
-        {
-          "tag": "Support",
-          "title": "Copilot for internal or external support",
-          "description": "Answers questions, queries documentation and generates responses based on your internal knowledge.",
-          "bullets": [
-            "Faster responses",
-            "Fewer escalations"
-          ]
-        },
-        {
-          "tag": "Management",
-          "title": "Automatic reports and analysis",
-          "description": "Report generation, executive summaries and data analysis in seconds.",
-          "bullets": [
-            "Faster decisions",
-            "Always up-to-date information"
-          ]
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Privacy",
-          "question": "Does the AI use my data to train external models?",
-          "answer": "No. Models can run in your own infrastructure or private environments without sharing data with third parties."
-        },
-        {
-          "tag": "Integration",
-          "question": "Can it connect to my current tools?",
-          "answer": "Yes. We can integrate AI with your internal systems, databases, CRM, ERP or communication tools."
-        },
-        {
-          "tag": "Security",
-          "question": "Does it comply with GDPR and internal requirements?",
-          "answer": "Yes. We implement minimal permissions, auditing, encryption and role-based access control."
-        },
-        {
-          "tag": "Maintenance",
-          "question": "Who maintains the system once deployed?",
-          "answer": "We can operate it ourselves or hand it over to your team with documentation and runbooks."
-        }
-      ],
-      "keywords": [
-        "artificial intelligence for business",
-        "AI automation",
-        "internal copilots",
-        "private AI models",
-        "AI for companies"
-      ],
-      "hub": {
-        "title": "AI integrated into your processes",
-        "subtitle": "Automation, copilots and private models connected to your business.",
-        "bgTheme": "cyan",
-        "platforms": [
-          {
-            "position": "top-left",
-            "figureKey": "ai-copilot",
-            "colorScheme": "indigo",
-            "label": "Copilot",
-            "sublabel": "Internal assistant"
-          },
-          {
-            "position": "top-right",
-            "figureKey": "automation",
-            "colorScheme": "cyan",
-            "label": "Automation",
-            "sublabel": "Repetitive processes"
-          },
-          {
-            "position": "bottom-left",
-            "figureKey": "private-model",
-            "colorScheme": "indigo",
-            "label": "Private model",
-            "sublabel": "Security and control"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "observability",
-            "colorScheme": "cyan",
-            "label": "Observability",
-            "sublabel": "Metrics and control"
-          }
-        ]
+      "sectionTitles": {
+        "whatWeAutomate": "What we automate",
+        "timeline": "How we work",
+        "caseStudies": "Real case studies",
+        "security": "Security & compliance",
+        "ctaTitle": "Ready to automate your company?",
+        "ctaSubtitle": "We define a focused pilot with clear metrics and no long‑term commitments."
       },
+      "whatWeAutomate": [
+        "Automation of internal processes",
+        "Integration with CRM, ERP, and internal tools",
+        "Internal copilots for sales, support, and operations teams",
+        "Private and secure models using company data",
+        "Document automation and intelligent information extraction"
+      ],
+      "caseStudies": [
+        {
+          "metric": "40% less time",
+          "description": "Automation of the customer service process in a logistics company."
+        },
+        {
+          "metric": "3h → 12 min",
+          "description": "Reduction of employee onboarding time in a SaaS company."
+        },
+        {
+          "metric": "98% accuracy",
+          "description": "Automatic ticket classification for a support team of 200+ people."
+        }
+      ],
+      "security": [
+        {
+          "title": "Private models",
+          "description": "Secure infrastructure and models deployed in controlled environments."
+        },
+        {
+          "title": "GDPR compliance",
+          "description": "Data processing with legal and technical guarantees."
+        },
+        {
+          "title": "Encryption",
+          "description": "Data encrypted in transit and at rest."
+        }
+      ],
       "cta": {
-        "label": "Deploy AI in my company",
-        "href": "https://wa.me/34626270806?text=I%20want%20to%20deploy%20AI%20in%20my%20company",
-        "bgColor": "#0255D5"
+        "label": "Book a meeting",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20company%20with%20AI",
+        "bgColor": "#000000"
       }
     }
   },

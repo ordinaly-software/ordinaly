@@ -2250,6 +2250,14 @@
           "description": "Medimos impacto, optimizamos y ampliamos las automatizaciones según resultados."
         }
       ],
+      "sectionTitles": {
+        "whatWeAutomate": "Qué automatizamos",
+        "timeline": "Cómo trabajamos",
+        "caseStudies": "Casos reales",
+        "security": "Seguridad y cumplimiento",
+        "ctaTitle": "¿Listo para automatizar tu empresa?",
+        "ctaSubtitle": "Definimos un piloto acotado, con métricas claras y sin compromisos a largo plazo."
+      },
       "whatWeAutomate": [
         "Automatización de procesos internos",
         "Integración con CRM, ERP y herramientas internas",
