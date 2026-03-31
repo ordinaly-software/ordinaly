@@ -2786,92 +2786,102 @@
     },
     "formacion-ia-pymes-sevilla": {
       "slug": "formacion-ia-pymes-sevilla",
-      "heroImage": "/assets/hero-blurred.webp",
+      "heroImage": "/ImagenesFormacionIA/hero-blurred.webp",
       "heroImagePosition": "center 30%",
-      "title": "Formación en IA aplicada a procesos reales",
-      "shortTitle": "Formación IA",
-      "heroBadge": "Formación operativa",
-      "heroCtaLabel": "Planificar formación",
-      "secondaryCtaLabel": "Consultar disponibilidad",
-      "serviceType": "Formación en IA para ventas, soporte y operaciones",
-      "areaServed": "España · Sesiones presenciales y online",
+      "title": "AI training applied to real business processes",
+      "shortTitle": "AI Training",
+      "heroBadge": "Operational training",
+      "heroCtaLabel": "Plan training",
+      "secondaryCtaLabel": "Check availability",
+      "serviceType": "AI training for sales, support and operations teams",
+      "areaServed": "Spain · On-site and online sessions",
       "valueProps": [
-        "Sesiones construidas sobre ejemplos reales y tareas que el equipo ya realiza hoy.",
-        "Módulos de seguridad, gobernanza y uso responsable adaptados a cada departamento.",
-        "Plantillas, prompts y rutinas listas para aplicar al día siguiente."
+        "Sessions built around real examples and tasks the team already performs today.",
+        "Security, governance and responsible‑use modules adapted to each department.",
+        "Templates, prompts and routines ready to apply the next day."
       ],
+      "sectionTitles": {
+        "valueProps": "What your team will learn",
+        "metrics": "Format and materials",
+        "carousel": "Training in action",
+        "experts": "Who delivers the training",
+        "technologyFaqs": "Frequently asked questions",
+        "curiosities": "Facts and insights",
+        "ctaTitle": "Want to plan a training session?",
+        "ctaSubtitle": "We tailor the content to your processes, roles and maturity level."
+      },
       "metrics": [
         {
-          "label": "Formato",
-          "value": "2–4 horas",
-          "detail": "Bloques compactos que no interrumpen operaciones y pueden repetirse por equipo."
+          "label": "Format",
+          "value": "2–4 hours",
+          "detail": "Compact blocks that don’t interrupt operations and can be repeated per team."
         },
         {
-          "label": "Seguimiento",
-          "value": "Opcional 30 días",
-          "detail": "Acompañamos la adopción, resolvemos dudas y medimos el uso real tras la sesión."
+          "label": "Follow‑up",
+          "value": "Optional 30 days",
+          "detail": "We support adoption, answer questions and measure real usage after the session."
         },
         {
-          "label": "Materiales",
-          "value": "Playbooks listos para usar",
-          "detail": "Guías por rol, checklists y librerías de prompts adaptadas a tus tareas."
+          "label": "Materials",
+          "value": "Ready‑to‑use playbooks",
+          "detail": "Role‑based guides, checklists and prompt libraries tailored to your tasks."
         }
       ],
       "carousel": {
         "images": [
-          "/assets/1-ordinaly.webp",
-          "/assets/2-ordinaly.webp",
-          "/assets/3-ordinaly.webp",
-          "/assets/4-ordinaly.webp",
-          "/assets/5-ordinaly.webp",
-          "/assets/6-ordinaly.webp"
+          "/ImagenesFormacionIA/1-ordinaly.webp",
+          "/ImagenesFormacionIA/2-ordinaly.webp",
+          "/ImagenesFormacionIA/3-ordinaly.webp",
+          "/ImagenesFormacionIA/4-ordinaly.webp",
+          "/ImagenesFormacionIA/5-ordinaly.webp",
+          "/ImagenesFormacionIA/6-ordinaly.webp"
         ]
       },
       "experts": [
         {
           "name": "Antonio Macías Ferrera",
-          "role": "CTO ingeniero de software & Co-founder",
-          "description": "Ingeniero de software especialista en automatización e inteligencia artificial.",
-          "image": "/assets/Antonio.webp"
+          "role": "CTO, software engineer & Co‑founder",
+          "description": "Software engineer specialized in automation and artificial intelligence.",
+          "image": "/ImagenesFormacionIA/Antonio.webp"
         },
         {
           "name": "Guillermo Montero Fernández Vivancos",
-          "role": "Ingeniero de calidad y proyectos & Co-founder",
-          "description": "Consultor y project manager especializados en IA e ingeniería de calidad.",
-          "image": "/assets/Guillermo.webp"
+          "role": "Quality & project engineer · Co‑founder",
+          "description": "Consultant and project manager specialized in AI and quality engineering.",
+          "image": "/ImagenesFormacionIA/Guillermo.webp"
         }
       ],
       "technologyFaqs": [
         {
-          "tag": "Programa",
-          "question": "¿La formación es genérica o adaptada al negocio?",
-          "answer": "Siempre parte de casos y tareas reales. Sin ese anclaje, la adopción cae y el equipo vuelve a los hábitos anteriores."
+          "tag": "Program",
+          "question": "Is the training generic or tailored to the business?",
+          "answer": "It always starts from real cases and tasks. Without that grounding, adoption drops and the team returns to previous habits."
         },
         {
-          "tag": "Seguridad",
-          "question": "¿Incluye seguridad, privacidad y gobernanza?",
-          "answer": "Sí. Cubrimos minimización de datos, herramientas aprobadas, límites de uso y revisión humana cuando el impacto lo requiere."
+          "tag": "Security",
+          "question": "Does it include security, privacy and governance?",
+          "answer": "Yes. We cover data minimization, approved tools, usage limits and human review when impact requires it."
         },
         {
-          "tag": "Formato",
-          "question": "¿Puede combinarse con un despliegue técnico?",
-          "answer": "Sí. Funciona incluso mejor cuando acompaña un piloto o rollout, porque el equipo aprende sobre su propio flujo de trabajo."
+          "tag": "Format",
+          "question": "Can it be combined with a technical deployment?",
+          "answer": "Yes. It works even better when paired with a pilot or rollout, because the team learns using its own workflow."
         },
         {
-          "tag": "Adopción",
-          "question": "¿Cómo medís si la formación cambia hábitos?",
-          "answer": "Definimos tareas objetivo, tiempo o calidad base y seguimiento posterior. Sin medición, la formación se queda en inspiración."
+          "tag": "Adoption",
+          "question": "How do you measure whether the training changes habits?",
+          "answer": "We define target tasks, baseline time or quality, and follow‑up. Without measurement, training stays as inspiration."
         }
       ],
       "curiosities": [
-        "Más del 85% de las tareas administrativas pueden automatizarse parcial o totalmente con IA.",
-        "Las empresas que adoptan IA reportan un aumento medio del 30% en productividad en menos de 90 días.",
-        "Un modelo de IA puede analizar en milisegundos lo que un humano tardaría horas en revisar.",
-        "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos.",
-        "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
+        "More than 85% of administrative tasks can be partially or fully automated with AI.",
+        "Companies adopting AI report an average 30% productivity increase in under 90 days.",
+        "An AI model can analyze in milliseconds what a human would take hours to review.",
+        "The biggest barrier to AI adoption is not technology, but lack of habits.",
+        "70% of AI incidents are caused by misuse or lack of internal policies."
       ],
       "cta": {
-        "label": "Quiero saber más información",
+        "label": "I want more information",
         "bgColor": "#d97757"
       }
     },
