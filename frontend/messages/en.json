@@ -2892,147 +2892,172 @@
         "bgColor": "#0255D5"
       }
     },
-    "integraciones-crm-erp-sevilla": {
-      "slug": "integraciones-crm-erp-sevilla",
-      "heroImage": "/static/backgrounds/odoo_background.webp",
-      "heroImagePosition": "center center",
-      "title": "CRM and ERP integrations with rules and data quality",
-      "shortTitle": "CRM and ERP integrations",
-      "subtitle": "Robust synchronization between sales, finance, support and inventory without duplicates or silent conflicts.",
-      "description": "We unify systems with clear mappings, field-level ownership and sync observability so data flows with intent, not just with connectors.",
-      "heroBadge": "CRM + ERP connected",
-      "heroCtaLabel": "Audit the integration",
-      "secondaryCtaLabel": "Talk with the team",
-      "serviceType": "CRM, ERP and operational data integrations",
-      "areaServed": "Spain, multi-site teams and hybrid environments",
+    "automatizacion-facturas": {
+      "slug": "automatizacion-facturas",
+      "heroImage": "/static/backgrounds/blog_background.webp",
+      "heroImagePosition": "center 28%",
+      "title": "Invoice Automation",
+      "shortTitle": "Invoice Automation",
+      "heroBadge": "Document Automation",
+      "heroCtaLabel": "Request information",
+      "secondaryCtaLabel": "I want to automate my invoices",
+      "serviceType": "Document automation and intelligent data extraction",
+      "areaServed": "Spain, SMEs, accounting firms, and administrative teams",
       "valueProps": [
-        "We define which system owns each field, when it syncs and what happens on conflict or missing data.",
-        "We validate quality, deduplication and reconciliation to avoid issues that look like integration problems but are actually data-design problems.",
-        "Execution and error dashboards so the operations team can see what fails and where."
+        "Automatic classification by supplier, date, amount, or custom rules.",
+        "Accurate extraction of key data: client, date, items, taxable base, and total.",
+        "Seamless integration with folders, ERPs, CRMs, or accounting systems."
+      ],
+      "sectionTitles": {
+        "howItWorks": "How the automation works",
+        "benefits": "Benefits of automating your invoices",
+        "beforeAfter": "Before and after automation",
+        "before": "Before",
+        "after": "After"
+      },
+      "benefits": [
+        "Save hours every month",
+        "Avoid human errors",
+        "Everything organized automatically",
+        "Compatible with any format"
       ],
       "metrics": [
         {
-          "label": "Sync model",
-          "value": "Bidirectional or directed",
-          "detail": "Direction is chosen by process and criticality, not by technical convenience."
+          "label": "Monthly savings",
+          "value": "6–20 hours",
+          "detail": "Reduced time spent reviewing emails, downloading invoices, and copying data."
         },
         {
-          "label": "Reconciliation",
-          "value": "Explicit rules",
-          "detail": "We separate functional conflicts, duplicates and transport errors."
+          "label": "Accuracy",
+          "value": "98%",
+          "detail": "Automatic extraction with optional validation for uncertain cases."
         },
         {
-          "label": "Coverage",
-          "value": "Critical fields first",
-          "detail": "We prioritize what impacts billing, reporting, support or inventory."
+          "label": "Classification",
+          "value": "Automatic",
+          "detail": "Organization by year, supplier, or project without human intervention."
         }
       ],
       "outcomes": [
-        "Fewer incidents caused by inconsistent data between sales, support and billing.",
-        "Lower onboarding and update time for customers, products or orders.",
-        "Higher confidence in operational and financial reporting because the data foundation is coherent."
+        "Fewer human errors when transcribing data.",
+        "Invoices automatically organized into structured folders.",
+        "Data ready for accounting or analysis without manual work.",
+        "Faster and more traceable administrative processes."
+      ],
+      "before": [
+        "Invoices lost in emails",
+        "Copying data manually",
+        "Errors when transcribing",
+        "Time wasted searching for documents"
+      ],
+      "after": [
+        "Invoices automatically classified",
+        "Data extracted effortlessly",
+        "Zero errors",
+        "Everything accessible in seconds"
       ],
       "steps": [
-        "We audit systems, data models, ownership and recurring sync failures.",
-        "We design the mapping, transformation rules and conflict-management logic.",
-        "We deploy with monitoring, alerts and runbooks for internal support."
+        "We connect your inbox or the folder where you receive invoices.",
+        "We define classification and extraction rules based on your business.",
+        "We activate the automated flow: detection, extraction, and archiving."
       ],
       "useCases": [
         {
-          "tag": "Sales",
-          "title": "Leads, opportunities and orders kept in sync",
-          "description": "Avoids context loss when an opportunity moves from marketing to sales and later to operations.",
+          "tag": "Administration",
+          "title": "Automatic invoice reception",
+          "description": "We detect invoices arriving by email and process them without human intervention.",
           "bullets": [
-            "Same customer identity across systems",
-            "Consistent sales and order states"
+            "Automatic email reading",
+            "Immediate download and classification"
           ]
         },
         {
-          "tag": "Finance",
-          "title": "Billing and collections without double entry",
-          "description": "Connects contracts, orders and invoices to eliminate repetitive and manual errors.",
+          "tag": "Accounting",
+          "title": "Key data extraction",
+          "description": "We extract supplier, date, items, taxable base, and total.",
           "bullets": [
-            "Data transformation across different models",
-            "Mismatch and reconciliation alerts"
+            "Advanced OCR",
+            "Optional data validation"
           ]
         },
         {
-          "tag": "Support",
-          "title": "Complete customer view for support",
-          "description": "The team sees sales, incidents, billing and operational status without jumping across four tools.",
+          "tag": "Operations",
+          "title": "Smart archiving",
+          "description": "We store each invoice in the correct folder according to custom rules.",
           "bullets": [
-            "Unified historical and operational context",
-            "Fewer escalations caused by missing information"
+            "Folders by year or supplier",
+            "Integration with Drive, Dropbox, or ERP"
           ]
         }
       ],
       "technologyFaqs": [
         {
-          "tag": "Compatibility",
-          "question": "Do you only work with Odoo and HubSpot?",
-          "answer": "No. Those are common cases, but the approach also works for custom CRMs, vertical ERPs and internal databases as long as there is access through API, database or controlled exports."
+          "tag": "Processing",
+          "question": "How do you detect invoices automatically?",
+          "answer": "We monitor inboxes or folders and apply OCR models that identify invoice‑type documents without manual rules."
         },
         {
-          "tag": "Conflicts",
-          "question": "How do you handle conflicts when two systems disagree?",
-          "answer": "We define field ownership, time priority and reconciliation rules. If the case cannot be resolved automatically, it goes to a review queue with context."
+          "tag": "Extraction",
+          "question": "What data can be extracted?",
+          "answer": "Supplier, date, invoice number, items, taxable base, VAT, total, and any additional fields you need."
+        },
+        {
+          "tag": "Integration",
+          "question": "Can it connect to my ERP or accounting system?",
+          "answer": "Yes. We can export to CSV, API, Google Drive, OneDrive, Holded, A3, Contasol, and other systems."
         },
         {
           "tag": "Security",
-          "question": "Does it include security and least-privilege access?",
-          "answer": "Yes. We work with segregated credentials, least-privilege access, in-transit encryption and access reviews according to flow criticality."
-        },
-        {
-          "tag": "Operations",
-          "question": "Who maintains the integration once it is in production?",
-          "answer": "It depends on the agreement. We can operate it, hand ownership to the internal team or share it with runbooks, metrics and defined change windows."
+          "question": "How do you handle sensitive data?",
+          "answer": "We apply data minimization, encrypted transmission, and strict access rules. We only process what is necessary for automation."
         }
       ],
       "keywords": [
-        "CRM ERP integrations",
-        "data quality integration",
-        "Odoo HubSpot integration",
-        "operational synchronization"
+        "invoice automation",
+        "document processing",
+        "intelligent OCR",
+        "automatic invoice classification",
+        "administrative automation"
       ],
       "hub": {
-        "title": "Connected systems with clear ownership and rules",
-        "subtitle": "Sales, finance and operations sharing the same operational data.",
-        "bgTheme": "cyan",
+        "title": "Complete invoice automation",
+        "subtitle": "Reception, extraction, classification, and archiving with zero human intervention.",
+        "bgTheme": "orange",
         "platforms": [
           {
             "position": "top-left",
-            "figureKey": "sales-crm",
-            "colorScheme": "indigo",
-            "label": "CRM",
-            "sublabel": "Leads and customers"
+            "figureKey": "email-inbox",
+            "colorScheme": "orange",
+            "label": "Reception",
+            "sublabel": "From email or folder"
           },
           {
             "position": "top-right",
-            "figureKey": "cloud-data",
-            "colorScheme": "cyan",
-            "label": "Sync layer",
-            "sublabel": "Transformation and rules"
+            "figureKey": "document-ocr",
+            "colorScheme": "amber",
+            "label": "Extraction",
+            "sublabel": "Error‑free key data"
           },
           {
             "position": "bottom-left",
-            "figureKey": "finance",
-            "colorScheme": "indigo",
-            "label": "ERP",
-            "sublabel": "Orders and finance"
+            "figureKey": "folder-automation",
+            "colorScheme": "orange",
+            "label": "Classification",
+            "sublabel": "Automatic folders"
           },
           {
             "position": "bottom-right",
-            "figureKey": "workflow",
-            "colorScheme": "cyan",
-            "label": "Observability",
-            "sublabel": "Errors and reconciliation"
+            "figureKey": "erp-sync",
+            "colorScheme": "amber",
+            "label": "Integration",
+            "sublabel": "ERP and accounting"
           }
         ]
       },
       "cta": {
-        "label": "Integrate CRM and ERP",
-        "href": "https://wa.me/34626270806?text=Quiero%20unificar%20CRM%20y%20ERP%20sin%20errores%20de%20dato",
-        "bgColor": "#0255D5"
+        "label": "I want to automate my invoices",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20invoices",
+        "bgColor": "#d97706"
       }
     }
   },
