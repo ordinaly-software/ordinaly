@@ -2658,6 +2658,13 @@
         "Integración entre CRM, ERP, email, WhatsApp, formularios y herramientas internas.",
         "Reducción del 40–70% en tareas manuales y eliminación de errores repetitivos."
       ],
+      "sectionTitles": {
+        "howItWorks": "Cómo funciona la automatización inteligente",
+        "benefits": "Beneficios de la automatización inteligente",
+        "beforeAfter": "Antes y después de automatizar",
+        "before": "Antes",
+        "after": "Después"
+      },
       "metrics": [
         {
           "label": "Ahorro operativo",

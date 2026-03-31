@@ -3035,148 +3035,176 @@
         "bgColor": "#0255D5"
       }
     },
-    "inteligencia-artificial-empresas": {
-      "slug": "inteligencia-artificial-empresas",
-      "title": "Artificial Intelligence applied to business processes",
-      "shortTitle": "AI for business",
-      "subtitle": "We automate tasks, reduce operational time and build internal copilots tailored to your business.",
-      "description": "We design and deploy AI solutions that improve productivity, eliminate repetitive work and let teams focus on higher-value tasks. Private models, secure automations and assistants trained on your own knowledge.",
-      "heroCtaLabel": "Evaluate my case",
+    "automatizacion-inteligente": {
+      "slug": "automatizacion-inteligente",
+      "heroImage": "/static/backgrounds/automation_background.webp",
+      "heroImagePosition": "center 38%",
+      "title": "Intelligent Automation for Businesses",
+      "shortTitle": "Intelligent Automation",
+      "heroBadge": "AI + Automation",
+      "heroCtaLabel": "Learn more",
       "heroCtaHref": "#formulario",
-      "secondaryCtaLabel": "Talk to the team",
-      "serviceType": "Automation, internal copilots and private models",
-      "areaServed": "Spain and remote teams",
+      "secondaryCtaLabel": "Chat on WhatsApp",
+      "serviceType": "Automation of internal, commercial, and operational processes",
+      "areaServed": "Spain and distributed teams",
       "valueProps": [
-        "Internal copilots trained on your knowledge.",
-        "Automation of repetitive and operational tasks.",
-        "Private models with full data control.",
-        "Integration with internal tools and existing workflows."
+        "Automation of commercial, operational, and administrative processes using AI.",
+        "Integration between CRM, ERP, email, WhatsApp, forms, and internal tools.",
+        "40–70% reduction in manual tasks and elimination of repetitive errors."
       ],
+      "sectionTitles": {
+        "howItWorks": "How intelligent automation works",
+        "benefits": "Benefits of intelligent automation",
+        "beforeAfter": "Before and after automation",
+        "before": "Before",
+        "after": "After"
+      },
       "metrics": [
         {
           "label": "Operational savings",
-          "value": "30% - 60%",
-          "detail": "Reduction in time spent on repetitive tasks."
+          "value": "40–70%",
+          "detail": "Real reduction of manual work in repetitive processes."
         },
         {
-          "label": "Speed",
-          "value": "x10",
-          "detail": "Content generation, reports and responses."
+          "label": "Process speed",
+          "value": "3× faster",
+          "detail": "Automations that execute tasks in seconds, not minutes."
         },
         {
-          "label": "Security",
-          "value": "Private",
-          "detail": "Models deployed in your own infrastructure."
+          "label": "Full integration",
+          "value": "CRM + ERP + AI",
+          "detail": "We connect your systems so information flows without friction."
         }
       ],
       "outcomes": [
-        "Fewer manual and repetitive tasks.",
-        "Faster teams with less operational overhead.",
-        "More consistent and auditable processes.",
-        "Higher quality in documentation, responses and analysis."
+        "Automated processes running 24/7 without human intervention.",
+        "Teams focused on high‑value tasks.",
+        "Reduced errors and improved operational traceability."
       ],
       "steps": [
-        "We analyse your processes, bottlenecks and real automation opportunities.",
-        "We design the solution: copilot, automation or private model based on your case.",
-        "We deploy, train the team and set up usage metrics and continuous improvement."
+        "We analyze your current processes and identify bottlenecks.",
+        "We design the automated flow and define rules + AI.",
+        "We integrate your tools and monitor results."
+      ],
+      "benefits": [
+        "40–70% reduction in manual tasks",
+        "Processes 3× faster",
+        "Elimination of repetitive errors",
+        "Full integration between your tools",
+        "Direct savings in operational costs",
+        "Teams focused on high‑value work"
+      ],
+      "before": [
+        "Repetitive tasks consuming hours",
+        "Constant human errors",
+        "Slow and non‑scalable processes",
+        "Lack of integration between tools",
+        "Teams overloaded with administrative work"
+      ],
+      "after": [
+        "Automated processes running 24/7",
+        "Zero repetitive errors",
+        "Full integration between systems",
+        "Time and cost savings",
+        "Teams focused on high‑value tasks"
       ],
       "useCases": [
         {
           "tag": "Operations",
-          "title": "Repetitive task automation",
-          "description": "Email classification, data extraction, report generation and automatic summaries.",
+          "title": "Internal process automation",
+          "description": "Automated flows between CRM, ERP, email, documents, and internal systems.",
           "bullets": [
-            "Less manual workload",
-            "Faster and more consistent processes"
+            "Automatic validations",
+            "Status and record updates"
           ]
         },
         {
-          "tag": "Support",
-          "title": "Copilot for internal or external support",
-          "description": "Answers questions, queries documentation and generates responses based on your internal knowledge.",
+          "tag": "Sales",
+          "title": "Commercial automation",
+          "description": "Automated follow‑ups, lead scoring, intelligent responses, and scheduling.",
           "bullets": [
-            "Faster responses",
-            "Fewer escalations"
+            "Automatic lead nurturing",
+            "Rule‑based assignment"
           ]
         },
         {
-          "tag": "Management",
-          "title": "Automatic reports and analysis",
-          "description": "Report generation, executive summaries and data analysis in seconds.",
+          "tag": "Administration",
+          "title": "Administrative automation",
+          "description": "Invoices, reports, reconciliations, and document generation.",
           "bullets": [
-            "Faster decisions",
-            "Always up-to-date information"
+            "AI‑powered data extraction",
+            "Automatic report generation"
           ]
         }
       ],
       "technologyFaqs": [
         {
-          "tag": "Privacy",
-          "question": "Does the AI use my data to train external models?",
-          "answer": "No. Models can run in your own infrastructure or private environments without sharing data with third parties."
+          "tag": "Integration",
+          "question": "Which tools can you integrate with?",
+          "answer": "CRM, ERP, Google Workspace, Microsoft 365, WhatsApp, Slack, Notion, Airtable, databases, and custom APIs."
         },
         {
-          "tag": "Integration",
-          "question": "Can it connect to my current tools?",
-          "answer": "Yes. We can integrate AI with your internal systems, databases, CRM, ERP or communication tools."
+          "tag": "AI",
+          "question": "What type of AI do you use?",
+          "answer": "Classification, data extraction, summarization, content generation, and rule‑based + AI decision making."
         },
         {
           "tag": "Security",
-          "question": "Does it comply with GDPR and internal requirements?",
-          "answer": "Yes. We implement minimal permissions, auditing, encryption and role-based access control."
+          "question": "Is it safe to automate critical processes?",
+          "answer": "Yes. We design flows with validations, logs, error handling, and full traceability."
         },
         {
-          "tag": "Maintenance",
-          "question": "Who maintains the system once deployed?",
-          "answer": "We can operate it ourselves or hand it over to your team with documentation and runbooks."
+          "tag": "Scalability",
+          "question": "Can the automations grow with my business?",
+          "answer": "Yes. We design modular flows that can be expanded without rebuilding the entire system."
         }
       ],
       "keywords": [
-        "artificial intelligence for business",
-        "AI automation",
-        "internal copilots",
-        "private AI models",
-        "AI for companies"
+        "intelligent automation",
+        "process automation",
+        "AI for business",
+        "CRM ERP integration",
+        "operational automation"
       ],
       "hub": {
-        "title": "AI integrated into your processes",
-        "subtitle": "Automation, copilots and private models connected to your business.",
-        "bgTheme": "cyan",
+        "title": "Processes connected with AI, CRM, and automation",
+        "subtitle": "An operating system for your company that runs 24/7.",
+        "bgTheme": "orange",
         "platforms": [
           {
             "position": "top-left",
-            "figureKey": "ai-copilot",
+            "figureKey": "automation",
             "colorScheme": "indigo",
-            "label": "Copilot",
-            "sublabel": "Internal assistant"
+            "label": "Automation",
+            "sublabel": "Internal flows"
           },
           {
             "position": "top-right",
-            "figureKey": "automation",
+            "figureKey": "ai",
             "colorScheme": "cyan",
-            "label": "Automation",
-            "sublabel": "Repetitive processes"
+            "label": "AI",
+            "sublabel": "Classification and decisions"
           },
           {
             "position": "bottom-left",
-            "figureKey": "private-model",
+            "figureKey": "crm",
             "colorScheme": "indigo",
-            "label": "Private model",
-            "sublabel": "Security and control"
+            "label": "CRM",
+            "sublabel": "Context and data"
           },
           {
             "position": "bottom-right",
-            "figureKey": "observability",
+            "figureKey": "dashboard",
             "colorScheme": "cyan",
-            "label": "Observability",
-            "sublabel": "Metrics and control"
+            "label": "Dashboards",
+            "sublabel": "KPIs and traceability"
           }
         ]
       },
       "cta": {
-        "label": "Deploy AI in my company",
-        "href": "https://wa.me/34626270806?text=I%20want%20to%20deploy%20AI%20in%20my%20company",
-        "bgColor": "#0255D5"
+        "label": "I want to automate my company",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20processes",
+        "bgColor": "#D97757"
       }
     }
   },
