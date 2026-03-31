@@ -129,10 +129,10 @@ export function AiChatDemo({ t }: SectionProps) {
   }, []);
 
   const goTo = useCallback((index: number) => {
-    if (index === activeIndex || isAnimating) return;
+    if (index === activeIndex) return;
     setActiveIndex(index);
     startAnimation(scenarios[index].messages.length);
-  }, [activeIndex, isAnimating, scenarios, startAnimation]);
+  }, [activeIndex, scenarios, startAnimation]);
 
   const goPrev = useCallback(() => {
     goTo((activeIndex - 1 + SCENARIO_COUNT) % SCENARIO_COUNT);

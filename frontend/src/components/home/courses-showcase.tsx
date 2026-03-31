@@ -3,11 +3,12 @@
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import type { MouseEvent } from 'react';
 import dynamic from "next/dynamic";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ErrorCard from "@/components/ui/error-card";
 import { Badge } from "@/components/ui/badge";
-import { Clock, MapPin, Calendar, Euro, ArrowLeft, ArrowRight, BookOpen } from "lucide-react";
+import { Clock, MapPin, Calendar, Euro, ArrowRight, BookOpen } from "lucide-react";
+import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
 import { useCourses, type Course } from "@/hooks/useCourses";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -32,14 +33,12 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [imageErrors, setImageErrors] = useState<Set<number>>(new Set());
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [slidesToShow, setSlidesToShow] = useState(3);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const shouldLazyLoad = showUpcomingOnly || !initialCourses || initialCourses.length < limit;
   const [hasBeenVisible, setHasBeenVisible] = useState(!shouldLazyLoad);
   const sectionRef = useRef<HTMLElement | null>(null);
-  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
-  const sampleCardRef = useRef<HTMLDivElement | null>(null);
-  const cardWidthRef = useRef<number | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
   const [hydratedNowMs, setHydratedNowMs] = useState<number | null>(null);
 
   useEffect(() => {
@@ -55,23 +54,6 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     setIsAuthenticated(!!token);
   }, []);
   
-  useEffect(() => {
-    const updateSlidesToShow = () => {
-      if (typeof window === 'undefined') return;
-      if (window.innerWidth < 768) {
-        setSlidesToShow(1);
-      } else if (window.innerWidth < 1024) {
-        setSlidesToShow(2);
-      } else {
-        setSlidesToShow(3);
-      }
-    };
-
-    updateSlidesToShow();
-    window.addEventListener('resize', updateSlidesToShow);
-    return () => window.removeEventListener('resize', updateSlidesToShow);
-  }, []);
-
   useEffect(() => {
     if (!shouldLazyLoad || hasBeenVisible) return;
     const observer = new IntersectionObserver(
@@ -132,39 +114,48 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     return combined.slice(0, limit);
   }, [limit, orderedCourses, showUpcomingOnly, nowMs]);
 
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, [displayCourses.length, slidesToShow]);
-
-  useEffect(() => {
-    const card = sampleCardRef.current;
-    if (!card) return;
-
-    const updateWidth = () => {
-      const width = card.getBoundingClientRect().width;
-      if (width > 0) {
-        cardWidthRef.current = width;
-      }
-    };
-
-    updateWidth();
-
-    const observer = new ResizeObserver(() => {
-      updateWidth();
-    });
-
-    observer.observe(card);
-
-    return () => {
-      observer.disconnect();
-    };
-  }, [displayCourses.length, slidesToShow]);
-
   // Removed enrollments fetching effect for homepage
 
   const handleImageError = useCallback((courseId: number) => {
     setImageErrors(prev => new Set(prev).add(courseId));
   }, []);
+
+  const checkScrollability = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 1);
+  }, []);
+
+  const handleScrollLeft = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTo({ left: Math.max(el.scrollLeft - 340, 0), behavior: 'smooth' });
+  }, []);
+
+  const handleScrollRight = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollTo({ left: Math.min(el.scrollLeft + 340, el.scrollWidth - el.clientWidth), behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    // Use ResizeObserver so we check after the browser has computed layout
+    const observer = new ResizeObserver(() => {
+      checkScrollability();
+    });
+    observer.observe(el);
+    // Also observe the inner flex container so card width changes are caught
+    if (el.firstElementChild) observer.observe(el.firstElementChild);
+    // Initial check after a frame to ensure layout is done
+    const raf = requestAnimationFrame(checkScrollability);
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [displayCourses.length, checkScrollability]);
 
   const handleCourseClick = useCallback((course: Course) => {
     if (onCourseClick) {
@@ -208,46 +199,6 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     }
   };
 
-  const maxIndex = Math.max(displayCourses.length - slidesToShow, 0);
-  const canSlide = displayCourses.length > slidesToShow;
-  const atStart = currentIndex === 0;
-  const atEnd = currentIndex >= maxIndex;
-
-  const getCardWidth = () => {
-    return cardWidthRef.current;
-  };
-
-  const handleTouchScroll = () => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-    const cardWidth = getCardWidth();
-    if (!cardWidth) return;
-    const totalCards = displayCourses.length || 1;
-    const index = Math.round(container.scrollLeft / (cardWidth + 24));
-    setCurrentIndex(Math.max(0, Math.min(totalCards - 1, index)));
-  };
-
-  const goToPrev = () => {
-    const cardWidth = getCardWidth();
-    const nextIndex = Math.max(currentIndex - 1, 0);
-    if (scrollContainerRef.current && cardWidth) {
-      scrollContainerRef.current.scrollTo({ left: cardWidth * nextIndex, behavior: 'smooth' });
-      setCurrentIndex(nextIndex);
-    } else if (!atStart) {
-      setCurrentIndex(nextIndex);
-    }
-  };
-
-  const goToNext = () => {
-    const cardWidth = getCardWidth();
-    const nextIndex = Math.min(currentIndex + 1, displayCourses.length - 1);
-    if (scrollContainerRef.current && cardWidth) {
-      scrollContainerRef.current.scrollTo({ left: cardWidth * nextIndex, behavior: 'smooth' });
-      setCurrentIndex(nextIndex);
-    } else if (!atEnd) {
-      setCurrentIndex(nextIndex);
-    }
-  };
 
   const getAvailabilityBadge = (course: Course) => {
     const hasValidStartDate = Boolean(course.start_date && course.start_date !== "0000-00-00");
@@ -337,80 +288,73 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
         </div>
 
         {isLoading ? (
-          <div className="relative max-w-6xl mx-auto">
-            <div className="overflow-hidden">
-              <div className="flex gap-6 px-3">
-                {Array.from({ length: Math.max(slidesToShow, Math.min(limit, 3)) }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0"
-                    style={{ flexBasis: `${100 / slidesToShow}%` }}
-                  >
-                    <Card className="h-auto flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong]">
-                      <CardHeader>
-                        <div className="w-full h-48 bg-oat dark:bg-[--swatch--slate-medium] rounded-lg animate-pulse mb-4"></div>
-                        <div className="h-6 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse mb-2"></div>
-                        <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse mb-2"></div>
-                        <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded w-3/4 animate-pulse"></div>
-                      </CardHeader>
-                      <CardContent className="flex-1">
-                        <div className="space-y-3">
-                          <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
-                          <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
-                          <div className="h-10 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ))}
-              </div>
+          <div className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none]">
+            <div className="flex gap-6">
+              {Array.from({ length: Math.min(limit, 3) }).map((_, index) => (
+                <div key={index} className="flex-shrink-0 flex" style={{ width: 'max(280px, calc((100% - 48px) / 3))' }}>
+                  <Card className="w-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong]">
+                    <CardHeader>
+                      <div className="w-full h-36 bg-oat dark:bg-[--swatch--slate-medium] rounded-lg animate-pulse mb-4"></div>
+                      <div className="h-6 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse mb-2"></div>
+                      <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded w-3/4 animate-pulse"></div>
+                    </CardHeader>
+                    <CardContent className="flex-1">
+                      <div className="space-y-3">
+                        <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
+                        <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
+                        <div className="h-10 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse"></div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
             </div>
           </div>
         ) : (
-          <div className="relative max-w-6xl mx-auto">
-            <div
-              className="overflow-x-auto scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none]"
-              ref={scrollContainerRef}
-              onScroll={handleTouchScroll}
-            >
-              <div className="flex transition-transform duration-500 ease-in-out gap-6 px-3">
-                  {displayCourses.map((course, index) => {
-                  const availabilityBadge = getAvailabilityBadge(course);
-                  const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
-                  const endDate = course.end_date && course.end_date !== "0000-00-00" ? new Date(course.end_date) : null;
-                  const highlightUpcoming = Boolean(startDate && startDate > nowDate);
-                  const isPastCourse = Boolean(
-                    endDate
-                      ? endDate < nowDate
-                      : startDate
-                        ? startDate < nowDate
-                        : false
-                  );
-                  const cleanTitle = cleanCourseTitle(course.title);
-                  const fallbackTitle = cleanTitle.split(' ').slice(0, 3).join(' ');
-                  const handleAction = (event: React.MouseEvent<HTMLButtonElement>) => {
-                    if (isPastCourse) {
-                      event.stopPropagation();
-                      handlePastCourseInquiry(course);
-                      return;
-                    }
-                    handleSignUpClick(event, course);
-                  };
-                  const buttonLabel = highlightUpcoming
-                    ? t('enrollCta')
-                    : t('moreInfo');
-                  
-                  return (
-                    <div
-                      key={course.id}
-                      className="flex-shrink-0"
-                      style={{ flexBasis: `${100 / slidesToShow}%` }}
-                      ref={index === 0 ? sampleCardRef : undefined}
-                    >
+          <div className="relative">
+          <div
+            ref={scrollRef}
+            onScroll={checkScrollability}
+            className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] snap-x snap-mandatory"
+          >
+            <div className="flex gap-6">
+            {displayCourses.map((course) => {
+              const availabilityBadge = getAvailabilityBadge(course);
+              const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
+              const endDate = course.end_date && course.end_date !== "0000-00-00" ? new Date(course.end_date) : null;
+              const highlightUpcoming = Boolean(startDate && startDate > nowDate);
+              const isPastCourse = Boolean(
+                endDate
+                  ? endDate < nowDate
+                  : startDate
+                    ? startDate < nowDate
+                    : false
+              );
+              const cleanTitle = cleanCourseTitle(course.title);
+              const fallbackTitle = cleanTitle.split(' ').slice(0, 3).join(' ');
+              const handleAction = (event: React.MouseEvent<HTMLButtonElement>) => {
+                if (isPastCourse) {
+                  event.stopPropagation();
+                  handlePastCourseInquiry(course);
+                  return;
+                }
+                handleSignUpClick(event, course);
+              };
+              const buttonLabel = highlightUpcoming
+                ? t('enrollCta')
+                : t('moreInfo');
+
+              return (
+                <div
+                  key={course.id}
+                  className="flex-shrink-0 flex snap-start"
+                  style={{ width: 'max(280px, calc((100% - 48px) / 3))' }}
+                >
                       <Card
                         className={
-                          `h-auto flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong] transition-all duration-300 hover:shadow-xl hover:border-clay/30 dark:hover:border-clay/30 hover:-translate-y-1 cursor-pointer group rounded-3xl ` +
-                          (highlightUpcoming ? 'ring-2 ring-clay shadow-2xl scale-[0.97] z-10' : '')
+                          `w-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong] transition-all duration-300 hover:shadow-xl hover:border-clay/30 dark:hover:border-clay/30 hover:-translate-y-1 cursor-pointer group rounded-3xl ` +
+                          (highlightUpcoming ? 'ring-2 ring-clay shadow-2xl z-10' : '') +
+                          (isPastCourse ? ' opacity-70' : '')
                         }
                         style={highlightUpcoming ? { boxShadow: '0 0 0 3px var(--swatch--clay), 0 8px 15px 0 var(--swatch--clay)44' } : {}}
                         onClick={() => handleCourseClick(course)}
@@ -460,14 +404,9 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                           </div>
                           
                           <div className="space-y-2">
-                            <CardTitle className="text-xl text-slate-dark dark:text-ivory-light group-hover:text-clay dark:group-hover:text-clay transition-colors break-words whitespace-pre-line">
+                            <CardTitle className="text-xl text-slate-dark dark:text-ivory-light group-hover:text-clay dark:group-hover:text-clay transition-colors line-clamp-2">
                               {cleanTitle}
                             </CardTitle>
-                            {course.subtitle && (
-                              <CardDescription className="text-slate-medium dark:text-cloud-medium line-clamp-2">
-                                {course.subtitle}
-                              </CardDescription>
-                            )}
                           </div>
                         </CardHeader>
                         
@@ -578,32 +517,29 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                       </Card>
                     </div>
                   );
-                })}
-              </div>
+            })}
             </div>
-
-            {canSlide && (
-              <div className="relative flex justify-end gap-2 mt-4 md:mt-6 pr-2 md:pr-4">
-                <button
-                  type="button"
-                  aria-label={t('previous')}
-                  onClick={goToPrev}
-                  disabled={atStart}
-                  className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] text-slate-medium dark:text-cloud-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                </button>
-                <button
-                  type="button"
-                  aria-label={t('next')}
-                  onClick={goToNext}
-                  disabled={atEnd}
-                  className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] text-slate-medium dark:text-cloud-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </div>
-            )}
+          </div>
+          <div className="mt-4 flex justify-end gap-2 px-1">
+            <button
+              type="button"
+              aria-label={t('previous')}
+              onClick={handleScrollLeft}
+              disabled={!canScrollLeft}
+              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
+            >
+              <IconArrowNarrowLeft className="h-6 w-6 text-clay dark:text-clay" />
+            </button>
+            <button
+              type="button"
+              aria-label={t('next')}
+              onClick={handleScrollRight}
+              disabled={!canScrollRight}
+              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
+            >
+              <IconArrowNarrowRight className="h-6 w-6 text-clay dark:text-clay" />
+            </button>
+          </div>
           </div>
         )}
 
@@ -614,9 +550,10 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               variant="outline"
               size="lg"
               onClick={() => router.push('/formation')}
+              className="bg-transparent border-2 border-clay text-clay hover:bg-clay hover:text-white dark:border-clay dark:text-clay dark:hover:bg-clay dark:hover:text-ivory-light transition-all duration-300 px-6 py-3 text-base font-semibold rounded-full shadow-md hover:shadow-lg hover:shadow-clay/20 group"
             >
               {t('viewAllCourses')}
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         )}
