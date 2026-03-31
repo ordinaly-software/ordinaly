@@ -17,12 +17,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const messages = await getMessages({ locale });
-  const landing = (messages as { landings?: Record<string, LandingMetadataContent> }).landings?.[slug];
-
-  if (!landing) {
-    throw new Error(`Missing landing content: ${slug}`);
-  }
-
+  const messagesWithLandings = messages as { landings?: Record<string, LandingMetadataContent> };
+  const landing: LandingMetadataContent =
+    messagesWithLandings.landings?.[slug] ?? {
+      title: slug,
+      description: "",
+    };
   return createPageMetadata({
     locale,
     path: `/${slug}`,
