@@ -2363,138 +2363,71 @@
       }
     },
     "automatizacion-n8n-sevilla": {
-      "slug": "automatizacion-n8n-sevilla",
+      "slug": "n8n-automation-seville",
       "heroImage": "/static/backgrounds/n8n_background.webp",
       "heroImagePosition": "center center",
       "title": "n8n automation with observability and control",
       "shortTitle": "n8n automation",
-      "subtitle": "Versioned workflows for syncs, alerts, reconciliation and AI-assisted operations.",
-      "description": "We design n8n flows with retries, queues, logs and node-level metrics so automation stops being a black box and becomes operable infrastructure.",
+      "subtitle": "Versioned workflows for synchronization, alerts, reconciliation and AI‑assisted operations.",
+      "description": "We design n8n flows with retries, queues, logs and per‑node metrics so automation stops being a black box and becomes operable infrastructure.",
       "heroBadge": "n8n + observability",
       "heroCtaLabel": "Audit processes",
-      "secondaryCtaLabel": "Talk on WhatsApp",
-      "serviceType": "Process automation and integrations on n8n",
-      "areaServed": "Spain and EU remote delivery",
-      "valueProps": [
-        "Reusable flows with version control and clear separation between secrets, logic and configuration.",
-        "Success, failure and latency metrics per workflow to detect real bottlenecks.",
-        "Managed or self-hosted deployment with backups, environments and change policies."
-      ],
-      "metrics": [
-        {
-          "label": "Initial scope",
-          "value": "2-5 workflows",
-          "detail": "We usually start with automations carrying the highest manual cost or failure volume."
-        },
-        {
-          "label": "Retry model",
-          "value": "Idempotent",
-          "detail": "We design operations so retries do not duplicate records or create inconsistent states."
-        },
-        {
-          "label": "Visibility",
-          "value": "Node-level",
-          "detail": "Critical events, payloads and correlated errors for fast debugging."
-        }
-      ],
-      "outcomes": [
-        "Time saved by process and owner, not only number of executions.",
-        "Success rate per workflow with transient failures separated from logic failures.",
-        "Operational backlog removed through syncs and automated alerts."
-      ],
-      "steps": [
-        "We map the process, involved systems and points where data changes state.",
-        "We design nodes, queues, webhooks and manual fallback with logs from day one.",
-        "We leave runbooks, monitoring and shared ownership with your team."
-      ],
-      "useCases": [
-        {
-          "tag": "Finance",
-          "title": "Recurring reconciliation and reporting",
-          "description": "Automate exports, validation and report delivery without depending on manual spreadsheets.",
-          "bullets": [
-            "Invoice, payment and collections matching",
-            "Alerts when data is missing or mismatched"
-          ]
-        },
-        {
-          "tag": "Operations",
-          "title": "ERP, CRM and form synchronization",
-          "description": "Removes manual copy-paste and ensures each new record or change reaches the right system.",
-          "bullets": [
-            "Cascade create and update flows",
-            "Duplicate and critical-key validation"
-          ]
-        },
-        {
-          "tag": "Support",
-          "title": "Incident alerting and triage",
-          "description": "Turns system events into prioritized tickets with context and assigned owner.",
-          "bullets": [
-            "Automatic creation in Slack, email or ticketing",
-            "Escalation rules by severity and SLA"
-          ]
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Deployment",
-          "question": "Do you work with n8n cloud, self-hosted or on-prem?",
-          "answer": "Yes. We choose the setup based on security, latency, access to internal systems and the team’s operating capacity."
-        },
-        {
-          "tag": "Reliability",
-          "question": "How do you avoid fragile workflows that become impossible to maintain?",
-          "answer": "We separate logic, credentials and configuration; avoid giant workflows; document critical nodes and design retries and idempotency from the start."
-        },
-        {
-          "tag": "Integrations",
-          "question": "Which systems do you integrate most often?",
-          "answer": "ERP, CRM, SQL, spreadsheets, messaging services, finance tools, ticketing and internal or third-party APIs."
-        },
-        {
-          "tag": "Governance",
-          "question": "Can the team maintain the workflows afterward?",
-          "answer": "Yes, if that is the goal. We deliver runbooks, naming conventions, dashboards and training so the team can operate and extend the system without rebuilding the foundation."
-        }
-      ],
-      "keywords": [
-        "n8n automation",
-        "observable workflows",
-        "operational integrations",
-        "self-hosted n8n"
-      ],
-      "hub": {
-        "title": "Automation layer connected to the full stack",
-        "subtitle": "Workflows, data, finance and teams sharing the same operational signal.",
-        "bgTheme": "cyan",
-        "platforms": [
-          {
-            "position": "top-left",
-            "figureKey": "workflow",
-            "colorScheme": "indigo",
-            "label": "n8n workflows",
-            "sublabel": "Orchestration and logic"
-          },
-          {
-            "position": "top-right",
-            "figureKey": "cloud-data",
-            "colorScheme": "cyan",
-            "label": "Data and APIs",
-            "sublabel": "Events and sync"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "finance",
-            "colorScheme": "cyan",
-            "label": "Metrics and reporting",
-            "sublabel": "KPIs per workflow"
-          }
-        ]
+      "secondaryCtaLabel": "Chat on WhatsApp",
+      "secondaryCtaHref": "https://wa.me/34626270806",
+      "serviceType": "Process automation and integrations built on n8n",
+      "areaServed": "Spain and remote deployment across the EU",
+      "sectionTitles": {
+        "whatIsN8N": "What is n8n?",
+        "whatWeAutomate": "What we automate with n8n",
+        "integrations": "We connect it with what you already use",
+        "faq": "Frequently asked questions",
+        "ctaTitle": "Automate your processes with n8n",
+        "ctaSubtitle": "We build robust, scalable flows tailored to your business."
       },
+      "whatIsN8N": "n8n is a visual automation platform that allows you to connect systems, transform data and execute complex logic without custom development. Its node‑based architecture, retries, queues, logs and version control turn each workflow into operable, auditable and scalable infrastructure. It’s the modern way to automate processes without losing control or visibility.",
+      "whatWeAutomate": [
+        {
+          "title": "System synchronization",
+          "description": "ERP, CRM, forms, databases and internal tools working in real time without duplicates or errors."
+        },
+        {
+          "title": "Alerts and monitoring",
+          "description": "Automatic notifications when data fails, a process stops or a system stops responding."
+        },
+        {
+          "title": "Reconciliation and reporting",
+          "description": "Invoice matching, payments, collections and report generation without manual spreadsheets."
+        },
+        {
+          "title": "Operational automation",
+          "description": "Onboarding, updates, validations and flows that reduce repetitive daily tasks."
+        },
+        {
+          "title": "Custom integrations",
+          "description": "Internal APIs, external services, webhooks, queues and hybrid cloud/on‑prem processes."
+        }
+      ],
+      "faq": [
+        {
+          "question": "Can we start even if our processes aren’t defined?",
+          "answer": "Yes. We map systems, failure points and repetitive tasks together to prioritize automations with immediate impact."
+        },
+        {
+          "question": "Do we need programming knowledge to maintain the flows?",
+          "answer": "No. We leave naming conventions, dashboards, documentation and training so your team can operate without relying on development."
+        },
+        {
+          "question": "Can you integrate it with our current tools?",
+          "answer": "Yes. We connect n8n with ERP, CRM, databases, internal APIs, spreadsheets, messaging tools and any service with an API."
+        },
+        {
+          "question": "How do you ensure flows don’t break?",
+          "answer": "We design retries, idempotency, logs, queues and alerts from day one to avoid inconsistent states."
+        }
+      ],
       "cta": {
         "label": "Automate with n8n",
-        "href": "https://wa.me/34626270806?text=Quiero%20auditar%20procesos%20para%20automatizar%20con%20n8n",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20audit%20processes%20to%20automate%20with%20n8n",
         "bgColor": "#0255D5"
       }
     },
