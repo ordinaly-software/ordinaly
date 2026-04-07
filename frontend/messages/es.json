@@ -2221,8 +2221,6 @@
   "landings": {
     "agencia-automatizacion-ia": {
       "slug": "agencia-automatizacion-ia",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 32%",
       "title": "Chatbots empresariales con datos conectados",
       "shortTitle": "Agencia de Automatización IA",
       "subtitle": "RAG, guardrails y handoff humano para soporte, ventas y help desks internos.",
@@ -2364,8 +2362,6 @@
     },
     "automatizacion-n8n-sevilla": {
       "slug": "automatizacion-n8n-sevilla",
-      "heroImage": "/static/backgrounds/n8n_background.webp",
-      "heroImagePosition": "center center",
       "title": "Automatización n8n con observabilidad y control",
       "shortTitle": "Automatización n8n",
       "subtitle": "Workflows versionados para sincronización, alertas, conciliación y operaciones asistidas por IA.",
@@ -2500,8 +2496,6 @@
     },
     "automatizacion-facturas": {
       "slug": "automatizacion-facturas",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 28%",
       "title": "Agentes IA para atención al cliente con acción segura",
       "shortTitle": "Automatización de Facturas",
       "subtitle": "Agentes capaces de consultar, ejecutar y escalar con políticas operativas bien definidas.",
@@ -2643,8 +2637,6 @@
     },
     "automatizacion-inteligente": {
       "slug": "automatizacion-inteligente",
-      "heroImage": "/static/backgrounds/us_background.webp",
-      "heroImagePosition": "center 38%",
       "title": "WhatsApp Business automatizado con medición real",
       "shortTitle": "Automatización Inteligente",
       "subtitle": "Mensajería operativa para captación, soporte y seguimiento con SLA, plantillas y contexto CRM.",
@@ -2786,8 +2778,6 @@
     },
     "formacion-ia-pymes-sevilla": {
       "slug": "formacion-ia-pymes-sevilla",
-      "heroImage": "/ImagenesFormacionIA/hero-blurred.webp",
-      "heroImagePosition": "center 30%",
       "title": "Formación en IA aplicada a procesos reales",
       "shortTitle": "Formación IA",
       "heroBadge": "Formación operativa",
@@ -2810,6 +2800,12 @@
         "ctaTitle": "¿Quieres planificar una formación?",
         "ctaSubtitle": "Adaptamos el contenido a tus procesos, roles y nivel de madurez."
       },
+      "ui": {
+        "linkedinLabel": "LinkedIn",
+        "faqCtaLabel": "Ver todas las preguntas frecuentes",
+        "previousLabel": "Anterior",
+        "nextLabel": "Siguiente"
+      },
       "metrics": [
         {
           "label": "Formato",
@@ -2827,28 +2823,16 @@
           "detail": "Guías por rol, checklists y librerías de prompts adaptadas a tus tareas."
         }
       ],
-      "carousel": {
-        "images": [
-          "/ImagenesFormacionIA/1-ordinaly.webp",
-          "/ImagenesFormacionIA/2-ordinaly.webp",
-          "/ImagenesFormacionIA/3-ordinaly.webp",
-          "/ImagenesFormacionIA/4-ordinaly.webp",
-          "/ImagenesFormacionIA/5-ordinaly.webp",
-          "/ImagenesFormacionIA/6-ordinaly.webp"
-        ]
-      },
       "experts": [
         {
           "name": "Antonio Macías Ferrera",
           "role": "CTO ingeniero de software & Co-founder",
-          "description": "Ingeniero de software especialista en automatización e inteligencia artificial.",
-          "image": "/ImagenesFormacionIA/Antonio.webp"
+          "description": "Ingeniero de software especialista en automatización e inteligencia artificial."
         },
         {
           "name": "Guillermo Montero Fernández Vivancos",
           "role": "Ingeniero de calidad y proyectos & Co-founder",
-          "description": "Consultor y project manager especializados en IA e ingeniería de calidad.",
-          "image": "/ImagenesFormacionIA/Guillermo.webp"
+          "description": "Consultor y project manager especializados en IA e ingeniería de calidad."
         }
       ],
       "technologyFaqs": [
@@ -2880,6 +2864,33 @@
         "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos.",
         "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
       ],
+      "curiosityCards": [
+        {
+          "title": "Uso empresarial",
+          "badge": "Dato real",
+          "text": "Más del 85% de las tareas administrativas pueden automatizarse parcial o totalmente con IA."
+        },
+        {
+          "title": "Productividad",
+          "badge": "Impacto directo",
+          "text": "Las empresas que adoptan IA reportan un aumento medio del 30% en productividad en menos de 90 días."
+        },
+        {
+          "title": "Velocidad",
+          "badge": "Capacidad técnica",
+          "text": "Un modelo de IA puede analizar en milisegundos lo que un humano tardaría horas en revisar."
+        },
+        {
+          "title": "Adopción",
+          "badge": "Comportamiento humano",
+          "text": "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos."
+        },
+        {
+          "title": "Seguridad",
+          "badge": "Governance",
+          "text": "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
+        }
+      ],
       "cta": {
         "label": "Quiero saber más información",
         "bgColor": "#d97757"
@@ -2887,8 +2898,6 @@
     },
     "empresa-inteligencia-artificial": {
       "slug": "empresa-inteligencia-artificial",
-      "heroImage": "/static/backgrounds/odoo_background.webp",
-      "heroImagePosition": "center center",
       "title": "Integraciones CRM y ERP con reglas y calidad de dato",
       "shortTitle": "Empresa de Inteligencia Artificial",
       "subtitle": "Sincronizaciones robustas entre ventas, finanzas, soporte e inventario sin duplicados ni conflictos silenciosos.",
@@ -3188,8 +3197,6 @@
     },
     "inteligencia-artificial-sevilla": {
       "slug": "inteligencia-artificial-sevilla",
-      "heroImage": "/static/backgrounds/odoo_background.webp",
-      "heroImagePosition": "center center",
       "title": "Integraciones CRM y ERP con reglas y calidad de dato",
       "shortTitle": "Inteligencia Artificial Sevilla",
       "subtitle": "Sincronizaciones robustas entre ventas, finanzas, soporte e inventario sin duplicados ni conflictos silenciosos.",

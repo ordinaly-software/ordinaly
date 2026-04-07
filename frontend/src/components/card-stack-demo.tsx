@@ -1,11 +1,27 @@
 "use client";
 import { CardStack } from "@/components/ui/card-stack";
 import { cn } from "@/lib/utils";
+import { useLocale } from "next-intl";
 
-export default function CardStackDemo() {
+type CardStackDemoProps = {
+  items: { title: string; badge: string; text?: string }[];
+  previousLabel: string;
+  nextLabel: string;
+};
+
+export default function CardStackDemo({ items, previousLabel, nextLabel }: CardStackDemoProps) {
+  const locale = useLocale();
+  const isEs = locale.startsWith("es");
+  const cards = items.map((item, index) => ({
+    id: index,
+    name: item.title,
+    designation: item.badge,
+    content: <p>{buildHighlightedText(item.text, isEs)}</p>,
+  }));
+
   return (
-    <div className="flex items-center justify-center w-full py-10">
-      <CardStack items={CARDS} />
+    <div className="flex w-full items-center justify-center py-4">
+      <CardStack items={cards} previousLabel={previousLabel} nextLabel={nextLabel} />
     </div>
   );
 }
@@ -30,64 +46,37 @@ export const Highlight = ({
   );
 };
 
-// Curiosidades reales sobre IA
-const CARDS = [
-  {
-    id: 0,
-    name: "Uso empresarial",
-    designation: "Dato real",
-    content: (
-      <p>
-        Más del <Highlight>85% de las tareas administrativas</Highlight> pueden
-        automatizarse parcial o totalmente con IA, según estudios de McKinsey.
-      </p>
-    ),
-  },
-  {
-    id: 1,
-    name: "Productividad",
-    designation: "Impacto directo",
-    content: (
-      <p>
-        Las empresas que adoptan IA en procesos internos reportan un aumento
-        medio del <Highlight>30% en productividad</Highlight> en menos de 90 días.
-      </p>
-    ),
-  },
-  {
-    id: 2,
-    name: "Velocidad",
-    designation: "Capacidad técnica",
-    content: (
-      <p>
-        Un modelo de IA puede analizar en <Highlight>milisegundos</Highlight> lo
-        que un humano tardaría horas en revisar, especialmente en documentos
-        largos o datos complejos.
-      </p>
-    ),
-  },
-  {
-    id: 3,
-    name: "Adopción",
-    designation: "Comportamiento humano",
-    content: (
-      <p>
-        El mayor freno no es la tecnología, sino la{" "}
-        <Highlight>falta de hábitos</Highlight>. Por eso la formación práctica
-        es clave para que un equipo adopte IA de verdad.
-      </p>
-    ),
-  },
-  {
-    id: 4,
-    name: "Seguridad",
-    designation: "Governance",
-    content: (
-      <p>
-        El 70% de los incidentes con IA se deben a{" "}
-        <Highlight>mal uso o falta de políticas internas</Highlight>, no a fallos
-        técnicos del modelo.
-      </p>
-    ),
-  },
-];
+function buildHighlightedText(text: string | undefined, isEs: boolean) {
+  if (!text) return "";
+
+  const highlightPhrases = isEs
+    ? [
+        "85% de las tareas administrativas",
+        "30% en productividad",
+        "milisegundos",
+        "falta de hábitos",
+        "mal uso o falta de políticas internas",
+      ]
+    : [
+        "85% of administrative tasks",
+        "30% productivity increase",
+        "milliseconds",
+        "lack of habits",
+        "misuse or lack of internal policies",
+      ];
+
+  for (const phrase of highlightPhrases) {
+    if (text.includes(phrase)) {
+      const [before, after] = text.split(phrase);
+      return (
+        <>
+          {before}
+          <Highlight>{phrase}</Highlight>
+          {after}
+        </>
+      );
+    }
+  }
+
+  return text;
+}

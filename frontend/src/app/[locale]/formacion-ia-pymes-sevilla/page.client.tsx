@@ -1,16 +1,29 @@
 "use client";
 
 import { useMessages } from "next-intl";
+import { Linkedin } from "lucide-react";
+import {
+  FORMACION_IA_PYMES_SEVILLA_CAROUSEL_IMAGES,
+  FORMACION_IA_PYMES_SEVILLA_EXPERT_IMAGES,
+  LANDING_ASSETS,
+} from "@/lib/landing-assets";
 import Footer from "@/components/ui/footer";
 import CardStackDemo from "@/components/card-stack-demo"
 import ContactForm from "@/components/ui/contact-form.client";
 import Carousel3D from "@/components/ui/carrusel3D";
 import CoursesShowcase from "@/components/home/courses-showcase";
 
+const TEACHER_LINKEDIN_URLS = [
+  "https://www.linkedin.com/in/antoniommff/",
+  "https://www.linkedin.com/in/guillermomontero/",
+] as const;
+
 export default function FormacionIaPymesSevillaPage() {
   const messages = useMessages() as any;
 
   const content = messages.landings?.["formacion-ia-pymes-sevilla"];
+  const heroAssets = LANDING_ASSETS["formacion-ia-pymes-sevilla"];
+  const ui = content?.ui;
 
   if (!content) throw new Error("Missing content: formacion-ia-pymes-sevilla");
 
@@ -21,8 +34,8 @@ export default function FormacionIaPymesSevillaPage() {
       <section
         className="relative w-full min-h-[40rem] flex flex-col items-center justify-center text-center px-6 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/ImagenesFormacionIA/hero-blurred.webp')",
-          backgroundPosition: content.heroImagePosition || "center"
+          backgroundImage: `url('${heroAssets.heroImage}')`,
+          backgroundPosition: heroAssets.heroImagePosition || "center"
         }}
       >
 
@@ -121,16 +134,16 @@ export default function FormacionIaPymesSevillaPage() {
         </div>
       </section>
 
-      <section className="py-24">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
+      <section className="overflow-hidden py-12">
+        <h2 className="mb-8 text-center text-4xl font-extrabold text-neutral-900 dark:text-white md:text-5xl tracking-tight">
           {content.sectionTitles?.carousel}
         </h2>
 
-        <Carousel3D />
+        <Carousel3D images={FORMACION_IA_PYMES_SEVILLA_CAROUSEL_IMAGES} />
       </section>
 
       {/* EXPERTOS */}
-      <section className="py-24 max-w-4xl mx-auto px-6">
+      <section className="mx-auto max-w-5xl px-6 pb-10 pt-24">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-neutral-900 dark:text-white">
           {content.sectionTitles?.experts}
         </h2>
@@ -142,7 +155,7 @@ export default function FormacionIaPymesSevillaPage() {
               className="p-8 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 shadow-sm hover:-translate-y-1 hover:shadow-xl transition-all"
             >
               <img
-                src={expert.image}
+                src={FORMACION_IA_PYMES_SEVILLA_EXPERT_IMAGES[i] ?? FORMACION_IA_PYMES_SEVILLA_EXPERT_IMAGES[0]}
                 alt={expert.name}
                 className="w-24 h-24 rounded-full object-cover mx-auto mb-6 shadow-md"
               />
@@ -158,12 +171,25 @@ export default function FormacionIaPymesSevillaPage() {
               <p className="text-neutral-600 dark:text-neutral-400 mt-4 text-center leading-relaxed">
                 {expert.description}
               </p>
+
+              <div className="mt-6 flex justify-center">
+                <a
+                  href={TEACHER_LINKEDIN_URLS[i] ?? TEACHER_LINKEDIN_URLS[0]}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-full border border-[#d97757]/20 px-4 py-2 text-sm font-semibold text-[#d97757] transition hover:border-[#d97757]/40 hover:bg-[#d97757]/8"
+                  aria-label={`${ui.linkedinLabel} de ${expert.name}`}
+                >
+                  <Linkedin className="h-4 w-4" />
+                  <span>{ui.linkedinLabel}</span>
+                </a>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="py-24 bg-neutral-50 dark:bg-neutral-800">
+      <section className="bg-neutral-50 dark:bg-neutral-800">
         <CoursesShowcase />
       </section>
 
@@ -191,25 +217,29 @@ export default function FormacionIaPymesSevillaPage() {
             href="#preguntas"
             className="inline-block border-2 border-[#d97757] text-[#d97757] font-semibold px-6 py-3 rounded-full transition duration-300 hover:bg-[#d97757] hover:text-white"
           >
-            Ver todas las preguntas frecuentes →
+            {ui.faqCtaLabel} →
           </a>
 
         </div>
       </section>
 
-      <section className="py-28 bg-neutral-50 dark:bg-neutral-900">
+      <section className="py-20 bg-neutral-50 dark:bg-neutral-900">
         <h2 className="text-4xl md:text-5xl font-bold text-center mb-20 
                  text-neutral-900 dark:text-white">
           {content.sectionTitles?.curiosities}
         </h2>
 
-        <div className="max-w-5xl mx-auto px-6">
-          <CardStackDemo />
+        <div className="max-w-5xl mx-auto">
+          <CardStackDemo
+            items={content.curiosityCards ?? []}
+            previousLabel={ui.previousLabel}
+            nextLabel={ui.nextLabel}
+          />
         </div>
       </section>
 
       {/* FORM */}
-      <section id="formulario" className="max-w-4xl mx-auto px-6 py-20">
+      <section id="formulario" className="mx-auto max-w-6xl px-6 py-20">
         <div className="overflow-hidden">
           <ContactForm className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0" />
         </div>

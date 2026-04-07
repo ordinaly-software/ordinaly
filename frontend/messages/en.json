@@ -1471,7 +1471,7 @@
       "bonificationYes": "Yes, we have credits",
       "bonificationNo": "No, continue",
       "bonificationMissingLink": "We couldn't find the bonified course link. Please contact support.",
-      "bonificationInfo": "Some of our trainings may be subsidized via FUNDAE/SEPE and/or fit into co‑funded calls by FSE+ and PRTR‑NextGenerationEU, provided your company meets requirements and processes the aid.\n\nFUNDAE / SEPE – Company‑funded training: allows part of the training cost to be offset in Social Security contributions. Official info for companies (FUNDAE) and training for employees (SEPE).\n\nEU Funds – FSE+ 2021‑2027: national and regional programs (including Andalusia) financing employment, education, and training through public calls. See UAFSE.\n\nPRTR – NextGenerationEU (Component 23): measures for upskilling and active employment policies; coverage depends on each call. Official info from the Recovery Plan and SEPE.\n\nAndalusia (regional scope): FSE+ Andalusia 2021‑2027 and Vocational Training for Employment (FPE) publish specific grants/calls. See Junta de Andalucía and FPE.\n\nNotice: Eligibility, intensity, and compatibility vary by regulation and current calls. Ordinaly provides course documentation but does not apply for or process subsidies on the client's behalf. Always review official links before contracting.",
+      "bonificationInfo": "Some of our trainings may be subsidized via FUNDAE/SEPE and/or fit into co-funded calls by FSE+ and PRTR-NextGenerationEU, provided your company meets requirements and processes the aid.\n\nFUNDAE / SEPE – Company-funded training: allows part of the training cost to be offset in Social Security contributions. Official info for companies (FUNDAE) and training for employees (SEPE).\n\nEU Funds – FSE+ 2021-2027: national and regional programs (including Andalusia) financing employment, education, and training through public calls. See UAFSE.\n\nPRTR – NextGenerationEU (Component 23): measures for upskilling and active employment policies; coverage depends on each call. Official info from the Recovery Plan and SEPE.\n\nAndalusia (regional scope): FSE+ Andalusia 2021-2027 and Vocational Training for Employment (FPE) publish specific grants/calls. See Junta de Andalucía and FPE.\n\nNotice: Eligibility, intensity, and compatibility vary by regulation and current calls. Ordinaly provides course documentation but does not apply for or process subsidies on the client's behalf. Always review official links before contracting.",
       "stepBonification": "Step 1 · Bonification",
       "stepCheckout": "Step 2 · Enrollment",
       "paymentNote": "Payment processing will be handled in the next step.",
@@ -2221,8 +2221,6 @@
   "landings": {
     "chatbots-empresas-sevilla": {
       "slug": "chatbots-empresas-sevilla",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 32%",
       "title": "Business chatbots with connected data",
       "shortTitle": "Chatbots",
       "subtitle": "RAG, guardrails and human handoff for support, sales and internal help desks.",
@@ -2364,8 +2362,6 @@
     },
     "automatizacion-n8n-sevilla": {
       "slug": "automatizacion-n8n-sevilla",
-      "heroImage": "/static/backgrounds/n8n_background.webp",
-      "heroImagePosition": "center center",
       "title": "n8n automation with observability and control",
       "shortTitle": "n8n automation",
       "subtitle": "Versioned workflows for syncs, alerts, reconciliation and AI-assisted operations.",
@@ -2500,8 +2496,6 @@
     },
     "agentes-ia-atencion-cliente-sevilla": {
       "slug": "agentes-ia-atencion-cliente-sevilla",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 28%",
       "title": "AI customer support agents with safe actions",
       "shortTitle": "AI agents",
       "subtitle": "Agents that can read, act and escalate under clearly defined operating policies.",
@@ -2643,8 +2637,6 @@
     },
     "automatizacion-whatsapp-business-sevilla": {
       "slug": "automatizacion-whatsapp-business-sevilla",
-      "heroImage": "/static/backgrounds/us_background.webp",
-      "heroImagePosition": "center 38%",
       "title": "WhatsApp Business automation with measurable performance",
       "shortTitle": "WhatsApp Business",
       "subtitle": "Operational messaging for acquisition, support and follow-up with SLA, templates and CRM context.",
@@ -2786,8 +2778,6 @@
     },
     "formacion-ia-pymes-sevilla": {
       "slug": "formacion-ia-pymes-sevilla",
-      "heroImage": "/ImagenesFormacionIA/hero-blurred.webp",
-      "heroImagePosition": "center 30%",
       "title": "AI training applied to real business processes",
       "shortTitle": "AI Training",
       "heroBadge": "Operational training",
@@ -2797,7 +2787,7 @@
       "areaServed": "Spain · On-site and online sessions",
       "valueProps": [
         "Sessions built around real examples and tasks the team already performs today.",
-        "Security, governance and responsible‑use modules adapted to each department.",
+        "Security, governance and responsible-use modules adapted to each department.",
         "Templates, prompts and routines ready to apply the next day."
       ],
       "sectionTitles": {
@@ -2810,6 +2800,12 @@
         "ctaTitle": "Want to plan a training session?",
         "ctaSubtitle": "We tailor the content to your processes, roles and maturity level."
       },
+      "ui": {
+        "linkedinLabel": "LinkedIn",
+        "faqCtaLabel": "View all frequently asked questions",
+        "previousLabel": "Previous",
+        "nextLabel": "Next"
+      },
       "metrics": [
         {
           "label": "Format",
@@ -2817,38 +2813,26 @@
           "detail": "Compact blocks that don’t interrupt operations and can be repeated per team."
         },
         {
-          "label": "Follow‑up",
+          "label": "Follow-up",
           "value": "Optional 30 days",
           "detail": "We support adoption, answer questions and measure real usage after the session."
         },
         {
           "label": "Materials",
-          "value": "Ready‑to‑use playbooks",
-          "detail": "Role‑based guides, checklists and prompt libraries tailored to your tasks."
+          "value": "Ready-to-use playbooks",
+          "detail": "Role-based guides, checklists and prompt libraries tailored to your tasks."
         }
       ],
-      "carousel": {
-        "images": [
-          "/ImagenesFormacionIA/1-ordinaly.webp",
-          "/ImagenesFormacionIA/2-ordinaly.webp",
-          "/ImagenesFormacionIA/3-ordinaly.webp",
-          "/ImagenesFormacionIA/4-ordinaly.webp",
-          "/ImagenesFormacionIA/5-ordinaly.webp",
-          "/ImagenesFormacionIA/6-ordinaly.webp"
-        ]
-      },
       "experts": [
         {
           "name": "Antonio Macías Ferrera",
-          "role": "CTO, software engineer & Co‑founder",
-          "description": "Software engineer specialized in automation and artificial intelligence.",
-          "image": "/ImagenesFormacionIA/Antonio.webp"
+          "role": "CTO, software engineer & Co-founder",
+          "description": "Software engineer specialized in automation and artificial intelligence."
         },
         {
           "name": "Guillermo Montero Fernández Vivancos",
-          "role": "Quality & project engineer · Co‑founder",
-          "description": "Consultant and project manager specialized in AI and quality engineering.",
-          "image": "/ImagenesFormacionIA/Guillermo.webp"
+          "role": "Quality & project engineer · Co-founder",
+          "description": "Consultant and project manager specialized in AI and quality engineering."
         }
       ],
       "technologyFaqs": [
@@ -2870,7 +2854,7 @@
         {
           "tag": "Adoption",
           "question": "How do you measure whether the training changes habits?",
-          "answer": "We define target tasks, baseline time or quality, and follow‑up. Without measurement, training stays as inspiration."
+          "answer": "We define target tasks, baseline time or quality, and follow-up. Without measurement, training stays as inspiration."
         }
       ],
       "curiosities": [
@@ -2880,6 +2864,33 @@
         "The biggest barrier to AI adoption is not technology, but lack of habits.",
         "70% of AI incidents are caused by misuse or lack of internal policies."
       ],
+      "curiosityCards": [
+        {
+          "title": "Business use",
+          "badge": "Real data",
+          "text": "More than 85% of administrative tasks can be partially or fully automated with AI."
+        },
+        {
+          "title": "Productivity",
+          "badge": "Direct impact",
+          "text": "Companies adopting AI report an average 30% productivity increase in under 90 days."
+        },
+        {
+          "title": "Speed",
+          "badge": "Technical capability",
+          "text": "An AI model can analyze in milliseconds what a human would take hours to review."
+        },
+        {
+          "title": "Adoption",
+          "badge": "Human behavior",
+          "text": "The biggest barrier to AI adoption is not technology, but lack of habits."
+        },
+        {
+          "title": "Security",
+          "badge": "Governance",
+          "text": "70% of AI incidents are caused by misuse or lack of internal policies."
+        }
+      ],
       "cta": {
         "label": "I want more information",
         "bgColor": "#d97757"
@@ -2887,8 +2898,6 @@
     },
     "integraciones-crm-erp-sevilla": {
       "slug": "integraciones-crm-erp-sevilla",
-      "heroImage": "/static/backgrounds/odoo_background.webp",
-      "heroImagePosition": "center center",
       "title": "CRM and ERP integrations with rules and data quality",
       "shortTitle": "CRM and ERP integrations",
       "subtitle": "Robust synchronization between sales, finance, support and inventory without duplicates or silent conflicts.",

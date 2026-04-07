@@ -75,8 +75,6 @@ type LandingCta = {
 
 export type LandingPageContent = {
   slug: string;
-  heroImage?: string;
-  heroImagePosition?: string;
   title: string;
   shortTitle: string;
   subtitle: string;
@@ -100,9 +98,13 @@ export type LandingPageContent = {
 export default function LandingPageView({
   content,
   architectureOverride,
+  heroImage,
+  heroImagePosition,
 }: {
   content: LandingPageContent;
   architectureOverride?: ReactNode;
+  heroImage?: string;
+  heroImagePosition?: string;
 }) {
   const locale = useLocale();
   const tUi = useTranslations("landingUi");
@@ -269,12 +271,12 @@ export default function LandingPageView({
               <div className="grid gap-4">
                 <div className="relative min-h-[340px] overflow-hidden rounded-[1.75rem] border border-[--color-border-subtle] bg-[#0f172a] shadow-[0_28px_80px_-50px_rgba(15,23,42,0.5)] dark:border-white/10 lg:min-h-[420px]">
                   <Image
-                    src={content.heroImage || "/static/backgrounds/services_background.webp"}
+                    src={heroImage || "/static/backgrounds/services_background.webp"}
                     alt={content.title}
                     fill
                     priority
                     className="object-cover"
-                    style={{ objectPosition: content.heroImagePosition ?? "center" }}
+                    style={{ objectPosition: heroImagePosition ?? "center" }}
                     sizes="(min-width: 1280px) 520px, (min-width: 768px) 60vw, 100vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/18 to-transparent" />
