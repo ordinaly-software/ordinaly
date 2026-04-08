@@ -36,7 +36,7 @@ export default function AgenciaAutomatizacionIA() {
                 {content.heroCtaLabel}
               </a>
               <button className="text-sm text-neutral-300 underline underline-offset-4">
-                Ver cómo trabajamos
+                {content.sectionTitles?.seeHowWeWork}
               </button>
             </div>
           </div>

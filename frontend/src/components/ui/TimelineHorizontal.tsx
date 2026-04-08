@@ -9,9 +9,6 @@ export default function TimelineHorizontal({
 }) {
   return (
     <div className="w-full flex flex-col items-center">
-      <h2 className="text-3xl font-semibold mb-12 text-center dark:text-white">
-        Cómo trabajamos
-      </h2>
       <div className="relative w-full max-w-5xl mt-4 mb-16">
 
         <div className="absolute top-1/2 left-0 w-full h-[3px] bg-neutral-300 dark:bg-neutral-700 -translate-y-1/2" />
