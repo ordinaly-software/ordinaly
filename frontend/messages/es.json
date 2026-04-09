@@ -3011,6 +3011,18 @@
           "description": "Infraestructura de IA en tu nube o entorno privado. Control total del dato, auditoría y cumplimiento normativo."
         }
       ],
+      "sectionTitles": {
+        "cards": "Qué podemos hacer con IA en tu empresa",
+        "steps": "Cómo trabajamos",
+        "valueProps": "Qué aporta la IA a tu negocio",
+        "metrics": "Impacto real",
+        "outcomes": "Resultados que obtienes",
+        "useCases": "Casos de uso",
+        "technologyFaqs": "Tecnología y seguridad",
+        "hub": "IA integrada en tus procesos",
+        "ctaTitle": "¿Listo para implantar IA en tu empresa?",
+        "ctaSubtitle": "Creamos un piloto real, medible y adaptado a tus procesos."
+      },
       "steps": [
         "Analizamos tus procesos, cuellos de botella y oportunidades reales de automatización.",
         "Diseñamos la solución: copiloto, automatización o modelo privado según tu caso.",

@@ -2989,16 +2989,47 @@
     "inteligencia-artificial-empresas": {
       "slug": "inteligencia-artificial-empresas",
       "title": "Artificial Intelligence applied to business processes",
-      "shortTitle": "AI for business",
-      "subtitle": "We automate tasks, reduce operational time and build internal copilots tailored to your business.",
-      "description": "We design and deploy AI solutions that improve productivity, eliminate repetitive work and let teams focus on higher-value tasks. Private models, secure automations and assistants trained on your own knowledge.",
+      "shortTitle": "AI for companies",
+      "subtitle": "We automate tasks, reduce operational time, and create internal copilots tailored to your business.",
+      "description": "We design and implement AI solutions that improve productivity, eliminate repetitive work, and allow teams to focus on higher‑value tasks. Private models, secure automations, and assistants trained with your own internal knowledge.",
       "heroCtaLabel": "Evaluate my case",
       "heroCtaHref": "#formulario",
       "secondaryCtaLabel": "Talk to the team",
       "serviceType": "Automation, internal copilots and private models",
       "areaServed": "Spain and remote teams",
+      "cards": [
+        {
+          "title": "Internal copilots",
+          "description": "Private assistants trained with your documentation, processes, and internal data. They answer questions, generate content, and guide operational tasks."
+        },
+        {
+          "title": "Process automation",
+          "description": "We eliminate repetitive tasks: email classification, report generation, automatic summaries, data extraction, and more."
+        },
+        {
+          "title": "Private and secure models",
+          "description": "AI infrastructure in your cloud or private environment. Full data control, auditing, and regulatory compliance."
+        }
+      ],
+      "sectionTitles": {
+        "cards": "What AI can do for your company",
+        "steps": "How we work",
+        "valueProps": "What AI brings to your business",
+        "metrics": "Real impact",
+        "outcomes": "Results you get",
+        "useCases": "Use cases",
+        "technologyFaqs": "Technology & security",
+        "hub": "AI integrated into your processes",
+        "ctaTitle": "Ready to implement AI in your company?",
+        "ctaSubtitle": "We build a real, measurable pilot tailored to your processes."
+      },
+      "steps": [
+        "We analyze your processes, bottlenecks, and real automation opportunities.",
+        "We design the solution: copilot, automation, or private model depending on your case.",
+        "We deploy, train your team, and provide usage metrics and continuous improvement."
+      ],
       "valueProps": [
-        "Internal copilots trained on your knowledge.",
+        "Internal copilots trained with your knowledge.",
         "Automation of repetitive and operational tasks.",
         "Private models with full data control.",
         "Integration with internal tools and existing workflows."
@@ -3007,35 +3038,30 @@
         {
           "label": "Operational savings",
           "value": "30% - 60%",
-          "detail": "Reduction in time spent on repetitive tasks."
+          "detail": "Time reduction in repetitive tasks."
         },
         {
           "label": "Speed",
           "value": "x10",
-          "detail": "Content generation, reports and responses."
+          "detail": "Content generation, reports, and responses."
         },
         {
           "label": "Security",
           "value": "Private",
-          "detail": "Models deployed in your own infrastructure."
+          "detail": "Models deployed in your infrastructure."
         }
       ],
       "outcomes": [
         "Fewer manual and repetitive tasks.",
-        "Faster teams with less operational overhead.",
+        "Faster teams with less operational load.",
         "More consistent and auditable processes.",
-        "Higher quality in documentation, responses and analysis."
-      ],
-      "steps": [
-        "We analyse your processes, bottlenecks and real automation opportunities.",
-        "We design the solution: copilot, automation or private model based on your case.",
-        "We deploy, train the team and set up usage metrics and continuous improvement."
+        "Higher quality in documentation, responses, and analysis."
       ],
       "useCases": [
         {
           "tag": "Operations",
-          "title": "Repetitive task automation",
-          "description": "Email classification, data extraction, report generation and automatic summaries.",
+          "title": "Automation of repetitive tasks",
+          "description": "Email classification, data extraction, report generation, and automatic summaries.",
           "bullets": [
             "Less manual workload",
             "Faster and more consistent processes"
@@ -3044,7 +3070,7 @@
         {
           "tag": "Support",
           "title": "Copilot for internal or external support",
-          "description": "Answers questions, queries documentation and generates responses based on your internal knowledge.",
+          "description": "Answers questions, queries documentation, and generates responses based on your internal knowledge.",
           "bullets": [
             "Faster responses",
             "Fewer escalations"
@@ -3053,10 +3079,10 @@
         {
           "tag": "Management",
           "title": "Automatic reports and analysis",
-          "description": "Report generation, executive summaries and data analysis in seconds.",
+          "description": "Generation of reports, executive summaries, and data analysis in seconds.",
           "bullets": [
-            "Faster decisions",
-            "Always up-to-date information"
+            "Faster decision‑making",
+            "Always up‑to‑date information"
           ]
         }
       ],
@@ -3064,34 +3090,34 @@
         {
           "tag": "Privacy",
           "question": "Does the AI use my data to train external models?",
-          "answer": "No. Models can run in your own infrastructure or private environments without sharing data with third parties."
+          "answer": "No. Models can run in your infrastructure or private environments without sharing data with third parties."
         },
         {
           "tag": "Integration",
-          "question": "Can it connect to my current tools?",
-          "answer": "Yes. We can integrate AI with your internal systems, databases, CRM, ERP or communication tools."
+          "question": "Can it connect with my current tools?",
+          "answer": "Yes. We can integrate AI with your internal systems, databases, CRM, ERP, or communication tools."
         },
         {
           "tag": "Security",
           "question": "Does it comply with GDPR and internal requirements?",
-          "answer": "Yes. We implement minimal permissions, auditing, encryption and role-based access control."
+          "answer": "Yes. We implement minimum permissions, auditing, encryption, and role‑based access control."
         },
         {
           "tag": "Maintenance",
           "question": "Who maintains the system once deployed?",
-          "answer": "We can operate it ourselves or hand it over to your team with documentation and runbooks."
+          "answer": "We can operate it for you, or hand it over to your team with documentation and runbooks."
         }
       ],
       "keywords": [
-        "artificial intelligence for business",
+        "artificial intelligence for companies",
         "AI automation",
         "internal copilots",
         "private AI models",
-        "AI for companies"
+        "AI for business"
       ],
       "hub": {
         "title": "AI integrated into your processes",
-        "subtitle": "Automation, copilots and private models connected to your business.",
+        "subtitle": "Automation, copilots, and private models connected to your business.",
         "bgTheme": "cyan",
         "platforms": [
           {
@@ -3120,13 +3146,13 @@
             "figureKey": "observability",
             "colorScheme": "cyan",
             "label": "Observability",
-            "sublabel": "Metrics and control"
+            "sublabel": "Metrics and monitoring"
           }
         ]
       },
       "cta": {
-        "label": "Deploy AI in my company",
-        "href": "https://wa.me/34626270806?text=I%20want%20to%20deploy%20AI%20in%20my%20company",
+        "label": "Implement AI in my company",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20implement%20AI%20in%20my%20company",
         "bgColor": "#0255D5"
       }
     }

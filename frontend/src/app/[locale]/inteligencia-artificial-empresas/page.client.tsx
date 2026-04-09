@@ -49,6 +49,7 @@ type LandingPageContent = {
   technologyFaqs: LandingFaq[];
   keywords: string[];
   cta?: LandingCta;
+  sectionTitles?: Record<string, string>;
 };
 
 export default function InteligenciaArtificialEmpresas() {
@@ -107,7 +108,7 @@ export default function InteligenciaArtificialEmpresas() {
           <div className="flex justify-center">
             <div className="relative w-full max-w-lg rounded-2xl overflow-hidden shadow-2xl" style={{ aspectRatio: "4/3" }}>
               <Image
-                src="/static/inteligencia_artificial_empresas/hero.webp"
+                src="/static/inteligencia_artificial_empresas/heroNuevo.webp"
                 alt={content.title}
                 fill
                 priority
@@ -136,6 +137,10 @@ export default function InteligenciaArtificialEmpresas() {
 
         {/* ─── 3D FEATURE CARDS ─── */}
         <section className="max-w-7xl mx-auto px-6 py-16">
+          <h2 className="text-3xl font-bold tracking-tight mb-10">
+            {content.sectionTitles?.cards}
+          </h2>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {content.cards.map((card, i) => (
               <CardContainer key={i} className="inter-var">
@@ -167,7 +172,7 @@ export default function InteligenciaArtificialEmpresas() {
         <section className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-5">
-              {isEn ? "What we deliver" : "Qué entregamos"}
+              {content.sectionTitles?.valueProps}
             </p>
             <ul className="space-y-4">
               {content.valueProps.map((prop, i) => (
@@ -183,7 +188,7 @@ export default function InteligenciaArtificialEmpresas() {
 
           <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 p-8">
             <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-5">
-              {isEn ? "Results you can measure" : "Resultados que mides"}
+              {content.sectionTitles?.outcomes}
             </p>
             <ul className="space-y-4">
               {content.outcomes.map((outcome, i) => (
@@ -201,7 +206,7 @@ export default function InteligenciaArtificialEmpresas() {
         {/* ─── IMPLEMENTATION STEPS ─── */}
         <section className="max-w-5xl mx-auto px-6 py-16">
           <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-3">
-            {isEn ? "How it works" : "Cómo lo hacemos"}
+            {content.sectionTitles?.steps}
           </p>
           <h2 className="text-3xl font-bold tracking-tight mb-10">
             {isEn ? "Implementation sequence" : "Secuencia de implantación"}
@@ -222,7 +227,7 @@ export default function InteligenciaArtificialEmpresas() {
         {/* ─── USE CASES ─── */}
         <section className="max-w-7xl mx-auto px-6 py-16">
           <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-3">
-            {isEn ? "Use cases" : "Casos de uso"}
+            {content.sectionTitles?.useCases}
           </p>
           <h2 className="text-3xl font-bold tracking-tight mb-10">
             {isEn ? "Real workflows, not demos" : "Flujos reales, no demos"}
@@ -257,7 +262,7 @@ export default function InteligenciaArtificialEmpresas() {
         {/* ─── FAQ ─── */}
         <section className="max-w-3xl mx-auto px-6 py-16">
           <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-3">
-            {isEn ? "Technology FAQ" : "Preguntas frecuentes"}
+            {content.sectionTitles?.technologyFaqs}
           </p>
           <h2 className="text-3xl font-bold tracking-tight mb-10">
             {isEn ? "Common questions" : "Dudas habituales"}
