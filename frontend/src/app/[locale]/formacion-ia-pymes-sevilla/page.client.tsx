@@ -2,16 +2,30 @@
 
 import { useMessages } from "next-intl";
 import { Linkedin } from "lucide-react";
-import {
-  FORMACION_IA_PYMES_SEVILLA_CAROUSEL_IMAGES,
-  FORMACION_IA_PYMES_SEVILLA_EXPERT_IMAGES,
-  LANDING_ASSETS,
-} from "@/lib/landing-assets";
 import Footer from "@/components/ui/footer";
-import CardStackDemo from "@/components/card-stack-demo"
+import CardStackDemo from "@/components/ui/card-stack-demo"
 import ContactForm from "@/components/ui/contact-form.client";
 import Carousel3D from "@/components/ui/carrusel3D";
 import CoursesShowcase from "@/components/home/courses-showcase";
+
+const FORMACION_HERO_ASSET = {
+  heroImage: "/static/formacion-ia-pymes-sevilla/hero-blurred.webp",
+  heroImagePosition: "center 30%",
+} as const;
+
+const FORMACION_IA_PYMES_SEVILLA_CAROUSEL_IMAGES = [
+  "/static/formacion-ia-pymes-sevilla/1-ordinaly.webp",
+  "/static/formacion-ia-pymes-sevilla/2-ordinaly.webp",
+  "/static/formacion-ia-pymes-sevilla/3-ordinaly.webp",
+  "/static/formacion-ia-pymes-sevilla/4-ordinaly.webp",
+  "/static/formacion-ia-pymes-sevilla/5-ordinaly.webp",
+  "/static/formacion-ia-pymes-sevilla/6-ordinaly.webp",
+] as const;
+
+const FORMACION_IA_PYMES_SEVILLA_EXPERT_IMAGES = [
+  "/static/formacion-ia-pymes-sevilla/Antonio.webp",
+  "/static/formacion-ia-pymes-sevilla/Guillermo.webp",
+] as const;
 
 const TEACHER_LINKEDIN_URLS = [
   "https://www.linkedin.com/in/antoniommff/",
@@ -22,7 +36,6 @@ export default function FormacionIaPymesSevillaPage() {
   const messages = useMessages() as any;
 
   const content = messages.landings?.["formacion-ia-pymes-sevilla"];
-  const heroAssets = LANDING_ASSETS["formacion-ia-pymes-sevilla"];
   const ui = content?.ui;
 
   if (!content) throw new Error("Missing content: formacion-ia-pymes-sevilla");
@@ -34,8 +47,8 @@ export default function FormacionIaPymesSevillaPage() {
       <section
         className="relative w-full min-h-[40rem] flex flex-col items-center justify-center text-center px-6 bg-cover bg-center"
         style={{
-          backgroundImage: `url('${heroAssets.heroImage}')`,
-          backgroundPosition: heroAssets.heroImagePosition || "center"
+          backgroundImage: `url('${FORMACION_HERO_ASSET.heroImage}')`,
+          backgroundPosition: FORMACION_HERO_ASSET.heroImagePosition || "center"
         }}
       >
 

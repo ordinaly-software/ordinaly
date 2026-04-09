@@ -51,7 +51,6 @@ type LandingFooterContent = {
 const Footer = () => {
   const t = useTranslations("home");
   const tCookie = useTranslations("cookie");
-  const locale = useLocale();
   const messages = useMessages();
   const { isDark, setIsDark } = useTheme();
   const currentYear = new Date().getUTCFullYear();
