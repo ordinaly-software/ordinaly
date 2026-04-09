@@ -2221,8 +2221,6 @@
   "landings": {
     "agencia-automatizacion-ia": {
       "slug": "agencia-automatizacion-ia",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 32%",
       "title": "Chatbots empresariales con datos conectados",
       "shortTitle": "Agencia de Automatización IA",
       "subtitle": "RAG, guardrails y handoff humano para soporte, ventas y help desks internos.",
@@ -2364,8 +2362,6 @@
     },
     "automatizacion-n8n-sevilla": {
       "slug": "automatizacion-n8n-sevilla",
-      "heroImage": "/static/backgrounds/n8n_background.webp",
-      "heroImagePosition": "center center",
       "title": "Automatización n8n con observabilidad y control",
       "shortTitle": "Automatización n8n",
       "subtitle": "Workflows versionados para sincronización, alertas, conciliación y operaciones asistidas por IA.",
@@ -2433,8 +2429,6 @@
     },
     "automatizacion-facturas": {
       "slug": "automatizacion-facturas",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 28%",
       "title": "Agentes IA para atención al cliente con acción segura",
       "shortTitle": "Automatización de Facturas",
       "subtitle": "Agentes capaces de consultar, ejecutar y escalar con políticas operativas bien definidas.",
@@ -2576,8 +2570,6 @@
     },
     "automatizacion-inteligente": {
       "slug": "automatizacion-inteligente",
-      "heroImage": "/static/backgrounds/us_background.webp",
-      "heroImagePosition": "center 38%",
       "title": "WhatsApp Business automatizado con medición real",
       "shortTitle": "Automatización Inteligente",
       "subtitle": "Mensajería operativa para captación, soporte y seguimiento con SLA, plantillas y contexto CRM.",
@@ -2719,116 +2711,126 @@
     },
     "formacion-ia-pymes-sevilla": {
       "slug": "formacion-ia-pymes-sevilla",
-      "heroImage": "/static/backgrounds/formation_background.webp",
-      "heroImagePosition": "center 30%",
-      "title": "Formación IA aplicada a procesos reales",
+      "title": "Formación en IA aplicada a procesos reales",
       "shortTitle": "Formación IA",
-      "subtitle": "Programas prácticos para equipos que necesitan usar IA con criterio, seguridad y retorno claro.",
-      "description": "Diseñamos talleres con tareas del negocio, datasets propios y reglas de uso para que el equipo salga con hábitos, plantillas y límites operativos, no solo inspiración.",
-      "heroBadge": "Training operativo",
+      "heroBadge": "Formación operativa",
       "heroCtaLabel": "Planificar formación",
-      "secondaryCtaLabel": "Consultar agenda",
-      "serviceType": "Formación IA para ventas, soporte y operaciones",
-      "areaServed": "España, sesiones remotas y presenciales",
+      "secondaryCtaLabel": "Consultar disponibilidad",
+      "serviceType": "Formación en IA para ventas, soporte y operaciones",
+      "areaServed": "España · Sesiones presenciales y online",
       "valueProps": [
-        "Sesiones con ejemplos del negocio y tareas medibles que el equipo ya hace hoy.",
-        "Módulos de seguridad, gobierno del dato y criterios de uso aceptable por equipo.",
-        "Plantillas, prompts y rutinas operativas listas para aplicar al día siguiente."
+        "Sesiones construidas sobre ejemplos reales y tareas que el equipo ya realiza hoy.",
+        "Módulos de seguridad, gobernanza y uso responsable adaptados a cada departamento.",
+        "Plantillas, prompts y rutinas listas para aplicar al día siguiente."
       ],
+      "sectionTitles": {
+        "valueProps": "Qué aprenderá tu equipo",
+        "metrics": "Formato y materiales",
+        "carousel": "Formación en acción",
+        "experts": "Quién imparte la formación",
+        "technologyFaqs": "Preguntas frecuentes",
+        "curiosities": "Datos y curiosidades",
+        "ctaTitle": "¿Quieres planificar una formación?",
+        "ctaSubtitle": "Adaptamos el contenido a tus procesos, roles y nivel de madurez."
+      },
+      "ui": {
+        "linkedinLabel": "LinkedIn",
+        "faqCtaLabel": "Ver todas las preguntas frecuentes",
+        "previousLabel": "Anterior",
+        "nextLabel": "Siguiente"
+      },
       "metrics": [
         {
           "label": "Formato",
-          "value": "2-4 horas",
-          "detail": "Bloques compactos para no detener la operación y poder iterar por equipo."
+          "value": "2–4 horas",
+          "detail": "Bloques compactos que no interrumpen operaciones y pueden repetirse por equipo."
         },
         {
           "label": "Seguimiento",
-          "value": "30 días opcionales",
-          "detail": "Acompañamos adopción, revisamos dudas y medimos uso real después de la sesión."
+          "value": "Opcional 30 días",
+          "detail": "Acompañamos la adopción, resolvemos dudas y medimos el uso real tras la sesión."
         },
         {
           "label": "Materiales",
-          "value": "Playbooks listos",
-          "detail": "Guías por rol, checklists y librería de prompts ajustada a vuestras tareas."
+          "value": "Playbooks listos para usar",
+          "detail": "Guías por rol, checklists y librerías de prompts adaptadas a tus tareas."
         }
       ],
-      "outcomes": [
-        "Adopción por equipo y por caso de uso, no solo asistencia al taller.",
-        "Tiempo ahorrado en tareas concretas después de introducir nuevas rutinas y plantillas.",
-        "Incidencias de seguridad o usos fuera de política detectadas y corregidas temprano."
-      ],
-      "steps": [
-        "Diagnosticamos tareas repetitivas, herramientas permitidas y riesgos del equipo.",
-        "Impartimos una sesión práctica con ejercicios reales y criterios de revisión.",
-        "Entregamos materiales y, si conviene, abrimos seguimiento con retos y office hours."
-      ],
-      "useCases": [
+      "experts": [
         {
-          "tag": "Ventas",
-          "title": "Generación de propuestas y preparación de reuniones",
-          "description": "El equipo aprende a usar IA para sintetizar contexto, preparar objecciones y estructurar follow-ups.",
-          "bullets": [
-            "Prompts reutilizables por fase comercial",
-            "Revisión de tono, riesgo y exactitud"
-          ]
+          "name": "Antonio Macías Ferrera",
+          "role": "CTO ingeniero de software & Co-founder",
+          "description": "Ingeniero de software especialista en automatización e inteligencia artificial."
         },
         {
-          "tag": "Operaciones",
-          "title": "Documentación, análisis y reportes",
-          "description": "Convertimos tareas largas de síntesis y clasificación en rutinas claras y repetibles.",
-          "bullets": [
-            "Resúmenes consistentes y comparables",
-            "Checklist para validar salidas antes de usar"
-          ]
-        },
-        {
-          "tag": "Liderazgo",
-          "title": "Política interna de uso de IA",
-          "description": "Ayudamos a definir qué se puede usar, con qué datos y bajo qué supervisión.",
-          "bullets": [
-            "Criterios por perfil y por herramienta",
-            "Buenas prácticas para datos sensibles"
-          ]
+          "name": "Guillermo Montero Fernández Vivancos",
+          "role": "Ingeniero de calidad y proyectos & Co-founder",
+          "description": "Consultor y project manager especializados en IA e ingeniería de calidad."
         }
       ],
       "technologyFaqs": [
         {
           "tag": "Programa",
-          "question": "¿La formación es genérica o se adapta al negocio?",
-          "answer": "Siempre parte de casos y tareas reales. Sin ese anclaje, la adopción cae rápido y el equipo vuelve a sus hábitos anteriores."
+          "question": "¿La formación es genérica o adaptada al negocio?",
+          "answer": "Siempre parte de casos y tareas reales. Sin ese anclaje, la adopción cae y el equipo vuelve a los hábitos anteriores."
         },
         {
           "tag": "Seguridad",
-          "question": "¿Incluís seguridad, privacidad y gobernanza?",
-          "answer": "Sí. Cubrimos minimización de datos, herramientas aprobadas, límites de uso y revisión humana cuando el impacto lo exige."
+          "question": "¿Incluye seguridad, privacidad y gobernanza?",
+          "answer": "Sí. Cubrimos minimización de datos, herramientas aprobadas, límites de uso y revisión humana cuando el impacto lo requiere."
         },
         {
           "tag": "Formato",
-          "question": "¿Puede combinarse con una implantación técnica?",
-          "answer": "Sí. Suele funcionar mejor cuando la formación acompaña a un piloto o despliegue, porque el equipo aprende sobre su propio flujo de trabajo."
+          "question": "¿Puede combinarse con un despliegue técnico?",
+          "answer": "Sí. Funciona incluso mejor cuando acompaña un piloto o rollout, porque el equipo aprende sobre su propio flujo de trabajo."
         },
         {
           "tag": "Adopción",
-          "question": "¿Cómo medís si la formación realmente cambia hábitos?",
-          "answer": "Definimos tareas objetivo, baseline de tiempo o calidad y seguimiento posterior. Sin medición, la formación queda en inspiración y no en operación."
+          "question": "¿Cómo medís si la formación cambia hábitos?",
+          "answer": "Definimos tareas objetivo, tiempo o calidad base y seguimiento posterior. Sin medición, la formación se queda en inspiración."
         }
       ],
-      "keywords": [
-        "formación IA para empresas",
-        "adopción de IA en equipos",
-        "taller IA práctico",
-        "gobernanza de IA"
+      "curiosities": [
+        "Más del 85% de las tareas administrativas pueden automatizarse parcial o totalmente con IA.",
+        "Las empresas que adoptan IA reportan un aumento medio del 30% en productividad en menos de 90 días.",
+        "Un modelo de IA puede analizar en milisegundos lo que un humano tardaría horas en revisar.",
+        "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos.",
+        "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
+      ],
+      "curiosityCards": [
+        {
+          "title": "Uso empresarial",
+          "badge": "Dato real",
+          "text": "Más del 85% de las tareas administrativas pueden automatizarse parcial o totalmente con IA."
+        },
+        {
+          "title": "Productividad",
+          "badge": "Impacto directo",
+          "text": "Las empresas que adoptan IA reportan un aumento medio del 30% en productividad en menos de 90 días."
+        },
+        {
+          "title": "Velocidad",
+          "badge": "Capacidad técnica",
+          "text": "Un modelo de IA puede analizar en milisegundos lo que un humano tardaría horas en revisar."
+        },
+        {
+          "title": "Adopción",
+          "badge": "Comportamiento humano",
+          "text": "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos."
+        },
+        {
+          "title": "Seguridad",
+          "badge": "Governance",
+          "text": "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
+        }
       ],
       "cta": {
-        "label": "Solicitar formación",
-        "href": "https://wa.me/34626270806?text=Quiero%20formaci%C3%B3n%20IA%20pr%C3%A1ctica%20para%20mi%20equipo",
-        "bgColor": "#0255D5"
+        "label": "Quiero saber más información",
+        "bgColor": "#d97757"
       }
     },
     "empresa-inteligencia-artificial": {
       "slug": "empresa-inteligencia-artificial",
-      "heroImage": "/static/backgrounds/odoo_background.webp",
-      "heroImagePosition": "center center",
       "title": "Integraciones CRM y ERP con reglas y calidad de dato",
       "shortTitle": "Empresa de Inteligencia Artificial",
       "subtitle": "Sincronizaciones robustas entre ventas, finanzas, soporte e inventario sin duplicados ni conflictos silenciosos.",
@@ -3128,8 +3130,6 @@
     },
     "inteligencia-artificial-sevilla": {
       "slug": "inteligencia-artificial-sevilla",
-      "heroImage": "/static/backgrounds/odoo_background.webp",
-      "heroImagePosition": "center center",
       "title": "Integraciones CRM y ERP con reglas y calidad de dato",
       "shortTitle": "Inteligencia Artificial Sevilla",
       "subtitle": "Sincronizaciones robustas entre ventas, finanzas, soporte e inventario sin duplicados ni conflictos silenciosos.",

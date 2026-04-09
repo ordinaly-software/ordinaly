@@ -551,3 +551,6 @@ svg[width="2rem"], svg[height="2rem"] {
     filter: drop-shadow(0 0 35px rgba(59, 130, 246, 0.6));
   }
 }
+.perspective {
+  perspective: 1200px;
+}
