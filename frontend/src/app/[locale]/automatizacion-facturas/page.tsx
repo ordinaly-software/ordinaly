@@ -4,10 +4,10 @@ import { createPageMetadata } from "@/lib/metadata";
 import AutomatizacionFacturas from "./page.client"
 
 const slug = "automatizacion-facturas" as const;
-const AUTOMATIZACION_FACTURAS_HERO_IMAGE = "/static/automatizacion-facturas/hero-blurred.webp";
 type LandingMetadataContent = {
   title: string;
   description: string;
+  heroImage?: string;
 };
 
 export async function generateMetadata({
@@ -28,7 +28,7 @@ export async function generateMetadata({
     path: `/${slug}`,
     title: landing.title,
     description: landing.description,
-    image: AUTOMATIZACION_FACTURAS_HERO_IMAGE,
+    image: landing.heroImage || "/static/backgrounds/services_background.webp",
   });
 }
 

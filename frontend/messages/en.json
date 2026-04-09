@@ -2443,6 +2443,174 @@
         "bgColor": "#0255D5"
       }
     },
+    "automatizacion-facturas": {
+      "slug": "automatizacion-facturas",
+      "heroImage": "/static/backgrounds/blog_background.webp",
+      "heroImagePosition": "center 28%",
+      "title": "Invoice Automation",
+      "shortTitle": "Invoice Automation",
+      "heroBadge": "Document Automation",
+      "heroCtaLabel": "Request information",
+      "secondaryCtaLabel": "I want to automate my invoices",
+      "serviceType": "Document automation and intelligent data extraction",
+      "areaServed": "Spain, SMEs, accounting firms, and administrative teams",
+      "valueProps": [
+        "Automatic classification by supplier, date, amount, or custom rules.",
+        "Accurate extraction of key data: client, date, items, taxable base, and total.",
+        "Seamless integration with folders, ERPs, CRMs, or accounting systems."
+      ],
+      "sectionTitles": {
+        "howItWorks": "How the automation works",
+        "benefits": "Benefits of automating your invoices",
+        "beforeAfter": "Before and after automation",
+        "before": "Before",
+        "after": "After"
+      },
+      "benefits": [
+        "Save hours every month",
+        "Avoid human errors",
+        "Everything organized automatically",
+        "Compatible with any format"
+      ],
+      "metrics": [
+        {
+          "label": "Monthly savings",
+          "value": "6–20 hours",
+          "detail": "Reduced time spent reviewing emails, downloading invoices, and copying data."
+        },
+        {
+          "label": "Accuracy",
+          "value": "98%",
+          "detail": "Automatic extraction with optional validation for uncertain cases."
+        },
+        {
+          "label": "Classification",
+          "value": "Automatic",
+          "detail": "Organization by year, supplier, or project without human intervention."
+        }
+      ],
+      "outcomes": [
+        "Fewer human errors when transcribing data.",
+        "Invoices automatically organized into structured folders.",
+        "Data ready for accounting or analysis without manual work.",
+        "Faster and more traceable administrative processes."
+      ],
+      "before": [
+        "Invoices lost in emails",
+        "Copying data manually",
+        "Errors when transcribing",
+        "Time wasted searching for documents"
+      ],
+      "after": [
+        "Invoices automatically classified",
+        "Data extracted effortlessly",
+        "Zero errors",
+        "Everything accessible in seconds"
+      ],
+      "steps": [
+        "We connect your inbox or the folder where you receive invoices.",
+        "We define classification and extraction rules based on your business.",
+        "We activate the automated flow: detection, extraction, and archiving."
+      ],
+      "useCases": [
+        {
+          "tag": "Administration",
+          "title": "Automatic invoice reception",
+          "description": "We detect invoices arriving by email and process them without human intervention.",
+          "bullets": [
+            "Automatic email reading",
+            "Immediate download and classification"
+          ]
+        },
+        {
+          "tag": "Accounting",
+          "title": "Key data extraction",
+          "description": "We extract supplier, date, items, taxable base, and total.",
+          "bullets": [
+            "Advanced OCR",
+            "Optional data validation"
+          ]
+        },
+        {
+          "tag": "Operations",
+          "title": "Smart archiving",
+          "description": "We store each invoice in the correct folder according to custom rules.",
+          "bullets": [
+            "Folders by year or supplier",
+            "Integration with Drive, Dropbox, or ERP"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Processing",
+          "question": "How do you detect invoices automatically?",
+          "answer": "We monitor inboxes or folders and apply OCR models that identify invoice‑type documents without manual rules."
+        },
+        {
+          "tag": "Extraction",
+          "question": "What data can be extracted?",
+          "answer": "Supplier, date, invoice number, items, taxable base, VAT, total, and any additional fields you need."
+        },
+        {
+          "tag": "Integration",
+          "question": "Can it connect to my ERP or accounting system?",
+          "answer": "Yes. We can export to CSV, API, Google Drive, OneDrive, Holded, A3, Contasol, and other systems."
+        },
+        {
+          "tag": "Security",
+          "question": "How do you handle sensitive data?",
+          "answer": "We apply data minimization, encrypted transmission, and strict access rules. We only process what is necessary for automation."
+        }
+      ],
+      "keywords": [
+        "invoice automation",
+        "document processing",
+        "intelligent OCR",
+        "automatic invoice classification",
+        "administrative automation"
+      ],
+      "hub": {
+        "title": "Complete invoice automation",
+        "subtitle": "Reception, extraction, classification, and archiving with zero human intervention.",
+        "bgTheme": "orange",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "email-inbox",
+            "colorScheme": "orange",
+            "label": "Reception",
+            "sublabel": "From email or folder"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "document-ocr",
+            "colorScheme": "amber",
+            "label": "Extraction",
+            "sublabel": "Error‑free key data"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "folder-automation",
+            "colorScheme": "orange",
+            "label": "Classification",
+            "sublabel": "Automatic folders"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "erp-sync",
+            "colorScheme": "amber",
+            "label": "Integration",
+            "sublabel": "ERP and accounting"
+          }
+        ]
+      },
+      "cta": {
+        "label": "I want to automate my invoices",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20invoices",
+        "bgColor": "#d97706"
+      }
+    },
     "agentes-ia-atencion-cliente-sevilla": {
       "slug": "agentes-ia-atencion-cliente-sevilla",
       "title": "AI customer support agents with safe actions",

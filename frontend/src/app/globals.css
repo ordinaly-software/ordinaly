@@ -1,16 +1,3 @@
-html, body {
-  overflow-x: hidden;
-}
-
-body {
-  overscroll-behavior-x: none;
-}
-
-/* Hide vertical scrollbar on mobile browsers */
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,13 +30,12 @@ body {
     --chart-4: 45 25% 92%;
     --chart-5: 42 5% 67%;
 
-    /* Custom Colors */
-    --color-green-accent: 0255D5;
-    --color-green-accent-dark: 7DB5FF;
-    --color-blue-accent: 46B1C9;
-    --color-orange-accent: E4572E;
-    --color-dark-blue: 623CEA;
-    --color-dark-gray: 1A1924;
+    /* Custom Colors (referenced in tailwind.config.ts) */
+    --color-green-accent: #0255D5;
+    --color-green-accent-dark: #7DB5FF;
+    --color-blue-accent: #46B1C9;
+    --color-dark-blue: #623CEA;
+    --color-dark-gray: #1A1924;
 
     /* ── ANTHROPIC DESIGN SYSTEM ── */
 
@@ -58,7 +44,6 @@ body {
     --swatch--ivory-medium:  #F0EEE6;
     --swatch--ivory-dark:    #E8E6DC;
     --swatch--oat:           #E3DACC;
-    --swatch--oat-dark:      #E3DACC;
 
     /* Swatches — clouds */
     --swatch--cloud-light:   #D1CFC5;
@@ -165,7 +150,7 @@ body {
     --space-11: 6rem;
 
     /* Section spacing */
-    --section-space-none:   0rem;
+    --section-space-none:   0;
     --section-space-small:  clamp(3rem, calc(2.5rem + 2vw), 4rem);
     --section-space-main:   clamp(6rem, calc(5rem + 4vw), 10rem);
     --section-space-large:  clamp(8rem, calc(7rem + 5vw), 14rem);
@@ -181,6 +166,9 @@ body {
     --radius-l:    16px;
     --radius-xl:   24px;
     --radius-full: 1600px;
+
+    /* Animation */
+    --animate-background-gradient: background-gradient var(--background-gradient-speed, 15s) cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
   }
 
   .dark {
@@ -209,18 +197,31 @@ body {
     --chart-4: 50 2% 23%;
     --chart-5: 42 5% 67%;
   }
-  .theme {
-    --animate-background-gradient: background-gradient var(--background-gradient-speed, 15s) cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
-  }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  overscroll-behavior-x: none;
+}
+
+/* Hide vertical scrollbar on mobile browsers */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 /* Scroll Animations */
@@ -255,11 +256,6 @@ body {
 
 .fade-in-up.animate-in {
   transform: translateY(0);
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
 }
 
 /* Fix for Lucide React SVG attribute errors */
@@ -421,7 +417,7 @@ svg[width="2rem"], svg[height="2rem"] {
 
 /* Featured / dark hero section */
 .featured-hero {
-  background-color: #000000;
+  background-color: var(--color-bg-featured);
   border-radius: var(--radius-l);
   padding-block: clamp(3rem, 5vw, 4rem);
   overflow: hidden;
@@ -462,39 +458,88 @@ svg[width="2rem"], svg[height="2rem"] {
   color: var(--color-text-inverted);
 }
 
-@theme inline {
-  @keyframes background-gradient {
+@keyframes background-gradient {
   0%, 100% {
     transform: translate(0, 0);
-    animationDelay: var(--background-gradient-delay, 0s);
-    }
+  }
   20% {
     transform: translate(calc(100% * var(--tx-1, 1)), calc(100% * var(--ty-1, 1)));
-    }
+  }
   40% {
     transform: translate(calc(100% * var(--tx-2, -1)), calc(100% * var(--ty-2, 1)));
-    }
+  }
   60% {
     transform: translate(calc(100% * var(--tx-3, 1)), calc(100% * var(--ty-3, -1)));
-    }
+  }
   80% {
     transform: translate(calc(100% * var(--tx-4, -1)), calc(100% * var(--ty-4, -1)));
-    }
   }
 }
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+@keyframes dash-move {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.animate-flow-line {
+  stroke-dasharray: 10;
+  animation: dash-move 0.5s linear infinite;
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(#1e293b 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.perspective {
+  perspective: 1200px;
+}
+
+/* Invoice automation hero animation */
+.invoice-papers-group {
+  position: absolute;
+  left: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  opacity: 0.6;
+}
+
+.invoice-paper {
+  animation: invoice-float 3s ease-in-out infinite;
+}
+
+.invoice-folder-output {
+  position: absolute;
+  right: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  animation: invoice-pulse 2.5s ease-in-out infinite;
+}
+
+@keyframes invoice-float {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50%       { transform: translateY(-14px) rotate(-2deg); }
+}
+
+@keyframes invoice-pulse {
+  0%, 100% { transform: translateY(-50%) scale(1); }
+  50%       { transform: translateY(-50%) scale(1.06); }
+}
 
 @layer utilities {
-  /* Fondo principal con desenfoques de luz (como en la imagen_0) */
+  /* Dark background with light blur clouds */
   .bg-n8n-gradient {
     background-color: #0b1120;
     position: relative;
     overflow: hidden;
   }
 
-  /* Nubes de luz de fondo */
+  /* Blurred light cloud overlay */
   .bg-light-blur {
     position: absolute;
     border-radius: 100%;
@@ -503,7 +548,7 @@ svg[width="2rem"], svg[height="2rem"] {
     z-index: 0;
   }
 
-  /* Borde de brillo sutil para los nodos principales */
+  /* Subtle glow border for primary nodes */
   .glow-border-n8n {
     position: relative;
     overflow: hidden;
@@ -523,34 +568,13 @@ svg[width="2rem"], svg[height="2rem"] {
   .glow-border-n8n:hover::after {
     opacity: 1;
   }
-}
-@keyframes dash-move {
-  to {
-    stroke-dashoffset: -20;
-  }
-}
 
-.animate-flow-line {
-  stroke-dasharray: 10;
-  animation: dash-move 0.5s linear infinite;
-}
-
-.bg-dot-pattern {
-  background-image: radial-gradient(#1e293b 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-
-@layer utilities {
   .glow-3d {
     filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4));
     transition: filter 0.3s ease;
   }
-  
+
   .glow-3d:hover {
     filter: drop-shadow(0 0 35px rgba(59, 130, 246, 0.6));
   }
-}
-.perspective {
-  perspective: 1200px;
 }
