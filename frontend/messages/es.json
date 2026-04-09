@@ -2369,125 +2369,74 @@
       "heroBadge": "n8n + observabilidad",
       "heroCtaLabel": "Auditar procesos",
       "secondaryCtaLabel": "Hablar por WhatsApp",
+      "secondaryCtaHref": "https://wa.me/34626270806",
       "serviceType": "Automatización de procesos e integraciones sobre n8n",
       "areaServed": "España y despliegue remoto UE",
-      "valueProps": [
-        "Flujos reutilizables con control de versiones y separación clara entre secretos, lógica y configuración.",
-        "Métricas de éxito, error y latencia por workflow para detectar cuellos de botella reales.",
-        "Despliegue gestionado o self-hosted con copias, entornos y políticas de cambio."
-      ],
-      "metrics": [
-        {
-          "label": "Cobertura inicial",
-          "value": "2-5 flujos",
-          "detail": "Normalmente cubrimos primero las automatizaciones con más coste manual o más incidencias."
-        },
-        {
-          "label": "Modelo de reintentos",
-          "value": "Idempotente",
-          "detail": "Diseñamos operaciones para que un retry no duplique registros ni provoque estados inconsistentes."
-        },
-        {
-          "label": "Visibilidad",
-          "value": "Nodo a nodo",
-          "detail": "Eventos, payloads críticos y errores correlacionados para depurar rápido."
-        }
-      ],
-      "outcomes": [
-        "Tiempo ahorrado por proceso y por responsable, no solo número de ejecuciones.",
-        "Tasa de éxito por workflow con detalle de fallos transitorios frente a fallos de lógica.",
-        "Backlog operativo eliminado gracias a sincronizaciones y alertas automáticas."
-      ],
-      "steps": [
-        "Mapeamos el proceso, los sistemas implicados y los puntos donde el dato cambia de estado.",
-        "Diseñamos nodos, colas, webhooks y fallback manual con logs desde el día uno.",
-        "Dejamos runbooks, monitorización y ownership compartido con vuestro equipo."
-      ],
-      "useCases": [
-        {
-          "tag": "Finanzas",
-          "title": "Conciliación y reporting recurrente",
-          "description": "Automatiza exportaciones, validaciones y envío de reportes sin depender de hojas manuales.",
-          "bullets": [
-            "Cruce de facturas, pagos y cobros",
-            "Alertas cuando faltan datos o cuadran mal"
-          ]
-        },
-        {
-          "tag": "Operaciones",
-          "title": "Sincronización entre ERP, CRM y formularios",
-          "description": "Reduce copias manuales y asegura que cada alta o cambio llegue al sistema correcto.",
-          "bullets": [
-            "Altas y actualizaciones en cascada",
-            "Validación de duplicados y claves críticas"
-          ]
-        },
-        {
-          "tag": "Soporte",
-          "title": "Alertado y triage de incidencias",
-          "description": "Convierte eventos de sistemas en tickets priorizados con contexto y responsable asignado.",
-          "bullets": [
-            "Creación automática en Slack, email o ticketing",
-            "Reglas de escalado por severidad y SLA"
-          ]
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Despliegue",
-          "question": "¿Trabajáis con n8n cloud, self-hosted u on-prem?",
-          "answer": "Sí. Definimos el modo según requisitos de seguridad, latencia, acceso a sistemas internos y capacidad de operación del equipo."
-        },
-        {
-          "tag": "Fiabilidad",
-          "question": "¿Cómo evitáis flujos frágiles o imposibles de mantener?",
-          "answer": "Separamos lógica, credenciales y configuración; limitamos workflows gigantes; documentamos nodos críticos y diseñamos retries e idempotencia desde el inicio."
-        },
-        {
-          "tag": "Integraciones",
-          "question": "¿Qué sistemas integráis con más frecuencia?",
-          "answer": "ERP, CRM, SQL, hojas de cálculo, servicios de mensajería, herramientas financieras, ticketing y APIs internas o de terceros."
-        },
-        {
-          "tag": "Gobernanza",
-          "question": "¿El equipo puede mantener los flujos después?",
-          "answer": "Sí, si es el objetivo. Entregamos runbooks, naming conventions, paneles y formación para que el equipo pueda operar y extender sin rehacer la base."
-        }
-      ],
-      "keywords": [
-        "automatización n8n",
-        "workflows con observabilidad",
-        "integraciones operativas",
-        "n8n self hosted"
-      ],
-      "hub": {
-        "title": "Capa de automatización conectada a todo el stack",
-        "subtitle": "Flujos, datos, finanzas y equipo trabajando con la misma señal operativa.",
-        "bgTheme": "cyan",
-        "platforms": [
-          {
-            "position": "top-left",
-            "figureKey": "workflow",
-            "colorScheme": "indigo",
-            "label": "Workflows n8n",
-            "sublabel": "Orquestación y lógica"
-          },
-          {
-            "position": "top-right",
-            "figureKey": "cloud-data",
-            "colorScheme": "cyan",
-            "label": "Datos y APIs",
-            "sublabel": "Eventos y sincronización"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "finance",
-            "colorScheme": "cyan",
-            "label": "Métricas y reporting",
-            "sublabel": "KPIs por flujo"
-          }
-        ]
+      "sectionTitles": {
+        "whatIsN8N": "¿Qué es n8n?",
+        "whatWeAutomate": "Qué automatizamos con n8n",
+        "integrations": "Lo conectamos con lo que ya usas",
+        "faq": "Preguntas frecuentes",
+        "ctaTitle": "Automatiza tus procesos con n8n",
+        "ctaSubtitle": "Creamos flujos robustos, escalables y adaptados a tu negocio."
       },
+      "whatIsN8N": "n8n es una plataforma de automatización visual que permite conectar sistemas, transformar datos y ejecutar lógica compleja sin depender de desarrollos a medida. Su arquitectura basada en nodos, reintentos, colas, logs y control de versiones convierte cada flujo en una pieza de infraestructura operable, auditable y preparada para escalar. Es la forma moderna de automatizar procesos sin perder control ni visibilidad.",
+      "whatWeAutomate": [
+        {
+          "title": "Sincronización entre sistemas",
+          "description": "ERP, CRM, formularios, bases de datos y herramientas internas trabajando en tiempo real sin duplicados ni errores."
+        },
+        {
+          "title": "Alertas y monitorización",
+          "description": "Notificaciones automáticas cuando un dato falla, un proceso se detiene o un sistema deja de responder."
+        },
+        {
+          "title": "Conciliación y reporting",
+          "description": "Cruce de facturas, pagos, cobros y generación de reportes sin hojas manuales."
+        },
+        {
+          "title": "Automatización operativa",
+          "description": "Altas, actualizaciones, validaciones y flujos que reducen tareas repetitivas del día a día."
+        },
+        {
+          "title": "Integraciones personalizadas",
+          "description": "APIs internas, servicios externos, webhooks, colas y procesos híbridos cloud/on‑prem."
+        },
+        {
+          "title": "Calidad y validación de datos",
+          "description": "Reglas de validación, deduplicación y corrección automática antes de que los datos entren en tus sistemas clave."
+        }
+      ],
+      "workflowAnimation": {
+        "fileName": "integracion-total.flow",
+        "liveLabel": "Workflow en vivo",
+        "inputLabel": "Nuevo lead",
+        "logicLabel": "Lógica n8n",
+        "nodeWhatsapp": "WhatsApp API",
+        "nodeCalendly": "Calendly",
+        "nodeGmail": "Gmail",
+        "nodeDatabase": "Base de datos",
+        "footerPrefix": "Lo conectamos con lo que ya usas",
+        "footerSuffix": "Todo en piloto automático!"
+      },
+      "faq": [
+        {
+          "question": "¿Podemos empezar sin tener procesos definidos?",
+          "answer": "Sí. Mapeamos juntos los sistemas, los puntos de fallo y las tareas repetitivas para priorizar automatizaciones de impacto inmediato."
+        },
+        {
+          "question": "¿Es necesario saber programar para mantener los flujos?",
+          "answer": "No. Dejamos naming conventions, paneles, documentación y formación para que el equipo pueda operar sin depender de desarrollo."
+        },
+        {
+          "question": "¿Podéis integrarlo con nuestras herramientas actuales?",
+          "answer": "Sí. Conectamos n8n con ERP, CRM, bases de datos, APIs internas, hojas de cálculo, mensajería y cualquier servicio con API."
+        },
+        {
+          "question": "¿Cómo garantizáis que los flujos no se rompan?",
+          "answer": "Diseñamos reintentos, idempotencia, logs, colas y alertas desde el primer día para evitar estados inconsistentes."
+        }
+      ],
       "cta": {
         "label": "Automatizar con n8n",
         "href": "https://wa.me/34626270806?text=Quiero%20auditar%20procesos%20para%20automatizar%20con%20n8n",

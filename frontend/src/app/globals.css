@@ -482,6 +482,75 @@ svg[width="2rem"], svg[height="2rem"] {
     }
   }
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* Fondo principal con desenfoques de luz (como en la imagen_0) */
+  .bg-n8n-gradient {
+    background-color: #0b1120;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Nubes de luz de fondo */
+  .bg-light-blur {
+    position: absolute;
+    border-radius: 100%;
+    filter: blur(80px);
+    opacity: 0.15;
+    z-index: 0;
+  }
+
+  /* Borde de brillo sutil para los nodos principales */
+  .glow-border-n8n {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glow-border-n8n::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  .glow-border-n8n:hover::after {
+    opacity: 1;
+  }
+}
+@keyframes dash-move {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.animate-flow-line {
+  stroke-dasharray: 10;
+  animation: dash-move 0.5s linear infinite;
+}
+
+.bg-dot-pattern {
+  background-image: radial-gradient(#1e293b 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+
+@layer utilities {
+  .glow-3d {
+    filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.4));
+    transition: filter 0.3s ease;
+  }
+  
+  .glow-3d:hover {
+    filter: drop-shadow(0 0 35px rgba(59, 130, 246, 0.6));
+  }
+}
 .perspective {
   perspective: 1200px;
 }

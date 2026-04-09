@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { getMessages } from "next-intl/server";
-import { LANDING_ASSETS } from "@/lib/landing-assets";
 import { createPageMetadata } from "@/lib/metadata";
 import InteligenciaArtificialSevilla from "./page.client"
 
 const slug = "inteligencia-artificial-sevilla" as const;
+const INTELIGENCIA_ARTIFICIAL_SEVILLA_HERO_IMAGE = "/static/inteligencia-artificial-sevilla/hero-blurred.webp";
 type LandingMetadataContent = {
   title: string;
   description: string;
@@ -28,7 +28,7 @@ export async function generateMetadata({
     path: `/${slug}`,
     title: landing.title,
     description: landing.description,
-    image: LANDING_ASSETS[slug].heroImage,
+    image: INTELIGENCIA_ARTIFICIAL_SEVILLA_HERO_IMAGE,
   });
 }
 
