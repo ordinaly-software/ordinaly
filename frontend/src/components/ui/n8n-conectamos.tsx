@@ -11,6 +11,23 @@ import {
   Check
 } from 'lucide-react';
 
+type WorkflowLabels = {
+  fileName?: string;
+  liveLabel?: string;
+  inputLabel?: string;
+  logicLabel?: string;
+  nodeWhatsapp?: string;
+  nodeCalendly?: string;
+  nodeGmail?: string;
+  nodeDatabase?: string;
+  footerPrefix?: string;
+  footerSuffix?: string;
+};
+
+type AnimatedFlowProps = {
+  labels?: WorkflowLabels;
+};
+
 const ConnectionNode = ({ icon: Icon, title, color, delay = 0 }: any) => (
   <motion.div
     initial={{ opacity: 0, x: 20 }}
@@ -28,7 +45,20 @@ const ConnectionNode = ({ icon: Icon, title, color, delay = 0 }: any) => (
   </motion.div>
 );
 
-const AnimatedFlow = () => {
+const AnimatedFlow = ({ labels }: AnimatedFlowProps) => {
+  const text = {
+    fileName: labels?.fileName || 'integracion-total.flow',
+    liveLabel: labels?.liveLabel || 'Workflow Live',
+    inputLabel: labels?.inputLabel || 'Nuevo Lead',
+    logicLabel: labels?.logicLabel || 'Logica n8n',
+    nodeWhatsapp: labels?.nodeWhatsapp || 'WhatsApp API',
+    nodeCalendly: labels?.nodeCalendly || 'Calendly',
+    nodeGmail: labels?.nodeGmail || 'Gmail',
+    nodeDatabase: labels?.nodeDatabase || 'Base de datos',
+    footerPrefix: labels?.footerPrefix || 'Lo conectamos con lo que ya usas',
+    footerSuffix: labels?.footerSuffix || 'Todo en piloto automatico!',
+  };
+
   return (
     <div className="bg-[#0b1120] p-6 md:p-12 font-sans flex items-center justify-center min-h-[500px]">
       <div className="w-full max-w-5xl bg-[#0b1121] rounded-3xl border border-slate-800 shadow-2xl overflow-hidden relative bg-dot-pattern">
@@ -40,10 +70,10 @@ const AnimatedFlow = () => {
             <div className="w-3 h-3 rounded-full bg-yellow-500/80"></div>
             <div className="w-3 h-3 rounded-full bg-green-500/80"></div>
           </div>
-          <span className="text-slate-500 text-[10px] font-mono tracking-widest uppercase">integracion-total.flow</span>
+           <span className="text-slate-500 text-[10px] font-mono tracking-widest uppercase">{text.fileName}</span>
           <div className="flex items-center gap-2">
              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse shadow-[0_0_8px_rgba(249,115,22,1)]"></span>
-             <span className="text-slate-400 text-[10px] uppercase font-bold tracking-tighter">Workflow Live</span>
+             <span className="text-slate-400 text-[10px] uppercase font-bold tracking-tighter">{text.liveLabel}</span>
           </div>
         </div>
 
@@ -67,7 +97,7 @@ const AnimatedFlow = () => {
               <Zap className="text-white fill-current" size={32} />
               <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-slate-400 rounded-full border-4 border-[#0b1121]"></div>
             </div>
-            <p className="text-white text-xs font-bold uppercase tracking-widest mt-2">Nuevo Lead</p>
+            <p className="text-white text-xs font-bold uppercase tracking-widest mt-2">{text.inputLabel}</p>
           </div>
 
           {/* Cerebro n8n / IF */}
@@ -78,15 +108,15 @@ const AnimatedFlow = () => {
                 {/* Puertos de salida */}
                 <div className="absolute -right-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-[#0b1121]"></div>
              </div>
-             <p className="text-blue-400 text-xs font-black uppercase tracking-tighter bg-blue-500/10 px-3 py-1 rounded-full">Lógica n8n</p>
+             <p className="text-blue-400 text-xs font-black uppercase tracking-tighter bg-blue-500/10 px-3 py-1 rounded-full">{text.logicLabel}</p>
           </div>
 
           {/* Salidas (Las Apps que el usuario usa) */}
           <div className="z-10 flex flex-col gap-6">
-            <ConnectionNode icon={MessageCircle} title="WhatsApp API" color="bg-green-600" delay={0.2} />
-            <ConnectionNode icon={Calendar} title="Calendly" color="bg-blue-600" delay={0.4} />
-            <ConnectionNode icon={Mail} title="Gmail" color="bg-red-500" delay={0.6} />
-            <ConnectionNode icon={Database} title="Base de Datos" color="bg-slate-600" delay={0.8} />
+            <ConnectionNode icon={MessageCircle} title={text.nodeWhatsapp} color="bg-green-600" delay={0.2} />
+            <ConnectionNode icon={Calendar} title={text.nodeCalendly} color="bg-blue-600" delay={0.4} />
+            <ConnectionNode icon={Mail} title={text.nodeGmail} color="bg-red-500" delay={0.6} />
+            <ConnectionNode icon={Database} title={text.nodeDatabase} color="bg-slate-600" delay={0.8} />
           </div>
 
         </div>
@@ -94,7 +124,7 @@ const AnimatedFlow = () => {
         {/* Footer con llamada a la acción */}
         <div className="bg-[#0f172a] p-4 flex justify-center border-t border-slate-800">
           <p className="text-slate-400 text-xs italic flex items-center gap-2">
-            Lo conectamos con lo que ya usas <ArrowRight size={14} className="text-orange-500" /> ¡Todo en piloto automático!
+            {text.footerPrefix} <ArrowRight size={14} className="text-orange-500" /> {text.footerSuffix}
           </p>
         </div>
 

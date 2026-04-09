@@ -56,7 +56,7 @@ export default function AutomatizacionesN8NnSevillaPage() {
       </section>
 
       <section className="py-24 px-6 bg-white dark:bg-neutral-900">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_1.2fr] gap-16 items-center">
 
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-8 dark:text-white">
@@ -67,11 +67,11 @@ export default function AutomatizacionesN8NnSevillaPage() {
               {content.whatIsN8N}
             </p>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center md:justify-end">
             <img
-              src="/ImagenesN8N/n8n-integration.webp"
+              src="/static/automatizacion-n8n-sevilla/n8n-integration.webp"
               alt="Ejemplo de flujo n8n"
-              className="rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700 max-w-full"
+              className="w-full max-w-[760px] rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700"
             />
           </div>
 
@@ -122,7 +122,7 @@ export default function AutomatizacionesN8NnSevillaPage() {
           {content.sectionTitles?.integrations}
         </h2>
         {/* Flujo de n8n*/}
-        <N8NFlow />
+        <N8NFlow labels={content.workflowAnimation} />
       </section>
       <section className="py-24 max-w-5xl mx-auto px-6 bg-neutral-50 dark:bg-neutral-800">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
@@ -151,12 +151,14 @@ export default function AutomatizacionesN8NnSevillaPage() {
           <a
             href="#formulario"
             className="
-              inline-block border-2 border-[#ff6d5a] text-[#ff6d5a] 
-              font-semibold px-6 py-3 rounded-full transition duration-300 
-              hover:bg-[#ff6d5a] hover:text-white
+              inline-flex items-center gap-2 px-6 py-3 rounded-full 
+              border-2 border-clay text-clay font-semibold shadow-md 
+              transition-all duration-300 hover:bg-clay hover:text-white 
+              hover:shadow-lg hover:shadow-clay/20 group
             "
           >
-            {content.sectionTitles?.ctaTitle} →
+            {content.sectionTitles?.ctaTitle}
+            <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
           </a>
         </div>
       </section>

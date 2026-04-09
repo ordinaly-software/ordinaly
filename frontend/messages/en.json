@@ -2401,8 +2401,24 @@
         {
           "title": "Custom integrations",
           "description": "Internal APIs, external services, webhooks, queues and hybrid cloud/on‑prem processes."
+        },
+        {
+          "title": "Data quality and validation",
+          "description": "Rule-based checks, deduplication and automated corrections before data reaches your core systems."
         }
       ],
+      "workflowAnimation": {
+        "fileName": "integration-total.flow",
+        "liveLabel": "Workflow live",
+        "inputLabel": "New lead",
+        "logicLabel": "n8n logic",
+        "nodeWhatsapp": "WhatsApp API",
+        "nodeCalendly": "Calendly",
+        "nodeGmail": "Gmail",
+        "nodeDatabase": "Database",
+        "footerPrefix": "We connect it with what you already use",
+        "footerSuffix": "Everything on autopilot!"
+      },
       "faq": [
         {
           "question": "Can we start even if our processes aren’t defined?",

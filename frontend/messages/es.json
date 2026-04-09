@@ -2401,8 +2401,24 @@
         {
           "title": "Integraciones personalizadas",
           "description": "APIs internas, servicios externos, webhooks, colas y procesos híbridos cloud/on‑prem."
+        },
+        {
+          "title": "Calidad y validación de datos",
+          "description": "Reglas de validación, deduplicación y corrección automática antes de que los datos entren en tus sistemas clave."
         }
       ],
+      "workflowAnimation": {
+        "fileName": "integracion-total.flow",
+        "liveLabel": "Workflow en vivo",
+        "inputLabel": "Nuevo lead",
+        "logicLabel": "Lógica n8n",
+        "nodeWhatsapp": "WhatsApp API",
+        "nodeCalendly": "Calendly",
+        "nodeGmail": "Gmail",
+        "nodeDatabase": "Base de datos",
+        "footerPrefix": "Lo conectamos con lo que ya usas",
+        "footerSuffix": "Todo en piloto automático!"
+      },
       "faq": [
         {
           "question": "¿Podemos empezar sin tener procesos definidos?",
