@@ -1471,7 +1471,7 @@
       "bonificationYes": "Yes, we have credits",
       "bonificationNo": "No, continue",
       "bonificationMissingLink": "We couldn't find the bonified course link. Please contact support.",
-      "bonificationInfo": "Some of our trainings may be subsidized via FUNDAE/SEPE and/or fit into co‑funded calls by FSE+ and PRTR‑NextGenerationEU, provided your company meets requirements and processes the aid.\n\nFUNDAE / SEPE – Company‑funded training: allows part of the training cost to be offset in Social Security contributions. Official info for companies (FUNDAE) and training for employees (SEPE).\n\nEU Funds – FSE+ 2021‑2027: national and regional programs (including Andalusia) financing employment, education, and training through public calls. See UAFSE.\n\nPRTR – NextGenerationEU (Component 23): measures for upskilling and active employment policies; coverage depends on each call. Official info from the Recovery Plan and SEPE.\n\nAndalusia (regional scope): FSE+ Andalusia 2021‑2027 and Vocational Training for Employment (FPE) publish specific grants/calls. See Junta de Andalucía and FPE.\n\nNotice: Eligibility, intensity, and compatibility vary by regulation and current calls. Ordinaly provides course documentation but does not apply for or process subsidies on the client's behalf. Always review official links before contracting.",
+      "bonificationInfo": "Some of our trainings may be subsidized via FUNDAE/SEPE and/or fit into co-funded calls by FSE+ and PRTR-NextGenerationEU, provided your company meets requirements and processes the aid.\n\nFUNDAE / SEPE – Company-funded training: allows part of the training cost to be offset in Social Security contributions. Official info for companies (FUNDAE) and training for employees (SEPE).\n\nEU Funds – FSE+ 2021-2027: national and regional programs (including Andalusia) financing employment, education, and training through public calls. See UAFSE.\n\nPRTR – NextGenerationEU (Component 23): measures for upskilling and active employment policies; coverage depends on each call. Official info from the Recovery Plan and SEPE.\n\nAndalusia (regional scope): FSE+ Andalusia 2021-2027 and Vocational Training for Employment (FPE) publish specific grants/calls. See Junta de Andalucía and FPE.\n\nNotice: Eligibility, intensity, and compatibility vary by regulation and current calls. Ordinaly provides course documentation but does not apply for or process subsidies on the client's behalf. Always review official links before contracting.",
       "stepBonification": "Step 1 · Bonification",
       "stepCheckout": "Step 2 · Enrollment",
       "paymentNote": "Payment processing will be handled in the next step.",
@@ -2221,8 +2221,6 @@
   "landings": {
     "chatbots-empresas-sevilla": {
       "slug": "chatbots-empresas-sevilla",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 32%",
       "title": "Business chatbots with connected data",
       "shortTitle": "Chatbots",
       "subtitle": "RAG, guardrails and human handoff for support, sales and internal help desks.",
@@ -2364,144 +2362,257 @@
     },
     "automatizacion-n8n-sevilla": {
       "slug": "automatizacion-n8n-sevilla",
-      "heroImage": "/static/backgrounds/n8n_background.webp",
-      "heroImagePosition": "center center",
       "title": "n8n automation with observability and control",
       "shortTitle": "n8n automation",
-      "subtitle": "Versioned workflows for syncs, alerts, reconciliation and AI-assisted operations.",
-      "description": "We design n8n flows with retries, queues, logs and node-level metrics so automation stops being a black box and becomes operable infrastructure.",
+      "subtitle": "Versioned workflows for synchronization, alerts, reconciliation and AI‑assisted operations.",
+      "description": "We design n8n flows with retries, queues, logs and per‑node metrics so automation stops being a black box and becomes operable infrastructure.",
       "heroBadge": "n8n + observability",
       "heroCtaLabel": "Audit processes",
-      "secondaryCtaLabel": "Talk on WhatsApp",
-      "serviceType": "Process automation and integrations on n8n",
-      "areaServed": "Spain and EU remote delivery",
+      "secondaryCtaLabel": "Chat on WhatsApp",
+      "secondaryCtaHref": "https://wa.me/34626270806",
+      "serviceType": "Process automation and integrations built on n8n",
+      "areaServed": "Spain and remote deployment across the EU",
+      "sectionTitles": {
+        "whatIsN8N": "What is n8n?",
+        "whatWeAutomate": "What we automate with n8n",
+        "integrations": "We connect it with what you already use",
+        "faq": "Frequently asked questions",
+        "ctaTitle": "Automate your processes with n8n",
+        "ctaSubtitle": "We build robust, scalable flows tailored to your business."
+      },
+      "whatIsN8N": "n8n is a visual automation platform that allows you to connect systems, transform data and execute complex logic without custom development. Its node‑based architecture, retries, queues, logs and version control turn each workflow into operable, auditable and scalable infrastructure. It’s the modern way to automate processes without losing control or visibility.",
+      "whatWeAutomate": [
+        {
+          "title": "System synchronization",
+          "description": "ERP, CRM, forms, databases and internal tools working in real time without duplicates or errors."
+        },
+        {
+          "title": "Alerts and monitoring",
+          "description": "Automatic notifications when data fails, a process stops or a system stops responding."
+        },
+        {
+          "title": "Reconciliation and reporting",
+          "description": "Invoice matching, payments, collections and report generation without manual spreadsheets."
+        },
+        {
+          "title": "Operational automation",
+          "description": "Onboarding, updates, validations and flows that reduce repetitive daily tasks."
+        },
+        {
+          "title": "Custom integrations",
+          "description": "Internal APIs, external services, webhooks, queues and hybrid cloud/on‑prem processes."
+        },
+        {
+          "title": "Data quality and validation",
+          "description": "Rule-based checks, deduplication and automated corrections before data reaches your core systems."
+        }
+      ],
+      "workflowAnimation": {
+        "fileName": "integration-total.flow",
+        "liveLabel": "Workflow live",
+        "inputLabel": "New lead",
+        "logicLabel": "n8n logic",
+        "nodeWhatsapp": "WhatsApp API",
+        "nodeCalendly": "Calendly",
+        "nodeGmail": "Gmail",
+        "nodeDatabase": "Database",
+        "footerPrefix": "We connect it with what you already use",
+        "footerSuffix": "Everything on autopilot!"
+      },
+      "faq": [
+        {
+          "question": "Can we start even if our processes aren’t defined?",
+          "answer": "Yes. We map systems, failure points and repetitive tasks together to prioritize automations with immediate impact."
+        },
+        {
+          "question": "Do we need programming knowledge to maintain the flows?",
+          "answer": "No. We leave naming conventions, dashboards, documentation and training so your team can operate without relying on development."
+        },
+        {
+          "question": "Can you integrate it with our current tools?",
+          "answer": "Yes. We connect n8n with ERP, CRM, databases, internal APIs, spreadsheets, messaging tools and any service with an API."
+        },
+        {
+          "question": "How do you ensure flows don’t break?",
+          "answer": "We design retries, idempotency, logs, queues and alerts from day one to avoid inconsistent states."
+        }
+      ],
+      "cta": {
+        "label": "Automate with n8n",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20audit%20processes%20to%20automate%20with%20n8n",
+        "bgColor": "#0255D5"
+      }
+    },
+    "automatizacion-facturas": {
+      "slug": "automatizacion-facturas",
+      "heroImage": "/static/backgrounds/blog_background.webp",
+      "heroImagePosition": "center 28%",
+      "title": "Invoice Automation",
+      "shortTitle": "Invoice Automation",
+      "heroBadge": "Document Automation",
+      "heroCtaLabel": "Request information",
+      "secondaryCtaLabel": "I want to automate my invoices",
+      "serviceType": "Document automation and intelligent data extraction",
+      "areaServed": "Spain, SMEs, accounting firms, and administrative teams",
       "valueProps": [
-        "Reusable flows with version control and clear separation between secrets, logic and configuration.",
-        "Success, failure and latency metrics per workflow to detect real bottlenecks.",
-        "Managed or self-hosted deployment with backups, environments and change policies."
+        "Automatic classification by supplier, date, amount, or custom rules.",
+        "Accurate extraction of key data: client, date, items, taxable base, and total.",
+        "Seamless integration with folders, ERPs, CRMs, or accounting systems."
+      ],
+      "sectionTitles": {
+        "howItWorks": "How the automation works",
+        "benefits": "Benefits of automating your invoices",
+        "beforeAfter": "Before and after automation",
+        "before": "Before",
+        "after": "After"
+      },
+      "benefits": [
+        "Save hours every month",
+        "Avoid human errors",
+        "Everything organized automatically",
+        "Compatible with any format"
       ],
       "metrics": [
         {
-          "label": "Initial scope",
-          "value": "2-5 workflows",
-          "detail": "We usually start with automations carrying the highest manual cost or failure volume."
+          "label": "Monthly savings",
+          "value": "6–20 hours",
+          "detail": "Reduced time spent reviewing emails, downloading invoices, and copying data."
         },
         {
-          "label": "Retry model",
-          "value": "Idempotent",
-          "detail": "We design operations so retries do not duplicate records or create inconsistent states."
+          "label": "Accuracy",
+          "value": "98%",
+          "detail": "Automatic extraction with optional validation for uncertain cases."
         },
         {
-          "label": "Visibility",
-          "value": "Node-level",
-          "detail": "Critical events, payloads and correlated errors for fast debugging."
+          "label": "Classification",
+          "value": "Automatic",
+          "detail": "Organization by year, supplier, or project without human intervention."
         }
       ],
       "outcomes": [
-        "Time saved by process and owner, not only number of executions.",
-        "Success rate per workflow with transient failures separated from logic failures.",
-        "Operational backlog removed through syncs and automated alerts."
+        "Fewer human errors when transcribing data.",
+        "Invoices automatically organized into structured folders.",
+        "Data ready for accounting or analysis without manual work.",
+        "Faster and more traceable administrative processes."
+      ],
+      "before": [
+        "Invoices lost in emails",
+        "Copying data manually",
+        "Errors when transcribing",
+        "Time wasted searching for documents"
+      ],
+      "after": [
+        "Invoices automatically classified",
+        "Data extracted effortlessly",
+        "Zero errors",
+        "Everything accessible in seconds"
       ],
       "steps": [
-        "We map the process, involved systems and points where data changes state.",
-        "We design nodes, queues, webhooks and manual fallback with logs from day one.",
-        "We leave runbooks, monitoring and shared ownership with your team."
+        "We connect your inbox or the folder where you receive invoices.",
+        "We define classification and extraction rules based on your business.",
+        "We activate the automated flow: detection, extraction, and archiving."
       ],
       "useCases": [
         {
-          "tag": "Finance",
-          "title": "Recurring reconciliation and reporting",
-          "description": "Automate exports, validation and report delivery without depending on manual spreadsheets.",
+          "tag": "Administration",
+          "title": "Automatic invoice reception",
+          "description": "We detect invoices arriving by email and process them without human intervention.",
           "bullets": [
-            "Invoice, payment and collections matching",
-            "Alerts when data is missing or mismatched"
+            "Automatic email reading",
+            "Immediate download and classification"
+          ]
+        },
+        {
+          "tag": "Accounting",
+          "title": "Key data extraction",
+          "description": "We extract supplier, date, items, taxable base, and total.",
+          "bullets": [
+            "Advanced OCR",
+            "Optional data validation"
           ]
         },
         {
           "tag": "Operations",
-          "title": "ERP, CRM and form synchronization",
-          "description": "Removes manual copy-paste and ensures each new record or change reaches the right system.",
+          "title": "Smart archiving",
+          "description": "We store each invoice in the correct folder according to custom rules.",
           "bullets": [
-            "Cascade create and update flows",
-            "Duplicate and critical-key validation"
-          ]
-        },
-        {
-          "tag": "Support",
-          "title": "Incident alerting and triage",
-          "description": "Turns system events into prioritized tickets with context and assigned owner.",
-          "bullets": [
-            "Automatic creation in Slack, email or ticketing",
-            "Escalation rules by severity and SLA"
+            "Folders by year or supplier",
+            "Integration with Drive, Dropbox, or ERP"
           ]
         }
       ],
       "technologyFaqs": [
         {
-          "tag": "Deployment",
-          "question": "Do you work with n8n cloud, self-hosted or on-prem?",
-          "answer": "Yes. We choose the setup based on security, latency, access to internal systems and the team’s operating capacity."
+          "tag": "Processing",
+          "question": "How do you detect invoices automatically?",
+          "answer": "We monitor inboxes or folders and apply OCR models that identify invoice‑type documents without manual rules."
         },
         {
-          "tag": "Reliability",
-          "question": "How do you avoid fragile workflows that become impossible to maintain?",
-          "answer": "We separate logic, credentials and configuration; avoid giant workflows; document critical nodes and design retries and idempotency from the start."
+          "tag": "Extraction",
+          "question": "What data can be extracted?",
+          "answer": "Supplier, date, invoice number, items, taxable base, VAT, total, and any additional fields you need."
         },
         {
-          "tag": "Integrations",
-          "question": "Which systems do you integrate most often?",
-          "answer": "ERP, CRM, SQL, spreadsheets, messaging services, finance tools, ticketing and internal or third-party APIs."
+          "tag": "Integration",
+          "question": "Can it connect to my ERP or accounting system?",
+          "answer": "Yes. We can export to CSV, API, Google Drive, OneDrive, Holded, A3, Contasol, and other systems."
         },
         {
-          "tag": "Governance",
-          "question": "Can the team maintain the workflows afterward?",
-          "answer": "Yes, if that is the goal. We deliver runbooks, naming conventions, dashboards and training so the team can operate and extend the system without rebuilding the foundation."
+          "tag": "Security",
+          "question": "How do you handle sensitive data?",
+          "answer": "We apply data minimization, encrypted transmission, and strict access rules. We only process what is necessary for automation."
         }
       ],
       "keywords": [
-        "n8n automation",
-        "observable workflows",
-        "operational integrations",
-        "self-hosted n8n"
+        "invoice automation",
+        "document processing",
+        "intelligent OCR",
+        "automatic invoice classification",
+        "administrative automation"
       ],
       "hub": {
-        "title": "Automation layer connected to the full stack",
-        "subtitle": "Workflows, data, finance and teams sharing the same operational signal.",
-        "bgTheme": "cyan",
+        "title": "Complete invoice automation",
+        "subtitle": "Reception, extraction, classification, and archiving with zero human intervention.",
+        "bgTheme": "orange",
         "platforms": [
           {
             "position": "top-left",
-            "figureKey": "workflow",
-            "colorScheme": "indigo",
-            "label": "n8n workflows",
-            "sublabel": "Orchestration and logic"
+            "figureKey": "email-inbox",
+            "colorScheme": "orange",
+            "label": "Reception",
+            "sublabel": "From email or folder"
           },
           {
             "position": "top-right",
-            "figureKey": "cloud-data",
-            "colorScheme": "cyan",
-            "label": "Data and APIs",
-            "sublabel": "Events and sync"
+            "figureKey": "document-ocr",
+            "colorScheme": "amber",
+            "label": "Extraction",
+            "sublabel": "Error‑free key data"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "folder-automation",
+            "colorScheme": "orange",
+            "label": "Classification",
+            "sublabel": "Automatic folders"
           },
           {
             "position": "bottom-right",
-            "figureKey": "finance",
-            "colorScheme": "cyan",
-            "label": "Metrics and reporting",
-            "sublabel": "KPIs per workflow"
+            "figureKey": "erp-sync",
+            "colorScheme": "amber",
+            "label": "Integration",
+            "sublabel": "ERP and accounting"
           }
         ]
       },
       "cta": {
-        "label": "Automate with n8n",
-        "href": "https://wa.me/34626270806?text=Quiero%20auditar%20procesos%20para%20automatizar%20con%20n8n",
-        "bgColor": "#0255D5"
+        "label": "I want to automate my invoices",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20invoices",
+        "bgColor": "#d97706"
       }
     },
     "agentes-ia-atencion-cliente-sevilla": {
       "slug": "agentes-ia-atencion-cliente-sevilla",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 28%",
       "title": "AI customer support agents with safe actions",
       "shortTitle": "AI agents",
       "subtitle": "Agents that can read, act and escalate under clearly defined operating policies.",
@@ -2643,8 +2754,6 @@
     },
     "automatizacion-whatsapp-business-sevilla": {
       "slug": "automatizacion-whatsapp-business-sevilla",
-      "heroImage": "/static/backgrounds/us_background.webp",
-      "heroImagePosition": "center 38%",
       "title": "WhatsApp Business automation with measurable performance",
       "shortTitle": "WhatsApp Business",
       "subtitle": "Operational messaging for acquisition, support and follow-up with SLA, templates and CRM context.",
@@ -2786,116 +2895,126 @@
     },
     "formacion-ia-pymes-sevilla": {
       "slug": "formacion-ia-pymes-sevilla",
-      "heroImage": "/static/backgrounds/formation_background.webp",
-      "heroImagePosition": "center 30%",
-      "title": "AI training applied to real processes",
-      "shortTitle": "AI training",
-      "subtitle": "Hands-on programs for teams that need to use AI with judgment, safety and clear ROI.",
-      "description": "We design workshops around business tasks, internal datasets and usage rules so the team leaves with habits, templates and operational boundaries, not just inspiration.",
+      "title": "AI training applied to real business processes",
+      "shortTitle": "AI Training",
       "heroBadge": "Operational training",
       "heroCtaLabel": "Plan training",
       "secondaryCtaLabel": "Check availability",
-      "serviceType": "AI training for sales, support and operations",
-      "areaServed": "Spain, remote and on-site sessions",
+      "serviceType": "AI training for sales, support and operations teams",
+      "areaServed": "Spain · On-site and online sessions",
       "valueProps": [
-        "Sessions built around business examples and measurable tasks the team already performs today.",
-        "Security, data-governance and acceptable-use modules tailored to each team.",
-        "Templates, prompts and routines ready to apply the very next day."
+        "Sessions built around real examples and tasks the team already performs today.",
+        "Security, governance and responsible-use modules adapted to each department.",
+        "Templates, prompts and routines ready to apply the next day."
       ],
+      "sectionTitles": {
+        "valueProps": "What your team will learn",
+        "metrics": "Format and materials",
+        "carousel": "Training in action",
+        "experts": "Who delivers the training",
+        "technologyFaqs": "Frequently asked questions",
+        "curiosities": "Facts and insights",
+        "ctaTitle": "Want to plan a training session?",
+        "ctaSubtitle": "We tailor the content to your processes, roles and maturity level."
+      },
+      "ui": {
+        "linkedinLabel": "LinkedIn",
+        "faqCtaLabel": "View all frequently asked questions",
+        "previousLabel": "Previous",
+        "nextLabel": "Next"
+      },
       "metrics": [
         {
           "label": "Format",
-          "value": "2-4 hours",
-          "detail": "Compact blocks that do not stop operations and can be repeated by team."
+          "value": "2–4 hours",
+          "detail": "Compact blocks that don’t interrupt operations and can be repeated per team."
         },
         {
           "label": "Follow-up",
           "value": "Optional 30 days",
-          "detail": "We support adoption, answer doubts and measure actual usage after the session."
+          "detail": "We support adoption, answer questions and measure real usage after the session."
         },
         {
           "label": "Materials",
           "value": "Ready-to-use playbooks",
-          "detail": "Role-based guides, checklists and prompt libraries fitted to your tasks."
+          "detail": "Role-based guides, checklists and prompt libraries tailored to your tasks."
         }
       ],
-      "outcomes": [
-        "Adoption by team and use case, not just attendance.",
-        "Time saved on concrete tasks after introducing new routines and templates.",
-        "Security incidents or out-of-policy uses detected and corrected early."
-      ],
-      "steps": [
-        "We diagnose repetitive tasks, approved tools and team-specific risks.",
-        "We run a hands-on session with real exercises and review criteria.",
-        "We deliver materials and, when useful, follow with challenges and office hours."
-      ],
-      "useCases": [
+      "experts": [
         {
-          "tag": "Sales",
-          "title": "Proposal generation and meeting prep",
-          "description": "The team learns to use AI for context synthesis, objection prep and structured follow-up.",
-          "bullets": [
-            "Reusable prompts by sales stage",
-            "Tone, risk and accuracy review"
-          ]
+          "name": "Antonio Macías Ferrera",
+          "role": "CTO, software engineer & Co-founder",
+          "description": "Software engineer specialized in automation and artificial intelligence."
         },
         {
-          "tag": "Operations",
-          "title": "Documentation, analysis and reporting",
-          "description": "We turn long synthesis and classification tasks into clear, repeatable routines.",
-          "bullets": [
-            "Consistent, comparable summaries",
-            "Checklist to validate outputs before use"
-          ]
-        },
-        {
-          "tag": "Leadership",
-          "title": "Internal AI usage policy",
-          "description": "We help define what can be used, with which data and under what supervision.",
-          "bullets": [
-            "Criteria by role and tool",
-            "Best practices for sensitive data"
-          ]
+          "name": "Guillermo Montero Fernández Vivancos",
+          "role": "Quality & project engineer · Co-founder",
+          "description": "Consultant and project manager specialized in AI and quality engineering."
         }
       ],
       "technologyFaqs": [
         {
           "tag": "Program",
-          "question": "Is the training generic or adapted to the business?",
-          "answer": "It always starts from real cases and real tasks. Without that anchor, adoption drops quickly and the team returns to old habits."
+          "question": "Is the training generic or tailored to the business?",
+          "answer": "It always starts from real cases and tasks. Without that grounding, adoption drops and the team returns to previous habits."
         },
         {
           "tag": "Security",
-          "question": "Do you include security, privacy and governance?",
+          "question": "Does it include security, privacy and governance?",
           "answer": "Yes. We cover data minimization, approved tools, usage limits and human review when impact requires it."
         },
         {
           "tag": "Format",
-          "question": "Can it be combined with a technical rollout?",
-          "answer": "Yes. It often works better when training accompanies a pilot or rollout because the team learns on top of its own workflow."
+          "question": "Can it be combined with a technical deployment?",
+          "answer": "Yes. It works even better when paired with a pilot or rollout, because the team learns using its own workflow."
         },
         {
           "tag": "Adoption",
-          "question": "How do you measure whether training actually changes habits?",
-          "answer": "We define target tasks, baseline time or quality and post-session follow-up. Without measurement, training remains inspiration instead of operations."
+          "question": "How do you measure whether the training changes habits?",
+          "answer": "We define target tasks, baseline time or quality, and follow-up. Without measurement, training stays as inspiration."
         }
       ],
-      "keywords": [
-        "AI training for companies",
-        "AI adoption for teams",
-        "hands-on AI workshop",
-        "AI governance training"
+      "curiosities": [
+        "More than 85% of administrative tasks can be partially or fully automated with AI.",
+        "Companies adopting AI report an average 30% productivity increase in under 90 days.",
+        "An AI model can analyze in milliseconds what a human would take hours to review.",
+        "The biggest barrier to AI adoption is not technology, but lack of habits.",
+        "70% of AI incidents are caused by misuse or lack of internal policies."
+      ],
+      "curiosityCards": [
+        {
+          "title": "Business use",
+          "badge": "Real data",
+          "text": "More than 85% of administrative tasks can be partially or fully automated with AI."
+        },
+        {
+          "title": "Productivity",
+          "badge": "Direct impact",
+          "text": "Companies adopting AI report an average 30% productivity increase in under 90 days."
+        },
+        {
+          "title": "Speed",
+          "badge": "Technical capability",
+          "text": "An AI model can analyze in milliseconds what a human would take hours to review."
+        },
+        {
+          "title": "Adoption",
+          "badge": "Human behavior",
+          "text": "The biggest barrier to AI adoption is not technology, but lack of habits."
+        },
+        {
+          "title": "Security",
+          "badge": "Governance",
+          "text": "70% of AI incidents are caused by misuse or lack of internal policies."
+        }
       ],
       "cta": {
-        "label": "Request training",
-        "href": "https://wa.me/34626270806?text=Quiero%20formaci%C3%B3n%20IA%20pr%C3%A1ctica%20para%20mi%20equipo",
-        "bgColor": "#0255D5"
+        "label": "I want more information",
+        "bgColor": "#d97757"
       }
     },
     "integraciones-crm-erp-sevilla": {
       "slug": "integraciones-crm-erp-sevilla",
-      "heroImage": "/static/backgrounds/odoo_background.webp",
-      "heroImagePosition": "center center",
       "title": "CRM and ERP integrations with rules and data quality",
       "shortTitle": "CRM and ERP integrations",
       "subtitle": "Robust synchronization between sales, finance, support and inventory without duplicates or silent conflicts.",

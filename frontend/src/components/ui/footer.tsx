@@ -51,7 +51,6 @@ type LandingFooterContent = {
 const Footer = () => {
   const t = useTranslations("home");
   const tCookie = useTranslations("cookie");
-  const locale = useLocale();
   const messages = useMessages();
   const { isDark, setIsDark } = useTheme();
   const currentYear = new Date().getUTCFullYear();
@@ -143,7 +142,7 @@ const Footer = () => {
 
   return (
     <footer className="border-t border-[--color-border-subtle] bg-[#f5f5f7] text-slate-medium dark:border-[--color-border-strong] dark:bg-[#0f1012] dark:text-cloud-medium">
-      <div className="u-container py-10 md:py-12">
+      <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 py-10 md:py-12">
         <div className="border-b border-[--color-border-subtle] pb-4 text-sm leading-relaxed dark:border-[--color-border-strong]">
             <Image
               src="/logo_80.webp"
@@ -159,7 +158,7 @@ const Footer = () => {
             />
         </div>
 
-        <div className="grid gap-10 py-8 md:grid-cols-2 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
+        <div className="grid gap-4 py-4 md:grid-cols-2 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
           <div className="max-w-sm">
             <div className="flex items-center gap-3">
               <div>
