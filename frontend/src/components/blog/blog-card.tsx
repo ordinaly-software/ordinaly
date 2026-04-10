@@ -119,7 +119,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick, compa
           </div>
         )}
 
-        {/* Description – desktop only, not in compact mode */}
+        {/* Description - desktop only, not in compact mode */}
         {!compact && (post.seoDescription || post.excerpt) && (
           <p className="hidden md:block text-gray-600 dark:text-gray-400 text-base opacity-80 mt-2 line-clamp-2">
             {post.seoDescription || post.excerpt}

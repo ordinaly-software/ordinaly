@@ -20,7 +20,7 @@ export interface HubPlatformConfig {
 }
 
 export interface HubIllustrationProps {
-  /** 1 – 4 satellite platforms; only specified positions are rendered */
+  /** 1 - 4 satellite platforms; only specified positions are rendered */
   platforms: HubPlatformConfig[];
   /** Background / hub colour theme (default: "indigo") */
   bgTheme?: HubBgTheme;
