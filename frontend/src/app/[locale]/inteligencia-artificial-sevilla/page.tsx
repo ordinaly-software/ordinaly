@@ -4,10 +4,10 @@ import { createPageMetadata } from "@/lib/metadata";
 import InteligenciaArtificialSevilla from "./page.client"
 
 const slug = "inteligencia-artificial-sevilla" as const;
+const INTELIGENCIA_ARTIFICIAL_SEVILLA_HERO_IMAGE = "/static/inteligencia-artificial-sevilla/hero-blurred.webp";
 type LandingMetadataContent = {
   title: string;
   description: string;
-  heroImage?: string;
 };
 
 export async function generateMetadata({
@@ -28,7 +28,7 @@ export async function generateMetadata({
     path: `/${slug}`,
     title: landing.title,
     description: landing.description,
-    image: landing.heroImage || "/static/backgrounds/services_background.webp",
+    image: INTELIGENCIA_ARTIFICIAL_SEVILLA_HERO_IMAGE,
   });
 }
 
