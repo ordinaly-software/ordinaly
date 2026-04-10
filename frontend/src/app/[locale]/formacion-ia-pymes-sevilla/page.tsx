@@ -4,10 +4,10 @@ import { createPageMetadata } from "@/lib/metadata";
 import FormacionIaPymesSevillaPage from "./page.client";
 
 const slug = "formacion-ia-pymes-sevilla" as const;
+const FORMACION_IA_PYMES_SEVILLA_HERO_IMAGE = "/static/formacion-ia-pymes-sevilla/hero-blurred.webp";
 type LandingMetadataContent = {
   title: string;
   description: string;
-  heroImage?: string;
 };
 
 export async function generateMetadata({
@@ -28,7 +28,7 @@ export async function generateMetadata({
     path: `/${slug}`,
     title: landing.title,
     description: landing.description,
-    image: landing.heroImage || "/static/backgrounds/services_background.webp",
+    image: FORMACION_IA_PYMES_SEVILLA_HERO_IMAGE,
   });
 }
 
