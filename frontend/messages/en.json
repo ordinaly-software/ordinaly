@@ -3108,6 +3108,187 @@
         "href": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20processes",
         "bgColor": "#D97757"
       }
+    },
+    "empresa-inteligencia-artificial": {
+      "slug": "empresa-inteligencia-artificial",
+      "title": "Artificial Intelligence Company to transform your business",
+      "shortTitle": "AI Company",
+      "subtitle": "We are the artificial intelligence company that turns data, processes and teams into measurable results.",
+      "description": "Ordinaly is a company specialised in applied artificial intelligence. We design, build and implement AI solutions that generate real impact on operations, teams and business results. No smoke, no empty demos: only AI that works in production.",
+      "heroCtaLabel": "Talk to the team",
+      "heroCtaHref": "#empresa-ia-contact",
+      "secondaryCtaLabel": "See use cases",
+      "serviceType": "AI consulting, development and deployment",
+      "areaServed": "Spain and companies across Europe",
+      "sectionTitles": {
+        "valueProps": "Why choose us as your AI company",
+        "outcomes": "What you achieve working with us",
+        "steps": "How we work",
+        "useCases": "What we do as an AI company",
+        "technologyFaqs": "Frequently asked questions",
+        "beforeAfter": "Before and after working with us",
+        "before": "Without strategic AI",
+        "after": "With Ordinaly as your AI company"
+      },
+      "metrics": [
+        {
+          "label": "Average operational savings",
+          "value": "40–65%",
+          "detail": "Reduction in time on manual and repetitive tasks in the first 90 days."
+        },
+        {
+          "label": "Implementation speed",
+          "value": "4–8 weeks",
+          "detail": "From diagnosis to the first pilot running in production."
+        },
+        {
+          "label": "Projects delivered",
+          "value": "+50",
+          "detail": "AI solutions deployed in companies across different sectors."
+        }
+      ],
+      "valueProps": [
+        "We apply AI to real processes, not demos.",
+        "In-house team of AI engineering, data and strategy.",
+        "Private and secure models deployed in your infrastructure.",
+        "Integration with your tools: CRM, ERP, email, databases and more.",
+        "Proven methodology: diagnosis, pilot, production and continuous improvement."
+      ],
+      "outcomes": [
+        "Automated processes running without human intervention.",
+        "More productive teams with a lower operational burden.",
+        "Faster decisions backed by real-time data.",
+        "AI models trained with your knowledge and internal data.",
+        "Full traceability, auditing and control over what AI does."
+      ],
+      "steps": [
+        "Diagnosis: we audit your processes, tools and real AI automation opportunities.",
+        "Design: we define the architecture, models and pilot scope adapted to your company.",
+        "Build: we develop, train and integrate the solution into your real infrastructure.",
+        "Production: we deploy, validate with metrics and leave the system running with support.",
+        "Continuous improvement: we monitor performance and evolve the solution with your business."
+      ],
+      "before": [
+        "Slow decisions due to lack of consolidated data",
+        "Teams overwhelmed with repetitive and manual tasks",
+        "Disconnected processes between tools and departments",
+        "Internal knowledge that gets lost or takes hours to find",
+        "Difficulty scaling without adding more people"
+      ],
+      "after": [
+        "Connected data available in real time for decision making",
+        "Automations that execute tasks without human intervention",
+        "Integrated flows between CRM, ERP, email and internal systems",
+        "AI assistant that responds with your company's knowledge",
+        "Ability to scale operations without growing the team proportionally"
+      ],
+      "useCases": [
+        {
+          "tag": "Automation",
+          "title": "Operational process automation",
+          "description": "We design automatic flows that execute repetitive tasks: classification, extraction, report generation and system updates.",
+          "bullets": [
+            "40–70% reduction in manual tasks",
+            "Flows running 24/7 without human errors",
+            "Integration with your current tools"
+          ]
+        },
+        {
+          "tag": "AI Copilots",
+          "title": "Internal assistants with your knowledge",
+          "description": "We develop copilots trained with your documentation, processes and internal data for support, sales, operations and management.",
+          "bullets": [
+            "Accurate responses based on your information",
+            "Instant access to company knowledge",
+            "Scalable to all teams"
+          ]
+        },
+        {
+          "tag": "AI Strategy",
+          "title": "AI roadmap and strategy",
+          "description": "We help you define where and how to apply AI with criteria: what to automate first, which models to use and how to measure the return.",
+          "bullets": [
+            "Digital and AI maturity assessment",
+            "Prioritisation of use cases with highest ROI",
+            "Phased implementation plan"
+          ]
+        },
+        {
+          "tag": "Private Models",
+          "title": "Private and secure AI in your infrastructure",
+          "description": "We deploy language and AI models in your cloud or private server. Full data control, with no third-party dependency.",
+          "bullets": [
+            "GDPR compliance and internal regulations",
+            "No data leakage to external services",
+            "Auditing and role-based permissions"
+          ]
+        },
+        {
+          "tag": "Predictive Analytics",
+          "title": "Prediction and intelligent analysis",
+          "description": "Predictive models to anticipate demand, detect anomalies, optimise inventories and make data-driven decisions.",
+          "bullets": [
+            "Predictions with real historical data",
+            "Automatic alerts on deviations",
+            "Dashboards connected to your data sources"
+          ]
+        },
+        {
+          "tag": "Integration",
+          "title": "Systems integration with AI",
+          "description": "We connect your current tools with intelligent flows: CRM, ERP, databases, email, WhatsApp and your own APIs.",
+          "bullets": [
+            "No need to change your current systems",
+            "Data flowing between tools in real time",
+            "Automations triggered by events"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Privacy",
+          "question": "Is my data used to train third-party models?",
+          "answer": "No. We can deploy models in your infrastructure or in completely isolated private environments. Your data never leaves your control."
+        },
+        {
+          "tag": "Integration",
+          "question": "Can you integrate with our current tools?",
+          "answer": "Yes. We work with CRM, ERP, Google Workspace, Microsoft 365, Notion, Airtable, relational databases, internal APIs and communication tools such as Slack or WhatsApp."
+        },
+        {
+          "tag": "Security",
+          "question": "Does it comply with GDPR and my sector's requirements?",
+          "answer": "Yes. We implement role-based access control, encryption, action auditing and complete traceability. We adapt the solution to your sector's requirements."
+        },
+        {
+          "tag": "Timelines",
+          "question": "How long until the first pilot is operational?",
+          "answer": "Typically between 4 and 8 weeks from diagnosis to the first pilot in production, depending on scope and complexity."
+        },
+        {
+          "tag": "Maintenance",
+          "question": "Who maintains the solution once deployed?",
+          "answer": "We can operate it with a maintenance contract or document it and transfer it to your team with training and detailed runbooks."
+        },
+        {
+          "tag": "ROI",
+          "question": "How do we measure the return on AI investment?",
+          "answer": "We define success metrics before we start: hours saved, errors reduced, process speed or revenue generated. The pilot includes tracking dashboards from day one."
+        }
+      ],
+      "keywords": [
+        "artificial intelligence company",
+        "AI company Spain",
+        "artificial intelligence consulting",
+        "AI solutions for companies",
+        "AI implementation",
+        "automation with artificial intelligence"
+      ],
+      "cta": {
+        "label": "Talk to an AI expert",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20talk%20with%20your%20AI%20company",
+        "bgColor": "#0255D5"
+      }
     }
   },
   "notFound": {

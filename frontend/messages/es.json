@@ -3108,6 +3108,187 @@
         "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20procesos",
         "bgColor": "#D97757"
       }
+    },
+    "empresa-inteligencia-artificial": {
+      "slug": "empresa-inteligencia-artificial",
+      "title": "Empresa de Inteligencia Artificial para transformar tu negocio",
+      "shortTitle": "Empresa de IA",
+      "subtitle": "Somos la empresa de inteligencia artificial que convierte datos, procesos y equipos en resultados medibles.",
+      "description": "Ordinaly es una empresa especializada en inteligencia artificial aplicada. Diseñamos, construimos e implantamos soluciones de IA que generan impacto real en operaciones, equipos y resultados de negocio. Sin humo, sin demos vacías: sólo IA que funciona en producción.",
+      "heroCtaLabel": "Hablar con el equipo",
+      "heroCtaHref": "#empresa-ia-contact",
+      "secondaryCtaLabel": "Ver casos de uso",
+      "serviceType": "Consultoría, desarrollo e implantación de IA",
+      "areaServed": "España y empresas en toda Europa",
+      "sectionTitles": {
+        "valueProps": "Por qué elegirnos como tu empresa de IA",
+        "outcomes": "Lo que consigues trabajando con nosotros",
+        "steps": "Cómo trabajamos",
+        "useCases": "Lo que hacemos como empresa de IA",
+        "technologyFaqs": "Preguntas frecuentes",
+        "beforeAfter": "Antes y después de trabajar con nosotros",
+        "before": "Sin IA estratégica",
+        "after": "Con Ordinaly como empresa de IA"
+      },
+      "metrics": [
+        {
+          "label": "Ahorro operativo medio",
+          "value": "40–65%",
+          "detail": "Reducción de tiempo en tareas manuales y repetitivas en los primeros 90 días."
+        },
+        {
+          "label": "Velocidad de implantación",
+          "value": "4–8 semanas",
+          "detail": "De diagnóstico a primer piloto funcionando en producción."
+        },
+        {
+          "label": "Proyectos entregados",
+          "value": "+50",
+          "detail": "Soluciones de IA implantadas en empresas de distintos sectores."
+        }
+      ],
+      "valueProps": [
+        "Aplicamos IA a procesos reales, no a demos.",
+        "Equipo propio de ingeniería, datos y estrategia de IA.",
+        "Modelos privados y seguros desplegados en tu infraestructura.",
+        "Integración con tus herramientas: CRM, ERP, correo, bases de datos y más.",
+        "Metodología probada: diagnóstico, piloto, producción y mejora continua."
+      ],
+      "outcomes": [
+        "Procesos automatizados funcionando sin intervención humana.",
+        "Equipos más productivos y con menor carga operativa.",
+        "Decisiones más rápidas respaldadas por datos en tiempo real.",
+        "Modelos de IA entrenados con tu conocimiento y datos internos.",
+        "Trazabilidad, auditoría y control total sobre lo que hace la IA."
+      ],
+      "steps": [
+        "Diagnóstico: auditamos tus procesos, herramientas y oportunidades reales de automatización con IA.",
+        "Diseño: definimos la arquitectura, los modelos y el alcance del piloto adaptado a tu empresa.",
+        "Construcción: desarrollamos, entrenamos e integramos la solución en tu infraestructura real.",
+        "Producción: desplegamos, validamos con métricas y dejamos el sistema funcionando con soporte.",
+        "Mejora continua: monitorizamos el rendimiento y evolucionamos la solución con tu negocio."
+      ],
+      "before": [
+        "Decisiones lentas por falta de datos consolidados",
+        "Equipos saturados con tareas repetitivas y manuales",
+        "Procesos desconectados entre herramientas y departamentos",
+        "Conocimiento interno que se pierde o tarda horas en encontrar",
+        "Dificultad para escalar sin añadir más personas"
+      ],
+      "after": [
+        "Datos conectados y disponibles en tiempo real para decidir",
+        "Automatizaciones que ejecutan tareas sin intervención humana",
+        "Flujos integrados entre CRM, ERP, email y sistemas internos",
+        "Asistente IA que responde con el conocimiento de tu empresa",
+        "Capacidad de escalar operaciones sin crecer el equipo proporcionalmente"
+      ],
+      "useCases": [
+        {
+          "tag": "Automatización",
+          "title": "Automatización de procesos operativos",
+          "description": "Diseñamos flujos automáticos que ejecutan tareas repetitivas: clasificación, extracción, generación de informes y actualizaciones de sistemas.",
+          "bullets": [
+            "Reducción de tareas manuales en un 40–70%",
+            "Flujos funcionando 24/7 sin errores humanos",
+            "Integración con tus herramientas actuales"
+          ]
+        },
+        {
+          "tag": "Copilotos IA",
+          "title": "Asistentes internos con tu conocimiento",
+          "description": "Desarrollamos copilotos entrenados con tu documentación, procesos y datos internos para soporte, ventas, operaciones y dirección.",
+          "bullets": [
+            "Respuestas precisas basadas en tu información",
+            "Acceso instantáneo al conocimiento de la empresa",
+            "Escalables a todos los equipos"
+          ]
+        },
+        {
+          "tag": "Estrategia de IA",
+          "title": "Hoja de ruta y estrategia de IA",
+          "description": "Te ayudamos a definir dónde y cómo aplicar IA con criterio: qué automatizar primero, qué modelos usar y cómo medir el retorno.",
+          "bullets": [
+            "Diagnóstico de madurez digital y IA",
+            "Priorización de casos de uso con mayor ROI",
+            "Plan de implantación por fases"
+          ]
+        },
+        {
+          "tag": "Modelos privados",
+          "title": "IA privada y segura en tu infraestructura",
+          "description": "Implantamos modelos de lenguaje y IA en tu nube o servidor privado. Control total del dato, sin dependencia de terceros.",
+          "bullets": [
+            "Cumplimiento GDPR y normativas internas",
+            "Sin fuga de datos a servicios externos",
+            "Auditoría y permisos por rol"
+          ]
+        },
+        {
+          "tag": "Análisis predictivo",
+          "title": "Predicción y análisis inteligente",
+          "description": "Modelos predictivos para anticipar demanda, detectar anomalías, optimizar inventarios y tomar decisiones basadas en datos.",
+          "bullets": [
+            "Predicciones con datos históricos reales",
+            "Alertas automáticas ante desviaciones",
+            "Dashboards conectados a tus fuentes de datos"
+          ]
+        },
+        {
+          "tag": "Integración",
+          "title": "Integración de sistemas con IA",
+          "description": "Conectamos tus herramientas actuales con flujos inteligentes: CRM, ERP, bases de datos, correo, WhatsApp y APIs propias.",
+          "bullets": [
+            "Sin necesidad de cambiar tus sistemas actuales",
+            "Datos fluyendo entre herramientas en tiempo real",
+            "Automatizaciones activadas por eventos"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Privacidad",
+          "question": "¿Mis datos se usan para entrenar modelos de terceros?",
+          "answer": "No. Podemos desplegar modelos en tu infraestructura o en entornos privados completamente aislados. Tus datos nunca salen de tu control."
+        },
+        {
+          "tag": "Integración",
+          "question": "¿Podéis integraros con nuestras herramientas actuales?",
+          "answer": "Sí. Trabajamos con CRM, ERP, Google Workspace, Microsoft 365, Notion, Airtable, bases de datos relacionales, APIs internas y herramientas de comunicación como Slack o WhatsApp."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Cumple con GDPR y los requisitos de mi sector?",
+          "answer": "Sí. Implementamos control de acceso por rol, cifrado, auditoría de acciones y trazabilidad completa. Adaptamos la solución a los requisitos de tu sector."
+        },
+        {
+          "tag": "Plazos",
+          "question": "¿Cuánto tiempo tarda en estar operativo el primer piloto?",
+          "answer": "Normalmente entre 4 y 8 semanas desde el diagnóstico hasta el primer piloto en producción, dependiendo del alcance y la complejidad."
+        },
+        {
+          "tag": "Mantenimiento",
+          "question": "¿Quién mantiene la solución una vez implantada?",
+          "answer": "Podemos operarla nosotros con un contrato de mantenimiento o documentarla y transferirla a tu equipo con formación y runbooks detallados."
+        },
+        {
+          "tag": "ROI",
+          "question": "¿Cómo medimos el retorno de la inversión en IA?",
+          "answer": "Definimos métricas de éxito antes de empezar: horas ahorradas, errores reducidos, velocidad de procesos o ingresos generados. El piloto incluye dashboards de seguimiento desde el primer día."
+        }
+      ],
+      "keywords": [
+        "empresa de inteligencia artificial",
+        "empresa IA España",
+        "consultoría inteligencia artificial",
+        "soluciones IA para empresas",
+        "implantación IA",
+        "automatización con inteligencia artificial"
+      ],
+      "cta": {
+        "label": "Hablar con un experto en IA",
+        "href": "https://wa.me/34626270806?text=Quiero%20hablar%20con%20vuestra%20empresa%20de%20IA",
+        "bgColor": "#0255D5"
+      }
     }
   },
   "notFound": {
