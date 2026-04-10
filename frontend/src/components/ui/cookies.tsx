@@ -262,10 +262,10 @@ const CookieConsent = () => {
     <>
       {/* Cookie Bubble */}
       {showBubble && !showPopup && (
-        <div className="fixed bottom-20 right-5 z-30">
+        <div className="fixed bottom-20 right-6 z-30">
           <button
             onClick={openPopup}
-            className="flex items-center justify-center rounded-full border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[#f5f5f7] dark:bg-[#111213] text-slate-medium dark:text-cloud-medium p-2.5 shadow-md transition hover:text-slate-dark dark:hover:text-ivory-light hover:shadow-lg"
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[#f5f5f7] dark:bg-[#111213] text-slate-medium dark:text-cloud-medium shadow-md transition hover:text-slate-dark dark:hover:text-ivory-light hover:shadow-lg"
             aria-label={t('openCookieSettings')}
           >
             <Cookie className="h-4 w-4" aria-hidden="true" />
