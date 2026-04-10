@@ -28,12 +28,12 @@ export default function InteligenciaArtificialSevilla() {
 
 
   const cardImages = [
-    "/ImagenesLandings/Alcance_Servicio.webp",
-    "/ImagenesLandings/Cobertura.webp",
-    "/ImagenesLandings/Modelo_Entrega.webp",
-    "/ImagenesLandings/Automatización.webp",
-    "/ImagenesLandings/AsistenteIA.webp",
-    "/ImagenesLandings/Cobertura.webp",
+    "/static/inteligencia-artificial-sevilla/Alcance_Servicio.webp",
+    "/static/inteligencia-artificial-sevilla/Cobertura.webp",
+    "/static/inteligencia-artificial-sevilla/Modelo_Entrega.webp",
+    "/static/inteligencia-artificial-sevilla/Automatización.webp",
+    "/static/inteligencia-artificial-sevilla/AsistenteIA.webp",
+    "/static/inteligencia-artificial-sevilla/Cobertura.webp",
   ];
 
   return (

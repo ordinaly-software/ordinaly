@@ -3133,12 +3133,12 @@
       "metrics": [
         {
           "label": "Ahorro operativo medio",
-          "value": "40–65%",
+          "value": "40-65%",
           "detail": "Reducción de tiempo en tareas manuales y repetitivas en los primeros 90 días."
         },
         {
           "label": "Velocidad de implantación",
-          "value": "4–8 semanas",
+          "value": "4-8 semanas",
           "detail": "De diagnóstico a primer piloto funcionando en producción."
         },
         {
@@ -3188,7 +3188,7 @@
           "title": "Automatización de procesos operativos",
           "description": "Diseñamos flujos automáticos que ejecutan tareas repetitivas: clasificación, extracción, generación de informes y actualizaciones de sistemas.",
           "bullets": [
-            "Reducción de tareas manuales en un 40–70%",
+            "Reducción de tareas manuales en un 40-70%",
             "Flujos funcionando 24/7 sin errores humanos",
             "Integración con tus herramientas actuales"
           ]

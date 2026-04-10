@@ -3133,12 +3133,12 @@
       "metrics": [
         {
           "label": "Average operational savings",
-          "value": "40–65%",
+          "value": "40-65%",
           "detail": "Reduction in time on manual and repetitive tasks in the first 90 days."
         },
         {
           "label": "Implementation speed",
-          "value": "4–8 weeks",
+          "value": "4-8 weeks",
           "detail": "From diagnosis to the first pilot running in production."
         },
         {
@@ -3188,7 +3188,7 @@
           "title": "Operational process automation",
           "description": "We design automatic flows that execute repetitive tasks: classification, extraction, report generation and system updates.",
           "bullets": [
-            "40–70% reduction in manual tasks",
+            "40-70% reduction in manual tasks",
             "Flows running 24/7 without human errors",
             "Integration with your current tools"
           ]
