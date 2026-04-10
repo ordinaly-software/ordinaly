@@ -5,6 +5,7 @@ import RobotFollower from "@/components/ui/RobotFollower";
 import TimelineHorizontal from "@/components/ui/TimelineHorizontal";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
+import ReCaptchaWrapper from "../recaptcha-provider";
 
 export default function AgenciaAutomatizacionIA() {
   const messages = useMessages() as any;
@@ -15,19 +16,19 @@ export default function AgenciaAutomatizacionIA() {
   }
 
   return (
-    <main className="w-full flex flex-col gap-32">
+    <main className="w-full flex flex-col gap-14 md:gap-16">
 
       {/* HERO */}
       <section className="w-full bg-black text-white">
-        <div className="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center justify-between gap-12">
+        <div className="max-w-6xl mx-auto px-6 py-12 md:py-14 flex flex-col md:flex-row items-center justify-between gap-8 md:gap-10">
           <div className="max-w-xl">
-            <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold leading-tight">
               {content.title}
             </h1>
-            <p className="mt-5 text-lg text-neutral-300 max-w-md">
+            <p className="mt-4 text-base sm:text-lg text-neutral-300 max-w-md">
               {content.subtitle}
             </p>
-            <div className="mt-8 flex items-center gap-4">
+            <div className="mt-7 flex flex-wrap items-center gap-3">
               <a
                 href="#formulario"
                 className="px-6 py-3 text-white rounded-lg text-sm font-medium"
@@ -35,30 +36,33 @@ export default function AgenciaAutomatizacionIA() {
               >
                 {content.heroCtaLabel}
               </a>
-              <button className="text-sm text-neutral-300 underline underline-offset-4">
+              <a
+                href="#como-trabajamos"
+                className="text-sm text-neutral-300 underline underline-offset-4"
+              >
                 {content.sectionTitles?.seeHowWeWork}
-              </button>
+              </a>
             </div>
           </div>
 
           {/* Robot */}
-          <div className="w-full md:w-auto flex justify-center md:justify-end">
+          <div className="w-full max-w-sm md:max-w-none md:w-auto flex justify-center md:justify-end">
             <RobotFollower />
           </div>
         </div>
       </section>
-      <section className="w-full max-w-5xl mx-auto px-6 py-20">
-        <h2 className="text-3xl font-semibold mb-12 text-center dark:text-white">
+      <section className="w-full max-w-5xl mx-auto px-6 py-12 md:py-14">
+        <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-10 text-center dark:text-white">
           {content.sectionTitles?.whatWeAutomate}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {content.whatWeAutomate?.map((item: string, i: number) => (
             <div
               key={i}
-              className="flex items-start gap-4 p-6 bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-neutral-200 dark:border-neutral-700 hover:shadow-md transition"
+              className="flex items-start gap-4 p-5 sm:p-6 bg-white dark:bg-neutral-900 rounded-2xl shadow-sm border border-neutral-200 dark:border-neutral-700 hover:shadow-md transition"
             >
-              <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-white">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black flex items-center justify-center text-white shrink-0">
                 {i === 0 && (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                     <path d="M3 8h18M3 16h18M7 4v4M7 16v4M17 4v4M17 16v4" />
@@ -85,7 +89,7 @@ export default function AgenciaAutomatizacionIA() {
                   </svg>
                 )}
               </div>
-              <p className="text-neutral-700 dark:text-neutral-100 text-lg leading-relaxed">
+              <p className="text-neutral-700 dark:text-neutral-100 text-base sm:text-lg leading-relaxed">
                 {item}
               </p>
             </div>
@@ -94,24 +98,24 @@ export default function AgenciaAutomatizacionIA() {
       </section>
 
       {/* TIMELINE */}
-      <section className="w-full max-w-4xl mx-auto px-6">
-        <h2 className="text-3xl font-semibold mb-12 text-center dark:text-white">
+      <section id="como-trabajamos" className="w-full max-w-4xl mx-auto px-6">
+        <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-10 text-center dark:text-white">
           {content.sectionTitles?.timeline}
         </h2>
 
         <TimelineHorizontal steps={content.timeline} />
       </section>
 
-      <section className="w-full max-w-6xl mx-auto px-6 py-24">
-        <h2 className="text-3xl font-semibold mb-12 text-center dark:text-white">
+      <section className="w-full max-w-6xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-10 text-center dark:text-white">
           {content.sectionTitles?.caseStudies}
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {content.caseStudies?.map((caseItem: any, i: number) => (
             <div
               key={i}
-              className="group p-8 rounded-3xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-sm hover:shadow-xl transition relative"
+              className="group p-6 sm:p-7 rounded-3xl border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-sm hover:shadow-xl transition relative"
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center text-white mb-6"
@@ -122,7 +126,7 @@ export default function AgenciaAutomatizacionIA() {
                 </svg>
               </div>
 
-              <h3 className="text-xl font-semibold mb-3 group-hover:text-neutral-900 dark:group-hover:text-white dark:text-neutral-100 transition">
+              <h3 className="text-lg sm:text-xl font-semibold mb-3 group-hover:text-neutral-900 dark:group-hover:text-white dark:text-neutral-100 transition">
                 {caseItem.metric}
               </h3>
 
@@ -138,17 +142,17 @@ export default function AgenciaAutomatizacionIA() {
           ))}
         </div>
       </section>
-      <section className="relative w-full py-28 px-6 overflow-hidden dark:bg-neutral-900">
+      <section className="relative w-full py-14 md:py-18 px-6 overflow-hidden dark:bg-neutral-900">
         <div className="absolute inset-0 bg-gradient-to-br from-[#d97757]/20 via-[#d97757]/10 to-transparent dark:from-[#d97757]/10 dark:via-[#d97757]/5" />
         <div className="absolute -top-20 right-0 w-72 h-72 bg-[#d97757]/30 dark:bg-[#d97757]/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#d97757]/20 dark:bg-[#d97757]/10 rounded-full blur-3xl" />
 
         <div className="relative max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-semibold mb-6 dark:text-white">
+          <h2 className="text-3xl sm:text-4xl font-semibold mb-6 dark:text-white">
             {content.sectionTitles?.ctaTitle}
           </h2>
 
-          <p className="text-neutral-700 dark:text-neutral-200 text-lg mb-10 leading-relaxed">
+          <p className="text-neutral-700 dark:text-neutral-200 text-base sm:text-lg mb-8 leading-relaxed">
             {content.sectionTitles?.ctaSubtitle}
           </p>
 
@@ -156,7 +160,7 @@ export default function AgenciaAutomatizacionIA() {
             href={content.cta?.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-xl text-white font-medium shadow-lg hover:shadow-xl transition"
+            className="inline-flex items-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base text-white font-medium shadow-lg hover:shadow-xl transition"
             style={{ backgroundColor: content.cta?.bgColor || "#d97757" }}
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" className="w-6 h-6">
@@ -168,8 +172,13 @@ export default function AgenciaAutomatizacionIA() {
       </section>
 
       {/* FORM */}
-      <section id="formulario" className="max-w-4xl mx-auto px-6 py-20">
-        <ContactForm className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0" />
+      <section id="formulario">
+        <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">
+          <ContactForm
+            recaptchaAction="home_contact_form"
+            recaptchaBadgeId="recaptcha-badge-home-contact"
+          />
+        </ReCaptchaWrapper>
       </section>
 
       <Footer />

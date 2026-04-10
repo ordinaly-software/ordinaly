@@ -5,6 +5,7 @@ import React from "react";
 
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
+import ReCaptchaWrapper from "../recaptcha-provider";
 
 export default function AutomatizacionFacturas() {
   const messages = useMessages() as any;
@@ -261,10 +262,10 @@ export default function AutomatizacionFacturas() {
       )}
 
       {/* FORM */}
-      <section id="formulario" className="max-w-4xl mx-auto px-6 py-20">
-        <div className="overflow-hidden">
-          <ContactForm className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0" />
-        </div>
+      <section id="formulario">
+          <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">
+            <ContactForm />
+          </ReCaptchaWrapper>
       </section>
 
       <a
