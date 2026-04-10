@@ -3,6 +3,7 @@
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Footer from "@/components/ui/footer";
+import ReCaptchaWrapper from "../recaptcha-provider";
 
 const GlobeSevilla = dynamic(() => import("@/components/3d-globe-demo").then(m => m.GlobeSevilla), {
   ssr: false,
@@ -31,7 +32,8 @@ export default function InteligenciaArtificialSevilla() {
     "/ImagenesLandings/Cobertura.webp",
     "/ImagenesLandings/Modelo_Entrega.webp",
     "/ImagenesLandings/Automatización.webp",
-    "/ImagenesLandings/AsistenteIA.webp"
+    "/ImagenesLandings/AsistenteIA.webp",
+    "/ImagenesLandings/Cobertura.webp",
   ];
 
   return (
@@ -54,7 +56,7 @@ export default function InteligenciaArtificialSevilla() {
 
           <a
             href={content.heroCtaHref}
-            className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition"
+            className="inline-block bg-[#D97757] hover:bg-[#C6613F] text-white font-semibold px-6 py-3 rounded-lg transition"
           >
             {content.heroCtaLabel}
           </a>
@@ -77,22 +79,10 @@ export default function InteligenciaArtificialSevilla() {
         ))}
       </section>
 
-      {/* CHIPS */}
-      <section className="max-w-7xl mx-auto px-6 py-10 flex flex-wrap gap-4">
-        {content.chips?.map((chip: string, i: number) => (
-          <span
-            key={i}
-            className="px-4 py-2 bg-slate-200 dark:bg-white/10 text-slate-800 dark:text-white rounded-full border border-slate-300 dark:border-white/20 text-sm"
-          >
-            {chip}
-          </span>
-        ))}
-      </section>
-
       {/* STEPS */}
       <section className="max-w-5xl mx-auto px-6 py-20">
         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-10">
-          Secuencia de implantación
+          {content.stepsTitle}
         </h2>
 
         <ol className="space-y-6">
@@ -106,10 +96,10 @@ export default function InteligenciaArtificialSevilla() {
       </section>
 
       {/* FORM */}
-      <section id="formulario" className="max-w-4xl mx-auto px-6 py-20">
-        <div className="overflow-hidden">
-          <ContactForm className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0" />
-        </div>
+      <section id="formulario">
+        <ReCaptchaWrapper>
+          <ContactForm/>
+        </ReCaptchaWrapper>
       </section>
 
       {/* WHATSAPP BUTTON */}

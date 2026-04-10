@@ -3364,14 +3364,13 @@
     {
       "title": "AI Assistants",
       "description": "Bots trained with your internal documentation for support and operations."
+    },
+    {
+      "title": "Predictive Analytics",
+      "description": "We anticipate trends and behaviors with data models so you can make decisions with an edge."
     }
   ],
-  "chips": [
-    "AI applied to real processes",
-    "Integration with your systems",
-    "Training with your data",
-    "Continuous monitoring and improvement"
-  ],
+  "stepsTitle": "Implementation Sequence",
   "steps": [
     "We identify AI opportunities in your processes.",
     "We design the solution: automation or AI assistant.",

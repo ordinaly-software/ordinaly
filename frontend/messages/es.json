@@ -3220,14 +3220,13 @@
         {
           "title": "Asistentes IA",
           "description": "Bots entrenados con tu documentación interna para soporte y operaciones."
+        },
+        {
+          "title": "Análisis Predictivo",
+          "description": "Anticipamos tendencias y comportamientos con modelos de datos para que tomes decisiones con ventaja."
         }
       ],
-      "chips": [
-        "IA aplicada a procesos reales",
-        "Integración con tus sistemas",
-        "Entrenamiento con tus datos",
-        "Supervisión y mejora continua"
-      ],
+      "stepsTitle": "Secuencia de implantación",
       "steps": [
         "Identificamos oportunidades de IA en tus procesos.",
         "Diseñamos la solución: automatización o asistente IA.",
