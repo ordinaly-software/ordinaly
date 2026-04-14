@@ -367,7 +367,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
 - 🔍 +30% en resolución en primer contacto
 - ⏱️ -80% en tiempo de espera
 ''',
-                'color': '29BF12',
+                'color': '141413',
                 'icon': 'Phone',
                 'duration': 5,
                 'requisites': (

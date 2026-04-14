@@ -28,12 +28,22 @@ interface ServiceCardProps {
   contactLabel?: string;
 }
 
+  const COLOR_MAP: Record<string, string> = {
+    pizarra: "#1f2937",
+    arcilla: "#d97757",
+    cobalto: "#2563eb",
+    oliva: "#4d7c0f",
+    higo: "#a21caf",
+    kraft: "#b45309",
+  };
+
 export function ServiceCard({ service, onClick, className, size = "default", onContact, viewDetailsLabel = "Ver detalles", contactLabel }: ServiceCardProps) {
-  const raw = service.color_hex || service.color || "";
+  const raw = service.color_hex || COLOR_MAP[service.color] || service.color || "";
   const accent = raw.startsWith("#") ? raw : raw ? `#${raw}` : "var(--swatch--clay)";
   const contactUrl = resolveContactUrl(service.contactButtonUrl);
   const showContact = Boolean(contactUrl || onContact);
   const ctaLabel = service.contactButtonText || contactLabel || "Contactar";
+
 
   return (
     <div

@@ -11,12 +11,14 @@ import markdown
 class Service(models.Model):
     # Color choices for service theming
     COLOR_CHOICES = [
-        ('1A1924', 'Dark Purple (#1A1924)'),
-        ('623CEA', 'Purple (#623CEA)'),
-        ('46B1C9', 'Cyan (#46B1C9)'),
-        ('29BF12', 'Green (#29BF12)'),
-        ('E4572E', 'Orange (#E4572E)'),
-    ]
+    ('141413', 'Slate (#141413)'),
+    ('D97757', 'Clay (#D97757)'),
+    ('0255D5', 'Cobalt (#0255D5)'),
+    ('788C5D', 'Olive (#788C5D)'),
+    ('C46686', 'Fig (#C46686)'),
+    ('D4A27F', 'Kraft (#D4A27F)'),
+]
+
     # Common Lucide React icons for services
     ICON_CHOICES = [
         ('Bot', 'Bot'),
@@ -185,7 +187,7 @@ class Service(models.Model):
     color = models.CharField(
         max_length=6,
         choices=COLOR_CHOICES,
-        default='29BF12',
+        default='141413',
         help_text="Theme color for the service card"
     )
     icon = models.CharField(max_length=50, choices=ICON_CHOICES, help_text="Lucide React icon name")
