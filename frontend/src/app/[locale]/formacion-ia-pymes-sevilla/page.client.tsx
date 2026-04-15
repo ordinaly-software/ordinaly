@@ -252,9 +252,11 @@ export default function FormacionIaPymesSevillaPage() {
       </section>
 
       {/* FORM */}
-      <section id="formulario" className="mx-auto max-w-6xl px-6 py-20">
-        <div className="overflow-hidden">
-          <ContactForm className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0" />
+      <section id="formulario" className="bg-black py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="overflow-hidden">
+            <ContactForm className="[&>section]:max-w-none [&>section]:bg-black [&>section]:px-0 [&>section]:py-0" />
+          </div>
         </div>
       </section>
 

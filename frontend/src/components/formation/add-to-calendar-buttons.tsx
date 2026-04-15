@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const GoogleIcon = () => (
   <Image
-    src="/icons/google-calendar.webp"
+    src="/static/icons/google-calendar.webp"
     alt="Google Calendar"
     className="w-5 h-5 mr-2"
     style={{ display: 'inline-block', verticalAlign: 'middle' }}
@@ -19,7 +19,7 @@ const GoogleIcon = () => (
 );
 const OutlookIcon = () => (
   <Image
-    src="/icons/outlook.webp"
+    src="/static/icons/outlook.webp"
     alt="Outlook Calendar"
     className="w-5 h-5 mr-2"
     style={{ display: 'inline-block', verticalAlign: 'middle' }}

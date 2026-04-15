@@ -78,20 +78,6 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
     });
   }
   const portableTextComponents = createPortableTextComponents(headingIdByKey);
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: p.title,
-    datePublished: p.publishedAt || p._createdAt,
-    dateModified: p.updatedAt || p._updatedAt,
-    author: { '@type': 'Person', name: p.author?.name },
-    image:
-      p.coverImage && p.coverImage.asset
-        ? [urlFor(p.coverImage.asset).width(1200).height(630).format("png").url()]
-        : undefined,
-    mainEntityOfPage: `${process.env.NEXT_PUBLIC_BASE_URL}/blog/${p.slug}`,
-  };
-
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white transition-colors duration-300">
       <Banner
@@ -100,7 +86,6 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         backgroundImage={p.mainImage && p.mainImage.asset ? urlFor(p.mainImage.asset).width(1600).height(900).url() : undefined}
       />
       <main className="mx-auto max-w-3xl px-4 py-10">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {/* Header row: back link | share buttons | date (responsive) */}
         <div className="mb-6 grid grid-cols-1 md:grid-cols-3 items-center gap-6">
           <div className="flex md:justify-start justify-center">

@@ -142,8 +142,15 @@ export default function ContactForm({
 
   return (
     <div className={className}>
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-16">
-        <div className="bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] border border-[--color-border-subtle] dark:border-[--color-border-strong] rounded-2xl shadow-xl p-6 md:p-8">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[--swatch--slate-dark] via-[#1e1a2e] to-[--swatch--slate-dark] py-16 md:py-24 px-4 sm:px-6">
+        {/* Decorative blobs */}
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-clay/25 blur-3xl" />
+          <div className="absolute -bottom-24 -right-24 h-80 w-80 rounded-full bg-cobalt/20 blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-clay/10 blur-2xl" />
+        </div>
+        <div className="relative max-w-6xl mx-auto">
+        <div className="bg-white dark:bg-[--swatch--slate-medium] border border-white/20 dark:border-white/10 rounded-2xl shadow-2xl shadow-black/40 p-6 md:p-8">
           <div className="space-y-2 text-center">
             <p className="text-sm uppercase tracking-[0.2em] text-clay dark:text-clay font-semibold">
               {t("form.eyebrow")}
@@ -265,6 +272,7 @@ export default function ContactForm({
               duration={alert.type === "success" ? 3000 : 5000}
             />
           )}
+        </div>
         </div>
       </section>
     </div>

@@ -68,21 +68,27 @@ export default function InteligenciaArtificialSevilla() {
       </section>
 
       {/* CARDS */}
-      <section className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-        {content.cards?.map((card: any, i: number) => (
-          <Card3D
-            key={i}
-            title={card.title}
-            description={card.description}
-            image={cardImages[i]}
-          />
-        ))}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-16 text-center">
+          {content.cardsSectionTitle}
+        </h2>
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-12">
+          {content.cards?.map((card: any, i: number) => (
+            <div key={i} className="relative w-96 h-80 flex items-center justify-center">
+              <Card3D
+                title={card.title}
+                description={card.description}
+                image={cardImages[i]}
+              />
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* STEPS */}
       <section className="max-w-5xl mx-auto px-6 py-20">
         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-10">
-          {content.stepsTitle}
+          {content.servicesSectionTitle}
         </h2>
 
         <ol className="space-y-6">
@@ -97,6 +103,11 @@ export default function InteligenciaArtificialSevilla() {
 
       {/* FORM */}
       <section id="formulario">
+        <div className="max-w-5xl mx-auto px-6 pt-8">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-6 text-center">
+            {content.formSectionTitle}
+          </h2>
+        </div>
         <ReCaptchaWrapper>
           <ContactForm/>
         </ReCaptchaWrapper>

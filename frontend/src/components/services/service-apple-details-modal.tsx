@@ -5,7 +5,9 @@ import { useTranslations } from "next-intl";
 import type { Service } from "@/hooks/useServices";
 import { AppleModal } from "@/components/ui/apple-modal";
 import { ServiceDetailsContent } from "@/components/services/service-details-content";
-import { ServiceDetailsLabels} from "@/components/services/service-details-content";
+import { ServiceDetailsLabels } from "@/components/services/service-details-content";
+import { ModalCloseButton } from "@/components/ui/modal-close-button";
+import { motion } from "motion/react";
 
 export const ServiceAppleDetailsModal = ({
   service,
@@ -63,7 +65,20 @@ export const ServiceAppleDetailsModal = ({
           {service.title}
         </span>
       }
+
     >
+      {/* Close button — now INSIDE the modal */}
+      <motion.div
+        className="absolute top-6 right-6 z-[200]"
+      >
+        <ModalCloseButton
+          onClick={onClose}
+          variant="default"
+          size="md"
+          className="shadow-lg bg-white/80 dark:bg-neutral-800/80 backdrop-blur-sm rounded-full p-2"
+        />
+      </motion.div>
+
       <div className="pt-6">
         <ServiceDetailsContent
           service={service}

@@ -15,6 +15,7 @@ import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import { Zap, SlidersHorizontal, Headphones } from "lucide-react";
 import { AiChatDemo } from "@/components/home/ai-chat-demo";
 import { PartnerShowcase } from "@/components/ui/partner-showcase";
+import { NewsletterSection } from "@/components/ui/newsletter-section";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -309,7 +310,11 @@ export default function HomePage({
       
       {/* Benefits section */}
       <section id="benefits" className="py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-5">
+        <div className="max-w-4xl mx-auto">
+        <h2 className="text-center text-2xl sm:text-3xl font-bold mb-8 text-slate-dark dark:text-ivory-light tracking-tight">
+          {t("hero.titleLine1")} {t("hero.titleLine2")}
+        </h2>
+        <div className="grid md:grid-cols-3 gap-5">
           {serviceBenefits.map(({ titleKey, descriptionKey, Icon }, index) => (
             <div
               key={titleKey}
@@ -325,6 +330,7 @@ export default function HomePage({
               <p className="text-sm text-slate-medium dark:text-cloud-medium">{t(descriptionKey)}</p>
             </div>
           ))}
+        </div>
         </div>
       </section>
       <ServicesSection
@@ -357,6 +363,9 @@ export default function HomePage({
         <>
           <DeferredSection>
             <TestimonialsSection t={t} />
+          </DeferredSection>
+          <DeferredSection>
+            <NewsletterSection />
           </DeferredSection>
           <DeferredSection>
             <PartnerShowcase

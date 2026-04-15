@@ -27,6 +27,7 @@
       "profile": "Perfil",
       "myCourses": "Mis cursos",
       "blog": "Blog",
+      "articles": "Artículos",
       "faq": "FAQ",
       "news": "Noticias",
       "contact": "Contacto",
@@ -34,8 +35,8 @@
       "loading": "Cargando..."
     },
     "hero": {
-      "titleLine1": "AGENCIA DE",
-      "titleLine2": "AUTOMATIZACIÓN CON IA",
+      "titleLine1": "Agencia de",
+      "titleLine2": "Automatización IA",
       "subtitle": "Somos tu agencia de automatización IA. Optimizamos tu negocio con inteligencia artificial para escalar resultados.",
       "description1": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
       "trust1": "Para contables, administradores, inmobiliarias, y más",
@@ -165,6 +166,14 @@
     "partners": {
       "title": "Empresas transformandas",
       "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos con IA"
+    },
+    "newsletter": {
+      "title": "¿Quieres estar al día con las últimas noticias y herramientas en IA?",
+      "subtitle": "Suscríbete a nuestra newsletter y sé el primero en recibir novedades, tutoriales y recursos de automatización.",
+      "namePlaceholder": "Tu nombre",
+      "emailPlaceholder": "tu@email.com",
+      "submitLabel": "Suscribirme",
+      "successMessage": "¡Gracias! Te avisaremos cuando la newsletter esté activa."
     },
     "chatDemo": {
       "title": "IA que habla como tu negocio",
@@ -1074,7 +1083,7 @@
     "cookieDesc": "Activa o desactiva las cookies de análisis en esta página",
     "supportKicker": "¿Necesitas ayuda?",
     "supportTitle": "Contactar soporte",
-    "supportDesc": "¿Tienes preguntas sobre nuestros documentos legales?",
+    "supportDesc": "Correo de denuncias: denuncias@ordinaly.ai",
     "contactCta": "Contáctanos",
     "openCookieSettings": "Abrir configuración cookies",
     "tabs": {
@@ -2219,10 +2228,10 @@
     }
   },
   "landings": {
-    "agencia-automatizacion-ia": {
-      "slug": "agencia-automatizacion-ia",
-      "title": "Chatbots empresariales con datos conectados",
-      "shortTitle": "Agencia de Automatización IA",
+    "chatbots-personalizados-para-empresas": {
+      "slug": "chatbots-personalizados-para-empresas",
+      "title": "Chatbots personalizados para empresas",
+      "shortTitle": "Chatbots personalizados",
       "subtitle": "Procesos más rápidos, menos errores, más beneficios.",
       "description": "Diseñamos automatizaciones inteligentes, copilotos internos e integraciones avanzadas para que tu empresa funcione con la eficiencia de una organización moderna impulsada por IA.",
       "heroBadge": "Automatización + IA",
@@ -2670,7 +2679,7 @@
     },
     "inteligencia-artificial-empresas": {
       "slug": "inteligencia-artificial-empresas",
-      "title": "Inteligencia Artificial aplicada a procesos empresariales",
+      "title": "Inteligencia artificial para empresas",
       "shortTitle": "IA para empresas",
       "subtitle": "Automatizamos tareas, reducimos tiempos operativos y creamos copilotos internos adaptados a tu negocio.",
       "description": "Diseñamos e implantamos soluciones de IA que mejoran productividad, eliminan trabajo repetitivo y permiten a los equipos centrarse en tareas de mayor valor. Modelos privados, automatizaciones seguras y asistentes entrenados con tu propio conocimiento.",
@@ -2840,12 +2849,15 @@
     },
     "inteligencia-artificial-sevilla": {
       "slug": "inteligencia-artificial-sevilla",
-      "title": "Inteligencia Artificial en Sevilla",
+      "title": "Inteligencia artificial en Sevilla",
       "shortTitle": "IA para Empresas en Sevilla",
       "subtitle": "Automatizamos, optimizamos y escalamos procesos con IA para que tu empresa gane velocidad y precisión.",
       "description": "Desarrollamos soluciones de Inteligencia Artificial aplicadas a operaciones reales: automatización, asistentes inteligentes, análisis predictivo y optimización de procesos. Implementamos IA con criterio, datos limpios y despliegues que funcionan en producción.",
       "heroCtaLabel": "Abrir formulario",
       "heroCtaHref": "#formulario",
+      "cardsSectionTitle": "Mejora tu negocio con la inteligencia artificial",
+      "servicesSectionTitle": "Servicios de inteligencia artificial en Sevilla",
+      "formSectionTitle": "Proyectos de inteligencia artificial en Sevilla",
       "serviceType": "Automatización, asistentes IA y soluciones aplicadas",
       "areaServed": "Sevilla, Andalucía y empresas en España",
       "valueProps": [
@@ -2941,7 +2953,7 @@
       "slug": "automatizacion-inteligente",
       "heroImage": "/static/backgrounds/automation_background.webp",
       "heroImagePosition": "center 38%",
-      "title": "Automatización Inteligente para Empresas",
+      "title": "Automatización inteligente",
       "shortTitle": "Automatización Inteligente",
       "heroBadge": "IA + Automatización",
       "heroCtaLabel": "Quiero saber más",
@@ -3111,7 +3123,7 @@
     },
     "empresa-inteligencia-artificial": {
       "slug": "empresa-inteligencia-artificial",
-      "title": "Empresa de Inteligencia Artificial para transformar tu negocio",
+      "title": "Empresa de inteligencia artificial",
       "shortTitle": "Empresa de IA",
       "subtitle": "Somos la empresa de inteligencia artificial que convierte datos, procesos y equipos en resultados medibles.",
       "description": "Ordinaly es una empresa especializada en inteligencia artificial aplicada. Diseñamos, construimos e implantamos soluciones de IA que generan impacto real en operaciones, equipos y resultados de negocio. Sin humo, sin demos vacías: sólo IA que funciona en producción.",

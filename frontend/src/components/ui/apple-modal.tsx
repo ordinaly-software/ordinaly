@@ -68,17 +68,6 @@ export function AppleModal({
             aria-label={closeLabel}
           />
 
-          {/* Close button — fixed to viewport, never covers scrolled content */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
-            transition={{ duration: 0.15 }}
-            className="fixed top-4 right-4 z-[200]"
-          >
-            <ModalCloseButton onClick={onClose} variant="default" size="md" className="shadow-lg" />
-          </motion.div>
-
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -88,6 +77,13 @@ export function AppleModal({
             layoutId={layoutId}
             className={containerClassName}
           >
+            <ModalCloseButton
+              onClick={onClose}
+              variant="overlay"
+              size="sm"
+              className="absolute top-3 right-3 z-10"
+              aria-label={closeLabel}
+            />
             {category != null && (
               <motion.p
                 layoutId={categoryLayoutId}

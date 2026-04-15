@@ -116,7 +116,7 @@ ${
 
 ## Landing pages de servicios
 
-- [Agencia de Automatización IA](https://ordinaly.ai/es/agencia-automatizacion-ia): Automatización de procesos de negocio con agentes de IA
+- [Chatbots Personalizados para Empresas](https://ordinaly.ai/es/chatbots-personalizados-para-empresas): Chatbots empresariales con agentes de IA a medida
 - [Automatización Inteligente](https://ordinaly.ai/es/automatizacion-inteligente): Soluciones integrales de automatización para empresas
 - [Automatización con n8n en Sevilla](https://ordinaly.ai/es/automatizacion-n8n-sevilla): Flujos de trabajo automatizados con la plataforma n8n
 - [IA para Empresas](https://ordinaly.ai/es/inteligencia-artificial-empresas): Chatbots, copilotos y modelos privados para empresas

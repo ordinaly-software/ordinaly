@@ -89,7 +89,7 @@ export default function AutomatizacionFacturas() {
       <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.howItWorks}
+            Gestión con la automatización de facturas
           </h2>
 
           <div className="grid sm:grid-cols-3 gap-8 text-center">
@@ -142,7 +142,7 @@ export default function AutomatizacionFacturas() {
       <section className="py-20 md:py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.benefits}
+            Automatización de facturas con IA
           </h2>
 
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
@@ -165,7 +165,7 @@ export default function AutomatizacionFacturas() {
       <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
         <div className="max-w-6xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.beforeAfter}
+            Software de automatización de facturas
           </h2>
 
           <div className="grid md:grid-cols-2 gap-10">

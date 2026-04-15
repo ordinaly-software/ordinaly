@@ -22,7 +22,7 @@ import { openCookieSettings } from "@/utils/cookieManager";
 import { cn } from "@/lib/utils";
 
 const LANDING_SLUGS = [
-  "agencia-automatizacion-ia",
+  "chatbots-personalizados-para-empresas",
   "automatizacion-n8n-sevilla",
   "automatizacion-facturas",
   "automatizacion-inteligente",
@@ -46,6 +46,10 @@ type FooterGroup = {
 
 type LandingFooterContent = {
   shortTitle?: string;
+};
+
+const LANDING_LABEL_SOURCE: Record<string, string> = {
+  "chatbots-personalizados-para-empresas": "chatbots-personalizados-para-empresas",
 };
 
 const Footer = () => {
@@ -95,7 +99,7 @@ const Footer = () => {
 
     const landingMessages = (messages as { landings?: Record<string, LandingFooterContent> }).landings ?? {};
     const landingLinks: FooterLinkItem[] = LANDING_SLUGS.map((slug) => ({
-      label: landingMessages[slug]?.shortTitle ?? slug,
+      label: landingMessages[LANDING_LABEL_SOURCE[slug] ?? slug]?.shortTitle ?? slug,
       href: `/${slug}`,
     }));
 
@@ -188,9 +192,9 @@ const Footer = () => {
 
           {footerGroups.map((group) => (
             <div key={group.title}>
-              <h2 className="text-sm font-semibold tracking-[0.14em] text-slate-dark dark:text-ivory-light">
+              <p className="text-sm font-semibold tracking-[0.14em] text-slate-dark dark:text-ivory-light">
                 {group.title}
-              </h2>
+              </p>
               <ul className="mt-4 space-y-3 text-sm">
                 {group.links.map((item) => (
                   <li key={`${group.title}-${item.label}`}>

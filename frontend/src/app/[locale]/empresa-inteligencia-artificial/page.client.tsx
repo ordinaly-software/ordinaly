@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
@@ -214,7 +213,7 @@ export default function EmpresaInteligenciaArtificial() {
               {content.sectionTitles?.steps}
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12">
-              {isEn ? "Our implementation process" : "Nuestro proceso de implantación"}
+              Tu empresa de inteligencia artificial
             </h2>
 
             <ol className="space-y-6">
@@ -240,9 +239,9 @@ export default function EmpresaInteligenciaArtificial() {
           <p className="text-xs font-semibold uppercase tracking-widest text-blue-500 mb-3 text-center">
             {content.sectionTitles?.beforeAfter}
           </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12 text-center">
+          <p className="text-3xl sm:text-4xl font-bold tracking-tight mb-12 text-center">
             {isEn ? "The before and after is real" : "El antes y después es real"}
-          </h2>
+          </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Before */}
@@ -290,7 +289,7 @@ export default function EmpresaInteligenciaArtificial() {
               {content.sectionTitles?.useCases}
             </p>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12">
-              {isEn ? "Services we deliver as an AI company" : "Servicios que ofrecemos como empresa de IA"}
+              Empresa de inteligencia artificial en Sevilla
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -331,7 +330,7 @@ export default function EmpresaInteligenciaArtificial() {
             {content.sectionTitles?.technologyFaqs}
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12">
-            {isEn ? "Common questions about working with us" : "Dudas habituales sobre trabajar con nosotros"}
+            Empresa de inteligencia artificial y automatizaciones
           </h2>
 
           <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
@@ -358,9 +357,9 @@ export default function EmpresaInteligenciaArtificial() {
         <section className="max-w-7xl mx-auto px-6 pb-6">
           <div className="rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 p-10 md:p-14 flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+              <p className="text-2xl md:text-3xl font-bold text-white mb-2">
                 {isEn ? "Ready to work with an AI company that delivers?" : "¿Listo para trabajar con una empresa de IA que cumple?"}
-              </h2>
+              </p>
               <p className="text-blue-200 max-w-xl leading-relaxed">
                 {isEn
                   ? "Tell us your process and we'll design your first pilot in 48 hours."

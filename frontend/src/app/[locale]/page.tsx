@@ -20,11 +20,11 @@ export async function generateMetadata({
     locale,
     path: "/",
     title: isEs
-      ? "Automatización IA Sevilla | Chatbots y Agentes IA para Empresas | Ordinaly Software"
-      : "AI Automation Seville | Chatbots and AI Agents for Business | Ordinaly Software",
+      ? "Agencia de Automatización IA en Sevilla | Ordinaly Software"
+      : "AI Automation Agency in Seville | Ordinaly Software",
     description: isEs
-      ? "Agencia especializada en automatización IA en Sevilla: chatbots empresariales, agentes IA, n8n automation, WhatsApp CRM y formación IA para PYMES. Primeros resultados en 2-4 semanas."
-      : "AI automation agency in Seville: business chatbots, AI agents, n8n automation, WhatsApp CRM and AI training for SMEs. First results in 2-4 weeks.",
+      ? "Agencia de automatización IA especializada en chatbots, agentes y n8n en Sevilla. Impulsamos tu PYME con soluciones efectivas en 2-4 semanas."
+      : "AI automation agency specialized in chatbots, agents and n8n in Seville. We boost your SME with effective solutions in just 2-4 weeks.",
     image: "/og-image.png",
   });
   return {

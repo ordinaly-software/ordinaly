@@ -2,6 +2,7 @@
 
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
+import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { CalendarDays, MapPin, Euro, Users } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
@@ -116,11 +117,12 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
             {/* HEADER */}
           <div className={`flex items-start justify-between px-4 pt-4 pb-3 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>
             <h2
-              className={`${isDark ? 'text-white' : 'text-gray-900'} font-bold leading-snug flex-1 min-w-0 break-words`}
+              className={`${isDark ? 'text-white' : 'text-gray-900'} font-bold leading-snug flex-1 min-w-0 break-words pr-2`}
               style={{ fontSize: 'clamp(1rem, 3.8vw, 1.35rem)' }}
             >
               {selectedCourse ? `${t("enrollment.confirm")} - ${selectedCourse.title}` : t("enrollment.confirm")}
             </h2>
+            <ModalCloseButton onClick={onClose} variant="default" size="sm" className="-mt-1 shrink-0" />
           </div>
 
           {/* SCROLL AREA */}
