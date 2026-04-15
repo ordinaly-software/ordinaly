@@ -7,12 +7,12 @@ import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "../recaptcha-provider";
 
-export default function AgenciaAutomatizacionIA() {
+export default function ChatbotsPersonalizadosEmpresas() {
   const messages = useMessages() as any;
-  const content = messages.landings?.["agencia-automatizacion-ia"];
+  const content = messages.landings?.["chatbots-personalizados-para-empresas"];
 
   if (!content) {
-    throw new Error("Missing landing content: agencia-automatizacion-ia");
+    throw new Error("Missing landing content: chatbots-personalizados-para-empresas");
   }
 
   return (
@@ -53,7 +53,7 @@ export default function AgenciaAutomatizacionIA() {
       </section>
       <section className="w-full max-w-5xl mx-auto px-6 py-12 md:py-14">
         <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-10 text-center dark:text-white">
-          {content.sectionTitles?.whatWeAutomate}
+          Desarrollo de chatbots personalizados para empresas
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
@@ -100,7 +100,7 @@ export default function AgenciaAutomatizacionIA() {
       {/* TIMELINE */}
       <section id="como-trabajamos" className="w-full max-w-4xl mx-auto px-6">
         <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-10 text-center dark:text-white">
-          {content.sectionTitles?.timeline}
+          Chatbots personalizados para empresas
         </h2>
 
         <TimelineHorizontal steps={content.timeline} />
@@ -108,7 +108,7 @@ export default function AgenciaAutomatizacionIA() {
 
       <section className="w-full max-w-6xl mx-auto">
         <h2 className="text-2xl sm:text-3xl font-semibold mb-8 md:mb-10 text-center dark:text-white">
-          {content.sectionTitles?.caseStudies}
+          Ventajas de chatbots personalizados para empresas
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
@@ -148,9 +148,9 @@ export default function AgenciaAutomatizacionIA() {
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#d97757]/20 dark:bg-[#d97757]/10 rounded-full blur-3xl" />
 
         <div className="relative max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-semibold mb-6 dark:text-white">
+          <h3 className="text-3xl sm:text-4xl font-semibold mb-6 dark:text-white">
             {content.sectionTitles?.ctaTitle}
-          </h2>
+          </h3>
 
           <p className="text-neutral-700 dark:text-neutral-200 text-base sm:text-lg mb-8 leading-relaxed">
             {content.sectionTitles?.ctaSubtitle}

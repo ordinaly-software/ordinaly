@@ -100,22 +100,6 @@ export default function FaqPageClient({ locale }: { locale: string }) {
     [localizedEntries, locale],
   );
 
-  const faqSchema = useMemo(
-    () => ({
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: localizedEntries.map((entry) => ({
-        "@type": "Question",
-        name: entry.question,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: entry.answer,
-        },
-      })),
-    }),
-    [localizedEntries],
-  );
-
   const ui = {
     title: isEn
       ? "Questions about chatbots, AI agents, n8n, WhatsApp and integrations"
@@ -478,7 +462,6 @@ export default function FaqPageClient({ locale }: { locale: string }) {
         </section>
       </div>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <Footer />
     </div>
   );

@@ -35,8 +35,8 @@
       "loading": "Loading..."
     },
     "hero": {
-      "titleLine1": "AI AUTOMATION",
-      "titleLine2": "AGENCY",
+      "titleLine1": "AI Automation",
+      "titleLine2": "Agency",
       "subtitle": "We are your AI automation agency. We optimize your business with artificial intelligence to scale results.",
       "description1": "We automate your processes with AI agents, chatbots, and no-code workflows so you can sell and operate 24/7.",
       "trust1": "Tailored automation",
@@ -166,6 +166,14 @@
     "partners": {
       "title": "Transformed companies",
       "subtitle": "Companies that trust us and have already automated their processes with AI"
+    },
+    "newsletter": {
+      "title": "Want to stay up to date with the latest AI news and tools?",
+      "subtitle": "Subscribe to our newsletter and be the first to receive updates, tutorials and automation resources.",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "you@email.com",
+      "submitLabel": "Subscribe",
+      "successMessage": "Thank you! We'll let you know when the newsletter is live."
     },
     "chatDemo": {
       "title": "AI that talks like your business",
@@ -2221,8 +2229,8 @@
     }
   },
   "landings": {
-    "agencia-automatizacion-ia": {
-      "slug": "agencia-automatizacion-ia",
+    "chatbots-personalizados-para-empresas": {
+      "slug": "chatbots-personalizados-para-empresas",
       "title": "Enterprise chatbots with connected data",
       "shortTitle": "AI Automation Agency",
       "subtitle": "Faster processes, fewer errors, more benefits.",
@@ -2848,6 +2856,9 @@
       "description": "We develop Artificial Intelligence solutions applied to real operations: automation, intelligent assistants, predictive analysis and process optimization. We implement AI with criteria, clean data and deployments that work in production.",
       "heroCtaLabel": "Open form",
       "heroCtaHref": "#form",
+      "cardsSectionTitle": "Improve your business with artificial intelligence",
+      "servicesSectionTitle": "Artificial intelligence services in Seville",
+      "formSectionTitle": "Artificial intelligence projects in Seville",
       "serviceType": "Automation, AI assistants and applied solutions",
       "areaServed": "Seville, Andalusia and companies in Spain",
       "valueProps": [

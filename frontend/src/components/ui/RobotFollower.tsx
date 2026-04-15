@@ -4,10 +4,36 @@ import { useRef, useState, useEffect, MouseEvent } from "react";
 
 export default function RobotFollower() {
   const headRef = useRef<HTMLDivElement>(null);
-  const [rotation, setRotation] = useState(0);
-  const [armRotation, setArmRotation] = useState(0);
   const [isSleep, setIsSleep] = useState(false);
   const [blink, setBlink] = useState(false);
+
+  // ── Lerp state (target vs displayed) ───────────────────────────────────────
+  const targetRef  = useRef({ rotation: 0, arm: 0 });
+  const currentRef = useRef({ rotation: 0, arm: 0 });
+  const [displayRot, setDisplayRot] = useState(0);
+  const [displayArm, setDisplayArm] = useState(0);
+  const rafRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const ALPHA = 0.09; // smoothing factor — lower = silkier but lazier
+    const loop = () => {
+      // Shortest-angle lerp to avoid spinning the long way around
+      const tRot = targetRef.current.rotation;
+      const cRot = currentRef.current.rotation;
+      const diff = ((tRot - cRot + 540) % 360) - 180;
+      currentRef.current.rotation = cRot + diff * ALPHA;
+
+      const tArm = targetRef.current.arm;
+      const cArm = currentRef.current.arm;
+      currentRef.current.arm = cArm + (tArm - cArm) * ALPHA;
+
+      setDisplayRot(currentRef.current.rotation);
+      setDisplayArm(currentRef.current.arm);
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, []);
 
   // Sleep mode — 3 s sin movimiento
   useEffect(() => {
@@ -37,13 +63,13 @@ export default function RobotFollower() {
     const cx = rect.left + rect.width / 2;
     const cy = rect.top + rect.height / 2;
     const deg = (Math.atan2(e.clientY - cy, e.clientX - cx) * 180) / Math.PI;
-    setRotation(deg + 90);
-    setArmRotation((deg + 90) * 0.18);
+    targetRef.current.rotation = deg + 90;
+    targetRef.current.arm      = (deg + 90) * 0.18;
   };
 
   const handleMouseLeave = () => {
-    setRotation(0);
-    setArmRotation(0);
+    targetRef.current.rotation = 0;
+    targetRef.current.arm      = 0;
   };
 
   // ── Clases reactivas al estado ──────────────────────────────────────────────
@@ -60,22 +86,19 @@ export default function RobotFollower() {
     ? "bg-[#1a2a3a] opacity-40"
     : "bg-cyan-400 opacity-85 shadow-[0_0_8px_#22d3ee]";
 
-  // ── Arm / head inline transforms (Tailwind no interpola valores dinámicos) ──
+  // ── Arm / head inline transforms (no CSS transition — rAF lerp handles it) ─
   const headStyle = {
-    transform: `rotate(${rotation}deg)`,
-    transition: "transform 0.1s ease-out",
+    transform: `rotate(${displayRot}deg)`,
   } as React.CSSProperties;
 
   const armLStyle = {
     transformOrigin: "50% 20px",
-    transform: `rotate(${armRotation}deg)`,
-    transition: "transform 0.15s ease-out",
+    transform: `rotate(${displayArm}deg)`,
   } as React.CSSProperties;
 
   const armRStyle = {
     transformOrigin: "50% 20px",
-    transform: `rotate(${armRotation * -1}deg)`,
-    transition: "transform 0.15s ease-out",
+    transform: `rotate(${displayArm * -1}deg)`,
   } as React.CSSProperties;
 
   // ────────────────────────────────────────────────────────────────────────────

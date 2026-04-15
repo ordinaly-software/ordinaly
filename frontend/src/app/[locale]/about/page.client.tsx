@@ -124,17 +124,17 @@ export default function UsPage() {
             </div>
 
             <div className="hidden lg:grid grid-cols-2 gap-4">
-              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/82 p-5 shadow-sm dark:border-white/10 dark:bg-[rgba(18,26,40,0.82)] space-y-2">
+              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/95 p-5 shadow-sm dark:border-white/10 dark:bg-[rgba(18,26,40,0.92)] space-y-2">
                 <p className="text-base font-semibold text-slate-dark dark:text-ivory-light">{t("mission.title")}</p>
-                <p className="text-sm text-slate-medium dark:text-[#D7DCE7] leading-relaxed">{t("mission.body")}</p>
+                <p className="text-sm text-slate-dark dark:text-[#D7DCE7] leading-relaxed">{t("mission.body")}</p>
               </div>
-              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/82 p-5 shadow-sm dark:border-white/10 dark:bg-[rgba(22,22,29,0.82)] space-y-2">
+              <div className="rounded-[1.75rem] border border-[--color-border-subtle] bg-white/95 p-5 shadow-sm dark:border-white/10 dark:bg-[rgba(22,22,29,0.92)] space-y-2">
                 <p className="text-base font-semibold text-slate-dark dark:text-ivory-light">{t("vision.title")}</p>
-                <p className="text-sm text-slate-medium dark:text-[#E1D8D4] leading-relaxed">{t("vision.body")}</p>
+                <p className="text-sm text-slate-dark dark:text-[#E1D8D4] leading-relaxed">{t("vision.body")}</p>
               </div>
               <div className="col-span-2 rounded-[1.75rem] border border-white/10 bg-[linear-gradient(135deg,#141413,#1D2636)] p-5 text-white shadow-[0_20px_60px_-36px_rgba(2,85,213,0.45)] flex items-center gap-4">
                 <div>
-                  <p className="text-sm text-white/72">{t("hero.definition")}</p>
+                  <p className="text-sm text-white/90">{t("hero.definition")}</p>
                 </div>
               </div>
             </div>

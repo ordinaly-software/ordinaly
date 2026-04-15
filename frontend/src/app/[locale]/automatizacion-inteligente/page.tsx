@@ -1,14 +1,9 @@
 import type { Metadata } from "next";
-import { getMessages } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
 import AutomatizacionInteligente from "./page.client"
 
 const slug = "automatizacion-inteligente" as const;
 const AUTOMATIZACION_INTELIGENTE_HERO_IMAGE = "/static/automatizacion-inteligente/hero-blurred.webp";
-type LandingMetadataContent = {
-  title: string;
-  description: string;
-};
 
 export async function generateMetadata({
   params,
@@ -16,18 +11,12 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const messages = await getMessages({ locale });
-  const landing = (messages as { landings?: Record<string, LandingMetadataContent> }).landings?.[slug];
-
-  if (!landing) {
-    throw new Error(`Missing landing content: ${slug}`);
-  }
-
   return createPageMetadata({
     locale,
     path: `/${slug}`,
-    title: landing.title,
-    description: landing.description,
+    title: "Automatización Inteligente para empresas | Ordinaly",
+    description:
+      "Automatización inteligente en la empresa para flujos eficientes. Implementamos agentes de IA que eliminan tareas repetitivas y escalan tu productividad hoy",
     image: AUTOMATIZACION_INTELIGENTE_HERO_IMAGE,
   });
 }

@@ -39,7 +39,7 @@ export default function AutomatizacionInteligente() {
       </section>
       <section className="py-24 bg-white dark:bg-neutral-900 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-neutral-900 dark:text-white">
-          {content.sectionTitles?.howItWorks}
+          Ahorra tiempo y dinero con la automatización inteligente
         </h2>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-16 max-w-5xl mx-auto px-6">
@@ -84,7 +84,7 @@ export default function AutomatizacionInteligente() {
       {/* BENEFITS */}
       <section className="py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-          {content.sectionTitles?.benefits}
+          Automatización inteligente en empresas
         </h2>
 
         <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
@@ -123,7 +123,7 @@ export default function AutomatizacionInteligente() {
       </section>
       <section className="py-24 bg-white dark:bg-neutral-900 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-          {content.sectionTitles?.beforeAfter}
+          Resultados de la automatización inteligente
         </h2>
 
         <div className="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto px-6">
@@ -153,10 +153,8 @@ export default function AutomatizacionInteligente() {
       </section>
 
       {/* FORM */}
-      <section id="formulario" className="max-w-4xl mx-auto px-6 py-20">
-        <div className="overflow-hidden">
-          <ContactForm className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0" />
-        </div>
+      <section id="formulario">
+        <ContactForm />
       </section>
       <a
         href={content.cta?.href}

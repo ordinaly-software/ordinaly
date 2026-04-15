@@ -77,6 +77,13 @@ export function AppleModal({
             layoutId={layoutId}
             className={containerClassName}
           >
+            <ModalCloseButton
+              onClick={onClose}
+              variant="overlay"
+              size="sm"
+              className="absolute top-3 right-3 z-10"
+              aria-label={closeLabel}
+            />
             {category != null && (
               <motion.p
                 layoutId={categoryLayoutId}

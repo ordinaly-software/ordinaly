@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { getMessages } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
 import InteligenciaArtificialEmpresas from "./page.client"
 
 const slug = "inteligencia-artificial-empresas" as const;
-type LandingMetadataContent = {
-  title: string;
-  description: string;
-  heroImage?: string;
-};
 
 export async function generateMetadata({
   params,
@@ -16,21 +10,13 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const messages = await getMessages({ locale });
-  const landing = (messages as { landings?: Record<string, LandingMetadataContent> }).landings?.[slug];
-  const effectiveLanding: LandingMetadataContent =
-    landing ?? {
-      title: "Artificial Intelligence for Businesses",
-      description: "Discover how our AI solutions can help your company improve efficiency and decision-making.",
-      heroImage: "/static/backgrounds/services_background.webp",
-    };
-
   return createPageMetadata({
     locale,
     path: `/${slug}`,
-    title: effectiveLanding.title,
-    description: effectiveLanding.description,
-    image: effectiveLanding.heroImage || "/static/backgrounds/services_background.webp",
+    title: "Inteligencia artificial para empresas | Ordinaly",
+    description:
+      "Inteligencia artificial para empresas que buscan competitividad. Optimizamos procesos y potenciamos la toma de decisiones con soluciones de IA a medida",
+    image: "/static/backgrounds/services_background.webp",
   });
 }
 

@@ -176,7 +176,7 @@ export default function InteligenciaArtificialEmpresas() {
             {content.sectionTitles?.steps}
           </p>
           <h2 className="text-3xl font-bold tracking-tight mb-10">
-            {isEn ? "Implementation sequence" : "Secuencia de implantación"}
+            Inteligencia artificial a medida para empresas
           </h2>
 
           <ol className="space-y-6">
@@ -197,7 +197,7 @@ export default function InteligenciaArtificialEmpresas() {
             {content.sectionTitles?.useCases}
           </p>
           <h2 className="text-3xl font-bold tracking-tight mb-10">
-            {isEn ? "Real workflows, not demos" : "Flujos reales, no demos"}
+            Aplicaciones de la inteligencia artificial para empresas
           </h2>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -232,7 +232,7 @@ export default function InteligenciaArtificialEmpresas() {
             {content.sectionTitles?.technologyFaqs}
           </p>
           <h2 className="text-3xl font-bold tracking-tight mb-10">
-            {isEn ? "Common questions" : "Dudas habituales"}
+            Inteligencia Artificial para empresas
           </h2>
 
           <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
