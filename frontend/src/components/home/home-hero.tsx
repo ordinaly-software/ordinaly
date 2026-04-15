@@ -70,7 +70,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
 
             {/* Title */}
             <div className="mt-6 space-y-4">
-              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3rem] xl:text-[4.5rem]">
+              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3rem] xl:text-[4.5rem] break-words hyphens-auto">
                 <span className="block text-clay">
                   {t("hero.titleLine1")}
                 </span>
@@ -101,13 +101,30 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
           </div>
 
           {/* RIGHT: image accordion */}
-          <div className="hidden lg:block scroll-animate fade-in-up">
-            <div className="overflow-x-auto lg:overflow-visible">
+          <div className="scroll-animate fade-in-up min-w-0">
+            {/* Mobile / tablet: single static image card */}
+            <div className="relative lg:hidden rounded-2xl overflow-hidden h-[300px] sm:h-[380px] w-full">
+              <img
+                src={accordionItems[0].imageUrl}
+                alt={`${t("hero.titleLine1")} ${t("hero.titleLine2")} – ${accordionItems[0].label}`}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <p className="text-white font-bold text-lg leading-snug">{accordionItems[0].label}</p>
+                {accordionItems[0].sublabel && (
+                  <p className="mt-1.5 text-sm text-white/70 leading-relaxed line-clamp-2">
+                    {accordionItems[0].sublabel}
+                  </p>
+                )}
+              </div>
+            </div>
+            {/* Desktop: full interactive accordion */}
+            <div className="hidden lg:block">
               <ImageAccordion
                 items={accordionItems}
                 initialActiveIndex={0}
                 itemHeight="h-[480px] xl:h-[540px]"
-                className="min-w-[360px] lg:min-w-0"
               />
             </div>
           </div>

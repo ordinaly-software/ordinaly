@@ -1,5 +1,6 @@
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
+import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { CalendarDays, MapPin, Euro, UserX } from "lucide-react";
 import { useTranslations } from "next-intl";
 import React from "react";
@@ -100,6 +101,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
                 style={{ fontSize: 'clamp(1rem, 3.8vw, 1.35rem)' }}>
               {t("cancellation.title")}
             </h2>
+            <ModalCloseButton onClick={onClose} variant="default" size="sm" className="-mt-1 shrink-0" />
           </div>
 
           {/* SCROLLABLE CONTENT */}

@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { routing, type Locale } from "@/i18n/routing";
 import { getApiEndpoint } from "@/lib/api-config";
 import Footer from "@/components/ui/footer";
+import { NewsletterSection } from "@/components/ui/newsletter-section";
 import Banner from '@/components/ui/banner';
 import { Button } from "@/components/ui/button";
 import CourseCard from "@/components/formation/course-card";
@@ -580,9 +581,6 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
       <section className="px-4 pb-24 pt-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <div className="relative overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-[linear-gradient(135deg,rgba(217,119,87,0.10),rgba(250,249,245,0.96),rgba(2,85,213,0.08))] shadow-[0_28px_90px_-60px_rgba(20,20,19,0.22)] dark:border-white/10 dark:bg-[linear-gradient(135deg,rgba(217,119,87,0.16),rgba(20,20,19,0.96),rgba(2,85,213,0.18))]">
-            <div className="pointer-events-none absolute -left-16 top-8 h-40 w-40 rounded-full bg-clay/15 blur-3xl" />
-            <div className="pointer-events-none absolute right-0 top-0 h-52 w-52 rounded-full bg-cobalt/10 blur-3xl dark:bg-cobalt/20" />
-            <div className="pointer-events-none absolute -bottom-12 right-16 h-36 w-36 rounded-full bg-oat/70 blur-3xl dark:bg-white/10" />
 
             <div className="relative grid gap-8 p-8 md:p-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-center">
               <div>
@@ -695,6 +693,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
         />
       )}
 
+      <NewsletterSection />
       <Footer />
     </div>
   );

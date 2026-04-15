@@ -115,7 +115,7 @@ export function EmailVerificationProvider({
             }
           }
         } catch {
-          // Response body wasn't JSON – ignore
+          // Response body wasn't JSON - ignore
         }
       }
 

@@ -22,7 +22,7 @@ import { openCookieSettings } from "@/utils/cookieManager";
 import { cn } from "@/lib/utils";
 
 const LANDING_SLUGS = [
-  "agencia-automatizacion-ia",
+  "chatbots-personalizados-para-empresas",
   "automatizacion-n8n-sevilla",
   "automatizacion-facturas",
   "automatizacion-inteligente",
@@ -48,10 +48,13 @@ type LandingFooterContent = {
   shortTitle?: string;
 };
 
+const LANDING_LABEL_SOURCE: Record<string, string> = {
+  "chatbots-personalizados-para-empresas": "chatbots-personalizados-para-empresas",
+};
+
 const Footer = () => {
   const t = useTranslations("home");
   const tCookie = useTranslations("cookie");
-  const locale = useLocale();
   const messages = useMessages();
   const { isDark, setIsDark } = useTheme();
   const currentYear = new Date().getUTCFullYear();
@@ -96,7 +99,7 @@ const Footer = () => {
 
     const landingMessages = (messages as { landings?: Record<string, LandingFooterContent> }).landings ?? {};
     const landingLinks: FooterLinkItem[] = LANDING_SLUGS.map((slug) => ({
-      label: landingMessages[slug]?.shortTitle ?? slug,
+      label: landingMessages[LANDING_LABEL_SOURCE[slug] ?? slug]?.shortTitle ?? slug,
       href: `/${slug}`,
     }));
 
@@ -143,7 +146,7 @@ const Footer = () => {
 
   return (
     <footer className="border-t border-[--color-border-subtle] bg-[#f5f5f7] text-slate-medium dark:border-[--color-border-strong] dark:bg-[#0f1012] dark:text-cloud-medium">
-      <div className="u-container py-10 md:py-12">
+      <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 py-10 md:py-12">
         <div className="border-b border-[--color-border-subtle] pb-4 text-sm leading-relaxed dark:border-[--color-border-strong]">
             <Image
               src="/logo_80.webp"
@@ -159,7 +162,7 @@ const Footer = () => {
             />
         </div>
 
-        <div className="grid gap-10 py-8 md:grid-cols-2 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
+        <div className="grid gap-4 py-4 md:grid-cols-2 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
           <div className="max-w-sm">
             <div className="flex items-center gap-3">
               <div>
@@ -189,9 +192,9 @@ const Footer = () => {
 
           {footerGroups.map((group) => (
             <div key={group.title}>
-              <h2 className="text-sm font-semibold tracking-[0.14em] text-slate-dark dark:text-ivory-light">
+              <p className="text-sm font-semibold tracking-[0.14em] text-slate-dark dark:text-ivory-light">
                 {group.title}
-              </h2>
+              </p>
               <ul className="mt-4 space-y-3 text-sm">
                 {group.links.map((item) => (
                   <li key={`${group.title}-${item.label}`}>

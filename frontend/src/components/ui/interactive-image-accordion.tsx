@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 export interface AccordionImageItem {
@@ -13,6 +13,7 @@ export interface AccordionImageItem {
 interface ImageAccordionProps {
   items: AccordionImageItem[];
   initialActiveIndex?: number;
+  autoPlayInterval?: number;
   className?: string;
   itemHeight?: string;
 }
@@ -20,13 +21,31 @@ interface ImageAccordionProps {
 export function ImageAccordion({
   items,
   initialActiveIndex = 0,
+  autoPlayInterval = 3000,
   className,
   itemHeight = "h-[460px]",
 }: ImageAccordionProps) {
   const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
+  const isHovering = useRef(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      if (!isHovering.current) {
+        setActiveIndex((prev) => (prev + 1) % items.length);
+      }
+    }, autoPlayInterval);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [items.length, autoPlayInterval]);
 
   return (
-    <div className={cn("flex flex-row items-stretch gap-2.5", className)}>
+    <div
+      className={cn("flex flex-row items-stretch gap-2.5", className)}
+      onMouseEnter={() => { isHovering.current = true; }}
+      onMouseLeave={() => { isHovering.current = false; }}
+    >
       {items.map((item, index) => {
         const isActive = index === activeIndex;
         return (

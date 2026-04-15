@@ -257,7 +257,7 @@ export function TestimonialsSection({ t }: SectionProps) {
   return (
     <section
       ref={sectionRef}
-      className="py-20 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark]"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-[--color-bg-primary] dark:bg-[--color-bg-inverted]"
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
@@ -344,7 +344,7 @@ export function TestimonialsSection({ t }: SectionProps) {
               ? Array.from({ length: 3 }).map((_, index) => (
                   <div
                     key={`testimonial-skeleton-${index}`}
-                    className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 min-w-[260px] sm:min-w-[300px] md:min-w-[320px] animate-pulse"
+                    className="bg-[--color-bg-card] dark:bg-[--swatch--slate-medium] border border-[--color-border-subtle] dark:border-[--color-border-strong] rounded-2xl p-6 min-w-[260px] sm:min-w-[300px] md:min-w-[320px] animate-pulse"
                   >
                     <div className="flex items-center mb-4">
                       <div className="w-12 h-12 rounded-full bg-[--swatch--cloud-light] dark:bg-[--swatch--slate-medium] mr-3"></div>
@@ -371,7 +371,7 @@ export function TestimonialsSection({ t }: SectionProps) {
               : visibleTestimonials.map((item, index) => (
                   <div
                     key={item.id}
-                    className="scroll-animate fade-in-up group bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-6 min-w-[260px] sm:min-w-[300px] md:min-w-[320px] transition-all duration-300 hover:border-clay dark:hover:border-clay hover:bg-clay/5 hover:shadow-2xl hover:shadow-clay/15 hover:-translate-y-2"
+                    className="scroll-animate fade-in-up group bg-[--color-bg-card] dark:bg-[--swatch--slate-medium] border border-[--color-border-subtle] dark:border-[--color-border-strong] rounded-2xl p-6 min-w-[260px] sm:min-w-[300px] md:min-w-[320px] transition-all duration-300 hover:border-clay dark:hover:border-clay hover:bg-clay/5 hover:shadow-2xl hover:shadow-clay/15 hover:-translate-y-2"
                     style={{ animationDelay: `${index * 0.08}s` }}
                   >
                     <div className="flex items-center mb-4">

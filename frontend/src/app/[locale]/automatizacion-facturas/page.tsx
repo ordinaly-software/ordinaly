@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { getMessages } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
 import AutomatizacionFacturas from "./page.client"
 
 const slug = "automatizacion-facturas" as const;
-type LandingMetadataContent = {
-  title: string;
-  description: string;
-  heroImage?: string;
-};
 
 export async function generateMetadata({
   params,
@@ -16,19 +10,13 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const messages = await getMessages({ locale });
-  const landing = (messages as { landings?: Record<string, LandingMetadataContent> }).landings?.[slug];
-
-  if (!landing) {
-    throw new Error(`Missing landing content: ${slug}`);
-  }
-
   return createPageMetadata({
     locale,
     path: `/${slug}`,
-    title: landing.title,
-    description: landing.description,
-    image: landing.heroImage || "/static/backgrounds/services_background.webp",
+    title: "Automatización de facturas para empresas | Ordinaly",
+    description:
+      "Automatización de facturas para departamentos contables. Procesa tus documentos sin errores y ahorra tiempo con tecnología de procesamiento inteligente",
+    image: "/static/backgrounds/services_background.webp",
   });
 }
 
