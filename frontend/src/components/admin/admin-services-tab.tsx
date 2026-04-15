@@ -81,13 +81,14 @@ const AdminServicesTab = () => {
 
   // Color choices matching backend — aligned with the design palette
   const COLOR_CHOICES = [
-  { value: '1A1924', label: 'slate', color: '#1A1924', darkModeColor: '#1A1924' },
-  { value: 'd97757', label: 'clay', color: '#d97757', darkModeColor: '#d97757' },
-  { value: '0c57d5', label: 'cobalt', color: '#0c57d5', darkModeColor: '#0c57d5' },
-  { value: '798c5f', label: 'olive', color: '#798c5f', darkModeColor: '#798c5f' },
-  { value: 'df3992', label: 'fig', color: '#df3992', darkModeColor: '#df3992' },
-  { value: 'dfd794', label: 'kraft', color: '#dfd794', darkModeColor: '#dfd794' },
+  { value: '141413', label: 'slate', color: '#141413', darkModeColor: '#FAF9F5' },
+  { value: 'D97757', label: 'clay', color: '#D97757', darkModeColor: '#D97757' },
+  { value: '0255D5', label: 'cobalt', color: '#0255D5', darkModeColor: '#4D8EFF' },
+  { value: '788C5D', label: 'olive', color: '#788C5D', darkModeColor: '#9CB678' },
+  { value: 'C46686', label: 'fig', color: '#C46686', darkModeColor: '#E086A4' },
+  { value: 'D4A27F', label: 'kraft', color: '#D4A27F', darkModeColor: '#E8C4A0' },
 ];
+
 
 
 
