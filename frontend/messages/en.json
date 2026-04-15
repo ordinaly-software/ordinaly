@@ -730,6 +730,12 @@
         "cancel": "Cancel"
       }
     },
+    "duplicateConfirm": {
+      "title": "Duplicate item?",
+      "message": "Confirm duplication of the selected item?",
+      "confirm": "Duplicate",
+      "cancel": "Cancel"
+    },
     "courses": {
       "noSpecificDate": "No specific date",
       "locationSoon": "Location coming soon",
@@ -3300,6 +3306,149 @@
       "cta": {
         "label": "Talk to an AI expert",
         "href": "https://wa.me/34626270806?text=I%20want%20to%20talk%20with%20your%20AI%20company",
+        "bgColor": "#0255D5"
+      }
+    },
+    "inteligencia-artificial-sevilla": {
+      "slug": "inteligencia-artificial-sevilla",
+      "heroImage": "/static/backgrounds/odoo_background.webp",
+      "heroImagePosition": "center center",
+      "title": "CRM and ERP Integrations with Rules and Data Quality",
+      "shortTitle": "Artificial Intelligence Seville",
+      "subtitle": "Robust synchronizations between sales, finance, support and inventory without duplicates or silent conflicts.",
+      "description": "We unify systems with clear mappings, field ownership and sync observability so data flows with criteria, not just with connectors.",
+      "heroBadge": "CRM + ERP connected",
+      "heroCtaLabel": "Audit integration",
+      "secondaryCtaLabel": "Talk to the team",
+      "serviceType": "CRM, ERP and Operational Data Integrations",
+      "areaServed": "Spain, multi-site teams and hybrid environments",
+      "valueProps": [
+        "We define which system owns each field, when it syncs and what happens on conflict or missing data.",
+        "We validate quality, deduplication and reconciliation to avoid errors that look like integration but are data design.",
+        "Execution and error panels so the operations team can see what fails and where."
+      ],
+      "metrics": [
+        {
+          "label": "Sync model",
+          "value": "Bidirectional or directed",
+          "detail": "Direction is decided by process and criticality, not technical convenience."
+        },
+        {
+          "label": "Reconciliation",
+          "value": "Explicit rules",
+          "detail": "We differentiate functional conflicts, duplicates and transport errors."
+        },
+        {
+          "label": "Coverage",
+          "value": "Critical fields first",
+          "detail": "We prioritize what impacts billing, reporting, support or inventory."
+        }
+      ],
+      "outcomes": [
+        "Fewer incidents from inconsistent data between sales, support and billing.",
+        "Faster onboarding and updating of customers, products or orders.",
+        "More trust in operational and financial reports because the database is coherent."
+      ],
+      "steps": [
+        "We audit systems, data models, ownership and recurrent sync failures.",
+        "We design the mapping, transformation rules and conflict management.",
+        "We deploy with monitoring, alerts and runbooks for internal support."
+      ],
+      "useCases": [
+        {
+          "tag": "Sales",
+          "title": "Leads, opportunities and orders synchronized",
+          "description": "Avoids context loss when an opportunity moves from marketing to sales and then to operations.",
+          "bullets": [
+            "Same customer identifier between systems",
+            "Coherent sale and order statuses"
+          ]
+        },
+        {
+          "tag": "Finance",
+          "title": "Billing and collection without double entry",
+          "description": "Connects contracts, orders and invoices to eliminate repetitions and manual errors.",
+          "bullets": [
+            "Data transformation between different models",
+            "Mismatch and reconciliation alerts"
+          ]
+        },
+        {
+          "tag": "Support",
+          "title": "Complete customer view for support",
+          "description": "The team sees sales, incidents, billing and operational status without jumping between four tools.",
+          "bullets": [
+            "Unified historical and operational context",
+            "Fewer escalations due to lack of information"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Compatibility",
+          "question": "Do you only work with Odoo and HubSpot?",
+          "answer": "No. These are common cases, but the approach works for custom CRMs, vertical ERPs and internal databases as long as there's access via API, database or controlled export."
+        },
+        {
+          "tag": "Conflicts",
+          "question": "How do you handle conflicts between two systems that disagree?",
+          "answer": "We define field ownership, temporal priority and reconciliation rules. If it can't be decided automatically, the case goes to a review queue with context."
+        },
+        {
+          "tag": "Security",
+          "question": "Does it include security and least privilege?",
+          "answer": "Yes. We work with segregated credentials, minimal permissions, encryption in transit and access review based on flow criticality."
+        },
+        {
+          "tag": "Operation",
+          "question": "Who maintains the integration when it's in production?",
+          "answer": "It depends on the agreement. We can operate, leave ownership to the internal team or share it with runbooks, metrics and defined change windows."
+        }
+      ],
+      "keywords": [
+        "CRM ERP integrations",
+        "data quality",
+        "Odoo HubSpot integration",
+        "operational synchronization"
+      ],
+      "hub": {
+        "title": "Connected systems with clear ownership and rules",
+        "subtitle": "Sales, finance and operations sharing the same operational data.",
+        "bgTheme": "cyan",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "sales-crm",
+            "colorScheme": "indigo",
+            "label": "CRM",
+            "sublabel": "Leads and customers"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Sync layer",
+            "sublabel": "Transformation and rules"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "finance",
+            "colorScheme": "indigo",
+            "label": "ERP",
+            "sublabel": "Orders and finance"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "workflow",
+            "colorScheme": "cyan",
+            "label": "Observability",
+            "sublabel": "Errors and reconciliation"
+          }
+        ]
+      },
+      "cta": {
+        "label": "Integrate CRM and ERP",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20unify%20CRM%20and%20ERP%20without%20data%20errors",
         "bgColor": "#0255D5"
       }
     }

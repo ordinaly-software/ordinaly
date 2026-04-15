@@ -52,7 +52,7 @@ class ServiceModelTests(TestCase):
             'title': 'Test Service',
             'subtitle': 'Test Subtitle',
             'description': 'Test **markdown** description',
-            'color': '29BF12',
+            'color': '141413',
             'icon': 'Bot',
             'created_by': self.user,
         }
@@ -212,7 +212,7 @@ class ServiceSerializerTests(TestCase):
             'title': 'Payload Service',
             'subtitle': 'Payload subtitle',
             'description': 'Payload description',
-            'color': '29BF12',
+            'color': '141413',
             'icon': 'Bot',
         }
         payload.update(overrides)
@@ -264,7 +264,7 @@ class ServiceSerializerTests(TestCase):
 
     def test_validate_color_accepts_valid_choice(self):
         serializer = ServiceSerializer()
-        self.assertEqual(serializer.validate_color('29BF12'), '29BF12')
+        self.assertEqual(serializer.validate_color('141413'), '141413')
 
     def test_validate_description_rejects_too_long_value(self):
         serializer = ServiceSerializer(data=self._valid_payload(description='x' * 2001))
@@ -327,7 +327,7 @@ class ServiceAdminTests(TestCase):
             title='Admin Service',
             subtitle='Subtitle',
             description='**Markdown** description',
-            color='29BF12',
+            color='141413',
             icon='Bot',
             duration=1,
             requisites='None',
@@ -359,7 +359,7 @@ class ServiceAdminTests(TestCase):
             title='Created in admin',
             subtitle='Subtitle',
             description='Description',
-            color='29BF12',
+            color='141413',
             icon='Bot',
             created_by=creator,
         )
@@ -405,7 +405,7 @@ class ServiceViewSetTests(TestCase):
             title='Published Service',
             subtitle='Subtitle',
             description='Published description',
-            color='29BF12',
+            color='141413',
             icon='Bot',
             created_by=self.admin_user,
             draft=False,
@@ -414,7 +414,7 @@ class ServiceViewSetTests(TestCase):
             title='Draft Service',
             subtitle='Subtitle',
             description='Draft description',
-            color='29BF12',
+            color='141413',
             icon='Bot',
             created_by=self.admin_user,
             draft=True,
@@ -429,7 +429,7 @@ class ServiceViewSetTests(TestCase):
             'title': title,
             'subtitle': 'Subtitle',
             'description': 'Description',
-            'color': '29BF12',
+            'color': '141413',
             'icon': 'Bot',
         }
 
@@ -688,7 +688,7 @@ class ServiceViewSetTests(TestCase):
             title='Duplicate Source',
             subtitle='Subtitle',
             description='Description',
-            color='29BF12',
+            color='141413',
             icon='Bot',
             created_by=self.admin_user,
             image=get_test_image_file('duplicate_source.png'),
@@ -716,7 +716,7 @@ class ServiceViewSetTests(TestCase):
             title='Duplicate Source Error',
             subtitle='Subtitle',
             description='Description',
-            color='29BF12',
+            color='141413',
             icon='Bot',
             created_by=self.user,
             image=get_test_image_file('duplicate_source_error.png'),

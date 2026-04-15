@@ -730,6 +730,12 @@
         "cancel": "Cancelar"
       }
     },
+    "duplicateConfirm": {
+      "title": "¿Duplicar elemento?",
+      "message": "¿Confirmar la duplicación del elemento seleccionado?",
+      "confirm": "Duplicar",
+      "cancel": "Cancelar"
+    },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
       "locationSoon": "Ubicación próximamente",

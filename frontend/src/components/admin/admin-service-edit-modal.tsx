@@ -34,7 +34,7 @@ const defaultFormData = {
   subtitle: "",
   description: "",
   icon: "",
-  color: "29BF12",
+  color: "141413",
   duration: "",
   price: "",
   requisites: "",
@@ -96,7 +96,7 @@ export const AdminServiceEditModal = ({
         subtitle: initialService.subtitle || "",
         description: initialService.description,
         icon: initialService.icon,
-        color: initialService.color || "29BF12",
+        color: initialService.color || "141413",
         duration: initialService.duration?.toString() || "",
         price: initialService.price || "",
         requisites: initialService.requisites || "",
@@ -128,7 +128,7 @@ export const AdminServiceEditModal = ({
         subtitle: initialService.subtitle || "",
         description: initialService.description,
         icon: initialService.icon,
-        color: initialService.color || "29BF12",
+        color: initialService.color || "141413",
         duration: initialService.duration?.toString() || "",
         price: initialService.price || "",
         requisites: initialService.requisites || "",
@@ -728,11 +728,10 @@ export const AdminServiceEditModal = ({
                     key={colorChoice.value}
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, color: colorChoice.value }))}
-                    className={`relative w-20 h-12 rounded-xl transition-all duration-200 flex items-center justify-center text-xs font-bold border-2 text-white ${
-                      isSelected
+                    className={`relative w-20 h-12 rounded-xl transition-all duration-200 flex items-center justify-center text-xs font-bold border-2 text-white ${isSelected
                         ? "border-[var(--swatch--slate-dark)] dark:border-[var(--swatch--ivory-light)] shadow-lg scale-105"
                         : "border-transparent hover:shadow-md hover:scale-[1.02]"
-                    }`}
+                      }`}
                     style={{ backgroundColor: colorChoice.color }}
                   >
                     {t(`form.colors.${colorChoice.label}`)}
@@ -744,6 +743,7 @@ export const AdminServiceEditModal = ({
                   </button>
                 );
               })}
+
             </div>
           </div>
           <div className="space-y-3">

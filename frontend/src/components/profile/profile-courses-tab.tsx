@@ -92,8 +92,8 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
       <Card className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
         <CardHeader>
           <CardTitle className="text-2xl font-black flex items-center">
-            <BookOpen className="h-6 w-6 mr-2 text-[#46B1C9]" />
-            <span className="text-[#46B1C9]">
+            <BookOpen className="h-6 w-6 mr-2 text-[var(--swatch--cobalt)] dark:text-[#7DB5FF]" />
+            <span className="text-[var(--swatch--cobalt)] dark:text-[#7DB5FF]">
               {t("courses.title")}
             </span>
           </CardTitle>
