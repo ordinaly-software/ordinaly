@@ -413,8 +413,8 @@ export const faqEntries: FaqEntry[] = [
       en: "How long does it take to implement an automation project?",
     },
     answer: {
-      es: "Los proyectos simples como chatbots o automatizaciones básicas pueden estar funcionando en 2–4 semanas. Proyectos más complejos como workflows avanzados o integraciones con CRM/ERP pueden tomar entre 1–3 meses según el alcance. Siempre trabajamos por fases para que veas resultados rápidos.",
-      en: "Simple projects like chatbots or basic automations can be up and running in 2–4 weeks. More complex projects such as advanced workflows or CRM/ERP integrations can take 1–3 months depending on scope. We always work in phases so you see results quickly.",
+      es: "Los proyectos simples como chatbots o automatizaciones básicas pueden estar funcionando en 2-4 semanas. Proyectos más complejos como workflows avanzados o integraciones con CRM/ERP pueden tomar entre 1-3 meses según el alcance. Siempre trabajamos por fases para que veas resultados rápidos.",
+      en: "Simple projects like chatbots or basic automations can be up and running in 2-4 weeks. More complex projects such as advanced workflows or CRM/ERP integrations can take 1-3 months depending on scope. We always work in phases so you see results quickly.",
     },
     relatedPath: "/contact",
   },

@@ -4,10 +4,10 @@ import { createPageMetadata } from "@/lib/metadata";
 import AutomatizacionN8nSevillaPage from "./page.client";
 
 const slug = "automatizacion-n8n-sevilla" as const;
+const AUTOMATIZACION_N8N_SEVILLA_HERO_IMAGE = "/static/automatizacion-n8n-sevilla/hero-blurred.webp";
 type LandingMetadataContent = {
   title: string;
   description: string;
-  heroImage?: string;
 };
 
 export async function generateMetadata({
@@ -28,7 +28,7 @@ export async function generateMetadata({
     path: `/${slug}`,
     title: landing.title,
     description: landing.description,
-    image: landing.heroImage || "/static/backgrounds/services_background.webp",
+    image: AUTOMATIZACION_N8N_SEVILLA_HERO_IMAGE,
   });
 }
 

@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 export interface AdminTabsTab {
   id: string;
   name: string;
-  icon?: React.ElementType;
+  icon?: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
   external?: boolean;
   href?: string;
   accentColor?: string;

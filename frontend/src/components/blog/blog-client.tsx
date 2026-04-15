@@ -303,7 +303,7 @@ export default function BlogClient({
           ) : (
             <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {posts.map((p: BlogPost) => (
-                <li key={p.slug}>
+                <li key={p.slug} className="h-full">
                   <BlogCard
                     post={p}
                     onCategoryClick={(cat: string) => handleCategoryChange(cat)}

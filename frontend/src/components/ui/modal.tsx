@@ -63,7 +63,7 @@ export const Modal = ({
         aria-labelledby={showHeader ? "modal-title" : undefined}
       >
         {showHeader ? (
-          // Header with inline close button – prevents overlap
+          // Header with inline close button - prevents overlap
           <div className="px-6 py-4 flex items-start gap-3 border-b border-gray-200 dark:border-gray-800">
             <h2
               id="modal-title"
