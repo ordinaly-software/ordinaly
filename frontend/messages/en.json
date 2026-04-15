@@ -28,6 +28,7 @@
       "profile": "Profile",
       "myCourses": "My courses",
       "blog": "Blog",
+      "articles": "Articles",
       "faq": "FAQ",
       "news": "News",
       "us": "About us",
@@ -1783,6 +1784,7 @@
     "noResults": {
       "title": "No results found",
       "description": "Try searching again"
+
     },
     "backToBlog": "Back to blog",
     "postCategories": "Post categories",

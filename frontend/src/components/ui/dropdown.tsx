@@ -102,7 +102,7 @@ export const Dropdown = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
-    
+
       if (
         isOpen &&
         !triggerRef.current?.contains(target) &&
@@ -111,7 +111,7 @@ export const Dropdown = ({
         setIsOpen(false);
       }
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
@@ -213,7 +213,7 @@ export const Dropdown = ({
         "disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed dark:disabled:bg-gray-600",
         buttonClassName
       )}
-      style={{ 
+      style={{
         minWidth: width || minWidth,
         width: width || 'auto'
       }}
@@ -221,11 +221,11 @@ export const Dropdown = ({
       <span className="truncate">
         {selectedOption?.label || placeholder}
       </span>
-      <ChevronDown 
+      <ChevronDown
         className={cn(
           "h-4 w-4 transition-transform duration-200 ml-2 flex-shrink-0",
           isOpen ? 'rotate-180' : 'rotate-0'
-        )} 
+        )}
       />
     </button>
   );
@@ -235,7 +235,7 @@ export const Dropdown = ({
       {children ? (
         <div className="flex items-center gap-2">
           {children}
-          {renderTrigger ? 
+          {renderTrigger ?
             renderTrigger({ isOpen, selectedOption, onClick: () => !disabled && setIsOpen(!isOpen), disabled }) :
             triggerButton
           }
@@ -245,14 +245,14 @@ export const Dropdown = ({
           {Icon && (
             <div className="flex items-center gap-2">
               <Icon className="h-5 w-5 text-gray-400" />
-              {renderTrigger ? 
+              {renderTrigger ?
                 renderTrigger({ isOpen, selectedOption, onClick: () => !disabled && setIsOpen(!isOpen), disabled }) :
                 triggerButton
               }
             </div>
           )}
           {!Icon && (
-            renderTrigger ? 
+            renderTrigger ?
               renderTrigger({ isOpen, selectedOption, onClick: () => !disabled && setIsOpen(!isOpen), disabled }) :
               triggerButton
           )}
@@ -262,15 +262,15 @@ export const Dropdown = ({
       {/* Dropdown Menu */}
       {isOpen && options.length > 0 &&
         createPortal(
-          <div 
+          <div
             ref={dropdownRef}
             className={cn(
-              "absolute bg-white/95 dark:bg-[#0b1220]/95 border border-white/30 dark:border-white/15",
-              "rounded-2xl shadow-2xl overflow-y-auto animate-in duration-200 backdrop-blur",
-              dropdownPosition.direction === "up" ? "slide-in-from-bottom-2" : "slide-in-from-top-2",
+              "absolute bg-white dark:bg-[#0b1220] border border-gray-200 dark:border-white/15",
+              "rounded-2xl shadow-2xl overflow-y-auto animate-in duration-200",
               dropdownClassName
             )}
-            style={{ 
+
+            style={{
               top: dropdownPosition.top,
               left: dropdownPosition.left,
               width: dropdownPosition.width,
@@ -289,7 +289,7 @@ export const Dropdown = ({
                   onClick={() => handleOptionClick(option.value)}
                   className={cn(
                     "w-full px-4 py-3 text-left transition-all duration-150 flex items-center justify-between",
-                    value === option.value 
+                    value === option.value
                       ? cn(currentTheme.selectedBg, currentTheme.hoverBg)
                       : cn("text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-white/5", currentTheme.hoverBg)
                   )}

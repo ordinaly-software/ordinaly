@@ -164,6 +164,13 @@ export default function UsPage() {
         title={t_home("partners.subtitle")}
       />
 
+       <section className="bg-white dark:bg-gray-900/60 border-y border-gray-200 dark:border-gray-800" id="testimonials">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <h3 className="text-3xl text-gray-900 dark:text-gray-300 font-bold mb-6">{t("testimonials.title")}</h3>
+          <AnimatedTestimonials testimonials={testimonials} autoplay />
+        </div>
+      </section>
+
       <section className="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <Timeline
           data={timelineData}
@@ -172,13 +179,6 @@ export default function UsPage() {
           description={t("story.lead")}
           className="bg-transparent dark:bg-transparent"
         />
-      </section>
-
-      <section className="bg-white dark:bg-gray-900/60 border-y border-gray-200 dark:border-gray-800" id="testimonials">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-          <h3 className="text-3xl text-gray-900 dark:text-gray-300 font-bold mb-6">{t("testimonials.title")}</h3>
-          <AnimatedTestimonials testimonials={testimonials} autoplay />
-        </div>
       </section>
 
       <WorkWithUsSection id="cta" />

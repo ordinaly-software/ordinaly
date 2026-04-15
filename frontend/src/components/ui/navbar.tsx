@@ -117,7 +117,7 @@ const UserMenu = ({
         createPortal(
           <div
             ref={dropdownRef}
-            className="fixed bg-[--swatch--ivory-light]/95 dark:bg-[--swatch--slate-medium]/95 backdrop-blur-sm border border-[--color-border-subtle] dark:border-[--color-border-strong] rounded-lg shadow-lg overflow-hidden w-auto min-w-[180px]"
+            className="fixed bg-white dark:bg-[#0b1220] border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden w-auto min-w-[180px]"
             style={{
               top: dropdownPosition.top,
               left: dropdownPosition.left,
@@ -125,6 +125,7 @@ const UserMenu = ({
             }}
             role="menu"
           >
+
             {options.map((option) => {
               const OptionIcon = option.icon;
               return (
@@ -520,21 +521,21 @@ const Navbar = () => {
                       {item.id === "services" && (
                         <div className="min-w-[360px] sm:min-w-[480px] lg:min-w-[600px]">
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                          {featuredServices.length > 0 &&
-                            featuredServices.map((service) => (
-                            <ProductItem
-                              key={service.id}
-                              title={service.title}
-                              description=""
-                              href={`/${service.slug ?? service.id}`}
-                              src={service.image || ""}
-                              loadOnHover={false}
-                              loadEnabled={shouldLoadServiceImages}
-                            />
-                            ))}
+                            {featuredServices.length > 0 &&
+                              featuredServices.map((service) => (
+                                <ProductItem
+                                  key={service.id}
+                                  title={service.title}
+                                  description=""
+                                  href={`/${service.slug ?? service.id}`}
+                                  src={service.image || ""}
+                                  loadOnHover={false}
+                                  loadEnabled={shouldLoadServiceImages}
+                                />
+                              ))}
                           </div>
                           <div className="mt-3">
-                          <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
+                            <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
                           </div>
                         </div>
                       )}
@@ -563,7 +564,7 @@ const Navbar = () => {
                       )}
                       {item.id === "blog" && (
                         <div className="grid grid-cols-1 gap-2 min-w-[200px]">
-                          <HoveredLink href="/blog">{t("navigation.blog")}</HoveredLink>
+                          <HoveredLink href="/blog">{t("navigation.articles")}</HoveredLink>
                           <HoveredLink href="/news">{t("navigation.news")}</HoveredLink>
                         </div>
                       )}
@@ -601,7 +602,7 @@ const Navbar = () => {
                   className="h-8 sm:h-9 shadow-md hover:shadow-lg transition-all duration-200 text-xs sm:text-sm px-2.5 sm:px-4 flex items-center gap-1.5 sm:gap-2"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="flex-shrink-0">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                   </svg>
                   <span className="hidden sm:inline">{t("navigation.ctaConsultation")}</span>
                   <span className="sm:hidden">{t("navigation.ctaShort")}</span>
@@ -669,70 +670,70 @@ const Navbar = () => {
             <div className="py-4 px-4 sm:px-6">
               <div className="flex flex-col space-y-3">
                 {featuredServices.length > 0 && (
-                <MobileSection
-                  title={t("navigation.services")}
-                  isOpen={mobileSection === "services"}
-                  onToggle={() => toggleMobileSection("services")}
-                >
-                  {featuredServices.length > 0 &&
-                    featuredServices.map((service) => (
-                      <Link
-                        key={service.id}
-                        href={`/${service.slug ?? service.id}`}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] hover:text-clay dark:hover:text-clay"
-                      >
-                        {service.title}
-                      </Link>
-                    ))}
-                  <Link
-                    href="/services"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-md px-2 py-2 text-sm font-semibold text-clay dark:text-clay hover:text-clay dark:hover:text-clay"
+                  <MobileSection
+                    title={t("navigation.services")}
+                    isOpen={mobileSection === "services"}
+                    onToggle={() => toggleMobileSection("services")}
                   >
-                    {t("navigation.serviceSubmenu")}
-                  </Link>
-                </MobileSection>
+                    {featuredServices.length > 0 &&
+                      featuredServices.map((service) => (
+                        <Link
+                          key={service.id}
+                          href={`/${service.slug ?? service.id}`}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] hover:text-clay dark:hover:text-clay"
+                        >
+                          {service.title}
+                        </Link>
+                      ))}
+                    <Link
+                      href="/services"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block rounded-md px-2 py-2 text-sm font-semibold text-clay dark:text-clay hover:text-clay dark:hover:text-clay"
+                    >
+                      {t("navigation.serviceSubmenu")}
+                    </Link>
+                  </MobileSection>
                 )}
 
                 {menuCourses.length > 0 && (
-                <MobileSection
-                  title={t("navigation.formation")}
-                  isOpen={mobileSection === "formation"}
-                  onToggle={() => toggleMobileSection("formation")}
-                >
-                  {menuCoursesLoading && (
-                    <div className="rounded-md px-2 py-2 text-sm text-cloud-medium dark:text-cloud-medium bg-white/40 dark:bg-black/20">
-                      {t("navigation.loading")}
-                    </div>
-                  )}
-                  {!menuCoursesLoading &&
-                    menuCourses.length > 0 &&
-                    menuCourses.map((course) => (
-                      <Link
-                        key={course.id}
-                        href={`/formation/${course.slug ?? course.id}`}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
-                      >
-                        <div className="text-sm font-semibold text-slate-dark dark:text-ivory-light line-clamp-2">
-                          {course.title}
-                        </div>
-                        {(course.subtitle || course.description) && (
-                          <div className="text-xs text-slate-light dark:text-cloud-medium mt-1 line-clamp-2">
-                            {course.subtitle || course.description}
-                          </div>
-                        )}
-                      </Link>
-                    ))}
-                  <Link
-                    href="/formation"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                  <MobileSection
+                    title={t("navigation.formation")}
+                    isOpen={mobileSection === "formation"}
+                    onToggle={() => toggleMobileSection("formation")}
                   >
-                    {t("navigation.formationSubmenu")}
-                  </Link>
-                </MobileSection>
+                    {menuCoursesLoading && (
+                      <div className="rounded-md px-2 py-2 text-sm text-cloud-medium dark:text-cloud-medium bg-white/40 dark:bg-black/20">
+                        {t("navigation.loading")}
+                      </div>
+                    )}
+                    {!menuCoursesLoading &&
+                      menuCourses.length > 0 &&
+                      menuCourses.map((course) => (
+                        <Link
+                          key={course.id}
+                          href={`/formation/${course.slug ?? course.id}`}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
+                        >
+                          <div className="text-sm font-semibold text-slate-dark dark:text-ivory-light line-clamp-2">
+                            {course.title}
+                          </div>
+                          {(course.subtitle || course.description) && (
+                            <div className="text-xs text-slate-light dark:text-cloud-medium mt-1 line-clamp-2">
+                              {course.subtitle || course.description}
+                            </div>
+                          )}
+                        </Link>
+                      ))}
+                    <Link
+                      href="/formation"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                    >
+                      {t("navigation.formationSubmenu")}
+                    </Link>
+                  </MobileSection>
                 )}
 
                 <MobileSection
@@ -745,8 +746,9 @@ const Navbar = () => {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
                   >
-                    {t("navigation.blog")}
+                    {t("navigation.articles")}
                   </Link>
+
                   <Link
                     href="/news"
                     onClick={() => setIsMenuOpen(false)}
@@ -755,6 +757,7 @@ const Navbar = () => {
                     {t("navigation.news")}
                   </Link>
                 </MobileSection>
+
 
                 <div className="grid gap-2">
                   <Link
