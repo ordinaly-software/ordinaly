@@ -66,8 +66,8 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
         <Card className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
           <CardHeader>
             <CardTitle className="text-2xl font-black flex items-center">
-              <User className="h-6 w-6 mr-2 text-[#46B1C9]" />
-              <span className="text-[#46B1C9]">
+              <User className="h-6 w-6 mr-2 text-[var(--swatch--cobalt)] dark:text-[#7DB5FF]" />
+              <span className="text-[var(--swatch--cobalt)] dark:text-[#7DB5FF]">
                 {t("personalInfo")}
               </span>
             </CardTitle>
@@ -78,7 +78,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
               <Badge
                 variant={isGoogleAuthenticated ? "secondary" : "outline"}
                 className={isGoogleAuthenticated
-                  ? "border-transparent bg-[#DBEAFE] text-[#1D4ED8] dark:bg-[#1E3A8A]/40 dark:text-[#93C5FD]"
+                  ? "border-transparent bg-[#0255D5]/12 text-[#0144AA] dark:bg-[#0255D5]/30 dark:text-[#7DB5FF]"
                   : "border-gray-300 text-gray-700 dark:border-gray-600 dark:text-gray-300"}
               >
                 {isGoogleAuthenticated ? t("authProvider.google") : t("authProvider.credentials")}
@@ -312,9 +312,9 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
 
         {/* Security */}
         {!isGoogleAuthenticated && (
-          <Card className="self-start rounded-3xl border-[1.5px] border-[#46B1C9]/40 dark:border-[#46B1C9]/30 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
+          <Card className="self-start rounded-3xl border-[1.5px] border-[#0255D5]/30 dark:border-[#7DB5FF]/25 bg-white dark:bg-white/5 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md">
             <CardHeader>
-              <CardTitle className="text-lg font-bold text-[#46B1C9] flex items-center">
+              <CardTitle className="text-lg font-bold text-[#0255D5] dark:text-[#7DB5FF] flex items-center">
                 <Lock className="h-5 w-5 mr-2" />
                 {t("security.title")}
               </CardTitle>
@@ -326,7 +326,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                 </p>
                 <Button
                   variant="outline"
-                  className="w-full border-[#46B1C9] text-[#46B1C9] hover:bg-[#46B1C9]/10"
+                  className="w-full border-[#0255D5] text-[#0255D5] hover:bg-[#0255D5]/10 dark:border-[#7DB5FF] dark:text-[#7DB5FF] dark:hover:bg-[#7DB5FF]/10"
                   onClick={() => {
                     window.location.href = `/${locale}/reset-password?email=${encodeURIComponent(email)}`;
                   }}
