@@ -1,7 +1,7 @@
 Preferred name: Ordinaly Software
 Domain: https://ordinaly.ai
 Entity: Ordinaly Software S.L. (Spain)
-Offices / customer service: Plaza del Duque de la Victoria 1, 3º 9, 41002 Sevilla, Andalucía, España
+Office: Plaza del Duque de la Victoria 1, 3º 9, 41002 Sevilla, Andalucía, España
 Service area: Sevilla, Andalucía, resto de España; proyectos remotos en UE
 Contact: +34 626 270 806 — info@ordinaly.ai
 What we do: automatización empresarial con IA (chatbots y agentes, flujos con n8n, integraciones WhatsApp Business, integraciones CRM/ERP Odoo/HubSpot, formación práctica en IA para PYMES)
