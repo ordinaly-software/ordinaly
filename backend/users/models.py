@@ -170,6 +170,11 @@ class NewsletterSubscriber(models.Model):
 
     def __str__(self):
         return self.email
+    
+class NewsletterSignup(models.Model):
+    email = models.EmailField(unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
 #Class for Email-verification
 

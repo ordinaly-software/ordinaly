@@ -20,8 +20,16 @@ from .models import NewsletterSubscriber
 from .services.otp_service import create_otp_for_user
 from .services.email_service import send_verification_email
 from .services.notification_service import queue_and_dispatch_email_updated_notification
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
+from django.conf import settings
+import requests
+
+from .models import NewsletterSignup
 
 logger = logging.getLogger(__name__)
+
 
 
 
@@ -315,4 +323,28 @@ class NewsletterSubscribersView(APIView):
     def get(self, request):
         subs = NewsletterSubscriber.objects.all().values("email", "name", "created_at")
         return Response(list(subs))
+    
+@api_view(["POST"])
+@permission_classes([AllowAny])
+def newsletter_subscribe(request):
+    email = request.data.get("email")
+
+    if not email:
+        return Response({"error": "Email requerido"}, status=400)
+
+    NewsletterSignup.objects.get_or_create(email=email)
+    
+    url = f"https://api.billionmail.com/v1/groups/16/subscribers"
+    headers = {
+        "Authorization": f"Bearer {settings.BILLIONMAIL_API_KEY}",
+        "Content-Type": "application/json"
+    }
+    data = {"email": email}
+
+    try:
+        requests.post(url, json=data, headers=headers, timeout=5)
+    except Exception:
+        pass
+
+    return Response({"ok": True})
 

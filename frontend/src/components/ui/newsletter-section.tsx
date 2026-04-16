@@ -10,11 +10,30 @@ export function NewsletterSection() {
   const t = useTranslations("home.newsletter");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Placeholder — wire to real backend when newsletter is ready
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+  const email = String(formData.get("email") ?? "");
+
+  try {
+    const res = await fetch("/api/newsletter", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    if (!res.ok) {
+      console.error("Newsletter error:", res.status, res.statusText);
+      return;
+    }
+
     setSubmitted(true);
-  };
+  } catch (err) {
+    console.error("Newsletter error:", err);
+  }
+};
+
 
   return (
     <section className="relative overflow-hidden py-20 px-4 sm:px-6">
