@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo, useCallback } from "react";
 import Banner from "@/components/ui/banner";
+import { NewsletterSection } from "@/components/ui/newsletter-section";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { Input } from "@/components/ui/input";
@@ -316,6 +317,7 @@ const ServicesPage = ({
 
       <UseCasesSection t={t_home} id="use-cases" />
 
+      <NewsletterSection />
       <Footer />
     </div>
   );

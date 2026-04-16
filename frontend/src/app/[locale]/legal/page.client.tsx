@@ -701,7 +701,7 @@ const LegalPage = () => {
                 asChild
                 className="w-full bg-clay text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
               >
-                <a href="mailto:compliance@ordinaly.ai">{t('contactCta', {})}</a>
+                <a href="mailto:denuncias@ordinaly.ai">{t('contactCta', {})}</a>
               </Button>
             </CardContent>
           </Card>

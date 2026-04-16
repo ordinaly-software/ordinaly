@@ -292,6 +292,12 @@ function RotatingGlobe({
     return new THREE.SphereGeometry(config.radius * 1.002, 32, 16);
   }, [config.radius]);
 
+  React.useEffect(() => {
+    if (!groupRef.current) return;
+    groupRef.current.rotation.x = config.initialRotation.x;
+    groupRef.current.rotation.y = config.initialRotation.y;
+  }, [config.initialRotation.x, config.initialRotation.y]);
+
   return (
     <group ref={groupRef}>
       {/* Main globe mesh with Earth texture */}

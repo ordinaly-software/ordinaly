@@ -70,7 +70,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
 
             {/* Title */}
             <div className="mt-6 space-y-4">
-              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3rem] xl:text-[4.5rem]">
+              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3rem] xl:text-[4.5rem] break-words hyphens-auto">
                 <span className="block text-clay">
                   {t("hero.titleLine1")}
                 </span>
@@ -106,7 +106,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
             <div className="relative lg:hidden rounded-2xl overflow-hidden h-[300px] sm:h-[380px] w-full">
               <img
                 src={accordionItems[0].imageUrl}
-                alt={accordionItems[0].label}
+                alt={`${t("hero.titleLine1")} ${t("hero.titleLine2")} – ${accordionItems[0].label}`}
                 className="absolute inset-0 w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />

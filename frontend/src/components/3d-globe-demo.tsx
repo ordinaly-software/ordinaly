@@ -19,6 +19,7 @@ export function GlobeSevilla() {
         atmosphereIntensity: 20,
         bumpScale: 5,
         autoRotateSpeed: 0.3,
+        initialRotation: { x: 0, y: -1.46 },
         ambientIntensity: 1.0,
         pointLightIntensity: 2.2,
       }}

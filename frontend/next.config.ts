@@ -110,6 +110,31 @@ const nextConfig: NextConfig = {
   // Headers for performance and security
   async headers() {
     return [
+      // LLM-friendly content endpoints — allow all bots, no restrictive headers
+      {
+        source: '/llms.txt',
+        headers: [
+          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400' },
+          { key: 'X-Robots-Tag', value: 'all' },
+        ],
+      },
+      {
+        source: '/llms-full.txt',
+        headers: [
+          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400' },
+          { key: 'X-Robots-Tag', value: 'all' },
+        ],
+      },
+      {
+        source: '/.well-known/llms.txt',
+        headers: [
+          { key: 'Content-Type', value: 'text/plain; charset=utf-8' },
+          { key: 'Cache-Control', value: 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400' },
+          { key: 'X-Robots-Tag', value: 'all' },
+        ],
+      },
       {
         source: '/static/(.*)',
         headers: [
@@ -119,16 +144,7 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-      {
-        source: '/_next/image(.*)',
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
-          },
-        ],
-      },
-      {
+{
         source: '/(.*)',
         headers: [
           {

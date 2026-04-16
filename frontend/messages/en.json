@@ -28,14 +28,15 @@
       "profile": "Profile",
       "myCourses": "My courses",
       "blog": "Blog",
+      "articles": "Articles",
       "faq": "FAQ",
       "news": "News",
       "us": "About us",
       "loading": "Loading..."
     },
     "hero": {
-      "titleLine1": "AI AUTOMATION",
-      "titleLine2": "AGENCY",
+      "titleLine1": "AI Automation",
+      "titleLine2": "Agency",
       "subtitle": "We are your AI automation agency. We optimize your business with artificial intelligence to scale results.",
       "description1": "We automate your processes with AI agents, chatbots, and no-code workflows so you can sell and operate 24/7.",
       "trust1": "Tailored automation",
@@ -165,6 +166,14 @@
     "partners": {
       "title": "Transformed companies",
       "subtitle": "Companies that trust us and have already automated their processes with AI"
+    },
+    "newsletter": {
+      "title": "Want to stay up to date with the latest AI news and tools?",
+      "subtitle": "Subscribe to our newsletter and be the first to receive updates, tutorials and automation resources.",
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "you@email.com",
+      "submitLabel": "Subscribe",
+      "successMessage": "Thank you! We'll let you know when the newsletter is live."
     },
     "chatDemo": {
       "title": "AI that talks like your business",
@@ -720,6 +729,12 @@
         "delete": "Delete",
         "cancel": "Cancel"
       }
+    },
+    "duplicateConfirm": {
+      "title": "Duplicate item?",
+      "message": "Confirm duplication of the selected item?",
+      "confirm": "Duplicate",
+      "cancel": "Cancel"
     },
     "courses": {
       "noSpecificDate": "No specific date",
@@ -1783,6 +1798,7 @@
     "noResults": {
       "title": "No results found",
       "description": "Try searching again"
+
     },
     "backToBlog": "Back to blog",
     "postCategories": "Post categories",
@@ -2219,8 +2235,8 @@
     }
   },
   "landings": {
-    "agencia-automatizacion-ia": {
-      "slug": "agencia-automatizacion-ia",
+    "chatbots-personalizados-para-empresas": {
+      "slug": "chatbots-personalizados-para-empresas",
       "title": "Enterprise chatbots with connected data",
       "shortTitle": "AI Automation Agency",
       "subtitle": "Faster processes, fewer errors, more benefits.",
@@ -2846,6 +2862,9 @@
       "description": "We develop Artificial Intelligence solutions applied to real operations: automation, intelligent assistants, predictive analysis and process optimization. We implement AI with criteria, clean data and deployments that work in production.",
       "heroCtaLabel": "Open form",
       "heroCtaHref": "#form",
+      "cardsSectionTitle": "Improve your business with artificial intelligence",
+      "servicesSectionTitle": "Artificial intelligence services in Seville",
+      "formSectionTitle": "Artificial intelligence projects in Seville",
       "serviceType": "Automation, AI assistants and applied solutions",
       "areaServed": "Seville, Andalusia and companies in Spain",
       "valueProps": [
@@ -3133,12 +3152,12 @@
       "metrics": [
         {
           "label": "Average operational savings",
-          "value": "40–65%",
+          "value": "40-65%",
           "detail": "Reduction in time on manual and repetitive tasks in the first 90 days."
         },
         {
           "label": "Implementation speed",
-          "value": "4–8 weeks",
+          "value": "4-8 weeks",
           "detail": "From diagnosis to the first pilot running in production."
         },
         {
@@ -3188,7 +3207,7 @@
           "title": "Operational process automation",
           "description": "We design automatic flows that execute repetitive tasks: classification, extraction, report generation and system updates.",
           "bullets": [
-            "40–70% reduction in manual tasks",
+            "40-70% reduction in manual tasks",
             "Flows running 24/7 without human errors",
             "Integration with your current tools"
           ]
@@ -3287,6 +3306,149 @@
       "cta": {
         "label": "Talk to an AI expert",
         "href": "https://wa.me/34626270806?text=I%20want%20to%20talk%20with%20your%20AI%20company",
+        "bgColor": "#0255D5"
+      }
+    },
+    "inteligencia-artificial-sevilla": {
+      "slug": "inteligencia-artificial-sevilla",
+      "heroImage": "/static/backgrounds/odoo_background.webp",
+      "heroImagePosition": "center center",
+      "title": "CRM and ERP Integrations with Rules and Data Quality",
+      "shortTitle": "Artificial Intelligence Seville",
+      "subtitle": "Robust synchronizations between sales, finance, support and inventory without duplicates or silent conflicts.",
+      "description": "We unify systems with clear mappings, field ownership and sync observability so data flows with criteria, not just with connectors.",
+      "heroBadge": "CRM + ERP connected",
+      "heroCtaLabel": "Audit integration",
+      "secondaryCtaLabel": "Talk to the team",
+      "serviceType": "CRM, ERP and Operational Data Integrations",
+      "areaServed": "Spain, multi-site teams and hybrid environments",
+      "valueProps": [
+        "We define which system owns each field, when it syncs and what happens on conflict or missing data.",
+        "We validate quality, deduplication and reconciliation to avoid errors that look like integration but are data design.",
+        "Execution and error panels so the operations team can see what fails and where."
+      ],
+      "metrics": [
+        {
+          "label": "Sync model",
+          "value": "Bidirectional or directed",
+          "detail": "Direction is decided by process and criticality, not technical convenience."
+        },
+        {
+          "label": "Reconciliation",
+          "value": "Explicit rules",
+          "detail": "We differentiate functional conflicts, duplicates and transport errors."
+        },
+        {
+          "label": "Coverage",
+          "value": "Critical fields first",
+          "detail": "We prioritize what impacts billing, reporting, support or inventory."
+        }
+      ],
+      "outcomes": [
+        "Fewer incidents from inconsistent data between sales, support and billing.",
+        "Faster onboarding and updating of customers, products or orders.",
+        "More trust in operational and financial reports because the database is coherent."
+      ],
+      "steps": [
+        "We audit systems, data models, ownership and recurrent sync failures.",
+        "We design the mapping, transformation rules and conflict management.",
+        "We deploy with monitoring, alerts and runbooks for internal support."
+      ],
+      "useCases": [
+        {
+          "tag": "Sales",
+          "title": "Leads, opportunities and orders synchronized",
+          "description": "Avoids context loss when an opportunity moves from marketing to sales and then to operations.",
+          "bullets": [
+            "Same customer identifier between systems",
+            "Coherent sale and order statuses"
+          ]
+        },
+        {
+          "tag": "Finance",
+          "title": "Billing and collection without double entry",
+          "description": "Connects contracts, orders and invoices to eliminate repetitions and manual errors.",
+          "bullets": [
+            "Data transformation between different models",
+            "Mismatch and reconciliation alerts"
+          ]
+        },
+        {
+          "tag": "Support",
+          "title": "Complete customer view for support",
+          "description": "The team sees sales, incidents, billing and operational status without jumping between four tools.",
+          "bullets": [
+            "Unified historical and operational context",
+            "Fewer escalations due to lack of information"
+          ]
+        }
+      ],
+      "technologyFaqs": [
+        {
+          "tag": "Compatibility",
+          "question": "Do you only work with Odoo and HubSpot?",
+          "answer": "No. These are common cases, but the approach works for custom CRMs, vertical ERPs and internal databases as long as there's access via API, database or controlled export."
+        },
+        {
+          "tag": "Conflicts",
+          "question": "How do you handle conflicts between two systems that disagree?",
+          "answer": "We define field ownership, temporal priority and reconciliation rules. If it can't be decided automatically, the case goes to a review queue with context."
+        },
+        {
+          "tag": "Security",
+          "question": "Does it include security and least privilege?",
+          "answer": "Yes. We work with segregated credentials, minimal permissions, encryption in transit and access review based on flow criticality."
+        },
+        {
+          "tag": "Operation",
+          "question": "Who maintains the integration when it's in production?",
+          "answer": "It depends on the agreement. We can operate, leave ownership to the internal team or share it with runbooks, metrics and defined change windows."
+        }
+      ],
+      "keywords": [
+        "CRM ERP integrations",
+        "data quality",
+        "Odoo HubSpot integration",
+        "operational synchronization"
+      ],
+      "hub": {
+        "title": "Connected systems with clear ownership and rules",
+        "subtitle": "Sales, finance and operations sharing the same operational data.",
+        "bgTheme": "cyan",
+        "platforms": [
+          {
+            "position": "top-left",
+            "figureKey": "sales-crm",
+            "colorScheme": "indigo",
+            "label": "CRM",
+            "sublabel": "Leads and customers"
+          },
+          {
+            "position": "top-right",
+            "figureKey": "cloud-data",
+            "colorScheme": "cyan",
+            "label": "Sync layer",
+            "sublabel": "Transformation and rules"
+          },
+          {
+            "position": "bottom-left",
+            "figureKey": "finance",
+            "colorScheme": "indigo",
+            "label": "ERP",
+            "sublabel": "Orders and finance"
+          },
+          {
+            "position": "bottom-right",
+            "figureKey": "workflow",
+            "colorScheme": "cyan",
+            "label": "Observability",
+            "sublabel": "Errors and reconciliation"
+          }
+        ]
+      },
+      "cta": {
+        "label": "Integrate CRM and ERP",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20unify%20CRM%20and%20ERP%20without%20data%20errors",
         "bgColor": "#0255D5"
       }
     }

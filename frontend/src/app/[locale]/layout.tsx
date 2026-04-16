@@ -137,6 +137,7 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
         />
+        <CommerceSchema locale={locale} />
         {/* Theme init (tu script) */}
         <Script
           id="theme-init"
@@ -188,7 +189,6 @@ export default async function RootLayout({
             <ThemeProvider>
               <EmailVerificationProvider>
                 <ServiceWorkerRegistrar />
-                <CommerceSchema locale={locale} />
                 <AutoKeywords />
                 <Navbar />
                 <main id="main-content">{children}</main>

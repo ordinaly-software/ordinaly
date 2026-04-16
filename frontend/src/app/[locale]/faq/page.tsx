@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/metadata";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import FaqPageClient from "./page.client";
+import { faqEntries, faqCategories, localizeFaq } from "./faq-data";
 
 export async function generateMetadata({
   params,
@@ -31,9 +32,28 @@ export default async function FaqPage({
 }) {
   const { locale } = await params;
 
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqEntries.map((entry) => ({
+      "@type": "Question",
+      name: localizeFaq(locale, entry.question),
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: localizeFaq(locale, entry.answer),
+      },
+    })),
+  };
+
   return (
-    <ReCaptchaWrapper badgeContainerId="recaptcha-badge-faq-page">
-      <FaqPageClient locale={locale} />
-    </ReCaptchaWrapper>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <ReCaptchaWrapper badgeContainerId="recaptcha-badge-faq-page">
+        <FaqPageClient locale={locale} />
+      </ReCaptchaWrapper>
+    </>
   );
 }

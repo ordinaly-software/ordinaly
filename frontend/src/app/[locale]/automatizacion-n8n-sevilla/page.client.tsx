@@ -3,7 +3,7 @@
 import { useMessages } from "next-intl";
 import Footer from "@/components/ui/footer";
 import ContactForm from "@/components/ui/contact-form.client";
-import N8NFlow from "@/components/ui/n8n-conectamos";
+import N8nFlow from "@/components/ui/N8nFlow";
 import RelojArenaMagico from "@/components/ui/relojArena";
 
 export default function AutomatizacionesN8NnSevillaPage() {
@@ -121,8 +121,9 @@ export default function AutomatizacionesN8NnSevillaPage() {
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 dark:text-white">
           {content.sectionTitles?.integrations}
         </h2>
-        {/* Flujo de n8n*/}
-        <N8NFlow labels={content.workflowAnimation} />
+        <div className="max-w-6xl mx-auto">
+          <N8nFlow />
+        </div>
       </section>
       <section className="py-24 max-w-5xl mx-auto px-6 bg-neutral-50 dark:bg-neutral-800">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
@@ -164,8 +165,10 @@ export default function AutomatizacionesN8NnSevillaPage() {
       </section>
 
       {/* FORM */}
-      <section id="formulario" className="max-w-4xl mx-auto px-6 py-20 bg-white dark:bg-neutral-900">
-        <ContactForm className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0" />
+      <section id="formulario" className="bg-black py-20">
+        <div className="max-w-4xl mx-auto px-6">
+          <ContactForm className="[&>section]:max-w-none [&>section]:bg-black [&>section]:px-0 [&>section]:py-0" />
+        </div>
       </section>
 
       <Footer />

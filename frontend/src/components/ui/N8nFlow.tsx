@@ -242,8 +242,8 @@ export default function N8nFlow() {
           </defs>
 
           {/* ── Etiquetas de rama SÍ / NO ── */}
-          <text x="364" y="138" fontSize="10" fill="rgba(255,255,255,0.35)" fontWeight="600">SÍ ✓</text>
-          <text x="364" y="272" fontSize="10" fill="rgba(255,255,255,0.25)">NO ✗</text>
+          <text className="hidden sm:inline" x="364" y="138" fontSize="10" fill="rgba(255,255,255,0.35)" fontWeight="600">SÍ ✓</text>
+          <text className="hidden sm:inline" x="364" y="272" fontSize="10" fill="rgba(255,255,255,0.25)">NO ✗</text>
 
           {/* ── Edges ── */}
           {EDGES.map((edge) => {
@@ -323,11 +323,13 @@ export default function N8nFlow() {
 
                 {/* Texto label */}
                 <text
+                  className="hidden sm:inline"
                   x={ncx + NR + 10} y={ncy - 8}
                   fontSize="11.5" fontWeight="700"
                   fill={isActive ? "rgba(255,255,255,0.95)" : "rgba(255,255,255,0.4)"}
                 >{node.label}</text>
                 <text
+                  className="hidden sm:inline"
                   x={ncx + NR + 10} y={ncy + 8}
                   fontSize="9.5"
                   fill={isActive ? "rgba(255,255,255,0.45)" : "rgba(255,255,255,0.18)"}
