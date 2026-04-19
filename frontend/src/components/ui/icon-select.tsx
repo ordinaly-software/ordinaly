@@ -1,11 +1,46 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Search } from "lucide-react";
+import {
+  ChevronDown, Search,
+  Bot, Workflow, Zap, Users, TrendingUp, Accessibility,
+  MessageSquare, Brain, Smartphone, Globe, Shield, Settings,
+  Code, Database, Cloud, Lightbulb, Target, Rocket,
+  Monitor, Headphones, BarChart, PieChart, Activity, Briefcase,
+  Camera, Video, Mic, Speaker, Wifi, Lock, Unlock, Key,
+  Mail, Phone, Filter, Download, Upload, Share,
+  Heart, Star, Award, Gift, ShoppingCart, CreditCard,
+  DollarSign, Euro, Calculator, Calendar, Clock, Timer,
+  MapPin, Navigation, Compass, Home, Building, Factory,
+  Store, Truck, Car, Plane, Ship, Gamepad2, Music,
+  Film, Image, FileText, File, Folder, Archive, Book,
+  BookOpen, GraduationCap, Palette, Brush, Scissors,
+  Wrench, Hammer, Cog, LifeBuoy, HelpCircle, Info,
+  AlertTriangle, CheckCircle, XCircle, Plus, Minus, X, Check,
+} from "lucide-react";
+import type { LucideProps } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import * as LucideIcons from "lucide-react";
+
+type IconComponent = React.ComponentType<LucideProps>;
+
+const ICON_MAP: Record<string, IconComponent> = {
+  Bot, Workflow, Zap, Users, TrendingUp, Accessibility,
+  MessageSquare, Brain, Smartphone, Globe, Shield, Settings,
+  Code, Database, Cloud, Lightbulb, Target, Rocket,
+  Monitor, Headphones, BarChart, PieChart, Activity, Briefcase,
+  Camera, Video, Mic, Speaker, Wifi, Lock, Unlock, Key,
+  Mail, Phone, Search, Filter, Download, Upload, Share,
+  Heart, Star, Award, Gift, ShoppingCart, CreditCard,
+  DollarSign, Euro, Calculator, Calendar, Clock, Timer,
+  MapPin, Navigation, Compass, Home, Building, Factory,
+  Store, Truck, Car, Plane, Ship, Gamepad2, Music,
+  Film, Image, FileText, File, Folder, Archive, Book,
+  BookOpen, GraduationCap, Palette, Brush, Scissors,
+  Wrench, Hammer, Cog, LifeBuoy, HelpCircle, Info,
+  AlertTriangle, CheckCircle, XCircle, Plus, Minus, X, Check,
+};
 
 // Available Lucide React icons for services
 export const AVAILABLE_ICONS = [
@@ -43,7 +78,7 @@ export const IconSelect = ({ value, onChange, placeholder = "Select an icon", cl
   );
 
   const renderIcon = (iconName: string) => {
-    const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{className?: string}>>)[iconName];
+    const IconComponent = ICON_MAP[iconName];
     if (!IconComponent) return null;
     return <IconComponent className="w-4 h-4" />;
   };
@@ -125,7 +160,7 @@ export const IconSelect = ({ value, onChange, placeholder = "Select an icon", cl
 
 // Helper function to render icons dynamically
 export const renderIcon = (iconName: string, className: string = "w-6 h-6") => {
-  const IconComponent = (LucideIcons as unknown as Record<string, React.ComponentType<{className?: string}>>)[iconName];
+  const IconComponent = ICON_MAP[iconName];
   if (!IconComponent) return null;
   return <IconComponent className={className} />;
 };
