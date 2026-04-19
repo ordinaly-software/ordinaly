@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { Euro, Users, User, XCircle, Calendar, MapPin, Clock } from "lucide-react";
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
-import ShareCourseButtons from '@/components/formation/share-course-buttons';
+import SharePostButtons from '@/components/blog/share-post-buttons';
 import { Modal } from "@/components/ui/modal";
 import EnrolledMembers from "@/components/admin/enrolled-members";
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
@@ -141,7 +141,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                 {/* place share buttons in the empty bottom area of the header on small screens; on larger screens keep bottom-right */}
                 <div className="absolute left-3 right-3 bottom-3 sm:left-4 sm:right-4 sm:bottom-4 sm:top-auto flex justify-center sm:justify-end z-10">
                   <div className="inline-flex items-center bg-transparent rounded">
-                    <ShareCourseButtons title={course.title} subtitle={course.subtitle} slug={course.slug} theme="white" />
+                    <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} theme="white" />
                   </div>
                 </div>
       </div>

@@ -80,7 +80,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Sí. La arquitectura correcta unifica fuentes, normaliza formatos, trocea por tipo documental y aplica ranking antes de responder. Lo importante no es solo indexar, sino decidir qué fuente pesa más según el caso.",
       en: "Yes. The right architecture unifies sources, normalizes formats, chunks by document type and applies ranking before answering. The key is not only indexing, but deciding which source should carry more weight in each case.",
     },
-    relatedPath: "/chatbots-empresas-sevilla",
+    relatedPath: "/chatbots-personalizados-para-empresas",
   },
   {
     id: "chatbot-quality",
@@ -94,7 +94,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Miramos deflexión por intención, precisión de escalado, exactitud sobre un set de preguntas reales y calidad de cita. La velocidad sola puede ocultar respuestas incorrectas o handoffs innecesarios.",
       en: "We look at deflection by intent, escalation precision, accuracy on a real question set and citation quality. Speed alone can hide wrong answers or unnecessary handoffs.",
     },
-    relatedPath: "/chatbots-empresas-sevilla",
+    relatedPath: "/chatbots-personalizados-para-empresas",
   },
   {
     id: "chatbot-website-whatsapp",
@@ -108,7 +108,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Sí, si separas bien capa de conocimiento y capa de canal. La lógica, los documentos y las métricas pueden compartirse; lo que cambia es el tono, el ritmo conversacional y las restricciones del canal.",
       en: "Yes, if you separate the knowledge layer from the channel layer. Logic, documents and metrics can be shared; what changes is tone, pacing and the channel constraints.",
     },
-    relatedPath: "/automatizacion-whatsapp-business-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "agent-vs-chatbot",
@@ -122,7 +122,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Un chatbot responde; un agente además consulta herramientas, ejecuta acciones y toma decisiones dentro de una política. La diferencia real está en el nivel de acceso, validación y responsabilidad operativa.",
       en: "A chatbot answers; an agent also queries tools, executes actions and makes decisions within a policy. The real difference is the level of access, validation and operational responsibility.",
     },
-    relatedPath: "/agentes-ia-atencion-cliente-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "agent-human-approval",
@@ -136,7 +136,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Cuando la acción modifica dinero, inventario, condiciones contractuales o datos sensibles. Las tareas de lectura pueden automatizarse antes; las de escritura deben entrar con límites y aprobaciones explícitas.",
       en: "Whenever the action affects money, inventory, contract conditions or sensitive data. Read operations can be automated earlier; write operations should enter with explicit limits and approvals.",
     },
-    relatedPath: "/agentes-ia-atencion-cliente-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "agent-tools",
@@ -150,7 +150,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Sí, siempre que definas bien permisos, orden de consulta y trazabilidad. La parte compleja no es la conexión técnica, sino la política de qué consultar y qué hacer cuando los sistemas discrepan.",
       en: "Yes, as long as permissions, query order and traceability are well defined. The hard part is not the connection itself, but the policy for what to query and what happens when systems disagree.",
     },
-    relatedPath: "/integraciones-crm-erp-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "n8n-custom-code",
@@ -206,7 +206,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Si el canal es serio y debe escalar, sí. La API oficial permite gobernar plantillas, proveedores, números y métricas con estabilidad; lo contrario suele terminar en deuda técnica o bloqueos del canal.",
       en: "If the channel matters and needs to scale, yes. The official API lets you govern templates, providers, numbers and metrics with stability; the alternative usually ends in technical debt or channel blocking.",
     },
-    relatedPath: "/automatizacion-whatsapp-business-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "whatsapp-attribution",
@@ -220,7 +220,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Necesitas registrar conversación, origen, intención, paso comercial y resultado en CRM. Sin esa cadena de datos, el canal parece activo pero no sabes qué parte vende y qué parte solo consume tiempo.",
       en: "You need to record conversation, source, intent, commercial stage and outcome inside the CRM. Without that data chain, the channel looks active but you do not know what actually sells and what only consumes time.",
     },
-    relatedPath: "/automatizacion-whatsapp-business-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "whatsapp-sales-support",
@@ -234,7 +234,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Depende del volumen y de cómo se diseñe el routing. Puede funcionar si hay clasificación temprana y SLAs distintos; si no, el canal se vuelve confuso y ambos equipos acaban compitiendo por el mismo hilo.",
       en: "It depends on volume and routing design. It can work if there is early classification and separate SLAs; otherwise the channel becomes confusing and both teams start competing for the same thread.",
     },
-    relatedPath: "/automatizacion-whatsapp-business-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "integration-duplicates",
@@ -248,7 +248,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Con identificadores estables, ownership por campo, reglas de deduplicación y reconciliación. Sin ese trabajo previo, cualquier conector termina amplificando el problema en lugar de resolverlo.",
       en: "With stable identifiers, field ownership, deduplication rules and reconciliation. Without that groundwork, any connector amplifies the problem instead of solving it.",
     },
-    relatedPath: "/integraciones-crm-erp-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "integration-source-of-truth",
@@ -262,7 +262,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Significa decidir qué sistema manda cada dato y bajo qué condiciones puede sobrescribirse. Sin esa definición, el dato se sincroniza, sí, pero nadie sabe cuál es el correcto cuando aparece un conflicto.",
       en: "It means deciding which system owns each piece of data and under which conditions it can be overwritten. Without that definition, data may sync, but nobody knows which version is correct when conflict appears.",
     },
-    relatedPath: "/integraciones-crm-erp-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "integration-first-scope",
@@ -276,7 +276,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Lo justo para resolver un proceso crítico de extremo a extremo: por ejemplo alta de cliente, oportunidad, pedido y factura. Empezar por todo a la vez suele ocultar errores de modelo y bloquear el avance.",
       en: "Just enough to solve one critical process end to end: for example customer creation, opportunity, order and invoice. Starting with everything at once usually hides model errors and blocks progress.",
     },
-    relatedPath: "/integraciones-crm-erp-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "training-who-should-attend",
@@ -360,7 +360,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Un agente de IA es un sistema inteligente que puede realizar tareas específicas de forma autónoma: responder consultas de clientes, procesar documentos, gestionar citas o automatizar flujos de trabajo. Esto significa ahorro de tiempo, reducción de errores humanos y disponibilidad 24/7. Por ejemplo, una empresa puede tener un agente que gestione incidencias automáticamente por WhatsApp.",
       en: "An AI agent is an intelligent system that can perform specific tasks autonomously: answering customer queries, processing documents, managing appointments or automating workflows. This means time savings, reduced human error and 24/7 availability. For example, a business can have an agent that automatically handles incidents over WhatsApp.",
     },
-    relatedPath: "/agentes-ia-atencion-cliente-sevilla",
+    relatedPath: "/servicios",
   },
   {
     id: "automation-cost",

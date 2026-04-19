@@ -425,7 +425,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
         subtitle={t('subtitle')}
         backgroundImage={'/static/backgrounds/formation_background.webp'}
       >
-        <div className="max-w-5xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
+        <div className="w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
           <div className="flex flex-col lg:flex-row gap-4 items-center">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />

@@ -4,7 +4,7 @@ import { AppleModal } from "@/components/ui/apple-modal";
 import { Calendar, BookOpen, Star } from 'lucide-react';
 import { AddToCalendarButtons } from './add-to-calendar-buttons';
 import CourseSidebar from './course-sidebar';
-import ShareCourseButtons from './share-course-buttons';
+import SharePostButtons from '@/components/blog/share-post-buttons';
 import CourseFooter from './course-footer';
 import { useTranslations } from 'next-intl';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
@@ -334,7 +334,7 @@ const CourseDetailsModal = ({
 
             {/* Share buttons for mobile */}
             <div className="mt-3 lg:hidden">
-              <ShareCourseButtons title={course.title} subtitle={course.subtitle} slug={course.slug} />
+              <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} />
             </div>
 
             {/* Next Occurrences */}
