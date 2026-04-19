@@ -17,7 +17,12 @@ import { UseCasesSection } from "@/components/home/use-cases-section";
 import { ServiceBentoGrid } from "@/components/services/service-bento-grid";
 import { AiChatDemo } from "@/components/home/ai-chat-demo";
 
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
 const ServiceAppleDetailsModal = dynamic(
   () =>
     import("@/components/services/service-apple-details-modal").then(
@@ -163,9 +168,9 @@ const ServicesPage = ({
       if (slug) return `/${slug}`;
       const parts = pathname.split("/").filter(Boolean);
       const base =
-        parts.length >= 2 && parts[1] === "services"
-          ? `/${parts[0]}/services`
-          : "/services";
+        parts.length >= 2 && parts[1] === "servicios"
+          ? `/${parts[0]}/servicios`
+          : "/servicios";
       return base;
     },
     [pathname],
@@ -318,6 +323,7 @@ const ServicesPage = ({
       <UseCasesSection t={t_home} id="use-cases" />
 
       <NewsletterSection />
+      <WhatsAppBubble />
       <Footer />
     </div>
   );

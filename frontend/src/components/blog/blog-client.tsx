@@ -13,6 +13,12 @@ import Banner from '@/components/ui/banner';
 import { Input } from '@/components/ui/input';
 import { Dropdown } from '@/components/ui/dropdown';
 import { useMemo, useState, useEffect, useCallback } from 'react';
+import dynamic from 'next/dynamic';
+
+const WhatsAppBubble = dynamic(() => import('@/components/home/whatsapp-bubble'), {
+  ssr: false,
+  loading: () => null,
+});
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, ArrowRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
@@ -195,7 +201,7 @@ export default function BlogClient({
         subtitle={t('subtitle', { default: 'Discover our latest news, articles, and updates.' })}
         backgroundImage={'/static/backgrounds/blog_background.webp'}
       >
-        <div className="max-w-2xl mx-auto bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl mt-6">
+        <div className="w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
           <div className="flex flex-col md:flex-row gap-4 items-center">
             {/* Search Bar */}
             <div className="relative flex-1 w-full">
@@ -368,6 +374,7 @@ export default function BlogClient({
         </div>
       </section>
 
+      <WhatsAppBubble />
       <Footer />
       <BackToTopButton />
     </div>

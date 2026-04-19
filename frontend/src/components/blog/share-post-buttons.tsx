@@ -1,13 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTranslations } from "next-intl";
 
 interface Props {
   title: string;
   excerpt?: string;
-  slug: string;
+  slug?: string;
+  url?: string;
+  shareText?: string;
   theme?: 'default' | 'white';
   showLabel?: boolean;
 }
@@ -32,62 +34,74 @@ const LinkedInIcon = ({ className = "h-6 w-6" }: { className?: string }) => (
   </svg>
 );
 
-export const SharePostButtons: React.FC<Props> = ({ title, excerpt, slug, theme = 'default', showLabel = true }) => {
-  const t = useTranslations('blog.share');
+const LinkIcon = ({ className = "h-6 w-6" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3" />
+    <path d="M9 17H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3" />
+    <line x1="8" y1="12" x2="16" y2="12" />
+  </svg>
+);
 
-  const siteTag = (typeof window !== 'undefined' && window.location && window.location.hostname)
+const CheckIcon = ({ className = "h-6 w-6" }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M5 13l4 4L19 7" />
+  </svg>
+);
+
+export const SharePostButtons: React.FC<Props> = ({
+  title,
+  excerpt,
+  slug,
+  url,
+  shareText,
+  theme = 'default',
+  showLabel = true,
+}) => {
+  const t = useTranslations('blog.share');
+  const [copied, setCopied] = useState(false);
+
+  const siteTag = (typeof window !== 'undefined' && window.location?.hostname)
     ? window.location.hostname.replace(/^www\./, '')
     : 'Ordinaly Software';
 
-  const textBase = t('shareMessage', {
+  const pageUrl = url || (() => {
+    if (typeof window === 'undefined') return '';
+    const cleanSlug = (slug || '').replace(/^\/+/, '');
+    return cleanSlug ? `${window.location.origin}/${cleanSlug}` : window.location.href;
+  })();
+
+  const textBase = shareText || t('shareMessage', {
     title,
     excerpt: excerpt || '',
     siteTag,
     default: `Read this post from ${siteTag}: "${title}"${excerpt ? ' - ' + excerpt : ''}`,
   });
 
-  let pageUrl = '';
-  if (typeof window !== 'undefined') {
-    const cleanSlug = slug.replace(/^\/+/, '');
-    pageUrl = `${window.location.origin}/blog/${cleanSlug}`;
-  }
-
-  const whatsappShare = () => {
-    const message = `${textBase} ${pageUrl}`;
-    const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank', 'noopener');
-  };
-
   const copyToClipboard = async (text: string) => {
     try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
+      if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(text);
+        return;
       }
-    } catch {
-      try {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        textArea.style.position = 'fixed';
-        textArea.style.left = '-999999px';
-        textArea.style.top = '-999999px';
-        document.body.appendChild(textArea);
-        textArea.focus();
-        textArea.select();
-        document.execCommand('copy');
-        textArea.remove();
-        
-      } catch {
-        // Failed to copy to clipboard
-      }
-    }
+    } catch { /* fall through */ }
+    try {
+      const el = document.createElement('textarea');
+      el.value = text;
+      el.style.cssText = 'position:fixed;left:-999999px;top:-999999px';
+      document.body.appendChild(el);
+      el.focus();
+      el.select();
+      document.execCommand('copy');
+      el.remove();
+    } catch { /* silent */ }
   };
 
-  const openShareUrl = (url: string) => {
-    const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-    if (newWindow) return newWindow;
+  const openShareUrl = (shareUrl: string) => {
+    const w = window.open(shareUrl, '_blank', 'noopener,noreferrer');
+    if (w) return;
     try {
       const a = document.createElement('a');
-      a.href = url;
+      a.href = shareUrl;
       a.target = '_blank';
       a.rel = 'noopener noreferrer';
       a.style.display = 'none';
@@ -95,82 +109,71 @@ export const SharePostButtons: React.FC<Props> = ({ title, excerpt, slug, theme 
       a.click();
       document.body.removeChild(a);
     } catch {
-      window.location.href = url;
+      window.location.href = shareUrl;
     }
-    return null;
+  };
+
+  const whatsappShare = () => {
+    const msg = `${textBase} ${pageUrl}`;
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank', 'noopener');
   };
 
   const facebookShare = () => {
-    const message = `${textBase} ${pageUrl}`;
-    const url = `https://www.facebook.com/sharer/sharer.php?u=${encode(pageUrl)}`;
-    copyToClipboard(message);
-    openShareUrl(url);
+    copyToClipboard(`${textBase} ${pageUrl}`);
+    openShareUrl(`https://www.facebook.com/sharer/sharer.php?u=${encode(pageUrl)}`);
   };
 
   const linkedinShare = () => {
-    const message = `${textBase} ${pageUrl}`;
-    copyToClipboard(message);
-    const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encode(pageUrl)}`;
-    openShareUrl(linkedinUrl);
+    copyToClipboard(`${textBase} ${pageUrl}`);
+    openShareUrl(`https://www.linkedin.com/sharing/share-offsite/?url=${encode(pageUrl)}`);
+  };
+
+  const copyLink = async () => {
+    await copyToClipboard(pageUrl);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const isWhite = theme === 'white';
 
-  const labelClass = isWhite ? 'text-sm font-medium text-white' : 'text-sm font-medium text-gray-700 dark:text-gray-200';
+  const labelClass = isWhite
+    ? 'text-sm font-medium text-white'
+    : 'text-sm font-medium text-gray-700 dark:text-gray-200';
 
   const commonWhiteStyle: React.CSSProperties = {
     backgroundColor: '#ffffff',
-    transition: 'background-color 150ms ease, color 150ms ease, box-shadow 150ms ease, transform 150ms ease',
-    boxShadow: '0 1px 2px rgba(0,0,0,0.06)'
+    transition: 'background-color 150ms ease, color 150ms ease, box-shadow 150ms ease',
+    boxShadow: '0 1px 2px rgba(0,0,0,0.06)',
   };
 
-  const waStyle = isWhite ? { ...commonWhiteStyle, color: '#D97757' } : undefined;
+  const waStyle = isWhite ? { ...commonWhiteStyle, color: '#0D6E0C' } : undefined;
   const fbStyle = isWhite ? { ...commonWhiteStyle, color: '#1877F2' } : undefined;
   const liStyle = isWhite ? { ...commonWhiteStyle, color: '#0A66C2' } : undefined;
+  const cpStyle = isWhite ? { ...commonWhiteStyle, color: '#6B7280' } : undefined;
 
-  const baseButtonClass = 'p-3 rounded-md';
-  const waClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#D97757] hover:text-[#C6613F] dark:text-white`;
-  const fbClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#1877F2] dark:text-white`;
-  const liClass = isWhite ? baseButtonClass : `${baseButtonClass} text-[#0A66C2] dark:text-white`;
+  const base = 'p-3 rounded-md';
+  const waClass = isWhite ? base : `${base} text-[#0D6E0C] dark:text-white`;
+  const fbClass = isWhite ? base : `${base} text-[#1877F2] dark:text-white`;
+  const liClass = isWhite ? base : `${base} text-[#0A66C2] dark:text-white`;
+  const cpClass = isWhite ? base : `${base} text-gray-500 dark:text-gray-300`;
 
   return (
     <div className="flex items-center gap-1">
-      {/** internal label is optional; caller can render its own label and hide this one */}
-      {showLabel !== false && (
+      {showLabel && (
         <span className={labelClass}>{t('label', { default: 'Share' })}</span>
       )}
       <div className="flex items-center gap-1">
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={whatsappShare}
-          aria-label={t('whatsapp', { default: 'WhatsApp' })}
-          className={waClass}
-          style={waStyle}
-        >
+        <Button variant="ghost" size="sm" onClick={whatsappShare} aria-label={t('whatsapp', { default: 'WhatsApp' })} className={waClass} style={waStyle}>
           <WhatsAppIcon />
         </Button>
-
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={facebookShare}
-          aria-label={t('facebook', { default: 'Facebook' })}
-          className={fbClass}
-          style={fbStyle}
-        >
+        <Button variant="ghost" size="sm" onClick={facebookShare} aria-label={t('facebook', { default: 'Facebook' })} className={fbClass} style={fbStyle}>
           <FacebookIcon />
         </Button>
-
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={linkedinShare}
-          aria-label={t('linkedin', { default: 'LinkedIn' })}
-          className={liClass}
-          style={liStyle}
-        >
+        <Button variant="ghost" size="sm" onClick={linkedinShare} aria-label={t('linkedin', { default: 'LinkedIn' })} className={liClass} style={liStyle}>
           <LinkedInIcon />
+        </Button>
+        <Button variant="ghost" size="sm" onClick={copyLink} aria-label={t('copyLink', { default: 'Copy link' })} className={cpClass} style={cpStyle}>
+          {copied ? <CheckIcon /> : <LinkIcon />}
         </Button>
       </div>
     </div>

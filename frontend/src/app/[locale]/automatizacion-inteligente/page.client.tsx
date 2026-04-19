@@ -1,8 +1,14 @@
 "use client";
 
 import { useMessages } from "next-intl";
+import dynamic from "next/dynamic";
 import N8nFlow from "@/components/ui/N8nFlow";
 import ContactForm from "@/components/ui/contact-form.client";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
 import Footer from "@/components/ui/footer";
 import { WobbleCard } from "@/components/ui/wobble-card";
 
@@ -169,6 +175,7 @@ export default function AutomatizacionInteligente() {
         <span>{content.cta?.label}</span>
       </a>
 
+      <WhatsAppBubble />
       <Footer />
     </div>
   );

@@ -317,7 +317,7 @@ function SignupPageContent() {
               >
                 <Image
                   src="/static/signup_illustration.webp"
-                  alt="Signup Illustration"
+                  alt=""
                   width={600}
                   height={300}
                   className="w-full h-full object-cover"

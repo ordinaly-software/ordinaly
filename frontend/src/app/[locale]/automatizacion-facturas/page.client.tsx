@@ -2,10 +2,15 @@
 
 import { useMessages } from "next-intl";
 import React from "react";
-
+import dynamic from "next/dynamic";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "../recaptcha-provider";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
 
 export default function AutomatizacionFacturas() {
   const messages = useMessages() as any;
@@ -281,6 +286,7 @@ export default function AutomatizacionFacturas() {
         <span>{content.secondaryCtaLabel}</span>
       </a>
 
+      <WhatsAppBubble />
       <Footer />
     </div>
   );

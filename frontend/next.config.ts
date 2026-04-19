@@ -178,6 +178,17 @@ const nextConfig: NextConfig = {
       fullUrl: process.env.NODE_ENV === 'development',
     },
   },
+
+  async redirects() {
+    return [
+      { source: '/services', destination: '/servicios', permanent: true },
+      { source: '/contact', destination: '/contacto', permanent: true },
+      { source: '/en/services', destination: '/en/servicios', permanent: true },
+      { source: '/en/contact', destination: '/en/contacto', permanent: true },
+      { source: '/blog/:slug', destination: '/:slug', permanent: true },
+      { source: '/en/blog/:slug', destination: '/en/:slug', permanent: true },
+    ];
+  },
 };
  
 const withNextIntl = createNextIntlPlugin();

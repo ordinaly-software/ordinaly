@@ -12,7 +12,7 @@ export async function generateMetadata({
 
   return createPageMetadata({
     locale,
-    path: "/services",
+    path: "/servicios",
     title: isEs
       ? "Servicios y productos de automatización con IA"
       : "AI automation services and products",

@@ -1,10 +1,16 @@
 "use client";
 
 import { useMessages } from "next-intl";
+import dynamic from "next/dynamic";
 import Footer from "@/components/ui/footer";
 import ContactForm from "@/components/ui/contact-form.client";
 import N8nFlow from "@/components/ui/N8nFlow";
 import RelojArenaMagico from "@/components/ui/relojArena";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
 
 export default function AutomatizacionesN8NnSevillaPage() {
   const messages = useMessages() as any;
@@ -70,7 +76,7 @@ export default function AutomatizacionesN8NnSevillaPage() {
           <div className="flex justify-center md:justify-end">
             <img
               src="/static/automatizacion-n8n-sevilla/n8n-integration.webp"
-              alt="Ejemplo de flujo n8n"
+              alt={content.title}
               className="w-full max-w-[760px] rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700"
             />
           </div>
@@ -171,6 +177,7 @@ export default function AutomatizacionesN8NnSevillaPage() {
         </div>
       </section>
 
+      <WhatsAppBubble />
       <Footer />
     </div>
   );

@@ -422,12 +422,12 @@ const Navbar = () => {
 
   const navItems = useMemo(
     () => [
-      ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/services", label: t("navigation.services") }] : []),
+      ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/servicios", label: t("navigation.services") }] : []),
       ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formation", label: t("navigation.formation") }] : []),
       { id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") },
       { id: "faq", type: "link", href: "/faq", label: t("navigation.faq") },
       { id: "about", type: "link", href: "/about", label: t("navigation.us") },
-      { id: "contact", type: "link", href: "/contact", label: t("navigation.contact") },
+      { id: "contact", type: "link", href: "/contacto", label: t("navigation.contact") },
     ],
     [t, featuredServices.length, menuCourses.length],
   );
@@ -535,7 +535,7 @@ const Navbar = () => {
                               ))}
                           </div>
                           <div className="mt-3">
-                            <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
+                            <HoveredLink href="/servicios">{t("navigation.serviceSubmenu")}</HoveredLink>
                           </div>
                         </div>
                       )}
@@ -687,7 +687,7 @@ const Navbar = () => {
                         </Link>
                       ))}
                     <Link
-                      href="/services"
+                      href="/servicios"
                       onClick={() => setIsMenuOpen(false)}
                       className="block rounded-md px-2 py-2 text-sm font-semibold text-clay dark:text-clay hover:text-clay dark:hover:text-clay"
                     >
@@ -785,11 +785,11 @@ const Navbar = () => {
                     {t("navigation.us")}
                   </Link>
                   <Link
-                    href="/contact"
+                    href="/contacto"
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
                       "transition-colors py-3 px-2 block rounded-md font-medium",
-                      isLinkActive("/contact")
+                      isLinkActive("/contacto")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
                         : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
                     )}

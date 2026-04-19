@@ -1,8 +1,14 @@
 "use client";
 
 import { useMessages } from "next-intl";
+import dynamic from "next/dynamic";
 import { Linkedin } from "lucide-react";
 import Footer from "@/components/ui/footer";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
 import CardStackDemo from "@/components/ui/card-stack-demo"
 import ContactForm from "@/components/ui/contact-form.client";
 import Carousel3D from "@/components/ui/carrusel3D";
@@ -273,6 +279,7 @@ export default function FormacionIaPymesSevillaPage() {
         <span>{content.sectionTitles?.ctaTitle}</span>
       </a>
 
+      <WhatsAppBubble />
       <Footer />
     </div>
   );

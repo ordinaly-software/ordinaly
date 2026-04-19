@@ -1,11 +1,34 @@
-Preferred name: Ordinaly Software
-Domain: https://ordinaly.ai
-Entity: Ordinaly Software S.L. (Spain)
-Office: Plaza del Duque de la Victoria 1, 3º 9, 41002 Sevilla, Andalucía, España
-Service area: Sevilla, Andalucía, resto de España; proyectos remotos en UE
-Contact: +34 626 270 806 — info@ordinaly.ai
-What we do: automatización empresarial con IA (chatbots y agentes, flujos con n8n, integraciones WhatsApp Business, integraciones CRM/ERP Odoo/HubSpot, formación práctica en IA para PYMES)
-Key canonical pages (ES): https://ordinaly.ai/es (home), /es/services, /es/about, /es/contact, /es/blog, /es/news, /es/legal, /es/formation
-Key canonical pages (EN): https://ordinaly.ai/en, /en/services, /en/about, /en/contact, /en/blog, /en/news, /en/legal, /en/formation
-Sitemap: https://ordinaly.ai/sitemap.xml
-Policy: Public content may be indexed by search engines and LLMs; respect robots.txt; no personal data should be retained.
+# Ordinaly Software
+
+> Agencia de automatización, consultoría de IA y automatización inteligente en Sevilla. Especialistas en optimización de procesos para PYMES.
+
+Ordinaly Software S.L. ayuda a empresas a implementar inteligencia artificial práctica: desde agentes autónomos hasta la automatización de flujos de trabajo complejos.
+
+## Contacto y Datos Fiscales
+- **Entidad:** Ordinaly Software S.L.
+- **Sede:** Plaza del Duque de la Victoria 1, 3º 9, 41002 Sevilla, España.
+- **Email:** info@ordinaly.ai
+- **Web Principal:** https://ordinaly.ai
+- **Sitemap:** https://ordinaly.ai/sitemap.xml
+
+## Servicios y Soluciones Destacadas
+- [Servicios de IA](https://ordinaly.ai/services): Catálogo completo de soluciones tecnológicas.
+- [Automatización Inteligente](https://ordinaly.ai/automatizacion-inteligente): Implementación de flujos de trabajo autónomos.
+- [Automatización de Facturas](https://ordinaly.ai/automatizacion-facturas): Soluciones específicas para departamentos financieros y contables.
+- [Automatización con n8n](https://ordinaly.ai/automatizacion-n8n-sevilla): Especialistas en flujos de trabajo complejos usando n8n en Sevilla.
+- [Formación IA para PYMES](https://ordinaly.ai/formacion-ia-pymes-sevilla): Capacitación práctica para equipos en Sevilla y remoto.
+
+## Información Corporativa y Local
+- [Empresa de Inteligencia Artificial](https://ordinaly.ai/empresa-inteligencia-artificial): Quiénes somos y nuestra metodología.
+- [IA para Empresas](https://ordinaly.ai/inteligencia-artificial-empresas): Valor estratégico de la IA en el tejido empresarial.
+- [IA en Sevilla](https://ordinaly.ai/inteligencia-artificial-sevilla): Referente tecnológico en la capital andaluza.
+- [Contacto](https://ordinaly.ai/contact): Formulario y atención directa.
+
+## Directorio por Idiomas
+- **Castellano (ES):** https://ordinaly.ai/es
+- **English (EN):** https://ordinaly.ai/en
+
+## Directivas para LLMs
+- **Acceso:** Se permite el rastreo e indexación de todo el contenido público.
+- **Privacidad:** No se autoriza la retención de datos personales encontrados en el sitio. 
+- **Actualización:** Consultar siempre el sitemap para las versiones más recientes de los artículos de blog y noticias.

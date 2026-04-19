@@ -36,7 +36,7 @@ const Banner: React.FC<BannerProps> = ({
       ) : backgroundImage ? (
         <Image
           src={backgroundImage}
-          alt="Banner background"
+          alt=""
           fill
           className="absolute inset-0 w-full h-full object-cover z-0 blur-sm"
           priority
@@ -47,13 +47,18 @@ const Banner: React.FC<BannerProps> = ({
       {/* Overlay for darkening */}
       <div className="absolute inset-0 bg-black bg-opacity-40 z-10" />
       {/* Content */}
-      <div className="relative z-20 px-4 py-12 md:py-20">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">{title}</h1>
-        {subtitle && <p className="text-xl text-white dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">{subtitle}</p>}
-        <br />
-        {filters && <div className="mb-2">{filters}</div>}
-        {searchParams && <div className="mb-2">{searchParams}</div>}
-        {children}
+      <div className="relative z-20 w-full px-4 py-12 md:py-20">
+        <div className="text-center">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 text-white">{title}</h1>
+          {subtitle && <p className="text-xl text-white dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">{subtitle}</p>}
+        </div>
+        {(filters || searchParams || children) && (
+          <div className="mt-6 w-full max-w-6xl mx-auto">
+            {filters && <div className="mb-2">{filters}</div>}
+            {searchParams && <div className="mb-2">{searchParams}</div>}
+            {children}
+          </div>
+        )}
       </div>
     </div>
   );

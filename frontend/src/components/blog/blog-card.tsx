@@ -103,7 +103,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick, compa
             ${compact ? 'text-base' : 'text-lg md:text-2xl line-clamp-2'}
           `}
         >
-          <Link href={`/blog/${post.slug}`}>
+          <Link href={`/${post.slug}`}>
             {post.seoTitle || post.title}
           </Link>
         </h2>
