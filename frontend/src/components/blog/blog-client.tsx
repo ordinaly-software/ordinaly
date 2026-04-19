@@ -13,6 +13,12 @@ import Banner from '@/components/ui/banner';
 import { Input } from '@/components/ui/input';
 import { Dropdown } from '@/components/ui/dropdown';
 import { useMemo, useState, useEffect, useCallback } from 'react';
+import dynamic from 'next/dynamic';
+
+const WhatsAppBubble = dynamic(() => import('@/components/home/whatsapp-bubble'), {
+  ssr: false,
+  loading: () => null,
+});
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, ArrowRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
@@ -368,6 +374,7 @@ export default function BlogClient({
         </div>
       </section>
 
+      <WhatsAppBubble />
       <Footer />
       <BackToTopButton />
     </div>

@@ -1,11 +1,17 @@
 "use client";
 
 import { useMessages } from "next-intl";
+import dynamic from "next/dynamic";
 import RobotFollower from "@/components/ui/RobotFollower";
 import TimelineHorizontal from "@/components/ui/TimelineHorizontal";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "../recaptcha-provider";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
 
 export default function ChatbotsPersonalizadosEmpresas() {
   const messages = useMessages() as any;
@@ -181,6 +187,7 @@ export default function ChatbotsPersonalizadosEmpresas() {
         </ReCaptchaWrapper>
       </section>
 
+      <WhatsAppBubble />
       <Footer />
     </main>
   );

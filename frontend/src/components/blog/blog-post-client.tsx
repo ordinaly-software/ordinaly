@@ -19,6 +19,10 @@ const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"),
   loading: () => null,
   ssr: false,
 });
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  ssr: false,
+  loading: () => null,
+});
 
 type TocItem = {
   id: string;
@@ -114,14 +118,14 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
           </div>
         </div>
         {tocItems.length > 0 && (
-          <nav aria-label={t('toc.label', { default: 'Table of contents' })} className="mb-8 rounded-2xl border border-clay/30 bg-white/80 dark:bg-slate-dark/70 p-5 shadow-sm backdrop-blur">
-            <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-clay">
+          <nav aria-label={t('toc.label', { default: 'Table of contents' })} className="mb-8 rounded-2xl border border-clay/30 dark:border-clay/20 bg-white/80 dark:bg-gray-800/90 p-5 shadow-sm backdrop-blur">
+            <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-clay dark:text-clay">
               {t('toc.title', { default: 'Table of contents' })}
             </div>
-            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-200">
+            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
               {tocItems.map((item) => (
                 <li key={item.id} className={item.level >= 4 ? 'ml-6' : item.level === 3 ? 'ml-4' : 'ml-0'}>
-                  <a href={`#${item.id}`} className="hover:text-flame transition-colors text-clay">
+                  <a href={`#${item.id}`} className="hover:text-flame dark:hover:text-flame transition-colors text-clay dark:text-clay/80">
                     {item.text}
                   </a>
                 </li>
@@ -137,7 +141,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                 {m.type === 'image' && m.asset && (
                   <Image
                     src={urlFor(m.asset).width(800).height(600).url()}
-                    alt={m.alt || 'Blog media'}
+                    alt={m.alt || p.title}
                     width={800}
                     height={600}
                     className="w-full h-auto"
@@ -192,6 +196,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
 
       <ContactForm />
 
+      <WhatsAppBubble />
       <Footer />
       <BackToTopButton />
     </div>

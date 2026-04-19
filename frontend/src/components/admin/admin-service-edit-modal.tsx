@@ -671,7 +671,7 @@ export const AdminServiceEditModal = ({
             onChange={(e) =>
               setFormData((prev) => ({ ...prev, contactButtonUrl: e.target.value }))
             }
-            placeholder="Ej: /contact o https://ordinaly.ai/es/contact"
+            placeholder="Ej: /contacto o https://ordinaly.ai/contacto"
             className="h-12 border-gray-300 focus:border-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]/20 rounded-lg"
           />
         </div>

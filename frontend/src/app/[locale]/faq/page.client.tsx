@@ -438,7 +438,7 @@ export default function FaqPageClient({ locale }: { locale: string }) {
             </p>
             <div className="mt-6 flex flex-col gap-3">
               <Button asChild variant="cobalt" size="lg">
-                <Link href="/contact">{ui.contactPrimary}</Link>
+                <Link href="/contacto">{ui.contactPrimary}</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <a

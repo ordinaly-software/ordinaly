@@ -332,7 +332,7 @@ export const faqEntries: FaqEntry[] = [
       es: "El equipo opera desde Sevilla, pero los proyectos se despliegan en toda España y en entornos remotos europeos. La geografía importa menos que el acceso a sistemas, la claridad del proceso y el modelo de soporte.",
       en: "The team operates from Seville, but projects are deployed across Spain and remote European environments. Geography matters less than system access, process clarity and the support model.",
     },
-    relatedPath: "/contact",
+    relatedPath: "/contacto",
   },
   {
     id: "delivery-pilot-first",
@@ -346,7 +346,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Porque el piloto permite medir calidad, riesgo y adopción sobre un proceso real antes de ampliar alcance. Saltarse esa fase suele encarecer el proyecto y retrasar el aprendizaje que de verdad importa.",
       en: "Because the pilot lets you measure quality, risk and adoption on a real process before widening scope. Skipping that phase usually makes the project more expensive and delays the learning that actually matters.",
     },
-    relatedPath: "/contact",
+    relatedPath: "/contacto",
   },
   {
     id: "what-is-ai-agent",
@@ -374,7 +374,7 @@ export const faqEntries: FaqEntry[] = [
       es: "El coste varía según la complejidad del proyecto. Los proyectos simples como chatbots de WhatsApp o automatizaciones básicas pueden arrancar desde presupuestos accesibles para PYMEs. Ofrecemos consultas gratuitas donde analizamos tu caso específico y damos un presupuesto personalizado. La mayoría de nuestros clientes recuperan la inversión en menos de 6 meses.",
       en: "Cost varies depending on project complexity. Simple projects like WhatsApp chatbots or basic automations can start at budgets accessible to SMEs. We offer free consultations where we analyze your specific case and provide a tailored quote. Most of our clients recover their investment in under 6 months.",
     },
-    relatedPath: "/contact",
+    relatedPath: "/contacto",
   },
   {
     id: "no-technical-knowledge-needed",
@@ -402,7 +402,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Somos un equipo local en Sevilla que entiende las necesidades específicas de las empresas andaluzas. No somos una consultora internacional que aplica soluciones genéricas. Nos especializamos en PYMEs y sectores concretos (inmobiliarias, administradores de fincas, marketing, retail) y combinamos automatización con formación práctica para que tu equipo sea autónomo.",
       en: "We are a local team in Seville that understands the specific needs of Andalusian businesses. We are not an international consultancy applying generic solutions. We specialize in SMEs and specific sectors (real estate, property management, marketing, retail) and combine automation with hands-on training so your team becomes self-sufficient.",
     },
-    relatedPath: "/contact",
+    relatedPath: "/contacto",
   },
   {
     id: "implementation-timeline",
@@ -416,7 +416,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Los proyectos simples como chatbots o automatizaciones básicas pueden estar funcionando en 2-4 semanas. Proyectos más complejos como workflows avanzados o integraciones con CRM/ERP pueden tomar entre 1-3 meses según el alcance. Siempre trabajamos por fases para que veas resultados rápidos.",
       en: "Simple projects like chatbots or basic automations can be up and running in 2-4 weeks. More complex projects such as advanced workflows or CRM/ERP integrations can take 1-3 months depending on scope. We always work in phases so you see results quickly.",
     },
-    relatedPath: "/contact",
+    relatedPath: "/contacto",
   },
   {
     id: "post-implementation-support",
@@ -430,6 +430,6 @@ export const faqEntries: FaqEntry[] = [
       es: "Sí. Incluimos soporte técnico y mantenimiento. Al estar basados en Sevilla, podemos hacer reuniones presenciales cuando sea necesario. Además, nuestros sistemas son escalables: a medida que tu negocio crece, podemos ampliar y mejorar las automatizaciones sin empezar desde cero.",
       en: "Yes. We include technical support and maintenance. Being based in Seville, we can hold in-person meetings when needed. Our systems are also scalable: as your business grows, we can extend and improve the automations without starting over.",
     },
-    relatedPath: "/contact",
+    relatedPath: "/contacto",
   },
 ];

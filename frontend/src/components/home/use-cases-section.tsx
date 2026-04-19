@@ -40,7 +40,7 @@ const useCases: UseCaseItem[] = [
     Icon: Briefcase,
     accent: "var(--swatch--clay)",
     accentSoft: "var(--swatch--clay)/12",
-    href: "/services",
+    href: "/servicios",
   },
   {
     titleKey: "useCases.items.0.title",
@@ -49,7 +49,7 @@ const useCases: UseCaseItem[] = [
     Icon: Building2,
     accent: "var(--swatch--cobalt)",
     accentSoft: "var(--swatch--cobalt)/12",
-    href: "/services",
+    href: "/servicios",
   },
   {
     titleKey: "useCases.items.1.title",
@@ -58,7 +58,7 @@ const useCases: UseCaseItem[] = [
     Icon: Home,
     accent: "var(--swatch--olive)",
     accentSoft: "var(--swatch--olive)/12",
-    href: "/services",
+    href: "/servicios",
   },
   {
     titleKey: "useCases.items.2.title",
@@ -67,7 +67,7 @@ const useCases: UseCaseItem[] = [
     Icon: TrendingUp,
     accent: "var(--swatch--sky)",
     accentSoft: "var(--swatch--sky)/12",
-    href: "/services",
+    href: "/servicios",
   },
   {
     titleKey: "useCases.items.3.title",
@@ -76,7 +76,7 @@ const useCases: UseCaseItem[] = [
     Icon: ShoppingBag,
     accent: "var(--swatch--flame)",
     accentSoft: "var(--swatch--flame)/12",
-    href: "/services",
+    href: "/servicios",
   },
   {
     titleKey: "useCases.items.5.title",
@@ -85,7 +85,7 @@ const useCases: UseCaseItem[] = [
     Icon: HardHat,
     accent: "var(--swatch--slate-light)",
     accentSoft: "var(--swatch--slate-light)/12",
-    href: "/services",
+    href: "/servicios",
   },
 ];
 

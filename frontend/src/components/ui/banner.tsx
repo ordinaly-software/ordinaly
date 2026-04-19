@@ -36,7 +36,7 @@ const Banner: React.FC<BannerProps> = ({
       ) : backgroundImage ? (
         <Image
           src={backgroundImage}
-          alt="Banner background"
+          alt=""
           fill
           className="absolute inset-0 w-full h-full object-cover z-0 blur-sm"
           priority

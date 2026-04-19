@@ -4,8 +4,13 @@ import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "../recaptcha-provider";
+import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
-const GlobeSevilla = dynamic(() => import("@/components/3d-globe-demo").then(m => m.GlobeSevilla), {
+const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
+  loading: () => <WhatsAppBubbleSkeleton />,
+});
+
+const GlobeSevilla = dynamic(() => import("@/components/ui/3d-globe-demo").then(m => m.GlobeSevilla), {
   ssr: false,
   loading: () => <div className="w-[300px] h-[300px] bg-black/10 rounded-xl" />,
 });
@@ -149,6 +154,7 @@ export default function InteligenciaArtificialSevilla() {
         <span>{content.contactUs}</span>
       </a>
 
+      <WhatsAppBubble />
       <Footer />
     </div>
   );

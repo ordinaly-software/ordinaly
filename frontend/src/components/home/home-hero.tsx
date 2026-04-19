@@ -25,7 +25,7 @@ const bulletPoints = [
   { icon: Building2, key: "hero.trust1", href: "#use-cases" },
   { icon: Bot, key: "hero.trust2", href: "#services" },
   { icon: Book, key: "hero.trust3", href: "#courses" },
-  { icon: ArrowRight, key: "hero.trust4", href: "/services" },
+  { icon: ArrowRight, key: "hero.trust4", href: "/servicios" },
 ];
 
 const accordionImages: Omit<AccordionImageItem, "label" | "sublabel">[] = [
@@ -92,7 +92,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 {t("hero.ctaDemo")}
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/services" className="flex items-center gap-2">
+                <Link href="/servicios" className="flex items-center gap-2">
                   {t("hero.ctaServices")}
                   <ArrowRight className="h-4 w-4" />
                 </Link>
