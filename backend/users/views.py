@@ -1,3 +1,4 @@
+import json
 import logging
 
 from rest_framework import viewsets, status
@@ -25,7 +26,6 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from django.conf import settings
 import requests
-
 from .models import NewsletterSignup
 
 logger = logging.getLogger(__name__)
@@ -328,23 +328,27 @@ class NewsletterSubscribersView(APIView):
 @permission_classes([AllowAny])
 def newsletter_subscribe(request):
     email = request.data.get("email")
+    name = request.data.get("name")
 
     if not email:
         return Response({"error": "Email requerido"}, status=400)
 
-    NewsletterSignup.objects.get_or_create(email=email)
-    
-    url = f"https://api.billionmail.com/v1/groups/16/subscribers"
-    headers = {
-        "Authorization": f"Bearer {settings.BILLIONMAIL_API_KEY}",
-        "Content-Type": "application/json"
+    url = "https://mail.ordinaly.ai/api/subscribe/submit?token=91c5a895cbfe"
+
+    data = {
+        "email": email,
+        "name": name,
+        "attribs": "{}"
     }
-    data = {"email": email}
 
     try:
-        requests.post(url, json=data, headers=headers, timeout=5)
-    except Exception:
-        pass
+        r = requests.post(url, data=data, timeout=5)
+        print("BillionMail response:", r.status_code, r.text)
+    except Exception as e:
+        print("Error enviando a BillionMail:", e)
+        return Response({"error": "Error conectando con BillionMail"}, status=500)
 
     return Response({"ok": True})
+
+
 

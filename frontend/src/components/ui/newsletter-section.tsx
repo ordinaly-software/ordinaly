@@ -14,14 +14,18 @@ export function NewsletterSection() {
   e.preventDefault();
 
   const formData = new FormData(e.currentTarget);
-  const email = String(formData.get("email") ?? "");
+  const email = formData.get("email") as string;
+  const name = formData.get("name") as string;
 
   try {
     const res = await fetch("/api/newsletter", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, name }),
     });
+    console.log("STATUS:", res.status);
+console.log("BODY:", await res.text());
+
 
     if (!res.ok) {
       console.error("Newsletter error:", res.status, res.statusText);
@@ -33,6 +37,7 @@ export function NewsletterSection() {
     console.error("Newsletter error:", err);
   }
 };
+
 
 
   return (
