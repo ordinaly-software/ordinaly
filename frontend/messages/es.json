@@ -1345,7 +1345,8 @@
       "whatsapp": "WhatsApp",
       "facebook": "Facebook",
       "linkedin": "LinkedIn",
-      "shareMessage": "Descubre este servicio de {siteTag}: \"{title}\" - {subtitle}"
+      "shareMessage": "Descubre este servicio de {siteTag}: \"{title}\" - {subtitle}",
+      "copyLink": "Copiar link"
     },
     "filters": {
       "all": "Todos el catálogo",
@@ -1816,7 +1817,8 @@
       "whatsapp": "WhatsApp",
       "facebook": "Facebook",
       "linkedin": "LinkedIn",
-      "shareMessage": "Lee este post de {siteTag}: \"{title}\" - {excerpt}"
+      "shareMessage": "Lee este post de {siteTag}: \"{title}\" - {excerpt}",
+      "copyLink": "Copiar enlace"
     },
     "loading": "Cargando más publicaciones...",
     "pagination": {

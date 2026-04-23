@@ -2,6 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
+import { linkifyText } from "@/utils/linkify";
 
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
@@ -97,8 +98,8 @@ export function FaqSection({ t }: SectionProps) {
                 </svg>
               </summary>
               <div className="mt-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-                <p className="mb-3">{t(item.answerKey)}</p>
-                <p>{t(item.extraKey)}</p>
+                <p className="mb-3">{linkifyText(t(item.answerKey))}</p>
+                <p>{linkifyText(t(item.extraKey))}</p>
               </div>
             </details>
           ))}

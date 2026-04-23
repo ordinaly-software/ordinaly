@@ -14,12 +14,14 @@ const SandParticle = ({ id }: { id: number }) => (
   />
 );
 
+let particleCounter = 0;
+
 const RealisticHourglass = () => {
   const [particles, setParticles] = useState<number[]>([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setParticles((prev) => [...prev.slice(-25), Date.now()]);
+      setParticles((prev) => [...prev.slice(-25), ++particleCounter]);
     }, 80);
     return () => clearInterval(interval);
   }, []);

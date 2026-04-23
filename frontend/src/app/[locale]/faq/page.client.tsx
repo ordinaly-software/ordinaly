@@ -1,7 +1,7 @@
 "use client";
 
 import { useDeferredValue, useEffect, useMemo, useState, startTransition } from "react";
-import { ArrowLeft, ArrowRight, ChevronsLeft, ChevronsRight, Search, Tag, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronsLeft, ChevronsRight, Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
@@ -10,11 +10,11 @@ import { Link } from "@/i18n/navigation";
 import {
   faqCategories,
   faqEntries,
-  faqTagLabels,
+  FaqTagKey,
   localizeFaq,
   type FaqCategoryKey,
-  type FaqTagKey,
 } from "./faq-data";
+import { linkifyText } from "@/utils/linkify";
 
 const cardClass =
   "rounded-[2rem] border border-[--color-border-subtle] bg-white/82 shadow-[0_24px_90px_-60px_rgba(15,23,42,0.28)] backdrop-blur dark:border-white/10 dark:bg-white/[0.04]";
@@ -46,7 +46,7 @@ export default function FaqPageClient({ locale }: { locale: string }) {
         category: entry.category,
         categoryLabel: localizeFaq(locale, faqCategories[entry.category]),
         tags: entry.tags,
-        tagLabels: entry.tags.map((tag) => localizeFaq(locale, faqTagLabels[tag])),
+        tagLabels: [],
         question: localizeFaq(locale, entry.question),
         answer: localizeFaq(locale, entry.answer),
         relatedPath: entry.relatedPath,
@@ -59,19 +59,13 @@ export default function FaqPageClient({ locale }: { locale: string }) {
   const filteredEntries = useMemo(() => {
     return localizedEntries.filter((entry) => {
       const matchesCategory = activeCategory === "all" || entry.category === activeCategory;
-      const matchesTag = activeTag === "all" || entry.tags.includes(activeTag);
-      const haystack = [
-        entry.question,
-        entry.answer,
-        entry.categoryLabel,
-        ...entry.tagLabels,
-      ]
+      const haystack = [entry.question, entry.answer, entry.categoryLabel]
         .join(" ")
         .toLowerCase();
       const matchesQuery = !normalizedQuery || haystack.includes(normalizedQuery);
-      return matchesCategory && matchesTag && matchesQuery;
+      return matchesCategory && matchesQuery;
     });
-  }, [activeCategory, activeTag, localizedEntries, normalizedQuery]);
+  }, [activeCategory, localizedEntries, normalizedQuery]);
 
   const totalPages = Math.max(1, Math.ceil(filteredEntries.length / pageSize));
 
@@ -86,20 +80,6 @@ export default function FaqPageClient({ locale }: { locale: string }) {
     return filteredEntries.slice(start, start + pageSize);
   }, [currentPage, filteredEntries]);
 
-  const tagOptions = useMemo(
-    () =>
-      Object.entries(faqTagLabels).map(([key, value]) => {
-        const tag = key as FaqTagKey;
-        const count = localizedEntries.filter((entry) => entry.tags.includes(tag)).length;
-        return {
-          key: tag,
-          label: localizeFaq(locale, value),
-          count,
-        };
-      }),
-    [localizedEntries, locale],
-  );
-
   const ui = {
     title: isEn
       ? "Questions about chatbots, AI agents, n8n, WhatsApp and integrations"
@@ -111,14 +91,12 @@ export default function FaqPageClient({ locale }: { locale: string }) {
     results: isEn ? "results" : "resultados",
     searchPlaceholder: isEn ? "Search by question, technology or use case..." : "Buscar por pregunta, tecnología o caso de uso...",
     topics: isEn ? "Topics" : "Temas",
-    tags: isEn ? "Tags" : "Etiquetas",
     allTopics: isEn ? "All topics" : "Todos los temas",
-    allTags: isEn ? "All tags" : "Todas las etiquetas",
     loading: isEn ? "Updating results..." : "Actualizando resultados...",
     emptyTitle: isEn ? "No FAQ matches your filters" : "No hay FAQs que coincidan con tus filtros",
     emptyText: isEn
-      ? "Try another tag, remove a filter or search with fewer words."
-      : "Prueba otra etiqueta, elimina un filtro o busca con menos palabras.",
+      ? "Try another topic or search with fewer words."
+      : "Prueba otro tema o busca con menos palabras.",
     clear: isEn ? "Clear filters" : "Limpiar filtros",
     related: isEn ? "See related page" : "Ver página relacionada",
     contactEyebrow: isEn ? "Need a direct answer?" : "¿Necesitas una respuesta directa?",
@@ -162,7 +140,6 @@ export default function FaqPageClient({ locale }: { locale: string }) {
               <div className="flex-1 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-white/85">
                 {ui.address}
                 {activeCategory !== "all" ? `?topic=${activeCategory}` : ""}
-                {activeTag !== "all" ? `${activeCategory !== "all" ? "&" : "?"}tag=${activeTag}` : ""}
               </div>
               <div className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/70">
                 {filteredEntries.length} {ui.results}
@@ -243,49 +220,6 @@ export default function FaqPageClient({ locale }: { locale: string }) {
               </div>
             </div>
 
-            <div className="mt-6">
-              <p className="label-meta inline-flex items-center gap-2 text-[#0255D5] dark:text-[#7DB5FF]">
-                <Tag className="h-3.5 w-3.5" />
-                {ui.tags}
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() =>
-                    startTransition(() => {
-                      setActiveTag("all");
-                      setCurrentPage(1);
-                    })
-                  }
-                  className={`rounded-full border px-4 py-2 text-sm transition ${
-                    activeTag === "all"
-                      ? "border-[#0255D5]/20 bg-[#0255D5]/10 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]"
-                      : "border-[--color-border-subtle] bg-white/70 text-slate-medium hover:text-slate-dark dark:border-white/10 dark:bg-white/[0.04] dark:text-cloud-medium dark:hover:text-ivory-light"
-                  }`}
-                >
-                  {ui.allTags}
-                </button>
-                {tagOptions.map((tag) => (
-                  <button
-                    key={tag.key}
-                    type="button"
-                    onClick={() =>
-                      startTransition(() => {
-                        setActiveTag(tag.key);
-                        setCurrentPage(1);
-                      })
-                    }
-                    className={`rounded-full border px-4 py-2 text-sm transition ${
-                      activeTag === tag.key
-                        ? "border-[#0255D5]/20 bg-[#0255D5]/10 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]"
-                        : "border-[--color-border-subtle] bg-white/70 text-slate-medium hover:text-slate-dark dark:border-white/10 dark:bg-white/[0.04] dark:text-cloud-medium dark:hover:text-ivory-light"
-                    }`}
-                  >
-                    {tag.label} <span className="opacity-60">({tag.count})</span>
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
         </section>
 
@@ -342,7 +276,7 @@ export default function FaqPageClient({ locale }: { locale: string }) {
 
                   <h2 className="mt-4 text-2xl font-semibold tracking-[-0.03em]">{entry.question}</h2>
                   <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
-                    {entry.answer}
+                    {linkifyText(entry.answer)}
                   </p>
 
                   {entry.relatedPath ? (
@@ -438,7 +372,7 @@ export default function FaqPageClient({ locale }: { locale: string }) {
             </p>
             <div className="mt-6 flex flex-col gap-3">
               <Button asChild variant="cobalt" size="lg">
-                <Link href="/contact">{ui.contactPrimary}</Link>
+                <Link href="/contacto">{ui.contactPrimary}</Link>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <a

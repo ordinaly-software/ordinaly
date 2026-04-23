@@ -330,7 +330,10 @@ export default function EmpresaInteligenciaArtificial() {
             {content.sectionTitles?.technologyFaqs}
           </p>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12">
-            Empresa de inteligencia artificial y automatizaciones
+            Empresa de inteligencia artificial y{" "}
+            <a href="/" className="text-clay underline decoration-clay/40 underline-offset-2 hover:decoration-clay transition-colors">
+              automatizaciones
+            </a>
           </h2>
 
           <div className="divide-y divide-neutral-200 dark:divide-neutral-800">

@@ -422,12 +422,12 @@ const Navbar = () => {
 
   const navItems = useMemo(
     () => [
-      ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/services", label: t("navigation.services") }] : []),
+      ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/servicios", label: t("navigation.services") }] : []),
       ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formation", label: t("navigation.formation") }] : []),
       { id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") },
       { id: "faq", type: "link", href: "/faq", label: t("navigation.faq") },
       { id: "about", type: "link", href: "/about", label: t("navigation.us") },
-      { id: "contact", type: "link", href: "/contact", label: t("navigation.contact") },
+      { id: "contact", type: "link", href: "/contacto", label: t("navigation.contact") },
     ],
     [t, featuredServices.length, menuCourses.length],
   );
@@ -437,13 +437,9 @@ const Navbar = () => {
   const showAuthButtons = effectiveViewportWidth >= 1024;
 
   const maxVisibleItems = useMemo(() => {
-    if (effectiveViewportWidth >= 1440) return navItems.length;
-    if (effectiveViewportWidth >= 1360) return 4;
-    if (effectiveViewportWidth >= 1280) return 3;
-    if (effectiveViewportWidth >= 1200) return showCta || showAuthButtons ? 2 : 3;
-    // Prioritize CTA/auth and burger from md widths down.
+    if (effectiveViewportWidth >= 1024) return navItems.length;
     return 0;
-  }, [effectiveViewportWidth, navItems.length, showAuthButtons, showCta]);
+  }, [effectiveViewportWidth, navItems.length]);
 
   const visibleItems = useMemo(() => {
     const n = Math.max(0, maxVisibleItems);
@@ -535,7 +531,7 @@ const Navbar = () => {
                               ))}
                           </div>
                           <div className="mt-3">
-                            <HoveredLink href="/services">{t("navigation.serviceSubmenu")}</HoveredLink>
+                            <HoveredLink href="/servicios">{t("navigation.serviceSubmenu")}</HoveredLink>
                           </div>
                         </div>
                       )}
@@ -619,18 +615,6 @@ const Navbar = () => {
                   />
                 ) : (
                   <>
-                    <div className="flex items-center space-x-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={goToSignIn}
-                        aria-label={t("navigation.signIn")}
-                        className="text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay transition-all duration-200 flex items-center h-8 sm:h-9 text-xs sm:text-sm"
-                      >
-                        <LogIn className="h-4 w-4 mr-2" />
-                        <span>{t("navigation.signIn")}</span>
-                      </Button>
-
                       <Button
                         variant="default"
                         size="sm"
@@ -639,7 +623,6 @@ const Navbar = () => {
                       >
                         {t("navigation.signUp")}
                       </Button>
-                    </div>
                   </>
                 )
               ) : null}
@@ -687,7 +670,7 @@ const Navbar = () => {
                         </Link>
                       ))}
                     <Link
-                      href="/services"
+                      href="/servicios"
                       onClick={() => setIsMenuOpen(false)}
                       className="block rounded-md px-2 py-2 text-sm font-semibold text-clay dark:text-clay hover:text-clay dark:hover:text-clay"
                     >
@@ -785,11 +768,11 @@ const Navbar = () => {
                     {t("navigation.us")}
                   </Link>
                   <Link
-                    href="/contact"
+                    href="/contacto"
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
                       "transition-colors py-3 px-2 block rounded-md font-medium",
-                      isLinkActive("/contact")
+                      isLinkActive("/contacto")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
                         : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
                     )}

@@ -13,7 +13,7 @@ export async function generateMetadata({
 
   return createPageMetadata({
     locale,
-    path: "/contact",
+    path: "/contacto",
     title: isEs ? "Contacto | Soporte y automatización IA" : "Contact | Support and AI automation",
     description: isEs
       ? "Habla con Ordinaly sobre agentes IA, automatización, formación y soporte operativo. Respondemos en menos de 24 horas."

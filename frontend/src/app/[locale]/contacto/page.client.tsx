@@ -299,9 +299,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="u-container pb-12 md:pb-16" id="contact-form">
+      <section id="contact-form" className="bg-[--swatch--slate-dark] py-16 md:py-20">
+        <div className="u-container">
         <div className="grid gap-6 lg:grid-cols-[0.72fr_1fr]">
-          <div className="rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] dark:border-white/10 md:p-8">
+          <div className="rounded-[2rem] border border-white/10 bg-white/6 p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] md:p-8">
             <p className="label-meta text-white/60">{t("formAside.eyebrow")}</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">
               {t("formAside.title")}
@@ -327,14 +328,16 @@ export default function ContactPage() {
           </div>
 
           <ContactForm
-            className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0"
+            className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0 [&>section]:bg-transparent"
             recaptchaAction="contact_page_form"
             recaptchaBadgeId="recaptcha-badge-contact-page"
           />
         </div>
+        </div>
       </section>
 
       <section className="u-container pb-12 md:pb-16" id="location">
+        <div className="mb-8 text-center"> </div>
         <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
           <div className="overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
             <div className="border-b border-[--color-border-subtle] p-6 dark:border-white/10 md:p-8">

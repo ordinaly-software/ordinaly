@@ -15,9 +15,9 @@ type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
 
 const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; priority: number }> = [
   { path: "/", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/contact", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/contacto", changeFrequency: "weekly", priority: 0.7 },
   { path: "/about", changeFrequency: "weekly", priority: 0.7 },
-  { path: "/services", changeFrequency: "weekly", priority: 0.8 },
+  { path: "/servicios", changeFrequency: "weekly", priority: 0.8 },
   { path: "/formation", changeFrequency: "weekly", priority: 0.7 },
   { path: "/faq", changeFrequency: "weekly", priority: 0.75 },
   { path: "/blog", changeFrequency: "daily", priority: 0.8 },
@@ -93,7 +93,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       addPath(path, changeFrequency, priority),
     );
 
-    slugs.forEach((slug) => addPath(`/blog/${slug}`, "weekly", 0.7));
+    slugs.forEach((slug) => addPath(`/${slug}`, "weekly", 0.7));
 
     services.forEach((service) => {
       const identifier = service?.slug || service?.id;

@@ -79,6 +79,7 @@ ordinaly/
 │   ├── requirements.txt
 │   ├── config/           # Configuración Django
 │   ├── api/              # API REST principal
+│   ├── authentication/   # Autenticación y verificación de email
 │   ├── users/            # Gestión de usuarios
 │   ├── courses/          # Cursos y formación
 │   ├── services/         # Servicios empresariales
@@ -103,9 +104,9 @@ ordinaly/
     │       └── team/
     ├── src/
     │   ├── app/
-    │   │   ├── api/        # Route handlers (leads, google-reviews, revalidate)
+    │   │   ├── api/        # Route handlers (leads, google-reviews, revalidate, auth)
     │   │   ├── studio/     # Sanity Studio
-    │   │   └── [locale]/   # Rutas intternacionalizadas de cada sección
+    │   │   └── [locale]/   # Rutas internacionalizadas de cada sección
     │   ├── components/
     │   ├── contexts/
     │   ├── hooks/
@@ -132,7 +133,12 @@ ordinaly/
                         <li>management/commands/ — Comandos personalizados</li>
                     </ul>
                 </li>
-                <li><b>users/</b> — Gestión de usuarios y autenticación
+                <li><b>authentication/</b> — Autenticación, verificación de email y middleware
+                    <ul>
+                        <li>models.py, serializers.py, views.py, urls.py, admin.py, middleware.py, utils.py, tests.py</li>
+                    </ul>
+                </li>
+                <li><b>users/</b> — Gestión de usuarios
                     <ul>
                         <li>models.py, serializers.py, views.py, urls.py, admin.py, authentication.py, tests.py</li>
                     </ul>
@@ -174,16 +180,26 @@ ordinaly/
             <b>Páginas principales (Next.js App Router):</b>
             <ul>
                 <li><code>/[locale]/page.tsx</code> — Home</li>
-                <li><code>/[locale]/services/page.tsx</code> — Servicios</li>
+                <li><code>/[locale]/servicios/page.tsx</code> — Servicios (listado)</li>
+                <li><code>/[locale]/services/[slug]/page.tsx</code> — Detalle de servicio</li>
                 <li><code>/[locale]/formation/page.tsx</code> — Cursos y formación</li>
-                <li><code>/[locale]/contact/page.tsx</code> — Contacto</li>
+                <li><code>/[locale]/contacto/page.tsx</code> — Contacto</li>
                 <li><code>/[locale]/about/page.tsx</code> — Sobre nosotros</li>
                 <li><code>/[locale]/blog/page.tsx</code> — Blog</li>
+                <li><code>/[locale]/blog/[slug]/page.tsx</code> — Post de blog</li>
                 <li><code>/[locale]/legal/page.tsx</code> — Documentación legal</li>
+                <li><code>/[locale]/faq/page.tsx</code> — Preguntas frecuentes</li>
+                <li><code>/[locale]/news/page.tsx</code> — Noticias</li>
+                <li><code>/[locale]/investors/page.tsx</code> — Inversores</li>
                 <li><code>/[locale]/profile/page.tsx</code> — Perfil de usuario</li>
                 <li><code>/[locale]/admin/page.tsx</code> — Panel de administración</li>
                 <li><code>/[locale]/auth/signin/page.tsx</code> — Iniciar sesión</li>
                 <li><code>/[locale]/auth/signup/page.tsx</code> — Registro</li>
+                <li><code>/[locale]/verify-email/page.tsx</code> — Verificación de email</li>
+                <li><code>/[locale]/change-email/page.tsx</code> — Cambio de email</li>
+                <li><code>/[locale]/reset-password/page.tsx</code> — Recuperación de contraseña</li>
+                <li><code>/[locale]/delete_account/page.tsx</code> — Eliminación de cuenta</li>
+                <li>Landing pages SEO: empresa-inteligencia-artificial, inteligencia-artificial-sevilla, chatbots-personalizados-para-empresas, automatizacion-inteligente, automatizacion-facturas, automatizacion-n8n-sevilla, formacion-ia-pymes-sevilla</li>
                 <li><code>/studio/[[...tool]]/page.tsx</code> — Sanity Studio</li>
             </ul>
             <b>API routes (Next.js):</b>
@@ -191,6 +207,8 @@ ordinaly/
                 <li><code>/api/leads/route.ts</code> — Captación de leads</li>
                 <li><code>/api/google-reviews/route.ts</code> — Reviews públicas</li>
                 <li><code>/api/revalidate/route.ts</code> — Revalidación ISR</li>
+                <li><code>/api/auth/signin/route.ts</code> — Autenticación (sign in)</li>
+                <li><code>/api/auth/signup/route.ts</code> — Autenticación (sign up)</li>
             </ul>
             <b>Componentes principales:</b>
             <ul>
@@ -202,13 +220,14 @@ ordinaly/
                 <li><b>Home:</b> courses-showcase, demo-modal, pricing-plans, service-showcase, whatsapp-bubble</li>
                 <li><b>Profile:</b> profile-courses-tab, profile-info-tab</li>
                 <li><b>PWA:</b> service-worker-registrar</li>
-                <li><b>Services:</b> service-details-modal</li>
-                <li><b>UI:</b> admin-tabs, alert, back-to-top-button, badge, button, card, colourful-text, cookies, delete-account-modal, delete-confirmation-modal, dropdown, footer, icon-select, input, label, lazy-image, locale-switcher, logout-modal, markdown-renderer, modal-close-button, modal, navbar, slider, styled-button, textarea</li>
+                <li><b>SEO:</b> componentes de landing pages optimizadas</li>
+                <li><b>Services:</b> service-apple-details-modal, service-bento-grid, service-card, service-details-content</li>
+                <li><b>UI:</b> 3d-card, 3d-globe, alert, apple-modal, back-to-top-button, badge, banner, button, card, card-3d, card-stack, chat-message-list, contact-form.client, cookies, delete-account-modal, delete-confirmation-modal, dropdown, email-verification-modal, error-card, footer, hub-figures, icon-select, input, interactive-image-accordion, label, locale-switcher, logo-carousel, logout-modal, markdown-renderer, modal-close-button, modal, n8n-conectamos, navbar, newsletter-section, pagination-controls, partner-showcase, slider, styled-button, textarea, third-party-consent, wobble-card, work-with-us, youtube-preview</li>
                 <li><b>Auth:</b> auth-modal, google-signin-button</li>
             </ul>
             <b>Utilidades y hooks:</b>
             <ul>
-                <li>useCourses, useServices, useIntersectionObserver</li>
+                <li>useCourses, useCourseCheckout, useCourseRefund, useServices, useCookiePreferences, useAutoScroll, useOutsideClick</li>
             </ul>
             <b>CMS (Sanity):</b>
             <ul>
@@ -228,11 +247,14 @@ ordinaly/
 
 ## Características principales
 
-- **Backend Django REST:** API robusta para cursos, usuarios, servicios y términos legales.
-- **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones.
+- **Backend Django REST:** API robusta para cursos, usuarios, servicios, autenticación y términos legales.
+- **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones 3D.
 - **Internacionalización (i18n):** Traducciones completas (es, en) usando next-intl.
-- **Gestión de cursos:** Horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook).
+- **Autenticación completa:** Registro, verificación de email, cambio de email, recuperación de contraseña y OAuth con Google.
+- **Gestión de cursos:** Horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook) y pagos con Stripe.
 - **Panel de administración:** Gestión avanzada de usuarios, cursos, servicios y términos.
+- **CMS con Sanity:** Gestión de contenido para blog, servicios y páginas.
+- **Landing pages SEO:** Páginas optimizadas para búsquedas de IA y automatización en Sevilla.
 - **Integración con WhatsApp y Odoo:** Automatización de ventas y flujos empresariales.
 - **Accesibilidad y SEO:** Buenas prácticas, sitemap, robots.txt, imágenes optimizadas.
 
@@ -289,7 +311,7 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
     npm run dev
     ```
 
-4. Opcionalmente, para ejecurtar la build de producción:
+4. Opcionalmente, para ejecutar la build de producción:
     ```sh
     cd ../frontend
     npm run build
@@ -306,10 +328,10 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
 ##  Dependencias principales
 
 ### Backend (Django)
-- Django, djangorestframework, django-cors-headers, Pillow, gunicorn, whitenoise, dotenv, markdown, reportlab
+- Django, djangorestframework, django-cors-headers, drf-spectacular, djangorestframework-simplejwt, google-auth, Pillow, psycopg, gunicorn, whitenoise, python-dotenv, markdown, reportlab, stripe
 
 ### Frontend (Next.js)
-- next, react, next-intl, tailwindcss, lucide-react, styled-components, react-markdown, framer-motion, jspdf
+- next, react, next-intl, tailwindcss, framer-motion, lucide-react, @tabler/icons-react, @react-three/fiber, @react-three/drei, cobe, sanity, next-sanity, @stripe/stripe-js, react-google-recaptcha-v3, react-toastify, react-markdown, jspdf
 
 ---
 
@@ -336,7 +358,7 @@ Y para comprobar el rendimiento, SEO, medidas de accesibilidad y buenas práctic
 
 ```
 npx lighthouse http://localhost:3000/es --form-factor=mobile --view
-# Se puede probar /es, /es/services o cualquier otra ruta
+# Se puede probar /es, /es/servicios o cualquier otra ruta
 ```
 
 ### Probar pagos de cursos (Stripe)
@@ -359,19 +381,19 @@ Para testear el flujo de pagos con Stripe en local:
 
 ##  Contribuir
 
-- **💬 [Únete a las discusiones](https://LOCAL/Developer/ordinaly/discussions)**: Comparte tus ideas, proporciona comentarios o haz preguntas.
-- **🐛 [Reportar problemas](https://LOCAL/Developer/ordinaly/issues)**: Envía errores encontrados o registra solicitudes de funciones para el proyecto `ordinaly`.
-- **💡 [Enviar solicitudes de extracción](https://LOCAL/Developer/ordinaly/blob/main/CONTRIBUTING.md)**: Revisa las PR abiertas y envía tus propias PR.
+- **💬 [Únete a las discusiones](https://github.com/ordinaly-software/ordinaly/discussions)**: Comparte tus ideas, proporciona comentarios o haz preguntas.
+- **🐛 [Reportar problemas](https://github.com/ordinaly-software/ordinaly/issues)**: Envía errores encontrados o registra solicitudes de funciones para el proyecto `ordinaly`.
+- **💡 [Enviar solicitudes de extracción](https://github.com/ordinaly-software/ordinaly/blob/main/CONTRIBUTING.md)**: Revisa las PR abiertas y envía tus propias PR.
 
 
 <details closed>
 <summary>Guías de contribución</summary>
 
 
-1. **Haz un fork del repositorio**: Comienza haciendo un fork del repositorio del proyecto a tu cuenta de LOCAL.
+1. **Haz un fork del repositorio**: Comienza haciendo un fork del repositorio del proyecto a tu cuenta de GitHub.
 2. **Clona localmente**: Clona el repositorio forkeado en tu máquina local usando un cliente de git.
     ```sh
-    git clone /home/tu_usuario/Developer/ordinaly
+    git clone https://github.com/tu_usuario/ordinaly.git
     ```
 3. **Crea una nueva rama**: Trabaja siempre en una nueva rama, dándole un nombre descriptivo.
     ```sh
@@ -383,7 +405,7 @@ Para testear el flujo de pagos con Stripe en local:
     ```sh
     git commit -m 'Implementada la nueva característica x.'
     ```
-7. **Envía a LOCAL**: Envía los cambios a tu repositorio forkeado.
+7. **Envía a GitHub**: Envía los cambios a tu repositorio forkeado.
     ```sh
     git push origin nueva-caracteristica-x
     ```
@@ -395,8 +417,8 @@ Para testear el flujo de pagos con Stripe en local:
 <summary>Gráfico de contribuidores</summary>
 <br>
 <p align="left">
-   <a href="https://LOCAL{/Developer/ordinaly/}graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=Developer/ordinaly">
+   <a href="https://github.com/ordinaly-software/ordinaly/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=ordinaly-software/ordinaly">
    </a>
 </p>
 </details> -->
