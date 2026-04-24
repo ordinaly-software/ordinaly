@@ -1,3 +1,4 @@
+import email
 import json
 import logging
 
@@ -27,11 +28,12 @@ from rest_framework.response import Response
 from django.conf import settings
 import requests
 from .models import NewsletterSignup
+import jwt
+from datetime import datetime, time, timedelta
+from django.conf import settings
+from django.core.mail import send_mail
 
 logger = logging.getLogger(__name__)
-
-
-
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = CustomUser.objects.all()
@@ -273,43 +275,111 @@ class UserViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['patch'], permission_classes=[IsAuthenticated])
     def update_profile(self, request):
-        """Update current user's profile information"""
         user = request.user
         previous_email = user.email
         pending_email = None
         update_data = request.data.copy()
         raw_email = update_data.get("email")
 
+        # Guardamos el valor antiguo ANTES de actualizar
+        old_allow_notifications = user.allow_notifications
+
+        # Manejo de cambio de email verificado
         if user.email_verified_at:
             try:
                 pending_email = self._validated_verified_email_change(user, raw_email)
             except ValidationError as exc:
                 return Response(exc.detail, status=status.HTTP_400_BAD_REQUEST)
+
             if pending_email:
                 update_data.pop("email", None)
 
         serializer = self.get_serializer(user, data=update_data, partial=True)
+
         if serializer.is_valid():
+            # Si hay cambio de email pendiente
             if pending_email:
                 try:
                     self._start_verified_email_change(user, pending_email)
                 except Exception:
-                    logger.exception("Failed to send verification email for pending email change on user %s", user.pk)
                     return Response(
                         {"email": ["No se pudo enviar el correo de verificación"]},
                         status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                     )
             updated_user = serializer.save()
+            new_allow_notifications = updated_user.allow_notifications
+
+            if old_allow_notifications != new_allow_notifications:
+                import requests
+
+                ACTIVE_GROUP_ID = 14
+                GLOBAL_API_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOjEsInVzZXJuYW1lIjoiYmlsbGlvbiIsInJvbGVzIjpbImFkbWluIl0sImFwaVRva2VuIjp0cnVlLCJpc3MiOiJiaWxsaW9uLW1haWwiLCJzdWIiOiJhcGlfdG9rZW4iLCJuYmYiOjE3NjkwMTA2NTQsImlhdCI6MTc2OTAxMDY1NCwianRpIjoiMWsxeTFtbW8wMDBkZnVkeHZvdnZlZTQxMDBqY3kzZWgxazF5MW1tbzAwMGRmdWR4dm92dnRldzIwMGFka2w4ZiJ9.aeFICXh-gsb4a8fxKJMJW2otO0jq9bNmlyK9lVYOEeo"
+
+                if new_allow_notifications is True:
+                # Subscriber
+                    url = f"https://mail.ordinaly.ai/api/subscribe/submit?token=67967eec427b"
+                    data = {
+                        "email": updated_user.email,
+                        "name": updated_user.name or "",
+                        "attribs": "{}"
+                    }
+                    r = requests.post(url, data=data)
+
+                else:
+    
+                    headers = {
+                        "Authorization": GLOBAL_API_TOKEN,
+                        "Content-Type": "application/json"
+                    }
+
+                    # Obtener el ID del contacto
+                    r_list = requests.get(
+                    "https://mail.ordinaly.ai/api/contact/list",
+                    params={
+                        "group_id": ACTIVE_GROUP_ID,
+                        "email": updated_user.email,
+                        "page": 1,
+                        "page_size": 10
+                    },
+                    headers=headers
+                    )
+                    data = r_list.json()
+                    contactos = data.get("data", {}).get("list", [])
+    
+                    contacto = next((c for c in contactos if c["email"] == updated_user.email), None)
+    
+                    if not contacto:
+                        print("Contacto no encontrado en BillionMail")
+                    else:
+                        contact_id = contacto["id"]
+                        print("Contacto encontrado, ID:", contact_id)
+
+                    # Cambiar a Unsubscribed
+                    r_edit = requests.post(
+                        "https://mail.ordinaly.ai/api/contact/edit_ndp",
+                        json={
+                            "id": contact_id,
+                            "active": 0,
+                            "status": 1,
+                            "attribs": "{}"
+                        },
+                        headers=headers
+                    )
+
+            # Notificación de cambio de email
             if not pending_email:
                 try:
                     queue_and_dispatch_email_updated_notification(updated_user, previous_email)
                 except Exception:
-                    logger.exception("Failed to send email update notification for user %s", updated_user.pk)
+                    pass
+
             return Response(
                 self._update_response_payload(serializer, pending_email=pending_email),
                 status=status.HTTP_200_OK,
             )
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
     @action(detail=False, methods=['delete'], permission_classes=[IsAuthenticated])
     def delete_profile(self, request):
