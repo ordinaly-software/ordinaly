@@ -10,6 +10,7 @@ import { Link } from "@/i18n/navigation";
 import {
   faqCategories,
   faqEntries,
+  FaqTagKey,
   localizeFaq,
   type FaqCategoryKey,
 } from "./faq-data";
@@ -34,6 +35,7 @@ export default function FaqPageClient({ locale }: { locale: string }) {
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
   const [activeCategory, setActiveCategory] = useState<"all" | FaqCategoryKey>("all");
+  const [activeTag, setActiveTag] = useState<"all" | FaqTagKey>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
 

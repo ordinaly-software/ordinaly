@@ -121,7 +121,7 @@ export const Menu = ({
     <nav
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative flex items-center space-x-6"
+      className="relative flex items-center space-x-4 xl:space-x-6"
     >
       {children}
     </nav>

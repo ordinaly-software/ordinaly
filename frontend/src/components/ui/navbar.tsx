@@ -437,13 +437,9 @@ const Navbar = () => {
   const showAuthButtons = effectiveViewportWidth >= 1024;
 
   const maxVisibleItems = useMemo(() => {
-    if (effectiveViewportWidth >= 1440) return navItems.length;
-    if (effectiveViewportWidth >= 1360) return 4;
-    if (effectiveViewportWidth >= 1280) return 3;
-    if (effectiveViewportWidth >= 1200) return showCta || showAuthButtons ? 2 : 3;
-    // Prioritize CTA/auth and burger from md widths down.
+    if (effectiveViewportWidth >= 1024) return navItems.length;
     return 0;
-  }, [effectiveViewportWidth, navItems.length, showAuthButtons, showCta]);
+  }, [effectiveViewportWidth, navItems.length]);
 
   const visibleItems = useMemo(() => {
     const n = Math.max(0, maxVisibleItems);
@@ -619,18 +615,6 @@ const Navbar = () => {
                   />
                 ) : (
                   <>
-                    <div className="flex items-center space-x-2">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={goToSignIn}
-                        aria-label={t("navigation.signIn")}
-                        className="text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay transition-all duration-200 flex items-center h-8 sm:h-9 text-xs sm:text-sm"
-                      >
-                        <LogIn className="h-4 w-4 mr-2" />
-                        <span>{t("navigation.signIn")}</span>
-                      </Button>
-
                       <Button
                         variant="default"
                         size="sm"
@@ -639,7 +623,6 @@ const Navbar = () => {
                       >
                         {t("navigation.signUp")}
                       </Button>
-                    </div>
                   </>
                 )
               ) : null}
