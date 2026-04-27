@@ -273,7 +273,7 @@
     },
     "courses": {
       "noSpecificDate": "No specific date",
-      "showcaseTitle": "Courses from the AI automation agency",
+      "showcaseTitle": "Automation agency and more",
       "showcaseDescription": "Join our professional training courses and advance your career",
       "upcomingTitle": "Upcoming courses",
       "upcomingDescription": "Discover our professional training courses",
@@ -2581,9 +2581,9 @@
       ],
       "sectionTitles": {
         "valueProps": "What your team will learn",
-        "metrics": "Format and materials",
-        "carousel": "Training in action",
-        "experts": "Who delivers the training",
+        "metrics": "AI training in Seville",
+        "carousel": "AI training for SMEs",
+        "experts": "AI teachers in Seville",
         "technologyFaqs": "Frequently asked questions",
         "curiosities": "Facts and insights",
         "ctaTitle": "Want to plan a training session?",

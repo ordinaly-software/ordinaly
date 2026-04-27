@@ -148,18 +148,7 @@ const Footer = () => {
     <footer className="border-t border-[--color-border-subtle] bg-[#f5f5f7] text-slate-medium dark:border-[--color-border-strong] dark:bg-[#0f1012] dark:text-cloud-medium">
       <div className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 py-10 md:py-12">
         <div className="border-b border-[--color-border-subtle] pb-4 text-sm leading-relaxed dark:border-[--color-border-strong]">
-            <Image
-              src="/logo_80.webp"
-              alt={t("footer.logo.alt")}
-              width={28}
-              height={28}
-              className="h-7 w-7 rounded-md"
-              style={{
-                filter: isDark
-                  ? "grayscale(1) brightness(0) invert(1)"
-                  : "grayscale(1) brightness(0) opacity(0.86)",
-              }}
-            />
+            <p>Ordinaly Agencia de Automatización</p>
         </div>
 
         <div className="grid gap-4 py-4 md:grid-cols-2 xl:grid-cols-[1.35fr_repeat(4,1fr)]">

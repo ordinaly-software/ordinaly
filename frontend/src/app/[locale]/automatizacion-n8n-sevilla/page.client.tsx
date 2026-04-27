@@ -124,9 +124,9 @@ export default function AutomatizacionesN8NnSevillaPage() {
       </section>
 
       <section className="py-24 px-6 bg-white dark:bg-neutral-900">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 dark:text-white">
+        <p className="text-3xl md:text-4xl font-bold text-center mb-16 dark:text-white">
           {content.sectionTitles?.integrations}
-        </h2>
+        </p>
         <div className="max-w-6xl mx-auto">
           <N8nFlow />
         </div>
