@@ -66,7 +66,7 @@ def send_verification_email(email: str, code: str):
       <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
     <![endif]-->
     <style>
-      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#316C20;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
+      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#d97757;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
       html,body{{margin:0;padding:0;background:var(--bg);}}
       img{{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}}
       a{{color:inherit;text-decoration:none;}}
@@ -434,7 +434,7 @@ def send_welcome_email(email: str, user_name: str):
               <!-- Single CTA -->
               <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                 <tr>
-                  <td bgcolor="#316C20" style="border-radius:12px;background:#316C20;background-image:linear-gradient(#316C20,#316C20);">
+                  <td bgcolor="#d97757" style="border-radius:12px;background:#d97757;background-image:linear-gradient(#d97757,#d97757);">
                     <a href="https://ordinaly.ai/services"
                        target="_blank" rel="noopener noreferrer"
                        style="display:inline-block;padding:12px 18px;font:800 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;
@@ -555,7 +555,7 @@ def send_password_reset_email(email: str, token: str, user_name: str):
       <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
     <![endif]-->
     <style>
-      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#316C20;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
+      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#d97757;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
       html,body{{margin:0;padding:0;background:var(--bg);}}
       img{{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}}
       a{{color:inherit;text-decoration:none;}}
@@ -609,7 +609,7 @@ def send_password_reset_email(email: str, token: str, user_name: str):
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
               <tr><td align="center">
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
-                  <tr><td align="center" bgcolor="#316C20" style="border-radius:10px;">
+                  <tr><td align="center" bgcolor="#d97757" style="border-radius:10px;">
                     <a href="{reset_url}" target="_blank" rel="noopener noreferrer"
                        style="display:inline-block;padding:14px 28px;font:800 15px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,Helvetica,sans-serif;color:#ffffff;text-decoration:none;border-radius:10px;">
                       Restablecer contrase&ntilde;a
@@ -779,7 +779,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
       <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
     <![endif]-->
     <style>
-      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#316C20;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
+      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#d97757;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
       html,body{{margin:0;padding:0;background:var(--bg);}}
       img{{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}}
       a{{color:inherit;text-decoration:none;}}
@@ -867,7 +867,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
 
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
               <tr>
-                <td align="center" bgcolor="#316C20" style="border-radius:10px;">
+                <td align="center" bgcolor="#d97757" style="border-radius:10px;">
                   <a href="{course_url}" target="_blank" rel="noopener noreferrer"
                      style="display:inline-block;padding:12px 18px;font:700 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,Helvetica,sans-serif;color:#ffffff;text-decoration:none;border-radius:10px;">
                     Ver mi formaci&oacute;n
@@ -973,7 +973,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
       <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
     <![endif]-->
     <style>
-      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#316C20;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
+      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#d97757;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
       html,body{{margin:0;padding:0;background:var(--bg);}}
       img{{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}}
       a{{color:inherit;text-decoration:none;}}
@@ -1055,7 +1055,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
 
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
               <tr>
-                <td align="center" bgcolor="#316C20" style="border-radius:10px;">
+                <td align="center" bgcolor="#d97757" style="border-radius:10px;">
                   <a href="{formation_url}" target="_blank" rel="noopener noreferrer"
                      style="display:inline-block;padding:12px 18px;font:700 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,Helvetica,sans-serif;color:#ffffff;text-decoration:none;border-radius:10px;">
                     Explorar otras formaciones

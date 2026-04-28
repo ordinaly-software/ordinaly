@@ -313,7 +313,7 @@ class UserViewSet(viewsets.ModelViewSet):
                 import requests
 
                 ACTIVE_GROUP_ID = 14
-                GLOBAL_API_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50SWQiOjEsInVzZXJuYW1lIjoiYmlsbGlvbiIsInJvbGVzIjpbImFkbWluIl0sImFwaVRva2VuIjp0cnVlLCJpc3MiOiJiaWxsaW9uLW1haWwiLCJzdWIiOiJhcGlfdG9rZW4iLCJuYmYiOjE3NjkwMTA2NTQsImlhdCI6MTc2OTAxMDY1NCwianRpIjoiMWsxeTFtbW8wMDBkZnVkeHZvdnZlZTQxMDBqY3kzZWgxazF5MW1tbzAwMGRmdWR4dm92dnRldzIwMGFka2w4ZiJ9.aeFICXh-gsb4a8fxKJMJW2otO0jq9bNmlyK9lVYOEeo"
+                GLOBAL_API_TOKEN = settings.BILLIONMAIL_TOKEN
 
                 if new_allow_notifications is True:
                 # Subscriber

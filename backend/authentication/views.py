@@ -293,8 +293,8 @@ class RequestDeleteAccountView(APIView):
 
         try:
             send_delete_confirmation_email(user.email, token, user.name or user.username)
-        except Exception:
-            # print(f"Failed to send delete confirmation email: {e}")
+        except Exception as e:
+            print(f"Failed to send delete confirmation email: {e}")
             return Response(
                 {"error": "No se pudo enviar el correo de confirmación"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -490,6 +490,49 @@ class ConfirmDeleteAccountView(APIView):
 
         if not user.deletion_token_expires_at or timezone.now() > user.deletion_token_expires_at:
             return Response({"error": "Token expirado"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # BORRAR EN BILLIONMAIL
+        import requests
+        from django.conf import settings
+
+        try:
+            headers_bm = {
+                "Authorization": settings.BILLIONMAIL_TOKEN,
+                "Content-Type": "application/json"
+            }
+
+            # PASO 1: Obtener el ID del contacto
+            r_list = requests.get(
+                "https://mail.ordinaly.ai/api/contact/list",
+                params={
+                    "email": user.email,
+                    "page": 1,
+                    "page_size": 10,
+                    "search": user.email  # prueba también con search
+                },
+                headers=headers_bm
+            )           
+            contactos = r_list.json().get("data", {}).get("list", [])
+            contacto = next((c for c in contactos if c["email"] == user.email), None)
+
+            if contacto:
+                contact_id = contacto["id"]
+                # PASO 2: Borrado global
+                requests.post(
+                    "https://mail.ordinaly.ai/api/contact/delete",
+                    json={
+                        "ids": [contact_id],
+                        "emails": [user.email],
+                        "status": 1
+                    },
+                    headers=headers_bm
+                )
+                print("Contacto eliminado de BillionMail")
+            else:
+                print("Contacto no encontrado en BillionMail")
+
+        except Exception as e:
+            print("Error deleting from BillionMail:", e)
 
         user.delete()
         return Response({"message": "Cuenta eliminada"}, status=status.HTTP_200_OK)
