@@ -213,9 +213,9 @@ export default function FormacionIaPymesSevillaPage() {
       </section>
 
       <section className="py-24 max-w-5xl mx-auto px-6">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
+        <p className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
           {content.sectionTitles?.technologyFaqs}
-        </h2>
+        </p>
 
         <div className="space-y-8">
           {content.technologyFaqs.map((faq: any, i: number) => (
@@ -243,10 +243,10 @@ export default function FormacionIaPymesSevillaPage() {
       </section>
 
       <section className="py-20 bg-neutral-50 dark:bg-neutral-900">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-20 
+        <p className="text-4xl md:text-5xl font-bold text-center mb-20 
                  text-neutral-900 dark:text-white">
           {content.sectionTitles?.curiosities}
-        </h2>
+        </p>
 
         <div className="max-w-5xl mx-auto">
           <CardStackDemo

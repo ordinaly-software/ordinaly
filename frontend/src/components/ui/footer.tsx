@@ -161,7 +161,6 @@ const Footer = () => {
               }}
             />
         </div>
-
         <div className="grid gap-4 py-4 md:grid-cols-2 xl:grid-cols-[1.35fr_repeat(4,1fr)]">
           <div className="max-w-sm">
             <div className="flex items-center gap-3">

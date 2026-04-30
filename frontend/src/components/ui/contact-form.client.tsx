@@ -155,7 +155,7 @@ export default function ContactForm({
             <p className="text-sm uppercase tracking-[0.2em] text-clay dark:text-clay font-semibold">
               {t("form.eyebrow")}
             </p>
-            <h2 className="text-3xl font-bold text-slate-dark dark:text-[var(--swatch--ivory-light)]">{t("form.title")}</h2>
+            <p className="text-3xl font-bold text-slate-dark dark:text-[var(--swatch--ivory-light)]">{t("form.title")}</p>
             <p className="text-slate-medium dark:text-cloud-medium">{t("form.subtitle")}</p>
           </div>
 

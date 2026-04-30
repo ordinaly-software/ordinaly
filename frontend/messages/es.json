@@ -274,7 +274,7 @@
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
       "locationSoon": "Ubicación próximamente",
-      "showcaseTitle": "Cursos de la agencia de automatización IA",
+      "showcaseTitle": "Agencia de automatizaciones y más",
       "showcaseDescription": "En Ordinaly, ofrecemos cursos de formación profesional para empresas y profesionales que desean aprovechar al máximo las tecnologías emergentes.",
       "upcomingTitle": "Próximos cursos",
       "upcomingDescription": "Descubre nuestros cursos de formación",
@@ -314,7 +314,7 @@
     "footer": {
       "logo": {
         "title": "ORDINALY",
-        "alt": "Logo de Ordinaly"
+        "alt": "Ordinaly Agencia de Automatización"
       },
       "description": "Automatización, agentes IA y formación desde Sevilla para equipos que necesitan operar mejor.",
       "sections": {
@@ -2581,9 +2581,9 @@
       ],
       "sectionTitles": {
         "valueProps": "Qué aprenderá tu equipo",
-        "metrics": "Formato y materiales",
-        "carousel": "Formación en acción",
-        "experts": "Quién imparte la formación",
+        "metrics": "Formación en IA en Sevilla",
+        "carousel": "Formación en IA para PYMES",
+        "experts": "Profesores de IA en Sevilla",
         "technologyFaqs": "Preguntas frecuentes",
         "curiosities": "Datos y curiosidades",
         "ctaTitle": "¿Quieres planificar una formación?",
