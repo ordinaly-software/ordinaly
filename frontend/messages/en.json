@@ -1818,7 +1818,8 @@
       "whatsapp": "WhatsApp",
       "facebook": "Facebook",
       "linkedin": "LinkedIn",
-      "shareMessage": "Read this post from {siteTag}: \"{title}\" - {excerpt}"
+      "shareMessage": "Read this post from {siteTag}: \"{title}\" - {excerpt}",
+      "copyLink": "Copy link"
     },
     "loading": "Loading more posts...",
     "pagination": {

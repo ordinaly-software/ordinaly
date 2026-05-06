@@ -279,7 +279,7 @@ export const AdminServiceEditModal = ({
         // Reserved routes that exist as top-level pages in the app
         const reservedSlugs = [
           "about", "admin", "auth", "blog", "change-email", "contact",
-          "delete_account", "formation", "investors", "legal", "news",
+          "delete_account", "formacion", "investors", "legal", "news",
           "profile", "reset-password", "services", "verify-email",
           // Landing page slugs
           "chatbots-empresas-sevilla", "automatizacion-n8n-sevilla",

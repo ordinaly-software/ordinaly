@@ -483,7 +483,7 @@ export async function generateCoursesCatalogPDF(
       try {
         const origin = (typeof window !== 'undefined' && window.location && window.location.origin) ? window.location.origin : '';
         const courseSlug = course.slug || '';
-        const courseUrl = `${origin}/formation/${courseSlug}`;
+        const courseUrl = `${origin}/formacion/${courseSlug}`;
         pdf.setFontSize(10);
         pdf.setTextColor(primaryColor);
         pdf.setFont('helvetica', 'normal');

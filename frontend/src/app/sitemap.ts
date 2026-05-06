@@ -18,7 +18,7 @@ const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; prior
   { path: "/contacto", changeFrequency: "weekly", priority: 0.7 },
   { path: "/about", changeFrequency: "weekly", priority: 0.7 },
   { path: "/servicios", changeFrequency: "weekly", priority: 0.8 },
-  { path: "/formation", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/formacion", changeFrequency: "weekly", priority: 0.7 },
   { path: "/faq", changeFrequency: "weekly", priority: 0.75 },
   { path: "/blog", changeFrequency: "daily", priority: 0.8 },
   { path: "/news", changeFrequency: "daily", priority: 0.7 },
@@ -107,7 +107,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     courses.forEach((course) => {
       const identifier = course?.slug || course?.id;
       if (!isValidSlug(identifier)) return;
-      addPath(`/formation/${identifier}`, "weekly", 0.7);
+      addPath(`/formacion/${identifier}`, "weekly", 0.7);
     });
 
     // Keep root and top-level sections before deeper routes.

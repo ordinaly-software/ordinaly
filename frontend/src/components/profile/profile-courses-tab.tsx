@@ -165,7 +165,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
                           </div>
                           <Button
                             variant="outline"
-                            onClick={() => router.push(`/formation/${course.slug ?? course.id}`)}
+                            onClick={() => router.push(`/formacion/${course.slug ?? course.id}`)}
                             className="self-start sm:self-auto"
                           >
                             {t("courses.viewDetails")}
@@ -234,7 +234,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
                           </div>
                           <Button
                             variant="outline"
-                            onClick={() => router.push(`/formation/${course.slug ?? course.id}`)}
+                            onClick={() => router.push(`/formacion/${course.slug ?? course.id}`)}
                             className="self-start sm:self-auto"
                           >
                             {t("courses.viewDetails")}
@@ -247,7 +247,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
               </div>
               <div className="pt-4 flex justify-center">
                 <Button
-                  onClick={() => router.push("/formation")}
+                  onClick={() => router.push("/formacion")}
                   className="bg-[#0144AA] hover:bg-[#01388A] text-white dark:bg-[#7DB5FF] dark:hover:bg-[#60A5FA] dark:text-black font-semibold px-6 py-3 rounded-full shadow-[0_15px_40px_rgba(2,85,213,0.35)] hover:shadow-[0_20px_50px_rgba(2,85,213,0.4)] transition-all duration-200"
                 >
                   {t("courses.enrollCta")}

@@ -424,7 +424,7 @@ const Navbar = () => {
   const navItems = useMemo(
     () => [
       ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/servicios", label: t("navigation.services") }] : []),
-      ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formation", label: t("navigation.formation") }] : []),
+      ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formacion", label: t("navigation.formation") }] : []),
       ...(locale !== "en" ? [{ id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") }] : []),
       { id: "faq", type: "link", href: "/faq", label: t("navigation.faq") },
       { id: "about", type: "link", href: "/about", label: t("navigation.us") },
@@ -550,13 +550,13 @@ const Navbar = () => {
                                 key={course.id}
                                 title={course.title}
                                 description={course.subtitle || course.description}
-                                href={`/formation/${course.slug ?? course.id}`}
+                                href={`/formacion/${course.slug ?? course.id}`}
                                 src={course.image}
                                 loadOnHover={false}
                                 loadEnabled={shouldLoadCourseImages}
                               />
                             ))}
-                          <HoveredLink href="/formation">{t("navigation.formationSubmenu")}</HoveredLink>
+                          <HoveredLink href="/formacion">{t("navigation.formationSubmenu")}</HoveredLink>
                         </div>
                       )}
                       {item.id === "blog" && (
@@ -696,7 +696,7 @@ const Navbar = () => {
                       menuCourses.map((course) => (
                         <Link
                           key={course.id}
-                          href={`/formation/${course.slug ?? course.id}`}
+                          href={`/formacion/${course.slug ?? course.id}`}
                           onClick={() => setIsMenuOpen(false)}
                           className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
                         >
@@ -711,7 +711,7 @@ const Navbar = () => {
                         </Link>
                       ))}
                     <Link
-                      href="/formation"
+                      href="/formacion"
                       onClick={() => setIsMenuOpen(false)}
                       className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
                     >

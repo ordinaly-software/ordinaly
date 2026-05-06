@@ -182,7 +182,7 @@ ordinaly/
                 <li><code>/[locale]/page.tsx</code> — Home</li>
                 <li><code>/[locale]/servicios/page.tsx</code> — Servicios (listado)</li>
                 <li><code>/[locale]/services/[slug]/page.tsx</code> — Detalle de servicio</li>
-                <li><code>/[locale]/formation/page.tsx</code> — Cursos y formación</li>
+                <li><code>/[locale]/formacion/page.tsx</code> — Cursos y formación</li>
                 <li><code>/[locale]/contacto/page.tsx</code> — Contacto</li>
                 <li><code>/[locale]/about/page.tsx</code> — Sobre nosotros</li>
                 <li><code>/[locale]/blog/page.tsx</code> — Blog</li>
