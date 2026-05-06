@@ -193,6 +193,20 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         )}
       </div>
 
+      <div className="max-w-3xl mx-auto px-4 pb-10">
+        <div className="rounded-2xl border border-clay/20 dark:border-clay/15 bg-white/80 dark:bg-gray-800/90 p-5 shadow-sm">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-clay dark:text-clay">
+            {t("relatedServices", { default: "Servicios relacionados" })}
+          </p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <li><a href="/inteligencia-artificial-sevilla" className="text-clay hover:text-flame hover:underline transition-colors">Inteligencia artificial en Sevilla</a></li>
+            <li><a href="/" className="text-clay hover:text-flame hover:underline transition-colors">Agencia de automatización con IA</a></li>
+            <li><a href="/empresa-inteligencia-artificial" className="text-clay hover:text-flame hover:underline transition-colors">Empresa de inteligencia artificial</a></li>
+            <li><a href="/automatizacion-facturas" className="text-clay hover:text-flame hover:underline transition-colors">Automatización de facturas</a></li>
+          </ul>
+        </div>
+      </div>
+
       <ContactForm />
 
       <WhatsAppBubble />

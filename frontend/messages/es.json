@@ -2568,6 +2568,7 @@
     "formacion-ia-pymes-sevilla": {
       "slug": "formacion-ia-pymes-sevilla",
       "title": "Formación en IA aplicada a procesos reales",
+      "description": "Formación práctica en inteligencia artificial para PYMES en Sevilla. Talleres adaptados a tu equipo para integrar la IA en procesos reales del día a día.",
       "shortTitle": "Formación IA",
       "heroBadge": "Formación operativa",
       "heroCtaLabel": "Planificar formación",
@@ -2688,6 +2689,8 @@
     "inteligencia-artificial-empresas": {
       "slug": "inteligencia-artificial-empresas",
       "title": "Inteligencia artificial para empresas",
+      "seoTitle": "Inteligencia artificial para empresas",
+      "seoDescription": "Inteligencia artificial para empresas: optimizamos procesos, reducimos trabajo repetitivo y potenciamos la toma de decisiones con IA a medida.",
       "shortTitle": "IA para empresas",
       "subtitle": "Automatizamos tareas, reducimos tiempos operativos y creamos copilotos internos adaptados a tu negocio.",
       "description": "Diseñamos e implantamos soluciones de IA que mejoran productividad, eliminan trabajo repetitivo y permiten a los equipos centrarse en tareas de mayor valor. Modelos privados, automatizaciones seguras y asistentes entrenados con tu propio conocimiento.",
@@ -2858,6 +2861,8 @@
     "inteligencia-artificial-sevilla": {
       "slug": "inteligencia-artificial-sevilla",
       "title": "Inteligencia artificial en Sevilla",
+      "seoTitle": "Inteligencia artificial en Sevilla",
+      "seoDescription": "Inteligencia artificial en Sevilla para pymes. Automatizamos procesos con IA personalizada para mejorar la rentabilidad de tu empresa.",
       "shortTitle": "IA para Empresas en Sevilla",
       "subtitle": "Automatizamos, optimizamos y escalamos procesos con IA para que tu empresa gane velocidad y precisión.",
       "description": "Desarrollamos soluciones de Inteligencia Artificial aplicadas a operaciones reales: automatización, asistentes inteligentes, análisis predictivo y optimización de procesos. Implementamos IA con criterio, datos limpios y despliegues que funcionan en producción.",

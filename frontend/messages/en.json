@@ -2569,6 +2569,7 @@
     "formacion-ia-pymes-sevilla": {
       "slug": "formacion-ia-pymes-sevilla",
       "title": "AI training applied to real business processes",
+      "description": "Practical AI training for SMEs in Seville. Workshops tailored to your team to integrate artificial intelligence into everyday business processes.",
       "shortTitle": "AI Training",
       "heroBadge": "Operational training",
       "heroCtaLabel": "Plan training",
@@ -2689,6 +2690,8 @@
     "inteligencia-artificial-empresas": {
       "slug": "inteligencia-artificial-empresas",
       "title": "Artificial Intelligence applied to business processes",
+      "seoTitle": "Artificial intelligence for business",
+      "seoDescription": "Artificial intelligence for businesses. We optimise processes and enhance decision-making with tailored AI solutions built for your needs.",
       "shortTitle": "AI for companies",
       "subtitle": "We automate tasks, reduce operational times and create internal copilots adapted to your business.",
       "description": "We design and implement AI solutions that improve productivity, eliminate repetitive work and allow teams to focus on higher-value tasks. Private models, secure automations and assistants trained with your own knowledge.",
@@ -2859,6 +2862,8 @@
     "inteligencia-artificial-sevilla": {
       "slug": "artificial-intelligence-sevilla",
       "title": "Artificial Intelligence in Seville",
+      "seoTitle": "AI services in Seville",
+      "seoDescription": "AI automation services for Seville businesses. We build custom AI solutions to optimise your processes and improve profitability.",
       "shortTitle": "AI for Businesses in Seville",
       "subtitle": "We automate, optimize and scale processes with AI so your company gains speed and precision.",
       "description": "We develop Artificial Intelligence solutions applied to real operations: automation, intelligent assistants, predictive analysis and process optimization. We implement AI with criteria, clean data and deployments that work in production.",
