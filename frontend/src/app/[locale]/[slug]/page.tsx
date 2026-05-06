@@ -62,6 +62,7 @@ export async function generateMetadata({
   // Check blog post first
   const post = await fetchBlogPost(slug);
   if (post) {
+    if (locale === "en") notFound();
     const title = post?.seoTitle ?? post.title;
     const desc = post?.seoDescription ?? post.excerpt ?? defaultDescription;
     const og = post.ogImage ?? post.mainImage ?? post.coverImage;
@@ -115,11 +116,12 @@ export default async function SlugPage({
 }: {
   params: Promise<{ locale: string; slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
 
   // Blog post check first (Sanity)
   const post = await fetchBlogPost(slug);
   if (post) {
+    if (locale === "en") notFound();
     const BlogPostClient = await getBlogPostClient();
     const { urlFor: urlForImg } = await import("@/lib/image");
     const coverImageAsset = post.coverImage?.asset ?? post.mainImage?.asset;

@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { Category } from './types';
 import { BlogPost } from './types';
@@ -73,7 +72,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick, compa
                   {cat.title}
                 </button>
               ) : (
-                <Link
+                <a
                   key={cat.slug}
                   href={`/blog?category=${cat.slug}`}
                   className="
@@ -87,7 +86,7 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick, compa
                   "
                 >
                   {cat.title}
-                </Link>
+                </a>
               )
             ) : null
           )}
@@ -103,9 +102,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick, compa
             ${compact ? 'text-base' : 'text-lg md:text-2xl line-clamp-2'}
           `}
         >
-          <Link href={`/${post.slug}`}>
+          <a href={`/${post.slug}`}>
             {post.seoTitle || post.title}
-          </Link>
+          </a>
         </h2>
 
         {/* Date */}

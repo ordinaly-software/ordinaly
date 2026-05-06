@@ -1,7 +1,6 @@
 "use client";
 
 import Image from 'next/image';
-import Link from 'next/link';
 import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { useTranslations } from 'next-intl';
@@ -93,10 +92,10 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         {/* Header row: back link | share buttons | date (responsive) */}
         <div className="mb-6 grid grid-cols-1 md:grid-cols-3 items-center gap-6">
           <div className="flex md:justify-start justify-center">
-            <Link href="/blog" className="inline-flex items-center gap-2 text-clay hover:text-flame hover:underline">
+            <a href="/blog" className="inline-flex items-center gap-2 text-clay hover:text-flame hover:underline">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
               {t("backToBlog")}
-            </Link>
+            </a>
           </div>
 
           <div className="flex md:justify-center justify-center">
@@ -171,13 +170,13 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                 <div className="flex flex-wrap gap-2 justify-center">
                   {visibleCategories.map((cat: Category) => (
                     cat?.slug ? (
-                      <Link
+                      <a
                         key={cat.slug}
                         href={`/blog?category=${cat.slug}`}
                         className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-clay/10 text-clay text-sm font-medium hover:bg-clay/20 transition w-fit"
                       >
                         {cat.title}
-                      </Link>
+                      </a>
                     ) : null
                   ))}
                 </div>

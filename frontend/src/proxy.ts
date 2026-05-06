@@ -18,11 +18,11 @@ const blogMiddleware = createMiddleware({
   defaultLocale: routing.defaultLocale,
 });
 
-const LOCALIZED_BLOG_PATH_PATTERN = /^\/(?:en|es)\/blog(?:\/|$)/;
+const LOCALIZED_BLOG_PATH_PATTERN = /^\/es\/blog(?:\/|$)/;
 const CANONICAL_BLOG_PATH_PATTERN = /^\/blog(?:\/|$)/;
 
 const stripLocaleFromBlogPath = (pathname: string) =>
-  pathname.replace(/^\/(?:en|es)(?=\/blog(?:\/|$))/, "") || "/";
+  pathname.replace(/^\/es(?=\/blog(?:\/|$))/, "") || "/";
 
 export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
