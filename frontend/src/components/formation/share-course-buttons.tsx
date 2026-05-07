@@ -60,9 +60,9 @@ export const ShareCourseButtons: React.FC<Props> = ({ title, subtitle, slug, the
       }
 
       const cleanSlug = slug.replace(/^\/+/, "");
-      const normalizedSlug = cleanSlug.replace(/^(?:[a-z]{2}\/)?formation\//i, "");
+      const normalizedSlug = cleanSlug.replace(/^(?:[a-z]{2}\/)?(?:formation|formacion)\//i, "");
       const localePart = locale || "es";
-      return `${baseUrl}/${localePart}/formation/${normalizedSlug}`;
+      return `${baseUrl}/${localePart}/formacion/${normalizedSlug}`;
     }
 
     if (typeof window !== 'undefined') {

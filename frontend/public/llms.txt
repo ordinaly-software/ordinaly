@@ -19,7 +19,7 @@ Ordinaly Software S.L. ayuda a empresas a implementar inteligencia artificial pr
 - [Formación IA para PYMES](https://ordinaly.ai/formacion-ia-pymes-sevilla): Capacitación práctica para equipos en Sevilla y remoto.
 
 ## Información Corporativa y Local
-- [Empresa de Inteligencia Artificial](https://ordinaly.ai/empresa-inteligencia-artificial): Quiénes somos y nuestra metodología.
+- [Empresa de Inteligencia artificial](https://ordinaly.ai/empresa-inteligencia-artificial): Quiénes somos y nuestra metodología.
 - [IA para Empresas](https://ordinaly.ai/inteligencia-artificial-empresas): Valor estratégico de la IA en el tejido empresarial.
 - [IA en Sevilla](https://ordinaly.ai/inteligencia-artificial-sevilla): Referente tecnológico en la capital andaluza.
 - [Contacto](https://ordinaly.ai/contact): Formulario y atención directa.

@@ -434,7 +434,7 @@ def send_delete_confirmation_email(email, token, user_name):
                 </td>
                 <td style="width:2px;background:#e5e7eb;"></td>
                 <td width="33.33%" align="center" valign="top">
-                  <a href="https://ordinaly.ai/formation" target="_blank" rel="noopener noreferrer">
+                  <a href="https://ordinaly.ai/formacion" target="_blank" rel="noopener noreferrer">
                     <img src="https://ordinaly.ai/static/backgrounds/formation_background.webp" alt="" style="width:100%;height:auto;display:block;" />
                   </a>
                 </td>

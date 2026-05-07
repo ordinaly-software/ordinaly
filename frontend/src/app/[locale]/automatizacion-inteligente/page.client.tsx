@@ -25,9 +25,7 @@ export default function AutomatizacionInteligente() {
 
         <div className="relative z-20 flex flex-col items-center text-center px-4 mt-10">
           <h1 className="text-white font-bold leading-[1.05] drop-shadow-xl">
-            <span className="block text-5xl md:text-7xl">{content.shortTitle?.split(" ")[0]}</span>
-            <span className="block text-5xl md:text-7xl">{content.shortTitle?.split(" ")[1]}</span>
-            <span className="block text-5xl md:text-7xl text-[#d97757]">{content.title?.replace("Automatización Inteligente ", "")}</span>
+            <span className="block text-5xl md:text-7xl text-[#d97757]">{content.title}</span>
           </h1>
 
           <a
@@ -45,7 +43,7 @@ export default function AutomatizacionInteligente() {
       </section>
       <section className="py-24 bg-white dark:bg-neutral-900 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-neutral-900 dark:text-white">
-          Ahorra tiempo y dinero con la automatización inteligente
+          {content.sectionTitles?.howItWorks}
         </h2>
 
         <div className="flex flex-col md:flex-row items-center justify-center gap-16 max-w-5xl mx-auto px-6">
@@ -90,7 +88,7 @@ export default function AutomatizacionInteligente() {
       {/* BENEFITS */}
       <section className="py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-          Automatización inteligente en empresas
+          {content.sectionTitles?.benefits}
         </h2>
 
         <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto px-6">
@@ -129,7 +127,7 @@ export default function AutomatizacionInteligente() {
       </section>
       <section className="py-24 bg-white dark:bg-neutral-900 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-          Resultados de la automatización inteligente
+          {content.sectionTitles?.beforeAfter}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto px-6">

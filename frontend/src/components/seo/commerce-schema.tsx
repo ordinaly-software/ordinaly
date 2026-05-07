@@ -164,7 +164,7 @@ const buildShippingDetails = () => {
 };
 
 const getServicePath = (service: Service) => `/${service.slug || service.id}`;
-const getCoursePath = (course: Course) => `/formation/${course.slug || course.id}`;
+const getCoursePath = (course: Course) => `/formacion/${course.slug || course.id}`;
 
 type CommerceSchemaProps = {
   locale?: string;

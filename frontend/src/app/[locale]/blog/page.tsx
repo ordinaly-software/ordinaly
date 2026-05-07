@@ -3,15 +3,20 @@ import type { QueryParams } from "@sanity/client";
 import { client } from "@/lib/sanity";
 import { paginatedPosts, highlightedPosts } from "@/lib/queries";
 import { createPageMetadata } from "@/lib/metadata";
+import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
+  params,
   searchParams,
 }: {
   params: Promise<{ locale: string }>;
   searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }): Promise<Metadata> {
+  const { locale } = await params;
+  if (locale === "en") notFound();
+
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const hasParams = !!resolvedSearchParams && Object.keys(resolvedSearchParams).length > 0;
 
@@ -29,9 +34,15 @@ export async function generateMetadata({
 
 export const revalidate = 300;
 
-export default async function BlogIndex() {
+export default async function BlogIndex({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (locale === "en") notFound();
   const pageSize = 12;
-  const params = {
+  const queryParams = {
     offset: 0,
     end: pageSize,
     q: "",
@@ -40,7 +51,7 @@ export default async function BlogIndex() {
   } as unknown as QueryParams;
 
   const [{ items, total }, highlighted] = await Promise.all([
-    client.fetch(paginatedPosts, params, { next: { tags: ['blog'] } }),
+    client.fetch(paginatedPosts, queryParams, { next: { tags: ['blog'] } }),
     client.fetch(highlightedPosts, {}, { next: { tags: ['blog'] } })
   ]);
 

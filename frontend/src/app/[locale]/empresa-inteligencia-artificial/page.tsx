@@ -14,7 +14,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: `/${slug}`,
-    title: "Empresa de inteligencia artificial | Ordinaly Sevilla",
+    title: "Empresa de inteligencia artificial en Sevilla",
     description:
       "Empresa de inteligencia artificial especializada en soluciones B2B. Ayudamos a tu empresa a integrar tecnología avanzada para liderar tu sector",
     image: EMPRESA_INTELIGENCIA_ARTIFICIAL_HERO_IMAGE,

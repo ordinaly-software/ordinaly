@@ -2,8 +2,7 @@
 
 import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
-import { useTranslations, useLocale } from 'next-intl';
-import { routing } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 import { BlogCard } from './blog-card';
 import { HighlightedCarousel } from './highlighted-carousel';
 import type { BlogPost, Category } from './types';
@@ -55,8 +54,6 @@ export default function BlogClient({
   translationsNamespace = "blog",
 }: Props) {
   const t = useTranslations(translationsNamespace);
-  const locale = useLocale() || 'es';
-  const localePrefix = locale === routing.defaultLocale ? '' : `/${locale}`;
   const normalizedBasePath = basePath.startsWith("/") ? basePath : `/${basePath}`;
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -110,8 +107,8 @@ export default function BlogClient({
     if (pageValue > 1) params.set('page', String(pageValue));
     if (orderValue === 'asc') params.set('order', 'asc');
     const query = params.toString();
-    router.push(`${localePrefix}${normalizedBasePath}${query ? `?${query}` : ''}`);
-  }, [router, localePrefix, normalizedBasePath]);
+    router.push(`${normalizedBasePath}${query ? `?${query}` : ''}`);
+  }, [router, normalizedBasePath]);
 
   useEffect(() => {
     const baseState = debouncedSearch === '' && selectedCategory === 'all' && currentPage === 1 && order === 'desc';
@@ -134,7 +131,7 @@ export default function BlogClient({
     if (debouncedSearch) params.set('q', debouncedSearch);
     if (selectedCategory !== 'all') params.set('category', selectedCategory);
 
-    fetch(`${localePrefix}${normalizedBasePath}/search?${params.toString()}`, { cache: 'no-store' })
+    fetch(`${normalizedBasePath}/search?${params.toString()}`, { cache: 'no-store' })
       .then(res => {
         if (!res.ok) throw new Error('Failed to fetch posts');
         return res.json();
@@ -155,7 +152,7 @@ export default function BlogClient({
     return () => {
       cancelled = true;
     };
-  }, [debouncedSearch, selectedCategory, currentPage, pageSize, initialPosts, initialTotal, mergeCategories, t, localePrefix, order, normalizedBasePath]);
+  }, [debouncedSearch, selectedCategory, currentPage, pageSize, initialPosts, initialTotal, mergeCategories, t, order, normalizedBasePath]);
 
   const categories = useMemo(() => {
     const options = Object.entries(categoryMap).map(([value, label]) => ({ value, label }));

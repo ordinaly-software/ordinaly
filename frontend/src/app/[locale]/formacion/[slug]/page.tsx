@@ -67,7 +67,7 @@ export async function generateMetadata({
 
   return createPageMetadata({
     locale,
-    path: `/formation/${slug}`,
+    path: `/formacion/${slug}`,
     title,
     description,
     image,

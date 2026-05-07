@@ -132,9 +132,9 @@ export default function AutomatizacionesN8NnSevillaPage() {
         </div>
       </section>
       <section className="py-24 max-w-5xl mx-auto px-6 bg-neutral-50 dark:bg-neutral-800">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
+        <h4 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
           {content.sectionTitles?.faq}
-        </h2>
+        </h4>
 
         <div className="space-y-8">
           {content.faq.map((faq: any, i: number) => (
@@ -146,7 +146,7 @@ export default function AutomatizacionesN8NnSevillaPage() {
                 shadow-sm hover:shadow-xl transition
               "
             >
-              <h3 className="text-xl font-bold dark:text-white">{faq.question}</h3>
+              <h4 className="text-xl font-bold dark:text-white">{faq.question}</h4>
               <p className="text-neutral-700 dark:text-neutral-300 mt-3">
                 {faq.answer}
               </p>

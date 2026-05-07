@@ -63,10 +63,10 @@ const businessSchema = {
     "Automatización de Facturas",
     "Automatización con n8n",
     "Automatización Inteligente",
-    "Empresa de Inteligencia Artificial",
+    "Empresa de Inteligencia artificial",
     "Formación IA para PYMES",
-    "Inteligencia Artificial para empresas",
-    "Inteligencia Artificial Sevilla"
+    "Inteligencia artificial para empresas",
+    "Inteligencia artificial Sevilla"
   ],
 };
 
@@ -83,7 +83,7 @@ export async function generateMetadata({
   return {
     title: {
       default: fullBrandName,
-      template: `%s | ${fullBrandName}`,
+      template: "%s | Ordinaly",
     },
     description: baseDescription,
     metadataBase: new URL(metadataBaseUrl),

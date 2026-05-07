@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useCallback, useMemo, type ReactNode } fro
 import { useRouter, usePathname } from "next/navigation";
 import { Menu, X, User, LogOut, LogIn, Settings, ChevronDown, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import LogoutModal from "@/components/ui/logout-modal";
 import { DropdownOption } from "@/components/ui/dropdown";
 import Image from "next/image";
@@ -172,6 +172,7 @@ const MobileSection = ({
 
 const Navbar = () => {
   const t = useTranslations("home");
+  const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -423,13 +424,13 @@ const Navbar = () => {
   const navItems = useMemo(
     () => [
       ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/servicios", label: t("navigation.services") }] : []),
-      ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formation", label: t("navigation.formation") }] : []),
-      { id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") },
+      ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formacion", label: t("navigation.formation") }] : []),
+      ...(locale !== "en" ? [{ id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") }] : []),
       { id: "faq", type: "link", href: "/faq", label: t("navigation.faq") },
       { id: "about", type: "link", href: "/about", label: t("navigation.us") },
       { id: "contact", type: "link", href: "/contacto", label: t("navigation.contact") },
     ],
-    [t, featuredServices.length, menuCourses.length],
+    [t, locale, featuredServices.length, menuCourses.length],
   );
 
   const showCta = true;
@@ -549,13 +550,13 @@ const Navbar = () => {
                                 key={course.id}
                                 title={course.title}
                                 description={course.subtitle || course.description}
-                                href={`/formation/${course.slug ?? course.id}`}
+                                href={`/formacion/${course.slug ?? course.id}`}
                                 src={course.image}
                                 loadOnHover={false}
                                 loadEnabled={shouldLoadCourseImages}
                               />
                             ))}
-                          <HoveredLink href="/formation">{t("navigation.formationSubmenu")}</HoveredLink>
+                          <HoveredLink href="/formacion">{t("navigation.formationSubmenu")}</HoveredLink>
                         </div>
                       )}
                       {item.id === "blog" && (
@@ -695,7 +696,7 @@ const Navbar = () => {
                       menuCourses.map((course) => (
                         <Link
                           key={course.id}
-                          href={`/formation/${course.slug ?? course.id}`}
+                          href={`/formacion/${course.slug ?? course.id}`}
                           onClick={() => setIsMenuOpen(false)}
                           className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
                         >
@@ -710,7 +711,7 @@ const Navbar = () => {
                         </Link>
                       ))}
                     <Link
-                      href="/formation"
+                      href="/formacion"
                       onClick={() => setIsMenuOpen(false)}
                       className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
                     >
@@ -719,27 +720,29 @@ const Navbar = () => {
                   </MobileSection>
                 )}
 
-                <MobileSection
-                  title={t("navigation.blog")}
-                  isOpen={mobileSection === "blog"}
-                  onToggle={() => toggleMobileSection("blog")}
-                >
-                  <Link
-                    href="/blog"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                {locale !== "en" && (
+                  <MobileSection
+                    title={t("navigation.blog")}
+                    isOpen={mobileSection === "blog"}
+                    onToggle={() => toggleMobileSection("blog")}
                   >
-                    {t("navigation.articles")}
-                  </Link>
+                    <Link
+                      href="/blog"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                    >
+                      {t("navigation.articles")}
+                    </Link>
 
-                  <Link
-                    href="/news"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
-                  >
-                    {t("navigation.news")}
-                  </Link>
-                </MobileSection>
+                    <Link
+                      href="/news"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                    >
+                      {t("navigation.news")}
+                    </Link>
+                  </MobileSection>
+                )}
 
 
                 <div className="grid gap-2">

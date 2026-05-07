@@ -13,7 +13,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: `/${slug}`,
-    title: "Automatización de facturas para empresas | Ordinaly",
+    title: "Automatización de facturas para empresas",
     description:
       "Automatización de facturas para departamentos contables. Procesa tus documentos sin errores y ahorra tiempo con tecnología de procesamiento inteligente",
     image: "/static/backgrounds/services_background.webp",

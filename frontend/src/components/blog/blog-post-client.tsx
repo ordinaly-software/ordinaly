@@ -1,7 +1,6 @@
 "use client";
 
 import Image from 'next/image';
-import Link from 'next/link';
 import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { useTranslations } from 'next-intl';
@@ -93,10 +92,10 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         {/* Header row: back link | share buttons | date (responsive) */}
         <div className="mb-6 grid grid-cols-1 md:grid-cols-3 items-center gap-6">
           <div className="flex md:justify-start justify-center">
-            <Link href="/blog" className="inline-flex items-center gap-2 text-clay hover:text-flame hover:underline">
+            <a href="/blog" className="inline-flex items-center gap-2 text-clay hover:text-flame hover:underline">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
               {t("backToBlog")}
-            </Link>
+            </a>
           </div>
 
           <div className="flex md:justify-center justify-center">
@@ -171,13 +170,13 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
                 <div className="flex flex-wrap gap-2 justify-center">
                   {visibleCategories.map((cat: Category) => (
                     cat?.slug ? (
-                      <Link
+                      <a
                         key={cat.slug}
                         href={`/blog?category=${cat.slug}`}
                         className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-clay/10 text-clay text-sm font-medium hover:bg-clay/20 transition w-fit"
                       >
                         {cat.title}
-                      </Link>
+                      </a>
                     ) : null
                   ))}
                 </div>
@@ -192,6 +191,20 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
             </div>
           </div>
         )}
+      </div>
+
+      <div className="max-w-3xl mx-auto px-4 pb-10">
+        <div className="rounded-2xl border border-clay/20 dark:border-clay/15 bg-white/80 dark:bg-gray-800/90 p-5 shadow-sm">
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-clay dark:text-clay">
+            {t("relatedServices", { default: "Servicios relacionados" })}
+          </p>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <li><a href="/inteligencia-artificial-sevilla" className="text-clay hover:text-flame hover:underline transition-colors">Inteligencia artificial en Sevilla</a></li>
+            <li><a href="/" className="text-clay hover:text-flame hover:underline transition-colors">Agencia de automatización con IA</a></li>
+            <li><a href="/empresa-inteligencia-artificial" className="text-clay hover:text-flame hover:underline transition-colors">Empresa de inteligencia artificial</a></li>
+            <li><a href="/automatizacion-facturas" className="text-clay hover:text-flame hover:underline transition-colors">Automatización de facturas</a></li>
+          </ul>
+        </div>
       </div>
 
       <ContactForm />

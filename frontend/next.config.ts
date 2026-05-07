@@ -185,8 +185,9 @@ const nextConfig: NextConfig = {
       { source: '/contact', destination: '/contacto', permanent: true },
       { source: '/en/services', destination: '/en/servicios', permanent: true },
       { source: '/en/contact', destination: '/en/contacto', permanent: true },
-      { source: '/blog/:slug', destination: '/:slug', permanent: true },
-      { source: '/en/blog/:slug', destination: '/en/:slug', permanent: true },
+      { source: '/formation/:slug*', destination: '/formacion/:slug*', permanent: true },
+      { source: '/es/formation/:slug*', destination: '/formacion/:slug*', permanent: true },
+      { source: '/en/formation/:slug*', destination: '/en/formacion/:slug*', permanent: true },
     ];
   },
 };

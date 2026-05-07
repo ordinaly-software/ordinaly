@@ -163,13 +163,13 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
       return;
     }
     // Navigate to formation page with course highlighted/modal opened
-    router.push(`/formation/${course.slug ?? course.id}`);
+    router.push(`/formacion/${course.slug ?? course.id}`);
   }, [onCourseClick, router]);
 
   const handleSignUpClick = useCallback((e: MouseEvent<HTMLButtonElement>, course: Course) => {
     e.stopPropagation();
     if (isAuthenticated) {
-      router.push(`/formation/${course.slug ?? course.id}`);
+      router.push(`/formacion/${course.slug ?? course.id}`);
     } else {
       setSelectedCourse(course);
       setIsAuthModalOpen(true);
@@ -258,7 +258,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
               <div className="flex justify-center">
                 <Button
                   variant="outline"
-                  onClick={() => router.push('/formation')}
+                  onClick={() => router.push('/formacion')}
                   className="flex items-center gap-2"
                 >
                   {t('notifyButton')}
@@ -549,7 +549,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
             <Button
               variant="outline"
               size="lg"
-              onClick={() => router.push('/formation')}
+              onClick={() => router.push('/formacion')}
               className="bg-transparent border-2 border-clay text-clay hover:bg-clay hover:text-white dark:border-clay dark:text-clay dark:hover:bg-clay dark:hover:text-ivory-light transition-all duration-300 px-6 py-3 text-base font-semibold rounded-full shadow-md hover:shadow-lg hover:shadow-clay/20 group"
             >
               {t('viewAllCourses')}

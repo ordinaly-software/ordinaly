@@ -109,7 +109,7 @@ const Footer = () => {
         links: [
           { label: t("footer.links.home"), href: "/" },
           { label: t("footer.links.services"), href: "/servicios" },
-          { label: t("footer.links.formation"), href: "/formation" },
+          { label: t("footer.links.formation"), href: "/formacion" },
           { label: t("footer.links.blog"), href: "/blog" },
           { label: t("footer.links.news"), href: "/news" },
           { label: t("footer.links.faq"), href: "/faq" },

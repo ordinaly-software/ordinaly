@@ -64,9 +64,9 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
                 <line x1="3" y1="10" x2="21" y2="10" />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-slate-dark dark:text-ivory-light mb-3">
+            <h4 className="text-xl font-semibold text-slate-dark dark:text-ivory-light mb-3">
               {t("services.vacationTitle")}
-            </h3>
+            </h4>
             <p className="text-slate-medium dark:text-cloud-medium mb-6">
               {t("services.vacationMessage")}
             </p>

@@ -21,7 +21,7 @@ export function buildCourseLink(course: CourseReference) {
   const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL).replace(/\/$/, "");
   const identifier = course.slug ?? course.id;
   if (!identifier) return baseUrl;
-  return `${baseUrl}/formation/${identifier}`;
+  return `${baseUrl}/formacion/${identifier}`;
 }
 
 export function openPastCourseWhatsApp(course: CourseReference, t: TranslationFn, translationKey = "pastCourseMessage") {

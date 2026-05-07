@@ -468,7 +468,7 @@ def send_welcome_email(email: str, user_name: str):
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td width="150" style="vertical-align:top;padding-right:14px;">
-                    <a href="https://ordinaly.ai/formation" target="_blank" rel="noopener noreferrer">
+                    <a href="https://ordinaly.ai/formacion" target="_blank" rel="noopener noreferrer">
                       <img class="mini-img" src="{welcome_cards["formation"]}" alt="Formaci&oacute;n Ordinaly" width="150" />
                     </a>
                   </td>
@@ -478,7 +478,7 @@ def send_welcome_email(email: str, user_name: str):
                       Automatizaci&oacute;n con n8n, IA aplicada y criterios de arquitectura. Material orientado a casos reales.
                     </p>
                     <div style="height:10px;"></div>
-                    <a href="https://ordinaly.ai/formation" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#0f172a;-webkit-text-fill-color:#0f172a;">
+                    <a href="https://ordinaly.ai/formacion" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#0f172a;-webkit-text-fill-color:#0f172a;">
                       Ver formaci&oacute;n
                     </a>
                   </td>
@@ -512,7 +512,7 @@ def send_welcome_email(email: str, user_name: str):
               <p style="margin:14px 0 0;">
                 <a href="https://ordinaly.ai">Web</a> |
                 <a href="https://ordinaly.ai/services">Servicios</a> |
-                <a href="https://ordinaly.ai/formation">Formaci&oacute;n</a>
+                <a href="https://ordinaly.ai/formacion">Formaci&oacute;n</a>
               </p>
 
               <p style="margin:12px 0 0;font-size:12px;color:#475569;-webkit-text-fill-color:#475569;">
@@ -739,7 +739,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
         frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
         backend_url = os.getenv("BACKEND_BASE_URL", os.getenv("NEXT_PUBLIC_API_URL", "https://api.ordinaly.ai")).rstrip("/")
 
-        course_url = f"{frontend_url}/formation/{course.slug}"
+        course_url = f"{frontend_url}/formacion/{course.slug}"
 
         # Build cover image tag if the course has an image
         hero_html = ""
@@ -944,7 +944,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
     """Send a confirmation email when a user unenrolls from a course."""
     try:
         frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
-        formation_url = f"{frontend_url}/formation"
+        formation_url = f"{frontend_url}/formacion"
 
         # Format dates
         date_str = ""
@@ -1131,7 +1131,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
 def send_course_published_email(email: str, user_name: str, course):
     try:
         frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
-        course_url = f"{frontend_url}/formation/{course.slug}"
+        course_url = f"{frontend_url}/formacion/{course.slug}"
         html = f"""\
 <!doctype html>
 <html lang="es">
@@ -1169,7 +1169,7 @@ def send_course_published_email(email: str, user_name: str, course):
 def send_course_starts_soon_email(email: str, user_name: str, course, session_start_iso: str, days_before: int):
     try:
         frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
-        course_url = f"{frontend_url}/formation/{course.slug}"
+        course_url = f"{frontend_url}/formacion/{course.slug}"
         session_text = session_start_iso
         if session_start_iso:
             try:
@@ -1217,7 +1217,7 @@ def send_course_starts_soon_email(email: str, user_name: str, course, session_st
 def send_course_reminder_email(email: str, user_name: str, course, session_start_iso: str, hours_before: int):
     try:
         frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
-        course_url = f"{frontend_url}/formation/{course.slug}"
+        course_url = f"{frontend_url}/formacion/{course.slug}"
 
         session_text = session_start_iso
         if session_start_iso:

@@ -277,8 +277,8 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
       const parts = url.pathname.split('/').filter(Boolean);
       const maybeLocale = parts[0] ?? "";
       const localePrefix = routing.locales.includes(maybeLocale as Locale) ? `/${maybeLocale}` : "";
-      // Replace or append formation/<slug>
-      const newPath = `${localePrefix}/formation/${course.slug}`;
+      // Replace or append formacion/<slug>
+      const newPath = `${localePrefix}/formacion/${course.slug}`;
       window.history.replaceState({}, document.title, newPath + url.search);
     }
   };
