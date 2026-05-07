@@ -15,7 +15,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: `/${slug}`,
-    title: "Chatbots Personalizados para Empresas | Ordinaly Software",
+    title: "Chatbots Personalizados para Empresas",
     description:
       "Chatbots personalizados para empresas que buscan automatizar su atención. Mejora la experiencia de tus clientes y ahorra tiempo con agentes de IA a medida",
     image: HERO_IMAGE,

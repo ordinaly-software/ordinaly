@@ -14,7 +14,7 @@ export async function generateMetadata({
   return createPageMetadata({
     locale,
     path: `/${slug}`,
-    title: "Automatización Inteligente para empresas | Ordinaly",
+    title: "Automatización Inteligente para empresas",
     description:
       "Automatización inteligente en la empresa para flujos eficientes. Implementamos agentes de IA que eliminan tareas repetitivas y escalan tu productividad hoy",
     image: AUTOMATIZACION_INTELIGENTE_HERO_IMAGE,

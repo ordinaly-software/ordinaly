@@ -82,7 +82,7 @@
       "errorMessage": "No se pudieron cargar los servicios"
     },
     "useCases": {
-      "title": "Casos de éxito: agencia de automatización IA",
+      "title": "Casos de éxito de automatización IA",
       "subtitle": "Soluciones de la agencia de automatización IA para sectores específicos en España",
       "items": {
         "0": {
@@ -136,7 +136,7 @@
       }
     },
     "testimonials": {
-      "title": "Lo que dicen nuestros clientes en Sevilla",
+      "title": "Lo que dicen nuestros clientes",
       "googleSummary": "{rating} en Google · {count} reseñas",
       "googleLink": "Ver todas en Google",
       "googleWrite": "Dejar una reseña",
@@ -274,7 +274,7 @@
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
       "locationSoon": "Ubicación próximamente",
-      "showcaseTitle": "Agencia de automatizaciones y más",
+      "showcaseTitle": "Automatizaciones y más",
       "showcaseDescription": "En Ordinaly, ofrecemos cursos de formación profesional para empresas y profesionales que desean aprovechar al máximo las tecnologías emergentes.",
       "upcomingTitle": "Próximos cursos",
       "upcomingDescription": "Descubre nuestros cursos de formación",
@@ -2195,8 +2195,8 @@
       "title": "Capacidades técnicas y empresariales",
       "subtitle": "Combinamos ingeniería de software de alto nivel con décadas de consultoría empresarial.",
       "antonio": {
-        "role": "CTO · Ingeniero de Software & MsC en Inteligencia Artificial",
-        "bio": "Ingeniero de software graduado en la Universidad de Sevilla con Master en Ciencias de la Computación, Lógica e Inteligencia Artificial.",
+        "role": "CTO · Ingeniero de Software & MsC en Inteligencia artificial",
+        "bio": "Ingeniero de software graduado en la Universidad de Sevilla con Master en Ciencias de la Computación, Lógica e Inteligencia artificial.",
         "tags": {
           "0": "Ing. Informática · Univ. Sevilla",
           "1": "IA & Automatización",
@@ -2567,7 +2567,7 @@
     },
     "formacion-ia-pymes-sevilla": {
       "slug": "formacion-ia-pymes-sevilla",
-      "title": "Formación en IA aplicada a procesos reales",
+      "title": "Formación en IA en Sevilla",
       "description": "Formación práctica en inteligencia artificial para PYMES en Sevilla. Talleres adaptados a tu equipo para integrar la IA en procesos reales del día a día.",
       "shortTitle": "Formación IA",
       "heroBadge": "Formación operativa",
@@ -2582,7 +2582,7 @@
       ],
       "sectionTitles": {
         "valueProps": "Qué aprenderá tu equipo",
-        "metrics": "Formación en IA en Sevilla",
+        "metrics": "Formación en IA aplicada a procesos reales",
         "carousel": "Formación en IA para PYMES",
         "experts": "Profesores de IA en Sevilla",
         "technologyFaqs": "Preguntas frecuentes",
@@ -2865,7 +2865,7 @@
       "seoDescription": "Inteligencia artificial en Sevilla para pymes. Automatizamos procesos con IA personalizada para mejorar la rentabilidad de tu empresa.",
       "shortTitle": "IA para Empresas en Sevilla",
       "subtitle": "Automatizamos, optimizamos y escalamos procesos con IA para que tu empresa gane velocidad y precisión.",
-      "description": "Desarrollamos soluciones de Inteligencia Artificial aplicadas a operaciones reales: automatización, asistentes inteligentes, análisis predictivo y optimización de procesos. Implementamos IA con criterio, datos limpios y despliegues que funcionan en producción.",
+      "description": "Desarrollamos soluciones de Inteligencia artificial aplicadas a operaciones reales: automatización, asistentes inteligentes, análisis predictivo y optimización de procesos. Implementamos IA con criterio, datos limpios y despliegues que funcionan en producción.",
       "heroCtaLabel": "Abrir formulario",
       "heroCtaHref": "#formulario",
       "cardsSectionTitle": "Mejora tu negocio con la inteligencia artificial",
@@ -2963,51 +2963,16 @@
       }
     },
     "automatizacion-inteligente": {
-      "slug": "automatizacion-inteligente",
-      "heroImage": "/static/backgrounds/automation_background.webp",
-      "heroImagePosition": "center 38%",
       "title": "Automatización inteligente",
-      "shortTitle": "Automatización Inteligente",
-      "heroBadge": "IA + Automatización",
       "heroCtaLabel": "Quiero saber más",
       "heroCtaHref": "#formulario",
-      "secondaryCtaLabel": "Hablar por WhatsApp",
-      "serviceType": "Automatización de procesos internos, comerciales y operativos",
-      "areaServed": "España y equipos distribuidos",
-      "valueProps": [
-        "Automatización de procesos comerciales, operativos y administrativos con IA.",
-        "Integración entre CRM, ERP, email, WhatsApp, formularios y herramientas internas.",
-        "Reducción del 40-70% en tareas manuales y eliminación de errores repetitivos."
-      ],
       "sectionTitles": {
-        "howItWorks": "Cómo funciona la automatización inteligente",
-        "benefits": "Beneficios de la automatización inteligente",
-        "beforeAfter": "Antes y después de automatizar",
+        "howItWorks": "Ahorra tiempo y dinero con la automatización inteligente",
+        "benefits": "Automatización inteligente en empresas",
+        "beforeAfter": "Resultados de la automatización inteligente",
         "before": "Antes",
         "after": "Después"
       },
-      "metrics": [
-        {
-          "label": "Ahorro operativo",
-          "value": "40-70%",
-          "detail": "Reducción real de tareas manuales en procesos repetitivos."
-        },
-        {
-          "label": "Velocidad de procesos",
-          "value": "3x más rápido",
-          "detail": "Automatizaciones que ejecutan tareas en segundos, no minutos."
-        },
-        {
-          "label": "Integración total",
-          "value": "CRM + ERP + IA",
-          "detail": "Conectamos tus sistemas para que la información fluya sin fricción."
-        }
-      ],
-      "outcomes": [
-        "Procesos automáticos funcionando 24/7 sin intervención humana.",
-        "Equipos más enfocados en tareas de alto valor.",
-        "Reducción de errores y mejora de la trazabilidad operativa."
-      ],
       "steps": [
         "Analizamos tus procesos actuales y detectamos cuellos de botella.",
         "Diseñamos el flujo automatizado y definimos reglas + IA.",
@@ -3035,99 +3000,6 @@
         "Ahorro de tiempo y costes",
         "Equipos centrados en tareas de alto valor"
       ],
-      "useCases": [
-        {
-          "tag": "Operaciones",
-          "title": "Automatización de procesos internos",
-          "description": "Flujos automáticos entre CRM, ERP, email, documentos y sistemas internos.",
-          "bullets": [
-            "Validaciones automáticas",
-            "Actualización de estados y registros"
-          ]
-        },
-        {
-          "tag": "Ventas",
-          "title": "Automatización comercial",
-          "description": "Seguimiento automático, lead scoring, respuestas inteligentes y agendas.",
-          "bullets": [
-            "Lead nurturing automático",
-            "Asignación por reglas"
-          ]
-        },
-        {
-          "tag": "Administración",
-          "title": "Automatización administrativa",
-          "description": "Facturas, reportes, conciliaciones y generación de documentos.",
-          "bullets": [
-            "Extracción de datos con IA",
-            "Generación automática de informes"
-          ]
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Integración",
-          "question": "¿Con qué herramientas podéis integraros?",
-          "answer": "CRM, ERP, Google Workspace, Microsoft 365, WhatsApp, Slack, Notion, Airtable, bases de datos y APIs personalizadas."
-        },
-        {
-          "tag": "IA",
-          "question": "¿Qué tipo de IA utilizáis?",
-          "answer": "Clasificación, extracción de datos, resúmenes, generación de contenido y toma de decisiones basada en reglas + IA."
-        },
-        {
-          "tag": "Seguridad",
-          "question": "¿Es seguro automatizar procesos críticos?",
-          "answer": "Sí. Diseñamos flujos con validaciones, logs, control de errores y trazabilidad completa."
-        },
-        {
-          "tag": "Escalabilidad",
-          "question": "¿Las automatizaciones crecen con mi empresa?",
-          "answer": "Sí. Diseñamos flujos modulares que pueden ampliarse sin rehacer todo el sistema."
-        }
-      ],
-      "keywords": [
-        "automatización inteligente",
-        "automatización de procesos",
-        "IA para empresas",
-        "integración CRM ERP",
-        "automatización operativa"
-      ],
-      "hub": {
-        "title": "Procesos conectados con IA, CRM y automatización",
-        "subtitle": "Un sistema operativo para tu empresa que funciona 24/7.",
-        "bgTheme": "orange",
-        "platforms": [
-          {
-            "position": "top-left",
-            "figureKey": "automation",
-            "colorScheme": "indigo",
-            "label": "Automatización",
-            "sublabel": "Flujos internos"
-          },
-          {
-            "position": "top-right",
-            "figureKey": "ai",
-            "colorScheme": "cyan",
-            "label": "IA",
-            "sublabel": "Clasificación y decisiones"
-          },
-          {
-            "position": "bottom-left",
-            "figureKey": "crm",
-            "colorScheme": "indigo",
-            "label": "CRM",
-            "sublabel": "Contexto y datos"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "dashboard",
-            "colorScheme": "cyan",
-            "label": "Paneles",
-            "sublabel": "KPIs y trazabilidad"
-          }
-        ]
-      },
       "cta": {
         "label": "Quiero automatizar mi empresa",
         "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20procesos",

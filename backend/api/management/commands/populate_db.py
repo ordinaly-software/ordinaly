@@ -171,7 +171,7 @@ class Command(BaseCommand):
 
         courses_data = [
             {
-                'title': 'Taller gratuito "La Inteligencia Artificial sin complicaciones"',
+                'title': 'Taller gratuito "La Inteligencia artificial sin complicaciones"',
                 'slug': 'taller-ia-sin-complicaciones',
                 'subtitle': (
                     'Familiarízate con las webs y apps de IA del momento y aprende los conceptos básicos '
@@ -179,7 +179,7 @@ class Command(BaseCommand):
                 ),
                 'description': (
                     'Este taller va orientado a profesionales que busquen introducirse en el mundo de la IA '
-                    'y quieran aprender los conceptos básicos de la *Inteligencia Artificial Generativa*.\n'
+                    'y quieran aprender los conceptos básicos de la *Inteligencia artificial Generativa*.\n'
                     'En este taller se abordarán temas como:\n'
                     '- Introducción a la IA y sus aplicaciones\n'
                     '- Herramientas y recursos para trabajar con IA\n'
@@ -204,7 +204,7 @@ class Command(BaseCommand):
                 'draft': False
             },
             {
-                'title': 'Sesión formativa "La Inteligencia Artificial en la inmobiliaria"',
+                'title': 'Sesión formativa "La Inteligencia artificial en la inmobiliaria"',
                 'slug': 'sesion-ia-en-la-inmobiliaria',
                 'subtitle': (
                     'Abordaremos los principales casos de uso de la IA generativa enfocados al sector inmobiliario.'
@@ -237,7 +237,7 @@ class Command(BaseCommand):
                 'draft': False
             },
             {
-                'title': 'Bootcamp "La Inteligencia Artificial en la inmobiliaria"',
+                'title': 'Bootcamp "La Inteligencia artificial en la inmobiliaria"',
                 'slug': 'bootcamp-ia-en-la-inmobiliaria',
                 'subtitle': (
                     'En este curso partiremos de la base de los casos de uso básicos de las herramientas de IA '
@@ -246,7 +246,7 @@ class Command(BaseCommand):
                 ),
                 'description': (
                     'Este curso  está diseñado específicamente para profesionales del sector inmobiliario que '
-                    'deseen aprovechar el potencial de la Inteligencia Artificial generativa en su trabajo diario.\n\n'
+                    'deseen aprovechar el potencial de la Inteligencia artificial generativa en su trabajo diario.\n\n'
                     'A lo largo de 4 sesiones, aprenderás desde los conceptos básicos hasta aplicaciones avanzadas, '
                     'con un enfoque práctico y casos de uso reales del sector inmobiliario.\n\n'
                     '## 📚 Programa del Curso\n\n'
@@ -481,7 +481,7 @@ Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles
                 'type': 'SERVICE',
                 'description': '''
 Estas automatizaciones te permitirán centrarte en la creación de contenido dejando toda la gestión y subida de los
- mismos a la Inteligencia Artificial.
+ mismos a la Inteligencia artificial.
 
 ## 🎯 Beneficios
 

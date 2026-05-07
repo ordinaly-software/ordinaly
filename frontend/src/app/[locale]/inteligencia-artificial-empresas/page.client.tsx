@@ -232,7 +232,7 @@ export default function InteligenciaArtificialEmpresas() {
             {content.sectionTitles?.technologyFaqs}
           </p>
           <h2 className="text-3xl font-bold tracking-tight mb-10">
-            Inteligencia Artificial para empresas
+            Inteligencia artificial para empresas
           </h2>
 
           <div className="divide-y divide-neutral-200 dark:divide-neutral-800">

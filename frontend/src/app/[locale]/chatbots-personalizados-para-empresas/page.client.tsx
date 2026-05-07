@@ -132,9 +132,9 @@ export default function ChatbotsPersonalizadosEmpresas() {
                 </svg>
               </div>
 
-              <h3 className="text-lg sm:text-xl font-semibold mb-3 group-hover:text-neutral-900 dark:group-hover:text-white dark:text-neutral-100 transition">
+              <h4 className="text-lg sm:text-xl font-semibold mb-3 group-hover:text-neutral-900 dark:group-hover:text-white dark:text-neutral-100 transition">
                 {caseItem.metric}
-              </h3>
+              </h4>
 
               <p className="text-neutral-600 dark:text-neutral-100 leading-relaxed text-sm">
                 {caseItem.description}
