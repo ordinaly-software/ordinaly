@@ -7,7 +7,7 @@ const LANDING_SLUGS = [
   "automatizacion-n8n-sevilla",
   "agentes-ia-atencion-cliente-sevilla",
   "automatizacion-whatsapp-business-sevilla",
-  "formacion-ia-pymes-sevilla",
+  "formacion-ia-sevilla",
   "integraciones-crm-erp-sevilla",
 ] as const;
 

@@ -16,7 +16,7 @@ Ordinaly Software S.L. ayuda a empresas a implementar inteligencia artificial pr
 - [Automatización Inteligente](https://ordinaly.ai/automatizacion-inteligente): Implementación de flujos de trabajo autónomos.
 - [Automatización de Facturas](https://ordinaly.ai/automatizacion-facturas): Soluciones específicas para departamentos financieros y contables.
 - [Automatización con n8n](https://ordinaly.ai/automatizacion-n8n-sevilla): Especialistas en flujos de trabajo complejos usando n8n en Sevilla.
-- [Formación IA para PYMES](https://ordinaly.ai/formacion-ia-pymes-sevilla): Capacitación práctica para equipos en Sevilla y remoto.
+- [Formación IA para PYMES](https://ordinaly.ai/formacion-ia-sevilla): Capacitación práctica para equipos en Sevilla y remoto.
 
 ## Información Corporativa y Local
 - [Empresa de Inteligencia artificial](https://ordinaly.ai/empresa-inteligencia-artificial): Quiénes somos y nuestra metodología.

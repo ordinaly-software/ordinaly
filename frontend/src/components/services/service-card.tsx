@@ -26,6 +26,7 @@ interface ServiceCardProps {
   onContact?: (service: Service) => void;
   viewDetailsLabel?: string;
   contactLabel?: string;
+  titleTag?: "h3" | "h4";
 }
 
   const COLOR_MAP: Record<string, string> = {
@@ -37,7 +38,7 @@ interface ServiceCardProps {
     kraft: "#b45309",
   };
 
-export function ServiceCard({ service, onClick, className, size = "default", onContact, viewDetailsLabel = "Ver detalles", contactLabel }: ServiceCardProps) {
+export function ServiceCard({ service, onClick, className, size = "default", onContact, viewDetailsLabel = "Ver detalles", contactLabel, titleTag = "h3" }: ServiceCardProps) {
   const raw = service.color_hex || COLOR_MAP[service.color] || service.color || "";
   const accent = raw.startsWith("#") ? raw : raw ? `#${raw}` : "var(--swatch--clay)";
   const contactUrl = resolveContactUrl(service.contactButtonUrl);
@@ -108,9 +109,15 @@ export function ServiceCard({ service, onClick, className, size = "default", onC
 
       {/* ── Content ───────────────────────────────────────────────────────── */}
       <div className={`flex flex-col gap-1.5 ${size === "lg" ? "p-6" : "p-5"} flex-1`}>
-        <h3 className={`font-semibold leading-snug text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] group-hover:text-clay transition-colors duration-200 ${size === "lg" ? "text-lg" : "text-base"}`}>
-          {service.title}
-        </h3>
+        {titleTag === "h4" ? (
+          <h4 className={`font-semibold leading-snug text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] group-hover:text-clay transition-colors duration-200 ${size === "lg" ? "text-lg" : "text-base"}`}>
+            {service.title}
+          </h4>
+        ) : (
+          <h3 className={`font-semibold leading-snug text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] group-hover:text-clay transition-colors duration-200 ${size === "lg" ? "text-lg" : "text-base"}`}>
+            {service.title}
+          </h3>
+        )}
         {service.subtitle && (
           <p className={`leading-relaxed text-[var(--swatch--slate-light)] dark:text-[var(--swatch--cloud-medium)] line-clamp-2 ${size === "lg" ? "text-base" : "text-sm"}`}>
             {service.subtitle}

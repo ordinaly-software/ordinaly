@@ -290,7 +290,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Quien ejecuta el trabajo diario y quien define criterios o aprueba cambios. Si asisten solo perfiles estratégicos o solo perfiles ejecutores, la adopción queda coja.",
       en: "The people doing the work every day and the ones defining criteria or approving changes. If only strategic profiles or only executors attend, adoption stays incomplete.",
     },
-    relatedPath: "/formacion-ia-pymes-sevilla",
+    relatedPath: "/formacion-ia-sevilla",
   },
   {
     id: "training-governance",
@@ -304,7 +304,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Debe incluir ambas. Enseñar productividad sin límites de uso, herramientas aprobadas y manejo del dato genera más riesgo que mejora real.",
       en: "It should include both. Teaching productivity without usage limits, approved tools and data handling creates more risk than real improvement.",
     },
-    relatedPath: "/formacion-ia-pymes-sevilla",
+    relatedPath: "/formacion-ia-sevilla",
   },
   {
     id: "training-roi",
@@ -318,7 +318,7 @@ export const faqEntries: FaqEntry[] = [
       es: "El retorno se mide sobre tareas concretas: tiempo de preparación, calidad de documentación, velocidad de respuesta o reducción de errores. Si no aterrizas en tareas, el ROI se vuelve una opinión.",
       en: "Return is measured on concrete tasks: preparation time, documentation quality, response speed or error reduction. If you do not anchor it to tasks, ROI becomes an opinion.",
     },
-    relatedPath: "/formacion-ia-pymes-sevilla",
+    relatedPath: "/formacion-ia-sevilla",
   },
   {
     id: "delivery-seville-spain",
@@ -388,7 +388,7 @@ export const faqEntries: FaqEntry[] = [
       es: "No, en absoluto. Diseñamos todas nuestras soluciones para que sean intuitivas y fáciles de usar, e incluimos formación práctica para tu equipo. También ofrecemos cursos de IA donde aprenderás a usar herramientas como ChatGPT y automatizaciones sin necesidad de conocimientos previos de programación.",
       en: "Not at all. We design all our solutions to be intuitive and easy to use, and we include hands-on training for your team. We also offer AI courses where you will learn to use tools like ChatGPT and automations without any prior programming knowledge.",
     },
-    relatedPath: "/formacion-ia-pymes-sevilla",
+    relatedPath: "/formacion-ia-sevilla",
   },
   {
     id: "ordinaly-differentiators",

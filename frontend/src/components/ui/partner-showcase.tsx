@@ -26,6 +26,7 @@ export const defaultPartnerLogos: LogoCarouselLogo[] = [
 interface PartnerShowcaseProps {
   eyebrow: string;
   title: string;
+  titleTag?: "h2" | "h3";
   logos?: LogoCarouselLogo[];
   className?: string;
   panelClassName?: string;
@@ -41,6 +42,7 @@ export function PartnerShowcase({
   panelClassName,
   columnCount = 3,
   mobileColumnCount = 2,
+  titleTag = "h2",
 }: PartnerShowcaseProps) {
   return (
     <section className={cn("w-full max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 pb-12", className)}>
@@ -51,9 +53,13 @@ export function PartnerShowcase({
         )}
       >
         <div className="flex flex-col items-center gap-10 lg:flex-row">
-          <div className="flex-shrink-0 space-y-3 text-white lg:max-w-xs">
+            <div className="flex-shrink-0 space-y-3 text-white lg:max-w-xs">
             <p className="text-xs uppercase tracking-[0.16em] text-white/50">{eyebrow}</p>
-            <h2 className="text-2xl font-semibold tracking-[-0.03em]">{title}</h2>
+            {titleTag === "h3" ? (
+              <h3 className="text-2xl font-semibold tracking-[-0.03em]">{title}</h3>
+            ) : (
+              <h2 className="text-2xl font-semibold tracking-[-0.03em]">{title}</h2>
+            )}
           </div>
           <div className="flex flex-1 justify-center overflow-hidden">
             <LogoCarousel

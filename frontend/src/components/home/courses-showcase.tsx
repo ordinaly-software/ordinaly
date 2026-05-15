@@ -23,10 +23,11 @@ interface CoursesShowcaseProps {
   onCourseClick?: (course: Course) => void;
   onViewAllClick?: () => void;
   referenceNow?: number;
+  cardTitleTag?: "h3" | "h4";
 }
 
-export default function CoursesShowcase(props: CoursesShowcaseProps) {
-  const { limit = 3, showUpcomingOnly = true, onCourseClick, initialCourses, referenceNow } = props;
+export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag?: "h2" | "h3" }) {
+  const { limit = 3, showUpcomingOnly = true, onCourseClick, initialCourses, referenceNow, titleTag = "h2", cardTitleTag = "h3" } = props;
   const t = useTranslations("home.courses");
   const router = useRouter();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -279,9 +280,15 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
     >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-10 md:mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
-            {t('showcaseTitle')}
-          </h2>
+          {titleTag === "h3" ? (
+            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+              {t('showcaseTitle')}
+            </h3>
+          ) : (
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+              {t('showcaseTitle')}
+            </h2>
+          )}
           <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
             {t('showcaseDescription')}
           </p>
@@ -404,9 +411,15 @@ export default function CoursesShowcase(props: CoursesShowcaseProps) {
                           </div>
                           
                           <div className="space-y-2">
-                            <CardTitle className="text-xl text-slate-dark dark:text-ivory-light group-hover:text-clay dark:group-hover:text-clay transition-colors line-clamp-2">
-                              {cleanTitle}
-                            </CardTitle>
+                            {cardTitleTag === "h4" ? (
+                              <h4 className="text-xl text-slate-dark dark:text-ivory-light group-hover:text-clay dark:group-hover:text-clay transition-colors line-clamp-2">
+                                {cleanTitle}
+                              </h4>
+                            ) : (
+                              <CardTitle className="text-xl text-slate-dark dark:text-ivory-light group-hover:text-clay dark:group-hover:text-clay transition-colors line-clamp-2">
+                                {cleanTitle}
+                              </CardTitle>
+                            )}
                           </div>
                         </CardHeader>
                         

@@ -26,7 +26,7 @@ const LANDING_SLUGS = [
   "automatizacion-n8n-sevilla",
   "automatizacion-facturas",
   "automatizacion-inteligente",
-  "formacion-ia-pymes-sevilla",
+  "formacion-ia-sevilla",
   "empresa-inteligencia-artificial",
   "inteligencia-artificial-empresas",
   "inteligencia-artificial-sevilla"

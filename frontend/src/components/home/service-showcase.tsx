@@ -16,6 +16,7 @@ export interface ServiceShowcaseProps {
   t: (key: string, params?: Record<string, string | number | Date>) => string;
   refetch: () => void;
   onContact?: (service: Service) => void;
+  cardTitleTag?: "h3" | "h4";
 }
 
 const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
@@ -25,6 +26,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
   error,
   t,
   refetch,
+  cardTitleTag = "h3",
 }) => {
   const router = useRouter();
 
@@ -119,6 +121,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
         skeletonCount={6}
         onCardClick={handleCardClick}
         initialVisible={9}
+        cardTitleTag={cardTitleTag}
       />
     );
   })();
