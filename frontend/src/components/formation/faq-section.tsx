@@ -72,14 +72,20 @@ const faqItems = [
   },
 ];
 
-export function FaqSection({ t }: SectionProps) {
+export function FaqSection({ t, titleTag = "h2" }: SectionProps & { titleTag?: "h2" | "h3" }) {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[--color-bg-inverted]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
-            {t("faq.title")}
-          </h2>
+          {titleTag === "h3" ? (
+            <h3 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+              {t("faq.title")}
+            </h3>
+          ) : (
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">
+              {t("faq.title")}
+            </h2>
+          )}
           <p className="text-lg text-gray-700 dark:text-gray-300">
             {t("faq.subtitle")}
           </p>

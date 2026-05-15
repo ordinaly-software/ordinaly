@@ -40,6 +40,7 @@ export interface ServiceBentoGridProps {
   viewDetailsLabel?: string;
   contactLabel?: string;
   consistentCardWidth?: boolean;
+  cardTitleTag?: "h3" | "h4";
 }
 
 export function ServiceBentoGrid({
@@ -55,6 +56,7 @@ export function ServiceBentoGrid({
   viewDetailsLabel,
   contactLabel,
   consistentCardWidth = false,
+  cardTitleTag = "h3",
 }: ServiceBentoGridProps) {
   const effectiveInitial = initialVisible ?? (infiniteScroll ? PAGE_SIZE : services.length);
   const [visibleCount, setVisibleCount] = useState(effectiveInitial);
@@ -116,6 +118,7 @@ export function ServiceBentoGrid({
             onContact={onCardContact}
             viewDetailsLabel={viewDetailsLabel}
             contactLabel={contactLabel}
+            titleTag={cardTitleTag}
           />
         ))}
       </div>

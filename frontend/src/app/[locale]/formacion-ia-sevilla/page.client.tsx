@@ -15,22 +15,22 @@ import Carousel3D from "@/components/ui/carrusel3D";
 import CoursesShowcase from "@/components/home/courses-showcase";
 
 const FORMACION_HERO_ASSET = {
-  heroImage: "/static/formacion-ia-pymes-sevilla/hero-blurred.webp",
+  heroImage: "/static/formacion-ia-sevilla/hero-blurred.webp",
   heroImagePosition: "center 30%",
 } as const;
 
 const FORMACION_IA_PYMES_SEVILLA_CAROUSEL_IMAGES = [
-  "/static/formacion-ia-pymes-sevilla/1-ordinaly.webp",
-  "/static/formacion-ia-pymes-sevilla/2-ordinaly.webp",
-  "/static/formacion-ia-pymes-sevilla/3-ordinaly.webp",
-  "/static/formacion-ia-pymes-sevilla/4-ordinaly.webp",
-  "/static/formacion-ia-pymes-sevilla/5-ordinaly.webp",
-  "/static/formacion-ia-pymes-sevilla/6-ordinaly.webp",
+  "/static/formacion-ia-sevilla/1-ordinaly.webp",
+  "/static/formacion-ia-sevilla/2-ordinaly.webp",
+  "/static/formacion-ia-sevilla/3-ordinaly.webp",
+  "/static/formacion-ia-sevilla/4-ordinaly.webp",
+  "/static/formacion-ia-sevilla/5-ordinaly.webp",
+  "/static/formacion-ia-sevilla/6-ordinaly.webp",
 ] as const;
 
 const FORMACION_IA_PYMES_SEVILLA_EXPERT_IMAGES = [
-  "/static/formacion-ia-pymes-sevilla/Antonio.webp",
-  "/static/formacion-ia-pymes-sevilla/Guillermo.webp",
+  "/static/formacion-ia-sevilla/Antonio.webp",
+  "/static/formacion-ia-sevilla/Guillermo.webp",
 ] as const;
 
 const TEACHER_LINKEDIN_URLS = [
@@ -41,10 +41,10 @@ const TEACHER_LINKEDIN_URLS = [
 export default function FormacionIaPymesSevillaPage() {
   const messages = useMessages() as any;
 
-  const content = messages.landings?.["formacion-ia-pymes-sevilla"];
+  const content = messages.landings?.["formacion-ia-sevilla"];
   const ui = content?.ui;
 
-  if (!content) throw new Error("Missing content: formacion-ia-pymes-sevilla");
+  if (!content) throw new Error("Missing content: formacion-ia-sevilla");
 
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
@@ -209,7 +209,7 @@ export default function FormacionIaPymesSevillaPage() {
       </section>
 
       <section className="bg-neutral-50 dark:bg-neutral-800">
-        <CoursesShowcase />
+        <CoursesShowcase titleTag="h3" />
       </section>
 
       <section className="py-24 max-w-5xl mx-auto px-6">

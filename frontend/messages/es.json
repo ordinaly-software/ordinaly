@@ -35,7 +35,7 @@
       "loading": "Cargando..."
     },
     "hero": {
-      "titleLine1": "Agencia de",
+      "titleLine1": "Agencia de ",
       "titleLine2": "Automatización IA",
       "subtitle": "Somos tu agencia de automatización IA. Optimizamos tu negocio con inteligencia artificial para escalar resultados.",
       "description1": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
@@ -2565,8 +2565,8 @@
         "bgColor": "#d97706"
       }
     },
-    "formacion-ia-pymes-sevilla": {
-      "slug": "formacion-ia-pymes-sevilla",
+    "formacion-ia-sevilla": {
+      "slug": "formacion-ia-sevilla",
       "title": "Formación en IA en Sevilla",
       "description": "Formación práctica en inteligencia artificial para PYMES en Sevilla. Talleres adaptados a tu equipo para integrar la IA en procesos reales del día a día.",
       "shortTitle": "Formación IA",
@@ -2964,6 +2964,7 @@
     },
     "automatizacion-inteligente": {
       "title": "Automatización inteligente",
+      "shortTitle": "Automatización inteligente",
       "heroCtaLabel": "Quiero saber más",
       "heroCtaHref": "#formulario",
       "sectionTitles": {

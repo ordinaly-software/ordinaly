@@ -91,7 +91,7 @@ const useCases: UseCaseItem[] = [
 
 // ─── Single card ──────────────────────────────────────────────────────────────
 
-function UseCaseCard({ item, t, index }: { item: UseCaseItem; t: TranslateFn; index: number }) {
+function UseCaseCard({ item, t, index, itemTitleTag }: { item: UseCaseItem; t: TranslateFn; index: number; itemTitleTag?: "h3" | "h4" }) {
   const { Icon, accent, href } = item;
 
   return (
@@ -113,11 +113,19 @@ function UseCaseCard({ item, t, index }: { item: UseCaseItem; t: TranslateFn; in
       </div>
 
       {/* ── Title ──────────────────────────────────────────────────────── */}
-      <h3
-        className="mb-3 w-full text-center text-[1.35rem] font-semibold leading-snug text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] transition-colors duration-300"
-      >
-        {t(item.titleKey)}
-      </h3>
+      {itemTitleTag === "h4" ? (
+        <h4
+          className="mb-3 w-full text-center text-[1.35rem] font-semibold leading-snug text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] transition-colors duration-300"
+        >
+          {t(item.titleKey)}
+        </h4>
+      ) : (
+        <h3
+          className="mb-3 w-full text-center text-[1.35rem] font-semibold leading-snug text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] transition-colors duration-300"
+        >
+          {t(item.titleKey)}
+        </h3>
+      )}
 
       {/* ── Bullets ────────────────────────────────────────────────────── */}
       <ul className="w-full space-y-1.5 text-center text-sm leading-relaxed text-[var(--swatch--slate-light)] dark:text-[var(--swatch--cloud-medium)] transition-colors duration-300">
@@ -145,7 +153,12 @@ function UseCaseCard({ item, t, index }: { item: UseCaseItem; t: TranslateFn; in
 
 // ─── Section ──────────────────────────────────────────────────────────────────
 
-export function UseCasesSection({ t, id }: SectionProps) {
+interface UseCasesSectionProps extends SectionProps {
+  headingTag?: "h2" | "h3";
+  itemTitleTag?: "h3" | "h4";
+}
+
+export function UseCasesSection({ t, id, headingTag = "h2", itemTitleTag = "h3" }: UseCasesSectionProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -185,9 +198,15 @@ export function UseCasesSection({ t, id }: SectionProps) {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-20 scroll-animate fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
-            {t("useCases.title")}
-          </h2>
+          {headingTag === "h3" ? (
+            <h3 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+              {t("useCases.title")}
+            </h3>
+          ) : (
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+              {t("useCases.title")}
+            </h2>
+          )}
           <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
             {t("useCases.subtitle")}
           </p>
@@ -196,7 +215,7 @@ export function UseCasesSection({ t, id }: SectionProps) {
         {/* Cards — extra vertical padding to show overflow circles */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14">
           {useCases.map((item, index) => (
-            <UseCaseCard key={item.titleKey} item={item} t={t} index={index} />
+            <UseCaseCard key={item.titleKey} item={item} t={t} index={index} itemTitleTag={itemTitleTag} />
           ))}
         </div>
       </div>

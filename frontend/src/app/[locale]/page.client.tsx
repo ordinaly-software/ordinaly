@@ -324,9 +324,9 @@ export default function HomePage({
               <div className="w-10 h-10 bg-clay/15 dark:bg-clay/20 rounded-a-m flex items-center justify-center mx-auto mb-3">
                 <Icon className="w-5 h-5 text-clay" strokeWidth={1.5} />
               </div>
-              <h3 className="text-base font-semibold mb-1.5 text-slate-dark dark:text-ivory-light">
+              <h4 className="text-base font-semibold mb-1.5 text-slate-dark dark:text-ivory-light">
                 {t(titleKey)}
-              </h3>
+              </h4>
               <p className="text-sm text-slate-medium dark:text-cloud-medium">{t(descriptionKey)}</p>
             </div>
           ))}
@@ -347,6 +347,7 @@ export default function HomePage({
             t={t}
             refetch={refetch}
             onContact={handleServiceContact}
+            cardTitleTag="h4"
           />
         }
       />
@@ -355,30 +356,32 @@ export default function HomePage({
         showUpcomingOnly={false}
         initialCourses={initialCourses}
         referenceNow={renderedAt}
+        cardTitleTag="h4"
       />
       <DeferredSection id="use-cases" className="scroll-mt-24">
-        <UseCasesSection t={t} />
+        <UseCasesSection t={t} headingTag="h3" itemTitleTag="h4" />
       </DeferredSection>
       {shouldRenderDeferredSections ? (
         <>
           <DeferredSection>
-            <TestimonialsSection t={t} />
+            <TestimonialsSection t={t} titleTag="h3" />
           </DeferredSection>
           <DeferredSection>
-            <NewsletterSection />
+            <NewsletterSection titleTag="h3" />
           </DeferredSection>
           <DeferredSection>
             <PartnerShowcase
               eyebrow={t("partners.title")}
               title={t("partners.subtitle")}
               className="pt-10 pb-12"
+              titleTag="h3"
             />
           </DeferredSection>
           <DeferredSection>
-            <AiChatDemo t={t} />
+            <AiChatDemo t={t} titleTag="h3" />
           </DeferredSection>
           <DeferredSection>
-            <FaqSection t={formationT} />
+            <FaqSection t={formationT} titleTag="h3" />
           </DeferredSection>
           <DeferredSection>
             <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">

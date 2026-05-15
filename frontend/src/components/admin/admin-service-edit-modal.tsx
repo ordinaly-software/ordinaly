@@ -284,7 +284,7 @@ export const AdminServiceEditModal = ({
           // Landing page slugs
           "chatbots-empresas-sevilla", "automatizacion-n8n-sevilla",
           "agentes-ia-atencion-cliente-sevilla", "automatizacion-whatsapp-business-sevilla",
-          "formacion-ia-pymes-sevilla", "integraciones-crm-erp-sevilla",
+          "formacion-ia-sevilla", "integraciones-crm-erp-sevilla",
           // Other reserved paths
           "studio", "sitemap.xml", "robots.txt", "manifest.json", "sw.js", "llm.txt",
           "en", "es",

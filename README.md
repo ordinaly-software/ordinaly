@@ -199,7 +199,7 @@ ordinaly/
                 <li><code>/[locale]/change-email/page.tsx</code> — Cambio de email</li>
                 <li><code>/[locale]/reset-password/page.tsx</code> — Recuperación de contraseña</li>
                 <li><code>/[locale]/delete_account/page.tsx</code> — Eliminación de cuenta</li>
-                <li>Landing pages SEO: empresa-inteligencia-artificial, inteligencia-artificial-sevilla, chatbots-personalizados-para-empresas, automatizacion-inteligente, automatizacion-facturas, automatizacion-n8n-sevilla, formacion-ia-pymes-sevilla</li>
+                <li>Landing pages SEO: empresa-inteligencia-artificial, inteligencia-artificial-sevilla, chatbots-personalizados-para-empresas, automatizacion-inteligente, automatizacion-facturas, automatizacion-n8n-sevilla, formacion-ia-sevilla</li>
                 <li><code>/studio/[[...tool]]/page.tsx</code> — Sanity Studio</li>
             </ul>
             <b>API routes (Next.js):</b>

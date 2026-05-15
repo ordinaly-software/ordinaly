@@ -3,8 +3,8 @@ import { getMessages } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
 import FormacionIaPymesSevillaPage from "./page.client";
 
-const slug = "formacion-ia-pymes-sevilla" as const;
-const FORMACION_IA_PYMES_SEVILLA_HERO_IMAGE = "/static/formacion-ia-pymes-sevilla/hero-blurred.webp";
+const slug = "formacion-ia-sevilla" as const;
+const FORMACION_IA_PYMES_SEVILLA_HERO_IMAGE = "/static/formacion-ia-sevilla/hero-blurred.webp";
 type LandingMetadataContent = {
   title: string;
   description: string;

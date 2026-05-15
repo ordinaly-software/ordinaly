@@ -76,7 +76,7 @@ function buildScenarios(t: TranslateFn): Scenario[] {
   }));
 }
 
-export function AiChatDemo({ t }: SectionProps) {
+export function AiChatDemo({ t, titleTag = "h2" }: SectionProps & { titleTag?: "h2" | "h3" }) {
   const scenarios = buildScenarios(t);
   const [activeIndex, setActiveIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(0);
@@ -158,9 +158,15 @@ export function AiChatDemo({ t }: SectionProps) {
       <div className="relative z-10 max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-black text-slate-dark dark:text-ivory-light mb-4 tracking-tight">
-            {t("chatDemo.title")}
-          </h2>
+          {titleTag === "h3" ? (
+            <h3 className="text-4xl md:text-5xl font-black text-slate-dark dark:text-ivory-light mb-4 tracking-tight">
+              {t("chatDemo.title")}
+            </h3>
+          ) : (
+            <h2 className="text-4xl md:text-5xl font-black text-slate-dark dark:text-ivory-light mb-4 tracking-tight">
+              {t("chatDemo.title")}
+            </h2>
+          )}
           <p className="text-lg text-slate-medium dark:text-cloud-medium max-w-2xl mx-auto leading-relaxed">
             {t("chatDemo.subtitle")}
           </p>

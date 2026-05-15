@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 
-export function NewsletterSection() {
+export function NewsletterSection({ titleTag = "h2" }: { titleTag?: "h2" | "h3" } = {}) {
   const t = useTranslations("home.newsletter");
   const [submitted, setSubmitted] = useState(false);
 
@@ -30,9 +30,11 @@ export function NewsletterSection() {
       <div className="relative max-w-2xl mx-auto text-center">
         {/* Icon badge */}
 
-        <h2 className="text-3xl sm:text-4xl font-bold text-white leading-snug mb-4">
-          {t("title")}
-        </h2>
+        {titleTag === "h3" ? (
+          <h3 className="text-3xl sm:text-4xl font-bold text-white leading-snug mb-4">{t("title")}</h3>
+        ) : (
+          <h2 className="text-3xl sm:text-4xl font-bold text-white leading-snug mb-4">{t("title")}</h2>
+        )}
         <p className="text-base sm:text-lg text-white/80 mb-8 max-w-xl mx-auto">
           {t("subtitle")}
         </p>
