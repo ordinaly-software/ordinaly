@@ -2965,6 +2965,7 @@
     "automatizacion-inteligente": {
       "title": "Automatización inteligente",
       "shortTitle": "Automatización inteligente",
+      "description": "Diseñamos automatización inteligente para empresas que necesitan orquestar herramientas, datos y tareas con n8n e IA sin perder control operativo.",
       "heroCtaLabel": "Quiero saber más",
       "heroCtaHref": "#formulario",
       "sectionTitles": {

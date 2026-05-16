@@ -24,7 +24,7 @@ export async function generateMetadata({
     locale: "es",
     path: "/blog",
     title: "Blog de automatización e IA",
-    description: "Noticias, guías y casos de éxito sobre automatización, IA y productividad para empresas.",
+    description: "Noticias, ideas y actualizaciones sobre transformación digital, inteligencia artificial y automatización para empresas. Mantente al día con el blog de Ordinaly.",
     image: "/static/backgrounds/blog_background.png",
     alternateLocales: ["es"],
   });

@@ -207,17 +207,18 @@ class Command(BaseCommand):
                 'title': 'Sesión formativa "La Inteligencia artificial en la inmobiliaria"',
                 'slug': 'sesion-ia-en-la-inmobiliaria',
                 'subtitle': (
-                    'Abordaremos los principales casos de uso de la IA generativa enfocados al sector inmobiliario.'
+                    'Sesión práctica de IA para inmobiliarias con automatización, captación y atención al cliente.'
                 ),
                 'description': (
-                    '**¡IMPORTANTE!**. Esta sesión va orientada a profesionales adscritos al grupo *Alianza Sevilla*.\n'
-                    'En esta sesión se abordarán temas como:\n'
-                    '- Casos de uso de la IA generativa en el sector inmobiliario\n'
+                    '**¡IMPORTANTE!** Esta sesión está orientada a profesionales del sector inmobiliario que quieran aplicar IA de forma práctica desde el primer día.\n\n'
+                    'Trabajaremos casos reales como la atención de leads por WhatsApp, el seguimiento automático de contactos, los resúmenes de visitas y la preparación de respuestas asistidas por IA.\n\n'
+                    'También veremos:\n'
+                    '- Casos de uso de la IA generativa en inmobiliarias\n'
                     '- Herramientas y recursos para trabajar con IA\n'
-                    '- Ejemplos prácticos de uso de IA en negocios\n'
+                    '- Automatizaciones para ventas, soporte y posventa\n'
                     '- Consideraciones de seguridad y privacidad en el uso de IA\n'
-                    '- Impacto de la IA en la industria inmobiliaria\n'
-                    '- Futuro de la IA en la inmobiliaria\n'
+                    '- Impacto real de la IA en la operativa del negocio\n'
+                    '- Próximos pasos para implantar flujos útiles en el equipo\n'
                     'Taller impartido por: \n'
                     '- 👨‍💻 *Antonio Macías* - ingeniero del software de Ordinaly \n'
                     '- 🧪 *Guillermo Montero* - ingeniero de calidad en Proinca Consultores \n\n'
