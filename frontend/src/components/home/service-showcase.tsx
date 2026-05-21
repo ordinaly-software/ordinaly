@@ -34,7 +34,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
   const handleCardClick = useCallback(
     (service: Service) => {
       if (service.slug) {
-        router.push(`/services/${service.slug}`);
+        router.push(`/${service.slug}`);
       } else {
         router.push("/servicios");
       }

@@ -2966,6 +2966,7 @@
     "automatizacion-inteligente": {
       "title": "Intelligent Automation for Businesses",
       "shortTitle": "Intelligent Automation",
+      "description": "We design intelligent automation for companies that need to orchestrate tools, data and tasks with n8n and AI without losing operational control.",
       "heroCtaLabel": "Learn more",
       "heroCtaHref": "#formulario",
       "sectionTitles": {

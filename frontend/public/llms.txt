@@ -12,7 +12,7 @@ Ordinaly Software S.L. ayuda a empresas a implementar inteligencia artificial pr
 - **Sitemap:** https://ordinaly.ai/sitemap.xml
 
 ## Servicios y Soluciones Destacadas
-- [Servicios de IA](https://ordinaly.ai/services): Catálogo completo de soluciones tecnológicas.
+- [Servicios de IA](https://ordinaly.ai/servicios): Catálogo completo de soluciones tecnológicas.
 - [Automatización Inteligente](https://ordinaly.ai/automatizacion-inteligente): Implementación de flujos de trabajo autónomos.
 - [Automatización de Facturas](https://ordinaly.ai/automatizacion-facturas): Soluciones específicas para departamentos financieros y contables.
 - [Automatización con n8n](https://ordinaly.ai/automatizacion-n8n-sevilla): Especialistas en flujos de trabajo complejos usando n8n en Sevilla.
@@ -22,7 +22,7 @@ Ordinaly Software S.L. ayuda a empresas a implementar inteligencia artificial pr
 - [Empresa de Inteligencia artificial](https://ordinaly.ai/empresa-inteligencia-artificial): Quiénes somos y nuestra metodología.
 - [IA para Empresas](https://ordinaly.ai/inteligencia-artificial-empresas): Valor estratégico de la IA en el tejido empresarial.
 - [IA en Sevilla](https://ordinaly.ai/inteligencia-artificial-sevilla): Referente tecnológico en la capital andaluza.
-- [Contacto](https://ordinaly.ai/contact): Formulario y atención directa.
+- [Contacto](https://ordinaly.ai/contacto): Formulario y atención directa.
 
 ## Directorio por Idiomas
 - **Castellano (ES):** https://ordinaly.ai/es

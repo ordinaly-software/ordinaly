@@ -15,7 +15,7 @@ export async function generateMetadata({
     path: `/${slug}`,
     title: "Automatización de facturas para empresas",
     description:
-      "Automatización de facturas para departamentos contables. Procesa tus documentos sin errores y ahorra tiempo con tecnología de procesamiento inteligente",
+      "Automatización de facturas para empresas y asesorías. Extrae datos desde email o WhatsApp, clasifica documentos y sincroniza con tu ERP mediante IA para ahorrar horas de trabajo manual.",
     image: "/static/backgrounds/services_background.webp",
   });
 }

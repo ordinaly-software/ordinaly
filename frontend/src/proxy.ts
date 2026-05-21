@@ -22,6 +22,7 @@ const LOCALIZED_BLOG_PATH_PATTERN = /^\/es\/blog(?:\/|$)/;
 const CANONICAL_BLOG_POST_PATTERN = /^\/blog\/(.+)$/;
 const CANONICAL_BLOG_PATH_PATTERN = /^\/blog(?:\/|$)/;
 const EN_BLOG_POST_PATTERN = /^\/en\/blog\/(.+)$/;
+const EN_BLOG_ROOT_PATTERN = /^\/en\/blog\/?$/;
 const FORMATION_PATH_PATTERN = /^(?:\/en|\/es)?\/formation(?:\/|$)/;
 
 export default function proxy(request: NextRequest) {
@@ -46,6 +47,13 @@ export default function proxy(request: NextRequest) {
   // /blog or /blog/ → blog index via blogMiddleware
   if (CANONICAL_BLOG_PATH_PATTERN.test(pathname)) {
     return blogMiddleware(request);
+  }
+
+  // /en/blog → /blog (the blog is Spanish-only)
+  if (EN_BLOG_ROOT_PATTERN.test(pathname)) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = "/blog";
+    return NextResponse.redirect(redirectUrl, 308);
   }
 
   // /en/blog/[slug] → /[slug] (blog is Spanish-only)

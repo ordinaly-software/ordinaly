@@ -2,13 +2,19 @@ import type { MetadataRoute } from "next";
 import { metadataBaseUrl } from "@/lib/metadata";
 import { client } from "@/lib/sanity";
 
-const LANDING_SLUGS = [
+const PUBLIC_LANDING_SLUGS = [
   "chatbots-empresas-sevilla",
+  "chatbots-personalizados-para-empresas",
   "automatizacion-n8n-sevilla",
   "agentes-ia-atencion-cliente-sevilla",
   "automatizacion-whatsapp-business-sevilla",
+  "automatizacion-facturas",
+  "automatizacion-inteligente",
   "formacion-ia-sevilla",
   "integraciones-crm-erp-sevilla",
+  "empresa-inteligencia-artificial",
+  "inteligencia-artificial-empresas",
+  "inteligencia-artificial-sevilla",
 ] as const;
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
@@ -66,13 +72,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       })()) ?? [];
 
     const services =
-      (await fetchApiCollection<{ slug?: string; id?: string; draft?: boolean }>(
+      (await fetchApiCollection<{ slug?: string; draft?: boolean }>(
         "/api/services/",
         apiBase,
       )).filter((s) => !s?.draft) ?? [];
 
     const courses =
-      (await fetchApiCollection<{ slug?: string; id?: string }>(
+      (await fetchApiCollection<{ slug?: string }>(
         "/api/courses/courses/",
         apiBase,
       )) ?? [];
@@ -96,21 +102,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     slugs.forEach((slug) => addPath(`/${slug}`, "weekly", 0.7));
 
     services.forEach((service) => {
-      const identifier = service?.slug || service?.id;
+      const identifier = service?.slug?.trim();
       if (!identifier) return;
       addPath(`/${identifier}`, "weekly", 0.8);
     });
 
     // Local SEO landings
-    LANDING_SLUGS.forEach((slug) => addPath(`/${slug}`, "weekly", 0.85));
+    PUBLIC_LANDING_SLUGS.forEach((slug) => addPath(`/${slug}`, "weekly", 0.85));
 
     courses.forEach((course) => {
-      const identifier = course?.slug || course?.id;
+      const identifier = course?.slug?.trim();
       if (!isValidSlug(identifier)) return;
       addPath(`/formacion/${identifier}`, "weekly", 0.7);
     });
 
-    // Keep root and top-level sections before deeper routes.
+    // Keep root and top-level sections before deeper routes, then dedupe exact URLs.
     entries.sort((a, b) => {
       const depthA = new URL(a.url).pathname.split("/").filter(Boolean).length;
       const depthB = new URL(b.url).pathname.split("/").filter(Boolean).length;
@@ -118,7 +124,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return a.url.localeCompare(b.url);
     });
 
-    return entries;
+    const uniqueEntries = new Map<string, MetadataRoute.Sitemap[number]>();
+    entries.forEach((entry) => {
+      if (!uniqueEntries.has(entry.url)) {
+        uniqueEntries.set(entry.url, entry);
+      }
+    });
+
+    return [...uniqueEntries.values()];
   } catch (error) {
     // Si algo explota (red, Sanity, etc.), devolvemos un sitemap vacío en vez de 500
     console.warn("sitemap generation failed, returning empty sitemap", error);

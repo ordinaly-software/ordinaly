@@ -28,6 +28,10 @@ export default function AutomatizacionInteligente() {
             <span className="block text-5xl md:text-7xl text-[#d97757]">{content.title}</span>
           </h1>
 
+          <p className="mt-6 max-w-3xl text-base md:text-lg text-neutral-300 leading-relaxed">
+            {content.description}
+          </p>
+
           <a
             href={content.heroCtaHref}
             className="mt-10 px-6 py-3 rounded-full bg-[#d97757] text-white font-semibold hover:bg-[#b45309] transition"

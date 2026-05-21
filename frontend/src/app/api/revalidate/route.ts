@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
   tags.forEach((t: string) => revalidateTag(t, 'max'))
   slugs.forEach((s:string) => {
     revalidatePath(`/${s}`);
-    revalidatePath(`/blog/${s}`);
   });
   revalidatePath('/blog')
   return NextResponse.json({ok:true, ts: Date.now()})
