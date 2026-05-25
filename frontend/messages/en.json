@@ -1799,7 +1799,6 @@
     "noResults": {
       "title": "No results found",
       "description": "Try searching again"
-
     },
     "backToBlog": "Back to blog",
     "postCategories": "Post categories",
@@ -1842,6 +1841,9 @@
     },
     "otherPosts": {
       "title": "Other posts"
+    },
+    "errors": {
+      "loadPosts": "Failed to load blog posts. Please try again later."
     }
   },
   "news": {
@@ -1877,6 +1879,9 @@
     },
     "otherPosts": {
       "title": "All news"
+    },
+    "errors": {
+      "loadPosts": "Failed to load news. Please try again later."
     }
   },
   "contactPage": {
