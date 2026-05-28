@@ -11,7 +11,7 @@ import { Search } from 'lucide-react';
 import Banner from '@/components/ui/banner';
 import { Input } from '@/components/ui/input';
 import { Dropdown } from '@/components/ui/dropdown';
-import { useMemo, useState, useEffect, useCallback } from 'react';
+import { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
 
 const WhatsAppBubble = dynamic(() => import('@/components/home/whatsapp-bubble'), {
@@ -74,10 +74,35 @@ export default function BlogClient({
     setCategoryMap(prev => ({ ...prev, ...mapCategories(items) }));
   }, []);
 
-  // Keep local state in sync with server-provided defaults
+  // Mutable refs so effects can read the latest state without re-running on every change
+  const currentPageRef = useRef(currentPage);
+  const selectedCategoryRef = useRef(selectedCategory);
+  const debouncedSearchRef = useRef(debouncedSearch);
+  const orderRef = useRef(order);
+  const latestInitialPostsRef = useRef(initialPosts);
+  const latestInitialTotalRef = useRef(initialTotal);
+
+  // Keep refs current on every render (runs before effects)
+  currentPageRef.current = currentPage;
+  selectedCategoryRef.current = selectedCategory;
+  debouncedSearchRef.current = debouncedSearch;
+  orderRef.current = order;
+  latestInitialPostsRef.current = initialPosts;
+  latestInitialTotalRef.current = initialTotal;
+
+  // Sync from server data only when we are genuinely in the base state.
+  // Without this guard, every router.push triggers a server re-render (force-dynamic)
+  // which passes new initialPosts (always page 1) and wipes out the paginated data.
   useEffect(() => {
-    setPosts(initialPosts);
-    setTotal(initialTotal);
+    const isBase =
+      currentPageRef.current === 1 &&
+      selectedCategoryRef.current === 'all' &&
+      debouncedSearchRef.current === '' &&
+      orderRef.current === 'desc';
+    if (isBase) {
+      setPosts(initialPosts);
+      setTotal(initialTotal);
+    }
     mergeCategories(initialPosts);
   }, [initialPosts, initialTotal, mergeCategories]);
 
@@ -113,8 +138,11 @@ export default function BlogClient({
   useEffect(() => {
     const baseState = debouncedSearch === '' && selectedCategory === 'all' && currentPage === 1 && order === 'desc';
     if (baseState) {
-      setPosts(initialPosts);
-      setTotal(initialTotal);
+      // Read from refs so we always use the latest server-provided data
+      // without including initialPosts/initialTotal in the effect's deps
+      // (they would cause redundant fetches on every server re-render).
+      setPosts(latestInitialPostsRef.current);
+      setTotal(latestInitialTotalRef.current);
       setLoading(false);
       setError(null);
       return;
@@ -152,7 +180,7 @@ export default function BlogClient({
     return () => {
       cancelled = true;
     };
-  }, [debouncedSearch, selectedCategory, currentPage, pageSize, initialPosts, initialTotal, mergeCategories, t, order, normalizedBasePath]);
+  }, [debouncedSearch, selectedCategory, currentPage, pageSize, mergeCategories, t, order, normalizedBasePath]);
 
   const categories = useMemo(() => {
     const options = Object.entries(categoryMap).map(([value, label]) => ({ value, label }));

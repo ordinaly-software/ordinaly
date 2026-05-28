@@ -19,7 +19,7 @@ const blogMiddleware = createMiddleware({
 });
 
 const LOCALIZED_BLOG_PATH_PATTERN = /^\/es\/blog(?:\/|$)/;
-const CANONICAL_BLOG_POST_PATTERN = /^\/blog\/(.+)$/;
+const CANONICAL_BLOG_POST_PATTERN = /^\/blog\/(?!search(?:$|[?/])|rrss\.xml(?:$|[?/]))(.+)$/;
 const CANONICAL_BLOG_PATH_PATTERN = /^\/blog(?:\/|$)/;
 const EN_BLOG_POST_PATTERN = /^\/en\/blog\/(.+)$/;
 const EN_BLOG_ROOT_PATTERN = /^\/en\/blog\/?$/;
@@ -29,11 +29,15 @@ export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // /es/blog/[slug] → /[slug], /es/blog → /blog
+  // Skip API/feed sub-routes so they are handled by their own route handlers.
   if (LOCALIZED_BLOG_PATH_PATTERN.test(pathname)) {
-    const redirectUrl = request.nextUrl.clone();
-    const esSlugMatch = pathname.match(/^\/es\/blog\/(.+)$/);
-    redirectUrl.pathname = esSlugMatch ? `/${esSlugMatch[1]}` : pathname.replace(/^\/es(?=\/blog)/, "");
-    return NextResponse.redirect(redirectUrl, 308);
+    const esSlugMatch = pathname.match(/^\/es\/blog\/(?!search(?:$|[?/])|rrss\.xml(?:$|[?/]))(.+)$/);
+    const isApiSubroute = /^\/es\/blog\/(?:search|rrss\.xml)(?:$|[?/])/.test(pathname);
+    if (!isApiSubroute) {
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = esSlugMatch ? `/${esSlugMatch[1]}` : pathname.replace(/^\/es(?=\/blog)/, "");
+      return NextResponse.redirect(redirectUrl, 308);
+    }
   }
 
   // /blog/[slug] → /[slug] (dedup: both /blog/x and /x were indexed)
@@ -79,5 +83,7 @@ export default function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     "/((?!api|studio|trpc|_next|_vercel|.*\\..*).*)",
+    "/blog/rrss.xml",
+    "/es/blog/rrss.xml",
   ],
 };

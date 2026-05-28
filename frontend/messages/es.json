@@ -1841,6 +1841,9 @@
     },
     "otherPosts": {
       "title": "Todas las publicaciones"
+    },
+    "errors": {
+      "loadPosts": "Error al cargar las publicaciones. Por favor, intenta de nuevo."
     }
   },
   "news": {
@@ -1876,6 +1879,9 @@
     },
     "otherPosts": {
       "title": "Todas las noticias"
+    },
+    "errors": {
+      "loadPosts": "Error al cargar las noticias. Por favor, intenta de nuevo."
     }
   },
   "contactPage": {
