@@ -20,6 +20,7 @@ const AUTH_STATE_CHANGE_EVENT = "auth-state-changed";
 const NAV_PRIORITY: Record<string, number> = {
   services: 10,
   contact: 10,
+  home: 8,
   faq: 6,
   about: 5,
   formation: 4,
@@ -423,6 +424,7 @@ const Navbar = () => {
 
   const navItems = useMemo(
     () => [
+      { id: "home", type: "link", href: "/", label: t("navigation.home") },
       ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/servicios", label: t("navigation.services") }] : []),
       ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formacion", label: t("navigation.formation") }] : []),
       ...(locale !== "en" ? [{ id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") }] : []),
@@ -746,6 +748,18 @@ const Navbar = () => {
 
 
                 <div className="grid gap-2">
+                  <Link
+                    href="/"
+                    onClick={() => setIsMenuOpen(false)}
+                    className={cn(
+                      "transition-colors py-3 px-2 block rounded-md font-medium",
+                      isLinkActive("/")
+                        ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
+                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
+                    )}
+                  >
+                    {t("navigation.home")}
+                  </Link>
                   <Link
                     href="/faq"
                     onClick={() => setIsMenuOpen(false)}
