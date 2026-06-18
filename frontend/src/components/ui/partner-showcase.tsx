@@ -4,10 +4,11 @@ import { LogoCarousel, type LogoCarouselLogo } from "@/components/ui/logo-carous
 import { cn } from "@/lib/utils";
 
 export const defaultPartnerLogos: LogoCarouselLogo[] = [
-  "/static/logos/logo_aviva_publicidad_small.webp",
+  "/static/logos/logo_faecta.webp",
   "/static/logos/logo_grupo_addu_small.webp",
   "/static/logos/logo_proinca_consultores_small.webp",
   "/static/logos/logo_guadalquivir_fincas_small.webp",
+  "/static/logos/logo_aviva_publicidad_small.webp",
   "/static/logos/logo_esau.webp",
   "/static/logos/logo_geesol.webp",
 ].map((src, index) => ({
