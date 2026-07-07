@@ -28,6 +28,7 @@
 - [Características principales](#características-principales)
 - [Primeros pasos](#primeros-pasos)
   - [Requisitos previos](#requisitos-previos)
+  - [Configurar PostgreSQL](#configurar-postgresql)
   - [Instalación y ejecución](#instalación-y-ejecución)
 - [Dependencias principales](#dependencias-principales)
   - [Backend (Django)](#backend-django)
@@ -269,8 +270,54 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
 
 - **Python 3.10+** y **pip** (para el backend)
 - **Node.js 18+** y **npm** (para el frontend)
+- **PostgreSQL 16+** (base de datos del backend)
 
+### Configurar PostgreSQL
 
+El backend usa `dj_database_url` para leer la conexión desde la variable `DATABASE_URL` del `.env` (y `TEST_DATABASE_URL` para los tests), con el formato:
+
+```
+postgres://usuario:contraseña@host:puerto/nombre_bd
+```
+
+**En macOS (Homebrew):**
+
+```sh
+brew install postgresql@16
+brew services start postgresql@16
+```
+
+Si `psql` no se encuentra tras la instalación, añade el binario al PATH (Homebrew instala esta versión como *keg-only*):
+
+```sh
+echo 'export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+Crea el usuario y la base de datos que espera el proyecto (usa las mismas credenciales que pongas en `DATABASE_URL`/`TEST_DATABASE_URL` del `.env`):
+
+```sh
+psql postgres
+```
+
+```sql
+CREATE USER ordinaly WITH PASSWORD 'tu_password';
+CREATE DATABASE ordinaly_db OWNER ordinaly;
+GRANT ALL PRIVILEGES ON DATABASE ordinaly_db TO ordinaly;
+
+-- Base de datos de test (opcional, para `python manage.py test`)
+CREATE USER ordinaly_test WITH PASSWORD 'tu_test_password';
+CREATE DATABASE ordinaly_test OWNER ordinaly_test;
+GRANT ALL PRIVILEGES ON DATABASE ordinaly_test TO ordinaly_test;
+```
+
+Verifica la conexión antes de migrar:
+
+```sh
+psql "postgresql://ordinaly:tu_password@127.0.0.1:5432/ordinaly_db" -c '\conninfo'
+```
+
+> **Nota:** Si `brew services list` no muestra el servicio como `started`, revisa los logs en `~/Library/Logs/Homebrew/postgresql@16/`.
 
 ### Instalación y ejecución
 
@@ -283,10 +330,11 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
 2. Instala dependencias del backend (Django):
     ```sh
     cd backend
-    python3 -m venv venv
-    source venv/bin/activate
+    python3 -m venv .venv
+    source .venv/bin/activate
     pip install -r requirements.txt
-    # Copia y configura .env proporcionada (DJANGO_SECRET_KEY, GOOGLE_OAUTH2_CLIENT_ID, GOOGLE_OAUTH2_CLIENT_SECRET, ORDINALY_TEST_PASSWORD para proteger formularios)
+    # Copia y configura .env proporcionada (DJANGO_SECRET_KEY, GOOGLE_OAUTH2_CLIENT_ID, GOOGLE_OAUTH2_CLIENT_SECRET, ORDINALY_TEST_PASSWORD para proteger formularios, DATABASE_URL/TEST_DATABASE_URL)
+    # Asegúrate de tener PostgreSQL instalado y la BD creada (ver "Configurar PostgreSQL" más arriba)
     # Migraciones iniciales
     python manage.py migrate
     # (Opcional) Crea superusuario

@@ -58,6 +58,7 @@
     "services": {
       "title": "Our AI automation agency",
       "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs.",
+      "noServices": "No services available.",
       "extra": {
         "0": {
           "title": "Fast implementation",

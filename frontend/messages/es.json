@@ -58,6 +58,7 @@
     "services": {
       "title": "Nuestra agencia de automatización IA",
       "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos. Especialistas en automatización para inmobiliarias, administradores de fincas y PYMEs andaluzas.",
+      "noServices": "Ahora mismo estamos de vacaciones. ¡Volvemos pronto con nuevos servicios y productos! Gracias por tu paciencia.",
       "extra": {
         "0": {
           "title": "Implementación rápida",
