@@ -340,7 +340,7 @@ psql "postgresql://ordinaly:tu_password@127.0.0.1:5432/ordinaly_db" -c '\conninf
     # (Opcional) Crea superusuario
     python manage.py createsuperuser
     # (Opcional) Crea datos de prueba para ver cómo quedaría la web
-    python manage.py populate_db
+    python manage.py populate_db --seed 42
     ````
 
     [!WARNING]
