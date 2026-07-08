@@ -104,10 +104,14 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
           <div className="scroll-animate fade-in-up min-w-0">
             {/* Mobile / tablet: single static image card */}
             <div className="relative lg:hidden rounded-2xl overflow-hidden h-[300px] sm:h-[380px] w-full">
-              <img
+              <Image
                 src={accordionItems[0].imageUrl}
                 alt={`${t("hero.titleLine1")} ${t("hero.titleLine2")} – ${accordionItems[0].label}`}
-                className="absolute inset-0 w-full h-full object-cover"
+                fill
+                priority
+                fetchPriority="high"
+                sizes="100vw"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />
               <div className="absolute bottom-0 left-0 right-0 p-6">

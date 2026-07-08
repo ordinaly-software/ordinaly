@@ -11,7 +11,10 @@ import BackToTopButton from "@/components/ui/back-to-top-button";
 import { getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { EmailVerificationProvider } from "@/contexts/email-verification-context";
+import { SiteDataProvider } from "@/contexts/site-data-context";
+import { getSiteServices, getSiteCourses } from "@/lib/site-data";
 import { NextIntlClientProvider } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
 import GoogleAnalyticsLoader from "@/components/analytics/google-analytics-loader";
 import AutoKeywords from "@/components/seo/auto-keywords";
@@ -70,6 +73,10 @@ const businessSchema = {
   ],
 };
 
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -127,6 +134,10 @@ export default async function RootLayout({
 
 
   if (!routing.locales.includes(locale as Locale)) notFound();
+
+  setRequestLocale(locale);
+
+  const [services, courses] = await Promise.all([getSiteServices(), getSiteCourses()]);
 
   return (
     <html lang={locale} data-scroll-behavior="smooth" className={inter.variable} suppressHydrationWarning>
@@ -188,12 +199,14 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <ThemeProvider>
               <EmailVerificationProvider>
-                <ServiceWorkerRegistrar />
-                <AutoKeywords />
-                <Navbar />
-                <main id="main-content">{children}</main>
-                <CookieConsent />
-                <BackToTopButton />
+                <SiteDataProvider services={services} courses={courses}>
+                  <ServiceWorkerRegistrar />
+                  <AutoKeywords />
+                  <Navbar />
+                  <main id="main-content">{children}</main>
+                  <CookieConsent />
+                  <BackToTopButton />
+                </SiteDataProvider>
               </EmailVerificationProvider>
             </ThemeProvider>
           </NextIntlClientProvider>

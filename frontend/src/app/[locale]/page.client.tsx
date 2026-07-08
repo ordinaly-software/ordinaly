@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useCallback, useRef, useState, type ReactNode } from "react";
+import { useEffect, useCallback, useMemo, useRef, useState, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import { useServices } from "@/hooks/useServices";
+import { useSiteData } from "@/contexts/site-data-context";
 import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
 import { HomeHero } from "@/components/home/home-hero";
@@ -204,28 +204,35 @@ function DeferredSection({
 
 export default function HomePage({
   renderedAt,
-  initialServices = [],
-  initialCourses = [],
 }: {
   renderedAt: number;
-  initialServices?: Service[];
-  initialCourses?: Course[];
 }) {
   const t = useTranslations("home");
   const formationT = useTranslations("formation");
   const servicesSectionRef = useRef<HTMLElement | null>(null);
 
-  const shouldFetchServices = initialServices.length === 0;
-  const {
-    services,
-    isLoading: servicesLoading,
-    isOnVacation,
-    error: servicesError,
-    refetch,
-  } = useServices(6, false, shouldFetchServices, initialServices);
-  const servicesLoadingState = shouldFetchServices && servicesLoading;
-  const servicesErrorState = shouldFetchServices ? servicesError : null;
-  const servicesVacationState = shouldFetchServices ? isOnVacation : false;
+  const { services: allServices, courses: allCourses } = useSiteData();
+
+  const services = useMemo(() => allServices.slice(0, 6), [allServices]);
+
+  const initialCourses = useMemo(() => {
+    const getSortTime = (course: Course) => {
+      const createdAt = Date.parse(course.created_at);
+      if (!Number.isNaN(createdAt)) return createdAt;
+      const startAt = Date.parse(course.start_date);
+      if (!Number.isNaN(startAt)) return startAt;
+      return 0;
+    };
+    return allCourses
+      .filter((course) => {
+        const startDate = Date.parse(course.start_date);
+        return !Number.isNaN(startDate) && startDate >= renderedAt;
+      })
+      .sort((a, b) => getSortTime(b) - getSortTime(a))
+      .slice(0, 3);
+  }, [allCourses, renderedAt]);
+
+  const noop = useCallback(() => {}, []);
 
   const handleServiceContact = useCallback((service: Service) => {
     const message = `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`;
@@ -341,11 +348,11 @@ export default function HomePage({
         servicesContent={
           <ServiceShowcase
             services={services}
-            isLoading={servicesLoadingState}
-            isOnVacation={servicesVacationState}
-            error={servicesErrorState}
+            isLoading={false}
+            isOnVacation={false}
+            error={null}
             t={t}
-            refetch={refetch}
+            refetch={noop}
             onContact={handleServiceContact}
             cardTitleTag="h4"
           />

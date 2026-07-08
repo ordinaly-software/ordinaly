@@ -12,8 +12,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { Menu as HoverMenu, MenuItem, ProductItem, HoveredLink } from "@/components/ui/navbar-menu";
-import { useServices } from "@/hooks/useServices";
-import { useCourses } from "@/hooks/useCourses";
+import { useSiteData } from "@/contexts/site-data-context";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 
 const AUTH_STATE_CHANGE_EVENT = "auth-state-changed";
@@ -185,8 +184,7 @@ const Navbar = () => {
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
 
-  const { services: menuServices } = useServices(undefined);
-  const { courses: allMenuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 10 });
+  const { services: menuServices, courses: allMenuCourses } = useSiteData();
 
   // Services: show up to 6, prioritize highlighted (is_featured), hide menu if none
   const featuredServices = useMemo(() => {
@@ -540,13 +538,7 @@ const Navbar = () => {
                       )}
                       {item.id === "formation" && (
                         <div className="grid grid-cols-1 gap-3 min-w-[360px]">
-                          {menuCoursesLoading && (
-                            <div className="text-sm text-cloud-medium dark:text-cloud-medium px-2 py-1">
-                              {t("navigation.loading")}
-                            </div>
-                          )}
-                          {!menuCoursesLoading &&
-                            menuCourses.length > 0 &&
+                          {menuCourses.length > 0 &&
                             menuCourses.map((course) => (
                               <ProductItem
                                 key={course.id}
@@ -688,13 +680,7 @@ const Navbar = () => {
                     isOpen={mobileSection === "formation"}
                     onToggle={() => toggleMobileSection("formation")}
                   >
-                    {menuCoursesLoading && (
-                      <div className="rounded-md px-2 py-2 text-sm text-cloud-medium dark:text-cloud-medium bg-white/40 dark:bg-black/20">
-                        {t("navigation.loading")}
-                      </div>
-                    )}
-                    {!menuCoursesLoading &&
-                      menuCourses.length > 0 &&
+                    {menuCourses.length > 0 &&
                       menuCourses.map((course) => (
                         <Link
                           key={course.id}

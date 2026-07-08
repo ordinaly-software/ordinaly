@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 export interface AccordionImageItem {
@@ -61,10 +62,13 @@ export function ImageAccordion({
             onClick={() => setActiveIndex(index)}
           >
             {/* Background image */}
-            <img
+            <Image
               src={item.imageUrl}
               alt={item.label}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-in-out"
+              fill
+              priority={index === initialActiveIndex}
+              sizes={isActive ? "(min-width: 1280px) 540px, 360px" : "58px"}
+              className="object-cover transition-transform duration-700 ease-in-out"
               style={{ transform: isActive ? "scale(1.04)" : "scale(1)" }}
               onError={(e) => {
                 const t = e.currentTarget;
