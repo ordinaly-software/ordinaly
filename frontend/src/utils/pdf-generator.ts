@@ -23,6 +23,7 @@ export interface Course {
   interval: number;
   exclude_dates: string[];
   max_attendants: number;
+  enrolled_count?: number;
   created_at: string;
   updated_at: string;
   duration_hours?: number;

@@ -2,11 +2,26 @@
 
 import { Button } from "@/components/ui/button";
 import ErrorCard from "@/components/ui/error-card";
-import { ServiceBentoGrid } from "@/components/services/service-bento-grid";
+import { Carousel } from "@/components/ui/carousel";
+import { ServiceCard } from "@/components/services/service-card";
 import React, { useCallback } from "react";
 import type { Service } from "@/hooks/useServices";
 import { useRouter } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, LayoutGrid } from "lucide-react";
+
+function ServiceCardSkeleton() {
+  return (
+    <div className="flex flex-col overflow-hidden rounded-2xl bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)] border border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)]">
+      <div className="aspect-video w-full animate-pulse bg-gradient-to-br from-[var(--swatch--cloud-light)] to-[var(--swatch--cloud-medium)] dark:from-[var(--swatch--slate-medium)] dark:to-[var(--swatch--slate-dark)]" />
+      <div className="flex flex-col gap-2.5 p-5">
+        <div className="h-4 w-3/4 rounded-lg animate-pulse bg-[var(--swatch--cloud-light)] dark:bg-[var(--swatch--slate-light)]" />
+        <div className="h-3 w-full rounded-lg animate-pulse bg-[var(--swatch--cloud-light)] dark:bg-[var(--swatch--slate-light)]" />
+        <div className="h-3 w-2/3 rounded-lg animate-pulse bg-[var(--swatch--cloud-light)] dark:bg-[var(--swatch--slate-light)]" />
+      </div>
+    </div>
+  );
+}
 
 export interface ServiceShowcaseProps {
   services: Service[];
@@ -114,14 +129,45 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
       );
     }
 
+    if (isLoading) {
+      return (
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <ServiceCardSkeleton key={index} />
+          ))}
+        </div>
+      );
+    }
+
     return (
-      <ServiceBentoGrid
-        services={services}
-        isLoading={isLoading}
-        skeletonCount={6}
-        onCardClick={handleCardClick}
-        initialVisible={9}
-        cardTitleTag={cardTitleTag}
+      <Carousel
+        items={services}
+        getKey={(service) => service.id}
+        autoplay={services.length > 1}
+        prevLabel={t("services.previous")}
+        nextLabel={t("services.next")}
+        renderItem={(service) => (
+          <ServiceCard
+            service={service}
+            onClick={() => handleCardClick(service)}
+            titleTag={cardTitleTag}
+            className="h-full"
+          />
+        )}
+        trailingSlide={
+          <Link
+            href="/servicios"
+            className="group flex h-full min-h-[420px] flex-col items-center justify-center gap-4 rounded-2xl border border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] bg-gradient-to-br from-clay to-cobalt p-6 text-center text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-clay/20"
+          >
+            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-transform group-hover:scale-110">
+              <LayoutGrid className="h-6 w-6" />
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-lg font-semibold group-hover:gap-2.5 transition-all">
+              {t("services.viewAllServicesAndProducts")}
+              <ArrowRight className="h-4 w-4" />
+            </span>
+          </Link>
+        }
       />
     );
   })();

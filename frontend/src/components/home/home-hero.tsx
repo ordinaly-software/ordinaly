@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Book, Bot, Building2, MapPin, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ImageAccordion, type AccordionImageItem } from "@/components/ui/interactive-image-accordion";
+import { ImageAccordion, type AccordionImageItem } from "@/components/home/interactive-image-accordion";
 import { useTheme } from "@/contexts/theme-context";
 
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
@@ -13,13 +13,6 @@ interface HeroProps {
   t: TranslateFn;
   onWhatsApp: () => void;
 }
-
-const clientLogos = [
-  { src: "/static/logos/logo_grupo_addu_small.webp", alt: "Grupo Addu", width: 130, height: 42 },
-  { src: "/static/logos/logo_aviva_publicidad_small.webp", alt: "Aviva Publicidad", width: 140, height: 42 },
-  { src: "/static/logos/logo_proinca_consultores_small.webp", alt: "Proinca Consultores", width: 120, height: 42 },
-  { src: "/static/logos/logo_guadalquivir_fincas_small.webp", alt: "Guadalquivir Fincas", width: 150, height: 42 },
-];
 
 const bulletPoints = [
   { icon: Building2, key: "hero.trust1", href: "#use-cases" },
@@ -37,14 +30,6 @@ const accordionImages: Omit<AccordionImageItem, "label" | "sublabel">[] = [
     id: 2,
     imageUrl: "/static/home/main_home_ilustration_2.webp",
   },
-  {
-    id: 3,
-    imageUrl: "/static/home/main_home_ilustration_3.webp",
-  },
-  {
-    id: 4,
-    imageUrl: "/static/home/main_home_ilustration_4.webp",
-  },
 ];
 
 export function HomeHero({ t, onWhatsApp }: HeroProps) {
@@ -53,8 +38,6 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
   const accordionItems: AccordionImageItem[] = [
     { ...accordionImages[0], label: t("hero.card1Label"), sublabel: t("hero.card1Value") },
     { ...accordionImages[1], label: t("hero.card2Label"), sublabel: t("hero.card2Value") },
-    { ...accordionImages[2], label: t("hero.card3Label"), sublabel: t("hero.card3Value") },
-    { ...accordionImages[3], label: t("hero.card4Label"), sublabel: t("hero.card4Value") },
   ];
 
   return (

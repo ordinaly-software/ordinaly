@@ -8,9 +8,8 @@ import type { Service } from "@/hooks/useServices";
 import Image from "next/image";
 import SharePostButtons from "@/components/blog/share-post-buttons";
 import { cn } from "@/lib/utils";
-import { useCookiePreferences } from "@/hooks/useCookiePreferences";
 import { MarkdownRenderer } from "@/components/ui/markdown-renderer";
-import YoutubePreview from "@/components/ui/youtube-preview";
+import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 
 export type ServiceDetailsLabels = {
   featured: string;
@@ -92,8 +91,6 @@ export function ServiceDetailsContent({
   const hero = service.image || FALLBACK_CARD_IMAGE;
   const markdownDescription = service.description || service.clean_description || "";
   const priceLabel = formatPrice(service, labels.contactForQuote);
-  const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.marketing);
   const isCompact = density === "compact";
   const contactUrl = resolveContactUrl(service.contactButtonUrl);
   const showContactCta = Boolean(showContact && (contactUrl || onContact));
@@ -153,12 +150,12 @@ export function ServiceDetailsContent({
       </div>
 
       {service.youtube_video_url && (
-        <YoutubePreview
-          url={service.youtube_video_url}
+        <HeroVideoDialog
+          videoUrl={service.youtube_video_url}
+          thumbnailAlt={service.title}
           title={service.title}
-          label={labels.video ?? "Video"}
           playLabel={labels.playVideo ?? "Play video"}
-          canLoad={canLoadMedia}
+          className="w-full"
         />
       )}
 

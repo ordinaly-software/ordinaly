@@ -14,8 +14,8 @@ import { Dropdown } from "@/components/ui/dropdown";
 import { usePathname, useRouter } from "next/navigation";
 import { getApiEndpoint } from "@/lib/api-config";
 import { UseCasesSection } from "@/components/home/use-cases-section";
-import { ServiceBentoGrid } from "@/components/services/service-bento-grid";
-import { AiChatDemo } from "@/components/home/ai-chat-demo";
+import { ServicesBentoGrid } from "@/components/services/services-bento-grid";
+import { ToolsShowcase } from "@/components/services/tools-showcase";
 
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
@@ -41,7 +41,7 @@ function ServicesPageSkeleton() {
           {/* Products section skeleton */}
           <div>
             <div className="h-9 w-40 mb-6 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse" />
-            <ServiceBentoGrid
+            <ServicesBentoGrid
               services={[]}
               isLoading
               skeletonCount={6}
@@ -51,7 +51,7 @@ function ServicesPageSkeleton() {
           {/* Services section skeleton */}
           <div>
             <div className="h-9 w-40 mb-6 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse" />
-            <ServiceBentoGrid
+            <ServicesBentoGrid
               services={[]}
               isLoading
               skeletonCount={6}
@@ -259,8 +259,6 @@ const ServicesPage = ({
         />
       )}
 
-      <AiChatDemo t={t_home} />
-
       {/* Bento grids */}
       <section className="py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
@@ -284,15 +282,10 @@ const ServicesPage = ({
                   <h2 className="text-3xl font-bold mb-6 text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)]">
                     {t("productsSectionTitle")}
                   </h2>
-                  <ServiceBentoGrid
+                  <ServicesBentoGrid
                     services={separated.products}
                     onCardClick={handleCardClick}
-                    onCardContact={handleWhatsAppContact}
-                    infiniteScroll
-                    cardSize="lg"
-                    consistentCardWidth
                     viewDetailsLabel={t("details")}
-                    contactLabel={t("cta.contact")}
                   />
                 </div>
               )}
@@ -303,15 +296,10 @@ const ServicesPage = ({
                   <h2 className="text-3xl font-bold mb-6 text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)]">
                     {t("servicesSectionTitle")}
                   </h2>
-                  <ServiceBentoGrid
+                  <ServicesBentoGrid
                     services={separated.services}
                     onCardClick={handleCardClick}
-                    onCardContact={handleWhatsAppContact}
-                    infiniteScroll
-                    cardSize="lg"
-                    consistentCardWidth
                     viewDetailsLabel={t("details")}
-                    contactLabel={t("cta.contact")}
                   />
                 </div>
               )}
@@ -319,6 +307,8 @@ const ServicesPage = ({
           )}
         </div>
       </section>
+
+      <ToolsShowcase eyebrow={t("toolsEyebrow")} title={t("toolsTitle")} />
 
       <UseCasesSection t={t_home} id="use-cases" />
 

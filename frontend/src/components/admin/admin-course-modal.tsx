@@ -7,8 +7,7 @@ import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import SharePostButtons from '@/components/blog/share-post-buttons';
 import { Modal } from "@/components/ui/modal";
 import EnrolledMembers from "@/components/admin/enrolled-members";
-import { useCookiePreferences } from "@/hooks/useCookiePreferences";
-import YoutubePreview from "@/components/ui/youtube-preview";
+import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 
 interface Course {
   id: number;
@@ -79,8 +78,6 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
   dateLocale,
   formatWeekdays,
 }) => {
-  const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.marketing);
   if (!course) return null;
 
   return (
@@ -146,13 +143,14 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                 </div>
       </div>
     )}
-        <YoutubePreview
-          url={course.youtube_video_url}
-          title={course.title}
-          label={t("details.video")}
-          playLabel={t("details.playVideo")}
-          canLoad={canLoadMedia}
-        />
+        {course.youtube_video_url && (
+          <HeroVideoDialog
+            videoUrl={course.youtube_video_url}
+            thumbnailAlt={course.title}
+            title={course.title}
+            playLabel={t("details.playVideo")}
+          />
+        )}
         {/* Course Header and rest of modal content below */}
         <div className="flex flex-col sm:flex-row landscape:flex-col-reverse items-start sm:space-x-6 space-y-4 sm:space-y-0 landscape:space-y-4 landscape:sm:space-x-0">
           {/* Course Info */}

@@ -18,7 +18,7 @@ interface ServicesIntroProps {
 export function ServicesSection({ t, servicesContent, sectionRef, featuredServices }: ServicesIntroProps) {
   return (
     <section id="services" ref={sectionRef} className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-16">
+      <div className="max-w-[1600px] mx-auto space-y-16">
 
         {/* Section header */}
         <div className="text-center scroll-animate fade-in-up">

@@ -16,6 +16,7 @@ import { Zap, SlidersHorizontal, Headphones } from "lucide-react";
 import { AiChatDemo } from "@/components/home/ai-chat-demo";
 import { PartnerShowcase } from "@/components/ui/partner-showcase";
 import { NewsletterSection } from "@/components/ui/newsletter-section";
+import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -338,6 +339,17 @@ export default function HomePage({
             </div>
           ))}
         </div>
+        </div>
+      </section>
+      <section className="border-t border-[--color-border-subtle] dark:border-[--color-border-strong] pt-16 sm:pt-20 pb-4">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <HeroVideoDialog
+            className="w-full"
+            animationStyle="from-center"
+            videoUrl="https://www.youtube.com/watch?v=qLKfe3yukGs"
+            thumbnailSrc="https://i.ytimg.com/vi/qLKfe3yukGs/hqdefault.jpg?sqp=-oaymwE9CNACELwBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4AdgJgALQBYoCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLCdf5LK2k1zFNwbhsWzmgqwNTX7_Q"
+            thumbnailAlt="La IA no toma decisiones, las personas sí"
+          />
         </div>
       </section>
       <ServicesSection

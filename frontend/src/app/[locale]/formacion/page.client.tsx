@@ -9,6 +9,7 @@ import { NewsletterSection } from "@/components/ui/newsletter-section";
 import Banner from '@/components/ui/banner';
 import { Button } from "@/components/ui/button";
 import CourseCard from "@/components/formation/course-card";
+import { Carousel } from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
 import Alert from "@/components/ui/alert";
 import AuthModal from "@/components/auth/auth-modal";
@@ -477,57 +478,59 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
               </p>
             </div>
           ) : (
-            <>
-              <div className="mx-auto grid max-w-5xl grid-cols-1 lg:grid-cols-2 gap-6">
-                {filteredCourses.map((course) => {
-                  // Compute unenroll restriction
-                  let disableUnenroll = false;
-                  let unenrollRestrictionReason: string | null = null;
-                  const now = new Date();
-                  const startDateTime = course.start_date && course.start_time
-                    ? new Date(`${course.start_date}T${course.start_time}`)
-                    : null;
-                  const endDateTime = course.end_date && course.end_time
-                    ? new Date(`${course.end_date}T${course.end_time}`)
-                    : null;
-                  if (isEnrolled(course.id)) {
-                    if (startDateTime) {
-                      const diffMs = startDateTime.getTime() - now.getTime();
-                      const diffHours = diffMs / (1000 * 60 * 60);
-                      if (diffHours <= 24 && diffHours > 0) {
-                        disableUnenroll = true;
-                        unenrollRestrictionReason = t('alerts.unenroll24hRestriction');
-                      } else if (diffHours <= 0) {
-                        disableUnenroll = true;
-                        unenrollRestrictionReason = t('alerts.unenrollStartedRestriction');
-                      }
-                    }
-                    if (endDateTime && endDateTime < now) {
+            <Carousel
+              items={filteredCourses}
+              getKey={(course) => course.id}
+              autoplay={filteredCourses.length > 1}
+              prevLabel={t("carouselPrevious")}
+              nextLabel={t("carouselNext")}
+              renderItem={(course) => {
+                // Compute unenroll restriction
+                let disableUnenroll = false;
+                let unenrollRestrictionReason: string | null = null;
+                const now = new Date();
+                const startDateTime = course.start_date && course.start_time
+                  ? new Date(`${course.start_date}T${course.start_time}`)
+                  : null;
+                const endDateTime = course.end_date && course.end_time
+                  ? new Date(`${course.end_date}T${course.end_time}`)
+                  : null;
+                if (isEnrolled(course.id)) {
+                  if (startDateTime) {
+                    const diffMs = startDateTime.getTime() - now.getTime();
+                    const diffHours = diffMs / (1000 * 60 * 60);
+                    if (diffHours <= 24 && diffHours > 0) {
                       disableUnenroll = true;
-                      unenrollRestrictionReason = t('alerts.unenrollEndedRestriction');
+                      unenrollRestrictionReason = t('alerts.unenroll24hRestriction');
+                    } else if (diffHours <= 0) {
+                      disableUnenroll = true;
+                      unenrollRestrictionReason = t('alerts.unenrollStartedRestriction');
                     }
                   }
-                  const highlightUpcoming = !!(startDateTime && startDateTime > now);
-                  const inProgress = !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
-                  return (
-                    <CourseCard
-                      key={course.id}
-                      course={course}
-                      variant="upcoming"
-                      enrolled={isEnrolled(course.id)}
-                      onEnroll={() => handleEnrollCourse(course)}
-                      onCancel={() => handleCancelEnrollment(course.id)}
-                      onViewDetails={() => handleViewDetails(course)}
-                      disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
-                      disableUnenroll={disableUnenroll}
-                      unenrollRestrictionReason={unenrollRestrictionReason}
-                      highlightUpcoming={highlightUpcoming}
-                      inProgress={inProgress}
-                    />
-                  );
-                })}
-              </div>
-            </>
+                  if (endDateTime && endDateTime < now) {
+                    disableUnenroll = true;
+                    unenrollRestrictionReason = t('alerts.unenrollEndedRestriction');
+                  }
+                }
+                const highlightUpcoming = !!(startDateTime && startDateTime > now);
+                const inProgress = !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
+                return (
+                  <CourseCard
+                    course={course}
+                    variant="upcoming"
+                    enrolled={isEnrolled(course.id)}
+                    onEnroll={() => handleEnrollCourse(course)}
+                    onCancel={() => handleCancelEnrollment(course.id)}
+                    onViewDetails={() => handleViewDetails(course)}
+                    disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
+                    disableUnenroll={disableUnenroll}
+                    unenrollRestrictionReason={unenrollRestrictionReason}
+                    highlightUpcoming={highlightUpcoming}
+                    inProgress={inProgress}
+                  />
+                );
+              }}
+            />
           )}
         </div>
       </section>
@@ -560,16 +563,21 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                   {t("pastCourses")}
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                  {pastCourses.map((course) => (
+                <Carousel
+                  items={pastCourses}
+                  getKey={(course) => course.id}
+                  autoplay={pastCourses.length > 1}
+                  prevLabel={t("carouselPrevious")}
+                  nextLabel={t("carouselNext")}
+                  className="max-w-6xl mx-auto"
+                  renderItem={(course) => (
                     <CourseCard
-                      key={course.id}
                       course={course}
                       variant="past"
                       onViewDetails={() => handleViewDetails(course)}
                     />
-                  ))}
-                </div>
+                  )}
+                />
               </>
             )}
           </div>
