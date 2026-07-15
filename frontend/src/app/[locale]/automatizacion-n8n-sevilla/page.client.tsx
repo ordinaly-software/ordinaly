@@ -6,6 +6,7 @@ import Footer from "@/components/ui/footer";
 import ContactForm from "@/components/ui/contact-form.client";
 import N8nFlow from "@/components/ui/N8nFlow";
 import RelojArenaMagico from "@/components/ui/relojArena";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
@@ -131,44 +132,28 @@ export default function AutomatizacionesN8NnSevillaPage() {
           <N8nFlow />
         </div>
       </section>
-      <section className="py-24 max-w-5xl mx-auto px-6 bg-neutral-50 dark:bg-neutral-800">
-        <h4 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-          {content.sectionTitles?.faq}
-        </h4>
-
-        <div className="space-y-8">
-          {content.faq.map((faq: any, i: number) => (
-            <div
-              key={i}
-              className="
-                p-6 rounded-xl bg-white dark:bg-neutral-900 
-                border border-neutral-300 dark:border-neutral-700
-                shadow-sm hover:shadow-xl transition
-              "
-            >
-              <h4 className="text-xl font-bold dark:text-white">{faq.question}</h4>
-              <p className="text-neutral-700 dark:text-neutral-300 mt-3">
-                {faq.answer}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center mt-10">
+      <FaqAccordion
+        className="bg-neutral-50 dark:bg-neutral-800"
+        title={content.sectionTitles?.faq}
+        items={content.faq.map((faq: { question: string; answer: string }) => ({
+          question: faq.question,
+          answer: faq.answer,
+        }))}
+        footer={
           <a
             href="#formulario"
             className="
-              inline-flex items-center gap-2 px-6 py-3 rounded-full 
-              border-2 border-clay text-clay font-semibold shadow-md 
-              transition-all duration-300 hover:bg-clay hover:text-white 
+              inline-flex items-center gap-2 px-6 py-3 rounded-full
+              border-2 border-clay text-clay font-semibold shadow-md
+              transition-all duration-300 hover:bg-clay hover:text-white
               hover:shadow-lg hover:shadow-clay/20 group
             "
           >
             {content.sectionTitles?.ctaTitle}
             <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
           </a>
-        </div>
-      </section>
+        }
+      />
 
       {/* FORM */}
       <section id="formulario" className="bg-black py-20">

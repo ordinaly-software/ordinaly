@@ -4,6 +4,7 @@ import { CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { Button } from "@/components/ui/button";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { useLocale, useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
@@ -325,36 +326,26 @@ export default function EmpresaInteligenciaArtificial() {
         </section>
 
         {/* ─── FAQ ─── */}
-        <section className="max-w-3xl mx-auto px-6 py-20">
-          <p className="text-xs font-semibold uppercase tracking-widest text-blue-500 mb-3">
-            {content.sectionTitles?.technologyFaqs}
-          </p>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-12">
-            Empresa de inteligencia artificial y{" "}
-            <a href="/" className="text-clay underline decoration-clay/40 underline-offset-2 hover:decoration-clay transition-colors">
-              automatizaciones
-            </a>
-          </h2>
-
-          <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
-            {content.technologyFaqs.map((faq, idx) => (
-              <details key={faq.question} className="group py-5" open={idx === 0}>
-                <summary className="flex cursor-pointer items-start justify-between gap-4 text-base font-semibold text-slate-900 dark:text-white list-none">
-                  <div className="space-y-2">
-                    {faq.tag && (
-                      <span className="inline-block rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-600 dark:border-blue-500/20 dark:bg-blue-500/10 dark:text-blue-400">
-                        {faq.tag}
-                      </span>
-                    )}
-                    <span className="block">{faq.question}</span>
-                  </div>
-                  <span className="text-blue-500 text-xl transition-transform group-open:rotate-45 flex-shrink-0 mt-1">+</span>
-                </summary>
-                <p className="mt-4 text-sm leading-relaxed text-slate-500 dark:text-neutral-400">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </section>
+        <FaqAccordion
+          eyebrow={content.sectionTitles?.technologyFaqs}
+          title={
+            <>
+              Empresa de inteligencia artificial y{" "}
+              <a
+                href="/"
+                className="text-clay underline decoration-clay/40 underline-offset-2 hover:decoration-clay transition-colors"
+              >
+                automatizaciones
+              </a>
+            </>
+          }
+          items={content.technologyFaqs.map((faq) => ({
+            question: faq.question,
+            answer: faq.answer,
+            tag: faq.tag,
+          }))}
+          defaultOpenIndex={0}
+        />
 
         {/* ─── CTA BANNER ─── */}
         <section className="max-w-7xl mx-auto px-6 pb-6">

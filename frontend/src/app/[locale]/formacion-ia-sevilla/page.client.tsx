@@ -13,6 +13,7 @@ import CardStackDemo from "@/components/ui/card-stack-demo"
 import ContactForm from "@/components/ui/contact-form.client";
 import Carousel3D from "@/components/ui/carrusel3D";
 import CoursesShowcase from "@/components/home/courses-showcase";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
 
 const FORMACION_HERO_ASSET = {
   heroImage: "/static/formacion-ia-sevilla/hero-blurred.webp",
@@ -212,35 +213,22 @@ export default function FormacionIaPymesSevillaPage() {
         <CoursesShowcase titleTag="h3" />
       </section>
 
-      <section className="py-24 max-w-5xl mx-auto px-6">
-        <p className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-          {content.sectionTitles?.technologyFaqs}
-        </p>
-
-        <div className="space-y-8">
-          {content.technologyFaqs.map((faq: any, i: number) => (
-            <div key={i} className="p-6 rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700">
-              <span className="text-[#d97757] font-semibold">{faq.tag}</span>
-              <h3 className="text-xl font-bold mt-2 text-neutral-900 dark:text-white">
-                {faq.question}
-              </h3>
-              <p className="text-neutral-700 dark:text-neutral-300 mt-3">
-                {faq.answer}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="text-center mt-10">
+      <FaqAccordion
+        title={content.sectionTitles?.technologyFaqs}
+        items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
+          question: faq.question,
+          answer: faq.answer,
+          tag: faq.tag,
+        }))}
+        footer={
           <a
             href="#preguntas"
-            className="inline-block border-2 border-[#d97757] text-[#d97757] font-semibold px-6 py-3 rounded-full transition duration-300 hover:bg-[#d97757] hover:text-white"
+            className="inline-block border-2 border-clay text-clay font-semibold px-6 py-3 rounded-full transition duration-300 hover:bg-clay hover:text-white"
           >
             {ui.faqCtaLabel} →
           </a>
-
-        </div>
-      </section>
+        }
+      />
 
       <section className="py-20 bg-neutral-50 dark:bg-neutral-900">
         <p className="text-4xl md:text-5xl font-bold text-center mb-20 

@@ -5,6 +5,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
@@ -244,26 +245,15 @@ export default function AutomatizacionFacturas() {
 
       {/* TECHNOLOGY FAQS */}
       {content.technologyFaqs?.length > 0 && (
-        <section className="py-20 md:py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-          <div className="max-w-3xl mx-auto px-6">
-            <div className="space-y-3">
-              {content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }, i: number) => (
-                <details key={i} className="group rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 overflow-hidden">
-                  <summary className="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer list-none">
-                    <div className="flex items-center gap-3">
-                      <span className="shrink-0 px-2 py-0.5 rounded-full text-xs font-semibold bg-[#d97706]/10 text-[#d97706]">{faq.tag}</span>
-                      <span className="font-medium text-neutral-900 dark:text-white text-sm md:text-base">{faq.question}</span>
-                    </div>
-                    <svg className="shrink-0 w-5 h-5 text-neutral-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </summary>
-                  <p className="px-6 pb-4 text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqAccordion
+          className="bg-neutral-50 dark:bg-neutral-800 transition-colors"
+          title={content.sectionTitles?.technologyFaqs}
+          items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
+            question: faq.question,
+            answer: faq.answer,
+            tag: faq.tag,
+          }))}
+        />
       )}
 
       {/* FORM */}

@@ -183,7 +183,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
           onClick={() => router.push("/servicios")}
           className="bg-transparent border-2 border-clay text-clay hover:bg-clay hover:text-white dark:border-clay dark:text-clay dark:hover:bg-clay dark:hover:text-ivory-light transition-all duration-300 px-6 py-3 text-base font-semibold rounded-full shadow-md hover:shadow-lg hover:shadow-clay/20 group"
         >
-          {t("services.viewAllServicesAndProducts")}
+          {t("services.viewCatalog")}
           <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
         </Button>
       </div>

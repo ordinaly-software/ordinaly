@@ -7,6 +7,7 @@ import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { Button } from "@/components/ui/button";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { useLocale, useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
@@ -227,33 +228,16 @@ export default function InteligenciaArtificialEmpresas() {
         </section>
 
         {/* ─── FAQ ─── */}
-        <section className="max-w-3xl mx-auto px-6 py-16">
-          <p className="text-xs font-semibold uppercase tracking-widest text-orange-500 mb-3">
-            {content.sectionTitles?.technologyFaqs}
-          </p>
-          <h2 className="text-3xl font-bold tracking-tight mb-10">
-            Inteligencia artificial para empresas
-          </h2>
-
-          <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
-            {content.technologyFaqs.map((faq, idx) => (
-              <details key={faq.question} className="group py-5" open={idx === 0}>
-                <summary className="flex cursor-pointer items-start justify-between gap-4 text-base font-semibold text-slate-900 dark:text-white list-none">
-                  <div className="space-y-2">
-                    {faq.tag && (
-                      <span className="inline-block rounded-full border border-orange-200 bg-orange-50 px-3 py-1 text-xs font-semibold text-orange-600 dark:border-orange-500/20 dark:bg-orange-500/10 dark:text-orange-400">
-                        {faq.tag}
-                      </span>
-                    )}
-                    <span className="block">{faq.question}</span>
-                  </div>
-                  <span className="text-orange-500 text-xl transition-transform group-open:rotate-45 flex-shrink-0">+</span>
-                </summary>
-                <p className="mt-4 text-sm leading-relaxed text-slate-500 dark:text-neutral-400">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </section>
+        <FaqAccordion
+          eyebrow={content.sectionTitles?.technologyFaqs}
+          title="Inteligencia artificial para empresas"
+          items={content.technologyFaqs.map((faq) => ({
+            question: faq.question,
+            answer: faq.answer,
+            tag: faq.tag,
+          }))}
+          defaultOpenIndex={0}
+        />
 
         {/* ─── CONTACT FORM ─── */}
         <section id="ia-empresas-contact" className="max-w-4xl mx-auto px-6 py-16">

@@ -77,6 +77,7 @@
       "vacationTitle": "On vacation",
       "retryButton": "Retry",
       "viewAllServicesAndProducts": "See the entire catalog",
+      "viewCatalog": "The whole catalog",
       "video": "Video",
       "playVideo": "Play video",
       "errorTitle": "Error loading services",
@@ -2437,7 +2438,8 @@
         "benefits": "Benefits of automating your invoices",
         "beforeAfter": "Before and after automation",
         "before": "Before",
-        "after": "After"
+        "after": "After",
+        "technologyFaqs": "Frequently asked questions"
       },
       "benefits": [
         "Save hours every month",
