@@ -12,11 +12,10 @@ import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
-import { Zap, SlidersHorizontal, Headphones } from "lucide-react";
-import { AiChatDemo } from "@/components/home/ai-chat-demo";
+import { ShieldCheck, Code2, Users } from "lucide-react";
 import { PartnerShowcase } from "@/components/ui/partner-showcase";
-import { NewsletterSection } from "@/components/ui/newsletter-section";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
+import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
 
 const ServiceShowcase = dynamic(
   () => import("@/components/home/service-showcase").then((mod) => mod.default),
@@ -52,8 +51,9 @@ const CoursesShowcase = dynamic(
     ),
   },
 );
-const SectionSkeleton = () => (
+const SectionSkeleton = ({ id }: { id?: string }) => (
   <section
+    id={id}
     aria-hidden="true"
     className="mx-auto my-6 w-full max-w-6xl animate-pulse rounded-3xl bg-white/80 p-6 shadow-xl shadow-slate-900/10 dark:bg-white/[0.04] dark:shadow-black/30"
   >
@@ -75,28 +75,24 @@ const SectionSkeleton = () => (
   </section>
 );
 
-const serviceBenefits = [
+const whyUsItems = [
   {
-    titleKey: "services.extra.0.title",
-    descriptionKey: "services.extra.0.description",
-    Icon: Zap,
+    titleKey: "whyUs.items.0.title",
+    descriptionKey: "whyUs.items.0.description",
+    Icon: ShieldCheck,
   },
   {
-    titleKey: "services.extra.1.title",
-    descriptionKey: "services.extra.1.description",
-    Icon: SlidersHorizontal,
+    titleKey: "whyUs.items.1.title",
+    descriptionKey: "whyUs.items.1.description",
+    Icon: Code2,
   },
   {
-    titleKey: "services.extra.2.title",
-    descriptionKey: "services.extra.2.description",
-    Icon: Headphones,
+    titleKey: "whyUs.items.2.title",
+    descriptionKey: "whyUs.items.2.description",
+    Icon: Users,
   },
 ];
 
-const UseCasesSection = dynamic(
-  () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
-  { loading: () => null, ssr: false },
-);
 const TestimonialsSection = dynamic(
   () => import("@/components/home/testimonials-section").then((mod) => mod.TestimonialsSection),
   { loading: () => null, ssr: false },
@@ -111,10 +107,6 @@ const WhatsAppBubble = dynamic(
     ssr: false,
     loading: () => <WhatsAppBubbleSkeleton />,
   },
-);
-const FaqSection = dynamic(
-  () => import("@/components/formation/faq-section").then((mod) => mod.FaqSection),
-  { loading: () => <SectionSkeleton />, ssr: false },
 );
 function DeferredSection({
   children,
@@ -209,7 +201,6 @@ export default function HomePage({
   renderedAt: number;
 }) {
   const t = useTranslations("home");
-  const formationT = useTranslations("formation");
   const servicesSectionRef = useRef<HTMLElement | null>(null);
 
   const { services: allServices, courses: allCourses } = useSiteData();
@@ -232,6 +223,19 @@ export default function HomePage({
       .sort((a, b) => getSortTime(b) - getSortTime(a))
       .slice(0, 3);
   }, [allCourses, renderedAt]);
+
+  const homeFaqItems: FaqAccordionItem[] = useMemo(
+    () =>
+      [0, 1, 2, 3, 4].map((index) => ({
+        question: t(`faq.items.${index}.question`),
+        answer: t(`faq.items.${index}.answer`),
+      })),
+    [t],
+  );
+
+  const trainingHighlight = t.rich("courses.trainingHighlight", {
+    b: (chunks) => <strong>{chunks}</strong>,
+  });
 
   const noop = useCallback(() => {}, []);
 
@@ -314,44 +318,58 @@ export default function HomePage({
 
   return (
     <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
-      <HomeHero t={t} onWhatsApp={handleWhatsAppChat} />
-      
-      {/* Benefits section */}
-      <section id="benefits" className="py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-        <h2 className="text-center text-2xl sm:text-3xl font-bold mb-8 text-slate-dark dark:text-ivory-light tracking-tight">
-          {t("hero.titleLine1")} {t("hero.titleLine2")}
-        </h2>
-        <div className="grid md:grid-cols-3 gap-5">
-          {serviceBenefits.map(({ titleKey, descriptionKey, Icon }, index) => (
-            <div
-              key={titleKey}
-              className="scroll-animate fade-in-up text-center p-5 bg-[--color-bg-card] dark:bg-[--swatch--slate-medium] rounded-a-l border border-[--color-border-subtle] dark:border-[--color-border-strong]"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="w-10 h-10 bg-clay/15 dark:bg-clay/20 rounded-a-m flex items-center justify-center mx-auto mb-3">
-                <Icon className="w-5 h-5 text-clay" strokeWidth={1.5} />
-              </div>
-              <h4 className="text-base font-semibold mb-1.5 text-slate-dark dark:text-ivory-light">
-                {t(titleKey)}
-              </h4>
-              <p className="text-sm text-slate-medium dark:text-cloud-medium">{t(descriptionKey)}</p>
+      <HomeHero t={t} />
+
+      <PartnerShowcase
+        eyebrow={t("partners.title")}
+        title={t("partners.subtitle")}
+        className="pt-10 pb-12"
+        titleTag="h3"
+      />
+
+      {/* Why choose us: explainer video + USP cards */}
+      <section className="border-t border-[--color-border-subtle] dark:border-[--color-border-strong] py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-center text-sm font-semibold uppercase tracking-widest text-clay mb-8">
+            {t("whyUs.title")}
+          </h3>
+          <div className="max-w-4xl mx-auto">
+            <HeroVideoDialog
+              className="w-full"
+              animationStyle="from-center"
+              videoUrl="https://www.youtube.com/watch?v=qLKfe3yukGs"
+              thumbnailSrc="https://i.ytimg.com/vi/qLKfe3yukGs/hqdefault.jpg?sqp=-oaymwE9CNACELwBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4AdgJgALQBYoCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLCdf5LK2k1zFNwbhsWzmgqwNTX7_Q"
+              thumbnailAlt={t("whyUs.title")}
+            />
+            <div className="mt-4 text-center">
+              <p className="font-semibold text-slate-dark dark:text-ivory-light">
+                {t("whyUs.videoCaptionName")}
+              </p>
+              <p className="text-sm text-slate-medium dark:text-cloud-medium">
+                {t("whyUs.videoCaptionRole")}
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 mt-12">
+            {whyUsItems.map(({ titleKey, descriptionKey, Icon }, index) => (
+              <div
+                key={titleKey}
+                className="scroll-animate fade-in-up text-center p-5 bg-[--color-bg-card] dark:bg-[--swatch--slate-medium] rounded-a-l border border-[--color-border-subtle] dark:border-[--color-border-strong]"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="w-10 h-10 bg-clay/15 dark:bg-clay/20 rounded-a-m flex items-center justify-center mx-auto mb-3">
+                  <Icon className="w-5 h-5 text-clay" strokeWidth={1.5} />
+                </div>
+                <h2 className="text-base font-semibold mb-1.5 text-slate-dark dark:text-ivory-light">
+                  {t(titleKey)}
+                </h2>
+                <p className="text-sm text-slate-medium dark:text-cloud-medium">{t(descriptionKey)}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-      <section className="border-t border-[--color-border-subtle] dark:border-[--color-border-strong] pt-16 sm:pt-20 pb-4">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <HeroVideoDialog
-            className="w-full"
-            animationStyle="from-center"
-            videoUrl="https://www.youtube.com/watch?v=qLKfe3yukGs"
-            thumbnailSrc="https://i.ytimg.com/vi/qLKfe3yukGs/hqdefault.jpg?sqp=-oaymwE9CNACELwBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4AdgJgALQBYoCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLCdf5LK2k1zFNwbhsWzmgqwNTX7_Q"
-            thumbnailAlt="La IA no toma decisiones, las personas sí"
-          />
-        </div>
-      </section>
+
       <ServicesSection
         t={t}
         onWhatsApp={handleWhatsAppChat}
@@ -376,49 +394,32 @@ export default function HomePage({
         initialCourses={initialCourses}
         referenceNow={renderedAt}
         cardTitleTag="h4"
+        titleOverride={t("courses.homeTitle")}
+        descriptionOverride={t("courses.homeSubtitle")}
+        trainingHighlight={trainingHighlight}
       />
-      <DeferredSection id="use-cases" className="scroll-mt-24">
-        <UseCasesSection t={t} headingTag="h3" itemTitleTag="h4" />
-      </DeferredSection>
       {shouldRenderDeferredSections ? (
         <>
           <DeferredSection>
-            <TestimonialsSection t={t} titleTag="h3" />
+            <FaqAccordion titleTag="h3" title={t("faq.title")} items={homeFaqItems} />
           </DeferredSection>
-          <DeferredSection>
-            <NewsletterSection titleTag="h3" />
-          </DeferredSection>
-          <DeferredSection>
-            <PartnerShowcase
-              eyebrow={t("partners.title")}
-              title={t("partners.subtitle")}
-              className="pt-10 pb-12"
-              titleTag="h3"
-            />
-          </DeferredSection>
-          <DeferredSection>
-            <AiChatDemo t={t} titleTag="h3" />
-          </DeferredSection>
-          <DeferredSection>
-            <FaqSection t={formationT} titleTag="h3" />
-          </DeferredSection>
-          <DeferredSection>
+          <DeferredSection id="contacto" className="scroll-mt-24">
             <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">
               <ContactForm
                 recaptchaAction="home_contact_form"
                 recaptchaBadgeId="recaptcha-badge-home-contact"
+                showCommitmentNote
               />
             </ReCaptchaWrapper>
+          </DeferredSection>
+          <DeferredSection>
+            <TestimonialsSection t={t} titleTag="h3" />
           </DeferredSection>
         </>
       ) : (
         <>
           <SectionSkeleton />
-          <SectionSkeleton />
-          <SectionSkeleton />
-          <SectionSkeleton />
-          <SectionSkeleton />
-          <SectionSkeleton />
+          <SectionSkeleton id="contacto" />
           <SectionSkeleton />
         </>
       )}

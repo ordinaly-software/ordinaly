@@ -2,41 +2,30 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Book, Bot, Building2, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ImageAccordion, type AccordionImageItem } from "@/components/home/interactive-image-accordion";
-import { useTheme } from "@/contexts/theme-context";
 
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
 interface HeroProps {
   t: TranslateFn;
-  onWhatsApp: () => void;
 }
-
-const bulletPoints = [
-  { icon: Building2, key: "hero.trust1", href: "#use-cases" },
-  { icon: Bot, key: "hero.trust2", href: "#services" },
-  { icon: Book, key: "hero.trust3", href: "#courses" },
-  { icon: ArrowRight, key: "hero.trust4", href: "/servicios" },
-];
 
 const accordionImages: Omit<AccordionImageItem, "label" | "sublabel">[] = [
   {
     id: 1,
-    imageUrl: "/static/home/main_home_ilustration_1.webp",
+    imageUrl: "/static/contact/office_01.webp",
   },
   {
     id: 2,
-    imageUrl: "/static/home/main_home_ilustration_2.webp",
+    imageUrl: "/static/formacion-ia-sevilla/1-ordinaly.webp",
   },
 ];
 
-export function HomeHero({ t, onWhatsApp }: HeroProps) {
-  const { isDark } = useTheme();
-
+export function HomeHero({ t }: HeroProps) {
   const accordionItems: AccordionImageItem[] = [
-    { ...accordionImages[0], label: t("hero.card1Label"), sublabel: t("hero.card1Value") },
+    { ...accordionImages[0], label: t("hero.card4Label"), sublabel: t("hero.card4Value") },
     { ...accordionImages[1], label: t("hero.card2Label"), sublabel: t("hero.card2Value") },
   ];
 
@@ -61,9 +50,9 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   {t("hero.titleLine2")}
                 </span>
               </h1>
-              <p className="text-xl font-semibold text-slate-medium dark:text-cloud-medium lg:text-2xl">
+              <h2 className="text-xl font-semibold text-slate-medium dark:text-cloud-medium lg:text-2xl">
                 {t("hero.subtitle")}
-              </p>
+              </h2>
               <p className="max-w-lg text-base leading-relaxed text-slate-medium dark:text-cloud-medium lg:text-lg">
                 {t("hero.description1")}
               </p>
@@ -71,8 +60,10 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
 
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" variant="default" onClick={onWhatsApp}>
-                {t("hero.ctaDemo")}
+              <Button size="lg" variant="default" asChild>
+                <Link href="#contacto">
+                  {t("hero.ctaDemo")}
+                </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="/servicios" className="flex items-center gap-2">
@@ -114,39 +105,6 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 itemHeight="h-[480px] xl:h-[540px]"
               />
             </div>
-          </div>
-        </div>
-
-        {/* ─── Bottom: trust bullets ────────────────────────────────────────── */}
-        <div className="scroll-animate fade-in-up mt-10">
-          <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
-            {bulletPoints.map(({ icon: Icon, key, href }) => (
-              <Link
-                key={key}
-                href={href}
-                scroll
-                className="block rounded-a-m focus:outline-none focus-visible:ring-2 focus-visible:ring-clay focus-visible:ring-offset-2"
-              >
-                <div
-                  className={`group flex h-full items-center gap-3 rounded-a-m border border-[--color-border-subtle] px-4 py-3 transition-colors duration-300 cursor-pointer hover:bg-clay hover:border- dark:border-white/10
-                    ${isDark
-                      ? "bg-[rgba(250,249,245,0.05)]"
-                      : "bg-[rgba(255,255,255,0.55)]"
-                    }
-                  `}
-                >
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center 
-                                    rounded-a-s bg-clay/10 text-clay 
-                                      transition-colors duration-300
-                                        group-hover:bg-white/20 group-hover:text-white">
-                    <Icon className="h-4.5 w-4.5" strokeWidth={1.5} />
-                  </span>
-                  <p className="text-sm md:text-base text-slate-dark dark:text-ivory-light
-                                transition-colors duration-300
-                                group-hover:text-white">{t(key)}</p>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </div>

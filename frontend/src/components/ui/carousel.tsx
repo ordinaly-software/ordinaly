@@ -4,7 +4,8 @@ import React, { useEffect, useMemo, useRef, useState, type ReactNode } from "rea
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import type { EmblaOptionsType } from "embla-carousel";
-import { PrevButton, NextButton, useCarouselButtons } from "./carousel-buttons";
+import { useCarouselButtons } from "./carousel-buttons";
+import { CarouselNavButtons } from "./carousel-nav-buttons";
 import { cn } from "@/lib/utils";
 
 export interface CarouselProps<T> {
@@ -25,9 +26,6 @@ export interface CarouselProps<T> {
 
 const DEFAULT_SLIDE_CLASS =
   "shrink-0 grow-0 basis-[85%] sm:basis-[46%] lg:basis-[31%] pl-4";
-
-const NAV_BUTTON_CLASS =
-  "flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] text-clay dark:text-clay transition-opacity disabled:opacity-40 disabled:cursor-not-allowed";
 
 export function Carousel<T>({
   items,
@@ -51,12 +49,21 @@ export function Carousel<T>({
   );
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { align: "start", containScroll: "trimSnaps", ...options },
+    { align: "start", containScroll: "keepSnaps", ...options },
     plugins,
   );
 
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     useCarouselButtons(emblaApi);
+
+  // Slide count/content can change after the initial measurement (e.g. data
+  // arriving after mount, images loading, fonts swapping in); without this,
+  // embla can keep stale scroll-snap bounds and leave the next button
+  // incorrectly disabled even though there's more content to scroll to.
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.reInit();
+  }, [emblaApi, items.length, trailingSlide]);
 
   const [partialSlides, setPartialSlides] = useState<ReadonlySet<number>>(new Set());
 
@@ -161,20 +168,15 @@ export function Carousel<T>({
       </div>
 
       {items.length + (trailingSlide ? 1 : 0) > 1 && (
-        <div className="mt-6 flex justify-center gap-3">
-          <PrevButton
-            onClick={onPrevButtonClick}
-            disabled={prevBtnDisabled}
-            aria-label={prevLabel}
-            className={NAV_BUTTON_CLASS}
-          />
-          <NextButton
-            onClick={onNextButtonClick}
-            disabled={nextBtnDisabled}
-            aria-label={nextLabel}
-            className={NAV_BUTTON_CLASS}
-          />
-        </div>
+        <CarouselNavButtons
+          onPrevClick={onPrevButtonClick}
+          onNextClick={onNextButtonClick}
+          prevDisabled={prevBtnDisabled}
+          nextDisabled={nextBtnDisabled}
+          prevLabel={prevLabel}
+          nextLabel={nextLabel}
+          className="mt-6 justify-center"
+        />
       )}
     </div>
   );

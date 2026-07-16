@@ -157,7 +157,7 @@ const ServiceShowcase: React.FC<ServiceShowcaseProps> = ({
         trailingSlide={
           <Link
             href="/servicios"
-            className="group flex h-full min-h-[420px] flex-col items-center justify-center gap-4 rounded-2xl border border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] bg-gradient-to-br from-clay to-cobalt p-6 text-center text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-clay/20"
+            className="group flex h-full min-h-[500px] flex-col items-center justify-center gap-4 rounded-2xl border border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] bg-gradient-to-br from-clay to-cobalt p-6 text-center text-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-clay/20"
           >
             <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm transition-transform group-hover:scale-110">
               <LayoutGrid className="h-6 w-6" />

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
+import { CarouselNavButtons } from "@/components/ui/carousel-nav-buttons";
 
 export default function Carousel3D({ images }: { images: readonly string[] }) {
 
@@ -38,24 +38,13 @@ export default function Carousel3D({ images }: { images: readonly string[] }) {
         })}
       </div>
 
-      <div className="flex justify-center gap-6 mt-10">
-        <button
-          type="button"
-          aria-label="Previous slide"
-          onClick={prev}
-          className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
-        >
-          <IconArrowNarrowLeft className="h-6 w-6 text-clay dark:text-clay" />
-        </button>
-        <button
-          type="button"
-          aria-label="Next slide"
-          onClick={next}
-          className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
-        >
-          <IconArrowNarrowRight className="h-6 w-6 text-clay dark:text-clay" />
-        </button>
-      </div>
+      <CarouselNavButtons
+        onPrevClick={prev}
+        onNextClick={next}
+        prevLabel="Previous slide"
+        nextLabel="Next slide"
+        className="justify-center gap-6 mt-10"
+      />
     </div>
   );
 }

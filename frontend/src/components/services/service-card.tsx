@@ -49,7 +49,7 @@ export function ServiceCard({ service, onClick, className, size = "default", onC
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } } : undefined}
       className={cn(
-        "group relative flex h-full min-h-[420px] flex-col overflow-hidden rounded-2xl",
+        "group relative flex h-full min-h-[500px] flex-col overflow-hidden rounded-2xl",
         "bg-[var(--swatch--slate-medium)]",
         "border border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)]",
         "transition-all duration-300",

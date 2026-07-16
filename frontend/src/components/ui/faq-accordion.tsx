@@ -125,7 +125,7 @@ export function FaqAccordion({
   return (
     <section className={cn("px-4 py-16 sm:px-6 sm:py-20 lg:px-8", className)}>
       <div className={cn("mx-auto max-w-6xl", containerClassName)}>
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.3fr)] lg:gap-16">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.3fr)] lg:items-center lg:gap-16">
           <div>
             {eyebrow && (
               <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-slate-medium dark:text-cloud-medium">

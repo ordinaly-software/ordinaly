@@ -35,27 +35,47 @@
       "loading": "Loading..."
     },
     "hero": {
-      "titleLine1": "AI Automation",
-      "titleLine2": "Agency",
-      "subtitle": "We are your AI automation agency. We optimize your business with artificial intelligence to scale results.",
-      "description1": "We automate your processes with AI agents, chatbots, and no-code workflows so you can sell and operate 24/7.",
+      "titleLine1": "Automation",
+      "titleLine2": "for SMEs",
+      "subtitle": "We implement workflow automation and AI chatbots",
+      "description1": "These tools help you cut down manual, repetitive work while your sales accelerate. We also provide professional training led by engineers specialized in software and AI.",
       "trust1": "Tailored automation",
       "trust2": "24/7 AI agents for sales and support.",
       "trust3": "Solutions for real estate, retail, and marketing.",
       "trust4": "Practical AI training for teams.",
       "ctaServices": "View services",
-      "ctaDemo": "Book a consultation",
+      "ctaDemo": "Talk to an expert",
       "clientsTitle": "Trusted by",
       "card1Label": "Agentes de IA 24/7 para ventas y atención al cliente",
       "card1Value": "Automatización de consultas, generación de leads y soporte continuo con inteligencia artificial.",
-      "card2Label": "Formación profesional para empresas",
-      "card2Value": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo.",
+      "card2Label": "Professional training for businesses",
+      "card2Value": "Hands-on AI courses so your team masters the tools and becomes self-sufficient.",
       "card3Label": "Equipo de ingenieros especializados",
       "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
-      "card4Label": "Empresa local andaluza",
-      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo."
+      "card4Label": "Our office",
+      "card4Value": "Plaza del Duque de la Victoria 1, 3rd floor 9. 41002, Seville, Spain."
+    },
+    "whyUs": {
+      "title": "Why choose us",
+      "videoCaptionName": "Antonio Macías Ferrera",
+      "videoCaptionRole": "CTO software engineer & co-founder",
+      "items": {
+        "0": {
+          "title": "Traceable, reliable automations",
+          "description": "You know exactly what each automation does, why it does it, and what happens if something fails."
+        },
+        "1": {
+          "title": "Free, open-source (FLOSS) and European",
+          "description": "This means you don't depend on a proprietary platform that can change its terms or pricing overnight. Your automation is yours."
+        },
+        "2": {
+          "title": "A team of specialized engineers",
+          "description": "In software, computer science and quality engineering."
+        }
+      }
     },
     "services": {
+      "kicker": "Our services",
       "title": "Our AI automation agency",
       "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs.",
       "noServices": "No services available.",
@@ -171,6 +191,31 @@
       "title": "Transformed companies",
       "subtitle": "Companies that trust us and have already automated their processes with AI"
     },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": {
+        "0": {
+          "question": "Do I need to know about technology to work with you?",
+          "answer": "No. We take care of the whole technical process: analysis, development, implementation and rollout. Your team only needs to learn how to use the tool once it's ready, and we train you for that too."
+        },
+        "1": {
+          "question": "How long does it take to be ready?",
+          "answer": "It depends on the project, but most automations are operational within 2 to 4 weeks. We work in phases so you see results quickly, without waiting months for something to work."
+        },
+        "2": {
+          "question": "How much does it cost to automate my business?",
+          "answer": "Every project is different, which is why we don't always work with fixed rates. After a first free conversation we put together a proposal tailored to what you need and your budget. No surprises."
+        },
+        "3": {
+          "question": "What happens if the automation fails or I need to make changes?",
+          "answer": "The service includes ongoing support and updates. We don't disappear after delivery: we're your technical team, online and in Seville, available whenever you need us."
+        },
+        "4": {
+          "question": "What sets Ordinaly apart from other agencies?",
+          "answer": "We don't use generic templates or standard solutions. We design every automation from scratch, tailored to your business, and you can always call, visit or meet with us whenever you need to."
+        }
+      }
+    },
     "newsletter": {
       "title": "Want to stay up to date with the latest AI news and tools?",
       "subtitle": "Subscribe to our newsletter and be the first to receive updates, tutorials and automation resources.",
@@ -279,6 +324,9 @@
       "noSpecificDate": "No specific date",
       "showcaseTitle": "Automation agency and more",
       "showcaseDescription": "Join our professional training courses and advance your career",
+      "homeTitle": "We train you",
+      "homeSubtitle": "Hands-on training, no prior knowledge required",
+      "trainingHighlight": "If your team has just rolled out an <b>ERP</b>, wants to truly understand <b>Artificial Intelligence</b>, or get up to speed on <b>digitalization</b>, we can help!",
       "upcomingTitle": "Upcoming courses",
       "upcomingDescription": "Discover our professional training courses",
       "noCoursesTitle": "No upcoming courses",
@@ -343,7 +391,8 @@
         "emailUs": "Email",
         "callUs": "Call",
         "officeMap": "Open map",
-        "linkedin": "LinkedIn"
+        "linkedin": "LinkedIn",
+        "youtube": "YouTube"
       },
       "legal": {
         "title": "Legal docs",
@@ -1989,6 +2038,7 @@
       "eyebrow": "Contact form",
       "title": "Tell us about your project",
       "subtitle": "Share objectives, deadlines and tools so we can propose the best path.",
+      "commitmentNote": "No commitment. We reply quickly and adapt to your business.",
       "name": "Name",
       "namePlaceholder": "Full name",
       "email": "Email",

@@ -13,6 +13,7 @@ import {
   Moon,
   Phone,
   Sun,
+  Youtube,
   type LucideIcon,
 } from "lucide-react";
 import LocaleSwitcher from "./locale-switcher";
@@ -85,6 +86,12 @@ const Footer = () => {
         href: "https://www.linkedin.com/company/ordinalysoftware/",
         external: true,
         icon: Linkedin,
+      },
+      {
+        label: t("footer.links.youtube"),
+        href: "https://www.youtube.com/@ordinaly",
+        external: true,
+        icon: Youtube,
       },
     ];
 

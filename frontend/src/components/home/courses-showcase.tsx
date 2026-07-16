@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
+import { useState, useCallback, useEffect, useRef, useMemo, type ReactNode } from 'react';
 import dynamic from "next/dynamic";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -21,10 +21,24 @@ interface CoursesShowcaseProps {
   onViewAllClick?: () => void;
   referenceNow?: number;
   cardTitleTag?: "h3" | "h4";
+  titleOverride?: ReactNode;
+  descriptionOverride?: ReactNode;
+  trainingHighlight?: ReactNode;
 }
 
 export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag?: "h2" | "h3" }) {
-  const { limit = 3, showUpcomingOnly = true, onCourseClick, initialCourses, referenceNow, titleTag = "h2", cardTitleTag = "h3" } = props;
+  const {
+    limit = 3,
+    showUpcomingOnly = true,
+    onCourseClick,
+    initialCourses,
+    referenceNow,
+    titleTag = "h2",
+    cardTitleTag = "h3",
+    titleOverride,
+    descriptionOverride,
+    trainingHighlight,
+  } = props;
   const t = useTranslations("home.courses");
   const router = useRouter();
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
@@ -185,16 +199,21 @@ export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag
         <div className="text-center mb-10 md:mb-12">
           {titleTag === "h3" ? (
             <h3 className="text-2xl md:text-3xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
-              {t('showcaseTitle')}
+              {titleOverride ?? t('showcaseTitle')}
             </h3>
           ) : (
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
-              {t('showcaseTitle')}
+              {titleOverride ?? t('showcaseTitle')}
             </h2>
           )}
           <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
-            {t('showcaseDescription')}
+            {descriptionOverride ?? t('showcaseDescription')}
           </p>
+          {trainingHighlight && (
+            <h3 className="mt-4 text-lg font-semibold text-slate-dark dark:text-ivory-light max-w-3xl mx-auto">
+              {trainingHighlight}
+            </h3>
+          )}
         </div>
 
         {isLoading ? (

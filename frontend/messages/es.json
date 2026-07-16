@@ -35,16 +35,16 @@
       "loading": "Cargando..."
     },
     "hero": {
-      "titleLine1": "Agencia de ",
-      "titleLine2": "Automatización IA",
-      "subtitle": "Somos tu agencia de automatización IA. Optimizamos tu negocio con inteligencia artificial para escalar resultados.",
-      "description1": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
+      "titleLine1": "Automatizaciones",
+      "titleLine2": "para Pymes",
+      "subtitle": "Implementamos flujos de automatización de trabajo y chatbots con IA",
+      "description1": "Estas herramientas te ayudarán a reducir las actividades manuales y repetitivas mientras tus ventas se aceleran. También impartimos formación profesional para empresas de la mano de ingenieros especializados en software e IA.",
       "trust1": "Para contables, administradores, inmobiliarias, y más",
       "trust2": "Agentes de IA 24/7 para ventas y atención al cliente",
       "trust3": "Automatización a medida",
       "trust4": "Formación práctica en IA para equipos.",
       "ctaServices": "Ver servicios",
-      "ctaDemo": "Agenda una consulta",
+      "ctaDemo": "Habla con un experto",
       "clientsTitle": "Confían en nosotros",
       "card1Label": "Agentes de IA 24/7 para ventas y atención al cliente",
       "card1Value": "Automatización de consultas, generación de leads y soporte continuo con inteligencia artificial.",
@@ -52,10 +52,30 @@
       "card2Value": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo.",
       "card3Label": "Equipo de ingenieros especializados",
       "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
-      "card4Label": "Empresa local andaluza",
-      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo."
+      "card4Label": "Nuestra oficina",
+      "card4Value": "Plaza del Duque de la Victoria 1, 3º 9. 41002, Sevilla, España."
+    },
+    "whyUs": {
+      "title": "Por qué elegirnos",
+      "videoCaptionName": "Antonio Macías Ferrera",
+      "videoCaptionRole": "CTO ingeniero de software & co-founder",
+      "items": {
+        "0": {
+          "title": "Automatizaciones trazables y confiables",
+          "description": "Sabes exactamente qué hace cada automatización, por qué lo hace y qué ocurre si algo falla."
+        },
+        "1": {
+          "title": "Software libre (FLOSS) y europeo",
+          "description": "Esto significa que no dependes de una plataforma propietaria que puede cambiar sus condiciones o precios de un día para otro. Tu automatización es tuya."
+        },
+        "2": {
+          "title": "Equipo de ingenieros especializados",
+          "description": "En software, ciencias de la computación e ingeniería de calidad."
+        }
+      }
     },
     "services": {
+      "kicker": "Nuestros servicios",
       "title": "Nuestra agencia de automatización IA",
       "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos. Especialistas en automatización para inmobiliarias, administradores de fincas y PYMEs andaluzas.",
       "noServices": "Ahora mismo estamos de vacaciones. ¡Volvemos pronto con nuevos servicios y productos! Gracias por tu paciencia.",
@@ -171,6 +191,31 @@
       "title": "Empresas transformandas",
       "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos con IA"
     },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "items": {
+        "0": {
+          "question": "¿Necesito saber de tecnología para trabajar con vosotros?",
+          "answer": "No. Nosotros nos encargamos de todo el proceso técnico: análisis, desarrollo, implementación y puesta en marcha. Tu equipo solo necesita aprender a usar la herramienta una vez está lista, y para eso también te formamos."
+        },
+        "1": {
+          "question": "¿Cuánto tiempo tarda en estar listo?",
+          "answer": "Depende del proyecto, pero la mayoría de automatizaciones están operativas en 2 a 4 semanas. Trabajamos por fases para que veas resultados rápido, sin esperar meses a tener algo funcionando."
+        },
+        "2": {
+          "question": "¿Cuánto cuesta automatizar mi negocio?",
+          "answer": "Cada proyecto es distinto, por eso no siempre trabajamos con tarifas cerradas. Tras una primera conversación gratuita te hacemos una propuesta ajustada a lo que necesitas y a tu presupuesto. Sin sorpresas."
+        },
+        "3": {
+          "question": "¿Qué pasa si la automatización falla o necesito hacer cambios?",
+          "answer": "El servicio incluye soporte continuo y actualizaciones. No desaparecemos tras la entrega: somos tu equipo técnico online y en Sevilla disponible cuando lo necesites."
+        },
+        "4": {
+          "question": "¿En qué se diferencia Ordinaly de otras agencias?",
+          "answer": "No usamos plantillas genéricas ni soluciones estándar. Cada automatización la diseñamos desde cero adaptada a tu negocio, y siempre que lo necesites nos puedes llamar, visitar o reunirte con nosotros."
+        }
+      }
+    },
     "newsletter": {
       "title": "¿Quieres estar al día con las últimas noticias y herramientas en IA?",
       "subtitle": "Suscríbete a nuestra newsletter y sé el primero en recibir novedades, tutoriales y recursos de automatización.",
@@ -280,6 +325,9 @@
       "locationSoon": "Ubicación próximamente",
       "showcaseTitle": "Automatizaciones y más",
       "showcaseDescription": "En Ordinaly, ofrecemos cursos de formación profesional para empresas y profesionales que desean aprovechar al máximo las tecnologías emergentes.",
+      "homeTitle": "Te formamos",
+      "homeSubtitle": "Con formación práctica y sin necesidad de conocimientos previos",
+      "trainingHighlight": "Si tu equipo acaba de estrenar un <b>ERP</b>, quiere entender de verdad la <b>Inteligencia Artificial</b> o ponerse al día en <b>digitalización</b>, ¡nosotros te ayudamos!",
       "upcomingTitle": "Próximos cursos",
       "upcomingDescription": "Descubre nuestros cursos de formación",
       "noCoursesTitle": "No hay cursos próximos",
@@ -343,7 +391,8 @@
         "emailUs": "Email",
         "callUs": "Llamar",
         "officeMap": "Abrir mapa",
-        "linkedin": "LinkedIn"
+        "linkedin": "LinkedIn",
+        "youtube": "YouTube"
       },
       "legal": {
         "title": "Documentación legal",
@@ -1989,6 +2038,7 @@
       "eyebrow": "Formulario de contacto",
       "title": "Cuéntanos tu proyecto",
       "subtitle": "Comparte objetivos, plazos y herramientas para proponerte el mejor plan.",
+      "commitmentNote": "Sin compromiso. Te respondemos rápidamente y adaptándonos a tu negocio.",
       "name": "Nombre",
       "namePlaceholder": "Nombre y apellidos",
       "email": "Email",

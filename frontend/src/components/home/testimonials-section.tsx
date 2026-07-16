@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { BadgeCheck } from "lucide-react";
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
+import { CarouselNavButtons } from "@/components/ui/carousel-nav-buttons";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
@@ -78,12 +78,12 @@ type TestimonialCard = {
 
 const sortTestimonials = (items: TestimonialCard[]) =>
   [...items].sort((a, b) => {
-    const ratingDiff = b.rating - a.rating;
-    if (ratingDiff !== 0) return ratingDiff;
     const aHasText = Boolean(a.quote && a.quote.trim().length > 0);
     const bHasText = Boolean(b.quote && b.quote.trim().length > 0);
     if (aHasText !== bHasText) return aHasText ? -1 : 1;
-    return (b.quote?.length ?? 0) - (a.quote?.length ?? 0);
+    const lengthDiff = (b.quote?.length ?? 0) - (a.quote?.length ?? 0);
+    if (lengthDiff !== 0) return lengthDiff;
+    return b.rating - a.rating;
   });
 
 const getInitials = (name: string) =>
@@ -469,26 +469,15 @@ export function TestimonialsSection({ t, titleTag = "h2" }: SectionProps & { tit
                   </div>
                 ))}
           </div>
-          <div className="mr-2 mt-4 flex justify-end gap-2 px-1">
-            <button
-              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
-              onClick={handleScrollLeft}
-              disabled={!canScrollLeft}
-              type="button"
-              aria-label="Scroll testimonials left"
-            >
-              <IconArrowNarrowLeft className="h-6 w-6 text-clay dark:text-clay" />
-            </button>
-            <button
-              className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
-              onClick={handleScrollRight}
-              disabled={!canScrollRight}
-              type="button"
-              aria-label="Scroll testimonials right"
-            >
-              <IconArrowNarrowRight className="h-6 w-6 text-clay dark:text-clay" />
-            </button>
-          </div>
+          <CarouselNavButtons
+            onPrevClick={handleScrollLeft}
+            onNextClick={handleScrollRight}
+            prevDisabled={!canScrollLeft}
+            nextDisabled={!canScrollRight}
+            prevLabel="Scroll testimonials left"
+            nextLabel="Scroll testimonials right"
+            className="mr-2 mt-4 justify-end px-1"
+          />
         </div>
       </div>
     </section>

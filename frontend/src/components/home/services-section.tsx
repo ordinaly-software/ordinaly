@@ -22,6 +22,9 @@ export function ServicesSection({ t, servicesContent, sectionRef, featuredServic
 
         {/* Section header */}
         <div className="text-center scroll-animate fade-in-up">
+          <h3 className="text-sm font-semibold uppercase tracking-widest text-clay mb-3">
+            {t("services.kicker")}
+          </h3>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-dark dark:text-ivory-light">
             {t("services.title")}
           </h2>

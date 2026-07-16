@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { IconArrowNarrowLeft, IconArrowNarrowRight } from "@tabler/icons-react";
+import { CarouselNavButtons } from "@/components/ui/carousel-nav-buttons";
 
 let interval: any;
 
@@ -92,24 +92,13 @@ export const CardStack = ({
         })}
       </div>
 
-      <div className="mt-4 flex justify-center gap-6 px-1">
-        <button
-          type="button"
-          aria-label={previousLabel}
-          onClick={movePrevious}
-          className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
-        >
-          <IconArrowNarrowLeft className="h-6 w-6 text-clay dark:text-clay" />
-        </button>
-        <button
-          type="button"
-          aria-label={nextLabel}
-          onClick={moveNext}
-          className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-oat dark:bg-[--swatch--slate-medium] disabled:opacity-50"
-        >
-          <IconArrowNarrowRight className="h-6 w-6 text-clay dark:text-clay" />
-        </button>
-      </div>
+      <CarouselNavButtons
+        onPrevClick={movePrevious}
+        onNextClick={moveNext}
+        prevLabel={previousLabel}
+        nextLabel={nextLabel}
+        className="mt-4 justify-center gap-6 px-1"
+      />
     </div>
   );
 };
