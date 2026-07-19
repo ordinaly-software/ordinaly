@@ -160,7 +160,6 @@ export default function UsPage() {
       </section>
 
       <PartnerShowcase
-        eyebrow={t_home("partners.title")}
         title={t_home("partners.subtitle")}
       />
 

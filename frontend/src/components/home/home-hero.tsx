@@ -42,8 +42,8 @@ export function HomeHero({ t }: HeroProps) {
 
             {/* Title */}
             <div className="mt-6 space-y-4">
-              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3rem] xl:text-[4.5rem] break-words hyphens-auto">
-                <span className="block text-clay">
+              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3rem] xl:text-[4.5rem]">
+                <span className="block whitespace-nowrap break-normal hyphens-none text-clay">
                   {t("hero.titleLine1")}
                 </span>
                 <span className="block text-black dark:text-white">

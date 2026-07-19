@@ -188,7 +188,6 @@
       }
     },
     "partners": {
-      "title": "Transformed companies",
       "subtitle": "Companies that trust us and have already automated their processes with AI"
     },
     "faq": {
@@ -217,7 +216,7 @@
       }
     },
     "newsletter": {
-      "title": "Want to stay up to date with the latest AI news and tools?",
+      "title": "Our newsletter",
       "subtitle": "Subscribe to our newsletter and be the first to receive updates, tutorials and automation resources.",
       "namePlaceholder": "Your name",
       "emailPlaceholder": "you@email.com",
@@ -2056,7 +2055,6 @@
       "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai."
     },
     "formAside": {
-      "eyebrow": "Before you send",
       "title": "What to include so we can respond better",
       "subtitle": "The more context we have, the sharper the first proposal will be.",
       "items": {
@@ -2090,16 +2088,19 @@
         "role": "CEO, Expert in marketing, advertising and digital transformation & co-founder",
         "quote": "Specialist in digital marketing strategies and business transformation."
       },
-      "eyebrow": "Founding team",
       "title": "Our team",
       "cta": "Get to know us!"
     },
     "map": {
-      "eyebrow": "In person in Seville",
       "title": "Visit us in Seville",
       "subtitle": "Plaza del Duque de la Victoria 1, office 9, 41002 Seville",
       "cta": "Open in Google Maps",
-      "photoAlt": "Our offices in Plaza del Duque de la Victoria, Seville"
+      "photoAlt": "Our offices in Plaza del Duque de la Victoria, Seville",
+      "fallbackTitle": "Map preview blocked",
+      "fallbackDescription": "You've disabled third-party cookies, so we can't embed Google Maps here. You can still open our location directly."
+    },
+    "socialShowcase": {
+      "title": "Find us on social media"
     },
     "explore": {
       "title": "More ways to stay in touch",
@@ -2257,7 +2258,7 @@
     },
     "cta": {
       "title": "Ready to explore the opportunity?",
-      "body": "Let’s align on KPIs, runway, and how your capital will translate into measurable impact.",
+      "body": "Let's align on KPIs, runway, and how your capital will translate into measurable impact.",
       "button": "Talk with the team"
     },
     "team": {
@@ -2404,7 +2405,7 @@
         "ctaTitle": "Automate your processes with n8n",
         "ctaSubtitle": "We build robust, scalable flows tailored to your business."
       },
-      "whatIsN8N": "n8n is a visual automation platform that allows you to connect systems, transform data and execute complex logic without custom development. Its node-based architecture, retries, queues, logs and version control turn each workflow into operable, auditable and scalable infrastructure. It’s the modern way to automate processes without losing control or visibility.",
+      "whatIsN8N": "n8n is a visual automation platform that allows you to connect systems, transform data and execute complex logic without custom development. Its node-based architecture, retries, queues, logs and version control turn each workflow into operable, auditable and scalable infrastructure. It's the modern way to automate processes without losing control or visibility.",
       "whatWeAutomate": [
         {
           "title": "System synchronization",
@@ -2445,7 +2446,7 @@
       },
       "faq": [
         {
-          "question": "Can we start even if our processes aren’t defined?",
+          "question": "Can we start even if our processes aren't defined?",
           "answer": "Yes. We map systems, failure points and repetitive tasks together to prioritize automations with immediate impact."
         },
         {
@@ -2457,7 +2458,7 @@
           "answer": "Yes. We connect n8n with ERP, CRM, databases, internal APIs, spreadsheets, messaging tools and any service with an API."
         },
         {
-          "question": "How do you ensure flows don’t break?",
+          "question": "How do you ensure flows don't break?",
           "answer": "We design retries, idempotency, logs, queues and alerts from day one to avoid inconsistent states."
         }
       ],
@@ -2671,7 +2672,7 @@
         {
           "label": "Format",
           "value": "2-4 hours",
-          "detail": "Compact blocks that don’t interrupt operations and can be repeated per team."
+          "detail": "Compact blocks that don't interrupt operations and can be repeated per team."
         },
         {
           "label": "Follow-up",

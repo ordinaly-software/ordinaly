@@ -75,9 +75,8 @@
       }
     },
     "services": {
-      "kicker": "Nuestros servicios",
-      "title": "Nuestra agencia de automatización IA",
-      "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos. Especialistas en automatización para inmobiliarias, administradores de fincas y PYMEs andaluzas.",
+      "title": "Nuestros servicios",
+      "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos, además de automatizaciones personalizadas. Especialistas en PYMES.",
       "noServices": "Ahora mismo estamos de vacaciones. ¡Volvemos pronto con nuevos servicios y productos! Gracias por tu paciencia.",
       "extra": {
         "0": {
@@ -188,7 +187,6 @@
       }
     },
     "partners": {
-      "title": "Empresas transformandas",
       "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos con IA"
     },
     "faq": {
@@ -217,7 +215,7 @@
       }
     },
     "newsletter": {
-      "title": "¿Quieres estar al día con las últimas noticias y herramientas en IA?",
+      "title": "Nuestra newsletter",
       "subtitle": "Suscríbete a nuestra newsletter y sé el primero en recibir novedades, tutoriales y recursos de automatización.",
       "namePlaceholder": "Tu nombre",
       "emailPlaceholder": "tu@email.com",
@@ -2056,7 +2054,6 @@
       "errorFallback": "No pudimos enviar el formulario. Escríbenos a info@ordinaly.ai."
     },
     "formAside": {
-      "eyebrow": "Antes de enviar",
       "title": "Qué incluir para que podamos responder mejor",
       "subtitle": "Cuanto más contexto tengamos, más precisa será la propuesta inicial.",
       "items": {
@@ -2090,16 +2087,19 @@
         "role": "CEO, Experto en Márketing, publicidad y transformación digital & Co-founder",
         "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
       },
-      "eyebrow": "Equipo fundador",
       "title": "Nuestro equipo",
       "cta": "¡Conócenos!"
     },
     "map": {
-      "eyebrow": "Presencial en Sevilla",
       "title": "Visita nuestras oficinas en Sevilla",
       "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
       "cta": "Abrir en Google Maps",
-      "photoAlt": "Oficinas de Ordinaly en Plaza del Duque de la Victoria, Sevilla"
+      "photoAlt": "Oficinas de Ordinaly en Plaza del Duque de la Victoria, Sevilla",
+      "fallbackTitle": "Vista previa del mapa bloqueada",
+      "fallbackDescription": "Has desactivado las cookies de terceros, así que no podemos mostrar el mapa de Google aquí. Aun así puedes abrir nuestra ubicación directamente."
+    },
+    "socialShowcase": {
+      "title": "Encuéntranos en redes sociales"
     },
     "explore": {
       "title": "Más formas de seguir en contacto",

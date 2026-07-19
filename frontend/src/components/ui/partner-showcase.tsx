@@ -25,7 +25,6 @@ export const defaultPartnerLogos: LogoCarouselLogo[] = [
 }));
 
 interface PartnerShowcaseProps {
-  eyebrow: string;
   title: string;
   titleTag?: "h2" | "h3";
   logos?: LogoCarouselLogo[];
@@ -36,7 +35,6 @@ interface PartnerShowcaseProps {
 }
 
 export function PartnerShowcase({
-  eyebrow,
   title,
   logos = defaultPartnerLogos,
   className,
@@ -55,7 +53,6 @@ export function PartnerShowcase({
       >
         <div className="flex flex-col items-center gap-10 lg:flex-row">
             <div className="flex-shrink-0 space-y-3 text-white lg:max-w-xs">
-            <p className="text-xs uppercase tracking-[0.16em] text-white/50">{eyebrow}</p>
             {titleTag === "h3" ? (
               <h3 className="text-2xl font-semibold tracking-[-0.03em]">{title}</h3>
             ) : (

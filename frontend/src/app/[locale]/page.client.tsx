@@ -321,18 +321,21 @@ export default function HomePage({
       <HomeHero t={t} />
 
       <PartnerShowcase
-        eyebrow={t("partners.title")}
         title={t("partners.subtitle")}
         className="pt-10 pb-12"
         titleTag="h3"
       />
 
       {/* Why choose us: explainer video + USP cards */}
-      <section className="border-t border-[--color-border-subtle] dark:border-[--color-border-strong] py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <h3 className="text-center text-sm font-semibold uppercase tracking-widest text-clay mb-8">
+      <section id="services" ref={servicesSectionRef} className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto space-y-16">
+          {/* Section header */}
+          <div className="text-center scroll-animate fade-in-up">
+            <h3 className="text-4xl md:text-5xl font-bold mb-4 text-slate-dark dark:text-ivory-light">
             {t("whyUs.title")}
           </h3>
+          </div>
+
           <div className="max-w-4xl mx-auto">
             <HeroVideoDialog
               className="w-full"
@@ -370,12 +373,20 @@ export default function HomePage({
         </div>
       </section>
 
-      <ServicesSection
-        t={t}
-        onWhatsApp={handleWhatsAppChat}
-        sectionRef={servicesSectionRef}
-        featuredServices={services.slice(0, 3)}
-        servicesContent={
+      <section id="services" ref={servicesSectionRef} className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto space-y-16">
+
+          {/* Section header */}
+          <div className="text-center scroll-animate fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-dark dark:text-ivory-light">
+              {t("services.title")}
+            </h2>
+            <p className="text-lg text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
+              {t("services.subtitle")}
+            </p>
+          </div>
+            
+          {/* Full service carousel */}
           <ServiceShowcase
             services={services}
             isLoading={false}
@@ -386,8 +397,11 @@ export default function HomePage({
             onContact={handleServiceContact}
             cardTitleTag="h4"
           />
-        }
-      />
+
+        </div>
+    </section>
+
+
       <CoursesShowcase
         limit={3}
         showUpcomingOnly={false}
