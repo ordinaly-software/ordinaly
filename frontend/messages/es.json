@@ -382,7 +382,6 @@
         "blog": "Blog",
         "news": "Noticias",
         "about": "Nosotros",
-        "investors": "Inversores",
         "contact": "Contacto",
         "legalCenter": "Centro legal",
         "whatsapp": "WhatsApp",
@@ -1479,38 +1478,44 @@
       "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar el curso perfecto para ti"
     },
     "faq": {
-      "title": "FAQ de nuestra agencia de automatización IA",
-      "subtitle": "Resolvemos tus dudas sobre la agencia de automatización en inteligencia artificial líder",
+      "title": "FAQ de nuestros talleres y formaciones",
+      "subtitle": "Resolvemos tus dudas antes de apuntarte a un taller de Ordinaly",
       "items": {
         "0": {
-          "q": "¿Qué soluciones ofrece una agencia de automatización IA para mi negocio?",
-          "a": "Como agencia de automatización IA, implementamos sistemas autónomos que gestionan consultas, procesan documentos y optimizan flujos de trabajo sin intervención humana.",
-          "extra": "Esto permite a las empresas reducir errores y garantizar una disponibilidad 24/7, escalando la operativa de forma inmediata."
+          "q": "¿Necesito conocimientos previos de informática o programación?",
+          "a": "No. Nuestros talleres están pensados para empresarios, autónomos y equipos sin perfil técnico; explicamos cada herramienta paso a paso con casos prácticos del día a día de una pyme. Si algún curso concreto requiere conocimientos previos, lo indicamos claramente en su ficha antes de que te apuntes."
         },
         "1": {
-          "q": "¿Cuál es el coste de contratar una agencia de automatización IA?",
-          "a": "En nuestra agencia de automatización IA, adaptamos los presupuestos a la complejidad del proyecto.",
-          "extra": "Ofrecemos soluciones accesibles para PYMEs, desde integraciones básicas hasta ecosistemas complejos. La mayoría de nuestros clientes logran el ROI en menos de 6 meses gracias al ahorro de recursos."
+          "q": "¿Cuántas plazas hay disponibles y cómo me apunto?",
+          "a": "Cada taller tiene un aforo limitado que puedes consultar en su ficha, junto con las plazas que ya se han cubierto. Para apuntarte solo necesitas crear una cuenta gratuita y pulsar \"Apuntarme\" en el curso que te interese; recibirás la confirmación por email al momento."
         },
         "2": {
-          "q": "¿Es necesario tener perfil técnico para trabajar con una agencia de automatización IA?",
-          "a": "No. Nuestra agencia de automatización IA diseña herramientas intuitivas que no requieren conocimientos de programación.",
-          "extra": "Además, impartimos formación práctica en IA para que tu equipo domine las soluciones implementadas con total autonomía."
+          "q": "¿Qué necesito llevar (portátil, cuenta de correo, etc.)?",
+          "a": "Para los talleres presenciales necesitas traer tu propio portátil (con cargador) y una cuenta de correo activa, como Gmail, para seguir los ejercicios en tiempo real. Si un taller requiere algo adicional, te lo avisamos por email unos días antes."
         },
         "3": {
-          "q": "¿Qué nos define como tu agencia de automatización IA de referencia?",
-          "a": "Somos una agencia de automatización en inteligencia artificial que rechaza las soluciones genéricas.",
-          "extra": "Nos especializamos en sectores críticos (inmobiliaria, finanzas, marketing) para ofrecer estrategias personalizadas que realmente impulsan la competitividad nacional de tu empresa."
+          "q": "¿Se entrega algún certificado o diploma al finalizar?",
+          "a": "Sí, todas las personas que completan el taller reciben un certificado de participación de Ordinaly, útil para acreditar la formación ante tu empresa o para tu propio perfil profesional."
         },
         "4": {
-          "q": "¿Qué plazos de entrega maneja nuestra agencia de automatización IA?",
-          "a": "Como tu agencia de automatización IA, trabajamos por fases para ofrecer resultados rápidos.",
-          "extra": "Las automatizaciones básicas están listas en 2-4 semanas, mientras que integraciones complejas de ERP como Odoo suelen completarse en un plazo de 1 a 3 meses."
+          "q": "¿Qué pasa si me apunto y no puedo asistir? ¿Se puede cancelar o cambiar de fecha?",
+          "a": "Puedes cancelar tu inscripción sin coste desde tu perfil hasta 24 horas antes del inicio del taller, liberando tu plaza para otra persona. Si necesitas cambiar de fecha, escríbenos y te ayudamos a moverte a la próxima edición según disponibilidad."
         },
         "5": {
-          "q": "¿Ofrece vuestra agencia de automatización IA soporte continuo?",
-          "a": "Sí. Como agencia de automatización IA comprometida con tu éxito, incluimos mantenimiento técnico y soporte post-implementación.",
-          "extra": "Nuestras soluciones son escalables, permitiendo que la tecnología crezca al mismo ritmo que tu negocio en toda España."
+          "q": "¿Los talleres se adaptan al nivel de la empresa o son siempre genéricos?",
+          "a": "Partimos de un temario base, pero antes de cada sesión revisamos el nivel y el sector de los asistentes para ajustar ejemplos, ritmo y ejercicios prácticos. Así, tanto un equipo que empieza de cero como uno con experiencia previa en IA sacan partido real al taller."
+        },
+        "6": {
+          "q": "¿Con qué frecuencia organizáis nuevas ediciones del taller?",
+          "a": "Programamos nuevas ediciones de forma periódica, normalmente cada pocas semanas, según la demanda. Puedes ver las próximas fechas confirmadas en esta misma página y, si ninguna te encaja, escríbenos para avisarte en cuanto abramos una nueva convocatoria."
+        },
+        "7": {
+          "q": "¿Puedo solicitar una formación personalizada para mi sector?",
+          "a": "Sí. Además de los talleres abiertos, diseñamos formaciones a medida para equipos y sectores concretos (inmobiliaria, retail, servicios profesionales, etc.), con contenidos y casos de uso adaptados a tu negocio. Cuéntanos tu caso y te preparamos una propuesta."
+        },
+        "8": {
+          "q": "Después del taller, ¿ofrecéis acompañamiento para implementar lo aprendido?",
+          "a": "Sí. Muchos de nuestros clientes siguen trabajando con nosotros tras el taller para implementar las automatizaciones vistas en clase: ofrecemos sesiones de seguimiento y soporte técnico para que lo aprendido se traduzca en procesos reales funcionando en tu empresa."
         }
       },
       "viewAllLabel": "Ver todas las preguntas frecuentes"
@@ -2126,19 +2131,17 @@
   "usPage": {
     "hero": {
       "tagline": "Sobre nosotros",
-      "title": "Automatizamos con propósito",
+      "title": "Automatizamos con un propósito",
+      "titleAccent": "un propósito",
       "subtitle": "Un equipo multidisciplinar creando IA + automatización que mantiene a las personas en control y a los negocios avanzando.",
-      "definition": "Ordinaly Software S.L. es una empresa de automatización empresarial con IA en Sevilla que diseña agentes, chatbots y workflows para PYMEs y equipos corporativos.",
       "ctaPrimary": "Conoce al equipo",
       "ctaSecondary": "¡Trabaja con nosotros!"
     },
-    "mission": {
-      "title": "Misión: Potenciar a las personas, no sustituirlas",
-      "body": "Diseñamos automatizaciones que eliminan fricción para que los equipos se centren en creatividad, decisiones y relaciones."
-    },
-    "vision": {
-      "title": "Visión: Automatización en la que confiar",
-      "body": "Hacer que los flujos inteligentes sean simples, transparentes y medibles para cualquier empresa."
+    "about": {
+      "whatQuestion": "¿Qué es Ordinaly?",
+      "whatAnswer": "Ordinaly Software S.L. es una empresa sevillana de automatización empresarial con IA (cuando es necesaria) que diseña, programa e instala chatbots y workflows para pymes y equipos corporativos.",
+      "goalQuestion": "¿Qué queremos conseguir?",
+      "goalAnswer": "En nuestra empresa tenemos la misión de potenciar el trabajo de las personas con las nuevas tecnologías, en lugar de sustituirlas. Queremos que las empresas, al utilizar nuestras automatizaciones, tengan tiempo para centrarse en la creatividad, las decisiones y las relaciones sociales; aquello que una máquina no debe hacer. Queremos que nuestros clientes se sientan cómodos y seguros con nuestros sistemas, por ello damos importancia a la transparencia y la simplicidad de estos para cualquier empresa."
     },
     "stats": {
       "teamLabel": "Más de 10 empresas transformadas",
@@ -2146,11 +2149,10 @@
     },
     "story": {
       "eyebrow": "Nuestra historia",
-      "title": "Así nació Ordinaly para automatizar empresas desde Sevilla",
-      "lead": "Un estudio de automatización y agentes de IA creado en Andalucía para eliminar tareas repetitivas y generar impacto medible en negocios exigentes.",
+      "lead": "Así nació Ordinaly, pensada para ayudar a empresarios y autónomos",
       "timeline": {
         "1": {
-          "title": "Verano 2025 · La idea prende en la Universidad de Sevilla",
+          "title": "Verano 2025 · La idea surge en la Universidad de Sevilla",
           "body": "Mientras termina Ingeniería Informática, Antonio se une a Emilio y Guillermo para diseñar Ordinaly: un estudio de automatización pensado para liberar equipos de tareas repetitivas y mantener a las personas al mando."
         },
         "2": {
@@ -2192,117 +2194,6 @@
       "secondary": "Hablar con nosotros",
       "mailSubject": "CV para unirme a Ordinaly",
       "mailBody": "Hola equipo,\n\nMe encantaría unirme a Ordinaly. Aquí va mi perfil y por qué encajo:\n\n- Rol/área de interés:\n- Experiencia relevante:\n- Enlaces (CV/portfolio/LinkedIn):\n\n¡Gracias!"
-    }
-  },
-  "investors": {
-    "hero": {
-      "title": "Invirtiendo en automatización que mantiene ágiles a las empresas",
-      "subtitle": "Ordinaly articula agentes con IA, automatizaciones empresariales y formación para acelerar organizaciones sin perder el control humano.",
-      "ctaPrimary": "Descargar deck",
-      "ctaSecondary": "Agendar una llamada",
-      "footnote": "Compartimos métricas detalladas bajo solicitud.",
-      "focusTitle": "Trayectoria de automatización compuesta",
-      "focusBody": "Operamos con equipos ligeros y clientes complejos distribuidos."
-    },
-    "stats": {
-      "title": "Impulso en cifras",
-      "subtitle": "Indicadores clave que sostienen nuestra historia de crecimiento.",
-      "market": {
-        "label": "Mercado abordable",
-        "value": "€1,2B+",
-        "detail": "Demanda de automatización en España y Europa."
-      },
-      "clients": {
-        "label": "Socios atendidos",
-        "value": "10+",
-        "detail": "Retenciones activas y proyectos recurrentes."
-      },
-      "efficiency": {
-        "label": "Reducción manual",
-        "value": "38%",
-        "detail": "Descenso promedio del trabajo repetitivo en los clientes."
-      }
-    },
-    "highlights": {
-      "title": "Por qué invertir con Ordinaly",
-      "subtitle": "Combinamos expertise, confianza y gobernanza disciplinada.",
-      "global": {
-        "title": "Alcance paneuropeo",
-        "body": "Servimos a múltiples industrias y gestionamos automatizaciones multinacionales."
-      },
-      "traction": {
-        "title": "Tracción sólida",
-        "body": "Ingresos recurrentes, márgenes sanos y pipeline cualificado."
-      },
-      "governance": {
-        "title": "Gobernanza clara",
-        "body": "KPIs transparentes y comunicación activa con inversores."
-      }
-    },
-    "roadmap": {
-      "1": {
-        "title": "Expandir ingresos de servicios",
-        "body": "Escalar equipos de consultoría y paquetes por industria."
-      },
-      "2": {
-        "title": "Automatizar la automatización",
-        "body": "Lanzar herramientas internas que aceleren entregas y mejoren márgenes."
-      },
-      "3": {
-        "title": "Nuevas líneas de producto",
-        "body": "Ofrecer plataformas estratégicas y programas formativos."
-      },
-      "title": "Próximos hitos",
-      "subtitle": "El plan de inversión impulsa la siguiente fase de escala."
-    },
-    "cta": {
-      "title": "¿Listo para explorar la oportunidad?",
-      "body": "Hablemos de KPIs, runway y cómo el capital multiplica el impacto.",
-      "button": "Contactar al equipo"
-    },
-    "team": {
-      "label": "El equipo",
-      "title": "Capacidades técnicas y empresariales",
-      "subtitle": "Combinamos ingeniería de software de alto nivel con décadas de consultoría empresarial.",
-      "antonio": {
-        "role": "CTO · Ingeniero de Software & MsC en Inteligencia artificial",
-        "bio": "Ingeniero de software graduado en la Universidad de Sevilla con Master en Ciencias de la Computación, Lógica e Inteligencia artificial.",
-        "tags": {
-          "0": "Ing. Informática · Univ. Sevilla",
-          "1": "IA & Automatización",
-          "2": "Full-Stack",
-          "3": "Scrum Master"
-        }
-      },
-      "guillermo": {
-        "role": "CEO · Director de Proyecto en Proinca Consultores",
-        "bio": "Director de Proyecto en Proinca Consultores, Profesor Asociado en la Universidad de Sevilla, PhD en Ingeniería Industrial.",
-        "tags": {
-          "0": "Consultoría de Procesos",
-          "1": "Proinca Consultores",
-          "2": "Transformación Digital",
-          "3": "Optimización Empresarial"
-        }
-      }
-    },
-    "formation": {
-      "label": "Formación",
-      "title": "Cursos de IA para empresas",
-      "subtitle": "Entrenamos a equipos para que sean autónomos con la IA, creando una línea de ingresos recurrente y un canal directo de adopción.",
-      "courses": {
-        "0": {
-          "title": "IA para Equipos de Negocio",
-          "description": "Formación práctica para que equipos no técnicos integren herramientas de IA en sus flujos de trabajo diarios, con ejercicios reales del sector."
-        },
-        "1": {
-          "title": "Automatización de Procesos con IA",
-          "description": "Programa intensivo sobre diseño e implementación de agentes de IA y automatizaciones para reducir tareas repetitivas y escalar operaciones."
-        },
-        "2": {
-          "title": "Estrategia de Transformación Digital",
-          "description": "Curso ejecutivo para líderes que quieren definir una hoja de ruta de automatización e IA adaptada a su empresa y sector."
-        }
-      }
     }
   },
   "landings": {

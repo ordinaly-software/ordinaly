@@ -383,7 +383,6 @@
         "blog": "Blog",
         "news": "News",
         "about": "About us",
-        "investors": "Investors",
         "contact": "Contact",
         "legalCenter": "Legal center",
         "whatsapp": "WhatsApp",
@@ -1480,38 +1479,44 @@
       "description": "Try adjusting your search terms or filters to find the perfect course for you."
     },
     "faq": {
-      "title": "FAQ de nuestra agencia de automatización IA",
-      "subtitle": "Resolvemos tus dudas sobre la agencia de automatización en inteligencia artificial líder",
+      "title": "FAQ about our workshops and training",
+      "subtitle": "We answer your questions before you sign up for an Ordinaly workshop",
       "items": {
         "0": {
-          "q": "¿Qué soluciones ofrece una agencia de automatización IA para mi negocio?",
-          "a": "Como agencia de automatización IA, implementamos sistemas autónomos que gestionan consultas, procesan documentos y optimizan flujos de trabajo sin intervención humana.",
-          "extra": "Esto permite a las empresas reducir errores y garantizar una disponibilidad 24/7, escalando la operativa de forma inmediata."
+          "q": "Do I need prior IT or programming knowledge?",
+          "a": "No. Our workshops are designed for business owners, freelancers, and teams without a technical background; we explain every tool step by step with real day-to-day SME cases. If a specific course does require some prior knowledge, we state it clearly on its listing before you sign up."
         },
         "1": {
-          "q": "¿Cuál es el coste de contratar una agencia de automatización IA?",
-          "a": "En nuestra agencia de automatización IA, adaptamos los presupuestos a la complejidad del proyecto.",
-          "extra": "Ofrecemos soluciones accesibles para PYMEs, desde integraciones básicas hasta ecosistemas complejos. La mayoría de nuestros clientes logran el ROI en menos de 6 meses gracias al ahorro de recursos."
+          "q": "How many seats are available and how do I sign up?",
+          "a": "Each workshop has a limited capacity, shown on its listing along with how many seats are already taken. To sign up, just create a free account and click \"Enroll\" on the course you're interested in — you'll get an email confirmation right away."
         },
         "2": {
-          "q": "¿Es necesario tener perfil técnico para trabajar con una agencia de automatización IA?",
-          "a": "No. Nuestra agencia de automatización IA diseña herramientas intuitivas que no requieren conocimientos de programación.",
-          "extra": "Además, impartimos formación práctica en IA para que tu equipo domine las soluciones implementadas con total autonomía."
+          "q": "What do I need to bring (laptop, email account, etc.)?",
+          "a": "For in-person workshops you need to bring your own laptop (with charger) and an active email account, such as Gmail, to follow the exercises live. If a workshop requires anything extra, we'll let you know by email a few days beforehand."
         },
         "3": {
-          "q": "¿Qué nos define como tu agencia de automatización IA de referencia?",
-          "a": "Somos una agencia de automatización en inteligencia artificial que rechaza las soluciones genéricas.",
-          "extra": "Nos especializamos en sectores críticos (inmobiliaria, finanzas, marketing) para ofrecer estrategias personalizadas que realmente impulsan la competitividad nacional de tu empresa."
+          "q": "Do you provide a certificate or diploma at the end?",
+          "a": "Yes, everyone who completes the workshop receives an Ordinaly certificate of participation, which you can use to document the training with your employer or for your own professional profile."
         },
         "4": {
-          "q": "¿Qué plazos de entrega maneja nuestra agencia de automatización IA?",
-          "a": "Como tu agencia de automatización IA, trabajamos por fases para ofrecer resultados rápidos.",
-          "extra": "Las automatizaciones básicas están listas en 2-4 semanas, mientras que integraciones complejas de ERP como Odoo suelen completarse en un plazo de 1 a 3 meses."
+          "q": "What happens if I sign up and can't attend? Can I cancel or reschedule?",
+          "a": "You can cancel your enrollment at no cost from your profile up to 24 hours before the workshop starts, freeing up your seat for someone else. If you need to change dates, just contact us and we'll help you move to the next edition, subject to availability."
         },
         "5": {
-          "q": "¿Ofrece vuestra agencia de automatización IA soporte continuo?",
-          "a": "Sí. Como agencia de automatización IA comprometida con tu éxito, incluimos mantenimiento técnico y soporte post-implementación.",
-          "extra": "Nuestras soluciones son escalables, permitiendo que la tecnología crezca al mismo ritmo que tu negocio en toda España."
+          "q": "Are the workshops tailored to the company's level, or always generic?",
+          "a": "We start from a base syllabus, but before each session we review attendees' level and sector to adjust examples, pace, and hands-on exercises. That way, both a team starting from scratch and one with prior AI experience get real value out of the workshop."
+        },
+        "6": {
+          "q": "How often do you run new editions of the workshop?",
+          "a": "We schedule new editions regularly, typically every few weeks, based on demand. You can see the next confirmed dates on this page, and if none of them fit, reach out and we'll notify you as soon as a new edition opens."
+        },
+        "7": {
+          "q": "Can I request customized training for my sector?",
+          "a": "Yes. Besides our open workshops, we design tailor-made training for specific teams and sectors (real estate, retail, professional services, etc.), with content and use cases adapted to your business. Tell us about your case and we'll put together a proposal."
+        },
+        "8": {
+          "q": "After the workshop, do you offer support to implement what we learned?",
+          "a": "Yes. Many of our clients keep working with us after the workshop to implement the automations covered in class: we offer follow-up sessions and technical support so what you learned turns into real processes running in your company."
         }
       },
       "viewAllLabel": "See all frequently asked questions"
@@ -2127,31 +2132,28 @@
   "usPage": {
     "hero": {
       "tagline": "About us",
-      "title": "We automate with purpose",
+      "title": "We automate with a purpose",
+      "titleAccent": "a purpose",
       "subtitle": "A multidisciplinary team building AI + automation that keeps humans in control and businesses moving faster.",
-      "definition": "Ordinaly Software S.L. is an AI-powered business automation company based in Seville, Spain, building agents, chatbots, and workflows for SMBs and enterprise teams.",
-      "ctaPrimary": "Meet the builders",
+      "ctaPrimary": "Meet the team",
       "ctaSecondary": "Work with us!"
     },
-    "mission": {
-      "title": "Mission: Augment people, not replace them",
-      "body": "We design automations that remove friction so teams can focus on creativity, decisions, and relationships."
-    },
-    "vision": {
-      "title": "Vision: Automation everyone can trust",
-      "body": "Make intelligent workflows simple, transparent, and measurable for companies of any size."
+    "about": {
+      "whatQuestion": "What is Ordinaly?",
+      "whatAnswer": "Ordinaly Software S.L. is a Seville-based business automation company that uses AI (when it's actually needed) to design, build, and deploy chatbots and workflows for SMBs and corporate teams.",
+      "goalQuestion": "What do we want to achieve?",
+      "goalAnswer": "Our mission is to empower people's work with new technologies, rather than replace them. We want businesses that use our automations to have time to focus on creativity, decisions, and relationships — the things a machine shouldn't do. We want our clients to feel comfortable and secure with our systems, which is why we place real importance on keeping them transparent and simple for any company."
     },
     "stats": {
       "teamLabel": "More than 10 companies transformed",
       "teamValue": "+500 hours saved for Andalusian companies"
     },
     "story": {
-      "eyebrow": "Our journey",
-      "title": "How Ordinaly grew from Seville to automate ambitious teams",
-      "lead": "A founder-led automation and AI studio born in Andalucía to replace repetitive work with measurable impact for fast-moving businesses.",
+      "eyebrow": "Our story",
+      "lead": "This is how Ordinaly was born, built to help entrepreneurs and freelancers",
       "timeline": {
         "1": {
-          "title": "Summer 2025 · Idea ignition at the University of Seville",
+          "title": "Summer 2025 · The idea takes shape at the University of Seville",
           "body": "While wrapping up his Computer Engineering degree, Antonio teams up with Emilio and Guillermo to design Ordinaly: an automation studio built to free teams from repetitive tasks and keep humans in control."
         },
         "2": {
@@ -2184,7 +2186,7 @@
         "role": "Expert in marketing, advertising and digital transformation & co-founder",
         "quote": "Specialist in digital marketing strategies and business transformation."
       },
-      "title": "Voices from the team"
+      "title": "Our team"
     },
     "cta": {
       "title": "Join Ordinaly and build the next wave of automation",
@@ -2193,117 +2195,6 @@
       "secondary": "Talk with us",
       "mailSubject": "CV for Ordinaly",
       "mailBody": "Hi team,\n\nI'd love to join Ordinaly. Here's my profile and why I'm a fit:\n\n- Role/area of interest:\n- Relevant experience:\n- Links (CV/portfolio/LinkedIn):\n\nThanks!"
-    }
-  },
-  "investors": {
-    "hero": {
-      "title": "Investing in automation that keeps companies agile",
-      "subtitle": "Ordinaly designs AI agents, automation operating systems, and bespoke training to help organizations move faster without losing human oversight.",
-      "ctaPrimary": "Download investor deck",
-      "ctaSecondary": "Schedule a call",
-      "footnote": "Detailed metrics and supporting materials are available upon request.",
-      "focusTitle": "Compound automation runway",
-      "focusBody": "We keep delivery teams lean while serving complex, regulated clients across Europe."
-    },
-    "stats": {
-      "title": "Momentum at a glance",
-      "subtitle": "Performance indicators that back our growth story.",
-      "market": {
-        "label": "Addressable market",
-        "value": "€1.2B+",
-        "detail": "Automation demand across Iberia and the broader European market."
-      },
-      "clients": {
-        "label": "Enterprise partners",
-        "value": "10+",
-        "detail": "Active automation retainers and multi-project engagements."
-      },
-      "efficiency": {
-        "label": "Efficiency uplift",
-        "value": "38%",
-        "detail": "Average reduction in manual work for our portfolio clients."
-      }
-    },
-    "highlights": {
-      "title": "Why partner with Ordinaly",
-      "subtitle": "We combine domain expertise, trust, and disciplined governance.",
-      "global": {
-        "title": "Pan-European reach",
-        "body": "We deliver automation across industries and geographies with localized teams."
-      },
-      "traction": {
-        "title": "Proven traction",
-        "body": "Recurring revenue, healthy margins, and an actionable sales pipeline."
-      },
-      "governance": {
-        "title": "Sound governance",
-        "body": "Transparent reporting, measurable KPIs, and investor-first communication."
-      }
-    },
-    "roadmap": {
-      "1": {
-        "title": "Expand service-led revenue",
-        "body": "Scale our consulting squads and packaged offerings to cover more industries."
-      },
-      "2": {
-        "title": "Automate the automation",
-        "body": "Ship internal tooling that accelerates delivery and improves margins."
-      },
-      "3": {
-        "title": "Launch new product tiers",
-        "body": "Introduce platform-grade offers for strategic partners and training programs."
-      },
-      "title": "Next milestones",
-      "subtitle": "Our capital plan unlocks the next acceleration phase."
-    },
-    "cta": {
-      "title": "Ready to explore the opportunity?",
-      "body": "Let's align on KPIs, runway, and how your capital will translate into measurable impact.",
-      "button": "Talk with the team"
-    },
-    "team": {
-      "label": "The team",
-      "title": "Technical & Business Capabilities",
-      "subtitle": "We combine high-level software engineering with decades of business consulting expertise.",
-      "antonio": {
-        "role": "CTO · Software Engineer & MsC in Artificial Intelligence",
-        "bio": "Software engineer graduated from the University of Seville with a Master in Computer Science, Logic and Artificial Intelligence.",
-        "tags": {
-          "0": "CS · Univ. of Seville",
-          "1": "AI & Automation",
-          "2": "Full-Stack",
-          "3": "Product"
-        }
-      },
-      "guillermo": {
-        "role": "CEO · Project Manager at Proinca Consultores",
-        "bio": "Project Manager at Proinca Consultores, Associate Professor at the University of Seville, PhD in Industrial Engineering.",
-        "tags": {
-          "0": "Process Consulting",
-          "1": "Proinca Consultores",
-          "2": "Digital Transformation",
-          "3": "Business Optimization"
-        }
-      }
-    },
-    "formation": {
-      "label": "Training",
-      "title": "Business AI Courses",
-      "subtitle": "We train teams to be autonomous with AI, creating a recurring revenue stream and a direct adoption channel.",
-      "courses": {
-        "0": {
-          "title": "AI for Business Teams",
-          "description": "Hands-on training for non-technical teams to integrate AI tools into their daily workflows, with real industry exercises."
-        },
-        "1": {
-          "title": "Process Automation with AI",
-          "description": "Intensive program on designing and deploying AI agents and automations to reduce repetitive tasks and scale operations."
-        },
-        "2": {
-          "title": "Digital Transformation Strategy",
-          "description": "Executive course for leaders who want to define an automation and AI roadmap tailored to their company and industry."
-        }
-      }
     }
   },
   "landings": {

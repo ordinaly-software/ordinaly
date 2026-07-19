@@ -22,7 +22,7 @@ type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
 const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; priority: number }> = [
   { path: "/", changeFrequency: "weekly", priority: 0.9 },
   { path: "/contacto", changeFrequency: "weekly", priority: 0.7 },
-  { path: "/about", changeFrequency: "weekly", priority: 0.7 },
+  { path: "/nosotros", changeFrequency: "weekly", priority: 0.7 },
   { path: "/servicios", changeFrequency: "weekly", priority: 0.8 },
   { path: "/formacion", changeFrequency: "weekly", priority: 0.7 },
   { path: "/faq", changeFrequency: "weekly", priority: 0.75 },

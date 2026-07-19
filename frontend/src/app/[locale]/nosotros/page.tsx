@@ -12,7 +12,7 @@ export async function generateMetadata({
 
   return createPageMetadata({
     locale,
-    path: "/about",
+    path: "/nosotros",
     title: isEs
       ? "Sobre Ordinaly Software | Equipo, misión y visión"
       : "About Ordinaly Software | Team, mission, and vision",

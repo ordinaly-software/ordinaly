@@ -125,8 +125,7 @@ const Footer = () => {
       {
         title: t("footer.sections.company"),
         links: [
-          { label: t("footer.links.about"), href: "/about" },
-          { label: t("footer.links.investors"), href: "/investors" },
+          { label: t("footer.links.about"), href: "/nosotros" },
           { label: t("footer.links.contact"), href: "/contacto" },
         ],
       },

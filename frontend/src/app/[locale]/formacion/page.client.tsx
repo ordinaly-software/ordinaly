@@ -463,8 +463,16 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
         <BonificationInfo />
       </section>
 
-      <section className="pt-6 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section className="pt-6 pb-16 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark]">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="text-center mb-10 md:mb-12">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+              {t("coursesTitle")}
+            </h2>
+            <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
+              {t("introduction")}
+            </p>
+          </div>
           {filteredCourses.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">

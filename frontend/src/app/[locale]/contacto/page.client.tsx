@@ -167,7 +167,7 @@ export default function ContactPage() {
         title: t("explore.items.0.title"),
         description: t("explore.items.0.description"),
         cta: t("explore.items.0.cta"),
-        href: "/about",
+        href: "/nosotros",
         kind: "page",
       },
       {
@@ -479,7 +479,7 @@ export default function ContactPage() {
                 ))}
               </div>
               <Button asChild className="mt-6 w-full">
-                <IntlLink href="/about">{t("team.cta")}</IntlLink>
+                <IntlLink href="/nosotros">{t("team.cta")}</IntlLink>
               </Button>
             </div>
           </div>

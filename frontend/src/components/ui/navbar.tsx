@@ -21,7 +21,7 @@ const NAV_PRIORITY: Record<string, number> = {
   contact: 10,
   home: 8,
   faq: 6,
-  about: 5,
+  nosotros: 5,
   formation: 4,
   blog: 3,
 };
@@ -427,7 +427,7 @@ const Navbar = () => {
       ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formacion", label: t("navigation.formation") }] : []),
       ...(locale !== "en" ? [{ id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") }] : []),
       { id: "faq", type: "link", href: "/faq", label: t("navigation.faq") },
-      { id: "about", type: "link", href: "/about", label: t("navigation.us") },
+      { id: "nosotros", type: "link", href: "/nosotros", label: t("navigation.us") },
       { id: "contact", type: "link", href: "/contacto", label: t("navigation.contact") },
     ],
     [t, locale, featuredServices.length, menuCourses.length],
@@ -759,11 +759,11 @@ const Navbar = () => {
                     {t("navigation.faq")}
                   </Link>
                   <Link
-                    href="/about"
+                    href="/nosotros"
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
                       "transition-colors py-3 px-2 block rounded-md font-medium",
-                      isLinkActive("/about")
+                      isLinkActive("/nosotros")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
                         : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
                     )}

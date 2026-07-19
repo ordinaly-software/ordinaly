@@ -11,23 +11,21 @@ interface SectionProps {
 }
 
 const faqKeys = [
-  { questionKey: "faq.items.0.q", answerKey: "faq.items.0.a", extraKey: "faq.items.0.extra" },
-  { questionKey: "faq.items.1.q", answerKey: "faq.items.1.a", extraKey: "faq.items.1.extra" },
-  { questionKey: "faq.items.2.q", answerKey: "faq.items.2.a", extraKey: "faq.items.2.extra" },
-  { questionKey: "faq.items.3.q", answerKey: "faq.items.3.a", extraKey: "faq.items.3.extra" },
-  { questionKey: "faq.items.4.q", answerKey: "faq.items.4.a", extraKey: "faq.items.4.extra" },
-  { questionKey: "faq.items.5.q", answerKey: "faq.items.5.a", extraKey: "faq.items.5.extra" },
+  { questionKey: "faq.items.0.q", answerKey: "faq.items.0.a" },
+  { questionKey: "faq.items.1.q", answerKey: "faq.items.1.a" },
+  { questionKey: "faq.items.2.q", answerKey: "faq.items.2.a" },
+  { questionKey: "faq.items.3.q", answerKey: "faq.items.3.a" },
+  { questionKey: "faq.items.4.q", answerKey: "faq.items.4.a" },
+  { questionKey: "faq.items.5.q", answerKey: "faq.items.5.a" },
+  { questionKey: "faq.items.6.q", answerKey: "faq.items.6.a" },
+  { questionKey: "faq.items.7.q", answerKey: "faq.items.7.a" },
+  { questionKey: "faq.items.8.q", answerKey: "faq.items.8.a" },
 ];
 
 export function FaqSection({ t, titleTag = "h2" }: SectionProps & { titleTag?: "h2" | "h3" }) {
-  const items: FaqAccordionItem[] = faqKeys.map(({ questionKey, answerKey, extraKey }) => ({
+  const items: FaqAccordionItem[] = faqKeys.map(({ questionKey, answerKey }) => ({
     question: t(questionKey),
-    answer: (
-      <>
-        <p className="mb-3">{t(answerKey)}</p>
-        <p>{t(extraKey)}</p>
-      </>
-    ),
+    answer: t(answerKey),
   }));
 
   return (

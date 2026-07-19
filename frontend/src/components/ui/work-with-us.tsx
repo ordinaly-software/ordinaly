@@ -79,7 +79,7 @@ export function WorkWithUsSection({
               className="gap-2 border-white/25 bg-white/10 text-white hover:bg-white/18 dark:border-white/12 dark:bg-white/5 dark:hover:bg-white/10"
               asChild
             >
-              <a href={`/${locale}/contact`}>
+              <a href={`/${locale}/contacto`}>
                 <ArrowRight className="h-4 w-4" />
                 {t("cta.secondary")}
               </a>
