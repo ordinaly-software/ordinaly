@@ -3,12 +3,9 @@
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { Mail, FolderOpen, ScanLine, FileSearch, Archive, ShieldCheck, Zap, Files, FolderTree } from "lucide-react";
+import { CheckCircle2, Sparkles } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
-import { FaqAccordion } from "@/components/ui/faq-accordion";
-import TimelineHorizontal from "@/components/ui/TimelineHorizontal";
-import { FolderReveal } from "@/components/ui/folder-reveal";
 import { HoverEffectCards } from "@/components/ui/card-hover-effect";
 import { SecurityRequirements } from "@/components/ui/security-requirements";
 import ReCaptchaWrapper from "../recaptcha-provider";
@@ -18,28 +15,12 @@ const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble")
   loading: () => <WhatsAppBubbleSkeleton />,
 });
 
-const FUNCIONES_ICONS = [
-  <Mail key="mail" className="w-5 h-5" />,
-  <FolderOpen key="folder" className="w-5 h-5" />,
-  <ScanLine key="scan" className="w-5 h-5" />,
-  <FileSearch key="search" className="w-5 h-5" />,
-  <Archive key="archive" className="w-5 h-5" />,
-];
-
-const VENTAJAS_ICONS = [
-  <ShieldCheck key="shield" className="w-5 h-5" />,
-  <Zap key="zap" className="w-5 h-5" />,
-  <Files key="files" className="w-5 h-5" />,
-  <ScanLine key="scan" className="w-5 h-5" />,
-  <FolderTree key="tree" className="w-5 h-5" />,
-];
-
-export default function AutomatizacionFacturas() {
+export default function DesarrolloDeAppWebs() {
   const messages = useMessages() as any;
-  const content = messages.landings?.["automatizacion-facturas"];
+  const content = messages.landings?.["desarrollo-de-app-webs"];
 
   if (!content) {
-    throw new Error("Missing landing content: automatizacion-facturas");
+    throw new Error("Missing landing content: desarrollo-de-app-webs");
   }
 
   return (
@@ -47,17 +28,16 @@ export default function AutomatizacionFacturas() {
 
       {/* HERO */}
       <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden bg-neutral-950 py-20">
-        <div className="absolute inset-0" aria-hidden="true">
+        <div className="absolute inset-0 scale-110" aria-hidden="true">
           <Image
-            src="/static/automatizacion-facturas/automatizacion-facturas.webp"
+            src="/static/desarrollo-de-app-webs/desarrollo-de-app-webs.webp"
             alt=""
             fill
             priority
-            className="object-cover object-center opacity-80"
+            className="object-cover object-center blur-sm brightness-50"
             sizes="100vw"
           />
         </div>
-        <div className="absolute inset-0 bg-neutral-950/30" />
 
         <div className="relative z-20 flex flex-col items-center text-center px-6 max-w-3xl mx-auto">
           <h1 className="text-white text-4xl md:text-6xl lg:text-7xl font-bold drop-shadow-xl leading-tight">
@@ -77,38 +57,60 @@ export default function AutomatizacionFacturas() {
         </div>
       </section>
 
-      {/* HOW WE DO IT */}
+      {/* WHAT IS A PWA */}
       <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.howItWorks}
+        <div className="max-w-6xl mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-neutral-900 dark:text-white">
+            {content.sectionTitles?.whatIsPWA}
           </h2>
-          <TimelineHorizontal steps={content.steps ?? []} />
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <p className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+                {content.whatIsPWA?.intro}
+              </p>
+              <ul className="space-y-3">
+                {content.whatIsPWA?.bullets?.map((bullet: string, i: number) => (
+                  <li key={i} className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300">
+                    <span className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-[#d97757]" />
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex justify-center md:justify-end">
+              <Image
+                src="/static/desarrollo-de-app-webs/desarrollo-de-app-webs.webp"
+                alt={content.title}
+                width={720}
+                height={540}
+                className="w-full max-w-[520px] rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700 object-cover"
+              />
+            </div>
+          </div>
+
+          {content.whatIsPWA?.highlight && (
+            <p className="mt-12 max-w-3xl mx-auto text-center text-lg font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
+              {content.whatIsPWA.highlight}
+            </p>
+          )}
         </div>
       </section>
 
-      {/* FUNCIONES */}
+      {/* WHAT'S INCLUDED */}
       <section className="py-20 md:py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.funciones}
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
+            {content.sectionTitles?.included}
           </h2>
 
-          <FolderReveal
-            badgeText={content.sectionTitles?.funciones}
-            items={(content.funciones?.items ?? []).map((item: { title: string }, i: number) => ({
+          <HoverEffectCards
+            items={(content.included?.items ?? []).map((item: { title: string; description: string }) => ({
               title: item.title,
-              icon: FUNCIONES_ICONS[i % FUNCIONES_ICONS.length],
+              description: item.description,
+              icon: <CheckCircle2 className="w-5 h-5" />,
             }))}
           />
-
-          <div className="mt-14 max-w-3xl mx-auto space-y-4">
-            {content.funciones?.paragraphs?.map((p: string, i: number) => (
-              <p key={i} className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
-                {p}
-              </p>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -120,43 +122,28 @@ export default function AutomatizacionFacturas() {
           </h2>
 
           <HoverEffectCards
-            items={(content.ventajas ?? []).map((v: { title: string; description: string }, i: number) => ({
-              title: v.title,
-              description: v.description,
-              icon: VENTAJAS_ICONS[i % VENTAJAS_ICONS.length],
+            items={(content.ventajas ?? []).map((item: { title: string; description: string }) => ({
+              title: item.title,
+              description: item.description,
+              icon: <Sparkles className="w-5 h-5" />,
             }))}
           />
         </div>
       </section>
 
-      {/* SECURITY + REQUIREMENTS */}
+      {/* REQUIREMENTS + PRICING */}
       <SecurityRequirements
-        trustTitle={content.sectionTitles?.security ?? "Tu negocio es nuestra prioridad"}
-        trustPoints={content.security?.trustPoints ?? []}
         requirementsTitle={content.sectionTitles?.requirements}
         requirements={content.security?.requirements ?? []}
         pricing={content.pricing}
         accentClassName="text-[#d97706]"
       />
 
-      {/* TECHNOLOGY FAQS */}
-      {content.technologyFaqs?.length > 0 && (
-        <FaqAccordion
-          className="bg-white dark:bg-neutral-900 transition-colors"
-          title={content.sectionTitles?.technologyFaqs}
-          items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
-            question: faq.question,
-            answer: faq.answer,
-            tag: faq.tag,
-          }))}
-        />
-      )}
-
       {/* FORM */}
       <section id="formulario">
-          <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">
-            <ContactForm />
-          </ReCaptchaWrapper>
+        <ReCaptchaWrapper badgeContainerId="recaptcha-badge-pwa-contact">
+          <ContactForm />
+        </ReCaptchaWrapper>
       </section>
 
       <a

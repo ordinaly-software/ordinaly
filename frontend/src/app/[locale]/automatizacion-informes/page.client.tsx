@@ -3,14 +3,14 @@
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { Mail, FolderOpen, ScanLine, FileSearch, Archive, ShieldCheck, Zap, Files, FolderTree } from "lucide-react";
+import { Database, ClipboardList, Send, Archive, Mail, ShieldCheck, Zap, RefreshCw, ClipboardCheck, Clock } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
-import TimelineHorizontal from "@/components/ui/TimelineHorizontal";
 import { FolderReveal } from "@/components/ui/folder-reveal";
 import { HoverEffectCards } from "@/components/ui/card-hover-effect";
 import { SecurityRequirements } from "@/components/ui/security-requirements";
+import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
@@ -19,27 +19,27 @@ const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble")
 });
 
 const FUNCIONES_ICONS = [
-  <Mail key="mail" className="w-5 h-5" />,
-  <FolderOpen key="folder" className="w-5 h-5" />,
-  <ScanLine key="scan" className="w-5 h-5" />,
-  <FileSearch key="search" className="w-5 h-5" />,
+  <Database key="database" className="w-5 h-5" />,
+  <ClipboardList key="clipboard-list" className="w-5 h-5" />,
+  <Send key="send" className="w-5 h-5" />,
   <Archive key="archive" className="w-5 h-5" />,
+  <Mail key="mail" className="w-5 h-5" />,
 ];
 
 const VENTAJAS_ICONS = [
   <ShieldCheck key="shield" className="w-5 h-5" />,
   <Zap key="zap" className="w-5 h-5" />,
-  <Files key="files" className="w-5 h-5" />,
-  <ScanLine key="scan" className="w-5 h-5" />,
-  <FolderTree key="tree" className="w-5 h-5" />,
+  <RefreshCw key="refresh" className="w-5 h-5" />,
+  <ClipboardCheck key="clipboard-check" className="w-5 h-5" />,
+  <Clock key="clock" className="w-5 h-5" />,
 ];
 
-export default function AutomatizacionFacturas() {
+export default function AutomatizacionInformes() {
   const messages = useMessages() as any;
-  const content = messages.landings?.["automatizacion-facturas"];
+  const content = messages.landings?.["automatizacion-informes"];
 
   if (!content) {
-    throw new Error("Missing landing content: automatizacion-facturas");
+    throw new Error("Missing landing content: automatizacion-informes");
   }
 
   return (
@@ -47,17 +47,17 @@ export default function AutomatizacionFacturas() {
 
       {/* HERO */}
       <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden bg-neutral-950 py-20">
-        <div className="absolute inset-0" aria-hidden="true">
+        <div className="absolute inset-0 scale-110" aria-hidden="true">
           <Image
-            src="/static/automatizacion-facturas/automatizacion-facturas.webp"
+            src="/static/automatizacion-informes/automatizacion-informes.webp"
             alt=""
             fill
             priority
-            className="object-cover object-center opacity-80"
+            className="object-cover object-center blur-md"
             sizes="100vw"
           />
         </div>
-        <div className="absolute inset-0 bg-neutral-950/30" />
+        <div className="absolute inset-0 bg-neutral-950/60" />
 
         <div className="relative z-20 flex flex-col items-center text-center px-6 max-w-3xl mx-auto">
           <h1 className="text-white text-4xl md:text-6xl lg:text-7xl font-bold drop-shadow-xl leading-tight">
@@ -79,11 +79,27 @@ export default function AutomatizacionFacturas() {
 
       {/* HOW WE DO IT */}
       <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-neutral-900 dark:text-white">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-[#d97706]">
             {content.sectionTitles?.howItWorks}
           </h2>
-          <TimelineHorizontal steps={content.steps ?? []} />
+
+          {content.howItWorks?.videoUrl && (
+            <HeroVideoDialog
+              className="w-full mb-10"
+              animationStyle="from-center"
+              videoUrl={content.howItWorks.videoUrl}
+              thumbnailAlt={content.sectionTitles?.howItWorks}
+            />
+          )}
+
+          <div className="max-w-3xl mx-auto space-y-4">
+            {content.howItWorks?.paragraphs?.map((p: string, i: number) => (
+              <p key={i} className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
+                {p}
+              </p>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -101,14 +117,6 @@ export default function AutomatizacionFacturas() {
               icon: FUNCIONES_ICONS[i % FUNCIONES_ICONS.length],
             }))}
           />
-
-          <div className="mt-14 max-w-3xl mx-auto space-y-4">
-            {content.funciones?.paragraphs?.map((p: string, i: number) => (
-              <p key={i} className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
-                {p}
-              </p>
-            ))}
-          </div>
         </div>
       </section>
 

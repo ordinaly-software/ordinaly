@@ -28,7 +28,7 @@ const RealisticHourglass = () => {
 
   return (
     <div className="flex flex-col items-center justify-center bg-transparent p-10">
-      <div className="relative group">
+      <div className="relative group" style={{ transform: 'rotate(180deg)' }}>
         <svg width="160" height="260" viewBox="0 0 120 200" fill="none" style={{ filter: 'drop-shadow(0 0 15px rgba(0,0,0,0.5))' }}>
           <defs>
             {/* Gradiente para el cristal */}

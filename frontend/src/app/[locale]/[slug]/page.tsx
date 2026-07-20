@@ -152,7 +152,7 @@ export default async function SlugPage({
   const service = await fetchService(slug);
   if (service) {
     const ServicesPage = await getServicesPage();
-    return <ServicesPage initialServiceSlug={slug} />;
+    return <ServicesPage />;
   }
 
   // Nothing found

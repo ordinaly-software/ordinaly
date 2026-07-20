@@ -5,15 +5,16 @@ export type KeywordLink = { regex: RegExp; url: string };
 // Ordered longest → shortest so more-specific phrases match before their substrings.
 // Use relative URLs so Next.js handles routing and the domain doesn't matter.
 export const SITE_KEYWORD_LINKS: KeywordLink[] = [
-  { regex: /inteligencia artificial en sevilla/gi, url: "/inteligencia-artificial-sevilla" },
-  { regex: /inteligencia artificial sevilla/gi,    url: "/inteligencia-artificial-sevilla" },
   { regex: /agencia de automatizaci[oó]n/gi,       url: "/" },
-  { regex: /empresa de inteligencia artificial/gi, url: "/empresa-inteligencia-artificial" },
-  { regex: /inteligencia artificial para empresas/gi, url: "/inteligencia-artificial-empresas" },
   { regex: /automatizaci[oó]n de facturas/gi,      url: "/automatizacion-facturas" },
-  { regex: /automatizaci[oó]n inteligente/gi,      url: "/automatizacion-inteligente" },
+  { regex: /automatizaci[oó]n de informes/gi,      url: "/automatizacion-informes" },
   { regex: /automatizar facturas/gi,               url: "/automatizacion-facturas" },
-  { regex: /automatizaci[oó]n n8n/gi,              url: "/automatizacion-n8n-sevilla" },
+  { regex: /env[ií]o autom[aá]tico de informes/gi, url: "/automatizacion-informes" },
+  { regex: /implantaci[oó]n de odoo/gi,            url: "/implantacion-odoo" },
+  { regex: /desarrollo de aplicaciones web/gi,     url: "/desarrollo-de-app-webs" },
+  { regex: /\bPWA\b/g,                             url: "/desarrollo-de-app-webs" },
+  { regex: /automatizaciones? personalizadas?/gi,  url: "/automatizaciones-personalizadas" },
+  { regex: /automatizaci[oó]n n8n/gi,              url: "/automatizacion-n8n" },
   { regex: /formaci[oó]n ia\b/gi,                  url: "/formacion-ia-sevilla" },
   { regex: /\bautomatizaciones\b/gi,               url: "/" },
 ];

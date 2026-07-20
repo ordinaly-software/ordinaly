@@ -1375,6 +1375,21 @@
     }
   },
   "services": {
+    "showcase": {
+      "title": "Nuestros servicios",
+      "subtitle": "Descubre los productos que te ayudarán a agilizar tu negocio",
+      "bannerAlt": "Ordinaly - productos y servicios",
+      "facturas": "Automatización de facturas",
+      "meta": "Automatización Meta",
+      "linkedin": "Automatización LinkedIn",
+      "personalizadas": "Automatizaciones personalizadas",
+      "informes": "Automatización de informes",
+      "chatSalientes": "Chat salientes",
+      "chatbotRecepcionista": "Chatbot recepcionista",
+      "odoo": "Implantación Odoo",
+      "odooNote": "Posibilidad de añadir VeriFactu",
+      "pwa": "Desarrollo de aplicaciones web multiplataforma (PWA)"
+    },
     "productsAndServicesTitle": "Nuestros productos y servicios",
     "productsAndServicesDescription": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar",
     "productsSectionTitle": "Productos encapsulados",
@@ -2197,8 +2212,8 @@
     }
   },
   "landings": {
-    "chatbots-personalizados-para-empresas": {
-      "slug": "chatbots-personalizados-para-empresas",
+    "automatizaciones-chatbots": {
+      "slug": "automatizaciones-chatbots",
       "title": "Chatbots personalizados para empresas",
       "shortTitle": "Chatbots personalizados",
       "subtitle": "Procesos más rápidos, menos errores, más beneficios.",
@@ -2275,53 +2290,27 @@
         "bgColor": "#000000"
       }
     },
-    "automatizacion-n8n-sevilla": {
-      "slug": "automatizacion-n8n-sevilla",
+    "automatizacion-n8n": {
+      "slug": "automatizacion-n8n",
       "title": "Automatización n8n con observabilidad y control",
       "shortTitle": "Automatización n8n",
       "subtitle": "Workflows versionados para sincronización, alertas, conciliación y operaciones asistidas por IA.",
       "description": "Diseñamos flujos en n8n con reintentos, colas, logs y métricas por nodo para que la automatización deje de ser una caja negra y pase a ser infraestructura operable.",
       "heroBadge": "n8n + observabilidad",
-      "heroCtaLabel": "Auditar procesos",
+      "heroCtaLabel": "Cuéntanos tu caso",
       "secondaryCtaLabel": "Hablar por WhatsApp",
+      "n8nCtaLabel": "Ver n8n.io",
       "secondaryCtaHref": "https://wa.me/34626270806",
       "serviceType": "Automatización de procesos e integraciones sobre n8n",
       "areaServed": "España y despliegue remoto UE",
       "sectionTitles": {
         "whatIsN8N": "¿Qué es n8n?",
-        "whatWeAutomate": "Qué automatizamos con n8n",
         "integrations": "Lo conectamos con lo que ya usas",
         "faq": "Preguntas frecuentes",
         "ctaTitle": "Automatiza tus procesos con n8n",
         "ctaSubtitle": "Creamos flujos robustos, escalables y adaptados a tu negocio."
       },
       "whatIsN8N": "n8n es una plataforma de automatización visual que permite conectar sistemas, transformar datos y ejecutar lógica compleja sin depender de desarrollos a medida. Su arquitectura basada en nodos, reintentos, colas, logs y control de versiones convierte cada flujo en una pieza de infraestructura operable, auditable y preparada para escalar. Es la forma moderna de automatizar procesos sin perder control ni visibilidad.",
-      "whatWeAutomate": [
-        {
-          "title": "Sincronización entre sistemas",
-          "description": "ERP, CRM, formularios, bases de datos y herramientas internas trabajando en tiempo real sin duplicados ni errores."
-        },
-        {
-          "title": "Alertas y monitorización",
-          "description": "Notificaciones automáticas cuando un dato falla, un proceso se detiene o un sistema deja de responder."
-        },
-        {
-          "title": "Conciliación y reporting",
-          "description": "Cruce de facturas, pagos, cobros y generación de reportes sin hojas manuales."
-        },
-        {
-          "title": "Automatización operativa",
-          "description": "Altas, actualizaciones, validaciones y flujos que reducen tareas repetitivas del día a día."
-        },
-        {
-          "title": "Integraciones personalizadas",
-          "description": "APIs internas, servicios externos, webhooks, colas y procesos híbridos cloud/on-prem."
-        },
-        {
-          "title": "Calidad y validación de datos",
-          "description": "Reglas de validación, deduplicación y corrección automática antes de que los datos entren en tus sistemas clave."
-        }
-      ],
       "workflowAnimation": {
         "fileName": "integracion-total.flow",
         "liveLabel": "Workflow en vivo",
@@ -2360,103 +2349,105 @@
     },
     "automatizacion-facturas": {
       "slug": "automatizacion-facturas",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 28%",
       "title": "Automatización de facturas",
-      "shortTitle": "Automatización de Facturas",
-      "heroBadge": "Automatización documental",
+      "shortTitle": "Automatización de facturas",
+      "heroText": "Automatizamos la clasificación de las facturas de tu negocio en función de proveedor, fecha, importe o las características que prefieras. Integramos la información de manera precisa y con datos claves en carpetas, ERPs, CRMs o el sistema que mejor funcione para tu negocio.",
       "heroCtaLabel": "Solicitar información",
       "secondaryCtaLabel": "Quiero automatizar mis facturas",
       "serviceType": "Automatización documental y extracción inteligente",
       "areaServed": "España, pymes, asesorías y equipos administrativos",
-      "valueProps": [
-        "Clasificación automática por proveedor, fecha, importe o reglas personalizadas.",
-        "Extracción precisa de datos clave: cliente, fecha, conceptos, base imponible y total.",
-        "Integración con carpetas, ERPs, CRMs o sistemas contables sin fricción."
-      ],
       "sectionTitles": {
-        "howItWorks": "Así funciona la automatización",
-        "benefits": "Beneficios de automatizar tus facturas",
-        "beforeAfter": "Antes y después de automatizar",
-        "before": "Antes",
-        "after": "Después",
+        "howItWorks": "¿Cómo lo hacemos?",
+        "funciones": "Funciones",
+        "ventajas": "Ventajas",
+        "security": "Tu negocio es nuestra prioridad",
+        "requirements": "Requisitos",
         "technologyFaqs": "Preguntas frecuentes"
       },
-      "benefits": [
-        "Ahorra horas cada mes",
-        "Evita errores humanos",
-        "Todo organizado automáticamente",
-        "Compatible con cualquier formato"
-      ],
-      "metrics": [
-        {
-          "label": "Ahorro mensual",
-          "value": "6-20 horas",
-          "detail": "Reducción del tiempo dedicado a revisar emails, descargar facturas y copiar datos."
-        },
-        {
-          "label": "Precisión",
-          "value": "98%",
-          "detail": "Extracción automática con validación opcional para casos dudosos."
-        },
-        {
-          "label": "Clasificación",
-          "value": "Automática",
-          "detail": "Organización por año, proveedor o proyecto sin intervención humana."
-        }
-      ],
-      "outcomes": [
-        "Menos errores humanos en la transcripción de datos.",
-        "Facturas organizadas automáticamente en carpetas estructuradas.",
-        "Datos listos para contabilidad o análisis sin trabajo manual.",
-        "Procesos administrativos más rápidos y trazables."
-      ],
-      "before": [
-        "Facturas perdidas en emails",
-        "Copiar datos a mano",
-        "Errores al transcribir",
-        "Tiempo perdido buscando documentos"
-      ],
-      "after": [
-        "Facturas clasificadas automáticamente",
-        "Datos extraídos sin esfuerzo",
-        "Cero errores",
-        "Todo accesible en segundos"
-      ],
       "steps": [
-        "Conectamos tu bandeja de entrada o carpeta donde recibes facturas.",
-        "Definimos reglas de clasificación y extracción según tu negocio.",
-        "Activamos el flujo automático: detección, extracción y archivado."
-      ],
-      "useCases": [
         {
-          "tag": "Administración",
-          "title": "Recepción automática de facturas",
-          "description": "Detectamos facturas que llegan por email y las procesamos sin intervención humana.",
-          "bullets": [
-            "Lectura automática del correo",
-            "Descarga y clasificación inmediata"
-          ]
+          "title": "Conectamos tu bandeja",
+          "description": "Conectamos tu bandeja de entrada o carpeta donde recibes facturas."
         },
         {
-          "tag": "Contabilidad",
-          "title": "Extracción de datos clave",
-          "description": "Extraemos proveedor, fecha, conceptos, base imponible y total.",
-          "bullets": [
-            "OCR avanzado",
-            "Validación opcional de datos"
-          ]
+          "title": "Definimos las reglas",
+          "description": "Definimos reglas de clasificación y extracción según tu negocio."
         },
         {
-          "tag": "Operaciones",
-          "title": "Archivado inteligente",
-          "description": "Guardamos cada factura en la carpeta correcta según reglas personalizadas.",
-          "bullets": [
-            "Carpetas por año o proveedor",
-            "Integración con Drive, Dropbox o ERP"
-          ]
+          "title": "Activamos el flujo",
+          "description": "Activamos el flujo automático: detección, extracción y archivado."
         }
       ],
+      "funciones": {
+        "items": [
+          {
+            "title": "Detectar automáticamente las facturas entrantes"
+          },
+          {
+            "title": "Almacenarlas de forma estructurada"
+          },
+          {
+            "title": "Escanear los documentos"
+          },
+          {
+            "title": "Extraer los datos relevantes"
+          },
+          {
+            "title": "Procesarlos y archivarlos según el criterio definido"
+          }
+        ],
+        "paragraphs": [
+          "Una vez automatizado, todo el proceso se ejecuta sin intervención manual, permitiendo que el flujo contable sea más rápido, fiable y ordenado.",
+          "Los datos extraídos (importe, proveedor, fecha, número de factura, concepto, etc.) y la forma de archivado se definen completamente a medida del cliente sin incremento de presupuesto, manteniendo un precio cerrado y transparente."
+        ]
+      },
+      "ventajas": [
+        {
+          "title": "Sin Errores",
+          "description": "Evita errores humanos como no ver un email importante o transcribir incorrectamente."
+        },
+        {
+          "title": "Automático",
+          "description": "Es un proceso automático, por lo que no requiere esfuerzo ni tiempo excesivo."
+        },
+        {
+          "title": "Compatibilidad",
+          "description": "Compatible con cualquier formato, como PDF, DOC, Word o imágenes."
+        },
+        {
+          "title": "Extracción fiable",
+          "description": "Extracción fiable y práctica de datos con sistemas de OCR, dejándolos listos únicamente para analizarlos."
+        },
+        {
+          "title": "Organizadas y Estructuradas",
+          "description": "Las facturas quedarán organizadas en carpetas estructuradas en Drive, ERP, CRM o la herramienta que se desee."
+        }
+      ],
+      "security": {
+        "trustPoints": [
+          "Trabajamos sobre máquinas privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
+          "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles.",
+          "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
+        ],
+        "requirements": [
+          "Acceso a una o varias cuentas de correo electrónico del cliente.",
+          "Listado de remitentes autorizados (lista blanca).",
+          "Datos a extraer de las facturas.",
+          "Sistema de archivado (carpetas, nube, etc.).",
+          "Facturas de ejemplo en formato digital (PDF, imagen u otros formatos habituales)."
+        ]
+      },
+      "pricing": {
+        "individualPrice": "450€",
+        "individualLabel": "Precio del servicio",
+        "comboPrice": "400€",
+        "comboLabel": "Precio combinado",
+        "comboNote": "Precio combinado al contratar varios servicios de automatización.",
+        "implementationTime": "10 días",
+        "implementationLabel": "Tiempo de implantación:",
+        "ctaLabel": "Quiero automatizar mis facturas",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20facturas"
+      },
       "technologyFaqs": [
         {
           "tag": "Procesamiento",
@@ -2480,51 +2471,238 @@
         }
       ],
       "keywords": [
-        "automatización de facturas",
-        "procesamiento documental",
-        "OCR inteligente",
-        "clasificación automática de facturas",
-        "automatización administrativa"
+        "Facturas",
+        "Automatización",
+        "ERP y CRM",
+        "Escanear documentos",
+        "VPS",
+        "n8n",
+        "OCR",
+        "Automático"
       ],
-      "hub": {
-        "title": "Automatización completa de facturas",
-        "subtitle": "Recepción, extracción, clasificación y archivado sin intervención humana.",
-        "bgTheme": "orange",
-        "platforms": [
-          {
-            "position": "top-left",
-            "figureKey": "email-inbox",
-            "colorScheme": "orange",
-            "label": "Recepción",
-            "sublabel": "Desde email o carpeta"
-          },
-          {
-            "position": "top-right",
-            "figureKey": "document-ocr",
-            "colorScheme": "amber",
-            "label": "Extracción",
-            "sublabel": "Datos clave sin errores"
-          },
-          {
-            "position": "bottom-left",
-            "figureKey": "folder-automation",
-            "colorScheme": "orange",
-            "label": "Clasificación",
-            "sublabel": "Carpetas automáticas"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "erp-sync",
-            "colorScheme": "amber",
-            "label": "Integración",
-            "sublabel": "ERP y contabilidad"
-          }
-        ]
-      },
       "cta": {
         "label": "Quiero automatizar mis facturas",
         "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20facturas",
         "bgColor": "#d97706"
+      }
+    },
+    "automatizacion-informes": {
+      "slug": "automatizacion-informes",
+      "title": "Automatización mensual de informes",
+      "shortTitle": "Automatización de informes",
+      "heroText": "Automatizamos el envío automático de informes (mensual). Nuestro objetivo es eliminar tareas manuales, reducir errores humanos y liberar tiempo administrativo sin perder control ni seguridad.",
+      "heroCtaLabel": "Solicitar más información",
+      "secondaryCtaLabel": "Quiero automatizar mis informes",
+      "serviceType": "Automatización de envío de informes y comunicación con propietarios",
+      "areaServed": "España, comunidades de propietarios, administradores de fincas y gestorías",
+      "sectionTitles": {
+        "howItWorks": "¿Cómo funciona?",
+        "funciones": "Funciones",
+        "ventajas": "Ventajas",
+        "security": "Tu negocio es nuestra prioridad",
+        "requirements": "Requisitos",
+        "technologyFaqs": "Preguntas frecuentes"
+      },
+      "howItWorks": {
+        "videoUrl": "https://www.youtube.com/watch?v=qLKfe3yukGs",
+        "paragraphs": [
+          "Con este servicio se automatiza todo el flujo: desde la recogida de los informes económicos hasta el envío masivo por correo electrónico a cada propietario, utilizando la nube, el CRM o el sistema documental que ya use el cliente.",
+          "Cada envío queda correctamente archivado y clasificado, garantizando trazabilidad, cumplimiento y facilidad de consulta futura. Además, tras cada ciclo de envíos, el administrador recibe un correo resumen con el estado del proceso: informes enviados, posibles incidencias y confirmación de ejecución."
+        ]
+      },
+      "funciones": {
+        "items": [
+          {
+            "title": "Recopilar automáticamente los informes económicos desde el CRM, la nube o el sistema documental"
+          },
+          {
+            "title": "Clasificar y preparar cada informe por propietario o comunidad"
+          },
+          {
+            "title": "Enviar los informes de forma masiva por correo electrónico"
+          },
+          {
+            "title": "Archivar y clasificar cada envío para garantizar la trazabilidad"
+          },
+          {
+            "title": "Generar un correo resumen mensual del proceso para el administrador"
+          }
+        ]
+      },
+      "ventajas": [
+        {
+          "title": "Sin errores",
+          "description": "Evita errores humanos como omitir un propietario o enviar un informe duplicado."
+        },
+        {
+          "title": "Automático",
+          "description": "Proceso mensual completamente automático, sin esfuerzo ni intervención manual."
+        },
+        {
+          "title": "Compatibilidad",
+          "description": "Compatible con cualquier CRM, nube, base de datos o sistema documental que ya utilices."
+        },
+        {
+          "title": "Trazabilidad total",
+          "description": "Cada envío queda archivado y clasificado, con confirmación de ejecución y registro de incidencias."
+        },
+        {
+          "title": "Ahorro de tiempo",
+          "description": "Libera horas de trabajo administrativo cada mes en la gestión de comunidades."
+        }
+      ],
+      "security": {
+        "trustPoints": [
+          "Trabajamos sobre máquinas privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
+          "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles.",
+          "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
+        ],
+        "requirements": [
+          "Acceso al sistema donde se almacenan los informes (CRM, nube, base de datos...).",
+          "Estructura de los informes.",
+          "Definición del calendario de envíos (mensual u otro).",
+          "Acceso a la cuenta de correo electrónico.",
+          "Listado de propietarios y comunidades a las que hay que enviar los informes.",
+          "Plantilla de mensajes que enviar a los propietarios."
+        ]
+      },
+      "pricing": {
+        "individualPrice": "450€",
+        "individualLabel": "Precio del servicio",
+        "comboPrice": "400€",
+        "comboLabel": "Precio combinado",
+        "comboNote": "Precio combinado al contratar varios servicios de automatización.",
+        "implementationTime": "10 días",
+        "implementationLabel": "Tiempo de implantación:",
+        "ctaLabel": "Quiero automatizar mis informes",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20informes"
+      },
+      "technologyFaqs": [
+        {
+          "tag": "Procesamiento",
+          "question": "¿Cómo se recopilan los informes automáticamente?",
+          "answer": "Conectamos con el CRM, la nube o el sistema documental que ya utilices para recoger los informes económicos cada mes sin intervención manual."
+        },
+        {
+          "tag": "Envío",
+          "question": "¿Cómo se realiza el envío masivo?",
+          "answer": "Cada informe se envía automáticamente por correo electrónico al propietario correspondiente, usando la plantilla de mensaje que definas."
+        },
+        {
+          "tag": "Integración",
+          "question": "¿Se puede conectar con mi CRM o sistema documental?",
+          "answer": "Sí. Nos adaptamos al sistema que ya utilices: CRM, nube, base de datos o gestor documental que gestione tus comunidades."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Qué pasa si falla un envío?",
+          "answer": "Tras cada ciclo recibirás un correo resumen con el estado del proceso, incluyendo posibles incidencias y confirmación de ejecución."
+        }
+      ],
+      "keywords": [
+        "Envío automático",
+        "Informes",
+        "Informes económicos",
+        "Correo electrónico",
+        "Envío masivo",
+        "CRM",
+        "n8n",
+        "VPS"
+      ],
+      "cta": {
+        "label": "Quiero automatizar mis informes",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20informes",
+        "bgColor": "#d97706"
+      }
+    },
+    "automatizacion-redes-sociales": {
+      "slug": "automatizacion-redes-sociales",
+      "title": "Automatización de redes sociales",
+      "shortTitle": "Automatización de redes sociales",
+      "subtitle": "Tu empresa activa en redes, sin dedicarle tiempo cada día",
+      "heroText": "Programamos tus publicaciones en LinkedIn, Instagram y Facebook. Tú preparas el contenido y el sistema lo publica, avisándote de ello.",
+      "description": "Automatización de redes sociales para empresas. Programa publicaciones en LinkedIn, Instagram y Facebook: tú preparas el contenido y el sistema lo publica automáticamente, avisándote en el momento en que se sube.",
+      "heroCtaLabel": "Solicitar información",
+      "serviceType": "Automatización de publicación programada para redes sociales",
+      "areaServed": "España y despliegue remoto UE",
+      "sectionTitles": {
+        "cards": "Elige tu plataforma",
+        "howItWorks": "Cómo funciona",
+        "security": "Tu negocio es nuestra prioridad",
+        "requirements": "Requisitos"
+      },
+      "cards": {
+        "meta": {
+          "label": "Meta",
+          "hint": "Instagram y Facebook",
+          "title": "Instagram y Facebook",
+          "bullets": [
+            "Publica reels, posts y carruseles simultáneamente en ambas plataformas.",
+            "Recibirás una notificación en el momento de la subida a la plataforma."
+          ],
+          "price": "450€",
+          "priceNote": "/mes",
+          "ctaLabel": "Contratar"
+        },
+        "linkedin": {
+          "label": "LinkedIn",
+          "hint": "Presencia en tu página de empresa",
+          "title": "LinkedIn",
+          "bullets": [
+            "Consigue mantener una presencia activa en tu cuenta de empresa sin tener que dedicarle todos los días.",
+            "Recibirás una notificación en el momento de la subida a la plataforma."
+          ],
+          "price": "450€",
+          "priceNote": "/mes",
+          "ctaLabel": "Contratar"
+        }
+      },
+      "offer": {
+        "label": "Oferta combinada",
+        "price": "800€",
+        "note": "Contrata ambas plataformas juntas por 800€/mes en lugar de 900€."
+      },
+      "steps": [
+        {
+          "title": "Preparas el contenido cuando quieras",
+          "description": "Sube publicaciones, reels o carruseles a tu ritmo, sin plazos diarios."
+        },
+        {
+          "title": "Lo publicas en el momento programado",
+          "description": "El sistema publica automáticamente en LinkedIn, Instagram y Facebook cuando corresponde."
+        },
+        {
+          "title": "Recibes una confirmación automática",
+          "description": "Te avisamos en el momento en que cada publicación se sube, sin que tengas que comprobarlo tú."
+        }
+      ],
+      "security": {
+        "trustPoints": [
+          "Trabajamos sobre máquinas privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
+          "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles.",
+          "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
+        ],
+        "requirements": [
+          "Acceso a las cuentas de empresa (Meta Business Suite y/o página de empresa de LinkedIn).",
+          "Contenido listo para programar: imágenes, vídeos, textos y fechas de publicación.",
+          "Listado de personas autorizadas para aprobar o solicitar cambios en el calendario.",
+          "Manual de marca, si quieres que revisemos tu identidad visual antes de publicar.",
+          "Frecuencia de publicación deseada por plataforma."
+        ]
+      },
+      "pricing": {
+        "individualPrice": "450€/mes",
+        "individualLabel": "Por plataforma",
+        "comboPrice": "800€/mes",
+        "comboLabel": "Oferta combinada",
+        "comboNote": "Instagram + Facebook + LinkedIn juntas por 800€/mes en lugar de 900€.",
+        "ctaLabel": "Solicitar información",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20redes%20sociales"
+      },
+      "cta": {
+        "label": "Quiero automatizar mis redes sociales",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20redes%20sociales",
+        "bgColor": "#d97757"
       }
     },
     "formacion-ia-sevilla": {
@@ -2648,507 +2826,205 @@
         "bgColor": "#d97757"
       }
     },
-    "inteligencia-artificial-empresas": {
-      "slug": "inteligencia-artificial-empresas",
-      "title": "Inteligencia artificial para empresas",
-      "seoTitle": "Inteligencia artificial para empresas",
-      "seoDescription": "Inteligencia artificial para empresas: optimizamos procesos, reducimos trabajo repetitivo y potenciamos la toma de decisiones con IA a medida.",
-      "shortTitle": "IA para empresas",
-      "subtitle": "Automatizamos tareas, reducimos tiempos operativos y creamos copilotos internos adaptados a tu negocio.",
-      "description": "Diseñamos e implantamos soluciones de IA que mejoran productividad, eliminan trabajo repetitivo y permiten a los equipos centrarse en tareas de mayor valor. Modelos privados, automatizaciones seguras y asistentes entrenados con tu propio conocimiento.",
-      "heroCtaLabel": "Evaluar mi caso",
-      "heroCtaHref": "#formulario",
-      "secondaryCtaLabel": "Hablar con el equipo",
-      "serviceType": "Automatización, copilotos internos y modelos privados",
-      "areaServed": "España y equipos remotos",
-      "cards": [
-        {
-          "title": "Copilotos internos",
-          "description": "Asistentes privados entrenados con tu documentación, procesos y datos internos. Responden dudas, generan contenido y guían tareas operativas."
-        },
-        {
-          "title": "Automatización de procesos",
-          "description": "Eliminamos tareas repetitivas: clasificación de correos, generación de informes, resúmenes automáticos, extracción de datos y más."
-        },
-        {
-          "title": "Modelos privados y seguros",
-          "description": "Infraestructura de IA en tu nube o entorno privado. Control total del dato, auditoría y cumplimiento normativo."
-        }
-      ],
+    "implantacion-odoo": {
+      "slug": "implantacion-odoo",
+      "title": "Implantación de Odoo",
+      "shortTitle": "Implantación de Odoo",
+      "heroText": "El servicio de implantación y actualización de Odoo 18 de Ordinaly está orientado a empresas y pymes en España que necesitan una plataforma donde organizar su empresa y su manera de trabajar.",
+      "heroCtaLabel": "Solicitar información",
+      "secondaryCtaLabel": "Quiero implantar Odoo",
+      "serviceType": "Implantación y actualización de ERP Odoo",
+      "areaServed": "España, empresas y pymes",
       "sectionTitles": {
-        "cards": "Qué podemos hacer con IA en tu empresa",
-        "steps": "Cómo trabajamos",
-        "valueProps": "Qué aporta la IA a tu negocio",
-        "metrics": "Impacto real",
-        "outcomes": "Resultados que obtienes",
-        "useCases": "Casos de uso",
-        "technologyFaqs": "Tecnología y seguridad",
-        "hub": "IA integrada en tus procesos",
-        "ctaTitle": "¿Listo para implantar IA en tu empresa?",
-        "ctaSubtitle": "Creamos un piloto real, medible y adaptado a tus procesos."
+        "whatIsOdoo": "¿Qué es Odoo?",
+        "included": "¿Qué incluye el servicio?",
+        "security": "Tu negocio es nuestra prioridad",
+        "requirements": "Requisitos"
       },
-      "steps": [
-        "Analizamos tus procesos, cuellos de botella y oportunidades reales de automatización.",
-        "Diseñamos la solución: copiloto, automatización o modelo privado según tu caso.",
-        "Desplegamos, entrenamos al equipo y dejamos métricas de uso y mejora continua."
-      ],
-      "valueProps": [
-        "Copilotos internos entrenados con tu conocimiento.",
-        "Automatización de tareas repetitivas y operativas.",
-        "Modelos privados con control total del dato.",
-        "Integración con herramientas internas y flujos existentes."
-      ],
-      "metrics": [
-        {
-          "label": "Ahorro operativo",
-          "value": "30% - 60%",
-          "detail": "Reducción de tiempo en tareas repetitivas."
-        },
-        {
-          "label": "Velocidad",
-          "value": "x10",
-          "detail": "Generación de contenido, informes y respuestas."
-        },
-        {
-          "label": "Seguridad",
-          "value": "Privado",
-          "detail": "Modelos desplegados en tu infraestructura."
-        }
-      ],
-      "outcomes": [
-        "Menos tareas manuales y repetitivas.",
-        "Equipos más rápidos y con menos carga operativa.",
-        "Procesos más consistentes y auditables.",
-        "Mayor calidad en documentación, respuestas y análisis."
-      ],
-      "useCases": [
-        {
-          "tag": "Operaciones",
-          "title": "Automatización de tareas repetitivas",
-          "description": "Clasificación de correos, extracción de datos, generación de informes y resúmenes automáticos.",
-          "bullets": [
-            "Menos carga manual",
-            "Procesos más rápidos y consistentes"
-          ]
-        },
-        {
-          "tag": "Soporte",
-          "title": "Copiloto para atención interna o externa",
-          "description": "Responde dudas, consulta documentación y genera respuestas basadas en tu conocimiento interno.",
-          "bullets": [
-            "Respuestas más rápidas",
-            "Menos escalados"
-          ]
-        },
-        {
-          "tag": "Dirección",
-          "title": "Informes automáticos y análisis",
-          "description": "Generación de reportes, resúmenes ejecutivos y análisis de datos en segundos.",
-          "bullets": [
-            "Decisiones más rápidas",
-            "Información siempre actualizada"
-          ]
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Privacidad",
-          "question": "¿La IA usa mis datos para entrenar modelos externos?",
-          "answer": "No. Los modelos pueden ejecutarse en tu infraestructura o en entornos privados sin compartir datos con terceros."
-        },
-        {
-          "tag": "Integración",
-          "question": "¿Puede conectarse con mis herramientas actuales?",
-          "answer": "Sí. Podemos integrar la IA con tus sistemas internos, bases de datos, CRM, ERP o herramientas de comunicación."
-        },
-        {
-          "tag": "Seguridad",
-          "question": "¿Cumple con GDPR y requisitos internos?",
-          "answer": "Sí. Implementamos permisos mínimos, auditoría, cifrado y control de acceso por rol."
-        },
-        {
-          "tag": "Mantenimiento",
-          "question": "¿Quién mantiene el sistema una vez implantado?",
-          "answer": "Podemos operarlo nosotros o dejarlo en manos de tu equipo con documentación y runbooks."
-        }
-      ],
-      "keywords": [
-        "inteligencia artificial empresas",
-        "automatización IA",
-        "copilotos internos",
-        "modelos privados IA",
-        "IA para negocios"
-      ],
-      "hub": {
-        "title": "IA integrada en tus procesos",
-        "subtitle": "Automatización, copilotos y modelos privados conectados a tu negocio.",
-        "bgTheme": "cyan",
-        "platforms": [
+      "whatIsOdoo": {
+        "paragraphs": [
+          "Odoo es uno de los ERP más vendidos y utilizados del mundo, con millones de usuarios activos y una adopción creciente gracias a su flexibilidad, escalabilidad y amplio ecosistema de módulos para gestión empresarial, ventas, contabilidad, CRM y operaciones."
+        ],
+        "linkPrefix": "Puedes obtener más información sobre Odoo en su web oficial:",
+        "linkLabel": "odoo.com",
+        "linkHref": "https://www.odoo.com"
+      },
+      "included": {
+        "items": [
           {
-            "position": "top-left",
-            "figureKey": "ai-copilot",
-            "colorScheme": "indigo",
-            "label": "Copiloto",
-            "sublabel": "Asistente interno"
+            "title": "Implantación de Odoo 18",
+            "description": "Desde cero o actualización desde versiones anteriores."
           },
           {
-            "position": "top-right",
-            "figureKey": "automation",
-            "colorScheme": "cyan",
-            "label": "Automatización",
-            "sublabel": "Procesos repetitivos"
+            "title": "Validación técnica",
+            "description": "Validación técnica completa del sistema implantado."
           },
           {
-            "position": "bottom-left",
-            "figureKey": "private-model",
-            "colorScheme": "indigo",
-            "label": "Modelo privado",
-            "sublabel": "Seguridad y control"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "observability",
-            "colorScheme": "cyan",
-            "label": "Observabilidad",
-            "sublabel": "Métricas y control"
+            "title": "Entorno operativo",
+            "description": "Entrega del entorno operativo y funcional, listo para trabajar."
           }
+        ],
+        "note": "El servicio puede ser complementado con la configuración base para cumplimiento de VeriFactu España (consultar)."
+      },
+      "security": {
+        "trustPoints": [
+          "El sistema se implanta en infraestructura controlada por el cliente (servidor propio o VPS).",
+          "El cliente mantiene el control total del ERP y de su información en todo momento.",
+          "Ordinaly no conserva accesos ni credenciales tras la entrega del servicio.",
+          "No almacenamos tus datos o archivos en nuestros servidores."
+        ],
+        "requirements": [
+          "Acceso al servidor o infraestructura donde se desplegará Odoo.",
+          "Información sobre la versión actual de Odoo (si aplica).",
+          "Definición del alcance funcional (facturación, contabilidad, ventas, etc.).",
+          "Datos fiscales y certificados necesarios para la configuración de facturación."
         ]
       },
+      "pricing": {
+        "individualPrice": "860€",
+        "individualLabel": "Precio del servicio",
+        "implementationTime": "20 días",
+        "implementationLabel": "Tiempo de implantación:",
+        "ctaLabel": "Quiero implantar Odoo",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20implantar%20Odoo"
+      },
+      "keywords": [
+        "Odoo",
+        "ERP",
+        "CRM",
+        "Implantación",
+        "VeriFactu",
+        "Facturación",
+        "Gestión empresarial"
+      ],
       "cta": {
-        "label": "Implantar IA en mi empresa",
-        "href": "https://wa.me/34626270806?text=Quiero%20implantar%20IA%20en%20mi%20empresa",
-        "bgColor": "#0255D5"
+        "label": "Quiero implantar Odoo",
+        "href": "https://wa.me/34626270806?text=Quiero%20implantar%20Odoo",
+        "bgColor": "#d97706"
       }
     },
-    "inteligencia-artificial-sevilla": {
-      "slug": "inteligencia-artificial-sevilla",
-      "title": "Inteligencia artificial en Sevilla",
-      "seoTitle": "Inteligencia artificial en Sevilla",
-      "seoDescription": "Inteligencia artificial en Sevilla para pymes. Automatizamos procesos con IA personalizada para mejorar la rentabilidad de tu empresa.",
-      "shortTitle": "IA para Empresas en Sevilla",
-      "subtitle": "Automatizamos, optimizamos y escalamos procesos con IA para que tu empresa gane velocidad y precisión.",
-      "description": "Desarrollamos soluciones de Inteligencia artificial aplicadas a operaciones reales: automatización, asistentes inteligentes, análisis predictivo y optimización de procesos. Implementamos IA con criterio, datos limpios y despliegues que funcionan en producción.",
-      "heroCtaLabel": "Abrir formulario",
-      "heroCtaHref": "#formulario",
-      "cardsSectionTitle": "Mejora tu negocio con la inteligencia artificial",
-      "servicesSectionTitle": "Servicios de inteligencia artificial en Sevilla",
-      "formSectionTitle": "Proyectos de inteligencia artificial en Sevilla",
-      "serviceType": "Automatización, asistentes IA y soluciones aplicadas",
-      "areaServed": "Sevilla, Andalucía y empresas en España",
-      "valueProps": [
-        "IA aplicada a procesos reales",
-        "Integración con tus sistemas actuales",
-        "Entrenamiento con tus datos",
-        "Supervisión y mejora continua"
-      ],
-      "contactUs": "Contáctanos",
-      "cards": [
-        {
-          "title": "Alcance del servicio",
-          "description": "Definimos qué procesos, áreas y sistemas pueden beneficiarse de IA aplicada."
-        },
-        {
-          "title": "Cobertura",
-          "description": "Aplicamos IA en operaciones, soporte, ventas, dirección y áreas transversales."
-        },
-        {
-          "title": "Modelo de entrega",
-          "description": "Diagnóstico, diseño, entrenamiento, integración y mejora continua."
-        },
-        {
-          "title": "Automatización",
-          "description": "Eliminamos tareas repetitivas y reducimos errores operativos con IA."
-        },
-        {
-          "title": "Asistentes IA",
-          "description": "Bots entrenados con tu documentación interna para soporte y operaciones."
-        },
-        {
-          "title": "Análisis Predictivo",
-          "description": "Anticipamos tendencias y comportamientos con modelos de datos para que tomes decisiones con ventaja."
-        }
-      ],
-      "stepsTitle": "Secuencia de implantación",
-      "steps": [
-        "Identificamos oportunidades de IA en tus procesos.",
-        "Diseñamos la solución: automatización o asistente IA.",
-        "Entrenamos la IA con tus datos y documentación.",
-        "Integramos la solución en tus sistemas actuales.",
-        "Supervisamos, medimos y mejoramos continuamente."
-      ],
-      "keywords": [
-        "inteligencia artificial sevilla",
-        "automatización IA",
-        "asistentes IA empresas",
-        "optimización de procesos",
-        "IA para negocios"
-      ],
-      "hub": {
-        "title": "IA aplicada a procesos reales",
-        "subtitle": "Automatización, asistentes inteligentes y modelos predictivos para empresas de Sevilla.",
-        "bgTheme": "cyan",
-        "platforms": [
-          {
-            "position": "top-left",
-            "figureKey": "ai-bot",
-            "colorScheme": "indigo",
-            "label": "Asistentes IA",
-            "sublabel": "Entrenados con tu negocio"
-          },
-          {
-            "position": "top-right",
-            "figureKey": "automation",
-            "colorScheme": "cyan",
-            "label": "Automatización",
-            "sublabel": "Procesos internos"
-          },
-          {
-            "position": "bottom-left",
-            "figureKey": "predictive",
-            "colorScheme": "indigo",
-            "label": "Modelos",
-            "sublabel": "Predicción y análisis"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "integration",
-            "colorScheme": "cyan",
-            "label": "Integración",
-            "sublabel": "CRM, ERP y APIs"
-          }
+    "desarrollo-de-app-webs": {
+      "slug": "desarrollo-de-app-webs",
+      "title": "Desarrollo de aplicaciones web multiplataforma (PWA)",
+      "shortTitle": "Desarrollo de PWA",
+      "heroText": "Diseñamos y desarrollamos PWA dinámicas, rápidas y escalables. Aplicaciones web modernas que combinan lo mejor de una web y una app, optimizadas para rendimiento, SEO y experiencia del usuario. El objetivo es ofrecer servicios de una manera moderna, rápida y accesible sin depender de aplicaciones nativas.",
+      "heroCtaLabel": "Solicitar información",
+      "secondaryCtaLabel": "Quiero mi PWA",
+      "serviceType": "Desarrollo de aplicaciones web progresivas (PWA)",
+      "areaServed": "España, empresas y pymes",
+      "sectionTitles": {
+        "whatIsPWA": "¿Qué es una PWA?",
+        "included": "¿Qué incluye este servicio?",
+        "ventajas": "Ventajas",
+        "requirements": "Requisitos"
+      },
+      "whatIsPWA": {
+        "intro": "Una PWA es una aplicación web avanzada que combina las ventajas de un sitio web con las funcionalidades propias de una aplicación móvil:",
+        "bullets": [
+          "Se accede desde el navegador",
+          "Puede instalarse en dispositivos, funcionando en móviles, tablets y ordenadores.",
+          "Ofrece una experiencia rápida, fluida y segura"
+        ],
+        "highlight": "Las PWA dinámicas permiten construir aplicaciones ricas en funcionalidades, con contenido en tiempo real, integraciones con sistemas externos y una experiencia de usuario comparable a una app nativa, pero con menor coste de desarrollo y mantenimiento."
+      },
+      "included": {
+        "items": [
+          { "title": "Análisis funcional del proyecto", "description": "" },
+          { "title": "Diseño y desarrollo de PWA dinámica a tu medida", "description": "" },
+          { "title": "Estructura escalable y mantenible", "description": "" },
+          { "title": "Optimización de rendimiento y SEO técnico", "description": "" },
+          { "title": "Despliegue en infraestructura del cliente", "description": "" },
+          { "title": "Pruebas y validación final", "description": "" }
         ]
       },
-      "cta": {
-        "label": "Contactar por WhatsApp",
-        "href": "https://wa.me/34626270806?text=Hola%20IA%20en%20sevilla",
-        "bgColor": "#0255D5"
-      }
-    },
-    "automatizacion-inteligente": {
-      "title": "Automatización inteligente",
-      "shortTitle": "Automatización inteligente",
-      "description": "Diseñamos automatización inteligente para empresas que necesitan orquestar herramientas, datos y tareas con n8n e IA sin perder control operativo.",
-      "heroCtaLabel": "Quiero saber más",
-      "heroCtaHref": "#formulario",
-      "sectionTitles": {
-        "howItWorks": "Ahorra tiempo y dinero con la automatización inteligente",
-        "benefits": "Automatización inteligente en empresas",
-        "beforeAfter": "Resultados de la automatización inteligente",
-        "before": "Antes",
-        "after": "Después"
+      "ventajas": [
+        { "title": "Alto rendimiento y velocidad de carga", "description": "" },
+        { "title": "Instalable sin pasar por tiendas de apps", "description": "" },
+        { "title": "Compatible con todos los dispositivos", "description": "" },
+        { "title": "Optimizada para SEO", "description": "" },
+        { "title": "Actualizaciones inmediatas sin descargas", "description": "" },
+        { "title": "Menor coste frente a apps nativas", "description": "" },
+        { "title": "Mayor control y seguridad", "description": "" }
+      ],
+      "security": {
+        "requirements": [
+          "Los requisitos se definen en función del alcance y las funcionalidades del proyecto.",
+          "¡Lo único que nos hace falta es una buena idea!"
+        ]
       },
-      "steps": [
-        "Analizamos tus procesos actuales y detectamos cuellos de botella.",
-        "Diseñamos el flujo automatizado y definimos reglas + IA.",
-        "Integramos tus herramientas y monitorizamos resultados."
-      ],
-      "benefits": [
-        "Reducción del 40-70% en tareas manuales",
-        "Procesos 3x más rápidos",
-        "Eliminación de errores repetitivos",
-        "Integración total entre tus herramientas",
-        "Ahorro directo en costes operativos",
-        "Equipos más enfocados en tareas de valor"
-      ],
-      "before": [
-        "Tareas repetitivas que consumen horas",
-        "Errores humanos constantes",
-        "Procesos lentos y poco escalables",
-        "Falta de integración entre herramientas",
-        "Equipos saturados con tareas administrativas"
-      ],
-      "after": [
-        "Procesos automáticos funcionando 24/7",
-        "Cero errores repetitivos",
-        "Integración total entre sistemas",
-        "Ahorro de tiempo y costes",
-        "Equipos centrados en tareas de alto valor"
-      ],
-      "cta": {
-        "label": "Quiero automatizar mi empresa",
-        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20procesos",
-        "bgColor": "#D97757"
-      }
-    },
-    "empresa-inteligencia-artificial": {
-      "slug": "empresa-inteligencia-artificial",
-      "title": "Empresa de inteligencia artificial",
-      "shortTitle": "Empresa de IA",
-      "subtitle": "Somos la empresa de inteligencia artificial que convierte datos, procesos y equipos en resultados medibles.",
-      "description": "Ordinaly es una empresa especializada en inteligencia artificial aplicada. Diseñamos, construimos e implantamos soluciones de IA que generan impacto real en operaciones, equipos y resultados de negocio. Sin humo, sin demos vacías: sólo IA que funciona en producción.",
-      "heroCtaLabel": "Hablar con el equipo",
-      "heroCtaHref": "#empresa-ia-contact",
-      "secondaryCtaLabel": "Ver casos de uso",
-      "serviceType": "Consultoría, desarrollo e implantación de IA",
-      "areaServed": "España y empresas en toda Europa",
-      "sectionTitles": {
-        "valueProps": "Por qué elegirnos como tu empresa de IA",
-        "outcomes": "Lo que consigues trabajando con nosotros",
-        "steps": "Cómo trabajamos",
-        "useCases": "Lo que hacemos como empresa de IA",
-        "technologyFaqs": "Preguntas frecuentes",
-        "beforeAfter": "Antes y después de trabajar con nosotros",
-        "before": "Sin IA estratégica",
-        "after": "Con Ordinaly como empresa de IA"
+      "pricing": {
+        "individualPrice": "Presupuesto a consultar",
+        "individualLabel": "Cada proyecto se valora de forma individual para garantizar una solución alineada con tus objetivos.",
+        "implementationTime": "20 días",
+        "implementationLabel": "Tiempo de implantación:",
+        "ctaLabel": "Quiero mi PWA",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20una%20PWA%20para%20mi%20negocio"
       },
-      "metrics": [
-        {
-          "label": "Ahorro operativo medio",
-          "value": "40-65%",
-          "detail": "Reducción de tiempo en tareas manuales y repetitivas en los primeros 90 días."
-        },
-        {
-          "label": "Velocidad de implantación",
-          "value": "4-8 semanas",
-          "detail": "De diagnóstico a primer piloto funcionando en producción."
-        },
-        {
-          "label": "Proyectos entregados",
-          "value": "+50",
-          "detail": "Soluciones de IA implantadas en empresas de distintos sectores."
-        }
-      ],
-      "valueProps": [
-        "Aplicamos IA a procesos reales, no a demos.",
-        "Equipo propio de ingeniería, datos y estrategia de IA.",
-        "Modelos privados y seguros desplegados en tu infraestructura.",
-        "Integración con tus herramientas: CRM, ERP, correo, bases de datos y más.",
-        "Metodología probada: diagnóstico, piloto, producción y mejora continua."
-      ],
-      "outcomes": [
-        "Procesos automatizados funcionando sin intervención humana.",
-        "Equipos más productivos y con menor carga operativa.",
-        "Decisiones más rápidas respaldadas por datos en tiempo real.",
-        "Modelos de IA entrenados con tu conocimiento y datos internos.",
-        "Trazabilidad, auditoría y control total sobre lo que hace la IA."
-      ],
-      "steps": [
-        "Diagnóstico: auditamos tus procesos, herramientas y oportunidades reales de automatización con IA.",
-        "Diseño: definimos la arquitectura, los modelos y el alcance del piloto adaptado a tu empresa.",
-        "Construcción: desarrollamos, entrenamos e integramos la solución en tu infraestructura real.",
-        "Producción: desplegamos, validamos con métricas y dejamos el sistema funcionando con soporte.",
-        "Mejora continua: monitorizamos el rendimiento y evolucionamos la solución con tu negocio."
-      ],
-      "before": [
-        "Decisiones lentas por falta de datos consolidados",
-        "Equipos saturados con tareas repetitivas y manuales",
-        "Procesos desconectados entre herramientas y departamentos",
-        "Conocimiento interno que se pierde o tarda horas en encontrar",
-        "Dificultad para escalar sin añadir más personas"
-      ],
-      "after": [
-        "Datos conectados y disponibles en tiempo real para decidir",
-        "Automatizaciones que ejecutan tareas sin intervención humana",
-        "Flujos integrados entre CRM, ERP, email y sistemas internos",
-        "Asistente IA que responde con el conocimiento de tu empresa",
-        "Capacidad de escalar operaciones sin crecer el equipo proporcionalmente"
-      ],
-      "useCases": [
-        {
-          "tag": "Automatización",
-          "title": "Automatización de procesos operativos",
-          "description": "Diseñamos flujos automáticos que ejecutan tareas repetitivas: clasificación, extracción, generación de informes y actualizaciones de sistemas.",
-          "bullets": [
-            "Reducción de tareas manuales en un 40-70%",
-            "Flujos funcionando 24/7 sin errores humanos",
-            "Integración con tus herramientas actuales"
-          ]
-        },
-        {
-          "tag": "Copilotos IA",
-          "title": "Asistentes internos con tu conocimiento",
-          "description": "Desarrollamos copilotos entrenados con tu documentación, procesos y datos internos para soporte, ventas, operaciones y dirección.",
-          "bullets": [
-            "Respuestas precisas basadas en tu información",
-            "Acceso instantáneo al conocimiento de la empresa",
-            "Escalables a todos los equipos"
-          ]
-        },
-        {
-          "tag": "Estrategia de IA",
-          "title": "Hoja de ruta y estrategia de IA",
-          "description": "Te ayudamos a definir dónde y cómo aplicar IA con criterio: qué automatizar primero, qué modelos usar y cómo medir el retorno.",
-          "bullets": [
-            "Diagnóstico de madurez digital y IA",
-            "Priorización de casos de uso con mayor ROI",
-            "Plan de implantación por fases"
-          ]
-        },
-        {
-          "tag": "Modelos privados",
-          "title": "IA privada y segura en tu infraestructura",
-          "description": "Implantamos modelos de lenguaje y IA en tu nube o servidor privado. Control total del dato, sin dependencia de terceros.",
-          "bullets": [
-            "Cumplimiento GDPR y normativas internas",
-            "Sin fuga de datos a servicios externos",
-            "Auditoría y permisos por rol"
-          ]
-        },
-        {
-          "tag": "Análisis predictivo",
-          "title": "Predicción y análisis inteligente",
-          "description": "Modelos predictivos para anticipar demanda, detectar anomalías, optimizar inventarios y tomar decisiones basadas en datos.",
-          "bullets": [
-            "Predicciones con datos históricos reales",
-            "Alertas automáticas ante desviaciones",
-            "Dashboards conectados a tus fuentes de datos"
-          ]
-        },
-        {
-          "tag": "Integración",
-          "title": "Integración de sistemas con IA",
-          "description": "Conectamos tus herramientas actuales con flujos inteligentes: CRM, ERP, bases de datos, correo, WhatsApp y APIs propias.",
-          "bullets": [
-            "Sin necesidad de cambiar tus sistemas actuales",
-            "Datos fluyendo entre herramientas en tiempo real",
-            "Automatizaciones activadas por eventos"
-          ]
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Privacidad",
-          "question": "¿Mis datos se usan para entrenar modelos de terceros?",
-          "answer": "No. Podemos desplegar modelos en tu infraestructura o en entornos privados completamente aislados. Tus datos nunca salen de tu control."
-        },
-        {
-          "tag": "Integración",
-          "question": "¿Podéis integraros con nuestras herramientas actuales?",
-          "answer": "Sí. Trabajamos con CRM, ERP, Google Workspace, Microsoft 365, Notion, Airtable, bases de datos relacionales, APIs internas y herramientas de comunicación como Slack o WhatsApp."
-        },
-        {
-          "tag": "Seguridad",
-          "question": "¿Cumple con GDPR y los requisitos de mi sector?",
-          "answer": "Sí. Implementamos control de acceso por rol, cifrado, auditoría de acciones y trazabilidad completa. Adaptamos la solución a los requisitos de tu sector."
-        },
-        {
-          "tag": "Plazos",
-          "question": "¿Cuánto tiempo tarda en estar operativo el primer piloto?",
-          "answer": "Normalmente entre 4 y 8 semanas desde el diagnóstico hasta el primer piloto en producción, dependiendo del alcance y la complejidad."
-        },
-        {
-          "tag": "Mantenimiento",
-          "question": "¿Quién mantiene la solución una vez implantada?",
-          "answer": "Podemos operarla nosotros con un contrato de mantenimiento o documentarla y transferirla a tu equipo con formación y runbooks detallados."
-        },
-        {
-          "tag": "ROI",
-          "question": "¿Cómo medimos el retorno de la inversión en IA?",
-          "answer": "Definimos métricas de éxito antes de empezar: horas ahorradas, errores reducidos, velocidad de procesos o ingresos generados. El piloto incluye dashboards de seguimiento desde el primer día."
-        }
-      ],
       "keywords": [
-        "empresa de inteligencia artificial",
-        "empresa IA España",
-        "consultoría inteligencia artificial",
-        "soluciones IA para empresas",
-        "implantación IA",
-        "automatización con inteligencia artificial"
+        "PWA",
+        "Aplicaciones web",
+        "Progressive Web App",
+        "Desarrollo web",
+        "SEO",
+        "Multiplataforma"
       ],
       "cta": {
-        "label": "Hablar con un experto en IA",
-        "href": "https://wa.me/34626270806?text=Quiero%20hablar%20con%20vuestra%20empresa%20de%20IA",
-        "bgColor": "#0255D5"
+        "label": "Quiero mi PWA",
+        "href": "https://wa.me/34626270806?text=Quiero%20una%20PWA%20para%20mi%20negocio",
+        "bgColor": "#d97706"
+      }
+    },
+    "automatizaciones-personalizadas": {
+      "slug": "automatizaciones-personalizadas",
+      "title": "Automatizaciones personalizadas",
+      "shortTitle": "Automatizaciones personalizadas",
+      "heroParagraphs": [
+        "El servicio de automatizaciones personalizadas de Ordinaly está pensado para empresas que desean optimizar sus procesos internos, reducir tareas manuales y mejorar su eficiencia operativa, pero cuyos procesos no encajan en soluciones estándar.",
+        "Si ya conoces alguno de nuestros servicios (automatización de redes sociales, informes, facturas…), este servicio te permite ir un paso más allá y automatizar cualquier proceso repetitivo o crítico de tu empresa."
+      ],
+      "heroCtaLabel": "Solicitar información",
+      "secondaryCtaLabel": "Quiero automatizar mi proceso",
+      "serviceType": "Automatizaciones personalizadas para procesos empresariales",
+      "areaServed": "España, empresas y pymes",
+      "team": {
+        "title": "Un equipo altamente cualificado",
+        "description": "Ingenieros de software, expertos en ciencias de la computación e inteligencia artificial, con experiencia real en automatización empresarial."
+      },
+      "sectionTitles": {
+        "security": "Tu negocio es nuestra prioridad",
+        "ventajas": "Ventajas"
+      },
+      "security": {
+        "trustPoints": [
+          "Trabajamos sobre máquinas virtuales privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
+          "Utilizamos herramientas como n8n, y otras herramientas de software libre que permiten soluciones escalables y mantenibles.",
+          "En ningún momento recopilamos contraseñas o datos personales o empresariales.",
+          "No almacenamos tus datos o archivos en nuestros servidores."
+        ]
+      },
+      "ventajas": [
+        { "title": "Más trazabilidad", "description": "" },
+        { "title": "Menos errores", "description": "" },
+        { "title": "Más tiempo libre", "description": "" }
+      ],
+      "pricing": {
+        "individualPrice": "Presupuesto a consultar",
+        "individualLabel": "Cada automatización se diseña y valora de forma individual según tu proceso.",
+        "ctaLabel": "Consultar precio",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20consultar%20precio%20de%20una%20automatizaci%C3%B3n%20personalizada"
+      },
+      "keywords": [
+        "Automatizaciones personalizadas",
+        "Automatizar",
+        "Software libre",
+        "n8n",
+        "VPS",
+        "Trazabilidad"
+      ],
+      "cta": {
+        "label": "Quiero automatizar mi proceso",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mi%20proceso",
+        "bgColor": "#d97706"
       }
     }
   },

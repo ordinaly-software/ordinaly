@@ -4,17 +4,18 @@ import { client } from "@/lib/sanity";
 
 const PUBLIC_LANDING_SLUGS = [
   "chatbots-empresas-sevilla",
-  "chatbots-personalizados-para-empresas",
-  "automatizacion-n8n-sevilla",
+  "automatizaciones-chatbots",
+  "automatizacion-n8n",
+  "automatizacion-redes-sociales",
   "agentes-ia-atencion-cliente-sevilla",
   "automatizacion-whatsapp-business-sevilla",
   "automatizacion-facturas",
-  "automatizacion-inteligente",
+  "automatizacion-informes",
+  "implantacion-odoo",
+  "desarrollo-de-app-webs",
+  "automatizaciones-personalizadas",
   "formacion-ia-sevilla",
   "integraciones-crm-erp-sevilla",
-  "empresa-inteligencia-artificial",
-  "inteligencia-artificial-empresas",
-  "inteligencia-artificial-sevilla",
 ] as const;
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];

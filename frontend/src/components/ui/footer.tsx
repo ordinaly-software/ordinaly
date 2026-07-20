@@ -23,14 +23,15 @@ import { openCookieSettings } from "@/utils/cookieManager";
 import { cn } from "@/lib/utils";
 
 const LANDING_SLUGS = [
-  "chatbots-personalizados-para-empresas",
-  "automatizacion-n8n-sevilla",
+  "automatizaciones-chatbots",
+  "automatizacion-n8n",
   "automatizacion-facturas",
-  "automatizacion-inteligente",
-  "formacion-ia-sevilla",
-  "empresa-inteligencia-artificial",
-  "inteligencia-artificial-empresas",
-  "inteligencia-artificial-sevilla"
+  "automatizacion-informes",
+  "automatizacion-redes-sociales",
+  "implantacion-odoo",
+  "desarrollo-de-app-webs",
+  "automatizaciones-personalizadas",
+  "formacion-ia-sevilla"
 ] as const;
 
 type FooterLinkItem = {
@@ -49,9 +50,7 @@ type LandingFooterContent = {
   shortTitle?: string;
 };
 
-const LANDING_LABEL_SOURCE: Record<string, string> = {
-  "chatbots-personalizados-para-empresas": "chatbots-personalizados-para-empresas",
-};
+const LANDING_LABEL_SOURCE: Record<string, string> = {};
 
 const Footer = () => {
   const t = useTranslations("home");

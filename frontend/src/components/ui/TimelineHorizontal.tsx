@@ -2,11 +2,20 @@
 
 import { motion } from "framer-motion";
 
+const GRID_COLS_BY_COUNT: Record<number, string> = {
+  2: "md:grid-cols-2",
+  3: "md:grid-cols-3",
+  4: "md:grid-cols-4",
+  5: "md:grid-cols-5",
+};
+
 export default function TimelineHorizontal({
   steps,
 }: {
   steps: { title: string; description: string }[];
 }) {
+  const colsClass = GRID_COLS_BY_COUNT[steps.length] ?? "md:grid-cols-4";
+
   return (
     <div className="w-full flex flex-col items-center">
       <div className="relative w-full max-w-5xl mt-4 mb-16">
@@ -25,7 +34,7 @@ export default function TimelineHorizontal({
           ))}
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-10 w-full max-w-5xl">
+      <div className={`grid grid-cols-1 ${colsClass} gap-10 w-full max-w-5xl`}>
         {steps.map((step, index) => (
           <motion.div
             key={index}

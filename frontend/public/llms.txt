@@ -13,15 +13,15 @@ Ordinaly Software S.L. ayuda a empresas a implementar inteligencia artificial pr
 
 ## Servicios y Soluciones Destacadas
 - [Servicios de IA](https://ordinaly.ai/servicios): Catálogo completo de soluciones tecnológicas.
-- [Automatización Inteligente](https://ordinaly.ai/automatizacion-inteligente): Implementación de flujos de trabajo autónomos.
+- [Automatizaciones Personalizadas](https://ordinaly.ai/automatizaciones-personalizadas): Automatización a medida de procesos que no encajan en soluciones estándar.
 - [Automatización de Facturas](https://ordinaly.ai/automatizacion-facturas): Soluciones específicas para departamentos financieros y contables.
-- [Automatización con n8n](https://ordinaly.ai/automatizacion-n8n-sevilla): Especialistas en flujos de trabajo complejos usando n8n en Sevilla.
+- [Automatización de Informes](https://ordinaly.ai/automatizacion-informes): Envío mensual automático de informes económicos.
+- [Automatización con n8n](https://ordinaly.ai/automatizacion-n8n): Especialistas en flujos de trabajo complejos usando n8n.
+- [Implantación de Odoo](https://ordinaly.ai/implantacion-odoo): Implantación y actualización de Odoo 18 para empresas y pymes.
+- [Desarrollo de PWA](https://ordinaly.ai/desarrollo-de-app-webs): Aplicaciones web multiplataforma dinámicas, rápidas y escalables.
 - [Formación IA para PYMES](https://ordinaly.ai/formacion-ia-sevilla): Capacitación práctica para equipos en Sevilla y remoto.
 
 ## Información Corporativa y Local
-- [Empresa de Inteligencia artificial](https://ordinaly.ai/empresa-inteligencia-artificial): Quiénes somos y nuestra metodología.
-- [IA para Empresas](https://ordinaly.ai/inteligencia-artificial-empresas): Valor estratégico de la IA en el tejido empresarial.
-- [IA en Sevilla](https://ordinaly.ai/inteligencia-artificial-sevilla): Referente tecnológico en la capital andaluza.
 - [Contacto](https://ordinaly.ai/contacto): Formulario y atención directa.
 
 ## Directorio por Idiomas

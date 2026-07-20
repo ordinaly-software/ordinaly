@@ -1,33 +1,15 @@
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
 type Locale = (typeof routing.locales)[number];
-
-type NotFoundStrings = {
-  title: string;
-  description: string;
-  backHome: string;
-};
-
-async function loadNotFoundMessages(locale: Locale): Promise<NotFoundStrings> {
-  switch (locale) {
-    case "es": {
-      const mod = await import("../../../messages/es.json");
-      return mod.default.notFound;
-    }
-    default: {
-      const mod = await import("../../../messages/en.json");
-      return mod.default.notFound;
-    }
-  }
-}
 
 interface NotFoundContentProps {
   locale: Locale;
 }
 
 export async function NotFoundContent({ locale }: NotFoundContentProps) {
-  const t = await loadNotFoundMessages(locale);
+  const t = await getTranslations({ locale, namespace: "notFound" });
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#11101a]">
@@ -36,16 +18,16 @@ export async function NotFoundContent({ locale }: NotFoundContentProps) {
           404
         </p>
         <h1 className="text-3xl font-bold text-slate-900 dark:text-white md:text-4xl">
-          {t.title}
+          {t("title")}
         </h1>
         <p className="max-w-2xl text-lg text-slate-600 dark:text-slate-300">
-          {t.description}
+          {t("description")}
         </p>
         <Link
           href={`/${locale}`}
           className="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-base font-semibold text-white transition hover:bg-slate-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-900"
         >
-          {t.backHome}
+          {t("backHome")}
         </Link>
       </div>
     </div>

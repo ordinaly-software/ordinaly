@@ -282,9 +282,12 @@ export const AdminServiceEditModal = ({
           "delete_account", "formacion", "legal", "news", "nosotros",
           "profile", "reset-password", "services", "verify-email",
           // Landing page slugs
-          "chatbots-empresas-sevilla", "automatizacion-n8n-sevilla",
+          "chatbots-empresas-sevilla", "automatizacion-n8n-sevilla", "automatizacion-n8n",
           "agentes-ia-atencion-cliente-sevilla", "automatizacion-whatsapp-business-sevilla",
           "formacion-ia-sevilla", "integraciones-crm-erp-sevilla",
+          "automatizacion-facturas", "automatizacion-informes", "automatizacion-redes-sociales",
+          "implantacion-odoo", "desarrollo-de-app-webs", "automatizaciones-personalizadas",
+          "automatizaciones-chatbots",
           // Other reserved paths
           "studio", "sitemap.xml", "robots.txt", "manifest.json", "sw.js", "llm.txt",
           "en", "es",

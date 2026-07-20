@@ -188,6 +188,18 @@ const nextConfig: NextConfig = {
       { source: '/formation/:slug*', destination: '/formacion/:slug*', permanent: true },
       { source: '/es/formation/:slug*', destination: '/formacion/:slug*', permanent: true },
       { source: '/en/formation/:slug*', destination: '/en/formacion/:slug*', permanent: true },
+      { source: '/automatizacion-n8n-sevilla', destination: '/automatizacion-n8n', permanent: true },
+      { source: '/en/automatizacion-n8n-sevilla', destination: '/en/automatizacion-n8n', permanent: true },
+      { source: '/automatizacion-inteligente', destination: '/automatizaciones-personalizadas', permanent: true },
+      { source: '/en/automatizacion-inteligente', destination: '/en/automatizaciones-personalizadas', permanent: true },
+      { source: '/empresa-inteligencia-artificial', destination: '/', permanent: true },
+      { source: '/en/empresa-inteligencia-artificial', destination: '/en', permanent: true },
+      { source: '/inteligencia-artificial-empresas', destination: '/', permanent: true },
+      { source: '/en/inteligencia-artificial-empresas', destination: '/en', permanent: true },
+      { source: '/inteligencia-artificial-sevilla', destination: '/', permanent: true },
+      { source: '/en/inteligencia-artificial-sevilla', destination: '/en', permanent: true },
+      { source: '/chatbots-personalizados-para-empresas', destination: '/automatizaciones-chatbots', permanent: true },
+      { source: '/en/chatbots-personalizados-para-empresas', destination: '/en/automatizaciones-chatbots', permanent: true },
     ];
   },
 };

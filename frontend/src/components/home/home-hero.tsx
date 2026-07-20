@@ -15,18 +15,18 @@ interface HeroProps {
 const accordionImages: Omit<AccordionImageItem, "label" | "sublabel">[] = [
   {
     id: 1,
-    imageUrl: "/static/contact/office_01.webp",
+    imageUrl: "/static/home/main_home_ilustration_1.webp",
   },
   {
     id: 2,
-    imageUrl: "/static/formacion-ia-sevilla/1-ordinaly.webp",
+    imageUrl: "/static/contact/office_01.webp",
   },
 ];
 
 export function HomeHero({ t }: HeroProps) {
   const accordionItems: AccordionImageItem[] = [
-    { ...accordionImages[0], label: t("hero.card4Label"), sublabel: t("hero.card4Value") },
-    { ...accordionImages[1], label: t("hero.card2Label"), sublabel: t("hero.card2Value") },
+    { ...accordionImages[0], label: t("hero.card2Label"), sublabel: t("hero.card2Value") },
+    { ...accordionImages[1], label: t("hero.card4Label"), sublabel: t("hero.card4Value") },
   ];
 
   return (

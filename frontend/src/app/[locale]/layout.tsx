@@ -63,7 +63,7 @@ const businessSchema = {
   ],
   makesOffer: [
     "Agencia de Automatización IA",
-    "Automatización de Facturas",
+    "Automatización de facturas",
     "Automatización con n8n",
     "Automatización Inteligente",
     "Empresa de Inteligencia artificial",

@@ -340,8 +340,8 @@ export default function HomePage({
             <HeroVideoDialog
               className="w-full"
               animationStyle="from-center"
-              videoUrl="https://www.youtube.com/watch?v=qLKfe3yukGs"
-              thumbnailSrc="https://i.ytimg.com/vi/qLKfe3yukGs/hqdefault.jpg?sqp=-oaymwE9CNACELwBSFryq4qpAy8IARUAAAAAGAElAADIQj0AgKJDeAHwAQH4AdgJgALQBYoCDAgAEAEYZSBlKGUwDw==&rs=AOn4CLCdf5LK2k1zFNwbhsWzmgqwNTX7_Q"
+              videoUrl="https://youtu.be/WPgLFodfAm8"
+              thumbnailSrc="/static/home/why-us-video-thumbnail.webp"
               thumbnailAlt={t("whyUs.title")}
             />
             <div className="mt-4 text-center">
