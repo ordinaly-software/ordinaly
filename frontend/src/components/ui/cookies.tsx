@@ -5,7 +5,7 @@ import { Shield, BarChart3, Globe, X, Cookie, CookieIcon} from 'lucide-react';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import Slider from "@/components/ui/slider";
-import { applyConsentMode, getCookiePreferences } from '@/utils/cookieManager';
+import { applyConsentMode, getCookiePreferences } from '@/utils/cookie-manager';
 
 const CookieConsent = () => {
   const t = useTranslations('cookie');

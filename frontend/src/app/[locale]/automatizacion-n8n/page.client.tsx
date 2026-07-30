@@ -4,10 +4,10 @@ import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Footer from "@/components/ui/footer";
 import ContactForm from "@/components/ui/contact-form.client";
-import N8nFlow from "@/components/ui/N8nFlow";
-import RelojArenaMagico from "@/components/ui/relojArena";
+import N8nFlow from "@/components/ui/n8n-flow";
+import RelojArenaMagico from "@/components/ui/hourglass";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
-import { IconN8n } from "@/components/services/brand-icons";
+import { IconN8n } from "@/components/ui/brand-icons";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import ReCaptchaWrapper from "../recaptcha-provider";
 
@@ -93,7 +93,7 @@ export default function AutomatizacionN8nPage() {
           </div>
           <div className="flex justify-center md:justify-end">
             <img
-              src="/static/automatizacion-n8n-sevilla/n8n-integration.webp"
+              src="/static/automatizacion-n8n/n8n-integration.webp"
               alt={content.title}
               className="w-full max-w-[760px] rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700"
             />

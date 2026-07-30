@@ -19,7 +19,7 @@ import {
 import LocaleSwitcher from "./locale-switcher";
 import { useTheme } from "@/contexts/theme-context";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
-import { openCookieSettings } from "@/utils/cookieManager";
+import { openCookieSettings } from "@/utils/cookie-manager";
 import { cn } from "@/lib/utils";
 
 const LANDING_SLUGS = [

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Link as IntlLink } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
-import { openCookieSettings } from "@/utils/cookieManager";
+import { openCookieSettings } from "@/utils/cookie-manager";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";

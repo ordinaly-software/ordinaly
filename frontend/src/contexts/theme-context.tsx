@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { isFunctionalAllowed } from '@/utils/cookieManager';
+import { isFunctionalAllowed } from '@/utils/cookie-manager';
 
 interface ThemeContextType {
   isDark: boolean;

@@ -1,28 +1,20 @@
 "use client";
 
-import { useEffect, useCallback, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
 import { useSiteData } from "@/contexts/site-data-context";
-import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
 import { HomeHero } from "@/components/home/home-hero";
-import { ServicesSection } from "@/components/home/services-section";
+import { ServicesShowcaseGrid } from "@/components/services/services-showcase-grid";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
-import { getWhatsAppUrl } from "@/utils/whatsapp";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import { ShieldCheck, Code2, Users } from "lucide-react";
 import { PartnerShowcase } from "@/components/ui/partner-showcase";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
 
-const ServiceShowcase = dynamic(
-  () => import("@/components/home/service-showcase").then((mod) => mod.default),
-  {
-    loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div>,
-  },
-);
 const CoursesShowcase = dynamic(
   () => import("@/components/home/courses-showcase").then((mod) => mod.default),
   {
@@ -203,9 +195,7 @@ export default function HomePage({
   const t = useTranslations("home");
   const servicesSectionRef = useRef<HTMLElement | null>(null);
 
-  const { services: allServices, courses: allCourses } = useSiteData();
-
-  const services = useMemo(() => allServices.slice(0, 6), [allServices]);
+  const { courses: allCourses } = useSiteData();
 
   const initialCourses = useMemo(() => {
     const getSortTime = (course: Course) => {
@@ -236,21 +226,6 @@ export default function HomePage({
   const trainingHighlight = t.rich("courses.trainingHighlight", {
     b: (chunks) => <strong>{chunks}</strong>,
   });
-
-  const noop = useCallback(() => {}, []);
-
-  const handleServiceContact = useCallback((service: Service) => {
-    const message = `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`;
-    const whatsappUrl = getWhatsAppUrl(message);
-    if (!whatsappUrl) return;
-    window.open(whatsappUrl, '_blank');
-  }, []);
-
-  const handleWhatsAppChat = useCallback(() => {
-    const whatsappUrl = getWhatsAppUrl(t('defaultWhatsAppMessage'));
-    if (!whatsappUrl) return;
-    window.open(whatsappUrl, '_blank');
-  }, [t]);
 
   const [shouldRenderDeferredSections, setShouldRenderDeferredSections] = useState(false);
   const [showWhatsAppBubble, setShowWhatsAppBubble] = useState(false);
@@ -314,7 +289,7 @@ export default function HomePage({
       window.removeEventListener("scroll-animate:refresh", handleRefresh);
       observer.disconnect();
     };
-  }, [services]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
@@ -327,7 +302,7 @@ export default function HomePage({
       />
 
       {/* Why choose us: explainer video + USP cards */}
-      <section id="services" ref={servicesSectionRef} className="py-12 px-4 sm:px-6 lg:px-8">
+      <section id="why-us" className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1600px] mx-auto space-y-16">
           {/* Section header */}
           <div className="text-center scroll-animate fade-in-up">
@@ -385,19 +360,8 @@ export default function HomePage({
               {t("services.subtitle")}
             </p>
           </div>
-            
-          {/* Full service carousel */}
-          <ServiceShowcase
-            services={services}
-            isLoading={false}
-            isOnVacation={false}
-            error={null}
-            t={t}
-            refetch={noop}
-            onContact={handleServiceContact}
-            cardTitleTag="h4"
-          />
 
+          <ServicesShowcaseGrid />
         </div>
     </section>
 

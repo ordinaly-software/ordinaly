@@ -1,5 +1,4 @@
 import { getApiEndpoint } from "@/lib/api-config";
-import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
 
 const fetchJson = async <T,>(url: string): Promise<T | null> => {
@@ -20,11 +19,6 @@ const extractItems = <T,>(data: unknown): T[] => {
   }
   return [];
 };
-
-export async function getSiteServices(): Promise<Service[]> {
-  const data = await fetchJson<unknown>(getApiEndpoint("/api/services/"));
-  return extractItems<Service>(data).filter((service) => !service.draft);
-}
 
 export async function getSiteCourses(): Promise<Course[]> {
   const data = await fetchJson<unknown>(getApiEndpoint("/api/courses/courses/"));

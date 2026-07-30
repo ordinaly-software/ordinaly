@@ -1,12 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Footer from "@/components/ui/footer";
 import ContactForm from "@/components/ui/contact-form.client";
-import { ServiceCard } from "@/components/services/service-card";
-import type { Service } from "@/hooks/useServices";
-import TimelineHorizontal from "@/components/ui/TimelineHorizontal";
+import TimelineHorizontal from "@/components/ui/timeline-horizontal";
 import { SecurityRequirements } from "@/components/ui/security-requirements";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
@@ -15,20 +14,49 @@ const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble")
   loading: () => <WhatsAppBubbleSkeleton />,
 });
 
-const FAKE_SERVICE_BASE: Pick<
-  Service,
-  "id" | "type" | "description" | "clean_description" | "is_featured" | "icon" | "color" | "created_at" | "updated_at"
-> = {
-  id: -1,
-  type: "SERVICE",
-  description: "",
-  clean_description: "",
-  is_featured: false,
-  icon: "share-2",
-  color: "arcilla",
-  created_at: "",
-  updated_at: "",
-};
+function PlatformCard({
+  title,
+  image,
+  accentColor,
+  onClick,
+  viewDetailsLabel,
+}: {
+  title: string;
+  image: string;
+  accentColor: string;
+  onClick: () => void;
+  viewDetailsLabel?: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group relative flex min-h-[380px] flex-col justify-end overflow-hidden rounded-2xl border border-neutral-200 p-5 text-left transition duration-300 hover:-translate-y-0.5 hover:shadow-xl dark:border-neutral-700"
+    >
+      <div className="absolute inset-0">
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+      </div>
+      <div className="relative z-10">
+        <h3 className="text-lg md:text-xl font-bold leading-snug text-white">{title}</h3>
+        {viewDetailsLabel && (
+          <span
+            className="mt-2 inline-flex items-center text-sm font-semibold text-white/90 group-hover:underline"
+            style={{ color: accentColor }}
+          >
+            {viewDetailsLabel}
+          </span>
+        )}
+      </div>
+    </button>
+  );
+}
 
 export default function AutomatizacionRedesSocialesPage() {
   const messages = useMessages() as any;
@@ -44,20 +72,6 @@ export default function AutomatizacionRedesSocialesPage() {
     } else {
       document.querySelector(contactHref)?.scrollIntoView({ behavior: "smooth" });
     }
-  };
-
-  const metaService: Service = {
-    ...FAKE_SERVICE_BASE,
-    title: content.cards?.meta?.label ?? "Instagram + Facebook (Meta)",
-    image: "/static/mail/meta.png",
-    color_hex: "#d97757",
-  };
-
-  const linkedinService: Service = {
-    ...FAKE_SERVICE_BASE,
-    title: content.cards?.linkedin?.label ?? "LinkedIn",
-    image: "/static/mail/linkedin.png",
-    color_hex: "#0A66C2",
   };
 
   return (
@@ -100,11 +114,12 @@ export default function AutomatizacionRedesSocialesPage() {
 
         <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
           <div className="flex flex-col gap-5">
-            <ServiceCard
-              service={metaService}
+            <PlatformCard
+              title={content.cards?.meta?.label ?? "Instagram + Facebook (Meta)"}
+              image="/static/icons/platforms/meta.png"
+              accentColor="#d97757"
               onClick={openContact}
               viewDetailsLabel={content.cards?.meta?.ctaLabel}
-              className="min-h-[380px]"
             />
             <ul className="space-y-2">
               {(content.cards?.meta?.bullets ?? []).map((bullet: string, i: number) => (
@@ -127,11 +142,12 @@ export default function AutomatizacionRedesSocialesPage() {
           </div>
 
           <div className="flex flex-col gap-5">
-            <ServiceCard
-              service={linkedinService}
+            <PlatformCard
+              title={content.cards?.linkedin?.label ?? "LinkedIn"}
+              image="/static/icons/platforms/linkedin.png"
+              accentColor="#0A66C2"
               onClick={openContact}
               viewDetailsLabel={content.cards?.linkedin?.ctaLabel}
-              className="min-h-[380px]"
             />
             <ul className="space-y-2">
               {(content.cards?.linkedin?.bullets ?? []).map((bullet: string, i: number) => (

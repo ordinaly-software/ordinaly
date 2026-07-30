@@ -14,8 +14,7 @@ export async function verifyRecaptchaToken(token: unknown): Promise<{
   }
 
   if (typeof token !== "string" || !token.trim()) {
-    // Client couldn't load reCAPTCHA script (e.g. domain not registered, ad blocker) — allow through
-    return { ok: true };
+    return { ok: false, status: 400, error: "Missing reCAPTCHA token" };
   }
 
   try {

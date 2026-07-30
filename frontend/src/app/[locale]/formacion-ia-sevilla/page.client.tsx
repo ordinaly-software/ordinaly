@@ -11,7 +11,7 @@ const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble")
 });
 import CardStackDemo from "@/components/ui/card-stack-demo"
 import ContactForm from "@/components/ui/contact-form.client";
-import Carousel3D from "@/components/ui/carrusel3D";
+import Carousel3D from "@/components/ui/carousel-3d";
 import CoursesShowcase from "@/components/home/courses-showcase";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 

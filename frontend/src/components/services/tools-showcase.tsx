@@ -11,8 +11,8 @@ import {
   IconBrandStripe,
   IconDatabase,
 } from "@tabler/icons-react";
-import { IconN8n, IconOdoo } from "@/components/services/brand-icons";
-import LogoLoop from "@/components/LogoLoop";
+import { IconN8n, IconOdoo } from "@/components/ui/brand-icons";
+import LogoLoop from "@/components/ui/logo-loop";
 import { cn } from "@/lib/utils";
 
 const ICON_SIZE = 36;

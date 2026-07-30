@@ -4,7 +4,7 @@ import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
-import TimelineHorizontal from "@/components/ui/TimelineHorizontal";
+import TimelineHorizontal from "@/components/ui/timeline-horizontal";
 import { SecurityRequirements } from "@/components/ui/security-requirements";
 import { AutomationFlow } from "@/components/ui/automation-flow";
 import ReCaptchaWrapper from "../recaptcha-provider";

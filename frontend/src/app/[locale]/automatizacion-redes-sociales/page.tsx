@@ -4,7 +4,7 @@ import { createPageMetadata } from "@/lib/metadata";
 import AutomatizacionRedesSocialesPage from "./page.client";
 
 const slug = "automatizacion-redes-sociales" as const;
-const AUTOMATIZACION_REDES_SOCIALES_HERO_IMAGE = "/static/mail/meta.png";
+const AUTOMATIZACION_REDES_SOCIALES_HERO_IMAGE = "/static/icons/platforms/meta.png";
 type LandingMetadataContent = {
   title: string;
   description: string;

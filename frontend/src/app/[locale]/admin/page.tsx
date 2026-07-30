@@ -15,8 +15,8 @@ export async function generateMetadata({
     path: "/admin",
     title: isEs ? "Panel de administración" : "Admin dashboard",
     description: isEs
-      ? "Gestiona servicios, cursos, usuarios y contenidos desde el panel de administración de Ordinaly."
-      : "Manage services, courses, users, and content from the Ordinaly admin dashboard.",
+      ? "Gestiona cursos, usuarios y contenidos desde el panel de administración de Ordinaly."
+      : "Manage courses, users, and content from the Ordinaly admin dashboard.",
     image: "/static/backgrounds/api_background.webp",
     index: false,
   });

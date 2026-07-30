@@ -6,7 +6,7 @@ const PRELOAD_IMAGES = [
   "/static/logos/logo_proinca_consultores_small.webp",
   "/static/logos/logo_guadalquivir_fincas_small.webp",
   "/static/logos/logo_madruga_consulting.webp",
-  "/static/logos/logo_sayc.webp.webp",
+  "/static/logos/logo_sayc.webp",
 ];
 
 export default function Head() {

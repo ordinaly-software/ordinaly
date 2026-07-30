@@ -17,7 +17,6 @@ import { getWhatsAppUrl } from "@/utils/whatsapp";
 
 const AUTH_STATE_CHANGE_EVENT = "auth-state-changed";
 const NAV_PRIORITY: Record<string, number> = {
-  services: 10,
   contact: 10,
   home: 8,
   faq: 6,
@@ -184,16 +183,7 @@ const Navbar = () => {
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
 
-  const { services: menuServices, courses: allMenuCourses } = useSiteData();
-
-  // Services: show up to 6, prioritize highlighted (is_featured), hide menu if none
-  const featuredServices = useMemo(() => {
-    if (!menuServices || menuServices.length === 0) return [];
-    const featured = menuServices.filter((s) => s.is_featured);
-    const nonFeatured = menuServices.filter((s) => !s.is_featured);
-    const combined = [...featured, ...nonFeatured];
-    return combined.slice(0, 6);
-  }, [menuServices]);
+  const { courses: allMenuCourses } = useSiteData();
 
   // Courses: show at least 1 (even if past/no date), hide menu if none at all
   const menuCourses = useMemo(() => {
@@ -423,14 +413,14 @@ const Navbar = () => {
   const navItems = useMemo(
     () => [
       { id: "home", type: "link", href: "/", label: t("navigation.home") },
-      ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/servicios", label: t("navigation.services") }] : []),
+      { id: "services", type: "link", href: "/servicios", label: t("navigation.services") },
       ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formacion", label: t("navigation.formation") }] : []),
       ...(locale !== "en" ? [{ id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") }] : []),
       { id: "faq", type: "link", href: "/faq", label: t("navigation.faq") },
       { id: "nosotros", type: "link", href: "/nosotros", label: t("navigation.us") },
       { id: "contact", type: "link", href: "/contacto", label: t("navigation.contact") },
     ],
-    [t, locale, featuredServices.length, menuCourses.length],
+    [t, locale, menuCourses.length],
   );
 
   const showCta = true;
@@ -475,7 +465,6 @@ const Navbar = () => {
   );
 
   const isBlogSectionActive = pathname.includes("/blog") || pathname.includes("/news");
-  const shouldLoadServiceImages = activeMegaItem === t("navigation.services");
   const shouldLoadCourseImages = activeMegaItem === t("navigation.formation");
 
   return (
@@ -515,27 +504,6 @@ const Navbar = () => {
                         item.id === "blog" ? isBlogSectionActive : isLinkActive(item.href)
                       }
                     >
-                      {item.id === "services" && (
-                        <div className="min-w-[360px] sm:min-w-[480px] lg:min-w-[600px]">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {featuredServices.length > 0 &&
-                              featuredServices.map((service) => (
-                                <ProductItem
-                                  key={service.id}
-                                  title={service.title}
-                                  description=""
-                                  href={`/${service.slug ?? service.id}`}
-                                  src={service.image || ""}
-                                  loadOnHover={false}
-                                  loadEnabled={shouldLoadServiceImages}
-                                />
-                              ))}
-                          </div>
-                          <div className="mt-3">
-                            <HoveredLink href="/servicios">{t("navigation.serviceSubmenu")}</HoveredLink>
-                          </div>
-                        </div>
-                      )}
                       {item.id === "formation" && (
                         <div className="grid grid-cols-1 gap-3 min-w-[360px]">
                           {menuCourses.length > 0 &&
@@ -647,33 +615,6 @@ const Navbar = () => {
           >
             <div className="py-4 px-4 sm:px-6">
               <div className="flex flex-col space-y-3">
-                {featuredServices.length > 0 && (
-                  <MobileSection
-                    title={t("navigation.services")}
-                    isOpen={mobileSection === "services"}
-                    onToggle={() => toggleMobileSection("services")}
-                  >
-                    {featuredServices.length > 0 &&
-                      featuredServices.map((service) => (
-                        <Link
-                          key={service.id}
-                          href={`/${service.slug ?? service.id}`}
-                          onClick={() => setIsMenuOpen(false)}
-                          className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] hover:text-clay dark:hover:text-clay"
-                        >
-                          {service.title}
-                        </Link>
-                      ))}
-                    <Link
-                      href="/servicios"
-                      onClick={() => setIsMenuOpen(false)}
-                      className="block rounded-md px-2 py-2 text-sm font-semibold text-clay dark:text-clay hover:text-clay dark:hover:text-clay"
-                    >
-                      {t("navigation.serviceSubmenu")}
-                    </Link>
-                  </MobileSection>
-                )}
-
                 {menuCourses.length > 0 && (
                   <MobileSection
                     title={t("navigation.formation")}
@@ -745,6 +686,18 @@ const Navbar = () => {
                     )}
                   >
                     {t("navigation.home")}
+                  </Link>
+                  <Link
+                    href="/servicios"
+                    onClick={() => setIsMenuOpen(false)}
+                    className={cn(
+                      "transition-colors py-3 px-2 block rounded-md font-medium",
+                      isLinkActive("/servicios")
+                        ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
+                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
+                    )}
+                  >
+                    {t("navigation.services")}
                   </Link>
                   <Link
                     href="/faq"

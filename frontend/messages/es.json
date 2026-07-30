@@ -76,33 +76,7 @@
     },
     "services": {
       "title": "Nuestros servicios",
-      "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos, además de automatizaciones personalizadas. Especialistas en PYMES.",
-      "noServices": "Ahora mismo estamos de vacaciones. ¡Volvemos pronto con nuevos servicios y productos! Gracias por tu paciencia.",
-      "extra": {
-        "0": {
-          "title": "Implementación rápida",
-          "description": "Primeros resultados visibles en 2-4 semanas. Trabajamos por fases para valor inmediato."
-        },
-        "1": {
-          "title": "100% personalizable",
-          "description": "No usamos plantillas genéricas. Cada solución se diseña específicamente para tu negocio."
-        },
-        "2": {
-          "title": "Soporte continuo",
-          "description": "Equipo técnico en Sevilla disponible. Actualizaciones y mejoras incluidas en el servicio."
-        }
-      },
-      "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
-      "vacationTitle": "De vacaciones",
-      "retryButton": "Reintentar",
-      "viewAllServicesAndProducts": "Ver todo el catálogo",
-      "viewCatalog": "Todo el catálogo",
-      "video": "Vídeo",
-      "playVideo": "Reproducir vídeo",
-      "errorTitle": "Error cargando servicios",
-      "errorMessage": "No se pudieron cargar los servicios",
-      "previous": "Anterior",
-      "next": "Siguiente"
+      "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos, además de automatizaciones personalizadas. Especialistas en PYMES."
     },
     "useCases": {
       "title": "Casos de éxito de automatización IA",
@@ -1390,66 +1364,9 @@
       "odooNote": "Posibilidad de añadir VeriFactu",
       "pwa": "Desarrollo de aplicaciones web multiplataforma (PWA)"
     },
-    "productsAndServicesTitle": "Nuestros productos y servicios",
-    "productsAndServicesDescription": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar",
-    "productsSectionTitle": "Productos encapsulados",
-    "servicesSectionTitle": "Servicios personalizados",
-    "toolsEyebrow": "Nuestra stack tecnológica",
-    "toolsTitle": "Las herramientas que usamos para construir tus proyectos",
-    "searchPlaceholder": "Buscar productos y servicios...",
-    "requisites": "Requisitos",
     "featured": "Destacado",
-    "details": "Detalles",
-    "duration": "Tiempo de implantación",
-    "durationDay": "1 día",
-    "durationDays": "días",
-    "price": "Precio",
-    "contactForQuote": "Consultar precio",
-    "contactUs": "Contáctanos",
-    "learnMore": "Ver detalles",
-    "share": {
-      "label": "Comparte este servicio:",
-      "whatsapp": "WhatsApp",
-      "facebook": "Facebook",
-      "linkedin": "LinkedIn",
-      "shareMessage": "Descubre este servicio de {siteTag}: \"{title}\" - {subtitle}",
-      "copyLink": "Copiar link"
-    },
-    "filters": {
-      "all": "Todos el catálogo",
-      "featured": "Solo destacados",
-      "service": "Servicios personalizados",
-      "product": "Productos encapsulados"
-    },
-    "noResults": {
-      "title": "No se encontraron servicios ni productos",
-      "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar lo que buscas"
-    },
-    "cta": {
-      "title": "¿Listo para transformar tu negocio?",
-      "description": "Hablemos sobre cómo nuestros servicios pueden ayudarte a alcanzar tus objetivos de transformación digital",
-      "contact": "Ponte en contacto",
-      "call": "Programar una llamada",
-      "emailSubject": "Consulta sobre servicios de Ordinaly",
-      "emailBody": "Hola, estoy interesado en conocer más sobre sus servicios de transformación digital. ¿Podrían proporcionarme más información?\n\nGracias"
-    },
-    "contact": {
-      "title": "Contáctanos",
-      "name": "Nombre completo",
-      "namePlaceholder": "Ingresa tu nombre completo",
-      "email": "Correo electrónico",
-      "emailPlaceholder": "Ingresa tu correo electrónico",
-      "phone": "Número de teléfono",
-      "phonePlaceholder": "Ingresa tu número de teléfono",
-      "company": "Empresa",
-      "companyPlaceholder": "Ingresa el nombre de tu empresa",
-      "service": "Servicio de interés",
-      "servicePlaceholder": "¿Qué servicio te interesa?",
-      "message": "Mensaje",
-      "messagePlaceholder": "Cuéntanos sobre tu proyecto o requerimientos...",
-      "cancel": "Cancelar",
-      "send": "Enviar mensaje"
-    }
+    "toolsEyebrow": "Nuestra stack tecnológica",
+    "toolsTitle": "Las herramientas que usamos para construir tus proyectos"
   },
   "formation": {
     "enrollmentSuccess": {
@@ -2929,22 +2846,61 @@
       },
       "included": {
         "items": [
-          { "title": "Análisis funcional del proyecto", "description": "" },
-          { "title": "Diseño y desarrollo de PWA dinámica a tu medida", "description": "" },
-          { "title": "Estructura escalable y mantenible", "description": "" },
-          { "title": "Optimización de rendimiento y SEO técnico", "description": "" },
-          { "title": "Despliegue en infraestructura del cliente", "description": "" },
-          { "title": "Pruebas y validación final", "description": "" }
+          {
+            "title": "Análisis funcional del proyecto",
+            "description": ""
+          },
+          {
+            "title": "Diseño y desarrollo de PWA dinámica a tu medida",
+            "description": ""
+          },
+          {
+            "title": "Estructura escalable y mantenible",
+            "description": ""
+          },
+          {
+            "title": "Optimización de rendimiento y SEO técnico",
+            "description": ""
+          },
+          {
+            "title": "Despliegue en infraestructura del cliente",
+            "description": ""
+          },
+          {
+            "title": "Pruebas y validación final",
+            "description": ""
+          }
         ]
       },
       "ventajas": [
-        { "title": "Alto rendimiento y velocidad de carga", "description": "" },
-        { "title": "Instalable sin pasar por tiendas de apps", "description": "" },
-        { "title": "Compatible con todos los dispositivos", "description": "" },
-        { "title": "Optimizada para SEO", "description": "" },
-        { "title": "Actualizaciones inmediatas sin descargas", "description": "" },
-        { "title": "Menor coste frente a apps nativas", "description": "" },
-        { "title": "Mayor control y seguridad", "description": "" }
+        {
+          "title": "Alto rendimiento y velocidad de carga",
+          "description": ""
+        },
+        {
+          "title": "Instalable sin pasar por tiendas de apps",
+          "description": ""
+        },
+        {
+          "title": "Compatible con todos los dispositivos",
+          "description": ""
+        },
+        {
+          "title": "Optimizada para SEO",
+          "description": ""
+        },
+        {
+          "title": "Actualizaciones inmediatas sin descargas",
+          "description": ""
+        },
+        {
+          "title": "Menor coste frente a apps nativas",
+          "description": ""
+        },
+        {
+          "title": "Mayor control y seguridad",
+          "description": ""
+        }
       ],
       "security": {
         "requirements": [
@@ -3003,9 +2959,18 @@
         ]
       },
       "ventajas": [
-        { "title": "Más trazabilidad", "description": "" },
-        { "title": "Menos errores", "description": "" },
-        { "title": "Más tiempo libre", "description": "" }
+        {
+          "title": "Más trazabilidad",
+          "description": ""
+        },
+        {
+          "title": "Menos errores",
+          "description": ""
+        },
+        {
+          "title": "Más tiempo libre",
+          "description": ""
+        }
       ],
       "pricing": {
         "individualPrice": "Presupuesto a consultar",

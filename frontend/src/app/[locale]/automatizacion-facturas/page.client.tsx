@@ -7,7 +7,7 @@ import { Mail, FolderOpen, ScanLine, FileSearch, Archive, ShieldCheck, Zap, File
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
-import TimelineHorizontal from "@/components/ui/TimelineHorizontal";
+import TimelineHorizontal from "@/components/ui/timeline-horizontal";
 import { FolderReveal } from "@/components/ui/folder-reveal";
 import { HoverEffectCards } from "@/components/ui/card-hover-effect";
 import { SecurityRequirements } from "@/components/ui/security-requirements";

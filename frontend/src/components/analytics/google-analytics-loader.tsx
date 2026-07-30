@@ -1,10 +1,34 @@
 "use client";
 
 import Script from "next/script";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
 
 const GA_TAG_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID;
+
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
+function PageViewTracker() {
+  const pathname = usePathname();
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    // The initial gtag('config', ...) call already reports the first page_view.
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (typeof window.gtag !== "function") return;
+    window.gtag("event", "page_view", { page_path: pathname });
+  }, [pathname]);
+
+  return null;
+}
 
 export default function GoogleAnalyticsLoader() {
   const preferences = useCookiePreferences();
@@ -40,6 +64,7 @@ export default function GoogleAnalyticsLoader() {
           gtag('config','${GA_TAG_ID}')
         `}
       </Script>
+      <PageViewTracker />
     </>
   );
 }

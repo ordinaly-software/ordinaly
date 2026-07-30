@@ -12,7 +12,7 @@ import {
   Headset,
   Globe,
 } from "lucide-react";
-import { IconOdoo } from "@/components/services/brand-icons";
+import { IconOdoo } from "@/components/ui/brand-icons";
 import { cn } from "@/lib/utils";
 
 function Tile({
@@ -91,14 +91,14 @@ export function ServicesShowcaseGrid() {
       <Tile
         href="/automatizacion-redes-sociales"
         title={t("showcase.meta")}
-        image="/static/mail/meta.png"
+        image="/static/icons/platforms/meta.png"
         icon={<Instagram className="h-10 w-10" />}
         className="h-56 sm:col-span-2"
       />
       <Tile
         href="/automatizacion-redes-sociales"
         title={t("showcase.linkedin")}
-        image="/static/mail/linkedin.png"
+        image="/static/icons/platforms/linkedin.png"
         icon={<Linkedin className="h-10 w-10" />}
         className="h-56 sm:col-span-2"
       />

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { useOutsideClick } from "@/hooks/use-outside-click";
+import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 
 export interface AppleModalProps {

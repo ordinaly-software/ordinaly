@@ -75,35 +75,8 @@
       }
     },
     "services": {
-      "kicker": "Our services",
       "title": "Our AI automation agency",
-      "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs.",
-      "noServices": "No services available.",
-      "extra": {
-        "0": {
-          "title": "Fast implementation",
-          "description": "First visible results in 2-4 weeks. We work by phases for immediate value."
-        },
-        "1": {
-          "title": "100% customizable",
-          "description": "We don't use generic templates. Each solution is designed specifically for your business."
-        },
-        "2": {
-          "title": "Continuous support",
-          "description": "Technical team in Seville available. Updates and improvements included in the service."
-        }
-      },
-      "vacationMessage": "We're on vacation! Our services will return soon after the holidays. Thank you for your patience",
-      "vacationTitle": "On vacation",
-      "retryButton": "Retry",
-      "viewAllServicesAndProducts": "See the entire catalog",
-      "viewCatalog": "The whole catalog",
-      "video": "Video",
-      "playVideo": "Play video",
-      "errorTitle": "Error loading services",
-      "errorMessage": "Services could not be loaded",
-      "previous": "Previous",
-      "next": "Next"
+      "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs."
     },
     "useCases": {
       "title": "Success stories: AI automation agency",
@@ -1391,66 +1364,9 @@
       "odooNote": "VeriFactu can be added",
       "pwa": "Multiplatform web app development (PWA)"
     },
-    "productsAndServicesTitle": "Our products and services",
-    "productsAndServicesDescription": "Discover our personalized services and exclusive, closed products. Choose what fits your business: from tailored consulting to ready-to-use solutions.",
-    "productsSectionTitle": "Closed products",
-    "servicesSectionTitle": "Personalized services",
-    "toolsEyebrow": "Our tech stack",
-    "toolsTitle": "The tools we use to build your projects",
-    "searchPlaceholder": "Search services and products...",
-    "requisites": "Requisites",
     "featured": "Featured",
-    "details": "Details",
-    "duration": "Duration",
-    "durationDay": "1 day",
-    "durationDays": "days",
-    "price": "Price",
-    "contactForQuote": "Contact for quote",
-    "contactUs": "Contact us",
-    "learnMore": "Learn more",
-    "share": {
-      "label": "Share this service:",
-      "whatsapp": "WhatsApp",
-      "facebook": "Facebook",
-      "linkedin": "LinkedIn",
-      "shareMessage": "Discover this service from {siteTag}: \"{title}\" - {subtitle}",
-      "copyLink": "Copy link"
-    },
-    "filters": {
-      "all": "All services",
-      "featured": "Featured only",
-      "service": "Services",
-      "product": "Products"
-    },
-    "noResults": {
-      "title": "No services found",
-      "description": "Try adjusting your search terms or filters to find what you're looking for."
-    },
-    "cta": {
-      "title": "Ready to transform your business?",
-      "description": "Let's discuss how our services can help you achieve your digital transformation goals.",
-      "contact": "Get in touch",
-      "call": "Schedule a call",
-      "emailSubject": "Inquiry about Ordinaly services",
-      "emailBody": "Hello, I'm interested in learning more about your digital transformation services. Could you please provide me with more information?\n\nThank you."
-    },
-    "contact": {
-      "title": "Contact us",
-      "name": "Full name",
-      "namePlaceholder": "Enter your full name",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email address",
-      "phone": "Phone number",
-      "phonePlaceholder": "Enter your phone number",
-      "company": "Company",
-      "companyPlaceholder": "Enter your company name",
-      "service": "Service of interest",
-      "servicePlaceholder": "Which service are you interested in?",
-      "message": "Message",
-      "messagePlaceholder": "Tell us about your project or requirements...",
-      "cancel": "Cancel",
-      "send": "Send message"
-    }
+    "toolsEyebrow": "Our tech stack",
+    "toolsTitle": "The tools we use to build your projects"
   },
   "formation": {
     "enrollmentSuccess": {
@@ -2930,22 +2846,61 @@
       },
       "included": {
         "items": [
-          { "title": "Functional analysis of the project", "description": "" },
-          { "title": "Design and development of a dynamic PWA tailored to you", "description": "" },
-          { "title": "Scalable, maintainable structure", "description": "" },
-          { "title": "Performance optimization and technical SEO", "description": "" },
-          { "title": "Deployment on the client's infrastructure", "description": "" },
-          { "title": "Final testing and validation", "description": "" }
+          {
+            "title": "Functional analysis of the project",
+            "description": ""
+          },
+          {
+            "title": "Design and development of a dynamic PWA tailored to you",
+            "description": ""
+          },
+          {
+            "title": "Scalable, maintainable structure",
+            "description": ""
+          },
+          {
+            "title": "Performance optimization and technical SEO",
+            "description": ""
+          },
+          {
+            "title": "Deployment on the client's infrastructure",
+            "description": ""
+          },
+          {
+            "title": "Final testing and validation",
+            "description": ""
+          }
         ]
       },
       "ventajas": [
-        { "title": "High performance and fast loading", "description": "" },
-        { "title": "Installable without app stores", "description": "" },
-        { "title": "Compatible with all devices", "description": "" },
-        { "title": "Optimized for SEO", "description": "" },
-        { "title": "Instant updates with no downloads", "description": "" },
-        { "title": "Lower cost than native apps", "description": "" },
-        { "title": "Greater control and security", "description": "" }
+        {
+          "title": "High performance and fast loading",
+          "description": ""
+        },
+        {
+          "title": "Installable without app stores",
+          "description": ""
+        },
+        {
+          "title": "Compatible with all devices",
+          "description": ""
+        },
+        {
+          "title": "Optimized for SEO",
+          "description": ""
+        },
+        {
+          "title": "Instant updates with no downloads",
+          "description": ""
+        },
+        {
+          "title": "Lower cost than native apps",
+          "description": ""
+        },
+        {
+          "title": "Greater control and security",
+          "description": ""
+        }
       ],
       "security": {
         "requirements": [
@@ -3004,9 +2959,18 @@
         ]
       },
       "ventajas": [
-        { "title": "More traceability", "description": "" },
-        { "title": "Fewer errors", "description": "" },
-        { "title": "More free time", "description": "" }
+        {
+          "title": "More traceability",
+          "description": ""
+        },
+        {
+          "title": "Fewer errors",
+          "description": ""
+        },
+        {
+          "title": "More free time",
+          "description": ""
+        }
       ],
       "pricing": {
         "individualPrice": "Quote on request",

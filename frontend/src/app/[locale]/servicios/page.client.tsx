@@ -24,7 +24,7 @@ const ServicesPage = () => {
         <div className="max-w-7xl mx-auto">
           <div className="relative mb-10 overflow-hidden rounded-3xl bg-neutral-100 dark:bg-neutral-800 aspect-[21/6]">
             <Image
-              src="/static/servicios/banner-productos.png"
+              src="/static/backgrounds/services_background.webp"
               alt={t("showcase.bannerAlt")}
               fill
               priority

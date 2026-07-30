@@ -3,19 +3,15 @@ import { metadataBaseUrl } from "@/lib/metadata";
 import { client } from "@/lib/sanity";
 
 const PUBLIC_LANDING_SLUGS = [
-  "chatbots-empresas-sevilla",
   "automatizaciones-chatbots",
   "automatizacion-n8n",
   "automatizacion-redes-sociales",
-  "agentes-ia-atencion-cliente-sevilla",
-  "automatizacion-whatsapp-business-sevilla",
   "automatizacion-facturas",
   "automatizacion-informes",
   "implantacion-odoo",
   "desarrollo-de-app-webs",
   "automatizaciones-personalizadas",
   "formacion-ia-sevilla",
-  "integraciones-crm-erp-sevilla",
 ] as const;
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
@@ -72,12 +68,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
       })()) ?? [];
 
-    const services =
-      (await fetchApiCollection<{ slug?: string; draft?: boolean }>(
-        "/api/services/",
-        apiBase,
-      )).filter((s) => !s?.draft) ?? [];
-
     const courses =
       (await fetchApiCollection<{ slug?: string }>(
         "/api/courses/courses/",
@@ -101,12 +91,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     );
 
     slugs.forEach((slug) => addPath(`/${slug}`, "weekly", 0.7));
-
-    services.forEach((service) => {
-      const identifier = service?.slug?.trim();
-      if (!identifier) return;
-      addPath(`/${identifier}`, "weekly", 0.8);
-    });
 
     // Local SEO landings
     PUBLIC_LANDING_SLUGS.forEach((slug) => addPath(`/${slug}`, "weekly", 0.85));

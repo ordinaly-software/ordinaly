@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getCookiePreferences } from "@/utils/cookieManager";
-import type { CookiePreferences } from "@/utils/cookieManager";
+import { getCookiePreferences } from "@/utils/cookie-manager";
+import type { CookiePreferences } from "@/utils/cookie-manager";
 
 export function useCookiePreferences() {
   const [preferences, setPreferences] = useState<CookiePreferences | null>(null);

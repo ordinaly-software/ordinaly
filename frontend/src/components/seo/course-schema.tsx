@@ -1,7 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { absoluteAssetUrl, absoluteUrl, metadataBaseUrl } from "@/lib/metadata";
 import { getApiEndpoint } from "@/lib/api-config";
-import type { Service } from "@/hooks/useServices";
 import type { Course } from "@/hooks/useCourses";
 
 const SITE_URL = metadataBaseUrl;
@@ -28,16 +27,6 @@ const extractItems = <T,>(data: unknown): T[] => {
   }
   return [];
 };
-
-const getServices = unstable_cache(
-  async (): Promise<Service[]> => {
-    const data = await fetchJson<unknown>(getApiEndpoint("/api/services/"));
-    const items = extractItems<Service>(data);
-    return items.filter((service) => !service.draft);
-  },
-  ["schema-services"],
-  { revalidate: REVALIDATE_SECONDS },
-);
 
 const getCourses = unstable_cache(
   async (): Promise<Course[]> => {
@@ -163,15 +152,14 @@ const buildShippingDetails = () => {
   };
 };
 
-const getServicePath = (service: Service) => `/${service.slug || service.id}`;
 const getCoursePath = (course: Course) => `/formacion/${course.slug || course.id}`;
 
-type CommerceSchemaProps = {
+type CourseSchemaProps = {
   locale?: string;
 };
 
-export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
-  const [services, courses] = await Promise.all([getServices(), getCourses()]);
+export default async function CourseSchema({ locale }: CourseSchemaProps) {
+  const courses = await getCourses();
   const merchantReturnPolicy = buildMerchantReturnPolicy(locale);
   const shippingDetails = buildShippingDetails();
 
@@ -239,46 +227,6 @@ export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
 
   const organizationReference = { "@id": organizationId };
 
-  const serviceOffers = services
-    .filter((service) => Boolean(service.title))
-    .map((service) => {
-      const url = absoluteUrl(getServicePath(service), locale);
-      const description = (service.clean_description ?? service.description ?? "").trim();
-      const price = parsePrice(service.price ?? null);
-      const isProduct = service.type === "PRODUCT";
-      const offerId = `${url}#offer`;
-      const item: Record<string, unknown> = {
-        "@type": isProduct ? "Product" : "Service",
-        "@id": url,
-        name: service.title,
-        url,
-        provider: organizationReference,
-      };
-      if (service.subtitle) item.category = service.subtitle;
-      if (description) item.description = description;
-      const imageUrl = buildImageUrl(service.image ?? undefined);
-      if (imageUrl) item.image = imageUrl;
-
-      const offer: Record<string, unknown> = {
-        "@type": "Offer",
-        "@id": offerId,
-        url,
-        itemOffered: { "@id": url },
-      };
-      if (price !== null) {
-        offer.priceCurrency = DEFAULT_CURRENCY;
-        offer.price = price;
-        offer.availability = "https://schema.org/InStock";
-        offer.priceValidUntil = resolvePriceValidUntil();
-        offer.hasMerchantReturnPolicy = merchantReturnPolicy;
-        offer.shippingDetails = shippingDetails;
-      }
-      // Explicitly satisfy Google's Product requirements: Product must have offers/review/aggregateRating.
-      item.offers = { "@id": offerId };
-
-      return { offer, item };
-    });
-
   const courseOffers = courses
     .filter((course) => Boolean(course.title))
     .map((course) => {
@@ -327,15 +275,15 @@ export default async function CommerceSchema({ locale }: CommerceSchemaProps) {
       return { offer, item };
     });
 
-  const offers = [...serviceOffers.map((x) => x.offer), ...courseOffers.map((x) => x.offer)];
-  const items = [...serviceOffers.map((x) => x.item), ...courseOffers.map((x) => x.item)];
+  const offers = courseOffers.map((x) => x.offer);
+  const items = courseOffers.map((x) => x.item);
   const graph: Record<string, unknown>[] = [organization, localBusiness, ...items, ...offers];
 
   if (offers.length > 0) {
     const offerCatalog = {
       "@type": "OfferCatalog",
       "@id": catalogId,
-      name: "Servicios, productos y formación",
+      name: "Formación",
       itemListElement: offers,
     };
     organization.hasOfferCatalog = { "@id": catalogId };

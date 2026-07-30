@@ -8,7 +8,7 @@ import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { HoverEffectCards } from "@/components/ui/card-hover-effect";
 import { SecurityRequirements } from "@/components/ui/security-requirements";
-import { IconOdoo } from "@/components/services/brand-icons";
+import { IconOdoo } from "@/components/ui/brand-icons";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 

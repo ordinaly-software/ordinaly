@@ -12,13 +12,13 @@ import { getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/
 import { ThemeProvider } from "@/contexts/theme-context";
 import { EmailVerificationProvider } from "@/contexts/email-verification-context";
 import { SiteDataProvider } from "@/contexts/site-data-context";
-import { getSiteServices, getSiteCourses } from "@/lib/site-data";
+import { getSiteCourses } from "@/lib/site-data";
 import { NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
 import GoogleAnalyticsLoader from "@/components/analytics/google-analytics-loader";
 import AutoKeywords from "@/components/seo/auto-keywords";
-import CommerceSchema from "@/components/seo/commerce-schema";
+import CourseSchema from "@/components/seo/course-schema";
 
 
 const inter = Inter({
@@ -137,7 +137,7 @@ export default async function RootLayout({
 
   setRequestLocale(locale);
 
-  const [services, courses] = await Promise.all([getSiteServices(), getSiteCourses()]);
+  const courses = await getSiteCourses();
 
   return (
     <html lang={locale} data-scroll-behavior="smooth" className={inter.variable} suppressHydrationWarning>
@@ -148,7 +148,7 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
         />
-        <CommerceSchema locale={locale} />
+        <CourseSchema locale={locale} />
         {/* Theme init (tu script) */}
         <Script
           id="theme-init"
@@ -199,7 +199,7 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <ThemeProvider>
               <EmailVerificationProvider>
-                <SiteDataProvider services={services} courses={courses}>
+                <SiteDataProvider courses={courses}>
                   <ServiceWorkerRegistrar />
                   <AutoKeywords />
                   <Navbar />

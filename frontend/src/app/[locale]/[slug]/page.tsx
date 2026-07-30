@@ -1,46 +1,9 @@
 import type { Metadata } from "next";
 import { createPageMetadata, defaultDescription } from "@/lib/metadata";
-import { getApiEndpoint } from "@/lib/api-config";
 import { notFound } from "next/navigation";
 import { client } from "@/lib/sanity";
 import { postBySlug } from "@/lib/queries";
 import { urlFor } from "@/lib/image";
-
-type Service = {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  image?: string | null;
-};
-
-const FALLBACK_API_BASE_URL = "https://api.ordinaly.ai";
-const FALLBACK_OG_IMAGE = "/og-image.png";
-
-const resolveServiceOgImage = (rawImage?: string | null) => {
-  if (!rawImage) return FALLBACK_OG_IMAGE;
-  const trimmed = rawImage.trim();
-  if (!trimmed) return FALLBACK_OG_IMAGE;
-  if (/^https?:\/\//i.test(trimmed)) {
-    return trimmed.replace(/^http:\/\/api\.ordinaly\.ai/i, "https://api.ordinaly.ai");
-  }
-  if (trimmed.startsWith("//")) return `https:${trimmed}`;
-  if (trimmed.startsWith("/static/")) return trimmed;
-  const apiBaseUrl = (process.env.NEXT_PUBLIC_API_URL || FALLBACK_API_BASE_URL).replace(/\/$/, "");
-  const normalizedPath = trimmed.startsWith("/") ? trimmed : `/${trimmed}`;
-  return `${apiBaseUrl}${normalizedPath}`;
-};
-
-async function fetchService(slug: string): Promise<Service | null> {
-  try {
-    const res = await fetch(getApiEndpoint(`/api/services/${slug}/`), {
-      next: { revalidate: 300 },
-    });
-    if (res.ok) return res.json();
-  } catch {
-    // ignore
-  }
-  return null;
-}
 
 async function fetchBlogPost(slug: string) {
   try {
@@ -78,35 +41,16 @@ export async function generateMetadata({
     });
   }
 
-  // Check if it's a service slug
-  const service = await fetchService(slug);
-  if (service) {
-    const fallbackTitle = isEs
-      ? "Servicios y productos de automatización con IA"
-      : "AI automation services and products";
-    const fallbackDescription = isEs
-      ? defaultDescription
-      : "AI automation services and products for companies looking to scale with intelligent workflows.";
-    const title = service.title || fallbackTitle;
-    const description = service.subtitle || service.description || fallbackDescription;
-    const image = resolveServiceOgImage(service.image);
-
-    return createPageMetadata({ locale, path: `/${slug}`, title, description, image });
-  }
-
   // Unknown slug — return non-indexable fallback
   return createPageMetadata({
     locale,
     path: `/${slug}`,
-    title: isEs ? "Servicios de automatización" : "Automation services",
+    title: isEs ? "Página no encontrada" : "Page not found",
     description: defaultDescription,
-    image: "/static/backgrounds/services_background.webp",
+    image: "/og-image.png",
     index: false,
   });
 }
-
-const getServicesPage = () =>
-  import("../servicios/page.client").then((m) => m.default);
 
 const getBlogPostClient = () =>
   import("@/components/blog/blog-post-client").then((m) => m.default);
@@ -146,13 +90,6 @@ export default async function SlugPage({
         <BlogPostClient post={post} />
       </>
     );
-  }
-
-  // Service (check API)
-  const service = await fetchService(slug);
-  if (service) {
-    const ServicesPage = await getServicesPage();
-    return <ServicesPage />;
   }
 
   // Nothing found
