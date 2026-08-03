@@ -15,7 +15,7 @@ import {
 import { IconOdoo } from "@/components/ui/brand-icons";
 import { cn } from "@/lib/utils";
 
-function Tile({
+export function Tile({
   href,
   title,
   image,

@@ -178,7 +178,14 @@ const Footer = () => {
             </div>
 
             <div className="mt-5 space-y-2 text-sm leading-relaxed">
-              <p>{t("footer.contact.location")}</p>
+              <a
+                href="https://maps.app.goo.gl/2a4Rheb6u94wFe46A"
+                target="_blank"
+                rel="noreferrer"
+                className="block transition hover:text-clay"
+              >
+                {t("footer.contact.location")}
+              </a>
               <a
                 href={`mailto:${t("footer.contact.email")}`}
                 className="block transition hover:text-clay"

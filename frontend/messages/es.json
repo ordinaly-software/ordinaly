@@ -37,7 +37,7 @@
     "hero": {
       "titleLine1": "Automatizaciones",
       "titleLine2": "para Pymes",
-      "subtitle": "Implementamos flujos de automatización de trabajo y chatbots con IA",
+      "subtitle": "Desarrollamos e implantamos flujos de trabajo automatizados con inteligencia artificial",
       "description1": "Estas herramientas te ayudarán a reducir las actividades manuales y repetitivas mientras tus ventas se aceleran. También impartimos formación profesional para empresas de la mano de ingenieros especializados en software e IA.",
       "trust1": "Para contables, administradores, inmobiliarias, y más",
       "trust2": "Agentes de IA 24/7 para ventas y atención al cliente",
@@ -49,11 +49,11 @@
       "card1Label": "Agentes de IA 24/7 para ventas y atención al cliente",
       "card1Value": "Automatización de consultas, generación de leads y soporte continuo con inteligencia artificial.",
       "card2Label": "Formación profesional para empresas",
-      "card2Value": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo.",
+      "card2Value": "Cursos prácticos sobre CRM, ERP y herramientas de IA para que tu equipo sea autónomo.",
       "card3Label": "Equipo de ingenieros especializados",
       "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
-      "card4Label": "Nuestra oficina",
-      "card4Value": "Plaza del Duque de la Victoria 1, 3º 9. 41002, Sevilla, España."
+      "card4Label": "Nuestras oficinas",
+      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla, España."
     },
     "whyUs": {
       "title": "Por qué elegirnos",
@@ -70,7 +70,7 @@
         },
         "2": {
           "title": "Equipo de ingenieros especializados",
-          "description": "En software, ciencias de la computación e ingeniería de calidad."
+          "description": "en ingeniería de software, ciencias de la computación, inteligencia artificial e ingeniería de calidad."
         }
       }
     },
@@ -134,7 +134,7 @@
     },
     "testimonials": {
       "title": "Lo que dicen nuestros clientes",
-      "googleSummary": "{rating} en Google · {count} reseñas",
+      "googleSummary": "{rating} en Google - {count} reseñas",
       "googleLink": "Ver todas en Google",
       "googleWrite": "Dejar una reseña",
       "googleSource": "Reseña de Google",
@@ -161,30 +161,26 @@
       }
     },
     "partners": {
-      "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos con IA"
+      "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos"
     },
     "faq": {
       "title": "Preguntas frecuentes",
       "items": {
         "0": {
           "question": "¿Necesito saber de tecnología para trabajar con vosotros?",
-          "answer": "No. Nosotros nos encargamos de todo el proceso técnico: análisis, desarrollo, implementación y puesta en marcha. Tu equipo solo necesita aprender a usar la herramienta una vez está lista, y para eso también te formamos."
+          "answer": "Sí. Pero no necesitas ser un experto. Nosotros nos encargamos de la parte técnica y siempre hacemos que nuestros clientes comprendan cómo funciona las cosas. Además, ofrecemos formación para que tu equipo sea autónomo y no dependa de nosotros para todo."
         },
         "1": {
           "question": "¿Cuánto tiempo tarda en estar listo?",
-          "answer": "Depende del proyecto, pero la mayoría de automatizaciones están operativas en 2 a 4 semanas. Trabajamos por fases para que veas resultados rápido, sin esperar meses a tener algo funcionando."
+          "answer": "Depende del proyecto, pero la mayoría de automatizaciones están operativas en 2 a 4 semanas. Trabajamos por sprints para que veas resultados rápido, usando metodologías ágiles de desarrollo."
         },
         "2": {
-          "question": "¿Cuánto cuesta automatizar mi negocio?",
-          "answer": "Cada proyecto es distinto, por eso no siempre trabajamos con tarifas cerradas. Tras una primera conversación gratuita te hacemos una propuesta ajustada a lo que necesitas y a tu presupuesto. Sin sorpresas."
+          "question": "¿Qué pasa si la automatización falla o necesito hacer cambios?",
+          "answer": "Ordinaly ofrece de manera adicional y opcional un soporte técnico para mantener y actualizar tus sistemas. También ofrecemos formación para que tu equipo pueda ser capaz de hacer cambios por sí mismo."
         },
         "3": {
-          "question": "¿Qué pasa si la automatización falla o necesito hacer cambios?",
-          "answer": "El servicio incluye soporte continuo y actualizaciones. No desaparecemos tras la entrega: somos tu equipo técnico online y en Sevilla disponible cuando lo necesites."
-        },
-        "4": {
-          "question": "¿En qué se diferencia Ordinaly de otras agencias?",
-          "answer": "No usamos plantillas genéricas ni soluciones estándar. Cada automatización la diseñamos desde cero adaptada a tu negocio, y siempre que lo necesites nos puedes llamar, visitar o reunirte con nosotros."
+          "question": "¿Porqué Ordinaly es diferente?",
+          "answer": "No usamos plantillas genéricas ni soluciones estándar. Cada automatización se diseña desde cero adaptada a tu negocio, y siempre que lo necesites nos puedes llamar, visitar o reunirte con nosotros. Creemos en el trato personal y personalizado, y en la transparencia de nuestros procesos. Además, somos especialistas en PYMES y trabajamos con software libre (FLOSS) y europeo."
         }
       }
     },
@@ -296,9 +292,9 @@
       "noSpecificDate": "Fechas por confirmar",
       "locationSoon": "Ubicación próximamente",
       "showcaseTitle": "Automatizaciones y más",
-      "showcaseDescription": "En Ordinaly, ofrecemos cursos de formación profesional para empresas y profesionales que desean aprovechar al máximo las tecnologías emergentes.",
+      "showcaseDescription": "En Ordinaly, ofrecemos cursos de formación profesional para empresas para ayudar a dominar herramientas de software, ERP y CRM, así como herramientas de inteligencia artificial aplicada a la automatización de procesos.",
       "homeTitle": "Te formamos",
-      "homeSubtitle": "Con formación práctica y sin necesidad de conocimientos previos",
+      "homeSubtitle": "Formación práctica bonificable, impartida por ingenieros especializados en software e inteligencia artificial.",
       "trainingHighlight": "Si tu equipo acaba de estrenar un <b>ERP</b>, quiere entender de verdad la <b>Inteligencia Artificial</b> o ponerse al día en <b>digitalización</b>, ¡nosotros te ayudamos!",
       "upcomingTitle": "Próximos cursos",
       "upcomingDescription": "Descubre nuestros cursos de formación",
@@ -340,7 +336,7 @@
         "title": "ORDINALY",
         "alt": "Ordinaly Agencia de Automatización"
       },
-      "description": "Automatización, agentes IA y formación desde Sevilla para equipos que necesitan operar mejor.",
+      "description": "Automatización de procesos, aplicaciones web y formación para empresas.",
       "sections": {
         "navigate": "Navegar",
         "company": "Empresa",
@@ -1362,11 +1358,15 @@
       "chatbotRecepcionista": "Chatbot recepcionista",
       "odoo": "Implantación Odoo",
       "odooNote": "Posibilidad de añadir VeriFactu",
-      "pwa": "Desarrollo de aplicaciones web multiplataforma (PWA)"
+      "chatbotRecepcionistaNote": "Chatbot de llamadas entrantes y salientes",
+      "automationNote": "con n8n, Make o Zapier",
+      "pwa": "Desarrollo de aplicaciones web multiplataforma (PWA)",
+      "viewCatalog": "Catálogo completo",
+      "viewCatalogCta": "Ver todos los servicios",
+      "viewMore": "Ver más"
     },
     "featured": "Destacado",
-    "toolsEyebrow": "Nuestra stack tecnológica",
-    "toolsTitle": "Las herramientas que usamos para construir tus proyectos"
+    "toolsTitle": "Nuestro stack tecnológico"
   },
   "formation": {
     "enrollmentSuccess": {
@@ -1377,7 +1377,7 @@
       "message": "Te has inscrito correctamente."
     },
     "title": "Formación profesional",
-    "subtitle": "Avanza en tu carrera con nuestros programas de formación integral diseñados por expertos de la industria",
+    "subtitle": "Avanza en tu carrera con nuestros planes de formación diseñados por ingenieros",
     "searchPlaceholder": "Buscar cursos...",
     "free": "Gratuito",
     "price": "Precio",
@@ -1410,44 +1410,28 @@
       "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar el curso perfecto para ti"
     },
     "faq": {
-      "title": "FAQ de nuestros talleres y formaciones",
-      "subtitle": "Resolvemos tus dudas antes de apuntarte a un taller de Ordinaly",
+      "title": "Preguntas frecuentes sobre nuestros cursos y formaciones",
+      "subtitle": "Resolvemos todas tus dudas antes de apuntarte a un curso de Ordinaly",
       "items": {
         "0": {
-          "q": "¿Necesito conocimientos previos de informática o programación?",
-          "a": "No. Nuestros talleres están pensados para empresarios, autónomos y equipos sin perfil técnico; explicamos cada herramienta paso a paso con casos prácticos del día a día de una pyme. Si algún curso concreto requiere conocimientos previos, lo indicamos claramente en su ficha antes de que te apuntes."
+          "q": "¿Necesito conocimientos previos de programación?",
+          "a": "No. Nuestros talleres están pensados para empresarios, autónomos y equipos de cualquier perfil. No es necesario tener conocimientos de programación ni experiencia previa en automatización o inteligencia artificial. Ofrecemos cursos para todos los niveles, desde principiantes hasta avanzados, y adaptamos los contenidos según el grupo de asistentes."
         },
         "1": {
-          "q": "¿Cuántas plazas hay disponibles y cómo me apunto?",
-          "a": "Cada taller tiene un aforo limitado que puedes consultar en su ficha, junto con las plazas que ya se han cubierto. Para apuntarte solo necesitas crear una cuenta gratuita y pulsar \"Apuntarme\" en el curso que te interese; recibirás la confirmación por email al momento."
-        },
-        "2": {
           "q": "¿Qué necesito llevar (portátil, cuenta de correo, etc.)?",
           "a": "Para los talleres presenciales necesitas traer tu propio portátil (con cargador) y una cuenta de correo activa, como Gmail, para seguir los ejercicios en tiempo real. Si un taller requiere algo adicional, te lo avisamos por email unos días antes."
         },
-        "3": {
+        "2": {
           "q": "¿Se entrega algún certificado o diploma al finalizar?",
-          "a": "Sí, todas las personas que completan el taller reciben un certificado de participación de Ordinaly, útil para acreditar la formación ante tu empresa o para tu propio perfil profesional."
+          "a": "Sí, todas las personas que completan el taller reciben un certificado de participación de Ordinaly, útil para acreditar la formación ante tu empresa o para tu currículum."
+        },
+        "3": {
+          "q": "¿Qué pasa si me apunto y no puedo asistir? ¿Se puede cancelar o cambiar de fecha?",
+          "a": "Puedes cancelar tu inscripción sin coste desde tu perfil en nuestra web hasta 24 horas antes del inicio del taller, liberando tu plaza para otra persona. Si necesitas cambiar de fecha, escríbenos y te ayudamos a moverte a la próxima edición según disponibilidad."
         },
         "4": {
-          "q": "¿Qué pasa si me apunto y no puedo asistir? ¿Se puede cancelar o cambiar de fecha?",
-          "a": "Puedes cancelar tu inscripción sin coste desde tu perfil hasta 24 horas antes del inicio del taller, liberando tu plaza para otra persona. Si necesitas cambiar de fecha, escríbenos y te ayudamos a moverte a la próxima edición según disponibilidad."
-        },
-        "5": {
-          "q": "¿Los talleres se adaptan al nivel de la empresa o son siempre genéricos?",
-          "a": "Partimos de un temario base, pero antes de cada sesión revisamos el nivel y el sector de los asistentes para ajustar ejemplos, ritmo y ejercicios prácticos. Así, tanto un equipo que empieza de cero como uno con experiencia previa en IA sacan partido real al taller."
-        },
-        "6": {
-          "q": "¿Con qué frecuencia organizáis nuevas ediciones del taller?",
-          "a": "Programamos nuevas ediciones de forma periódica, normalmente cada pocas semanas, según la demanda. Puedes ver las próximas fechas confirmadas en esta misma página y, si ninguna te encaja, escríbenos para avisarte en cuanto abramos una nueva convocatoria."
-        },
-        "7": {
           "q": "¿Puedo solicitar una formación personalizada para mi sector?",
-          "a": "Sí. Además de los talleres abiertos, diseñamos formaciones a medida para equipos y sectores concretos (inmobiliaria, retail, servicios profesionales, etc.), con contenidos y casos de uso adaptados a tu negocio. Cuéntanos tu caso y te preparamos una propuesta."
-        },
-        "8": {
-          "q": "Después del taller, ¿ofrecéis acompañamiento para implementar lo aprendido?",
-          "a": "Sí. Muchos de nuestros clientes siguen trabajando con nosotros tras el taller para implementar las automatizaciones vistas en clase: ofrecemos sesiones de seguimiento y soporte técnico para que lo aprendido se traduzca en procesos reales funcionando en tu empresa."
+          "a": "Sí. Además de los cursos abiertos, diseñamos formaciones a medida para equipos y sectores concretos (inmobiliaria, agencias de marketing, clínicas, administraciones de fincas, etc.), con contenidos y casos de uso adaptados a tu negocio."
         }
       },
       "viewAllLabel": "Ver todas las preguntas frecuentes"
@@ -1472,6 +1456,7 @@
       "description": "Únete a miles de profesionales que han transformado sus carreras con nuestros programas de formación dirigidos por expertos",
       "contact": "Contactar asesor",
       "catalog": "Descargar catálogo",
+      "trust": "Valorado por los profesionales que ya se han formado con nosotros",
       "emailSubject": "Consulta sobre programas de formación de Ordinaly",
       "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias"
     },
@@ -1486,8 +1471,8 @@
       "bonificationNo": "No, pedir desde aquí",
       "bonificationMissingLink": "No hemos encontrado el enlace del curso bonificado. Contacta con soporte.",
       "bonificationInfo": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda.\n\nFUNDAE / SEPE - Formación programada por las empresas: permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas (FUNDAE) y Formación para ocupados (SEPE).\n\nFondos UE - FSE+ 2021-2027: programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte UAFSE.\n\nPRTR - NextGenerationEU (Componente 23): medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del Plan de Recuperación y del SEPE.\n\nAndalucía (ámbito autonómico): Programa FSE+ Andalucía 2021-2027 y Formación profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte Junta de Andalucía y FPE.",
-      "stepBonification": "Paso 1 · Bonificación",
-      "stepCheckout": "Paso 2 · Inscripción",
+      "stepBonification": "Paso 1 - Bonificación",
+      "stepCheckout": "Paso 2 - Inscripción",
       "paymentNote": "El procesamiento del pago se manejará en el siguiente paso",
       "confirmEnroll": "Confirmar inscripción",
       "name": "Nombre completo",
@@ -1539,7 +1524,7 @@
       "unenrollEndedRestriction": "No puedes cancelar la inscripción después de que el curso ha finalizado."
     },
     "slogan": "Soluciones de software y formación",
-    "introduction": "En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras",
+    "introduction": "En Ordinaly, ofrecemos cursos de formación profesional para empresas para ayudar a dominar herramientas de software, ERP y CRM, así como herramientas de inteligencia artificial aplicada a la automatización de procesos.",
     "coursesTitle": "Nuestros cursos",
     "time": "Horario:",
     "capacity": "Capacidad:",
@@ -1887,8 +1872,8 @@
       "eyebrow": "Soporte Ordinaly",
       "call": "¡Llámanos!",
       "title": "Contacta con el equipo de Ordinaly",
-      "subtitle": "Te ayudamos a definir el siguiente paso: diagnóstico, piloto, soporte operativo o formación para tu equipo. Desde Sevilla, con respuesta en menos de 24 horas.",
-      "primaryCta": "Abrir formulario",
+      "subtitle": "¿Tienes una idea de automatización, un proceso que quieres mejorar o buscas formación para tu equipo? Cuéntanos tu idea y te ayudamos a materializarla.",
+      "primaryCta": "Abrir formulario de contacto",
       "secondaryCta": "Ver servicios",
       "contactCardTitle": "¿Prefieres hablar directo?",
       "location": "Visitar estudio en Sevilla"
@@ -1966,7 +1951,7 @@
       "phoneLabel": "Teléfono",
       "addressLabel": "Oficina",
       "hoursLabel": "Disponibilidad",
-      "hoursValue": "L-V · 09:00-19:00 CET",
+      "hoursValue": "L-V - 09:00-19:00 CET",
       "socialTitle": "Síguenos"
     },
     "form": {
@@ -1992,19 +1977,19 @@
     },
     "formAside": {
       "title": "Qué incluir para que podamos responder mejor",
-      "subtitle": "Cuanto más contexto tengamos, más precisa será la propuesta inicial.",
+      "subtitle": "Cuanto más contexto tengamos, más precisa será la propuesta inicial. Puedes ordenar tus ideas de la siguiente manera:",
       "items": {
         "0": {
-          "label": "Proceso",
-          "value": "Explica qué parte del trabajo quieres automatizar o mejorar."
+          "label": "1. Qué hacéis y cómo trabajáis",
+          "value": "Explícanos en un par de líneas qué hacéis en vuestra empresa y cómo trabajáis actualmente."
         },
         "1": {
-          "label": "Herramientas",
-          "value": "Indica si ya usáis CRM, ERP, WhatsApp, email marketing o flujos en n8n."
+          "label": "2. Objetivo principal",
+          "value": "Cuéntanos si buscas ahorrar tiempo, vender más, responder mejor. Pregúntate qué tareas quieres que deje de hacer tu equipo y qué quieres que haga la automatización."
         },
         "2": {
-          "label": "Objetivo",
-          "value": "Cuéntanos si buscas ahorrar tiempo, vender más, responder mejor o formar al equipo."
+          "label": "3. Requisitos indispensables para tí",
+          "value": "Indícanos qué herramientas y sistemas usáis actualmente, y si hay alguna limitación técnica que debamos conocer, plazos que observar o requisitos de seguridad."
         }
       }
     },
@@ -2022,7 +2007,7 @@
       "3": {
         "name": "Emilio Cid Pérez",
         "role": "CEO, Experto en Márketing, publicidad y transformación digital & Co-founder",
-        "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
+        "quote": "Especialista en estrategias de marketing digital."
       },
       "title": "Nuestro equipo",
       "cta": "¡Conócenos!"
@@ -2062,42 +2047,43 @@
   },
   "usPage": {
     "hero": {
-      "tagline": "Sobre nosotros",
-      "title": "Automatizamos con un propósito",
-      "titleAccent": "un propósito",
-      "subtitle": "Un equipo multidisciplinar creando IA + automatización que mantiene a las personas en control y a los negocios avanzando.",
+      "title": "Automatizamos con cabeza ",
+      "titleAccent": "y corazón",
+      "subtitle": "Un equipo multidisciplinar con formación en ingeniería, ciencias de la computación e inteligencia artificial, que mantiene a las personas en control y en el centro de sus operaciones.",
       "ctaPrimary": "Conoce al equipo",
       "ctaSecondary": "¡Trabaja con nosotros!"
     },
     "about": {
       "whatQuestion": "¿Qué es Ordinaly?",
-      "whatAnswer": "Ordinaly Software S.L. es una empresa sevillana de automatización empresarial con IA (cuando es necesaria) que diseña, programa e instala chatbots y workflows para pymes y equipos corporativos.",
+      "whatAnswer": "Ordinaly Software S.L. es una empresa sevillana de automatización empresarial con IA que diseña, desarrolla y despliega workflows de automatización de procesos para pymes. Además desarrollamos software a medida como CRMs, ERPs, aplicaciones web y chatbots, y ofrecemos formación profesional para empresas en herramientas de software.",
       "goalQuestion": "¿Qué queremos conseguir?",
-      "goalAnswer": "En nuestra empresa tenemos la misión de potenciar el trabajo de las personas con las nuevas tecnologías, en lugar de sustituirlas. Queremos que las empresas, al utilizar nuestras automatizaciones, tengan tiempo para centrarse en la creatividad, las decisiones y las relaciones sociales; aquello que una máquina no debe hacer. Queremos que nuestros clientes se sientan cómodos y seguros con nuestros sistemas, por ello damos importancia a la transparencia y la simplicidad de estos para cualquier empresa."
+      "goalAnswer": "En nuestra empresa tenemos la misión de potenciar el trabajo de las personas con las nuevas tecnologías, en ningún lugar sustituirlas. Queremos que las empresas, al utilizar nuestras automatizaciones, tengan tiempo para centrarse en la creatividad, las decisiones y las relaciones sociales; aquello que una máquina no debe hacer. Queremos que nuestros clientes se sientan cómodos y seguros con nuestros sistemas, por ello damos importancia a la transparencia y la trazabilidad de estos para cualquier empresa."
+    },
+    "faq": {
+      "title": "Preguntas frecuentes"
     },
     "stats": {
       "teamLabel": "Más de 10 empresas transformadas",
       "teamValue": "+500 horas ahorradas a empresas andaluzas"
     },
     "story": {
-      "eyebrow": "Nuestra historia",
-      "lead": "Así nació Ordinaly, pensada para ayudar a empresarios y autónomos",
+      "title": "Nuestra historia",
       "timeline": {
         "1": {
-          "title": "Verano 2025 · La idea surge en la Universidad de Sevilla",
-          "body": "Mientras termina Ingeniería Informática, Antonio se une a Emilio y Guillermo para diseñar Ordinaly: un estudio de automatización pensado para liberar equipos de tareas repetitivas y mantener a las personas al mando."
+          "title": "Junio de 2025 - Origen de la idea en la Universidad de Sevilla",
+          "body": "Mientras termina Ingeniería Informática, Antonio se une a Emilio y Guillermo para crear Ordinaly. La idea nace de la necesidad de Emilio y Guillermo de automatizar las tareas más repetitivas en sus respectivas empresas. Durante el verano damos forma a la empresa, afinamos el modelo de negocio y creamos la marca."
         },
         "2": {
-          "title": "Verano 2025 · Marca, modelo de negocio y promesa",
-          "body": "Durante el verano sevillano damos forma a la empresa, afinamos el modelo y creamos la marca con una promesa clara: workflows con IA que entregan ROI rápido."
+          "title": "Septiembre de 2025 - Constitución de la empresa",
+          "body": "Lanzamos Ordinaly, y desde el principio arrancamos proyectos con nuestros primeros clientes. "
         },
         "3": {
-          "title": "Septiembre 2025 · Constituimos la empresa y llegan los primeros clientes",
-          "body": "Lanzamos Ordinaly, arrancamos proyectos con nuestros primeros clientes y entregamos pilotos mientras Antonio cursa su máster en Ciencias de la computación e inteligencia artificial."
+          "title": "En 2026 - Ordinaly arranca y consigue sus primeros clientes",
+          "body": "Mientras Antonio cursa su máster en Ciencias de la computación e Inteligencia Artificial, trabaja en Ordinaly con el apoyo de Emilio y Guillermo. Durantes este año, Ordinaly consigue sus 10 primeros clientes y empieza a escalar la automatización para más empresas."
         },
         "4": {
-          "title": "2026 · Escalamos la automatización para más empresas",
-          "body": "Redoblamos esfuerzos para que más organizaciones automaticen sus procesos, abandonen tareas repetitivas y comprueben el valor de la IA con resultados reales."
+          "title": "El futuro...",
+          "body": "Ordinaly, aún es una empresa joven, pero con un equipo bien formado y una visión clara. Nuestro objetivo es seguir creciendo, ayudando a más empresas a automatizar sus procesos y a aprovechar las oportunidades que ofrece la Inteligencia Artificial desde el conocimiento y la experiencia."
         }
       }
     },
@@ -2115,13 +2101,13 @@
       "3": {
         "name": "Emilio Cid Pérez",
         "role": "Experto en Márketing, publicidad y transformación digital & Co-founder",
-        "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
+        "quote": "Especialista en estrategias de marketing digital."
       },
-      "title": "Nuestro equipo"
+      "title": "Nuestro equipo fundador"
     },
     "cta": {
       "title": "Trabaja en Ordinaly y construye la próxima ola de automatizaciones",
-      "body": "Si te apasionan la IA, la automatización y el impacto medible, queremos conocerte. Envíanos tu CV o hablemos sobre cómo puedes ayudarnos a entregar más rápido.",
+      "body": "Si te apasionan la Inteligencia Artificial, la automatización y las innovaciones tecnológicas, queremos conocerte. Buscamos a perfiles bien formados y con ganas de aprender y aportar su visión.",
       "primary": "Enviar CV",
       "secondary": "Hablar con nosotros",
       "mailSubject": "CV para unirme a Ordinaly",
@@ -2631,7 +2617,7 @@
       "heroCtaLabel": "Planificar formación",
       "secondaryCtaLabel": "Consultar disponibilidad",
       "serviceType": "Formación en IA para ventas, soporte y operaciones",
-      "areaServed": "España · Sesiones presenciales y online",
+      "areaServed": "España - Sesiones presenciales y online",
       "valueProps": [
         "Sesiones construidas sobre ejemplos reales y tareas que el equipo ya realiza hoy.",
         "Módulos de seguridad, gobernanza y uso responsable adaptados a cada departamento.",

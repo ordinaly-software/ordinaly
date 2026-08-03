@@ -168,23 +168,19 @@
       "items": {
         "0": {
           "question": "Do I need to know about technology to work with you?",
-          "answer": "No. We take care of the whole technical process: analysis, development, implementation and rollout. Your team only needs to learn how to use the tool once it's ready, and we train you for that too."
+          "answer": "Yes. But you don't need to be an expert. We take care of the technical part and always make sure our clients understand how things work. Also, we offer training so your team can be self-sufficient and not depend on us for everything."
         },
         "1": {
           "question": "How long does it take to be ready?",
-          "answer": "It depends on the project, but most automations are operational within 2 to 4 weeks. We work in phases so you see results quickly, without waiting months for something to work."
+          "answer": "It depends on the project, but most automations are operational within 2 to 4 weeks. We work in sprints so you see results quickly, using agile development methodologies."
         },
         "2": {
-          "question": "How much does it cost to automate my business?",
-          "answer": "Every project is different, which is why we don't always work with fixed rates. After a first free conversation we put together a proposal tailored to what you need and your budget. No surprises."
+          "question": "What happens if the automation fails or I need to make changes?",
+          "answer": "Ordinaly offers additional and optional technical support to maintain and update your systems. We also offer training so your team can be capable of making changes by themselves."
         },
         "3": {
-          "question": "What happens if the automation fails or I need to make changes?",
-          "answer": "The service includes ongoing support and updates. We don't disappear after delivery: we're your technical team, online and in Seville, available whenever you need us."
-        },
-        "4": {
-          "question": "What sets Ordinaly apart from other agencies?",
-          "answer": "We don't use generic templates or standard solutions. We design every automation from scratch, tailored to your business, and you can always call, visit or meet with us whenever you need to."
+          "question": "Why is Ordinaly different?",
+          "answer": "We don't use generic templates or standard solutions. Each automation is designed from scratch adapted to your business, and you can always call us, visit us, or meet with us when you need. We believe in personal and personalized treatment, and in the transparency of our processes. Additionally, we are specialists in SMEs and work with free and open-source software (FLOSS) and European."
         }
       }
     },
@@ -1362,11 +1358,15 @@
       "chatbotRecepcionista": "Receptionist chatbot",
       "odoo": "Odoo implementation",
       "odooNote": "VeriFactu can be added",
-      "pwa": "Multiplatform web app development (PWA)"
+      "automationNote": "with n8n and Zapier",
+      "chatbotRecepcionistaNote": "Inbound and outbound calls",
+      "pwa": "Multiplatform web app development (PWA)",
+      "viewCatalog": "Full catalog",
+      "viewCatalogCta": "See all services",
+      "viewMore": "Learn more"
     },
     "featured": "Featured",
-    "toolsEyebrow": "Our tech stack",
-    "toolsTitle": "The tools we use to build your projects"
+    "toolsTitle": "Our technology stack"
   },
   "formation": {
     "enrollmentSuccess": {
@@ -1410,44 +1410,28 @@
       "description": "Try adjusting your search terms or filters to find the perfect course for you."
     },
     "faq": {
-      "title": "FAQ about our workshops and training",
-      "subtitle": "We answer your questions before you sign up for an Ordinaly workshop",
+      "title": "Frequently asked questions about our courses and training",
+      "subtitle": "We solve all your doubts before you sign up for a course at Ordinaly",
       "items": {
         "0": {
-          "q": "Do I need prior IT or programming knowledge?",
-          "a": "No. Our workshops are designed for business owners, freelancers, and teams without a technical background; we explain every tool step by step with real day-to-day SME cases. If a specific course does require some prior knowledge, we state it clearly on its listing before you sign up."
+          "q": "Do I need previous programming knowledge?",
+          "a": "No. Our workshops are designed for entrepreneurs, freelancers and teams of any profile. It is not necessary to have programming knowledge or previous experience in automation or artificial intelligence. We offer courses for all levels, from beginners to advanced, and we adapt the content according to the group of attendees."
         },
         "1": {
-          "q": "How many seats are available and how do I sign up?",
-          "a": "Each workshop has a limited capacity, shown on its listing along with how many seats are already taken. To sign up, just create a free account and click \"Enroll\" on the course you're interested in — you'll get an email confirmation right away."
+          "q": "What do I need to bring (laptop, email account, etc.)?",
+          "a": "For in-person workshops you need to bring your own laptop (with charger) and an active email account, such as Gmail, to follow the exercises in real-time. If a workshop requires something additional, we will notify you by email a few days in advance."
         },
         "2": {
-          "q": "What do I need to bring (laptop, email account, etc.)?",
-          "a": "For in-person workshops you need to bring your own laptop (with charger) and an active email account, such as Gmail, to follow the exercises live. If a workshop requires anything extra, we'll let you know by email a few days beforehand."
+          "q": "Do you issue any certificates or diplomas upon completion?",
+          "a": "Yes, all participants who complete the workshop receive a participation certificate from Ordinaly, useful for accrediting the training with your company or for your resume."
         },
         "3": {
-          "q": "Do you provide a certificate or diploma at the end?",
-          "a": "Yes, everyone who completes the workshop receives an Ordinaly certificate of participation, which you can use to document the training with your employer or for your own professional profile."
+          "q": "What happens if I sign up and can't attend? Can I cancel or change the date?",
+          "a": "You can cancel your enrollment without cost from your profile on our website up to 24 hours before the start of the workshop, freeing your spot for another person. If you need to change the date, please contact us and we will help you move to the next edition according to availability."
         },
         "4": {
-          "q": "What happens if I sign up and can't attend? Can I cancel or reschedule?",
-          "a": "You can cancel your enrollment at no cost from your profile up to 24 hours before the workshop starts, freeing up your seat for someone else. If you need to change dates, just contact us and we'll help you move to the next edition, subject to availability."
-        },
-        "5": {
-          "q": "Are the workshops tailored to the company's level, or always generic?",
-          "a": "We start from a base syllabus, but before each session we review attendees' level and sector to adjust examples, pace, and hands-on exercises. That way, both a team starting from scratch and one with prior AI experience get real value out of the workshop."
-        },
-        "6": {
-          "q": "How often do you run new editions of the workshop?",
-          "a": "We schedule new editions regularly, typically every few weeks, based on demand. You can see the next confirmed dates on this page, and if none of them fit, reach out and we'll notify you as soon as a new edition opens."
-        },
-        "7": {
-          "q": "Can I request customized training for my sector?",
-          "a": "Yes. Besides our open workshops, we design tailor-made training for specific teams and sectors (real estate, retail, professional services, etc.), with content and use cases adapted to your business. Tell us about your case and we'll put together a proposal."
-        },
-        "8": {
-          "q": "After the workshop, do you offer support to implement what we learned?",
-          "a": "Yes. Many of our clients keep working with us after the workshop to implement the automations covered in class: we offer follow-up sessions and technical support so what you learned turns into real processes running in your company."
+          "q": "Can I request a customized training for my industry?",
+          "a": "Yes. In addition to our open courses, we design customized training programs for specific teams and sectors (real estate, marketing agencies, clinics, property management companies, etc.), with content and use cases adapted to your business."
         }
       },
       "viewAllLabel": "See all frequently asked questions"
@@ -1472,6 +1456,7 @@
       "description": "Join thousands of professionals who have transformed their careers with our expert-led training programs.",
       "contact": "Contact advisor",
       "catalog": "Download catalog",
+      "trust": "Rated by the professionals who've already trained with us",
       "emailSubject": "Inquiry about Ordinaly formation programs",
       "emailBody": "Hello, I'm interested in learning more about your professional formation programs. Could you please provide me with more information about available courses and enrollment?\n\nThank you."
     },
@@ -2062,7 +2047,6 @@
   },
   "usPage": {
     "hero": {
-      "tagline": "About us",
       "title": "We automate with a purpose",
       "titleAccent": "a purpose",
       "subtitle": "A multidisciplinary team building AI + automation that keeps humans in control and businesses moving faster.",
@@ -2075,13 +2059,15 @@
       "goalQuestion": "What do we want to achieve?",
       "goalAnswer": "Our mission is to empower people's work with new technologies, rather than replace them. We want businesses that use our automations to have time to focus on creativity, decisions, and relationships — the things a machine shouldn't do. We want our clients to feel comfortable and secure with our systems, which is why we place real importance on keeping them transparent and simple for any company."
     },
+    "faq": {
+      "title": "Frequently asked questions"
+    },
     "stats": {
       "teamLabel": "More than 10 companies transformed",
       "teamValue": "+500 hours saved for Andalusian companies"
     },
     "story": {
-      "eyebrow": "Our story",
-      "lead": "This is how Ordinaly was born, built to help entrepreneurs and freelancers",
+      "title": "Our story",
       "timeline": {
         "1": {
           "title": "Summer 2025 · The idea takes shape at the University of Seville",
@@ -2121,7 +2107,7 @@
     },
     "cta": {
       "title": "Join Ordinaly and build the next wave of automation",
-      "body": "If you love AI, automation and measurable impact, we want to meet you. Send us your CV or reach out to talk about how you can help us ship faster.",
+      "body": "If you love AI, automation and technological innovation, we want to meet you. Send us your CV or reach out to talk about how you can help us ship faster.",
       "primary": "Send your CV",
       "secondary": "Talk with us",
       "mailSubject": "CV for Ordinaly",

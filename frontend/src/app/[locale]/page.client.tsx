@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { useSiteData } from "@/contexts/site-data-context";
 import type { Course } from "@/hooks/useCourses";
 import { HomeHero } from "@/components/home/home-hero";
-import { ServicesShowcaseGrid } from "@/components/services/services-showcase-grid";
+import { ServicesHighlightCarousel } from "@/components/home/services-highlight-carousel";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
@@ -14,6 +14,7 @@ import { ShieldCheck, Code2, Users } from "lucide-react";
 import { PartnerShowcase } from "@/components/ui/partner-showcase";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
+import { NewsletterBanner } from "@/components/ui/newsletter-banner";
 
 const CoursesShowcase = dynamic(
   () => import("@/components/home/courses-showcase").then((mod) => mod.default),
@@ -216,7 +217,7 @@ export default function HomePage({
 
   const homeFaqItems: FaqAccordionItem[] = useMemo(
     () =>
-      [0, 1, 2, 3, 4].map((index) => ({
+      [0, 1, 2, 3].map((index) => ({
         question: t(`faq.items.${index}.question`),
         answer: t(`faq.items.${index}.answer`),
       })),
@@ -361,7 +362,7 @@ export default function HomePage({
             </p>
           </div>
 
-          <ServicesShowcaseGrid />
+          <ServicesHighlightCarousel />
         </div>
     </section>
 
@@ -393,11 +394,16 @@ export default function HomePage({
           <DeferredSection>
             <TestimonialsSection t={t} titleTag="h3" />
           </DeferredSection>
+          <DeferredSection>
+            <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
+            <br />
+          </DeferredSection>
         </>
       ) : (
         <>
           <SectionSkeleton />
           <SectionSkeleton id="contacto" />
+          <SectionSkeleton />
           <SectionSkeleton />
         </>
       )}

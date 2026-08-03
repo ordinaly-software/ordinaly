@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 
 export interface AccordionImageItem {
@@ -9,6 +10,7 @@ export interface AccordionImageItem {
   label: string;
   sublabel?: string;
   imageUrl: string;
+  href?: string;
 }
 
 interface ImageAccordionProps {
@@ -50,8 +52,9 @@ export function ImageAccordion({
       {items.map((item, index) => {
         const isActive = index === activeIndex;
         return (
-          <div
+          <Link
             key={item.id}
+            href={item.href ?? "#"}
             className={cn(
               "relative rounded-2xl overflow-hidden cursor-pointer flex-shrink-0",
               "transition-all duration-700 ease-in-out",
@@ -59,7 +62,12 @@ export function ImageAccordion({
               isActive ? "flex-grow basis-[360px]" : "basis-[58px]",
             )}
             onMouseEnter={() => setActiveIndex(index)}
-            onClick={() => setActiveIndex(index)}
+            onClick={(e) => {
+              if (!item.href || !isActive) {
+                e.preventDefault();
+              }
+              setActiveIndex(index);
+            }}
           >
             {/* Background image */}
             <Image
@@ -102,7 +110,7 @@ export function ImageAccordion({
                 )}
               </div>
             )}
-          </div>
+          </Link>
         );
       })}
     </div>

@@ -16,10 +16,6 @@ const faqKeys = [
   { questionKey: "faq.items.2.q", answerKey: "faq.items.2.a" },
   { questionKey: "faq.items.3.q", answerKey: "faq.items.3.a" },
   { questionKey: "faq.items.4.q", answerKey: "faq.items.4.a" },
-  { questionKey: "faq.items.5.q", answerKey: "faq.items.5.a" },
-  { questionKey: "faq.items.6.q", answerKey: "faq.items.6.a" },
-  { questionKey: "faq.items.7.q", answerKey: "faq.items.7.a" },
-  { questionKey: "faq.items.8.q", answerKey: "faq.items.8.a" },
 ];
 
 export function FaqSection({ t, titleTag = "h2" }: SectionProps & { titleTag?: "h2" | "h3" }) {

@@ -194,6 +194,7 @@ export default function ContactPage() {
     () => [
       { src: "/static/contact/office_01.webp", alt: t("map.photoAlt") },
       { src: "/static/contact/office_02.webp", alt: t("map.photoAlt") },
+      { src: "/static/contact/office_03.webp", alt: t("map.photoAlt") },
     ],
     [t],
   );
@@ -234,8 +235,8 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
       <section className="relative overflow-hidden border-b border-[--color-border-subtle] dark:border-[--color-border-strong]">
-        <div className="relative u-container pb-14 pt-10 md:pb-20 md:pt-12">
-          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+        <div className="relative mx-auto w-full max-w-[1600px] px-4 pb-14 pt-10 sm:px-6 lg:px-8 md:pb-20 md:pt-12">
+          <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
               <Image
                 src="/logo.webp"
                 alt={tHome("logo.alt")}
@@ -264,13 +265,13 @@ export default function ContactPage() {
       
       <br/>
 
-      <section className="u-container pb-12 md:pb-16" id="direct-contacts">
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="pb-12 md:pb-16" id="direct-contacts">
+        <div className="mx-auto grid w-full max-w-[1600px] gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
           {contactChannels.map(({ icon: Icon, title, description, href, kind }) => (
             <a
               key={title}
               href={href}
-              className="group rounded-[1.75rem] border border-[--color-border-subtle] bg-white/75 p-5 transition hover:-translate-y-1 hover:border-clay/35 dark:border-white/10 dark:bg-white/[0.04]"
+              className="group flex h-full flex-col rounded-[1.75rem] border border-[--color-border-subtle] bg-white/75 p-5 transition hover:-translate-y-1 hover:border-clay/35 dark:border-white/10 dark:bg-white/[0.04]"
               target={kind === "external" && href.startsWith("http") ? "_blank" : undefined}
               rel={kind === "external" && href.startsWith("http") ? "noopener noreferrer" : undefined}
             >
@@ -289,9 +290,9 @@ export default function ContactPage() {
       </section>
 
       <section id="contact-form" className="bg-[--swatch--slate-dark] py-16 md:py-20">
-        <div className="u-container">
-        <div className="grid gap-6 lg:grid-cols-[0.72fr_1fr]">
-          <div className="rounded-[2rem] border border-white/10 bg-white/6 p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] md:p-8">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
+            <div className="h-full rounded-[2rem] border border-white/10 bg-white/6 p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] md:p-8">
             <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">
               {t("formAside.title")}
             </h2>
@@ -315,19 +316,20 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <ContactForm
-            className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0 [&>section]:bg-transparent"
-            recaptchaAction="contact_page_form"
-            recaptchaBadgeId="recaptcha-badge-contact-page"
-          />
-        </div>
+            <ContactForm
+              className="h-full [&>section]:max-w-none [&>section]:bg-transparent [&>section]:px-0 [&>section]:py-0"
+              recaptchaAction="contact_page_form"
+              recaptchaBadgeId="recaptcha-badge-contact-page"
+            />
+          </div>
         </div>
       </section>
 
-      <section className="u-container pb-12 md:pb-16" id="location">
-        <div className="mb-8 text-center"> </div>
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
-          <div className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
+      <section className="container pb-12 md:pb-16" id="location">
+        <div className="mx-auto w-full max-w-[3400px] px-4 sm:px-6 lg:px-8"/>
+          <div className="mb-8 text-center"> </div>
+          <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
+            <div className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
             <div className="border-b border-[--color-border-subtle] p-6 dark:border-white/10 md:p-8">
               <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">
                 {t("map.title")}
@@ -381,8 +383,8 @@ export default function ContactPage() {
           </div>
 
 
-          <div className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
-            <div className="relative min-h-[320px] flex-1">
+            <div className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
+              <div className="relative min-h-[320px] flex-1">
               <button
                 type="button"
                 onClick={() => setLocationImageIndex((prev) => (prev + 1) % locationImages.length)}
@@ -409,8 +411,8 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="u-container pb-12 md:pb-16">
-        <div className="mx-auto grid max-w-5xl gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
+      <section className="pb-12 md:pb-16">
+        <div className="mx-auto grid w-full max-w-[1600px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch lg:px-8">
           <div className="flex h-full flex-col gap-6">
             <div className="rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] dark:border-white/10 md:p-8">
               <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">
@@ -442,7 +444,7 @@ export default function ContactPage() {
               </Dock>
             </div>
 
-            <NewsletterBanner />
+            <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
           </div>
 
 

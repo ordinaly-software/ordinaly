@@ -1,15 +1,13 @@
 "use client";
 
-import React from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
-import { Button } from "@/components/ui/button";
-import { SimpleAccordion } from "@/components/ui/simple-accordion";
+import { useTranslations } from "next-intl";
+import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
 import { WorkWithUsSection } from "@/components/ui/work-with-us";
 import { Timeline } from "@/components/about/timeline";
-import { DraggableCardBody, DraggableCardContainer } from "@/components/ui/draggable-card";
-import { Rocket, ArrowRight, Linkedin } from "lucide-react";
+import { AboutHero } from "@/components/about/about-hero";
+import { Linkedin } from "lucide-react";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), {
   ssr: false,
@@ -22,8 +20,6 @@ const Footer = dynamic(() => import("@/components/ui/footer"), {
 
 export default function UsPage() {
   const t = useTranslations("usPage");
-  const locale = useLocale();
-  void locale;
 
   const team = [
     {
@@ -48,13 +44,12 @@ export default function UsPage() {
 
   const timelineMedia = {
     "1": "/static/about/story_01.webp",
-    "2": "/static/about/story_03.webp",
-    "3": "/logo.webp",
-    "4": "/static/about/story_2026.webp",
+    "2": "/static/about/story_02.webp",
+    "3": "/static/about/story_03.webp",
+    "4": "/static/about/story_04.webp",
   } as const;
 
   const timelineData = (["1", "2", "3", "4"] as const).map((key) => {
-    const isLogo = key === "3";
     return {
       title: t(`story.timeline.${key}.title`),
       media: (
@@ -63,7 +58,7 @@ export default function UsPage() {
           alt={t(`story.timeline.${key}.title`)}
           fill
           sizes="(min-width: 1024px) 224px, 100vw"
-          className={isLogo ? "object-contain p-6" : "object-cover"}
+          className="object-cover"
           priority={key === "1"}
         />
       ),
@@ -71,104 +66,14 @@ export default function UsPage() {
     };
   });
 
-  // "Automatizamos con un propósito" -> bold/accent the trailing phrase in place.
-  const heroTitle = t("hero.title");
-  const heroTitleAccent = t("hero.titleAccent");
-  const heroTitleLead = heroTitleAccent && heroTitle.endsWith(heroTitleAccent)
-    ? heroTitle.slice(0, heroTitle.length - heroTitleAccent.length)
-    : heroTitle;
-
-  const qaItems = [
+  const faqItems: FaqAccordionItem[] = [
     { question: t("about.whatQuestion"), answer: t("about.whatAnswer") },
     { question: t("about.goalQuestion"), answer: t("about.goalAnswer") },
   ];
 
   return (
     <div className="bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light min-h-screen mt-[-20px]">
-      {/* Hero */}
-      <section className="relative border-b border-[--color-border-subtle] dark:border-[--color-border-strong]">
-        <div className="relative u-container pb-14 pt-10 md:pb-20 md:pt-12">
-          <div className="grid gap-8 lg:grid-cols-[minmax(0,200px)_minmax(0,1fr)_minmax(0,200px)] lg:items-center">
-            {/* Left: team photo */}
-            <div className="hidden lg:flex flex-col items-center gap-4">
-              <DraggableCardContainer className="flex items-center justify-center [perspective:1200px]">
-                <DraggableCardBody className="min-h-0 w-52 h-64 rounded-[1.5rem] bg-white p-3 shadow-xl dark:bg-neutral-900">
-                  <div className="relative h-full w-full overflow-hidden rounded-[1.1rem]">
-                    <Image
-                      src="/static/about/story_03.webp"
-                      alt={t("testimonials.title")}
-                      fill
-                      sizes="208px"
-                      draggable={false}
-                      className="pointer-events-none object-cover"
-                    />
-                  </div>
-                </DraggableCardBody>
-              </DraggableCardContainer>
-              <Button asChild variant="outline" size="sm" className="dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10">
-                <a href="#team">{t("hero.ctaPrimary")}</a>
-              </Button>
-            </div>
-
-            {/* Center: headline card */}
-            <div className="rounded-[2rem] bg-white/82 p-7 text-center shadow-[0_24px_80px_-42px_rgba(20,20,19,0.32)] backdrop-blur-xl dark:bg-[rgba(10,16,26,0.78)] md:p-8">
-              <div className="space-y-5">
-                <h1 className="text-4xl font-semibold leading-tight tracking-[-0.04em] sm:text-5xl text-slate-dark dark:text-ivory-light">
-                  {heroTitleLead}
-                  <span className="font-extrabold text-clay">{heroTitleAccent}</span>
-                </h1>
-                <p className="mx-auto max-w-xl text-xl leading-relaxed text-slate-medium dark:text-[#DFDDD3]">
-                  {t("hero.subtitle")}
-                </p>
-                <div className="flex flex-wrap justify-center gap-3 pt-1 lg:hidden">
-                  <Button asChild variant="accent" className="shadow-lg shadow-clay/20">
-                    <a href="#team">
-                      <Rocket className="h-4 w-4 mr-2" />
-                      {t("hero.ctaPrimary")}
-                    </a>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    asChild
-                    className="dark:border-white/15 dark:bg-white/5 dark:hover:bg-white/10"
-                  >
-                    <a href="#cta">
-                      <ArrowRight className="h-4 w-4 mr-2" />
-                      {t("hero.ctaSecondary")}
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: office photo */}
-            <div className="hidden lg:flex flex-col items-center gap-4">
-              <DraggableCardContainer className="flex items-center justify-center [perspective:1200px]">
-                <DraggableCardBody className="min-h-0 w-52 h-64 rounded-[1.5rem] bg-white p-3 shadow-xl dark:bg-neutral-900">
-                  <div className="relative h-full w-full overflow-hidden rounded-[1.1rem]">
-                    <Image
-                      src="/static/contact/office_02.webp"
-                      alt=""
-                      fill
-                      sizes="208px"
-                      draggable={false}
-                      className="pointer-events-none object-cover"
-                    />
-                  </div>
-                </DraggableCardBody>
-              </DraggableCardContainer>
-              <Button asChild variant="accent" size="sm" className="shadow-lg shadow-clay/20">
-                <a href="#cta">{t("hero.ctaSecondary")}</a>
-              </Button>
-            </div>
-          </div>
-
-          {/* What is Ordinaly / what do we want to achieve */}
-          <div className="mx-auto mt-10 max-w-3xl rounded-[1.75rem] border border-[--color-border-subtle] bg-white/85 p-6 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-[rgba(10,16,26,0.78)] md:p-8">
-            <SimpleAccordion items={qaItems} />
-          </div>
-        </div>
-      </section>
+      <AboutHero />
 
       {/* Team */}
       <section className="bg-white dark:bg-gray-900/60 border-y border-gray-200 dark:border-gray-800" id="team">
@@ -205,14 +110,15 @@ export default function UsPage() {
       <section className="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <Timeline
           data={timelineData}
-          title={t("story.eyebrow")}
+          title={t("story.title")}
           titleClassName="text-3xl md:text-5xl font-bold text-clay dark:text-clay"
-          description={t("story.lead")}
           className="bg-transparent dark:bg-transparent"
         />
       </section>
 
-      <WorkWithUsSection id="cta" />
+      <FaqAccordion titleTag="h3" title={t("faq.title")} items={faqItems} />
+
+      <WorkWithUsSection id="cta" className="mb-16 md:mb-24" />
 
       <Footer />
     </div>

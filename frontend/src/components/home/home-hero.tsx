@@ -16,10 +16,12 @@ const accordionImages: Omit<AccordionImageItem, "label" | "sublabel">[] = [
   {
     id: 1,
     imageUrl: "/static/home/main_home_ilustration_1.webp",
+    href: "/formacion",
   },
   {
     id: 2,
     imageUrl: "/static/contact/office_01.webp",
+    href: "/nosotros",
   },
 ];
 
@@ -77,7 +79,10 @@ export function HomeHero({ t }: HeroProps) {
           {/* RIGHT: image accordion */}
           <div className="scroll-animate fade-in-up min-w-0">
             {/* Mobile / tablet: single static image card */}
-            <div className="relative lg:hidden rounded-2xl overflow-hidden h-[300px] sm:h-[380px] w-full">
+            <Link
+              href={accordionItems[0].href ?? "#"}
+              className="relative block lg:hidden rounded-2xl overflow-hidden h-[300px] sm:h-[380px] w-full"
+            >
               <Image
                 src={accordionItems[0].imageUrl}
                 alt={`${t("hero.titleLine1")} ${t("hero.titleLine2")} – ${accordionItems[0].label}`}
@@ -96,7 +101,7 @@ export function HomeHero({ t }: HeroProps) {
                   </p>
                 )}
               </div>
-            </div>
+            </Link>
             {/* Desktop: full interactive accordion */}
             <div className="hidden lg:block">
               <ImageAccordion

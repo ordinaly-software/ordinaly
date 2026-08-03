@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { ServicesShowcaseGrid } from "@/components/services/services-showcase-grid";
 import { ToolsShowcase } from "@/components/services/tools-showcase";
 import { UseCasesSection } from "@/components/home/use-cases-section";
-import { NewsletterSection } from "@/components/ui/newsletter-section";
+import { NewsletterBanner } from "@/components/ui/newsletter-banner";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
 const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false });
@@ -46,11 +46,13 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      <ToolsShowcase eyebrow={t("toolsEyebrow")} title={t("toolsTitle")} />
+      <ToolsShowcase title={t("toolsTitle")} />
 
       <UseCasesSection t={t_home} id="use-cases" />
 
-      <NewsletterSection />
+      <section className="px-4 pb-12 sm:px-6 md:pb-16 lg:px-8">
+        <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
+      </section>
       <WhatsAppBubble />
       <Footer />
     </div>
