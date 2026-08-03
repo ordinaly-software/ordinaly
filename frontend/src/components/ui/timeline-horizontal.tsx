@@ -11,14 +11,22 @@ const GRID_COLS_BY_COUNT: Record<number, string> = {
 
 export default function TimelineHorizontal({
   steps,
+  compact = false,
 }: {
   steps: { title: string; description: string }[];
+  compact?: boolean;
 }) {
   const colsClass = GRID_COLS_BY_COUNT[steps.length] ?? "md:grid-cols-4";
+  const maxWidthClass = compact ? "max-w-3xl" : "max-w-5xl";
+  const dotSizeClass = compact ? "w-8 h-8 text-sm" : "w-12 h-12 text-lg";
+  const titleSizeClass = compact ? "text-base" : "text-xl";
+  const descSizeClass = compact ? "text-xs" : "text-sm";
+  const gapClass = compact ? "gap-6" : "gap-10";
+  const bottomMarginClass = compact ? "mb-8" : "mb-16";
 
   return (
     <div className="w-full flex flex-col items-center">
-      <div className="relative w-full max-w-5xl mt-4 mb-16">
+      <div className={`relative w-full ${maxWidthClass} mt-4 ${bottomMarginClass}`}>
 
         <div className="absolute top-1/2 left-0 w-full h-[3px] bg-neutral-300 dark:bg-neutral-700 -translate-y-1/2" />
 
@@ -28,13 +36,13 @@ export default function TimelineHorizontal({
               key={index}
               whileHover={{ scale: 1.15 }}
               transition={{ type: "spring", stiffness: 200, damping: 15 }}
-              className="flex items-center justify-center w-12 h-12 bg-white dark:bg-neutral-800 border-2 border-neutral-400 dark:border-neutral-600 rounded-full shadow-md text-neutral-700 dark:text-white font-semibold text-lg">
+              className={`flex items-center justify-center ${dotSizeClass} bg-white dark:bg-neutral-800 border-2 border-neutral-400 dark:border-neutral-600 rounded-full shadow-md text-neutral-700 dark:text-white font-semibold`}>
               {index + 1}
             </motion.div>
           ))}
         </div>
       </div>
-      <div className={`grid grid-cols-1 ${colsClass} gap-10 w-full max-w-5xl`}>
+      <div className={`grid grid-cols-1 ${colsClass} ${gapClass} w-full ${maxWidthClass}`}>
         {steps.map((step, index) => (
           <motion.div
             key={index}
@@ -42,11 +50,11 @@ export default function TimelineHorizontal({
             transition={{ type: "spring", stiffness: 200, damping: 15 }}
             className="text-center px-4"
           >
-            <h3 className="text-xl font-semibold mb-2 dark:text-white">
+            <h3 className={`${titleSizeClass} font-semibold mb-2 dark:text-white`}>
               {step.title}
             </h3>
 
-            <p className="text-neutral-600 dark:text-neutral-100 text-sm leading-relaxed">
+            <p className={`text-neutral-600 dark:text-neutral-100 ${descSizeClass} leading-relaxed`}>
               {step.description}
             </p>
           </motion.div>

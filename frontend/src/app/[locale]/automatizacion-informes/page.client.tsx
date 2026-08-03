@@ -2,15 +2,11 @@
 
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
-import Image from "next/image";
-import { Database, ClipboardList, Send, Archive, Mail, ShieldCheck, Zap, RefreshCw, ClipboardCheck, Clock } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
-import { FolderReveal } from "@/components/ui/folder-reveal";
-import { HoverEffectCards } from "@/components/ui/card-hover-effect";
-import { SecurityRequirements } from "@/components/ui/security-requirements";
-import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
+import { InfoCardCarousel, type InfoCardItem } from "@/components/ui/info-card-carousel";
+import { HowItWorksVideoSection } from "@/components/ui/how-it-works-video-section";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
@@ -18,21 +14,7 @@ const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble")
   loading: () => <WhatsAppBubbleSkeleton />,
 });
 
-const FUNCIONES_ICONS = [
-  <Database key="database" className="w-5 h-5" />,
-  <ClipboardList key="clipboard-list" className="w-5 h-5" />,
-  <Send key="send" className="w-5 h-5" />,
-  <Archive key="archive" className="w-5 h-5" />,
-  <Mail key="mail" className="w-5 h-5" />,
-];
-
-const VENTAJAS_ICONS = [
-  <ShieldCheck key="shield" className="w-5 h-5" />,
-  <Zap key="zap" className="w-5 h-5" />,
-  <RefreshCw key="refresh" className="w-5 h-5" />,
-  <ClipboardCheck key="clipboard-check" className="w-5 h-5" />,
-  <Clock key="clock" className="w-5 h-5" />,
-];
+const CARD_SIZES: InfoCardItem["size"][] = ["lg", "sm", "md", "sm", "md", "sm"];
 
 export default function AutomatizacionInformes() {
   const messages = useMessages() as any;
@@ -42,66 +24,160 @@ export default function AutomatizacionInformes() {
     throw new Error("Missing landing content: automatizacion-informes");
   }
 
+  const funcionesCards: InfoCardItem[] = (content.funciones?.items ?? []).map(
+    (item: { title: string }, i: number) => ({
+      key: `funciones-${i}`,
+      size: CARD_SIZES[i % CARD_SIZES.length],
+      title: item.title,
+    }),
+  );
+
+  const ventajasCards: InfoCardItem[] = (content.ventajas ?? []).map(
+    (item: { title: string; description?: string }, i: number) => ({
+      key: `ventajas-${i}`,
+      size: CARD_SIZES[i % CARD_SIZES.length],
+      title: item.title,
+      description: item.description,
+    }),
+  );
+
+  const trustPoints: string[] = content.security?.trustPoints ?? [];
+  const requirements: string[] = content.security?.requirements ?? [];
+  const pricing = content.pricing;
+  const howItWorksSteps = [
+    {
+      title: "Recogida automática",
+      description: "Conectamos la nube, el CRM o el sistema documental para recoger los informes sin intervención manual.",
+    },
+    {
+      title: "Envío masivo",
+      description: "Generamos y enviamos cada informe por correo electrónico al propietario correspondiente.",
+    },
+    {
+      title: "Confirmación y archivo",
+      description: "Cada envío queda archivado y el administrador recibe un resumen con incidencias y confirmación.",
+    },
+  ];
+
+  const trustCard: InfoCardItem[] = trustPoints.length
+    ? [
+        {
+          key: "trust",
+          size: "md",
+          title: content.sectionTitles?.security,
+          description: (
+            <ul className="not-italic space-y-2 text-left">
+              {trustPoints.map((point, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          ),
+        },
+      ]
+    : [];
+
+  const requirementsCard: InfoCardItem[] = requirements.length
+    ? [
+        {
+          key: "requirements",
+          size: "md",
+          title: content.sectionTitles?.requirements,
+          description: (
+            <ul className="not-italic space-y-2 text-left">
+              {requirements.map((req, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
+                  {req}
+                </li>
+              ))}
+            </ul>
+          ),
+        },
+      ]
+    : [];
+
+  const pricingCard: InfoCardItem[] = pricing
+    ? [
+        {
+          key: "pricing",
+          size: "lg",
+          eyebrow: pricing.individualLabel,
+          title: pricing.individualPrice,
+          description: (
+            <>
+              {pricing.comboPrice && (
+                <span className="not-italic mt-4 block rounded-xl bg-clay/10 p-3">
+                  <span className="block text-[11px] font-semibold uppercase tracking-widest text-clay">
+                    {pricing.comboLabel}
+                  </span>
+                  <span className="mt-1 block text-xl font-bold text-slate-dark dark:text-ivory-light">
+                    {pricing.comboPrice}
+                  </span>
+                  {pricing.comboNote && (
+                    <span className="mt-1 block text-xs font-normal text-slate-medium dark:text-cloud-medium">
+                      {pricing.comboNote}
+                    </span>
+                  )}
+                </span>
+              )}
+              {pricing.implementationTime && (
+                <span className="not-italic mt-4 block text-sm">
+                  <span className="font-semibold">{pricing.implementationLabel}</span> {pricing.implementationTime}
+                </span>
+              )}
+            </>
+          ),
+          ctaLabel: pricing.ctaLabel,
+          href: pricing.ctaHref,
+        },
+      ]
+    : [];
+
+  const securityCards: InfoCardItem[] = [...trustCard, ...requirementsCard, ...pricingCard];
+
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden bg-neutral-950 py-20">
-        <div className="absolute inset-0 scale-110" aria-hidden="true">
-          <Image
-            src="/static/automatizacion-informes/automatizacion-informes.webp"
-            alt=""
-            fill
-            priority
-            className="object-cover object-center blur-md"
-            sizes="100vw"
-          />
-        </div>
-        <div className="absolute inset-0 bg-neutral-950/60" />
+      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
+        <div
+          className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
+          style={{ backgroundImage: "url('/static/automatizacion-informes/automatizacion-informes.webp')" }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(20,20,19,0.55),rgba(20,20,19,0.3),rgba(20,20,19,0.55))]" />
 
-        <div className="relative z-20 flex flex-col items-center text-center px-6 max-w-3xl mx-auto">
-          <h1 className="text-white text-4xl md:text-6xl lg:text-7xl font-bold drop-shadow-xl leading-tight">
+        <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
+          <h1 className="text-white text-4xl md:text-6xl font-bold drop-shadow-xl leading-tight">
             {content.title}
           </h1>
 
-          <p className="mt-6 text-neutral-200 max-w-2xl text-lg leading-relaxed">
+          <p className="mt-6 text-neutral-300 max-w-2xl leading-relaxed">
             {content.heroText}
           </p>
 
           <a
             href="#formulario"
-            className="mt-10 px-6 py-3 rounded-full bg-[#d97757] text-white font-semibold hover:bg-[#b45309] transition"
+            className="mt-10 px-8 py-4 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
+            style={{ backgroundColor: "#d97757" }}
           >
             {content.heroCtaLabel}
           </a>
         </div>
       </section>
 
-      {/* HOW WE DO IT */}
-      <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-[#d97706]">
-            {content.sectionTitles?.howItWorks}
-          </h2>
-
-          {content.howItWorks?.videoUrl && (
-            <HeroVideoDialog
-              className="w-full mb-10"
-              animationStyle="from-center"
-              videoUrl={content.howItWorks.videoUrl}
-              thumbnailAlt={content.sectionTitles?.howItWorks}
-            />
-          )}
-
-          <div className="max-w-3xl mx-auto space-y-4">
-            {content.howItWorks?.paragraphs?.map((p: string, i: number) => (
-              <p key={i} className="text-neutral-600 dark:text-neutral-300 leading-relaxed">
-                {p}
-              </p>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HowItWorksVideoSection
+        title={content.sectionTitles?.howItWorks}
+        videoUrl={content.howItWorks?.videoUrl}
+        body={content.howItWorks?.paragraphs?.map((p: string, i: number) => (
+          <p key={i} className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+            {p}
+          </p>
+        ))}
+        steps={howItWorksSteps}
+      />
 
       {/* FUNCIONES */}
       <section className="py-20 md:py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
@@ -110,13 +186,7 @@ export default function AutomatizacionInformes() {
             {content.sectionTitles?.funciones}
           </h2>
 
-          <FolderReveal
-            badgeText={content.sectionTitles?.funciones}
-            items={(content.funciones?.items ?? []).map((item: { title: string }, i: number) => ({
-              title: item.title,
-              icon: FUNCIONES_ICONS[i % FUNCIONES_ICONS.length],
-            }))}
-          />
+          <InfoCardCarousel items={funcionesCards} className="max-w-6xl mx-auto" />
         </div>
       </section>
 
@@ -127,25 +197,17 @@ export default function AutomatizacionInformes() {
             {content.sectionTitles?.ventajas}
           </h2>
 
-          <HoverEffectCards
-            items={(content.ventajas ?? []).map((v: { title: string; description: string }, i: number) => ({
-              title: v.title,
-              description: v.description,
-              icon: VENTAJAS_ICONS[i % VENTAJAS_ICONS.length],
-            }))}
-          />
+          <InfoCardCarousel items={ventajasCards} className="max-w-6xl mx-auto" />
         </div>
       </section>
 
       {/* SECURITY + REQUIREMENTS */}
-      <SecurityRequirements
-        trustTitle={content.sectionTitles?.security ?? "Tu negocio es nuestra prioridad"}
-        trustPoints={content.security?.trustPoints ?? []}
-        requirementsTitle={content.sectionTitles?.requirements}
-        requirements={content.security?.requirements ?? []}
-        pricing={content.pricing}
-        accentClassName="text-[#d97706]"
-      />
+      <section className="py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
+          {content.sectionTitles?.security}
+        </h2>
+        <InfoCardCarousel items={securityCards} className="max-w-6xl mx-auto" />
+      </section>
 
       {/* TECHNOLOGY FAQS */}
       {content.technologyFaqs?.length > 0 && (

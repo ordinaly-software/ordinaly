@@ -2001,12 +2001,12 @@
       },
       "2": {
         "name": "Guillermo Montero Fernández-Vivancos",
-        "role": "CEO, Ingeniero de calidad y proyectos & Co-founder",
+        "role": "CEO, Ingeniero de Calidad, Doctor en Ingeniería industrial & Co-Founder",
         "quote": "Consultor y project manager especializados en IA e ingeniería de calidad."
       },
       "3": {
         "name": "Emilio Cid Pérez",
-        "role": "CEO, Experto en Márketing, publicidad y transformación digital & Co-founder",
+        "role": "CEO, Experto en Marketing digital y publicidad & Co-founder",
         "quote": "Especialista en estrategias de marketing digital."
       },
       "title": "Nuestro equipo",
@@ -2095,12 +2095,12 @@
       },
       "2": {
         "name": "Guillermo Montero Fernández-Vivancos",
-        "role": "Ingeniero de calidad y proyectos & Co-founder",
+        "role": "Ingeniero de Calidad, Doctor en Ingeniería industrial & Co-Founder",
         "quote": "Consultor y project manager especializados en IA e ingeniería de calidad."
       },
       "3": {
         "name": "Emilio Cid Pérez",
-        "role": "Experto en Márketing, publicidad y transformación digital & Co-founder",
+        "role": "Experto en Marketing digital y publicidad & Co-founder",
         "quote": "Especialista en estrategias de marketing digital."
       },
       "title": "Nuestro equipo fundador"
@@ -2523,7 +2523,7 @@
       "title": "Automatización de redes sociales",
       "shortTitle": "Automatización de redes sociales",
       "subtitle": "Tu empresa activa en redes, sin dedicarle tiempo cada día",
-      "heroText": "Programamos tus publicaciones en LinkedIn, Instagram y Facebook. Tú preparas el contenido y el sistema lo publica, avisándote de ello.",
+      "heroText": "Tú preparas el contenido y el sistema lo publica, avisándote de ello. Funciona en LinkedIn, Instagram y Facebook.",
       "description": "Automatización de redes sociales para empresas. Programa publicaciones en LinkedIn, Instagram y Facebook: tú preparas el contenido y el sistema lo publica automáticamente, avisándote en el momento en que se sube.",
       "heroCtaLabel": "Solicitar información",
       "serviceType": "Automatización de publicación programada para redes sociales",
@@ -2531,10 +2531,10 @@
       "sectionTitles": {
         "cards": "Elige tu plataforma",
         "howItWorks": "Cómo funciona",
-        "security": "Tu negocio es nuestra prioridad",
-        "requirements": "Requisitos"
+        "security": "¿Qué ventajas tiene esta automatización?"
       },
       "cards": {
+        "tapHint": "Toca para ver más",
         "meta": {
           "label": "Meta",
           "hint": "Instagram y Facebook",
@@ -2544,7 +2544,7 @@
             "Recibirás una notificación en el momento de la subida a la plataforma."
           ],
           "price": "450€",
-          "priceNote": "/mes",
+          "priceNote": "pago único",
           "ctaLabel": "Contratar"
         },
         "linkedin": {
@@ -2556,7 +2556,7 @@
             "Recibirás una notificación en el momento de la subida a la plataforma."
           ],
           "price": "450€",
-          "priceNote": "/mes",
+          "priceNote": "pago único",
           "ctaLabel": "Contratar"
         }
       },
@@ -2568,10 +2568,14 @@
       "steps": [
         {
           "title": "Preparas el contenido cuando quieras",
-          "description": "Sube publicaciones, reels o carruseles a tu ritmo, sin plazos diarios."
+          "description": "Tú elaboras tus publicaciones, reels o carruseles a tu ritmo, sin plazos y con tu diseño personal."
         },
         {
-          "title": "Lo publicas en el momento programado",
+          "title": "Subes el contenido a tu nube indicando fecha de publicación",
+          "description": "Simplemente sube tus publicaciones a tu nube a una carpeta específica indicando fecha de publicación deseada."
+        },
+        {
+          "title": "Todo se publica automáticamente a la hora más adecuada",
           "description": "El sistema publica automáticamente en LinkedIn, Instagram y Facebook cuando corresponde."
         },
         {
@@ -2579,26 +2583,32 @@
           "description": "Te avisamos en el momento en que cada publicación se sube, sin que tengas que comprobarlo tú."
         }
       ],
-      "security": {
-        "trustPoints": [
-          "Trabajamos sobre máquinas privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
-          "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles.",
-          "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
-        ],
-        "requirements": [
-          "Acceso a las cuentas de empresa (Meta Business Suite y/o página de empresa de LinkedIn).",
-          "Contenido listo para programar: imágenes, vídeos, textos y fechas de publicación.",
-          "Listado de personas autorizadas para aprobar o solicitar cambios en el calendario.",
-          "Manual de marca, si quieres que revisemos tu identidad visual antes de publicar.",
-          "Frecuencia de publicación deseada por plataforma."
+      "infocards": {
+        "cards": [
+          {
+            "name": "Máquinas privadas (VPS)",
+            "description": "Trabajamos sobre servidores privados del cliente. Tú mantienes el control total de tus datos y accesos en todo momento."
+          },
+          {
+            "name": "Software libre",
+            "description": "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles."
+          },
+          {
+            "name": "Cero datos sensibles",
+            "description": "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
+          },
+          {
+            "name": "Acceso a tus cuentas",
+            "description": "Tú concedes el acceso a las cuentas de empresa (Meta Business Suite y/o página de empresa de LinkedIn)."
+          }
         ]
       },
       "pricing": {
-        "individualPrice": "450€/mes",
+        "individualPrice": "450€ pago único",
         "individualLabel": "Por plataforma",
-        "comboPrice": "800€/mes",
+        "comboPrice": "800€ pago único",
         "comboLabel": "Oferta combinada",
-        "comboNote": "Instagram + Facebook + LinkedIn juntas por 800€/mes en lugar de 900€.",
+        "comboNote": "Instagram + Facebook + LinkedIn juntas por 800€ en lugar de 900€.",
         "ctaLabel": "Solicitar información",
         "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20redes%20sociales"
       },
@@ -2664,7 +2674,7 @@
         },
         {
           "name": "Guillermo Montero Fernández Vivancos",
-          "role": "Ingeniero de calidad y proyectos & Co-founder",
+          "role": "Ingeniero de Calidad, Doctor en Ingeniería industrial & Co-Founder",
           "description": "Consultor y project manager especializados en IA e ingeniería de calidad."
         }
       ],

@@ -22,6 +22,15 @@ export interface CarouselProps<T> {
   nextLabel?: string;
   className?: string;
   options?: EmblaOptionsType;
+  /**
+   * Set when slides have their own fixed pixel width (e.g. `w-[380px]` on
+   * the rendered item) instead of a percentage `basis-*` in `slideClassName`.
+   * Fixed-width slides need the scroll container sized to their combined
+   * width so Embla can measure how far it can actually scroll — percentage
+   * slides need the opposite (container = 100% of the viewport), so this
+   * only changes behavior when explicitly opted into.
+   */
+  fixedWidthSlides?: boolean;
 }
 
 const DEFAULT_SLIDE_CLASS =
@@ -39,6 +48,7 @@ export function Carousel<T>({
   nextLabel = "Next",
   className,
   options,
+  fixedWidthSlides = false,
 }: CarouselProps<T>) {
   const plugins = useMemo(
     () =>
@@ -49,7 +59,7 @@ export function Carousel<T>({
   );
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { align: "start", containScroll: "keepSnaps", ...options },
+    { align: "start", containScroll: fixedWidthSlides ? false : "keepSnaps", ...options },
     plugins,
   );
 
@@ -127,14 +137,10 @@ export function Carousel<T>({
 
   if (items.length === 0 && !trailingSlide) return null;
 
-  // Nothing to scroll (everything already fits): center the slides instead
-  // of leaving them hugging the left edge of a wide container.
-  const showsEverything = prevBtnDisabled && nextBtnDisabled;
-
   return (
     <div className={cn("relative", className)}>
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className={cn("flex -ml-4", showsEverything && "justify-center")}>
+        <div className={cn("flex -ml-4", fixedWidthSlides && "w-max shrink-0")}>
           {items.map((item, index) => (
             <div
               key={getKey(item, index)}

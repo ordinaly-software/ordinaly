@@ -8,6 +8,7 @@ import N8nFlow from "@/components/ui/n8n-flow";
 import RelojArenaMagico from "@/components/ui/hourglass";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { IconN8n } from "@/components/ui/brand-icons";
+import { HowItWorksVideoSection } from "@/components/ui/how-it-works-video-section";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import ReCaptchaWrapper from "../recaptcha-provider";
 
@@ -20,6 +21,25 @@ export default function AutomatizacionN8nPage() {
   const content = messages.landings?.["automatizacion-n8n"];
 
   if (!content) throw new Error("Missing content: automatizacion-n8n");
+
+  const howItWorksSteps = [
+    {
+      title: content.workflowAnimation?.inputLabel ?? "Nuevo lead",
+      description: "Recibimos la entrada y la enviamos al flujo automático de n8n.",
+    },
+    {
+      title: content.workflowAnimation?.logicLabel ?? "Lógica n8n",
+      description: "Aplicamos la lógica del workflow, reintentos y validaciones según el proceso.",
+    },
+    {
+      title: content.workflowAnimation?.nodeWhatsapp ?? "Integraciones",
+      description: "Conectamos WhatsApp, Calendly, Gmail, bases de datos y el resto de herramientas.",
+    },
+    {
+      title: content.workflowAnimation?.footerSuffix ?? "Piloto automático",
+      description: content.workflowAnimation?.footerPrefix ?? "Todo queda operando con control y trazabilidad.",
+    },
+  ];
 
   return (
     <div className="relative bg-white dark:bg-neutral-900">
@@ -40,7 +60,7 @@ export default function AutomatizacionN8nPage() {
             <div className="mt-10 grid sm:grid-cols-3 gap-4 max-w-2xl">
               <a
                 href="#formulario"
-                className="flex flex-col items-start justify-center gap-1 rounded-2xl px-6 py-6 font-semibold text-white shadow-lg transition hover:scale-[1.03]"
+                className="flex flex-col items-start justify-center gap-1 rounded-2xl px-6 py-6 font-semibold text-white shadow-lg transition hover:scale-105"
                 style={{ backgroundColor: "#d97757" }}
               >
                 <span className="text-base">{content.heroCtaLabel}</span>
@@ -78,6 +98,8 @@ export default function AutomatizacionN8nPage() {
 
         </div>
       </section>
+
+      <HowItWorksVideoSection steps={howItWorksSteps} />
 
       <section className="py-24 px-6 bg-white dark:bg-neutral-900">
         <div className="max-w-7xl mx-auto grid md:grid-cols-[1fr_1.2fr] gap-16 items-center">

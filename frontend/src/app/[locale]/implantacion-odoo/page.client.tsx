@@ -2,19 +2,19 @@
 
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
-import Image from "next/image";
-import { CheckCircle2 } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
-import { HoverEffectCards } from "@/components/ui/card-hover-effect";
-import { SecurityRequirements } from "@/components/ui/security-requirements";
+import { InfoCardCarousel, type InfoCardItem } from "@/components/ui/info-card-carousel";
 import { IconOdoo } from "@/components/ui/brand-icons";
+import { HowItWorksVideoSection } from "@/components/ui/how-it-works-video-section";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
   loading: () => <WhatsAppBubbleSkeleton />,
 });
+
+const CARD_SIZES: InfoCardItem["size"][] = ["lg", "sm", "md"];
 
 export default function ImplantacionOdoo() {
   const messages = useMessages() as any;
@@ -24,42 +24,128 @@ export default function ImplantacionOdoo() {
     throw new Error("Missing landing content: implantacion-odoo");
   }
 
+  const includedCards: InfoCardItem[] = (content.included?.items ?? []).map(
+    (item: { title: string; description?: string }, i: number) => ({
+      key: `included-${i}`,
+      size: CARD_SIZES[i % CARD_SIZES.length],
+      title: item.title,
+      description: item.description,
+    }),
+  );
+
+  const trustPoints: string[] = content.security?.trustPoints ?? [];
+  const requirements: string[] = content.security?.requirements ?? [];
+  const pricing = content.pricing;
+
+  const trustCard: InfoCardItem[] = trustPoints.length
+    ? [
+        {
+          key: "trust",
+          size: "md",
+          title: content.sectionTitles?.security,
+          description: (
+            <ul className="not-italic space-y-2 text-left">
+              {trustPoints.map((point, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          ),
+        },
+      ]
+    : [];
+
+  const requirementsCard: InfoCardItem[] = requirements.length
+    ? [
+        {
+          key: "requirements",
+          size: "md",
+          title: content.sectionTitles?.requirements,
+          description: (
+            <ul className="not-italic space-y-2 text-left">
+              {requirements.map((req, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
+                  {req}
+                </li>
+              ))}
+            </ul>
+          ),
+        },
+      ]
+    : [];
+
+  const pricingCard: InfoCardItem[] = pricing
+    ? [
+        {
+          key: "pricing",
+          size: "lg",
+          eyebrow: pricing.individualLabel,
+          title: pricing.individualPrice,
+          description: pricing.implementationTime ? (
+            <span className="not-italic mt-4 block text-sm">
+              <span className="font-semibold">{pricing.implementationLabel}</span> {pricing.implementationTime}
+            </span>
+          ) : undefined,
+          ctaLabel: pricing.ctaLabel,
+          href: pricing.ctaHref,
+        },
+      ]
+    : [];
+
+  const securityCards: InfoCardItem[] = [...trustCard, ...requirementsCard, ...pricingCard];
+  const howItWorksSteps = [
+    {
+      title: "Auditoría del alcance",
+      description: "Definimos módulos, versión y necesidades reales del negocio antes de arrancar.",
+    },
+    {
+      title: "Implantación o actualización",
+      description: "Desplegamos Odoo 18 o actualizamos desde una versión anterior según el caso.",
+    },
+    {
+      title: "Validación técnica",
+      description: "Probamos el sistema y aseguramos que quede operativo y estable.",
+    },
+    {
+      title: "Entrega y control",
+      description: "El cliente mantiene el ERP y sus accesos bajo su control total.",
+    },
+  ];
+
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="py-24 px-6 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-          <div className="text-left">
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-neutral-900 dark:text-white">
-              {content.title}
-            </h1>
+      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
+        <div
+          className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
+          style={{ backgroundImage: "url('/static/backgrounds/odoo_background.webp')" }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(20,20,19,0.55),rgba(20,20,19,0.3),rgba(20,20,19,0.55))]" />
 
-            <p className="mt-6 text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed max-w-xl">
-              {content.heroText}
-            </p>
+        <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
+          <h1 className="text-white text-4xl md:text-6xl font-bold drop-shadow-xl leading-tight">
+            {content.title}
+          </h1>
 
-            <a
-              href="#formulario"
-              className="mt-10 inline-flex px-8 py-4 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
-              style={{ backgroundColor: "#d97757" }}
-            >
-              {content.heroCtaLabel}
-            </a>
-          </div>
+          <p className="mt-6 text-neutral-300 max-w-2xl leading-relaxed">
+            {content.heroText}
+          </p>
 
-          <div className="flex justify-center md:justify-end">
-            <Image
-              src="/static/backgrounds/odoo_background.webp"
-              alt={content.title}
-              width={720}
-              height={540}
-              priority
-              className="w-full max-w-[560px] rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700 object-cover"
-            />
-          </div>
+          <a
+            href="#formulario"
+            className="mt-10 px-8 py-4 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
+            style={{ backgroundColor: "#d97757" }}
+          >
+            {content.heroCtaLabel}
+          </a>
         </div>
       </section>
+
+      <HowItWorksVideoSection steps={howItWorksSteps} />
 
       {/* WHAT IS ODOO */}
       <section className="py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
@@ -103,13 +189,7 @@ export default function ImplantacionOdoo() {
             {content.sectionTitles?.included}
           </h2>
 
-          <HoverEffectCards
-            items={(content.included?.items ?? []).map((item: { title: string; description: string }) => ({
-              title: item.title,
-              description: item.description,
-              icon: <CheckCircle2 className="w-5 h-5" />,
-            }))}
-          />
+          <InfoCardCarousel items={includedCards} className="max-w-6xl mx-auto" />
 
           {content.included?.note && (
             <div className="mt-8 max-w-2xl mx-auto rounded-2xl border-2 border-dashed border-[#d97757] bg-[#d97757]/5 p-6 text-center">
@@ -122,14 +202,12 @@ export default function ImplantacionOdoo() {
       </section>
 
       {/* SECURITY + REQUIREMENTS */}
-      <SecurityRequirements
-        trustTitle={content.sectionTitles?.security}
-        trustPoints={content.security?.trustPoints ?? []}
-        requirementsTitle={content.sectionTitles?.requirements}
-        requirements={content.security?.requirements ?? []}
-        pricing={content.pricing}
-        accentClassName="text-[#d97706]"
-      />
+      <section className="py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
+          {content.sectionTitles?.security}
+        </h2>
+        <InfoCardCarousel items={securityCards} className="max-w-6xl mx-auto" />
+      </section>
 
       {/* FORM */}
       <section id="formulario">

@@ -3,17 +3,18 @@
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { CheckCircle2, Sparkles } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
-import { HoverEffectCards } from "@/components/ui/card-hover-effect";
-import { SecurityRequirements } from "@/components/ui/security-requirements";
+import { InfoCardCarousel, type InfoCardItem } from "@/components/ui/info-card-carousel";
+import { HowItWorksVideoSection } from "@/components/ui/how-it-works-video-section";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
   loading: () => <WhatsAppBubbleSkeleton />,
 });
+
+const CARD_SIZES: InfoCardItem["size"][] = ["lg", "sm", "md", "sm", "md", "sm", "md"];
 
 export default function DesarrolloDeAppWebs() {
   const messages = useMessages() as any;
@@ -23,39 +24,116 @@ export default function DesarrolloDeAppWebs() {
     throw new Error("Missing landing content: desarrollo-de-app-webs");
   }
 
+  const includedCards: InfoCardItem[] = (content.included?.items ?? []).map(
+    (item: { title: string; description?: string }, i: number) => ({
+      key: `included-${i}`,
+      size: CARD_SIZES[i % CARD_SIZES.length],
+      title: item.title,
+      description: item.description || undefined,
+    }),
+  );
+
+  const ventajasCards: InfoCardItem[] = (content.ventajas ?? []).map(
+    (item: { title: string; description?: string }, i: number) => ({
+      key: `ventajas-${i}`,
+      size: CARD_SIZES[i % CARD_SIZES.length],
+      title: item.title,
+      description: item.description || undefined,
+    }),
+  );
+
+  const requirements: string[] = content.security?.requirements ?? [];
+  const pricing = content.pricing;
+
+  const requirementsCard: InfoCardItem[] = requirements.length
+    ? [
+        {
+          key: "requirements",
+          size: "md",
+          title: content.sectionTitles?.requirements,
+          description: (
+            <ul className="not-italic space-y-2 text-left">
+              {requirements.map((req, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
+                  {req}
+                </li>
+              ))}
+            </ul>
+          ),
+        },
+      ]
+    : [];
+
+  const pricingCard: InfoCardItem[] = pricing
+    ? [
+        {
+          key: "pricing",
+          size: "lg",
+          eyebrow: pricing.individualLabel,
+          title: pricing.individualPrice,
+          description: pricing.implementationTime ? (
+            <span className="not-italic mt-4 block text-sm">
+              <span className="font-semibold">{pricing.implementationLabel}</span> {pricing.implementationTime}
+            </span>
+          ) : undefined,
+          ctaLabel: pricing.ctaLabel,
+          href: pricing.ctaHref,
+        },
+      ]
+    : [];
+
+  const requirementsCards: InfoCardItem[] = [...requirementsCard, ...pricingCard];
+  const howItWorksSteps = [
+    {
+      title: "Análisis funcional",
+      description: "Aterrizamos objetivos, usuarios y funcionalidades clave del proyecto.",
+    },
+    {
+      title: "Diseño y desarrollo",
+      description: "Construimos la PWA a medida y optimizamos la experiencia de uso.",
+    },
+    {
+      title: "Pruebas y validación",
+      description: "Comprobamos rendimiento, SEO y comportamiento en distintos dispositivos.",
+    },
+    {
+      title: "Despliegue y mantenimiento",
+      description: "La publicamos en tu infraestructura y dejamos la base lista para crecer.",
+    },
+  ];
+
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden bg-neutral-950 py-20">
-        <div className="absolute inset-0 scale-110" aria-hidden="true">
-          <Image
-            src="/static/desarrollo-de-app-webs/desarrollo-de-app-webs.webp"
-            alt=""
-            fill
-            priority
-            className="object-cover object-center blur-sm brightness-50"
-            sizes="100vw"
-          />
-        </div>
+      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
+        <div
+          className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
+          style={{ backgroundImage: "url('/static/desarrollo-de-app-webs/desarrollo-de-app-webs.webp')" }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(20,20,19,0.55),rgba(20,20,19,0.3),rgba(20,20,19,0.55))]" />
 
-        <div className="relative z-20 flex flex-col items-center text-center px-6 max-w-3xl mx-auto">
-          <h1 className="text-white text-4xl md:text-6xl lg:text-7xl font-bold drop-shadow-xl leading-tight">
+        <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
+          <h1 className="text-white text-4xl md:text-6xl font-bold drop-shadow-xl leading-tight">
             {content.title}
           </h1>
 
-          <p className="mt-6 text-neutral-200 max-w-2xl text-lg leading-relaxed">
+          <p className="mt-6 text-neutral-300 max-w-2xl leading-relaxed">
             {content.heroText}
           </p>
 
           <a
             href="#formulario"
-            className="mt-10 px-6 py-3 rounded-full bg-[#d97757] text-white font-semibold hover:bg-[#b45309] transition"
+            className="mt-10 px-8 py-4 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
+            style={{ backgroundColor: "#d97757" }}
           >
             {content.heroCtaLabel}
           </a>
         </div>
       </section>
+
+      <HowItWorksVideoSection steps={howItWorksSteps} />
 
       {/* WHAT IS A PWA */}
       <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
@@ -104,13 +182,7 @@ export default function DesarrolloDeAppWebs() {
             {content.sectionTitles?.included}
           </h2>
 
-          <HoverEffectCards
-            items={(content.included?.items ?? []).map((item: { title: string; description: string }) => ({
-              title: item.title,
-              description: item.description,
-              icon: <CheckCircle2 className="w-5 h-5" />,
-            }))}
-          />
+          <InfoCardCarousel items={includedCards} className="max-w-6xl mx-auto" />
         </div>
       </section>
 
@@ -121,23 +193,17 @@ export default function DesarrolloDeAppWebs() {
             {content.sectionTitles?.ventajas}
           </h2>
 
-          <HoverEffectCards
-            items={(content.ventajas ?? []).map((item: { title: string; description: string }) => ({
-              title: item.title,
-              description: item.description,
-              icon: <Sparkles className="w-5 h-5" />,
-            }))}
-          />
+          <InfoCardCarousel items={ventajasCards} className="max-w-6xl mx-auto" />
         </div>
       </section>
 
       {/* REQUIREMENTS + PRICING */}
-      <SecurityRequirements
-        requirementsTitle={content.sectionTitles?.requirements}
-        requirements={content.security?.requirements ?? []}
-        pricing={content.pricing}
-        accentClassName="text-[#d97706]"
-      />
+      <section className="py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
+          {content.sectionTitles?.requirements}
+        </h2>
+        <InfoCardCarousel items={requirementsCards} className="max-w-6xl mx-auto" />
+      </section>
 
       {/* FORM */}
       <section id="formulario">

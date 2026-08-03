@@ -2531,10 +2531,10 @@
       "sectionTitles": {
         "cards": "Choose your platform",
         "howItWorks": "How it works",
-        "security": "Your business is our priority",
-        "requirements": "Requirements"
+        "security": "Your business is our priority"
       },
       "cards": {
+        "tapHint": "Tap to see more",
         "meta": {
           "label": "Meta",
           "hint": "Instagram and Facebook",
@@ -2568,29 +2568,39 @@
       "steps": [
         {
           "title": "Prepare your content whenever you want",
-          "description": "Upload posts, reels or carousels on your own schedule, no daily deadlines."
+          "description": "Create your posts, reels, or carousels at your own pace, with no deadlines and your own design."
         },
         {
-          "title": "It publishes at the scheduled time",
-          "description": "The system posts automatically on LinkedIn, Instagram and Facebook when it's due."
+          "title": "Upload the content to your cloud with the publication date",
+          "description": "Simply upload your posts to your cloud in a specific folder, indicating the desired publication date."
         },
         {
-          "title": "You get an automatic confirmation",
-          "description": "You're notified the moment each post is live, with no need to check manually."
+          "title": "Everything is published automatically at the best time",
+          "description": "The system automatically publishes to LinkedIn, Instagram, and Facebook when appropriate."
+        },
+        {
+          "title": "You receive an automatic confirmation",
+          "description": "We notify you as soon as each post is uploaded, so you do not have to check it yourself."
         }
       ],
-      "security": {
-        "trustPoints": [
-          "We work on the client's private servers (VPS). You keep full control of your data and access at all times.",
-          "We use free software tools like n8n, which allow for scalable and maintainable solutions.",
-          "We never collect passwords, sensitive data or files on our own servers."
-        ],
-        "requirements": [
-          "Access to the business accounts (Meta Business Suite and/or LinkedIn company page).",
-          "Content ready to schedule: images, videos, captions and publishing dates.",
-          "List of people authorized to approve or request changes to the calendar.",
-          "Brand guidelines, if you want your visual identity to be checked before publishing.",
-          "Preferred posting frequency per platform."
+      "infocards": {
+        "cards": [
+          {
+            "name": "Private servers (VPS)",
+            "description": "We work on the client's private servers. You keep full control of your data and access at all times."
+          },
+          {
+            "name": "Free software",
+            "description": "We use free software tools like n8n, which allow for scalable and maintainable solutions."
+          },
+          {
+            "name": "Zero sensitive data",
+            "description": "We never collect passwords, sensitive data or files on our own servers."
+          },
+          {
+            "name": "Access to your accounts",
+            "description": "You grant access to the business accounts (Meta Business Suite and/or LinkedIn company page)."
+          }
         ]
       },
       "pricing": {
