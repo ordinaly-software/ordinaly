@@ -31,6 +31,17 @@ import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
 import BonificationInfo from "@/components/formation/bonification-info";
 import { FaqSection } from "@/components/formation/faq-section";
+import { InstructorsSection } from "@/components/formation/instructors-section";
+
+const FORMATION_INSTRUCTOR_IMAGES = [
+  "/static/formacion-ia-sevilla/Antonio.webp",
+  "/static/formacion-ia-sevilla/Guillermo.webp",
+] as const;
+
+const FORMATION_INSTRUCTOR_LINKEDIN_URLS = [
+  "https://www.linkedin.com/in/antoniommff/",
+  "https://www.linkedin.com/in/guillermomontero/",
+] as const;
 
 interface Enrollment {
   id: number;
@@ -591,6 +602,14 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
           </div>
         </section>
       )}
+
+      <InstructorsSection
+        title={t("instructors.title")}
+        linkedinLabel={t("instructors.linkedinLabel")}
+        items={t.raw("instructors.items")}
+        images={FORMATION_INSTRUCTOR_IMAGES}
+        linkedinUrls={FORMATION_INSTRUCTOR_LINKEDIN_URLS}
+      />
 
       <FaqSection t={t} />
     

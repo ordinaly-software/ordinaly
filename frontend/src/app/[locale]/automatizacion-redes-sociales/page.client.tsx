@@ -5,9 +5,9 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Footer from "@/components/ui/footer";
 import ContactForm from "@/components/ui/contact-form.client";
-import { InfoCardCarousel, type InfoCardItem } from "@/components/ui/info-card-carousel";
-import { FlipCard } from "@/components/ui/flip-card";
-import { HowItWorksVideoSection } from "@/components/ui/how-it-works-video-section";
+import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
+import { FlipCard } from "@/components/landing/flip-card";
+import { HowItWorksVideoSection } from "@/components/landing/how-it-works-video-section";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import { MousePointerClick } from "lucide-react";
@@ -171,7 +171,7 @@ export default function AutomatizacionRedesSocialesPage() {
       <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
         <div
           className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
-          style={{ backgroundImage: "url('/static/automatizacion-redes-sociales/automatizacion-redes-sociales.webp')" }}
+          style={{ backgroundImage: "url('/static/automatizacion-redes-sociales/automatizacion_redes_sociales.webp')" }}
         />
         <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(20,20,19,0.55),rgba(20,20,19,0.3),rgba(20,20,19,0.55))]" />
 
@@ -197,8 +197,8 @@ export default function AutomatizacionRedesSocialesPage() {
       </section>
 
       {/* PLATFORM CARDS */}
-      <section className="py-20 md:py-24 px-6 bg-white dark:bg-neutral-900">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-neutral-900 dark:text-white">
+      <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles?.cards}
         </h2>
 
@@ -219,7 +219,7 @@ export default function AutomatizacionRedesSocialesPage() {
         </div>
 
         {content.offer && (
-          <div className="mt-12 w-full max-w-3xl mx-auto rounded-2xl border-2 border-dashed border-[#d97757] bg-[#d97757]/5 p-6 text-center">
+          <div className="mt-8 w-full max-w-3xl mx-auto rounded-2xl border-2 border-dashed border-[#d97757] bg-[#d97757]/5 p-6 text-center">
             <p className="text-xs font-semibold uppercase tracking-widest text-[#d97757] mb-2">
               {content.offer.label}
             </p>
@@ -235,8 +235,8 @@ export default function AutomatizacionRedesSocialesPage() {
       />
 
       {/* SECURITY + REQUIREMENTS */}
-      <section className="py-20 md:py-24 px-6 bg-white dark:bg-neutral-900">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
+      <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles?.security}
         </h2>
 

@@ -11,7 +11,6 @@ const PUBLIC_LANDING_SLUGS = [
   "implantacion-odoo",
   "desarrollo-de-app-webs",
   "automatizaciones-personalizadas",
-  "formacion-ia-sevilla",
 ] as const;
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];

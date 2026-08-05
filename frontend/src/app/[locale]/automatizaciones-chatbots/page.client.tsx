@@ -2,8 +2,8 @@
 
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
-import RobotFollower from "@/components/ui/robot-follower";
-import TimelineHorizontal from "@/components/ui/timeline-horizontal";
+import RobotFollower from "@/components/landing/robot-follower";
+import TimelineHorizontal from "@/components/landing/timeline-horizontal";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "../recaptcha-provider";

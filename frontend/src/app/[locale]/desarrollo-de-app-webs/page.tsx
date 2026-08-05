@@ -16,7 +16,7 @@ export async function generateMetadata({
     title: "Desarrollo de aplicaciones web multiplataforma (PWA)",
     description:
       "Diseñamos y desarrollamos PWA dinámicas, rápidas y escalables: aplicaciones web modernas optimizadas para rendimiento, SEO y experiencia de usuario, instalables sin depender de tiendas de apps.",
-    image: "/static/desarrollo-de-app-webs/desarrollo-de-app-webs.webp",
+    image: "/static/desarrollo-de-app-webs/desarrollo_de_app_webs.webp",
   });
 }
 

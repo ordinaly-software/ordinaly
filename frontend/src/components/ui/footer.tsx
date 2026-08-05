@@ -31,7 +31,6 @@ const LANDING_SLUGS = [
   "implantacion-odoo",
   "desarrollo-de-app-webs",
   "automatizaciones-personalizadas",
-  "formacion-ia-sevilla"
 ] as const;
 
 type FooterLinkItem = {

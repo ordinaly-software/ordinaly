@@ -317,7 +317,7 @@ export default function HomePage({
               className="w-full"
               animationStyle="from-center"
               videoUrl="https://youtu.be/WPgLFodfAm8"
-              thumbnailSrc="/static/home/why-us-video-thumbnail.webp"
+              thumbnailSrc="/static/home/why_us_video_thumbnail.webp"
               thumbnailAlt={t("whyUs.title")}
             />
             <div className="mt-4 text-center">

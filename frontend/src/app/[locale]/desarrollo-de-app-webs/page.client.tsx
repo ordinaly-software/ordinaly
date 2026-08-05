@@ -5,16 +5,14 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
-import { InfoCardCarousel, type InfoCardItem } from "@/components/ui/info-card-carousel";
-import { HowItWorksVideoSection } from "@/components/ui/how-it-works-video-section";
+import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
+import { HowItWorksVideoSection } from "@/components/landing/how-it-works-video-section";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
   loading: () => <WhatsAppBubbleSkeleton />,
 });
-
-const CARD_SIZES: InfoCardItem["size"][] = ["lg", "sm", "md", "sm", "md", "sm", "md"];
 
 export default function DesarrolloDeAppWebs() {
   const messages = useMessages() as any;
@@ -24,23 +22,7 @@ export default function DesarrolloDeAppWebs() {
     throw new Error("Missing landing content: desarrollo-de-app-webs");
   }
 
-  const includedCards: InfoCardItem[] = (content.included?.items ?? []).map(
-    (item: { title: string; description?: string }, i: number) => ({
-      key: `included-${i}`,
-      size: CARD_SIZES[i % CARD_SIZES.length],
-      title: item.title,
-      description: item.description || undefined,
-    }),
-  );
-
-  const ventajasCards: InfoCardItem[] = (content.ventajas ?? []).map(
-    (item: { title: string; description?: string }, i: number) => ({
-      key: `ventajas-${i}`,
-      size: CARD_SIZES[i % CARD_SIZES.length],
-      title: item.title,
-      description: item.description || undefined,
-    }),
-  );
+  const infoCardTexts = (content.infocards?.cards ?? []) as { name: string; description?: string }[];
 
   const requirements: string[] = content.security?.requirements ?? [];
   const pricing = content.pricing;
@@ -83,7 +65,25 @@ export default function DesarrolloDeAppWebs() {
       ]
     : [];
 
-  const requirementsCards: InfoCardItem[] = [...requirementsCard, ...pricingCard];
+  // Defined one by one (rather than mechanically mapped) so each card's
+  // size can be chosen deliberately.
+  const infocards: InfoCardItem[] = [
+    { key: "included-0", size: "lg", title: infoCardTexts[0]?.name, description: infoCardTexts[0]?.description },
+    { key: "included-1", size: "sm", title: infoCardTexts[1]?.name, description: infoCardTexts[1]?.description },
+    { key: "included-2", size: "sm", title: infoCardTexts[2]?.name, description: infoCardTexts[2]?.description },
+    { key: "included-3", size: "md", title: infoCardTexts[3]?.name, description: infoCardTexts[3]?.description },
+    { key: "included-4", size: "md", title: infoCardTexts[4]?.name, description: infoCardTexts[4]?.description },
+    { key: "included-5", size: "sm", title: infoCardTexts[5]?.name, description: infoCardTexts[5]?.description },
+    { key: "ventajas-0", size: "md", title: infoCardTexts[6]?.name, description: infoCardTexts[6]?.description },
+    { key: "ventajas-1", size: "sm", title: infoCardTexts[7]?.name, description: infoCardTexts[7]?.description },
+    { key: "ventajas-2", size: "lg", title: infoCardTexts[8]?.name, description: infoCardTexts[8]?.description },
+    { key: "ventajas-3", size: "sm", title: infoCardTexts[9]?.name, description: infoCardTexts[9]?.description },
+    { key: "ventajas-4", size: "md", title: infoCardTexts[10]?.name, description: infoCardTexts[10]?.description },
+    { key: "ventajas-5", size: "sm", title: infoCardTexts[11]?.name, description: infoCardTexts[11]?.description },
+    { key: "ventajas-6", size: "md", title: infoCardTexts[12]?.name, description: infoCardTexts[12]?.description },
+    ...requirementsCard,
+    ...pricingCard,
+  ];
   const howItWorksSteps = [
     {
       title: "Análisis funcional",
@@ -110,7 +110,7 @@ export default function DesarrolloDeAppWebs() {
       <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
         <div
           className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
-          style={{ backgroundImage: "url('/static/desarrollo-de-app-webs/desarrollo-de-app-webs.webp')" }}
+          style={{ backgroundImage: "url('/static/desarrollo-de-app-webs/desarrollo_de_app_webs.webp')" }}
         />
         <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(20,20,19,0.55),rgba(20,20,19,0.3),rgba(20,20,19,0.55))]" />
 
@@ -136,9 +136,9 @@ export default function DesarrolloDeAppWebs() {
       <HowItWorksVideoSection steps={howItWorksSteps} />
 
       {/* WHAT IS A PWA */}
-      <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
+      <section className="py-14 md:py-16 bg-white dark:bg-neutral-900 transition-colors">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-neutral-900 dark:text-white">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
             {content.sectionTitles?.whatIsPWA}
           </h2>
 
@@ -158,7 +158,7 @@ export default function DesarrolloDeAppWebs() {
             </div>
             <div className="flex justify-center md:justify-end">
               <Image
-                src="/static/desarrollo-de-app-webs/desarrollo-de-app-webs.webp"
+                src="/static/desarrollo-de-app-webs/desarrollo_de_app_webs.webp"
                 alt={content.title}
                 width={720}
                 height={540}
@@ -168,41 +168,19 @@ export default function DesarrolloDeAppWebs() {
           </div>
 
           {content.whatIsPWA?.highlight && (
-            <p className="mt-12 max-w-3xl mx-auto text-center text-lg font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
+            <p className="mt-8 max-w-3xl mx-auto text-center text-lg font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
               {content.whatIsPWA.highlight}
             </p>
           )}
         </div>
       </section>
 
-      {/* WHAT'S INCLUDED */}
-      <section className="py-20 md:py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.included}
-          </h2>
-
-          <InfoCardCarousel items={includedCards} className="max-w-6xl mx-auto" />
-        </div>
-      </section>
-
-      {/* VENTAJAS */}
-      <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.ventajas}
-          </h2>
-
-          <InfoCardCarousel items={ventajasCards} className="max-w-6xl mx-auto" />
-        </div>
-      </section>
-
-      {/* REQUIREMENTS + PRICING */}
-      <section className="py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
-          {content.sectionTitles?.requirements}
+      {/* INFO CARDS */}
+      <section className="py-14 md:py-16 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
+          {content.sectionTitles?.infocardsTitle}
         </h2>
-        <InfoCardCarousel items={requirementsCards} className="max-w-6xl mx-auto" />
+        <InfoCardCarousel items={infocards} className="max-w-6xl mx-auto" />
       </section>
 
       {/* FORM */}

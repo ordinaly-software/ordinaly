@@ -15,7 +15,7 @@ export const SITE_KEYWORD_LINKS: KeywordLink[] = [
   { regex: /\bPWA\b/g,                             url: "/desarrollo-de-app-webs" },
   { regex: /automatizaciones? personalizadas?/gi,  url: "/automatizaciones-personalizadas" },
   { regex: /automatizaci[oó]n n8n/gi,              url: "/automatizacion-n8n" },
-  { regex: /formaci[oó]n ia\b/gi,                  url: "/formacion-ia-sevilla" },
+  { regex: /formaci[oó]n ia\b/gi,                  url: "/formacion" },
   { regex: /\bautomatizaciones\b/gi,               url: "/" },
 ];
 

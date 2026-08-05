@@ -4,11 +4,11 @@ import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Footer from "@/components/ui/footer";
 import ContactForm from "@/components/ui/contact-form.client";
-import N8nFlow from "@/components/ui/n8n-flow";
+import N8nFlow from "@/components/landing/n8n-flow";
 import RelojArenaMagico from "@/components/ui/hourglass";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { IconN8n } from "@/components/ui/brand-icons";
-import { HowItWorksVideoSection } from "@/components/ui/how-it-works-video-section";
+import { HowItWorksVideoSection } from "@/components/landing/how-it-works-video-section";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import ReCaptchaWrapper from "../recaptcha-provider";
 

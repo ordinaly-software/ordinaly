@@ -59,6 +59,7 @@
       "title": "Why choose us",
       "videoCaptionName": "Antonio Macías Ferrera",
       "videoCaptionRole": "CTO software engineer & co-founder",
+      "videoCaptionText": "A clear introduction to Odoo and how it can fit into your business.",
       "items": {
         "0": {
           "title": "Traceable, reliable automations",
@@ -77,60 +78,6 @@
     "services": {
       "title": "Our AI automation agency",
       "subtitle": "From intelligent chatbots to complete ERP systems. Specialists in automation for real estate, property managers and Andalusian SMEs."
-    },
-    "useCases": {
-      "title": "Success stories: AI automation agency",
-      "subtitle": "AI automation agency solutions for specific sectors in Spain",
-      "items": {
-        "0": {
-          "title": "Property managers",
-          "bullets": [
-            "Automated reports sent to property owners",
-            "Automated email management",
-            "Billing workflows"
-          ]
-        },
-        "1": {
-          "title": "Real estate agencies",
-          "bullets": [
-            "AI agent for customer inquiries",
-            "Automation of listings on social media",
-            "Visit and follow-up workflow"
-          ]
-        },
-        "2": {
-          "title": "Marketing agencies",
-          "bullets": [
-            "Social media automation",
-            "Content generation with AI",
-            "Automated campaign analytics"
-          ]
-        },
-        "3": {
-          "title": "Retail commerce",
-          "bullets": [
-            "Intelligent inventory management",
-            "Automated customer support",
-            "Demand forecasting with AI"
-          ]
-        },
-        "4": {
-          "title": "Consulting and services",
-          "bullets": [
-            "Automated email management",
-            "Billing workflows",
-            "Custom CRM with VeriFactu"
-          ]
-        },
-        "5": {
-          "title": "Construction and engineering",
-          "bullets": [
-            "Vendor and budget management",
-            "Intelligent documentation with AI",
-            "Automated planning and schedules"
-          ]
-        }
-      }
     },
     "testimonials": {
       "title": "What our clients say in Seville",
@@ -1345,9 +1292,71 @@
     }
   },
   "services": {
+    "pills": {
+      "callbot": "Outbound call chatbot",
+      "automation": "Automation",
+      "odoo": "Odoo18",
+      "pwa": "Multiplatform web app (PWA)"
+    },
+    "useCases": {
+      "title": "Success stories: AI automation agency",
+      "subtitle": "AI automation agency solutions for specific sectors in Spain",
+      "items": {
+        "0": {
+          "title": "Property managers",
+          "bullets": [
+            "Automated reports sent to property owners",
+            "Automated email management",
+            "Billing workflows"
+          ]
+        },
+        "1": {
+          "title": "Real estate agencies",
+          "bullets": [
+            "AI agent for customer inquiries",
+            "Automation of listings on social media",
+            "Visit and follow-up workflow"
+          ]
+        },
+        "2": {
+          "title": "Marketing agencies",
+          "bullets": [
+            "Social media automation",
+            "Content generation with AI",
+            "Automated campaign analytics"
+          ]
+        },
+        "3": {
+          "title": "Retail commerce",
+          "bullets": [
+            "Intelligent inventory management",
+            "Automated customer support",
+            "Demand forecasting with AI"
+          ]
+        },
+        "4": {
+          "title": "Consulting and services",
+          "bullets": [
+            "Automated email management",
+            "Billing workflows",
+            "Custom CRM with VeriFactu"
+          ]
+        },
+        "5": {
+          "title": "Construction and engineering",
+          "bullets": [
+            "Vendor and budget management",
+            "Intelligent documentation with AI",
+            "Automated planning and schedules"
+          ]
+        }
+      }
+    },
     "showcase": {
+      "eyebrow": "Automation, AI and custom development",
       "title": "Our services",
       "subtitle": "Discover the products that will help streamline your business",
+      "description": "At Ordinaly we design automation, AI and custom development solutions that adapt to the pace of your business. From chatbots that take care of your customers to full ERP implementations, every service is built to save you time and help you grow.",
       "bannerAlt": "Ordinaly - products and services",
       "facturas": "Invoice automation",
       "meta": "Meta automation",
@@ -1355,8 +1364,8 @@
       "personalizadas": "Custom automations",
       "informes": "Report automation",
       "chatSalientes": "Outbound calls chatbot",
-      "chatbotRecepcionista": "Receptionist chatbot",
-      "odoo": "Odoo implementation",
+      "chatbotRecepcionista": "Callbot",
+      "odoo": "Odoo18",
       "odooNote": "VeriFactu can be added",
       "automationNote": "with n8n and Zapier",
       "chatbotRecepcionistaNote": "Inbound and outbound calls",
@@ -1364,6 +1373,37 @@
       "viewCatalog": "Full catalog",
       "viewCatalogCta": "See all services",
       "viewMore": "Learn more"
+    },
+    "advantages": {
+      "title": "Why choose Ordinaly",
+      "subtitle": "What sets us apart when it comes to automating and growing your business",
+      "cards": [
+        {
+          "name": "Local support",
+          "description": "A team in Spain that resolves your questions quickly, with no lost tickets or language switches. We support you throughout the entire process."
+        },
+        {
+          "name": "Specialized engineering team",
+          "description": "Each automation is designed by an engineer tailored to your business, not by a generic 'AI' or template."
+        },
+        {
+          "name": "Private infrastructure (VPS)",
+          "description": "Your data lives on a server under your control, not on a third-party cloud."
+        },
+        {
+          "name": "We back free and open-source software",
+          "description": "FLOSS tools: no per-user licenses or dependence on an American provider, with full transparency."
+        },
+        {
+          "name": "Fixed-price quotes",
+          "description": "Clear budgets, no surprises or hidden fees."
+        }
+      ],
+      "contact": {
+        "title": "Have a specific idea or project?",
+        "description": "Tell us what you need and we'll show you how to automate it. No strings attached.",
+        "ctaLabel": "Talk to us"
+      }
     },
     "featured": "Featured",
     "toolsTitle": "Our technology stack"
@@ -1526,6 +1566,22 @@
     "slogan": "Software & training solutions",
     "introduction": "At Ordinaly, we offer specialized training in emerging technologies and professional development. Our courses are designed to boost your professional career with up-to-date content and innovative methodologies.",
     "coursesTitle": "Our courses",
+    "instructors": {
+      "title": "Our instructors",
+      "linkedinLabel": "LinkedIn",
+      "items": [
+        {
+          "name": "Antonio Macías Ferrera",
+          "role": "CTO, software engineer & Co-founder",
+          "description": "Software engineer specialized in automation and artificial intelligence."
+        },
+        {
+          "name": "Guillermo Montero Fernández Vivancos",
+          "role": "CEO & Co-founder",
+          "description": "Ingeniero de Calidad, Doctor en Ingeniería industrial."
+        }
+      ]
+    },
     "time": "Time:",
     "capacity": "Capacity:",
     "people": "people",
@@ -2261,78 +2317,52 @@
       "areaServed": "Spain, SMEs, accounting firms, and administrative teams",
       "sectionTitles": {
         "howItWorks": "How do we do it?",
-        "funciones": "Functions",
-        "ventajas": "Advantages",
-        "security": "Your business is our priority",
-        "requirements": "Requirements",
+        "infocardsTitle": "Everything about invoice automation",
         "technologyFaqs": "Frequently asked questions"
       },
       "steps": [
         {
-          "title": "We connect your inbox",
-          "description": "We connect your inbox or the folder where you receive invoices."
+          "title": "Scan your inbox",
+          "description": "Scan your inbox and automatically detect incoming invoices."
         },
         {
-          "title": "We define the rules",
-          "description": "We define classification and extraction rules based on your business."
+          "title": "Download and store",
+          "description": "Download the invoices and store them in a structured way in folders in your cloud."
         },
         {
-          "title": "We activate the flow",
-          "description": "We activate the automated flow: detection, extraction, and archiving."
+          "title": "Extract relevant data",
+          "description": "Extract the relevant data from each invoice (amount, supplier, date, invoice number, item, etc.) and process it according to the defined criteria."
         }
       ],
       "funciones": {
-        "items": [
-          {
-            "title": "Automatically detect incoming invoices"
-          },
-          {
-            "title": "Store them in a structured way"
-          },
-          {
-            "title": "Scan the documents"
-          },
-          {
-            "title": "Extract the relevant data"
-          },
-          {
-            "title": "Process and archive them according to the defined criteria"
-          }
-        ],
         "paragraphs": [
           "Once automated, the whole process runs without manual intervention, making your accounting workflow faster, more reliable and better organized.",
           "The extracted data (amount, supplier, date, invoice number, item, etc.) and the filing method are fully tailored to the client at no extra cost, keeping a closed, transparent price."
         ]
       },
-      "ventajas": [
-        {
-          "title": "No Errors",
-          "description": "Avoid human errors such as missing an important email or mistyping data."
-        },
-        {
-          "title": "Automatic",
-          "description": "It's an automatic process, so it requires no effort or excessive time."
-        },
-        {
-          "title": "Compatibility",
-          "description": "Compatible with any format, such as PDF, DOC, Word or images."
-        },
-        {
-          "title": "Reliable extraction",
-          "description": "Reliable, practical data extraction with OCR systems, leaving it ready for you to simply analyze."
-        },
-        {
-          "title": "Organized and Structured",
-          "description": "Invoices will be organized into structured folders in Drive, your ERP, CRM or whichever tool you prefer."
-        }
-      ],
-      "security": {
-        "trustPoints": [
-          "We work on the client's private servers (VPS). You keep full control of your data and access at all times.",
-          "We use free software tools like n8n, which allow for scalable and maintainable solutions.",
-          "We never collect passwords, sensitive data or files on our own servers."
-        ],
-        "requirements": [
+      "infocards": {
+        "cards": [
+          {
+            "name": "Automatic and invisible",
+            "description": "It's an automatic process that requires no effort or extra time once implemented."
+          },
+          {
+            "name": "Full compatibility",
+            "description": "Compatible with any format, such as PDF, DOC, Word or images; and with any cloud storage (Google Drive, OneDrive, Dropbox, etc.)"
+          },
+          {
+            "name": "Free software",
+            "description": "We use free software tools like n8n, which allow for scalable and maintainable solutions."
+          },
+          {
+            "name": "Private machines (VPS)",
+            "description": "We work on the client's private servers. You maintain full control of your data and access at all times."
+          }
+        ]
+      },
+      "requirements": {
+        "title": "Requirements",
+        "items": [
           "Access to one or more of the client's email accounts.",
           "List of authorized senders (whitelist).",
           "Data to extract from the invoices.",
@@ -2400,9 +2430,7 @@
       "areaServed": "Spain, homeowners' associations, property managers and administration firms",
       "sectionTitles": {
         "howItWorks": "How does it work?",
-        "funciones": "Functions",
-        "ventajas": "Advantages",
-        "security": "Your business is our priority",
+        "infocardsTitle": "Everything about report automation",
         "requirements": "Requirements",
         "technologyFaqs": "Frequently asked questions"
       },
@@ -2411,61 +2439,46 @@
         "paragraphs": [
           "This service automates the entire flow: from collecting the financial reports to sending them in bulk by email to each owner, using the cloud, the CRM or whichever document system the client already uses.",
           "Each delivery is properly archived and classified, ensuring traceability, compliance and easy future lookup. In addition, after every sending cycle the administrator receives a summary email with the status of the process: reports sent, possible incidents and execution confirmation."
-        ]
-      },
-      "funciones": {
-        "items": [
+        ],
+        "steps": [
           {
-            "title": "Automatically collect financial reports from the CRM, the cloud or the document system"
+            "title": "Automatic collection",
+            "description": "We connect to the cloud, the CRM or the document system to collect the reports without manual intervention."
           },
           {
-            "title": "Classify and prepare each report by owner or community"
+            "title": "Bulk sending",
+            "description": "We generate and send each report by email to the corresponding owner."
           },
           {
-            "title": "Send the reports in bulk by email"
-          },
-          {
-            "title": "Archive and classify each delivery to ensure traceability"
-          },
-          {
-            "title": "Generate a monthly summary email of the process for the administrator"
+            "title": "Confirmation and archiving",
+            "description": "Each delivery is archived and the administrator receives a summary with incidents and confirmation."
           }
         ]
       },
-      "ventajas": [
-        {
-          "title": "No errors",
-          "description": "Avoid human errors such as skipping an owner or sending a duplicate report."
-        },
-        {
-          "title": "Automatic",
-          "description": "A fully automatic monthly process, with no effort or manual intervention."
-        },
-        {
-          "title": "Compatibility",
-          "description": "Compatible with any CRM, cloud storage, database or document system you already use."
-        },
-        {
-          "title": "Full traceability",
-          "description": "Every delivery is archived and classified, with execution confirmation and an incident log."
-        },
-        {
-          "title": "Time savings",
-          "description": "Frees up hours of administrative work every month managing communities."
-        }
-      ],
+      "infocards": {
+        "cards": [
+          {
+            "name": "Full compatibility",
+            "description": "Compatible with any CRM, cloud storage, database or document system you already use."
+          },
+          {
+            "name": "Free software",
+            "description": "We use free software tools like n8n, which allow for scalable and maintainable solutions."
+          },
+          {
+            "name": "Private machines (VPS)",
+            "description": "We work on the client's private servers. You keep full control of your data and access at all times."
+          },
+          {
+            "name": "No sensitive data",
+            "description": "We never collect passwords, sensitive data or files on our own servers."
+          }
+        ]
+      },
       "security": {
-        "trustPoints": [
-          "We work on the client's private servers (VPS). You keep full control of your data and access at all times.",
-          "We use free software tools like n8n, which allow for scalable and maintainable solutions.",
-          "We never collect passwords, sensitive data or files on our own servers."
-        ],
         "requirements": [
           "Access to the system where the reports are stored (CRM, cloud, database...).",
-          "Structure of the reports.",
-          "Definition of the sending schedule (monthly or otherwise).",
           "Access to the email account.",
-          "List of owners and communities the reports must be sent to.",
           "Message template to send to the owners."
         ]
       },
@@ -2500,6 +2513,11 @@
           "tag": "Security",
           "question": "What happens if a delivery fails?",
           "answer": "After every cycle you'll receive a summary email with the status of the process, including any incidents and execution confirmation."
+        },
+        {
+          "tag": "Pricing",
+          "question": "Is there a monthly cost?",
+          "answer": "Not on our part. Our implementation price is fixed and closed. The monthly cost will depend on the VPS provider you choose and the volume of invoices you process. Typically, a basic VPS costs between €40 and €60 per year, and is sufficient for most companies."
         }
       ],
       "keywords": [
@@ -2618,127 +2636,6 @@
         "bgColor": "#d97757"
       }
     },
-    "formacion-ia-sevilla": {
-      "slug": "formacion-ia-sevilla",
-      "title": "AI training applied to real business processes",
-      "description": "Practical AI training for SMEs in Seville. Workshops tailored to your team to integrate artificial intelligence into everyday business processes.",
-      "shortTitle": "AI Training",
-      "heroBadge": "Operational training",
-      "heroCtaLabel": "Plan training",
-      "secondaryCtaLabel": "Check availability",
-      "serviceType": "AI training for sales, support and operations teams",
-      "areaServed": "Spain · On-site and online sessions",
-      "valueProps": [
-        "Sessions built around real examples and tasks the team already performs today.",
-        "Security, governance and responsible-use modules adapted to each department.",
-        "Templates, prompts and routines ready to apply the next day."
-      ],
-      "sectionTitles": {
-        "valueProps": "What your team will learn",
-        "metrics": "AI training in Seville",
-        "carousel": "AI training for SMEs",
-        "experts": "AI teachers in Seville",
-        "technologyFaqs": "Frequently asked questions",
-        "curiosities": "Facts and insights",
-        "ctaTitle": "Want to plan a training session?",
-        "ctaSubtitle": "We tailor the content to your processes, roles and maturity level."
-      },
-      "ui": {
-        "linkedinLabel": "LinkedIn",
-        "faqCtaLabel": "View all frequently asked questions",
-        "previousLabel": "Previous",
-        "nextLabel": "Next"
-      },
-      "metrics": [
-        {
-          "label": "Format",
-          "value": "2-4 hours",
-          "detail": "Compact blocks that don't interrupt operations and can be repeated per team."
-        },
-        {
-          "label": "Follow-up",
-          "value": "Optional 30 days",
-          "detail": "We support adoption, answer questions and measure real usage after the session."
-        },
-        {
-          "label": "Materials",
-          "value": "Ready-to-use playbooks",
-          "detail": "Role-based guides, checklists and prompt libraries tailored to your tasks."
-        }
-      ],
-      "experts": [
-        {
-          "name": "Antonio Macías Ferrera",
-          "role": "CTO, software engineer & Co-founder",
-          "description": "Software engineer specialized in automation and artificial intelligence."
-        },
-        {
-          "name": "Guillermo Montero Fernández Vivancos",
-          "role": "Quality & project engineer · Co-founder",
-          "description": "Consultant and project manager specialized in AI and quality engineering."
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Program",
-          "question": "Is the training generic or tailored to the business?",
-          "answer": "It always starts from real cases and tasks. Without that grounding, adoption drops and the team returns to previous habits."
-        },
-        {
-          "tag": "Security",
-          "question": "Does it include security, privacy and governance?",
-          "answer": "Yes. We cover data minimization, approved tools, usage limits and human review when impact requires it."
-        },
-        {
-          "tag": "Format",
-          "question": "Can it be combined with a technical deployment?",
-          "answer": "Yes. It works even better when paired with a pilot or rollout, because the team learns using its own workflow."
-        },
-        {
-          "tag": "Adoption",
-          "question": "How do you measure whether the training changes habits?",
-          "answer": "We define target tasks, baseline time or quality, and follow-up. Without measurement, training stays as inspiration."
-        }
-      ],
-      "curiosities": [
-        "More than 85% of administrative tasks can be partially or fully automated with AI.",
-        "Companies adopting AI report an average 30% productivity increase in under 90 days.",
-        "An AI model can analyze in milliseconds what a human would take hours to review.",
-        "The biggest barrier to AI adoption is not technology, but lack of habits.",
-        "70% of AI incidents are caused by misuse or lack of internal policies."
-      ],
-      "curiosityCards": [
-        {
-          "title": "Business use",
-          "badge": "Real data",
-          "text": "More than 85% of administrative tasks can be partially or fully automated with AI."
-        },
-        {
-          "title": "Productivity",
-          "badge": "Direct impact",
-          "text": "Companies adopting AI report an average 30% productivity increase in under 90 days."
-        },
-        {
-          "title": "Speed",
-          "badge": "Technical capability",
-          "text": "An AI model can analyze in milliseconds what a human would take hours to review."
-        },
-        {
-          "title": "Adoption",
-          "badge": "Human behavior",
-          "text": "The biggest barrier to AI adoption is not technology, but lack of habits."
-        },
-        {
-          "title": "Security",
-          "badge": "Governance",
-          "text": "70% of AI incidents are caused by misuse or lack of internal policies."
-        }
-      ],
-      "cta": {
-        "label": "I want more information",
-        "bgColor": "#d97757"
-      }
-    },
     "implantacion-odoo": {
       "slug": "implantacion-odoo",
       "title": "Odoo Implementation",
@@ -2750,9 +2647,13 @@
       "areaServed": "Spain, businesses and SMEs",
       "sectionTitles": {
         "whatIsOdoo": "What is Odoo?",
-        "included": "What does the service include?",
+        "whyOdoo": "Why Odoo?",
+        "whyOdooCommunity": "Why Odoo Community?",
+        "infocardsTitle": "Everything about your Odoo implementation",
         "security": "Your business is our priority",
-        "requirements": "Requirements"
+        "requirements": "Requirements",
+        "technologyFaqs": "Need more help with Odoo?",
+        "technologyFaqsSubtitle": "Here we answer the most common questions."
       },
       "whatIsOdoo": {
         "paragraphs": [
@@ -2762,45 +2663,128 @@
         "linkLabel": "odoo.com",
         "linkHref": "https://www.odoo.com"
       },
-      "included": {
-        "items": [
-          {
-            "title": "Odoo 18 implementation",
-            "description": "From scratch or upgrading from previous versions."
-          },
-          {
-            "title": "Technical validation",
-            "description": "Full technical validation of the implemented system."
-          },
-          {
-            "title": "Operational environment",
-            "description": "Delivery of a fully operational, functional environment."
-          }
+      "whyOdoo": {
+        "paragraphs": [
+          "Odoo combines CRM, accounting, invoicing, inventory, sales and many more modules into a single platform, with a modern interface and a much shorter learning curve than traditional ERPs.",
+          "Its modular structure lets you start with the essentials and grow without switching systems, adapting to your business's real pace instead of forcing you into a rigid process."
+        ]
+      },
+      "whyOdooCommunity": {
+        "paragraphs": [
+          "We implement Odoo Community, Odoo's free, open-source edition. It's just as maintainable, secure and functional as the Enterprise edition, but far more cost-effective since it avoids the recurring cost of per-user licenses.",
+          "And you're not relying solely on Ordinaly either: Odoo Community is backed by a large community of developers and companies that continuously publish modules, improvements and fixes."
         ],
+        "comparisonTable": {
+          "headers": ["Tool", "Annual cost (5 users)", "Notes"],
+          "rows": [
+            {
+              "tool": "Salesforce Sales Cloud Starter",
+              "cost": "~€1,800/year",
+              "notes": "€25 per user/month. No inventory or accounting module included."
+            },
+            {
+              "tool": "HubSpot CRM (Starter plan)",
+              "cost": "~€1,200/year",
+              "notes": "The basic CRM is free, but automations and multiple pipelines require a paid plan."
+            },
+            {
+              "tool": "Odoo Enterprise",
+              "cost": "~€900/year",
+              "notes": "€15 per user/month. Includes official support and additional modules."
+            },
+            {
+              "tool": "Odoo Community",
+              "cost": "€0* license cost",
+              "notes": "Implementation and the server are the only costs. The software itself is free.",
+              "highlight": true
+            }
+          ]
+        },
+        "tableNote1": "Comparative table of approximate annual costs for 5 users. Prices may vary depending on the provider and region.",
+        "tableNote2": "* Software license cost. Implementation and the server are the only actual costs of Odoo Community."
+      },
+      "included": {
+        "title": "VeriFactu Spain",
         "note": "The service can be complemented with the base configuration for VeriFactu Spain compliance (ask us)."
       },
-      "security": {
-        "trustPoints": [
-          "The system is deployed on infrastructure controlled by the client (own server or VPS).",
-          "The client keeps full control of the ERP and their information at all times.",
-          "Ordinaly does not keep access credentials after the service is delivered.",
-          "We do not store your data or files on our servers."
-        ],
-        "requirements": [
-          "Access to the server or infrastructure where Odoo will be deployed.",
-          "Information about the current Odoo version (if applicable).",
-          "Definition of the functional scope (invoicing, accounting, sales, etc.).",
-          "Tax data and certificates required for invoicing configuration."
-        ]
+      "heroBadgeAlt": "Odoo badge",
+      "infocards": {
+      "cards": [
+        {
+          "name": "Complete ERP",
+          "description": "Odoo combines CRM, accounting, invoicing, inventory, sales, and many more modules into a single platform."
+        },
+        {
+          "name": "Custom modules",
+          "description": "The system can be expanded with additional modules according to your business needs."
+        },
+        {
+          "name": "Perfect for automation",
+          "description": "Odoo Community is compatible with n8n, allowing you to automate processes and workflows without depending on custom developments."
+        },
+        {
+          "name": "VeriFactu Spain",
+          "description": "The service can be complemented with the base configuration for VeriFactu Spain compliance (please inquire)."
+        },
+        {
+          "name": "Private machines (VPS)",
+          "description": "The system is deployed on infrastructure controlled by the client (own server or VPS). The client maintains full control of the ERP and their information at all times."
+        },
+        {
+          "name": "FLOSS - Free software",
+          "description": "Odoo Community is free and open-source software. You don't depend on per-user licenses or external providers."
+        },
+        {
+          "name": "Zero sensitive data",
+          "description": "At no time do we collect passwords, sensitive data, or files on our servers. Ordinaly does not retain accesses or credentials after the service delivery. We do not store your data or files on our servers."
+        }
+      ]
       },
       "pricing": {
         "individualPrice": "860€",
-        "individualLabel": "Service price",
-        "implementationTime": "20 days",
+        "individualLabel": "one-time payment",
+        "implementationTime": "10 days",
         "implementationLabel": "Implementation time:",
         "ctaLabel": "I want to implement Odoo",
         "ctaHref": "https://wa.me/34626270806?text=I%20want%20to%20implement%20Odoo"
       },
+      "technologyFaqs": [
+        {
+          "tag": "Price",
+          "question": "Why is it a one-time payment instead of a monthly fee?",
+          "answer": "We implement Odoo Community, Odoo's free, open-source edition. Since it doesn't depend on Odoo Enterprise's per-user licenses, the cost is limited to the implementation service: a one-time payment, with no recurring monthly per-user fees."
+        },
+        {
+          "tag": "Security",
+          "question": "How do you protect my company's data?",
+          "answer": "The system is deployed on infrastructure you control (your own server or a VPS). You keep full control of your data and access, and we don't retain credentials or copies of your information after the service is delivered."
+        },
+        {
+          "tag": "Comparison",
+          "question": "Why choose Odoo over other ERPs?",
+          "answer": "Odoo combines CRM, accounting, invoicing, inventory, sales and many more modules into a single platform, with a modern interface and a much shorter learning curve than traditional ERPs. Its modular structure lets you start with the essentials and grow without switching systems."
+        },
+        {
+          "tag": "Community vs Enterprise",
+          "question": "Why do you implement Odoo Community instead of Odoo Enterprise?",
+          "answer": "Odoo Community is just as maintainable, secure and functional as the Enterprise edition, but far more cost-effective long-term since it avoids the recurring cost of per-user licenses. And you're not relying solely on Ordinaly either: Odoo Community is backed by a large community of developers and companies.",
+          "links": [
+            { "label": "Official Odoo community and forum", "href": "https://www.odoo.com/forum/help-1" },
+            { "label": "Odoo Community Association (OCA)", "href": "https://odoo-community.org/" }
+          ]
+        },
+        {
+          "tag": "Support",
+          "question": "Who supports Odoo Community? Does it get updates?",
+          "answer": "Odoo Community is backed by a large global community of developers and companies that continuously publish modules, fixes and improvements. ",
+          "answerEmphasis": "Ordinaly handles the implementation, configuration and direct technical maintenance for your business."
+        },
+        {
+          "tag": "Migration",
+          "question": "Can you migrate my business from another ERP or from Odoo Enterprise?",
+          "answer": "Yes. We analyze your current system, define the functional scope needed and migrate your data and processes to Odoo Community without losing operational continuity."
+        }
+      ],
       "keywords": [
         "Odoo",
         "ERP",
@@ -2827,8 +2811,7 @@
       "areaServed": "Spain, businesses and SMEs",
       "sectionTitles": {
         "whatIsPWA": "What is a PWA?",
-        "included": "What does this service include?",
-        "ventajas": "Advantages",
+        "infocardsTitle": "Everything your PWA includes",
         "requirements": "Requirements"
       },
       "whatIsPWA": {
@@ -2840,64 +2823,49 @@
         ],
         "highlight": "Dynamic PWAs make it possible to build feature-rich applications, with real-time content, integrations with external systems and a user experience comparable to a native app, but with lower development and maintenance costs."
       },
-      "included": {
-        "items": [
+      "infocards": {
+        "cards": [
           {
-            "title": "Functional analysis of the project",
-            "description": ""
+            "name": "Functional analysis of the project"
           },
           {
-            "title": "Design and development of a dynamic PWA tailored to you",
-            "description": ""
+            "name": "Design and development of a dynamic PWA tailored to you"
           },
           {
-            "title": "Scalable, maintainable structure",
-            "description": ""
+            "name": "Scalable, maintainable structure"
           },
           {
-            "title": "Performance optimization and technical SEO",
-            "description": ""
+            "name": "Performance optimization and technical SEO"
           },
           {
-            "title": "Deployment on the client's infrastructure",
-            "description": ""
+            "name": "Deployment on the client's infrastructure"
           },
           {
-            "title": "Final testing and validation",
-            "description": ""
+            "name": "Final testing and validation"
+          },
+          {
+            "name": "High performance and fast loading"
+          },
+          {
+            "name": "Installable without app stores"
+          },
+          {
+            "name": "Compatible with all devices"
+          },
+          {
+            "name": "Optimized for SEO"
+          },
+          {
+            "name": "Instant updates with no downloads"
+          },
+          {
+            "name": "Lower cost than native apps"
+          },
+          {
+            "name": "Greater control and security"
           }
         ]
       },
-      "ventajas": [
-        {
-          "title": "High performance and fast loading",
-          "description": ""
-        },
-        {
-          "title": "Installable without app stores",
-          "description": ""
-        },
-        {
-          "title": "Compatible with all devices",
-          "description": ""
-        },
-        {
-          "title": "Optimized for SEO",
-          "description": ""
-        },
-        {
-          "title": "Instant updates with no downloads",
-          "description": ""
-        },
-        {
-          "title": "Lower cost than native apps",
-          "description": ""
-        },
-        {
-          "title": "Greater control and security",
-          "description": ""
-        }
-      ],
       "security": {
         "requirements": [
           "Requirements are defined based on the scope and features of the project.",
@@ -2943,8 +2911,8 @@
         "description": "Software engineers, experts in computer science and artificial intelligence, with real experience in business automation."
       },
       "sectionTitles": {
-        "security": "Your business is our priority",
-        "ventajas": "Advantages"
+        "infocardsTitle": "Everything you need to know",
+        "security": "Your business is our priority"
       },
       "security": {
         "trustPoints": [
@@ -2954,20 +2922,19 @@
           "We do not store your data or files on our servers."
         ]
       },
-      "ventajas": [
-        {
-          "title": "More traceability",
-          "description": ""
-        },
-        {
-          "title": "Fewer errors",
-          "description": ""
-        },
-        {
-          "title": "More free time",
-          "description": ""
-        }
-      ],
+      "infocards": {
+        "cards": [
+          {
+            "name": "More traceability"
+          },
+          {
+            "name": "Fewer errors"
+          },
+          {
+            "name": "More free time"
+          }
+        ]
+      },
       "pricing": {
         "individualPrice": "Quote on request",
         "individualLabel": "Each automation is designed and priced individually based on your process.",

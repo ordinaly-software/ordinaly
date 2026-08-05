@@ -59,6 +59,7 @@
       "title": "Por qué elegirnos",
       "videoCaptionName": "Antonio Macías Ferrera",
       "videoCaptionRole": "CTO ingeniero de software & co-founder",
+      "videoCaptionText": "Una breve introducción a Odoo (Por el canal de Youtube oficial de Odoo en Español).",
       "items": {
         "0": {
           "title": "Automatizaciones trazables y confiables",
@@ -77,60 +78,6 @@
     "services": {
       "title": "Nuestros servicios",
       "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos, además de automatizaciones personalizadas. Especialistas en PYMES."
-    },
-    "useCases": {
-      "title": "Casos de éxito de automatización IA",
-      "subtitle": "Soluciones de la agencia de automatización IA para sectores específicos en España",
-      "items": {
-        "0": {
-          "title": "Administradores de fincas",
-          "bullets": [
-            "Envío automático de informes a propietarios",
-            "Gestión automática de correos",
-            "Workflows de facturación"
-          ]
-        },
-        "1": {
-          "title": "Inmobiliarias",
-          "bullets": [
-            "Agente de IA para consultas de clientes",
-            "Automatización de publicaciones en redes sociales",
-            "Workflow de visitas y seguimiento"
-          ]
-        },
-        "2": {
-          "title": "Agencias de marketing",
-          "bullets": [
-            "Automatización de redes sociales",
-            "Generación de contenido con IA",
-            "Análisis de campañas automatizado"
-          ]
-        },
-        "3": {
-          "title": "Comercio local",
-          "bullets": [
-            "Gestión de inventario inteligente",
-            "Atención al cliente automatizada",
-            "Predicción de demanda con IA"
-          ]
-        },
-        "4": {
-          "title": "Consultoría y asesorías",
-          "bullets": [
-            "Gestión automática de correos",
-            "Workflows de facturación",
-            "CRM personalizado con VeriFactu"
-          ]
-        },
-        "5": {
-          "title": "Construcción e ingeniería",
-          "bullets": [
-            "Gestión de proveedores y presupuestos",
-            "Documentación inteligente con IA",
-            "Planning y cronogramas automatizados"
-          ]
-        }
-      }
     },
     "testimonials": {
       "title": "Lo que dicen nuestros clientes",
@@ -1345,9 +1292,71 @@
     }
   },
   "services": {
+    "pills": {
+      "callbot": "Chatbot de llamadas",
+      "automation": "Automatización",
+      "odoo": "Odoo18",
+      "pwa": "Aplicaciones web multiplataforma (PWA)"
+    },
+    "useCases": {
+      "title": "Casos de uso de automatizaciones",
+      "subtitle": "Soluciones de automatización para distintos sectores y tipos de empresas",
+      "items": {
+        "0": {
+          "title": "Administradores de fincas",
+          "bullets": [
+            "Envío automático de informes a propietarios",
+            "Gestión automática de correos",
+            "Workflows de facturación"
+          ]
+        },
+        "1": {
+          "title": "Inmobiliarias",
+          "bullets": [
+            "Chatbot de llamadas para concertar visitas",
+            "Automatización de publicaciones en redes sociales",
+            "Odoo como herramienta de gestión de proyectos y tareas"
+          ]
+        },
+        "2": {
+          "title": "Agencias de marketing",
+          "bullets": [
+            "Automatización de redes sociales",
+            "Análisis de campañas automatizado",
+            "Elaboración y envío de informes de resultados automático"
+          ]
+        },
+        "3": {
+          "title": "Comercio local",
+          "bullets": [
+            "Gestión de inventario inteligente con Odoo",
+            "Sistema de facuturación con VeriFactu",
+            "Chatbot de voz para reservas y pedidos"
+          ]
+        },
+        "4": {
+          "title": "Consultoría y asesorías",
+          "bullets": [
+            "Aplicación web y móvil progresiva (PWA)",
+            "Gestión automática de auditorías",
+            "ERP personalizado con VeriFactu"
+          ]
+        },
+        "5": {
+          "title": "Empresas de ingeniería",
+          "bullets": [
+            "Workflows de automatización con GitHub Actions",
+            "Desarrollo de proyectos con Integración y Despliegue Continuo (CI/CD)",
+            "Herramienta de gestión de proyectos, tareas y documentación con Odoo"
+          ]
+        }
+      }
+    },
     "showcase": {
+      "eyebrow": "Automatización, IA y desarrollo a medida",
       "title": "Nuestros servicios",
-      "subtitle": "Descubre los productos que te ayudarán a agilizar tu negocio",
+      "subtitle": "Descubre los productos que te ayudarán a automatizar tu negocio",
+      "description": "En Ordinaly diseñamos soluciones de automatización, inteligencia artificial y desarrollo a medida que se adaptan al ritmo de tu negocio. Desde chatbots que atienden a tus clientes hasta la implantación de un ERP completo, cada servicio está pensado para ahorrarte tiempo y ayudarte a crecer.",
       "bannerAlt": "Ordinaly - productos y servicios",
       "facturas": "Automatización de facturas",
       "meta": "Automatización Meta",
@@ -1364,6 +1373,37 @@
       "viewCatalog": "Catálogo completo",
       "viewCatalogCta": "Ver todos los servicios",
       "viewMore": "Ver más"
+    },
+    "advantages": {
+      "title": "Por qué elegir Ordinaly",
+      "subtitle": "Lo que nos diferencia a la hora de automatizar y hacer crecer tu negocio",
+      "cards": [
+        {
+          "name": "Soporte cercano",
+          "description": "Equipo en España que resuelve tus dudas rápido, sin tickets perdidos ni cambios de idioma. Te acompañamos durante todo el proceso."
+        },
+        {
+          "name": "Equipo de ingenieros especializados",
+          "description": "Cada automatización la diseña un ingeniero según tu negocio, no una ''IA'' o una plantilla genérica."
+        },
+        {
+          "name": "Infraestructura propia (VPS)",
+          "description": "Tus datos viven en un servidor bajo tu control, no en la nube de un tercero."
+        },
+        {
+          "name": "Apostamos por el software libre y de código abierto",
+          "description": "Herramientas FLOSS: sin licencias por usuario ni dependencia de un proveedor americano, con transparencia."
+        },
+        {
+          "name": "Presupuestos cerrados",
+          "description": "Presupuestos claros, sin sorpresas ni cuotas ocultas."
+        }
+      ],
+      "contact": {
+        "title": "¿Tienes una idea o un proyecto concreto?",
+        "description": "Cuéntanos qué necesitas y te decimos cómo automatizarlo. Sin compromiso.",
+        "ctaLabel": "Hablar con nosotros"
+      }
     },
     "featured": "Destacado",
     "toolsTitle": "Nuestro stack tecnológico"
@@ -1526,6 +1566,22 @@
     "slogan": "Soluciones de software y formación",
     "introduction": "En Ordinaly, ofrecemos cursos de formación profesional para empresas para ayudar a dominar herramientas de software, ERP y CRM, así como herramientas de inteligencia artificial aplicada a la automatización de procesos.",
     "coursesTitle": "Nuestros cursos",
+    "instructors": {
+      "title": "Nuestros instructores",
+      "linkedinLabel": "LinkedIn",
+      "items": [
+        {
+          "name": "Antonio Macías Ferrera",
+          "role": "CTO & Co-founder",
+          "description": "Ingeniero de software, científico de datos e Inteligencia Artificial"
+        },
+        {
+          "name": "Guillermo Montero Fernández Vivancos",
+          "role": "CEO & Co-founder",
+          "description": "Ingeniero de Calidad, Doctor en Ingeniería industrial."
+        }
+      ]
+    },
     "time": "Horario:",
     "capacity": "Capacidad:",
     "people": "personas",
@@ -2260,79 +2316,53 @@
       "serviceType": "Automatización documental y extracción inteligente",
       "areaServed": "España, pymes, asesorías y equipos administrativos",
       "sectionTitles": {
-        "howItWorks": "¿Cómo lo hacemos?",
-        "funciones": "Funciones",
-        "ventajas": "Ventajas",
-        "security": "Tu negocio es nuestra prioridad",
-        "requirements": "Requisitos",
+        "howItWorks": "¿Cómo funciona este workflow?",
+        "infocardsTitle": "Todo sobre la automatización de facturas",
         "technologyFaqs": "Preguntas frecuentes"
       },
       "steps": [
         {
-          "title": "Conectamos tu bandeja",
-          "description": "Conectamos tu bandeja de entrada o carpeta donde recibes facturas."
+          "title": "Escanea tu bandeja de entrada",
+          "description": "Escanea tu bandeja de entrada y detecta automáticamente las facturas entrantes."
         },
         {
-          "title": "Definimos las reglas",
-          "description": "Definimos reglas de clasificación y extracción según tu negocio."
+          "title": "Descarga y almacena",
+          "description": "Descarga las facturas y las almacena de forma estructurada en carpetas en tu nube."
         },
         {
-          "title": "Activamos el flujo",
-          "description": "Activamos el flujo automático: detección, extracción y archivado."
+          "title": "Extrae los datos relevantes",
+          "description": "Extrae los datos relevantes de cada factura (importe, proveedor, fecha, número de factura, concepto, etc.) y los procesa según el criterio definido."
         }
       ],
       "funciones": {
-        "items": [
-          {
-            "title": "Detectar automáticamente las facturas entrantes"
-          },
-          {
-            "title": "Almacenarlas de forma estructurada"
-          },
-          {
-            "title": "Escanear los documentos"
-          },
-          {
-            "title": "Extraer los datos relevantes"
-          },
-          {
-            "title": "Procesarlos y archivarlos según el criterio definido"
-          }
-        ],
         "paragraphs": [
           "Una vez automatizado, todo el proceso se ejecuta sin intervención manual, permitiendo que el flujo contable sea más rápido, fiable y ordenado.",
-          "Los datos extraídos (importe, proveedor, fecha, número de factura, concepto, etc.) y la forma de archivado se definen completamente a medida del cliente sin incremento de presupuesto, manteniendo un precio cerrado y transparente."
+          "Los datos extraídos (importe, proveedor, fecha, número de factura, concepto, etc.) y la forma de archivado se definen completamente a medida del cliente sin incremento de presupuesto."
         ]
       },
-      "ventajas": [
-        {
-          "title": "Sin Errores",
-          "description": "Evita errores humanos como no ver un email importante o transcribir incorrectamente."
-        },
-        {
-          "title": "Automático",
-          "description": "Es un proceso automático, por lo que no requiere esfuerzo ni tiempo excesivo."
-        },
-        {
-          "title": "Compatibilidad",
-          "description": "Compatible con cualquier formato, como PDF, DOC, Word o imágenes."
-        },
-        {
-          "title": "Extracción fiable",
-          "description": "Extracción fiable y práctica de datos con sistemas de OCR, dejándolos listos únicamente para analizarlos."
-        },
-        {
-          "title": "Organizadas y Estructuradas",
-          "description": "Las facturas quedarán organizadas en carpetas estructuradas en Drive, ERP, CRM o la herramienta que se desee."
-        }
-      ],
-      "security": {
-        "trustPoints": [
-          "Trabajamos sobre máquinas privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
-          "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles.",
-          "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
-        ],
-        "requirements": [
+      "infocards": {
+        "cards": [
+          {
+            "name": "Automático e invisible",
+            "description": "Es un proceso automático, que no requiere esfuerzo ni tiempo extra una vez implantado."
+          },
+          {
+            "name": "Compatibilidad total",
+            "description": "Compatible con cualquier formato, como PDF, DOC, Word o imágenes; y con cualquier nube (Google Drive, OneDrive, Dropbox, etc.)"
+          },
+          {
+            "name": "Software libre",
+            "description": "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles."
+          },
+          {
+            "name": "Máquinas privadas (VPS)",
+            "description": "Trabajamos sobre servidores privados del cliente. Tú mantienes el control total de tus datos y accesos en todo momento."
+          }
+        ]
+      },
+      "requirements": {
+        "title": "Requisitos",
+        "items": [
           "Acceso a una o varias cuentas de correo electrónico del cliente.",
           "Listado de remitentes autorizados (lista blanca).",
           "Datos a extraer de las facturas.",
@@ -2342,10 +2372,10 @@
       },
       "pricing": {
         "individualPrice": "450€",
-        "individualLabel": "Precio del servicio",
+        "individualLabel": "Precio individual",
         "comboPrice": "400€",
         "comboLabel": "Precio combinado",
-        "comboNote": "Precio combinado al contratar varios servicios de automatización.",
+        "comboNote": "Precio combinado al contratar implantar varias automatizaciones.",
         "implementationTime": "10 días",
         "implementationLabel": "Tiempo de implantación:",
         "ctaLabel": "Quiero automatizar mis facturas",
@@ -2354,23 +2384,23 @@
       "technologyFaqs": [
         {
           "tag": "Procesamiento",
-          "question": "¿Cómo detectáis las facturas automáticamente?",
-          "answer": "Monitorizamos bandejas de entrada o carpetas y aplicamos modelos OCR que identifican documentos tipo factura sin necesidad de reglas manuales."
+          "question": "¿Cómo se detectan las facturas automáticamente?",
+          "answer": "Se escanean las bandejas de entrada o carpetas de correos aplicando un filtro remitente y tipo de archivo adjunto. Después un modelos OCR identifica los documentos para identificiar si se trata de una factura."
         },
         {
           "tag": "Extracción",
           "question": "¿Qué datos se pueden extraer?",
-          "answer": "Proveedor, fecha, número de factura, conceptos, base imponible, IVA, total y cualquier campo adicional que necesites."
+          "answer": "Se puede extraer cualquier tipo de campo indicado previamente: proveedor, fecha, número de factura, conceptos, base imponible, IVA, total y cualquier campo adicional que necesites."
         },
         {
           "tag": "Integración",
-          "question": "¿Se puede conectar con mi ERP o contabilidad?",
-          "answer": "Sí. Podemos exportar a CSV, API, Google Drive, OneDrive, Holded, A3, Contasol y otros sistemas."
+          "question": "¿Se puede conectar con mi Drive o mi sistema ERP?",
+          "answer": "Sí. La herramienta n8n se puede integrar con gran facilidad con Google Drive, OneDrive, Dropbox, y sistemas ERP como Holded y Odoo. Además, se puede conectar con cualquier sistema que tenga API o permita la integración mediante webhooks."
         },
         {
-          "tag": "Seguridad",
-          "question": "¿Cómo gestionáis datos sensibles?",
-          "answer": "Aplicamos minimización de datos, cifrado en tránsito y reglas de acceso estrictas. Solo procesamos lo necesario para la automatización."
+          "tag": "Precio",
+          "question": "¿Tiene algún coste mensual?",
+          "answer": "Por nuestra parte NO. Nuestro precio de implantación es único y cerrado. El coste mensual dependerá del proveedor de VPS que elijas y del volumen de facturas que proceses. Normalmente, un VPS básico cuesta entre 40€ y 60€ al año, y es suficiente para la mayoría de empresas."
         }
       ],
       "keywords": [
@@ -2391,81 +2421,64 @@
     },
     "automatizacion-informes": {
       "slug": "automatizacion-informes",
-      "title": "Automatización mensual de informes",
+      "title": "Automatización de envío de informes, notificaciones y comunicaciones",
       "shortTitle": "Automatización de informes",
-      "heroText": "Automatizamos el envío automático de informes (mensual). Nuestro objetivo es eliminar tareas manuales, reducir errores humanos y liberar tiempo administrativo sin perder control ni seguridad.",
+      "heroText": "Nuestro objetivo es eliminar tareas manuales, reducir errores humanos y liberar tiempo administrativo sin perder control ni seguridad.",
       "heroCtaLabel": "Solicitar más información",
-      "secondaryCtaLabel": "Quiero automatizar mis informes",
+      "secondaryCtaLabel": "Quiero automatizar mis envíos",
       "serviceType": "Automatización de envío de informes y comunicación con propietarios",
       "areaServed": "España, comunidades de propietarios, administradores de fincas y gestorías",
       "sectionTitles": {
         "howItWorks": "¿Cómo funciona?",
-        "funciones": "Funciones",
-        "ventajas": "Ventajas",
-        "security": "Tu negocio es nuestra prioridad",
+        "infocardsTitle": "Todo sobre la automatización de informes",
         "requirements": "Requisitos",
         "technologyFaqs": "Preguntas frecuentes"
       },
       "howItWorks": {
         "videoUrl": "https://www.youtube.com/watch?v=qLKfe3yukGs",
         "paragraphs": [
-          "Con este servicio se automatiza todo el flujo: desde la recogida de los informes económicos hasta el envío masivo por correo electrónico a cada propietario, utilizando la nube, el CRM o el sistema documental que ya use el cliente.",
-          "Cada envío queda correctamente archivado y clasificado, garantizando trazabilidad, cumplimiento y facilidad de consulta futura. Además, tras cada ciclo de envíos, el administrador recibe un correo resumen con el estado del proceso: informes enviados, posibles incidencias y confirmación de ejecución."
-        ]
-      },
-      "funciones": {
-        "items": [
+          "Con este servicio se automatiza todo el flujo: desde la recogida de información hasta el envío, utilizando la nube, el CRM o el sistema documental que ya use el cliente.",
+          "Cada envío queda correctamente archivado y clasificado, garantizando trazabilidad, cumplimiento y facilidad de consulta futura. Además, tras cada ciclo de envíos, el administrador recibe un correo resumen."
+        ],
+        "steps": [
           {
-            "title": "Recopilar automáticamente los informes económicos desde el CRM, la nube o el sistema documental"
+            "title": "Recogida automática",
+            "description": "Conectamos la nube, el CRM o el sistema documental para recoger los informes sin intervención manual."
           },
           {
-            "title": "Clasificar y preparar cada informe por propietario o comunidad"
+            "title": "Envío masivo",
+            "description": "Generamos y enviamos cada informe por correo electrónico al propietario correspondiente."
           },
           {
-            "title": "Enviar los informes de forma masiva por correo electrónico"
-          },
-          {
-            "title": "Archivar y clasificar cada envío para garantizar la trazabilidad"
-          },
-          {
-            "title": "Generar un correo resumen mensual del proceso para el administrador"
+            "title": "Confirmación y archivo",
+            "description": "Cada envío queda archivado y el administrador recibe un resumen con incidencias y confirmación."
           }
         ]
       },
-      "ventajas": [
-        {
-          "title": "Sin errores",
-          "description": "Evita errores humanos como omitir un propietario o enviar un informe duplicado."
-        },
-        {
-          "title": "Automático",
-          "description": "Proceso mensual completamente automático, sin esfuerzo ni intervención manual."
-        },
-        {
-          "title": "Compatibilidad",
-          "description": "Compatible con cualquier CRM, nube, base de datos o sistema documental que ya utilices."
-        },
-        {
-          "title": "Trazabilidad total",
-          "description": "Cada envío queda archivado y clasificado, con confirmación de ejecución y registro de incidencias."
-        },
-        {
-          "title": "Ahorro de tiempo",
-          "description": "Libera horas de trabajo administrativo cada mes en la gestión de comunidades."
-        }
-      ],
+      "infocards": {
+        "cards": [
+          {
+            "name": "Compatibilidad total",
+            "description": "Compatible con cualquier CRM, nube, base de datos o sistema documental que ya utilices."
+          },
+          {
+            "name": "Software libre",
+            "description": "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles."
+          },
+          {
+            "name": "Máquinas privadas (VPS)",
+            "description": "Trabajamos sobre servidores privados del cliente. Tú mantienes el control total de tus datos y accesos en todo momento."
+          },
+          {
+            "name": "Sin datos sensibles",
+            "description": "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
+          }
+        ]
+      },
       "security": {
-        "trustPoints": [
-          "Trabajamos sobre máquinas privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
-          "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles.",
-          "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
-        ],
         "requirements": [
           "Acceso al sistema donde se almacenan los informes (CRM, nube, base de datos...).",
-          "Estructura de los informes.",
-          "Definición del calendario de envíos (mensual u otro).",
           "Acceso a la cuenta de correo electrónico.",
-          "Listado de propietarios y comunidades a las que hay que enviar los informes.",
           "Plantilla de mensajes que enviar a los propietarios."
         ]
       },
@@ -2484,22 +2497,27 @@
         {
           "tag": "Procesamiento",
           "question": "¿Cómo se recopilan los informes automáticamente?",
-          "answer": "Conectamos con el CRM, la nube o el sistema documental que ya utilices para recoger los informes económicos cada mes sin intervención manual."
+          "answer": "Conectamos con el CRM, la nube o el sistema documental que ya utilices para recoger la información."
         },
         {
           "tag": "Envío",
           "question": "¿Cómo se realiza el envío masivo?",
-          "answer": "Cada informe se envía automáticamente por correo electrónico al propietario correspondiente, usando la plantilla de mensaje que definas."
+          "answer": "Cada informe se envía automáticamente por correo electrónico, usando la(s) plantilla(s) de mensaje proporcionadas por el cliente."
         },
         {
           "tag": "Integración",
           "question": "¿Se puede conectar con mi CRM o sistema documental?",
-          "answer": "Sí. Nos adaptamos al sistema que ya utilices: CRM, nube, base de datos o gestor documental que gestione tus comunidades."
+          "answer": "Sí. Nos adaptamos al sistema que ya utilices: CRM, nube, base de datos o gestor de documentos que utilicéis."
         },
         {
           "tag": "Seguridad",
           "question": "¿Qué pasa si falla un envío?",
           "answer": "Tras cada ciclo recibirás un correo resumen con el estado del proceso, incluyendo posibles incidencias y confirmación de ejecución."
+        },
+        {
+          "tag": "Precio",
+          "question": "¿Tiene algún coste mensual?",
+          "answer": "Por nuestra parte NO. Nuestro precio de implantación es único y cerrado. El coste mensual dependerá del proveedor de VPS que elijas y del volumen de facturas que proceses. Normalmente, un VPS básico cuesta entre 40€ y 60€ al año, y es suficiente para la mayoría de empresas."
         }
       ],
       "keywords": [
@@ -2618,189 +2636,151 @@
         "bgColor": "#d97757"
       }
     },
-    "formacion-ia-sevilla": {
-      "slug": "formacion-ia-sevilla",
-      "title": "Formación en IA en Sevilla",
-      "description": "Formación práctica en inteligencia artificial para PYMES en Sevilla. Talleres adaptados a tu equipo para integrar la IA en procesos reales del día a día.",
-      "shortTitle": "Formación IA",
-      "heroBadge": "Formación operativa",
-      "heroCtaLabel": "Planificar formación",
-      "secondaryCtaLabel": "Consultar disponibilidad",
-      "serviceType": "Formación en IA para ventas, soporte y operaciones",
-      "areaServed": "España - Sesiones presenciales y online",
-      "valueProps": [
-        "Sesiones construidas sobre ejemplos reales y tareas que el equipo ya realiza hoy.",
-        "Módulos de seguridad, gobernanza y uso responsable adaptados a cada departamento.",
-        "Plantillas, prompts y rutinas listas para aplicar al día siguiente."
-      ],
-      "sectionTitles": {
-        "valueProps": "Qué aprenderá tu equipo",
-        "metrics": "Formación en IA aplicada a procesos reales",
-        "carousel": "Formación en IA para PYMES",
-        "experts": "Profesores de IA en Sevilla",
-        "technologyFaqs": "Preguntas frecuentes",
-        "curiosities": "Datos y curiosidades",
-        "ctaTitle": "¿Quieres planificar una formación?",
-        "ctaSubtitle": "Adaptamos el contenido a tus procesos, roles y nivel de madurez."
-      },
-      "ui": {
-        "linkedinLabel": "LinkedIn",
-        "faqCtaLabel": "Ver todas las preguntas frecuentes",
-        "previousLabel": "Anterior",
-        "nextLabel": "Siguiente"
-      },
-      "metrics": [
-        {
-          "label": "Formato",
-          "value": "2-4 horas",
-          "detail": "Bloques compactos que no interrumpen operaciones y pueden repetirse por equipo."
-        },
-        {
-          "label": "Seguimiento",
-          "value": "Opcional 30 días",
-          "detail": "Acompañamos la adopción, resolvemos dudas y medimos el uso real tras la sesión."
-        },
-        {
-          "label": "Materiales",
-          "value": "Playbooks listos para usar",
-          "detail": "Guías por rol, checklists y librerías de prompts adaptadas a tus tareas."
-        }
-      ],
-      "experts": [
-        {
-          "name": "Antonio Macías Ferrera",
-          "role": "CTO ingeniero de software & Co-founder",
-          "description": "Ingeniero de software especialista en automatización e inteligencia artificial."
-        },
-        {
-          "name": "Guillermo Montero Fernández Vivancos",
-          "role": "Ingeniero de Calidad, Doctor en Ingeniería industrial & Co-Founder",
-          "description": "Consultor y project manager especializados en IA e ingeniería de calidad."
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Programa",
-          "question": "¿La formación es genérica o adaptada al negocio?",
-          "answer": "Siempre parte de casos y tareas reales. Sin ese anclaje, la adopción cae y el equipo vuelve a los hábitos anteriores."
-        },
-        {
-          "tag": "Seguridad",
-          "question": "¿Incluye seguridad, privacidad y gobernanza?",
-          "answer": "Sí. Cubrimos minimización de datos, herramientas aprobadas, límites de uso y revisión humana cuando el impacto lo requiere."
-        },
-        {
-          "tag": "Formato",
-          "question": "¿Puede combinarse con un despliegue técnico?",
-          "answer": "Sí. Funciona incluso mejor cuando acompaña un piloto o rollout, porque el equipo aprende sobre su propio flujo de trabajo."
-        },
-        {
-          "tag": "Adopción",
-          "question": "¿Cómo medís si la formación cambia hábitos?",
-          "answer": "Definimos tareas objetivo, tiempo o calidad base y seguimiento posterior. Sin medición, la formación se queda en inspiración."
-        }
-      ],
-      "curiosities": [
-        "Más del 85% de las tareas administrativas pueden automatizarse parcial o totalmente con IA.",
-        "Las empresas que adoptan IA reportan un aumento medio del 30% en productividad en menos de 90 días.",
-        "Un modelo de IA puede analizar en milisegundos lo que un humano tardaría horas en revisar.",
-        "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos.",
-        "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
-      ],
-      "curiosityCards": [
-        {
-          "title": "Uso empresarial",
-          "badge": "Dato real",
-          "text": "Más del 85% de las tareas administrativas pueden automatizarse parcial o totalmente con IA."
-        },
-        {
-          "title": "Productividad",
-          "badge": "Impacto directo",
-          "text": "Las empresas que adoptan IA reportan un aumento medio del 30% en productividad en menos de 90 días."
-        },
-        {
-          "title": "Velocidad",
-          "badge": "Capacidad técnica",
-          "text": "Un modelo de IA puede analizar en milisegundos lo que un humano tardaría horas en revisar."
-        },
-        {
-          "title": "Adopción",
-          "badge": "Comportamiento humano",
-          "text": "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos."
-        },
-        {
-          "title": "Seguridad",
-          "badge": "Governance",
-          "text": "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
-        }
-      ],
-      "cta": {
-        "label": "Quiero saber más información",
-        "bgColor": "#d97757"
-      }
-    },
     "implantacion-odoo": {
       "slug": "implantacion-odoo",
-      "title": "Implantación de Odoo",
-      "shortTitle": "Implantación de Odoo",
-      "heroText": "El servicio de implantación y actualización de Odoo 18 de Ordinaly está orientado a empresas y pymes en España que necesitan una plataforma donde organizar su empresa y su manera de trabajar.",
+      "title": "Implantación de Odoo 18",
+      "shortTitle": "Implantación de Odoo 18",
+      "heroText": "El servicio de implantación y actualización de Odoo 18 de Ordinaly está orientado a empresas y pymes que necesitan una plataforma donde organizar su empresa (gestión de clientes, personal, facturación, contabilidad, etc.).",
       "heroCtaLabel": "Solicitar información",
       "secondaryCtaLabel": "Quiero implantar Odoo",
       "serviceType": "Implantación y actualización de ERP Odoo",
       "areaServed": "España, empresas y pymes",
       "sectionTitles": {
         "whatIsOdoo": "¿Qué es Odoo?",
-        "included": "¿Qué incluye el servicio?",
+        "whyOdoo": "¿Por qué Odoo es nuestra solución de confianza?",
+        "whyOdooCommunity": "¿Por qué Odoo Community?",
+        "infocardsTitle": "Todo sobre la implantación de Odoo 18",
         "security": "Tu negocio es nuestra prioridad",
-        "requirements": "Requisitos"
+        "requirements": "Requisitos",
+        "technologyFaqs": "¿Tienes más dudas sobre Odoo?",
+        "technologyFaqsSubtitle": "Aquí respondemos a las más frecuentes"
       },
       "whatIsOdoo": {
         "paragraphs": [
-          "Odoo es uno de los ERP más vendidos y utilizados del mundo, con millones de usuarios activos y una adopción creciente gracias a su flexibilidad, escalabilidad y amplio ecosistema de módulos para gestión empresarial, ventas, contabilidad, CRM y operaciones."
+          "Odoo es uno de los ERP más utilizados del mundo, con millones de usuarios activos y una adopción creciente gracias a su flexibilidad, escalabilidad y amplio ecosistema de módulos para gestión empresarial, ventas, contabilidad, CRM y operaciones."
         ],
         "linkPrefix": "Puedes obtener más información sobre Odoo en su web oficial:",
         "linkLabel": "odoo.com",
         "linkHref": "https://www.odoo.com"
       },
-      "included": {
-        "items": [
-          {
-            "title": "Implantación de Odoo 18",
-            "description": "Desde cero o actualización desde versiones anteriores."
-          },
-          {
-            "title": "Validación técnica",
-            "description": "Validación técnica completa del sistema implantado."
-          },
-          {
-            "title": "Entorno operativo",
-            "description": "Entrega del entorno operativo y funcional, listo para trabajar."
-          }
-        ],
-        "note": "El servicio puede ser complementado con la configuración base para cumplimiento de VeriFactu España (consultar)."
+      "whyOdoo": {
+        "paragraphs": [
+          "Odoo combina CRM, contabilidad, facturación, inventario, ventas y muchos más módulos, en una única plataforma.",
+          "Su estructura modular te permite empezar por lo esencial y crecer sin cambiar de sistema, adaptándose al ritmo de tu negocio y a la curva de aprendizaje de tu equipo."
+        ]
       },
-      "security": {
-        "trustPoints": [
-          "El sistema se implanta en infraestructura controlada por el cliente (servidor propio o VPS).",
-          "El cliente mantiene el control total del ERP y de su información en todo momento.",
-          "Ordinaly no conserva accesos ni credenciales tras la entrega del servicio.",
-          "No almacenamos tus datos o archivos en nuestros servidores."
+      "whyOdooCommunity": {
+        "paragraphs": [
+          "En Ordinaly, implantamos Odoo Community, la edición de código abierto y gratuita de Odoo. Es igual de mantenible, segura y funcional que la versión Enterprise, pero mucho más económica al evitar el coste mensual de las licencias por usuario, inevitables en otros ERPs como Salesforce.",
+          "Además, no dependes únicamente de Ordinaly, Odoo Community cuenta con una amplia comunidad de desarrolladores y empresas detrás, que publican módulos, mejoras y correcciones de forma continua."
         ],
-        "requirements": [
-          "Acceso al servidor o infraestructura donde se desplegará Odoo.",
-          "Información sobre la versión actual de Odoo (si aplica).",
-          "Definición del alcance funcional (facturación, contabilidad, ventas, etc.).",
-          "Datos fiscales y certificados necesarios para la configuración de facturación."
+        "comparisonTable": {
+          "headers": ["Herramienta", "Coste anual (5 usuarios)", "Observaciones"],
+          "rows": [
+            {
+              "tool": "Salesforce Sales Cloud Starter",
+              "cost": "~1.800 €/año",
+              "notes": "25 € por usuario/mes. Sin módulo de inventario ni contabilidad incluidos."
+            },
+            {
+              "tool": "HubSpot CRM (plan Starter)",
+              "cost": "~1.200 €/año",
+              "notes": "El CRM básico es gratis, pero las automatizaciones y pipelines múltiples requieren plan de pago."
+            },
+            {
+              "tool": "Odoo Enterprise",
+              "cost": "~900 €/año",
+              "notes": "15 € por usuario/mes. Incluye soporte oficial y módulos adicionales."
+            },
+            {
+              "tool": "Odoo Community",
+              "cost": "0*€ de licencia",
+              "notes": "Implantación y servidor son los únicos costes. El software es gratuito.",
+              "highlight": true
+            }
+          ]
+        },
+        "tableNote1": "Tabla comparativa de costes anuales aproximados para 5 usuarios. Los precios pueden variar según el proveedor y la región.",
+        "tableNote2": "* Coste de licencia del software. La implantación y el servidor son los únicos costes reales de Odoo Community."
+      },
+      "heroBadgeAlt": "Insignia de Odoo",
+      "infocards": {
+        "cards": [
+          {
+            "name": "ERP completo",
+            "description": "Odoo combina CRM, contabilidad, facturación, inventario, ventas y muchos más módulos, en una única plataforma."
+          },
+          {
+            "name": "Módulos a medida",
+            "description": "El sistema se puede ampliar con módulos adicionales según las necesidades de tu negocio."
+          },
+          {
+            "name": "Perfecto para automatización",
+            "description": "Odoo Community es compatible con n8n, lo que permite automatizar procesos y flujos de trabajo sin depender de desarrollos a medida."
+          },
+          {
+            "name": "VeriFactu España",
+            "description": "El servicio puede ser complementado con la configuración base para cumplimiento de VeriFactu España (consultar)."
+          },
+          {
+            "name": "Máquinas privadas (VPS)",
+            "description": "El sistema se implanta en infraestructura controlada por el cliente (servidor propio o VPS). El cliente mantiene el control total del ERP y de su información en todo momento."
+          },
+          {
+            "name": "FLOSS - Software libre",
+            "description": "Odooo Community es software libre y de código abierto. No dependes de licencias por usuario ni de proveedores externos."
+          },
+          {
+            "name": "Cero datos sensibles",
+            "description": "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores. Ordinaly no conserva accesos ni credenciales tras la entrega del servicio. No almacenamos tus datos o archivos en nuestros servidores."
+          }
         ]
       },
       "pricing": {
         "individualPrice": "860€",
-        "individualLabel": "Precio del servicio",
-        "implementationTime": "20 días",
+        "individualLabel": "pago único",
+        "implementationTime": "10 días",
         "implementationLabel": "Tiempo de implantación:",
         "ctaLabel": "Quiero implantar Odoo",
         "ctaHref": "https://wa.me/34626270806?text=Quiero%20implantar%20Odoo"
       },
+      "technologyFaqs": [
+        {
+          "tag": "Precio",
+          "question": "¿Por qué el precio es un pago único y no una cuota mensual?",
+          "answer": "Implantamos Odoo Community, la edición de código abierto y gratuita de Odoo. Al no depender de las licencias por usuario de Odoo Enterprise, el coste se limita al servicio de implantación: un pago único, sin cuotas mensuales recurrentes por usuario."
+        },
+        {
+          "tag": "Seguridad",
+          "question": "¿Cómo protegéis los datos de mi empresa?",
+          "answer": "El sistema se despliega en infraestructura controlada por ti (servidor propio o VPS). Mantienes el control total de tus datos y accesos, y no conservamos credenciales ni copias de tu información tras la entrega del servicio."
+        },
+        {
+          "tag": "Comparativa",
+          "question": "¿Por qué elegir Odoo frente a otros ERPs?",
+          "answer": "Odoo combina en una sola plataforma CRM, contabilidad, facturación, inventario, ventas y muchos más módulos, con una interfaz moderna y una curva de aprendizaje mucho menor que otros ERPs tradicionales. Su estructura modular te permite empezar por lo esencial y crecer sin cambiar de sistema."
+        },
+        {
+          "tag": "Community vs Enterprise",
+          "question": "¿Por qué implantáis Odoo Community y no Odoo Enterprise?",
+          "answer": "Odoo Community es igual de mantenible, segura y funcional que la versión Enterprise, pero mucho más económica a largo plazo al evitar el coste recurrente de las licencias por usuario. Además, no dependes únicamente de Ordinaly: Odoo Community cuenta con una amplia comunidad de desarrolladores y empresas detrás.",
+          "links": [
+            { "label": "Comunidad y foro oficial de Odoo", "href": "https://www.odoo.com/forum/help-1" },
+            { "label": "Odoo Community Association (OCA)", "href": "https://odoo-community.org/" }
+          ]
+        },
+        {
+          "tag": "Soporte",
+          "question": "¿Quién da soporte a Odoo Community? ¿Recibe actualizaciones?",
+          "answer": "Odoo Community está respaldado por una amplia comunidad global de desarrolladores y empresas que publican módulos, correcciones y mejoras de forma continua. ",
+          "answerEmphasis": "Ordinaly se encarga de la implantación, configuración y mantenimiento técnico directo para tu empresa."
+        },
+        {
+          "tag": "Migración",
+          "question": "¿Podéis migrar mi negocio desde otro ERP o desde Odoo Enterprise?",
+          "answer": "Sí. Analizamos tu sistema actual, definimos el alcance y migramos tus datos y procesos a Odoo Community sin perder continuidad. Este coste de migración se valora de forma individual según la complejidad y volumen de datos."
+        }
+      ],
       "keywords": [
         "Odoo",
         "ERP",
@@ -2827,8 +2807,7 @@
       "areaServed": "España, empresas y pymes",
       "sectionTitles": {
         "whatIsPWA": "¿Qué es una PWA?",
-        "included": "¿Qué incluye este servicio?",
-        "ventajas": "Ventajas",
+        "infocardsTitle": "Todo lo que incluye tu PWA",
         "requirements": "Requisitos"
       },
       "whatIsPWA": {
@@ -2840,64 +2819,49 @@
         ],
         "highlight": "Las PWA dinámicas permiten construir aplicaciones ricas en funcionalidades, con contenido en tiempo real, integraciones con sistemas externos y una experiencia de usuario comparable a una app nativa, pero con menor coste de desarrollo y mantenimiento."
       },
-      "included": {
-        "items": [
+      "infocards": {
+        "cards": [
           {
-            "title": "Análisis funcional del proyecto",
-            "description": ""
+            "name": "Análisis funcional del proyecto"
           },
           {
-            "title": "Diseño y desarrollo de PWA dinámica a tu medida",
-            "description": ""
+            "name": "Diseño y desarrollo de PWA dinámica a tu medida"
           },
           {
-            "title": "Estructura escalable y mantenible",
-            "description": ""
+            "name": "Estructura escalable y mantenible"
           },
           {
-            "title": "Optimización de rendimiento y SEO técnico",
-            "description": ""
+            "name": "Optimización de rendimiento y SEO técnico"
           },
           {
-            "title": "Despliegue en infraestructura del cliente",
-            "description": ""
+            "name": "Despliegue en infraestructura del cliente"
           },
           {
-            "title": "Pruebas y validación final",
-            "description": ""
+            "name": "Pruebas y validación final"
+          },
+          {
+            "name": "Alto rendimiento y velocidad de carga"
+          },
+          {
+            "name": "Instalable sin pasar por tiendas de apps"
+          },
+          {
+            "name": "Compatible con todos los dispositivos"
+          },
+          {
+            "name": "Optimizada para SEO"
+          },
+          {
+            "name": "Actualizaciones inmediatas sin descargas"
+          },
+          {
+            "name": "Menor coste frente a apps nativas"
+          },
+          {
+            "name": "Mayor control y seguridad"
           }
         ]
       },
-      "ventajas": [
-        {
-          "title": "Alto rendimiento y velocidad de carga",
-          "description": ""
-        },
-        {
-          "title": "Instalable sin pasar por tiendas de apps",
-          "description": ""
-        },
-        {
-          "title": "Compatible con todos los dispositivos",
-          "description": ""
-        },
-        {
-          "title": "Optimizada para SEO",
-          "description": ""
-        },
-        {
-          "title": "Actualizaciones inmediatas sin descargas",
-          "description": ""
-        },
-        {
-          "title": "Menor coste frente a apps nativas",
-          "description": ""
-        },
-        {
-          "title": "Mayor control y seguridad",
-          "description": ""
-        }
-      ],
       "security": {
         "requirements": [
           "Los requisitos se definen en función del alcance y las funcionalidades del proyecto.",
@@ -2943,8 +2907,8 @@
         "description": "Ingenieros de software, expertos en ciencias de la computación e inteligencia artificial, con experiencia real en automatización empresarial."
       },
       "sectionTitles": {
-        "security": "Tu negocio es nuestra prioridad",
-        "ventajas": "Ventajas"
+        "infocardsTitle": "Todo lo que necesitas saber",
+        "security": "Tu negocio es nuestra prioridad"
       },
       "security": {
         "trustPoints": [
@@ -2954,20 +2918,19 @@
           "No almacenamos tus datos o archivos en nuestros servidores."
         ]
       },
-      "ventajas": [
-        {
-          "title": "Más trazabilidad",
-          "description": ""
-        },
-        {
-          "title": "Menos errores",
-          "description": ""
-        },
-        {
-          "title": "Más tiempo libre",
-          "description": ""
-        }
-      ],
+      "infocards": {
+        "cards": [
+          {
+            "name": "Más trazabilidad"
+          },
+          {
+            "name": "Menos errores"
+          },
+          {
+            "name": "Más tiempo libre"
+          }
+        ]
+      },
       "pricing": {
         "individualPrice": "Presupuesto a consultar",
         "individualLabel": "Cada automatización se diseña y valora de forma individual según tu proceso.",

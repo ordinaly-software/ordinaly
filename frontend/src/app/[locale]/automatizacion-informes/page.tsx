@@ -16,7 +16,7 @@ export async function generateMetadata({
     title: "Automatización mensual de informes para comunidades",
     description:
       "Automatizamos el envío mensual de informes económicos a propietarios y comunidades: recogida de datos desde tu CRM o nube, envío masivo por correo electrónico y archivado con trazabilidad completa.",
-    image: "/static/automatizacion-informes/automatizacion-informes.webp",
+    image: "/static/automatizacion-informes/automatizacion_informes.webp",
   });
 }
 

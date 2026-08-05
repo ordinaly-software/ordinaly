@@ -5,16 +5,14 @@ import dynamic from "next/dynamic";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
-import { InfoCardCarousel, type InfoCardItem } from "@/components/ui/info-card-carousel";
-import { HowItWorksVideoSection } from "@/components/ui/how-it-works-video-section";
+import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
+import { HowItWorksVideoSection } from "@/components/landing/how-it-works-video-section";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
   loading: () => <WhatsAppBubbleSkeleton />,
 });
-
-const CARD_SIZES: InfoCardItem["size"][] = ["lg", "sm", "md", "sm", "md"];
 
 export default function AutomatizacionFacturas() {
   const messages = useMessages() as any;
@@ -24,53 +22,17 @@ export default function AutomatizacionFacturas() {
     throw new Error("Missing landing content: automatizacion-facturas");
   }
 
-  const funcionesCards: InfoCardItem[] = (content.funciones?.items ?? []).map(
-    (item: { title: string }, i: number) => ({
-      key: `funciones-${i}`,
-      size: CARD_SIZES[i % CARD_SIZES.length],
-      title: item.title,
-    }),
-  );
+  const infoCardTexts = (content.infocards?.cards ?? []) as { name: string; description?: string }[];
 
-  const ventajasCards: InfoCardItem[] = (content.ventajas ?? []).map(
-    (item: { title: string; description?: string }, i: number) => ({
-      key: `ventajas-${i}`,
-      size: CARD_SIZES[i % CARD_SIZES.length],
-      title: item.title,
-      description: item.description,
-    }),
-  );
-
-  const trustPoints: string[] = content.security?.trustPoints ?? [];
-  const requirements: string[] = content.security?.requirements ?? [];
+  const requirements: string[] = content.requirements?.items ?? [];
   const pricing = content.pricing;
-
-  const trustCard: InfoCardItem[] = trustPoints.length
-    ? [
-        {
-          key: "trust",
-          size: "md",
-          title: content.sectionTitles?.security,
-          description: (
-            <ul className="not-italic space-y-2 text-left">
-              {trustPoints.map((point, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
-                  {point}
-                </li>
-              ))}
-            </ul>
-          ),
-        },
-      ]
-    : [];
 
   const requirementsCard: InfoCardItem[] = requirements.length
     ? [
         {
           key: "requirements",
           size: "md",
-          title: content.sectionTitles?.requirements,
+          title: content.requirements?.title,
           description: (
             <ul className="not-italic space-y-2 text-left">
               {requirements.map((req, i) => (
@@ -122,7 +84,44 @@ export default function AutomatizacionFacturas() {
       ]
     : [];
 
-  const securityCards: InfoCardItem[] = [...trustCard, ...requirementsCard, ...pricingCard];
+  // Defined one by one (rather than mechanically mapped) so each card's
+  // size and background can be chosen deliberately.
+  const infocards: InfoCardItem[] = [
+    {
+      key: "workflow",
+      size: "xl",
+      image: "/static/automatizacion-facturas/workflow.webp",
+    },
+    {
+      key: "automatico",
+      size: "sm",
+      title: infoCardTexts[0]?.name,
+      description: infoCardTexts[0]?.description,
+    },
+    {
+      key: "vps",
+      size: "lg",
+      title: infoCardTexts[3]?.name,
+      description: infoCardTexts[3]?.description,
+      image: "/static/automatizacion-facturas/vps.webp",
+    },
+    {
+      key: "compatibilidad",
+      size: "md",
+      title: infoCardTexts[1]?.name,
+      description: infoCardTexts[1]?.description,
+      image: "/static/automatizacion-facturas/compatibilidad.webp",
+    },
+    {
+      key: "software",
+      size: "sm",
+      title: infoCardTexts[2]?.name,
+      description: infoCardTexts[2]?.description,
+      image: "/static/automatizacion-facturas/software.webp",
+    },
+    ...requirementsCard,
+    ...pricingCard,
+  ];
 
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
@@ -131,7 +130,7 @@ export default function AutomatizacionFacturas() {
       <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
         <div
           className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
-          style={{ backgroundImage: "url('/static/automatizacion-facturas/automatizacion-facturas.webp')" }}
+          style={{ backgroundImage: "url('/static/automatizacion-facturas/automatizacion_facturas.webp')" }}
         />
         <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(20,20,19,0.55),rgba(20,20,19,0.3),rgba(20,20,19,0.55))]" />
 
@@ -159,42 +158,21 @@ export default function AutomatizacionFacturas() {
         steps={content.steps ?? []}
       />
 
-      {/* FUNCIONES */}
-      <section className="py-20 md:py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.funciones}
-          </h2>
-
-          <InfoCardCarousel items={funcionesCards} className="max-w-6xl mx-auto" />
-
-          <div className="mt-14 max-w-3xl mx-auto space-y-4">
-            {content.funciones?.paragraphs?.map((p: string, i: number) => (
-              <p key={i} className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
-                {p}
-              </p>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* VENTAJAS */}
-      <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.ventajas}
-          </h2>
-
-          <InfoCardCarousel items={ventajasCards} className="max-w-6xl mx-auto" />
-        </div>
-      </section>
-
-      {/* SECURITY + REQUIREMENTS */}
-      <section className="py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
-          {content.sectionTitles?.security}
+      {/* INFO CARDS */}
+      <section className="py-14 md:py-16 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
+          {content.sectionTitles?.infocardsTitle}
         </h2>
-        <InfoCardCarousel items={securityCards} className="max-w-6xl mx-auto" />
+
+        <InfoCardCarousel items={infocards} className="max-w-6xl mx-auto" />
+
+        <div className="mt-8 max-w-3xl mx-auto space-y-4">
+          {content.funciones?.paragraphs?.map((p: string, i: number) => (
+            <p key={i} className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+              {p}
+            </p>
+          ))}
+        </div>
       </section>
 
       {/* TECHNOLOGY FAQS */}

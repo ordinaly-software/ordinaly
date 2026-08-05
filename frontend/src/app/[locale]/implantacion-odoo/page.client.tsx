@@ -2,19 +2,19 @@
 
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
-import { InfoCardCarousel, type InfoCardItem } from "@/components/ui/info-card-carousel";
+import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { IconOdoo } from "@/components/ui/brand-icons";
-import { HowItWorksVideoSection } from "@/components/ui/how-it-works-video-section";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
   loading: () => <WhatsAppBubbleSkeleton />,
 });
-
-const CARD_SIZES: InfoCardItem["size"][] = ["lg", "sm", "md"];
 
 export default function ImplantacionOdoo() {
   const messages = useMessages() as any;
@@ -24,58 +24,9 @@ export default function ImplantacionOdoo() {
     throw new Error("Missing landing content: implantacion-odoo");
   }
 
-  const includedCards: InfoCardItem[] = (content.included?.items ?? []).map(
-    (item: { title: string; description?: string }, i: number) => ({
-      key: `included-${i}`,
-      size: CARD_SIZES[i % CARD_SIZES.length],
-      title: item.title,
-      description: item.description,
-    }),
-  );
+  const infoCardTexts = (content.infocards?.cards ?? []) as { name: string; description?: string }[];
 
-  const trustPoints: string[] = content.security?.trustPoints ?? [];
-  const requirements: string[] = content.security?.requirements ?? [];
   const pricing = content.pricing;
-
-  const trustCard: InfoCardItem[] = trustPoints.length
-    ? [
-        {
-          key: "trust",
-          size: "md",
-          title: content.sectionTitles?.security,
-          description: (
-            <ul className="not-italic space-y-2 text-left">
-              {trustPoints.map((point, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
-                  {point}
-                </li>
-              ))}
-            </ul>
-          ),
-        },
-      ]
-    : [];
-
-  const requirementsCard: InfoCardItem[] = requirements.length
-    ? [
-        {
-          key: "requirements",
-          size: "md",
-          title: content.sectionTitles?.requirements,
-          description: (
-            <ul className="not-italic space-y-2 text-left">
-              {requirements.map((req, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
-                  {req}
-                </li>
-              ))}
-            </ul>
-          ),
-        },
-      ]
-    : [];
 
   const pricingCard: InfoCardItem[] = pricing
     ? [
@@ -95,43 +46,63 @@ export default function ImplantacionOdoo() {
       ]
     : [];
 
-  const securityCards: InfoCardItem[] = [...trustCard, ...requirementsCard, ...pricingCard];
-  const howItWorksSteps = [
-    {
-      title: "Auditoría del alcance",
-      description: "Definimos módulos, versión y necesidades reales del negocio antes de arrancar.",
-    },
-    {
-      title: "Implantación o actualización",
-      description: "Desplegamos Odoo 18 o actualizamos desde una versión anterior según el caso.",
-    },
-    {
-      title: "Validación técnica",
-      description: "Probamos el sistema y aseguramos que quede operativo y estable.",
-    },
-    {
-      title: "Entrega y control",
-      description: "El cliente mantiene el ERP y sus accesos bajo su control total.",
-    },
+  // Defined one by one (rather than mechanically mapped) so each card's
+  // size can be chosen deliberately.
+  const infocards: InfoCardItem[] = [
+    { key: "erp", size: "xl", title: infoCardTexts[0]?.name, description: infoCardTexts[0]?.description, image: "/static/implantacion-odoo/erp.webp" },
+    { key: "modules", size: "xl", title: infoCardTexts[1]?.name, description: infoCardTexts[1]?.description, image: "/static/implantacion-odoo/modules.webp" },
+    { key: "automation", size: "md", title: infoCardTexts[2]?.name, description: infoCardTexts[2]?.description, image: "/static/implantacion-odoo/automation.webp" },
+    { key: "verifactu", size: "md", title: infoCardTexts[3]?.name, description: infoCardTexts[3]?.description, image: "/static/implantacion-odoo/verifactu.webp" },
+    { key: "vps", size: "sm", title: infoCardTexts[4]?.name, description: infoCardTexts[4]?.description, image: "/static/implantacion-odoo/vps.webp" },
+    { key: "software", size: "sm", title: infoCardTexts[5]?.name, description: infoCardTexts[5]?.description},
+    { key: "sensitive-data", size: "sm", title: infoCardTexts[6]?.name, description: infoCardTexts[6]?.description, image: "/static/implantacion-odoo/sensitive_data.webp" },
+    ...pricingCard,
   ];
+
+  const comparisonRowsPresentation = [
+    { key: "salesforce", rowClass: "bg-white", textClass: "text-black", logoSrc: "/static/icons/salesforce.webp", logoAlt: "Salesforce" },
+    { key: "hubspot", rowClass: "bg-[#fff0df]", textClass: "text-black", logoSrc: "/static/icons/hubspot.webp", logoAlt: "HubSpot" },
+    { key: "odoo-enterprise", rowClass: "bg-white", textClass: "text-[#f35a1f]", logoSrc: "/static/icons/odoo.webp", logoAlt: "Odoo Enterprise" },
+    { key: "odoo-community", rowClass: "bg-[#f8e2d1]", textClass: "text-black", logoSrc: "/static/icons/odoo_community.webp", logoAlt: "Odoo Community" },
+  ];
+
+  const comparisonRowsContent = (content.whyOdooCommunity?.comparisonTable?.rows ?? []) as {
+    tool: string;
+    cost: string;
+    notes: string;
+  }[];
+
+  const comparisonTableHeaders = (content.whyOdooCommunity?.comparisonTable?.headers ?? []) as string[];
+  const comparisonTableNote1 = content.whyOdooCommunity?.tableNote1;
+  const comparisonTableNote2 = content.whyOdooCommunity?.tableNote2;
+
+  const communityComparisonRows = comparisonRowsPresentation.map((presentation, i) => ({
+    ...presentation,
+    tool: comparisonRowsContent[i]?.tool,
+    cost: comparisonRowsContent[i]?.cost,
+    notes: comparisonRowsContent[i]?.notes,
+  }));
 
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
-        <div
-          className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
-          style={{ backgroundImage: "url('/static/backgrounds/odoo_background.webp')" }}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(20,20,19,0.55),rgba(20,20,19,0.3),rgba(20,20,19,0.55))]" />
-
+      <section className="relative w-full overflow-x-clip py-20 md:py-24 px-6 bg-white dark:bg-neutral-900 transition-colors">
         <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
-          <h1 className="text-white text-4xl md:text-6xl font-bold drop-shadow-xl leading-tight">
-            {content.title}
-          </h1>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <h1 className="text-neutral-900 dark:text-white text-4xl md:text-6xl font-bold leading-tight">
+              {content.title}
+            </h1>
+            <Image
+              src="/static/implantacion-odoo/odoo_badge.webp"
+              alt={content.heroBadgeAlt}
+              width={72}
+              height={72}
+              className="h-12 w-12 md:h-16 md:w-16 rounded-full object-cover"
+            />
+          </div>
 
-          <p className="mt-6 text-neutral-300 max-w-2xl leading-relaxed">
+          <p className="mt-6 text-neutral-600 dark:text-neutral-300 max-w-2xl leading-relaxed">
             {content.heroText}
           </p>
 
@@ -143,12 +114,21 @@ export default function ImplantacionOdoo() {
             {content.heroCtaLabel}
           </a>
         </div>
+
+        <div className="relative mt-12 left-1/2 w-screen -translate-x-1/2 overflow-hidden">
+          <Image
+            src="/static/implantacion-odoo/implantacion_odoo.webp"
+            alt={content.title}
+            width={1920}
+            height={1280}
+            className="h-[420px] w-full object-cover object-center md:h-[560px] lg:h-[640px]"
+            priority
+          />
+        </div>
       </section>
 
-      <HowItWorksVideoSection steps={howItWorksSteps} />
-
       {/* WHAT IS ODOO */}
-      <section className="py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section className="py-14 md:py-16 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <div className="max-w-6xl mx-auto grid md:grid-cols-[0.7fr_1.3fr] gap-16 items-center">
           <div className="flex justify-center md:justify-start">
             <div className="flex h-40 w-40 items-center justify-center rounded-3xl bg-white dark:bg-neutral-900 shadow-xl border border-neutral-200 dark:border-neutral-700 text-[#714B67]">
@@ -180,34 +160,164 @@ export default function ImplantacionOdoo() {
             )}
           </div>
         </div>
-      </section>
 
-      {/* WHAT'S INCLUDED */}
-      <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.included}
-          </h2>
-
-          <InfoCardCarousel items={includedCards} className="max-w-6xl mx-auto" />
-
-          {content.included?.note && (
-            <div className="mt-8 max-w-2xl mx-auto rounded-2xl border-2 border-dashed border-[#d97757] bg-[#d97757]/5 p-6 text-center">
-              <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base">
-                {content.included.note}
-              </p>
-            </div>
-          )}
+        <div className="max-w-4xl mx-auto mt-12">
+          <HeroVideoDialog
+            className="w-full"
+            animationStyle="from-center"
+            videoUrl="https://youtu.be/YFJfF81_O2k?si=_r2Zg9AcZz0YjEFr"
+            thumbnailSrc="/static/implantacion-odoo/what_is_odoo_thumbnail.webp"
+            thumbnailAlt={content.sectionTitles?.whatIsOdoo}
+          />
+          <div className="mt-4 text-center">
+            <p className="mt-1 text-sm text-slate-medium dark:text-cloud-medium">
+              {messages.home?.whyUs?.videoCaptionText}
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* SECURITY + REQUIREMENTS */}
-      <section className="py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
-          {content.sectionTitles?.security}
+      {/* INFO CARDS */}
+      <section className="py-14 md:py-16 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
+          {content.sectionTitles?.infocardsTitle}
         </h2>
-        <InfoCardCarousel items={securityCards} className="max-w-6xl mx-auto" />
+
+        <InfoCardCarousel items={infocards} className="max-w-6xl mx-auto" />
+
       </section>
+
+
+      {/* WHY ODOO */}
+      <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900 transition-colors">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-[1.3fr_0.7fr] gap-16 items-center">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">
+              {content.sectionTitles?.whyOdoo}
+            </h2>
+            {content.whyOdoo?.paragraphs?.map((p: string, i: number) => (
+              <p key={i} className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+                {p}
+              </p>
+            ))}
+          </div>
+
+          <div className="flex justify-center md:justify-end">
+            <Image
+              src="/static/implantacion-odoo/why_odoo.webp"
+              alt={content.sectionTitles?.whyOdoo ?? ""}
+              width={480}
+              height={360}
+              className="w-full max-w-sm rounded-2xl border border-neutral-200 shadow-xl object-cover dark:border-neutral-700"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* WHY ODOO COMMUNITY */}
+      <section className="py-14 md:py-16 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-start">
+          <div className="order-1 md:order-1 overflow-hidden border border-[#d6d1ca] bg-white shadow-none self-start">
+            <table className="w-full table-fixed border-collapse text-left">
+              <thead>
+                <tr className="bg-[#ea9567] text-white">
+                  <th className="w-[40%] border-r border-white/40 px-2 py-3 text-center text-[10px] font-bold md:text-sm">
+                    {comparisonTableHeaders[0]}
+                  </th>
+                  <th className="w-[27%] border-r border-white/40 px-2 py-3 text-center text-[10px] font-bold md:text-sm">
+                    {comparisonTableHeaders[1]}
+                  </th>
+                  <th className="w-[33%] px-2 py-3 text-center text-[10px] font-bold md:text-sm">
+                    {comparisonTableHeaders[2]}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {communityComparisonRows.map((row) => (
+                  <tr key={row.key} className={row.rowClass}>
+                    <td className={`border-r border-[#ddd6cf] px-2 py-2 align-middle ${row.textClass}`}>
+                      <div className="flex items-center gap-2 md:gap-3">
+                        <Image
+                          src={row.logoSrc}
+                          alt={row.logoAlt}
+                          width={64}
+                          height={64}
+                          className="h-9 w-9 shrink-0 object-contain md:h-11 md:w-11"
+                        />
+                        <span className="min-w-0 text-[10px] leading-tight font-bold md:text-xs">{row.tool}</span>
+                      </div>
+                    </td>
+                    <td className={`border-r border-[#ddd6cf] px-2 py-2 text-center align-middle text-[10px] md:text-xs font-bold ${row.textClass}`}>
+                      {row.cost}
+                    </td>
+                    <td className={`px-2 py-2 align-middle text-[10px] md:text-xs leading-snug ${row.textClass}`}>
+                      {row.notes}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="order-2 md:order-2">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">
+              {content.sectionTitles?.whyOdooCommunity}
+            </h2>
+            {content.whyOdooCommunity?.paragraphs?.map((p: string, i: number) => (
+              <p key={i} className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+                {p}
+              </p>
+            ))}
+          </div>
+        </div>
+
+        {(comparisonTableNote1 || comparisonTableNote2) && (
+          <figure className="mx-auto mt-6 max-w-4xl text-center text-[10px] leading-relaxed text-neutral-600 dark:text-neutral-400 md:text-xs">
+            {comparisonTableNote1 && <p>{comparisonTableNote1}</p>}
+            {comparisonTableNote2 && <p className={comparisonTableNote1 ? "mt-1" : undefined}>{comparisonTableNote2}</p>}
+          </figure>
+        )}
+      </section>
+
+      {/* TECHNOLOGY FAQS */}
+      {content.technologyFaqs?.length > 0 && (
+        <FaqAccordion
+          className="bg-white dark:bg-neutral-900 transition-colors"
+          title={content.sectionTitles?.technologyFaqs}
+          description={content.sectionTitles?.technologyFaqsSubtitle}
+          items={content.technologyFaqs.map(
+            (faq: { tag: string; question: string; answer: string; answerEmphasis?: string; links?: { label: string; href: string }[] }) => ({
+              question: faq.question,
+              tag: faq.tag,
+              answer: faq.answerEmphasis ? (
+                <>
+                  {faq.answer}
+                  <strong>{faq.answerEmphasis}</strong>
+                </>
+              ) : faq.links?.length ? (
+                <>
+                  {faq.answer}
+                  <span className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+                    {faq.links.map((link, i) => (
+                      <a
+                        key={i}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-[#d97757] hover:underline"
+                      >
+                        👉 {link.label}
+                      </a>
+                    ))}
+                  </span>
+                </>
+              ) : (
+                faq.answer
+              ),
+            }),
+          )}
+        />
+      )}
 
       {/* FORM */}
       <section id="formulario">
