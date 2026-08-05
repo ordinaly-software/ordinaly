@@ -2249,22 +2249,21 @@
         "bgColor": "#000000"
       }
     },
-    "automatizacion-n8n": {
-      "slug": "automatizacion-n8n",
-      "title": "n8n automation with observability and control",
-      "shortTitle": "n8n automation",
-      "subtitle": "Versioned workflows for synchronization, alerts, reconciliation and AI-assisted operations.",
-      "description": "We design n8n flows with retries, queues, logs and per-node metrics so automation stops being a black box and becomes operable infrastructure.",
-      "heroBadge": "n8n + observability",
+    "automatizaciones-personalizadas-para-empresas-con-n8n": {
+      "slug": "automatizaciones-personalizadas-para-empresas-con-n8n",
+      "title": "Custom automations for businesses with n8n",
+      "shortTitle": "Automations with n8n",
+      "subtitle": "Tailor-made, versioned workflows with observability, for business and SME processes that don't fit standard solutions.",
+      "description": "We design custom automations with n8n and free software: retries, queues, logs and per-node metrics for processes that don't fit standard solutions. More traceability, fewer errors and more free time.",
       "heroCtaLabel": "Tell us your case",
       "secondaryCtaLabel": "Chat on WhatsApp",
       "n8nCtaLabel": "View n8n.io",
       "secondaryCtaHref": "https://wa.me/34626270806",
-      "serviceType": "Process automation and integrations built on n8n",
-      "areaServed": "Spain and remote deployment across the EU",
       "sectionTitles": {
         "whatIsN8N": "What is n8n?",
         "integrations": "We connect it with what you already use",
+        "benefits": "Everything you need to know",
+        "security": "Your business is our priority",
         "faq": "Frequently asked questions",
         "ctaTitle": "Automate your processes with n8n",
         "ctaSubtitle": "We build robust, scalable flows tailored to your business."
@@ -2281,6 +2280,47 @@
         "nodeDatabase": "Database",
         "footerPrefix": "We connect it with what you already use",
         "footerSuffix": "Everything on autopilot!"
+      },
+      "howItWorksSteps": [
+        {
+          "title": "New lead",
+          "description": "We receive the input and send it into n8n's automated flow."
+        },
+        {
+          "title": "n8n logic",
+          "description": "We apply the workflow logic, retries and validations for each process."
+        },
+        {
+          "title": "Integrations",
+          "description": "We connect WhatsApp, Calendly, Gmail, databases and the rest of your tools."
+        },
+        {
+          "title": "Autopilot",
+          "description": "Everything keeps running with control and traceability."
+        }
+      ],
+      "team": {
+        "title": "A highly qualified team",
+        "description": "Software engineers, experts in computer science and artificial intelligence, with real experience in business automation."
+      },
+      "benefits": [
+        { "name": "More traceability" },
+        { "name": "Fewer errors" },
+        { "name": "More free time" }
+      ],
+      "security": {
+        "trustPoints": [
+          "We work on the client's private virtual machines (VPS). You keep full control of your data and access at all times.",
+          "We use tools like n8n, and other free software tools that allow for scalable and maintainable solutions.",
+          "We never collect passwords or personal or business data.",
+          "We do not store your data or files on our servers."
+        ]
+      },
+      "pricing": {
+        "price": "Quote on request",
+        "label": "Each automation is designed and priced individually based on your process.",
+        "ctaLabel": "Ask for a quote",
+        "ctaHref": "https://wa.me/34626270806?text=I%20want%20a%20quote%20for%20a%20custom%20automation"
       },
       "faq": [
         {
@@ -2703,10 +2743,6 @@
         "tableNote1": "Comparative table of approximate annual costs for 5 users. Prices may vary depending on the provider and region.",
         "tableNote2": "* Software license cost. Implementation and the server are the only actual costs of Odoo Community."
       },
-      "included": {
-        "title": "VeriFactu Spain",
-        "note": "The service can be complemented with the base configuration for VeriFactu Spain compliance (ask us)."
-      },
       "heroBadgeAlt": "Odoo badge",
       "infocards": {
       "cards": [
@@ -2809,9 +2845,17 @@
       "secondaryCtaLabel": "I want my PWA",
       "serviceType": "Progressive Web App (PWA) development",
       "areaServed": "Spain, businesses and SMEs",
+      "videoSection": {
+        "title": "What is Agile development like for a web application?",
+        "videoCaptionName": "Antonio Macías Ferrera",
+        "videoCaptionRole": "CTO software engineer & co-founder",
+        "videoCaptionText": "We build modern web applications that combine the best of a website and an app, optimized for performance, SEO and user experience. The goal is to deliver services in a modern, fast and accessible way without relying on native apps.",
+        "videoUrl": "https://www.youtube.com/watch?v=6g8k0J1j5xM"
+      },
       "sectionTitles": {
         "whatIsPWA": "What is a PWA?",
         "infocardsTitle": "Everything your PWA includes",
+        "portfolioTitle": "Projects we've built",
         "requirements": "Requirements"
       },
       "whatIsPWA": {
@@ -2826,43 +2870,22 @@
       "infocards": {
         "cards": [
           {
-            "name": "Functional analysis of the project"
-          },
-          {
-            "name": "Design and development of a dynamic PWA tailored to you"
-          },
-          {
-            "name": "Scalable, maintainable structure"
+            "name": "Design and development of dynamic PWA tailored to your needs"
           },
           {
             "name": "Performance optimization and technical SEO"
           },
           {
-            "name": "Deployment on the client's infrastructure"
+            "name": "Integration with external automation systems via APIs and webhooks"
           },
           {
-            "name": "Final testing and validation"
-          },
-          {
-            "name": "High performance and fast loading"
-          },
-          {
-            "name": "Installable without app stores"
+            "name": "Secure deployment in client infrastructure"
           },
           {
             "name": "Compatible with all devices"
           },
           {
-            "name": "Optimized for SEO"
-          },
-          {
-            "name": "Instant updates with no downloads"
-          },
-          {
-            "name": "Lower cost than native apps"
-          },
-          {
-            "name": "Greater control and security"
+            "name": "Dark mode and internationalization (i18n)"
           }
         ]
       },
@@ -2872,10 +2895,26 @@
           "The only thing we need is a great idea!"
         ]
       },
+      "portfolio": {
+        "ctaLabel": "View project",
+        "projects": [
+          {
+            "name": "Ordinaly",
+            "description": "Our own progressive web app: intuitive, fast and constantly evolving."
+          },
+          {
+            "name": "Geesol Renovables",
+            "description": "The new website for Geesol Renovables, featuring integration with their mobile app, a referral program and more."
+          },
+          {
+            "name": "Fisio Find",
+            "description": "Website for the online physiotherapy project Fisio Find, with patient tracking, integrated video consultations and much more."
+          }
+        ]
+      },
       "pricing": {
         "individualPrice": "Quote on request",
-        "individualLabel": "Each project is assessed individually to ensure a solution aligned with your goals.",
-        "implementationTime": "20 days",
+        "implementationTime": "30 days",
         "implementationLabel": "Implementation time:",
         "ctaLabel": "I want my PWA",
         "ctaHref": "https://wa.me/34626270806?text=I%20want%20a%20PWA%20for%20my%20business"
@@ -2891,67 +2930,6 @@
       "cta": {
         "label": "I want my PWA",
         "href": "https://wa.me/34626270806?text=I%20want%20a%20PWA%20for%20my%20business",
-        "bgColor": "#d97706"
-      }
-    },
-    "automatizaciones-personalizadas": {
-      "slug": "automatizaciones-personalizadas",
-      "title": "Custom Automations",
-      "shortTitle": "Custom Automations",
-      "heroParagraphs": [
-        "Ordinaly's custom automation service is designed for businesses that want to optimize their internal processes, reduce manual tasks and improve operational efficiency, but whose processes don't fit standard solutions.",
-        "If you already know one of our services (social media automation, reports, invoices…), this service lets you go one step further and automate any repetitive or critical process in your company."
-      ],
-      "heroCtaLabel": "Request information",
-      "secondaryCtaLabel": "I want to automate my process",
-      "serviceType": "Custom automations for business processes",
-      "areaServed": "Spain, businesses and SMEs",
-      "team": {
-        "title": "A highly qualified team",
-        "description": "Software engineers, experts in computer science and artificial intelligence, with real experience in business automation."
-      },
-      "sectionTitles": {
-        "infocardsTitle": "Everything you need to know",
-        "security": "Your business is our priority"
-      },
-      "security": {
-        "trustPoints": [
-          "We work on the client's private virtual machines (VPS). You keep full control of your data and access at all times.",
-          "We use tools like n8n, and other free software tools that allow for scalable and maintainable solutions.",
-          "We never collect passwords or personal or business data.",
-          "We do not store your data or files on our servers."
-        ]
-      },
-      "infocards": {
-        "cards": [
-          {
-            "name": "More traceability"
-          },
-          {
-            "name": "Fewer errors"
-          },
-          {
-            "name": "More free time"
-          }
-        ]
-      },
-      "pricing": {
-        "individualPrice": "Quote on request",
-        "individualLabel": "Each automation is designed and priced individually based on your process.",
-        "ctaLabel": "Ask for a quote",
-        "ctaHref": "https://wa.me/34626270806?text=I%20want%20a%20quote%20for%20a%20custom%20automation"
-      },
-      "keywords": [
-        "Custom automations",
-        "Automate",
-        "Free software",
-        "n8n",
-        "VPS",
-        "Traceability"
-      ],
-      "cta": {
-        "label": "I want to automate my process",
-        "href": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20process",
         "bgColor": "#d97706"
       }
     }

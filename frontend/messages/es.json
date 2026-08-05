@@ -35,7 +35,7 @@
       "loading": "Cargando..."
     },
     "hero": {
-      "titleLine1": "Automatizaciones",
+      "titleLine1": "Automatización",
       "titleLine2": "para Pymes",
       "subtitle": "Desarrollamos e implantamos flujos de trabajo automatizados con inteligencia artificial",
       "description1": "Estas herramientas te ayudarán a reducir las actividades manuales y repetitivas mientras tus ventas se aceleran. También impartimos formación profesional para empresas de la mano de ingenieros especializados en software e IA.",
@@ -2249,22 +2249,21 @@
         "bgColor": "#000000"
       }
     },
-    "automatizacion-n8n": {
-      "slug": "automatizacion-n8n",
-      "title": "Automatización n8n con observabilidad y control",
-      "shortTitle": "Automatización n8n",
-      "subtitle": "Workflows versionados para sincronización, alertas, conciliación y operaciones asistidas por IA.",
-      "description": "Diseñamos flujos en n8n con reintentos, colas, logs y métricas por nodo para que la automatización deje de ser una caja negra y pase a ser infraestructura operable.",
-      "heroBadge": "n8n + observabilidad",
+    "automatizaciones-personalizadas-para-empresas-con-n8n": {
+      "slug": "automatizaciones-personalizadas-para-empresas-con-n8n",
+      "title": "Automatizaciones personalizadas para empresas con n8n",
+      "shortTitle": "Automatizaciones con n8n",
+      "subtitle": "Workflows a medida, versionados y con observabilidad, para procesos de empresas y pymes que no encajan en soluciones estándar.",
+      "description": "Diseñamos automatizaciones a medida con n8n y software libre: reintentos, colas, logs y métricas por nodo para procesos que no encajan en soluciones estándar. Más trazabilidad, menos errores y más tiempo libre.",
       "heroCtaLabel": "Cuéntanos tu caso",
       "secondaryCtaLabel": "Hablar por WhatsApp",
       "n8nCtaLabel": "Ver n8n.io",
       "secondaryCtaHref": "https://wa.me/34626270806",
-      "serviceType": "Automatización de procesos e integraciones sobre n8n",
-      "areaServed": "España y despliegue remoto UE",
       "sectionTitles": {
         "whatIsN8N": "¿Qué es n8n?",
         "integrations": "Lo conectamos con lo que ya usas",
+        "benefits": "Todo lo que necesitas saber",
+        "security": "Tu negocio es nuestra prioridad",
         "faq": "Preguntas frecuentes",
         "ctaTitle": "Automatiza tus procesos con n8n",
         "ctaSubtitle": "Creamos flujos robustos, escalables y adaptados a tu negocio."
@@ -2281,6 +2280,47 @@
         "nodeDatabase": "Base de datos",
         "footerPrefix": "Lo conectamos con lo que ya usas",
         "footerSuffix": "Todo en piloto automático!"
+      },
+      "howItWorksSteps": [
+        {
+          "title": "Nuevo lead",
+          "description": "Recibimos la entrada y la enviamos al flujo automático de n8n."
+        },
+        {
+          "title": "Lógica n8n",
+          "description": "Aplicamos la lógica del workflow, reintentos y validaciones según el proceso."
+        },
+        {
+          "title": "Integraciones",
+          "description": "Conectamos WhatsApp, Calendly, Gmail, bases de datos y el resto de herramientas."
+        },
+        {
+          "title": "Piloto automático",
+          "description": "Todo queda operando con control y trazabilidad."
+        }
+      ],
+      "team": {
+        "title": "Un equipo altamente cualificado",
+        "description": "Ingenieros de software, expertos en ciencias de la computación e inteligencia artificial, con experiencia real en automatización empresarial."
+      },
+      "benefits": [
+        { "name": "Más trazabilidad" },
+        { "name": "Menos errores" },
+        { "name": "Más tiempo libre" }
+      ],
+      "security": {
+        "trustPoints": [
+          "Trabajamos sobre máquinas virtuales privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
+          "Utilizamos herramientas como n8n, y otras herramientas de software libre que permiten soluciones escalables y mantenibles.",
+          "En ningún momento recopilamos contraseñas o datos personales o empresariales.",
+          "No almacenamos tus datos o archivos en nuestros servidores."
+        ]
+      },
+      "pricing": {
+        "price": "Presupuesto a consultar",
+        "label": "Cada automatización se diseña y valora de forma individual según tu proceso.",
+        "ctaLabel": "Consultar precio",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20consultar%20precio%20de%20una%20automatizaci%C3%B3n%20personalizada"
       },
       "faq": [
         {
@@ -2805,9 +2845,17 @@
       "secondaryCtaLabel": "Quiero mi PWA",
       "serviceType": "Desarrollo de aplicaciones web progresivas (PWA)",
       "areaServed": "España, empresas y pymes",
+      "videoSection": {
+        "title": "Cómo es el desarrollo Agile de una aplicación web",
+        "videoCaptionName": "Antonio Macías Ferrera",
+        "videoCaptionRole": "CTO software engineer & co-founder",
+        "videoCaptionText": "We build modern web applications that combine the best of a website and an app, optimized for performance, SEO and user experience. The goal is to deliver services in a modern, fast and accessible way without relying on native apps.",
+        "videoUrl": "https://www.youtube.com/watch?v=6g8k0J1j5xM"
+      },
       "sectionTitles": {
         "whatIsPWA": "¿Qué es una PWA?",
         "infocardsTitle": "Todo lo que incluye tu PWA",
+        "portfolioTitle": "Proyectos que hemos creado",
         "requirements": "Requisitos"
       },
       "whatIsPWA": {
@@ -2822,43 +2870,22 @@
       "infocards": {
         "cards": [
           {
-            "name": "Análisis funcional del proyecto"
-          },
-          {
-            "name": "Diseño y desarrollo de PWA dinámica a tu medida"
-          },
-          {
-            "name": "Estructura escalable y mantenible"
+            "name": "Análisis, diseño y desarrollo de PWA dinámica a tu medida"
           },
           {
             "name": "Optimización de rendimiento y SEO técnico"
           },
           {
-            "name": "Despliegue en infraestructura del cliente"
+            "name": "Integración con sistemas de automatiación externos mediante APIs y webhooks"
           },
           {
-            "name": "Pruebas y validación final"
+            "name": "Despliegue seguro en infraestructura del cliente"
           },
           {
-            "name": "Alto rendimiento y velocidad de carga"
+            "name": "Diseño y UX responsive compatible con todos los dispositivos"
           },
           {
-            "name": "Instalable sin pasar por tiendas de apps"
-          },
-          {
-            "name": "Compatible con todos los dispositivos"
-          },
-          {
-            "name": "Optimizada para SEO"
-          },
-          {
-            "name": "Actualizaciones inmediatas sin descargas"
-          },
-          {
-            "name": "Menor coste frente a apps nativas"
-          },
-          {
-            "name": "Mayor control y seguridad"
+            "name": "UI con modo oscuro e internacionalización (i18n)"
           }
         ]
       },
@@ -2868,12 +2895,28 @@
           "¡Lo único que nos hace falta es una buena idea!"
         ]
       },
+      "portfolio": {
+        "ctaLabel": "Ver proyecto",
+        "projects": [
+          {
+            "name": "Ordinaly",
+            "description": "Nuestra propia aplicación web progresiva: intuitiva, rápida y en constante evolución."
+          },
+          {
+            "name": "Geesol Renovables",
+            "description": "La nueva web de Geesol Renovables, con integración con su aplicación móvil, plan de referidos y mucho más."
+          },
+          {
+            "name": "Fisio Find",
+            "description": "Web del proyecto de fisioterapia online Fisio Find, con seguimiento de pacientes, videoconsultas integradas y mucho más."
+          }
+        ]
+      },
       "pricing": {
         "individualPrice": "Presupuesto a consultar",
-        "individualLabel": "Cada proyecto se valora de forma individual para garantizar una solución alineada con tus objetivos.",
-        "implementationTime": "20 días",
+        "implementationTime": "30 días",
         "implementationLabel": "Tiempo de implantación:",
-        "ctaLabel": "Quiero mi PWA",
+        "ctaLabel": "Quiero una PWA para mi empresa",
         "ctaHref": "https://wa.me/34626270806?text=Quiero%20una%20PWA%20para%20mi%20negocio"
       },
       "keywords": [
@@ -2887,67 +2930,6 @@
       "cta": {
         "label": "Quiero mi PWA",
         "href": "https://wa.me/34626270806?text=Quiero%20una%20PWA%20para%20mi%20negocio",
-        "bgColor": "#d97706"
-      }
-    },
-    "automatizaciones-personalizadas": {
-      "slug": "automatizaciones-personalizadas",
-      "title": "Automatizaciones personalizadas",
-      "shortTitle": "Automatizaciones personalizadas",
-      "heroParagraphs": [
-        "El servicio de automatizaciones personalizadas de Ordinaly está pensado para empresas que desean optimizar sus procesos internos, reducir tareas manuales y mejorar su eficiencia operativa, pero cuyos procesos no encajan en soluciones estándar.",
-        "Si ya conoces alguno de nuestros servicios (automatización de redes sociales, informes, facturas…), este servicio te permite ir un paso más allá y automatizar cualquier proceso repetitivo o crítico de tu empresa."
-      ],
-      "heroCtaLabel": "Solicitar información",
-      "secondaryCtaLabel": "Quiero automatizar mi proceso",
-      "serviceType": "Automatizaciones personalizadas para procesos empresariales",
-      "areaServed": "España, empresas y pymes",
-      "team": {
-        "title": "Un equipo altamente cualificado",
-        "description": "Ingenieros de software, expertos en ciencias de la computación e inteligencia artificial, con experiencia real en automatización empresarial."
-      },
-      "sectionTitles": {
-        "infocardsTitle": "Todo lo que necesitas saber",
-        "security": "Tu negocio es nuestra prioridad"
-      },
-      "security": {
-        "trustPoints": [
-          "Trabajamos sobre máquinas virtuales privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
-          "Utilizamos herramientas como n8n, y otras herramientas de software libre que permiten soluciones escalables y mantenibles.",
-          "En ningún momento recopilamos contraseñas o datos personales o empresariales.",
-          "No almacenamos tus datos o archivos en nuestros servidores."
-        ]
-      },
-      "infocards": {
-        "cards": [
-          {
-            "name": "Más trazabilidad"
-          },
-          {
-            "name": "Menos errores"
-          },
-          {
-            "name": "Más tiempo libre"
-          }
-        ]
-      },
-      "pricing": {
-        "individualPrice": "Presupuesto a consultar",
-        "individualLabel": "Cada automatización se diseña y valora de forma individual según tu proceso.",
-        "ctaLabel": "Consultar precio",
-        "ctaHref": "https://wa.me/34626270806?text=Quiero%20consultar%20precio%20de%20una%20automatizaci%C3%B3n%20personalizada"
-      },
-      "keywords": [
-        "Automatizaciones personalizadas",
-        "Automatizar",
-        "Software libre",
-        "n8n",
-        "VPS",
-        "Trazabilidad"
-      ],
-      "cta": {
-        "label": "Quiero automatizar mi proceso",
-        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mi%20proceso",
         "bgColor": "#d97706"
       }
     }

@@ -164,7 +164,7 @@ export const faqEntries: FaqEntry[] = [
       es: "n8n encaja bien cuando necesitas orquestación rápida, conectores y visibilidad sobre tareas operativas. El código a medida aparece cuando hay mucha lógica propietaria, requisitos extremos de latencia o necesidad de producto reusable.",
       en: "n8n fits well when you need fast orchestration, connectors and visibility over operational tasks. Custom code enters when there is heavy proprietary logic, extreme latency requirements or a reusable product need.",
     },
-    relatedPath: "/automatizacion-n8n",
+    relatedPath: "/automatizaciones-personalizadas-para-empresas-con-n8n",
   },
   {
     id: "n8n-onprem",
@@ -178,7 +178,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Sí. De hecho suele ser lo más sensato cuando hay sistemas internos, bases privadas o políticas estrictas de acceso. El reto está en observabilidad, backups y gestión de cambios, no solo en levantar el contenedor.",
       en: "Yes. It is often the sensible choice when there are internal systems, private databases or strict access policies. The challenge is observability, backups and change management, not just spinning up a container.",
     },
-    relatedPath: "/automatizacion-n8n",
+    relatedPath: "/automatizaciones-personalizadas-para-empresas-con-n8n",
   },
   {
     id: "n8n-monitoring",
@@ -192,7 +192,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Con alertas, retries diseñados para ser idempotentes, dashboards por workflow y una política clara de quién responde cada incidencia. Si nadie es dueño del flujo, la automatización no está realmente operativa.",
       en: "With alerts, idempotent retries, per-workflow dashboards and a clear policy for who owns each incident. If nobody owns the flow, the automation is not truly operational.",
     },
-    relatedPath: "/automatizacion-n8n",
+    relatedPath: "/automatizaciones-personalizadas-para-empresas-con-n8n",
   },
   {
     id: "whatsapp-official-api",

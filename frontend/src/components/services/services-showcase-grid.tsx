@@ -77,7 +77,7 @@ export function ServicesShowcaseGrid() {
       />
 
       <Tile
-        href="/automatizaciones-personalizadas"
+        href="/automatizaciones-personalizadas-para-empresas-con-n8n"
         title={t("showcase.personalizadas")}
         image="/static/servicios/automatizaciones_personalizadas.webp"
         className="h-72 sm:col-span-4"

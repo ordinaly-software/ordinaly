@@ -19,30 +19,30 @@ interface HighlightService {
 const highlightedServices: HighlightService[] = [
   {
     key: "personalizadas",
-    href: "/automatizaciones-personalizadas",
+    href: "/automatizaciones-personalizadas-para-empresas-con-n8n",
     icon: <Workflow className="h-14 w-14" />,
-    image: "/static/servicios/automatizaciones-personalizadas.webp",
+    image: "/static/servicios/automatizaciones_personalizadas.webp",
     noteKey: "automationNote",
   },
   {
     key: "chatbotRecepcionista",
     href: "/automatizaciones-chatbots",
     icon: <Headset className="h-14 w-14" />,
-    image: "/static/servicios/chatbot-recepcionista.webp",
+    image: "/static/servicios/chatbot_recepcionista.webp",
     noteKey: "chatbotRecepcionistaNote",
   },
   {
     key: "odoo",
     href: "/implantacion-odoo",
     icon: <IconOdoo size={56} />,
-    image: "/static/servicios/odoo.webp",
+    image: "/static/servicios/implantacion_odoo.webp",
     noteKey: "odooNote",
   },
   {
     key: "pwa",
     href: "/desarrollo-de-app-webs",
     icon: <Globe className="h-14 w-14" />,
-    image: "/static/servicios/pwa.webp",
+    image: "/static/servicios/desarrollo_de_app_webs.webp",
   },
 ];
 

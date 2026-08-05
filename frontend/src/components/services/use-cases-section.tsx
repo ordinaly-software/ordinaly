@@ -40,7 +40,7 @@ const useCases: UseCaseItem[] = [
     Icon: Building2,
     accent: "var(--swatch--clay)",
     accentSoft: "var(--swatch--clay)/12",
-    href: "/automatizaciones-personalizadas",
+    href: "/automatizaciones-personalizadas-para-empresas-con-n8n",
   },
   {
     titleKey: "useCases.items.1.title",
@@ -85,7 +85,7 @@ const useCases: UseCaseItem[] = [
     Icon: HardHat,
     accentSoft: "var(--swatch--slate-light)/12",
     accent: "var(--swatch--slate-light)",
-    href: "/automatizaciones-personalizadas",
+    href: "/automatizaciones-personalizadas-para-empresas-con-n8n",
   },
 ];
 

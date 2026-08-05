@@ -4,13 +4,12 @@ import { client } from "@/lib/sanity";
 
 const PUBLIC_LANDING_SLUGS = [
   "automatizaciones-chatbots",
-  "automatizacion-n8n",
+  "automatizaciones-personalizadas-para-empresas-con-n8n",
   "automatizacion-redes-sociales",
   "automatizacion-facturas",
   "automatizacion-informes",
   "implantacion-odoo",
   "desarrollo-de-app-webs",
-  "automatizaciones-personalizadas",
 ] as const;
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];

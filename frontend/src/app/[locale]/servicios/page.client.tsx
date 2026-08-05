@@ -24,7 +24,7 @@ const ServicesPage = () => {
 
   const quickLinks = [
     { href: "/automatizaciones-chatbots", label: t("pills.callbot"), icon: <Headset className="h-4 w-4" /> },
-    { href: "/automatizaciones-personalizadas", label: t("pills.automation"), icon: <Workflow className="h-4 w-4" /> },
+    { href: "/automatizaciones-personalizadas-para-empresas-con-n8n", label: t("pills.automation"), icon: <Workflow className="h-4 w-4" /> },
     { href: "/implantacion-odoo", label: t("pills.odoo") } ,
     { href: "/desarrollo-de-app-webs", label: t("pills.pwa"), icon: <Globe className="h-4 w-4" /> },
   ];

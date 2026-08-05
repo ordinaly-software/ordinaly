@@ -34,8 +34,8 @@ import { FaqSection } from "@/components/formation/faq-section";
 import { InstructorsSection } from "@/components/formation/instructors-section";
 
 const FORMATION_INSTRUCTOR_IMAGES = [
-  "/static/formacion-ia-sevilla/Antonio.webp",
-  "/static/formacion-ia-sevilla/Guillermo.webp",
+  "/static/team/antonio.webp",
+  "/static/team/guillermo.webp",
 ] as const;
 
 const FORMATION_INSTRUCTOR_LINKEDIN_URLS = [

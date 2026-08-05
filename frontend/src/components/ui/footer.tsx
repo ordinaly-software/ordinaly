@@ -24,13 +24,12 @@ import { cn } from "@/lib/utils";
 
 const LANDING_SLUGS = [
   "automatizaciones-chatbots",
-  "automatizacion-n8n",
+  "automatizaciones-personalizadas-para-empresas-con-n8n",
   "automatizacion-facturas",
   "automatizacion-informes",
   "automatizacion-redes-sociales",
   "implantacion-odoo",
   "desarrollo-de-app-webs",
-  "automatizaciones-personalizadas",
 ] as const;
 
 type FooterLinkItem = {

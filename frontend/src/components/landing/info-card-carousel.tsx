@@ -19,6 +19,8 @@ export interface InfoCardItem {
   description?: ReactNode;
   image?: string;
   video?: string;
+  /** Playback speed multiplier for `video`. Defaults to 1 (normal speed). */
+  videoPlaybackRate?: number;
   ctaLabel?: ReactNode;
   /** Icon(s) shown next to `ctaLabel`. Defaults to a single WhatsApp icon. */
   ctaIcons?: ReactNode[];
@@ -54,6 +56,9 @@ function InfoCardMedia({ item }: { item: InfoCardItem }) {
         muted
         loop
         playsInline
+        ref={(el) => {
+          if (el) el.playbackRate = item.videoPlaybackRate ?? 1;
+        }}
         className="absolute inset-0 h-full w-full object-cover"
       />
     );

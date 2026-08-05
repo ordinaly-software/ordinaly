@@ -6,9 +6,10 @@ import Image from "next/image";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
-import { HowItWorksVideoSection } from "@/components/landing/how-it-works-video-section";
+import { PortfolioList, type PortfolioProject } from "@/components/landing/portfolio-list";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
   loading: () => <WhatsAppBubbleSkeleton />,
@@ -51,8 +52,7 @@ export default function DesarrolloDeAppWebs() {
     ? [
         {
           key: "pricing",
-          size: "lg",
-          eyebrow: pricing.individualLabel,
+          size: "md",
           title: pricing.individualPrice,
           description: pricing.implementationTime ? (
             <span className="not-italic mt-4 block text-sm">
@@ -68,39 +68,22 @@ export default function DesarrolloDeAppWebs() {
   // Defined one by one (rather than mechanically mapped) so each card's
   // size can be chosen deliberately.
   const infocards: InfoCardItem[] = [
-    { key: "included-0", size: "lg", title: infoCardTexts[0]?.name, description: infoCardTexts[0]?.description },
-    { key: "included-1", size: "sm", title: infoCardTexts[1]?.name, description: infoCardTexts[1]?.description },
-    { key: "included-2", size: "sm", title: infoCardTexts[2]?.name, description: infoCardTexts[2]?.description },
-    { key: "included-3", size: "md", title: infoCardTexts[3]?.name, description: infoCardTexts[3]?.description },
-    { key: "included-4", size: "md", title: infoCardTexts[4]?.name, description: infoCardTexts[4]?.description },
-    { key: "included-5", size: "sm", title: infoCardTexts[5]?.name, description: infoCardTexts[5]?.description },
-    { key: "ventajas-0", size: "md", title: infoCardTexts[6]?.name, description: infoCardTexts[6]?.description },
-    { key: "ventajas-1", size: "sm", title: infoCardTexts[7]?.name, description: infoCardTexts[7]?.description },
-    { key: "ventajas-2", size: "lg", title: infoCardTexts[8]?.name, description: infoCardTexts[8]?.description },
-    { key: "ventajas-3", size: "sm", title: infoCardTexts[9]?.name, description: infoCardTexts[9]?.description },
-    { key: "ventajas-4", size: "md", title: infoCardTexts[10]?.name, description: infoCardTexts[10]?.description },
-    { key: "ventajas-5", size: "sm", title: infoCardTexts[11]?.name, description: infoCardTexts[11]?.description },
-    { key: "ventajas-6", size: "md", title: infoCardTexts[12]?.name, description: infoCardTexts[12]?.description },
+    { key: "design", size: "xl", title: infoCardTexts[0]?.name, description: infoCardTexts[1]?.description, image: "/static/desarrollo-de-app-webs/design.webp" },
+    { key: "seo", size: "md", title: infoCardTexts[1]?.name, description: infoCardTexts[2]?.description, image: "/static/desarrollo-de-app-webs/seo.webp" },
+    { key: "automation", size: "md", title: infoCardTexts[2]?.name, description: infoCardTexts[3]?.description, image: "/static/desarrollo-de-app-webs/automation.webp" },
+    { key: "ui", size: "xl", title: infoCardTexts[5]?.name, description: infoCardTexts[6]?.description, video: "/static/desarrollo-de-app-webs/ui.mp4", videoPlaybackRate: 0.4 },
+    { key: "responsive", size: "lg", title: infoCardTexts[4]?.name, description: infoCardTexts[5]?.description, image: "/static/desarrollo-de-app-webs/responsive.webp" },  
+    { key: "vps", size: "md", title: infoCardTexts[3]?.name, description: infoCardTexts[4]?.description, image: "/static/desarrollo-de-app-webs/vps.webp" },
     ...requirementsCard,
     ...pricingCard,
   ];
-  const howItWorksSteps = [
-    {
-      title: "Análisis funcional",
-      description: "Aterrizamos objetivos, usuarios y funcionalidades clave del proyecto.",
-    },
-    {
-      title: "Diseño y desarrollo",
-      description: "Construimos la PWA a medida y optimizamos la experiencia de uso.",
-    },
-    {
-      title: "Pruebas y validación",
-      description: "Comprobamos rendimiento, SEO y comportamiento en distintos dispositivos.",
-    },
-    {
-      title: "Despliegue y mantenimiento",
-      description: "La publicamos en tu infraestructura y dejamos la base lista para crecer.",
-    },
+
+  const portfolioTexts = (content.portfolio?.projects ?? []) as { name: string; description: string }[];
+
+  const portfolioProjects: PortfolioProject[] = [
+    { key: "ordinaly", name: portfolioTexts[0]?.name, description: portfolioTexts[0]?.description, image: "/static/desarrollo-de-app-webs/ordinaly.webp", href: "https://ordinaly.ai" },
+    { key: "geesol", name: portfolioTexts[1]?.name, description: portfolioTexts[1]?.description, image: "/static/desarrollo-de-app-webs/geesol.webp", href: "https://geesol.com" },
+    { key: "fisiofind", name: portfolioTexts[2]?.name, description: portfolioTexts[2]?.description, image: "/static/desarrollo-de-app-webs/fisiofind.webp", href: "https://fisiofind-landing-page.netlify.app" },
   ];
 
   return (
@@ -133,7 +116,31 @@ export default function DesarrolloDeAppWebs() {
         </div>
       </section>
 
-      <HowItWorksVideoSection steps={howItWorksSteps} />
+      <section className="py-14 md:py-16 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <div className="mx-auto max-w-5xl">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
+          {content.videoSection?.title}
+        </h2>
+
+        <div className="max-w-3xl mx-auto">
+          <HeroVideoDialog
+            className="w-full"
+            animationStyle="from-center"
+            videoUrl={content.videoSection?.videoUrl}
+            thumbnailSrc="/static/desarrollo-de-app-webs/video_thumbnail.webp"
+            thumbnailAlt={content.videoSection?.videoCaptionText}
+          />
+            <div className="mt-4 text-center">
+              <p className="font-semibold text-slate-dark dark:text-ivory-light">
+                {content.videoSection?.videoCaptionName}
+              </p>
+              <p className="text-sm text-slate-medium dark:text-cloud-medium">
+                {content.videoSection?.videoCaptionRole}
+              </p>
+            </div>
+        </div>
+      </div>
+      </section>
 
       {/* WHAT IS A PWA */}
       <section className="py-14 md:py-16 bg-white dark:bg-neutral-900 transition-colors">
@@ -158,7 +165,7 @@ export default function DesarrolloDeAppWebs() {
             </div>
             <div className="flex justify-center md:justify-end">
               <Image
-                src="/static/desarrollo-de-app-webs/desarrollo_de_app_webs.webp"
+                src="/static/desarrollo-de-app-webs/pwa.webp"
                 alt={content.title}
                 width={720}
                 height={540}
@@ -181,6 +188,18 @@ export default function DesarrolloDeAppWebs() {
           {content.sectionTitles?.infocardsTitle}
         </h2>
         <InfoCardCarousel items={infocards} className="max-w-6xl mx-auto" />
+      </section>
+
+      {/* PORTFOLIO */}
+      <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900 transition-colors">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
+          {content.sectionTitles?.portfolioTitle}
+        </h2>
+        <PortfolioList
+          projects={portfolioProjects}
+          ctaLabel={content.portfolio?.ctaLabel}
+          className="max-w-5xl mx-auto"
+        />
       </section>
 
       {/* FORM */}
