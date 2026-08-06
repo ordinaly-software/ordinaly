@@ -12,7 +12,28 @@ import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 
-const PWA_BULLET_ICONS = [Globe, MonitorSmartphone, Zap];
+// Literal hex arbitrary-value classes (not the `clay`/`cobalt` design-system
+// tokens) because Tailwind can't generate opacity-modified utilities for
+// colors that are defined as a CSS variable — `bg-clay/10` silently
+// produces no rule. Written out in full per bullet, rather than built from
+// a shared hex string, so Tailwind's static scanner can find each class.
+const PWA_BULLETS = [
+  {
+    icon: Globe,
+    iconClass: "bg-[#0255D5]/10 text-[#0255D5] dark:bg-[#0255D5]/15",
+    hoverClass: "hover:bg-[#0255D5]/10 dark:hover:bg-[#0255D5]/15",
+  },
+  {
+    icon: MonitorSmartphone,
+    iconClass: "bg-[#D97757]/10 text-[#D97757] dark:bg-[#D97757]/15",
+    hoverClass: "hover:bg-[#D97757]/10 dark:hover:bg-[#D97757]/15",
+  },
+  {
+    icon: Zap,
+    iconClass: "bg-[#788C5D]/10 text-[#788C5D] dark:bg-[#788C5D]/15",
+    hoverClass: "hover:bg-[#788C5D]/10 dark:hover:bg-[#788C5D]/15",
+  },
+] as const;
 
 function highlightWord(text: string | undefined, word: string) {
   if (!text) return text;
@@ -173,13 +194,13 @@ export default function DesarrolloDeAppWebs() {
 
               <ul className="space-y-2">
                 {content.whatIsPWA?.bullets?.map((bullet: string, i: number) => {
-                  const Icon = PWA_BULLET_ICONS[i % PWA_BULLET_ICONS.length];
+                  const { icon: Icon, iconClass, hoverClass } = PWA_BULLETS[i % PWA_BULLETS.length];
                   return (
                     <li
                       key={i}
-                      className="flex items-start gap-4 rounded-xl p-3 -mx-3 transition-colors hover:bg-ivory-medium dark:hover:bg-neutral-800"
+                      className={`flex items-start gap-4 rounded-xl p-3 -mx-3 transition-colors ${hoverClass}`}
                     >
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-clay/10 text-clay dark:bg-clay/15">
+                      <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${iconClass}`}>
                         <Icon className="h-5 w-5" strokeWidth={2} />
                       </span>
                       <span className="pt-1.5 text-slate-dark dark:text-ivory-light leading-relaxed">
@@ -202,13 +223,6 @@ export default function DesarrolloDeAppWebs() {
             </div>
           </div>
 
-          {content.whatIsPWA?.highlight && (
-            <div className="mt-14 max-w-3xl mx-auto rounded-2xl bg-ivory-light dark:bg-neutral-800 border-l-4 border-clay p-6 md:p-8 transition-colors">
-              <p className="text-lg font-medium text-slate-dark dark:text-ivory-light leading-relaxed">
-                {content.whatIsPWA.highlight}
-              </p>
-            </div>
-          )}
         </div>
       </section>
 

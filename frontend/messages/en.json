@@ -2859,13 +2859,12 @@
         "requirements": "Requirements"
       },
       "whatIsPWA": {
-        "intro": "A PWA is an advanced web application that combines the advantages of a website with the features of a mobile app:",
+        "intro": "A PWA is a Progressive Web Application that combines the advantages of a website with advanced functionalities of a mobile application (real-time content, integrations with external systems, and a user experience comparable to a mobile app):",
         "bullets": [
-          "Accessed from the browser",
-          "Can be installed on devices, working on phones, tablets and desktops.",
-          "Offers a fast, smooth and secure experience"
-        ],
-        "highlight": "Dynamic PWAs make it possible to build feature-rich applications, with real-time content, integrations with external systems and a user experience comparable to a native app, but with lower development and maintenance costs."
+          "Can be installed on any device, working on mobile phones, tablets, and computers or through the web.",
+          "Enables push notifications, camera access, geolocation, and other mobile app functionalities.",
+          "Offers a fast, smooth, and secure experience"
+        ]
       },
       "infocards": {
         "cards": [

@@ -34,11 +34,20 @@ const DEFAULT_CTA_ICONS: ReactNode[] = [<IconWhatsApp key="whatsapp" size={16} c
 // so the carousel row stays visually aligned.
 const CARD_HEIGHT_CLASS = "h-[520px] sm:h-[580px]";
 
+// Below the `sm` breakpoint, width is `100vw` minus a fixed offset rather
+// than a plain `vw` percentage. Every page hosting this carousel wraps it
+// in a `px-6` section (48px of horizontal padding) and the carousel track
+// adds its own `pl-4` (16px) slide gap, so a pure `vw` width can end up
+// wider than what's actually visible — the active slide then reads as
+// "partially visible" to the carousel's blur-on-peek logic and gets
+// blurred even though nothing is really cut off. Subtracting a fixed
+// offset keeps the active card strictly inside the visible area, with a
+// small deliberate peek of the next card at the edge.
 const WIDTH_CLASSES: Record<InfoCardSize, string> = {
-  sm: "w-[300px] sm:w-[340px]",
-  md: "w-[380px] sm:w-[440px]",
-  lg: "w-[460px] sm:w-[560px]",
-  xl: "w-[620px] sm:w-[780px]",
+  sm: "w-[calc(100vw-144px)] sm:w-[340px]",
+  md: "w-[calc(100vw-128px)] sm:w-[440px]",
+  lg: "w-[calc(100vw-112px)] sm:w-[560px]",
+  xl: "w-[calc(100vw-96px)] sm:w-[780px]",
 };
 
 function hasCardCopy(item: InfoCardItem) {
