@@ -13,8 +13,8 @@ export const SITE_KEYWORD_LINKS: KeywordLink[] = [
   { regex: /implantaci[oó]n de odoo/gi,            url: "/implantacion-odoo" },
   { regex: /desarrollo de aplicaciones web/gi,     url: "/desarrollo-de-app-webs" },
   { regex: /\bPWA\b/g,                             url: "/desarrollo-de-app-webs" },
-  { regex: /automatizaciones? personalizadas?/gi,  url: "/automatizaciones-personalizadas-para-empresas-con-n8n" },
-  { regex: /automatizaci[oó]n n8n/gi,              url: "/automatizaciones-personalizadas-para-empresas-con-n8n" },
+  { regex: /automatizaciones? personalizadas?/gi,  url: "/automatizaciones-personalizadas-empresas-n8n" },
+  { regex: /automatizaci[oó]n n8n/gi,              url: "/automatizaciones-personalizadas-empresas-n8n" },
   { regex: /formaci[oó]n ia\b/gi,                  url: "/formacion" },
   { regex: /\bautomatizaciones\b/gi,               url: "/" },
 ];

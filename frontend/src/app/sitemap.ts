@@ -4,7 +4,7 @@ import { client } from "@/lib/sanity";
 
 const PUBLIC_LANDING_SLUGS = [
   "agente-de-llamadas-ia",
-  "automatizaciones-personalizadas-para-empresas-con-n8n",
+  "automatizaciones-personalizadas-empresas-n8n",
   "automatizacion-redes-sociales",
   "automatizacion-facturas",
   "automatizacion-informes",

@@ -103,7 +103,7 @@ export default function AgenteDeLlamadasIA() {
       eyebrow: content.inbound?.eventsTitle,
       description: (
         <div className="not-italic w-full max-h-[380px] overflow-hidden">
-          <AnimatedList delay={1600} className="items-stretch gap-2">
+          <AnimatedList delay={900} className="items-stretch gap-2">
             {inboundEvents.map((event, i) => (
               <CallEventCard key={i} event={event} />
             ))}
@@ -113,9 +113,15 @@ export default function AgenteDeLlamadasIA() {
     },
     {
       key: "inbound-voice",
-      size: "sm",
+      size: "md",
+      eyebrow: "ElevenLabs",
       title: inboundInfoTexts[1]?.name,
       description: inboundInfoTexts[1]?.description,
+      media: (
+        <div className="h-full w-full bg-[--swatch--slate-dark]">
+          <Strands className="h-full w-full" count={3} opacity={0.85} />
+        </div>
+      ),
     },
     ...inboundRequirementsCard,
   ];
@@ -181,6 +187,18 @@ export default function AgenteDeLlamadasIA() {
       title: outboundInfoTexts[1]?.name,
       description: outboundInfoTexts[1]?.description,
     },
+    {
+      key: "outbound-voice",
+      size: "md",
+      eyebrow: "ElevenLabs",
+      title: outboundInfoTexts[2]?.name,
+      description: outboundInfoTexts[2]?.description,
+      media: (
+        <div className="h-full w-full bg-[--swatch--slate-dark]">
+          <Strands className="h-full w-full" count={3} opacity={0.85} />
+        </div>
+      ),
+    },
     ...outboundRequirementsCard,
     ...outboundPricingCard,
   ];
@@ -195,9 +213,6 @@ export default function AgenteDeLlamadasIA() {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[--swatch--slate-dark]/50 to-[--swatch--slate-dark]" />
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 py-24 text-center md:py-32">
-          <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm text-white/80">
-            {content.heroBadge}
-          </span>
           <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight md:text-6xl">{content.title}</h1>
           <p className="mt-6 max-w-2xl text-lg text-white/70">{content.subtitle}</p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

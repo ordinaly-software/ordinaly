@@ -24,7 +24,7 @@ import { cn } from "@/lib/utils";
 
 const LANDING_SLUGS = [
   "agente-de-llamadas-ia",
-  "automatizaciones-personalizadas-para-empresas-con-n8n",
+  "automatizaciones-personalizadas-empresas-n8n",
   "automatizacion-facturas",
   "automatizacion-informes",
   "automatizacion-redes-sociales",

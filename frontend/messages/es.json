@@ -1293,7 +1293,7 @@
   },
   "services": {
     "pills": {
-      "callbot": "Agente de llamadas IA",
+      "callbot": "Chatbot de llamadas IA",
       "automation": "Automatización",
       "odoo": "Odoo18",
       "pwa": "Aplicaciones web multiplataforma (PWA)"
@@ -2177,7 +2177,6 @@
       "title": "Agentes de Llamadas con IA: Recepción y Ventas Salientes",
       "shortTitle": "Agente de llamadas IA",
       "subtitle": "Automatiza tu atención telefónica y tus campañas de llamadas con agentes de voz con IA, disponibles 24/7 e integrados con tu CRM.",
-      "heroBadge": "Voz IA para empresas",
       "heroCtaLabel": "Solicitar demo gratuita",
       "secondaryCtaLabel": "Hablar por WhatsApp",
       "serviceType": "Agentes de voz con IA para llamadas entrantes y salientes",
@@ -2294,6 +2293,10 @@
           {
             "name": "Cumple horarios y normativa",
             "description": "Respeta franjas horarias permitidas y listas de exclusión en cada campaña."
+          },
+          {
+            "name": "Conversación natural",
+            "description": "Voces de ElevenLabs que manejan objeciones y tonos de venta sin sonar a robot."
           }
         ],
         "requirements": {
@@ -2364,42 +2367,43 @@
         "bgColor": "#D97757"
       }
     },
-    "automatizaciones-personalizadas-para-empresas-con-n8n": {
-      "slug": "automatizaciones-personalizadas-para-empresas-con-n8n",
+    "automatizaciones-personalizadas-empresas-n8n": {
+      "slug": "automatizaciones-personalizadas-empresas-n8n",
       "title": "Automatizaciones personalizadas para empresas con n8n",
       "shortTitle": "Automatizaciones con n8n",
-      "subtitle": "Workflows a medida, versionados y con observabilidad, para procesos de empresas y pymes que no encajan en soluciones estándar.",
+      "subtitle": "Workflows a medida para empresas y pymes que buscan eficiencia y eficacia en sus procesos.",
       "description": "Diseñamos automatizaciones a medida con n8n y software libre: reintentos, colas, logs y métricas por nodo para procesos que no encajan en soluciones estándar. Más trazabilidad, menos errores y más tiempo libre.",
       "heroCtaLabel": "Cuéntanos tu caso",
       "secondaryCtaLabel": "Hablar por WhatsApp",
-      "n8nCtaLabel": "Ver n8n.io",
+      "n8nCtaLabel": "Aprender más en n8n",
       "secondaryCtaHref": "https://wa.me/34626270806",
       "sectionTitles": {
         "whatIsN8N": "¿Qué es n8n?",
-        "integrations": "Lo conectamos con lo que ya usas",
+        "integrations": "¡Lo conectamos con (casi) todo!",
         "benefits": "Todo lo que necesitas saber",
         "security": "Tu negocio es nuestra prioridad",
         "faq": "Preguntas frecuentes",
         "ctaTitle": "Automatiza tus procesos con n8n",
-        "ctaSubtitle": "Creamos flujos robustos, escalables y adaptados a tu negocio."
+        "ctaSubtitle": "Creamos flujos robustos, escalables y adaptados a tu negocio.",
+        "howItWorks": "¿Cómo funciona un workflow en n8n?"
       },
-      "whatIsN8N": "n8n es una plataforma de automatización visual que permite conectar sistemas, transformar datos y ejecutar lógica compleja sin depender de desarrollos a medida. Su arquitectura basada en nodos, reintentos, colas, logs y control de versiones convierte cada flujo en una pieza de infraestructura operable, auditable y preparada para escalar. Es la forma moderna de automatizar procesos sin perder control ni visibilidad.",
+      "whatIsN8N": "n8n es una plataforma de automatización visual que permite conectar sistemas, transformar datos y ejecutar lógica compleja sin depender de desarrollos a medida. Su arquitectura basada en nodos, reintentos, colas, logs y control de versiones convierte cada flujo en una pieza de infraestructura operable, auditable y preparada para escalar.",
+      "whatIsN8NHighlight": "Es la forma moderna de automatizar procesos sin perder control ni visibilidad.",
       "workflowAnimation": {
-        "fileName": "integracion-total.flow",
-        "liveLabel": "Workflow en vivo",
+        "fileName": "lead-workflow.json",
+        "liveLabel": "Ejecutando...",
         "inputLabel": "Nuevo lead",
         "logicLabel": "Lógica n8n",
         "nodeWhatsapp": "WhatsApp API",
-        "nodeCalendly": "Calendly",
+        "nodeCalendly": "Google Calendar",
         "nodeGmail": "Gmail",
         "nodeDatabase": "Base de datos",
-        "footerPrefix": "Lo conectamos con lo que ya usas",
-        "footerSuffix": "Todo en piloto automático!"
+        "footerSuffix": "¡Workflow ejecutado con éxito!"
       },
       "howItWorksSteps": [
         {
-          "title": "Nuevo lead",
-          "description": "Recibimos la entrada y la enviamos al flujo automático de n8n."
+          "title": "Trigger de entrada",
+          "description": "El ''trigger'' o (activador) es el evento que inicia el workflow."
         },
         {
           "title": "Lógica n8n",
@@ -2407,28 +2411,55 @@
         },
         {
           "title": "Integraciones",
-          "description": "Conectamos WhatsApp, Calendly, Gmail, bases de datos y el resto de herramientas."
+          "description": "Conectamos WhatsApp, Google Calendar, Gmail, bases de datos y el resto de herramientas."
         },
         {
-          "title": "Piloto automático",
-          "description": "Todo queda operando con control y trazabilidad."
+          "title": "Resultado y notificación",
+          "description": "Obtenemos el resultado del workflow y enviamos notificaciones según sea necesario."
         }
       ],
       "team": {
-        "title": "Un equipo altamente cualificado",
+        "title": "Equipo de ingeniería a tu disposición",
         "description": "Ingenieros de software, expertos en ciencias de la computación e inteligencia artificial, con experiencia real en automatización empresarial."
       },
-      "benefits": [
+      "benefitCards": [
         {
-          "name": "Más trazabilidad"
+          "title": "Software libre, sin cuota mensual",
+          "description": "Desplegamos la versión open source de n8n en Docker: sin licencias ni suscripciones, solo el coste de tu propia infraestructura."
         },
         {
-          "name": "Menos errores"
+          "title": "Sin límite de ejecuciones",
+          "description": "A diferencia de Zapier o Make, no pagas por ejecución: escala tus flujos sin sorpresas en la factura."
         },
         {
-          "name": "Más tiempo libre"
+          "title": "Producto llave en mano",
+          "description": "Entregamos el flujo terminado, probado y documentado, listo para funcionar desde el primer día."
         }
       ],
+      "vpsCard": {
+        "title": "Tus datos, tu VPS",
+        "description": "Te ayudamos a contratar tu propio servidor privado (VPS): los datos, accesos y automatizaciones son 100% tuyos, con privacidad total."
+      },
+      "observability": {
+        "title": "Trazable, notificable y alertable",
+        "events": [
+          {
+            "title": "Workflow ejecutado",
+            "description": "Factura procesada y archivada",
+            "time": "hace 2 min"
+          },
+          {
+            "title": "Reintento automático",
+            "description": "Nodo Gmail: timeout recuperado sin intervención",
+            "time": "hace 12 min"
+          },
+          {
+            "title": "Alerta enviada",
+            "description": "Fallo de integración notificado por WhatsApp",
+            "time": "hace 38 min"
+          }
+        ]
+      },
       "security": {
         "trustPoints": [
           "Trabajamos sobre máquinas virtuales privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
@@ -2438,10 +2469,11 @@
         ]
       },
       "pricing": {
-        "price": "Presupuesto a consultar",
-        "label": "Cada automatización se diseña y valora de forma individual según tu proceso.",
-        "ctaLabel": "Consultar precio",
-        "ctaHref": "https://wa.me/34626270806?text=Quiero%20consultar%20precio%20de%20una%20automatizaci%C3%B3n%20personalizada"
+        "instanceLabel": "Instalación de instancia n8n",
+        "instancePrice": "400€",
+        "workflowLabel": "Automatización personalizada",
+        "workflowNote": "Precio a consultar según tu proceso",
+        "contactLabel": "Cuéntanos tu caso"
       },
       "faq": [
         {
@@ -2459,12 +2491,21 @@
         {
           "question": "¿Cómo garantizáis que los flujos no se rompan?",
           "answer": "Diseñamos reintentos, idempotencia, logs, colas y alertas desde el primer día para evitar estados inconsistentes."
+        },
+        {
+          "question": "¿n8n tiene coste de licencia?",
+          "answer": "n8n es software libre y puede autoalojarse sin coste de licencia. Nuestro presupuesto cubre el diseño, la implantación y el mantenimiento del flujo, no un peaje mensual por usarlo."
+        },
+        {
+          "question": "¿Podemos migrar nuestras automatizaciones desde Zapier o Make?",
+          "answer": "Sí. Analizamos tus zaps o escenarios actuales y los reconstruimos en n8n, normalmente con mejor observabilidad y sin las limitaciones de ejecuciones mensuales de esas plataformas."
         }
       ],
       "cta": {
         "label": "Automatizar con n8n",
         "href": "https://wa.me/34626270806?text=Quiero%20auditar%20procesos%20para%20automatizar%20con%20n8n",
-        "bgColor": "#0255D5"
+        "bgColor": "#0255D5",
+        "trust": "Valorado por las empresas que ya automatizan con nosotros"
       }
     },
     "automatizacion-facturas": {

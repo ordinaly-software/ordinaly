@@ -19,14 +19,14 @@ interface HighlightService {
 const highlightedServices: HighlightService[] = [
   {
     key: "personalizadas",
-    href: "/automatizaciones-personalizadas-para-empresas-con-n8n",
+    href: "/automatizaciones-personalizadas-empresas-n8n",
     icon: <Workflow className="h-14 w-14" />,
     image: "/static/servicios/automatizaciones_personalizadas.webp",
     noteKey: "automationNote",
   },
   {
     key: "chatbotRecepcionista",
-    href: "/agente-de-llamadas-ia#inbound",
+    href: "/agente-de-llamadas-ia",
     icon: <Headset className="h-14 w-14" />,
     image: "/static/servicios/chatbot_recepcionista.webp",
     noteKey: "chatbotRecepcionistaNote",

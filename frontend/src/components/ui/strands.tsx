@@ -277,6 +277,14 @@ export default function Strands({
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Multiple Strands instances can be mounted on one page (hero + info
+    // cards); skip the render work for any that are scrolled out of view.
+    const isVisibleRef = { current: true };
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      isVisibleRef.current = entry.isIntersecting;
+    });
+    visibilityObserver.observe(ctn);
+
     const renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: true,
@@ -354,6 +362,7 @@ export default function Strands({
     let animateId = 0;
     const update = (t: number) => {
       animateId = requestAnimationFrame(update);
+      if (!isVisibleRef.current) return;
       const current = propsRef.current;
       // Respect prefers-reduced-motion: render a single settled frame instead
       // of a continuous animation loop (per apple-design skill, §14).
@@ -390,6 +399,7 @@ export default function Strands({
     return () => {
       cancelAnimationFrame(animateId);
       window.removeEventListener("resize", resize);
+      visibilityObserver.disconnect();
       if (ctn && gl.canvas.parentNode === ctn) {
         ctn.removeChild(gl.canvas);
       }

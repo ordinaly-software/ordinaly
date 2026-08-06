@@ -176,21 +176,14 @@ const Navbar = () => {
     () => [
       {
         id: "callbot-inbound",
-        href: "/agente-de-llamadas-ia#inbound",
+        href: "/agente-de-llamadas-ia",
         title: tServices("showcase.chatbotRecepcionista"),
         description: tServices("showcase.chatbotRecepcionistaNote"),
         image: "/static/servicios/chatbot_recepcionista.webp",
       },
       {
-        id: "callbot-outbound",
-        href: "/agente-de-llamadas-ia#outbound",
-        title: tServices("showcase.chatSalientes"),
-        description: tServices("showcase.chatSalientesNote"),
-        image: "/static/servicios/chatbot_comercial.webp",
-      },
-      {
         id: "automation",
-        href: "/automatizaciones-personalizadas-para-empresas-con-n8n",
+        href: "/automatizaciones-personalizadas-empresas-n8n",
         title: tServices("showcase.personalizadas"),
         description: tServices("showcase.automationNote"),
         image: "/static/servicios/automatizaciones_personalizadas.webp",

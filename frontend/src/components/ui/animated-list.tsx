@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState, type ComponentPropsWithoutRef } from "react";
+import React, { useEffect, useMemo, useRef, useState, type ComponentPropsWithoutRef } from "react";
 import { AnimatePresence, motion, type MotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -29,11 +29,43 @@ export interface AnimatedListProps extends ComponentPropsWithoutRef<"div"> {
 export const AnimatedList = React.memo(
   ({ children, className, delay = 1000, ...props }: AnimatedListProps) => {
     const [index, setIndex] = useState(0);
+    const [isVisible, setIsVisible] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
     const childrenArray = useMemo(() => React.Children.toArray(children), [children]);
 
+    // Only start (and replay) the reveal once the list has actually
+    // scrolled into view, rather than the instant it mounts off-screen.
     useEffect(() => {
+      const el = containerRef.current;
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsVisible((wasVisible) => {
+            if (entry.isIntersecting && !wasVisible) {
+              setIndex(0);
+              return true;
+            }
+            if (!entry.isIntersecting && wasVisible) {
+              return false;
+            }
+            return wasVisible;
+          });
+        },
+        { threshold: 0.35 },
+      );
+      observer.observe(el);
+      return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+      if (!isVisible) return;
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReducedMotion) return;
+      if (prefersReducedMotion) {
+        // Show the full list at once instead of looping the staggered reveal.
+        setIndex(childrenArray.length - 1);
+        return;
+      }
 
       let timeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -48,7 +80,7 @@ export const AnimatedList = React.memo(
           clearTimeout(timeout);
         }
       };
-    }, [index, delay, childrenArray.length]);
+    }, [isVisible, index, delay, childrenArray.length]);
 
     const itemsToShow = useMemo(() => {
       const result = childrenArray.slice(0, index + 1).reverse();
@@ -56,7 +88,7 @@ export const AnimatedList = React.memo(
     }, [index, childrenArray]);
 
     return (
-      <div className={cn(`flex flex-col items-center gap-4`, className)} {...props}>
+      <div ref={containerRef} className={cn(`flex flex-col items-center gap-4`, className)} {...props}>
         <AnimatePresence>
           {itemsToShow.map((item) => (
             <AnimatedListItem key={(item as React.ReactElement).key}>{item}</AnimatedListItem>

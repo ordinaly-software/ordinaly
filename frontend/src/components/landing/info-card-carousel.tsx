@@ -21,6 +21,8 @@ export interface InfoCardItem {
   video?: string;
   /** Playback speed multiplier for `video`. Defaults to 1 (normal speed). */
   videoPlaybackRate?: number;
+  /** Custom media background (e.g. a live canvas/WebGL effect), takes priority over `image`/`video`. */
+  media?: ReactNode;
   ctaLabel?: ReactNode;
   /** Icon(s) shown next to `ctaLabel`. Defaults to a single WhatsApp icon. */
   ctaIcons?: ReactNode[];
@@ -57,6 +59,9 @@ function hasCardCopy(item: InfoCardItem) {
 function InfoCardMedia({ item }: { item: InfoCardItem }) {
   const showHoverEffect = hasCardCopy(item) && Boolean(item.href || item.onClick);
 
+  if (item.media) {
+    return <>{item.media}</>;
+  }
   if (item.video) {
     return (
       <video
@@ -146,7 +151,7 @@ function InfoCardMediaContent({ item }: { item: InfoCardItem }) {
 }
 
 function InfoCardContent({ item }: { item: InfoCardItem }) {
-  const hasMedia = Boolean(item.image || item.video);
+  const hasMedia = Boolean(item.image || item.video || item.media);
   return hasMedia ? <InfoCardMediaContent item={item} /> : <InfoCardTextContent item={item} />;
 }
 
