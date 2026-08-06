@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
 import type { EmblaOptionsType } from "embla-carousel";
 import { useCarouselButtons } from "./carousel-buttons";
 import { CarouselNavButtons } from "./carousel-nav-buttons";
@@ -51,15 +52,17 @@ export function Carousel<T>({
   fixedWidthSlides = false,
 }: CarouselProps<T>) {
   const plugins = useMemo(
-    () =>
-      autoplay
+    () => [
+      WheelGesturesPlugin(),
+      ...(autoplay
         ? [Autoplay({ delay: autoplayDelay, stopOnInteraction: false, stopOnMouseEnter: true })]
-        : [],
+        : []),
+    ],
     [autoplay, autoplayDelay],
   );
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { align: "start", containScroll: fixedWidthSlides ? false : "keepSnaps", ...options },
+    { align: "start", containScroll: fixedWidthSlides ? false : "keepSnaps", dragFree: true, ...options },
     plugins,
   );
 

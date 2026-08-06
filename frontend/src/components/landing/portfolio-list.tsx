@@ -32,7 +32,7 @@ export function PortfolioList({ projects, ctaLabel, className }: PortfolioListPr
               href={project.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group relative w-full rounded-3xl bg-linear-to-br from-ivory-light to-[#F3E2D8] dark:from-neutral-800 dark:to-neutral-900 px-6 pt-10 md:p-12 flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-8 md:gap-4 overflow-hidden transition-shadow hover:shadow-xl`}
+              className={`group relative w-full rounded-3xl bg-gradient-to-br from-heather/30 via-ivory-light to-coral/30 dark:from-neutral-800 dark:via-neutral-800 dark:to-neutral-900 px-6 pt-10 md:p-12 flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-8 md:gap-4 overflow-hidden transition-shadow hover:shadow-xl`}
             >
               <div
                 className="pointer-events-none absolute inset-0 opacity-[0.05] mix-blend-overlay"

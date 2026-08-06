@@ -3,6 +3,7 @@
 import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { Globe, MonitorSmartphone, Zap } from "lucide-react";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
@@ -10,6 +11,22 @@ import { PortfolioList, type PortfolioProject } from "@/components/landing/portf
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
+
+const PWA_BULLET_ICONS = [Globe, MonitorSmartphone, Zap];
+
+function highlightWord(text: string | undefined, word: string) {
+  if (!text) return text;
+  const parts = text.split(new RegExp(`(${word})`));
+  return parts.map((part, i) =>
+    part === word ? (
+      <em key={i} className="italic">
+        {part}
+      </em>
+    ) : (
+      part
+    )
+  );
+}
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
   loading: () => <WhatsAppBubbleSkeleton />,
@@ -119,7 +136,7 @@ export default function DesarrolloDeAppWebs() {
       <section className="py-14 md:py-16 bg-neutral-50 dark:bg-neutral-800 transition-colors">
       <div className="mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
-          {content.videoSection?.title}
+          {highlightWord(content.videoSection?.title, "Agile")}
         </h2>
 
         <div className="max-w-3xl mx-auto">
@@ -143,41 +160,54 @@ export default function DesarrolloDeAppWebs() {
       </section>
 
       {/* WHAT IS A PWA */}
-      <section className="py-14 md:py-16 bg-white dark:bg-neutral-900 transition-colors">
+      <section className="py-16 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
         <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
-            {content.sectionTitles?.whatIsPWA}
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
-              <p className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-dark dark:text-ivory-light mb-5 leading-tight">
+                {content.sectionTitles?.whatIsPWA}
+              </h2>
+              <p className="text-lg text-slate-medium dark:text-cloud-medium leading-relaxed mb-8">
                 {content.whatIsPWA?.intro}
               </p>
-              <ul className="space-y-3">
-                {content.whatIsPWA?.bullets?.map((bullet: string, i: number) => (
-                  <li key={i} className="flex items-start gap-3 text-neutral-700 dark:text-neutral-300">
-                    <span className="mt-2 shrink-0 w-1.5 h-1.5 rounded-full bg-[#d97757]" />
-                    {bullet}
-                  </li>
-                ))}
+
+              <ul className="space-y-2">
+                {content.whatIsPWA?.bullets?.map((bullet: string, i: number) => {
+                  const Icon = PWA_BULLET_ICONS[i % PWA_BULLET_ICONS.length];
+                  return (
+                    <li
+                      key={i}
+                      className="flex items-start gap-4 rounded-xl p-3 -mx-3 transition-colors hover:bg-ivory-medium dark:hover:bg-neutral-800"
+                    >
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-clay/10 text-clay dark:bg-clay/15">
+                        <Icon className="h-5 w-5" strokeWidth={2} />
+                      </span>
+                      <span className="pt-1.5 text-slate-dark dark:text-ivory-light leading-relaxed">
+                        {bullet}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
-            <div className="flex justify-center md:justify-end">
+
+            <div className="flex justify-center">
               <Image
                 src="/static/desarrollo-de-app-webs/pwa.webp"
                 alt={content.title}
-                width={720}
-                height={540}
-                className="w-full max-w-[520px] rounded-2xl shadow-2xl border border-neutral-200 dark:border-neutral-700 object-cover"
+                width={2048}
+                height={771}
+                className="w-full max-w-md h-auto object-contain dark:invert transition-[filter] duration-300"
               />
             </div>
           </div>
 
           {content.whatIsPWA?.highlight && (
-            <p className="mt-8 max-w-3xl mx-auto text-center text-lg font-medium text-neutral-800 dark:text-neutral-200 leading-relaxed">
-              {content.whatIsPWA.highlight}
-            </p>
+            <div className="mt-14 max-w-3xl mx-auto rounded-2xl bg-ivory-light dark:bg-neutral-800 border-l-4 border-clay p-6 md:p-8 transition-colors">
+              <p className="text-lg font-medium text-slate-dark dark:text-ivory-light leading-relaxed">
+                {content.whatIsPWA.highlight}
+              </p>
+            </div>
           )}
         </div>
       </section>

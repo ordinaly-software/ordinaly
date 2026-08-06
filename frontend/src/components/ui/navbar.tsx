@@ -171,6 +171,7 @@ const MobileSection = ({
 
 const Navbar = () => {
   const t = useTranslations("home");
+  const tServices = useTranslations("services");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -182,6 +183,40 @@ const Navbar = () => {
   const [hasEnrolledCourses, setHasEnrolledCourses] = useState(false);
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
   const [viewportWidth, setViewportWidth] = useState<number | null>(null);
+
+  const serviceLinks = useMemo(
+    () => [
+      {
+        id: "callbot",
+        href: "/automatizaciones-chatbots",
+        title: tServices("showcase.chatbotRecepcionista"),
+        description: tServices("showcase.chatbotRecepcionistaNote"),
+        image: "/static/servicios/chatbot_recepcionista.webp",
+      },
+      {
+        id: "automation",
+        href: "/automatizaciones-personalizadas-para-empresas-con-n8n",
+        title: tServices("showcase.personalizadas"),
+        description: tServices("showcase.automationNote"),
+        image: "/static/servicios/automatizaciones_personalizadas.webp",
+      },
+      {
+        id: "odoo",
+        href: "/implantacion-odoo",
+        title: tServices("showcase.odoo"),
+        description: tServices("showcase.odooNote"),
+        image: "/static/servicios/implantacion_odoo.webp",
+      },
+      {
+        id: "pwa",
+        href: "/desarrollo-de-app-webs",
+        title: tServices("showcase.pwa"),
+        description: undefined as string | undefined,
+        image: "/static/servicios/desarrollo_de_app_webs.webp",
+      },
+    ],
+    [tServices],
+  );
 
   const { courses: allMenuCourses } = useSiteData();
 
@@ -413,7 +448,7 @@ const Navbar = () => {
   const navItems = useMemo(
     () => [
       { id: "home", type: "link", href: "/", label: t("navigation.home") },
-      { id: "services", type: "link", href: "/servicios", label: t("navigation.services") },
+      { id: "services", type: "mega", href: "/servicios", label: t("navigation.services") },
       ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formacion", label: t("navigation.formation") }] : []),
       ...(locale !== "en" ? [{ id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") }] : []),
       { id: "faq", type: "link", href: "/faq", label: t("navigation.faq") },
@@ -466,6 +501,7 @@ const Navbar = () => {
 
   const isBlogSectionActive = pathname.includes("/blog") || pathname.includes("/news");
   const shouldLoadCourseImages = activeMegaItem === t("navigation.formation");
+  const shouldLoadServiceImages = activeMegaItem === t("navigation.services");
 
   return (
     <>
@@ -504,6 +540,22 @@ const Navbar = () => {
                         item.id === "blog" ? isBlogSectionActive : isLinkActive(item.href)
                       }
                     >
+                      {item.id === "services" && (
+                        <div className="grid grid-cols-1 gap-3 min-w-[360px]">
+                          {serviceLinks.map((service) => (
+                            <ProductItem
+                              key={service.id}
+                              title={service.title}
+                              description={service.description}
+                              href={service.href}
+                              src={service.image}
+                              loadOnHover={false}
+                              loadEnabled={shouldLoadServiceImages}
+                            />
+                          ))}
+                          <HoveredLink href="/servicios">{t("navigation.serviceSubmenu")}</HoveredLink>
+                        </div>
+                      )}
                       {item.id === "formation" && (
                         <div className="grid grid-cols-1 gap-3 min-w-[360px]">
                           {menuCourses.length > 0 &&
@@ -615,6 +667,32 @@ const Navbar = () => {
           >
             <div className="py-4 px-4 sm:px-6">
               <div className="flex flex-col space-y-3">
+                <MobileSection
+                  title={t("navigation.services")}
+                  isOpen={mobileSection === "services"}
+                  onToggle={() => toggleMobileSection("services")}
+                >
+                  {serviceLinks.map((service) => (
+                    <Link
+                      key={service.id}
+                      href={service.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
+                    >
+                      <div className="text-sm font-semibold text-slate-dark dark:text-ivory-light line-clamp-2">
+                        {service.title}
+                      </div>
+                    </Link>
+                  ))}
+                  <Link
+                    href="/servicios"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                  >
+                    {t("navigation.serviceSubmenu")}
+                  </Link>
+                </MobileSection>
+
                 {menuCourses.length > 0 && (
                   <MobileSection
                     title={t("navigation.formation")}
@@ -632,11 +710,6 @@ const Navbar = () => {
                           <div className="text-sm font-semibold text-slate-dark dark:text-ivory-light line-clamp-2">
                             {course.title}
                           </div>
-                          {(course.subtitle || course.description) && (
-                            <div className="text-xs text-slate-light dark:text-cloud-medium mt-1 line-clamp-2">
-                              {course.subtitle || course.description}
-                            </div>
-                          )}
                         </Link>
                       ))}
                     <Link
@@ -686,18 +759,6 @@ const Navbar = () => {
                     )}
                   >
                     {t("navigation.home")}
-                  </Link>
-                  <Link
-                    href="/servicios"
-                    onClick={() => setIsMenuOpen(false)}
-                    className={cn(
-                      "transition-colors py-3 px-2 block rounded-md font-medium",
-                      isLinkActive("/servicios")
-                        ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
-                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
-                    )}
-                  >
-                    {t("navigation.services")}
                   </Link>
                   <Link
                     href="/faq"
