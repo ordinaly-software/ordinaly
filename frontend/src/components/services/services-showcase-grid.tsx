@@ -90,13 +90,13 @@ export function ServicesShowcaseGrid() {
       />
 
       <Tile
-        href="/automatizaciones-chatbots"
+        href="/agente-de-llamadas-ia#outbound"
         title={t("showcase.chatSalientes")}
         image="/static/servicios/chatbot_comercial.webp"
         className="h-72 sm:col-span-2"
       />
       <Tile
-        href="/automatizaciones-chatbots"
+        href="/agente-de-llamadas-ia#inbound"
         title={t("showcase.chatbotRecepcionista")}
         image="/static/servicios/chatbot_recepcionista.webp"
         className="h-72 sm:col-span-4"

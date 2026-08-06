@@ -3,7 +3,7 @@ import { metadataBaseUrl } from "@/lib/metadata";
 import { client } from "@/lib/sanity";
 
 const PUBLIC_LANDING_SLUGS = [
-  "automatizaciones-chatbots",
+  "agente-de-llamadas-ia",
   "automatizaciones-personalizadas-para-empresas-con-n8n",
   "automatizacion-redes-sociales",
   "automatizacion-facturas",

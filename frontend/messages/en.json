@@ -1293,7 +1293,7 @@
   },
   "services": {
     "pills": {
-      "callbot": "Outbound call chatbot",
+      "callbot": "AI calling agent",
       "automation": "Automation",
       "odoo": "Odoo18",
       "pwa": "Multiplatform web app (PWA)"
@@ -1372,7 +1372,8 @@
       "pwa": "Multiplatform web app development (PWA)",
       "viewCatalog": "Full catalog",
       "viewCatalogCta": "See all services",
-      "viewMore": "Learn more"
+      "viewMore": "Learn more",
+      "chatSalientesNote": "AI outbound calling campaigns"
     },
     "advantages": {
       "title": "Why choose Ordinaly",
@@ -2171,82 +2172,196 @@
     }
   },
   "landings": {
-    "automatizaciones-chatbots": {
-      "slug": "automatizaciones-chatbots",
-      "title": "Enterprise chatbots with connected data",
-      "shortTitle": "AI Automation Agency",
-      "subtitle": "Faster processes, fewer errors, more benefits.",
-      "description": "We design intelligent automations, internal copilots and advanced integrations so your company operates with the efficiency of a modern AI-driven organization.",
-      "heroBadge": "Automation + AI",
-      "heroCtaLabel": "Request free audit",
+    "agente-de-llamadas-ia": {
+      "slug": "agente-de-llamadas-ia",
+      "title": "AI Calling Agents: Inbound Reception & Outbound Sales",
+      "shortTitle": "AI calling agent",
+      "subtitle": "Automate your phone support and calling campaigns with 24/7 AI voice agents, integrated with your CRM.",
+      "heroBadge": "AI voice for business",
+      "heroCtaLabel": "Request a free demo",
       "secondaryCtaLabel": "Chat on WhatsApp",
-      "serviceType": "Business process automation with AI",
+      "serviceType": "AI voice agents for inbound and outbound calls",
       "areaServed": "Spain, Portugal and remote deployment across the EU",
-      "timeline": [
-        {
-          "title": "Audit",
-          "description": "We analyze your current processes and identify clear automation opportunities."
-        },
-        {
-          "title": "Design",
-          "description": "We create flows, integrations and automations tailored to your stack and objectives."
-        },
-        {
-          "title": "Implementation",
-          "description": "We deploy automations in your real environment with testing and validations."
-        },
-        {
-          "title": "Monitoring",
-          "description": "We measure impact, optimize and scale automations based on results."
-        }
-      ],
       "sectionTitles": {
-        "whatWeAutomate": "What we automate",
-        "timeline": "How we work",
-        "caseStudies": "Real cases",
-        "security": "Security and compliance",
-        "ctaTitle": "Ready to automate your business?",
-        "ctaSubtitle": "We define a scoped pilot, with clear metrics and no long-term commitments.",
-        "seeHowWeWork": "See how we work"
+        "inboundPill": "Inbound calls",
+        "outboundPill": "Outbound calls",
+        "techStack": "The technology behind your calling agent",
+        "technologyFaqs": "Frequently asked questions"
       },
-      "whatWeAutomate": [
-        "Internal process automation",
-        "Integration with CRM, ERP and internal tools",
-        "Internal copilots for sales, support and operations teams",
-        "Document automation and intelligent information extraction"
-      ],
-      "caseStudies": [
+      "providers": {
+        "badge": "Best-in-class AI voice stack",
+        "title": "Built on the leading voice and AI providers",
+        "subtitle": "We integrate the leading platforms for voice synthesis, language models, conversational orchestration and telephony to deliver a reliable, natural-sounding calling agent.",
+        "ctaLabel": "See how it works"
+      },
+      "inbound": {
+        "title": "AI virtual receptionist (inbound calls)",
+        "howItWorksTitle": "How does your AI receptionist work?",
+        "infocardsTitle": "Everything about your AI receptionist",
+        "eventsTitle": "Live activity",
+        "steps": [
+          {
+            "title": "Answers instantly",
+            "description": "The agent picks up every call within seconds, no hold music or voicemail, 24 hours a day."
+          },
+          {
+            "title": "Understands and qualifies",
+            "description": "Detects the reason for the call, answers common questions and qualifies the caller against your criteria."
+          },
+          {
+            "title": "Books or transfers",
+            "description": "Books appointments directly on your calendar or transfers the call to the right person on your team."
+          },
+          {
+            "title": "Logs it in your CRM",
+            "description": "Saves a summary of every call, with transcript and next action, directly in your CRM."
+          }
+        ],
+        "infocards": [
+          {
+            "name": "Available 24/7",
+            "description": "Zero missed calls, even outside business hours, on holidays or during demand spikes."
+          },
+          {
+            "name": "Natural voice",
+            "description": "Realistic ElevenLabs voices, with support for neutral Spanish and local accents."
+          }
+        ],
+        "events": [
+          {
+            "title": "Inbound call received",
+            "description": "Customer: Laura G.",
+            "time": "Now"
+          },
+          {
+            "title": "Appointment booked",
+            "description": "Technical review · Thursday 10:00",
+            "time": "1 min ago"
+          },
+          {
+            "title": "Transferred to sales",
+            "description": "Pricing inquiry",
+            "time": "3 min ago"
+          },
+          {
+            "title": "Note saved to CRM",
+            "description": "Summary + next action",
+            "time": "5 min ago"
+          },
+          {
+            "title": "FAQ resolved",
+            "description": "Opening hours",
+            "time": "8 min ago"
+          }
+        ],
+        "requirements": {
+          "title": "Requirements",
+          "items": [
+            "Your current phone number, or a new line via Netelip.",
+            "A base script: services, hours, pricing and FAQs.",
+            "A calendar or CRM to book appointments and log calls.",
+            "Qualification criteria and cases that should transfer to a person."
+          ]
+        }
+      },
+      "outbound": {
+        "title": "AI outbound calling agent (campaigns)",
+        "howItWorksTitle": "How does an AI calling campaign work?",
+        "infocardsTitle": "Everything about your AI calling campaigns",
+        "steps": [
+          {
+            "title": "Import your contact list",
+            "description": "Upload your leads from your CRM, a spreadsheet, or any system with an API."
+          },
+          {
+            "title": "Define the script and goal",
+            "description": "We configure the script, tone and goal of the call: sale, reminder, survey or collections."
+          },
+          {
+            "title": "Launch the campaign",
+            "description": "The agent automatically calls every contact, handles objections and adapts the conversation."
+          },
+          {
+            "title": "Analyze results",
+            "description": "Get metrics, recordings and outcomes for every call, synced with your CRM."
+          }
+        ],
+        "infocards": [
+          {
+            "name": "Scale without hiring",
+            "description": "Launch hundreds of simultaneous calls without growing your sales team."
+          },
+          {
+            "name": "Hours & compliance built in",
+            "description": "Respects allowed calling windows and do-not-call lists on every campaign."
+          }
+        ],
+        "requirements": {
+          "title": "Requirements",
+          "items": [
+            "A contact list with consent to be called.",
+            "The campaign script and goal (sale, reminder, survey, collections, etc.).",
+            "Allowed calling hours and call frequency.",
+            "A CRM or system to receive the outcome of each call."
+          ]
+        },
+        "pricing": {
+          "individualLabel": "Price",
+          "individualPrice": "Custom quote based on volume",
+          "implementationLabel": "Implementation time:",
+          "implementationTime": "From 10 days",
+          "ctaLabel": "I want to automate my calls",
+          "ctaHref": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20company%27s%20calls%20with%20AI"
+        }
+      },
+      "technologyFaqs": [
         {
-          "metric": "40% less time",
-          "description": "Automation of customer service process at a logistics company."
+          "tag": "Voice",
+          "question": "How natural does the agent's voice sound?",
+          "answer": "We use ElevenLabs voices, the leader in realistic voice synthesis, with support for neutral Spanish and local accents, tuning tone and pace to your brand."
         },
         {
-          "metric": "3h → 12 min",
-          "description": "Reduction of employee onboarding time at a SaaS company."
+          "tag": "Intelligence",
+          "question": "Which AI model understands the conversation?",
+          "answer": "Conversational reasoning runs on Google's Gemini models, tuned with your business information (hours, services, pricing, FAQs) to respond accurately."
         },
         {
-          "metric": "98% accuracy",
-          "description": "Automatic ticket classification in a support team of 200+ people."
+          "tag": "Telephony",
+          "question": "Do I need to get a new phone line?",
+          "answer": "Not necessarily. We can use your current number or provide a line through Netelip, our VoIP telephony provider, for both inbound and outbound calls."
+        },
+        {
+          "tag": "Orchestration",
+          "question": "How do all the pieces connect?",
+          "answer": "Retell orchestrates the call in real time (voice, AI and telephony), while n8n connects the outcome of every call to your CRM, calendar or database via REST APIs."
+        },
+        {
+          "tag": "Data",
+          "question": "Is it secure and GDPR-compliant?",
+          "answer": "Yes. Calls and transcripts are processed with data protection guarantees, and you decide what information is kept and for how long."
+        },
+        {
+          "tag": "Price",
+          "question": "How much does it cost to set up a calling agent?",
+          "answer": "It depends on call volume and script complexity. We'll walk you through it after a free audit of your specific case."
         }
       ],
-      "security": [
-        {
-          "title": "Private models",
-          "description": "Secure infrastructure and models deployed in controlled environments."
-        },
-        {
-          "title": "GDPR compliance",
-          "description": "Data processing with legal and technical guarantees."
-        },
-        {
-          "title": "Encryption",
-          "description": "Data encrypted in transit and at rest."
-        }
+      "keywords": [
+        "AI calling agent",
+        "Virtual receptionist",
+        "Outbound calls",
+        "AI call center",
+        "n8n",
+        "ElevenLabs",
+        "Gemini",
+        "Retell",
+        "Netelip",
+        "Phone automation"
       ],
       "cta": {
-        "label": "Book a meeting",
-        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mi%20empresa%20con%20IA",
-        "bgColor": "#000000"
+        "label": "I want to automate my calls",
+        "href": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20company%27s%20calls%20with%20AI",
+        "bgColor": "#D97757"
       }
     },
     "automatizaciones-personalizadas-para-empresas-con-n8n": {
@@ -2304,9 +2419,15 @@
         "description": "Software engineers, experts in computer science and artificial intelligence, with real experience in business automation."
       },
       "benefits": [
-        { "name": "More traceability" },
-        { "name": "Fewer errors" },
-        { "name": "More free time" }
+        {
+          "name": "More traceability"
+        },
+        {
+          "name": "Fewer errors"
+        },
+        {
+          "name": "More free time"
+        }
       ],
       "security": {
         "trustPoints": [
@@ -2715,7 +2836,11 @@
           "And you're not relying solely on Ordinaly either: Odoo Community is backed by a large community of developers and companies that continuously publish modules, improvements and fixes."
         ],
         "comparisonTable": {
-          "headers": ["Tool", "Annual cost (5 users)", "Notes"],
+          "headers": [
+            "Tool",
+            "Annual cost (5 users)",
+            "Notes"
+          ],
           "rows": [
             {
               "tool": "Salesforce Sales Cloud Starter",
@@ -2745,36 +2870,36 @@
       },
       "heroBadgeAlt": "Odoo badge",
       "infocards": {
-      "cards": [
-        {
-          "name": "Complete ERP",
-          "description": "Odoo combines CRM, accounting, invoicing, inventory, sales, and many more modules into a single platform."
-        },
-        {
-          "name": "Custom modules",
-          "description": "The system can be expanded with additional modules according to your business needs."
-        },
-        {
-          "name": "Perfect for automation",
-          "description": "Odoo Community is compatible with n8n, allowing you to automate processes and workflows without depending on custom developments."
-        },
-        {
-          "name": "VeriFactu Spain",
-          "description": "The service can be complemented with the base configuration for VeriFactu Spain compliance (please inquire)."
-        },
-        {
-          "name": "Private machines (VPS)",
-          "description": "The system is deployed on infrastructure controlled by the client (own server or VPS). The client maintains full control of the ERP and their information at all times."
-        },
-        {
-          "name": "FLOSS - Free software",
-          "description": "Odoo Community is free and open-source software. You don't depend on per-user licenses or external providers."
-        },
-        {
-          "name": "Zero sensitive data",
-          "description": "At no time do we collect passwords, sensitive data, or files on our servers. Ordinaly does not retain accesses or credentials after the service delivery. We do not store your data or files on our servers."
-        }
-      ]
+        "cards": [
+          {
+            "name": "Complete ERP",
+            "description": "Odoo combines CRM, accounting, invoicing, inventory, sales, and many more modules into a single platform."
+          },
+          {
+            "name": "Custom modules",
+            "description": "The system can be expanded with additional modules according to your business needs."
+          },
+          {
+            "name": "Perfect for automation",
+            "description": "Odoo Community is compatible with n8n, allowing you to automate processes and workflows without depending on custom developments."
+          },
+          {
+            "name": "VeriFactu Spain",
+            "description": "The service can be complemented with the base configuration for VeriFactu Spain compliance (please inquire)."
+          },
+          {
+            "name": "Private machines (VPS)",
+            "description": "The system is deployed on infrastructure controlled by the client (own server or VPS). The client maintains full control of the ERP and their information at all times."
+          },
+          {
+            "name": "FLOSS - Free software",
+            "description": "Odoo Community is free and open-source software. You don't depend on per-user licenses or external providers."
+          },
+          {
+            "name": "Zero sensitive data",
+            "description": "At no time do we collect passwords, sensitive data, or files on our servers. Ordinaly does not retain accesses or credentials after the service delivery. We do not store your data or files on our servers."
+          }
+        ]
       },
       "pricing": {
         "individualPrice": "860€",
@@ -2805,8 +2930,14 @@
           "question": "Why do you implement Odoo Community instead of Odoo Enterprise?",
           "answer": "Odoo Community is just as maintainable, secure and functional as the Enterprise edition, but far more cost-effective long-term since it avoids the recurring cost of per-user licenses. And you're not relying solely on Ordinaly either: Odoo Community is backed by a large community of developers and companies.",
           "links": [
-            { "label": "Official Odoo community and forum", "href": "https://www.odoo.com/forum/help-1" },
-            { "label": "Odoo Community Association (OCA)", "href": "https://odoo-community.org/" }
+            {
+              "label": "Official Odoo community and forum",
+              "href": "https://www.odoo.com/forum/help-1"
+            },
+            {
+              "label": "Odoo Community Association (OCA)",
+              "href": "https://odoo-community.org/"
+            }
           ]
         },
         {

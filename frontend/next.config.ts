@@ -202,8 +202,10 @@ const nextConfig: NextConfig = {
       { source: '/en/inteligencia-artificial-empresas', destination: '/en', permanent: true },
       { source: '/inteligencia-artificial-sevilla', destination: '/', permanent: true },
       { source: '/en/inteligencia-artificial-sevilla', destination: '/en', permanent: true },
-      { source: '/chatbots-personalizados-para-empresas', destination: '/automatizaciones-chatbots', permanent: true },
-      { source: '/en/chatbots-personalizados-para-empresas', destination: '/en/automatizaciones-chatbots', permanent: true },
+      { source: '/chatbots-personalizados-para-empresas', destination: '/agente-de-llamadas-ia', permanent: true },
+      { source: '/en/chatbots-personalizados-para-empresas', destination: '/en/agente-de-llamadas-ia', permanent: true },
+      { source: '/automatizaciones-chatbots', destination: '/agente-de-llamadas-ia', permanent: true },
+      { source: '/en/automatizaciones-chatbots', destination: '/en/agente-de-llamadas-ia', permanent: true },
     ];
   },
 };

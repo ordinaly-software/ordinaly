@@ -80,7 +80,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Sí. La arquitectura correcta unifica fuentes, normaliza formatos, trocea por tipo documental y aplica ranking antes de responder. Lo importante no es solo indexar, sino decidir qué fuente pesa más según el caso.",
       en: "Yes. The right architecture unifies sources, normalizes formats, chunks by document type and applies ranking before answering. The key is not only indexing, but deciding which source should carry more weight in each case.",
     },
-    relatedPath: "/automatizaciones-chatbots",
+    relatedPath: "/agente-de-llamadas-ia",
   },
   {
     id: "chatbot-quality",
@@ -94,7 +94,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Miramos deflexión por intención, precisión de escalado, exactitud sobre un set de preguntas reales y calidad de cita. La velocidad sola puede ocultar respuestas incorrectas o handoffs innecesarios.",
       en: "We look at deflection by intent, escalation precision, accuracy on a real question set and citation quality. Speed alone can hide wrong answers or unnecessary handoffs.",
     },
-    relatedPath: "/automatizaciones-chatbots",
+    relatedPath: "/agente-de-llamadas-ia",
   },
   {
     id: "chatbot-website-whatsapp",

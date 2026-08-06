@@ -175,11 +175,18 @@ const Navbar = () => {
   const serviceLinks = useMemo(
     () => [
       {
-        id: "callbot",
-        href: "/automatizaciones-chatbots",
+        id: "callbot-inbound",
+        href: "/agente-de-llamadas-ia#inbound",
         title: tServices("showcase.chatbotRecepcionista"),
         description: tServices("showcase.chatbotRecepcionistaNote"),
         image: "/static/servicios/chatbot_recepcionista.webp",
+      },
+      {
+        id: "callbot-outbound",
+        href: "/agente-de-llamadas-ia#outbound",
+        title: tServices("showcase.chatSalientes"),
+        description: tServices("showcase.chatSalientesNote"),
+        image: "/static/servicios/chatbot_comercial.webp",
       },
       {
         id: "automation",

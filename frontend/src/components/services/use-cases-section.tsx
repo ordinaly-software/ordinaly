@@ -67,7 +67,7 @@ const useCases: UseCaseItem[] = [
     Icon: ShoppingBag,
     accent: "var(--swatch--sky)",
     accentSoft: "var(--swatch--sky)/12",
-    href: "/automatizaciones-chatbots",
+    href: "/agente-de-llamadas-ia",
   },
   {
     titleKey: "useCases.items.4.title",

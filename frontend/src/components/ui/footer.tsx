@@ -23,7 +23,7 @@ import { openCookieSettings } from "@/utils/cookie-manager";
 import { cn } from "@/lib/utils";
 
 const LANDING_SLUGS = [
-  "automatizaciones-chatbots",
+  "agente-de-llamadas-ia",
   "automatizaciones-personalizadas-para-empresas-con-n8n",
   "automatizacion-facturas",
   "automatizacion-informes",

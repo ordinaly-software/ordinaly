@@ -26,7 +26,7 @@ const highlightedServices: HighlightService[] = [
   },
   {
     key: "chatbotRecepcionista",
-    href: "/automatizaciones-chatbots",
+    href: "/agente-de-llamadas-ia#inbound",
     icon: <Headset className="h-14 w-14" />,
     image: "/static/servicios/chatbot_recepcionista.webp",
     noteKey: "chatbotRecepcionistaNote",

@@ -1293,7 +1293,7 @@
   },
   "services": {
     "pills": {
-      "callbot": "Chatbot de llamadas",
+      "callbot": "Agente de llamadas IA",
       "automation": "Automatización",
       "odoo": "Odoo18",
       "pwa": "Aplicaciones web multiplataforma (PWA)"
@@ -1372,7 +1372,8 @@
       "pwa": "Desarrollo de aplicaciones web multiplataforma (PWA)",
       "viewCatalog": "Catálogo completo",
       "viewCatalogCta": "Ver todos los servicios",
-      "viewMore": "Ver más"
+      "viewMore": "Ver más",
+      "chatSalientesNote": "Campañas de llamadas salientes con IA"
     },
     "advantages": {
       "title": "Por qué elegir Ordinaly",
@@ -2171,82 +2172,196 @@
     }
   },
   "landings": {
-    "automatizaciones-chatbots": {
-      "slug": "automatizaciones-chatbots",
-      "title": "Chatbots personalizados para empresas",
-      "shortTitle": "Chatbots personalizados",
-      "subtitle": "Procesos más rápidos, menos errores, más beneficios.",
-      "description": "Diseñamos automatizaciones inteligentes, copilotos internos e integraciones avanzadas para que tu empresa funcione con la eficiencia de una organización moderna impulsada por IA.",
-      "heroBadge": "Automatización + IA",
-      "heroCtaLabel": "Solicitar auditoría gratuita",
+    "agente-de-llamadas-ia": {
+      "slug": "agente-de-llamadas-ia",
+      "title": "Agentes de Llamadas con IA: Recepción y Ventas Salientes",
+      "shortTitle": "Agente de llamadas IA",
+      "subtitle": "Automatiza tu atención telefónica y tus campañas de llamadas con agentes de voz con IA, disponibles 24/7 e integrados con tu CRM.",
+      "heroBadge": "Voz IA para empresas",
+      "heroCtaLabel": "Solicitar demo gratuita",
       "secondaryCtaLabel": "Hablar por WhatsApp",
-      "serviceType": "Automatización de procesos empresariales con IA",
+      "serviceType": "Agentes de voz con IA para llamadas entrantes y salientes",
       "areaServed": "España, Portugal y despliegue remoto en la UE",
-      "timeline": [
-        {
-          "title": "Auditoría",
-          "description": "Analizamos tus procesos actuales y detectamos oportunidades claras de automatización."
-        },
-        {
-          "title": "Diseño",
-          "description": "Creamos flujos, integraciones y automatizaciones adaptadas a tu stack y tus objetivos."
-        },
-        {
-          "title": "Implementación",
-          "description": "Desplegamos las automatizaciones en tu entorno real con pruebas y validaciones."
-        },
-        {
-          "title": "Monitorización",
-          "description": "Medimos impacto, optimizamos y ampliamos las automatizaciones según resultados."
-        }
-      ],
       "sectionTitles": {
-        "whatWeAutomate": "Qué automatizamos",
-        "timeline": "Cómo trabajamos",
-        "caseStudies": "Casos reales",
-        "security": "Seguridad y cumplimiento",
-        "ctaTitle": "¿Listo para automatizar tu empresa?",
-        "ctaSubtitle": "Definimos un piloto acotado, con métricas claras y sin compromisos a largo plazo.",
-        "seeHowWeWork": "Ver cómo trabajamos"
+        "inboundPill": "Llamadas entrantes",
+        "outboundPill": "Llamadas salientes",
+        "techStack": "La tecnología detrás de tu agente de llamadas",
+        "technologyFaqs": "Preguntas frecuentes"
       },
-      "whatWeAutomate": [
-        "Automatización de procesos internos",
-        "Integración con CRM, ERP y herramientas internas",
-        "Copilotos internos para equipos de ventas, soporte y operaciones",
-        "Automatización documental y extracción inteligente de información"
-      ],
-      "caseStudies": [
+      "providers": {
+        "badge": "Stack de voz IA de primer nivel",
+        "title": "Construido sobre los mejores proveedores de voz e IA",
+        "subtitle": "Integramos las plataformas líderes en síntesis de voz, modelos de lenguaje, orquestación conversacional y telefonía para ofrecerte un agente de llamadas fiable y natural.",
+        "ctaLabel": "Ver cómo funciona"
+      },
+      "inbound": {
+        "title": "Recepcionista virtual con IA (llamadas entrantes)",
+        "howItWorksTitle": "¿Cómo funciona tu recepcionista virtual?",
+        "infocardsTitle": "Todo sobre tu recepcionista con IA",
+        "eventsTitle": "Actividad en directo",
+        "steps": [
+          {
+            "title": "Responde al instante",
+            "description": "El agente descuelga cada llamada en segundos, sin esperas ni buzón de voz, las 24 horas del día."
+          },
+          {
+            "title": "Entiende y cualifica",
+            "description": "Detecta el motivo de la llamada, resuelve dudas frecuentes y cualifica al cliente con tus criterios."
+          },
+          {
+            "title": "Agenda o transfiere",
+            "description": "Reserva citas directamente en tu calendario o transfiere la llamada a la persona adecuada de tu equipo."
+          },
+          {
+            "title": "Registra en tu CRM",
+            "description": "Guarda un resumen de cada llamada, con transcripción y siguiente acción, directamente en tu CRM."
+          }
+        ],
+        "infocards": [
+          {
+            "name": "Disponible 24/7",
+            "description": "Cero llamadas perdidas, incluso fuera de horario, festivos o en picos de demanda."
+          },
+          {
+            "name": "Voz natural",
+            "description": "Voces realistas de ElevenLabs, con soporte para español neutro y acentos locales."
+          }
+        ],
+        "events": [
+          {
+            "title": "Llamada entrante recibida",
+            "description": "Cliente: Laura G.",
+            "time": "Ahora"
+          },
+          {
+            "title": "Cita agendada",
+            "description": "Revisión técnica · jueves 10:00",
+            "time": "hace 1 min"
+          },
+          {
+            "title": "Transferido a ventas",
+            "description": "Consulta de presupuesto",
+            "time": "hace 3 min"
+          },
+          {
+            "title": "Nota guardada en CRM",
+            "description": "Resumen + siguiente acción",
+            "time": "hace 5 min"
+          },
+          {
+            "title": "FAQ resuelta",
+            "description": "Horario de atención",
+            "time": "hace 8 min"
+          }
+        ],
+        "requirements": {
+          "title": "Requisitos",
+          "items": [
+            "Número de teléfono actual o línea nueva vía Netelip.",
+            "Guion base: servicios, horarios, precios y preguntas frecuentes.",
+            "Calendario o CRM donde agendar citas y registrar llamadas.",
+            "Criterios de cualificación y casos que deben transferirse a una persona."
+          ]
+        }
+      },
+      "outbound": {
+        "title": "Agente de llamadas salientes con IA (campañas)",
+        "howItWorksTitle": "¿Cómo funciona una campaña de llamadas con IA?",
+        "infocardsTitle": "Todo sobre tus campañas de llamadas con IA",
+        "steps": [
+          {
+            "title": "Importa tu lista de contactos",
+            "description": "Sube tus leads desde tu CRM, una hoja de cálculo o cualquier sistema con API."
+          },
+          {
+            "title": "Define el guion y el objetivo",
+            "description": "Configuramos el guion, el tono y el objetivo de la llamada: venta, recordatorio, encuesta o cobro."
+          },
+          {
+            "title": "Lanza la campaña",
+            "description": "El agente llama automáticamente a cada contacto, gestiona objeciones y adapta la conversación."
+          },
+          {
+            "title": "Analiza resultados",
+            "description": "Recibe métricas, grabaciones y resultados de cada llamada, sincronizados con tu CRM."
+          }
+        ],
+        "infocards": [
+          {
+            "name": "Escala sin contratar",
+            "description": "Lanza cientos de llamadas simultáneas sin ampliar tu equipo comercial."
+          },
+          {
+            "name": "Cumple horarios y normativa",
+            "description": "Respeta franjas horarias permitidas y listas de exclusión en cada campaña."
+          }
+        ],
+        "requirements": {
+          "title": "Requisitos",
+          "items": [
+            "Lista de contactos con consentimiento para ser llamados.",
+            "Guion y objetivo de la campaña (venta, recordatorio, encuesta, cobro, etc.).",
+            "Franja horaria y frecuencia de llamada permitidas.",
+            "CRM o sistema donde volcar el resultado de cada llamada."
+          ]
+        },
+        "pricing": {
+          "individualLabel": "Precio",
+          "individualPrice": "Presupuesto a medida según volumen",
+          "implementationLabel": "Tiempo de implantación:",
+          "implementationTime": "A partir de 10 días",
+          "ctaLabel": "Quiero automatizar mis llamadas",
+          "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20las%20llamadas%20de%20mi%20empresa%20con%20IA"
+        }
+      },
+      "technologyFaqs": [
         {
-          "metric": "40% menos tiempo",
-          "description": "Automatización del proceso de atención en una empresa de logística."
+          "tag": "Voz",
+          "question": "¿Qué tan natural suena la voz del agente?",
+          "answer": "Usamos las voces de ElevenLabs, líderes en síntesis de voz realista, con soporte para español neutro y acentos locales, ajustando tono y velocidad a tu marca."
         },
         {
-          "metric": "3h → 12 min",
-          "description": "Reducción del tiempo de onboarding de empleados en una empresa SaaS."
+          "tag": "Inteligencia",
+          "question": "¿Qué modelo de IA entiende la conversación?",
+          "answer": "El razonamiento conversacional se apoya en modelos Gemini de Google, ajustados con la información de tu negocio (horarios, servicios, precios, preguntas frecuentes) para responder con precisión."
         },
         {
-          "metric": "98% precisión",
-          "description": "Clasificación automática de tickets en un equipo de soporte de 200+ personas."
+          "tag": "Telefonía",
+          "question": "¿Necesito contratar una línea nueva?",
+          "answer": "No necesariamente. Podemos usar tu numeración actual o proporcionarte una línea a través de Netelip, nuestro proveedor de telefonía VoIP, tanto para llamadas entrantes como salientes."
+        },
+        {
+          "tag": "Orquestación",
+          "question": "¿Cómo se conectan todas las piezas?",
+          "answer": "Retell gestiona la orquestación de la llamada en tiempo real (voz, IA y telefonía), mientras n8n conecta el resultado de cada llamada con tu CRM, calendario o base de datos mediante APIs REST."
+        },
+        {
+          "tag": "Datos",
+          "question": "¿Es seguro y cumple el RGPD?",
+          "answer": "Sí. Las llamadas y transcripciones se procesan con garantías de protección de datos y puedes definir qué información se guarda y durante cuánto tiempo."
+        },
+        {
+          "tag": "Precio",
+          "question": "¿Cuánto cuesta implantar un agente de llamadas?",
+          "answer": "Depende del volumen de llamadas y la complejidad del guion. Te lo detallamos tras una auditoría gratuita de tu caso concreto."
         }
       ],
-      "security": [
-        {
-          "title": "Modelos privados",
-          "description": "Infraestructura segura y modelos desplegados en entornos controlados."
-        },
-        {
-          "title": "Cumplimiento RGPD",
-          "description": "Procesamiento de datos con garantías legales y técnicas."
-        },
-        {
-          "title": "Encriptación",
-          "description": "Datos cifrados en tránsito y en reposo."
-        }
+      "keywords": [
+        "Agente de llamadas IA",
+        "Recepcionista virtual",
+        "Llamadas salientes",
+        "Call center IA",
+        "n8n",
+        "ElevenLabs",
+        "Gemini",
+        "Retell",
+        "Netelip",
+        "Automatización telefónica"
       ],
       "cta": {
-        "label": "Reserva una reunión",
-        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mi%20empresa%20con%20IA",
-        "bgColor": "#000000"
+        "label": "Quiero automatizar mis llamadas",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20las%20llamadas%20de%20mi%20empresa%20con%20IA",
+        "bgColor": "#D97757"
       }
     },
     "automatizaciones-personalizadas-para-empresas-con-n8n": {
@@ -2304,9 +2419,15 @@
         "description": "Ingenieros de software, expertos en ciencias de la computación e inteligencia artificial, con experiencia real en automatización empresarial."
       },
       "benefits": [
-        { "name": "Más trazabilidad" },
-        { "name": "Menos errores" },
-        { "name": "Más tiempo libre" }
+        {
+          "name": "Más trazabilidad"
+        },
+        {
+          "name": "Menos errores"
+        },
+        {
+          "name": "Más tiempo libre"
+        }
       ],
       "security": {
         "trustPoints": [
@@ -2715,7 +2836,11 @@
           "Además, no dependes únicamente de Ordinaly, Odoo Community cuenta con una amplia comunidad de desarrolladores y empresas detrás, que publican módulos, mejoras y correcciones de forma continua."
         ],
         "comparisonTable": {
-          "headers": ["Herramienta", "Coste anual (5 usuarios)", "Observaciones"],
+          "headers": [
+            "Herramienta",
+            "Coste anual (5 usuarios)",
+            "Observaciones"
+          ],
           "rows": [
             {
               "tool": "Salesforce Sales Cloud Starter",
@@ -2805,8 +2930,14 @@
           "question": "¿Por qué implantáis Odoo Community y no Odoo Enterprise?",
           "answer": "Odoo Community es igual de mantenible, segura y funcional que la versión Enterprise, pero mucho más económica a largo plazo al evitar el coste recurrente de las licencias por usuario. Además, no dependes únicamente de Ordinaly: Odoo Community cuenta con una amplia comunidad de desarrolladores y empresas detrás.",
           "links": [
-            { "label": "Comunidad y foro oficial de Odoo", "href": "https://www.odoo.com/forum/help-1" },
-            { "label": "Odoo Community Association (OCA)", "href": "https://odoo-community.org/" }
+            {
+              "label": "Comunidad y foro oficial de Odoo",
+              "href": "https://www.odoo.com/forum/help-1"
+            },
+            {
+              "label": "Odoo Community Association (OCA)",
+              "href": "https://odoo-community.org/"
+            }
           ]
         },
         {
