@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/metadata";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
+import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 import FaqPageClient from "./page.client";
 import { faqEntries, faqCategories, localizeFaq } from "./faq-data";
 
@@ -31,6 +32,7 @@ export default async function FaqPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const isEs = locale?.startsWith("es");
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -50,6 +52,13 @@ export default async function FaqPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <BreadcrumbSchema
+        locale={locale}
+        items={[
+          { name: isEs ? "Inicio" : "Home", path: "/" },
+          { name: "FAQ" },
+        ]}
       />
       <ReCaptchaWrapper badgeContainerId="recaptcha-badge-faq-page">
         <FaqPageClient locale={locale} />

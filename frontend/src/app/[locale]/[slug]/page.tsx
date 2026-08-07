@@ -4,6 +4,9 @@ import { notFound } from "next/navigation";
 import { client } from "@/lib/sanity";
 import { postBySlug } from "@/lib/queries";
 import { urlFor } from "@/lib/image";
+import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
+
+const NEWS_CATEGORY_SLUGS = new Set(["noticias", "news"]);
 
 async function fetchBlogPost(slug: string) {
   try {
@@ -81,11 +84,23 @@ export default async function SlugPage({
         : undefined,
       mainEntityOfPage: `${process.env.NEXT_PUBLIC_BASE_URL}/${post.slug}`,
     };
+    const isNews = (post.categories ?? []).some(
+      (cat: { slug?: string }) => cat?.slug && NEWS_CATEGORY_SLUGS.has(cat.slug),
+    );
+
     return (
       <>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <BreadcrumbSchema
+          locale="es"
+          items={[
+            { name: "Inicio", path: "/" },
+            isNews ? { name: "Noticias", path: "/news" } : { name: "Blog", path: "/blog" },
+            { name: post.title },
+          ]}
         />
         <BlogPostClient post={post} />
       </>

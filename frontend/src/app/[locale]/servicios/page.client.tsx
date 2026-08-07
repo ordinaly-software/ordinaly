@@ -111,9 +111,9 @@ const ServicesPage = () => {
             <p className="text-sm font-semibold uppercase tracking-wide text-[#d97757]">
               {t("showcase.eyebrow")}
             </p>
-            <p className="mt-2 text-4xl font-bold leading-tight text-slate-dark dark:text-ivory-light md:text-6xl">
+            <h1 className="mt-2 text-4xl font-bold leading-tight text-slate-dark dark:text-ivory-light md:text-6xl">
               {t("showcase.title")}
-            </p>
+            </h1>
             <p className="mt-2 max-w-3xl text-base leading-relaxed text-slate-medium dark:text-cloud-medium md:text-xl">
               {t("showcase.subtitle")}
             </p>

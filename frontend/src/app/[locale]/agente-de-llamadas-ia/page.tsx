@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/metadata";
+import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 import AgenteDeLlamadasIA from "./page.client";
 
 const slug = "agente-de-llamadas-ia" as const;
@@ -26,6 +27,24 @@ export async function generateMetadata({
   });
 }
 
-export default async function AgenteDeLlamadasIAPage() {
-  return <AgenteDeLlamadasIA />;
+export default async function AgenteDeLlamadasIAPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const isEs = locale?.startsWith("es");
+  return (
+    <>
+      <BreadcrumbSchema
+        locale={locale}
+        items={[
+          { name: isEs ? "Inicio" : "Home", path: "/" },
+          { name: isEs ? "Servicios" : "Services", path: "/servicios" },
+          { name: isEs ? "Agente de Llamadas IA" : "AI Calling Agent" },
+        ]}
+      />
+      <AgenteDeLlamadasIA />
+    </>
+  );
 }

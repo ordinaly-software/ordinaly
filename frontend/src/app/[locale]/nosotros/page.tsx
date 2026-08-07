@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import UsPage from "./page.client";
 import { createPageMetadata } from "@/lib/metadata";
+import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 
 export async function generateMetadata({
   params,
@@ -28,6 +29,18 @@ export default async function Us({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params;
-  return <UsPage />;
+  const { locale } = await params;
+  const isEs = locale?.startsWith("es");
+  return (
+    <>
+      <BreadcrumbSchema
+        locale={locale}
+        items={[
+          { name: isEs ? "Inicio" : "Home", path: "/" },
+          { name: isEs ? "Nosotros" : "About us" },
+        ]}
+      />
+      <UsPage />
+    </>
+  );
 }

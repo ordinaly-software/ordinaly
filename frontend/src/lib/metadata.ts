@@ -134,4 +134,17 @@ export function createPageMetadata({
   };
 }
 
+export type BreadcrumbItem = { name: string; path?: string };
+
+export const buildBreadcrumbSchema = (items: BreadcrumbItem[], locale?: string) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: item.name,
+    ...(item.path !== undefined ? { item: absoluteUrl(item.path, locale) } : {}),
+  })),
+});
+
 export { baseUrl as metadataBaseUrl, SITE_NAME as siteName, defaultDescription };

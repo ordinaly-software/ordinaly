@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { metadataBaseUrl } from "@/lib/metadata";
+import { absoluteUrl, localeHrefLangs, metadataBaseUrl } from "@/lib/metadata";
+import { routing } from "@/i18n/routing";
 import { client } from "@/lib/sanity";
 
 const PUBLIC_LANDING_SLUGS = [
@@ -14,15 +15,18 @@ const PUBLIC_LANDING_SLUGS = [
 
 type ChangeFrequency = MetadataRoute.Sitemap[number]["changeFrequency"];
 
-const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; priority: number }> = [
+// The /blog listing and individual blog/news posts render es-only (they call
+// notFound() for the en locale), so they must not get an en hreflang alternate.
+const staticPaths: Array<{ path: string; changeFrequency: ChangeFrequency; priority: number; esOnly?: boolean }> = [
   { path: "/", changeFrequency: "weekly", priority: 0.9 },
   { path: "/contacto", changeFrequency: "weekly", priority: 0.7 },
   { path: "/nosotros", changeFrequency: "weekly", priority: 0.7 },
   { path: "/servicios", changeFrequency: "weekly", priority: 0.8 },
   { path: "/formacion", changeFrequency: "weekly", priority: 0.7 },
   { path: "/faq", changeFrequency: "weekly", priority: 0.75 },
-  { path: "/blog", changeFrequency: "daily", priority: 0.8 },
+  { path: "/blog", changeFrequency: "daily", priority: 0.8, esOnly: true },
   { path: "/news", changeFrequency: "daily", priority: 0.7 },
+  { path: "/legal", changeFrequency: "monthly", priority: 0.4 },
 ];
 
 const stripLocalePrefix = (path: string) => {
@@ -75,20 +79,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const isValidSlug = (value?: string | null) =>
       !!value && value.length >= 4 && !value.endsWith("-");
 
+    const buildLanguageAlternates = (path: string, esOnly?: boolean) => {
+      const locales = esOnly ? routing.locales.filter((loc) => loc === "es") : routing.locales;
+      const languages = Object.fromEntries(
+        locales.map((loc) => [localeHrefLangs[loc] ?? loc, absoluteUrl(path, loc)]),
+      );
+      languages["x-default"] = absoluteUrl(path, "es");
+      return languages;
+    };
+
     const entries: MetadataRoute.Sitemap = [];
-    const addPath = (path: string, changeFrequency: ChangeFrequency, priority: number) => {
+    const addPath = (
+      path: string,
+      changeFrequency: ChangeFrequency,
+      priority: number,
+      esOnly?: boolean,
+    ) => {
       entries.push({
         url: canonical(path),
         changeFrequency,
         priority,
+        alternates: { languages: buildLanguageAlternates(path, esOnly) },
       });
     };
 
-    staticPaths.forEach(({ path, changeFrequency, priority }) =>
-      addPath(path, changeFrequency, priority),
+    staticPaths.forEach(({ path, changeFrequency, priority, esOnly }) =>
+      addPath(path, changeFrequency, priority, esOnly),
     );
 
-    slugs.forEach((slug) => addPath(`/${slug}`, "weekly", 0.7));
+    // Blog and news posts render es-only (they call notFound() for the en locale).
+    slugs.forEach((slug) => addPath(`/${slug}`, "weekly", 0.7, true));
 
     // Local SEO landings
     PUBLIC_LANDING_SLUGS.forEach((slug) => addPath(`/${slug}`, "weekly", 0.85));

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import LegalPage from "./page.client";
 import { createPageMetadata } from "@/lib/metadata";
+import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +35,18 @@ export default async function Legal({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params;
-  return <LegalPage />;
+  const { locale } = await params;
+  const isEs = locale?.startsWith("es");
+  return (
+    <>
+      <BreadcrumbSchema
+        locale={locale}
+        items={[
+          { name: isEs ? "Inicio" : "Home", path: "/" },
+          { name: isEs ? "Legal" : "Legal" },
+        ]}
+      />
+      <LegalPage />
+    </>
+  );
 }

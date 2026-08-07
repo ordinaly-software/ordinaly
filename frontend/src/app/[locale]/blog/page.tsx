@@ -4,6 +4,7 @@ import { client } from "@/lib/sanity";
 import { paginatedPosts, paginatedPostsAsc, highlightedPosts } from "@/lib/queries";
 import { createPageMetadata } from "@/lib/metadata";
 import { notFound } from "next/navigation";
+import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 
 export const dynamic = "force-dynamic";
 
@@ -75,5 +76,10 @@ export default async function BlogIndex({
   ]);
 
   const { default: BlogClient } = await import('@/components/blog/blog-client');
-  return <BlogClient posts={items} total={total} pageSize={pageSize} highlightedPosts={highlighted} />;
+  return (
+    <>
+      <BreadcrumbSchema locale="es" items={[{ name: "Inicio", path: "/" }, { name: "Blog" }]} />
+      <BlogClient posts={items} total={total} pageSize={pageSize} highlightedPosts={highlighted} />
+    </>
+  );
 }
