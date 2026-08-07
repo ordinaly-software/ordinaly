@@ -139,102 +139,6 @@
       "submitLabel": "Suscribirme",
       "successMessage": "¡Gracias! Te avisaremos cuando la newsletter esté activa."
     },
-    "chatDemo": {
-      "title": "IA que habla como tu negocio",
-      "subtitle": "Descubre cómo nuestro asistente IA gestiona interacciones reales en distintos sectores.",
-      "you": "Tú",
-      "assistant": "Asistente IA",
-      "scenarios": {
-        "0": {
-          "label": "Inmobiliaria",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "¡Hola! ¿Sigue disponible el piso en Calle Sierpes 12? Me gustaría concertar una visita este sábado."
-            },
-            "1": {
-              "sender": "agent",
-              "text": "¡Hola! Sí, está disponible. Tenemos hueco a las 10:00 y a las 12:00 el sábado. ¿Cuál te viene mejor?"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "Las 12:00 sería perfecto. Me llamo María García."
-            },
-            "3": {
-              "sender": "agent",
-              "text": "¡Listo, María! Visita confirmada el sábado a las 12:00. Te hemos enviado la confirmación al correo. ¡Hasta entonces! 🏠"
-            }
-          }
-        },
-        "1": {
-          "label": "E-commerce",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "Hola, hace 3 días pedí un portátil y no he recibido ningún seguimiento. Pedido #8821."
-            },
-            "1": {
-              "sender": "agent",
-              "text": "¡Hola! He localizado tu pedido #8821. Se envió ayer y llegará mañana entre las 9:00 y las 13:00. 📦"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "¡Genial! ¿Puedo cambiar la dirección de entrega?"
-            },
-            "3": {
-              "sender": "agent",
-              "text": "¡Por supuesto! He actualizado la dirección de entrega. Recibirás un email de confirmación enseguida. ¿Necesitas algo más? ✉️"
-            }
-          }
-        },
-        "2": {
-          "label": "Restaurante",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "¡Buenas! Quisiera reservar una mesa para 4 personas este viernes a las 21:00. ¿Tenéis disponibilidad?"
-            },
-            "1": {
-              "sender": "agent",
-              "text": "¡Hola! Tenemos mesa disponible el viernes a las 21:00. ¿Me das tu nombre y teléfono para confirmar la reserva?"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "Carlos Martín, 600123456. ¿Tenéis menú grupal?"
-            },
-            "3": {
-              "sender": "agent",
-              "text": "¡Perfecto, Carlos! Mesa reservada para 4 el viernes a las 21:00. Tenemos menú grupal a 35 €/persona con bebida incluida. 🍽️"
-            }
-          }
-        },
-        "3": {
-          "label": "Legal",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "Buenos días. Necesito ayuda con un inquilino que lleva 2 meses sin pagar el alquiler. ¿Qué opciones tengo?"
-            },
-            "1": {
-              "sender": "agent",
-              "text": "Buenos días. Lo entiendo. El primer paso es un requerimiento formal por escrito al inquilino. ¿Le agendamos una llamada con uno de nuestros abogados?"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "Sí, preferiblemente esta semana. Tengo disponibilidad el martes o jueves por la tarde."
-            },
-            "3": {
-              "sender": "agent",
-              "text": "¡Listo! He agendado una llamada para el jueves a las 17:00 con la Lcda. Rodríguez. Te hemos enviado la confirmación al correo. ⚖️"
-            }
-          }
-        }
-      }
-    },
-    "contact": {
-      "emailSubject": "Consulta sobre servicio: {service}",
-      "message": "Hola,\n\nEstoy interesado en el servicio \"{service}\".\n\n¿Podrían proporcionarme más información?\n\nGracias"
-    },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
       "locationSoon": "Ubicación próximamente",
@@ -338,10 +242,6 @@
     "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
   },
   "common": {
-    "onVacation": "De vacaciones",
-    "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
-    "retry": "Reintentar",
-    "learnMore": "Detalles",
     "backToHome": "Volver al inicio"
   },
   "logoutModal": {
@@ -1406,7 +1306,6 @@
         "ctaLabel": "Hablar con nosotros"
       }
     },
-    "featured": "Destacado",
     "toolsTitle": "Nuestro stack tecnológico"
   },
   "formation": {
@@ -2118,10 +2017,6 @@
     },
     "faq": {
       "title": "Preguntas frecuentes"
-    },
-    "stats": {
-      "teamLabel": "Más de 10 empresas transformadas",
-      "teamValue": "+500 horas ahorradas a empresas andaluzas"
     },
     "story": {
       "title": "Nuestra historia",
@@ -3008,7 +2903,7 @@
         "title": "Cómo es el desarrollo Agile de una aplicación web",
         "videoCaptionName": "Antonio Macías Ferrera",
         "videoCaptionRole": "CTO software engineer & co-founder",
-        "videoCaptionText": "We build modern web applications that combine the best of a website and an app, optimized for performance, SEO and user experience. The goal is to deliver services in a modern, fast and accessible way without relying on native apps.",
+        "videoCaptionText": "Desarrollamos aplicaciones web modernas que combinan lo mejor de una página web y una app, optimizadas para rendimiento, SEO y experiencia de usuario. El objetivo es ofrecer servicios de forma moderna, rápida y accesible sin depender de apps nativas.",
         "videoUrl": "https://www.youtube.com/watch?v=6g8k0J1j5xM"
       },
       "sectionTitles": {
@@ -3205,32 +3100,5 @@
     "resendError": "Error al reenviar el código",
     "resendSuccess": "Código reenviado correctamente",
     "networkError": "Error de red. Verifica tu conexión e intenta de nuevo."
-  },
-  "landingUi": {
-    "blueprint": "Blueprint técnico",
-    "measuredDelivery": "Despliegue medible",
-    "service": "Alcance del servicio",
-    "coverage": "Cobertura",
-    "delivery": "Modelo de entrega",
-    "deliveryText": "Auditoría, piloto, despliegue y monitorización con cambios versionados.",
-    "capabilities": "Capacidades clave",
-    "metrics": "Benchmarks y objetivos operativos",
-    "metricsText": "Parámetros concretos para el despliegue inicial, la observabilidad y el control.",
-    "kpis": "KPIs y criterios de aceptación",
-    "process": "Secuencia de implantación",
-    "processText": "Primero reducimos ambigüedad; después automatizamos con guardrails y observabilidad.",
-    "useCases": "Casos de uso por equipo",
-    "useCasesText": "Ejemplos pensados para flujos reales y no para demos genéricas.",
-    "faq": "FAQ técnica",
-    "ready": "Definir el piloto",
-    "readyText": "Preparamos un primer alcance técnico con interfaces, flujo objetivo, restricciones y criterios de aceptación.",
-    "keywords": "Intenciones de búsqueda",
-    "architecture": "Arquitectura de referencia",
-    "contactEyebrow": "Intake del proyecto",
-    "contactTitle": "Habla con el equipo que define y ejecuta el despliegue",
-    "contactText": "El mismo equipo audita el proceso, construye el piloto y revisa las primeras semanas en producción.",
-    "response": "Ventana de respuesta",
-    "responseText": "Respuesta en menos de 24 horas laborables",
-    "startNow": "Abrir formulario"
   }
 }

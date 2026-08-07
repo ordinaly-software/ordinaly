@@ -18,7 +18,7 @@ export async function generateMetadata({
     description: isEs
       ? "Habla con Ordinaly sobre agentes IA, automatización, formación y soporte operativo. Respondemos en menos de 24 horas."
       : "Talk with Ordinaly about AI agents, automation systems, training, and operational support. We reply within 24 hours.",
-    image: "/static/contact/contact_pic.png",
+    image: "/static/contacto/contact_pic.png",
   });
 }
 

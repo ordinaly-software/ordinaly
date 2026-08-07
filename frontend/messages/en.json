@@ -46,12 +46,12 @@
       "ctaServices": "View services",
       "ctaDemo": "Talk to an expert",
       "clientsTitle": "Trusted by",
-      "card1Label": "Agentes de IA 24/7 para ventas y atención al cliente",
-      "card1Value": "Automatización de consultas, generación de leads y soporte continuo con inteligencia artificial.",
+      "card1Label": "24/7 AI agents for sales and customer service",
+      "card1Value": "Automated inquiries, lead generation, and continuous support powered by artificial intelligence.",
       "card2Label": "Professional training for businesses",
       "card2Value": "Hands-on AI courses so your team masters the tools and becomes self-sufficient.",
-      "card3Label": "Equipo de ingenieros especializados",
-      "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
+      "card3Label": "Team of specialized engineers",
+      "card3Value": "Software engineers with an MSc in CS and AI, project director with a PhD in Industrial Engineering.",
       "card4Label": "Our office",
       "card4Value": "Plaza del Duque de la Victoria 1, 3rd floor 9. 41002, Seville, Spain."
     },
@@ -92,18 +92,18 @@
       "items": {
         "0": {
           "name": "Ana García",
-          "role": "Directora, Inmobiliaria en Sevilla",
-          "quote": "El chatbot de WhatsApp nos ha cambiado la vida. Ahorramos 15 horas semanales en consultas repetitivas y nuestros clientes están encantados con la atención 24/7. La inversión se recuperó en 4 meses."
+          "role": "Director, Real Estate Agency in Seville",
+          "quote": "The WhatsApp chatbot has changed our lives. We save 15 hours a week on repetitive inquiries and our customers love the 24/7 attention. The investment paid for itself in 4 months."
         },
         "1": {
           "name": "José Martínez",
-          "role": "Gerente, Administrador de Fincas",
-          "quote": "La automatización de incidencias ha revolucionado nuestra gestión. Los vecinos reportan problemas por WhatsApp y el sistema asigna proveedores automáticamente. Profesionales y muy cercanos."
+          "role": "Manager, Property Administrator",
+          "quote": "Incident automation has revolutionized our management. Residents report issues via WhatsApp and the system assigns providers automatically. Professional and very approachable."
         },
         "2": {
           "name": "Laura Rodríguez",
-          "role": "CEO, Agencia de Marketing",
-          "quote": "Los workflows de contenido con IA nos permiten gestionar 3x más clientes con el mismo equipo. El curso de formación fue fundamental para aprovechar todo el potencial. Totalmente recomendable."
+          "role": "CEO, Marketing Agency",
+          "quote": "AI-powered content workflows let us manage 3x more clients with the same team. The training course was key to making the most of it. Highly recommended."
         }
       }
     },
@@ -138,102 +138,6 @@
       "emailPlaceholder": "you@email.com",
       "submitLabel": "Subscribe",
       "successMessage": "Thank you! We'll let you know when the newsletter is live."
-    },
-    "chatDemo": {
-      "title": "AI that talks like your business",
-      "subtitle": "See how our AI assistant handles real customer interactions across different industries.",
-      "you": "You",
-      "assistant": "AI Assistant",
-      "scenarios": {
-        "0": {
-          "label": "Real Estate",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "Hi! Is the apartment at Calle Sierpes 12 still available? I'd love to schedule a visit this Saturday."
-            },
-            "1": {
-              "sender": "agent",
-              "text": "Hello! Yes, it's available. We have slots at 10:00 and 12:00 on Saturday. Which works best for you?"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "12:00 would be perfect. My name is María García."
-            },
-            "3": {
-              "sender": "agent",
-              "text": "Done, María! Visit confirmed for Saturday at 12:00. A confirmation has been sent to your email. See you then! 🏠"
-            }
-          }
-        },
-        "1": {
-          "label": "E-commerce",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "Hi, I ordered a laptop 3 days ago but I haven't received any tracking info. Order #8821."
-            },
-            "1": {
-              "sender": "agent",
-              "text": "Hi! I found your order #8821. It shipped yesterday and is estimated to arrive tomorrow between 9:00-13:00. 📦"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "Great! Can I change the delivery address?"
-            },
-            "3": {
-              "sender": "agent",
-              "text": "Of course! I've updated the delivery address. You'll receive a confirmation email shortly. Anything else I can help with? ✉️"
-            }
-          }
-        },
-        "2": {
-          "label": "Restaurant",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "Hello! I'd like to book a table for 4 people this Friday at 9pm. Do you have availability?"
-            },
-            "1": {
-              "sender": "agent",
-              "text": "Hi! We have a table available at 21:00 on Friday. Could I get your name and phone number to confirm the reservation?"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "Carlos Martín, 600123456. Any set menu for groups?"
-            },
-            "3": {
-              "sender": "agent",
-              "text": "Perfect, Carlos! Table reserved for 4 at 21:00 on Friday. We do have a group menu at €35/person including drinks. 🍽️"
-            }
-          }
-        },
-        "3": {
-          "label": "Legal",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "Good morning! I need help with a tenant who hasn't paid rent in 2 months. What are my options?"
-            },
-            "1": {
-              "sender": "agent",
-              "text": "Good morning! I understand. The first step is a formal written notice to the tenant. Would you like us to schedule a call with one of our lawyers?"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "Yes, preferably this week. I'm available Tuesday or Thursday afternoon."
-            },
-            "3": {
-              "sender": "agent",
-              "text": "Done! I've scheduled a call for Thursday at 17:00 with Atty. Rodríguez. A confirmation has been sent to your email. ⚖️"
-            }
-          }
-        }
-      }
-    },
-    "contact": {
-      "emailSubject": "Inquiry about service: {service}",
-      "message": "Hello,\n\nI'm interested in the service \"{service}\".\n\nCould you please provide me with more information?\n\nThank you."
     },
     "courses": {
       "noSpecificDate": "No specific date",
@@ -338,10 +242,6 @@
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   },
   "common": {
-    "onVacation": "On vacation",
-    "vacationMessage": "We're currently on vacation! Our services will return soon after the holidays. Thank you for your patience.",
-    "retry": "Try again",
-    "learnMore": "Learn more",
     "backToHome": "Back to home"
   },
   "logoutModal": {
@@ -834,6 +734,8 @@
         "selectToDelete": "Please select courses to delete",
         "imageSizeLimit1MB": "Course image must be 1MB or less.",
         "imageFileOnly": "Please select an image file",
+        "cannotDeleteFinished": "Cannot delete a finished course",
+        "cannotDeleteFinishedBulk": "Cannot delete one or more finished courses",
         "validation": {
           "titleRequired": "Course title is required and must be 100 characters or less.",
           "subtitleLimit": "Subtitle must be 200 characters or less.",
@@ -846,8 +748,6 @@
           "maxAttendantsBelowEnrolled": "Cannot set maximum attendants below the current number of enrolled users ({count}).",
           "cannotDeleteEnrolled": "Cannot delete a course with enrolled students",
           "cannotDeleteEnrolledBulk": "Cannot delete one or more courses with enrolled students",
-          "cannotDeleteFinished": "Cannot delete a finished course",
-          "cannotDeleteFinishedBulk": "Cannot delete one or more finished courses",
           "endDatePast": "End date cannot be in the past",
           "startDatePast": "Start date cannot be in the past",
           "endDateBeforeStart": "End date cannot be before start date",
@@ -1406,7 +1306,6 @@
         "ctaLabel": "Talk to us"
       }
     },
-    "featured": "Featured",
     "toolsTitle": "Our technology stack"
   },
   "formation": {
@@ -1673,18 +1572,18 @@
         }
       },
       "months": {
-        "january": "enero",
-        "february": "febrero",
-        "march": "marzo",
-        "april": "abril",
-        "may": "mayo",
-        "june": "junio",
-        "july": "julio",
-        "august": "agosto",
-        "september": "septiembre",
-        "october": "octubre",
-        "november": "noviembre",
-        "december": "diciembre"
+        "january": "January",
+        "february": "February",
+        "march": "March",
+        "april": "April",
+        "may": "May",
+        "june": "June",
+        "july": "July",
+        "august": "August",
+        "september": "September",
+        "october": "October",
+        "november": "November",
+        "december": "December"
       },
       "fullScheduleText": {
         "once": "{date} from {startTime} to {endTime}",
@@ -2118,10 +2017,6 @@
     },
     "faq": {
       "title": "Frequently asked questions"
-    },
-    "stats": {
-      "teamLabel": "More than 10 companies transformed",
-      "teamValue": "+500 hours saved for Andalusian companies"
     },
     "story": {
       "title": "Our story",
@@ -3205,32 +3100,5 @@
     "resendError": "Error resending the code",
     "resendSuccess": "Code resent successfully",
     "networkError": "Network error. Check your connection and try again."
-  },
-  "landingUi": {
-    "blueprint": "Technical blueprint",
-    "measuredDelivery": "Measured delivery",
-    "service": "Service scope",
-    "coverage": "Coverage",
-    "delivery": "Delivery model",
-    "deliveryText": "Audit, pilot, rollout and monitoring with versioned changes.",
-    "capabilities": "Core capabilities",
-    "metrics": "Benchmarks and operating targets",
-    "metricsText": "Precise parameters for the initial rollout, observability and control.",
-    "kpis": "KPIs and acceptance criteria",
-    "process": "Implementation sequence",
-    "processText": "We reduce ambiguity first, then automate with guardrails and observability.",
-    "useCases": "Use cases by team",
-    "useCasesText": "Examples that fit real workflows rather than generic demos.",
-    "faq": "Technology FAQ",
-    "ready": "Scope the pilot",
-    "readyText": "We prepare a first technical scope with interfaces, target workflow, constraints and acceptance criteria.",
-    "keywords": "Search intents",
-    "architecture": "Reference architecture",
-    "contactEyebrow": "Project intake",
-    "contactTitle": "Talk with the team that scopes and ships the rollout",
-    "contactText": "The same people audit the process, build the pilot and review the first weeks in production.",
-    "response": "Response window",
-    "responseText": "Reply in under 24 business hours",
-    "startNow": "Open form"
   }
 }

@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
-import { WorkWithUsSection } from "@/components/ui/work-with-us";
+import { WorkWithUsSection } from "@/components/about/work-with-us";
 import { Timeline } from "@/components/about/timeline";
 import { AboutHero } from "@/components/about/about-hero";
 import { Linkedin } from "lucide-react";
@@ -43,10 +43,10 @@ export default function UsPage() {
   ];
 
   const timelineMedia = {
-    "1": "/static/about/story_01.webp",
-    "2": "/static/about/story_02.webp",
-    "3": "/static/about/story_03.webp",
-    "4": "/static/about/story_04.webp",
+    "1": "/static/nosotros/story_01.webp",
+    "2": "/static/nosotros/story_02.webp",
+    "3": "/static/nosotros/story_03.webp",
+    "4": "/static/nosotros/story_04.webp",
   } as const;
 
   const timelineData = (["1", "2", "3", "4"] as const).map((key) => {

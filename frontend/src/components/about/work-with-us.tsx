@@ -18,7 +18,7 @@ export function WorkWithUsSection({
   id,
   className,
   email = "antonio.macias@ordinaly.ai",
-  backgroundSrc = "/static/about/work_with_us.webp",
+  backgroundSrc = "/static/nosotros/work_with_us.webp",
 }: WorkWithUsSectionProps) {
   const t = useTranslations("usPage");
   const locale = useLocale();

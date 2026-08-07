@@ -30,7 +30,7 @@ export function AboutHero() {
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
           <div className="relative h-72 overflow-hidden rounded-[1.75rem] shadow-xl md:col-span-2 md:h-96">
             <Image
-              src="/static/about/story_01.webp"
+              src="/static/nosotros/story_01.webp"
               alt={t("hero.title")}
               fill
               sizes="(min-width: 768px) 66vw, 100vw"
@@ -42,7 +42,7 @@ export function AboutHero() {
           <div className="flex flex-col">
             <div className="relative h-48 overflow-hidden rounded-[1.75rem] shadow-xl transition duration-300 hover:-translate-y-1 md:h-56">
               <Image
-                src="/static/contact/office_03.webp"
+                src="/static/contacto/office_03.webp"
                 alt=""
                 fill
                 sizes="(min-width: 768px) 33vw, 100vw"
