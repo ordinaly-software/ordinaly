@@ -556,8 +556,9 @@ class StripeWebhookView(APIView):
                     except Exception:
                         logger.exception(ENROLLMENT_EMAIL_FAILURE_LOG, user.email)
             return Response({'status': 'success'})
-        except Exception as e:
-            return Response({'detail': f'Enrollment error: {str(e)}'}, status=500)
+        except Exception:
+            logger.exception('Enrollment processing failed during checkout session payment application.')
+            return Response({'detail': 'An internal error has occurred.'}, status=500)
 
     def post(self, request, *args, **kwargs):
         stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
