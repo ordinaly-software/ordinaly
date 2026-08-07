@@ -22,6 +22,7 @@ PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
 DEMO_EMAIL_DOMAIN = "example.com"
 DEMO_USER_COUNT = 10
 DEMO_ADMIN_USERNAME = "admin_test"
+DEMO_TIMEZONE = "Europe/Madrid"
 
 
 class Command(BaseCommand):
@@ -107,11 +108,11 @@ class Command(BaseCommand):
         """Clear existing demo data, associated media files, and demo user accounts."""
         try:
             terms_files = [
-                term.pdf_content.path for term in Terms.objects.all()
+                term.pdf_content.path for term in Terms.objects.only('pdf_content')
                 if term.pdf_content and hasattr(term.pdf_content, 'path')
             ]
             course_images = [
-                course.image.path for course in Course.objects.all()
+                course.image.path for course in Course.objects.only('image')
                 if course.image and hasattr(course.image, 'path')
             ]
 
@@ -225,7 +226,7 @@ class Command(BaseCommand):
                 'start_time': time(9, 30),
                 'end_time': time(11, 30),
                 'periodicity': 'once',
-                'timezone': 'Europe/Madrid',
+                'timezone': DEMO_TIMEZONE,
                 'max_attendants': 25,
                 'draft': False
             },
@@ -261,7 +262,7 @@ class Command(BaseCommand):
                 'start_time': time(9, 30),
                 'end_time': time(11, 30),
                 'periodicity': 'once',
-                'timezone': 'Europe/Madrid',
+                'timezone': DEMO_TIMEZONE,
                 'max_attendants': 90,
                 'draft': False
             },
@@ -304,14 +305,14 @@ class Command(BaseCommand):
                     'TODAS LAS HERRAMIENTAS DEL CURSO SERÁN GRATUITAS.'
                 ),
                 'price': 0.50,
-                'location': None,
+                'location': '',
                 'start_date': bootcamp_start,
                 'end_date': bootcamp_end,
                 'start_time': time(9, 30),
                 'end_time': time(11, 30),
                 'periodicity': 'weekly',
                 'weekdays': [bootcamp_start.weekday()],
-                'timezone': 'Europe/Madrid',
+                'timezone': DEMO_TIMEZONE,
                 'max_attendants': 90,
                 'draft': False
             },
@@ -345,14 +346,14 @@ class Command(BaseCommand):
         regular_users = list(CustomUser.objects.filter(is_staff=False))
 
         for user in regular_users:
-            course = random.choice(eligible_courses)
+            course = random.choice(eligible_courses)  # NOSONAR: non-security demo data, seeded via --seed
             try:
                 enrollment, created = Enrollment.objects.get_or_create(user=user, course=course)
             except Exception:
                 continue
             if created:
                 # enrolled_at is auto_now_add, so it must be backdated via update() after creation.
-                days_ago = random.randint(1, 90)
+                days_ago = random.randint(1, 90)  # NOSONAR: non-security demo data, seeded via --seed
                 Enrollment.objects.filter(pk=enrollment.pk).update(
                     enrolled_at=timezone.now() - timedelta(days=days_ago)
                 )

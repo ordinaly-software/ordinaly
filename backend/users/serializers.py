@@ -70,8 +70,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
             password=validated_data['password'],
             name=validated_data['name'],
             surname=validated_data['surname'],
-            region=validated_data.get('region'),
-            city=validated_data.get('city'),
+            region=validated_data.get('region') or "",
+            city=validated_data.get('city') or "",
             company=validated_data.get('company') or "",
             allow_notifications=validated_data.get('allow_notifications', False),
             course_email_notifications=validated_data.get('course_email_notifications', True),
@@ -88,4 +88,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
         if 'password' in validated_data:
             password = validated_data.pop('password')
             instance.set_password(password)
+
+        for field in ('region', 'city', 'company'):
+            if validated_data.get(field) is None and field in validated_data:
+                validated_data[field] = ""
+
         return super().update(instance, validated_data)

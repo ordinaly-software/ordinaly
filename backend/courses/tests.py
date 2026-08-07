@@ -132,7 +132,7 @@ class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
             'description': 'Test Description',
             'image': get_test_image_file(),
             'price': Decimal('99.99'),
-            'location': None,
+            'location': '',
             'start_date': date(2023, 12, 31),
             'end_date': date(2023, 12, 31),
             'start_time': time(14, 0),
@@ -159,7 +159,7 @@ class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
         self.assertEqual(self.course.subtitle, 'Test Subtitle')
         self.assertEqual(self.course.description, 'Test Description')
         self.assertEqual(self.course.price, Decimal('99.99'))
-        self.assertIsNone(self.course.location)
+        self.assertEqual(self.course.location, '')
         self.assertEqual(self.course.start_date, date(2023, 12, 31))
         self.assertEqual(self.course.end_date, date(2023, 12, 31))
         self.assertEqual(self.course.start_time, time(14, 0))
@@ -168,19 +168,13 @@ class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
         self.assertEqual(self.course.max_attendants, 20)
         self.assertTrue(self.course.image)
 
-    def test_course_location_nullable(self):
+    def test_course_location_blank(self):
         # Should allow blank location
         course_data = self.course_data.copy()
         course_data['location'] = ''
         course = Course(**course_data)
         course.full_clean()  # Should not raise ValidationError
         self.assertEqual(course.location, '')
-
-        # Should allow null location
-        course_data['location'] = None
-        course = Course(**course_data)
-        course.full_clean()  # Should not raise ValidationError
-        self.assertIsNone(course.location)
 
     def test_course_string_representation(self):
         self.assertEqual(str(self.course), 'Test Course')
@@ -343,7 +337,7 @@ class CourseModelTest(CourseImageCleanupTestMixin, TestCase):
         }
         course = Course(**course_data)
         course.full_clean()  # Should not raise ValidationError
-        self.assertIsNone(course.subtitle)
+        self.assertEqual(course.subtitle, '')
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
@@ -2406,7 +2400,7 @@ class CourseViewsAdditionalCoverageTests(TestCase):
 
         # update enrollment when it exists but has no payment_intent stored (created=False branch)
         enrollment = Enrollment.objects.get(user=self.user, course=self.course)
-        enrollment.stripe_payment_intent_id = None
+        enrollment.stripe_payment_intent_id = ""
         enrollment.save()
         event["data"]["object"]["payment_intent"] = "pi_2"
         with patch("courses.views.stripe.Webhook.construct_event", return_value=event):

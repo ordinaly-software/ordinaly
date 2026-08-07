@@ -49,9 +49,8 @@ class Terms(models.Model):
             )
 
         # Only require both files on creation
-        if not self.pk:
-            if not self.pdf_content:
-                raise ValidationError("PDF file must be provided.")
+        if not self.pk and not self.pdf_content:
+            raise ValidationError("PDF file must be provided.")
 
         max_size = 1024 * 1024  # 1MB
 
