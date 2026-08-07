@@ -25,7 +25,7 @@ export async function generateMetadata({
       description: isEs
         ? "Actualidad y novedades sobre automatización, IA y productividad para empresas."
         : "Updates and news about automation, AI, and productivity for companies.",
-      image: "/static/backgrounds/blog_background.png",
+      image: "/static/backgrounds/blog_background.webp",
     });
 
   return hasParams ? { ...base, robots: { index: false, follow: true } } : base;

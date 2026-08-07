@@ -2174,9 +2174,9 @@
   "landings": {
     "agente-de-llamadas-ia": {
       "slug": "agente-de-llamadas-ia",
-      "title": "Agentes de Llamadas con IA: Recepción y Ventas Salientes",
+      "title": "Chatbot de llamadas con Inteligencia Artificial",
       "shortTitle": "Agente de llamadas IA",
-      "subtitle": "Automatiza tu atención telefónica y tus campañas de llamadas con agentes de voz con IA, disponibles 24/7 e integrados con tu CRM.",
+      "subtitle": "Chatbots de recepción de llamadas y campañas de llamadas salientes, integrados con tu sistema o CRM y operativos 24/7.",
       "heroCtaLabel": "Solicitar demo gratuita",
       "secondaryCtaLabel": "Hablar por WhatsApp",
       "serviceType": "Agentes de voz con IA para llamadas entrantes y salientes",
@@ -2184,38 +2184,21 @@
       "sectionTitles": {
         "inboundPill": "Llamadas entrantes",
         "outboundPill": "Llamadas salientes",
-        "techStack": "La tecnología detrás de tu agente de llamadas",
+        "techStack": "La tecnología detrás de nuestros agentes de llamadas",
         "technologyFaqs": "Preguntas frecuentes"
       },
       "providers": {
-        "badge": "Stack de voz IA de primer nivel",
-        "title": "Construido sobre los mejores proveedores de voz e IA",
-        "subtitle": "Integramos las plataformas líderes en síntesis de voz, modelos de lenguaje, orquestación conversacional y telefonía para ofrecerte un agente de llamadas fiable y natural.",
+        "title": "Construido sobre los mejores proveedores de voz con IA y telefonía VoIP",
+        "subtitle": "Integramos las plataformas líderes en síntesis de voz con Inteligencia Artificial, orquestación conversacional y telefonía sobre internet.",
         "ctaLabel": "Ver cómo funciona"
       },
       "inbound": {
-        "title": "Recepcionista virtual con IA (llamadas entrantes)",
-        "howItWorksTitle": "¿Cómo funciona tu recepcionista virtual?",
-        "infocardsTitle": "Todo sobre tu recepcionista con IA",
-        "eventsTitle": "Actividad en directo",
-        "steps": [
-          {
-            "title": "Responde al instante",
-            "description": "El agente descuelga cada llamada en segundos, sin esperas ni buzón de voz, las 24 horas del día."
-          },
-          {
-            "title": "Entiende y cualifica",
-            "description": "Detecta el motivo de la llamada, resuelve dudas frecuentes y cualifica al cliente con tus criterios."
-          },
-          {
-            "title": "Agenda o transfiere",
-            "description": "Reserva citas directamente en tu calendario o transfiere la llamada a la persona adecuada de tu equipo."
-          },
-          {
-            "title": "Registra en tu CRM",
-            "description": "Guarda un resumen de cada llamada, con transcripción y siguiente acción, directamente en tu CRM."
-          }
-        ],
+        "title": "Recepcionista virtual con Inteligencia Artificial",
+        "infocardsTitle": "Todo sobre tu recepcionista virtual con Inteligencia Artificial",
+        "videoCaptionName": "Antonio Macías Ferrera",
+        "videoCaptionRole": "CTO software engineer & co-founder",
+        "videoCaptionText": "¿Cómo funciona tu recepcionista virtual?",
+        "eventsTitle": "Recibe notificaciones en tiempo real",
         "infocards": [
           {
             "name": "Disponible 24/7",
@@ -2223,34 +2206,37 @@
           },
           {
             "name": "Voz natural",
-            "description": "Voces realistas de ElevenLabs, con soporte para español neutro y acentos locales."
+            "description": "Elige entre decenas de voces realistas de ElevenLabs, con soporte para español con varios acentos regionales."
+          },
+          {
+            "name": "¡Esto tiene mil casos de uso!"
           }
         ],
         "events": [
           {
-            "title": "Llamada entrante recibida",
+            "title": "Llamada recibida de +34 65...",
             "description": "Cliente: Laura G.",
-            "time": "Ahora"
+            "time": "hace 2 min"
           },
           {
-            "title": "Cita agendada",
-            "description": "Revisión técnica · jueves 10:00",
+            "title": "Cita agendada a CARLOS",
+            "description": "Auditoría jueves 10:00",
+            "time": "hace 2 min"
+          },
+          {
+            "title": "Llamada recibida de +34 63...",
+            "description": "Asunto: Consulta de presupuesto",
             "time": "hace 1 min"
           },
           {
-            "title": "Transferido a ventas",
-            "description": "Consulta de presupuesto",
-            "time": "hace 3 min"
+            "title": "Llamada recibida de +34 69...",
+            "description": "Asunto: Resumen + siguiente acción",
+            "time": "ahora"
           },
           {
-            "title": "Nota guardada en CRM",
-            "description": "Resumen + siguiente acción",
-            "time": "hace 5 min"
-          },
-          {
-            "title": "FAQ resuelta",
-            "description": "Horario de atención",
-            "time": "hace 8 min"
+            "title": "Cita agendada a GUILLERMO",
+            "description": "Entrega de proyecto viernes 12:00",
+            "time": "ahora"
           }
         ],
         "requirements": {
@@ -2265,8 +2251,11 @@
       },
       "outbound": {
         "title": "Agente de llamadas salientes con IA (campañas)",
-        "howItWorksTitle": "¿Cómo funciona una campaña de llamadas con IA?",
         "infocardsTitle": "Todo sobre tus campañas de llamadas con IA",
+        "videoCaptionName": "Antonio Macías Ferrera",
+        "videoCaptionRole": "CTO software engineer & co-founder",
+        "videoCaptionText": "¿Cómo funciona una campaña de llamadas con IA?",
+        "eventsTitle": "Actividad en directo",
         "steps": [
           {
             "title": "Importa tu lista de contactos",
@@ -2299,6 +2288,38 @@
             "description": "Voces de ElevenLabs que manejan objeciones y tonos de venta sin sonar a robot."
           }
         ],
+        "events": [
+          {
+            "title": "Llamada saliente iniciada",
+            "description": "Contacto: Marta R.",
+            "time": "Ahora"
+          },
+          {
+            "title": "Lead marcado como interesado",
+            "description": "Presupuesto solicitado",
+            "time": "hace 1 min"
+          },
+          {
+            "title": "Objeción gestionada",
+            "description": "Precio · reformulado",
+            "time": "hace 2 min"
+          },
+          {
+            "title": "Llamada de seguimiento agendada",
+            "description": "Viernes 12:00",
+            "time": "hace 4 min"
+          },
+          {
+            "title": "Resultado guardado en CRM",
+            "description": "Resumen + siguiente acción",
+            "time": "hace 6 min"
+          }
+        ],
+        "batchLimits": {
+          "eyebrow": "Llamadas por lotes",
+          "title": "15 llamadas simultáneas",
+          "description": "Tiempo estimado para completar todas las llamadas de un lote: 35 minutos (con una duración media de 5 minutos por llamada). Este límite se puede aumentar según tus necesidades."
+        },
         "requirements": {
           "title": "Requisitos",
           "items": [
@@ -2380,10 +2401,9 @@
       "sectionTitles": {
         "whatIsN8N": "¿Qué es n8n?",
         "integrations": "¡Lo conectamos con (casi) todo!",
-        "benefits": "Todo lo que necesitas saber",
-        "security": "Tu negocio es nuestra prioridad",
+        "infocardsTitle": "Todo lo que necesitas saber",
         "faq": "Preguntas frecuentes",
-        "ctaTitle": "Automatiza tus procesos con n8n",
+        "ctaTitle": "¿A qué esperas para automatizar con n8n?",
         "ctaSubtitle": "Creamos flujos robustos, escalables y adaptados a tu negocio.",
         "howItWorks": "¿Cómo funciona un workflow en n8n?"
       },
@@ -2418,54 +2438,44 @@
           "description": "Obtenemos el resultado del workflow y enviamos notificaciones según sea necesario."
         }
       ],
-      "team": {
-        "title": "Equipo de ingeniería a tu disposición",
-        "description": "Ingenieros de software, expertos en ciencias de la computación e inteligencia artificial, con experiencia real en automatización empresarial."
-      },
-      "benefitCards": [
-        {
-          "title": "Software libre, sin cuota mensual",
-          "description": "Desplegamos la versión open source de n8n en Docker: sin licencias ni suscripciones, solo el coste de tu propia infraestructura."
-        },
-        {
-          "title": "Sin límite de ejecuciones",
-          "description": "A diferencia de Zapier o Make, no pagas por ejecución: escala tus flujos sin sorpresas en la factura."
-        },
-        {
-          "title": "Producto llave en mano",
-          "description": "Entregamos el flujo terminado, probado y documentado, listo para funcionar desde el primer día."
-        }
-      ],
-      "vpsCard": {
-        "title": "Tus datos, tu VPS",
-        "description": "Te ayudamos a contratar tu propio servidor privado (VPS): los datos, accesos y automatizaciones son 100% tuyos, con privacidad total."
+      "infocards": {
+        "cards": [
+          {
+            "name": "Software libre, sin cuota mensual",
+            "description": "Desplegamos la versión open source de n8n en Docker: sin licencias ni suscripciones, solo el coste de tu propia infraestructura."
+          },
+          {
+            "name": "Tus datos, tu VPS",
+            "description": "Te ayudamos a contratar tu propio servidor privado virtual (VPS): los datos, accesos y automatizaciones son 100% tuyos."
+          },
+          {
+            "name": "Sin límite de ejecuciones",
+            "description": "A diferencia de Zapier o Make, no pagas por ejecución, lo que permite escalar tus automatizaciones sin sorpresas en la factura."
+          },
+          {
+            "name": "Equipo de ingeniería a tu disposición",
+            "description": "Ingenieros de software, expertos en ciencias de la computación e inteligencia artificial, con experiencia real en automatización empresarial."
+          }
+        ]
       },
       "observability": {
         "title": "Trazable, notificable y alertable",
         "events": [
           {
             "title": "Workflow ejecutado",
-            "description": "Factura procesada y archivada",
+            "description": "Factura procesada",
             "time": "hace 2 min"
           },
           {
             "title": "Reintento automático",
-            "description": "Nodo Gmail: timeout recuperado sin intervención",
+            "description": "Nodo Gmail: mails sin leer",
             "time": "hace 12 min"
           },
           {
             "title": "Alerta enviada",
-            "description": "Fallo de integración notificado por WhatsApp",
+            "description": "Alerta envíada por WhatsApp",
             "time": "hace 38 min"
           }
-        ]
-      },
-      "security": {
-        "trustPoints": [
-          "Trabajamos sobre máquinas virtuales privadas (VPS) del cliente. Tú mantienes el control total de tus datos y accesos en todo momento.",
-          "Utilizamos herramientas como n8n, y otras herramientas de software libre que permiten soluciones escalables y mantenibles.",
-          "En ningún momento recopilamos contraseñas o datos personales o empresariales.",
-          "No almacenamos tus datos o archivos en nuestros servidores."
         ]
       },
       "pricing": {
@@ -2478,34 +2488,36 @@
       "faq": [
         {
           "question": "¿Podemos empezar sin tener procesos definidos?",
-          "answer": "Sí. Mapeamos juntos los sistemas, los puntos de fallo y las tareas repetitivas para priorizar automatizaciones de impacto inmediato."
-        },
-        {
-          "question": "¿Es necesario saber programar para mantener los flujos?",
-          "answer": "No. Dejamos naming conventions, paneles, documentación y formación para que el equipo pueda operar sin depender de desarrollo."
+          "answer": "Sí. La fase inicial de nuestro asesoramiento consiste en determinar juntos los sistemas, y las tareas repetitivas candidatas a automatizaciones."
         },
         {
           "question": "¿Podéis integrarlo con nuestras herramientas actuales?",
-          "answer": "Sí. Conectamos n8n con ERP, CRM, bases de datos, APIs internas, hojas de cálculo, mensajería y cualquier servicio con API."
-        },
-        {
-          "question": "¿Cómo garantizáis que los flujos no se rompan?",
-          "answer": "Diseñamos reintentos, idempotencia, logs, colas y alertas desde el primer día para evitar estados inconsistentes."
+          "answer": "Sí. Conectamos n8n con ERP, CRM, bases de datos, APIs internas, hojas de cálculo, mensajería y cualquier servicio con API pública disponible."
         },
         {
           "question": "¿n8n tiene coste de licencia?",
-          "answer": "n8n es software libre y puede autoalojarse sin coste de licencia. Nuestro presupuesto cubre el diseño, la implantación y el mantenimiento del flujo, no un peaje mensual por usarlo."
+          "answer": "La versión web comercial de n8n tiene un coste mensual por usuario y ejecuciones, pero n8n dispone también de una versión de software libre que puede autoalojarse sin coste de licencia. Nuestro presupuesto de pago úncio cubre la implantación de esta versión de código abierto, sin coste mensual por usarlo."
         },
         {
           "question": "¿Podemos migrar nuestras automatizaciones desde Zapier o Make?",
           "answer": "Sí. Analizamos tus zaps o escenarios actuales y los reconstruimos en n8n, normalmente con mejor observabilidad y sin las limitaciones de ejecuciones mensuales de esas plataformas."
+        },
+        {
+          "question": "¿Es necesario saber programar para mantener los flujos?",
+          "answer": "Sí. n8n es una herramienta visual, pero requiere ciertos conocimientos para mantener y evolucionar los flujos. Nuestro equipo puede formar a tu personal o encargarse del mantenimiento. Puedes contactarnos sin compromiso para valorar la mejor opción según tu caso."
+        },
+        {
+          "question": "¿Qué pasa si falla un nodo?",
+          "answer": "n8n permite reintentos automáticos, alertas y notificaciones para que el equipo pueda actuar rápidamente ante cualquier fallo."
         }
       ],
       "cta": {
-        "label": "Automatizar con n8n",
+        "label": "Háblanos por WhatsApp",
         "href": "https://wa.me/34626270806?text=Quiero%20auditar%20procesos%20para%20automatizar%20con%20n8n",
         "bgColor": "#0255D5",
-        "trust": "Valorado por las empresas que ya automatizan con nosotros"
+        "trust": "Valorado por las empresas que ya automatizan con nosotros",
+        "emailLabel": "Escríbenos",
+        "formLabel": "Rellena el formulario"
       }
     },
     "automatizacion-facturas": {

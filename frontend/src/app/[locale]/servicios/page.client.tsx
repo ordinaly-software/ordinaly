@@ -90,12 +90,12 @@ const ServicesPage = () => {
         className="fixed inset-x-0 z-40 bg-[--color-bg-primary] dark:bg-[--color-bg-inverted]"
         style={{ top: navHeight }}
       >
-        <div className="flex flex-wrap items-center justify-center gap-2.5 px-4 py-3">
+        <div className="flex items-center gap-2.5 overflow-x-auto px-4 py-3 [-ms-overflow-style:none] [scrollbar-width:none] sm:flex-wrap sm:justify-center sm:overflow-visible [&::-webkit-scrollbar]:hidden">
           {quickLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-neutral-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:scale-105 hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+              className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-neutral-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:scale-105 hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
             >
               {link.icon ? link.icon : null}
               {link.label}

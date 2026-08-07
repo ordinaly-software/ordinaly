@@ -3,17 +3,19 @@ import { cn } from "@/lib/utils";
 export interface ProviderLogo {
   name: string;
   src: string;
+  /** Set when the logo asset is a wordmark that already spells out the brand name. */
+  hasWordmark?: boolean;
 }
 
 const defaultProviderLogos: ProviderLogo[] = [
   { name: "ElevenLabs", src: "/static/logos/providers/elevenlabs.svg" },
-  { name: "Google Gemini", src: "/static/logos/providers/gemini.svg" },
-  { name: "Retell", src: "/static/logos/providers/retell.svg" },
-  { name: "Netelip", src: "/static/logos/providers/netelip.png" },
+  { name: "Gemini API", src: "/static/logos/providers/gemini.svg" },
+  { name: "Retell", src: "/static/logos/providers/retell.svg", hasWordmark: true },
+  { name: "Netelip", src: "/static/logos/providers/netelip.png", hasWordmark: true },
 ];
 
 interface ProvidersShowcaseProps {
-  badge: string;
+  badge?: string;
   title: string;
   subtitle: string;
   ctaLabel: string;
@@ -51,10 +53,12 @@ export function ProvidersShowcase({
 
         <div className="relative flex flex-col items-center justify-between gap-10 md:flex-row">
           <div className="flex flex-col items-center text-center md:items-start md:text-left">
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 py-1 pl-1 pr-3 text-sm text-white/80">
-              <span className="rounded-full bg-clay px-3 py-1 text-xs font-semibold text-white">IA</span>
-              {badge}
-            </span>
+            {badge && (
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 py-1 pl-1 pr-3 text-sm text-white/80">
+                <span className="rounded-full bg-clay px-3 py-1 text-xs font-semibold text-white">IA</span>
+                {badge}
+              </span>
+            )}
             <h2 className="mt-5 max-w-xl bg-gradient-to-r from-white to-ivory-light bg-clip-text text-3xl font-semibold text-transparent">
               {title}
             </h2>
@@ -71,14 +75,22 @@ export function ProvidersShowcase({
             {logos.map((logo) => (
               <div
                 key={logo.name}
-                className="flex h-24 w-full items-center justify-center rounded-2xl bg-white/5 p-5 sm:w-36"
+                className="flex h-24 w-full flex-col items-center justify-center gap-2 rounded-2xl bg-white p-4 shadow-[0_1px_2px_rgba(0,0,0,0.06),0_10px_24px_-12px_rgba(0,0,0,0.35)] ring-1 ring-black/5 transition-transform duration-300 hover:-translate-y-0.5 sm:w-36"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={logo.src}
                   alt={logo.name}
-                  className="max-h-10 w-full object-contain invert brightness-0 contrast-100"
+                  className={cn(
+                    "w-full object-contain",
+                    logo.hasWordmark ? "max-h-8" : "max-h-7 w-auto"
+                  )}
                 />
+                {!logo.hasWordmark && (
+                  <span className="text-[11px] font-semibold tracking-wide text-slate-dark/70">
+                    {logo.name}
+                  </span>
+                )}
               </div>
             ))}
           </div>

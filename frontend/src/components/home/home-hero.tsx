@@ -20,7 +20,7 @@ const accordionImages: Omit<AccordionImageItem, "label" | "sublabel">[] = [
   },
   {
     id: 2,
-    imageUrl: "/static/contact/office_01.webp",
+    imageUrl: "/static/contact/office_03.webp",
     href: "/nosotros",
   },
 ];

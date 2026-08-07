@@ -1,8 +1,8 @@
 "use client";
 
-import { useMessages } from "next-intl";
+import { useLocale, useMessages } from "next-intl";
 import dynamic from "next/dynamic";
-import { Phone } from "lucide-react";
+import { Phone, PhoneIncoming, PhoneOutgoing } from "lucide-react";
 import { IconBrandJavascript, IconApi } from "@tabler/icons-react";
 import Strands from "@/components/ui/strands";
 import { AnimatedList } from "@/components/ui/animated-list";
@@ -16,12 +16,20 @@ import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+import { BlurText } from "@/components/ui/blur-text";
 
 const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble"), {
   loading: () => <WhatsAppBubbleSkeleton />,
 });
 
 const ICON_SIZE = 36;
+
+const VOICES_VIDEO = "/static/agente-de-llamadas-ia/voices_card.mp4";
+const BATCH_CALL_VIDEO = "/static/agente-de-llamadas-ia/batch_call_card.mp4";
+const USE_CASES_VIDEO: Record<string, string> = {
+  es: "/static/agente-de-llamadas-ia/use_cases_card_es.mp4",
+  en: "/static/agente-de-llamadas-ia/use_cases_card_en.mp4",
+};
 
 type InfoCardText = { name: string; description?: string };
 type CallEvent = { title: string; description: string; time: string };
@@ -44,6 +52,8 @@ function CallEventCard({ event }: { event: CallEvent }) {
 export default function AgenteDeLlamadasIA() {
   const messages = useMessages() as any;
   const content = messages.landings?.["agente-de-llamadas-ia"];
+  const locale = useLocale();
+  const useCasesVideo = USE_CASES_VIDEO[locale] ?? USE_CASES_VIDEO.es;
 
   if (!content) {
     throw new Error("Missing landing content: agente-de-llamadas-ia");
@@ -89,13 +99,13 @@ export default function AgenteDeLlamadasIA() {
     {
       key: "inbound-workflow",
       size: "xl",
-      image: "/static/servicios/chatbot_recepcionista.webp",
-    },
-    {
-      key: "inbound-available",
-      size: "sm",
       title: inboundInfoTexts[0]?.name,
       description: inboundInfoTexts[0]?.description,
+      media: (
+        <div className="h-full w-full bg-[--swatch--slate-dark]">
+          <Strands className="h-full w-full" count={3} opacity={0.85} />
+        </div>
+      ),
     },
     {
       key: "inbound-events",
@@ -113,20 +123,23 @@ export default function AgenteDeLlamadasIA() {
     },
     {
       key: "inbound-voice",
-      size: "md",
+      size: "lg",
       eyebrow: "ElevenLabs",
       title: inboundInfoTexts[1]?.name,
       description: inboundInfoTexts[1]?.description,
-      media: (
-        <div className="h-full w-full bg-[--swatch--slate-dark]">
-          <Strands className="h-full w-full" count={3} opacity={0.85} />
-        </div>
-      ),
+      video: VOICES_VIDEO,
+    },
+    {
+      key: "inbound-use-cases",
+      size: "md",
+      video: useCasesVideo,
+      title: inboundInfoTexts[2]?.name,
     },
     ...inboundRequirementsCard,
   ];
 
   const outboundInfoTexts = (content.outbound?.infocards ?? []) as InfoCardText[];
+  const outboundEvents = (content.outbound?.events ?? []) as CallEvent[];
   const outboundRequirements: string[] = content.outbound?.requirements?.items ?? [];
   const outboundPricing = content.outbound?.pricing;
 
@@ -188,16 +201,39 @@ export default function AgenteDeLlamadasIA() {
       description: outboundInfoTexts[1]?.description,
     },
     {
+      key: "outbound-events",
+      size: "md",
+      eyebrow: content.outbound?.eventsTitle,
+      description: (
+        <div className="not-italic w-full max-h-[380px] overflow-hidden">
+          <AnimatedList delay={900} className="items-stretch gap-2">
+            {outboundEvents.map((event, i) => (
+              <CallEventCard key={i} event={event} />
+            ))}
+          </AnimatedList>
+        </div>
+      ),
+    },
+    {
       key: "outbound-voice",
       size: "md",
       eyebrow: "ElevenLabs",
       title: outboundInfoTexts[2]?.name,
       description: outboundInfoTexts[2]?.description,
-      media: (
-        <div className="h-full w-full bg-[--swatch--slate-dark]">
-          <Strands className="h-full w-full" count={3} opacity={0.85} />
-        </div>
-      ),
+      video: VOICES_VIDEO,
+    },
+    {
+      key: "outbound-use-cases",
+      size: "md",
+      video: useCasesVideo,
+    },
+    {
+      key: "outbound-batch-limits",
+      size: "md",
+      eyebrow: content.outbound?.batchLimits?.eyebrow,
+      title: content.outbound?.batchLimits?.title,
+      description: content.outbound?.batchLimits?.description,
+      video: BATCH_CALL_VIDEO,
     },
     ...outboundRequirementsCard,
     ...outboundPricingCard,
@@ -208,7 +244,10 @@ export default function AgenteDeLlamadasIA() {
       {/* HERO */}
       <section className="relative w-full overflow-hidden bg-[--swatch--slate-dark] text-white">
         <div className="absolute inset-0">
-          <Strands className="h-full w-full" />
+          <Strands
+            className="h-full w-full"
+            colors={["#D97757", "#E15D31", "#C46686", "#0255D5", "#6A9BCC"]}
+          />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[--swatch--slate-dark]/50 to-[--swatch--slate-dark]" />
 
@@ -239,11 +278,11 @@ export default function AgenteDeLlamadasIA() {
       </section>
 
       {/* TECH STACK */}
-      <ToolsShowcase title={content.sectionTitles?.techStack} logos={techLogos} className="pt-14" />
+      {/* <ToolsShowcase title={content.sectionTitles?.techStack} logos={techLogos} className="pt-14" /> */}
+      <br />
 
       {/* PROVIDERS */}
       <ProvidersShowcase
-        badge={content.providers?.badge}
         title={content.providers?.title}
         subtitle={content.providers?.subtitle}
         ctaLabel={content.providers?.ctaLabel}
@@ -252,13 +291,29 @@ export default function AgenteDeLlamadasIA() {
 
       {/* INBOUND */}
       <section id="inbound" className="scroll-mt-24">
-        <h2 className="pt-6 text-center text-3xl font-bold text-neutral-900 dark:text-white md:text-4xl">
-          {content.inbound?.title}
-        </h2>
+        <div className="flex flex-col items-center gap-5 px-6 pb-2 pt-10 text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-clay/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-clay">
+            <PhoneIncoming className="h-3.5 w-3.5" strokeWidth={2.5} />
+            {content.sectionTitles?.inboundPill}
+          </span>
+          <BlurText
+            as="h2"
+            text={content.inbound?.title ?? ""}
+            className="max-w-3xl justify-center text-3xl font-bold leading-[1.1] tracking-tight text-neutral-900 dark:text-white md:text-5xl"
+          />
+          <br />
+        </div>
 
         <HowItWorksVideoSection
-          title={content.inbound?.howItWorksTitle}
-          steps={content.inbound?.steps ?? []}
+          title={content.inbound?.videoCaptionText}
+          body={[
+            <p key="name" className="font-semibold text-slate-dark dark:text-ivory-light">
+              {content.inbound?.videoCaptionName}
+            </p>,
+            <p key="role" className="text-sm text-slate-medium dark:text-cloud-medium">
+              {content.inbound?.videoCaptionRole}
+            </p>,
+          ]}
         />
 
         <section className="px-6 py-14 md:py-16 bg-neutral-50 dark:bg-neutral-800 transition-colors">
@@ -271,12 +326,20 @@ export default function AgenteDeLlamadasIA() {
 
       {/* OUTBOUND */}
       <section id="outbound" className="scroll-mt-24">
-        <h2 className="pt-14 text-center text-3xl font-bold text-neutral-900 dark:text-white md:text-4xl">
-          {content.outbound?.title}
-        </h2>
+        <div className="flex flex-col items-center gap-5 px-6 pb-2 pt-16 text-center">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-flame/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-flame">
+            <PhoneOutgoing className="h-3.5 w-3.5" strokeWidth={2.5} />
+            {content.sectionTitles?.outboundPill}
+          </span>
+          <BlurText
+            as="h2"
+            text={content.outbound?.title ?? ""}
+            className="max-w-3xl justify-center text-3xl font-bold leading-[1.1] tracking-tight text-neutral-900 dark:text-white md:text-5xl"
+          />
+        </div>
 
         <HowItWorksVideoSection
-          title={content.outbound?.howItWorksTitle}
+          title={content.outbound?.videoCaptionText}
           steps={content.outbound?.steps ?? []}
         />
 
@@ -307,18 +370,6 @@ export default function AgenteDeLlamadasIA() {
           <ContactForm />
         </ReCaptchaWrapper>
       </section>
-
-      <a
-        href="https://wa.me/34626270806"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 text-white font-semibold px-6 py-3 rounded-full shadow-xl transition bg-clay"
-      >
-        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M20.52 3.48A11.8 11.8 0 0 0 12.04 0C5.46 0 .1 5.36.1 11.94c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.64a12 12 0 0 0 5.74 1.46h.01c6.58 0 11.94-5.36 11.94-11.94 0-3.19-1.24-6.19-3.47-8.4ZM12.05 21.3h-.01a9.3 9.3 0 0 1-4.74-1.3l-.34-.2-3.74.97 1-3.64-.22-.37a9.28 9.28 0 0 1-1.42-4.9c0-5.14 4.18-9.32 9.33-9.32 2.49 0 4.83.97 6.6 2.73a9.27 9.27 0 0 1 2.73 6.6c0 5.15-4.18 9.33-9.33 9.33Zm5.13-6.96c-.28-.14-1.65-.81-1.9-.9-.26-.1-.45-.14-.64.14-.19.28-.74.9-.9 1.08-.17.19-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.34 0 1.38 1 2.72 1.14 2.9.14.19 1.96 3 4.75 4.2.66.28 1.18.45 1.58.58.66.21 1.26.18 1.73.11.53-.08 1.65-.67 1.88-1.32.23-.65.23-1.21.16-1.32-.07-.12-.26-.19-.54-.33Z" />
-        </svg>
-        <span>{content.secondaryCtaLabel}</span>
-      </a>
 
       <WhatsAppBubble />
       <Footer />

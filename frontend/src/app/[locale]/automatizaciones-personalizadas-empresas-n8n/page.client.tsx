@@ -54,8 +54,7 @@ type LandingContent = {
   sectionTitles?: {
     whatIsN8N?: string;
     integrations?: string;
-    benefits?: string;
-    security?: string;
+    infocardsTitle?: string;
     faq?: string;
     ctaTitle?: string;
     ctaSubtitle?: string;
@@ -65,11 +64,9 @@ type LandingContent = {
   whatIsN8NHighlight?: string;
   workflowAnimation?: N8nFlowContent;
   howItWorksSteps?: { title: string; description: string }[];
-  team?: { title: string; description: string };
-  benefitCards?: { title: string; description: string }[];
-  vpsCard?: { title: string; description: string };
+  infocards?: { cards: { name: string; description?: string }[] };
   observability?: { title: string; events: WorkflowEvent[] };
-  security?: { trustPoints?: string[] };
+  security?: { title?: string; items?: string[] };
   pricing?: {
     instanceLabel: string;
     instancePrice: string;
@@ -78,7 +75,7 @@ type LandingContent = {
     contactLabel: string;
   };
   faq: { question: string; answer: string }[];
-  cta?: { label: string; href: string; trust?: string };
+  cta?: { label: string; href: string; trust?: string; emailLabel?: string; formLabel?: string };
 };
 
 function WorkflowEventCard({ event }: { event: WorkflowEvent }) {
@@ -120,29 +117,10 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
 
   if (!content) throw new Error(`Missing landing content: ${slug}`);
 
-  const trustPoints = content.security?.trustPoints ?? [];
-  const benefits = content.benefitCards ?? [];
+  const infoCardTexts = (content.infocards?.cards ?? []) as { name: string; description?: string }[];
+  const securityItems = content.security?.items ?? [];
   const observabilityEvents = content.observability?.events ?? [];
   const pricing = content.pricing;
-
-  const benefitCards: InfoCardItem[] = benefits.map((benefit, i) => ({
-    key: `benefit-${i}`,
-    size: "sm",
-    title: benefit.title,
-    description: benefit.description,
-  }));
-
-  const vpsCard: InfoCardItem[] = content.vpsCard
-    ? [
-        {
-          key: "vps",
-          size: "lg",
-          title: content.vpsCard.title,
-          description: content.vpsCard.description,
-          image: `/static/${slug}/vps.webp`,
-        },
-      ]
-    : [];
 
   const observabilityCard: InfoCardItem[] = observabilityEvents.length
     ? [
@@ -158,38 +136,6 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
                 ))}
               </AnimatedList>
             </div>
-          ),
-        },
-      ]
-    : [];
-
-  const teamCard: InfoCardItem[] = content.team
-    ? [
-        {
-          key: "team",
-          size: "lg",
-          title: content.team.title,
-          description: content.team.description,
-          image: `/static/${slug}/engineers.webp`,
-        },
-      ]
-    : [];
-
-  const securityCard: InfoCardItem[] = trustPoints.length
-    ? [
-        {
-          key: "security",
-          size: "lg",
-          title: content.sectionTitles?.security,
-          description: (
-            <ul className="not-italic space-y-2 text-left text-base">
-              {trustPoints.map((point, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
-                  {point}
-                </li>
-              ))}
-            </ul>
           ),
         },
       ]
@@ -254,14 +200,36 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
   const infocards: InfoCardItem[] = [
     {
       key: "workflow-image",
-      size: "xl",
-      image: `/static/${slug}/automatizaciones_personalizadas.webp`,
+      size: "lg",
+      image: `/static/${slug}/workflow.webp`,
     },
-    ...benefitCards,
-    ...vpsCard,
+    {
+      key: "free-software",
+      size: "sm",
+      title: infoCardTexts[0]?.name,
+      description: infoCardTexts[0]?.description,
+    },
+    {
+      key: "vps",
+      size: "lg",
+      title: infoCardTexts[1]?.name,
+      description: infoCardTexts[1]?.description,
+      image: `/static/${slug}/vps.webp`,
+    },
+    {
+      key: "no-limits",
+      size: "sm",
+      title: infoCardTexts[2]?.name,
+      description: infoCardTexts[2]?.description,
+    },
     ...observabilityCard,
-    ...teamCard,
-    ...securityCard,
+    {
+      key: "team",
+      size: "lg",
+      title: infoCardTexts[3]?.name,
+      description: infoCardTexts[3]?.description,
+      image: `/static/${slug}/engineers.webp`,
+    },
     ...pricingCard,
   ];
 
@@ -371,26 +339,22 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
         <ToolsShowcase title={content.sectionTitles.integrations} logos={integrationLogos} />
       )}
 
-      {/* INFO CARDS: benefits, team, security, pricing */}
+      {/* INFO CARDS: benefits, vps, observability, team, security, pricing */}
       <section className="py-14 md:py-16 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
-          {content.sectionTitles?.benefits}
+          {content.sectionTitles?.infocardsTitle}
         </h2>
         <InfoCardCarousel items={infocards} className="max-w-6xl mx-auto" />
       </section>
 
       {/* CTA BANNER */}
       {content.cta && (
-        <section className="bg-white px-4 pb-24 pt-10 dark:bg-neutral-900 sm:px-6 lg:px-8">
+        <section className="bg-white px-4 pb-10 pt-10 dark:bg-neutral-900 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
             <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-[--swatch--cobalt-dark] px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cobalt/25 blur-3xl"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-clay/15 blur-3xl"
               />
 
               <div className="relative flex flex-col items-start">
@@ -436,14 +400,32 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
 
                 <p className="mt-4 max-w-xl text-white/75 md:text-lg">{content.sectionTitles?.ctaSubtitle}</p>
 
-                <a
-                  href={content.cta.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-[--swatch--slate-dark] shadow-lg transition hover:scale-105 hover:bg-neutral-100"
-                >
-                  {content.cta.label}
-                </a>
+                <div className="mt-8 flex flex-wrap items-center gap-3">
+                  <a
+                    href={content.cta.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 font-semibold text-[--swatch--slate-dark] shadow-lg transition hover:scale-105 hover:bg-neutral-100"
+                  >
+                    <IconWhatsApp size={20} />
+                    {content.cta.label}
+                  </a>
+
+                  <a
+                    href="mailto:info@ordinaly.ai"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 font-semibold text-white transition hover:border-white/50 hover:bg-white/10 hover:scale-105"
+                  >
+                    <Mail className="h-5 w-5" />
+                    {content.cta.emailLabel}
+                  </a>
+
+                  <a
+                    href="#formulario"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 font-semibold text-white transition hover:border-white/50 hover:bg-white/10 hover:scale-105"
+                  >
+                    {content.cta.formLabel}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -451,26 +433,12 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
       )}
 
       <FaqAccordion
-        className="bg-white dark:bg-neutral-900"
+        className="-mt-8 bg-white dark:bg-neutral-900 sm:-mt-10"
         title={content.sectionTitles?.faq}
         items={content.faq.map((faq) => ({
           question: faq.question,
           answer: faq.answer,
         }))}
-        footer={
-          <a
-            href="#formulario"
-            className="
-              inline-flex items-center gap-2 px-6 py-3 rounded-full
-              border-2 border-clay text-clay font-semibold shadow-md
-              transition-all duration-300 hover:bg-clay hover:text-white
-              hover:shadow-lg hover:shadow-clay/20 group
-            "
-          >
-            {content.sectionTitles?.ctaTitle}
-            <span className="transition-transform duration-300 group-hover:translate-x-0.5">→</span>
-          </a>
-        }
       />
 
       {/* FORM */}

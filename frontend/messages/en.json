@@ -2188,15 +2188,16 @@
         "technologyFaqs": "Frequently asked questions"
       },
       "providers": {
-        "badge": "Best-in-class AI voice stack",
         "title": "Built on the leading voice and AI providers",
         "subtitle": "We integrate the leading platforms for voice synthesis, language models, conversational orchestration and telephony to deliver a reliable, natural-sounding calling agent.",
         "ctaLabel": "See how it works"
       },
       "inbound": {
         "title": "AI virtual receptionist (inbound calls)",
-        "howItWorksTitle": "How does your AI receptionist work?",
         "infocardsTitle": "Everything about your AI receptionist",
+        "videoCaptionName": "Antonio Macías Ferrera",
+        "videoCaptionRole": "CTO software engineer & co-founder",
+        "videoCaptionText": "How does your virtual receptionist work?",
         "eventsTitle": "Live activity",
         "steps": [
           {
@@ -2265,31 +2266,12 @@
       },
       "outbound": {
         "title": "AI outbound calling agent (campaigns)",
-        "howItWorksTitle": "How does an AI calling campaign work?",
         "infocardsTitle": "Everything about your AI calling campaigns",
-        "steps": [
-          {
-            "title": "Import your contact list",
-            "description": "Upload your leads from your CRM, a spreadsheet, or any system with an API."
-          },
-          {
-            "title": "Define the script and goal",
-            "description": "We configure the script, tone and goal of the call: sale, reminder, survey or collections."
-          },
-          {
-            "title": "Launch the campaign",
-            "description": "The agent automatically calls every contact, handles objections and adapts the conversation."
-          },
-          {
-            "title": "Analyze results",
-            "description": "Get metrics, recordings and outcomes for every call, synced with your CRM."
-          }
-        ],
+        "videoCaptionName": "Antonio Macías Ferrera",
+        "videoCaptionRole": "CTO software engineer & co-founder",
+        "videoCaptionText": "How does an AI calling campaign work?",
+        "eventsTitle": "Live activity",
         "infocards": [
-          {
-            "name": "Scale without hiring",
-            "description": "Launch hundreds of simultaneous calls without growing your sales team."
-          },
           {
             "name": "Hours & compliance built in",
             "description": "Respects allowed calling windows and do-not-call lists on every campaign."
@@ -2297,8 +2279,43 @@
           {
             "name": "Natural conversation",
             "description": "ElevenLabs voices that handle objections and sales tone without sounding robotic."
+          },
+          {
+            "name": "This has a thousand use cases!"
           }
         ],
+        "events": [
+          {
+            "title": "Outbound call started",
+            "description": "Contact: Marta R.",
+            "time": "Now"
+          },
+          {
+            "title": "Lead marked as interested",
+            "description": "Quote requested",
+            "time": "1 min ago"
+          },
+          {
+            "title": "Objection handled",
+            "description": "Price · reframed",
+            "time": "2 min ago"
+          },
+          {
+            "title": "Follow-up call scheduled",
+            "description": "Friday 12:00",
+            "time": "4 min ago"
+          },
+          {
+            "title": "Result saved to CRM",
+            "description": "Summary + next action",
+            "time": "6 min ago"
+          }
+        ],
+        "batchLimits": {
+          "eyebrow": "Batch calling",
+          "title": "15 simultaneous calls",
+          "description": "Estimated time to complete all calls in a batch: 35 minutes (assuming each call lasts 5 minutes). This limit can be increased based on your needs."
+        },
         "requirements": {
           "title": "Requirements",
           "items": [
@@ -2380,8 +2397,7 @@
       "sectionTitles": {
         "whatIsN8N": "What is n8n?",
         "integrations": "We connect it with (almost) everything!",
-        "benefits": "Everything you need to know",
-        "security": "Your business is our priority",
+        "infocardsTitle": "Everything you need to know",
         "faq": "Frequently asked questions",
         "ctaTitle": "Automate your processes with n8n",
         "ctaSubtitle": "We build robust, scalable flows tailored to your business.",
@@ -2418,27 +2434,25 @@
           "description": "Obtenemos el resultado del workflow y enviamos notificaciones según sea necesario."
         }
       ],
-      "team": {
-        "title": "An engineering team at your disposal",
-        "description": "Software engineers, experts in computer science and artificial intelligence, with real experience in business automation."
-      },
-      "benefitCards": [
-        {
-          "title": "Free software, no monthly fee",
-          "description": "We deploy the open source version of n8n on Docker: no licenses or subscriptions, just the cost of your own infrastructure."
-        },
-        {
-          "title": "No execution limits",
-          "description": "Unlike Zapier or Make, you don't pay per execution: scale your flows without surprise bills."
-        },
-        {
-          "title": "Turnkey product",
-          "description": "We deliver the finished, tested and documented flow, ready to work from day one."
-        }
-      ],
-      "vpsCard": {
-        "title": "Your data, your VPS",
-        "description": "We help you set up your own private server (VPS): the data, access and automations are 100% yours, with total privacy."
+      "infocards": {
+        "cards": [
+          {
+            "name": "Free software, no monthly fee",
+            "description": "We deploy the open source version of n8n on Docker: no licenses or subscriptions, just the cost of your own infrastructure."
+          },
+          {
+            "name": "No execution limits",
+            "description": "Unlike Zapier or Make, you don't pay per execution: scale your flows without surprise bills."
+          },
+          {
+            "name": "Your data, your VPS",
+            "description": "We help you set up your own private server (VPS): the data, access and automations are 100% yours, with total privacy."
+          },
+          {
+            "name": "An engineering team at your disposal",
+            "description": "Software engineers, experts in computer science and artificial intelligence, with real experience in business automation."
+          }
+        ]
       },
       "observability": {
         "title": "Traceable, notifiable and alertable",
@@ -2458,14 +2472,6 @@
             "description": "Integration failure reported via WhatsApp",
             "time": "38 min ago"
           }
-        ]
-      },
-      "security": {
-        "trustPoints": [
-          "We work on the client's private virtual machines (VPS). You keep full control of your data and access at all times.",
-          "We use tools like n8n, and other free software tools that allow for scalable and maintainable solutions.",
-          "We never collect passwords or personal or business data.",
-          "We do not store your data or files on our servers."
         ]
       },
       "pricing": {
@@ -2494,7 +2500,7 @@
         },
         {
           "question": "Does n8n have a license cost?",
-          "answer": "n8n is free software and can be self-hosted at no license cost. Our quote covers designing, implementing and maintaining the flow, not a monthly toll to use it."
+          "answer": "The commercial web version of n8n has a monthly cost per user and executions, but n8n also offers a free software version that can be self-hosted at no license cost. Our paid quote covers the implementation of this open-source version, without any monthly fees for using it."
         },
         {
           "question": "Can we migrate our automations from Zapier or Make?",
@@ -2502,10 +2508,12 @@
         }
       ],
       "cta": {
-        "label": "Automate with n8n",
+        "label": "Why wait to automate with n8n?",
         "href": "https://wa.me/34626270806?text=I%20want%20to%20audit%20processes%20to%20automate%20with%20n8n",
         "bgColor": "#0255D5",
-        "trust": "Trusted by the businesses that already automate with us"
+        "trust": "Trusted by the businesses that already automate with us",
+        "emailLabel": "Email us",
+        "formLabel": "Fill out the form"
       }
     },
     "automatizacion-facturas": {
