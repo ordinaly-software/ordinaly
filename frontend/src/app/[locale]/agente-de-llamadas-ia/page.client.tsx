@@ -2,7 +2,7 @@
 
 import { useLocale, useMessages } from "next-intl";
 import dynamic from "next/dynamic";
-import { Phone, PhoneIncoming, PhoneOutgoing } from "lucide-react";
+import { Mail, Phone, PhoneIncoming, PhoneOutgoing } from "lucide-react";
 import { IconBrandJavascript, IconApi } from "@tabler/icons-react";
 import Strands from "@/components/ui/strands";
 import { AnimatedList } from "@/components/ui/animated-list";
@@ -11,7 +11,7 @@ import { ProvidersShowcase } from "@/components/services/providers-showcase";
 import { HowItWorksVideoSection } from "@/components/landing/how-it-works-video-section";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
-import { IconN8n } from "@/components/ui/brand-icons";
+import { IconN8n, IconWhatsApp } from "@/components/ui/brand-icons";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "../recaptcha-provider";
@@ -49,6 +49,82 @@ function CallEventCard({ event }: { event: CallEvent }) {
   );
 }
 
+type CallPricing = {
+  instanceLabel?: string;
+  instancePrice?: string;
+  workflowLabel?: string;
+  workflowNote?: string;
+  workflowNoteLinkLabel?: string;
+  contactLabel?: string;
+};
+
+// Same shape as automatizaciones-personalizadas-empresas-n8n's pricing card:
+// a closed installation price, a note on the variable external monthly cost
+// (linking to the FAQ for detail), and direct contact links.
+function buildPricingCard(key: string, pricing: CallPricing | undefined, whatsappHref: string, phoneAriaLabel: string): InfoCardItem[] {
+  if (!pricing) return [];
+  return [
+    {
+      key,
+      size: "lg",
+      eyebrow: pricing.instanceLabel,
+      title: pricing.instancePrice,
+      description: (
+        <>
+          <span className="not-italic mt-4 block rounded-xl bg-clay/10 p-3">
+            <span className="block text-[11px] font-semibold uppercase tracking-widest text-clay">
+              {pricing.workflowLabel}
+            </span>
+            <span className="mt-1 block text-sm font-normal text-slate-medium dark:text-cloud-medium">
+              {pricing.workflowNote}{" "}
+              {pricing.workflowNoteLinkLabel && (
+                <a
+                  href="#faq"
+                  onClick={(e) => e.stopPropagation()}
+                  className="font-semibold text-clay underline underline-offset-2"
+                >
+                  {pricing.workflowNoteLinkLabel}
+                </a>
+              )}
+            </span>
+          </span>
+          <span className="not-italic mt-4 block text-xs font-semibold uppercase tracking-widest text-slate-medium dark:text-cloud-medium">
+            {pricing.contactLabel}
+          </span>
+          <span className="not-italic mt-2 flex items-center gap-2">
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              aria-label="WhatsApp"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-clay text-white transition hover:brightness-110"
+            >
+              <IconWhatsApp size={18} />
+            </a>
+            <a
+              href="mailto:info@ordinaly.ai"
+              onClick={(e) => e.stopPropagation()}
+              aria-label="Email"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-cobalt text-white transition hover:brightness-110"
+            >
+              <Mail className="h-4 w-4" />
+            </a>
+            <a
+              href="tel:+34626270806"
+              onClick={(e) => e.stopPropagation()}
+              aria-label={phoneAriaLabel}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-[--swatch--slate-dark] text-white transition hover:brightness-110 dark:bg-[--swatch--slate-medium]"
+            >
+              <Phone className="h-4 w-4" />
+            </a>
+          </span>
+        </>
+      ),
+    },
+  ];
+}
+
 export default function AgenteDeLlamadasIA() {
   const messages = useMessages() as any;
   const content = messages.landings?.["agente-de-llamadas-ia"];
@@ -69,15 +145,23 @@ export default function AgenteDeLlamadasIA() {
     { node: <IconApi size={ICON_SIZE} />, title: "API REST" },
   ];
 
+  const phoneAriaLabel = locale === "en" ? "Phone" : "Teléfono";
+
   const inboundInfoTexts = (content.inbound?.infocards ?? []) as InfoCardText[];
   const inboundEvents = (content.inbound?.events ?? []) as CallEvent[];
   const inboundRequirements: string[] = content.inbound?.requirements?.items ?? [];
+  const inboundPricingCard = buildPricingCard(
+    "inbound-pricing",
+    content.inbound?.pricing,
+    "https://wa.me/34626270806?text=Quiero%20consultar%20precio%20de%20un%20recepcionista%20virtual%20con%20IA",
+    phoneAriaLabel
+  );
 
   const inboundRequirementsCard: InfoCardItem[] = inboundRequirements.length
     ? [
         {
           key: "inbound-requirements",
-          size: "md",
+          size: "lg",
           title: content.inbound?.requirements?.title,
           description: (
             <ul className="not-italic space-y-2 text-left">
@@ -136,12 +220,11 @@ export default function AgenteDeLlamadasIA() {
       title: inboundInfoTexts[2]?.name,
     },
     ...inboundRequirementsCard,
+    ...inboundPricingCard,
   ];
 
   const outboundInfoTexts = (content.outbound?.infocards ?? []) as InfoCardText[];
-  const outboundEvents = (content.outbound?.events ?? []) as CallEvent[];
   const outboundRequirements: string[] = content.outbound?.requirements?.items ?? [];
-  const outboundPricing = content.outbound?.pricing;
 
   const outboundRequirementsCard: InfoCardItem[] = outboundRequirements.length
     ? [
@@ -163,77 +246,36 @@ export default function AgenteDeLlamadasIA() {
       ]
     : [];
 
-  const outboundPricingCard: InfoCardItem[] = outboundPricing
-    ? [
-        {
-          key: "outbound-pricing",
-          size: "lg",
-          eyebrow: outboundPricing.individualLabel,
-          title: outboundPricing.individualPrice,
-          description: outboundPricing.implementationTime && (
-            <span className="not-italic mt-4 block text-sm">
-              <span className="font-semibold">{outboundPricing.implementationLabel}</span>{" "}
-              {outboundPricing.implementationTime}
-            </span>
-          ),
-          ctaLabel: outboundPricing.ctaLabel,
-          href: outboundPricing.ctaHref,
-        },
-      ]
-    : [];
+  const outboundPricingCard = buildPricingCard(
+    "outbound-pricing",
+    content.outbound?.pricing,
+    "https://wa.me/34626270806?text=Quiero%20consultar%20precio%20de%20un%20agente%20de%20llamadas%20salientes%20con%20IA",
+    phoneAriaLabel
+  );
 
   const outboundInfocards: InfoCardItem[] = [
     {
-      key: "outbound-workflow",
-      size: "xl",
-      image: "/static/servicios/chatbot_comercial.webp",
-    },
-    {
-      key: "outbound-scale",
-      size: "sm",
+      key: "outbound-batch-limits",
+      size: "lg",
       title: outboundInfoTexts[0]?.name,
       description: outboundInfoTexts[0]?.description,
-    },
-    {
-      key: "outbound-compliance",
-      size: "sm",
-      title: outboundInfoTexts[1]?.name,
-      description: outboundInfoTexts[1]?.description,
-    },
-    {
-      key: "outbound-events",
-      size: "md",
-      eyebrow: content.outbound?.eventsTitle,
-      description: (
-        <div className="not-italic w-full max-h-[380px] overflow-hidden">
-          <AnimatedList delay={900} className="items-stretch gap-2">
-            {outboundEvents.map((event, i) => (
-              <CallEventCard key={i} event={event} />
-            ))}
-          </AnimatedList>
-        </div>
-      ),
+      video: BATCH_CALL_VIDEO,
+      videoClassName: "blur-[2px]",
     },
     {
       key: "outbound-voice",
       size: "md",
       eyebrow: "ElevenLabs",
-      title: outboundInfoTexts[2]?.name,
-      description: outboundInfoTexts[2]?.description,
+      title: outboundInfoTexts[1]?.name,
+      description: outboundInfoTexts[1]?.description,
       video: VOICES_VIDEO,
     },
     {
       key: "outbound-use-cases",
-      size: "md",
+      size: "sm",
+      title: outboundInfoTexts[2]?.name,
+      description: outboundInfoTexts[2]?.description,
       video: useCasesVideo,
-    },
-    {
-      key: "outbound-batch-limits",
-      size: "md",
-      eyebrow: content.outbound?.batchLimits?.eyebrow,
-      title: content.outbound?.batchLimits?.title,
-      description: content.outbound?.batchLimits?.description,
-      video: BATCH_CALL_VIDEO,
     },
     ...outboundRequirementsCard,
     ...outboundPricingCard,
@@ -290,7 +332,7 @@ export default function AgenteDeLlamadasIA() {
       />
 
       {/* INBOUND */}
-      <section id="inbound" className="scroll-mt-24">
+      <section id="inbound" className="scroll-mt-24 bg-neutral-50 dark:bg-neutral-800">
         <div className="flex flex-col items-center gap-5 px-6 pb-2 pt-10 text-center">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-clay/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-clay">
             <PhoneIncoming className="h-3.5 w-3.5" strokeWidth={2.5} />
@@ -301,7 +343,6 @@ export default function AgenteDeLlamadasIA() {
             text={content.inbound?.title ?? ""}
             className="max-w-3xl justify-center text-3xl font-bold leading-[1.1] tracking-tight text-neutral-900 dark:text-white md:text-5xl"
           />
-          <br />
         </div>
 
         <HowItWorksVideoSection
@@ -341,9 +382,10 @@ export default function AgenteDeLlamadasIA() {
         <HowItWorksVideoSection
           title={content.outbound?.videoCaptionText}
           steps={content.outbound?.steps ?? []}
+          className="bg-white pb-8 md:pb-10"
         />
 
-        <section className="px-6 py-14 md:py-16 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <section className="px-6 pb-14 pt-6 md:pb-16 md:pt-8 transition-colors">
           <h3 className="mb-8 text-center text-2xl font-bold text-neutral-900 dark:text-white md:text-3xl">
             {content.outbound?.infocardsTitle}
           </h3>
@@ -353,15 +395,17 @@ export default function AgenteDeLlamadasIA() {
 
       {/* FAQ */}
       {content.technologyFaqs?.length > 0 && (
-        <FaqAccordion
-          className="bg-white dark:bg-neutral-900 transition-colors"
-          title={content.sectionTitles?.technologyFaqs}
-          items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
-            question: faq.question,
-            answer: faq.answer,
-            tag: faq.tag,
-          }))}
-        />
+        <div id="faq" className="scroll-mt-24">
+          <FaqAccordion
+            className="bg-white bg-neutral-50 dark:bg-neutral-800 transition-colors"
+            title={content.sectionTitles?.technologyFaqs}
+            items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
+              question: faq.question,
+              answer: faq.answer,
+              tag: faq.tag,
+            }))}
+          />
+        </div>
       )}
 
       {/* FORM */}

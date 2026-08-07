@@ -2199,24 +2199,6 @@
         "videoCaptionRole": "CTO software engineer & co-founder",
         "videoCaptionText": "How does your virtual receptionist work?",
         "eventsTitle": "Live activity",
-        "steps": [
-          {
-            "title": "Answers instantly",
-            "description": "The agent picks up every call within seconds, no hold music or voicemail, 24 hours a day."
-          },
-          {
-            "title": "Understands and qualifies",
-            "description": "Detects the reason for the call, answers common questions and qualifies the caller against your criteria."
-          },
-          {
-            "title": "Books or transfers",
-            "description": "Books appointments directly on your calendar or transfers the call to the right person on your team."
-          },
-          {
-            "title": "Logs it in your CRM",
-            "description": "Saves a summary of every call, with transcript and next action, directly in your CRM."
-          }
-        ],
         "infocards": [
           {
             "name": "Available 24/7",
@@ -2225,6 +2207,9 @@
           {
             "name": "Natural voice",
             "description": "Realistic ElevenLabs voices, with support for neutral Spanish and local accents."
+          },
+          {
+            "name": "This has a thousand use cases!"
           }
         ],
         "events": [
@@ -2262,6 +2247,14 @@
             "A calendar or CRM to book appointments and log calls.",
             "Qualification criteria and cases that should transfer to a person."
           ]
+        },
+        "pricing": {
+          "instanceLabel": "Installation",
+          "instancePrice": "€1,099 + VAT",
+          "workflowLabel": "Monthly fee (external providers)",
+          "workflowNote": "Depends on the voice and telephony providers you choose (ElevenLabs, Retell, Netelip...).",
+          "workflowNoteLinkLabel": "See more in the FAQ",
+          "contactLabel": "Tell us about your case"
         }
       },
       "outbound": {
@@ -2271,10 +2264,28 @@
         "videoCaptionRole": "CTO software engineer & co-founder",
         "videoCaptionText": "How does an AI calling campaign work?",
         "eventsTitle": "Live activity",
+        "steps": [
+          {
+            "title": "Import your contact list",
+            "description": "Upload your contact list in CSV format with name, phone number, and any other data you want to use to personalize the call."
+          },
+          {
+            "title": "Define dates and times to run the campaign",
+            "description": "Set the allowed calling window and call frequency, as well as the campaign goal."
+          },
+          {
+            "title": "Launch the campaign",
+            "description": "The agent automatically calls each contact and gathers the necessary information."
+          },
+          {
+            "title": "Automatically collect the results",
+            "description": "Receive summaries, recordings, and results from each call, synced with your spreadsheet or CRM."
+          }
+        ],
         "infocards": [
           {
-            "name": "Hours & compliance built in",
-            "description": "Respects allowed calling windows and do-not-call lists on every campaign."
+            "name": "15 simultaneous calls",
+            "description": "Estimated time to complete all calls in a batch: 35 minutes (assuming each call lasts 5 minutes). This limit can be increased based on your needs."
           },
           {
             "name": "Natural conversation",
@@ -2284,38 +2295,6 @@
             "name": "This has a thousand use cases!"
           }
         ],
-        "events": [
-          {
-            "title": "Outbound call started",
-            "description": "Contact: Marta R.",
-            "time": "Now"
-          },
-          {
-            "title": "Lead marked as interested",
-            "description": "Quote requested",
-            "time": "1 min ago"
-          },
-          {
-            "title": "Objection handled",
-            "description": "Price · reframed",
-            "time": "2 min ago"
-          },
-          {
-            "title": "Follow-up call scheduled",
-            "description": "Friday 12:00",
-            "time": "4 min ago"
-          },
-          {
-            "title": "Result saved to CRM",
-            "description": "Summary + next action",
-            "time": "6 min ago"
-          }
-        ],
-        "batchLimits": {
-          "eyebrow": "Batch calling",
-          "title": "15 simultaneous calls",
-          "description": "Estimated time to complete all calls in a batch: 35 minutes (assuming each call lasts 5 minutes). This limit can be increased based on your needs."
-        },
         "requirements": {
           "title": "Requirements",
           "items": [
@@ -2326,44 +2305,44 @@
           ]
         },
         "pricing": {
-          "individualLabel": "Price",
-          "individualPrice": "Custom quote based on volume",
-          "implementationLabel": "Implementation time:",
-          "implementationTime": "From 10 days",
-          "ctaLabel": "I want to automate my calls",
-          "ctaHref": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20company%27s%20calls%20with%20AI"
+          "instanceLabel": "Installation",
+          "instancePrice": "€1,199 + VAT",
+          "workflowLabel": "Monthly fee (external providers)",
+          "workflowNote": "Depends on the voice and telephony providers you choose (ElevenLabs, Retell, Netelip...).",
+          "workflowNoteLinkLabel": "See more in the FAQ",
+          "contactLabel": "Tell us about your case"
         }
       },
       "technologyFaqs": [
         {
+          "tag": "Phone",
+          "question": "Do I need to hire a new line?",
+          "answer": "Not necessarily. We can use your current VoIP number or provide a line through Netelip, for both incoming and outgoing calls."
+        },
+        {
+          "tag": "Privacy",
+          "question": "Is it secure and GDPR compliant?",
+          "answer": "Yes. calls and transcriptions are processed with data protection safeguards, always identifying as a service that uses Artificial Intelligence and requesting consent for data processing when applicable."
+        },
+        {
           "tag": "Voice",
           "question": "How natural does the agent's voice sound?",
-          "answer": "We use ElevenLabs voices, the leader in realistic voice synthesis, with support for neutral Spanish and local accents, tuning tone and pace to your brand."
+          "answer": "We use voices from ElevenLabs, leaders in realistic speech synthesis, supporting Spanish with different accents as well as other languages, adjusting tone and speed to your brand."
         },
         {
-          "tag": "Intelligence",
-          "question": "Which AI model understands the conversation?",
-          "answer": "Conversational reasoning runs on Google's Gemini models, tuned with your business information (hours, services, pricing, FAQs) to respond accurately."
+          "tag": "Artificial Intelligence",
+          "question": "Which model is used in the conversation?",
+          "answer": "Conversational reasoning is normally powered by Google's Gemini models, but our provider offers additional options such as Claude or GPT models."
         },
         {
-          "tag": "Telephony",
-          "question": "Do I need to get a new phone line?",
-          "answer": "Not necessarily. We can use your current number or provide a line through Netelip, our VoIP telephony provider, for both inbound and outbound calls."
-        },
-        {
-          "tag": "Orchestration",
-          "question": "How do all the pieces connect?",
-          "answer": "Retell orchestrates the call in real time (voice, AI and telephony), while n8n connects the outcome of every call to your CRM, calendar or database via REST APIs."
-        },
-        {
-          "tag": "Data",
-          "question": "Is it secure and GDPR-compliant?",
-          "answer": "Yes. Calls and transcripts are processed with data protection guarantees, and you decide what information is kept and for how long."
+          "tag": "Automation",
+          "question": "How does it connect to my spreadsheet or database?",
+          "answer": "Retell and Netelip handle the call in real time (voice, AI and telephony), while n8n connects each call's result to your CRM, calendar or database via REST APIs."
         },
         {
           "tag": "Price",
-          "question": "How much does it cost to set up a calling agent?",
-          "answer": "It depends on call volume and script complexity. We'll walk you through it after a free audit of your specific case."
+          "question": "How much does it cost to deploy a calling agent?",
+          "answer": "Installation has a fixed, closed price plus VAT. The monthly cost is paid to external voice and telephony providers (Retell and Netelip...) and depends on call volume. We provide details after a free assessment of your specific case."
         }
       ],
       "keywords": [
@@ -2476,7 +2455,7 @@
       },
       "pricing": {
         "instanceLabel": "n8n instance setup",
-        "instancePrice": "€400",
+        "instancePrice": "€400 + VAT",
         "workflowLabel": "Custom automation",
         "workflowNote": "Quote based on your process",
         "contactLabel": "Tell us your case"
@@ -2581,9 +2560,9 @@
         ]
       },
       "pricing": {
-        "individualPrice": "450€",
+        "individualPrice": "450€ + VAT",
         "individualLabel": "Service price",
-        "comboPrice": "400€",
+        "comboPrice": "400€ + VAT",
         "comboLabel": "Bundle price",
         "comboNote": "Bundle price when hiring several automation services.",
         "implementationTime": "10 days",
@@ -2693,9 +2672,9 @@
         ]
       },
       "pricing": {
-        "individualPrice": "450€",
+        "individualPrice": "450€ + VAT",
         "individualLabel": "Service price",
-        "comboPrice": "400€",
+        "comboPrice": "400€ + VAT",
         "comboLabel": "Bundle price",
         "comboNote": "Bundle price when hiring several automation services.",
         "implementationTime": "10 days",
@@ -2772,7 +2751,7 @@
             "You'll get a notification the moment each post goes live."
           ],
           "price": "450€",
-          "priceNote": "/month",
+          "priceNote": "one-time payment + VAT",
           "ctaLabel": "Get started"
         },
         "linkedin": {
@@ -2784,14 +2763,14 @@
             "You'll get a notification the moment each post goes live."
           ],
           "price": "450€",
-          "priceNote": "/month",
+          "priceNote": "one-time payment + VAT",
           "ctaLabel": "Get started"
         }
       },
       "offer": {
         "label": "Bundle offer",
-        "price": "800€",
-        "note": "Get both platforms together for 800€/month instead of 900€."
+        "price": "800€ + VAT",
+        "note": "Get both platforms together for 800€ + VAT (one-time payment) instead of 900€ + VAT."
       },
       "steps": [
         {
@@ -2832,11 +2811,11 @@
         ]
       },
       "pricing": {
-        "individualPrice": "450€/month",
+        "individualPrice": "450€ + VAT (one-time payment)",
         "individualLabel": "Per platform",
-        "comboPrice": "800€/month",
+        "comboPrice": "800€ + VAT (one-time payment)",
         "comboLabel": "Bundle offer",
-        "comboNote": "Instagram + Facebook + LinkedIn together for 800€/month instead of 900€.",
+        "comboNote": "Instagram + Facebook + LinkedIn together for 800€ + VAT instead of 900€ + VAT.",
         "ctaLabel": "Request information",
         "ctaHref": "https://wa.me/34626270806?text=I%20want%20to%20automate%20my%20social%20media"
       },
@@ -2951,7 +2930,7 @@
         ]
       },
       "pricing": {
-        "individualPrice": "860€",
+        "individualPrice": "860€ + VAT",
         "individualLabel": "one-time payment",
         "implementationTime": "10 days",
         "implementationLabel": "Implementation time:",

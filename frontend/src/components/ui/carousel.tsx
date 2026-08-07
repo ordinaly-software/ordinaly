@@ -184,7 +184,6 @@ export function Carousel<T>({
           nextDisabled={nextBtnDisabled}
           prevLabel={prevLabel}
           nextLabel={nextLabel}
-          className="mt-6 justify-center"
         />
       )}
     </div>

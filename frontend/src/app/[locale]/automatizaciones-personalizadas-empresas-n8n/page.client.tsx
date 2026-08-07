@@ -203,12 +203,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
       size: "lg",
       image: `/static/${slug}/workflow.webp`,
     },
-    {
-      key: "free-software",
-      size: "sm",
-      title: infoCardTexts[0]?.name,
-      description: infoCardTexts[0]?.description,
-    },
+    ...observabilityCard,
     {
       key: "vps",
       size: "lg",
@@ -222,7 +217,6 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
       title: infoCardTexts[2]?.name,
       description: infoCardTexts[2]?.description,
     },
-    ...observabilityCard,
     {
       key: "team",
       size: "lg",
@@ -230,13 +224,19 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
       description: infoCardTexts[3]?.description,
       image: `/static/${slug}/engineers.webp`,
     },
+    {
+      key: "free-software",
+      size: "sm",
+      title: infoCardTexts[0]?.name,
+      description: infoCardTexts[0]?.description,
+    },
     ...pricingCard,
   ];
 
   return (
     <div className="relative bg-white dark:bg-neutral-900">
       {/* HERO */}
-      <section className="relative w-full overflow-hidden bg-[--swatch--slate-dark] text-white">
+      <section className="relative w-full overflow-hidden bg-gradient-to-br from-[--swatch--slate-dark] to-[--swatch--cobalt-dark] text-white">
         <div
           aria-hidden
           className="absolute inset-0 opacity-[0.15]"
@@ -255,34 +255,33 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
             <h1 className="mt-6 text-4xl md:text-6xl font-bold leading-tight">{content.title}</h1>
             <p className="mt-6 text-lg text-white/70 max-w-xl">{content.subtitle}</p>
 
-            <div className="mt-10 grid sm:grid-cols-3 gap-3 max-w-2xl">
+            <div className="mt-10 grid sm:grid-cols-3 gap-2.5 max-w-2xl">
               <a
                 href="#formulario"
-                className="flex flex-col items-start justify-center gap-1 rounded-2xl bg-clay px-6 py-6 font-semibold text-white shadow-lg transition hover:scale-105"
+                className="flex flex-col items-start justify-center gap-1 rounded-xl bg-clay px-4 py-3.5 font-semibold text-white shadow-lg transition hover:scale-105"
               >
-                <span className="text-base">{content.heroCtaLabel}</span>
+                <span className="text-sm">{content.heroCtaLabel}</span>
               </a>
 
               <a
                 href={content.secondaryCtaHref}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-start justify-center gap-2 rounded-2xl px-6 py-6 font-semibold border border-white/15 text-white/80 hover:text-white hover:border-white/40 transition hover:scale-[1.03]"
+                className="flex flex-col items-start justify-center gap-1.5 rounded-xl px-4 py-3.5 font-semibold border border-white/15 text-white/80 hover:text-white hover:border-white/40 transition hover:scale-[1.03]"
               >
-                <IconWhatsApp size={22} />
-                <span className="text-base">{content.secondaryCtaLabel}</span>
+                <IconWhatsApp size={18} />
+                <span className="text-sm">{content.secondaryCtaLabel}</span>
               </a>
 
               <a
                 href="https://n8n.io"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-start justify-center gap-2 rounded-2xl px-6 py-6 font-semibold bg-white text-neutral-900 shadow-lg transition hover:scale-[1.03] hover:bg-neutral-100"
+                className="flex flex-col items-start justify-center gap-1.5 rounded-xl px-4 py-3.5 font-semibold bg-white text-neutral-900 shadow-lg transition hover:scale-[1.03] hover:bg-neutral-100"
               >
-                <IconN8n size={22} />
-                <span className="flex items-center gap-1 text-base">
+                <IconN8n size={18} />
+                <span className="flex items-center gap-1 text-sm">
                   {content.n8nCtaLabel}
-                  <IconArrowUpRight size={18} />
                 </span>
               </a>
             </div>

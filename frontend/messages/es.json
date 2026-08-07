@@ -2242,16 +2242,24 @@
         "requirements": {
           "title": "Requisitos",
           "items": [
-            "Número de teléfono actual o línea nueva vía Netelip.",
-            "Guion base: servicios, horarios, precios y preguntas frecuentes.",
-            "Calendario o CRM donde agendar citas y registrar llamadas.",
-            "Criterios de cualificación y casos que deben transferirse a una persona."
+            "Número de teléfono actual con VoIP o línea nueva (vía Netelip).",
+            "Guion base (servicios, horarios, precios y preguntas frecuentes...).",
+            "Información de la empresa que el chatbot debe conocer para responder correctamente.",
+            "Acceso a calendario, CRM o sistema para agendar citas (dado el caso)."
           ]
+        },
+        "pricing": {
+          "instanceLabel": "Precio de instalación",
+          "instancePrice": "1.099€ + IVA",
+          "workflowLabel": "Cuota mensual (por proveedores externos)",
+          "workflowNote": "Depende de los proveedores de voz y telefonía que elijas (ElevenLabs, Retell, Netelip...).",
+          "workflowNoteLinkLabel": "Ver más en las preguntas frecuentes",
+          "contactLabel": "¿Tienes más dudas? Cuéntanos tu caso"
         }
       },
       "outbound": {
         "title": "Agente de llamadas salientes con IA (campañas)",
-        "infocardsTitle": "Todo sobre tus campañas de llamadas con IA",
+        "infocardsTitle": "Todo sobre tus campañas de llamadas con Inteligencia Artificial",
         "videoCaptionName": "Antonio Macías Ferrera",
         "videoCaptionRole": "CTO software engineer & co-founder",
         "videoCaptionText": "¿Cómo funciona una campaña de llamadas con IA?",
@@ -2259,67 +2267,34 @@
         "steps": [
           {
             "title": "Importa tu lista de contactos",
-            "description": "Sube tus leads desde tu CRM, una hoja de cálculo o cualquier sistema con API."
+            "description": "Sube tu lista de contactos en formato CSV con nombre, teléfono y cualquier dato que quieras usar para personalizar la llamada."
           },
           {
-            "title": "Define el guion y el objetivo",
-            "description": "Configuramos el guion, el tono y el objetivo de la llamada: venta, recordatorio, encuesta o cobro."
+            "title": "Define fechas y horarios para realizar la campaña",
+            "description": "Establece la franja horaria y la frecuencia de llamada permitidas, así como el objetivo de la campaña."
           },
           {
             "title": "Lanza la campaña",
-            "description": "El agente llama automáticamente a cada contacto, gestiona objeciones y adapta la conversación."
+            "description": "El agente llama automáticamente a cada contacto y obtiene la información necesaria."
           },
           {
-            "title": "Analiza resultados",
-            "description": "Recibe métricas, grabaciones y resultados de cada llamada, sincronizados con tu CRM."
+            "title": "Recoge automáticamente los resultados",
+            "description": "Recibe resúmenes, grabaciones y resultados de cada llamada, sincronizados con tu hoja de cálculo o CRM."
           }
         ],
         "infocards": [
           {
-            "name": "Escala sin contratar",
-            "description": "Lanza cientos de llamadas simultáneas sin ampliar tu equipo comercial."
-          },
-          {
-            "name": "Cumple horarios y normativa",
-            "description": "Respeta franjas horarias permitidas y listas de exclusión en cada campaña."
+            "name": "15 llamadas simultáneas por minuto",
+            "description": "Tiempo estimado para completar todas las llamadas de un lote: 35 minutos (con una duración media de 5 minutos por llamada). Este límite se puede aumentar según tus necesidades."
           },
           {
             "name": "Conversación natural",
-            "description": "Voces de ElevenLabs que manejan objeciones y tonos de venta sin sonar a robot."
+            "description": "Elige entre decenas de voces realistas de ElevenLabs, con soporte para español con varios acentos regionales."
+          },
+          {
+            "name": "¡Esto tiene mil casos de uso!"
           }
         ],
-        "events": [
-          {
-            "title": "Llamada saliente iniciada",
-            "description": "Contacto: Marta R.",
-            "time": "Ahora"
-          },
-          {
-            "title": "Lead marcado como interesado",
-            "description": "Presupuesto solicitado",
-            "time": "hace 1 min"
-          },
-          {
-            "title": "Objeción gestionada",
-            "description": "Precio · reformulado",
-            "time": "hace 2 min"
-          },
-          {
-            "title": "Llamada de seguimiento agendada",
-            "description": "Viernes 12:00",
-            "time": "hace 4 min"
-          },
-          {
-            "title": "Resultado guardado en CRM",
-            "description": "Resumen + siguiente acción",
-            "time": "hace 6 min"
-          }
-        ],
-        "batchLimits": {
-          "eyebrow": "Llamadas por lotes",
-          "title": "15 llamadas simultáneas",
-          "description": "Tiempo estimado para completar todas las llamadas de un lote: 35 minutos (con una duración media de 5 minutos por llamada). Este límite se puede aumentar según tus necesidades."
-        },
         "requirements": {
           "title": "Requisitos",
           "items": [
@@ -2330,44 +2305,44 @@
           ]
         },
         "pricing": {
-          "individualLabel": "Precio",
-          "individualPrice": "Presupuesto a medida según volumen",
-          "implementationLabel": "Tiempo de implantación:",
-          "implementationTime": "A partir de 10 días",
-          "ctaLabel": "Quiero automatizar mis llamadas",
-          "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20las%20llamadas%20de%20mi%20empresa%20con%20IA"
+          "instanceLabel": "Precio de instalación",
+          "instancePrice": "1.199€ + IVA",
+          "workflowLabel": "Cuota mensual (por proveedores externos)",
+          "workflowNote": "Depende de los proveedores de voz y telefonía que elijas (ElevenLabs, Retell, Netelip...).",
+          "workflowNoteLinkLabel": "Ver más en las preguntas frecuentes",
+          "contactLabel": "¿Tienes más dudas? Cuéntanos tu caso"
         }
       },
       "technologyFaqs": [
         {
+          "tag": "Teléfono",
+          "question": "¿Necesito contratar una línea nueva?",
+          "answer": "No necesariamente. Podemos usar tu numeración actual VoIP o proporcionarte una línea a través de Netelip, tanto para llamadas entrantes como salientes."
+        },
+        {
+          "tag": "Privacidad",
+          "question": "¿Es seguro y cumple el RGPD?",
+          "answer": "Sí. Las llamadas y transcripciones se procesan con garantías de protección de datos, siempre identificándose como un servicio que usa Inteligencia Artificial y preguntando por el consentimiento de tratamiento de datos dado el caso."
+        },
+        {
           "tag": "Voz",
           "question": "¿Qué tan natural suena la voz del agente?",
-          "answer": "Usamos las voces de ElevenLabs, líderes en síntesis de voz realista, con soporte para español neutro y acentos locales, ajustando tono y velocidad a tu marca."
+          "answer": "Usamos las voces de ElevenLabs, líderes en síntesis de voz realista, con soporte para español con distintos acentos además de otros idiomas, ajustando tono y velocidad a tu marca."
         },
         {
-          "tag": "Inteligencia",
-          "question": "¿Qué modelo de IA entiende la conversación?",
-          "answer": "El razonamiento conversacional se apoya en modelos Gemini de Google, ajustados con la información de tu negocio (horarios, servicios, precios, preguntas frecuentes) para responder con precisión."
+          "tag": "Inteligencia Artificial",
+          "question": "¿Qué modelo se usa en la conversación?",
+          "answer": "El razonamiento conversacional se apoya normalmente en modelos Gemini de Google, pero nuestro proveedor ofrece opciones adicionales como los modelos de Claude o GPT."
         },
         {
-          "tag": "Telefonía",
-          "question": "¿Necesito contratar una línea nueva?",
-          "answer": "No necesariamente. Podemos usar tu numeración actual o proporcionarte una línea a través de Netelip, nuestro proveedor de telefonía VoIP, tanto para llamadas entrantes como salientes."
-        },
-        {
-          "tag": "Orquestación",
-          "question": "¿Cómo se conectan todas las piezas?",
-          "answer": "Retell gestiona la orquestación de la llamada en tiempo real (voz, IA y telefonía), mientras n8n conecta el resultado de cada llamada con tu CRM, calendario o base de datos mediante APIs REST."
-        },
-        {
-          "tag": "Datos",
-          "question": "¿Es seguro y cumple el RGPD?",
-          "answer": "Sí. Las llamadas y transcripciones se procesan con garantías de protección de datos y puedes definir qué información se guarda y durante cuánto tiempo."
+          "tag": "Automatización",
+          "question": "¿Cómo se conecta con mi hoja de cálculo o base de datos?",
+          "answer": "Retell y Netelip gestionan la llamada en tiempo real (voz, IA y telefonía), mientras n8n conecta el resultado de cada llamada con tu CRM, calendario o base de datos mediante APIs REST."
         },
         {
           "tag": "Precio",
           "question": "¿Cuánto cuesta implantar un agente de llamadas?",
-          "answer": "Depende del volumen de llamadas y la complejidad del guion. Te lo detallamos tras una auditoría gratuita de tu caso concreto."
+          "answer": "La instalación tiene un precio fijo y cerrado, más IVA. El coste mensual se paga a través de los proveedores externos de voz y telefonía (Retell y Netelip...) y del volumen de llamadas. Te lo detallamos tras una auditoría gratuita de tu caso concreto."
         }
       ],
       "keywords": [
@@ -2480,7 +2455,7 @@
       },
       "pricing": {
         "instanceLabel": "Instalación de instancia n8n",
-        "instancePrice": "400€",
+        "instancePrice": "400€ + IVA",
         "workflowLabel": "Automatización personalizada",
         "workflowNote": "Precio a consultar según tu proceso",
         "contactLabel": "Cuéntanos tu caso"
@@ -2585,9 +2560,9 @@
         ]
       },
       "pricing": {
-        "individualPrice": "450€",
+        "individualPrice": "450€ + IVA",
         "individualLabel": "Precio individual",
-        "comboPrice": "400€",
+        "comboPrice": "400€ + IVA",
         "comboLabel": "Precio combinado",
         "comboNote": "Precio combinado al contratar implantar varias automatizaciones.",
         "implementationTime": "10 días",
@@ -2697,9 +2672,9 @@
         ]
       },
       "pricing": {
-        "individualPrice": "450€",
+        "individualPrice": "450€ + IVA",
         "individualLabel": "Precio del servicio",
-        "comboPrice": "400€",
+        "comboPrice": "400€ + IVA",
         "comboLabel": "Precio combinado",
         "comboNote": "Precio combinado al contratar varios servicios de automatización.",
         "implementationTime": "10 días",
@@ -2776,7 +2751,7 @@
             "Recibirás una notificación en el momento de la subida a la plataforma."
           ],
           "price": "450€",
-          "priceNote": "pago único",
+          "priceNote": "pago único + IVA",
           "ctaLabel": "Contratar"
         },
         "linkedin": {
@@ -2788,14 +2763,14 @@
             "Recibirás una notificación en el momento de la subida a la plataforma."
           ],
           "price": "450€",
-          "priceNote": "pago único",
+          "priceNote": "pago único + IVA",
           "ctaLabel": "Contratar"
         }
       },
       "offer": {
         "label": "Oferta combinada",
-        "price": "800€",
-        "note": "Contrata ambas plataformas juntas por 800€/mes en lugar de 900€."
+        "price": "800€ + IVA",
+        "note": "Contrata ambas plataformas juntas por 800€ + IVA (pago único) en lugar de 900€ + IVA."
       },
       "steps": [
         {
@@ -2836,11 +2811,11 @@
         ]
       },
       "pricing": {
-        "individualPrice": "450€ pago único",
+        "individualPrice": "450€ + IVA (pago único)",
         "individualLabel": "Por plataforma",
-        "comboPrice": "800€ pago único",
+        "comboPrice": "800€ + IVA (pago único)",
         "comboLabel": "Oferta combinada",
-        "comboNote": "Instagram + Facebook + LinkedIn juntas por 800€ en lugar de 900€.",
+        "comboNote": "Instagram + Facebook + LinkedIn juntas por 800€ + IVA en lugar de 900€ + IVA.",
         "ctaLabel": "Solicitar información",
         "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20redes%20sociales"
       },
@@ -2955,7 +2930,7 @@
         ]
       },
       "pricing": {
-        "individualPrice": "860€",
+        "individualPrice": "860€ + IVA",
         "individualLabel": "pago único",
         "implementationTime": "10 días",
         "implementationLabel": "Tiempo de implantación:",

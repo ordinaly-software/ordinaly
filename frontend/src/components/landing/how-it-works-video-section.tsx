@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { useLocale } from "next-intl";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import TimelineHorizontal from "@/components/landing/timeline-horizontal";
+import { cn } from "@/lib/utils";
 
 export type HowItWorksStep = {
   title: string;
@@ -39,7 +40,7 @@ export function HowItWorksVideoSection({
   const resolvedTitle = title ?? defaultTitle;
 
   return (
-    <section className={`py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors ${className ?? ""}`}>
+    <section className={cn("py-20 md:py-24 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors", className)}>
       <div className="mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
           {resolvedTitle}

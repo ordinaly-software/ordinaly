@@ -177,7 +177,7 @@ export default function N8nFlow({ content }: { content: N8nFlowContent }) {
   return (
     <div
       ref={containerRef}
-      className="w-full max-w-sm overflow-hidden rounded-[1.75rem] border border-white/10 bg-[--swatch--slate-dark]/95 shadow-[0_32px_100px_rgba(0,0,0,0.55)] backdrop-blur-xl"
+      className="w-full max-w-md overflow-hidden rounded-[1.75rem] border border-white/10 bg-[--swatch--slate-dark]/95 shadow-[0_32px_100px_rgba(0,0,0,0.55)] backdrop-blur-xl"
     >
       {/* Chrome header */}
       <div className="flex items-center gap-2.5 border-b border-white/[0.06] px-4 py-3">

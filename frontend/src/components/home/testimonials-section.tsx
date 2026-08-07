@@ -476,7 +476,6 @@ export function TestimonialsSection({ t, titleTag = "h2" }: SectionProps & { tit
             nextDisabled={!canScrollRight}
             prevLabel="Scroll testimonials left"
             nextLabel="Scroll testimonials right"
-            className="mr-2 mt-4 justify-end px-1"
           />
         </div>
       </div>

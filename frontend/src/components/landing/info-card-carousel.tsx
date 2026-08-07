@@ -21,6 +21,8 @@ export interface InfoCardItem {
   video?: string;
   /** Playback speed multiplier for `video`. Defaults to 1 (normal speed). */
   videoPlaybackRate?: number;
+  /** Extra classes applied to the `video` element, e.g. a blur filter. */
+  videoClassName?: string;
   /** Custom media background (e.g. a live canvas/WebGL effect), takes priority over `image`/`video`. */
   media?: ReactNode;
   ctaLabel?: ReactNode;
@@ -34,7 +36,7 @@ const DEFAULT_CTA_ICONS: ReactNode[] = [<IconWhatsApp key="whatsapp" size={16} c
 
 // Only width is parametrized per size — every card shares the same height
 // so the carousel row stays visually aligned.
-const CARD_HEIGHT_CLASS = "h-[520px] sm:h-[580px]";
+const CARD_HEIGHT_CLASS = "h-[460px] sm:h-[500px]";
 
 // Below the `sm` breakpoint, width is `100vw` minus a fixed offset rather
 // than a plain `vw` percentage. Every page hosting this carousel wraps it
@@ -73,7 +75,7 @@ function InfoCardMedia({ item }: { item: InfoCardItem }) {
         ref={(el) => {
           if (el) el.playbackRate = item.videoPlaybackRate ?? 1;
         }}
-        className="absolute inset-0 h-full w-full object-cover"
+        className={cn("absolute inset-0 h-full w-full object-cover", item.videoClassName)}
       />
     );
   }

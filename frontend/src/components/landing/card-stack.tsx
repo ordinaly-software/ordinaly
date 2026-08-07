@@ -60,7 +60,7 @@ export const CardStack = ({
   };
 
   return (
-    <div className="w-full">
+    <div className="relative w-full">
       <div className="relative mx-auto h-72 w-[18rem] sm:h-80 sm:w-[22rem] md:h-80 md:w-[28rem]">
         {cards.map((card, index) => {
           return (
@@ -97,7 +97,6 @@ export const CardStack = ({
         onNextClick={moveNext}
         prevLabel={previousLabel}
         nextLabel={nextLabel}
-        className="mt-4 justify-center gap-6 px-1"
       />
     </div>
   );
