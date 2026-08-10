@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
 import { WorkWithUsSection } from "@/components/about/work-with-us";
@@ -67,7 +68,16 @@ export default function UsPage() {
   });
 
   const faqItems: FaqAccordionItem[] = [
-    { question: t("about.whatQuestion"), answer: t("about.whatAnswer") },
+    {
+      question: t("about.whatQuestion"),
+      answer: t.rich("about.whatAnswer", {
+        link: (chunks) => (
+          <Link href="/consultora-tecnologica-sevilla" className="font-semibold text-clay underline underline-offset-2 hover:text-clay/80">
+            {chunks}
+          </Link>
+        ),
+      }),
+    },
     { question: t("about.goalQuestion"), answer: t("about.goalAnswer") },
   ];
 

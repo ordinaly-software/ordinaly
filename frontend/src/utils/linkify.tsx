@@ -5,7 +5,6 @@ export type KeywordLink = { regex: RegExp; url: string };
 // Ordered longest → shortest so more-specific phrases match before their substrings.
 // Use relative URLs so Next.js handles routing and the domain doesn't matter.
 export const SITE_KEYWORD_LINKS: KeywordLink[] = [
-  { regex: /agencia de automatizaci[oó]n/gi,       url: "/" },
   { regex: /automatizaci[oó]n de facturas/gi,      url: "/automatizacion-facturas" },
   { regex: /automatizaci[oó]n de informes/gi,      url: "/automatizacion-informes" },
   { regex: /automatizar facturas/gi,               url: "/automatizacion-facturas" },

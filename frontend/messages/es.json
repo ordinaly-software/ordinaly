@@ -189,7 +189,7 @@
     "footer": {
       "logo": {
         "title": "ORDINALY",
-        "alt": "Ordinaly Agencia de Automatización"
+        "alt": "Ordinaly Software - Automatización empresarial con Inteligencia Artificial"
       },
       "description": "Automatización de procesos, aplicaciones web y formación para empresas.",
       "sections": {
@@ -214,7 +214,12 @@
         "callUs": "Llamar",
         "officeMap": "Abrir mapa",
         "linkedin": "LinkedIn",
-        "youtube": "YouTube"
+        "youtube": "YouTube",
+        "agenteDeLlamadas": "Agente de llamadas IA",
+        "automatizacionesPersonalizadas": "Automatizaciones personalizadas",
+        "implantacionOdoo": "Implantación Odoo",
+        "desarrolloAppWebs": "Desarrollo de apps y webs",
+        "consultants": "Consultoría tecnológica"
       },
       "legal": {
         "title": "Documentación legal",
@@ -2021,7 +2026,7 @@
     },
     "about": {
       "whatQuestion": "¿Qué es Ordinaly?",
-      "whatAnswer": "Ordinaly Software S.L. es una empresa sevillana de automatización empresarial con IA que diseña, desarrolla y despliega workflows de automatización de procesos para pymes. Además desarrollamos software a medida como CRMs, ERPs, aplicaciones web y chatbots, y ofrecemos formación profesional para empresas en herramientas de software.",
+      "whatAnswer": "Ordinaly Software S.L. es una <link>consultoría tecnológica</link> sevillana de automatización empresarial con IA que diseña, desarrolla y despliega workflows de automatización de procesos para pymes. Además desarrollamos software a medida como CRMs, ERPs, aplicaciones web y chatbots, y ofrecemos formación profesional para empresas en herramientas de software.",
       "goalQuestion": "¿Qué queremos conseguir?",
       "goalAnswer": "En nuestra empresa tenemos la misión de potenciar el trabajo de las personas con las nuevas tecnologías, en ningún lugar sustituirlas. Queremos que las empresas, al utilizar nuestras automatizaciones, tengan tiempo para centrarse en la creatividad, las decisiones y las relaciones sociales; aquello que una máquina no debe hacer. Queremos que nuestros clientes se sientan cómodos y seguros con nuestros sistemas, por ello damos importancia a la transparencia y la trazabilidad de estos para cualquier empresa."
     },
@@ -2994,6 +2999,122 @@
         "label": "Quiero mi PWA",
         "href": "https://wa.me/34626270806?text=Quiero%20una%20PWA%20para%20mi%20negocio",
         "bgColor": "#d97706"
+      }
+    },
+    "consultora-tecnologica-sevilla": {
+      "slug": "consultora-tecnologica-sevilla",
+      "title": "Consultora Tecnológica en Sevilla | IA y Software",
+      "shortTitle": "Consultora Tecnológica en Sevilla",
+      "description": "¿Buscas una consultora tecnológica en Sevilla? Ordinaly optimiza tu PYME con ingenieros de software, integraciones n8n, Odoo 18 y agentes de IA conversacional.",
+      "heroTitle": "Consultora tecnológica en Sevilla",
+      "heroBody": "En Ordinaly operamos como una consultora tecnológica especializada en ayudar a las empresas a optimizar sus procesos mediante el desarrollo de software y la automatización inteligente. Nuestro equipo de ingenieros diseña e implementa soluciones ágiles que permiten a organizaciones de todos los tamaños reducir costes operativos, impulsar sus ventas y avanzar con paso firme en su transformación digital.",
+      "heroCtaLabel": "Solicitar Consultoría Tecnológica Gratuita",
+      "heroSecondaryCtaLabel": "Ver Catálogo de Soluciones",
+      "heroImageAlt": "consultora tecnológica en Sevilla",
+      "sectionTitles": {
+        "company": "Empresa consultora tecnológica en Sevilla",
+        "solutions": "Soluciones tecnológicas",
+        "services": "Servicios de consultora tecnológica en Sevilla",
+        "training": "Formación con nuestra consultora tecnológica",
+        "faq": "Preguntas frecuentes a una consultora tecnológica",
+        "contact": "Contacta con nuestra consultora tecnológica en Sevilla"
+      },
+      "company": {
+        "intro": "Trabajamos de forma directa y cercana con el tejido empresarial de Andalucía. Como consultora tecnológica en Sevilla, nuestro equipo técnico ofrece un servicio ágil de consultoría, despliegue y desarrollo de software que permite coordinar reuniones de trabajo eficaces, realizar workshops de co-creación y garantizar un soporte de máxima velocidad ante cualquier necesidad.",
+        "features": [
+          {
+            "title": "Plazos de entrega ágiles",
+            "description": "Primeros resultados e implementaciones operativas en un plazo de entre 2 y 4 semanas."
+          },
+          {
+            "title": "Soluciones 100% personalizadas",
+            "description": "Sin plantillas prefabricadas. Diseñamos trajes tecnológicos a la medida de tu negocio."
+          },
+          {
+            "title": "Casos de éxito certificados",
+            "description": "Avalados por una calificación de 5 estrellas en Google basada en las reseñas de nuestros clientes locales."
+          }
+        ]
+      },
+      "solutions": {
+        "intro": "Desplegamos un catálogo de soluciones avanzadas de ingeniería informática enfocado en dotar a tu negocio de autonomía, velocidad y escalabilidad operativa:",
+        "items": [
+          {
+            "title": "Automatización inteligente de flujos de trabajo con n8n",
+            "description": "Conectamos las aplicaciones y bases de datos de tu empresa mediante la plataforma de orquestación de código abierto n8n. Eliminamos de forma definitiva la carga administrativa repetitiva y la gestión documental manual.",
+            "ctaLabel": "Descubre la automatización con n8n",
+            "href": "/automatizaciones-personalizadas-empresas-n8n",
+            "image": "/static/servicios/automatizaciones_personalizadas.webp",
+            "imageAlt": "Automatización de procesos en consultora tecnológica"
+          },
+          {
+            "title": "Integración de agentes e IA conversacional por voz (SonIA y ClaudIA)",
+            "description": "Desarrollamos soluciones duales de telefonía inteligente. Con SonIA, dispones de una recepcionista inteligente 24/7 para llamadas entrantes; con ClaudIA, automatizas llamadas salientes comerciales y de gestión con registro en tiempo real en tu CRM.",
+            "ctaLabel": "Conoce a SonIA y ClaudIA",
+            "href": "/agente-de-llamadas-ia",
+            "image": "/static/servicios/chatbot_recepcionista.webp",
+            "imageAlt": "Agentes de voz en consultora tecnológica"
+          },
+          {
+            "title": "Implantación, migración y consultoría de Odoo 18 + VeriFactu",
+            "description": "Especialistas en la parametrización del ERP Odoo 18. Adaptamos de forma integral el sistema de gestión de tu empresa a las normativas legales vigentes de facturación en España, incluyendo los módulos automatizados de VeriFactu.",
+            "ctaLabel": "Implanta Odoo 18 en tu empresa",
+            "href": "/implantacion-odoo",
+            "image": "/static/servicios/implantacion_odoo.webp",
+            "imageAlt": "Software ERP implantado por consultora tecnológica"
+          },
+          {
+            "title": "Desarrollo de aplicaciones web progresivas (PWA)",
+            "description": "Ingeniería de software multiplataforma. Diseñamos PWA dinámicas y rápidas que aúnan lo mejor de un sitio web y una aplicación móvil nativa, totalmente optimizadas para SEO, rendimiento técnico y experiencia de usuario.",
+            "ctaLabel": "Desarrolla tu PWA",
+            "href": "/desarrollo-de-app-webs",
+            "image": "/static/servicios/desarrollo_de_app_webs.webp",
+            "imageAlt": "Desarrollo de aplicaciones en consultora tecnológica"
+          }
+        ]
+      },
+      "services": {
+        "intro": "Como consultora tecnológica con un profundo conocimiento del mercado, hemos empaquetado soluciones de software específicas para dar respuesta a las necesidades de diversas actividades empresariales en Sevilla y a nivel nacional:",
+        "sectors": [
+          {
+            "title": "Asesorías y despachos profesionales",
+            "description": "Flujos automatizados para la extracción y recopilación de facturas a través de WhatsApp y correo electrónico, y workflows de clasificación documental con IA."
+          },
+          {
+            "title": "Administradores de fincas",
+            "description": "Sistemas automatizados de generación y envío periódico de informes de cuentas a propietarios."
+          },
+          {
+            "title": "Inmobiliarias",
+            "description": "Chatbots inteligentes integrados en web para atención 24/7 y workflows de confirmación y agendado automático de citas."
+          },
+          {
+            "title": "Agencias de marketing y comercios",
+            "description": "Automatización del volcado de analítica de campañas, programación de publicaciones en LinkedIn o Meta (Facebook e Instagram)."
+          }
+        ]
+      },
+      "training": {
+        "body": "El verdadero éxito de la transformación digital radica en la adopción del equipo humano. Por ello, nuestra consultora tecnológica en Sevilla complementa el desarrollo técnico con talleres prácticos y cursos de formación (tanto online como presenciales) enfocados en n8n, inteligencia artificial generativa y herramientas de productividad para PYMEs.",
+        "ctaLabel": "Ver formación disponible",
+        "href": "/formacion"
+      },
+      "faq": [
+        {
+          "question": "¿Por qué contratar a Ordinaly como consultora tecnológica en Sevilla en lugar de una gran firma nacional?",
+          "answer": "Ordinaly combina un equipo de alta cualificación de ingenieros especializados con la agilidad, flexibilidad y cercanía de una compañía local. Ofrecemos reuniones eficientes, cursos a medida y un soporte continuo sin intermediarios, garantizando los primeros flujos funcionales en un plazo de 2 a 4 semanas."
+        },
+        {
+          "question": "¿Qué tecnologías y herramientas utiliza vuestra consultora tecnológica para las automatizaciones?",
+          "answer": "Nos basamos en tecnologías robustas, abiertas y escalables. Somos especialistas en la orquestación de sistemas mediante la plataforma n8n, la programación e implantación del ERP Odoo 18, el desarrollo de aplicaciones web progresivas (PWA) y el entrenamiento de modelos de Inteligencia Artificial aplicados a agentes conversacionales de voz y texto."
+        },
+        {
+          "question": "¿Mi empresa necesita personal informático para poder implementar vuestras soluciones de software?",
+          "answer": "No. Como consultora tecnológica integral, asumimos todo el ciclo del proyecto: desde la auditoría inicial de procesos y el diseño de la arquitectura de software, hasta la codificación, integración y despliegue final. Además, realizamos jornadas de formación práctica para que tu equipo actual domine las herramientas de forma sencilla y autónoma."
+        }
+      ],
+      "contact": {
+        "body": "Contacta con nuestros ingenieros. Cuéntanos qué procesos ralentizan tu día a día, qué herramientas utilizas y cuáles son tus plazos. Diseñaremos una auditoría tecnológica a la medida de tu empresa."
       }
     }
   },
