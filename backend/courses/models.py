@@ -8,6 +8,8 @@ from urllib.parse import urlparse
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 
+DATE_DISPLAY_FORMAT = '%B %d, %Y'
+
 
 class Course(models.Model):
 
@@ -48,7 +50,7 @@ class Course(models.Model):
             "If true, this course is a draft and not visible to non-admin users."
         )
     )
-    subtitle = models.CharField(max_length=200, blank=True, null=True)
+    subtitle = models.CharField(max_length=200, blank=True, default="")
     description = models.TextField(max_length=2000)
     bonified_course_link = models.URLField(
         max_length=500,
@@ -99,7 +101,7 @@ class Course(models.Model):
                     'youtube_video_url': 'Course video must be a YouTube link.'
                 })
         super().clean()
-    location = models.CharField(max_length=100, null=True, blank=True)
+    location = models.CharField(max_length=100, blank=True, default="")
 
     # New professional scheduling fields
     start_date = models.DateField(
@@ -175,6 +177,51 @@ class Course(models.Model):
         duration = end_datetime - start_datetime
         return duration.total_seconds() / 3600
 
+    def _daily_schedule_description(self):
+        if self.interval == 1:
+            return "Daily"
+        return f"Every {self.interval} days"
+
+    def _weekly_schedule_description(self):
+        if not self.weekdays:
+            if self.periodicity == 'weekly':
+                return "Weekly" if self.interval == 1 else f"Every {self.interval} weeks"
+            return "Biweekly"
+
+        weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
+        if self.periodicity != 'weekly':
+            return f"Every other week on {', '.join(weekday_names)}"
+        if self.interval == 1:
+            return f"Every {', '.join(weekday_names)}"
+        return f"Every {self.interval} weeks on {', '.join(weekday_names)}"
+
+    def _monthly_schedule_description(self):
+        if self.week_of_month is not None and self.weekdays:
+            weekday_name = self.WEEKDAY_CHOICES[self.weekdays[0]][1]
+            week_name = dict(self.WEEK_OF_MONTH_CHOICES)[self.week_of_month]
+            return f"{week_name} {weekday_name} of every month"
+        if self.interval == 1:
+            return "Monthly"
+        return f"Every {self.interval} months"
+
+    def _custom_schedule_description(self):
+        if self.weekdays:
+            weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
+            return f"Custom schedule: {', '.join(weekday_names)}"
+        return "Custom schedule"
+
+    def _periodicity_schedule_description(self):
+        """Return the human-readable periodicity portion of the schedule string"""
+        descriptions = {
+            'daily': self._daily_schedule_description,
+            'weekly': self._weekly_schedule_description,
+            'biweekly': self._weekly_schedule_description,
+            'monthly': self._monthly_schedule_description,
+            'custom': self._custom_schedule_description,
+        }
+        describe = descriptions.get(self.periodicity)
+        return describe() if describe else ''
+
     @property
     def formatted_schedule(self):
         """Return a human-readable schedule string"""
@@ -182,60 +229,14 @@ class Course(models.Model):
             return None
         start_time_str = self.start_time.strftime('%H:%M')
         end_time_str = self.end_time.strftime('%H:%M')
+        start_date_str = self.start_date.strftime(DATE_DISPLAY_FORMAT)
 
         if self.periodicity == 'once':
-            start_date_str = self.start_date.strftime('%B %d, %Y')
             return f"{start_date_str} from {start_time_str} to {end_time_str}"
 
-        # For recurring events
-        start_date_str = self.start_date.strftime('%B %d, %Y')
-        end_date_str = self.end_date.strftime('%B %d, %Y')
+        end_date_str = self.end_date.strftime(DATE_DISPLAY_FORMAT)
+        schedule_str = self._periodicity_schedule_description()
 
-        schedule_parts = []
-
-        # Add periodicity information
-        if self.periodicity == 'daily':
-            if self.interval == 1:
-                schedule_parts.append("Daily")
-            else:
-                schedule_parts.append(f"Every {self.interval} days")
-
-        elif self.periodicity in ['weekly', 'biweekly']:
-            if self.weekdays:
-                weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
-                if self.periodicity == 'weekly':
-                    if self.interval == 1:
-                        schedule_parts.append(f"Every {', '.join(weekday_names)}")
-                    else:
-                        schedule_parts.append(f"Every {self.interval} weeks on {', '.join(weekday_names)}")
-                else:  # biweekly
-                    schedule_parts.append(f"Every other week on {', '.join(weekday_names)}")
-            else:
-                if self.periodicity == 'weekly':
-                    schedule_parts.append("Weekly" if self.interval == 1 else f"Every {self.interval} weeks")
-                else:
-                    schedule_parts.append("Biweekly")
-
-        elif self.periodicity == 'monthly':
-            if self.week_of_month is not None and self.weekdays:
-                weekday_name = self.WEEKDAY_CHOICES[self.weekdays[0]][1]
-                week_name = dict(self.WEEK_OF_MONTH_CHOICES)[self.week_of_month]
-                schedule_parts.append(f"{week_name} {weekday_name} of every month")
-            else:
-                if self.interval == 1:
-                    schedule_parts.append("Monthly")
-                else:
-                    schedule_parts.append(f"Every {self.interval} months")
-
-        elif self.periodicity == 'custom':
-            if self.weekdays:
-                weekday_names = [self.WEEKDAY_CHOICES[wd][1] for wd in self.weekdays]
-                schedule_parts.append(f"Custom schedule: {', '.join(weekday_names)}")
-            else:
-                schedule_parts.append("Custom schedule")
-
-        # Combine all parts
-        schedule_str = ' '.join(schedule_parts)
         return (f"{schedule_str} from {start_date_str} to {end_date_str}, "
                 f"{start_time_str} - {end_time_str}")
 
@@ -337,6 +338,53 @@ class Course(models.Model):
 
         return None
 
+    def _should_include_daily(self, current_date):
+        days_diff = (current_date - self.start_date).days
+        return days_diff % self.interval == 0
+
+    def _should_include_weekly(self, current_date):
+        """Check if current_date matches the weekly/biweekly recurrence pattern"""
+        if not self.weekdays:
+            if current_date.weekday() != self.start_date.weekday():
+                return False
+        elif current_date.weekday() not in self.weekdays:
+            return False
+
+        weeks_diff = (current_date - self.start_date).days // 7
+        interval_weeks = (2 if self.periodicity == 'biweekly' else 1) * self.interval
+        return weeks_diff % interval_weeks == 0
+
+    def _should_include_monthly(self, current_date):
+        if self.week_of_month is not None and self.weekdays:
+            # Complex monthly pattern: e.g., "First Monday of every month"
+            return self._is_nth_weekday_of_month(
+                current_date, self.weekdays[0], self.week_of_month
+            )
+        # Simple monthly: same day of month
+        if current_date.day != self.start_date.day:
+            return False
+        months_diff = ((current_date.year - self.start_date.year) * 12 +
+                       current_date.month - self.start_date.month)
+        return months_diff % self.interval == 0
+
+    def _should_include_custom(self, current_date):
+        # For custom patterns, we use the basic weekly pattern as fallback
+        return bool(self.weekdays and current_date.weekday() in self.weekdays)
+
+    def _should_include_occurrence(self, current_date):
+        """Determine whether current_date matches this course's recurrence pattern"""
+        if self.periodicity == 'once':
+            return current_date == self.start_date
+        if self.periodicity == 'daily':
+            return self._should_include_daily(current_date)
+        if self.periodicity in ('weekly', 'biweekly'):
+            return self._should_include_weekly(current_date)
+        if self.periodicity == 'monthly':
+            return self._should_include_monthly(current_date)
+        if self.periodicity == 'custom':
+            return self._should_include_custom(current_date)
+        return False
+
     def get_next_occurrences(self, limit=10):
         """Get the next occurrences of this course with advanced scheduling support"""
         # If start_date or end_date is missing, or if start_time or end_time is missing, return []
@@ -349,52 +397,8 @@ class Course(models.Model):
                          for d in self.exclude_dates] if self.exclude_dates else [])
 
         while current_date <= self.end_date and len(occurrences) < limit:
-            should_include = False
-
-            if self.periodicity == 'once':
-                should_include = current_date == self.start_date
-
-            elif self.periodicity == 'daily':
-                days_diff = (current_date - self.start_date).days
-                should_include = days_diff % self.interval == 0
-
-            elif self.periodicity in ['weekly', 'biweekly']:
-                # Check if current date matches any of the specified weekdays
-                if self.weekdays and current_date.weekday() in self.weekdays:
-                    weeks_diff = (current_date - self.start_date).days // 7
-                    interval_weeks = 2 if self.periodicity == 'biweekly' else 1
-                    interval_weeks *= self.interval
-                    should_include = weeks_diff % interval_weeks == 0
-                elif not self.weekdays:
-                    # Fallback to original start date weekday
-                    if current_date.weekday() == self.start_date.weekday():
-                        weeks_diff = (current_date - self.start_date).days // 7
-                        interval_weeks = 2 if self.periodicity == 'biweekly' else 1
-                        interval_weeks *= self.interval
-                        should_include = weeks_diff % interval_weeks == 0
-
-            elif self.periodicity == 'monthly':
-                if self.week_of_month is not None and self.weekdays:
-                    # Complex monthly pattern: e.g., "First Monday of every month"
-                    target_weekday = self.weekdays[0] if self.weekdays else current_date.weekday()
-                    should_include = self._is_nth_weekday_of_month(
-                        current_date, target_weekday, self.week_of_month
-                    )
-                else:
-                    # Simple monthly: same day of month
-                    if current_date.day == self.start_date.day:
-                        months_diff = ((current_date.year - self.start_date.year) * 12 +
-                                       current_date.month - self.start_date.month)
-                        should_include = months_diff % self.interval == 0
-
-            elif self.periodicity == 'custom':
-                # For custom patterns, you might want to implement more complex logic
-                # For now, we'll use the basic weekly pattern as fallback
-                if self.weekdays and current_date.weekday() in self.weekdays:
-                    should_include = True
-
             # Include if criteria met, not in exclude list, and in the future
-            if (should_include and
+            if (self._should_include_occurrence(current_date) and
                 current_date not in exclude_dates and
                     current_date >= datetime.now().date()):
                 occurrences.append(current_date)
@@ -434,11 +438,7 @@ class Course(models.Model):
 
         return False
 
-    def save(self, *args, **kwargs):
-        # Ensure draft default
-        if self.draft is None:
-            self.draft = False
-        # Truncate title to the model's max_length to avoid DB-level DataError
+    def _truncate_title_to_max_length(self):
         try:
             title_max = self._meta.get_field('title').max_length
             if self.title and title_max and len(self.title) > title_max:
@@ -446,32 +446,47 @@ class Course(models.Model):
         except Exception:
             # If meta lookup fails for some reason, continue without truncation
             pass
+
+    def _generate_unique_slug(self):
+        max_slug_length = 100
+        max_suffix_length = len("-99999")  # Reserve space for suffixes
+        base_slug = slugify(self.title)[:max_slug_length - max_suffix_length]
+        slug_candidate = base_slug
+        i = 1
+        # Ensure uniqueness
+        while Course.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
+            suffix = f"-{i}"
+            # Truncate base_slug so that base_slug + suffix <= max_slug_length
+            allowed_base_length = max_slug_length - len(suffix)
+            truncated_base = base_slug[:allowed_base_length]
+            slug_candidate = f"{truncated_base}{suffix}"
+            i += 1
+        self.slug = slug_candidate
+
+    def _delete_replaced_image(self):
+        try:
+            old_instance = Course.objects.get(pk=self.pk)
+            # Delete old image if it's being replaced
+            if (old_instance.image and old_instance.image != self.image
+                    and os.path.isfile(old_instance.image.path)):
+                os.remove(old_instance.image.path)
+        except Course.DoesNotExist:
+            pass  # This shouldn't happen, but handle gracefully
+
+    def save(self, *args, **kwargs):
+        # Ensure draft default
+        if self.draft is None:
+            self.draft = False
+
+        self._truncate_title_to_max_length()
+
         # Auto-generate slug from title if not provided
         if not self.slug and self.title:
-            max_slug_length = 100
-            max_suffix_length = len("-99999")  # Reserve space for suffixes
-            base_slug = slugify(self.title)[:max_slug_length - max_suffix_length]
-            slug_candidate = base_slug
-            i = 1
-            # Ensure uniqueness
-            while Course.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
-                suffix = f"-{i}"
-                # Truncate base_slug so that base_slug + suffix <= max_slug_length
-                allowed_base_length = max_slug_length - len(suffix)
-                truncated_base = base_slug[:allowed_base_length]
-                slug_candidate = f"{truncated_base}{suffix}"
-                i += 1
-            self.slug = slug_candidate
+            self._generate_unique_slug()
+
         # Handle image replacement on update
         if self.pk:  # This is an update
-            try:
-                old_instance = Course.objects.get(pk=self.pk)
-                # Delete old image if it's being replaced
-                if old_instance.image and old_instance.image != self.image:
-                    if os.path.isfile(old_instance.image.path):
-                        os.remove(old_instance.image.path)
-            except Course.DoesNotExist:
-                pass  # This shouldn't happen, but handle gracefully
+            self._delete_replaced_image()
 
         super().save(*args, **kwargs)
 
@@ -489,7 +504,7 @@ class Enrollment(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='enrollments')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
     enrolled_at = models.DateTimeField(auto_now_add=True)
-    stripe_payment_intent_id = models.CharField(max_length=255, blank=True, null=True,
+    stripe_payment_intent_id = models.CharField(max_length=255, blank=True, default="",
                                                 help_text="Stripe PaymentIntent ID for paid enrollments.")
 
     class Meta:

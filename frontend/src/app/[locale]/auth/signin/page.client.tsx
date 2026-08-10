@@ -11,7 +11,7 @@ import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import StyledButton from "@/components/ui/styled-button";
 import Link from "next/link";
-import { isFunctionalAllowed } from "@/utils/cookieManager";
+import { isFunctionalAllowed } from "@/utils/cookie-manager";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { getApiUrl } from "@/lib/api-config";
 import {

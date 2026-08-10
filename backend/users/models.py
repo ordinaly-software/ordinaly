@@ -89,15 +89,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
-    region = models.CharField(max_length=50, null=True, blank=True, default=None)
-    city = models.CharField(max_length=50, null=True, blank=True, default=None)
+    region = models.CharField(max_length=50, blank=True, default="")
+    city = models.CharField(max_length=50, blank=True, default="")
 
-    company = models.CharField(max_length=50, null=True, blank=True, default="")
+    company = models.CharField(max_length=50, blank=True, default="")
     pending_email = models.EmailField(max_length=255, null=True, blank=True)
     email_verified_at = models.DateTimeField(null=True, blank=True)
-    deletion_token_hash = models.CharField(max_length=255, null=True, blank=True)
+    deletion_token_hash = models.CharField(max_length=255, blank=True, default="")
     deletion_token_expires_at = models.DateTimeField(null=True, blank=True)
-    password_reset_token_hash = models.CharField(max_length=255, null=True, blank=True)
+    password_reset_token_hash = models.CharField(max_length=255, blank=True, default="")
     password_reset_token_expires_at = models.DateTimeField(null=True, blank=True)
 
     status = models.CharField(
@@ -165,7 +165,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class NewsletterSubscriber(models.Model):
     email = models.EmailField(unique=True)
-    name = models.CharField(max_length=255, blank=True, null=True)
+    name = models.CharField(max_length=255, blank=True, default="")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

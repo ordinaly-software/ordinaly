@@ -3,6 +3,7 @@ import type { QueryParams } from "@sanity/client";
 import { client } from "@/lib/sanity";
 import { highlightedNewsPosts, paginatedNewsPosts } from "@/lib/queries";
 import { createPageMetadata } from "@/lib/metadata";
+import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 
 export const dynamic = "force-dynamic";
 
@@ -25,7 +26,7 @@ export async function generateMetadata({
       description: isEs
         ? "Actualidad y novedades sobre automatización, IA y productividad para empresas."
         : "Updates and news about automation, AI, and productivity for companies.",
-      image: "/static/backgrounds/blog_background.png",
+      image: "/static/backgrounds/blog_background.webp",
     });
 
   return hasParams ? { ...base, robots: { index: false, follow: true } } : base;
@@ -33,9 +34,15 @@ export async function generateMetadata({
 
 export const revalidate = 300;
 
-export default async function NewsIndex() {
+export default async function NewsIndex({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const isEs = locale?.startsWith("es");
   const pageSize = 12;
-  const params = {
+  const queryParams = {
     offset: 0,
     end: pageSize,
     q: "",
@@ -44,12 +51,17 @@ export default async function NewsIndex() {
   } as unknown as QueryParams;
 
   const [{ items, total }, highlighted] = await Promise.all([
-    client.fetch(paginatedNewsPosts, params, { next: { tags: ["news"] } }),
+    client.fetch(paginatedNewsPosts, queryParams, { next: { tags: ["news"] } }),
     client.fetch(highlightedNewsPosts, {}, { next: { tags: ["news"] } }),
   ]);
 
   const { default: BlogClient } = await import("@/components/blog/blog-client");
   return (
+    <>
+    <BreadcrumbSchema
+      locale={locale}
+      items={[{ name: isEs ? "Inicio" : "Home", path: "/" }, { name: isEs ? "Noticias" : "News" }]}
+    />
     <BlogClient
       posts={items}
       total={total}
@@ -58,5 +70,6 @@ export default async function NewsIndex() {
       basePath="/news"
       translationsNamespace="news"
     />
+    </>
   );
 }

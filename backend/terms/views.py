@@ -72,7 +72,7 @@ class TermsViewSet(viewsets.ModelViewSet):
             self.perform_destroy(instance)
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Exception:
-            logger.error('Error deleting Terms instance', exc_info=True)
+            logger.exception('Error deleting Terms instance')
             return Response(
                 {"detail": "An error occurred while deleting the document."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -83,7 +83,7 @@ class TermsViewSet(viewsets.ModelViewSet):
         try:
             return super().update(request, *args, **kwargs)
         except Exception:
-            logger.error('Error updating Terms instance', exc_info=True)
+            logger.exception('Error updating Terms instance')
             return Response(
                 {"detail": "An error occurred while updating the document."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -94,7 +94,7 @@ class TermsViewSet(viewsets.ModelViewSet):
         try:
             return super().partial_update(request, *args, **kwargs)
         except Exception:
-            logger.error('Error partially updating Terms instance', exc_info=True)
+            logger.exception('Error partially updating Terms instance')
             return Response(
                 {"detail": "An error occurred while updating the document."},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
@@ -114,7 +114,7 @@ class TermsViewSet(viewsets.ModelViewSet):
             # Use e.messages to return the error messages
             return Response({'detail': e.messages}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            logger.error('Error creating Terms instance', exc_info=True)
+            logger.exception('Error creating Terms instance')
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=True, methods=['get'])

@@ -79,16 +79,16 @@ def _split_google_name(display_name):
     return first_name, last_name
 
 
-def _generate_unique_google_username(CustomUser, email):
+def _generate_unique_google_username(user_model, email):
     local_part = (email or "").split("@")[0]
-    base = re.sub(r"[^a-zA-Z0-9_]", "_", local_part).strip("_").lower() or "google_user"
+    base = re.sub(r"\W", "_", local_part, flags=re.ASCII).strip("_").lower() or "google_user"
     base = base[:30]
     if len(base) < 3:
         base = f"{base}user"[:30]
 
     candidate = base
     counter = 1
-    while CustomUser.objects.filter(username__iexact=candidate).exists():
+    while user_model.objects.filter(username__iexact=candidate).exists():
         suffix = f"_{counter}"
         stem = base[: 30 - len(suffix)] or "usr"
         candidate = f"{stem}{suffix}"
@@ -161,20 +161,18 @@ def google_callback(request):
         display_name = google_info.get("name")
         google_sub = google_info.get("sub")
 
-        CustomUser = get_user_model()
-        user = CustomUser.objects.filter(email__iexact=email).first()
-        is_new_user = False
+        user_model = get_user_model()
+        user = user_model.objects.filter(email__iexact=email).first()
         if not user:
             first_name, last_name = _split_google_name(display_name)
-            username = _generate_unique_google_username(CustomUser, email)
-            user = CustomUser.objects.create_user(
+            username = _generate_unique_google_username(user_model, email)
+            user = user_model.objects.create_user(
                 email=email,
                 username=username,
                 name=first_name,
                 surname=last_name,
                 company="",
             )
-            is_new_user = True
 
         if user.google_sub and user.google_sub != google_sub:
             return redirect(f"{frontend_base_url}/auth/signin?error=account_conflict")
@@ -188,7 +186,7 @@ def google_callback(request):
             try:
                 from users.services.otp_service import create_otp_for_user
                 from users.services.email_service import send_verification_email
-                code, otp = create_otp_for_user(user)
+                code, _ = create_otp_for_user(user)
                 send_verification_email(user.email, code)
             except Exception:
                 # print(f"Failed to send verification email for Google OAuth user: {e}")
@@ -482,8 +480,8 @@ class ConfirmDeleteAccountView(APIView):
 
         token_hash = hashlib.sha256(token.encode()).hexdigest()
 
-        CustomUser = get_user_model()
-        user = CustomUser.objects.filter(deletion_token_hash=token_hash).first()
+        user_model = get_user_model()
+        user = user_model.objects.filter(deletion_token_hash=token_hash).first()
 
         if not user:
             return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
@@ -510,8 +508,8 @@ class RequestPasswordResetView(APIView):
         if not email:
             return Response({"message": generic_msg}, status=status.HTTP_200_OK)
 
-        CustomUser = get_user_model()
-        user = CustomUser.objects.filter(email__iexact=email).first()
+        user_model = get_user_model()
+        user = user_model.objects.filter(email__iexact=email).first()
 
         if user:
             token = secrets.token_hex(16)
@@ -551,8 +549,8 @@ class ConfirmPasswordResetView(APIView):
             )
 
         token_hash = hashlib.sha256(token.encode()).hexdigest()
-        CustomUser = get_user_model()
-        user = CustomUser.objects.filter(password_reset_token_hash=token_hash).first()
+        user_model = get_user_model()
+        user = user_model.objects.filter(password_reset_token_hash=token_hash).first()
 
         if not user:
             return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
@@ -561,7 +559,7 @@ class ConfirmPasswordResetView(APIView):
             return Response({"error": "Token expirado"}, status=status.HTTP_400_BAD_REQUEST)
 
         user.set_password(new_password)
-        user.password_reset_token_hash = None
+        user.password_reset_token_hash = ""
         user.password_reset_token_expires_at = None
         user.save(update_fields=["password", "password_reset_token_hash", "password_reset_token_expires_at"])
         try:

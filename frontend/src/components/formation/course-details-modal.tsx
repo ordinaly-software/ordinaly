@@ -9,8 +9,7 @@ import CourseFooter from './course-footer';
 import { useTranslations } from 'next-intl';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import { openPastCourseWhatsApp } from '@/utils/past-course';
-import { useCookiePreferences } from "@/hooks/useCookiePreferences";
-import YoutubePreview from "@/components/ui/youtube-preview";
+import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import Image from "next/image";
 
 interface Course {
@@ -197,8 +196,6 @@ const CourseDetailsModal = ({
 }: CourseDetailsModalProps) => {
   const t = useTranslations('formation.courseDetails');
   const formationT = useTranslations('formation');
-  const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.marketing);
   // ...existing code...
 
   const formatDate = (dateString: string) => {
@@ -362,13 +359,14 @@ const CourseDetailsModal = ({
               </div>
             )}
 
-            <YoutubePreview
-              url={course.youtube_video_url}
-              title={course.title}
-              label={t('video')}
-              playLabel={t('playVideo')}
-              canLoad={canLoadMedia}
-            />
+            {course.youtube_video_url && (
+              <HeroVideoDialog
+                videoUrl={course.youtube_video_url}
+                thumbnailAlt={course.title}
+                title={course.title}
+                playLabel={t('playVideo')}
+              />
+            )}
 
             {/* Description */}
             <div>

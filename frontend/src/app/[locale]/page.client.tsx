@@ -1,28 +1,21 @@
 "use client";
 
-import { useEffect, useCallback, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
 import dynamic from "next/dynamic";
-import { useServices } from "@/hooks/useServices";
-import type { Service } from "@/hooks/useServices";
+import { useSiteData } from "@/contexts/site-data-context";
 import type { Course } from "@/hooks/useCourses";
 import { HomeHero } from "@/components/home/home-hero";
-import { ServicesSection } from "@/components/home/services-section";
+import { ServicesHighlightCarousel } from "@/components/home/services-highlight-carousel";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
-import { getWhatsAppUrl } from "@/utils/whatsapp";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
-import { Zap, SlidersHorizontal, Headphones } from "lucide-react";
-import { AiChatDemo } from "@/components/home/ai-chat-demo";
+import { ShieldCheck, Code2, Users } from "lucide-react";
 import { PartnerShowcase } from "@/components/ui/partner-showcase";
-import { NewsletterSection } from "@/components/ui/newsletter-section";
+import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
+import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
+import { NewsletterBanner } from "@/components/ui/newsletter-banner";
 
-const ServiceShowcase = dynamic(
-  () => import("@/components/home/service-showcase").then((mod) => mod.default),
-  {
-    loading: () => <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-lg animate-pulse"></div>,
-  },
-);
 const CoursesShowcase = dynamic(
   () => import("@/components/home/courses-showcase").then((mod) => mod.default),
   {
@@ -51,8 +44,9 @@ const CoursesShowcase = dynamic(
     ),
   },
 );
-const SectionSkeleton = () => (
+const SectionSkeleton = ({ id }: { id?: string }) => (
   <section
+    id={id}
     aria-hidden="true"
     className="mx-auto my-6 w-full max-w-6xl animate-pulse rounded-3xl bg-white/80 p-6 shadow-xl shadow-slate-900/10 dark:bg-white/[0.04] dark:shadow-black/30"
   >
@@ -74,28 +68,24 @@ const SectionSkeleton = () => (
   </section>
 );
 
-const serviceBenefits = [
+const whyUsItems = [
   {
-    titleKey: "services.extra.0.title",
-    descriptionKey: "services.extra.0.description",
-    Icon: Zap,
+    titleKey: "whyUs.items.0.title",
+    descriptionKey: "whyUs.items.0.description",
+    Icon: ShieldCheck,
   },
   {
-    titleKey: "services.extra.1.title",
-    descriptionKey: "services.extra.1.description",
-    Icon: SlidersHorizontal,
+    titleKey: "whyUs.items.1.title",
+    descriptionKey: "whyUs.items.1.description",
+    Icon: Code2,
   },
   {
-    titleKey: "services.extra.2.title",
-    descriptionKey: "services.extra.2.description",
-    Icon: Headphones,
+    titleKey: "whyUs.items.2.title",
+    descriptionKey: "whyUs.items.2.description",
+    Icon: Users,
   },
 ];
 
-const UseCasesSection = dynamic(
-  () => import("@/components/home/use-cases-section").then((mod) => mod.UseCasesSection),
-  { loading: () => null, ssr: false },
-);
 const TestimonialsSection = dynamic(
   () => import("@/components/home/testimonials-section").then((mod) => mod.TestimonialsSection),
   { loading: () => null, ssr: false },
@@ -110,10 +100,6 @@ const WhatsAppBubble = dynamic(
     ssr: false,
     loading: () => <WhatsAppBubbleSkeleton />,
   },
-);
-const FaqSection = dynamic(
-  () => import("@/components/formation/faq-section").then((mod) => mod.FaqSection),
-  { loading: () => <SectionSkeleton />, ssr: false },
 );
 function DeferredSection({
   children,
@@ -204,41 +190,43 @@ function DeferredSection({
 
 export default function HomePage({
   renderedAt,
-  initialServices = [],
-  initialCourses = [],
 }: {
   renderedAt: number;
-  initialServices?: Service[];
-  initialCourses?: Course[];
 }) {
   const t = useTranslations("home");
-  const formationT = useTranslations("formation");
   const servicesSectionRef = useRef<HTMLElement | null>(null);
 
-  const shouldFetchServices = initialServices.length === 0;
-  const {
-    services,
-    isLoading: servicesLoading,
-    isOnVacation,
-    error: servicesError,
-    refetch,
-  } = useServices(6, false, shouldFetchServices, initialServices);
-  const servicesLoadingState = shouldFetchServices && servicesLoading;
-  const servicesErrorState = shouldFetchServices ? servicesError : null;
-  const servicesVacationState = shouldFetchServices ? isOnVacation : false;
+  const { courses: allCourses } = useSiteData();
 
-  const handleServiceContact = useCallback((service: Service) => {
-    const message = `Hola! Estoy interesado en el servicio "${service.title}". ¿Podrían proporcionarme más información?`;
-    const whatsappUrl = getWhatsAppUrl(message);
-    if (!whatsappUrl) return;
-    window.open(whatsappUrl, '_blank');
-  }, []);
+  const initialCourses = useMemo(() => {
+    const getSortTime = (course: Course) => {
+      const createdAt = Date.parse(course.created_at);
+      if (!Number.isNaN(createdAt)) return createdAt;
+      const startAt = Date.parse(course.start_date);
+      if (!Number.isNaN(startAt)) return startAt;
+      return 0;
+    };
+    return allCourses
+      .filter((course) => {
+        const startDate = Date.parse(course.start_date);
+        return !Number.isNaN(startDate) && startDate >= renderedAt;
+      })
+      .sort((a, b) => getSortTime(b) - getSortTime(a))
+      .slice(0, 3);
+  }, [allCourses, renderedAt]);
 
-  const handleWhatsAppChat = useCallback(() => {
-    const whatsappUrl = getWhatsAppUrl(t('defaultWhatsAppMessage'));
-    if (!whatsappUrl) return;
-    window.open(whatsappUrl, '_blank');
-  }, [t]);
+  const homeFaqItems: FaqAccordionItem[] = useMemo(
+    () =>
+      [0, 1, 2, 3].map((index) => ({
+        question: t(`faq.items.${index}.question`),
+        answer: t(`faq.items.${index}.answer`),
+      })),
+    [t],
+  );
+
+  const trainingHighlight = t.rich("courses.trainingHighlight", {
+    b: (chunks) => <strong>{chunks}</strong>,
+  });
 
   const [shouldRenderDeferredSections, setShouldRenderDeferredSections] = useState(false);
   const [showWhatsAppBubble, setShowWhatsAppBubble] = useState(false);
@@ -302,103 +290,119 @@ export default function HomePage({
       window.removeEventListener("scroll-animate:refresh", handleRefresh);
       observer.disconnect();
     };
-  }, [services]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
-      <HomeHero t={t} onWhatsApp={handleWhatsAppChat} />
-      
-      {/* Benefits section */}
-      <section id="benefits" className="py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
-        <h2 className="text-center text-2xl sm:text-3xl font-bold mb-8 text-slate-dark dark:text-ivory-light tracking-tight">
-          {t("hero.titleLine1")} {t("hero.titleLine2")}
-        </h2>
-        <div className="grid md:grid-cols-3 gap-5">
-          {serviceBenefits.map(({ titleKey, descriptionKey, Icon }, index) => (
-            <div
-              key={titleKey}
-              className="scroll-animate fade-in-up text-center p-5 bg-[--color-bg-card] dark:bg-[--swatch--slate-medium] rounded-a-l border border-[--color-border-subtle] dark:border-[--color-border-strong]"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="w-10 h-10 bg-clay/15 dark:bg-clay/20 rounded-a-m flex items-center justify-center mx-auto mb-3">
-                <Icon className="w-5 h-5 text-clay" strokeWidth={1.5} />
-              </div>
-              <h4 className="text-base font-semibold mb-1.5 text-slate-dark dark:text-ivory-light">
-                {t(titleKey)}
-              </h4>
-              <p className="text-sm text-slate-medium dark:text-cloud-medium">{t(descriptionKey)}</p>
+      <HomeHero t={t} />
+
+      <PartnerShowcase
+        title={t("partners.subtitle")}
+        className="pt-10 pb-12"
+        titleTag="h3"
+      />
+
+      {/* Why choose us: explainer video + USP cards */}
+      <section id="why-us" className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto space-y-16">
+          {/* Section header */}
+          <div className="text-center scroll-animate fade-in-up">
+            <h3 className="text-4xl md:text-5xl font-bold mb-4 text-slate-dark dark:text-ivory-light">
+            {t("whyUs.title")}
+          </h3>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <HeroVideoDialog
+              className="w-full"
+              animationStyle="from-center"
+              videoUrl="https://youtu.be/WPgLFodfAm8"
+              thumbnailSrc="/static/home/why_us_video_thumbnail.webp"
+              thumbnailAlt={t("whyUs.title")}
+            />
+            <div className="mt-4 text-center">
+              <p className="font-semibold text-slate-dark dark:text-ivory-light">
+                {t("whyUs.videoCaptionName")}
+              </p>
+              <p className="text-sm text-slate-medium dark:text-cloud-medium">
+                {t("whyUs.videoCaptionRole")}
+              </p>
             </div>
-          ))}
-        </div>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 mt-12">
+            {whyUsItems.map(({ titleKey, descriptionKey, Icon }, index) => (
+              <div
+                key={titleKey}
+                className="scroll-animate fade-in-up text-center p-5 bg-[--color-bg-card] dark:bg-[--swatch--slate-medium] rounded-a-l border border-[--color-border-subtle] dark:border-[--color-border-strong]"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="w-10 h-10 bg-clay/15 dark:bg-clay/20 rounded-a-m flex items-center justify-center mx-auto mb-3">
+                  <Icon className="w-5 h-5 text-clay" strokeWidth={1.5} />
+                </div>
+                <h2 className="text-base font-semibold mb-1.5 text-slate-dark dark:text-ivory-light">
+                  {t(titleKey)}
+                </h2>
+                <p className="text-sm text-slate-medium dark:text-cloud-medium">{t(descriptionKey)}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-      <ServicesSection
-        t={t}
-        onWhatsApp={handleWhatsAppChat}
-        sectionRef={servicesSectionRef}
-        featuredServices={services.slice(0, 3)}
-        servicesContent={
-          <ServiceShowcase
-            services={services}
-            isLoading={servicesLoadingState}
-            isOnVacation={servicesVacationState}
-            error={servicesErrorState}
-            t={t}
-            refetch={refetch}
-            onContact={handleServiceContact}
-            cardTitleTag="h4"
-          />
-        }
-      />
+
+      <section id="services" ref={servicesSectionRef} className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto space-y-16">
+
+          {/* Section header */}
+          <div className="text-center scroll-animate fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-slate-dark dark:text-ivory-light">
+              {t("services.title")}
+            </h2>
+            <p className="text-lg text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
+              {t("services.subtitle")}
+            </p>
+          </div>
+
+          <ServicesHighlightCarousel />
+        </div>
+    </section>
+
+
       <CoursesShowcase
         limit={3}
         showUpcomingOnly={false}
         initialCourses={initialCourses}
         referenceNow={renderedAt}
         cardTitleTag="h4"
+        titleOverride={t("courses.homeTitle")}
+        descriptionOverride={t("courses.homeSubtitle")}
+        trainingHighlight={trainingHighlight}
       />
-      <DeferredSection id="use-cases" className="scroll-mt-24">
-        <UseCasesSection t={t} headingTag="h3" itemTitleTag="h4" />
-      </DeferredSection>
       {shouldRenderDeferredSections ? (
         <>
           <DeferredSection>
-            <TestimonialsSection t={t} titleTag="h3" />
+            <FaqAccordion titleTag="h3" title={t("faq.title")} items={homeFaqItems} />
           </DeferredSection>
-          <DeferredSection>
-            <NewsletterSection titleTag="h3" />
-          </DeferredSection>
-          <DeferredSection>
-            <PartnerShowcase
-              eyebrow={t("partners.title")}
-              title={t("partners.subtitle")}
-              className="pt-10 pb-12"
-              titleTag="h3"
-            />
-          </DeferredSection>
-          <DeferredSection>
-            <AiChatDemo t={t} titleTag="h3" />
-          </DeferredSection>
-          <DeferredSection>
-            <FaqSection t={formationT} titleTag="h3" />
-          </DeferredSection>
-          <DeferredSection>
+          <DeferredSection id="contacto" className="scroll-mt-24">
             <ReCaptchaWrapper badgeContainerId="recaptcha-badge-home-contact">
               <ContactForm
                 recaptchaAction="home_contact_form"
                 recaptchaBadgeId="recaptcha-badge-home-contact"
+                showCommitmentNote
               />
             </ReCaptchaWrapper>
+          </DeferredSection>
+          <DeferredSection>
+            <TestimonialsSection t={t} titleTag="h3" />
+          </DeferredSection>
+          <DeferredSection>
+            <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
+            <br />
           </DeferredSection>
         </>
       ) : (
         <>
           <SectionSkeleton />
-          <SectionSkeleton />
-          <SectionSkeleton />
-          <SectionSkeleton />
-          <SectionSkeleton />
+          <SectionSkeleton id="contacto" />
           <SectionSkeleton />
           <SectionSkeleton />
         </>

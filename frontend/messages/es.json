@@ -35,109 +35,53 @@
       "loading": "Cargando..."
     },
     "hero": {
-      "titleLine1": "Agencia de ",
-      "titleLine2": "Automatización IA",
-      "subtitle": "Somos tu agencia de automatización IA. Optimizamos tu negocio con inteligencia artificial para escalar resultados.",
-      "description1": "Transformamos tu negocio con workflows inteligentes, chatbots y optimización de procesos",
+      "titleLine1": "Automatización",
+      "titleLine2": "para Pymes",
+      "subtitle": "Desarrollamos e implantamos flujos de trabajo automatizados con inteligencia artificial",
+      "description1": "Estas herramientas te ayudarán a reducir las actividades manuales y repetitivas mientras tus ventas se aceleran. También impartimos formación profesional para empresas de la mano de ingenieros especializados en software e IA.",
       "trust1": "Para contables, administradores, inmobiliarias, y más",
       "trust2": "Agentes de IA 24/7 para ventas y atención al cliente",
       "trust3": "Automatización a medida",
       "trust4": "Formación práctica en IA para equipos.",
       "ctaServices": "Ver servicios",
-      "ctaDemo": "Agenda una consulta",
+      "ctaDemo": "Habla con un experto",
       "clientsTitle": "Confían en nosotros",
       "card1Label": "Agentes de IA 24/7 para ventas y atención al cliente",
       "card1Value": "Automatización de consultas, generación de leads y soporte continuo con inteligencia artificial.",
       "card2Label": "Formación profesional para empresas",
-      "card2Value": "Cursos prácticos de IA para que tu equipo domine las herramientas y sea autónomo.",
+      "card2Value": "Cursos prácticos sobre CRM, ERP y herramientas de IA para que tu equipo sea autónomo.",
       "card3Label": "Equipo de ingenieros especializados",
       "card3Value": "Ingenieros de software con MsC en CC e IA, director de proyecto PhD en INgeniería Industrial.",
-      "card4Label": "Empresa local andaluza",
-      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla. Reuniones presenciales, workshops y seguimiento directo."
+      "card4Label": "Nuestras oficinas",
+      "card4Value": "Oficina central en Plaza del Duque 1, Sevilla, España."
     },
-    "services": {
-      "title": "Nuestra agencia de automatización IA",
-      "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos. Especialistas en automatización para inmobiliarias, administradores de fincas y PYMEs andaluzas.",
-      "extra": {
-        "0": {
-          "title": "Implementación rápida",
-          "description": "Primeros resultados visibles en 2-4 semanas. Trabajamos por fases para valor inmediato."
-        },
-        "1": {
-          "title": "100% personalizable",
-          "description": "No usamos plantillas genéricas. Cada solución se diseña específicamente para tu negocio."
-        },
-        "2": {
-          "title": "Soporte continuo",
-          "description": "Equipo técnico en Sevilla disponible. Actualizaciones y mejoras incluidas en el servicio."
-        }
-      },
-      "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
-      "vacationTitle": "De vacaciones",
-      "retryButton": "Reintentar",
-      "viewAllServicesAndProducts": "Ver todo el catálogo",
-      "video": "Vídeo",
-      "playVideo": "Reproducir vídeo",
-      "errorTitle": "Error cargando servicios",
-      "errorMessage": "No se pudieron cargar los servicios"
-    },
-    "useCases": {
-      "title": "Casos de éxito de automatización IA",
-      "subtitle": "Soluciones de la agencia de automatización IA para sectores específicos en España",
+    "whyUs": {
+      "title": "Por qué elegirnos",
+      "videoCaptionName": "Antonio Macías Ferrera",
+      "videoCaptionRole": "CTO ingeniero de software & co-founder",
+      "videoCaptionText": "Una breve introducción a Odoo (Por el canal de Youtube oficial de Odoo en Español).",
       "items": {
         "0": {
-          "title": "Administradores de fincas",
-          "bullets": [
-            "Envío automático de informes a propietarios",
-            "Gestión automática de correos",
-            "Workflows de facturación"
-          ]
+          "title": "Automatizaciones trazables y confiables",
+          "description": "Sabes exactamente qué hace cada automatización, por qué lo hace y qué ocurre si algo falla."
         },
         "1": {
-          "title": "Inmobiliarias",
-          "bullets": [
-            "Agente de IA para consultas de clientes",
-            "Automatización de publicaciones en redes sociales",
-            "Workflow de visitas y seguimiento"
-          ]
+          "title": "Software libre (FLOSS) y europeo",
+          "description": "Esto significa que no dependes de una plataforma propietaria que puede cambiar sus condiciones o precios de un día para otro. Tu automatización es tuya."
         },
         "2": {
-          "title": "Agencias de marketing",
-          "bullets": [
-            "Automatización de redes sociales",
-            "Generación de contenido con IA",
-            "Análisis de campañas automatizado"
-          ]
-        },
-        "3": {
-          "title": "Comercio local",
-          "bullets": [
-            "Gestión de inventario inteligente",
-            "Atención al cliente automatizada",
-            "Predicción de demanda con IA"
-          ]
-        },
-        "4": {
-          "title": "Consultoría y asesorías",
-          "bullets": [
-            "Gestión automática de correos",
-            "Workflows de facturación",
-            "CRM personalizado con VeriFactu"
-          ]
-        },
-        "5": {
-          "title": "Construcción e ingeniería",
-          "bullets": [
-            "Gestión de proveedores y presupuestos",
-            "Documentación inteligente con IA",
-            "Planning y cronogramas automatizados"
-          ]
+          "title": "Equipo de ingenieros especializados",
+          "description": "en ingeniería de software, ciencias de la computación, inteligencia artificial e ingeniería de calidad."
         }
       }
     },
+    "services": {
+      "title": "Nuestros servicios",
+      "subtitle": "Desde chatbots inteligentes hasta sistemas ERP completos, además de automatizaciones personalizadas. Especialistas en PYMES."
+    },
     "testimonials": {
       "title": "Lo que dicen nuestros clientes",
-      "googleSummary": "{rating} en Google · {count} reseñas",
+      "googleSummary": "{rating} en Google - {count} reseñas",
       "googleLink": "Ver todas en Google",
       "googleWrite": "Dejar una reseña",
       "googleSource": "Reseña de Google",
@@ -164,118 +108,45 @@
       }
     },
     "partners": {
-      "title": "Empresas transformandas",
-      "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos con IA"
+      "subtitle": "Empresas que confían en nosotros y ya han automatizados sus procesos"
+    },
+    "faq": {
+      "title": "Preguntas frecuentes",
+      "items": {
+        "0": {
+          "question": "¿Necesito saber de tecnología para trabajar con vosotros?",
+          "answer": "Sí. Pero no necesitas ser un experto. Nosotros nos encargamos de la parte técnica y siempre hacemos que nuestros clientes comprendan cómo funciona las cosas. Además, ofrecemos formación para que tu equipo sea autónomo y no dependa de nosotros para todo."
+        },
+        "1": {
+          "question": "¿Cuánto tiempo tarda en estar listo?",
+          "answer": "Depende del proyecto, pero la mayoría de automatizaciones están operativas en 2 a 4 semanas. Trabajamos por sprints para que veas resultados rápido, usando metodologías ágiles de desarrollo."
+        },
+        "2": {
+          "question": "¿Qué pasa si la automatización falla o necesito hacer cambios?",
+          "answer": "Ordinaly ofrece de manera adicional y opcional un soporte técnico para mantener y actualizar tus sistemas. También ofrecemos formación para que tu equipo pueda ser capaz de hacer cambios por sí mismo."
+        },
+        "3": {
+          "question": "¿Porqué Ordinaly es diferente?",
+          "answer": "No usamos plantillas genéricas ni soluciones estándar. Cada automatización se diseña desde cero adaptada a tu negocio, y siempre que lo necesites nos puedes llamar, visitar o reunirte con nosotros. Creemos en el trato personal y personalizado, y en la transparencia de nuestros procesos. Además, somos especialistas en PYMES y trabajamos con software libre (FLOSS) y europeo."
+        }
+      }
     },
     "newsletter": {
-      "title": "¿Quieres estar al día con las últimas noticias y herramientas en IA?",
+      "title": "Nuestra newsletter",
       "subtitle": "Suscríbete a nuestra newsletter y sé el primero en recibir novedades, tutoriales y recursos de automatización.",
       "namePlaceholder": "Tu nombre",
       "emailPlaceholder": "tu@email.com",
       "submitLabel": "Suscribirme",
       "successMessage": "¡Gracias! Te avisaremos cuando la newsletter esté activa."
     },
-    "chatDemo": {
-      "title": "IA que habla como tu negocio",
-      "subtitle": "Descubre cómo nuestro asistente IA gestiona interacciones reales en distintos sectores.",
-      "you": "Tú",
-      "assistant": "Asistente IA",
-      "scenarios": {
-        "0": {
-          "label": "Inmobiliaria",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "¡Hola! ¿Sigue disponible el piso en Calle Sierpes 12? Me gustaría concertar una visita este sábado."
-            },
-            "1": {
-              "sender": "agent",
-              "text": "¡Hola! Sí, está disponible. Tenemos hueco a las 10:00 y a las 12:00 el sábado. ¿Cuál te viene mejor?"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "Las 12:00 sería perfecto. Me llamo María García."
-            },
-            "3": {
-              "sender": "agent",
-              "text": "¡Listo, María! Visita confirmada el sábado a las 12:00. Te hemos enviado la confirmación al correo. ¡Hasta entonces! 🏠"
-            }
-          }
-        },
-        "1": {
-          "label": "E-commerce",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "Hola, hace 3 días pedí un portátil y no he recibido ningún seguimiento. Pedido #8821."
-            },
-            "1": {
-              "sender": "agent",
-              "text": "¡Hola! He localizado tu pedido #8821. Se envió ayer y llegará mañana entre las 9:00 y las 13:00. 📦"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "¡Genial! ¿Puedo cambiar la dirección de entrega?"
-            },
-            "3": {
-              "sender": "agent",
-              "text": "¡Por supuesto! He actualizado la dirección de entrega. Recibirás un email de confirmación enseguida. ¿Necesitas algo más? ✉️"
-            }
-          }
-        },
-        "2": {
-          "label": "Restaurante",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "¡Buenas! Quisiera reservar una mesa para 4 personas este viernes a las 21:00. ¿Tenéis disponibilidad?"
-            },
-            "1": {
-              "sender": "agent",
-              "text": "¡Hola! Tenemos mesa disponible el viernes a las 21:00. ¿Me das tu nombre y teléfono para confirmar la reserva?"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "Carlos Martín, 600123456. ¿Tenéis menú grupal?"
-            },
-            "3": {
-              "sender": "agent",
-              "text": "¡Perfecto, Carlos! Mesa reservada para 4 el viernes a las 21:00. Tenemos menú grupal a 35 €/persona con bebida incluida. 🍽️"
-            }
-          }
-        },
-        "3": {
-          "label": "Legal",
-          "messages": {
-            "0": {
-              "sender": "customer",
-              "text": "Buenos días. Necesito ayuda con un inquilino que lleva 2 meses sin pagar el alquiler. ¿Qué opciones tengo?"
-            },
-            "1": {
-              "sender": "agent",
-              "text": "Buenos días. Lo entiendo. El primer paso es un requerimiento formal por escrito al inquilino. ¿Le agendamos una llamada con uno de nuestros abogados?"
-            },
-            "2": {
-              "sender": "customer",
-              "text": "Sí, preferiblemente esta semana. Tengo disponibilidad el martes o jueves por la tarde."
-            },
-            "3": {
-              "sender": "agent",
-              "text": "¡Listo! He agendado una llamada para el jueves a las 17:00 con la Lcda. Rodríguez. Te hemos enviado la confirmación al correo. ⚖️"
-            }
-          }
-        }
-      }
-    },
-    "contact": {
-      "emailSubject": "Consulta sobre servicio: {service}",
-      "message": "Hola,\n\nEstoy interesado en el servicio \"{service}\".\n\n¿Podrían proporcionarme más información?\n\nGracias"
-    },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
       "locationSoon": "Ubicación próximamente",
       "showcaseTitle": "Automatizaciones y más",
-      "showcaseDescription": "En Ordinaly, ofrecemos cursos de formación profesional para empresas y profesionales que desean aprovechar al máximo las tecnologías emergentes.",
+      "showcaseDescription": "En Ordinaly, ofrecemos cursos de formación profesional para empresas para ayudar a dominar herramientas de software, ERP y CRM, así como herramientas de inteligencia artificial aplicada a la automatización de procesos.",
+      "homeTitle": "Te formamos",
+      "homeSubtitle": "Formación práctica bonificable, impartida por ingenieros especializados en software e inteligencia artificial.",
+      "trainingHighlight": "Si tu equipo acaba de estrenar un <b>ERP</b>, quiere entender de verdad la <b>Inteligencia Artificial</b> o ponerse al día en <b>digitalización</b>, ¡nosotros te ayudamos!",
       "upcomingTitle": "Próximos cursos",
       "upcomingDescription": "Descubre nuestros cursos de formación",
       "noCoursesTitle": "No hay cursos próximos",
@@ -316,7 +187,7 @@
         "title": "ORDINALY",
         "alt": "Ordinaly Agencia de Automatización"
       },
-      "description": "Automatización, agentes IA y formación desde Sevilla para equipos que necesitan operar mejor.",
+      "description": "Automatización de procesos, aplicaciones web y formación para empresas.",
       "sections": {
         "navigate": "Navegar",
         "company": "Empresa",
@@ -332,14 +203,14 @@
         "blog": "Blog",
         "news": "Noticias",
         "about": "Nosotros",
-        "investors": "Inversores",
         "contact": "Contacto",
         "legalCenter": "Centro legal",
         "whatsapp": "WhatsApp",
         "emailUs": "Email",
         "callUs": "Llamar",
         "officeMap": "Abrir mapa",
-        "linkedin": "LinkedIn"
+        "linkedin": "LinkedIn",
+        "youtube": "YouTube"
       },
       "legal": {
         "title": "Documentación legal",
@@ -371,10 +242,6 @@
     "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
   },
   "common": {
-    "onVacation": "De vacaciones",
-    "vacationMessage": "¡Estamos de vacaciones! Nuestros servicios volverán pronto después de las fiestas. Gracias por tu paciencia",
-    "retry": "Reintentar",
-    "learnMore": "Detalles",
     "backToHome": "Volver al inicio"
   },
   "logoutModal": {
@@ -1325,64 +1192,121 @@
     }
   },
   "services": {
-    "productsAndServicesTitle": "Nuestros productos y servicios",
-    "productsAndServicesDescription": "Descubre nuestros servicios personalizados y productos encapsulados exclusivos. Elige lo que mejor se adapte a tu empresa: desde consultoría a medida hasta soluciones listas para usar",
-    "productsSectionTitle": "Productos encapsulados",
-    "servicesSectionTitle": "Servicios personalizados",
-    "searchPlaceholder": "Buscar productos y servicios...",
-    "requisites": "Requisitos",
-    "featured": "Destacado",
-    "details": "Detalles",
-    "duration": "Tiempo de implantación",
-    "durationDay": "1 día",
-    "durationDays": "días",
-    "price": "Precio",
-    "contactForQuote": "Consultar precio",
-    "contactUs": "Contáctanos",
-    "learnMore": "Ver detalles",
-    "share": {
-      "label": "Comparte este servicio:",
-      "whatsapp": "WhatsApp",
-      "facebook": "Facebook",
-      "linkedin": "LinkedIn",
-      "shareMessage": "Descubre este servicio de {siteTag}: \"{title}\" - {subtitle}",
-      "copyLink": "Copiar link"
+    "pills": {
+      "callbot": "Chatbot de llamadas IA",
+      "automation": "Automatización",
+      "odoo": "Odoo18",
+      "pwa": "Aplicaciones web multiplataforma (PWA)"
     },
-    "filters": {
-      "all": "Todos el catálogo",
-      "featured": "Solo destacados",
-      "service": "Servicios personalizados",
-      "product": "Productos encapsulados"
+    "useCases": {
+      "title": "Casos de uso de automatizaciones",
+      "subtitle": "Soluciones de automatización para distintos sectores y tipos de empresas",
+      "items": {
+        "0": {
+          "title": "Administradores de fincas",
+          "bullets": [
+            "Envío automático de informes a propietarios",
+            "Gestión automática de correos",
+            "Workflows de facturación"
+          ]
+        },
+        "1": {
+          "title": "Inmobiliarias",
+          "bullets": [
+            "Chatbot de llamadas para concertar visitas",
+            "Automatización de publicaciones en redes sociales",
+            "Odoo como herramienta de gestión de proyectos y tareas"
+          ]
+        },
+        "2": {
+          "title": "Agencias de marketing",
+          "bullets": [
+            "Automatización de redes sociales",
+            "Análisis de campañas automatizado",
+            "Elaboración y envío de informes de resultados automático"
+          ]
+        },
+        "3": {
+          "title": "Comercio local",
+          "bullets": [
+            "Gestión de inventario inteligente con Odoo",
+            "Sistema de facuturación con VeriFactu",
+            "Chatbot de voz para reservas y pedidos"
+          ]
+        },
+        "4": {
+          "title": "Consultoría y asesorías",
+          "bullets": [
+            "Aplicación web y móvil progresiva (PWA)",
+            "Gestión automática de auditorías",
+            "ERP personalizado con VeriFactu"
+          ]
+        },
+        "5": {
+          "title": "Empresas de ingeniería",
+          "bullets": [
+            "Workflows de automatización con GitHub Actions",
+            "Desarrollo de proyectos con Integración y Despliegue Continuo (CI/CD)",
+            "Herramienta de gestión de proyectos, tareas y documentación con Odoo"
+          ]
+        }
+      }
     },
-    "noResults": {
-      "title": "No se encontraron servicios ni productos",
-      "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar lo que buscas"
+    "showcase": {
+      "eyebrow": "Automatización, IA y desarrollo a medida",
+      "title": "Nuestros servicios",
+      "subtitle": "Descubre los productos que te ayudarán a automatizar tu negocio",
+      "description": "En Ordinaly diseñamos soluciones de automatización, inteligencia artificial y desarrollo a medida que se adaptan al ritmo de tu negocio. Desde chatbots que atienden a tus clientes hasta la implantación de un ERP completo, cada servicio está pensado para ahorrarte tiempo y ayudarte a crecer.",
+      "bannerAlt": "Ordinaly - productos y servicios",
+      "facturas": "Automatización de facturas",
+      "meta": "Automatización Meta",
+      "linkedin": "Automatización LinkedIn",
+      "personalizadas": "Automatizaciones personalizadas",
+      "informes": "Automatización de informes",
+      "chatSalientes": "Chat salientes",
+      "chatbotRecepcionista": "Chatbot recepcionista",
+      "odoo": "Implantación Odoo",
+      "odooNote": "Posibilidad de añadir VeriFactu",
+      "chatbotRecepcionistaNote": "Chatbot de llamadas entrantes y salientes",
+      "automationNote": "con n8n, Make o Zapier",
+      "pwa": "Desarrollo de aplicaciones web multiplataforma (PWA)",
+      "viewCatalog": "Catálogo completo",
+      "viewCatalogCta": "Ver todos los servicios",
+      "viewMore": "Ver más",
+      "chatSalientesNote": "Campañas de llamadas salientes con IA"
     },
-    "cta": {
-      "title": "¿Listo para transformar tu negocio?",
-      "description": "Hablemos sobre cómo nuestros servicios pueden ayudarte a alcanzar tus objetivos de transformación digital",
-      "contact": "Ponte en contacto",
-      "call": "Programar una llamada",
-      "emailSubject": "Consulta sobre servicios de Ordinaly",
-      "emailBody": "Hola, estoy interesado en conocer más sobre sus servicios de transformación digital. ¿Podrían proporcionarme más información?\n\nGracias"
+    "advantages": {
+      "title": "Por qué elegir Ordinaly",
+      "subtitle": "Lo que nos diferencia a la hora de automatizar y hacer crecer tu negocio",
+      "cards": [
+        {
+          "name": "Soporte cercano",
+          "description": "Equipo en España que resuelve tus dudas rápido, sin tickets perdidos ni cambios de idioma. Te acompañamos durante todo el proceso."
+        },
+        {
+          "name": "Equipo de ingenieros especializados",
+          "description": "Cada automatización la diseña un ingeniero según tu negocio, no una ''IA'' o una plantilla genérica."
+        },
+        {
+          "name": "Infraestructura propia (VPS)",
+          "description": "Tus datos viven en un servidor bajo tu control, no en la nube de un tercero."
+        },
+        {
+          "name": "Apostamos por el software libre y de código abierto",
+          "description": "Herramientas FLOSS: sin licencias por usuario ni dependencia de un proveedor americano, con transparencia."
+        },
+        {
+          "name": "Presupuestos cerrados",
+          "description": "Presupuestos claros, sin sorpresas ni cuotas ocultas."
+        }
+      ],
+      "contact": {
+        "title": "¿Tienes una idea o un proyecto concreto?",
+        "description": "Cuéntanos qué necesitas y te decimos cómo automatizarlo. Sin compromiso.",
+        "ctaLabel": "Hablar con nosotros"
+      }
     },
-    "contact": {
-      "title": "Contáctanos",
-      "name": "Nombre completo",
-      "namePlaceholder": "Ingresa tu nombre completo",
-      "email": "Correo electrónico",
-      "emailPlaceholder": "Ingresa tu correo electrónico",
-      "phone": "Número de teléfono",
-      "phonePlaceholder": "Ingresa tu número de teléfono",
-      "company": "Empresa",
-      "companyPlaceholder": "Ingresa el nombre de tu empresa",
-      "service": "Servicio de interés",
-      "servicePlaceholder": "¿Qué servicio te interesa?",
-      "message": "Mensaje",
-      "messagePlaceholder": "Cuéntanos sobre tu proyecto o requerimientos...",
-      "cancel": "Cancelar",
-      "send": "Enviar mensaje"
-    }
+    "toolsTitle": "Nuestro stack tecnológico"
   },
   "formation": {
     "enrollmentSuccess": {
@@ -1393,7 +1317,7 @@
       "message": "Te has inscrito correctamente."
     },
     "title": "Formación profesional",
-    "subtitle": "Avanza en tu carrera con nuestros programas de formación integral diseñados por expertos de la industria",
+    "subtitle": "Avanza en tu carrera con nuestros planes de formación diseñados por ingenieros",
     "searchPlaceholder": "Buscar cursos...",
     "free": "Gratuito",
     "price": "Precio",
@@ -1426,38 +1350,28 @@
       "description": "Intenta ajustar tus términos de búsqueda o filtros para encontrar el curso perfecto para ti"
     },
     "faq": {
-      "title": "FAQ de nuestra agencia de automatización IA",
-      "subtitle": "Resolvemos tus dudas sobre la agencia de automatización en inteligencia artificial líder",
+      "title": "Preguntas frecuentes sobre nuestros cursos y formaciones",
+      "subtitle": "Resolvemos todas tus dudas antes de apuntarte a un curso de Ordinaly",
       "items": {
         "0": {
-          "q": "¿Qué soluciones ofrece una agencia de automatización IA para mi negocio?",
-          "a": "Como agencia de automatización IA, implementamos sistemas autónomos que gestionan consultas, procesan documentos y optimizan flujos de trabajo sin intervención humana.",
-          "extra": "Esto permite a las empresas reducir errores y garantizar una disponibilidad 24/7, escalando la operativa de forma inmediata."
+          "q": "¿Necesito conocimientos previos de programación?",
+          "a": "No. Nuestros talleres están pensados para empresarios, autónomos y equipos de cualquier perfil. No es necesario tener conocimientos de programación ni experiencia previa en automatización o inteligencia artificial. Ofrecemos cursos para todos los niveles, desde principiantes hasta avanzados, y adaptamos los contenidos según el grupo de asistentes."
         },
         "1": {
-          "q": "¿Cuál es el coste de contratar una agencia de automatización IA?",
-          "a": "En nuestra agencia de automatización IA, adaptamos los presupuestos a la complejidad del proyecto.",
-          "extra": "Ofrecemos soluciones accesibles para PYMEs, desde integraciones básicas hasta ecosistemas complejos. La mayoría de nuestros clientes logran el ROI en menos de 6 meses gracias al ahorro de recursos."
+          "q": "¿Qué necesito llevar (portátil, cuenta de correo, etc.)?",
+          "a": "Para los talleres presenciales necesitas traer tu propio portátil (con cargador) y una cuenta de correo activa, como Gmail, para seguir los ejercicios en tiempo real. Si un taller requiere algo adicional, te lo avisamos por email unos días antes."
         },
         "2": {
-          "q": "¿Es necesario tener perfil técnico para trabajar con una agencia de automatización IA?",
-          "a": "No. Nuestra agencia de automatización IA diseña herramientas intuitivas que no requieren conocimientos de programación.",
-          "extra": "Además, impartimos formación práctica en IA para que tu equipo domine las soluciones implementadas con total autonomía."
+          "q": "¿Se entrega algún certificado o diploma al finalizar?",
+          "a": "Sí, todas las personas que completan el taller reciben un certificado de participación de Ordinaly, útil para acreditar la formación ante tu empresa o para tu currículum."
         },
         "3": {
-          "q": "¿Qué nos define como tu agencia de automatización IA de referencia?",
-          "a": "Somos una agencia de automatización en inteligencia artificial que rechaza las soluciones genéricas.",
-          "extra": "Nos especializamos en sectores críticos (inmobiliaria, finanzas, marketing) para ofrecer estrategias personalizadas que realmente impulsan la competitividad nacional de tu empresa."
+          "q": "¿Qué pasa si me apunto y no puedo asistir? ¿Se puede cancelar o cambiar de fecha?",
+          "a": "Puedes cancelar tu inscripción sin coste desde tu perfil en nuestra web hasta 24 horas antes del inicio del taller, liberando tu plaza para otra persona. Si necesitas cambiar de fecha, escríbenos y te ayudamos a moverte a la próxima edición según disponibilidad."
         },
         "4": {
-          "q": "¿Qué plazos de entrega maneja nuestra agencia de automatización IA?",
-          "a": "Como tu agencia de automatización IA, trabajamos por fases para ofrecer resultados rápidos.",
-          "extra": "Las automatizaciones básicas están listas en 2-4 semanas, mientras que integraciones complejas de ERP como Odoo suelen completarse en un plazo de 1 a 3 meses."
-        },
-        "5": {
-          "q": "¿Ofrece vuestra agencia de automatización IA soporte continuo?",
-          "a": "Sí. Como agencia de automatización IA comprometida con tu éxito, incluimos mantenimiento técnico y soporte post-implementación.",
-          "extra": "Nuestras soluciones son escalables, permitiendo que la tecnología crezca al mismo ritmo que tu negocio en toda España."
+          "q": "¿Puedo solicitar una formación personalizada para mi sector?",
+          "a": "Sí. Además de los cursos abiertos, diseñamos formaciones a medida para equipos y sectores concretos (inmobiliaria, agencias de marketing, clínicas, administraciones de fincas, etc.), con contenidos y casos de uso adaptados a tu negocio."
         }
       },
       "viewAllLabel": "Ver todas las preguntas frecuentes"
@@ -1466,6 +1380,14 @@
     "pastCourses": "Cursos pasados",
     "viewPastCourses": "Ver cursos pasados",
     "hidePastCourses": "Ocultar cursos pasados",
+    "carouselPrevious": "Anterior",
+    "carouselNext": "Siguiente",
+    "max": "máximo",
+    "almostFull": "Casi completo",
+    "fillingFast": "Llenándose rápido",
+    "available": "Disponible",
+    "datesSoon": "Fechas próximamente",
+    "durationSoon": "Duración próximamente",
     "finished": "Finalizado",
     "wantNewEdition": "Quiero una nueva edición",
     "pastCourseMessage": "Hola, vi el curso \"{course}\" ({link}) y me gustaría solicitar una nueva edición. ¿Podéis avisarme cuando haya nueva fecha?",
@@ -1474,6 +1396,7 @@
       "description": "Únete a miles de profesionales que han transformado sus carreras con nuestros programas de formación dirigidos por expertos",
       "contact": "Contactar asesor",
       "catalog": "Descargar catálogo",
+      "trust": "Valorado por los profesionales que ya se han formado con nosotros",
       "emailSubject": "Consulta sobre programas de formación de Ordinaly",
       "emailBody": "Hola, estoy interesado en conocer más sobre sus programas de formación. ¿Podrían proporcionarme más información sobre los cursos disponibles y el proceso de inscripción?\n\nGracias"
     },
@@ -1488,8 +1411,8 @@
       "bonificationNo": "No, pedir desde aquí",
       "bonificationMissingLink": "No hemos encontrado el enlace del curso bonificado. Contacta con soporte.",
       "bonificationInfo": "Parte de nuestras formaciones pueden bonificarse vía FUNDAE/SEPE y/o encajar en convocatorias cofinanciadas por FSE+ y PRTR-NextGenerationEU, siempre que su empresa cumpla requisitos y tramite la ayuda.\n\nFUNDAE / SEPE - Formación programada por las empresas: permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas (FUNDAE) y Formación para ocupados (SEPE).\n\nFondos UE - FSE+ 2021-2027: programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte UAFSE.\n\nPRTR - NextGenerationEU (Componente 23): medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del Plan de Recuperación y del SEPE.\n\nAndalucía (ámbito autonómico): Programa FSE+ Andalucía 2021-2027 y Formación profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte Junta de Andalucía y FPE.",
-      "stepBonification": "Paso 1 · Bonificación",
-      "stepCheckout": "Paso 2 · Inscripción",
+      "stepBonification": "Paso 1 - Bonificación",
+      "stepCheckout": "Paso 2 - Inscripción",
       "paymentNote": "El procesamiento del pago se manejará en el siguiente paso",
       "confirmEnroll": "Confirmar inscripción",
       "name": "Nombre completo",
@@ -1541,8 +1464,24 @@
       "unenrollEndedRestriction": "No puedes cancelar la inscripción después de que el curso ha finalizado."
     },
     "slogan": "Soluciones de software y formación",
-    "introduction": "En Ordinaly, ofrecemos formación especializada en tecnologías emergentes y desarrollo profesional. Nuestros cursos están diseñados para impulsar tu carrera profesional con contenido actualizado y metodologías innovadoras",
+    "introduction": "En Ordinaly, ofrecemos cursos de formación profesional para empresas para ayudar a dominar herramientas de software, ERP y CRM, así como herramientas de inteligencia artificial aplicada a la automatización de procesos.",
     "coursesTitle": "Nuestros cursos",
+    "instructors": {
+      "title": "Nuestros instructores",
+      "linkedinLabel": "LinkedIn",
+      "items": [
+        {
+          "name": "Antonio Macías Ferrera",
+          "role": "CTO & Co-founder",
+          "description": "Ingeniero de software, científico de datos e Inteligencia Artificial"
+        },
+        {
+          "name": "Guillermo Montero Fernández Vivancos",
+          "role": "CEO & Co-founder",
+          "description": "Ingeniero de Calidad, Doctor en Ingeniería industrial."
+        }
+      ]
+    },
     "time": "Horario:",
     "capacity": "Capacidad:",
     "people": "personas",
@@ -1889,8 +1828,8 @@
       "eyebrow": "Soporte Ordinaly",
       "call": "¡Llámanos!",
       "title": "Contacta con el equipo de Ordinaly",
-      "subtitle": "Te ayudamos a definir el siguiente paso: diagnóstico, piloto, soporte operativo o formación para tu equipo. Desde Sevilla, con respuesta en menos de 24 horas.",
-      "primaryCta": "Abrir formulario",
+      "subtitle": "¿Tienes una idea de automatización, un proceso que quieres mejorar o buscas formación para tu equipo? Cuéntanos tu idea y te ayudamos a materializarla.",
+      "primaryCta": "Abrir formulario de contacto",
       "secondaryCta": "Ver servicios",
       "contactCardTitle": "¿Prefieres hablar directo?",
       "location": "Visitar estudio en Sevilla"
@@ -1968,13 +1907,14 @@
       "phoneLabel": "Teléfono",
       "addressLabel": "Oficina",
       "hoursLabel": "Disponibilidad",
-      "hoursValue": "L-V · 09:00-19:00 CET",
+      "hoursValue": "L-V - 09:00-19:00 CET",
       "socialTitle": "Síguenos"
     },
     "form": {
       "eyebrow": "Formulario de contacto",
       "title": "Cuéntanos tu proyecto",
       "subtitle": "Comparte objetivos, plazos y herramientas para proponerte el mejor plan.",
+      "commitmentNote": "Sin compromiso. Te respondemos rápidamente y adaptándonos a tu negocio.",
       "name": "Nombre",
       "namePlaceholder": "Nombre y apellidos",
       "email": "Email",
@@ -1992,21 +1932,20 @@
       "errorFallback": "No pudimos enviar el formulario. Escríbenos a info@ordinaly.ai."
     },
     "formAside": {
-      "eyebrow": "Antes de enviar",
       "title": "Qué incluir para que podamos responder mejor",
-      "subtitle": "Cuanto más contexto tengamos, más precisa será la propuesta inicial.",
+      "subtitle": "Cuanto más contexto tengamos, más precisa será la propuesta inicial. Puedes ordenar tus ideas de la siguiente manera:",
       "items": {
         "0": {
-          "label": "Proceso",
-          "value": "Explica qué parte del trabajo quieres automatizar o mejorar."
+          "label": "1. Qué hacéis y cómo trabajáis",
+          "value": "Explícanos en un par de líneas qué hacéis en vuestra empresa y cómo trabajáis actualmente."
         },
         "1": {
-          "label": "Herramientas",
-          "value": "Indica si ya usáis CRM, ERP, WhatsApp, email marketing o flujos en n8n."
+          "label": "2. Objetivo principal",
+          "value": "Cuéntanos si buscas ahorrar tiempo, vender más, responder mejor. Pregúntate qué tareas quieres que deje de hacer tu equipo y qué quieres que haga la automatización."
         },
         "2": {
-          "label": "Objetivo",
-          "value": "Cuéntanos si buscas ahorrar tiempo, vender más, responder mejor o formar al equipo."
+          "label": "3. Requisitos indispensables para tí",
+          "value": "Indícanos qué herramientas y sistemas usáis actualmente, y si hay alguna limitación técnica que debamos conocer, plazos que observar o requisitos de seguridad."
         }
       }
     },
@@ -2018,24 +1957,27 @@
       },
       "2": {
         "name": "Guillermo Montero Fernández-Vivancos",
-        "role": "CEO, Ingeniero de calidad y proyectos & Co-founder",
+        "role": "CEO, Ingeniero de Calidad, Doctor en Ingeniería industrial & Co-Founder",
         "quote": "Consultor y project manager especializados en IA e ingeniería de calidad."
       },
       "3": {
         "name": "Emilio Cid Pérez",
-        "role": "CEO, Experto en Márketing, publicidad y transformación digital & Co-founder",
-        "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
+        "role": "CEO, Experto en Marketing digital y publicidad & Co-founder",
+        "quote": "Especialista en estrategias de marketing digital."
       },
-      "eyebrow": "Equipo fundador",
       "title": "Nuestro equipo",
       "cta": "¡Conócenos!"
     },
     "map": {
-      "eyebrow": "Presencial en Sevilla",
       "title": "Visita nuestras oficinas en Sevilla",
       "subtitle": "Plaza del Duque de la Victoria 1, oficina 9, 41002 Sevilla",
       "cta": "Abrir en Google Maps",
-      "photoAlt": "Oficinas de Ordinaly en Plaza del Duque de la Victoria, Sevilla"
+      "photoAlt": "Oficinas de Ordinaly en Plaza del Duque de la Victoria, Sevilla",
+      "fallbackTitle": "Vista previa del mapa bloqueada",
+      "fallbackDescription": "Has desactivado las cookies de terceros, así que no podemos mostrar el mapa de Google aquí. Aun así puedes abrir nuestra ubicación directamente."
+    },
+    "socialShowcase": {
+      "title": "Encuéntranos en redes sociales"
     },
     "explore": {
       "title": "Más formas de seguir en contacto",
@@ -2061,45 +2003,39 @@
   },
   "usPage": {
     "hero": {
-      "tagline": "Sobre nosotros",
-      "title": "Automatizamos con propósito",
-      "subtitle": "Un equipo multidisciplinar creando IA + automatización que mantiene a las personas en control y a los negocios avanzando.",
-      "definition": "Ordinaly Software S.L. es una empresa de automatización empresarial con IA en Sevilla que diseña agentes, chatbots y workflows para PYMEs y equipos corporativos.",
+      "title": "Automatizamos con cabeza ",
+      "titleAccent": "y corazón",
+      "subtitle": "Un equipo multidisciplinar con formación en ingeniería, ciencias de la computación e inteligencia artificial, que mantiene a las personas en control y en el centro de sus operaciones.",
       "ctaPrimary": "Conoce al equipo",
       "ctaSecondary": "¡Trabaja con nosotros!"
     },
-    "mission": {
-      "title": "Misión: Potenciar a las personas, no sustituirlas",
-      "body": "Diseñamos automatizaciones que eliminan fricción para que los equipos se centren en creatividad, decisiones y relaciones."
+    "about": {
+      "whatQuestion": "¿Qué es Ordinaly?",
+      "whatAnswer": "Ordinaly Software S.L. es una empresa sevillana de automatización empresarial con IA que diseña, desarrolla y despliega workflows de automatización de procesos para pymes. Además desarrollamos software a medida como CRMs, ERPs, aplicaciones web y chatbots, y ofrecemos formación profesional para empresas en herramientas de software.",
+      "goalQuestion": "¿Qué queremos conseguir?",
+      "goalAnswer": "En nuestra empresa tenemos la misión de potenciar el trabajo de las personas con las nuevas tecnologías, en ningún lugar sustituirlas. Queremos que las empresas, al utilizar nuestras automatizaciones, tengan tiempo para centrarse en la creatividad, las decisiones y las relaciones sociales; aquello que una máquina no debe hacer. Queremos que nuestros clientes se sientan cómodos y seguros con nuestros sistemas, por ello damos importancia a la transparencia y la trazabilidad de estos para cualquier empresa."
     },
-    "vision": {
-      "title": "Visión: Automatización en la que confiar",
-      "body": "Hacer que los flujos inteligentes sean simples, transparentes y medibles para cualquier empresa."
-    },
-    "stats": {
-      "teamLabel": "Más de 10 empresas transformadas",
-      "teamValue": "+500 horas ahorradas a empresas andaluzas"
+    "faq": {
+      "title": "Preguntas frecuentes"
     },
     "story": {
-      "eyebrow": "Nuestra historia",
-      "title": "Así nació Ordinaly para automatizar empresas desde Sevilla",
-      "lead": "Un estudio de automatización y agentes de IA creado en Andalucía para eliminar tareas repetitivas y generar impacto medible en negocios exigentes.",
+      "title": "Nuestra historia",
       "timeline": {
         "1": {
-          "title": "Verano 2025 · La idea prende en la Universidad de Sevilla",
-          "body": "Mientras termina Ingeniería Informática, Antonio se une a Emilio y Guillermo para diseñar Ordinaly: un estudio de automatización pensado para liberar equipos de tareas repetitivas y mantener a las personas al mando."
+          "title": "Junio de 2025 - Origen de la idea en la Universidad de Sevilla",
+          "body": "Mientras termina Ingeniería Informática, Antonio se une a Emilio y Guillermo para crear Ordinaly. La idea nace de la necesidad de Emilio y Guillermo de automatizar las tareas más repetitivas en sus respectivas empresas. Durante el verano damos forma a la empresa, afinamos el modelo de negocio y creamos la marca."
         },
         "2": {
-          "title": "Verano 2025 · Marca, modelo de negocio y promesa",
-          "body": "Durante el verano sevillano damos forma a la empresa, afinamos el modelo y creamos la marca con una promesa clara: workflows con IA que entregan ROI rápido."
+          "title": "Septiembre de 2025 - Constitución de la empresa",
+          "body": "Lanzamos Ordinaly, y desde el principio arrancamos proyectos con nuestros primeros clientes. "
         },
         "3": {
-          "title": "Septiembre 2025 · Constituimos la empresa y llegan los primeros clientes",
-          "body": "Lanzamos Ordinaly, arrancamos proyectos con nuestros primeros clientes y entregamos pilotos mientras Antonio cursa su máster en Ciencias de la computación e inteligencia artificial."
+          "title": "En 2026 - Ordinaly arranca y consigue sus primeros clientes",
+          "body": "Mientras Antonio cursa su máster en Ciencias de la computación e Inteligencia Artificial, trabaja en Ordinaly con el apoyo de Emilio y Guillermo. Durantes este año, Ordinaly consigue sus 10 primeros clientes y empieza a escalar la automatización para más empresas."
         },
         "4": {
-          "title": "2026 · Escalamos la automatización para más empresas",
-          "body": "Redoblamos esfuerzos para que más organizaciones automaticen sus procesos, abandonen tareas repetitivas y comprueben el valor de la IA con resultados reales."
+          "title": "El futuro...",
+          "body": "Ordinaly, aún es una empresa joven, pero con un equipo bien formado y una visión clara. Nuestro objetivo es seguir creciendo, ayudando a más empresas a automatizar sus procesos y a aprovechar las oportunidades que ofrece la Inteligencia Artificial desde el conocimiento y la experiencia."
         }
       }
     },
@@ -2111,1088 +2047,943 @@
       },
       "2": {
         "name": "Guillermo Montero Fernández-Vivancos",
-        "role": "Ingeniero de calidad y proyectos & Co-founder",
+        "role": "Ingeniero de Calidad, Doctor en Ingeniería industrial & Co-Founder",
         "quote": "Consultor y project manager especializados en IA e ingeniería de calidad."
       },
       "3": {
         "name": "Emilio Cid Pérez",
-        "role": "Experto en Márketing, publicidad y transformación digital & Co-founder",
-        "quote": "Especialista en estrategias de marketing digital y transformación empresarial."
+        "role": "Experto en Marketing digital y publicidad & Co-founder",
+        "quote": "Especialista en estrategias de marketing digital."
       },
-      "title": "Nuestro equipo"
+      "title": "Nuestro equipo fundador"
     },
     "cta": {
       "title": "Trabaja en Ordinaly y construye la próxima ola de automatizaciones",
-      "body": "Si te apasionan la IA, la automatización y el impacto medible, queremos conocerte. Envíanos tu CV o hablemos sobre cómo puedes ayudarnos a entregar más rápido.",
+      "body": "Si te apasionan la Inteligencia Artificial, la automatización y las innovaciones tecnológicas, queremos conocerte. Buscamos a perfiles bien formados y con ganas de aprender y aportar su visión.",
       "primary": "Enviar CV",
       "secondary": "Hablar con nosotros",
       "mailSubject": "CV para unirme a Ordinaly",
       "mailBody": "Hola equipo,\n\nMe encantaría unirme a Ordinaly. Aquí va mi perfil y por qué encajo:\n\n- Rol/área de interés:\n- Experiencia relevante:\n- Enlaces (CV/portfolio/LinkedIn):\n\n¡Gracias!"
     }
   },
-  "investors": {
-    "hero": {
-      "title": "Invirtiendo en automatización que mantiene ágiles a las empresas",
-      "subtitle": "Ordinaly articula agentes con IA, automatizaciones empresariales y formación para acelerar organizaciones sin perder el control humano.",
-      "ctaPrimary": "Descargar deck",
-      "ctaSecondary": "Agendar una llamada",
-      "footnote": "Compartimos métricas detalladas bajo solicitud.",
-      "focusTitle": "Trayectoria de automatización compuesta",
-      "focusBody": "Operamos con equipos ligeros y clientes complejos distribuidos."
-    },
-    "stats": {
-      "title": "Impulso en cifras",
-      "subtitle": "Indicadores clave que sostienen nuestra historia de crecimiento.",
-      "market": {
-        "label": "Mercado abordable",
-        "value": "€1,2B+",
-        "detail": "Demanda de automatización en España y Europa."
-      },
-      "clients": {
-        "label": "Socios atendidos",
-        "value": "10+",
-        "detail": "Retenciones activas y proyectos recurrentes."
-      },
-      "efficiency": {
-        "label": "Reducción manual",
-        "value": "38%",
-        "detail": "Descenso promedio del trabajo repetitivo en los clientes."
-      }
-    },
-    "highlights": {
-      "title": "Por qué invertir con Ordinaly",
-      "subtitle": "Combinamos expertise, confianza y gobernanza disciplinada.",
-      "global": {
-        "title": "Alcance paneuropeo",
-        "body": "Servimos a múltiples industrias y gestionamos automatizaciones multinacionales."
-      },
-      "traction": {
-        "title": "Tracción sólida",
-        "body": "Ingresos recurrentes, márgenes sanos y pipeline cualificado."
-      },
-      "governance": {
-        "title": "Gobernanza clara",
-        "body": "KPIs transparentes y comunicación activa con inversores."
-      }
-    },
-    "roadmap": {
-      "1": {
-        "title": "Expandir ingresos de servicios",
-        "body": "Escalar equipos de consultoría y paquetes por industria."
-      },
-      "2": {
-        "title": "Automatizar la automatización",
-        "body": "Lanzar herramientas internas que aceleren entregas y mejoren márgenes."
-      },
-      "3": {
-        "title": "Nuevas líneas de producto",
-        "body": "Ofrecer plataformas estratégicas y programas formativos."
-      },
-      "title": "Próximos hitos",
-      "subtitle": "El plan de inversión impulsa la siguiente fase de escala."
-    },
-    "cta": {
-      "title": "¿Listo para explorar la oportunidad?",
-      "body": "Hablemos de KPIs, runway y cómo el capital multiplica el impacto.",
-      "button": "Contactar al equipo"
-    },
-    "team": {
-      "label": "El equipo",
-      "title": "Capacidades técnicas y empresariales",
-      "subtitle": "Combinamos ingeniería de software de alto nivel con décadas de consultoría empresarial.",
-      "antonio": {
-        "role": "CTO · Ingeniero de Software & MsC en Inteligencia artificial",
-        "bio": "Ingeniero de software graduado en la Universidad de Sevilla con Master en Ciencias de la Computación, Lógica e Inteligencia artificial.",
-        "tags": {
-          "0": "Ing. Informática · Univ. Sevilla",
-          "1": "IA & Automatización",
-          "2": "Full-Stack",
-          "3": "Scrum Master"
-        }
-      },
-      "guillermo": {
-        "role": "CEO · Director de Proyecto en Proinca Consultores",
-        "bio": "Director de Proyecto en Proinca Consultores, Profesor Asociado en la Universidad de Sevilla, PhD en Ingeniería Industrial.",
-        "tags": {
-          "0": "Consultoría de Procesos",
-          "1": "Proinca Consultores",
-          "2": "Transformación Digital",
-          "3": "Optimización Empresarial"
-        }
-      }
-    },
-    "formation": {
-      "label": "Formación",
-      "title": "Cursos de IA para empresas",
-      "subtitle": "Entrenamos a equipos para que sean autónomos con la IA, creando una línea de ingresos recurrente y un canal directo de adopción.",
-      "courses": {
-        "0": {
-          "title": "IA para Equipos de Negocio",
-          "description": "Formación práctica para que equipos no técnicos integren herramientas de IA en sus flujos de trabajo diarios, con ejercicios reales del sector."
-        },
-        "1": {
-          "title": "Automatización de Procesos con IA",
-          "description": "Programa intensivo sobre diseño e implementación de agentes de IA y automatizaciones para reducir tareas repetitivas y escalar operaciones."
-        },
-        "2": {
-          "title": "Estrategia de Transformación Digital",
-          "description": "Curso ejecutivo para líderes que quieren definir una hoja de ruta de automatización e IA adaptada a su empresa y sector."
-        }
-      }
-    }
-  },
   "landings": {
-    "chatbots-personalizados-para-empresas": {
-      "slug": "chatbots-personalizados-para-empresas",
-      "title": "Chatbots personalizados para empresas",
-      "shortTitle": "Chatbots personalizados",
-      "subtitle": "Procesos más rápidos, menos errores, más beneficios.",
-      "description": "Diseñamos automatizaciones inteligentes, copilotos internos e integraciones avanzadas para que tu empresa funcione con la eficiencia de una organización moderna impulsada por IA.",
-      "heroBadge": "Automatización + IA",
-      "heroCtaLabel": "Solicitar auditoría gratuita",
+    "agente-de-llamadas-ia": {
+      "slug": "agente-de-llamadas-ia",
+      "title": "Chatbot de llamadas con Inteligencia Artificial",
+      "shortTitle": "Agente de llamadas IA",
+      "subtitle": "Chatbots de recepción de llamadas y campañas de llamadas salientes, integrados con tu sistema o CRM y operativos 24/7.",
+      "heroCtaLabel": "Solicitar demo gratuita",
       "secondaryCtaLabel": "Hablar por WhatsApp",
-      "serviceType": "Automatización de procesos empresariales con IA",
+      "serviceType": "Agentes de voz con IA para llamadas entrantes y salientes",
       "areaServed": "España, Portugal y despliegue remoto en la UE",
-      "timeline": [
-        {
-          "title": "Auditoría",
-          "description": "Analizamos tus procesos actuales y detectamos oportunidades claras de automatización."
-        },
-        {
-          "title": "Diseño",
-          "description": "Creamos flujos, integraciones y automatizaciones adaptadas a tu stack y tus objetivos."
-        },
-        {
-          "title": "Implementación",
-          "description": "Desplegamos las automatizaciones en tu entorno real con pruebas y validaciones."
-        },
-        {
-          "title": "Monitorización",
-          "description": "Medimos impacto, optimizamos y ampliamos las automatizaciones según resultados."
-        }
-      ],
       "sectionTitles": {
-        "whatWeAutomate": "Qué automatizamos",
-        "timeline": "Cómo trabajamos",
-        "caseStudies": "Casos reales",
-        "security": "Seguridad y cumplimiento",
-        "ctaTitle": "¿Listo para automatizar tu empresa?",
-        "ctaSubtitle": "Definimos un piloto acotado, con métricas claras y sin compromisos a largo plazo.",
-        "seeHowWeWork": "Ver cómo trabajamos"
+        "inboundPill": "Llamadas entrantes",
+        "outboundPill": "Llamadas salientes",
+        "techStack": "La tecnología detrás de nuestros agentes de llamadas",
+        "technologyFaqs": "Preguntas frecuentes"
       },
-      "whatWeAutomate": [
-        "Automatización de procesos internos",
-        "Integración con CRM, ERP y herramientas internas",
-        "Copilotos internos para equipos de ventas, soporte y operaciones",
-        "Automatización documental y extracción inteligente de información"
-      ],
-      "caseStudies": [
+      "providers": {
+        "title": "Construido sobre los mejores proveedores de voz con IA y telefonía VoIP",
+        "subtitle": "Integramos las plataformas líderes en síntesis de voz con Inteligencia Artificial, orquestación conversacional y telefonía sobre internet.",
+        "ctaLabel": "Ver cómo funciona"
+      },
+      "inbound": {
+        "title": "Recepcionista virtual con Inteligencia Artificial",
+        "infocardsTitle": "Todo sobre tu recepcionista virtual con Inteligencia Artificial",
+        "videoCaptionName": "Antonio Macías Ferrera",
+        "videoCaptionRole": "CTO software engineer & co-founder",
+        "videoCaptionText": "¿Cómo funciona tu recepcionista virtual?",
+        "eventsTitle": "Recibe notificaciones en tiempo real",
+        "infocards": [
+          {
+            "name": "Disponible 24/7",
+            "description": "Cero llamadas perdidas, incluso fuera de horario, festivos o en picos de demanda."
+          },
+          {
+            "name": "Voz natural",
+            "description": "Elige entre decenas de voces realistas de ElevenLabs, con soporte para español con varios acentos regionales."
+          },
+          {
+            "name": "¡Esto tiene mil casos de uso!"
+          }
+        ],
+        "events": [
+          {
+            "title": "Llamada recibida de +34 65...",
+            "description": "Cliente: Laura G.",
+            "time": "hace 2 min"
+          },
+          {
+            "title": "Cita agendada a CARLOS",
+            "description": "Auditoría jueves 10:00",
+            "time": "hace 2 min"
+          },
+          {
+            "title": "Llamada recibida de +34 63...",
+            "description": "Asunto: Consulta de presupuesto",
+            "time": "hace 1 min"
+          },
+          {
+            "title": "Llamada recibida de +34 69...",
+            "description": "Asunto: Resumen + siguiente acción",
+            "time": "ahora"
+          },
+          {
+            "title": "Cita agendada a GUILLERMO",
+            "description": "Entrega de proyecto viernes 12:00",
+            "time": "ahora"
+          }
+        ],
+        "requirements": {
+          "title": "Requisitos",
+          "items": [
+            "Número de teléfono actual con VoIP o línea nueva (vía Netelip).",
+            "Guion base (servicios, horarios, precios y preguntas frecuentes...).",
+            "Información de la empresa que el chatbot debe conocer para responder correctamente.",
+            "Acceso a calendario, CRM o sistema para agendar citas (dado el caso)."
+          ]
+        },
+        "pricing": {
+          "instanceLabel": "Precio de instalación",
+          "instancePrice": "1.099€ + IVA",
+          "workflowLabel": "Cuota mensual (por proveedores externos)",
+          "workflowNote": "Depende de los proveedores de voz y telefonía que elijas (ElevenLabs, Retell, Netelip...).",
+          "workflowNoteLinkLabel": "Ver más en las preguntas frecuentes",
+          "contactLabel": "¿Tienes más dudas? Cuéntanos tu caso"
+        }
+      },
+      "outbound": {
+        "title": "Agente de llamadas salientes con IA (campañas)",
+        "infocardsTitle": "Todo sobre tus campañas de llamadas con Inteligencia Artificial",
+        "videoCaptionName": "Antonio Macías Ferrera",
+        "videoCaptionRole": "CTO software engineer & co-founder",
+        "videoCaptionText": "¿Cómo funciona una campaña de llamadas con IA?",
+        "eventsTitle": "Actividad en directo",
+        "steps": [
+          {
+            "title": "Importa tu lista de contactos",
+            "description": "Sube tu lista de contactos en formato CSV con nombre, teléfono y cualquier dato que quieras usar para personalizar la llamada."
+          },
+          {
+            "title": "Define fechas y horarios para realizar la campaña",
+            "description": "Establece la franja horaria y la frecuencia de llamada permitidas, así como el objetivo de la campaña."
+          },
+          {
+            "title": "Lanza la campaña",
+            "description": "El agente llama automáticamente a cada contacto y obtiene la información necesaria."
+          },
+          {
+            "title": "Recoge automáticamente los resultados",
+            "description": "Recibe resúmenes, grabaciones y resultados de cada llamada, sincronizados con tu hoja de cálculo o CRM."
+          }
+        ],
+        "infocards": [
+          {
+            "name": "15 llamadas simultáneas por minuto",
+            "description": "Tiempo estimado para completar todas las llamadas de un lote: 35 minutos (con una duración media de 5 minutos por llamada). Este límite se puede aumentar según tus necesidades."
+          },
+          {
+            "name": "Conversación natural",
+            "description": "Elige entre decenas de voces realistas de ElevenLabs, con soporte para español con varios acentos regionales."
+          },
+          {
+            "name": "¡Esto tiene mil casos de uso!"
+          }
+        ],
+        "requirements": {
+          "title": "Requisitos",
+          "items": [
+            "Lista de contactos con consentimiento para ser llamados.",
+            "Guion y objetivo de la campaña (venta, recordatorio, encuesta, cobro, etc.).",
+            "Franja horaria y frecuencia de llamada permitidas.",
+            "CRM o sistema donde volcar el resultado de cada llamada."
+          ]
+        },
+        "pricing": {
+          "instanceLabel": "Precio de instalación",
+          "instancePrice": "1.199€ + IVA",
+          "workflowLabel": "Cuota mensual (por proveedores externos)",
+          "workflowNote": "Depende de los proveedores de voz y telefonía que elijas (ElevenLabs, Retell, Netelip...).",
+          "workflowNoteLinkLabel": "Ver más en las preguntas frecuentes",
+          "contactLabel": "¿Tienes más dudas? Cuéntanos tu caso"
+        }
+      },
+      "technologyFaqs": [
         {
-          "metric": "40% menos tiempo",
-          "description": "Automatización del proceso de atención en una empresa de logística."
+          "tag": "Teléfono",
+          "question": "¿Necesito contratar una línea nueva?",
+          "answer": "No necesariamente. Podemos usar tu numeración actual VoIP o proporcionarte una línea a través de Netelip, tanto para llamadas entrantes como salientes."
         },
         {
-          "metric": "3h → 12 min",
-          "description": "Reducción del tiempo de onboarding de empleados en una empresa SaaS."
+          "tag": "Privacidad",
+          "question": "¿Es seguro y cumple el RGPD?",
+          "answer": "Sí. Las llamadas y transcripciones se procesan con garantías de protección de datos, siempre identificándose como un servicio que usa Inteligencia Artificial y preguntando por el consentimiento de tratamiento de datos dado el caso."
         },
         {
-          "metric": "98% precisión",
-          "description": "Clasificación automática de tickets en un equipo de soporte de 200+ personas."
+          "tag": "Voz",
+          "question": "¿Qué tan natural suena la voz del agente?",
+          "answer": "Usamos las voces de ElevenLabs, líderes en síntesis de voz realista, con soporte para español con distintos acentos además de otros idiomas, ajustando tono y velocidad a tu marca."
+        },
+        {
+          "tag": "Inteligencia Artificial",
+          "question": "¿Qué modelo se usa en la conversación?",
+          "answer": "El razonamiento conversacional se apoya normalmente en modelos Gemini de Google, pero nuestro proveedor ofrece opciones adicionales como los modelos de Claude o GPT."
+        },
+        {
+          "tag": "Automatización",
+          "question": "¿Cómo se conecta con mi hoja de cálculo o base de datos?",
+          "answer": "Retell y Netelip gestionan la llamada en tiempo real (voz, IA y telefonía), mientras n8n conecta el resultado de cada llamada con tu CRM, calendario o base de datos mediante APIs REST."
+        },
+        {
+          "tag": "Precio",
+          "question": "¿Cuánto cuesta implantar un agente de llamadas?",
+          "answer": "La instalación tiene un precio fijo y cerrado, más IVA. El coste mensual se paga a través de los proveedores externos de voz y telefonía (Retell y Netelip...) y del volumen de llamadas. Te lo detallamos tras una auditoría gratuita de tu caso concreto."
         }
       ],
-      "security": [
-        {
-          "title": "Modelos privados",
-          "description": "Infraestructura segura y modelos desplegados en entornos controlados."
-        },
-        {
-          "title": "Cumplimiento RGPD",
-          "description": "Procesamiento de datos con garantías legales y técnicas."
-        },
-        {
-          "title": "Encriptación",
-          "description": "Datos cifrados en tránsito y en reposo."
-        }
+      "keywords": [
+        "Agente de llamadas IA",
+        "Recepcionista virtual",
+        "Llamadas salientes",
+        "Call center IA",
+        "n8n",
+        "ElevenLabs",
+        "Gemini",
+        "Retell",
+        "Netelip",
+        "Automatización telefónica"
       ],
       "cta": {
-        "label": "Reserva una reunión",
-        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mi%20empresa%20con%20IA",
-        "bgColor": "#000000"
+        "label": "Quiero automatizar mis llamadas",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20las%20llamadas%20de%20mi%20empresa%20con%20IA",
+        "bgColor": "#D97757"
       }
     },
-    "automatizacion-n8n-sevilla": {
-      "slug": "automatizacion-n8n-sevilla",
-      "title": "Automatización n8n con observabilidad y control",
-      "shortTitle": "Automatización n8n",
-      "subtitle": "Workflows versionados para sincronización, alertas, conciliación y operaciones asistidas por IA.",
-      "description": "Diseñamos flujos en n8n con reintentos, colas, logs y métricas por nodo para que la automatización deje de ser una caja negra y pase a ser infraestructura operable.",
-      "heroBadge": "n8n + observabilidad",
-      "heroCtaLabel": "Auditar procesos",
+    "automatizaciones-personalizadas-empresas-n8n": {
+      "slug": "automatizaciones-personalizadas-empresas-n8n",
+      "title": "Automatizaciones personalizadas para empresas con n8n",
+      "shortTitle": "Automatizaciones con n8n",
+      "subtitle": "Workflows a medida para empresas y pymes que buscan eficiencia y eficacia en sus procesos.",
+      "description": "Diseñamos automatizaciones a medida con n8n y software libre: reintentos, colas, logs y métricas por nodo para procesos que no encajan en soluciones estándar. Más trazabilidad, menos errores y más tiempo libre.",
+      "heroCtaLabel": "Cuéntanos tu caso",
       "secondaryCtaLabel": "Hablar por WhatsApp",
+      "n8nCtaLabel": "Aprender más en n8n",
       "secondaryCtaHref": "https://wa.me/34626270806",
-      "serviceType": "Automatización de procesos e integraciones sobre n8n",
-      "areaServed": "España y despliegue remoto UE",
       "sectionTitles": {
         "whatIsN8N": "¿Qué es n8n?",
-        "whatWeAutomate": "Qué automatizamos con n8n",
-        "integrations": "Lo conectamos con lo que ya usas",
+        "integrations": "¡Lo conectamos con (casi) todo!",
+        "infocardsTitle": "Todo lo que necesitas saber",
         "faq": "Preguntas frecuentes",
-        "ctaTitle": "Automatiza tus procesos con n8n",
-        "ctaSubtitle": "Creamos flujos robustos, escalables y adaptados a tu negocio."
+        "ctaTitle": "¿A qué esperas para automatizar con n8n?",
+        "ctaSubtitle": "Creamos flujos robustos, escalables y adaptados a tu negocio.",
+        "howItWorks": "¿Cómo funciona un workflow en n8n?"
       },
-      "whatIsN8N": "n8n es una plataforma de automatización visual que permite conectar sistemas, transformar datos y ejecutar lógica compleja sin depender de desarrollos a medida. Su arquitectura basada en nodos, reintentos, colas, logs y control de versiones convierte cada flujo en una pieza de infraestructura operable, auditable y preparada para escalar. Es la forma moderna de automatizar procesos sin perder control ni visibilidad.",
-      "whatWeAutomate": [
-        {
-          "title": "Sincronización entre sistemas",
-          "description": "ERP, CRM, formularios, bases de datos y herramientas internas trabajando en tiempo real sin duplicados ni errores."
-        },
-        {
-          "title": "Alertas y monitorización",
-          "description": "Notificaciones automáticas cuando un dato falla, un proceso se detiene o un sistema deja de responder."
-        },
-        {
-          "title": "Conciliación y reporting",
-          "description": "Cruce de facturas, pagos, cobros y generación de reportes sin hojas manuales."
-        },
-        {
-          "title": "Automatización operativa",
-          "description": "Altas, actualizaciones, validaciones y flujos que reducen tareas repetitivas del día a día."
-        },
-        {
-          "title": "Integraciones personalizadas",
-          "description": "APIs internas, servicios externos, webhooks, colas y procesos híbridos cloud/on-prem."
-        },
-        {
-          "title": "Calidad y validación de datos",
-          "description": "Reglas de validación, deduplicación y corrección automática antes de que los datos entren en tus sistemas clave."
-        }
-      ],
+      "whatIsN8N": "n8n es una plataforma de automatización visual que permite conectar sistemas, transformar datos y ejecutar lógica compleja sin depender de desarrollos a medida. Su arquitectura basada en nodos, reintentos, colas, logs y control de versiones convierte cada flujo en una pieza de infraestructura operable, auditable y preparada para escalar.",
+      "whatIsN8NHighlight": "Es la forma moderna de automatizar procesos sin perder control ni visibilidad.",
       "workflowAnimation": {
-        "fileName": "integracion-total.flow",
-        "liveLabel": "Workflow en vivo",
+        "fileName": "lead-workflow.json",
+        "liveLabel": "Ejecutando...",
         "inputLabel": "Nuevo lead",
         "logicLabel": "Lógica n8n",
         "nodeWhatsapp": "WhatsApp API",
-        "nodeCalendly": "Calendly",
+        "nodeCalendly": "Google Calendar",
         "nodeGmail": "Gmail",
         "nodeDatabase": "Base de datos",
-        "footerPrefix": "Lo conectamos con lo que ya usas",
-        "footerSuffix": "Todo en piloto automático!"
+        "footerSuffix": "¡Workflow ejecutado con éxito!"
+      },
+      "howItWorksSteps": [
+        {
+          "title": "Trigger de entrada",
+          "description": "El ''trigger'' o (activador) es el evento que inicia el workflow."
+        },
+        {
+          "title": "Lógica n8n",
+          "description": "Aplicamos la lógica del workflow, reintentos y validaciones según el proceso."
+        },
+        {
+          "title": "Integraciones",
+          "description": "Conectamos WhatsApp, Google Calendar, Gmail, bases de datos y el resto de herramientas."
+        },
+        {
+          "title": "Resultado y notificación",
+          "description": "Obtenemos el resultado del workflow y enviamos notificaciones según sea necesario."
+        }
+      ],
+      "infocards": {
+        "cards": [
+          {
+            "name": "Software libre, sin cuota mensual",
+            "description": "Desplegamos la versión open source de n8n en Docker: sin licencias ni suscripciones, solo el coste de tu propia infraestructura."
+          },
+          {
+            "name": "Tus datos, tu VPS",
+            "description": "Te ayudamos a contratar tu propio servidor privado virtual (VPS): los datos, accesos y automatizaciones son 100% tuyos."
+          },
+          {
+            "name": "Sin límite de ejecuciones",
+            "description": "A diferencia de Zapier o Make, no pagas por ejecución, lo que permite escalar tus automatizaciones sin sorpresas en la factura."
+          },
+          {
+            "name": "Equipo de ingeniería a tu disposición",
+            "description": "Ingenieros de software, expertos en ciencias de la computación e inteligencia artificial, con experiencia real en automatización empresarial."
+          }
+        ]
+      },
+      "observability": {
+        "title": "Trazable, notificable y alertable",
+        "events": [
+          {
+            "title": "Workflow ejecutado",
+            "description": "Factura procesada",
+            "time": "hace 2 min"
+          },
+          {
+            "title": "Reintento automático",
+            "description": "Nodo Gmail: mails sin leer",
+            "time": "hace 12 min"
+          },
+          {
+            "title": "Alerta enviada",
+            "description": "Alerta envíada por WhatsApp",
+            "time": "hace 38 min"
+          }
+        ]
+      },
+      "pricing": {
+        "instanceLabel": "Instalación de instancia n8n",
+        "instancePrice": "400€ + IVA",
+        "workflowLabel": "Automatización personalizada",
+        "workflowNote": "Precio a consultar según tu proceso",
+        "contactLabel": "Cuéntanos tu caso"
       },
       "faq": [
         {
           "question": "¿Podemos empezar sin tener procesos definidos?",
-          "answer": "Sí. Mapeamos juntos los sistemas, los puntos de fallo y las tareas repetitivas para priorizar automatizaciones de impacto inmediato."
-        },
-        {
-          "question": "¿Es necesario saber programar para mantener los flujos?",
-          "answer": "No. Dejamos naming conventions, paneles, documentación y formación para que el equipo pueda operar sin depender de desarrollo."
+          "answer": "Sí. La fase inicial de nuestro asesoramiento consiste en determinar juntos los sistemas, y las tareas repetitivas candidatas a automatizaciones."
         },
         {
           "question": "¿Podéis integrarlo con nuestras herramientas actuales?",
-          "answer": "Sí. Conectamos n8n con ERP, CRM, bases de datos, APIs internas, hojas de cálculo, mensajería y cualquier servicio con API."
+          "answer": "Sí. Conectamos n8n con ERP, CRM, bases de datos, APIs internas, hojas de cálculo, mensajería y cualquier servicio con API pública disponible."
         },
         {
-          "question": "¿Cómo garantizáis que los flujos no se rompan?",
-          "answer": "Diseñamos reintentos, idempotencia, logs, colas y alertas desde el primer día para evitar estados inconsistentes."
+          "question": "¿n8n tiene coste de licencia?",
+          "answer": "La versión web comercial de n8n tiene un coste mensual por usuario y ejecuciones, pero n8n dispone también de una versión de software libre que puede autoalojarse sin coste de licencia. Nuestro presupuesto de pago úncio cubre la implantación de esta versión de código abierto, sin coste mensual por usarlo."
+        },
+        {
+          "question": "¿Podemos migrar nuestras automatizaciones desde Zapier o Make?",
+          "answer": "Sí. Analizamos tus zaps o escenarios actuales y los reconstruimos en n8n, normalmente con mejor observabilidad y sin las limitaciones de ejecuciones mensuales de esas plataformas."
+        },
+        {
+          "question": "¿Es necesario saber programar para mantener los flujos?",
+          "answer": "Sí. n8n es una herramienta visual, pero requiere ciertos conocimientos para mantener y evolucionar los flujos. Nuestro equipo puede formar a tu personal o encargarse del mantenimiento. Puedes contactarnos sin compromiso para valorar la mejor opción según tu caso."
+        },
+        {
+          "question": "¿Qué pasa si falla un nodo?",
+          "answer": "n8n permite reintentos automáticos, alertas y notificaciones para que el equipo pueda actuar rápidamente ante cualquier fallo."
         }
       ],
       "cta": {
-        "label": "Automatizar con n8n",
+        "label": "Háblanos por WhatsApp",
         "href": "https://wa.me/34626270806?text=Quiero%20auditar%20procesos%20para%20automatizar%20con%20n8n",
-        "bgColor": "#0255D5"
+        "bgColor": "#0255D5",
+        "trust": "Valorado por las empresas que ya automatizan con nosotros",
+        "emailLabel": "Escríbenos",
+        "formLabel": "Rellena el formulario"
       }
     },
     "automatizacion-facturas": {
       "slug": "automatizacion-facturas",
-      "heroImage": "/static/backgrounds/blog_background.webp",
-      "heroImagePosition": "center 28%",
       "title": "Automatización de facturas",
-      "shortTitle": "Automatización de Facturas",
-      "heroBadge": "Automatización documental",
+      "shortTitle": "Automatización de facturas",
+      "heroText": "Automatizamos la clasificación de las facturas de tu negocio en función de proveedor, fecha, importe o las características que prefieras. Integramos la información de manera precisa y con datos claves en carpetas, ERPs, CRMs o el sistema que mejor funcione para tu negocio.",
       "heroCtaLabel": "Solicitar información",
       "secondaryCtaLabel": "Quiero automatizar mis facturas",
       "serviceType": "Automatización documental y extracción inteligente",
       "areaServed": "España, pymes, asesorías y equipos administrativos",
-      "valueProps": [
-        "Clasificación automática por proveedor, fecha, importe o reglas personalizadas.",
-        "Extracción precisa de datos clave: cliente, fecha, conceptos, base imponible y total.",
-        "Integración con carpetas, ERPs, CRMs o sistemas contables sin fricción."
-      ],
       "sectionTitles": {
-        "howItWorks": "Así funciona la automatización",
-        "benefits": "Beneficios de automatizar tus facturas",
-        "beforeAfter": "Antes y después de automatizar",
-        "before": "Antes",
-        "after": "Después"
+        "howItWorks": "¿Cómo funciona este workflow?",
+        "infocardsTitle": "Todo sobre la automatización de facturas",
+        "technologyFaqs": "Preguntas frecuentes"
       },
-      "benefits": [
-        "Ahorra horas cada mes",
-        "Evita errores humanos",
-        "Todo organizado automáticamente",
-        "Compatible con cualquier formato"
-      ],
-      "metrics": [
-        {
-          "label": "Ahorro mensual",
-          "value": "6-20 horas",
-          "detail": "Reducción del tiempo dedicado a revisar emails, descargar facturas y copiar datos."
-        },
-        {
-          "label": "Precisión",
-          "value": "98%",
-          "detail": "Extracción automática con validación opcional para casos dudosos."
-        },
-        {
-          "label": "Clasificación",
-          "value": "Automática",
-          "detail": "Organización por año, proveedor o proyecto sin intervención humana."
-        }
-      ],
-      "outcomes": [
-        "Menos errores humanos en la transcripción de datos.",
-        "Facturas organizadas automáticamente en carpetas estructuradas.",
-        "Datos listos para contabilidad o análisis sin trabajo manual.",
-        "Procesos administrativos más rápidos y trazables."
-      ],
-      "before": [
-        "Facturas perdidas en emails",
-        "Copiar datos a mano",
-        "Errores al transcribir",
-        "Tiempo perdido buscando documentos"
-      ],
-      "after": [
-        "Facturas clasificadas automáticamente",
-        "Datos extraídos sin esfuerzo",
-        "Cero errores",
-        "Todo accesible en segundos"
-      ],
       "steps": [
-        "Conectamos tu bandeja de entrada o carpeta donde recibes facturas.",
-        "Definimos reglas de clasificación y extracción según tu negocio.",
-        "Activamos el flujo automático: detección, extracción y archivado."
-      ],
-      "useCases": [
         {
-          "tag": "Administración",
-          "title": "Recepción automática de facturas",
-          "description": "Detectamos facturas que llegan por email y las procesamos sin intervención humana.",
-          "bullets": [
-            "Lectura automática del correo",
-            "Descarga y clasificación inmediata"
-          ]
+          "title": "Escanea tu bandeja de entrada",
+          "description": "Escanea tu bandeja de entrada y detecta automáticamente las facturas entrantes."
         },
         {
-          "tag": "Contabilidad",
-          "title": "Extracción de datos clave",
-          "description": "Extraemos proveedor, fecha, conceptos, base imponible y total.",
-          "bullets": [
-            "OCR avanzado",
-            "Validación opcional de datos"
-          ]
+          "title": "Descarga y almacena",
+          "description": "Descarga las facturas y las almacena de forma estructurada en carpetas en tu nube."
         },
         {
-          "tag": "Operaciones",
-          "title": "Archivado inteligente",
-          "description": "Guardamos cada factura en la carpeta correcta según reglas personalizadas.",
-          "bullets": [
-            "Carpetas por año o proveedor",
-            "Integración con Drive, Dropbox o ERP"
-          ]
+          "title": "Extrae los datos relevantes",
+          "description": "Extrae los datos relevantes de cada factura (importe, proveedor, fecha, número de factura, concepto, etc.) y los procesa según el criterio definido."
         }
       ],
+      "funciones": {
+        "paragraphs": [
+          "Una vez automatizado, todo el proceso se ejecuta sin intervención manual, permitiendo que el flujo contable sea más rápido, fiable y ordenado.",
+          "Los datos extraídos (importe, proveedor, fecha, número de factura, concepto, etc.) y la forma de archivado se definen completamente a medida del cliente sin incremento de presupuesto."
+        ]
+      },
+      "infocards": {
+        "cards": [
+          {
+            "name": "Automático e invisible",
+            "description": "Es un proceso automático, que no requiere esfuerzo ni tiempo extra una vez implantado."
+          },
+          {
+            "name": "Compatibilidad total",
+            "description": "Compatible con cualquier formato, como PDF, DOC, Word o imágenes; y con cualquier nube (Google Drive, OneDrive, Dropbox, etc.)"
+          },
+          {
+            "name": "Software libre",
+            "description": "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles."
+          },
+          {
+            "name": "Máquinas privadas (VPS)",
+            "description": "Trabajamos sobre servidores privados del cliente. Tú mantienes el control total de tus datos y accesos en todo momento."
+          }
+        ]
+      },
+      "requirements": {
+        "title": "Requisitos",
+        "items": [
+          "Acceso a una o varias cuentas de correo electrónico del cliente.",
+          "Listado de remitentes autorizados (lista blanca).",
+          "Datos a extraer de las facturas.",
+          "Sistema de archivado (carpetas, nube, etc.).",
+          "Facturas de ejemplo en formato digital (PDF, imagen u otros formatos habituales)."
+        ]
+      },
+      "pricing": {
+        "individualPrice": "450€ + IVA",
+        "individualLabel": "Precio individual",
+        "comboPrice": "400€ + IVA",
+        "comboLabel": "Precio combinado",
+        "comboNote": "Precio combinado al contratar implantar varias automatizaciones.",
+        "implementationTime": "10 días",
+        "implementationLabel": "Tiempo de implantación:",
+        "ctaLabel": "Quiero automatizar mis facturas",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20facturas"
+      },
       "technologyFaqs": [
         {
           "tag": "Procesamiento",
-          "question": "¿Cómo detectáis las facturas automáticamente?",
-          "answer": "Monitorizamos bandejas de entrada o carpetas y aplicamos modelos OCR que identifican documentos tipo factura sin necesidad de reglas manuales."
+          "question": "¿Cómo se detectan las facturas automáticamente?",
+          "answer": "Se escanean las bandejas de entrada o carpetas de correos aplicando un filtro remitente y tipo de archivo adjunto. Después un modelos OCR identifica los documentos para identificiar si se trata de una factura."
         },
         {
           "tag": "Extracción",
           "question": "¿Qué datos se pueden extraer?",
-          "answer": "Proveedor, fecha, número de factura, conceptos, base imponible, IVA, total y cualquier campo adicional que necesites."
+          "answer": "Se puede extraer cualquier tipo de campo indicado previamente: proveedor, fecha, número de factura, conceptos, base imponible, IVA, total y cualquier campo adicional que necesites."
         },
         {
           "tag": "Integración",
-          "question": "¿Se puede conectar con mi ERP o contabilidad?",
-          "answer": "Sí. Podemos exportar a CSV, API, Google Drive, OneDrive, Holded, A3, Contasol y otros sistemas."
+          "question": "¿Se puede conectar con mi Drive o mi sistema ERP?",
+          "answer": "Sí. La herramienta n8n se puede integrar con gran facilidad con Google Drive, OneDrive, Dropbox, y sistemas ERP como Holded y Odoo. Además, se puede conectar con cualquier sistema que tenga API o permita la integración mediante webhooks."
         },
         {
-          "tag": "Seguridad",
-          "question": "¿Cómo gestionáis datos sensibles?",
-          "answer": "Aplicamos minimización de datos, cifrado en tránsito y reglas de acceso estrictas. Solo procesamos lo necesario para la automatización."
+          "tag": "Precio",
+          "question": "¿Tiene algún coste mensual?",
+          "answer": "Por nuestra parte NO. Nuestro precio de implantación es único y cerrado. El coste mensual dependerá del proveedor de VPS que elijas y del volumen de facturas que proceses. Normalmente, un VPS básico cuesta entre 40€ y 60€ al año, y es suficiente para la mayoría de empresas."
         }
       ],
       "keywords": [
-        "automatización de facturas",
-        "procesamiento documental",
-        "OCR inteligente",
-        "clasificación automática de facturas",
-        "automatización administrativa"
+        "Facturas",
+        "Automatización",
+        "ERP y CRM",
+        "Escanear documentos",
+        "VPS",
+        "n8n",
+        "OCR",
+        "Automático"
       ],
-      "hub": {
-        "title": "Automatización completa de facturas",
-        "subtitle": "Recepción, extracción, clasificación y archivado sin intervención humana.",
-        "bgTheme": "orange",
-        "platforms": [
-          {
-            "position": "top-left",
-            "figureKey": "email-inbox",
-            "colorScheme": "orange",
-            "label": "Recepción",
-            "sublabel": "Desde email o carpeta"
-          },
-          {
-            "position": "top-right",
-            "figureKey": "document-ocr",
-            "colorScheme": "amber",
-            "label": "Extracción",
-            "sublabel": "Datos clave sin errores"
-          },
-          {
-            "position": "bottom-left",
-            "figureKey": "folder-automation",
-            "colorScheme": "orange",
-            "label": "Clasificación",
-            "sublabel": "Carpetas automáticas"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "erp-sync",
-            "colorScheme": "amber",
-            "label": "Integración",
-            "sublabel": "ERP y contabilidad"
-          }
-        ]
-      },
       "cta": {
         "label": "Quiero automatizar mis facturas",
         "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20facturas",
         "bgColor": "#d97706"
       }
     },
-    "formacion-ia-sevilla": {
-      "slug": "formacion-ia-sevilla",
-      "title": "Formación en IA en Sevilla",
-      "description": "Formación práctica en inteligencia artificial para PYMES en Sevilla. Talleres adaptados a tu equipo para integrar la IA en procesos reales del día a día.",
-      "shortTitle": "Formación IA",
-      "heroBadge": "Formación operativa",
-      "heroCtaLabel": "Planificar formación",
-      "secondaryCtaLabel": "Consultar disponibilidad",
-      "serviceType": "Formación en IA para ventas, soporte y operaciones",
-      "areaServed": "España · Sesiones presenciales y online",
-      "valueProps": [
-        "Sesiones construidas sobre ejemplos reales y tareas que el equipo ya realiza hoy.",
-        "Módulos de seguridad, gobernanza y uso responsable adaptados a cada departamento.",
-        "Plantillas, prompts y rutinas listas para aplicar al día siguiente."
-      ],
+    "automatizacion-informes": {
+      "slug": "automatizacion-informes",
+      "title": "Automatización de envío de informes, notificaciones y comunicaciones",
+      "shortTitle": "Automatización de informes",
+      "heroText": "Nuestro objetivo es eliminar tareas manuales, reducir errores humanos y liberar tiempo administrativo sin perder control ni seguridad.",
+      "heroCtaLabel": "Solicitar más información",
+      "secondaryCtaLabel": "Quiero automatizar mis envíos",
+      "serviceType": "Automatización de envío de informes y comunicación con propietarios",
+      "areaServed": "España, comunidades de propietarios, administradores de fincas y gestorías",
       "sectionTitles": {
-        "valueProps": "Qué aprenderá tu equipo",
-        "metrics": "Formación en IA aplicada a procesos reales",
-        "carousel": "Formación en IA para PYMES",
-        "experts": "Profesores de IA en Sevilla",
-        "technologyFaqs": "Preguntas frecuentes",
-        "curiosities": "Datos y curiosidades",
-        "ctaTitle": "¿Quieres planificar una formación?",
-        "ctaSubtitle": "Adaptamos el contenido a tus procesos, roles y nivel de madurez."
+        "howItWorks": "¿Cómo funciona?",
+        "infocardsTitle": "Todo sobre la automatización de informes",
+        "requirements": "Requisitos",
+        "technologyFaqs": "Preguntas frecuentes"
       },
-      "ui": {
-        "linkedinLabel": "LinkedIn",
-        "faqCtaLabel": "Ver todas las preguntas frecuentes",
-        "previousLabel": "Anterior",
-        "nextLabel": "Siguiente"
+      "howItWorks": {
+        "videoUrl": "https://www.youtube.com/watch?v=qLKfe3yukGs",
+        "paragraphs": [
+          "Con este servicio se automatiza todo el flujo: desde la recogida de información hasta el envío, utilizando la nube, el CRM o el sistema documental que ya use el cliente.",
+          "Cada envío queda correctamente archivado y clasificado, garantizando trazabilidad, cumplimiento y facilidad de consulta futura. Además, tras cada ciclo de envíos, el administrador recibe un correo resumen."
+        ],
+        "steps": [
+          {
+            "title": "Recogida automática",
+            "description": "Conectamos la nube, el CRM o el sistema documental para recoger los informes sin intervención manual."
+          },
+          {
+            "title": "Envío masivo",
+            "description": "Generamos y enviamos cada informe por correo electrónico al propietario correspondiente."
+          },
+          {
+            "title": "Confirmación y archivo",
+            "description": "Cada envío queda archivado y el administrador recibe un resumen con incidencias y confirmación."
+          }
+        ]
       },
-      "metrics": [
-        {
-          "label": "Formato",
-          "value": "2-4 horas",
-          "detail": "Bloques compactos que no interrumpen operaciones y pueden repetirse por equipo."
-        },
-        {
-          "label": "Seguimiento",
-          "value": "Opcional 30 días",
-          "detail": "Acompañamos la adopción, resolvemos dudas y medimos el uso real tras la sesión."
-        },
-        {
-          "label": "Materiales",
-          "value": "Playbooks listos para usar",
-          "detail": "Guías por rol, checklists y librerías de prompts adaptadas a tus tareas."
-        }
-      ],
-      "experts": [
-        {
-          "name": "Antonio Macías Ferrera",
-          "role": "CTO ingeniero de software & Co-founder",
-          "description": "Ingeniero de software especialista en automatización e inteligencia artificial."
-        },
-        {
-          "name": "Guillermo Montero Fernández Vivancos",
-          "role": "Ingeniero de calidad y proyectos & Co-founder",
-          "description": "Consultor y project manager especializados en IA e ingeniería de calidad."
-        }
-      ],
+      "infocards": {
+        "cards": [
+          {
+            "name": "Compatibilidad total",
+            "description": "Compatible con cualquier CRM, nube, base de datos o sistema documental que ya utilices."
+          },
+          {
+            "name": "Software libre",
+            "description": "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles."
+          },
+          {
+            "name": "Máquinas privadas (VPS)",
+            "description": "Trabajamos sobre servidores privados del cliente. Tú mantienes el control total de tus datos y accesos en todo momento."
+          },
+          {
+            "name": "Sin datos sensibles",
+            "description": "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
+          }
+        ]
+      },
+      "security": {
+        "requirements": [
+          "Acceso al sistema donde se almacenan los informes (CRM, nube, base de datos...).",
+          "Acceso a la cuenta de correo electrónico.",
+          "Plantilla de mensajes que enviar a los propietarios."
+        ]
+      },
+      "pricing": {
+        "individualPrice": "450€ + IVA",
+        "individualLabel": "Precio del servicio",
+        "comboPrice": "400€ + IVA",
+        "comboLabel": "Precio combinado",
+        "comboNote": "Precio combinado al contratar varios servicios de automatización.",
+        "implementationTime": "10 días",
+        "implementationLabel": "Tiempo de implantación:",
+        "ctaLabel": "Quiero automatizar mis informes",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20informes"
+      },
       "technologyFaqs": [
         {
-          "tag": "Programa",
-          "question": "¿La formación es genérica o adaptada al negocio?",
-          "answer": "Siempre parte de casos y tareas reales. Sin ese anclaje, la adopción cae y el equipo vuelve a los hábitos anteriores."
+          "tag": "Procesamiento",
+          "question": "¿Cómo se recopilan los informes automáticamente?",
+          "answer": "Conectamos con el CRM, la nube o el sistema documental que ya utilices para recoger la información."
+        },
+        {
+          "tag": "Envío",
+          "question": "¿Cómo se realiza el envío masivo?",
+          "answer": "Cada informe se envía automáticamente por correo electrónico, usando la(s) plantilla(s) de mensaje proporcionadas por el cliente."
+        },
+        {
+          "tag": "Integración",
+          "question": "¿Se puede conectar con mi CRM o sistema documental?",
+          "answer": "Sí. Nos adaptamos al sistema que ya utilices: CRM, nube, base de datos o gestor de documentos que utilicéis."
         },
         {
           "tag": "Seguridad",
-          "question": "¿Incluye seguridad, privacidad y gobernanza?",
-          "answer": "Sí. Cubrimos minimización de datos, herramientas aprobadas, límites de uso y revisión humana cuando el impacto lo requiere."
+          "question": "¿Qué pasa si falla un envío?",
+          "answer": "Tras cada ciclo recibirás un correo resumen con el estado del proceso, incluyendo posibles incidencias y confirmación de ejecución."
         },
         {
-          "tag": "Formato",
-          "question": "¿Puede combinarse con un despliegue técnico?",
-          "answer": "Sí. Funciona incluso mejor cuando acompaña un piloto o rollout, porque el equipo aprende sobre su propio flujo de trabajo."
-        },
-        {
-          "tag": "Adopción",
-          "question": "¿Cómo medís si la formación cambia hábitos?",
-          "answer": "Definimos tareas objetivo, tiempo o calidad base y seguimiento posterior. Sin medición, la formación se queda en inspiración."
+          "tag": "Precio",
+          "question": "¿Tiene algún coste mensual?",
+          "answer": "Por nuestra parte NO. Nuestro precio de implantación es único y cerrado. El coste mensual dependerá del proveedor de VPS que elijas y del volumen de facturas que proceses. Normalmente, un VPS básico cuesta entre 40€ y 60€ al año, y es suficiente para la mayoría de empresas."
         }
       ],
-      "curiosities": [
-        "Más del 85% de las tareas administrativas pueden automatizarse parcial o totalmente con IA.",
-        "Las empresas que adoptan IA reportan un aumento medio del 30% en productividad en menos de 90 días.",
-        "Un modelo de IA puede analizar en milisegundos lo que un humano tardaría horas en revisar.",
-        "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos.",
-        "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
-      ],
-      "curiosityCards": [
-        {
-          "title": "Uso empresarial",
-          "badge": "Dato real",
-          "text": "Más del 85% de las tareas administrativas pueden automatizarse parcial o totalmente con IA."
-        },
-        {
-          "title": "Productividad",
-          "badge": "Impacto directo",
-          "text": "Las empresas que adoptan IA reportan un aumento medio del 30% en productividad en menos de 90 días."
-        },
-        {
-          "title": "Velocidad",
-          "badge": "Capacidad técnica",
-          "text": "Un modelo de IA puede analizar en milisegundos lo que un humano tardaría horas en revisar."
-        },
-        {
-          "title": "Adopción",
-          "badge": "Comportamiento humano",
-          "text": "El mayor freno a la adopción de IA no es la tecnología, sino la falta de hábitos."
-        },
-        {
-          "title": "Seguridad",
-          "badge": "Governance",
-          "text": "El 70% de los incidentes con IA se deben a mal uso o falta de políticas internas."
-        }
+      "keywords": [
+        "Envío automático",
+        "Informes",
+        "Informes económicos",
+        "Correo electrónico",
+        "Envío masivo",
+        "CRM",
+        "n8n",
+        "VPS"
       ],
       "cta": {
-        "label": "Quiero saber más información",
+        "label": "Quiero automatizar mis informes",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20informes",
+        "bgColor": "#d97706"
+      }
+    },
+    "automatizacion-redes-sociales": {
+      "slug": "automatizacion-redes-sociales",
+      "title": "Automatización de redes sociales",
+      "shortTitle": "Automatización de redes sociales",
+      "subtitle": "Tu empresa activa en redes, sin dedicarle tiempo cada día",
+      "heroText": "Tú preparas el contenido y el sistema lo publica, avisándote de ello. Funciona en LinkedIn, Instagram y Facebook.",
+      "description": "Automatización de redes sociales para empresas. Programa publicaciones en LinkedIn, Instagram y Facebook: tú preparas el contenido y el sistema lo publica automáticamente, avisándote en el momento en que se sube.",
+      "heroCtaLabel": "Solicitar información",
+      "serviceType": "Automatización de publicación programada para redes sociales",
+      "areaServed": "España y despliegue remoto UE",
+      "sectionTitles": {
+        "cards": "Elige tu plataforma",
+        "howItWorks": "Cómo funciona",
+        "security": "¿Qué ventajas tiene esta automatización?"
+      },
+      "cards": {
+        "tapHint": "Toca para ver más",
+        "meta": {
+          "label": "Meta",
+          "hint": "Instagram y Facebook",
+          "title": "Instagram y Facebook",
+          "bullets": [
+            "Publica reels, posts y carruseles simultáneamente en ambas plataformas.",
+            "Recibirás una notificación en el momento de la subida a la plataforma."
+          ],
+          "price": "450€",
+          "priceNote": "pago único + IVA",
+          "ctaLabel": "Contratar"
+        },
+        "linkedin": {
+          "label": "LinkedIn",
+          "hint": "Presencia en tu página de empresa",
+          "title": "LinkedIn",
+          "bullets": [
+            "Consigue mantener una presencia activa en tu cuenta de empresa sin tener que dedicarle todos los días.",
+            "Recibirás una notificación en el momento de la subida a la plataforma."
+          ],
+          "price": "450€",
+          "priceNote": "pago único + IVA",
+          "ctaLabel": "Contratar"
+        }
+      },
+      "offer": {
+        "label": "Oferta combinada",
+        "price": "800€ + IVA",
+        "note": "Contrata ambas plataformas juntas por 800€ + IVA (pago único) en lugar de 900€ + IVA."
+      },
+      "steps": [
+        {
+          "title": "Preparas el contenido cuando quieras",
+          "description": "Tú elaboras tus publicaciones, reels o carruseles a tu ritmo, sin plazos y con tu diseño personal."
+        },
+        {
+          "title": "Subes el contenido a tu nube indicando fecha de publicación",
+          "description": "Simplemente sube tus publicaciones a tu nube a una carpeta específica indicando fecha de publicación deseada."
+        },
+        {
+          "title": "Todo se publica automáticamente a la hora más adecuada",
+          "description": "El sistema publica automáticamente en LinkedIn, Instagram y Facebook cuando corresponde."
+        },
+        {
+          "title": "Recibes una confirmación automática",
+          "description": "Te avisamos en el momento en que cada publicación se sube, sin que tengas que comprobarlo tú."
+        }
+      ],
+      "infocards": {
+        "cards": [
+          {
+            "name": "Máquinas privadas (VPS)",
+            "description": "Trabajamos sobre servidores privados del cliente. Tú mantienes el control total de tus datos y accesos en todo momento."
+          },
+          {
+            "name": "Software libre",
+            "description": "Utilizamos herramientas de software libre como n8n, que permiten soluciones escalables y mantenibles."
+          },
+          {
+            "name": "Cero datos sensibles",
+            "description": "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores."
+          },
+          {
+            "name": "Acceso a tus cuentas",
+            "description": "Tú concedes el acceso a las cuentas de empresa (Meta Business Suite y/o página de empresa de LinkedIn)."
+          }
+        ]
+      },
+      "pricing": {
+        "individualPrice": "450€ + IVA (pago único)",
+        "individualLabel": "Por plataforma",
+        "comboPrice": "800€ + IVA (pago único)",
+        "comboLabel": "Oferta combinada",
+        "comboNote": "Instagram + Facebook + LinkedIn juntas por 800€ + IVA en lugar de 900€ + IVA.",
+        "ctaLabel": "Solicitar información",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20redes%20sociales"
+      },
+      "cta": {
+        "label": "Quiero automatizar mis redes sociales",
+        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20redes%20sociales",
         "bgColor": "#d97757"
       }
     },
-    "inteligencia-artificial-empresas": {
-      "slug": "inteligencia-artificial-empresas",
-      "title": "Inteligencia artificial para empresas",
-      "seoTitle": "Inteligencia artificial para empresas",
-      "seoDescription": "Inteligencia artificial para empresas: optimizamos procesos, reducimos trabajo repetitivo y potenciamos la toma de decisiones con IA a medida.",
-      "shortTitle": "IA para empresas",
-      "subtitle": "Automatizamos tareas, reducimos tiempos operativos y creamos copilotos internos adaptados a tu negocio.",
-      "description": "Diseñamos e implantamos soluciones de IA que mejoran productividad, eliminan trabajo repetitivo y permiten a los equipos centrarse en tareas de mayor valor. Modelos privados, automatizaciones seguras y asistentes entrenados con tu propio conocimiento.",
-      "heroCtaLabel": "Evaluar mi caso",
-      "heroCtaHref": "#formulario",
-      "secondaryCtaLabel": "Hablar con el equipo",
-      "serviceType": "Automatización, copilotos internos y modelos privados",
-      "areaServed": "España y equipos remotos",
-      "cards": [
-        {
-          "title": "Copilotos internos",
-          "description": "Asistentes privados entrenados con tu documentación, procesos y datos internos. Responden dudas, generan contenido y guían tareas operativas."
-        },
-        {
-          "title": "Automatización de procesos",
-          "description": "Eliminamos tareas repetitivas: clasificación de correos, generación de informes, resúmenes automáticos, extracción de datos y más."
-        },
-        {
-          "title": "Modelos privados y seguros",
-          "description": "Infraestructura de IA en tu nube o entorno privado. Control total del dato, auditoría y cumplimiento normativo."
-        }
-      ],
+    "implantacion-odoo": {
+      "slug": "implantacion-odoo",
+      "title": "Implantación de Odoo 18",
+      "shortTitle": "Implantación de Odoo 18",
+      "heroText": "El servicio de implantación y actualización de Odoo 18 de Ordinaly está orientado a empresas y pymes que necesitan una plataforma donde organizar su empresa (gestión de clientes, personal, facturación, contabilidad, etc.).",
+      "heroCtaLabel": "Solicitar información",
+      "secondaryCtaLabel": "Quiero implantar Odoo",
+      "serviceType": "Implantación y actualización de ERP Odoo",
+      "areaServed": "España, empresas y pymes",
       "sectionTitles": {
-        "cards": "Qué podemos hacer con IA en tu empresa",
-        "steps": "Cómo trabajamos",
-        "valueProps": "Qué aporta la IA a tu negocio",
-        "metrics": "Impacto real",
-        "outcomes": "Resultados que obtienes",
-        "useCases": "Casos de uso",
-        "technologyFaqs": "Tecnología y seguridad",
-        "hub": "IA integrada en tus procesos",
-        "ctaTitle": "¿Listo para implantar IA en tu empresa?",
-        "ctaSubtitle": "Creamos un piloto real, medible y adaptado a tus procesos."
+        "whatIsOdoo": "¿Qué es Odoo?",
+        "whyOdoo": "¿Por qué Odoo es nuestra solución de confianza?",
+        "whyOdooCommunity": "¿Por qué Odoo Community?",
+        "infocardsTitle": "Todo sobre la implantación de Odoo 18",
+        "security": "Tu negocio es nuestra prioridad",
+        "requirements": "Requisitos",
+        "technologyFaqs": "¿Tienes más dudas sobre Odoo?",
+        "technologyFaqsSubtitle": "Aquí respondemos a las más frecuentes"
       },
-      "steps": [
-        "Analizamos tus procesos, cuellos de botella y oportunidades reales de automatización.",
-        "Diseñamos la solución: copiloto, automatización o modelo privado según tu caso.",
-        "Desplegamos, entrenamos al equipo y dejamos métricas de uso y mejora continua."
-      ],
-      "valueProps": [
-        "Copilotos internos entrenados con tu conocimiento.",
-        "Automatización de tareas repetitivas y operativas.",
-        "Modelos privados con control total del dato.",
-        "Integración con herramientas internas y flujos existentes."
-      ],
-      "metrics": [
+      "whatIsOdoo": {
+        "paragraphs": [
+          "Odoo es uno de los ERP más utilizados del mundo, con millones de usuarios activos y una adopción creciente gracias a su flexibilidad, escalabilidad y amplio ecosistema de módulos para gestión empresarial, ventas, contabilidad, CRM y operaciones."
+        ],
+        "linkPrefix": "Puedes obtener más información sobre Odoo en su web oficial:",
+        "linkLabel": "odoo.com",
+        "linkHref": "https://www.odoo.com"
+      },
+      "whyOdoo": {
+        "paragraphs": [
+          "Odoo combina CRM, contabilidad, facturación, inventario, ventas y muchos más módulos, en una única plataforma.",
+          "Su estructura modular te permite empezar por lo esencial y crecer sin cambiar de sistema, adaptándose al ritmo de tu negocio y a la curva de aprendizaje de tu equipo."
+        ]
+      },
+      "whyOdooCommunity": {
+        "paragraphs": [
+          "En Ordinaly, implantamos Odoo Community, la edición de código abierto y gratuita de Odoo. Es igual de mantenible, segura y funcional que la versión Enterprise, pero mucho más económica al evitar el coste mensual de las licencias por usuario, inevitables en otros ERPs como Salesforce.",
+          "Además, no dependes únicamente de Ordinaly, Odoo Community cuenta con una amplia comunidad de desarrolladores y empresas detrás, que publican módulos, mejoras y correcciones de forma continua."
+        ],
+        "comparisonTable": {
+          "headers": [
+            "Herramienta",
+            "Coste anual (5 usuarios)",
+            "Observaciones"
+          ],
+          "rows": [
+            {
+              "tool": "Salesforce Sales Cloud Starter",
+              "cost": "~1.800 €/año",
+              "notes": "25 € por usuario/mes. Sin módulo de inventario ni contabilidad incluidos."
+            },
+            {
+              "tool": "HubSpot CRM (plan Starter)",
+              "cost": "~1.200 €/año",
+              "notes": "El CRM básico es gratis, pero las automatizaciones y pipelines múltiples requieren plan de pago."
+            },
+            {
+              "tool": "Odoo Enterprise",
+              "cost": "~900 €/año",
+              "notes": "15 € por usuario/mes. Incluye soporte oficial y módulos adicionales."
+            },
+            {
+              "tool": "Odoo Community",
+              "cost": "0*€ de licencia",
+              "notes": "Implantación y servidor son los únicos costes. El software es gratuito.",
+              "highlight": true
+            }
+          ]
+        },
+        "tableNote1": "Tabla comparativa de costes anuales aproximados para 5 usuarios. Los precios pueden variar según el proveedor y la región.",
+        "tableNote2": "* Coste de licencia del software. La implantación y el servidor son los únicos costes reales de Odoo Community."
+      },
+      "heroBadgeAlt": "Insignia de Odoo",
+      "infocards": {
+        "cards": [
+          {
+            "name": "ERP completo",
+            "description": "Odoo combina CRM, contabilidad, facturación, inventario, ventas y muchos más módulos, en una única plataforma."
+          },
+          {
+            "name": "Módulos a medida",
+            "description": "El sistema se puede ampliar con módulos adicionales según las necesidades de tu negocio."
+          },
+          {
+            "name": "Perfecto para automatización",
+            "description": "Odoo Community es compatible con n8n, lo que permite automatizar procesos y flujos de trabajo sin depender de desarrollos a medida."
+          },
+          {
+            "name": "VeriFactu España",
+            "description": "El servicio puede ser complementado con la configuración base para cumplimiento de VeriFactu España (consultar)."
+          },
+          {
+            "name": "Máquinas privadas (VPS)",
+            "description": "El sistema se implanta en infraestructura controlada por el cliente (servidor propio o VPS). El cliente mantiene el control total del ERP y de su información en todo momento."
+          },
+          {
+            "name": "FLOSS - Software libre",
+            "description": "Odooo Community es software libre y de código abierto. No dependes de licencias por usuario ni de proveedores externos."
+          },
+          {
+            "name": "Cero datos sensibles",
+            "description": "En ningún momento recopilamos contraseñas, datos sensibles o archivos en nuestros servidores. Ordinaly no conserva accesos ni credenciales tras la entrega del servicio. No almacenamos tus datos o archivos en nuestros servidores."
+          }
+        ]
+      },
+      "pricing": {
+        "individualPrice": "860€ + IVA",
+        "individualLabel": "pago único",
+        "implementationTime": "10 días",
+        "implementationLabel": "Tiempo de implantación:",
+        "ctaLabel": "Quiero implantar Odoo",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20implantar%20Odoo"
+      },
+      "technologyFaqs": [
         {
-          "label": "Ahorro operativo",
-          "value": "30% - 60%",
-          "detail": "Reducción de tiempo en tareas repetitivas."
+          "tag": "Precio",
+          "question": "¿Por qué el precio es un pago único y no una cuota mensual?",
+          "answer": "Implantamos Odoo Community, la edición de código abierto y gratuita de Odoo. Al no depender de las licencias por usuario de Odoo Enterprise, el coste se limita al servicio de implantación: un pago único, sin cuotas mensuales recurrentes por usuario."
         },
         {
-          "label": "Velocidad",
-          "value": "x10",
-          "detail": "Generación de contenido, informes y respuestas."
+          "tag": "Seguridad",
+          "question": "¿Cómo protegéis los datos de mi empresa?",
+          "answer": "El sistema se despliega en infraestructura controlada por ti (servidor propio o VPS). Mantienes el control total de tus datos y accesos, y no conservamos credenciales ni copias de tu información tras la entrega del servicio."
         },
         {
-          "label": "Seguridad",
-          "value": "Privado",
-          "detail": "Modelos desplegados en tu infraestructura."
-        }
-      ],
-      "outcomes": [
-        "Menos tareas manuales y repetitivas.",
-        "Equipos más rápidos y con menos carga operativa.",
-        "Procesos más consistentes y auditables.",
-        "Mayor calidad en documentación, respuestas y análisis."
-      ],
-      "useCases": [
+          "tag": "Comparativa",
+          "question": "¿Por qué elegir Odoo frente a otros ERPs?",
+          "answer": "Odoo combina en una sola plataforma CRM, contabilidad, facturación, inventario, ventas y muchos más módulos, con una interfaz moderna y una curva de aprendizaje mucho menor que otros ERPs tradicionales. Su estructura modular te permite empezar por lo esencial y crecer sin cambiar de sistema."
+        },
         {
-          "tag": "Operaciones",
-          "title": "Automatización de tareas repetitivas",
-          "description": "Clasificación de correos, extracción de datos, generación de informes y resúmenes automáticos.",
-          "bullets": [
-            "Menos carga manual",
-            "Procesos más rápidos y consistentes"
+          "tag": "Community vs Enterprise",
+          "question": "¿Por qué implantáis Odoo Community y no Odoo Enterprise?",
+          "answer": "Odoo Community es igual de mantenible, segura y funcional que la versión Enterprise, pero mucho más económica a largo plazo al evitar el coste recurrente de las licencias por usuario. Además, no dependes únicamente de Ordinaly: Odoo Community cuenta con una amplia comunidad de desarrolladores y empresas detrás.",
+          "links": [
+            {
+              "label": "Comunidad y foro oficial de Odoo",
+              "href": "https://www.odoo.com/forum/help-1"
+            },
+            {
+              "label": "Odoo Community Association (OCA)",
+              "href": "https://odoo-community.org/"
+            }
           ]
         },
         {
           "tag": "Soporte",
-          "title": "Copiloto para atención interna o externa",
-          "description": "Responde dudas, consulta documentación y genera respuestas basadas en tu conocimiento interno.",
-          "bullets": [
-            "Respuestas más rápidas",
-            "Menos escalados"
-          ]
+          "question": "¿Quién da soporte a Odoo Community? ¿Recibe actualizaciones?",
+          "answer": "Odoo Community está respaldado por una amplia comunidad global de desarrolladores y empresas que publican módulos, correcciones y mejoras de forma continua. ",
+          "answerEmphasis": "Ordinaly se encarga de la implantación, configuración y mantenimiento técnico directo para tu empresa."
         },
         {
-          "tag": "Dirección",
-          "title": "Informes automáticos y análisis",
-          "description": "Generación de reportes, resúmenes ejecutivos y análisis de datos en segundos.",
-          "bullets": [
-            "Decisiones más rápidas",
-            "Información siempre actualizada"
-          ]
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Privacidad",
-          "question": "¿La IA usa mis datos para entrenar modelos externos?",
-          "answer": "No. Los modelos pueden ejecutarse en tu infraestructura o en entornos privados sin compartir datos con terceros."
-        },
-        {
-          "tag": "Integración",
-          "question": "¿Puede conectarse con mis herramientas actuales?",
-          "answer": "Sí. Podemos integrar la IA con tus sistemas internos, bases de datos, CRM, ERP o herramientas de comunicación."
-        },
-        {
-          "tag": "Seguridad",
-          "question": "¿Cumple con GDPR y requisitos internos?",
-          "answer": "Sí. Implementamos permisos mínimos, auditoría, cifrado y control de acceso por rol."
-        },
-        {
-          "tag": "Mantenimiento",
-          "question": "¿Quién mantiene el sistema una vez implantado?",
-          "answer": "Podemos operarlo nosotros o dejarlo en manos de tu equipo con documentación y runbooks."
+          "tag": "Migración",
+          "question": "¿Podéis migrar mi negocio desde otro ERP o desde Odoo Enterprise?",
+          "answer": "Sí. Analizamos tu sistema actual, definimos el alcance y migramos tus datos y procesos a Odoo Community sin perder continuidad. Este coste de migración se valora de forma individual según la complejidad y volumen de datos."
         }
       ],
       "keywords": [
-        "inteligencia artificial empresas",
-        "automatización IA",
-        "copilotos internos",
-        "modelos privados IA",
-        "IA para negocios"
+        "Odoo",
+        "ERP",
+        "CRM",
+        "Implantación",
+        "VeriFactu",
+        "Facturación",
+        "Gestión empresarial"
       ],
-      "hub": {
-        "title": "IA integrada en tus procesos",
-        "subtitle": "Automatización, copilotos y modelos privados conectados a tu negocio.",
-        "bgTheme": "cyan",
-        "platforms": [
+      "cta": {
+        "label": "Quiero implantar Odoo",
+        "href": "https://wa.me/34626270806?text=Quiero%20implantar%20Odoo",
+        "bgColor": "#d97706"
+      }
+    },
+    "desarrollo-de-app-webs": {
+      "slug": "desarrollo-de-app-webs",
+      "title": "Desarrollo de aplicaciones web multiplataforma (PWA)",
+      "shortTitle": "Desarrollo de PWA",
+      "heroText": "Diseñamos y desarrollamos PWA dinámicas, rápidas y escalables. Aplicaciones web modernas que combinan lo mejor de una web y una app, optimizadas para rendimiento, SEO y experiencia del usuario. El objetivo es ofrecer servicios de una manera moderna, rápida y accesible sin depender de aplicaciones nativas.",
+      "heroCtaLabel": "Solicitar información",
+      "secondaryCtaLabel": "Quiero mi PWA",
+      "serviceType": "Desarrollo de aplicaciones web progresivas (PWA)",
+      "areaServed": "España, empresas y pymes",
+      "videoSection": {
+        "title": "Cómo es el desarrollo Agile de una aplicación web",
+        "videoCaptionName": "Antonio Macías Ferrera",
+        "videoCaptionRole": "CTO software engineer & co-founder",
+        "videoCaptionText": "Desarrollamos aplicaciones web modernas que combinan lo mejor de una página web y una app, optimizadas para rendimiento, SEO y experiencia de usuario. El objetivo es ofrecer servicios de forma moderna, rápida y accesible sin depender de apps nativas.",
+        "videoUrl": "https://www.youtube.com/watch?v=6g8k0J1j5xM"
+      },
+      "sectionTitles": {
+        "whatIsPWA": "¿Qué es una PWA?",
+        "infocardsTitle": "Todo lo que incluye tu PWA",
+        "portfolioTitle": "Proyectos que hemos creado",
+        "requirements": "Requisitos"
+      },
+      "whatIsPWA": {
+        "intro": "Una PWA es una Aplicación Web Progresiva que combina las ventajas de un sitio web con las funcionalidades avanzadas propias de una aplicación móvil (contenido en tiempo real, integraciones con sistemas externos y una experiencia de usuario comparable a una app móvil):",
+        "bullets": [
+          "Puede instalarse en cualquier dispositivos, funcionando en móviles, tablets y ordenadores o a través de la web.",
+          "Permite notificaciones push, acceso a la cámara, geolocalización y otras funcionalidades propias de una app móvil.",
+          "Ofrece una experiencia rápida, fluida y segura"
+        ]
+      },
+      "infocards": {
+        "cards": [
           {
-            "position": "top-left",
-            "figureKey": "ai-copilot",
-            "colorScheme": "indigo",
-            "label": "Copiloto",
-            "sublabel": "Asistente interno"
+            "name": "Análisis, diseño y desarrollo de PWA dinámica a tu medida"
           },
           {
-            "position": "top-right",
-            "figureKey": "automation",
-            "colorScheme": "cyan",
-            "label": "Automatización",
-            "sublabel": "Procesos repetitivos"
+            "name": "Optimización de rendimiento y SEO técnico"
           },
           {
-            "position": "bottom-left",
-            "figureKey": "private-model",
-            "colorScheme": "indigo",
-            "label": "Modelo privado",
-            "sublabel": "Seguridad y control"
+            "name": "Integración con sistemas de automatiación externos mediante APIs y webhooks"
           },
           {
-            "position": "bottom-right",
-            "figureKey": "observability",
-            "colorScheme": "cyan",
-            "label": "Observabilidad",
-            "sublabel": "Métricas y control"
+            "name": "Despliegue seguro en infraestructura del cliente"
+          },
+          {
+            "name": "Diseño y UX responsive compatible con todos los dispositivos"
+          },
+          {
+            "name": "UI con modo oscuro e internacionalización (i18n)"
           }
         ]
       },
-      "cta": {
-        "label": "Implantar IA en mi empresa",
-        "href": "https://wa.me/34626270806?text=Quiero%20implantar%20IA%20en%20mi%20empresa",
-        "bgColor": "#0255D5"
-      }
-    },
-    "inteligencia-artificial-sevilla": {
-      "slug": "inteligencia-artificial-sevilla",
-      "title": "Inteligencia artificial en Sevilla",
-      "seoTitle": "Inteligencia artificial en Sevilla",
-      "seoDescription": "Inteligencia artificial en Sevilla para pymes. Automatizamos procesos con IA personalizada para mejorar la rentabilidad de tu empresa.",
-      "shortTitle": "IA para Empresas en Sevilla",
-      "subtitle": "Automatizamos, optimizamos y escalamos procesos con IA para que tu empresa gane velocidad y precisión.",
-      "description": "Desarrollamos soluciones de Inteligencia artificial aplicadas a operaciones reales: automatización, asistentes inteligentes, análisis predictivo y optimización de procesos. Implementamos IA con criterio, datos limpios y despliegues que funcionan en producción.",
-      "heroCtaLabel": "Abrir formulario",
-      "heroCtaHref": "#formulario",
-      "cardsSectionTitle": "Mejora tu negocio con la inteligencia artificial",
-      "servicesSectionTitle": "Servicios de inteligencia artificial en Sevilla",
-      "formSectionTitle": "Proyectos de inteligencia artificial en Sevilla",
-      "serviceType": "Automatización, asistentes IA y soluciones aplicadas",
-      "areaServed": "Sevilla, Andalucía y empresas en España",
-      "valueProps": [
-        "IA aplicada a procesos reales",
-        "Integración con tus sistemas actuales",
-        "Entrenamiento con tus datos",
-        "Supervisión y mejora continua"
-      ],
-      "contactUs": "Contáctanos",
-      "cards": [
-        {
-          "title": "Alcance del servicio",
-          "description": "Definimos qué procesos, áreas y sistemas pueden beneficiarse de IA aplicada."
-        },
-        {
-          "title": "Cobertura",
-          "description": "Aplicamos IA en operaciones, soporte, ventas, dirección y áreas transversales."
-        },
-        {
-          "title": "Modelo de entrega",
-          "description": "Diagnóstico, diseño, entrenamiento, integración y mejora continua."
-        },
-        {
-          "title": "Automatización",
-          "description": "Eliminamos tareas repetitivas y reducimos errores operativos con IA."
-        },
-        {
-          "title": "Asistentes IA",
-          "description": "Bots entrenados con tu documentación interna para soporte y operaciones."
-        },
-        {
-          "title": "Análisis Predictivo",
-          "description": "Anticipamos tendencias y comportamientos con modelos de datos para que tomes decisiones con ventaja."
-        }
-      ],
-      "stepsTitle": "Secuencia de implantación",
-      "steps": [
-        "Identificamos oportunidades de IA en tus procesos.",
-        "Diseñamos la solución: automatización o asistente IA.",
-        "Entrenamos la IA con tus datos y documentación.",
-        "Integramos la solución en tus sistemas actuales.",
-        "Supervisamos, medimos y mejoramos continuamente."
-      ],
-      "keywords": [
-        "inteligencia artificial sevilla",
-        "automatización IA",
-        "asistentes IA empresas",
-        "optimización de procesos",
-        "IA para negocios"
-      ],
-      "hub": {
-        "title": "IA aplicada a procesos reales",
-        "subtitle": "Automatización, asistentes inteligentes y modelos predictivos para empresas de Sevilla.",
-        "bgTheme": "cyan",
-        "platforms": [
+      "security": {
+        "requirements": [
+          "Los requisitos se definen en función del alcance y las funcionalidades del proyecto.",
+          "¡Lo único que nos hace falta es una buena idea!"
+        ]
+      },
+      "portfolio": {
+        "ctaLabel": "Ver proyecto",
+        "projects": [
           {
-            "position": "top-left",
-            "figureKey": "ai-bot",
-            "colorScheme": "indigo",
-            "label": "Asistentes IA",
-            "sublabel": "Entrenados con tu negocio"
+            "name": "Ordinaly",
+            "description": "Nuestra propia aplicación web progresiva: intuitiva, rápida y en constante evolución."
           },
           {
-            "position": "top-right",
-            "figureKey": "automation",
-            "colorScheme": "cyan",
-            "label": "Automatización",
-            "sublabel": "Procesos internos"
+            "name": "Geesol Renovables",
+            "description": "La nueva web de Geesol Renovables, con integración con su aplicación móvil, plan de referidos y mucho más."
           },
           {
-            "position": "bottom-left",
-            "figureKey": "predictive",
-            "colorScheme": "indigo",
-            "label": "Modelos",
-            "sublabel": "Predicción y análisis"
-          },
-          {
-            "position": "bottom-right",
-            "figureKey": "integration",
-            "colorScheme": "cyan",
-            "label": "Integración",
-            "sublabel": "CRM, ERP y APIs"
+            "name": "Fisio Find",
+            "description": "Web del proyecto de fisioterapia online Fisio Find, con seguimiento de pacientes, videoconsultas integradas y mucho más."
           }
         ]
       },
-      "cta": {
-        "label": "Contactar por WhatsApp",
-        "href": "https://wa.me/34626270806?text=Hola%20IA%20en%20sevilla",
-        "bgColor": "#0255D5"
-      }
-    },
-    "automatizacion-inteligente": {
-      "title": "Automatización inteligente",
-      "shortTitle": "Automatización inteligente",
-      "description": "Diseñamos automatización inteligente para empresas que necesitan orquestar herramientas, datos y tareas con n8n e IA sin perder control operativo.",
-      "heroCtaLabel": "Quiero saber más",
-      "heroCtaHref": "#formulario",
-      "sectionTitles": {
-        "howItWorks": "Ahorra tiempo y dinero con la automatización inteligente",
-        "benefits": "Automatización inteligente en empresas",
-        "beforeAfter": "Resultados de la automatización inteligente",
-        "before": "Antes",
-        "after": "Después"
+      "pricing": {
+        "individualPrice": "Presupuesto a consultar",
+        "implementationTime": "30 días",
+        "implementationLabel": "Tiempo de implantación:",
+        "ctaLabel": "Quiero una PWA para mi empresa",
+        "ctaHref": "https://wa.me/34626270806?text=Quiero%20una%20PWA%20para%20mi%20negocio"
       },
-      "steps": [
-        "Analizamos tus procesos actuales y detectamos cuellos de botella.",
-        "Diseñamos el flujo automatizado y definimos reglas + IA.",
-        "Integramos tus herramientas y monitorizamos resultados."
-      ],
-      "benefits": [
-        "Reducción del 40-70% en tareas manuales",
-        "Procesos 3x más rápidos",
-        "Eliminación de errores repetitivos",
-        "Integración total entre tus herramientas",
-        "Ahorro directo en costes operativos",
-        "Equipos más enfocados en tareas de valor"
-      ],
-      "before": [
-        "Tareas repetitivas que consumen horas",
-        "Errores humanos constantes",
-        "Procesos lentos y poco escalables",
-        "Falta de integración entre herramientas",
-        "Equipos saturados con tareas administrativas"
-      ],
-      "after": [
-        "Procesos automáticos funcionando 24/7",
-        "Cero errores repetitivos",
-        "Integración total entre sistemas",
-        "Ahorro de tiempo y costes",
-        "Equipos centrados en tareas de alto valor"
-      ],
-      "cta": {
-        "label": "Quiero automatizar mi empresa",
-        "href": "https://wa.me/34626270806?text=Quiero%20automatizar%20mis%20procesos",
-        "bgColor": "#D97757"
-      }
-    },
-    "empresa-inteligencia-artificial": {
-      "slug": "empresa-inteligencia-artificial",
-      "title": "Empresa de inteligencia artificial",
-      "shortTitle": "Empresa de IA",
-      "subtitle": "Somos la empresa de inteligencia artificial que convierte datos, procesos y equipos en resultados medibles.",
-      "description": "Ordinaly es una empresa especializada en inteligencia artificial aplicada. Diseñamos, construimos e implantamos soluciones de IA que generan impacto real en operaciones, equipos y resultados de negocio. Sin humo, sin demos vacías: sólo IA que funciona en producción.",
-      "heroCtaLabel": "Hablar con el equipo",
-      "heroCtaHref": "#empresa-ia-contact",
-      "secondaryCtaLabel": "Ver casos de uso",
-      "serviceType": "Consultoría, desarrollo e implantación de IA",
-      "areaServed": "España y empresas en toda Europa",
-      "sectionTitles": {
-        "valueProps": "Por qué elegirnos como tu empresa de IA",
-        "outcomes": "Lo que consigues trabajando con nosotros",
-        "steps": "Cómo trabajamos",
-        "useCases": "Lo que hacemos como empresa de IA",
-        "technologyFaqs": "Preguntas frecuentes",
-        "beforeAfter": "Antes y después de trabajar con nosotros",
-        "before": "Sin IA estratégica",
-        "after": "Con Ordinaly como empresa de IA"
-      },
-      "metrics": [
-        {
-          "label": "Ahorro operativo medio",
-          "value": "40-65%",
-          "detail": "Reducción de tiempo en tareas manuales y repetitivas en los primeros 90 días."
-        },
-        {
-          "label": "Velocidad de implantación",
-          "value": "4-8 semanas",
-          "detail": "De diagnóstico a primer piloto funcionando en producción."
-        },
-        {
-          "label": "Proyectos entregados",
-          "value": "+50",
-          "detail": "Soluciones de IA implantadas en empresas de distintos sectores."
-        }
-      ],
-      "valueProps": [
-        "Aplicamos IA a procesos reales, no a demos.",
-        "Equipo propio de ingeniería, datos y estrategia de IA.",
-        "Modelos privados y seguros desplegados en tu infraestructura.",
-        "Integración con tus herramientas: CRM, ERP, correo, bases de datos y más.",
-        "Metodología probada: diagnóstico, piloto, producción y mejora continua."
-      ],
-      "outcomes": [
-        "Procesos automatizados funcionando sin intervención humana.",
-        "Equipos más productivos y con menor carga operativa.",
-        "Decisiones más rápidas respaldadas por datos en tiempo real.",
-        "Modelos de IA entrenados con tu conocimiento y datos internos.",
-        "Trazabilidad, auditoría y control total sobre lo que hace la IA."
-      ],
-      "steps": [
-        "Diagnóstico: auditamos tus procesos, herramientas y oportunidades reales de automatización con IA.",
-        "Diseño: definimos la arquitectura, los modelos y el alcance del piloto adaptado a tu empresa.",
-        "Construcción: desarrollamos, entrenamos e integramos la solución en tu infraestructura real.",
-        "Producción: desplegamos, validamos con métricas y dejamos el sistema funcionando con soporte.",
-        "Mejora continua: monitorizamos el rendimiento y evolucionamos la solución con tu negocio."
-      ],
-      "before": [
-        "Decisiones lentas por falta de datos consolidados",
-        "Equipos saturados con tareas repetitivas y manuales",
-        "Procesos desconectados entre herramientas y departamentos",
-        "Conocimiento interno que se pierde o tarda horas en encontrar",
-        "Dificultad para escalar sin añadir más personas"
-      ],
-      "after": [
-        "Datos conectados y disponibles en tiempo real para decidir",
-        "Automatizaciones que ejecutan tareas sin intervención humana",
-        "Flujos integrados entre CRM, ERP, email y sistemas internos",
-        "Asistente IA que responde con el conocimiento de tu empresa",
-        "Capacidad de escalar operaciones sin crecer el equipo proporcionalmente"
-      ],
-      "useCases": [
-        {
-          "tag": "Automatización",
-          "title": "Automatización de procesos operativos",
-          "description": "Diseñamos flujos automáticos que ejecutan tareas repetitivas: clasificación, extracción, generación de informes y actualizaciones de sistemas.",
-          "bullets": [
-            "Reducción de tareas manuales en un 40-70%",
-            "Flujos funcionando 24/7 sin errores humanos",
-            "Integración con tus herramientas actuales"
-          ]
-        },
-        {
-          "tag": "Copilotos IA",
-          "title": "Asistentes internos con tu conocimiento",
-          "description": "Desarrollamos copilotos entrenados con tu documentación, procesos y datos internos para soporte, ventas, operaciones y dirección.",
-          "bullets": [
-            "Respuestas precisas basadas en tu información",
-            "Acceso instantáneo al conocimiento de la empresa",
-            "Escalables a todos los equipos"
-          ]
-        },
-        {
-          "tag": "Estrategia de IA",
-          "title": "Hoja de ruta y estrategia de IA",
-          "description": "Te ayudamos a definir dónde y cómo aplicar IA con criterio: qué automatizar primero, qué modelos usar y cómo medir el retorno.",
-          "bullets": [
-            "Diagnóstico de madurez digital y IA",
-            "Priorización de casos de uso con mayor ROI",
-            "Plan de implantación por fases"
-          ]
-        },
-        {
-          "tag": "Modelos privados",
-          "title": "IA privada y segura en tu infraestructura",
-          "description": "Implantamos modelos de lenguaje y IA en tu nube o servidor privado. Control total del dato, sin dependencia de terceros.",
-          "bullets": [
-            "Cumplimiento GDPR y normativas internas",
-            "Sin fuga de datos a servicios externos",
-            "Auditoría y permisos por rol"
-          ]
-        },
-        {
-          "tag": "Análisis predictivo",
-          "title": "Predicción y análisis inteligente",
-          "description": "Modelos predictivos para anticipar demanda, detectar anomalías, optimizar inventarios y tomar decisiones basadas en datos.",
-          "bullets": [
-            "Predicciones con datos históricos reales",
-            "Alertas automáticas ante desviaciones",
-            "Dashboards conectados a tus fuentes de datos"
-          ]
-        },
-        {
-          "tag": "Integración",
-          "title": "Integración de sistemas con IA",
-          "description": "Conectamos tus herramientas actuales con flujos inteligentes: CRM, ERP, bases de datos, correo, WhatsApp y APIs propias.",
-          "bullets": [
-            "Sin necesidad de cambiar tus sistemas actuales",
-            "Datos fluyendo entre herramientas en tiempo real",
-            "Automatizaciones activadas por eventos"
-          ]
-        }
-      ],
-      "technologyFaqs": [
-        {
-          "tag": "Privacidad",
-          "question": "¿Mis datos se usan para entrenar modelos de terceros?",
-          "answer": "No. Podemos desplegar modelos en tu infraestructura o en entornos privados completamente aislados. Tus datos nunca salen de tu control."
-        },
-        {
-          "tag": "Integración",
-          "question": "¿Podéis integraros con nuestras herramientas actuales?",
-          "answer": "Sí. Trabajamos con CRM, ERP, Google Workspace, Microsoft 365, Notion, Airtable, bases de datos relacionales, APIs internas y herramientas de comunicación como Slack o WhatsApp."
-        },
-        {
-          "tag": "Seguridad",
-          "question": "¿Cumple con GDPR y los requisitos de mi sector?",
-          "answer": "Sí. Implementamos control de acceso por rol, cifrado, auditoría de acciones y trazabilidad completa. Adaptamos la solución a los requisitos de tu sector."
-        },
-        {
-          "tag": "Plazos",
-          "question": "¿Cuánto tiempo tarda en estar operativo el primer piloto?",
-          "answer": "Normalmente entre 4 y 8 semanas desde el diagnóstico hasta el primer piloto en producción, dependiendo del alcance y la complejidad."
-        },
-        {
-          "tag": "Mantenimiento",
-          "question": "¿Quién mantiene la solución una vez implantada?",
-          "answer": "Podemos operarla nosotros con un contrato de mantenimiento o documentarla y transferirla a tu equipo con formación y runbooks detallados."
-        },
-        {
-          "tag": "ROI",
-          "question": "¿Cómo medimos el retorno de la inversión en IA?",
-          "answer": "Definimos métricas de éxito antes de empezar: horas ahorradas, errores reducidos, velocidad de procesos o ingresos generados. El piloto incluye dashboards de seguimiento desde el primer día."
-        }
-      ],
       "keywords": [
-        "empresa de inteligencia artificial",
-        "empresa IA España",
-        "consultoría inteligencia artificial",
-        "soluciones IA para empresas",
-        "implantación IA",
-        "automatización con inteligencia artificial"
+        "PWA",
+        "Aplicaciones web",
+        "Progressive Web App",
+        "Desarrollo web",
+        "SEO",
+        "Multiplataforma"
       ],
       "cta": {
-        "label": "Hablar con un experto en IA",
-        "href": "https://wa.me/34626270806?text=Quiero%20hablar%20con%20vuestra%20empresa%20de%20IA",
-        "bgColor": "#0255D5"
+        "label": "Quiero mi PWA",
+        "href": "https://wa.me/34626270806?text=Quiero%20una%20PWA%20para%20mi%20negocio",
+        "bgColor": "#d97706"
       }
     }
   },
@@ -3309,32 +3100,5 @@
     "resendError": "Error al reenviar el código",
     "resendSuccess": "Código reenviado correctamente",
     "networkError": "Error de red. Verifica tu conexión e intenta de nuevo."
-  },
-  "landingUi": {
-    "blueprint": "Blueprint técnico",
-    "measuredDelivery": "Despliegue medible",
-    "service": "Alcance del servicio",
-    "coverage": "Cobertura",
-    "delivery": "Modelo de entrega",
-    "deliveryText": "Auditoría, piloto, despliegue y monitorización con cambios versionados.",
-    "capabilities": "Capacidades clave",
-    "metrics": "Benchmarks y objetivos operativos",
-    "metricsText": "Parámetros concretos para el despliegue inicial, la observabilidad y el control.",
-    "kpis": "KPIs y criterios de aceptación",
-    "process": "Secuencia de implantación",
-    "processText": "Primero reducimos ambigüedad; después automatizamos con guardrails y observabilidad.",
-    "useCases": "Casos de uso por equipo",
-    "useCasesText": "Ejemplos pensados para flujos reales y no para demos genéricas.",
-    "faq": "FAQ técnica",
-    "ready": "Definir el piloto",
-    "readyText": "Preparamos un primer alcance técnico con interfaces, flujo objetivo, restricciones y criterios de aceptación.",
-    "keywords": "Intenciones de búsqueda",
-    "architecture": "Arquitectura de referencia",
-    "contactEyebrow": "Intake del proyecto",
-    "contactTitle": "Habla con el equipo que define y ejecuta el despliegue",
-    "contactText": "El mismo equipo audita el proceso, construye el piloto y revisa las primeras semanas en producción.",
-    "response": "Ventana de respuesta",
-    "responseText": "Respuesta en menos de 24 horas laborables",
-    "startNow": "Abrir formulario"
   }
 }

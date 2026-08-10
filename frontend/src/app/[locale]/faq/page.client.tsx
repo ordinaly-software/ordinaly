@@ -14,7 +14,6 @@ import {
   localizeFaq,
   type FaqCategoryKey,
 } from "./faq-data";
-import { linkifyText } from "@/utils/linkify";
 
 const cardClass =
   "rounded-[2rem] border border-[--color-border-subtle] bg-white/82 shadow-[0_24px_90px_-60px_rgba(15,23,42,0.28)] backdrop-blur dark:border-white/10 dark:bg-white/[0.04]";
@@ -276,7 +275,7 @@ export default function FaqPageClient({ locale }: { locale: string }) {
 
                   <h2 className="mt-4 text-2xl font-semibold tracking-[-0.03em]">{entry.question}</h2>
                   <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
-                    {linkifyText(entry.answer)}
+                    {entry.answer}
                   </p>
 
                   {entry.relatedPath ? (

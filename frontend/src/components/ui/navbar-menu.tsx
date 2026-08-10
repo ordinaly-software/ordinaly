@@ -4,6 +4,7 @@ import { motion, type Transition } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 
 const transition: Transition = {
   type: "spring",
@@ -199,12 +200,15 @@ export const ProductItem = ({
   );
 };
 
-export const HoveredLink = ({ children, ...rest }: React.ComponentPropsWithoutRef<typeof Link>) => {
+export const HoveredLink = ({ children, className, ...rest }: React.ComponentPropsWithoutRef<typeof Link>) => {
   return (
     <Link
       {...rest}
       prefetch={false}
-      className="text-sm xl:text-base font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay transition"
+      className={cn(
+        "text-sm xl:text-base font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay transition",
+        className,
+      )}
     >
       {children}
     </Link>

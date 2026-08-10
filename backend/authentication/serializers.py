@@ -16,6 +16,9 @@ from django.contrib.auth import authenticate
 
 User = get_user_model()
 
+INVALID_CODE_ERROR = "Código inválido"
+ACCOUNT_ALREADY_VERIFIED_ERROR = "La cuenta ya está verificada"
+
 
 def _find_user_for_verification_email(email: str):
     normalized_email = (email or "").strip()
@@ -73,7 +76,7 @@ class SignupSerializer(serializers.ModelSerializer):
             email_verified_at=None
         )
 
-        code, otp = create_otp_for_user(user)
+        code, _ = create_otp_for_user(user)
         send_verification_email(user.email, code)
 
         return user
@@ -83,53 +86,60 @@ class VerifyEmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
     code = serializers.CharField(max_length=6)
 
+    def _raise_for_otp_failure(self, reason):
+        messages = {
+            "EXPIRED": "El código ha expirado",
+            "INVALID": "Código incorrecto",
+            "TOO_MANY_ATTEMPTS": "Demasiados intentos",
+        }
+        raise serializers.ValidationError(messages.get(reason, INVALID_CODE_ERROR))
+
+    def _verify_pending_email(self, user):
+        target_email = (user.pending_email or "").strip()
+        if not target_email:
+            raise serializers.ValidationError(INVALID_CODE_ERROR)
+        if _email_is_in_use(target_email, exclude_user=user):
+            raise serializers.ValidationError({"email": "Este email ya está en uso"})
+
+        previous_email = user.email
+        user.email = target_email
+        user.pending_email = None
+        user.email_verified_at = timezone.now()
+        user.status = "active"
+        user.save(update_fields=["email", "pending_email", "email_verified_at", "status"])
+        try:
+            queue_and_dispatch_email_updated_notification(user, previous_email)
+        except Exception:
+            pass
+
+    def _verify_new_account(self, user):
+        user.email_verified_at = timezone.now()
+        user.status = "active"
+        user.save(update_fields=["email_verified_at", "status"])
+        try:
+            queue_and_dispatch_account_created_notification(user)
+        except Exception:
+            pass
+
     def validate(self, data):
         email = data["email"]
         code = data["code"]
 
         user, is_pending_email_verification = _find_user_for_verification_email(email)
         if not user:
-            raise serializers.ValidationError("Código inválido")
+            raise serializers.ValidationError(INVALID_CODE_ERROR)
 
         if user.email_verified_at and not is_pending_email_verification:
-            raise serializers.ValidationError("La cuenta ya está verificada")
+            raise serializers.ValidationError(ACCOUNT_ALREADY_VERIFIED_ERROR)
 
         success, reason = validate_otp(user, code)
-
         if not success:
-            if reason == "EXPIRED":
-                raise serializers.ValidationError("El código ha expirado")
-            if reason == "INVALID":
-                raise serializers.ValidationError("Código incorrecto")
-            if reason == "TOO_MANY_ATTEMPTS":
-                raise serializers.ValidationError("Demasiados intentos")
-            raise serializers.ValidationError("Código inválido")
+            self._raise_for_otp_failure(reason)
 
         if is_pending_email_verification:
-            target_email = (user.pending_email or "").strip()
-            if not target_email:
-                raise serializers.ValidationError("Código inválido")
-            if _email_is_in_use(target_email, exclude_user=user):
-                raise serializers.ValidationError({"email": "Este email ya está en uso"})
-
-            previous_email = user.email
-            user.email = target_email
-            user.pending_email = None
-            user.email_verified_at = timezone.now()
-            user.status = "active"
-            user.save(update_fields=["email", "pending_email", "email_verified_at", "status"])
-            try:
-                queue_and_dispatch_email_updated_notification(user, previous_email)
-            except Exception:
-                pass
+            self._verify_pending_email(user)
         else:
-            user.email_verified_at = timezone.now()
-            user.status = "active"
-            user.save(update_fields=["email_verified_at", "status"])
-            try:
-                queue_and_dispatch_account_created_notification(user)
-            except Exception:
-                pass
+            self._verify_new_account(user)
 
         return data
 
@@ -145,7 +155,7 @@ class ResendVerificationSerializer(serializers.Serializer):
             raise serializers.ValidationError("Si la cuenta existe, se enviará un nuevo código")
 
         if user.email_verified_at and not is_pending_email_verification:
-            raise serializers.ValidationError("La cuenta ya está verificada")
+            raise serializers.ValidationError(ACCOUNT_ALREADY_VERIFIED_ERROR)
 
         self.user = user
         self.target_email = (user.pending_email if is_pending_email_verification else user.email) or email
@@ -166,7 +176,7 @@ class ResendVerificationSerializer(serializers.Serializer):
     def save(self):
         user = self.user
 
-        code, otp = create_otp_for_user(user)
+        code, _ = create_otp_for_user(user)
         send_verification_email(self.target_email, code)
 
         return user
@@ -184,7 +194,7 @@ class ChangeEmailUnverifiedSerializer(serializers.Serializer):
         user = self.context["request"].user
 
         if user.email_verified_at:
-            raise serializers.ValidationError("La cuenta ya está verificada")
+            raise serializers.ValidationError(ACCOUNT_ALREADY_VERIFIED_ERROR)
 
         return data
 
@@ -200,7 +210,7 @@ class ChangeEmailUnverifiedSerializer(serializers.Serializer):
             invalidated_at__isnull=True
         ).update(invalidated_at=timezone.now())
 
-        code, otp = create_otp_for_user(user)
+        code, _ = create_otp_for_user(user)
         send_verification_email(new_email, code)
 
         return user

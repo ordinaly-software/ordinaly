@@ -80,7 +80,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Sí. La arquitectura correcta unifica fuentes, normaliza formatos, trocea por tipo documental y aplica ranking antes de responder. Lo importante no es solo indexar, sino decidir qué fuente pesa más según el caso.",
       en: "Yes. The right architecture unifies sources, normalizes formats, chunks by document type and applies ranking before answering. The key is not only indexing, but deciding which source should carry more weight in each case.",
     },
-    relatedPath: "/chatbots-personalizados-para-empresas",
+    relatedPath: "/agente-de-llamadas-ia",
   },
   {
     id: "chatbot-quality",
@@ -94,7 +94,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Miramos deflexión por intención, precisión de escalado, exactitud sobre un set de preguntas reales y calidad de cita. La velocidad sola puede ocultar respuestas incorrectas o handoffs innecesarios.",
       en: "We look at deflection by intent, escalation precision, accuracy on a real question set and citation quality. Speed alone can hide wrong answers or unnecessary handoffs.",
     },
-    relatedPath: "/chatbots-personalizados-para-empresas",
+    relatedPath: "/agente-de-llamadas-ia",
   },
   {
     id: "chatbot-website-whatsapp",
@@ -164,7 +164,7 @@ export const faqEntries: FaqEntry[] = [
       es: "n8n encaja bien cuando necesitas orquestación rápida, conectores y visibilidad sobre tareas operativas. El código a medida aparece cuando hay mucha lógica propietaria, requisitos extremos de latencia o necesidad de producto reusable.",
       en: "n8n fits well when you need fast orchestration, connectors and visibility over operational tasks. Custom code enters when there is heavy proprietary logic, extreme latency requirements or a reusable product need.",
     },
-    relatedPath: "/automatizacion-n8n-sevilla",
+    relatedPath: "/automatizaciones-personalizadas-empresas-n8n",
   },
   {
     id: "n8n-onprem",
@@ -178,7 +178,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Sí. De hecho suele ser lo más sensato cuando hay sistemas internos, bases privadas o políticas estrictas de acceso. El reto está en observabilidad, backups y gestión de cambios, no solo en levantar el contenedor.",
       en: "Yes. It is often the sensible choice when there are internal systems, private databases or strict access policies. The challenge is observability, backups and change management, not just spinning up a container.",
     },
-    relatedPath: "/automatizacion-n8n-sevilla",
+    relatedPath: "/automatizaciones-personalizadas-empresas-n8n",
   },
   {
     id: "n8n-monitoring",
@@ -192,7 +192,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Con alertas, retries diseñados para ser idempotentes, dashboards por workflow y una política clara de quién responde cada incidencia. Si nadie es dueño del flujo, la automatización no está realmente operativa.",
       en: "With alerts, idempotent retries, per-workflow dashboards and a clear policy for who owns each incident. If nobody owns the flow, the automation is not truly operational.",
     },
-    relatedPath: "/automatizacion-n8n-sevilla",
+    relatedPath: "/automatizaciones-personalizadas-empresas-n8n",
   },
   {
     id: "whatsapp-official-api",
@@ -290,7 +290,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Quien ejecuta el trabajo diario y quien define criterios o aprueba cambios. Si asisten solo perfiles estratégicos o solo perfiles ejecutores, la adopción queda coja.",
       en: "The people doing the work every day and the ones defining criteria or approving changes. If only strategic profiles or only executors attend, adoption stays incomplete.",
     },
-    relatedPath: "/formacion-ia-sevilla",
+    relatedPath: "/formacion",
   },
   {
     id: "training-governance",
@@ -304,7 +304,7 @@ export const faqEntries: FaqEntry[] = [
       es: "Debe incluir ambas. Enseñar productividad sin límites de uso, herramientas aprobadas y manejo del dato genera más riesgo que mejora real.",
       en: "It should include both. Teaching productivity without usage limits, approved tools and data handling creates more risk than real improvement.",
     },
-    relatedPath: "/formacion-ia-sevilla",
+    relatedPath: "/formacion",
   },
   {
     id: "training-roi",
@@ -318,7 +318,7 @@ export const faqEntries: FaqEntry[] = [
       es: "El retorno se mide sobre tareas concretas: tiempo de preparación, calidad de documentación, velocidad de respuesta o reducción de errores. Si no aterrizas en tareas, el ROI se vuelve una opinión.",
       en: "Return is measured on concrete tasks: preparation time, documentation quality, response speed or error reduction. If you do not anchor it to tasks, ROI becomes an opinion.",
     },
-    relatedPath: "/formacion-ia-sevilla",
+    relatedPath: "/formacion",
   },
   {
     id: "delivery-seville-spain",
@@ -388,7 +388,7 @@ export const faqEntries: FaqEntry[] = [
       es: "No, en absoluto. Diseñamos todas nuestras soluciones para que sean intuitivas y fáciles de usar, e incluimos formación práctica para tu equipo. También ofrecemos cursos de IA donde aprenderás a usar herramientas como ChatGPT y automatizaciones sin necesidad de conocimientos previos de programación.",
       en: "Not at all. We design all our solutions to be intuitive and easy to use, and we include hands-on training for your team. We also offer AI courses where you will learn to use tools like ChatGPT and automations without any prior programming knowledge.",
     },
-    relatedPath: "/formacion-ia-sevilla",
+    relatedPath: "/formacion",
   },
   {
     id: "ordinaly-differentiators",

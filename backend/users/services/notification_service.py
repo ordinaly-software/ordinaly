@@ -209,6 +209,49 @@ def _queue_course_reminder(user, course, session_start):
     )
 
 
+def _enqueue_course_starts_soon_notifications(course, recipients, now, window_end):
+    initial_start = _course_initial_start(course)
+    if not initial_start:
+        return 0
+    starts_soon_at = initial_start - timedelta(days=7)
+    if not (now <= starts_soon_at < window_end):
+        return 0
+
+    enqueued = 0
+    for user in recipients:
+        unique_key = f"course-starts-soon:{course.pk}:{user.pk}"
+        job = queue_email_notification(
+            user,
+            NOTIFICATION_COURSE_STARTS_SOON,
+            unique_key=unique_key,
+            user_name=_display_name(user),
+            course_id=course.id,
+            session_start=initial_start.isoformat(),
+            days_before=7,
+        )
+        if job:
+            enqueued += 1
+    return enqueued
+
+
+def _enqueue_enrollment_reminders(enrollment, now, window_end):
+    user = enrollment.user
+    course = enrollment.course
+    if not course.start_date or not course.end_date or not course.start_time:
+        return 0
+
+    enqueued = 0
+    for occurrence in course.get_next_occurrences(limit=366):
+        session_start = _course_session_start(course, occurrence)
+        reminder_at = session_start - timedelta(hours=24)
+        if not (now <= reminder_at < window_end):
+            continue
+        job = _queue_course_reminder(user, course, session_start)
+        if job:
+            enqueued += 1
+    return enqueued
+
+
 def enqueue_due_course_notifications(*, now=None, lookahead_minutes: int = 1):
     from courses.models import Course, Enrollment
 
@@ -220,39 +263,11 @@ def enqueue_due_course_notifications(*, now=None, lookahead_minutes: int = 1):
     recipients = list(_course_notification_recipients())
 
     for course in courses:
-        initial_start = _course_initial_start(course)
-        if initial_start:
-            starts_soon_at = initial_start - timedelta(days=7)
-            if now <= starts_soon_at < window_end:
-                for user in recipients:
-                    unique_key = f"course-starts-soon:{course.pk}:{user.pk}"
-                    job = queue_email_notification(
-                        user,
-                        NOTIFICATION_COURSE_STARTS_SOON,
-                        unique_key=unique_key,
-                        user_name=_display_name(user),
-                        course_id=course.id,
-                        session_start=initial_start.isoformat(),
-                        days_before=7,
-                    )
-                    if job:
-                        enqueued += 1
+        enqueued += _enqueue_course_starts_soon_notifications(course, recipients, now, window_end)
 
     enrollments = Enrollment.objects.select_related("user", "course").all()
     for enrollment in enrollments:
-        user = enrollment.user
-        course = enrollment.course
-        if not course.start_date or not course.end_date or not course.start_time:
-            continue
-
-        for occurrence in course.get_next_occurrences(limit=366):
-            session_start = _course_session_start(course, occurrence)
-            reminder_at = session_start - timedelta(hours=24)
-            if not (now <= reminder_at < window_end):
-                continue
-            job = _queue_course_reminder(user, course, session_start)
-            if job:
-                enqueued += 1
+        enqueued += _enqueue_enrollment_reminders(enrollment, now, window_end)
 
     return enqueued
 

@@ -4,6 +4,8 @@ from datetime import datetime
 import requests
 from django.conf import settings
 
+DEFAULT_FRONTEND_BASE_URL = "http://localhost:3000"
+
 
 class EmailServiceError(Exception):
     pass
@@ -538,7 +540,7 @@ def send_welcome_email(email: str, user_name: str):
 
 def send_password_reset_email(email: str, token: str, user_name: str):
     try:
-        frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
+        frontend_url = os.getenv("FRONTEND_BASE_URL", DEFAULT_FRONTEND_BASE_URL).rstrip("/")
         reset_url = f"{frontend_url}/reset-password/confirm?token={token}"
 
         html = f"""\
@@ -736,7 +738,7 @@ def send_password_reset_completed_email(email: str, user_name: str):
 def send_enrollment_confirmation_email(email: str, user_name: str, course):
     """Send a confirmation email when a user successfully enrolls in a course."""
     try:
-        frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
+        frontend_url = os.getenv("FRONTEND_BASE_URL", DEFAULT_FRONTEND_BASE_URL).rstrip("/")
         backend_url = os.getenv("BACKEND_BASE_URL", os.getenv("NEXT_PUBLIC_API_URL", "https://api.ordinaly.ai")).rstrip("/")
 
         course_url = f"{frontend_url}/formacion/{course.slug}"
@@ -943,7 +945,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
 def send_unenrollment_confirmation_email(email: str, user_name: str, course):
     """Send a confirmation email when a user unenrolls from a course."""
     try:
-        frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
+        frontend_url = os.getenv("FRONTEND_BASE_URL", DEFAULT_FRONTEND_BASE_URL).rstrip("/")
         formation_url = f"{frontend_url}/formacion"
 
         # Format dates
@@ -952,12 +954,6 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
             date_str = course.start_date.strftime("%d/%m/%Y")
             if course.end_date and course.end_date != course.start_date:
                 date_str += f" - {course.end_date.strftime('%d/%m/%Y')}"
-
-        time_str = ""
-        if course.start_time:
-            time_str = course.start_time.strftime("%H:%M")
-            if course.end_time:
-                time_str += f" - {course.end_time.strftime('%H:%M')}"
 
         html = f"""\
 <!doctype html>
@@ -1130,7 +1126,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
 
 def send_course_published_email(email: str, user_name: str, course):
     try:
-        frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
+        frontend_url = os.getenv("FRONTEND_BASE_URL", DEFAULT_FRONTEND_BASE_URL).rstrip("/")
         course_url = f"{frontend_url}/formacion/{course.slug}"
         html = f"""\
 <!doctype html>
@@ -1168,7 +1164,7 @@ def send_course_published_email(email: str, user_name: str, course):
 
 def send_course_starts_soon_email(email: str, user_name: str, course, session_start_iso: str, days_before: int):
     try:
-        frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
+        frontend_url = os.getenv("FRONTEND_BASE_URL", DEFAULT_FRONTEND_BASE_URL).rstrip("/")
         course_url = f"{frontend_url}/formacion/{course.slug}"
         session_text = session_start_iso
         if session_start_iso:
@@ -1216,7 +1212,7 @@ def send_course_starts_soon_email(email: str, user_name: str, course, session_st
 
 def send_course_reminder_email(email: str, user_name: str, course, session_start_iso: str, hours_before: int):
     try:
-        frontend_url = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000").rstrip("/")
+        frontend_url = os.getenv("FRONTEND_BASE_URL", DEFAULT_FRONTEND_BASE_URL).rstrip("/")
         course_url = f"{frontend_url}/formacion/{course.slug}"
 
         session_text = session_start_iso

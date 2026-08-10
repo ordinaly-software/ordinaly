@@ -17,11 +17,12 @@ interface TimelineProps {
   data: TimelineEntry[];
   eyebrow?: string;
   title?: string;
+  titleClassName?: string;
   description?: string;
   className?: string;
 }
 
-export const Timeline = ({ data, eyebrow, title, description, className }: TimelineProps) => {
+export const Timeline = ({ data, eyebrow, title, titleClassName, description, className }: TimelineProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -66,7 +67,12 @@ export const Timeline = ({ data, eyebrow, title, description, className }: Timel
             </p>
           ) : null}
           {title ? (
-            <h2 className="text-xl md:text-4xl mb-4 text-black dark:text-white max-w-4xl">
+            <h2
+              className={cn(
+                "text-xl md:text-4xl mb-4 text-black dark:text-white max-w-4xl",
+                titleClassName,
+              )}
+            >
               {title}
             </h2>
           ) : null}

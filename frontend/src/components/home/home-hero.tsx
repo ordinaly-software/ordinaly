@@ -2,59 +2,33 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Book, Bot, Building2, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ImageAccordion, type AccordionImageItem } from "@/components/ui/interactive-image-accordion";
-import { useTheme } from "@/contexts/theme-context";
+import { ImageAccordion, type AccordionImageItem } from "@/components/home/interactive-image-accordion";
 
 type TranslateFn = (key: string, values?: Record<string, string | number | Date>) => string;
 
 interface HeroProps {
   t: TranslateFn;
-  onWhatsApp: () => void;
 }
-
-const clientLogos = [
-  { src: "/static/logos/logo_grupo_addu_small.webp", alt: "Grupo Addu", width: 130, height: 42 },
-  { src: "/static/logos/logo_aviva_publicidad_small.webp", alt: "Aviva Publicidad", width: 140, height: 42 },
-  { src: "/static/logos/logo_proinca_consultores_small.webp", alt: "Proinca Consultores", width: 120, height: 42 },
-  { src: "/static/logos/logo_guadalquivir_fincas_small.webp", alt: "Guadalquivir Fincas", width: 150, height: 42 },
-];
-
-const bulletPoints = [
-  { icon: Building2, key: "hero.trust1", href: "#use-cases" },
-  { icon: Bot, key: "hero.trust2", href: "#services" },
-  { icon: Book, key: "hero.trust3", href: "#courses" },
-  { icon: ArrowRight, key: "hero.trust4", href: "/servicios" },
-];
 
 const accordionImages: Omit<AccordionImageItem, "label" | "sublabel">[] = [
   {
     id: 1,
     imageUrl: "/static/home/main_home_ilustration_1.webp",
+    href: "/formacion",
   },
   {
     id: 2,
-    imageUrl: "/static/home/main_home_ilustration_2.webp",
-  },
-  {
-    id: 3,
-    imageUrl: "/static/home/main_home_ilustration_3.webp",
-  },
-  {
-    id: 4,
-    imageUrl: "/static/home/main_home_ilustration_4.webp",
+    imageUrl: "/static/contacto/office_03.webp",
+    href: "/nosotros",
   },
 ];
 
-export function HomeHero({ t, onWhatsApp }: HeroProps) {
-  const { isDark } = useTheme();
-
+export function HomeHero({ t }: HeroProps) {
   const accordionItems: AccordionImageItem[] = [
-    { ...accordionImages[0], label: t("hero.card1Label"), sublabel: t("hero.card1Value") },
-    { ...accordionImages[1], label: t("hero.card2Label"), sublabel: t("hero.card2Value") },
-    { ...accordionImages[2], label: t("hero.card3Label"), sublabel: t("hero.card3Value") },
-    { ...accordionImages[3], label: t("hero.card4Label"), sublabel: t("hero.card4Value") },
+    { ...accordionImages[0], label: t("hero.card2Label"), sublabel: t("hero.card2Value") },
+    { ...accordionImages[1], label: t("hero.card4Label"), sublabel: t("hero.card4Value") },
   ];
 
   return (
@@ -70,17 +44,17 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
 
             {/* Title */}
             <div className="mt-6 space-y-4">
-              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3rem] xl:text-[4.5rem] break-words hyphens-auto">
-                <span className="block text-clay">
+              <h1 className="text-5xl font-bold leading-[0.95] tracking-[-0.04em] text-slate-dark dark:text-ivory-light sm:text-6xl lg:text-[3rem] xl:text-[4.5rem]">
+                <span className="block whitespace-nowrap break-normal hyphens-none text-clay">
                   {t("hero.titleLine1")}
                 </span>
                 <span className="block text-black dark:text-white">
                   {t("hero.titleLine2")}
                 </span>
               </h1>
-              <p className="text-xl font-semibold text-slate-medium dark:text-cloud-medium lg:text-2xl">
+              <h2 className="text-xl font-semibold text-slate-medium dark:text-cloud-medium lg:text-2xl">
                 {t("hero.subtitle")}
-              </p>
+              </h2>
               <p className="max-w-lg text-base leading-relaxed text-slate-medium dark:text-cloud-medium lg:text-lg">
                 {t("hero.description1")}
               </p>
@@ -88,8 +62,10 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
 
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" variant="default" onClick={onWhatsApp}>
-                {t("hero.ctaDemo")}
+              <Button size="lg" variant="default" asChild>
+                <Link href="#contacto">
+                  {t("hero.ctaDemo")}
+                </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
                 <Link href="/servicios" className="flex items-center gap-2">
@@ -103,11 +79,18 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
           {/* RIGHT: image accordion */}
           <div className="scroll-animate fade-in-up min-w-0">
             {/* Mobile / tablet: single static image card */}
-            <div className="relative lg:hidden rounded-2xl overflow-hidden h-[300px] sm:h-[380px] w-full">
-              <img
+            <Link
+              href={accordionItems[0].href ?? "#"}
+              className="relative block lg:hidden rounded-2xl overflow-hidden h-[300px] sm:h-[380px] w-full"
+            >
+              <Image
                 src={accordionItems[0].imageUrl}
                 alt={`${t("hero.titleLine1")} ${t("hero.titleLine2")} – ${accordionItems[0].label}`}
-                className="absolute inset-0 w-full h-full object-cover"
+                fill
+                priority
+                fetchPriority="high"
+                sizes="100vw"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -118,7 +101,7 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                   </p>
                 )}
               </div>
-            </div>
+            </Link>
             {/* Desktop: full interactive accordion */}
             <div className="hidden lg:block">
               <ImageAccordion
@@ -127,39 +110,6 @@ export function HomeHero({ t, onWhatsApp }: HeroProps) {
                 itemHeight="h-[480px] xl:h-[540px]"
               />
             </div>
-          </div>
-        </div>
-
-        {/* ─── Bottom: trust bullets ────────────────────────────────────────── */}
-        <div className="scroll-animate fade-in-up mt-10">
-          <div className="grid gap-2.5 sm:grid-cols-2 xl:grid-cols-4">
-            {bulletPoints.map(({ icon: Icon, key, href }) => (
-              <Link
-                key={key}
-                href={href}
-                scroll
-                className="block rounded-a-m focus:outline-none focus-visible:ring-2 focus-visible:ring-clay focus-visible:ring-offset-2"
-              >
-                <div
-                  className={`group flex h-full items-center gap-3 rounded-a-m border border-[--color-border-subtle] px-4 py-3 transition-colors duration-300 cursor-pointer hover:bg-clay hover:border- dark:border-white/10
-                    ${isDark
-                      ? "bg-[rgba(250,249,245,0.05)]"
-                      : "bg-[rgba(255,255,255,0.55)]"
-                    }
-                  `}
-                >
-                  <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center 
-                                    rounded-a-s bg-clay/10 text-clay 
-                                      transition-colors duration-300
-                                        group-hover:bg-white/20 group-hover:text-white">
-                    <Icon className="h-4.5 w-4.5" strokeWidth={1.5} />
-                  </span>
-                  <p className="text-sm md:text-base text-slate-dark dark:text-ivory-light
-                                transition-colors duration-300
-                                group-hover:text-white">{t(key)}</p>
-                </div>
-              </Link>
-            ))}
           </div>
         </div>
       </div>

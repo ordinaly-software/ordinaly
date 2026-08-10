@@ -80,44 +80,12 @@ class ServiceViewSet(viewsets.ModelViewSet):
             'view': self,
         }
 
-    def perform_create(self, serializer):
-        # Resolve user similarly to get_queryset to be robust in tests
-        user = getattr(self.request, 'user', None)
-        if not user:
-            user = getattr(self.request, '_force_auth_user', None)
-            if not user:
-                raw = getattr(self.request, '_request', None)
-                if raw:
-                    user = getattr(raw, 'user', None)
-                    if not user:
-                        user = getattr(raw, '_force_auth_user', None)
-        serializer.save(created_by=user)
+    def _resolve_request_user(self, req):
+        """Resolve the authenticated user from a request-like object.
 
-    def update(self, request, *args, **kwargs):
-        # Prefer view.request if tests set it directly (many tests set view.request = request)
-        req = getattr(self, 'request', request)
-        # If req is a raw WSGIRequest (no .data) parse JSON/form body manually
-        parsed_data = None
-        if not hasattr(req, 'data'):
-            # Try JSON first (APIRequestFactory with format='json')
-            content_type = getattr(req, 'content_type', None) or req.META.get('CONTENT_TYPE', '')
-            if content_type and 'application/json' in content_type:
-                try:
-                    body = getattr(req, 'body', None)
-                    if body is None:
-                        # WSGIRequest may have read in POST; try raw POST
-                        parsed_data = None
-                    else:
-                        parsed_data = json.loads(body.decode(getattr(req, 'encoding', 'utf-8') or 'utf-8'))
-                except Exception:
-                    parsed_data = None
-            else:
-                # Fallback: try POST/QueryDict for form-encoded data
-                try:
-                    parsed_data = getattr(req, 'POST', None)
-                except Exception:
-                    parsed_data = None
-        # Resolve authenticated user from req or underlying WSGIRequest
+        Robust to test doubles that set force_authenticate markers on the
+        request or on an underlying raw WSGIRequest.
+        """
         user = getattr(req, 'user', None)
         if not user:
             user = getattr(req, '_force_auth_user', None)
@@ -127,16 +95,53 @@ class ServiceViewSet(viewsets.ModelViewSet):
                     user = getattr(raw, 'user', None)
                     if not user:
                         user = getattr(raw, '_force_auth_user', None)
+        return user
+
+    def _parse_raw_request_data(self, req):
+        """Parse body for request-like objects without a `.data` attribute (raw WSGIRequest)."""
+        content_type = getattr(req, 'content_type', None) or req.META.get('CONTENT_TYPE', '')
+        if content_type and 'application/json' in content_type:
+            try:
+                body = getattr(req, 'body', None)
+                if body is None:
+                    # WSGIRequest may have read in POST; try raw POST
+                    return None
+                return json.loads(body.decode(getattr(req, 'encoding', 'utf-8') or 'utf-8'))
+            except Exception:
+                return None
+        # Fallback: try POST/QueryDict for form-encoded data
+        try:
+            return getattr(req, 'POST', None)
+        except Exception:
+            return None
+
+    def perform_create(self, serializer):
+        # Resolve user similarly to get_queryset to be robust in tests
+        user = self._resolve_request_user(self.request)
+        serializer.save(created_by=user)
+
+    def update(self, request, *args, **kwargs):
+        # Prefer view.request if tests set it directly (many tests set view.request = request)
+        req = getattr(self, 'request', request)
+
+        # If req is a raw WSGIRequest (no .data) parse JSON/form body manually
+        parsed_data = None
+        if not hasattr(req, 'data'):
+            parsed_data = self._parse_raw_request_data(req)
+
+        user = self._resolve_request_user(req)
         if not (user and getattr(user, 'is_authenticated', False)):
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+
         instance = self.get_object()
+
         # Determine data to pass to serializer: prefer parsed_data, then req.data, then request.data
-        if parsed_data is not None:
-            data = parsed_data
-        else:
+        data = parsed_data
+        if data is None:
             data = getattr(req, 'data', None)
-            if data is None:
-                data = getattr(request, 'data', None)
+        if data is None:
+            data = getattr(request, 'data', None)
+
         serializer = self.get_serializer(instance, data=data, partial=True)
         # If the overridden get_serializer returned a serializer instance that
         # set `partial` to False, override it here to ensure partial update

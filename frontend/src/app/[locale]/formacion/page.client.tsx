@@ -5,10 +5,11 @@ import { useTranslations } from "next-intl";
 import { routing, type Locale } from "@/i18n/routing";
 import { getApiEndpoint } from "@/lib/api-config";
 import Footer from "@/components/ui/footer";
-import { NewsletterSection } from "@/components/ui/newsletter-section";
+import { NewsletterBanner } from "@/components/ui/newsletter-banner";
 import Banner from '@/components/ui/banner';
 import { Button } from "@/components/ui/button";
 import CourseCard from "@/components/formation/course-card";
+import { Carousel } from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
 import Alert from "@/components/ui/alert";
 import AuthModal from "@/components/auth/auth-modal";
@@ -24,13 +25,23 @@ import {
   Award,
   Mail,
   ChevronDown,
-  ArrowRight,
 } from "lucide-react";
 import type { Course } from "@/utils/pdf-generator";
 import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
 import BonificationInfo from "@/components/formation/bonification-info";
 import { FaqSection } from "@/components/formation/faq-section";
+import { InstructorsSection } from "@/components/formation/instructors-section";
+
+const FORMATION_INSTRUCTOR_IMAGES = [
+  "/static/team/antonio.webp",
+  "/static/team/guillermo.webp",
+] as const;
+
+const FORMATION_INSTRUCTOR_LINKEDIN_URLS = [
+  "https://www.linkedin.com/in/antoniommff/",
+  "https://www.linkedin.com/in/guillermomontero/",
+] as const;
 
 interface Enrollment {
   id: number;
@@ -410,7 +421,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark] text-gray-800 dark:text-white transition-colors duration-300">
       {alert && (
         <Alert
           type={alert.type}
@@ -462,8 +473,13 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
         <BonificationInfo />
       </section>
 
-      <section className="pt-6 pb-16 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
+      <section className="pt-6 pb-16 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark]">
+        <div className="max-w-[1600px] mx-auto">
+          <div className="text-center mb-10 md:mb-12">
+            <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
+              {t("introduction")}
+            </p>
+          </div>
           {filteredCourses.length === 0 ? (
             <div className="text-center py-16">
               <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
@@ -477,65 +493,71 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
               </p>
             </div>
           ) : (
-            <>
-              <div className="mx-auto grid max-w-5xl grid-cols-1 lg:grid-cols-2 gap-6">
-                {filteredCourses.map((course) => {
-                  // Compute unenroll restriction
-                  let disableUnenroll = false;
-                  let unenrollRestrictionReason: string | null = null;
-                  const now = new Date();
-                  const startDateTime = course.start_date && course.start_time
-                    ? new Date(`${course.start_date}T${course.start_time}`)
-                    : null;
-                  const endDateTime = course.end_date && course.end_time
-                    ? new Date(`${course.end_date}T${course.end_time}`)
-                    : null;
-                  if (isEnrolled(course.id)) {
-                    if (startDateTime) {
-                      const diffMs = startDateTime.getTime() - now.getTime();
-                      const diffHours = diffMs / (1000 * 60 * 60);
-                      if (diffHours <= 24 && diffHours > 0) {
-                        disableUnenroll = true;
-                        unenrollRestrictionReason = t('alerts.unenroll24hRestriction');
-                      } else if (diffHours <= 0) {
-                        disableUnenroll = true;
-                        unenrollRestrictionReason = t('alerts.unenrollStartedRestriction');
-                      }
-                    }
-                    if (endDateTime && endDateTime < now) {
+            <Carousel
+              items={filteredCourses}
+              getKey={(course) => course.id}
+              autoplay={filteredCourses.length > 1}
+              prevLabel={t("carouselPrevious")}
+              nextLabel={t("carouselNext")}
+              renderItem={(course) => {
+                // Compute unenroll restriction
+                let disableUnenroll = false;
+                let unenrollRestrictionReason: string | null = null;
+                const now = new Date();
+                const startDateTime = course.start_date && course.start_time
+                  ? new Date(`${course.start_date}T${course.start_time}`)
+                  : null;
+                const endDateTime = course.end_date && course.end_time
+                  ? new Date(`${course.end_date}T${course.end_time}`)
+                  : null;
+                if (isEnrolled(course.id)) {
+                  if (startDateTime) {
+                    const diffMs = startDateTime.getTime() - now.getTime();
+                    const diffHours = diffMs / (1000 * 60 * 60);
+                    if (diffHours <= 24 && diffHours > 0) {
                       disableUnenroll = true;
-                      unenrollRestrictionReason = t('alerts.unenrollEndedRestriction');
+                      unenrollRestrictionReason = t('alerts.unenroll24hRestriction');
+                    } else if (diffHours <= 0) {
+                      disableUnenroll = true;
+                      unenrollRestrictionReason = t('alerts.unenrollStartedRestriction');
                     }
                   }
-                  const highlightUpcoming = !!(startDateTime && startDateTime > now);
-                  const inProgress = !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
-                  return (
-                    <CourseCard
-                      key={course.id}
-                      course={course}
-                      variant="upcoming"
-                      enrolled={isEnrolled(course.id)}
-                      onEnroll={() => handleEnrollCourse(course)}
-                      onCancel={() => handleCancelEnrollment(course.id)}
-                      onViewDetails={() => handleViewDetails(course)}
-                      disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
-                      disableUnenroll={disableUnenroll}
-                      unenrollRestrictionReason={unenrollRestrictionReason}
-                      highlightUpcoming={highlightUpcoming}
-                      inProgress={inProgress}
-                    />
-                  );
-                })}
-              </div>
-            </>
+                  if (endDateTime && endDateTime < now) {
+                    disableUnenroll = true;
+                    unenrollRestrictionReason = t('alerts.unenrollEndedRestriction');
+                  }
+                }
+                const highlightUpcoming = !!(startDateTime && startDateTime > now);
+                const inProgress = !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
+                return (
+                  <CourseCard
+                    course={course}
+                    variant="upcoming"
+                    enrolled={isEnrolled(course.id)}
+                    onEnroll={() => handleEnrollCourse(course)}
+                    onCancel={() => handleCancelEnrollment(course.id)}
+                    onViewDetails={() => handleViewDetails(course)}
+                    disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
+                    disableUnenroll={disableUnenroll}
+                    unenrollRestrictionReason={unenrollRestrictionReason}
+                    highlightUpcoming={highlightUpcoming}
+                    inProgress={inProgress}
+                  />
+                );
+              }}
+            />
           )}
         </div>
       </section>
 
       {pastCourses.length > 0 && (
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50 dark:bg-gray-900/50">
+        <section
+          className={`px-4 sm:px-6 lg:px-8 bg-white dark:bg-white ${
+            showPastCourses ? "py-16" : "py-8"
+          }`}
+        >
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-8">
+            <div className={`text-center ${showPastCourses ? "mb-8" : ""}`}>
               <Button
                 onClick={() => setShowPastCourses(!showPastCourses)}
                 variant="outline"
@@ -560,79 +582,109 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                   {t("pastCourses")}
                 </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-                  {pastCourses.map((course) => (
+                <Carousel
+                  items={pastCourses}
+                  getKey={(course) => course.id}
+                  autoplay={pastCourses.length > 1}
+                  prevLabel={t("carouselPrevious")}
+                  nextLabel={t("carouselNext")}
+                  className="max-w-6xl mx-auto"
+                  renderItem={(course) => (
                     <CourseCard
-                      key={course.id}
                       course={course}
                       variant="past"
                       onViewDetails={() => handleViewDetails(course)}
                     />
-                  ))}
-                </div>
+                  )}
+                />
               </>
             )}
           </div>
         </section>
       )}
 
+      <InstructorsSection
+        title={t("instructors.title")}
+        linkedinLabel={t("instructors.linkedinLabel")}
+        items={t.raw("instructors.items")}
+        images={FORMATION_INSTRUCTOR_IMAGES}
+        linkedinUrls={FORMATION_INSTRUCTOR_LINKEDIN_URLS}
+      />
+
       <FaqSection t={t} />
     
       <section className="px-4 pb-24 pt-10 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="relative overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-[linear-gradient(135deg,rgba(217,119,87,0.10),rgba(250,249,245,0.96),rgba(2,85,213,0.08))] shadow-[0_28px_90px_-60px_rgba(20,20,19,0.22)] dark:border-white/10 dark:bg-[linear-gradient(135deg,rgba(217,119,87,0.16),rgba(20,20,19,0.96),rgba(2,85,213,0.18))]">
+        <div className="mx-auto max-w-5xl">
+          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-[--swatch--cobalt-dark] px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
+            <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cobalt/25 blur-3xl" aria-hidden />
+            <div className="pointer-events-none absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-clay/15 blur-3xl" aria-hidden />
 
-            <div className="relative grid gap-8 p-8 md:p-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-center">
-              <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-clay/15 bg-white/70 px-4 py-2 text-sm font-semibold text-clay shadow-sm backdrop-blur dark:border-white/10 dark:bg-white/[0.05] dark:text-[#F1B29D]">
-                  <Award className="h-4 w-4" />
-                  {t("title")}
+            <div className="relative flex flex-col items-start">
+              <div className="flex items-center gap-3">
+                <div className="flex -space-x-3">
+                  {[
+                    { initials: "AG", from: "from-clay", to: "to-[#C6613F]" },
+                    { initials: "JM", from: "from-cobalt", to: "to-[#0144B0]" },
+                    { initials: "LR", from: "from-[#D4A27F]", to: "to-[#D97757]" },
+                  ].map((avatar) => (
+                    <span
+                      key={avatar.initials}
+                      className={`flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br ${avatar.from} ${avatar.to} text-xs font-semibold text-white ring-2 ring-[--swatch--slate-dark] transition hover:-translate-y-px`}
+                    >
+                      {avatar.initials}
+                    </span>
+                  ))}
                 </div>
-
-                <h2 className="mt-5 text-4xl font-bold leading-[0.98] tracking-[-0.04em] text-slate-dark dark:text-ivory-light md:text-5xl">
-                  {t("cta.title")}
-                </h2>
-
-                <p className="mt-4 max-w-2xl text-lg leading-relaxed text-slate-medium dark:text-cloud-medium">
-                  {t("cta.description")}
-                </p>
+                <a
+                  href="https://maps.app.goo.gl/2a4Rheb6u94wFe46A"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group"
+                >
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <svg key={index} className="h-3 w-3" viewBox="0 0 20 20" fill="#FACC15">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-xs text-white/60 group-hover:text-white/80 group-hover:underline underline-offset-2">
+                    {t("cta.trust")}
+                  </p>
+                </a>
               </div>
 
-              <div className="rounded-[1.5rem] border border-black/5 bg-white/80 p-4 shadow-[0_24px_60px_-42px_rgba(20,20,19,0.24)] backdrop-blur dark:border-white/10 dark:bg-white/[0.05]">
-                <div className="grid gap-3">
-                  <Button
-                    variant="accent"
-                    size="lg"
-                    className="h-auto w-full justify-between rounded-[1.25rem] px-5 py-4 text-left shadow-[0_18px_36px_-24px_rgba(217,119,87,0.55)]"
-                    onClick={() => {
-                      const subject = encodeURIComponent(t("cta.emailSubject"));
-                      const body = encodeURIComponent(t("cta.emailBody"));
-                      window.location.href = `mailto:info@ordinaly.ai?subject=${subject}&body=${body}`;
-                    }}
-                  >
-                    <span className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/20">
-                        <Mail className="h-5 w-5" />
-                      </span>
-                      <span>{t("cta.contact")}</span>
-                    </span>
-                    <ArrowRight className="h-5 w-5 shrink-0" />
-                  </Button>
+              <h2 className="mt-6 max-w-2xl bg-gradient-to-r from-white to-[--swatch--sky] bg-clip-text text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-transparent md:text-5xl">
+                {t("cta.title")}
+              </h2>
 
-                  <Button
-                    size="lg"
-                    onClick={handleDownloadCatalog}
-                    className="h-auto w-full justify-between rounded-[1.25rem] border border-[--color-border-subtle] bg-[--swatch--ivory-light]/90 px-5 py-4 text-[--swatch--slate-dark] shadow-sm hover:bg-white dark:border-white/10 dark:bg-[--swatch--slate-medium] dark:text-[--swatch--ivory-light] dark:hover:bg-[--swatch--slate-light]"
-                  >
-                    <span className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-cobalt/10 text-cobalt ring-1 ring-cobalt/10 dark:bg-white/10 dark:text-[#7DB5FF] dark:ring-white/10">
-                        <BookOpen className="h-5 w-5" />
-                      </span>
-                      <span>{t("cta.catalog")}</span>
-                    </span>
-                    <ArrowRight className="h-5 w-5 shrink-0 text-clay" />
-                  </Button>
-                </div>
+              <p className="mt-4 max-w-xl text-white/75 md:text-lg">
+                {t("cta.description")}
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button
+                  variant="accent"
+                  size="lg"
+                  className="gap-2 rounded-full px-8"
+                  onClick={handleDownloadCatalog}
+                >
+                  <BookOpen className="h-5 w-5" />
+                  {t("cta.catalog")}
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="gap-2 rounded-full border-white/30 bg-white/5 px-8 text-white hover:bg-white/15 dark:border-white/30 dark:bg-white/5 dark:text-white dark:hover:bg-white/15"
+                  onClick={() => {
+                    const subject = encodeURIComponent(t("cta.emailSubject"));
+                    const body = encodeURIComponent(t("cta.emailBody"));
+                    window.location.href = `mailto:info@ordinaly.ai?subject=${subject}&body=${body}`;
+                  }}
+                >
+                  <Mail className="h-5 w-5" />
+                  {t("cta.contact")}
+                </Button>
               </div>
             </div>
           </div>
@@ -693,7 +745,8 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
         />
       )}
 
-      <NewsletterSection />
+      <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
+      <br className="h-16 md:h-24" />
       <Footer />
     </div>
   );

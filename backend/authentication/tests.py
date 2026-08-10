@@ -794,7 +794,7 @@ class PasswordResetViewTests(APITestCase):
         self.assertEqual(response.status_code, 200)
         self.user.refresh_from_db()
         self.assertTrue(self.user.check_password("newstrongpass123"))
-        self.assertIsNone(self.user.password_reset_token_hash)
+        self.assertEqual(self.user.password_reset_token_hash, "")
 
     @patch("authentication.views.queue_and_dispatch_password_reset_completed_notification")
     def test_confirm_password_reset_enqueues_confirmation_email(self, mock_queue):

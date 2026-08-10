@@ -1,10 +1,12 @@
 "use client";
 
 import { useMessages } from "next-intl";
-import React from "react";
 import dynamic from "next/dynamic";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
+import { FaqAccordion } from "@/components/ui/faq-accordion";
+import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
+import { HowItWorksVideoSection } from "@/components/landing/how-it-works-video-section";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 
@@ -20,250 +22,170 @@ export default function AutomatizacionFacturas() {
     throw new Error("Missing landing content: automatizacion-facturas");
   }
 
+  const infoCardTexts = (content.infocards?.cards ?? []) as { name: string; description?: string }[];
+
+  const requirements: string[] = content.requirements?.items ?? [];
+  const pricing = content.pricing;
+
+  const requirementsCard: InfoCardItem[] = requirements.length
+    ? [
+        {
+          key: "requirements",
+          size: "md",
+          title: content.requirements?.title,
+          description: (
+            <ul className="not-italic space-y-2 text-left">
+              {requirements.map((req, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
+                  {req}
+                </li>
+              ))}
+            </ul>
+          ),
+        },
+      ]
+    : [];
+
+  const pricingCard: InfoCardItem[] = pricing
+    ? [
+        {
+          key: "pricing",
+          size: "lg",
+          eyebrow: pricing.individualLabel,
+          title: pricing.individualPrice,
+          description: (
+            <>
+              {pricing.comboPrice && (
+                <span className="not-italic mt-4 block rounded-xl bg-clay/10 p-3">
+                  <span className="block text-[11px] font-semibold uppercase tracking-widest text-clay">
+                    {pricing.comboLabel}
+                  </span>
+                  <span className="mt-1 block text-xl font-bold text-slate-dark dark:text-ivory-light">
+                    {pricing.comboPrice}
+                  </span>
+                  {pricing.comboNote && (
+                    <span className="mt-1 block text-xs font-normal text-slate-medium dark:text-cloud-medium">
+                      {pricing.comboNote}
+                    </span>
+                  )}
+                </span>
+              )}
+              {pricing.implementationTime && (
+                <span className="not-italic mt-4 block text-sm">
+                  <span className="font-semibold">{pricing.implementationLabel}</span> {pricing.implementationTime}
+                </span>
+              )}
+            </>
+          ),
+          ctaLabel: pricing.ctaLabel,
+          href: pricing.ctaHref,
+        },
+      ]
+    : [];
+
+  // Defined one by one (rather than mechanically mapped) so each card's
+  // size and background can be chosen deliberately.
+  const infocards: InfoCardItem[] = [
+    {
+      key: "workflow",
+      size: "xl",
+      image: "/static/automatizacion-facturas/workflow.webp",
+    },
+    {
+      key: "automatico",
+      size: "sm",
+      title: infoCardTexts[0]?.name,
+      description: infoCardTexts[0]?.description,
+    },
+    {
+      key: "vps",
+      size: "lg",
+      title: infoCardTexts[3]?.name,
+      description: infoCardTexts[3]?.description,
+      image: "/static/automatizacion-facturas/vps.webp",
+    },
+    {
+      key: "compatibilidad",
+      size: "md",
+      title: infoCardTexts[1]?.name,
+      description: infoCardTexts[1]?.description,
+      image: "/static/automatizacion-facturas/compatibilidad.webp",
+    },
+    {
+      key: "software",
+      size: "sm",
+      title: infoCardTexts[2]?.name,
+      description: infoCardTexts[2]?.description,
+      image: "/static/automatizacion-facturas/software.webp",
+    },
+    ...requirementsCard,
+    ...pricingCard,
+  ];
+
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="relative w-full min-h-[40rem] flex items-center justify-center overflow-hidden bg-gradient-to-b from-neutral-900 to-black py-20">
-        <div className="relative z-20 flex flex-col items-center text-center px-6 max-w-3xl mx-auto">
-          {content.heroBadge && (
-            <span className="mb-4 inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest bg-[#d97706]/20 text-[#d97706] border border-[#d97706]/30">
-              {content.heroBadge}
-            </span>
-          )}
+      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
+        <div
+          className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
+          style={{ backgroundImage: "url('/static/automatizacion-facturas/automatizacion_facturas.webp')" }}
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(20,20,19,0.55),rgba(20,20,19,0.3),rgba(20,20,19,0.55))]" />
 
-          <h1 className="text-white text-4xl md:text-6xl lg:text-7xl font-bold drop-shadow-xl leading-tight">
+        <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
+          <h1 className="text-white text-4xl md:text-6xl font-bold drop-shadow-xl leading-tight">
             {content.title}
           </h1>
 
-          {content.serviceType && (
-            <p className="text-neutral-300 mt-4 max-w-2xl text-lg md:text-xl">
-              {content.serviceType}
-            </p>
-          )}
-
-          {content.valueProps?.length > 0 && (
-            <ul className="mt-6 space-y-2 text-left w-full max-w-xl">
-              {content.valueProps.map((prop: string, i: number) => (
-                <li key={i} className="flex items-start gap-2 text-neutral-300 text-sm md:text-base">
-                  <span className="mt-1.5 shrink-0 w-3 h-3 rounded-full bg-[#d97706]" />
-                  {prop}
-                </li>
-              ))}
-            </ul>
-          )}
+          <p className="mt-6 text-neutral-300 max-w-2xl leading-relaxed">
+            {content.heroText}
+          </p>
 
           <a
             href="#formulario"
-            className="mt-10 px-6 py-3 rounded-full bg-[#d97757] text-white font-semibold hover:bg-[#b45309] transition"
+            className="mt-10 px-8 py-4 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
+            style={{ backgroundColor: "#d97757" }}
           >
             {content.heroCtaLabel}
           </a>
         </div>
-
-        {/* Floating invoice animation */}
-        <div className="absolute inset-0 pointer-events-none z-10">
-          <div className="invoice-papers-group hidden sm:flex">
-            {[0, 1, 2].map((i) => (
-              <div key={i} className="invoice-paper" style={{ animationDelay: `${i * 0.7}s` }}>
-                <svg width="70" height="93" viewBox="0 0 90 120" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="6" y="6" width="78" height="108" rx="10" fill="white" stroke="#d4d4d4" strokeWidth="4" />
-                  <path d="M60 6 L84 30 L60 30 Z" fill="#f3f3f3" />
-                  <text x="45" y="70" fontSize="24" fontWeight="bold" fill="#dc2626" opacity="0.9"
-                    transform="rotate(-18 45 70)" textAnchor="middle">
-                    FACTURA
-                  </text>
-                </svg>
-              </div>
-            ))}
-          </div>
-
-          <div className="invoice-folder-output hidden sm:block">
-            <svg width="120" height="86" viewBox="0 0 140 100" xmlns="http://www.w3.org/2000/svg">
-              <rect x="10" y="30" width="120" height="60" rx="10" fill="#fbbf24" stroke="#d97706" strokeWidth="4" />
-              <rect x="30" y="10" width="80" height="30" rx="8" fill="#fde68a" stroke="#d97706" strokeWidth="3" />
-              <rect x="40" y="20" width="60" height="40" rx="4" fill="white" stroke="#d4d4d4" strokeWidth="2" />
-              <rect x="45" y="25" width="50" height="30" rx="3" fill="white" stroke="#e5e5e5" strokeWidth="1.5" />
-              <rect x="50" y="30" width="40" height="20" rx="2" fill="white" stroke="#e5e5e5" strokeWidth="1" />
-            </svg>
-          </div>
-        </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            Gestión con la automatización de facturas
-          </h2>
+      <HowItWorksVideoSection
+        title={content.sectionTitles?.howItWorks}
+        steps={content.steps ?? []}
+      />
 
-          <div className="grid sm:grid-cols-3 gap-8 text-center">
-            {content.steps?.map((step: string, i: number) => (
-              <div key={i} className="flex flex-col items-center">
-                <div className="w-14 h-14 flex items-center justify-center rounded-full bg-[#d97706]/10 dark:bg-[#d97706]/20 mb-4">
-                  {i === 0 && (
-                    <svg className="w-7 h-7 text-[#d97706]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z" />
-                    </svg>
-                  )}
-                  {i === 1 && (
-                    <svg className="w-7 h-7 text-[#d97706]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317a1 1 0 011.35-.936l1.618.54a1 1 0 00.95-.174l1.2-.9a1 1 0 011.45.28l.9 1.2a1 1 0 00.174.95l.54 1.618a1 1 0 01-.936 1.35l-1.618.54a1 1 0 00-.95.174l-1.2.9a1 1 0 01-1.45-.28l-.9-1.2a1 1 0 00-.174-.95l-.54-1.618z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  )}
-                  {i === 2 && (
-                    <svg className="w-7 h-7 text-[#d97706]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7a2 2 0 012-2h5l2 2h7a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
-                    </svg>
-                  )}
-                </div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#d97706] mb-2">{i + 1}</span>
-                <p className="font-medium text-neutral-900 dark:text-neutral-200">{step}</p>
-              </div>
-            ))}
-          </div>
+      {/* INFO CARDS */}
+      <section className="py-14 md:py-16 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
+          {content.sectionTitles?.infocardsTitle}
+        </h2>
+
+        <InfoCardCarousel items={infocards} className="max-w-6xl mx-auto" />
+
+        <div className="mt-8 max-w-3xl mx-auto space-y-4">
+          {content.funciones?.paragraphs?.map((p: string, i: number) => (
+            <p key={i} className="text-neutral-600 dark:text-neutral-300 leading-relaxed text-center">
+              {p}
+            </p>
+          ))}
         </div>
       </section>
-
-      {/* METRICS */}
-      {content.metrics?.length > 0 && (
-        <section className="py-16 bg-neutral-900 dark:bg-black transition-colors">
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="grid sm:grid-cols-3 gap-8 text-center">
-              {content.metrics.map((m: { label: string; value: string; detail: string }, i: number) => (
-                <div key={i} className="flex flex-col items-center">
-                  <span className="text-4xl md:text-5xl font-bold text-[#d97706]">{m.value}</span>
-                  <span className="mt-2 text-white font-semibold text-lg">{m.label}</span>
-                  <p className="mt-2 text-neutral-400 text-sm max-w-xs">{m.detail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* BENEFITS */}
-      <section className="py-20 md:py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            Automatización de facturas con IA
-          </h2>
-
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6">
-            {content.benefits?.map((benefit: string, i: number) => (
-              <div
-                key={i}
-                className="p-6 rounded-lg shadow border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 hover:border-[#d97706] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
-              >
-                <div className="w-10 h-10 rounded-full bg-[#d97706]/10 dark:bg-[#d97706]/20 flex items-center justify-center mb-4">
-                  <span className="text-[#d97706] text-xl">★</span>
-                </div>
-                <p className="text-neutral-700 dark:text-neutral-300 font-medium">{benefit}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* BEFORE / AFTER */}
-      <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-neutral-900 dark:text-white">
-            Software de automatización de facturas
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-10">
-            <div className="bg-neutral-50 dark:bg-neutral-800 p-8 rounded-lg shadow hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
-              <h3 className="font-semibold text-xl mb-4 flex items-center gap-2 text-neutral-900 dark:text-neutral-200">
-                <span className="w-3 h-3 rounded-full bg-red-500" />
-                {content.sectionTitles?.before}
-              </h3>
-              <ul className="space-y-2 text-neutral-700 dark:text-neutral-300">
-                {content.before?.map((item: string, i: number) => (
-                  <li key={i}>• {item}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-neutral-50 dark:bg-neutral-800 p-8 rounded-lg shadow hover:-translate-y-2 hover:shadow-xl transition-all duration-300">
-              <h3 className="font-semibold text-xl mb-4 flex items-center gap-2 text-neutral-900 dark:text-neutral-200">
-                <span className="w-3 h-3 rounded-full bg-green-500" />
-                {content.sectionTitles?.after}
-              </h3>
-              <ul className="space-y-2 text-neutral-700 dark:text-neutral-300">
-                {content.after?.map((item: string, i: number) => (
-                  <li key={i}>✓ {item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* OUTCOMES */}
-      {content.outcomes?.length > 0 && (
-        <section className="py-16 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-          <div className="max-w-3xl mx-auto px-6">
-            <ul className="grid sm:grid-cols-2 gap-4">
-              {content.outcomes.map((outcome: string, i: number) => (
-                <li key={i} className="flex items-start gap-3 p-4 bg-white dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-700">
-                  <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full bg-green-500/10 flex items-center justify-center text-green-600 text-xs font-bold">✓</span>
-                  <span className="text-neutral-700 dark:text-neutral-300 text-sm">{outcome}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
-
-      {/* USE CASES */}
-      {content.useCases?.length > 0 && (
-        <section className="py-20 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="grid sm:grid-cols-3 gap-8">
-              {content.useCases.map((uc: { tag: string; title: string; description: string; bullets: string[] }, i: number) => (
-                <div key={i} className="p-6 rounded-xl border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 flex flex-col gap-3">
-                  <span className="inline-block self-start px-2.5 py-0.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#d97706]/10 text-[#d97706]">
-                    {uc.tag}
-                  </span>
-                  <h3 className="font-bold text-neutral-900 dark:text-white text-lg">{uc.title}</h3>
-                  <p className="text-neutral-600 dark:text-neutral-400 text-sm">{uc.description}</p>
-                  <ul className="mt-auto space-y-1.5 pt-2 border-t border-neutral-200 dark:border-neutral-700">
-                    {uc.bullets?.map((b: string, j: number) => (
-                      <li key={j} className="flex items-center gap-2 text-neutral-700 dark:text-neutral-300 text-sm">
-                        <span className="text-[#d97706]">→</span> {b}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* TECHNOLOGY FAQS */}
       {content.technologyFaqs?.length > 0 && (
-        <section className="py-20 md:py-24 bg-neutral-50 dark:bg-neutral-800 transition-colors">
-          <div className="max-w-3xl mx-auto px-6">
-            <div className="space-y-3">
-              {content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }, i: number) => (
-                <details key={i} className="group rounded-lg border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 overflow-hidden">
-                  <summary className="flex items-center justify-between gap-4 px-6 py-4 cursor-pointer list-none">
-                    <div className="flex items-center gap-3">
-                      <span className="shrink-0 px-2 py-0.5 rounded-full text-xs font-semibold bg-[#d97706]/10 text-[#d97706]">{faq.tag}</span>
-                      <span className="font-medium text-neutral-900 dark:text-white text-sm md:text-base">{faq.question}</span>
-                    </div>
-                    <svg className="shrink-0 w-5 h-5 text-neutral-400 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </summary>
-                  <p className="px-6 pb-4 text-neutral-600 dark:text-neutral-400 text-sm leading-relaxed">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+        <FaqAccordion
+          className="bg-white dark:bg-neutral-900 transition-colors"
+          title={content.sectionTitles?.technologyFaqs}
+          items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
+            question: faq.question,
+            answer: faq.answer,
+            tag: faq.tag,
+          }))}
+        />
       )}
 
       {/* FORM */}

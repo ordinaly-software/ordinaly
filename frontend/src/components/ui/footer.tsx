@@ -13,23 +13,23 @@ import {
   Moon,
   Phone,
   Sun,
+  Youtube,
   type LucideIcon,
 } from "lucide-react";
 import LocaleSwitcher from "./locale-switcher";
 import { useTheme } from "@/contexts/theme-context";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
-import { openCookieSettings } from "@/utils/cookieManager";
+import { openCookieSettings } from "@/utils/cookie-manager";
 import { cn } from "@/lib/utils";
 
 const LANDING_SLUGS = [
-  "chatbots-personalizados-para-empresas",
-  "automatizacion-n8n-sevilla",
+  "agente-de-llamadas-ia",
+  "automatizaciones-personalizadas-empresas-n8n",
   "automatizacion-facturas",
-  "automatizacion-inteligente",
-  "formacion-ia-sevilla",
-  "empresa-inteligencia-artificial",
-  "inteligencia-artificial-empresas",
-  "inteligencia-artificial-sevilla"
+  "automatizacion-informes",
+  "automatizacion-redes-sociales",
+  "implantacion-odoo",
+  "desarrollo-de-app-webs",
 ] as const;
 
 type FooterLinkItem = {
@@ -48,9 +48,7 @@ type LandingFooterContent = {
   shortTitle?: string;
 };
 
-const LANDING_LABEL_SOURCE: Record<string, string> = {
-  "chatbots-personalizados-para-empresas": "chatbots-personalizados-para-empresas",
-};
+const LANDING_LABEL_SOURCE: Record<string, string> = {};
 
 const Footer = () => {
   const t = useTranslations("home");
@@ -86,6 +84,12 @@ const Footer = () => {
         external: true,
         icon: Linkedin,
       },
+      {
+        label: t("footer.links.youtube"),
+        href: "https://www.youtube.com/@ordinaly",
+        external: true,
+        icon: Youtube,
+      },
     ];
 
     if (whatsappUrl) {
@@ -118,8 +122,7 @@ const Footer = () => {
       {
         title: t("footer.sections.company"),
         links: [
-          { label: t("footer.links.about"), href: "/about" },
-          { label: t("footer.links.investors"), href: "/investors" },
+          { label: t("footer.links.about"), href: "/nosotros" },
           { label: t("footer.links.contact"), href: "/contacto" },
         ],
       },
@@ -173,7 +176,14 @@ const Footer = () => {
             </div>
 
             <div className="mt-5 space-y-2 text-sm leading-relaxed">
-              <p>{t("footer.contact.location")}</p>
+              <a
+                href="https://maps.app.goo.gl/2a4Rheb6u94wFe46A"
+                target="_blank"
+                rel="noreferrer"
+                className="block transition hover:text-clay"
+              >
+                {t("footer.contact.location")}
+              </a>
               <a
                 href={`mailto:${t("footer.contact.email")}`}
                 className="block transition hover:text-clay"

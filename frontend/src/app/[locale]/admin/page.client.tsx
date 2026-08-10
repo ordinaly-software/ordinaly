@@ -18,13 +18,12 @@ import {
   Mail,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import AdminServicesTab from "@/components/admin/admin-services-tab";
 import AdminCoursesTab from "@/components/admin/admin-courses-tab";
 import AdminTermsTab from "@/components/admin/admin-terms-tab";
 import AdminUsersTab from "@/components/admin/admin-users-tab";
 import AdminExternalTab from "@/components/admin/admin-external-tab";
 
-type TabType = 'overview' | 'services' | 'courses' | 'terms' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api' | 'mail';
+type TabType = 'overview' | 'courses' | 'terms' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api' | 'mail';
 
 interface User {
   id: number;
@@ -44,7 +43,6 @@ export default function AdminPage() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [stats, setStats] = useState({
-    totalServices: 0,
     totalCourses: 0,
     totalUsers: 0,
     totalTerms: 0,
@@ -52,7 +50,6 @@ export default function AdminPage() {
   });
   const tabs: AdminTabsTab[] = [
     { id: 'overview', name: t("tabs.overview"), icon: BarChart3 },
-    { id: 'services', name: t("tabs.services"), icon: Settings },
     { id: 'courses', name: t("tabs.courses"), icon: BookOpen },
     { id: 'terms', name: t("tabs.terms"), icon: FileText },
     { id: 'users', name: t("tabs.users"), icon: Users },
@@ -66,7 +63,7 @@ export default function AdminPage() {
   // Load saved tab from localStorage on component mount
   useEffect(() => {
     const savedTab = localStorage.getItem('adminActiveTab') as TabType;
-    if (savedTab && ['overview', 'services', 'courses', 'terms', 'users', 'blog', 'odoo', 'n8n', 'api', 'mail'].includes(savedTab)) {
+    if (savedTab && ['overview', 'courses', 'terms', 'users', 'blog', 'odoo', 'n8n', 'api', 'mail'].includes(savedTab)) {
       setActiveTab(savedTab);
     }
   }, []);
@@ -140,10 +137,7 @@ export default function AdminPage() {
     const fetchStats = async (token: string) => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
-        const [servicesRes, coursesRes, termsRes, usersRes, postsCount] = await Promise.all([
-          fetch(`${apiUrl}/api/services/`, {
-            headers: { 'Authorization': `Token ${token}` }
-          }),
+        const [coursesRes, termsRes, usersRes, postsCount] = await Promise.all([
           fetch(`${apiUrl}/api/courses/courses/`, {
             headers: { 'Authorization': `Token ${token}` }
           }),
@@ -156,15 +150,13 @@ export default function AdminPage() {
           fetchSanityPostsCount()
         ]);
 
-        const [services, courses, terms, users] = await Promise.all([
-          servicesRes.ok ? servicesRes.json() : [],
+        const [courses, terms, users] = await Promise.all([
           coursesRes.ok ? coursesRes.json() : [],
           termsRes.ok ? termsRes.json() : [],
           usersRes.ok ? usersRes.json() : [],
         ]);
 
         setStats({
-          totalServices: Array.isArray(services) ? services.length : 0,
           totalCourses: Array.isArray(courses) ? courses.length : 0,
           totalUsers: Array.isArray(users) ? users.length : 0,
           totalTerms: Array.isArray(terms) ? terms.length : 0,
@@ -172,7 +164,6 @@ export default function AdminPage() {
         });
       } catch {
         setStats({
-          totalServices: 0,
           totalCourses: 0,
           totalUsers: 0,
           totalTerms: 0,
@@ -203,27 +194,6 @@ export default function AdminPage() {
             exit="exit"
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
           >
-            {/* Services */}
-            <Card
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => handleTabChange('services')}
-              tabIndex={0}
-              role="button"
-              aria-label={t("stats.totalServices")}
-            >
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  {t("stats.totalServices")}
-                </CardTitle>
-                <Settings className="h-4 w-4 text-[#0255D5] dark:text-[#7DB5FF]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {stats.totalServices}
-                </div>
-              </CardContent>
-            </Card>
-
             {/* Courses */}
             <Card
               className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
@@ -375,18 +345,6 @@ export default function AdminPage() {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
-        );
-      case 'services':
-        return (
-          <motion.div
-            key="services"
-            variants={tabVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <AdminServicesTab />
           </motion.div>
         );
       case 'courses':

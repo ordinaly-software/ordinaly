@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import FormationPageClient from "./page.client";
 import { createPageMetadata } from "@/lib/metadata";
+import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 
 export async function generateMetadata({
   params,
@@ -28,7 +29,19 @@ export default async function FormationPage({
 }: {
   params: Promise<{ locale: string }>;
 }) {
-  await params;
+  const { locale } = await params;
+  const isEs = locale?.startsWith("es");
   // Server component: render the client root without initial slug
-  return <FormationPageClient />;
+  return (
+    <>
+      <BreadcrumbSchema
+        locale={locale}
+        items={[
+          { name: isEs ? "Inicio" : "Home", path: "/" },
+          { name: isEs ? "Formación" : "Training" },
+        ]}
+      />
+      <FormationPageClient />
+    </>
+  );
 }

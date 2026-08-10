@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "@/i18n/navigation";
 import { useTransition } from "react";
 import { Globe } from "lucide-react";
 import { Dropdown, DropdownOption } from "@/components/ui/dropdown";
-import { isFunctionalAllowed } from "@/utils/cookieManager";
+import { isFunctionalAllowed } from "@/utils/cookie-manager";
 import { cn } from "@/lib/utils";
 
 interface LocaleSwitcherProps {

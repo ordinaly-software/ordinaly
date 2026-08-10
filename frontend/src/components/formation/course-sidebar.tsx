@@ -171,13 +171,15 @@ const CourseSidebar: React.FC<Props> = ({
         )}
 
         {hasEnded && showRequestEdition && (
-          <Button
-            onClick={onRequestEdition}
-            variant="flame"
-            className="w-full shadow-lg transition-all duration-300 transform hover:scale-105"
-          >
-            {requestEditionLabel}
-          </Button>
+          <div className="hidden lg:block">
+            <Button
+              onClick={onRequestEdition}
+              variant="flame"
+              className="w-full shadow-lg transition-all duration-300 transform hover:scale-105"
+            >
+              {requestEditionLabel}
+            </Button>
+          </div>
         )}
       </div>
 

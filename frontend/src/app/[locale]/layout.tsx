@@ -11,11 +11,14 @@ import BackToTopButton from "@/components/ui/back-to-top-button";
 import { getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { EmailVerificationProvider } from "@/contexts/email-verification-context";
+import { SiteDataProvider } from "@/contexts/site-data-context";
+import { getSiteCourses } from "@/lib/site-data";
 import { NextIntlClientProvider } from "next-intl";
+import { setRequestLocale } from "next-intl/server";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
 import GoogleAnalyticsLoader from "@/components/analytics/google-analytics-loader";
 import AutoKeywords from "@/components/seo/auto-keywords";
-import CommerceSchema from "@/components/seo/commerce-schema";
+import CourseSchema from "@/components/seo/course-schema";
 
 
 const inter = Inter({
@@ -60,7 +63,7 @@ const businessSchema = {
   ],
   makesOffer: [
     "Agencia de Automatización IA",
-    "Automatización de Facturas",
+    "Automatización de facturas",
     "Automatización con n8n",
     "Automatización Inteligente",
     "Empresa de Inteligencia artificial",
@@ -69,6 +72,10 @@ const businessSchema = {
     "Inteligencia artificial Sevilla"
   ],
 };
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
 
 export async function generateMetadata({
   params,
@@ -128,6 +135,10 @@ export default async function RootLayout({
 
   if (!routing.locales.includes(locale as Locale)) notFound();
 
+  setRequestLocale(locale);
+
+  const courses = await getSiteCourses();
+
   return (
     <html lang={locale} data-scroll-behavior="smooth" className={inter.variable} suppressHydrationWarning>
       <head>
@@ -137,7 +148,7 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
         />
-        <CommerceSchema locale={locale} />
+        <CourseSchema locale={locale} />
         {/* Theme init (tu script) */}
         <Script
           id="theme-init"
@@ -188,12 +199,14 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <ThemeProvider>
               <EmailVerificationProvider>
-                <ServiceWorkerRegistrar />
-                <AutoKeywords />
-                <Navbar />
-                <main id="main-content">{children}</main>
-                <CookieConsent />
-                <BackToTopButton />
+                <SiteDataProvider courses={courses}>
+                  <ServiceWorkerRegistrar />
+                  <AutoKeywords />
+                  <Navbar />
+                  <main id="main-content">{children}</main>
+                  <CookieConsent />
+                  <BackToTopButton />
+                </SiteDataProvider>
               </EmailVerificationProvider>
             </ThemeProvider>
           </NextIntlClientProvider>

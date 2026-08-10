@@ -1,20 +1,28 @@
+import os
+import random
+from datetime import date, time, timedelta
 
-from datetime import date, time, datetime, timedelta
-from django.core.management.base import BaseCommand
-from django.core.files.base import ContentFile
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from users.models import CustomUser
-from terms.models import Terms
+from django.core.files.base import ContentFile
+from django.core.management.base import BaseCommand, CommandError
+from django.utils import timezone
+
 from courses.models import Course, Enrollment
 from services.models import Service
-import os
-from django.conf import settings
-import random
-import secrets
+from terms.models import Terms
+from users.models import CustomUser
 
 User = get_user_model()
 
 PASSWORD = os.environ.get("ORDINALY_TEST_PASSWORD")
+
+# Demo accounts are tagged with this email domain so they can be told apart
+# from real users when clearing data.
+DEMO_EMAIL_DOMAIN = "example.com"
+DEMO_USER_COUNT = 10
+DEMO_ADMIN_USERNAME = "admin_test"
+DEMO_TIMEZONE = "Europe/Madrid"
 
 
 class Command(BaseCommand):
@@ -25,81 +33,91 @@ class Command(BaseCommand):
         parser.add_argument('--seed', type=int, help='Seed for reproducible pseudo-random data')
 
     def handle(self, *args, **options):
-        # Ensure there are mock users for course/enrollment/service population
-        self.create_mock_users()
+        if not PASSWORD:
+            raise CommandError(
+                'ORDINALY_TEST_PASSWORD is not set. Add it to your .env before running populate_db.'
+            )
+
         if options.get('seed') is not None:
             random.seed(options['seed'])
+
         if options.get('clear'):
             self.stdout.write('Clearing existing data...')
             self.clear_data()
-        self.stdout.write('Creating sample data...')
-        # Create terms (only if the model exists)
+
+        created_users = self.create_mock_users()
+        self.stdout.write(f'Created {created_users} demo users')
+
+        self.run_step('terms', self.create_terms)
+        courses = self.run_step('courses', self.create_courses)
+        self.run_step('enrollments', self.create_enrollments, courses)
+        self.run_step('services', self.create_services)
+
+        self.stdout.write(self.style.SUCCESS('Successfully populated database with sample data!'))
+
+    def run_step(self, label, func, *args):
+        """Run a creation step, reporting how many objects were made or why it was skipped."""
         try:
-            admin_user = CustomUser.objects.filter(is_staff=True, is_superuser=True).first()
-            if admin_user:
-                terms = self.create_terms(admin_user)  # Use admin as author
-                self.stdout.write(f'Created {len(terms)} terms')
-            else:
-                self.stdout.write('No admin user found, skipping terms creation.')
+            created = func(*args)
         except Exception as e:
-            self.stdout.write(f'Skipped terms creation: {e}')
-        # Create courses
-        courses = self.create_courses()
-        self.stdout.write(f'Created {len(courses)} courses')
-        # Create enrollments for realistic user engagement
-        enrollments = self.create_enrollments(courses)
-        self.stdout.write(f'Created {len(enrollments)} enrollments')
-        # Create services (only if the model exists)
-        try:
-            services = self.create_services()
-            self.stdout.write(f'Created {len(services)} services')
-        except Exception as e:
-            self.stdout.write(f'Skipped services creation: {e}')
-        self.stdout.write(
-            self.style.SUCCESS('Successfully populated database with sample data!')
-        )
+            self.stdout.write(self.style.WARNING(f'Skipped {label} creation: {e}'))
+            return []
+        self.stdout.write(f'Created {len(created)} {label}')
+        return created
 
     def create_mock_users(self):
-        """Create mock users if none exist (for demo population)"""
-        if CustomUser.objects.filter(is_staff=False).count() == 0:
-            for i in range(10):
-                CustomUser.objects.create_user(
-                    username=f"user{i+1}",
-                    email=f"user{i+1}@example.com",
-                    password=PASSWORD,
-                    name=f"User{i+1}",
-                    surname="Demo",
-                    company="DemoCorp",
-                    allow_notifications=False
-                )
-        if not CustomUser.objects.filter(is_staff=True, is_superuser=True).exists():
-            CustomUser.objects.create_superuser(
-                username="admin_test",
-                email="admin@example.com",
+        """Create demo users and an admin account, idempotently, if they don't already exist."""
+        created = 0
+        for i in range(1, DEMO_USER_COUNT + 1):
+            _, was_created = CustomUser.objects.get_or_create(
+                username=f"user{i}",
+                defaults={
+                    'email': f"user{i}@{DEMO_EMAIL_DOMAIN}",
+                    'password': PASSWORD,
+                    'name': f"User{i}",
+                    'surname': "Demo",
+                    'company': "DemoCorp",
+                    'allow_notifications': False,
+                    'status': 'active',
+                    'email_verified_at': timezone.now(),
+                },
+            )
+            if was_created:
+                user = CustomUser.objects.get(username=f"user{i}")
+                user.set_password(PASSWORD)
+                user.save(update_fields=['password'])
+                created += 1
+
+        if not CustomUser.objects.filter(username=DEMO_ADMIN_USERNAME).exists():
+            CustomUser.objects.create_superuser(  # type: ignore
+                username=DEMO_ADMIN_USERNAME,
+                email=f"admin@{DEMO_EMAIL_DOMAIN}",
                 password=PASSWORD,
                 name="Admin",
                 surname="User",
                 company="DemoCorp",
-                allow_notifications=False
+                allow_notifications=False,
+                status='active',
+                email_verified_at=timezone.now(),
             )
+            created += 1
+
+        return created
 
     def clear_data(self):
-        """Clear existing data and associated media files"""
-        # First, get references to files before deleting objects
+        """Clear existing demo data, associated media files, and demo user accounts."""
         try:
-            # Get all terms files for later cleanup
-            terms_files = []
-            for term in Terms.objects.all():
-                if term.pdf_content and hasattr(term.pdf_content, 'path'):
-                    terms_files.append(term.pdf_content.path)
+            # pdf_content/image are plain FileFields, not relations, so
+            # select_related/prefetch_related do not apply here.
+            terms_files = [
+                term.pdf_content.path for term in Terms.objects.only('pdf_content')  # NOSONAR
+                if term.pdf_content and hasattr(term.pdf_content, 'path')
+            ]
+            course_images = [
+                course.image.path for course in Course.objects.only('image')  # NOSONAR
+                if course.image and hasattr(course.image, 'path')
+            ]
 
-            # Get all course images for later cleanup
-            course_images = []
-            for course in Course.objects.all():
-                if course.image and hasattr(course.image, 'path'):
-                    course_images.append(course.image.path)
-
-            # Now delete the objects (models' delete methods will be called)
             Enrollment.objects.all().delete()
             self.stdout.write("Deleted all enrollments")
 
@@ -112,24 +130,30 @@ class Command(BaseCommand):
             Terms.objects.all().delete()
             self.stdout.write("Deleted all terms")
 
-            # Additional cleanup for any files that might not have been deleted
+            deleted_users, _ = CustomUser.objects.filter(
+                email__iendswith=f"@{DEMO_EMAIL_DOMAIN}"
+            ).delete()
+            self.stdout.write(f"Deleted {deleted_users} demo users")
+
             for file_path in terms_files + course_images:
                 if os.path.exists(file_path):
                     try:
                         os.remove(file_path)
                         self.stdout.write(f"Deleted file: {file_path}")
-                    except Exception as e:
+                    except OSError as e:
                         self.stdout.write(f"Error deleting file {file_path}: {e}")
 
         except Exception as e:
             self.stdout.write(f"Error during data cleanup: {e}")
 
-    def create_terms(self, author):
+    def create_terms(self):
+        admin_user = CustomUser.objects.filter(is_staff=True, is_superuser=True).first()
+        if not admin_user:
+            return []
+
         terms_dir = os.path.join(settings.BASE_DIR, 'media', 'test_media', 'terms')
-        # Create the directory if it doesn't exist
         os.makedirs(terms_dir, exist_ok=True)
 
-        # Map of tag to (name, version)
         term_files = [
             ('terms', 'Términos y Condiciones de Uso v1.0', '1.0'),
             ('privacy', 'Política de Privacidad v1.0', '1.0'),
@@ -139,13 +163,11 @@ class Command(BaseCommand):
         terms = []
         for tag, name, version in term_files:
             pdf_path = os.path.join(terms_dir, f'{tag}_ordinaly.pdf')
-
-            # Check if PDF file exists and print debug info
             if not os.path.exists(pdf_path):
                 self.stdout.write(f"Warning: PDF file not found at {pdf_path}")
                 continue
 
-            # Delete existing terms with the same tag to avoid uniqueness constraint errors
+            # Recreate terms with the same tag to avoid uniqueness constraint errors
             Terms.objects.filter(tag=tag).delete()
 
             with open(pdf_path, 'rb') as f:
@@ -156,7 +178,7 @@ class Command(BaseCommand):
                     tag=tag,
                     name=name,
                     version=version,
-                    author=author,
+                    author=admin_user,
                     pdf_content=ContentFile(pdf_content, name=f"{tag}.pdf"),
                 )
                 terms.append(term)
@@ -166,8 +188,15 @@ class Command(BaseCommand):
         return terms
 
     def create_courses(self):
-        """Create sample courses and load images from media/test_media/course_images/"""
+        """Create sample courses with schedules relative to today, so seeded data never looks stale."""
         images_dir = os.path.join(settings.BASE_DIR, 'media', 'test_media', 'course_images')
+        today = date.today()
+
+        workshop_date = today + timedelta(days=14)
+        session_date = today + timedelta(days=30)
+        bootcamp_start = today + timedelta(days=60)
+        # 4 weekly sessions starting on bootcamp_start's weekday
+        bootcamp_end = bootcamp_start + timedelta(weeks=3)
 
         courses_data = [
             {
@@ -194,12 +223,12 @@ class Command(BaseCommand):
                 ),
                 'price': None,
                 'location': 'C. Aviación 39, Polígono Calonge, Sevilla 41007',
-                'start_date': date(2025, 6, 18),
-                'end_date': date(2025, 6, 18),
+                'start_date': workshop_date,
+                'end_date': workshop_date,
                 'start_time': time(9, 30),
                 'end_time': time(11, 30),
                 'periodicity': 'once',
-                'timezone': 'Europe/Madrid',
+                'timezone': DEMO_TIMEZONE,
                 'max_attendants': 25,
                 'draft': False
             },
@@ -210,8 +239,10 @@ class Command(BaseCommand):
                     'Sesión práctica de IA para inmobiliarias con automatización, captación y atención al cliente.'
                 ),
                 'description': (
-                    '**¡IMPORTANTE!** Esta sesión está orientada a profesionales del sector inmobiliario que quieran aplicar IA de forma práctica desde el primer día.\n\n'
-                    'Trabajaremos casos reales como la atención de leads por WhatsApp, el seguimiento automático de contactos, los resúmenes de visitas y la preparación de respuestas asistidas por IA.\n\n'
+                    '**¡IMPORTANTE!** Esta sesión está orientada a profesionales del sector inmobiliario '
+                    'que quieran aplicar IA de forma práctica desde el primer día.\n\n'
+                    'Trabajaremos casos reales como la atención de leads por WhatsApp, el seguimiento automático '
+                    'de contactos, los resúmenes de visitas y la preparación de respuestas asistidas por IA.\n\n'
                     'También veremos:\n'
                     '- Casos de uso de la IA generativa en inmobiliarias\n'
                     '- Herramientas y recursos para trabajar con IA\n'
@@ -228,12 +259,12 @@ class Command(BaseCommand):
                 ),
                 'price': None,
                 'location': 'Edif. Galia, Sala de Conferencias 1. C. José Delgado Brackenbury 11, Sevilla, 41007',
-                'start_date': date(2025, 7, 8),
-                'end_date': date(2025, 7, 8),
+                'start_date': session_date,
+                'end_date': session_date,
                 'start_time': time(9, 30),
                 'end_time': time(11, 30),
                 'periodicity': 'once',
-                'timezone': 'Europe/Madrid',
+                'timezone': DEMO_TIMEZONE,
                 'max_attendants': 90,
                 'draft': False
             },
@@ -276,27 +307,25 @@ class Command(BaseCommand):
                     'TODAS LAS HERRAMIENTAS DEL CURSO SERÁN GRATUITAS.'
                 ),
                 'price': 0.50,
-                'location': None,
-                'start_date': date(2025, 10, 8),
-                'end_date': date(2025, 10, 22),
+                'location': '',
+                'start_date': bootcamp_start,
+                'end_date': bootcamp_end,
                 'start_time': time(9, 30),
                 'end_time': time(11, 30),
-                'timezone': 'Europe/Madrid',
+                'periodicity': 'weekly',
+                'weekdays': [bootcamp_start.weekday()],
+                'timezone': DEMO_TIMEZONE,
                 'max_attendants': 90,
                 'draft': False
             },
         ]
         courses = []
         for i, course_data in enumerate(courses_data):
-            image_path = os.path.join(images_dir, f'test_course_{i+1}.jpg')
-            if not os.path.exists(image_path):
-                image_content = None
-            else:
-                with open(image_path, 'rb') as f:
-                    image_content = f.read()
+            image_path = os.path.join(images_dir, f'test_course_{i + 1}.jpg')
             defaults = {**course_data}
-            if image_content:
-                defaults['image'] = ContentFile(image_content, name=f"course_{i+1}.jpg")
+            if os.path.exists(image_path):
+                with open(image_path, 'rb') as f:
+                    defaults['image'] = ContentFile(f.read(), name=f"course_{i + 1}.jpg")
             course, created = Course.objects.get_or_create(
                 title=course_data['title'],
                 defaults=defaults
@@ -306,40 +335,33 @@ class Command(BaseCommand):
         return courses
 
     def create_enrollments(self, courses):
-        """Create enrollments for existing users in eligible courses. No users are created or modified."""
+        """Create enrollments for existing demo users in eligible courses. No users are created or modified."""
         enrollments = []
 
-        # Filter courses with all date/time fields not None
         eligible_courses = [
             c for c in courses
-            if getattr(c, 'start_date', None) and getattr(c, 'end_date', None)
-            and getattr(c, 'start_time', None) and getattr(c, 'end_time', None)
+            if c.start_date and c.end_date and c.start_time and c.end_time
         ]
         if not eligible_courses:
             return enrollments
 
-        # Use all non-staff users for enrollments
         regular_users = list(CustomUser.objects.filter(is_staff=False))
 
-        # Create enrollments for each user in a random eligible course
         for user in regular_users:
-            if not eligible_courses:
-                break
-            # Use secrets for cryptographically secure random selection
-            course = eligible_courses[secrets.randbelow(len(eligible_courses))]
+            # Non-security demo data; reproducible via the --seed option.
+            course = random.choice(eligible_courses)  # NOSONAR
             try:
-                days = secrets.randbelow(90) + 1  # Generates a random int in [1, 90]
-                enrollment, created = Enrollment.objects.get_or_create(
-                    user=user,
-                    course=course,
-                    defaults={
-                        'enrolled_at': datetime.now() - timedelta(days=days)
-                    }
-                )
-                if created:
-                    enrollments.append(enrollment)
+                enrollment, created = Enrollment.objects.get_or_create(user=user, course=course)
             except Exception:
                 continue
+            if created:
+                # enrolled_at is auto_now_add, so it must be backdated via update() after creation.
+                # Non-security demo data; reproducible via the --seed option.
+                days_ago = random.randint(1, 90)  # NOSONAR
+                Enrollment.objects.filter(pk=enrollment.pk).update(
+                    enrolled_at=timezone.now() - timedelta(days=days_ago)
+                )
+                enrollments.append(enrollment)
 
         return enrollments
 
@@ -376,7 +398,6 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                     "- Número de teñefóno con cuenta de Whatsapp Business.    "
                     "- Disponibilidad para consultas.     "
                 ),
-                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
                 'draft': False
@@ -407,8 +428,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                 'color': '46B1C9',
                 'icon': 'Bot',
                 'duration': 10,
-                'requisites': None,
-                # price field is intentionally left as None for demo
+                'requisites': '',
                 'price': None,
                 'is_featured': True,
                 'draft': False
@@ -444,7 +464,6 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                     "- Colaboración de tu equipo de desarrollo y diseño.     "
                     "- Disponibilidad para llamadas y videoconferencias para probar el resultado.     "
                 ),
-                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': True,
                 'draft': False
@@ -471,7 +490,6 @@ Este chatbot te ayudará a mejorar la interacción con tus clientes ayudándoles
                     "- Acceso al código fuente de la web.    "
                     "- Disponibilidad para consultas.    "
                 ),
-                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': False,
                 'draft': True
@@ -499,7 +517,6 @@ Estas automatizaciones te permitirán centrarte en la creación de contenido dej
                      "- Acceso a las (temporalmente) a las redes sociales que se quieran automatizar.    "
                      "- Acceso a una cuenta de Google Drive para alamacenar el contenido.    "
                 ),
-                # price field is intentionally left as None for demo
                 'price': None,
                 'is_featured': False,
                 'draft': False

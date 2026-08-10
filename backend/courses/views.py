@@ -33,6 +33,11 @@ from uuid import uuid4
 # Set Stripe API key from environment at import time
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
+COURSE_FULL_DETAIL = "This course is already full."
+ALREADY_ENROLLED_DETAIL = "You are already enrolled in this course."
+ENROLLMENT_EMAIL_FAILURE_LOG = "Failed to send enrollment confirmation email for user %s"
+UNENROLLMENT_EMAIL_FAILURE_LOG = "Failed to send unenrollment confirmation email for user %s"
+
 
 class IsAdminUserOrReadOnly(permissions.BasePermission):
     """Custom permission to only allow admin users to edit."""
@@ -167,14 +172,14 @@ class CourseViewSet(viewsets.ModelViewSet):
             # Check if the course is full
             if locked_course.enrollments.count() >= locked_course.max_attendants:
                 return Response(
-                    {"detail": "This course is already full."},
+                    {"detail": COURSE_FULL_DETAIL},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
             # Check if user is already enrolled
             if Enrollment.objects.filter(user=user, course=locked_course).exists():
                 return Response(
-                    {"detail": "You are already enrolled in this course."},
+                    {"detail": ALREADY_ENROLLED_DETAIL},
                     status=status.HTTP_400_BAD_REQUEST
                 )
 
@@ -185,7 +190,7 @@ class CourseViewSet(viewsets.ModelViewSet):
                 job = queue_course_enrollment_notification(user, locked_course)
                 dispatch_email_job_now(job)
             except Exception:
-                logger.exception("Failed to send enrollment confirmation email for user %s", user.email)
+                logger.exception(ENROLLMENT_EMAIL_FAILURE_LOG, user.email)
 
             serializer = EnrollmentSerializer(enrollment)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -232,71 +237,44 @@ class CourseViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(copy)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated],
-            url_path='create-checkout-session')
-    def create_checkout_session(self, request, *args, **kwargs):
-        """Create a Stripe Checkout session for the course, or enroll directly if free."""
-        course = self.get_object()
-        user = self.request.user
+    def _enroll_in_free_course(self, course, user):
+        """Enroll the user directly when the course is free."""
+        with transaction.atomic():
+            locked_course = Course.objects.select_for_update().get(pk=course.pk)
+            if locked_course.enrollments.count() >= locked_course.max_attendants:
+                return Response({"detail": COURSE_FULL_DETAIL},
+                                status=status.HTTP_400_BAD_REQUEST)
+            if Enrollment.objects.filter(user=user, course=locked_course).exists():
+                return Response({"detail": ALREADY_ENROLLED_DETAIL},
+                                status=status.HTTP_400_BAD_REQUEST)
+            enrollment = Enrollment.objects.create(user=user, course=locked_course)
 
-        # Check if user is already enrolled
-        if Enrollment.objects.filter(user=user, course=course).exists():
-            return Response({"detail": "You are already enrolled in this course."},
-                            status=status.HTTP_400_BAD_REQUEST)
+            try:
+                job = queue_course_enrollment_notification(user, locked_course)
+                dispatch_email_job_now(job)
+            except Exception:
+                logger.exception(ENROLLMENT_EMAIL_FAILURE_LOG, user.email)
 
-        # Check if the course has a start date
-        if course.start_date is None or course.end_date is None:
-            return Response({"detail": "Cannot enroll in a course without specified dates."},
-                            status=status.HTTP_400_BAD_REQUEST)
+            serializer = EnrollmentSerializer(enrollment)
+            return Response({"enrolled": True, "enrollment": serializer.data})
 
-        # Check if the course is full
-        if course.enrollments.count() >= course.max_attendants:
-            return Response({"detail": "This course is already full."},
-                            status=status.HTTP_400_BAD_REQUEST)
-
-        # If course is free, enroll directly
-
-        if course.price is None or course.price == Decimal('0.00'):
-            with transaction.atomic():
-                locked_course = Course.objects.select_for_update().get(pk=course.pk)
-                if locked_course.enrollments.count() >= locked_course.max_attendants:
-                    return Response({"detail": "This course is already full."},
-                                    status=status.HTTP_400_BAD_REQUEST)
-                if Enrollment.objects.filter(user=user, course=locked_course).exists():
-                    return Response({"detail": "You are already enrolled in this course."},
-                                    status=status.HTTP_400_BAD_REQUEST)
-                enrollment = Enrollment.objects.create(user=user, course=locked_course)
-
-                try:
-                    job = queue_course_enrollment_notification(user, locked_course)
-                    dispatch_email_job_now(job)
-                except Exception:
-                    logger.exception("Failed to send enrollment confirmation email for user %s", user.email)
-
-                serializer = EnrollmentSerializer(enrollment)
-                return Response({"enrolled": True, "enrollment": serializer.data})
-
-        # Validate user email
+    def _create_stripe_checkout_session(self, course, user):
+        """Create and return a Stripe Checkout session Response for a paid course."""
         if not user.email:
-            # print(f"[Stripe Checkout] User email missing for user id {user.id}")
             return Response({"detail": "User email is required for Stripe checkout."},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        # Ensure Stripe API key is set
         stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
         if not stripe.api_key:
-            # print("[Stripe Checkout] Stripe secret key not configured.")
             return Response({"detail": "Stripe secret key not configured."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # Validate course price
         try:
             price_int = int(Decimal(course.price) * 100)
         except Exception:
             return Response({"detail": "Invalid course price."},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        # Create Stripe Checkout session
         try:
             frontend_url = os.getenv('FRONTEND_BASE_URL', 'http://localhost:3000')
             success_url = f"{frontend_url}/formacion?payment=success"
@@ -325,11 +303,38 @@ class CourseViewSet(viewsets.ModelViewSet):
                 success_url=success_url,
                 cancel_url=cancel_url,
             )
-            # print(f"[Stripe Checkout] Session created: {session.id}")
             return Response({"checkout_url": session.url})
         except Exception:
             return Response({"detail": "An internal error occurred during Stripe checkout."},
                             status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated],
+            url_path='create-checkout-session')
+    def create_checkout_session(self, request, *args, **kwargs):
+        """Create a Stripe Checkout session for the course, or enroll directly if free."""
+        course = self.get_object()
+        user = self.request.user
+
+        # Check if user is already enrolled
+        if Enrollment.objects.filter(user=user, course=course).exists():
+            return Response({"detail": ALREADY_ENROLLED_DETAIL},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        # Check if the course has a start date
+        if course.start_date is None or course.end_date is None:
+            return Response({"detail": "Cannot enroll in a course without specified dates."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        # Check if the course is full
+        if course.enrollments.count() >= course.max_attendants:
+            return Response({"detail": COURSE_FULL_DETAIL},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        # If course is free, enroll directly
+        if course.price is None or course.price == Decimal('0.00'):
+            return self._enroll_in_free_course(course, user)
+
+        return self._create_stripe_checkout_session(course, user)
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated], url_path='refund-course')
     def refund_course(self, request, *args, **kwargs):
@@ -357,7 +362,7 @@ class CourseViewSet(viewsets.ModelViewSet):
                 job = queue_course_unenrollment_notification(user, course)
                 dispatch_email_job_now(job)
             except Exception:
-                logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
+                logger.exception(UNENROLLMENT_EMAIL_FAILURE_LOG, user.email)
 
             return Response({"detail": "Unenrolled from course (no payment to refund)."}, status=status.HTTP_200_OK)
 
@@ -375,11 +380,73 @@ class CourseViewSet(viewsets.ModelViewSet):
                 job = queue_course_unenrollment_notification(user, course)
                 dispatch_email_job_now(job)
             except Exception:
-                logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
+                logger.exception(UNENROLLMENT_EMAIL_FAILURE_LOG, user.email)
 
             return Response({"detail": f"Refund processed and unenrolled from course: {refund.id}"})
         except Exception as e:
             return Response({"detail": f"Stripe refund error: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def _course_local_datetime(self, course, date_value, time_value):
+        """Combine a date/time pair into a timezone-aware datetime in the course's timezone."""
+        if not date_value:
+            return None
+        base_time = time_value or time(0, 0)
+        dt = datetime.combine(date_value, base_time)
+        tzinfo = None
+        if isinstance(getattr(course, "timezone", None), str):
+            try:
+                tzinfo = ZoneInfo(course.timezone)
+            except Exception:
+                tzinfo = None
+        tzinfo = tzinfo or timezone.get_current_timezone()
+        if timezone.is_naive(dt):
+            dt = timezone.make_aware(dt, tzinfo)
+        else:
+            dt = timezone.localtime(dt, tzinfo)
+        return dt
+
+    def _course_unenroll_window(self, course, now):
+        """Compute (course_start, course_end), adjusted for sessions that wrap past
+        midnight or whose end would otherwise fall before their start."""
+        course_start = self._course_local_datetime(
+            course, getattr(course, "start_date", None), getattr(course, "start_time", None)
+        )
+        course_end = self._course_local_datetime(
+            course, getattr(course, "end_date", None), getattr(course, "end_time", None)
+        )
+
+        # If the times wrap past midnight but the date is "today", shift forward a day
+        if course_start and course_start.date() == now.date():
+            hours_diff = (now - course_start).total_seconds() / 3600
+            if hours_diff > 12:  # likely rolled past midnight, so interpret as next day
+                course_start = course_start + timedelta(days=1)
+                if course_end:
+                    course_end = course_end + timedelta(days=1)
+
+        # Ensure end is not before start (e.g., overnight courses)
+        if course_start and course_end and course_end <= course_start:
+            course_end = course_end + timedelta(days=1)
+
+        return course_start, course_end
+
+    def _unenroll_timing_error(self, course_start, course_end, now):
+        """Return an error Response if unenrolling isn't allowed right now, else None."""
+        if course_end and now > course_end:
+            return Response(
+                {"detail": "No puedes cancelar la inscripción porque el curso ya ha finalizado."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if course_start and now >= course_start:
+            return Response(
+                {"detail": "No puedes cancelar la inscripción porque el curso ya ha comenzado."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if course_start and (course_start - now) <= timedelta(hours=24):
+            return Response(
+                {"detail": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        return None
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def unenroll(self, request, *args, **kwargs):
@@ -400,62 +467,12 @@ class CourseViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        def build_dt(date_value, time_value):
-            if not date_value:
-                return None
-            base_time = time_value or time(0, 0)
-            dt = datetime.combine(date_value, base_time)
-            tzinfo = None
-            if isinstance(getattr(course, "timezone", None), str):
-                try:
-                    tzinfo = ZoneInfo(course.timezone)
-                except Exception:
-                    tzinfo = None
-            tzinfo = tzinfo or timezone.get_current_timezone()
-            if timezone.is_naive(dt):
-                dt = timezone.make_aware(dt, tzinfo)
-            else:
-                dt = timezone.localtime(dt, tzinfo)
-            return dt
-
         now = timezone.localtime(timezone.now(), timezone.get_current_timezone())
+        course_start, course_end = self._course_unenroll_window(course, now)
 
-        # Build start/end datetimes with timezone awareness
-        course_start = build_dt(getattr(course, "start_date", None), getattr(course, "start_time", None))
-        course_end = build_dt(getattr(course, "end_date", None), getattr(course, "end_time", None))
-
-        # If the times wrap past midnight but the date is "today", shift forward a day
-        if course_start and course_start.date() == now.date():
-            hours_diff = (now - course_start).total_seconds() / 3600
-            if hours_diff > 12:  # likely rolled past midnight, so interpret as next day
-                course_start = course_start + timedelta(days=1)
-                if course_end:
-                    course_end = course_end + timedelta(days=1)
-
-        # Ensure end is not before start (e.g., overnight courses)
-        if course_start and course_end and course_end <= course_start:
-            course_end = course_end + timedelta(days=1)
-
-        # Check if course has ended
-        if course_end and now > course_end:
-            return Response(
-                {"detail": "No puedes cancelar la inscripción porque el curso ya ha finalizado."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        # Check if course has started
-        if course_start and now >= course_start:
-            return Response(
-                {"detail": "No puedes cancelar la inscripción porque el curso ya ha comenzado."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        # Check 24h restriction
-        if course_start and (course_start - now) <= timedelta(hours=24):
-            return Response(
-                {"detail": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        timing_error = self._unenroll_timing_error(course_start, course_end, now)
+        if timing_error:
+            return timing_error
 
         enrollment.delete()
 
@@ -463,7 +480,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             job = queue_course_unenrollment_notification(user, course)
             dispatch_email_job_now(job)
         except Exception:
-            logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
+            logger.exception(UNENROLLMENT_EMAIL_FAILURE_LOG, user.email)
 
         return Response(
             {"detail": "Successfully unenrolled from the course."},
@@ -517,66 +534,60 @@ class StripeWebhookView(APIView):
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)
 
+    def _apply_checkout_session_payment(self, session):
+        """Enroll the user and store the payment intent for a completed checkout session."""
+        from users.models import CustomUser
+        from courses.models import Course
+
+        user_id = session['metadata'].get('user_id')
+        course_id = session['metadata'].get('course_id')
+        payment_intent = session.get('payment_intent')
+
+        try:
+            user = CustomUser.objects.filter(id=user_id).first()
+            course = Course.objects.filter(id=course_id).first()
+            if not user or not course:
+                return Response({'detail': 'User or course not found.'}, status=400)
+            with transaction.atomic():
+                locked_course = Course.objects.select_for_update().get(pk=course.pk)
+                if Enrollment.objects.filter(user=user, course=locked_course).exists():
+                    enrollment = Enrollment.objects.get(user=user, course=locked_course)
+                    if not enrollment.stripe_payment_intent_id:
+                        enrollment.stripe_payment_intent_id = payment_intent
+                        enrollment.save()
+                else:
+                    if locked_course.enrollments.count() >= locked_course.max_attendants:
+                        return Response({'detail': COURSE_FULL_DETAIL}, status=400)
+                    enrollment = Enrollment.objects.create(
+                        user=user,
+                        course=locked_course,
+                        stripe_payment_intent_id=payment_intent
+                    )
+                    try:
+                        job = queue_course_enrollment_notification(user, locked_course)
+                        dispatch_email_job_now(job)
+                    except Exception:
+                        logger.exception(ENROLLMENT_EMAIL_FAILURE_LOG, user.email)
+            return Response({'status': 'success'})
+        except Exception:
+            logger.exception('Enrollment processing failed during checkout session payment application.')
+            return Response({'detail': 'An internal error has occurred.'}, status=500)
+
     def post(self, request, *args, **kwargs):
         stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
         webhook_secret = os.getenv('STRIPE_WEBHOOK_SECRET')
         payload = request.body
         sig_header = request.META.get('HTTP_STRIPE_SIGNATURE')
-        # print(f"[Stripe Webhook] Payload: {payload}")
-        # print(f"[Stripe Webhook] Signature Header: {sig_header}")
-        # print(f"[Stripe Webhook] Webhook Secret: {webhook_secret}")
-        event = None
         try:
             event = stripe.Webhook.construct_event(
                 payload, sig_header, webhook_secret
             )
-            # print(f"[Stripe Webhook] Event: {event}")
         except Exception as e:
-            # print(f"[Stripe Webhook] Error constructing event: {e}")
             return Response({'detail': f'Webhook error: {str(e)}'}, status=400)
 
         # Handle successful payment
         if event['type'] == 'checkout.session.completed':
-            session = event['data']['object']
-            user_id = session['metadata'].get('user_id')
-            course_id = session['metadata'].get('course_id')
-            payment_intent = session.get('payment_intent')
-            # print(f"[Stripe Webhook] Session: {session}")
-            # print(f"[Stripe Webhook] user_id: {user_id}, course_id: {course_id}, payment_intent: {payment_intent}")
-            # Enroll user and store payment intent
-            try:
-                from users.models import CustomUser
-                from courses.models import Course
-                user = CustomUser.objects.filter(id=user_id).first()
-                course = Course.objects.filter(id=course_id).first()
-                if not user or not course:
-                    # print(f"[Stripe Webhook] User or course not found. user: {user}, course: {course}")
-                    return Response({'detail': 'User or course not found.'}, status=400)
-                with transaction.atomic():
-                    locked_course = Course.objects.select_for_update().get(pk=course.pk)
-                    if Enrollment.objects.filter(user=user, course=locked_course).exists():
-                        enrollment = Enrollment.objects.get(user=user, course=locked_course)
-                        if not enrollment.stripe_payment_intent_id:
-                            enrollment.stripe_payment_intent_id = payment_intent
-                            enrollment.save()
-                    else:
-                        if locked_course.enrollments.count() >= locked_course.max_attendants:
-                            return Response({'detail': 'This course is already full.'}, status=400)
-                        enrollment = Enrollment.objects.create(
-                            user=user,
-                            course=locked_course,
-                            stripe_payment_intent_id=payment_intent
-                        )
-                        try:
-                            job = queue_course_enrollment_notification(user, locked_course)
-                            dispatch_email_job_now(job)
-                        except Exception:
-                            logger.exception("Failed to send enrollment confirmation email for user %s", user.email)
-                        # print(f"[Stripe Webhook] Enrollment created: {enrollment}")
-                return Response({'status': 'success'})
-            except Exception as e:
-                # print(f"[Stripe Webhook] Enrollment error: {e}")
-                return Response({'detail': f'Enrollment error: {str(e)}'}, status=500)
+            return self._apply_checkout_session_payment(event['data']['object'])
         return Response({'status': 'success'})
 
 

@@ -11,7 +11,7 @@ import { User, Mail, Lock, Building2, Eye, EyeOff, Globe, MapPin } from "lucide-
 import StyledButton from "@/components/ui/styled-button";
 import Image from "next/image";
 import Link from "next/link";
-import { isFunctionalAllowed } from "@/utils/cookieManager";
+import { isFunctionalAllowed } from "@/utils/cookie-manager";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { getApiUrl } from "@/lib/api-config";
 import {

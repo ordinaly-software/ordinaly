@@ -1,0 +1,118 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+
+export interface AccordionImageItem {
+  id: number | string;
+  label: string;
+  sublabel?: string;
+  imageUrl: string;
+  href?: string;
+}
+
+interface ImageAccordionProps {
+  items: AccordionImageItem[];
+  initialActiveIndex?: number;
+  autoPlayInterval?: number;
+  className?: string;
+  itemHeight?: string;
+}
+
+export function ImageAccordion({
+  items,
+  initialActiveIndex = 0,
+  autoPlayInterval = 3000,
+  className,
+  itemHeight = "h-[460px]",
+}: ImageAccordionProps) {
+  const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
+  const isHovering = useRef(false);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      if (!isHovering.current) {
+        setActiveIndex((prev) => (prev + 1) % items.length);
+      }
+    }, autoPlayInterval);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [items.length, autoPlayInterval]);
+
+  return (
+    <div
+      className={cn("flex flex-row items-stretch gap-2.5", className)}
+      onMouseEnter={() => { isHovering.current = true; }}
+      onMouseLeave={() => { isHovering.current = false; }}
+    >
+      {items.map((item, index) => {
+        const isActive = index === activeIndex;
+        return (
+          <Link
+            key={item.id}
+            href={item.href ?? "#"}
+            className={cn(
+              "relative rounded-2xl overflow-hidden cursor-pointer flex-shrink-0",
+              "transition-all duration-700 ease-in-out",
+              itemHeight,
+              isActive ? "flex-grow basis-[360px]" : "basis-[58px]",
+            )}
+            onMouseEnter={() => setActiveIndex(index)}
+            onClick={(e) => {
+              if (!item.href || !isActive) {
+                e.preventDefault();
+              }
+              setActiveIndex(index);
+            }}
+          >
+            {/* Background image */}
+            <Image
+              src={item.imageUrl}
+              alt={item.label}
+              fill
+              priority={index === initialActiveIndex}
+              sizes={isActive ? "(min-width: 1280px) 540px, 360px" : "58px"}
+              className="object-cover transition-transform duration-700 ease-in-out"
+              style={{ transform: isActive ? "scale(1.04)" : "scale(1)" }}
+              onError={(e) => {
+                const t = e.currentTarget;
+                t.onerror = null;
+                t.src = "/static/home/main_home_ilustration_1.webp";
+              }}
+            />
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/20 transition-opacity duration-500" />
+
+            {/* Collapsed label — vertical */}
+            {!isActive && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-white/90 font-semibold text-sm whitespace-nowrap -rotate-90 tracking-wide">
+                  {item.label}
+                </span>
+              </div>
+            )}
+
+            {/* Expanded content — bottom */}
+            {isActive && (
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <p className="text-white font-bold text-lg leading-snug">
+                  {item.label}
+                </p>
+                {item.sublabel && (
+                  <p className="mt-1.5 text-sm text-white/70 leading-relaxed line-clamp-2">
+                    {item.sublabel}
+                  </p>
+                )}
+              </div>
+            )}
+          </Link>
+        );
+      })}
+    </div>
+  );
+}

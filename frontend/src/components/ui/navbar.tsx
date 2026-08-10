@@ -12,24 +12,10 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { Menu as HoverMenu, MenuItem, ProductItem, HoveredLink } from "@/components/ui/navbar-menu";
-import { useServices } from "@/hooks/useServices";
-import { useCourses } from "@/hooks/useCourses";
+import { useSiteData } from "@/contexts/site-data-context";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 
 const AUTH_STATE_CHANGE_EVENT = "auth-state-changed";
-const NAV_PRIORITY: Record<string, number> = {
-  services: 10,
-  contact: 10,
-  home: 8,
-  faq: 6,
-  about: 5,
-  formation: 4,
-  blog: 3,
-};
-
-
-
-
 // Custom User Menu Component
 const UserMenu = ({
   options,
@@ -173,6 +159,7 @@ const MobileSection = ({
 
 const Navbar = () => {
   const t = useTranslations("home");
+  const tServices = useTranslations("services");
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
@@ -183,19 +170,43 @@ const Navbar = () => {
   const [userData, setUserData] = useState<{ is_staff?: boolean; is_superuser?: boolean } | null>(null);
   const [hasEnrolledCourses, setHasEnrolledCourses] = useState(false);
   const [activeMegaItem, setActiveMegaItem] = useState<string | null>(null);
-  const [viewportWidth, setViewportWidth] = useState<number | null>(null);
+  const navRef = useRef<HTMLElement>(null);
 
-  const { services: menuServices } = useServices(undefined);
-  const { courses: allMenuCourses, isLoading: menuCoursesLoading } = useCourses({ limit: 10 });
+  const serviceLinks = useMemo(
+    () => [
+      {
+        id: "callbot-inbound",
+        href: "/agente-de-llamadas-ia",
+        title: tServices("showcase.chatbotRecepcionista"),
+        description: tServices("showcase.chatbotRecepcionistaNote"),
+        image: "/static/servicios/chatbot_recepcionista.webp",
+      },
+      {
+        id: "automation",
+        href: "/automatizaciones-personalizadas-empresas-n8n",
+        title: tServices("showcase.personalizadas"),
+        description: tServices("showcase.automationNote"),
+        image: "/static/servicios/automatizaciones_personalizadas.webp",
+      },
+      {
+        id: "odoo",
+        href: "/implantacion-odoo",
+        title: tServices("showcase.odoo"),
+        description: tServices("showcase.odooNote"),
+        image: "/static/servicios/implantacion_odoo.webp",
+      },
+      {
+        id: "pwa",
+        href: "/desarrollo-de-app-webs",
+        title: tServices("showcase.pwa"),
+        description: undefined as string | undefined,
+        image: "/static/servicios/desarrollo_de_app_webs.webp",
+      },
+    ],
+    [tServices],
+  );
 
-  // Services: show up to 6, prioritize highlighted (is_featured), hide menu if none
-  const featuredServices = useMemo(() => {
-    if (!menuServices || menuServices.length === 0) return [];
-    const featured = menuServices.filter((s) => s.is_featured);
-    const nonFeatured = menuServices.filter((s) => !s.is_featured);
-    const combined = [...featured, ...nonFeatured];
-    return combined.slice(0, 6);
-  }, [menuServices]);
+  const { courses: allMenuCourses } = useSiteData();
 
   // Courses: show at least 1 (even if past/no date), hide menu if none at all
   const menuCourses = useMemo(() => {
@@ -361,11 +372,17 @@ const Navbar = () => {
   }, [pathname]);
 
   useEffect(() => {
-    const handleResize = () => setViewportWidth(window.innerWidth);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    if (!isMenuOpen) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMenuOpen]);
 
   const handleUserMenuOption = useCallback(
     (value: string) => {
@@ -425,46 +442,15 @@ const Navbar = () => {
   const navItems = useMemo(
     () => [
       { id: "home", type: "link", href: "/", label: t("navigation.home") },
-      ...(featuredServices.length > 0 ? [{ id: "services", type: "mega", href: "/servicios", label: t("navigation.services") }] : []),
+      { id: "services", type: "mega", href: "/servicios", label: t("navigation.services") },
       ...(menuCourses.length > 0 ? [{ id: "formation", type: "mega", href: "/formacion", label: t("navigation.formation") }] : []),
       ...(locale !== "en" ? [{ id: "blog", type: "mega", href: "/blog", label: t("navigation.blog") }] : []),
       { id: "faq", type: "link", href: "/faq", label: t("navigation.faq") },
-      { id: "about", type: "link", href: "/about", label: t("navigation.us") },
+      { id: "nosotros", type: "link", href: "/nosotros", label: t("navigation.us") },
       { id: "contact", type: "link", href: "/contacto", label: t("navigation.contact") },
     ],
-    [t, locale, featuredServices.length, menuCourses.length],
+    [t, locale, menuCourses.length],
   );
-
-  const showCta = true;
-  const effectiveViewportWidth = viewportWidth ?? 0;
-  const showAuthButtons = effectiveViewportWidth >= 1024;
-
-  const maxVisibleItems = useMemo(() => {
-    if (effectiveViewportWidth >= 1024) return navItems.length;
-    return 0;
-  }, [effectiveViewportWidth, navItems.length]);
-
-  const visibleItems = useMemo(() => {
-    const n = Math.max(0, maxVisibleItems);
-    if (n >= navItems.length) return navItems;
-    const sorted = [...navItems].sort((a, b) => (NAV_PRIORITY[b.id] ?? 5) - (NAV_PRIORITY[a.id] ?? 5));
-    const visibleIds = new Set(sorted.slice(0, n).map((i) => i.id));
-    return navItems.filter((i) => visibleIds.has(i.id));
-  }, [navItems, maxVisibleItems]);
-
-  const hiddenItems = useMemo(() => {
-    const visibleIds = new Set(visibleItems.map((i) => i.id));
-    return navItems.filter((i) => !visibleIds.has(i.id));
-  }, [navItems, visibleItems]);
-
-  // showCta/showAuthButtons are computed above to keep buttons visible on mobile if space allows
-  const showHamburger = effectiveViewportWidth < 1024 || hiddenItems.length > 0;
-
-  useEffect(() => {
-    if (!showHamburger && isMenuOpen) {
-      setIsMenuOpen(false);
-    }
-  }, [showHamburger, isMenuOpen]);
 
   const isLinkActive = useCallback(
     (href: string) => {
@@ -477,12 +463,15 @@ const Navbar = () => {
   );
 
   const isBlogSectionActive = pathname.includes("/blog") || pathname.includes("/news");
-  const shouldLoadServiceImages = activeMegaItem === t("navigation.services");
   const shouldLoadCourseImages = activeMegaItem === t("navigation.formation");
+  const shouldLoadServiceImages = activeMegaItem === t("navigation.services");
 
   return (
     <>
-      <nav className="fixed top-0 left-0 z-[45] w-full border-b border-[--color-border-subtle] shadow-[0_18px_45px_-40px_rgba(15,23,42,0.5)] dark:border-[--color-border-strong] dark:shadow-[0_18px_45px_-36px_rgba(0,0,0,0.7)] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] backdrop-blur-xl">
+      <nav
+        ref={navRef}
+        className="fixed top-0 left-0 z-[45] w-full border-b border-[--color-border-subtle] shadow-[0_18px_45px_-40px_rgba(15,23,42,0.5)] dark:border-[--color-border-strong] dark:shadow-[0_18px_45px_-36px_rgba(0,0,0,0.7)] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] backdrop-blur-xl"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between py-1.5 sm:py-2 lg:py-2.5 min-h-[44px] sm:min-h-[52px] gap-4 lg:gap-6">
             <Link href="/" className="flex items-center flex-shrink-0 min-w-0 group">
@@ -503,9 +492,9 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <div className="hidden md:flex items-center justify-end flex-1 gap-2 min-w-0">
+            <div className="hidden xl:flex items-center justify-end flex-1 gap-2 min-w-0">
               <HoverMenu setActive={setActiveMegaItem}>
-                {visibleItems.map((item) =>
+                {navItems.map((item) =>
                   item.type === "mega" ? (
                     <MenuItem
                       key={item.id}
@@ -518,35 +507,24 @@ const Navbar = () => {
                       }
                     >
                       {item.id === "services" && (
-                        <div className="min-w-[360px] sm:min-w-[480px] lg:min-w-[600px]">
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            {featuredServices.length > 0 &&
-                              featuredServices.map((service) => (
-                                <ProductItem
-                                  key={service.id}
-                                  title={service.title}
-                                  description=""
-                                  href={`/${service.slug ?? service.id}`}
-                                  src={service.image || ""}
-                                  loadOnHover={false}
-                                  loadEnabled={shouldLoadServiceImages}
-                                />
-                              ))}
-                          </div>
-                          <div className="mt-3">
-                            <HoveredLink href="/servicios">{t("navigation.serviceSubmenu")}</HoveredLink>
-                          </div>
+                        <div className="grid grid-cols-1 gap-3 min-w-[360px]">
+                          {serviceLinks.map((service) => (
+                            <ProductItem
+                              key={service.id}
+                              title={service.title}
+                              description={service.description}
+                              href={service.href}
+                              src={service.image}
+                              loadOnHover={false}
+                              loadEnabled={shouldLoadServiceImages}
+                            />
+                          ))}
+                          <HoveredLink href="/servicios" className="text-clay dark:text-clay">{t("navigation.serviceSubmenu")}</HoveredLink>
                         </div>
                       )}
                       {item.id === "formation" && (
                         <div className="grid grid-cols-1 gap-3 min-w-[360px]">
-                          {menuCoursesLoading && (
-                            <div className="text-sm text-cloud-medium dark:text-cloud-medium px-2 py-1">
-                              {t("navigation.loading")}
-                            </div>
-                          )}
-                          {!menuCoursesLoading &&
-                            menuCourses.length > 0 &&
+                          {menuCourses.length > 0 &&
                             menuCourses.map((course) => (
                               <ProductItem
                                 key={course.id}
@@ -558,7 +536,7 @@ const Navbar = () => {
                                 loadEnabled={shouldLoadCourseImages}
                               />
                             ))}
-                          <HoveredLink href="/formacion">{t("navigation.formationSubmenu")}</HoveredLink>
+                          <HoveredLink href="/formacion" className="text-clay dark:text-clay">{t("navigation.formationSubmenu")}</HoveredLink>
                         </div>
                       )}
                       {item.id === "blog" && (
@@ -593,23 +571,21 @@ const Navbar = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              {showCta && (
-                <Button
-                  variant="whatsapp"
-                  size="sm"
-                  onClick={handleBookConsultation}
-                  className="h-8 sm:h-9 shadow-md hover:shadow-lg transition-all duration-200 text-xs sm:text-sm px-2.5 sm:px-4 flex items-center gap-1.5 sm:gap-2"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="flex-shrink-0">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                  </svg>
-                  <span className="hidden sm:inline">{t("navigation.ctaConsultation")}</span>
-                  <span className="sm:hidden">{t("navigation.ctaShort")}</span>
-                </Button>
-              )}
+              <Button
+                variant="whatsapp"
+                size="sm"
+                onClick={handleBookConsultation}
+                className="h-8 sm:h-9 shadow-md hover:shadow-lg transition-all duration-200 text-xs sm:text-sm px-2.5 sm:px-4 flex items-center gap-1.5 sm:gap-2"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="flex-shrink-0">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                </svg>
+                <span className="hidden sm:inline">{t("navigation.ctaConsultation")}</span>
+                <span className="sm:hidden">{t("navigation.ctaShort")}</span>
+              </Button>
 
-              {showAuthButtons ? (
-                isAuthenticated ? (
+              <div className="hidden xl:flex items-center">
+                {isAuthenticated ? (
                   <UserMenu
                     options={userMenuOptions}
                     onChange={handleUserMenuOption}
@@ -617,70 +593,60 @@ const Navbar = () => {
                     ariaLabel={t("navigation.userMenu")}
                   />
                 ) : (
-                  <>
-                      <Button
-                        variant="default"
-                        size="sm"
-                        onClick={goToSignUp}
-                        className="transition-all duration-200 hover:scale-105 h-8 sm:h-9 px-3 sm:px-4 text-xs sm:text-sm"
-                      >
-                        {t("navigation.signUp")}
-                      </Button>
-                  </>
-                )
-              ) : null}
+                  <Button
+                    variant="default"
+                    size="sm"
+                    onClick={goToSignUp}
+                    className="transition-all duration-200 hover:scale-105 h-8 sm:h-9 px-3 sm:px-4 text-xs sm:text-sm"
+                  >
+                    {t("navigation.signUp")}
+                  </Button>
+                )}
+              </div>
 
-              {showHamburger && (
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsMenuOpen((prev) => !prev)}
-                  className="text-slate-medium dark:text-cloud-medium h-10 w-10 sm:h-11 sm:w-11 transition-all duration-200"
-                  aria-label={isMenuOpen ? t("navigation.closeMenu") : t("navigation.openMenu")}
-                  aria-expanded={isMenuOpen}
-                >
-                  {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-                </Button>
-              )}
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsMenuOpen((prev) => !prev)}
+                className="xl:hidden text-slate-medium dark:text-cloud-medium h-10 w-10 sm:h-11 sm:w-11 transition-all duration-200"
+                aria-label={isMenuOpen ? t("navigation.closeMenu") : t("navigation.openMenu")}
+                aria-expanded={isMenuOpen}
+              >
+                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              </Button>
             </div>
           </div>
         </div>
 
         {isMenuOpen && (
-          <div
-            className={cn(
-              "bg-[--swatch--ivory-light]/97 dark:bg-[--swatch--slate-dark]/97 border-t border-[--color-border-subtle] dark:border-[--color-border-strong] backdrop-blur-xl",
-              showHamburger ? "block" : "hidden",
-            )}
-          >
+          <div className="xl:hidden bg-[--swatch--ivory-light]/97 dark:bg-[--swatch--slate-dark]/97 border-t border-[--color-border-subtle] dark:border-[--color-border-strong] backdrop-blur-xl">
             <div className="py-4 px-4 sm:px-6">
               <div className="flex flex-col space-y-3">
-                {featuredServices.length > 0 && (
-                  <MobileSection
-                    title={t("navigation.services")}
-                    isOpen={mobileSection === "services"}
-                    onToggle={() => toggleMobileSection("services")}
-                  >
-                    {featuredServices.length > 0 &&
-                      featuredServices.map((service) => (
-                        <Link
-                          key={service.id}
-                          href={`/${service.slug ?? service.id}`}
-                          onClick={() => setIsMenuOpen(false)}
-                          className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] hover:text-clay dark:hover:text-clay"
-                        >
-                          {service.title}
-                        </Link>
-                      ))}
+                <MobileSection
+                  title={t("navigation.services")}
+                  isOpen={mobileSection === "services"}
+                  onToggle={() => toggleMobileSection("services")}
+                >
+                  {serviceLinks.map((service) => (
                     <Link
-                      href="/servicios"
+                      key={service.id}
+                      href={service.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className="block rounded-md px-2 py-2 text-sm font-semibold text-clay dark:text-clay hover:text-clay dark:hover:text-clay"
+                      className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
                     >
-                      {t("navigation.serviceSubmenu")}
+                      <div className="text-sm font-semibold text-slate-dark dark:text-ivory-light line-clamp-2">
+                        {service.title}
+                      </div>
                     </Link>
-                  </MobileSection>
-                )}
+                  ))}
+                  <Link
+                    href="/servicios"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-md px-2 py-2 text-sm font-medium text-clay dark:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                  >
+                    {t("navigation.serviceSubmenu")}
+                  </Link>
+                </MobileSection>
 
                 {menuCourses.length > 0 && (
                   <MobileSection
@@ -688,13 +654,7 @@ const Navbar = () => {
                     isOpen={mobileSection === "formation"}
                     onToggle={() => toggleMobileSection("formation")}
                   >
-                    {menuCoursesLoading && (
-                      <div className="rounded-md px-2 py-2 text-sm text-cloud-medium dark:text-cloud-medium bg-white/40 dark:bg-black/20">
-                        {t("navigation.loading")}
-                      </div>
-                    )}
-                    {!menuCoursesLoading &&
-                      menuCourses.length > 0 &&
+                    {menuCourses.length > 0 &&
                       menuCourses.map((course) => (
                         <Link
                           key={course.id}
@@ -705,17 +665,12 @@ const Navbar = () => {
                           <div className="text-sm font-semibold text-slate-dark dark:text-ivory-light line-clamp-2">
                             {course.title}
                           </div>
-                          {(course.subtitle || course.description) && (
-                            <div className="text-xs text-slate-light dark:text-cloud-medium mt-1 line-clamp-2">
-                              {course.subtitle || course.description}
-                            </div>
-                          )}
                         </Link>
                       ))}
                     <Link
                       href="/formacion"
                       onClick={() => setIsMenuOpen(false)}
-                      className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                      className="block rounded-md px-2 py-2 text-sm font-medium text-clay dark:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
                     >
                       {t("navigation.formationSubmenu")}
                     </Link>
@@ -773,11 +728,11 @@ const Navbar = () => {
                     {t("navigation.faq")}
                   </Link>
                   <Link
-                    href="/about"
+                    href="/nosotros"
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
                       "transition-colors py-3 px-2 block rounded-md font-medium",
-                      isLinkActive("/about")
+                      isLinkActive("/nosotros")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
                         : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
                     )}

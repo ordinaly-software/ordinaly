@@ -673,7 +673,7 @@ class TermsViewSetExtraTests(APITestCase):
                 response = self.client.patch(self.detail_url, {'version': '2.0'}, format='json')
                 self.assertEqual(response.status_code, 500)
                 self.assertIn('detail', response.data)
-                mock_logger.error.assert_called()
+                mock_logger.exception.assert_called()
 
     def test_update_error(self):
         self.client.force_authenticate(user=self.admin)
@@ -682,7 +682,7 @@ class TermsViewSetExtraTests(APITestCase):
                 response = self.client.put(self.detail_url, {'version': '2.0'}, format='json')
                 self.assertEqual(response.status_code, 500)
                 self.assertIn('detail', response.data)
-                mock_logger.error.assert_called()
+                mock_logger.exception.assert_called()
 
     def test_destroy_error(self):
         self.client.force_authenticate(user=self.admin)
@@ -691,4 +691,4 @@ class TermsViewSetExtraTests(APITestCase):
                 response = self.client.delete(self.detail_url)
                 self.assertEqual(response.status_code, 500)
                 self.assertIn('detail', response.data)
-                mock_logger.error.assert_called()
+                mock_logger.exception.assert_called()

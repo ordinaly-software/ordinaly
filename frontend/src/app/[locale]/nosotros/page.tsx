@@ -1,0 +1,46 @@
+import type { Metadata } from "next";
+import UsPage from "./page.client";
+import { createPageMetadata } from "@/lib/metadata";
+import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEs = locale?.startsWith("es");
+
+  return createPageMetadata({
+    locale,
+    path: "/nosotros",
+    title: isEs
+      ? "Sobre Ordinaly Software | Equipo, misión y visión"
+      : "About Ordinaly Software | Team, mission, and vision",
+    description: isEs
+      ? "Conoce al equipo de Ordinaly Software, nuestra misión y cómo ayudamos a empresas a automatizar con IA."
+      : "Meet the Ordinaly Software team, our mission, and how we help companies automate with AI.",
+    image: "/static/backgrounds/us_background.webp",
+  });
+}
+
+export default async function Us({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const isEs = locale?.startsWith("es");
+  return (
+    <>
+      <BreadcrumbSchema
+        locale={locale}
+        items={[
+          { name: isEs ? "Inicio" : "Home", path: "/" },
+          { name: isEs ? "Nosotros" : "About us" },
+        ]}
+      />
+      <UsPage />
+    </>
+  );
+}

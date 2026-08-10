@@ -35,12 +35,14 @@ type ContactFormProps = {
   className?: string;
   recaptchaAction?: string;
   recaptchaBadgeId?: string;
+  showCommitmentNote?: boolean;
 };
 
 export default function ContactForm({
   className,
   recaptchaAction = "contact_form",
   recaptchaBadgeId = "recaptcha-badge-contact",
+  showCommitmentNote = false,
 }: ContactFormProps) {
   const t = useTranslations("contactPage");
   const formRef = useRef<HTMLFormElement | null>(null);
@@ -157,6 +159,9 @@ export default function ContactForm({
             </p>
             <p className="text-3xl font-bold text-slate-dark dark:text-[var(--swatch--ivory-light)]">{t("form.title")}</p>
             <p className="text-slate-medium dark:text-cloud-medium">{t("form.subtitle")}</p>
+            {showCommitmentNote && (
+              <h3 className="text-sm font-semibold text-clay">{t("form.commitmentNote")}</h3>
+            )}
           </div>
 
           <form ref={formRef} onSubmit={handleSubmit} className="mt-8 space-y-4">

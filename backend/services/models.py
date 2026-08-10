@@ -210,7 +210,7 @@ class Service(models.Model):
         null=True,
         blank=True
     )
-    requisites = models.TextField(null=True, blank=True, max_length=500)
+    requisites = models.TextField(blank=True, default="", max_length=500)
     price = models.DecimalField(max_digits=10, decimal_places=2,
                                 validators=[MinValueValidator(Decimal('0.01'))], null=True, blank=True)
 
@@ -227,6 +227,42 @@ class Service(models.Model):
     def __str__(self):
         return self.title
 
+    def _truncate_title_to_max_length(self):
+        try:
+            title_max = self._meta.get_field('title').max_length
+            if self.title and title_max and len(self.title) > title_max:
+                self.title = self.title[:title_max]
+        except Exception:
+            pass
+
+    def _generate_unique_slug(self):
+        max_slug_length = 100
+        max_suffix_length = len("-99999")
+        base_slug = slugify(self.title)[:max_slug_length - max_suffix_length]
+        slug_candidate = base_slug
+        i = 1
+        while Service.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
+            suffix = f"-{i}"
+            allowed_base_length = max_slug_length - len(suffix)
+            truncated_base = base_slug[:allowed_base_length]
+            slug_candidate = f"{truncated_base}{suffix}"
+            i += 1
+        self.slug = slug_candidate
+
+    def _delete_replaced_image(self, old_image):
+        """Remove the previous image file when it gets replaced/cleared."""
+        if not (old_image and (not self.image or self.image.name != old_image)):
+            return
+        try:
+            storage = self.image.storage if self.image else None
+            # If image was cleared, use default storage via the field
+            storage = storage or self._meta.get_field('image').storage
+            if storage.exists(old_image):
+                storage.delete(old_image)
+        except Exception:
+            # File cleanup should never block saving the model
+            pass
+
     def save(self, *args, **kwargs):
         old_image = None
         if self.pk:
@@ -236,42 +272,19 @@ class Service(models.Model):
                 .values_list('image', flat=True)
                 .first()
             )
-        # Truncate title to avoid DB-level DataError
-        try:
-            title_max = self._meta.get_field('title').max_length
-            if self.title and title_max and len(self.title) > title_max:
-                self.title = self.title[:title_max]
-        except Exception:
-            pass
+
+        self._truncate_title_to_max_length()
+
         # Auto-generate slug from title if not provided
         if not self.slug and self.title:
-            max_slug_length = 100
-            max_suffix_length = len("-99999")
-            base_slug = slugify(self.title)[:max_slug_length - max_suffix_length]
-            slug_candidate = base_slug
-            i = 1
-            while Service.objects.filter(slug=slug_candidate).exclude(pk=self.pk).exists():
-                suffix = f"-{i}"
-                allowed_base_length = max_slug_length - len(suffix)
-                truncated_base = base_slug[:allowed_base_length]
-                slug_candidate = f"{truncated_base}{suffix}"
-                i += 1
-            self.slug = slug_candidate
+            self._generate_unique_slug()
+
         # Ensure draft is never None
         if self.draft is None:
             self.draft = False
+
         super().save(*args, **kwargs)
-        # Remove previous image file when it gets replaced/cleared
-        if old_image and (not self.image or self.image.name != old_image):
-            try:
-                storage = self.image.storage if self.image else None
-                # If image was cleared, use default storage via the field
-                storage = storage or self._meta.get_field('image').storage
-                if storage.exists(old_image):
-                    storage.delete(old_image)
-            except Exception:
-                # File cleanup should never block saving the model
-                pass
+        self._delete_replaced_image(old_image)
 
     def delete(self, *args, **kwargs):
         image_name = self.image.name if self.image else None
