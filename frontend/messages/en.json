@@ -329,6 +329,12 @@
     "googleSignUp": "Continue with Google",
     "form": {
       "title": "Sign up form",
+      "stepIndicator": "Step {current} of {total}",
+      "step1Title": "Tell us about yourself",
+      "step2Title": "Where do you work",
+      "step3Title": "Secure your account",
+      "nextButton": "Continue",
+      "backButton": "Back",
       "nameLabel": "First name",
       "namePlaceholder": "Enter your first name",
       "surnameLabel": "Last name",

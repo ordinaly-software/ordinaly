@@ -329,6 +329,12 @@
     "googleSignUp": "Continuar con Google",
     "form": {
       "title": "Formulario de registro",
+      "stepIndicator": "Paso {current} de {total}",
+      "step1Title": "Cuéntanos sobre ti",
+      "step2Title": "¿Dónde trabajas?",
+      "step3Title": "Protege tu cuenta",
+      "nextButton": "Continuar",
+      "backButton": "Atrás",
       "nameLabel": "Nombre",
       "namePlaceholder": "Ingresa tu nombre",
       "surnameLabel": "Apellido",

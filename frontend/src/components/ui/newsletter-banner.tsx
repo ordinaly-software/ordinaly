@@ -12,7 +12,14 @@ import { cn } from "@/lib/utils";
 // so this is measured on the element itself instead of a Tailwind `md:` variant.
 const ROW_LAYOUT_MIN_WIDTH = 700;
 
-export function NewsletterBanner({ className }: { className?: string }) {
+export function NewsletterBanner({
+  className,
+  padded = true,
+}: {
+  className?: string;
+  /** Wrap in the page gutter (px-4 sm:px-6 lg:px-8). Disable when the parent already provides it. */
+  padded?: boolean;
+}) {
   const t = useTranslations("home.newsletter");
   const [submitted, setSubmitted] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -35,8 +42,7 @@ export function NewsletterBanner({ className }: { className?: string }) {
     setSubmitted(true);
   };
 
-  return (
-    <div className="px-4 sm:px-6 lg:px-8">
+  const card = (
       <div
         ref={containerRef}
         className={cn(
@@ -105,6 +111,7 @@ export function NewsletterBanner({ className }: { className?: string }) {
           )}
         </div>
       </div>
-    </div>
   );
+
+  return padded ? <div className="px-4 sm:px-6 lg:px-8">{card}</div> : card;
 }
