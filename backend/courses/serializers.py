@@ -27,9 +27,8 @@ class CourseSerializer(serializers.ModelSerializer):
         if self.instance is None and (value is None or value == ''):
             raise serializers.ValidationError("Course image is required.")
         max_size = 1024 * 1024  # 1MB
-        if value and hasattr(value, 'size'):
-            if value.size > max_size:
-                raise serializers.ValidationError("Course image must be 1MB or less.")
+        if value and hasattr(value, 'size') and value.size > max_size:
+            raise serializers.ValidationError("Course image must be 1MB or less.")
         return value
 
     def validate(self, data):
@@ -76,6 +75,10 @@ class CourseSerializer(serializers.ModelSerializer):
         # Normalize empty strings to None for optional URL field
         if data.get('youtube_video_url') == '':
             data['youtube_video_url'] = None
+        # location no longer accepts null at the model level; normalize explicit
+        # nulls to blank so clients that still send null don't hit an IntegrityError.
+        if 'location' in data and data.get('location') is None:
+            data['location'] = ''
         if data.get("contactButtonText") == "":
             data["contactButtonText"] = None
         if data.get("contactButtonUrl") == "":

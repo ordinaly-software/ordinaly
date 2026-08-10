@@ -163,7 +163,6 @@ def google_callback(request):
 
         user_model = get_user_model()
         user = user_model.objects.filter(email__iexact=email).first()
-        is_new_user = False
         if not user:
             first_name, last_name = _split_google_name(display_name)
             username = _generate_unique_google_username(user_model, email)
@@ -174,7 +173,6 @@ def google_callback(request):
                 surname=last_name,
                 company="",
             )
-            is_new_user = True
 
         if user.google_sub and user.google_sub != google_sub:
             return redirect(f"{frontend_base_url}/auth/signin?error=account_conflict")

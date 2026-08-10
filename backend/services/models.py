@@ -210,7 +210,7 @@ class Service(models.Model):
         null=True,
         blank=True
     )
-    requisites = models.TextField(null=True, blank=True, max_length=500)
+    requisites = models.TextField(blank=True, default="", max_length=500)
     price = models.DecimalField(max_digits=10, decimal_places=2,
                                 validators=[MinValueValidator(Decimal('0.01'))], null=True, blank=True)
 

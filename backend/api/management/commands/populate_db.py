@@ -107,12 +107,14 @@ class Command(BaseCommand):
     def clear_data(self):
         """Clear existing demo data, associated media files, and demo user accounts."""
         try:
+            # pdf_content/image are plain FileFields, not relations, so
+            # select_related/prefetch_related do not apply here.
             terms_files = [
-                term.pdf_content.path for term in Terms.objects.only('pdf_content')
+                term.pdf_content.path for term in Terms.objects.only('pdf_content')  # NOSONAR
                 if term.pdf_content and hasattr(term.pdf_content, 'path')
             ]
             course_images = [
-                course.image.path for course in Course.objects.only('image')
+                course.image.path for course in Course.objects.only('image')  # NOSONAR
                 if course.image and hasattr(course.image, 'path')
             ]
 
@@ -346,14 +348,16 @@ class Command(BaseCommand):
         regular_users = list(CustomUser.objects.filter(is_staff=False))
 
         for user in regular_users:
-            course = random.choice(eligible_courses)  # NOSONAR: non-security demo data, seeded via --seed
+            # Non-security demo data; reproducible via the --seed option.
+            course = random.choice(eligible_courses)  # NOSONAR
             try:
                 enrollment, created = Enrollment.objects.get_or_create(user=user, course=course)
             except Exception:
                 continue
             if created:
                 # enrolled_at is auto_now_add, so it must be backdated via update() after creation.
-                days_ago = random.randint(1, 90)  # NOSONAR: non-security demo data, seeded via --seed
+                # Non-security demo data; reproducible via the --seed option.
+                days_ago = random.randint(1, 90)  # NOSONAR
                 Enrollment.objects.filter(pk=enrollment.pk).update(
                     enrolled_at=timezone.now() - timedelta(days=days_ago)
                 )
@@ -424,7 +428,7 @@ Automatiza la atención al cliente y las ventas a través de **WhatsApp Business
                 'color': '46B1C9',
                 'icon': 'Bot',
                 'duration': 10,
-                'requisites': None,
+                'requisites': '',
                 'price': None,
                 'is_featured': True,
                 'draft': False

@@ -36,6 +36,7 @@ stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 COURSE_FULL_DETAIL = "This course is already full."
 ALREADY_ENROLLED_DETAIL = "You are already enrolled in this course."
 ENROLLMENT_EMAIL_FAILURE_LOG = "Failed to send enrollment confirmation email for user %s"
+UNENROLLMENT_EMAIL_FAILURE_LOG = "Failed to send unenrollment confirmation email for user %s"
 
 
 class IsAdminUserOrReadOnly(permissions.BasePermission):
@@ -361,7 +362,7 @@ class CourseViewSet(viewsets.ModelViewSet):
                 job = queue_course_unenrollment_notification(user, course)
                 dispatch_email_job_now(job)
             except Exception:
-                logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
+                logger.exception(UNENROLLMENT_EMAIL_FAILURE_LOG, user.email)
 
             return Response({"detail": "Unenrolled from course (no payment to refund)."}, status=status.HTTP_200_OK)
 
@@ -379,11 +380,73 @@ class CourseViewSet(viewsets.ModelViewSet):
                 job = queue_course_unenrollment_notification(user, course)
                 dispatch_email_job_now(job)
             except Exception:
-                logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
+                logger.exception(UNENROLLMENT_EMAIL_FAILURE_LOG, user.email)
 
             return Response({"detail": f"Refund processed and unenrolled from course: {refund.id}"})
         except Exception as e:
             return Response({"detail": f"Stripe refund error: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+    def _course_local_datetime(self, course, date_value, time_value):
+        """Combine a date/time pair into a timezone-aware datetime in the course's timezone."""
+        if not date_value:
+            return None
+        base_time = time_value or time(0, 0)
+        dt = datetime.combine(date_value, base_time)
+        tzinfo = None
+        if isinstance(getattr(course, "timezone", None), str):
+            try:
+                tzinfo = ZoneInfo(course.timezone)
+            except Exception:
+                tzinfo = None
+        tzinfo = tzinfo or timezone.get_current_timezone()
+        if timezone.is_naive(dt):
+            dt = timezone.make_aware(dt, tzinfo)
+        else:
+            dt = timezone.localtime(dt, tzinfo)
+        return dt
+
+    def _course_unenroll_window(self, course, now):
+        """Compute (course_start, course_end), adjusted for sessions that wrap past
+        midnight or whose end would otherwise fall before their start."""
+        course_start = self._course_local_datetime(
+            course, getattr(course, "start_date", None), getattr(course, "start_time", None)
+        )
+        course_end = self._course_local_datetime(
+            course, getattr(course, "end_date", None), getattr(course, "end_time", None)
+        )
+
+        # If the times wrap past midnight but the date is "today", shift forward a day
+        if course_start and course_start.date() == now.date():
+            hours_diff = (now - course_start).total_seconds() / 3600
+            if hours_diff > 12:  # likely rolled past midnight, so interpret as next day
+                course_start = course_start + timedelta(days=1)
+                if course_end:
+                    course_end = course_end + timedelta(days=1)
+
+        # Ensure end is not before start (e.g., overnight courses)
+        if course_start and course_end and course_end <= course_start:
+            course_end = course_end + timedelta(days=1)
+
+        return course_start, course_end
+
+    def _unenroll_timing_error(self, course_start, course_end, now):
+        """Return an error Response if unenrolling isn't allowed right now, else None."""
+        if course_end and now > course_end:
+            return Response(
+                {"detail": "No puedes cancelar la inscripción porque el curso ya ha finalizado."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if course_start and now >= course_start:
+            return Response(
+                {"detail": "No puedes cancelar la inscripción porque el curso ya ha comenzado."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        if course_start and (course_start - now) <= timedelta(hours=24):
+            return Response(
+                {"detail": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        return None
 
     @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
     def unenroll(self, request, *args, **kwargs):
@@ -404,62 +467,12 @@ class CourseViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        def build_dt(date_value, time_value):
-            if not date_value:
-                return None
-            base_time = time_value or time(0, 0)
-            dt = datetime.combine(date_value, base_time)
-            tzinfo = None
-            if isinstance(getattr(course, "timezone", None), str):
-                try:
-                    tzinfo = ZoneInfo(course.timezone)
-                except Exception:
-                    tzinfo = None
-            tzinfo = tzinfo or timezone.get_current_timezone()
-            if timezone.is_naive(dt):
-                dt = timezone.make_aware(dt, tzinfo)
-            else:
-                dt = timezone.localtime(dt, tzinfo)
-            return dt
-
         now = timezone.localtime(timezone.now(), timezone.get_current_timezone())
+        course_start, course_end = self._course_unenroll_window(course, now)
 
-        # Build start/end datetimes with timezone awareness
-        course_start = build_dt(getattr(course, "start_date", None), getattr(course, "start_time", None))
-        course_end = build_dt(getattr(course, "end_date", None), getattr(course, "end_time", None))
-
-        # If the times wrap past midnight but the date is "today", shift forward a day
-        if course_start and course_start.date() == now.date():
-            hours_diff = (now - course_start).total_seconds() / 3600
-            if hours_diff > 12:  # likely rolled past midnight, so interpret as next day
-                course_start = course_start + timedelta(days=1)
-                if course_end:
-                    course_end = course_end + timedelta(days=1)
-
-        # Ensure end is not before start (e.g., overnight courses)
-        if course_start and course_end and course_end <= course_start:
-            course_end = course_end + timedelta(days=1)
-
-        # Check if course has ended
-        if course_end and now > course_end:
-            return Response(
-                {"detail": "No puedes cancelar la inscripción porque el curso ya ha finalizado."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        # Check if course has started
-        if course_start and now >= course_start:
-            return Response(
-                {"detail": "No puedes cancelar la inscripción porque el curso ya ha comenzado."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-
-        # Check 24h restriction
-        if course_start and (course_start - now) <= timedelta(hours=24):
-            return Response(
-                {"detail": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+        timing_error = self._unenroll_timing_error(course_start, course_end, now)
+        if timing_error:
+            return timing_error
 
         enrollment.delete()
 
@@ -467,7 +480,7 @@ class CourseViewSet(viewsets.ModelViewSet):
             job = queue_course_unenrollment_notification(user, course)
             dispatch_email_job_now(job)
         except Exception:
-            logger.exception("Failed to send unenrollment confirmation email for user %s", user.email)
+            logger.exception(UNENROLLMENT_EMAIL_FAILURE_LOG, user.email)
 
         return Response(
             {"detail": "Successfully unenrolled from the course."},
