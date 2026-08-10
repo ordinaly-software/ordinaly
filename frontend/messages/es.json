@@ -55,6 +55,10 @@
       "card4Label": "Nuestras oficinas",
       "card4Value": "Oficina central en Plaza del Duque 1, Sevilla, España."
     },
+    "seo": {
+      "headline": "Flujos de trabajo inteligentes a la medida de tu negocio",
+      "line": "Eliminamos tus tareas repetitivas con software a medida."
+    },
     "whyUs": {
       "title": "Por qué elegirnos",
       "videoCaptionName": "Antonio Macías Ferrera",
@@ -2267,7 +2271,7 @@
     "automatizaciones-personalizadas-empresas-n8n": {
       "slug": "automatizaciones-personalizadas-empresas-n8n",
       "title": "Automatizaciones personalizadas para empresas con n8n",
-      "shortTitle": "Automatizaciones con n8n",
+      "shortTitle": "Automatización con n8n",
       "subtitle": "Workflows a medida para empresas y pymes que buscan eficiencia y eficacia en sus procesos.",
       "description": "Diseñamos automatizaciones a medida con n8n y software libre: reintentos, colas, logs y métricas por nodo para procesos que no encajan en soluciones estándar. Más trazabilidad, menos errores y más tiempo libre.",
       "heroCtaLabel": "Cuéntanos tu caso",

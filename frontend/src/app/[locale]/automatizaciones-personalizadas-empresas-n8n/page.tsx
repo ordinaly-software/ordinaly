@@ -52,7 +52,7 @@ export default async function AutomatizacionesPersonalizadasN8n({
         items={[
           { name: isEs ? "Inicio" : "Home", path: "/" },
           { name: isEs ? "Servicios" : "Services", path: "/servicios" },
-          { name: landing?.shortTitle ?? landing?.title ?? (isEs ? "Automatizaciones con n8n" : "n8n automations") },
+          { name: landing?.shortTitle ?? landing?.title ?? (isEs ? "Automatización con n8n" : "n8n automations") },
         ]}
       />
       <AutomatizacionesPersonalizadasN8nPage />

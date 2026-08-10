@@ -1,64 +1,89 @@
 "use client";
 
-import { useDeferredValue, useEffect, useMemo, useState, startTransition } from "react";
-import { ArrowLeft, ArrowRight, ChevronsLeft, ChevronsRight, Search, X } from "lucide-react";
+import { useDeferredValue, useMemo, useState, startTransition } from "react";
+import {
+  ArrowRight,
+  ArrowUpRight,
+  Building2,
+  FileBarChart2,
+  GraduationCap,
+  Headset,
+  type LucideIcon,
+  Receipt,
+  Search,
+  Sparkles,
+  Workflow,
+  Database,
+  X,
+} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
+import { HighlightedCarousel } from "@/components/blog/highlighted-carousel";
+import { NewsletterBanner } from "@/components/ui/newsletter-banner";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { Link } from "@/i18n/navigation";
-import {
-  faqCategories,
-  faqEntries,
-  FaqTagKey,
-  localizeFaq,
-  type FaqCategoryKey,
-} from "./faq-data";
+import type { BlogPost } from "@/components/blog/types";
+import { faqCategories, faqEntries, localizeFaq, type FaqCategoryKey } from "./faq-data";
 
 const cardClass =
   "rounded-[2rem] border border-[--color-border-subtle] bg-white/82 shadow-[0_24px_90px_-60px_rgba(15,23,42,0.28)] backdrop-blur dark:border-white/10 dark:bg-white/[0.04]";
+
+const categoryIcons: Record<FaqCategoryKey, LucideIcon> = {
+  general: Sparkles,
+  company: Building2,
+  training: GraduationCap,
+  "calling-agent": Headset,
+  n8n: Workflow,
+  invoices: Receipt,
+  reports: FileBarChart2,
+  odoo: Database,
+};
+
+const categoryOrder = Object.keys(faqCategories) as FaqCategoryKey[];
 
 type LocalizedFaqEntry = {
   id: string;
   category: FaqCategoryKey;
   categoryLabel: string;
-  tags: FaqTagKey[];
-  tagLabels: string[];
+  tag?: string;
   question: string;
   answer: string;
-  relatedPath?: string;
 };
 
-export default function FaqPageClient({ locale }: { locale: string }) {
+export default function FaqPageClient({
+  locale,
+  highlightedPosts,
+}: {
+  locale: string;
+  highlightedPosts: BlogPost[];
+}) {
   const isEn = locale.startsWith("en");
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
   const [activeCategory, setActiveCategory] = useState<"all" | FaqCategoryKey>("all");
-  const [activeTag, setActiveTag] = useState<"all" | FaqTagKey>("all");
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 6;
 
   const localizedEntries = useMemo<LocalizedFaqEntry[]>(
     () =>
       faqEntries.map((entry) => ({
         id: entry.id,
         category: entry.category,
-        categoryLabel: localizeFaq(locale, faqCategories[entry.category]),
-        tags: entry.tags,
-        tagLabels: [],
+        categoryLabel: localizeFaq(locale, faqCategories[entry.category].label),
+        tag: entry.tag ? localizeFaq(locale, entry.tag) : undefined,
         question: localizeFaq(locale, entry.question),
         answer: localizeFaq(locale, entry.answer),
-        relatedPath: entry.relatedPath,
       })),
     [locale],
   );
 
   const normalizedQuery = deferredQuery.trim().toLowerCase();
+  const isSearching = normalizedQuery.length > 0;
 
   const filteredEntries = useMemo(() => {
     return localizedEntries.filter((entry) => {
       const matchesCategory = activeCategory === "all" || entry.category === activeCategory;
-      const haystack = [entry.question, entry.answer, entry.categoryLabel]
+      const haystack = [entry.question, entry.answer, entry.categoryLabel, entry.tag ?? ""]
         .join(" ")
         .toLowerCase();
       const matchesQuery = !normalizedQuery || haystack.includes(normalizedQuery);
@@ -66,333 +91,245 @@ export default function FaqPageClient({ locale }: { locale: string }) {
     });
   }, [activeCategory, localizedEntries, normalizedQuery]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredEntries.length / pageSize));
-
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-  }, [currentPage, totalPages]);
-
-  const paginatedEntries = useMemo(() => {
-    const start = (currentPage - 1) * pageSize;
-    return filteredEntries.slice(start, start + pageSize);
-  }, [currentPage, filteredEntries]);
+  const groupedEntries = useMemo(() => {
+    return categoryOrder
+      .filter((key) => activeCategory === "all" || activeCategory === key)
+      .map((key) => ({
+        key,
+        meta: faqCategories[key],
+        entries: localizedEntries.filter((entry) => entry.category === key),
+      }))
+      .filter((group) => group.entries.length > 0);
+  }, [activeCategory, localizedEntries]);
 
   const ui = {
-    title: isEn
-      ? "Questions about chatbots, AI agents, n8n, WhatsApp and integrations"
-      : "Preguntas sobre chatbots, agentes IA, n8n, WhatsApp e integraciones",
+    title: isEn ? "Ordinaly frequently asked questions" : "Preguntas frecuentes de Ordinaly",
+    seoHeadline: isEn ? "FAQs about AI automation" : "FAQ's sobre automatizaciones con IA",
+    seoLine: isEn
+      ? "We answer your questions about implementing AI."
+      : "Resolvemos tus dudas sobre la implementación de IA.",
     subtitle: isEn
-      ? "A searchable knowledge base built around common technical, operational and deployment questions from companies evaluating automation projects."
-      : "Una base de conocimiento filtrable con preguntas técnicas, operativas y de despliegue habituales en proyectos de automatización.",
-    address: isEn ? "ordinaly.ai/faq" : "ordinaly.ai/faq",
+      ? "Everything you need to know about our chatbots, AI calling agents, n8n automations, invoice and report automation, Odoo implementation and AI training — all gathered in one place."
+      : "Todo lo que necesitas saber sobre chatbots, el agente de llamadas con IA, Automatización con n8n, automatización de facturas e informes, implantación de Odoo y formación en IA ¡reunido en un solo sitio!",
     results: isEn ? "results" : "resultados",
-    searchPlaceholder: isEn ? "Search by question, technology or use case..." : "Buscar por pregunta, tecnología o caso de uso...",
+    searchPlaceholder: isEn
+      ? "Search by question, product or technology..."
+      : "Buscar por pregunta, producto o tecnología...",
     topics: isEn ? "Topics" : "Temas",
     allTopics: isEn ? "All topics" : "Todos los temas",
-    loading: isEn ? "Updating results..." : "Actualizando resultados...",
-    emptyTitle: isEn ? "No FAQ matches your filters" : "No hay FAQs que coincidan con tus filtros",
+    emptyTitle: isEn ? "No FAQ matches your search" : "No hay preguntas que coincidan con tu búsqueda",
     emptyText: isEn
       ? "Try another topic or search with fewer words."
       : "Prueba otro tema o busca con menos palabras.",
-    clear: isEn ? "Clear filters" : "Limpiar filtros",
-    related: isEn ? "See related page" : "Ver página relacionada",
-    contactEyebrow: isEn ? "Need a direct answer?" : "¿Necesitas una respuesta directa?",
-    contactTitle: isEn
-      ? "Use the FAQ to frame the problem, then talk with the delivery team"
-      : "Usa la FAQ para enmarcar el problema y después habla con el equipo que ejecuta",
-    contactText: isEn
-      ? "We can review your current stack, pick the right first pilot and define realistic success criteria."
-      : "Podemos revisar tu stack actual, elegir el primer piloto correcto y definir criterios de éxito realistas.",
-    contactPrimary: isEn ? "Go to contact page" : "Ir a contacto",
-    contactSecondary: isEn ? "Open WhatsApp" : "Abrir WhatsApp",
-    pageLabel: isEn ? "Page" : "Página",
-    ofLabel: isEn ? "of" : "de",
-    first: isEn ? "First" : "Primero",
-    prev: isEn ? "Previous" : "Anterior",
-    next: isEn ? "Next" : "Siguiente",
-    last: isEn ? "Last" : "Último",
+    clear: isEn ? "Clear search" : "Limpiar búsqueda",
+    related: isEn ? "See full page" : "Ver página completa",
+    blogCta: isEn ? "See all articles" : "Ver todos los artículos",
   };
 
   return (
     <div className="relative overflow-hidden bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
-
-      <div className="relative u-container pb-24 pt-10 lg:pb-28 lg:pt-12">
+      <div className="relative mx-auto w-full max-w-7xl px-4 pb-6 pt-10 sm:px-6 lg:px-8 lg:pt-12">
         <section className="mx-auto max-w-4xl text-center">
           <h1 className="mt-6 text-4xl font-semibold leading-[0.98] tracking-[-0.045em] sm:text-5xl lg:text-[3.6rem]">
             {ui.title}
           </h1>
+          <h2 className="label-meta mt-4 text-slate-medium dark:text-cloud-medium">{ui.seoHeadline}</h2>
+          <p className="mt-1 text-sm text-slate-medium/80 dark:text-cloud-medium/70">{ui.seoLine}</p>
           <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-slate-medium dark:text-cloud-medium">
             {ui.subtitle}
           </p>
         </section>
 
-        <section className={`${cardClass} mt-10 overflow-hidden`}>
-          <div className="border-b border-[--color-border-subtle] bg-[--swatch--slate-dark] px-5 py-4 text-white dark:border-white/10 md:px-6">
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-[#0255D5]" />
-                <span className="h-3 w-3 rounded-full bg-clay" />
-                <span className="h-3 w-3 rounded-full bg-white/35" />
-              </div>
-              <div className="flex-1 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-white/85">
-                {ui.address}
-                {activeCategory !== "all" ? `?topic=${activeCategory}` : ""}
-              </div>
-              <div className="rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/70">
-                {filteredEntries.length} {ui.results}
-              </div>
-            </div>
+        <section className={`${cardClass} sticky top-[76px] z-20 mt-10 p-5 md:p-6`}>
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-medium dark:text-cloud-medium" />
+            <Input
+              value={query}
+              onChange={(event) => {
+                const value = event.target.value;
+                startTransition(() => setQuery(value));
+              }}
+              placeholder={ui.searchPlaceholder}
+              className="h-14 rounded-full border-[--color-border-subtle] bg-white pl-12 pr-12 text-base dark:border-white/10 dark:bg-white/[0.04]"
+            />
+            {query ? (
+              <button
+                type="button"
+                onClick={() => startTransition(() => setQuery(""))}
+                className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-medium transition hover:bg-black/5 hover:text-slate-dark active:scale-90 dark:text-cloud-medium dark:hover:bg-white/10 dark:hover:text-ivory-light"
+                aria-label={ui.clear}
+              >
+                <X className="h-4 w-4" />
+              </button>
+            ) : null}
           </div>
 
-          <div className="p-5 md:p-6">
-            <div className="relative">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-medium dark:text-cloud-medium" />
-              <Input
-                value={query}
-                onChange={(event) => {
-                  const value = event.target.value;
-                  startTransition(() => {
-                    setQuery(value);
-                    setCurrentPage(1);
-                  });
-                }}
-                placeholder={ui.searchPlaceholder}
-                className="h-14 rounded-full border-[--color-border-subtle] bg-white pl-12 pr-12 text-base dark:border-white/10 dark:bg-white/[0.04]"
-              />
-              {query ? (
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
+            <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.topics}</p>
+            <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-medium dark:text-cloud-medium">
+              {filteredEntries.length} {ui.results}
+            </p>
+          </div>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => startTransition(() => setActiveCategory("all"))}
+              className={`rounded-full border px-4 py-2 text-sm transition active:scale-95 ${
+                activeCategory === "all"
+                  ? "border-[#0255D5]/20 bg-[#0255D5]/10 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]"
+                  : "border-[--color-border-subtle] bg-white/70 text-slate-medium hover:text-slate-dark dark:border-white/10 dark:bg-white/[0.04] dark:text-cloud-medium dark:hover:text-ivory-light"
+              }`}
+            >
+              {ui.allTopics}
+            </button>
+            {categoryOrder.map((key) => {
+              const Icon = categoryIcons[key];
+              return (
                 <button
+                  key={key}
                   type="button"
-                  onClick={() =>
-                    startTransition(() => {
-                      setQuery("");
-                      setCurrentPage(1);
-                    })
-                  }
-                  className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full p-1 text-slate-medium transition hover:bg-black/5 hover:text-slate-dark dark:text-cloud-medium dark:hover:bg-white/10 dark:hover:text-ivory-light"
-                  aria-label={ui.clear}
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              ) : null}
-            </div>
-
-            <div className="mt-6">
-              <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.topics}</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() =>
-                    startTransition(() => {
-                      setActiveCategory("all");
-                      setCurrentPage(1);
-                    })
-                  }
-                  className={`rounded-full border px-4 py-2 text-sm transition ${
-                    activeCategory === "all"
+                  onClick={() => startTransition(() => setActiveCategory(key))}
+                  className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm transition active:scale-95 ${
+                    activeCategory === key
                       ? "border-[#0255D5]/20 bg-[#0255D5]/10 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]"
                       : "border-[--color-border-subtle] bg-white/70 text-slate-medium hover:text-slate-dark dark:border-white/10 dark:bg-white/[0.04] dark:text-cloud-medium dark:hover:text-ivory-light"
                   }`}
                 >
-                  {ui.allTopics}
+                  <Icon className="h-3.5 w-3.5" />
+                  {localizeFaq(locale, faqCategories[key].label)}
                 </button>
-                {Object.entries(faqCategories).map(([key, value]) => (
-                  <button
-                    key={key}
+              );
+            })}
+          </div>
+        </section>
+      </div>
+
+      {isSearching ? (
+        <div className="relative mx-auto w-full max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+          <section className="mt-8">
+            {filteredEntries.length ? (
+              <div className="grid gap-4 xl:grid-cols-2">
+                {filteredEntries.map((entry) => {
+                  const meta = faqCategories[entry.category];
+                  return (
+                    <article key={entry.id} className={`${cardClass} p-6`}>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="label-meta rounded-full border border-[#0255D5]/15 bg-[#0255D5]/10 px-3 py-1 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]">
+                          {entry.categoryLabel}
+                        </span>
+                        {entry.tag ? (
+                          <span className="rounded-full border border-[--color-border-subtle] bg-white/70 px-3 py-1 text-xs font-medium text-slate-medium dark:border-white/10 dark:bg-white/[0.04] dark:text-cloud-medium">
+                            {entry.tag}
+                          </span>
+                        ) : null}
+                      </div>
+
+                      <h2 className="mt-4 text-2xl font-semibold tracking-[-0.03em]">{entry.question}</h2>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                        {entry.answer}
+                      </p>
+
+                      <div className="mt-6">
+                        <Button asChild variant="outline" className="justify-between active:scale-[0.98]">
+                          <Link href={meta.relatedPath}>
+                            {ui.related}
+                            <ArrowRight className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className={`${cardClass} p-8 text-center`}>
+                <h2 className="text-2xl font-semibold tracking-[-0.03em]">{ui.emptyTitle}</h2>
+                <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+                  {ui.emptyText}
+                </p>
+                <div className="mt-6">
+                  <Button
                     type="button"
+                    variant="cobalt"
+                    className="active:scale-[0.98]"
                     onClick={() =>
                       startTransition(() => {
-                        setActiveCategory(key as FaqCategoryKey);
-                        setCurrentPage(1);
+                        setQuery("");
+                        setActiveCategory("all");
                       })
                     }
-                    className={`rounded-full border px-4 py-2 text-sm transition ${
-                      activeCategory === key
-                        ? "border-[#0255D5]/20 bg-[#0255D5]/10 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]"
-                        : "border-[--color-border-subtle] bg-white/70 text-slate-medium hover:text-slate-dark dark:border-white/10 dark:bg-white/[0.04] dark:text-cloud-medium dark:hover:text-ivory-light"
-                    }`}
                   >
-                    {localizeFaq(locale, value)}
-                  </button>
-                ))}
+                    {ui.clear}
+                  </Button>
+                </div>
               </div>
-            </div>
-
-          </div>
-        </section>
-
-
-            {totalPages > 1 ? (
-              <div className="mt-8 flex items-center justify-center gap-4 text-sm text-gray-600 dark:text-gray-300">
-                <button
-                  type="button"
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  {ui.prev}
-                </button>
-                <span>
-                  {ui.pageLabel} <strong className="text-gray-900 dark:text-white">{currentPage}</strong>{" "}
-                  {ui.ofLabel} <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-                  disabled={currentPage === totalPages}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-                >
-                  {ui.next}
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-            ) : null}
-
-        <section className="mt-8">
-          {query !== deferredQuery ? (
-            <div className="mb-4 text-sm text-slate-medium dark:text-cloud-medium">{ui.loading}</div>
-          ) : null}
-
-          {paginatedEntries.length ? (
-            <div className="grid gap-4 xl:grid-cols-2">
-              {paginatedEntries.map((entry) => (
-                <article key={entry.id} className={`${cardClass} p-6`}>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="label-meta rounded-full border border-[#0255D5]/15 bg-[#0255D5]/10 px-3 py-1 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]">
-                      {entry.categoryLabel}
+            )}
+          </section>
+        </div>
+      ) : (
+        <div className="mt-2">
+          {groupedEntries.map((group, index) => {
+            const Icon = categoryIcons[group.key];
+            const items: FaqAccordionItem[] = group.entries.map((entry) => ({
+              question: entry.question,
+              answer: entry.answer,
+              tag: entry.tag,
+            }));
+            return (
+              <section
+                key={group.key}
+                id={group.key}
+                className={`scroll-mt-28 ${index % 2 === 1 ? "bg-white dark:bg-[#1A1924]" : ""}`}
+              >
+                <FaqAccordion
+                  titleTag="h2"
+                  eyebrow={
+                    <span className="inline-flex items-center gap-2">
+                      <Icon className="h-4 w-4 text-clay" />
+                      {isEn ? "Frequently asked questions" : "Preguntas frecuentes"}
                     </span>
-                    {entry.tagLabels.slice(0, 2).map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-[--color-border-subtle] bg-white/70 px-3 py-1 text-xs font-medium text-slate-medium dark:border-white/10 dark:bg-white/[0.04] dark:text-cloud-medium"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <h2 className="mt-4 text-2xl font-semibold tracking-[-0.03em]">{entry.question}</h2>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
-                    {entry.answer}
-                  </p>
-
-                  {entry.relatedPath ? (
-                    <div className="mt-6">
-                      <Button asChild variant="outline" className="justify-between">
-                        <Link href={entry.relatedPath}>
-                          {ui.related}
-                          <ArrowRight className="h-4 w-4" />
-                        </Link>
-                      </Button>
-                    </div>
-                  ) : null}
-                </article>
-              ))}
-            </div>
-          ) : (
-            <div className={`${cardClass} p-8 text-center`}>
-              <h2 className="text-2xl font-semibold tracking-[-0.03em]">{ui.emptyTitle}</h2>
-              <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
-                {ui.emptyText}
-              </p>
-              <div className="mt-6">
-                <Button
-                  type="button"
-                  variant="cobalt"
-                  onClick={() =>
-                    startTransition(() => {
-                      setQuery("");
-                      setActiveCategory("all");
-                      setActiveTag("all");
-                      setCurrentPage(1);
-                    })
                   }
-                >
-                  {ui.clear}
-                </Button>
-              </div>
-            </div>
-          )}
-        </section>
+                  title={localizeFaq(locale, group.meta.label)}
+                  description={localizeFaq(locale, group.meta.description)}
+                  items={items}
+                  containerClassName="max-w-7xl"
+                  footer={
+                    <Link
+                      href={group.meta.relatedPath}
+                      className="inline-flex items-center gap-2 rounded-full border-2 border-clay px-6 py-3 font-semibold text-clay shadow-md transition-all duration-300 active:scale-95 hover:bg-clay hover:text-white hover:shadow-lg hover:shadow-clay/20"
+                    >
+                      {localizeFaq(locale, group.meta.relatedLabel)}
+                      <ArrowUpRight className="h-4 w-4" />
+                    </Link>
+                  }
+                />
+              </section>
+            );
+          })}
+        </div>
+      )}
 
-        {totalPages > 1 ? (
-          <div className="mt-8 flex items-center justify-center gap-3 text-sm text-gray-600 dark:text-gray-300">
-            <button
-              type="button"
-              onClick={() => setCurrentPage(1)}
-              disabled={currentPage === 1}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
+      {!isSearching && highlightedPosts.length > 0 ? (
+        <div>
+          <HighlightedCarousel posts={highlightedPosts} translationsNamespace="blog" />
+          <div className="bg-white text-center dark:bg-[#1A1924]">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 pb-10 text-sm font-semibold text-[#0255D5] transition hover:gap-3 dark:text-[#7DB5FF]"
             >
-              <ChevronsLeft className="h-4 w-4" />
-              {ui.first}
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-              disabled={currentPage === 1}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              {ui.prev}
-            </button>
-            <span>
-              {ui.pageLabel} <strong className="text-gray-900 dark:text-white">{currentPage}</strong>{" "}
-              {ui.ofLabel} <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
-            </span>
-            <button
-              type="button"
-              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-              disabled={currentPage === totalPages}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-            >
-              {ui.next}
+              {ui.blogCta}
               <ArrowRight className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              onClick={() => setCurrentPage(totalPages)}
-              disabled={currentPage === totalPages}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-            >
-              {ui.last}
-              <ChevronsRight className="h-4 w-4" />
-            </button>
+            </Link>
           </div>
-        ) : null}
+        </div>
+      ) : null}
 
-        <section id="faq-contact" className="mt-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <div className={`${cardClass} bg-[linear-gradient(135deg,rgba(2,85,213,0.08),rgba(214,119,63,0.08),rgba(255,255,255,0.94))] p-6 md:p-8 dark:bg-[linear-gradient(135deg,rgba(2,85,213,0.16),rgba(214,119,63,0.12),rgba(255,255,255,0.04))]`}>
-            <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.contactEyebrow}</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">{ui.contactTitle}</h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
-              {ui.contactText}
-            </p>
-            <div className="mt-6 flex flex-col gap-3">
-              <Button asChild variant="cobalt" size="lg">
-                <Link href="/contacto">{ui.contactPrimary}</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <a
-                  href="https://wa.me/34626270806?text=Quiero%20resolver%20una%20duda%20sobre%20automatizaci%C3%B3n%20e%20IA"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {ui.contactSecondary}
-                </a>
-              </Button>
-            </div>
-          </div>
+      <div className="px-4 py-12 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
+        <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
+      </div>
 
-          <div className={`${cardClass} overflow-hidden`}>
-            <ContactForm
-              className="[&>section]:max-w-none [&>section]:px-0 [&>section]:py-0"
-              recaptchaAction="faq_contact_form"
-              recaptchaBadgeId="recaptcha-badge-faq-page"
-            />
-          </div>
-        </section>
+      <div id="faq-contact">
+        <ContactForm recaptchaAction="faq_contact_form" recaptchaBadgeId="recaptcha-badge-faq-page" />
       </div>
 
       <Footer />

@@ -4,432 +4,613 @@ export type LocalizedText = {
 };
 
 export type FaqCategoryKey =
-  | "chatbots"
-  | "agents"
+  | "general"
+  | "company"
+  | "training"
+  | "calling-agent"
   | "n8n"
-  | "whatsapp"
-  | "integrations"
-  | "training"
-  | "delivery";
-
-export type FaqTagKey =
-  | "architecture"
-  | "deployment"
-  | "security"
-  | "support"
-  | "sales"
-  | "operations"
-  | "roi"
-  | "automation"
-  | "integrations"
-  | "whatsapp"
-  | "training"
-  | "governance"
-  | "sevilla"
-  | "spain";
+  | "invoices"
+  | "reports"
+  | "odoo";
 
 export type FaqEntry = {
   id: string;
   category: FaqCategoryKey;
-  tags: FaqTagKey[];
+  tag?: LocalizedText;
   question: LocalizedText;
   answer: LocalizedText;
-  relatedPath?: string;
+};
+
+export type FaqCategoryMeta = {
+  label: LocalizedText;
+  description: LocalizedText;
+  relatedPath: string;
+  relatedLabel: LocalizedText;
 };
 
 export const localizeFaq = (locale: string, value: LocalizedText) =>
   locale.startsWith("en") ? value.en : value.es;
 
-export const faqCategories: Record<FaqCategoryKey, LocalizedText> = {
-  chatbots: { es: "Chatbots", en: "Chatbots" },
-  agents: { es: "Agentes IA", en: "AI agents" },
-  n8n: { es: "n8n", en: "n8n" },
-  whatsapp: { es: "WhatsApp", en: "WhatsApp" },
-  integrations: { es: "Integraciones", en: "Integrations" },
-  training: { es: "Formación", en: "Training" },
-  delivery: { es: "Despliegue", en: "Delivery" },
-};
-
-export const faqTagLabels: Record<FaqTagKey, LocalizedText> = {
-  architecture: { es: "Arquitectura", en: "Architecture" },
-  deployment: { es: "Despliegue", en: "Deployment" },
-  security: { es: "Seguridad", en: "Security" },
-  support: { es: "Soporte", en: "Support" },
-  sales: { es: "Ventas", en: "Sales" },
-  operations: { es: "Operaciones", en: "Operations" },
-  roi: { es: "ROI", en: "ROI" },
-  automation: { es: "Automatización", en: "Automation" },
-  integrations: { es: "Integraciones", en: "Integrations" },
-  whatsapp: { es: "WhatsApp", en: "WhatsApp" },
-  training: { es: "Formación", en: "Training" },
-  governance: { es: "Gobernanza", en: "Governance" },
-  sevilla: { es: "Sevilla", en: "Seville" },
-  spain: { es: "España", en: "Spain" },
+// Order here drives the default browsing order on the FAQ page.
+export const faqCategories: Record<FaqCategoryKey, FaqCategoryMeta> = {
+  general: {
+    label: { es: "General", en: "General" },
+    description: {
+      es: "Cómo trabajamos, cuánto se tarda y qué pasa después de lanzar una automatización.",
+      en: "How we work, how long it takes and what happens after an automation goes live.",
+    },
+    relatedPath: "/",
+    relatedLabel: { es: "Ir al inicio", en: "Go to homepage" },
+  },
+  company: {
+    label: { es: "Sobre Ordinaly", en: "About Ordinaly" },
+    description: {
+      es: "Quiénes somos como equipo y qué buscamos conseguir con la automatización.",
+      en: "Who we are as a team and what we want automation to achieve.",
+    },
+    relatedPath: "/nosotros",
+    relatedLabel: { es: "Conocer al equipo", en: "Meet the team" },
+  },
+  training: {
+    label: { es: "Formación", en: "Training" },
+    description: {
+      es: "Dudas habituales antes de apuntarte a un curso o taller de Ordinaly.",
+      en: "Common questions before signing up for an Ordinaly course or workshop.",
+    },
+    relatedPath: "/formacion",
+    relatedLabel: { es: "Ver formaciones", en: "View training programs" },
+  },
+  "calling-agent": {
+    label: { es: "Agente de llamadas IA", en: "AI calling agent" },
+    description: {
+      es: "Telefonía, voz, IA y precio del agente de llamadas con inteligencia artificial.",
+      en: "Telephony, voice, AI and pricing for the AI phone calling agent.",
+    },
+    relatedPath: "/agente-de-llamadas-ia",
+    relatedLabel: { es: "Ver agente de llamadas IA", en: "View AI calling agent" },
+  },
+  n8n: {
+    label: { es: "Automatización con n8n", en: "n8n automations" },
+    description: {
+      es: "Integraciones, mantenimiento y coste de las automatizaciones a medida con n8n.",
+      en: "Integrations, maintenance and cost of custom n8n automations.",
+    },
+    relatedPath: "/automatizaciones-personalizadas-empresas-n8n",
+    relatedLabel: { es: "Ver automatizaciones n8n", en: "View n8n automations" },
+  },
+  invoices: {
+    label: { es: "Automatización de facturas", en: "Invoice automation" },
+    description: {
+      es: "Cómo se detectan, procesan y protegen tus facturas de forma automática.",
+      en: "How your invoices are detected, processed and protected automatically.",
+    },
+    relatedPath: "/automatizacion-facturas",
+    relatedLabel: { es: "Ver automatización de facturas", en: "View invoice automation" },
+  },
+  reports: {
+    label: { es: "Automatización de informes", en: "Report automation" },
+    description: {
+      es: "Recogida, envío masivo e integración de informes periódicos.",
+      en: "Collection, bulk delivery and integration of recurring reports.",
+    },
+    relatedPath: "/automatizacion-informes",
+    relatedLabel: { es: "Ver automatización de informes", en: "View report automation" },
+  },
+  odoo: {
+    label: { es: "Implantación de Odoo", en: "Odoo implementation" },
+    description: {
+      es: "Precio, seguridad y diferencias entre Odoo Community y Odoo Enterprise.",
+      en: "Pricing, security and the differences between Odoo Community and Odoo Enterprise.",
+    },
+    relatedPath: "/implantacion-odoo",
+    relatedLabel: { es: "Ver implantación de Odoo", en: "View Odoo implementation" },
+  },
 };
 
 export const faqEntries: FaqEntry[] = [
+  // ---- General (home.faq) ----
   {
-    id: "chatbot-rag-docs",
-    category: "chatbots",
-    tags: ["architecture", "support", "automation"],
+    id: "general-tech-knowledge",
+    category: "general",
     question: {
-      es: "¿Un chatbot empresarial puede responder desde PDFs, FAQs y documentación interna a la vez?",
-      en: "Can a business chatbot answer from PDFs, FAQs and internal documentation at the same time?",
+      es: "¿Necesito saber de tecnología para trabajar con vosotros?",
+      en: "Do I need to know about technology to work with you?",
     },
     answer: {
-      es: "Sí. La arquitectura correcta unifica fuentes, normaliza formatos, trocea por tipo documental y aplica ranking antes de responder. Lo importante no es solo indexar, sino decidir qué fuente pesa más según el caso.",
-      en: "Yes. The right architecture unifies sources, normalizes formats, chunks by document type and applies ranking before answering. The key is not only indexing, but deciding which source should carry more weight in each case.",
+      es: "Sí. Pero no necesitas ser un experto. Nosotros nos encargamos de la parte técnica y siempre hacemos que nuestros clientes comprendan cómo funcionan las cosas. Además, ofrecemos formación para que tu equipo sea autónomo y no dependa de nosotros para todo.",
+      en: "Yes. But you don't need to be an expert. We take care of the technical part and always make sure our clients understand how things work. Also, we offer training so your team can be self-sufficient and not depend on us for everything.",
     },
-    relatedPath: "/agente-de-llamadas-ia",
   },
   {
-    id: "chatbot-quality",
-    category: "chatbots",
-    tags: ["architecture", "roi", "support"],
+    id: "general-timeline",
+    category: "general",
     question: {
-      es: "¿Cómo se mide si un chatbot está funcionando bien más allá de que responda rápido?",
-      en: "How do you measure whether a chatbot is working well beyond simply answering fast?",
+      es: "¿Cuánto tiempo tarda en estar listo?",
+      en: "How long does it take to be ready?",
     },
     answer: {
-      es: "Miramos deflexión por intención, precisión de escalado, exactitud sobre un set de preguntas reales y calidad de cita. La velocidad sola puede ocultar respuestas incorrectas o handoffs innecesarios.",
-      en: "We look at deflection by intent, escalation precision, accuracy on a real question set and citation quality. Speed alone can hide wrong answers or unnecessary handoffs.",
+      es: "Depende del proyecto, pero la mayoría de automatizaciones están operativas en 2 a 4 semanas. Trabajamos por sprints para que veas resultados rápido, usando metodologías ágiles de desarrollo.",
+      en: "It depends on the project, but most automations are operational within 2 to 4 weeks. We work in sprints so you see results quickly, using agile development methodologies.",
     },
-    relatedPath: "/agente-de-llamadas-ia",
   },
   {
-    id: "chatbot-website-whatsapp",
-    category: "chatbots",
-    tags: ["whatsapp", "integrations", "support"],
+    id: "general-support-changes",
+    category: "general",
     question: {
-      es: "¿Tiene sentido usar el mismo conocimiento en el chatbot web y en WhatsApp?",
-      en: "Does it make sense to use the same knowledge base in the website chatbot and WhatsApp?",
+      es: "¿Qué pasa si la automatización falla o necesito hacer cambios?",
+      en: "What happens if the automation fails or I need to make changes?",
     },
     answer: {
-      es: "Sí, si separas bien capa de conocimiento y capa de canal. La lógica, los documentos y las métricas pueden compartirse; lo que cambia es el tono, el ritmo conversacional y las restricciones del canal.",
-      en: "Yes, if you separate the knowledge layer from the channel layer. Logic, documents and metrics can be shared; what changes is tone, pacing and the channel constraints.",
+      es: "Ordinaly ofrece de manera adicional y opcional un soporte técnico para mantener y actualizar tus sistemas. También ofrecemos formación para que tu equipo pueda ser capaz de hacer cambios por sí mismo.",
+      en: "Ordinaly offers additional and optional technical support to maintain and update your systems. We also offer training so your team can be capable of making changes by themselves.",
     },
-    relatedPath: "/servicios",
   },
   {
-    id: "agent-vs-chatbot",
-    category: "agents",
-    tags: ["architecture", "operations", "automation"],
+    id: "general-differentiator",
+    category: "general",
     question: {
-      es: "¿Qué diferencia hay entre un chatbot y un agente IA de atención al cliente?",
-      en: "What is the difference between a chatbot and an AI customer-support agent?",
+      es: "¿Por qué Ordinaly es diferente?",
+      en: "Why is Ordinaly different?",
     },
     answer: {
-      es: "Un chatbot responde; un agente además consulta herramientas, ejecuta acciones y toma decisiones dentro de una política. La diferencia real está en el nivel de acceso, validación y responsabilidad operativa.",
-      en: "A chatbot answers; an agent also queries tools, executes actions and makes decisions within a policy. The real difference is the level of access, validation and operational responsibility.",
+      es: "No usamos plantillas genéricas ni soluciones estándar. Cada automatización se diseña desde cero adaptada a tu negocio, y siempre que lo necesites nos puedes llamar, visitar o reunirte con nosotros. Creemos en el trato personal y personalizado, y en la transparencia de nuestros procesos. Además, somos especialistas en PYMES y trabajamos con software libre (FLOSS) y europeo.",
+      en: "We don't use generic templates or standard solutions. Each automation is designed from scratch adapted to your business, and you can always call us, visit us, or meet with us when you need. We believe in personal and personalized treatment, and in the transparency of our processes. Additionally, we are specialists in SMEs and work with free and open-source (FLOSS) and European software.",
     },
-    relatedPath: "/servicios",
   },
+
+  // ---- Company (usPage.about, /nosotros) ----
   {
-    id: "agent-human-approval",
-    category: "agents",
-    tags: ["security", "operations", "governance"],
+    id: "company-what-is",
+    category: "company",
     question: {
-      es: "¿Cuándo debería exigirse aprobación humana antes de que un agente ejecute algo?",
-      en: "When should human approval be required before an agent executes something?",
+      es: "¿Qué es Ordinaly?",
+      en: "What is Ordinaly?",
     },
     answer: {
-      es: "Cuando la acción modifica dinero, inventario, condiciones contractuales o datos sensibles. Las tareas de lectura pueden automatizarse antes; las de escritura deben entrar con límites y aprobaciones explícitas.",
-      en: "Whenever the action affects money, inventory, contract conditions or sensitive data. Read operations can be automated earlier; write operations should enter with explicit limits and approvals.",
+      es: "Ordinaly Software S.L. es una empresa sevillana de automatización empresarial con IA que diseña, desarrolla y despliega workflows de automatización de procesos para pymes. Además desarrollamos software a medida como CRMs, ERPs, aplicaciones web y chatbots, y ofrecemos formación profesional para empresas en herramientas de software.",
+      en: "Ordinaly Software S.L. is a Seville-based business automation company that uses AI (when it's actually needed) to design, build, and deploy chatbots and workflows for SMBs and corporate teams.",
     },
-    relatedPath: "/servicios",
   },
   {
-    id: "agent-tools",
-    category: "agents",
-    tags: ["integrations", "operations", "support"],
+    id: "company-goal",
+    category: "company",
     question: {
-      es: "¿Un agente puede consultar ERP, CRM y ticketing en la misma conversación?",
-      en: "Can an agent query ERP, CRM and ticketing inside the same conversation?",
+      es: "¿Qué queremos conseguir?",
+      en: "What do we want to achieve?",
     },
     answer: {
-      es: "Sí, siempre que definas bien permisos, orden de consulta y trazabilidad. La parte compleja no es la conexión técnica, sino la política de qué consultar y qué hacer cuando los sistemas discrepan.",
-      en: "Yes, as long as permissions, query order and traceability are well defined. The hard part is not the connection itself, but the policy for what to query and what happens when systems disagree.",
+      es: "En nuestra empresa tenemos la misión de potenciar el trabajo de las personas con las nuevas tecnologías, en ningún lugar sustituirlas. Queremos que las empresas, al utilizar nuestras automatizaciones, tengan tiempo para centrarse en la creatividad, las decisiones y las relaciones sociales; aquello que una máquina no debe hacer. Queremos que nuestros clientes se sientan cómodos y seguros con nuestros sistemas, por ello damos importancia a la transparencia y la trazabilidad de estos para cualquier empresa.",
+      en: "Our mission is to empower people's work with new technologies, rather than replace them. We want businesses that use our automations to have time to focus on creativity, decisions, and relationships — the things a machine shouldn't do. We want our clients to feel comfortable and secure with our systems, which is why we place real importance on keeping them transparent and simple for any company.",
     },
-    relatedPath: "/servicios",
+  },
+
+  // ---- Training (formation.faq, /formacion) ----
+  {
+    id: "training-programming-knowledge",
+    category: "training",
+    question: {
+      es: "¿Necesito conocimientos previos de programación?",
+      en: "Do I need previous programming knowledge?",
+    },
+    answer: {
+      es: "No. Nuestros talleres están pensados para empresarios, autónomos y equipos de cualquier perfil. No es necesario tener conocimientos de programación ni experiencia previa en automatización o inteligencia artificial. Ofrecemos cursos para todos los niveles, desde principiantes hasta avanzados, y adaptamos los contenidos según el grupo de asistentes.",
+      en: "No. Our workshops are designed for entrepreneurs, freelancers and teams of any profile. It is not necessary to have programming knowledge or previous experience in automation or artificial intelligence. We offer courses for all levels, from beginners to advanced, and we adapt the content according to the group of attendees.",
+    },
   },
   {
-    id: "n8n-custom-code",
+    id: "training-bring-materials",
+    category: "training",
+    question: {
+      es: "¿Qué necesito llevar (portátil, cuenta de correo, etc.)?",
+      en: "What do I need to bring (laptop, email account, etc.)?",
+    },
+    answer: {
+      es: "Para los talleres presenciales necesitas traer tu propio portátil (con cargador) y una cuenta de correo activa, como Gmail, para seguir los ejercicios en tiempo real. Si un taller requiere algo adicional, te lo avisamos por email unos días antes.",
+      en: "For in-person workshops you need to bring your own laptop (with charger) and an active email account, such as Gmail, to follow the exercises in real-time. If a workshop requires something additional, we will notify you by email a few days in advance.",
+    },
+  },
+  {
+    id: "training-certificate",
+    category: "training",
+    question: {
+      es: "¿Se entrega algún certificado o diploma al finalizar?",
+      en: "Do you issue any certificates or diplomas upon completion?",
+    },
+    answer: {
+      es: "Sí, todas las personas que completan el taller reciben un certificado de participación de Ordinaly, útil para acreditar la formación ante tu empresa o para tu currículum.",
+      en: "Yes, all participants who complete the workshop receive a participation certificate from Ordinaly, useful for accrediting the training with your company or for your resume.",
+    },
+  },
+  {
+    id: "training-cancel-change",
+    category: "training",
+    question: {
+      es: "¿Qué pasa si me apunto y no puedo asistir? ¿Se puede cancelar o cambiar de fecha?",
+      en: "What happens if I sign up and can't attend? Can I cancel or change the date?",
+    },
+    answer: {
+      es: "Puedes cancelar tu inscripción sin coste desde tu perfil en nuestra web hasta 24 horas antes del inicio del taller, liberando tu plaza para otra persona. Si necesitas cambiar de fecha, escríbenos y te ayudamos a moverte a la próxima edición según disponibilidad.",
+      en: "You can cancel your enrollment without cost from your profile on our website up to 24 hours before the start of the workshop, freeing your spot for another person. If you need to change the date, please contact us and we will help you move to the next edition according to availability.",
+    },
+  },
+  {
+    id: "training-custom-industry",
+    category: "training",
+    question: {
+      es: "¿Puedo solicitar una formación personalizada para mi sector?",
+      en: "Can I request a customized training for my industry?",
+    },
+    answer: {
+      es: "Sí. Además de los cursos abiertos, diseñamos formaciones a medida para equipos y sectores concretos (inmobiliaria, agencias de marketing, clínicas, administraciones de fincas, etc.), con contenidos y casos de uso adaptados a tu negocio.",
+      en: "Yes. In addition to our open courses, we design customized training programs for specific teams and sectors (real estate, marketing agencies, clinics, property management companies, etc.), with content and use cases adapted to your business.",
+    },
+  },
+
+  // ---- AI calling agent (landings["agente-de-llamadas-ia"].technologyFaqs) ----
+  {
+    id: "calling-agent-new-line",
+    category: "calling-agent",
+    tag: { es: "Teléfono", en: "Phone" },
+    question: {
+      es: "¿Necesito contratar una línea nueva?",
+      en: "Do I need to hire a new line?",
+    },
+    answer: {
+      es: "No necesariamente. Podemos usar tu numeración actual VoIP o proporcionarte una línea a través de Netelip, tanto para llamadas entrantes como salientes.",
+      en: "Not necessarily. We can use your current VoIP number or provide a line through Netelip, for both incoming and outgoing calls.",
+    },
+  },
+  {
+    id: "calling-agent-gdpr",
+    category: "calling-agent",
+    tag: { es: "Privacidad", en: "Privacy" },
+    question: {
+      es: "¿Es seguro y cumple el RGPD?",
+      en: "Is it secure and GDPR compliant?",
+    },
+    answer: {
+      es: "Sí. Las llamadas y transcripciones se procesan con garantías de protección de datos, siempre identificándose como un servicio que usa Inteligencia Artificial y preguntando por el consentimiento de tratamiento de datos dado el caso.",
+      en: "Yes. Calls and transcriptions are processed with data protection safeguards, always identifying as a service that uses Artificial Intelligence and requesting consent for data processing when applicable.",
+    },
+  },
+  {
+    id: "calling-agent-voice",
+    category: "calling-agent",
+    tag: { es: "Voz", en: "Voice" },
+    question: {
+      es: "¿Qué tan natural suena la voz del agente?",
+      en: "How natural does the agent's voice sound?",
+    },
+    answer: {
+      es: "Usamos las voces de ElevenLabs, líderes en síntesis de voz realista, con soporte para español con distintos acentos además de otros idiomas, ajustando tono y velocidad a tu marca.",
+      en: "We use voices from ElevenLabs, leaders in realistic speech synthesis, supporting Spanish with different accents as well as other languages, adjusting tone and speed to your brand.",
+    },
+  },
+  {
+    id: "calling-agent-model",
+    category: "calling-agent",
+    tag: { es: "Inteligencia Artificial", en: "Artificial Intelligence" },
+    question: {
+      es: "¿Qué modelo se usa en la conversación?",
+      en: "Which model is used in the conversation?",
+    },
+    answer: {
+      es: "El razonamiento conversacional se apoya normalmente en modelos Gemini de Google, pero nuestro proveedor ofrece opciones adicionales como los modelos de Claude o GPT.",
+      en: "Conversational reasoning is normally powered by Google's Gemini models, but our provider offers additional options such as Claude or GPT models.",
+    },
+  },
+  {
+    id: "calling-agent-integration",
+    category: "calling-agent",
+    tag: { es: "Automatización", en: "Automation" },
+    question: {
+      es: "¿Cómo se conecta con mi hoja de cálculo o base de datos?",
+      en: "How does it connect to my spreadsheet or database?",
+    },
+    answer: {
+      es: "Retell y Netelip gestionan la llamada en tiempo real (voz, IA y telefonía), mientras n8n conecta el resultado de cada llamada con tu CRM, calendario o base de datos mediante APIs REST.",
+      en: "Retell and Netelip handle the call in real time (voice, AI and telephony), while n8n connects each call's result to your CRM, calendar or database via REST APIs.",
+    },
+  },
+  {
+    id: "calling-agent-price",
+    category: "calling-agent",
+    tag: { es: "Precio", en: "Price" },
+    question: {
+      es: "¿Cuánto cuesta implantar un agente de llamadas?",
+      en: "How much does it cost to deploy a calling agent?",
+    },
+    answer: {
+      es: "La instalación tiene un precio fijo y cerrado, más IVA. El coste mensual se paga a través de los proveedores externos de voz y telefonía (Retell y Netelip...) y depende del volumen de llamadas. Te lo detallamos tras una auditoría gratuita de tu caso concreto.",
+      en: "Installation has a fixed, closed price plus VAT. The monthly cost is paid to external voice and telephony providers (Retell and Netelip...) and depends on call volume. We provide details after a free assessment of your specific case.",
+    },
+  },
+
+  // ---- n8n automations (landings["automatizaciones-personalizadas-empresas-n8n"].faq) ----
+  {
+    id: "n8n-undefined-processes",
     category: "n8n",
-    tags: ["architecture", "automation", "operations"],
     question: {
-      es: "¿Cuándo conviene usar n8n y cuándo conviene desarrollar algo a medida?",
-      en: "When should you use n8n and when should you build custom code?",
+      es: "¿Podemos empezar sin tener procesos definidos?",
+      en: "Can we start even if our processes aren't defined?",
     },
     answer: {
-      es: "n8n encaja bien cuando necesitas orquestación rápida, conectores y visibilidad sobre tareas operativas. El código a medida aparece cuando hay mucha lógica propietaria, requisitos extremos de latencia o necesidad de producto reusable.",
-      en: "n8n fits well when you need fast orchestration, connectors and visibility over operational tasks. Custom code enters when there is heavy proprietary logic, extreme latency requirements or a reusable product need.",
+      es: "Sí. La fase inicial de nuestro asesoramiento consiste en determinar juntos los sistemas, los puntos de fallo y las tareas repetitivas candidatas a automatizaciones con impacto inmediato.",
+      en: "Yes. We map systems, failure points and repetitive tasks together to prioritize automations with immediate impact.",
     },
-    relatedPath: "/automatizaciones-personalizadas-empresas-n8n",
   },
   {
-    id: "n8n-onprem",
+    id: "n8n-maintain-flows",
     category: "n8n",
-    tags: ["deployment", "security", "integrations"],
     question: {
-      es: "¿n8n puede desplegarse on-prem o en red privada?",
-      en: "Can n8n be deployed on-prem or in a private network?",
+      es: "¿Es necesario saber programar para mantener los flujos?",
+      en: "Do we need programming knowledge to maintain the flows?",
     },
     answer: {
-      es: "Sí. De hecho suele ser lo más sensato cuando hay sistemas internos, bases privadas o políticas estrictas de acceso. El reto está en observabilidad, backups y gestión de cambios, no solo en levantar el contenedor.",
-      en: "Yes. It is often the sensible choice when there are internal systems, private databases or strict access policies. The challenge is observability, backups and change management, not just spinning up a container.",
+      es: "n8n es una herramienta visual, pero requiere ciertos conocimientos para mantener y evolucionar los flujos. Dejamos convenciones de nombres, dashboards, documentación y formación para que tu equipo gane autonomía, y nuestro equipo puede formar a tu personal o encargarse del mantenimiento.",
+      en: "No. We leave naming conventions, dashboards, documentation and training so your team can operate without relying on development.",
     },
-    relatedPath: "/automatizaciones-personalizadas-empresas-n8n",
   },
   {
-    id: "n8n-monitoring",
+    id: "n8n-integrate-tools",
     category: "n8n",
-    tags: ["operations", "roi", "deployment"],
     question: {
-      es: "¿Cómo se controla que un workflow en n8n no falle en silencio?",
-      en: "How do you prevent an n8n workflow from failing silently?",
+      es: "¿Podéis integrarlo con nuestras herramientas actuales?",
+      en: "Can you integrate it with our current tools?",
     },
     answer: {
-      es: "Con alertas, retries diseñados para ser idempotentes, dashboards por workflow y una política clara de quién responde cada incidencia. Si nadie es dueño del flujo, la automatización no está realmente operativa.",
-      en: "With alerts, idempotent retries, per-workflow dashboards and a clear policy for who owns each incident. If nobody owns the flow, the automation is not truly operational.",
+      es: "Sí. Conectamos n8n con ERP, CRM, bases de datos, APIs internas, hojas de cálculo, mensajería y cualquier servicio con API pública disponible.",
+      en: "Yes. We connect n8n with ERP, CRM, databases, internal APIs, spreadsheets, messaging tools and any service with an API.",
     },
-    relatedPath: "/automatizaciones-personalizadas-empresas-n8n",
   },
   {
-    id: "whatsapp-official-api",
-    category: "whatsapp",
-    tags: ["whatsapp", "deployment", "sales"],
+    id: "n8n-flow-reliability",
+    category: "n8n",
     question: {
-      es: "¿Trabajar con la API oficial de WhatsApp Business es imprescindible?",
-      en: "Is working with the official WhatsApp Business API essential?",
+      es: "¿Qué pasa si falla un nodo del flujo?",
+      en: "How do you ensure flows don't break?",
     },
     answer: {
-      es: "Si el canal es serio y debe escalar, sí. La API oficial permite gobernar plantillas, proveedores, números y métricas con estabilidad; lo contrario suele terminar en deuda técnica o bloqueos del canal.",
-      en: "If the channel matters and needs to scale, yes. The official API lets you govern templates, providers, numbers and metrics with stability; the alternative usually ends in technical debt or channel blocking.",
+      es: "Diseñamos reintentos, idempotencia, logs, colas y alertas desde el primer día para evitar estados inconsistentes, con notificaciones automáticas para que el equipo pueda actuar rápidamente ante cualquier fallo.",
+      en: "We design retries, idempotency, logs, queues and alerts from day one to avoid inconsistent states.",
     },
-    relatedPath: "/servicios",
   },
   {
-    id: "whatsapp-attribution",
-    category: "whatsapp",
-    tags: ["whatsapp", "roi", "sales"],
+    id: "n8n-license-cost",
+    category: "n8n",
     question: {
-      es: "¿Cómo se atribuyen ventas o oportunidades reales a WhatsApp?",
-      en: "How do you attribute actual sales or opportunities to WhatsApp?",
+      es: "¿n8n tiene coste de licencia?",
+      en: "Does n8n have a license cost?",
     },
     answer: {
-      es: "Necesitas registrar conversación, origen, intención, paso comercial y resultado en CRM. Sin esa cadena de datos, el canal parece activo pero no sabes qué parte vende y qué parte solo consume tiempo.",
-      en: "You need to record conversation, source, intent, commercial stage and outcome inside the CRM. Without that data chain, the channel looks active but you do not know what actually sells and what only consumes time.",
+      es: "La versión web comercial de n8n tiene un coste mensual por usuario y ejecuciones, pero n8n dispone también de una versión de software libre que puede autoalojarse sin coste de licencia. Nuestro presupuesto de pago único cubre la implantación de esta versión de código abierto, sin coste mensual por usarla.",
+      en: "The commercial web version of n8n has a monthly cost per user and executions, but n8n also offers a free software version that can be self-hosted at no license cost. Our paid quote covers the implementation of this open-source version, without any monthly fees for using it.",
     },
-    relatedPath: "/servicios",
   },
   {
-    id: "whatsapp-sales-support",
-    category: "whatsapp",
-    tags: ["whatsapp", "support", "sales"],
+    id: "n8n-migrate-zapier",
+    category: "n8n",
     question: {
-      es: "¿Tiene sentido mezclar soporte y ventas en el mismo número de WhatsApp?",
-      en: "Does it make sense to mix support and sales in the same WhatsApp number?",
+      es: "¿Podemos migrar nuestras automatizaciones desde Zapier o Make?",
+      en: "Can we migrate our automations from Zapier or Make?",
     },
     answer: {
-      es: "Depende del volumen y de cómo se diseñe el routing. Puede funcionar si hay clasificación temprana y SLAs distintos; si no, el canal se vuelve confuso y ambos equipos acaban compitiendo por el mismo hilo.",
-      en: "It depends on volume and routing design. It can work if there is early classification and separate SLAs; otherwise the channel becomes confusing and both teams start competing for the same thread.",
+      es: "Sí. Analizamos tus zaps o escenarios actuales y los reconstruimos en n8n, normalmente con mejor observabilidad y sin las limitaciones de ejecuciones mensuales de esas plataformas.",
+      en: "Yes. We review your current zaps or scenarios and rebuild them in n8n, usually with better observability and without those platforms' monthly execution limits.",
     },
-    relatedPath: "/servicios",
+  },
+
+  // ---- Invoice automation (landings["automatizacion-facturas"].technologyFaqs) ----
+  {
+    id: "invoices-detect",
+    category: "invoices",
+    tag: { es: "Procesamiento", en: "Processing" },
+    question: {
+      es: "¿Cómo se detectan las facturas automáticamente?",
+      en: "How do you detect invoices automatically?",
+    },
+    answer: {
+      es: "Se escanean las bandejas de entrada o carpetas de correo aplicando un filtro de remitente y tipo de archivo adjunto, y después un modelo de OCR identifica los documentos que son facturas, sin reglas manuales.",
+      en: "We monitor inboxes or folders and apply OCR models that identify invoice-type documents without manual rules.",
+    },
   },
   {
-    id: "integration-duplicates",
-    category: "integrations",
-    tags: ["integrations", "operations", "security"],
+    id: "invoices-data-extracted",
+    category: "invoices",
+    tag: { es: "Extracción", en: "Extraction" },
     question: {
-      es: "¿Cómo se evitan duplicados al conectar CRM y ERP?",
-      en: "How do you avoid duplicates when connecting CRM and ERP?",
+      es: "¿Qué datos se pueden extraer?",
+      en: "What data can be extracted?",
     },
     answer: {
-      es: "Con identificadores estables, ownership por campo, reglas de deduplicación y reconciliación. Sin ese trabajo previo, cualquier conector termina amplificando el problema en lugar de resolverlo.",
-      en: "With stable identifiers, field ownership, deduplication rules and reconciliation. Without that groundwork, any connector amplifies the problem instead of solving it.",
+      es: "Cualquier campo indicado previamente: proveedor, fecha, número de factura, conceptos, base imponible, IVA, total y cualquier campo adicional que necesites.",
+      en: "Supplier, date, invoice number, items, taxable base, VAT, total, and any additional fields you need.",
     },
-    relatedPath: "/servicios",
   },
   {
-    id: "integration-source-of-truth",
-    category: "integrations",
-    tags: ["integrations", "governance", "operations"],
+    id: "invoices-erp-integration",
+    category: "invoices",
+    tag: { es: "Integración", en: "Integration" },
     question: {
-      es: "¿Qué significa definir un source of truth en una integración?",
-      en: "What does defining a source of truth mean in an integration?",
+      es: "¿Se puede conectar con mi Drive o mi sistema ERP?",
+      en: "Can it connect to my ERP or accounting system?",
     },
     answer: {
-      es: "Significa decidir qué sistema manda cada dato y bajo qué condiciones puede sobrescribirse. Sin esa definición, el dato se sincroniza, sí, pero nadie sabe cuál es el correcto cuando aparece un conflicto.",
-      en: "It means deciding which system owns each piece of data and under which conditions it can be overwritten. Without that definition, data may sync, but nobody knows which version is correct when conflict appears.",
+      es: "Sí. n8n se integra con gran facilidad con Google Drive, OneDrive, Dropbox y sistemas ERP como Holded, A3, Contasol y Odoo. Además, se puede conectar con cualquier sistema que tenga API o permita integración mediante webhooks.",
+      en: "Yes. We can export to CSV, API, Google Drive, OneDrive, Holded, A3, Contasol, and other systems.",
     },
-    relatedPath: "/servicios",
   },
   {
-    id: "integration-first-scope",
-    category: "integrations",
-    tags: ["deployment", "integrations", "roi"],
+    id: "invoices-sensitive-data",
+    category: "invoices",
+    tag: { es: "Seguridad", en: "Security" },
     question: {
-      es: "¿Cuánto debería abarcar la primera fase de una integración CRM/ERP?",
-      en: "How much should the first phase of a CRM/ERP integration cover?",
+      es: "¿Cómo se gestionan los datos sensibles de las facturas?",
+      en: "How do you handle sensitive data?",
     },
     answer: {
-      es: "Lo justo para resolver un proceso crítico de extremo a extremo: por ejemplo alta de cliente, oportunidad, pedido y factura. Empezar por todo a la vez suele ocultar errores de modelo y bloquear el avance.",
-      en: "Just enough to solve one critical process end to end: for example customer creation, opportunity, order and invoice. Starting with everything at once usually hides model errors and blocks progress.",
+      es: "Aplicamos minimización de datos, transmisión cifrada y reglas de acceso estrictas. Solo procesamos lo necesario para la automatización.",
+      en: "We apply data minimization, encrypted transmission, and strict access rules. We only process what is necessary for automation.",
     },
-    relatedPath: "/servicios",
   },
   {
-    id: "training-who-should-attend",
-    category: "training",
-    tags: ["training", "operations", "sales"],
+    id: "invoices-monthly-cost",
+    category: "invoices",
+    tag: { es: "Precio", en: "Pricing" },
     question: {
-      es: "¿Quién debería asistir a una formación IA para que tenga impacto real?",
-      en: "Who should attend an AI training program for it to have real impact?",
+      es: "¿Tiene algún coste mensual?",
+      en: "Is there a monthly cost?",
     },
     answer: {
-      es: "Quien ejecuta el trabajo diario y quien define criterios o aprueba cambios. Si asisten solo perfiles estratégicos o solo perfiles ejecutores, la adopción queda coja.",
-      en: "The people doing the work every day and the ones defining criteria or approving changes. If only strategic profiles or only executors attend, adoption stays incomplete.",
+      es: "Por nuestra parte no. Nuestro precio de implantación es único y cerrado. El coste mensual dependerá del proveedor de VPS que elijas y del volumen de facturas que proceses. Normalmente, un VPS básico cuesta entre 40€ y 60€ al año, suficiente para la mayoría de empresas.",
+      en: "Not on our part. Our implementation price is fixed and closed. The monthly cost will depend on the VPS provider you choose and the volume of invoices you process. Typically, a basic VPS costs between €40 and €60 per year, which is enough for most companies.",
     },
-    relatedPath: "/formacion",
+  },
+
+  // ---- Report automation (landings["automatizacion-informes"].technologyFaqs) ----
+  {
+    id: "reports-collection",
+    category: "reports",
+    tag: { es: "Procesamiento", en: "Processing" },
+    question: {
+      es: "¿Cómo se recopilan los informes automáticamente?",
+      en: "How are the reports collected automatically?",
+    },
+    answer: {
+      es: "Conectamos con el CRM, la nube o el sistema documental que ya utilices para recoger la información financiera cada mes sin intervención manual.",
+      en: "We connect to the CRM, the cloud or the document system you already use to collect the financial reports every month without manual intervention.",
+    },
   },
   {
-    id: "training-governance",
-    category: "training",
-    tags: ["training", "governance", "security"],
+    id: "reports-bulk-send",
+    category: "reports",
+    tag: { es: "Envío", en: "Delivery" },
     question: {
-      es: "¿Una formación en IA debería incluir gobernanza y privacidad o solo productividad?",
-      en: "Should AI training include governance and privacy or only productivity?",
+      es: "¿Cómo se realiza el envío masivo?",
+      en: "How is the bulk sending done?",
     },
     answer: {
-      es: "Debe incluir ambas. Enseñar productividad sin límites de uso, herramientas aprobadas y manejo del dato genera más riesgo que mejora real.",
-      en: "It should include both. Teaching productivity without usage limits, approved tools and data handling creates more risk than real improvement.",
+      es: "Cada informe se envía automáticamente por correo electrónico al propietario correspondiente, usando la plantilla de mensaje que definas.",
+      en: "Each report is automatically emailed to the corresponding owner, using the message template you define.",
     },
-    relatedPath: "/formacion",
   },
   {
-    id: "training-roi",
-    category: "training",
-    tags: ["training", "roi", "operations"],
+    id: "reports-crm-integration",
+    category: "reports",
+    tag: { es: "Integración", en: "Integration" },
     question: {
-      es: "¿Cómo se mide el ROI de una formación IA en equipos pequeños?",
-      en: "How do you measure ROI from AI training in small teams?",
+      es: "¿Se puede conectar con mi CRM o sistema documental?",
+      en: "Can it connect to my CRM or document system?",
     },
     answer: {
-      es: "El retorno se mide sobre tareas concretas: tiempo de preparación, calidad de documentación, velocidad de respuesta o reducción de errores. Si no aterrizas en tareas, el ROI se vuelve una opinión.",
-      en: "Return is measured on concrete tasks: preparation time, documentation quality, response speed or error reduction. If you do not anchor it to tasks, ROI becomes an opinion.",
+      es: "Sí. Nos adaptamos al sistema que ya utilices: CRM, nube, base de datos o gestor de documentos.",
+      en: "Yes. We adapt to whatever system you already use: CRM, cloud, database or document manager handling your communities.",
     },
-    relatedPath: "/formacion",
   },
   {
-    id: "delivery-seville-spain",
-    category: "delivery",
-    tags: ["sevilla", "spain", "deployment"],
+    id: "reports-failure",
+    category: "reports",
+    tag: { es: "Seguridad", en: "Security" },
     question: {
-      es: "¿Trabajáis solo en Sevilla o también fuera de Andalucía?",
-      en: "Do you only work in Seville or also outside Andalusia?",
+      es: "¿Qué pasa si falla un envío?",
+      en: "What happens if a delivery fails?",
     },
     answer: {
-      es: "El equipo opera desde Sevilla, pero los proyectos se despliegan en toda España y en entornos remotos europeos. La geografía importa menos que el acceso a sistemas, la claridad del proceso y el modelo de soporte.",
-      en: "The team operates from Seville, but projects are deployed across Spain and remote European environments. Geography matters less than system access, process clarity and the support model.",
+      es: "Tras cada ciclo recibirás un correo resumen con el estado del proceso, incluyendo posibles incidencias y confirmación de ejecución.",
+      en: "After every cycle you'll receive a summary email with the status of the process, including any incidents and execution confirmation.",
     },
-    relatedPath: "/contacto",
   },
   {
-    id: "delivery-pilot-first",
-    category: "delivery",
-    tags: ["deployment", "roi", "spain"],
+    id: "reports-monthly-cost",
+    category: "reports",
+    tag: { es: "Precio", en: "Pricing" },
     question: {
-      es: "¿Por qué casi siempre proponéis empezar con un piloto en vez de un despliegue total?",
-      en: "Why do you almost always propose starting with a pilot instead of a full rollout?",
+      es: "¿Tiene algún coste mensual?",
+      en: "Is there a monthly cost?",
     },
     answer: {
-      es: "Porque el piloto permite medir calidad, riesgo y adopción sobre un proceso real antes de ampliar alcance. Saltarse esa fase suele encarecer el proyecto y retrasar el aprendizaje que de verdad importa.",
-      en: "Because the pilot lets you measure quality, risk and adoption on a real process before widening scope. Skipping that phase usually makes the project more expensive and delays the learning that actually matters.",
+      es: "Por nuestra parte no. Nuestro precio de implantación es único y cerrado. El coste mensual dependerá del proveedor de VPS que elijas y del volumen que proceses. Normalmente, un VPS básico cuesta entre 40€ y 60€ al año, suficiente para la mayoría de empresas.",
+      en: "Not on our part. Our implementation price is fixed and closed. The monthly cost will depend on the VPS provider you choose and the volume of invoices you process. Typically, a basic VPS costs between €40 and €60 per year, and is sufficient for most companies.",
     },
-    relatedPath: "/contacto",
+  },
+
+  // ---- Odoo implementation (landings["implantacion-odoo"].technologyFaqs) ----
+  {
+    id: "odoo-one-time-payment",
+    category: "odoo",
+    tag: { es: "Precio", en: "Price" },
+    question: {
+      es: "¿Por qué el precio es un pago único y no una cuota mensual?",
+      en: "Why is it a one-time payment instead of a monthly fee?",
+    },
+    answer: {
+      es: "Implantamos Odoo Community, la edición de código abierto y gratuita de Odoo. Al no depender de las licencias por usuario de Odoo Enterprise, el coste se limita al servicio de implantación: un pago único, sin cuotas mensuales recurrentes por usuario.",
+      en: "We implement Odoo Community, Odoo's free, open-source edition. Since it doesn't depend on Odoo Enterprise's per-user licenses, the cost is limited to the implementation service: a one-time payment, with no recurring monthly per-user fees.",
+    },
   },
   {
-    id: "what-is-ai-agent",
-    category: "agents",
-    tags: ["automation", "operations"],
+    id: "odoo-data-protection",
+    category: "odoo",
+    tag: { es: "Seguridad", en: "Security" },
     question: {
-      es: "¿Qué es un agente de IA para negocios y cómo puede ayudar a mi empresa?",
-      en: "What is an AI agent for business and how can it help my company?",
+      es: "¿Cómo protegéis los datos de mi empresa?",
+      en: "How do you protect my company's data?",
     },
     answer: {
-      es: "Un agente de IA es un sistema inteligente que puede realizar tareas específicas de forma autónoma: responder consultas de clientes, procesar documentos, gestionar citas o automatizar flujos de trabajo. Esto significa ahorro de tiempo, reducción de errores humanos y disponibilidad 24/7. Por ejemplo, una empresa puede tener un agente que gestione incidencias automáticamente por WhatsApp.",
-      en: "An AI agent is an intelligent system that can perform specific tasks autonomously: answering customer queries, processing documents, managing appointments or automating workflows. This means time savings, reduced human error and 24/7 availability. For example, a business can have an agent that automatically handles incidents over WhatsApp.",
+      es: "El sistema se despliega en infraestructura controlada por ti (servidor propio o VPS). Mantienes el control total de tus datos y accesos, y no conservamos credenciales ni copias de tu información tras la entrega del servicio.",
+      en: "The system is deployed on infrastructure you control (your own server or a VPS). You keep full control of your data and access, and we don't retain credentials or copies of your information after the service is delivered.",
     },
-    relatedPath: "/servicios",
   },
   {
-    id: "automation-cost",
-    category: "delivery",
-    tags: ["roi", "sales"],
+    id: "odoo-vs-other-erps",
+    category: "odoo",
+    tag: { es: "Comparativa", en: "Comparison" },
     question: {
-      es: "¿Cuánto cuesta implementar automatización con IA en mi empresa?",
-      en: "How much does it cost to implement AI automation in my company?",
+      es: "¿Por qué elegir Odoo frente a otros ERPs?",
+      en: "Why choose Odoo over other ERPs?",
     },
     answer: {
-      es: "El coste varía según la complejidad del proyecto. Los proyectos simples como chatbots de WhatsApp o automatizaciones básicas pueden arrancar desde presupuestos accesibles para PYMEs. Ofrecemos consultas gratuitas donde analizamos tu caso específico y damos un presupuesto personalizado. La mayoría de nuestros clientes recuperan la inversión en menos de 6 meses.",
-      en: "Cost varies depending on project complexity. Simple projects like WhatsApp chatbots or basic automations can start at budgets accessible to SMEs. We offer free consultations where we analyze your specific case and provide a tailored quote. Most of our clients recover their investment in under 6 months.",
+      es: "Odoo combina en una sola plataforma CRM, contabilidad, facturación, inventario, ventas y muchos más módulos, con una interfaz moderna y una curva de aprendizaje mucho menor que otros ERPs tradicionales. Su estructura modular te permite empezar por lo esencial y crecer sin cambiar de sistema.",
+      en: "Odoo combines CRM, accounting, invoicing, inventory, sales and many more modules into a single platform, with a modern interface and a much shorter learning curve than traditional ERPs. Its modular structure lets you start with the essentials and grow without switching systems.",
     },
-    relatedPath: "/contacto",
   },
   {
-    id: "no-technical-knowledge-needed",
-    category: "training",
-    tags: ["training", "operations"],
+    id: "odoo-community-vs-enterprise",
+    category: "odoo",
+    tag: { es: "Community vs Enterprise", en: "Community vs Enterprise" },
     question: {
-      es: "¿Necesito conocimientos técnicos para usar sistemas de automatización?",
-      en: "Do I need technical knowledge to use automation systems?",
+      es: "¿Por qué implantáis Odoo Community y no Odoo Enterprise?",
+      en: "Why do you implement Odoo Community instead of Odoo Enterprise?",
     },
     answer: {
-      es: "No, en absoluto. Diseñamos todas nuestras soluciones para que sean intuitivas y fáciles de usar, e incluimos formación práctica para tu equipo. También ofrecemos cursos de IA donde aprenderás a usar herramientas como ChatGPT y automatizaciones sin necesidad de conocimientos previos de programación.",
-      en: "Not at all. We design all our solutions to be intuitive and easy to use, and we include hands-on training for your team. We also offer AI courses where you will learn to use tools like ChatGPT and automations without any prior programming knowledge.",
+      es: "Odoo Community es igual de mantenible, segura y funcional que la versión Enterprise, pero mucho más económica a largo plazo al evitar el coste recurrente de las licencias por usuario. Además, no dependes únicamente de Ordinaly: Odoo Community cuenta con una amplia comunidad de desarrolladores y empresas detrás, incluyendo el foro oficial de Odoo y la Odoo Community Association (OCA).",
+      en: "Odoo Community is just as maintainable, secure and functional as the Enterprise edition, but far more cost-effective long-term since it avoids the recurring cost of per-user licenses. And you're not relying solely on Ordinaly either: Odoo Community is backed by a large community of developers and companies, including the official Odoo forum and the Odoo Community Association (OCA).",
     },
-    relatedPath: "/formacion",
   },
   {
-    id: "ordinaly-differentiators",
-    category: "delivery",
-    tags: ["sevilla", "spain", "operations"],
+    id: "odoo-support-updates",
+    category: "odoo",
+    tag: { es: "Soporte", en: "Support" },
     question: {
-      es: "¿Qué diferencia a Ordinaly de otras empresas de automatización?",
-      en: "What sets Ordinaly apart from other automation companies?",
+      es: "¿Quién da soporte a Odoo Community? ¿Recibe actualizaciones?",
+      en: "Who supports Odoo Community? Does it get updates?",
     },
     answer: {
-      es: "Somos un equipo local en Sevilla que entiende las necesidades específicas de las empresas andaluzas. No somos una consultora internacional que aplica soluciones genéricas. Nos especializamos en PYMEs y sectores concretos (inmobiliarias, administradores de fincas, marketing, retail) y combinamos automatización con formación práctica para que tu equipo sea autónomo.",
-      en: "We are a local team in Seville that understands the specific needs of Andalusian businesses. We are not an international consultancy applying generic solutions. We specialize in SMEs and specific sectors (real estate, property management, marketing, retail) and combine automation with hands-on training so your team becomes self-sufficient.",
+      es: "Odoo Community está respaldado por una amplia comunidad global de desarrolladores y empresas que publican módulos, correcciones y mejoras de forma continua. Ordinaly se encarga de la implantación, configuración y mantenimiento técnico directo para tu empresa.",
+      en: "Odoo Community is backed by a large global community of developers and companies that continuously publish modules, fixes and improvements. Ordinaly handles the implementation, configuration and direct technical maintenance for your business.",
     },
-    relatedPath: "/contacto",
   },
   {
-    id: "implementation-timeline",
-    category: "delivery",
-    tags: ["deployment", "roi"],
+    id: "odoo-migration",
+    category: "odoo",
+    tag: { es: "Migración", en: "Migration" },
     question: {
-      es: "¿Cuánto tiempo tarda en implementarse un proyecto de automatización?",
-      en: "How long does it take to implement an automation project?",
+      es: "¿Podéis migrar mi negocio desde otro ERP o desde Odoo Enterprise?",
+      en: "Can you migrate my business from another ERP or from Odoo Enterprise?",
     },
     answer: {
-      es: "Los proyectos simples como chatbots o automatizaciones básicas pueden estar funcionando en 2-4 semanas. Proyectos más complejos como workflows avanzados o integraciones con CRM/ERP pueden tomar entre 1-3 meses según el alcance. Siempre trabajamos por fases para que veas resultados rápidos.",
-      en: "Simple projects like chatbots or basic automations can be up and running in 2-4 weeks. More complex projects such as advanced workflows or CRM/ERP integrations can take 1-3 months depending on scope. We always work in phases so you see results quickly.",
+      es: "Sí. Analizamos tu sistema actual, definimos el alcance funcional necesario y migramos tus datos y procesos a Odoo Community sin perder continuidad operativa.",
+      en: "Yes. We analyze your current system, define the functional scope needed and migrate your data and processes to Odoo Community without losing operational continuity.",
     },
-    relatedPath: "/contacto",
-  },
-  {
-    id: "post-implementation-support",
-    category: "delivery",
-    tags: ["support", "deployment"],
-    question: {
-      es: "¿Ofrecen soporte después de la implementación?",
-      en: "Do you offer support after implementation?",
-    },
-    answer: {
-      es: "Sí. Incluimos soporte técnico y mantenimiento. Al estar basados en Sevilla, podemos hacer reuniones presenciales cuando sea necesario. Además, nuestros sistemas son escalables: a medida que tu negocio crece, podemos ampliar y mejorar las automatizaciones sin empezar desde cero.",
-      en: "Yes. We include technical support and maintenance. Being based in Seville, we can hold in-person meetings when needed. Our systems are also scalable: as your business grows, we can extend and improve the automations without starting over.",
-    },
-    relatedPath: "/contacto",
   },
 ];

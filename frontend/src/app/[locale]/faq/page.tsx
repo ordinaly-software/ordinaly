@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import { createPageMetadata } from "@/lib/metadata";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
+import { client } from "@/lib/sanity";
+import { highlightedPosts } from "@/lib/queries";
+import type { BlogPost } from "@/components/blog/types";
 import FaqPageClient from "./page.client";
-import { faqEntries, faqCategories, localizeFaq } from "./faq-data";
+import { faqEntries, localizeFaq } from "./faq-data";
 
 export async function generateMetadata({
   params,
@@ -17,11 +20,11 @@ export async function generateMetadata({
     locale,
     path: "/faq",
     title: isEs
-      ? "FAQ | Chatbots, agentes IA, n8n, WhatsApp e integraciones"
-      : "FAQ | Chatbots, AI agents, n8n, WhatsApp and integrations",
+      ? "Preguntas frecuentes | Automatización, agentes IA, n8n, facturas, informes y Odoo"
+      : "FAQ | Automation, AI agents, n8n, invoicing, reporting and Odoo",
     description: isEs
-      ? "Base de conocimiento de Ordinaly sobre automatización, agentes IA, WhatsApp Business, integraciones CRM/ERP y formación aplicada."
-      : "Ordinaly knowledge base covering automation, AI agents, WhatsApp Business, CRM/ERP integrations and applied training.",
+      ? "Todas las preguntas frecuentes de Ordinaly en un solo sitio: agente de llamadas IA, Automatización con n8n, facturas, informes, implantación de Odoo y formación."
+      : "Every Ordinaly FAQ in one place: AI calling agent, n8n automations, invoicing, reporting, Odoo implementation and training.",
     image: "/static/backgrounds/services_background.webp",
   });
 }
@@ -33,6 +36,11 @@ export default async function FaqPage({
 }) {
   const { locale } = await params;
   const isEs = locale?.startsWith("es");
+
+  // The blog is Spanish-only (see /blog/page.tsx), so only fetch highlights for es.
+  const highlighted: BlogPost[] = isEs
+    ? await client.fetch(highlightedPosts, {}, { next: { tags: ["blog"] } }).catch(() => [])
+    : [];
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -61,7 +69,7 @@ export default async function FaqPage({
         ]}
       />
       <ReCaptchaWrapper badgeContainerId="recaptcha-badge-faq-page">
-        <FaqPageClient locale={locale} />
+        <FaqPageClient locale={locale} highlightedPosts={highlighted} />
       </ReCaptchaWrapper>
     </>
   );

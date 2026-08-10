@@ -143,7 +143,7 @@ export function Carousel<T>({
   return (
     <div className={cn("relative", className)}>
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className={cn("flex -ml-4 justify-center", fixedWidthSlides && "w-max shrink-0")}>
+        <div className={cn("flex -ml-4 justify-[safe_center]", fixedWidthSlides && "w-max shrink-0")}>
           {items.map((item, index) => (
             <div
               key={getKey(item, index)}
