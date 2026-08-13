@@ -296,6 +296,15 @@ export default function HomePage({
     <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
       <HomeHero t={t} />
 
+      <div className="mx-auto max-w-2xl px-4 pt-2 text-center sm:px-6 lg:px-8">
+        <h2 className="text-base font-medium leading-relaxed text-slate-medium dark:text-cloud-medium">
+          {t("seo.headline")}
+        </h2>
+        <p className="mt-1 text-sm leading-relaxed text-slate-medium/80 dark:text-cloud-medium/70">
+          {t("seo.line")}
+        </p>
+      </div>
+
       <PartnerShowcase
         title={t("partners.subtitle")}
         className="pt-10 pb-12"

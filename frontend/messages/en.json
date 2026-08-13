@@ -55,6 +55,10 @@
       "card4Label": "Our office",
       "card4Value": "Plaza del Duque de la Victoria 1, 3rd floor 9. 41002, Seville, Spain."
     },
+    "seo": {
+      "headline": "Smart workflows tailored to your business",
+      "line": "We remove your repetitive tasks with custom software."
+    },
     "whyUs": {
       "title": "Why choose us",
       "videoCaptionName": "Antonio Macías Ferrera",
@@ -185,7 +189,7 @@
     "footer": {
       "logo": {
         "title": "ORDINALY",
-        "alt": "Ordinaly Automation Agency"
+        "alt": "Ordinaly Software - Enterprise Automation with Artificial Intelligence"
       },
       "description": "Automation, AI agents, and training delivered from Seville for teams that need to operate better.",
       "sections": {
@@ -210,7 +214,12 @@
         "callUs": "Call",
         "officeMap": "Open map",
         "linkedin": "LinkedIn",
-        "youtube": "YouTube"
+        "youtube": "YouTube",
+        "agenteDeLlamadas": "IA call agents",
+        "automatizacionesPersonalizadas": "Custom automations",
+        "implantacionOdoo": "Odoo implementation",
+        "desarrolloAppWebs": "App and web development",
+        "consultants": "Technological consulting"
       },
       "legal": {
         "title": "Legal docs",
@@ -329,6 +338,12 @@
     "googleSignUp": "Continue with Google",
     "form": {
       "title": "Sign up form",
+      "stepIndicator": "Step {current} of {total}",
+      "step1Title": "Tell us about yourself",
+      "step2Title": "Where do you work",
+      "step3Title": "Secure your account",
+      "nextButton": "Continue",
+      "backButton": "Back",
       "nameLabel": "First name",
       "namePlaceholder": "Enter your first name",
       "surnameLabel": "Last name",
@@ -2011,7 +2026,7 @@
     },
     "about": {
       "whatQuestion": "What is Ordinaly?",
-      "whatAnswer": "Ordinaly Software S.L. is a Seville-based business automation company that uses AI (when it's actually needed) to design, build, and deploy chatbots and workflows for SMBs and corporate teams.",
+      "whatAnswer": "Ordinaly Software S.L. is a Seville-based <link>technology consulting firm</link> for AI-driven business automation, designing, building and deploying chatbots and workflows for SMBs and corporate teams.",
       "goalQuestion": "What do we want to achieve?",
       "goalAnswer": "Our mission is to empower people's work with new technologies, rather than replace them. We want businesses that use our automations to have time to focus on creativity, decisions, and relationships — the things a machine shouldn't do. We want our clients to feel comfortable and secure with our systems, which is why we place real importance on keeping them transparent and simple for any company."
     },
@@ -2984,6 +2999,122 @@
         "label": "I want my PWA",
         "href": "https://wa.me/34626270806?text=I%20want%20a%20PWA%20for%20my%20business",
         "bgColor": "#d97706"
+      }
+    },
+    "consultora-tecnologica-sevilla": {
+      "slug": "consultora-tecnologica-sevilla",
+      "title": "Technology Consulting Firm in Seville | AI & Software",
+      "shortTitle": "Technology Consulting in Seville",
+      "description": "Looking for a technology consulting firm in Seville? Ordinaly optimizes your SME with software engineers, n8n integrations, Odoo 18 and conversational AI agents.",
+      "heroTitle": "Technology consulting firm in Seville",
+      "heroBody": "At Ordinaly we operate as a technology consulting firm specialized in helping companies optimize their processes through software development and intelligent automation. Our team of engineers designs and implements agile solutions that let organizations of every size cut operating costs, boost sales and move forward confidently in their digital transformation.",
+      "heroCtaLabel": "Request a Free Technology Consultation",
+      "heroSecondaryCtaLabel": "View Our Solutions Catalog",
+      "heroImageAlt": "technology consulting firm in Seville",
+      "sectionTitles": {
+        "company": "Technology consulting firm in Seville",
+        "solutions": "Technology solutions",
+        "services": "Services from a technology consulting firm in Seville",
+        "training": "Training with our technology consulting firm",
+        "faq": "Frequently asked questions about a technology consulting firm",
+        "contact": "Contact our technology consulting firm in Seville"
+      },
+      "company": {
+        "intro": "We work directly and closely with businesses across the province. As a technology consulting firm in Seville, our technical team offers an agile consulting, deployment and software development service that makes room for efficient working meetings, co-creation workshops and top-speed support whenever you need it.",
+        "features": [
+          {
+            "title": "Agile delivery timelines",
+            "description": "First results and live implementations within 2 to 4 weeks."
+          },
+          {
+            "title": "100% tailor-made solutions",
+            "description": "No prefabricated templates. We design technology fitted to the exact shape of your business."
+          },
+          {
+            "title": "Certified success stories",
+            "description": "Backed by a 5-star Google rating based on reviews from our local clients."
+          }
+        ]
+      },
+      "solutions": {
+        "intro": "We deploy a catalog of advanced software engineering solutions focused on giving your business autonomy, speed and operational scalability:",
+        "items": [
+          {
+            "title": "Intelligent workflow automation with n8n",
+            "description": "We connect your company's applications and databases through the open-source orchestration platform n8n, permanently eliminating repetitive administrative workload and manual document handling.",
+            "ctaLabel": "Discover automation with n8n",
+            "href": "/automatizaciones-personalizadas-empresas-n8n",
+            "image": "/static/servicios/automatizaciones_personalizadas.webp",
+            "imageAlt": "Process automation at a technology consulting firm"
+          },
+          {
+            "title": "Conversational voice AI agents (SonIA and ClaudIA)",
+            "description": "We build dual intelligent telephony solutions. SonIA gives you a 24/7 intelligent receptionist for inbound calls; ClaudIA automates outbound sales and account-management calls with real-time logging in your CRM.",
+            "ctaLabel": "Meet SonIA and ClaudIA",
+            "href": "/agente-de-llamadas-ia",
+            "image": "/static/servicios/chatbot_recepcionista.webp",
+            "imageAlt": "Voice agents at a technology consulting firm"
+          },
+          {
+            "title": "Odoo 18 + VeriFactu implementation, migration and consulting",
+            "description": "Specialists in configuring the Odoo 18 ERP. We fully adapt your company's management system to Spain's current invoicing regulations, including the automated VeriFactu modules.",
+            "ctaLabel": "Implement Odoo 18 in your company",
+            "href": "/implantacion-odoo",
+            "image": "/static/servicios/implantacion_odoo.webp",
+            "imageAlt": "ERP software deployed by a technology consulting firm"
+          },
+          {
+            "title": "Progressive web app (PWA) development",
+            "description": "Cross-platform software engineering. We design dynamic, fast PWAs that combine the best of a website and a native mobile app, fully optimized for SEO, technical performance and user experience.",
+            "ctaLabel": "Build your PWA",
+            "href": "/desarrollo-de-app-webs",
+            "image": "/static/servicios/desarrollo_de_app_webs.webp",
+            "imageAlt": "App development at a technology consulting firm"
+          }
+        ]
+      },
+      "services": {
+        "intro": "As a technology consulting firm with deep market knowledge, we've packaged specific software solutions to answer the needs of different lines of business in Seville and across Spain:",
+        "sectors": [
+          {
+            "title": "Accounting and law firms",
+            "description": "Automated flows for extracting and collecting invoices via WhatsApp and email, plus AI-driven document classification workflows."
+          },
+          {
+            "title": "Property management companies",
+            "description": "Automated systems that generate and periodically send account reports to owners, with full digital traceability."
+          },
+          {
+            "title": "Real estate agencies",
+            "description": "Smart chatbots embedded on your website for 24/7 lead attention, plus automated confirmation and scheduling workflows for viewings in commercial areas (like Calle Sierpes)."
+          },
+          {
+            "title": "Marketing agencies and retail businesses",
+            "description": "Automated campaign analytics reporting, post scheduling on LinkedIn or Meta (Facebook and Instagram), and intelligent demand forecasting."
+          }
+        ]
+      },
+      "training": {
+        "body": "The true success of digital transformation lies in adoption by your team. That's why our technology consulting firm in Seville pairs technical development with hands-on workshops and training courses (both online and in-person) focused on n8n, generative artificial intelligence and productivity tools for SMEs, starting from €70 per session.",
+        "ctaLabel": "See available training",
+        "href": "/formacion"
+      },
+      "faq": [
+        {
+          "question": "Why hire Ordinaly as a technology consulting firm in Seville instead of a large national firm?",
+          "answer": "Ordinaly combines the rigor and high qualification of a team of specialized engineers with the agility, flexibility and closeness of a locally-focused agency. We offer efficient meetings, tailored workshops and ongoing support with no middlemen or bureaucracy, guaranteeing the first working flows within 2 to 4 weeks."
+        },
+        {
+          "question": "What technologies and tools does your technology consulting firm use for automations?",
+          "answer": "We rely on robust, open and scalable technologies. We specialize in orchestrating systems with the n8n platform, programming and deploying the Odoo 18 ERP, building progressive web apps (PWAs), and training Artificial Intelligence models for voice and text conversational agents (like our products SonIA and ClaudIA)."
+        },
+        {
+          "question": "Does my company need in-house IT staff to implement your software solutions?",
+          "answer": "No. As a full-service technology consulting firm, we take on the entire project lifecycle: from the initial process audit and software architecture design, through coding, integration and final deployment. We also run hands-on training sessions so your current team masters the tools simply and independently."
+        }
+      ],
+      "contact": {
+        "body": "Get in touch with our engineers. Tell us which processes are slowing down your day-to-day, which tools you use and what your timelines are. We'll design a technology audit tailored to your company."
       }
     }
   },

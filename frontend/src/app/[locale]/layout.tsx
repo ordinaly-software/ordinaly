@@ -62,7 +62,7 @@ const businessSchema = {
     "https://www.facebook.com/61579366744437/",
   ],
   makesOffer: [
-    "Agencia de Automatización IA",
+    "Automatización empresarial con Inteligencia Artificial",
     "Automatización de facturas",
     "Automatización con n8n",
     "Automatización Inteligente",

@@ -1,6 +1,6 @@
 # Ordinaly Software
 
-> Agencia de automatización, consultoría de IA y automatización inteligente en Sevilla. Especialistas en optimización de procesos para PYMES.
+> Empresa de Software especializada en automatización empresarial con inteligencia Artificial, consultoría de IA y automatización inteligente en Sevilla. Especialistas en optimización de procesos para PYMES.
 
 Ordinaly Software S.L. ayuda a empresas a implementar inteligencia artificial práctica: desde agentes autónomos hasta la automatización de flujos de trabajo complejos.
 

@@ -130,8 +130,8 @@ ordinaly/
             <ul>
                 <li><b>api/</b> — API REST principal
                     <ul>
-                        <li>models.py, serializers.py, views.py, urls.py, admin.py, tests.py</li>
-                        <li>management/commands/ — Comandos personalizados</li>
+                        <li>models.py, views.py, urls.py, admin.py, tests.py</li>
+                        <li>management/commands/ — Comandos personalizados (<code>populate_db</code>, <code>run_email_notification_queue</code>)</li>
                     </ul>
                 </li>
                 <li><b>authentication/</b> — Autenticación, verificación de email y middleware
@@ -175,32 +175,35 @@ ordinaly/
                 <li><b>staticfiles/</b> — Archivos estáticos recolectados</li>
             </ul>
         </blockquote>
-    <summary><b><code>ORDINALY/</code></b></summary>
+</details>
+
+<details open>
         <summary><b>frontend</b></summary>
         <blockquote>
             <b>Páginas principales (Next.js App Router):</b>
             <ul>
                 <li><code>/[locale]/page.tsx</code> — Home</li>
-                <li><code>/[locale]/servicios/page.tsx</code> — Servicios (listado)</li>
-                <li><code>/[locale]/services/[slug]/page.tsx</code> — Detalle de servicio</li>
-                <li><code>/[locale]/formacion/page.tsx</code> — Cursos y formación</li>
+                <li><code>/[locale]/servicios/page.tsx</code> — Servicios (listado; el detalle de cada servicio se abre en un modal, no en una ruta propia)</li>
+                <li><code>/[locale]/formacion/page.tsx</code> — Cursos y formación (listado)</li>
+                <li><code>/[locale]/formacion/[slug]/page.tsx</code> — Detalle de curso</li>
                 <li><code>/[locale]/contacto/page.tsx</code> — Contacto</li>
-                <li><code>/[locale]/about/page.tsx</code> — Sobre nosotros</li>
-                <li><code>/[locale]/blog/page.tsx</code> — Blog</li>
-                <li><code>/[locale]/blog/[slug]/page.tsx</code> — Post de blog</li>
+                <li><code>/[locale]/nosotros/page.tsx</code> — Sobre nosotros</li>
+                <li><code>/[locale]/blog/page.tsx</code> — Blog (el detalle de cada post se resuelve vía el catch-all <code>[slug]</code> de abajo)</li>
                 <li><code>/[locale]/legal/page.tsx</code> — Documentación legal</li>
                 <li><code>/[locale]/faq/page.tsx</code> — Preguntas frecuentes</li>
                 <li><code>/[locale]/news/page.tsx</code> — Noticias</li>
-                <li><code>/[locale]/investors/page.tsx</code> — Inversores</li>
                 <li><code>/[locale]/profile/page.tsx</code> — Perfil de usuario</li>
                 <li><code>/[locale]/admin/page.tsx</code> — Panel de administración</li>
                 <li><code>/[locale]/auth/signin/page.tsx</code> — Iniciar sesión</li>
-                <li><code>/[locale]/auth/signup/page.tsx</code> — Registro</li>
+                <li><code>/[locale]/auth/signup/page.tsx</code> — Registro (formulario en 3 pasos)</li>
+                <li><code>/[locale]/auth/callback/page.tsx</code> — Callback de OAuth (Google)</li>
                 <li><code>/[locale]/verify-email/page.tsx</code> — Verificación de email</li>
                 <li><code>/[locale]/change-email/page.tsx</code> — Cambio de email</li>
-                <li><code>/[locale]/reset-password/page.tsx</code> — Recuperación de contraseña</li>
-                <li><code>/[locale]/delete_account/page.tsx</code> — Eliminación de cuenta</li>
-                <li>Landing pages SEO: empresa-inteligencia-artificial, inteligencia-artificial-sevilla, chatbots-personalizados-para-empresas, automatizacion-inteligente, automatizacion-facturas, automatizacion-n8n-sevilla, formacion-ia-sevilla</li>
+                <li><code>/[locale]/reset-password/page.tsx</code> — Recuperación de contraseña (+ <code>confirm/</code> y <code>email-sent/</code>)</li>
+                <li><code>/[locale]/delete_account/confirm/page.tsx</code>, <code>/[locale]/delete_account/email-sent/page.tsx</code> — Eliminación de cuenta</li>
+                <li><code>/[locale]/[slug]/page.tsx</code> — Catch-all de un segmento (posts de blog vía Sanity)</li>
+                <li><code>/[locale]/[...slug]/page.tsx</code> — Catch-all de 404 para rutas no encontradas</li>
+                <li>Landing pages SEO: agente-de-llamadas-ia, automatizacion-facturas, automatizacion-informes, automatizacion-redes-sociales, automatizaciones-personalizadas-empresas-n8n, desarrollo-de-app-webs, implantacion-odoo</li>
                 <li><code>/studio/[[...tool]]/page.tsx</code> — Sanity Studio</li>
             </ul>
             <b>API routes (Next.js):</b>
@@ -213,22 +216,22 @@ ordinaly/
             </ul>
             <b>Componentes principales:</b>
             <ul>
-                <li><b>Admin:</b> admin-course-card, admin-course-modal, admin-courses-tab, admin-service-card, admin-service-edit-modal, admin-services-tab, admin-terms-tab, admin-users-tab</li>
-                <li><b>About:</b> animated-testimonials, timeline</li>
-                <li><b>Analytics:</b> AnalyticsBootstrap, GoogleAnalyticsPageViews, GoogleAnalyticsScript</li>
-                <li><b>Formation:</b> course-card, course-details-modal, add-to-calendar-buttons, bonification-info, enrollment-confirmation-modal, enrollment-cancellation-modal</li>
-                <li><b>Blog:</b> blog-card, blog-client, blog-post-client, portable-text-components, share-post-buttons</li>
-                <li><b>Home:</b> courses-showcase, demo-modal, pricing-plans, service-showcase, whatsapp-bubble</li>
+                <li><b>Admin:</b> admin-course-card, admin-course-edit-modal, admin-course-modal, admin-courses-tab, admin-external-tab, admin-tabs, admin-terms-tab, admin-users-tab, enrolled-members</li>
+                <li><b>About:</b> about-hero, timeline, work-with-us</li>
+                <li><b>Analytics:</b> google-analytics-loader</li>
+                <li><b>Formation:</b> add-to-calendar-buttons, bonification-info, checkout-button, course-card, course-details-modal, course-footer, course-sidebar, enrollment-cancellation-modal, enrollment-cancellation-success-modal, enrollment-confirmation-modal, enrollment-success-modal, faq-section, instructors-section</li>
+                <li><b>Blog:</b> blog-card, blog-client, blog-post-client, highlighted-carousel, portable-text-components, share-post-buttons</li>
+                <li><b>Home:</b> courses-showcase, hero-video-dialog, home-hero, interactive-image-accordion, services-highlight-carousel, testimonials-section, whatsapp-bubble, whatsapp-bubble-skeleton</li>
                 <li><b>Profile:</b> profile-courses-tab, profile-info-tab</li>
                 <li><b>PWA:</b> service-worker-registrar</li>
-                <li><b>SEO:</b> componentes de landing pages optimizadas</li>
-                <li><b>Services:</b> service-apple-details-modal, service-bento-grid, service-card, service-details-content</li>
-                <li><b>UI:</b> 3d-card, 3d-globe, alert, apple-modal, back-to-top-button, badge, banner, button, card, card-3d, card-stack, chat-message-list, contact-form.client, cookies, delete-account-modal, delete-confirmation-modal, dropdown, email-verification-modal, error-card, footer, hub-figures, icon-select, input, interactive-image-accordion, label, locale-switcher, logo-carousel, logout-modal, markdown-renderer, modal-close-button, modal, n8n-conectamos, navbar, newsletter-section, pagination-controls, partner-showcase, slider, styled-button, textarea, third-party-consent, wobble-card, work-with-us, youtube-preview</li>
-                <li><b>Auth:</b> auth-modal, google-signin-button</li>
+                <li><b>SEO:</b> auto-keywords, breadcrumb-schema, course-schema</li>
+                <li><b>Services:</b> providers-showcase, services-showcase-grid, tools-showcase, use-cases-section</li>
+                <li><b>UI:</b> alert, animated-list, apple-modal, back-to-top-button, badge, banner, blur-text, brand-icons, button, card, carousel (+ carousel-buttons, carousel-nav-buttons), contact-form.client, cookies, delete-account-modal, delete-confirmation-modal, dock, dropdown, email-verification-modal, error-card, faq-accordion, footer, input, label, locale-switcher, logo-carousel, logo-loop, logout-modal, markdown-renderer, modal (+ modal-close-button), navbar (+ navbar-menu), newsletter-banner, pagination-controls, partner-showcase, slider, strands, textarea</li>
+                <li><b>Auth:</b> auth-modal</li>
             </ul>
             <b>Utilidades y hooks:</b>
             <ul>
-                <li>useCourses, useCourseCheckout, useCourseRefund, useServices, useCookiePreferences, useAutoScroll, useOutsideClick</li>
+                <li>useCourses, useCourseCheckout, useCourseRefund, useCookiePreferences, useAutoScroll, useOutsideClick</li>
             </ul>
             <b>CMS (Sanity):</b>
             <ul>
@@ -240,7 +243,6 @@ ordinaly/
                 <li>Soporte para next-intl y rutas localizadas</li>
             </ul>
         </blockquote>
-    </details>
 </details>
 
 ---
@@ -269,8 +271,8 @@ ordinaly/
 Antes de comenzar con Ordinaly, asegúrate de tener instalado:
 
 - **Python 3.10+** y **pip** (para el backend)
-- **Node.js 18+** y **npm** (para el frontend)
-- **PostgreSQL 16+** (base de datos del backend)
+- **Node.js 20.9+** y **npm** (requerido por Next.js 16; para el frontend)
+- **PostgreSQL 16+** (CI y producción usan la 18 — ver [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml))
 
 ### Configurar PostgreSQL
 
@@ -333,7 +335,10 @@ psql "postgresql://ordinaly:tu_password@127.0.0.1:5432/ordinaly_db" -c '\conninf
     python3 -m venv .venv
     source .venv/bin/activate
     pip install -r requirements.txt
-    # Copia y configura .env proporcionada (DJANGO_SECRET_KEY, GOOGLE_OAUTH2_CLIENT_ID, GOOGLE_OAUTH2_CLIENT_SECRET, ORDINALY_TEST_PASSWORD para proteger formularios, DATABASE_URL/TEST_DATABASE_URL)
+    # Copia y configura tu propio .env (no hay plantilla .env.example en backend/ todavía)
+    # Variables mínimas: DJANGO_SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI,
+    # ORDINALY_TEST_PASSWORD (protege formularios en tests), DATABASE_URL/TEST_DATABASE_URL.
+    # Además hay variables opcionales para email (EMAIL_*, BILLIONMAIL_*), Stripe (STRIPE_*) y URLs (FRONTEND_BASE_URL, BACKEND_BASE_URL) — revisa config/settings.py.
     # Asegúrate de tener PostgreSQL instalado y la BD creada (ver "Configurar PostgreSQL" más arriba)
     # Migraciones iniciales
     python manage.py migrate
@@ -341,10 +346,10 @@ psql "postgresql://ordinaly:tu_password@127.0.0.1:5432/ordinaly_db" -c '\conninf
     python manage.py createsuperuser
     # (Opcional) Crea datos de prueba para ver cómo quedaría la web
     python manage.py populate_db --seed 42
-    ````
+    ```
 
-    [!WARNING]
-    NO usar bajo ningún concepto este último comando con la opción `--clear` en el entorno de producción ya que borraría todos los usuarios del sistema.
+    > [!WARNING]
+    > NO usar bajo ningún concepto este último comando con la opción `--clear` en el entorno de producción ya que borraría todos los usuarios del sistema.
 
     ```sh
     # Ejecuta el servidor
@@ -354,7 +359,8 @@ psql "postgresql://ordinaly:tu_password@127.0.0.1:5432/ordinaly_db" -c '\conninf
 3. Instala dependencias del frontend (Next.js):
     ```sh
     cd ../frontend
-    Copia y configura .env.local proporcionada (se puede encontrar la plantilla en .env.example)
+    # Copia .env.example a .env.local y rellena las variables (NEXT_PUBLIC_API_URL, claves de Sanity, reCAPTCHA, Stripe, etc.)
+    cp .env.example .env.local
     npm install
     npm run dev
     ```
@@ -376,10 +382,10 @@ psql "postgresql://ordinaly:tu_password@127.0.0.1:5432/ordinaly_db" -c '\conninf
 ##  Dependencias principales
 
 ### Backend (Django)
-- Django, djangorestframework, django-cors-headers, drf-spectacular, djangorestframework-simplejwt, google-auth, Pillow, psycopg, gunicorn, whitenoise, python-dotenv, markdown, reportlab, stripe
+- Django, djangorestframework, django-cors-headers, drf-spectacular, djangorestframework-simplejwt, dj-database-url, google-auth, Pillow, psycopg, gunicorn, whitenoise, python-dotenv, markdown, reportlab, stripe
 
 ### Frontend (Next.js)
-- next, react, next-intl, tailwindcss, framer-motion, lucide-react, @tabler/icons-react, @react-three/fiber, @react-three/drei, cobe, sanity, next-sanity, @stripe/stripe-js, react-google-recaptcha-v3, react-toastify, react-markdown, jspdf
+- next, react, next-intl, tailwindcss, framer-motion, motion, lucide-react, react-icons, @tabler/icons-react, @react-three/fiber, @react-three/drei, cobe, embla-carousel-react, sanity, next-sanity, stripe, @stripe/stripe-js, react-google-recaptcha-v3, react-toastify, react-markdown, jspdf
 
 ---
 
@@ -390,15 +396,28 @@ Para asegurar la calidad del backend, es obligatorio mantener al menos un 80% de
 
 ### Ejecutar tests y obtener cobertura:
 
+Así es como lo hace el workflow de despliegue ([`deploy.yml`](.github/workflows/deploy.yml)), con el test runner de Django:
+
 ```sh
 coverage run --source='.' --omit='*/migrations/*,*/tests.py,api/*,config/*,manage.py,*__init__.py,*conftest.py' manage.py test
 coverage report -m
 ```
 
-Para el frontend, basta con probar el *linting* y la sintaxis de Typescript y JS con los siguientes comando:
+El workflow de SonarQube ([`sonarqube.yml`](.github/workflows/sonarqube.yml)) usa en cambio `pytest` (por eso existen `pytest.ini` y `conftest.py`):
 
+```sh
+pip install pytest pytest-django pytest-cov  # no están en requirements.txt
+coverage run -m pytest -q --reuse-db
+coverage report
 ```
-npx eslint --ext .ts,.tsx src public --no-error-on-unmatched-pattern || true
+
+> [!NOTE]
+> `pytest`, `pytest-django` y `pytest-cov` no están declarados en `requirements.txt`; el workflow de SonarQube los instala aparte. Si vas a reproducir esa ruta en local, instálalos manualmente.
+
+Para el frontend, basta con comprobar la sintaxis de TypeScript y la build:
+
+```sh
+npx tsc --noEmit
 npm run build
 ```
 
@@ -431,11 +450,21 @@ Para testear el flujo de pagos con Stripe en local:
 
 - **💬 [Únete a las discusiones](https://github.com/ordinaly-software/ordinaly/discussions)**: Comparte tus ideas, proporciona comentarios o haz preguntas.
 - **🐛 [Reportar problemas](https://github.com/ordinaly-software/ordinaly/issues)**: Envía errores encontrados o registra solicitudes de funciones para el proyecto `ordinaly`.
-- **💡 [Enviar solicitudes de extracción](https://github.com/ordinaly-software/ordinaly/blob/main/CONTRIBUTING.md)**: Revisa las PR abiertas y envía tus propias PR.
+- **💡 Enviar solicitudes de extracción**: Revisa las PR abiertas y envía tus propias PR siguiendo la guía de contribución de abajo.
 
 
-<details closed>
+<!-- <details closed> -->
 <summary>Guías de contribución</summary>
+
+<!-- <details closed>
+<summary>Gráfico de contribuidores</summary>
+<br>
+<p align="left">
+   <a href="https://github.com/ordinaly-software/ordinaly/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=ordinaly-software/ordinaly">
+   </a>
+</p>
+</details> -->
 
 
 1. **Haz un fork del repositorio**: Comienza haciendo un fork del repositorio del proyecto a tu cuenta de GitHub.
@@ -460,16 +489,6 @@ Para testear el flujo de pagos con Stripe en local:
 8. **Envía una solicitud de extracción**: Crea una PR contra el repositorio del proyecto original. Describe claramente los cambios y sus motivaciones.
 9. **Revisión**: Una vez que tu PR sea revisada y aprobada, se fusionará en la rama principal. ¡Felicidades por tu contribución!
 </details>
-
-<!-- <details closed>
-<summary>Gráfico de contribuidores</summary>
-<br>
-<p align="left">
-   <a href="https://github.com/ordinaly-software/ordinaly/graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=ordinaly-software/ordinaly">
-   </a>
-</p>
-</details> -->
 
 ---
 

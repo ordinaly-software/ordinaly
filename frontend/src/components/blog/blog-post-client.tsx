@@ -199,7 +199,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
             {t("relatedServices", { default: "Servicios relacionados" })}
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <li><a href="/" className="text-clay hover:text-flame hover:underline transition-colors">Agencia de automatización con IA</a></li>
+            <li><a href="/" className="text-clay hover:text-flame hover:underline transition-colors">Consultora software especializada en automatización empresarial con Inteligencia Artificial</a></li>
             <li><a href="/automatizaciones-personalizadas-empresas-n8n" className="text-clay hover:text-flame hover:underline transition-colors">Automatizaciones personalizadas con n8n</a></li>
             <li><a href="/automatizacion-facturas" className="text-clay hover:text-flame hover:underline transition-colors">Automatización de facturas</a></li>
             <li><a href="/implantacion-odoo" className="text-clay hover:text-flame hover:underline transition-colors">Implantación de Odoo</a></li>

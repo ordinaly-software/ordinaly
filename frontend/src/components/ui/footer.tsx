@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import Image from "next/image";
-import { useLocale, useMessages, useTranslations } from "next-intl";
+import { useMessages, useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import {
   ExternalLink,
@@ -22,16 +22,6 @@ import { getWhatsAppUrl } from "@/utils/whatsapp";
 import { openCookieSettings } from "@/utils/cookie-manager";
 import { cn } from "@/lib/utils";
 
-const LANDING_SLUGS = [
-  "agente-de-llamadas-ia",
-  "automatizaciones-personalizadas-empresas-n8n",
-  "automatizacion-facturas",
-  "automatizacion-informes",
-  "automatizacion-redes-sociales",
-  "implantacion-odoo",
-  "desarrollo-de-app-webs",
-] as const;
-
 type FooterLinkItem = {
   label: string;
   href: string;
@@ -43,12 +33,6 @@ type FooterGroup = {
   title: string;
   links: FooterLinkItem[];
 };
-
-type LandingFooterContent = {
-  shortTitle?: string;
-};
-
-const LANDING_LABEL_SOURCE: Record<string, string> = {};
 
 const Footer = () => {
   const t = useTranslations("home");
@@ -101,12 +85,6 @@ const Footer = () => {
       });
     }
 
-    const landingMessages = (messages as { landings?: Record<string, LandingFooterContent> }).landings ?? {};
-    const landingLinks: FooterLinkItem[] = LANDING_SLUGS.map((slug) => ({
-      label: landingMessages[LANDING_LABEL_SOURCE[slug] ?? slug]?.shortTitle ?? slug,
-      href: `/${slug}`,
-    }));
-
     return [
       {
         title: t("footer.sections.navigate"),
@@ -128,7 +106,14 @@ const Footer = () => {
       },
       {
         title: t("footer.sections.landings"),
-        links: landingLinks,
+        links:
+          [
+            {  label: t("footer.links.agenteDeLlamadas"), href: "/agente-de-llamadas-ia" },
+            { label: t("footer.links.automatizacionesPersonalizadas"), href: "/automatizaciones-personalizadas-empresas-n8n" },
+            { label: t("footer.links.implantacionOdoo"), href: "/implantacion-odoo" },
+            { label: t("footer.links.desarrolloAppWebs"), href: "/desarrollo-de-app-webs" },
+            { label: t("footer.links.consultants"), href: "/consultora-tecnologica-sevilla" },
+          ],
       },
       {
         title: t("footer.sections.connect"),

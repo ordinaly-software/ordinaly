@@ -18,7 +18,7 @@ export async function generateMetadata({
     description: isEs
       ? "Regístrate para acceder a cursos, servicios y automatizaciones impulsadas por IA en Ordinaly."
       : "Sign up to access AI-powered courses, services, and automations from Ordinaly.",
-    image: "/static/signup_illustration.webp",
+    image: "/og-image.png",
     index: false,
   });
 }

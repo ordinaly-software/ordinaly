@@ -325,9 +325,8 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="container pb-12 md:pb-16" id="location">
-        <div className="mx-auto w-full max-w-[3400px] px-4 sm:px-6 lg:px-8"/>
-          <div className="mb-8 text-center"> </div>
+      <section className="pb-12 md:pb-16" id="location">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
             <div className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
             <div className="border-b border-[--color-border-subtle] p-6 dark:border-white/10 md:p-8">
@@ -408,6 +407,7 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
+          </div>
         </div>
       </section>
 
@@ -444,12 +444,12 @@ export default function ContactPage() {
               </Dock>
             </div>
 
-            <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
+            <NewsletterBanner className="w-full" padded={false} />
           </div>
 
 
           <div className="flex h-full flex-col">
-            <div className="flex flex-1 flex-col justify-center rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--ivory-medium]/75 p-6 dark:border-white/10 dark:bg-white/[0.05] md:p-7">
+            <div className="flex flex-1 flex-col justify-center rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--ivory-medium]/75 p-6 dark:border-white/10 dark:bg-white/[0.05] md:p-8">
               <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">
                 {t("team.title")}
               </h2>

@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { getMessages } from "next-intl/server";
 import { createPageMetadata } from "@/lib/metadata";
 import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
-import AutomatizacionesPersonalizadasN8nPage from "./page.client";
+import ConsultoraTecnologicaSevillaPage from "./page.client";
 
-const slug = "automatizaciones-personalizadas-empresas-n8n" as const;
-const HERO_IMAGE = "/static/backgrounds/n8n_background.webp";
+const slug = "consultora-tecnologica-sevilla" as const;
+const HERO_IMAGE = "/static/servicios/engineers.webp";
 
 type LandingMetadataContent = {
   title: string;
@@ -35,7 +35,7 @@ export async function generateMetadata({
   });
 }
 
-export default async function AutomatizacionesPersonalizadasN8n({
+export default async function ConsultoraTecnologicaSevilla({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -51,11 +51,11 @@ export default async function AutomatizacionesPersonalizadasN8n({
         locale={locale}
         items={[
           { name: isEs ? "Inicio" : "Home", path: "/" },
-          { name: isEs ? "Servicios" : "Services", path: "/servicios" },
-          { name: landing?.shortTitle ?? landing?.title ?? (isEs ? "Automatización con n8n" : "n8n automations") },
+          { name: isEs ? "Nosotros" : "About", path: "/nosotros" },
+          { name: landing?.shortTitle ?? landing?.title ?? (isEs ? "Consultora tecnológica en Sevilla" : "Technology consulting in Seville") },
         ]}
       />
-      <AutomatizacionesPersonalizadasN8nPage />
+      <ConsultoraTecnologicaSevillaPage />
     </>
   );
 }

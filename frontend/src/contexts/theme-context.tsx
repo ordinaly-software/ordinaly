@@ -15,8 +15,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [isDark, setIsDark] = useState(false);
   const [functionalAllowed, setFunctionalAllowed] = useState(false);
 
-  const [mounted, setMounted] = useState(false);
-
   const getFunctionalConsent = () => {
     try {
       return isFunctionalAllowed();
@@ -66,7 +64,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const shouldBeDark = resolvePreferredTheme(allowPersistence);
     setIsDark(shouldBeDark);
     applyTheme(shouldBeDark, allowPersistence);
-    setMounted(true);
   }, []);
 
   // Handle theme changes from other tabs/windows
@@ -100,11 +97,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const toggleTheme = () => {
     setTheme(!isDark);
   };
-
-  // Prevent hydration mismatch by not rendering until mounted
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <ThemeContext.Provider value={{ isDark, setIsDark: setTheme, toggleTheme }}>

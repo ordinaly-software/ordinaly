@@ -572,11 +572,11 @@ export default function ProfilePage() {
 
   if (isAuthenticated === null || isLoading) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
-        <div className="flex items-center justify-center min-h-[60vh]">
+      <div className="min-h-screen bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
+        <div className="flex min-h-[60vh] items-center justify-center">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0255D5] dark:border-[#7DB5FF] mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
+            <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-cobalt dark:border-[#7DB5FF]" />
+            <p className="text-slate-medium dark:text-cloud-medium">{t("loading")}</p>
           </div>
         </div>
       </div>
@@ -584,7 +584,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
       {/* Alert Component */}
       {alert && (
         <Alert
@@ -595,20 +595,20 @@ export default function ProfilePage() {
         />
       )}
 
-      <div className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-20 pt-8 md:px-6 lg:px-8">
+      <div className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-20 pt-10 md:px-6 lg:px-8">
         {/* Header Panel */}
-        <div className="rounded-3xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 px-6 py-4 shadow-sm dark:shadow-[0_25px_80px_rgba(0,0,0,0.35)] dark:backdrop-blur-md sm:px-10">
+        <div className="rounded-[2rem] border border-[--color-border-subtle] bg-white/75 px-6 py-6 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04] sm:px-10">
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#0255D5] dark:text-[#7DB5FF]">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cobalt dark:text-[#7DB5FF]">
               {t("kicker")}
             </p>
-            <h1 className="text-3xl font-bold leading-tight text-slate-900 dark:text-white md:text-4xl">
+            <h1 className="text-3xl font-semibold leading-tight tracking-[-0.03em] sm:text-4xl">
               {t("title")}
             </h1>
           </div>
 
           {/* Pill-shaped tabs */}
-          <div className="mt-4 flex flex-wrap gap-3">
+          <div className="mt-5 flex flex-wrap gap-3">
             {profileTabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -616,10 +616,10 @@ export default function ProfilePage() {
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(tab.id)}
-                  className={`group inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition-all ${
+                  className={`group inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition-all duration-150 active:scale-[0.97] ${
                     isActive
-                      ? "border-[#0255D5]/60 bg-[#0255D5]/15 text-[#0255D5] dark:text-[#7DB5FF] shadow-[0_8px_20px_rgba(2,85,213,0.12)]"
-                      : "border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-gray-200 hover:border-[#0255D5] hover:bg-[#0255D5]/5 dark:hover:border-[#7DB5FF]/30 dark:hover:bg-[#7DB5FF]/10 dark:hover:text-[#7DB5FF]"
+                      ? "border-cobalt/50 bg-cobalt/12 text-cobalt shadow-[0_8px_20px_-8px_rgba(2,85,213,0.35)] dark:border-[#7DB5FF]/40 dark:bg-[#7DB5FF]/15 dark:text-[#7DB5FF]"
+                      : "border-[--color-border-subtle] bg-white/60 text-slate-medium hover:border-cobalt/40 hover:bg-cobalt/5 hover:text-cobalt dark:border-white/10 dark:bg-white/[0.03] dark:text-cloud-medium dark:hover:border-[#7DB5FF]/30 dark:hover:bg-[#7DB5FF]/10 dark:hover:text-[#7DB5FF]"
                   }`}
                 >
                   <Icon className="h-4 w-4" />

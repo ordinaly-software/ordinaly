@@ -6,10 +6,10 @@ import { useTheme } from "@/contexts/theme-context";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
 import Footer from "@/components/ui/footer";
 import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
-import StyledButton from "@/components/ui/styled-button";
 import Link from "next/link";
 import { isFunctionalAllowed } from "@/utils/cookie-manager";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
@@ -224,7 +224,7 @@ export default function LoginPage() {
 
 
   return (
-    <div className="min-h-screen bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] transition-colors duration-300">
+    <div className="min-h-screen bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
       {alert && (
         <Alert
           key={`${alert.type}:${alert.message}`}
@@ -236,67 +236,51 @@ export default function LoginPage() {
       )}
 
       {/* Login Section */}
-      <section
-  className="
-    py-16 px-4 sm:px-6 lg:px-8
-    bg-[var(--swatch--ivory-medium)]
-    dark:bg-[var(--swatch--slate-dark)]
-  "
->
-
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+      <section className="bg-[--swatch--ivory-medium] px-4 py-16 dark:bg-[--swatch--slate-dark] sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
 
             {/* Left side: Title + Illustration (hidden on mobile) */}
             <div className="scroll-animate slide-in-left">
-              <h1 className="text-5xl md:text-5xl font-bold mb-6 text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] leading-tight pb-2">
+              <h1 className="max-w-xl text-4xl font-semibold leading-tight tracking-[-0.03em] sm:text-5xl lg:text-6xl">
                 {t("title")}
               </h1>
-              <p className="text-xl text-[var(--swatch--slate-medium)] dark:text-[var(--swatch--cloud-medium)] mb-12 leading-relaxed">
+              <p className="mt-5 max-w-lg text-lg leading-relaxed text-slate-medium dark:text-cloud-medium sm:text-xl">
                 {t("subtitle")}
               </p>
             </div>
 
             {/* Right side: Login Card */}
             <div className="scroll-animate slide-in-right">
-              <Card className="bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] hover:border-[var(--swatch--clay)] transition-all duration-300 hover:shadow-xl">
-
-                <br></br>
-                <CardContent>
+              <Card className="rounded-[2rem] border border-[--color-border-subtle] bg-white/80 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]">
+                <CardContent className="pt-8">
                   <form onSubmit={handleSubmit} className="space-y-6">
 
                     {/* Google Sign-In */}
-                    <div className="mt-6">
-                      <div className="relative mb-6">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const apiBaseUrl = getApiUrl().replace(/\/$/, "");
-                            window.location.href = `${apiBaseUrl}/auth/google/login/`;
-                          }}
-                          className="
-                              w-full flex items-center justify-center gap-3
-                              hover:bg-[var(--swatch--clay)]/10 dark:hover:bg-[var(--swatch--clay)]/30
-                              border border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)]
-                              rounded-lg py-3 px-4
-                              shadow hover:shadow-md
-                              transition-all
-                              hover:border-[var(--swatch--clay)]
-                              hover:bg-[var(--swatch--clay)]/10
-                              dark:hover:bg-[var(--swatch--clay)]/20
-                              "
-                        >
-                          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                            className="w-5 h-5" alt="Google" />
-                          <span className="font-medium">{t("form.continueWithGoogle")}</span>
-                        </button>
-                      </div>
-                      <div className="relative">
+                    <div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full gap-3 active:scale-[0.98]"
+                        onClick={() => {
+                          const apiBaseUrl = getApiUrl().replace(/\/$/, "");
+                          window.location.href = `${apiBaseUrl}/auth/google/login/`;
+                        }}
+                      >
+                        <img
+                          src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                          className="h-5 w-5"
+                          alt=""
+                        />
+                        {t("form.continueWithGoogle")}
+                      </Button>
+
+                      <div className="relative mt-6">
                         <div className="absolute inset-0 flex items-center">
-                          <div className="w-full border-t border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)]"></div>
+                          <div className="w-full border-t border-[--color-border-subtle] dark:border-white/10" />
                         </div>
                         <div className="relative flex justify-center text-sm">
-                          <span className="px-2 bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-medium)] text-[var(--swatch--cloud-medium)]">
+                          <span className="bg-[--swatch--ivory-light] px-2 text-cloud-medium dark:bg-[--swatch--slate-dark]">
                             {t("form.orContinueWith")}
                           </span>
                         </div>
@@ -304,39 +288,37 @@ export default function LoginPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
-                        {t("form.emailLabel")}
-                      </Label>
+                      <Label htmlFor="email">{t("form.emailLabel")}</Label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-300" />
+                        <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
                         <Input
+                          id="email"
                           type="text"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="pl-10 bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] focus:border-[var(--swatch--clay)]"
+                          className="pl-10"
                           placeholder={t("form.emailPlaceholder")}
                           required
                         />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="password" className="text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--cloud-medium)]">
-                        {t("form.passwordLabel")}
-                      </Label>
+                      <Label htmlFor="password">{t("form.passwordLabel")}</Label>
                       <div className="relative">
-                        <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                        <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
                         <Input
+                          id="password"
                           type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="pl-10 bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] border-[var(--swatch--oat)] dark:border-[var(--swatch--slate-light)] text-[var(--swatch--slate-dark)] dark:text-[var(--swatch--ivory-light)] focus:border-[var(--swatch--clay)]"
+                          className="pl-10 pr-10"
                           placeholder={t("form.passwordPlaceholder")}
                           required
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
                         >
                           {showPassword ? (
                             <EyeOff className="h-5 w-5" />
@@ -349,24 +331,26 @@ export default function LoginPage() {
                     <div className="flex flex-col items-start">
                       <Link
                         href="/reset-password"
-                        className="text-sm text-[var(--swatch--cobalt)] hover:underline"
+                        className="text-sm text-cobalt hover:underline"
                       >
                         {t("form.forgotPassword")}
                       </Link>
                     </div>
 
-                    {/* Centered and smaller sign-in button */}
-                    <div className="flex justify-center">
-                      <StyledButton
-                        text={isLoading ? t("form.submitButtonLoading") : t("form.submitButton")}
-                        type="submit"
-                      />
-                    </div>
+                    <Button
+                      type="submit"
+                      variant="accent"
+                      size="lg"
+                      disabled={isLoading}
+                      className="w-full active:scale-[0.98]"
+                    >
+                      {isLoading ? t("form.submitButtonLoading") : t("form.submitButton")}
+                    </Button>
                   </form>
 
-                  <p className="mt-6 text-center text-sm text-[var(--swatch--slate-medium)] dark:text-[var(--swatch--cloud-medium)]">
-                    {t("form.signupPrompt")}
-                    <Link href="/auth/signup" className="text-[var(--swatch--cobalt)] hover:underline">
+                  <p className="mt-6 text-center text-sm text-slate-medium dark:text-cloud-medium">
+                    {t("form.signupPrompt")}{" "}
+                    <Link href="/auth/signup" className="text-cobalt hover:underline">
                       {t("form.signupLink")}
                     </Link>
                   </p>

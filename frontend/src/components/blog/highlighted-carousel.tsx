@@ -3,8 +3,8 @@
 import React from 'react';
 import { BlogPost } from './types';
 import { BlogCard } from './blog-card';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { CarouselNavButtons } from '@/components/ui/carousel-nav-buttons';
 
 interface HighlightedCarouselProps {
   posts: BlogPost[];
@@ -53,56 +53,44 @@ export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-            {t('highlighted.title', { default: 'Destacados' })}
-          </h2>
-          
-          {/* Navigation Buttons */}
-          {posts.length > 1 && (
-            <div className="flex gap-1">
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                className="p-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed hover:border-[#0255D5] dark:hover:border-[#7DB5FF] hover:text-[#0255D5] dark:hover:text-[#7DB5FF] transition"
-                aria-label={t('highlighted.previous', { default: 'Previous' })}
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                className="p-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-30 disabled:cursor-not-allowed hover:border-[#0255D5] dark:hover:border-[#7DB5FF] hover:text-[#0255D5] dark:hover:text-[#7DB5FF] transition"
-                aria-label={t('highlighted.next', { default: 'Next' })}
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-            </div>
-          )}
-        </div>
+        <h2 className="mb-6 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+          {t('highlighted.title', { default: 'Destacados' })}
+        </h2>
 
-        {/* Carousel */}
-        <div
-          ref={carouselRef}
-          onScroll={checkScrollability}
-          onKeyDown={(event) => {
-            if (event.key === 'ArrowLeft') {
-              event.preventDefault();
-              scrollLeft();
-            } else if (event.key === 'ArrowRight') {
-              event.preventDefault();
-              scrollRight();
-            }
-          }}
-          tabIndex={0}
-          className="flex overflow-x-auto gap-6 pt-6 pb-4 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {posts.map((post) => (
-            <div key={post.slug} className="flex-shrink-0 w-[85%] sm:w-[60%] md:w-[40%] max-w-sm pt-2">
-              <BlogCard post={post} onCategoryClick={onCategoryClick} compact />
-            </div>
-          ))}
+        <div className="relative">
+          {/* Carousel */}
+          <div
+            ref={carouselRef}
+            onScroll={checkScrollability}
+            onKeyDown={(event) => {
+              if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                scrollLeft();
+              } else if (event.key === 'ArrowRight') {
+                event.preventDefault();
+                scrollRight();
+              }
+            }}
+            tabIndex={0}
+            className="flex overflow-x-auto gap-6 pt-6 pb-4 scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {posts.map((post) => (
+              <div key={post.slug} className="flex-shrink-0 w-[85%] sm:w-[60%] md:w-[40%] max-w-sm pt-2">
+                <BlogCard post={post} onCategoryClick={onCategoryClick} compact />
+              </div>
+            ))}
+          </div>
+
+          {posts.length > 1 && (
+            <CarouselNavButtons
+              onPrevClick={scrollLeft}
+              onNextClick={scrollRight}
+              prevDisabled={!canScrollLeft}
+              nextDisabled={!canScrollRight}
+              prevLabel={t('highlighted.previous', { default: 'Previous' })}
+              nextLabel={t('highlighted.next', { default: 'Next' })}
+            />
+          )}
         </div>
       </div>
     </section>
