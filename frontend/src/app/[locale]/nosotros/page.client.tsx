@@ -6,7 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
 import { WorkWithUsSection } from "@/components/about/work-with-us";
-import { Timeline } from "@/components/about/timeline";
+import { PrinciplesSection } from "@/components/about/principles";
 import { AboutHero } from "@/components/about/about-hero";
 import { Linkedin } from "lucide-react";
 
@@ -42,30 +42,6 @@ export default function UsPage() {
       linkedin: "https://www.linkedin.com/in/emiliocidperez/",
     },
   ];
-
-  const timelineMedia = {
-    "1": "/static/nosotros/story_01.webp",
-    "2": "/static/nosotros/story_02.webp",
-    "3": "/static/nosotros/story_03.webp",
-    "4": "/static/nosotros/story_04.webp",
-  } as const;
-
-  const timelineData = (["1", "2", "3", "4"] as const).map((key) => {
-    return {
-      title: t(`story.timeline.${key}.title`),
-      media: (
-        <Image
-          src={timelineMedia[key]}
-          alt={t(`story.timeline.${key}.title`)}
-          fill
-          sizes="(min-width: 1024px) 224px, 100vw"
-          className="object-cover"
-          priority={key === "1"}
-        />
-      ),
-      content: <p>{t(`story.timeline.${key}.body`)}</p>,
-    };
-  });
 
   const faqItems: FaqAccordionItem[] = [
     {
@@ -117,14 +93,7 @@ export default function UsPage() {
         </div>
       </section>
 
-      <section className="px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <Timeline
-          data={timelineData}
-          title={t("story.title")}
-          titleClassName="text-3xl md:text-5xl font-bold text-clay dark:text-clay"
-          className="bg-transparent dark:bg-transparent"
-        />
-      </section>
+      <PrinciplesSection id="principles" />
 
       <FaqAccordion titleTag="h3" title={t("faq.title")} items={faqItems} />
 

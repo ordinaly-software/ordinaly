@@ -2033,25 +2033,55 @@
     "faq": {
       "title": "Frequently asked questions"
     },
-    "story": {
-      "title": "Our story",
-      "timeline": {
+    "principles": {
+      "title": "Ordinaly's principles",
+      "intro": "Ten ideas that shape how we understand, decide, and build.",
+      "items": {
         "1": {
-          "title": "Summer 2025 · The idea takes shape at the University of Seville",
-          "body": "While wrapping up his Computer Engineering degree, Antonio teams up with Emilio and Guillermo to design Ordinaly: an automation studio built to free teams from repetitive tasks and keep humans in control."
+          "title": "People are the purpose",
+          "body": "Technology must serve people, never the other way around. We aim to improve their work, their autonomy, their ability to decide, and their quality of life."
         },
         "2": {
-          "title": "Summer 2025 · Brand, business model, and our promise",
-          "body": "During the Sevillian summer we shaped the company, sharpened the business model, and crafted the brand around a clear promise: AI-powered workflows that deliver ROI fast."
+          "title": "Knowledge is a tool",
+          "body": "Learning, understanding, and knowing are not ends in themselves. We use knowledge to understand better, decide better, and keep improving."
         },
         "3": {
-          "title": "September 2025 · Company incorporated and first clients",
-          "body": "We officially launch Ordinaly, start working with our first customers, and deliver pilots while Antonio pursues his Master's in Computer Science and Artificial Intelligence."
+          "title": "Technology has to make sense",
+          "body": "We don't add technology because it's trendy. We use it when it solves a problem, improves a process, or creates real value."
         },
         "4": {
-          "title": "2026 · Scaling automation for more companies",
-          "body": "We double down on helping more organizations automate their processes, eliminate repetitive tasks, and prove the value of AI with real business outcomes."
+          "title": "Understand first, transform later",
+          "body": "Before automating or building, we understand the people, the processes, the needs, and the goals. The solution grows out of that understanding."
+        },
+        "5": {
+          "title": "Engineering to build with rigor",
+          "body": "We design solutions with engineering principles: requirements, architecture, security, verification, maintainability, and continuous improvement."
+        },
+        "6": {
+          "title": "Security and trust",
+          "body": "Efficiency must never compromise security. Processes and systems have to be secure, verifiable, controllable, and reliable."
+        },
+        "7": {
+          "title": "AI amplifies, it doesn't replace judgment",
+          "body": "Artificial intelligence extends our capabilities, but important decisions need context, responsibility, experience, and human judgment."
+        },
+        "8": {
+          "title": "Less effort, more value",
+          "body": "We automate what consumes time and doesn't need human talent, freeing up capacity to think, create, decide, innovate, and grow."
+        },
+        "9": {
+          "title": "Continuous improvement",
+          "body": "Nothing is ever finished. We measure, learn, correct, and evolve. Every solution should become knowledge for the next one."
+        },
+        "10": {
+          "title": "Technology with purpose",
+          "body": "Our goal isn't to build companies with more technology, but people and organizations that work better."
         }
+      },
+      "manifesto": {
+        "l1": "Knowledge to improve.",
+        "l2": "Technology to transform.",
+        "l3": "People to give it meaning."
       }
     },
     "testimonials": {
@@ -2278,7 +2308,7 @@
       "title": "Custom automations for businesses with n8n",
       "shortTitle": "Automations with n8n",
       "subtitle": "Tailor-made, versioned workflows with observability, for business and SME processes that don't fit standard solutions.",
-      "description": "We design custom automations with n8n and free software: retries, queues, logs and per-node metrics for processes that don't fit standard solutions. More traceability, fewer errors and more free time.",
+      "description": "We design custom automations with n8n and open-source software: retries, queues, logs and per-node metrics for processes that don't fit a standard tool.",
       "heroCtaLabel": "Tell us your case",
       "secondaryCtaLabel": "Chat on WhatsApp",
       "n8nCtaLabel": "Learn more on n8n",
@@ -2637,11 +2667,11 @@
     },
     "automatizacion-redes-sociales": {
       "slug": "automatizacion-redes-sociales",
-      "title": "Social media automation",
+      "title": "Social media automation for companies",
       "shortTitle": "Social media automation",
       "subtitle": "Your business active on social media, without spending time on it every day",
       "heroText": "Schedule your posts on LinkedIn, Instagram and Facebook. You prepare the content and the system publishes it, letting you know once it's live.",
-      "description": "Social media automation for companies. Schedule posts on LinkedIn, Instagram and Facebook: you prepare the content and the system publishes it automatically, notifying you the moment it goes live.",
+      "description": "Automatically schedule and publish to LinkedIn, Instagram and Facebook: you prepare the content and the system posts it and notifies you instantly.",
       "heroCtaLabel": "Request information",
       "serviceType": "Scheduled publishing automation for social media",
       "areaServed": "Spain and remote deployment across the EU",
@@ -3003,9 +3033,9 @@
     },
     "consultora-tecnologica-sevilla": {
       "slug": "consultora-tecnologica-sevilla",
-      "title": "Technology Consulting Firm in Seville | AI & Software",
+      "title": "Technology consulting in Seville: AI and software",
       "shortTitle": "Technology Consulting in Seville",
-      "description": "Looking for a technology consulting firm in Seville? Ordinaly optimizes your SME with software engineers, n8n integrations, Odoo 18 and conversational AI agents.",
+      "description": "Looking for a technology consulting firm in Seville? Ordinaly modernizes your SME with software engineers, n8n automation, Odoo 18 and AI agents.",
       "heroTitle": "Technology consulting firm in Seville",
       "heroBody": "At Ordinaly we operate as a technology consulting firm specialized in helping companies optimize their processes through software development and intelligent automation. Our team of engineers designs and implements agile solutions that let organizations of every size cut operating costs, boost sales and move forward confidently in their digital transformation.",
       "heroCtaLabel": "Request a Free Technology Consultation",

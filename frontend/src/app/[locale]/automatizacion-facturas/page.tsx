@@ -17,10 +17,10 @@ export async function generateMetadata({
     path: `/${slug}`,
     title: isEs
       ? "Automatización de facturas para empresas"
-      : "AI Invoice Automation for Businesses",
+      : "AI invoice automation for businesses",
     description: isEs
-      ? "Automatización de facturas para empresas y asesorías. Extrae datos desde email o WhatsApp, clasifica documentos y sincroniza con tu ERP mediante IA para ahorrar horas de trabajo manual."
-      : "Automate invoice processing for businesses and accounting firms. Extract data from email or WhatsApp, classify documents, and sync with your ERP using AI to save hours of manual work.",
+      ? "Automatiza la gestión de facturas en empresas y asesorías: extrae datos de email o WhatsApp, clasifica documentos y sincroniza con tu ERP mediante IA."
+      : "Automate invoice processing for businesses and accounting firms: extract data from email or WhatsApp, classify documents and sync with your ERP using AI.",
     image: "/static/backgrounds/services_background.webp",
   });
 }

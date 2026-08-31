@@ -2020,7 +2020,7 @@
     "hero": {
       "title": "Automatizamos con cabeza ",
       "titleAccent": "y corazón",
-      "subtitle": "Un equipo multidisciplinar con formación en ingeniería, ciencias de la computación e inteligencia artificial, que mantiene a las personas en control y en el centro de sus operaciones.",
+      "subtitle": "Somos un equipo multidisciplinar con formación en ingeniería, ciencias de la computación e inteligencia artificial, que mantiene a las personas en control y en el centro de lo que hacemos. En Ordinaly, queremos mejorar la forma en que las personas trabajan, construyendo empresas más eficientes, seguras, inteligentes y humanas.",
       "ctaPrimary": "Conoce al equipo",
       "ctaSecondary": "¡Trabaja con nosotros!"
     },
@@ -2033,25 +2033,55 @@
     "faq": {
       "title": "Preguntas frecuentes"
     },
-    "story": {
-      "title": "Nuestra historia",
-      "timeline": {
+    "principles": {
+      "title": "Principios de Ordinaly",
+      "intro": "Diez ideas que orientan cómo trabajamos y qué valor aportamos a nuestros clientes y a la sociedad",
+      "items": {
         "1": {
-          "title": "Junio de 2025 - Origen de la idea en la Universidad de Sevilla",
-          "body": "Mientras termina Ingeniería Informática, Antonio se une a Emilio y Guillermo para crear Ordinaly. La idea nace de la necesidad de Emilio y Guillermo de automatizar las tareas más repetitivas en sus respectivas empresas. Durante el verano damos forma a la empresa, afinamos el modelo de negocio y creamos la marca."
+          "title": "La persona es el propósito",
+          "body": "La tecnología debe estar al servicio de las personas, nunca al contrario. Buscamos mejorar su trabajo, su autonomía, su capacidad de decidir y su calidad de vida."
         },
         "2": {
-          "title": "Septiembre de 2025 - Constitución de la empresa",
-          "body": "Lanzamos Ordinaly, y desde el principio arrancamos proyectos con nuestros primeros clientes. "
+          "title": "El conocimiento es una herramienta",
+          "body": "Aprender, comprender y conocer no son fines en sí mismos. Utilizamos el conocimiento para comprender mejor, decidir mejor y mejorar continuamente."
         },
         "3": {
-          "title": "En 2026 - Ordinaly arranca y consigue sus primeros clientes",
-          "body": "Mientras Antonio cursa su máster en Ciencias de la computación e Inteligencia Artificial, trabaja en Ordinaly con el apoyo de Emilio y Guillermo. Durantes este año, Ordinaly consigue sus 10 primeros clientes y empieza a escalar la automatización para más empresas."
+          "title": "La tecnología debe tener sentido",
+          "body": "No incorporamos tecnología por moda. La utilizamos cuando resuelve un problema, mejora un proceso o genera un valor real."
         },
         "4": {
-          "title": "El futuro...",
-          "body": "Ordinaly, aún es una empresa joven, pero con un equipo bien formado y una visión clara. Nuestro objetivo es seguir creciendo, ayudando a más empresas a automatizar sus procesos y a aprovechar las oportunidades que ofrece la Inteligencia Artificial desde el conocimiento y la experiencia."
+          "title": "Primero comprender, después transformar",
+          "body": "Antes de automatizar o desarrollar, entendemos a las personas, los procesos, las necesidades y los objetivos. La solución nace de la comprensión."
+        },
+        "5": {
+          "title": "Ingeniería para construir con rigor",
+          "body": "Diseñamos soluciones mediante principios de ingeniería: requisitos, arquitectura, seguridad, verificación, mantenibilidad y mejora continua."
+        },
+        "6": {
+          "title": "Seguridad y confianza",
+          "body": "La eficiencia nunca debe comprometer la seguridad. Los procesos y sistemas deben ser seguros, verificables, controlables y confiables."
+        },
+        "7": {
+          "title": "La IA potencia, no sustituye el criterio",
+          "body": "La Inteligencia Artificial amplía nuestras capacidades, pero las decisiones importantes requieren contexto, responsabilidad, experiencia y criterio humano."
+        },
+        "8": {
+          "title": "Menos esfuerzo, más valor",
+          "body": "Automatizamos aquello que consume tiempo y no necesita del talento humano para liberar capacidad para pensar, crear, decidir, innovar y crecer."
+        },
+        "9": {
+          "title": "Mejora continua",
+          "body": "Nada está terminado. Medimos, aprendemos, corregimos y evolucionamos. Cada solución debe convertirse en conocimiento para la siguiente."
+        },
+        "10": {
+          "title": "Tecnología con propósito",
+          "body": "Nuestro objetivo no es crear empresas con más tecnología, sino personas y organizaciones que funcionen mejor."
         }
+      },
+      "manifesto": {
+        "l1": "Conocimiento para mejorar.",
+        "l2": "Tecnología para transformar.",
+        "l3": "Personas para dar sentido."
       }
     },
     "testimonials": {
@@ -2278,7 +2308,7 @@
       "title": "Automatizaciones personalizadas para empresas con n8n",
       "shortTitle": "Automatización con n8n",
       "subtitle": "Workflows a medida para empresas y pymes que buscan eficiencia y eficacia en sus procesos.",
-      "description": "Diseñamos automatizaciones a medida con n8n y software libre: reintentos, colas, logs y métricas por nodo para procesos que no encajan en soluciones estándar. Más trazabilidad, menos errores y más tiempo libre.",
+      "description": "Diseñamos automatizaciones a medida con n8n y software libre: reintentos, colas, logs y métricas por nodo para procesos que no encajan en un estándar.",
       "heroCtaLabel": "Cuéntanos tu caso",
       "secondaryCtaLabel": "Hablar por WhatsApp",
       "n8nCtaLabel": "Aprender más en n8n",
@@ -2637,11 +2667,11 @@
     },
     "automatizacion-redes-sociales": {
       "slug": "automatizacion-redes-sociales",
-      "title": "Automatización de redes sociales",
+      "title": "Automatización de redes sociales para empresas",
       "shortTitle": "Automatización de redes sociales",
       "subtitle": "Tu empresa activa en redes, sin dedicarle tiempo cada día",
       "heroText": "Tú preparas el contenido y el sistema lo publica, avisándote de ello. Funciona en LinkedIn, Instagram y Facebook.",
-      "description": "Automatización de redes sociales para empresas. Programa publicaciones en LinkedIn, Instagram y Facebook: tú preparas el contenido y el sistema lo publica automáticamente, avisándote en el momento en que se sube.",
+      "description": "Programa y publica en LinkedIn, Instagram y Facebook de forma automática: tú preparas el contenido y el sistema lo sube y te avisa al instante.",
       "heroCtaLabel": "Solicitar información",
       "serviceType": "Automatización de publicación programada para redes sociales",
       "areaServed": "España y despliegue remoto UE",
@@ -3003,9 +3033,9 @@
     },
     "consultora-tecnologica-sevilla": {
       "slug": "consultora-tecnologica-sevilla",
-      "title": "Consultora Tecnológica en Sevilla | IA y Software",
+      "title": "Consultora tecnológica en Sevilla: IA y software",
       "shortTitle": "Consultora Tecnológica en Sevilla",
-      "description": "¿Buscas una consultora tecnológica en Sevilla? Ordinaly optimiza tu PYME con ingenieros de software, integraciones n8n, Odoo 18 y agentes de IA conversacional.",
+      "description": "¿Buscas una consultora tecnológica en Sevilla? Ordinaly moderniza tu PYME con ingenieros de software, automatización n8n, Odoo 18 y agentes de IA.",
       "heroTitle": "Consultora tecnológica en Sevilla",
       "heroBody": "En Ordinaly operamos como una consultora tecnológica especializada en ayudar a las empresas a optimizar sus procesos mediante el desarrollo de software y la automatización inteligente. Nuestro equipo de ingenieros diseña e implementa soluciones ágiles que permiten a organizaciones de todos los tamaños reducir costes operativos, impulsar sus ventas y avanzar con paso firme en su transformación digital.",
       "heroCtaLabel": "Solicitar Consultoría Tecnológica Gratuita",

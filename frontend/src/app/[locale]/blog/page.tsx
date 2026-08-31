@@ -24,8 +24,8 @@ export async function generateMetadata({
   const base = createPageMetadata({
     locale: "es",
     path: "/blog",
-    title: "Blog de automatización e IA",
-    description: "Noticias, ideas y actualizaciones sobre transformación digital, inteligencia artificial y automatización para empresas. Mantente al día con el blog de Ordinaly.",
+    title: "Blog de automatización e IA para empresas",
+    description: "Ideas, guías y casos prácticos sobre automatización con IA, n8n y transformación digital para PYMES, publicados por el equipo de Ordinaly.",
     image: "/static/backgrounds/blog_background.webp",
     alternateLocales: ["es"],
   });

@@ -20,10 +20,10 @@ export async function generateMetadata({
   const base = createPageMetadata({
       locale,
       path: "/legal",
-      title: isEs ? "Legal, privacidad y cookies" : "Legal, privacy, and cookies",
+      title: isEs ? "Aviso legal, privacidad y cookies" : "Legal notice, privacy and cookies",
       description: isEs
-        ? "Consulta términos de servicio, políticas de privacidad, cookies y licencias de Ordinaly Software."
-        : "Review Ordinaly Software terms of service, privacy policy, cookies, and licenses.",
+        ? "Términos de servicio, política de privacidad, política de cookies y licencias de Ordinaly Software S.L."
+        : "Terms of service, privacy policy, cookie policy and licenses for Ordinaly Software S.L.",
       image: "/static/backgrounds/api_background.webp",
     });
 

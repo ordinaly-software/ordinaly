@@ -15,11 +15,11 @@ export async function generateMetadata({
     locale,
     path: "/nosotros",
     title: isEs
-      ? "Sobre Ordinaly Software | Equipo, misión y visión"
-      : "About Ordinaly Software | Team, mission, and vision",
+      ? "Sobre nosotros: equipo, misión y visión"
+      : "About us: team, mission and vision",
     description: isEs
-      ? "Conoce al equipo de Ordinaly Software, nuestra misión y cómo ayudamos a empresas a automatizar con IA."
-      : "Meet the Ordinaly Software team, our mission, and how we help companies automate with AI.",
+      ? "Somos Ordinaly Software, consultora de automatización con IA en Sevilla. Conoce al equipo de ingeniería, nuestra misión y cómo trabajamos con PYMES."
+      : "We are Ordinaly Software, an AI automation consultancy in Seville. Meet the engineering team, our mission and how we work with SMEs.",
     image: "/static/backgrounds/us_background.webp",
   });
 }

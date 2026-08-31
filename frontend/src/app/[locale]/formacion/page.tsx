@@ -15,11 +15,11 @@ export async function generateMetadata({
     locale,
     path: "/formacion",
     title: isEs
-      ? "Cursos de IA y automatización"
-      : "AI and automation courses",
+      ? "Cursos de IA y automatización para empresas"
+      : "AI and automation courses for businesses",
     description: isEs
-      ? "Aprende IA, n8n y herramientas low-code con formación práctica para empresas y profesionales. Cursos orientados a aplicar automatización real y mejorar la productividad del equipo."
-      : "Learn AI, n8n, and low-code tools through practical training for companies and professionals. Courses focused on real automation use cases and measurable team productivity.",
+      ? "Formación práctica en IA, n8n y herramientas low-code para empresas y profesionales. Cursos aplicados para automatizar procesos reales y ganar productividad."
+      : "Hands-on training in AI, n8n and low-code tools for companies and professionals. Applied courses to automate real processes and boost productivity.",
     image: "/static/backgrounds/formation_background.webp",
   });
 }

@@ -325,7 +325,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="pb-12 md:pb-16" id="location">
+      <section className="pb-12 pt-8 md:pb-16 md:pt-12" id="location">
         <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
             <div className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">

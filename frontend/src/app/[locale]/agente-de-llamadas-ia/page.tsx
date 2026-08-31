@@ -18,11 +18,11 @@ export async function generateMetadata({
     locale,
     path: `/${slug}`,
     title: isEs
-      ? "Agente de Llamadas con IA | Recepción y Ventas Salientes"
-      : "AI Calling Agent | Inbound Reception & Outbound Sales",
+      ? "Agente de llamadas con IA para empresas"
+      : "AI calling agent for businesses",
     description: isEs
-      ? "Automatiza tus llamadas entrantes y salientes con agentes de voz IA. Recepcionista virtual 24/7 y campañas de llamadas salientes con n8n, ElevenLabs, Gemini, Retell y Netelip."
-      : "Automate your inbound and outbound calls with AI voice agents. A 24/7 virtual receptionist and outbound calling campaigns powered by n8n, ElevenLabs, Gemini, Retell and Netelip.",
+      ? "Automatiza las llamadas entrantes y salientes con agentes de voz IA: recepcionista virtual 24/7 y campañas salientes con n8n, ElevenLabs y Retell."
+      : "Automate inbound and outbound calls with AI voice agents: a 24/7 virtual receptionist and outbound campaigns powered by n8n, ElevenLabs and Retell.",
     image: HERO_IMAGE,
   });
 }

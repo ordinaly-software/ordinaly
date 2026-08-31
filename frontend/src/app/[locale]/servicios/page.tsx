@@ -15,11 +15,11 @@ export async function generateMetadata({
     locale,
     path: "/servicios",
     title: isEs
-      ? "Servicios y productos de automatización con IA"
-      : "AI automation services and products",
+      ? "Servicios de automatización con IA para empresas"
+      : "AI automation services for businesses",
     description: isEs
-      ? "Catálogo de servicios personalizados y productos listos para usar: agentes de IA, automatización de procesos, CRM/ERP y más."
-      : "Catalog of tailored services and ready-to-use products: AI agents, process automation, CRM/ERP, and more.",
+      ? "Servicios y productos de automatización con IA: agentes de voz, procesos con n8n, automatización de facturas e informes e implantación de Odoo 18."
+      : "AI automation services and products: voice agents, n8n process automation, invoice and report automation, and Odoo 18 implementation.",
     image: "/static/backgrounds/services_background.webp",
   });
 }
