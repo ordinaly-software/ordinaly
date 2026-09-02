@@ -164,7 +164,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
         <CardContent className="space-y-8">
           {isLoading ? (
             <div className="flex items-center gap-3 text-sm text-slate-medium dark:text-cloud-medium">
-              <div className="h-4 w-4 animate-spin rounded-full border-b-2 border-cobalt dark:border-cobalt-light" />
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-cobalt dark:border-cobalt-light border-t-transparent" />
               {t("courses.loading")}
             </div>
           ) : error ? (

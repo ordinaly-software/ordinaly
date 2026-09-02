@@ -51,7 +51,7 @@ export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({
   }
 
   return (
-    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
+    <section className="py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-dark">
       <div className="max-w-7xl mx-auto">
         <h2 className="mb-6 text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
           {t('highlighted.title', { default: 'Destacados' })}

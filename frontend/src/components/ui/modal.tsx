@@ -52,7 +52,7 @@ export const Modal = ({
       <div
         className={[
           "relative z-10 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800",
-          "bg-white dark:bg-[#1A1924] shadow-2xl",
+          "bg-white dark:bg-slate-dark shadow-2xl",
           // Make the modal respect small mobile viewports
           "max-h-[calc(100svh-2rem)] sm:max-h-[calc(100vh-4rem)] w-full",
           className,

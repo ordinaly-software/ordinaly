@@ -69,7 +69,7 @@ export default function ConfirmDeletePage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#F9FAFB] text-gray-800 transition-colors duration-300 dark:bg-[#1A1924] dark:text-white">
+    <div className="relative min-h-screen overflow-hidden bg-ivory-light text-gray-800 transition-colors duration-300 dark:bg-slate-dark dark:text-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-40 -left-20 h-96 w-96 rounded-full bg-cobalt/20 blur-3xl dark:bg-cobalt/15" />
         <div className="absolute top-20 right-0 h-[24rem] w-[24rem] rounded-full bg-cobalt-light/20 blur-3xl dark:bg-cobalt-light/15" />
@@ -87,7 +87,7 @@ export default function ConfirmDeletePage() {
                 </div>
 
                 <div className="space-y-4">
-                  <h2 className="max-w-xs text-2xl font-semibold leading-tight text-[#1A1924] dark:text-slate-100">
+                  <h2 className="max-w-xs text-2xl font-semibold leading-tight text-slate-dark dark:text-slate-100">
                     {titles[status]}
                   </h2>
                 </div>

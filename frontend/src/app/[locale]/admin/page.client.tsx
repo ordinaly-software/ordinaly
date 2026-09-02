@@ -487,10 +487,10 @@ export default function AdminPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
+      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white">
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cobalt dark:border-cobalt-light mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-2 border-cobalt dark:border-cobalt-light border-t-transparent mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
           </div>
         </div>
@@ -500,7 +500,7 @@ export default function AdminPage() {
 
   if (!isAuthorized) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
+      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white">
         {alert && (
           <Alert
             type={alert.type}
@@ -520,7 +520,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
+    <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white">
       {alert && (
         <Alert
           type={alert.type}

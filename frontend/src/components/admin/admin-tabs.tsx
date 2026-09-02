@@ -60,7 +60,7 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
   return (
     <div
       ref={tabBarRef}
-      className={`border-b border-gray-200 dark:border-gray-700 mb-8 overflow-x-auto sticky top-[64px] z-30 bg-[#F9FAFB] dark:bg-[var(--swatch--slate-dark)] bg-opacity-95 backdrop-blur-sm min-h-[56px] flex items-center ${className}`}
+      className={`border-b border-gray-200 dark:border-gray-700 mb-8 overflow-x-auto sticky top-[64px] z-30 bg-ivory-light dark:bg-[var(--swatch--slate-dark)] bg-opacity-95 backdrop-blur-sm min-h-[56px] flex items-center ${className}`}
       style={{ scrollbarWidth: "none", msOverflowStyle: "none", ...style }}
     >
       <nav

@@ -54,7 +54,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
       </div>
       {isLoading ? (
         <div className="flex items-center justify-center py-6">
-          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[var(--swatch--clay)]"></div>
+          <div className="animate-spin rounded-full h-6 w-6 border-2 border-[var(--swatch--clay)] border-t-transparent"></div>
         </div>
       ) : enrollments.length === 0 ? (
         <div className="text-center py-6 text-gray-500 dark:text-gray-400">

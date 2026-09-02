@@ -60,7 +60,7 @@ export default function OAuthCallbackPage() {
 
   if (!errorMessage) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white transition-colors duration-300">
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-[var(--swatch--ivory-medium)] via-[var(--swatch--ivory-light)] to-[var(--swatch--oat)] dark:from-cobalt-light/10 dark:via-cobalt/10 dark:to-[var(--swatch--clay)]/10 min-h-screen flex items-center">
           <div className="max-w-7xl mx-auto w-full">
             <div className="flex justify-center">

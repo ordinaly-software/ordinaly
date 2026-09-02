@@ -83,7 +83,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   }
   const portableTextComponents = createPortableTextComponents(headingIdByKey);
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-ivory-light dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white transition-colors duration-300">
       <Banner
         title={p.title}
         subtitle={p.seoDescription || p.excerpt || ''}

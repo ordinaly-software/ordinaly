@@ -279,7 +279,7 @@ export default function FaqPageClient({
               <section
                 key={group.key}
                 id={group.key}
-                className={`scroll-mt-28 ${index % 2 === 1 ? "bg-white dark:bg-[#1A1924]" : ""}`}
+                className={`scroll-mt-28 ${index % 2 === 1 ? "bg-white dark:bg-slate-dark" : ""}`}
               >
                 <FaqAccordion
                   titleTag="h2"
@@ -312,7 +312,7 @@ export default function FaqPageClient({
       {!isSearching && highlightedPosts.length > 0 ? (
         <div>
           <HighlightedCarousel posts={highlightedPosts} translationsNamespace="blog" />
-          <div className="bg-white text-center dark:bg-[#1A1924]">
+          <div className="bg-white text-center dark:bg-slate-dark">
             <Link
               href="/blog"
               className="inline-flex items-center gap-2 pb-10 text-sm font-semibold text-cobalt transition hover:gap-3 dark:text-cobalt-light"
@@ -324,7 +324,7 @@ export default function FaqPageClient({
         </div>
       ) : null}
 
-      <div className="px-4 py-12 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]">
+      <div className="px-4 py-12 sm:px-6 lg:px-8 bg-white dark:bg-slate-dark">
         <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
       </div>
 

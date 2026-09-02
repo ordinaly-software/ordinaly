@@ -393,7 +393,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
                   </div>
                 )}
 
-                <h2 className="mt-6 max-w-2xl bg-gradient-to-r from-white to-[--swatch--sky] bg-clip-text text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-transparent md:text-5xl">
+                <h2 className="mt-6 max-w-2xl font-serif text-3xl font-normal leading-[1.05] tracking-[-0.01em] text-white md:text-5xl">
                   {content.sectionTitles?.ctaTitle}
                 </h2>
 

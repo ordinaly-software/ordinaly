@@ -265,7 +265,7 @@ export const Dropdown = ({
           <div
             ref={dropdownRef}
             className={cn(
-              "absolute bg-white dark:bg-[#0b1220] border border-gray-200 dark:border-white/15",
+              "absolute bg-white dark:bg-slate-dark border border-gray-200 dark:border-white/15",
               "rounded-2xl shadow-2xl overflow-y-auto animate-in duration-200",
               dropdownClassName
             )}

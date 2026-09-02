@@ -355,7 +355,7 @@ const AdminTermsTab = () => {
       {/* List */}
       {isLoading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--swatch--clay)]" />
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-[var(--swatch--clay)] border-t-transparent" />
         </div>
       ) : filteredTerms.length === 0 ? (
         <div className="text-center py-12 text-gray-500 dark:text-gray-400">
@@ -470,7 +470,7 @@ const AdminTermsTab = () => {
             <button
               className={`px-4 py-2 text-sm font-medium ${
                 activeTab === "form"
-                  ? "border-b-2 border-[var(--swatch--clay)] text-[var(--swatch--clay)]"
+                  ? "border-2 border-[var(--swatch--clay)] border-t-transparent text-[var(--swatch--clay)]"
                   : "text-gray-600 dark:text-gray-300"
               }`}
               onClick={() => setActiveTab("form")}

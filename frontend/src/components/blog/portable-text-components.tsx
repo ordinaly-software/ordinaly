@@ -47,48 +47,48 @@ export const createPortableTextComponents = (headingIdByKey: Record<string, stri
   },
   block: {
     h1: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <h1 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-4xl md:text-5xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
+      <h1 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-4xl md:text-5xl font-bold mt-8 mb-4 text-slate-dark dark:text-ivory-light">
         {props.children}
       </h1>
     ),
     h2: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <h2 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-3xl md:text-4xl font-bold mt-8 mb-4 text-gray-900 dark:text-white">
+      <h2 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-3xl md:text-4xl font-bold mt-8 mb-4 text-slate-dark dark:text-ivory-light">
         {props.children}
       </h2>
     ),
     h3: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <h3 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-2xl md:text-3xl font-semibold mt-6 mb-3 text-gray-900 dark:text-white">
+      <h3 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-2xl md:text-3xl font-semibold mt-6 mb-3 text-slate-dark dark:text-ivory-light">
         {props.children}
       </h3>
     ),
     h4: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <h4 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-xl md:text-2xl font-semibold mt-4 mb-2 text-gray-900 dark:text-white">
+      <h4 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-xl md:text-2xl font-semibold mt-4 mb-2 text-slate-dark dark:text-ivory-light">
         {props.children}
       </h4>
     ),
     h5: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <h5 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-lg font-semibold mt-2 mb-2 text-gray-900 dark:text-white">
+      <h5 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-lg font-semibold mt-2 mb-2 text-slate-dark dark:text-ivory-light">
         {props.children}
       </h5>
     ),
     h6: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <h6 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-base font-semibold mt-2 mb-2 text-gray-900 dark:text-white">
+      <h6 id={headingIdFor(props, headingIdByKey)} className="scroll-mt-24 text-base font-semibold mt-2 mb-2 text-slate-dark dark:text-ivory-light">
         {props.children}
       </h6>
     ),
     blockquote: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <blockquote className="border-l-4 border-cobalt dark:border-cobalt-light pl-4 italic text-gray-700 dark:text-gray-300 my-6">{props.children}</blockquote>
+      <blockquote className="border-l-4 border-cobalt dark:border-cobalt-light pl-4 italic text-slate-medium dark:text-cloud-medium my-6">{props.children}</blockquote>
     ),
-    normal: (props: PortableTextComponentProps<PortableTextBlock>) => <p className="mb-4 text-base text-gray-800 dark:text-gray-200">{props.children}</p>,
+    normal: (props: PortableTextComponentProps<PortableTextBlock>) => <p className="mb-4 text-base text-slate-dark dark:text-ivory-light">{props.children}</p>,
   },
   list: {
     bullet: ({ children }: { children?: ReactNode }) => (
-      <ul className="mb-4 ml-6 list-disc text-base text-gray-800 dark:text-gray-200">
+      <ul className="mb-4 ml-6 list-disc text-base text-slate-dark dark:text-ivory-light">
         {children}
       </ul>
     ),
     number: ({ children }: { children?: ReactNode }) => (
-      <ol className="mb-4 ml-6 list-decimal text-base text-gray-800 dark:text-gray-200">
+      <ol className="mb-4 ml-6 list-decimal text-base text-slate-dark dark:text-ivory-light">
         {children}
       </ol>
     ),

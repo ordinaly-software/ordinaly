@@ -575,7 +575,7 @@ export default function ProfilePage() {
       <div className="min-h-screen bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
         <div className="flex min-h-[60vh] items-center justify-center">
           <div className="text-center">
-            <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-cobalt dark:border-cobalt-light" />
+            <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-2 border-cobalt dark:border-cobalt-light border-t-transparent" />
             <p className="text-slate-medium dark:text-cloud-medium">{t("loading")}</p>
           </div>
         </div>

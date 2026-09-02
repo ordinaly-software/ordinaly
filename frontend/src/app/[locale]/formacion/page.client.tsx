@@ -400,7 +400,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white transition-colors duration-300">
         <div className="px-4 sm:px-6 lg:px-8 py-10">
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="h-56 rounded-3xl bg-gray-200/80 dark:bg-gray-800/80 animate-pulse" />
@@ -654,7 +654,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                 </a>
               </div>
 
-              <h2 className="mt-6 max-w-2xl bg-gradient-to-r from-white to-[--swatch--sky] bg-clip-text text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-transparent md:text-5xl">
+              <h2 className="mt-6 max-w-2xl font-serif text-3xl font-normal leading-[1.05] tracking-[-0.01em] text-white md:text-5xl">
                 {t("cta.title")}
               </h2>
 
