@@ -51,11 +51,11 @@ export default function ImplantacionOdoo() {
   const infocards: InfoCardItem[] = [
     { key: "erp", size: "xl", title: infoCardTexts[0]?.name, description: infoCardTexts[0]?.description, image: "/static/implantacion-odoo/erp.webp" },
     { key: "modules", size: "xl", title: infoCardTexts[1]?.name, description: infoCardTexts[1]?.description, image: "/static/implantacion-odoo/modules.webp" },
-    { key: "automation", size: "md", title: infoCardTexts[2]?.name, description: infoCardTexts[2]?.description, image: "/static/implantacion-odoo/automation.webp" },
+    { key: "automation", size: "md", title: infoCardTexts[2]?.name, description: infoCardTexts[2]?.description, image: "/static/servicios/software.webp" },
     { key: "verifactu", size: "md", title: infoCardTexts[3]?.name, description: infoCardTexts[3]?.description, image: "/static/implantacion-odoo/verifactu.webp" },
-    { key: "vps", size: "sm", title: infoCardTexts[4]?.name, description: infoCardTexts[4]?.description, image: "/static/implantacion-odoo/vps.webp" },
+    { key: "vps", size: "sm", title: infoCardTexts[4]?.name, description: infoCardTexts[4]?.description, image: "/static/servicios/vps.webp" },
     { key: "software", size: "sm", title: infoCardTexts[5]?.name, description: infoCardTexts[5]?.description},
-    { key: "sensitive-data", size: "sm", title: infoCardTexts[6]?.name, description: infoCardTexts[6]?.description, image: "/static/implantacion-odoo/sensitive_data.webp" },
+    { key: "sensitive-data", size: "sm", title: infoCardTexts[6]?.name, description: infoCardTexts[6]?.description, image: "/static/servicios/sensitive_data.webp" },
     ...pricingCard,
   ];
 

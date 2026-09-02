@@ -20,8 +20,8 @@ import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 const PWA_BULLETS = [
   {
     icon: Globe,
-    iconClass: "bg-[#0255D5]/10 text-[#0255D5] dark:bg-[#0255D5]/15",
-    hoverClass: "hover:bg-[#0255D5]/10 dark:hover:bg-[#0255D5]/15",
+    iconClass: "bg-cobalt/10 text-cobalt dark:bg-cobalt/15",
+    hoverClass: "hover:bg-cobalt/10 dark:hover:bg-cobalt/15",
   },
   {
     icon: MonitorSmartphone,
@@ -106,12 +106,12 @@ export default function DesarrolloDeAppWebs() {
   // Defined one by one (rather than mechanically mapped) so each card's
   // size can be chosen deliberately.
   const infocards: InfoCardItem[] = [
-    { key: "design", size: "xl", title: infoCardTexts[0]?.name, description: infoCardTexts[1]?.description, image: "/static/desarrollo-de-app-webs/design.webp" },
+    { key: "design", size: "xl", title: infoCardTexts[0]?.name, description: infoCardTexts[1]?.description, image: "/static/servicios/engineers.webp" },
     { key: "seo", size: "md", title: infoCardTexts[1]?.name, description: infoCardTexts[2]?.description, image: "/static/desarrollo-de-app-webs/seo.webp" },
-    { key: "automation", size: "md", title: infoCardTexts[2]?.name, description: infoCardTexts[3]?.description, image: "/static/desarrollo-de-app-webs/automation.webp" },
+    { key: "automation", size: "md", title: infoCardTexts[2]?.name, description: infoCardTexts[3]?.description, image: "/static/servicios/software.webp" },
     { key: "ui", size: "xl", title: infoCardTexts[5]?.name, description: infoCardTexts[6]?.description, video: "/static/desarrollo-de-app-webs/ui.mp4", videoPlaybackRate: 0.4 },
     { key: "responsive", size: "lg", title: infoCardTexts[4]?.name, description: infoCardTexts[5]?.description, image: "/static/desarrollo-de-app-webs/responsive.webp" },  
-    { key: "vps", size: "md", title: infoCardTexts[3]?.name, description: infoCardTexts[4]?.description, image: "/static/desarrollo-de-app-webs/vps.webp" },
+    { key: "vps", size: "md", title: infoCardTexts[3]?.name, description: infoCardTexts[4]?.description, image: "/static/servicios/vps.webp" },
     ...requirementsCard,
     ...pricingCard,
   ];

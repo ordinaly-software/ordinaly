@@ -29,7 +29,7 @@ export function PrinciplesSection({ id }: { id?: string }) {
       <div className="mx-auto max-w-6xl">
         {/* Header */}
         <div className="max-w-3xl">
-          <h2 className="mt-3 text-3xl font-bold leading-[1.05] tracking-[-0.02em] text-clay dark:text-clay md:text-5xl">
+          <h2 className="mt-3 font-serif text-3xl font-normal leading-[1.05] tracking-[-0.01em] text-slate-dark dark:text-ivory-light md:text-5xl">
             {t("title")}
           </h2>
           <p className="mt-4 text-base leading-relaxed text-slate-medium dark:text-cloud-medium md:text-lg">
@@ -43,11 +43,11 @@ export function PrinciplesSection({ id }: { id?: string }) {
             <motion.li
               key={key}
               {...reveal(Math.min(index, 6) * 0.06)}
-              className="group rounded-[1.75rem] border border-gray-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0 dark:border-gray-800 dark:bg-gray-900/60 md:p-7"
+              className="group rounded-a-l border border-[--color-border-subtle] bg-ivory-light p-6 transition duration-300 hover:-translate-y-1 hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0 dark:border-white/10 dark:bg-slate-medium md:p-7"
             >
               <span
                 aria-hidden="true"
-                className="block bg-gradient-to-br from-clay to-cobalt bg-clip-text text-3xl font-bold leading-none tracking-[-0.03em] tabular-nums text-transparent"
+                className="block font-serif text-4xl font-normal leading-none tracking-[-0.02em] tabular-nums text-slate-dark/15 dark:text-ivory-light/15"
               >
                 {String(index + 1).padStart(2, "0")}
               </span>
@@ -68,7 +68,7 @@ export function PrinciplesSection({ id }: { id?: string }) {
               <motion.p
                 key={key}
                 {...reveal(index * 0.1)}
-                className="text-2xl font-bold leading-[1.12] tracking-[-0.02em] text-slate-dark dark:text-ivory-light sm:text-3xl md:text-4xl"
+                className="font-serif text-2xl font-normal leading-[1.15] tracking-[-0.01em] text-slate-dark dark:text-ivory-light sm:text-3xl md:text-4xl"
               >
                 {t(`manifesto.${key}`)}
               </motion.p>

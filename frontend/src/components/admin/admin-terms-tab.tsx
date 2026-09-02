@@ -428,7 +428,7 @@ const AdminTermsTab = () => {
                           variant="ghost"
                           size="icon"
                           onClick={() => handleEdit(term)}
-                          className="text-[var(--swatch--cobalt)] hover:bg-[var(--swatch--cobalt)]/10"
+                          className="text-cobalt hover:bg-cobalt/10"
                           title={t("edit")}
                         >
                           <Edit className="h-5 w-5 sm:h-4 sm:w-4" />

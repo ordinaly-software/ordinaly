@@ -77,7 +77,7 @@ export const createPortableTextComponents = (headingIdByKey: Record<string, stri
       </h6>
     ),
     blockquote: (props: PortableTextComponentProps<PortableTextBlock>) => (
-      <blockquote className="border-l-4 border-[#0255D5] dark:border-[#7DB5FF] pl-4 italic text-gray-700 dark:text-gray-300 my-6">{props.children}</blockquote>
+      <blockquote className="border-l-4 border-cobalt dark:border-cobalt-light pl-4 italic text-gray-700 dark:text-gray-300 my-6">{props.children}</blockquote>
     ),
     normal: (props: PortableTextComponentProps<PortableTextBlock>) => <p className="mb-4 text-base text-gray-800 dark:text-gray-200">{props.children}</p>,
   },
@@ -95,19 +95,19 @@ export const createPortableTextComponents = (headingIdByKey: Record<string, stri
   },
   listItem: {
     bullet: ({ children }: { children?: ReactNode }) => (
-      <li className="mb-2 pl-1 marker:text-[#0255D5] dark:marker:text-[#7DB5FF]">
+      <li className="mb-2 pl-1 marker:text-cobalt dark:marker:text-cobalt-light">
         {children}
       </li>
     ),
     number: ({ children }: { children?: ReactNode }) => (
-      <li className="mb-2 pl-1 marker:font-semibold marker:text-[#0255D5] dark:marker:text-[#7DB5FF]">
+      <li className="mb-2 pl-1 marker:font-semibold marker:text-cobalt dark:marker:text-cobalt-light">
         {children}
       </li>
     ),
   },
   marks: {
     link: ({ children, value }: { children: ReactNode; value?: { href?: string } }) => (
-      <Link href={value?.href || '#'} className="underline text-[#0255D5] dark:text-[#7DB5FF] hover:text-[#60A5FA] dark:hover:text-[#60A5FA]">{children}</Link>
+      <Link href={value?.href || '#'} className="underline text-cobalt dark:text-cobalt-light hover:text-cobalt-light dark:hover:text-cobalt-light">{children}</Link>
     ),
   },
 });

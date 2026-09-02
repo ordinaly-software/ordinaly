@@ -575,7 +575,7 @@ export default function ProfilePage() {
       <div className="min-h-screen bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
         <div className="flex min-h-[60vh] items-center justify-center">
           <div className="text-center">
-            <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-cobalt dark:border-[#7DB5FF]" />
+            <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-b-2 border-cobalt dark:border-cobalt-light" />
             <p className="text-slate-medium dark:text-cloud-medium">{t("loading")}</p>
           </div>
         </div>
@@ -599,7 +599,7 @@ export default function ProfilePage() {
         {/* Header Panel */}
         <div className="rounded-[2rem] border border-[--color-border-subtle] bg-white/75 px-6 py-6 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04] sm:px-10">
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cobalt dark:text-[#7DB5FF]">
+            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cobalt dark:text-cobalt-light">
               {t("kicker")}
             </p>
             <h1 className="text-3xl font-semibold leading-tight tracking-[-0.03em] sm:text-4xl">
@@ -618,8 +618,8 @@ export default function ProfilePage() {
                   onClick={() => handleTabChange(tab.id)}
                   className={`group inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition-all duration-150 active:scale-[0.97] ${
                     isActive
-                      ? "border-cobalt/50 bg-cobalt/12 text-cobalt shadow-[0_8px_20px_-8px_rgba(2,85,213,0.35)] dark:border-[#7DB5FF]/40 dark:bg-[#7DB5FF]/15 dark:text-[#7DB5FF]"
-                      : "border-[--color-border-subtle] bg-white/60 text-slate-medium hover:border-cobalt/40 hover:bg-cobalt/5 hover:text-cobalt dark:border-white/10 dark:bg-white/[0.03] dark:text-cloud-medium dark:hover:border-[#7DB5FF]/30 dark:hover:bg-[#7DB5FF]/10 dark:hover:text-[#7DB5FF]"
+                      ? "border-cobalt/50 bg-cobalt/12 text-cobalt shadow-[0_8px_20px_-8px_rgba(2,85,213,0.35)] dark:border-cobalt-light/40 dark:bg-cobalt-light/15 dark:text-cobalt-light"
+                      : "border-[--color-border-subtle] bg-white/60 text-slate-medium hover:border-cobalt/40 hover:bg-cobalt/5 hover:text-cobalt dark:border-white/10 dark:bg-white/[0.03] dark:text-cloud-medium dark:hover:border-cobalt-light/30 dark:hover:bg-cobalt-light/10 dark:hover:text-cobalt-light"
                   }`}
                 >
                   <Icon className="h-4 w-4" />

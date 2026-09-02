@@ -165,7 +165,7 @@ export default function FaqPageClient({
           </div>
 
           <div className="mt-5 flex flex-wrap items-center justify-between gap-3">
-            <p className="label-meta text-[#0255D5] dark:text-[#7DB5FF]">{ui.topics}</p>
+            <p className="label-meta text-cobalt dark:text-cobalt-light">{ui.topics}</p>
             <p className="text-xs font-medium uppercase tracking-[0.14em] text-slate-medium dark:text-cloud-medium">
               {filteredEntries.length} {ui.results}
             </p>
@@ -176,7 +176,7 @@ export default function FaqPageClient({
               onClick={() => startTransition(() => setActiveCategory("all"))}
               className={`rounded-full border px-4 py-2 text-sm transition active:scale-95 ${
                 activeCategory === "all"
-                  ? "border-[#0255D5]/20 bg-[#0255D5]/10 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]"
+                  ? "border-cobalt/20 bg-cobalt/10 text-cobalt dark:border-cobalt-light/20 dark:bg-cobalt/12 dark:text-cobalt-light"
                   : "border-[--color-border-subtle] bg-white/70 text-slate-medium hover:text-slate-dark dark:border-white/10 dark:bg-white/[0.04] dark:text-cloud-medium dark:hover:text-ivory-light"
               }`}
             >
@@ -191,7 +191,7 @@ export default function FaqPageClient({
                   onClick={() => startTransition(() => setActiveCategory(key))}
                   className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm transition active:scale-95 ${
                     activeCategory === key
-                      ? "border-[#0255D5]/20 bg-[#0255D5]/10 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]"
+                      ? "border-cobalt/20 bg-cobalt/10 text-cobalt dark:border-cobalt-light/20 dark:bg-cobalt/12 dark:text-cobalt-light"
                       : "border-[--color-border-subtle] bg-white/70 text-slate-medium hover:text-slate-dark dark:border-white/10 dark:bg-white/[0.04] dark:text-cloud-medium dark:hover:text-ivory-light"
                   }`}
                 >
@@ -214,7 +214,7 @@ export default function FaqPageClient({
                   return (
                     <article key={entry.id} className={`${cardClass} p-6`}>
                       <div className="flex flex-wrap items-center gap-2">
-                        <span className="label-meta rounded-full border border-[#0255D5]/15 bg-[#0255D5]/10 px-3 py-1 text-[#0255D5] dark:border-[#7DB5FF]/20 dark:bg-[#0255D5]/12 dark:text-[#7DB5FF]">
+                        <span className="label-meta rounded-full border border-cobalt/15 bg-cobalt/10 px-3 py-1 text-cobalt dark:border-cobalt-light/20 dark:bg-cobalt/12 dark:text-cobalt-light">
                           {entry.categoryLabel}
                         </span>
                         {entry.tag ? (
@@ -315,7 +315,7 @@ export default function FaqPageClient({
           <div className="bg-white text-center dark:bg-[#1A1924]">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 pb-10 text-sm font-semibold text-[#0255D5] transition hover:gap-3 dark:text-[#7DB5FF]"
+              className="inline-flex items-center gap-2 pb-10 text-sm font-semibold text-cobalt transition hover:gap-3 dark:text-cobalt-light"
             >
               {ui.blogCta}
               <ArrowRight className="h-4 w-4" />

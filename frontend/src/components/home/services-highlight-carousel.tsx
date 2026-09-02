@@ -126,7 +126,7 @@ export function ServicesHighlightCarousel() {
             CARD_SIZE,
           )}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-[--swatch--slate-dark] to-[--swatch--cobalt-dark]">
+          <div className="absolute inset-0 bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark">
             <div className="flex h-full w-full items-center justify-center text-white/80">
               <LayoutGrid className="h-14 w-14" />
             </div>

@@ -351,7 +351,7 @@ export default function ContactPage() {
                 />
               ) : (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-oat/60 px-6 py-8 text-center dark:bg-white/[0.04]">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0255D5]/15 text-[#0255D5] dark:text-[#7DB5FF]">
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-cobalt/15 text-cobalt dark:text-cobalt-light">
                     <MapPin className="h-6 w-6" strokeWidth={1.6} />
                   </span>
                   <p className="text-sm font-semibold text-slate-dark dark:text-ivory-light">
@@ -364,7 +364,7 @@ export default function ContactPage() {
                     href="https://maps.app.goo.gl/2a4Rheb6u94wFe46A"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full bg-[#0144AA] px-4 py-2 text-xs font-semibold text-white transition hover:bg-[#0255D5] dark:bg-[#7DB5FF] dark:text-black"
+                    className="inline-flex items-center gap-2 rounded-full bg-cobalt-dark px-4 py-2 text-xs font-semibold text-white transition hover:bg-cobalt dark:bg-cobalt-light dark:text-black"
                   >
                     {t("map.cta")}
                     <ExternalLink className="h-3.5 w-3.5" />

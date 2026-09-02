@@ -251,7 +251,9 @@
     "defaultWhatsAppMessage": "Hola, me gustaría saber más sobre los servicios de Ordinaly"
   },
   "common": {
-    "backToHome": "Volver al inicio"
+    "backToHome": "Volver al inicio",
+    "next": "Siguiente",
+    "previous": "Anterior"
   },
   "logoutModal": {
     "title": "Confirmar cerrar sesión",

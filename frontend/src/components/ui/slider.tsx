@@ -5,7 +5,7 @@ interface SliderProps {
   checked: boolean;
   onChange: () => void;
   className?: string;
-  color?: 'green' | 'orange' | 'blue' | 'red' | string;
+  color?: 'green' | 'orange' | 'blue' | 'red' | 'clay' | string;
   disabled?: boolean;
 }
 
@@ -13,9 +13,10 @@ interface SliderProps {
 const colorClassMap: Record<string, string> = {
   green: 'bg-clay',
   orange: 'bg-flame',
-  blue: 'bg-blue-600',
+  blue: 'bg-cobalt',
   red: 'bg-red-600',
-  purple: 'bg-purple',
+  purple: 'bg-[var(--swatch--clay)]',
+  clay: 'bg-[var(--swatch--clay)]',
 };
 
 const Slider: React.FC<SliderProps> = ({

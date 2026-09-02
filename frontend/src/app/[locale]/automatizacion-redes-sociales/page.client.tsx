@@ -146,7 +146,7 @@ export default function AutomatizacionRedesSocialesPage() {
       size: "lg",
       title: infoCardTexts[0]?.name,
       description: infoCardTexts[0]?.description,
-      image: "/static/automatizacion-redes-sociales/vps.webp",
+      image: "/static/servicios/vps.webp",
     },
     {
       key: "accounts",
@@ -159,7 +159,7 @@ export default function AutomatizacionRedesSocialesPage() {
       size: "sm",
       title: infoCardTexts[2]?.name,
       description: infoCardTexts[2]?.description,
-      image: "/static/automatizacion-redes-sociales/sensitive_data.webp",
+      image: "/static/servicios/sensitive_data.webp",
     },
     ...pricingCard,
   ];

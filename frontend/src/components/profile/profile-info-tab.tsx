@@ -67,7 +67,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
       {/* Personal Information */}
       <Card className={cardShell}>
         <CardHeader className="flex-row flex-wrap items-center justify-between gap-3 space-y-0">
-          <CardTitle className="flex items-center gap-2 text-2xl font-semibold tracking-[-0.03em] text-cobalt dark:text-[#7DB5FF]">
+          <CardTitle className="flex items-center gap-2 text-2xl font-semibold tracking-[-0.03em] text-cobalt dark:text-cobalt-light">
             <User className="h-6 w-6" strokeWidth={1.8} />
             {t("personalInfo")}
           </CardTitle>
@@ -78,7 +78,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
             <Badge
               variant={isGoogleAuthenticated ? "secondary" : "outline"}
               className={isGoogleAuthenticated
-                ? "border-transparent bg-cobalt/12 text-[--swatch--cobalt-dark] dark:bg-[#7DB5FF]/20 dark:text-[#7DB5FF]"
+                ? "border-transparent bg-cobalt/12 text-cobalt-dark dark:bg-cobalt-light/20 dark:text-cobalt-light"
                 : "border-[--color-border-subtle] text-slate-medium dark:border-white/10 dark:text-cloud-medium"}
             >
               {isGoogleAuthenticated ? t("authProvider.google") : t("authProvider.credentials")}
@@ -216,7 +216,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                 <Button
                   onClick={onSave}
                   disabled={isSaving}
-                  className="flex-1 bg-[--swatch--cobalt-dark] text-white shadow-[0_15px_40px_-15px_rgba(2,85,213,0.55)] hover:bg-[#01388A] active:scale-[0.98] dark:bg-[#7DB5FF] dark:text-black dark:hover:bg-[#60A5FA]"
+                  className="flex-1 bg-cobalt-dark text-white shadow-[0_15px_40px_-15px_rgba(2,85,213,0.55)] hover:bg-cobalt-dark active:scale-[0.98] dark:bg-cobalt-light dark:text-black dark:hover:bg-cobalt-light"
                 >
                   {isSaving ? t("form.saveChangesLoading") : t("form.saveChanges")}
                 </Button>
@@ -236,9 +236,9 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
 
       {/* Notifications + Security + Danger Zone row */}
       <div className={`grid items-start gap-6 ${isGoogleAuthenticated ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'}`}>
-        <Card className={`self-start ${cardShell} border-heather/50 dark:border-heather/25`}>
+        <Card className={`self-start ${cardShell} border-clay/40 dark:border-clay/25`}>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-lg font-semibold tracking-[-0.02em] text-[#623CEA]">
+            <CardTitle className="flex items-center gap-2 text-lg font-semibold tracking-[-0.02em] text-[var(--swatch--clay)]">
               <Bell className="h-5 w-5" strokeWidth={1.8} />
               {t("form.allowNotificationsTitle")}
             </CardTitle>
@@ -250,7 +250,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                 variant="outline"
                 onClick={onToggleAllNotifications}
                 disabled={isUpdatingNotifications}
-                className="border-[#623CEA]/30 text-[#623CEA] hover:bg-[#623CEA]/10 active:scale-[0.98]"
+                className="border-[var(--swatch--clay)]/30 text-[var(--swatch--clay)] hover:bg-[var(--swatch--clay)]/10 active:scale-[0.98]"
               >
                 {allOptionalNotificationsEnabled ? t("form.disableAllOptionalNotifications") : t("form.enableAllOptionalNotifications")}
               </Button>
@@ -283,8 +283,8 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                       checked={item.checked}
                       onChange={() => onFieldChange(item.key, !item.checked)}
                       disabled={isUpdatingNotifications}
-                      color="purple"
-                      className="[&_.slider-track]:bg-[#623cea33] [&_.slider-thumb]:bg-[#623CEA] [&_.slider-thumb]:border-[#623CEA] [&_.slider-track]:border-[#623CEA] [&_.slider-track]:shadow [&_.slider-thumb]:shadow-lg [&_.slider-thumb]:shadow-[#623CEA40]"
+                      color="clay"
+                      className="[&_.slider-track]:bg-[var(--swatch--clay)]/20 [&_.slider-thumb]:bg-[var(--swatch--clay)] [&_.slider-thumb]:border-[var(--swatch--clay)] [&_.slider-track]:border-[var(--swatch--clay)] [&_.slider-track]:shadow [&_.slider-thumb]:shadow-lg [&_.slider-thumb]:shadow-[#D9775740]"
                     />
                   </div>
                 ))}
@@ -295,9 +295,9 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
 
         {/* Security */}
         {!isGoogleAuthenticated && (
-          <Card className={`self-start ${cardShell} border-cobalt/25 dark:border-[#7DB5FF]/25`}>
+          <Card className={`self-start ${cardShell} border-cobalt/25 dark:border-cobalt-light/25`}>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-lg font-semibold tracking-[-0.02em] text-cobalt dark:text-[#7DB5FF]">
+              <CardTitle className="flex items-center gap-2 text-lg font-semibold tracking-[-0.02em] text-cobalt dark:text-cobalt-light">
                 <Lock className="h-5 w-5" strokeWidth={1.8} />
                 {t("security.title")}
               </CardTitle>
@@ -309,7 +309,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                 </p>
                 <Button
                   variant="outline"
-                  className="w-full border-cobalt text-cobalt hover:bg-cobalt/10 active:scale-[0.98] dark:border-[#7DB5FF] dark:text-[#7DB5FF] dark:hover:bg-[#7DB5FF]/10"
+                  className="w-full border-cobalt text-cobalt hover:bg-cobalt/10 active:scale-[0.98] dark:border-cobalt-light dark:text-cobalt-light dark:hover:bg-cobalt-light/10"
                   onClick={() => {
                     window.location.href = `/${locale}/reset-password?email=${encodeURIComponent(email)}`;
                   }}

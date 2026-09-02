@@ -444,7 +444,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                 placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-cobalt dark:focus:border-cobalt-light"
               />
             </div>
 
@@ -561,7 +561,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
               <Button
                 onClick={() => setShowPastCourses(!showPastCourses)}
                 variant="outline"
-                className="border-[#0255D5] dark:border-[#7DB5FF] text-[#0255D5] dark:text-[#7DB5FF] hover:bg-[#0144AA] dark:hover:bg-[#7DB5FF]/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
+                className="border-cobalt dark:border-cobalt-light text-cobalt dark:text-cobalt-light hover:bg-cobalt-dark dark:hover:bg-cobalt-light/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
               >
                 {showPastCourses ? (
                   <>
@@ -615,7 +615,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
     
       <section className="px-4 pb-24 pt-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl">
-          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-[--swatch--cobalt-dark] px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
+          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
             <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cobalt/25 blur-3xl" aria-hidden />
             <div className="pointer-events-none absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-clay/15 blur-3xl" aria-hidden />
 

@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-02T12:00:00.000Z",
+  "title": "Design System: Ordinaly",
+  "extensions": {
+    "colorMeta": {
+      "ivory-light": { "role": "neutral", "displayName": "Ivory Light", "canonical": "#FAF9F5", "tonalRamp": ["#87867F", "#B0AEA5", "#D1CFC5", "#E3DACC", "#E8E6DC", "#F0EEE6", "#FAF9F5", "#FEFEFB"] },
+      "oat": { "role": "neutral", "displayName": "Oat", "canonical": "#E3DACC", "tonalRamp": ["#6B6353", "#8A8071", "#A79C89", "#C4B8A4", "#E3DACC", "#EAE3D8", "#F1ECE4", "#F8F5EF"] },
+      "slate-dark": { "role": "secondary", "displayName": "Slate Dark", "canonical": "#141413", "tonalRamp": ["#141413", "#22221F", "#2F2F2C", "#3D3D3A", "#52514D", "#5E5D59", "#87867F", "#B0AEA5"] },
+      "slate-medium": { "role": "secondary", "displayName": "Slate Medium", "canonical": "#3D3D3A", "tonalRamp": ["#141413", "#22221F", "#2F2F2C", "#3D3D3A", "#52514D", "#5E5D59", "#87867F", "#B0AEA5"] },
+      "cloud-medium": { "role": "neutral", "displayName": "Cloud Medium", "canonical": "#B0AEA5", "tonalRamp": ["#4A4944", "#63625C", "#7C7A73", "#95938B", "#B0AEA5", "#C3C1BA", "#D6D5CF", "#E9E8E4"] },
+      "clay": { "role": "primary", "displayName": "Clay", "canonical": "#D97757", "tonalRamp": ["#4A2015", "#6E3221", "#92442E", "#B5553B", "#D97757", "#E29578", "#ECB39A", "#F5D1BE"] },
+      "clay-deep": { "role": "primary", "displayName": "Clay Deep", "canonical": "#C6613F", "tonalRamp": ["#42190D", "#632616", "#84331F", "#A54A2F", "#C6613F", "#D6866B", "#E5AB97", "#F3D0C3"] },
+      "flame": { "role": "tertiary", "displayName": "Flame", "canonical": "#E15D31", "tonalRamp": ["#4B1B0C", "#6F2913", "#93371A", "#B74522", "#E15D31", "#E97F5C", "#F1A187", "#F8C3B2"] },
+      "cobalt": { "role": "tertiary", "displayName": "Cobalt", "canonical": "#0255D5", "tonalRamp": ["#01193F", "#012B6A", "#013E95", "#0149B8", "#0255D5", "#3B7FE0", "#74A8EB", "#AECFF6"] },
+      "manilla": { "role": "tertiary", "displayName": "Manilla", "canonical": "#EBDBBC", "tonalRamp": ["#6E5C36", "#8C7647", "#A9915B", "#C7B285", "#EBDBBC", "#EFE2C9", "#F4EAD7", "#F9F3E6"] },
+      "kraft": { "role": "tertiary", "displayName": "Kraft", "canonical": "#D4A27F", "tonalRamp": ["#4C3220", "#6E482E", "#8F5F3D", "#B1804F", "#D4A27F", "#DEB598", "#E9C9B3", "#F3DDCE"] },
+      "destructive": { "role": "neutral", "displayName": "Destructive Red", "canonical": "#EF4444", "tonalRamp": ["#4C0F0F", "#701818", "#942121", "#B82C2C", "#EF4444", "#F26E6E", "#F79999", "#FBC4C4"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Page-defining hero statement, one per view. Lora, light weight, near-collapsed leading, often uppercase." },
+      "headline": { "displayName": "Headline", "purpose": "Major section openers. Lora, light weight." },
+      "title": { "displayName": "Title", "purpose": "Card titles, subsection and dialog headings. Inter semibold." },
+      "body": { "displayName": "Body", "purpose": "Default reading text at a 65-75ch measure. Inter regular, 1.6 leading." },
+      "label": { "displayName": "Label", "purpose": "Uppercase metadata, eyebrows, category tags, table headers. Inter medium, 0.017em tracking." }
+    },
+    "shadows": [
+      { "name": "ambient-sm", "value": "0 1px 2px 0 rgba(0,0,0,0.05)", "purpose": "Open overlays only (dropdown, popover, modal) and the special button variant. Never on a resting card." },
+      { "name": "input-inset", "value": "0 2px 3px -1px rgba(0,0,0,0.10), 0 1px 0 0 rgba(25,28,33,0.02), 0 0 0 1px rgba(25,28,33,0.08)", "purpose": "Text field at rest; removed on group hover and focus." }
+    ],
+    "motion": [
+      { "name": "state-fast", "value": "150ms ease", "purpose": "Button and link color/state transitions." },
+      { "name": "reveal", "value": "800ms cubic-bezier(0.25, 0.46, 0.45, 0.94)", "purpose": "Scroll-in reveals (fade/slide), opacity plus small translate only." },
+      { "name": "input-glow", "value": "300ms ease", "purpose": "Cursor-tracking clay radial wash on input hover." },
+      { "name": "gradient-drift", "value": "cubic-bezier(0.445, 0.05, 0.55, 0.95)", "purpose": "Slow ambient background-gradient loop on select hero backdrops." },
+      { "name": "accordion", "value": "200ms ease-out", "purpose": "FAQ / accordion open and close." },
+      { "name": "flow-line", "value": "0.5s linear infinite", "purpose": "Dashed stroke march on automation/workflow diagrams (the one sanctioned decorative motion)." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" },
+      { "name": "2xl", "value": "1400px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default action. Slate-dark fill, ivory text, flat 150ms transition, clay focus ring. No hover lift or shadow.",
+      "html": "<button class=\"ds-btn-primary\">Empieza ahora</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 12px 32px; background: #141413; color: #FAF9F5; font-family: Inter, 'DM Sans', Arial, sans-serif; font-size: 16px; font-weight: 600; line-height: 1; border: none; border-radius: 8px; cursor: pointer; transition: background-color 150ms ease; } .ds-btn-primary:hover { background: #3D3D3A; } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px #FAF9F5, 0 0 0 4px #D97757; } .ds-btn-primary:disabled { opacity: 0.5; pointer-events: none; }"
+    },
+    {
+      "name": "Accent Button",
+      "kind": "button",
+      "refersTo": "button-accent",
+      "description": "The one warm CTA. Clay fill, ivory text, identical in light and dark. Use for the single most important action in view.",
+      "html": "<button class=\"ds-btn-accent\">Habla con nosotros</button>",
+      "css": ".ds-btn-accent { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 12px 32px; background: #D97757; color: #FAF9F5; font-family: Inter, 'DM Sans', Arial, sans-serif; font-size: 16px; font-weight: 600; line-height: 1; border: none; border-radius: 8px; cursor: pointer; transition: background-color 150ms ease; } .ds-btn-accent:hover { background: #C6613F; } .ds-btn-accent:focus-visible { outline: none; box-shadow: 0 0 0 2px #FAF9F5, 0 0 0 4px #D97757; }"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Low-emphasis action. Transparent fill, hairline slate border, fills oat on hover.",
+      "html": "<button class=\"ds-btn-outline\">Ver servicios</button>",
+      "css": ".ds-btn-outline { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 48px; padding: 12px 32px; background: transparent; color: #141413; font-family: Inter, 'DM Sans', Arial, sans-serif; font-size: 16px; font-weight: 600; line-height: 1; border: 1px solid rgba(20,20,19,0.25); border-radius: 8px; cursor: pointer; transition: background-color 150ms ease; } .ds-btn-outline:hover { background: #E3DACC; } .ds-btn-outline:focus-visible { outline: none; box-shadow: 0 0 0 2px #FAF9F5, 0 0 0 4px #D97757; }"
+    },
+    {
+      "name": "Editorial Card",
+      "kind": "card",
+      "refersTo": "card-editorial",
+      "description": "Release / article card. Oat fill, 16px radius, flat at rest, meta row divided by a top hairline with uppercase labels.",
+      "html": "<article class=\"ds-card-editorial\"><h3 class=\"ds-card-editorial__title\">Automatización de facturas</h3><p class=\"ds-card-editorial__body\">Extrae, valida y archiva cada factura sin intervención manual.</p><div class=\"ds-card-editorial__meta\"><span>Caso de uso</span><span>5 min</span></div></article>",
+      "css": ".ds-card-editorial { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 32px; background: #E3DACC; color: #141413; border: 1px solid rgba(20,20,19,0.10); border-radius: 16px; } .ds-card-editorial__title { margin: 0; font-family: Inter, 'DM Sans', Arial, sans-serif; font-size: 24px; font-weight: 600; line-height: 1.1; letter-spacing: -0.005em; } .ds-card-editorial__body { margin: 0; font-family: Inter, 'DM Sans', Arial, sans-serif; font-size: 16px; font-weight: 400; line-height: 1.6; color: #3D3D3A; } .ds-card-editorial__meta { display: flex; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(20,20,19,0.10); font-family: Inter, 'DM Sans', Arial, sans-serif; font-size: 14px; font-weight: 500; letter-spacing: 0.017em; text-transform: uppercase; color: #87867F; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Oat fill, borderless, soft inset at rest, clay focus ring. A clay radial wash tracks the cursor on hover.",
+      "html": "<div class=\"ds-input-wrap\"><input class=\"ds-input\" type=\"email\" placeholder=\"tu@empresa.com\" /></div>",
+      "css": ".ds-input-wrap { padding: 2px; border-radius: 12px; transition: background 300ms ease; } .ds-input-wrap:hover { background: radial-gradient(100px circle at 50% 50%, rgba(217,119,87,0.18), transparent 80%); } .ds-input { display: flex; height: 40px; width: 100%; padding: 8px 12px; background: #E3DACC; color: #141413; font-family: Inter, 'DM Sans', Arial, sans-serif; font-size: 14px; border: none; border-radius: 6px; box-shadow: 0 2px 3px -1px rgba(0,0,0,0.10), 0 1px 0 0 rgba(25,28,33,0.02), 0 0 0 1px rgba(25,28,33,0.08); transition: box-shadow 400ms ease; } .ds-input::placeholder { color: #87867F; } .ds-input:hover { border-color: #D97757; } .ds-input:focus-visible { outline: none; box-shadow: 0 0 0 2px #D97757; } .ds-input:disabled { opacity: 0.5; cursor: not-allowed; }"
+    },
+    {
+      "name": "Badge",
+      "kind": "chip",
+      "refersTo": "badge",
+      "description": "Fully rounded pill, hairline border, semibold micro-type. Slate-dark default; ivory-medium secondary.",
+      "html": "<span class=\"ds-badge\">Nuevo</span><span class=\"ds-badge ds-badge--secondary\">Curso</span>",
+      "css": ".ds-badge { display: inline-flex; align-items: center; padding: 2px 10px; background: #141413; color: #FAF9F5; font-family: Inter, 'DM Sans', Arial, sans-serif; font-size: 12px; font-weight: 600; border: 1px solid transparent; border-radius: 9999px; transition: background-color 150ms ease; } .ds-badge--secondary { background: #F0EEE6; color: #141413; }"
+    },
+    {
+      "name": "Uppercase Label",
+      "kind": "custom",
+      "refersTo": "label",
+      "description": "Metadata / eyebrow text. Inter medium, uppercase, 0.017em tracking, cloud-dark on warm ground.",
+      "html": "<span class=\"ds-label\">Consultora tecnológica · Sevilla</span>",
+      "css": ".ds-label { font-family: Inter, 'DM Sans', Arial, sans-serif; font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: 0.017em; text-transform: uppercase; color: #87867F; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Andalusian Studio",
+    "overview": "Ordinaly builds AI automation for businesses and trains their teams to run it. The interface should feel like the workspace of a craft-house that happens to work in software: warm, sunlit, unhurried, and exact. The palette is drawn from sevillano light and material - bleached ivory walls, oat linen, the terracotta of a clay tile - with near-black slate as the ink. Regional character is the quiet differentiator: not folklore, but the calm confidence of a studio that has been doing careful work for a long time.\n\nThe system is editorial and disciplined. Hierarchy is carried by a serif display voice against a clean Inter body, by generous whitespace, by uppercase metadata labels, and by hairline rules - not by color noise or ornament. One accent (clay) does the highlighting work, and it earns its rarity. Surfaces are flat; depth comes from layering the warm neutrals, not from shadow. Motion is short, eased, and functional.\n\nThis world explicitly rejects the generic AI-startup look - purple-to-blue gradients, glowing orbs, neon grids, dark-mode hero drama - and it rejects glow and neon effects as a system style. A small number of service landing pages use glow-* utilities locally; those are surface-local exceptions, not system doctrine.",
+    "keyCharacteristics": [
+      "Warm neutral ground (ivory / oat), near-black slate ink, single clay accent.",
+      "Serif display (Lora) for the big statements; Inter for everything operational.",
+      "Flat surfaces, depth by tonal layering of neutrals.",
+      "Uppercase, wide-tracked labels for metadata and eyebrows.",
+      "Short functional motion (150ms state, ~300ms reveal); no bounce, no pulse.",
+      "Bilingual ES/EN - layouts must absorb ~25% text expansion."
+    ],
+    "rules": [
+      { "name": "The One Voice Rule", "body": "Clay covers <=10% of any screen. It marks the one thing that matters most in view - a primary action, a focus ring, a live eyebrow. Two clay elements competing for attention on the same screen is a defect.", "section": "colors" },
+      { "name": "The Warm Ground Rule", "body": "Every background is a neutral from the ivory/oat/slate ramp. Pure white (#FFFFFF) and pure black appear only inside the deliberate featured-hero treatment, never as a page or card ground.", "section": "colors" },
+      { "name": "The Legacy Palette Rule", "body": "Purple #623CEA and teal #46B1C9 are removed - the purple and blue keys are gone from tailwind.config.ts and every usage was remapped (purple -> clay, teal -> cobalt). Do not reintroduce them. The green Tailwind key is misnamed cobalt (green.DEFAULT = #0255D5); prefer var(--swatch--cobalt) over green-* classes.", "section": "colors" },
+      { "name": "The Serif-For-Statements Rule", "body": "Serif is reserved for Display and Headline. A serif sub-head, serif body copy, or serif button label is off-system.", "section": "typography" },
+      { "name": "The Uppercase-Label Rule", "body": "Metadata (dates, categories, read time, section eyebrows) is uppercase Inter at label size with 0.017em tracking. Sentence-case metadata is a drift.", "section": "typography" },
+      { "name": "The Flat-At-Rest Rule", "body": "Cards, sections, and buttons are flat until the user touches them. Shadow is feedback, not decoration.", "section": "elevation" },
+      { "name": "The No-Glow Rule", "body": "No filter: drop-shadow() glows, no radial-gradient halos, no box-shadow used as a light source. The glow-3d / glow-border-n8n utilities are quarantined to specific service landing pages and must not spread.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do ground every surface in the ivory/oat/slate ramp and reserve clay for the single most important element in view (The One Voice Rule).",
+      "Do use Lora for Display and Headline only, and Inter for everything else.",
+      "Do set metadata as uppercase Inter at 0.875rem with 0.017em tracking.",
+      "Do convey elevation by stepping the neutral (ivory -> oat -> slate), keeping surfaces flat at rest.",
+      "Do keep motion short and eased: ~150ms for state changes, ~300ms for reveals, standard cubic-bezier easing.",
+      "Do build layouts that survive ES->EN expansion without truncation or reflow breakage.",
+      "Do keep buttons and cards on the 8px radius; step to 12-16px only for large editorial containers."
+    ],
+    "donts": [
+      "Don't use the generic AI-startup kit: purple/blue gradients, glowing orbs, neon grids, dark hero drama.",
+      "Don't introduce glow, halo, or drop-shadow light effects as system styling; the existing glow-* utilities stay confined to their current landing pages.",
+      "Don't use animate-pulse, bounce easing, or attention-grabbing badge styling (the accented badge variant).",
+      "Don't put a drop shadow on a resting surface, or use pure white / pure black as a page or card ground.",
+      "Don't use the deprecated purple #623CEA, teal #46B1C9, or the green/blue Tailwind scales in new work.",
+      "Don't let two clay elements compete on one screen.",
+      "Don't set body copy or sub-heads in the serif."
+    ]
+  }
+}

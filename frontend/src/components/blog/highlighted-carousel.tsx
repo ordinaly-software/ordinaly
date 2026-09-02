@@ -89,6 +89,7 @@ export const HighlightedCarousel: React.FC<HighlightedCarouselProps> = ({
               nextDisabled={!canScrollRight}
               prevLabel={t('highlighted.previous', { default: 'Previous' })}
               nextLabel={t('highlighted.next', { default: 'Next' })}
+              nudgeId="blog-highlighted"
             />
           )}
         </div>

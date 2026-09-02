@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 import { BadgeCheck } from "lucide-react";
 import { CarouselNavButtons } from "@/components/ui/carousel-nav-buttons";
 import { Button } from "@/components/ui/button";
@@ -118,6 +119,7 @@ const GoogleIcon = ({ className }: { className?: string }) => (
 );
 
 export function TestimonialsSection({ t, titleTag = "h2" }: SectionProps & { titleTag?: "h2" | "h3" }) {
+  const tCommon = useTranslations("common");
   const sectionRef = useRef<HTMLElement | null>(null);
   const [googleData, setGoogleData] = useState<GoogleReviewsPayload | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -262,11 +264,11 @@ export function TestimonialsSection({ t, titleTag = "h2" }: SectionProps & { tit
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           {titleTag === "h3" ? (
-            <h3 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+            <h3 className="font-serif text-4xl md:text-5xl font-normal mb-6 text-slate-dark dark:text-ivory-light">
               {t("testimonials.title")}
             </h3>
           ) : (
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+            <h2 className="font-serif text-4xl md:text-5xl font-normal mb-6 text-slate-dark dark:text-ivory-light">
               {t("testimonials.title")}
             </h2>
           )}
@@ -474,8 +476,9 @@ export function TestimonialsSection({ t, titleTag = "h2" }: SectionProps & { tit
             onNextClick={handleScrollRight}
             prevDisabled={!canScrollLeft}
             nextDisabled={!canScrollRight}
-            prevLabel="Scroll testimonials left"
-            nextLabel="Scroll testimonials right"
+            prevLabel={tCommon("previous")}
+            nextLabel={tCommon("next")}
+            nudgeId="home-testimonials"
           />
         </div>
       </div>

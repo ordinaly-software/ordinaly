@@ -98,7 +98,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
                       </p>
                     )}
                     {enrollment.user_details?.company && (
-                      <p className="text-xs text-blue truncate">
+                      <p className="text-xs text-cobalt truncate">
                         {enrollment.user_details.company}
                       </p>
                     )}

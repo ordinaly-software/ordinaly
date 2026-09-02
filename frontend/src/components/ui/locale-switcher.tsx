@@ -85,8 +85,8 @@ export default function LocaleSwitcher({ variant, label }: LocaleSwitcherProps =
         direction="up"
         position="center"
         theme="default"
-        buttonClassName="flex h-11 items-center gap-2 rounded-full border border-[var(--swatch--cobalt)]/60 bg-white/90 px-4 text-sm font-semibold text-[var(--swatch--slate-dark)] shadow-[0_16px_40px_rgba(2,85,213,0.14)] backdrop-blur transition hover:-translate-y-0.5 hover:border-[var(--swatch--cobalt)] hover:shadow-[0_20px_48px_rgba(2,85,213,0.18)] dark:border-[#7DB5FF]/35 dark:bg-[#0b1220]/85 dark:text-white dark:shadow-[0_18px_44px_rgba(2,85,213,0.2)]"
-        dropdownClassName="rounded-[28px] border border-[var(--swatch--cobalt)]/12 bg-white/98 shadow-[0_28px_80px_rgba(15,23,42,0.16)] backdrop-blur dark:border-[#7DB5FF]/18 dark:bg-[#0b1220]/96"
+        buttonClassName="flex h-11 items-center gap-2 rounded-full border border-cobalt/60 bg-white/90 px-4 text-sm font-semibold text-[var(--swatch--slate-dark)] shadow-[0_16px_40px_rgba(2,85,213,0.14)] backdrop-blur transition hover:-translate-y-0.5 hover:border-cobalt hover:shadow-[0_20px_48px_rgba(2,85,213,0.18)] dark:border-cobalt-light/35 dark:bg-[#0b1220]/85 dark:text-white dark:shadow-[0_18px_44px_rgba(2,85,213,0.2)]"
+        dropdownClassName="rounded-[28px] border border-cobalt/12 bg-white/98 shadow-[0_28px_80px_rgba(15,23,42,0.16)] backdrop-blur dark:border-cobalt-light/18 dark:bg-[#0b1220]/96"
       />
     </div>
   );
