@@ -12,7 +12,7 @@ import Alert from "@/components/ui/alert";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 import { isFunctionalAllowed } from "@/utils/cookie-manager";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useReCaptcha } from "@/app/[locale]/recaptcha-provider";
 import { getApiUrl } from "@/lib/api-config";
 import {
   setEmailCooldown,
@@ -40,7 +40,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  const { executeRecaptcha } = useReCaptcha();
 
 
   useEffect(() => {
@@ -174,8 +174,20 @@ export default function LoginPage() {
     setAlert(null);
 
     try {
-      // reCAPTCHA (optional — skip if not loaded)
-      const recaptchaToken = executeRecaptcha ? await executeRecaptcha("login_form") : "";
+      // reCAPTCHA — abort loudly if it is configured but fails to produce a token.
+      let recaptchaToken = "";
+      if (executeRecaptcha) {
+        try {
+          recaptchaToken = await executeRecaptcha("login_form");
+        } catch (err) {
+          console.error("[signin] reCAPTCHA execution failed:", err);
+          setIsLoading(false);
+          setAlert({ type: "error", message: t("messages.networkError") });
+          return;
+        }
+      } else {
+        console.warn("[signin] reCAPTCHA not configured — submitting without a token.");
+      }
       const response = await fetch("/api/auth/signin/", {
         method: "POST",
         headers: {

@@ -13,7 +13,7 @@ import Alert from "@/components/ui/alert";
 import { User, Mail, Lock, Building2, Eye, EyeOff, Globe, MapPin, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { isFunctionalAllowed } from "@/utils/cookie-manager";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useReCaptcha } from "@/app/[locale]/recaptcha-provider";
 import { getApiUrl } from "@/lib/api-config";
 import {
   setEmailCooldown,
@@ -61,7 +61,7 @@ function SignupPageContent() {
   const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [allowNotifications, setAllowNotifications] = useState(false);
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  const { executeRecaptcha } = useReCaptcha();
 
 
   useEffect(() => {
@@ -186,8 +186,20 @@ function SignupPageContent() {
     setAlert(null);
 
     try {
-      // reCAPTCHA (optional — skip if not loaded)
-      const recaptchaToken = executeRecaptcha ? await executeRecaptcha("signup_form") : "";
+      // reCAPTCHA — abort loudly if it is configured but fails to produce a token.
+      let recaptchaToken = "";
+      if (executeRecaptcha) {
+        try {
+          recaptchaToken = await executeRecaptcha("signup_form");
+        } catch (err) {
+          console.error("[signup] reCAPTCHA execution failed:", err);
+          setAlert({ type: "error", message: t("messages.networkError") });
+          setIsLoading(false);
+          return;
+        }
+      } else {
+        console.warn("[signup] reCAPTCHA not configured — submitting without a token.");
+      }
       // Generate username from email prefix (sanitize to match ^[a-zA-Z0-9_]{3,30}$)
       let username = email.split('@')[0].replace(/[^a-zA-Z0-9_]/g, '_').replace(/^_+|_+$/g, '').toLowerCase();
       if (username.length < 3) username = `${username}user`.slice(0, 30);
