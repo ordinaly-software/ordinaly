@@ -400,7 +400,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white transition-colors duration-300">
         <div className="px-4 sm:px-6 lg:px-8 py-10">
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="h-56 rounded-3xl bg-gray-200/80 dark:bg-gray-800/80 animate-pulse" />
@@ -444,7 +444,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                 placeholder={t('searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-[#0255D5] dark:focus:border-[#7DB5FF]"
+                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-cobalt dark:focus:border-cobalt-light"
               />
             </div>
 
@@ -561,7 +561,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
               <Button
                 onClick={() => setShowPastCourses(!showPastCourses)}
                 variant="outline"
-                className="border-[#0255D5] dark:border-[#7DB5FF] text-[#0255D5] dark:text-[#7DB5FF] hover:bg-[#0144AA] dark:hover:bg-[#7DB5FF]/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
+                className="border-cobalt dark:border-cobalt-light text-cobalt dark:text-cobalt-light hover:bg-cobalt-dark dark:hover:bg-cobalt-light/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
               >
                 {showPastCourses ? (
                   <>
@@ -615,7 +615,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
     
       <section className="px-4 pb-24 pt-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl">
-          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-[--swatch--cobalt-dark] px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
+          <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
             <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cobalt/25 blur-3xl" aria-hidden />
             <div className="pointer-events-none absolute -bottom-20 -left-12 h-56 w-56 rounded-full bg-clay/15 blur-3xl" aria-hidden />
 
@@ -654,7 +654,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                 </a>
               </div>
 
-              <h2 className="mt-6 max-w-2xl bg-gradient-to-r from-white to-[--swatch--sky] bg-clip-text text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-transparent md:text-5xl">
+              <h2 className="mt-6 max-w-2xl font-serif text-3xl font-normal leading-[1.05] tracking-[-0.01em] text-white md:text-5xl">
                 {t("cta.title")}
               </h2>
 

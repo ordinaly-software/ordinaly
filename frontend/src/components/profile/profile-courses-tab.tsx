@@ -60,7 +60,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
     }
     return {
       label: t("courses.status.startsSoon"),
-      className: "border-transparent bg-cobalt/12 text-[--swatch--cobalt-dark] dark:bg-[#7DB5FF]/20 dark:text-[#7DB5FF]",
+      className: "border-transparent bg-cobalt/12 text-cobalt-dark dark:bg-cobalt-light/20 dark:text-cobalt-light",
     };
   };
 
@@ -156,7 +156,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
     <div className="space-y-8">
       <Card className="rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-2xl font-semibold tracking-[-0.03em] text-cobalt dark:text-[#7DB5FF]">
+          <CardTitle className="flex items-center gap-2 text-2xl font-semibold tracking-[-0.03em] text-cobalt dark:text-cobalt-light">
             <BookOpen className="h-6 w-6" strokeWidth={1.8} />
             {t("courses.title")}
           </CardTitle>
@@ -164,7 +164,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
         <CardContent className="space-y-8">
           {isLoading ? (
             <div className="flex items-center gap-3 text-sm text-slate-medium dark:text-cloud-medium">
-              <div className="h-4 w-4 animate-spin rounded-full border-b-2 border-cobalt dark:border-[#7DB5FF]" />
+              <div className="h-4 w-4 animate-spin rounded-full border-2 border-cobalt dark:border-cobalt-light border-t-transparent" />
               {t("courses.loading")}
             </div>
           ) : error ? (
@@ -204,7 +204,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
               <div className="flex justify-center pt-2">
                 <Button
                   onClick={() => router.push("/formacion")}
-                  className="rounded-full bg-[--swatch--cobalt-dark] px-6 py-3 font-semibold text-white shadow-[0_15px_40px_-15px_rgba(2,85,213,0.55)] transition-all duration-200 hover:bg-[#01388A] hover:shadow-[0_20px_50px_-15px_rgba(2,85,213,0.6)] active:scale-[0.98] dark:bg-[#7DB5FF] dark:text-black dark:hover:bg-[#60A5FA]"
+                  className="rounded-full bg-cobalt-dark px-6 py-3 font-semibold text-white shadow-[0_15px_40px_-15px_rgba(2,85,213,0.55)] transition-all duration-200 hover:bg-cobalt-dark hover:shadow-[0_20px_50px_-15px_rgba(2,85,213,0.6)] active:scale-[0.98] dark:bg-cobalt-light dark:text-black dark:hover:bg-cobalt-light"
                 >
                   {t("courses.enrollCta")}
                 </Button>

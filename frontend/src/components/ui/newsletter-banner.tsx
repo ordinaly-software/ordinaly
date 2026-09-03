@@ -67,7 +67,7 @@ export function NewsletterBanner({
           </span>
           <h3
             className={cn(
-              "bg-gradient-to-r from-white to-[--swatch--manilla] bg-clip-text text-2xl font-semibold leading-snug tracking-[-0.03em] text-transparent",
+              "font-serif text-2xl font-normal leading-snug tracking-[-0.01em] text-white",
               !isCompact && "text-3xl",
             )}
           >

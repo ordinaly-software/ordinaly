@@ -258,7 +258,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
       {content.training && (
         <section className="bg-white px-4 pb-10 pt-4 dark:bg-neutral-900 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-[--swatch--cobalt-dark] px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
+            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cobalt/25 blur-3xl"

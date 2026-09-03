@@ -155,7 +155,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag
       <section id="courses" className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+            <h2 className="font-serif text-4xl md:text-5xl font-normal mb-6 text-slate-dark dark:text-ivory-light">
               {t('upcomingTitle')}
             </h2>
             <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
@@ -165,7 +165,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag
           <div className="text-center">
             <div className="max-w-md mx-auto bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] rounded-xl shadow-lg p-8">
               <div className="w-16 h-16 mx-auto mb-4 bg-oat dark:bg-[--swatch--slate-medium] rounded-full flex items-center justify-center">
-                <Calendar className="w-8 h-8 text-cobalt dark:text-[var(--swatch--cobalt)]" />
+                <Calendar className="w-8 h-8 text-cobalt dark:text-cobalt" />
               </div>
               <h3 className="text-xl font-semibold text-slate-dark dark:text-ivory-light mb-3">
                 {t('noCoursesTitle')}
@@ -198,11 +198,11 @@ export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag
       <div className="max-w-[1600px] mx-auto">
         <div className="text-center mb-10 md:mb-12">
           {titleTag === "h3" ? (
-            <h3 className="text-2xl md:text-3xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+            <h3 className="font-serif text-2xl md:text-3xl font-normal mb-6 text-slate-dark dark:text-ivory-light">
               {titleOverride ?? t('showcaseTitle')}
             </h3>
           ) : (
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-dark dark:text-ivory-light">
+            <h2 className="font-serif text-4xl md:text-5xl font-normal mb-6 text-slate-dark dark:text-ivory-light">
               {titleOverride ?? t('showcaseTitle')}
             </h2>
           )}

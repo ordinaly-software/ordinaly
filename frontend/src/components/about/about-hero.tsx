@@ -14,21 +14,21 @@ export function AboutHero() {
     : heroTitle;
 
   return (
-    <section className="relative overflow-hidden border-b border-[--color-border-subtle] dark:border-[--color-border-strong]">
-      <div className="absolute -z-10 -top-24 -left-24 size-[420px] rounded-full bg-clay/25 blur-3xl" aria-hidden />
-      <div className="absolute -z-10 -bottom-32 -right-16 size-[360px] rounded-full bg-cobalt/15 blur-3xl" aria-hidden />
+    <section className="relative overflow-hidden border-b border-[--color-border-subtle] dark:border-white/10 bg-ivory-light dark:bg-slate-dark">
+      <div className="absolute -z-10 -top-24 -left-24 size-[420px] rounded-full bg-clay/20 blur-3xl" aria-hidden />
+      <div className="absolute -z-10 -bottom-32 -right-16 size-[360px] rounded-full bg-oat/60 blur-3xl" aria-hidden />
 
       <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-24 lg:px-8">
-        <h1 className="mt-3 max-w-3xl text-4xl font-semibold leading-tight tracking-[-0.03em] text-slate-dark dark:text-ivory-light sm:text-5xl md:text-6xl">
+        <h1 className="mt-3 max-w-3xl font-serif text-4xl font-normal leading-[1.05] tracking-[-0.01em] text-slate-dark dark:text-ivory-light sm:text-5xl md:text-6xl">
           {heroTitleLead}
-          <span className="font-extrabold text-clay">{heroTitleAccent}</span>
+          <span className="text-clay">{heroTitleAccent}</span>
         </h1>
-        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-medium dark:text-[#DFDDD3] sm:text-xl">
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-medium dark:text-cloud-medium sm:text-xl">
           {t("hero.subtitle")}
         </p>
 
         <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-          <div className="relative h-72 overflow-hidden rounded-[1.75rem] shadow-xl md:col-span-2 md:h-96">
+          <div className="relative h-72 overflow-hidden rounded-a-l ring-1 ring-slate-dark/10 dark:ring-white/10 md:col-span-2 md:h-96">
             <Image
               src="/static/nosotros/story_01.webp"
               alt={t("hero.title")}
@@ -40,7 +40,7 @@ export function AboutHero() {
           </div>
 
           <div className="flex flex-col">
-            <div className="relative h-48 overflow-hidden rounded-[1.75rem] shadow-xl transition duration-300 hover:-translate-y-1 md:h-56">
+            <div className="relative h-48 overflow-hidden rounded-a-l ring-1 ring-slate-dark/10 dark:ring-white/10 transition duration-300 hover:-translate-y-1 hover:shadow-md md:h-56">
               <Image
                 src="/static/contacto/office_03.webp"
                 alt=""

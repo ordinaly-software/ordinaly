@@ -20,11 +20,11 @@ export async function generateMetadata({
     locale,
     path: "/faq",
     title: isEs
-      ? "Preguntas frecuentes | Automatización, agentes IA, n8n, facturas, informes y Odoo"
-      : "FAQ | Automation, AI agents, n8n, invoicing, reporting and Odoo",
+      ? "Preguntas frecuentes sobre automatización con IA"
+      : "Frequently asked questions about AI automation",
     description: isEs
-      ? "Todas las preguntas frecuentes de Ordinaly en un solo sitio: agente de llamadas IA, Automatización con n8n, facturas, informes, implantación de Odoo y formación."
-      : "Every Ordinaly FAQ in one place: AI calling agent, n8n automations, invoicing, reporting, Odoo implementation and training.",
+      ? "Respuestas a las dudas más habituales sobre agentes de IA, automatización con n8n, facturas, informes, Odoo 18 y formación para empresas."
+      : "Answers to the most common questions about AI agents, n8n automation, invoicing, reporting, Odoo 18 and training for businesses.",
     image: "/static/backgrounds/services_background.webp",
   });
 }

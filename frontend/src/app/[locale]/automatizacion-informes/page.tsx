@@ -16,11 +16,11 @@ export async function generateMetadata({
     locale,
     path: `/${slug}`,
     title: isEs
-      ? "Automatización mensual de informes para comunidades"
-      : "Monthly Report Automation for Communities",
+      ? "Automatización de informes para comunidades"
+      : "Report automation for communities",
     description: isEs
-      ? "Automatizamos el envío mensual de informes económicos a propietarios y comunidades: recogida de datos desde tu CRM o nube, envío masivo por correo electrónico y archivado con trazabilidad completa."
-      : "We automate the monthly delivery of financial reports to property owners and communities: data collection from your CRM or cloud, bulk email delivery, and fully traceable archiving.",
+      ? "Automatizamos el envío mensual de informes económicos a propietarios y comunidades: datos desde tu CRM, envío masivo por email y archivado con trazabilidad."
+      : "We automate monthly financial reports for property owners and communities: data from your CRM, bulk email delivery and fully traceable archiving.",
     image: "/static/automatizacion-informes/automatizacion_informes.webp",
   });
 }

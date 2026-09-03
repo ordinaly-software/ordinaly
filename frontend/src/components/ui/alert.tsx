@@ -4,28 +4,28 @@ import { createPortal } from "react-dom";
 
 const styleMap = {
   success: {
-    bg: "bg-[#E8F8E5] dark:bg-[#1B3A27]",
-    border: "border-[#0255D5] dark:border-[#7DB5FF]",
-    text: "text-[#0255D5] dark:text-[#7DB5FF]",
-    icon: "text-[#0255D5] dark:text-[#7DB5FF]",
+    bg: "bg-emerald-500/10 dark:bg-emerald-500/15",
+    border: "border-emerald-600/50 dark:border-emerald-400/50",
+    text: "text-emerald-700 dark:text-emerald-300",
+    icon: "text-emerald-600 dark:text-emerald-400",
   },
   error: {
-    bg: "bg-red-100 dark:bg-red-950",
-    border: "border-red-500 dark:border-red-400",
-    text: "text-red-800 dark:text-red-200",
-    icon: "text-red-600 dark:text-red-300",
+    bg: "bg-red-500/10 dark:bg-red-500/15",
+    border: "border-red-600/50 dark:border-red-400/50",
+    text: "text-red-700 dark:text-red-300",
+    icon: "text-red-600 dark:text-red-400",
   },
   info: {
-    bg: "bg-blue-100 dark:bg-blue-950",
-    border: "border-blue-500 dark:border-blue-400",
-    text: "text-blue-800 dark:text-blue-200",
-    icon: "text-blue-600 dark:text-blue-300",
+    bg: "bg-cobalt/10 dark:bg-cobalt/15",
+    border: "border-cobalt/50 dark:border-cobalt-light/50",
+    text: "text-cobalt dark:text-cobalt-light",
+    icon: "text-cobalt dark:text-cobalt-light",
   },
   warning: {
-    bg: "bg-yellow-100 dark:bg-yellow-950",
-    border: "border-yellow-500 dark:border-yellow-400",
-    text: "text-yellow-800 dark:text-yellow-200",
-    icon: "text-yellow-600 dark:text-yellow-300",
+    bg: "bg-amber-500/10 dark:bg-amber-500/15",
+    border: "border-amber-600/50 dark:border-amber-400/50",
+    text: "text-amber-700 dark:text-amber-300",
+    icon: "text-amber-600 dark:text-amber-400",
   },
 };
 
@@ -90,7 +90,7 @@ const Alert: React.FC<AlertProps> = ({
   const content = (
     <div
       role="alert"
-      className={`${bg} ${border} ${text} border-l-4 px-4 py-3 rounded-lg flex items-center justify-between shadow-lg transition-all duration-200 ease-out ${contentAnimationClass}`}
+      className={`${bg} ${border} ${text} border px-4 py-3 rounded-a-m flex items-center justify-between shadow-md transition-all duration-200 ease-out ${contentAnimationClass}`}
     >
       <div className="flex items-center">
         <svg

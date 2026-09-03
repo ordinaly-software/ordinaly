@@ -49,7 +49,7 @@ interface DocumentContent {
   sections: ContentSection[];
 }
 
-const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false, loading: () => <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-[#1A1924]"><div className="max-w-7xl mx-auto"><div className="grid md:grid-cols-4 gap-8"><div className="col-span-2"><div className="h-24 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div></div></div></div></footer> });
+const Footer = dynamic(() => import("@/components/ui/footer"), { ssr: false, loading: () => <footer className="border-t border-gray-200 dark:border-gray-800 py-12 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-dark"><div className="max-w-7xl mx-auto"><div className="grid md:grid-cols-4 gap-8"><div className="col-span-2"><div className="h-24 w-32 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div><div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4 animate-pulse"></div></div></div></div></footer> });
 
 const getTermsContent = (t: (key: string, opts?: Record<string, string | number | Date> | undefined) => string): DocumentContent => ({
   title: t('sections.terms.title'),
@@ -564,7 +564,7 @@ const LegalPage = () => {
         {overlaySet}
         <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-20 pt-20 md:px-6 lg:px-8 lg:pt-24">
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-clay"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-2 border-clay border-t-transparent"></div>
           </div>
         </div>
       </div>
@@ -572,7 +572,7 @@ const LegalPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white transition-colors duration-300">
 
       {alert && (
         <Alert

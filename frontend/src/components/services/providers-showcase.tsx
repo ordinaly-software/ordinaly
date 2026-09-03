@@ -59,7 +59,7 @@ export function ProvidersShowcase({
                 {badge}
               </span>
             )}
-            <h2 className="mt-5 max-w-xl bg-gradient-to-r from-white to-ivory-light bg-clip-text text-3xl font-semibold text-transparent">
+            <h2 className="mt-5 max-w-xl font-serif text-3xl font-normal text-white">
               {title}
             </h2>
             <p className="mt-4 max-w-lg text-base text-white/60">{subtitle}</p>

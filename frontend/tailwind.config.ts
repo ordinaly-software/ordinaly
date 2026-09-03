@@ -36,41 +36,9 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--accent))',
   				foreground: 'hsl(var(--accent-foreground))'
   			},
-  			purple: {
-  				DEFAULT: '#623CEA',
-  				foreground: '#1A1924'
-  			},
   			dark: {
   				DEFAULT: '#1A1924',
   				foreground: '#FFFFFF'
-  			},
-  			blue: {
-  				'50': '#E6F7FA',
-  				'100': '#B3E5FC',
-  				'200': '#81D4FA',
-  				'300': '#4FC3F7',
-  				'400': '#46B1C9',
-  				'500': '#46B1C9',
-  				'600': '#3A96A8',
-  				'700': '#2F7C87',
-  				'800': '#246166',
-  				'900': '#194749',
-  				DEFAULT: '#46B1C9'
-  			},
-  			green: {
-  				'50': '#EFF6FF',
-  				'100': '#DBEAFE',
-  				'200': '#BFDBFE',
-  				'300': '#93C5FD',
-  				'400': '#60A5FA',
-  				'500': '#3B82F6',
-  				'600': '#0255D5',
-  				'700': '#0144AA',
-  				'800': '#01388A',
-  				'900': '#0A255C',
-  				DEFAULT: '#0255D5',
-  				dark: '#7DB5FF',
-  				dark_alt: '#60A5FA'
   			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
@@ -113,7 +81,11 @@ const config: Config = {
   			},
   			clay: 'var(--swatch--clay)',
   			flame: 'var(--swatch--flame)',
-  			cobalt: 'var(--swatch--cobalt)',
+  			cobalt: {
+  				DEFAULT: 'var(--swatch--cobalt)',
+  				dark: 'var(--swatch--cobalt-dark)',
+  				light: 'var(--swatch--cobalt-light)'
+  			},
   			kraft: 'var(--swatch--kraft)',
   			manilla: 'var(--swatch--manilla)',
   			olive: 'var(--swatch--olive)',

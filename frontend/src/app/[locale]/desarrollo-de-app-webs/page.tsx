@@ -16,11 +16,11 @@ export async function generateMetadata({
     locale,
     path: `/${slug}`,
     title: isEs
-      ? "Desarrollo de aplicaciones web multiplataforma (PWA)"
-      : "Cross-Platform Web App Development (PWA)",
+      ? "Desarrollo de aplicaciones web y PWA a medida"
+      : "Custom web app and PWA development",
     description: isEs
-      ? "Diseñamos y desarrollamos PWA dinámicas, rápidas y escalables: aplicaciones web modernas optimizadas para rendimiento, SEO y experiencia de usuario, instalables sin depender de tiendas de apps."
-      : "We design and build dynamic, fast, scalable PWAs: modern web apps optimized for performance, SEO, and user experience, installable without relying on app stores.",
+      ? "Diseñamos y desarrollamos aplicaciones web y PWA rápidas y escalables, optimizadas para rendimiento, SEO y experiencia de usuario, sin depender de tiendas de apps."
+      : "We design and build fast, scalable web apps and PWAs, optimized for performance, SEO and UX, and installable without app stores.",
     image: "/static/desarrollo-de-app-webs/desarrollo_de_app_webs.webp",
   });
 }

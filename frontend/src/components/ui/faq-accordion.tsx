@@ -132,7 +132,7 @@ export function FaqAccordion({
                 {eyebrow}
               </p>
             )}
-            <TitleTag className="text-4xl font-extrabold leading-[1.05] tracking-tight text-slate-dark dark:text-ivory-light sm:text-5xl">
+            <TitleTag className="font-serif text-4xl font-normal leading-[1.05] tracking-[-0.01em] text-slate-dark dark:text-ivory-light sm:text-5xl">
               {title}
             </TitleTag>
             {description && (

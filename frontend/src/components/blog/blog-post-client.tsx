@@ -13,6 +13,7 @@ import { filterVisibleCategories } from "./category-utils";
 import SharePostButtons from './share-post-buttons';
 import type { PortableTextBlock } from '@portabletext/types';
 import dynamic from "next/dynamic";
+import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 
 const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"), {
   loading: () => null,
@@ -82,7 +83,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
   }
   const portableTextComponents = createPortableTextComponents(headingIdByKey);
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white transition-colors duration-300">
+    <div className="min-h-screen bg-ivory-light dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white transition-colors duration-300">
       <Banner
         title={p.title}
         subtitle={p.seoDescription || p.excerpt || ''}
@@ -207,7 +208,9 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         </div>
       </div>
 
-      <ContactForm />
+      <ReCaptchaWrapper badgeContainerId="recaptcha-badge-blog-contact">
+        <ContactForm recaptchaAction="blog_contact_form" recaptchaBadgeId="recaptcha-badge-blog-contact" />
+      </ReCaptchaWrapper>
 
       <WhatsAppBubble />
       <Footer />

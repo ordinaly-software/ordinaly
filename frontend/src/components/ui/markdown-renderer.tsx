@@ -27,7 +27,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
         components={{
           table: ({children}) => (
             <div className="overflow-x-auto my-6">
-              <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-600 bg-white dark:bg-[var(--swatch--slate-medium)] rounded-lg shadow-sm">
+              <table className="min-w-full border-collapse border border-[--color-border-subtle] dark:border-white/10 bg-ivory-light dark:bg-slate-medium rounded-lg shadow-sm">
                 {children}
               </table>
             </div>
@@ -38,7 +38,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
             </thead>
           ),
           tbody: ({children}) => (
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
+            <tbody className="divide-y divide-[--color-border-subtle] dark:divide-white/10">
               {children}
             </tbody>
           ),
@@ -48,30 +48,30 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
             </tr>
           ),
           th: ({children}) => (
-            <th className="border border-gray-300 dark:border-gray-600 px-4 py-3 text-left text-sm font-semibold text-gray-900 dark:text-white bg-oat dark:bg-[var(--swatch--slate-medium)]">
+            <th className="border border-[--color-border-subtle] dark:border-white/10 px-4 py-3 text-left text-sm font-semibold text-slate-dark dark:text-ivory-light bg-oat dark:bg-[var(--swatch--slate-medium)]">
               {children}
             </th>
           ),
           td: ({children}) => (
-            <td className="border border-gray-300 dark:border-gray-600 px-4 py-3 text-sm text-gray-700 dark:text-[var(--swatch--cloud-medium)]">
+            <td className="border border-[--color-border-subtle] dark:border-white/10 px-4 py-3 text-sm text-slate-medium dark:text-cloud-medium">
               {children}
             </td>
           ),
-          h1: ({children}) => <h1 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">{children}</h1>,
-          h2: ({children}) => <h2 className="text-lg font-bold mb-3 text-gray-900 dark:text-white mt-6">{children}</h2>,
-          h3: ({children}) => <h3 className="text-base font-bold mb-2 text-gray-900 dark:text-white mt-4">{children}</h3>,
-          h4: ({children}) => <h4 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white mt-3">{children}</h4>,
-          p: ({children}) => <p className="mb-4 text-gray-600 dark:text-[var(--swatch--cloud-medium)] leading-relaxed">{children}</p>,
+          h1: ({children}) => <h1 className="text-xl font-bold mb-4 text-slate-dark dark:text-ivory-light">{children}</h1>,
+          h2: ({children}) => <h2 className="text-lg font-bold mb-3 text-slate-dark dark:text-ivory-light mt-6">{children}</h2>,
+          h3: ({children}) => <h3 className="text-base font-bold mb-2 text-slate-dark dark:text-ivory-light mt-4">{children}</h3>,
+          h4: ({children}) => <h4 className="text-sm font-semibold mb-2 text-slate-dark dark:text-ivory-light mt-3">{children}</h4>,
+          p: ({children}) => <p className="mb-4 text-slate-medium dark:text-cloud-medium leading-relaxed">{children}</p>,
           br: () => <br className="mb-2" />,
-          ul: ({children}) => <ul className="list-disc list-inside mb-4 text-gray-600 dark:text-[var(--swatch--cloud-medium)] space-y-1">{children}</ul>,
-          ol: ({children}) => <ol className="list-decimal list-inside mb-4 text-gray-600 dark:text-[var(--swatch--cloud-medium)] space-y-1">{children}</ol>,
+          ul: ({children}) => <ul className="list-disc list-inside mb-4 text-slate-medium dark:text-cloud-medium space-y-1">{children}</ul>,
+          ol: ({children}) => <ol className="list-decimal list-inside mb-4 text-slate-medium dark:text-cloud-medium space-y-1">{children}</ol>,
           li: ({children}) => <li className="leading-relaxed">{children}</li>,
           blockquote: ({children}) => (
             <blockquote
               className="border-l-4 pl-4 py-2 mb-4 italic bg-oat dark:bg-[var(--swatch--slate-medium)]/50 rounded-r-lg"
               style={{ borderLeftColor: serviceColor }}
             >
-              <div className="text-gray-700 dark:text-[var(--swatch--cloud-medium)]">
+              <div className="text-slate-medium dark:text-cloud-medium">
                 {children}
               </div>
             </blockquote>
@@ -80,15 +80,15 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
             const isInline = !className;
             if (isInline) {
               return (
-                <code className="bg-gray-100 dark:bg-[var(--swatch--slate-medium)] text-gray-900 dark:text-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">
+                <code className="bg-oat dark:bg-slate-medium text-slate-dark dark:text-ivory-light px-1.5 py-0.5 rounded text-sm font-mono">
                   {children}
                 </code>
               );
             }
             return (
               <div className="mb-4">
-                <pre className="bg-gray-100 dark:bg-[var(--swatch--slate-dark)] p-4 rounded-lg overflow-x-auto">
-                  <code className="text-sm font-mono text-gray-900 dark:text-gray-100">
+                <pre className="bg-oat dark:bg-slate-dark p-4 rounded-lg overflow-x-auto">
+                  <code className="text-sm font-mono text-slate-dark dark:text-ivory-light">
                     {children}
                   </code>
                 </pre>
@@ -97,13 +97,13 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
           },
           pre: ({children}) => (
             <div className="mb-4">
-              <pre className="bg-gray-100 dark:bg-[var(--swatch--slate-dark)] p-4 rounded-lg overflow-x-auto">
+              <pre className="bg-oat dark:bg-slate-dark p-4 rounded-lg overflow-x-auto">
                 {children}
               </pre>
             </div>
           ),
-          strong: ({children}) => <strong className="font-bold text-gray-900 dark:text-white">{children}</strong>,
-          em: ({children}) => <em className="italic text-gray-700 dark:text-gray-300">{children}</em>,
+          strong: ({children}) => <strong className="font-bold text-slate-dark dark:text-ivory-light">{children}</strong>,
+          em: ({children}) => <em className="italic text-slate-medium dark:text-cloud-medium">{children}</em>,
           a: ({children, href}) => {
             if (!href) {
               return <>{children}</>;
@@ -120,7 +120,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
               </a>
             );
           },
-          hr: () => <hr className="border-gray-200 dark:border-gray-700 my-6" />,
+          hr: () => <hr className="border-[--color-border-subtle] dark:border-white/10 my-6" />,
         }}
       >
         {children}

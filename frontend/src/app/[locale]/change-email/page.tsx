@@ -66,25 +66,25 @@ export default function ChangeEmailPage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#F9FAFB] text-gray-800 transition-colors duration-300 dark:bg-[#1A1924] dark:text-white">
+    <div className="relative min-h-screen overflow-hidden bg-ivory-light text-gray-800 transition-colors duration-300 dark:bg-slate-dark dark:text-white">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 -left-20 h-96 w-96 rounded-full bg-[#46B1C9]/20 blur-3xl dark:bg-[#46B1C9]/15" />
-        <div className="absolute top-20 right-0 h-[24rem] w-[24rem] rounded-full bg-[#7DB5FF]/20 blur-3xl dark:bg-[#7DB5FF]/15" />
-        <div className="absolute bottom-[-10rem] left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[#623CEA]/15 blur-3xl dark:bg-[#623CEA]/10" />
+        <div className="absolute -top-40 -left-20 h-96 w-96 rounded-full bg-cobalt/20 blur-3xl dark:bg-cobalt/15" />
+        <div className="absolute top-20 right-0 h-[24rem] w-[24rem] rounded-full bg-cobalt-light/20 blur-3xl dark:bg-cobalt-light/15" />
+        <div className="absolute bottom-[-10rem] left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[var(--swatch--clay)]/15 blur-3xl dark:bg-[var(--swatch--clay)]/10" />
       </div>
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-4 py-10 sm:px-6 lg:px-8">
         <article className="w-full overflow-hidden rounded-[2rem] border border-gray-200/80 bg-white/90 shadow-[0_35px_100px_rgba(15,23,42,0.16)] backdrop-blur-xl dark:border-gray-700/60 dark:bg-gray-900/65 dark:shadow-[0_35px_100px_rgba(2,6,23,0.55)]">
           <div className="grid lg:grid-cols-[minmax(280px,0.95fr)_minmax(0,1.2fr)]">
-            <div className="relative overflow-hidden bg-gradient-to-br from-[#46B1C9]/20 via-[#7DB5FF]/20 to-[#623CEA]/10 px-7 py-10 dark:from-[#46B1C9]/18 dark:via-[#7DB5FF]/18 dark:to-[#623CEA]/12 sm:px-10">
+            <div className="relative overflow-hidden bg-gradient-to-br from-cobalt/20 via-cobalt-light/20 to-[var(--swatch--clay)]/10 px-7 py-10 dark:from-cobalt/18 dark:via-cobalt-light/18 dark:to-[var(--swatch--clay)]/12 sm:px-10">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.35),transparent_58%)] dark:bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.2),transparent_58%)]" />
               <div className="relative flex h-full flex-col justify-between gap-10">
-                <div className="inline-flex h-20 w-20 items-center justify-center rounded-3xl border border-white/70 bg-white/70 text-[#1A1924] shadow-lg dark:border-white/35 dark:bg-white/25 dark:text-white">
+                <div className="inline-flex h-20 w-20 items-center justify-center rounded-3xl border border-white/70 bg-white/70 text-slate-dark shadow-lg dark:border-white/35 dark:bg-white/25 dark:text-white">
                   <MailPlus className="h-10 w-10" />
                 </div>
 
                 <div className="space-y-4">
-                  <h2 className="max-w-xs text-2xl font-semibold leading-tight text-[#1A1924] dark:text-slate-100">
+                  <h2 className="max-w-xs text-2xl font-semibold leading-tight text-slate-dark dark:text-slate-100">
                     {t("title")}
                   </h2>
                 </div>

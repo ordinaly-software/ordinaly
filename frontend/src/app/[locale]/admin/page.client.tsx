@@ -53,11 +53,11 @@ export default function AdminPage() {
     { id: 'courses', name: t("tabs.courses"), icon: BookOpen },
     { id: 'terms', name: t("tabs.terms"), icon: FileText },
     { id: 'users', name: t("tabs.users"), icon: Users },
-    { id: 'blog', name: t("tabs.blog"), icon: ArrowUpRight, accentColor: "#0255D5" },
-    { id: 'odoo', name: t("tabs.odoo"), icon: () => <BarChart3 className="h-4 w-4" />, accentColor: "#623CEA" },
-    { id: 'n8n', name: t("tabs.n8n"), icon: () => <Command className="h-4 w-4" />, accentColor: "#E4572E" },
-    { id: 'api', name: t("tabs.api"), icon: () => <Settings className="h-4 w-4" />, accentColor: "#46B1C9" },
-    { id: 'mail', name: t("tabs.mail"), icon: () => <Mail className="h-4 w-4" />, accentColor: "#0EA5E9" },
+    { id: 'blog', name: t("tabs.blog"), icon: ArrowUpRight, accentColor: "var(--swatch--cobalt)" },
+    { id: 'odoo', name: t("tabs.odoo"), icon: () => <BarChart3 className="h-4 w-4" />, accentColor: "var(--swatch--clay)" },
+    { id: 'n8n', name: t("tabs.n8n"), icon: () => <Command className="h-4 w-4" />, accentColor: "var(--swatch--flame)" },
+    { id: 'api', name: t("tabs.api"), icon: () => <Settings className="h-4 w-4" />, accentColor: "var(--swatch--cobalt)" },
+    { id: 'mail', name: t("tabs.mail"), icon: () => <Mail className="h-4 w-4" />, accentColor: "var(--swatch--cobalt)" },
   ];
 
   // Load saved tab from localStorage on component mount
@@ -206,7 +206,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalCourses")}
                 </CardTitle>
-                <BookOpen className="h-4 w-4 text-[#46B1C9]" />
+                <BookOpen className="h-4 w-4 text-cobalt" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -227,7 +227,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalTerms")}
                 </CardTitle>
-                <FileText className="h-4 w-4 text-[#623CEA]" />
+                <FileText className="h-4 w-4 text-[var(--swatch--clay)]" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -269,7 +269,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("tabs.blog")}
                 </CardTitle>
-                <ArrowUpRight className="h-4 w-4 text-[#0255D5] dark:text-[#7DB5FF]" />
+                <ArrowUpRight className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
               </CardHeader>
               <CardContent className="flex items-center justify-between">
                 <div>
@@ -295,7 +295,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("tabs.odoo")}
                 </CardTitle>
-                <BarChart3 className="h-4 w-4 text-[#623CEA]" />
+                <BarChart3 className="h-4 w-4 text-[var(--swatch--clay)]" />
               </CardHeader>
               <CardContent>
                 <div className="text-sm text-gray-700 dark:text-gray-300">
@@ -337,7 +337,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("tabs.api")}
                 </CardTitle>
-                <Settings className="h-4 w-4 text-[#46B1C9]" />
+                <Settings className="h-4 w-4 text-cobalt" />
               </CardHeader>
               <CardContent>
                 <div className="text-sm text-gray-700 dark:text-gray-300">
@@ -416,7 +416,7 @@ export default function AdminPage() {
               buttonLabel={t("externalTabs.odoo.button")}
               warning={t("externalTabs.odoo.warning")}
               href="https://odoo.ordinaly.ai"
-              accentColor="#7a55ffff"
+              accentColor="var(--swatch--clay)"
               backgroundImage="/static/backgrounds/odoo_background.webp"
             />
           </motion.div>
@@ -436,7 +436,7 @@ export default function AdminPage() {
               buttonLabel={t("externalTabs.n8n.button")}
               warning={t("externalTabs.n8n.warning")}
               href="https://n8n.ordinaly.ai"
-              accentColor="#E4572E"
+              accentColor="var(--swatch--flame)"
               backgroundImage="/static/backgrounds/n8n_background.webp"
             />
           </motion.div>
@@ -456,7 +456,7 @@ export default function AdminPage() {
               buttonLabel={t("externalTabs.api.button")}
               warning={t("externalTabs.api.warning")}
               href="https://api.ordinaly.ai/admin"
-              accentColor="#46B1C9"
+              accentColor="var(--swatch--cobalt)"
               backgroundImage="/static/backgrounds/api_background.webp"
             />
           </motion.div>
@@ -476,7 +476,7 @@ export default function AdminPage() {
               buttonLabel={t("externalTabs.mail.button")}
               warning={t("externalTabs.mail.warning")}
               href="https://mail.ordinaly.ai/billion"
-              accentColor="#0EA5E9"
+              accentColor="var(--swatch--cobalt)"
             />
           </motion.div>
         );
@@ -487,10 +487,10 @@ export default function AdminPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
+      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white">
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0255D5] dark:border-[#7DB5FF] mx-auto mb-4"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-2 border-cobalt dark:border-cobalt-light border-t-transparent mx-auto mb-4"></div>
             <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
           </div>
         </div>
@@ -500,7 +500,7 @@ export default function AdminPage() {
 
   if (!isAuthorized) {
     return (
-      <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
+      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white">
         {alert && (
           <Alert
             type={alert.type}
@@ -520,7 +520,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#1A1924] text-gray-800 dark:text-white">
+    <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white">
       {alert && (
         <Alert
           type={alert.type}

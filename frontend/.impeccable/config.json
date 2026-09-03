@@ -1,0 +1,27 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/components/blog/portable-text-components.tsx",
+          "src/components/ui/markdown-renderer.tsx"
+        ],
+        "createdAt": "2026-09-02T12:33:26.251Z",
+        "reason": "Agent: border-l-4 is the blockquote rule in these prose renderers, a standard typographic convention"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/components/home/whatsapp-bubble.tsx"
+        ],
+        "createdAt": "2026-09-02T12:33:26.287Z",
+        "reason": "Agent: border-l-4 here builds the CSS tooltip triangle, not a card side-tab"
+      }
+    ]
+  }
+}

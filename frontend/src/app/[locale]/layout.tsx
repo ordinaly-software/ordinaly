@@ -1,6 +1,6 @@
 import type React from "react";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import Script from "next/script";
 import "../globals.css";
 import { notFound } from "next/navigation";
@@ -25,6 +25,13 @@ const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-inter",
+  preload: false,
+});
+
+const lora = Lora({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-lora",
   preload: false,
 });
 
@@ -140,7 +147,7 @@ export default async function RootLayout({
   const courses = await getSiteCourses();
 
   return (
-    <html lang={locale} data-scroll-behavior="smooth" className={inter.variable} suppressHydrationWarning>
+    <html lang={locale} data-scroll-behavior="smooth" className={`${inter.variable} ${lora.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://api.ordinaly.ai" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

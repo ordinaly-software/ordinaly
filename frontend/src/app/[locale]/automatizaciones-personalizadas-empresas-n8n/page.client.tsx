@@ -209,7 +209,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
       size: "lg",
       title: infoCardTexts[1]?.name,
       description: infoCardTexts[1]?.description,
-      image: `/static/${slug}/vps.webp`,
+      image: `/static/servicios/vps.webp`,
     },
     {
       key: "no-limits",
@@ -236,7 +236,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
   return (
     <div className="relative bg-white dark:bg-neutral-900">
       {/* HERO */}
-      <section className="relative w-full overflow-hidden bg-gradient-to-br from-[--swatch--slate-dark] to-[--swatch--cobalt-dark] text-white">
+      <section className="relative w-full overflow-hidden bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark text-white">
         <div
           aria-hidden
           className="absolute inset-0 opacity-[0.15]"
@@ -350,7 +350,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
       {content.cta && (
         <section className="bg-white px-4 pb-10 pt-10 dark:bg-neutral-900 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-[--swatch--cobalt-dark] px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
+            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cobalt/25 blur-3xl"
@@ -393,7 +393,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
                   </div>
                 )}
 
-                <h2 className="mt-6 max-w-2xl bg-gradient-to-r from-white to-[--swatch--sky] bg-clip-text text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-transparent md:text-5xl">
+                <h2 className="mt-6 max-w-2xl font-serif text-3xl font-normal leading-[1.05] tracking-[-0.01em] text-white md:text-5xl">
                   {content.sectionTitles?.ctaTitle}
                 </h2>
 

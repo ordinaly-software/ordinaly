@@ -80,11 +80,11 @@ export const Dropdown = ({
   // Theme configuration
   const themes: Record<string, DropdownTheme> = {
     default: {
-      accent: 'text-[var(--swatch--cobalt)] dark:text-[#7DB5FF]',
-      hoverBg: 'hover:bg-[var(--swatch--cobalt)]/8 dark:hover:bg-[#7DB5FF]/16',
-      selectedBg: 'bg-[var(--swatch--cobalt)]/10 text-[#01388A] dark:bg-[#7DB5FF]/18 dark:text-[#EAF3FF]',
-      focusBorder: 'focus:border-[var(--swatch--cobalt)] dark:focus:border-[#7DB5FF]',
-      focusRing: 'focus:ring-[var(--swatch--cobalt)]/20 dark:focus:ring-[#7DB5FF]/25'
+      accent: 'text-cobalt dark:text-cobalt-light',
+      hoverBg: 'hover:bg-cobalt/8 dark:hover:bg-cobalt-light/16',
+      selectedBg: 'bg-cobalt/10 text-cobalt-dark dark:bg-cobalt-light/18 dark:text-[#EAF3FF]',
+      focusBorder: 'focus:border-cobalt dark:focus:border-cobalt-light',
+      focusRing: 'focus:ring-cobalt/20 dark:focus:ring-cobalt-light/25'
     },
     orange: {
       accent: 'text-orange-500',
@@ -265,7 +265,7 @@ export const Dropdown = ({
           <div
             ref={dropdownRef}
             className={cn(
-              "absolute bg-white dark:bg-[#0b1220] border border-gray-200 dark:border-white/15",
+              "absolute bg-white dark:bg-slate-dark border border-gray-200 dark:border-white/15",
               "rounded-2xl shadow-2xl overflow-y-auto animate-in duration-200",
               dropdownClassName
             )}

@@ -104,7 +104,7 @@ const UserMenu = ({
         createPortal(
           <div
             ref={dropdownRef}
-            className="fixed bg-white dark:bg-[#0b1220] border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden w-auto min-w-[180px]"
+            className="fixed bg-white dark:bg-slate-dark border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden w-auto min-w-[180px]"
             style={{
               top: dropdownPosition.top,
               left: dropdownPosition.left,
@@ -786,7 +786,7 @@ const Navbar = () => {
                       )}
                       <button
                         onClick={() => setShowLogoutModal(true)}
-                        className="flex items-center w-full text-gray-700 dark:text-gray-300 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors py-3 px-2 rounded-md text-left"
+                        className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors py-3 px-2 rounded-md text-left"
                       >
                         <LogOut className="h-4 w-4 mr-3" />
                         {t("navigation.signOut")}

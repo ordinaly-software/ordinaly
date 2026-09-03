@@ -111,7 +111,7 @@ const AdminUsersTab = () => {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--swatch--clay)]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-[var(--swatch--clay)] border-t-transparent"></div>
       </div>
     );
   }
@@ -203,7 +203,7 @@ const AdminUsersTab = () => {
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.id}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.surname}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 dark:text-blue-400 underline">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-cobalt dark:text-cobalt-light underline">
                   <a href={`mailto:${user.email}?from=noreply@ordinaly.ai`} target="_blank" rel="noopener noreferrer">{user.email}</a>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.company}</td>

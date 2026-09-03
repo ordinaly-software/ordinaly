@@ -33,7 +33,7 @@ export function WorkWithUsSection({
     <section
       id={id}
       className={cn(
-        "relative mx-auto flex w-full max-w-5xl flex-col items-center justify-center overflow-hidden rounded-[2rem] px-6 py-20 text-center md:py-24",
+        "relative mx-auto flex w-full max-w-5xl flex-col items-center justify-center overflow-hidden rounded-a-xl px-6 py-20 text-center md:py-24",
         className,
       )}
     >
@@ -52,10 +52,10 @@ export function WorkWithUsSection({
       />
 
       <div className="relative z-10 flex flex-col items-center">
-        <h3 className="max-w-2xl text-2xl font-bold leading-tight text-white md:text-4xl">
+        <h3 className="max-w-2xl font-serif text-2xl font-normal leading-tight text-white md:text-4xl">
           {t("cta.title")}
         </h3>
-        <div className="my-4 h-[3px] w-32 bg-gradient-to-l from-transparent to-clay" aria-hidden />
+        <div className="my-4 h-[2px] w-16 bg-clay" aria-hidden />
         <p className="max-w-xl text-sm leading-relaxed text-white/85 md:text-base">
           {t("cta.body")}
         </p>
@@ -63,7 +63,7 @@ export function WorkWithUsSection({
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <Button
             variant="accent"
-            className="gap-2 rounded-full px-8 shadow-lg shadow-clay/30 transition-transform duration-300 hover:scale-105"
+            className="gap-2 rounded-full px-8"
             asChild
           >
             <a href={mailHref} target="_blank" rel="noreferrer">
@@ -73,7 +73,7 @@ export function WorkWithUsSection({
           </Button>
           <Button
             variant="outline"
-            className="gap-2 rounded-full border-white/30 bg-white/10 text-white transition-transform duration-300 hover:scale-105 hover:bg-white/20 dark:border-white/30 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
+            className="gap-2 rounded-full border-white/30 bg-white/10 text-white hover:bg-white/20 dark:border-white/30 dark:bg-white/10 dark:text-white dark:hover:bg-white/20"
             asChild
           >
             <a href={`/${locale}/contacto`}>

@@ -123,7 +123,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                     €{course.price}
                   </span>
                 )}
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue text-white">
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-cobalt text-white">
                   {t(`form.periodicity.${course.periodicity}`)}
                 </span>
               </div>
@@ -171,11 +171,11 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                   </p>
                 </div>
               </div>
-              <div className="bg-blue-100 dark:bg-blue-900/30 rounded-lg p-4 flex-1 min-w-0">
+              <div className="bg-cobalt/10 dark:bg-cobalt/20 rounded-lg p-4 flex-1 min-w-0">
                 <div className="flex flex-col items-center">
                   <div className="flex items-center justify-between w-full mb-2">
-                    <User className="h-6 w-6 text-blue flex-shrink-0" />
-                    <p className="text-lg font-bold text-blue">
+                    <User className="h-6 w-6 text-cobalt flex-shrink-0" />
+                    <p className="text-lg font-bold text-cobalt">
                       {course.max_attendants}
                     </p>
                   </div>
@@ -197,11 +197,11 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                   </p>
                 </div>
               </div>
-              <div className="bg-[var(--swatch--cobalt)]/10 rounded-lg p-4 flex-1 min-w-0">
+              <div className="bg-cobalt/10 rounded-lg p-4 flex-1 min-w-0">
                 <div className="flex flex-col items-center">
                   <div className="flex items-center justify-between w-full mb-2">
-                    <Euro className="h-6 w-6 text-[var(--swatch--cobalt)] flex-shrink-0" />
-                    <p className="text-lg font-bold text-[var(--swatch--cobalt)] break-words text-right">
+                    <Euro className="h-6 w-6 text-cobalt flex-shrink-0" />
+                    <p className="text-lg font-bold text-cobalt break-words text-right">
                       {course.price ? `${Math.round(Number(course.price))}` : t("contactForQuote")}
                     </p>
                   </div>
@@ -216,9 +216,9 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
         {/* Course Details Grid - stack vertically on mobile */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Schedule Information */}
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-5 min-w-0">
+          <div className="bg-gradient-to-br from-cobalt/10 to-cobalt/5 dark:from-cobalt/20 dark:to-cobalt/10 rounded-xl p-5 min-w-0">
             <div className="flex items-center space-x-2 mb-3">
-              <Calendar className="h-5 w-5 text-blue" />
+              <Calendar className="h-5 w-5 text-cobalt" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.schedule")}</h3>
             </div>
             <div className="space-y-2 text-sm">
@@ -336,14 +336,14 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
         />
         {/* Next Occurrences */}
         {course.next_occurrences && course.next_occurrences.length > 0 && (
-          <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900/20 dark:to-blue-900/20 rounded-xl p-5 min-w-0">
+          <div className="bg-gradient-to-r from-cobalt/10 to-cobalt/5 dark:from-cobalt/20 dark:to-cobalt/10 rounded-xl p-5 min-w-0">
             <div className="flex items-center space-x-2 mb-3">
-              <Clock className="h-6 w-6 text-indigo-600" />
+              <Clock className="h-6 w-6 text-cobalt" />
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.upcomingSessions")}</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {course.next_occurrences.slice(0, 6).map((occurrence: string, idx: number) => (
-                <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-indigo-200 dark:border-indigo-800">
+                <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-cobalt/20 dark:border-cobalt/30">
                   <p className="font-medium text-gray-900 dark:text-white">
                     {new Date(occurrence).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                   </p>

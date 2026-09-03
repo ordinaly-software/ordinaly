@@ -33,8 +33,6 @@
     /* Custom Colors (referenced in tailwind.config.ts) */
     --color-green-accent: #0255D5;
     --color-green-accent-dark: #7DB5FF;
-    --color-blue-accent: #46B1C9;
-    --color-dark-blue: #623CEA;
     --color-dark-gray: #1A1924;
 
     /* ── ANTHROPIC DESIGN SYSTEM ── */
@@ -68,6 +66,7 @@
     --swatch--flame-dark:    #C44E24;
     --swatch--cobalt:        #0255D5;
     --swatch--cobalt-dark:   #0144AA;
+    --swatch--cobalt-light:  #7DB5FF;
 
     /* Swatches — ivory alphas */
     --swatch--ivory-faded-10: #FAF9F51A;
@@ -100,8 +99,8 @@
     --color-border-strong:   var(--swatch--slate-faded-20);
 
     /* Typography — families */
-    --font-sans:    "Inter", "DM Sans", Arial, sans-serif;
-    --font-serif:   "Lora", "Playfair Display", Georgia, serif;
+    --font-sans:    var(--font-inter), "Inter", "DM Sans", Arial, sans-serif;
+    --font-serif:   var(--font-lora), "Lora", "Playfair Display", Georgia, serif;
 
     /* Typography — weights */
     --font-weight-light:     300;
@@ -480,6 +479,16 @@ svg[width="2rem"], svg[height="2rem"] {
   to {
     stroke-dashoffset: -20;
   }
+}
+
+/* One-time directional hint for an unused carousel "next" control */
+@keyframes carousel-hint {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(5px); }
+}
+
+.animate-carousel-hint {
+  animation: carousel-hint 1.15s ease-in-out 2;
 }
 
 .animate-flow-line {

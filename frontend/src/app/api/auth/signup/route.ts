@@ -22,7 +22,7 @@ export async function POST(req: Request) {
   const requestBody = body as Record<string, unknown>;
   const recaptchaCheck = await verifyRecaptchaToken(requestBody.recaptchaToken);
   if (!recaptchaCheck.ok) {
-    return NextResponse.json({ error: recaptchaCheck.error }, { status: recaptchaCheck.status });
+    return NextResponse.json({ error: recaptchaCheck.error }, { status: recaptchaCheck.status ?? 400 });
   }
 
   const payload: Record<string, unknown> = {};

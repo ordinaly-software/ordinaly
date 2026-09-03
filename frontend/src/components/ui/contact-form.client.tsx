@@ -6,7 +6,7 @@ import Alert from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useReCaptcha } from "@/app/[locale]/recaptcha-provider";
 import { ChevronDown } from "lucide-react";
 
 type Status = "idle" | "loading";
@@ -53,7 +53,7 @@ export default function ContactForm({
   const [prefixSearch, setPrefixSearch] = useState("");
   const [selectedPrefix, setSelectedPrefix] = useState(phonePrefixes[0]);
   const contactEndpoint = "/api/leads";
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  const { executeRecaptcha } = useReCaptcha();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -101,9 +101,23 @@ export default function ContactForm({
     }
 
     try {
-      // Skip reCAPTCHA when the provider is not available (key not configured)
       if (executeRecaptcha) {
-        payload.recaptchaToken = await executeRecaptcha(recaptchaAction);
+        try {
+          payload.recaptchaToken = await executeRecaptcha(recaptchaAction);
+        } catch (err) {
+          console.error("[contact-form] reCAPTCHA execution failed:", err);
+          setStatus("idle");
+          setAlert({
+            key: Date.now(),
+            type: "error",
+            message: t("form.errorFallback"),
+          });
+          return;
+        }
+      } else {
+        console.warn(
+          "[contact-form] reCAPTCHA is not configured (NEXT_PUBLIC_RECAPTCHA_SITE_KEY missing) — submitting without a token.",
+        );
       }
 
       const response = await fetch(contactEndpoint, {

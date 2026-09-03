@@ -12,7 +12,7 @@ export async function NotFoundContent({ locale }: NotFoundContentProps) {
   const t = await getTranslations({ locale, namespace: "notFound" });
 
   return (
-    <div className="min-h-screen bg-[#F9FAFB] dark:bg-[#11101a]">
+    <div className="min-h-screen bg-ivory-light dark:bg-[#11101a]">
       <div className="mx-auto flex min-h-screen max-w-5xl flex-col items-center justify-center gap-6 px-6 py-16 text-center">
         <p className="text-5xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-6xl">
           404

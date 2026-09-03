@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useTranslations } from "next-intl";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures";
@@ -19,7 +20,9 @@ export interface CarouselProps<T> {
   slideClassName?: string;
   autoplay?: boolean;
   autoplayDelay?: number;
+  /** Defaults to the localized `common.previous` label. */
   prevLabel?: string;
+  /** Defaults to the localized `common.next` label. */
   nextLabel?: string;
   className?: string;
   options?: EmblaOptionsType;
@@ -45,12 +48,15 @@ export function Carousel<T>({
   slideClassName = DEFAULT_SLIDE_CLASS,
   autoplay = false,
   autoplayDelay = 4500,
-  prevLabel = "Previous",
-  nextLabel = "Next",
+  prevLabel,
+  nextLabel,
   className,
   options,
   fixedWidthSlides = false,
 }: CarouselProps<T>) {
+  const tCommon = useTranslations("common");
+  const resolvedPrevLabel = prevLabel ?? tCommon("previous");
+  const resolvedNextLabel = nextLabel ?? tCommon("next");
   const plugins = useMemo(
     () => [
       WheelGesturesPlugin(),
@@ -182,8 +188,8 @@ export function Carousel<T>({
           onNextClick={onNextButtonClick}
           prevDisabled={prevBtnDisabled}
           nextDisabled={nextBtnDisabled}
-          prevLabel={prevLabel}
-          nextLabel={nextLabel}
+          prevLabel={resolvedPrevLabel}
+          nextLabel={resolvedNextLabel}
         />
       )}
     </div>

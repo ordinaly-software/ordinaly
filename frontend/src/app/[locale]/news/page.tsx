@@ -22,10 +22,10 @@ export async function generateMetadata({
   const base = createPageMetadata({
       locale,
       path: "/news",
-      title: isEs ? "Noticias de automatización e IA" : "Automation & AI news",
+      title: isEs ? "Noticias de IA y automatización empresarial" : "AI and business automation news",
       description: isEs
-        ? "Actualidad y novedades sobre automatización, IA y productividad para empresas."
-        : "Updates and news about automation, AI, and productivity for companies.",
+        ? "Actualidad sobre inteligencia artificial, automatización y productividad para empresas, con la lectura del equipo de Ordinaly Software."
+        : "News on artificial intelligence, automation and productivity for businesses, with analysis from the Ordinaly Software team.",
       image: "/static/backgrounds/blog_background.webp",
     });
 
