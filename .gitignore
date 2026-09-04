@@ -43,7 +43,7 @@ venv/*
 next-app/node_modules/*
 node_modules/*
 
-# impecable claude plugin
-.impeccable/*
+# impeccable claude plugin
+.impeccable/
 DESIGN.md
 PRODUCT.md

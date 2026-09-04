@@ -1750,6 +1750,7 @@
     "termsText": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad"
   },
   "blog": {
+    "relatedServices": "Servicios relacionados",
     "title": "Blog de Ordinaly",
     "subtitle": "Noticias, ideas y actualizaciones sobre transformación digital y tecnología",
     "noResults": {

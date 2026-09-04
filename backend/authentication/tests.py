@@ -156,7 +156,7 @@ class DeleteAccountViewsTests(APITestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f"Token {self.token.key}")
 
     @override_settings(DEBUG=False)
-    @patch("authentication.views.send_delete_confirmation_email")
+    @patch("users.services.email_service.send_delete_confirmation_email")
     @patch("authentication.views.secrets.token_hex", return_value="plain-delete-token")
     def test_request_delete_account_post_sets_token_hash_and_expiry(self, mock_token_hex, mock_send_email):
         response = self.client.post("/auth/delete/request/", {}, format="json")
@@ -191,7 +191,7 @@ class DeleteAccountViewsTests(APITestCase):
         response = self.client.get("/auth/delete/confirm/")
         self.assertEqual(response.status_code, 405)
 
-    @patch("authentication.views.send_delete_confirmation_email", side_effect=Exception("SMTP error"))
+    @patch("users.services.email_service.send_delete_confirmation_email", side_effect=Exception("SMTP error"))
     def test_request_delete_account_email_failure_returns_500(self, mock_send_email):
         response = self.client.post("/auth/delete/request/", {}, format="json")
         self.assertEqual(response.status_code, 500)

@@ -365,6 +365,9 @@ psql "postgresql://ordinaly:tu_password@127.0.0.1:5432/ordinaly_db" -c '\conninf
     npm run dev
     ```
 
+    > [!NOTE]
+    > **reCAPTCHA (v3):** gestiona las claves en la consola de administración de Google: <https://www.google.com/recaptcha/admin>.
+
 4. Opcionalmente, para ejecutar la build de producción:
     ```sh
     cd ../frontend
@@ -385,7 +388,7 @@ psql "postgresql://ordinaly:tu_password@127.0.0.1:5432/ordinaly_db" -c '\conninf
 - Django, djangorestframework, django-cors-headers, drf-spectacular, djangorestframework-simplejwt, dj-database-url, google-auth, Pillow, psycopg, gunicorn, whitenoise, python-dotenv, markdown, reportlab, stripe
 
 ### Frontend (Next.js)
-- next, react, next-intl, tailwindcss, framer-motion, motion, lucide-react, react-icons, @tabler/icons-react, @react-three/fiber, @react-three/drei, cobe, embla-carousel-react, sanity, next-sanity, stripe, @stripe/stripe-js, react-google-recaptcha-v3, react-toastify, react-markdown, jspdf
+- next, react, next-intl, tailwindcss, framer-motion, motion, lucide-react, react-icons, @tabler/icons-react, @react-three/fiber, @react-three/drei, cobe, embla-carousel-react, sanity, next-sanity, stripe, @stripe/stripe-js, react-toastify, react-markdown, jspdf (reCAPTCHA v3 se carga con un provider propio, sin dependencia externa)
 
 ---
 
