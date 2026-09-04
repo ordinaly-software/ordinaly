@@ -1750,6 +1750,7 @@
     "termsText": "By continuing, you agree to our Terms of Service and Privacy Policy"
   },
   "blog": {
+    "relatedServices": "Related services",
     "title": "Ordinaly blog",
     "subtitle": "News, ideas, and updates about digital transformation and technology",
     "noResults": {

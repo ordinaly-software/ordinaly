@@ -217,7 +217,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag
         </div>
 
         {isLoading ? (
-          <div className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none]">
+          <div className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
             <div className="flex gap-6">
               {Array.from({ length: Math.min(limit, 3) }).map((_, index) => (
                 <div key={index} className="flex-shrink-0 flex" style={{ width: 'max(280px, calc((100% - 48px) / 3))' }}>

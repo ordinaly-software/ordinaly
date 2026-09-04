@@ -207,6 +207,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 html, body {
@@ -217,10 +218,52 @@ body {
   overscroll-behavior-x: none;
 }
 
-/* Hide vertical scrollbar on mobile browsers */
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
+/* Visible, always-on scrollbars — an explicit affordance that there is more
+   content to scroll. Kept in @layer base so the horizontal carousels can still
+   opt out with their Tailwind [scrollbar-width:none] / [&::-webkit-scrollbar]:hidden
+   utilities (the utilities layer wins over base). */
+@layer base {
+  :root {
+    --scrollbar-track: var(--swatch--ivory-medium);
+    --scrollbar-thumb: var(--swatch--cloud-medium);
+    --scrollbar-thumb-hover: var(--swatch--cloud-dark);
+  }
+
+  .dark {
+    --scrollbar-track: var(--swatch--slate-medium);
+    --scrollbar-thumb: var(--swatch--slate-light);
+    --scrollbar-thumb-hover: var(--swatch--cloud-dark);
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
+  /* WebKit / Blink */
+  ::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 999px;
+    border: 3px solid var(--scrollbar-track);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track);
+  }
 }
 
 /* Scroll Animations */
