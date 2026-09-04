@@ -119,9 +119,9 @@ export default function DesarrolloDeAppWebs() {
   const portfolioTexts = (content.portfolio?.projects ?? []) as { name: string; description: string }[];
 
   const portfolioProjects: PortfolioProject[] = [
-    { key: "ordinaly", name: portfolioTexts[0]?.name, description: portfolioTexts[0]?.description, image: "/static/desarrollo-de-app-webs/ordinaly.webp", href: "https://ordinaly.ai" },
-    { key: "geesol", name: portfolioTexts[1]?.name, description: portfolioTexts[1]?.description, image: "/static/desarrollo-de-app-webs/geesol.webp", href: "https://geesol.com" },
-    { key: "fisiofind", name: portfolioTexts[2]?.name, description: portfolioTexts[2]?.description, image: "/static/desarrollo-de-app-webs/fisiofind.webp", href: "https://fisiofind-landing-page.netlify.app" },
+    { key: "ordinaly", name: portfolioTexts[0]?.name, description: portfolioTexts[0]?.description, image: "/static/desarrollo-de-app-webs/ordinaly.png", href: "https://ordinaly.ai" },
+    { key: "geesol", name: portfolioTexts[1]?.name, description: portfolioTexts[1]?.description, image: "/static/desarrollo-de-app-webs/geesol.png", href: "https://geesol.com" },
+    { key: "fisiofind", name: portfolioTexts[2]?.name, description: portfolioTexts[2]?.description, image: "/static/desarrollo-de-app-webs/fisiofind.png", href: "https://fisiofind-landing-page.netlify.app" },
   ];
 
   return (
