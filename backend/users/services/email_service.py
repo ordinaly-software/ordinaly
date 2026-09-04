@@ -68,7 +68,7 @@ def send_verification_email(email: str, code: str):
       <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
     <![endif]-->
     <style>
-      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#316C20;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
+      :root{{--bg:#FAF9F5;--card:#ffffff;--text:#141413;--muted:#5E5D59;--line:#E8E6DC;--cta:#D97757;--radius:14px;--footer_bg:#ffffff;--footer_text:#141413;--footer_link:#141413;--footer_line:#E8E6DC;}}
       html,body{{margin:0;padding:0;background:var(--bg);}}
       img{{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}}
       a{{color:inherit;text-decoration:none;}}
@@ -120,7 +120,7 @@ def send_verification_email(email: str, code: str):
             <div class="code-box">{code}</div>
             <div style="height:16px;"></div>
             <p class="text" style="font-size:13px;">
-              Este c&oacute;digo expira en <strong style="color:#0f172a;">15 minutos</strong>. Si no solicitaste esta verificaci&oacute;n, puedes ignorar este correo de forma segura.
+              Este c&oacute;digo expira en <strong style="color:#141413;">15 minutos</strong>. Si no solicitaste esta verificaci&oacute;n, puedes ignorar este correo de forma segura.
             </p>
             <div style="height:18px;"></div>
             <p class="text" style="font-size:13px;">
@@ -133,7 +133,7 @@ def send_verification_email(email: str, code: str):
             <p style="margin:8px 0 0;">Automatizaci&oacute;n empresarial e IA desde Sevilla para el mundo</p>
             <p style="margin:14px 0 0;">
               <a href="https://ordinaly.ai" target="_blank" rel="noopener noreferrer">Sitio web</a> |
-              <a href="https://ordinaly.ai/contact" target="_blank" rel="noopener noreferrer">Contacto</a> |
+              <a href="https://ordinaly.ai/contacto" target="_blank" rel="noopener noreferrer">Contacto</a> |
               <a href="https://ordinaly.ai/blog" target="_blank" rel="noopener noreferrer">Blog</a>
             </p>
             <p style="margin:14px 0 0;">&copy; 2026 Ordinaly Software. Todos los derechos reservados.</p>
@@ -156,13 +156,13 @@ def send_welcome_email(email: str, user_name: str):
         frontend_url = os.getenv("FRONTEND_BASE_URL", "https://ordinaly.ai").rstrip("/")
         logo_url = f"{frontend_url}/assets/workspace_logo.png"
         welcome_cards = {
-            "sonia": f"{frontend_url}/static/mail/sonia.png",
-            "facturas": f"{frontend_url}/static/mail/facturas.png",
-            "meta": f"{frontend_url}/static/mail/meta.png",
-            "linkedin": f"{frontend_url}/static/mail/linkedin.png",
-            "pymes": f"{frontend_url}/static/mail/pymes.png",
-            "odoo": f"{frontend_url}/static/mail/odoo.png",
-            "formation": f"{frontend_url}/static/mail/formation.png",
+            "sonia": f"{frontend_url}/static/mail/sonia.jpg",
+            "facturas": f"{frontend_url}/static/mail/facturas.jpg",
+            "meta": f"{frontend_url}/static/mail/meta.jpg",
+            "linkedin": f"{frontend_url}/static/mail/linkedin.jpg",
+            "pymes": f"{frontend_url}/static/mail/pymes.jpg",
+            "odoo": f"{frontend_url}/static/mail/odoo.jpg",
+            "formation": f"{frontend_url}/static/mail/formation.jpg",
         }
         html = f"""\
 <!doctype html>
@@ -193,18 +193,18 @@ def send_welcome_email(email: str, user_name: str):
       display:inline-block;
       padding:6px 12px;
       border-radius:999px;
-      border:1px solid #e5e7eb;
+      border:1px solid #E8E6DC;
       font:700 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
-      color:#475569;
+      color:#5E5D59;
       background:#ffffff;
       background-image:linear-gradient(#ffffff,#ffffff);
-      -webkit-text-fill-color:#475569;
+      -webkit-text-fill-color:#5E5D59;
     }}
 
-    .divider{{height:1px;line-height:1px;font-size:1px;background:#e5e7eb;}}
+    .divider{{height:1px;line-height:1px;font-size:1px;background:#E8E6DC;}}
 
     .pill{{
-      border:1px solid #e5e7eb;
+      border:1px solid #E8E6DC;
       border-radius:14px;
       padding:14px;
       text-align:center;
@@ -213,7 +213,7 @@ def send_welcome_email(email: str, user_name: str):
     }}
 
     .grid-card{{
-      border:1px solid #e5e7eb;
+      border:1px solid #E8E6DC;
       border-radius:14px;
       overflow:hidden;
       background:#ffffff;
@@ -226,7 +226,7 @@ def send_welcome_email(email: str, user_name: str):
       width:150px;
       height:auto;
       border-radius:12px;
-      border:1px solid #e5e7eb;
+      border:1px solid #E8E6DC;
       overflow:hidden;
       display:block;
     }}
@@ -238,7 +238,7 @@ def send_welcome_email(email: str, user_name: str):
       background:#ffffff;
       background-image:linear-gradient(#ffffff,#ffffff);
     }}
-    .footer a{{text-decoration:underline;margin:0 6px;color:#0f172a;}}
+    .footer a{{text-decoration:underline;margin:0 6px;color:#141413;}}
 
     @media (max-width:520px){{
       .p{{padding:22px 16px;}}
@@ -248,18 +248,18 @@ def send_welcome_email(email: str, user_name: str):
   </style>
 </head>
 
-<body style="margin:0;padding:0;background:#f6f7f8;background-image:linear-gradient(#f6f7f8,#f6f7f8);">
+<body style="margin:0;padding:0;background:#FAF9F5;background-image:linear-gradient(#FAF9F5,#FAF9F5);">
   <div class="preheader">Bienvenido a Ordinaly. Automatizaci&oacute;n e IA con criterio y paso a paso.</div>
 
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
-         style="background:#f6f7f8;background-image:linear-gradient(#f6f7f8,#f6f7f8);">
+         style="background:#FAF9F5;background-image:linear-gradient(#FAF9F5,#FAF9F5);">
     <tr>
       <td align="center" class="container">
 
         <!-- CARD -->
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
                style="max-width:700px;background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);
-                      border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;">
+                      border:1px solid #E8E6DC;border-radius:16px;overflow:hidden;">
 
           <!-- HEADER -->
           <tr>
@@ -277,14 +277,14 @@ def send_welcome_email(email: str, user_name: str):
 
               <div style="height:14px;"></div>
 
-              <h1 class="h1" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Hola {user_name}, bienvenido a Ordinaly</h1>
-              <p class="text" style="margin-top:10px;color:#475569;-webkit-text-fill-color:#475569;">
+              <h1 class="h1" style="color:#141413;-webkit-text-fill-color:#141413;">Hola {user_name}, bienvenido a Ordinaly</h1>
+              <p class="text" style="margin-top:10px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                 Gracias por crear tu cuenta. Ordinaly est&aacute; pensado para automatizar procesos y aplicar IA
                 con control, paso a paso, y con resultados reales.
               </p>
 
               <div style="height:10px;"></div>
-              <p class="text" style="font-size:14px;color:#475569;-webkit-text-fill-color:#475569;">
+              <p class="text" style="font-size:14px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                 Si no has sido t&uacute;, puedes ignorar este correo.
               </p>
             </td>
@@ -295,8 +295,8 @@ def send_welcome_email(email: str, user_name: str):
           <!-- VALUE -->
           <tr>
             <td class="p" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-              <h2 class="h2" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Qu&eacute; vas a encontrar aqu&iacute;</h2>
-              <p class="text" style="margin-top:10px;color:#475569;-webkit-text-fill-color:#475569;">
+              <h2 class="h2" style="color:#141413;-webkit-text-fill-color:#141413;">Qu&eacute; vas a encontrar aqu&iacute;</h2>
+              <p class="text" style="margin-top:10px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                 Tres ideas simples, que usamos a diario:
               </p>
 
@@ -306,8 +306,8 @@ def send_welcome_email(email: str, user_name: str):
                 <tr>
                   <td width="33%" style="padding-right:8px;vertical-align:top;">
                     <div class="pill">
-                      <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Automatizaci&oacute;n pr&aacute;ctica</h3>
-                      <p class="text" style="font-size:14px;margin-top:6px;color:#475569;-webkit-text-fill-color:#475569;">
+                      <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Automatizaci&oacute;n pr&aacute;ctica</h3>
+                      <p class="text" style="font-size:14px;margin-top:6px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                         Menos tareas repetidas, m&aacute;s tiempo para decidir.
                       </p>
                     </div>
@@ -315,8 +315,8 @@ def send_welcome_email(email: str, user_name: str):
 
                   <td width="33%" style="padding:0 4px;vertical-align:top;">
                     <div class="pill">
-                      <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">IA con sentido</h3>
-                      <p class="text" style="font-size:14px;margin-top:6px;color:#475569;-webkit-text-fill-color:#475569;">
+                      <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">IA con sentido</h3>
+                      <p class="text" style="font-size:14px;margin-top:6px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                         Donde ayuda, sin complicar lo que ya funciona.
                       </p>
                     </div>
@@ -324,8 +324,8 @@ def send_welcome_email(email: str, user_name: str):
 
                   <td width="33%" style="padding-left:8px;vertical-align:top;">
                     <div class="pill">
-                      <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Criterio t&eacute;cnico</h3>
-                      <p class="text" style="font-size:14px;margin-top:6px;color:#475569;-webkit-text-fill-color:#475569;">
+                      <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Criterio t&eacute;cnico</h3>
+                      <p class="text" style="font-size:14px;margin-top:6px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                         Sin humo, con arquitectura y pasos claros.
                       </p>
                     </div>
@@ -340,8 +340,8 @@ def send_welcome_email(email: str, user_name: str):
           <!-- SERVICES GRID -->
           <tr>
             <td class="p" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-              <h2 class="h2" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Algunas soluciones listas</h2>
-              <p class="text" style="margin-top:8px;color:#475569;-webkit-text-fill-color:#475569;">
+              <h2 class="h2" style="color:#141413;-webkit-text-fill-color:#141413;">Algunas soluciones listas</h2>
+              <p class="text" style="margin-top:8px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                 Ejemplos de lo que solemos implantar. Si te encaja algo, lo ves con detalle en la web.
               </p>
 
@@ -350,24 +350,24 @@ def send_welcome_email(email: str, user_name: str):
               <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                 <tr>
                   <td width="50%" style="padding-right:8px;vertical-align:top;">
-                    <a href="https://ordinaly.ai/services/sonia-asistente-de-voz-con-ia-ordinaly" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
+                    <a href="https://ordinaly.ai/agente-de-llamadas-ia" target="_blank" rel="noopener noreferrer" style="color:#141413;">
                       <div class="grid-card">
                         <img src="{welcome_cards["sonia"]}" alt="SonIA" style="width:100%;height:auto;" />
                         <div class="grid-body">
-                          <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">SonIA, asistente de voz con IA</h3>
-                          <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Recepci&oacute;n 24/7 para atender, filtrar y escalar conversaciones.</p>
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">SonIA, asistente de voz con IA</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Recepci&oacute;n 24/7 para atender, filtrar y escalar conversaciones.</p>
                         </div>
                       </div>
                     </a>
                   </td>
 
                   <td width="50%" style="padding-left:8px;vertical-align:top;">
-                    <a href="https://ordinaly.ai/services/recopilacion-automatica-de-facturas-para-empresas-y-asesorias" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
+                    <a href="https://ordinaly.ai/automatizacion-facturas" target="_blank" rel="noopener noreferrer" style="color:#141413;">
                       <div class="grid-card">
                         <img src="{welcome_cards["facturas"]}" alt="Facturas" style="width:100%;height:auto;" />
                         <div class="grid-body">
-                          <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Recopilaci&oacute;n autom&aacute;tica de facturas</h3>
-                          <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Centraliza y clasifica facturas para empresa o asesor&iacute;a.</p>
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Recopilaci&oacute;n autom&aacute;tica de facturas</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Centraliza y clasifica facturas para empresa o asesor&iacute;a.</p>
                         </div>
                       </div>
                     </a>
@@ -378,24 +378,24 @@ def send_welcome_email(email: str, user_name: str):
 
                 <tr>
                   <td width="50%" style="padding-right:8px;vertical-align:top;">
-                    <a href="https://ordinaly.ai/services/automatizacion-facebook-instagram-meta" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
+                    <a href="https://ordinaly.ai/automatizacion-redes-sociales" target="_blank" rel="noopener noreferrer" style="color:#141413;">
                       <div class="grid-card">
                         <img src="{welcome_cards["meta"]}" alt="Meta" style="width:100%;height:auto;" />
                         <div class="grid-body">
-                          <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Automatizaci&oacute;n Facebook e Instagram</h3>
-                          <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Publicaci&oacute;n constante sin estar pendiente cada d&iacute;a.</p>
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Automatizaci&oacute;n Facebook e Instagram</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Publicaci&oacute;n constante sin estar pendiente cada d&iacute;a.</p>
                         </div>
                       </div>
                     </a>
                   </td>
 
                   <td width="50%" style="padding-left:8px;vertical-align:top;">
-                    <a href="https://ordinaly.ai/services/automatizacion-de-publicaciones-en-linkedin-para-empresas-y-autonomos" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
+                    <a href="https://ordinaly.ai/automatizacion-redes-sociales" target="_blank" rel="noopener noreferrer" style="color:#141413;">
                       <div class="grid-card">
                         <img src="{welcome_cards["linkedin"]}" alt="LinkedIn" style="width:100%;height:auto;" />
                         <div class="grid-body">
-                          <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Automatizaci&oacute;n de LinkedIn</h3>
-                          <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Workflow para preparar, programar y publicar con consistencia.</p>
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Automatizaci&oacute;n de LinkedIn</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Workflow para preparar, programar y publicar con consistencia.</p>
                         </div>
                       </div>
                     </a>
@@ -406,24 +406,24 @@ def send_welcome_email(email: str, user_name: str):
 
                 <tr>
                   <td width="50%" style="padding-right:8px;vertical-align:top;">
-                    <a href="https://ordinaly.ai/services" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
+                    <a href="https://ordinaly.ai/servicios" target="_blank" rel="noopener noreferrer" style="color:#141413;">
                       <div class="grid-card">
                         <img src="{welcome_cards["pymes"]}" alt="Pymes" style="width:100%;height:auto;" />
                         <div class="grid-body">
-                          <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Automatizaci&oacute;n para pymes</h3>
-                          <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">Integraciones y procesos medibles para ahorrar tiempo.</p>
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Automatizaci&oacute;n para pymes</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Integraciones y procesos medibles para ahorrar tiempo.</p>
                         </div>
                       </div>
                     </a>
                   </td>
 
                   <td width="50%" style="padding-left:8px;vertical-align:top;">
-                    <a href="https://ordinaly.ai/services" target="_blank" rel="noopener noreferrer" style="color:#0f172a;">
+                    <a href="https://ordinaly.ai/servicios" target="_blank" rel="noopener noreferrer" style="color:#141413;">
                       <div class="grid-card">
                         <img src="{welcome_cards["odoo"]}" alt="Odoo" style="width:100%;height:auto;" />
                         <div class="grid-body">
-                          <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Implantaci&oacute;n de Odoo</h3>
-                          <p class="grid-sub" style="color:#475569;-webkit-text-fill-color:#475569;">ERP con foco en procesos, datos y adopci&oacute;n real del equipo.</p>
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Implantaci&oacute;n de Odoo</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">ERP con foco en procesos, datos y adopci&oacute;n real del equipo.</p>
                         </div>
                       </div>
                     </a>
@@ -436,8 +436,8 @@ def send_welcome_email(email: str, user_name: str):
               <!-- Single CTA -->
               <table role="presentation" cellspacing="0" cellpadding="0" border="0">
                 <tr>
-                  <td bgcolor="#316C20" style="border-radius:12px;background:#316C20;background-image:linear-gradient(#316C20,#316C20);">
-                    <a href="https://ordinaly.ai/services"
+                  <td bgcolor="#D97757" style="border-radius:12px;background:#D97757;background-image:linear-gradient(#D97757,#D97757);">
+                    <a href="https://ordinaly.ai/servicios"
                        target="_blank" rel="noopener noreferrer"
                        style="display:inline-block;padding:12px 18px;font:800 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;
                               color:#ffffff;text-decoration:none;border-radius:12px;border:1px solid rgba(255,255,255,0.18);
@@ -449,7 +449,7 @@ def send_welcome_email(email: str, user_name: str):
               </table>
 
               <div style="height:10px;"></div>
-              <p class="text" style="font-size:13px;color:#475569;-webkit-text-fill-color:#475569;">
+              <p class="text" style="font-size:13px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                 Si me dices tu sector y tus herramientas, te orientamos mejor.
               </p>
             </td>
@@ -460,8 +460,8 @@ def send_welcome_email(email: str, user_name: str):
           <!-- FORMATION -->
           <tr>
             <td class="p" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-              <h2 class="h2" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Formaci&oacute;n, sin rodeos</h2>
-              <p class="text" style="margin-top:8px;color:#475569;-webkit-text-fill-color:#475569;">
+              <h2 class="h2" style="color:#141413;-webkit-text-fill-color:#141413;">Formaci&oacute;n, sin rodeos</h2>
+              <p class="text" style="margin-top:8px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                 Si prefieres aprender antes de implantar, tenemos formaciones pr&aacute;cticas pensadas para construir y desplegar.
               </p>
 
@@ -475,12 +475,12 @@ def send_welcome_email(email: str, user_name: str):
                     </a>
                   </td>
                   <td style="vertical-align:top;">
-                    <h3 class="h3" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Aprende a construir, no solo a usar herramientas</h3>
-                    <p class="text" style="margin-top:6px;color:#475569;-webkit-text-fill-color:#475569;">
+                    <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Aprende a construir, no solo a usar herramientas</h3>
+                    <p class="text" style="margin-top:6px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                       Automatizaci&oacute;n con n8n, IA aplicada y criterios de arquitectura. Material orientado a casos reales.
                     </p>
                     <div style="height:10px;"></div>
-                    <a href="https://ordinaly.ai/formacion" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#0f172a;-webkit-text-fill-color:#0f172a;">
+                    <a href="https://ordinaly.ai/formacion" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#141413;-webkit-text-fill-color:#141413;">
                       Ver formaci&oacute;n
                     </a>
                   </td>
@@ -494,30 +494,30 @@ def send_welcome_email(email: str, user_name: str):
           <!-- NEXT STEP -->
           <tr>
             <td class="p" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
-              <h2 class="h2" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">Tu siguiente paso</h2>
-              <p class="text" style="margin-top:8px;color:#475569;-webkit-text-fill-color:#475569;">
+              <h2 class="h2" style="color:#141413;-webkit-text-fill-color:#141413;">Tu siguiente paso</h2>
+              <p class="text" style="margin-top:8px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                 Cuando quieras, entra en tu cuenta y explora con calma.
               </p>
               <div style="height:10px;"></div>
-              <p class="text" style="font-size:14px;color:#475569;-webkit-text-fill-color:#475569;">
-                Acceso: <a href="https://ordinaly.ai/dashboard" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#0f172a;-webkit-text-fill-color:#0f172a;">https://ordinaly.ai</a>
+              <p class="text" style="font-size:14px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Acceso: <a href="https://ordinaly.ai/profile" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#141413;-webkit-text-fill-color:#141413;">https://ordinaly.ai</a>
               </p>
             </td>
           </tr>
 
           <!-- FOOTER -->
           <tr>
-            <td class="footer" style="color:#0f172a;-webkit-text-fill-color:#0f172a;">
+            <td class="footer" style="color:#141413;-webkit-text-fill-color:#141413;">
               <p style="margin:0;font-weight:700;">ORDINALY SOFTWARE</p>
-              <p style="margin:8px 0 0;color:#475569;-webkit-text-fill-color:#475569;">Automatizaci&oacute;n empresarial e IA desde Sevilla para el mundo</p>
+              <p style="margin:8px 0 0;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Automatizaci&oacute;n empresarial e IA desde Sevilla para el mundo</p>
 
               <p style="margin:14px 0 0;">
                 <a href="https://ordinaly.ai">Web</a> |
-                <a href="https://ordinaly.ai/services">Servicios</a> |
+                <a href="https://ordinaly.ai/servicios">Servicios</a> |
                 <a href="https://ordinaly.ai/formacion">Formaci&oacute;n</a>
               </p>
 
-              <p style="margin:12px 0 0;font-size:12px;color:#475569;-webkit-text-fill-color:#475569;">
+              <p style="margin:12px 0 0;font-size:12px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
                 Has recibido este correo porque has creado una cuenta en Ordinaly.
               </p>
 
@@ -557,7 +557,7 @@ def send_password_reset_email(email: str, token: str, user_name: str):
       <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
     <![endif]-->
     <style>
-      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#316C20;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
+      :root{{--bg:#FAF9F5;--card:#ffffff;--text:#141413;--muted:#5E5D59;--line:#E8E6DC;--cta:#D97757;--radius:14px;--footer_bg:#ffffff;--footer_text:#141413;--footer_link:#141413;--footer_line:#E8E6DC;}}
       html,body{{margin:0;padding:0;background:var(--bg);}}
       img{{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}}
       a{{color:inherit;text-decoration:none;}}
@@ -604,14 +604,14 @@ def send_password_reset_email(email: str, token: str, user_name: str):
           <!-- BODY -->
           <tr><td class="p">
             <p class="text">
-              Haz clic en el bot&oacute;n de abajo para elegir una nueva contrase&ntilde;a. Este enlace expira en <strong style="color:#0f172a;">15 minutos</strong>.
+              Haz clic en el bot&oacute;n de abajo para elegir una nueva contrase&ntilde;a. Este enlace expira en <strong style="color:#141413;">15 minutos</strong>.
             </p>
             <div style="height:20px;"></div>
             <!-- CTA BUTTON -->
             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
               <tr><td align="center">
                 <table role="presentation" cellspacing="0" cellpadding="0" border="0">
-                  <tr><td align="center" bgcolor="#316C20" style="border-radius:10px;">
+                  <tr><td align="center" bgcolor="#D97757" style="border-radius:10px;">
                     <a href="{reset_url}" target="_blank" rel="noopener noreferrer"
                        style="display:inline-block;padding:14px 28px;font:800 15px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,Helvetica,sans-serif;color:#ffffff;text-decoration:none;border-radius:10px;">
                       Restablecer contrase&ntilde;a
@@ -635,7 +635,7 @@ def send_password_reset_email(email: str, token: str, user_name: str):
             <p style="margin:8px 0 0;">Automatizaci&oacute;n empresarial e IA desde Sevilla para el mundo</p>
             <p style="margin:14px 0 0;">
               <a href="https://ordinaly.ai" target="_blank" rel="noopener noreferrer">Sitio web</a> |
-              <a href="https://ordinaly.ai/contact" target="_blank" rel="noopener noreferrer">Contacto</a> |
+              <a href="https://ordinaly.ai/contacto" target="_blank" rel="noopener noreferrer">Contacto</a> |
               <a href="https://ordinaly.ai/blog" target="_blank" rel="noopener noreferrer">Blog</a>
             </p>
             <p style="margin:14px 0 0;">&copy; 2026 Ordinaly Software. Todos los derechos reservados.</p>
@@ -658,19 +658,19 @@ def send_email_updated_email(email: str, user_name: str, previous_email: str, ne
         html = f"""\
 <!doctype html>
 <html lang="es">
-  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+  <body style="margin:0;padding:24px;background:#FAF9F5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#141413;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr><td align="center">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #E8E6DC;border-radius:14px;overflow:hidden;">
           <tr><td style="padding:28px 24px;">
             <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
             <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">Tu correo se ha actualizado</h1>
-            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0 0 16px;">
+            <p style="font-size:15px;line-height:1.6;color:#5E5D59;margin:0 0 16px;">
               Hola {user_name}, el correo principal de tu cuenta de Ordinaly se ha cambiado correctamente.
             </p>
-            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border:1px solid #e5e7eb;border-radius:12px;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border:1px solid #E8E6DC;border-radius:12px;">
               <tr>
-                <td style="padding:14px 16px;border-bottom:1px solid #e5e7eb;">
+                <td style="padding:14px 16px;border-bottom:1px solid #E8E6DC;">
                   <strong>Correo anterior:</strong> {previous_email}
                 </td>
               </tr>
@@ -680,8 +680,8 @@ def send_email_updated_email(email: str, user_name: str, previous_email: str, ne
                 </td>
               </tr>
             </table>
-            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
-              Si no has realizado este cambio, contacta con <a href="mailto:info@ordinaly.ai" style="color:#0f172a;">info@ordinaly.ai</a> cuanto antes.
+            <p style="font-size:13px;line-height:1.6;color:#5E5D59;margin:16px 0 0;">
+              Si no has realizado este cambio, contacta con <a href="mailto:info@ordinaly.ai" style="color:#141413;">info@ordinaly.ai</a> cuanto antes.
             </p>
           </td></tr>
         </table>
@@ -705,19 +705,19 @@ def send_password_reset_completed_email(email: str, user_name: str):
         html = f"""\
 <!doctype html>
 <html lang="es">
-  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+  <body style="margin:0;padding:24px;background:#FAF9F5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#141413;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr><td align="center">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #E8E6DC;border-radius:14px;overflow:hidden;">
           <tr><td style="padding:28px 24px;">
             <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
             <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">Tu contraseña ya se ha restablecido</h1>
-            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;">
+            <p style="font-size:15px;line-height:1.6;color:#5E5D59;margin:0;">
               Hola {user_name}, la contraseña de tu cuenta de Ordinaly se ha cambiado correctamente.
             </p>
-            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
+            <p style="font-size:13px;line-height:1.6;color:#5E5D59;margin:16px 0 0;">
               Si no has realizado este cambio, restablece de nuevo tu contraseña y escribe a
-              <a href="mailto:info@ordinaly.ai" style="color:#0f172a;">info@ordinaly.ai</a>.
+              <a href="mailto:info@ordinaly.ai" style="color:#141413;">info@ordinaly.ai</a>.
             </p>
           </td></tr>
         </table>
@@ -733,6 +733,175 @@ def send_password_reset_completed_email(email: str, user_name: str):
         )
     except Exception as e:
         raise EmailServiceError("No se pudo enviar el correo de confirmación de contraseña") from e
+
+
+def send_delete_confirmation_email(email: str, token: str, user_name: str):
+    """Send the account-deletion confirmation email (double opt-in for account removal)."""
+    try:
+        frontend_url = os.getenv("FRONTEND_BASE_URL", DEFAULT_FRONTEND_BASE_URL).rstrip("/")
+        confirm_url = f"{frontend_url}/delete_account/confirm?token={token}"
+        keep_url = f"{frontend_url}/profile"
+
+        html = f"""\
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta name="color-scheme" content="light" />
+    <meta name="supported-color-schemes" content="light" />
+    <title>Confirmaci&oacute;n de eliminaci&oacute;n de cuenta - Ordinaly</title>
+    <!--[if mso]>
+      <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+    <![endif]-->
+    <style>
+      :root{{--bg:#FAF9F5;--card:#ffffff;--text:#141413;--muted:#5E5D59;--line:#E8E6DC;--cta:#D97757;--danger:#B42318;--radius:14px;--footer_bg:#ffffff;--footer_text:#141413;--footer_link:#141413;--footer_line:#E8E6DC;}}
+      html,body{{margin:0;padding:0;background:var(--bg);}}
+      img{{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}}
+      a{{color:inherit;text-decoration:none;}}
+      .preheader{{display:none !important;visibility:hidden;opacity:0;color:transparent;height:0;width:0;overflow:hidden;mso-hide:all;}}
+      .container{{width:100%;background:var(--bg);padding:24px 12px;}}
+      .card{{max-width:640px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}}
+      .p{{padding:28px 24px;}}
+      .h1{{font:800 24px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:var(--text);margin:0;}}
+      .h2{{font:800 16px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:var(--text);margin:0;}}
+      .text{{font:400 15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:var(--muted);margin:0;}}
+      .divider{{height:1px;background:var(--line);line-height:1px;font-size:1px;}}
+      .badge{{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font:700 12px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:var(--muted);}}
+      .warn{{border:1px solid rgba(180,35,24,0.25);border-radius:12px;padding:12px 14px;background:#fff;font:400 13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:var(--muted);}}
+      .warn strong{{color:var(--danger);}}
+      .list{{padding-left:18px;margin:10px 0 0;}}
+      .list li{{margin:6px 0;color:var(--muted);font:400 15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;}}
+      .footer{{background:var(--footer_bg);color:var(--footer_text);padding:30px 24px;text-align:center;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;border-top:1px solid var(--footer_line);}}
+      .footer a{{color:var(--footer_link);text-decoration:underline;margin:0 5px;}}
+      .social-row{{margin-top:14px;}}
+      .social-cell{{width:44px;height:44px;border-radius:999px;background:var(--cta);}}
+      .social-link{{display:block;width:44px;height:44px;line-height:44px;text-align:center;}}
+      .social-svg{{width:20px;height:20px;vertical-align:middle;margin-top:12px;}}
+      @media (max-width:520px){{.p{{padding:22px 16px;}}.h1{{font-size:22px;}}}}
+    </style>
+  </head>
+  <body>
+    <div class="preheader">Confirma la eliminaci&oacute;n de tu cuenta de Ordinaly. Esta acci&oacute;n puede ser irreversible.</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" class="container">
+      <tr><td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" class="card">
+          <!-- HEADER -->
+          <tr><td class="p" style="padding-bottom:18px;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+              <tr>
+                <td align="left" style="vertical-align:middle;">
+                  <a href="https://ordinaly.ai" target="_blank" rel="noopener noreferrer">
+                    <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
+                  </a>
+                </td>
+                <td align="right" style="vertical-align:middle;">
+                  <span class="badge">Eliminaci&oacute;n de cuenta</span>
+                </td>
+              </tr>
+            </table>
+            <div style="height:16px;"></div>
+            <h1 class="h1">Confirmaci&oacute;n de eliminaci&oacute;n de cuenta</h1>
+            <p class="text" style="margin-top:8px;">
+              Hola {user_name}, hemos recibido una solicitud para eliminar tu cuenta de Ordinaly.
+            </p>
+          </td></tr>
+          <tr><td class="divider"></td></tr>
+          <!-- BODY -->
+          <tr><td class="p">
+            <div class="warn">
+              <strong>Importante:</strong> al confirmar, perder&aacute;s el acceso y se eliminar&aacute;n tus datos asociados a la cuenta.
+            </div>
+            <div style="height:16px;"></div>
+            <h2 class="h2">Qu&eacute; conlleva eliminar tu cuenta</h2>
+            <ul class="list">
+              <li>Eliminaci&oacute;n de tus datos de perfil y preferencias.</li>
+              <li>P&eacute;rdida del historial de cursos, progreso y certificados asociados (si aplica).</li>
+              <li>Baja autom&aacute;tica de la newsletter y comunicaciones de Ordinaly.</li>
+              <li>Eliminaci&oacute;n o desactivaci&oacute;n de automatizaciones y configuraciones guardadas.</li>
+              <li>P&eacute;rdida de acceso a contenidos y formaci&oacute;n relacionada con IA y automatizaci&oacute;n vinculada a tu cuenta.</li>
+            </ul>
+            <div style="height:18px;"></div>
+            <!-- ACTIONS -->
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+              <tr><td align="center" style="padding:0 0 10px;">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  <tr><td align="center" bgcolor="#B42318" style="border-radius:10px;">
+                    <a href="{confirm_url}" target="_blank" rel="noopener noreferrer"
+                       style="display:inline-block;padding:12px 18px;font:800 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,Helvetica,sans-serif;color:#ffffff;text-decoration:none;border-radius:10px;">
+                      Confirmar eliminaci&oacute;n
+                    </a>
+                  </td></tr>
+                </table>
+              </td></tr>
+              <tr><td align="center">
+                <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                  <tr><td align="center" bgcolor="#ffffff" style="border-radius:10px;border:1px solid #E8E6DC;">
+                    <a href="{keep_url}" target="_blank" rel="noopener noreferrer"
+                       style="display:inline-block;padding:12px 18px;font:800 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,Helvetica,sans-serif;color:#141413;text-decoration:none;border-radius:10px;">
+                      Mantener mi cuenta
+                    </a>
+                  </td></tr>
+                </table>
+              </td></tr>
+            </table>
+            <div style="height:16px;"></div>
+            <p class="text" style="font-size:13px;">
+              Si t&uacute; no has solicitado esto, entra en tu cuenta y cambia la contrase&ntilde;a.
+              Si necesitas ayuda, escribe a <a href="mailto:info@ordinaly.ai" style="text-decoration:underline;">info@ordinaly.ai</a>.
+            </p>
+            <div style="height:18px;"></div>
+            <h2 class="h2">El equipo de Ordinaly te echar&aacute; de menos</h2>
+            <p class="text" style="margin-top:6px;">
+              Todav&iacute;a est&aacute;s a tiempo de seguir aprovechando los servicios de automatizaci&oacute;n e IA, nuestra formaci&oacute;n profesional y estar a la &uacute;ltima en IA y tecnolog&iacute;a a nivel empresarial.
+            </p>
+            <div style="height:10px;"></div>
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border:1px solid #E8E6DC;border-radius:12px;overflow:hidden;">
+              <tr>
+                <td width="33.33%" align="center" valign="top">
+                  <a href="https://ordinaly.ai/contacto" target="_blank" rel="noopener noreferrer">
+                    <img src="https://ordinaly.ai/static/home/main_home_ilustration_1.webp" alt="" style="width:100%;height:auto;display:block;" />
+                  </a>
+                </td>
+                <td style="width:2px;background:#E8E6DC;"></td>
+                <td width="33.33%" align="center" valign="top">
+                  <a href="https://ordinaly.ai/formacion" target="_blank" rel="noopener noreferrer">
+                    <img src="https://ordinaly.ai/static/backgrounds/formation_background.webp" alt="" style="width:100%;height:auto;display:block;" />
+                  </a>
+                </td>
+                <td style="width:2px;background:#E8E6DC;"></td>
+                <td width="33.33%" align="center" valign="top">
+                  <a href="https://ordinaly.ai/servicios" target="_blank" rel="noopener noreferrer">
+                    <img src="https://ordinaly.ai/static/nosotros/story_01.webp" alt="" style="width:100%;height:auto;display:block;" />
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td></tr>
+          <!-- FOOTER -->
+          <tr><td class="footer">
+            <p style="margin:0;font-weight:700;">ORDINALY SOFTWARE</p>
+            <p style="margin:8px 0 0;">Automatizaci&oacute;n empresarial e IA desde Sevilla para el mundo</p>
+            <p style="margin:14px 0 0;">
+              <a href="https://ordinaly.ai" target="_blank" rel="noopener noreferrer">Sitio web</a> |
+              <a href="https://ordinaly.ai/contacto" target="_blank" rel="noopener noreferrer">Contacto</a> |
+              <a href="https://ordinaly.ai/blog" target="_blank" rel="noopener noreferrer">Blog</a>
+            </p>
+            <p style="margin:14px 0 0;">&copy; 2026 Ordinaly Software. Todos los derechos reservados.</p>
+            <p style="margin:10px 0 0;">
+              <a href="mailto:info@ordinaly.ai">info@ordinaly.ai</a>
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>"""
+
+        _send_email(email, html, subject="Confirmar eliminación de cuenta - Ordinaly", message_type="delete_confirmation")
+    except Exception as e:
+        raise EmailServiceError("No se pudo enviar el correo de confirmación de eliminación") from e
 
 
 def send_enrollment_confirmation_email(email: str, user_name: str, course):
@@ -781,7 +950,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
       <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
     <![endif]-->
     <style>
-      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#316C20;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
+      :root{{--bg:#FAF9F5;--card:#ffffff;--text:#141413;--muted:#5E5D59;--line:#E8E6DC;--cta:#D97757;--radius:14px;--footer_bg:#ffffff;--footer_text:#141413;--footer_link:#141413;--footer_line:#E8E6DC;}}
       html,body{{margin:0;padding:0;background:var(--bg);}}
       img{{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}}
       a{{color:inherit;text-decoration:none;}}
@@ -831,7 +1000,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
             <div style="height:16px;"></div>
             <h1 class="h1">&#161;Hola {user_name}, tu plaza est&aacute; reservada!</h1>
             <p class="text" style="margin-top:8px;">
-              Te has inscrito correctamente en <strong style="color:#0f172a;">{course.title}</strong>.
+              Te has inscrito correctamente en <strong style="color:#141413;">{course.title}</strong>.
               {(' ' + subtitle) if subtitle else ''}
             </p>
           </td></tr>
@@ -869,7 +1038,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
 
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
               <tr>
-                <td align="center" bgcolor="#316C20" style="border-radius:10px;">
+                <td align="center" bgcolor="#D97757" style="border-radius:10px;">
                   <a href="{course_url}" target="_blank" rel="noopener noreferrer"
                      style="display:inline-block;padding:12px 18px;font:700 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,Helvetica,sans-serif;color:#ffffff;text-decoration:none;border-radius:10px;">
                     Ver mi formaci&oacute;n
@@ -891,7 +1060,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
             <p style="margin:8px 0 0;">Automatizaci&oacute;n empresarial e IA desde Sevilla para el mundo</p>
             <p style="margin:14px 0 0;">
               <a href="https://ordinaly.ai" target="_blank" rel="noopener noreferrer">Sitio web</a> |
-              <a href="https://ordinaly.ai/contact" target="_blank" rel="noopener noreferrer">Contacto</a> |
+              <a href="https://ordinaly.ai/contacto" target="_blank" rel="noopener noreferrer">Contacto</a> |
               <a href="https://ordinaly.ai/blog" target="_blank" rel="noopener noreferrer">Blog</a>
             </p>
 
@@ -969,7 +1138,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
       <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
     <![endif]-->
     <style>
-      :root{{--bg:#f6f7f8;--card:#ffffff;--text:#0f172a;--muted:#475569;--line:#e5e7eb;--cta:#316C20;--radius:14px;--footer_bg:#ffffff;--footer_text:#0f172a;--footer_link:#0f172a;--footer_line:#e5e7eb;}}
+      :root{{--bg:#FAF9F5;--card:#ffffff;--text:#141413;--muted:#5E5D59;--line:#E8E6DC;--cta:#D97757;--radius:14px;--footer_bg:#ffffff;--footer_text:#141413;--footer_link:#141413;--footer_line:#E8E6DC;}}
       html,body{{margin:0;padding:0;background:var(--bg);}}
       img{{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}}
       a{{color:inherit;text-decoration:none;}}
@@ -1017,7 +1186,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
             <div style="height:16px;"></div>
             <h1 class="h1">{user_name}, tu inscripci&oacute;n ha sido cancelada</h1>
             <p class="text" style="margin-top:8px;">
-              Hemos cancelado tu inscripci&oacute;n en el curso <strong style="color:#0f172a;">{course.title}</strong>.
+              Hemos cancelado tu inscripci&oacute;n en el curso <strong style="color:#141413;">{course.title}</strong>.
               Si esto fue un error, puedes volver a inscribirte en cualquier momento.
             </p>
           </td></tr>
@@ -1051,7 +1220,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
 
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
               <tr>
-                <td align="center" bgcolor="#316C20" style="border-radius:10px;">
+                <td align="center" bgcolor="#D97757" style="border-radius:10px;">
                   <a href="{formation_url}" target="_blank" rel="noopener noreferrer"
                      style="display:inline-block;padding:12px 18px;font:700 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,Helvetica,sans-serif;color:#ffffff;text-decoration:none;border-radius:10px;">
                     Explorar otras formaciones
@@ -1073,7 +1242,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
             <p style="margin:8px 0 0;">Automatizaci&oacute;n empresarial e IA desde Sevilla para el mundo</p>
             <p style="margin:14px 0 0;">
               <a href="https://ordinaly.ai" target="_blank" rel="noopener noreferrer">Sitio web</a> |
-              <a href="https://ordinaly.ai/contact" target="_blank" rel="noopener noreferrer">Contacto</a> |
+              <a href="https://ordinaly.ai/contacto" target="_blank" rel="noopener noreferrer">Contacto</a> |
               <a href="https://ordinaly.ai/blog" target="_blank" rel="noopener noreferrer">Blog</a>
             </p>
 
@@ -1131,19 +1300,19 @@ def send_course_published_email(email: str, user_name: str, course):
         html = f"""\
 <!doctype html>
 <html lang="es">
-  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+  <body style="margin:0;padding:24px;background:#FAF9F5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#141413;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr><td align="center">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #E8E6DC;border-radius:14px;overflow:hidden;">
           <tr><td style="padding:28px 24px;">
             <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
             <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">Nueva formación publicada</h1>
-            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;">
+            <p style="font-size:15px;line-height:1.6;color:#5E5D59;margin:0;">
               Hola {user_name}, ya está disponible una nueva formación en Ordinaly:
-              <strong style="color:#0f172a;"> {course.title}</strong>.
+              <strong style="color:#141413;"> {course.title}</strong>.
             </p>
-            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
-              Consulta todos los detalles en <a href="{course_url}" style="color:#0f172a;">{course_url}</a>.
+            <p style="font-size:13px;line-height:1.6;color:#5E5D59;margin:16px 0 0;">
+              Consulta todos los detalles en <a href="{course_url}" style="color:#141413;">{course_url}</a>.
             </p>
           </td></tr>
         </table>
@@ -1177,21 +1346,21 @@ def send_course_starts_soon_email(email: str, user_name: str, course, session_st
         html = f"""\
 <!doctype html>
 <html lang="es">
-  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+  <body style="margin:0;padding:24px;background:#FAF9F5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#141413;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr><td align="center">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #E8E6DC;border-radius:14px;overflow:hidden;">
           <tr><td style="padding:28px 24px;">
             <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
             <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">La formación empieza en menos de una semana</h1>
-            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;">
-              Hola {user_name}, <strong style="color:#0f172a;">{course.title}</strong> empieza en {days_before} días o menos.
+            <p style="font-size:15px;line-height:1.6;color:#5E5D59;margin:0;">
+              Hola {user_name}, <strong style="color:#141413;">{course.title}</strong> empieza en {days_before} días o menos.
             </p>
-            <p style="font-size:15px;line-height:1.6;color:#475569;margin:16px 0 0;">
-              Inicio previsto: <strong style="color:#0f172a;">{session_text}</strong>
+            <p style="font-size:15px;line-height:1.6;color:#5E5D59;margin:16px 0 0;">
+              Inicio previsto: <strong style="color:#141413;">{session_text}</strong>
             </p>
-            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
-              Ver curso: <a href="{course_url}" style="color:#0f172a;">{course_url}</a>
+            <p style="font-size:13px;line-height:1.6;color:#5E5D59;margin:16px 0 0;">
+              Ver curso: <a href="{course_url}" style="color:#141413;">{course_url}</a>
             </p>
           </td></tr>
         </table>
@@ -1226,26 +1395,26 @@ def send_course_reminder_email(email: str, user_name: str, course, session_start
         html = f"""\
 <!doctype html>
 <html lang="es">
-  <body style="margin:0;padding:24px;background:#f6f7f8;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#0f172a;">
+  <body style="margin:0;padding:24px;background:#FAF9F5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;color:#141413;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr><td align="center">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #e5e7eb;border-radius:14px;overflow:hidden;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background:#ffffff;border:1px solid #E8E6DC;border-radius:14px;overflow:hidden;">
           <tr><td style="padding:28px 24px;">
             <img src="https://ordinaly.ai/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
             <h1 style="font-size:24px;line-height:1.2;margin:18px 0 8px;">Recordatorio de curso</h1>
-            <p style="font-size:15px;line-height:1.6;color:#475569;margin:0;">
+            <p style="font-size:15px;line-height:1.6;color:#5E5D59;margin:0;">
               Hola {user_name}, faltan {hours_before} horas para la próxima sesión de
-              <strong style="color:#0f172a;"> {course.title}</strong>.
+              <strong style="color:#141413;"> {course.title}</strong>.
             </p>
-            <p style="font-size:15px;line-height:1.6;color:#475569;margin:16px 0 0;">
-              Inicio de la sesión: <strong style="color:#0f172a;">{session_text}</strong>
+            <p style="font-size:15px;line-height:1.6;color:#5E5D59;margin:16px 0 0;">
+              Inicio de la sesión: <strong style="color:#141413;">{session_text}</strong>
             </p>
-            <p style="font-size:15px;line-height:1.6;color:#475569;margin:8px 0 0;">
-              Ubicación: <strong style="color:#0f172a;">{course.location or 'Por confirmar'}</strong>
+            <p style="font-size:15px;line-height:1.6;color:#5E5D59;margin:8px 0 0;">
+              Ubicación: <strong style="color:#141413;">{course.location or 'Por confirmar'}</strong>
             </p>
-            <p style="font-size:13px;line-height:1.6;color:#475569;margin:16px 0 0;">
+            <p style="font-size:13px;line-height:1.6;color:#5E5D59;margin:16px 0 0;">
               Puedes revisar los detalles del curso en
-              <a href="{course_url}" style="color:#0f172a;">{course_url}</a>.
+              <a href="{course_url}" style="color:#141413;">{course_url}</a>.
             </p>
           </td></tr>
         </table>
