@@ -4,25 +4,25 @@ import { createPortal } from "react-dom";
 
 const styleMap = {
   success: {
-    bg: "bg-emerald-500/10 dark:bg-emerald-500/15",
+    bg: "bg-emerald-50/70 dark:bg-emerald-500/20",
     border: "border-emerald-600/50 dark:border-emerald-400/50",
     text: "text-emerald-700 dark:text-emerald-300",
     icon: "text-emerald-600 dark:text-emerald-400",
   },
   error: {
-    bg: "bg-red-500/10 dark:bg-red-500/15",
+    bg: "bg-red-50/70 dark:bg-red-500/20",
     border: "border-red-600/50 dark:border-red-400/50",
     text: "text-red-700 dark:text-red-300",
     icon: "text-red-600 dark:text-red-400",
   },
   info: {
-    bg: "bg-cobalt/10 dark:bg-cobalt/15",
+    bg: "bg-cobalt/70 dark:bg-cobalt/20",
     border: "border-cobalt/50 dark:border-cobalt-light/50",
     text: "text-cobalt dark:text-cobalt-light",
     icon: "text-cobalt dark:text-cobalt-light",
   },
   warning: {
-    bg: "bg-amber-500/10 dark:bg-amber-500/15",
+    bg: "bg-amber-50/70 dark:bg-amber-500/20",
     border: "border-amber-600/50 dark:border-amber-400/50",
     text: "text-amber-700 dark:text-amber-300",
     icon: "text-amber-600 dark:text-amber-400",
@@ -90,7 +90,7 @@ const Alert: React.FC<AlertProps> = ({
   const content = (
     <div
       role="alert"
-      className={`${bg} ${border} ${text} border px-4 py-3 rounded-a-m flex items-center justify-between shadow-md transition-all duration-200 ease-out ${contentAnimationClass}`}
+      className={`${bg} ${border} ${text} border px-4 py-3 rounded-a-m flex items-center justify-between shadow-md backdrop-blur-md transition-all duration-200 ease-out ${contentAnimationClass}`}
     >
       <div className="flex items-center">
         <svg
