@@ -62,6 +62,33 @@ const ServicesPage = () => {
   const [navHeight, setNavHeight] = useState(60);
   const [pillHeight, setPillHeight] = useState(52);
 
+  // Mouse drag-to-scroll for the pill bar (touch already scrolls natively).
+  // A drag past a few pixels swallows the click so pills stay clickable.
+  const pillScrollRef = useRef<HTMLDivElement>(null);
+  const drag = useRef({ active: false, moved: false, startX: 0, startScroll: 0 });
+
+  const onPillPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerType !== "mouse" || !pillScrollRef.current) return;
+    drag.current = { active: true, moved: false, startX: e.clientX, startScroll: pillScrollRef.current.scrollLeft };
+  };
+  const onPillPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const d = drag.current;
+    if (!d.active || !pillScrollRef.current) return;
+    const dx = e.clientX - d.startX;
+    if (Math.abs(dx) > 5) d.moved = true;
+    if (d.moved) pillScrollRef.current.scrollLeft = d.startScroll - dx;
+  };
+  const endPillDrag = () => {
+    drag.current.active = false;
+  };
+  const onPillClickCapture = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (drag.current.moved) {
+      e.preventDefault();
+      e.stopPropagation();
+      drag.current.moved = false;
+    }
+  };
+
   useEffect(() => {
     const navEl = document.querySelector("nav");
 
@@ -90,11 +117,21 @@ const ServicesPage = () => {
         className="fixed inset-x-0 z-40 bg-[--color-bg-primary] dark:bg-[--color-bg-inverted]"
         style={{ top: navHeight }}
       >
-        <div className="flex items-center justify-center gap-2.5 overflow-x-auto px-4 py-3 touch-pan-x [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div
+          ref={pillScrollRef}
+          onPointerDown={onPillPointerDown}
+          onPointerMove={onPillPointerMove}
+          onPointerUp={endPillDrag}
+          onPointerLeave={endPillDrag}
+          onClickCapture={onPillClickCapture}
+          className="flex cursor-grab select-none active:cursor-grabbing items-center justify-start gap-2.5 overflow-x-auto px-4 py-3 md:justify-center touch-pan-x [-webkit-overflow-scrolling:touch] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {quickLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
+              draggable={false}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-neutral-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:scale-105 hover:bg-neutral-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
             >
               {link.icon ? link.icon : null}
@@ -105,8 +142,8 @@ const ServicesPage = () => {
       </div>
       <div style={{ height: navHeight + pillHeight }} aria-hidden="true" />
 
-      <section className="px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16">
-        <div className="mx-auto max-w-7xl">
+      <section className="px-4 pb-12 md:px-8 xl:px-12 lg:pb-16">
+        <div className="mx-auto max-w-[1600px]">
           <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
             <p className="text-sm font-semibold uppercase tracking-wide text-[#d97757]">
               {t("showcase.eyebrow")}
@@ -145,9 +182,9 @@ const ServicesPage = () => {
       <ToolsShowcase title={t("toolsTitle")} />
 
 
-      <section className="px-4 pb-12 sm:px-6 lg:px-8 lg:pb-16">
+      <section className="px-4 pb-12 md:px-8 xl:px-12 lg:pb-16">
         <br className="mb-18 block" />
-        <div className="mx-auto max-w-7xl">
+        <div className="mx-auto max-w-[1600px]">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold text-slate-dark dark:text-ivory-light md:text-4xl">
               {t("advantages.title")}
@@ -158,14 +195,14 @@ const ServicesPage = () => {
           </div>
 
           <div className="mt-10">
-            <InfoCardCarousel items={advantageCards} className="mx-auto max-w-6xl" />
+            <InfoCardCarousel items={advantageCards} className="mx-auto max-w-[1600px]" />
           </div>
         </div>
       </section>
 
       <UseCasesSection t={t} id="use-cases" />
 
-      <section className="px-4 pb-12 sm:px-6 md:pb-16 lg:px-8">
+      <section className="px-4 pb-12 md:px-8 md:pb-16 xl:px-12">
         <br className="mb-8 block" />
         <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
       </section>

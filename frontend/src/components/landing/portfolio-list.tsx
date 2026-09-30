@@ -8,7 +8,8 @@ export interface PortfolioProject {
   name: string;
   description: string;
   image: string;
-  href: string;
+  /** Omit for private projects with no public site: the card is not clickable and shows no CTA. */
+  href?: string;
 }
 
 interface PortfolioListProps {
@@ -26,12 +27,14 @@ export function PortfolioList({ projects, ctaLabel, className }: PortfolioListPr
       <div className="flex flex-col gap-8">
         {projects.map((project, i) => {
           const reversed = i % 2 === 1;
+          const Wrapper = project.href ? "a" : "div";
+          const linkProps = project.href
+            ? { href: project.href, target: "_blank", rel: "noopener noreferrer" }
+            : {};
           return (
-            <a
+            <Wrapper
               key={project.key}
-              href={project.href}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...linkProps}
               className={`group relative w-full rounded-3xl bg-gradient-to-br from-heather via-ivory-light to-coral dark:from-neutral-800 dark:via-neutral-800 dark:to-neutral-900 px-6 pt-10 md:p-12 flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-8 md:gap-4 overflow-hidden transition-shadow hover:shadow-xl`}
             >
               <div
@@ -46,24 +49,26 @@ export function PortfolioList({ projects, ctaLabel, className }: PortfolioListPr
                 <p className="text-sm md:text-base text-slate-medium dark:text-cloud-medium mt-3 max-w-md mx-auto md:mx-0">
                   {project.description}
                 </p>
+                {project.href && (
                 <span className="inline-flex items-center gap-2 bg-white dark:bg-neutral-700 group-hover:bg-clay group-hover:text-white px-6 py-2.5 rounded-full text-sm font-medium text-slate-dark dark:text-ivory-light mt-6 transition-colors">
                   {ctaLabel}
                   <ArrowUpRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
+                )}
               </div>
 
               <div
-                className={`relative shrink-0 -mb-6 md:-mb-12 w-full md:w-[440px] ${reversed ? "md:-ml-12" : "md:-mr-12"}`}
+                className={`relative shrink-0 md:-mb-12 w-[calc(100%+3rem)] md:w-[440px] ${reversed ? "md:-ml-12" : "md:-mr-12"}`}
               >
                 <Image
                   src={project.image}
                   alt={project.name}
                   width={880}
                   height={492}
-                  className={`w-full h-auto ${reversed ? "rounded-bl-3xl" : "rounded-br-3xl"}`}
+                  className={`w-full h-auto ${reversed ? "md:rounded-bl-3xl" : "md:rounded-br-3xl"}`}
                 />
               </div>
-            </a>
+            </Wrapper>
           );
         })}
       </div>

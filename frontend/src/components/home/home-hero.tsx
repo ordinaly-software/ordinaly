@@ -77,7 +77,7 @@ export function HomeHero({ t }: HeroProps) {
           </div>
 
           {/* RIGHT: image accordion */}
-          <div className="scroll-animate fade-in-up min-w-0">
+          <div className="scroll-animate fade-in-up min-w-0 order-first lg:order-none">
             {/* Mobile / tablet: single static image card */}
             <Link
               href={accordionItems[0].href ?? "#"}

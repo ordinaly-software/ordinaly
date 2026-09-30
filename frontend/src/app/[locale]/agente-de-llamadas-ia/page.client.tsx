@@ -357,11 +357,11 @@ export default function AgenteDeLlamadasIA() {
           ]}
         />
 
-        <section className="px-6 py-14 md:py-16 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+        <section className="px-4 md:px-8 xl:px-12 py-14 md:py-16 bg-neutral-50 dark:bg-neutral-800 transition-colors">
           <h3 className="mb-8 text-center text-2xl font-bold text-neutral-900 dark:text-white md:text-3xl">
             {content.inbound?.infocardsTitle}
           </h3>
-          <InfoCardCarousel items={inboundInfocards} className="max-w-6xl mx-auto" />
+          <InfoCardCarousel items={inboundInfocards} className="max-w-[1600px] mx-auto" />
         </section>
       </section>
 
@@ -385,11 +385,11 @@ export default function AgenteDeLlamadasIA() {
           className="bg-white pb-8 md:pb-10"
         />
 
-        <section className="px-6 pb-14 pt-6 md:pb-16 md:pt-8 transition-colors">
+        <section className="px-4 md:px-8 xl:px-12 pb-14 pt-6 md:pb-16 md:pt-8 transition-colors">
           <h3 className="mb-8 text-center text-2xl font-bold text-neutral-900 dark:text-white md:text-3xl">
             {content.outbound?.infocardsTitle}
           </h3>
-          <InfoCardCarousel items={outboundInfocards} className="max-w-6xl mx-auto" />
+          <InfoCardCarousel items={outboundInfocards} className="max-w-[1600px] mx-auto" />
         </section>
       </section>
 
