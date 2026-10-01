@@ -193,9 +193,9 @@ export function UseCasesSection({ t, id, headingTag = "h2", itemTitleTag = "h3" 
     <section
       ref={sectionRef}
       id={id}
-      className="scroll-mt-24 bg-[--swatch--ivory-medium] px-4 py-20 dark:bg-[--swatch--slate-dark] sm:px-6 lg:px-8"
+      className="scroll-mt-24 bg-[--swatch--ivory-medium] px-4 py-20 dark:bg-[--swatch--slate-dark] md:px-8 xl:px-12"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[1600px] mx-auto">
         {/* Header */}
         <div className="text-center mb-20 scroll-animate fade-in-up">
           {headingTag === "h3" ? (

@@ -167,11 +167,11 @@ export default function AutomatizacionInformes() {
       />
 
       {/* INFO CARDS */}
-      <section className="py-14 md:py-16 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section className="py-14 md:py-16 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles?.infocardsTitle}
         </h2>
-        <InfoCardCarousel items={infocards} className="max-w-6xl mx-auto" />
+        <InfoCardCarousel items={infocards} className="max-w-[1600px] mx-auto" />
       </section>
 
       {/* TECHNOLOGY FAQS */}
