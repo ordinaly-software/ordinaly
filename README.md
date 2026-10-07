@@ -345,7 +345,7 @@ docker compose up --build
 - Las dependencias (`pip install -r requirements.txt` y `npm ci`) se instalan al construir las imágenes. Si cambian `requirements.txt` o `package.json`, vuelve a ejecutar `docker compose up --build`.
 - **Migraciones:** el entrypoint del backend ejecuta `makemigrations` y `migrate` en cada arranque, cuando la BD ya está sana (`healthcheck`). Hace falta el `makemigrations` porque `.gitignore` excluye `**/migrations/**` (solo se versiona `__init__.py`); los ficheros generados quedan en tu carpeta `backend/*/migrations`.
 - `DATABASE_URL`, `DEBUG` y `DJANGO_SECRET_KEY` se fijan en [`docker-compose.yml`](docker-compose.yml) y **tienen prioridad** sobre `backend/.env`; el resto de variables se leen de `backend/.env`.
-- El frontend usa `NEXT_PUBLIC_API_URL=http://localhost:8000`, que se resuelve desde tu navegador. Las peticiones que Next.js haga desde su propio contenedor (SSR, sitemap) a `localhost:8000` no llegan al backend, y esas páginas usan sus valores de reserva.
+- El frontend usa `NEXT_PUBLIC_API_URL=http://localhost:8000` y comparte la red del backend (`network_mode: service:backend`), de modo que esa URL funciona tanto desde el navegador como desde el servidor de Next.js (login, registro, sitemap). Por eso los puertos 3000 y 8000 se publican en el servicio `backend`.
 - Si el puerto 3000, 8000 o 5432 ya está ocupado (p. ej. por un `npm run dev` local), páralo o cambia el puerto de la izquierda en `docker-compose.yml`.
 
 Abre http://localhost:3000 (web) y http://localhost:8000 (API).
