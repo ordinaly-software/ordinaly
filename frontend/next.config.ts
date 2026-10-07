@@ -7,9 +7,34 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? '';
 const usesLocalApi = /localhost|127\\.0\\.0\\.1|\\[::1\\]/.test(apiUrl);
 const shouldOptimizeImages = forceImageOptimization || !usesLocalApi;
 
+// Enforced in development so violations show up (and break things visibly) while
+// browsing locally. Production stays Report-Only (Chromium logs violations to the
+// console; Safari ignores Report-Only without report-to) until you've confirmed
+// no page violates it: then set this to true to enforce it there too.
+const enforceCsp = isDev;
+const CSP_HEADER_NAME = enforceCsp ? 'Content-Security-Policy' : 'Content-Security-Policy-Report-Only';
+const cspApiOrigin = usesLocalApi || !apiUrl ? 'http://localhost:8000' : apiUrl;
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  // frame-ancestors is ignored in Report-Only mode (X-Frame-Options: DENY covers it there).
+  ...(enforceCsp ? ["frame-ancestors 'none'"] : []),
+  // Next.js injects inline bootstrap scripts, so 'unsafe-inline' is required without nonces.
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''} https://www.googletagmanager.com https://www.google.com https://www.gstatic.com https://www.recaptcha.net`,
+  "style-src 'self' 'unsafe-inline'",
+  `img-src 'self' data: blob: https: ${cspApiOrigin}`,
+  `media-src 'self' blob: https://cdn.sanity.io ${cspApiOrigin}`,
+  "font-src 'self' data:",
+  `connect-src 'self' ${cspApiOrigin} https://*.sanity.io https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com${isDev ? ' ws: wss:' : ''}`,
+  'frame-src https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://www.youtube-nocookie.com',
+  "worker-src 'self'",
+  "manifest-src 'self'",
+].join('; ');
+
 const nextConfig: NextConfig = {
   // External packages for server components
-  productionBrowserSourceMaps: true,
+  productionBrowserSourceMaps: false,
   serverExternalPackages: ['@tsparticles/engine', '@tsparticles/slim'],
   
   // Enable experimental features for better performance
@@ -144,7 +169,12 @@ const nextConfig: NextConfig = {
           },
         ],
       },
-{
+// Sanity Studio needs a much looser policy (eval, websockets, many origins), so it is excluded.
+      {
+        source: '/((?!studio).*)',
+        headers: [{ key: CSP_HEADER_NAME, value: contentSecurityPolicy }],
+      },
+      {
         source: '/(.*)',
         headers: [
           {

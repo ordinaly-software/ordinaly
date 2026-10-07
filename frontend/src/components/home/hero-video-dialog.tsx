@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "motion/react"
 
 import { cn } from "@/lib/utils"
 import { useCookiePreferences } from "@/hooks/useCookiePreferences"
+import { allowsThirdParty } from "@/utils/cookie-manager"
 import {
   extractYoutubeData,
   getYoutubeEmbedUrl,
@@ -104,7 +105,7 @@ export function HeroVideoDialog({
   const [isVideoOpen, setIsVideoOpen] = useState(false)
   const selectedAnimation = animationVariants[animationStyle]
   const cookiePreferences = useCookiePreferences()
-  const canLoadVideo = Boolean(cookiePreferences?.marketing)
+  const canLoadVideo = allowsThirdParty(cookiePreferences)
 
   const youtubeData = useMemo(() => extractYoutubeData(videoUrl), [videoUrl])
   const resolvedThumbnail = thumbnailSrc ?? (youtubeData ? getYoutubeThumbnail(youtubeData) : undefined)

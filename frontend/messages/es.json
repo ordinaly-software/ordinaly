@@ -292,6 +292,8 @@
     "save": "Guardar preferencias",
     "footer": "Para más información, consulta nuestra ",
     "privacy": "Política de Privacidad",
+    "close": "Cerrar",
+    "and": "y",
     "cookies": "Política de Cookies"
   },
   "whatsapp": {
@@ -1947,7 +1949,10 @@
       "submit": "Enviar mensaje",
       "sending": "Enviando...",
       "success": "¡Gracias! Nos pondremos en contacto contigo pronto.",
-      "errorFallback": "No pudimos enviar el formulario. Escríbenos a info@ordinaly.ai."
+      "errorFallback": "No pudimos enviar el formulario. Escríbenos a info@ordinaly.ai.",
+      "privacyConsent": "He leído y acepto la <link>Política de Privacidad</link>.",
+      "privacyInfo": "Responsable: Ordinaly Software S.L. Finalidad: atender tu consulta. Legitimación: tu consentimiento. Derechos: acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a info@ordinaly.ai. Más información en la <link>Política de Privacidad</link>.",
+      "recaptchaNotice": "Este formulario está protegido por reCAPTCHA de Google, que se carga al empezar a rellenarlo y le envía datos de tu navegador (IP incluida). Se aplican su <privacy>Política de Privacidad</privacy> y sus <terms>Condiciones del servicio</terms>."
     },
     "formAside": {
       "title": "Qué incluir para que podamos responder mejor",

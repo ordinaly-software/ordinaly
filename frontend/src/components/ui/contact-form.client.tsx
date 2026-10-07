@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useReCaptcha } from "@/app/[locale]/recaptcha-provider";
 import { ChevronDown } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 
 type Status = "idle" | "loading";
 type AlertState = {
@@ -94,6 +95,8 @@ export default function ContactForm({
       company: String(formData.get("company") ?? ""),
       details: String(formData.get("message") ?? ""),
       page: String(window.location.href ?? ""),
+      privacyAccepted: formData.get("privacy") === "on" ? "true" : "",
+      website: String(formData.get("website") ?? ""),
     };
 
     if (phoneDigits) {
@@ -179,6 +182,10 @@ export default function ContactForm({
           </div>
 
           <form ref={formRef} onSubmit={handleSubmit} className="mt-8 space-y-4">
+            {/* Honeypot for bots: hidden from users and assistive tech, ignored by autofill. */}
+            <div className="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+            </div>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
@@ -269,6 +276,49 @@ export default function ContactForm({
                 placeholder={t("form.messagePlaceholder")}
                 className="min-h-[120px]"
               />
+            </div>
+
+            <div className="space-y-3">
+              <label className="flex items-start gap-2 text-sm text-slate-medium dark:text-cloud-medium">
+                <input
+                  type="checkbox"
+                  name="privacy"
+                  required
+                  className="mt-0.5 h-4 w-4 shrink-0 accent-[--swatch--clay]"
+                />
+                <span>
+                  {t.rich("form.privacyConsent", {
+                    link: (chunks) => (
+                      <Link href="/legal?tab=privacy" target="_blank" className="underline hover:text-clay">
+                        {chunks}
+                      </Link>
+                    ),
+                  })}
+                </span>
+              </label>
+              <p className="text-xs leading-relaxed text-slate-medium dark:text-cloud-medium">
+                {t.rich("form.privacyInfo", {
+                  link: (chunks) => (
+                    <Link href="/legal?tab=privacy" target="_blank" className="underline hover:text-clay">
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              </p>
+              <p className="text-xs leading-relaxed text-slate-medium dark:text-cloud-medium">
+                {t.rich("form.recaptchaNotice", {
+                  privacy: (chunks) => (
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-clay">
+                      {chunks}
+                    </a>
+                  ),
+                  terms: (chunks) => (
+                    <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-clay">
+                      {chunks}
+                    </a>
+                  ),
+                })}
+              </p>
             </div>
 
             <div className="flex flex-col items-center gap-3">

@@ -14,7 +14,10 @@ const MIN_SCORE = (() => {
   return Number.isFinite(raw) && raw >= 0 && raw <= 1 ? raw : 0.5;
 })();
 
-export async function verifyRecaptchaToken(token: unknown): Promise<{
+export async function verifyRecaptchaToken(
+  token: unknown,
+  allowedActions?: readonly string[],
+): Promise<{
   ok: boolean;
   status?: number;
   error?: string;
@@ -23,17 +26,14 @@ export async function verifyRecaptchaToken(token: unknown): Promise<{
   const isDev = process.env.NODE_ENV === "development";
 
   if (!recaptchaSecret) {
-    // Fail open, but make it impossible to miss in logs — this is the #1 reason
-    // "reCAPTCHA does nothing and shows no error" in a deployed environment.
-    const message =
-      "[recaptcha] RECAPTCHA_SECRET_KEY is not set — skipping verification. " +
-      "Forms are NOT protected. Set it in the server runtime environment.";
+    // Only local development may skip verification; anywhere else a missing
+    // secret must not leave the forms unprotected.
     if (isDev) {
-      console.warn(message);
-    } else {
-      console.error(message);
+      console.warn("[recaptcha] RECAPTCHA_SECRET_KEY is not set — skipping verification in development.");
+      return { ok: true };
     }
-    return { ok: true };
+    console.error("[recaptcha] RECAPTCHA_SECRET_KEY is not set — rejecting request. Set it in the server runtime environment.");
+    return { ok: false, status: 503, error: "reCAPTCHA is not configured" };
   }
 
   if (typeof token !== "string" || !token.trim()) {
@@ -62,12 +62,15 @@ export async function verifyRecaptchaToken(token: unknown): Promise<{
   const success = result?.success === true;
   const score = typeof result?.score === "number" ? result.score : undefined;
   const lowScore = typeof score === "number" && score < MIN_SCORE;
+  // A token minted for another form (e.g. the login) must not be replayed here.
+  const wrongAction = Boolean(allowedActions) && !allowedActions!.includes(result?.action ?? "");
 
-  if (!success || lowScore) {
+  if (!success || lowScore || wrongAction) {
     console.warn("[recaptcha] verification rejected", {
       success,
       score,
       minScore: MIN_SCORE,
+      wrongAction,
       action: result?.action,
       hostname: result?.hostname,
       errorCodes: result?.["error-codes"],

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Link as IntlLink } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
-import { openCookieSettings } from "@/utils/cookie-manager";
+import { allowsThirdParty, openCookieSettings } from "@/utils/cookie-manager";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
@@ -61,7 +61,7 @@ export default function ContactPage() {
   const tCookie = useTranslations("cookie");
   const [locationImageIndex, setLocationImageIndex] = useState(0);
   const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.marketing);
+  const canLoadMedia = allowsThirdParty(cookiePreferences);
   const [showWhatsAppBubble, setShowWhatsAppBubble] = useState(false);
 
   const team = useMemo(

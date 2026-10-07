@@ -19,6 +19,7 @@ const CookieConsent = () => {
     functional: true,
     analytics: false,
     marketing: false,
+    thirdParty: false,
   });
 
   useEffect(() => {
@@ -26,8 +27,9 @@ const CookieConsent = () => {
 
     let hasConsented = null;
     try {
-      hasConsented = localStorage.getItem('cookie-consent');
+      // Read preferences first: it clears the stored consent once it has expired.
       const storedPreferences = getCookiePreferences();
+      hasConsented = localStorage.getItem('cookie-consent');
       if (storedPreferences) {
         const sanitizedPreferences = {
           ...storedPreferences,
@@ -78,39 +80,31 @@ const CookieConsent = () => {
     return () => window.removeEventListener('storage', syncPreferencesFromStorage);
   }, []);
 
-  const handleAcceptAll = () => {
-    const preferences = { necessary: true, functional: true, analytics: true, marketing: true };
-    setCookiePreferences(preferences);
+  const commitConsent = (status: 'accepted' | 'rejected' | 'customized', preferences: typeof cookiePreferences) => {
+    const stored = { ...preferences, functional: true, necessary: true, savedAt: new Date().toISOString() };
     try {
-      localStorage.setItem('cookie-consent', 'accepted');
-      localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+      localStorage.setItem('cookie-consent', status);
+      localStorage.setItem('cookie-preferences', JSON.stringify(stored));
     } catch {
       // localStorage not available
     }
-    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: preferences }));
+    setCookiePreferences(stored);
+    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: stored }));
     applyConsentMode();
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
   };
 
-  const handleSavePreferences = () => {
-    const sanitizedPreferences = { ...cookiePreferences, functional: true, necessary: true };
-    try {
-      localStorage.setItem('cookie-consent', 'customized');
-      localStorage.setItem('cookie-preferences', JSON.stringify(sanitizedPreferences));
-    } catch {
-      // localStorage not available
-    }
-    setCookiePreferences(sanitizedPreferences);
-    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: sanitizedPreferences }));
-    applyConsentMode();
-    setShowBubble(false);
-    setShowPopup(false);
-    setShowSettings(false);
-  };
+  const handleAcceptAll = () =>
+    commitConsent('accepted', { necessary: true, functional: true, analytics: true, marketing: true, thirdParty: true });
 
-  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'marketing') => {
+  const handleRejectAll = () =>
+    commitConsent('rejected', { necessary: true, functional: true, analytics: false, marketing: false, thirdParty: false });
+
+  const handleSavePreferences = () => commitConsent('customized', cookiePreferences);
+
+  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'marketing' | 'thirdParty') => {
     if (type === 'necessary' || type === 'functional') return;
     setCookiePreferences(prev => ({ ...prev, [type]: !prev[type] }));
   };
@@ -139,7 +133,7 @@ const CookieConsent = () => {
           <button
             onClick={closePopup}
             className="rounded-full p-1 text-slate-medium dark:text-cloud-medium hover:text-slate-dark dark:hover:text-ivory-light transition"
-            aria-label="Cerrar"
+            aria-label={t('close')}
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -154,6 +148,12 @@ const CookieConsent = () => {
               </p>
 
               <div className="flex flex-col gap-2">
+                <button
+                  onClick={handleRejectAll}
+                  className="w-full rounded-full bg-slate-dark dark:bg-ivory-light text-white dark:text-slate-dark px-4 py-2 text-xs font-medium tracking-wide transition hover:opacity-80"
+                >
+                  {t('rejectAll')}
+                </button>
                 <button
                   onClick={handleAcceptAll}
                   className="w-full rounded-full bg-slate-dark dark:bg-ivory-light text-white dark:text-slate-dark px-4 py-2 text-xs font-medium tracking-wide transition hover:opacity-80"
@@ -193,6 +193,13 @@ const CookieConsent = () => {
                     icon: <Globe className="h-3.5 w-3.5 text-slate-medium dark:text-cloud-medium" />,
                     enabled: cookiePreferences.marketing,
                     toggle: true,
+                    note: t('marketingExamples'),
+                  },
+                  {
+                    key: 'thirdParty',
+                    icon: <Globe className="h-3.5 w-3.5 text-slate-medium dark:text-cloud-medium" />,
+                    enabled: cookiePreferences.thirdParty,
+                    toggle: true,
                     note: t('thirdPartyExamples'),
                   },
                   {
@@ -212,7 +219,7 @@ const CookieConsent = () => {
                       {toggle ? (
                         <Slider
                           checked={enabled}
-                          onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing')}
+                          onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing' | 'thirdParty')}
                         />
                       ) : (
                         <span className="text-[10px] text-slate-medium dark:text-cloud-medium">{note}</span>
@@ -250,7 +257,7 @@ const CookieConsent = () => {
               <Link href="/legal?tab=privacy" className="transition hover:text-clay" target="_blank" rel="noopener noreferrer">
                 {t('privacy')}
               </Link>
-              {' '}y{' '}
+              {` ${t('and')} `}
               <Link href="/legal?tab=cookies" className="transition hover:text-clay" target="_blank" rel="noopener noreferrer">
                 {t('cookies')}
               </Link>

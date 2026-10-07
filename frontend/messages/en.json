@@ -292,6 +292,8 @@
     "save": "Save preferences",
     "footer": "For more information, see our ",
     "privacy": "Privacy Policy",
+    "close": "Close",
+    "and": "and",
     "cookies": "Cookies Policy"
   },
   "whatsapp": {
@@ -1947,7 +1949,10 @@
       "submit": "Send message",
       "sending": "Sending...",
       "success": "Thanks! We've received your message and will reply shortly.",
-      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai."
+      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai.",
+      "privacyConsent": "I have read and accept the <link>Privacy Policy</link>.",
+      "privacyInfo": "Controller: Ordinaly Software S.L. Purpose: to handle your enquiry. Legal basis: your consent. Rights: access, rectification, erasure, objection, restriction and portability by writing to info@ordinaly.ai. More information in the <link>Privacy Policy</link>.",
+      "recaptchaNotice": "This form is protected by Google reCAPTCHA, which loads when you start filling it in and sends data from your browser (including your IP) to Google. Its <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms> apply."
     },
     "formAside": {
       "title": "What to include so we can respond better",
