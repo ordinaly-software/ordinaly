@@ -11,6 +11,8 @@ import { PortfolioList, type PortfolioProject } from "@/components/landing/portf
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { useTheme } from "@/contexts/theme-context";
 
 // Literal hex arbitrary-value classes (not the `clay`/`cobalt` design-system
 // tokens) because Tailwind can't generate opacity-modified utilities for
@@ -56,6 +58,7 @@ const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble")
 export default function DesarrolloDeAppWebs() {
   const messages = useMessages() as any;
   const content = messages.landings?.["desarrollo-de-app-webs"];
+  const { isDark, setIsDark } = useTheme();
 
   if (!content) {
     throw new Error("Missing landing content: desarrollo-de-app-webs");
@@ -103,6 +106,31 @@ export default function DesarrolloDeAppWebs() {
       ]
     : [];
 
+  const themeDemo = content.themeDemo;
+
+  const themeDemoCard: InfoCardItem[] = themeDemo
+    ? [
+        {
+          key: "theme-demo",
+          size: "md",
+          media: (
+            <div className="absolute inset-0 flex flex-col items-center justify-between bg-gradient-to-br from-clay to-[#b85c3f] p-8 text-center text-white">
+              <h3 className="text-2xl sm:text-3xl font-bold leading-snug">{themeDemo.title}</h3>
+              <div className="relative flex items-center justify-center">
+                <span className="absolute h-28 w-28 animate-ping rounded-full bg-white/40" />
+                <AnimatedThemeToggler
+                  theme={isDark ? "dark" : "light"}
+                  onThemeChange={(theme) => setIsDark(theme === "dark")}
+                  className="relative flex h-28 w-28 items-center justify-center rounded-full bg-white text-clay shadow-2xl ring-4 ring-white/30 transition hover:scale-110 active:scale-95 [&_svg]:h-12 [&_svg]:w-12"
+                />
+              </div>
+              <p className="text-base italic leading-relaxed text-white/90">{themeDemo.description}</p>
+            </div>
+          ),
+        },
+      ]
+    : [];
+
   // Defined one by one (rather than mechanically mapped) so each card's
   // size can be chosen deliberately.
   const infocards: InfoCardItem[] = [
@@ -110,6 +138,7 @@ export default function DesarrolloDeAppWebs() {
     { key: "seo", size: "md", title: infoCardTexts[1]?.name, description: infoCardTexts[2]?.description, image: "/static/desarrollo-de-app-webs/seo.webp" },
     { key: "automation", size: "md", title: infoCardTexts[2]?.name, description: infoCardTexts[3]?.description, image: "/static/servicios/software.webp" },
     { key: "ui", size: "xl", title: infoCardTexts[5]?.name, description: infoCardTexts[6]?.description, video: "/static/desarrollo-de-app-webs/ui.mp4", videoPlaybackRate: 0.4 },
+    ...themeDemoCard,
     { key: "responsive", size: "lg", title: infoCardTexts[4]?.name, description: infoCardTexts[5]?.description, image: "/static/desarrollo-de-app-webs/responsive.webp" },  
     { key: "vps", size: "md", title: infoCardTexts[3]?.name, description: infoCardTexts[4]?.description, image: "/static/servicios/vps.webp" },
     ...requirementsCard,

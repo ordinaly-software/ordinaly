@@ -2968,6 +2968,10 @@
           "Ofrece una experiencia rápida, fluida y segura"
         ]
       },
+      "themeDemo": {
+        "title": "Pruébalo: cambia el tema",
+        "description": "Toca el botón y míralo en acción."
+      },
       "infocards": {
         "cards": [
           {

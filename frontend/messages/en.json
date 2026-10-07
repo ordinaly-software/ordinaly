@@ -2968,6 +2968,10 @@
           "Offers a fast, smooth, and secure experience"
         ]
       },
+      "themeDemo": {
+        "title": "Try it: switch the theme",
+        "description": "Your PWA can ship light and dark modes with smooth transitions. Tap the button and see it live."
+      },
       "infocards": {
         "cards": [
           {
