@@ -321,7 +321,49 @@ psql "postgresql://ordinaly:tu_password@127.0.0.1:5432/ordinaly_db" -c '\conninf
 
 > **Nota:** Si `brew services list` no muestra el servicio como `started`, revisa los logs en `~/Library/Logs/Homebrew/postgresql@16/`.
 
-### Instalación y ejecución
+### Ejecución con Docker (entorno de desarrollo)
+
+Levanta PostgreSQL, el backend y el frontend con un solo comando, sin instalar Python, Node ni PostgreSQL en tu máquina. Solo necesitas [Docker](https://docs.docker.com/get-docker/) con Docker Compose v2.
+
+| Servicio   | Imagen / Dockerfile       | Puerto | Qué hace                                            |
+|------------|---------------------------|--------|-----------------------------------------------------|
+| `db`       | `postgres:16`             | 5432   | Base de datos (volumen persistente `postgres_data`) |
+| `backend`  | `backend/Dockerfile.dev`  | 8000   | Django con `runserver` y recarga en caliente        |
+| `frontend` | `frontend/Dockerfile.dev` | 3000   | Next.js con `npm run dev` y recarga en caliente     |
+
+**Primer arranque:**
+
+```sh
+# 1. Variables de entorno (opcionales: solo para integraciones como Stripe, email, Sanity o reCAPTCHA)
+touch backend/.env                              # añade aquí tus claves
+cp frontend/.env.example frontend/.env.local
+
+# 2. Construir e iniciar todo
+docker compose up --build
+```
+
+- Las dependencias (`pip install -r requirements.txt` y `npm ci`) se instalan al construir las imágenes. Si cambian `requirements.txt` o `package.json`, vuelve a ejecutar `docker compose up --build`.
+- **Migraciones:** el entrypoint del backend ejecuta `makemigrations` y `migrate` en cada arranque, cuando la BD ya está sana (`healthcheck`). Hace falta el `makemigrations` porque `.gitignore` excluye `**/migrations/**` (solo se versiona `__init__.py`); los ficheros generados quedan en tu carpeta `backend/*/migrations`.
+- `DATABASE_URL`, `DEBUG` y `DJANGO_SECRET_KEY` se fijan en [`docker-compose.yml`](docker-compose.yml) y **tienen prioridad** sobre `backend/.env`; el resto de variables se leen de `backend/.env`.
+- El frontend usa `NEXT_PUBLIC_API_URL=http://localhost:8000`, que se resuelve desde tu navegador. Las peticiones que Next.js haga desde su propio contenedor (SSR, sitemap) a `localhost:8000` no llegan al backend, y esas páginas usan sus valores de reserva.
+- Si el puerto 3000, 8000 o 5432 ya está ocupado (p. ej. por un `npm run dev` local), páralo o cambia el puerto de la izquierda en `docker-compose.yml`.
+
+Abre http://localhost:3000 (web) y http://localhost:8000 (API).
+
+**Comandos útiles:**
+
+```sh
+docker compose up -d                                          # arrancar en segundo plano
+docker compose logs -f backend                                # ver logs
+docker compose exec backend python manage.py createsuperuser
+docker compose exec frontend npm run lint
+docker compose down                                           # parar (conserva la BD)
+docker compose down -v                                        # parar y borrar BD y node_modules
+```
+
+`backend/Dockerfile` es la imagen de producción (gunicorn, sin hot reload); no la usa el `docker-compose.yml`.
+
+### Instalación y ejecución (sin Docker)
 
 1. Clona el repositorio:
     ```sh
