@@ -50,7 +50,7 @@ export function PortfolioList({ projects, ctaLabel, className }: PortfolioListPr
                   {project.description}
                 </p>
                 {project.href && (
-                <span className="inline-flex items-center gap-2 bg-white dark:bg-neutral-700 group-hover:bg-clay group-hover:text-white px-6 py-2.5 rounded-full text-sm font-medium text-slate-dark dark:text-ivory-light mt-6 transition-colors">
+                <span className="inline-flex items-center gap-2 bg-white dark:bg-neutral-700 group-hover:bg-clay-fill group-hover:text-white px-6 py-2.5 rounded-full text-sm font-medium text-slate-dark dark:text-ivory-light mt-6 transition-colors">
                   {ctaLabel}
                   <ArrowUpRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>

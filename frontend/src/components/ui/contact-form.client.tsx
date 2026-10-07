@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import Alert from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,9 @@ export default function ContactForm({
   showCommitmentNote = false,
 }: ContactFormProps) {
   const t = useTranslations("contactPage");
+  const uid = useId();
   const formRef = useRef<HTMLFormElement | null>(null);
+  const prefixButtonRef = useRef<HTMLButtonElement | null>(null);
   const prefixDropdownRef = useRef<HTMLDivElement | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [alert, setAlert] = useState<AlertState | null>(null);
@@ -188,36 +190,40 @@ export default function ContactForm({
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
+                <label htmlFor={`${uid}-name`} className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                   {t("form.name")}
                 </label>
-                <Input name="name" required placeholder={t("form.namePlaceholder")} />
+                <Input id={`${uid}-name`} name="name" required placeholder={t("form.namePlaceholder")} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
+                <label htmlFor={`${uid}-email`} className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                   {t("form.email")}
                 </label>
-                <Input name="email" type="email" required placeholder="you@email.com" />
+                <Input id={`${uid}-email`} name="email" type="email" required placeholder="you@email.com" />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
+              <label htmlFor={`${uid}-company`} className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                 {t("form.company")}
               </label>
-              <Input name="company" placeholder={t("form.companyPlaceholder")} />
+              <Input id={`${uid}-company`} name="company" placeholder={t("form.companyPlaceholder")} />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
+              <label htmlFor={`${uid}-phone`} className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                 {t("form.phone")}
               </label>
               <div className="flex gap-3">
                 <div className="min-w-[120px] relative" ref={prefixDropdownRef}>
-                  <label className="sr-only" htmlFor="phonePrefix">
+                  <label className="sr-only" htmlFor={`${uid}-prefix`}>
                     {t("form.phonePrefix")}
                   </label>
                   <input type="hidden" name="phonePrefix" value={selectedPrefix.value} />
                   <button
                     type="button"
+                    id={`${uid}-prefix`}
+                    ref={prefixButtonRef}
+                    aria-haspopup="listbox"
+                    aria-expanded={prefixOpen}
                     onClick={() => { setPrefixOpen((o) => !o); setPrefixSearch(""); }}
                     className="flex items-center justify-between w-full h-10 px-3 text-sm rounded-md bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border border-[--color-border-subtle] dark:border-[--color-border-strong] shadow-sm text-slate-dark dark:text-ivory-light focus:outline-none focus:ring-1 focus:ring-clay"
                   >
@@ -225,7 +231,16 @@ export default function ContactForm({
                     <ChevronDown className={`h-4 w-4 ml-1 shrink-0 transition-transform ${prefixOpen ? "rotate-180" : ""}`} />
                   </button>
                   {prefixOpen && (
-                    <div className="absolute top-full left-0 z-50 mt-1 w-52 rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-white dark:bg-[--swatch--slate-medium] shadow-lg overflow-hidden">
+                    <div
+                      onKeyDown={(e) => {
+                        if (e.key === "Escape") {
+                          e.stopPropagation();
+                          setPrefixOpen(false);
+                          setPrefixSearch("");
+                          prefixButtonRef.current?.focus();
+                        }
+                      }}
+                      className="absolute top-full left-0 z-50 mt-1 w-52 rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-white dark:bg-[--swatch--slate-medium] shadow-lg overflow-hidden">
                       <div className="p-2">
                         <input
                           autoFocus
@@ -236,19 +251,28 @@ export default function ContactForm({
                           className="w-full h-8 px-2 text-sm rounded-md border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] text-slate-dark dark:text-ivory-light outline-none focus:ring-1 focus:ring-clay"
                         />
                       </div>
-                      <ul className="max-h-44 overflow-y-auto">
+                      <ul role="listbox" aria-label={t("form.phonePrefix")} className="max-h-44 overflow-y-auto">
                         {phonePrefixes
                           .filter((p) =>
                             p.label.toLowerCase().includes(prefixSearch.toLowerCase()) ||
                             p.value.includes(prefixSearch)
                           )
                           .map((prefix) => (
-                            <li
-                              key={prefix.value}
-                              onClick={() => { setSelectedPrefix(prefix); setPrefixOpen(false); setPrefixSearch(""); }}
-                              className={`px-3 py-1.5 text-sm cursor-pointer hover:bg-clay/10 dark:hover:bg-clay/20 text-slate-dark dark:text-ivory-light${selectedPrefix.value === prefix.value ? " bg-clay/15 text-clay font-semibold" : ""}`}
-                            >
-                              {prefix.label}
+                            <li key={prefix.value} role="presentation">
+                              <button
+                                type="button"
+                                role="option"
+                                aria-selected={selectedPrefix.value === prefix.value}
+                                onClick={() => {
+                                  setSelectedPrefix(prefix);
+                                  setPrefixOpen(false);
+                                  setPrefixSearch("");
+                                  prefixButtonRef.current?.focus();
+                                }}
+                                className={`block w-full px-3 py-1.5 text-left text-sm hover:bg-clay/10 focus-visible:bg-clay/10 dark:hover:bg-clay/20 text-slate-dark dark:text-ivory-light${selectedPrefix.value === prefix.value ? " bg-clay/15 text-clay font-semibold" : ""}`}
+                              >
+                                {prefix.label}
+                              </button>
                             </li>
                           ))}
                       </ul>
@@ -257,6 +281,7 @@ export default function ContactForm({
                 </div>
                 <div className="flex-1">
                   <Input
+                    id={`${uid}-phone`}
                     name="phone"
                     type="tel"
                     inputMode="tel"
@@ -266,10 +291,11 @@ export default function ContactForm({
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
+              <label htmlFor={`${uid}-message`} className="block text-sm font-medium text-slate-medium dark:text-cloud-medium mb-1">
                 {t("form.message")}
               </label>
               <Textarea
+                id={`${uid}-message`}
                 name="message"
                 required
                 rows={4}
@@ -325,7 +351,7 @@ export default function ContactForm({
               <Button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full md:w-auto bg-clay dark:bg-clay hover:bg-flame dark:hover:bg-flame text-white px-6 py-6 rounded-xl text-lg shadow-lg shadow-clay/30 flex items-center gap-2 justify-center"
+                className="w-full md:w-auto bg-clay-fill dark:bg-clay-fill hover:bg-flame-dark dark:hover:bg-flame-dark text-white px-6 py-6 rounded-xl text-lg shadow-lg shadow-clay/30 flex items-center gap-2 justify-center"
               >
                 {status === "loading" ? t("form.sending") : t("form.submit")}
               </Button>

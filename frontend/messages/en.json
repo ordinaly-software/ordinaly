@@ -251,6 +251,7 @@
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   },
   "common": {
+    "skipToContent": "Skip to content",
     "backToHome": "Back to home",
     "next": "Next",
     "previous": "Previous"

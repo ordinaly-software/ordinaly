@@ -145,7 +145,7 @@ const ServicesPage = () => {
       <section className="px-4 pb-12 md:px-8 xl:px-12 lg:pb-16">
         <div className="mx-auto max-w-[1600px]">
           <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-            <p className="text-sm font-semibold uppercase tracking-wide text-[#d97757]">
+            <p className="text-sm font-semibold uppercase tracking-wide text-clay">
               {t("showcase.eyebrow")}
             </p>
             <h1 className="mt-2 text-4xl font-bold leading-tight text-slate-dark dark:text-ivory-light md:text-6xl">

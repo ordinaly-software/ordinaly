@@ -103,7 +103,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <a
               href="#formulario"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-clay px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:scale-105 active:scale-[0.97]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-clay-fill px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:scale-105 active:scale-[0.97]"
             >
               {content.heroCtaLabel}
               <ArrowRight className="h-4 w-4" />
@@ -311,7 +311,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-clay text-white transition hover:brightness-110"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-clay-fill text-white transition hover:brightness-110"
               >
                 <IconWhatsApp size={18} />
               </a>

@@ -292,13 +292,13 @@ const CourseDetailsModal = ({
           <div className="absolute bottom-4 left-4 right-4">
             <div className="flex flex-wrap gap-2 mb-2">
               {course.price !== null && course.price !== undefined && (
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay text-white">€{course.price}</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay-fill text-white">€{course.price}</span>
               )}
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-cobalt text-white">
                 {t(`periodicity.${course.periodicity}`)}
               </span>
               {isEnrolled && (
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay text-white">✓ {t('enrolled')}</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay-fill text-white">✓ {t('enrolled')}</span>
               )}
             </div>
             <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">{course.title}</h2>

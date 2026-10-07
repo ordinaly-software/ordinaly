@@ -520,8 +520,8 @@ const LegalPage = () => {
       return `${base} border-clay/60 bg-clay/15 text-clay shadow-md`;
     }
     return isDark
-      ? `${base} border-white/10 bg-white/5 text-gray-200 hover:border-clay hover:bg-clay hover:text-white`
-      : `${base} border-gray-200 bg-white text-gray-700 hover:border-clay hover:bg-clay hover:text-white`;
+      ? `${base} border-white/10 bg-white/5 text-gray-200 hover:border-clay hover:bg-clay-fill hover:text-white`
+      : `${base} border-gray-200 bg-white text-gray-700 hover:border-clay hover:bg-clay-fill hover:text-white`;
   };
 
   const rootClass = isDark
@@ -599,7 +599,7 @@ const LegalPage = () => {
               </p>
             </div>
             <Link href="/" className="self-start lg:self-center">
-              <Button className="bg-clay text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight">
+              <Button className="bg-clay-fill text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight">
                 <ExternalLink className="mr-2 h-4 w-4" />
                 {tCommon('backToHome')}
               </Button>
@@ -638,7 +638,7 @@ const LegalPage = () => {
                 </p>
                 <Button
                   onClick={() => downloadPDF(activeDoc)}
-                  className="w-full bg-clay text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
+                  className="w-full bg-clay-fill text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   {t('downloadPdf')}
@@ -672,7 +672,7 @@ const LegalPage = () => {
                     // ignore
                   }
                 }}
-                className="w-full bg-clay text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-clay-fill text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <Sparkles className="mr-2 h-4 w-4" />
                 {t('openCookieSettings', {})}
@@ -699,7 +699,7 @@ const LegalPage = () => {
               </p>
               <Button
                 asChild
-                className="w-full bg-clay text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-clay-fill text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <a href="mailto:denuncias@ordinaly.ai">{t('contactCta', {})}</a>
               </Button>
@@ -805,7 +805,7 @@ const LegalPage = () => {
                     <Button
                       onClick={() => downloadPDF(doc)}
                       size="sm"
-                      className="w-full bg-clay text-white hover:bg-clay/90"
+                      className="w-full bg-clay-fill text-white hover:bg-clay/90"
                     >
                       <Download className="mr-2 h-3 w-3" />
                       {t('downloadPdf')}

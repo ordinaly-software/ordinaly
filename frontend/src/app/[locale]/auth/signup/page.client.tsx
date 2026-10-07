@@ -376,7 +376,7 @@ function SignupPageContent() {
                     <CardTitle className="text-xl font-semibold tracking-[-0.02em]">
                       {t(`form.step${step}Title` as "form.step1Title")}
                     </CardTitle>
-                    <span className="whitespace-nowrap text-xs font-medium text-cloud-medium">
+                    <span className="whitespace-nowrap text-xs font-medium text-slate-light dark:text-cloud-medium">
                       {t("form.stepIndicator", { current: step, total: TOTAL_STEPS })}
                     </span>
                   </div>
@@ -408,7 +408,7 @@ function SignupPageContent() {
                           <div className="w-full border-t border-[--color-border-subtle] dark:border-white/10" />
                         </div>
                         <div className="relative flex justify-center text-sm">
-                          <span className="bg-[--swatch--ivory-light] px-2 text-cloud-medium dark:bg-[--swatch--slate-dark]">
+                          <span className="bg-[--swatch--ivory-light] px-2 text-slate-light dark:text-cloud-medium dark:bg-[--swatch--slate-dark]">
                             {t("form.orSignupWithEmail")}
                           </span>
                         </div>
@@ -433,7 +433,7 @@ function SignupPageContent() {
                             <div className="space-y-2">
                               <Label htmlFor="name">{t("form.nameLabel")}</Label>
                               <div className="relative">
-                                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                                 <Input
                                   id="name"
                                   type="text"
@@ -451,7 +451,7 @@ function SignupPageContent() {
                             <div className="space-y-2">
                               <Label htmlFor="surname">{t("form.surnameLabel")}</Label>
                               <div className="relative">
-                                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                                 <Input
                                   id="surname"
                                   type="text"
@@ -470,7 +470,7 @@ function SignupPageContent() {
                           <div className="space-y-2">
                             <Label htmlFor="email">{t("form.emailLabel")}</Label>
                             <div className="relative">
-                              <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                              <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                               <Input
                                 id="email"
                                 type="email"
@@ -509,7 +509,7 @@ function SignupPageContent() {
                           <div className="space-y-2">
                             <Label htmlFor="company">{t("form.companyLabel")}</Label>
                             <div className="relative">
-                              <Building2 className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                              <Building2 className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                               <Input
                                 id="company"
                                 type="text"
@@ -528,7 +528,7 @@ function SignupPageContent() {
                             <div className="space-y-2">
                               <Label htmlFor="region">{t("form.regionLabel")}</Label>
                               <div className="relative">
-                                <Globe className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                                <Globe className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                                 <Input
                                   id="region"
                                   type="text"
@@ -543,7 +543,7 @@ function SignupPageContent() {
                             <div className="space-y-2">
                               <Label htmlFor="city">{t("form.cityLabel")}</Label>
                               <div className="relative">
-                                <MapPin className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                                <MapPin className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                                 <Input
                                   id="city"
                                   type="text"
@@ -593,7 +593,7 @@ function SignupPageContent() {
                           <div className="space-y-2">
                             <Label htmlFor="password">{t("form.passwordLabel")}</Label>
                             <div className="relative">
-                              <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                              <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                               <Input
                                 id="password"
                                 type={showPassword ? "text" : "password"}
@@ -607,7 +607,7 @@ function SignupPageContent() {
                               <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-light dark:text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
                               >
                                 {showPassword ? (
                                   <EyeOff className="h-5 w-5" />
@@ -623,7 +623,7 @@ function SignupPageContent() {
                           <div className="space-y-2">
                             <Label htmlFor="confirmPassword">{t("form.confirmPasswordLabel")}</Label>
                             <div className="relative">
-                              <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                              <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                               <Input
                                 id="confirmPassword"
                                 type={showConfirmPassword ? "text" : "password"}
@@ -636,7 +636,7 @@ function SignupPageContent() {
                               <button
                                 type="button"
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-light dark:text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
                               >
                                 {showConfirmPassword ? (
                                   <EyeOff className="h-5 w-5" />

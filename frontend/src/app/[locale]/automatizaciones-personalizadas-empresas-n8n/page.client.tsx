@@ -168,7 +168,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   aria-label="WhatsApp"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-clay text-white transition hover:brightness-110"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-clay-fill text-white transition hover:brightness-110"
                 >
                   <IconWhatsApp size={18} />
                 </a>
@@ -235,14 +235,16 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
 
   return (
     <div className="relative bg-white dark:bg-neutral-900">
-      {/* HERO */}
-      <section className="relative w-full overflow-hidden bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark text-white">
+      {/* HERO — always black with the n8n dot grid, so it opts into the dark palette
+          (`dark` class) regardless of the site theme: orange tones inside stay the dark-mode ones. */}
+      <section className="dark relative w-full overflow-hidden bg-[#141414] text-white">
+        {/* n8n canvas dot grid */}
         <div
           aria-hidden
-          className="absolute inset-0 opacity-[0.15]"
+          className="absolute inset-0"
           style={{
-            backgroundImage: "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
-            backgroundSize: "22px 22px",
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.28) 1px, transparent 1.4px)",
+            backgroundSize: "16px 16px",
           }}
         />
         <div
@@ -258,7 +260,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
             <div className="mt-10 grid sm:grid-cols-3 gap-2.5 max-w-2xl">
               <a
                 href="#formulario"
-                className="flex flex-col items-start justify-center gap-1 rounded-xl bg-clay px-4 py-3.5 font-semibold text-white shadow-lg transition hover:scale-105"
+                className="flex flex-col items-start justify-center gap-1 rounded-xl bg-clay-fill px-4 py-3.5 font-semibold text-white shadow-lg transition hover:scale-105"
               >
                 <span className="text-sm">{content.heroCtaLabel}</span>
               </a>
@@ -361,9 +363,9 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
                   <div className="flex items-center gap-3">
                     <div className="flex -space-x-3">
                       {[
-                        { initials: "AG", from: "from-clay", to: "to-[#C6613F]" },
+                        { initials: "AG", from: "from-clay-fill", to: "to-[#9A3C1A]" },
                         { initials: "JM", from: "from-cobalt", to: "to-[#0144B0]" },
-                        { initials: "LR", from: "from-[#D4A27F]", to: "to-[#D97757]" },
+                        { initials: "LR", from: "from-[#9A3C1A]", to: "to-clay-fill" },
                       ].map((avatar) => (
                         <span
                           key={avatar.initials}

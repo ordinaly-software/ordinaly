@@ -98,7 +98,7 @@ function buildPricingCard(key: string, pricing: CallPricing | undefined, whatsap
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label="WhatsApp"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-clay text-white transition hover:brightness-110"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-clay-fill text-white transition hover:brightness-110"
             >
               <IconWhatsApp size={18} />
             </a>
@@ -288,7 +288,7 @@ export default function AgenteDeLlamadasIA() {
         <div className="absolute inset-0">
           <Strands
             className="h-full w-full"
-            colors={["#D97757", "#E15D31", "#C46686", "#0255D5", "#6A9BCC"]}
+            colors={["#B84A28", "#9A3C1A", "#C46686", "#0255D5", "#6A9BCC"]}
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[--swatch--slate-dark]/50 to-[--swatch--slate-dark]" />
@@ -299,7 +299,7 @@ export default function AgenteDeLlamadasIA() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
               href="#formulario"
-              className="rounded-xl bg-clay px-8 py-4 font-semibold text-white shadow-lg transition hover:scale-105"
+              className="rounded-xl bg-clay-fill px-8 py-4 font-semibold text-white shadow-lg transition hover:scale-105"
             >
               {content.heroCtaLabel}
             </a>
@@ -368,7 +368,7 @@ export default function AgenteDeLlamadasIA() {
       {/* OUTBOUND */}
       <section id="outbound" className="scroll-mt-24">
         <div className="flex flex-col items-center gap-5 px-6 pb-2 pt-16 text-center">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-flame/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-flame">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-clay/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-clay">
             <PhoneOutgoing className="h-3.5 w-3.5" strokeWidth={2.5} />
             {content.sectionTitles?.outboundPill}
           </span>

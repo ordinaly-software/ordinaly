@@ -26,12 +26,12 @@ const NUDGE_PREFIX = "ordinaly:carousel-nudge:";
 // disappeared into them).
 const BUTTON_BASE =
   "pointer-events-auto inline-flex items-center justify-center rounded-full " +
-  "bg-clay text-ivory-light ring-1 ring-black/10 " +
+  "bg-clay-fill text-ivory-light ring-1 ring-black/10 " +
   "shadow-[0_10px_28px_-8px_rgba(20,20,19,0.55)] " +
   "transition-[transform,background-color,color,width,padding] duration-300 ease-out " +
   "hover:bg-slate-dark hover:text-ivory-light hover:scale-105 active:scale-100 " +
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay focus-visible:ring-offset-2 focus-visible:ring-offset-transparent " +
-  "dark:bg-ivory-light dark:text-slate-dark dark:ring-white/15 dark:hover:bg-clay dark:hover:text-ivory-light " +
+  "dark:bg-ivory-light dark:text-slate-dark dark:ring-white/15 dark:hover:bg-clay-fill dark:hover:text-ivory-light " +
   "disabled:opacity-0 disabled:pointer-events-none";
 
 export function CarouselNavButtons({

@@ -120,7 +120,11 @@ const CookieConsent = () => {
 
   const modalContent = showPopup ? (
     <div className="fixed inset-x-0 bottom-0 z-[9999] flex justify-center px-3 pb-3 sm:pb-4 pointer-events-none sm:justify-end sm:pr-5">
-      <div className="pointer-events-auto w-full sm:max-w-sm max-h-[calc(100vh-4rem)] flex flex-col overflow-hidden rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[#f5f5f7] dark:bg-[#111213] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)]">
+      <div
+        role="dialog"
+        aria-label={t('title')}
+        onKeyDown={(e) => { if (e.key === 'Escape') closePopup(); }}
+        className="pointer-events-auto w-full sm:max-w-sm max-h-[calc(100vh-4rem)] flex flex-col overflow-hidden rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[#f5f5f7] dark:bg-[#111213] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)]">
 
         {/* Header */}
         <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-[--color-border-subtle] dark:border-[--color-border-strong]">
@@ -226,7 +230,7 @@ const CookieConsent = () => {
                       )}
                     </div>
                     <p className="text-xs text-slate-medium dark:text-cloud-medium leading-snug">{t(`${key}Description`)}</p>
-                    {toggle && <p className="text-[10px] text-slate-medium/70 dark:text-cloud-medium/70 mt-0.5">{note}</p>}
+                    {toggle && <p className="text-[10px] text-slate-medium dark:text-cloud-medium mt-0.5">{note}</p>}
                   </div>
                 ))}
               </div>

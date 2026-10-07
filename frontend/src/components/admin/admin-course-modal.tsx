@@ -118,7 +118,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                 <div className="absolute top-3 sm:top-4 left-3 right-3 sm:left-4 sm:right-4 pr-16 sm:pr-0 pb-16 sm:pb-0 max-h-[60%] sm:max-h-none overflow-hidden">
               <div className="flex items-center gap-2 mb-2 flex-wrap">
                 {course.price !== null && course.price !== undefined && (
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-[var(--swatch--clay)] text-white">
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay-fill text-white">
                     <Euro className="w-3 h-3 mr-1" />
                     €{course.price}
                   </span>

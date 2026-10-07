@@ -34,7 +34,7 @@ export function FaqSection({ t, titleTag = "h2" }: SectionProps & { titleTag?: "
         footer={
           <Link
             href="/faq"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-clay text-clay font-semibold hover:bg-clay hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-clay/20 group"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-clay text-clay font-semibold hover:bg-clay-fill hover:text-white transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-clay/20 group"
           >
             {t("faq.viewAllLabel")}
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

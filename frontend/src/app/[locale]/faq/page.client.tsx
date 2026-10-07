@@ -134,7 +134,7 @@ export default function FaqPageClient({
             {ui.title}
           </h1>
           <h2 className="label-meta mt-4 text-slate-medium dark:text-cloud-medium">{ui.seoHeadline}</h2>
-          <p className="mt-1 text-sm text-slate-medium/80 dark:text-cloud-medium/70">{ui.seoLine}</p>
+          <p className="mt-1 text-sm text-slate-medium/80 dark:text-cloud-medium">{ui.seoLine}</p>
           <p className="mx-auto mt-4 max-w-3xl text-lg leading-relaxed text-slate-medium dark:text-cloud-medium">
             {ui.subtitle}
           </p>

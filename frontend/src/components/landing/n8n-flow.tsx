@@ -76,7 +76,7 @@ function FlowNode({
       <span
         className={cn(
           "flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors duration-300",
-          active ? "bg-clay text-white" : "bg-white/10 text-white/40",
+          active ? "bg-clay-fill text-white" : "bg-white/10 text-white/40",
         )}
       >
         <Icon size={18} />
@@ -218,7 +218,7 @@ export default function N8nFlow({ content }: { content: N8nFlowContent }) {
               transition={springSettle}
               className="flex items-center gap-3 rounded-2xl border border-clay/40 bg-clay/10 px-4 py-3"
             >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-clay text-white">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-clay-fill text-white">
                 <IconCircleCheck size={18} />
               </span>
               <span className="text-sm font-semibold text-white">{content.footerSuffix}</span>

@@ -74,8 +74,8 @@ const useCases: UseCaseItem[] = [
     bulletKey: "useCases.items.4",
     bullets: ["bullets.0", "bullets.1", "bullets.2"],
     Icon: Briefcase,
-    accent: "var(--swatch--flame)",
-    accentSoft: "var(--swatch--flame)/12",
+    accent: "var(--swatch--clay)",
+    accentSoft: "var(--swatch--clay)/12",
     href: "/automatizacion-informes",
   },
   {

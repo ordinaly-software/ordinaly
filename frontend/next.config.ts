@@ -32,6 +32,17 @@ const contentSecurityPolicy = [
   "manifest-src 'self'",
 ].join('; ');
 
+// Client-component pages can't export metadata, so keep these out of the index via header.
+const noindexPaths = [
+  'verify-email',
+  'change-email',
+  'reset-password/confirm',
+  'reset-password/email-sent',
+  'delete_account/confirm',
+  'delete_account/email-sent',
+  'auth/callback',
+];
+
 const nextConfig: NextConfig = {
   // External packages for server components
   productionBrowserSourceMaps: false,
@@ -160,6 +171,10 @@ const nextConfig: NextConfig = {
           { key: 'X-Robots-Tag', value: 'all' },
         ],
       },
+      ...noindexPaths.flatMap((path) => [`/${path}`, `/:locale(en|es)/${path}`]).map((source) => ({
+        source,
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
+      })),
       {
         source: '/static/(.*)',
         headers: [

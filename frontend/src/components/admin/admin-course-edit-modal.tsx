@@ -287,7 +287,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
                       type="button"
                       variant="outline"
                       onClick={() => document.getElementById('image')?.click()}
-                      className="border-[var(--swatch--clay)] text-[var(--swatch--clay)] hover:bg-[var(--swatch--clay)] hover:text-white transition-all duration-200 text-xs px-2 py-1"
+                      className="border-[var(--swatch--clay)] text-[var(--swatch--clay)] hover:bg-clay-fill hover:text-white transition-all duration-200 text-xs px-2 py-1"
                     >
                       {t("form.chooseImageText")}
                     </Button>
@@ -594,7 +594,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           </Button>
           <Button
             onClick={onSubmit}
-            className="px-6 py-2 bg-[var(--swatch--clay)] hover:bg-[var(--swatch--flame)] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"          >
+            className="px-6 py-2 bg-clay-fill hover:bg-[var(--swatch--flame)] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"          >
             <span>{showEditModal ? t("form.update") : t("form.create")}</span>
             {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
           </Button>

@@ -279,7 +279,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag
               variant="outline"
               size="lg"
               onClick={() => router.push('/formacion')}
-              className="bg-transparent border-2 border-clay text-clay hover:bg-clay hover:text-white dark:border-clay dark:text-clay dark:hover:bg-clay dark:hover:text-ivory-light transition-all duration-300 px-6 py-3 text-base font-semibold rounded-full shadow-md hover:shadow-lg hover:shadow-clay/20 group"
+              className="bg-transparent border-2 border-clay text-clay hover:bg-clay-fill hover:text-white dark:border-clay dark:text-clay dark:hover:bg-clay-fill dark:hover:text-ivory-light transition-all duration-300 px-6 py-3 text-base font-semibold rounded-full shadow-md hover:shadow-lg hover:shadow-clay/20 group"
             >
               {t('viewAllCourses')}
               <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
