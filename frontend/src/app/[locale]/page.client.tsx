@@ -300,7 +300,7 @@ export default function HomePage({
         <h2 className="text-base font-medium leading-relaxed text-slate-medium dark:text-cloud-medium">
           {t("seo.headline")}
         </h2>
-        <p className="mt-1 text-sm leading-relaxed text-slate-medium/80 dark:text-cloud-medium/70">
+        <p className="mt-1 text-sm leading-relaxed text-slate-medium/80 dark:text-cloud-medium">
           {t("seo.line")}
         </p>
       </div>

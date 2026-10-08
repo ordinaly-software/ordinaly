@@ -34,6 +34,7 @@ type AuthErrorPayload = Record<string, unknown> | null;
 
 export default function LoginPage() {
   const t = useTranslations("signin");
+  const tCommon = useTranslations("common");
   const { isDark } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -292,7 +293,7 @@ export default function LoginPage() {
                           <div className="w-full border-t border-[--color-border-subtle] dark:border-white/10" />
                         </div>
                         <div className="relative flex justify-center text-sm">
-                          <span className="bg-[--swatch--ivory-light] px-2 text-cloud-medium dark:bg-[--swatch--slate-dark]">
+                          <span className="bg-[--swatch--ivory-light] px-2 text-slate-light dark:text-cloud-medium dark:bg-[--swatch--slate-dark]">
                             {t("form.orContinueWith")}
                           </span>
                         </div>
@@ -302,7 +303,7 @@ export default function LoginPage() {
                     <div className="space-y-2">
                       <Label htmlFor="email">{t("form.emailLabel")}</Label>
                       <div className="relative">
-                        <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                        <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                         <Input
                           id="email"
                           type="text"
@@ -317,7 +318,7 @@ export default function LoginPage() {
                     <div className="space-y-2">
                       <Label htmlFor="password">{t("form.passwordLabel")}</Label>
                       <div className="relative">
-                        <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                        <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                         <Input
                           id="password"
                           type={showPassword ? "text" : "password"}
@@ -330,7 +331,8 @@ export default function LoginPage() {
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
+                          aria-label={showPassword ? tCommon("hidePassword") : tCommon("showPassword")}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-light dark:text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
                         >
                           {showPassword ? (
                             <EyeOff className="h-5 w-5" />
@@ -343,7 +345,7 @@ export default function LoginPage() {
                     <div className="flex flex-col items-start">
                       <Link
                         href="/reset-password"
-                        className="text-sm text-cobalt hover:underline"
+                        className="text-sm text-cobalt dark:text-cobalt-light hover:underline"
                       >
                         {t("form.forgotPassword")}
                       </Link>
@@ -362,7 +364,7 @@ export default function LoginPage() {
 
                   <p className="mt-6 text-center text-sm text-slate-medium dark:text-cloud-medium">
                     {t("form.signupPrompt")}{" "}
-                    <Link href="/auth/signup" className="text-cobalt hover:underline">
+                    <Link href="/auth/signup" className="text-cobalt dark:text-cobalt-light underline">
                       {t("form.signupLink")}
                     </Link>
                   </p>

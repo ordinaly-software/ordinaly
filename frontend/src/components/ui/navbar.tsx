@@ -159,6 +159,7 @@ const MobileSection = ({
 
 const Navbar = () => {
   const t = useTranslations("home");
+  const tCommon = useTranslations("common");
   const tServices = useTranslations("services");
   const locale = useLocale();
   const router = useRouter();
@@ -470,6 +471,7 @@ const Navbar = () => {
     <>
       <nav
         ref={navRef}
+        aria-label={tCommon("mainNavigation")}
         className="fixed top-0 left-0 z-[45] w-full border-b border-[--color-border-subtle] shadow-[0_18px_45px_-40px_rgba(15,23,42,0.5)] dark:border-[--color-border-strong] dark:shadow-[0_18px_45px_-36px_rgba(0,0,0,0.7)] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] backdrop-blur-xl"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

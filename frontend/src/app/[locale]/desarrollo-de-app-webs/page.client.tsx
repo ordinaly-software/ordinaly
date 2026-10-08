@@ -11,6 +11,8 @@ import { PortfolioList, type PortfolioProject } from "@/components/landing/portf
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { useTheme } from "@/contexts/theme-context";
 
 // Literal hex arbitrary-value classes (not the `clay`/`cobalt` design-system
 // tokens) because Tailwind can't generate opacity-modified utilities for
@@ -20,13 +22,13 @@ import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 const PWA_BULLETS = [
   {
     icon: Globe,
-    iconClass: "bg-cobalt/10 text-cobalt dark:bg-cobalt/15",
+    iconClass: "bg-cobalt/10 text-cobalt dark:text-cobalt-light dark:bg-cobalt/15",
     hoverClass: "hover:bg-cobalt/10 dark:hover:bg-cobalt/15",
   },
   {
     icon: MonitorSmartphone,
-    iconClass: "bg-[#D97757]/10 text-[#D97757] dark:bg-[#D97757]/15",
-    hoverClass: "hover:bg-[#D97757]/10 dark:hover:bg-[#D97757]/15",
+    iconClass: "bg-clay/10 text-clay dark:bg-clay/15",
+    hoverClass: "hover:bg-clay/10 dark:hover:bg-clay/15",
   },
   {
     icon: Zap,
@@ -56,6 +58,7 @@ const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble")
 export default function DesarrolloDeAppWebs() {
   const messages = useMessages() as any;
   const content = messages.landings?.["desarrollo-de-app-webs"];
+  const { isDark, setIsDark } = useTheme();
 
   if (!content) {
     throw new Error("Missing landing content: desarrollo-de-app-webs");
@@ -103,6 +106,31 @@ export default function DesarrolloDeAppWebs() {
       ]
     : [];
 
+  const themeDemo = content.themeDemo;
+
+  const themeDemoCard: InfoCardItem[] = themeDemo
+    ? [
+        {
+          key: "theme-demo",
+          size: "md",
+          media: (
+            <div className="absolute inset-0 flex flex-col items-center justify-between bg-gradient-to-br from-clay-fill to-[#9A3C1A] p-8 text-center text-white">
+              <h3 className="text-2xl sm:text-3xl font-bold leading-snug">{themeDemo.title}</h3>
+              <div className="relative flex items-center justify-center">
+                <span className="absolute h-28 w-28 animate-ping rounded-full bg-white/40" />
+                <AnimatedThemeToggler
+                  theme={isDark ? "dark" : "light"}
+                  onThemeChange={(theme) => setIsDark(theme === "dark")}
+                  className="relative flex h-28 w-28 items-center justify-center rounded-full bg-white text-clay shadow-2xl ring-4 ring-white/30 transition hover:scale-110 active:scale-95 [&_svg]:h-12 [&_svg]:w-12"
+                />
+              </div>
+              <p className="text-base italic leading-relaxed text-white/90">{themeDemo.description}</p>
+            </div>
+          ),
+        },
+      ]
+    : [];
+
   // Defined one by one (rather than mechanically mapped) so each card's
   // size can be chosen deliberately.
   const infocards: InfoCardItem[] = [
@@ -110,6 +138,7 @@ export default function DesarrolloDeAppWebs() {
     { key: "seo", size: "md", title: infoCardTexts[1]?.name, description: infoCardTexts[2]?.description, image: "/static/desarrollo-de-app-webs/seo.webp" },
     { key: "automation", size: "md", title: infoCardTexts[2]?.name, description: infoCardTexts[3]?.description, image: "/static/servicios/software.webp" },
     { key: "ui", size: "xl", title: infoCardTexts[5]?.name, description: infoCardTexts[6]?.description, video: "/static/desarrollo-de-app-webs/ui.mp4", videoPlaybackRate: 0.4 },
+    ...themeDemoCard,
     { key: "responsive", size: "lg", title: infoCardTexts[4]?.name, description: infoCardTexts[5]?.description, image: "/static/desarrollo-de-app-webs/responsive.webp" },  
     { key: "vps", size: "md", title: infoCardTexts[3]?.name, description: infoCardTexts[4]?.description, image: "/static/servicios/vps.webp" },
     ...requirementsCard,
@@ -147,7 +176,7 @@ export default function DesarrolloDeAppWebs() {
           <a
             href="#formulario"
             className="mt-10 px-8 py-4 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
-            style={{ backgroundColor: "#d97757" }}
+            style={{ backgroundColor: "var(--swatch--clay-fill)" }}
           >
             {content.heroCtaLabel}
           </a>
@@ -258,7 +287,7 @@ export default function DesarrolloDeAppWebs() {
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 text-white font-semibold px-6 py-3 rounded-full shadow-xl transition"
-        style={{ backgroundColor: "#d97757" }}
+        style={{ backgroundColor: "var(--swatch--clay-fill)" }}
       >
         <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
           <path d="M20.52 3.48A11.8 11.8 0 0 0 12.04 0C5.46 0 .1 5.36.1 11.94c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.64a12 12 0 0 0 5.74 1.46h.01c6.58 0 11.94-5.36 11.94-11.94 0-3.19-1.24-6.19-3.47-8.4ZM12.05 21.3h-.01a9.3 9.3 0 0 1-4.74-1.3l-.34-.2-3.74.97 1-3.64-.22-.37a9.28 9.28 0 0 1-1.42-4.9c0-5.14 4.18-9.32 9.33-9.32 2.49 0 4.83.97 6.6 2.73a9.27 9.27 0 0 1 2.73 6.6c0 5.15-4.18 9.33-9.33 9.33Zm5.13-6.96c-.28-.14-1.65-.81-1.9-.9-.26-.1-.45-.14-.64.14-.19.28-.74.9-.9 1.08-.17.19-.33.21-.61.07-.28-.14-1.18-.44-2.25-1.4-.83-.74-1.39-1.65-1.55-1.93-.16-.28-.02-.43.12-.57.13-.13.28-.33.42-.49.14-.16.19-.28.28-.47.1-.19.05-.35-.02-.49-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.49h-.55c-.19 0-.49.07-.75.35-.26.28-.98.96-.98 2.34 0 1.38 1 2.72 1.14 2.9.14.19 1.96 3 4.75 4.2.66.28 1.18.45 1.58.58.66.21 1.26.18 1.73.11.53-.08 1.65-.67 1.88-1.32.23-.65.23-1.21.16-1.32-.07-.12-.26-.19-.54-.33Z" />

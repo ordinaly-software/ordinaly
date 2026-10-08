@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import LocaleSwitcher from "./locale-switcher";
 import { useTheme } from "@/contexts/theme-context";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
 import { openCookieSettings } from "@/utils/cookie-manager";
 import { cn } from "@/lib/utils";
@@ -228,12 +229,13 @@ const Footer = () => {
             <LocaleSwitcher variant="pill" label={t("footer.utility.language")} />
 
             <div className="inline-flex self-start items-center rounded-full border border-[--color-border-subtle] bg-white/70 p-1 dark:border-white/10 dark:bg-white/[0.04]">
-              <span className="px-3 text-xs font-medium uppercase tracking-[0.14em] text-cloud-dark dark:text-cloud-medium">
+              <span className="px-3 text-xs font-medium uppercase tracking-[0.14em] text-slate-light dark:text-cloud-medium">
                 {t("footer.utility.theme")}
               </span>
-              <button
-                type="button"
-                onClick={() => setIsDark(false)}
+              <AnimatedThemeToggler
+                theme={isDark ? "dark" : "light"}
+                onThemeChange={(theme) => setIsDark(theme === "dark")}
+                disabled={!isDark}
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition",
                   !isDark
@@ -244,10 +246,11 @@ const Footer = () => {
               >
                 <Sun className="h-4 w-4" />
                 <span>{t("footer.utility.light")}</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setIsDark(true)}
+              </AnimatedThemeToggler>
+              <AnimatedThemeToggler
+                theme={isDark ? "dark" : "light"}
+                onThemeChange={(theme) => setIsDark(theme === "dark")}
+                disabled={isDark}
                 className={cn(
                   "inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm transition",
                   isDark
@@ -258,7 +261,7 @@ const Footer = () => {
               >
                 <Moon className="h-4 w-4" />
                 <span>{t("footer.utility.dark")}</span>
-              </button>
+              </AnimatedThemeToggler>
             </div>
           </div>
 

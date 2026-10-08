@@ -3,9 +3,19 @@ export interface CookiePreferences {
   functional: boolean;
   analytics: boolean;
   marketing: boolean;
+  /** Embedded third-party content (YouTube, Google Maps). Falls back to `marketing` for consents saved before this existed. */
+  thirdParty?: boolean;
+  /** ISO date the choice was made; consent expires after CONSENT_MAX_AGE_MS. */
+  savedAt?: string;
 }
 
 const STORAGE_KEY = 'cookie-preferences';
+const CONSENT_KEY = 'cookie-consent';
+// AEPD recommends renewing consent at most every 24 months.
+const CONSENT_MAX_AGE_MS = 24 * 30 * 24 * 60 * 60 * 1000;
+
+export const allowsThirdParty = (prefs: CookiePreferences | null | undefined) =>
+  Boolean(prefs?.thirdParty ?? prefs?.marketing);
 
 /* =========================
    Read / Write
@@ -15,7 +25,14 @@ export function getCookiePreferences(): CookiePreferences | null {
   if (typeof window === 'undefined') return null;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as CookiePreferences) : null;
+    if (!raw) return null;
+    const prefs = JSON.parse(raw) as CookiePreferences;
+    if (prefs.savedAt && Date.now() - new Date(prefs.savedAt).getTime() > CONSENT_MAX_AGE_MS) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(CONSENT_KEY);
+      return null;
+    }
+    return prefs;
   } catch {
     return null;
   }
@@ -56,7 +73,7 @@ export function isMarketingAllowed(): boolean {
 }
 
 export function isThirdPartyAllowed(): boolean {
-  return isMarketingAllowed();
+  return allowsThirdParty(getCookiePreferences());
 }
 
 export function isFunctionalAllowed(): boolean {

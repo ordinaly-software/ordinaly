@@ -19,6 +19,7 @@ const CookieConsent = () => {
     functional: true,
     analytics: false,
     marketing: false,
+    thirdParty: false,
   });
 
   useEffect(() => {
@@ -26,8 +27,9 @@ const CookieConsent = () => {
 
     let hasConsented = null;
     try {
-      hasConsented = localStorage.getItem('cookie-consent');
+      // Read preferences first: it clears the stored consent once it has expired.
       const storedPreferences = getCookiePreferences();
+      hasConsented = localStorage.getItem('cookie-consent');
       if (storedPreferences) {
         const sanitizedPreferences = {
           ...storedPreferences,
@@ -78,39 +80,31 @@ const CookieConsent = () => {
     return () => window.removeEventListener('storage', syncPreferencesFromStorage);
   }, []);
 
-  const handleAcceptAll = () => {
-    const preferences = { necessary: true, functional: true, analytics: true, marketing: true };
-    setCookiePreferences(preferences);
+  const commitConsent = (status: 'accepted' | 'rejected' | 'customized', preferences: typeof cookiePreferences) => {
+    const stored = { ...preferences, functional: true, necessary: true, savedAt: new Date().toISOString() };
     try {
-      localStorage.setItem('cookie-consent', 'accepted');
-      localStorage.setItem('cookie-preferences', JSON.stringify(preferences));
+      localStorage.setItem('cookie-consent', status);
+      localStorage.setItem('cookie-preferences', JSON.stringify(stored));
     } catch {
       // localStorage not available
     }
-    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: preferences }));
+    setCookiePreferences(stored);
+    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: stored }));
     applyConsentMode();
     setShowBubble(false);
     setShowPopup(false);
     setShowSettings(false);
   };
 
-  const handleSavePreferences = () => {
-    const sanitizedPreferences = { ...cookiePreferences, functional: true, necessary: true };
-    try {
-      localStorage.setItem('cookie-consent', 'customized');
-      localStorage.setItem('cookie-preferences', JSON.stringify(sanitizedPreferences));
-    } catch {
-      // localStorage not available
-    }
-    setCookiePreferences(sanitizedPreferences);
-    window.dispatchEvent(new CustomEvent('cookieConsentChange', { detail: sanitizedPreferences }));
-    applyConsentMode();
-    setShowBubble(false);
-    setShowPopup(false);
-    setShowSettings(false);
-  };
+  const handleAcceptAll = () =>
+    commitConsent('accepted', { necessary: true, functional: true, analytics: true, marketing: true, thirdParty: true });
 
-  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'marketing') => {
+  const handleRejectAll = () =>
+    commitConsent('rejected', { necessary: true, functional: true, analytics: false, marketing: false, thirdParty: false });
+
+  const handleSavePreferences = () => commitConsent('customized', cookiePreferences);
+
+  const handlePreferenceChange = (type: 'necessary' | 'functional' | 'analytics' | 'marketing' | 'thirdParty') => {
     if (type === 'necessary' || type === 'functional') return;
     setCookiePreferences(prev => ({ ...prev, [type]: !prev[type] }));
   };
@@ -126,7 +120,11 @@ const CookieConsent = () => {
 
   const modalContent = showPopup ? (
     <div className="fixed inset-x-0 bottom-0 z-[9999] flex justify-center px-3 pb-3 sm:pb-4 pointer-events-none sm:justify-end sm:pr-5">
-      <div className="pointer-events-auto w-full sm:max-w-sm max-h-[calc(100vh-4rem)] flex flex-col overflow-hidden rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[#f5f5f7] dark:bg-[#111213] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)]">
+      <div
+        role="dialog"
+        aria-label={t('title')}
+        onKeyDown={(e) => { if (e.key === 'Escape') closePopup(); }}
+        className="pointer-events-auto w-full sm:max-w-sm max-h-[calc(100vh-4rem)] flex flex-col overflow-hidden rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[#f5f5f7] dark:bg-[#111213] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.18)] dark:shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)]">
 
         {/* Header */}
         <div className="flex items-center justify-between px-4 pt-4 pb-3 border-b border-[--color-border-subtle] dark:border-[--color-border-strong]">
@@ -139,7 +137,7 @@ const CookieConsent = () => {
           <button
             onClick={closePopup}
             className="rounded-full p-1 text-slate-medium dark:text-cloud-medium hover:text-slate-dark dark:hover:text-ivory-light transition"
-            aria-label="Cerrar"
+            aria-label={t('close')}
           >
             <X className="h-3.5 w-3.5" />
           </button>
@@ -154,6 +152,12 @@ const CookieConsent = () => {
               </p>
 
               <div className="flex flex-col gap-2">
+                <button
+                  onClick={handleRejectAll}
+                  className="w-full rounded-full bg-slate-dark dark:bg-ivory-light text-white dark:text-slate-dark px-4 py-2 text-xs font-medium tracking-wide transition hover:opacity-80"
+                >
+                  {t('rejectAll')}
+                </button>
                 <button
                   onClick={handleAcceptAll}
                   className="w-full rounded-full bg-slate-dark dark:bg-ivory-light text-white dark:text-slate-dark px-4 py-2 text-xs font-medium tracking-wide transition hover:opacity-80"
@@ -193,6 +197,13 @@ const CookieConsent = () => {
                     icon: <Globe className="h-3.5 w-3.5 text-slate-medium dark:text-cloud-medium" />,
                     enabled: cookiePreferences.marketing,
                     toggle: true,
+                    note: t('marketingExamples'),
+                  },
+                  {
+                    key: 'thirdParty',
+                    icon: <Globe className="h-3.5 w-3.5 text-slate-medium dark:text-cloud-medium" />,
+                    enabled: cookiePreferences.thirdParty,
+                    toggle: true,
                     note: t('thirdPartyExamples'),
                   },
                   {
@@ -212,14 +223,14 @@ const CookieConsent = () => {
                       {toggle ? (
                         <Slider
                           checked={enabled}
-                          onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing')}
+                          onChange={() => handlePreferenceChange(key as 'necessary' | 'functional' | 'analytics' | 'marketing' | 'thirdParty')}
                         />
                       ) : (
                         <span className="text-[10px] text-slate-medium dark:text-cloud-medium">{note}</span>
                       )}
                     </div>
                     <p className="text-xs text-slate-medium dark:text-cloud-medium leading-snug">{t(`${key}Description`)}</p>
-                    {toggle && <p className="text-[10px] text-slate-medium/70 dark:text-cloud-medium/70 mt-0.5">{note}</p>}
+                    {toggle && <p className="text-[10px] text-slate-medium dark:text-cloud-medium mt-0.5">{note}</p>}
                   </div>
                 ))}
               </div>
@@ -250,7 +261,7 @@ const CookieConsent = () => {
               <Link href="/legal?tab=privacy" className="transition hover:text-clay" target="_blank" rel="noopener noreferrer">
                 {t('privacy')}
               </Link>
-              {' '}y{' '}
+              {` ${t('and')} `}
               <Link href="/legal?tab=cookies" className="transition hover:text-clay" target="_blank" rel="noopener noreferrer">
                 {t('cookies')}
               </Link>

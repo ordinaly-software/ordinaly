@@ -19,11 +19,10 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminCoursesTab from "@/components/admin/admin-courses-tab";
-import AdminTermsTab from "@/components/admin/admin-terms-tab";
 import AdminUsersTab from "@/components/admin/admin-users-tab";
 import AdminExternalTab from "@/components/admin/admin-external-tab";
 
-type TabType = 'overview' | 'courses' | 'terms' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api' | 'mail';
+type TabType = 'overview' | 'courses' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api' | 'mail';
 
 interface User {
   id: number;
@@ -45,13 +44,11 @@ export default function AdminPage() {
   const [stats, setStats] = useState({
     totalCourses: 0,
     totalUsers: 0,
-    totalTerms: 0,
     totalPosts: 0, // added
   });
   const tabs: AdminTabsTab[] = [
     { id: 'overview', name: t("tabs.overview"), icon: BarChart3 },
     { id: 'courses', name: t("tabs.courses"), icon: BookOpen },
-    { id: 'terms', name: t("tabs.terms"), icon: FileText },
     { id: 'users', name: t("tabs.users"), icon: Users },
     { id: 'blog', name: t("tabs.blog"), icon: ArrowUpRight, accentColor: "var(--swatch--cobalt)" },
     { id: 'odoo', name: t("tabs.odoo"), icon: () => <BarChart3 className="h-4 w-4" />, accentColor: "var(--swatch--clay)" },
@@ -63,7 +60,7 @@ export default function AdminPage() {
   // Load saved tab from localStorage on component mount
   useEffect(() => {
     const savedTab = localStorage.getItem('adminActiveTab') as TabType;
-    if (savedTab && ['overview', 'courses', 'terms', 'users', 'blog', 'odoo', 'n8n', 'api', 'mail'].includes(savedTab)) {
+    if (savedTab && ['overview', 'courses', 'users', 'blog', 'odoo', 'n8n', 'api', 'mail'].includes(savedTab)) {
       setActiveTab(savedTab);
     }
   }, []);
@@ -137,11 +134,8 @@ export default function AdminPage() {
     const fetchStats = async (token: string) => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
-        const [coursesRes, termsRes, usersRes, postsCount] = await Promise.all([
+        const [coursesRes, usersRes, postsCount] = await Promise.all([
           fetch(`${apiUrl}/api/courses/courses/`, {
-            headers: { 'Authorization': `Token ${token}` }
-          }),
-          fetch(`${apiUrl}/api/terms/`, {
             headers: { 'Authorization': `Token ${token}` }
           }),
           fetch(`${apiUrl}/api/users/`, {
@@ -150,23 +144,20 @@ export default function AdminPage() {
           fetchSanityPostsCount()
         ]);
 
-        const [courses, terms, users] = await Promise.all([
+        const [courses, users] = await Promise.all([
           coursesRes.ok ? coursesRes.json() : [],
-          termsRes.ok ? termsRes.json() : [],
           usersRes.ok ? usersRes.json() : [],
         ]);
 
         setStats({
           totalCourses: Array.isArray(courses) ? courses.length : 0,
           totalUsers: Array.isArray(users) ? users.length : 0,
-          totalTerms: Array.isArray(terms) ? terms.length : 0,
           totalPosts: typeof postsCount === 'number' ? postsCount : 0,
         });
       } catch {
         setStats({
           totalCourses: 0,
           totalUsers: 0,
-          totalTerms: 0,
           totalPosts: 0,
         });
       }
@@ -192,7 +183,7 @@ export default function AdminPage() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
           >
             {/* Courses */}
             <Card
@@ -206,32 +197,11 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalCourses")}
                 </CardTitle>
-                <BookOpen className="h-4 w-4 text-cobalt" />
+                <BookOpen className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {stats.totalCourses}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Terms */}
-            <Card
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
-              onClick={() => handleTabChange('terms')}
-              tabIndex={0}
-              role="button"
-              aria-label={t("stats.totalTerms")}
-            >
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                  {t("stats.totalTerms")}
-                </CardTitle>
-                <FileText className="h-4 w-4 text-[var(--swatch--clay)]" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {stats.totalTerms}
                 </div>
               </CardContent>
             </Card>
@@ -337,7 +307,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("tabs.api")}
                 </CardTitle>
-                <Settings className="h-4 w-4 text-cobalt" />
+                <Settings className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
               </CardHeader>
               <CardContent>
                 <div className="text-sm text-gray-700 dark:text-gray-300">
@@ -357,18 +327,6 @@ export default function AdminPage() {
             exit="exit"
           >
             <AdminCoursesTab />
-          </motion.div>
-        );
-      case 'terms':
-        return (
-          <motion.div
-            key="terms"
-            variants={tabVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <AdminTermsTab />
           </motion.div>
         );
       case 'users':

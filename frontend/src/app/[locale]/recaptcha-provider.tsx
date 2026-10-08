@@ -62,8 +62,30 @@ export default function ReCaptchaWrapper({ children, badgeContainerId }: ReCaptc
   const movedRef = useRef(false);
   const warnedRef = useRef(false);
 
-  // Load the v3 script exactly once. The getElementById guard makes this safe
-  // under React 18/19 StrictMode double-invocation — we never remove the script.
+  // The script is injected on demand (first focus inside a form, or at submit
+  // time) so Google gets no request from visitors who never use a form.
+  // The getElementById guard keeps it to a single script under StrictMode.
+  const ensureScript = useCallback((): Promise<void> => {
+    if (window.grecaptcha?.ready) return Promise.resolve();
+    let script = document.getElementById(SCRIPT_ID) as HTMLScriptElement | null;
+    if (!script) {
+      script = document.createElement("script");
+      script.id = SCRIPT_ID;
+      script.src = `${SCRIPT_HOST}/recaptcha/api.js?render=${encodeURIComponent(siteKey)}`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+    return new Promise((resolve, reject) => {
+      script.addEventListener("load", () => { setReady(true); resolve(); }, { once: true });
+      script.addEventListener(
+        "error",
+        () => reject(new Error(`failed to load the reCAPTCHA script from ${SCRIPT_HOST}`)),
+        { once: true },
+      );
+    });
+  }, [siteKey]);
+
   useEffect(() => {
     if (!siteKey) {
       if (!warnedRef.current) {
@@ -76,27 +98,14 @@ export default function ReCaptchaWrapper({ children, badgeContainerId }: ReCaptc
       return;
     }
 
-    const existing = document.getElementById(SCRIPT_ID) as HTMLScriptElement | null;
-    if (existing) {
-      if (window.grecaptcha?.execute) {
-        setReady(true);
-      } else {
-        existing.addEventListener("load", () => setReady(true), { once: true });
-      }
-      return;
-    }
-
-    const script = document.createElement("script");
-    script.id = SCRIPT_ID;
-    script.src = `${SCRIPT_HOST}/recaptcha/api.js?render=${encodeURIComponent(siteKey)}`;
-    script.async = true;
-    script.defer = true;
-    script.onload = () => setReady(true);
-    script.onerror = () => {
-      console.error(`[recaptcha] failed to load the reCAPTCHA script from ${SCRIPT_HOST}`);
+    const onFocusIn = (event: FocusEvent) => {
+      if (!(event.target instanceof Element) || !event.target.closest("form")) return;
+      document.removeEventListener("focusin", onFocusIn);
+      ensureScript().catch((err) => console.error("[recaptcha]", err));
     };
-    document.head.appendChild(script);
-  }, [siteKey]);
+    document.addEventListener("focusin", onFocusIn);
+    return () => document.removeEventListener("focusin", onFocusIn);
+  }, [siteKey, ensureScript]);
 
   // Relocate the floating badge into the desired container once it appears.
   useEffect(() => {
@@ -130,10 +139,8 @@ export default function ReCaptchaWrapper({ children, badgeContainerId }: ReCaptc
       if (!siteKey) {
         throw new Error("reCAPTCHA site key is not configured");
       }
-      const grecaptcha = window.grecaptcha;
-      if (!grecaptcha?.execute) {
-        throw new Error("reCAPTCHA has not finished loading");
-      }
+      await ensureScript();
+      const grecaptcha = window.grecaptcha!;
       await new Promise<void>((resolve) => grecaptcha.ready(resolve));
       const token = await grecaptcha.execute(siteKey, { action });
       if (!token) {
@@ -141,7 +148,7 @@ export default function ReCaptchaWrapper({ children, badgeContainerId }: ReCaptc
       }
       return token;
     },
-    [siteKey],
+    [siteKey, ensureScript],
   );
 
   return (

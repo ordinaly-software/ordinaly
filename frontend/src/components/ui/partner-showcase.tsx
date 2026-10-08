@@ -14,6 +14,7 @@ export const defaultPartnerLogos: LogoCarouselLogo[] = [
   "/static/logos/logo_madruga_consulting.webp",
   "/static/logos/logo_consegeria_empleo_empresa.webp",
   "/static/logos/logo_sayc.webp",
+  "/static/logos/logo_mscopp.webp",
 ].map((src, index) => ({
   name: src,
   id: index + 1,

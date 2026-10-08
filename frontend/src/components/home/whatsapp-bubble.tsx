@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MessageCircle, Send, Briefcase, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
 
 const WhatsAppBubble = () => {
   const t = useTranslations('whatsapp');
@@ -14,6 +15,17 @@ const WhatsAppBubble = () => {
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useDialogFocus(dialogRef, showModal);
+
+  useEffect(() => {
+    if (!showModal) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setShowModal(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [showModal]);
 
   const handleWhatsAppChat = () => {
     const whatsappUrl = getWhatsAppUrl(t('defaultWhatsAppMessage'));
@@ -59,6 +71,11 @@ const WhatsAppBubble = () => {
           onClick={closeModal}
         >
           <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="whatsapp-dialog-title"
+            tabIndex={-1}
             className="max-w-md w-full overflow-hidden rounded-2xl border border-[#1F8A0D]/20 bg-white text-gray-900 shadow-2xl dark:border-[#3FBD6F]/15 dark:bg-[#23272F] dark:text-white"
             onClick={(event) => event.stopPropagation()}
           >
@@ -76,7 +93,7 @@ const WhatsAppBubble = () => {
                   <Briefcase className="text-white" size={24} />
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-white">
+                  <h2 id="whatsapp-dialog-title" className="text-xl font-bold text-white">
                     {t('title')}
                   </h2>
                 </div>

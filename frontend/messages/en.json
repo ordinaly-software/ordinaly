@@ -251,6 +251,10 @@
     "defaultWhatsAppMessage": "Hello, I would like to know more about Ordinaly's services"
   },
   "common": {
+    "skipToContent": "Skip to content",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "mainNavigation": "Main navigation",
     "backToHome": "Back to home",
     "next": "Next",
     "previous": "Previous"
@@ -292,6 +296,8 @@
     "save": "Save preferences",
     "footer": "For more information, see our ",
     "privacy": "Privacy Policy",
+    "close": "Close",
+    "and": "and",
     "cookies": "Cookies Policy"
   },
   "whatsapp": {
@@ -432,7 +438,6 @@
       "overview": "Overview",
       "services": "Services",
       "courses": "Courses",
-      "terms": "Terms",
       "users": "Users",
       "blog": "Blog",
       "odoo": "Odoo",
@@ -496,7 +501,6 @@
     "stats": {
       "totalServices": "Total services",
       "totalCourses": "Total courses",
-      "totalTerms": "Total terms",
       "totalUsers": "Total users",
       "totalPosts": "Total blog posts"
     },
@@ -844,124 +848,6 @@
       "hidePastCourses": "Hide past courses",
       "upcomingCourses": "Upcoming courses",
       "finished": "Finished"
-    },
-    "terms": {
-      "title": "Terms management",
-      "searchPlaceholder": "Search terms...",
-      "addTerm": "Add term",
-      "editTerm": "Edit term",
-      "createTerm": "Create new term",
-      "deleteSelected": "Delete selected",
-      "selectAll": "Select all",
-      "noTerms": "No terms available.",
-      "noTermsFound": "No terms found matching your search.",
-      "pdfAvailable": "PDF available",
-      "mdAvailable": "Markdown document available",
-      "downloadPdf": "Download PDF",
-      "edit": "Edit term",
-      "delete": "Delete term",
-      "noResults": "No terms found",
-      "terms": "terms",
-      "form": {
-        "name": "Name",
-        "namePlaceholder": "Term name",
-        "content": "Content (Markdown)",
-        "contentPlaceholder": "Term content in markdown format",
-        "version": "Version",
-        "versionPlaceholder": "e.g., 1.0",
-        "tag": "Document type",
-        "tagPlaceholder": "Select document type",
-        "selectTag": "Select a document type",
-        "noAvailableTags": "No document types available",
-        "allTagsUsed": "All document types have been created. You can only have one of each type.",
-        "allTagsUsedTitle": "All document types are already in use",
-        "allTagsUsedButton": "All types created",
-        "markdownSupported": "Markdown supported",
-        "pdfContent": "PDF content",
-        "contentMd": "Markdown content",
-        "mdFile": "Markdown file",
-        "chooseMd": "Choose Markdown file",
-        "downloadCurrentPdf": "Download PDF",
-        "downloadCurrentMd": "Download Markdown",
-        "tagTypes": {
-          "terms": "Terms and Conditions of Use",
-          "cookies": "Cookie Policy",
-          "privacy": "Privacy Policy",
-          "license": "License"
-        },
-        "pdfVersion": "PDF version (optional)",
-        "choosePdf": "Choose PDF",
-        "cancel": "Cancel",
-        "create": "Create term",
-        "update": "Update term",
-        "noTagsLeft": "No more document types left",
-        "noFileEdit": "Cannot edit the file"
-      },
-      "actions": {
-        "viewPreview": "View preview",
-        "viewPdf": "View PDF"
-      },
-      "tabs": {
-        "form": "Form",
-        "preview": "Markdown preview",
-        "pdf": "PDF preview"
-      },
-      "labels": {
-        "name": "Name",
-        "content": "Content",
-        "version": "Version",
-        "tag": "Document type",
-        "created": "Created",
-        "updated": "Updated"
-      },
-      "preview": {
-        "noFileEdit": "Cannot edit the file",
-        "noPdf": "No PDF available for preview"
-      },
-      "messages": {
-        "createSuccess": "Document created successfully!",
-        "updateSuccess": "Document updated successfully!",
-        "deleteSuccess": "Document deleted successfully",
-        "bulkDeleteSuccess": "Documents deleted successfully",
-        "fetchError": "Error fetching documents",
-        "createError": "Error creating document",
-        "updateError": "Error updating document",
-        "deleteError": "Error deleting document",
-        "downloadSuccess": "PDF downloaded successfully",
-        "networkError": "Unable to save document. Please check your connection and try again.",
-        "selectToDelete": "Please select documents to delete",
-        "fileSizeLimit": "File size must be less than 10MB",
-        "pdfFileOnly": "Please select a PDF file",
-        "validation": {
-          "nameRequired": "Document name is required and must be 127 characters or less.",
-          "contentRequired": "Please upload a valid Markdown (.md) file for the content.",
-          "pdfRequired": "Please upload a valid PDF file for the document.",
-          "versionRequired": "Version is required and must be 20 characters or less.",
-          "tagUnique": "A document with this tag type already exists. Please choose a different tag or edit the existing document.",
-          "fileExtension": "Content file must be a .md file and PDF content must be a .pdf file.",
-          "fileMissing": "Both a markdown (.md) file and a PDF file must be provided.",
-          "tagRequired": "Please select a document type.",
-          "mdSize": "Markdown file must be 1MB or less.",
-          "pdfSize": "PDF file must be 1MB or less."
-        },
-        "upload": {
-          "error": "File upload error. Please make sure your files are valid and try again."
-        },
-        "version": {
-          "updateWarning": "Important: Updating this terms document will create a new version. Users may need to re-accept the updated terms."
-        }
-      },
-      "confirmDelete": {
-        "title": "Confirm deletion",
-        "single": "Are you sure you want to delete \"{name}\"? This action cannot be undone.",
-        "multiple": "Are you sure you want to delete {count} selected terms? This action cannot be undone.",
-        "delete": "Delete",
-        "cancel": "Cancel"
-      },
-      "details": {
-        "created": "Created",
-        "updated": "Updated"
-      }
     }
   },
   "legal": {
@@ -985,14 +871,15 @@
     "sections": {
       "terms": {
         "title": "Terms of Service",
-        "noDocuments": "There are currently no terms of service documents available",
         "identification": {
           "title": "SERVICE PROVIDER IDENTIFICATION",
           "p1": "In compliance with Law 34/2002 (LSSI-CE), this website is owned by:",
           "bullet1": "Company: Ordinaly Software S.L.",
-          "bullet2": "Registered (tax) address: Bormujos, Seville, Spain. For official notices only.",
-          "bullet3": "Customer office and service: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville, Spain",
-          "bullet4": "Website & contact email: https://ordinaly.ai • info@ordinaly.ai"
+          "bullet2": "Tax ID (CIF): B22929764",
+          "bullet3": "Registration details: registered in the Commercial Registry of Seville, sheet SE-150965, entry 1",
+          "bullet4": "Registered office: Avenida República Argentina, s/n, Edificio Principado, 1st floor, office 3, 41930 Bormujos (Seville, Spain)",
+          "bullet5": "Offices and customer service: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville (Spain)",
+          "bullet6": "Website and contact email: https://ordinaly.ai • info@ordinaly.ai"
         },
         "purpose": {
           "title": "PURPOSE",
@@ -1036,13 +923,14 @@
       },
       "privacy": {
         "title": "Privacy Policy",
-        "noDocuments": "There are currently no privacy policy documents available",
         "dataController": {
           "title": "DATA CONTROLLER",
           "p1": "In accordance with GDPR (EU) 2016/679 and Organic Law 3/2018, the data controller is:",
           "p2": "Ordinaly Software S.L.",
-          "bullet1": "Registered (tax) address: Bormujos, Seville, Spain. Used only for official notices and tax matters.",
-          "bullet2": "Customer office and service: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville. Contact: info@ordinaly.ai"
+          "bullet1": "Tax ID (CIF): B22929764",
+          "bullet2": "Registered office: Avenida República Argentina, s/n, Edificio Principado, 1st floor, office 3, 41930 Bormujos (Seville, Spain)",
+          "bullet3": "Customer service and offices: Plaza del Duque de la Victoria 1, 3rd floor, office 9, 41002 Seville. Contact: info@ordinaly.ai",
+          "bullet4": "Data Protection Officer: Antonio Macías Ferrera · antonio.macias@ordinaly.ai"
         },
         "personalDataCollected": {
           "title": "PERSONAL DATA WE COLLECT",
@@ -1050,8 +938,11 @@
           "bullet1": "First and last name",
           "bullet2": "Email address",
           "bullet3": "Phone number",
-          "bullet4": "Access credentials",
-          "bullet5": "Website configuration preferences"
+          "bullet4": "Company and the content of the message you send us through the contact forms",
+          "bullet5": "Access data (username and password, or your Google account if you sign in with it)",
+          "bullet6": "Course enrolment data. Payment is handled by Stripe and Ordinaly does not store your card details",
+          "bullet7": "Technical data from your browser, including the IP address, that Google reCAPTCHA receives when you fill in a form in order to detect automated traffic",
+          "bullet8": "Website preferences (theme, language)"
         },
         "processingPurposes": {
           "title": "PURPOSES OF PROCESSING",
@@ -1059,20 +950,31 @@
           "bullet1": "Handle inquiries and requests",
           "bullet2": "Manage contractual relationships",
           "bullet3": "Personalize user experience",
-          "bullet4": "Send marketing communications with explicit consent"
+          "bullet4": "Send marketing communications with explicit consent",
+          "bullet5": "Protecting the forms and access to the website against spam and abuse"
         },
         "legalBases": {
           "title": "LEGAL BASES",
           "p1": "The legal bases for processing are:",
           "bullet1": "User consent",
-          "bullet2": "Legitimate interest",
-          "bullet3": "Performance of a contract"
+          "bullet2": "Legitimate interest, to personalise basic website features such as language or theme and to protect it against spam and abuse",
+          "bullet3": "Performance of a contract",
+          "bullet4": "Consent, for analytics and third-party content cookies, which you can accept or reject in the cookie banner"
         },
         "recipients": {
           "title": "RECIPIENTS AND INTERNATIONAL TRANSFERS",
-          "p1": "Data may be processed by external providers:",
+          "p1": "The following external providers are involved in providing the service:",
           "bullet1": "Stripe, for secure online payments",
-          "bullet2": "Google Analytics, for website usage analysis"
+          "bullet2": "Google Analytics, for website usage analysis (only if you accept analytics cookies)",
+          "bullet3": "Google reCAPTCHA, to protect the forms against spam",
+          "bullet4": "Google Maps and YouTube, to display embedded maps and videos (only if you accept third-party content)",
+          "bullet5": "Netlify, for website hosting",
+          "bullet6": "Hostinger, for hosting the server, the database and the service files",
+          "bullet7": "The site’s own email delivery service, for service messages (account verification, notices)"
+        },
+        "internationalTransfers": {
+          "title": "INTERNATIONAL TRANSFERS",
+          "p1": "Some of these providers, such as Google, Stripe or Netlify, may process data outside the European Economic Area. In that case the safeguards provided by the GDPR apply, such as the standard contractual clauses approved by the European Commission."
         },
         "dataRetention": {
           "title": "DATA RETENTION",
@@ -1098,6 +1000,11 @@
           "bullet6": "Data portability",
           "bullet7": "Withdrawal of consent"
         },
+        "exerciseRights": {
+          "title": "HOW TO EXERCISE YOUR RIGHTS AND COMPLAIN",
+          "p1": "You can exercise your rights by writing to info@ordinaly.ai or directly to our Data Protection Officer (antonio.macias@ordinaly.ai), stating the right you wish to exercise and proving your identity. We will reply within one month at most, in accordance with the GDPR.",
+          "p2": "If you believe the processing of your data does not comply with the regulations, you have the right to lodge a complaint with the Spanish Data Protection Agency (www.aepd.es)."
+        },
         "dataSecurity": {
           "title": "DATA SECURITY",
           "p1": "Ordinaly Software S.L. implements appropriate technical and organizational measures to protect personal data."
@@ -1105,36 +1012,41 @@
       },
       "cookies": {
         "title": "Cookie Policy",
-        "noDocuments": "There are currently no cookie policy documents available",
         "whatAreCookies": {
           "title": "WHAT ARE COOKIES?",
           "p1": "Cookies are small files installed on the user's device to store and retrieve browsing information."
         },
         "typesOfCookies": {
           "title": "WHAT TYPES OF COOKIES DO WE USE?",
-          "p1": "This website only uses:",
-          "bullet1": "Technical cookies: required for basic website operation.",
-          "bullet2": "Analytics cookies: collect anonymous statistical information."
+          "p1": "This website uses the following types of cookies and similar technologies:",
+          "bullet1": "Technical and preference cookies (necessary): essential for the website to work and to remember your language and theme. They do not require consent.",
+          "bullet2": "Security: Google reCAPTCHA protects the forms against spam. It only loads when you start filling in a form.",
+          "bullet3": "Analytics: usage statistics with Google Analytics. They are only enabled if you accept them.",
+          "bullet4": "Third-party content: embedded Google Maps and YouTube videos. They only load if you accept them.",
+          "bullet5": "Marketing: advertising signals and campaign measurement in Google Analytics. They are only enabled if you accept them."
         },
         "cookiesList": {
           "title": "LIST OF COOKIES USED",
           "p1": "The following cookies are used:",
-          "bullet1": "__next_hmr_refresh_hash__ (Technical)",
-          "bullet2": "NEXT_LOCALE (Technical)",
-          "bullet3": "_ga (Analytics)"
+          "bullet1": "NEXT_LOCALE (Technical): stores the selected language. Duration: session. Provider: Ordinaly",
+          "bullet2": "_GRECAPTCHA (Security): Google reCAPTCHA, risk analysis to detect automated traffic. Duration: 6 months. Provider: Google. Only after you start filling in a form",
+          "bullet3": "_ga (Analytics): distinguishes unique users in Google Analytics. Duration: 2 years. Provider: Google. Only with consent",
+          "bullet4": "_ga_XXXXXXXXXX (Analytics): keeps the session state in Google Analytics 4. Duration: 2 years. Provider: Google. Only with consent",
+          "bullet5": "YouTube and Google Maps cookies (Third-party content): set by Google when the video or map loads; their name and duration depend on Google. Only with consent"
         },
         "localStorage": {
           "title": "BROWSER LOCAL STORAGE (LocalStorage)",
           "p1": "The website may store information using local storage.",
-          "p2": "This data is not shared with third parties.",
-          "bullet1": "theme",
-          "bullet2": "cookie-preferences",
-          "bullet3": "cookie-consent",
-          "bullet4": "authToken"
+          "p2": "This data is stored only in your browser, is not shared with third parties and is used solely for the website to work and to remember your preferences.",
+          "bullet1": "theme: stores the visual mode of the site (light or dark)",
+          "bullet2": "cookie-preferences: stores your cookie preferences and the date you chose them (they are requested again every 24 months)",
+          "bullet3": "cookie-consent: indicates whether you have accepted, rejected or customised the use of cookies",
+          "bullet4": "auth_token: session token of the registered user (only if you sign in)",
+          "bullet5": "Temporary data for account processes, such as the waiting times when verifying your email or resetting your password"
         },
         "cookieManagement": {
           "title": "COOKIE MANAGEMENT",
-          "p1": "Users can accept, reject or configure cookies via the banner or browser settings.",
+          "p1": "The first time you visit, the site shows a banner where you can accept all cookies, reject the non-essential ones or configure them by category. You can change your choice at any time with the “Open cookie settings” link in the footer, and you will be asked again every 24 months. You can also delete or block cookies from your browser:",
           "bullet1": "Google Chrome",
           "bullet2": "Mozilla Firefox",
           "bullet3": "Safari",
@@ -1142,16 +1054,16 @@
         },
         "internationalTransfer": {
           "title": "INTERNATIONAL DATA TRANSFERS",
-          "p1": "Some analytics cookies may involve data transfers outside the EEA."
+          "p1": "Some Google services (Analytics, reCAPTCHA, Maps and YouTube) may involve transferring data to servers outside the European Economic Area (for example, the US). These transfers rely on the safeguards provided by the GDPR, such as the standard contractual clauses approved by the European Commission."
         },
         "policyModification": {
           "title": "CHANGES TO THE COOKIE POLICY",
-          "p1": "Ordinaly Software S.L. may update this Cookie Policy when required."
+          "p1": "Ordinaly Software S.L. may update this Cookie Policy when required.",
+          "p2": "Last updated: October 2026."
         }
       },
       "license": {
         "title": "License information",
-        "noDocuments": "There are currently no license documents available",
         "purpose": {
           "title": "PURPOSE",
           "p1": "This document governs the terms of use for deliverables developed by Ordinaly Software S.L., including:",
@@ -1201,11 +1113,14 @@
         }
       }
     },
-    "messages": {
-      "fetchError": "Failed to fetch legal documents",
-      "networkError": "Network error while fetching documents",
-      "noPdfAvailable": "PDF version is not available for this document",
-      "downloadSuccess": "PDF downloaded successfully"
+    "pdf": {
+      "kicker": "Ordinaly Software S.L.",
+      "versionLine": "Version {version} · {date}",
+      "page": "Page {page} of {total}",
+      "companyLine": "Ordinaly Software S.L. · Tax ID (CIF) B22929764",
+      "addressLine": "Avda. República Argentina, s/n, Edificio Principado, 1st floor, office 3 · 41930 Bormujos (Seville)",
+      "contactLine": "info@ordinaly.ai · https://ordinaly.ai",
+      "error": "The PDF could not be generated. Please try again."
     }
   },
   "services": {
@@ -1947,7 +1862,10 @@
       "submit": "Send message",
       "sending": "Sending...",
       "success": "Thanks! We've received your message and will reply shortly.",
-      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai."
+      "errorFallback": "We couldn't send the form. Please email info@ordinaly.ai.",
+      "privacyConsent": "I have read and accept the <link>Privacy Policy</link>.",
+      "privacyInfo": "Controller: Ordinaly Software S.L. Purpose: to handle your enquiry. Legal basis: your consent. Rights: access, rectification, erasure, objection, restriction and portability by writing to info@ordinaly.ai. More information in the <link>Privacy Policy</link>.",
+      "recaptchaNotice": "This form is protected by Google reCAPTCHA, which loads when you start filling it in and sends data from your browser (including your IP) to Google. Its <privacy>Privacy Policy</privacy> and <terms>Terms of Service</terms> apply."
     },
     "formAside": {
       "title": "What to include so we can respond better",
@@ -2967,6 +2885,10 @@
           "Enables push notifications, camera access, geolocation, and other mobile app functionalities.",
           "Offers a fast, smooth, and secure experience"
         ]
+      },
+      "themeDemo": {
+        "title": "Try it: switch the theme",
+        "description": "Your PWA can ship light and dark modes with smooth transitions. Tap the button and see it live."
       },
       "infocards": {
         "cards": [

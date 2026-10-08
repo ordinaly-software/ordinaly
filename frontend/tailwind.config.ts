@@ -80,6 +80,8 @@ const config: Config = {
   				light: 'var(--swatch--slate-light)'
   			},
   			clay: 'var(--swatch--clay)',
+  			'clay-fill': 'var(--swatch--clay-fill)',
+  			'flame-dark': 'var(--swatch--flame-dark)',
   			flame: 'var(--swatch--flame)',
   			cobalt: {
   				DEFAULT: 'var(--swatch--cobalt)',

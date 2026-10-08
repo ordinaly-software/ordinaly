@@ -42,6 +42,7 @@ const stepVariants = {
 
 function SignupPageContent() {
   const t = useTranslations("signup");
+  const tCommon = useTranslations("common");
   const { isDark } = useTheme();
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState(1);
@@ -363,7 +364,7 @@ function SignupPageContent() {
             <div className="scroll-animate slide-in-right">
               <Card className="rounded-[2rem] border border-[--color-border-subtle] bg-white/80 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]">
                 <CardHeader className="space-y-4">
-                  <div className="flex gap-2" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={TOTAL_STEPS}>
+                  <div className="flex gap-2" role="progressbar" aria-label={`${step}/${TOTAL_STEPS}`} aria-valuenow={step} aria-valuemin={1} aria-valuemax={TOTAL_STEPS}>
                     {Array.from({ length: TOTAL_STEPS }).map((_, index) => (
                       <div
                         key={index}
@@ -376,7 +377,7 @@ function SignupPageContent() {
                     <CardTitle className="text-xl font-semibold tracking-[-0.02em]">
                       {t(`form.step${step}Title` as "form.step1Title")}
                     </CardTitle>
-                    <span className="whitespace-nowrap text-xs font-medium text-cloud-medium">
+                    <span className="whitespace-nowrap text-xs font-medium text-slate-light dark:text-cloud-medium">
                       {t("form.stepIndicator", { current: step, total: TOTAL_STEPS })}
                     </span>
                   </div>
@@ -408,7 +409,7 @@ function SignupPageContent() {
                           <div className="w-full border-t border-[--color-border-subtle] dark:border-white/10" />
                         </div>
                         <div className="relative flex justify-center text-sm">
-                          <span className="bg-[--swatch--ivory-light] px-2 text-cloud-medium dark:bg-[--swatch--slate-dark]">
+                          <span className="bg-[--swatch--ivory-light] px-2 text-slate-light dark:text-cloud-medium dark:bg-[--swatch--slate-dark]">
                             {t("form.orSignupWithEmail")}
                           </span>
                         </div>
@@ -433,7 +434,7 @@ function SignupPageContent() {
                             <div className="space-y-2">
                               <Label htmlFor="name">{t("form.nameLabel")}</Label>
                               <div className="relative">
-                                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                                 <Input
                                   id="name"
                                   type="text"
@@ -451,7 +452,7 @@ function SignupPageContent() {
                             <div className="space-y-2">
                               <Label htmlFor="surname">{t("form.surnameLabel")}</Label>
                               <div className="relative">
-                                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                                 <Input
                                   id="surname"
                                   type="text"
@@ -470,7 +471,7 @@ function SignupPageContent() {
                           <div className="space-y-2">
                             <Label htmlFor="email">{t("form.emailLabel")}</Label>
                             <div className="relative">
-                              <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                              <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                               <Input
                                 id="email"
                                 type="email"
@@ -509,7 +510,7 @@ function SignupPageContent() {
                           <div className="space-y-2">
                             <Label htmlFor="company">{t("form.companyLabel")}</Label>
                             <div className="relative">
-                              <Building2 className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                              <Building2 className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                               <Input
                                 id="company"
                                 type="text"
@@ -528,7 +529,7 @@ function SignupPageContent() {
                             <div className="space-y-2">
                               <Label htmlFor="region">{t("form.regionLabel")}</Label>
                               <div className="relative">
-                                <Globe className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                                <Globe className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                                 <Input
                                   id="region"
                                   type="text"
@@ -543,7 +544,7 @@ function SignupPageContent() {
                             <div className="space-y-2">
                               <Label htmlFor="city">{t("form.cityLabel")}</Label>
                               <div className="relative">
-                                <MapPin className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                                <MapPin className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                                 <Input
                                   id="city"
                                   type="text"
@@ -593,7 +594,7 @@ function SignupPageContent() {
                           <div className="space-y-2">
                             <Label htmlFor="password">{t("form.passwordLabel")}</Label>
                             <div className="relative">
-                              <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                              <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                               <Input
                                 id="password"
                                 type={showPassword ? "text" : "password"}
@@ -607,7 +608,8 @@ function SignupPageContent() {
                               <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
+                                aria-label={showPassword ? tCommon("hidePassword") : tCommon("showPassword")}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-light dark:text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
                               >
                                 {showPassword ? (
                                   <EyeOff className="h-5 w-5" />
@@ -623,7 +625,7 @@ function SignupPageContent() {
                           <div className="space-y-2">
                             <Label htmlFor="confirmPassword">{t("form.confirmPasswordLabel")}</Label>
                             <div className="relative">
-                              <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                              <Lock className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                               <Input
                                 id="confirmPassword"
                                 type={showConfirmPassword ? "text" : "password"}
@@ -636,7 +638,8 @@ function SignupPageContent() {
                               <button
                                 type="button"
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
+                                aria-label={showConfirmPassword ? tCommon("hidePassword") : tCommon("showPassword")}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-light dark:text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
                               >
                                 {showConfirmPassword ? (
                                   <EyeOff className="h-5 w-5" />
@@ -684,7 +687,7 @@ function SignupPageContent() {
                                     href="/legal?tab=terms"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="font-medium text-cobalt underline hover:text-clay"
+                                    className="font-medium text-cobalt dark:text-cobalt-light underline hover:text-clay"
                                   >
                                     {t("form.termsLink")}
                                   </a>{" "}
@@ -693,7 +696,7 @@ function SignupPageContent() {
                                     href="/legal?tab=privacy"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="font-medium text-cobalt underline hover:text-clay"
+                                    className="font-medium text-cobalt dark:text-cobalt-light underline hover:text-clay"
                                   >
                                     {t("form.privacyLink")}
                                   </a>
@@ -746,7 +749,7 @@ function SignupPageContent() {
 
                   <p className="mt-6 text-center text-sm text-slate-medium dark:text-cloud-medium">
                     {t("form.loginPrompt")}{" "}
-                    <Link href="/auth/signin" className="text-cobalt hover:underline">
+                    <Link href="/auth/signin" className="text-cobalt dark:text-cobalt-light underline">
                       {t("form.loginLink")}
                     </Link>
                   </p>

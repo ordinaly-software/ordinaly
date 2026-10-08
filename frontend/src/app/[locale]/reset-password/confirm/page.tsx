@@ -63,7 +63,7 @@ function StatusPage({
                   href={buttonHref}
                   className={
                     variant === "primary"
-                      ? "inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] dark:bg-[#D97757] dark:text-white dark:hover:bg-[#C6613F]"
+                      ? "inline-flex items-center justify-center gap-2 rounded-xl bg-clay-fill px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#9A3C1A] dark:bg-clay-fill dark:text-white dark:hover:bg-[#9A3C1A]"
                       : "inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                   }
                 >
@@ -81,6 +81,7 @@ function StatusPage({
 
 export default function ResetPasswordConfirmPage() {
   const t = useTranslations("resetPassword");
+  const tCommon = useTranslations("common");
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
@@ -110,7 +111,7 @@ export default function ResetPasswordConfirmPage() {
     return (
       <StatusPage
         icon={<CheckCircle2 className="h-10 w-10" />}
-        iconColor="text-[#D97757] dark:text-[#F6D2C5]"
+        iconColor="text-clay dark:text-[#F6D2C5]"
         title={t("confirm.successTitle")}
         description={t("confirm.successDesc")}
         buttonLabel={t("confirm.goToSignin")}
@@ -225,13 +226,14 @@ export default function ResetPasswordConfirmPage() {
                       type={showPassword ? "text" : "password"}
                       value={newPassword}
                       onChange={(e) => setNewPassword(e.target.value)}
-                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-10 text-base text-gray-900 transition-all focus:ring-2 focus:ring-[#D97757] dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-[#D97757]"
+                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-10 text-base text-gray-900 transition-all focus:ring-2 focus:ring-clay dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-clay"
                       placeholder={t("confirm.newPasswordPlaceholder")}
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
+                      aria-label={showPassword ? tCommon("hidePassword") : tCommon("showPassword")}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
                     >
                       {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -250,13 +252,14 @@ export default function ResetPasswordConfirmPage() {
                       type={showConfirmPassword ? "text" : "password"}
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-10 text-base text-gray-900 transition-all focus:ring-2 focus:ring-[#D97757] dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-[#D97757]"
+                      className="w-full rounded-xl border border-gray-300 bg-gray-50 py-3 pl-10 pr-10 text-base text-gray-900 transition-all focus:ring-2 focus:ring-clay dark:border-gray-600 dark:bg-gray-800/50 dark:text-white dark:focus:ring-clay"
                       placeholder={t("confirm.confirmPasswordPlaceholder")}
                       required
                     />
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      aria-label={showConfirmPassword ? tCommon("hidePassword") : tCommon("showPassword")}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-300"
                     >
                       {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -278,7 +281,7 @@ export default function ResetPasswordConfirmPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] disabled:opacity-50 dark:bg-[#D97757] dark:text-white dark:hover:bg-[#C6613F]"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-clay-fill px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#9A3C1A] disabled:opacity-50 dark:bg-clay-fill dark:text-white dark:hover:bg-[#9A3C1A]"
                   >
                     <KeyRound className="h-4 w-4" />
                     {isLoading ? t("confirm.submitLoading") : t("confirm.submit")}

@@ -14,15 +14,15 @@ const buttonVariants = cva(
           "bg-[var(--swatch--slate-dark)] text-[var(--swatch--ivory-light)] hover:bg-[var(--swatch--slate-medium)] dark:bg-[var(--swatch--ivory-light)] dark:text-[var(--swatch--slate-dark)] dark:hover:bg-oat",
         // Brand accent: clay — same on light and dark
         accent:
-          "bg-[var(--swatch--clay)] text-[var(--swatch--ivory-light)] hover:bg-[#C6613F]",
+          "bg-clay-fill text-[var(--swatch--ivory-light)] hover:bg-[#9A3C1A]",
         // Flame: saturated orange
         flame:
-          "bg-[var(--swatch--flame)] text-[var(--swatch--ivory-light)] hover:bg-[var(--swatch--flame-dark)]",
+          "bg-clay-fill text-[var(--swatch--ivory-light)] hover:bg-[#9A3C1A]",
         // Cobalt: deep blue
         cobalt:
           "bg-cobalt text-[var(--swatch--ivory-light)] hover:bg-cobalt-dark",
         whatsapp:
-          "bg-[var(--swatch--clay)] text-[var(--swatch--ivory-light)] hover:bg-[var(--swatch--flame)] dark:bg-[var(--swatch--clay)] dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[var(--swatch--flame)]",
+          "bg-clay-fill text-[var(--swatch--ivory-light)] hover:bg-[#9A3C1A] dark:bg-clay-fill dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[#9A3C1A]",
         // Outline: transparent with border
         outline:
           "border border-[var(--swatch--slate-dark)]/25 bg-transparent text-[var(--swatch--slate-dark)] hover:bg-oat dark:border-[var(--swatch--ivory-light)]/25 dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[var(--swatch--slate-medium)]",

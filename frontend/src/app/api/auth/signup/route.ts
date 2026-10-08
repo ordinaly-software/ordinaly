@@ -20,7 +20,7 @@ export async function POST(req: Request) {
   }
 
   const requestBody = body as Record<string, unknown>;
-  const recaptchaCheck = await verifyRecaptchaToken(requestBody.recaptchaToken);
+  const recaptchaCheck = await verifyRecaptchaToken(requestBody.recaptchaToken, ["signup_form"]);
   if (!recaptchaCheck.ok) {
     return NextResponse.json({ error: recaptchaCheck.error }, { status: recaptchaCheck.status ?? 400 });
   }

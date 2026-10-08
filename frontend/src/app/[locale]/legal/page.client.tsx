@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { useTranslations } from "next-intl";
+import { useState, useEffect, useMemo } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Alert from "@/components/ui/alert";
@@ -10,7 +10,6 @@ import {
   FileText, 
   Download, 
   Calendar,
-  Tag,
   ExternalLink,
   Mail,
   Sparkles
@@ -18,22 +17,7 @@ import {
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
-
-interface LegalDocument {
-  id: number;
-  name: string;
-  content: string;
-  pdf_content: string | null;
-  version: string;
-  tag: string;
-  author?: {
-    username: string;
-    first_name: string;
-    last_name: string;
-  };
-  created_at: string;
-  updated_at: string;
-}
+import { LEGAL_DOCUMENT_DATE, LEGAL_DOCUMENT_VERSION } from "@/lib/legal";
 
 type LegalTab = 'terms' | 'privacy' | 'cookies' | 'license';
 
@@ -65,6 +49,8 @@ const getTermsContent = (t: (key: string, opts?: Record<string, string | number 
         t('sections.terms.identification.bullet2'),
         t('sections.terms.identification.bullet3'),
         t('sections.terms.identification.bullet4'),
+        t('sections.terms.identification.bullet5'),
+        t('sections.terms.identification.bullet6'),
       ],
     },
     {
@@ -148,6 +134,8 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
       bullets: [
         t('sections.privacy.dataController.bullet1'),
         t('sections.privacy.dataController.bullet2'),
+        t('sections.privacy.dataController.bullet3'),
+        t('sections.privacy.dataController.bullet4'),
       ],
     },
     {
@@ -162,6 +150,9 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.personalDataCollected.bullet3'),
         t('sections.privacy.personalDataCollected.bullet4'),
         t('sections.privacy.personalDataCollected.bullet5'),
+        t('sections.privacy.personalDataCollected.bullet6'),
+        t('sections.privacy.personalDataCollected.bullet7'),
+        t('sections.privacy.personalDataCollected.bullet8'),
       ],
     },
     {
@@ -175,6 +166,7 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.processingPurposes.bullet2'),
         t('sections.privacy.processingPurposes.bullet3'),
         t('sections.privacy.processingPurposes.bullet4'),
+        t('sections.privacy.processingPurposes.bullet5'),
       ],
     },
     {
@@ -187,6 +179,7 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.legalBases.bullet1'),
         t('sections.privacy.legalBases.bullet2'),
         t('sections.privacy.legalBases.bullet3'),
+        t('sections.privacy.legalBases.bullet4'),
       ],
     },
     {
@@ -198,6 +191,18 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
       bullets: [
         t('sections.privacy.recipients.bullet1'),
         t('sections.privacy.recipients.bullet2'),
+        t('sections.privacy.recipients.bullet3'),
+        t('sections.privacy.recipients.bullet4'),
+        t('sections.privacy.recipients.bullet5'),
+        t('sections.privacy.recipients.bullet6'),
+        t('sections.privacy.recipients.bullet7'),
+      ],
+    },
+    {
+      id: 'international-transfers',
+      title: t('sections.privacy.internationalTransfers.title'),
+      paragraphs: [
+        t('sections.privacy.internationalTransfers.p1'),
       ],
     },
     {
@@ -239,6 +244,14 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
       ],
     },
     {
+      id: 'exercise-rights',
+      title: t('sections.privacy.exerciseRights.title'),
+      paragraphs: [
+        t('sections.privacy.exerciseRights.p1'),
+        t('sections.privacy.exerciseRights.p2'),
+      ],
+    },
+    {
       id: 'data-security',
       title: t('sections.privacy.dataSecurity.title'),
       paragraphs: [
@@ -267,6 +280,9 @@ const getCookiesContent = (t: (key: string, opts?: Record<string, string | numbe
       bullets: [
         t('sections.cookies.typesOfCookies.bullet1'),
         t('sections.cookies.typesOfCookies.bullet2'),
+        t('sections.cookies.typesOfCookies.bullet3'),
+        t('sections.cookies.typesOfCookies.bullet4'),
+        t('sections.cookies.typesOfCookies.bullet5'),
       ],
     },
     {
@@ -279,6 +295,8 @@ const getCookiesContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.cookies.cookiesList.bullet1'),
         t('sections.cookies.cookiesList.bullet2'),
         t('sections.cookies.cookiesList.bullet3'),
+        t('sections.cookies.cookiesList.bullet4'),
+        t('sections.cookies.cookiesList.bullet5'),
       ],
     },
     {
@@ -293,6 +311,7 @@ const getCookiesContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.cookies.localStorage.bullet2'),
         t('sections.cookies.localStorage.bullet3'),
         t('sections.cookies.localStorage.bullet4'),
+        t('sections.cookies.localStorage.bullet5'),
       ],
     },
     {
@@ -320,6 +339,7 @@ const getCookiesContent = (t: (key: string, opts?: Record<string, string | numbe
       title: t('sections.cookies.policyModification.title'),
       paragraphs: [
         t('sections.cookies.policyModification.p1'),
+        t('sections.cookies.policyModification.p2'),
       ],
     },
   ],
@@ -410,8 +430,8 @@ const getLicenseContent = (t: (key: string, opts?: Record<string, string | numbe
 const LegalPage = () => {
   const t = useTranslations("legal");
   const tCommon = useTranslations("common");
-  const [documents, setDocuments] = useState<LegalDocument[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const locale = useLocale();
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
   const [alert, setAlert] = useState<{type: 'success' | 'error' | 'info' | 'warning', message: string} | null>(null);
   const [activeTab, setActiveTab] = useState<LegalTab>("terms");
   const [isDark, setIsDark] = useState(false);
@@ -466,42 +486,32 @@ const LegalPage = () => {
     return () => observer.disconnect();
   }, []);
 
-  const fetchDocuments = useCallback(async () => {
+  const documentDate = new Date(`${LEGAL_DOCUMENT_DATE}T12:00:00`).toLocaleDateString(locale, {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+  const downloadPDF = async (content: DocumentContent) => {
+    setIsGeneratingPdf(true);
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
-      const response = await fetch(`${apiUrl}/api/terms/`, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+      // jsPDF is only needed on click, so it stays out of the page bundle.
+      const { generateLegalPDF } = await import('@/utils/pdf/legal-document');
+      const versionLine = t('pdf.versionLine', { version: LEGAL_DOCUMENT_VERSION, date: documentDate });
+      await generateLegalPDF({
+        title: content.title,
+        sections: content.sections,
+        fileName: `${activeTab}_ordinaly_v${LEGAL_DOCUMENT_VERSION}.pdf`,
+        versionLine,
+        kicker: t('pdf.kicker'),
+        footerLines: [t('pdf.companyLine'), t('pdf.addressLine'), t('pdf.contactLine')],
+        pageLabel: (page, total) => t('pdf.page', { page, total }),
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        setDocuments(Array.isArray(data) ? data : []);
-      } else {
-        setAlert({type: 'error', message: t('messages.fetchError')});
-      }
     } catch {
-      setAlert({type: 'error', message: t('messages.networkError')});
+      setAlert({ type: 'error', message: t('pdf.error') });
     } finally {
-      setIsLoading(false);
+      setIsGeneratingPdf(false);
     }
-  }, [t]);
-  
-  useEffect(() => {
-    fetchDocuments();
-  }, [fetchDocuments]);
-
-  const downloadPDF = (doc: LegalDocument) => {
-    if (!doc.pdf_content) {
-      setAlert({type: 'warning', message: t('messages.noPdfAvailable')});
-      return;
-    }
-    window.open(doc.pdf_content, '_blank');
-  };
-
-  const getDocumentsByTag = (tag: string) => {
-    return documents.filter(doc => doc.tag === tag);
   };
 
   const tabs = useMemo(
@@ -520,22 +530,9 @@ const LegalPage = () => {
       return `${base} border-clay/60 bg-clay/15 text-clay shadow-md`;
     }
     return isDark
-      ? `${base} border-white/10 bg-white/5 text-gray-200 hover:border-clay hover:bg-clay hover:text-white`
-      : `${base} border-gray-200 bg-white text-gray-700 hover:border-clay hover:bg-clay hover:text-white`;
+      ? `${base} border-white/10 bg-white/5 text-gray-200 hover:border-clay hover:bg-clay-fill hover:text-white dark:text-white`
+      : `${base} border-gray-200 bg-white text-gray-700 hover:border-clay hover:bg-clay-fill hover:text-white dark:text-white`;
   };
-
-  const rootClass = isDark
-    ? "relative min-h-screen overflow-hidden bg-gradient-to-br from-[#130d08] via-[#1a1208] to-[#231a0a] text-slate-50"
-    : "relative min-h-screen overflow-hidden bg-gray-50 text-slate-900";
-
-  const overlaySet = isDark
-    ? (
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(214,119,63,0.15),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(214,119,63,0.08),transparent_25%)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.02)_35%,transparent_70%)]" />
-        </div>
-      )
-    : null;
 
   const panelClass = isDark
     ? "rounded-3xl border border-white/10 bg-white/5 px-6 py-8 shadow-[0_25px_80px_rgba(0,0,0,0.35)] backdrop-blur-md sm:px-10"
@@ -544,32 +541,12 @@ const LegalPage = () => {
   const cardClass = (extra = "") =>
     isDark ? `border-white/10 bg-white/5 backdrop-blur-md ${extra}` : `border-gray-200 bg-white ${extra}`;
 
-  const activeDocuments = getDocumentsByTag(activeTab);
-  const activeDoc = activeDocuments.length > 0 ? activeDocuments[0] : null;
-  
-  // Get static content for terms/privacy/cookies/license or use API content for other tabs
-  const contentData = activeTab === 'terms' 
-    ? getTermsContent(t)
-    : activeTab === 'privacy'
-    ? getPrivacyContent(t)
-    : activeTab === 'cookies'
-    ? getCookiesContent(t)
-    : activeTab === 'license'
-    ? getLicenseContent(t)
-    : null;
-
-  if (isLoading) {
-    return (
-      <div className={rootClass}>
-        {overlaySet}
-        <div className="relative mx-auto flex max-w-6xl flex-col gap-8 px-4 pb-20 pt-20 md:px-6 lg:px-8 lg:pt-24">
-          <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-2 border-clay border-t-transparent"></div>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const contentData: DocumentContent = {
+    terms: getTermsContent,
+    privacy: getPrivacyContent,
+    cookies: getCookiesContent,
+    license: getLicenseContent,
+  }[activeTab](t);
 
   return (
     <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white transition-colors duration-300">
@@ -599,7 +576,7 @@ const LegalPage = () => {
               </p>
             </div>
             <Link href="/" className="self-start lg:self-center">
-              <Button className="bg-clay text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight">
+              <Button className="bg-clay-fill dark:bg-clay-fill text-white dark:text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight">
                 <ExternalLink className="mr-2 h-4 w-4" />
                 {tCommon('backToHome')}
               </Button>
@@ -619,8 +596,7 @@ const LegalPage = () => {
         {/* Action Cards Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {/* Download Card */}
-          {activeDoc && activeDoc.pdf_content && (
-            <Card className={cardClass("flex flex-col")}>
+          <Card className={cardClass("flex flex-col")}>
               <CardContent className={`flex flex-col p-6 md:p-7 ${isDark ? "" : "text-slate-800"}`}>
                 <div className="flex items-center gap-3">
                   <Download className={isDark ? "h-5 w-5 text-clay dark:text-clay" : "h-5 w-5 text-clay dark:text-clay"} />
@@ -629,7 +605,7 @@ const LegalPage = () => {
                       {t('downloadPdf')}
                     </p>
                     <h3 className={isDark ? "text-xl font-bold text-white" : "text-xl font-bold text-slate-900"}>
-                      {activeDoc.name} v{activeDoc.version}
+                      {contentData.title} v{LEGAL_DOCUMENT_VERSION}
                     </h3>
                   </div>
                 </div>
@@ -637,15 +613,15 @@ const LegalPage = () => {
                   {t('downloadDesc')}
                 </p>
                 <Button
-                  onClick={() => downloadPDF(activeDoc)}
-                  className="w-full bg-clay text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
+                  onClick={() => downloadPDF(contentData)}
+                  disabled={isGeneratingPdf}
+                  className="w-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   {t('downloadPdf')}
                 </Button>
               </CardContent>
-            </Card>
-          )}
+          </Card>
 
           {/* Cookie Settings Card */}
           <Card className={cardClass("flex flex-col")}>
@@ -672,7 +648,7 @@ const LegalPage = () => {
                     // ignore
                   }
                 }}
-                className="w-full bg-clay text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <Sparkles className="mr-2 h-4 w-4" />
                 {t('openCookieSettings', {})}
@@ -699,7 +675,7 @@ const LegalPage = () => {
               </p>
               <Button
                 asChild
-                className="w-full bg-clay text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <a href="mailto:denuncias@ordinaly.ai">{t('contactCta', {})}</a>
               </Button>
@@ -710,112 +686,43 @@ const LegalPage = () => {
         {/* Main Content */}
         <Card className={cardClass()}>
           <CardContent className={`space-y-6 p-6 md:p-8 ${isDark ? "" : "text-slate-900"}`}>
-            {contentData || activeDoc ? (
-              <>
-                <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <h2 className={`${isDark ? "text-2xl font-black text-white md:text-3xl" : "text-2xl font-black text-slate-900 md:text-3xl"}`}>
-                      {contentData?.title || activeDoc?.name}
-                    </h2>
-                  </div>
-                  <div className={isDark ? "flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200" : "flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700"}>
-                    <Calendar className={isDark ? "h-4 w-4 text-clay dark:text-clay" : "h-4 w-4 text-clay dark:text-clay"} />
-                    {activeDoc ? new Date(activeDoc.updated_at).toLocaleDateString() : new Date().toLocaleDateString()}
+            <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+              <h2 className={`${isDark ? "text-2xl font-black text-white md:text-3xl" : "text-2xl font-black text-slate-900 md:text-3xl"}`}>
+                {contentData.title}
+              </h2>
+              <div className={isDark ? "flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200" : "flex items-center gap-2 rounded-full border border-gray-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700"}>
+                <Calendar className="h-4 w-4 text-clay dark:text-clay" />
+                v{LEGAL_DOCUMENT_VERSION} · {documentDate}
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              {contentData.sections.map((section) => (
+                <div key={section.id} className={isDark ? "space-y-3 rounded-2xl border border-white/10 bg-white/5 p-6" : "space-y-3 rounded-2xl border border-gray-200 bg-white p-6"}>
+                  <h3 className={isDark ? "text-lg font-bold text-white" : "text-lg font-bold text-slate-900"}>
+                    {section.title}
+                  </h3>
+                  <div className={isDark ? "space-y-3 text-slate-100/85" : "space-y-3 text-slate-700"}>
+                    {section.paragraphs.map((paragraph, idx) => (
+                      <p key={idx} className="leading-relaxed">
+                        {paragraph}
+                      </p>
+                    ))}
+                    {section.bullets && section.bullets.length > 0 && (
+                      <ul className={isDark ? "list-disc space-y-2 pl-5 text-slate-100/80" : "list-disc space-y-2 pl-5 text-slate-700"}>
+                        {section.bullets.map((bullet, idx) => (
+                          <li key={idx} className="leading-relaxed">
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </div>
-
-                {/* Content Sections */}
-                {contentData ? (
-                  <div className="space-y-8">
-                    {contentData.sections.map((section) => (
-                      <div key={section.id} className={isDark ? "space-y-3 rounded-2xl border border-white/10 bg-white/5 p-6" : "space-y-3 rounded-2xl border border-gray-200 bg-white p-6"}>
-                        <h3 className={isDark ? "text-lg font-bold text-white" : "text-lg font-bold text-slate-900"}>
-                          {section.title}
-                        </h3>
-                        <div className={isDark ? "space-y-3 text-slate-100/85" : "space-y-3 text-slate-700"}>
-                          {section.paragraphs.map((paragraph, idx) => (
-                            <p key={idx} className="leading-relaxed">
-                              {paragraph}
-                            </p>
-                          ))}
-                          {section.bullets && section.bullets.length > 0 && (
-                            <ul className={isDark ? "list-disc space-y-2 pl-5 text-slate-100/80" : "list-disc space-y-2 pl-5 text-slate-700"}>
-                              {section.bullets.map((bullet, idx) => (
-                                <li key={idx} className="leading-relaxed">
-                                  {bullet}
-                                </li>
-                              ))}
-                            </ul>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <>
-                    <p className={isDark ? "text-base text-slate-100/90" : "text-base text-slate-700"}>{activeDoc?.content}</p>
-
-                    {/* PDF Preview */}
-                    {activeDoc?.pdf_content && (
-                      <div className="rounded-2xl overflow-hidden border border-white/10">
-                        <object
-                          data={activeDoc.pdf_content}
-                          type="application/pdf"
-                          className="w-full h-80 sm:h-[40rem] md:h-[48rem]"
-                        >
-                          <p className={isDark ? "text-slate-200 p-4" : "text-slate-700 p-4"}>{t('messages.noPdfAvailable')}</p>
-                        </object>
-                      </div>
-                    )}
-                  </>
-                )}
-              </>
-            ) : (
-              <div className="text-center py-12">
-                <FileText className={isDark ? "w-12 h-12 text-gray-400 mx-auto mb-4" : "w-12 h-12 text-gray-400 mx-auto mb-4"} />
-                <p className={isDark ? "text-slate-200" : "text-slate-700"}>
-                  {t('sections.' + activeTab + '.noDocuments')}
-                </p>
-              </div>
-            )}
+              ))}
+            </div>
           </CardContent>
         </Card>
-
-        {/* All Documents Grid - Optional alternative view */}
-        {activeDocuments.length > 1 && (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {activeDocuments.map((doc) => (
-              <Card key={doc.id} className={cardClass()}>
-                <CardContent className={`space-y-3 p-4 md:p-5 ${isDark ? "" : "text-slate-800"}`}>
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <p className={isDark ? "text-xs uppercase tracking-[0.2em] text-clay dark:text-clay" : "text-xs uppercase tracking-[0.2em] text-clay dark:text-clay"}>
-                        v{doc.version}
-                      </p>
-                      <h4 className={isDark ? "font-bold text-white" : "font-bold text-slate-900"}>
-                        {doc.name}
-                      </h4>
-                    </div>
-                    <Tag className={isDark ? "h-4 w-4 text-slate-400" : "h-4 w-4 text-slate-400"} />
-                  </div>
-                  <p className={isDark ? "text-xs text-slate-300" : "text-xs text-slate-600"}>
-                    {new Date(doc.updated_at).toLocaleDateString()}
-                  </p>
-                  {doc.pdf_content && (
-                    <Button
-                      onClick={() => downloadPDF(doc)}
-                      size="sm"
-                      className="w-full bg-clay text-white hover:bg-clay/90"
-                    >
-                      <Download className="mr-2 h-3 w-3" />
-                      {t('downloadPdf')}
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        )}
       </div>
       <Footer />
     </div>

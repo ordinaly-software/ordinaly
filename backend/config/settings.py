@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'api',
-    'terms',
     'services',
     'courses',
     'authentication',
@@ -169,13 +168,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     'https://ordinaly.netlify.app',
     'https://ordinaly.ai',
-    'http://localhost:3000',
     'https://api.ordinaly.ai',
 ]
+if DEBUG:
+    CORS_ALLOWED_ORIGINS.append('http://localhost:3000')
 # Permitir cualquier subdominio de Netlify para previews (solo para desarrollo/staging)
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https:\/\/[a-z0-9\-]+--ordinaly\.netlify\.app$",
 ]
+
+# HTTPS hardening (production only). The proxy in front of gunicorn must send
+# X-Forwarded-Proto, otherwise Django sees plain HTTP and omits HSTS.
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_HSTS_SECONDS = 31536000
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 AUTH_USER_MODEL = 'users.CustomUser'
 

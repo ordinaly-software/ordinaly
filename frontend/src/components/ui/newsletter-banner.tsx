@@ -46,7 +46,7 @@ export function NewsletterBanner({
       <div
         ref={containerRef}
         className={cn(
-          "relative flex w-full flex-col items-center justify-center gap-6 overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-gradient-to-br from-[--swatch--clay] to-[--swatch--flame-dark] p-8 text-center text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] dark:border-white/10",
+          "relative flex w-full flex-col items-center justify-center gap-6 overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-gradient-to-br from-[--swatch--clay-fill] to-[--swatch--flame-dark] p-8 text-center text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] dark:border-white/10",
           !isCompact && "flex-row justify-between p-10 text-left",
           className,
         )}
@@ -73,7 +73,7 @@ export function NewsletterBanner({
           >
             {t("title")}
           </h3>
-          <p className={cn("mt-2 text-sm leading-relaxed text-white/80", !isCompact && "text-base")}>
+          <p className={cn("mt-2 text-sm leading-relaxed text-white/90", !isCompact && "text-base")}>
             {t("subtitle")}
           </p>
         </div>
@@ -94,7 +94,7 @@ export function NewsletterBanner({
                 required
                 placeholder={t("emailPlaceholder")}
                 className={cn(
-                  "h-12 w-full min-w-0 flex-1 rounded-full border-white/30 bg-white/15 px-5 text-white placeholder:text-white/60 backdrop-blur-sm focus:border-white/60 focus:ring-white/50",
+                  "h-12 w-full min-w-0 flex-1 rounded-full border-white/30 bg-white/15 px-5 text-white placeholder:text-white/85 backdrop-blur-sm focus:border-white/60 focus:ring-white/50",
                   !isCompact && "w-72",
                 )}
               />

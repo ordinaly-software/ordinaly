@@ -623,9 +623,9 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
               <div className="flex items-center gap-3">
                 <div className="flex -space-x-3">
                   {[
-                    { initials: "AG", from: "from-clay", to: "to-[#C6613F]" },
+                    { initials: "AG", from: "from-clay-fill", to: "to-[#9A3C1A]" },
                     { initials: "JM", from: "from-cobalt", to: "to-[#0144B0]" },
-                    { initials: "LR", from: "from-[#D4A27F]", to: "to-[#D97757]" },
+                    { initials: "LR", from: "from-[#9A3C1A]", to: "to-clay-fill" },
                   ].map((avatar) => (
                     <span
                       key={avatar.initials}

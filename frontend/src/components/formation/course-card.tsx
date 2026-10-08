@@ -162,7 +162,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
 
           {enrolled && (
             <div className="absolute bottom-3 right-3">
-              <span className="bg-clay text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
+              <span className="bg-clay-fill dark:bg-clay-fill text-white dark:text-white px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1">
                 <UserCheck className="w-3 h-3" />
                 {t("enrolled")}
               </span>

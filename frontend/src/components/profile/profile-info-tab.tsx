@@ -92,7 +92,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
               <div className="space-y-2">
                 <Label htmlFor="firstName">{t("form.firstName")}</Label>
                 <div className="relative">
-                  <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                  <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                   <Input
                     id="firstName"
                     type="text"
@@ -109,7 +109,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
               <div className="space-y-2">
                 <Label htmlFor="lastName">{t("form.lastName")}</Label>
                 <div className="relative">
-                  <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                  <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                   <Input
                     id="lastName"
                     type="text"
@@ -128,7 +128,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
             <div className="space-y-2">
               <Label htmlFor="username">{t("form.username")}</Label>
               <div className="relative">
-                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                <User className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                 <Input
                   id="username"
                   type="text"
@@ -146,7 +146,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
             <div className="space-y-2">
               <Label htmlFor="email">{t("form.email")}</Label>
               <div className="relative">
-                <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                <Mail className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                 <Input
                   id="email"
                   type="email"
@@ -164,7 +164,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
             <div className="space-y-2">
               <Label htmlFor="company">{t("form.company")}</Label>
               <div className="relative">
-                <Building2 className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                <Building2 className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                 <Input
                   id="company"
                   type="text"
@@ -182,7 +182,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
               <div className="space-y-2">
                 <Label htmlFor="region">{t("form.region")}</Label>
                 <div className="relative">
-                  <Globe className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                  <Globe className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                   <Input
                     id="region"
                     type="text"
@@ -197,7 +197,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
               <div className="space-y-2">
                 <Label htmlFor="city">{t("form.city")}</Label>
                 <div className="relative">
-                  <MapPin className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-cloud-medium" />
+                  <MapPin className="pointer-events-none absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-light dark:text-cloud-medium" />
                   <Input
                     id="city"
                     type="text"

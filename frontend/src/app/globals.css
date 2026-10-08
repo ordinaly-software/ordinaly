@@ -15,7 +15,7 @@
     --secondary: 45 25% 92%;    /* ivory-medium #F0EEE6 */
     --secondary-foreground: 40 4% 8%;
     --muted: 45 25% 92%;
-    --muted-foreground: 42 5% 67%;  /* cloud-medium #B0AEA5 */
+    --muted-foreground: 50 2% 36%;  /* slate-light #5E5D59 — 4.7:1 on oat, 6.3:1 on ivory */
     --accent: 38 24% 84%;       /* oat */
     --accent-foreground: 40 4% 8%;
     --destructive: 0 84.2% 60.2%;
@@ -60,7 +60,10 @@
     --swatch--slate-faded-20: #14141333;
 
     /* Swatches — brand accents */
-    --swatch--clay:          #D97757;
+    /* clay is the AA-safe text/border/ring brand colour in light mode (≥4.5:1 on ivory,
+       ivory-medium and oat); clay-fill is the button background behind white text. */
+    --swatch--clay:          #A0401D;
+    --swatch--clay-fill:     #B84A28;
     --swatch--accent:        #C6613F;
     --swatch--flame:         #E15D31;
     --swatch--flame-dark:    #C44E24;
@@ -88,7 +91,7 @@
     --color-bg-featured:     #000000;
 
     --color-text-primary:    var(--swatch--slate-dark);
-    --color-text-secondary:  var(--swatch--cloud-dark);
+    --color-text-secondary:  var(--swatch--slate-light);
     --color-text-inverted:   var(--swatch--ivory-light);
     --color-text-muted:      var(--swatch--cloud-medium);
 
@@ -190,6 +193,9 @@
     --border: 50 2% 23%;
     --input: 50 2% 23%;
     --ring: 19 61% 59%;         /* clay — same in both modes */
+    /* Lighter clay so text/borders reach 4.5:1 on slate-medium cards; the fill stays dark for white text. */
+    --swatch--clay:          #F0956F;
+    --color-text-secondary:  var(--swatch--cloud-medium);
     --chart-1: 19 61% 59%;
     --chart-2: 38 24% 84%;
     --chart-3: 43 33% 97%;
@@ -203,6 +209,13 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Baseline keyboard focus indicator. :where() keeps specificity at zero so any
+   component-level focus style still wins. */
+:where(a, button, input, select, textarea, summary, [role="button"], [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 2px solid var(--swatch--clay);
+  outline-offset: 2px;
 }
 
 html {
@@ -629,4 +642,8 @@ svg[width="2rem"], svg[height="2rem"] {
   .glow-3d:hover {
     filter: drop-shadow(0 0 35px rgba(59, 130, 246, 0.6));
   }
+}
+  ::view-transition-old(root), ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
 }

@@ -189,7 +189,7 @@ export default function AutomatizacionRedesSocialesPage() {
           <a
             href="#formulario"
             className="mt-10 px-8 py-4 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
-            style={{ backgroundColor: "#d97757" }}
+            style={{ backgroundColor: "var(--swatch--clay-fill)" }}
           >
             {content.heroCtaLabel}
           </a>
@@ -205,7 +205,7 @@ export default function AutomatizacionRedesSocialesPage() {
         <div className="grid sm:grid-cols-2 gap-10 max-w-3xl mx-auto">
           <PlatformFlipCard
             content={content.cards?.meta}
-            accentColor="#d97757"
+            accentColor="var(--swatch--clay-fill)"
             tapHint={content.cards?.tapHint}
             frontImage="/static/automatizacion-redes-sociales/instagram_card.webp"
           />
@@ -219,8 +219,8 @@ export default function AutomatizacionRedesSocialesPage() {
         </div>
 
         {content.offer && (
-          <div className="mt-8 w-full max-w-3xl mx-auto rounded-2xl border-2 border-dashed border-[#d97757] bg-[#d97757]/5 p-6 text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#d97757] mb-2">
+          <div className="mt-8 w-full max-w-3xl mx-auto rounded-2xl border-2 border-dashed border-clay bg-clay/5 p-6 text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-clay mb-2">
               {content.offer.label}
             </p>
             <span className="text-3xl font-bold text-neutral-900 dark:text-white">{content.offer.price}</span>

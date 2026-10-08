@@ -28,6 +28,14 @@ const FORMATION_PATH_PATTERN = /^(?:\/en|\/es)?\/formation(?:\/|$)/;
 export default function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // URLs are case-insensitive for the router but not for search engines: /Contacto
+  // would otherwise be a duplicate of /contacto.
+  if (pathname !== pathname.toLowerCase()) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = pathname.toLowerCase();
+    return NextResponse.redirect(redirectUrl, 308);
+  }
+
   // /es/blog/[slug] → /[slug], /es/blog → /blog
   // Skip API/feed sub-routes so they are handled by their own route handlers.
   if (LOCALIZED_BLOG_PATH_PATTERN.test(pathname)) {

@@ -195,7 +195,7 @@ export default function VerifyEmailPage() {
                   className={`w-full rounded-xl border px-4 py-3 text-center text-lg tracking-widest transition-all bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white ${
                     error
                       ? "border-red-400 bg-red-50 dark:border-red-500/50 dark:bg-red-900/20"
-                      : "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#D97757] dark:focus:ring-[#D97757]"
+                      : "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-clay dark:focus:ring-clay"
                   }`}
                   placeholder="------"
                 />
@@ -218,7 +218,7 @@ export default function VerifyEmailPage() {
                 <button
                   onClick={handleVerify}
                   disabled={loading || code.length < 6}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] disabled:opacity-50 dark:bg-[#D97757] dark:text-white dark:hover:bg-[#C6613F]"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-clay-fill px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#9A3C1A] disabled:opacity-50 dark:bg-clay-fill dark:text-white dark:hover:bg-[#9A3C1A]"
                 >
                   <ShieldCheck className="h-4 w-4" />
                   {loading ? t("verifying") : t("verify")}
@@ -238,7 +238,7 @@ export default function VerifyEmailPage() {
               <div className="mt-6">
                 <Link
                   href="/change-email"
-                  className="text-sm font-medium text-cobalt hover:underline"
+                  className="text-sm font-medium text-cobalt dark:text-cobalt-light hover:underline"
                 >
                   {t("changeEmail")}
                 </Link>

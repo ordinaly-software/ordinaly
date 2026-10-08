@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useId, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { ModalCloseButton } from "@/components/ui/modal-close-button";
+import { useDialogFocus } from "@/hooks/useDialogFocus";
 
 export interface AppleModalProps {
   isOpen: boolean;
@@ -33,7 +34,9 @@ export function AppleModal({
   closeLabel = "Close",
 }: AppleModalProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const titleId = useId();
 
+  useDialogFocus(containerRef, isOpen);
   useOutsideClick(containerRef as React.RefObject<HTMLDivElement>, () => onClose());
 
   useEffect(() => {
@@ -76,6 +79,10 @@ export function AppleModal({
             ref={containerRef}
             layoutId={layoutId}
             className={containerClassName}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={title != null ? titleId : undefined}
+            tabIndex={-1}
           >
             <ModalCloseButton
               onClick={onClose}
@@ -94,6 +101,7 @@ export function AppleModal({
             )}
             {title != null && (
               <motion.p
+                id={titleId}
                 layoutId={titleLayoutId}
                 className="mt-4 text-2xl font-semibold text-neutral-700 md:text-5xl dark:text-white"
               >

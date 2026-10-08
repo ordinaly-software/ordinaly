@@ -14,7 +14,7 @@ import { EmailVerificationProvider } from "@/contexts/email-verification-context
 import { SiteDataProvider } from "@/contexts/site-data-context";
 import { getSiteCourses } from "@/lib/site-data";
 import { NextIntlClientProvider } from "next-intl";
-import { setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import ServiceWorkerRegistrar from "@/components/pwa/service-worker-registrar";
 import GoogleAnalyticsLoader from "@/components/analytics/google-analytics-loader";
 import AutoKeywords from "@/components/seo/auto-keywords";
@@ -145,12 +145,12 @@ export default async function RootLayout({
   setRequestLocale(locale);
 
   const courses = await getSiteCourses();
+  const tCommon = await getTranslations({ locale, namespace: "common" });
 
   return (
     <html lang={locale} data-scroll-behavior="smooth" className={`${inter.variable} ${lora.variable}`} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://api.ordinaly.ai" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
@@ -198,7 +198,7 @@ export default async function RootLayout({
             href="#main-content"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[9999] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-gray-900 focus:shadow-lg dark:focus:bg-neutral-900 dark:focus:text-white"
           >
-            Skip to content
+            {tCommon("skipToContent")}
           </a>
 
           <GoogleAnalyticsLoader />

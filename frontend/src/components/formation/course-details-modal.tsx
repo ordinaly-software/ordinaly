@@ -292,13 +292,13 @@ const CourseDetailsModal = ({
           <div className="absolute bottom-4 left-4 right-4">
             <div className="flex flex-wrap gap-2 mb-2">
               {course.price !== null && course.price !== undefined && (
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay text-white">€{course.price}</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay-fill dark:bg-clay-fill text-white dark:text-white">€{course.price}</span>
               )}
               <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-cobalt text-white">
                 {t(`periodicity.${course.periodicity}`)}
               </span>
               {isEnrolled && (
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay text-white">✓ {t('enrolled')}</span>
+                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay-fill dark:bg-clay-fill text-white dark:text-white">✓ {t('enrolled')}</span>
               )}
             </div>
             <h2 className="text-xl md:text-2xl font-bold text-white leading-tight">{course.title}</h2>
@@ -338,14 +338,14 @@ const CourseDetailsModal = ({
             {course.next_occurrences && course.next_occurrences.length > 0 && (
               <div>
                 <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                  <Star className="w-5 h-5 text-cobalt" />
+                  <Star className="w-5 h-5 text-cobalt dark:text-cobalt-light" />
                   {t('upcomingSessions')}
                 </h2>
                 <div className="bg-cobalt/10 dark:bg-cobalt/20 rounded-lg p-4">
                   <div className="space-y-2">
                     {course.next_occurrences.slice(0, 5).map((occurrence, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-sm">
-                        <Calendar className="w-4 h-4 text-cobalt" />
+                        <Calendar className="w-4 h-4 text-cobalt dark:text-cobalt-light" />
                         <span className="text-gray-700 dark:text-gray-300">{formatDate(occurrence)}</span>
                       </div>
                     ))}
@@ -371,7 +371,7 @@ const CourseDetailsModal = ({
             {/* Description */}
             <div>
               <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-cobalt" />
+                <BookOpen className="w-5 h-5 text-cobalt dark:text-cobalt-light" />
                 {t('courseDescription')}
               </h2>
               <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 break-words prose-a:break-all">
@@ -388,7 +388,7 @@ const CourseDetailsModal = ({
             {/* Schedule Details */}
             <div>
               <h2 className="text-xl font-semibold mb-3 flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-cobalt" />
+                <Calendar className="w-5 h-5 text-cobalt dark:text-cobalt-light" />
                 {t('scheduleInformation')}
               </h2>
               <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">

@@ -17,7 +17,7 @@ const BonificationInfo = () => {
       <div className="pointer-events-none absolute -right-16 -top-14 h-40 w-40 rounded-full bg-clay/12 blur-3xl dark:bg-clay/16" />
       <div className="pointer-events-none absolute -bottom-20 left-8 h-44 w-44 rounded-full bg-cobalt/10 blur-3xl dark:bg-cobalt/12" />
       <button
-        className="group relative flex w-full items-center justify-between gap-4 px-6 py-5 text-left focus:outline-none md:px-8 md:py-6"
+        className="group relative flex w-full items-center justify-between gap-4 px-6 py-5 text-left md:px-8 md:py-6"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >

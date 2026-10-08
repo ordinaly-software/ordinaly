@@ -17,11 +17,11 @@ const MAX_TESTIMONIALS = 5;
 const MAX_GOOGLE_REVIEW_LENGTH = 200;
 const avatarGradients = [
   "from-amber-400 to-orange-500",
-  "from-clay to-[#C6613F]",
+  "from-clay-fill to-[#9A3C1A]",
   "from-cobalt to-[#0144B0]",
   "from-rose-400 to-pink-500",
   "from-sky-400 to-cyan-600",
-  "from-[#D4A27F] to-[#D97757]",
+  "from-[#9A3C1A] to-clay-fill",
 ];
 
 const localTestimonials = [
@@ -30,7 +30,7 @@ const localTestimonials = [
     nameKey: "testimonials.items.0.name",
     roleKey: "testimonials.items.0.role",
     quoteKey: "testimonials.items.0.quote",
-    color: "from-clay to-[#C6613F]",
+    color: "from-clay-fill to-[#9A3C1A]",
   },
   {
     initials: "JM",

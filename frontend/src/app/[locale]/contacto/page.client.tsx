@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Link as IntlLink } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 import { useCookiePreferences } from "@/hooks/useCookiePreferences";
-import { openCookieSettings } from "@/utils/cookie-manager";
+import { allowsThirdParty, openCookieSettings } from "@/utils/cookie-manager";
 import { Button } from "@/components/ui/button";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
@@ -61,7 +61,7 @@ export default function ContactPage() {
   const tCookie = useTranslations("cookie");
   const [locationImageIndex, setLocationImageIndex] = useState(0);
   const cookiePreferences = useCookiePreferences();
-  const canLoadMedia = Boolean(cookiePreferences?.marketing);
+  const canLoadMedia = allowsThirdParty(cookiePreferences);
   const [showWhatsAppBubble, setShowWhatsAppBubble] = useState(false);
 
   const team = useMemo(
@@ -278,7 +278,7 @@ export default function ContactPage() {
               <span className="flex h-12 w-12 items-center justify-center rounded-[1rem] bg-oat text-clay dark:bg-white/10">
                 <Icon className="h-5 w-5" strokeWidth={1.6} />
               </span>
-              <p className="mt-5 text-sm uppercase tracking-[0.16em] text-cloud-dark dark:text-cloud-medium">
+              <p className="mt-5 text-sm uppercase tracking-[0.16em] text-slate-light dark:text-cloud-medium">
                 {title}
               </p>
               <p className="mt-2 text-base font-semibold leading-snug group-hover:text-clay">
@@ -437,7 +437,7 @@ export default function ContactPage() {
                       aria-label={social.label}
                       className="flex h-full w-full items-center justify-center"
                     >
-                      <social.icon className="h-full w-full" strokeWidth={1.3} />
+                      <social.icon className="h-full w-full" strokeWidth={1.3} aria-hidden="true" />
                     </a>
                   </DockIcon>
                 ))}

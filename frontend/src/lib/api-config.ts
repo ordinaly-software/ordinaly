@@ -30,7 +30,6 @@ export function getApiEndpoint(path: string): string {
 // Common endpoints
 export const API_ENDPOINTS = {
   courses: '/api/courses/courses/',
-  terms: '/api/terms/',
   contact: '/api/contact/',
   auth: {
     signin: '/api/users/signin/',
