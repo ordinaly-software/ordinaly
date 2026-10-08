@@ -34,6 +34,7 @@ type AuthErrorPayload = Record<string, unknown> | null;
 
 export default function LoginPage() {
   const t = useTranslations("signin");
+  const tCommon = useTranslations("common");
   const { isDark } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -330,6 +331,7 @@ export default function LoginPage() {
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
+                          aria-label={showPassword ? tCommon("hidePassword") : tCommon("showPassword")}
                           className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-light dark:text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
                         >
                           {showPassword ? (
@@ -343,7 +345,7 @@ export default function LoginPage() {
                     <div className="flex flex-col items-start">
                       <Link
                         href="/reset-password"
-                        className="text-sm text-cobalt hover:underline"
+                        className="text-sm text-cobalt dark:text-cobalt-light hover:underline"
                       >
                         {t("form.forgotPassword")}
                       </Link>
@@ -362,7 +364,7 @@ export default function LoginPage() {
 
                   <p className="mt-6 text-center text-sm text-slate-medium dark:text-cloud-medium">
                     {t("form.signupPrompt")}{" "}
-                    <Link href="/auth/signup" className="text-cobalt hover:underline">
+                    <Link href="/auth/signup" className="text-cobalt dark:text-cobalt-light underline">
                       {t("form.signupLink")}
                     </Link>
                   </p>

@@ -848,7 +848,7 @@ const AdminCoursesTab = () => {
           <Button
             onClick={handleCreate}
             size="sm"
-            className="bg-clay-fill hover:bg-[var(--swatch--flame)] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
+            className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
             >
             <Plus className="h-4 w-4" />
             <span className="hidden xs:inline">{t("addCourse")}</span>

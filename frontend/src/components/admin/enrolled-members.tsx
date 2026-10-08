@@ -46,7 +46,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
           onClick={handleSendMail}
           disabled={enrollments.length === 0}
           size="sm"
-          className="bg-clay-fill hover:bg-[var(--swatch--flame)] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
           <Send className="h-4 w-4" />
           <span className="xs:inline"> {t('details.sendMail')}</span>
@@ -98,7 +98,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
                       </p>
                     )}
                     {enrollment.user_details?.company && (
-                      <p className="text-xs text-cobalt truncate">
+                      <p className="text-xs text-cobalt dark:text-cobalt-light truncate">
                         {enrollment.user_details.company}
                       </p>
                     )}

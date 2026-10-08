@@ -116,7 +116,7 @@ export default function ChangeEmailPage() {
                   className={`w-full rounded-xl border px-4 py-3 text-base transition-all bg-gray-50 dark:bg-gray-800/50 text-gray-900 dark:text-white ${
                     error
                       ? "border-red-400 bg-red-50 dark:border-red-500/50 dark:bg-red-900/20"
-                      : "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#D97757] dark:focus:ring-[#D97757]"
+                      : "border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-clay dark:focus:ring-clay"
                   }`}
                   placeholder={t("newEmailPlaceholder")}
                 />
@@ -129,7 +129,7 @@ export default function ChangeEmailPage() {
               )}
 
               {success && (
-                <div className="mt-4 rounded-xl border border-[#D97757]/35 bg-[#D97757]/10 px-4 py-3 text-sm font-medium text-[#8F442C] dark:border-[#D97757]/30 dark:bg-[#D97757]/16 dark:text-[#F6D2C5]">
+                <div className="mt-4 rounded-xl border border-clay/35 bg-clay/10 px-4 py-3 text-sm font-medium text-[#8F442C] dark:border-clay/30 dark:bg-clay/16 dark:text-[#F6D2C5]">
                   {success}
                 </div>
               )}
@@ -138,7 +138,7 @@ export default function ChangeEmailPage() {
                 <button
                   onClick={handleSubmit}
                   disabled={loading || !newEmail.trim()}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] disabled:opacity-50 dark:bg-[#D97757] dark:text-white dark:hover:bg-[#C6613F]"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-clay-fill px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#9A3C1A] disabled:opacity-50 dark:bg-clay-fill dark:text-white dark:hover:bg-[#9A3C1A]"
                 >
                   <MailPlus className="h-4 w-4" />
                   {loading ? t("saving") : t("save")}

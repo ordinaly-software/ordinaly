@@ -22,7 +22,7 @@ import { useTheme } from "@/contexts/theme-context";
 const PWA_BULLETS = [
   {
     icon: Globe,
-    iconClass: "bg-cobalt/10 text-cobalt dark:bg-cobalt/15",
+    iconClass: "bg-cobalt/10 text-cobalt dark:text-cobalt-light dark:bg-cobalt/15",
     hoverClass: "hover:bg-cobalt/10 dark:hover:bg-cobalt/15",
   },
   {
@@ -114,7 +114,7 @@ export default function DesarrolloDeAppWebs() {
           key: "theme-demo",
           size: "md",
           media: (
-            <div className="absolute inset-0 flex flex-col items-center justify-between bg-gradient-to-br from-clay to-[#b85c3f] p-8 text-center text-white">
+            <div className="absolute inset-0 flex flex-col items-center justify-between bg-gradient-to-br from-clay-fill to-[#9A3C1A] p-8 text-center text-white">
               <h3 className="text-2xl sm:text-3xl font-bold leading-snug">{themeDemo.title}</h3>
               <div className="relative flex items-center justify-center">
                 <span className="absolute h-28 w-28 animate-ping rounded-full bg-white/40" />

@@ -103,7 +103,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
           <div className="mt-8 flex flex-col sm:flex-row gap-3">
             <a
               href="#formulario"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-clay-fill px-6 py-3.5 text-sm font-semibold text-white shadow-lg transition hover:scale-105 active:scale-[0.97]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-clay-fill dark:bg-clay-fill px-6 py-3.5 text-sm font-semibold text-white dark:text-white shadow-lg transition hover:scale-105 active:scale-[0.97]"
             >
               {content.heroCtaLabel}
               <ArrowRight className="h-4 w-4" />
@@ -182,7 +182,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
                 className={`grid md:grid-cols-2 gap-10 md:gap-16 items-center ${reversed ? "md:[&>*:first-child]:order-2" : ""}`}
               >
                 <div>
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cobalt/10 text-cobalt">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cobalt/10 text-cobalt dark:text-cobalt-light">
                     <Icon className="h-5 w-5" />
                   </span>
                   <h3 className="mt-5 text-2xl md:text-3xl font-bold tracking-tight text-slate-dark dark:text-ivory-light">
@@ -239,7 +239,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
                 key={sector.title}
                 className="rounded-[1.75rem] border border-[--color-border-subtle] bg-neutral-50 p-8 text-left transition hover:-translate-y-1 hover:shadow-lg dark:border-white/10 dark:bg-neutral-800"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cobalt/10 text-cobalt">
+                <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cobalt/10 text-cobalt dark:text-cobalt-light">
                   <Icon className="h-5 w-5" strokeWidth={1.75} />
                 </span>
                 <h3 className="mt-5 text-lg font-semibold text-slate-dark dark:text-ivory-light">
@@ -311,7 +311,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp"
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-clay-fill text-white transition hover:brightness-110"
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white transition hover:brightness-110"
               >
                 <IconWhatsApp size={18} />
               </a>

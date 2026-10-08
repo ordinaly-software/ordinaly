@@ -342,7 +342,7 @@ const AdminTermsTab = () => {
           <Button
             onClick={handleCreate}
             size="sm"
-            className="bg-clay-fill hover:bg-[var(--swatch--flame)] text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
+            className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center"
             disabled={availableTags.length === 0}
             title={availableTags.length === 0 ? t("form.noTagsLeft") || "All document types are already in use." : undefined}
           >
@@ -428,7 +428,7 @@ const AdminTermsTab = () => {
                           variant="ghost"
                           size="icon"
                           onClick={() => handleEdit(term)}
-                          className="text-cobalt hover:bg-cobalt/10"
+                          className="text-cobalt dark:text-cobalt-light hover:bg-cobalt/10"
                           title={t("edit")}
                         >
                           <Edit className="h-5 w-5 sm:h-4 sm:w-4" />
@@ -623,7 +623,7 @@ const AdminTermsTab = () => {
             <Button
               onClick={submitTerm}
               disabled={duplicateTag || (!isEditing && !formData.pdf_content)}
-              className="w-full sm:w-auto px-6 py-2 bg-clay-fill hover:bg-[var(--swatch--flame)] text-white"
+              className="w-full sm:w-auto px-6 py-2 bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white"
             >
               {isEditing ? t("form.update") : t("form.create")}
             </Button>

@@ -252,6 +252,9 @@
   },
   "common": {
     "skipToContent": "Saltar al contenido",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "mainNavigation": "Navegación principal",
     "backToHome": "Volver al inicio",
     "next": "Siguiente",
     "previous": "Anterior"
@@ -1053,8 +1056,11 @@
           "bullet1": "Nombre y apellidos",
           "bullet2": "Correo electrónico",
           "bullet3": "Teléfono",
-          "bullet4": "Datos de acceso (usuario y contraseña)",
-          "bullet5": "Preferencias de configuración de la web (tema, idioma)"
+          "bullet4": "Empresa y contenido del mensaje que nos envías a través de los formularios de contacto",
+          "bullet5": "Datos de acceso (usuario y contraseña, o tu cuenta de Google si inicias sesión con ella)",
+          "bullet6": "Datos de inscripción en cursos. El pago lo gestiona Stripe y Ordinaly no almacena los datos de tu tarjeta",
+          "bullet7": "Datos técnicos de tu navegador, incluida la dirección IP, que Google reCAPTCHA recibe cuando rellenas un formulario para detectar tráfico automatizado",
+          "bullet8": "Preferencias de configuración de la web (tema, idioma)"
         },
         "processingPurposes": {
           "title": "FINALIDADES DEL TRATAMIENTO",
@@ -1062,20 +1068,30 @@
           "bullet1": "Atender consultas o solicitudes recibidas a través de los formularios de contacto",
           "bullet2": "Gestionar la relación contractual y la prestación de los servicios contratados",
           "bullet3": "Personalizar la experiencia del usuario (tema, idioma)",
-          "bullet4": "Enviar comunicaciones comerciales únicamente si el usuario ha dado su consentimiento expreso"
+          "bullet4": "Enviar comunicaciones comerciales únicamente si el usuario ha dado su consentimiento expreso",
+          "bullet5": "Proteger los formularios y el acceso a la web frente a spam y usos abusivos"
         },
         "legalBases": {
           "title": "BASES JURÍDICAS DEL TRATAMIENTO",
           "p1": "Las bases legales que amparan el tratamiento de los datos son:",
           "bullet1": "Consentimiento del interesado, al enviar formularios o aceptar comunicaciones comerciales",
-          "bullet2": "Interés legítimo, para personalizar funciones básicas de la web como idioma o tema",
-          "bullet3": "En caso de contratación de servicios, también se aplicará la base de ejecución de un contrato."
+          "bullet2": "Interés legítimo, para personalizar funciones básicas de la web como idioma o tema y para protegerla frente a spam y usos abusivos",
+          "bullet3": "En caso de contratación de servicios, también se aplicará la base de ejecución de un contrato.",
+          "bullet4": "Consentimiento, para las cookies analíticas y de contenido de terceros, que puedes aceptar o rechazar en el banner de cookies"
         },
         "recipients": {
           "title": "DESTINATARIOS Y TRANSFERENCIAS INTERNACIONALES",
-          "p1": "Los datos pueden ser tratados por proveedores externos que actúan como encargados del tratamiento:",
+          "p1": "Para prestar el servicio intervienen los siguientes proveedores externos:",
           "bullet1": "Stripe, para la gestión segura de pagos online",
-          "bullet2": "Google Analytics, para el análisis de uso del sitio web"
+          "bullet2": "Google Analytics, para el análisis de uso del sitio web (solo si aceptas las cookies analíticas)",
+          "bullet3": "Google reCAPTCHA, para proteger los formularios frente a spam",
+          "bullet4": "Google Maps y YouTube, para mostrar mapas y vídeos incrustados (solo si aceptas el contenido de terceros)",
+          "bullet5": "Netlify, para el alojamiento del sitio web",
+          "bullet6": "Proveedores de envío de correo electrónico, para los mensajes del servicio (verificación de cuenta, avisos)"
+        },
+        "internationalTransfers": {
+          "title": "TRANSFERENCIAS INTERNACIONALES",
+          "p1": "Algunos de estos proveedores, como Google, Stripe o Netlify, pueden tratar datos fuera del Espacio Económico Europeo. En ese caso se aplican las garantías previstas por el RGPD, como las cláusulas contractuales tipo aprobadas por la Comisión Europea."
         },
         "dataRetention": {
           "title": "CONSERVACIÓN DE LOS DATOS",
@@ -1101,6 +1117,11 @@
           "bullet6": "Derecho a la portabilidad de los datos",
           "bullet7": "Derecho a retirar el consentimiento en cualquier momento"
         },
+        "exerciseRights": {
+          "title": "CÓMO EJERCER TUS DERECHOS Y RECLAMAR",
+          "p1": "Puedes ejercer tus derechos escribiendo a info@ordinaly.ai, indicando el derecho que quieres ejercer y acreditando tu identidad. Responderemos en el plazo máximo de un mes, conforme al RGPD.",
+          "p2": "Si consideras que el tratamiento de tus datos no se ajusta a la normativa, tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (www.aepd.es)."
+        },
         "dataSecurity": {
           "title": "SEGURIDAD DE LOS DATOS",
           "p1": "Ordinaly Software S.L. adopta medidas técnicas y organizativas apropiadas para proteger los datos personales frente a pérdida, acceso no autorizado o uso indebido, en cumplimiento del principio de integridad y confidencialidad establecido por el RGPD."
@@ -1115,29 +1136,35 @@
         },
         "typesOfCookies": {
           "title": "¿QUÉ TIPOS DE COOKIES UTILIZAMOS?",
-          "p1": "En este sitio web solo utilizamos los siguientes tipos de cookies:",
-          "bullet1": "Cookies técnicas (necesarias): Son imprescindibles para el funcionamiento básico de la web. No requieren consentimiento del usuario.",
-          "bullet2": "Cookies analíticas: Permiten recopilar información estadística anónima sobre el uso del sitio web. Estas cookies requieren el consentimiento previo del usuario."
+          "p1": "En este sitio web utilizamos los siguientes tipos de cookies y tecnologías similares:",
+          "bullet1": "Técnicas y de preferencias (necesarias): imprescindibles para el funcionamiento de la web y para recordar tu idioma y tema. No requieren consentimiento.",
+          "bullet2": "Seguridad: Google reCAPTCHA protege los formularios frente a spam. Solo se carga cuando empiezas a rellenar un formulario.",
+          "bullet3": "Analíticas: estadísticas de uso con Google Analytics. Solo se activan si las aceptas.",
+          "bullet4": "Contenido de terceros: mapas de Google y vídeos de YouTube incrustados. Solo se cargan si los aceptas.",
+          "bullet5": "Marketing: señales de publicidad y medición de campañas de Google Analytics. Solo se activan si las aceptas."
         },
         "cookiesList": {
           "title": "LISTADO DE COOKIES UTILIZADAS",
           "p1": "A continuación se detallan las cookies utilizadas en este sitio:",
-          "bullet1": "__next_hmr_refresh_hash__ (Técnica): Refrescar el contenido dinámico de la web. Duración: Sesión. Proveedor: Ordinaly (local)",
-          "bullet2": "NEXT_LOCALE (Técnica): Almacena el idioma seleccionado. Duración: Sesión. Proveedor: Ordinaly (local)",
-          "bullet3": "_ga (Analítica): Google Analytics para análisis de uso web. Duración: Sesión. Proveedor: Google Inc."
+          "bullet1": "NEXT_LOCALE (Técnica): almacena el idioma seleccionado. Duración: sesión. Proveedor: Ordinaly",
+          "bullet2": "_GRECAPTCHA (Seguridad): Google reCAPTCHA, análisis de riesgo para detectar tráfico automatizado. Duración: 6 meses. Proveedor: Google. Solo tras empezar a rellenar un formulario",
+          "bullet3": "_ga (Analítica): distingue usuarios únicos en Google Analytics. Duración: 2 años. Proveedor: Google. Solo con consentimiento",
+          "bullet4": "_ga_<ID> (Analítica): mantiene el estado de la sesión en Google Analytics 4. Duración: 2 años. Proveedor: Google. Solo con consentimiento",
+          "bullet5": "Cookies de YouTube y Google Maps (Contenido de terceros): las establece Google al cargar el vídeo o el mapa, y su nombre y duración dependen de Google. Solo con consentimiento"
         },
         "localStorage": {
           "title": "ALMACENAMIENTO LOCAL DEL NAVEGADOR (LocalStorage)",
           "p1": "Además de cookies, este sitio web puede almacenar información en el navegador del usuario mediante almacenamiento local (localStorage), que se comporta de forma similar a las cookies, pero sin fecha de expiración automática. Elementos almacenados:",
-          "p2": "Estos datos no se comparten con terceros y se utilizan exclusivamente para mejorar la experiencia de usuario.",
-          "bullet1": "theme: Guarda el modo visual del sitio (claro u oscuro)",
-          "bullet2": "cookie-preferences: Almacena las preferencias del usuario sobre el uso de cookies",
-          "bullet3": "cookie-consent: Indica si el usuario ha aceptado el uso de cookies",
-          "bullet4": "authToken: Token de autenticación del usuario registrado"
+          "p2": "Estos datos se guardan solo en tu navegador, no se comparten con terceros y se utilizan exclusivamente para el funcionamiento de la web y para recordar tus preferencias.",
+          "bullet1": "theme: guarda el modo visual del sitio (claro u oscuro)",
+          "bullet2": "cookie-preferences: almacena tus preferencias de cookies y la fecha en que las elegiste (se vuelven a solicitar cada 24 meses)",
+          "bullet3": "cookie-consent: indica si has aceptado, rechazado o personalizado el uso de cookies",
+          "bullet4": "auth_token: token de sesión del usuario registrado (solo si inicias sesión)",
+          "bullet5": "Datos temporales de los procesos de cuenta, como los tiempos de espera al verificar el correo o restablecer la contraseña"
         },
         "cookieManagement": {
           "title": "GESTIÓN DE COOKIES",
-          "p1": "El sitio muestra un banner de gestión de cookies al acceder por primera vez. Desde él, el usuario puede aceptar, rechazar o configurar las cookies no necesarias. También puede eliminar o bloquear las cookies desde su navegador:",
+          "p1": "Al acceder por primera vez, el sitio muestra un banner donde puedes aceptar todas las cookies, rechazar las no necesarias o configurarlas por categorías. Puedes cambiar tu elección en cualquier momento con el enlace «Abrir configuración de cookies» del pie de página, y se te volverá a pedir cada 24 meses. También puedes eliminar o bloquear las cookies desde tu navegador:",
           "bullet1": "Google Chrome: https://support.google.com/chrome/answer/95647?hl=es",
           "bullet2": "Mozilla Firefox",
           "bullet3": "Safari: https://support.apple.com/es-es/guide/safari/sfri11471/mac",
@@ -1145,11 +1172,12 @@
         },
         "internationalTransfer": {
           "title": "TRANSFERENCIA INTERNACIONAL DE DATOS",
-          "p1": "Algunas cookies analíticas, como las de Google Analytics, pueden implicar la transferencia de datos a servidores fuera del Espacio Económico Europeo (por ejemplo, EE. UU.). Estas transferencias están reguladas mediante cláusulas contractuales tipo aprobadas por la Comisión Europea."
+          "p1": "Algunos servicios de Google (Analytics, reCAPTCHA, Maps y YouTube) pueden implicar la transferencia de datos a servidores fuera del Espacio Económico Europeo (por ejemplo, EE. UU.). Estas transferencias se amparan en las garantías previstas por el RGPD, como las cláusulas contractuales tipo aprobadas por la Comisión Europea."
         },
         "policyModification": {
           "title": "MODIFICACIÓN DE LA POLÍTICA DE COOKIES",
-          "p1": "Ordinaly Software S.L. podrá actualizar esta Política de Cookies en función de exigencias normativas, técnicas o por cambios en la configuración de cookies del sitio web. Cualquier cambio relevante será comunicado al usuario."
+          "p1": "Ordinaly Software S.L. podrá actualizar esta Política de Cookies en función de exigencias normativas, técnicas o por cambios en la configuración de cookies del sitio web. Cualquier cambio relevante será comunicado al usuario.",
+          "p2": "Última actualización: octubre de 2026."
         }
       },
       "license": {

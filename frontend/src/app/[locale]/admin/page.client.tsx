@@ -206,7 +206,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("stats.totalCourses")}
                 </CardTitle>
-                <BookOpen className="h-4 w-4 text-cobalt" />
+                <BookOpen className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -337,7 +337,7 @@ export default function AdminPage() {
                 <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   {t("tabs.api")}
                 </CardTitle>
-                <Settings className="h-4 w-4 text-cobalt" />
+                <Settings className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
               </CardHeader>
               <CardContent>
                 <div className="text-sm text-gray-700 dark:text-gray-300">

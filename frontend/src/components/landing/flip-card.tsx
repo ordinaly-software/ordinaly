@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -17,23 +17,28 @@ export function FlipCard({ front, back, frontClassName, backClassName, className
   const [flipped, setFlipped] = useState(false);
 
   const toggle = () => setFlipped((current) => !current);
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      toggle();
-    }
-  };
 
   return (
+    // The card surface is mouse/touch only. Keyboard and screen-reader users get a real
+    // button (visible on focus), and the face that is turned away is inert so its
+    // links can't be tabbed to.
     <div
-      role="button"
-      tabIndex={0}
-      aria-pressed={flipped}
+      role="group"
       aria-label={ariaLabel}
       onClick={toggle}
-      onKeyDown={handleKeyDown}
       className={cn("relative h-96 w-full cursor-pointer [perspective:1500px]", className)}
     >
+      <button
+        type="button"
+        aria-pressed={flipped}
+        onClick={(event) => {
+          event.stopPropagation();
+          toggle();
+        }}
+        className="sr-only focus-visible:not-sr-only focus-visible:absolute focus-visible:left-3 focus-visible:top-3 focus-visible:z-30 focus-visible:rounded-full focus-visible:bg-white focus-visible:px-4 focus-visible:py-2 focus-visible:text-sm focus-visible:font-semibold focus-visible:text-slate-dark focus-visible:shadow-lg"
+      >
+        {ariaLabel}
+      </button>
       <motion.div
         className="relative h-full w-full"
         style={{ transformStyle: "preserve-3d", WebkitTransformStyle: "preserve-3d" } as CSSProperties}
@@ -46,6 +51,7 @@ export function FlipCard({ front, back, frontClassName, backClassName, className
             frontClassName,
           )}
           style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
+          inert={flipped}
         >
           {front}
         </div>
@@ -59,6 +65,7 @@ export function FlipCard({ front, back, frontClassName, backClassName, className
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
           }}
+          inert={!flipped}
         >
           {back}
         </div>

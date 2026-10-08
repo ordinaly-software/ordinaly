@@ -29,7 +29,7 @@ const CourseCancelEnrollmentSuccessModal: React.FC<CourseCancelEnrollmentSuccess
           {t ? t("cancellation.message") : "Your enrollment has been cancelled successfully."}
         </p>
         <button
-          className="bg-clay-fill text-white px-6 py-2 rounded-lg font-semibold hover:bg-clay/80 transition"
+          className="bg-clay-fill dark:bg-clay-fill text-white dark:text-white px-6 py-2 rounded-lg font-semibold hover:bg-clay/80 transition"
           onClick={onClose}
         >
           {t ? t("enrollmentSuccess.close") : "Close"}

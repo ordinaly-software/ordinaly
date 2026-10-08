@@ -39,7 +39,7 @@ export function InstructorsSection({ title, linkedinLabel, items, images, linked
               {instructor.name}
             </h3>
 
-            <p className="mt-1 text-center font-semibold text-[#d97757]">{instructor.role}</p>
+            <p className="mt-1 text-center font-semibold text-clay">{instructor.role}</p>
 
             <p className="mt-4 text-center leading-relaxed text-neutral-600 dark:text-neutral-400">
               {instructor.description}
@@ -50,7 +50,7 @@ export function InstructorsSection({ title, linkedinLabel, items, images, linked
                 href={linkedinUrls[i] ?? linkedinUrls[0]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-[#d97757]/20 px-4 py-2 text-sm font-semibold text-[#d97757] transition hover:border-[#d97757]/40 hover:bg-[#d97757]/8"
+                className="inline-flex items-center gap-2 rounded-full border border-clay/20 px-4 py-2 text-sm font-semibold text-clay transition hover:border-clay/40 hover:bg-clay/8"
                 aria-label={`${linkedinLabel} de ${instructor.name}`}
               >
                 <Linkedin className="h-4 w-4" />

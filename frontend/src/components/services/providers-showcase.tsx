@@ -55,7 +55,7 @@ export function ProvidersShowcase({
           <div className="flex flex-col items-center text-center md:items-start md:text-left">
             {badge && (
               <span className="inline-flex items-center gap-2 rounded-full bg-white/10 py-1 pl-1 pr-3 text-sm text-white/80">
-                <span className="rounded-full bg-clay-fill px-3 py-1 text-xs font-semibold text-white">IA</span>
+                <span className="rounded-full bg-clay-fill dark:bg-clay-fill px-3 py-1 text-xs font-semibold text-white dark:text-white">IA</span>
                 {badge}
               </span>
             )}
@@ -87,7 +87,7 @@ export function ProvidersShowcase({
                   )}
                 />
                 {!logo.hasWordmark && (
-                  <span className="text-[11px] font-semibold tracking-wide text-slate-dark/70">
+                  <span className="text-[11px] font-semibold tracking-wide text-slate-medium">
                     {logo.name}
                   </span>
                 )}

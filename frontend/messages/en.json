@@ -252,6 +252,9 @@
   },
   "common": {
     "skipToContent": "Skip to content",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "mainNavigation": "Main navigation",
     "backToHome": "Back to home",
     "next": "Next",
     "previous": "Previous"
@@ -1053,8 +1056,11 @@
           "bullet1": "First and last name",
           "bullet2": "Email address",
           "bullet3": "Phone number",
-          "bullet4": "Access credentials",
-          "bullet5": "Website configuration preferences"
+          "bullet4": "Company and the content of the message you send us through the contact forms",
+          "bullet5": "Access data (username and password, or your Google account if you sign in with it)",
+          "bullet6": "Course enrolment data. Payment is handled by Stripe and Ordinaly does not store your card details",
+          "bullet7": "Technical data from your browser, including the IP address, that Google reCAPTCHA receives when you fill in a form in order to detect automated traffic",
+          "bullet8": "Website preferences (theme, language)"
         },
         "processingPurposes": {
           "title": "PURPOSES OF PROCESSING",
@@ -1062,20 +1068,30 @@
           "bullet1": "Handle inquiries and requests",
           "bullet2": "Manage contractual relationships",
           "bullet3": "Personalize user experience",
-          "bullet4": "Send marketing communications with explicit consent"
+          "bullet4": "Send marketing communications with explicit consent",
+          "bullet5": "Protecting the forms and access to the website against spam and abuse"
         },
         "legalBases": {
           "title": "LEGAL BASES",
           "p1": "The legal bases for processing are:",
           "bullet1": "User consent",
-          "bullet2": "Legitimate interest",
-          "bullet3": "Performance of a contract"
+          "bullet2": "Legitimate interest, to personalise basic website features such as language or theme and to protect it against spam and abuse",
+          "bullet3": "Performance of a contract",
+          "bullet4": "Consent, for analytics and third-party content cookies, which you can accept or reject in the cookie banner"
         },
         "recipients": {
           "title": "RECIPIENTS AND INTERNATIONAL TRANSFERS",
-          "p1": "Data may be processed by external providers:",
+          "p1": "The following external providers are involved in providing the service:",
           "bullet1": "Stripe, for secure online payments",
-          "bullet2": "Google Analytics, for website usage analysis"
+          "bullet2": "Google Analytics, for website usage analysis (only if you accept analytics cookies)",
+          "bullet3": "Google reCAPTCHA, to protect the forms against spam",
+          "bullet4": "Google Maps and YouTube, to display embedded maps and videos (only if you accept third-party content)",
+          "bullet5": "Netlify, for website hosting",
+          "bullet6": "Email delivery providers, for service messages (account verification, notices)"
+        },
+        "internationalTransfers": {
+          "title": "INTERNATIONAL TRANSFERS",
+          "p1": "Some of these providers, such as Google, Stripe or Netlify, may process data outside the European Economic Area. In that case the safeguards provided by the GDPR apply, such as the standard contractual clauses approved by the European Commission."
         },
         "dataRetention": {
           "title": "DATA RETENTION",
@@ -1101,6 +1117,11 @@
           "bullet6": "Data portability",
           "bullet7": "Withdrawal of consent"
         },
+        "exerciseRights": {
+          "title": "HOW TO EXERCISE YOUR RIGHTS AND COMPLAIN",
+          "p1": "You can exercise your rights by writing to info@ordinaly.ai, stating the right you wish to exercise and proving your identity. We will reply within one month at most, in accordance with the GDPR.",
+          "p2": "If you believe the processing of your data does not comply with the regulations, you have the right to lodge a complaint with the Spanish Data Protection Agency (www.aepd.es)."
+        },
         "dataSecurity": {
           "title": "DATA SECURITY",
           "p1": "Ordinaly Software S.L. implements appropriate technical and organizational measures to protect personal data."
@@ -1115,29 +1136,35 @@
         },
         "typesOfCookies": {
           "title": "WHAT TYPES OF COOKIES DO WE USE?",
-          "p1": "This website only uses:",
-          "bullet1": "Technical cookies: required for basic website operation.",
-          "bullet2": "Analytics cookies: collect anonymous statistical information."
+          "p1": "This website uses the following types of cookies and similar technologies:",
+          "bullet1": "Technical and preference cookies (necessary): essential for the website to work and to remember your language and theme. They do not require consent.",
+          "bullet2": "Security: Google reCAPTCHA protects the forms against spam. It only loads when you start filling in a form.",
+          "bullet3": "Analytics: usage statistics with Google Analytics. They are only enabled if you accept them.",
+          "bullet4": "Third-party content: embedded Google Maps and YouTube videos. They only load if you accept them.",
+          "bullet5": "Marketing: advertising signals and campaign measurement in Google Analytics. They are only enabled if you accept them."
         },
         "cookiesList": {
           "title": "LIST OF COOKIES USED",
           "p1": "The following cookies are used:",
-          "bullet1": "__next_hmr_refresh_hash__ (Technical)",
-          "bullet2": "NEXT_LOCALE (Technical)",
-          "bullet3": "_ga (Analytics)"
+          "bullet1": "NEXT_LOCALE (Technical): stores the selected language. Duration: session. Provider: Ordinaly",
+          "bullet2": "_GRECAPTCHA (Security): Google reCAPTCHA, risk analysis to detect automated traffic. Duration: 6 months. Provider: Google. Only after you start filling in a form",
+          "bullet3": "_ga (Analytics): distinguishes unique users in Google Analytics. Duration: 2 years. Provider: Google. Only with consent",
+          "bullet4": "_ga_<ID> (Analytics): keeps the session state in Google Analytics 4. Duration: 2 years. Provider: Google. Only with consent",
+          "bullet5": "YouTube and Google Maps cookies (Third-party content): set by Google when the video or map loads; their name and duration depend on Google. Only with consent"
         },
         "localStorage": {
           "title": "BROWSER LOCAL STORAGE (LocalStorage)",
           "p1": "The website may store information using local storage.",
-          "p2": "This data is not shared with third parties.",
-          "bullet1": "theme",
-          "bullet2": "cookie-preferences",
-          "bullet3": "cookie-consent",
-          "bullet4": "authToken"
+          "p2": "This data is stored only in your browser, is not shared with third parties and is used solely for the website to work and to remember your preferences.",
+          "bullet1": "theme: stores the visual mode of the site (light or dark)",
+          "bullet2": "cookie-preferences: stores your cookie preferences and the date you chose them (they are requested again every 24 months)",
+          "bullet3": "cookie-consent: indicates whether you have accepted, rejected or customised the use of cookies",
+          "bullet4": "auth_token: session token of the registered user (only if you sign in)",
+          "bullet5": "Temporary data for account processes, such as the waiting times when verifying your email or resetting your password"
         },
         "cookieManagement": {
           "title": "COOKIE MANAGEMENT",
-          "p1": "Users can accept, reject or configure cookies via the banner or browser settings.",
+          "p1": "The first time you visit, the site shows a banner where you can accept all cookies, reject the non-essential ones or configure them by category. You can change your choice at any time with the “Open cookie settings” link in the footer, and you will be asked again every 24 months. You can also delete or block cookies from your browser:",
           "bullet1": "Google Chrome",
           "bullet2": "Mozilla Firefox",
           "bullet3": "Safari",
@@ -1145,11 +1172,12 @@
         },
         "internationalTransfer": {
           "title": "INTERNATIONAL DATA TRANSFERS",
-          "p1": "Some analytics cookies may involve data transfers outside the EEA."
+          "p1": "Some Google services (Analytics, reCAPTCHA, Maps and YouTube) may involve transferring data to servers outside the European Economic Area (for example, the US). These transfers rely on the safeguards provided by the GDPR, such as the standard contractual clauses approved by the European Commission."
         },
         "policyModification": {
           "title": "CHANGES TO THE COOKIE POLICY",
-          "p1": "Ordinaly Software S.L. may update this Cookie Policy when required."
+          "p1": "Ordinaly Software S.L. may update this Cookie Policy when required.",
+          "p2": "Last updated: October 2026."
         }
       },
       "license": {

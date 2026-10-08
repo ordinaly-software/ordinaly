@@ -76,7 +76,7 @@ export default function ResetPasswordEmailSent() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Link
                   href={homeHref}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#D97757] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#C6613F] dark:bg-[#D97757] dark:text-white dark:hover:bg-[#C6613F]"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-clay-fill px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#9A3C1A] dark:bg-clay-fill dark:text-white dark:hover:bg-[#9A3C1A]"
                 >
                   <Home className="h-4 w-4" />
                   {t("emailSent.backHome")}

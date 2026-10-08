@@ -168,7 +168,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   aria-label="WhatsApp"
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-clay-fill text-white transition hover:brightness-110"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white transition hover:brightness-110"
                 >
                   <IconWhatsApp size={18} />
                 </a>
@@ -260,7 +260,7 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
             <div className="mt-10 grid sm:grid-cols-3 gap-2.5 max-w-2xl">
               <a
                 href="#formulario"
-                className="flex flex-col items-start justify-center gap-1 rounded-xl bg-clay-fill px-4 py-3.5 font-semibold text-white shadow-lg transition hover:scale-105"
+                className="flex flex-col items-start justify-center gap-1 rounded-xl bg-clay-fill dark:bg-clay-fill px-4 py-3.5 font-semibold text-white dark:text-white shadow-lg transition hover:scale-105"
               >
                 <span className="text-sm">{content.heroCtaLabel}</span>
               </a>

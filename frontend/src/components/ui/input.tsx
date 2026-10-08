@@ -48,7 +48,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
           disabled:cursor-not-allowed disabled:opacity-50 
           dark:shadow-[0px_0px_1px_1px_var(--neutral-700)] 
           group-hover/input:shadow-none transition duration-400 
-          hover:border-[#D97757] dark:hover:border-[#D97757]`,
+          hover:border-clay dark:hover:border-clay`,
           className
         )}
         ref={ref}

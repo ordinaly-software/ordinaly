@@ -278,7 +278,7 @@ export default function ContactPage() {
               <span className="flex h-12 w-12 items-center justify-center rounded-[1rem] bg-oat text-clay dark:bg-white/10">
                 <Icon className="h-5 w-5" strokeWidth={1.6} />
               </span>
-              <p className="mt-5 text-sm uppercase tracking-[0.16em] text-cloud-dark dark:text-cloud-medium">
+              <p className="mt-5 text-sm uppercase tracking-[0.16em] text-slate-light dark:text-cloud-medium">
                 {title}
               </p>
               <p className="mt-2 text-base font-semibold leading-snug group-hover:text-clay">
@@ -437,7 +437,7 @@ export default function ContactPage() {
                       aria-label={social.label}
                       className="flex h-full w-full items-center justify-center"
                     >
-                      <social.icon className="h-full w-full" strokeWidth={1.3} />
+                      <social.icon className="h-full w-full" strokeWidth={1.3} aria-hidden="true" />
                     </a>
                   </DockIcon>
                 ))}

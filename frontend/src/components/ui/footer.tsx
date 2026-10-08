@@ -229,7 +229,7 @@ const Footer = () => {
             <LocaleSwitcher variant="pill" label={t("footer.utility.language")} />
 
             <div className="inline-flex self-start items-center rounded-full border border-[--color-border-subtle] bg-white/70 p-1 dark:border-white/10 dark:bg-white/[0.04]">
-              <span className="px-3 text-xs font-medium uppercase tracking-[0.14em] text-cloud-dark dark:text-cloud-medium">
+              <span className="px-3 text-xs font-medium uppercase tracking-[0.14em] text-slate-light dark:text-cloud-medium">
                 {t("footer.utility.theme")}
               </span>
               <AnimatedThemeToggler

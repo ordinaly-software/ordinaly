@@ -74,7 +74,7 @@ const AuthModal = ({ isOpen, onClose, courseTitle }: AuthModalProps) => {
           <CardHeader className="pb-3">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-cobalt/10 rounded-xl flex items-center justify-center group-hover:bg-cobalt/20 transition-colors">
-                <UserPlus className="h-6 w-6 text-cobalt" />
+                <UserPlus className="h-6 w-6 text-cobalt dark:text-cobalt-light" />
               </div>
               <div className="flex-1">
                 <CardTitle className="text-lg text-gray-900 dark:text-white">

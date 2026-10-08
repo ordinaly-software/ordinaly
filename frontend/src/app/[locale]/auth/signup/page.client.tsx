@@ -42,6 +42,7 @@ const stepVariants = {
 
 function SignupPageContent() {
   const t = useTranslations("signup");
+  const tCommon = useTranslations("common");
   const { isDark } = useTheme();
   const [step, setStep] = useState(1);
   const [direction, setDirection] = useState(1);
@@ -363,7 +364,7 @@ function SignupPageContent() {
             <div className="scroll-animate slide-in-right">
               <Card className="rounded-[2rem] border border-[--color-border-subtle] bg-white/80 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]">
                 <CardHeader className="space-y-4">
-                  <div className="flex gap-2" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={TOTAL_STEPS}>
+                  <div className="flex gap-2" role="progressbar" aria-label={`${step}/${TOTAL_STEPS}`} aria-valuenow={step} aria-valuemin={1} aria-valuemax={TOTAL_STEPS}>
                     {Array.from({ length: TOTAL_STEPS }).map((_, index) => (
                       <div
                         key={index}
@@ -607,6 +608,7 @@ function SignupPageContent() {
                               <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
+                                aria-label={showPassword ? tCommon("hidePassword") : tCommon("showPassword")}
                                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-light dark:text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
                               >
                                 {showPassword ? (
@@ -636,6 +638,7 @@ function SignupPageContent() {
                               <button
                                 type="button"
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                aria-label={showConfirmPassword ? tCommon("hidePassword") : tCommon("showPassword")}
                                 className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-light dark:text-cloud-medium transition-colors hover:text-slate-medium dark:hover:text-cloud-light"
                               >
                                 {showConfirmPassword ? (
@@ -684,7 +687,7 @@ function SignupPageContent() {
                                     href="/legal?tab=terms"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="font-medium text-cobalt underline hover:text-clay"
+                                    className="font-medium text-cobalt dark:text-cobalt-light underline hover:text-clay"
                                   >
                                     {t("form.termsLink")}
                                   </a>{" "}
@@ -693,7 +696,7 @@ function SignupPageContent() {
                                     href="/legal?tab=privacy"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="font-medium text-cobalt underline hover:text-clay"
+                                    className="font-medium text-cobalt dark:text-cobalt-light underline hover:text-clay"
                                   >
                                     {t("form.privacyLink")}
                                   </a>
@@ -746,7 +749,7 @@ function SignupPageContent() {
 
                   <p className="mt-6 text-center text-sm text-slate-medium dark:text-cloud-medium">
                     {t("form.loginPrompt")}{" "}
-                    <Link href="/auth/signin" className="text-cobalt hover:underline">
+                    <Link href="/auth/signin" className="text-cobalt dark:text-cobalt-light underline">
                       {t("form.loginLink")}
                     </Link>
                   </p>

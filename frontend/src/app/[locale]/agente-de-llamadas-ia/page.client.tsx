@@ -98,7 +98,7 @@ function buildPricingCard(key: string, pricing: CallPricing | undefined, whatsap
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               aria-label="WhatsApp"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-clay-fill text-white transition hover:brightness-110"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white transition hover:brightness-110"
             >
               <IconWhatsApp size={18} />
             </a>
@@ -299,7 +299,7 @@ export default function AgenteDeLlamadasIA() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <a
               href="#formulario"
-              className="rounded-xl bg-clay-fill px-8 py-4 font-semibold text-white shadow-lg transition hover:scale-105"
+              className="rounded-xl bg-clay-fill dark:bg-clay-fill px-8 py-4 font-semibold text-white dark:text-white shadow-lg transition hover:scale-105"
             >
               {content.heroCtaLabel}
             </a>

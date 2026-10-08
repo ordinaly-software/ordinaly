@@ -127,7 +127,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
                 {course.subtitle}
               </p>
             )}
-            <div className="flex flex-wrap gap-4 text-xs text-cloud-dark dark:text-cloud-medium">
+            <div className="flex flex-wrap gap-4 text-xs text-slate-light dark:text-cloud-medium">
               <span className="inline-flex items-center gap-1">
                 <Calendar className="h-3.5 w-3.5" />
                 {formatCourseDate(course[dateField])}
@@ -172,7 +172,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
           ) : (
             <>
               <div className="space-y-4">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-cloud-dark dark:text-cloud-medium">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-light dark:text-cloud-medium">
                   {t("courses.current")}
                 </h3>
                 {currentCourses.length === 0 ? (
@@ -187,7 +187,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
               </div>
 
               <div className="space-y-4 border-t border-[--color-border-subtle] pt-8 dark:border-white/10">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-cloud-dark dark:text-cloud-medium">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-light dark:text-cloud-medium">
                   {t("courses.past")}
                 </h3>
                 {pastCourses.length === 0 ? (

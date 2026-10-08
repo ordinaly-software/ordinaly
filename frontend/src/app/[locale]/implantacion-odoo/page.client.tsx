@@ -62,7 +62,7 @@ export default function ImplantacionOdoo() {
   const comparisonRowsPresentation = [
     { key: "salesforce", rowClass: "bg-white", textClass: "text-black", logoSrc: "/static/icons/salesforce.webp", logoAlt: "Salesforce" },
     { key: "hubspot", rowClass: "bg-[#fff0df]", textClass: "text-black", logoSrc: "/static/icons/hubspot.webp", logoAlt: "HubSpot" },
-    { key: "odoo-enterprise", rowClass: "bg-white", textClass: "text-[#f35a1f]", logoSrc: "/static/icons/odoo.webp", logoAlt: "Odoo Enterprise" },
+    { key: "odoo-enterprise", rowClass: "bg-white", textClass: "text-[#C2410C]", logoSrc: "/static/icons/odoo.webp", logoAlt: "Odoo Enterprise" },
     { key: "odoo-community", rowClass: "bg-[#f8e2d1]", textClass: "text-black", logoSrc: "/static/icons/odoo_community.webp", logoAlt: "Odoo Community" },
   ];
 
@@ -220,7 +220,7 @@ export default function ImplantacionOdoo() {
           <div className="order-1 md:order-1 overflow-hidden border border-[#d6d1ca] bg-white shadow-none self-start">
             <table className="w-full table-fixed border-collapse text-left">
               <thead>
-                <tr className="bg-[#ea9567] text-white">
+                <tr className="bg-clay-fill dark:bg-clay-fill text-white dark:text-white">
                   <th className="w-[40%] border-r border-white/40 px-2 py-3 text-center text-[10px] font-bold md:text-sm">
                     {comparisonTableHeaders[0]}
                   </th>

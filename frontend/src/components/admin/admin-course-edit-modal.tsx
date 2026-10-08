@@ -164,7 +164,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           <div className="space-y-3">
             <Label htmlFor="subtitle" className="flex items-center space-x-2 text-sm font-semibold text-slate-dark dark:text-cloud-medium">
               <div className="w-5 h-5 bg-cobalt/10 dark:bg-cobalt/20 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-cobalt">S</span>
+                <span className="text-xs font-bold text-cobalt dark:text-cobalt-light">S</span>
               </div>
               <span>{t("form.subtitleOptional")}</span>
             </Label>
@@ -287,7 +287,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
                       type="button"
                       variant="outline"
                       onClick={() => document.getElementById('image')?.click()}
-                      className="border-[var(--swatch--clay)] text-[var(--swatch--clay)] hover:bg-clay-fill hover:text-white transition-all duration-200 text-xs px-2 py-1"
+                      className="border-[var(--swatch--clay)] text-[var(--swatch--clay)] hover:bg-clay-fill hover:text-white dark:text-white transition-all duration-200 text-xs px-2 py-1"
                     >
                       {t("form.chooseImageText")}
                     </Button>
@@ -383,7 +383,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           <div className="space-y-3">
             <Label htmlFor="max_attendants" className="flex items-center space-x-2 text-sm font-semibold text-slate-dark dark:text-cloud-medium">
               <div className="w-5 h-5 bg-cobalt/10 dark:bg-cobalt/20 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-cobalt">#</span>
+                <span className="text-xs font-bold text-cobalt dark:text-cobalt-light">#</span>
               </div>
               <span>{t("form.maxAttendantsRequired")}</span>
             </Label>
@@ -518,7 +518,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
                           setFormData(prev => ({...prev, weekdays: (prev.weekdays ?? []).filter((d: number) => d !== idx)}));
                         }
                       }}
-                      className="rounded border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] text-cobalt focus:ring-cobalt/20"
+                      className="rounded border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] text-cobalt dark:text-cobalt-light focus:ring-cobalt/20"
                     />
                     <span className="text-xs text-slate-medium dark:text-cloud-medium" title={day.full}>
                       {day.short}
@@ -594,7 +594,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           </Button>
           <Button
             onClick={onSubmit}
-            className="px-6 py-2 bg-clay-fill hover:bg-[var(--swatch--flame)] text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"          >
+            className="px-6 py-2 bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"          >
             <span>{showEditModal ? t("form.update") : t("form.create")}</span>
             {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
           </Button>

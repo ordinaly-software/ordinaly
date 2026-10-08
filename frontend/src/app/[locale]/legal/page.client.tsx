@@ -162,6 +162,9 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.personalDataCollected.bullet3'),
         t('sections.privacy.personalDataCollected.bullet4'),
         t('sections.privacy.personalDataCollected.bullet5'),
+        t('sections.privacy.personalDataCollected.bullet6'),
+        t('sections.privacy.personalDataCollected.bullet7'),
+        t('sections.privacy.personalDataCollected.bullet8'),
       ],
     },
     {
@@ -175,6 +178,7 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.processingPurposes.bullet2'),
         t('sections.privacy.processingPurposes.bullet3'),
         t('sections.privacy.processingPurposes.bullet4'),
+        t('sections.privacy.processingPurposes.bullet5'),
       ],
     },
     {
@@ -187,6 +191,7 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.legalBases.bullet1'),
         t('sections.privacy.legalBases.bullet2'),
         t('sections.privacy.legalBases.bullet3'),
+        t('sections.privacy.legalBases.bullet4'),
       ],
     },
     {
@@ -198,6 +203,17 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
       bullets: [
         t('sections.privacy.recipients.bullet1'),
         t('sections.privacy.recipients.bullet2'),
+        t('sections.privacy.recipients.bullet3'),
+        t('sections.privacy.recipients.bullet4'),
+        t('sections.privacy.recipients.bullet5'),
+        t('sections.privacy.recipients.bullet6'),
+      ],
+    },
+    {
+      id: 'international-transfers',
+      title: t('sections.privacy.internationalTransfers.title'),
+      paragraphs: [
+        t('sections.privacy.internationalTransfers.p1'),
       ],
     },
     {
@@ -239,6 +255,14 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
       ],
     },
     {
+      id: 'exercise-rights',
+      title: t('sections.privacy.exerciseRights.title'),
+      paragraphs: [
+        t('sections.privacy.exerciseRights.p1'),
+        t('sections.privacy.exerciseRights.p2'),
+      ],
+    },
+    {
       id: 'data-security',
       title: t('sections.privacy.dataSecurity.title'),
       paragraphs: [
@@ -267,6 +291,9 @@ const getCookiesContent = (t: (key: string, opts?: Record<string, string | numbe
       bullets: [
         t('sections.cookies.typesOfCookies.bullet1'),
         t('sections.cookies.typesOfCookies.bullet2'),
+        t('sections.cookies.typesOfCookies.bullet3'),
+        t('sections.cookies.typesOfCookies.bullet4'),
+        t('sections.cookies.typesOfCookies.bullet5'),
       ],
     },
     {
@@ -279,6 +306,8 @@ const getCookiesContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.cookies.cookiesList.bullet1'),
         t('sections.cookies.cookiesList.bullet2'),
         t('sections.cookies.cookiesList.bullet3'),
+        t('sections.cookies.cookiesList.bullet4'),
+        t('sections.cookies.cookiesList.bullet5'),
       ],
     },
     {
@@ -293,6 +322,7 @@ const getCookiesContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.cookies.localStorage.bullet2'),
         t('sections.cookies.localStorage.bullet3'),
         t('sections.cookies.localStorage.bullet4'),
+        t('sections.cookies.localStorage.bullet5'),
       ],
     },
     {
@@ -320,6 +350,7 @@ const getCookiesContent = (t: (key: string, opts?: Record<string, string | numbe
       title: t('sections.cookies.policyModification.title'),
       paragraphs: [
         t('sections.cookies.policyModification.p1'),
+        t('sections.cookies.policyModification.p2'),
       ],
     },
   ],
@@ -520,8 +551,8 @@ const LegalPage = () => {
       return `${base} border-clay/60 bg-clay/15 text-clay shadow-md`;
     }
     return isDark
-      ? `${base} border-white/10 bg-white/5 text-gray-200 hover:border-clay hover:bg-clay-fill hover:text-white`
-      : `${base} border-gray-200 bg-white text-gray-700 hover:border-clay hover:bg-clay-fill hover:text-white`;
+      ? `${base} border-white/10 bg-white/5 text-gray-200 hover:border-clay hover:bg-clay-fill hover:text-white dark:text-white`
+      : `${base} border-gray-200 bg-white text-gray-700 hover:border-clay hover:bg-clay-fill hover:text-white dark:text-white`;
   };
 
   const rootClass = isDark
@@ -599,7 +630,7 @@ const LegalPage = () => {
               </p>
             </div>
             <Link href="/" className="self-start lg:self-center">
-              <Button className="bg-clay-fill text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight">
+              <Button className="bg-clay-fill dark:bg-clay-fill text-white dark:text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight">
                 <ExternalLink className="mr-2 h-4 w-4" />
                 {tCommon('backToHome')}
               </Button>
@@ -638,7 +669,7 @@ const LegalPage = () => {
                 </p>
                 <Button
                   onClick={() => downloadPDF(activeDoc)}
-                  className="w-full bg-clay-fill text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
+                  className="w-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
                 >
                   <Download className="mr-2 h-4 w-4" />
                   {t('downloadPdf')}
@@ -672,7 +703,7 @@ const LegalPage = () => {
                     // ignore
                   }
                 }}
-                className="w-full bg-clay-fill text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <Sparkles className="mr-2 h-4 w-4" />
                 {t('openCookieSettings', {})}
@@ -699,7 +730,7 @@ const LegalPage = () => {
               </p>
               <Button
                 asChild
-                className="w-full bg-clay-fill text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
+                className="w-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white shadow-md hover:shadow-lg hover:bg-clay/90 normal-case not-italic font-semibold tracking-tight mt-auto"
               >
                 <a href="mailto:denuncias@ordinaly.ai">{t('contactCta', {})}</a>
               </Button>
@@ -805,7 +836,7 @@ const LegalPage = () => {
                     <Button
                       onClick={() => downloadPDF(doc)}
                       size="sm"
-                      className="w-full bg-clay-fill text-white hover:bg-clay/90"
+                      className="w-full bg-clay-fill dark:bg-clay-fill text-white dark:text-white hover:bg-clay/90"
                     >
                       <Download className="mr-2 h-3 w-3" />
                       {t('downloadPdf')}
