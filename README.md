@@ -84,11 +84,9 @@ ordinaly/
 │   ├── users/            # Gestión de usuarios
 │   ├── courses/          # Cursos y formación
 │   ├── services/         # Servicios empresariales
-│   ├── terms/            # Términos legales
 │   ├── media/            # Archivos subidos (imágenes, PDFs, etc.)
 │   │   ├── course_images/
 │   │   ├── service_images/
-│   │   ├── terms/
 │   │   └── test_media/
 │   ├── staticfiles/       # Archivos estáticos del panel de Django
 │   └── ...
@@ -154,11 +152,6 @@ ordinaly/
                         <li>models.py, serializers.py, views.py, urls.py, admin.py, tests.py</li>
                     </ul>
                 </li>
-                <li><b>terms/</b> — Términos legales y documentos
-                    <ul>
-                        <li>models.py, serializers.py, views.py, urls.py, admin.py, tests.py</li>
-                    </ul>
-                </li>
                 <li><b>config/</b> — Configuración global del proyecto
                     <ul>
                         <li>settings.py, urls.py, wsgi.py, asgi.py, __init__.py</li>
@@ -216,7 +209,7 @@ ordinaly/
             </ul>
             <b>Componentes principales:</b>
             <ul>
-                <li><b>Admin:</b> admin-course-card, admin-course-edit-modal, admin-course-modal, admin-courses-tab, admin-external-tab, admin-tabs, admin-terms-tab, admin-users-tab, enrolled-members</li>
+                <li><b>Admin:</b> admin-course-card, admin-course-edit-modal, admin-course-modal, admin-courses-tab, admin-external-tab, admin-tabs, admin-users-tab, enrolled-members</li>
                 <li><b>About:</b> about-hero, timeline, work-with-us</li>
                 <li><b>Analytics:</b> google-analytics-loader</li>
                 <li><b>Formation:</b> add-to-calendar-buttons, bonification-info, checkout-button, course-card, course-details-modal, course-footer, course-sidebar, enrollment-cancellation-modal, enrollment-cancellation-success-modal, enrollment-confirmation-modal, enrollment-success-modal, faq-section, instructors-section</li>
@@ -250,12 +243,12 @@ ordinaly/
 
 ## Características principales
 
-- **Backend Django REST:** API robusta para cursos, usuarios, servicios, autenticación y términos legales.
+- **Backend Django REST:** API robusta para cursos, usuarios, servicios y autenticación.
 - **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones 3D.
 - **Internacionalización (i18n):** Traducciones completas (es, en) usando next-intl.
 - **Autenticación completa:** Registro, verificación de email, cambio de email, recuperación de contraseña y OAuth con Google.
 - **Gestión de cursos:** Horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook) y pagos con Stripe.
-- **Panel de administración:** Gestión avanzada de usuarios, cursos, servicios y términos.
+- **Panel de administración:** Gestión avanzada de usuarios, cursos y servicios.
 - **CMS con Sanity:** Gestión de contenido para blog, servicios y páginas.
 - **Landing pages SEO:** Páginas optimizadas para búsquedas de IA y automatización en Sevilla.
 - **Integración con WhatsApp y Odoo:** Automatización de ventas y flujos empresariales.

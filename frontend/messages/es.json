@@ -438,7 +438,6 @@
       "overview": "Resumen",
       "services": "Servicios",
       "courses": "Cursos",
-      "terms": "Términos",
       "users": "Usuarios",
       "blog": "Blog",
       "odoo": "Odoo",
@@ -502,7 +501,6 @@
     "stats": {
       "totalServices": "Total de servicios",
       "totalCourses": "Total de cursos",
-      "totalTerms": "Total de términos",
       "totalUsers": "Total de usuarios",
       "totalPosts": "Publicaciones del blog"
     },
@@ -850,124 +848,6 @@
       "hidePastCourses": "Ocultar cursos pasados",
       "upcomingCourses": "Próximos cursos",
       "finished": "Finalizado"
-    },
-    "terms": {
-      "title": "Gestión de términos",
-      "searchPlaceholder": "Buscar documentos...",
-      "addTerm": "Añadir término",
-      "editTerm": "Editar término",
-      "createTerm": "Crear nuevo término",
-      "deleteSelected": "Eliminar seleccionados",
-      "selectAll": "Seleccionar todo",
-      "noTerms": "No hay términos disponibles",
-      "noTermsFound": "No se encontraron términos que coincidan con tu búsqueda",
-      "pdfAvailable": "PDF disponible",
-      "mdAvailable": "Documento Markdown disponible",
-      "downloadPdf": "Descargar PDF",
-      "edit": "Editar término",
-      "delete": "Eliminar término",
-      "noResults": "No se encontraron términos",
-      "terms": "términos",
-      "form": {
-        "name": "Nombre",
-        "namePlaceholder": "Nombre del término",
-        "content": "Contenido (Markdown)",
-        "contentPlaceholder": "Contenido del término en formato markdown",
-        "version": "Versión",
-        "versionPlaceholder": "ej: 1.0",
-        "tag": "Tipo de documento",
-        "tagPlaceholder": "Selecciona el tipo de documento",
-        "selectTag": "Selecciona un tipo de documento",
-        "noAvailableTags": "No hay tipos de documento disponibles",
-        "allTagsUsed": "Todos los tipos de documento han sido creados. Solo puedes tener uno de cada tipo",
-        "allTagsUsedTitle": "Todos los tipos de documento ya están en uso",
-        "allTagsUsedButton": "Todos los tipos creados",
-        "markdownSupported": "Markdown soportado",
-        "pdfContent": "Contenido PDF",
-        "contentMd": "Contenido Markdown",
-        "mdFile": "Archivo Markdown",
-        "chooseMd": "Elegir archivo Markdown",
-        "downloadCurrentPdf": "Descargar PDF",
-        "downloadCurrentMd": "Descargar Markdown",
-        "tagTypes": {
-          "terms": "Términos y Condiciones",
-          "cookies": "Política de Cookies",
-          "privacy": "Política de Privacidad",
-          "license": "Licencia"
-        },
-        "pdfVersion": "Versión PDF (opcional)",
-        "choosePdf": "Elegir PDF",
-        "cancel": "Cancelar",
-        "create": "Crear término",
-        "update": "Actualizar término",
-        "noTagsLeft": "No quedan más tipos de documento",
-        "noFileEdit": "No se puede editar el archivo"
-      },
-      "actions": {
-        "viewPreview": "Ver vista previa",
-        "viewPdf": "Ver PDF"
-      },
-      "tabs": {
-        "form": "Formulario",
-        "preview": "Vista previa Markdown",
-        "pdf": "Vista previa"
-      },
-      "labels": {
-        "name": "Nombre",
-        "content": "Contenido",
-        "version": "Versión",
-        "tag": "Tipo de documento",
-        "created": "Creado",
-        "updated": "Actualizado"
-      },
-      "preview": {
-        "noFileEdit": "No se puede editar el archivo",
-        "noPdf": "No hay PDF disponible para la vista previa"
-      },
-      "messages": {
-        "createSuccess": "¡Documento creado exitosamente!",
-        "updateSuccess": "¡Documento actualizado exitosamente!",
-        "deleteSuccess": "Documento eliminado exitosamente",
-        "bulkDeleteSuccess": "Documentos eliminados exitosamente",
-        "fetchError": "Error al obtener documentos",
-        "createError": "Error al crear documento",
-        "updateError": "Error al actualizar documento",
-        "deleteError": "Error al eliminar documento",
-        "downloadSuccess": "PDF descargado exitosamente",
-        "networkError": "No se pudo guardar el documento. Por favor verifica tu conexión e intenta de nuevo",
-        "selectToDelete": "Por favor selecciona documentos para eliminar",
-        "fileSizeLimit": "El tamaño del archivo debe ser menor a 10MB",
-        "pdfFileOnly": "Por favor selecciona un archivo PDF",
-        "validation": {
-          "nameRequired": "El nombre del documento es requerido y debe tener 127 caracteres o menos",
-          "contentRequired": "Por favor sube un archivo Markdown (.md) válido para el contenido",
-          "pdfRequired": "Por favor sube un archivo PDF válido para el documento",
-          "versionRequired": "La versión es requerida y debe tener 20 caracteres o menos",
-          "tagUnique": "Ya existe un documento con este tipo de etiqueta. Por favor elige una etiqueta diferente o edita el documento existente",
-          "fileExtension": "El archivo de contenido debe ser un archivo .md y el contenido PDF debe ser un archivo .pdf",
-          "fileMissing": "Se deben proporcionar tanto un archivo markdown (.md) como un archivo PDF",
-          "tagRequired": "Por favor selecciona un tipo de documento",
-          "mdSize": "El archivo debe tener 1MB o menos",
-          "pdfSize": "El archivo debe tener 1MB o menos"
-        },
-        "upload": {
-          "error": "Error en la carga del archivo. Por favor asegúrate de que tus archivos sean válidos e intenta de nuevo"
-        },
-        "version": {
-          "updateWarning": "Importante: Actualizar este documento de términos creará una nueva versión. Los usuarios pueden necesitar re-aceptar los términos actualizados"
-        }
-      },
-      "confirmDelete": {
-        "title": "Confirmar eliminación",
-        "single": "¿Estás seguro de que quieres eliminar \"{name}\"? Esta acción no se puede deshacer",
-        "multiple": "¿Estás seguro de que quieres eliminar {count} términos seleccionados? Esta acción no se puede deshacer",
-        "delete": "Eliminar",
-        "cancel": "Cancelar"
-      },
-      "details": {
-        "created": "Creado",
-        "updated": "Actualizado"
-      }
     }
   },
   "legal": {
@@ -991,14 +871,15 @@
     "sections": {
       "terms": {
         "title": "Términos de Servicio",
-        "noDocuments": "No hay documentos de términos de servicio disponibles actualmente",
         "identification": {
           "title": "IDENTIFICACIÓN DEL PRESTADOR DE SERVICIOS",
           "p1": "En cumplimiento de la Ley 34/2002, de servicios de la sociedad de la información y comercio electrónico (LSSI-CE), se informa que el presente sitio web es propiedad de:",
           "bullet1": "Empresa: Ordinaly Software S.L.",
-          "bullet2": "Domicilio fiscal: Bormujos (Sevilla, España). Uso exclusivo para notificaciones oficiales.",
-          "bullet3": "Oficinas y atención al cliente: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla, Sevilla (España)",
-          "bullet4": "Web y correo de contacto: https://ordinaly.ai • info@ordinaly.ai"
+          "bullet2": "CIF: B22929764",
+          "bullet3": "Datos registrales: inscrita en el Registro Mercantil de Sevilla, hoja SE-150965, inscripción 1ª",
+          "bullet4": "Domicilio social: Avenida República Argentina, s/n, Edificio Principado, 1ª planta, oficina 3, 41930 Bormujos (Sevilla, España)",
+          "bullet5": "Oficinas y atención al cliente: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla, Sevilla (España)",
+          "bullet6": "Web y correo de contacto: https://ordinaly.ai • info@ordinaly.ai"
         },
         "purpose": {
           "title": "OBJETO",
@@ -1042,13 +923,14 @@
       },
       "privacy": {
         "title": "Política de Privacidad",
-        "noDocuments": "No hay documentos de política de privacidad disponibles actualmente",
         "dataController": {
           "title": "RESPONSABLE DEL TRATAMIENTO",
           "p1": "En cumplimiento del Reglamento General de Protección de Datos (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD), se informa que el responsable del tratamiento de los datos es:",
           "p2": "Ordinaly Software S.L.",
-          "bullet1": "Domicilio fiscal: Bormujos (Sevilla, España). Solo para notificaciones y comunicaciones oficiales.",
-          "bullet2": "Atención al cliente y oficinas: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla. Contacto: info@ordinaly.ai"
+          "bullet1": "CIF: B22929764",
+          "bullet2": "Domicilio social: Avenida República Argentina, s/n, Edificio Principado, 1ª planta, oficina 3, 41930 Bormujos (Sevilla, España)",
+          "bullet3": "Atención al cliente y oficinas: Plaza del Duque de la Victoria 1, planta 3, oficina 9, 41002 Sevilla. Contacto: info@ordinaly.ai",
+          "bullet4": "Delegado de protección de datos: Antonio Macías Ferrera · antonio.macias@ordinaly.ai"
         },
         "personalDataCollected": {
           "title": "DATOS PERSONALES QUE RECOGEMOS",
@@ -1087,7 +969,8 @@
           "bullet3": "Google reCAPTCHA, para proteger los formularios frente a spam",
           "bullet4": "Google Maps y YouTube, para mostrar mapas y vídeos incrustados (solo si aceptas el contenido de terceros)",
           "bullet5": "Netlify, para el alojamiento del sitio web",
-          "bullet6": "Proveedores de envío de correo electrónico, para los mensajes del servicio (verificación de cuenta, avisos)"
+          "bullet6": "Hostinger, para el alojamiento del servidor, la base de datos y los archivos del servicio",
+          "bullet7": "Servicio de envío de correo electrónico del propio sitio, para los mensajes del servicio (verificación de cuenta, avisos)"
         },
         "internationalTransfers": {
           "title": "TRANSFERENCIAS INTERNACIONALES",
@@ -1119,7 +1002,7 @@
         },
         "exerciseRights": {
           "title": "CÓMO EJERCER TUS DERECHOS Y RECLAMAR",
-          "p1": "Puedes ejercer tus derechos escribiendo a info@ordinaly.ai, indicando el derecho que quieres ejercer y acreditando tu identidad. Responderemos en el plazo máximo de un mes, conforme al RGPD.",
+          "p1": "Puedes ejercer tus derechos escribiendo a info@ordinaly.ai o directamente a nuestro delegado de protección de datos (antonio.macias@ordinaly.ai), indicando el derecho que quieres ejercer y acreditando tu identidad. Responderemos en el plazo máximo de un mes, conforme al RGPD.",
           "p2": "Si consideras que el tratamiento de tus datos no se ajusta a la normativa, tienes derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (www.aepd.es)."
         },
         "dataSecurity": {
@@ -1129,7 +1012,6 @@
       },
       "cookies": {
         "title": "Política de Cookies",
-        "noDocuments": "No hay documentos de política de cookies disponibles actualmente",
         "whatAreCookies": {
           "title": "¿QUÉ SON LAS COOKIES?",
           "p1": "Las cookies son pequeños archivos que un sitio web instala en el dispositivo del usuario al navegar por sus páginas. Permiten almacenar y recuperar información sobre hábitos de navegación o del dispositivo, y pueden utilizarse para reconocer al usuario y personalizar la experiencia."
@@ -1182,7 +1064,6 @@
       },
       "license": {
         "title": "Información de licencia",
-        "noDocuments": "No hay documentos de licencia disponibles actualmente",
         "purpose": {
           "title": "OBJETO",
           "p1": "El presente documento regula los términos de uso aplicables a los entregables desarrollados por Ordinaly Software S.L., incluyendo pero no limitándose a:",
@@ -1232,11 +1113,14 @@
         }
       }
     },
-    "messages": {
-      "fetchError": "Error al obtener documentos legales",
-      "networkError": "Error de red al obtener documentos",
-      "noPdfAvailable": "La versión PDF no está disponible para este documento",
-      "downloadSuccess": "PDF descargado exitosamente"
+    "pdf": {
+      "kicker": "Ordinaly Software S.L.",
+      "versionLine": "Versión {version} · {date}",
+      "page": "Página {page} de {total}",
+      "companyLine": "Ordinaly Software S.L. · CIF B22929764",
+      "addressLine": "Avda. República Argentina, s/n, Edificio Principado, 1ª planta, oficina 3 · 41930 Bormujos (Sevilla)",
+      "contactLine": "info@ordinaly.ai · https://ordinaly.ai",
+      "error": "No se pudo generar el PDF. Inténtalo de nuevo."
     }
   },
   "services": {

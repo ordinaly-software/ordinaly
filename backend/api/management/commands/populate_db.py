@@ -10,7 +10,6 @@ from django.utils import timezone
 
 from courses.models import Course, Enrollment
 from services.models import Service
-from terms.models import Terms
 from users.models import CustomUser
 
 User = get_user_model()
@@ -48,7 +47,6 @@ class Command(BaseCommand):
         created_users = self.create_mock_users()
         self.stdout.write(f'Created {created_users} demo users')
 
-        self.run_step('terms', self.create_terms)
         courses = self.run_step('courses', self.create_courses)
         self.run_step('enrollments', self.create_enrollments, courses)
         self.run_step('services', self.create_services)
@@ -107,12 +105,8 @@ class Command(BaseCommand):
     def clear_data(self):
         """Clear existing demo data, associated media files, and demo user accounts."""
         try:
-            # pdf_content/image are plain FileFields, not relations, so
+            # image is a plain FileField, not a relation, so
             # select_related/prefetch_related do not apply here.
-            terms_files = [
-                term.pdf_content.path for term in Terms.objects.only('pdf_content')  # NOSONAR
-                if term.pdf_content and hasattr(term.pdf_content, 'path')
-            ]
             course_images = [
                 course.image.path for course in Course.objects.only('image')  # NOSONAR
                 if course.image and hasattr(course.image, 'path')
@@ -127,15 +121,12 @@ class Command(BaseCommand):
             Service.objects.all().delete()
             self.stdout.write("Deleted all services")
 
-            Terms.objects.all().delete()
-            self.stdout.write("Deleted all terms")
-
             deleted_users, _ = CustomUser.objects.filter(
                 email__iendswith=f"@{DEMO_EMAIL_DOMAIN}"
             ).delete()
             self.stdout.write(f"Deleted {deleted_users} demo users")
 
-            for file_path in terms_files + course_images:
+            for file_path in course_images:
                 if os.path.exists(file_path):
                     try:
                         os.remove(file_path)
@@ -145,47 +136,6 @@ class Command(BaseCommand):
 
         except Exception as e:
             self.stdout.write(f"Error during data cleanup: {e}")
-
-    def create_terms(self):
-        admin_user = CustomUser.objects.filter(is_staff=True, is_superuser=True).first()
-        if not admin_user:
-            return []
-
-        terms_dir = os.path.join(settings.BASE_DIR, 'media', 'test_media', 'terms')
-        os.makedirs(terms_dir, exist_ok=True)
-
-        term_files = [
-            ('terms', 'Términos y Condiciones de Uso v1.0', '1.0'),
-            ('privacy', 'Política de Privacidad v1.0', '1.0'),
-            ('cookies', 'Política de Cookies v1.0', '1.0'),
-            ('license', 'Acuerdo de Licencia de Software v1.0', '1.0'),
-        ]
-        terms = []
-        for tag, name, version in term_files:
-            pdf_path = os.path.join(terms_dir, f'{tag}_ordinaly.pdf')
-            if not os.path.exists(pdf_path):
-                self.stdout.write(f"Warning: PDF file not found at {pdf_path}")
-                continue
-
-            # Recreate terms with the same tag to avoid uniqueness constraint errors
-            Terms.objects.filter(tag=tag).delete()
-
-            with open(pdf_path, 'rb') as f:
-                pdf_content = f.read()
-
-            try:
-                term = Terms.objects.create(
-                    tag=tag,
-                    name=name,
-                    version=version,
-                    author=admin_user,
-                    pdf_content=ContentFile(pdf_content, name=f"{tag}.pdf"),
-                )
-                terms.append(term)
-            except Exception as e:
-                self.stdout.write(f"Error creating term {tag}: {e}")
-
-        return terms
 
     def create_courses(self):
         """Create sample courses with schedules relative to today, so seeded data never looks stale."""

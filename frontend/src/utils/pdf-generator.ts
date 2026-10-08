@@ -1,4 +1,12 @@
 import jsPDF from 'jspdf';
+import {
+  loadImageAsBase64,
+  loadImageAsDataUrl,
+  resolveImageUrl,
+  stripMarkdown,
+  truncatePdfLines,
+  wrapPdfText,
+} from '@/utils/pdf/helpers';
 
 
 export interface Course {
@@ -77,51 +85,10 @@ export async function generateCoursesCatalogPDF(
   };
 
   // Helper function to wrap text
-  const wrapText = (text: string, maxWidth: number, fontSize: number) => {
-    pdf.setFontSize(fontSize);
-    return pdf.splitTextToSize(text, maxWidth);
-  };
+  const wrapText = (text: string, maxWidth: number, fontSize: number) => wrapPdfText(pdf, text, maxWidth, fontSize);
 
-  const stripMarkdown = (text: string) => {
-    if (!text) return '';
-    let value = text;
-    value = value.replace(/```[\s\S]*?```/g, '');
-    value = value.replace(/`[^`]*`/g, '');
-    value = value.replace(/!\[[^\]]*?\]\([^)]+?\)/g, '');
-    value = value.replace(/\[([^\]]+?)\]\([^)]+?\)/g, '$1');
-    value = value.replace(/~~([^~]+)~~/g, '$1');
-    value = value.replace(/[*_]{1,3}([^*_]+)[*_]{1,3}/g, '$1');
-    value = value.replace(/^>+\s?/gm, '');
-    value = value.replace(/^#{1,6}\s+/gm, '');
-    value = value.replace(/^\s*[-*+]\s+/gm, '');
-    value = value.replace(/^\s*\d+\.\s+/gm, '');
-    let previous: string;
-    do {
-      previous = value;
-      value = value.replace(/<[^>]+>/g, '');
-    } while (value !== previous);
-    value = value.replace(/\s{2,}/g, ' ');
-    return value.trim();
-  };
-
-  const truncateLines = (lines: string[], maxLines: number, maxWidth: number) => {
-    if (lines.length <= maxLines) {
-      return lines;
-    }
-    const truncated = lines.slice(0, maxLines);
-    const ellipsis = '...';
-    const getTextWidth = (pdf as jsPDF & { getTextWidth?: (text: string) => number }).getTextWidth;
-    let last = truncated[maxLines - 1];
-    if (getTextWidth) {
-      while (last.length > 0 && getTextWidth.call(pdf, `${last}${ellipsis}`) > maxWidth) {
-        last = last.slice(0, -1);
-      }
-    } else if (last.length > 3) {
-      last = last.slice(0, -3);
-    }
-    truncated[maxLines - 1] = `${last}${ellipsis}`;
-    return truncated;
-  };
+  const truncateLines = (lines: string[], maxLines: number, maxWidth: number) =>
+    truncatePdfLines(pdf, lines, maxLines, maxWidth);
 
   // Helper function to format date
   const formatDate = (dateString: string) => {
@@ -140,67 +107,12 @@ export async function generateCoursesCatalogPDF(
     return `${hours}:${minutes}`;
   };
 
-  const resolveImageUrl = (imagePath?: string | null) => {
-    if (!imagePath || imagePath === 'undefined' || imagePath === 'null') return null;
-    if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) return imagePath;
-    if (imagePath.startsWith('/')) {
-      const apiBase = process.env.NEXT_PUBLIC_API_URL;
-      if (apiBase) return `${apiBase}${imagePath}`;
-      if (typeof window !== 'undefined' && window.location?.origin) {
-        return `${window.location.origin}${imagePath}`;
-      }
-    }
-    return imagePath;
-  };
-
   // All translation is now handled by the provided t function
   const bonificationDisclaimer = t('bonificationDisclaimer');
 
-  // Helper function to load image as base64
-  const loadImageAsBase64 = async (imagePath: string): Promise<string> => {
-    try {
-      const response = await fetch(imagePath);
-      const blob = await response.blob();
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result as string);
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    } catch {
-      throw new Error('Failed to load image as base64');
-    }
-  };
-
-  // Helper to ensure image is in JPEG base64 (jsPDF prefers JPEG/PNG).
-  const loadImageAsJpegBase64 = async (imagePath: string): Promise<string> => {
-    try {
-      const dataUrl = await loadImageAsBase64(imagePath);
-      // Convert to JPEG via canvas to maximize compatibility
-      return await new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = 'Anonymous';
-        img.onload = () => {
-          try {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return reject(new Error('Canvas context unavailable'));
-            ctx.drawImage(img, 0, 0);
-            const jpeg = canvas.toDataURL('image/jpeg', 0.9);
-            resolve(jpeg);
-          } catch (e) {
-            reject(e);
-          }
-        };
-        img.onerror = reject;
-        img.src = dataUrl;
-      });
-    } catch {
-      throw new Error('Failed to load/convert image');
-    }
-  };
+  // jsPDF prefers JPEG/PNG, so course images are re-encoded as JPEG.
+  const loadImageAsJpegBase64 = async (imagePath: string): Promise<string> =>
+    (await loadImageAsDataUrl(imagePath, 'image/jpeg')).dataUrl;
 
   // Helper function to load and add logo
   const addLogo = async () => {
