@@ -1031,7 +1031,7 @@
           "bullet1": "NEXT_LOCALE (Técnica): almacena el idioma seleccionado. Duración: sesión. Proveedor: Ordinaly",
           "bullet2": "_GRECAPTCHA (Seguridad): Google reCAPTCHA, análisis de riesgo para detectar tráfico automatizado. Duración: 6 meses. Proveedor: Google. Solo tras empezar a rellenar un formulario",
           "bullet3": "_ga (Analítica): distingue usuarios únicos en Google Analytics. Duración: 2 años. Proveedor: Google. Solo con consentimiento",
-          "bullet4": "_ga_<ID> (Analítica): mantiene el estado de la sesión en Google Analytics 4. Duración: 2 años. Proveedor: Google. Solo con consentimiento",
+          "bullet4": "_ga_XXXXXXXXXX (Analítica): mantiene el estado de la sesión en Google Analytics 4. Duración: 2 años. Proveedor: Google. Solo con consentimiento",
           "bullet5": "Cookies de YouTube y Google Maps (Contenido de terceros): las establece Google al cargar el vídeo o el mapa, y su nombre y duración dependen de Google. Solo con consentimiento"
         },
         "localStorage": {

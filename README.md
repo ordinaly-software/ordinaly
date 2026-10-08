@@ -74,7 +74,6 @@ ordinaly/
 ├── LICENSE
 ├── README.md
 ├── backend/
-│   ├── conftest.py
 │   ├── manage.py
 │   ├── pytest.ini
 │   ├── requirements.txt
@@ -160,7 +159,6 @@ ordinaly/
             </ul>
             <b>Otros:</b>
             <ul>
-                <li><b>conftest.py</b> — Configuración de fixtures para pytest</li>
                 <li><b>manage.py</b> — Script principal de gestión Django</li>
                 <li><b>pytest.ini</b> — Configuración de pytest</li>
                 <li><b>requirements.txt</b> — Dependencias del backend</li>
@@ -269,7 +267,7 @@ Antes de comenzar con Ordinaly, asegúrate de tener instalado:
 
 ### Configurar PostgreSQL
 
-El backend usa `dj_database_url` para leer la conexión desde la variable `DATABASE_URL` del `.env` (y `TEST_DATABASE_URL` para los tests), con el formato:
+El backend usa `dj_database_url` para leer la conexión desde la variable `DATABASE_URL` del `.env`, con el formato:
 
 ```
 postgres://usuario:contraseña@host:puerto/nombre_bd
@@ -289,7 +287,7 @@ echo 'export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
 ```
 
-Crea el usuario y la base de datos que espera el proyecto (usa las mismas credenciales que pongas en `DATABASE_URL`/`TEST_DATABASE_URL` del `.env`):
+Crea el usuario y la base de datos que espera el proyecto (usa las mismas credenciales que pongas en `DATABASE_URL` del `.env`):
 
 ```sh
 psql postgres
@@ -300,10 +298,8 @@ CREATE USER ordinaly WITH PASSWORD 'tu_password';
 CREATE DATABASE ordinaly_db OWNER ordinaly;
 GRANT ALL PRIVILEGES ON DATABASE ordinaly_db TO ordinaly;
 
--- Base de datos de test (opcional, para `python manage.py test`)
-CREATE USER ordinaly_test WITH PASSWORD 'tu_test_password';
-CREATE DATABASE ordinaly_test OWNER ordinaly_test;
-GRANT ALL PRIVILEGES ON DATABASE ordinaly_test TO ordinaly_test;
+-- Los tests no necesitan una base propia: Django/pytest-django crean y borran `test_ordinaly_db`
+-- con este mismo usuario, así que debe poder crear bases (`ALTER USER ordinaly CREATEDB;`).
 ```
 
 Verifica la conexión antes de migrar:
@@ -320,7 +316,7 @@ Levanta PostgreSQL, el backend y el frontend con un solo comando, sin instalar P
 
 | Servicio   | Imagen / Dockerfile       | Puerto | Qué hace                                            |
 |------------|---------------------------|--------|-----------------------------------------------------|
-| `db`       | `postgres:16`             | 5432   | Base de datos (volumen persistente `postgres_data`) |
+| `db`       | `postgres:16`             | 5433   | Base de datos (volumen persistente `postgres_data`); 5433 en el host para no chocar con un PostgreSQL local |
 | `backend`  | `backend/Dockerfile.dev`  | 8000   | Django con `runserver` y recarga en caliente        |
 | `frontend` | `frontend/Dockerfile.dev` | 3000   | Next.js con `npm run dev` y recarga en caliente     |
 
@@ -339,7 +335,7 @@ docker compose up --build
 - **Migraciones:** el entrypoint del backend ejecuta `makemigrations` y `migrate` en cada arranque, cuando la BD ya está sana (`healthcheck`). Hace falta el `makemigrations` porque `.gitignore` excluye `**/migrations/**` (solo se versiona `__init__.py`); los ficheros generados quedan en tu carpeta `backend/*/migrations`.
 - `DATABASE_URL`, `DEBUG` y `DJANGO_SECRET_KEY` se fijan en [`docker-compose.yml`](docker-compose.yml) y **tienen prioridad** sobre `backend/.env`; el resto de variables se leen de `backend/.env`.
 - El frontend usa `NEXT_PUBLIC_API_URL=http://localhost:8000` y comparte la red del backend (`network_mode: service:backend`), de modo que esa URL funciona tanto desde el navegador como desde el servidor de Next.js (login, registro, sitemap). Por eso los puertos 3000 y 8000 se publican en el servicio `backend`.
-- Si el puerto 3000, 8000 o 5432 ya está ocupado (p. ej. por un `npm run dev` local), páralo o cambia el puerto de la izquierda en `docker-compose.yml`.
+- Si el puerto 3000, 8000 o 5433 ya está ocupado (p. ej. por un `npm run dev` local), páralo o cambia el puerto de la izquierda en `docker-compose.yml`.
 
 Abre http://localhost:3000 (web) y http://localhost:8000 (API).
 
@@ -349,6 +345,7 @@ Abre http://localhost:3000 (web) y http://localhost:8000 (API).
 docker compose up -d                                          # arrancar en segundo plano
 docker compose logs -f backend                                # ver logs
 docker compose exec backend python manage.py createsuperuser
+docker compose exec backend python manage.py test            # tests del backend (usan la BD de Docker)
 docker compose exec frontend npm run lint
 docker compose down                                           # parar (conserva la BD)
 docker compose down -v                                        # parar y borrar BD y node_modules
@@ -372,7 +369,7 @@ docker compose down -v                                        # parar y borrar B
     pip install -r requirements.txt
     # Copia y configura tu propio .env (no hay plantilla .env.example en backend/ todavía)
     # Variables mínimas: DJANGO_SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI,
-    # ORDINALY_TEST_PASSWORD (protege formularios en tests), DATABASE_URL/TEST_DATABASE_URL.
+    # ORDINALY_TEST_PASSWORD (protege formularios en tests), DATABASE_URL.
     # Además hay variables opcionales para email (EMAIL_*, BILLIONMAIL_*), Stripe (STRIPE_*) y URLs (FRONTEND_BASE_URL, BACKEND_BASE_URL) — revisa config/settings.py.
     # Asegúrate de tener PostgreSQL instalado y la BD creada (ver "Configurar PostgreSQL" más arriba)
     # Migraciones iniciales
@@ -441,16 +438,16 @@ coverage run --source='.' --omit='*/migrations/*,*/tests.py,api/*,config/*,manag
 coverage report -m
 ```
 
-El workflow de SonarQube ([`sonarqube.yml`](.github/workflows/sonarqube.yml)) usa en cambio `pytest` (por eso existen `pytest.ini` y `conftest.py`):
+El workflow de SonarQube ([`sonarqube.yml`](.github/workflows/sonarqube.yml)) usa en cambio `pytest` (por eso existe `pytest.ini`):
 
 ```sh
-pip install pytest pytest-django pytest-cov  # no están en requirements.txt
+pip install -r requirements-dev.txt  # requirements.txt + pytest, pytest-django y pytest-cov
 coverage run -m pytest -q --reuse-db
 coverage report
 ```
 
 > [!NOTE]
-> `pytest`, `pytest-django` y `pytest-cov` no están declarados en `requirements.txt`; el workflow de SonarQube los instala aparte. Si vas a reproducir esa ruta en local, instálalos manualmente.
+> `pytest`, `pytest-django` y `pytest-cov` viven en `backend/requirements-dev.txt`, no en `requirements.txt`, para que no se instalen en producción. La imagen de Docker de desarrollo ya los incluye: `docker compose exec backend python -m pytest`.
 
 Para el frontend, basta con comprobar la sintaxis de TypeScript y la build:
 
