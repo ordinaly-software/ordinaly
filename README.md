@@ -72,12 +72,12 @@ Transformamos empresas con automatizaciones inteligentes. Desde chatbots hasta f
 
 ## 2. Características principales
 
-- **Backend Django REST:** API robusta para cursos, usuarios, servicios y autenticación.
+- **Backend Django REST:** API robusta para cursos, usuarios y autenticación.
 - **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones 3D.
 - **Internacionalización (i18n):** interfaz traducida (es, en) con next-intl. Los correos, la newsletter y el contenido de cursos y blog **no** están traducidos: ver [Internacionalización](#4-internacionalización-qué-está-traducido-y-qué-no).
 - **Autenticación completa:** registro, verificación de email, cambio de email, recuperación de contraseña y OAuth con Google.
 - **Gestión de cursos:** horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook) y pagos con Stripe.
-- **Panel de administración:** gestión avanzada de usuarios, cursos y servicios.
+- **Panel de administración:** gestión avanzada de usuarios, cursos y newsletter.
 - **CMS con Sanity:** gestión de contenido para blog, servicios y páginas.
 - **Landing pages SEO:** páginas optimizadas para búsquedas de IA y automatización en Sevilla.
 - **Integración con WhatsApp y Odoo:** automatización de ventas y flujos empresariales.
@@ -102,11 +102,9 @@ ordinaly/
 │   ├── authentication/   # Autenticación y verificación de email
 │   ├── users/            # Gestión de usuarios
 │   ├── courses/          # Cursos y formación
-│   ├── services/         # Servicios empresariales
 │   ├── templates/emails/ # Plantillas de correo (HTML y texto)
 │   ├── media/            # Archivos subidos (imágenes, PDFs, etc.)
 │   │   ├── course_images/
-│   │   ├── service_images/
 │   │   └── test_media/
 │   ├── staticfiles/      # Archivos estáticos recolectados (panel de Django)
 │   └── ...
@@ -154,8 +152,6 @@ ordinaly/
   - `management/commands/` — `run_email_notification_queue`, `setup_gmail_send_token`, `sync_newsletter_subscribers`
 - **`courses/`** — cursos y formación
   - `models.py`, `serializers.py`, `forms.py`, `views.py`, `urls.py`, `admin.py`, `tests.py`
-- **`services/`** — servicios empresariales
-  - `models.py`, `serializers.py`, `views.py`, `urls.py`, `admin.py`, `tests.py`
 - **`config/`** — configuración global del proyecto
   - `settings.py`, `urls.py`, `email_backends.py`, `wsgi.py`, `asgi.py`, `__init__.py`
 
@@ -258,7 +254,7 @@ Solo en español:
 |---|---|
 | **Correos electrónicos** | Todas las plantillas (`backend/templates/emails/`) y sus asuntos (`backend/users/services/email_service.py`) están solo en español: verificación de cuenta, bienvenida, cambio de email, restablecer contraseña, eliminación de cuenta, inscripción y cancelación, nueva formación, "empieza pronto", recordatorio de 24 h y confirmación de la newsletter. Las fechas llevan el formato fijo `dd/mm/aaaa a las HH:MM`. El usuario no tiene un campo de idioma, así que el backend no sabe en cuál escribirle. |
 | **Newsletter** | El contenido lo escribe quien administra, y el pie de la plantilla (`emails/newsletter.html`, "Recibes este correo porque…", "Darme de baja") está en español. Hay una única lista: quien se suscribe desde `/en` recibe lo mismo que quien lo hace desde `/`. La etiqueta `[PRUEBA]` del envío de prueba también está fija en español. |
-| **Cursos y servicios** | Título, subtítulo, descripción y lugar se guardan en la base de datos en un solo idioma (el que escribe el admin) y se muestran igual en `/en`. Lo mismo ocurre con lo que se deriva de ellos: nombre y descripción en Stripe Checkout, correos de curso y archivos de calendario (.ics, Google, Outlook). |
+| **Cursos** | Título, subtítulo, descripción y lugar se guardan en la base de datos en un solo idioma (el que escribe el admin) y se muestran igual en `/en`. Lo mismo ocurre con lo que se deriva de ellos: nombre y descripción en Stripe Checkout, correos de curso y archivos de calendario (.ics, Google, Outlook). |
 | **Blog** | Solo en español: `/en/blog` devuelve 404 y el enlace se oculta en la navbar en inglés. El contenido de Sanity (blog y noticias) no tiene traducción por documento. |
 
 ---

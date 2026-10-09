@@ -75,7 +75,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'api',
-    'services',
     'courses',
     'authentication',
     'users.apps.UsersConfig',
