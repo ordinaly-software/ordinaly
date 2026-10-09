@@ -1,0 +1,8 @@
+{% autoescape off %}{{ content_text }}
+
+--
+ORDINALY SOFTWARE
+Recibes este correo porque te suscribiste a la newsletter de Ordinaly.
+Darme de baja: {{ unsubscribe_url }}
+{{ site_url }}
+{% endautoescape %}

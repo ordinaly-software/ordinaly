@@ -21,6 +21,7 @@ NOTIFICATION_COURSE_PUBLISHED = "course_published"
 NOTIFICATION_COURSE_STARTS_SOON = "course_starts_soon"
 NOTIFICATION_COURSE_REMINDER_24H = "course_reminder_24h"
 NOTIFICATION_NEWSLETTER_CONFIRMATION = "newsletter_confirmation"
+NOTIFICATION_NEWSLETTER = "newsletter"
 
 COMPULSORY_NOTIFICATION_TYPES = {
     NOTIFICATION_ACCOUNT_CREATED,
@@ -310,6 +311,16 @@ def _send_job(job: EmailNotificationJob):
     )
 
     payload = job.payload or {}
+
+    if job.notification_type == NOTIFICATION_NEWSLETTER:
+        from users.models import NewsletterDelivery
+        from users.services.newsletter_sending import send_delivery
+
+        delivery = NewsletterDelivery.objects.select_related("newsletter", "subscriber").get(
+            pk=payload["delivery_id"]
+        )
+        send_delivery(delivery)
+        return
 
     if job.notification_type == NOTIFICATION_NEWSLETTER_CONFIRMATION:
         send_newsletter_confirmation_email(job.recipient_email, payload["token"])

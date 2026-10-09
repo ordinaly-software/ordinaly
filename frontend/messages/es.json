@@ -446,7 +446,111 @@
       "odoo": "Odoo",
       "n8n": "n8n",
       "api": "Backend",
-      "apiDocs": "Docs API"
+      "apiDocs": "Docs API",
+      "newsletter": "Newsletter"
+    },
+    "newsletter": {
+      "subTabs": {
+        "issues": "Envíos",
+        "subscribers": "Suscriptores"
+      },
+      "new": "Nueva newsletter",
+      "empty": "Todavía no hay newsletters.",
+      "filterAll": "Todos los estados",
+      "noSubject": "(sin asunto)",
+      "noDate": "Sin fecha",
+      "status": {
+        "draft": "Borrador",
+        "scheduled": "Programada",
+        "sending": "Enviándose",
+        "sent": "Enviada",
+        "cancelled": "Cancelada"
+      },
+      "columns": {
+        "subject": "Asunto",
+        "status": "Estado",
+        "date": "Fecha",
+        "results": "Resultados"
+      },
+      "results": "{sent} enviados · {opened} aperturas ({openRate}) · {clicked} clics ({clickRate})",
+      "actions": {
+        "edit": "Editar",
+        "open": "Ver"
+      },
+      "editor": {
+        "back": "Volver",
+        "subject": "Asunto",
+        "subjectPlaceholder": "Asunto del correo",
+        "body": "Contenido (HTML)",
+        "bodyHint": "Escribe solo el contenido: el logo y el pie con el enlace de baja se añaden solos. Puedes usar '{{name}}' para el nombre del suscriptor.",
+        "preview": "Vista previa",
+        "scheduledFor": "Fecha y hora de envío",
+        "save": "Guardar borrador",
+        "saved": "Guardado.",
+        "test": "Enviar prueba",
+        "testSent": "Prueba enviada a tu correo.",
+        "schedule": "Programar",
+        "reschedule": "Guardar y reprogramar",
+        "scheduledOk": "Newsletter programada.",
+        "unschedule": "Desprogramar",
+        "unscheduled": "Newsletter devuelta a borrador.",
+        "cancelSending": "Cancelar envío",
+        "cancelConfirm": "Se dejarán de enviar los correos pendientes. Los ya enviados no se pueden recuperar. ¿Cancelar el envío?",
+        "cancelled": "Envío cancelado.",
+        "duplicate": "Duplicar / crear serie",
+        "delete": "Eliminar",
+        "deleteConfirm": "¿Eliminar esta newsletter? No se puede deshacer.",
+        "deleted": "Newsletter eliminada.",
+        "readOnly": "Esta newsletter ya no se puede editar.",
+        "keep": "No, volver"
+      },
+      "series": {
+        "title": "Duplicar en serie",
+        "description": "Crea copias como borradores, con una fecha propuesta cada cierto número de días. Después edita el contenido de cada una y prográmala.",
+        "count": "Copias",
+        "everyDays": "Cada (días)",
+        "create": "Crear copias",
+        "created": "Se han creado {count} borradores.",
+        "startNote": "La primera copia usa la fecha de envío indicada arriba; si no hay fecha, las copias se crean sin fecha."
+      },
+      "stats": {
+        "recipients": "Destinatarios",
+        "sent": "Enviados",
+        "opened": "Aperturas",
+        "clicked": "Clics",
+        "undelivered": "No entregados",
+        "opensNote": "Las aperturas son orientativas: se pierden si el cliente bloquea las imágenes y Apple Mail las infla. Los clics son fiables."
+      },
+      "subscribers": {
+        "search": "Buscar suscriptores...",
+        "empty": "No hay suscriptores.",
+        "columns": {
+          "email": "Correo",
+          "name": "Nombre",
+          "status": "Estado",
+          "source": "Origen",
+          "since": "Alta"
+        },
+        "status": {
+          "active": "Suscrito",
+          "pending": "Pendiente de confirmar",
+          "unsubscribed": "De baja"
+        },
+        "source": {
+          "account": "Cuenta",
+          "banner": "Banner web"
+        }
+      },
+      "errors": {
+        "generic": "No se pudo completar la acción. Inténtalo de nuevo.",
+        "load": "No se pudo cargar la newsletter.",
+        "empty_newsletter": "Añade un asunto y contenido antes de programarla.",
+        "scheduled_for": "Elige una fecha y hora de envío.",
+        "locked": "Esta newsletter ya no se puede modificar.",
+        "not_scheduled": "La newsletter no está programada.",
+        "not_sending": "La newsletter no se está enviando.",
+        "invalid_series": "Revisa el número de copias y el intervalo."
+      }
     },
     "pagination": {
       "first": "Primera",
@@ -956,7 +1060,8 @@
           "bullet5": "Datos de acceso (usuario y contraseña, o tu cuenta de Google si inicias sesión con ella)",
           "bullet6": "Datos de inscripción en cursos. El pago lo gestiona Stripe y Ordinaly no almacena los datos de tu tarjeta",
           "bullet7": "Datos técnicos de tu navegador, incluida la dirección IP, que Google reCAPTCHA recibe cuando rellenas un formulario para detectar tráfico automatizado",
-          "bullet8": "Preferencias de configuración de la web (tema, idioma)"
+          "bullet8": "Preferencias de configuración de la web (tema, idioma)",
+          "bullet9": "Si te suscribes a la newsletter: tu correo electrónico (y tu nombre, si tienes cuenta), la fecha en que confirmas o cancelas la suscripción y, en cada envío, si abres el correo y si haces clic en sus enlaces"
         },
         "processingPurposes": {
           "title": "FINALIDADES DEL TRATAMIENTO",
@@ -965,7 +1070,8 @@
           "bullet2": "Gestionar la relación contractual y la prestación de los servicios contratados",
           "bullet3": "Personalizar la experiencia del usuario (tema, idioma)",
           "bullet4": "Enviar comunicaciones comerciales únicamente si el usuario ha dado su consentimiento expreso",
-          "bullet5": "Proteger los formularios y el acceso a la web frente a spam y usos abusivos"
+          "bullet5": "Proteger los formularios y el acceso a la web frente a spam y usos abusivos",
+          "bullet6": "Enviar la newsletter a quienes se han suscrito y medir las aperturas y los clics de cada envío para mejorar sus contenidos"
         },
         "legalBases": {
           "title": "BASES JURÍDICAS DEL TRATAMIENTO",
@@ -973,7 +1079,8 @@
           "bullet1": "Consentimiento del interesado, al enviar formularios o aceptar comunicaciones comerciales",
           "bullet2": "Interés legítimo, para personalizar funciones básicas de la web como idioma o tema y para protegerla frente a spam y usos abusivos",
           "bullet3": "En caso de contratación de servicios, también se aplicará la base de ejecución de un contrato.",
-          "bullet4": "Consentimiento, para las cookies analíticas y de contenido de terceros, que puedes aceptar o rechazar en el banner de cookies"
+          "bullet4": "Consentimiento, para las cookies analíticas y de contenido de terceros, que puedes aceptar o rechazar en el banner de cookies",
+          "bullet5": "Consentimiento, para la newsletter: se otorga al suscribirte desde la web (confirmando después tu correo) o al marcar la casilla en tu cuenta, y puedes retirarlo en cualquier momento con el enlace de baja que incluye cada correo"
         },
         "recipients": {
           "title": "DESTINATARIOS Y TRANSFERENCIAS INTERNACIONALES",
@@ -994,7 +1101,8 @@
           "title": "CONSERVACIÓN DE LOS DATOS",
           "bullet1": "Los datos de contacto y configuración se conservarán hasta que el usuario solicite su supresión.",
           "bullet2": "Los datos asociados a servicios contratados o facturación se conservarán durante el plazo legal mínimo exigido (5-6 años).",
-          "bullet3": "Los datos de navegación se conservan conforme a lo descrito en la Política de Cookies."
+          "bullet3": "Los datos de navegación se conservan conforme a lo descrito en la Política de Cookies.",
+          "bullet4": "Los datos de la newsletter se conservan mientras estés suscrito. Si te das de baja, conservamos únicamente tu correo y la fecha de baja para no volver a escribirte, hasta que solicites su supresión"
         },
         "aiInteractions": {
           "title": "INTERACCIONES CON SISTEMAS DE IA",
@@ -1721,7 +1829,7 @@
       "oldest": "Más antiguos"
     },
     "highlighted": {
-      "title": "Destacados",
+      "title": "Artículos destacados",
       "previous": "Anterior",
       "next": "Siguiente"
     },
@@ -1759,7 +1867,7 @@
       "oldest": "Más antiguos"
     },
     "highlighted": {
-      "title": "Destacadas",
+      "title": "Artículos destacados",
       "previous": "Anterior",
       "next": "Siguiente"
     },
@@ -3148,6 +3256,14 @@
     "resendError": "No se pudo reenviar el correo. Inténtalo de nuevo.",
     "backHome": "Volver al inicio",
     "openMailApp": "Abrir app de correo"
+  },
+  "datePicker": {
+    "selectDate": "Selecciona fecha",
+    "selectTime": "Hora",
+    "previousMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente",
+    "today": "Hoy",
+    "clear": "Borrar"
   },
   "newsletterAction": {
     "confirm": {

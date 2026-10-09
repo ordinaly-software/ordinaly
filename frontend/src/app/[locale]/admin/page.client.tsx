@@ -15,14 +15,16 @@ import {
   BarChart3,
   ArrowUpRight,
   Command,
+  Mail,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminCoursesTab from "@/components/admin/admin-courses-tab";
 import AdminUsersTab from "@/components/admin/admin-users-tab";
+import AdminNewsletterTab from "@/components/admin/admin-newsletter-tab";
 import AdminExternalTab from "@/components/admin/admin-external-tab";
 import { getApiEndpoint } from "@/lib/api-config";
 
-type TabType = 'overview' | 'courses' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api' | 'apidocs';
+type TabType = 'overview' | 'courses' | 'users' | 'newsletter' | 'blog' | 'odoo' | 'n8n' | 'api' | 'apidocs';
 
 interface User {
   id: number;
@@ -50,6 +52,7 @@ export default function AdminPage() {
     { id: 'overview', name: t("tabs.overview"), icon: BarChart3 },
     { id: 'courses', name: t("tabs.courses"), icon: BookOpen },
     { id: 'users', name: t("tabs.users"), icon: Users },
+    { id: 'newsletter', name: t("tabs.newsletter"), icon: Mail },
     { id: 'blog', name: t("tabs.blog"), icon: ArrowUpRight, accentColor: "var(--swatch--cobalt)" },
     { id: 'odoo', name: t("tabs.odoo"), icon: () => <BarChart3 className="h-4 w-4" />, accentColor: "var(--swatch--clay)" },
     { id: 'n8n', name: t("tabs.n8n"), icon: () => <Command className="h-4 w-4" />, accentColor: "var(--swatch--flame)" },
@@ -60,7 +63,7 @@ export default function AdminPage() {
   // Load saved tab from localStorage on component mount
   useEffect(() => {
     const savedTab = localStorage.getItem('adminActiveTab') as TabType;
-    if (savedTab && ['overview', 'courses', 'users', 'blog', 'odoo', 'n8n', 'api', 'apidocs'].includes(savedTab)) {
+    if (savedTab && ['overview', 'courses', 'users', 'newsletter', 'blog', 'odoo', 'n8n', 'api', 'apidocs'].includes(savedTab)) {
       setActiveTab(savedTab);
     }
   }, []);
@@ -360,6 +363,18 @@ export default function AdminPage() {
             exit="exit"
           >
             <AdminUsersTab />
+          </motion.div>
+        );
+      case 'newsletter':
+        return (
+          <motion.div
+            key="newsletter"
+            variants={tabVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <AdminNewsletterTab />
           </motion.div>
         );
       case 'blog':

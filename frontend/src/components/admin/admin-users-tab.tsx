@@ -4,6 +4,7 @@ import { Send, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PaginationControls } from "@/components/ui/pagination-controls";
+import { Dropdown } from "@/components/ui/dropdown";
 
 interface User {
   id: number;
@@ -23,9 +24,6 @@ const NEWSLETTER_BADGE_CLASSES: Record<NewsletterStatus, string> = {
   unsubscribed: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
   none: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
 };
-
-const SELECT_CLASSES =
-  "h-10 rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-900 dark:text-white";
 
 const AdminUsersTab = () => {
   const t = useTranslations("admin.users");
@@ -152,28 +150,32 @@ const AdminUsersTab = () => {
               className="pl-10 w-full min-w-0"
             />
           </div>
-          <select
-            aria-label={t('newsletter')}
+          <Dropdown
+            options={[
+              { value: "all", label: `${t('newsletter')}: ${t('filterAll')}` },
+              { value: "active", label: t('newsletterStatus.active') },
+              { value: "pending", label: t('newsletterStatus.pending') },
+              { value: "unsubscribed", label: t('newsletterStatus.unsubscribed') },
+              { value: "none", label: t('newsletterStatus.none') },
+            ]}
             value={newsletterFilter}
-            onChange={e => setNewsletterFilter(e.target.value as "all" | NewsletterStatus)}
-            className={SELECT_CLASSES}
-          >
-            <option value="all">{t('newsletter')}: {t('filterAll')}</option>
-            <option value="active">{t('newsletterStatus.active')}</option>
-            <option value="pending">{t('newsletterStatus.pending')}</option>
-            <option value="unsubscribed">{t('newsletterStatus.unsubscribed')}</option>
-            <option value="none">{t('newsletterStatus.none')}</option>
-          </select>
-          <select
-            aria-label={t('courseNotifications')}
+            onChange={(value) => setNewsletterFilter(value as "all" | NewsletterStatus)}
+            minWidth="220px"
+            width="220px"
+            theme="orange"
+          />
+          <Dropdown
+            options={[
+              { value: "all", label: `${t('courseNotifications')}: ${t('filterAll')}` },
+              { value: "on", label: t('courseNotificationsOn') },
+              { value: "off", label: t('courseNotificationsOff') },
+            ]}
             value={courseFilter}
-            onChange={e => setCourseFilter(e.target.value as "all" | "on" | "off")}
-            className={SELECT_CLASSES}
-          >
-            <option value="all">{t('courseNotifications')}: {t('filterAll')}</option>
-            <option value="on">{t('courseNotificationsOn')}</option>
-            <option value="off">{t('courseNotificationsOff')}</option>
-          </select>
+            onChange={(value) => setCourseFilter(value as "all" | "on" | "off")}
+            minWidth="220px"
+            width="220px"
+            theme="orange"
+          />
         </div>
         <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
           <Button

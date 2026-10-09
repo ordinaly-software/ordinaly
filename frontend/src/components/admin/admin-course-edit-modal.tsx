@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { FileText, Edit, Upload, Plus, Play, MapPin, Calendar } from "lucide-react";
 import Slider from "@/components/ui/slider";
 import Dropdown, { DropdownOption } from "../ui/dropdown";
+import { DatePicker, TimePicker } from "../ui/date-time-picker";
 import { ModalCloseButton } from "../ui/modal-close-button";
 import Image from "next/image";
 import type { Course } from "./admin-courses-tab";
@@ -433,12 +434,10 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               <Label htmlFor="start_date" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
                 {t("form.startDateRequired")}
               </Label>
-              <Input
+              <DatePicker
                 id="start_date"
-                type="date"
                 value={formData.start_date ?? ""}
-                onChange={(e) => setFormData(prev => ({...prev, start_date: e.target.value}))}
-                className="h-11 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-lg transition-all duration-200"
+                onChange={(value) => setFormData(prev => ({...prev, start_date: value}))}
                 required
               />
             </div>
@@ -446,12 +445,10 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               <Label htmlFor="end_date" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
                 {t("form.endDateRequired")}
               </Label>
-              <Input
+              <DatePicker
                 id="end_date"
-                type="date"
                 value={formData.end_date ?? ""}
-                onChange={(e) => setFormData(prev => ({...prev, end_date: e.target.value}))}
-                className="h-11 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-lg transition-all duration-200"
+                onChange={(value) => setFormData(prev => ({...prev, end_date: value}))}
                 required
               />
             </div>
@@ -462,12 +459,10 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               <Label htmlFor="start_time" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
                 {t("form.startTimeRequired")}
               </Label>
-              <Input
+              <TimePicker
                 id="start_time"
-                type="time"
                 value={formData.start_time ?? ""}
-                onChange={(e) => setFormData(prev => ({...prev, start_time: e.target.value}))}
-                className="h-11 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-lg transition-all duration-200"
+                onChange={(value) => setFormData(prev => ({...prev, start_time: value}))}
                 required
               />
             </div>
@@ -475,12 +470,10 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               <Label htmlFor="end_time" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
                 {t("form.endTimeRequired")}
               </Label>
-              <Input
+              <TimePicker
                 id="end_time"
-                type="time"
                 value={formData.end_time ?? ""}
-                onChange={(e) => setFormData(prev => ({...prev, end_time: e.target.value}))}
-                className="h-11 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-lg transition-all duration-200"
+                onChange={(value) => setFormData(prev => ({...prev, end_time: value}))}
                 required
               />
             </div>

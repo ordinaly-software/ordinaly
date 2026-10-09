@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { CheckCircle2, Loader2, XCircle } from "lucide-react";
+import { CheckCircle2, Loader2, Mail, MailMinus, XCircle } from "lucide-react";
 
 type Action = "confirm" | "unsubscribe";
 
@@ -30,7 +30,8 @@ export function NewsletterTokenAction({ action }: { action: Action }) {
     }
   };
 
-  const Icon = status === "success" ? CheckCircle2 : status === "error" ? XCircle : Loader2;
+  const Icon =
+    status === "success" ? CheckCircle2 : status === "error" ? XCircle : status === "loading" ? Loader2 : action === "confirm" ? Mail : MailMinus;
   const iconColor = status === "error" ? "text-red-600 dark:text-red-400" : "text-clay dark:text-[#F6D2C5]";
 
   return (

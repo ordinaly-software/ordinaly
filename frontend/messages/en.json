@@ -445,7 +445,112 @@
       "blog": "Blog",
       "odoo": "Odoo",
       "n8n": "n8n",
-      "api": "Backend"
+      "api": "Backend",
+      "apiDocs": "API Docs",
+      "newsletter": "Newsletter"
+    },
+    "newsletter": {
+      "subTabs": {
+        "issues": "Issues",
+        "subscribers": "Subscribers"
+      },
+      "new": "New newsletter",
+      "empty": "There are no newsletters yet.",
+      "filterAll": "All statuses",
+      "noSubject": "(no subject)",
+      "noDate": "No date",
+      "status": {
+        "draft": "Draft",
+        "scheduled": "Scheduled",
+        "sending": "Sending",
+        "sent": "Sent",
+        "cancelled": "Cancelled"
+      },
+      "columns": {
+        "subject": "Subject",
+        "status": "Status",
+        "date": "Date",
+        "results": "Results"
+      },
+      "results": "{sent} sent · {opened} opens ({openRate}) · {clicked} clicks ({clickRate})",
+      "actions": {
+        "edit": "Edit",
+        "open": "View"
+      },
+      "editor": {
+        "back": "Back",
+        "subject": "Subject",
+        "subjectPlaceholder": "Email subject",
+        "body": "Content (HTML)",
+        "bodyHint": "Write only the content: the logo and the footer with the unsubscribe link are added automatically. You can use '{{name}}' for the subscriber's name.",
+        "preview": "Preview",
+        "scheduledFor": "Send date and time",
+        "save": "Save draft",
+        "saved": "Saved.",
+        "test": "Send test",
+        "testSent": "Test sent to your email.",
+        "schedule": "Schedule",
+        "reschedule": "Save and reschedule",
+        "scheduledOk": "Newsletter scheduled.",
+        "unschedule": "Unschedule",
+        "unscheduled": "Newsletter moved back to draft.",
+        "cancelSending": "Cancel sending",
+        "cancelConfirm": "Pending emails will stop being sent. Emails already sent cannot be recalled. Cancel the sending?",
+        "cancelled": "Sending cancelled.",
+        "duplicate": "Duplicate / create series",
+        "delete": "Delete",
+        "deleteConfirm": "Delete this newsletter? This cannot be undone.",
+        "deleted": "Newsletter deleted.",
+        "readOnly": "This newsletter can no longer be edited.",
+        "keep": "No, go back"
+      },
+      "series": {
+        "title": "Duplicate as a series",
+        "description": "Creates copies as drafts, each with a proposed date a set number of days apart. Then edit the content of each one and schedule it.",
+        "count": "Copies",
+        "everyDays": "Every (days)",
+        "create": "Create copies",
+        "created": "{count} drafts created.",
+        "startNote": "The first copy uses the send date above; without a date, copies are created undated."
+      },
+      "stats": {
+        "recipients": "Recipients",
+        "sent": "Sent",
+        "opened": "Opens",
+        "clicked": "Clicks",
+        "undelivered": "Not delivered",
+        "opensNote": "Opens are indicative: they are missed when the client blocks images and Apple Mail inflates them. Clicks are reliable."
+      },
+      "subscribers": {
+        "search": "Search subscribers...",
+        "empty": "There are no subscribers.",
+        "columns": {
+          "email": "Email",
+          "name": "Name",
+          "status": "Status",
+          "source": "Source",
+          "since": "Joined"
+        },
+        "status": {
+          "active": "Subscribed",
+          "pending": "Pending confirmation",
+          "unsubscribed": "Unsubscribed"
+        },
+        "source": {
+          "account": "Account",
+          "banner": "Website banner"
+        }
+      },
+      "errors": {
+        "generic": "The action could not be completed. Please try again.",
+        "load": "Could not load the newsletter.",
+        "empty_newsletter": "Add a subject and content before scheduling.",
+        "scheduled_for": "Choose a send date and time.",
+        "locked": "This newsletter can no longer be modified.",
+        "not_scheduled": "The newsletter is not scheduled.",
+        "not_sending": "The newsletter is not being sent.",
+        "invalid_series": "Check the number of copies and the interval."
+      }
     },
     "pagination": {
       "first": "First",
@@ -949,7 +1054,8 @@
           "bullet5": "Access data (username and password, or your Google account if you sign in with it)",
           "bullet6": "Course enrolment data. Payment is handled by Stripe and Ordinaly does not store your card details",
           "bullet7": "Technical data from your browser, including the IP address, that Google reCAPTCHA receives when you fill in a form in order to detect automated traffic",
-          "bullet8": "Website preferences (theme, language)"
+          "bullet8": "Website preferences (theme, language)",
+          "bullet9": "If you subscribe to the newsletter: your email address (and your name, if you have an account), the date you confirm or cancel the subscription and, for each issue, whether you open the email and whether you click its links"
         },
         "processingPurposes": {
           "title": "PURPOSES OF PROCESSING",
@@ -958,7 +1064,8 @@
           "bullet2": "Manage contractual relationships",
           "bullet3": "Personalize user experience",
           "bullet4": "Send marketing communications with explicit consent",
-          "bullet5": "Protecting the forms and access to the website against spam and abuse"
+          "bullet5": "Protecting the forms and access to the website against spam and abuse",
+          "bullet6": "Sending the newsletter to those who have subscribed and measuring opens and clicks of each issue to improve its content"
         },
         "legalBases": {
           "title": "LEGAL BASES",
@@ -966,7 +1073,8 @@
           "bullet1": "User consent",
           "bullet2": "Legitimate interest, to personalise basic website features such as language or theme and to protect it against spam and abuse",
           "bullet3": "Performance of a contract",
-          "bullet4": "Consent, for analytics and third-party content cookies, which you can accept or reject in the cookie banner"
+          "bullet4": "Consent, for analytics and third-party content cookies, which you can accept or reject in the cookie banner",
+          "bullet5": "Consent, for the newsletter: given when you subscribe on the website (and then confirm your email) or by ticking the box in your account, and you can withdraw it at any time with the unsubscribe link included in every email"
         },
         "recipients": {
           "title": "RECIPIENTS AND INTERNATIONAL TRANSFERS",
@@ -987,7 +1095,8 @@
           "title": "DATA RETENTION",
           "bullet1": "Contact and configuration data are kept until deletion is requested.",
           "bullet2": "Contract and billing data are kept for the legally required period.",
-          "bullet3": "Browsing data is handled according to the Cookie Policy."
+          "bullet3": "Browsing data is handled according to the Cookie Policy.",
+          "bullet4": "Newsletter data is kept while you are subscribed. If you unsubscribe, we keep only your email and the unsubscription date so we do not write to you again, until you request its erasure"
         },
         "aiInteractions": {
           "title": "AI SYSTEM INTERACTIONS",
@@ -1714,7 +1823,7 @@
       "oldest": "Oldest"
     },
     "highlighted": {
-      "title": "Featured",
+      "title": "Featured articles",
       "previous": "Previous",
       "next": "Next"
     },
@@ -1752,7 +1861,7 @@
       "oldest": "Oldest"
     },
     "highlighted": {
-      "title": "Featured",
+      "title": "Featured articles",
       "previous": "Previous",
       "next": "Next"
     },
@@ -3141,6 +3250,14 @@
     "resendError": "Could not resend the email. Please try again.",
     "backHome": "Back to home",
     "openMailApp": "Open mail app"
+  },
+  "datePicker": {
+    "selectDate": "Select date",
+    "selectTime": "Time",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "today": "Today",
+    "clear": "Clear"
   },
   "newsletterAction": {
     "confirm": {

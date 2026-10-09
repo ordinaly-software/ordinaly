@@ -379,7 +379,7 @@ es.send_course_reminder_email(to, 'Nombre', c, '2026-10-20T10:00:00+02:00', 24)
 
 Los avisos "empieza pronto" y "recordatorio 24h" los genera `python manage.py run_email_notification_queue` cuando faltan ~7 días / ~24 h para una sesión de un curso en el que estás inscrito.
 
-No hace falta Celery ni otro worker: los correos inmediatos (inscripción, cancelación, bienvenida…) se envían dentro de la petición. Lo único periódico es `python manage.py run_email_notification_queue`, que envía los avisos de nueva formación, encola los de "empieza pronto" y "recordatorio 24h" y reintenta los envíos fallidos (hasta 3 intentos). Debe ejecutarse cada minuto. En Docker lo hace el servicio `notifications` del compose.
+No hace falta Celery ni otro worker: los correos inmediatos (inscripción, cancelación, bienvenida…) se envían dentro de la petición. Lo único periódico es `python manage.py run_email_notification_queue`, que envía los avisos de nueva formación, lanza las newsletters programadas, encola los de "empieza pronto" y "recordatorio 24h" y reintenta los envíos fallidos (hasta 3 intentos). Debe ejecutarse cada minuto. En Docker lo hace el servicio `notifications` del compose.
 
 **Cron en producción (VPS):** vive en el crontab del usuario `ordinaly`, no en el repositorio, así que los despliegues no lo tocan y siempre ejecuta el código recién desplegado en `/opt/ordinaly/backend`. Solo hay que reinstalarlo si se cambia de servidor, de usuario o de ruta. Línea instalada (`crontab -e`):
 
@@ -407,6 +407,13 @@ print(list(J.objects.values('notification_type','status').annotate(n=Count('id')
 ```
 
 Para cancelar trabajos pendientes que no deban enviarse, márcalos como fallidos (el procesador solo coge `pending`): `J.objects.filter(status='pending', notification_type='course_published').update(status='failed', last_error='Cancelled manually')`.
+
+**Newsletter:** las newsletters se redactan y programan desde el panel de administración y las envía ese mismo worker, así que el cron de arriba es imprescindible. Cuando llega la hora de una newsletter se crea un job por cada suscriptor `active` en ese momento (quien se haya dado de baja entre medias no recibe nada). Cada correo lleva enlace de baja, cabecera `List-Unsubscribe` de un clic, un píxel de apertura y enlaces con seguimiento de clics.
+
+* **Límite de Gmail:** el envío usa la Gmail API, con un límite diario de unos 500 correos en cuentas gratuitas y 2.000 en Google Workspace. Ese cupo se comparte con los correos transaccionales (verificación, inscripciones, avisos de cursos). Si la lista se acerca a unos 300 suscriptores, o si una newsletter más los avisos del día pueden superar el cupo, hay que pasar a un proveedor transaccional (Brevo, Amazon SES…). Es solo cambiar `EMAIL_BACKEND` y las credenciales SMTP; no hay que tocar código.
+* **Ritmo de envío:** el worker procesa como máximo 100 correos por ejecución (`--limit`, 100 por defecto) y se ejecuta cada minuto, así que una newsletter tarda aproximadamente `suscriptores / 100` minutos en salir entera (unos 5 minutos para 500 suscriptores). Mientras tanto aparece como "enviándose" y pasa a "enviada" al salir el último correo.
+* **Medición:** los clics se miden con una redirección propia y son fiables. Las aperturas usan un píxel y son orientativas: se pierden si el cliente bloquea las imágenes y Apple Mail las infla al precargarlas. La Política de Privacidad ya lo menciona.
+* **Suscriptores:** `NewsletterSubscriber` es la única lista (cuentas y altas del banner, con doble confirmación). Tras desplegar cambios en el modelo, `python manage.py sync_newsletter_subscribers` enlaza filas antiguas con sus usuarios y lista las huérfanas (`--purge-orphans` las borra).
 
 **Comandos útiles:**
 

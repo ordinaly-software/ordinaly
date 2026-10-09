@@ -208,6 +208,63 @@ class NewsletterSubscriber(models.Model):
     def __str__(self):
         return self.email
 
+class Newsletter(models.Model):
+    """One issue of the newsletter, written and scheduled from the admin panel."""
+
+    STATUS_DRAFT = "draft"
+    STATUS_SCHEDULED = "scheduled"
+    STATUS_SENDING = "sending"
+    STATUS_SENT = "sent"
+    STATUS_CANCELLED = "cancelled"
+
+    STATUS_CHOICES = [
+        (STATUS_DRAFT, "Draft"),
+        (STATUS_SCHEDULED, "Scheduled"),
+        (STATUS_SENDING, "Sending"),
+        (STATUS_SENT, "Sent"),
+        (STATUS_CANCELLED, "Cancelled"),
+    ]
+
+    subject = models.CharField(max_length=200, blank=True, default="")
+    html_body = models.TextField(blank=True, default="")
+    status = models.CharField(max_length=16, choices=STATUS_CHOICES, default=STATUS_DRAFT, db_index=True)
+    scheduled_for = models.DateTimeField(null=True, blank=True, db_index=True)
+    started_at = models.DateTimeField(null=True, blank=True)
+    sent_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.subject or '(no subject)'} [{self.status}]"
+
+
+class NewsletterDelivery(models.Model):
+    """What one subscriber received (and did) for one newsletter: the basis of the stats."""
+
+    newsletter = models.ForeignKey(Newsletter, on_delete=models.CASCADE, related_name="deliveries")
+    subscriber = models.ForeignKey(
+        NewsletterSubscriber,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="deliveries",
+    )
+    sent_at = models.DateTimeField(null=True, blank=True)
+    opened_at = models.DateTimeField(null=True, blank=True)
+    open_count = models.PositiveIntegerField(default=0)
+    clicked_at = models.DateTimeField(null=True, blank=True)
+    click_count = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["newsletter", "subscriber"], name="unique_delivery_per_subscriber"),
+        ]
+
+
 #Class for Email-verification
 
 class EmailVerificationOTP(models.Model):
