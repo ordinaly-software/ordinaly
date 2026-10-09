@@ -1,0 +1,10 @@
+{% extends "emails/base.html" %}
+{% block title %}Empieza pronto - {{ course.title }}{% endblock %}
+{% block preheader %}{{ course.title }} empieza en {{ days_before }} días o menos.{% endblock %}
+{% block headline %}La formación empieza en menos de una semana{% endblock %}
+{% block intro %}Hola {{ user_name }}, <strong>{{ course.title }}</strong> empieza en {{ days_before }} días o menos.{% endblock %}
+{% block body %}
+<p class="text">Inicio previsto: <strong>{{ session_text }}</strong></p>
+<div style="height:18px;"></div>
+{% include "emails/_button.html" with url=course_url label="Ver curso" %}
+{% endblock %}

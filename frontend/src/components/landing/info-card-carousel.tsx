@@ -100,7 +100,7 @@ function InfoCardMedia({ item }: { item: InfoCardItem }) {
 // title, italic description — instead of pinning to the bottom over a backdrop.
 function InfoCardTextContent({ item }: { item: InfoCardItem }) {
   return (
-    <div className="relative z-10 flex h-full flex-col items-start justify-start gap-4 p-8 text-left">
+    <div className="relative z-10 flex h-full flex-col items-start justify-start gap-4 p-6 text-left sm:p-8">
       {item.eyebrow && (
         <p className="text-xs font-semibold uppercase tracking-widest text-clay">{item.eyebrow}</p>
       )}
@@ -110,7 +110,7 @@ function InfoCardTextContent({ item }: { item: InfoCardItem }) {
         </h3>
       )}
       {item.description && (
-        <div className="text-lg italic leading-relaxed text-slate-medium dark:text-cloud-medium">
+        <div className="w-full min-w-0 text-lg italic leading-relaxed text-slate-medium dark:text-cloud-medium">
           {item.description}
         </div>
       )}

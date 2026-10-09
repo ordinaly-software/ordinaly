@@ -1,0 +1,9 @@
+{% extends "emails/base.txt" %}{% block content %}¡Hola {{ user_name }}, tu plaza está reservada!
+
+Te has inscrito correctamente en "{{ course.title }}".
+
+Fecha: {{ date_str|default:"—" }}
+Horario: {{ time_str|default:"—" }}
+Plazas: máx. {{ max_seats }}
+
+Más detalles: {{ course_url }}{% endblock %}

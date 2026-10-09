@@ -1,0 +1,5 @@
+{% extends "emails/base.txt" %}{% block content %}Verifica tu cuenta de Ordinaly
+
+Tu código de verificación es: {{ code }}
+
+Este código expira en {{ ttl_minutes }} minutos. Si no solicitaste esta verificación, puedes ignorar este correo.{% endblock %}

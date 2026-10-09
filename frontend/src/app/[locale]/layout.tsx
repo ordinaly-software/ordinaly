@@ -1,7 +1,7 @@
 import type React from "react";
 import type { Metadata } from "next";
 import { Inter, Lora } from "next/font/google";
-import Script from "next/script";
+import ThemeInitScript from "@/components/ui/theme-init-script";
 import "../globals.css";
 import { notFound } from "next/navigation";
 import { Locale, routing } from "@/i18n/routing";
@@ -156,40 +156,7 @@ export default async function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
         />
         <CourseSchema locale={locale} />
-        {/* Theme init (tu script) */}
-        <Script
-          id="theme-init"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                function canPersistTheme() {
-                  try {
-                    const rawPreferences = localStorage.getItem('cookie-preferences');
-                    if (!rawPreferences) return true;
-                    const parsed = JSON.parse(rawPreferences);
-                    return parsed.functional !== false;
-                  } catch { return true; }
-                }
-
-                function getInitialTheme() {
-                  const allowPersistence = canPersistTheme();
-                  if (allowPersistence) {
-                    const savedTheme = localStorage.getItem('theme');
-                    if (savedTheme === 'dark' || savedTheme === 'light') return savedTheme;
-                  } else {
-                    localStorage.removeItem('theme');
-                  }
-                  return 'light';
-                }
-
-                const theme = getInitialTheme();
-                if (theme === 'dark') document.documentElement.classList.add('dark');
-                else document.documentElement.classList.remove('dark');
-              })();
-            `,
-          }}
-        />
+        <ThemeInitScript />
       </head>
 
 

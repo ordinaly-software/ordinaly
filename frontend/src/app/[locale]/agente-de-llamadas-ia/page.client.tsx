@@ -35,16 +35,21 @@ type InfoCardText = { name: string; description?: string };
 type CallEvent = { title: string; description: string; time: string };
 
 function CallEventCard({ event }: { event: CallEvent }) {
+  // Cards are only ~260px wide on phones: the title wraps instead of being
+  // truncated, the time moves under it, and the subtitle is dropped below 400px.
   return (
-    <div className="flex w-full items-center gap-3 rounded-xl border border-[--color-border-subtle] bg-white p-3 shadow-sm dark:border-white/10 dark:bg-neutral-800">
+    <div className="flex w-full min-w-0 items-center gap-3 rounded-xl border border-[--color-border-subtle] bg-white p-3 shadow-sm dark:border-white/10 dark:bg-neutral-800">
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-clay/10 text-clay">
         <Phone className="h-4 w-4" />
       </span>
       <div className="min-w-0 flex-1">
-        <p className="truncate text-sm font-semibold text-slate-dark dark:text-ivory-light">{event.title}</p>
-        <p className="truncate text-xs text-slate-medium dark:text-cloud-medium">{event.description}</p>
+        <p className="line-clamp-2 break-words text-sm font-semibold leading-snug text-slate-dark dark:text-ivory-light">{event.title}</p>
+        <div className="hidden min-[400px]:block">
+          <p className="line-clamp-2 break-words text-xs text-slate-medium dark:text-cloud-medium">{event.description}</p>
+        </div>
+        <p className="mt-0.5 text-[11px] text-slate-medium sm:hidden dark:text-cloud-medium">{event.time}</p>
       </div>
-      <span className="shrink-0 text-[11px] text-slate-medium dark:text-cloud-medium">{event.time}</span>
+      <span className="hidden shrink-0 text-[11px] text-slate-medium sm:inline dark:text-cloud-medium">{event.time}</span>
     </div>
   );
 }
@@ -164,7 +169,7 @@ export default function AgenteDeLlamadasIA() {
           size: "lg",
           title: content.inbound?.requirements?.title,
           description: (
-            <ul className="not-italic space-y-2 text-left">
+            <ul className="not-italic space-y-2 text-left text-sm leading-snug sm:text-lg sm:leading-relaxed">
               {inboundRequirements.map((req, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />
@@ -196,7 +201,7 @@ export default function AgenteDeLlamadasIA() {
       size: "md",
       eyebrow: content.inbound?.eventsTitle,
       description: (
-        <div className="not-italic w-full max-h-[380px] overflow-hidden">
+        <div className="not-italic w-full min-w-0 max-h-[380px] overflow-hidden">
           <AnimatedList delay={900} className="items-stretch gap-2">
             {inboundEvents.map((event, i) => (
               <CallEventCard key={i} event={event} />
@@ -233,7 +238,7 @@ export default function AgenteDeLlamadasIA() {
           size: "md",
           title: content.outbound?.requirements?.title,
           description: (
-            <ul className="not-italic space-y-2 text-left">
+            <ul className="not-italic space-y-2 text-left text-sm leading-snug sm:text-lg sm:leading-relaxed">
               {outboundRequirements.map((req, i) => (
                 <li key={i} className="flex items-start gap-2">
                   <span className="mt-1.5 shrink-0 w-1.5 h-1.5 rounded-full bg-clay" />

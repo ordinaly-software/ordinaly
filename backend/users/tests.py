@@ -1,3 +1,4 @@
+from django.core import mail
 from django.test import TestCase, override_settings
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -898,97 +899,85 @@ class OTPServiceTests(TestCase):
         self.assertIsNotNone(otp.invalidated_at)
 
 class EmailServiceTests(TestCase):
-    @patch('users.services.email_service.requests.post')
-    def test_send_email_success(self, mock_post):
-        from users.services.email_service import _send_email
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.text = '{"status":"ok"}'
-        mock_post.return_value = mock_response
-        result = _send_email("test@example.com", "<p>Hello</p>", subject="Test")
-        mock_post.assert_called_once()
-        self.assertEqual(result.status_code, 200)
+    """Emails go through Django's mail framework (locmem backend under test)."""
 
-    @patch('users.services.email_service.requests.post')
-    def test_send_email_without_subject(self, mock_post):
-        from users.services.email_service import _send_email
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.text = '{"status":"ok"}'
-        mock_post.return_value = mock_response
-        _send_email("test@example.com", "<p>Hello</p>")
-        call_kwargs = mock_post.call_args
-        payload = call_kwargs.kwargs.get('json') or call_kwargs[1].get('json')
-        self.assertNotIn('subject', payload)
+    def _sent(self):
+        self.assertEqual(len(mail.outbox), 1)
+        message = mail.outbox[0]
+        html = message.alternatives[0][0]
+        return message, html
 
-    @patch('users.services.email_service.requests.post')
-    def test_send_email_with_subject(self, mock_post):
-        from users.services.email_service import _send_email
-        mock_response = Mock()
-        mock_response.status_code = 200
-        mock_response.text = '{"status":"ok"}'
-        mock_post.return_value = mock_response
-        _send_email("test@example.com", "<p>Hello</p>", subject="My Subject")
-        call_kwargs = mock_post.call_args
-        payload = call_kwargs.kwargs.get('json') or call_kwargs[1].get('json')
-        self.assertEqual(payload['subject'], "My Subject")
-
-    @patch('users.services.email_service.requests.post')
-    def test_send_email_server_error_raises(self, mock_post):
-        from users.services.email_service import _send_email, EmailServiceError
-        mock_response = Mock()
-        mock_response.status_code = 500
-        mock_response.text = 'Internal Server Error'
-        mock_post.return_value = mock_response
-        with self.assertRaises(EmailServiceError):
-            _send_email("test@example.com", "<p>Hello</p>")
-
-    @patch('users.services.email_service._send_email')
-    def test_send_verification_email_calls_send_email(self, mock_send):
+    def test_send_verification_email(self):
         from users.services.email_service import send_verification_email
         send_verification_email("test@example.com", "123456")
-        mock_send.assert_called_once()
-        args, kwargs = mock_send.call_args
-        self.assertIn("123456", args[1])  # code in HTML
-        subject = kwargs.get('subject') or (args[2] if len(args) > 2 else '')
-        self.assertEqual(subject, "Código de verificación - Ordinaly")
+        message, html = self._sent()
+        self.assertEqual(message.to, ["test@example.com"])
+        self.assertEqual(message.subject, "Código de verificación - Ordinaly")
+        self.assertIn("123456", message.body)
+        self.assertIn("123456", html)
 
-    @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
-    def test_send_verification_email_raises_on_failure(self, mock_send):
-        from users.services.email_service import send_verification_email, EmailServiceError
-        with self.assertRaises(EmailServiceError):
-            send_verification_email("test@example.com", "123456")
-
-    @patch('users.services.email_service._send_email')
-    def test_send_welcome_email_calls_send_email(self, mock_send):
+    def test_send_welcome_email(self):
         from users.services.email_service import send_welcome_email
         send_welcome_email("test@example.com", "TestUser")
-        mock_send.assert_called_once()
-        args = mock_send.call_args
-        self.assertIn("TestUser", args[0][1])
-        self.assertIn("workspace_logo.png", args[0][1])
-        self.assertNotIn(".webp", args[0][1])
+        message, html = self._sent()
+        self.assertIn("TestUser", html)
+        self.assertIn("workspace_logo.png", html)
+        self.assertNotIn(".webp", html)
 
-    @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
-    def test_send_welcome_email_raises_on_failure(self, mock_send):
-        from users.services.email_service import send_welcome_email, EmailServiceError
-        with self.assertRaises(EmailServiceError):
-            send_welcome_email("test@example.com", "TestUser")
-
-    @patch('users.services.email_service._send_email')
-    def test_send_password_reset_email_calls_send_email(self, mock_send):
+    def test_send_password_reset_email(self):
         from users.services.email_service import send_password_reset_email
         send_password_reset_email("test@example.com", "abc123token", "TestUser")
-        mock_send.assert_called_once()
-        args = mock_send.call_args
-        self.assertIn("abc123token", args[0][1])
-        self.assertIn("TestUser", args[0][1])
+        message, html = self._sent()
+        self.assertIn("/reset-password/confirm?token=abc123token", html)
+        self.assertIn("/reset-password/confirm?token=abc123token", message.body)
+        self.assertIn("TestUser", html)
 
-    @patch('users.services.email_service._send_email', side_effect=Exception("fail"))
-    def test_send_password_reset_email_raises_on_failure(self, mock_send):
-        from users.services.email_service import send_password_reset_email, EmailServiceError
-        with self.assertRaises(EmailServiceError):
-            send_password_reset_email("test@example.com", "token", "User")
+    def test_html_context_is_escaped(self):
+        from users.services.email_service import send_password_reset_completed_email
+        send_password_reset_completed_email("test@example.com", "<script>x</script>")
+        _, html = self._sent()
+        self.assertNotIn("<script>x</script>", html)
+
+    def test_all_account_emails_render(self):
+        from users.services import email_service as es
+        es.send_email_updated_email("t@example.com", "U", "old@example.com", "new@example.com")
+        es.send_delete_confirmation_email("t@example.com", "tok", "U")
+        self.assertEqual(len(mail.outbox), 2)
+        self.assertIn("new@example.com", mail.outbox[0].alternatives[0][0])
+        self.assertIn("/delete_account/confirm?token=tok", mail.outbox[1].alternatives[0][0])
+
+    def test_send_failure_raises_email_service_error(self):
+        from users.services.email_service import send_verification_email, EmailServiceError
+        with patch("users.services.mail.EmailMultiAlternatives.send", side_effect=Exception("smtp down")):
+            with self.assertRaises(EmailServiceError):
+                send_verification_email("test@example.com", "123456")
+
+
+class GmailApiEmailBackendTests(TestCase):
+    def _message(self):
+        from django.core.mail import EmailMultiAlternatives
+        msg = EmailMultiAlternatives("Asunto ñ", "texto", "from@example.com", ["to@example.com"])
+        msg.attach_alternative("<p>html</p>", "text/html")
+        return msg
+
+    @override_settings(GMAIL_API_REFRESH_TOKEN="rt")
+    @patch("config.email_backends.send_raw_message")
+    @patch("config.email_backends.refresh_access_token", return_value="at")
+    def test_sends_raw_rfc822_message(self, mock_refresh, mock_send):
+        import base64
+        from config.email_backends import GmailApiEmailBackend
+        self.assertEqual(GmailApiEmailBackend().send_messages([self._message()]), 1)
+        mock_refresh.assert_called_once_with("rt")
+        token, raw = mock_send.call_args.args
+        self.assertEqual(token, "at")
+        self.assertIn(b"to@example.com", base64.urlsafe_b64decode(raw))
+
+    @patch("config.email_backends.refresh_access_token", side_effect=Exception("oauth down"))
+    def test_failure_raises_unless_fail_silently(self, _):
+        from config.email_backends import GmailApiEmailBackend
+        with self.assertRaises(Exception):
+            GmailApiEmailBackend().send_messages([self._message()])
+        self.assertEqual(GmailApiEmailBackend(fail_silently=True).send_messages([self._message()]), 0)
 
 
 class UserViewSetExtraCoverageTests(APITestCase):
@@ -1166,7 +1155,7 @@ class EmailNotificationPreferenceTests(TestCase):
         self.assertIsNotNone(job.sent_at)
         mock_send_job.assert_called_once()
 
-    @patch("users.services.email_service._send_email")
+    @patch("users.services.email_service.send_branded_email")
     def test_account_created_notification_is_compulsory(self, mock_send):
         from users.models import EmailNotificationJob
         from users.services.notification_service import (
@@ -1185,7 +1174,7 @@ class EmailNotificationPreferenceTests(TestCase):
         self.assertEqual(EmailNotificationJob.objects.filter(status="sent").count(), 1)
         self.assertEqual(mock_send.call_count, 1)
 
-    @patch("users.services.email_service._send_email")
+    @patch("users.services.email_service.send_branded_email")
     def test_email_updated_notification_is_compulsory(self, mock_send):
         from users.services.notification_service import (
             process_pending_email_jobs,
@@ -1204,7 +1193,7 @@ class EmailNotificationPreferenceTests(TestCase):
         self.assertEqual(result["sent"], 1)
         self.assertEqual(mock_send.call_count, 1)
 
-    @patch("users.services.email_service._send_email")
+    @patch("users.services.email_service.send_branded_email")
     def test_password_reset_completed_notification_is_compulsory(self, mock_send):
         from users.services.notification_service import (
             process_pending_email_jobs,
@@ -1221,7 +1210,7 @@ class EmailNotificationPreferenceTests(TestCase):
         self.assertEqual(result["sent"], 1)
         self.assertEqual(mock_send.call_count, 1)
 
-    @patch("users.services.email_service._send_email")
+    @patch("users.services.email_service.send_branded_email")
     def test_course_enrollment_and_cancellation_notifications_are_compulsory(self, mock_send):
         from datetime import timedelta
         from django.core.files.uploadedfile import SimpleUploadedFile
@@ -1255,7 +1244,7 @@ class EmailNotificationPreferenceTests(TestCase):
         self.assertEqual(result["sent"], 2)
         self.assertEqual(mock_send.call_count, 2)
 
-    @patch("users.services.email_service._send_email")
+    @patch("users.services.email_service.send_branded_email")
     def test_course_announcements_and_enrolled_reminders_are_queued(self, mock_send):
         from datetime import timedelta
         from django.core.files.uploadedfile import SimpleUploadedFile

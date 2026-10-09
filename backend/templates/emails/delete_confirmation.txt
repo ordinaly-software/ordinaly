@@ -1,0 +1,8 @@
+{% extends "emails/base.txt" %}{% block content %}Hola {{ user_name }},
+
+Hemos recibido una solicitud para eliminar tu cuenta de Ordinaly. Al confirmar, perderás el acceso y se eliminarán tus datos asociados (perfil, historial de cursos, newsletter y configuraciones guardadas).
+
+Confirmar eliminación: {{ confirm_url }}
+Mantener mi cuenta: {{ keep_url }}
+
+Si tú no has solicitado esto, entra en tu cuenta y cambia la contraseña.{% endblock %}

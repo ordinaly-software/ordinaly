@@ -1,0 +1,8 @@
+{% extends "emails/base.txt" %}{% block content %}Hola {{ user_name }},
+
+El correo principal de tu cuenta de Ordinaly se ha cambiado correctamente.
+
+Correo anterior: {{ previous_email }}
+Correo nuevo: {{ new_email }}
+
+Si no has realizado este cambio, contacta con nosotros cuanto antes.{% endblock %}
