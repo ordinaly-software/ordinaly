@@ -442,8 +442,8 @@
       "blog": "Blog",
       "odoo": "Odoo",
       "n8n": "n8n",
-      "api": "API",
-      "mail": "Correo"
+      "api": "Backend",
+      "apiDocs": "Docs API"
     },
     "pagination": {
       "first": "Primera",
@@ -490,6 +490,12 @@
         "description": "Abre la consola de administración de la API en una nueva pestaña.",
         "button": "Abrir API admin",
         "warning": "Necesitarás credenciales de administrador para acceder."
+      },
+      "apiDocs": {
+        "title": "Documentación de la API (Swagger)",
+        "description": "Abre la documentación interactiva de la API en una nueva pestaña: endpoints, parámetros y respuestas, con la opción de probarlos.",
+        "button": "Abrir documentación",
+        "warning": "Para probar endpoints protegidos usa el botón \"Authorize\" con tu token."
       }
     },
     "stats": {

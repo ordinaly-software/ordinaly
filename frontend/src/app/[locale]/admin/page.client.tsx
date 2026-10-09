@@ -15,14 +15,14 @@ import {
   BarChart3,
   ArrowUpRight,
   Command,
-  Mail,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminCoursesTab from "@/components/admin/admin-courses-tab";
 import AdminUsersTab from "@/components/admin/admin-users-tab";
 import AdminExternalTab from "@/components/admin/admin-external-tab";
+import { getApiEndpoint } from "@/lib/api-config";
 
-type TabType = 'overview' | 'courses' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api' | 'mail';
+type TabType = 'overview' | 'courses' | 'users' | 'blog' | 'odoo' | 'n8n' | 'api' | 'apidocs';
 
 interface User {
   id: number;
@@ -54,13 +54,13 @@ export default function AdminPage() {
     { id: 'odoo', name: t("tabs.odoo"), icon: () => <BarChart3 className="h-4 w-4" />, accentColor: "var(--swatch--clay)" },
     { id: 'n8n', name: t("tabs.n8n"), icon: () => <Command className="h-4 w-4" />, accentColor: "var(--swatch--flame)" },
     { id: 'api', name: t("tabs.api"), icon: () => <Settings className="h-4 w-4" />, accentColor: "var(--swatch--cobalt)" },
-    { id: 'mail', name: t("tabs.mail"), icon: () => <Mail className="h-4 w-4" />, accentColor: "var(--swatch--cobalt)" },
+    { id: 'apidocs', name: t("tabs.apiDocs"), icon: FileText, accentColor: "var(--swatch--cobalt)" },
   ];
 
   // Load saved tab from localStorage on component mount
   useEffect(() => {
     const savedTab = localStorage.getItem('adminActiveTab') as TabType;
-    if (savedTab && ['overview', 'courses', 'users', 'blog', 'odoo', 'n8n', 'api', 'mail'].includes(savedTab)) {
+    if (savedTab && ['overview', 'courses', 'users', 'blog', 'odoo', 'n8n', 'api', 'apidocs'].includes(savedTab)) {
       setActiveTab(savedTab);
     }
   }, []);
@@ -315,6 +315,27 @@ export default function AdminPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Quick access: API docs */}
+            <Card
+              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              onClick={() => handleTabChange('apidocs')}
+              tabIndex={0}
+              role="button"
+              aria-label={t("tabs.apiDocs")}
+            >
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  {t("tabs.apiDocs")}
+                </CardTitle>
+                <FileText className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-sm text-gray-700 dark:text-gray-300">
+                  {t("externalTabs.apiDocs.description")}
+                </div>
+              </CardContent>
+            </Card>
           </motion.div>
         );
       case 'courses':
@@ -414,6 +435,26 @@ export default function AdminPage() {
               buttonLabel={t("externalTabs.api.button")}
               warning={t("externalTabs.api.warning")}
               href="https://api.ordinaly.ai/admin"
+              accentColor="var(--swatch--cobalt)"
+              backgroundImage="/static/backgrounds/api_background.webp"
+            />
+          </motion.div>
+        );
+      case 'apidocs':
+        return (
+          <motion.div
+            key="apidocs"
+            variants={tabVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <AdminExternalTab
+              title={t("externalTabs.apiDocs.title")}
+              description={t("externalTabs.apiDocs.description")}
+              buttonLabel={t("externalTabs.apiDocs.button")}
+              warning={t("externalTabs.apiDocs.warning")}
+              href={getApiEndpoint("/api/docs/")}
               accentColor="var(--swatch--cobalt)"
               backgroundImage="/static/backgrounds/api_background.webp"
             />

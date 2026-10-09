@@ -442,8 +442,7 @@
       "blog": "Blog",
       "odoo": "Odoo",
       "n8n": "n8n",
-      "api": "API",
-      "mail": "Mail"
+      "api": "Backend"
     },
     "pagination": {
       "first": "First",

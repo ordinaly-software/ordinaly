@@ -339,6 +339,13 @@ docker compose up --build
 
 Abre http://localhost:3000 (web) y http://localhost:8000 (API).
 
+**Documentación de la API:** se genera en vivo desde las vistas de DRF con [drf-spectacular](https://drf-spectacular.readthedocs.io/), así que siempre está al día. Con el backend arrancado:
+- http://localhost:8000/api/docs/ — Swagger UI interactiva. Botón "Authorize": pega `Token <tu_token>` para probar endpoints protegidos (el token se obtiene en `/auth/login/`).
+- http://localhost:8000/api/redoc/ — la misma documentación en formato ReDoc.
+- http://localhost:8000/api/schema/ — el esquema OpenAPI (YAML), para importar en Postman/Insomnia o generar clientes.
+
+Las tres rutas son públicas (solo describen el contrato); ejecutar una petición protegida desde Swagger sigue exigiendo token. En desarrollo "Try it out" apunta al backend local, y en producción a `https://api.ordinaly.ai`. Para generarlo sin servidor: `python manage.py spectacular --file schema.yaml`.
+
 **Correo:** todas las notificaciones se envían con el framework de correo de Django (`users/services/mail.py`, plantillas en `backend/templates/emails/`). El mismo código usa un backend u otro según lo que haya en `backend/.env` (si defines `EMAIL_BACKEND`, manda ese):
 - **Desarrollo (SMTP real):** define `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` (contraseña de aplicación de Google), `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS` y `DEFAULT_FROM_EMAIL`. Sin credenciales, los correos se imprimen en la consola.
 - **Producción (API de Gmail):** si existe `GMAIL_API_REFRESH_TOKEN` se usa `config.email_backends.GmailApiEmailBackend` (HTTPS + OAuth2, sin SMTP; reutiliza `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`). No pongas `EMAIL_BACKEND` en el `.env` del servidor.
@@ -372,7 +379,34 @@ es.send_course_reminder_email(to, 'Nombre', c, '2026-10-20T10:00:00+02:00', 24)
 
 Los avisos "empieza pronto" y "recordatorio 24h" los genera `python manage.py run_email_notification_queue` cuando faltan ~7 días / ~24 h para una sesión de un curso en el que estás inscrito.
 
-No hace falta Celery ni otro worker: los correos inmediatos se envían dentro de la petición. Lo único periódico es `python manage.py run_email_notification_queue`, que encola los recordatorios de cursos y reintenta los envíos fallidos; debe ejecutarse cada minuto (cron o timer de systemd) en el servidor.
+No hace falta Celery ni otro worker: los correos inmediatos (inscripción, cancelación, bienvenida…) se envían dentro de la petición. Lo único periódico es `python manage.py run_email_notification_queue`, que envía los avisos de nueva formación, encola los de "empieza pronto" y "recordatorio 24h" y reintenta los envíos fallidos (hasta 3 intentos). Debe ejecutarse cada minuto. En Docker lo hace el servicio `notifications` del compose.
+
+**Cron en producción (VPS):** vive en el crontab del usuario `ordinaly`, no en el repositorio, así que los despliegues no lo tocan y siempre ejecuta el código recién desplegado en `/opt/ordinaly/backend`. Solo hay que reinstalarlo si se cambia de servidor, de usuario o de ruta. Línea instalada (`crontab -e`):
+
+```cron
+* * * * * cd /opt/ordinaly/backend && flock -n /tmp/ordinaly-notifications.lock venv/bin/python manage.py run_email_notification_queue 2>&1 | logger -t ordinaly-notifications
+```
+
+`flock -n` evita ejecuciones solapadas y `logger` envía la salida al journal con la etiqueta `ordinaly-notifications`.
+
+Comprobar que funciona (por SSH, en el servidor):
+
+```sh
+crontab -l                                                                      # ver el cron instalado
+sudo journalctl -t ordinaly-notifications --since "10 minutes ago" --no-pager   # una línea por minuto
+```
+
+Cada línea tiene el formato `email_notification_queue reminders_enqueued=0 processed=0 sent=0 failed=0`. Si `failed` es mayor que 0, hay envíos que fallan (se reintentan solos). Estado de la cola:
+
+```sh
+cd /opt/ordinaly/backend && source venv/bin/activate
+python manage.py shell -c "
+from users.models import EmailNotificationJob as J
+from django.db.models import Count
+print(list(J.objects.values('notification_type','status').annotate(n=Count('id'))))"
+```
+
+Para cancelar trabajos pendientes que no deban enviarse, márcalos como fallidos (el procesador solo coge `pending`): `J.objects.filter(status='pending', notification_type='course_published').update(status='failed', last_error='Cancelled manually')`.
 
 **Comandos útiles:**
 
