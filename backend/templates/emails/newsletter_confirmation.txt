@@ -1,0 +1,9 @@
+{% extends "emails/base.txt" %}{% block content %}Confirma tu suscripción a la newsletter de Ordinaly
+
+Hemos recibido una solicitud para suscribir este correo a la newsletter de Ordinaly. Para confirmarla, abre este enlace:
+
+{{ confirm_url }}
+
+Podrás darte de baja cuando quieras desde cualquier correo que te enviemos.
+
+Si tú no has solicitado esto, ignora este correo: no recibirás nada más y no se te suscribirá.{% endblock %}

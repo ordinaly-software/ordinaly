@@ -3,7 +3,7 @@ import logging
 from rest_framework import viewsets, status
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
@@ -17,6 +17,7 @@ from .serializers import CustomUserSerializer
 from rest_framework.views import APIView 
 from rest_framework.response import Response 
 from .models import NewsletterSubscriber
+from .services import newsletter_service
 from .services.otp_service import create_otp_for_user
 from .services.email_service import send_verification_email
 from .services.notification_service import queue_and_dispatch_email_updated_notification
@@ -26,7 +27,7 @@ logger = logging.getLogger(__name__)
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = CustomUser.objects.all()
+    queryset = CustomUser.objects.select_related('newsletter_subscription')
     serializer_class = CustomUserSerializer
     authentication_classes = [TokenAuthentication]
 
@@ -72,7 +73,12 @@ class UserViewSet(viewsets.ModelViewSet):
             response_data["detail"] = "Verification code sent to the new email address."
         return response_data
 
+    ADMIN_ONLY_ACTIONS = {'list', 'retrieve', 'create', 'update', 'partial_update', 'destroy'}
+
     def get_permissions(self):
+        # The generic ModelViewSet CRUD exposes every account: only staff (the admin panel) may use it.
+        if self.action in self.ADMIN_ONLY_ACTIONS:
+            return [IsAdminUser()]
         if self.action in ['signup', 'signin']:
             permission_classes = [AllowAny]
             if self.request.user.is_authenticated:
@@ -290,7 +296,52 @@ class UserViewSet(viewsets.ModelViewSet):
     
 
 class NewsletterSubscribersView(APIView):
+    permission_classes = [IsAdminUser]
+
     def get(self, request):
-        subs = NewsletterSubscriber.objects.all().values("email", "name", "created_at")
+        subs = NewsletterSubscriber.objects.filter(
+            status=NewsletterSubscriber.STATUS_ACTIVE
+        ).values("email", "name", "created_at")
         return Response(list(subs))
 
+
+class NewsletterSubscribeView(APIView):
+    """Public banner sign-up. Starts the double opt-in; the answer never reveals the subscription state."""
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        if str(request.data.get("website", "")).strip():
+            # Honeypot: answer as if it worked so bots don't adapt.
+            return Response({"ok": True}, status=status.HTTP_202_ACCEPTED)
+        try:
+            newsletter_service.request_banner_subscription(request.data.get("email"))
+        except newsletter_service.InvalidNewsletterEmail:
+            return Response({"error": "invalid_email"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"ok": True}, status=status.HTTP_202_ACCEPTED)
+
+
+class NewsletterConfirmView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        try:
+            newsletter_service.confirm_banner_subscription(request.data.get("token"))
+        except newsletter_service.InvalidNewsletterToken:
+            return Response({"error": "invalid_token"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"ok": True})
+
+
+class NewsletterUnsubscribeView(APIView):
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        # The token may travel in the query string so mail clients can POST List-Unsubscribe links as-is.
+        token = request.data.get("token") or request.query_params.get("token")
+        try:
+            newsletter_service.unsubscribe(token)
+        except newsletter_service.InvalidNewsletterToken:
+            return Response({"error": "invalid_token"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"ok": True})

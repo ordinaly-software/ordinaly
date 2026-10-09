@@ -141,7 +141,10 @@
       "namePlaceholder": "Your name",
       "emailPlaceholder": "you@email.com",
       "submitLabel": "Subscribe",
-      "successMessage": "Thank you! We'll let you know when the newsletter is live."
+      "successMessage": "Almost done! We've sent you an email to confirm your subscription.",
+      "errorMessage": "We couldn't process your subscription. Please try again.",
+      "invalidEmail": "Please enter a valid email.",
+      "privacyNotice": "By subscribing you accept our <privacy>Privacy Policy</privacy>. Protected by Google reCAPTCHA (<gprivacy>Privacy</gprivacy> and <terms>Terms</terms>)."
     },
     "courses": {
       "noSpecificDate": "No specific date",
@@ -463,7 +466,18 @@
       "sendMail": "Send mail",
       "selectAll": "Select all",
       "searchPlaceholder": "Search users...",
-      "users": "users"
+      "users": "users",
+      "newsletter": "Newsletter",
+      "courseNotifications": "Course alerts",
+      "courseNotificationsOn": "On",
+      "courseNotificationsOff": "Off",
+      "filterAll": "all",
+      "newsletterStatus": {
+        "active": "Subscribed",
+        "pending": "Pending confirmation",
+        "unsubscribed": "Unsubscribed",
+        "none": "Not subscribed"
+      }
     },
     "blogTab": {
       "title": "Blog edition CMS",
@@ -3127,6 +3141,32 @@
     "resendError": "Could not resend the email. Please try again.",
     "backHome": "Back to home",
     "openMailApp": "Open mail app"
+  },
+  "newsletterAction": {
+    "confirm": {
+      "idleTitle": "Confirm your subscription",
+      "idleDesc": "Press the button to start receiving the Ordinaly newsletter.",
+      "button": "Confirm subscription",
+      "loadingTitle": "Confirming...",
+      "loadingDesc": "One moment.",
+      "successTitle": "Subscription confirmed!",
+      "successDesc": "Thank you. You'll now receive our newsletter. You can unsubscribe at any time from any email.",
+      "errorTitle": "Couldn't confirm",
+      "errorDesc": "The link is invalid or has expired. Subscribe again from the website to get a new one.",
+      "home": "Back to home"
+    },
+    "unsubscribe": {
+      "idleTitle": "Unsubscribe from the newsletter",
+      "idleDesc": "Press the button to stop receiving the Ordinaly newsletter.",
+      "button": "Unsubscribe",
+      "loadingTitle": "Processing...",
+      "loadingDesc": "One moment.",
+      "successTitle": "You've been unsubscribed",
+      "successDesc": "You won't receive the newsletter any more. You're welcome back any time.",
+      "errorTitle": "Couldn't complete the unsubscription",
+      "errorDesc": "The link is invalid. Email us at info@ordinaly.ai and we'll unsubscribe you.",
+      "home": "Back to home"
+    }
   },
   "deleteAccountConfirm": {
     "loadingTitle": "Confirming deletion...",

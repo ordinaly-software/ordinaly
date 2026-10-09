@@ -1,4 +1,7 @@
+from datetime import timedelta
+from io import StringIO
 from django.core import mail
+from django.core.management import call_command
 from django.test import TestCase, override_settings
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -8,8 +11,9 @@ from .serializers import CustomUserSerializer
 from rest_framework.test import APITestCase, APIClient
 from rest_framework import status
 from rest_framework.authtoken.models import Token
-from .models import CustomUser
+from .models import CustomUser, NewsletterSubscriber
 from .authentication import EmailOrUsernameModelBackend
+from .services import newsletter_service
 import os
 
 
@@ -1352,3 +1356,318 @@ class EmailNotificationPreferenceTests(TestCase):
             EmailNotificationJob.objects.filter(notification_type="course_reminder_24h").count(),
             1,
         )
+
+
+class NewsletterSubscriptionSyncTests(TestCase):
+    """The newsletter list mirrors accounts and keeps banner sign-ups intact."""
+
+    def _user(self, **overrides):
+        data = {
+            'email': 'news@example.com',
+            'username': 'newsuser',
+            'password': TEST_PASSWORD,
+            'name': 'News',
+            'surname': 'User',
+            'email_verified_at': timezone.now(),
+        }
+        data.update(overrides)
+        return CustomUser.objects.create_user(**data)
+
+    def test_opt_in_creates_active_linked_subscriber(self):
+        user = self._user(allow_notifications=True)
+        sub = NewsletterSubscriber.objects.get(user=user)
+        self.assertEqual(sub.status, NewsletterSubscriber.STATUS_ACTIVE)
+        self.assertEqual(sub.email, 'news@example.com')
+        self.assertIsNotNone(sub.confirmed_at)
+
+    def test_no_opt_in_creates_no_subscriber(self):
+        self._user()
+        self.assertFalse(NewsletterSubscriber.objects.exists())
+
+    def test_email_change_updates_same_row_without_leaving_old_address(self):
+        user = self._user(allow_notifications=True)
+        user.email = 'new@example.com'
+        user.save(update_fields=['email'])
+        self.assertEqual(NewsletterSubscriber.objects.count(), 1)
+        self.assertEqual(NewsletterSubscriber.objects.get(user=user).email, 'new@example.com')
+
+    def test_name_change_is_synced(self):
+        user = self._user(allow_notifications=True)
+        user.name = 'Renamed'
+        user.save()
+        self.assertEqual(NewsletterSubscriber.objects.get(user=user).name, 'Renamed')
+
+    def test_opt_out_marks_unsubscribed_and_opt_in_again_reactivates(self):
+        user = self._user(allow_notifications=True)
+        user.allow_notifications = False
+        user.save()
+        sub = NewsletterSubscriber.objects.get(user=user)
+        self.assertEqual(sub.status, NewsletterSubscriber.STATUS_UNSUBSCRIBED)
+        self.assertIsNotNone(sub.unsubscribed_at)
+
+        user.allow_notifications = True
+        user.save()
+        sub.refresh_from_db()
+        self.assertEqual(sub.status, NewsletterSubscriber.STATUS_ACTIVE)
+        self.assertIsNone(sub.unsubscribed_at)
+
+    def test_deleting_account_removes_subscriber(self):
+        user = self._user(allow_notifications=True)
+        user.delete()
+        self.assertFalse(NewsletterSubscriber.objects.exists())
+
+    def test_unrelated_save_does_not_touch_subscription(self):
+        user = self._user(allow_notifications=True)
+        with patch('users.signals.sync_user_subscription') as mock_sync:
+            user.save(update_fields=['last_login'])
+        mock_sync.assert_not_called()
+
+    def test_banner_signup_is_linked_when_account_opts_in(self):
+        banner = NewsletterSubscriber.objects.create(
+            email='News@Example.com',
+            status=NewsletterSubscriber.STATUS_ACTIVE,
+            source=NewsletterSubscriber.SOURCE_BANNER,
+        )
+        user = self._user(allow_notifications=True)
+        banner.refresh_from_db()
+        self.assertEqual(banner.user, user)
+        self.assertEqual(banner.email, 'news@example.com')
+        self.assertEqual(NewsletterSubscriber.objects.count(), 1)
+
+    def test_account_without_opt_in_does_not_cancel_banner_signup(self):
+        banner = NewsletterSubscriber.objects.create(
+            email='news@example.com',
+            status=NewsletterSubscriber.STATUS_ACTIVE,
+            source=NewsletterSubscriber.SOURCE_BANNER,
+        )
+        self._user()
+        banner.refresh_from_db()
+        self.assertEqual(banner.status, NewsletterSubscriber.STATUS_ACTIVE)
+        self.assertIsNone(banner.user)
+
+    def test_email_change_onto_banner_address_replaces_banner_row(self):
+        NewsletterSubscriber.objects.create(
+            email='taken@example.com',
+            source=NewsletterSubscriber.SOURCE_BANNER,
+        )
+        user = self._user(allow_notifications=True)
+        user.email = 'taken@example.com'
+        user.save(update_fields=['email'])
+        self.assertEqual(NewsletterSubscriber.objects.count(), 1)
+        self.assertEqual(NewsletterSubscriber.objects.get().user, user)
+
+    def test_sync_command_links_legacy_rows_and_reports_orphans(self):
+        user = self._user(allow_notifications=True)
+        NewsletterSubscriber.objects.filter(user=user).update(user=None)
+        NewsletterSubscriber.objects.create(email='old-address@example.com')
+
+        call_command('sync_newsletter_subscribers', '--purge-orphans', stdout=StringIO())
+
+        self.assertEqual(NewsletterSubscriber.objects.get().user, user)
+
+
+class NewsletterSubscribersEndpointTests(APITestCase):
+    URL = '/api/newsletter/subscribers/'
+
+    def setUp(self):
+        self.regular = CustomUser.objects.create_user(
+            email='regular@example.com', username='regular', password=TEST_PASSWORD,
+            name='Regular', surname='User', allow_notifications=True, email_verified_at=timezone.now(),
+        )
+        self.staff = CustomUser.objects.create_user(
+            email='staff@example.com', username='staffer', password=TEST_PASSWORD,
+            name='Staff', surname='User', is_staff=True,
+        )
+        NewsletterSubscriber.objects.create(
+            email='gone@example.com', status=NewsletterSubscriber.STATUS_UNSUBSCRIBED,
+        )
+
+    def _auth(self, user):
+        token, _ = Token.objects.get_or_create(user=user)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token.key}')
+
+    def test_anonymous_is_rejected(self):
+        self.assertEqual(self.client.get(self.URL).status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_regular_user_cannot_list_subscribers(self):
+        self._auth(self.regular)
+        self.assertEqual(self.client.get(self.URL).status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_staff_gets_only_active_subscribers(self):
+        self._auth(self.staff)
+        response = self.client.get(self.URL)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual([row['email'] for row in response.json()], ['regular@example.com'])
+
+
+class NewsletterDoubleOptInTests(APITestCase):
+    SUBSCRIBE = '/api/newsletter/subscribe/'
+    CONFIRM = '/api/newsletter/confirm/'
+    UNSUBSCRIBE = '/api/newsletter/unsubscribe/'
+
+    def _subscribe(self, email='visitor@example.com', **extra):
+        return self.client.post(self.SUBSCRIBE, {'email': email, **extra}, format='json')
+
+    def _token_from_outbox(self):
+        body = mail.outbox[-1].body
+        return body.split('token=')[1].split()[0]
+
+    def test_subscribe_creates_pending_row_and_sends_confirmation(self):
+        response = self._subscribe('Visitor@Example.com')
+        self.assertEqual(response.status_code, status.HTTP_202_ACCEPTED)
+        sub = NewsletterSubscriber.objects.get()
+        self.assertEqual(sub.email, 'visitor@example.com')
+        self.assertEqual(sub.status, NewsletterSubscriber.STATUS_PENDING)
+        self.assertEqual(sub.source, NewsletterSubscriber.SOURCE_BANNER)
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].to, ['visitor@example.com'])
+
+    def test_invalid_email_is_rejected(self):
+        self.assertEqual(self._subscribe('nope').status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertFalse(NewsletterSubscriber.objects.exists())
+
+    def test_honeypot_is_silently_ignored(self):
+        self.assertEqual(self._subscribe(website='http://spam').status_code, status.HTTP_202_ACCEPTED)
+        self.assertFalse(NewsletterSubscriber.objects.exists())
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_resubscribe_within_cooldown_sends_no_second_email(self):
+        self._subscribe()
+        self._subscribe()
+        self.assertEqual(len(mail.outbox), 1)
+
+    def test_resubscribe_after_cooldown_sends_again(self):
+        self._subscribe()
+        NewsletterSubscriber.objects.update(confirmation_sent_at=timezone.now() - timedelta(minutes=10))
+        self._subscribe()
+        self.assertEqual(len(mail.outbox), 2)
+
+    def test_active_subscriber_gets_same_answer_and_no_email(self):
+        NewsletterSubscriber.objects.create(email='visitor@example.com', status=NewsletterSubscriber.STATUS_ACTIVE)
+        self.assertEqual(self._subscribe().status_code, status.HTTP_202_ACCEPTED)
+        self.assertEqual(len(mail.outbox), 0)
+
+    def test_confirm_activates_banner_subscriber(self):
+        self._subscribe()
+        response = self.client.post(self.CONFIRM, {'token': self._token_from_outbox()}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        sub = NewsletterSubscriber.objects.get()
+        self.assertEqual(sub.status, NewsletterSubscriber.STATUS_ACTIVE)
+        self.assertIsNotNone(sub.confirmed_at)
+        self.assertIsNone(sub.user)
+
+    def test_confirm_rejects_garbage_token(self):
+        response = self.client.post(self.CONFIRM, {'token': 'garbage'}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_confirm_links_to_verified_account_and_sets_its_preference(self):
+        user = CustomUser.objects.create_user(
+            email='visitor@example.com', username='visitor', password=TEST_PASSWORD,
+            name='Visitor', surname='V', email_verified_at=timezone.now(),
+        )
+        self._subscribe()
+        self.client.post(self.CONFIRM, {'token': self._token_from_outbox()}, format='json')
+        user.refresh_from_db()
+        sub = NewsletterSubscriber.objects.get()
+        self.assertTrue(user.allow_notifications)
+        self.assertEqual(sub.user, user)
+        self.assertEqual(sub.status, NewsletterSubscriber.STATUS_ACTIVE)
+
+    def test_confirm_does_not_touch_unverified_account(self):
+        user = CustomUser.objects.create_user(
+            email='visitor@example.com', username='visitor', password=TEST_PASSWORD,
+            name='Visitor', surname='V',
+        )
+        self._subscribe()
+        self.client.post(self.CONFIRM, {'token': self._token_from_outbox()}, format='json')
+        user.refresh_from_db()
+        self.assertFalse(user.allow_notifications)
+        self.assertEqual(NewsletterSubscriber.objects.get().status, NewsletterSubscriber.STATUS_ACTIVE)
+
+    def test_unsubscribe_banner_subscriber(self):
+        sub = NewsletterSubscriber.objects.create(email='visitor@example.com', status=NewsletterSubscriber.STATUS_ACTIVE)
+        token = newsletter_service.make_unsubscribe_token(sub)
+        response = self.client.post(self.UNSUBSCRIBE, {'token': token}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        sub.refresh_from_db()
+        self.assertEqual(sub.status, NewsletterSubscriber.STATUS_UNSUBSCRIBED)
+        self.assertIsNotNone(sub.unsubscribed_at)
+
+    def test_unsubscribe_accepts_token_in_query_string(self):
+        sub = NewsletterSubscriber.objects.create(email='visitor@example.com', status=NewsletterSubscriber.STATUS_ACTIVE)
+        token = newsletter_service.make_unsubscribe_token(sub)
+        self.assertEqual(self.client.post(f'{self.UNSUBSCRIBE}?token={token}').status_code, status.HTTP_200_OK)
+
+    def test_unsubscribe_account_holder_clears_account_preference(self):
+        user = CustomUser.objects.create_user(
+            email='member@example.com', username='member', password=TEST_PASSWORD,
+            name='Member', surname='M', allow_notifications=True, email_verified_at=timezone.now(),
+        )
+        sub = NewsletterSubscriber.objects.get(user=user)
+        self.client.post(self.UNSUBSCRIBE, {'token': newsletter_service.make_unsubscribe_token(sub)}, format='json')
+        user.refresh_from_db()
+        sub.refresh_from_db()
+        self.assertFalse(user.allow_notifications)
+        self.assertEqual(sub.status, NewsletterSubscriber.STATUS_UNSUBSCRIBED)
+
+    def test_unsubscribe_rejects_confirm_token(self):
+        self._subscribe()
+        response = self.client.post(self.UNSUBSCRIBE, {'token': self._token_from_outbox()}, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_unverified_account_optin_stays_pending_until_email_is_verified(self):
+        user = CustomUser.objects.create_user(
+            email='late@example.com', username='late', password=TEST_PASSWORD,
+            name='Late', surname='L', allow_notifications=True,
+        )
+        self.assertEqual(NewsletterSubscriber.objects.get(user=user).status, NewsletterSubscriber.STATUS_PENDING)
+        user.email_verified_at = timezone.now()
+        user.save(update_fields=['email_verified_at'])
+        self.assertEqual(NewsletterSubscriber.objects.get(user=user).status, NewsletterSubscriber.STATUS_ACTIVE)
+
+
+class AdminUserListTests(APITestCase):
+    URL = '/api/users/'
+
+    def setUp(self):
+        self.staff = CustomUser.objects.create_user(
+            email='staff@example.com', username='staffer', password=TEST_PASSWORD,
+            name='Staff', surname='S', is_staff=True,
+        )
+        self.member = CustomUser.objects.create_user(
+            email='member@example.com', username='member', password=TEST_PASSWORD,
+            name='Member', surname='M', allow_notifications=True, email_verified_at=timezone.now(),
+            course_email_notifications=False,
+        )
+        self.plain = CustomUser.objects.create_user(
+            email='plain@example.com', username='plain', password=TEST_PASSWORD,
+            name='Plain', surname='P',
+        )
+
+    def _auth(self, user):
+        token, _ = Token.objects.get_or_create(user=user)
+        self.client.credentials(HTTP_AUTHORIZATION=f'Token {token.key}')
+
+    def test_regular_user_cannot_list_retrieve_or_delete_accounts(self):
+        self._auth(self.plain)
+        self.assertEqual(self.client.get(self.URL).status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(self.client.get(f'{self.URL}{self.member.pk}/').status_code, status.HTTP_403_FORBIDDEN)
+        self.assertEqual(self.client.delete(f'{self.URL}{self.member.pk}/').status_code, status.HTTP_403_FORBIDDEN)
+        self.assertTrue(CustomUser.objects.filter(pk=self.member.pk).exists())
+
+    def test_regular_user_can_still_read_own_profile(self):
+        self._auth(self.plain)
+        response = self.client.get(f'{self.URL}profile/')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json()['newsletter_status'], 'none')
+
+    def test_staff_list_includes_newsletter_and_course_preferences(self):
+        self._auth(self.staff)
+        with self.assertNumQueries(2):  # token auth + users joined with their subscription
+            response = self.client.get(self.URL)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        by_email = {row['email']: row for row in response.json()}
+        self.assertEqual(by_email['member@example.com']['newsletter_status'], 'active')
+        self.assertFalse(by_email['member@example.com']['course_email_notifications'])
+        self.assertEqual(by_email['plain@example.com']['newsletter_status'], 'none')
+        self.assertTrue(by_email['plain@example.com']['course_email_notifications'])

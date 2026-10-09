@@ -1,5 +1,6 @@
 from .models import CustomUser
 from rest_framework import serializers
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone
 
 
@@ -11,6 +12,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     updated_at = serializers.SerializerMethodField()
     last_login = serializers.SerializerMethodField()
     is_google_authenticated = serializers.SerializerMethodField()
+    newsletter_status = serializers.SerializerMethodField()
 
     class Meta:
         model = CustomUser
@@ -21,6 +23,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'allow_notifications',
             'course_email_notifications',
             'is_google_authenticated',
+            'newsletter_status',
             'created_at', 'updated_at', 'last_login'
         )
         extra_kwargs = {
@@ -53,6 +56,13 @@ class CustomUserSerializer(serializers.ModelSerializer):
         if hasattr(obj, 'last_login') and obj.last_login:
             return obj.last_login.isoformat()
         return None
+
+    def get_newsletter_status(self, obj):
+        """pending / active / unsubscribed, or 'none' if the user never opted in."""
+        try:
+            return obj.newsletter_subscription.status
+        except ObjectDoesNotExist:
+            return 'none'
 
     def get_is_google_authenticated(self, obj):
         return bool(getattr(obj, 'google_sub', None))

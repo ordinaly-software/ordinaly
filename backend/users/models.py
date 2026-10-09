@@ -164,8 +164,45 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
             
 
 class NewsletterSubscriber(models.Model):
+    """Single newsletter list: account holders (user set) and banner sign-ups (user null)."""
+
+    STATUS_PENDING = "pending"
+    STATUS_ACTIVE = "active"
+    STATUS_UNSUBSCRIBED = "unsubscribed"
+
+    STATUS_CHOICES = [
+        (STATUS_PENDING, "Pending confirmation"),
+        (STATUS_ACTIVE, "Active"),
+        (STATUS_UNSUBSCRIBED, "Unsubscribed"),
+    ]
+
+    SOURCE_ACCOUNT = "account"
+    SOURCE_BANNER = "banner"
+
+    SOURCE_CHOICES = [
+        (SOURCE_ACCOUNT, "Account"),
+        (SOURCE_BANNER, "Banner"),
+    ]
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="newsletter_subscription",
+    )
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=255, blank=True, default="")
+    status = models.CharField(
+        max_length=16,
+        choices=STATUS_CHOICES,
+        default=STATUS_ACTIVE,
+        db_index=True,
+    )
+    source = models.CharField(max_length=16, choices=SOURCE_CHOICES, default=SOURCE_ACCOUNT)
+    confirmed_at = models.DateTimeField(null=True, blank=True)
+    confirmation_sent_at = models.DateTimeField(null=True, blank=True)
+    unsubscribed_at = models.DateTimeField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

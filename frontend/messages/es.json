@@ -141,7 +141,10 @@
       "namePlaceholder": "Tu nombre",
       "emailPlaceholder": "tu@email.com",
       "submitLabel": "Suscribirme",
-      "successMessage": "¡Gracias! Te avisaremos cuando la newsletter esté activa."
+      "successMessage": "¡Casi listo! Te hemos enviado un correo para confirmar tu suscripción.",
+      "errorMessage": "No hemos podido procesar tu suscripción. Inténtalo de nuevo.",
+      "invalidEmail": "Introduce un correo válido.",
+      "privacyNotice": "Al suscribirte aceptas nuestra <privacy>Política de Privacidad</privacy>. Protegido por reCAPTCHA de Google (<gprivacy>Privacidad</gprivacy> y <terms>Condiciones</terms>)."
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
@@ -464,7 +467,18 @@
       "sendMail": "Enviar correo",
       "selectAll": "Seleccionar todo",
       "searchPlaceholder": "Buscar usuarios...",
-      "users": "usuarios"
+      "users": "usuarios",
+      "newsletter": "Newsletter",
+      "courseNotifications": "Avisos de cursos",
+      "courseNotificationsOn": "Activados",
+      "courseNotificationsOff": "Desactivados",
+      "filterAll": "todos",
+      "newsletterStatus": {
+        "active": "Suscrito",
+        "pending": "Pendiente de confirmar",
+        "unsubscribed": "De baja",
+        "none": "No suscrito"
+      }
     },
     "blogTab": {
       "title": "Edición de blog (CMS)",
@@ -3134,6 +3148,32 @@
     "resendError": "No se pudo reenviar el correo. Inténtalo de nuevo.",
     "backHome": "Volver al inicio",
     "openMailApp": "Abrir app de correo"
+  },
+  "newsletterAction": {
+    "confirm": {
+      "idleTitle": "Confirma tu suscripción",
+      "idleDesc": "Pulsa el botón para empezar a recibir la newsletter de Ordinaly.",
+      "button": "Confirmar suscripción",
+      "loadingTitle": "Confirmando...",
+      "loadingDesc": "Un momento.",
+      "successTitle": "¡Suscripción confirmada!",
+      "successDesc": "Gracias. A partir de ahora recibirás nuestra newsletter. Puedes darte de baja en cualquier momento desde cualquier correo.",
+      "errorTitle": "No se pudo confirmar",
+      "errorDesc": "El enlace no es válido o ha caducado. Vuelve a suscribirte desde la web para recibir uno nuevo.",
+      "home": "Volver al inicio"
+    },
+    "unsubscribe": {
+      "idleTitle": "Darte de baja de la newsletter",
+      "idleDesc": "Pulsa el botón para dejar de recibir la newsletter de Ordinaly.",
+      "button": "Darme de baja",
+      "loadingTitle": "Procesando...",
+      "loadingDesc": "Un momento.",
+      "successTitle": "Te has dado de baja",
+      "successDesc": "No volverás a recibir la newsletter. Si te suscribes de nuevo en el futuro, serás bienvenido.",
+      "errorTitle": "No se pudo completar la baja",
+      "errorDesc": "El enlace no es válido. Escríbenos a info@ordinaly.ai y te damos de baja.",
+      "home": "Volver al inicio"
+    }
   },
   "deleteAccountConfirm": {
     "loadingTitle": "Confirmando eliminación...",

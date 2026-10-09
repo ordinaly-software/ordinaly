@@ -68,6 +68,14 @@ def send_welcome_email(email: str, user_name: str):
     )
 
 
+def send_newsletter_confirmation_email(email: str, token: str):
+    _send(
+        email, "Confirma tu suscripción a la newsletter - Ordinaly", "newsletter_confirmation",
+        "No se pudo enviar el correo de confirmación de la newsletter",
+        confirm_url=_frontend_url(f"/newsletter/confirm?token={token}"),
+    )
+
+
 def send_password_reset_email(email: str, token: str, user_name: str):
     _send(
         email, "Restablecer contraseña - Ordinaly", "password_reset",
