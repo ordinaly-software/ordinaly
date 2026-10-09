@@ -3050,9 +3050,9 @@
             "imageAlt": "Automatización de procesos en consultora tecnológica"
           },
           {
-            "title": "Integración de agentes e IA conversacional por voz (SonIA y ClaudIA)",
-            "description": "Desarrollamos soluciones duales de telefonía inteligente. Con SonIA, dispones de una recepcionista inteligente 24/7 para llamadas entrantes; con ClaudIA, automatizas llamadas salientes comerciales y de gestión con registro en tiempo real en tu CRM.",
-            "ctaLabel": "Conoce a SonIA y ClaudIA",
+            "title": "Integración de agentes e IA conversacional por voz",
+            "description": "Desarrollamos soluciones duales de telefonía inteligente. Dispones de una recepcionista inteligente 24/7 para llamadas entrantes y automatizas llamadas salientes comerciales y de gestión con registro en tiempo real en tu CRM.",
+            "ctaLabel": "Conoce nuestros agentes de llamadas inteligentes",
             "href": "/agente-de-llamadas-ia",
             "image": "/static/servicios/chatbot_recepcionista.webp",
             "imageAlt": "Agentes de voz en consultora tecnológica"

@@ -3044,9 +3044,9 @@
             "imageAlt": "Process automation at a technology consulting firm"
           },
           {
-            "title": "Conversational voice AI agents (SonIA and ClaudIA)",
-            "description": "We build dual intelligent telephony solutions. SonIA gives you a 24/7 intelligent receptionist for inbound calls; ClaudIA automates outbound sales and account-management calls with real-time logging in your CRM.",
-            "ctaLabel": "Meet SonIA and ClaudIA",
+            "title": "Conversational voice AI agents",
+            "description": "We build dual intelligent telephony solutions.",
+            "ctaLabel": "Meet our inbound and outbound AI agents",
             "href": "/agente-de-llamadas-ia",
             "image": "/static/servicios/chatbot_recepcionista.webp",
             "imageAlt": "Voice agents at a technology consulting firm"
@@ -3102,7 +3102,7 @@
         },
         {
           "question": "What technologies and tools does your technology consulting firm use for automations?",
-          "answer": "We rely on robust, open and scalable technologies. We specialize in orchestrating systems with the n8n platform, programming and deploying the Odoo 18 ERP, building progressive web apps (PWAs), and training Artificial Intelligence models for voice and text conversational agents (like our products SonIA and ClaudIA)."
+          "answer": "We rely on robust, open and scalable technologies. We specialize in orchestrating systems with the n8n platform, programming and deploying the Odoo 18 ERP, building progressive web apps (PWAs), and training Artificial Intelligence models for voice and text conversational agents."
         },
         {
           "question": "Does my company need in-house IT staff to implement your software solutions?",
