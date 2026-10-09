@@ -201,6 +201,7 @@ ordinaly/
 - `/api/auth/signin/route.ts` — autenticación (sign in)
 - `/api/auth/signup/route.ts` — autenticación (sign up)
 - `/api/signin/route.ts` y `/api/signup/route.ts` — alias de las dos rutas anteriores
+- `/sitemap.xml/route.ts` — sitemap dinámico: páginas fijas, landings, cursos (desde la API) y posts (desde Sanity), cada página en español y en `/en` (salvo blog y posts, solo en español). Se regenera cada hora y al publicar un post. Es XML plano a propósito (sin hoja de estilo ni `xhtml:link`) para que el navegador lo muestre como árbol legible; los idiomas alternativos se declaran en el `<head>` de cada página
 - `/api/newsletter/subscribe/route.ts` — alta en la newsletter desde el banner (valida reCAPTCHA y reenvía al backend)
 
 **Componentes principales:**
@@ -223,7 +224,7 @@ ordinaly/
 
 **Librerías y utilidades:**
 
-- `src/lib/` — api-config, api-errors, email-confirmation, events, image, legal, metadata, queries, recaptcha, remark-autolink-urls, sanity, site-data, utils
+- `src/lib/` — api-config, api-errors, email-confirmation, events, image, legal, metadata, queries, recaptcha, remark-autolink-urls, sanity, site-data, sitemap-entries, sitemap-xml, utils
 - `src/utils/` — api, cookie-manager, linkify, past-course, pdf, pdf-generator, text, whatsapp, youtube
 
 **CMS (Sanity):** esquemas en `/frontend/src/sanity/schemaTypes/` y utilidades en `/frontend/src/sanity/lib/`
