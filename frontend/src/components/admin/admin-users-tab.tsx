@@ -4,6 +4,7 @@ import { Send, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { PaginationControls } from "@/components/ui/pagination-controls";
+import { Dropdown } from "@/components/ui/dropdown";
 
 interface User {
   id: number;
@@ -11,7 +12,18 @@ interface User {
   surname: string;
   email: string;
   company: string;
+  newsletter_status: NewsletterStatus;
+  course_email_notifications: boolean;
 }
+
+type NewsletterStatus = "active" | "pending" | "unsubscribed" | "none";
+
+const NEWSLETTER_BADGE_CLASSES: Record<NewsletterStatus, string> = {
+  active: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
+  pending: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
+  unsubscribed: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
+  none: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
+};
 
 const AdminUsersTab = () => {
   const t = useTranslations("admin.users");
@@ -20,6 +32,8 @@ const AdminUsersTab = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [selectedUsers, setSelectedUsers] = useState<number[]>([]);
   const [search, setSearch] = useState("");
+  const [newsletterFilter, setNewsletterFilter] = useState<"all" | NewsletterStatus>("all");
+  const [courseFilter, setCourseFilter] = useState<"all" | "on" | "off">("all");
   const [sortKey, setSortKey] = useState<keyof User>("name");
   const [sortAsc, setSortAsc] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +47,8 @@ const AdminUsersTab = () => {
 
   const filteredAndSortedUsers = useMemo(() => {
     return users
+      .filter(u => newsletterFilter === "all" || u.newsletter_status === newsletterFilter)
+      .filter(u => courseFilter === "all" || u.course_email_notifications === (courseFilter === "on"))
       .filter(u => {
         const q = search.trim().toLowerCase();
         if (!q) return true;
@@ -51,7 +67,7 @@ const AdminUsersTab = () => {
         if (aVal > bVal) return sortAsc ? 1 : -1;
         return 0;
       });
-  }, [users, search, sortKey, sortAsc]);
+  }, [users, search, newsletterFilter, courseFilter, sortKey, sortAsc]);
 
   const totalPages = Math.max(1, Math.ceil(filteredAndSortedUsers.length / pageSize));
   const safeCurrentPage = Math.min(currentPage, totalPages);
@@ -60,7 +76,7 @@ const AdminUsersTab = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [search, sortKey, sortAsc, pageSize]);
+  }, [search, newsletterFilter, courseFilter, sortKey, sortAsc, pageSize]);
 
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(totalPages);
@@ -79,7 +95,7 @@ const AdminUsersTab = () => {
   const handleSendMail = () => {
     const selectedEmails = filteredAndSortedUsers.filter(u => selectedUsers.includes(u.id)).map(u => u.email);
     if (selectedEmails.length === 0) return;
-    const mailto = `mailto:?bcc=${encodeURIComponent(selectedEmails.join(","))}&subject=Ordinaly%20Diffusion&body=Dear%20users,%0D%0A%0D%0A`;
+    const mailto = `mailto:?bcc=${encodeURIComponent(selectedEmails.join(","))}&subject=${encodeURIComponent(t('mailSubject'))}&body=${encodeURIComponent(`${t('mailGreeting')}\r\n\r\n`)}`;
     window.location.href = mailto;
   };
 
@@ -134,6 +150,32 @@ const AdminUsersTab = () => {
               className="pl-10 w-full min-w-0"
             />
           </div>
+          <Dropdown
+            options={[
+              { value: "all", label: `${t('newsletter')}: ${t('filterAll')}` },
+              { value: "active", label: t('newsletterStatus.active') },
+              { value: "pending", label: t('newsletterStatus.pending') },
+              { value: "unsubscribed", label: t('newsletterStatus.unsubscribed') },
+              { value: "none", label: t('newsletterStatus.none') },
+            ]}
+            value={newsletterFilter}
+            onChange={(value) => setNewsletterFilter(value as "all" | NewsletterStatus)}
+            minWidth="220px"
+            width="220px"
+            theme="orange"
+          />
+          <Dropdown
+            options={[
+              { value: "all", label: `${t('courseNotifications')}: ${t('filterAll')}` },
+              { value: "on", label: t('courseNotificationsOn') },
+              { value: "off", label: t('courseNotificationsOff') },
+            ]}
+            value={courseFilter}
+            onChange={(value) => setCourseFilter(value as "all" | "on" | "off")}
+            minWidth="220px"
+            width="220px"
+            theme="orange"
+          />
         </div>
         <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
           <Button
@@ -172,6 +214,8 @@ const AdminUsersTab = () => {
                 { key: 'surname', label: t('surname') },
                 { key: 'email', label: t('email') },
                 { key: 'company', label: t('company') },
+                { key: 'newsletter_status', label: t('newsletter') },
+                { key: 'course_email_notifications', label: t('courseNotifications') },
               ] as { key: keyof User, label: string }[]).map(col => (
                 <th
                   key={col.key}
@@ -207,6 +251,16 @@ const AdminUsersTab = () => {
                   <a href={`mailto:${user.email}?from=noreply@ordinaly.ai`} target="_blank" rel="noopener noreferrer">{user.email}</a>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.company}</td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                  <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${NEWSLETTER_BADGE_CLASSES[user.newsletter_status ?? 'none']}`}>
+                    {t(`newsletterStatus.${user.newsletter_status ?? 'none'}`)}
+                  </span>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm">
+                  <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${user.course_email_notifications ? NEWSLETTER_BADGE_CLASSES.active : NEWSLETTER_BADGE_CLASSES.none}`}>
+                    {user.course_email_notifications ? t('courseNotificationsOn') : t('courseNotificationsOff')}
+                  </span>
+                </td>
               </tr>
             ))}
           </tbody>

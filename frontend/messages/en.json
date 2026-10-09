@@ -141,7 +141,10 @@
       "namePlaceholder": "Your name",
       "emailPlaceholder": "you@email.com",
       "submitLabel": "Subscribe",
-      "successMessage": "Thank you! We'll let you know when the newsletter is live."
+      "successMessage": "Almost done! We've sent you an email to confirm your subscription.",
+      "errorMessage": "We couldn't process your subscription. Please try again.",
+      "invalidEmail": "Please enter a valid email.",
+      "privacyNotice": "By subscribing you accept our <privacy>Privacy Policy</privacy>. Protected by Google reCAPTCHA (<gprivacy>Privacy</gprivacy> and <terms>Terms</terms>)."
     },
     "courses": {
       "noSpecificDate": "No specific date",
@@ -409,10 +412,14 @@
       "cancelled": "Google sign-in was cancelled. Please try again.",
       "invalidToken": "The authentication token is invalid or expired. Please sign in again.",
       "accountConflict": "This email is already linked to another sign-in method.",
+      "accountExists": "An account with this email already exists. Sign in with your password and, once inside, connect Google from your profile (Security → Connected accounts). If you don't remember the password, you can reset it.",
+      "emailNotVerified": "Google hasn't verified this email, so we can't use it to sign you in.",
+      "missingEmail": "Google didn't give us an email address. Please try again with another account.",
       "generic": "Authentication failed. Please try signing in again."
     },
     "actions": {
       "goToSignIn": "Go to sign in",
+      "forgotPassword": "I forgot my password",
       "goHome": "Go to home"
     }
   },
@@ -436,14 +443,117 @@
     },
     "tabs": {
       "overview": "Overview",
-      "services": "Services",
       "courses": "Courses",
       "users": "Users",
       "blog": "Blog",
       "odoo": "Odoo",
       "n8n": "n8n",
-      "api": "API",
-      "mail": "Mail"
+      "api": "Backend",
+      "apiDocs": "API Docs",
+      "newsletter": "Newsletter"
+    },
+    "newsletter": {
+      "subTabs": {
+        "issues": "Issues",
+        "subscribers": "Subscribers"
+      },
+      "new": "New newsletter",
+      "empty": "There are no newsletters yet.",
+      "filterAll": "All statuses",
+      "noSubject": "(no subject)",
+      "noDate": "No date",
+      "status": {
+        "draft": "Draft",
+        "scheduled": "Scheduled",
+        "sending": "Sending",
+        "sent": "Sent",
+        "cancelled": "Cancelled"
+      },
+      "columns": {
+        "subject": "Subject",
+        "status": "Status",
+        "date": "Date",
+        "results": "Results"
+      },
+      "results": "{sent} sent · {opened} opens ({openRate}) · {clicked} clicks ({clickRate})",
+      "actions": {
+        "edit": "Edit",
+        "open": "View"
+      },
+      "editor": {
+        "back": "Back",
+        "subject": "Subject",
+        "subjectPlaceholder": "Email subject",
+        "body": "Content (HTML)",
+        "bodyHint": "Write only the content: the logo and the footer with the unsubscribe link are added automatically. You can use '{{name}}' for the subscriber's name.",
+        "preview": "Preview",
+        "scheduledFor": "Send date and time",
+        "save": "Save draft",
+        "saved": "Saved.",
+        "test": "Send test",
+        "testSent": "Test sent to your email.",
+        "schedule": "Schedule",
+        "reschedule": "Save and reschedule",
+        "scheduledOk": "Newsletter scheduled.",
+        "unschedule": "Unschedule",
+        "unscheduled": "Newsletter moved back to draft.",
+        "cancelSending": "Cancel sending",
+        "cancelConfirm": "Pending emails will stop being sent. Emails already sent cannot be recalled. Cancel the sending?",
+        "cancelled": "Sending cancelled.",
+        "duplicate": "Duplicate / create series",
+        "delete": "Delete",
+        "deleteConfirm": "Delete this newsletter? This cannot be undone.",
+        "deleted": "Newsletter deleted.",
+        "readOnly": "This newsletter can no longer be edited.",
+        "keep": "No, go back"
+      },
+      "series": {
+        "title": "Duplicate as a series",
+        "description": "Creates copies as drafts, each with a proposed date a set number of days apart. Then edit the content of each one and schedule it.",
+        "count": "Copies",
+        "everyDays": "Every (days)",
+        "create": "Create copies",
+        "created": "{count} drafts created.",
+        "startNote": "The first copy uses the send date above; without a date, copies are created undated."
+      },
+      "stats": {
+        "recipients": "Recipients",
+        "sent": "Sent",
+        "opened": "Opens",
+        "clicked": "Clicks",
+        "undelivered": "Not delivered",
+        "opensNote": "Opens are indicative: they are missed when the client blocks images and Apple Mail inflates them. Clicks are reliable."
+      },
+      "subscribers": {
+        "search": "Search subscribers...",
+        "empty": "There are no subscribers.",
+        "columns": {
+          "email": "Email",
+          "name": "Name",
+          "status": "Status",
+          "source": "Source",
+          "since": "Joined"
+        },
+        "status": {
+          "active": "Subscribed",
+          "pending": "Pending confirmation",
+          "unsubscribed": "Unsubscribed"
+        },
+        "source": {
+          "account": "Account",
+          "banner": "Website banner"
+        }
+      },
+      "errors": {
+        "generic": "The action could not be completed. Please try again.",
+        "load": "Could not load the newsletter.",
+        "empty_newsletter": "Add a subject and content before scheduling.",
+        "scheduled_for": "Choose a send date and time.",
+        "locked": "This newsletter can no longer be modified.",
+        "not_scheduled": "The newsletter is not scheduled.",
+        "not_sending": "The newsletter is not being sent.",
+        "invalid_series": "Check the number of copies and the interval."
+      }
     },
     "pagination": {
       "first": "First",
@@ -464,7 +574,20 @@
       "sendMail": "Send mail",
       "selectAll": "Select all",
       "searchPlaceholder": "Search users...",
-      "users": "users"
+      "users": "users",
+      "mailSubject": "Ordinaly Diffusion",
+      "mailGreeting": "Dear users,",
+      "newsletter": "Newsletter",
+      "courseNotifications": "Course alerts",
+      "courseNotificationsOn": "On",
+      "courseNotificationsOff": "Off",
+      "filterAll": "all",
+      "newsletterStatus": {
+        "active": "Subscribed",
+        "pending": "Pending confirmation",
+        "unsubscribed": "Unsubscribed",
+        "none": "Not subscribed"
+      }
     },
     "blogTab": {
       "title": "Blog edition CMS",
@@ -493,124 +616,9 @@
       }
     },
     "stats": {
-      "totalServices": "Total services",
       "totalCourses": "Total courses",
       "totalUsers": "Total users",
       "totalPosts": "Total blog posts"
-    },
-    "services": {
-      "title": "Services management",
-      "searchPlaceholder": "Search services...",
-      "sorting": {
-        "sortBy": "Sort by",
-        "title": "Title",
-        "created": "Created",
-        "updated": "Updated",
-        "featured": "Featured",
-        "type": "Type",
-        "duration": "Duration",
-        "price": "Price",
-        "toggleOrder": "Toggle sort order"
-      },
-      "addService": "Add service",
-      "duplicate": "Duplicate",
-      "editService": "Edit service",
-      "createService": "Create new service",
-      "deleteSelected": "Delete selected",
-      "selectAll": "Select all",
-      "noServices": "No services available.",
-      "noServicesFound": "No services found matching your search.",
-      "durationDay": "1 day",
-      "durationDays": "days",
-      "services": "services",
-      "form": {
-        "title": "Title",
-        "titlePlaceholder": "Service title",
-        "slugOptional": "Service slug (optional)",
-        "slugPlaceholder": "e.g., automation-consulting",
-        "slugInvalid": "Slug may only contain ASCII letters, numbers, underscores, and hyphens (no accents).",
-        "slugCollision": "This slug conflicts with a reserved site route. Please choose another.",
-        "subtitle": "Subtitle",
-        "subtitlePlaceholder": "Service subtitle (optional)",
-        "description": "Description",
-        "descriptionPlaceholder": "Service description",
-        "icon": "Icon",
-        "iconPlaceholder": "Choose a Lucide React icon",
-        "color": "Service color *",
-        "image": "Service image",
-        "imageHelp": "Optional cover image (PNG/JPG, max 1MB).",
-        "chooseImageText": "Choose image",
-        "imageRecommendation": "Recommended: 1200x800px, JPG or PNG",
-        "noImage": "No image selected",
-        "clearImage": "Keep current image",
-        "imageWillBeRemoved": "This service image will be removed on save.",
-        "video": "YouTube video",
-        "videoPlaceholder": "https://www.youtube.com/watch?v=example",
-        "videoHelp": "Optional explainer video (YouTube links only).",
-        "type": "Type",
-        "service": "Service",
-        "product": "Product",
-        "colors": {
-          "slate": "Slate",
-          "clay": "Clay",
-          "cobalt": "Cobalt",
-          "olive": "Olive",
-          "fig": "Fig",
-          "kraft": "Kraft"
-        },
-        "duration": "Available in (days)",
-        "durationPlaceholder": "e.g., 2 days",
-        "price": "Price (€)",
-        "pricePlaceholder": "Leave empty for 'Contact for quote'",
-        "contactForQuote": "Contact for quote",
-        "featured": "Featured service",
-        "cancel": "Cancel",
-        "create": "Create",
-        "update": "Update",
-        "markdownSupported": "Markdown supported",
-        "requisites": "Requisites",
-        "requisitesPlaceholder": "Enter any requirements or prerequisites",
-        "draftMode": "Draft mode"
-      },
-      "messages": {
-        "createSuccess": "Service '{title}' created successfully! It's now available for clients.",
-        "updateSuccess": "Service updated successfully!",
-        "deleteSuccess": "Service deleted successfully",
-        "duplicateSuccess": "Service duplicated successfully!",
-        "bulkDeleteSuccess": "services deleted successfully",
-        "fetchError": "Failed to fetch services",
-        "createError": "Failed to create service",
-        "updateError": "Failed to update service",
-        "deleteError": "Failed to delete service",
-        "duplicateError": "Failed to duplicate service",
-        "networkError": "Unable to save service. Please check your connection and try again.",
-        "selectToDelete": "Please select services to delete",
-        "validation": {
-          "titleRequired": "Service title is required and must be 100 characters or less.",
-          "slugInvalid": "Please provide a valid unique slug.",
-          "slugCollision": "This slug conflicts with a reserved site route. Please choose another.",
-          "subtitleRequired": "Subtitle is required and must be 200 characters or less.",
-          "descriptionRequired": "Description is required and must be 2000 characters or less.",
-          "iconRequired": "Please select a valid icon for the service.",
-          "durationInvalid": "Duration must be at least 1 day if specified.",
-          "requisitesLimit": "Requisites must be 2000 characters or less.",
-          "priceInvalid": "Price must be at least €0.50 if specified.",
-          "imageTooLarge": "Image must be 1MB or less.",
-          "imageInvalidType": "Please upload a valid image file.",
-          "videoInvalid": "Please provide a valid YouTube link."
-        },
-        "featured": {
-          "enabled": "Service has been marked as featured.",
-          "disabled": "Service is no longer featured."
-        }
-      },
-      "confirmDelete": {
-        "title": "Confirm deletion",
-        "single": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
-        "multiple": "Are you sure you want to delete {count} selected services? This action cannot be undone.",
-        "delete": "Delete",
-        "cancel": "Cancel"
-      }
     },
     "duplicateConfirm": {
       "title": "Duplicate item?",
@@ -936,7 +944,8 @@
           "bullet5": "Access data (username and password, or your Google account if you sign in with it)",
           "bullet6": "Course enrolment data. Payment is handled by Stripe and Ordinaly does not store your card details",
           "bullet7": "Technical data from your browser, including the IP address, that Google reCAPTCHA receives when you fill in a form in order to detect automated traffic",
-          "bullet8": "Website preferences (theme, language)"
+          "bullet8": "Website preferences (theme, language)",
+          "bullet9": "If you subscribe to the newsletter: your email address (and your name, if you have an account), the date you confirm or cancel the subscription and, for each issue, whether you open the email and whether you click its links"
         },
         "processingPurposes": {
           "title": "PURPOSES OF PROCESSING",
@@ -945,7 +954,8 @@
           "bullet2": "Manage contractual relationships",
           "bullet3": "Personalize user experience",
           "bullet4": "Send marketing communications with explicit consent",
-          "bullet5": "Protecting the forms and access to the website against spam and abuse"
+          "bullet5": "Protecting the forms and access to the website against spam and abuse",
+          "bullet6": "Sending the newsletter to those who have subscribed and measuring opens and clicks of each issue to improve its content"
         },
         "legalBases": {
           "title": "LEGAL BASES",
@@ -953,7 +963,8 @@
           "bullet1": "User consent",
           "bullet2": "Legitimate interest, to personalise basic website features such as language or theme and to protect it against spam and abuse",
           "bullet3": "Performance of a contract",
-          "bullet4": "Consent, for analytics and third-party content cookies, which you can accept or reject in the cookie banner"
+          "bullet4": "Consent, for analytics and third-party content cookies, which you can accept or reject in the cookie banner",
+          "bullet5": "Consent, for the newsletter: given when you subscribe on the website (and then confirm your email) or by ticking the box in your account, and you can withdraw it at any time with the unsubscribe link included in every email"
         },
         "recipients": {
           "title": "RECIPIENTS AND INTERNATIONAL TRANSFERS",
@@ -974,7 +985,8 @@
           "title": "DATA RETENTION",
           "bullet1": "Contact and configuration data are kept until deletion is requested.",
           "bullet2": "Contract and billing data are kept for the legally required period.",
-          "bullet3": "Browsing data is handled according to the Cookie Policy."
+          "bullet3": "Browsing data is handled according to the Cookie Policy.",
+          "bullet4": "Newsletter data is kept while you are subscribed. If you unsubscribe, we keep only your email and the unsubscription date so we do not write to you again, until you request its erasure"
         },
         "aiInteractions": {
           "title": "AI SYSTEM INTERACTIONS",
@@ -1550,12 +1562,33 @@
     "security": {
       "title": "Security",
       "description": "Update your password to keep your account secure.",
-      "changePassword": "Change password"
+      "changePassword": "Change password",
+      "createDescription": "Your account uses Google. Create a password to also sign in with your email, while still being able to use Google.",
+      "createPassword": "Create password",
+      "emailNote": "We'll send a link to {email}.",
+      "linkSent": "Link sent"
     },
     "authProvider": {
       "label": "Authentication",
       "google": "Google account",
-      "credentials": "Email and password"
+      "credentials": "Email and password",
+      "both": "Google and password"
+    },
+    "connectedAccounts": {
+      "title": "Connected accounts",
+      "description": "Choose which methods you can use to sign in to your account.",
+      "googleName": "Google",
+      "connectedBadge": "Connected",
+      "notConnectedBadge": "Not connected",
+      "connectHint": "Connect your Google account to sign in with one click. It can be a Google account with a different email than your account.",
+      "connectedHint": "You can sign in with Google.",
+      "connect": "Connect Google",
+      "disconnect": "Disconnect",
+      "disconnectBlocked": "Create a password before disconnecting Google, so you don't lose your way in.",
+      "confirmTitle": "Disconnect Google?",
+      "confirmMessage": "You will no longer be able to sign in with Google. You'll keep signing in with your email and password.",
+      "confirmButton": "Disconnect",
+      "cancel": "Cancel"
     },
     "tabs": {
       "profile": "Profile",
@@ -1630,6 +1663,21 @@
       "deleteError": "Failed to delete account. Please try again.",
       "networkError": "Network error. Please check your connection and try again.",
       "unauthorizedError": "You are not authorized to perform this action.",
+      "passwordLinkSent": "We've sent a link to {email}. Open it to choose your password.",
+      "passwordLinkError": "We couldn't send the link. Please try again.",
+      "googleLinked": "Google connected. You can now sign in with it.",
+      "googleUnlinked": "Google disconnected.",
+      "googleError": "Google could not be connected. Please try again.",
+      "googleErrors": {
+        "cancelled": "You cancelled the connection with Google.",
+        "invalid_state": "The Google connection expired. Please try again.",
+        "already_linked": "That Google account is already connected to another Ordinaly account.",
+        "already_has_google": "Your account already has another Google account connected. Disconnect it first.",
+        "email_not_verified": "Google hasn't verified that account's email.",
+        "invalid_token": "We couldn't validate Google's response. Please try again.",
+        "missing_email": "Google didn't give us an email address.",
+        "unexpected": "Google could not be connected. Please try again."
+      },
       "validation": {
         "firstNameRequired": "First name is required",
         "lastNameRequired": "Last name is required",
@@ -1701,7 +1749,7 @@
       "oldest": "Oldest"
     },
     "highlighted": {
-      "title": "Featured",
+      "title": "Featured articles",
       "previous": "Previous",
       "next": "Next"
     },
@@ -1739,7 +1787,7 @@
       "oldest": "Oldest"
     },
     "highlighted": {
-      "title": "Featured",
+      "title": "Featured articles",
       "previous": "Previous",
       "next": "Next"
     },
@@ -3128,6 +3176,74 @@
     "resendError": "Could not resend the email. Please try again.",
     "backHome": "Back to home",
     "openMailApp": "Open mail app"
+  },
+  "apiErrors": {
+    "invalidCode": "Invalid code",
+    "incorrectCode": "Incorrect code",
+    "codeExpired": "The code has expired",
+    "tooManyAttempts": "Too many attempts",
+    "accountAlreadyVerified": "Account already verified",
+    "accountNotVerified": "Your account is not verified yet.",
+    "emailInUse": "This email is already in use",
+    "resendGeneric": "If the account exists, a new code will be sent",
+    "emailGeneric": "If the account exists, an email has been sent",
+    "emailVerified": "Email verified successfully",
+    "emailUpdated": "Email updated. Check your inbox for the new code.",
+    "emailSent": "Email sent",
+    "verificationEmailFailed": "Could not send the verification email",
+    "confirmationEmailFailed": "Could not send the confirmation email",
+    "emailPasswordRequired": "Email and password are required",
+    "invalidCredentials": "Invalid credentials",
+    "tokenRequired": "Token required",
+    "invalidToken": "Invalid token",
+    "tokenExpired": "Token expired",
+    "tokenPasswordRequired": "Token and new password are required",
+    "passwordTooShort": "Password must be at least 8 characters long",
+    "passwordUpdated": "Password updated successfully",
+    "accountDeleted": "Account deleted",
+    "cancelCourseEnded": "You cannot cancel the enrollment because the course has already ended.",
+    "cancelCourseStarted": "You cannot cancel the enrollment because the course has already started.",
+    "cancelWithin24h": "You cannot cancel the enrollment within the 24 hours before the course starts.",
+    "invalidUrl": "Invalid URL: only http, https or internal paths are allowed.",
+    "resendCooldown": "You must wait {seconds} seconds before resending the code",
+    "useGoogleSignIn": "This account uses Google to sign in. Press \"Continue with Google\" or create a password from \"Forgot your password?\".",
+    "setPasswordFirst": "Create a password before disconnecting Google.",
+    "googleAlreadyConnected": "Google is already connected.",
+    "googleNotConnected": "Google is not connected."
+  },
+  "datePicker": {
+    "selectDate": "Select date",
+    "selectTime": "Time",
+    "previousMonth": "Previous month",
+    "nextMonth": "Next month",
+    "today": "Today",
+    "clear": "Clear"
+  },
+  "newsletterAction": {
+    "confirm": {
+      "idleTitle": "Confirm your subscription",
+      "idleDesc": "Press the button to start receiving the Ordinaly newsletter.",
+      "button": "Confirm subscription",
+      "loadingTitle": "Confirming...",
+      "loadingDesc": "One moment.",
+      "successTitle": "Subscription confirmed!",
+      "successDesc": "Thank you. You'll now receive our newsletter. You can unsubscribe at any time from any email.",
+      "errorTitle": "Couldn't confirm",
+      "errorDesc": "The link is invalid or has expired. Subscribe again from the website to get a new one.",
+      "home": "Back to home"
+    },
+    "unsubscribe": {
+      "idleTitle": "Unsubscribe from the newsletter",
+      "idleDesc": "Press the button to stop receiving the Ordinaly newsletter.",
+      "button": "Unsubscribe",
+      "loadingTitle": "Processing...",
+      "loadingDesc": "One moment.",
+      "successTitle": "You've been unsubscribed",
+      "successDesc": "You won't receive the newsletter any more. You're welcome back any time.",
+      "errorTitle": "Couldn't complete the unsubscription",
+      "errorDesc": "The link is invalid. Email us at info@ordinaly.ai and we'll unsubscribe you.",
+      "home": "Back to home"
+    }
   },
   "deleteAccountConfirm": {
     "loadingTitle": "Confirming deletion...",

@@ -18,6 +18,10 @@ export default function OAuthCallbackPage() {
       cancelled: t("errors.cancelled"),
       invalid_token: t("errors.invalidToken"),
       account_conflict: t("errors.accountConflict"),
+      account_exists: t("errors.accountExists"),
+      email_not_verified: t("errors.emailNotVerified"),
+      missing_email: t("errors.missingEmail"),
+      unexpected: t("errors.generic"),
     }),
     [t]
   );
@@ -29,6 +33,7 @@ export default function OAuthCallbackPage() {
 
     if (token) {
       localStorage.setItem("auth_token", token);
+      window.dispatchEvent(new Event("auth-state-changed"));
 
       const emailVerified = params.get("email_verified");
       const emailParam = params.get("email");
@@ -87,6 +92,15 @@ export default function OAuthCallbackPage() {
           >
             {t("actions.goToSignIn")}
           </button>
+          {params.get("error") === "account_exists" && (
+            <button
+              type="button"
+              onClick={() => router.push("/reset-password")}
+              className="rounded-md border border-cobalt px-4 py-2 text-sm font-medium text-cobalt transition-colors hover:bg-cobalt/10"
+            >
+              {t("actions.forgotPassword")}
+            </button>
+          )}
           <button
             type="button"
             onClick={() => router.push("/")}

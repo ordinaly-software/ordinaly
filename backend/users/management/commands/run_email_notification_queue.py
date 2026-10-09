@@ -4,12 +4,13 @@ from users.services.notification_service import (
     enqueue_due_course_notifications,
     process_pending_email_jobs,
 )
+from users.services.newsletter_sending import enqueue_due_newsletters
 
 
 class Command(BaseCommand):
     help = (
-        "Enqueue due course notification jobs and process pending "
-        "email notification jobs."
+        "Enqueue due course notification jobs and scheduled newsletters, "
+        "and process pending email notification jobs."
     )
 
     def add_arguments(self, parser):
@@ -25,15 +26,20 @@ class Command(BaseCommand):
                 lookahead_minutes=options["lookahead_minutes"]
             )
 
+        newsletters_started = enqueue_due_newsletters()
+
         result = {"processed": 0, "sent": 0, "failed": 0}
         if not options["skip_send"]:
             result = process_pending_email_jobs(limit=options["limit"])
+            # Close newsletters whose last email just went out.
+            enqueue_due_newsletters()
 
         self.stdout.write(
             self.style.SUCCESS(
                 "email_notification_queue reminders_enqueued={reminders} "
-                "processed={processed} sent={sent} failed={failed}".format(
+                "newsletters_started={newsletters} processed={processed} sent={sent} failed={failed}".format(
                     reminders=reminder_count,
+                    newsletters=newsletters_started,
                     processed=result["processed"],
                     sent=result["sent"],
                     failed=result["failed"],

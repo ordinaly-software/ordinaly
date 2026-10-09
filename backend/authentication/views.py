@@ -28,7 +28,12 @@ from authentication.serializers import (
     VerifyEmailSerializer,
 )
 from users.services.notification_service import queue_and_dispatch_password_reset_completed_notification
-from .utils import create_internal_token
+from .utils import (
+    create_internal_token,
+    make_google_link_state,
+    mark_email_verified,
+    read_google_link_state,
+)
 
 
 def _frontend_base_url():
@@ -96,108 +101,176 @@ def _generate_unique_google_username(user_model, email):
     return candidate
 
 
-@require_GET
-def google_login(request):
-    client_id = os.getenv("GOOGLE_CLIENT_ID")
-    redirect_uri = _google_redirect_uri()
-
-    query = urlencode(
-        {
-            "response_type": "code",
-            "client_id": client_id,
-            "redirect_uri": redirect_uri,
-            "scope": "openid email profile",
-            "access_type": "offline",
-            "prompt": "consent",
-        }
-    )
-    url = f"https://accounts.google.com/o/oauth2/v2/auth?{query}"
-
-    return redirect(url)
+def _google_authorize_url(state=None):
+    params = {
+        "response_type": "code",
+        "client_id": os.getenv("GOOGLE_CLIENT_ID"),
+        "redirect_uri": _google_redirect_uri(),
+        "scope": "openid email profile",
+        "access_type": "offline",
+        "prompt": "consent",
+    }
+    if state:
+        params["state"] = state
+    return f"https://accounts.google.com/o/oauth2/v2/auth?{urlencode(params)}"
 
 
-@require_GET
-def google_callback(request):
-    try:
-        frontend_base_url = _frontend_base_url()
-        code = request.GET.get("code")
+class GoogleAuthError(Exception):
+    """A failure while talking to Google; `code` is what the frontend gets to show."""
 
-        if "error" in request.GET:
-            return redirect(f"{frontend_base_url}/auth/signin?error=cancelled")
+    def __init__(self, code):
+        super().__init__(code)
+        self.code = code
 
-        if not code:
-            return JsonResponse({"error": "Missing code"}, status=400)
 
-        token_url = "https://oauth2.googleapis.com/token"
-        data = {
+def _fetch_google_profile(code):
+    """Exchange the authorization code and return Google's verified id_token claims."""
+    token_response = requests.post(
+        "https://oauth2.googleapis.com/token",
+        data={
             "code": code,
             "client_id": os.getenv("GOOGLE_CLIENT_ID"),
             "client_secret": os.getenv("GOOGLE_CLIENT_SECRET"),
             "redirect_uri": _google_redirect_uri(),
             "grant_type": "authorization_code",
-        }
+        },
+    ).json()
 
-        token_response = requests.post(token_url, data=data).json()
+    if "id_token" not in token_response:
+        raise GoogleAuthError("unexpected")
 
-        if "id_token" not in token_response:
-            return JsonResponse({"error": "Token exchange failed", "details": token_response}, status=400)
+    try:
+        info = id_token.verify_oauth2_token(
+            token_response["id_token"], google_requests.Request(), os.getenv("GOOGLE_CLIENT_ID")
+        )
+    except Exception:
+        raise GoogleAuthError("invalid_token")
 
-        id_token_google = token_response["id_token"]
+    if not info.get("email"):
+        raise GoogleAuthError("missing_email")
+    # Only trust an address Google itself has verified.
+    if not info.get("email_verified"):
+        raise GoogleAuthError("email_not_verified")
+    return info
+
+
+def _auth_error_redirect(code):
+    return redirect(f"{_frontend_base_url()}/auth/callback?error={code}")
+
+
+def _profile_redirect(**params):
+    return redirect(f"{_frontend_base_url()}/profile?{urlencode(params)}")
+
+
+@require_GET
+def google_login(request):
+    return redirect(_google_authorize_url())
+
+
+class GoogleLinkStartView(APIView):
+    """Authenticated users start "connect Google" here; the frontend then redirects to the returned URL."""
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        if request.user.google_sub:
+            return Response({"error": "Google is already connected"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({"url": _google_authorize_url(state=make_google_link_state(request.user))})
+
+
+class GoogleUnlinkView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        if not user.google_sub:
+            return Response({"error": "Google is not connected"}, status=status.HTTP_400_BAD_REQUEST)
+        # Without a password, Google is the only way in: disconnecting would lock the account.
+        if not user.has_usable_password():
+            return Response({"error": "Set a password before disconnecting Google"}, status=status.HTTP_400_BAD_REQUEST)
+        user.google_sub = None
+        user.save(update_fields=["google_sub"])
+        return Response({"message": "Google disconnected"})
+
+
+def _google_link_callback(code, state):
+    """Attach the Google account to the signed-in user that started the flow."""
+    user_model = get_user_model()
+    user = user_model.objects.filter(pk=read_google_link_state(state)).first()
+    if not user:
+        return _profile_redirect(google_error="invalid_state")
+
+    try:
+        info = _fetch_google_profile(code)
+    except GoogleAuthError as exc:
+        return _profile_redirect(google_error=exc.code)
+
+    sub = info["sub"]
+    if user_model.objects.filter(google_sub=sub).exclude(pk=user.pk).exists():
+        return _profile_redirect(google_error="already_linked")
+    if user.google_sub and user.google_sub != sub:
+        return _profile_redirect(google_error="already_has_google")
+
+    user.google_sub = sub
+    user.save(update_fields=["google_sub"])
+    if not user.email_verified_at and (info["email"] or "").lower() == (user.email or "").lower():
+        mark_email_verified(user)
+    return _profile_redirect(google="linked")
+
+
+@require_GET
+def google_callback(request):
+    try:
+        code = request.GET.get("code")
+        state = request.GET.get("state")
+
+        if "error" in request.GET:
+            if state:
+                return _profile_redirect(google_error="cancelled")
+            return _auth_error_redirect("cancelled")
+
+        if not code:
+            return JsonResponse({"error": "Missing code"}, status=400)
+
+        if state:
+            return _google_link_callback(code, state)
 
         try:
-            google_info = id_token.verify_oauth2_token(
-                id_token_google,
-                google_requests.Request(),
-                os.getenv("GOOGLE_CLIENT_ID")
-            )
-        except Exception:
-            # print("Error validando id_token:", e)
-            return redirect(f"{frontend_base_url}/auth/signin?error=invalid_token")
+            google_info = _fetch_google_profile(code)
+        except GoogleAuthError as exc:
+            return _auth_error_redirect(exc.code)
 
-        email = google_info.get("email")
-        if not email:
-            return redirect(f"{frontend_base_url}/auth/signin?error=missing_email")
-
-        display_name = google_info.get("name")
+        email = google_info["email"]
         google_sub = google_info.get("sub")
-
         user_model = get_user_model()
-        user = user_model.objects.filter(email__iexact=email).first()
-        if not user:
-            first_name, last_name = _split_google_name(display_name)
-            username = _generate_unique_google_username(user_model, email)
+
+        user = user_model.objects.filter(google_sub=google_sub).first()
+        if user is None:
+            existing = user_model.objects.filter(email__iexact=email).first()
+            if existing is not None:
+                # Never attach Google to an existing account just because the emails match: whoever
+                # registered it first may not be the owner. The owner signs in with their password and
+                # connects Google from their profile.
+                return _auth_error_redirect("account_conflict" if existing.google_sub else "account_exists")
+
+            first_name, last_name = _split_google_name(google_info.get("name"))
             user = user_model.objects.create_user(
                 email=email,
-                username=username,
+                username=_generate_unique_google_username(user_model, email),
                 name=first_name,
                 surname=last_name,
                 company="",
+                google_sub=google_sub,
             )
-
-        if user.google_sub and user.google_sub != google_sub:
-            return redirect(f"{frontend_base_url}/auth/signin?error=account_conflict")
-
-        if not user.google_sub:
-            user.google_sub = google_sub
-            user.save(update_fields=["google_sub"])
-
-        # Send verification email for new or unverified users
-        if not user.email_verified_at:
-            try:
-                from users.services.otp_service import create_otp_for_user
-                from users.services.email_service import send_verification_email
-                code, _ = create_otp_for_user(user)
-                send_verification_email(user.email, code)
-            except Exception:
-                # print(f"Failed to send verification email for Google OAuth user: {e}")
-                pass
+            mark_email_verified(user)
+        elif not user.email_verified_at and email.lower() == (user.email or "").lower():
+            mark_email_verified(user)
 
         token = create_internal_token(user)
         email_verified = "true" if user.email_verified_at else "false"
-        return redirect(f"{frontend_base_url}/auth/callback?token={token}&email_verified={email_verified}&email={email}")
+        return redirect(f"{_frontend_base_url()}/auth/callback?token={token}&email_verified={email_verified}&email={user.email}")
     except Exception:
-        # print("Unexpected OAuth error:", e)
-        return redirect(f"{_frontend_base_url()}/auth/signin?error=unexpected")
+        return _auth_error_redirect("unexpected")
 
 
 class VerifyEmailView(generics.GenericAPIView):
@@ -207,7 +280,7 @@ class VerifyEmailView(generics.GenericAPIView):
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        return Response({"detail": "Correo verificado correctamente"})
+        return Response({"detail": "Email verified successfully"})
 
 
 class SignupView(generics.GenericAPIView):
@@ -262,7 +335,7 @@ class ResendVerificationView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"detail": "Si la cuenta existe, se ha enviado un nuevo código"})
+        return Response({"detail": "If the account exists, a new code has been sent"})
 
 
 class ChangeEmailUnverifiedView(generics.GenericAPIView):
@@ -273,7 +346,7 @@ class ChangeEmailUnverifiedView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"detail": "Email actualizado. Revisa tu bandeja para el nuevo código."})
+        return Response({"detail": "Email updated. Check your inbox for the new code."})
 
 
 class RequestDeleteAccountView(APIView):
@@ -296,11 +369,11 @@ class RequestDeleteAccountView(APIView):
         except Exception:
             # print(f"Failed to send delete confirmation email: {e}")
             return Response(
-                {"error": "No se pudo enviar el correo de confirmación"},
+                {"error": "Could not send the confirmation email"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-        return Response({"message": "Correo enviado"}, status=status.HTTP_200_OK)
+        return Response({"message": "Email sent"}, status=status.HTTP_200_OK)
 
 
 class ConfirmDeleteAccountView(APIView):
@@ -311,7 +384,7 @@ class ConfirmDeleteAccountView(APIView):
         token = request.data.get("token")
 
         if not token:
-            return Response({"error": "Token requerido"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Token required"}, status=status.HTTP_400_BAD_REQUEST)
 
         token_hash = hashlib.sha256(token.encode()).hexdigest()
 
@@ -319,13 +392,13 @@ class ConfirmDeleteAccountView(APIView):
         user = user_model.objects.filter(deletion_token_hash=token_hash).first()
 
         if not user:
-            return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
 
         if not user.deletion_token_expires_at or timezone.now() > user.deletion_token_expires_at:
-            return Response({"error": "Token expirado"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Token expired"}, status=status.HTTP_400_BAD_REQUEST)
 
         user.delete()
-        return Response({"message": "Cuenta eliminada"}, status=status.HTTP_200_OK)
+        return Response({"message": "Account deleted"}, status=status.HTTP_200_OK)
 
 
 request_delete_account = RequestDeleteAccountView.as_view()
@@ -338,7 +411,7 @@ class RequestPasswordResetView(APIView):
 
     def post(self, request):
         email = request.data.get("email")
-        generic_msg = "Si la cuenta existe, se ha enviado un correo"
+        generic_msg = "If the account exists, an email has been sent"
 
         if not email:
             return Response({"message": generic_msg}, status=status.HTTP_200_OK)
@@ -355,7 +428,9 @@ class RequestPasswordResetView(APIView):
 
             from users.services.email_service import send_password_reset_email
             try:
-                send_password_reset_email(user.email, token, user.name or user.username)
+                send_password_reset_email(
+                    user.email, token, user.name or user.username, creating=not user.has_usable_password()
+                )
             except Exception:
                 # print(f"Failed to send password reset email: {e}")
                 pass
@@ -373,13 +448,13 @@ class ConfirmPasswordResetView(APIView):
 
         if not token or not new_password:
             return Response(
-                {"error": "Token y nueva contraseña son requeridos"},
+                {"error": "Token and new password are required"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         if len(new_password) < 8:
             return Response(
-                {"error": "La contraseña debe tener al menos 8 caracteres"},
+                {"error": "Password must be at least 8 characters long"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -388,10 +463,10 @@ class ConfirmPasswordResetView(APIView):
         user = user_model.objects.filter(password_reset_token_hash=token_hash).first()
 
         if not user:
-            return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
 
         if not user.password_reset_token_expires_at or timezone.now() > user.password_reset_token_expires_at:
-            return Response({"error": "Token expirado"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Token expired"}, status=status.HTTP_400_BAD_REQUEST)
 
         user.set_password(new_password)
         user.password_reset_token_hash = ""
@@ -402,7 +477,7 @@ class ConfirmPasswordResetView(APIView):
         except Exception:
             pass
 
-        return Response({"message": "Contraseña actualizada correctamente"}, status=status.HTTP_200_OK)
+        return Response({"message": "Password updated successfully"}, status=status.HTTP_200_OK)
 
 
 request_password_reset = RequestPasswordResetView.as_view()

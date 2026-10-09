@@ -12,6 +12,7 @@ import {
   setEmailCooldown,
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
+import { localizeApiError } from "@/lib/api-errors";
 
 interface EmailVerificationModalProps {
   isOpen: boolean;
@@ -27,6 +28,7 @@ export default function EmailVerificationModal({
   email,
 }: EmailVerificationModalProps) {
   const t = useTranslations("emailVerificationModal");
+  const tApi = useTranslations("apiErrors");
   const [code, setCode] = useState("");
   const [seconds, setSeconds] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -122,7 +124,7 @@ export default function EmailVerificationModal({
           data.detail ||
           data.error ||
           t("error");
-        setError(msg);
+        setError(localizeApiError(msg, tApi));
         setLoading(false);
         return;
       }
@@ -171,7 +173,7 @@ export default function EmailVerificationModal({
           return;
         }
 
-        setError(apiMessage);
+        setError(localizeApiError(apiMessage, tApi));
         return;
       }
 

@@ -34,7 +34,7 @@ class _CallbackHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "text/html; charset=utf-8")
         self.end_headers()
-        self.wfile.write(b"<h1>Ya puedes cerrar esta pestana.</h1>")
+        self.wfile.write(b"<h1>You can close this tab now.</h1>")
 
     def log_message(self, format, *args):
         pass

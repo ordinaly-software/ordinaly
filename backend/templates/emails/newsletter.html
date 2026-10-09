@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <title>{{ subject }}</title>
+    <style>
+      html,body{margin:0;padding:0;background:#FAF9F5;}
+      img{border:0;outline:none;text-decoration:none;max-width:100%;}
+      .nl-content{font:400 16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:#141413;}
+      .nl-content a{color:#D97757;}
+      .nl-footer{font:400 13px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:#5E5D59;}
+      .nl-footer a{color:#141413;text-decoration:underline;}
+      @media (prefers-color-scheme: dark){
+        html,body,.nl-outer{background:#141413 !important;}
+        .nl-card{background:#1F1E1D !important;border-color:#3A3936 !important;}
+        .nl-content{color:#FAF9F5 !important;}
+        .nl-footer,.nl-footer a{color:#B8B6AC !important;}
+      }
+    </style>
+  </head>
+  <body>
+    <div style="display:none;max-height:0;overflow:hidden;opacity:0;">{{ preheader }}</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" class="nl-outer" style="background:#FAF9F5;">
+      <tr><td align="center" style="padding:24px 12px;">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" class="nl-card"
+               style="max-width:640px;background:#ffffff;border:1px solid #E8E6DC;border-radius:14px;">
+          <tr><td style="padding:24px 24px 8px;">
+            <a href="{{ site_url }}" target="_blank" rel="noopener noreferrer">
+              <img src="{{ site_url }}/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;display:block;" />
+            </a>
+          </td></tr>
+          <tr><td class="nl-content" style="padding:16px 24px 28px;">{{ content|safe }}</td></tr>
+          <tr><td class="nl-footer" style="padding:20px 24px;border-top:1px solid #E8E6DC;text-align:center;">
+            <p style="margin:0;font-weight:700;">ORDINALY SOFTWARE</p>
+            <p style="margin:8px 0 0;">Recibes este correo porque te suscribiste a la newsletter de Ordinaly.</p>
+            <p style="margin:8px 0 0;"><a href="{{ unsubscribe_url }}">Darme de baja</a> &middot; <a href="{{ site_url }}">ordinaly.ai</a></p>
+            <p style="margin:8px 0 0;">&copy; {{ year }} Ordinaly Software.</p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+    {% if open_pixel_url %}<img src="{{ open_pixel_url }}" width="1" height="1" alt="" style="display:block;width:1px;height:1px;border:0;" />{% endif %}
+  </body>
+</html>

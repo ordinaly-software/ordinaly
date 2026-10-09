@@ -153,6 +153,7 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.personalDataCollected.bullet6'),
         t('sections.privacy.personalDataCollected.bullet7'),
         t('sections.privacy.personalDataCollected.bullet8'),
+        t('sections.privacy.personalDataCollected.bullet9'),
       ],
     },
     {
@@ -167,6 +168,7 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.processingPurposes.bullet3'),
         t('sections.privacy.processingPurposes.bullet4'),
         t('sections.privacy.processingPurposes.bullet5'),
+        t('sections.privacy.processingPurposes.bullet6'),
       ],
     },
     {
@@ -180,6 +182,7 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.legalBases.bullet2'),
         t('sections.privacy.legalBases.bullet3'),
         t('sections.privacy.legalBases.bullet4'),
+        t('sections.privacy.legalBases.bullet5'),
       ],
     },
     {
@@ -213,6 +216,7 @@ const getPrivacyContent = (t: (key: string, opts?: Record<string, string | numbe
         t('sections.privacy.dataRetention.bullet1'),
         t('sections.privacy.dataRetention.bullet2'),
         t('sections.privacy.dataRetention.bullet3'),
+        t('sections.privacy.dataRetention.bullet4'),
       ],
     },
     {

@@ -20,6 +20,8 @@ NOTIFICATION_COURSE_UNENROLLED = "course_unenrolled"
 NOTIFICATION_COURSE_PUBLISHED = "course_published"
 NOTIFICATION_COURSE_STARTS_SOON = "course_starts_soon"
 NOTIFICATION_COURSE_REMINDER_24H = "course_reminder_24h"
+NOTIFICATION_NEWSLETTER_CONFIRMATION = "newsletter_confirmation"
+NOTIFICATION_NEWSLETTER = "newsletter"
 
 COMPULSORY_NOTIFICATION_TYPES = {
     NOTIFICATION_ACCOUNT_CREATED,
@@ -28,6 +30,7 @@ COMPULSORY_NOTIFICATION_TYPES = {
     NOTIFICATION_COURSE_ENROLLED,
     NOTIFICATION_COURSE_UNENROLLED,
     NOTIFICATION_COURSE_REMINDER_24H,
+    NOTIFICATION_NEWSLETTER_CONFIRMATION,
 }
 
 OPTIONAL_NOTIFICATION_FIELDS = {
@@ -147,6 +150,20 @@ def queue_course_unenrollment_notification(user, course):
         user_name=_display_name(user),
         course_id=course.id,
     )
+
+
+def queue_and_dispatch_newsletter_confirmation(subscriber):
+    from users.services.newsletter_service import make_confirm_token
+
+    job = queue_email_notification(
+        None,
+        NOTIFICATION_NEWSLETTER_CONFIRMATION,
+        force=True,
+        recipient_email=subscriber.email,
+        token=make_confirm_token(subscriber),
+    )
+    dispatch_email_job_now(job)
+    return job
 
 
 def _course_notification_recipients():
@@ -289,10 +306,25 @@ def _send_job(job: EmailNotificationJob):
         send_password_reset_completed_email,
         send_unenrollment_confirmation_email,
         send_enrollment_confirmation_email,
+        send_newsletter_confirmation_email,
         send_welcome_email,
     )
 
     payload = job.payload or {}
+
+    if job.notification_type == NOTIFICATION_NEWSLETTER:
+        from users.models import NewsletterDelivery
+        from users.services.newsletter_sending import send_delivery
+
+        delivery = NewsletterDelivery.objects.select_related("newsletter", "subscriber").get(
+            pk=payload["delivery_id"]
+        )
+        send_delivery(delivery)
+        return
+
+    if job.notification_type == NOTIFICATION_NEWSLETTER_CONFIRMATION:
+        send_newsletter_confirmation_email(job.recipient_email, payload["token"])
+        return
 
     if job.notification_type == NOTIFICATION_ACCOUNT_CREATED:
         send_welcome_email(job.recipient_email, payload.get("user_name", ""))

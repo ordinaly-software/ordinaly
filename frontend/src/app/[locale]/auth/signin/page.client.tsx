@@ -18,6 +18,7 @@ import {
   setEmailCooldown,
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
+import { localizeApiError } from "@/lib/api-errors";
 
 
 
@@ -35,6 +36,7 @@ type AuthErrorPayload = Record<string, unknown> | null;
 export default function LoginPage() {
   const t = useTranslations("signin");
   const tCommon = useTranslations("common");
+  const tApi = useTranslations("apiErrors");
   const { isDark } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -134,11 +136,17 @@ export default function LoginPage() {
   };
 
   const getLocalizedAuthError = (payload: AuthErrorPayload, statusCode: number) => {
+    const rawMessage = extractAuthErrorMessage(payload);
+
+    // The account exists but only signs in with Google: say so instead of a generic error.
+    if (rawMessage?.trim().toLowerCase() === "this account uses google sign-in") {
+      return localizeApiError(rawMessage, tApi);
+    }
+
     if (statusCode === 401) {
       return t("messages.invalidCredentials");
     }
 
-    const rawMessage = extractAuthErrorMessage(payload);
     if (!rawMessage) return null;
 
     const normalized = rawMessage.trim().toLowerCase();
@@ -146,16 +154,14 @@ export default function LoginPage() {
     if (
       normalized === "invalid credentials" ||
       normalized === "invalid credentials payload" ||
-      normalized === "no active account found with the given credentials" ||
-      normalized === "credenciales inválidas" ||
-      normalized === "credenciales invalidas"
+      normalized === "no active account found with the given credentials"
     ) {
       return t("messages.invalidCredentials");
     }
 
     if (
       normalized === "email/username and password are required" ||
-      normalized === "email y contraseña son obligatorios"
+      normalized === "email and password are required"
     ) {
       return t("messages.fillAllFields");
     }

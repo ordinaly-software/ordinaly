@@ -8,9 +8,11 @@ import {
   setEmailCooldown,
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
+import { localizeApiError } from "@/lib/api-errors";
 
 export default function ChangeEmailPage() {
   const t = useTranslations("changeEmail");
+  const tApi = useTranslations("apiErrors");
   const [newEmail, setNewEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -51,7 +53,7 @@ export default function ChangeEmailPage() {
           data.detail ||
           data.error ||
           t("error");
-        setError(msg);
+        setError(localizeApiError(msg, tApi));
         return;
       }
 

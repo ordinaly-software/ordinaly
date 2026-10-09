@@ -12,12 +12,13 @@ from users.services.notification_service import (
 from users.models import EmailVerificationOTP 
 from django.conf import settings
 from django.contrib.auth import authenticate
+from authentication.utils import GOOGLE_ONLY_MESSAGE, is_google_only_account
 
 
 User = get_user_model()
 
-INVALID_CODE_ERROR = "Código inválido"
-ACCOUNT_ALREADY_VERIFIED_ERROR = "La cuenta ya está verificada"
+INVALID_CODE_ERROR = "Invalid code"
+ACCOUNT_ALREADY_VERIFIED_ERROR = "Account already verified"
 
 
 def _find_user_for_verification_email(email: str):
@@ -88,9 +89,9 @@ class VerifyEmailSerializer(serializers.Serializer):
 
     def _raise_for_otp_failure(self, reason):
         messages = {
-            "EXPIRED": "El código ha expirado",
-            "INVALID": "Código incorrecto",
-            "TOO_MANY_ATTEMPTS": "Demasiados intentos",
+            "EXPIRED": "The code has expired",
+            "INVALID": "Incorrect code",
+            "TOO_MANY_ATTEMPTS": "Too many attempts",
         }
         raise serializers.ValidationError(messages.get(reason, INVALID_CODE_ERROR))
 
@@ -99,7 +100,7 @@ class VerifyEmailSerializer(serializers.Serializer):
         if not target_email:
             raise serializers.ValidationError(INVALID_CODE_ERROR)
         if _email_is_in_use(target_email, exclude_user=user):
-            raise serializers.ValidationError({"email": "Este email ya está en uso"})
+            raise serializers.ValidationError({"email": "This email is already in use"})
 
         previous_email = user.email
         user.email = target_email
@@ -152,7 +153,7 @@ class ResendVerificationSerializer(serializers.Serializer):
 
         user, is_pending_email_verification = _find_user_for_verification_email(email)
         if not user:
-            raise serializers.ValidationError("Si la cuenta existe, se enviará un nuevo código")
+            raise serializers.ValidationError("If the account exists, a new code will be sent")
 
         if user.email_verified_at and not is_pending_email_verification:
             raise serializers.ValidationError(ACCOUNT_ALREADY_VERIFIED_ERROR)
@@ -169,7 +170,7 @@ class ResendVerificationSerializer(serializers.Serializer):
             elapsed = (timezone.now() - otp.last_sent_at).total_seconds()
             if elapsed < settings.EMAIL_OTP_RESEND_COOLDOWN_SECONDS:
                 remaining = int(settings.EMAIL_OTP_RESEND_COOLDOWN_SECONDS - elapsed)
-                raise serializers.ValidationError(f"Debes esperar {remaining} segundos para reenviar el código")
+                raise serializers.ValidationError(f"You must wait {remaining} seconds before resending the code")
 
         return data
 
@@ -187,7 +188,7 @@ class ChangeEmailUnverifiedSerializer(serializers.Serializer):
 
     def validate_new_email(self, value):
         if _email_is_in_use(value):
-            raise serializers.ValidationError("Este email ya está en uso")
+            raise serializers.ValidationError("This email is already in use")
         return value
 
     def validate(self, data):
@@ -225,12 +226,14 @@ class LoginSerializer(serializers.Serializer):
         password = attrs.get("password")
 
         if not email or not password:
-            raise serializers.ValidationError("Email y contraseña son obligatorios")
+            raise serializers.ValidationError("Email and password are required")
 
         user = authenticate(email=email, password=password)
 
         if not user:
-            raise serializers.ValidationError("Credenciales inválidas")
+            if is_google_only_account(email):
+                raise serializers.ValidationError(GOOGLE_ONLY_MESSAGE)
+            raise serializers.ValidationError("Invalid credentials")
 
         attrs["user"] = user
         return attrs

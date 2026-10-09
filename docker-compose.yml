@@ -26,7 +26,7 @@ services:
       retries: 10
 
   backend:
-    build:
+    build: &backend-build
       context: ./backend
       dockerfile: Dockerfile.dev
     # El frontend comparte esta red (ver `frontend.network_mode`), así que los
@@ -36,7 +36,7 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/app
-    environment:
+    environment: &backend-env
       DEBUG: "True"
       DJANGO_SECRET_KEY: django-insecure-docker-compose-dev-only
       DATABASE_URL: postgresql://ordinaly:ordinaly@db:5432/ordinaly_db
@@ -45,6 +45,21 @@ services:
     depends_on:
       db:
         condition: service_healthy
+
+  # Equivalente al cron de producción: encola los avisos programados de los
+  # cursos (empieza pronto, recordatorio 24h) y envía los pendientes
+  # (nueva formación) cada minuto. Sin él esos correos no salen en local.
+  notifications:
+    build: *backend-build
+    entrypoint: ["sh", "-c"]
+    command:
+      - while true; do python manage.py run_email_notification_queue; sleep 60; done
+    volumes:
+      - ./backend:/app
+    environment: *backend-env
+    depends_on:
+      backend:
+        condition: service_started
 
   frontend:
     build:

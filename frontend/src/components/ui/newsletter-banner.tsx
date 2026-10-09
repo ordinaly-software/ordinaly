@@ -5,6 +5,9 @@ import { useTranslations } from "next-intl";
 import { Mail } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import Alert from "@/components/ui/alert";
+import ReCaptchaWrapper, { useReCaptcha } from "@/app/[locale]/recaptcha-provider";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 // Whether the banner shows its wide row layout depends on the space it's
@@ -12,7 +15,16 @@ import { cn } from "@/lib/utils";
 // so this is measured on the element itself instead of a Tailwind `md:` variant.
 const ROW_LAYOUT_MIN_WIDTH = 700;
 
-export function NewsletterBanner({
+export function NewsletterBanner(props: { className?: string; padded?: boolean }) {
+  // Self-contained so the banner works on pages that don't mount a reCAPTCHA provider themselves.
+  return (
+    <ReCaptchaWrapper>
+      <NewsletterBannerContent {...props} />
+    </ReCaptchaWrapper>
+  );
+}
+
+function NewsletterBannerContent({
   className,
   padded = true,
 }: {
@@ -21,7 +33,9 @@ export function NewsletterBanner({
   padded?: boolean;
 }) {
   const t = useTranslations("home.newsletter");
-  const [submitted, setSubmitted] = useState(false);
+  const { executeRecaptcha } = useReCaptcha();
+  const [sending, setSending] = useState(false);
+  const [alert, setAlert] = useState<{ key: number; type: "success" | "error"; message: string } | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [isCompact, setIsCompact] = useState(true);
 
@@ -36,10 +50,39 @@ export function NewsletterBanner({
     return () => observer.disconnect();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Placeholder — wire to real backend when newsletter is ready
-    setSubmitted(true);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+    setSending(true);
+    setAlert(null);
+    try {
+      const payload: Record<string, string> = {
+        email: String(formData.get("email") ?? ""),
+        website: String(formData.get("website") ?? ""),
+      };
+      if (executeRecaptcha) payload.recaptchaToken = await executeRecaptcha("newsletter_banner");
+      const res = await fetch("/api/newsletter/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.ok) {
+        form.reset();
+        setAlert({ key: Date.now(), type: "success", message: t("successMessage") });
+      } else {
+        const data = await res.json().catch(() => ({}));
+        setAlert({
+          key: Date.now(),
+          type: "error",
+          message: data?.error === "invalid_email" ? t("invalidEmail") : t("errorMessage"),
+        });
+      }
+    } catch {
+      setAlert({ key: Date.now(), type: "error", message: t("errorMessage") });
+    } finally {
+      setSending(false);
+    }
   };
 
   const card = (
@@ -79,39 +122,68 @@ export function NewsletterBanner({
         </div>
 
         <div className={cn("relative w-full", !isCompact && "w-auto flex-shrink-0")}>
-          {submitted ? (
-            <div className="rounded-full border border-white/25 bg-white/15 px-6 py-3 text-center text-sm font-medium backdrop-blur-sm">
-              {t("successMessage")}
-            </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              className={cn("flex w-full flex-col gap-3", !isCompact && "flex-row")}
+          <form
+            onSubmit={handleSubmit}
+            className={cn("flex w-full flex-col gap-3", !isCompact && "flex-row")}
+          >
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute left-[-9999px] h-0 w-0 opacity-0"
+            />
+            <Input
+              name="email"
+              type="email"
+              required
+              placeholder={t("emailPlaceholder")}
+              className={cn(
+                "h-12 w-full min-w-0 flex-1 rounded-full border-white/30 bg-white/15 px-5 text-white placeholder:text-white/85 backdrop-blur-sm focus:border-white/60 focus:ring-white/50",
+                !isCompact && "w-72",
+              )}
+            />
+            <Button
+              type="submit"
+              disabled={sending}
+              className={cn(
+                "h-12 w-full whitespace-nowrap rounded-full bg-white px-8 font-semibold text-[--swatch--clay] shadow-lg hover:bg-white/90 active:bg-white/80",
+                !isCompact && "w-auto",
+              )}
             >
-              <Input
-                name="email"
-                type="email"
-                required
-                placeholder={t("emailPlaceholder")}
-                className={cn(
-                  "h-12 w-full min-w-0 flex-1 rounded-full border-white/30 bg-white/15 px-5 text-white placeholder:text-white/85 backdrop-blur-sm focus:border-white/60 focus:ring-white/50",
-                  !isCompact && "w-72",
-                )}
-              />
-              <Button
-                type="submit"
-                className={cn(
-                  "h-12 w-full whitespace-nowrap rounded-full bg-white px-8 font-semibold text-[--swatch--clay] shadow-lg hover:bg-white/90 active:bg-white/80",
-                  !isCompact && "w-auto",
-                )}
-              >
-                {t("submitLabel")}
-              </Button>
-            </form>
-          )}
+              {t("submitLabel")}
+            </Button>
+          </form>
+          <p className="mt-3 max-w-md text-xs leading-relaxed text-white/80">
+            {t.rich("privacyNotice", {
+              privacy: (chunks) => (
+                <Link href="/legal?tab=privacy" className="underline hover:text-white">
+                  {chunks}
+                </Link>
+              ),
+              gprivacy: (chunks) => (
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
+                  {chunks}
+                </a>
+              ),
+              terms: (chunks) => (
+                <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">
+                  {chunks}
+                </a>
+              ),
+            })}
+          </p>
         </div>
       </div>
   );
 
-  return padded ? <div className="px-4 sm:px-6 lg:px-8">{card}</div> : card;
+  return (
+    <>
+      {padded ? <div className="px-4 sm:px-6 lg:px-8">{card}</div> : card}
+      {alert && (
+        <Alert key={alert.key} type={alert.type} message={alert.message} onClose={() => setAlert(null)} duration={6000} />
+      )}
+    </>
+  );
 }

@@ -18,16 +18,22 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.permissions import AllowAny
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView, SpectacularRedocView
+
+# The API docs are public (they only describe the contract); trying a request
+# from Swagger still needs a token, via the "Authorize" button.
+DOCS_VIEW_KWARGS = {'permission_classes': [AllowAny], 'authentication_classes': []}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Before the api/ includes: their slug routes would otherwise swallow api/docs/.
+    path('api/schema/', SpectacularAPIView.as_view(**DOCS_VIEW_KWARGS), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema', **DOCS_VIEW_KWARGS), name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema', **DOCS_VIEW_KWARGS), name='redoc'),
     path('api/', include('api.urls')),
     path('auth/', include('authentication.urls')),
     path('api/', include('users.urls')),
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 ]
 
 if settings.DEBUG:

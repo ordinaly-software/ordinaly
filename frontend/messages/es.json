@@ -141,7 +141,10 @@
       "namePlaceholder": "Tu nombre",
       "emailPlaceholder": "tu@email.com",
       "submitLabel": "Suscribirme",
-      "successMessage": "¡Gracias! Te avisaremos cuando la newsletter esté activa."
+      "successMessage": "¡Casi listo! Te hemos enviado un correo para confirmar tu suscripción.",
+      "errorMessage": "No hemos podido procesar tu suscripción. Inténtalo de nuevo.",
+      "invalidEmail": "Introduce un correo válido.",
+      "privacyNotice": "Al suscribirte aceptas nuestra <privacy>Política de Privacidad</privacy>. Protegido por reCAPTCHA de Google (<gprivacy>Privacidad</gprivacy> y <terms>Condiciones</terms>)."
     },
     "courses": {
       "noSpecificDate": "Fechas por confirmar",
@@ -409,16 +412,20 @@
       "cancelled": "El inicio de sesión con Google fue cancelado. Inténtalo de nuevo.",
       "invalidToken": "El token de autenticación es inválido o ha expirado. Inicia sesión de nuevo.",
       "accountConflict": "Este correo ya está vinculado a otro método de inicio de sesión.",
+      "accountExists": "Ya existe una cuenta con este correo. Inicia sesión con tu contraseña y, una vez dentro, conecta Google desde tu perfil (Seguridad → Cuentas conectadas). Si no recuerdas la contraseña, puedes restablecerla.",
+      "emailNotVerified": "Google no ha verificado este correo, así que no podemos usarlo para iniciar sesión.",
+      "missingEmail": "Google no nos ha facilitado un correo electrónico. Inténtalo de nuevo con otra cuenta.",
       "generic": "Falló la autenticación. Por favor, intenta iniciar sesión de nuevo."
     },
     "actions": {
       "goToSignIn": "Ir a iniciar sesión",
+      "forgotPassword": "He olvidado mi contraseña",
       "goHome": "Ir al inicio"
     }
   },
   "admin": {
     "title": "Panel de administración",
-    "subtitle": "Gestiona el contenido y configuración de tu aplicación",
+    "subtitle": "Gestiona el contenido y configuración de la aplicación",
     "loading": "Cargando panel de administración...",
     "accessDenied": "Acceso denegado",
     "noPermission": "No tienes permisos para acceder a esta página",
@@ -436,14 +443,117 @@
     },
     "tabs": {
       "overview": "Resumen",
-      "services": "Servicios",
       "courses": "Cursos",
       "users": "Usuarios",
       "blog": "Blog",
       "odoo": "Odoo",
       "n8n": "n8n",
-      "api": "API",
-      "mail": "Correo"
+      "api": "Backend",
+      "apiDocs": "Docs API",
+      "newsletter": "Newsletter"
+    },
+    "newsletter": {
+      "subTabs": {
+        "issues": "Envíos",
+        "subscribers": "Suscriptores"
+      },
+      "new": "Nueva newsletter",
+      "empty": "Todavía no hay newsletters.",
+      "filterAll": "Todos los estados",
+      "noSubject": "(sin asunto)",
+      "noDate": "Sin fecha",
+      "status": {
+        "draft": "Borrador",
+        "scheduled": "Programada",
+        "sending": "Enviándose",
+        "sent": "Enviada",
+        "cancelled": "Cancelada"
+      },
+      "columns": {
+        "subject": "Asunto",
+        "status": "Estado",
+        "date": "Fecha",
+        "results": "Resultados"
+      },
+      "results": "{sent} enviados · {opened} aperturas ({openRate}) · {clicked} clics ({clickRate})",
+      "actions": {
+        "edit": "Editar",
+        "open": "Ver"
+      },
+      "editor": {
+        "back": "Volver",
+        "subject": "Asunto",
+        "subjectPlaceholder": "Asunto del correo",
+        "body": "Contenido (HTML)",
+        "bodyHint": "Escribe solo el contenido: el logo y el pie con el enlace de baja se añaden solos. Puedes usar '{{name}}' para el nombre del suscriptor.",
+        "preview": "Vista previa",
+        "scheduledFor": "Fecha y hora de envío",
+        "save": "Guardar borrador",
+        "saved": "Guardado.",
+        "test": "Enviar prueba",
+        "testSent": "Prueba enviada a tu correo.",
+        "schedule": "Programar",
+        "reschedule": "Guardar y reprogramar",
+        "scheduledOk": "Newsletter programada.",
+        "unschedule": "Desprogramar",
+        "unscheduled": "Newsletter devuelta a borrador.",
+        "cancelSending": "Cancelar envío",
+        "cancelConfirm": "Se dejarán de enviar los correos pendientes. Los ya enviados no se pueden recuperar. ¿Cancelar el envío?",
+        "cancelled": "Envío cancelado.",
+        "duplicate": "Duplicar / crear serie",
+        "delete": "Eliminar",
+        "deleteConfirm": "¿Eliminar esta newsletter? No se puede deshacer.",
+        "deleted": "Newsletter eliminada.",
+        "readOnly": "Esta newsletter ya no se puede editar.",
+        "keep": "No, volver"
+      },
+      "series": {
+        "title": "Duplicar en serie",
+        "description": "Crea copias como borradores, con una fecha propuesta cada cierto número de días. Después edita el contenido de cada una y prográmala.",
+        "count": "Copias",
+        "everyDays": "Cada (días)",
+        "create": "Crear copias",
+        "created": "Se han creado {count} borradores.",
+        "startNote": "La primera copia usa la fecha de envío indicada arriba; si no hay fecha, las copias se crean sin fecha."
+      },
+      "stats": {
+        "recipients": "Destinatarios",
+        "sent": "Enviados",
+        "opened": "Aperturas",
+        "clicked": "Clics",
+        "undelivered": "No entregados",
+        "opensNote": "Las aperturas son orientativas: se pierden si el cliente bloquea las imágenes y Apple Mail las infla. Los clics son fiables."
+      },
+      "subscribers": {
+        "search": "Buscar suscriptores...",
+        "empty": "No hay suscriptores.",
+        "columns": {
+          "email": "Correo",
+          "name": "Nombre",
+          "status": "Estado",
+          "source": "Origen",
+          "since": "Alta"
+        },
+        "status": {
+          "active": "Suscrito",
+          "pending": "Pendiente de confirmar",
+          "unsubscribed": "De baja"
+        },
+        "source": {
+          "account": "Cuenta",
+          "banner": "Banner web"
+        }
+      },
+      "errors": {
+        "generic": "No se pudo completar la acción. Inténtalo de nuevo.",
+        "load": "No se pudo cargar la newsletter.",
+        "empty_newsletter": "Añade un asunto y contenido antes de programarla.",
+        "scheduled_for": "Elige una fecha y hora de envío.",
+        "locked": "Esta newsletter ya no se puede modificar.",
+        "not_scheduled": "La newsletter no está programada.",
+        "not_sending": "La newsletter no se está enviando.",
+        "invalid_series": "Revisa el número de copias y el intervalo."
+      }
     },
     "pagination": {
       "first": "Primera",
@@ -464,7 +574,20 @@
       "sendMail": "Enviar correo",
       "selectAll": "Seleccionar todo",
       "searchPlaceholder": "Buscar usuarios...",
-      "users": "usuarios"
+      "users": "usuarios",
+      "mailSubject": "Difusión de Ordinaly",
+      "mailGreeting": "Estimados usuarios,",
+      "newsletter": "Newsletter",
+      "courseNotifications": "Avisos de cursos",
+      "courseNotificationsOn": "Activados",
+      "courseNotificationsOff": "Desactivados",
+      "filterAll": "todos",
+      "newsletterStatus": {
+        "active": "Suscrito",
+        "pending": "Pendiente de confirmar",
+        "unsubscribed": "De baja",
+        "none": "No suscrito"
+      }
     },
     "blogTab": {
       "title": "Edición de blog (CMS)",
@@ -490,127 +613,18 @@
         "description": "Abre la consola de administración de la API en una nueva pestaña.",
         "button": "Abrir API admin",
         "warning": "Necesitarás credenciales de administrador para acceder."
+      },
+      "apiDocs": {
+        "title": "Documentación de la API (Swagger)",
+        "description": "Abre la documentación interactiva de la API en una nueva pestaña: endpoints, parámetros y respuestas, con la opción de probarlos.",
+        "button": "Abrir documentación",
+        "warning": "Para probar endpoints protegidos usa el botón \"Authorize\" con tu token."
       }
     },
     "stats": {
-      "totalServices": "Total de servicios",
       "totalCourses": "Total de cursos",
       "totalUsers": "Total de usuarios",
       "totalPosts": "Publicaciones del blog"
-    },
-    "services": {
-      "title": "Gestión de servicios",
-      "searchPlaceholder": "Buscar servicios...",
-      "sorting": {
-        "sortBy": "Ordenar por",
-        "title": "Título",
-        "created": "Creado",
-        "updated": "Actualizado",
-        "featured": "Destacado",
-        "type": "Tipo",
-        "duration": "Tiempo de implantación",
-        "price": "Precio",
-        "toggleOrder": "Cambiar orden"
-      },
-      "addService": "Añadir servicio",
-      "duplicate": "Duplicar",
-      "editService": "Editar servicio",
-      "createService": "Crear nuevo servicio",
-      "deleteSelected": "Eliminar seleccionados",
-      "selectAll": "Seleccionar todo",
-      "noServices": "No hay servicios disponibles",
-      "noServicesFound": "No se encontraron servicios ni productos que coincidan con tu búsqueda",
-      "durationDay": "1 día",
-      "durationDays": "días",
-      "services": "servicios",
-      "form": {
-        "title": "Título",
-        "titlePlaceholder": "Título del servicio",
-        "slugOptional": "Slug del servicio (opcional)",
-        "slugPlaceholder": "ej., consultoria-automatizacion",
-        "slugInvalid": "El slug solo puede contener letras ASCII, números, guiones bajos y guiones (sin acentos).",
-        "slugCollision": "Este slug coincide con una ruta reservada del sitio. Elige otro.",
-        "subtitle": "Subtítulo",
-        "subtitlePlaceholder": "Subtítulo del servicio (opcional)",
-        "description": "Descripción",
-        "descriptionPlaceholder": "Descripción del servicio",
-        "icon": "Icono",
-        "iconPlaceholder": "Elige un icono de Lucide React",
-        "color": "Color del servicio *",
-        "image": "Imagen del servicio",
-        "imageHelp": "Imagen de portada opcional (PNG/JPG, máx. 1MB).",
-        "chooseImageText": "Elegir imagen",
-        "imageRecommendation": "Recomendado: 1200x800px, JPG o PNG",
-        "noImage": "Sin imagen seleccionada",
-        "clearImage": "Mantener imagen actual",
-        "imageWillBeRemoved": "La imagen del servicio se eliminará al guardar.",
-        "video": "Vídeo de YouTube",
-        "videoPlaceholder": "https://www.youtube.com/watch?v=ejemplo",
-        "videoHelp": "Vídeo explicativo opcional (solo enlaces de YouTube).",
-        "type": "Tipo",
-        "service": "Servicio",
-        "product": "Producto",
-        "colors": {
-          "slate": "Pizarra",
-          "clay": "Arcilla",
-          "cobalt": "Cobalto",
-          "olive": "Oliva",
-          "fig": "Higo",
-          "kraft": "Kraft"
-        },
-        "duration": "Tiempo de implantación (días)",
-        "durationPlaceholder": "ej: 2 días",
-        "price": "Precio (€)",
-        "pricePlaceholder": "Deja vacío para 'Consultar presupuesto'",
-        "contactForQuote": "Consultar presupuesto",
-        "featured": "Destacado",
-        "cancel": "Cancelar",
-        "create": "Crear",
-        "update": "Actualizar",
-        "markdownSupported": "Con soporte para formato Markdown",
-        "requisites": "Requisitos",
-        "requisitesPlaceholder": "Ingrese cualquier requisito o prerrequisito",
-        "draftMode": "Borrador"
-      },
-      "messages": {
-        "createSuccess": "¡Servicio creado correctamente! Ya está disponible para los clientes",
-        "updateSuccess": "¡Servicio actualizado correctamente!",
-        "deleteSuccess": "¡Servicio eliminado correctamente!",
-        "duplicateSuccess": "¡Servicio duplicado correctamente!",
-        "bulkDeleteSuccess": "¡Servicios eliminados correctamente!",
-        "fetchError": "Error al obtener servicios",
-        "createError": "Error al crear servicio",
-        "updateError": "Error al actualizar servicio",
-        "deleteError": "Error al eliminar servicio",
-        "duplicateError": "Error al duplicar el servicio",
-        "networkError": "No se pudo guardar el servicio. Por favor verifica tu conexión e intenta de nuevo",
-        "selectToDelete": "Por favor selecciona servicios para eliminar",
-        "validation": {
-          "titleRequired": "El título del servicio es requerido y debe tener 100 caracteres o menos",
-          "slugInvalid": "Introduce un slug único válido.",
-          "slugCollision": "Este slug coincide con una ruta reservada del sitio. Elige otro.",
-          "subtitleRequired": "El subtítulo es requerido y debe tener 200 caracteres o menos",
-          "descriptionRequired": "La descripción es requerida y debe tener 2000 caracteres o menos",
-          "iconRequired": "Por favor selecciona un icono válido para el servicio",
-          "durationInvalid": "El tiempo de implantación debe ser de al menos 1 día si se especifica",
-          "requisitesLimit": "Los requisitos deben tener 2000 caracteres o menos",
-          "priceInvalid": "El precio debe ser de al menos 0.50€ si se especifica",
-          "imageTooLarge": "La imagen debe pesar 1MB o menos.",
-          "imageInvalidType": "Sube un archivo de imagen válido.",
-          "videoInvalid": "Introduce un enlace válido de YouTube."
-        },
-        "featured": {
-          "enabled": "El servicio ha sido marcado como destacado",
-          "disabled": "El servicio ya no está destacado"
-        }
-      },
-      "confirmDelete": {
-        "title": "Confirmar eliminación",
-        "single": "¿Estás seguro de que quieres eliminar \"{title}\"? Esta acción no se puede deshacer",
-        "multiple": "¿Estás seguro de que quieres eliminar {count} servicios seleccionados? Esta acción no se puede deshacer",
-        "delete": "Eliminar",
-        "cancel": "Cancelar"
-      }
     },
     "duplicateConfirm": {
       "title": "¿Duplicar elemento?",
@@ -936,7 +950,8 @@
           "bullet5": "Datos de acceso (usuario y contraseña, o tu cuenta de Google si inicias sesión con ella)",
           "bullet6": "Datos de inscripción en cursos. El pago lo gestiona Stripe y Ordinaly no almacena los datos de tu tarjeta",
           "bullet7": "Datos técnicos de tu navegador, incluida la dirección IP, que Google reCAPTCHA recibe cuando rellenas un formulario para detectar tráfico automatizado",
-          "bullet8": "Preferencias de configuración de la web (tema, idioma)"
+          "bullet8": "Preferencias de configuración de la web (tema, idioma)",
+          "bullet9": "Si te suscribes a la newsletter: tu correo electrónico (y tu nombre, si tienes cuenta), la fecha en que confirmas o cancelas la suscripción y, en cada envío, si abres el correo y si haces clic en sus enlaces"
         },
         "processingPurposes": {
           "title": "FINALIDADES DEL TRATAMIENTO",
@@ -945,7 +960,8 @@
           "bullet2": "Gestionar la relación contractual y la prestación de los servicios contratados",
           "bullet3": "Personalizar la experiencia del usuario (tema, idioma)",
           "bullet4": "Enviar comunicaciones comerciales únicamente si el usuario ha dado su consentimiento expreso",
-          "bullet5": "Proteger los formularios y el acceso a la web frente a spam y usos abusivos"
+          "bullet5": "Proteger los formularios y el acceso a la web frente a spam y usos abusivos",
+          "bullet6": "Enviar la newsletter a quienes se han suscrito y medir las aperturas y los clics de cada envío para mejorar sus contenidos"
         },
         "legalBases": {
           "title": "BASES JURÍDICAS DEL TRATAMIENTO",
@@ -953,7 +969,8 @@
           "bullet1": "Consentimiento del interesado, al enviar formularios o aceptar comunicaciones comerciales",
           "bullet2": "Interés legítimo, para personalizar funciones básicas de la web como idioma o tema y para protegerla frente a spam y usos abusivos",
           "bullet3": "En caso de contratación de servicios, también se aplicará la base de ejecución de un contrato.",
-          "bullet4": "Consentimiento, para las cookies analíticas y de contenido de terceros, que puedes aceptar o rechazar en el banner de cookies"
+          "bullet4": "Consentimiento, para las cookies analíticas y de contenido de terceros, que puedes aceptar o rechazar en el banner de cookies",
+          "bullet5": "Consentimiento, para la newsletter: se otorga al suscribirte desde la web (confirmando después tu correo) o al marcar la casilla en tu cuenta, y puedes retirarlo en cualquier momento con el enlace de baja que incluye cada correo"
         },
         "recipients": {
           "title": "DESTINATARIOS Y TRANSFERENCIAS INTERNACIONALES",
@@ -974,7 +991,8 @@
           "title": "CONSERVACIÓN DE LOS DATOS",
           "bullet1": "Los datos de contacto y configuración se conservarán hasta que el usuario solicite su supresión.",
           "bullet2": "Los datos asociados a servicios contratados o facturación se conservarán durante el plazo legal mínimo exigido (5-6 años).",
-          "bullet3": "Los datos de navegación se conservan conforme a lo descrito en la Política de Cookies."
+          "bullet3": "Los datos de navegación se conservan conforme a lo descrito en la Política de Cookies.",
+          "bullet4": "Los datos de la newsletter se conservan mientras estés suscrito. Si te das de baja, conservamos únicamente tu correo y la fecha de baja para no volver a escribirte, hasta que solicites su supresión"
         },
         "aiInteractions": {
           "title": "INTERACCIONES CON SISTEMAS DE IA",
@@ -1550,12 +1568,33 @@
     "security": {
       "title": "Seguridad",
       "description": "Actualiza tu contraseña para mantener tu cuenta segura.",
-      "changePassword": "Cambiar contraseña"
+      "changePassword": "Cambiar contraseña",
+      "createDescription": "Tu cuenta usa Google. Crea una contraseña para poder iniciar sesión también con tu correo, sin dejar de usar Google.",
+      "createPassword": "Crear contraseña",
+      "emailNote": "Te enviaremos un enlace a {email}.",
+      "linkSent": "Enlace enviado"
     },
     "authProvider": {
       "label": "Autenticación",
       "google": "Cuenta de Google",
-      "credentials": "Correo y contraseña"
+      "credentials": "Correo y contraseña",
+      "both": "Google y contraseña"
+    },
+    "connectedAccounts": {
+      "title": "Cuentas conectadas",
+      "description": "Elige con qué métodos puedes iniciar sesión en tu cuenta.",
+      "googleName": "Google",
+      "connectedBadge": "Conectado",
+      "notConnectedBadge": "No conectado",
+      "connectHint": "Conecta tu cuenta de Google para entrar con un clic. Puede ser una cuenta de Google con un correo distinto al de tu cuenta.",
+      "connectedHint": "Puedes iniciar sesión con Google.",
+      "connect": "Conectar Google",
+      "disconnect": "Desconectar",
+      "disconnectBlocked": "Crea una contraseña antes de desconectar Google, para no quedarte sin forma de entrar.",
+      "confirmTitle": "¿Desconectar Google?",
+      "confirmMessage": "Dejarás de poder iniciar sesión con Google. Seguirás entrando con tu correo y contraseña.",
+      "confirmButton": "Desconectar",
+      "cancel": "Cancelar"
     },
     "tabs": {
       "profile": "Perfil",
@@ -1630,6 +1669,21 @@
       "deleteError": "Error al eliminar la cuenta. Por favor, intenta de nuevo",
       "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo",
       "unauthorizedError": "No estás autorizado para realizar esta acción",
+      "passwordLinkSent": "Te hemos enviado un enlace a {email}. Ábrelo para elegir tu contraseña.",
+      "passwordLinkError": "No hemos podido enviar el enlace. Inténtalo de nuevo.",
+      "googleLinked": "Google conectado. Ya puedes iniciar sesión con él.",
+      "googleUnlinked": "Google desconectado.",
+      "googleError": "No se pudo conectar Google. Inténtalo de nuevo.",
+      "googleErrors": {
+        "cancelled": "Cancelaste la conexión con Google.",
+        "invalid_state": "La conexión con Google ha caducado. Vuelve a intentarlo.",
+        "already_linked": "Esa cuenta de Google ya está conectada a otra cuenta de Ordinaly.",
+        "already_has_google": "Tu cuenta ya tiene otra cuenta de Google conectada. Desconéctala primero.",
+        "email_not_verified": "Google no ha verificado el correo de esa cuenta.",
+        "invalid_token": "No hemos podido validar la respuesta de Google. Inténtalo de nuevo.",
+        "missing_email": "Google no nos ha facilitado un correo electrónico.",
+        "unexpected": "No se pudo conectar Google. Inténtalo de nuevo."
+      },
       "validation": {
         "firstNameRequired": "El nombre es obligatorio",
         "lastNameRequired": "El apellido es obligatorio",
@@ -1701,7 +1755,7 @@
       "oldest": "Más antiguos"
     },
     "highlighted": {
-      "title": "Destacados",
+      "title": "Artículos destacados",
       "previous": "Anterior",
       "next": "Siguiente"
     },
@@ -1739,7 +1793,7 @@
       "oldest": "Más antiguos"
     },
     "highlighted": {
-      "title": "Destacadas",
+      "title": "Artículos destacados",
       "previous": "Anterior",
       "next": "Siguiente"
     },
@@ -3128,6 +3182,74 @@
     "resendError": "No se pudo reenviar el correo. Inténtalo de nuevo.",
     "backHome": "Volver al inicio",
     "openMailApp": "Abrir app de correo"
+  },
+  "apiErrors": {
+    "invalidCode": "Código inválido",
+    "incorrectCode": "Código incorrecto",
+    "codeExpired": "El código ha expirado",
+    "tooManyAttempts": "Demasiados intentos",
+    "accountAlreadyVerified": "La cuenta ya está verificada",
+    "accountNotVerified": "Tu cuenta aún no está verificada.",
+    "emailInUse": "Este email ya está en uso",
+    "resendGeneric": "Si la cuenta existe, se enviará un nuevo código",
+    "emailGeneric": "Si la cuenta existe, se ha enviado un correo",
+    "emailVerified": "Correo verificado correctamente",
+    "emailUpdated": "Email actualizado. Revisa tu bandeja para el nuevo código.",
+    "emailSent": "Correo enviado",
+    "verificationEmailFailed": "No se pudo enviar el correo de verificación",
+    "confirmationEmailFailed": "No se pudo enviar el correo de confirmación",
+    "emailPasswordRequired": "Email y contraseña son obligatorios",
+    "invalidCredentials": "Credenciales inválidas",
+    "tokenRequired": "Token requerido",
+    "invalidToken": "Token inválido",
+    "tokenExpired": "Token expirado",
+    "tokenPasswordRequired": "Token y nueva contraseña son requeridos",
+    "passwordTooShort": "La contraseña debe tener al menos 8 caracteres",
+    "passwordUpdated": "Contraseña actualizada correctamente",
+    "accountDeleted": "Cuenta eliminada",
+    "cancelCourseEnded": "No puedes cancelar la inscripción porque el curso ya ha finalizado.",
+    "cancelCourseStarted": "No puedes cancelar la inscripción porque el curso ya ha comenzado.",
+    "cancelWithin24h": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso.",
+    "invalidUrl": "URL inválida: solo se permiten http, https o rutas internas.",
+    "resendCooldown": "Debes esperar {seconds} segundos para reenviar el código",
+    "useGoogleSignIn": "Esta cuenta usa Google para iniciar sesión. Pulsa «Continuar con Google» o crea una contraseña desde «¿Olvidaste tu contraseña?».",
+    "setPasswordFirst": "Crea una contraseña antes de desconectar Google.",
+    "googleAlreadyConnected": "Google ya está conectado.",
+    "googleNotConnected": "Google no está conectado."
+  },
+  "datePicker": {
+    "selectDate": "Selecciona fecha",
+    "selectTime": "Hora",
+    "previousMonth": "Mes anterior",
+    "nextMonth": "Mes siguiente",
+    "today": "Hoy",
+    "clear": "Borrar"
+  },
+  "newsletterAction": {
+    "confirm": {
+      "idleTitle": "Confirma tu suscripción",
+      "idleDesc": "Pulsa el botón para empezar a recibir la newsletter de Ordinaly.",
+      "button": "Confirmar suscripción",
+      "loadingTitle": "Confirmando...",
+      "loadingDesc": "Un momento.",
+      "successTitle": "¡Suscripción confirmada!",
+      "successDesc": "Gracias. A partir de ahora recibirás nuestra newsletter. Puedes darte de baja en cualquier momento desde cualquier correo.",
+      "errorTitle": "No se pudo confirmar",
+      "errorDesc": "El enlace no es válido o ha caducado. Vuelve a suscribirte desde la web para recibir uno nuevo.",
+      "home": "Volver al inicio"
+    },
+    "unsubscribe": {
+      "idleTitle": "Darte de baja de la newsletter",
+      "idleDesc": "Pulsa el botón para dejar de recibir la newsletter de Ordinaly.",
+      "button": "Darme de baja",
+      "loadingTitle": "Procesando...",
+      "loadingDesc": "Un momento.",
+      "successTitle": "Te has dado de baja",
+      "successDesc": "No volverás a recibir la newsletter. Si te suscribes de nuevo en el futuro, serás bienvenido.",
+      "errorTitle": "No se pudo completar la baja",
+      "errorDesc": "El enlace no es válido. Escríbenos a info@ordinaly.ai y te damos de baja.",
+      "home": "Volver al inicio"
+    }
   },
   "deleteAccountConfirm": {
     "loadingTitle": "Confirmando eliminación...",

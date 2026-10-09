@@ -75,7 +75,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'api',
-    'services',
     'courses',
     'authentication',
     'users.apps.UsersConfig',
@@ -235,5 +234,8 @@ SPECTACULAR_SETTINGS = {
     'DESCRIPTION': 'API for Ordinaly AI automation company',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
-    'SERVERS': [{'url': 'https://api.ordinaly.ai', 'description': 'Production server'}],
+    # In development "Try it out" must hit the local backend, not production.
+    'SERVERS': (
+        [{'url': 'http://localhost:8000', 'description': 'Local server'}] if DEBUG else []
+    ) + [{'url': 'https://api.ordinaly.ai', 'description': 'Production server'}],
 }

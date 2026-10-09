@@ -64,9 +64,10 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
       style={{ scrollbarWidth: "none", msOverflowStyle: "none", ...style }}
     >
       <nav
-        className="-mb-px flex space-x-8 min-w-max overflow-x-auto overflow-y-hidden w-full"
+        className="-mb-px flex min-w-max overflow-x-auto overflow-y-hidden w-full"
         style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
       >
+        <div className="mx-auto flex space-x-8">
         {tabs.map((tab, idx) => {
           const Icon = tab.icon;
           const active = activeTab === tab.id;
@@ -111,6 +112,7 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
             </button>
           );
         })}
+        </div>
         <style>{`
           div[role='tablist'], nav::-webkit-scrollbar { display: none !important; }
           nav { -ms-overflow-style: none; scrollbar-width: none; }
