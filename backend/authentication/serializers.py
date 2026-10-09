@@ -12,6 +12,7 @@ from users.services.notification_service import (
 from users.models import EmailVerificationOTP 
 from django.conf import settings
 from django.contrib.auth import authenticate
+from authentication.utils import GOOGLE_ONLY_MESSAGE, is_google_only_account
 
 
 User = get_user_model()
@@ -230,6 +231,8 @@ class LoginSerializer(serializers.Serializer):
         user = authenticate(email=email, password=password)
 
         if not user:
+            if is_google_only_account(email):
+                raise serializers.ValidationError(GOOGLE_ONLY_MESSAGE)
             raise serializers.ValidationError("Invalid credentials")
 
         attrs["user"] = user

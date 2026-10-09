@@ -15,6 +15,8 @@ urlpatterns = [
     path("login/", LoginView.as_view(), name="login"),
     path("google/login/", views.google_login),
     path("google/callback/", views.google_callback),
+    path("google/link/", views.GoogleLinkStartView.as_view(), name="google-link"),
+    path("google/unlink/", views.GoogleUnlinkView.as_view(), name="google-unlink"),
     path("verify-email/", VerifyEmailView.as_view(), name="verify-email"),
     path("resend-verification/", ResendVerificationView.as_view(), name="resend-verification"),
     path("change-email-unverified/", ChangeEmailUnverifiedView.as_view(), name="change-email-unverified"),

@@ -76,11 +76,15 @@ def send_newsletter_confirmation_email(email: str, token: str):
     )
 
 
-def send_password_reset_email(email: str, token: str, user_name: str):
+def send_password_reset_email(email: str, token: str, user_name: str, creating: bool = False):
+    """`creating` is for accounts that have no password yet (e.g. created with Google)."""
     _send(
-        email, "Restablecer contraseña - Ordinaly", "password_reset",
+        email,
+        "Crea tu contraseña - Ordinaly" if creating else "Restablecer contraseña - Ordinaly",
+        "password_reset",
         "Could not send the password reset email",
         user_name=user_name,
+        creating=creating,
         reset_url=_frontend_url(f"/reset-password/confirm?token={token}"),
     )
 

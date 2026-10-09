@@ -18,6 +18,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response 
 from .models import NewsletterSubscriber
 from .services import newsletter_service
+from authentication.utils import GOOGLE_ONLY_MESSAGE, is_google_only_account
 from .services.otp_service import create_otp_for_user
 from .services.email_service import send_verification_email
 from .services.notification_service import queue_and_dispatch_email_updated_notification
@@ -252,6 +253,8 @@ class UserViewSet(viewsets.ModelViewSet):
             response_data['email_verified'] = bool(user.email_verified_at)
             return Response(response_data, status=status.HTTP_200_OK)
 
+        if is_google_only_account(email_or_username):
+            return Response({'detail': GOOGLE_ONLY_MESSAGE}, status=status.HTTP_401_UNAUTHORIZED)
         return Response({'detail': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 

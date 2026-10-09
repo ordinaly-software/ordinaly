@@ -21,38 +21,50 @@
 
 ## Índice
 
-1. [Visión general](#1-visión-general)
-2. [Características principales](#2-características-principales)
-3. [Estructura del proyecto](#3-estructura-del-proyecto)
-   - [3.1 Árbol de directorios](#31-árbol-de-directorios)
-   - [3.2 Backend (Django)](#32-backend-django)
-   - [3.3 Frontend (Next.js)](#33-frontend-nextjs)
-4. [Internacionalización: qué está traducido y qué no](#4-internacionalización-qué-está-traducido-y-qué-no)
-   - [4.1 Qué está traducido](#41-qué-está-traducido)
-   - [4.2 Convención para los textos del backend](#42-convención-para-los-textos-del-backend)
-   - [4.3 Qué no está traducido](#43-qué-no-está-traducido)
-5. [Primeros pasos](#5-primeros-pasos)
-   - [5.1 Requisitos previos](#51-requisitos-previos)
-   - [5.2 Ejecución con Docker (entorno de desarrollo)](#52-ejecución-con-docker-entorno-de-desarrollo)
-   - [5.3 Instalación y ejecución (sin Docker)](#53-instalación-y-ejecución-sin-docker)
-6. [Documentación de la API](#6-documentación-de-la-api)
-7. [Correo y notificaciones](#7-correo-y-notificaciones)
-   - [7.1 Envío de correo](#71-envío-de-correo)
-   - [7.2 Probar los correos](#72-probar-los-correos)
-   - [7.3 Worker de notificaciones](#73-worker-de-notificaciones)
-   - [7.4 Cron en producción (VPS)](#74-cron-en-producción-vps)
-   - [7.5 Newsletter](#75-newsletter)
-8. [Dependencias principales](#8-dependencias-principales)
-   - [8.1 Backend (Django)](#81-backend-django)
-   - [8.2 Frontend (Next.js)](#82-frontend-nextjs)
-9. [Testing](#9-testing)
-   - [9.1 Backend: tests y cobertura](#91-backend-tests-y-cobertura)
-   - [9.2 Frontend](#92-frontend)
-   - [9.3 Rendimiento, SEO y accesibilidad (Lighthouse)](#93-rendimiento-seo-y-accesibilidad-lighthouse)
-   - [9.4 Probar pagos de cursos (Stripe)](#94-probar-pagos-de-cursos-stripe)
-10. [Contribuir](#10-contribuir)
-11. [Licencia](#11-licencia)
-12. [Reconocimientos](#12-reconocimientos)
+- [Índice](#índice)
+- [1. Visión general](#1-visión-general)
+- [2. Características principales](#2-características-principales)
+- [3. Estructura del proyecto](#3-estructura-del-proyecto)
+  - [3.1 Árbol de directorios](#31-árbol-de-directorios)
+  - [3.2 Backend (Django)](#32-backend-django)
+  - [3.3 Frontend (Next.js)](#33-frontend-nextjs)
+- [4. Internacionalización: qué está traducido y qué no](#4-internacionalización-qué-está-traducido-y-qué-no)
+  - [4.1 Qué está traducido](#41-qué-está-traducido)
+  - [4.2 Convención para los textos del backend](#42-convención-para-los-textos-del-backend)
+  - [4.3 Qué no está traducido](#43-qué-no-está-traducido)
+- [5. Primeros pasos](#5-primeros-pasos)
+  - [5.1 Requisitos previos](#51-requisitos-previos)
+  - [5.2 Ejecución con Docker (entorno de desarrollo)](#52-ejecución-con-docker-entorno-de-desarrollo)
+  - [5.3 Instalación y ejecución (sin Docker)](#53-instalación-y-ejecución-sin-docker)
+    - [5.3.1 Clonar el repositorio](#531-clonar-el-repositorio)
+    - [5.3.2 Configurar PostgreSQL](#532-configurar-postgresql)
+    - [5.3.3 Backend (Django)](#533-backend-django)
+    - [5.3.4 Frontend (Next.js)](#534-frontend-nextjs)
+    - [5.3.5 Build de producción (opcional)](#535-build-de-producción-opcional)
+- [6. Documentación de la API](#6-documentación-de-la-api)
+- [7. Autenticación](#7-autenticación)
+  - [7.1 Cómo se entra y se conectan los métodos](#71-cómo-se-entra-y-se-conectan-los-métodos)
+  - [7.2 Reglas de seguridad](#72-reglas-de-seguridad)
+  - [7.3 Endpoints](#73-endpoints)
+  - [7.4 Configuración de Google](#74-configuración-de-google)
+- [8. Correo y notificaciones](#8-correo-y-notificaciones)
+  - [8.1 Envío de correo](#81-envío-de-correo)
+  - [8.2 Probar los correos](#82-probar-los-correos)
+  - [8.3 Worker de notificaciones](#83-worker-de-notificaciones)
+  - [8.4 Cron en producción (VPS)](#84-cron-en-producción-vps)
+  - [8.5 Newsletter](#85-newsletter)
+- [9. Dependencias principales](#9-dependencias-principales)
+  - [9.1 Backend (Django)](#91-backend-django)
+  - [9.2 Frontend (Next.js)](#92-frontend-nextjs)
+- [10. Testing](#10-testing)
+  - [10.1 Backend: tests y cobertura](#101-backend-tests-y-cobertura)
+  - [10.2 Frontend](#102-frontend)
+  - [10.3 Rendimiento, SEO y accesibilidad (Lighthouse)](#103-rendimiento-seo-y-accesibilidad-lighthouse)
+  - [10.4 Probar pagos de cursos (Stripe)](#104-probar-pagos-de-cursos-stripe)
+- [11. Contribuir](#11-contribuir)
+  - [11.1 Guía de contribución](#111-guía-de-contribución)
+- [12. Licencia](#12-licencia)
+- [13. Reconocimientos](#13-reconocimientos)
 
 ---
 
@@ -75,12 +87,12 @@ Transformamos empresas con automatizaciones inteligentes. Desde chatbots hasta f
 - **Backend Django REST:** API robusta para cursos, usuarios y autenticación.
 - **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones 3D.
 - **Internacionalización (i18n):** interfaz traducida (es, en) con next-intl. Los correos, la newsletter y el contenido de cursos y blog **no** están traducidos: ver [Internacionalización](#4-internacionalización-qué-está-traducido-y-qué-no).
-- **Autenticación completa:** registro, verificación de email, cambio de email, recuperación de contraseña y OAuth con Google.
+- **Autenticación completa:** registro, verificación de email, cambio de email, recuperación de contraseña y acceso con Google, que convive con la contraseña en la misma cuenta ([detalles](#7-autenticación)).
 - **Gestión de cursos:** horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook) y pagos con Stripe.
+- **Notificaciones por correo:** avisos de cuenta, inscripciones y cursos (nueva formación, «empieza pronto» y recordatorio de 24 h). Desde el perfil, cada usuario elige si quiere los avisos de cursos y la newsletter ([detalles](#8-correo-y-notificaciones)).
+- **Newsletter:** suscripción con doble confirmación (banner web o cuenta), números redactados y programados desde el panel de administración, baja con un clic y estadísticas básicas de aperturas y clics ([detalles](#85-newsletter)).
 - **Panel de administración:** gestión avanzada de usuarios, cursos y newsletter.
 - **CMS con Sanity:** gestión de contenido para blog, servicios y páginas.
-- **Landing pages SEO:** páginas optimizadas para búsquedas de IA y automatización en Sevilla.
-- **Integración con WhatsApp y Odoo:** automatización de ventas y flujos empresariales.
 - **Accesibilidad y SEO:** buenas prácticas, sitemap, robots.txt, imágenes optimizadas.
 
 ---
@@ -433,9 +445,51 @@ Las tres rutas son públicas (solo describen el contrato); ejecutar una petició
 
 ---
 
-## 7. Correo y notificaciones
+## 7. Autenticación
 
-### 7.1 Envío de correo
+Hay dos formas de entrar, y conviven en la misma cuenta: **email y contraseña** y **Google**. Las rutas del backend están en `backend/authentication/` (y `users/` para el perfil).
+
+### 7.1 Cómo se entra y se conectan los métodos
+
+| Situación | Qué ocurre |
+|---|---|
+| Alguien nuevo entra con Google | Se crea la cuenta ya verificada (sin código por email) y recibe el correo de bienvenida. |
+| Entra con Google quien ya tiene Google conectado | Inicia sesión, aunque el email de su cuenta de Google sea distinto al de la cuenta de Ordinaly. |
+| Entra con Google un email que ya tiene cuenta con contraseña | **No se enlaza ni se inicia sesión.** Se le explica que debe entrar con su contraseña y conectar Google desde su perfil. |
+| Quien tiene contraseña quiere usar Google | Perfil → *Cuentas conectadas* → *Conectar Google*. Vale cualquier cuenta de Google, con el mismo email o con otro. |
+| Quien entró con Google quiere una contraseña | Perfil → *Seguridad* → *Crear contraseña*: se envía un enlace al email de la cuenta (el mismo flujo que «¿Olvidaste tu contraseña?», con el texto adaptado). |
+| Se intenta entrar con contraseña en una cuenta que solo usa Google | El error lo explica (en vez de «credenciales inválidas») y sugiere Google o crear una contraseña. |
+| Quiere quitar Google | Perfil → *Cuentas conectadas* → *Desconectar*. Solo se permite si la cuenta tiene contraseña. |
+
+### 7.2 Reglas de seguridad
+
+- **Nunca se enlaza una cuenta a Google solo porque el email coincida.** Quien registra primero una cuenta puede no ser el dueño del correo (por ejemplo, un registro hecho con el email de otra persona); si Google se enlazara solo, esa persona conservaría su contraseña. El dueño real entra con la contraseña y conecta Google desde dentro, o restablece la contraseña por email.
+- **Solo se acepta un correo que Google marque como verificado** (`email_verified`). Con una cuenta de Google que no lo tiene, no se crea ni se conecta nada.
+- **Un Google solo puede estar en una cuenta, y una cuenta solo puede tener un Google.** Para cambiar de cuenta de Google hay que desconectar primero la anterior.
+- **No se puede desconectar Google si es la única forma de entrar** (cuenta sin contraseña): se pide crear una contraseña antes.
+- La conexión desde el perfil usa un parámetro `state` **firmado y con caducidad de 10 minutos** que identifica a quien la inició, porque la vuelta de Google no lleva el token de sesión.
+
+### 7.3 Endpoints
+
+| Ruta | Para qué |
+|---|---|
+| `GET /auth/google/login/` | Empieza el acceso con Google (redirige a Google). |
+| `GET /auth/google/callback/` | Vuelta de Google. Sin `state`: acceso. Con `state`: conectar Google a la cuenta que lo inició. |
+| `POST /auth/google/link/` | (Con sesión) Devuelve la URL de Google para conectar la cuenta. |
+| `POST /auth/google/unlink/` | (Con sesión) Desconecta Google, si la cuenta tiene contraseña. |
+| `POST /auth/password/reset/request/` y `/confirm/` | Crear o restablecer la contraseña mediante un enlace por email (15 minutos). |
+
+El perfil (`GET /api/users/profile/`) incluye `is_google_authenticated` y `has_usable_password`, que el frontend usa para decidir qué mostrar.
+
+### 7.4 Configuración de Google
+
+Las variables `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI` y `FRONTEND_URL` del `backend/.env` (ver [5.3.3](#533-backend-django)). En Google Cloud Console, el cliente OAuth debe tener como URI de redirección `GOOGLE_REDIRECT_URI` (`…/auth/google/callback/`); es la misma para acceder y para conectar, no hay que registrar nada más.
+
+---
+
+## 8. Correo y notificaciones
+
+### 8.1 Envío de correo
 
 Todas las notificaciones se envían con el framework de correo de Django (`users/services/mail.py`, plantillas en `backend/templates/emails/`). El mismo código usa un backend u otro según lo que haya en `backend/.env` (si defines `EMAIL_BACKEND`, manda ese):
 
@@ -448,7 +502,7 @@ Google bloquea el SMTP con contraseña desde IPs de VPS, de ahí la API en produ
 2. En local: `cd backend && python manage.py setup_gmail_send_token` e inicia sesión con la cuenta remitente.
 3. En el `.env` del servidor: `GMAIL_API_REFRESH_TOKEN=<token impreso>` y `DEFAULT_FROM_EMAIL=<la misma cuenta>` (Gmail solo permite otro `From` si está verificado como alias "Enviar correo como").
 
-### 7.2 Probar los correos
+### 8.2 Probar los correos
 
 Hay 12 plantillas (verificación, bienvenida, confirmación de la newsletter, restablecer contraseña, contraseña restablecida, correo actualizado, eliminación de cuenta, inscripción, cancelación, nueva formación, empieza pronto y recordatorio 24h). Para enviar todas a tu bandeja sin recorrer cada flujo (requiere al menos un curso en la BD; los enlaces de contraseña y eliminación llevan un token de ejemplo):
 
@@ -475,7 +529,7 @@ es.send_course_reminder_email(to, 'Nombre', c, '2026-10-20T10:00:00+02:00', 24)
 
 El correo de cada número de la newsletter usa su propia plantilla (`newsletter.html`) y se prueba desde el panel de administración con «Enviar prueba».
 
-### 7.3 Worker de notificaciones
+### 8.3 Worker de notificaciones
 
 No hace falta Celery ni otro worker: los correos inmediatos (inscripción, cancelación, bienvenida…) se envían dentro de la petición. Lo único periódico es `python manage.py run_email_notification_queue`, que debe ejecutarse cada minuto (en Docker lo hace el servicio `notifications` del compose). En cada ejecución:
 
@@ -484,7 +538,7 @@ No hace falta Celery ni otro worker: los correos inmediatos (inscripción, cance
 - encola los avisos "empieza pronto" (~7 días antes del inicio de un curso, a quienes tienen activados los avisos de cursos) y "recordatorio 24h" (~24 h antes de una sesión, a los inscritos en el curso);
 - reintenta los envíos fallidos (hasta 3 intentos).
 
-### 7.4 Cron en producción (VPS)
+### 8.4 Cron en producción (VPS)
 
 Vive en el crontab del usuario `ordinaly`, no en el repositorio, así que los despliegues no lo tocan y siempre ejecuta el código recién desplegado en `/opt/ordinaly/backend`. Solo hay que reinstalarlo si se cambia de servidor, de usuario o de ruta. Línea instalada (`crontab -e`):
 
@@ -515,9 +569,9 @@ print(list(J.objects.values('notification_type','status').annotate(n=Count('id')
 
 **Cancelar trabajos pendientes:** para los que no deban enviarse, márcalos como fallidos (el procesador solo coge `pending`): `J.objects.filter(status='pending', notification_type='course_published').update(status='failed', last_error='Cancelled manually')`.
 
-### 7.5 Newsletter
+### 8.5 Newsletter
 
-Las newsletters se redactan y programan desde el panel de administración y las envía el mismo worker, así que el cron de producción ([7.4](#74-cron-en-producción-vps)) es imprescindible. Cuando llega la hora de una newsletter se crea un job por cada suscriptor `active` en ese momento (quien se haya dado de baja entre medias no recibe nada). Cada correo lleva enlace de baja, cabecera `List-Unsubscribe` de un clic, un píxel de apertura y enlaces con seguimiento de clics.
+Las newsletters se redactan y programan desde el panel de administración y las envía el mismo worker, así que el cron de producción ([8.4](#84-cron-en-producción-vps)) es imprescindible. Cuando llega la hora de una newsletter se crea un job por cada suscriptor `active` en ese momento (quien se haya dado de baja entre medias no recibe nada). Cada correo lleva enlace de baja, cabecera `List-Unsubscribe` de un clic, un píxel de apertura y enlaces con seguimiento de clics.
 
 - **Límite de Gmail:** el envío usa la Gmail API, con un límite diario de unos 500 correos en cuentas gratuitas y 2.000 en Google Workspace. Ese cupo se comparte con los correos transaccionales (verificación, inscripciones, avisos de cursos). Si la lista se acerca a unos 300 suscriptores, o si una newsletter más los avisos del día pueden superar el cupo, hay que pasar a un proveedor transaccional (Brevo, Amazon SES…). Es solo cambiar `EMAIL_BACKEND` y las credenciales SMTP; no hay que tocar código.
 - **Ritmo de envío:** el worker procesa como máximo 100 correos por ejecución (`--limit`, 100 por defecto) y se ejecuta cada minuto, así que una newsletter tarda aproximadamente `suscriptores / 100` minutos en salir entera (unos 5 minutos para 500 suscriptores). Mientras tanto aparece como "enviándose" y pasa a "enviada" al salir el último correo.
@@ -526,21 +580,21 @@ Las newsletters se redactan y programan desde el panel de administración y las 
 
 ---
 
-## 8. Dependencias principales
+## 9. Dependencias principales
 
-### 8.1 Backend (Django)
+### 9.1 Backend (Django)
 
 Django, djangorestframework, django-cors-headers, drf-spectacular, djangorestframework-simplejwt, dj-database-url, google-auth, Pillow, psycopg, gunicorn, whitenoise, python-dotenv, markdown, reportlab, stripe
 
-### 8.2 Frontend (Next.js)
+### 9.2 Frontend (Next.js)
 
 next, react, next-intl, tailwindcss, framer-motion, motion, lucide-react, react-icons, @tabler/icons-react, @react-three/fiber, @react-three/drei, cobe, embla-carousel-react, sanity, next-sanity, stripe, @stripe/stripe-js, react-toastify, react-markdown, jspdf (reCAPTCHA v3 se carga con un provider propio, sin dependencia externa)
 
 ---
 
-## 9. Testing
+## 10. Testing
 
-### 9.1 Backend: tests y cobertura
+### 10.1 Backend: tests y cobertura
 
 Para asegurar la calidad del backend, es obligatorio mantener al menos un 80% de cobertura de tests: el proyecto no se considerará válido si la cobertura es inferior.
 
@@ -562,7 +616,7 @@ coverage report
 > [!NOTE]
 > `pytest`, `pytest-django` y `pytest-cov` viven en `backend/requirements-dev.txt`, no en `requirements.txt`, para que no se instalen en producción. La imagen de Docker de desarrollo ya los incluye: `docker compose exec backend python -m pytest`.
 
-### 9.2 Frontend
+### 10.2 Frontend
 
 Basta con comprobar la sintaxis de TypeScript y la build:
 
@@ -571,7 +625,7 @@ npx tsc --noEmit
 npm run build
 ```
 
-### 9.3 Rendimiento, SEO y accesibilidad (Lighthouse)
+### 10.3 Rendimiento, SEO y accesibilidad (Lighthouse)
 
 Para comprobar el rendimiento, SEO, medidas de accesibilidad y buenas prácticas de cada página:
 
@@ -580,7 +634,7 @@ npx lighthouse http://localhost:3000/es --form-factor=mobile --view
 # Se puede probar /es, /es/servicios o cualquier otra ruta
 ```
 
-### 9.4 Probar pagos de cursos (Stripe)
+### 10.4 Probar pagos de cursos (Stripe)
 
 Para testear el flujo de pagos con Stripe en local:
 
@@ -596,13 +650,13 @@ Para testear el flujo de pagos con Stripe en local:
 
 ---
 
-## 10. Contribuir
+## 11. Contribuir
 
 - **💬 [Únete a las discusiones](https://github.com/ordinaly-software/ordinaly/discussions):** comparte tus ideas, proporciona comentarios o haz preguntas.
 - **🐛 [Reportar problemas](https://github.com/ordinaly-software/ordinaly/issues):** envía errores encontrados o registra solicitudes de funciones para el proyecto `ordinaly`.
 - **💡 Enviar solicitudes de extracción:** revisa las PR abiertas y envía tus propias PR siguiendo la guía de contribución de abajo.
 
-### 10.1 Guía de contribución
+### 11.1 Guía de contribución
 
 1. **Haz un fork del repositorio**: comienza haciendo un fork del repositorio del proyecto a tu cuenta de GitHub.
 2. **Clona localmente**: clona el repositorio forkeado en tu máquina local usando un cliente de git.
@@ -628,13 +682,13 @@ Para testear el flujo de pagos con Stripe en local:
 
 ---
 
-## 11. Licencia
+## 12. Licencia
 
 Este proyecto está protegido bajo la Licencia [APACHE](https://choosealicense.com/licenses/apache-2.0/). Para más detalles, consulta el archivo [LICENSE](LICENSE).
 
 ---
 
-## 12. Reconocimientos
+## 13. Reconocimientos
 
 Este proyecto fue realizado por <a href="https://github.com/antoniommff">Antonio Macías</a>.
   <br>

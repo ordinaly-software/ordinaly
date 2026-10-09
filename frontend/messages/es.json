@@ -412,10 +412,14 @@
       "cancelled": "El inicio de sesión con Google fue cancelado. Inténtalo de nuevo.",
       "invalidToken": "El token de autenticación es inválido o ha expirado. Inicia sesión de nuevo.",
       "accountConflict": "Este correo ya está vinculado a otro método de inicio de sesión.",
+      "accountExists": "Ya existe una cuenta con este correo. Inicia sesión con tu contraseña y, una vez dentro, conecta Google desde tu perfil (Seguridad → Cuentas conectadas). Si no recuerdas la contraseña, puedes restablecerla.",
+      "emailNotVerified": "Google no ha verificado este correo, así que no podemos usarlo para iniciar sesión.",
+      "missingEmail": "Google no nos ha facilitado un correo electrónico. Inténtalo de nuevo con otra cuenta.",
       "generic": "Falló la autenticación. Por favor, intenta iniciar sesión de nuevo."
     },
     "actions": {
       "goToSignIn": "Ir a iniciar sesión",
+      "forgotPassword": "He olvidado mi contraseña",
       "goHome": "Ir al inicio"
     }
   },
@@ -1564,12 +1568,33 @@
     "security": {
       "title": "Seguridad",
       "description": "Actualiza tu contraseña para mantener tu cuenta segura.",
-      "changePassword": "Cambiar contraseña"
+      "changePassword": "Cambiar contraseña",
+      "createDescription": "Tu cuenta usa Google. Crea una contraseña para poder iniciar sesión también con tu correo, sin dejar de usar Google.",
+      "createPassword": "Crear contraseña",
+      "emailNote": "Te enviaremos un enlace a {email}.",
+      "linkSent": "Enlace enviado"
     },
     "authProvider": {
       "label": "Autenticación",
       "google": "Cuenta de Google",
-      "credentials": "Correo y contraseña"
+      "credentials": "Correo y contraseña",
+      "both": "Google y contraseña"
+    },
+    "connectedAccounts": {
+      "title": "Cuentas conectadas",
+      "description": "Elige con qué métodos puedes iniciar sesión en tu cuenta.",
+      "googleName": "Google",
+      "connectedBadge": "Conectado",
+      "notConnectedBadge": "No conectado",
+      "connectHint": "Conecta tu cuenta de Google para entrar con un clic. Puede ser una cuenta de Google con un correo distinto al de tu cuenta.",
+      "connectedHint": "Puedes iniciar sesión con Google.",
+      "connect": "Conectar Google",
+      "disconnect": "Desconectar",
+      "disconnectBlocked": "Crea una contraseña antes de desconectar Google, para no quedarte sin forma de entrar.",
+      "confirmTitle": "¿Desconectar Google?",
+      "confirmMessage": "Dejarás de poder iniciar sesión con Google. Seguirás entrando con tu correo y contraseña.",
+      "confirmButton": "Desconectar",
+      "cancel": "Cancelar"
     },
     "tabs": {
       "profile": "Perfil",
@@ -1644,6 +1669,21 @@
       "deleteError": "Error al eliminar la cuenta. Por favor, intenta de nuevo",
       "networkError": "Error de red. Por favor, verifica tu conexión e intenta de nuevo",
       "unauthorizedError": "No estás autorizado para realizar esta acción",
+      "passwordLinkSent": "Te hemos enviado un enlace a {email}. Ábrelo para elegir tu contraseña.",
+      "passwordLinkError": "No hemos podido enviar el enlace. Inténtalo de nuevo.",
+      "googleLinked": "Google conectado. Ya puedes iniciar sesión con él.",
+      "googleUnlinked": "Google desconectado.",
+      "googleError": "No se pudo conectar Google. Inténtalo de nuevo.",
+      "googleErrors": {
+        "cancelled": "Cancelaste la conexión con Google.",
+        "invalid_state": "La conexión con Google ha caducado. Vuelve a intentarlo.",
+        "already_linked": "Esa cuenta de Google ya está conectada a otra cuenta de Ordinaly.",
+        "already_has_google": "Tu cuenta ya tiene otra cuenta de Google conectada. Desconéctala primero.",
+        "email_not_verified": "Google no ha verificado el correo de esa cuenta.",
+        "invalid_token": "No hemos podido validar la respuesta de Google. Inténtalo de nuevo.",
+        "missing_email": "Google no nos ha facilitado un correo electrónico.",
+        "unexpected": "No se pudo conectar Google. Inténtalo de nuevo."
+      },
       "validation": {
         "firstNameRequired": "El nombre es obligatorio",
         "lastNameRequired": "El apellido es obligatorio",
@@ -3171,7 +3211,11 @@
     "cancelCourseStarted": "No puedes cancelar la inscripción porque el curso ya ha comenzado.",
     "cancelWithin24h": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso.",
     "invalidUrl": "URL inválida: solo se permiten http, https o rutas internas.",
-    "resendCooldown": "Debes esperar {seconds} segundos para reenviar el código"
+    "resendCooldown": "Debes esperar {seconds} segundos para reenviar el código",
+    "useGoogleSignIn": "Esta cuenta usa Google para iniciar sesión. Pulsa «Continuar con Google» o crea una contraseña desde «¿Olvidaste tu contraseña?».",
+    "setPasswordFirst": "Crea una contraseña antes de desconectar Google.",
+    "googleAlreadyConnected": "Google ya está conectado.",
+    "googleNotConnected": "Google no está conectado."
   },
   "datePicker": {
     "selectDate": "Selecciona fecha",

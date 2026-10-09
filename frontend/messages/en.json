@@ -412,10 +412,14 @@
       "cancelled": "Google sign-in was cancelled. Please try again.",
       "invalidToken": "The authentication token is invalid or expired. Please sign in again.",
       "accountConflict": "This email is already linked to another sign-in method.",
+      "accountExists": "An account with this email already exists. Sign in with your password and, once inside, connect Google from your profile (Security → Connected accounts). If you don't remember the password, you can reset it.",
+      "emailNotVerified": "Google hasn't verified this email, so we can't use it to sign you in.",
+      "missingEmail": "Google didn't give us an email address. Please try again with another account.",
       "generic": "Authentication failed. Please try signing in again."
     },
     "actions": {
       "goToSignIn": "Go to sign in",
+      "forgotPassword": "I forgot my password",
       "goHome": "Go to home"
     }
   },
@@ -1558,12 +1562,33 @@
     "security": {
       "title": "Security",
       "description": "Update your password to keep your account secure.",
-      "changePassword": "Change password"
+      "changePassword": "Change password",
+      "createDescription": "Your account uses Google. Create a password to also sign in with your email, while still being able to use Google.",
+      "createPassword": "Create password",
+      "emailNote": "We'll send a link to {email}.",
+      "linkSent": "Link sent"
     },
     "authProvider": {
       "label": "Authentication",
       "google": "Google account",
-      "credentials": "Email and password"
+      "credentials": "Email and password",
+      "both": "Google and password"
+    },
+    "connectedAccounts": {
+      "title": "Connected accounts",
+      "description": "Choose which methods you can use to sign in to your account.",
+      "googleName": "Google",
+      "connectedBadge": "Connected",
+      "notConnectedBadge": "Not connected",
+      "connectHint": "Connect your Google account to sign in with one click. It can be a Google account with a different email than your account.",
+      "connectedHint": "You can sign in with Google.",
+      "connect": "Connect Google",
+      "disconnect": "Disconnect",
+      "disconnectBlocked": "Create a password before disconnecting Google, so you don't lose your way in.",
+      "confirmTitle": "Disconnect Google?",
+      "confirmMessage": "You will no longer be able to sign in with Google. You'll keep signing in with your email and password.",
+      "confirmButton": "Disconnect",
+      "cancel": "Cancel"
     },
     "tabs": {
       "profile": "Profile",
@@ -1638,6 +1663,21 @@
       "deleteError": "Failed to delete account. Please try again.",
       "networkError": "Network error. Please check your connection and try again.",
       "unauthorizedError": "You are not authorized to perform this action.",
+      "passwordLinkSent": "We've sent a link to {email}. Open it to choose your password.",
+      "passwordLinkError": "We couldn't send the link. Please try again.",
+      "googleLinked": "Google connected. You can now sign in with it.",
+      "googleUnlinked": "Google disconnected.",
+      "googleError": "Google could not be connected. Please try again.",
+      "googleErrors": {
+        "cancelled": "You cancelled the connection with Google.",
+        "invalid_state": "The Google connection expired. Please try again.",
+        "already_linked": "That Google account is already connected to another Ordinaly account.",
+        "already_has_google": "Your account already has another Google account connected. Disconnect it first.",
+        "email_not_verified": "Google hasn't verified that account's email.",
+        "invalid_token": "We couldn't validate Google's response. Please try again.",
+        "missing_email": "Google didn't give us an email address.",
+        "unexpected": "Google could not be connected. Please try again."
+      },
       "validation": {
         "firstNameRequired": "First name is required",
         "lastNameRequired": "Last name is required",
@@ -3165,7 +3205,11 @@
     "cancelCourseStarted": "You cannot cancel the enrollment because the course has already started.",
     "cancelWithin24h": "You cannot cancel the enrollment within the 24 hours before the course starts.",
     "invalidUrl": "Invalid URL: only http, https or internal paths are allowed.",
-    "resendCooldown": "You must wait {seconds} seconds before resending the code"
+    "resendCooldown": "You must wait {seconds} seconds before resending the code",
+    "useGoogleSignIn": "This account uses Google to sign in. Press \"Continue with Google\" or create a password from \"Forgot your password?\".",
+    "setPasswordFirst": "Create a password before disconnecting Google.",
+    "googleAlreadyConnected": "Google is already connected.",
+    "googleNotConnected": "Google is not connected."
   },
   "datePicker": {
     "selectDate": "Select date",

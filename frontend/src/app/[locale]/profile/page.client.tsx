@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useTranslations } from "next-intl";
 import Alert from "@/components/ui/alert";
 import DeleteAccountModal from "@/components/ui/delete-account-modal";
+import { DeleteConfirmationModal } from "@/components/ui/delete-confirmation-modal";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import ProfileInfoTab from "@/components/profile/profile-info-tab";
 import ProfileCoursesTab from "@/components/profile/profile-courses-tab";
@@ -36,6 +37,7 @@ interface UserProfile {
   course_email_notifications?: boolean;
   allow_notifications?: boolean;
   is_google_authenticated?: boolean;
+  has_usable_password?: boolean;
 }
 
 interface Enrollment {
@@ -74,6 +76,9 @@ export default function ProfilePage() {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [alert, setAlert] = useState<{ type: 'success' | 'error' | 'info' | 'warning', message: string } | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDisconnectGoogleModal, setShowDisconnectGoogleModal] = useState(false);
+  const [isUpdatingGoogle, setIsUpdatingGoogle] = useState(false);
+  const [isSendingPasswordLink, setIsSendingPasswordLink] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
   const [courseEmailNotifications, setCourseEmailNotifications] = useState(true);
   const [newsletterConsent, setNewsletterConsent] = useState(false);
@@ -166,11 +171,101 @@ export default function ProfilePage() {
     }
   }, [searchParams, pathname, router]);
 
+  // Coming back from Google after "Connect Google": show the result once and clean the URL.
+  const googleResultHandled = useRef(false);
+  useEffect(() => {
+    const linked = searchParams.get("google");
+    const googleError = searchParams.get("google_error");
+    if ((!linked && !googleError) || googleResultHandled.current) return;
+    googleResultHandled.current = true;
+
+    if (linked === "linked") {
+      setAlert({ type: "success", message: t("messages.googleLinked") });
+    } else if (googleError) {
+      const known = ["cancelled", "invalid_state", "already_linked", "already_has_google", "email_not_verified", "invalid_token", "missing_email", "unexpected"];
+      setAlert({
+        type: "error",
+        message: known.includes(googleError) ? t(`messages.googleErrors.${googleError}`) : t("messages.googleError"),
+      });
+    }
+
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete("google");
+    params.delete("google_error");
+    router.replace(`${pathname}?${params.toString()}`);
+  }, [searchParams, pathname, router, t]);
+
   const handleTabChange = (tabId: "profile" | "courses") => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("tab", tabId);
     router.push(`${pathname}?${params.toString()}`);
     setActiveTab(tabId);
+  };
+
+  const callAuthApi = async (path: string, body?: unknown) => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
+    const response = await fetch(`${apiUrl}${path}`, {
+      method: "POST",
+      headers: { Authorization: `Token ${authToken}`, "Content-Type": "application/json" },
+      body: JSON.stringify(body ?? {}),
+    });
+    const data = await response.json().catch(() => ({}));
+    return { ok: response.ok, status: response.status, data };
+  };
+
+  // Create (Google-only accounts) or change the password with a one-click emailed link.
+  const handleSendPasswordLink = async () => {
+    if (!profile?.email || isSendingPasswordLink) return;
+    setIsSendingPasswordLink(true);
+    setAlert(null);
+    try {
+      const { ok } = await callAuthApi("/auth/password/reset/request/", { email: profile.email });
+      setAlert(
+        ok
+          ? { type: "success", message: t("messages.passwordLinkSent", { email: profile.email }) }
+          : { type: "error", message: t("messages.passwordLinkError") },
+      );
+    } catch {
+      setAlert({ type: "error", message: t("messages.networkError") });
+    } finally {
+      // Keep the button off for a minute so the link is not requested over and over.
+      window.setTimeout(() => setIsSendingPasswordLink(false), 60_000);
+    }
+  };
+
+  const handleConnectGoogle = async () => {
+    setIsUpdatingGoogle(true);
+    setAlert(null);
+    try {
+      const { ok, data } = await callAuthApi("/auth/google/link/");
+      if (ok && data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      setAlert({ type: "error", message: localizeApiError(data.error, tApi) || t("messages.googleError") });
+    } catch {
+      setAlert({ type: "error", message: t("messages.networkError") });
+    }
+    setIsUpdatingGoogle(false);
+  };
+
+  const handleDisconnectGoogle = async () => {
+    setIsUpdatingGoogle(true);
+    setAlert(null);
+    try {
+      const { ok, data } = await callAuthApi("/auth/google/unlink/");
+      if (ok) {
+        setAlert({ type: "success", message: t("messages.googleUnlinked") });
+        await fetchProfile();
+      } else {
+        setAlert({ type: "error", message: localizeApiError(data.error, tApi) || t("messages.googleError") });
+      }
+    } catch {
+      setAlert({ type: "error", message: t("messages.networkError") });
+    } finally {
+      setIsUpdatingGoogle(false);
+      setShowDisconnectGoogleModal(false);
+    }
   };
 
   const profileTabs = [
@@ -640,6 +735,9 @@ export default function ProfilePage() {
             region={region}
             city={city}
             isGoogleAuthenticated={Boolean(profile?.is_google_authenticated)}
+            hasUsablePassword={profile?.has_usable_password ?? true}
+            isUpdatingGoogle={isUpdatingGoogle}
+            isSendingPasswordLink={isSendingPasswordLink}
             errors={errors}
             hasChanges={hasChanges}
             isSaving={isSaving}
@@ -652,6 +750,9 @@ export default function ProfilePage() {
             onSave={handleSaveChanges}
             onCancel={handleCancelChanges}
             onDeleteAccount={() => setShowDeleteModal(true)}
+            onSendPasswordLink={handleSendPasswordLink}
+            onConnectGoogle={handleConnectGoogle}
+            onDisconnectGoogle={() => setShowDisconnectGoogleModal(true)}
           />
         ) : (
           <ProfileCoursesTab
@@ -664,6 +765,17 @@ export default function ProfilePage() {
       </div>
 
       <Footer />
+
+      <DeleteConfirmationModal
+        isOpen={showDisconnectGoogleModal}
+        onClose={() => setShowDisconnectGoogleModal(false)}
+        onConfirm={handleDisconnectGoogle}
+        title={t("connectedAccounts.confirmTitle")}
+        message={t("connectedAccounts.confirmMessage")}
+        confirmText={t("connectedAccounts.confirmButton")}
+        cancelText={t("connectedAccounts.cancel")}
+        isLoading={isUpdatingGoogle}
+      />
 
       {/* Delete Account Modal */}
       <DeleteAccountModal

@@ -12,6 +12,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
     updated_at = serializers.SerializerMethodField()
     last_login = serializers.SerializerMethodField()
     is_google_authenticated = serializers.SerializerMethodField()
+    has_usable_password = serializers.SerializerMethodField()
     newsletter_status = serializers.SerializerMethodField()
 
     class Meta:
@@ -23,6 +24,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             'allow_notifications',
             'course_email_notifications',
             'is_google_authenticated',
+            'has_usable_password',
             'newsletter_status',
             'created_at', 'updated_at', 'last_login'
         )
@@ -63,6 +65,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
             return obj.newsletter_subscription.status
         except ObjectDoesNotExist:
             return 'none'
+
+    def get_has_usable_password(self, obj):
+        return obj.has_usable_password()
 
     def get_is_google_authenticated(self, obj):
         return bool(getattr(obj, 'google_sub', None))
