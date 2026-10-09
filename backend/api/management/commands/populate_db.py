@@ -269,13 +269,45 @@ class Command(BaseCommand):
                 'draft': False
             },
         ]
+
+        # Already finished courses (spread over the last ~year) to exercise the
+        # "past" cards and the show-more grid on the formation page.
+        past_topics = [
+            ('Taller "Automatización con n8n para pymes"', 'taller-n8n-pymes', None, 'C. Aviación 39, Polígono Calonge, Sevilla 41007'),
+            ('Curso "Chatbots con IA para atención al cliente"', 'curso-chatbots-ia', 0.50, ''),
+            ('Sesión "IA generativa para equipos comerciales"', 'sesion-ia-comerciales', None, 'Edif. Galia, Sala de Conferencias 1, Sevilla, 41007'),
+            ('Bootcamp "Odoo desde cero"', 'bootcamp-odoo-desde-cero', 0.50, ''),
+            ('Taller "Facturación automática con IA"', 'taller-facturacion-ia', None, 'C. Aviación 39, Polígono Calonge, Sevilla 41007'),
+            ('Sesión "Ciberseguridad básica para pymes"', 'sesion-ciberseguridad-pymes', None, ''),
+            ('Curso "Agentes de voz con IA"', 'curso-agentes-voz-ia', 0.50, ''),
+            ('Taller "Redes sociales en piloto automático"', 'taller-redes-sociales-ia', None, 'Edif. Galia, Sala de Conferencias 1, Sevilla, 41007'),
+        ]
+        for n, (title, slug, price, location) in enumerate(past_topics, start=1):
+            start = today - timedelta(days=35 * n)
+            courses_data.append({
+                'title': title,
+                'slug': slug,
+                'subtitle': 'Formación ya celebrada, creada como dato de prueba.',
+                'description': f'{title}. Formación de ejemplo ya finalizada.',
+                'price': price,
+                'location': location,
+                'start_date': start,
+                'end_date': start,
+                'start_time': time(9, 30),
+                'end_time': time(11, 30),
+                'periodicity': 'once',
+                'timezone': DEMO_TIMEZONE,
+                'max_attendants': 30,
+                'draft': False,
+            })
+
         courses = []
         for i, course_data in enumerate(courses_data):
-            image_path = os.path.join(images_dir, f'test_course_{i + 1}.jpg')
+            image_path = os.path.join(images_dir, f'test_course_{i % 3 + 1}.jpg')
             defaults = {**course_data}
             if os.path.exists(image_path):
                 with open(image_path, 'rb') as f:
-                    defaults['image'] = ContentFile(f.read(), name=f"course_{i + 1}.jpg")
+                    defaults['image'] = ContentFile(f.read(), name=f"course_{i % 3 + 1}.jpg")
             course, created = Course.objects.get_or_create(
                 title=course_data['title'],
                 defaults=defaults

@@ -599,9 +599,6 @@ export default function ProfilePage() {
         {/* Header Panel */}
         <div className="rounded-[2rem] border border-[--color-border-subtle] bg-white/75 px-6 py-6 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04] sm:px-10">
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-cobalt dark:text-cobalt-light">
-              {t("kicker")}
-            </p>
             <h1 className="text-3xl font-semibold leading-tight tracking-[-0.03em] sm:text-4xl">
               {t("title")}
             </h1>

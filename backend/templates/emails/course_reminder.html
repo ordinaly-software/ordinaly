@@ -1,0 +1,11 @@
+{% extends "emails/base.html" %}
+{% block title %}Recordatorio {{ hours_before }}h - {{ course.title }}{% endblock %}
+{% block preheader %}Faltan {{ hours_before }} horas para la próxima sesión de {{ course.title }}.{% endblock %}
+{% block headline %}Recordatorio de curso{% endblock %}
+{% block intro %}Hola {{ user_name }}, faltan {{ hours_before }} horas para la próxima sesión de <strong>{{ course.title }}</strong>.{% endblock %}
+{% block body %}
+<p class="text">Inicio de la sesión: <strong>{{ session_text }}</strong></p>
+<p class="text" style="margin-top:8px;">Ubicación: <strong>{{ course.location|default:"Por confirmar" }}</strong></p>
+<div style="height:18px;"></div>
+{% include "emails/_button.html" with url=course_url label="Ver detalles del curso" %}
+{% endblock %}

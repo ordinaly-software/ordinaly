@@ -1,0 +1,5 @@
+{% extends "emails/base.txt" %}{% block content %}{{ user_name }}, tu inscripción ha sido cancelada
+
+Hemos cancelado tu inscripción en el curso "{{ course.title }}" ({{ date_str|default:"—" }}). Si esto fue un error, puedes volver a inscribirte en cualquier momento.
+
+Otras formaciones: {{ formation_url }}{% endblock %}

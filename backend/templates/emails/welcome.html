@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="x-apple-disable-message-reformatting" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="supported-color-schemes" content="light dark" />
+  <title>Bienvenido a Ordinaly</title>
+
+  <style>
+    html,body{margin:0;padding:0;}
+    img{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}
+    a{text-decoration:none;}
+    .preheader{display:none !important;visibility:hidden;opacity:0;color:transparent;height:0;width:0;overflow:hidden;mso-hide:all;}
+
+    .container{padding:28px 12px;}
+    .p{padding:30px 26px;}
+
+    .h1{font:900 28px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;margin:0;}
+    .h2{font:900 20px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;margin:0;}
+    .h3{font:800 15px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;margin:0;}
+    .text{font:400 16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;margin:0;}
+
+
+    .divider{height:1px;line-height:1px;font-size:1px;background:#E8E6DC;}
+
+    .pill{
+      border:1px solid #E8E6DC;
+      border-radius:14px;
+      padding:14px;
+      text-align:center;
+      background:#ffffff;
+      background-image:linear-gradient(#ffffff,#ffffff);
+    }
+
+    .grid-card{
+      border:1px solid #E8E6DC;
+      border-radius:14px;
+      overflow:hidden;
+      background:#ffffff;
+      background-image:linear-gradient(#ffffff,#ffffff);
+    }
+    .grid-body{padding:12px;}
+    .grid-sub{font:400 14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;margin:8px 0 0;}
+
+    .mini-img{
+      width:150px;
+      height:auto;
+      border-radius:12px;
+      border:1px solid #E8E6DC;
+      overflow:hidden;
+      display:block;
+    }
+
+    .footer{
+      padding:28px 22px;
+      text-align:center;
+      font:400 14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial;
+      background:#ffffff;
+      background-image:linear-gradient(#ffffff,#ffffff);
+    }
+    .footer a{text-decoration:underline;margin:0 6px;color:#141413;}
+
+    @media (max-width:520px){
+      .p{padding:22px 16px;}
+      .h1{font-size:24px;}
+      .mini-img{width:100%;}
+    }
+    @media (prefers-color-scheme: dark){
+      [style*="background:#FAF9F5"],[style*="background:#faf9f5"]{background:#141413 !important;background-image:none !important;}
+      [style*="background:#ffffff"],.pill,.grid-card,.footer{background:#1F1E1D !important;background-image:none !important;}
+      [style*="color:#141413"]{color:#FAF9F5 !important;-webkit-text-fill-color:#FAF9F5 !important;}
+      [style*="color:#5E5D59"]{color:#B8B6AC !important;-webkit-text-fill-color:#B8B6AC !important;}
+      .footer a{color:#FAF9F5 !important;}
+      .divider,[style*="background:#E8E6DC"]{background:#3A3936 !important;}
+      [style*="border:1px solid #E8E6DC"],.pill,.grid-card,.mini-img{border-color:#3A3936 !important;}
+    }
+  </style>
+</head>
+
+<body style="margin:0;padding:0;background:#FAF9F5;background-image:linear-gradient(#FAF9F5,#FAF9F5);">
+  <div class="preheader">Bienvenido a Ordinaly. Automatizaci&oacute;n e IA con criterio y paso a paso.</div>
+
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
+         style="background:#FAF9F5;background-image:linear-gradient(#FAF9F5,#FAF9F5);">
+    <tr>
+      <td align="center" class="container">
+
+        <!-- CARD -->
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0"
+               style="max-width:700px;background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);
+                      border:1px solid #E8E6DC;border-radius:16px;overflow:hidden;">
+
+          <!-- HEADER -->
+          <tr>
+            <td class="p" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+              <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td align="left" style="vertical-align:middle;">
+                    <img src="{{ frontend_base_url }}/assets/workspace_logo.png" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
+                  </td>
+                </tr>
+              </table>
+
+              <div style="height:14px;"></div>
+
+              <h1 class="h1" style="color:#141413;-webkit-text-fill-color:#141413;">Hola {{ user_name }}, bienvenido a Ordinaly</h1>
+              <p class="text" style="margin-top:10px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Gracias por crear tu cuenta. Ordinaly est&aacute; pensado para automatizar procesos y aplicar IA
+                con control, paso a paso, y con resultados reales.
+              </p>
+
+              <div style="height:10px;"></div>
+              <p class="text" style="font-size:14px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Si no has sido t&uacute;, puedes ignorar este correo.
+              </p>
+            </td>
+          </tr>
+
+          <tr><td class="divider"></td></tr>
+
+          <!-- VALUE -->
+          <tr>
+            <td class="p" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+              <h2 class="h2" style="color:#141413;-webkit-text-fill-color:#141413;">Qu&eacute; vas a encontrar aqu&iacute;</h2>
+              <p class="text" style="margin-top:10px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Tres ideas simples, que usamos a diario:
+              </p>
+
+              <div style="height:14px;"></div>
+
+              <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td width="33%" style="padding-right:8px;vertical-align:top;">
+                    <div class="pill">
+                      <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Automatizaci&oacute;n pr&aacute;ctica</h3>
+                      <p class="text" style="font-size:14px;margin-top:6px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                        Menos tareas repetidas, m&aacute;s tiempo para decidir.
+                      </p>
+                    </div>
+                  </td>
+
+                  <td width="33%" style="padding:0 4px;vertical-align:top;">
+                    <div class="pill">
+                      <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">IA con sentido</h3>
+                      <p class="text" style="font-size:14px;margin-top:6px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                        Donde ayuda, sin complicar lo que ya funciona.
+                      </p>
+                    </div>
+                  </td>
+
+                  <td width="33%" style="padding-left:8px;vertical-align:top;">
+                    <div class="pill">
+                      <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Criterio t&eacute;cnico</h3>
+                      <p class="text" style="font-size:14px;margin-top:6px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                        Sin humo, con arquitectura y pasos claros.
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr><td class="divider"></td></tr>
+
+          <!-- SERVICES GRID -->
+          <tr>
+            <td class="p" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+              <h2 class="h2" style="color:#141413;-webkit-text-fill-color:#141413;">Algunas soluciones listas</h2>
+              <p class="text" style="margin-top:8px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Ejemplos de lo que solemos implantar. Si te encaja algo, lo ves con detalle en la web.
+              </p>
+
+              <div style="height:14px;"></div>
+
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td width="50%" style="padding-right:8px;vertical-align:top;">
+                    <a href="https://ordinaly.ai/agente-de-llamadas-ia" target="_blank" rel="noopener noreferrer" style="color:#141413;">
+                      <div class="grid-card">
+                        <img src="{{ frontend_base_url }}/static/mail/sonia.jpg" alt="SonIA" style="width:100%;height:auto;" />
+                        <div class="grid-body">
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">SonIA, asistente de voz con IA</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Recepci&oacute;n 24/7 para atender, filtrar y escalar conversaciones.</p>
+                        </div>
+                      </div>
+                    </a>
+                  </td>
+
+                  <td width="50%" style="padding-left:8px;vertical-align:top;">
+                    <a href="https://ordinaly.ai/automatizacion-facturas" target="_blank" rel="noopener noreferrer" style="color:#141413;">
+                      <div class="grid-card">
+                        <img src="{{ frontend_base_url }}/static/mail/facturas.jpg" alt="Facturas" style="width:100%;height:auto;" />
+                        <div class="grid-body">
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Recopilaci&oacute;n autom&aacute;tica de facturas</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Centraliza y clasifica facturas para empresa o asesor&iacute;a.</p>
+                        </div>
+                      </div>
+                    </a>
+                  </td>
+                </tr>
+
+                <tr><td style="height:14px;"></td><td></td></tr>
+
+                <tr>
+                  <td width="50%" style="padding-right:8px;vertical-align:top;">
+                    <a href="https://ordinaly.ai/automatizacion-redes-sociales" target="_blank" rel="noopener noreferrer" style="color:#141413;">
+                      <div class="grid-card">
+                        <img src="{{ frontend_base_url }}/static/mail/meta.jpg" alt="Meta" style="width:100%;height:auto;" />
+                        <div class="grid-body">
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Automatizaci&oacute;n Facebook e Instagram</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Publicaci&oacute;n constante sin estar pendiente cada d&iacute;a.</p>
+                        </div>
+                      </div>
+                    </a>
+                  </td>
+
+                  <td width="50%" style="padding-left:8px;vertical-align:top;">
+                    <a href="https://ordinaly.ai/automatizacion-redes-sociales" target="_blank" rel="noopener noreferrer" style="color:#141413;">
+                      <div class="grid-card">
+                        <img src="{{ frontend_base_url }}/static/mail/linkedin.jpg" alt="LinkedIn" style="width:100%;height:auto;" />
+                        <div class="grid-body">
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Automatizaci&oacute;n de LinkedIn</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Workflow para preparar, programar y publicar con consistencia.</p>
+                        </div>
+                      </div>
+                    </a>
+                  </td>
+                </tr>
+
+                <tr><td style="height:14px;"></td><td></td></tr>
+
+                <tr>
+                  <td width="50%" style="padding-right:8px;vertical-align:top;">
+                    <a href="https://ordinaly.ai/servicios" target="_blank" rel="noopener noreferrer" style="color:#141413;">
+                      <div class="grid-card">
+                        <img src="{{ frontend_base_url }}/static/mail/pymes.jpg" alt="Pymes" style="width:100%;height:auto;" />
+                        <div class="grid-body">
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Automatizaci&oacute;n para pymes</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Integraciones y procesos medibles para ahorrar tiempo.</p>
+                        </div>
+                      </div>
+                    </a>
+                  </td>
+
+                  <td width="50%" style="padding-left:8px;vertical-align:top;">
+                    <a href="https://ordinaly.ai/servicios" target="_blank" rel="noopener noreferrer" style="color:#141413;">
+                      <div class="grid-card">
+                        <img src="{{ frontend_base_url }}/static/mail/odoo.jpg" alt="Odoo" style="width:100%;height:auto;" />
+                        <div class="grid-body">
+                          <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Implantaci&oacute;n de Odoo</h3>
+                          <p class="grid-sub" style="color:#5E5D59;-webkit-text-fill-color:#5E5D59;">ERP con foco en procesos, datos y adopci&oacute;n real del equipo.</p>
+                        </div>
+                      </div>
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <div style="height:16px;"></div>
+
+              <!-- Single CTA -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td bgcolor="#D97757" style="border-radius:12px;background:#D97757;background-image:linear-gradient(#D97757,#D97757);">
+                    <a href="https://ordinaly.ai/servicios"
+                       target="_blank" rel="noopener noreferrer"
+                       style="display:inline-block;padding:12px 18px;font:800 14px/1 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial;
+                              color:#ffffff;text-decoration:none;border-radius:12px;border:1px solid rgba(255,255,255,0.18);
+                              -webkit-text-fill-color:#ffffff;">
+                      Ver todos los servicios
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+              <div style="height:10px;"></div>
+              <p class="text" style="font-size:13px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Si me dices tu sector y tus herramientas, te orientamos mejor.
+              </p>
+            </td>
+          </tr>
+
+          <tr><td class="divider"></td></tr>
+
+          <!-- FORMATION -->
+          <tr>
+            <td class="p" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+              <h2 class="h2" style="color:#141413;-webkit-text-fill-color:#141413;">Formaci&oacute;n, sin rodeos</h2>
+              <p class="text" style="margin-top:8px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Si prefieres aprender antes de implantar, tenemos formaciones pr&aacute;cticas pensadas para construir y desplegar.
+              </p>
+
+              <div style="height:14px;"></div>
+
+              <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+                <tr>
+                  <td width="150" style="vertical-align:top;padding-right:14px;">
+                    <a href="https://ordinaly.ai/formacion" target="_blank" rel="noopener noreferrer">
+                      <img class="mini-img" src="{{ frontend_base_url }}/static/mail/formation.jpg" alt="Formaci&oacute;n Ordinaly" width="150" />
+                    </a>
+                  </td>
+                  <td style="vertical-align:top;">
+                    <h3 class="h3" style="color:#141413;-webkit-text-fill-color:#141413;">Aprende a construir, no solo a usar herramientas</h3>
+                    <p class="text" style="margin-top:6px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                      Automatizaci&oacute;n con n8n, IA aplicada y criterios de arquitectura. Material orientado a casos reales.
+                    </p>
+                    <div style="height:10px;"></div>
+                    <a href="https://ordinaly.ai/formacion" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#141413;-webkit-text-fill-color:#141413;">
+                      Ver formaci&oacute;n
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr><td class="divider"></td></tr>
+
+          <!-- NEXT STEP -->
+          <tr>
+            <td class="p" style="background:#ffffff;background-image:linear-gradient(#ffffff,#ffffff);">
+              <h2 class="h2" style="color:#141413;-webkit-text-fill-color:#141413;">Tu siguiente paso</h2>
+              <p class="text" style="margin-top:8px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Cuando quieras, entra en tu cuenta y explora con calma.
+              </p>
+              <div style="height:10px;"></div>
+              <p class="text" style="font-size:14px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Acceso: <a href="https://ordinaly.ai/profile" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;color:#141413;-webkit-text-fill-color:#141413;">https://ordinaly.ai</a>
+              </p>
+            </td>
+          </tr>
+
+          <!-- FOOTER -->
+          <tr>
+            <td class="footer" style="color:#141413;-webkit-text-fill-color:#141413;">
+              <p style="margin:0;font-weight:700;">ORDINALY SOFTWARE</p>
+              <p style="margin:8px 0 0;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">Automatizaci&oacute;n empresarial e IA desde Sevilla para el mundo</p>
+
+              <p style="margin:14px 0 0;">
+                <a href="https://ordinaly.ai">Web</a> |
+                <a href="https://ordinaly.ai/servicios">Servicios</a> |
+                <a href="https://ordinaly.ai/formacion">Formaci&oacute;n</a>
+              </p>
+
+              <p style="margin:12px 0 0;font-size:12px;color:#5E5D59;-webkit-text-fill-color:#5E5D59;">
+                Has recibido este correo porque has creado una cuenta en Ordinaly.
+              </p>
+
+              <p style="margin:10px 0 0;">
+                <a href="mailto:info@ordinaly.ai">info@ordinaly.ai</a>
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

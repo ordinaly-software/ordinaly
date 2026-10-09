@@ -1,0 +1,34 @@
+{% extends "emails/base.html" %}
+{% block title %}Confirmación de eliminación de cuenta - Ordinaly{% endblock %}
+{% block extra_css %}.warn{border:1px solid rgba(180,35,24,0.25);border-radius:12px;padding:12px 14px;background:#fff;font:400 13px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:#5E5D59;}
+.warn strong{color:#B42318;}
+.list{padding-left:18px;margin:10px 0 0;}
+.list li{margin:6px 0;color:#5E5D59;font:400 15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;}{% endblock %}
+{% block preheader %}Confirma la eliminación de tu cuenta de Ordinaly. Esta acción puede ser irreversible.{% endblock %}
+{% block headline %}Confirmación de eliminación de cuenta{% endblock %}
+{% block intro %}Hola {{ user_name }}, hemos recibido una solicitud para eliminar tu cuenta de Ordinaly.{% endblock %}
+{% block body %}
+<div class="warn">
+  <strong>Importante:</strong> al confirmar, perderás el acceso y se eliminarán tus datos asociados a la cuenta.
+</div>
+<div style="height:16px;"></div>
+<h2 class="h2">Qué conlleva eliminar tu cuenta</h2>
+<ul class="list">
+  <li>Eliminación de tus datos de perfil y preferencias.</li>
+  <li>Pérdida del historial de cursos, progreso y certificados asociados (si aplica).</li>
+  <li>Baja automática de la newsletter y comunicaciones de Ordinaly.</li>
+  <li>Eliminación o desactivación de automatizaciones y configuraciones guardadas.</li>
+  <li>Pérdida de acceso a contenidos y formación relacionada con IA y automatización vinculada a tu cuenta.</li>
+</ul>
+<div style="height:18px;"></div>
+{% include "emails/_button.html" with url=confirm_url label="Confirmar eliminación" color="#B42318" %}
+<div style="height:10px;"></div>
+{% include "emails/_button.html" with url=keep_url label="Mantener mi cuenta" color="#ffffff" outline=True %}
+<div style="height:16px;"></div>
+<p class="text small">Si tú no has solicitado esto, entra en tu cuenta y cambia la contraseña.</p>
+<div style="height:18px;"></div>
+<h2 class="h2">El equipo de Ordinaly te echará de menos</h2>
+<p class="text" style="margin-top:6px;">
+  Todavía estás a tiempo de seguir aprovechando los servicios de automatización e IA, nuestra formación profesional y estar a la última en IA y tecnología.
+</p>
+{% endblock %}

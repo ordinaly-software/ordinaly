@@ -1,0 +1,7 @@
+{% extends "emails/base.txt" %}{% block content %}Hola {{ user_name }}, bienvenido a Ordinaly
+
+Gracias por crear tu cuenta. Somos un equipo de automatización empresarial e IA desde Sevilla.
+
+- Servicios: {{ site_url }}/servicios
+- Formación: {{ site_url }}/formacion
+- Tu cuenta: {{ site_url }}/profile{% endblock %}

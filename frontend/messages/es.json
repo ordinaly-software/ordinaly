@@ -490,12 +490,6 @@
         "description": "Abre la consola de administración de la API en una nueva pestaña.",
         "button": "Abrir API admin",
         "warning": "Necesitarás credenciales de administrador para acceder."
-      },
-      "mail": {
-        "title": "Servicio de correo",
-        "description": "Abre el servicio de correo para gestionar emails corporativos.",
-        "button": "Abrir servicio de correo",
-        "warning": "Es posible que necesites credenciales de administrador para acceder al portal de correo."
       }
     },
     "stats": {
@@ -1313,6 +1307,7 @@
     "viewPastCourses": "Ver cursos pasados",
     "hidePastCourses": "Ocultar cursos pasados",
     "carouselPrevious": "Anterior",
+    "showMoreCourses": "Mostrar más cursos",
     "carouselNext": "Siguiente",
     "max": "máximo",
     "almostFull": "Casi completo",
@@ -1547,7 +1542,6 @@
     "details": "\n**FUNDAE / SEPE - Formación programada por las empresas:** permite bonificar parte del coste formativo en las cuotas a la Seguridad Social. Información oficial para Empresas ([FUNDAE](https://www.fundae.es/empresas)) y Formación para ocupados ([SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html)).\n\n**Fondos UE - FSE+ 2021-2027:** programas estatales y regionales (incluida Andalucía) que financian actuaciones de empleo, educación y formación mediante convocatorias públicas. Consulte [UAFSE](https://www.mites.gob.es/UAFSE/es/FSE21_27/programas/index.htm).\n\n**PRTR - NextGenerationEU (Componente 23):** medidas para capacitación y políticas activas de empleo; la cobertura depende de cada convocatoria. Información oficial del [Plan de Recuperación](https://planderecuperacion.gob.es/politicas_y_componentes/componente-23-nuevas-politicas-publicas-para-un-mercado-de-trabajo-dinamico-resiliente-e-inclusivo) y del [SEPE](https://www.sepe.es/HomeSepe/empresas/informacion-para-empresas/formacion-para-ocupados.html).\n\n**Andalucía (ámbito autonómico):** Programa FSE+ Andalucía 2021-2027 y Formación profesional para el Empleo (FPE) publican ayudas/convocatorias específicas. Consulte [Junta de Andalucía](https://www.juntadeandalucia.es/organismos/economiahaciendayfondoseuropeos/areas/fondos-europeos-andalucia/normativa-programacion/programacion/programacion-2021-2027/paginas/europeos-social-2021-2027.html) y [FPE](https://www.juntadeandalucia.es/temas/trabajar/formacion/fpe.html).\n\n**Aviso:** La elegibilidad, intensidad y compatibilidad de la financiación varían por normativa y convocatoria vigente. Ordinaly facilita la documentación del curso, pero no solicita ni tramita bonificaciones o subvenciones en nombre del cliente. Revise siempre los enlaces oficiales antes de contratar"
   },
   "profile": {
-    "kicker": "Mi cuenta",
     "title": "Mi perfil",
     "subtitle": "Gestiona tu información personal y configuración de cuenta",
     "loading": "Cargando perfil...",
@@ -2103,9 +2097,8 @@
         "requirements": {
           "title": "Requisitos",
           "items": [
-            "Número de teléfono actual con VoIP o línea nueva (vía Netelip).",
-            "Guion base (servicios, horarios, precios y preguntas frecuentes...).",
-            "Información de la empresa que el chatbot debe conocer para responder correctamente.",
+            "Número de teléfono actual con VoIP o línea nueva.",
+            "Guion con la información que el chatbot debe conocer para responder correctamente.",
             "Acceso a calendario, CRM o sistema para agendar citas (dado el caso)."
           ]
         },

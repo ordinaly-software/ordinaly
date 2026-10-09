@@ -1,0 +1,10 @@
+{% extends "emails/base.html" %}
+{% block title %}Nueva formación - {{ course.title }}{% endblock %}
+{% block preheader %}Ya está disponible una nueva formación en Ordinaly: {{ course.title }}.{% endblock %}
+{% block headline %}Nueva formación publicada{% endblock %}
+{% block intro %}Hola {{ user_name }}, ya está disponible una nueva formación en Ordinaly: <strong>{{ course.title }}</strong>.{% endblock %}
+{% block body %}
+<p class="text">Consulta todos los detalles y reserva tu plaza.</p>
+<div style="height:18px;"></div>
+{% include "emails/_button.html" with url=course_url label="Ver la formación" %}
+{% endblock %}

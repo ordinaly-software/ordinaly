@@ -2,7 +2,7 @@
 # `runserver` en vez de gunicorn, credenciales de BD en claro (solo válidas
 # en esta red interna de Docker) y hot reload vía bind mounts.
 #
-# Los secretos de integraciones (Stripe, BillionMail, Google...) se leen de
+# Los secretos de integraciones (Stripe, Google...) se leen de
 # backend/.env (montado en /app/.env); las variables de abajo tienen
 # prioridad sobre las de ese fichero.
 

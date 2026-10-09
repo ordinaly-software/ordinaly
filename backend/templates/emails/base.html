@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="supported-color-schemes" content="light dark" />
+    <title>{% block title %}{{ subject }}{% endblock %}</title>
+    <!--[if mso]>
+      <noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript>
+    <![endif]-->
+    <style>
+      html,body{margin:0;padding:0;background:#FAF9F5;}
+      img{border:0;outline:none;text-decoration:none;display:block;max-width:100%;}
+      a{color:inherit;text-decoration:none;}
+      .preheader{display:none !important;visibility:hidden;opacity:0;color:transparent;height:0;width:0;overflow:hidden;mso-hide:all;}
+      .container{width:100%;background:#FAF9F5;padding:24px 12px;}
+      .card{max-width:640px;margin:0 auto;background:#ffffff;border:1px solid #E8E6DC;border-radius:14px;overflow:hidden;}
+      .p{padding:28px 24px;}
+      .h1{font:700 26px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:#141413;margin:0;}
+      .h2{font:700 16px/1.3 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:#141413;margin:0;}
+      .text{font:400 15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:#5E5D59;margin:0;}
+      .text strong{color:#141413;}
+      .small{font-size:13px;}
+      .divider{height:1px;background:#E8E6DC;line-height:1px;font-size:1px;}
+
+      .btn-outline{background:#ffffff;color:#141413 !important;border:1px solid #E8E6DC;}
+      .btn{display:inline-block;padding:12px 18px;font:700 14px/1 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:#ffffff;text-decoration:none;border-radius:10px;}
+      .kpi{width:100%;border:1px solid #E8E6DC;border-radius:12px;padding:14px 14px;}
+      .kpi .label{font:600 12px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:#5E5D59;}
+      .kpi .value{font:700 14px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;color:#141413;}
+      .footer{background:#ffffff;color:#141413;padding:30px 24px;text-align:center;font:400 14px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,Helvetica,sans-serif;border-top:1px solid #E8E6DC;}
+      .footer a{color:#141413;text-decoration:underline;margin:0 5px;}
+      .social-row{margin-top:14px;}
+      .social-cell{width:44px;height:44px;border-radius:999px;background:#D97757;line-height:0;font-size:0;}
+      .footer a.social-link{display:block;width:44px;height:32px;padding-top:12px;margin:0;line-height:0;font-size:0;text-decoration:none;}
+      .social-svg{display:block;width:20px;height:20px;margin:0 auto;}
+      @media (max-width:520px){.p{padding:22px 16px;}.h1{font-size:22px;}}
+      {% block extra_css %}{% endblock %}
+      @media (prefers-color-scheme: dark){
+        html,body,.container{background:#141413 !important;}
+        .card,.footer{background:#1F1E1D !important;border-color:#3A3936 !important;}
+        .divider{background:#3A3936 !important;}
+        .h1,.h2,.text strong,.footer,.footer a{color:#FAF9F5 !important;}
+        .text{color:#B8B6AC !important;}
+        .kpi{border-color:#3A3936 !important;}
+        .kpi .label{color:#B8B6AC !important;}
+        .kpi .value{color:#FAF9F5 !important;}
+        .btn-outline{background:#1F1E1D !important;color:#FAF9F5 !important;border-color:#3A3936 !important;}
+        .code-box{background:#10281A !important;border-color:#166534 !important;color:#86EFAC !important;}
+        .warn{background:#1F1E1D !important;color:#B8B6AC !important;}
+        .list li{color:#B8B6AC !important;}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preheader">{% block preheader %}{% endblock %}</div>
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" class="container">
+      <tr><td align="center">
+        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" class="card">
+          {% block hero %}{% endblock %}
+          <!-- HEADER -->
+          <tr><td class="p" style="padding-bottom:18px;">
+            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
+              <tr>
+                <td align="left" style="vertical-align:middle;">
+                  <a href="{{ site_url }}" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ site_url }}/logo.webp" alt="Ordinaly" height="34" style="height:34px;width:auto;" />
+                  </a>
+                </td>
+              </tr>
+            </table>
+            <div style="height:16px;"></div>
+            <h1 class="h1">{% block headline %}{% endblock %}</h1>
+            <p class="text" style="margin-top:8px;">
+              {% block intro %}{% endblock %}
+            </p>
+          </td></tr>
+          <tr><td class="divider"></td></tr>
+          <!-- BODY -->
+          <tr><td class="p">
+            {% block body %}{% endblock %}
+            <div style="height:18px;"></div>
+            <p class="text small">
+              Si necesitas ayuda, escribe a <a href="mailto:{{ contact_email }}" style="text-decoration:underline;">{{ contact_email }}</a>.
+            </p>
+          </td></tr>
+          <!-- FOOTER -->
+          <tr><td class="footer">
+            <p style="margin:0;font-weight:700;">ORDINALY SOFTWARE</p>
+            <p style="margin:8px 0 0;">Automatización empresarial e IA desde Sevilla para el mundo</p>
+            <p style="margin:14px 0 0;">
+              <a href="{{ site_url }}" target="_blank" rel="noopener noreferrer">Sitio web</a> |
+              <a href="{{ site_url }}/contacto" target="_blank" rel="noopener noreferrer">Contacto</a> |
+              <a href="{{ site_url }}/blog" target="_blank" rel="noopener noreferrer">Blog</a>
+            </p>
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" class="social-row">
+              <tr>
+                <td class="social-cell" style="border-radius:999px;" width="44" height="44" align="center" valign="middle">
+                  <a class="social-link" href="https://www.linkedin.com/company/ordinalysoftware" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn">
+                    <!--[if mso]><span style="color:#fff;font-family:Arial;font-size:12px;">in</span><![endif]-->
+                    <!--[if !mso]><!-- -->
+                    <svg class="social-svg" fill="white" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    <!--<![endif]-->
+                  </a>
+                </td>
+                <td width="12" style="width:12px;font-size:0;line-height:0;">&nbsp;</td>
+                <td class="social-cell" style="border-radius:999px;" width="44" height="44" align="center" valign="middle">
+                  <a class="social-link" href="https://www.instagram.com/ordinaly.ai/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+                    <!--[if mso]><span style="color:#fff;font-family:Arial;font-size:12px;">ig</span><![endif]-->
+                    <!--[if !mso]><!-- -->
+                    <svg class="social-svg" fill="white" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                    <!--<![endif]-->
+                  </a>
+                </td>
+                <td width="12" style="width:12px;font-size:0;line-height:0;">&nbsp;</td>
+                <td class="social-cell" style="border-radius:999px;" width="44" height="44" align="center" valign="middle">
+                  <a class="social-link" href="https://www.youtube.com/@ordinaly" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube">
+                    <!--[if mso]><span style="color:#fff;font-family:Arial;font-size:12px;">yt</span><![endif]-->
+                    <!--[if !mso]><!-- -->
+                    <svg class="social-svg" fill="white" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.016 3.016 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.121 2.136C4.495 20.455 12 20.455 12 20.455s7.505 0 9.377-.505a3.016 3.016 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    <!--<![endif]-->
+                  </a>
+                </td>
+              </tr>
+            </table>
+            <p style="margin:14px 0 0;">&copy; {{ year }} Ordinaly Software. Todos los derechos reservados.</p>
+            <p style="margin:10px 0 0;">
+              <a href="mailto:{{ contact_email }}">{{ contact_email }}</a>
+            </p>
+          </td></tr>
+        </table>
+      </td></tr>
+    </table>
+  </body>
+</html>

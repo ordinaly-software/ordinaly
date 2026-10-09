@@ -9,7 +9,6 @@ import { NewsletterBanner } from "@/components/ui/newsletter-banner";
 import Banner from '@/components/ui/banner';
 import { Button } from "@/components/ui/button";
 import CourseCard from "@/components/formation/course-card";
-import { Carousel } from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
 import Alert from "@/components/ui/alert";
 import AuthModal from "@/components/auth/auth-modal";
@@ -54,12 +53,14 @@ interface FormationPageClientProps {
   initialCourseSlug?: string;
 }
 
+// Multiple of 1, 2 and 3 so the grid always ends on a full row.
+const COURSES_PAGE_SIZE = 6;
+
 export default function FormationPageClient({ initialCourseSlug }: FormationPageClientProps) {
   const t = useTranslations("formation");
   const [courses, setCourses] = useState<Course[]>([]);
   const [filteredCourses, setFilteredCourses] = useState<Course[]>([]);
-  const [pastCourses, setPastCourses] = useState<Course[]>([]);
-  const [showPastCourses, setShowPastCourses] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(COURSES_PAGE_SIZE);
   const [enrollments, setEnrollments] = useState<Enrollment[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterLocation, setFilterLocation] = useState<'all' | 'online' | 'onsite'>('all');
@@ -132,31 +133,19 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
   }, [fetchCourses]);
 
   useEffect(() => {
-    const now = new Date();
     // Helper to get Date from date+time
     const getDateTime = (dateStr: string, timeStr: string): Date | null => {
       if (!dateStr || dateStr === "0000-00-00" || !timeStr) return null;
       return new Date(`${dateStr}T${timeStr}`);
     };
 
-    // Only finished courses go to past
-    const past = courses.filter(course => {
-      const end = getDateTime(course.end_date, course.end_time);
-      return end && end < now;
-    });
-
-    // All others (not finished) are main/upcoming
-    const upcoming = courses.filter(course => {
-      const end = getDateTime(course.end_date, course.end_time);
-      return !(end && end < now);
-    });
-
-    upcoming.sort((a, b) => new Date(a.start_date).getTime() - new Date(b.start_date).getTime());
-    past.sort((a, b) => new Date(b.start_date).getTime() - new Date(a.start_date).getTime());
-
-    setPastCourses(past);
-
-    let filtered = upcoming;
+    // Past and upcoming courses share one list, always newest first
+    // (courses without a valid start date go last).
+    const startTime = (course: Course) => {
+      const date = getDateTime(course.start_date, course.start_time || "00:00");
+      return date ? date.getTime() : -Infinity;
+    };
+    let filtered = [...courses].sort((a, b) => startTime(b) - startTime(a));
 
     if (searchTerm) {
       filtered = filtered.filter(course =>
@@ -185,6 +174,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
     }
 
     setFilteredCourses(filtered);
+    setVisibleCount(COURSES_PAGE_SIZE);
   }, [courses, searchTerm, filterLocation, filterPrice, t]);
 
   const fetchEnrollments = async () => {
@@ -493,27 +483,33 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
               </p>
             </div>
           ) : (
-            <Carousel
-              items={filteredCourses}
-              getKey={(course) => course.id}
-              autoplay={filteredCourses.length > 1}
-              prevLabel={t("carouselPrevious")}
-              nextLabel={t("carouselNext")}
-              renderItem={(course) => {
-                // Compute unenroll restriction
-                let disableUnenroll = false;
-                let unenrollRestrictionReason: string | null = null;
-                const now = new Date();
-                const startDateTime = course.start_date && course.start_time
-                  ? new Date(`${course.start_date}T${course.start_time}`)
-                  : null;
-                const endDateTime = course.end_date && course.end_time
-                  ? new Date(`${course.end_date}T${course.end_time}`)
-                  : null;
-                if (isEnrolled(course.id)) {
-                  if (startDateTime) {
-                    const diffMs = startDateTime.getTime() - now.getTime();
-                    const diffHours = diffMs / (1000 * 60 * 60);
+            <>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                {filteredCourses.slice(0, visibleCount).map((course) => {
+                  const now = new Date();
+                  const startDateTime = course.start_date && course.start_time
+                    ? new Date(`${course.start_date}T${course.start_time}`)
+                    : null;
+                  const endDateTime = course.end_date && course.end_time
+                    ? new Date(`${course.end_date}T${course.end_time}`)
+                    : null;
+
+                  if (endDateTime && endDateTime < now) {
+                    return (
+                      <CourseCard
+                        key={course.id}
+                        course={course}
+                        variant="past"
+                        onViewDetails={() => handleViewDetails(course)}
+                      />
+                    );
+                  }
+
+                  // Compute unenroll restriction
+                  let disableUnenroll = false;
+                  let unenrollRestrictionReason: string | null = null;
+                  if (isEnrolled(course.id) && startDateTime) {
+                    const diffHours = (startDateTime.getTime() - now.getTime()) / (1000 * 60 * 60);
                     if (diffHours <= 24 && diffHours > 0) {
                       disableUnenroll = true;
                       unenrollRestrictionReason = t('alerts.unenroll24hRestriction');
@@ -522,86 +518,42 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                       unenrollRestrictionReason = t('alerts.unenrollStartedRestriction');
                     }
                   }
-                  if (endDateTime && endDateTime < now) {
-                    disableUnenroll = true;
-                    unenrollRestrictionReason = t('alerts.unenrollEndedRestriction');
-                  }
-                }
-                const highlightUpcoming = !!(startDateTime && startDateTime > now);
-                const inProgress = !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
-                return (
-                  <CourseCard
-                    course={course}
-                    variant="upcoming"
-                    enrolled={isEnrolled(course.id)}
-                    onEnroll={() => handleEnrollCourse(course)}
-                    onCancel={() => handleCancelEnrollment(course.id)}
-                    onViewDetails={() => handleViewDetails(course)}
-                    disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
-                    disableUnenroll={disableUnenroll}
-                    unenrollRestrictionReason={unenrollRestrictionReason}
-                    highlightUpcoming={highlightUpcoming}
-                    inProgress={inProgress}
-                  />
-                );
-              }}
-            />
+                  const highlightUpcoming = !!(startDateTime && startDateTime > now);
+                  const inProgress = !!(startDateTime && endDateTime && startDateTime <= now && endDateTime > now);
+                  return (
+                    <CourseCard
+                      key={course.id}
+                      course={course}
+                      variant="upcoming"
+                      enrolled={isEnrolled(course.id)}
+                      onEnroll={() => handleEnrollCourse(course)}
+                      onCancel={() => handleCancelEnrollment(course.id)}
+                      onViewDetails={() => handleViewDetails(course)}
+                      disableEnroll={!course.start_date || course.start_date === "0000-00-00" || !course.end_date || course.end_date === "0000-00-00" || !course.start_time || !course.end_time}
+                      disableUnenroll={disableUnenroll}
+                      unenrollRestrictionReason={unenrollRestrictionReason}
+                      highlightUpcoming={highlightUpcoming}
+                      inProgress={inProgress}
+                    />
+                  );
+                })}
+              </div>
+              {visibleCount < filteredCourses.length && (
+                <div className="mt-10 text-center">
+                  <Button
+                    onClick={() => setVisibleCount((count) => count + COURSES_PAGE_SIZE)}
+                    variant="outline"
+                    className="border-cobalt dark:border-cobalt-light text-cobalt dark:text-cobalt-light hover:bg-cobalt-dark dark:hover:bg-cobalt-light/20 hover:text-white transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2 mx-auto"
+                  >
+                    <ChevronDown className="w-5 h-5" />
+                    {t("showMoreCourses")}
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
-
-      {pastCourses.length > 0 && (
-        <section
-          className={`px-4 sm:px-6 lg:px-8 bg-white dark:bg-white ${
-            showPastCourses ? "py-16" : "py-8"
-          }`}
-        >
-          <div className="max-w-7xl mx-auto">
-            <div className={`text-center ${showPastCourses ? "mb-8" : ""}`}>
-              <Button
-                onClick={() => setShowPastCourses(!showPastCourses)}
-                variant="outline"
-                className="border-cobalt dark:border-cobalt-light text-cobalt dark:text-cobalt-light hover:bg-cobalt-dark dark:hover:bg-cobalt-light/20 hover:text-white dark:hover:text-back transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2"
-              >
-                {showPastCourses ? (
-                  <>
-                    <ChevronDown className="w-5 h-5" />
-                    {t("hidePastCourses")}
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown className="w-5 h-5 rotate-180" />
-                    {t("viewPastCourses")} ({pastCourses.length})
-                  </>
-                )}
-              </Button>
-            </div>
-
-            {showPastCourses && (
-              <>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-                  {t("pastCourses")}
-                </h3>
-                <Carousel
-                  items={pastCourses}
-                  getKey={(course) => course.id}
-                  autoplay={pastCourses.length > 1}
-                  prevLabel={t("carouselPrevious")}
-                  nextLabel={t("carouselNext")}
-                  className="max-w-6xl mx-auto"
-                  renderItem={(course) => (
-                    <CourseCard
-                      course={course}
-                      variant="past"
-                      onViewDetails={() => handleViewDetails(course)}
-                    />
-                  )}
-                />
-              </>
-            )}
-          </div>
-        </section>
-      )}
 
       <InstructorsSection
         title={t("instructors.title")}

@@ -22,13 +22,6 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 if not SECRET_KEY:
     raise Exception("DJANGO_SECRET_KEY is not set!")
 
-BILLIONMAIL_GROUP_ID_NEWSLETTER = os.getenv('BILLIONMAIL_GROUP_ID_NEWSLETTER')
-BILLIONMAIL_API_KEY = os.getenv('BILLIONMAIL_API_KEY')
-# EMAIL-Service
-BILLIONMAIL_API_KEY = os.getenv("BILLIONMAIL_API_KEY")
-BILLIONMAIL_BASE_URL = os.getenv("BILLIONMAIL_BASE_URL")
-BILLIONMAIL_SENDER = os.getenv("BILLIONMAIL_SENDER")
-
 EMAIL_OTP_TTL_MINUTES = int(os.getenv("EMAIL_OTP_TTL_MINUTES", 15))
 EMAIL_OTP_MAX_ATTEMPTS = int(os.getenv("EMAIL_OTP_MAX_ATTEMPTS", 5))
 EMAIL_OTP_RESEND_COOLDOWN_SECONDS = int(os.getenv("EMAIL_OTP_RESEND_COOLDOWN_SECONDS", 60))
@@ -36,6 +29,36 @@ EMAIL_OTP_RESEND_COOLDOWN_SECONDS = int(os.getenv("EMAIL_OTP_RESEND_COOLDOWN_SEC
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG') == 'True'
+
+# Email (Django mail framework). EMAIL_BACKEND wins if set; otherwise it is picked
+# from the credentials present: GMAIL_API_REFRESH_TOKEN -> Gmail API over OAuth2
+# (production: Google blocks SMTP AUTH from VPS IPs), EMAIL_HOST_USER -> SMTP
+# (development), neither -> console.
+GMAIL_API_REFRESH_TOKEN = os.getenv("GMAIL_API_REFRESH_TOKEN", "")
+if os.getenv("EMAIL_BACKEND"):
+    EMAIL_BACKEND = os.environ["EMAIL_BACKEND"]
+elif GMAIL_API_REFRESH_TOKEN:
+    EMAIL_BACKEND = "config.email_backends.GmailApiEmailBackend"
+elif os.getenv("EMAIL_HOST_USER"):
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_HOST = os.getenv("EMAIL_HOST", "localhost")
+EMAIL_PORT = int(os.getenv("EMAIL_PORT", 587))
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", "")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD", "")
+# STARTTLS (587) and implicit SSL (465) are mutually exclusive.
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS", "True") == "True"
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", "False") == "True"
+EMAIL_TIMEOUT = int(os.getenv("EMAIL_TIMEOUT", 10))
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "Ordinaly <no-reply@ordinaly.ai>")
+CONTACT_EMAIL = os.getenv("CONTACT_EMAIL", "info@ordinaly.ai")
+# GmailApiEmailBackend reuses the Google login OAuth client.
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
+GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET", "")
+
+FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL", "http://localhost:3000")
+BACKEND_BASE_URL = os.getenv("BACKEND_BASE_URL", os.getenv("NEXT_PUBLIC_API_URL", "https://api.ordinaly.ai"))
 
 ALLOWED_HOSTS = ['api.ordinaly.ai', 'localhost', '127.0.0.1', '.ngrok-free.app']
 # ALLOWED_HOSTS += [''[...].ngrok-free.app']
@@ -78,7 +101,8 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # Transactional email templates (templates/emails/), see users/services/mail.py
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

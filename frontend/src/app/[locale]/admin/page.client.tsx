@@ -419,25 +419,6 @@ export default function AdminPage() {
             />
           </motion.div>
         );
-      case 'mail':
-        return (
-          <motion.div
-            key="mail"
-            variants={tabVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-          >
-            <AdminExternalTab
-              title={t("externalTabs.mail.title")}
-              description={t("externalTabs.mail.description")}
-              buttonLabel={t("externalTabs.mail.button")}
-              warning={t("externalTabs.mail.warning")}
-              href="https://mail.ordinaly.ai/billion"
-              accentColor="var(--swatch--cobalt)"
-            />
-          </motion.div>
-        );
       default:
         return null;
     }

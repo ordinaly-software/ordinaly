@@ -339,6 +339,41 @@ docker compose up --build
 
 Abre http://localhost:3000 (web) y http://localhost:8000 (API).
 
+**Correo:** todas las notificaciones se envían con el framework de correo de Django (`users/services/mail.py`, plantillas en `backend/templates/emails/`). El mismo código usa un backend u otro según lo que haya en `backend/.env` (si defines `EMAIL_BACKEND`, manda ese):
+- **Desarrollo (SMTP real):** define `EMAIL_HOST_USER`, `EMAIL_HOST_PASSWORD` (contraseña de aplicación de Google), `EMAIL_HOST`, `EMAIL_PORT`, `EMAIL_USE_TLS` y `DEFAULT_FROM_EMAIL`. Sin credenciales, los correos se imprimen en la consola.
+- **Producción (API de Gmail):** si existe `GMAIL_API_REFRESH_TOKEN` se usa `config.email_backends.GmailApiEmailBackend` (HTTPS + OAuth2, sin SMTP; reutiliza `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET`). No pongas `EMAIL_BACKEND` en el `.env` del servidor.
+
+Google bloquea el SMTP con contraseña desde IPs de VPS, de ahí la API en producción. Para obtener el token, una sola vez:
+1. En Google Cloud Console habilita la **Gmail API** y añade `http://localhost:8090/` como URI de redirección del cliente OAuth.
+2. En local: `cd backend && python manage.py setup_gmail_send_token` e inicia sesión con la cuenta remitente.
+3. En el `.env` del servidor: `GMAIL_API_REFRESH_TOKEN=<token impreso>` y `DEFAULT_FROM_EMAIL=<la misma cuenta>` (Gmail solo permite otro `From` si está verificado como alias "Enviar correo como").
+
+**Probar los correos:** hay 11 plantillas (verificación, bienvenida, restablecer contraseña, contraseña restablecida, correo actualizado, eliminación de cuenta, inscripción, cancelación, nueva formación, empieza pronto y recordatorio 24h). Para enviar todas a tu bandeja sin recorrer cada flujo (requiere al menos un curso en la BD; los enlaces de contraseña y eliminación llevan un token de ejemplo):
+
+```sh
+docker compose exec backend python manage.py shell -c "
+from users.services import email_service as es
+from courses.models import Course
+to = 'tu-correo@ejemplo.com'
+c = Course.objects.first()
+es.send_verification_email(to, '123456')
+es.send_welcome_email(to, 'Nombre')
+es.send_password_reset_email(to, 'tok123', 'Nombre')
+es.send_password_reset_completed_email(to, 'Nombre')
+es.send_email_updated_email(to, 'Nombre', 'viejo@ejemplo.com', to)
+es.send_delete_confirmation_email(to, 'tok123', 'Nombre')
+es.send_enrollment_confirmation_email(to, 'Nombre', c)
+es.send_unenrollment_confirmation_email(to, 'Nombre', c)
+es.send_course_published_email(to, 'Nombre', c)
+es.send_course_starts_soon_email(to, 'Nombre', c, '2026-10-20T10:00:00+02:00', 7)
+es.send_course_reminder_email(to, 'Nombre', c, '2026-10-20T10:00:00+02:00', 24)
+"
+```
+
+Los avisos "empieza pronto" y "recordatorio 24h" los genera `python manage.py run_email_notification_queue` cuando faltan ~7 días / ~24 h para una sesión de un curso en el que estás inscrito.
+
+No hace falta Celery ni otro worker: los correos inmediatos se envían dentro de la petición. Lo único periódico es `python manage.py run_email_notification_queue`, que encola los recordatorios de cursos y reintenta los envíos fallidos; debe ejecutarse cada minuto (cron o timer de systemd) en el servidor.
+
 **Comandos útiles:**
 
 ```sh
@@ -370,7 +405,7 @@ docker compose down -v                                        # parar y borrar B
     # Copia y configura tu propio .env (no hay plantilla .env.example en backend/ todavía)
     # Variables mínimas: DJANGO_SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REDIRECT_URI,
     # ORDINALY_TEST_PASSWORD (protege formularios en tests), DATABASE_URL.
-    # Además hay variables opcionales para email (EMAIL_*, BILLIONMAIL_*), Stripe (STRIPE_*) y URLs (FRONTEND_BASE_URL, BACKEND_BASE_URL) — revisa config/settings.py.
+    # Además hay variables opcionales para email (EMAIL_*, DEFAULT_FROM_EMAIL), Stripe (STRIPE_*) y URLs (FRONTEND_BASE_URL, BACKEND_BASE_URL) — revisa config/settings.py.
     # Asegúrate de tener PostgreSQL instalado y la BD creada (ver "Configurar PostgreSQL" más arriba)
     # Migraciones iniciales
     python manage.py migrate

@@ -1,0 +1,7 @@
+{% extends "emails/base.txt" %}{% block content %}Hola {{ user_name }},
+
+Faltan {{ hours_before }} horas para la próxima sesión de "{{ course.title }}".
+
+Inicio de la sesión: {{ session_text }}
+Ubicación: {{ course.location|default:"Por confirmar" }}
+Detalles: {{ course_url }}{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "emails/base.txt" %}{% block content %}Hola {{ user_name }},
+
+"{{ course.title }}" empieza en {{ days_before }} días o menos.
+
+Inicio previsto: {{ session_text }}
+Ver curso: {{ course_url }}{% endblock %}

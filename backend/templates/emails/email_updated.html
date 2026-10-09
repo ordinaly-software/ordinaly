@@ -1,0 +1,13 @@
+{% extends "emails/base.html" %}
+{% block title %}Correo actualizado - Ordinaly{% endblock %}
+{% block preheader %}El correo principal de tu cuenta de Ordinaly se ha actualizado.{% endblock %}
+{% block headline %}Tu correo se ha actualizado{% endblock %}
+{% block intro %}Hola {{ user_name }}, el correo principal de tu cuenta de Ordinaly se ha cambiado correctamente.{% endblock %}
+{% block body %}
+<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" class="kpi">
+  <tr><td style="padding:6px 0;"><div class="label">Correo anterior</div><div class="value">{{ previous_email }}</div></td></tr>
+  <tr><td style="padding:6px 0;"><div class="label">Correo nuevo</div><div class="value">{{ new_email }}</div></td></tr>
+</table>
+<div style="height:16px;"></div>
+<p class="text small">Si no has realizado este cambio, contacta con nosotros cuanto antes.</p>
+{% endblock %}

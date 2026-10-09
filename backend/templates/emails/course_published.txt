@@ -1,0 +1,5 @@
+{% extends "emails/base.txt" %}{% block content %}Hola {{ user_name }},
+
+Ya está disponible una nueva formación en Ordinaly: "{{ course.title }}".
+
+Consulta todos los detalles en {{ course_url }}{% endblock %}

@@ -1,0 +1,8 @@
+{% autoescape off %}{% block content %}{% endblock %}
+
+Si necesitas ayuda, escribe a {{ contact_email }}.
+
+--
+ORDINALY SOFTWARE
+{{ site_url }}
+{% endautoescape %}
