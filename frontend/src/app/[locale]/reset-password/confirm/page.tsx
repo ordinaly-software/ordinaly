@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { KeyRound, Lock, Eye, EyeOff, CheckCircle2, XCircle, ArrowLeft } from "lucide-react";
+import { localizeApiError } from "@/lib/api-errors";
 
 function StatusPage({
   icon,
@@ -82,6 +83,7 @@ function StatusPage({
 export default function ResetPasswordConfirmPage() {
   const t = useTranslations("resetPassword");
   const tCommon = useTranslations("common");
+  const tApi = useTranslations("apiErrors");
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
 
@@ -164,7 +166,7 @@ export default function ResetPasswordConfirmPage() {
       } else {
         const data = await response.json().catch(() => ({}));
         if (data.error) {
-          setError(data.error);
+          setError(localizeApiError(data.error, tApi));
         } else {
           setStatus("error");
         }

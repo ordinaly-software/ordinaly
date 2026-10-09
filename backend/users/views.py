@@ -179,7 +179,7 @@ class UserViewSet(viewsets.ModelViewSet):
             except Exception:
                 logger.exception("Failed to send verification email for pending email change on user %s", user.pk)
                 return Response(
-                    {"email": ["No se pudo enviar el correo de verificación"]},
+                    {"email": ["Could not send the verification email"]},
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR,
                 )
 

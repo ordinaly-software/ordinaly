@@ -1966,7 +1966,7 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         url = reverse('course-unenroll', kwargs={'slug': course.slug})
         resp = self.client.post(url)
         self.assertEqual(resp.status_code, 400)
-        self.assertIn('No puedes cancelar la inscripción', resp.data['detail'])
+        self.assertIn('You cannot cancel the enrollment', resp.data['detail'])
 
     def test_cannot_unenroll_after_end(self):
         now = timezone.now()
@@ -1980,7 +1980,7 @@ class UnenrollRestrictionTest(APITestCase, TestUserCourseEnrollmentMixin):
         url = reverse('course-unenroll', kwargs={'slug': course.slug})
         resp = self.client.post(url)
         self.assertEqual(resp.status_code, 400)
-        self.assertIn('finalizado', resp.data['detail'])
+        self.assertIn('ended', resp.data['detail'])
 
 
 def make_test_image(name: str = "test.png"):

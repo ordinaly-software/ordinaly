@@ -494,7 +494,7 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <div className="hidden xl:flex items-center justify-end flex-1 gap-2 min-w-0">
+            <div className="hidden xl:flex items-center justify-center flex-1 gap-2 min-w-0">
               <HoverMenu setActive={setActiveMegaItem}>
                 {navItems.map((item) =>
                   item.type === "mega" ? (

@@ -95,7 +95,7 @@ const AdminUsersTab = () => {
   const handleSendMail = () => {
     const selectedEmails = filteredAndSortedUsers.filter(u => selectedUsers.includes(u.id)).map(u => u.email);
     if (selectedEmails.length === 0) return;
-    const mailto = `mailto:?bcc=${encodeURIComponent(selectedEmails.join(","))}&subject=Ordinaly%20Diffusion&body=Dear%20users,%0D%0A%0D%0A`;
+    const mailto = `mailto:?bcc=${encodeURIComponent(selectedEmails.join(","))}&subject=${encodeURIComponent(t('mailSubject'))}&body=${encodeURIComponent(`${t('mailGreeting')}\r\n\r\n`)}`;
     window.location.href = mailto;
   };
 

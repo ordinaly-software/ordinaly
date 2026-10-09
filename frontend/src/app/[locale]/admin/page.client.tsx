@@ -535,14 +535,12 @@ export default function AdminPage() {
           </p>
         </div>
 
-        {/* Tabs */}
-        <div className="mb-8">
-          <AdminTabs
-            tabs={tabs}
-            activeTab={activeTab}
-            onTabChange={(tabId: string) => handleTabChange(tabId as TabType)}
-          />
-        </div>
+        {/* Tabs: sticky, so this must be a direct child of the page container (a wrapper as tall as the bar leaves it no room to stick). */}
+        <AdminTabs
+          tabs={tabs}
+          activeTab={activeTab}
+          onTabChange={(tabId: string) => handleTabChange(tabId as TabType)}
+        />
 
         {/* Tab Content */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 overflow-hidden">

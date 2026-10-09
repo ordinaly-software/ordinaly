@@ -207,7 +207,7 @@ class VerifyEmailView(generics.GenericAPIView):
     def post(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        return Response({"detail": "Correo verificado correctamente"})
+        return Response({"detail": "Email verified successfully"})
 
 
 class SignupView(generics.GenericAPIView):
@@ -262,7 +262,7 @@ class ResendVerificationView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"detail": "Si la cuenta existe, se ha enviado un nuevo código"})
+        return Response({"detail": "If the account exists, a new code has been sent"})
 
 
 class ChangeEmailUnverifiedView(generics.GenericAPIView):
@@ -273,7 +273,7 @@ class ChangeEmailUnverifiedView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response({"detail": "Email actualizado. Revisa tu bandeja para el nuevo código."})
+        return Response({"detail": "Email updated. Check your inbox for the new code."})
 
 
 class RequestDeleteAccountView(APIView):
@@ -296,11 +296,11 @@ class RequestDeleteAccountView(APIView):
         except Exception:
             # print(f"Failed to send delete confirmation email: {e}")
             return Response(
-                {"error": "No se pudo enviar el correo de confirmación"},
+                {"error": "Could not send the confirmation email"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-        return Response({"message": "Correo enviado"}, status=status.HTTP_200_OK)
+        return Response({"message": "Email sent"}, status=status.HTTP_200_OK)
 
 
 class ConfirmDeleteAccountView(APIView):
@@ -311,7 +311,7 @@ class ConfirmDeleteAccountView(APIView):
         token = request.data.get("token")
 
         if not token:
-            return Response({"error": "Token requerido"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Token required"}, status=status.HTTP_400_BAD_REQUEST)
 
         token_hash = hashlib.sha256(token.encode()).hexdigest()
 
@@ -319,13 +319,13 @@ class ConfirmDeleteAccountView(APIView):
         user = user_model.objects.filter(deletion_token_hash=token_hash).first()
 
         if not user:
-            return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
 
         if not user.deletion_token_expires_at or timezone.now() > user.deletion_token_expires_at:
-            return Response({"error": "Token expirado"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Token expired"}, status=status.HTTP_400_BAD_REQUEST)
 
         user.delete()
-        return Response({"message": "Cuenta eliminada"}, status=status.HTTP_200_OK)
+        return Response({"message": "Account deleted"}, status=status.HTTP_200_OK)
 
 
 request_delete_account = RequestDeleteAccountView.as_view()
@@ -338,7 +338,7 @@ class RequestPasswordResetView(APIView):
 
     def post(self, request):
         email = request.data.get("email")
-        generic_msg = "Si la cuenta existe, se ha enviado un correo"
+        generic_msg = "If the account exists, an email has been sent"
 
         if not email:
             return Response({"message": generic_msg}, status=status.HTTP_200_OK)
@@ -373,13 +373,13 @@ class ConfirmPasswordResetView(APIView):
 
         if not token or not new_password:
             return Response(
-                {"error": "Token y nueva contraseña son requeridos"},
+                {"error": "Token and new password are required"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         if len(new_password) < 8:
             return Response(
-                {"error": "La contraseña debe tener al menos 8 caracteres"},
+                {"error": "Password must be at least 8 characters long"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -388,10 +388,10 @@ class ConfirmPasswordResetView(APIView):
         user = user_model.objects.filter(password_reset_token_hash=token_hash).first()
 
         if not user:
-            return Response({"error": "Token inválido"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Invalid token"}, status=status.HTTP_400_BAD_REQUEST)
 
         if not user.password_reset_token_expires_at or timezone.now() > user.password_reset_token_expires_at:
-            return Response({"error": "Token expirado"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error": "Token expired"}, status=status.HTTP_400_BAD_REQUEST)
 
         user.set_password(new_password)
         user.password_reset_token_hash = ""
@@ -402,7 +402,7 @@ class ConfirmPasswordResetView(APIView):
         except Exception:
             pass
 
-        return Response({"message": "Contraseña actualizada correctamente"}, status=status.HTTP_200_OK)
+        return Response({"message": "Password updated successfully"}, status=status.HTTP_200_OK)
 
 
 request_password_reset = RequestPasswordResetView.as_view()

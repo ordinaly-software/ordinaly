@@ -11,9 +11,11 @@ import {
   parseCooldownSeconds,
   setEmailCooldown,
 } from "@/lib/email-confirmation";
+import { localizeApiError } from "@/lib/api-errors";
 
 export default function EmailSent() {
   const t = useTranslations("deleteAccountEmailSent");
+  const tApi = useTranslations("apiErrors");
   const params = useParams<{ locale?: string | string[] }>();
   const router = useRouter();
   const [allowed, setAllowed] = useState(false);
@@ -70,7 +72,7 @@ export default function EmailSent() {
           return;
         }
 
-        setResendError(apiMessage);
+        setResendError(localizeApiError(apiMessage, tApi));
         return;
       }
 

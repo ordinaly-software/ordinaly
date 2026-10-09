@@ -61,7 +61,7 @@ class EmailVerificationRequiredMiddleware:
         return JsonResponse(
             {
                 "code": "email_not_verified",
-                "detail": "Tu cuenta aún no está verificada.",
+                "detail": "Your account is not verified yet.",
                 "email": user.email,
             },
             status=403,

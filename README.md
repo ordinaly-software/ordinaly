@@ -26,6 +26,7 @@
 - [Estructura del proyecto](#estructura-del-proyecto)
   - [Índice del proyecto](#índice-del-proyecto)
 - [Características principales](#características-principales)
+- [Internacionalización: qué está traducido y qué no](#internacionalización-qué-está-traducido-y-qué-no)
 - [Primeros pasos](#primeros-pasos)
   - [Requisitos previos](#requisitos-previos)
   - [Configurar PostgreSQL](#configurar-postgresql)
@@ -243,7 +244,7 @@ ordinaly/
 
 - **Backend Django REST:** API robusta para cursos, usuarios, servicios y autenticación.
 - **Frontend Next.js:** UI moderna, responsive, con soporte para dark mode y animaciones 3D.
-- **Internacionalización (i18n):** Traducciones completas (es, en) usando next-intl.
+- **Internacionalización (i18n):** Interfaz traducida (es, en) con next-intl. Los correos, la newsletter y el contenido de cursos y blog **no** están traducidos: ver [Internacionalización](#internacionalización-qué-está-traducido-y-qué-no).
 - **Autenticación completa:** Registro, verificación de email, cambio de email, recuperación de contraseña y OAuth con Google.
 - **Gestión de cursos:** Horarios complejos, inscripciones, exportación a calendario (.ics, Google, Outlook) y pagos con Stripe.
 - **Panel de administración:** Gestión avanzada de usuarios, cursos y servicios.
@@ -251,6 +252,30 @@ ordinaly/
 - **Landing pages SEO:** Páginas optimizadas para búsquedas de IA y automatización en Sevilla.
 - **Integración con WhatsApp y Odoo:** Automatización de ventas y flujos empresariales.
 - **Accesibilidad y SEO:** Buenas prácticas, sitemap, robots.txt, imágenes optimizadas.
+
+
+---
+
+## Internacionalización: qué está traducido y qué no
+
+El idioma por defecto es el español (sin prefijo: `/servicios`) y el inglés vive bajo `/en` (`/en/servicios`). Las cadenas de la interfaz están en `frontend/messages/es.json` y `frontend/messages/en.json`; hay que mantener ambos ficheros con las mismas claves.
+
+**Traducido (es / en):**
+- La interfaz del frontend: páginas, navegación, formularios, panel de administración y mensajes de error de los formularios.
+- Los textos legales (términos, privacidad, cookies, licencia) y los PDF que se generan con ellos, el aviso de cookies y las FAQ.
+- El banner de la newsletter y las páginas de confirmación y baja de la newsletter.
+- Los metadatos SEO de las páginas.
+
+**Convención:** todo texto interno del backend (respuestas y errores de la API, validaciones, `help_text` de los modelos y el Django admin) va **siempre en inglés** y nunca se traduce. Cuando el frontend muestra un mensaje que viene de la API, lo traduce con `localizeApiError` (`frontend/src/lib/api-errors.ts`), que asocia cada mensaje en inglés a una clave del bloque `apiErrors` de `messages/*.json`. Si añades un mensaje nuevo que el usuario pueda llegar a ver, añádelo a ese diccionario y a las dos traducciones. El test `backend/api/test_conventions.py` falla si aparece español en el código del backend (los asuntos de los correos y los datos de ejemplo de `populate_db` están exentos).
+
+**NO traducido (solo español):**
+
+| Qué | Detalle |
+|---|---|
+| **Correos electrónicos** | Todas las plantillas (`backend/templates/emails/`) y sus asuntos (`backend/users/services/email_service.py`) están solo en español: verificación de cuenta, bienvenida, cambio de email, restablecer contraseña, eliminación de cuenta, inscripción y cancelación, nueva formación, "empieza pronto", recordatorio de 24 h y confirmación de la newsletter. Las fechas llevan el formato fijo `dd/mm/aaaa a las HH:MM`. El usuario no tiene un campo de idioma, así que el backend no sabe en cuál escribirle. |
+| **Newsletter** | El contenido lo escribe quien administra, y el pie de la plantilla (`emails/newsletter.html`, "Recibes este correo porque…", "Darme de baja") está en español. Hay una única lista: quien se suscribe desde `/en` recibe lo mismo que quien lo hace desde `/`. La etiqueta `[PRUEBA]` del envío de prueba también está fija en español. |
+| **Cursos y servicios** | Título, subtítulo, descripción y lugar se guardan en la base de datos en un solo idioma (el que escribe el admin) y se muestran igual en `/en`. Lo mismo ocurre con lo que se deriva de ellos: nombre y descripción en Stripe Checkout, correos de curso y archivos de calendario (.ics, Google, Outlook). |
+| **Blog** | Solo en español: `/en/blog` devuelve 404 y el enlace se oculta en la navbar en inglés. El contenido de Sanity (blog y noticias) no tiene traducción por documento. |
 
 
 ---

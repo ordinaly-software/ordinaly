@@ -29,6 +29,7 @@ export default function OAuthCallbackPage() {
 
     if (token) {
       localStorage.setItem("auth_token", token);
+      window.dispatchEvent(new Event("auth-state-changed"));
 
       const emailVerified = params.get("email_verified");
       const emailParam = params.get("email");

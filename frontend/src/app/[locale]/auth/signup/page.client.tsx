@@ -19,6 +19,7 @@ import {
   setEmailCooldown,
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
+import { localizeApiError } from "@/lib/api-errors";
 
 
 
@@ -42,6 +43,7 @@ const stepVariants = {
 
 function SignupPageContent() {
   const t = useTranslations("signup");
+  const tApi = useTranslations("apiErrors");
   const tCommon = useTranslations("common");
   const { isDark } = useTheme();
   const [step, setStep] = useState(1);
@@ -306,14 +308,17 @@ function SignupPageContent() {
         } else if (errorData.non_field_errors) {
           setAlert({
             type: 'error',
-            message: Array.isArray(errorData.non_field_errors)
-              ? String(errorData.non_field_errors[0] ?? "")
-              : String(errorData.non_field_errors)
+            message: localizeApiError(
+              Array.isArray(errorData.non_field_errors)
+                ? String(errorData.non_field_errors[0] ?? "")
+                : String(errorData.non_field_errors),
+              tApi,
+            )
           });
         } else if (errorData.detail) {
-          setAlert({ type: 'error', message: String(errorData.detail) });
+          setAlert({ type: 'error', message: localizeApiError(String(errorData.detail), tApi) });
         } else if (errorData.error) {
-          setAlert({ type: 'error', message: String(errorData.error) });
+          setAlert({ type: 'error', message: localizeApiError(String(errorData.error), tApi) });
         }
       }
     } catch {

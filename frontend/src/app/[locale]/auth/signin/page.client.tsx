@@ -146,16 +146,14 @@ export default function LoginPage() {
     if (
       normalized === "invalid credentials" ||
       normalized === "invalid credentials payload" ||
-      normalized === "no active account found with the given credentials" ||
-      normalized === "credenciales inválidas" ||
-      normalized === "credenciales invalidas"
+      normalized === "no active account found with the given credentials"
     ) {
       return t("messages.invalidCredentials");
     }
 
     if (
       normalized === "email/username and password are required" ||
-      normalized === "email y contraseña son obligatorios"
+      normalized === "email and password are required"
     ) {
       return t("messages.fillAllFields");
     }

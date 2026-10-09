@@ -16,6 +16,7 @@ import {
   setEmailCooldown,
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
+import { localizeApiError } from "@/lib/api-errors";
 
 interface UserProfile {
   id: number;
@@ -48,6 +49,7 @@ export default function ProfilePage() {
 
 
   const t = useTranslations("profile");
+  const tApi = useTranslations("apiErrors");
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -282,7 +284,7 @@ export default function ProfilePage() {
         (Array.isArray(data.detail) ? data.detail[0] : data.detail) ||
         (Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors) ||
         t("messages.notificationUpdateError");
-      setAlert({ type: 'error', message: errorMessage });
+      setAlert({ type: 'error', message: localizeApiError(errorMessage, tApi) });
     } catch {
       setCourseEmailNotifications(previousCourseEmailNotifications);
       setNewsletterConsent(previousNewsletterConsent);
@@ -485,9 +487,9 @@ export default function ProfilePage() {
         if (priorityAlertMessage) {
           setAlert({ type: 'error', message: priorityAlertMessage });
         } else if (data.non_field_errors) {
-          setAlert({ type: 'error', message: Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors });
+          setAlert({ type: 'error', message: localizeApiError(Array.isArray(data.non_field_errors) ? data.non_field_errors[0] : data.non_field_errors, tApi) });
         } else if (data.detail) {
-          setAlert({ type: 'error', message: data.detail });
+          setAlert({ type: 'error', message: localizeApiError(data.detail, tApi) });
         }
 
         // If no specific errors, show generic error
@@ -557,7 +559,7 @@ export default function ProfilePage() {
     if (response.status === 401) {
       setAlert({ type: 'error', message: t("messages.unauthorizedError") });
     } else {
-      setAlert({ type: 'error', message: data.error || data.detail || t("messages.deleteError") });
+      setAlert({ type: 'error', message: localizeApiError(data.error || data.detail, tApi) || t("messages.deleteError") });
     }
 
   } catch {

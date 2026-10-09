@@ -11,9 +11,11 @@ import {
   setEmailCooldown,
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
+import { localizeApiError } from "@/lib/api-errors";
 
 export default function VerifyEmailPage() {
   const t = useTranslations("verifyEmail");
+  const tApi = useTranslations("apiErrors");
   const [code, setCode] = useState("");
   const [seconds, setSeconds] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -83,7 +85,7 @@ export default function VerifyEmailPage() {
           data.detail ||
           data.error ||
           t("error");
-        setError(msg);
+        setError(localizeApiError(msg, tApi));
         return;
       }
 
@@ -128,7 +130,7 @@ export default function VerifyEmailPage() {
           return;
         }
 
-        setError(apiMessage);
+        setError(localizeApiError(apiMessage, tApi));
         return;
       }
 

@@ -55,7 +55,7 @@ def _session_text(session_start_iso: str) -> str:
 def send_verification_email(email: str, code: str):
     _send(
         email, "Código de verificación - Ordinaly", "verification",
-        "No se pudo enviar el correo de verificación",
+        "Could not send the verification email",
         code=code, ttl_minutes=settings.EMAIL_OTP_TTL_MINUTES,
     )
 
@@ -63,7 +63,7 @@ def send_verification_email(email: str, code: str):
 def send_welcome_email(email: str, user_name: str):
     _send(
         email, "Bienvenido a Ordinaly", "welcome",
-        "No se pudo enviar el correo de bienvenida",
+        "Could not send the welcome email",
         user_name=user_name,
     )
 
@@ -71,7 +71,7 @@ def send_welcome_email(email: str, user_name: str):
 def send_newsletter_confirmation_email(email: str, token: str):
     _send(
         email, "Confirma tu suscripción a la newsletter - Ordinaly", "newsletter_confirmation",
-        "No se pudo enviar el correo de confirmación de la newsletter",
+        "Could not send the newsletter confirmation email",
         confirm_url=_frontend_url(f"/newsletter/confirm?token={token}"),
     )
 
@@ -79,7 +79,7 @@ def send_newsletter_confirmation_email(email: str, token: str):
 def send_password_reset_email(email: str, token: str, user_name: str):
     _send(
         email, "Restablecer contraseña - Ordinaly", "password_reset",
-        "No se pudo enviar el correo de restablecimiento de contraseña",
+        "Could not send the password reset email",
         user_name=user_name,
         reset_url=_frontend_url(f"/reset-password/confirm?token={token}"),
     )
@@ -88,7 +88,7 @@ def send_password_reset_email(email: str, token: str, user_name: str):
 def send_email_updated_email(email: str, user_name: str, previous_email: str, new_email: str):
     _send(
         email, "Correo actualizado - Ordinaly", "email_updated",
-        "No se pudo enviar el correo de actualización de email",
+        "Could not send the email update notice",
         user_name=user_name, previous_email=previous_email, new_email=new_email,
     )
 
@@ -96,7 +96,7 @@ def send_email_updated_email(email: str, user_name: str, previous_email: str, ne
 def send_password_reset_completed_email(email: str, user_name: str):
     _send(
         email, "Contraseña restablecida - Ordinaly", "password_reset_completed",
-        "No se pudo enviar el correo de confirmación de contraseña",
+        "Could not send the password reset confirmation email",
         user_name=user_name,
     )
 
@@ -105,7 +105,7 @@ def send_delete_confirmation_email(email: str, token: str, user_name: str):
     """Send the account-deletion confirmation email (double opt-in for account removal)."""
     _send(
         email, "Confirmar eliminación de cuenta - Ordinaly", "delete_confirmation",
-        "No se pudo enviar el correo de confirmación de eliminación",
+        "Could not send the account deletion confirmation email",
         user_name=user_name,
         confirm_url=_frontend_url(f"/delete_account/confirm?token={token}"),
         keep_url=_frontend_url("/profile"),
@@ -117,7 +117,7 @@ def send_enrollment_confirmation_email(email: str, user_name: str, course):
     image_url = f"{settings.BACKEND_BASE_URL.rstrip('/')}{course.image.url}" if course.image else ""
     _send(
         email, f"Inscripción confirmada - {course.title}", "enrollment",
-        "No se pudo enviar el correo de confirmación de inscripción",
+        "Could not send the enrollment confirmation email",
         user_name=user_name,
         course=course,
         course_url=_frontend_url(f"/formacion/{course.slug}"),
@@ -132,7 +132,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
     """Send a confirmation email when a user unenrolls from a course."""
     _send(
         email, f"Inscripción cancelada - {course.title}", "unenrollment",
-        "No se pudo enviar el correo de cancelación de inscripción",
+        "Could not send the unenrollment confirmation email",
         user_name=user_name,
         course=course,
         formation_url=_frontend_url("/formacion"),
@@ -143,7 +143,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
 def send_course_published_email(email: str, user_name: str, course):
     _send(
         email, f"Nueva formación - {course.title}", "course_published",
-        "No se pudo enviar el correo de nueva formación",
+        "Could not send the new course email",
         user_name=user_name, course=course,
         course_url=_frontend_url(f"/formacion/{course.slug}"),
     )
@@ -152,7 +152,7 @@ def send_course_published_email(email: str, user_name: str, course):
 def send_course_starts_soon_email(email: str, user_name: str, course, session_start_iso: str, days_before: int):
     _send(
         email, f"Empieza pronto - {course.title}", "course_starts_soon",
-        "No se pudo enviar el aviso de inicio próximo",
+        "Could not send the course starting soon notice",
         user_name=user_name, course=course, days_before=days_before,
         course_url=_frontend_url(f"/formacion/{course.slug}"),
         session_text=_session_text(session_start_iso),
@@ -162,7 +162,7 @@ def send_course_starts_soon_email(email: str, user_name: str, course, session_st
 def send_course_reminder_email(email: str, user_name: str, course, session_start_iso: str, hours_before: int):
     _send(
         email, f"Recordatorio {hours_before}h - {course.title}", "course_reminder",
-        "No se pudo enviar el recordatorio del curso",
+        "Could not send the course reminder",
         user_name=user_name, course=course, hours_before=hours_before,
         course_url=_frontend_url(f"/formacion/{course.slug}"),
         session_text=_session_text(session_start_iso),

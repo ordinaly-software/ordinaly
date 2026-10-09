@@ -433,17 +433,17 @@ class CourseViewSet(viewsets.ModelViewSet):
         """Return an error Response if unenrolling isn't allowed right now, else None."""
         if course_end and now > course_end:
             return Response(
-                {"detail": "No puedes cancelar la inscripción porque el curso ya ha finalizado."},
+                {"detail": "You cannot cancel the enrollment because the course has already ended."},
                 status=status.HTTP_400_BAD_REQUEST
             )
         if course_start and now >= course_start:
             return Response(
-                {"detail": "No puedes cancelar la inscripción porque el curso ya ha comenzado."},
+                {"detail": "You cannot cancel the enrollment because the course has already started."},
                 status=status.HTTP_400_BAD_REQUEST
             )
         if course_start and (course_start - now) <= timedelta(hours=24):
             return Response(
-                {"detail": "No puedes cancelar la inscripción en las 24 horas previas al inicio del curso."},
+                {"detail": "You cannot cancel the enrollment within the 24 hours before the course starts."},
                 status=status.HTTP_400_BAD_REQUEST
             )
         return None

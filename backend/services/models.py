@@ -195,14 +195,14 @@ class Service(models.Model):
     contactButtonText = models.CharField(
         max_length=50, default="Contactar",
         blank=True,
-        help_text="Texto del botón de contacto"
+        help_text="Contact button text"
         )
 
     contactButtonUrl = models.CharField(
         max_length=255,
         default="/contact",
         blank=True,
-        help_text="URL o acción del botón de contacto (https o ruta interna)")
+        help_text="Contact button URL or action (https or internal path)")
 
     duration = models.PositiveIntegerField(
         validators=[MinValueValidator(1)],

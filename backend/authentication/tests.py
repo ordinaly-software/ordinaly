@@ -162,7 +162,7 @@ class DeleteAccountViewsTests(APITestCase):
         response = self.client.post("/auth/delete/request/", {}, format="json")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["message"], "Correo enviado")
+        self.assertEqual(response.data["message"], "Email sent")
 
         self.user.refresh_from_db()
         expected_hash = hashlib.sha256("plain-delete-token".encode()).hexdigest()
@@ -184,7 +184,7 @@ class DeleteAccountViewsTests(APITestCase):
         response = self.client.post("/auth/delete/confirm/", {"token": raw_token}, format="json")
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.data["message"], "Cuenta eliminada")
+        self.assertEqual(response.data["message"], "Account deleted")
         self.assertFalse(get_user_model().objects.filter(id=self.user.id).exists())
 
     def test_confirm_delete_account_get_not_allowed(self):
@@ -213,7 +213,7 @@ class DeleteAccountViewsTests(APITestCase):
 
         response = self.client.post("/auth/delete/confirm/", {"token": raw_token}, format="json")
         self.assertEqual(response.status_code, 400)
-        self.assertIn("expirado", response.data["error"].lower())
+        self.assertIn("expired", response.data["error"].lower())
 
 
 class EmailVerificationMiddlewareTests(APITestCase):
