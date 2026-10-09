@@ -161,7 +161,7 @@ ordinaly/
 - **`users/`** — gestión de usuarios, notificaciones por correo y newsletter
   - `models.py`, `serializers.py`, `views.py`, `newsletter_views.py`, `urls.py`, `admin.py`, `authentication.py`, `signals.py`, `tests.py`, `test_newsletters.py`
   - `services/` — `email_service.py`, `mail.py`, `notification_service.py`, `otp_service.py`, `newsletter_service.py`, `newsletter_sending.py`
-  - `management/commands/` — `run_email_notification_queue`, `setup_gmail_send_token`, `sync_newsletter_subscribers`
+  - `management/commands/` — `run_email_notification_queue`, `setup_gmail_send_token`
 - **`courses/`** — cursos y formación
   - `models.py`, `serializers.py`, `forms.py`, `views.py`, `urls.py`, `admin.py`, `tests.py`
 - **`config/`** — configuración global del proyecto
@@ -576,7 +576,7 @@ Las newsletters se redactan y programan desde el panel de administración y las 
 - **Límite de Gmail:** el envío usa la Gmail API, con un límite diario de unos 500 correos en cuentas gratuitas y 2.000 en Google Workspace. Ese cupo se comparte con los correos transaccionales (verificación, inscripciones, avisos de cursos). Si la lista se acerca a unos 300 suscriptores, o si una newsletter más los avisos del día pueden superar el cupo, hay que pasar a un proveedor transaccional (Brevo, Amazon SES…). Es solo cambiar `EMAIL_BACKEND` y las credenciales SMTP; no hay que tocar código.
 - **Ritmo de envío:** el worker procesa como máximo 100 correos por ejecución (`--limit`, 100 por defecto) y se ejecuta cada minuto, así que una newsletter tarda aproximadamente `suscriptores / 100` minutos en salir entera (unos 5 minutos para 500 suscriptores). Mientras tanto aparece como "enviándose" y pasa a "enviada" al salir el último correo.
 - **Medición:** los clics se miden con una redirección propia y son fiables. Las aperturas usan un píxel y son orientativas: se pierden si el cliente bloquea las imágenes y Apple Mail las infla al precargarlas. La Política de Privacidad ya lo menciona.
-- **Suscriptores:** `NewsletterSubscriber` es la única lista (cuentas y altas del banner, con doble confirmación). Tras desplegar cambios en el modelo, `python manage.py sync_newsletter_subscribers` enlaza filas antiguas con sus usuarios y lista las huérfanas (`--purge-orphans` las borra).
+- **Suscriptores:** `NewsletterSubscriber` es la única lista (cuentas y altas del banner, con doble confirmación).
 
 ---
 

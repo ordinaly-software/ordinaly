@@ -1,7 +1,5 @@
 from datetime import timedelta
-from io import StringIO
 from django.core import mail
-from django.core.management import call_command
 from django.test import TestCase, override_settings
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
@@ -1454,15 +1452,6 @@ class NewsletterSubscriptionSyncTests(TestCase):
         user.email = 'taken@example.com'
         user.save(update_fields=['email'])
         self.assertEqual(NewsletterSubscriber.objects.count(), 1)
-        self.assertEqual(NewsletterSubscriber.objects.get().user, user)
-
-    def test_sync_command_links_legacy_rows_and_reports_orphans(self):
-        user = self._user(allow_notifications=True)
-        NewsletterSubscriber.objects.filter(user=user).update(user=None)
-        NewsletterSubscriber.objects.create(email='old-address@example.com')
-
-        call_command('sync_newsletter_subscribers', '--purge-orphans', stdout=StringIO())
-
         self.assertEqual(NewsletterSubscriber.objects.get().user, user)
 
 
