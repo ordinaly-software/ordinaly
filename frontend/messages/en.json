@@ -614,6 +614,12 @@
         "description": "Open the API administration console in a new tab.",
         "button": "Open API admin",
         "warning": "Admin credentials are required to access."
+      },
+      "apiDocs": {
+        "title": "API Documentation (Swagger)",
+        "description": "Open the interactive API documentation in a new tab: endpoints, parameters and responses, with the option to test them.",
+        "button": "Open Documentation",
+        "warning": "To test protected endpoints, use the \"Authorize\" button with your token."
       }
     },
     "stats": {
