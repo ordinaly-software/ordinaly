@@ -57,6 +57,14 @@ export function ServicesShowcaseGrid() {
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-6">
+
+      <Tile
+        href="/auditoria-cumplimiento-ia"
+        title={t("showcase.auditoria")}
+        image="/static/servicios/engineers.webp"
+        className="h-72 sm:col-span-6"
+      />
+      
       <Tile
         href="/automatizacion-facturas"
         title={t("showcase.facturas")}
@@ -115,6 +123,7 @@ export function ServicesShowcaseGrid() {
         image="/static/servicios/desarrollo_de_app_webs.webp"
         className="h-72 sm:col-span-3"
       />
+
     </div>
   );
 }

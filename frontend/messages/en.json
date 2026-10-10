@@ -222,7 +222,8 @@
         "automatizacionesPersonalizadas": "Custom automations",
         "implantacionOdoo": "Odoo implementation",
         "desarrolloAppWebs": "App and web development",
-        "consultants": "Technological consulting"
+        "consultants": "Technological consulting",
+        "auditoriaIa": "AI compliance audit"
       },
       "legal": {
         "title": "Legal docs",
@@ -1134,7 +1135,8 @@
       "callbot": "AI calling agent",
       "automation": "Automation",
       "odoo": "Odoo18",
-      "pwa": "Multiplatform web app (PWA)"
+      "pwa": "Multiplatform web app (PWA)",
+      "audit": "AI audit"
     },
     "useCases": {
       "title": "Success stories: AI automation agency",
@@ -1211,7 +1213,8 @@
       "viewCatalog": "Full catalog",
       "viewCatalogCta": "See all services",
       "viewMore": "Learn more",
-      "chatSalientesNote": "AI outbound calling campaigns"
+      "chatSalientesNote": "AI outbound calling campaigns",
+      "auditoria": "AI compliance audit"
     },
     "advantages": {
       "title": "Why choose Ordinaly",
@@ -2832,12 +2835,29 @@
         ]
       },
       "pricing": {
-        "individualPrice": "860€ + VAT",
-        "individualLabel": "one-time payment",
-        "implementationTime": "10 days",
-        "implementationLabel": "Implementation time:",
-        "ctaLabel": "I want to implement Odoo",
-        "ctaHref": "https://wa.me/34626270806?text=I%20want%20to%20implement%20Odoo"
+        "headers": [
+          "Service",
+          "Price",
+          "Lead time"
+        ],
+        "rows": [
+          [
+            "VeriFactu on an existing Odoo 18+ install",
+            "€400 + VAT",
+            "To be confirmed"
+          ],
+          [
+            "Odoo 18 implementation, without VeriFactu",
+            "€860 + VAT",
+            "10 days"
+          ],
+          [
+            "Odoo 18 implementation with VeriFactu included",
+            "€1,160 + VAT",
+            "10 days"
+          ]
+        ],
+        "ctaLabel": "I want to implement it"
       },
       "technologyFaqs": [
         {
@@ -2880,6 +2900,21 @@
           "tag": "Migration",
           "question": "Can you migrate my business from another ERP or from Odoo Enterprise?",
           "answer": "Yes. We analyze your current system, define the functional scope needed and migrate your data and processes to Odoo Community without losing operational continuity."
+        },
+        {
+          "tag": "Price",
+          "question": "Does the Odoo implementation include VeriFactu or is it charged separately?",
+          "answer": "It depends on your starting point. The full Odoo 18 implementation with VeriFactu included costs €1,160 + VAT. If you prefer Odoo 18 without VeriFactu, it is €860 + VAT. And if you already have Odoo 18 or later and only need the VeriFactu setup, it is €400 + VAT."
+        },
+        {
+          "tag": "VeriFactu",
+          "question": "What if my business already uses Odoo 18 and I only need VeriFactu?",
+          "answer": "We set up VeriFactu on your Odoo 18 or later installation for €400 + VAT, with no need for a new full implementation. If your Odoo version is older than 18, tell us in the form and we'll let you know what is needed first."
+        },
+        {
+          "tag": "VeriFactu",
+          "question": "When does VeriFactu become mandatory?",
+          "answer": "On 1 January 2027 for companies subject to Corporate Income Tax, and on 1 July 2027 for self-employed workers and all other obliged parties. The date has already been postponed twice, so it's best not to leave it for the last quarter of 2026."
         }
       ],
       "keywords": [
@@ -2895,6 +2930,19 @@
         "label": "I want to implement Odoo",
         "href": "https://wa.me/34626270806?text=I%20want%20to%20implement%20Odoo",
         "bgColor": "#d97706"
+      },
+      "verifactu": {
+        "title": "VeriFactu compliance",
+        "paragraphs": [
+          "VeriFactu is the certified invoicing system required by the Spanish Tax Agency to guarantee that issued invoices are complete, retained and traceable. It falls under Anti-Fraud Law 11/2021, and its final timeline, after the latest postponement (Royal Decree-law 15/2025), is:",
+          "Optionally, we configure Odoo Community with the modules needed to issue invoices with the record, hash and QR code that VeriFactu requires, and we schedule updates whenever the Tax Agency's technical specification changes."
+        ],
+        "deadlines": [
+          "1 January 2027: companies subject to Corporate Income Tax.",
+          "1 July 2027: self-employed workers and all other obliged parties."
+        ],
+        "startTitle": "Three ways to start, depending on where you are",
+        "ctaLabel": "Discuss my case"
       }
     },
     "desarrollo-de-app-webs": {
@@ -3111,6 +3159,178 @@
       ],
       "contact": {
         "body": "Get in touch with our engineers. Tell us which processes are slowing down your day-to-day, which tools you use and what your timelines are. We'll design a technology audit tailored to your company."
+      }
+    },
+    "auditoria-cumplimiento-ia": {
+      "slug": "auditoria-cumplimiento-ia",
+      "metaTitle": "AI compliance audit for businesses",
+      "description": "We audit your content generated with generative AI tools, voice agents, chatbots and automated workflows against Article 50 of the European Artificial Intelligence Act (EU AI Act).",
+      "title": "Artificial Intelligence compliance audit",
+      "shortTitle": "AI compliance audit",
+      "heroText": "Ordinaly's AI compliance audit reviews your chatbots, voice agents and AI-generated content against the transparency obligations of Article 50 of the EU Artificial Intelligence Act, in force since 2 August 2026. You receive a dated compliance report and a prioritized remediation plan.",
+      "heroCtaLabel": "Request an audit",
+      "serviceType": "EU AI Act compliance audit",
+      "areaServed": "Spain and European Union",
+      "sectionTitles": {
+        "article50": "What does Article 50 of the EU AI Act require?",
+        "infocardsTitle": "What we review in your audit",
+        "why": "Why the audit is done by an engineer, not just a lawyer",
+        "technologyFaqs": "Questions about the audit?",
+        "technologyFaqsSubtitle": "Here are the most frequent answers",
+        "process": "How the process works"
+      },
+      "article50": {
+        "paragraphs": [
+          "**Article 50** of Regulation (EU) 2024/1689 requires that **people know when they are interacting with an artificial intelligence system**. It affects every intelligent conversational system, AI-generated or AI-modified content published for the public, and emotion recognition or biometric categorization systems. The obligation has been in force since __2 August 2026__ and non-compliance falls under the Regulation's __penalty regime__."
+        ],
+        "useCasesTitle": "Systems and use cases affected",
+        "useCases": [
+          {
+            "name": "Chatbots and virtual assistants",
+            "description": "On websites, in banking or customer service: they must **tell people they are talking to an AI**, unless it is obvious (Art. 50(1))."
+          },
+          {
+            "name": "Voice agents and automated call centers",
+            "description": "They must **state**, before the conversation starts, that the other party is not a person."
+          },
+          {
+            "name": "AI-generated content",
+            "description": "Text, images, audio or video generated or manipulated with AI and published for the public must be **clearly labelled** (Art. 50(2) and 50(4))."
+          },
+          {
+            "name": "Emotion recognition",
+            "description": "In call centers, neuromarketing or retail: **people exposed must be informed** (Art. 50(3)). It is __prohibited__ at work and in education, except for medical or safety reasons (Art. 5(1)(f))."
+          },
+          {
+            "name": "Biometric categorization",
+            "description": "**People exposed must be informed** (Art. 50(3)) and, depending on the attributes it infers, it may also be a **high-risk** system (Annex III)."
+          }
+        ],
+        "sourcesTitle": "Official sources",
+        "sources": [
+          {
+            "label": "Regulation (EU) 2024/1689, official text (EUR-Lex)",
+            "href": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32024R1689"
+          },
+          {
+            "label": "AI regulatory framework (European Commission)",
+            "href": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai"
+          },
+          {
+            "label": "AESIA, Spanish Agency for the Supervision of Artificial Intelligence",
+            "href": "https://aesia.digital.gob.es/es"
+          }
+        ]
+      },
+      "infocards": {
+        "cards": [
+          {
+            "name": "Chatbots and other conversational systems",
+            "description": "Among other things, we check whether your chatbot clearly states that it is an AI system before the first interaction."
+          },
+          {
+            "name": "AI-generated content",
+            "description": "We review the protocols for generating and publishing AI-generated or AI-modified text, images or videos that you publish for the public, and we draw up protocols in line with the regulation."
+          },
+          {
+            "name": "Compliance report",
+            "description": "A dated document that proves the review took place, useful if the competent authority asks for it."
+          },
+          {
+            "name": "Correction and implementation plan",
+            "description": "If we find non-compliance, we draw up a correction and implementation plan to resolve it."
+          }
+        ],
+        "training": {
+          "name": "Training for your team",
+          "description": "Professional training so your company's team knows how to apply the AI Act: what obligations apply, how to use AI responsibly and how to stay compliant day to day.",
+          "ctaLabel": "View training courses",
+          "href": "/formacion"
+        }
+      },
+      "why": {
+        "paragraphs": [
+          "A law firm can tell you what the rule requires and explain how to comply with it. We also get inside your information systems and check how they are built. The audit combines **applying the regulation with a technical review of the system**, so the report doesn't stop at general recommendations: it delivers **specific corrections** and technical change proposals."
+        ]
+      },
+      "pricing": {
+        "price": "Fixed quote, tailored to you",
+        "detail": "Based on the number of AI systems to review",
+        "deliveryLabel": "Delivery:",
+        "delivery": "compliance report + prioritized remediation plan",
+        "extra": "Optional annual review",
+        "ctaLabel": "Request an audit",
+        "ctaHref": "#formulario"
+      },
+      "technologyFaqs": [
+        {
+          "tag": "Price",
+          "question": "How much does the audit cost?",
+          "answer": "The price depends on the number of AI systems to review and their complexity, so we work with a tailored fixed quote. Tell us which systems you use in the form and we'll confirm it with no commitment."
+        },
+        {
+          "tag": "Scope",
+          "question": "Which systems are included in the review?",
+          "answer": "Chatbots, AI content generation and biometric categorization or emotion recognition systems, if you use them (Article 50 of Regulation (EU) 2024/1689)."
+        },
+        {
+          "tag": "Timing",
+          "question": "How long does the audit take?",
+          "answer": "The timeline depends on the size of your company and the number of AI systems you use. We confirm it together with the quote, before starting."
+        },
+        {
+          "tag": "Delivery",
+          "question": "What do I receive at the end?",
+          "answer": "A dated compliance report and a remediation plan that includes recommendations, a technical implementation/fix proposal, and a schedule for the actions to follow."
+        },
+        {
+          "tag": "Fixes",
+          "question": "If you find non-compliance, do you fix it?",
+          "answer": "Yes, we can implement the fixes. If you prefer to have it resolved and kept up to date with every regulatory change, that is what our maintenance service covers."
+        },
+        {
+          "tag": "Review",
+          "question": "Does the audit have to be repeated every year?",
+          "answer": "It is not mandatory, but we recommend an annual review, because both the regulation and your own AI systems change over time."
+        },
+        {
+          "tag": "Regulation",
+          "question": "Where can I read the official text?",
+          "answer": "The official text is Regulation (EU) 2024/1689, published in the Official Journal of the European Union and available on EUR-Lex (eur-lex.europa.eu). The European Commission explains the AI regulatory framework at digital-strategy.ec.europa.eu and, in Spain, the supervisory authority is AESIA (aesia.digital.gob.es)."
+        },
+        {
+          "tag": "Training",
+          "question": "Do you offer team training to comply with the AI Act?",
+          "answer": "Yes. We offer professional training for your company's team on how to apply the AI Act in their daily work. You can see the available courses on the training page (/formacion)."
+        }
+      ],
+      "keywords": [
+        "AI audit",
+        "EU AI Act",
+        "Article 50",
+        "Regulatory compliance",
+        "Chatbots",
+        "Voice agents"
+      ],
+      "process": {
+        "steps": [
+          {
+            "name": "AI systems inventory",
+            "description": "We identify the chatbots, voice agents and AI content flows in your company and which fall within the scope of Article 50."
+          },
+          {
+            "name": "Technical and regulatory review",
+            "description": "We check how each system is built and test it against the Regulation's obligations."
+          },
+          {
+            "name": "Compliance report",
+            "description": "You receive a dated document with the findings and the evidence of the review."
+          },
+          {
+            "name": "Correction plan",
+            "description": "We prioritize the changes, implement them if you need it and, if you want, schedule the annual review."
+          }
+        ]
       }
     }
   },

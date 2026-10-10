@@ -222,7 +222,8 @@
         "automatizacionesPersonalizadas": "Automatizaciones personalizadas",
         "implantacionOdoo": "Implantación Odoo",
         "desarrolloAppWebs": "Desarrollo de apps y webs",
-        "consultants": "Consultoría tecnológica"
+        "consultants": "Consultoría tecnológica",
+        "auditoriaIa": "Auditoría de cumplimiento IA"
       },
       "legal": {
         "title": "Documentación legal",
@@ -1140,7 +1141,8 @@
       "callbot": "Chatbot de llamadas IA",
       "automation": "Automatización",
       "odoo": "Odoo18",
-      "pwa": "Aplicaciones web multiplataforma (PWA)"
+      "pwa": "Aplicaciones web multiplataforma (PWA)",
+      "audit": "Auditoría IA"
     },
     "useCases": {
       "title": "Casos de uso de automatizaciones",
@@ -1217,7 +1219,8 @@
       "viewCatalog": "Catálogo completo",
       "viewCatalogCta": "Ver todos los servicios",
       "viewMore": "Ver más",
-      "chatSalientesNote": "Campañas de llamadas salientes con IA"
+      "chatSalientesNote": "Campañas de llamadas salientes con IA",
+      "auditoria": "Auditoría de cumplimiento IA"
     },
     "advantages": {
       "title": "Por qué elegir Ordinaly",
@@ -2838,12 +2841,29 @@
         ]
       },
       "pricing": {
-        "individualPrice": "860€ + IVA",
-        "individualLabel": "pago único",
-        "implementationTime": "10 días",
-        "implementationLabel": "Tiempo de implantación:",
-        "ctaLabel": "Quiero implantar Odoo",
-        "ctaHref": "https://wa.me/34626270806?text=Quiero%20implantar%20Odoo"
+        "headers": [
+          "Servicio",
+          "Precio",
+          "Plazo"
+        ],
+        "rows": [
+          [
+            "VeriFactu sobre Odoo 18+ ya instalado",
+            "400€ + IVA",
+            "A confirmar"
+          ],
+          [
+            "Implantación de Odoo 18, sin VeriFactu",
+            "860€ + IVA",
+            "10 días"
+          ],
+          [
+            "Implantación de Odoo 18 con VeriFactu incluido",
+            "1.160€ + IVA",
+            "10 días"
+          ]
+        ],
+        "ctaLabel": "Quiero implantarlo"
       },
       "technologyFaqs": [
         {
@@ -2886,6 +2906,21 @@
           "tag": "Migración",
           "question": "¿Podéis migrar mi negocio desde otro ERP o desde Odoo Enterprise?",
           "answer": "Sí. Analizamos tu sistema actual, definimos el alcance y migramos tus datos y procesos a Odoo Community sin perder continuidad. Este coste de migración se valora de forma individual según la complejidad y volumen de datos."
+        },
+        {
+          "tag": "Precio",
+          "question": "¿La implantación de Odoo incluye VeriFactu o hay que pagar aparte?",
+          "answer": "Depende de tu punto de partida. La implantación completa de Odoo 18 con VeriFactu incluido cuesta 1.160€ + IVA. Si prefieres implantar Odoo 18 sin VeriFactu, son 860€ + IVA. Y si ya tienes Odoo 18 o superior y solo necesitas la configuración de VeriFactu, son 400€ + IVA."
+        },
+        {
+          "tag": "VeriFactu",
+          "question": "¿Qué pasa si mi negocio ya usa Odoo 18 y solo necesito VeriFactu?",
+          "answer": "Configuramos VeriFactu sobre tu instalación de Odoo 18 o superior por 400€ + IVA, sin necesidad de una implantación completa nueva. Si tu versión de Odoo es anterior a la 18, dínoslo en el formulario y te decimos qué hace falta antes."
+        },
+        {
+          "tag": "VeriFactu",
+          "question": "¿Cuándo es obligatorio VeriFactu?",
+          "answer": "El 1 de enero de 2027 para sociedades sujetas al Impuesto sobre Sociedades, y el 1 de julio de 2027 para autónomos y el resto de obligados. La fecha ya se ha aplazado dos veces, así que conviene no dejarlo para el último trimestre de 2026."
         }
       ],
       "keywords": [
@@ -2901,6 +2936,19 @@
         "label": "Quiero implantar Odoo",
         "href": "https://wa.me/34626270806?text=Quiero%20implantar%20Odoo",
         "bgColor": "#d97706"
+      },
+      "verifactu": {
+        "title": "Cumplimiento VeriFactu",
+        "paragraphs": [
+          "VeriFactu es el sistema de facturación certificada que exige la Agencia Tributaria para garantizar que las facturas emitidas son íntegras, están conservadas y son trazables. Se enmarca en la Ley Antifraude 11/2021 y su calendario definitivo, tras el último aplazamiento (Real Decreto-ley 15/2025), es este:",
+          "Configuramos de manera opcional Odoo Community con los módulos necesarios para generar facturas con el registro, la huella y el código QR que exige VeriFactu, y programamos las actualizaciones cuando cambie la especificación técnica de la Agencia Tributaria."
+        ],
+        "deadlines": [
+          "1 de enero de 2027: sociedades sujetas al Impuesto sobre Sociedades.",
+          "1 de julio de 2027: autónomos y resto de obligados."
+        ],
+        "startTitle": "Tres formas de empezar, según tu punto de partida",
+        "ctaLabel": "Consultar mi caso"
       }
     },
     "desarrollo-de-app-webs": {
@@ -3117,6 +3165,178 @@
       ],
       "contact": {
         "body": "Contacta con nuestros ingenieros. Cuéntanos qué procesos ralentizan tu día a día, qué herramientas utilizas y cuáles son tus plazos. Diseñaremos una auditoría tecnológica a la medida de tu empresa."
+      }
+    },
+    "auditoria-cumplimiento-ia": {
+      "slug": "auditoria-cumplimiento-ia",
+      "metaTitle": "Auditoría de cumplimiento en IA para empresas",
+      "description": "Auditamos tu contenidos generados por herramientas de IA generativa, agentes de voz, chatbots y flujos de trabajo automatizadosfrente al artículo 50 del Reglamento Europeo de Inteligencia Artificial (EU AI Act).",
+      "title": "Auditoría de cumplimiento en Inteligencia Artificial",
+      "shortTitle": "Auditoría de cumplimiento IA",
+      "heroText": "El servicio de auditoría de cumplimiento en IA de Ordinaly revisa tus chatbots, agentes de voz y contenidos generados por inteligencia artificial frente a las obligaciones de transparencia del artículo 50 del Reglamento europeo de Inteligencia Artificial, en vigor desde el 2 de agosto de 2026. Recibes un informe de cumplimiento fechado y un plan de corrección priorizado.",
+      "heroCtaLabel": "Solicitar auditoría",
+      "serviceType": "Auditoría de cumplimiento del Reglamento europeo de IA",
+      "areaServed": "España y Unión Europea",
+      "sectionTitles": {
+        "article50": "¿Qué exige el artículo 50 del Reglamento europeo de IA?",
+        "infocardsTitle": "Qué revisamos en tu auditoría",
+        "why": "Por qué la auditoría la hace un ingeniero, no solo un jurista",
+        "technologyFaqs": "¿Tienes dudas sobre la auditoría?",
+        "technologyFaqsSubtitle": "Aquí respondemos a las más frecuentes",
+        "process": "Cómo es el proceso"
+      },
+      "article50": {
+        "paragraphs": [
+          "El **artículo 50** del Reglamento (UE) 2024/1689 exige que **las personas sepan cuándo están interactuando con un sistema de inteligencia artificial**. Afecta a todo sistema conversacional inteligente, a contenido generado o modificado por IA que se publique de cara al público, y a sistemas de reconocimiento de emociones o categorización biométrica. La obligación está en vigor desde el __2 de agosto de 2026__ y su incumplimiento entra dentro del __régimen sancionador__ del Reglamento."
+        ],
+        "useCasesTitle": "Sistemas y casos de uso afectados",
+        "useCases": [
+          {
+            "name": "Chatbots y asistentes virtuales",
+            "description": "En web, banca o atención al cliente: deben **informar de que la persona habla con una IA**, salvo que sea evidente (art. 50.1)."
+          },
+          {
+            "name": "Agentes de voz y call centers automatizados",
+            "description": "Deben **avisar**, antes de empezar la conversación, de que el interlocutor no es una persona."
+          },
+          {
+            "name": "Contenido generado por IA",
+            "description": "Texto, imagen, audio o vídeo generado o manipulado con IA y publicado de cara al público: debe **etiquetarse con claridad** (art. 50.2 y 50.4)."
+          },
+          {
+            "name": "Reconocimiento de emociones",
+            "description": "En call centers, neuromarketing o comercio: hay que **informar a las personas expuestas** (art. 50.3). En el trabajo y la educación está __prohibido__, salvo por motivos médicos o de seguridad (art. 5.1.f)."
+          },
+          {
+            "name": "Categorización biométrica",
+            "description": "Hay que **informar a las personas expuestas** (art. 50.3) y, según los atributos que infiera, puede ser además un sistema de **alto riesgo** (Anexo III)."
+          }
+        ],
+        "sourcesTitle": "Fuentes oficiales",
+        "sources": [
+          {
+            "label": "Reglamento (UE) 2024/1689, texto oficial (EUR-Lex)",
+            "href": "https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX:32024R1689"
+          },
+          {
+            "label": "Marco regulatorio de la IA (Comisión Europea)",
+            "href": "https://digital-strategy.ec.europa.eu/es/policies/regulatory-framework-ai"
+          },
+          {
+            "label": "AESIA, Agencia Española de Supervisión de la Inteligencia Artificial",
+            "href": "https://aesia.digital.gob.es/es"
+          }
+        ]
+      },
+      "infocards": {
+        "cards": [
+          {
+            "name": "Chatbots y otros sistemas conversacionales",
+            "description": "Entre otras cosas, revisamos si tu chatbot informa con claridad de que es un sistema de IA antes de la primera interacción."
+          },
+          {
+            "name": "Contenido generado por IA",
+            "description": "Revisamos los protocolos para la generación y publicación de textos, imágenes o vídeos generados o modificados con IA que publiques de cara al público, y elaboramos protocolos de acuerdo al reglamento."
+          },
+          {
+            "name": "Informe de cumplimiento",
+            "description": "Documento fechado que acredita la revisión, útil si la autoridad competente te lo solicita."
+          },
+          {
+            "name": "Plan de corrección y aplicación",
+            "description": "Si detectamos incumplimientos, elaboramos un plan de corrección y aplicación para solucionarlos."
+          }
+        ],
+        "training": {
+          "name": "Formación para tu equipo",
+          "description": "Formación profesional para que el equipo de tu empresa sepa aplicar el Reglamento de IA: qué obligaciones tiene, cómo usar la IA con criterio y cómo mantener el cumplimiento en el día a día.",
+          "ctaLabel": "Ver formaciones",
+          "href": "/formacion"
+        }
+      },
+      "why": {
+        "paragraphs": [
+          "Un despacho legal puede decirte qué exige la norma y explicar cómo cumplirla. Nosotros, además, nos introducimos dentro de vuestros sitemas de información y comprobamos cómo están construidos. La auditoría combina **la aplicación de la normativa con la revisión técnica del sistema**, así que el informe no se queda en recomendaciones generales, sino en **correcciones específicas** y propuestas técnicas de cambios."
+        ]
+      },
+      "pricing": {
+        "price": "Presupuesto cerrado, a medida",
+        "detail": "Según el número de sistemas de IA a revisar",
+        "deliveryLabel": "Entrega:",
+        "delivery": "informe de cumplimiento + plan de corrección priorizado",
+        "extra": "Revisión anual opcional",
+        "ctaLabel": "Solicitar auditoría",
+        "ctaHref": "#formulario"
+      },
+      "technologyFaqs": [
+        {
+          "tag": "Precio",
+          "question": "¿Cuánto cuesta la auditoría?",
+          "answer": "El precio depende del número de sistemas a revisar y de su complejidad, por eso trabajamos con presupuesto cerrado a medida. Cuéntanos qué sistemas usas en el formulario y te lo confirmamos sin compromiso."
+        },
+        {
+          "tag": "Alcance",
+          "question": "¿Qué sistemas entran en la revisión?",
+          "answer": "Chatbots, generación de contenido con IA y sistemas de categorización biométrica o reconocimiento de emociones, si los usas (artículo 50 del Reglamento (UE) 2024/1689)."
+        },
+        {
+          "tag": "Plazo",
+          "question": "¿Cuánto tarda la auditoría?",
+          "answer": "El plazo depende del tamaño de tu empresa y del número de sistemas de IA que uses. Te lo confirmamos junto con el presupuesto, antes de empezar."
+        },
+        {
+          "tag": "Entrega",
+          "question": "¿Qué recibo al final?",
+          "answer": "Un informe de cumplimiento fechado y un plan de corrección que incluye recomendaciones, propuesta técnica de implementación/corrección, y cronograma de ejecución de acciones a seguir."
+        },
+        {
+          "tag": "Correcciones",
+          "question": "Si encontráis incumplimientos, ¿los corregís vosotros?",
+          "answer": "Sí, podemos implementar las correcciones. Si prefieres que quede resuelto y actualizado de forma continua ante cada cambio normativo, es lo que cubre nuestro servicio de mantenimiento."
+        },
+        {
+          "tag": "Revisión",
+          "question": "¿Hay que repetir la auditoría cada año?",
+          "answer": "No es obligatorio, pero lo recomendamos con revisión anual, porque tanto la normativa como tus propios sistemas de IA cambian con el tiempo."
+        },
+        {
+          "tag": "Normativa",
+          "question": "¿Dónde puedo consultar la norma oficial?",
+          "answer": "El texto oficial es el Reglamento (UE) 2024/1689, publicado en el Diario Oficial de la Unión Europea y disponible en EUR-Lex (eur-lex.europa.eu). La Comisión Europea explica el marco regulatorio de la IA en digital-strategy.ec.europa.eu y, en España, la autoridad de supervisión es la AESIA (aesia.digital.gob.es)."
+        },
+        {
+          "tag": "Formación",
+          "question": "¿Ofrecéis formación al equipo para cumplir el Reglamento de IA?",
+          "answer": "Sí. Ofrecemos formación profesional para el equipo de tu empresa sobre cómo aplicar el Reglamento de IA en su trabajo diario. Puedes ver los cursos disponibles en la página de formación (/formacion)."
+        }
+      ],
+      "keywords": [
+        "Auditoría IA",
+        "Reglamento europeo de IA",
+        "Artículo 50",
+        "Cumplimiento normativo",
+        "Chatbots",
+        "Agentes de voz"
+      ],
+      "process": {
+        "steps": [
+          {
+            "name": "Inventario de sistemas de IA",
+            "description": "Identificamos los chatbots, agentes de voz y flujos de contenido con IA de tu empresa y cuáles entran en el alcance del artículo 50."
+          },
+          {
+            "name": "Revisión técnica y normativa",
+            "description": "Comprobamos cómo está construido cada sistema y lo contrastamos con las obligaciones del Reglamento."
+          },
+          {
+            "name": "Informe de cumplimiento",
+            "description": "Recibes un documento fechado con los hallazgos y la evidencia de la revisión."
+          },
+          {
+            "name": "Plan de corrección",
+            "description": "Priorizamos los cambios, los implementamos si lo necesitas y, si quieres, programamos la revisión anual."
+          }
+        ]
       }
     }
   },

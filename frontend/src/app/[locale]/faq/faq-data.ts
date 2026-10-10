@@ -11,7 +11,8 @@ export type FaqCategoryKey =
   | "n8n"
   | "invoices"
   | "reports"
-  | "odoo";
+  | "odoo"
+  | "ai-audit";
 
 export type FaqEntry = {
   id: string;
@@ -104,6 +105,15 @@ export const faqCategories: Record<FaqCategoryKey, FaqCategoryMeta> = {
     },
     relatedPath: "/implantacion-odoo",
     relatedLabel: { es: "Ver implantación de Odoo", en: "View Odoo implementation" },
+  },
+  "ai-audit": {
+    label: { es: "Auditoría de cumplimiento IA", en: "AI compliance audit" },
+    description: {
+      es: "Precio, alcance y entregables de la auditoría frente al artículo 50 del Reglamento europeo de IA.",
+      en: "Price, scope and deliverables of the audit against Article 50 of the EU AI Act.",
+    },
+    relatedPath: "/auditoria-cumplimiento-ia",
+    relatedLabel: { es: "Ver auditoría de cumplimiento IA", en: "View AI compliance audit" },
   },
 };
 
@@ -611,6 +621,152 @@ export const faqEntries: FaqEntry[] = [
     answer: {
       es: "Sí. Analizamos tu sistema actual, definimos el alcance funcional necesario y migramos tus datos y procesos a Odoo Community sin perder continuidad operativa.",
       en: "Yes. We analyze your current system, define the functional scope needed and migrate your data and processes to Odoo Community without losing operational continuity.",
+    },
+  },
+
+  {
+    id: "odoo-verifactu-included-price",
+    category: "odoo",
+    tag: { es: "Precio", en: "Price" },
+    question: {
+      es: "¿La implantación de Odoo incluye VeriFactu o hay que pagar aparte?",
+      en: "Does the Odoo implementation include VeriFactu or is it charged separately?",
+    },
+    answer: {
+      es: "Depende de tu punto de partida. La implantación completa de Odoo 18 con VeriFactu incluido cuesta 1.160€ + IVA. Si prefieres implantar Odoo 18 sin VeriFactu, son 860€ + IVA. Y si ya tienes Odoo 18 o superior y solo necesitas la configuración de VeriFactu, son 400€ + IVA.",
+      en: "It depends on your starting point. The full Odoo 18 implementation with VeriFactu included costs €1,160 + VAT. If you prefer Odoo 18 without VeriFactu, it is €860 + VAT. And if you already have Odoo 18 or later and only need the VeriFactu setup, it is €400 + VAT.",
+    },
+  },
+  {
+    id: "odoo-verifactu-only",
+    category: "odoo",
+    tag: { es: "VeriFactu", en: "VeriFactu" },
+    question: {
+      es: "¿Qué pasa si mi negocio ya usa Odoo 18 y solo necesito VeriFactu?",
+      en: "What if my business already uses Odoo 18 and I only need VeriFactu?",
+    },
+    answer: {
+      es: "Configuramos VeriFactu sobre tu instalación de Odoo 18 o superior por 400€ + IVA, sin necesidad de una implantación completa nueva. Si tu versión de Odoo es anterior a la 18, dínoslo en el formulario y te decimos qué hace falta antes.",
+      en: "We set up VeriFactu on your Odoo 18 or later installation for €400 + VAT, with no need for a new full implementation. If your Odoo version is older than 18, tell us in the form and we'll let you know what is needed first.",
+    },
+  },
+  {
+    id: "odoo-verifactu-deadline",
+    category: "odoo",
+    tag: { es: "VeriFactu", en: "VeriFactu" },
+    question: {
+      es: "¿Cuándo es obligatorio VeriFactu?",
+      en: "When does VeriFactu become mandatory?",
+    },
+    answer: {
+      es: "El 1 de enero de 2027 para sociedades sujetas al Impuesto sobre Sociedades, y el 1 de julio de 2027 para autónomos y el resto de obligados. La fecha ya se ha aplazado dos veces, así que conviene no dejarlo para el último trimestre de 2026.",
+      en: "On 1 January 2027 for companies subject to Corporate Income Tax, and on 1 July 2027 for self-employed workers and all other obliged parties. The date has already been postponed twice, so it's best not to leave it for the last quarter of 2026.",
+    },
+  },
+
+  // ---- AI compliance audit (landings["auditoria-cumplimiento-ia"].technologyFaqs) ----
+  {
+    id: "audit-price",
+    category: "ai-audit",
+    tag: { es: "Precio", en: "Price" },
+    question: {
+      es: "¿Cuánto cuesta la auditoría?",
+      en: "How much does the audit cost?",
+    },
+    answer: {
+      es: "El precio depende del número de sistemas a revisar y de su complejidad, por eso trabajamos con presupuesto cerrado a medida. Cuéntanos qué sistemas usas en el formulario y te lo confirmamos sin compromiso.",
+      en: "The price depends on the number of AI systems to review and their complexity, so we work with a tailored fixed quote. Tell us which systems you use in the form and we'll confirm it with no commitment.",
+    },
+  },
+  {
+    id: "audit-scope",
+    category: "ai-audit",
+    tag: { es: "Alcance", en: "Scope" },
+    question: {
+      es: "¿Qué sistemas entran en la revisión?",
+      en: "Which systems are included in the review?",
+    },
+    answer: {
+      es: "Chatbots, generación de contenido con IA y sistemas de categorización biométrica o reconocimiento de emociones, si los usas (artículo 50 del Reglamento (UE) 2024/1689).",
+      en: "Chatbots, AI content generation and biometric categorization or emotion recognition systems, if you use them (Article 50 of Regulation (EU) 2024/1689).",
+    },
+  },
+  {
+    id: "audit-timing",
+    category: "ai-audit",
+    tag: { es: "Plazo", en: "Timing" },
+    question: {
+      es: "¿Cuánto tarda la auditoría?",
+      en: "How long does the audit take?",
+    },
+    answer: {
+      es: "El plazo depende del tamaño de tu empresa y del número de sistemas de IA que uses. Te lo confirmamos junto con el presupuesto, antes de empezar.",
+      en: "The timeline depends on the size of your company and the number of AI systems you use. We confirm it together with the quote, before starting.",
+    },
+  },
+  {
+    id: "audit-delivery",
+    category: "ai-audit",
+    tag: { es: "Entrega", en: "Delivery" },
+    question: {
+      es: "¿Qué recibo al final?",
+      en: "What do I receive at the end?",
+    },
+    answer: {
+      es: "Un informe de cumplimiento fechado y un plan de corrección que incluye recomendaciones, propuesta técnica de implementación/corrección, y cronograma de ejecución de acciones a seguir.",
+      en: "A dated compliance report and a remediation plan that includes recommendations, a technical implementation/fix proposal, and a schedule for the actions to follow.",
+    },
+  },
+  {
+    id: "audit-fixes",
+    category: "ai-audit",
+    tag: { es: "Correcciones", en: "Fixes" },
+    question: {
+      es: "Si encontráis incumplimientos, ¿los corregís vosotros?",
+      en: "If you find non-compliance, do you fix it?",
+    },
+    answer: {
+      es: "Sí, podemos implementar las correcciones. Si prefieres que quede resuelto y actualizado de forma continua ante cada cambio normativo, es lo que cubre nuestro servicio de mantenimiento.",
+      en: "Yes, we can implement the fixes. If you prefer to have it resolved and kept up to date with every regulatory change, that is what our maintenance service covers.",
+    },
+  },
+  {
+    id: "audit-review",
+    category: "ai-audit",
+    tag: { es: "Revisión", en: "Review" },
+    question: {
+      es: "¿Hay que repetir la auditoría cada año?",
+      en: "Does the audit have to be repeated every year?",
+    },
+    answer: {
+      es: "No es obligatorio, pero lo recomendamos con revisión anual, porque tanto la normativa como tus propios sistemas de IA cambian con el tiempo.",
+      en: "It is not mandatory, but we recommend an annual review, because both the regulation and your own AI systems change over time.",
+    },
+  },
+  {
+    id: "audit-official-sources",
+    category: "ai-audit",
+    tag: { es: "Normativa", en: "Regulation" },
+    question: {
+      es: "¿Dónde puedo consultar la norma oficial?",
+      en: "Where can I read the official text?",
+    },
+    answer: {
+      es: "El texto oficial es el Reglamento (UE) 2024/1689, publicado en el Diario Oficial de la Unión Europea y disponible en EUR-Lex (eur-lex.europa.eu). La Comisión Europea explica el marco regulatorio de la IA en digital-strategy.ec.europa.eu y, en España, la autoridad de supervisión es la AESIA (aesia.digital.gob.es).",
+      en: "The official text is Regulation (EU) 2024/1689, published in the Official Journal of the European Union and available on EUR-Lex (eur-lex.europa.eu). The European Commission explains the AI regulatory framework at digital-strategy.ec.europa.eu and, in Spain, the supervisory authority is AESIA (aesia.digital.gob.es).",
+    },
+  },
+  {
+    id: "audit-team-training",
+    category: "ai-audit",
+    tag: { es: "Formación", en: "Training" },
+    question: {
+      es: "¿Ofrecéis formación al equipo para cumplir el Reglamento de IA?",
+      en: "Do you offer team training to comply with the AI Act?",
+    },
+    answer: {
+      es: "Sí. Ofrecemos formación profesional para el equipo de tu empresa sobre cómo aplicar el Reglamento de IA en su trabajo diario. Puedes ver los cursos disponibles en la página de formación (/formacion).",
+      en: "Yes. We offer professional training for your company's team on how to apply the AI Act in their daily work. You can see the available courses on the training page (/formacion).",
     },
   },
 ];

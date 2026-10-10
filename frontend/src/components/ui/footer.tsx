@@ -112,6 +112,7 @@ const Footer = () => {
             {  label: t("footer.links.agenteDeLlamadas"), href: "/agente-de-llamadas-ia" },
             { label: t("footer.links.automatizacionesPersonalizadas"), href: "/automatizaciones-personalizadas-empresas-n8n" },
             { label: t("footer.links.implantacionOdoo"), href: "/implantacion-odoo" },
+            { label: t("footer.links.auditoriaIa"), href: "/auditoria-cumplimiento-ia" },
             { label: t("footer.links.desarrolloAppWebs"), href: "/desarrollo-de-app-webs" },
             { label: t("footer.links.consultants"), href: "/consultora-tecnologica-sevilla" },
           ],

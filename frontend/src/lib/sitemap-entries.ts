@@ -9,6 +9,7 @@ const PUBLIC_LANDING_SLUGS = [
   "automatizacion-facturas",
   "automatizacion-informes",
   "implantacion-odoo",
+  "auditoria-cumplimiento-ia",
   "desarrollo-de-app-webs",
   "consultora-tecnologica-sevilla",
 ] as const;
