@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
-import { Headset, Workflow, Globe, Phone, Mail, ArrowRight } from "lucide-react";
+import { Headset, Workflow, Globe, ShieldCheck, Phone, Mail, ArrowRight } from "lucide-react";
 import { IconWhatsApp } from "@/components/ui/brand-icons";
 import { ServicesShowcaseGrid } from "@/components/services/services-showcase-grid";
 import { ToolsShowcase } from "@/components/services/tools-showcase";
@@ -26,6 +26,7 @@ const ServicesPage = () => {
     { href: "/agente-de-llamadas-ia", label: t("pills.callbot"), icon: <Headset className="h-4 w-4" /> },
     { href: "/automatizaciones-personalizadas-empresas-n8n", label: t("pills.automation"), icon: <Workflow className="h-4 w-4" /> },
     { href: "/implantacion-odoo", label: t("pills.odoo") } ,
+    { href: "/auditoria-cumplimiento-ia", label: t("pills.audit"), icon: <ShieldCheck className="h-4 w-4" /> },
     { href: "/desarrollo-de-app-webs", label: t("pills.pwa"), icon: <Globe className="h-4 w-4" /> },
   ];
 
@@ -41,7 +42,7 @@ const ServicesPage = () => {
     { key: "pricing", size: "md", title: advantageTexts[4]?.name, description: advantageTexts[4]?.description, image: "/static/servicios/pricing.webp" },
     {
       key: "contact",
-      size: "md",
+      size: "lg",
       title: t("advantages.contact.title"),
       description: t("advantages.contact.description"),
       ctaLabel: t("advantages.contact.ctaLabel"),

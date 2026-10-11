@@ -162,7 +162,7 @@ export function InfoCard({ item }: { item: InfoCardItem }) {
   const showBorder = item.border ?? true;
   const showOverlay = hasCardCopy(item);
   const baseClassName = cn(
-    "group relative overflow-hidden rounded-[2rem] transition duration-300",
+    "group relative block overflow-hidden rounded-[2rem] transition duration-300",
     showOverlay ? "shadow-sm" : "shadow-none",
     showBorder && "border border-[--color-border-subtle] dark:border-white/10",
     isInteractive && showOverlay && "cursor-pointer hover:-translate-y-1 hover:shadow-xl",
@@ -216,7 +216,6 @@ export function InfoCardCarousel({ items, className, prevLabel, nextLabel }: Inf
       className={className}
       prevLabel={prevLabel}
       nextLabel={nextLabel}
-      fixedWidthSlides
     />
   );
 }

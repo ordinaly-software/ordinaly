@@ -26,15 +26,6 @@ export interface CarouselProps<T> {
   nextLabel?: string;
   className?: string;
   options?: EmblaOptionsType;
-  /**
-   * Set when slides have their own fixed pixel width (e.g. `w-[380px]` on
-   * the rendered item) instead of a percentage `basis-*` in `slideClassName`.
-   * Fixed-width slides need the scroll container sized to their combined
-   * width so Embla can measure how far it can actually scroll — percentage
-   * slides need the opposite (container = 100% of the viewport), so this
-   * only changes behavior when explicitly opted into.
-   */
-  fixedWidthSlides?: boolean;
 }
 
 const DEFAULT_SLIDE_CLASS =
@@ -52,7 +43,6 @@ export function Carousel<T>({
   nextLabel,
   className,
   options,
-  fixedWidthSlides = false,
 }: CarouselProps<T>) {
   const tCommon = useTranslations("common");
   const resolvedPrevLabel = prevLabel ?? tCommon("previous");
@@ -68,7 +58,7 @@ export function Carousel<T>({
   );
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
-    { align: "start", containScroll: fixedWidthSlides ? false : "keepSnaps", dragFree: true, ...options },
+    { align: "start", containScroll: "keepSnaps", dragFree: true, ...options },
     plugins,
   );
 
@@ -149,17 +139,17 @@ export function Carousel<T>({
   return (
     <div className={cn("relative", className)}>
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className={cn("flex -ml-4 justify-[safe_center]", fixedWidthSlides && "w-max shrink-0")}>
+        <div className="flex -ml-4 justify-[safe_center]">
           {items.map((item, index) => (
             <div
               key={getKey(item, index)}
               data-carousel-slide={index}
               className={cn(
                 slideClassName,
-                "transition-[filter,opacity,transform] duration-300 ease-out",
+                "transition-[filter,opacity] duration-300 ease-out",
                 partialSlides.has(index)
-                  ? "blur-[1.5px] opacity-70 scale-[0.98]"
-                  : "blur-0 opacity-100 scale-100",
+                  ? "blur-[1.5px] opacity-70"
+                  : "blur-0 opacity-100",
               )}
             >
               {renderItem(item, index)}
@@ -170,10 +160,10 @@ export function Carousel<T>({
               data-carousel-slide={items.length}
               className={cn(
                 slideClassName,
-                "transition-[filter,opacity,transform] duration-300 ease-out",
+                "transition-[filter,opacity] duration-300 ease-out",
                 partialSlides.has(items.length)
-                  ? "blur-[1.5px] opacity-70 scale-[0.98]"
-                  : "blur-0 opacity-100 scale-100",
+                  ? "blur-[1.5px] opacity-70"
+                  : "blur-0 opacity-100",
               )}
             >
               {trailingSlide}

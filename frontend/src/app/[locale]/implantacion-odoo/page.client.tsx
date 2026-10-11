@@ -24,27 +24,9 @@ export default function ImplantacionOdoo() {
     throw new Error("Missing landing content: implantacion-odoo");
   }
 
+  const pricingTable = content.pricing;
+
   const infoCardTexts = (content.infocards?.cards ?? []) as { name: string; description?: string }[];
-
-  const pricing = content.pricing;
-
-  const pricingCard: InfoCardItem[] = pricing
-    ? [
-        {
-          key: "pricing",
-          size: "lg",
-          eyebrow: pricing.individualLabel,
-          title: pricing.individualPrice,
-          description: pricing.implementationTime ? (
-            <span className="not-italic mt-4 block text-sm">
-              <span className="font-semibold">{pricing.implementationLabel}</span> {pricing.implementationTime}
-            </span>
-          ) : undefined,
-          ctaLabel: pricing.ctaLabel,
-          href: pricing.ctaHref,
-        },
-      ]
-    : [];
 
   // Defined one by one (rather than mechanically mapped) so each card's
   // size can be chosen deliberately.
@@ -56,7 +38,6 @@ export default function ImplantacionOdoo() {
     { key: "vps", size: "sm", title: infoCardTexts[4]?.name, description: infoCardTexts[4]?.description, image: "/static/servicios/vps.webp" },
     { key: "software", size: "sm", title: infoCardTexts[5]?.name, description: infoCardTexts[5]?.description},
     { key: "sensitive-data", size: "sm", title: infoCardTexts[6]?.name, description: infoCardTexts[6]?.description, image: "/static/servicios/sensitive_data.webp" },
-    ...pricingCard,
   ];
 
   const comparisonRowsPresentation = [
@@ -278,6 +259,79 @@ export default function ImplantacionOdoo() {
           </figure>
         )}
       </section>
+
+      {/* VERIFACTU + PRICING */}
+      {content.verifactu && (
+        <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900 transition-colors">
+          <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-start">
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">
+                {content.verifactu.title}
+              </h2>
+              <p className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+                {content.verifactu.paragraphs[0]}
+              </p>
+              <ul className="mb-4 list-disc pl-6 text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
+                {content.verifactu.deadlines.map((d: string) => (
+                  <li key={d}>{d}</li>
+                ))}
+              </ul>
+              {content.verifactu.paragraphs.slice(1).map((p: string, i: number) => (
+                <p key={i} className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+                  {p}
+                </p>
+              ))}
+            </div>
+
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">
+                {content.verifactu.startTitle}
+              </h3>
+              <div className="overflow-hidden border border-[#d6d1ca] bg-white">
+                <table className="w-full table-fixed border-collapse text-left">
+                  <thead>
+                    <tr className="bg-clay-fill text-white">
+                      <th className="w-[46%] border-r border-white/40 px-2 py-3 text-center text-xs font-bold md:text-sm">
+                        {pricingTable.headers[0]}
+                      </th>
+                      <th className="w-[28%] border-r border-white/40 px-2 py-3 text-center text-xs font-bold md:text-sm">
+                        {pricingTable.headers[1]}
+                      </th>
+                      <th className="w-[26%] px-2 py-3 text-center text-xs font-bold md:text-sm">
+                        {pricingTable.headers[2]}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {pricingTable.rows.map((row: string[], i: number) => (
+                      <tr key={row[0]} className={i % 2 ? "bg-[#f8e2d1]" : "bg-white"}>
+                        <td className="border-r border-[#ddd6cf] px-2 py-3 text-xs font-bold text-black md:text-sm">{row[0]}</td>
+                        <td className="border-r border-[#ddd6cf] px-2 py-3 text-center text-xs font-bold text-black md:text-sm">{row[1]}</td>
+                        <td className="px-2 py-3 text-center text-xs text-black md:text-sm">{row[2]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="#formulario"
+                  className="px-6 py-3 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
+                  style={{ backgroundColor: "var(--swatch--clay-fill)" }}
+                >
+                  {pricingTable.ctaLabel}
+                </a>
+                <a
+                  href="#formulario"
+                  className="px-6 py-3 rounded-xl font-semibold border border-neutral-300 text-neutral-900 transition hover:scale-105 dark:border-neutral-600 dark:text-white"
+                >
+                  {content.verifactu.ctaLabel}
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* TECHNOLOGY FAQS */}
       {content.technologyFaqs?.length > 0 && (

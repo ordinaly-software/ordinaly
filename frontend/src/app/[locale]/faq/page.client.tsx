@@ -11,6 +11,7 @@ import {
   type LucideIcon,
   Receipt,
   Search,
+  ShieldCheck,
   Sparkles,
   Workflow,
   Database,
@@ -39,6 +40,7 @@ const categoryIcons: Record<FaqCategoryKey, LucideIcon> = {
   invoices: Receipt,
   reports: FileBarChart2,
   odoo: Database,
+  "ai-audit": ShieldCheck,
 };
 
 const categoryOrder = Object.keys(faqCategories) as FaqCategoryKey[];
