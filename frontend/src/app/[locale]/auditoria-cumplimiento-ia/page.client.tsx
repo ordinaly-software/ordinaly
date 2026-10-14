@@ -13,6 +13,7 @@ import {
   ScanFace,
   type LucideIcon,
 } from "lucide-react";
+import { FloatingCta } from "@/components/landing/floating-cta";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
@@ -270,6 +271,8 @@ export default function AuditoriaCumplimientoIa() {
           <ContactForm />
         </ReCaptchaWrapper>
       </section>
+
+      <FloatingCta href="https://wa.me/34626270806" label={content.floatingCtaLabel} />
 
       <WhatsAppBubble />
       <Footer />

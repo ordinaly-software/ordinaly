@@ -2086,6 +2086,7 @@
   "landings": {
     "agente-de-llamadas-ia": {
       "slug": "agente-de-llamadas-ia",
+      "floatingCtaLabel": "Quiero mi agente de llamadas",
       "title": "Chatbot de llamadas con Inteligencia Artificial",
       "shortTitle": "Agente de llamadas IA",
       "subtitle": "Chatbots de recepción de llamadas y campañas de llamadas salientes, integrados con tu sistema o CRM y operativos 24/7.",
@@ -2276,6 +2277,7 @@
     },
     "automatizaciones-personalizadas-empresas-n8n": {
       "slug": "automatizaciones-personalizadas-empresas-n8n",
+      "floatingCtaLabel": "Quiero automatizar mi empresa",
       "title": "Automatizaciones personalizadas para empresas con n8n",
       "shortTitle": "Automatización con n8n",
       "subtitle": "Workflows a medida para empresas y pymes que buscan eficiencia y eficacia en sus procesos.",
@@ -2638,6 +2640,7 @@
     },
     "automatizacion-redes-sociales": {
       "slug": "automatizacion-redes-sociales",
+      "floatingCtaLabel": "Quiero automatizar mis redes",
       "title": "Automatización de redes sociales para empresas",
       "shortTitle": "Automatización de redes sociales",
       "subtitle": "Tu empresa activa en redes, sin dedicarle tiempo cada día",
@@ -3064,6 +3067,7 @@
     },
     "consultora-tecnologica-sevilla": {
       "slug": "consultora-tecnologica-sevilla",
+      "floatingCtaLabel": "Quiero una consultoría gratuita",
       "title": "Consultora tecnológica en Sevilla: IA y software",
       "shortTitle": "Consultora Tecnológica en Sevilla",
       "description": "¿Buscas una consultora tecnológica en Sevilla? Ordinaly moderniza tu PYME con ingenieros de software, automatización n8n, Odoo 20 y agentes de IA.",
@@ -3180,6 +3184,7 @@
     },
     "auditoria-cumplimiento-ia": {
       "slug": "auditoria-cumplimiento-ia",
+      "floatingCtaLabel": "Quiero auditar mi IA",
       "metaTitle": "Auditoría de cumplimiento en IA para empresas",
       "description": "Auditamos tu contenidos generados por herramientas de IA generativa, agentes de voz, chatbots y flujos de trabajo automatizadosfrente al artículo 50 del Reglamento Europeo de Inteligencia Artificial (EU AI Act).",
       "title": "Auditoría de cumplimiento en Inteligencia Artificial",
