@@ -8,6 +8,7 @@ import Footer from "@/components/ui/footer";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { RichText } from "@/components/ui/highlight";
+import { Carousel } from "@/components/ui/carousel";
 import { IconOdoo } from "@/components/ui/brand-icons";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
@@ -73,7 +74,7 @@ export default function ImplantacionOdoo() {
         <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto">
           <div className="flex items-center justify-center gap-3 md:gap-8">
             <h1 className="text-balance text-neutral-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <RichText text={content.heroTitle ?? content.title} />
+              <RichText text={content.heroTitle ?? content.title} className="hl-hero" />
             </h1>
             <Image
               src="/static/implantacion-odoo/odoo_badge.webp"
@@ -128,7 +129,7 @@ export default function ImplantacionOdoo() {
             </h2>
             {content.whatIsOdoo?.paragraphs?.map((p: string, i: number) => (
               <p key={i} className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
-                {p}
+                <RichText text={p} className="hl-yellow" />
               </p>
             ))}
             {content.whatIsOdoo?.linkHref && (
@@ -147,32 +148,42 @@ export default function ImplantacionOdoo() {
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto mt-12 grid gap-10 md:grid-cols-2">
-          <div>
-            <HeroVideoDialog
-              className="w-full"
-              animationStyle="from-center"
-              videoUrl="https://youtu.be/YFJfF81_O2k?si=_r2Zg9AcZz0YjEFr"
-              thumbnailSrc="/static/implantacion-odoo/what_is_odoo_thumbnail.webp"
-              thumbnailAlt={content.sectionTitles?.whatIsOdoo}
-            />
-            <p className="mt-4 text-center text-sm text-slate-medium dark:text-cloud-medium">
-              {content.videos?.whatIsOdooCaption}
-            </p>
-          </div>
-          <div>
-            <HeroVideoDialog
-              className="w-full"
-              animationStyle="from-center"
-              videoUrl="https://www.youtube.com/watch?v=YlmN5QcAdLs"
-              thumbnailSrc="/static/implantacion-odoo/meet_odoo_20_thumbnail.webp"
-              thumbnailAlt={content.videos?.odoo20Alt}
-            />
-            <p className="mt-4 text-center text-sm text-slate-medium dark:text-cloud-medium">
-              {content.videos?.odoo20Caption}
-            </p>
-          </div>
-        </div>
+        <Carousel
+          className="max-w-6xl mx-auto mt-12"
+          items={[
+            {
+              key: "what-is-odoo",
+              videoUrl: "https://youtu.be/YFJfF81_O2k?si=_r2Zg9AcZz0YjEFr",
+              thumbnailSrc: "/static/implantacion-odoo/what_is_odoo_thumbnail.webp",
+              thumbnailAlt: content.sectionTitles?.whatIsOdoo,
+              caption: content.videos?.whatIsOdooCaption,
+            },
+            {
+              key: "meet-odoo-20",
+              videoUrl: "https://www.youtube.com/watch?v=YlmN5QcAdLs",
+              thumbnailSrc: "/static/implantacion-odoo/meet_odoo_20_thumbnail.webp",
+              thumbnailAlt: content.videos?.odoo20Alt,
+              caption: content.videos?.odoo20Caption,
+            },
+          ]}
+          getKey={(video) => video.key}
+          slideClassName="shrink-0 grow-0 basis-[88%] md:basis-[66%] pl-4"
+          options={{ dragFree: false }}
+          renderItem={(video) => (
+            <div>
+              <HeroVideoDialog
+                className="w-full"
+                animationStyle="from-center"
+                videoUrl={video.videoUrl}
+                thumbnailSrc={video.thumbnailSrc}
+                thumbnailAlt={video.thumbnailAlt}
+              />
+              <p className="mt-4 text-center text-sm text-slate-medium dark:text-cloud-medium">
+                {video.caption}
+              </p>
+            </div>
+          )}
+        />
       </section>
 
       {/* INFO CARDS */}
@@ -188,21 +199,23 @@ export default function ImplantacionOdoo() {
 
       {/* WHY ODOO */}
       <section className="pb-14 md:pb-16 bg-white dark:bg-neutral-900 transition-colors">
-        <Image
-          src="/static/implantacion-odoo/why_odoo.webp"
-          alt={content.sectionTitles?.whyOdoo ?? ""}
-          width={1580}
-          height={585}
-          sizes="100vw"
-          className="h-auto w-full"
-        />
+        <div className="bg-[#e4e0ea] dark:bg-[#2a2733]">
+          <Image
+            src="/static/implantacion-odoo/why_odoo.webp"
+            alt={content.sectionTitles?.whyOdoo ?? ""}
+            width={1580}
+            height={585}
+            sizes="(min-width: 1024px) 1024px, 100vw"
+            className="mx-auto h-auto w-full max-w-5xl [-webkit-mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
+          />
+        </div>
         <div className="max-w-6xl mx-auto px-6 pt-14 md:pt-16">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">
             {content.sectionTitles?.whyOdoo}
           </h2>
           {content.whyOdoo?.paragraphs?.map((p: string, i: number) => (
             <p key={i} className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
-              {p}
+              <RichText text={p} className="hl-yellow" />
             </p>
           ))}
         </div>
@@ -259,7 +272,7 @@ export default function ImplantacionOdoo() {
             </h2>
             {content.whyOdooCommunity?.paragraphs?.map((p: string, i: number) => (
               <p key={i} className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
-                {p}
+                <RichText text={p} className="hl-yellow" />
               </p>
             ))}
           </div>
@@ -282,16 +295,16 @@ export default function ImplantacionOdoo() {
                 {content.verifactu.title}
               </h2>
               <p className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
-                {content.verifactu.paragraphs[0]}
+                <RichText text={content.verifactu.paragraphs[0]} className="hl-yellow" />
               </p>
               <ul className="mb-4 list-disc pl-6 text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed">
                 {content.verifactu.deadlines.map((d: string) => (
-                  <li key={d}>{d}</li>
+                  <li key={d}><RichText text={d} className="hl-yellow" /></li>
                 ))}
               </ul>
               {content.verifactu.paragraphs.slice(1).map((p: string, i: number) => (
                 <p key={i} className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
-                  {p}
+                  <RichText text={p} className="hl-yellow" />
                 </p>
               ))}
             </div>

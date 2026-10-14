@@ -638,6 +638,19 @@ export const faqEntries: FaqEntry[] = [
     },
   },
   {
+    id: "odoo-upgrade",
+    category: "odoo",
+    tag: { es: "Actualización", en: "Upgrade" },
+    question: {
+      es: "¿Puedo actualizar mi Odoo a la versión 20? ¿Cuánto cuesta?",
+      en: "Can I upgrade my Odoo to version 20? How much does it cost?",
+    },
+    answer: {
+      es: "Sí. Odoo solo permite actualizar de versión en versión, sin saltos: si estás en la 18, hay que pasar primero a la 19 y después a la 20. Cada salto requiere migrar la base de datos, revisar los módulos personalizados y probar el resultado antes de pasar a producción. Por eso preparamos un presupuesto personalizado según tu versión actual, el volumen de datos y los módulos que uses. Cuéntanoslo en el formulario y te lo enviamos.",
+      en: "Yes. Odoo can only be upgraded one version at a time, with no skipping: if you are on version 18, you first have to move to 19 and then to 20. Each step involves migrating the database, reviewing custom modules and testing the result before going live. That is why we prepare a custom quote based on your current version, data volume and the modules you use. Tell us about it in the form and we will send it to you.",
+    },
+  },
+  {
     id: "odoo-verifactu-only",
     category: "odoo",
     tag: { es: "VeriFactu", en: "VeriFactu" },

@@ -2758,7 +2758,7 @@
       },
       "whatIsOdoo": {
         "paragraphs": [
-          "Odoo es uno de los ERP más utilizados del mundo, con millones de usuarios activos y una adopción creciente gracias a su flexibilidad, escalabilidad y amplio ecosistema de módulos para gestión empresarial, ventas, contabilidad, CRM y operaciones."
+          "Odoo es uno de los **ERP más utilizados del mundo**, con millones de usuarios activos y una adopción creciente gracias a su flexibilidad, escalabilidad y amplio ecosistema de módulos para gestión empresarial, ventas, contabilidad, CRM y operaciones."
         ],
         "linkPrefix": "Puedes obtener más información sobre Odoo en su web oficial:",
         "linkLabel": "odoo.com",
@@ -2771,14 +2771,14 @@
       },
       "whyOdoo": {
         "paragraphs": [
-          "Odoo combina CRM, contabilidad, facturación, inventario, ventas y muchos más módulos, en una única plataforma.",
-          "Su estructura modular te permite empezar por lo esencial y crecer sin cambiar de sistema, adaptándose al ritmo de tu negocio y a la curva de aprendizaje de tu equipo."
+          "Odoo combina CRM, contabilidad, facturación, inventario, ventas y muchos más módulos, **en una única plataforma**.",
+          "Su estructura modular te permite **empezar por lo esencial y crecer sin cambiar de sistema**, adaptándose al ritmo de tu negocio y a la curva de aprendizaje de tu equipo."
         ]
       },
       "whyOdooCommunity": {
         "paragraphs": [
-          "En Ordinaly, implantamos Odoo Community, la edición de código abierto y gratuita de Odoo. Es igual de mantenible, segura y funcional que la versión Enterprise, pero mucho más económica al evitar el coste mensual de las licencias por usuario, inevitables en otros ERPs como Salesforce.",
-          "Además, no dependes únicamente de Ordinaly, Odoo Community cuenta con una amplia comunidad de desarrolladores y empresas detrás, que publican módulos, mejoras y correcciones de forma continua."
+          "En Ordinaly, implantamos Odoo Community, **la edición de código abierto y gratuita de Odoo**. Es igual de mantenible, segura y funcional que la versión Enterprise, pero mucho más económica al **evitar el coste mensual de las licencias por usuario**, inevitables en otros ERPs como Salesforce.",
+          "Además, **no dependes únicamente de Ordinaly**, Odoo Community cuenta con una amplia comunidad de desarrolladores y empresas detrás, que publican módulos, mejoras y correcciones de forma continua."
         ],
         "comparisonTable": {
           "headers": [
@@ -2914,6 +2914,11 @@
           "answer": "Sí. Analizamos tu sistema actual, definimos el alcance y migramos tus datos y procesos a Odoo Community sin perder continuidad. Este coste de migración se valora de forma individual según la complejidad y volumen de datos."
         },
         {
+          "tag": "Actualización",
+          "question": "¿Puedo actualizar mi Odoo a la versión 20? ¿Cuánto cuesta?",
+          "answer": "Sí. Odoo solo permite actualizar de versión en versión, sin saltos: si estás en la 18, hay que pasar primero a la 19 y después a la 20. Cada salto requiere migrar la base de datos, revisar los módulos personalizados y probar el resultado antes de pasar a producción. Por eso preparamos un presupuesto personalizado según tu versión actual, el volumen de datos y los módulos que uses. Cuéntanoslo en el formulario y te lo enviamos."
+        },
+        {
           "tag": "Precio",
           "question": "¿La implantación de Odoo incluye VeriFactu o hay que pagar aparte?",
           "answer": "Depende de tu punto de partida. La implantación completa de Odoo 20 con VeriFactu incluido cuesta 1.160€ + IVA. Si prefieres implantar Odoo 20 sin VeriFactu, son 860€ + IVA. Y si ya tienes Odoo 20 o superior y solo necesitas la configuración de VeriFactu, son 400€ + IVA."
@@ -2947,11 +2952,11 @@
         "title": "Cumplimiento VeriFactu",
         "paragraphs": [
           "VeriFactu es el sistema de facturación certificada que exige la Agencia Tributaria para garantizar que las facturas emitidas son íntegras, están conservadas y son trazables. Se enmarca en la Ley Antifraude 11/2021 y su calendario definitivo, tras el último aplazamiento (Real Decreto-ley 15/2025), es este:",
-          "Configuramos de manera opcional Odoo Community con los módulos necesarios para generar facturas con el registro, la huella y el código QR que exige VeriFactu, y programamos las actualizaciones cuando cambie la especificación técnica de la Agencia Tributaria."
+          "**Configuramos de manera opcional Odoo Community** con los módulos necesarios para generar facturas con el registro, la huella y el código QR que exige VeriFactu, y programamos las actualizaciones cuando cambie la especificación técnica de la Agencia Tributaria."
         ],
         "deadlines": [
-          "1 de enero de 2027: sociedades sujetas al Impuesto sobre Sociedades.",
-          "1 de julio de 2027: autónomos y resto de obligados."
+          "__1 de enero de 2027__: sociedades sujetas al Impuesto sobre Sociedades.",
+          "__1 de julio de 2027__: autónomos y resto de obligados."
         ],
         "startTitle": "Tres formas de empezar, según tu punto de partida",
         "ctaLabel": "Consultar mi caso"

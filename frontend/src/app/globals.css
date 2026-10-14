@@ -695,3 +695,26 @@ svg[width="2rem"], svg[height="2rem"] {
     }
   }
 }
+
+/* Full-height yellow marker for landing hero titles (see implantacion-odoo) */
+.hl-marker.hl-hero,
+.dark .hl-marker.hl-hero {
+  --hl: #f7c948;
+  background-position: 0 60%;
+  background-size: 100% 0.95em;
+  color: #171717;
+  animation: none;
+}
+
+/* Yellow variants of the text highlighter, for body copy on landings */
+.hl-marker.hl-yellow,
+.dark .hl-marker.hl-yellow {
+  --hl: rgb(247 201 72 / 0.55);
+  animation: none;
+}
+
+.hl-underline.hl-yellow,
+.dark .hl-underline.hl-yellow {
+  text-decoration-color: #f7c948;
+  text-decoration-thickness: 3px;
+}
