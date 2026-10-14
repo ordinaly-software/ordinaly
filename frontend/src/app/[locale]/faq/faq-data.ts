@@ -633,8 +633,8 @@ export const faqEntries: FaqEntry[] = [
       en: "Does the Odoo implementation include VeriFactu or is it charged separately?",
     },
     answer: {
-      es: "Depende de tu punto de partida. La implantación completa de Odoo 18 con VeriFactu incluido cuesta 1.160€ + IVA. Si prefieres implantar Odoo 18 sin VeriFactu, son 860€ + IVA. Y si ya tienes Odoo 18 o superior y solo necesitas la configuración de VeriFactu, son 400€ + IVA.",
-      en: "It depends on your starting point. The full Odoo 18 implementation with VeriFactu included costs €1,160 + VAT. If you prefer Odoo 18 without VeriFactu, it is €860 + VAT. And if you already have Odoo 18 or later and only need the VeriFactu setup, it is €400 + VAT.",
+      es: "Depende de tu punto de partida. La implantación completa de Odoo 20 con VeriFactu incluido cuesta 1.160€ + IVA. Si prefieres implantar Odoo 20 sin VeriFactu, son 860€ + IVA. Y si ya tienes Odoo 20 o superior y solo necesitas la configuración de VeriFactu, son 400€ + IVA.",
+      en: "It depends on your starting point. The full Odoo 20 implementation with VeriFactu included costs €1,160 + VAT. If you prefer Odoo 20 without VeriFactu, it is €860 + VAT. And if you already have Odoo 20 or later and only need the VeriFactu setup, it is €400 + VAT.",
     },
   },
   {
@@ -642,12 +642,12 @@ export const faqEntries: FaqEntry[] = [
     category: "odoo",
     tag: { es: "VeriFactu", en: "VeriFactu" },
     question: {
-      es: "¿Qué pasa si mi negocio ya usa Odoo 18 y solo necesito VeriFactu?",
-      en: "What if my business already uses Odoo 18 and I only need VeriFactu?",
+      es: "¿Qué pasa si mi negocio ya usa Odoo 20 y solo necesito VeriFactu?",
+      en: "What if my business already uses Odoo 20 and I only need VeriFactu?",
     },
     answer: {
-      es: "Configuramos VeriFactu sobre tu instalación de Odoo 18 o superior por 400€ + IVA, sin necesidad de una implantación completa nueva. Si tu versión de Odoo es anterior a la 18, dínoslo en el formulario y te decimos qué hace falta antes.",
-      en: "We set up VeriFactu on your Odoo 18 or later installation for €400 + VAT, with no need for a new full implementation. If your Odoo version is older than 18, tell us in the form and we'll let you know what is needed first.",
+      es: "Configuramos VeriFactu sobre tu instalación de Odoo 20 o superior por 400€ + IVA, sin necesidad de una implantación completa nueva. Si tu versión de Odoo es anterior a la 20, dínoslo en el formulario y te decimos qué hace falta antes.",
+      en: "We set up VeriFactu on your Odoo 20 or later installation for €400 + VAT, with no need for a new full implementation. If your Odoo version is older than 20, tell us in the form and we'll let you know what is needed first.",
     },
   },
   {

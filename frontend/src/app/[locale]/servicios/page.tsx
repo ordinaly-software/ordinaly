@@ -18,8 +18,8 @@ export async function generateMetadata({
       ? "Servicios de automatización con IA para empresas"
       : "AI automation services for businesses",
     description: isEs
-      ? "Servicios y productos de automatización con IA: agentes de voz, procesos con n8n, automatización de facturas e informes e implantación de Odoo 18."
-      : "AI automation services and products: voice agents, n8n process automation, invoice and report automation, and Odoo 18 implementation.",
+      ? "Servicios y productos de automatización con IA: agentes de voz, procesos con n8n, automatización de facturas e informes e implantación de Odoo 20."
+      : "AI automation services and products: voice agents, n8n process automation, invoice and report automation, and Odoo 20 implementation.",
     image: "/static/backgrounds/services_background.webp",
   });
 }

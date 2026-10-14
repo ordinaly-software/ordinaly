@@ -1140,7 +1140,7 @@
     "pills": {
       "callbot": "AI calling agent",
       "automation": "Automation",
-      "odoo": "Odoo18",
+      "odoo": "Odoo20",
       "pwa": "Multiplatform web app (PWA)",
       "audit": "AI audit"
     },
@@ -1211,7 +1211,7 @@
       "informes": "Report automation",
       "chatSalientes": "Outbound calls chatbot",
       "chatbotRecepcionista": "Callbot",
-      "odoo": "Odoo18",
+      "odoo": "Odoo20",
       "odooNote": "VeriFactu can be added",
       "automationNote": "with n8n and Zapier",
       "chatbotRecepcionistaNote": "Inbound and outbound calls",
@@ -2739,8 +2739,9 @@
     "implantacion-odoo": {
       "slug": "implantacion-odoo",
       "title": "Odoo Implementation",
+      "heroTitle": "**Odoo 20** Implementation",
       "shortTitle": "Odoo Implementation",
-      "heroText": "Ordinaly's Odoo 18 implementation and upgrade service is aimed at businesses and SMEs in Spain that need a platform to organize their company and the way they work.",
+      "heroText": "Ordinaly's Odoo 20 implementation and upgrade service is aimed at businesses and SMEs in Spain that need a platform to organize their company and the way they work.",
       "heroCtaLabel": "Request information",
       "secondaryCtaLabel": "I want to implement Odoo",
       "serviceType": "Odoo ERP implementation and upgrade",
@@ -2762,6 +2763,11 @@
         "linkPrefix": "You can find out more about Odoo on its official website:",
         "linkLabel": "odoo.com",
         "linkHref": "https://www.odoo.com"
+      },
+      "videos": {
+        "whatIsOdooCaption": "A clear introduction to Odoo and how it can fit into your business.",
+        "odoo20Caption": "What's new in Odoo 20 (from the official Odoo channel).",
+        "odoo20Alt": "Thumbnail of the Meet Odoo 20 video"
       },
       "whyOdoo": {
         "paragraphs": [
@@ -2848,17 +2854,17 @@
         ],
         "rows": [
           [
-            "VeriFactu on an existing Odoo 18+ install",
+            "VeriFactu on an existing Odoo 20+ install",
             "€400 + VAT",
             "To be confirmed"
           ],
           [
-            "Odoo 18 implementation, without VeriFactu",
+            "Odoo 20 implementation, without VeriFactu",
             "€860 + VAT",
             "10 days"
           ],
           [
-            "Odoo 18 implementation with VeriFactu included",
+            "Odoo 20 implementation with VeriFactu included",
             "€1,160 + VAT",
             "10 days"
           ]
@@ -2910,12 +2916,12 @@
         {
           "tag": "Price",
           "question": "Does the Odoo implementation include VeriFactu or is it charged separately?",
-          "answer": "It depends on your starting point. The full Odoo 18 implementation with VeriFactu included costs €1,160 + VAT. If you prefer Odoo 18 without VeriFactu, it is €860 + VAT. And if you already have Odoo 18 or later and only need the VeriFactu setup, it is €400 + VAT."
+          "answer": "It depends on your starting point. The full Odoo 20 implementation with VeriFactu included costs €1,160 + VAT. If you prefer Odoo 20 without VeriFactu, it is €860 + VAT. And if you already have Odoo 20 or later and only need the VeriFactu setup, it is €400 + VAT."
         },
         {
           "tag": "VeriFactu",
-          "question": "What if my business already uses Odoo 18 and I only need VeriFactu?",
-          "answer": "We set up VeriFactu on your Odoo 18 or later installation for €400 + VAT, with no need for a new full implementation. If your Odoo version is older than 18, tell us in the form and we'll let you know what is needed first."
+          "question": "What if my business already uses Odoo 20 and I only need VeriFactu?",
+          "answer": "We set up VeriFactu on your Odoo 20 or later installation for €400 + VAT, with no need for a new full implementation. If your Odoo version is older than 20, tell us in the form and we'll let you know what is needed first."
         },
         {
           "tag": "VeriFactu",
@@ -3055,7 +3061,7 @@
       "slug": "consultora-tecnologica-sevilla",
       "title": "Technology consulting in Seville: AI and software",
       "shortTitle": "Technology Consulting in Seville",
-      "description": "Looking for a technology consulting firm in Seville? Ordinaly modernizes your SME with software engineers, n8n automation, Odoo 18 and AI agents.",
+      "description": "Looking for a technology consulting firm in Seville? Ordinaly modernizes your SME with software engineers, n8n automation, Odoo 20 and AI agents.",
       "heroTitle": "Technology consulting firm in Seville",
       "heroBody": "At Ordinaly we operate as a technology consulting firm specialized in helping companies optimize their processes through software development and intelligent automation. Our team of engineers designs and implements agile solutions that let organizations of every size cut operating costs, boost sales and move forward confidently in their digital transformation.",
       "heroCtaLabel": "Request a Free Technology Consultation",
@@ -3106,9 +3112,9 @@
             "imageAlt": "Voice agents at a technology consulting firm"
           },
           {
-            "title": "Odoo 18 + VeriFactu implementation, migration and consulting",
-            "description": "Specialists in configuring the Odoo 18 ERP. We fully adapt your company's management system to Spain's current invoicing regulations, including the automated VeriFactu modules.",
-            "ctaLabel": "Implement Odoo 18 in your company",
+            "title": "Odoo 20 + VeriFactu implementation, migration and consulting",
+            "description": "Specialists in configuring the Odoo 20 ERP. We fully adapt your company's management system to Spain's current invoicing regulations, including the automated VeriFactu modules.",
+            "ctaLabel": "Implement Odoo 20 in your company",
             "href": "/implantacion-odoo",
             "image": "/static/servicios/implantacion_odoo.webp",
             "imageAlt": "ERP software deployed by a technology consulting firm"
@@ -3156,7 +3162,7 @@
         },
         {
           "question": "What technologies and tools does your technology consulting firm use for automations?",
-          "answer": "We rely on robust, open and scalable technologies. We specialize in orchestrating systems with the n8n platform, programming and deploying the Odoo 18 ERP, building progressive web apps (PWAs), and training Artificial Intelligence models for voice and text conversational agents."
+          "answer": "We rely on robust, open and scalable technologies. We specialize in orchestrating systems with the n8n platform, programming and deploying the Odoo 20 ERP, building progressive web apps (PWAs), and training Artificial Intelligence models for voice and text conversational agents."
         },
         {
           "question": "Does my company need in-house IT staff to implement your software solutions?",

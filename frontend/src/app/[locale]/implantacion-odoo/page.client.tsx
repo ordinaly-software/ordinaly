@@ -7,6 +7,7 @@ import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
+import { RichText } from "@/components/ui/highlight";
 import { IconOdoo } from "@/components/ui/brand-icons";
 import ReCaptchaWrapper from "../recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
@@ -68,18 +69,18 @@ export default function ImplantacionOdoo() {
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="relative w-full overflow-x-clip py-20 md:py-24 px-6 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mx-auto">
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <h1 className="text-neutral-900 dark:text-white text-4xl md:text-6xl font-bold leading-tight">
-              {content.title}
+      <section className="relative w-full overflow-x-clip pt-20 pb-14 md:pt-24 md:pb-16 px-6 bg-white dark:bg-neutral-900 transition-colors">
+        <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto">
+          <div className="flex items-center justify-center gap-3 md:gap-8">
+            <h1 className="text-balance text-neutral-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <RichText text={content.heroTitle ?? content.title} />
             </h1>
             <Image
               src="/static/implantacion-odoo/odoo_badge.webp"
               alt={content.heroBadgeAlt}
-              width={72}
-              height={72}
-              className="h-12 w-12 md:h-16 md:w-16 rounded-full object-cover"
+              width={144}
+              height={144}
+              className="h-20 w-20 shrink-0 md:h-28 md:w-28 lg:h-32 lg:w-32 object-contain"
             />
           </div>
 
@@ -95,21 +96,25 @@ export default function ImplantacionOdoo() {
             {content.heroCtaLabel}
           </a>
         </div>
+      </section>
 
-        <div className="relative mt-12 left-1/2 w-screen -translate-x-1/2 overflow-hidden">
+      {/* HERO IMAGE */}
+      <section className="px-6 pt-10 pb-0 md:pt-14 md:pb-0 bg-neutral-100 dark:bg-neutral-800 transition-colors">
+        <div className="relative mx-auto max-w-5xl aspect-[1760/980] overflow-hidden rounded-2xl">
           <Image
             src="/static/implantacion-odoo/implantacion_odoo.webp"
             alt={content.title}
-            width={1920}
-            height={1280}
-            className="h-[420px] w-full object-cover object-center md:h-[560px] lg:h-[640px]"
+            width={1760}
+            height={998}
+            sizes="(min-width: 1024px) 1024px, 100vw"
+            className="size-full object-cover object-center"
             priority
           />
         </div>
       </section>
 
       {/* WHAT IS ODOO */}
-      <section className="py-14 md:py-16 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900 transition-colors">
         <div className="max-w-6xl mx-auto grid md:grid-cols-[0.7fr_1.3fr] gap-16 items-center">
           <div className="flex justify-center md:justify-start">
             <div className="flex h-40 w-40 items-center justify-center rounded-3xl bg-white dark:bg-neutral-900 shadow-xl border border-neutral-200 dark:border-neutral-700 text-[#714B67]">
@@ -142,17 +147,29 @@ export default function ImplantacionOdoo() {
           </div>
         </div>
 
-        <div className="max-w-4xl mx-auto mt-12">
-          <HeroVideoDialog
-            className="w-full"
-            animationStyle="from-center"
-            videoUrl="https://youtu.be/YFJfF81_O2k?si=_r2Zg9AcZz0YjEFr"
-            thumbnailSrc="/static/implantacion-odoo/what_is_odoo_thumbnail.webp"
-            thumbnailAlt={content.sectionTitles?.whatIsOdoo}
-          />
-          <div className="mt-4 text-center">
-            <p className="mt-1 text-sm text-slate-medium dark:text-cloud-medium">
-              {messages.home?.whyUs?.videoCaptionText}
+        <div className="max-w-6xl mx-auto mt-12 grid gap-10 md:grid-cols-2">
+          <div>
+            <HeroVideoDialog
+              className="w-full"
+              animationStyle="from-center"
+              videoUrl="https://youtu.be/YFJfF81_O2k?si=_r2Zg9AcZz0YjEFr"
+              thumbnailSrc="/static/implantacion-odoo/what_is_odoo_thumbnail.webp"
+              thumbnailAlt={content.sectionTitles?.whatIsOdoo}
+            />
+            <p className="mt-4 text-center text-sm text-slate-medium dark:text-cloud-medium">
+              {content.videos?.whatIsOdooCaption}
+            </p>
+          </div>
+          <div>
+            <HeroVideoDialog
+              className="w-full"
+              animationStyle="from-center"
+              videoUrl="https://www.youtube.com/watch?v=YlmN5QcAdLs"
+              thumbnailSrc="/static/implantacion-odoo/meet_odoo_20_thumbnail.webp"
+              thumbnailAlt={content.videos?.odoo20Alt}
+            />
+            <p className="mt-4 text-center text-sm text-slate-medium dark:text-cloud-medium">
+              {content.videos?.odoo20Caption}
             </p>
           </div>
         </div>
@@ -170,28 +187,24 @@ export default function ImplantacionOdoo() {
 
 
       {/* WHY ODOO */}
-      <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900 transition-colors">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-[1.3fr_0.7fr] gap-16 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">
-              {content.sectionTitles?.whyOdoo}
-            </h2>
-            {content.whyOdoo?.paragraphs?.map((p: string, i: number) => (
-              <p key={i} className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
-                {p}
-              </p>
-            ))}
-          </div>
-
-          <div className="flex justify-center md:justify-end">
-            <Image
-              src="/static/implantacion-odoo/why_odoo.webp"
-              alt={content.sectionTitles?.whyOdoo ?? ""}
-              width={480}
-              height={360}
-              className="w-full max-w-sm rounded-2xl border border-neutral-200 shadow-xl object-cover dark:border-neutral-700"
-            />
-          </div>
+      <section className="pb-14 md:pb-16 bg-white dark:bg-neutral-900 transition-colors">
+        <Image
+          src="/static/implantacion-odoo/why_odoo.webp"
+          alt={content.sectionTitles?.whyOdoo ?? ""}
+          width={1580}
+          height={585}
+          sizes="100vw"
+          className="h-auto w-full"
+        />
+        <div className="max-w-6xl mx-auto px-6 pt-14 md:pt-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">
+            {content.sectionTitles?.whyOdoo}
+          </h2>
+          {content.whyOdoo?.paragraphs?.map((p: string, i: number) => (
+            <p key={i} className="text-lg text-neutral-700 dark:text-neutral-300 leading-relaxed mb-4">
+              {p}
+            </p>
+          ))}
         </div>
       </section>
 
@@ -263,7 +276,7 @@ export default function ImplantacionOdoo() {
       {/* VERIFACTU + PRICING */}
       {content.verifactu && (
         <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900 transition-colors">
-          <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-start">
+          <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 md:items-start">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">
                 {content.verifactu.title}
@@ -284,20 +297,20 @@ export default function ImplantacionOdoo() {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold mb-4 text-neutral-900 dark:text-white">
+              <h3 className="text-2xl font-bold mb-4 text-neutral-900 dark:text-white">
                 {content.verifactu.startTitle}
               </h3>
               <div className="overflow-hidden border border-[#d6d1ca] bg-white">
                 <table className="w-full table-fixed border-collapse text-left">
                   <thead>
                     <tr className="bg-clay-fill text-white">
-                      <th className="w-[46%] border-r border-white/40 px-2 py-3 text-center text-xs font-bold md:text-sm">
+                      <th className="w-[46%] border-r border-white/40 px-3 py-4 text-center text-sm font-bold md:text-base">
                         {pricingTable.headers[0]}
                       </th>
-                      <th className="w-[28%] border-r border-white/40 px-2 py-3 text-center text-xs font-bold md:text-sm">
+                      <th className="w-[28%] border-r border-white/40 px-3 py-4 text-center text-sm font-bold md:text-base">
                         {pricingTable.headers[1]}
                       </th>
-                      <th className="w-[26%] px-2 py-3 text-center text-xs font-bold md:text-sm">
+                      <th className="w-[26%] px-3 py-4 text-center text-sm font-bold md:text-base">
                         {pricingTable.headers[2]}
                       </th>
                     </tr>
@@ -305,9 +318,9 @@ export default function ImplantacionOdoo() {
                   <tbody>
                     {pricingTable.rows.map((row: string[], i: number) => (
                       <tr key={row[0]} className={i % 2 ? "bg-[#f8e2d1]" : "bg-white"}>
-                        <td className="border-r border-[#ddd6cf] px-2 py-3 text-xs font-bold text-black md:text-sm">{row[0]}</td>
-                        <td className="border-r border-[#ddd6cf] px-2 py-3 text-center text-xs font-bold text-black md:text-sm">{row[1]}</td>
-                        <td className="px-2 py-3 text-center text-xs text-black md:text-sm">{row[2]}</td>
+                        <td className="border-r border-[#ddd6cf] px-3 py-5 text-sm font-bold text-black md:text-base">{row[0]}</td>
+                        <td className="border-r border-[#ddd6cf] px-3 py-5 text-center text-sm font-bold text-black md:text-base">{row[1]}</td>
+                        <td className="px-3 py-5 text-center text-sm text-black md:text-base">{row[2]}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -316,14 +329,14 @@ export default function ImplantacionOdoo() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href="#formulario"
-                  className="px-6 py-3 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
+                  className="px-8 py-4 rounded-xl font-semibold text-white shadow-lg transition hover:scale-105"
                   style={{ backgroundColor: "var(--swatch--clay-fill)" }}
                 >
                   {pricingTable.ctaLabel}
                 </a>
                 <a
                   href="#formulario"
-                  className="px-6 py-3 rounded-xl font-semibold border border-neutral-300 text-neutral-900 transition hover:scale-105 dark:border-neutral-600 dark:text-white"
+                  className="px-8 py-4 rounded-xl font-semibold border border-neutral-300 text-neutral-900 transition hover:scale-105 dark:border-neutral-600 dark:text-white"
                 >
                   {content.verifactu.ctaLabel}
                 </a>
@@ -336,7 +349,7 @@ export default function ImplantacionOdoo() {
       {/* TECHNOLOGY FAQS */}
       {content.technologyFaqs?.length > 0 && (
         <FaqAccordion
-          className="bg-white dark:bg-neutral-900 transition-colors"
+          className="bg-neutral-50 dark:bg-neutral-800 transition-colors"
           title={content.sectionTitles?.technologyFaqs}
           description={content.sectionTitles?.technologyFaqsSubtitle}
           items={content.technologyFaqs.map(

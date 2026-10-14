@@ -25,8 +25,8 @@ export async function generateMetadata({
   return {
     ...base,
     keywords: isEs
-      ? ["automatización empresarial IA", "automatización con IA Sevilla", "agentes de IA para empresas", "automatización n8n", "agente de voz IA", "automatización de facturas", "implantación Odoo 18", "formación IA para PYMES", "consultora de software Sevilla"]
-      : ["enterprise AI automation", "AI automation Seville", "AI agents for business", "n8n automation", "AI voice agent", "invoice automation", "Odoo 18 implementation", "software consultancy Spain"],
+      ? ["automatización empresarial IA", "automatización con IA Sevilla", "agentes de IA para empresas", "automatización n8n", "agente de voz IA", "automatización de facturas", "implantación Odoo 20", "formación IA para PYMES", "consultora de software Sevilla"]
+      : ["enterprise AI automation", "AI automation Seville", "AI agents for business", "n8n automation", "AI voice agent", "invoice automation", "Odoo 20 implementation", "software consultancy Spain"],
   };
 }
 

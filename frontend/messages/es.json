@@ -1140,7 +1140,7 @@
     "pills": {
       "callbot": "Chatbot de llamadas IA",
       "automation": "Automatización",
-      "odoo": "Odoo18",
+      "odoo": "Odoo20",
       "pwa": "Aplicaciones web multiplataforma (PWA)",
       "audit": "Auditoría IA"
     },
@@ -2738,9 +2738,10 @@
     },
     "implantacion-odoo": {
       "slug": "implantacion-odoo",
-      "title": "Implantación de Odoo 18",
-      "shortTitle": "Implantación de Odoo 18",
-      "heroText": "El servicio de implantación y actualización de Odoo 18 de Ordinaly está orientado a empresas y pymes que necesitan una plataforma donde organizar su empresa (gestión de clientes, personal, facturación, contabilidad, etc.).",
+      "title": "Implantación de Odoo 20",
+      "heroTitle": "Implantación de **Odoo 20**",
+      "shortTitle": "Implantación de Odoo 20",
+      "heroText": "El servicio de implantación y actualización de Odoo 20 de Ordinaly está orientado a empresas y pymes que necesitan una plataforma donde organizar su empresa (gestión de clientes, personal, facturación, contabilidad, etc.).",
       "heroCtaLabel": "Solicitar información",
       "secondaryCtaLabel": "Quiero implantar Odoo",
       "serviceType": "Implantación y actualización de ERP Odoo",
@@ -2749,7 +2750,7 @@
         "whatIsOdoo": "¿Qué es Odoo?",
         "whyOdoo": "¿Por qué Odoo es nuestra solución de confianza?",
         "whyOdooCommunity": "¿Por qué Odoo Community?",
-        "infocardsTitle": "Todo sobre la implantación de Odoo 18",
+        "infocardsTitle": "Todo sobre la implantación de Odoo 20",
         "security": "Tu negocio es nuestra prioridad",
         "requirements": "Requisitos",
         "technologyFaqs": "¿Tienes más dudas sobre Odoo?",
@@ -2762,6 +2763,11 @@
         "linkPrefix": "Puedes obtener más información sobre Odoo en su web oficial:",
         "linkLabel": "odoo.com",
         "linkHref": "https://www.odoo.com"
+      },
+      "videos": {
+        "whatIsOdooCaption": "Una breve introducción a Odoo (Por el canal de Youtube oficial de Odoo en Español).",
+        "odoo20Caption": "Novedades de Odoo 20 (vídeo en inglés del canal oficial de Odoo).",
+        "odoo20Alt": "Miniatura del vídeo Meet Odoo 20"
       },
       "whyOdoo": {
         "paragraphs": [
@@ -2848,17 +2854,17 @@
         ],
         "rows": [
           [
-            "VeriFactu sobre Odoo 18+ ya instalado",
+            "VeriFactu sobre Odoo 20+ ya instalado",
             "400€ + IVA",
             "A confirmar"
           ],
           [
-            "Implantación de Odoo 18, sin VeriFactu",
+            "Implantación de Odoo 20, sin VeriFactu",
             "860€ + IVA",
             "10 días"
           ],
           [
-            "Implantación de Odoo 18 con VeriFactu incluido",
+            "Implantación de Odoo 20 con VeriFactu incluido",
             "1.160€ + IVA",
             "10 días"
           ]
@@ -2910,12 +2916,12 @@
         {
           "tag": "Precio",
           "question": "¿La implantación de Odoo incluye VeriFactu o hay que pagar aparte?",
-          "answer": "Depende de tu punto de partida. La implantación completa de Odoo 18 con VeriFactu incluido cuesta 1.160€ + IVA. Si prefieres implantar Odoo 18 sin VeriFactu, son 860€ + IVA. Y si ya tienes Odoo 18 o superior y solo necesitas la configuración de VeriFactu, son 400€ + IVA."
+          "answer": "Depende de tu punto de partida. La implantación completa de Odoo 20 con VeriFactu incluido cuesta 1.160€ + IVA. Si prefieres implantar Odoo 20 sin VeriFactu, son 860€ + IVA. Y si ya tienes Odoo 20 o superior y solo necesitas la configuración de VeriFactu, son 400€ + IVA."
         },
         {
           "tag": "VeriFactu",
-          "question": "¿Qué pasa si mi negocio ya usa Odoo 18 y solo necesito VeriFactu?",
-          "answer": "Configuramos VeriFactu sobre tu instalación de Odoo 18 o superior por 400€ + IVA, sin necesidad de una implantación completa nueva. Si tu versión de Odoo es anterior a la 18, dínoslo en el formulario y te decimos qué hace falta antes."
+          "question": "¿Qué pasa si mi negocio ya usa Odoo 20 y solo necesito VeriFactu?",
+          "answer": "Configuramos VeriFactu sobre tu instalación de Odoo 20 o superior por 400€ + IVA, sin necesidad de una implantación completa nueva. Si tu versión de Odoo es anterior a la 20, dínoslo en el formulario y te decimos qué hace falta antes."
         },
         {
           "tag": "VeriFactu",
@@ -3055,7 +3061,7 @@
       "slug": "consultora-tecnologica-sevilla",
       "title": "Consultora tecnológica en Sevilla: IA y software",
       "shortTitle": "Consultora Tecnológica en Sevilla",
-      "description": "¿Buscas una consultora tecnológica en Sevilla? Ordinaly moderniza tu PYME con ingenieros de software, automatización n8n, Odoo 18 y agentes de IA.",
+      "description": "¿Buscas una consultora tecnológica en Sevilla? Ordinaly moderniza tu PYME con ingenieros de software, automatización n8n, Odoo 20 y agentes de IA.",
       "heroTitle": "Consultora tecnológica en Sevilla",
       "heroBody": "En Ordinaly operamos como una consultora tecnológica especializada en ayudar a las empresas a optimizar sus procesos mediante el desarrollo de software y la automatización inteligente. Nuestro equipo de ingenieros diseña e implementa soluciones ágiles que permiten a organizaciones de todos los tamaños reducir costes operativos, impulsar sus ventas y avanzar con paso firme en su transformación digital.",
       "heroCtaLabel": "Solicitar Consultoría Tecnológica Gratuita",
@@ -3106,9 +3112,9 @@
             "imageAlt": "Agentes de voz en consultora tecnológica"
           },
           {
-            "title": "Implantación, migración y consultoría de Odoo 18 + VeriFactu",
-            "description": "Especialistas en la parametrización del ERP Odoo 18. Adaptamos de forma integral el sistema de gestión de tu empresa a las normativas legales vigentes de facturación en España, incluyendo los módulos automatizados de VeriFactu.",
-            "ctaLabel": "Implanta Odoo 18 en tu empresa",
+            "title": "Implantación, migración y consultoría de Odoo 20 + VeriFactu",
+            "description": "Especialistas en la parametrización del ERP Odoo 20. Adaptamos de forma integral el sistema de gestión de tu empresa a las normativas legales vigentes de facturación en España, incluyendo los módulos automatizados de VeriFactu.",
+            "ctaLabel": "Implanta Odoo 20 en tu empresa",
             "href": "/implantacion-odoo",
             "image": "/static/servicios/implantacion_odoo.webp",
             "imageAlt": "Software ERP implantado por consultora tecnológica"
@@ -3156,7 +3162,7 @@
         },
         {
           "question": "¿Qué tecnologías y herramientas utiliza vuestra consultora tecnológica para las automatizaciones?",
-          "answer": "Nos basamos en tecnologías robustas, abiertas y escalables. Somos especialistas en la orquestación de sistemas mediante la plataforma n8n, la programación e implantación del ERP Odoo 18, el desarrollo de aplicaciones web progresivas (PWA) y el entrenamiento de modelos de Inteligencia Artificial aplicados a agentes conversacionales de voz y texto."
+          "answer": "Nos basamos en tecnologías robustas, abiertas y escalables. Somos especialistas en la orquestación de sistemas mediante la plataforma n8n, la programación e implantación del ERP Odoo 20, el desarrollo de aplicaciones web progresivas (PWA) y el entrenamiento de modelos de Inteligencia Artificial aplicados a agentes conversacionales de voz y texto."
         },
         {
           "question": "¿Mi empresa necesita personal informático para poder implementar vuestras soluciones de software?",
