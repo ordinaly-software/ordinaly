@@ -4,6 +4,7 @@ import { useMessages } from "next-intl";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Footer from "@/components/ui/footer";
+import { FloatingCta } from "@/components/landing/floating-cta";
 import ContactForm from "@/components/ui/contact-form.client";
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
 import { FlipCard } from "@/components/landing/flip-card";
@@ -250,6 +251,8 @@ export default function AutomatizacionRedesSocialesPage() {
         </ReCaptchaWrapper>
       </section>
       
+
+      <FloatingCta href="https://wa.me/34626270806" label={content.floatingCtaLabel} />
 
       <WhatsAppBubble />
       <Footer />

@@ -22,6 +22,7 @@ import {
 import { Mail, Phone, Bell } from "lucide-react";
 import Footer from "@/components/ui/footer";
 import { Button } from "@/components/ui/button";
+import { FloatingCta } from "@/components/landing/floating-cta";
 import ContactForm from "@/components/ui/contact-form.client";
 import N8nFlow, { type N8nFlowContent } from "@/components/landing/n8n-flow";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
@@ -48,6 +49,7 @@ type LandingContent = {
   description: string;
   heroBadge?: string;
   heroCtaLabel: string;
+  floatingCtaLabel: string;
   secondaryCtaLabel: string;
   secondaryCtaHref: string;
   n8nCtaLabel: string;
@@ -450,6 +452,8 @@ export default function AutomatizacionesPersonalizadasN8nPage() {
           </ReCaptchaWrapper>
         </div>
       </section>
+
+      <FloatingCta href="https://wa.me/34626270806" label={content.floatingCtaLabel} />
 
       <WhatsAppBubble />
       <Footer />

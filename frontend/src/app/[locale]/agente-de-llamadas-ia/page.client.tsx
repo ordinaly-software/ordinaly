@@ -12,6 +12,7 @@ import { HowItWorksVideoSection } from "@/components/landing/how-it-works-video-
 import { InfoCardCarousel, type InfoCardItem } from "@/components/landing/info-card-carousel";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { IconN8n, IconWhatsApp } from "@/components/ui/brand-icons";
+import { FloatingCta } from "@/components/landing/floating-cta";
 import ContactForm from "@/components/ui/contact-form.client";
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "../recaptcha-provider";
@@ -419,6 +420,8 @@ export default function AgenteDeLlamadasIA() {
           <ContactForm />
         </ReCaptchaWrapper>
       </section>
+
+      <FloatingCta href="https://wa.me/34626270806" label={content.floatingCtaLabel} />
 
       <WhatsAppBubble />
       <Footer />

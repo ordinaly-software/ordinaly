@@ -19,6 +19,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import Footer from "@/components/ui/footer";
+import { FloatingCta } from "@/components/landing/floating-cta";
 import ContactForm from "@/components/ui/contact-form.client";
 import { FaqAccordion } from "@/components/ui/faq-accordion";
 import { IconN8n, IconWhatsApp, IconOdoo } from "@/components/ui/brand-icons";
@@ -49,6 +50,7 @@ type LandingContent = {
   heroTitle: string;
   heroBody: string;
   heroCtaLabel: string;
+  floatingCtaLabel: string;
   heroSecondaryCtaLabel: string;
   heroImageAlt: string;
   sectionTitles?: {
@@ -336,6 +338,8 @@ export default function ConsultoraTecnologicaSevillaPage() {
           </ReCaptchaWrapper>
         </div>
       </section>
+
+      <FloatingCta href="https://wa.me/34626270806" label={content.floatingCtaLabel} />
 
       <WhatsAppBubble />
       <Footer />

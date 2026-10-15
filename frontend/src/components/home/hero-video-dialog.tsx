@@ -112,7 +112,7 @@ export function HeroVideoDialog({
 
   if (!youtubeData || !resolvedThumbnail) return null
 
-  const embedSrc = `${getYoutubeEmbedUrl(youtubeData)}?autoplay=1&rel=0`
+  const embedSrc = `${getYoutubeEmbedUrl(youtubeData)}?autoplay=1&playsinline=1&enablejsapi=1&rel=0`
   const watchUrl = getYoutubeWatchUrl(youtubeData)
 
   const closeModal = () => setIsVideoOpen(false)
@@ -172,6 +172,12 @@ export function HeroVideoDialog({
                     title={title}
                     className="mt-0 size-full rounded-2xl"
                     allowFullScreen
+                    onLoad={(e) =>
+                      e.currentTarget.contentWindow?.postMessage(
+                        JSON.stringify({ event: "command", func: "playVideo", args: [] }),
+                        "https://www.youtube-nocookie.com",
+                      )
+                    }
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   ></iframe>
                 ) : (

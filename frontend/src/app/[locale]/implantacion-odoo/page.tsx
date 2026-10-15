@@ -16,11 +16,11 @@ export async function generateMetadata({
     locale,
     path: `/${slug}`,
     title: isEs
-      ? "Implantación de Odoo 18 para empresas y pymes"
-      : "Odoo 18 implementation for businesses & SMEs",
+      ? "Implantación de Odoo 20 para empresas y pymes"
+      : "Odoo 20 implementation for businesses & SMEs",
     description: isEs
-      ? "Implantamos y actualizamos Odoo 18: análisis funcional, migración de datos, validación técnica y entrega de un entorno operativo, con base VeriFactu España."
-      : "We implement and upgrade Odoo 18: functional analysis, data migration, technical validation and delivery of a live environment, with VeriFactu base setup.",
+      ? "Implantamos y actualizamos Odoo 20: análisis funcional, migración de datos, validación técnica y entrega de un entorno operativo, con base VeriFactu España."
+      : "We implement and upgrade Odoo 20: functional analysis, data migration, technical validation and delivery of a live environment, with VeriFactu base setup.",
     image: "/static/backgrounds/odoo_background.webp",
   });
 }

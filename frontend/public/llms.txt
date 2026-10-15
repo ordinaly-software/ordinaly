@@ -17,7 +17,7 @@ Ordinaly Software S.L. ayuda a empresas a implementar inteligencia artificial pr
 - [Automatización de Facturas](https://ordinaly.ai/automatizacion-facturas): Soluciones específicas para departamentos financieros y contables.
 - [Automatización de Informes](https://ordinaly.ai/automatizacion-informes): Envío mensual automático de informes económicos.
 - [Automatización con n8n](https://ordinaly.ai/automatizacion-n8n): Especialistas en flujos de trabajo complejos usando n8n.
-- [Implantación de Odoo](https://ordinaly.ai/implantacion-odoo): Implantación y actualización de Odoo 18 para empresas y pymes.
+- [Implantación de Odoo](https://ordinaly.ai/implantacion-odoo): Implantación y actualización de Odoo 20 para empresas y pymes.
 - [Desarrollo de PWA](https://ordinaly.ai/desarrollo-de-app-webs): Aplicaciones web multiplataforma dinámicas, rápidas y escalables.
 - [Formación IA para PYMES](https://ordinaly.ai/formacion-ia-sevilla): Capacitación práctica para equipos en Sevilla y remoto.
 

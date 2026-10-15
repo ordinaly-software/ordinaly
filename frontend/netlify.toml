@@ -39,7 +39,7 @@ for = "/start.js"
 
 [[headers]]
   for = "/*"
-  conditions = {Host = ["odoo.ordinaly.ai", "n8n.ordinaly.ai", "mail.ordinaly.ai"]}
+  conditions = {Host = ["odoo.ordinaly.ai", "n8n.ordinaly.ai"]}
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 

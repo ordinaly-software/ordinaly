@@ -23,8 +23,8 @@ export async function generateMetadata({
       ? "Preguntas frecuentes sobre automatización con IA"
       : "Frequently asked questions about AI automation",
     description: isEs
-      ? "Respuestas a las dudas más habituales sobre agentes de IA, automatización con n8n, facturas, informes, Odoo 18 y formación para empresas."
-      : "Answers to the most common questions about AI agents, n8n automation, invoicing, reporting, Odoo 18 and training for businesses.",
+      ? "Respuestas a las dudas más habituales sobre agentes de IA, automatización con n8n, facturas, informes, Odoo 20 y formación para empresas."
+      : "Answers to the most common questions about AI agents, n8n automation, invoicing, reporting, Odoo 20 and training for businesses.",
     image: "/static/backgrounds/services_background.webp",
   });
 }
