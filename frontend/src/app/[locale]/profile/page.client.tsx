@@ -11,6 +11,8 @@ import ProfileCoursesTab from "@/components/profile/profile-courses-tab";
 import { User, BookOpen } from "lucide-react";
 import type { Course } from "@/hooks/useCourses";
 import Footer from "@/components/ui/footer";
+import { PageHeaderPanel } from "@/components/ui/page-header-panel";
+import { TabBar, TabBarTab } from "@/components/ui/tab-bar";
 import { useParams } from "next/navigation";
 import {
   DELETE_ACCOUNT_COOLDOWN_KEY,
@@ -268,9 +270,9 @@ export default function ProfilePage() {
     }
   };
 
-  const profileTabs = [
-    { id: "profile" as const, label: t("tabs.profile"), icon: User },
-    { id: "courses" as const, label: t("tabs.courses"), icon: BookOpen },
+  const profileTabs: TabBarTab[] = [
+    { id: "profile", name: t("tabs.profile"), icon: User },
+    { id: "courses", name: t("tabs.courses"), icon: BookOpen },
   ];
 
   const fetchEnrolledCourses = useCallback(async (token?: string, userId?: number) => {
@@ -694,35 +696,14 @@ export default function ProfilePage() {
 
       <div className="relative mx-auto flex max-w-5xl flex-col gap-8 px-4 pb-20 pt-10 md:px-6 lg:px-8">
         {/* Header Panel */}
-        <div className="rounded-[2rem] border border-[--color-border-subtle] bg-white/75 px-6 py-6 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04] sm:px-10">
-          <div className="space-y-3">
-            <h1 className="text-3xl font-semibold leading-tight tracking-[-0.03em] sm:text-4xl">
-              {t("title")}
-            </h1>
-          </div>
-
-          {/* Pill-shaped tabs */}
-          <div className="mt-5 flex flex-wrap gap-3">
-            {profileTabs.map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.id;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab.id)}
-                  className={`group inline-flex items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition-all duration-150 active:scale-[0.97] ${
-                    isActive
-                      ? "border-cobalt/50 bg-cobalt/12 text-cobalt shadow-[0_8px_20px_-8px_rgba(2,85,213,0.35)] dark:border-cobalt-light/40 dark:bg-cobalt-light/15 dark:text-cobalt-light"
-                      : "border-[--color-border-subtle] bg-white/60 text-slate-medium hover:border-cobalt/40 hover:bg-cobalt/5 hover:text-cobalt dark:border-white/10 dark:bg-white/[0.03] dark:text-cloud-medium dark:hover:border-cobalt-light/30 dark:hover:bg-cobalt-light/10 dark:hover:text-cobalt-light"
-                  }`}
-                >
-                  <Icon className="h-4 w-4" />
-                  {tab.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        <PageHeaderPanel title={t("title")}>
+          <TabBar
+            tabs={profileTabs}
+            activeTab={activeTab}
+            onTabChange={(tabId: string) => handleTabChange(tabId as "profile" | "courses")}
+            className="mt-5"
+          />
+        </PageHeaderPanel>
 
         {/* Tab Content */}
         {activeTab === "profile" ? (

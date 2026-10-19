@@ -806,7 +806,7 @@ const AdminCoursesTab = () => {
       )}
 
       {/* Header Actions - sticky on small screens, transparent or card color */}
-  <div className="sticky top-0 z-30 bg-transparent dark:bg-transparent flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center gap-x-6 gap-y-3 mb-6 px-2 py-3">
+  <div className="sticky top-[120px] z-20 bg-transparent dark:bg-transparent flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center gap-x-6 gap-y-3 mb-6 px-2 py-3">
   <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-2 w-full md:w-auto min-w-0">
           <div className="relative w-full sm:w-64 min-w-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-light dark:text-cloud-medium" />

@@ -48,7 +48,7 @@ export function PaginationControls({
   return (
     <div className={`flex flex-col sm:flex-row items-center justify-between gap-3 ${className ?? ""}`}>
       {onPageSizeChange && (
-        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+        <div className="flex items-center gap-2 text-sm text-slate-light dark:text-cloud-medium">
           <span className="whitespace-nowrap">{t("perPage")}:</span>
           <Dropdown
             options={sizeOptions}
@@ -83,9 +83,9 @@ export function PaginationControls({
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
-          <div className="text-sm text-gray-600 dark:text-gray-300 whitespace-nowrap">
-            {t("page")} <strong className="text-gray-900 dark:text-white">{safeCurrentPage}</strong>{" "}
-            {t("of")} <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
+          <div className="text-sm text-slate-light dark:text-cloud-medium whitespace-nowrap">
+            {t("page")} <strong className="text-slate-dark dark:text-white">{safeCurrentPage}</strong>{" "}
+            {t("of")} <strong className="text-slate-dark dark:text-white">{totalPages}</strong>
           </div>
           <Button
             type="button"

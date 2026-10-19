@@ -223,7 +223,12 @@ html {
   scrollbar-gutter: stable;
 }
 
-html, body {
+/* Only html, not body: setting overflow-x on both forces the browser to also
+   promote each one's overflow-y to auto (per the CSS overflow spec), which
+   turns body into a second, non-scrolling "scroll container" competing with
+   html (the element that actually scrolls) and breaks position:sticky for
+   anything nested under body. */
+html {
   overflow-x: hidden;
 }
 

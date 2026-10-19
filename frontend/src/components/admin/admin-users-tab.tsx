@@ -21,8 +21,8 @@ type NewsletterStatus = "active" | "pending" | "unsubscribed" | "none";
 const NEWSLETTER_BADGE_CLASSES: Record<NewsletterStatus, string> = {
   active: "bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-300",
   pending: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300",
-  unsubscribed: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
-  none: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400",
+  unsubscribed: "bg-ivory-dark text-slate-light dark:bg-white/[0.04] dark:text-cloud-medium",
+  none: "bg-ivory-dark text-slate-light dark:bg-white/[0.04] dark:text-cloud-medium",
 };
 
 const AdminUsersTab = () => {
@@ -151,10 +151,10 @@ const AdminUsersTab = () => {
   return (
     <div>
       {/* Header Actions */}
-      <div className="sticky top-0 z-30 bg-transparent dark:bg-transparent flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2 py-3">
+      <div className="sticky top-[120px] z-20 bg-transparent dark:bg-transparent flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2 py-3">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
           <div className="relative w-full sm:w-64 min-w-0">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-cloud-medium" />
             <Input
               placeholder={t('searchPlaceholder') || 'Buscar usuarios...'}
               value={search}
@@ -194,7 +194,7 @@ const AdminUsersTab = () => {
             onClick={handleSendMail}
             disabled={selectedUsers.length === 0}
             size="sm"
-            className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
+            className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-cloud-medium disabled:cursor-not-allowed"
           >
             <Send className="h-4 w-4" />
             <span className="xs:inline"> {t('sendMail')}</span>
@@ -202,7 +202,7 @@ const AdminUsersTab = () => {
         </div>
       </div>
 
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+      <p className="text-sm text-slate-light dark:text-cloud-medium mb-2">
         {filteredUsers.length} {t('users')}
       </p>
 

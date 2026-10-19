@@ -33,8 +33,8 @@ export interface DataTableProps<T> {
   pageSize?: number;
 }
 
-const TH_CLASSES = "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider select-none";
-const TD_CLASSES = "px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white";
+const TH_CLASSES = "px-6 py-3 text-left text-xs font-medium text-slate-light dark:text-cloud-medium uppercase tracking-wider select-none";
+const TD_CLASSES = "px-6 py-4 whitespace-nowrap text-sm text-slate-dark dark:text-white";
 
 export function DataTable<T>({
   columns,
@@ -85,7 +85,7 @@ export function DataTable<T>({
   };
 
   if (rows.length === 0) {
-    return emptyMessage ? <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">{emptyMessage}</p> : null;
+    return emptyMessage ? <p className="py-10 text-center text-sm text-slate-light dark:text-cloud-medium">{emptyMessage}</p> : null;
   }
 
   const allVisibleSelected =
@@ -94,8 +94,8 @@ export function DataTable<T>({
   return (
     <div>
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-800">
+        <table className="min-w-full divide-y divide-[--color-border-subtle] dark:divide-white/10">
+          <thead className="bg-ivory-medium dark:bg-white/[0.04]">
             <tr>
               {selection && (
                 <th className="px-4 py-3">
@@ -103,7 +103,7 @@ export function DataTable<T>({
                     type="checkbox"
                     checked={allVisibleSelected}
                     onChange={() => selection.onToggleAll(visibleRows.map(getRowId))}
-                    className="rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
+                    className="rounded border-cloud-light text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
                   />
                 </th>
               )}
@@ -119,18 +119,18 @@ export function DataTable<T>({
               ))}
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
+          <tbody className="bg-white dark:bg-white/[0.04] divide-y divide-[--color-border-subtle] dark:divide-white/10">
             {visibleRows.map((row) => {
               const id = getRowId(row);
               return (
-                <tr key={id} className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-800">
+                <tr key={id} className="transition-colors hover:bg-ivory-medium dark:hover:bg-white/[0.06]">
                   {selection && (
                     <td className="px-4 py-4">
                       <input
                         type="checkbox"
                         checked={selection.selectedIds.includes(id)}
                         onChange={() => selection.onToggleRow(id)}
-                        className="rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
+                        className="rounded border-cloud-light text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
                       />
                     </td>
                   )}

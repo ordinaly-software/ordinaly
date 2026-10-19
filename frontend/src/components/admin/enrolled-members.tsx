@@ -34,11 +34,11 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
     window.location.href = mailto;
   };
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5 min-w-0">
+    <div className="bg-white dark:bg-white/[0.04] rounded-xl border border-[--color-border-subtle] dark:border-white/10 p-5 min-w-0">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
           <Users className="h-5 w-5" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-lg font-semibold text-slate-dark dark:text-white">
             {t("details.enrolledMembers")}
           </h3>
         </div>
@@ -46,7 +46,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
           onClick={handleSendMail}
           disabled={enrollments.length === 0}
           size="sm"
-          className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-gray-400 disabled:cursor-not-allowed"
+          className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-cloud-medium disabled:cursor-not-allowed"
         >
           <Send className="h-4 w-4" />
           <span className="xs:inline"> {t('details.sendMail')}</span>
@@ -57,8 +57,8 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
           <div className="animate-spin rounded-full h-6 w-6 border-2 border-[var(--swatch--clay)] border-t-transparent"></div>
         </div>
       ) : enrollments.length === 0 ? (
-        <div className="text-center py-6 text-gray-500 dark:text-gray-400">
-          <Users className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+        <div className="text-center py-6 text-slate-light dark:text-cloud-medium">
+          <Users className="h-12 w-12 mx-auto mb-3 text-cloud-medium" />
           <p>{t("details.noEnrollments")}</p>
         </div>
       ) : (
@@ -82,18 +82,18 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
             return (
               <div
                 key={enrollment.id}
-                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg"
+                className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 bg-ivory-medium dark:bg-white/[0.04] rounded-lg"
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1">
                   <div className="w-8 h-8 bg-[var(--swatch--clay)]/10 rounded-full flex items-center justify-center flex-shrink-0">
                     <User className="h-4 w-4 text-[var(--swatch--clay)]" />
                   </div>
                   <div className="min-w-0">
-                    <p className="font-medium text-gray-900 dark:text-white truncate">
+                    <p className="font-medium text-slate-dark dark:text-white truncate">
                       {displayName}
                     </p>
                     {enrollment.user_details?.email && (
-                      <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                      <p className="text-xs text-slate-light dark:text-cloud-medium truncate">
                         {enrollment.user_details.email}
                       </p>
                     )}
@@ -105,7 +105,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
                   </div>
                 </div>
                 <div className="text-left sm:text-right">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
+                  <p className="text-xs text-slate-light dark:text-cloud-medium whitespace-nowrap">
                     {t("details.enrolledOn")} {new Date(enrollment.enrolled_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                   </p>
                 </div>

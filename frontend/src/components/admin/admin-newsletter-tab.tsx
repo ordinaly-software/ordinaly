@@ -219,7 +219,7 @@ const AdminNewsletterTab = () => {
   return (
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div className="inline-flex rounded-lg border border-gray-200 p-1 dark:border-gray-700" role="tablist">
+        <div className="inline-flex rounded-lg border border-[--color-border-subtle] p-1 dark:border-white/10" role="tablist">
           {(["issues", "subscribers"] as SubTab[]).map((id) => (
             <button
               key={id}
@@ -228,7 +228,7 @@ const AdminNewsletterTab = () => {
               aria-selected={subTab === id}
               onClick={() => setSubTab(id)}
               className={`rounded-md px-4 py-1.5 text-sm font-medium transition-colors ${
-                subTab === id ? "bg-clay-fill text-white" : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                subTab === id ? "bg-clay-fill text-white" : "text-slate-light hover:text-slate-dark dark:text-cloud-medium dark:hover:text-white"
               }`}
             >
               {t(`subTabs.${id}`)}
@@ -284,7 +284,7 @@ const AdminNewsletterTab = () => {
         <>
           <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center">
             <div className="relative w-full min-w-0 sm:w-64">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cloud-medium" />
               <Input placeholder={t("subscribers.search")} value={search} onChange={(e) => setSearch(e.target.value)} className="w-full pl-10" />
             </div>
             <Dropdown

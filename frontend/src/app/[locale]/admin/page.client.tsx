@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { AdminTabs, AdminTabsTab } from "@/components/admin/admin-tabs";
+import { TabBar, TabBarTab } from "@/components/ui/tab-bar";
 import Footer from "@/components/ui/footer";
+import { PageHeaderPanel } from "@/components/ui/page-header-panel";
 import Alert from "@/components/ui/alert";
 import { AnimatePresence, motion } from "framer-motion";
 import { 
@@ -48,7 +49,7 @@ export default function AdminPage() {
     totalUsers: 0,
     totalPosts: 0, // added
   });
-  const tabs: AdminTabsTab[] = [
+  const tabs: TabBarTab[] = [
     { id: 'overview', name: t("tabs.overview"), icon: BarChart3 },
     { id: 'courses', name: t("tabs.courses"), icon: BookOpen },
     { id: 'users', name: t("tabs.users"), icon: Users },
@@ -169,7 +170,7 @@ export default function AdminPage() {
     checkAdminAccess();
   }, [router, t]);
 
-  // No need for scroll/tab memory logic here, handled by AdminTabs
+  // No need for scroll/tab memory logic here, handled by TabBar
 
   const renderTabContent = () => {
     const tabVariants = {
@@ -190,20 +191,20 @@ export default function AdminPage() {
           >
             {/* Courses */}
             <Card
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-white/[0.04] border-[--color-border-subtle] dark:border-white/10 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('courses')}
               tabIndex={0}
               role="button"
               aria-label={t("stats.totalCourses")}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <CardTitle className="text-sm font-medium text-slate-light dark:text-cloud-medium">
                   {t("stats.totalCourses")}
                 </CardTitle>
                 <BookOpen className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                <div className="text-2xl font-bold text-slate-dark dark:text-white">
                   {stats.totalCourses}
                 </div>
               </CardContent>
@@ -211,20 +212,20 @@ export default function AdminPage() {
 
             {/* Users */}
             <Card
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-white/[0.04] border-[--color-border-subtle] dark:border-white/10 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('users')}
               tabIndex={0}
               role="button"
               aria-label={t("stats.totalUsers")}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <CardTitle className="text-sm font-medium text-slate-light dark:text-cloud-medium">
                   {t("stats.totalUsers")}
                 </CardTitle>
                 <Users className="h-4 w-4 text-[#E4572E]" />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                <div className="text-2xl font-bold text-slate-dark dark:text-white">
                   {stats.totalUsers}
                 </div>
               </CardContent>
@@ -232,24 +233,24 @@ export default function AdminPage() {
 
             {/* Blog (posts count + quick access, same size as others) */}
             <Card
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-white/[0.04] border-[--color-border-subtle] dark:border-white/10 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('blog')}
               tabIndex={0}
               role="button"
               aria-label={t("tabs.blog")}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <CardTitle className="text-sm font-medium text-slate-light dark:text-cloud-medium">
                   {t("tabs.blog")}
                 </CardTitle>
                 <ArrowUpRight className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
               </CardHeader>
               <CardContent className="flex items-center justify-between">
                 <div>
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <div className="text-2xl font-bold text-slate-dark dark:text-white">
                     {stats.totalPosts}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <div className="text-sm text-slate-light dark:text-cloud-medium">
                     {t("stats.totalPosts")}
                   </div>
                 </div>
@@ -258,20 +259,20 @@ export default function AdminPage() {
 
             {/* Quick access: Odoo */}
             <Card
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-white/[0.04] border-[--color-border-subtle] dark:border-white/10 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('odoo')}
               tabIndex={0}
               role="button"
               aria-label={t("tabs.odoo")}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <CardTitle className="text-sm font-medium text-slate-light dark:text-cloud-medium">
                   {t("tabs.odoo")}
                 </CardTitle>
                 <BarChart3 className="h-4 w-4 text-[var(--swatch--clay)]" />
               </CardHeader>
               <CardContent>
-                <div className="text-sm text-gray-700 dark:text-gray-300">
+                <div className="text-sm text-slate-medium dark:text-cloud-medium">
                   {t("externalTabs.odoo.description")}
                 </div>
               </CardContent>
@@ -279,20 +280,20 @@ export default function AdminPage() {
 
             {/* Quick access: n8n */}
             <Card
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-white/[0.04] border-[--color-border-subtle] dark:border-white/10 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('n8n')}
               tabIndex={0}
               role="button"
               aria-label={t("tabs.n8n")}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <CardTitle className="text-sm font-medium text-slate-light dark:text-cloud-medium">
                   {t("tabs.n8n")}
                 </CardTitle>
                 <Command className="h-4 w-4 text-[#E4572E]" />
               </CardHeader>
               <CardContent>
-                <div className="text-sm text-gray-700 dark:text-gray-300">
+                <div className="text-sm text-slate-medium dark:text-cloud-medium">
                   {t("externalTabs.n8n.description")}
                 </div>
               </CardContent>
@@ -300,20 +301,20 @@ export default function AdminPage() {
 
             {/* Quick access: API */}
             <Card
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-white/[0.04] border-[--color-border-subtle] dark:border-white/10 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('api')}
               tabIndex={0}
               role="button"
               aria-label={t("tabs.api")}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <CardTitle className="text-sm font-medium text-slate-light dark:text-cloud-medium">
                   {t("tabs.api")}
                 </CardTitle>
                 <Settings className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
               </CardHeader>
               <CardContent>
-                <div className="text-sm text-gray-700 dark:text-gray-300">
+                <div className="text-sm text-slate-medium dark:text-cloud-medium">
                   {t("externalTabs.api.description")}
                 </div>
               </CardContent>
@@ -321,20 +322,20 @@ export default function AdminPage() {
 
             {/* Quick access: API docs */}
             <Card
-              className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 cursor-pointer hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-white/[0.04] border-[--color-border-subtle] dark:border-white/10 cursor-pointer hover:shadow-lg transition-shadow"
               onClick={() => handleTabChange('apidocs')}
               tabIndex={0}
               role="button"
               aria-label={t("tabs.apiDocs")}
             >
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                <CardTitle className="text-sm font-medium text-slate-light dark:text-cloud-medium">
                   {t("tabs.apiDocs")}
                 </CardTitle>
                 <FileText className="h-4 w-4 text-cobalt dark:text-cobalt-light" />
               </CardHeader>
               <CardContent>
-                <div className="text-sm text-gray-700 dark:text-gray-300">
+                <div className="text-sm text-slate-medium dark:text-cloud-medium">
                   {t("externalTabs.apiDocs.description")}
                 </div>
               </CardContent>
@@ -482,11 +483,11 @@ export default function AdminPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white">
+      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-slate-dark dark:text-white">
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-2 border-cobalt dark:border-cobalt-light border-t-transparent mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-400">{t("loading")}</p>
+            <p className="text-slate-light dark:text-cloud-medium">{t("loading")}</p>
           </div>
         </div>
       </div>
@@ -495,7 +496,7 @@ export default function AdminPage() {
 
   if (!isAuthorized) {
     return (
-      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white">
+      <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-slate-dark dark:text-white">
         {alert && (
           <Alert
             type={alert.type}
@@ -507,7 +508,7 @@ export default function AdminPage() {
         <div className="flex items-center justify-center min-h-[50vh]">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-red-500 mb-4">{t("accessDenied")}</h1>
-            <p className="text-gray-600 dark:text-gray-400">{t("noPermission")}</p>
+            <p className="text-slate-light dark:text-cloud-medium">{t("noPermission")}</p>
           </div>
         </div>
       </div>
@@ -515,7 +516,7 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-gray-800 dark:text-white">
+    <div className="min-h-screen bg-ivory-light dark:bg-slate-dark text-slate-dark dark:text-white">
       {alert && (
         <Alert
           type={alert.type}
@@ -527,23 +528,20 @@ export default function AdminPage() {
       
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            {t("title")}
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            {t("subtitle")}
-          </p>
+          <PageHeaderPanel title={t("title")} subtitle={t("subtitle")}>
+            <TabBar
+              tabs={tabs}
+              activeTab={activeTab}
+              onTabChange={(tabId: string) => handleTabChange(tabId as TabType)}
+              sticky
+              storageKey="adminActiveTab"
+              className="mt-5"
+            />
+          </PageHeaderPanel>
         </div>
 
-        {/* Tabs: sticky, so this must be a direct child of the page container (a wrapper as tall as the bar leaves it no room to stick). */}
-        <AdminTabs
-          tabs={tabs}
-          activeTab={activeTab}
-          onTabChange={(tabId: string) => handleTabChange(tabId as TabType)}
-        />
-
         {/* Tab Content */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-6 overflow-hidden">
+        <div className="bg-white dark:bg-white/[0.04] rounded-lg shadow-sm border border-[--color-border-subtle] dark:border-white/10 p-6">
           <AnimatePresence mode="wait">
             {renderTabContent()}
           </AnimatePresence>
