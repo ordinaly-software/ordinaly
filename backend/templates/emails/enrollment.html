@@ -1,7 +1,7 @@
 {% extends "emails/base.html" %}
 {% block title %}Inscripción confirmada - {{ course.title }}{% endblock %}
 {% block preheader %}¡Inscripción confirmada! {{ course.title }}{% if date_str %}, {{ date_str }}{% endif %}{% if time_str %}, {{ time_str }}{% endif %}.{% endblock %}
-{% block hero %}{% if image_url %}<tr><td><img src="{{ image_url }}" alt="{{ course.title }}" width="640" style="width:100%;height:auto;" /></td></tr>{% endif %}{% endblock %}
+{% block hero %}{% if image_url %}<tr><td><img src="{{ image_url }}" alt="{{ course.title }}" width="1000" style="width:100%;height:auto;" /></td></tr>{% endif %}{% endblock %}
 {% block headline %}¡Hola {{ user_name }}, tu plaza está reservada!{% endblock %}
 {% block intro %}Te has inscrito correctamente en <strong>{{ course.title }}</strong>. {{ course.subtitle|default:"" }}{% endblock %}
 {% block body %}

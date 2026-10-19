@@ -1,6 +1,7 @@
 {% extends "emails/base.html" %}
 {% block title %}Nueva formación - {{ course.title }}{% endblock %}
 {% block preheader %}Ya está disponible una nueva formación en Ordinaly: {{ course.title }}.{% endblock %}
+{% block hero %}{% if image_url %}<tr><td><img src="{{ image_url }}" alt="{{ course.title }}" width="1000" style="width:100%;height:auto;" /></td></tr>{% endif %}{% endblock %}
 {% block headline %}Nueva formación publicada{% endblock %}
 {% block intro %}Hola {{ user_name }}, ya está disponible una nueva formación en Ordinaly: <strong>{{ course.title }}</strong>.{% endblock %}
 {% block body %}
