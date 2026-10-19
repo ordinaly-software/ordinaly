@@ -375,21 +375,28 @@ const AdminCoursesTab = () => {
     return [...activeCourses, ...finishedCourses];
   };
 
+  const processImageFile = (file: File) => {
+    if (file.size > 1024 * 1024) { // 1MB limit
+      setAlert({type: 'error', message: t('messages.imageSizeLimit1MB')});
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      setAlert({type: 'error', message: t('messages.imageFileOnly')});
+      return;
+    }
+    setSelectedFile(file);
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+  };
+
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      if (file.size > 1024 * 1024) { // 1MB limit
-        setAlert({type: 'error', message: t('messages.imageSizeLimit1MB')});
-        return;
-      }
-      if (!file.type.startsWith('image/')) {
-        setAlert({type: 'error', message: t('messages.imageFileOnly')});
-        return;
-      }
-      setSelectedFile(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-    }
+    if (file) processImageFile(file);
+  };
+
+  const handleFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    const file = event.dataTransfer.files?.[0];
+    if (file) processImageFile(file);
   };
 
   const submitCourse = async (isEdit: boolean) => {
@@ -933,6 +940,7 @@ const AdminCoursesTab = () => {
         previewUrl={previewUrl}
         setPreviewUrl={setPreviewUrl}
         handleFileSelect={handleFileSelect}
+        handleFileDrop={handleFileDrop}
         t={t}
         resetForm={resetForm}
       />

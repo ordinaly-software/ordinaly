@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { Send, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { PaginationControls } from "@/components/ui/pagination-controls";
 import { Dropdown } from "@/components/ui/dropdown";
+import { DataTable, type DataTableColumn } from "@/components/ui/data-table";
 
 interface User {
   id: number;
@@ -34,18 +34,24 @@ const AdminUsersTab = () => {
   const [search, setSearch] = useState("");
   const [newsletterFilter, setNewsletterFilter] = useState<"all" | NewsletterStatus>("all");
   const [courseFilter, setCourseFilter] = useState<"all" | "on" | "off">("all");
-  const [sortKey, setSortKey] = useState<keyof User>("name");
-  const [sortAsc, setSortAsc] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(25);
 
-  const handleSelectUser = (id: number) => {
+  const handleSelectUser = (id: number | string) => {
     setSelectedUsers((prev) =>
-      prev.includes(id) ? prev.filter((uid) => uid !== id) : [...prev, id]
+      prev.includes(Number(id)) ? prev.filter((uid) => uid !== Number(id)) : [...prev, Number(id)]
     );
   };
 
-  const filteredAndSortedUsers = useMemo(() => {
+  const handleSelectAll = (visibleIds: Array<number | string>) => {
+    const ids = visibleIds.map(Number);
+    const allVisibleSelected = ids.length > 0 && ids.every((id) => selectedUsers.includes(id));
+    if (allVisibleSelected) {
+      setSelectedUsers((prev) => prev.filter((id) => !ids.includes(id)));
+      return;
+    }
+    setSelectedUsers((prev) => Array.from(new Set([...prev, ...ids])));
+  };
+
+  const filteredUsers = useMemo(() => {
     return users
       .filter(u => newsletterFilter === "all" || u.newsletter_status === newsletterFilter)
       .filter(u => courseFilter === "all" || u.course_email_notifications === (courseFilter === "on"))
@@ -59,41 +65,11 @@ const AdminUsersTab = () => {
           u.company.toLowerCase().includes(q) ||
           String(u.id).includes(q)
         );
-      })
-      .sort((a, b) => {
-        const aVal = a[sortKey] ?? "";
-        const bVal = b[sortKey] ?? "";
-        if (aVal < bVal) return sortAsc ? -1 : 1;
-        if (aVal > bVal) return sortAsc ? 1 : -1;
-        return 0;
       });
-  }, [users, search, newsletterFilter, courseFilter, sortKey, sortAsc]);
-
-  const totalPages = Math.max(1, Math.ceil(filteredAndSortedUsers.length / pageSize));
-  const safeCurrentPage = Math.min(currentPage, totalPages);
-  const startIndex = (safeCurrentPage - 1) * pageSize;
-  const paginatedUsers = filteredAndSortedUsers.slice(startIndex, startIndex + pageSize);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [search, newsletterFilter, courseFilter, sortKey, sortAsc, pageSize]);
-
-  useEffect(() => {
-    if (currentPage > totalPages) setCurrentPage(totalPages);
-  }, [currentPage, totalPages]);
-
-  const handleSelectAll = () => {
-    const visibleIds = paginatedUsers.map((u) => u.id);
-    const allVisibleSelected = visibleIds.length > 0 && visibleIds.every((id) => selectedUsers.includes(id));
-    if (allVisibleSelected) {
-      setSelectedUsers((prev) => prev.filter((id) => !visibleIds.includes(id)));
-      return;
-    }
-    setSelectedUsers((prev) => Array.from(new Set([...prev, ...visibleIds])));
-  };
+  }, [users, search, newsletterFilter, courseFilter]);
 
   const handleSendMail = () => {
-    const selectedEmails = filteredAndSortedUsers.filter(u => selectedUsers.includes(u.id)).map(u => u.email);
+    const selectedEmails = users.filter(u => selectedUsers.includes(u.id)).map(u => u.email);
     if (selectedEmails.length === 0) return;
     const mailto = `mailto:?bcc=${encodeURIComponent(selectedEmails.join(","))}&subject=${encodeURIComponent(t('mailSubject'))}&body=${encodeURIComponent(`${t('mailGreeting')}\r\n\r\n`)}`;
     window.location.href = mailto;
@@ -123,6 +99,42 @@ const AdminUsersTab = () => {
     };
     fetchUsers();
   }, [t]);
+
+  const columns: DataTableColumn<User>[] = [
+    { key: "id", label: t("userId"), sortable: true },
+    { key: "name", label: t("name"), sortable: true },
+    { key: "surname", label: t("surname"), sortable: true },
+    {
+      key: "email",
+      label: t("email"),
+      sortable: true,
+      cellClassName: "text-cobalt dark:text-cobalt-light underline",
+      render: (user) => (
+        <a href={`mailto:${user.email}?from=noreply@ordinaly.ai`} target="_blank" rel="noopener noreferrer">{user.email}</a>
+      ),
+    },
+    { key: "company", label: t("company"), sortable: true },
+    {
+      key: "newsletter_status",
+      label: t("newsletter"),
+      sortable: true,
+      render: (user) => (
+        <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${NEWSLETTER_BADGE_CLASSES[user.newsletter_status ?? 'none']}`}>
+          {t(`newsletterStatus.${user.newsletter_status ?? 'none'}`)}
+        </span>
+      ),
+    },
+    {
+      key: "course_email_notifications",
+      label: t("courseNotifications"),
+      sortable: true,
+      render: (user) => (
+        <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${user.course_email_notifications ? NEWSLETTER_BADGE_CLASSES.active : NEWSLETTER_BADGE_CLASSES.none}`}>
+          {user.course_email_notifications ? t('courseNotificationsOn') : t('courseNotificationsOff')}
+        </span>
+      ),
+    },
+  ];
 
   if (isLoading) {
     return (
@@ -190,93 +202,21 @@ const AdminUsersTab = () => {
         </div>
       </div>
 
-      {/* Select All - below header, full width, styled like courses/services */}
-      <div className="flex items-center space-x-2 pb-2 border-b border-gray-200 dark:border-gray-700 mb-2">
-        <input
-          type="checkbox"
-          checked={paginatedUsers.length > 0 && paginatedUsers.every((u) => selectedUsers.includes(u.id))}
-          onChange={handleSelectAll}
-          className="rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
-        />
-        <span className="text-sm text-gray-600 dark:text-gray-400">
-          {t('selectAll')} ({filteredAndSortedUsers.length} {t('users')})
-        </span>
-      </div>
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+        {filteredUsers.length} {t('users')}
+      </p>
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead className="bg-gray-50 dark:bg-gray-800">
-            <tr>
-              <th className="px-4 py-3"></th>
-              {([
-                { key: 'id', label: t('userId') },
-                { key: 'name', label: t('name') },
-                { key: 'surname', label: t('surname') },
-                { key: 'email', label: t('email') },
-                { key: 'company', label: t('company') },
-                { key: 'newsletter_status', label: t('newsletter') },
-                { key: 'course_email_notifications', label: t('courseNotifications') },
-              ] as { key: keyof User, label: string }[]).map(col => (
-                <th
-                  key={col.key}
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider cursor-pointer select-none hover:underline"
-                  onClick={() => {
-                    if (sortKey === col.key) setSortAsc(a => !a);
-                    else { setSortKey(col.key); setSortAsc(true); }
-                  }}
-                >
-                  {col.label}
-                  {sortKey === col.key && (
-                    <span className="ml-1">{sortAsc ? '▲' : '▼'}</span>
-                  )}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-800">
-            {paginatedUsers.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
-                <td className="px-4 py-4">
-                  <input
-                    type="checkbox"
-                    checked={selectedUsers.includes(user.id)}
-                    onChange={() => handleSelectUser(user.id)}
-                    className="rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
-                  />
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.id}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.surname}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-cobalt dark:text-cobalt-light underline">
-                  <a href={`mailto:${user.email}?from=noreply@ordinaly.ai`} target="_blank" rel="noopener noreferrer">{user.email}</a>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{user.company}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm">
-                  <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${NEWSLETTER_BADGE_CLASSES[user.newsletter_status ?? 'none']}`}>
-                    {t(`newsletterStatus.${user.newsletter_status ?? 'none'}`)}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm">
-                  <span className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-medium ${user.course_email_notifications ? NEWSLETTER_BADGE_CLASSES.active : NEWSLETTER_BADGE_CLASSES.none}`}>
-                    {user.course_email_notifications ? t('courseNotificationsOn') : t('courseNotificationsOff')}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <PaginationControls
-        totalItems={filteredAndSortedUsers.length}
-        currentPage={safeCurrentPage}
-        pageSize={pageSize}
-        onPageChange={setCurrentPage}
-        onPageSizeChange={(size) => {
-          setPageSize(size);
-          setCurrentPage(1);
+      <DataTable
+        columns={columns}
+        rows={filteredUsers}
+        getRowId={(user) => user.id}
+        initialSortKey="name"
+        pageSize={25}
+        selection={{
+          selectedIds: selectedUsers,
+          onToggleRow: handleSelectUser,
+          onToggleAll: handleSelectAll,
         }}
-        className="mt-4"
       />
     </div>
   );

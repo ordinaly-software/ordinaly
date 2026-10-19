@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Dropdown } from "@/components/ui/dropdown";
 import Alert from "@/components/ui/alert";
 import AdminNewsletterEditor from "@/components/admin/admin-newsletter-editor";
+import { DataTable, type DataTableColumn } from "@/components/ui/data-table";
 import {
   NEWSLETTER_STATUS_CLASSES,
   Newsletter,
@@ -13,9 +14,6 @@ import {
   apiRequest,
   formatDateTime,
 } from "@/components/admin/admin-newsletter-shared";
-
-const TH_CLASSES = "px-4 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-300";
-const TD_CLASSES = "px-4 py-3 text-sm text-gray-900 dark:text-white";
 
 type SubTab = "issues" | "subscribers";
 
@@ -97,6 +95,97 @@ const AdminNewsletterTab = () => {
   };
 
   const pct = (part: number, whole: number) => (whole ? `${Math.round((part / whole) * 100)}%` : "—");
+
+  const issueColumns: DataTableColumn<Newsletter>[] = [
+    {
+      key: "subject",
+      label: t("columns.subject"),
+      sortable: true,
+      sortValue: (n) => n.subject || "",
+      cellClassName: "max-w-xs truncate",
+      render: (n) => (
+        <button type="button" onClick={() => setEditing(n)} className="text-left font-medium hover:underline">
+          {n.subject || t("noSubject")}
+        </button>
+      ),
+    },
+    {
+      key: "status",
+      label: t("columns.status"),
+      sortable: true,
+      render: (n) => <Badge status={n.status} label={t(`status.${n.status}`)} />,
+    },
+    {
+      key: "date",
+      label: t("columns.date"),
+      sortable: true,
+      sortValue: (n) => new Date(n.sent_at ?? n.scheduled_for ?? n.created_at).getTime(),
+      cellClassName: "whitespace-nowrap",
+      render: (n) => {
+        const date = n.sent_at ?? n.scheduled_for;
+        return date ? formatDateTime(date, locale) : t("noDate");
+      },
+    },
+    {
+      key: "results",
+      label: t("columns.results"),
+      sortable: true,
+      sortValue: (n) => n.stats.sent,
+      cellClassName: "whitespace-nowrap",
+      render: (n) =>
+        ["sending", "sent", "cancelled"].includes(n.status)
+          ? t("results", {
+              sent: n.stats.sent,
+              opened: n.stats.opened,
+              openRate: pct(n.stats.opened, n.stats.sent),
+              clicked: n.stats.clicked,
+              clickRate: pct(n.stats.clicked, n.stats.sent),
+            })
+          : "—",
+    },
+    {
+      key: "actions",
+      label: "",
+      cellClassName: "whitespace-nowrap text-right",
+      render: (n) => (
+        <>
+          {n.status === "draft" && n.scheduled_for && n.subject && n.html_body && (
+            <Button onClick={() => scheduleDraft(n)} variant="outline" size="sm" className="mr-2">
+              {t("editor.schedule")}
+            </Button>
+          )}
+          <Button onClick={() => setEditing(n)} variant="outline" size="sm">
+            {t(["draft", "scheduled"].includes(n.status) ? "actions.edit" : "actions.open")}
+          </Button>
+        </>
+      ),
+    },
+  ];
+
+  const subscriberColumns: DataTableColumn<Subscriber>[] = [
+    { key: "email", label: t("subscribers.columns.email"), sortable: true },
+    { key: "name", label: t("subscribers.columns.name"), sortable: true },
+    {
+      key: "status",
+      label: t("subscribers.columns.status"),
+      sortable: true,
+      render: (s) => <Badge status={s.status} label={t(`subscribers.status.${s.status}`)} />,
+    },
+    {
+      key: "source",
+      label: t("subscribers.columns.source"),
+      sortable: true,
+      render: (s) => t(`subscribers.source.${s.source}`),
+    },
+    {
+      key: "since",
+      label: t("subscribers.columns.since"),
+      sortable: true,
+      sortValue: (s) => new Date(s.created_at).getTime(),
+      cellClassName: "whitespace-nowrap",
+      render: (s) => formatDateTime(s.created_at, locale),
+    },
+  ];
 
   if (editing) {
     return (
@@ -184,61 +273,12 @@ const AdminNewsletterTab = () => {
               theme="orange"
             />
           </div>
-          {visibleIssues.length === 0 ? (
-            <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">{t("empty")}</p>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-gray-800">
-                  <tr>
-                    <th className={TH_CLASSES}>{t("columns.subject")}</th>
-                    <th className={TH_CLASSES}>{t("columns.status")}</th>
-                    <th className={TH_CLASSES}>{t("columns.date")}</th>
-                    <th className={TH_CLASSES}>{t("columns.results")}</th>
-                    <th className={TH_CLASSES}></th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-800 dark:bg-gray-900">
-                  {visibleIssues.map((n) => {
-                    const date = n.sent_at ?? n.scheduled_for;
-                    const showStats = ["sending", "sent", "cancelled"].includes(n.status);
-                    return (
-                      <tr key={n.id} className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-800">
-                        <td className={`${TD_CLASSES} max-w-xs truncate`}>
-                          <button type="button" onClick={() => setEditing(n)} className="text-left font-medium hover:underline">
-                            {n.subject || t("noSubject")}
-                          </button>
-                        </td>
-                        <td className={TD_CLASSES}><Badge status={n.status} label={t(`status.${n.status}`)} /></td>
-                        <td className={`${TD_CLASSES} whitespace-nowrap`}>{date ? formatDateTime(date, locale) : t("noDate")}</td>
-                        <td className={`${TD_CLASSES} whitespace-nowrap`}>
-                          {showStats
-                            ? t("results", {
-                                sent: n.stats.sent,
-                                opened: n.stats.opened,
-                                openRate: pct(n.stats.opened, n.stats.sent),
-                                clicked: n.stats.clicked,
-                                clickRate: pct(n.stats.clicked, n.stats.sent),
-                              })
-                            : "—"}
-                        </td>
-                        <td className={`${TD_CLASSES} whitespace-nowrap text-right`}>
-                          {n.status === "draft" && n.scheduled_for && n.subject && n.html_body && (
-                            <Button onClick={() => scheduleDraft(n)} variant="outline" size="sm" className="mr-2">
-                              {t("editor.schedule")}
-                            </Button>
-                          )}
-                          <Button onClick={() => setEditing(n)} variant="outline" size="sm">
-                            {t(["draft", "scheduled"].includes(n.status) ? "actions.edit" : "actions.open")}
-                          </Button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
+          <DataTable
+            columns={issueColumns}
+            rows={visibleIssues}
+            getRowId={(n) => n.id}
+            emptyMessage={t("empty")}
+          />
         </>
       ) : (
         <>
@@ -262,34 +302,12 @@ const AdminNewsletterTab = () => {
               theme="orange"
             />
           </div>
-          {visibleSubscribers.length === 0 ? (
-            <p className="py-10 text-center text-sm text-gray-500 dark:text-gray-400">{t("subscribers.empty")}</p>
-          ) : (
-            <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-gray-800">
-                  <tr>
-                    <th className={TH_CLASSES}>{t("subscribers.columns.email")}</th>
-                    <th className={TH_CLASSES}>{t("subscribers.columns.name")}</th>
-                    <th className={TH_CLASSES}>{t("subscribers.columns.status")}</th>
-                    <th className={TH_CLASSES}>{t("subscribers.columns.source")}</th>
-                    <th className={TH_CLASSES}>{t("subscribers.columns.since")}</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-800 dark:bg-gray-900">
-                  {visibleSubscribers.map((s) => (
-                    <tr key={s.id} className="transition-colors hover:bg-gray-50 dark:hover:bg-gray-800">
-                      <td className={TD_CLASSES}>{s.email}</td>
-                      <td className={TD_CLASSES}>{s.name}</td>
-                      <td className={TD_CLASSES}><Badge status={s.status} label={t(`subscribers.status.${s.status}`)} /></td>
-                      <td className={TD_CLASSES}>{t(`subscribers.source.${s.source}`)}</td>
-                      <td className={`${TD_CLASSES} whitespace-nowrap`}>{formatDateTime(s.created_at, locale)}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
+          <DataTable
+            columns={subscriberColumns}
+            rows={visibleSubscribers}
+            getRowId={(s) => s.id}
+            emptyMessage={t("subscribers.empty")}
+          />
         </>
       )}
     </div>

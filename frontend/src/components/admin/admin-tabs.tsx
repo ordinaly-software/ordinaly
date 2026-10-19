@@ -114,7 +114,7 @@ export const AdminTabs: React.FC<AdminTabsProps> = ({
         })}
         </div>
         <style>{`
-          div[role='tablist'], nav::-webkit-scrollbar { display: none !important; }
+          nav::-webkit-scrollbar { display: none !important; }
           nav { -ms-overflow-style: none; scrollbar-width: none; }
         `}</style>
       </nav>

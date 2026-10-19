@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -51,6 +51,7 @@ export interface CourseEditModalProps {
   previewUrl: string;
   setPreviewUrl: (url: string) => void;
   handleFileSelect: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleFileDrop: (event: React.DragEvent<HTMLDivElement>) => void;
   t: (key: string, params?: Record<string, string | number | Date>) => string;
   resetForm: () => void;
 }
@@ -75,8 +76,10 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
   previewUrl,
   setPreviewUrl,
   handleFileSelect,
+  handleFileDrop,
   t,
 }) => {
+    const [isDragOver, setIsDragOver] = useState(false);
 
     // Timezone options
     const timezoneOptions: DropdownOption[] = [
@@ -260,7 +263,12 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             </div>
             <span>{!showEditModal ? t("form.imageRequired") : t("form.imageOptional")}</span>
           </Label>
-          <div className="border-2 border-dashed border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] rounded-lg p-1 transition-all duration-200 hover:border-cobalt hover:bg-cobalt/5 max-w-xs mx-auto">
+          <div
+            className={`border-2 border-dashed rounded-lg p-1 transition-all duration-200 hover:border-cobalt hover:bg-cobalt/5 max-w-xs mx-auto ${isDragOver ? 'border-cobalt bg-cobalt/5' : 'border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)]'}`}
+            onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
+            onDragLeave={(e) => { e.preventDefault(); setIsDragOver(false); }}
+            onDrop={(e) => { e.preventDefault(); setIsDragOver(false); handleFileDrop(e); }}
+          >
             <input
               type="file"
               id="image"
