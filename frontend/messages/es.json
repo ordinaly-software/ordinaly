@@ -2746,7 +2746,7 @@
       "shortTitle": "Implantación de Odoo 20",
       "heroText": "El servicio de implantación y actualización de Odoo 20 de Ordinaly está orientado a empresas y pymes que necesitan una plataforma donde organizar su empresa (gestión de clientes, personal, facturación, contabilidad, etc.).",
       "heroCtaLabel": "Solicitar información",
-      "secondaryCtaLabel": "Quiero implantar Odoo",
+      "secondaryCtaLabel": "¡Quiero Odoo!",
       "serviceType": "Implantación y actualización de ERP Odoo",
       "areaServed": "España, empresas y pymes",
       "sectionTitles": {
@@ -2947,7 +2947,7 @@
         "Gestión empresarial"
       ],
       "cta": {
-        "label": "Quiero implantar Odoo",
+        "label": "Quiero Odoo",
         "href": "https://wa.me/34626270806?text=Quiero%20implantar%20Odoo",
         "bgColor": "#d97706"
       },

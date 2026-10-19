@@ -1,18 +1,19 @@
-"use client"
+"use client";
 
-import { useMemo, useState, type MouseEvent } from "react"
-import { Play, XIcon } from "lucide-react"
-import { AnimatePresence, motion } from "motion/react"
+import { useEffect, useMemo, useState, type MouseEvent } from "react";
+import { createPortal } from "react-dom";
+import { Play, XIcon } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 
-import { cn } from "@/lib/utils"
-import { useCookiePreferences } from "@/hooks/useCookiePreferences"
-import { allowsThirdParty } from "@/utils/cookie-manager"
+import { cn } from "@/lib/utils";
+import { useCookiePreferences } from "@/hooks/useCookiePreferences";
+import { allowsThirdParty } from "@/utils/cookie-manager";
 import {
   extractYoutubeData,
   getYoutubeEmbedUrl,
   getYoutubeThumbnail,
   getYoutubeWatchUrl,
-} from "@/utils/youtube"
+} from "@/utils/youtube";
 
 type AnimationStyle =
   | "from-bottom"
@@ -22,16 +23,16 @@ type AnimationStyle =
   | "from-right"
   | "fade"
   | "top-in-bottom-out"
-  | "left-in-right-out"
+  | "left-in-right-out";
 
 interface HeroVideoProps {
-  animationStyle?: AnimationStyle
-  videoUrl: string
-  thumbnailSrc?: string
-  thumbnailAlt?: string
-  title?: string
-  playLabel?: string
-  className?: string
+  animationStyle?: AnimationStyle;
+  videoUrl: string;
+  thumbnailSrc?: string;
+  thumbnailAlt?: string;
+  title?: string;
+  playLabel?: string;
+  className?: string;
 }
 
 const animationVariants = {
@@ -75,7 +76,7 @@ const animationVariants = {
     animate: { x: 0, opacity: 1 },
     exit: { x: "100%", opacity: 0 },
   },
-}
+};
 
 function PlayGlyph() {
   return (
@@ -90,7 +91,7 @@ function PlayGlyph() {
         />
       </div>
     </div>
-  )
+  );
 }
 
 export function HeroVideoDialog({
@@ -102,25 +103,29 @@ export function HeroVideoDialog({
   playLabel = "Play video",
   className,
 }: HeroVideoProps) {
-  const [isVideoOpen, setIsVideoOpen] = useState(false)
-  const selectedAnimation = animationVariants[animationStyle]
-  const cookiePreferences = useCookiePreferences()
-  const canLoadVideo = allowsThirdParty(cookiePreferences)
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const selectedAnimation = animationVariants[animationStyle];
+  const cookiePreferences = useCookiePreferences();
+  const canLoadVideo = allowsThirdParty(cookiePreferences);
 
-  const youtubeData = useMemo(() => extractYoutubeData(videoUrl), [videoUrl])
-  const resolvedThumbnail = thumbnailSrc ?? (youtubeData ? getYoutubeThumbnail(youtubeData) : undefined)
+  const youtubeData = useMemo(() => extractYoutubeData(videoUrl), [videoUrl]);
+  const resolvedThumbnail =
+    thumbnailSrc ??
+    (youtubeData ? getYoutubeThumbnail(youtubeData) : undefined);
 
-  if (!youtubeData || !resolvedThumbnail) return null
+  if (!youtubeData || !resolvedThumbnail) return null;
 
-  const embedSrc = `${getYoutubeEmbedUrl(youtubeData)}?autoplay=1&playsinline=1&enablejsapi=1&rel=0`
-  const watchUrl = getYoutubeWatchUrl(youtubeData)
+  const embedSrc = `${getYoutubeEmbedUrl(youtubeData)}?autoplay=1&playsinline=1&enablejsapi=1&rel=0`;
+  const watchUrl = getYoutubeWatchUrl(youtubeData);
 
-  const closeModal = () => setIsVideoOpen(false)
+  const closeModal = () => setIsVideoOpen(false);
 
   const handleOpenOnYoutube = (event: MouseEvent) => {
-    event.stopPropagation()
-    window.open(watchUrl, "_blank", "noopener,noreferrer")
-  }
+    event.stopPropagation();
+    window.open(watchUrl, "_blank", "noopener,noreferrer");
+  };
 
   return (
     <div className={cn("relative", className)}>
@@ -141,67 +146,79 @@ export function HeroVideoDialog({
           <PlayGlyph />
         </div>
       </button>
-      <AnimatePresence>
-        {isVideoOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
-                closeModal()
-              }
-            }}
-            onClick={closeModal}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-md"
-          >
-            <motion.div
-              {...selectedAnimation}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="relative mx-4 aspect-video w-full max-w-6xl md:mx-0"
-            >
-              <motion.button className="absolute -top-16 right-0 rounded-full bg-neutral-900/50 p-2 text-xl text-white ring-1 backdrop-blur-md dark:bg-neutral-100/50 dark:text-black">
-                <XIcon className="size-5" />
-              </motion.button>
-              <div className="relative isolate z-1 size-full overflow-hidden rounded-2xl border-2 border-white">
-                {canLoadVideo ? (
-                  <iframe
-                    src={embedSrc}
-                    title={title}
-                    className="mt-0 size-full rounded-2xl"
-                    allowFullScreen
-                    onLoad={(e) =>
-                      e.currentTarget.contentWindow?.postMessage(
-                        JSON.stringify({ event: "command", func: "playVideo", args: [] }),
-                        "https://www.youtube-nocookie.com",
-                      )
-                    }
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  ></iframe>
-                ) : (
-                  <button
-                    type="button"
-                    aria-label={playLabel}
-                    onClick={handleOpenOnYoutube}
-                    className="group relative flex size-full items-center justify-center border-0 bg-black p-0"
-                  >
-                    <img
-                      src={resolvedThumbnail}
-                      alt={thumbnailAlt}
-                      className="absolute inset-0 size-full object-cover transition-all duration-200 ease-out group-hover:brightness-[0.8]"
-                    />
-                    <div className="absolute inset-0 flex scale-[0.9] items-center justify-center transition-all duration-200 ease-out group-hover:scale-100">
-                      <PlayGlyph />
-                    </div>
-                  </button>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {isVideoOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (
+                    e.key === "Escape" ||
+                    e.key === "Enter" ||
+                    e.key === " "
+                  ) {
+                    closeModal();
+                  }
+                }}
+                onClick={closeModal}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-md"
+              >
+                <motion.div
+                  {...selectedAnimation}
+                  transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                  className="relative mx-4 aspect-video w-full max-w-6xl md:mx-0"
+                >
+                  <motion.button className="absolute -top-16 right-0 rounded-full bg-neutral-900/50 p-2 text-xl text-white ring-1 backdrop-blur-md dark:bg-neutral-100/50 dark:text-black">
+                    <XIcon className="size-5" />
+                  </motion.button>
+                  <div className="relative isolate z-1 size-full overflow-hidden rounded-2xl border-2 border-white">
+                    {canLoadVideo ? (
+                      <iframe
+                        src={embedSrc}
+                        title={title}
+                        className="mt-0 size-full rounded-2xl"
+                        allowFullScreen
+                        onLoad={(e) =>
+                          e.currentTarget.contentWindow?.postMessage(
+                            JSON.stringify({
+                              event: "command",
+                              func: "playVideo",
+                              args: [],
+                            }),
+                            "https://www.youtube-nocookie.com",
+                          )
+                        }
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                      ></iframe>
+                    ) : (
+                      <button
+                        type="button"
+                        aria-label={playLabel}
+                        onClick={handleOpenOnYoutube}
+                        className="group relative flex size-full items-center justify-center border-0 bg-black p-0"
+                      >
+                        <img
+                          src={resolvedThumbnail}
+                          alt={thumbnailAlt}
+                          className="absolute inset-0 size-full object-cover transition-all duration-200 ease-out group-hover:brightness-[0.8]"
+                        />
+                        <div className="absolute inset-0 flex scale-[0.9] items-center justify-center transition-all duration-200 ease-out group-hover:scale-100">
+                          <PlayGlyph />
+                        </div>
+                      </button>
+                    )}
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body,
         )}
-      </AnimatePresence>
     </div>
-  )
+  );
 }
