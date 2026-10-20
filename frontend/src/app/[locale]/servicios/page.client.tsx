@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { useTranslations } from "next-intl";
-import { Headset, Workflow, Globe, ShieldCheck, Phone, Mail, ArrowRight } from "lucide-react";
+import { Headset, Workflow, Globe, ShieldCheck, Phone, Mail, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { IconWhatsApp } from "@/components/ui/brand-icons";
 import { ServicesShowcaseGrid } from "@/components/services/services-showcase-grid";
 import { ToolsShowcase } from "@/components/services/tools-showcase";
@@ -111,6 +111,35 @@ const ServicesPage = () => {
     };
   }, []);
 
+  // Small chevron affordances, shown only while the pill bar actually overflows
+  // its container (same mechanism as the admin tab bar).
+  const [canScrollPillsLeft, setCanScrollPillsLeft] = useState(false);
+  const [canScrollPillsRight, setCanScrollPillsRight] = useState(false);
+
+  const updatePillScrollAffordances = useCallback(() => {
+    const el = pillScrollRef.current;
+    if (!el) return;
+    setCanScrollPillsLeft(el.scrollLeft > 4);
+    setCanScrollPillsRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = pillScrollRef.current;
+    if (!el) return;
+    updatePillScrollAffordances();
+    el.addEventListener("scroll", updatePillScrollAffordances, { passive: true });
+    const observer = new ResizeObserver(updatePillScrollAffordances);
+    observer.observe(el);
+    return () => {
+      el.removeEventListener("scroll", updatePillScrollAffordances);
+      observer.disconnect();
+    };
+  }, [updatePillScrollAffordances]);
+
+  const scrollPillsBy = (amount: number) => {
+    pillScrollRef.current?.scrollBy({ left: amount, behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-[--color-bg-primary] dark:bg-[--color-bg-inverted] text-slate-medium dark:text-cloud-medium transition-colors duration-300">
       <div
@@ -118,6 +147,17 @@ const ServicesPage = () => {
         className="fixed inset-x-0 z-40 bg-[--color-bg-primary] dark:bg-[--color-bg-inverted]"
         style={{ top: navHeight }}
       >
+        <div className="relative">
+        {canScrollPillsLeft && (
+          <button
+            type="button"
+            aria-label="Scroll left"
+            onClick={() => scrollPillsBy(-180)}
+            className="absolute left-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[var(--swatch--slate-dark)]/90 dark:text-cloud-medium"
+          >
+            <ChevronLeft className="h-3.5 w-3.5" />
+          </button>
+        )}
         <div
           ref={pillScrollRef}
           onPointerDown={onPillPointerDown}
@@ -139,6 +179,17 @@ const ServicesPage = () => {
               {link.label}
             </Link>
           ))}
+        </div>
+        {canScrollPillsRight && (
+          <button
+            type="button"
+            aria-label="Scroll right"
+            onClick={() => scrollPillsBy(180)}
+            className="absolute right-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[var(--swatch--slate-dark)]/90 dark:text-cloud-medium"
+          >
+            <ChevronRight className="h-3.5 w-3.5" />
+          </button>
+        )}
         </div>
       </div>
       <div style={{ height: navHeight + pillHeight }} aria-hidden="true" />
