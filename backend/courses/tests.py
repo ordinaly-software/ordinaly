@@ -12,6 +12,7 @@ from io import BytesIO
 from datetime import date, datetime, time, timedelta
 from courses.views import CourseViewSet, EnrollmentViewSet
 from rest_framework import status
+from rest_framework.request import Request
 from rest_framework.test import APITestCase, APIClient, APIRequestFactory, force_authenticate
 from users.models import CustomUser
 from .models import Course, Enrollment
@@ -2427,22 +2428,26 @@ class CourseViewsAdditionalCoverageTests(TestCase):
         self.assertEqual(resp.status_code, 500)
 
     def test_enrollment_viewset_get_queryset_for_auth_and_roles(self):
-        view = EnrollmentViewSet()
-        request = self.factory.get("/api/courses/enrollments/")
-        request.user = MagicMock(is_authenticated=False)
-        view.request = request
-        self.assertEqual(view.get_queryset().count(), 0)
+        def make_view(user, path="/api/courses/enrollments/"):
+            # get_queryset reads query_params, which only exists on DRF's Request
+            view = EnrollmentViewSet()
+            request = Request(self.factory.get(path))
+            request.user = user
+            view.request = request
+            return view
+
+        self.assertEqual(make_view(MagicMock(is_authenticated=False)).get_queryset().count(), 0)
 
         # regular user only sees own
         Enrollment.objects.create(user=self.user, course=self.course)
-        request.user = self.user
-        view.request = request
-        self.assertEqual(view.get_queryset().count(), 1)
+        self.assertEqual(make_view(self.user).get_queryset().count(), 1)
 
         # admin sees all
-        request.user = self.admin
-        view.request = request
-        self.assertGreaterEqual(view.get_queryset().count(), 1)
+        self.assertGreaterEqual(make_view(self.admin).get_queryset().count(), 1)
+
+        # admin with ?mine=true only sees own (none here)
+        mine_qs = make_view(self.admin, "/api/courses/enrollments/?mine=true").get_queryset()
+        self.assertEqual(mine_qs.count(), 0)
 
 
 @override_settings(MEDIA_ROOT=tempfile.mkdtemp())
