@@ -1015,6 +1015,14 @@ class EnrollmentViewSetTest(CourseImageCleanupTestMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 2)
 
+    def test_list_enrollments_mine_as_admin_only_returns_own(self):
+        # Admin asking for ?mine=true must not receive other users' enrollments
+        self.client.force_authenticate(user=self.admin_user)
+        response = self.client.get(self.enrollment_url, {'mine': 'true'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertTrue(all(e['user'] == self.admin_user.id for e in response.data))
+        self.assertEqual(len(response.data), 0)
+
     def test_list_enrollments_as_regular_user(self):
         # Regular user can only see their own enrollments
         self.client.force_authenticate(user=self.regular_user)

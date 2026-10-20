@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,6 +26,7 @@ interface CourseCardData {
   max_attendants: number;
   enrolled_count?: number;
   duration_hours?: number;
+  weekdays?: number[];
   weekday_display?: string[];
 }
 
@@ -58,6 +59,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
   cardTitleTag = "h3",
 }) => {
   const t = useTranslations("formation");
+  const locale = useLocale();
   const [imageError, setImageError] = useState(false);
 
   const nowDate = new Date();
@@ -74,7 +76,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
       const [year, month, day] = dateString.split("-").map(Number);
       if (!year || !month || !day) return t("noSpecificDate");
       const date = new Date(Date.UTC(year, month - 1, day));
-      return new Intl.DateTimeFormat("en-GB", {
+      return new Intl.DateTimeFormat(locale, {
         day: "numeric",
         month: "short",
         year: "numeric",
@@ -85,10 +87,23 @@ export const CourseCard: React.FC<CourseCardProps> = ({
     }
   };
 
+  const isFull = course.max_attendants > 0 && (course.enrolled_count ?? 0) >= course.max_attendants;
+
+  // weekdays uses 0=Monday..6=Sunday; 2024-01-01 is a Monday.
+  const weekdayLabels = course.weekdays?.length
+    ? course.weekdays.map((wd) => {
+        const label = new Intl.DateTimeFormat(locale, { weekday: "long", timeZone: "UTC" }).format(
+          new Date(Date.UTC(2024, 0, 1 + wd))
+        );
+        return label.charAt(0).toUpperCase() + label.slice(1);
+      })
+    : course.weekday_display ?? [];
+
   const availabilityBadge = (() => {
     if (isPastCourse || !startDate || !endDate) return null;
     if (startDate <= nowDate && endDate > nowDate) return { text: t("inProgress"), variant: "default" as const };
     if (endDate < nowDate) return { text: t("finished"), variant: "finished" as const };
+    if (isFull) return { text: t("full"), variant: "destructive" as const };
     const percentage = ((course.enrolled_count ?? 0) / course.max_attendants) * 100;
     if (percentage >= 90) return { text: t("almostFull"), variant: "destructive" as const };
     if (percentage >= 70) return { text: t("fillingFast"), variant: "default" as const };
@@ -222,9 +237,9 @@ export const CourseCard: React.FC<CourseCardProps> = ({
             </div>
           </div>
 
-          {course.weekday_display && course.weekday_display.length > 0 && (
+          {weekdayLabels.length > 0 && (
             <div className="flex flex-wrap gap-1">
-              {course.weekday_display.map((day) => (
+              {weekdayLabels.map((day) => (
                 <Badge key={day} variant="outline" className="text-xs">
                   {day}
                 </Badge>
@@ -289,8 +304,8 @@ export const CourseCard: React.FC<CourseCardProps> = ({
                   e.stopPropagation();
                   onEnroll?.();
                 }}
-                disabled={disableEnroll || isIncompleteSchedule}
-                title={isIncompleteSchedule ? t("noSpecificDate") : undefined}
+                disabled={disableEnroll || isIncompleteSchedule || isFull}
+                title={isIncompleteSchedule ? t("noSpecificDate") : isFull ? t("full") : undefined}
               >
                 <span>{t("enroll")}</span>
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

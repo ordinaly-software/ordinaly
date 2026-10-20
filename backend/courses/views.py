@@ -601,8 +601,10 @@ class EnrollmentViewSet(viewsets.ReadOnlyModelViewSet):
         if not self.request.user.is_authenticated:
             return Enrollment.objects.none()
 
-        # Regular users can only see their own enrollments
-        if not self.request.user.is_staff:
+        # Regular users can only see their own enrollments; staff can also ask
+        # for just their own with ?mine=true (public pages need "my" enrollments).
+        mine = self.request.query_params.get('mine', '').lower() in ('1', 'true')
+        if mine or not self.request.user.is_staff:
             return Enrollment.objects.filter(user=self.request.user)
         # Admin users can see all enrollments
         return Enrollment.objects.all()

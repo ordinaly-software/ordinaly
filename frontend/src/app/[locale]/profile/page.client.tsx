@@ -282,7 +282,7 @@ export default function ProfilePage() {
     setCoursesError(null);
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://api.ordinaly.ai';
-      const enrollmentsResponse = await fetch(`${apiUrl}/api/courses/enrollments/`, {
+      const enrollmentsResponse = await fetch(`${apiUrl}/api/courses/enrollments/?mine=true`, {
         headers: {
           Authorization: `Token ${authTokenToUse}`,
           'Content-Type': 'application/json',

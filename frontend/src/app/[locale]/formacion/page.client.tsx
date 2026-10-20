@@ -181,7 +181,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
       const token = localStorage.getItem('auth_token');
       if (!token) return;
 
-      const response = await fetch(getApiEndpoint('/api/courses/enrollments/'), {
+      const response = await fetch(getApiEndpoint('/api/courses/enrollments/?mine=true'), {
         headers: {
           'Authorization': `Token ${token}`,
         },
