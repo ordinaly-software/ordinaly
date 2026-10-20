@@ -145,11 +145,13 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
 
 
 def send_course_published_email(email: str, user_name: str, course):
+    image_url = f"{settings.BACKEND_BASE_URL.rstrip('/')}{course.image.url}" if course.image else ""
     _send(
         email, f"Nueva formación - {course.title}", "course_published",
         "Could not send the new course email",
         user_name=user_name, course=course,
         course_url=_frontend_url(f"/formacion/{course.slug}"),
+        image_url=image_url,
     )
 
 

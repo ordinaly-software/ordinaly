@@ -5,7 +5,7 @@ import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 import AutomatizacionRedesSocialesPage from "./page.client";
 
 const slug = "automatizacion-redes-sociales" as const;
-const AUTOMATIZACION_REDES_SOCIALES_HERO_IMAGE = "/static/icons/platforms/meta.png";
+const OG_IMAGE = "/og/automatizacion-redes-sociales.webp";
 type LandingMetadataContent = {
   title: string;
   shortTitle?: string;
@@ -30,7 +30,7 @@ export async function generateMetadata({
     path: `/${slug}`,
     title: landing.title,
     description: landing.description,
-    image: AUTOMATIZACION_REDES_SOCIALES_HERO_IMAGE,
+    image: OG_IMAGE,
   });
 }
 

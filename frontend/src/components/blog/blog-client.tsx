@@ -9,8 +9,7 @@ import type { BlogPost, Category } from './types';
 import { isExcludedCategory } from "./category-utils";
 import { Search } from 'lucide-react';
 import Banner from '@/components/ui/banner';
-import { Input } from '@/components/ui/input';
-import { Dropdown } from '@/components/ui/dropdown';
+import { SearchFilterBar } from '@/components/ui/search-filter-bar';
 import { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import dynamic from 'next/dynamic';
 
@@ -226,39 +225,29 @@ export default function BlogClient({
         subtitle={t('subtitle', { default: 'Discover our latest news, articles, and updates.' })}
         backgroundImage={'/static/backgrounds/blog_background.webp'}
       >
-        <div className="w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-          <div className="flex flex-col md:flex-row gap-4 items-center">
-            {/* Search Bar */}
-            <div className="relative flex-1 w-full">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                placeholder={t('searchPlaceholder', { default: 'Search blog posts...' })}
-                value={searchTerm}
-                onChange={e => handleSearchChange(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-clay dark:focus:border-clay"
-              />
-            </div>
-            {/* Category Dropdown */}
-            <Dropdown
-              options={categories}
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-              minWidth="200px"
-              placeholder={t('filters.category', { default: 'Category' })}
-            />
-            {/* Order Dropdown */}
-            <Dropdown
-              options={[
+        <SearchFilterBar
+          searchValue={searchTerm}
+          onSearchChange={handleSearchChange}
+          searchPlaceholder={t('searchPlaceholder', { default: 'Search blog posts...' })}
+          searchInputClassName="focus:border-clay dark:focus:border-clay"
+          filters={[
+            {
+              options: categories,
+              value: selectedCategory,
+              onChange: handleCategoryChange,
+              placeholder: t('filters.category', { default: 'Category' }),
+            },
+            {
+              options: [
                 { value: 'desc', label: t('sort.newest', { default: 'Newest first' }) },
                 { value: 'asc', label: t('sort.oldest', { default: 'Oldest first' }) },
-              ]}
-              value={order}
-              onChange={value => handleOrderChange(value as 'asc' | 'desc')}
-              minWidth="200px"
-              placeholder={t('sort.label', { default: 'Sort by date' })}
-            />
-          </div>
-        </div>
+              ],
+              value: order,
+              onChange: (value) => handleOrderChange(value as 'asc' | 'desc'),
+              placeholder: t('sort.label', { default: 'Sort by date' }),
+            },
+          ]}
+        />
       </Banner>
 
       {/* Highlighted Posts Carousel */}

@@ -217,7 +217,7 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
             checked={selected}
             onChange={() => onSelect(course.id)}
             disabled={isFinished}
-            className="mt-1 rounded border-gray-300 text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
+            className="mt-1 rounded border-cloud-light text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
           />
           <div className="w-20 h-20 relative rounded-lg overflow-hidden flex-shrink-0 bg-[var(--swatch--oat)] dark:bg-[var(--swatch--slate-dark)]">
             {course.image && course.image !== 'undefined' && course.image !== 'null' ? (

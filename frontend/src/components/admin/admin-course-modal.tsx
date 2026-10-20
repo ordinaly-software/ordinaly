@@ -92,7 +92,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
         {/* Course Image at the very top, full width */}
         {course.image && course.image !== "undefined" && course.image !== "null" && (
           // make header a bit taller on smaller screens so share buttons don't overlap
-          <div className="relative w-full h-64 sm:h-72 bg-gray-200 overflow-hidden group rounded-xl mb-4">
+          <div className="relative w-full h-64 sm:h-72 bg-ivory-dark overflow-hidden group rounded-xl mb-4">
             {/* Blurred image */}
             <Image
               loader={imageLoader}
@@ -129,7 +129,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
               </div>
               <h1 className="text-lg sm:text-2xl font-bold text-white mb-1">{course.title}</h1>
               {course.subtitle && (
-                <p className="text-gray-200 text-sm sm:text-base leading-snug max-w-full break-words line-clamp-none">{course.subtitle}</p>
+                <p className="text-cloud-light text-sm sm:text-base leading-snug max-w-full break-words line-clamp-none">{course.subtitle}</p>
               )}
               </div>
 
@@ -166,7 +166,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                       {course.enrolled_count || 0}
                     </p>
                   </div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 text-center">
+                  <p className="text-sm font-medium text-slate-light dark:text-cloud-medium text-center">
                     {t("details.enrolled")}
                   </p>
                 </div>
@@ -179,7 +179,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                       {course.max_attendants}
                     </p>
                   </div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 text-center">
+                  <p className="text-sm font-medium text-slate-light dark:text-cloud-medium text-center">
                     {t("details.capacity")}
                   </p>
                 </div>
@@ -192,7 +192,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                       {course.max_attendants - (course.enrolled_count || 0)}
                     </p>
                   </div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 text-center">
+                  <p className="text-sm font-medium text-slate-light dark:text-cloud-medium text-center">
                     {t("details.vacant")}
                   </p>
                 </div>
@@ -205,7 +205,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                       {course.price ? `${Math.round(Number(course.price))}` : t("contactForQuote")}
                     </p>
                   </div>
-                  <p className="text-sm font-medium text-gray-600 dark:text-gray-400 text-center">
+                  <p className="text-sm font-medium text-slate-light dark:text-cloud-medium text-center">
                     {t("details.price")}
                   </p>
                 </div>
@@ -219,47 +219,47 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
           <div className="bg-gradient-to-br from-cobalt/10 to-cobalt/5 dark:from-cobalt/20 dark:to-cobalt/10 rounded-xl p-5 min-w-0">
             <div className="flex items-center space-x-2 mb-3">
               <Calendar className="h-5 w-5 text-cobalt dark:text-cobalt-light" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.schedule")}</h3>
+              <h3 className="text-lg font-semibold text-slate-dark dark:text-white">{t("details.schedule")}</h3>
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">{t("details.startDate")}:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-slate-light dark:text-cloud-medium">{t("details.startDate")}:</span>
+                <span className="font-medium text-slate-dark dark:text-white">
                   {course.start_date && course.start_date !== "0000-00-00"
                     ? new Date(course.start_date).toLocaleDateString(dateLocale, { year: "numeric", month: "numeric", day: "numeric" })
                     : t("noSpecificDate")}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">{t("details.endDate")}:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-slate-light dark:text-cloud-medium">{t("details.endDate")}:</span>
+                <span className="font-medium text-slate-dark dark:text-white">
                   {course.end_date && course.end_date !== "0000-00-00"
                     ? new Date(course.end_date).toLocaleDateString(dateLocale, { year: "numeric", month: "numeric", day: "numeric" })
                     : t("noSpecificDate")}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">{t("details.time")}:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-slate-light dark:text-cloud-medium">{t("details.time")}:</span>
+                <span className="font-medium text-slate-dark dark:text-white">
                   {course.start_time ? course.start_time.substring(0, 5) : "-"} - {course.end_time ? course.end_time.substring(0, 5) : "-"}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">{t("details.duration")}:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-slate-light dark:text-cloud-medium">{t("details.duration")}:</span>
+                <span className="font-medium text-slate-dark dark:text-white">
                   {course.duration_hours?.toFixed(1)} {t("details.hours")}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">{t("details.frequency")}:</span>
-                <span className="font-medium text-gray-900 dark:text-white capitalize">
+                <span className="text-slate-light dark:text-cloud-medium">{t("details.frequency")}:</span>
+                <span className="font-medium text-slate-dark dark:text-white capitalize">
                   {t(`form.periodicity.${course.periodicity}`)}
                 </span>
               </div>
               {course.weekdays && course.weekdays.length > 0 && (
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">{t("details.weekdays")}:</span>
-                  <span className="font-medium text-gray-900 dark:text-white">
+                  <span className="text-slate-light dark:text-cloud-medium">{t("details.weekdays")}:</span>
+                  <span className="font-medium text-slate-dark dark:text-white">
                     {formatWeekdays(course.weekdays)}
                   </span>
                 </div>
@@ -270,30 +270,30 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
           <div className="bg-gradient-to-br from-[var(--swatch--clay)]/8 to-[var(--swatch--clay)]/14 rounded-xl p-5 min-w-0">
             <div className="flex items-center space-x-2 mb-3">
               <MapPin className="h-5 w-5 text-[var(--swatch--clay)]" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.locationInfo")}</h3>
+              <h3 className="text-lg font-semibold text-slate-dark dark:text-white">{t("details.locationInfo")}</h3>
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">{t("details.location")}:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-slate-light dark:text-cloud-medium">{t("details.location")}:</span>
+                <span className="font-medium text-slate-dark dark:text-white">
                   {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? course.location : t('locationSoon')}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">{t("details.timezone")}:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-slate-light dark:text-cloud-medium">{t("details.timezone")}:</span>
+                <span className="font-medium text-slate-dark dark:text-white">
                   {course.timezone}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">{t("details.created")}:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-slate-light dark:text-cloud-medium">{t("details.created")}:</span>
+                <span className="font-medium text-slate-dark dark:text-white">
                   {new Date(course.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600 dark:text-gray-400">{t("details.lastUpdated")}:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="text-slate-light dark:text-cloud-medium">{t("details.lastUpdated")}:</span>
+                <span className="font-medium text-slate-dark dark:text-white">
                   {new Date(course.updated_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                 </span>
               </div>
@@ -301,14 +301,14 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
           </div>
         </div>
         {/* Enrollment Progress */}
-        <div className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-700 rounded-xl p-5 min-w-0">
+        <div className="bg-gradient-to-r from-ivory-medium to-ivory-dark dark:from-white/[0.04] dark:to-white/[0.08] rounded-xl p-5 min-w-0">
           <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.enrollmentStatus")}</h3>
-            <span className="text-sm text-gray-600 dark:text-gray-400">
+            <h3 className="text-lg font-semibold text-slate-dark dark:text-white">{t("details.enrollmentStatus")}</h3>
+            <span className="text-sm text-slate-light dark:text-cloud-medium">
               {((course.enrolled_count || 0) / course.max_attendants * 100).toFixed(1)}% {t("details.fullStatus")}
             </span>
           </div>
-          <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3 mb-3">
+          <div className="w-full bg-ivory-dark dark:bg-white/10 rounded-full h-3 mb-3">
             <div 
               className={`h-3 rounded-full transition-all duration-500 ${
                 (course.enrolled_count || 0) >= course.max_attendants
@@ -322,7 +322,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
               }}
             ></div>
           </div>
-          <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex justify-between text-sm text-slate-light dark:text-cloud-medium">
             <span>{course.enrolled_count || 0} {t("details.enrolled").toLowerCase()}</span>
             <span>{course.max_attendants - (course.enrolled_count || 0)} {t("details.spotsRemaining")}</span>
           </div>
@@ -339,29 +339,29 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
           <div className="bg-gradient-to-r from-cobalt/10 to-cobalt/5 dark:from-cobalt/20 dark:to-cobalt/10 rounded-xl p-5 min-w-0">
             <div className="flex items-center space-x-2 mb-3">
               <Clock className="h-6 w-6 text-cobalt dark:text-cobalt-light" />
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{t("details.upcomingSessions")}</h3>
+              <h3 className="text-lg font-semibold text-slate-dark dark:text-white">{t("details.upcomingSessions")}</h3>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {course.next_occurrences.slice(0, 6).map((occurrence: string, idx: number) => (
-                <div key={idx} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-cobalt/20 dark:border-cobalt/30">
-                  <p className="font-medium text-gray-900 dark:text-white">
+                <div key={idx} className="bg-white dark:bg-white/[0.04] rounded-lg p-3 border border-cobalt/20 dark:border-cobalt/30">
+                  <p className="font-medium text-slate-dark dark:text-white">
                     {new Date(occurrence).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-slate-light dark:text-cloud-medium">
                     {course.start_time.substring(0, 5)} - {course.end_time.substring(0, 5)}
                   </p>
                 </div>
               ))}
             </div>
             {course.next_occurrences.length > 6 && (
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-3 text-center">
+              <p className="text-sm text-slate-light dark:text-cloud-medium mt-3 text-center">
                 +{course.next_occurrences.length - 6} {t("details.moreSessions")}
               </p>
             )}
           </div>
         )}
         {/* Course Description at the very end */}
-        <div className="prose dark:prose-invert max-w-none text-gray-700 dark:text-gray-300 mt-8 break-words">
+        <div className="prose dark:prose-invert max-w-none text-slate-medium dark:text-cloud-medium mt-8 break-words">
           <MarkdownRenderer>
             {course.description}
           </MarkdownRenderer>

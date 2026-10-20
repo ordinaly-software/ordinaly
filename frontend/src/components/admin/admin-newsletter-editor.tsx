@@ -188,7 +188,7 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="inline-flex items-center gap-1 text-sm text-slate-light hover:text-slate-dark dark:text-cloud-medium dark:hover:text-white"
         >
           <ArrowLeft className="h-4 w-4" />
           {t("editor.back")}
@@ -199,11 +199,11 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
           </span>
         )}
         {current?.status === "scheduled" && current.scheduled_for && (
-          <span className="text-sm text-gray-600 dark:text-gray-400">{formatDateTime(current.scheduled_for, locale)}</span>
+          <span className="text-sm text-slate-light dark:text-cloud-medium">{formatDateTime(current.scheduled_for, locale)}</span>
         )}
       </div>
 
-      {!editable && <p className="mb-4 rounded-md bg-gray-50 px-3 py-2 text-sm text-gray-600 dark:bg-gray-800 dark:text-gray-300">{t("editor.readOnly")}</p>}
+      {!editable && <p className="mb-4 rounded-md bg-ivory-medium px-3 py-2 text-sm text-slate-light dark:bg-white/[0.04] dark:text-cloud-medium">{t("editor.readOnly")}</p>}
 
       {stats && ["sending", "sent", "cancelled"].includes(status) && (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
@@ -214,19 +214,19 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
             [t("stats.clicked"), `${stats.clicked} (${pct(stats.clicked, stats.sent)})`],
             [t("stats.undelivered"), status === "sending" ? "…" : stats.undelivered],
           ].map(([label, value]) => (
-            <div key={String(label)} className="rounded-lg border border-gray-200 px-3 py-2 dark:border-gray-700">
-              <div className="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">{label}</div>
-              <div className="text-lg font-semibold text-gray-900 dark:text-white">{value}</div>
+            <div key={String(label)} className="rounded-lg border border-[--color-border-subtle] px-3 py-2 dark:border-white/10">
+              <div className="text-xs uppercase tracking-wide text-slate-light dark:text-cloud-medium">{label}</div>
+              <div className="text-lg font-semibold text-slate-dark dark:text-white">{value}</div>
             </div>
           ))}
-          <p className="col-span-full text-xs text-gray-500 dark:text-gray-400">{t("stats.opensNote")}</p>
+          <p className="col-span-full text-xs text-slate-light dark:text-cloud-medium">{t("stats.opensNote")}</p>
         </div>
       )}
 
       <div className="grid gap-6 lg:grid-cols-2">
         <div className="space-y-4">
           <label className="block">
-            <span className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t("editor.subject")}</span>
+            <span className="mb-1 block text-sm font-medium text-slate-medium dark:text-cloud-medium">{t("editor.subject")}</span>
             <Input
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
@@ -237,33 +237,33 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
           </label>
 
           <label className="block">
-            <span className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t("editor.body")}</span>
+            <span className="mb-1 block text-sm font-medium text-slate-medium dark:text-cloud-medium">{t("editor.body")}</span>
             <textarea
               value={html}
               onChange={(e) => setHtml(e.target.value)}
               disabled={!editable}
               spellCheck={false}
               rows={18}
-              className="w-full rounded-md border border-gray-300 bg-white p-3 font-mono text-xs text-gray-900 disabled:opacity-70 dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+              className="w-full rounded-md border border-cloud-light bg-white p-3 font-mono text-xs text-slate-dark disabled:opacity-70 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
             />
-            <span className="mt-1 block text-xs text-gray-500 dark:text-gray-400">{t("editor.bodyHint")}</span>
+            <span className="mt-1 block text-xs text-slate-light dark:text-cloud-medium">{t("editor.bodyHint")}</span>
           </label>
 
           {editable && (
             <label className="block">
-              <span className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t("editor.scheduledFor")}</span>
+              <span className="mb-1 block text-sm font-medium text-slate-medium dark:text-cloud-medium">{t("editor.scheduledFor")}</span>
               <DateTimePicker value={when} onChange={setWhen} className="sm:max-w-sm" />
             </label>
           )}
         </div>
 
         <div>
-          <span className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">{t("editor.preview")}</span>
+          <span className="mb-1 block text-sm font-medium text-slate-medium dark:text-cloud-medium">{t("editor.preview")}</span>
           <iframe
             title={t("editor.preview")}
             sandbox=""
             srcDoc={preview}
-            className="h-[640px] w-full rounded-md border border-gray-200 bg-white dark:border-gray-700"
+            className="h-[640px] w-full rounded-md border border-[--color-border-subtle] bg-white dark:border-white/10"
           />
         </div>
       </div>
@@ -315,12 +315,12 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
       </div>
 
       {showSeries && current && (
-        <div className="mt-4 max-w-xl rounded-lg border border-gray-200 p-4 dark:border-gray-700">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-white">{t("series.title")}</h3>
-          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t("series.description")}</p>
+        <div className="mt-4 max-w-xl rounded-lg border border-[--color-border-subtle] p-4 dark:border-white/10">
+          <h3 className="text-sm font-semibold text-slate-dark dark:text-white">{t("series.title")}</h3>
+          <p className="mt-1 text-xs text-slate-light dark:text-cloud-medium">{t("series.description")}</p>
           <div className="mt-3 flex flex-wrap items-end gap-3">
             <label className="block">
-              <span className="mb-1 block text-xs text-gray-600 dark:text-gray-400">{t("series.count")}</span>
+              <span className="mb-1 block text-xs text-slate-light dark:text-cloud-medium">{t("series.count")}</span>
               <div className="w-24">
                 <Input
                   type="number"
@@ -332,7 +332,7 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
               </div>
             </label>
             <label className="block">
-              <span className="mb-1 block text-xs text-gray-600 dark:text-gray-400">{t("series.everyDays")}</span>
+              <span className="mb-1 block text-xs text-slate-light dark:text-cloud-medium">{t("series.everyDays")}</span>
               <div className="w-24">
                 <Input
                   type="number"
@@ -346,7 +346,7 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
               {t("series.create")}
             </Button>
           </div>
-          <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">{t("series.startNote")}</p>
+          <p className="mt-2 text-xs text-slate-light dark:text-cloud-medium">{t("series.startNote")}</p>
         </div>
       )}
 

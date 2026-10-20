@@ -285,7 +285,7 @@ const Navbar = () => {
   const fetchEnrollmentStatus = useCallback(async (token: string) => {
     try {
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.ordinaly.ai";
-      const response = await fetch(`${apiUrl}/api/courses/enrollments/`, {
+      const response = await fetch(`${apiUrl}/api/courses/enrollments/?mine=true`, {
         headers: {
           Authorization: `Token ${token}`,
           "Content-Type": "application/json",

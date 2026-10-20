@@ -375,21 +375,28 @@ const AdminCoursesTab = () => {
     return [...activeCourses, ...finishedCourses];
   };
 
+  const processImageFile = (file: File) => {
+    if (file.size > 1024 * 1024) { // 1MB limit
+      setAlert({type: 'error', message: t('messages.imageSizeLimit1MB')});
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      setAlert({type: 'error', message: t('messages.imageFileOnly')});
+      return;
+    }
+    setSelectedFile(file);
+    const url = URL.createObjectURL(file);
+    setPreviewUrl(url);
+  };
+
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
-    if (file) {
-      if (file.size > 1024 * 1024) { // 1MB limit
-        setAlert({type: 'error', message: t('messages.imageSizeLimit1MB')});
-        return;
-      }
-      if (!file.type.startsWith('image/')) {
-        setAlert({type: 'error', message: t('messages.imageFileOnly')});
-        return;
-      }
-      setSelectedFile(file);
-      const url = URL.createObjectURL(file);
-      setPreviewUrl(url);
-    }
+    if (file) processImageFile(file);
+  };
+
+  const handleFileDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    const file = event.dataTransfer.files?.[0];
+    if (file) processImageFile(file);
   };
 
   const submitCourse = async (isEdit: boolean) => {
@@ -798,8 +805,8 @@ const AdminCoursesTab = () => {
         />
       )}
 
-      {/* Header Actions - sticky on small screens, transparent or card color */}
-  <div className="sticky top-0 z-30 bg-transparent dark:bg-transparent flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center gap-x-6 gap-y-3 mb-6 px-2 py-3">
+      {/* Header Actions */}
+  <div className="flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center gap-x-6 gap-y-3 mb-6 px-2 py-3">
   <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-2 w-full md:w-auto min-w-0">
           <div className="relative w-full sm:w-64 min-w-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-light dark:text-cloud-medium" />
@@ -933,6 +940,7 @@ const AdminCoursesTab = () => {
         previewUrl={previewUrl}
         setPreviewUrl={setPreviewUrl}
         handleFileSelect={handleFileSelect}
+        handleFileDrop={handleFileDrop}
         t={t}
         resetForm={resetForm}
       />

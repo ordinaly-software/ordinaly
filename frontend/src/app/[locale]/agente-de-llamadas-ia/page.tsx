@@ -4,7 +4,7 @@ import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 import AgenteDeLlamadasIA from "./page.client";
 
 const slug = "agente-de-llamadas-ia" as const;
-const HERO_IMAGE = "/static/servicios/chatbot_recepcionista.webp";
+const OG_IMAGE = "/og/agente-de-llamadas-ia.webp";
 
 export async function generateMetadata({
   params,
@@ -23,7 +23,7 @@ export async function generateMetadata({
     description: isEs
       ? "Automatiza las llamadas entrantes y salientes con agentes de voz IA: recepcionista virtual 24/7 y campañas salientes con n8n, ElevenLabs y Retell."
       : "Automate inbound and outbound calls with AI voice agents: a 24/7 virtual receptionist and outbound campaigns powered by n8n, ElevenLabs and Retell.",
-    image: HERO_IMAGE,
+    image: OG_IMAGE,
   });
 }
 

@@ -26,7 +26,7 @@ const AdminExternalTab: React.FC<AdminExternalTabProps> = ({
   };
 
   return (
-    <div className="relative overflow-hidden rounded-lg min-h-[360px] border border-gray-200/60 dark:border-white/10">
+    <div className="relative overflow-hidden rounded-lg min-h-[360px] border border-[--color-border-subtle] dark:border-white/10">
       <div
         className="absolute inset-0 bg-center bg-cover opacity-60"
         style={{
@@ -45,7 +45,7 @@ const AdminExternalTab: React.FC<AdminExternalTabProps> = ({
         >
           {title}
         </h2>
-        <p className="text-gray-800 dark:text-gray-100 max-w-2xl drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)]">
+        <p className="text-slate-dark dark:text-ivory-light max-w-2xl drop-shadow-[0_1px_6px_rgba(0,0,0,0.35)]">
           {description}
         </p>
         <Button

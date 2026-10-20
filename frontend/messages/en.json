@@ -1331,6 +1331,7 @@
     "showMoreCourses": "Show more courses",
     "carouselNext": "Next",
     "max": "max",
+    "full": "Full",
     "almostFull": "Almost full",
     "fillingFast": "Filling fast",
     "available": "Available",
@@ -1443,6 +1444,8 @@
     "bonificationTitle": "Bonification and grants",
     "bonificationDisclaimer": "Some of our training courses may be eligible for funding through FUNDAE/SEPE and/or fit into co-financed calls by FSE+ and PRTR-NextGenerationEU, as long as your company meets the requirements and processes the aid. Ordinaly provides the course documentation but does not request or process bonuses or grants on behalf of the client. Always check the official links before contracting.",
     "courseDetails": {
+      "previousCourse": "Previous course",
+      "nextCourse": "Next course",
       "title": "Course details",
       "locationSoon": "Location coming soon",
       "courseDescription": "Course description",

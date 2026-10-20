@@ -5,7 +5,7 @@ import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
 import AutomatizacionesPersonalizadasN8nPage from "./page.client";
 
 const slug = "automatizaciones-personalizadas-empresas-n8n" as const;
-const HERO_IMAGE = "/static/backgrounds/n8n_background.webp";
+const OG_IMAGE = "/og/automatizaciones-personalizadas-empresas-n8n.webp";
 
 type LandingMetadataContent = {
   title: string;
@@ -31,7 +31,7 @@ export async function generateMetadata({
     path: `/${slug}`,
     title: landing.title,
     description: landing.description,
-    image: HERO_IMAGE,
+    image: OG_IMAGE,
   });
 }
 

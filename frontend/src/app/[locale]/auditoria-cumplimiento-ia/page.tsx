@@ -6,7 +6,7 @@ import AuditoriaCumplimientoIa from "./page.client";
 
 const slug = "auditoria-cumplimiento-ia" as const;
 // TODO: swap for /static/backgrounds/auditoria_ia_background.webp (1200x630) once the asset exists.
-const OG_IMAGE = "/static/backgrounds/services_background.webp";
+const OG_IMAGE = "/og/auditoria-cumplimiento-ia.webp";
 
 type LandingMetadataContent = {
   metaTitle: string;
