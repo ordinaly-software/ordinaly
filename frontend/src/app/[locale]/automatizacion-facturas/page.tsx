@@ -21,7 +21,7 @@ export async function generateMetadata({
     description: isEs
       ? "Automatiza la gestión de facturas en empresas y asesorías: extrae datos de email o WhatsApp, clasifica documentos y sincroniza con tu ERP mediante IA."
       : "Automate invoice processing for businesses and accounting firms: extract data from email or WhatsApp, classify documents and sync with your ERP using AI.",
-    image: "/static/backgrounds/services_background.webp",
+    image: "/og/automatizacion-facturas.webp",
   });
 }
 

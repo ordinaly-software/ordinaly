@@ -21,7 +21,7 @@ export async function generateMetadata({
     description: isEs
       ? "Implantamos y actualizamos Odoo 20: análisis funcional, migración de datos, validación técnica y entrega de un entorno operativo, con base VeriFactu España."
       : "We implement and upgrade Odoo 20: functional analysis, data migration, technical validation and delivery of a live environment, with VeriFactu base setup.",
-    image: "/static/backgrounds/odoo_background.webp",
+    image: "/og/implantacion-odoo.webp",
   });
 }
 

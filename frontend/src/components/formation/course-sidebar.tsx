@@ -61,7 +61,7 @@ const CourseSidebar: React.FC<Props> = ({
   return (
     <div className="space-y-6">
 
-      <div className="pt-4">
+      <div className="hidden pt-4 lg:block">
         <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} />
       </div>
 

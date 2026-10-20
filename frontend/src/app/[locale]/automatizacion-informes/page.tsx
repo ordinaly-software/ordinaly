@@ -21,7 +21,7 @@ export async function generateMetadata({
     description: isEs
       ? "Automatizamos el envío mensual de informes económicos a propietarios y comunidades: datos desde tu CRM, envío masivo por email y archivado con trazabilidad."
       : "We automate monthly financial reports for property owners and communities: data from your CRM, bulk email delivery and fully traceable archiving.",
-    image: "/static/automatizacion-informes/automatizacion_informes.webp",
+    image: "/og/automatizacion-informes.webp",
   });
 }
 

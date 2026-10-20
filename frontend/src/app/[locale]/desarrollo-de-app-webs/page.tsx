@@ -21,7 +21,7 @@ export async function generateMetadata({
     description: isEs
       ? "Diseñamos y desarrollamos aplicaciones web y PWA rápidas y escalables, optimizadas para rendimiento, SEO y experiencia de usuario, sin depender de tiendas de apps."
       : "We design and build fast, scalable web apps and PWAs, optimized for performance, SEO and UX, and installable without app stores.",
-    image: "/static/desarrollo-de-app-webs/desarrollo_de_app_webs.webp",
+    image: "/og/desarrollo-de-app-webs.webp",
   });
 }
 

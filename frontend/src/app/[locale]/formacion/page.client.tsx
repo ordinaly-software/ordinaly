@@ -283,6 +283,12 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
     }
   };
 
+  const detailsIndex = courseForDetails
+    ? filteredCourses.findIndex(c => c.id === courseForDetails.id)
+    : -1;
+  const prevCourse = detailsIndex > 0 ? filteredCourses[detailsIndex - 1] : undefined;
+  const nextCourse = detailsIndex >= 0 ? filteredCourses[detailsIndex + 1] : undefined;
+
   const handleDetailsEnroll = () => {
     if (courseForDetails) {
       setShowCourseDetailsModal(false);
@@ -685,6 +691,8 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
           onEnroll={handleDetailsEnroll}
           onCancel={handleDetailsCancel}
           onAuthRequired={handleDetailsAuthRequired}
+          onPrevCourse={prevCourse && (() => handleViewDetails(prevCourse))}
+          onNextCourse={nextCourse && (() => handleViewDetails(nextCourse))}
         />
       )}
 
