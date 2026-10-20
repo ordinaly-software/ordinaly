@@ -151,7 +151,7 @@ const AdminUsersTab = () => {
   return (
     <div>
       {/* Header Actions */}
-      <div className="sticky top-[120px] z-20 bg-transparent dark:bg-transparent flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2 py-3">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2 py-3">
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
           <div className="relative w-full sm:w-64 min-w-0">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-cloud-medium" />
