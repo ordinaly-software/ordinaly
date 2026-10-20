@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, ReactNode } from "react";
+import { useState, useEffect, useRef, ReactNode, CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { ChevronDown, Check, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -26,6 +26,7 @@ interface DropdownProps {
   placeholder?: string;
   icon?: LucideIcon;
   className?: string;
+  containerStyle?: CSSProperties;
   dropdownClassName?: string;
   buttonClassName?: string;
   disabled?: boolean;
@@ -51,6 +52,7 @@ export const Dropdown = ({
   placeholder = "Select option",
   icon: Icon,
   className = "",
+  containerStyle,
   dropdownClassName = "",
   buttonClassName = "",
   disabled = false,
@@ -218,7 +220,7 @@ export const Dropdown = ({
         width: width || 'auto'
       }}
     >
-      <span className="truncate">
+      <span className="min-w-0 flex-1 truncate">
         {selectedOption?.label || placeholder}
       </span>
       <ChevronDown
@@ -231,7 +233,7 @@ export const Dropdown = ({
   );
 
   return (
-    <div className={cn("relative", containerClass, className)}>
+    <div className={cn("relative", containerClass, className)} style={containerStyle}>
       {children ? (
         <div className="flex items-center gap-2">
           {children}

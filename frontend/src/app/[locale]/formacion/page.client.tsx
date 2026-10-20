@@ -9,7 +9,7 @@ import { NewsletterBanner } from "@/components/ui/newsletter-banner";
 import Banner from '@/components/ui/banner';
 import { Button } from "@/components/ui/button";
 import CourseCard from "@/components/formation/course-card";
-import { Input } from "@/components/ui/input";
+import { SearchFilterBar } from "@/components/ui/search-filter-bar";
 import Alert from "@/components/ui/alert";
 import AuthModal from "@/components/auth/auth-modal";
 import CourseDetailsModal from "@/components/formation/course-details-modal";
@@ -26,7 +26,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 import type { Course } from "@/utils/pdf-generator";
-import { Dropdown } from "@/components/ui/dropdown";
 import { generateCoursesCatalogPDF } from "@/utils/pdf-generator";
 import BonificationInfo from "@/components/formation/bonification-info";
 import { FaqSection } from "@/components/formation/faq-section";
@@ -426,37 +425,29 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
         subtitle={t('subtitle')}
         backgroundImage={'/static/backgrounds/formation_background.webp'}
       >
-        <div className="w-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 shadow-xl">
-          <div className="flex flex-col lg:flex-row gap-4 items-center">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <Input
-                placeholder={t('searchPlaceholder')}
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 h-12 bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:border-cobalt dark:focus:border-cobalt-light"
-              />
-            </div>
-
-            <Dropdown
-              options={locationOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-              value={filterLocation}
-              onChange={(value) => setFilterLocation(value as 'all' | 'online' | 'onsite')}
-              icon={MapPin}
-              minWidth="240px"
-              placeholder={getLocationLabel(filterLocation)}
-            />
-
-            <Dropdown
-              options={priceOptions.map(opt => ({ value: opt.value, label: opt.label }))}
-              value={filterPrice}
-              onChange={(value) => setFilterPrice(value as 'all' | 'free' | 'paid')}
-              icon={Award}
-              minWidth="240px"
-              placeholder={getPriceLabel(filterPrice)}
-            />
-          </div>
-        </div>
+        <SearchFilterBar
+          searchValue={searchTerm}
+          onSearchChange={setSearchTerm}
+          searchPlaceholder={t('searchPlaceholder')}
+          filters={[
+            {
+              options: locationOptions.map(opt => ({ value: opt.value, label: opt.label })),
+              value: filterLocation,
+              onChange: (value) => setFilterLocation(value as 'all' | 'online' | 'onsite'),
+              icon: MapPin,
+              minWidth: "clamp(100px, calc(50vw - 48px), 240px)",
+              placeholder: getLocationLabel(filterLocation),
+            },
+            {
+              options: priceOptions.map(opt => ({ value: opt.value, label: opt.label })),
+              value: filterPrice,
+              onChange: (value) => setFilterPrice(value as 'all' | 'free' | 'paid'),
+              icon: Award,
+              minWidth: "clamp(100px, calc(50vw - 48px), 240px)",
+              placeholder: getPriceLabel(filterPrice),
+            },
+          ]}
+        />
       </Banner>
 
       <section className="relative z-10 max-w-5xl mx-auto -mt-4 mb-3 px-4">
