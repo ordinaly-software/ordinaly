@@ -1,11 +1,10 @@
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { MessageCircle, Send, Briefcase, ExternalLink } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
-import { ModalCloseButton } from "@/components/ui/modal-close-button";
+import { Modal } from "@/components/ui/modal";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
-import { useDialogFocus } from "@/hooks/useDialogFocus";
 
 const WhatsAppBubble = () => {
   const t = useTranslations('whatsapp');
@@ -15,17 +14,6 @@ const WhatsAppBubble = () => {
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  useDialogFocus(dialogRef, showModal);
-
-  useEffect(() => {
-    if (!showModal) return;
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setShowModal(false);
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [showModal]);
 
   const handleWhatsAppChat = () => {
     const whatsappUrl = getWhatsAppUrl(t('defaultWhatsAppMessage'));
@@ -65,29 +53,10 @@ const WhatsAppBubble = () => {
       </div>
 
       {/* WhatsApp Modal */}
-      {showModal && (
-        <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-          onClick={closeModal}
-        >
-          <div
-            ref={dialogRef}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="whatsapp-dialog-title"
-            tabIndex={-1}
-            className="max-w-md w-full overflow-hidden rounded-2xl border border-[#1F8A0D]/20 bg-white text-gray-900 shadow-2xl dark:border-[#3FBD6F]/15 dark:bg-[#23272F] dark:text-white"
-            onClick={(event) => event.stopPropagation()}
-          >
+      <Modal isOpen={showModal} onClose={closeModal} className="max-w-md">
+        <div className="text-gray-900 dark:text-white">
             {/* Header */}
             <div className="relative bg-gradient-to-r from-[#0d6e0c] to-[#1F8A0D] p-6 text-white dark:from-[#0F2E1E] dark:to-[#3FBD6F]">
-              <ModalCloseButton
-                onClick={closeModal}
-                variant="default"
-                size="md"
-                className="absolute top-4 right-4 text-white dark:text-white"
-              />
-              
               <div className="flex items-center space-x-3">
                 <div className="rounded-full bg-white/18 p-3">
                   <Briefcase className="text-white" size={24} />
@@ -154,9 +123,8 @@ const WhatsAppBubble = () => {
 
               </div>
             </div>
-          </div>
         </div>
-      )}
+      </Modal>
     </>
   );
 };

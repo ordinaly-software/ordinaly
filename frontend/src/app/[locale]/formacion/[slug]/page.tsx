@@ -65,14 +65,18 @@ export async function generateMetadata({
   const description = course?.subtitle || course?.description || fallbackDescription;
   const image = resolveCourseOgImage(course?.image);
 
+  // Course content only exists in Spanish, so /en/formacion/<slug> is a duplicate of the Spanish
+  // page: point its canonical there instead of competing with it.
   return createPageMetadata({
-    locale,
+    locale: "es",
+    alternateLocales: ["es"],
     path: `/formacion/${slug}`,
     title,
     description,
     image,
     type: "article",
-    index: !looksBroken,
+    // A slug the API does not know would be a soft 404: keep it out of the index
+    index: !looksBroken && !!course,
   });
 }
 

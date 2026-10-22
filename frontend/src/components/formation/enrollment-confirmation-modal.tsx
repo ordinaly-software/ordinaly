@@ -107,7 +107,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
         isOpen={isOpen}
         onClose={onClose}
         showHeader={false}
-        className="w-[min(100vw-1rem,28rem)] mx-2 sm:mx-4 p-0 rounded-2xl overflow-hidden"
+        className="max-w-md"
       >
         {selectedCourse && (
           <div

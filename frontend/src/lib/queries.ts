@@ -24,7 +24,7 @@ export const postFields = groq`{
   seoDescription,
   ogImage { asset, alt },
   mainImage { asset, alt },
-  "slug": slug.current,
+  "slug": lower(slug.current),
   excerpt,
   coverImage { asset, alt },
   body,
@@ -44,7 +44,7 @@ export const postFields = groq`{
 
 export const allPublicSlugs = groq`*[${publicPostFilter} && defined(slug.current)].slug.current`
 
-export const postBySlug = groq`*[_type=="post" && slug.current==$slug && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())][0] ${postFields}`
+export const postBySlug = groq`*[_type=="post" && lower(slug.current)==$slug && (!defined(isPrivate) || isPrivate==false) && (!defined(publishedAt) || publishedAt <= now())][0] ${postFields}`
 
 export const listPosts = groq`*[${publicBlogFilter}] ${orderedPosts} [0...50] ${postFields}`
 export const listNewsPosts = groq`*[${publicNewsFilter}] ${orderedPosts} [0...50] ${postFields}`

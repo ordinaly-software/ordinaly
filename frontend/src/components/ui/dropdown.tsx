@@ -135,8 +135,14 @@ export const Dropdown = ({
 
       const rect = triggerRef.current.getBoundingClientRect();
       const viewportPadding = 12;
-      const parsedWidth = width ? Number.parseFloat(width) : Number.NaN;
-      const parsedMinWidth = Number.parseFloat(minWidth);
+      // Percentage values are relative to the trigger, not the viewport
+      const toPx = (value: string | undefined) => {
+        if (!value) return Number.NaN;
+        const parsed = Number.parseFloat(value);
+        return value.trim().endsWith("%") ? (rect.width * parsed) / 100 : parsed;
+      };
+      const parsedWidth = toPx(width);
+      const parsedMinWidth = toPx(minWidth);
       const baseWidth = Number.isFinite(parsedWidth)
         ? parsedWidth
         : Math.max(rect.width, Number.isFinite(parsedMinWidth) ? parsedMinWidth : rect.width);

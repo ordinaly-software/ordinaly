@@ -93,15 +93,16 @@ export const TabBar: React.FC<TabBarProps> = ({
   const pillClasses = (isActive: boolean) =>
     `group inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-3 text-sm font-semibold transition-all duration-150 active:scale-[0.97] whitespace-nowrap ${
       isActive
-        ? "shadow-[0_8px_20px_-8px_rgba(2,85,213,0.35)]"
+        ? "shadow-[0_8px_20px_-8px_rgba(2,85,213,0.35)] border-[color-mix(in_srgb,var(--tab-accent)_50%,transparent)] bg-[color-mix(in_srgb,var(--tab-accent)_12%,transparent)] text-[var(--tab-accent)] dark:border-[color-mix(in_srgb,var(--tab-accent-dark)_50%,transparent)] dark:bg-[color-mix(in_srgb,var(--tab-accent-dark)_14%,transparent)] dark:text-[var(--tab-accent-dark)]"
         : "border-[--color-border-subtle] bg-white/60 text-slate-medium hover:text-slate-dark dark:border-white/10 dark:bg-white/[0.03] dark:text-cloud-medium dark:hover:text-ivory-light"
     }`;
 
-  const activeStyle = (accent: string): React.CSSProperties => ({
-    borderColor: `color-mix(in srgb, ${accent} 50%, transparent)`,
-    backgroundColor: `color-mix(in srgb, ${accent} 12%, transparent)`,
-    color: accent,
-  });
+  // Cobalt is too dark to read on the dark surfaces, so it switches to its light variant there.
+  const activeStyle = (accent: string) =>
+    ({
+      "--tab-accent": accent,
+      "--tab-accent-dark": accent === "var(--swatch--cobalt)" ? "var(--swatch--cobalt-light)" : accent,
+    }) as React.CSSProperties;
 
   return (
     <div
@@ -113,7 +114,7 @@ export const TabBar: React.FC<TabBarProps> = ({
           type="button"
           aria-label="Scroll tabs left"
           onClick={() => scrollBy(-180)}
-          className="absolute left-0 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[var(--swatch--slate-dark)]/90 dark:text-cloud-medium"
+          className="absolute left-0 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_90%,transparent)] dark:text-cloud-medium"
         >
           <ChevronLeft className="h-3.5 w-3.5" />
         </button>
@@ -165,7 +166,7 @@ export const TabBar: React.FC<TabBarProps> = ({
           type="button"
           aria-label="Scroll tabs right"
           onClick={() => scrollBy(180)}
-          className="absolute right-0 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[var(--swatch--slate-dark)]/90 dark:text-cloud-medium"
+          className="absolute right-0 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_90%,transparent)] dark:text-cloud-medium"
         >
           <ChevronRight className="h-3.5 w-3.5" />
         </button>

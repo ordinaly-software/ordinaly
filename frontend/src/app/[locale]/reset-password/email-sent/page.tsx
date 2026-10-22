@@ -34,13 +34,13 @@ export default function ResetPasswordEmailSent() {
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-40 -left-20 h-96 w-96 rounded-full bg-cobalt/20 blur-3xl dark:bg-cobalt/15" />
         <div className="absolute top-20 right-0 h-[24rem] w-[24rem] rounded-full bg-cobalt-light/20 blur-3xl dark:bg-cobalt-light/15" />
-        <div className="absolute bottom-[-10rem] left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[var(--swatch--clay)]/15 blur-3xl dark:bg-[var(--swatch--clay)]/10" />
+        <div className="absolute bottom-[-10rem] left-1/2 h-[30rem] w-[30rem] -translate-x-1/2 rounded-full bg-[color-mix(in_srgb,var(--swatch--clay)_15%,transparent)] blur-3xl dark:bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)]" />
       </div>
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-4 py-10 sm:px-6 lg:px-8">
         <article className="w-full overflow-hidden rounded-[2rem] border border-gray-200/80 bg-white/90 shadow-[0_35px_100px_rgba(15,23,42,0.16)] backdrop-blur-xl dark:border-gray-700/60 dark:bg-gray-900/65 dark:shadow-[0_35px_100px_rgba(2,6,23,0.55)]">
           <div className="grid lg:grid-cols-[minmax(280px,0.95fr)_minmax(0,1.2fr)]">
-            <div className="relative overflow-hidden bg-gradient-to-br from-cobalt/20 via-cobalt-light/20 to-[var(--swatch--clay)]/10 px-7 py-10 dark:from-cobalt/18 dark:via-cobalt-light/18 dark:to-[var(--swatch--clay)]/12 sm:px-10">
+            <div className="relative overflow-hidden bg-gradient-to-br from-cobalt/20 via-cobalt-light/20 to-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] px-7 py-10 dark:from-cobalt/18 dark:via-cobalt-light/18 dark:to-[color-mix(in_srgb,var(--swatch--clay)_12%,transparent)] sm:px-10">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.35),transparent_58%)] dark:bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.2),transparent_58%)]" />
               <div className="relative flex h-full flex-col justify-between gap-10">
                 <div className="inline-flex h-20 w-20 items-center justify-center rounded-3xl border border-white/70 bg-white/70 text-slate-dark shadow-lg dark:border-white/35 dark:bg-white/25 dark:text-white">

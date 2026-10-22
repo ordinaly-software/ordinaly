@@ -5,7 +5,8 @@ import dynamic from "next/dynamic";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import ErrorCard from "@/components/ui/error-card";
-import { ArrowRight, Calendar } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight, Calendar, GraduationCap } from "lucide-react";
 import { Carousel } from "@/components/ui/carousel";
 import CourseCard from "@/components/formation/course-card";
 import { useCourses, type Course } from "@/hooks/useCourses";
@@ -88,17 +89,17 @@ export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag
     initialData: initialCourses,
   });
   const orderedCourses = useMemo(() => {
-    const items = [...courses];
-    const getSortTime = (course: Course) => {
-      const createdAt = Date.parse(course.created_at);
-      if (!Number.isNaN(createdAt)) return createdAt;
+    const getStartTime = (course: Course) => {
       const startAt = Date.parse(course.start_date);
-      if (!Number.isNaN(startAt)) return startAt;
-      return 0;
+      return Number.isNaN(startAt) ? 0 : startAt;
     };
-    items.sort((a, b) => getSortTime(b) - getSortTime(a));
-    return items;
-  }, [courses]);
+    // Upcoming courses first, soonest start first; already-started ones follow, most recent first.
+    const upcoming = courses.filter((course) => getStartTime(course) >= nowMs);
+    const past = courses.filter((course) => getStartTime(course) < nowMs);
+    upcoming.sort((a, b) => getStartTime(a) - getStartTime(b));
+    past.sort((a, b) => getStartTime(b) - getStartTime(a));
+    return [...upcoming, ...past];
+  }, [courses, nowMs]);
   const displayCourses = useMemo(() => {
     const coursesWithUpcoming = orderedCourses.map((course) => {
       const startAt = Date.parse(course.start_date);
@@ -246,6 +247,26 @@ export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag
             autoplay={displayCourses.length > 1}
             prevLabel={t('previous')}
             nextLabel={t('next')}
+            trailingSlide={
+              <Link
+                href="/formacion"
+                className="group relative flex h-full min-h-[420px] flex-col justify-end overflow-hidden rounded-3xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark">
+                  <div className="flex h-full w-full items-center justify-center text-white/80">
+                    <GraduationCap className="h-14 w-14" />
+                  </div>
+                </div>
+
+                <div className="relative z-10 m-4 rounded-2xl border border-white/45 bg-white/14 p-4 text-white shadow-[0_18px_50px_-30px_rgba(0,0,0,0.6)] backdrop-blur-xl dark:border-white/10 dark:bg-[rgba(15,22,34,0.55)]">
+                  <h3 className="text-lg font-bold leading-snug">{t('catalogTitle')}</h3>
+                  <span className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-white/90">
+                    {t('viewAllCourses')}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </Link>
+            }
             renderItem={(course) => {
               const startDate = course.start_date && course.start_date !== "0000-00-00" ? new Date(course.start_date) : null;
               const endDate = course.end_date && course.end_date !== "0000-00-00" ? new Date(course.end_date) : null;

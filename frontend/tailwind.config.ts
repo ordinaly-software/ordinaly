@@ -64,38 +64,38 @@ const config: Config = {
   				'5': 'hsl(var(--chart-5))'
   			},
   			ivory: {
-  				light: 'var(--swatch--ivory-light)',
-  				medium: 'var(--swatch--ivory-medium)',
-  				dark: 'var(--swatch--ivory-dark)'
+  				light: 'color-mix(in srgb, var(--swatch--ivory-light) calc(<alpha-value> * 100%), transparent)',
+  				medium: 'color-mix(in srgb, var(--swatch--ivory-medium) calc(<alpha-value> * 100%), transparent)',
+  				dark: 'color-mix(in srgb, var(--swatch--ivory-dark) calc(<alpha-value> * 100%), transparent)'
   			},
-  			oat: 'var(--swatch--oat)',
+  			oat: 'color-mix(in srgb, var(--swatch--oat) calc(<alpha-value> * 100%), transparent)',
   			cloud: {
-  				light: 'var(--swatch--cloud-light)',
-  				medium: 'var(--swatch--cloud-medium)',
-  				dark: 'var(--swatch--cloud-dark)'
+  				light: 'color-mix(in srgb, var(--swatch--cloud-light) calc(<alpha-value> * 100%), transparent)',
+  				medium: 'color-mix(in srgb, var(--swatch--cloud-medium) calc(<alpha-value> * 100%), transparent)',
+  				dark: 'color-mix(in srgb, var(--swatch--cloud-dark) calc(<alpha-value> * 100%), transparent)'
   			},
   			slate: {
-  				dark: 'var(--swatch--slate-dark)',
-  				medium: 'var(--swatch--slate-medium)',
-  				light: 'var(--swatch--slate-light)'
+  				dark: 'color-mix(in srgb, var(--swatch--slate-dark) calc(<alpha-value> * 100%), transparent)',
+  				medium: 'color-mix(in srgb, var(--swatch--slate-medium) calc(<alpha-value> * 100%), transparent)',
+  				light: 'color-mix(in srgb, var(--swatch--slate-light) calc(<alpha-value> * 100%), transparent)'
   			},
-  			clay: 'var(--swatch--clay)',
-  			'clay-fill': 'var(--swatch--clay-fill)',
-  			'flame-dark': 'var(--swatch--flame-dark)',
-  			flame: 'var(--swatch--flame)',
+  			clay: 'color-mix(in srgb, var(--swatch--clay) calc(<alpha-value> * 100%), transparent)',
+  			'clay-fill': 'color-mix(in srgb, var(--swatch--clay-fill) calc(<alpha-value> * 100%), transparent)',
+  			'flame-dark': 'color-mix(in srgb, var(--swatch--flame-dark) calc(<alpha-value> * 100%), transparent)',
+  			flame: 'color-mix(in srgb, var(--swatch--flame) calc(<alpha-value> * 100%), transparent)',
   			cobalt: {
-  				DEFAULT: 'var(--swatch--cobalt)',
-  				dark: 'var(--swatch--cobalt-dark)',
-  				light: 'var(--swatch--cobalt-light)'
+  				DEFAULT: 'color-mix(in srgb, var(--swatch--cobalt) calc(<alpha-value> * 100%), transparent)',
+  				dark: 'color-mix(in srgb, var(--swatch--cobalt-dark) calc(<alpha-value> * 100%), transparent)',
+  				light: 'color-mix(in srgb, var(--swatch--cobalt-light) calc(<alpha-value> * 100%), transparent)'
   			},
-  			kraft: 'var(--swatch--kraft)',
-  			manilla: 'var(--swatch--manilla)',
-  			olive: 'var(--swatch--olive)',
-  			cactus: 'var(--swatch--cactus)',
-  			sky: 'var(--swatch--sky)',
-  			heather: 'var(--swatch--heather)',
-  			fig: 'var(--swatch--fig)',
-  			coral: 'var(--swatch--coral)'
+  			kraft: 'color-mix(in srgb, var(--swatch--kraft) calc(<alpha-value> * 100%), transparent)',
+  			manilla: 'color-mix(in srgb, var(--swatch--manilla) calc(<alpha-value> * 100%), transparent)',
+  			olive: 'color-mix(in srgb, var(--swatch--olive) calc(<alpha-value> * 100%), transparent)',
+  			cactus: 'color-mix(in srgb, var(--swatch--cactus) calc(<alpha-value> * 100%), transparent)',
+  			sky: 'color-mix(in srgb, var(--swatch--sky) calc(<alpha-value> * 100%), transparent)',
+  			heather: 'color-mix(in srgb, var(--swatch--heather) calc(<alpha-value> * 100%), transparent)',
+  			fig: 'color-mix(in srgb, var(--swatch--fig) calc(<alpha-value> * 100%), transparent)',
+  			coral: 'color-mix(in srgb, var(--swatch--coral) calc(<alpha-value> * 100%), transparent)'
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

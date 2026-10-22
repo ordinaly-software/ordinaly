@@ -449,7 +449,7 @@ export default function ContactPage() {
 
 
           <div className="flex h-full flex-col">
-            <div className="flex flex-1 flex-col justify-center rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--ivory-medium]/75 p-6 dark:border-white/10 dark:bg-white/[0.05] md:p-8">
+            <div className="flex flex-1 flex-col justify-center rounded-[2rem] border border-[--color-border-subtle] bg-[color-mix(in_srgb,var(--swatch--ivory-medium)_75%,transparent)] p-6 dark:border-white/10 dark:bg-white/[0.05] md:p-8">
               <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">
                 {t("team.title")}
               </h2>

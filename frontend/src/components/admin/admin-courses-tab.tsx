@@ -834,7 +834,7 @@ const AdminCoursesTab = () => {
               variant="ghost"
               size="sm"
               onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className="p-2 hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-medium)] transition-colors duration-200 rounded-lg"
+              className="p-2 hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-white/10 transition-colors duration-200 rounded-lg"
             >
               <ArrowUpDown className="h-4 w-4" />
             </Button>
@@ -849,7 +849,7 @@ const AdminCoursesTab = () => {
               className="flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
             >
               <Trash2 className="h-4 w-4" />
-              <span className="hidden xs:inline">{t("deleteSelected")} ({selectedCourses.length})</span>
+              <span>{t("deleteSelected")} ({selectedCourses.length})</span>
             </Button>
           )}
           <Button
@@ -858,7 +858,7 @@ const AdminCoursesTab = () => {
             className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
             >
             <Plus className="h-4 w-4" />
-            <span className="hidden xs:inline">{t("addCourse")}</span>
+            <span>{t("addCourse")}</span>
           </Button>
         </div>
       </div>
@@ -988,6 +988,19 @@ const AdminCoursesTab = () => {
           t={t}
           dateLocale={dateLocale}
           formatWeekdays={formatWeekdays}
+          canManage={!isCourseFinished(selectedCourseForModal)}
+          onEdit={() => {
+            setShowCourseModal(false);
+            handleEdit(selectedCourseForModal);
+          }}
+          onDuplicate={() => {
+            setShowCourseModal(false);
+            handleDuplicate(selectedCourseForModal);
+          }}
+          onDelete={() => {
+            setShowCourseModal(false);
+            handleDelete(selectedCourseForModal);
+          }}
         />
       )}
       

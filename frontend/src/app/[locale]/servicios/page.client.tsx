@@ -153,7 +153,7 @@ const ServicesPage = () => {
             type="button"
             aria-label="Scroll left"
             onClick={() => scrollPillsBy(-180)}
-            className="absolute left-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[var(--swatch--slate-dark)]/90 dark:text-cloud-medium"
+            className="absolute left-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_90%,transparent)] dark:text-cloud-medium"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
           </button>
@@ -185,7 +185,7 @@ const ServicesPage = () => {
             type="button"
             aria-label="Scroll right"
             onClick={() => scrollPillsBy(180)}
-            className="absolute right-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[var(--swatch--slate-dark)]/90 dark:text-cloud-medium"
+            className="absolute right-2 top-1/2 z-10 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_90%,transparent)] dark:text-cloud-medium"
           >
             <ChevronRight className="h-3.5 w-3.5" />
           </button>

@@ -85,7 +85,7 @@ const EnrolledMembers: React.FC<EnrolledMembersProps> = ({ enrollments, isLoadin
                 className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 p-3 bg-ivory-medium dark:bg-white/[0.04] rounded-lg"
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1">
-                  <div className="w-8 h-8 bg-[var(--swatch--clay)]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] rounded-full flex items-center justify-center flex-shrink-0">
                     <User className="h-4 w-4 text-[var(--swatch--clay)]" />
                   </div>
                   <div className="min-w-0">

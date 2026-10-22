@@ -804,6 +804,15 @@ class CourseViewSetTest(CourseImageCleanupTestMixin, APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['title'], 'Existing Course')
 
+    def test_retrieve_course_slug_is_case_insensitive(self):
+        # The frontend lowercases every URL, so mixed-case slugs must still resolve
+        self.course.slug = 'Existing-Course-ABC'
+        self.course.save()
+        url = reverse('course-detail', kwargs={'slug': 'existing-course-abc'})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['title'], 'Existing Course')
+
     def test_create_course_as_admin(self):
         # Admin can create a course
         self.client.force_authenticate(user=self.admin_user)

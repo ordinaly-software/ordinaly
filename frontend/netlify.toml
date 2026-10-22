@@ -8,6 +8,17 @@ for = "/static/*"
   [headers.values]
   Cache-Control = "public, max-age=31536000, immutable"
 
+# Decorative looping videos: not watch pages, so keep them out of Google's video index
+[[headers]]
+  for = "/static/agente-de-llamadas-ia/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/static/desarrollo-de-app-webs/ui.mp4"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
 [[headers]]
 for = "/start.js"
   [headers.values]
@@ -34,12 +45,6 @@ for = "/start.js"
 
 [[headers]]
   for = "/en/auth/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-
-[[headers]]
-  for = "/*"
-  conditions = {Host = ["odoo.ordinaly.ai", "n8n.ordinaly.ai"]}
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 

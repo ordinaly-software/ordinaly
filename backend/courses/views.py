@@ -67,20 +67,25 @@ class CourseViewSet(viewsets.ModelViewSet):
         if lookup_value is None:
             raise NotFound(detail="Course not found")
 
-        try:
-            obj = queryset.get(**{self.lookup_field: lookup_value})
+        # Exact match first, then case-insensitive: the frontend lowercases every URL,
+        # while older slugs may contain uppercase letters.
+        obj = (
+            queryset.filter(**{self.lookup_field: lookup_value}).first()
+            or queryset.filter(**{f"{self.lookup_field}__iexact": lookup_value}).first()
+        )
+        if obj is not None:
             self.check_object_permissions(self.request, obj)
             return obj
-        except Course.DoesNotExist:
-            # If the lookup value looks numeric, try PK fallback
-            if str(lookup_value).isdigit():
-                try:
-                    obj = queryset.get(pk=lookup_value)
-                    self.check_object_permissions(self.request, obj)
-                    return obj
-                except Course.DoesNotExist:
-                    pass
-            raise NotFound(detail="Course not found")
+
+        # If the lookup value looks numeric, try PK fallback
+        if str(lookup_value).isdigit():
+            try:
+                obj = queryset.get(pk=lookup_value)
+                self.check_object_permissions(self.request, obj)
+                return obj
+            except Course.DoesNotExist:
+                pass
+        raise NotFound(detail="Course not found")
 
     def get_queryset(self):
         qs = Course.objects.all()
