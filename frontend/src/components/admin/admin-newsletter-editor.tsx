@@ -203,7 +203,7 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
         )}
       </div>
 
-      {!editable && <p className="mb-4 rounded-md bg-ivory-medium px-3 py-2 text-sm text-slate-light dark:bg-white/[0.04] dark:text-cloud-medium">{t("editor.readOnly")}</p>}
+      {!editable && <p className="mb-4 rounded-lg bg-ivory-medium px-3 py-2 text-sm text-slate-light dark:bg-white/[0.04] dark:text-cloud-medium">{t("editor.readOnly")}</p>}
 
       {stats && ["sending", "sent", "cancelled"].includes(status) && (
         <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-5">
@@ -214,7 +214,7 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
             [t("stats.clicked"), `${stats.clicked} (${pct(stats.clicked, stats.sent)})`],
             [t("stats.undelivered"), status === "sending" ? "…" : stats.undelivered],
           ].map(([label, value]) => (
-            <div key={String(label)} className="rounded-lg border border-[--color-border-subtle] px-3 py-2 dark:border-white/10">
+            <div key={String(label)} className="rounded-xl border border-[--color-border-subtle] px-3 py-2 dark:border-white/10">
               <div className="text-xs uppercase tracking-wide text-slate-light dark:text-cloud-medium">{label}</div>
               <div className="text-lg font-semibold text-slate-dark dark:text-white">{value}</div>
             </div>
@@ -244,7 +244,7 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
               disabled={!editable}
               spellCheck={false}
               rows={18}
-              className="w-full rounded-md border border-cloud-light bg-white p-3 font-mono text-xs text-slate-dark disabled:opacity-70 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
+              className="w-full rounded-lg border border-cloud-light bg-white p-3 font-mono text-xs text-slate-dark disabled:opacity-70 dark:border-white/10 dark:bg-white/[0.04] dark:text-white"
             />
             <span className="mt-1 block text-xs text-slate-light dark:text-cloud-medium">{t("editor.bodyHint")}</span>
           </label>
@@ -263,7 +263,7 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
             title={t("editor.preview")}
             sandbox=""
             srcDoc={preview}
-            className="h-[640px] w-full rounded-md border border-[--color-border-subtle] bg-white dark:border-white/10"
+            className="h-[640px] w-full rounded-lg border border-[--color-border-subtle] bg-white dark:border-white/10"
           />
         </div>
       </div>
@@ -315,7 +315,7 @@ export default function AdminNewsletterEditor({ newsletter, onBack, onChanged, n
       </div>
 
       {showSeries && current && (
-        <div className="mt-4 max-w-xl rounded-lg border border-[--color-border-subtle] p-4 dark:border-white/10">
+        <div className="mt-4 max-w-xl rounded-xl border border-[--color-border-subtle] p-4 dark:border-white/10">
           <h3 className="text-sm font-semibold text-slate-dark dark:text-white">{t("series.title")}</h3>
           <p className="mt-1 text-xs text-slate-light dark:text-cloud-medium">{t("series.description")}</p>
           <div className="mt-3 flex flex-wrap items-end gap-3">

@@ -17,7 +17,7 @@ const parseDateValue = (value: string) => {
 };
 
 const TRIGGER_CLASSES = cn(
-  "flex h-11 w-full items-center justify-between gap-2 rounded-lg border border-gray-300 bg-white px-4 text-left text-gray-900",
+  "flex h-11 w-full items-center justify-between gap-2 rounded-xl border border-gray-300 bg-white px-4 text-left text-gray-900",
   "transition-all duration-200 hover:bg-gray-50 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/20",
   "disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400",
   "dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:disabled:bg-gray-600",
@@ -188,7 +188,7 @@ export function DatePicker({ value, onChange, id, required, disabled, placeholde
                 type="button"
                 aria-label={t("previousMonth")}
                 onClick={() => setView((v) => new Date(v.getFullYear(), v.getMonth() - 1, 1))}
-                className="rounded-lg p-2 text-slate-medium hover:bg-orange-50 hover:text-slate-dark dark:text-cloud-medium dark:hover:bg-orange-900/20 dark:hover:text-white"
+                className="rounded-xl p-2 text-slate-medium hover:bg-orange-50 hover:text-slate-dark dark:text-cloud-medium dark:hover:bg-orange-900/20 dark:hover:text-white"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -197,7 +197,7 @@ export function DatePicker({ value, onChange, id, required, disabled, placeholde
                 type="button"
                 aria-label={t("nextMonth")}
                 onClick={() => setView((v) => new Date(v.getFullYear(), v.getMonth() + 1, 1))}
-                className="rounded-lg p-2 text-slate-medium hover:bg-orange-50 hover:text-slate-dark dark:text-cloud-medium dark:hover:bg-orange-900/20 dark:hover:text-white"
+                className="rounded-xl p-2 text-slate-medium hover:bg-orange-50 hover:text-slate-dark dark:text-cloud-medium dark:hover:bg-orange-900/20 dark:hover:text-white"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
@@ -221,7 +221,7 @@ export function DatePicker({ value, onChange, id, required, disabled, placeholde
                       close();
                     }}
                     className={cn(
-                      "h-9 rounded-lg text-sm transition-colors duration-150",
+                      "h-9 rounded-xl text-sm transition-colors duration-150",
                       isSelected
                         ? "bg-orange-500 font-semibold text-white"
                         : cn(
@@ -246,7 +246,7 @@ export function DatePicker({ value, onChange, id, required, disabled, placeholde
                     onChange("");
                     close();
                   }}
-                  className="rounded-lg px-2 py-1 text-slate-medium hover:bg-orange-50 hover:text-slate-dark dark:text-cloud-medium dark:hover:bg-orange-900/20 dark:hover:text-white"
+                  className="rounded-xl px-2 py-1 text-slate-medium hover:bg-orange-50 hover:text-slate-dark dark:text-cloud-medium dark:hover:bg-orange-900/20 dark:hover:text-white"
                 >
                   {t("clear")}
                 </button>
@@ -257,7 +257,7 @@ export function DatePicker({ value, onChange, id, required, disabled, placeholde
                   onChange(todayValue);
                   close();
                 }}
-                className="rounded-lg px-2 py-1 font-medium text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-orange-900/20"
+                className="rounded-xl px-2 py-1 font-medium text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-orange-900/20"
               >
                 {t("today")}
               </button>
@@ -292,7 +292,7 @@ function TimeColumn({ items, current, onPick }: { items: string[]; current: stri
           data-active={item === current}
           onClick={() => onPick(item)}
           className={cn(
-            "block w-full rounded-lg py-2 text-center text-sm transition-colors duration-150",
+            "block w-full rounded-xl py-2 text-center text-sm transition-colors duration-150",
             item === current
               ? "bg-orange-500 font-semibold text-white"
               : "text-slate-dark hover:bg-orange-50 dark:text-white dark:hover:bg-orange-900/20",

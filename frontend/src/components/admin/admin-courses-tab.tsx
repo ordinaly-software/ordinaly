@@ -836,7 +836,7 @@ const AdminCoursesTab = () => {
               variant="ghost"
               size="sm"
               onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className="h-12 w-12 flex-shrink-0 p-2 hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-white/10 transition-colors duration-200 rounded-lg"
+              className="h-12 w-12 flex-shrink-0 p-2 hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-white/10 transition-colors duration-200 rounded-xl"
             >
               <ArrowUpDown className="h-4 w-4" />
             </Button>

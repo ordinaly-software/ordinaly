@@ -225,7 +225,7 @@ export default function ContactForm({
                     aria-haspopup="listbox"
                     aria-expanded={prefixOpen}
                     onClick={() => { setPrefixOpen((o) => !o); setPrefixSearch(""); }}
-                    className="flex items-center justify-between w-full h-10 px-3 text-sm rounded-md bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border border-[--color-border-subtle] dark:border-[--color-border-strong] shadow-sm text-slate-dark dark:text-ivory-light focus:outline-none focus:ring-1 focus:ring-clay"
+                    className="flex items-center justify-between w-full h-10 px-3 text-sm rounded-lg bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border border-[--color-border-subtle] dark:border-[--color-border-strong] shadow-sm text-slate-dark dark:text-ivory-light focus:outline-none focus:ring-1 focus:ring-clay"
                   >
                     <span>{selectedPrefix.label}</span>
                     <ChevronDown className={`h-4 w-4 ml-1 shrink-0 transition-transform ${prefixOpen ? "rotate-180" : ""}`} />
@@ -248,7 +248,7 @@ export default function ContactForm({
                           value={prefixSearch}
                           onChange={(e) => setPrefixSearch(e.target.value)}
                           placeholder="+34, ES..."
-                          className="w-full h-8 px-2 text-sm rounded-md border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] text-slate-dark dark:text-ivory-light outline-none focus:ring-1 focus:ring-clay"
+                          className="w-full h-8 px-2 text-sm rounded-lg border border-[--color-border-subtle] dark:border-[--color-border-strong] bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-dark] text-slate-dark dark:text-ivory-light outline-none focus:ring-1 focus:ring-clay"
                         />
                       </div>
                       <ul role="listbox" aria-label={t("form.phonePrefix")} className="max-h-44 overflow-y-auto">

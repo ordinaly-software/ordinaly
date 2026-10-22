@@ -151,7 +151,7 @@ export const SharePostButtons: React.FC<Props> = ({
   const liStyle = isWhite ? { ...commonWhiteStyle, color: '#0A66C2' } : undefined;
   const cpStyle = isWhite ? { ...commonWhiteStyle, color: '#6B7280' } : undefined;
 
-  const base = 'p-3 rounded-md';
+  const base = 'p-3 rounded-lg';
   const waClass = isWhite ? base : `${base} text-[#0D6E0C] dark:text-white`;
   const fbClass = isWhite ? base : `${base} text-[#1877F2] dark:text-white`;
   const liClass = isWhite ? base : `${base} text-[#0A66C2] dark:text-white`;

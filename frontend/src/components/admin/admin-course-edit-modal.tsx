@@ -186,7 +186,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             value={formData.title ?? ""}
             onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
             placeholder={t("form.titlePlaceholder")}
-            className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
+            className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-xl transition-all duration-200"
             required
           />
           {!!formData.enrolled_count && formData.enrolled_count > 0 && (
@@ -208,7 +208,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.subtitle ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, subtitle: e.target.value}))}
               placeholder={t("form.subtitlePlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-lg transition-all duration-200"
+              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-xl transition-all duration-200"
             />
           </div>
 
@@ -225,7 +225,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.bonified_course_link ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, bonified_course_link: e.target.value}))}
               placeholder={t("form.bonifiedCourseLinkPlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
+              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-xl transition-all duration-200"
             />
             <p className="text-xs text-slate-light dark:text-cloud-medium">
               {t("form.bonifiedCourseLinkHelp")}
@@ -248,7 +248,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
                   value={formData.slug ?? ""}
                   onChange={(e) => setFormData(prev => ({...prev, slug: e.target.value}))}
                   placeholder={t("form.slugPlaceholder")}
-                  className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--slate-medium)] focus:ring-[color-mix(in_srgb,var(--swatch--slate-medium)_20%,transparent)] rounded-lg transition-all duration-200"
+                  className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--slate-medium)] focus:ring-[color-mix(in_srgb,var(--swatch--slate-medium)_20%,transparent)] rounded-xl transition-all duration-200"
                 />
               </div>
               <Button
@@ -256,7 +256,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
                 variant="outline"
                 disabled={!formData.title?.trim() || !!formData.slug?.trim()}
                 onClick={() => setFormData(prev => ({...prev, slug: slugifyTitle(prev.title ?? "")}))}
-                className="h-12 shrink-0 gap-2 rounded-lg active:scale-[0.97] transition-transform motion-reduce:transition-none"
+                className="h-12 shrink-0 gap-2 rounded-xl active:scale-[0.97] transition-transform motion-reduce:transition-none"
               >
                 <Wand2 className="h-4 w-4" />
                 {t("form.generateSlug")}
@@ -288,7 +288,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(prev => ({...prev, description: e.target.value}))}
             placeholder={t("form.descriptionPlaceholder")}
             rows={10}
-            className="border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200 resize-none font-mono text-sm"
+            className="border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-xl transition-all duration-200 resize-none font-mono text-sm"
             required
           />
           <div className="flex items-center gap-2">
@@ -310,7 +310,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             <span>{!showEditModal ? t("form.imageRequired") : t("form.imageOptional")}</span>
           </Label>
           <div
-            className={`border-2 border-dashed rounded-lg p-1 transition-all duration-200 hover:border-cobalt hover:bg-cobalt/5 max-w-xs mx-auto ${isDragOver ? 'border-cobalt bg-cobalt/5' : 'border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)]'}`}
+            className={`border-2 border-dashed rounded-xl p-1 transition-all duration-200 hover:border-cobalt hover:bg-cobalt/5 max-w-xs mx-auto ${isDragOver ? 'border-cobalt bg-cobalt/5' : 'border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)]'}`}
             onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
             onDragLeave={(e) => { e.preventDefault(); setIsDragOver(false); }}
             onDrop={(e) => { e.preventDefault(); setIsDragOver(false); handleFileDrop(e); }}
@@ -325,7 +325,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             <div className="text-center">
               {selectedFile ? (
                 <div className="flex items-center justify-center space-x-2">
-                  <div className="flex items-center space-x-1 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] px-2 py-1 rounded-lg">
+                  <div className="flex items-center space-x-1 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] px-2 py-1 rounded-xl">
                     <FileText className="w-4 h-4 text-[var(--swatch--clay)]" />
                     <span className="text-xs font-medium text-[var(--swatch--clay)]">
                       {selectedFile.name}
@@ -353,7 +353,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             </div>
 
             {previewUrl && previewUrl !== 'undefined' && previewUrl !== 'null' && (
-              <div className="mt-3 relative w-48 h-48 rounded-lg overflow-hidden bg-[var(--swatch--oat)] dark:bg-[var(--swatch--slate-dark)] mx-auto">
+              <div className="mt-3 relative w-48 h-48 rounded-xl overflow-hidden bg-[var(--swatch--oat)] dark:bg-[var(--swatch--slate-dark)] mx-auto">
                 <Image
                   loader={imageLoader}
                   src={previewUrl}
@@ -394,7 +394,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             value={formData.youtube_video_url ?? ""}
             onChange={(e) => setFormData(prev => ({ ...prev, youtube_video_url: e.target.value }))}
             placeholder={t("form.videoPlaceholder")}
-            className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
+            className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-xl transition-all duration-200"
           />
           <p className="text-xs text-slate-light dark:text-cloud-medium">
             {t("form.videoHelp")}
@@ -419,7 +419,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.price ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, price: e.target.value}))}
               placeholder={t("form.pricePlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
+              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-xl transition-all duration-200"
             />
             {/* Price validation */}
             {(() => {
@@ -449,7 +449,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.max_attendants ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, max_attendants: e.target.value}))}
               placeholder={t("form.maxAttendantsPlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-lg transition-all duration-200"
+              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-xl transition-all duration-200"
               required
             />
           </div>
@@ -468,7 +468,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.location ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, location: e.target.value}))}
               placeholder={t("form.locationPlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
+              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-xl transition-all duration-200"
             />
           </div>
 
@@ -568,7 +568,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
                   }));
                 }}
                 placeholder={t("form.intervalPlaceholder")}
-                className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-lg transition-all duration-200"
+                className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-xl transition-all duration-200"
                 disabled={formData.periodicity === 'once'}
               />
             </div>

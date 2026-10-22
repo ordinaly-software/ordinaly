@@ -113,7 +113,7 @@ export function DataTable<T>({
               setSortKey(e.target.value);
               setSortAsc(true);
             }}
-            className="ml-auto h-10 min-w-0 max-w-[60%] flex-1 rounded-lg border border-gray-300 bg-white px-3 text-sm text-slate-dark dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            className="ml-auto h-10 min-w-0 max-w-[60%] flex-1 rounded-xl border border-gray-300 bg-white px-3 text-sm text-slate-dark dark:border-gray-600 dark:bg-gray-700 dark:text-white"
             aria-label={columns.find((c) => c.key === sortKey)?.label}
           >
             {columns.filter((c) => c.sortable).map((column) => (
@@ -125,7 +125,7 @@ export function DataTable<T>({
           <button
             type="button"
             onClick={() => setSortAsc((asc) => !asc)}
-            className="h-10 w-10 flex-shrink-0 rounded-lg border border-gray-300 text-sm text-slate-dark dark:border-gray-600 dark:text-white"
+            className="h-10 w-10 flex-shrink-0 rounded-xl border border-gray-300 text-sm text-slate-dark dark:border-gray-600 dark:text-white"
             aria-label={sortAsc ? "▲" : "▼"}
           >
             {sortAsc ? "▲" : "▼"}

@@ -214,7 +214,7 @@ const CookieConsent = () => {
                     note: t('analyticsExamples'),
                   },
                 ].map(({ key, icon, enabled, toggle, note }) => (
-                  <div key={key} className="rounded-lg border border-[--color-border-subtle] dark:border-[--color-border-strong] px-3 py-2.5 bg-white/60 dark:bg-white/[0.04]">
+                  <div key={key} className="rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong] px-3 py-2.5 bg-white/60 dark:bg-white/[0.04]">
                     <div className="flex items-center justify-between mb-1">
                       <div className="flex items-center gap-2">
                         {icon}

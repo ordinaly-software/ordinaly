@@ -36,7 +36,7 @@ export const createPortableTextComponents = (headingIdByKey: Record<string, stri
     ),
     video: ({ value }: { value: VideoType }) => (
       value?.url ? (
-        <div className="my-6 rounded-lg overflow-hidden">
+        <div className="my-6 rounded-xl overflow-hidden">
           <video controls className="w-full h-auto">
             <source src={value.url} type="video/mp4" />
             Your browser does not support the video tag.

@@ -13,7 +13,7 @@ const BonificationInfo = () => {
   const t = useTranslations("bonificationTexts");
   
   return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-clay/15 bg-white/88 shadow-[0_24px_80px_-42px_rgba(20,20,19,0.18)] backdrop-blur-xl transition-colors dark:border-white/10 dark:bg-[rgba(15,22,34,0.88)]">
+    <div className="relative overflow-hidden rounded-3xl border border-clay/15 bg-white/88 shadow-[0_24px_80px_-42px_rgba(20,20,19,0.18)] backdrop-blur-xl transition-colors dark:border-white/10 dark:bg-[rgba(15,22,34,0.88)]">
       <div className="pointer-events-none absolute -right-16 -top-14 h-40 w-40 rounded-full bg-clay/12 blur-3xl dark:bg-clay/16" />
       <div className="pointer-events-none absolute -bottom-20 left-8 h-44 w-44 rounded-full bg-cobalt/10 blur-3xl dark:bg-cobalt/12" />
       <button
@@ -44,7 +44,7 @@ const BonificationInfo = () => {
       </button>
       {open && (
         <div className="px-6 pb-6 text-base text-gray-700 animate-fade-in dark:text-gray-200 md:px-8 md:pb-8">
-          <div className="rounded-[1.5rem] border border-[--color-border-subtle] bg-[color-mix(in_srgb,var(--swatch--ivory-medium)_75%,transparent)] p-5 dark:border-white/10 dark:bg-[rgba(10,16,26,0.72)] md:p-6">
+          <div className="rounded-3xl border border-[--color-border-subtle] bg-[color-mix(in_srgb,var(--swatch--ivory-medium)_75%,transparent)] p-5 dark:border-white/10 dark:bg-[rgba(10,16,26,0.72)] md:p-6">
             <div className="prose max-w-none prose-p:text-slate-medium prose-strong:text-slate-dark prose-a:text-clay dark:prose-invert dark:prose-p:text-cloud-medium dark:prose-strong:text-ivory-light">
             <MarkdownRenderer>{t("details")}</MarkdownRenderer>
             </div>

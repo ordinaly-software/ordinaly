@@ -89,7 +89,7 @@ function NewsletterBannerContent({
       <div
         ref={containerRef}
         className={cn(
-          "relative flex w-full flex-col items-center justify-center gap-6 overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-gradient-to-br from-[--swatch--clay-fill] to-[--swatch--flame-dark] p-8 text-center text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] dark:border-white/10",
+          "relative flex w-full flex-col items-center justify-center gap-6 overflow-hidden rounded-3xl border border-[--color-border-subtle] bg-gradient-to-br from-[--swatch--clay-fill] to-[--swatch--flame-dark] p-8 text-center text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] dark:border-white/10",
           !isCompact && "flex-row justify-between p-10 text-left",
           className,
         )}

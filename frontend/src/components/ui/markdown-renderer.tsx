@@ -27,7 +27,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
         components={{
           table: ({children}) => (
             <div className="overflow-x-auto my-6">
-              <table className="min-w-full border-collapse border border-[--color-border-subtle] dark:border-white/10 bg-ivory-light dark:bg-slate-medium rounded-lg shadow-sm">
+              <table className="min-w-full border-collapse border border-[--color-border-subtle] dark:border-white/10 bg-ivory-light dark:bg-slate-medium rounded-xl shadow-sm">
                 {children}
               </table>
             </div>
@@ -87,7 +87,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
             }
             return (
               <div className="mb-4">
-                <pre className="bg-oat dark:bg-slate-dark p-4 rounded-lg overflow-x-auto">
+                <pre className="bg-oat dark:bg-slate-dark p-4 rounded-xl overflow-x-auto">
                   <code className="text-sm font-mono text-slate-dark dark:text-ivory-light">
                     {children}
                   </code>
@@ -97,7 +97,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
           },
           pre: ({children}) => (
             <div className="mb-4">
-              <pre className="bg-oat dark:bg-slate-dark p-4 rounded-lg overflow-x-auto">
+              <pre className="bg-oat dark:bg-slate-dark p-4 rounded-xl overflow-x-auto">
                 {children}
               </pre>
             </div>

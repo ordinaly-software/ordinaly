@@ -367,7 +367,7 @@ function SignupPageContent() {
 
             {/* Right side: Signup Card */}
             <div className="scroll-animate slide-in-right">
-              <Card className="rounded-[2rem] border border-[--color-border-subtle] bg-white/80 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]">
+              <Card className="rounded-3xl border border-[--color-border-subtle] bg-white/80 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]">
                 <CardHeader className="space-y-4">
                   <div className="flex gap-2" role="progressbar" aria-label={`${step}/${TOTAL_STEPS}`} aria-valuenow={step} aria-valuemin={1} aria-valuemax={TOTAL_STEPS}>
                     {Array.from({ length: TOTAL_STEPS }).map((_, index) => (

@@ -79,7 +79,7 @@ function PlatformFlipCard({
               <a
                 href="#formulario"
                 onClick={(e) => e.stopPropagation()}
-                className="shrink-0 rounded-lg px-4 py-2 text-sm font-semibold text-white shadow transition hover:brightness-110"
+                className="shrink-0 rounded-xl px-4 py-2 text-sm font-semibold text-white shadow transition hover:brightness-110"
                 style={{ backgroundColor: accentColor }}
               >
                 {content.ctaLabel}

@@ -116,7 +116,7 @@ const UserMenu = ({
         createPortal(
           <div
             ref={dropdownRef}
-            className="fixed bg-white dark:bg-slate-dark border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden w-auto min-w-[180px]"
+            className="fixed bg-white dark:bg-slate-dark border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg overflow-hidden w-auto min-w-[180px]"
             style={{
               top: dropdownPosition.top,
               left: dropdownPosition.left,
@@ -565,7 +565,7 @@ const Navbar = () => {
                     <Link
                       href={item.href}
                       className={cn(
-                        "transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group",
+                        "transition-all duration-200 whitespace-nowrap text-sm font-medium relative group",
                         isLinkActive(item.href)
                           ? "text-clay dark:text-clay"
                           : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay",
@@ -647,7 +647,7 @@ const Navbar = () => {
                       key={service.id}
                       href={service.href}
                       onClick={() => setIsMenuOpen(false)}
-                      className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
+                      className="block rounded-lg px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
                     >
                       <div className="text-sm font-semibold text-slate-dark dark:text-ivory-light line-clamp-2">
                         {service.title}
@@ -657,7 +657,7 @@ const Navbar = () => {
                   <Link
                     href="/servicios"
                     onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-md px-2 py-2 text-sm font-medium text-clay dark:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                    className="block rounded-lg px-2 py-2 text-sm font-medium text-clay dark:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
                   >
                     {t("navigation.serviceSubmenu")}
                   </Link>
@@ -675,7 +675,7 @@ const Navbar = () => {
                           key={course.id}
                           href={`/formacion/${course.slug ?? course.id}`}
                           onClick={() => setIsMenuOpen(false)}
-                          className="block rounded-md px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
+                          className="block rounded-lg px-3 py-2 bg-white/60 dark:bg-black/20 hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium] transition-colors"
                         >
                           <div className="text-sm font-semibold text-slate-dark dark:text-ivory-light line-clamp-2">
                             {course.title}
@@ -685,7 +685,7 @@ const Navbar = () => {
                     <Link
                       href="/formacion"
                       onClick={() => setIsMenuOpen(false)}
-                      className="block rounded-md px-2 py-2 text-sm font-medium text-clay dark:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                      className="block rounded-lg px-2 py-2 text-sm font-medium text-clay dark:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
                     >
                       {t("navigation.formationSubmenu")}
                     </Link>
@@ -701,7 +701,7 @@ const Navbar = () => {
                     <Link
                       href="/blog"
                       onClick={() => setIsMenuOpen(false)}
-                      className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                      className="block rounded-lg px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
                     >
                       {t("navigation.articles")}
                     </Link>
@@ -709,7 +709,7 @@ const Navbar = () => {
                     <Link
                       href="/news"
                       onClick={() => setIsMenuOpen(false)}
-                      className="block rounded-md px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
+                      className="block rounded-lg px-2 py-2 text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-medium]"
                     >
                       {t("navigation.news")}
                     </Link>
@@ -722,7 +722,7 @@ const Navbar = () => {
                     href="/"
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
-                      "transition-colors py-3 px-2 block rounded-md font-medium",
+                      "transition-colors py-3 px-2 block rounded-lg font-medium",
                       isLinkActive("/")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
                         : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)]",
@@ -734,7 +734,7 @@ const Navbar = () => {
                     href="/faq"
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
-                      "transition-colors py-3 px-2 block rounded-md font-medium",
+                      "transition-colors py-3 px-2 block rounded-lg font-medium",
                       isLinkActive("/faq")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
                         : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)]",
@@ -746,7 +746,7 @@ const Navbar = () => {
                     href="/nosotros"
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
-                      "transition-colors py-3 px-2 block rounded-md font-medium",
+                      "transition-colors py-3 px-2 block rounded-lg font-medium",
                       isLinkActive("/nosotros")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
                         : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)]",
@@ -758,7 +758,7 @@ const Navbar = () => {
                     href="/contacto"
                     onClick={() => setIsMenuOpen(false)}
                     className={cn(
-                      "transition-colors py-3 px-2 block rounded-md font-medium",
+                      "transition-colors py-3 px-2 block rounded-lg font-medium",
                       isLinkActive("/contacto")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
                         : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)]",
@@ -774,7 +774,7 @@ const Navbar = () => {
                       <Link
                         href="/profile"
                         onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] transition-colors py-3 px-2 rounded-md"
+                        className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] transition-colors py-3 px-2 rounded-lg"
                       >
                         <User className="h-4 w-4 mr-3" />
                         {t("navigation.profile")}
@@ -783,7 +783,7 @@ const Navbar = () => {
                         <Link
                           href="/profile?tab=courses"
                           onClick={() => setIsMenuOpen(false)}
-                          className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] transition-colors py-3 px-2 rounded-md"
+                          className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] transition-colors py-3 px-2 rounded-lg"
                         >
                           <BookOpen className="h-4 w-4 mr-3" />
                           {t("navigation.myCourses")}
@@ -793,7 +793,7 @@ const Navbar = () => {
                         <Link
                           href="/admin"
                           onClick={() => setIsMenuOpen(false)}
-                          className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] transition-colors py-3 px-2 rounded-md"
+                          className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] transition-colors py-3 px-2 rounded-lg"
                         >
                           <Settings className="h-4 w-4 mr-3" />
                           {t("navigation.adminDashboard")}
@@ -801,7 +801,7 @@ const Navbar = () => {
                       )}
                       <button
                         onClick={() => setShowLogoutModal(true)}
-                        className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors py-3 px-2 rounded-md text-left"
+                        className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors py-3 px-2 rounded-lg text-left"
                       >
                         <LogOut className="h-4 w-4 mr-3" />
                         {t("navigation.signOut")}

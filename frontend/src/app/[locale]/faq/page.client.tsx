@@ -29,7 +29,7 @@ import type { BlogPost } from "@/components/blog/types";
 import { faqCategories, faqEntries, localizeFaq, type FaqCategoryKey } from "./faq-data";
 
 const cardClass =
-  "rounded-[2rem] border border-[--color-border-subtle] bg-white/82 shadow-[0_24px_90px_-60px_rgba(15,23,42,0.28)] backdrop-blur dark:border-white/10 dark:bg-white/[0.04]";
+  "rounded-3xl border border-[--color-border-subtle] bg-white/82 shadow-[0_24px_90px_-60px_rgba(15,23,42,0.28)] backdrop-blur dark:border-white/10 dark:bg-white/[0.04]";
 
 const categoryIcons: Record<FaqCategoryKey, LucideIcon> = {
   general: Sparkles,

@@ -242,7 +242,7 @@ export default function ContactPage() {
                 alt={tHome("logo.alt")}
                 width={220}
                 height={220}
-                className="h-24 w-24 rounded-[1.75rem] sm:h-28 sm:w-28 lg:h-32 lg:w-32"
+                className="h-24 w-24 rounded-3xl sm:h-28 sm:w-28 lg:h-32 lg:w-32"
                 priority
               />
             <h1 className="max-w-4xl text-4xl font-semibold leading-tight tracking-[-0.04em] sm:text-5xl lg:text-6xl">
@@ -271,7 +271,7 @@ export default function ContactPage() {
             <a
               key={title}
               href={href}
-              className="group flex h-full flex-col rounded-[1.75rem] border border-[--color-border-subtle] bg-white/75 p-5 transition hover:-translate-y-1 hover:border-clay/35 dark:border-white/10 dark:bg-white/[0.04]"
+              className="group flex h-full flex-col rounded-3xl border border-[--color-border-subtle] bg-white/75 p-5 transition hover:-translate-y-1 hover:border-clay/35 dark:border-white/10 dark:bg-white/[0.04]"
               target={kind === "external" && href.startsWith("http") ? "_blank" : undefined}
               rel={kind === "external" && href.startsWith("http") ? "noopener noreferrer" : undefined}
             >
@@ -292,7 +292,7 @@ export default function ContactPage() {
       <section id="contact-form" className="bg-[--swatch--slate-dark] py-16 md:py-20">
         <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
-            <div className="h-full rounded-[2rem] border border-white/10 bg-white/6 p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] md:p-8">
+            <div className="h-full rounded-3xl border border-white/10 bg-white/6 p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] md:p-8">
             <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">
               {t("formAside.title")}
             </h2>
@@ -303,7 +303,7 @@ export default function ContactPage() {
               {[0, 1, 2].map((index) => (
                 <div
                   key={index}
-                  className="rounded-[1.5rem] border border-white/10 bg-white/5 p-4"
+                  className="rounded-3xl border border-white/10 bg-white/5 p-4"
                 >
                   <p className="text-sm font-semibold uppercase tracking-[0.14em] text-white/50">
                     {t(`formAside.items.${index}.label`)}
@@ -328,7 +328,7 @@ export default function ContactPage() {
       <section className="pb-12 pt-8 md:pb-16 md:pt-12" id="location">
         <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
-            <div className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
+            <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
             <div className="border-b border-[--color-border-subtle] p-6 dark:border-white/10 md:p-8">
               <h2 className="mt-3 text-3xl font-semibold tracking-[-0.03em]">
                 {t("map.title")}
@@ -382,7 +382,7 @@ export default function ContactPage() {
           </div>
 
 
-            <div className="flex h-full flex-col overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
+            <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
               <div className="relative min-h-[320px] flex-1">
               <button
                 type="button"
@@ -414,7 +414,7 @@ export default function ContactPage() {
       <section className="pb-12 md:pb-16">
         <div className="mx-auto grid w-full max-w-[1600px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch lg:px-8">
           <div className="flex h-full flex-col gap-6">
-            <div className="rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] dark:border-white/10 md:p-8">
+            <div className="rounded-3xl border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] dark:border-white/10 md:p-8">
               <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">
                 {t("socialShowcase.title")}
               </h2>
@@ -449,7 +449,7 @@ export default function ContactPage() {
 
 
           <div className="flex h-full flex-col">
-            <div className="flex flex-1 flex-col justify-center rounded-[2rem] border border-[--color-border-subtle] bg-[color-mix(in_srgb,var(--swatch--ivory-medium)_75%,transparent)] p-6 dark:border-white/10 dark:bg-white/[0.05] md:p-8">
+            <div className="flex flex-1 flex-col justify-center rounded-3xl border border-[--color-border-subtle] bg-[color-mix(in_srgb,var(--swatch--ivory-medium)_75%,transparent)] p-6 dark:border-white/10 dark:bg-white/[0.05] md:p-8">
               <h2 className="mt-3 text-2xl font-semibold tracking-[-0.03em]">
                 {t("team.title")}
               </h2>

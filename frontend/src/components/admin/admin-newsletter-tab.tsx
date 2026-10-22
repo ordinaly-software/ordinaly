@@ -219,7 +219,7 @@ const AdminNewsletterTab = () => {
   return (
     <div>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-        <div className="inline-flex rounded-lg border border-[--color-border-subtle] p-1 dark:border-white/10" role="tablist">
+        <div className="inline-flex rounded-xl border border-[--color-border-subtle] p-1 dark:border-white/10" role="tablist">
           {(["issues", "subscribers"] as SubTab[]).map((id) => (
             <button
               key={id}
@@ -227,7 +227,7 @@ const AdminNewsletterTab = () => {
               role="tab"
               aria-selected={subTab === id}
               onClick={() => setSubTab(id)}
-              className={`rounded-md px-4 py-1.5 text-sm font-medium transition-colors ${
+              className={`rounded-lg px-4 py-1.5 text-sm font-medium transition-colors ${
                 subTab === id ? "bg-clay-fill text-white" : "text-slate-light hover:text-slate-dark dark:text-cloud-medium dark:hover:text-white"
               }`}
             >

@@ -51,7 +51,7 @@ export function PartnerShowcase({
     <section className={cn("w-full max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 pb-12", className)}>
       <div
         className={cn(
-          "rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10",
+          "rounded-3xl border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10",
           panelClassName,
         )}
       >

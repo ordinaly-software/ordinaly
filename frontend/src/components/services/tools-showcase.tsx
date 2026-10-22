@@ -49,7 +49,7 @@ interface ToolsShowcaseProps {
 export function ToolsShowcase({ title, titleTag = "h2", logos = toolLogos, className }: ToolsShowcaseProps) {
   return (
     <section className={cn("w-full max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 pb-12", className)}>
-      <div className="rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10">
+      <div className="rounded-3xl border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10">
         <div className="mb-8 space-y-3 text-center text-white">
           {titleTag === "h3" ? (
             <h3 className="text-2xl font-semibold tracking-[-0.03em]">{title}</h3>

@@ -41,7 +41,7 @@ export function ProvidersShowcase({
 }: ProvidersShowcaseProps) {
   return (
     <section className={cn("w-full max-w-[1600px] mx-auto px-4 md:px-8 xl:px-12 pb-12", className)}>
-      <div className="relative overflow-hidden rounded-[2rem] border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10">
+      <div className="relative overflow-hidden rounded-3xl border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-8 md:p-12 dark:border-white/10">
         <div
           aria-hidden
           className="pointer-events-none absolute -top-10 -left-10 size-64 rounded-full bg-clay/30 blur-[120px]"

@@ -44,7 +44,7 @@ export const MenuItem = ({
         <Link
           href={href}
           prefetch={false}
-          className={`transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group hover:text-clay dark:hover:text-clay ${
+          className={`transition-all duration-200 whitespace-nowrap text-sm font-medium relative group hover:text-clay dark:hover:text-clay ${
             finalActive
               ? "text-clay dark:text-clay"
               : "text-slate-medium dark:text-cloud-medium"
@@ -60,7 +60,7 @@ export const MenuItem = ({
       ) : (
         <motion.p
           transition={{ duration: 0.2 }}
-          className="transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay"
+          className="transition-all duration-200 whitespace-nowrap text-sm font-medium relative group text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay"
         >
           {item}
         </motion.p>
@@ -171,7 +171,7 @@ export const ProductItem = ({
       onFocus={handleLoadIntent}
       onTouchStart={handleLoadIntent}
     >
-      <div className="shrink-0 rounded-lg shadow-md bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-medium] h-20 w-28 overflow-hidden">
+      <div className="shrink-0 rounded-xl shadow-md bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-medium] h-20 w-28 overflow-hidden">
         {shouldLoadImage && src ? (
           <Image
             src={src}
@@ -206,7 +206,7 @@ export const HoveredLink = ({ children, className, ...rest }: React.ComponentPro
       {...rest}
       prefetch={false}
       className={cn(
-        "text-sm xl:text-base font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay transition",
+        "text-sm font-medium text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay transition",
         className,
       )}
     >

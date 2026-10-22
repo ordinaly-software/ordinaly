@@ -401,7 +401,7 @@ const CourseDetailsModal = ({
                   <Star className="w-5 h-5 text-cobalt dark:text-cobalt-light" />
                   {t('upcomingSessions')}
                 </h2>
-                <div className="bg-cobalt/10 dark:bg-cobalt/20 rounded-lg p-4">
+                <div className="bg-cobalt/10 dark:bg-cobalt/20 rounded-xl p-4">
                   <div className="space-y-2">
                     {course.next_occurrences.slice(0, 5).map((occurrence, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-sm">
@@ -451,7 +451,7 @@ const CourseDetailsModal = ({
                 <Calendar className="w-5 h-5 text-cobalt dark:text-cobalt-light" />
                 {t('scheduleInformation')}
               </h2>
-              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 space-y-3">
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 space-y-3">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{t('startDate')}</p>
