@@ -260,7 +260,7 @@ const AdminNewsletterTab = () => {
         </div>
       ) : subTab === "issues" ? (
         <>
-          <div className="mb-4">
+          <div className="mb-4 w-full sm:w-56">
             <Dropdown
               options={[
                 { value: "all", label: t("filterAll") },
@@ -268,8 +268,8 @@ const AdminNewsletterTab = () => {
               ]}
               value={statusFilter}
               onChange={setStatusFilter}
-              minWidth="220px"
-              width="220px"
+              minWidth="0"
+              width="100%"
               theme="orange"
             />
           </div>
@@ -287,6 +287,7 @@ const AdminNewsletterTab = () => {
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-cloud-medium" />
               <Input placeholder={t("subscribers.search")} value={search} onChange={(e) => setSearch(e.target.value)} className="w-full pl-10" />
             </div>
+            <div className="w-full sm:w-60">
             <Dropdown
               options={[
                 { value: "all", label: t("filterAll") },
@@ -297,10 +298,11 @@ const AdminNewsletterTab = () => {
               ]}
               value={subFilter}
               onChange={setSubFilter}
-              minWidth="240px"
-              width="240px"
+              minWidth="0"
+              width="100%"
               theme="orange"
             />
+            </div>
           </div>
           <DataTable
             columns={subscriberColumns}

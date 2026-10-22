@@ -108,9 +108,8 @@ const AdminUsersTab = () => {
       key: "email",
       label: t("email"),
       sortable: true,
-      cellClassName: "text-cobalt dark:text-cobalt-light underline",
       render: (user) => (
-        <a href={`mailto:${user.email}?from=noreply@ordinaly.ai`} target="_blank" rel="noopener noreferrer">{user.email}</a>
+        <a href={`mailto:${user.email}?from=noreply@ordinaly.ai`} target="_blank" rel="noopener noreferrer" className="text-cobalt dark:text-cobalt-light underline">{user.email}</a>
       ),
     },
     { key: "company", label: t("company"), sortable: true },
@@ -151,9 +150,9 @@ const AdminUsersTab = () => {
   return (
     <div>
       {/* Header Actions */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 px-2 py-3">
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto">
-          <div className="relative w-full sm:w-64 min-w-0">
+      <div className="mb-6 flex flex-col gap-3 px-2 py-3 xl:flex-row xl:items-center xl:justify-between">
+        <div className="grid min-w-0 grid-cols-1 gap-2 sm:grid-cols-2 xl:flex xl:items-center">
+          <div className="relative min-w-0 sm:col-span-2 xl:w-64">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-cloud-medium" />
             <Input
               placeholder={t('searchPlaceholder') || 'Buscar usuarios...'}
@@ -162,44 +161,46 @@ const AdminUsersTab = () => {
               className="pl-10 w-full min-w-0"
             />
           </div>
-          <Dropdown
-            options={[
-              { value: "all", label: `${t('newsletter')}: ${t('filterAll')}` },
-              { value: "active", label: t('newsletterStatus.active') },
-              { value: "pending", label: t('newsletterStatus.pending') },
-              { value: "unsubscribed", label: t('newsletterStatus.unsubscribed') },
-              { value: "none", label: t('newsletterStatus.none') },
-            ]}
-            value={newsletterFilter}
-            onChange={(value) => setNewsletterFilter(value as "all" | NewsletterStatus)}
-            minWidth="220px"
-            width="220px"
-            theme="orange"
-          />
-          <Dropdown
-            options={[
-              { value: "all", label: `${t('courseNotifications')}: ${t('filterAll')}` },
-              { value: "on", label: t('courseNotificationsOn') },
-              { value: "off", label: t('courseNotificationsOff') },
-            ]}
-            value={courseFilter}
-            onChange={(value) => setCourseFilter(value as "all" | "on" | "off")}
-            minWidth="220px"
-            width="220px"
-            theme="orange"
-          />
+          <div className="min-w-0 xl:w-60">
+            <Dropdown
+              options={[
+                { value: "all", label: `${t('newsletter')}: ${t('filterAll')}` },
+                { value: "active", label: t('newsletterStatus.active') },
+                { value: "pending", label: t('newsletterStatus.pending') },
+                { value: "unsubscribed", label: t('newsletterStatus.unsubscribed') },
+                { value: "none", label: t('newsletterStatus.none') },
+              ]}
+              value={newsletterFilter}
+              onChange={(value) => setNewsletterFilter(value as "all" | NewsletterStatus)}
+              minWidth="0"
+              width="100%"
+              theme="orange"
+            />
+          </div>
+          <div className="min-w-0 xl:w-72">
+            <Dropdown
+              options={[
+                { value: "all", label: `${t('courseNotifications')}: ${t('filterAll')}` },
+                { value: "on", label: t('courseNotificationsOn') },
+                { value: "off", label: t('courseNotificationsOff') },
+              ]}
+              value={courseFilter}
+              onChange={(value) => setCourseFilter(value as "all" | "on" | "off")}
+              minWidth="0"
+              width="100%"
+              theme="orange"
+            />
+          </div>
         </div>
-        <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-          <Button
-            onClick={handleSendMail}
-            disabled={selectedUsers.length === 0}
-            size="sm"
-            className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto disabled:bg-cloud-medium disabled:cursor-not-allowed"
-          >
-            <Send className="h-4 w-4" />
-            <span className="xs:inline"> {t('sendMail')}</span>
-          </Button>
-        </div>
+        <Button
+          onClick={handleSendMail}
+          disabled={selectedUsers.length === 0}
+          size="sm"
+          className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-3 min-w-[140px] justify-center w-full xl:w-auto disabled:bg-cloud-medium disabled:cursor-not-allowed"
+        >
+          <Send className="h-4 w-4" />
+          <span>{t('sendMail')}</span>
+        </Button>
       </div>
 
       <p className="text-sm text-slate-light dark:text-cloud-medium mb-2">

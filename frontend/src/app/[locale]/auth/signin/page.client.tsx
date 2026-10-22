@@ -19,6 +19,7 @@ import {
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
 import { localizeApiError } from "@/lib/api-errors";
+import { consumePostLoginRedirect } from "@/lib/post-login-redirect";
 
 
 
@@ -226,7 +227,7 @@ export default function LoginPage() {
           }, 1000);
         } else {
           setTimeout(() => {
-            window.location.href = "/profile";
+            window.location.href = consumePostLoginRedirect();
           }, 1000);
         }
       }

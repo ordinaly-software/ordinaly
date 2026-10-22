@@ -12,6 +12,7 @@ import {
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
 import { localizeApiError } from "@/lib/api-errors";
+import { consumePostLoginRedirect } from "@/lib/post-login-redirect";
 
 export default function VerifyEmailPage() {
   const t = useTranslations("verifyEmail");
@@ -93,7 +94,7 @@ export default function VerifyEmailPage() {
       clearEmailCooldown(VERIFY_EMAIL_COOLDOWN_KEY);
       localStorage.removeItem("pending_email");
       localStorage.removeItem("pending_email_requires_confirmation");
-      window.location.href = "/profile";
+      window.location.href = consumePostLoginRedirect();
     } catch {
       setLoading(false);
       setError(t("networkError"));

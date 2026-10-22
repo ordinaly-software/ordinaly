@@ -7,6 +7,7 @@ import {
   setEmailCooldown,
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
+import { consumePostLoginRedirect } from "@/lib/post-login-redirect";
 
 export default function OAuthCallbackPage() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export default function OAuthCallbackPage() {
         window.location.href = "/verify-email";
       } else {
         document.cookie = `email_verified=true; path=/;`;
-        router.push("/profile");
+        window.location.href = consumePostLoginRedirect();
       }
       return;
     }

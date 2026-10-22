@@ -200,25 +200,17 @@ const AdminCourseCard: React.FC<AdminCourseCardProps> = ({
                 </span>
               )}
             </div>
-            {course.subtitle && (
-              <p className="text-sm text-slate-medium dark:text-cloud-medium mt-0.5 break-words">{course.subtitle}</p>
-            )}
-            <div className="hidden md:block mt-2">
-              <MarkdownRenderer>
-                {course.description.length > 200 ? `${course.description.substring(0, 200)}...` : course.description}
-              </MarkdownRenderer>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-light dark:text-cloud-medium mt-2">
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-sm sm:text-base text-slate-light dark:text-cloud-medium mt-2">
               <span>{tAdmin("labels.price")}: {course.price ? `€${course.price}` : t("contactForQuote")}</span>
               <span className="break-words min-w-0">{tAdmin("labels.location")}: {hasLocation ? course.location : t('locationSoon')}</span>
               <span>{tAdmin("labels.schedule")}: {formatCourseSchedule(course)}</span>
               <span className={`flex items-center gap-1 ${availableSpots === 0 ? 'text-red-600 font-medium' : ''}`}>
-                <Users className="h-3 w-3" />
+                <Users className="h-4 w-4" />
                 <span>{availableSpots} {t("courseCard.spotsAvailable")}</span>
               </span>
               <span>{tAdmin("labels.created")}: {new Date(course.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
             </div>
-            <div className="flex items-center justify-between gap-2 text-xs text-slate-light dark:text-cloud-medium mb-1 mt-3">
+            <div className="flex items-center justify-between gap-2 text-sm text-slate-light dark:text-cloud-medium mb-1 mt-3">
               <span>{t("courseCard.enrollments")}: {course.enrolled_count || 0}/{course.max_attendants}</span>
               <span>{Math.round(enrollmentPercentage)}% {t("courseCard.full")}</span>
             </div>

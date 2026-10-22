@@ -14,8 +14,20 @@ import { createPortal } from "react-dom";
 import { Menu as HoverMenu, MenuItem, ProductItem, HoveredLink } from "@/components/ui/navbar-menu";
 import { useSiteData } from "@/contexts/site-data-context";
 import { getWhatsAppUrl } from "@/utils/whatsapp";
+import { trackPageForLogin } from "@/lib/post-login-redirect";
 
 const AUTH_STATE_CHANGE_EVENT = "auth-state-changed";
+
+// Inline links disappear one by one as the viewport shrinks (the mobile menu always lists all of them).
+const NAV_ITEM_VISIBILITY: Record<string, string> = {
+  home: "",
+  services: "hidden min-[800px]:block",
+  formation: "hidden min-[900px]:block",
+  contact: "hidden min-[1000px]:block",
+  faq: "hidden min-[1100px]:block",
+  blog: "hidden min-[1180px]:block",
+  nosotros: "hidden xl:block",
+};
 // Custom User Menu Component
 const UserMenu = ({
   options,
@@ -370,6 +382,7 @@ const Navbar = () => {
   useEffect(() => {
     setIsMenuOpen(false);
     setMobileSection(null);
+    trackPageForLogin();
   }, [pathname]);
 
   useEffect(() => {
@@ -494,12 +507,12 @@ const Navbar = () => {
               </div>
             </Link>
 
-            <div className="hidden xl:flex items-center justify-center flex-1 gap-2 min-w-0">
+            <div className="hidden md:flex items-center justify-center flex-1 gap-2 min-w-0">
               <HoverMenu setActive={setActiveMegaItem}>
-                {navItems.map((item) =>
-                  item.type === "mega" ? (
+                {navItems.map((item) => (
+                  <div key={item.id} className={NAV_ITEM_VISIBILITY[item.id]}>
+                  {item.type === "mega" ? (
                     <MenuItem
-                      key={item.id}
                       item={item.label}
                       active={activeMegaItem}
                       setActive={setActiveMegaItem}
@@ -550,7 +563,6 @@ const Navbar = () => {
                     </MenuItem>
                   ) : (
                     <Link
-                      key={item.id}
                       href={item.href}
                       className={cn(
                         "transition-all duration-200 whitespace-nowrap text-sm xl:text-base font-medium relative group",
@@ -567,8 +579,9 @@ const Navbar = () => {
                         )}
                       />
                     </Link>
-                  ),
-                )}
+                  )}
+                  </div>
+                ))}
               </HoverMenu>
             </div>
 
