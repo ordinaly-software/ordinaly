@@ -25,6 +25,8 @@ interface Props {
   hasStarted: boolean;
   hasEnded: boolean;
   canEnroll: boolean;
+  showFull: boolean;
+  fullLabel: string;
   shouldShowAuth: boolean;
   onEnroll: () => void;
   onCancel: () => void;
@@ -40,6 +42,8 @@ const CourseSidebar: React.FC<Props> = ({
   hasStarted,
   hasEnded,
   canEnroll,
+  showFull,
+  fullLabel,
   shouldShowAuth,
   onEnroll,
   onCancel,
@@ -162,6 +166,8 @@ const CourseSidebar: React.FC<Props> = ({
               <Button onClick={onAuthRequired} variant="cobalt" className="w-full">{t('signInToEnroll')}</Button>
             ) : canEnroll ? (
               <Button onClick={onEnroll} variant="flame" className="w-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 h-14 text-lg"><GraduationCap className="w-5 h-5 mr-2" />{t('enrollNow')}</Button>
+            ) : showFull ? (
+              <Button disabled variant="flame" className="w-full h-14 text-lg">{fullLabel}</Button>
             ) : null}
           </div>
         )}

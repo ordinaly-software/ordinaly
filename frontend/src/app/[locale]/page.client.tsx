@@ -44,6 +44,9 @@ const CoursesShowcase = dynamic(
     ),
   },
 );
+// Upcoming courses offered in the home carousel (soonest start first); the rest live in /formacion.
+const HOME_COURSES_LIMIT = 5;
+
 const SectionSkeleton = ({ id }: { id?: string }) => (
   <section
     id={id}
@@ -199,20 +202,13 @@ export default function HomePage({
   const { courses: allCourses } = useSiteData();
 
   const initialCourses = useMemo(() => {
-    const getSortTime = (course: Course) => {
-      const createdAt = Date.parse(course.created_at);
-      if (!Number.isNaN(createdAt)) return createdAt;
-      const startAt = Date.parse(course.start_date);
-      if (!Number.isNaN(startAt)) return startAt;
-      return 0;
-    };
     return allCourses
       .filter((course) => {
         const startDate = Date.parse(course.start_date);
         return !Number.isNaN(startDate) && startDate >= renderedAt;
       })
-      .sort((a, b) => getSortTime(b) - getSortTime(a))
-      .slice(0, 3);
+      .sort((a, b) => Date.parse(a.start_date) - Date.parse(b.start_date))
+      .slice(0, HOME_COURSES_LIMIT);
   }, [allCourses, renderedAt]);
 
   const homeFaqItems: FaqAccordionItem[] = useMemo(
@@ -377,7 +373,7 @@ export default function HomePage({
 
 
       <CoursesShowcase
-        limit={3}
+        limit={HOME_COURSES_LIMIT}
         showUpcomingOnly={false}
         initialCourses={initialCourses}
         referenceNow={renderedAt}

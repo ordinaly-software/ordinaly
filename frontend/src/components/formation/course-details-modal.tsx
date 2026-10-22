@@ -37,6 +37,7 @@ interface Course {
   interval: number;
   exclude_dates: string[];
   max_attendants: number;
+  enrolled_count?: number;
   created_at: string;
   updated_at: string;
   duration_hours?: number;
@@ -273,8 +274,10 @@ const CourseDetailsModal = ({
   const endDateTime = getDateTime(course.end_date, course.end_time);
   const hasStarted = !hasNoDates && !!(startDateTime && startDateTime <= now);
   const hasEnded = !hasNoDates && !!(endDateTime && endDateTime <= now);
-  const canEnroll = isAuthenticated && !isEnrolled && !hasStarted && !hasNoDates;
-  const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates;
+  const isFull = course.max_attendants > 0 && (course.enrolled_count ?? 0) >= course.max_attendants;
+  const showFull = isFull && !isEnrolled && !hasStarted && !hasNoDates;
+  const canEnroll = isAuthenticated && !isEnrolled && !hasStarted && !hasNoDates && !isFull;
+  const shouldShowAuth = !isAuthenticated && !hasStarted && !hasNoDates && !isFull;
 
   const hasImage = !!course.image && course.image !== "undefined" && course.image !== "null";
 
@@ -317,6 +320,8 @@ const CourseDetailsModal = ({
         <CourseFooter
           shouldShowAuth={shouldShowAuth}
           canEnroll={canEnroll}
+          showFull={showFull}
+          fullLabel={formationT('full')}
           handleEnrollClick={handleEnrollClick}
           onEnroll={onEnroll}
           showRequestEdition={hasEnded}
@@ -499,6 +504,8 @@ const CourseDetailsModal = ({
               hasEnded={hasEnded}
               canEnroll={canEnroll}
               shouldShowAuth={shouldShowAuth}
+              showFull={showFull}
+              fullLabel={formationT('full')}
               onEnroll={onEnroll}
               onCancel={onCancel}
               onAuthRequired={onAuthRequired}

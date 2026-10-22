@@ -8,6 +8,8 @@ import { GraduationCap } from 'lucide-react';
 interface Props {
   shouldShowAuth: boolean;
   canEnroll: boolean;
+  showFull: boolean;
+  fullLabel: string;
   handleEnrollClick: () => void;
   onEnroll: () => void;
   showRequestEdition: boolean;
@@ -20,6 +22,8 @@ interface Props {
 const CourseFooter: React.FC<Props> = ({
   shouldShowAuth,
   canEnroll,
+  showFull,
+  fullLabel,
   handleEnrollClick,
   onEnroll,
   showRequestEdition,
@@ -29,7 +33,7 @@ const CourseFooter: React.FC<Props> = ({
   t,
 }) => {
   const showEdition = showRequestEdition && hasEnded;
-  if (!showEdition && !shouldShowAuth && !canEnroll) return null;
+  if (!showEdition && !shouldShowAuth && !canEnroll && !showFull) return null;
 
   return (
     <div className="shrink-0 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-[var(--swatch--slate-medium)] px-5 sm:px-8 pt-3 pb-[calc(env(safe-area-inset-bottom)+12px)] shadow-[0_-6px_12px_-6px_rgba(0,0,0,0.06)] lg:hidden">
@@ -58,6 +62,10 @@ const CourseFooter: React.FC<Props> = ({
           >
             <GraduationCap className="w-5 h-5 mr-2" />
             {t('enrollNow')}
+          </Button>
+        ) : showFull ? (
+          <Button disabled className="w-full h-12 text-base">
+            {fullLabel}
           </Button>
         ) : null}
       </div>

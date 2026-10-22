@@ -168,6 +168,7 @@
       "pastCourseMessage": "Hello, I saw the course \"{course}\" ({link}) and I would love to request a new edition for it. Could you let me know when you schedule it?",
       "viewDetails": "View details",
       "viewAllCourses": "View all courses",
+      "catalogTitle": "Training catalog",
       "spotsLeft": "spots left",
       "enrolled": "enrolled",
       "max": "max",

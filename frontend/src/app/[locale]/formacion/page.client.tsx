@@ -540,7 +540,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
                   <Button
                     onClick={() => setVisibleCount((count) => count + COURSES_PAGE_SIZE)}
                     variant="outline"
-                    className="border-cobalt dark:border-cobalt-light text-cobalt dark:text-cobalt-light hover:bg-cobalt-dark dark:hover:bg-cobalt-light/20 hover:text-white transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2 mx-auto"
+                    className="border-cobalt dark:border-cobalt-light text-cobalt dark:text-cobalt-light hover:bg-cobalt-dark dark:hover:bg-cobalt-light/20 hover:text-white transition-all duration-300 px-6 py-3 text-lg font-semibold flex items-center gap-2 mx-auto rounded-full"
                   >
                     <ChevronDown className="w-5 h-5" />
                     {t("showMoreCourses")}

@@ -169,6 +169,7 @@
       "pastCourseMessage": "Hola, vi el curso \"{course}\" ({link}) y me gustaría solicitar una nueva edición. ¿Podéis avisarme cuando haya nueva fecha?",
       "viewDetails": "Ver detalles",
       "viewAllCourses": "Ver todos los cursos",
+      "catalogTitle": "Catálogo de formación",
       "spotsLeft": "plazas disponibles",
       "enrolled": "inscritos",
       "max": "máximo",
@@ -1706,7 +1707,7 @@
   "authModal": {
     "welcome": "Bienvenido a Ordinaly",
     "courseEnrollTitle": "Autenticación requerida",
-    "courseEnrollDescription": "Inicia sesión o crea una cuenta para inscribirte en \"{courseTitle}\"",
+    "courseEnrollDescription": "Quieres inscribirte en \"{courseTitle}\" Inicia sesión o crea una cuenta para continuar. ¡Solo te llevará un minuto!",
     "generalDescription": "Únete a nuestra comunidad para acceder a cursos y servicios exclusivos",
     "signIn": {
       "title": "Iniciar sesión",
@@ -1714,7 +1715,7 @@
     },
     "signUp": {
       "title": "Crear cuenta",
-      "description": "¿Nuevo en Ordinaly? Crea tu cuenta"
+      "description": "¿Nuevo en Ordinaly? Crea AQUÍ tu cuenta"
     },
     "termsText": "Al continuar, aceptas nuestros Términos de Servicio y Política de Privacidad"
   },
