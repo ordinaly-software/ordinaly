@@ -89,13 +89,17 @@ export async function getSitemapEntries(): Promise<SitemapUrl[]> {
     .sort(bySlug)
     .flatMap((slug) => entry(`/${slug}`, "weekly", 0.85));
 
+  // Course detail pages are Spanish-only, so /en/formacion/<slug> is not listed.
   const courseEntries = courses
     .map((course) => course?.slug?.trim())
     .filter(isValidSlug)
+    .map((slug) => slug.toLowerCase())
     .sort(bySlug)
-    .flatMap((slug) => entry(`/formacion/${encodeURIComponent(slug)}`, "weekly", 0.7));
+    .flatMap((slug) => entry(`/formacion/${encodeURIComponent(slug)}`, "weekly", 0.7, true));
 
+  // The proxy lowercases every path, so listing a mixed-case slug would only add a redirect.
   const postEntries = postSlugs
+    .map((slug) => slug?.toLowerCase())
     .filter((slug) => {
       if (isValidSlug(slug)) return true;
       console.warn(`[sitemap] skipping post with an invalid slug: ${String(slug).slice(0, 80)}`);

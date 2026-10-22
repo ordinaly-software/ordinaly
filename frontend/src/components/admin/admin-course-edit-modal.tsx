@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { FileText, Edit, Upload, Plus, Play, MapPin, Calendar } from "lucide-react";
+import { FileText, Edit, Upload, Plus, Play, MapPin, Calendar, Wand2 } from "lucide-react";
 import Slider from "@/components/ui/slider";
 import Dropdown, { DropdownOption } from "../ui/dropdown";
 import { DatePicker, TimePicker } from "../ui/date-time-picker";
@@ -55,6 +55,17 @@ export interface CourseEditModalProps {
   t: (key: string, params?: Record<string, string | number | Date>) => string;
   resetForm: () => void;
 }
+
+// Lowercase, accent-free, hyphen-separated; the backend caps slugs at 100 characters
+const slugifyTitle = (title: string) =>
+  title
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 100)
+    .replace(/-+$/, "");
 
 // Custom image loader to handle potential URL issues
 const imageLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
@@ -229,13 +240,28 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               </div>
               <span>{t("form.slugOptional")}</span>
             </Label>
-            <Input
-              id="slug"
-              value={formData.slug ?? ""}
-              onChange={(e) => setFormData(prev => ({...prev, slug: e.target.value}))}
-              placeholder={t("form.slugPlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--slate-medium)] focus:ring-[color-mix(in_srgb,var(--swatch--slate-medium)_20%,transparent)] rounded-lg transition-all duration-200"
-            />
+            <div className="flex flex-col gap-2 sm:flex-row">
+              {/* Input wraps itself in a div, so the flex item is this wrapper */}
+              <div className="min-w-0 flex-1">
+                <Input
+                  id="slug"
+                  value={formData.slug ?? ""}
+                  onChange={(e) => setFormData(prev => ({...prev, slug: e.target.value}))}
+                  placeholder={t("form.slugPlaceholder")}
+                  className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--slate-medium)] focus:ring-[color-mix(in_srgb,var(--swatch--slate-medium)_20%,transparent)] rounded-lg transition-all duration-200"
+                />
+              </div>
+              <Button
+                type="button"
+                variant="outline"
+                disabled={!formData.title?.trim() || !!formData.slug?.trim()}
+                onClick={() => setFormData(prev => ({...prev, slug: slugifyTitle(prev.title ?? "")}))}
+                className="h-12 shrink-0 gap-2 rounded-lg active:scale-[0.97] transition-transform motion-reduce:transition-none"
+              >
+                <Wand2 className="h-4 w-4" />
+                {t("form.generateSlug")}
+              </Button>
+            </div>
             {/* Slug validation: only ASCII letters, numbers, underscores and hyphens are allowed */}
             {(() => {
               const slugVal = formData.slug ?? "";

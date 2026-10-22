@@ -696,6 +696,7 @@
         "markdownSupported": "Markdown supported",
         "slugOptional": "Course slug (optional)",
         "slugPlaceholder": "e.g., course-advanced-python",
+        "generateSlug": "Generate from title",
         "slugInvalid": "Slug may only contain ASCII letters, numbers, underscores, and hyphens (no accents).",
         "periodicity": {
           "once": "One-time event",

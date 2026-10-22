@@ -323,7 +323,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
     if (courses.length === 0) return;
 
     const tryOpen = async () => {
-      const matched = courses.find(c => c.slug === initialCourseSlug);
+      const matched = courses.find(c => c.slug?.toLowerCase() === initialCourseSlug.toLowerCase());
       if (matched) {
         setCourseForDetails(matched);
         setShowCourseDetailsModal(true);
