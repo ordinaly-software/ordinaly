@@ -6,12 +6,12 @@ export default function BlogLoading() {
           <div className="h-12 w-1/2 rounded bg-oat dark:bg-[var(--swatch--slate-medium)] animate-pulse" />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="rounded-2xl bg-oat/80 dark:bg-[var(--swatch--slate-medium)]/80 animate-pulse">
-                <div className="h-40 rounded-t-2xl bg-oat dark:bg-[var(--swatch--slate-medium)]/80" />
+              <div key={index} className="rounded-2xl bg-oat/80 dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_80%,transparent)] animate-pulse">
+                <div className="h-40 rounded-t-2xl bg-oat dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_80%,transparent)]" />
                 <div className="p-5 space-y-3">
-                  <div className="h-4 w-2/3 rounded bg-oat dark:bg-[var(--swatch--slate-medium)]/80" />
-                  <div className="h-4 w-full rounded bg-oat dark:bg-[var(--swatch--slate-medium)]/80" />
-                  <div className="h-4 w-5/6 rounded bg-oat dark:bg-[var(--swatch--slate-medium)]/80" />
+                  <div className="h-4 w-2/3 rounded bg-oat dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_80%,transparent)]" />
+                  <div className="h-4 w-full rounded bg-oat dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_80%,transparent)]" />
+                  <div className="h-4 w-5/6 rounded bg-oat dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_80%,transparent)]" />
                 </div>
               </div>
             ))}

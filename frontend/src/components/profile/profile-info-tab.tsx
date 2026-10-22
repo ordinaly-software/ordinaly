@@ -57,7 +57,7 @@ const cardShell =
 
 // One tint per card: the icon chip carries the colour, the title stays neutral.
 const chipTones = {
-  clay: "bg-[var(--swatch--clay)]/15 text-[var(--swatch--clay)]",
+  clay: "bg-[color-mix(in_srgb,var(--swatch--clay)_15%,transparent)] text-[var(--swatch--clay)]",
   cobalt: "bg-cobalt/15 text-cobalt dark:bg-cobalt-light/20 dark:text-cobalt-light",
   danger: "bg-red-500/12 text-red-600 dark:bg-red-400/20 dark:text-red-400",
 } as const;
@@ -310,7 +310,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
               size="sm"
               onClick={onToggleAllNotifications}
               disabled={isUpdatingNotifications}
-              className="self-start border-[var(--swatch--clay)]/30 text-[var(--swatch--clay)] hover:bg-[var(--swatch--clay)]/10 active:scale-[0.98]"
+              className="self-start border-[color-mix(in_srgb,var(--swatch--clay)_30%,transparent)] text-[var(--swatch--clay)] hover:bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] active:scale-[0.98]"
             >
               {allOptionalNotificationsEnabled ? t("form.disableAllOptionalNotifications") : t("form.enableAllOptionalNotifications")}
             </Button>
@@ -327,7 +327,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
                     onChange={() => onFieldChange(item.key, !item.checked)}
                     disabled={isUpdatingNotifications}
                     color="clay"
-                    className="[&_.slider-track]:bg-[var(--swatch--clay)]/20 [&_.slider-thumb]:bg-[var(--swatch--clay)] [&_.slider-thumb]:border-[var(--swatch--clay)] [&_.slider-track]:border-[var(--swatch--clay)] [&_.slider-track]:shadow [&_.slider-thumb]:shadow-lg [&_.slider-thumb]:shadow-[#D9775740]"
+                    className="[&_.slider-track]:bg-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] [&_.slider-thumb]:bg-[var(--swatch--clay)] [&_.slider-thumb]:border-[var(--swatch--clay)] [&_.slider-track]:border-[var(--swatch--clay)] [&_.slider-track]:shadow [&_.slider-thumb]:shadow-lg [&_.slider-thumb]:shadow-[#D9775740]"
                   />
                 </div>
               ))}

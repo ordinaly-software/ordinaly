@@ -120,7 +120,7 @@ const UserMenu = ({
                   key={option.value}
                   type="button"
                   onClick={() => handleOptionClick(option.value)}
-                  className="w-full px-4 py-3 text-left transition-colors duration-150 flex items-center gap-3 hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30 text-slate-dark dark:text-ivory-light focus:bg-oat/60 dark:focus:bg-[--swatch--slate-light]/30 focus:outline-none"
+                  className="w-full px-4 py-3 text-left transition-colors duration-150 flex items-center gap-3 hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] text-slate-dark dark:text-ivory-light focus:bg-oat/60 dark:focus:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] focus:outline-none"
                   role="menuitem"
                 >
                   {OptionIcon && <OptionIcon className="h-4 w-4 flex-shrink-0" />}
@@ -146,7 +146,7 @@ const MobileSection = ({
   onToggle: () => void;
   children: ReactNode;
 }) => (
-  <div className="rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong]/70 bg-[--swatch--ivory-medium]/60 dark:bg-[--swatch--slate-medium]/60">
+  <div className="rounded-xl border border-[--color-border-subtle] dark:border-[--color-border-strong]/70 bg-[color-mix(in_srgb,var(--swatch--ivory-medium)_60%,transparent)] dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_60%,transparent)]">
     <button className="w-full flex items-center justify-between px-3 py-3 text-left" onClick={onToggle}>
       <span className="font-semibold text-slate-dark dark:text-ivory-light">{title}</span>
       <ChevronDown
@@ -621,7 +621,7 @@ const Navbar = () => {
         </div>
 
         {isMenuOpen && (
-          <div className="xl:hidden bg-[--swatch--ivory-light]/97 dark:bg-[--swatch--slate-dark]/97 border-t border-[--color-border-subtle] dark:border-[--color-border-strong] backdrop-blur-xl">
+          <div className="xl:hidden bg-[color-mix(in_srgb,var(--swatch--ivory-light)_97%,transparent)] dark:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_97%,transparent)] border-t border-[--color-border-subtle] dark:border-[--color-border-strong] backdrop-blur-xl">
             <div className="py-4 px-4 sm:px-6">
               <div className="flex flex-col space-y-3">
                 <MobileSection
@@ -712,7 +712,7 @@ const Navbar = () => {
                       "transition-colors py-3 px-2 block rounded-md font-medium",
                       isLinkActive("/")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
-                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
+                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)]",
                     )}
                   >
                     {t("navigation.home")}
@@ -724,7 +724,7 @@ const Navbar = () => {
                       "transition-colors py-3 px-2 block rounded-md font-medium",
                       isLinkActive("/faq")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
-                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
+                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)]",
                     )}
                   >
                     {t("navigation.faq")}
@@ -736,7 +736,7 @@ const Navbar = () => {
                       "transition-colors py-3 px-2 block rounded-md font-medium",
                       isLinkActive("/nosotros")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
-                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
+                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)]",
                     )}
                   >
                     {t("navigation.us")}
@@ -748,7 +748,7 @@ const Navbar = () => {
                       "transition-colors py-3 px-2 block rounded-md font-medium",
                       isLinkActive("/contacto")
                         ? "text-clay dark:text-clay bg-clay/10 dark:bg-clay/10"
-                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30",
+                        : "text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)]",
                     )}
                   >
                     {t("navigation.contact")}
@@ -761,7 +761,7 @@ const Navbar = () => {
                       <Link
                         href="/profile"
                         onClick={() => setIsMenuOpen(false)}
-                        className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30 transition-colors py-3 px-2 rounded-md"
+                        className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] transition-colors py-3 px-2 rounded-md"
                       >
                         <User className="h-4 w-4 mr-3" />
                         {t("navigation.profile")}
@@ -770,7 +770,7 @@ const Navbar = () => {
                         <Link
                           href="/profile?tab=courses"
                           onClick={() => setIsMenuOpen(false)}
-                          className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30 transition-colors py-3 px-2 rounded-md"
+                          className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] transition-colors py-3 px-2 rounded-md"
                         >
                           <BookOpen className="h-4 w-4 mr-3" />
                           {t("navigation.myCourses")}
@@ -780,7 +780,7 @@ const Navbar = () => {
                         <Link
                           href="/admin"
                           onClick={() => setIsMenuOpen(false)}
-                          className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[--swatch--slate-light]/30 transition-colors py-3 px-2 rounded-md"
+                          className="flex items-center w-full text-slate-medium dark:text-cloud-medium hover:text-clay dark:hover:text-clay hover:bg-oat/60 dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-light)_30%,transparent)] transition-colors py-3 px-2 rounded-md"
                         >
                           <Settings className="h-4 w-4 mr-3" />
                           {t("navigation.adminDashboard")}

@@ -44,7 +44,7 @@ const BonificationInfo = () => {
       </button>
       {open && (
         <div className="px-6 pb-6 text-base text-gray-700 animate-fade-in dark:text-gray-200 md:px-8 md:pb-8">
-          <div className="rounded-[1.5rem] border border-[--color-border-subtle] bg-[--swatch--ivory-medium]/75 p-5 dark:border-white/10 dark:bg-[rgba(10,16,26,0.72)] md:p-6">
+          <div className="rounded-[1.5rem] border border-[--color-border-subtle] bg-[color-mix(in_srgb,var(--swatch--ivory-medium)_75%,transparent)] p-5 dark:border-white/10 dark:bg-[rgba(10,16,26,0.72)] md:p-6">
             <div className="prose max-w-none prose-p:text-slate-medium prose-strong:text-slate-dark prose-a:text-clay dark:prose-invert dark:prose-p:text-cloud-medium dark:prose-strong:text-ivory-light">
             <MarkdownRenderer>{t("details")}</MarkdownRenderer>
             </div>

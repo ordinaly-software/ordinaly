@@ -3,10 +3,10 @@ export default function ServicesLoading() {
     <div className="min-h-screen bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white">
       <div className="px-4 sm:px-6 lg:px-8 py-10">
         <div className="max-w-6xl mx-auto space-y-8">
-          <div className="h-56 rounded-3xl bg-oat/80 dark:bg-[var(--swatch--slate-medium)]/80 animate-pulse" />
+          <div className="h-56 rounded-3xl bg-oat/80 dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_80%,transparent)] animate-pulse" />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, index) => (
-              <div key={index} className="h-64 rounded-2xl bg-oat/80 dark:bg-[var(--swatch--slate-medium)]/80 animate-pulse" />
+              <div key={index} className="h-64 rounded-2xl bg-oat/80 dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_80%,transparent)] animate-pulse" />
             ))}
           </div>
         </div>

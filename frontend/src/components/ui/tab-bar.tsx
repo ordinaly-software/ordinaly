@@ -113,7 +113,7 @@ export const TabBar: React.FC<TabBarProps> = ({
           type="button"
           aria-label="Scroll tabs left"
           onClick={() => scrollBy(-180)}
-          className="absolute left-0 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[var(--swatch--slate-dark)]/90 dark:text-cloud-medium"
+          className="absolute left-0 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_90%,transparent)] dark:text-cloud-medium"
         >
           <ChevronLeft className="h-3.5 w-3.5" />
         </button>
@@ -165,7 +165,7 @@ export const TabBar: React.FC<TabBarProps> = ({
           type="button"
           aria-label="Scroll tabs right"
           onClick={() => scrollBy(180)}
-          className="absolute right-0 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[var(--swatch--slate-dark)]/90 dark:text-cloud-medium"
+          className="absolute right-0 z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/90 text-slate-medium shadow-sm backdrop-blur-sm transition-opacity dark:border-white/10 dark:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_90%,transparent)] dark:text-cloud-medium"
         >
           <ChevronRight className="h-3.5 w-3.5" />
         </button>

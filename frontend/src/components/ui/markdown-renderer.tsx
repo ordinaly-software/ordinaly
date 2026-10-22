@@ -43,7 +43,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
             </tbody>
           ),
           tr: ({children}) => (
-            <tr className="hover:bg-oat dark:hover:bg-[var(--swatch--slate-medium)]/50 transition-colors">
+            <tr className="hover:bg-oat dark:hover:bg-white/5 transition-colors">
               {children}
             </tr>
           ),
@@ -68,7 +68,7 @@ export const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children, co
           li: ({children}) => <li className="leading-relaxed">{children}</li>,
           blockquote: ({children}) => (
             <blockquote
-              className="border-l-4 pl-4 py-2 mb-4 italic bg-oat dark:bg-[var(--swatch--slate-medium)]/50 rounded-r-lg"
+              className="border-l-4 pl-4 py-2 mb-4 italic bg-oat dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_50%,transparent)] rounded-r-lg"
               style={{ borderLeftColor: serviceColor }}
             >
               <div className="text-slate-medium dark:text-cloud-medium">

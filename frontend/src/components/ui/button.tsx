@@ -25,7 +25,7 @@ const buttonVariants = cva(
           "bg-clay-fill text-[var(--swatch--ivory-light)] hover:bg-[#9A3C1A] dark:bg-clay-fill dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[#9A3C1A]",
         // Outline: transparent with border
         outline:
-          "border border-[var(--swatch--slate-dark)]/25 bg-transparent text-[var(--swatch--slate-dark)] hover:bg-oat dark:border-[var(--swatch--ivory-light)]/25 dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[var(--swatch--slate-medium)]",
+          "border border-[color-mix(in_srgb,var(--swatch--slate-dark)_25%,transparent)] bg-transparent text-[var(--swatch--slate-dark)] hover:bg-oat dark:border-[color-mix(in_srgb,var(--swatch--ivory-light)_25%,transparent)] dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[var(--swatch--slate-medium)]",
         // Ghost: no border
         ghost:
           "text-[var(--swatch--slate-dark)] hover:bg-oat dark:text-[var(--swatch--ivory-light)] dark:hover:bg-[var(--swatch--slate-medium)]",

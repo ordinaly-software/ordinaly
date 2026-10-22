@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Modal } from "@/components/ui/modal";
+import { Modal, ModalFooter } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -125,14 +125,34 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
       onClose={onClose}
       title={showEditModal ? t("editCourse") : t("createCourse")}
       showHeader={true}
-      className="max-w-4xl w-full mx-4"
+      className="max-w-4xl"
+      footer={
+        <ModalFooter>
+        <div className="flex justify-end gap-3">
+          <Button
+            variant="ghost"
+            onClick={onClose}
+            className="px-6 py-2 text-slate-medium dark:text-cloud-medium hover:text-slate-dark dark:hover:text-ivory-light hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-medium)] transition-all duration-200"
+          >
+            {t("form.cancel")}
+          </Button>
+          <Button
+            onClick={onSubmit}
+            className="px-6 py-2 bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"
+          >
+            <span>{showEditModal ? t("form.update") : t("form.create")}</span>
+            {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+          </Button>
+        </div>
+        </ModalFooter>
+      }
     >
-      <div className="space-y-6 max-h-[80vh] overflow-y-auto pb-40">
+      <div className="space-y-6">
         {/* Course Title with Draft Toggle */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Label htmlFor="title" className="flex items-center space-x-2 text-sm font-semibold text-slate-dark dark:text-cloud-medium">
-              <div className="w-5 h-5 bg-[var(--swatch--clay)]/10 rounded flex items-center justify-center">
+              <div className="w-5 h-5 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] rounded flex items-center justify-center">
                 <FileText className="w-3 h-3 text-[var(--swatch--clay)]" />
               </div>
               <span>{t("form.titleRequired")}</span>
@@ -155,7 +175,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             value={formData.title ?? ""}
             onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
             placeholder={t("form.titlePlaceholder")}
-            className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]/20 rounded-lg transition-all duration-200"
+            className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
             required
           />
           {!!formData.enrolled_count && formData.enrolled_count > 0 && (
@@ -184,7 +204,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           {/* Bonified Course Link */}
           <div className="space-y-3">
             <Label htmlFor="bonified_course_link" className="flex items-center space-x-2 text-sm font-semibold text-slate-dark dark:text-cloud-medium">
-              <div className="w-5 h-5 bg-[var(--swatch--clay)]/10 rounded flex items-center justify-center">
+              <div className="w-5 h-5 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] rounded flex items-center justify-center">
                 <span className="text-xs font-bold text-[var(--swatch--clay)]">€</span>
               </div>
               <span>{t("form.bonifiedCourseLinkOptional")}</span>
@@ -194,7 +214,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.bonified_course_link ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, bonified_course_link: e.target.value}))}
               placeholder={t("form.bonifiedCourseLinkPlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]/20 rounded-lg transition-all duration-200"
+              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
             />
             <p className="text-xs text-slate-light dark:text-cloud-medium">
               {t("form.bonifiedCourseLinkHelp")}
@@ -214,7 +234,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.slug ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, slug: e.target.value}))}
               placeholder={t("form.slugPlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--slate-medium)] focus:ring-[var(--swatch--slate-medium)]/20 rounded-lg transition-all duration-200"
+              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--slate-medium)] focus:ring-[color-mix(in_srgb,var(--swatch--slate-medium)_20%,transparent)] rounded-lg transition-all duration-200"
             />
             {/* Slug validation: only ASCII letters, numbers, underscores and hyphens are allowed */}
             {(() => {
@@ -231,7 +251,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
         {/* Course Description */}
         <div className="space-y-3">
           <Label htmlFor="description" className="flex items-center space-x-2 text-sm font-semibold text-slate-dark dark:text-cloud-medium">
-            <div className="w-5 h-5 bg-[var(--swatch--fig)]/10 dark:bg-[var(--swatch--fig)]/20 rounded flex items-center justify-center">
+            <div className="w-5 h-5 bg-[color-mix(in_srgb,var(--swatch--fig)_10%,transparent)] dark:bg-[color-mix(in_srgb,var(--swatch--fig)_20%,transparent)] rounded flex items-center justify-center">
               <Edit className="w-3 h-3 text-[var(--swatch--fig)]" />
             </div>
             <span>{t("form.descriptionRequired")}</span>
@@ -242,7 +262,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setFormData(prev => ({...prev, description: e.target.value}))}
             placeholder={t("form.descriptionPlaceholder")}
             rows={10}
-            className="border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]/20 rounded-lg transition-all duration-200 resize-none font-mono text-sm"
+            className="border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200 resize-none font-mono text-sm"
             required
           />
           <div className="flex items-center gap-2">
@@ -258,7 +278,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
         {/* Image Upload */}
         <div className="space-y-3">
           <Label htmlFor="image" className="flex items-center space-x-2 text-sm font-semibold text-slate-dark dark:text-cloud-medium">
-            <div className="w-5 h-5 bg-[var(--swatch--clay)]/10 rounded flex items-center justify-center">
+            <div className="w-5 h-5 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] rounded flex items-center justify-center">
               <Upload className="w-3 h-3 text-[var(--swatch--clay)]" />
             </div>
             <span>{!showEditModal ? t("form.imageRequired") : t("form.imageOptional")}</span>
@@ -279,7 +299,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             <div className="text-center">
               {selectedFile ? (
                 <div className="flex items-center justify-center space-x-2">
-                  <div className="flex items-center space-x-1 bg-[var(--swatch--clay)]/10 px-2 py-1 rounded-lg">
+                  <div className="flex items-center space-x-1 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] px-2 py-1 rounded-lg">
                     <FileText className="w-4 h-4 text-[var(--swatch--clay)]" />
                     <span className="text-xs font-medium text-[var(--swatch--clay)]">
                       {selectedFile.name}
@@ -337,7 +357,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
         {/* Video */}
         <div className="space-y-3">
           <Label htmlFor="youtube_video_url" className="flex items-center space-x-2 text-sm font-semibold text-slate-dark dark:text-cloud-medium">
-            <div className="w-5 h-5 bg-[var(--swatch--clay)]/10 rounded flex items-center justify-center">
+            <div className="w-5 h-5 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] rounded flex items-center justify-center">
               <Play className="w-3 h-3 text-[var(--swatch--clay)]" />
             </div>
             <span>{t("form.video")}</span>
@@ -348,7 +368,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
             value={formData.youtube_video_url ?? ""}
             onChange={(e) => setFormData(prev => ({ ...prev, youtube_video_url: e.target.value }))}
             placeholder={t("form.videoPlaceholder")}
-            className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]/20 rounded-lg transition-all duration-200"
+            className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
           />
           <p className="text-xs text-slate-light dark:text-cloud-medium">
             {t("form.videoHelp")}
@@ -359,7 +379,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-3">
             <Label htmlFor="price" className="flex items-center space-x-2 text-sm font-semibold text-slate-dark dark:text-cloud-medium">
-              <div className="w-5 h-5 bg-[var(--swatch--clay)]/10 rounded flex items-center justify-center">
+              <div className="w-5 h-5 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] rounded flex items-center justify-center">
                 <span className="text-xs font-bold text-[var(--swatch--clay)]">€</span>
               </div>
               <span>{t("form.price")}</span>
@@ -373,7 +393,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.price ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, price: e.target.value}))}
               placeholder={t("form.pricePlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]/20 rounded-lg transition-all duration-200"
+              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
             />
             {/* Price validation */}
             {(() => {
@@ -412,7 +432,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
           {/* Location */}
           <div className="space-y-3">
             <Label htmlFor="location" className="flex items-center space-x-2 text-sm font-semibold text-slate-dark dark:text-cloud-medium">
-              <div className="w-5 h-5 bg-[var(--swatch--clay)]/10 rounded flex items-center justify-center">
+              <div className="w-5 h-5 bg-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] rounded flex items-center justify-center">
                 <MapPin className="w-3 h-3 text-[var(--swatch--clay)]" />
               </div>
               <span>{t("form.locationOptional")}</span>
@@ -422,7 +442,7 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               value={formData.location ?? ""}
               onChange={(e) => setFormData(prev => ({...prev, location: e.target.value}))}
               placeholder={t("form.locationPlaceholder")}
-              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]/20 rounded-lg transition-all duration-200"
+              className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-[var(--swatch--clay)] focus:ring-[color-mix(in_srgb,var(--swatch--clay)_20%,transparent)] rounded-lg transition-all duration-200"
             />
           </div>
 
@@ -486,19 +506,61 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               />
             </div>
           </div>
-          {/* Periodicity */}
-          <div className="space-y-2">
-            <Label htmlFor="periodicity" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
-              {t("form.periodicityRequired")}
-            </Label>
-            <Dropdown
-              options={periodicityOptions}
-              value={formData.periodicity ?? ""}
-              onChange={(value) => setFormData(prev => ({...prev, periodicity: value as Course['periodicity']}))}
-              minWidth="100%"
-              theme="orange"
-              placeholder={t("form.periodicity.once")}
-            />
+          {/* Periodicity, Interval and Timezone */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="space-y-2 min-w-0">
+              <Label htmlFor="periodicity" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
+                {t("form.periodicityRequired")}
+              </Label>
+              <Dropdown
+                options={periodicityOptions}
+                value={formData.periodicity ?? ""}
+                onChange={(value) => setFormData(prev => ({...prev, periodicity: value as Course['periodicity']}))}
+                width="100%"
+                minWidth="0px"
+                className="w-full"
+                buttonClassName="text-left"
+                theme="orange"
+                placeholder={t("form.periodicity.once")}
+              />
+            </div>
+            <div className="space-y-2 min-w-0">
+              <Label htmlFor="interval" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
+                {t("form.intervalOptional")}
+              </Label>
+              <Input
+                id="interval"
+                type="number"
+                min="1"
+                max="52"
+                value={formData.periodicity === 'once' ? 1 : formData.interval ?? ""}
+                onChange={(e) => {
+                  const val = parseInt(e.target.value) || 1;
+                  setFormData(prev => ({
+                    ...prev,
+                    interval: prev.periodicity === 'once' ? 1 : val
+                  }));
+                }}
+                placeholder={t("form.intervalPlaceholder")}
+                className="h-12 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-lg transition-all duration-200"
+                disabled={formData.periodicity === 'once'}
+              />
+            </div>
+            <div className="space-y-2 min-w-0">
+              <Label htmlFor="timezone" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
+                {t("form.timezoneOptional")}
+              </Label>
+              <Dropdown
+                options={timezoneOptions}
+                value={formData.timezone ?? ""}
+                onChange={(value) => setFormData(prev => ({...prev, timezone: value}))}
+                theme="orange"
+                width="100%"
+                minWidth="0px"
+                className="w-full"
+                buttonClassName="text-left"
+              />
+            </div>
           </div>
           {/* Weekdays Selection (for weekly/biweekly patterns) */}
           {(formData.periodicity === 'weekly' || formData.periodicity === 'biweekly') && (
@@ -545,60 +607,6 @@ const CourseEditModal: React.FC<CourseEditModalProps> = ({
               />
             </div>
           )}
-          {/* Custom Interval */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="interval" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
-                {t("form.intervalOptional")}
-              </Label>
-              <Input
-                id="interval"
-                type="number"
-                min="1"
-                max="52"
-                value={formData.periodicity === 'once' ? 1 : formData.interval ?? ""}
-                onChange={(e) => {
-                  const val = parseInt(e.target.value) || 1;
-                  setFormData(prev => ({
-                    ...prev,
-                    interval: prev.periodicity === 'once' ? 1 : val
-                  }));
-                }}
-                placeholder={t("form.intervalPlaceholder")}
-                className="h-11 border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] focus:border-cobalt focus:ring-cobalt/20 rounded-lg transition-all duration-200"
-                disabled={formData.periodicity === 'once'}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="timezone" className="text-sm font-medium text-slate-dark dark:text-cloud-medium">
-                {t("form.timezoneOptional")}
-              </Label>
-              <Dropdown
-                options={timezoneOptions}
-                value={formData.timezone ?? ""}
-                onChange={(value) => setFormData(prev => ({...prev, timezone: value}))}
-                theme="orange"
-                width="100%"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Action Buttons (bottom bar) */}
-        <div className="absolute bottom-0 left-0 right-0 flex justify-end space-x-3 pt-6 pb-6 px-6 border-t border-[var(--color-border-subtle)] dark:border-[var(--color-border-strong)] bg-[var(--swatch--ivory-light)] dark:bg-[var(--swatch--slate-dark)]">
-          <Button
-            variant="ghost"
-            onClick={onClose}
-            className="px-6 py-2 text-slate-medium dark:text-cloud-medium hover:text-slate-dark dark:hover:text-ivory-light hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-medium)] transition-all duration-200"
-            >
-            {t("form.cancel")}
-          </Button>
-          <Button
-            onClick={onSubmit}
-            className="px-6 py-2 bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white shadow-lg hover:shadow-xl transition-all duration-200 flex items-center space-x-2"          >
-            <span>{showEditModal ? t("form.update") : t("form.create")}</span>
-            {showEditModal ? <Edit className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-          </Button>
         </div>
       </div>
     </Modal>

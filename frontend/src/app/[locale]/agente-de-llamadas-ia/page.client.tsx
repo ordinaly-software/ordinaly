@@ -297,7 +297,7 @@ export default function AgenteDeLlamadasIA() {
             colors={["#B84A28", "#9A3C1A", "#C46686", "#0255D5", "#6A9BCC"]}
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[--swatch--slate-dark]/50 to-[--swatch--slate-dark]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[color-mix(in_srgb,var(--swatch--slate-dark)_50%,transparent)] to-[--swatch--slate-dark]" />
 
         <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 py-24 text-center md:py-32">
           <h1 className="mt-6 max-w-3xl text-4xl font-bold leading-tight md:text-6xl">{content.title}</h1>

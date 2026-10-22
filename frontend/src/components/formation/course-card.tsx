@@ -132,7 +132,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
       onClick={onViewDetails ? () => onViewDetails() : undefined}
     >
       <CardHeader className="pb-2">
-        <div className="relative w-full h-36 rounded-lg overflow-hidden mb-4 bg-oat/40 dark:bg-[--swatch--slate-medium]/40">
+        <div className="relative w-full h-36 rounded-lg overflow-hidden mb-4 bg-oat/40 dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_40%,transparent)]">
           {!imageError ? (
             <Image
               src={course.image}
@@ -167,7 +167,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
           )}
 
           {!isPastCourse && course.price != null && (
-            <div className="absolute top-3 right-3 bg-white/90 dark:bg-[--swatch--slate-medium]/90 backdrop-blur-sm rounded-lg px-3 py-1">
+            <div className="absolute top-3 right-3 bg-white/90 dark:bg-[color-mix(in_srgb,var(--swatch--slate-medium)_90%,transparent)] backdrop-blur-sm rounded-lg px-3 py-1">
               <div className="flex items-center gap-1 text-sm font-semibold text-slate-dark dark:text-ivory-light">
                 <Euro className="w-4 h-4" />
                 {course.price}
@@ -274,7 +274,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               </Button>
               <Button
                 variant="outline"
-                className="w-full border-[--color-border-subtle] text-slate-medium dark:border-[--color-border-strong] dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-dark]/70"
+                className="w-full border-[--color-border-subtle] text-slate-medium dark:border-[--color-border-strong] dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_70%,transparent)]"
                 onClick={handleViewDetailsClick}
               >
                 {t("viewDetails")}
@@ -312,7 +312,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({
               </Button>
               <Button
                 variant="outline"
-                className="w-full border-[--color-border-subtle] text-slate-medium dark:border-[--color-border-strong] dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[--swatch--slate-dark]/70"
+                className="w-full border-[--color-border-subtle] text-slate-medium dark:border-[--color-border-strong] dark:text-cloud-medium hover:bg-[--swatch--ivory-medium] dark:hover:bg-[color-mix(in_srgb,var(--swatch--slate-dark)_70%,transparent)]"
                 onClick={handleViewDetailsClick}
               >
                 {t("viewDetails")}

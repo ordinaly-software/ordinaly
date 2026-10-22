@@ -988,6 +988,19 @@ const AdminCoursesTab = () => {
           t={t}
           dateLocale={dateLocale}
           formatWeekdays={formatWeekdays}
+          canManage={!isCourseFinished(selectedCourseForModal)}
+          onEdit={() => {
+            setShowCourseModal(false);
+            handleEdit(selectedCourseForModal);
+          }}
+          onDuplicate={() => {
+            setShowCourseModal(false);
+            handleDuplicate(selectedCourseForModal);
+          }}
+          onDelete={() => {
+            setShowCourseModal(false);
+            handleDelete(selectedCourseForModal);
+          }}
         />
       )}
       

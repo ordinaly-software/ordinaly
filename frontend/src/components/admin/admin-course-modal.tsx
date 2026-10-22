@@ -1,13 +1,15 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import { Euro, Users, User, XCircle, Calendar, MapPin, Clock } from "lucide-react";
+import { Euro, Users, User, XCircle, Calendar, MapPin, Clock, Copy, Edit, Trash2 } from "lucide-react";
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import SharePostButtons from '@/components/blog/share-post-buttons';
-import { Modal } from "@/components/ui/modal";
+import { Modal, ModalFooter } from "@/components/ui/modal";
 import EnrolledMembers from "@/components/admin/enrolled-members";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface Course {
   id: number;
@@ -35,6 +37,7 @@ interface Course {
   updated_at: string;
   duration_hours?: number;
   next_occurrences?: string[];
+  draft?: boolean;
 }
 
 interface Enrollment {
@@ -58,6 +61,11 @@ interface CourseVisualizationModalProps {
   t: (key: string, params?: Record<string, string | number | Date>) => string;
   dateLocale: string;
   formatWeekdays: (weekdays: number[]) => string;
+  /** Admin actions; hidden for finished courses. */
+  canManage: boolean;
+  onEdit: () => void;
+  onDuplicate: () => void;
+  onDelete: () => void;
 }
 
 // Custom image loader to handle potential URL issues
@@ -68,6 +76,20 @@ const imageLoader = ({ src, width, quality }: { src: string; width: number; qual
   return `${src}?w=${width}&q=${quality || 75}`;
 };
 
+const InfoRow = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <div className="flex justify-between gap-4 text-sm">
+    <span className="flex-shrink-0 text-slate-light dark:text-cloud-medium">{label}:</span>
+    <span className="min-w-0 break-words text-right font-medium text-slate-dark dark:text-white">{children}</span>
+  </div>
+);
+
+const SectionTitle = ({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) => (
+  <h3 className="mb-3 flex items-center gap-2 text-base font-semibold text-slate-dark dark:text-white">
+    {icon}
+    {children}
+  </h3>
+);
+
 const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
   isOpen,
   onClose,
@@ -77,294 +99,242 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
   t,
   dateLocale,
   formatWeekdays,
+  canManage,
+  onEdit,
+  onDuplicate,
+  onDelete,
 }) => {
+  const [portraitCourseId, setPortraitCourseId] = useState<number | null>(null);
   if (!course) return null;
 
-  return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title={t("details.title")}
-      showHeader={true}
-      className="max-w-[95vw] xl:max-w-[85vw] 2xl:max-w-[80vw]"
-    >
-      <div className="space-y-4 max-h-[75vh] overflow-y-auto px-1 sm:px-0">
-        {/* Course Image at the very top, full width */}
-        {course.image && course.image !== "undefined" && course.image !== "null" && (
-          // make header a bit taller on smaller screens so share buttons don't overlap
-          <div className="relative w-full h-64 sm:h-72 bg-ivory-dark overflow-hidden group rounded-xl mb-4">
-            {/* Blurred image */}
-            <Image
-              loader={imageLoader}
-              src={course.image}
-              alt={course.title}
-              fill
-              className="object-cover blur-md opacity-80"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-              aria-hidden="true"
-              draggable={false}
-              priority
-            />
-            {/* Softer gradient overlays: top for mobile, bottom for desktop, less opaque at bottom */}
-            <div className="absolute inset-0 pointer-events-none">
-              {/* Top gradient for mobile, bottom for desktop, both less opaque */}
-              <div className="w-full h-full sm:bg-gradient-to-t sm:from-black/50 sm:via-transparent sm:to-transparent bg-gradient-to-b from-black/40 via-transparent to-transparent" />
-              {/* Subtle bottom fade for all screens */}
-              <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-            </div>
-            {/* Tags and title: top on mobile, bottom on desktop */}
-              {/* add right padding on small screens so the title doesn't collide with the share buttons */}
-                {/* limit title block height and reserve bottom space so share buttons fit inside header */}
-                <div className="absolute top-3 sm:top-4 left-3 right-3 sm:left-4 sm:right-4 pr-16 sm:pr-0 pb-16 sm:pb-0 max-h-[60%] sm:max-h-none overflow-hidden">
-              <div className="flex items-center gap-2 mb-2 flex-wrap">
-                {course.price !== null && course.price !== undefined && (
-                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-clay-fill dark:bg-clay-fill text-white dark:text-white">
-                    <Euro className="w-3 h-3 mr-1" />
-                    €{course.price}
-                  </span>
-                )}
-                <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-cobalt text-white">
-                  {t(`form.periodicity.${course.periodicity}`)}
-                </span>
-              </div>
-              <h1 className="text-lg sm:text-2xl font-bold text-white mb-1">{course.title}</h1>
-              {course.subtitle && (
-                <p className="text-cloud-light text-sm sm:text-base leading-snug max-w-full break-words line-clamp-none">{course.subtitle}</p>
-              )}
-              </div>
+  const hasImage = !!course.image && course.image !== "undefined" && course.image !== "null";
+  const enrolled = course.enrolled_count || 0;
+  const vacant = course.max_attendants - enrolled;
+  const percentage = (enrolled / course.max_attendants) * 100;
+  const formatDate = (value: string) =>
+    new Date(value).toLocaleDateString(dateLocale, { year: "numeric", month: "numeric", day: "numeric" });
+  const hasValidDate = (value: string) => !!value && value !== "0000-00-00";
+  const hasLocation = typeof course.location === "string" && course.location.trim() !== "" && course.location !== "null";
 
-              {/* Share buttons pinned to bottom of the header image */}
-              {/* Position share buttons at top-right on small screens, keep pinned to bottom on larger screens */}
-                {/* place share buttons in the empty bottom area of the header on small screens; on larger screens keep bottom-right */}
-                <div className="absolute left-3 right-3 bottom-3 sm:left-4 sm:right-4 sm:bottom-4 sm:top-auto flex justify-center sm:justify-end z-10">
-                  <div className="inline-flex items-center bg-transparent rounded">
-                    <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} theme="white" />
-                  </div>
-                </div>
-      </div>
-    )}
-        {course.youtube_video_url && (
-          <HeroVideoDialog
-            videoUrl={course.youtube_video_url}
-            thumbnailAlt={course.title}
-            title={course.title}
-            playLabel={t("details.playVideo")}
+  const stats = [
+    { icon: Users, value: enrolled, label: t("details.enrolled"), tone: "bg-[color-mix(in_srgb,var(--swatch--clay)_12%,transparent)] text-[var(--swatch--clay)]" },
+    { icon: User, value: course.max_attendants, label: t("details.capacity"), tone: "bg-[color-mix(in_srgb,var(--swatch--cobalt)_10%,transparent)] dark:bg-[color-mix(in_srgb,var(--swatch--cobalt)_20%,transparent)] text-cobalt dark:text-cobalt-light" },
+    { icon: XCircle, value: vacant, label: t("details.vacant"), tone: "bg-orange-100 dark:bg-orange-900/30 text-orange-600" },
+    { icon: Euro, value: course.price ? `${Math.round(Number(course.price))}` : t("contactForQuote"), label: t("details.price"), tone: "bg-[color-mix(in_srgb,var(--swatch--cobalt)_10%,transparent)] dark:bg-[color-mix(in_srgb,var(--swatch--cobalt)_20%,transparent)] text-cobalt dark:text-cobalt-light" },
+  ];
+
+  const footer = canManage ? (
+    <ModalFooter>
+    <div className="flex flex-wrap justify-end gap-2">
+      <Button
+        variant="ghost"
+        onClick={onDelete}
+        className="mr-auto text-red-600 hover:bg-red-50 hover:text-red-800 dark:hover:text-red-300 dark:hover:bg-red-900/20 active:scale-[0.97] transition-transform motion-reduce:transition-none"
+      >
+        <Trash2 className="h-4 w-4" />
+        <span>{t("confirmDelete.delete")}</span>
+      </Button>
+      <Button
+        variant="ghost"
+        onClick={onDuplicate}
+        className="text-slate-medium dark:text-cloud-medium hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-medium)] active:scale-[0.97] transition-transform motion-reduce:transition-none"
+      >
+        <Copy className="h-4 w-4" />
+        <span>{t("duplicate")}</span>
+      </Button>
+      <Button
+        onClick={onEdit}
+        className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white active:scale-[0.97] transition-transform motion-reduce:transition-none"
+      >
+        <Edit className="h-4 w-4" />
+        <span>{t("editCourse")}</span>
+      </Button>
+    </div>
+    </ModalFooter>
+  ) : undefined;
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} className="md:max-w-5xl lg:max-w-6xl" footer={footer}>
+      {/* Cover: shown whole at its natural proportions, never cropped */}
+      {hasImage && (
+        <div className="bg-slate-100 [container-type:inline-size] dark:bg-black/30">
+          <Image
+            loader={imageLoader}
+            src={course.image}
+            alt={course.title}
+            width={1600}
+            height={900}
+            onLoad={(event) => {
+              const { naturalWidth, naturalHeight } = event.currentTarget;
+              setPortraitCourseId(naturalHeight > naturalWidth ? course.id : null);
+            }}
+            // Landscape: shown whole. Portrait: cropped to a square so it never towers over the text.
+            className={cn(
+              "mx-auto",
+              portraitCourseId === course.id
+                ? "h-[min(50dvh,100cqw)] w-[min(50dvh,100cqw)] object-cover"
+                : "h-auto max-h-[50dvh] w-full object-contain"
+            )}
+            sizes="(max-width: 768px) 100vw, 1152px"
+            priority
           />
-        )}
-        {/* Course Header and rest of modal content below */}
-        <div className="flex flex-col sm:flex-row landscape:flex-col-reverse items-start sm:space-x-6 space-y-4 sm:space-y-0 landscape:space-y-4 landscape:sm:space-x-0">
-          {/* Course Info */}
-          <div className="flex-1 min-w-0 w-full">
-            {/* Title and subtitle removed from body, as they are shown on the image */}
-            {/* Key Metrics - stack vertically on mobile */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-              <div className="bg-[var(--swatch--clay)]/10 rounded-lg p-4 flex-1 min-w-0">
-                <div className="flex flex-col items-center">
-                  <div className="flex items-center justify-between w-full mb-2">
-                    <Users className="h-6 w-6 text-[var(--swatch--clay)] flex-shrink-0" />
-                    <p className="text-lg font-bold text-[var(--swatch--clay)]">
-                      {course.enrolled_count || 0}
-                    </p>
-                  </div>
-                  <p className="text-sm font-medium text-slate-light dark:text-cloud-medium text-center">
-                    {t("details.enrolled")}
-                  </p>
-                </div>
-              </div>
-              <div className="bg-cobalt/10 dark:bg-cobalt/20 rounded-lg p-4 flex-1 min-w-0">
-                <div className="flex flex-col items-center">
-                  <div className="flex items-center justify-between w-full mb-2">
-                    <User className="h-6 w-6 text-cobalt dark:text-cobalt-light flex-shrink-0" />
-                    <p className="text-lg font-bold text-cobalt dark:text-cobalt-light">
-                      {course.max_attendants}
-                    </p>
-                  </div>
-                  <p className="text-sm font-medium text-slate-light dark:text-cloud-medium text-center">
-                    {t("details.capacity")}
-                  </p>
-                </div>
-              </div>
-              <div className="bg-orange-100 dark:bg-orange-900/30 rounded-lg p-4 flex-1 min-w-0">
-                <div className="flex flex-col items-center">
-                  <div className="flex items-center justify-between w-full mb-2">
-                    <XCircle className="h-6 w-6 text-orange-600 flex-shrink-0" />
-                    <p className="text-lg font-bold text-orange-600">
-                      {course.max_attendants - (course.enrolled_count || 0)}
-                    </p>
-                  </div>
-                  <p className="text-sm font-medium text-slate-light dark:text-cloud-medium text-center">
-                    {t("details.vacant")}
-                  </p>
-                </div>
-              </div>
-              <div className="bg-cobalt/10 rounded-lg p-4 flex-1 min-w-0">
-                <div className="flex flex-col items-center">
-                  <div className="flex items-center justify-between w-full mb-2">
-                    <Euro className="h-6 w-6 text-cobalt dark:text-cobalt-light flex-shrink-0" />
-                    <p className="text-lg font-bold text-cobalt dark:text-cobalt-light break-words text-right">
-                      {course.price ? `${Math.round(Number(course.price))}` : t("contactForQuote")}
-                    </p>
-                  </div>
-                  <p className="text-sm font-medium text-slate-light dark:text-cloud-medium text-center">
-                    {t("details.price")}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        {/* Course Details Grid - stack vertically on mobile */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Schedule Information */}
-          <div className="bg-gradient-to-br from-cobalt/10 to-cobalt/5 dark:from-cobalt/20 dark:to-cobalt/10 rounded-xl p-5 min-w-0">
-            <div className="flex items-center space-x-2 mb-3">
-              <Calendar className="h-5 w-5 text-cobalt dark:text-cobalt-light" />
-              <h3 className="text-lg font-semibold text-slate-dark dark:text-white">{t("details.schedule")}</h3>
-            </div>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-slate-light dark:text-cloud-medium">{t("details.startDate")}:</span>
-                <span className="font-medium text-slate-dark dark:text-white">
-                  {course.start_date && course.start_date !== "0000-00-00"
-                    ? new Date(course.start_date).toLocaleDateString(dateLocale, { year: "numeric", month: "numeric", day: "numeric" })
-                    : t("noSpecificDate")}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-light dark:text-cloud-medium">{t("details.endDate")}:</span>
-                <span className="font-medium text-slate-dark dark:text-white">
-                  {course.end_date && course.end_date !== "0000-00-00"
-                    ? new Date(course.end_date).toLocaleDateString(dateLocale, { year: "numeric", month: "numeric", day: "numeric" })
-                    : t("noSpecificDate")}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-light dark:text-cloud-medium">{t("details.time")}:</span>
-                <span className="font-medium text-slate-dark dark:text-white">
-                  {course.start_time ? course.start_time.substring(0, 5) : "-"} - {course.end_time ? course.end_time.substring(0, 5) : "-"}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-light dark:text-cloud-medium">{t("details.duration")}:</span>
-                <span className="font-medium text-slate-dark dark:text-white">
-                  {course.duration_hours?.toFixed(1)} {t("details.hours")}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-light dark:text-cloud-medium">{t("details.frequency")}:</span>
-                <span className="font-medium text-slate-dark dark:text-white capitalize">
-                  {t(`form.periodicity.${course.periodicity}`)}
-                </span>
-              </div>
-              {course.weekdays && course.weekdays.length > 0 && (
-                <div className="flex justify-between">
-                  <span className="text-slate-light dark:text-cloud-medium">{t("details.weekdays")}:</span>
-                  <span className="font-medium text-slate-dark dark:text-white">
-                    {formatWeekdays(course.weekdays)}
-                  </span>
-                </div>
-              )}
-            </div>
-          </div>
-          {/* Location & Logistics */}
-          <div className="bg-gradient-to-br from-[var(--swatch--clay)]/8 to-[var(--swatch--clay)]/14 rounded-xl p-5 min-w-0">
-            <div className="flex items-center space-x-2 mb-3">
-              <MapPin className="h-5 w-5 text-[var(--swatch--clay)]" />
-              <h3 className="text-lg font-semibold text-slate-dark dark:text-white">{t("details.locationInfo")}</h3>
-            </div>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span className="text-slate-light dark:text-cloud-medium">{t("details.location")}:</span>
-                <span className="font-medium text-slate-dark dark:text-white">
-                  {typeof course.location === 'string' && course.location.trim() !== '' && course.location !== 'null' ? course.location : t('locationSoon')}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-light dark:text-cloud-medium">{t("details.timezone")}:</span>
-                <span className="font-medium text-slate-dark dark:text-white">
-                  {course.timezone}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-light dark:text-cloud-medium">{t("details.created")}:</span>
-                <span className="font-medium text-slate-dark dark:text-white">
-                  {new Date(course.created_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-light dark:text-cloud-medium">{t("details.lastUpdated")}:</span>
-                <span className="font-medium text-slate-dark dark:text-white">
-                  {new Date(course.updated_at).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* Enrollment Progress */}
-        <div className="bg-gradient-to-r from-ivory-medium to-ivory-dark dark:from-white/[0.04] dark:to-white/[0.08] rounded-xl p-5 min-w-0">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="text-lg font-semibold text-slate-dark dark:text-white">{t("details.enrollmentStatus")}</h3>
-            <span className="text-sm text-slate-light dark:text-cloud-medium">
-              {((course.enrolled_count || 0) / course.max_attendants * 100).toFixed(1)}% {t("details.fullStatus")}
+      )}
+
+      <div className="px-5 pb-8 pt-5 sm:px-8 md:pt-6">
+        <header className={cn("mb-6", !hasImage && "pr-10")}>
+          <div className="mb-3 flex flex-wrap gap-2">
+            {course.draft && (
+              <span className="inline-flex items-center rounded-full bg-orange-500 px-2.5 py-1 text-xs font-bold text-white">
+                {t("form.draftMode")}
+              </span>
+            )}
+            {course.price !== null && course.price !== undefined && (
+              <span className="inline-flex items-center rounded-full bg-clay-fill px-2.5 py-1 text-xs font-medium text-white dark:bg-clay-fill dark:text-white">
+                €{course.price}
+              </span>
+            )}
+            <span className="inline-flex items-center rounded-full bg-cobalt px-2.5 py-1 text-xs font-medium text-white">
+              {t(`form.periodicity.${course.periodicity}`)}
             </span>
           </div>
-          <div className="w-full bg-ivory-dark dark:bg-white/10 rounded-full h-3 mb-3">
-            <div 
-              className={`h-3 rounded-full transition-all duration-500 ${
-                (course.enrolled_count || 0) >= course.max_attendants
-                  ? 'bg-red-500'
-                  : (course.enrolled_count || 0) / course.max_attendants >= 0.8
-                    ? 'bg-orange-500'
-                    : 'bg-[var(--swatch--clay)]'
-              }`}
-              style={{ 
-                width: `${Math.min(((course.enrolled_count || 0) / course.max_attendants * 100), 100)}%` 
-              }}
-            ></div>
-          </div>
-          <div className="flex justify-between text-sm text-slate-light dark:text-cloud-medium">
-            <span>{course.enrolled_count || 0} {t("details.enrolled").toLowerCase()}</span>
-            <span>{course.max_attendants - (course.enrolled_count || 0)} {t("details.spotsRemaining")}</span>
-          </div>
-        </div>
-        {/* Enrolled Members */}
-        <EnrolledMembers
-          enrollments={enrollments}
-          isLoading={isLoadingEnrollments}
-          t={t}
-          dateLocale={dateLocale}
-        />
-        {/* Next Occurrences */}
-        {course.next_occurrences && course.next_occurrences.length > 0 && (
-          <div className="bg-gradient-to-r from-cobalt/10 to-cobalt/5 dark:from-cobalt/20 dark:to-cobalt/10 rounded-xl p-5 min-w-0">
-            <div className="flex items-center space-x-2 mb-3">
-              <Clock className="h-6 w-6 text-cobalt dark:text-cobalt-light" />
-              <h3 className="text-lg font-semibold text-slate-dark dark:text-white">{t("details.upcomingSessions")}</h3>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-              {course.next_occurrences.slice(0, 6).map((occurrence: string, idx: number) => (
-                <div key={idx} className="bg-white dark:bg-white/[0.04] rounded-lg p-3 border border-cobalt/20 dark:border-cobalt/30">
-                  <p className="font-medium text-slate-dark dark:text-white">
-                    {new Date(occurrence).toLocaleDateString(dateLocale, { year: 'numeric', month: 'numeric', day: 'numeric' })}
-                  </p>
-                  <p className="text-sm text-slate-light dark:text-cloud-medium">
-                    {course.start_time.substring(0, 5)} - {course.end_time.substring(0, 5)}
-                  </p>
-                </div>
-              ))}
-            </div>
-            {course.next_occurrences.length > 6 && (
-              <p className="text-sm text-slate-light dark:text-cloud-medium mt-3 text-center">
-                +{course.next_occurrences.length - 6} {t("details.moreSessions")}
-              </p>
+          <h2 className="text-2xl font-semibold leading-tight tracking-tight text-slate-dark dark:text-ivory-light md:text-3xl">
+            {course.title}
+          </h2>
+          {course.subtitle && (
+            <p className="mt-2 break-words text-base text-slate-medium dark:text-cloud-medium">{course.subtitle}</p>
+          )}
+        </header>
+
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_21rem]">
+          {/* Main content */}
+          <div className="min-w-0 space-y-6">
+            {course.youtube_video_url && (
+              <HeroVideoDialog
+                videoUrl={course.youtube_video_url}
+                thumbnailAlt={course.title}
+                title={course.title}
+                playLabel={t("details.playVideo")}
+              />
             )}
+
+            <div className="prose dark:prose-invert max-w-none break-words text-slate-medium dark:text-cloud-medium prose-a:break-all">
+              <MarkdownRenderer>{course.description}</MarkdownRenderer>
+            </div>
+
+            {/* Next Occurrences */}
+            {course.next_occurrences && course.next_occurrences.length > 0 && (
+              <div>
+                <SectionTitle icon={<Clock className="h-5 w-5 text-cobalt dark:text-cobalt-light" />}>
+                  {t("details.upcomingSessions")}
+                </SectionTitle>
+                <div className="grid grid-cols-1 gap-3 rounded-2xl bg-[color-mix(in_srgb,var(--swatch--cobalt)_10%,transparent)] p-4 dark:bg-[color-mix(in_srgb,var(--swatch--cobalt)_20%,transparent)] sm:grid-cols-2 xl:grid-cols-3">
+                  {course.next_occurrences.slice(0, 6).map((occurrence: string, idx: number) => (
+                    <div key={idx} className="rounded-xl bg-white p-3 dark:bg-white/[0.06]">
+                      <p className="font-medium text-slate-dark dark:text-white">{formatDate(occurrence)}</p>
+                      <p className="text-sm text-slate-light dark:text-cloud-medium">
+                        {course.start_time.substring(0, 5)} - {course.end_time.substring(0, 5)}
+                      </p>
+                    </div>
+                  ))}
+                  {course.next_occurrences.length > 6 && (
+                    <p className="text-sm italic text-slate-light dark:text-cloud-medium sm:col-span-2 xl:col-span-3">
+                      +{course.next_occurrences.length - 6} {t("details.moreSessions")}
+                    </p>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* Enrolled Members */}
+            <EnrolledMembers
+              enrollments={enrollments}
+              isLoading={isLoadingEnrollments}
+              t={t}
+              dateLocale={dateLocale}
+            />
           </div>
-        )}
-        {/* Course Description at the very end */}
-        <div className="prose dark:prose-invert max-w-none text-slate-medium dark:text-cloud-medium mt-8 break-words">
-          <MarkdownRenderer>
-            {course.description}
-          </MarkdownRenderer>
+
+          {/* Sidebar */}
+          <aside className="min-w-0 space-y-4 lg:sticky lg:top-0 lg:self-start">
+            {/* Enrollment */}
+            <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-800">
+              <div className="mb-3 grid grid-cols-2 gap-2">
+                {stats.map(({ icon: Icon, value, label, tone }) => (
+                  <div key={label} className={cn("min-w-0 rounded-xl p-3", tone)}>
+                    <div className="flex items-center justify-between gap-2">
+                      <Icon className="h-5 w-5 flex-shrink-0" />
+                      <p className="truncate text-lg font-bold">{value}</p>
+                    </div>
+                    <p className="mt-1 text-xs font-medium text-slate-light dark:text-cloud-medium">{label}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mb-2 flex items-center justify-between gap-2">
+                <h3 className="text-sm font-semibold text-slate-dark dark:text-white">{t("details.enrollmentStatus")}</h3>
+                <span className="text-xs text-slate-light dark:text-cloud-medium">
+                  {percentage.toFixed(1)}% {t("details.fullStatus")}
+                </span>
+              </div>
+              <div className="mb-2 h-2 w-full rounded-full bg-ivory-dark dark:bg-white/10">
+                <div
+                  className={cn(
+                    "h-2 rounded-full transition-all duration-500",
+                    enrolled >= course.max_attendants
+                      ? "bg-red-500"
+                      : percentage >= 80
+                        ? "bg-orange-500"
+                        : "bg-[var(--swatch--clay)]"
+                  )}
+                  style={{ width: `${Math.min(percentage, 100)}%` }}
+                />
+              </div>
+              <div className="flex justify-between gap-2 text-xs text-slate-light dark:text-cloud-medium">
+                <span>{enrolled} {t("details.enrolled").toLowerCase()}</span>
+                <span>{vacant} {t("details.spotsRemaining")}</span>
+              </div>
+            </div>
+
+            {/* Schedule */}
+            <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-800">
+              <SectionTitle icon={<Calendar className="h-5 w-5 text-cobalt dark:text-cobalt-light" />}>
+                {t("details.schedule")}
+              </SectionTitle>
+              <div className="space-y-2">
+                <InfoRow label={t("details.startDate")}>
+                  {hasValidDate(course.start_date) ? formatDate(course.start_date) : t("noSpecificDate")}
+                </InfoRow>
+                <InfoRow label={t("details.endDate")}>
+                  {hasValidDate(course.end_date) ? formatDate(course.end_date) : t("noSpecificDate")}
+                </InfoRow>
+                <InfoRow label={t("details.time")}>
+                  {course.start_time ? course.start_time.substring(0, 5) : "-"} - {course.end_time ? course.end_time.substring(0, 5) : "-"}
+                </InfoRow>
+                <InfoRow label={t("details.duration")}>
+                  {course.duration_hours?.toFixed(1)} {t("details.hours")}
+                </InfoRow>
+                <InfoRow label={t("details.frequency")}>{t(`form.periodicity.${course.periodicity}`)}</InfoRow>
+                {course.weekdays && course.weekdays.length > 0 && (
+                  <InfoRow label={t("details.weekdays")}>{formatWeekdays(course.weekdays)}</InfoRow>
+                )}
+              </div>
+            </div>
+
+            {/* Location & logistics */}
+            <div className="rounded-2xl bg-gray-50 p-4 dark:bg-gray-800">
+              <SectionTitle icon={<MapPin className="h-5 w-5 text-[var(--swatch--clay)]" />}>
+                {t("details.locationInfo")}
+              </SectionTitle>
+              <div className="space-y-2">
+                <InfoRow label={t("details.location")}>{hasLocation ? course.location : t("locationSoon")}</InfoRow>
+                <InfoRow label={t("details.timezone")}>{course.timezone}</InfoRow>
+                <InfoRow label={t("details.created")}>{formatDate(course.created_at)}</InfoRow>
+                <InfoRow label={t("details.lastUpdated")}>{formatDate(course.updated_at)}</InfoRow>
+              </div>
+            </div>
+
+            <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} />
+          </aside>
         </div>
       </div>
     </Modal>
