@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { createPageMetadata, defaultDescription } from "@/lib/metadata";
+import { absoluteUrl, createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { client } from "@/lib/sanity";
 import { postBySlug } from "@/lib/queries";
@@ -82,7 +82,7 @@ export default async function SlugPage({
       image: coverImageAsset
         ? [urlForImg(coverImageAsset).width(1200).height(630).format("png").url()]
         : undefined,
-      mainEntityOfPage: `${process.env.NEXT_PUBLIC_BASE_URL}/${post.slug}`,
+      mainEntityOfPage: absoluteUrl(`/${post.slug}`, "es"),
     };
     const isNews = (post.categories ?? []).some(
       (cat: { slug?: string }) => cat?.slug && NEWS_CATEGORY_SLUGS.has(cat.slug),

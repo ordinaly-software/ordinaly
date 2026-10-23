@@ -80,6 +80,17 @@ const businessSchema = {
   ],
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://ordinaly.ai/#website",
+  name: "Ordinaly Software",
+  alternateName: ["Ordinaly", "Ordinaly AI"],
+  url: "https://ordinaly.ai",
+  inLanguage: ["es-ES", "en-US"],
+  publisher: { "@id": "https://ordinaly.ai/#organization" },
+};
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -157,6 +168,10 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
         <CourseSchema locale={locale} />
         <ThemeInitScript />
