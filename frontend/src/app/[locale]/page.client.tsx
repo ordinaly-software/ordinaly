@@ -29,7 +29,7 @@ const CoursesShowcase = dynamic(
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Array.from({ length: 3 }).map((_, index) => (
               <div key={index} className="bg-white dark:bg-gray-800/50 rounded-xl p-6">
-                <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse mb-4"></div>
+                <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 rounded-xl animate-pulse mb-4"></div>
                 <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-2"></div>
                 <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
                 <div className="space-y-2">

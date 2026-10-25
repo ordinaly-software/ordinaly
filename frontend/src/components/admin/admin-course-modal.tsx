@@ -125,31 +125,31 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
 
   const footer = canManage ? (
     <ModalFooter>
-    <div className="flex flex-wrap justify-end gap-2">
-      <Button
-        variant="ghost"
-        onClick={onDelete}
-        className="mr-auto text-red-600 hover:bg-red-50 hover:text-red-800 dark:hover:text-red-300 dark:hover:bg-red-900/20 active:scale-[0.97] transition-transform motion-reduce:transition-none"
-      >
-        <Trash2 className="h-4 w-4" />
-        <span>{t("confirmDelete.delete")}</span>
-      </Button>
-      <Button
-        variant="ghost"
-        onClick={onDuplicate}
-        className="text-slate-medium dark:text-cloud-medium hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-medium)] active:scale-[0.97] transition-transform motion-reduce:transition-none"
-      >
-        <Copy className="h-4 w-4" />
-        <span>{t("duplicate")}</span>
-      </Button>
-      <Button
-        onClick={onEdit}
-        className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white active:scale-[0.97] transition-transform motion-reduce:transition-none"
-      >
-        <Edit className="h-4 w-4" />
-        <span>{t("editCourse")}</span>
-      </Button>
-    </div>
+      <div className="grid grid-cols-2 gap-2 sm:flex sm:justify-end">
+        <Button
+          onClick={onEdit}
+          className="order-first col-span-2 bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white active:scale-[0.97] transition-transform motion-reduce:transition-none sm:order-last"
+        >
+          <Edit className="h-4 w-4" />
+          <span>{t("editCourse")}</span>
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={onDuplicate}
+          className="h-11 gap-1.5 px-2 text-sm text-slate-medium dark:text-cloud-medium hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-[var(--swatch--slate-medium)] active:scale-[0.97] transition-transform motion-reduce:transition-none sm:h-12 sm:px-8 sm:text-base"
+        >
+          <Copy className="h-4 w-4" />
+          <span>{t("duplicate")}</span>
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={onDelete}
+          className="h-11 gap-1.5 px-2 text-sm text-red-600 hover:bg-red-50 hover:text-red-800 dark:hover:text-red-300 dark:hover:bg-red-900/20 active:scale-[0.97] transition-transform motion-reduce:transition-none sm:order-first sm:mr-auto sm:h-12 sm:px-8 sm:text-base"
+        >
+          <Trash2 className="h-4 w-4" />
+          <span>{t("confirmDelete.delete")}</span>
+        </Button>
+      </div>
     </ModalFooter>
   ) : undefined;
 
@@ -204,6 +204,9 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
           {course.subtitle && (
             <p className="mt-2 break-words text-base text-slate-medium dark:text-cloud-medium">{course.subtitle}</p>
           )}
+          <div className="mt-4">
+            <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} />
+          </div>
         </header>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_21rem]">
@@ -332,8 +335,6 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
                 <InfoRow label={t("details.lastUpdated")}>{formatDate(course.updated_at)}</InfoRow>
               </div>
             </div>
-
-            <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} />
           </aside>
         </div>
       </div>

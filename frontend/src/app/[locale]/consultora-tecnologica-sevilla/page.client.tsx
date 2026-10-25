@@ -146,7 +146,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
             return (
               <div
                 key={feature.title}
-                className="rounded-[1.75rem] border border-[--color-border-subtle] bg-neutral-50 p-8 text-left transition hover:-translate-y-1 hover:shadow-lg dark:border-white/10 dark:bg-neutral-800"
+                className="rounded-3xl border border-[--color-border-subtle] bg-neutral-50 p-8 text-left transition hover:-translate-y-1 hover:shadow-lg dark:border-white/10 dark:bg-neutral-800"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-clay/10 text-clay">
                   <Icon className="h-5 w-5" strokeWidth={1.75} />
@@ -239,7 +239,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
             return (
               <div
                 key={sector.title}
-                className="rounded-[1.75rem] border border-[--color-border-subtle] bg-neutral-50 p-8 text-left transition hover:-translate-y-1 hover:shadow-lg dark:border-white/10 dark:bg-neutral-800"
+                className="rounded-3xl border border-[--color-border-subtle] bg-neutral-50 p-8 text-left transition hover:-translate-y-1 hover:shadow-lg dark:border-white/10 dark:bg-neutral-800"
               >
                 <span className="flex h-11 w-11 items-center justify-center rounded-full bg-cobalt/10 text-cobalt dark:text-cobalt-light">
                   <Icon className="h-5 w-5" strokeWidth={1.75} />
@@ -260,7 +260,7 @@ export default function ConsultoraTecnologicaSevillaPage() {
       {content.training && (
         <section className="bg-white px-4 pb-10 pt-4 dark:bg-neutral-900 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-5xl">
-            <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
+            <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
               <div
                 aria-hidden
                 className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cobalt/25 blur-3xl"

@@ -143,7 +143,7 @@ const Footer = () => {
               alt={t("footer.logo.alt")}
               width={28}
               height={28}
-              className="h-7 w-7 rounded-md"
+              className="h-7 w-7 rounded-lg"
               style={{
                 filter: isDark
                   ? "grayscale(1) brightness(0) invert(1)"

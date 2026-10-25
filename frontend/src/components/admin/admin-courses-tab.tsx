@@ -806,9 +806,9 @@ const AdminCoursesTab = () => {
       )}
 
       {/* Header Actions */}
-  <div className="flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center gap-x-6 gap-y-3 mb-6 px-2 py-3">
-  <div className="flex flex-col md:flex-row flex-wrap items-stretch md:items-center gap-2 w-full md:w-auto min-w-0">
-          <div className="relative w-full sm:w-64 min-w-0">
+      <div className="mb-6 flex flex-col gap-3 px-2 py-3 xl:flex-row xl:items-center xl:justify-between">
+        <div className="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="relative min-w-0 sm:flex-1 xl:w-64 xl:flex-none">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-light dark:text-cloud-medium" />
             <Input
               placeholder={t("searchPlaceholder")}
@@ -818,35 +818,37 @@ const AdminCoursesTab = () => {
             />
           </div>
           {/* Sort Controls */}
-          <div className="flex items-center justify-center flex-wrap gap-x-3 gap-y-2 w-full md:w-auto min-w-0">
-            <Label className="hidden md:inline text-sm font-medium text-slate-medium dark:text-cloud-medium whitespace-nowrap">
+          <div className="flex min-w-0 items-center gap-2 sm:flex-1 xl:flex-none">
+            <Label className="hidden xl:inline text-sm font-medium text-slate-medium dark:text-cloud-medium whitespace-nowrap">
               {t("sorting.sortBy")}:
             </Label>
-            <Dropdown
-              options={sortOptions}
-              value={sortBy}
-              onChange={(value) => setSortBy(value as SortOption)}
-              minWidth="240px"
-              width="240px"
-              theme="orange"
-            />
+            <div className="min-w-0 flex-1 xl:w-60 xl:flex-none">
+              <Dropdown
+                options={sortOptions}
+                value={sortBy}
+                onChange={(value) => setSortBy(value as SortOption)}
+                minWidth="0"
+                width="100%"
+                theme="orange"
+              />
+            </div>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
-              className="p-2 hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-white/10 transition-colors duration-200 rounded-lg"
+              className="h-12 w-12 flex-shrink-0 p-2 hover:bg-[var(--swatch--ivory-medium)] dark:hover:bg-white/10 transition-colors duration-200 rounded-xl"
             >
               <ArrowUpDown className="h-4 w-4" />
             </Button>
           </div>
         </div>
-  <div className="flex items-center flex-wrap gap-2 w-full md:w-auto min-w-0">
+        <div className="flex flex-col gap-2 sm:flex-row xl:justify-end">
           {selectedCourses.length > 0 && (
             <Button
               variant="destructive"
               size="sm"
               onClick={handleBulkDelete}
-              className="flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
+              className="flex w-full items-center justify-center gap-1 whitespace-nowrap px-3 sm:w-auto"
             >
               <Trash2 className="h-4 w-4" />
               <span>{t("deleteSelected")} ({selectedCourses.length})</span>
@@ -855,8 +857,8 @@ const AdminCoursesTab = () => {
           <Button
             onClick={handleCreate}
             size="sm"
-            className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex items-center gap-1 whitespace-nowrap px-2 sm:px-3 min-w-[140px] justify-center w-full sm:w-auto"
-            >
+            className="bg-clay-fill dark:bg-clay-fill hover:bg-[var(--swatch--flame)] text-white dark:text-white flex w-full items-center justify-center gap-1 whitespace-nowrap px-3 sm:w-auto sm:min-w-[140px]"
+          >
             <Plus className="h-4 w-4" />
             <span>{t("addCourse")}</span>
           </Button>

@@ -110,10 +110,11 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick, compa
         {/* Date */}
         {post.publishedAt && (
           <div className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-2">
-            {new Date(post.publishedAt).toLocaleDateString(undefined, {
+            {new Date(post.publishedAt).toLocaleDateString('es-ES', {
               year: 'numeric',
               month: 'short',
               day: 'numeric',
+              timeZone: 'Europe/Madrid',
             })}
           </div>
         )}

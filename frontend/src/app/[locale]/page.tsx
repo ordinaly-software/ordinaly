@@ -24,6 +24,12 @@ export async function generateMetadata({
   });
   return {
     ...base,
+    // Absolute: skip the "| Ordinaly" template so the brand and the main keywords lead the title.
+    title: {
+      absolute: isEs
+        ? "Ordinaly Software | Automatización empresarial con IA para PYMES"
+        : "Ordinaly Software | AI Business Automation for SMEs",
+    },
     keywords: isEs
       ? ["automatización empresarial IA", "automatización con IA Sevilla", "agentes de IA para empresas", "automatización n8n", "agente de voz IA", "automatización de facturas", "implantación Odoo 20", "formación IA para PYMES", "consultora de software Sevilla"]
       : ["enterprise AI automation", "AI automation Seville", "AI agents for business", "n8n automation", "AI voice agent", "invoice automation", "Odoo 20 implementation", "software consultancy Spain"],

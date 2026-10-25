@@ -73,7 +73,7 @@ interface CardHeadingProps {
 const CardHeading = ({ icon: Icon, tone, children }: CardHeadingProps) => (
   <CardHeader className="px-6 pb-3 pt-5">
     <CardTitle className="flex items-center gap-3 text-base font-semibold tracking-[-0.01em] text-slate-dark dark:text-ivory-light">
-      <span className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-lg", chipTones[tone])}>
+      <span className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-xl", chipTones[tone])}>
         <Icon className="h-4 w-4" strokeWidth={1.9} />
       </span>
       {children}
@@ -170,7 +170,7 @@ const ProfileInfoTab: React.FC<ProfileInfoTabProps> = ({
       <Card className={cardShell}>
         <CardHeader className="flex-row flex-wrap items-center justify-between gap-3 space-y-0 px-6 pb-3 pt-5">
           <CardTitle className="flex items-center gap-3 text-xl font-semibold tracking-[-0.02em] text-slate-dark dark:text-ivory-light">
-            <span className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-lg", chipTones.cobalt)}>
+            <span className={cn("flex h-8 w-8 shrink-0 items-center justify-center rounded-xl", chipTones.cobalt)}>
               <User className="h-4 w-4" strokeWidth={1.9} />
             </span>
             {t("personalInfo")}

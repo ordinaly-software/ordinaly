@@ -230,7 +230,7 @@ export default function DesarrolloDeAppWebs() {
                       key={i}
                       className={`flex items-start gap-4 rounded-xl p-3 -mx-3 transition-colors ${hoverClass}`}
                     >
-                      <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${iconClass}`}>
+                      <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${iconClass}`}>
                         <Icon className="h-5 w-5" strokeWidth={2} />
                       </span>
                       <span className="pt-1.5 text-slate-dark dark:text-ivory-light leading-relaxed">

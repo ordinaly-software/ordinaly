@@ -214,7 +214,7 @@ export const Dropdown = ({
       onClick={() => !disabled && setIsOpen(!isOpen)}
       disabled={disabled}
       className={cn(
-        "h-12 px-4 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg",
+        "h-12 px-4 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl",
         currentTheme.focusBorder, "text-gray-900 dark:text-white",
         "hover:bg-gray-50 dark:hover:bg-gray-600 transition-all duration-200",
         "flex items-center justify-between focus:outline-none focus:ring-2", currentTheme.focusRing,

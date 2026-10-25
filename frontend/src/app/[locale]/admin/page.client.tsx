@@ -541,7 +541,7 @@ export default function AdminPage() {
         </div>
 
         {/* Tab Content */}
-        <div className="bg-white dark:bg-white/[0.04] rounded-lg shadow-sm border border-[--color-border-subtle] dark:border-white/10 p-6">
+        <div className="bg-white dark:bg-white/[0.04] rounded-3xl shadow-sm border border-[--color-border-subtle] dark:border-white/10 p-6">
           <AnimatePresence mode="wait">
             {renderTabContent()}
           </AnimatePresence>

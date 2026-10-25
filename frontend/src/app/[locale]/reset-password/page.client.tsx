@@ -55,7 +55,7 @@ export default function ResetPasswordPage() {
       </div>
 
       <div className="relative mx-auto flex min-h-screen w-full max-w-6xl items-center px-4 py-10 sm:px-6 lg:px-8">
-        <article className="w-full overflow-hidden rounded-[2rem] border border-gray-200/80 bg-white/90 shadow-[0_35px_100px_rgba(15,23,42,0.16)] backdrop-blur-xl dark:border-gray-700/60 dark:bg-gray-900/65 dark:shadow-[0_35px_100px_rgba(2,6,23,0.55)]">
+        <article className="w-full overflow-hidden rounded-3xl border border-gray-200/80 bg-white/90 shadow-[0_35px_100px_rgba(15,23,42,0.16)] backdrop-blur-xl dark:border-gray-700/60 dark:bg-gray-900/65 dark:shadow-[0_35px_100px_rgba(2,6,23,0.55)]">
           <div className="grid lg:grid-cols-[minmax(280px,0.95fr)_minmax(0,1.2fr)]">
             <div className="relative overflow-hidden bg-gradient-to-br from-cobalt/20 via-cobalt-light/20 to-[color-mix(in_srgb,var(--swatch--clay)_10%,transparent)] px-7 py-10 dark:from-cobalt/18 dark:via-cobalt-light/18 dark:to-[color-mix(in_srgb,var(--swatch--clay)_12%,transparent)] sm:px-10">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.35),transparent_58%)] dark:bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.2),transparent_58%)]" />

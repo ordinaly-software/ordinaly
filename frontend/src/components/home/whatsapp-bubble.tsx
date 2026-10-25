@@ -45,7 +45,7 @@ const WhatsAppBubble = () => {
           </button>
 
           {/* Tooltip */}
-          <div className="absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-lg border border-[#1F8A0D]/30 bg-[#0A4D08] px-3 py-2 text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 dark:border-[#3FBD6F]/35 dark:bg-[#0F2E1E]">
+          <div className="absolute right-full top-1/2 mr-3 -translate-y-1/2 whitespace-nowrap rounded-xl border border-[#1F8A0D]/30 bg-[#0A4D08] px-3 py-2 text-sm text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 dark:border-[#3FBD6F]/35 dark:bg-[#0F2E1E]">
             {t('tooltip')}
             <div className="absolute left-full top-1/2 -translate-y-1/2 border-y-4 border-y-transparent border-l-4 border-l-[#0A4D08] dark:border-l-[#0F2E1E]"></div>
           </div>
@@ -72,7 +72,7 @@ const WhatsAppBubble = () => {
             {/* Content */}
             <div className="p-6">
               <div className="mb-6">
-                <div className="mb-4 rounded-lg border border-[#1F8A0D]/20 bg-[#1F8A0D]/8 p-4 dark:border-[#3FBD6F]/18 dark:bg-[#3FBD6F]/10">
+                <div className="mb-4 rounded-xl border border-[#1F8A0D]/20 bg-[#1F8A0D]/8 p-4 dark:border-[#3FBD6F]/18 dark:bg-[#3FBD6F]/10">
                   <div className="flex items-start space-x-3">
                     <div className="flex-shrink-0 rounded-full bg-[#0d6e0c] p-2 dark:bg-[#3FBD6F]">
                       <MessageCircle className="text-white" size={16} />

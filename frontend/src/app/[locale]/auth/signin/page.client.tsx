@@ -19,6 +19,7 @@ import {
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
 import { localizeApiError } from "@/lib/api-errors";
+import { consumePostLoginRedirect } from "@/lib/post-login-redirect";
 
 
 
@@ -226,7 +227,7 @@ export default function LoginPage() {
           }, 1000);
         } else {
           setTimeout(() => {
-            window.location.href = "/profile";
+            window.location.href = consumePostLoginRedirect();
           }, 1000);
         }
       }
@@ -271,7 +272,7 @@ export default function LoginPage() {
 
             {/* Right side: Login Card */}
             <div className="scroll-animate slide-in-right">
-              <Card className="rounded-[2rem] border border-[--color-border-subtle] bg-white/80 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]">
+              <Card className="rounded-3xl border border-[--color-border-subtle] bg-white/80 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]">
                 <CardContent className="pt-8">
                   <form onSubmit={handleSubmit} className="space-y-6">
 

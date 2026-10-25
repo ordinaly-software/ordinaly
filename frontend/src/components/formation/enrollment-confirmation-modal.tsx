@@ -111,7 +111,7 @@ const EnrollmentConfirmationModal: React.FC<EnrollmentConfirmationModalProps> = 
       >
         {selectedCourse && (
           <div
-            className={`overflow-hidden grid grid-rows-[auto,1fr,auto] max-h-[clamp(560px,90svh,820px)] ${isDark ? 'bg-[#12121A]' : 'bg-white'}`}
+            className={`overflow-hidden grid grid-cols-[minmax(0,1fr)] grid-rows-[auto_1fr_auto] max-h-[clamp(560px,90svh,820px)] ${isDark ? 'bg-[#12121A]' : 'bg-white'}`}
           >
             {/* HEADER */}
           <div className={`flex items-start justify-between px-4 pt-4 pb-3 border-b ${isDark ? 'border-white/10' : 'border-gray-200'}`}>

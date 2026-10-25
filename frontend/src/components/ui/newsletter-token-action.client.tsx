@@ -36,7 +36,7 @@ export function NewsletterTokenAction({ action }: { action: Action }) {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center bg-ivory-light px-4 py-10 text-gray-800 dark:bg-slate-dark dark:text-white">
-      <article className="w-full max-w-xl rounded-[2rem] border border-gray-200/80 bg-white/90 p-8 shadow-[0_35px_100px_rgba(15,23,42,0.16)] dark:border-gray-700/60 dark:bg-gray-900/65 sm:p-10">
+      <article className="w-full max-w-xl rounded-3xl border border-gray-200/80 bg-white/90 p-8 shadow-[0_35px_100px_rgba(15,23,42,0.16)] dark:border-gray-700/60 dark:bg-gray-900/65 sm:p-10">
         <div className={`inline-flex h-16 w-16 items-center justify-center rounded-2xl border border-white/70 bg-white/70 shadow dark:border-white/35 dark:bg-white/25 ${iconColor}`}>
           <Icon className={`h-8 w-8 ${status === "loading" ? "animate-spin" : ""}`} />
         </div>

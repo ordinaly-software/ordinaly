@@ -26,7 +26,7 @@ const AdminExternalTab: React.FC<AdminExternalTabProps> = ({
   };
 
   return (
-    <div className="relative overflow-hidden rounded-lg min-h-[360px] border border-[--color-border-subtle] dark:border-white/10">
+    <div className="relative overflow-hidden rounded-xl min-h-[360px] border border-[--color-border-subtle] dark:border-white/10">
       <div
         className="absolute inset-0 bg-center bg-cover opacity-60"
         style={{

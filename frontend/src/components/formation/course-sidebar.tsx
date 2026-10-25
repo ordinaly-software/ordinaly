@@ -69,7 +69,7 @@ const CourseSidebar: React.FC<Props> = ({
         <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} />
       </div>
 
-      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 space-y-4">
+      <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-4">
         <h3 className="font-semibold text-gray-900 dark:text-gray-100 flex items-center gap-2">
           <Info className="w-4 h-4" />
           {t('courseInformation')}
@@ -190,7 +190,7 @@ const CourseSidebar: React.FC<Props> = ({
       </div>
 
       {course.exclude_dates && course.exclude_dates.length > 0 && (
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-4">
           <h4 className="font-medium text-yellow-800 dark:text-yellow-200 mb-2">{t('importantDates')}</h4>
           <p className="text-sm text-yellow-700 dark:text-yellow-300">{t('excludedDatesMessage', { count: course.exclude_dates.length })}</p>
         </div>

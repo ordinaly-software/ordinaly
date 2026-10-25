@@ -90,10 +90,10 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
       isOpen={isOpen}
       onClose={onClose}
       showHeader={false}
-      className="max-w-md"
+      className="md:max-w-xl"
     >
       {courseToCancel && (
-        <div className="grid grid-rows-[auto,1fr,auto] bg-white dark:bg-[#12121A] max-h-[clamp(560px,90svh,820px)]">
+        <div className="grid grid-cols-[minmax(0,1fr)] grid-rows-[auto_1fr_auto] bg-white dark:bg-[#12121A] max-h-[clamp(560px,90svh,820px)]">
           {/* HEADER (title + close, no overlap) */}
           <div className="flex items-start justify-between px-4 pt-4 pb-3 border-b border-gray-200 dark:border-white/10">
             <h2 className="text-gray-900 dark:text-white font-bold leading-tight flex-1 pr-10"
@@ -105,7 +105,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
           {/* SCROLLABLE CONTENT */}
           <div className="min-h-0 overflow-y-auto px-3 sm:px-4 py-4">
             {/* Warning Message */}
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4">
               <div className="flex items-start space-x-3">
                 <UserX className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
                 <div>
@@ -125,7 +125,7 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
             </div>
 
             {/* Course Information */}
-            <div className="mt-4 bg-oat dark:bg-[var(--swatch--slate-medium)] rounded-lg p-4 space-y-3">
+            <div className="mt-4 bg-oat dark:bg-[var(--swatch--slate-medium)] rounded-xl p-4 space-y-3">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                 {courseToCancel.title}
               </h3>
@@ -178,15 +178,14 @@ const EnrollmentCancellationModal: React.FC<EnrollmentCancellationModalProps> = 
               type="button"
               variant="ghost"
               onClick={onClose}
-              className="w-full sm:w-auto px-6 h-10"
+              className="w-full sm:w-auto px-6 h-auto min-h-10 whitespace-normal py-2"
             >
               {t("cancellation.keepEnrollment")}
             </Button>
             <Button
               onClick={handleRefund}
               variant="destructive"
-              className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-6 h-10 flex items-center gap-2"
-              style={{ borderRadius: '1rem' }}
+              className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-6 h-auto min-h-10 whitespace-normal py-2 flex items-center justify-center gap-2"
               disabled={loading || disableUnenroll}
               title={disableUnenroll && unenrollRestrictionReason ? unenrollRestrictionReason : undefined}
             >

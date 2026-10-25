@@ -224,7 +224,7 @@ export default function CoursesShowcase(props: CoursesShowcaseProps & { titleTag
                 <div key={index} className="flex-shrink-0 flex" style={{ width: 'max(280px, calc((100% - 48px) / 3))' }}>
                   <Card className="w-full flex flex-col bg-[--swatch--ivory-light] dark:bg-[--swatch--slate-medium] border-[--color-border-subtle] dark:border-[--color-border-strong]">
                     <CardHeader>
-                      <div className="w-full h-36 bg-oat dark:bg-[--swatch--slate-medium] rounded-lg animate-pulse mb-4"></div>
+                      <div className="w-full h-36 bg-oat dark:bg-[--swatch--slate-medium] rounded-xl animate-pulse mb-4"></div>
                       <div className="h-6 bg-oat dark:bg-[--swatch--slate-medium] rounded animate-pulse mb-2"></div>
                       <div className="h-4 bg-oat dark:bg-[--swatch--slate-medium] rounded w-3/4 animate-pulse"></div>
                     </CardHeader>

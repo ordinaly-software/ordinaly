@@ -36,12 +36,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setVisible(true)}
       onMouseLeave={() => setVisible(false)}
-      className="p-[2px] rounded-lg transition duration-300 group/input"
+      className="p-[2px] rounded-[14px] transition duration-300 group/input"
     >
       <input
         type={type}
         className={cn(
-          `flex h-10 w-full border-none bg-card text-card-foreground shadow-input rounded-md px-3 py-2 text-sm 
+          `flex h-10 w-full border-none bg-card text-card-foreground shadow-input rounded-xl px-3 py-2 text-sm 
           file:border-0 file:bg-transparent file:text-sm file:font-medium 
           placeholder:text-muted-foreground 
           focus-visible:outline-none focus-visible:ring-[2px] focus-visible:ring-[var(--swatch--clay)] 

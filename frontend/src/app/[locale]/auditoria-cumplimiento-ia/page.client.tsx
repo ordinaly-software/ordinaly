@@ -34,7 +34,7 @@ const HERO_IMAGE = "/static/servicios/engineers.webp";
 const USE_CASE_ICONS: LucideIcon[] = [MessageSquareText, PhoneCall, FileImage, ScanFace, Fingerprint];
 
 const cardClass =
-  "rounded-[2rem] border border-[--color-border-subtle] bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.04]";
+  "rounded-3xl border border-[--color-border-subtle] bg-white p-6 shadow-sm dark:border-white/10 dark:bg-white/[0.04]";
 
 type UseCase = { name: string; description: string };
 
@@ -123,7 +123,7 @@ export default function AuditoriaCumplimientoIa() {
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
       {/* HERO */}
       <section className="px-4 pt-4 md:px-8 xl:px-12">
-        <div className="on-dark relative mx-auto flex min-h-[560px] max-w-[1600px] items-end overflow-hidden rounded-[2rem] bg-neutral-900 md:min-h-[620px]">
+        <div className="on-dark relative mx-auto flex min-h-[560px] max-w-[1600px] items-end overflow-hidden rounded-3xl bg-neutral-900 md:min-h-[620px]">
           <Image src={HERO_IMAGE} alt="" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-x-0 bottom-0 h-4/5 backdrop-blur-sm [-webkit-mask-image:linear-gradient(to_top,black_55%,transparent)] [mask-image:linear-gradient(to_top,black_55%,transparent)] md:inset-y-0 md:right-0 md:left-auto md:h-auto md:w-3/5 md:[-webkit-mask-image:linear-gradient(to_left,black_60%,transparent)] md:[mask-image:linear-gradient(to_left,black_60%,transparent)]" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/25 md:bg-gradient-to-r md:from-black/15 md:via-black/50 md:to-black/85" />
@@ -196,7 +196,7 @@ export default function AuditoriaCumplimientoIa() {
       {/* WHY AN ENGINEER */}
       <section className="py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-white dark:bg-neutral-900 transition-colors">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 md:grid-cols-2 lg:gap-16">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem]">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
             <Image
               src="/static/servicios/support.webp"
               alt=""

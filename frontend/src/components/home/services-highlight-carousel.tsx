@@ -67,7 +67,7 @@ function HighlightCard({
     <Link
       href={href}
       className={cn(
-        "group relative flex flex-col justify-end overflow-hidden rounded-[2rem] transition duration-300 hover:-translate-y-1 hover:shadow-2xl",
+        "group relative flex flex-col justify-end overflow-hidden rounded-3xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl",
         CARD_SIZE,
       )}
     >
@@ -122,7 +122,7 @@ export function ServicesHighlightCarousel() {
         <Link
           href="/servicios"
           className={cn(
-            "group relative flex flex-col justify-end overflow-hidden rounded-[2rem] transition duration-300 hover:-translate-y-1 hover:shadow-2xl",
+            "group relative flex flex-col justify-end overflow-hidden rounded-3xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl",
             CARD_SIZE,
           )}
         >

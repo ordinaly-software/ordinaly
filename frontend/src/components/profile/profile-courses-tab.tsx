@@ -102,7 +102,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
     return (
       <div
         key={course.id}
-        className="group flex flex-col gap-4 rounded-[1.5rem] border border-[--color-border-subtle] bg-white/60 px-4 py-3 transition hover:-translate-y-0.5 hover:border-clay/35 hover:shadow-[0_16px_40px_-28px_rgba(15,23,42,0.4)] dark:border-white/10 dark:bg-white/[0.03] sm:flex-row sm:items-center sm:justify-between"
+        className="group flex flex-col gap-4 rounded-3xl border border-[--color-border-subtle] bg-white/60 px-4 py-3 transition hover:-translate-y-0.5 hover:border-clay/35 hover:shadow-[0_16px_40px_-28px_rgba(15,23,42,0.4)] dark:border-white/10 dark:bg-white/[0.03] sm:flex-row sm:items-center sm:justify-between"
       >
         <div className="flex items-start gap-4">
           <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-[1rem] bg-oat/60 dark:bg-white/10 sm:h-20 sm:w-20">
@@ -154,7 +154,7 @@ const ProfileCoursesTab: React.FC<ProfileCoursesTabProps> = ({
 
   return (
     <div className="space-y-8">
-      <Card className="rounded-[2rem] border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
+      <Card className="rounded-3xl border border-[--color-border-subtle] bg-white/75 shadow-[0_20px_80px_-55px_rgba(15,23,42,0.25)] dark:border-white/10 dark:bg-white/[0.04]">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-2xl font-semibold tracking-[-0.03em] text-cobalt dark:text-cobalt-light">
             <BookOpen className="h-6 w-6" strokeWidth={1.8} />

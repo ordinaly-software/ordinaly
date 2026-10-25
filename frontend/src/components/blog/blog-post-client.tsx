@@ -112,7 +112,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
             {/* Publication date */}
             {p.publishedAt && (
               <div className="text-sm text-gray-500 dark:text-gray-400 px-2">
-                {new Date(p.publishedAt).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+                {new Date(p.publishedAt).toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Europe/Madrid' })}
               </div>
             )}
           </div>
@@ -137,7 +137,7 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
         {p.media && Array.isArray(p.media) && p.media.length > 0 && (
           <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
             {p.media.map((m: MediaItem, idx: number) => (
-              <div key={idx} className="rounded-lg overflow-hidden">
+              <div key={idx} className="rounded-xl overflow-hidden">
                 {m.type === 'image' && m.asset && (
                   <Image
                     src={urlFor(m.asset).width(800).height(600).url()}

@@ -7,6 +7,7 @@ import {
   setEmailCooldown,
   VERIFY_EMAIL_COOLDOWN_KEY,
 } from "@/lib/email-confirmation";
+import { consumePostLoginRedirect } from "@/lib/post-login-redirect";
 
 export default function OAuthCallbackPage() {
   const router = useRouter();
@@ -48,7 +49,7 @@ export default function OAuthCallbackPage() {
         window.location.href = "/verify-email";
       } else {
         document.cookie = `email_verified=true; path=/;`;
-        router.push("/profile");
+        window.location.href = consumePostLoginRedirect();
       }
       return;
     }
@@ -82,13 +83,13 @@ export default function OAuthCallbackPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
-      <div className="w-full max-w-md rounded-lg border border-gray-200 bg-white p-6 text-center shadow-sm">
+      <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
         <p className="text-base text-gray-700">{errorMessage}</p>
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
           <button
             type="button"
             onClick={() => router.push("/auth/signin")}
-            className="rounded-md bg-cobalt px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-cobalt-dark"
+            className="rounded-lg bg-cobalt px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-cobalt-dark"
           >
             {t("actions.goToSignIn")}
           </button>
@@ -96,7 +97,7 @@ export default function OAuthCallbackPage() {
             <button
               type="button"
               onClick={() => router.push("/reset-password")}
-              className="rounded-md border border-cobalt px-4 py-2 text-sm font-medium text-cobalt transition-colors hover:bg-cobalt/10"
+              className="rounded-lg border border-cobalt px-4 py-2 text-sm font-medium text-cobalt transition-colors hover:bg-cobalt/10"
             >
               {t("actions.forgotPassword")}
             </button>
@@ -104,7 +105,7 @@ export default function OAuthCallbackPage() {
           <button
             type="button"
             onClick={() => router.push("/")}
-            className="rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+            className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
           >
             {t("actions.goHome")}
           </button>

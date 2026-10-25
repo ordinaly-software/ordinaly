@@ -93,7 +93,84 @@ export function DataTable<T>({
 
   return (
     <div>
-      <div className="overflow-x-auto">
+      {/* Phones: one card per row, so nothing needs horizontal scrolling */}
+      <div className="md:hidden">
+        <div className="mb-3 flex items-center gap-2">
+          {selection && (
+            <label className="flex items-center gap-2 text-sm text-slate-light dark:text-cloud-medium">
+              <input
+                type="checkbox"
+                checked={allVisibleSelected}
+                onChange={() => selection.onToggleAll(visibleRows.map(getRowId))}
+                className="rounded border-cloud-light text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
+              />
+              {visibleRows.length}
+            </label>
+          )}
+          <select
+            value={sortKey ?? ""}
+            onChange={(e) => {
+              setSortKey(e.target.value);
+              setSortAsc(true);
+            }}
+            className="ml-auto h-10 min-w-0 max-w-[60%] flex-1 rounded-xl border border-gray-300 bg-white px-3 text-sm text-slate-dark dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+            aria-label={columns.find((c) => c.key === sortKey)?.label}
+          >
+            {columns.filter((c) => c.sortable).map((column) => (
+              <option key={column.key} value={column.key}>
+                {column.label}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            onClick={() => setSortAsc((asc) => !asc)}
+            className="h-10 w-10 flex-shrink-0 rounded-xl border border-gray-300 text-sm text-slate-dark dark:border-gray-600 dark:text-white"
+            aria-label={sortAsc ? "▲" : "▼"}
+          >
+            {sortAsc ? "▲" : "▼"}
+          </button>
+        </div>
+        <ul className="space-y-3">
+          {visibleRows.map((row) => {
+            const id = getRowId(row);
+            return (
+              <li
+                key={id}
+                className="rounded-xl border border-[--color-border-subtle] bg-white p-4 dark:border-white/10 dark:bg-white/[0.04]"
+              >
+                <div className="flex items-start gap-3">
+                  {selection && (
+                    <input
+                      type="checkbox"
+                      checked={selection.selectedIds.includes(id)}
+                      onChange={() => selection.onToggleRow(id)}
+                      className="mt-1 rounded border-cloud-light text-[var(--swatch--clay)] focus:ring-[var(--swatch--clay)]"
+                    />
+                  )}
+                  <dl className="min-w-0 flex-1 space-y-2 text-sm text-slate-dark dark:text-white">
+                    {columns.map((column) => {
+                      const value = column.render ? column.render(row) : String((row as Record<string, unknown>)[column.key] ?? "");
+                      return (
+                        <div key={column.key} className={column.label ? "flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1" : "flex justify-end"}>
+                          {column.label && (
+                            <dt className="text-xs font-medium uppercase tracking-wider text-slate-light dark:text-cloud-medium">
+                              {column.label}
+                            </dt>
+                          )}
+                          <dd className="min-w-0 break-words text-right">{value}</dd>
+                        </div>
+                      );
+                    })}
+                  </dl>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <div className="hidden overflow-x-auto md:block">
         <table className="min-w-full divide-y divide-[--color-border-subtle] dark:divide-white/10">
           <thead className="bg-ivory-medium dark:bg-white/[0.04]">
             <tr>
