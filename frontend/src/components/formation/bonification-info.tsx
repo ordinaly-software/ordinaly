@@ -17,24 +17,22 @@ const BonificationInfo = () => {
       <div className="pointer-events-none absolute -right-16 -top-14 h-40 w-40 rounded-full bg-clay/12 blur-3xl dark:bg-clay/16" />
       <div className="pointer-events-none absolute -bottom-20 left-8 h-44 w-44 rounded-full bg-cobalt/10 blur-3xl dark:bg-cobalt/12" />
       <button
-        className="group relative flex w-full items-center justify-between gap-4 px-6 py-5 text-left md:px-8 md:py-6"
+        className="group relative grid w-full grid-cols-[auto_1fr_auto] items-start gap-x-4 gap-y-3 px-6 py-5 text-left md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center md:gap-y-0 md:px-8 md:py-6"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
       >
-        <span className="flex min-w-0 items-center gap-4">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-clay/20 bg-clay/10 text-clay shadow-sm dark:border-clay/25 dark:bg-clay/15 dark:text-[#F6D2C5]">
-            <BadgePercent className="h-6 w-6" />
+        <span className="row-start-1 col-start-1 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-clay/20 bg-clay/10 text-clay shadow-sm dark:border-clay/25 dark:bg-clay/15 dark:text-[#F6D2C5]">
+          <BadgePercent className="h-6 w-6" />
+        </span>
+        <span className="row-start-2 col-start-1 col-end-4 min-w-0 md:row-start-1 md:col-start-2 md:col-end-3">
+          <span className="block text-lg font-semibold text-slate-dark dark:text-ivory-light">
+            {t("summary")}
           </span>
-          <span className="min-w-0">
-            <span className="block text-lg font-semibold text-slate-dark dark:text-ivory-light">
-              {t("summary")}
-            </span>
-            <span className="mt-1 block text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
-              {t("details").split("\n")[0]}
-            </span>
+          <span className="mt-1 block text-sm leading-relaxed text-slate-medium dark:text-cloud-medium">
+            {t("details").split("\n")[0]}
           </span>
         </span>
-        <span className="ml-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[--color-border-subtle] bg-white/70 text-slate-medium transition-all duration-200 group-hover:border-clay/25 group-hover:text-clay dark:border-white/10 dark:bg-white/5 dark:text-cloud-medium dark:group-hover:text-[#F6D2C5]">
+        <span className="row-start-1 col-start-3 flex h-10 w-10 shrink-0 items-center justify-center justify-self-end rounded-full border border-[--color-border-subtle] bg-white/70 text-slate-medium transition-all duration-200 group-hover:border-clay/25 group-hover:text-clay dark:border-white/10 dark:bg-white/5 dark:text-cloud-medium dark:group-hover:text-[#F6D2C5] md:col-start-3">
           {open ? (
             <ChevronUp className="h-5 w-5 transition-transform group-hover:scale-110" />
           ) : (
