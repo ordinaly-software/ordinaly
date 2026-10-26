@@ -696,7 +696,9 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
         />
       )}
 
-      <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
+      <div id="newsletter" className="scroll-mt-24">
+        <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
+      </div>
       <br className="h-16 md:h-24" />
       <Footer />
     </div>

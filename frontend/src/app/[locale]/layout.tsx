@@ -7,6 +7,8 @@ import { notFound } from "next/navigation";
 import { Locale, routing } from "@/i18n/routing";
 import Navbar from "@/components/ui/navbar";
 import CookieConsent from "@/components/ui/cookies";
+import HashScroll from "@/components/ui/hash-scroll";
+import NewsletterPrompt from "@/components/ui/newsletter-prompt";
 import BackToTopButton from "@/components/ui/back-to-top-button";
 import { getFullBrandName, localeHrefLangs, metadataBaseUrl, siteName } from "@/lib/metadata";
 import { ThemeProvider } from "@/contexts/theme-context";
@@ -194,10 +196,12 @@ export default async function RootLayout({
                 <SiteDataProvider courses={courses}>
                   <ServiceWorkerRegistrar />
                   <AutoKeywords />
+                  <HashScroll />
                   <Navbar />
                   <main id="main-content">{children}</main>
                   <CookieConsent />
                   <BackToTopButton />
+                  <NewsletterPrompt />
                 </SiteDataProvider>
               </EmailVerificationProvider>
             </ThemeProvider>
