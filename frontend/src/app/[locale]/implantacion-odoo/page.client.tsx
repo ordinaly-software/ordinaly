@@ -71,7 +71,7 @@ export default function ImplantacionOdoo() {
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="relative w-full overflow-x-clip pt-20 pb-14 md:pt-24 md:pb-20 px-6 bg-white dark:bg-neutral-900 transition-colors">
+      <section id="inicio" className="scroll-mt-24 relative w-full overflow-x-clip pt-20 pb-14 md:pt-24 md:pb-20 px-6 bg-white dark:bg-neutral-900 transition-colors">
         <div className="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto">
           <div className="flex items-center justify-center gap-3 md:gap-8">
             <h1 className="text-balance text-neutral-900 dark:text-white text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
@@ -116,7 +116,7 @@ export default function ImplantacionOdoo() {
       </section>
 
       {/* WHAT IS ODOO */}
-      <section className="py-20 md:py-28 px-6 bg-white dark:bg-neutral-900 transition-colors">
+      <section id="que-es-odoo" className="scroll-mt-24 py-20 md:py-28 px-6 bg-white dark:bg-neutral-900 transition-colors">
         <div className="max-w-6xl mx-auto grid md:grid-cols-[0.7fr_1.3fr] gap-16 items-center">
           <div className="flex justify-center md:justify-start">
             <div className="flex h-40 w-40 items-center justify-center rounded-3xl bg-white dark:bg-neutral-900 shadow-xl border border-neutral-200 dark:border-neutral-700 text-[#714B67]">
@@ -188,7 +188,7 @@ export default function ImplantacionOdoo() {
       </section>
 
       {/* INFO CARDS */}
-      <section className="py-20 md:py-28 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section id="beneficios" className="scroll-mt-24 py-20 md:py-28 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles?.infocardsTitle}
         </h2>
@@ -199,7 +199,7 @@ export default function ImplantacionOdoo() {
 
 
       {/* WHY ODOO */}
-      <section className="pb-20 md:pb-28 bg-white dark:bg-neutral-900 transition-colors">
+      <section id="por-que-odoo" className="scroll-mt-24 pb-20 md:pb-28 bg-white dark:bg-neutral-900 transition-colors">
         <div className="bg-[#e4e0ea] dark:bg-[#2a2733]">
           <Image
             src="/static/implantacion-odoo/why_odoo.webp"
@@ -223,7 +223,7 @@ export default function ImplantacionOdoo() {
       </section>
 
       {/* WHY ODOO COMMUNITY */}
-      <section className="py-20 md:py-28 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section id="odoo-community" className="scroll-mt-24 py-20 md:py-28 px-6 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-start">
           <div className="order-1 md:order-1 overflow-hidden border border-[#d6d1ca] bg-white shadow-none self-start">
             <table className="w-full table-fixed border-collapse text-left">
@@ -289,7 +289,7 @@ export default function ImplantacionOdoo() {
 
       {/* VERIFACTU + PRICING */}
       {content.verifactu && (
-        <section className="py-20 md:py-28 px-6 bg-white dark:bg-neutral-900 transition-colors">
+        <section id="verifactu" className="scroll-mt-24 py-20 md:py-28 px-6 bg-white dark:bg-neutral-900 transition-colors">
           <div className="max-w-6xl mx-auto grid gap-10 md:grid-cols-2 md:items-start">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">

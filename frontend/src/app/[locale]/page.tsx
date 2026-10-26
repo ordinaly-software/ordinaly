@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import HomePage from "./page.client";
 import { createPageMetadata } from "@/lib/metadata";
 import { setRequestLocale } from "next-intl/server";
+import { getGoogleReviews } from "@/lib/google-reviews";
 
 export async function generateMetadata({
   params,
@@ -45,5 +46,6 @@ export default async function Home({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  return <HomePage renderedAt={Date.now()} />;
+  const googleReviews = await getGoogleReviews();
+  return <HomePage renderedAt={Date.now()} googleReviews={googleReviews} />;
 }

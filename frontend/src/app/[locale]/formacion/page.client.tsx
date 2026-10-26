@@ -456,11 +456,11 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
         />
       </Banner>
 
-      <section className="relative z-10 max-w-5xl mx-auto -mt-4 mb-3 px-4">
+      <section id="bonificacion" className="scroll-mt-24 relative z-10 max-w-5xl mx-auto -mt-4 mb-3 px-4">
         <BonificationInfo />
       </section>
 
-      <section className="pt-6 pb-16 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark]">
+      <section id="cursos" className="scroll-mt-24 pt-6 pb-16 px-4 sm:px-6 lg:px-8 bg-[--swatch--ivory-medium] dark:bg-[--swatch--slate-dark]">
         <div className="max-w-[1600px] mx-auto">
           <div className="text-center mb-10 md:mb-12">
             <p className="text-xl text-slate-medium dark:text-cloud-medium max-w-3xl mx-auto">
@@ -562,7 +562,7 @@ export default function FormationPageClient({ initialCourseSlug }: FormationPage
 
       <FaqSection t={t} />
     
-      <section className="px-4 pb-24 pt-10 sm:px-6 lg:px-8">
+      <section id="contacto" className="scroll-mt-24 px-4 pb-24 pt-10 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-5xl">
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[--swatch--slate-dark] to-cobalt-dark px-8 py-12 text-white shadow-[0_28px_90px_-45px_rgba(2,85,213,0.45)] md:px-14 md:py-16">
             <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-cobalt/25 blur-3xl" aria-hidden />

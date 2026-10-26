@@ -122,7 +122,7 @@ export default function AuditoriaCumplimientoIa() {
   return (
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
       {/* HERO */}
-      <section className="px-4 pt-4 md:px-8 xl:px-12">
+      <section id="inicio" className="scroll-mt-24 px-4 pt-4 md:px-8 xl:px-12">
         <div className="on-dark relative mx-auto flex min-h-[560px] max-w-[1600px] items-end overflow-hidden rounded-3xl bg-neutral-900 md:min-h-[620px]">
           <Image src={HERO_IMAGE} alt="" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-x-0 bottom-0 h-4/5 backdrop-blur-sm [-webkit-mask-image:linear-gradient(to_top,black_55%,transparent)] [mask-image:linear-gradient(to_top,black_55%,transparent)] md:inset-y-0 md:right-0 md:left-auto md:h-auto md:w-3/5 md:[-webkit-mask-image:linear-gradient(to_left,black_60%,transparent)] md:[mask-image:linear-gradient(to_left,black_60%,transparent)]" />
@@ -148,7 +148,7 @@ export default function AuditoriaCumplimientoIa() {
       </section>
 
       {/* ARTICLE 50 */}
-      <section className="py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section id="articulo-50" className="scroll-mt-24 py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.3fr)] lg:gap-16">
           <div className="lg:sticky lg:top-28 lg:self-start">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-neutral-900 dark:text-white">
@@ -194,7 +194,7 @@ export default function AuditoriaCumplimientoIa() {
       </section>
 
       {/* WHY AN ENGINEER */}
-      <section className="py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-white dark:bg-neutral-900 transition-colors">
+      <section id="por-que-auditar" className="scroll-mt-24 py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-white dark:bg-neutral-900 transition-colors">
         <div className="mx-auto grid max-w-[1200px] items-center gap-10 md:grid-cols-2 lg:gap-16">
           <div className="relative aspect-[4/3] overflow-hidden rounded-3xl">
             <Image
@@ -228,7 +228,7 @@ export default function AuditoriaCumplimientoIa() {
       </section>
 
       {/* INFO CARDS + PRICING */}
-      <section className="py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section id="beneficios" className="scroll-mt-24 py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles.infocardsTitle}
         </h2>
@@ -236,7 +236,7 @@ export default function AuditoriaCumplimientoIa() {
       </section>
 
       {/* PROCESS */}
-      <section className="py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-white dark:bg-neutral-900 transition-colors">
+      <section id="proceso" className="scroll-mt-24 py-16 md:py-20 px-4 md:px-8 xl:px-12 bg-white dark:bg-neutral-900 transition-colors">
         <div className="mx-auto max-w-[1200px]">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
             {content.sectionTitles.process}

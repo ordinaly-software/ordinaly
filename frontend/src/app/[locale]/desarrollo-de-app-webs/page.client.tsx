@@ -158,7 +158,7 @@ export default function DesarrolloDeAppWebs() {
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
+      <section id="inicio" className="scroll-mt-24 relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
         <div
           className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
           style={{ backgroundImage: "url('/static/desarrollo-de-app-webs/desarrollo_de_app_webs.webp')" }}
@@ -184,7 +184,7 @@ export default function DesarrolloDeAppWebs() {
         </div>
       </section>
 
-      <section className="py-14 md:py-16 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section id="metodologia" className="scroll-mt-24 py-14 md:py-16 bg-neutral-50 dark:bg-neutral-800 transition-colors">
       <div className="mx-auto max-w-5xl">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
           {highlightWord(content.videoSection?.title, "Agile")}
@@ -211,7 +211,7 @@ export default function DesarrolloDeAppWebs() {
       </section>
 
       {/* WHAT IS A PWA */}
-      <section className="py-16 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
+      <section id="que-es-una-pwa" className="scroll-mt-24 py-16 md:py-24 bg-white dark:bg-neutral-900 transition-colors">
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
             <div>
@@ -257,7 +257,7 @@ export default function DesarrolloDeAppWebs() {
       </section>
 
       {/* INFO CARDS */}
-      <section className="py-14 md:py-16 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section id="beneficios" className="scroll-mt-24 py-14 md:py-16 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles?.infocardsTitle}
         </h2>
@@ -265,7 +265,7 @@ export default function DesarrolloDeAppWebs() {
       </section>
 
       {/* PORTFOLIO */}
-      <section className="py-14 md:py-16 px-6 bg-white dark:bg-neutral-900 transition-colors">
+      <section id="portfolio" className="scroll-mt-24 py-14 md:py-16 px-6 bg-white dark:bg-neutral-900 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 text-neutral-900 dark:text-white">
           {content.sectionTitles?.portfolioTitle}
         </h2>

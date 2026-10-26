@@ -194,7 +194,7 @@ const ServicesPage = () => {
       </div>
       <div style={{ height: navHeight + pillHeight }} aria-hidden="true" />
 
-      <section className="px-4 pb-12 md:px-8 xl:px-12 lg:pb-16">
+      <section id="servicios" className="scroll-mt-24 px-4 pb-12 md:px-8 xl:px-12 lg:pb-16">
         <div className="mx-auto max-w-[1600px]">
           <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
             <p className="text-sm font-semibold uppercase tracking-wide text-clay">
@@ -234,7 +234,7 @@ const ServicesPage = () => {
       <ToolsShowcase title={t("toolsTitle")} />
 
 
-      <section className="px-4 pb-12 md:px-8 xl:px-12 lg:pb-16">
+      <section id="ventajas" className="scroll-mt-24 px-4 pb-12 md:px-8 xl:px-12 lg:pb-16">
         <br className="mb-18 block" />
         <div className="mx-auto max-w-[1600px]">
           <div className="mx-auto max-w-3xl text-center">
@@ -254,7 +254,7 @@ const ServicesPage = () => {
 
       <UseCasesSection t={t} id="use-cases" />
 
-      <section className="px-4 pb-12 md:px-8 md:pb-16 xl:px-12">
+      <section id="newsletter" className="scroll-mt-24 px-4 pb-12 md:px-8 md:pb-16 xl:px-12">
         <br className="mb-8 block" />
         <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
       </section>

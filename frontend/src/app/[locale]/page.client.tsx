@@ -10,11 +10,13 @@ import { ServicesHighlightCarousel } from "@/components/home/services-highlight-
 import Footer from "@/components/ui/footer";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
 import WhatsAppBubbleSkeleton from "@/components/home/whatsapp-bubble-skeleton";
+import ContactFormSkeleton from "@/components/home/contact-form-skeleton";
 import { ShieldCheck, Code2, Users } from "lucide-react";
 import { PartnerShowcase } from "@/components/ui/partner-showcase";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import { FaqAccordion, type FaqAccordionItem } from "@/components/ui/faq-accordion";
 import { NewsletterBanner } from "@/components/ui/newsletter-banner";
+import type { GoogleReviewsPayload } from "@/lib/google-reviews";
 
 const CoursesShowcase = dynamic(
   () => import("@/components/home/courses-showcase").then((mod) => mod.default),
@@ -91,10 +93,10 @@ const whyUsItems = [
 
 const TestimonialsSection = dynamic(
   () => import("@/components/home/testimonials-section").then((mod) => mod.TestimonialsSection),
-  { loading: () => null, ssr: false },
+  { loading: () => <SectionSkeleton />, ssr: false },
 );
 const ContactForm = dynamic(() => import("@/components/ui/contact-form.client"), {
-  loading: () => null,
+  loading: () => <ContactFormSkeleton />,
   ssr: false,
 });
 const WhatsAppBubble = dynamic(
@@ -193,8 +195,10 @@ function DeferredSection({
 
 export default function HomePage({
   renderedAt,
+  googleReviews,
 }: {
   renderedAt: number;
+  googleReviews: GoogleReviewsPayload | null;
 }) {
   const t = useTranslations("home");
   const servicesSectionRef = useRef<HTMLElement | null>(null);
@@ -308,7 +312,7 @@ export default function HomePage({
       />
 
       {/* Why choose us: explainer video + USP cards */}
-      <section id="why-us" className="py-12 px-4 sm:px-6 lg:px-8">
+      <section id="why-us" className="scroll-mt-24 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1600px] mx-auto space-y-16">
           {/* Section header */}
           <div className="text-center scroll-animate fade-in-up">
@@ -354,7 +358,7 @@ export default function HomePage({
         </div>
       </section>
 
-      <section id="services" ref={servicesSectionRef} className="py-12 px-4 sm:px-6 lg:px-8">
+      <section id="services" ref={servicesSectionRef} className="scroll-mt-24 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-[1600px] mx-auto space-y-16">
 
           {/* Section header */}
@@ -384,7 +388,7 @@ export default function HomePage({
       />
       {shouldRenderDeferredSections ? (
         <>
-          <DeferredSection>
+          <DeferredSection id="faq" className="scroll-mt-24">
             <FaqAccordion titleTag="h3" title={t("faq.title")} items={homeFaqItems} />
           </DeferredSection>
           <DeferredSection id="contacto" className="scroll-mt-24">
@@ -396,20 +400,20 @@ export default function HomePage({
               />
             </ReCaptchaWrapper>
           </DeferredSection>
-          <DeferredSection>
-            <TestimonialsSection t={t} titleTag="h3" />
+          <DeferredSection id="testimonials" className="scroll-mt-24">
+            <TestimonialsSection t={t} titleTag="h3" initialData={googleReviews} />
           </DeferredSection>
-          <DeferredSection>
+          <DeferredSection id="newsletter" className="scroll-mt-24">
             <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
             <br />
           </DeferredSection>
         </>
       ) : (
         <>
-          <SectionSkeleton />
-          <SectionSkeleton id="contacto" />
-          <SectionSkeleton />
-          <SectionSkeleton />
+          <SectionSkeleton id="faq" />
+          <ContactFormSkeleton id="contacto" />
+          <SectionSkeleton id="testimonials" />
+          <SectionSkeleton id="newsletter" />
         </>
       )}
 

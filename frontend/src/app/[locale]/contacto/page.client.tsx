@@ -234,7 +234,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[--color-bg-primary] text-slate-dark dark:bg-[--color-bg-inverted] dark:text-ivory-light">
-      <section className="relative overflow-hidden border-b border-[--color-border-subtle] dark:border-[--color-border-strong]">
+      <section id="inicio" className="relative overflow-hidden border-b border-[--color-border-subtle] dark:border-[--color-border-strong]">
         <div className="relative mx-auto w-full max-w-[1600px] px-4 pb-14 pt-10 sm:px-6 lg:px-8 md:pb-20 md:pt-12">
           <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
               <Image
@@ -411,7 +411,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="pb-12 md:pb-16">
+      <section id="redes-sociales" className="pb-12 md:pb-16">
         <div className="mx-auto grid w-full max-w-[1600px] gap-6 px-4 sm:px-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch lg:px-8">
           <div className="flex h-full flex-col gap-6">
             <div className="rounded-3xl border border-[--color-border-subtle] bg-[--swatch--slate-dark] p-6 text-white shadow-[0_20px_80px_-55px_rgba(0,0,0,0.55)] dark:border-white/10 md:p-8">
