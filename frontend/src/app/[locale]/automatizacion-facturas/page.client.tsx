@@ -128,7 +128,7 @@ export default function AutomatizacionFacturas() {
     <div className="relative z-20 isolate bg-white dark:bg-neutral-900 transition-colors">
 
       {/* HERO */}
-      <section className="relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
+      <section id="inicio" className="scroll-mt-24 relative w-full min-h-[36rem] flex items-center justify-center overflow-hidden py-24 px-6">
         <div
           className="absolute inset-0 bg-cover bg-center blur-sm scale-125"
           style={{ backgroundImage: "url('/static/automatizacion-facturas/automatizacion_facturas.webp')" }}
@@ -154,13 +154,15 @@ export default function AutomatizacionFacturas() {
         </div>
       </section>
 
-      <HowItWorksVideoSection
+      <div id="como-funciona" className="scroll-mt-24">
+        <HowItWorksVideoSection
         title={content.sectionTitles?.howItWorks}
         steps={content.steps ?? []}
       />
+      </div>
 
       {/* INFO CARDS */}
-      <section className="py-14 md:py-16 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
+      <section id="beneficios" className="scroll-mt-24 py-14 md:py-16 px-4 md:px-8 xl:px-12 bg-neutral-50 dark:bg-neutral-800 transition-colors">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-neutral-900 dark:text-white">
           {content.sectionTitles?.infocardsTitle}
         </h2>
@@ -178,15 +180,17 @@ export default function AutomatizacionFacturas() {
 
       {/* TECHNOLOGY FAQS */}
       {content.technologyFaqs?.length > 0 && (
-        <FaqAccordion
-          className="bg-white dark:bg-neutral-900 transition-colors"
-          title={content.sectionTitles?.technologyFaqs}
-          items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
-            question: faq.question,
-            answer: faq.answer,
-            tag: faq.tag,
-          }))}
-        />
+        <div id="preguntas-frecuentes" className="scroll-mt-24">
+          <FaqAccordion
+            className="bg-white dark:bg-neutral-900 transition-colors"
+            title={content.sectionTitles?.technologyFaqs}
+            items={content.technologyFaqs.map((faq: { tag: string; question: string; answer: string }) => ({
+              question: faq.question,
+              answer: faq.answer,
+              tag: faq.tag,
+            }))}
+          />
+        </div>
       )}
 
       {/* FORM */}

@@ -142,7 +142,7 @@ export default function FaqPageClient({
           </p>
         </section>
 
-        <section className={`${cardClass} sticky top-[76px] z-20 mt-10 p-5 md:p-6`}>
+        <section id="buscador" className={`${cardClass} sticky top-[76px] z-20 mt-10 p-5 md:p-6`}>
           <div className="relative">
             <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-medium dark:text-cloud-medium" />
             <Input

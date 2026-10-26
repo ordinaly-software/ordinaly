@@ -118,11 +118,15 @@ const GoogleIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export function TestimonialsSection({ t, titleTag = "h2" }: SectionProps & { titleTag?: "h2" | "h3" }) {
+export function TestimonialsSection({
+  t,
+  titleTag = "h2",
+  initialData = null,
+}: SectionProps & { titleTag?: "h2" | "h3"; initialData?: GoogleReviewsPayload | null }) {
   const tCommon = useTranslations("common");
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [googleData, setGoogleData] = useState<GoogleReviewsPayload | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [googleData, setGoogleData] = useState<GoogleReviewsPayload | null>(initialData);
+  const [isLoading, setIsLoading] = useState(!initialData);
   const [hasError, setHasError] = useState(false);
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
   const [expandedReviews, setExpandedReviews] = useState<Record<string, boolean>>({});
@@ -131,6 +135,8 @@ export function TestimonialsSection({ t, titleTag = "h2" }: SectionProps & { tit
   const [canScrollRight, setCanScrollRight] = useState(false);
 
   useEffect(() => {
+    // Reviews already resolved on the server (ISR); only fetch client-side as a fallback.
+    if (initialData) return;
     let isMounted = true;
     const fetchReviews = async () => {
       try {
@@ -169,7 +175,7 @@ export function TestimonialsSection({ t, titleTag = "h2" }: SectionProps & { tit
         window.clearTimeout(timeoutId);
       }
     };
-  }, []);
+  }, [initialData]);
 
   const fallbackCards = useMemo<TestimonialCard[]>(
     () =>
