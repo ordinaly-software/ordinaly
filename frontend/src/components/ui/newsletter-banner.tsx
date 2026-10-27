@@ -69,6 +69,11 @@ function NewsletterBannerContent({
       });
       if (res.ok) {
         form.reset();
+        try {
+          localStorage.setItem("newsletter-subscribed", "1");
+        } catch {
+          // localStorage not available
+        }
         setAlert({ key: Date.now(), type: "success", message: t("successMessage") });
       } else {
         const data = await res.json().catch(() => ({}));

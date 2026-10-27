@@ -137,6 +137,11 @@
     },
     "newsletter": {
       "title": "Nuestra newsletter",
+      "prompt": {
+        "title": "Recibe novedades de automatización e IA",
+        "cta": "Suscribirme",
+        "dismiss": "Cerrar"
+      },
       "subtitle": "Suscríbete a nuestra newsletter y sé el primero en recibir novedades, tutoriales y recursos de automatización.",
       "namePlaceholder": "Tu nombre",
       "emailPlaceholder": "tu@email.com",

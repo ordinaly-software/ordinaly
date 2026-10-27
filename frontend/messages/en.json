@@ -137,6 +137,11 @@
     },
     "newsletter": {
       "title": "Our newsletter",
+      "prompt": {
+        "title": "Get AI automation news in your inbox",
+        "cta": "Subscribe",
+        "dismiss": "Close"
+      },
       "subtitle": "Subscribe to our newsletter and be the first to receive updates, tutorials and automation resources.",
       "namePlaceholder": "Your name",
       "emailPlaceholder": "you@email.com",

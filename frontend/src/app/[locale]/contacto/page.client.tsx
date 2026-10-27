@@ -444,7 +444,9 @@ export default function ContactPage() {
               </Dock>
             </div>
 
-            <NewsletterBanner className="w-full" padded={false} />
+            <div id="newsletter" className="scroll-mt-24">
+              <NewsletterBanner className="w-full" padded={false} />
+            </div>
           </div>
 
 

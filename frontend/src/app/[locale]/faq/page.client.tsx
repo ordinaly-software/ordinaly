@@ -326,7 +326,7 @@ export default function FaqPageClient({
         </div>
       ) : null}
 
-      <div className="px-4 py-12 sm:px-6 lg:px-8 bg-white dark:bg-slate-dark">
+      <div id="newsletter" className="scroll-mt-24 px-4 py-12 sm:px-6 lg:px-8 bg-white dark:bg-slate-dark">
         <NewsletterBanner className="mx-auto w-full max-w-[1600px]" />
       </div>
 
