@@ -17,11 +17,11 @@ export function cleanCourseTitle(title: string) {
   return trimmed || title;
 }
 
-export function buildCourseLink(course: CourseReference) {
-  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? DEFAULT_SITE_URL).replace(/\/$/, "");
-  const identifier = course.slug ?? course.id;
-  if (!identifier) return baseUrl;
-  return `${baseUrl}/formacion/${identifier}`;
+export function buildCourseLink(course: CourseReference, origin?: string) {
+  const baseUrl = (origin || process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL).replace(/\/$/, "");
+  const identifier = course.slug || course.id;
+  if (!identifier) return `${baseUrl}/formacion`;
+  return `${baseUrl}/formacion/${encodeURIComponent(String(identifier))}`;
 }
 
 export function openPastCourseWhatsApp(course: CourseReference, t: TranslationFn, translationKey = "pastCourseMessage") {

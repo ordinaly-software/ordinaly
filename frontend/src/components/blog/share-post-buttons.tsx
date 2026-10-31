@@ -10,6 +10,7 @@ interface Props {
   slug?: string;
   url?: string;
   shareText?: string;
+  shareMessageKey?: string;
   theme?: 'default' | 'white';
   showLabel?: boolean;
 }
@@ -54,10 +55,12 @@ export const SharePostButtons: React.FC<Props> = ({
   slug,
   url,
   shareText,
+  shareMessageKey,
   theme = 'default',
   showLabel = true,
 }) => {
   const t = useTranslations('blog.share');
+  const rootT = useTranslations();
   const [copied, setCopied] = useState(false);
 
   const siteTag = (typeof window !== 'undefined' && window.location?.hostname)
@@ -70,12 +73,16 @@ export const SharePostButtons: React.FC<Props> = ({
     return cleanSlug ? `${window.location.origin}/${cleanSlug}` : window.location.href;
   })();
 
-  const textBase = shareText || t('shareMessage', {
+  const textBase = shareText || (shareMessageKey ? rootT(shareMessageKey, {
+    title,
+    subtitle: excerpt || '',
+    siteTag,
+  }) : t('shareMessage', {
     title,
     excerpt: excerpt || '',
     siteTag,
     default: `Read this post from ${siteTag}: "${title}"${excerpt ? ' - ' + excerpt : ''}`,
-  });
+  }));
 
   const copyToClipboard = async (text: string) => {
     try {

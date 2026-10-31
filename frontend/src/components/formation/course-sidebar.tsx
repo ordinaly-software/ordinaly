@@ -1,6 +1,7 @@
 import React from 'react';
 import { AddToCalendarButtons } from './add-to-calendar-buttons';
 import SharePostButtons from '@/components/blog/share-post-buttons';
+import { buildCourseLink } from '@/utils/past-course';
 import { Button } from '@/components/ui/button';
 import { Info, MapPin, Users, Clock, Euro, GraduationCap } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -66,7 +67,7 @@ const CourseSidebar: React.FC<Props> = ({
     <div className="space-y-6">
 
       <div className="hidden pt-4 lg:block">
-        <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} />
+        <SharePostButtons shareMessageKey="formation.courseDetails.share.shareMessage" title={course.title} excerpt={course.subtitle} url={buildCourseLink(course, typeof window !== 'undefined' ? window.location.origin : undefined)} />
       </div>
 
       <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-4 space-y-4">

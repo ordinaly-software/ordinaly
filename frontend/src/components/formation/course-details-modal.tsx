@@ -11,7 +11,7 @@ import SharePostButtons from '@/components/blog/share-post-buttons';
 import CourseFooter from './course-footer';
 import { useTranslations } from 'next-intl';
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
-import { openPastCourseWhatsApp } from '@/utils/past-course';
+import { openPastCourseWhatsApp, buildCourseLink } from '@/utils/past-course';
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
 import Image from "next/image";
 
@@ -391,7 +391,7 @@ const CourseDetailsModal = ({
 
             {/* Share buttons for mobile */}
             <div className="lg:hidden">
-              <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} />
+              <SharePostButtons shareMessageKey="formation.courseDetails.share.shareMessage" title={course.title} excerpt={course.subtitle} url={buildCourseLink(course, typeof window !== 'undefined' ? window.location.origin : undefined)} />
             </div>
 
             {/* Next Occurrences */}

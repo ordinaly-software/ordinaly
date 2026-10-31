@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Euro, Users, User, XCircle, Calendar, MapPin, Clock, Copy, Edit, Trash2 } from "lucide-react";
 import { MarkdownRenderer } from '@/components/ui/markdown-renderer';
 import SharePostButtons from '@/components/blog/share-post-buttons';
+import { buildCourseLink } from '@/utils/past-course';
 import { Modal, ModalFooter } from "@/components/ui/modal";
 import EnrolledMembers from "@/components/admin/enrolled-members";
 import { HeroVideoDialog } from "@/components/home/hero-video-dialog";
@@ -205,7 +206,7 @@ const CourseVisualizationModal: React.FC<CourseVisualizationModalProps> = ({
             <p className="mt-2 break-words text-base text-slate-medium dark:text-cloud-medium">{course.subtitle}</p>
           )}
           <div className="mt-4">
-            <SharePostButtons title={course.title} excerpt={course.subtitle} slug={course.slug} />
+            <SharePostButtons shareMessageKey="formation.courseDetails.share.shareMessage" title={course.title} excerpt={course.subtitle} url={buildCourseLink(course, typeof window !== 'undefined' ? window.location.origin : undefined)} />
           </div>
         </header>
 
