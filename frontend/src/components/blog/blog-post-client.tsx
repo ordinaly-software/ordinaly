@@ -1,16 +1,21 @@
 "use client";
 
 import Image from 'next/image';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
 import { useTranslations } from 'next-intl';
 import { PortableText } from '@portabletext/react';
-import { createPortableTextComponents } from './portable-text-components';
+import { createPortableTextComponents, dimensionsFromRef } from './portable-text-components';
 import { urlFor } from '@/lib/image';
-import Banner from '@/components/ui/banner';
-import type { BlogPost, MediaItem, Category } from './types';
+import type { BlogPost } from './types';
 import { filterVisibleCategories } from "./category-utils";
 import SharePostButtons from './share-post-buttons';
+import ReadingProgress from './reading-progress';
+import TableOfContents, { type TocItem } from './table-of-contents';
+import { BlogCard, CategoryChipList } from './blog-card';
+import { PostByline } from './post-meta';
 import type { PortableTextBlock } from '@portabletext/types';
 import dynamic from "next/dynamic";
 import ReCaptchaWrapper from "@/app/[locale]/recaptcha-provider";
@@ -23,12 +28,6 @@ const WhatsAppBubble = dynamic(() => import("@/components/home/whatsapp-bubble")
   ssr: false,
   loading: () => null,
 });
-
-type TocItem = {
-  id: string;
-  text: string;
-  level: number;
-};
 
 const headingLevels: Record<string, number> = {
   h2: 2,
@@ -54,10 +53,15 @@ const slugifyHeading = (value: string) =>
     .trim()
     .replace(/\s+/g, '-');
 
-export default function BlogPostClient({ post }: { post: BlogPost }) {
+// Symmetric side rails keep the text column centred; the centre column takes all the remaining width.
+const railGrid = 'xl:grid xl:grid-cols-[10rem_minmax(0,1fr)_10rem] xl:gap-10 2xl:grid-cols-[12rem_minmax(0,1fr)_12rem] 2xl:gap-16';
+
+export default function BlogPostClient({ post, related = [] }: { post: BlogPost; related?: BlogPost[] }) {
   const t = useTranslations('blog');
   if (!post) return null;
   const p = post;
+  const isNews = p.postType === 'news';
+  const listingPath = isNews ? '/news' : '/blog';
   const visibleCategories = filterVisibleCategories(Array.isArray(p.categories) ? p.categories : []);
   const headingIdByKey: Record<string, string> = {};
   const tocItems: TocItem[] = [];
@@ -82,128 +86,125 @@ export default function BlogPostClient({ post }: { post: BlogPost }) {
     });
   }
   const portableTextComponents = createPortableTextComponents(headingIdByKey);
+  const summary = p.seoDescription || p.excerpt || '';
+  const cover = p.mainImage?.asset ? p.mainImage : undefined;
+  // Keep the image's own proportions (infographics lose their titles when cropped), within sane bounds.
+  const coverDims = dimensionsFromRef((cover?.asset as { _ref?: string } | undefined)?._ref);
+  const coverRatio = Math.min(2.4, Math.max(1, coverDims.width / coverDims.height));
+  const shareProps = { title: p.title, excerpt: summary, slug: p.slug };
+
   return (
     <div className="min-h-screen bg-ivory-light dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white transition-colors duration-300">
-      <Banner
-        title={p.title}
-        subtitle={p.seoDescription || p.excerpt || ''}
-        backgroundImage={p.mainImage && p.mainImage.asset ? urlFor(p.mainImage.asset).width(1600).height(900).url() : undefined}
-      />
-      <main className="mx-auto max-w-3xl px-4 py-10">
-        {/* Header row: back link | share buttons | date (responsive) */}
-        <div className="mb-6 grid grid-cols-1 md:grid-cols-3 items-center gap-6">
-          <div className="flex md:justify-start justify-center">
-            <a href="/blog" className="inline-flex items-center gap-2 text-clay hover:text-flame hover:underline">
-              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" /></svg>
-              {t("backToBlog")}
-            </a>
-          </div>
+      <ReadingProgress targetId="post-article" />
 
-          <div className="flex md:justify-center justify-center">
-            {/* Share buttons for this post */}
+      <main className="mx-auto max-w-5xl px-4 pb-16 pt-8 sm:px-6 md:pt-12 xl:max-w-[88rem] xl:px-14 2xl:max-w-[96rem] 2xl:px-16">
+        <div className={railGrid}>
+        <div className="xl:col-start-2">
+        <Link
+          href={listingPath}
+          className="inline-flex items-center gap-2 rounded-full py-1 pr-3 text-sm font-medium text-clay transition-colors hover:text-flame focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-clay"
+        >
+          <ArrowLeft className="size-4" aria-hidden="true" />
+          {isNews ? t('backToNews') : t('backToBlog')}
+        </Link>
+
+        <header className="mt-6">
+          <CategoryChipList categories={visibleCategories} />
+          <h1 className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-slate-dark dark:text-ivory-light md:text-6xl">
+            {p.title}
+          </h1>
+          {summary && (
+            <p className="mt-5 text-xl leading-relaxed text-slate-light dark:text-cloud-medium">{summary}</p>
+          )}
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-y border-ivory-dark py-4 dark:border-white/10">
+            <PostByline post={p} />
             {p.slug && (
-              <div className="px-2">
-                <SharePostButtons title={p.title} excerpt={p.seoDescription || p.excerpt || ''} slug={p.slug} />
+              <div className="xl:hidden">
+                <SharePostButtons {...shareProps} showLabel={false} />
               </div>
             )}
           </div>
+        </header>
+        </div>
+        </div>
 
-          <div className="flex md:justify-end justify-center">
-            {/* Publication date */}
-            {p.publishedAt && (
-              <div className="text-sm text-gray-500 dark:text-gray-400 px-2">
-                {new Date(p.publishedAt).toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'Europe/Madrid' })}
+        {cover && (
+          <figure className="mx-auto mt-10" style={{ maxWidth: `min(52rem, ${Math.round(55 * coverRatio)}vh)` }}>
+            <Image
+              src={urlFor(cover).width(1600).url()}
+              alt={cover.alt || p.title}
+              width={1600}
+              height={Math.round(1600 / coverRatio)}
+              priority
+              sizes="(min-width: 1024px) 1024px, 100vw"
+              style={{ aspectRatio: coverRatio }}
+              className="w-full rounded-3xl object-cover shadow-lg ring-1 ring-black/5"
+            />
+            {(cover.caption || cover.attribution) && (
+              <figcaption className="mt-3 text-center text-sm leading-snug tracking-[0.005em] text-slate-light dark:text-cloud-medium">
+                {cover.caption}
+                {cover.caption && cover.attribution ? ' · ' : null}
+                {cover.attribution && <span className="opacity-75">{cover.attribution}</span>}
+              </figcaption>
+            )}
+          </figure>
+        )}
+
+        <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_15rem] lg:gap-14 xl:grid-cols-[10rem_minmax(0,1fr)_10rem] xl:gap-10 2xl:grid-cols-[12rem_minmax(0,1fr)_12rem] 2xl:gap-16">
+          <aside className="hidden xl:order-first xl:block">
+            {p.slug && (
+              <div className="sticky top-28 flex flex-col items-end gap-2">
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-clay">{t('shareLabel')}</span>
+                <SharePostButtons {...shareProps} showLabel={false} />
               </div>
             )}
+          </aside>
+          <aside className="order-first lg:order-last">
+            <div className="lg:sticky lg:top-28">
+              <TableOfContents items={tocItems} />
+            </div>
+          </aside>
+          <article id="post-article" className="prose max-w-none min-w-0">
+            <PortableText value={p.body} components={portableTextComponents} />
+          </article>
+        </div>
+
+        <div className={`mt-12 ${railGrid}`}>
+          <div className="flex flex-col items-center justify-between gap-4 border-t border-ivory-dark pt-6 dark:border-white/10 sm:flex-row xl:col-start-2">
+            <span className="text-base font-semibold text-slate-medium dark:text-cloud-light">{t('shareLabel')}</span>
+            {p.slug && <SharePostButtons {...shareProps} showLabel={false} />}
           </div>
         </div>
-        {tocItems.length > 0 && (
-          <nav aria-label={t('toc.label', { default: 'Table of contents' })} className="mb-8 rounded-2xl border border-clay/30 dark:border-clay/20 bg-white/80 dark:bg-gray-800/90 p-5 shadow-sm backdrop-blur">
-            <div className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-clay dark:text-clay">
-              {t('toc.title', { default: 'Table of contents' })}
-            </div>
-            <ul className="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-              {tocItems.map((item) => (
-                <li key={item.id} className={item.level >= 4 ? 'ml-6' : item.level === 3 ? 'ml-4' : 'ml-0'}>
-                  <a href={`#${item.id}`} className="hover:text-flame dark:hover:text-flame transition-colors text-clay dark:text-clay/80">
-                    {item.text}
-                  </a>
+      </main>
+
+      {related.length > 0 && (
+        <section className="bg-white/60 px-4 py-14 dark:bg-white/[0.03] sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="mb-6 text-xl font-semibold tracking-[-0.02em] text-slate-dark dark:text-ivory-light md:text-2xl">
+              {t('related.title')}
+            </h2>
+            <ul className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+              {related.map((item) => (
+                // Two columns below lg would leave an orphan third card, so only show it from lg up.
+                <li key={item.slug} className="[&:nth-child(n+3)]:hidden lg:[&:nth-child(n+3)]:block">
+                  <BlogCard post={item} size="sm" />
                 </li>
               ))}
             </ul>
-          </nav>
-        )}
-        {/* Main cover image (already shown in banner, so skip here) */}
-        {p.media && Array.isArray(p.media) && p.media.length > 0 && (
-          <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {p.media.map((m: MediaItem, idx: number) => (
-              <div key={idx} className="rounded-xl overflow-hidden">
-                {m.type === 'image' && m.asset && (
-                  <Image
-                    src={urlFor(m.asset).width(800).height(600).url()}
-                    alt={m.alt || p.title}
-                    width={800}
-                    height={600}
-                    className="w-full h-auto"
-                  />
-                )}
-                {m.type === 'video' && m.url && (
-                  <video controls className="w-full h-auto">
-                    <source src={m.url} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-              </div>
-            ))}
           </div>
-        )}
-        <article className="prose max-w-none mt-6">
-          <PortableText value={p.body} components={portableTextComponents} />
-        </article>
-      </main>
-      {/* Categories and share row - centered and evenly spaced */}
-      <div className="border-t border-gray-300 dark:border-gray-700 pt-6 pb-2">
-        {visibleCategories.length > 0 && (
-          <div className="max-w-3xl mx-auto px-4 pb-10">
-            <div className="flex flex-col md:flex-row items-center justify-center md:justify-evenly gap-8 md:gap-4">
-              <div className="flex flex-col items-center">
-                <div className="mb-2 text-base font-semibold text-gray-700 dark:text-gray-300">{t("postCategories")}:</div>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  {visibleCategories.map((cat: Category) => (
-                    cat?.slug ? (
-                      <a
-                        key={cat.slug}
-                        href={`/blog?category=${cat.slug}`}
-                        className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-clay/10 text-clay text-sm font-medium hover:bg-clay/20 transition w-fit"
-                      >
-                        {cat.title}
-                      </a>
-                    ) : null
-                  ))}
-                </div>
-              </div>
+        </section>
+      )}
 
-              <div className="flex flex-col items-center">
-                <div className="mb-2 text-base font-semibold text-gray-700 dark:text-gray-300">{t('shareLabel')}</div>
-                {p.slug && (
-                    <SharePostButtons showLabel={false} title={p.title} excerpt={p.seoDescription || p.excerpt || ''} slug={p.slug} />
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      <div className="max-w-3xl mx-auto px-4 pb-10">
+      <div className="max-w-3xl mx-auto px-4 py-10">
         <div className="rounded-2xl border border-clay/20 dark:border-clay/15 bg-white/80 dark:bg-gray-800/90 p-5 shadow-sm">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-clay dark:text-clay">
             {t("relatedServices", { default: "Servicios relacionados" })}
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <li><a href="/" className="text-clay hover:text-flame hover:underline transition-colors">Consultora software especializada en automatización empresarial con Inteligencia Artificial</a></li>
-            <li><a href="/automatizaciones-personalizadas-empresas-n8n" className="text-clay hover:text-flame hover:underline transition-colors">Automatizaciones personalizadas con n8n</a></li>
-            <li><a href="/automatizacion-facturas" className="text-clay hover:text-flame hover:underline transition-colors">Automatización de facturas</a></li>
-            <li><a href="/implantacion-odoo" className="text-clay hover:text-flame hover:underline transition-colors">Implantación de Odoo</a></li>
+            <li><Link href="/" className="text-clay hover:text-flame hover:underline transition-colors">Consultora software especializada en automatización empresarial con Inteligencia Artificial</Link></li>
+            <li><Link href="/automatizaciones-personalizadas-empresas-n8n" className="text-clay hover:text-flame hover:underline transition-colors">Automatizaciones personalizadas con n8n</Link></li>
+            <li><Link href="/automatizacion-facturas" className="text-clay hover:text-flame hover:underline transition-colors">Automatización de facturas</Link></li>
+            <li><Link href="/implantacion-odoo" className="text-clay hover:text-flame hover:underline transition-colors">Implantación de Odoo</Link></li>
           </ul>
         </div>
       </div>

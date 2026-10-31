@@ -5,7 +5,9 @@ import BackToTopButton from '@/components/ui/back-to-top-button';
 import { NewsletterBanner } from '@/components/ui/newsletter-banner';
 import { useTranslations } from 'next-intl';
 import { BlogCard } from './blog-card';
-import { HighlightedCarousel } from './highlighted-carousel';
+import { CategoryChips } from './category-chips';
+import { FeaturedPosts } from './featured-posts';
+import { PaginationControls } from '@/components/ui/pagination-controls';
 import type { BlogPost, Category } from './types';
 import { isExcludedCategory } from "./category-utils";
 import { Search } from 'lucide-react';
@@ -19,7 +21,6 @@ const WhatsAppBubble = dynamic(() => import('@/components/home/whatsapp-bubble')
   loading: () => null,
 });
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft, ArrowRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 
 type Props = {
   posts: BlogPost[];
@@ -82,13 +83,15 @@ export default function BlogClient({
   const latestInitialPostsRef = useRef(initialPosts);
   const latestInitialTotalRef = useRef(initialTotal);
 
-  // Keep refs current on every render (runs before effects)
-  currentPageRef.current = currentPage;
-  selectedCategoryRef.current = selectedCategory;
-  debouncedSearchRef.current = debouncedSearch;
-  orderRef.current = order;
-  latestInitialPostsRef.current = initialPosts;
-  latestInitialTotalRef.current = initialTotal;
+  // Keep refs current after every render. Declared before the other effects, so it runs first.
+  useEffect(() => {
+    currentPageRef.current = currentPage;
+    selectedCategoryRef.current = selectedCategory;
+    debouncedSearchRef.current = debouncedSearch;
+    orderRef.current = order;
+    latestInitialPostsRef.current = initialPosts;
+    latestInitialTotalRef.current = initialTotal;
+  });
 
   // Sync from server data only when we are genuinely in the base state.
   // Without this guard, every router.push triggers a server re-render (force-dynamic)
@@ -218,9 +221,11 @@ export default function BlogClient({
     updateRouteParams(selectedCategory, 1, value);
   };
 
+  const isBaseState =
+    searchTerm === '' && debouncedSearch === '' && selectedCategory === 'all' && currentPage === 1 && order === 'desc';
+
   return (
     <div className="min-h-screen bg-ivory-light dark:bg-[var(--swatch--slate-dark)] text-gray-800 dark:text-white transition-colors duration-300">
-      {/* Banner Section */}
       <Banner
         title={t('title', { default: 'Blog' })}
         subtitle={t('subtitle', { default: 'Discover our latest news, articles, and updates.' })}
@@ -232,12 +237,6 @@ export default function BlogClient({
           searchPlaceholder={t('searchPlaceholder', { default: 'Search blog posts...' })}
           searchInputClassName="focus:border-clay dark:focus:border-clay"
           filters={[
-            {
-              options: categories,
-              value: selectedCategory,
-              onChange: handleCategoryChange,
-              placeholder: t('filters.category', { default: 'Category' }),
-            },
             {
               options: [
                 { value: 'desc', label: t('sort.newest', { default: 'Newest first' }) },
@@ -251,141 +250,68 @@ export default function BlogClient({
         />
       </Banner>
 
-      {/* Highlighted Posts Carousel */}
-      <HighlightedCarousel
-        posts={highlightedPosts}
-        onCategoryClick={(cat: string) => handleCategoryChange(cat)}
-        translationsNamespace={translationsNamespace}
-      />
+      {isBaseState && (
+        <FeaturedPosts
+          posts={highlightedPosts}
+          onCategoryClick={handleCategoryChange}
+          translationsNamespace={translationsNamespace}
+        />
+      )}
 
-      {/* Blog Posts Grid */}
-      <section className="py-10 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-6">
+      <section className="px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-5 text-2xl font-semibold tracking-[-0.02em] text-slate-dark dark:text-ivory-light md:text-3xl">
             {t('otherPosts.title', { default: 'All posts' })}
           </h2>
+
+          <CategoryChips
+            options={categories}
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+            label={t('filters.label', { default: 'Filter by category' })}
+            className="mb-8"
+          />
+
           {error && (
-            <div className="text-center mb-8 text-red-600 dark:text-red-400">
+            <div role="alert" className="mb-8 text-center text-red-600 dark:text-red-400">
               {error}
             </div>
           )}
 
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center flex-wrap gap-2 mb-4 text-sm text-gray-600 dark:text-gray-300">
-              <div className="flex justify-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1 || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-                >
-                  <ArrowLeft className="h-4 w-4" />
-                  {t('pagination.prev', { default: 'Previous' })}
-                </button>
-              </div>
-              {loading ? (
-                <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                  {t('loading', { default: 'Loading posts...' })}
-                </div>
-              ) : (
-                <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                  <span>{t('pagination.page', { default: 'Page' })}</span>
-                  <strong className="text-gray-900 dark:text-white">{currentPage}</strong>
-                  <span>{t('pagination.of', { default: 'of' })}</span>
-                  <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
-                </div>
-              )}
-              <div className="flex justify-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages || loading}
-                  className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-                >
-                  {t('pagination.next', { default: 'Next' })}
-                  <ArrowRight className="h-4 w-4" />
-                </button>
-              </div>
-            </div>
-          )}
-
           {!loading && posts.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="w-24 h-24 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                <Search className="w-12 h-12 text-gray-400" />
+            <div className="py-16 text-center">
+              <div className="mx-auto mb-4 flex size-24 items-center justify-center rounded-full bg-ivory-medium dark:bg-white/5">
+                <Search className="size-12 text-cloud-dark" aria-hidden="true" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+              <h3 className="mb-2 text-xl font-semibold text-slate-dark dark:text-ivory-light">
                 {t('noResults.title', { default: 'No blog posts found.' })}
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-slate-light dark:text-cloud-medium">
                 {t('noResults.description', { default: 'Check back soon for new articles and updates.' })}
               </p>
             </div>
           ) : (
-            <ul className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <ul
+              aria-busy={loading}
+              className={`grid grid-cols-1 gap-x-8 gap-y-12 transition-opacity duration-200 sm:grid-cols-2 lg:grid-cols-3 ${
+                loading ? 'opacity-50' : 'opacity-100'
+              }`}
+            >
               {posts.map((p: BlogPost) => (
-                <li key={p.slug} className="h-full">
-                  <BlogCard
-                    post={p}
-                    onCategoryClick={(cat: string) => handleCategoryChange(cat)}
-                  />
+                <li key={p.slug}>
+                  <BlogCard post={p} onCategoryClick={handleCategoryChange} />
                 </li>
               ))}
             </ul>
           )}
 
-          <br></br>
-
-          {totalPages > 1 && (
-            <div className="flex items-center justify-center flex-wrap gap-2 mb-4 text-sm text-gray-600 dark:text-gray-300">
-              <button
-                type="button"
-                onClick={() => handlePageChange(1)}
-                disabled={currentPage === 1 || loading}
-                className="hidden sm:flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-              >
-                <ChevronsLeft className="h-4 w-4" />
-                {t('pagination.first', { default: 'First' })}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1 || loading}
-                className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                {t('pagination.prev', { default: 'Previous' })}
-              </button>
-
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-600 dark:text-gray-300 px-1">
-                <span>{t('pagination.page')}</span>
-                <strong className="text-gray-900 dark:text-white">{currentPage}</strong>
-                <span>{t('pagination.of')}</span>
-                <strong className="text-gray-900 dark:text-white">{totalPages}</strong>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages || loading}
-                className="flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-              >
-                {t('pagination.next')}
-                <ArrowRight className="h-4 w-4" />
-              </button>
-
-              <button
-                type="button"
-                onClick={() => handlePageChange(totalPages)}
-                disabled={currentPage === totalPages || loading}
-                className="hidden sm:flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-200 disabled:opacity-50 disabled:cursor-not-allowed hover:border-clay hover:text-clay transition"
-              >
-                {t('pagination.last', { default: 'Last' })}
-                <ChevronsRight className="h-4 w-4" />
-              </button>
-            </div>
-          )}
+          <PaginationControls
+            totalItems={total}
+            currentPage={currentPage}
+            pageSize={pageSize}
+            onPageChange={handlePageChange}
+            className="mt-12 justify-center sm:justify-center"
+          />
         </div>
       </section>
 

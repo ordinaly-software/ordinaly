@@ -1,131 +1,106 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Category } from './types';
 import { BlogPost } from './types';
 import { urlFor } from '@/lib/image';
+import { badgeVariants } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import { filterVisibleCategories } from "./category-utils";
+import { PostByline } from './post-meta';
+
+export const categoryChipClass = cn(
+  badgeVariants({ variant: 'secondary' }),
+  'relative z-10 bg-clay/10 px-3 py-1 text-xs font-medium text-clay transition-[background-color,transform] duration-150 hover:bg-clay/20 active:scale-95 dark:text-clay motion-reduce:active:scale-100',
+);
+
+export const postCoverSource = (post: BlogPost) => {
+  const image = post.ogImage?.asset ? post.ogImage : post.mainImage;
+  return image?.asset ? image : undefined;
+};
+
+export function CategoryChipList({
+  categories,
+  onCategoryClick,
+}: {
+  categories: Category[];
+  onCategoryClick?: (cat: string) => void;
+}) {
+  if (categories.length === 0) return null;
+  return (
+    <div className="mb-2 flex flex-wrap gap-1.5">
+      {categories.map((cat) =>
+        cat?.slug ? (
+          onCategoryClick ? (
+            <button key={cat.slug} type="button" onClick={() => onCategoryClick(cat.slug)} className={categoryChipClass}>
+              {cat.title}
+            </button>
+          ) : (
+            <Link key={cat.slug} href={`/blog?category=${cat.slug}`} className={categoryChipClass}>
+              {cat.title}
+            </Link>
+          )
+        ) : null,
+      )}
+    </div>
+  );
+}
+
 export interface BlogCardProps {
   post: BlogPost;
   onCategoryClick?: (cat: string) => void;
   compact?: boolean;
+  /** `sm` is a denser card for secondary lists such as related posts. */
+  size?: 'default' | 'sm';
 }
 
-export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick, compact = false }) => {
+export const BlogCard: React.FC<BlogCardProps> = ({ post, onCategoryClick, compact = false, size = 'default' }) => {
   const categories = filterVisibleCategories(Array.isArray(post.categories) ? post.categories : []);
+  const cover = postCoverSource(post);
+  const small = size === 'sm';
 
   return (
-    <div
-      className={`
-        group relative overflow-hidden
-        bg-white dark:bg-gray-800
-        border border-gray-200 dark:border-gray-700
-        rounded-2xl
-        transition-all duration-300
-        w-full mx-auto h-full
-        flex flex-col
-        hover:border-clay dark:hover:border-clay
-        hover:bg-clay/5
-        hover:shadow-2xl hover:shadow-clay/15
-        hover:-translate-y-2
-        ${compact ? '' : 'md:flex-row max-w-4xl'}
-      `}
+    <article
+      className="group relative flex h-full flex-col transition-transform duration-150 ease-out active:scale-[0.99] motion-reduce:active:scale-100"
     >
-      {/* Image */}
-      <div
-        className={`
-          relative w-full bg-gray-100 dark:bg-gray-900 overflow-hidden
-          ${compact ? 'h-40 rounded-t-2xl' : 'h-48 md:h-auto md:w-56 md:flex-shrink-0 md:rounded-l-2xl'}
-        `}
-      >
-        {post.ogImage?.asset && (
+      <div className={cn('relative w-full overflow-hidden rounded-2xl bg-ivory-medium ring-1 ring-black/5 dark:bg-white/5 dark:ring-white/10', small ? 'aspect-[16/10]' : 'aspect-[3/2]')}>
+        {cover && (
           <Image
-            src={urlFor(post.ogImage.asset).url()}
-            alt={post.ogImage?.alt || post.title}
+            src={urlFor(cover).width(800).height(534).url()}
+            alt={cover.alt || ''}
             fill
-            className="object-cover group-hover:scale-110 transition-transform duration-500"
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
           />
         )}
       </div>
 
-      {/* Content */}
-      <div className="flex-1 p-4 md:p-6 flex flex-col">
-        {/* Categories */}
-        {!compact && (
-        <div className="mb-2 flex flex-wrap gap-1.5 md:gap-2">
-          {categories.map((cat: Category) =>
-            cat?.slug ? (
-              onCategoryClick ? (
-                <button
-                  key={cat.slug}
-                  type="button"
-                  onClick={() => onCategoryClick(cat.slug || cat.title)}
-                  className="
-                    px-2 py-0.5
-                    md:px-3 md:py-1
-                    rounded-full
-                    bg-clay/10 text-clay
-                    text-xs md:text-sm
-                    font-medium
-                    hover:bg-clay/20 transition
-                  "
-                >
-                  {cat.title}
-                </button>
-              ) : (
-                <a
-                  key={cat.slug}
-                  href={`/blog?category=${cat.slug}`}
-                  className="
-                    px-2 py-0.5
-                    md:px-3 md:py-1
-                    rounded-full
-                    bg-clay/10 text-clay
-                    text-xs md:text-sm
-                    font-medium
-                    hover:bg-clay/20 transition
-                  "
-                >
-                  {cat.title}
-                </a>
-              )
-            ) : null
-          )}
-        </div>
-        )}
+      <div className="mt-4 flex flex-1 flex-col">
+        {!compact && <CategoryChipList categories={categories} onCategoryClick={onCategoryClick} />}
 
-        {/* Title */}
         <h2
-          className={`
-            font-bold text-gray-900 dark:text-white
-            leading-snug mb-1
-            md:group-hover:text-clay transition-colors
-            ${compact ? 'text-base' : 'text-lg md:text-2xl line-clamp-2'}
-          `}
+          className={cn(
+            'font-semibold text-balance text-slate-dark dark:text-ivory-light',
+            compact ? 'text-base leading-snug' : small ? 'text-base leading-snug tracking-[-0.01em] line-clamp-3' : 'text-xl leading-tight tracking-[-0.015em] line-clamp-3',
+          )}
         >
-          <a href={`/${post.slug}`}>
+          {/* Stretched link: the whole card is the click target, chips stay above it. */}
+          <Link
+            href={`/${post.slug}`}
+            className="transition-colors after:absolute after:inset-0 group-hover:text-clay focus-visible:outline-none focus-visible:after:rounded-2xl focus-visible:after:ring-2 focus-visible:after:ring-clay"
+          >
             {post.seoTitle || post.title}
-          </a>
+          </Link>
         </h2>
 
-        {/* Date */}
-        {post.publishedAt && (
-          <div className="text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-2">
-            {new Date(post.publishedAt).toLocaleDateString('es-ES', {
-              year: 'numeric',
-              month: 'short',
-              day: 'numeric',
-              timeZone: 'Europe/Madrid',
-            })}
-          </div>
-        )}
-
-        {/* Description - desktop only, not in compact mode */}
         {!compact && (post.seoDescription || post.excerpt) && (
-          <p className="hidden md:block text-gray-600 dark:text-gray-400 text-base mt-2 line-clamp-2">
+          <p className={cn('mt-2 line-clamp-2 leading-relaxed text-slate-light dark:text-cloud-medium', small ? 'text-sm' : 'text-base')}>
             {post.seoDescription || post.excerpt}
           </p>
         )}
+
+        {!compact && <PostByline post={post} className="mt-auto pt-5" />}
       </div>
-    </div>
+    </article>
   );
 };
