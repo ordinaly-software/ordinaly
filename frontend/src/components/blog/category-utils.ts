@@ -1,6 +1,6 @@
 import type { Category } from "./types";
 
-const EXCLUDED_CATEGORY_KEYS = new Set(["noticias", "news", "destacado", "highlighted"]);
+const EXCLUDED_CATEGORY_KEYS = new Set(["destacado", "highlighted"]);
 
 const normalizeValue = (value?: string | null) => (value ?? "").trim().toLowerCase();
 

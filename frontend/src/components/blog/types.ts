@@ -1,31 +1,23 @@
 import type { PortableTextBlock } from '@portabletext/types';
 
 export interface BlogPost {
+  _id?: string;
   ogImage: { asset?: { url: string; }; alt?: string } | undefined;
-  mainImage: { asset?: { url: string; }; alt?: string } | undefined;
+  mainImage: { asset?: { url: string; }; alt?: string; caption?: string; attribution?: string } | undefined;
   title: string;
   seoDescription?: string;
   seoTitle?: string;
   excerpt?: string;
-  coverImage?: {
-    asset?: { url: string };
-  };
+  postType?: 'post' | 'news';
   publishedAt?: string;
   _createdAt?: string;
   updatedAt?: string;
   _updatedAt?: string;
-  author?: { name: string };
+  author?: { name: string; image?: { asset?: { url: string }; alt?: string } };
+  readingMinutes?: number;
   slug: string;
-  media?: MediaItem[];
   body: PortableTextBlock[];
   categories?: Category[];
-}
-
-export interface MediaItem {
-  type: 'image' | 'video';
-  asset?: { url: string };
-  alt?: string;
-  url?: string;
 }
 
 export interface Category {

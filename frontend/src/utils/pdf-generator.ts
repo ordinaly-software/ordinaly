@@ -1,4 +1,5 @@
 import jsPDF from 'jspdf';
+import { buildCourseLink } from '@/utils/past-course';
 import {
   loadImageAsBase64,
   loadImageAsDataUrl,
@@ -395,8 +396,7 @@ export async function generateCoursesCatalogPDF(
       // Course link (clickable)
       try {
         const origin = (typeof window !== 'undefined' && window.location && window.location.origin) ? window.location.origin : '';
-        const courseSlug = course.slug || '';
-        const courseUrl = `${origin}/formacion/${courseSlug}`;
+        const courseUrl = buildCourseLink(course, origin);
         pdf.setFontSize(10);
         pdf.setTextColor(primaryColor);
         pdf.setFont('helvetica', 'normal');

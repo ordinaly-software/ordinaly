@@ -1738,12 +1738,20 @@
     "searchPlaceholder": "Buscar publicaciones del blog...",
     "filters": {
       "category": "Categoría",
-      "all": "Todas las categorías"
+      "all": "Todas las categorías",
+      "label": "Filtrar por categoría"
     },
     "shareLabel": "Comparte este post:",
+    "video": {
+      "play": "Reproducir vídeo",
+      "consentNotice": "Este vídeo se sirve desde YouTube y requiere aceptar el contenido de terceros.",
+      "openCookieSettings": "Gestionar cookies",
+      "watchOnYoutube": "Ver en YouTube"
+    },
     "toc": {
       "title": "Tabla de contenidos",
-      "label": "Tabla de contenidos"
+      "label": "Tabla de contenidos",
+      "mobile": "En este artículo"
     },
     "share": {
       "label": "Comparte:",
@@ -1773,11 +1781,21 @@
       "next": "Siguiente"
     },
     "otherPosts": {
-      "title": "Todas las publicaciones"
+      "title": "Todos los artículos"
     },
     "errors": {
       "loadPosts": "Error al cargar las publicaciones. Por favor, intenta de nuevo."
-    }
+    },
+    "readingTime": "{minutes} min de lectura",
+    "readArticle": "Leer artículo",
+    "featured": {
+      "label": "Destacado"
+    },
+    "related": {
+      "title": "Sigue leyendo"
+    },
+    "progress": "Progreso de lectura",
+    "backToNews": "Volver a noticias"
   },
   "news": {
     "title": "Noticias de automatización e IA",
@@ -1789,7 +1807,8 @@
     "searchPlaceholder": "Buscar noticias...",
     "filters": {
       "category": "Categoría",
-      "all": "Todas las categorías"
+      "all": "Todas las categorías",
+      "label": "Filtrar por categoría"
     },
     "loading": "Cargando más noticias...",
     "pagination": {
@@ -1815,6 +1834,11 @@
     },
     "errors": {
       "loadPosts": "Error al cargar las noticias. Por favor, intenta de nuevo."
+    },
+    "readingTime": "{minutes} min de lectura",
+    "readArticle": "Leer artículo",
+    "featured": {
+      "label": "Destacado"
     }
   },
   "contactPage": {

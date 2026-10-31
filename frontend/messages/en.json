@@ -1738,12 +1738,20 @@
     "searchPlaceholder": "Search blog posts...",
     "filters": {
       "category": "Category",
-      "all": "All categories"
+      "all": "All categories",
+      "label": "Filter by category"
     },
     "shareLabel": "Share this post:",
+    "video": {
+      "play": "Play video",
+      "consentNotice": "This video is served by YouTube and requires accepting third-party content.",
+      "openCookieSettings": "Manage cookies",
+      "watchOnYoutube": "Watch on YouTube"
+    },
     "toc": {
       "title": "Table of contents",
-      "label": "Table of contents"
+      "label": "Table of contents",
+      "mobile": "In this article"
     },
     "share": {
       "label": "Share:",
@@ -1777,7 +1785,17 @@
     },
     "errors": {
       "loadPosts": "Failed to load blog posts. Please try again later."
-    }
+    },
+    "readingTime": "{minutes} min read",
+    "readArticle": "Read article",
+    "featured": {
+      "label": "Featured"
+    },
+    "related": {
+      "title": "Keep reading"
+    },
+    "progress": "Reading progress",
+    "backToNews": "Back to news"
   },
   "news": {
     "title": "Automation & AI news",
@@ -1789,7 +1807,8 @@
     "searchPlaceholder": "Search news...",
     "filters": {
       "category": "Category",
-      "all": "All categories"
+      "all": "All categories",
+      "label": "Filter by category"
     },
     "loading": "Loading more news...",
     "pagination": {
@@ -1815,6 +1834,11 @@
     },
     "errors": {
       "loadPosts": "Failed to load news. Please try again later."
+    },
+    "readingTime": "{minutes} min read",
+    "readArticle": "Read article",
+    "featured": {
+      "label": "Featured"
     }
   },
   "contactPage": {

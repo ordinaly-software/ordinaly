@@ -2,11 +2,9 @@ import type { Metadata } from "next";
 import { absoluteUrl, createPageMetadata, defaultDescription } from "@/lib/metadata";
 import { notFound } from "next/navigation";
 import { client } from "@/lib/sanity";
-import { postBySlug } from "@/lib/queries";
+import { postBySlug, relatedPosts } from "@/lib/queries";
 import { urlFor } from "@/lib/image";
 import BreadcrumbSchema from "@/components/seo/breadcrumb-schema";
-
-const NEWS_CATEGORY_SLUGS = new Set(["noticias", "news"]);
 
 async function fetchBlogPost(slug: string) {
   try {
@@ -31,7 +29,7 @@ export async function generateMetadata({
     if (locale === "en") notFound();
     const title = post?.seoTitle ?? post.title;
     const desc = post?.seoDescription ?? post.excerpt ?? defaultDescription;
-    const og = post.ogImage ?? post.mainImage ?? post.coverImage;
+    const og = post.ogImage ?? post.mainImage;
     const ogUrl = og ? urlFor(og).width(1200).height(630).fit("crop").format("jpg").url() : "";
     return createPageMetadata({
       locale: "es",
@@ -70,8 +68,19 @@ export default async function SlugPage({
   if (post) {
     if (locale === "en") notFound();
     const BlogPostClient = await getBlogPostClient();
+    const related = await client
+      .fetch(
+        relatedPosts,
+        {
+          id: post._id,
+          postType: post.postType ?? "post",
+          categoryIds: (post.categories ?? []).map((cat: { _id?: string }) => cat._id).filter(Boolean),
+        },
+        { next: { tags: ["blog", "news"] } },
+      )
+      .catch(() => []);
     const { urlFor: urlForImg } = await import("@/lib/image");
-    const coverImageAsset = post.coverImage?.asset ?? post.mainImage?.asset;
+    const coverImageAsset = post.mainImage?.asset;
     const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'Article',
@@ -84,9 +93,7 @@ export default async function SlugPage({
         : undefined,
       mainEntityOfPage: absoluteUrl(`/${post.slug}`, "es"),
     };
-    const isNews = (post.categories ?? []).some(
-      (cat: { slug?: string }) => cat?.slug && NEWS_CATEGORY_SLUGS.has(cat.slug),
-    );
+    const isNews = post.postType === "news";
 
     return (
       <>
@@ -102,7 +109,7 @@ export default async function SlugPage({
             { name: post.title },
           ]}
         />
-        <BlogPostClient post={post} />
+        <BlogPostClient post={post} related={related} />
       </>
     );
   }
