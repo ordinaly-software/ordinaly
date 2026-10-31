@@ -2,6 +2,7 @@
 
 import Footer from '@/components/ui/footer';
 import BackToTopButton from '@/components/ui/back-to-top-button';
+import { NewsletterBanner } from '@/components/ui/newsletter-banner';
 import { useTranslations } from 'next-intl';
 import { BlogCard } from './blog-card';
 import { HighlightedCarousel } from './highlighted-carousel';
@@ -387,6 +388,10 @@ export default function BlogClient({
           )}
         </div>
       </section>
+
+      <div id="newsletter" className="scroll-mt-24 px-4 py-12 sm:px-6 lg:px-8">
+        <NewsletterBanner className="mx-auto w-full max-w-[1600px]" padded={false} />
+      </div>
 
       <WhatsAppBubble />
       <Footer />
