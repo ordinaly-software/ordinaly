@@ -1,6 +1,7 @@
 {% extends "emails/base.html" %}
 {% block title %}Empieza pronto - {{ course.title }}{% endblock %}
 {% block preheader %}{{ course.title }} empieza en {{ days_before }} días o menos.{% endblock %}
+{% block hero %}{% if image_url %}<tr><td><img src="{{ image_url }}" alt="{{ course.title }}" width="1000" style="width:100%;height:auto;" /></td></tr>{% endif %}{% endblock %}
 {% block headline %}La formación empieza en menos de una semana{% endblock %}
 {% block intro %}Hola {{ user_name }}, <strong>{{ course.title }}</strong> empieza en {{ days_before }} días o menos.{% endblock %}
 {% block body %}

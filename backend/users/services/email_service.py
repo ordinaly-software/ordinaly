@@ -39,6 +39,10 @@ def _time_range(course) -> str:
     return text
 
 
+def _course_image_url(course) -> str:
+    return f"{settings.BACKEND_BASE_URL.rstrip('/')}{course.image.url}" if course.image else ""
+
+
 def _session_text(session_start_iso: str) -> str:
     """'2026-10-20T10:00:00+02:00' -> '20/10/2026 a las 10:00' (project time zone)."""
     if not session_start_iso:
@@ -118,7 +122,7 @@ def send_delete_confirmation_email(email: str, token: str, user_name: str):
 
 def send_enrollment_confirmation_email(email: str, user_name: str, course):
     """Send a confirmation email when a user successfully enrolls in a course."""
-    image_url = f"{settings.BACKEND_BASE_URL.rstrip('/')}{course.image.url}" if course.image else ""
+    image_url = _course_image_url(course)
     _send(
         email, f"Inscripción confirmada - {course.title}", "enrollment",
         "Could not send the enrollment confirmation email",
@@ -145,7 +149,7 @@ def send_unenrollment_confirmation_email(email: str, user_name: str, course):
 
 
 def send_course_published_email(email: str, user_name: str, course):
-    image_url = f"{settings.BACKEND_BASE_URL.rstrip('/')}{course.image.url}" if course.image else ""
+    image_url = _course_image_url(course)
     _send(
         email, f"Nueva formación - {course.title}", "course_published",
         "Could not send the new course email",
@@ -161,6 +165,7 @@ def send_course_starts_soon_email(email: str, user_name: str, course, session_st
         "Could not send the course starting soon notice",
         user_name=user_name, course=course, days_before=days_before,
         course_url=_frontend_url(f"/formacion/{course.slug}"),
+        image_url=_course_image_url(course),
         session_text=_session_text(session_start_iso),
     )
 
@@ -171,5 +176,6 @@ def send_course_reminder_email(email: str, user_name: str, course, session_start
         "Could not send the course reminder",
         user_name=user_name, course=course, hours_before=hours_before,
         course_url=_frontend_url(f"/formacion/{course.slug}"),
+        image_url=_course_image_url(course),
         session_text=_session_text(session_start_iso),
     )
